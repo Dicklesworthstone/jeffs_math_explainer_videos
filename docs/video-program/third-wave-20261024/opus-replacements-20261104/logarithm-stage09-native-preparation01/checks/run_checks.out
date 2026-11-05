@@ -1,0 +1,60 @@
+helper sha256 05e482751739c65bf381540e021e62efc09f8e7148352888e6c1569743b0ec85; checks sha256 9cf91d7b0862859866bbf1cf009130909df3d59882a43e52af6ac06794c596a3
+PASS R1 check on the real inputs
+PASS R2 the derived Cargo files are root's stage08 bytes
+PASS R3 stage09 differs from stage08's sources only in the reviewed files
+PASS R4 the receipt's open gates are carried, not cleared
+PASS I1 install into a scratch folder
+PASS I2 48 files: candidate bytes, Cargo files as root's stage08 copy
+PASS I3 the binding names the helper, stage09 script, units, oliver16 map and W
+PASS I4 root's verify_patched_lock passes the installed lock: PASS: the 19 packages are path copies, every other record is identical; patch.unused entries: 0
+PASS I5 a second install refuses to overwrite: REFUSED: refusing to overwrite SCRATCH/real-into/logarithm-stage09
+PASS I6 an --into inside the repository is refused, nothing written: REFUSED: --into is inside the repository: the stage names absolute scratch paths, keep it outside
+PASS J1 script --attempt 01 written
+PASS J2 the three cargo lines are root's stage08 lines verbatim (same flags, config, "$M")
+PASS J3 the manifest is the installed stage09 copy, not stage08
+PASS J4 the script preserves the shared binary it saw: stage08 binary: True
+PASS J5 inputs: absolute, unique, current, script first, helper and engine included, shared binary excluded: 4298 rows
+PASS J6 the launch line is root's 56g/20g guard, phase native, this job
+PASS J7 the same attempt again is refused: REFUSED: SCRATCH/real-into/logarithm-stage09-build01.sh exists: use a new attempt number
+PASS J8 a malformed attempt is a usage error
+PASS H1 stub run: exit 0, cargo called exactly as test, build, strict Clippy
+PASS H2 the shared binary was preserved before cargo, the new one copied after
+PASS H3 the sums file binds both copies
+PASS H4 the chapters listing ran from the copy
+PASS V1 verify passes the stub run's receipt
+PASS V2 verify refuses 240 tests: REFUSED: test results: ['test result: ok. 240 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s']
+PASS V3 verify refuses a failed exit: REFUSED: the job did not pass: exit 101, error None
+PASS V4 verify refuses other inputs: REFUSED: the guard's input hashes do not match this attempt's inputs file
+PASS V5 verify refuses a short chapters listing: REFUSED: the chapters listing ends ['09_matrix_logs', '10_doing_nothing', '11_unreachable']
+PASS V6 verify refuses a failed lock check: REFUSED: lock check did not pass
+PASS H5 without the guard's CARGO_TARGET_DIR the script refuses before cargo: REFUSED: CARGO_TARGET_DIR is not the guard's target
+PASS H6 a shared binary changed after the script was written: refused, nothing copied, no cargo: REFUSED: the shared binary is not the one this script preserves
+PASS H7 an existing preserved copy is never overwritten: REFUSED: SCRATCH/stub/into/before-logarithm-stage09-build04-binary exists
+PASS H8 a Clippy failure fails the job and keeps both copies: exit 101
+PASS H9 an attempt whose guard receipt exists is refused: REFUSED: SCRATCH/stub/receipts/logarithm-stage09-build06 exists: use a new attempt number
+PASS F0 positive control: an unmutated resealed copy passes: the unmutated forgery passes check_sources, check_engine and derive
+PASS F1 the stage08 script is refused: refused: the superseded stage08 script b89eab60 is installed
+PASS F2 a script whose 04_4 lost the reviewed words is refused (script pin moved with it): refused: 04_4 text is not the reviewed wording
+PASS F3 the old 08_5 words anywhere in the script are refused: refused: stage08 wording 'Halving the lost lap' is still in the script
+PASS F4 the stage08 units are refused: refused: the superseded stage08 units 0e27709b are installed
+PASS F5 units bound to the oliver15 map are refused (units pin moved with them): refused: units bind map {'path': 'explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json', 'sha256': 'c94f0077f37974a12bba098dcf65d6afa4ed6082686ef41d15608897ca0e9cd4'}, expected oliver16 14e87893
+PASS F6 units naming oliver16 with oliver15's bytes are refused: refused: units bind map {'path': 'explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver16.json', 'sha256': 'c94f0077f37974a12bba098dcf65d6afa4ed6082686ef41d15608897ca0e9cd4'}, expected oliver16 14e87893
+PASS F7 the stage08 product_rule.rs is refused: refused: product_rule.rs is not the stage09 bytes (its test finds the new 08_5 words)
+PASS F8 a stray unsealed file is refused: refused: EL stage09 candidate/bound-plan files differ from White's seal: extra ['candidate/explainer_corpus/logarithm_mysteries/.ee/hook-state'], missing []
+PASS F9 an unsealed byte change in the bound plan is refused: refused: EL stage09 bytes differ from White's seal: ['bound-plan/hold-audit.json']
+PASS F10 a changed Cargo.lock is refused: refused: candidate Cargo.toml/Cargo.lock are not the stage08 originals
+PASS F11 a receipt that changed other cues is refused: refused: root's receipt changed_cues is ['04_4'], expected ['04_4', '08_5']
+PASS F12 a changed neighbour chapter passes the seal but is refused against stage08: refused: stage09 changes ['narration_units.json', 'script.tsv', 'src/chapters/product_rule.rs', 'src/chapters/slide_rule.rs'] against stage08's sources, expected ['narration_units.json', 'script.tsv', 'src/chapters/product_rule.rs']
+PASS F13 a tampered White seal is refused: refused: White's sealed bundle: sha256 cdbbc408a5f4, expected 5fcb5ea628fe (SCRATCH/src-f13/white/SHA256SUMS)
+PASS E0 positive control: a copy of W passes with its own pins: the unmutated copy of W passes check_engine and derive with its own pins
+PASS E1 the secondary stack's frame_table_limits.rs in W/engine is refused: refused: W/engine carries the secondary stack's crates/fmn-render/tests/frame_table_limits.rs
+PASS E2 a patched fmn rendering/pipeline.rs is refused: refused: W/engine crates/fmn/src/rendering/pipeline.rs is not the unpatched file (secondary stack?)
+PASS E3 an engine file changed since stage08 is refused: refused: W/engine changed since the stage08 build: ['crates/fmn-core/Cargo.toml']
+PASS E4 an engine file added since stage08 is refused: refused: W/engine: 4058 files now, 4057 in stage08's guard rows; added ['crates/fmn/tests/slow_sink_budget_refusal.rs'], gone []
+PASS E5 a budget that sends one crate elsewhere is refused: refused: fmn-render is not W's engine copy: {'path': '/elsewhere/engine/crates/fmn-render'}
+PASS E6 a changed W/logarithm-stage08 is refused: refused: W/logarithm-stage08 no longer matches root's stage08 binding
+PASS E7 a changed repo-view file is refused: refused: W/repo-view changed since the stage08 build: ['crates/explainer_score/examples/inspect_harmony.rs']
+PASS E8 an unpinned change to W/Cargo.lock.pinned is refused: refused: W/Cargo.lock.pinned: sha256 e423de9c39bd, expected b14e1fac6dd2 (SCRATCH/w-e8/Cargo.lock.pinned)
+PASS E9 an --into inside W/engine is refused: REFUSED: --into is inside SCRATCH/w-e8/engine
+PASS U1 the real EL stage09, White's seal, W's engine, repo-view, stage08 and pins, and the shared logarithm binary are untouched; no stage09 file in W: []
+RESULT: 58 PASS, 0 FAIL

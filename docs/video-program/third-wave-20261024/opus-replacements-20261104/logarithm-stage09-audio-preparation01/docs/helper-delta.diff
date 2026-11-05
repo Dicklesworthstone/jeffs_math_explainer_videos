@@ -1,0 +1,200 @@
+--- stage08/prepare_audio.py
++++ stage09/prepare_audio.py
+@@ -1,8 +1,8 @@
+ #!/usr/bin/env python3
+ """Voice-agnostic narration assembly preparation for root's guarded use (bead mx-video-program-program-87do.63).
+ 
+-Run from the repository root with `python3 -I -B`. A BINDING file names one voice, one take
+-inventory, its recognition runs, the candidate tree and every pinned hash; this file names no
++Run from the repository root with `python3 -I -B`. A BINDING file names one voice, its take
++inventories, their recognition runs, the candidate tree and every pinned hash; this file names no
+ voice. Every subcommand writes only into a NEW folder given by --out, refuses an existing one,
+ and never edits a recording, candidate, canonical file, receipt or review. Nothing here selects
+ a take, synthesizes, renders, builds or listens.
+@@ -25,9 +25,15 @@
+              report and phrase-timing checks, and writes phrase-timings.json for root to install.
+ 
+ One binding holds one voice. A binding may list several inventories, for example the full
+-retained set plus later targeted replacements of the same voice. A recording is selectable only
++retained set plus later targeted replacements of the same voice. An inventory states which receipt
++its receipt_sha256 hashes (`receipt_hash_of`, default the downloads receipt; a downloads receipt it
++does not hash must be pinned) and may name each recording's request (`request`), which must carry
++the recording's cue and exactly its inventoried text. A recording is selectable only
+ while its requested text is the binding script's current text for its cue. Recordings of older
+-wording stay listed as superseded and are never deleted or selected. Each selectable recording
++wording stay listed as superseded and are never deleted or selected. A selection names each
++recording by its file name or its repository-relative path; a file name shared with a superseded
++recording must be given as the path, and that recording's question and point ids carry the path,
++so a choice or an answer made about one file cannot land on another. Each selectable recording
+ is timed from its own recognition, so a replaced take gets fresh timings and an unchanged take
+ keeps the recognition of its unchanged bytes. A binding whose `use` is "historical-test" is test
+ input, not production audio: decode, prepare and timings then require --test-only and stamp every
+@@ -56,7 +62,7 @@
+ 
+ sys.dont_write_bytecode = True  # the dry run imports the workspace assembler; leave no __pycache__
+ 
+-HERE = "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage08-audio-preparation01"
++HERE = "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-audio-preparation01"
+ TOOL = f"{HERE}/prepare_audio.py"
+ RATE_OUT = 24000  # what tools/coherent_narration.py assembles and narration_cache accepts
+ FFMPEG_ARGS = ["-nostdin", "-n", "-v", "error"]  # root's earlier decode, argument for argument
+@@ -307,9 +313,26 @@
+             if rel in takes or rel in superseded:
+                 problems.append(f"{rel} is inventoried twice")
+             receipt = spec["take_receipt"].format(takes_dir=spec["takes_dir"], cue=t["cue"])
++            # Inventories differ in which receipt their receipt_sha256 hashes (the downloads receipt in
++            # full80-retained-inventory01, the request in clarity-retained-inventory01). A downloads
++            # receipt the inventory does not hash must be pinned by the binding instead.
++            hashed = spec.get("receipt_hash_of", spec["take_receipt"]).format(takes_dir=spec["takes_dir"], cue=t["cue"])
+             voice_gap = None
+-            if not os.path.isfile(receipt) or ("receipt_sha256" in t and sha_file(receipt) != t["receipt_sha256"]):
+-                problems.append(f"{rel}: downloads receipt {receipt} is missing or changed")
++            if hashed != receipt and b["pins"].get(receipt) is None:
++                problems.append(f"{rel}: downloads receipt {receipt} is neither hashed by its inventory nor pinned")
++            if not os.path.isfile(hashed) or ("receipt_sha256" in t and sha_file(hashed) != t["receipt_sha256"]):
++                problems.append(f"{rel}: receipt {hashed} is missing or changed")
++            if spec.get("request"):
++                # The request is the UI-side record of the submitted words: it must name this cue and
++                # exactly the text the inventory says this recording is of.
++                request_path = spec["request"].format(takes_dir=spec["takes_dir"], cue=t["cue"])
++                request = load_json(request_path) if os.path.isfile(request_path) else {}
++                text = request.get("text")
++                if request.get("cue") != t["cue"] or not isinstance(text, str) \
++                        or sha_bytes(text.encode()) != t["text_sha256"] or request.get("text_sha256") != t["text_sha256"]:
++                    problems.append(f"{rel}: request {request_path} does not name its cue and inventoried text")
++            if not os.path.isfile(receipt):
++                problems.append(f"{rel}: downloads receipt {receipt} is missing")
+             else:
+                 if receipt not in receipts:
+                     receipts[receipt] = load_json(receipt)
+@@ -532,13 +555,17 @@
+         t.update(rate=params[2], frames=frames, pcm=sha_bytes(pcm))
+     recog = recognition_for(inputs)
+     recordings, questions, diffs = [], [], []
++    old_names = {os.path.basename(r) for r in inputs["superseded"]}
+     for rel in sorted(inputs["takes"], key=lambda r: (order[inputs["takes"][r]["cue"]], r)):
+         t = inputs["takes"][rel]
+         cue, name, seconds = t["cue"], os.path.basename(rel), t["frames"] / t["rate"]
++        # Question and point ids name the recording by its file name, or by its path where a superseded
++        # recording shares the name, so an answer about the older file cannot apply to this one.
++        label = rel if name in old_names else name
+         r = recog[rel]
+-        sentences, marks = points_for(cue, name, script[cue], r["result"], seconds, inputs["anchors"])
++        sentences, marks = points_for(cue, label, script[cue], r["result"], seconds, inputs["anchors"])
+         recordings.append({
+-            "cue": cue, "file": name, "sha256": t["sha256"], "pcm_sha256": t["pcm"], "rate": t["rate"], "frames": t["frames"],
++            "cue": cue, "file": name, "path": rel, "label": label, "sha256": t["sha256"], "pcm_sha256": t["pcm"], "rate": t["rate"], "frames": t["frames"],
+             "seconds": seconds,
+             "recognition": {"run": r["run"]["name"], "model": r["run"]["model"], "log_sha256": r["run"]["log_sha256"],
+                             "recognized_file": os.path.basename(r["via"]) if r["via"] else name},
+@@ -551,20 +578,20 @@
+         for s in sentences[1:]:
+             if s["status"] != "supported":
+                 questions.append({
+-                    "id": s["id"], "kind": "sentence_onset", "cue": cue, "files": [name],
++                    "id": s["id"], "kind": "sentence_onset", "cue": cue, "files": [label],
+                     "detail": f"Sentence {s['index']} of {cue} starts with '{s['word']}'; the recognizer gives no supported onset ({s['status']}).",
+                     "candidate": s.get("candidate"), "decisions": (["use_candidate"] if s.get("candidate") else []) + ["sample"]})
+         for m in marks:
+             if m["status"] != "supported":
+                 questions.append({
+-                    "id": m["id"], "kind": "phrase_anchor", "cue": cue, "files": [name],
++                    "id": m["id"], "kind": "phrase_anchor", "cue": cue, "files": [label],
+                     "detail": f"Anchor '{m['phrase']}' at byte {m['byte']} has no supported onset ({m['status']}); without a mark the kit falls back to its estimate.",
+                     "candidate": m.get("candidate"), "decisions": (["use_candidate"] if m.get("candidate") else []) + ["sample", "omit_mark"]})
+         if t["voice_gap"]:
+             gap, voice = t["voice_gap"], f"{b['voice']['provider']} {b['voice']['name']}"
+             observed = bool(gap["receipt_says"])
+             questions.append({
+-                "id": f"voice:{cue}:{name}", "kind": "voice", "cue": cue, "files": [name], "blocking": not observed,
++                "id": f"voice:{cue}:{label}", "kind": "voice", "cue": cue, "files": [label], "blocking": not observed,
+                 "detail": f"One binding holds one voice ({voice}). The downloaded file name {gap['file_name']!r} does not contain "
+                           f"{b['voice']['download_source_contains']!r}. "
+                           + (f"The downloads receipt records a contemporaneous provider observation naming the voice ({' | '.join(gap['receipt_says'])}). "
+@@ -575,7 +602,7 @@
+                 "candidate": None, "decisions": ["confirmed_voice", "reject_take"]})
+         if r["via"]:
+             questions.append({
+-                "id": f"provenance:{cue}:{name}", "kind": "provenance", "cue": cue, "files": [name],
++                "id": f"provenance:{cue}:{label}", "kind": "provenance", "cue": cue, "files": [label],
+                 "detail": f"{name} was not recognized itself. Its samples equal {os.path.basename(r['via'])}'s, whose recognition is used. "
+                           "Equal samples do not say how many generations produced the files.",
+                 "candidate": None, "decisions": ["use_pcm_identity"]})
+@@ -590,7 +617,7 @@
+             heard = sorted({d["model"] for d in diffs if d["file"] == e["file"] for x in d["differences"]
+                             if c["script_word"] in x["script"].split() and c["heard"] in x["heard"].split()})
+             questions.append({
+-                "id": f"content:{c['cue']}:{c['script_word']}:{e['file']}", "kind": "content", "cue": c["cue"], "files": [e["file"]],
++                "id": f"content:{c['cue']}:{c['script_word']}:{e['label']}", "kind": "content", "cue": c["cue"], "files": [e["label"]],
+                 "detail": f"{c['note']} Recognizers transcribing '{c['heard']}' for '{c['script_word']}' in {e['file']}: "
+                           f"{', '.join(heard) or 'none'}. A transcript is not listening.",
+                 "candidate": None, "decisions": ["heard_as_script", "reject_take"]})
+@@ -622,7 +649,7 @@
+     coverage = {
+         "binding": bind, "script_sha256": b["pins"][b["script"]], "inventories": inputs["inventories"],
+         "cues": len(script), "recordings": len(recordings), "rates": sorted({e["rate"] for e in recordings}),
+-        "superseded_text_recordings": sorted(os.path.basename(r) for r in inputs["superseded"]),
++        "superseded_text_recordings": sorted(inputs["superseded"]),
+         "content_questions_for_other_text": other_text,
+         "runs": [{"name": r["name"], "model": r["model"], "role": r["role"], "records": len(r["records"]),
+                   "superseded_records": r["superseded_records"], "log_sha256": r["log_sha256"]} for r in inputs["runs"]],
+@@ -666,11 +693,25 @@
+         problems.append(f"the selection must name exactly these {len(want)} cues in script order: {want[0]} … {want[-1]}")
+     chosen = {}
+     by_name = {os.path.basename(r): t for r, t in inputs["takes"].items()}
+-    old = {os.path.basename(r) for r in inputs["superseded"]}
++    old_rel = set(inputs["superseded"])
++    old = {os.path.basename(r) for r in old_rel}
+     for cue, name in sel.get("takes", {}).items():
+-        t = by_name.get(name)
++        name = name if isinstance(name, str) else ""
++        if "/" in name:
++            # A repository-relative path names exactly one recording.
++            t = inputs["takes"].get(name)
++            stale = name in old_rel
++        elif name in old and name in by_name:
++            # A replacement can share its file name with a recording of the older wording; a bare name
++            # would let a choice made about one file silently land on the other.
++            problems.append(f"{cue}: {name} is also the name of a recording of superseded wording; "
++                            f"name the recording by its path ({by_name[name]['rel']})")
++            continue
++        else:
++            t = by_name.get(name)
++            stale = name in old
+         if t is None or t["cue"] != cue:
+-            why = "it records superseded wording" if name in old else "it is not an inventoried recording of that cue"
++            why = "it records superseded wording" if stale else "it is not an inventoried recording of that cue"
+             problems.append(f"{cue}: {name} cannot be selected; {why}")
+             continue
+         chosen[cue] = t
+@@ -691,7 +732,8 @@
+             points[s["id"]] = ["sample"]
+         for m in e["phrase_anchors"]:
+             points[m["id"]] = ["sample", "omit_mark"]
+-    names = {os.path.basename(t["rel"]) for t in chosen.values()}
++    labels = {e["path"]: e["label"] for e in recordings}
++    names = {labels[t["rel"]] for t in chosen.values()}
+     applied = {}
+     for qid, a in sorted(data.get("answers", {}).items()):
+         q = known.get(qid)
+@@ -866,9 +908,9 @@
+             continue
+         units.append({"id": unit_ids[cue], "wav": row["wav"], "sha256": row["wav_sha256"], "generation_receipt": receipt_path,
+                       "sentence_ends": ends, "gap_after_samples": [0] * len(ends)})
+-        plan_cues[cue] = {"recording": entry["file"], "recognition": entry["recognition"],
++        plan_cues[cue] = {"recording": entry["file"], "recording_path": t["rel"], "recognition": entry["recognition"],
+                           "sentence_starts_24k": [{"sample": s, "basis": why} for s, why in starts]}
+-        voice_q = next((q for q in questions if q["kind"] == "voice" and q["files"] == [entry["file"]]), None)
++        voice_q = next((q for q in questions if q["kind"] == "voice" and q["files"] == [entry["label"]]), None)
+         if voice_q:
+             plan_cues[cue]["voice_provenance"] = {"question": voice_q["id"], "blocking": voice_q["blocking"],
+                                                   "receipt": voice_q["provenance"], "root_answer": applied.get(voice_q["id"])}
+@@ -897,7 +939,7 @@
+         hint = ""
+         if repr(b["voice"]["receipt_source"]) not in open(tool, encoding="utf8").read():
+             hint = (f"\nThe pinned assembler's external-take branch does not name the receipt source {b['voice']['receipt_source']!r}, "
+-                    "so it read the decode receipt as a native FrankenTTS receipt. Root decides whether to extend that branch.")
++                    "so it cannot read the decode receipt as an external take. Root decides whether to extend that branch.")
+         write_new(f"{out}/REFUSED.txt", f"The assembler's own checks refused these spans: {type(e).__name__}: {e}{hint}\n"
+                   "Nothing was assembled. Keep this folder as evidence and prepare again into a new one.\n")
+         raise Refused(f"the assembler's own checks refused these spans ({type(e).__name__}: {e}){hint}\nSee {out}/REFUSED.txt")

@@ -8,7 +8,7 @@
   "download_source_contains": "Oliver - Clean, British and Steady",
   "identity_note": "Owner refinement 2026-11-05T03:22:06Z (canonical NARRATION-CONSISTENCY.md): logarithm keeps Oliver; every other new video uses Frederick Surrey. The four clarity replacements (04_4, 08_5; requested 03:59:37Z) have downloads named for this voice and submission receipts recording 'Oliver - Clean, British and Steady visibly selected'. This binding checks the download names and that each request names its cue and exact text. Root verifies provider identity and settings."
  },
- "why": "Combined-repair-stage09 candidate (script 559afa36, units 1132a5a4, map oliver16), all 80 cues. Inventories: the 162 retained Oliver recordings (full80-retained-inventory01) and the four clarity replacements (clarity-retained-inventory01). The four original 04_4/08_5 recordings are of the stage08 wording; they stay listed as superseded and cannot be selected. 78 unchanged cues keep their recordings and recognition. The new 04_4/08_5 recordings are timed only from their own run (logarithm-clarity-recognition01). Anchors, template and dispositions are stage09's bound-plan (WhiteSwan's rebind, installed by root). The stage08 content questions are bound to the old texts and are reported as not applying.",
+ "why": "Combined-repair-stage09 candidate (script 559afa36, units 1132a5a4, map oliver16), all 80 cues. Inventories: the 162 retained Oliver recordings (full80-retained-inventory01) and the four clarity replacements (clarity-retained-inventory01). The four original 04_4/08_5 recordings are of the stage08 wording; they stay listed as superseded and cannot be selected. 78 unchanged cues keep their recordings and recognition. The new 04_4/08_5 recordings are timed only from their own run (logarithm-clarity-recognition01). Anchors, template and dispositions are stage09's bound-plan (WhiteSwan's rebind, installed by root). The stage08 content questions are bound to the old texts and are reported as not applying. The assembler is canonical tools/coherent_narration.py as root installed it in Mail 3920 (external-voice adapter plus WhiteSwan's F2 fix, 95615cfa); its legacy 'ElevenLabs UI, Oliver' branch reads this binding's decode receipts.",
  "tree": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/candidate",
  "topic": "logarithm_mysteries",
  "inventories": [
@@ -132,7 +132,7 @@
   "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/clarity-recognition01/frozen-inputs.json": "52f0441d737547a7763b176e2883e74567fc6bf4fb938282b4e40f2f3176f115",
   "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/04_4-downloads01.json": "20707786124aa21d4b32b613105120063bbafcbb525b0b7f83224587fac83751",
   "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-downloads01.json": "35c951df31735b310073db33f46054908e2e5e41b7f61213bcee0b01cdea715c",
-  "tools/coherent_narration.py": "e0aa81f352cb2c847f53dacf1d37b7d1b6a44526102df7f79329278c278c48d0",
+  "tools/coherent_narration.py": "95615cfadb42fbfdddf828340b74ec66d89c975a1f399593e212bdd9840e65d5",
   "tools/narration_cache.py": "47331efd3952af6d0e66971a1c8fddd08929f881d1f9b470bde223db7a01b0c0",
   "crates/explainer_kit/src/narration.rs": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8"
  }

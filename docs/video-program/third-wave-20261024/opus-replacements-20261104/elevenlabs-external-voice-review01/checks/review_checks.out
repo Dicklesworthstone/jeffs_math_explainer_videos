@@ -1,0 +1,87 @@
+== seal and pins
+PASS repair bundle matches its seal 3df152e4: 15 files listed, none changed, none unlisted
+PASS canonical tools/ still has the five pinned base hashes
+== apply with git apply (independent of the bundle's patch(1) route)
+PASS applied: git apply coherent_narration.diff
+PASS applied: git apply narration_delivery.diff
+PASS fixed: git apply coherent_narration.diff
+PASS fixed: git apply narration_delivery.diff
+PASS fixed: git apply legacy-voice-contradiction.diff
+PASS base + diff = patched/tools/coherent_narration.py byte for byte (18c4e75e)
+PASS base + diff = patched/tools/narration_delivery.py byte for byte (961f17cc)
+PASS coherent_narration.diff removes exactly 2 line(s)
+PASS narration_delivery.diff removes exactly 1 line(s)
+PASS the proposed fix only adds lines (148af01b)
+== canonical tools/test_*.py suites
+PASS base: 44 canonical tests pass
+PASS applied: 44 canonical tests pass
+PASS fixed: 44 canonical tests pass
+PASS the same canonical test count on all three variants
+== independent synthetic scenarios (checks/scenarios.py)
+PASS applied: every one of the 57 scenarios has an expectation
+PASS FINDING F1: applied decode_shape_frederick: refused ValueError: unrecognised external UI receipt; a non-legacy label needs schema elevenlabs-ui-receipt-v2
+PASS FINDING F2: applied decode_shape_misbound: ok
+PASS FINDING F2: applied misbound_mixed_with_oliver: ok pcm=exact
+PASS FINDING F3: applied request_bare_name: refused FileNotFoundError: [Errno 2] No such file or directory: '01_1-request01.json'
+PASS FINDING F2: applied v2_schema_stripped_under_oliver_label: ok
+     applied: 52 of 52 other expectations hold (listed only when they fail)
+PASS fixed: every one of the 57 scenarios has an expectation
+PASS FINDING F1: fixed decode_shape_frederick: refused ValueError: unrecognised external UI receipt; a non-legacy label needs schema elevenlabs-ui-receipt-v2
+PASS FINDING F3: fixed request_bare_name: refused FileNotFoundError: [Errno 2] No such file or directory: '01_1-request01.json'
+     fixed: 55 of 55 other expectations hold (listed only when they fail)
+PASS base decode_shape_frederick: refused KeyError: 'wav'
+PASS base decode_shape_frederick_plus_v2_fields: refused KeyError: 'wav'
+PASS base decode_shape_misbound: ok
+PASS base decode_shape_oliver: ok
+PASS base delivery_frederick: assembly refused KeyError: 'wav'
+PASS base delivery_native_under_external_plan: exit 1: narration delivery refused: external plan requires an explicitly identified UI source
+PASS base delivery_oliver_legacy: exit 0: plan_mode=external-ui
+PASS base fred_per_cue: refused KeyError: 'wav'
+PASS base fred_shared: refused KeyError: 'wav'
+PASS base misbound_mixed_with_oliver: ok pcm=exact
+PASS base mix_external_native: ok [out exists]
+PASS base native_only: ok pcm=exact
+PASS base oliver_v2_with_legacy: ok pcm=exact
+PASS base receipt_is_list: crash AttributeError: 'list' object has no attribute 'get'
+PASS base schema_unknown_on_oliver_label: ok
+PASS base unversioned_frederick: refused KeyError: 'wav'
+PASS base v2_schema_stripped_under_oliver_label: ok
+PASS legacy Oliver assembly: base, applied and fixed outputs are identical apart from paths (ok pcm=exact digest=15402bce072c4093)
+     base: 41 of 57 scenarios end in KeyError 'wav' (the Frederick label falls into the native branch)
+== weakened copies of the repair (this review's mutants), against both suites
+PASS X1 no one-voice guard in verify: the mutated site occurs once
+PASS X1 no one-voice guard in verify: killed by 2 scenarios (delivery_swapped_mix, swap_after_assembly); bundle suite: killed by 2 tests
+PASS X2 no one-voice guard in assemble: the mutated site occurs once
+PASS X2 no one-voice guard in assemble: killed by 2 scenarios (mix_external_native, mix_fred_oliver); bundle suite: killed by 1 tests
+PASS X3 request digest not checked: the mutated site occurs once
+PASS X3 request digest not checked: killed by 1 scenarios (request_bytes_changed); bundle suite: killed by 1 tests
+PASS X4 request text not compared: the mutated site occurs once
+PASS X4 request text not compared: killed by 2 scenarios (request_text_neighbour, request_text_one_word); bundle suite: killed by 1 tests
+PASS X5 request cue not compared: the mutated site occurs once
+PASS X5 request cue not compared: killed by 1 scenarios (request_cue_neighbour); bundle suite: killed by 1 tests
+PASS X6 provider not checked: the mutated site occurs once
+PASS X6 provider not checked: killed by 2 scenarios (provider_missing, provider_wrong); bundle suite: killed by 1 tests
+PASS X7 request voice not compared: the mutated site occurs once
+PASS X7 request voice not compared: killed by 3 scenarios (request_voice_missing, request_voice_oliver, request_voice_short); bundle suite: killed by 1 tests
+PASS X8 native-key check removed: the mutated site occurs once
+PASS X8 native-key check removed: killed by 1 scenarios (label_lowercase_unversioned); bundle suite: killed by 1 tests
+PASS X9 delivery accepts any receipt: the mutated site occurs once
+PASS X9 delivery accepts any receipt: killed by 1 scenarios (delivery_native_under_external_plan); bundle suite: killed by 1 tests
+PASS X10 delivery diff not applied: killed by 2 scenarios (delivery_frederick, delivery_swapped_mix); bundle suite: killed by 3 tests
+PASS X11 only the delivery diff applied: killed by 50 scenarios (context_crop, decode_shape_frederick, decode_shape_frederick_plus_v2_fields, ...); bundle suite: killed by 13 tests
+     X11 delivery_oliver_legacy: exit 1: AttributeError: module 'coherent' has no attribute 'external_ui_voice'
+== the bundle's own synthetic checks, replayed (frederick_rehearsal.py and retained_compat.py open production audio and are not run)
+PASS tests/run_tests.py: ALL PASS
+PASS checks/mutation_check.py: ALL MUTANTS KILLED
+PASS the bundle's 17 synthetic tests also pass with the proposed fix
+== retained receipts and span manifests (JSON metadata only)
+     264 span manifests name 908 distinct receipts (89 Oliver UI, 819 native); 0 references no longer resolve
+PASS applied: every retained receipt is classified as the canonical tool reads it (908 of 908)
+PASS fixed: every retained receipt is classified as the canonical tool reads it (908 of 908)
+PASS no retained manifest mixes voices or receipt kinds ({'base': 0, 'applied': 0, 'fixed': 0})
+PASS applied: all 91 retained receipts with the Oliver label read as Oliver
+PASS fixed: all 91 retained receipts with the Oliver label read as Oliver
+== hygiene of this review's files
+PASS REVIEW.md, both check scripts and the proposed diff are present
+PASS no machine paths, user names, addresses or gendered pronouns in 4 files
+RESULT PASS, 0 failed

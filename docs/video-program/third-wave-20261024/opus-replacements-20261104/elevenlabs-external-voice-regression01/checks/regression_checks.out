@@ -1,0 +1,83 @@
+== pins
+PASS canonical tools/ holds the installed repair: coherent 95615cfa, delivery 961f17cc, cache 47331efd
+PASS canonical test files are at base: test_coherent_narration.py 074bf1b2, test_narration_delivery.py bd45cb3d
+PASS root's preserved pre-install bytes: coherent e0aa81f3, delivery c91914b8; receipt01.json fb72d39f
+PASS sealed inputs verify: repair01 3df152e4, review01 0da3fa50, clarity-integration01 5fcb5ea6
+== the diff
+PASS base test files: 074bf1b2 and bd45cb3d
+PASS git apply regression-tests.diff onto the bases (ok)
+PASS patched test files: test_coherent_narration.py 19487bd0, test_narration_delivery.py cd4d8dfa
+PASS the diff removes no line, so all original tests are kept as they are (0 removed)
+PASS git apply --check against canonical tools/ (check only, nothing written)
+PASS test_coherent_narration.py (patched) compiles
+PASS test_narration_delivery.py (patched) compiles
+== suites on the installed tools
+PASS original suite: 44 tests, not ok: none
+PASS patched suite = the 44 original tests + these 8 new tests: test_frederick_receipt_binds_provider_voice_and_request, test_frederick_ui_takes_assemble_and_verify_sample_for_sample, test_legacy_and_v2_oliver_receipts_assemble_as_one_voice, test_legacy_oliver_receipt_cannot_state_another_voice_or_request, test_one_assembly_refuses_two_narrator_voices, test_verify_refuses_a_voice_swapped_in_after_assembly, test_frederick_and_legacy_oliver_ui_assemblies_reach_render, test_render_refuses_swapped_voice_and_legacy_contradiction_cleanly
+PASS patched suite: 52 tests, not ok: none
+== controls: the new tests must fail on the tools they guard against
+PASS pre-install bytes + the repair's two diffs = the reviewed repair (coherent 18c4e75e, delivery 961f17cc) (ok)
+PASS ... + the review's F2 fix = the installed tools byte for byte (ok)
+PASS M1 no one-voice guard in verify: the weakened text occurs once in the installed coherent_narration.py
+PASS M2 no one-voice guard in assemble: the weakened text occurs once in the installed coherent_narration.py
+PASS M3 guard folds every UI voice into one: the weakened text occurs once in the installed coherent_narration.py
+PASS M4 Frederick label missing from the table: the weakened text occurs once in the installed coherent_narration.py
+PASS M5 provider not checked: the weakened text occurs once in the installed coherent_narration.py
+PASS M6 record voice not required: the weakened text occurs once in the installed coherent_narration.py
+PASS M7 v2 record keys not required: the weakened text occurs once in the installed coherent_narration.py
+PASS M8 request digest not checked: the weakened text occurs once in the installed coherent_narration.py
+PASS M9 request cue not compared: the weakened text occurs once in the installed coherent_narration.py
+PASS M10 request text not compared: the weakened text occurs once in the installed coherent_narration.py
+PASS M11 request voice not compared: the weakened text occurs once in the installed coherent_narration.py
+PASS M12 native-key check removed: the weakened text occurs once in the installed coherent_narration.py
+PASS M13 legacy check ignores record voices: the weakened text occurs once in the installed coherent_narration.py
+PASS M14 legacy check allows a request: the weakened text occurs once in the installed coherent_narration.py
+PASS M15 legacy check refuses the short name Oliver: the weakened text occurs once in the installed coherent_narration.py
+PASS M16 delivery accepts any receipt: the weakened text occurs once in the installed narration_delivery.py
+PASS pre-install tools: the 44 original tests pass (none not ok)
+PASS pre-install tools: all 8 new tests fail, no original test does (8 not ok)
+PASS repair without the F2 fix: the 44 original tests pass (none not ok)
+PASS repair without the F2 fix: exactly the 2 legacy-contradiction tests fail: test_legacy_oliver_receipt_cannot_state_another_voice_or_request, test_render_refuses_swapped_voice_and_legacy_contradiction_cleanly
+PASS M1 no one-voice guard in verify: patched suite fails 2; new tests failing: test_verify_refuses_a_voice_swapped_in_after_assembly, test_render_refuses_swapped_voice_and_legacy_contradiction_cleanly; original suite alone: SURVIVES
+PASS M2 no one-voice guard in assemble: patched suite fails 1; new tests failing: test_one_assembly_refuses_two_narrator_voices; original suite alone: SURVIVES
+PASS M3 guard folds every UI voice into one: patched suite fails 5; new tests failing: test_frederick_ui_takes_assemble_and_verify_sample_for_sample, test_legacy_and_v2_oliver_receipts_assemble_as_one_voice, test_one_assembly_refuses_two_narrator_voices, test_verify_refuses_a_voice_swapped_in_after_assembly, test_render_refuses_swapped_voice_and_legacy_contradiction_cleanly; original suite alone: SURVIVES
+PASS M4 Frederick label missing from the table: patched suite fails 6; new tests failing: test_frederick_receipt_binds_provider_voice_and_request, test_frederick_ui_takes_assemble_and_verify_sample_for_sample, test_one_assembly_refuses_two_narrator_voices, test_verify_refuses_a_voice_swapped_in_after_assembly, test_frederick_and_legacy_oliver_ui_assemblies_reach_render, test_render_refuses_swapped_voice_and_legacy_contradiction_cleanly; original suite alone: SURVIVES
+PASS M5 provider not checked: patched suite fails 1; new tests failing: test_frederick_receipt_binds_provider_voice_and_request; original suite alone: SURVIVES
+PASS M6 record voice not required: patched suite fails 1; new tests failing: test_frederick_receipt_binds_provider_voice_and_request; original suite alone: SURVIVES
+PASS M7 v2 record keys not required: patched suite fails 1; new tests failing: test_frederick_receipt_binds_provider_voice_and_request; original suite alone: SURVIVES
+PASS M8 request digest not checked: patched suite fails 1; new tests failing: test_frederick_receipt_binds_provider_voice_and_request; original suite alone: SURVIVES
+PASS M9 request cue not compared: patched suite fails 1; new tests failing: test_frederick_receipt_binds_provider_voice_and_request; original suite alone: SURVIVES
+PASS M10 request text not compared: patched suite fails 1; new tests failing: test_frederick_receipt_binds_provider_voice_and_request; original suite alone: SURVIVES
+PASS M11 request voice not compared: patched suite fails 1; new tests failing: test_frederick_receipt_binds_provider_voice_and_request; original suite alone: SURVIVES
+PASS M12 native-key check removed: patched suite fails 1; new tests failing: test_frederick_receipt_binds_provider_voice_and_request; original suite alone: SURVIVES
+PASS M13 legacy check ignores record voices: patched suite fails 1; new tests failing: test_legacy_oliver_receipt_cannot_state_another_voice_or_request; original suite alone: SURVIVES
+PASS M14 legacy check allows a request: patched suite fails 1; new tests failing: test_legacy_oliver_receipt_cannot_state_another_voice_or_request; original suite alone: SURVIVES
+PASS M15 legacy check refuses the short name Oliver: patched suite fails 1; new tests failing: test_legacy_oliver_receipt_cannot_state_another_voice_or_request; original suite alone: SURVIVES
+PASS M16 delivery accepts any receipt: patched suite fails 1; new tests failing: none; original suite alone: fails 1
+PASS M17 delivery diff not applied: patched suite fails 2; new tests failing: test_frederick_and_legacy_oliver_ui_assemblies_reach_render, test_render_refuses_swapped_voice_and_legacy_contradiction_cleanly; original suite alone: SURVIVES
+PASS M18 only the delivery diff applied: patched suite fails 9; new tests failing: test_frederick_receipt_binds_provider_voice_and_request, test_frederick_ui_takes_assemble_and_verify_sample_for_sample, test_legacy_and_v2_oliver_receipts_assemble_as_one_voice, test_legacy_oliver_receipt_cannot_state_another_voice_or_request, test_one_assembly_refuses_two_narrator_voices, test_verify_refuses_a_voice_swapped_in_after_assembly, test_frederick_and_legacy_oliver_ui_assemblies_reach_render, test_render_refuses_swapped_voice_and_legacy_contradiction_cleanly; original suite alone: fails 1
+PASS every weakened copy the 44 original tests miss (16 of 18: M1, M2, M3, M4, M5, M6, M7, M8, M9, M10, M11, M12, M13, M14, M15, M17) fails a new test
+== Mail 3920: qualify the old tool pins of logarithm-clarity-integration01 (sealed, not edited)
+PASS pins.sha256 and stage09/bound-plan/inputs.sha256 are the same list
+PASS of its 158 pinned files, only tools/coherent_narration.py moved: ['tools/coherent_narration.py']
+PASS the moved pin is root's preserved pre-install coherent e0aa81f3
+     top-level names whose code differs, coherent: EXTERNAL_RECORD_KEYS, EXTERNAL_UI_SCHEMA, EXTERNAL_UI_VOICES, EXTERNAL_V2_RECORD_KEYS, LEGACY_EXTERNAL_UI_SOURCE, LEGACY_OLIVER_VOICES, NATIVE_RECEIPT_KEYS, NATIVE_VOICE, assemble, assembly_voice, external_ui_voice, unit_spans, verify
+     top-level names whose code differs, delivery: external_plan
+PASS integrate_clarity.py calls coherent.direction_words, coherent.read_script: they reach 2 coherent names, none changed (none)
+PASS its run_checks consumer calls direction_contract, read_units, review_directions: they reach 9 coherent names, none changed (none)
+PASS hold-audit anchor narration_delivery.py:242 pins the pre-install bytes
+PASS anchor 'def prediction_end(line, following, fps, predict': once in the installed narration_delivery.py, line 242 -> [242], inside prediction_end, unchanged
+     prediction_end reaches changed code: delivery none; coherent none
+PASS hold-audit anchor narration_delivery.py:318 pins the pre-install bytes
+PASS anchor "if h.get('video') == topic.name and h.get('kind'": once in the installed narration_delivery.py, line 318 -> [320], inside verify, unchanged
+     verify reaches changed code: delivery external_plan; coherent EXTERNAL_RECORD_KEYS, EXTERNAL_UI_SCHEMA, EXTERNAL_UI_VOICES, EXTERNAL_V2_RECORD_KEYS, LEGACY_EXTERNAL_UI_SOURCE, LEGACY_OLIVER_VOICES, NATIVE_RECEIPT_KEYS, NATIVE_VOICE, assembly_voice, external_ui_voice, unit_spans, verify
+PASS hold-audit anchor coherent_narration.py:74 pins the pre-install bytes
+PASS anchor 'def direction_contract(script_path, plan):': once in the installed coherent_narration.py, line 74 -> [141], inside direction_contract, unchanged
+PASS hold-audit anchor coherent_narration.py:123 pins the pre-install bytes
+PASS anchor 'def check_dispositions(directions, lines):': once in the installed coherent_narration.py, line 123 -> [190], inside check_dispositions, unchanged
+PASS consumer replay on the sealed stage09 (stage09 units): pre-install and installed coherent print the same line as the sealed transcript: ACCEPTED 80 15
+PASS consumer replay on the sealed stage09 (stage08 units): pre-install and installed coherent print the same line as the sealed transcript: REFUSED ValueError unit plan does not bind current script bytes
+     conclusion: rebinding coherent e0aa81f3 -> 95615cfa changes no output of the helper or of its consumer check
+== hygiene
+PASS no machine path, user name, address or gendered pronoun in 3 authored files []
+RESULT PASS, 0 failed

@@ -1,0 +1,57 @@
+{
+ "recordings": 162,
+ "supported_marks": 66,
+ "early_points_moved": 181,
+ "early_sentence_onsets": 180,
+ "early_marks": 1,
+ "current_order_problems": 0,
+ "adjusted_order_problems": 0,
+ "current_marks_outside_their_sentence": 0,
+ "adjusted_marks_outside_their_sentence": 0,
+ "marks_left_before_a_moved_onset": 0,
+ "current_smallest_mark_margins_s": [
+  [
+   1.56,
+   "before_next_start",
+   "anchor:05_20:b276:05_20-download02.wav"
+  ],
+  [
+   1.58,
+   "before_next_start",
+   "anchor:05_20:b276:05_20-download01.wav"
+  ],
+  [
+   1.74,
+   "before_next_start",
+   "anchor:03_3:b35:03_3-download01.wav"
+  ]
+ ],
+ "adjusted_smallest_mark_margins_s": [
+  [
+   1.56,
+   "before_next_start",
+   "anchor:05_20:b276:05_20-download02.wav"
+  ],
+  [
+   1.58,
+   "before_next_start",
+   "anchor:05_20:b276:05_20-download01.wav"
+  ],
+  [
+   1.59,
+   "after_sentence_start",
+   "anchor:12_21:b192:12_21-download01.wav"
+  ]
+ ],
+ "planted_controls": {
+  "equal_starts": {
+   "recording": "00_2-download01.wav",
+   "caught": true
+  },
+  "mark_past_start": {
+   "recording": "04_2-download01.wav",
+   "mark": "anchor:04_2:b306:04_2-download01.wav",
+   "caught": true
+  }
+ }
+}

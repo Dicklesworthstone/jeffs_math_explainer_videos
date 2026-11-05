@@ -1,0 +1,135 @@
+{
+ "provenance_files": [
+  [
+   "00_1-download01.wav",
+   true,
+   true,
+   true,
+   "00_1-download01.wav"
+  ],
+  [
+   "00_1-download02.wav",
+   true,
+   true,
+   true,
+   "00_1-download02.wav"
+  ],
+  [
+   "00_1-download03.wav",
+   true,
+   true,
+   true,
+   "00_1-download02.wav"
+  ],
+  [
+   "00_1-download04.wav",
+   true,
+   true,
+   true,
+   "00_1-download02.wav"
+  ]
+ ],
+ "distinct_pcm": 2,
+ "report_counts": {
+  "phrase_anchor_marks": 66,
+  "phrase_anchor_marks_supported": 66,
+  "sentence_onsets": 570,
+  "sentence_onsets_supported": 570,
+  "supported_onsets_abutting_previous_word": 431
+ },
+ "rows": {
+  "sentence_abutting": 431,
+  "sentence_not_abutting": 139,
+  "mark_abutting": 64,
+  "mark_not_abutting": 2
+ },
+ "clarity_rows": 24,
+ "by_status": {
+  "sentence_abutting": {
+   "pause:recognizer_early": 67,
+   "pause:within": 363,
+   "short_quiet_run": 1
+  },
+  "sentence_not_abutting": {
+   "pause:recognizer_early": 113,
+   "pause:within": 26
+  },
+  "mark_abutting": {
+   "no_quiet_run_ends_in_window": 42,
+   "pause:within": 13,
+   "short_quiet_run": 9
+  },
+  "mark_not_abutting": {
+   "no_quiet_run_ends_in_window": 1,
+   "pause:recognizer_early": 1
+  }
+ },
+ "clarity_by_status": {
+  "no_quiet_run_ends_in_window": 4,
+  "pause:recognizer_early": 8,
+  "pause:within": 12
+ },
+ "delta_leave_s_pause_rows": {
+  "sentence_abutting": {
+   "n": 430,
+   "min": -0.2,
+   "median": 0.03,
+   "p90": 0.34,
+   "max": 0.64
+  },
+  "sentence_not_abutting": {
+   "n": 139,
+   "min": -0.17,
+   "median": 0.33,
+   "p90": 0.47,
+   "max": 0.73
+  },
+  "mark_abutting": {
+   "n": 13,
+   "min": -0.12,
+   "median": 0.0,
+   "p90": 0.04,
+   "max": 0.12
+  },
+  "mark_not_abutting": {
+   "n": 1,
+   "min": 0.29,
+   "median": 0.29,
+   "p90": 0.29,
+   "max": 0.29
+  }
+ },
+ "recognizer_early_level": {
+  "median_db_recognizer_to_leave_at_most_minus_75": 157,
+  "median_db_recognizer_to_leave_above_minus_75": 24,
+  "recognizer_onset_before_pause_start": 5,
+  "by_cue_count": 41,
+  "recordings": 67
+ },
+ "recognizer_early_n": 181,
+ "energy_before_recognizer_n": 0
+}
+04_4-download01.wav sentence 'reflecting': recognizer 2.8 s; pause within; pause 2.47+0.35 s; leave 2.82 body 2.92; delta leave 0.02 body 0.12
+04_4-download01.wav sentence 'where': recognizer 6.54 s; pause within; pause 6.07+0.55 s; leave 6.62 body 6.64; delta leave 0.08 body 0.1
+04_4-download01.wav sentence 'at': recognizer 13.34 s; pause within; pause 12.88+0.47 s; leave 13.35 body 13.44; delta leave 0.01 body 0.1
+04_4-download01.wav sentence 'so': recognizer 16.84 s; pause within; pause 16.33+0.37 s; leave 16.7 body 16.93; delta leave -0.14 body 0.09
+04_4-download01.wav sentence 'a': recognizer 23.46 s; pause within; pause 23.0+0.54 s; leave 23.54 body 23.56; delta leave 0.08 body 0.1
+04_4-download02.wav sentence 'reflecting': recognizer 2.8 s; pause within; pause 2.42+0.37 s; leave 2.79 body 2.92; delta leave -0.01 body 0.12
+04_4-download02.wav sentence 'where': recognizer 6.24 s; pause within; pause 5.83+0.48 s; leave 6.31 body 6.33; delta leave 0.07 body 0.09
+04_4-download02.wav sentence 'at': recognizer 12.92 s; pause within; pause 12.48+0.51 s; leave 12.99 body 13.02; delta leave 0.07 body 0.1
+04_4-download02.wav sentence 'so': recognizer 16.36 s; pause within; pause 15.95+0.47 s; leave 16.42 body 16.44; delta leave 0.06 body 0.08
+04_4-download02.wav sentence 'a': recognizer 23.0 s; pause within; pause 22.56+0.49 s; leave 23.05 body 23.07; delta leave 0.05 body 0.07
+08_5-download01.wav sentence 'here': recognizer 1.64 s; pause recognizer_early; pause 1.56+0.67 s; leave 2.23 body 2.26; delta leave 0.59 body 0.62
+08_5-download01.wav sentence 'each': recognizer 6.7 s; pause recognizer_early; pause 6.52+0.57 s; leave 7.09 body 7.1; delta leave 0.39 body 0.4
+08_5-download01.wav sentence 'but': recognizer 14.719999 s; pause recognizer_early; pause 14.65+0.63 s; leave 15.28 body 15.3; delta leave 0.56 body 0.58
+08_5-download01.wav sentence 'taking': recognizer 20.359999 s; pause recognizer_early; pause 20.09+0.66 s; leave 20.75 body 20.77; delta leave 0.39 body 0.41
+08_5-download01.wav sentence 'the': recognizer 27.52 s; pause within; pause 26.9+0.62 s; leave 27.52 body 27.54; delta leave 0.0 body 0.02
+08_5-download01.wav mark 'leaves': recognizer 22.42 s; no_quiet_run_ends_in_window ; pause None+None s; leave None body None; delta leave None body None
+08_5-download01.wav mark 'a': recognizer 25.379999 s; no_quiet_run_ends_in_window ; pause None+None s; leave None body None; delta leave None body None
+08_5-download02.wav sentence 'here': recognizer 2.16 s; pause within; pause 1.51+0.59 s; leave 2.1 body 2.11; delta leave -0.06 body -0.05
+08_5-download02.wav sentence 'each': recognizer 6.5 s; pause recognizer_early; pause 6.36+0.5 s; leave 6.86 body 6.99; delta leave 0.36 body 0.49
+08_5-download02.wav sentence 'but': recognizer 14.82 s; pause recognizer_early; pause 14.72+0.56 s; leave 15.28 body 15.29; delta leave 0.46 body 0.47
+08_5-download02.wav sentence 'taking': recognizer 20.32 s; pause recognizer_early; pause 20.15+0.54 s; leave 20.69 body 20.71; delta leave 0.37 body 0.39
+08_5-download02.wav sentence 'the': recognizer 27.059999 s; pause recognizer_early; pause 26.89+0.52 s; leave 27.41 body 27.44; delta leave 0.35 body 0.38
+08_5-download02.wav mark 'leaves': recognizer 22.32 s; no_quiet_run_ends_in_window ; pause None+None s; leave None body None; delta leave None body None
+08_5-download02.wav mark 'a': recognizer 25.299999 s; no_quiet_run_ends_in_window ; pause None+None s; leave None body None; delta leave None body None

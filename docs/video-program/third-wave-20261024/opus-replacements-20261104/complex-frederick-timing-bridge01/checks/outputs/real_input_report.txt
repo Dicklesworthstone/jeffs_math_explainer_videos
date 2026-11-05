@@ -1,0 +1,251 @@
+PASS report-twice: source: 85 hook sites, 93 anchors in 51 cues, 0 anchor problems, 23 dispositions; recognition read: 42 takes, sentence onsets 126/126 supported, anchor marks 26/58 supported (+32 at sentence onsets); 8 questions, 8 blocking
+PASS recognition-bound: ingest-01 (plan-01, job complex-frederick-stage05-recognition01-plan-01-a1): 36 processed, 0 failed; ingest-02 (plan-02, job complex-frederick-stage05-recognition01-plan-02-a1): 6 processed, 0 failed; supplement complex-frederick-targeted-small01: ggml-small.en.bin c6138d6d58ec, 2 records, manifest d38866483000
+PASS log-preparation-agreement: 184 points re-placed by logarithm-stage08 prepare_audio.points_for: same status and sample; differing []
+PASS coverage: 42 takes of 21 cues; sentence onsets 126/126 supported; anchor marks 26/58 supported + 32 at sentence onsets; 146 supported points abut the previous word (window median 0.24 s, max 0.88 s); 6 second-model cross-checks (|delta| median 0.06 s, max 0.14 s); complete chapters ['01', '02', '03']
+source side 7188f725b110e4bfb2faa87e74d447d008f737143c8cb3bb2e645d728271705f: 85 hook sites, 93 anchors, 23 dispositions; selections and answers bind this hash
+PER TAKE (24 kHz samples on the decoded timeline; recognizer estimates, not heard boundaries)
+01_1 01_1-download01.wav: 794880 frames at 48000 Hz (16.560 s), ingest-01 record 0, sha 13b3ca49a8dc
+  s1 char 34 'one': sample 70080 = 2.920000 s, window [2.92, 3.16], abuts True, run 45
+  s2 char 63 'it': sample 126720 = 5.280000 s, window [5.28, 5.76], abuts True, run 45
+  s3 char 127 'it': sample 244320 = 10.180000 s, window [10.179999, 10.679999], abuts True, run 45
+  s4 char 181 'we': sample 345120 = 14.380000 s, window [14.38, 14.88], abuts True, run 45
+  b127-144 'It has no corners': = sentence 3 onset
+01_1 01_1-download02.wav: 779520 frames at 48000 Hz (16.240 s), ingest-01 record 1, sha 0b4d423ab2c8
+  s1 char 34 'one': sample 65280 = 2.720000 s, window [2.72, 2.98], abuts True, run 45
+  s2 char 63 'it': sample 122400 = 5.100000 s, window [5.1, 5.58], abuts True, run 45
+  s3 char 127 'it': sample 238080 = 9.920000 s, window [9.92, 10.42], abuts True, run 45
+  s4 char 181 'we': sample 349440 = 14.560000 s, window [14.56, 14.599999], abuts True, run 45
+  b127-144 'It has no corners': = sentence 3 onset
+01_2 01_2-download01.wav: 576000 frames at 48000 Hz (12.000 s), ingest-01 record 2, sha 4c70db02ed0f
+  s1 char 43 'one': sample 76800 = 3.200000 s, window [3.2, 3.68], abuts False, run 34
+  s2 char 120 'each': sample 216960 = 9.040000 s, window [9.04, 9.54], abuts False, run 34
+  b65-85 'plus x to the fourth': sample 123840 = 5.160000 s, window [5.16, 5.5], abuts True, run 34
+  b87-107 'minus x to the sixth': sample 159840 = 6.660000 s, window [6.66, 7.02], abuts True, run 34
+01_2 01_2-download02.wav: 587520 frames at 48000 Hz (12.240 s), ingest-01 record 3, sha 9402105c58a3
+  s1 char 43 'one': sample 77760 = 3.240000 s, window [3.24, 4.08], abuts True, run 34
+  s2 char 120 'each': sample 228960 = 9.540000 s, window [9.54, 9.78], abuts True, run 34
+  b65-85 'plus x to the fourth': sample 127680 = 5.320000 s, window [5.32, 5.68], abuts True, run 34
+  b87-107 'minus x to the sixth': sample 164160 = 6.840000 s, window [6.84, 7.16], abuts True, run 34
+01_3 01_3-download01.wav: 833280 frames at 48000 Hz (17.360 s), ingest-01 record 4, sha b29261f6d00f
+  s1 char 88 'just': sample 147840 = 6.160000 s, window [6.16, 6.48], abuts True, run 32
+  s2 char 119 'at': sample 215040 = 8.960000 s, window [8.96, 9.179999], abuts True, run 32
+  s3 char 197 'the': sample 347520 = 14.480000 s, window [14.48, 14.679999], abuts True, run 13
+  b119-135 'At one point one': = sentence 2 onset
+  differences: replace 'to the fortieth' -> 'forty'
+01_3 01_3-download02.wav: 829440 frames at 48000 Hz (17.280 s), ingest-01 record 5, sha 9f9e1f8ea2d1
+  s1 char 88 'just': sample 146400 = 6.100000 s, window [6.1, 6.56], abuts False, run 32
+  s2 char 119 'at': sample 216000 = 9.000000 s, window [9.0, 9.16], abuts True, run 32
+  s3 char 197 'the': sample 338880 = 14.120000 s, window [14.12, 14.62], abuts False, run 13
+  b119-135 'At one point one': = sentence 2 onset
+  differences: replace 'to the fortieth' -> 'forty'
+01_4 01_4-download01.wav: 403200 frames at 48000 Hz (8.400 s), ingest-01 record 6, sha 3483363422c2
+  s1 char 45 'it': sample 66240 = 2.760000 s, window [2.76, 2.88], abuts True, run 24
+  s2 char 85 'so': sample 130560 = 5.440000 s, window [5.44, 5.6], abuts True, run 24
+01_4 01_4-download02.wav: 407040 frames at 48000 Hz (8.480 s), ingest-01 record 7, sha c16f4443f055
+  s1 char 45 'it': sample 66240 = 2.760000 s, window [2.76, 2.88], abuts True, run 24
+  s2 char 85 'so': sample 132000 = 5.500000 s, window [5.5, 5.66], abuts True, run 24
+01_5 01_5-download01.wav: 1017600 frames at 48000 Hz (21.200 s), ingest-01 record 8, sha 71599db532f4
+  s1 char 39 'let': sample 71040 = 2.960000 s, window [2.96, 3.22], abuts True, run 59
+  s2 char 113 'they': sample 194400 = 8.100000 s, window [8.1, 8.179999], abuts True, run 59
+  s3 char 171 'a': sample 315840 = 13.160000 s, window [13.16, 13.28], abuts True, run 59
+  s4 char 261 'that': sample 460800 = 19.200000 s, window [19.2, 19.279999], abuts True, run 59
+  b39-64 'Let x be a complex number': = sentence 1 onset
+  b113-126 'They sit at i': = sentence 2 onset
+  b171-193 'A recipe built at zero': = sentence 3 onset
+  b261-287 'That circle has radius one': = sentence 4 onset
+01_5 01_5-download02.wav: 1021440 frames at 48000 Hz (21.280 s), ingest-01 record 9, sha fc4a7b79399e
+  s1 char 39 'let': sample 69600 = 2.900000 s, window [2.9, 3.16], abuts True, run 59
+  s2 char 113 'they': sample 196800 = 8.200000 s, window [8.2, 8.28], abuts True, run 59
+  s3 char 171 'a': sample 317760 = 13.240000 s, window [13.24, 13.38], abuts True, run 59
+  s4 char 261 'that': sample 463200 = 19.300000 s, window [19.3, 19.359999], abuts True, run 59
+  b39-64 'Let x be a complex number': = sentence 1 onset
+  b113-126 'They sit at i': = sentence 2 onset
+  b171-193 'A recipe built at zero': = sentence 3 onset
+  b261-287 'That circle has radius one': = sentence 4 onset
+01_6 01_6-download01.wav: 844800 frames at 48000 Hz (17.600 s), ingest-01 record 10, sha be20a9b3b26b
+  s1 char 80 'complex': sample 121920 = 5.080000 s, window [5.08, 5.081], abuts True, run 29
+  s2 char 114 'by': sample 173760 = 7.240000 s, window [7.24, 7.3], abuts True, run 29
+  s3 char 221 'first': sample 338880 = 14.120000 s, window [14.12, 14.759999], abuts True, run 24
+  differences: replace 'roots' -> 'routes'
+01_6 01_6-download02.wav: 856320 frames at 48000 Hz (17.840 s), ingest-01 record 11, sha 0d5463cbf841
+  s1 char 80 'complex': sample 125760 = 5.240000 s, window [5.24, 5.241], abuts True, run 29
+  s2 char 114 'by': sample 178080 = 7.420000 s, window [7.42, 7.48], abuts True, run 29
+  s3 char 221 'first': sample 341760 = 14.240000 s, window [14.24, 15.08], abuts True, run 24
+  differences: replace 'roots' -> 'routes'
+02_1 02_1-download01.wav: 614400 frames at 48000 Hz (12.800 s), ingest-01 record 12, sha 77f627c6d58d
+  s1 char 40 'its': sample 75840 = 3.160000 s, window [3.16, 3.24], abuts True, run 38
+  s2 char 103 'we': sample 190560 = 7.940000 s, window [7.94, 8.0], abuts True, run 38
+  b60-73 'how far right': sample 97440 = 4.060000 s, window [4.06, 4.3], abuts True, run 38
+  b91-101 'how far up': sample 151680 = 6.320000 s, window [6.32, 6.64], abuts True, run 38
+02_1 02_1-download02.wav: 614400 frames at 48000 Hz (12.800 s), ingest-01 record 13, sha 8634c62b89c5
+  s1 char 40 'its': sample 66240 = 2.760000 s, window [2.76, 3.18], abuts True, run 38
+  s2 char 103 'we': sample 181920 = 7.580000 s, window [7.58, 8.02], abuts True, run 38
+  b60-73 'how far right': sample 97440 = 4.060000 s, window [4.06, 4.3], abuts True, run 38
+  b91-101 'how far up': sample 151680 = 6.320000 s, window [6.32, 6.66], abuts True, run 38
+02_2 02_2-download01.wav: 602880 frames at 48000 Hz (12.560 s), ingest-01 record 14, sha 418951abd647
+  s1 char 58 'multiplying': sample 93120 = 3.880000 s, window [3.88, 4.54], abuts False, run 33
+  s2 char 103 'multiply': sample 160320 = 6.680000 s, window [6.68, 7.24], abuts True, run 33
+  b143-168 'and the whole plane turns': sample 224640 = 9.360000 s, window [9.36, 9.58], abuts True, run 33
+02_2 02_2-download02.wav: 599040 frames at 48000 Hz (12.480 s), ingest-01 record 15, sha bdac481af4e5
+  s1 char 58 'multiplying': sample 94080 = 3.920000 s, window [3.92, 4.58], abuts True, run 33
+  s2 char 103 'multiply': sample 158880 = 6.620000 s, window [6.62, 7.12], abuts False, run 33
+  b143-168 'and the whole plane turns': sample 219840 = 9.160000 s, window [9.16, 9.4], abuts True, run 33
+02_3 02_3-download01.wav: 418560 frames at 48000 Hz (8.720 s), ingest-01 record 16, sha 9bc007fafcde
+  s1 char 29 'it': sample 77760 = 3.240000 s, window [3.24, 3.26], abuts True, run 24
+  s2 char 56 'that': sample 132960 = 5.540000 s, window [5.54, 5.541], abuts True, run 24
+02_3 02_3-download02.wav: 418560 frames at 48000 Hz (8.720 s), ingest-01 record 17, sha 1443be6705e6
+  s1 char 29 'it': sample 74880 = 3.120000 s, window [3.12, 3.24], abuts True, run 24
+  s2 char 56 'that': sample 130080 = 5.420000 s, window [5.42, 5.56], abuts True, run 24
+02_4 02_4-download01.wav: 725760 frames at 48000 Hz (15.120 s), ingest-01 record 18, sha 893d1c88f2c4
+  s1 char 59 'it': sample 94080 = 3.920000 s, window [3.92, 4.3], abuts True, run 43
+  s2 char 120 'multiply': sample 203520 = 8.480000 s, window [8.48, 8.98], abuts True, run 43
+02_4 02_4-download02.wav: 729600 frames at 48000 Hz (15.200 s), ingest-01 record 19, sha 7a53ec2efad9
+  s1 char 59 'it': sample 92160 = 3.840000 s, window [3.84, 4.22], abuts True, run 42
+  s2 char 120 'multiply': sample 212640 = 8.860000 s, window [8.86, 8.94], abuts True, run 42
+  differences: replace 'turn' -> 'term'
+02_5 02_5-download01.wav: 495360 frames at 48000 Hz (10.320 s), ingest-01 record 20, sha 72d04b4b2f39
+  s1 char 58 'what': sample 110400 = 4.600000 s, window [4.6, 4.64], abuts True, run 11; ggml-small.en.bin: supported 108000 window [4.5, 4.62] delta -0.100 s
+  s2 char 100 'which': sample 179040 = 7.460000 s, window [7.46, 7.56], abuts True, run 11; ggml-small.en.bin: supported 175680 window [7.32, 7.54] delta -0.140 s
+  b37-56 'an eighth of a turn': sample 66240 = 2.760000 s, window [2.76, 2.92], abuts True, run 6; ggml-small.en.bin: supported 64800 window [2.7, 2.94] delta -0.060 s
+  differences: delete 'one plus i' -> ''; replace 'turn' -> 'term'; delete 'one plus i' -> ''
+02_5 02_5-download02.wav: 487680 frames at 48000 Hz (10.160 s), ingest-01 record 21, sha 0d21f5e41df0
+  s1 char 58 'what': sample 105600 = 4.400000 s, window [4.4, 4.62], abuts True, run 11; ggml-small.en.bin: supported 106560 window [4.44, 4.6] delta +0.040 s
+  s2 char 100 'which': sample 172800 = 7.200000 s, window [7.2, 7.46], abuts True, run 11; ggml-small.en.bin: supported 172800 window [7.2, 7.44] delta +0.000 s
+  b37-56 'an eighth of a turn': sample 64320 = 2.680000 s, window [2.68, 2.84], abuts True, run 6; ggml-small.en.bin: supported 63360 window [2.64, 2.9] delta -0.040 s
+  differences: delete 'one plus i' -> ''; replace 'turn' -> 'term'; delete 'one plus i' -> ''
+02_6 02_6-download01.wav: 867840 frames at 48000 Hz (18.080 s), ingest-01 record 22, sha 446187d04406
+  s1 char 88 'so': sample 139680 = 5.820000 s, window [5.82, 5.96], abuts True, run 49
+  s2 char 122 'lengths': sample 232320 = 9.680000 s, window [9.68, 9.8], abuts True, run 49
+  s3 char 155 'hold': sample 298560 = 12.440000 s, window [12.44, 12.58], abuts True, run 49
+  s4 char 172 'every': sample 332640 = 13.860000 s, window [13.86, 13.9], abuts True, run 49
+  b88-101 'So one plus i': = sentence 1 onset
+  b139-153 'and angles add': sample 247200 = 10.300000 s, window [10.3, 10.76], abuts True, run 49
+  b172-196 'Every complex derivative': = sentence 4 onset
+02_6 02_6-download02.wav: 856320 frames at 48000 Hz (17.840 s), ingest-01 record 23, sha 482033b9292c
+  s1 char 88 'so': sample 138240 = 5.760000 s, window [5.76, 5.82], abuts True, run 49
+  s2 char 122 'lengths': sample 228000 = 9.500000 s, window [9.5, 9.599999], abuts True, run 49
+  s3 char 155 'hold': sample 291360 = 12.140000 s, window [12.14, 12.179999], abuts True, run 49
+  s4 char 172 'every': sample 324000 = 13.500000 s, window [13.5, 13.54], abuts True, run 49
+  b88-101 'So one plus i': = sentence 1 onset
+  b139-153 'and angles add': sample 240960 = 10.040000 s, window [10.04, 10.5], abuts True, run 49
+  b172-196 'Every complex derivative': = sentence 4 onset
+03_1 03_1-download01.wav: 641280 frames at 48000 Hz (13.360 s), ingest-01 record 24, sha 06870fc9947b
+  s1 char 54 'its': sample 96000 = 4.000000 s, window [4.0, 4.06], abuts True, run 35
+  s2 char 92 'instead': sample 156000 = 6.500000 s, window [6.5, 7.34], abuts True, run 35
+  s3 char 131 'the': sample 228960 = 9.540000 s, window [9.54, 10.02], abuts True, run 35
+03_1 03_1-download02.wav: 637440 frames at 48000 Hz (13.280 s), ingest-01 record 25, sha 6870213deb06
+  s1 char 54 'its': sample 96000 = 4.000000 s, window [4.0, 4.06], abuts True, run 35
+  s2 char 92 'instead': sample 155040 = 6.460000 s, window [6.46, 7.34], abuts True, run 35
+  s3 char 131 'the': sample 228480 = 9.520000 s, window [9.52, 9.98], abuts True, run 35
+03_2 03_2-download01.wav: 791040 frames at 48000 Hz (16.480 s), ingest-01 record 26, sha e3a2203422a9
+  s1 char 21 'lengths': sample 40800 = 1.700000 s, window [1.7, 2.36], abuts True, run 27
+  s2 char 110 'walk': sample 202080 = 8.420000 s, window [8.42, 8.98], abuts True, run 27
+  s3 char 164 'its': sample 291840 = 12.160000 s, window [12.16, 12.66], abuts True, run 9
+  b66-85 'squares each length': sample 127680 = 5.320000 s, window [5.32, 5.86], abuts True, run 27
+  b90-108 'doubles each angle': sample 168000 = 7.000000 s, window [7.0, 7.34], abuts True, run 27
+  differences: replace 'half' -> 'over two'; replace 'quarter' -> 'over four'
+03_2 03_2-download02.wav: 783360 frames at 48000 Hz (16.320 s), ingest-01 record 27, sha e71b9e2a948c
+  s1 char 21 'lengths': sample 45120 = 1.880000 s, window [1.88, 2.28], abuts True, run 39
+  s2 char 110 'walk': sample 205440 = 8.560000 s, window [8.56, 8.8], abuts True, run 39
+  s3 char 164 'its': sample 300480 = 12.520000 s, window [12.52, 12.559999], abuts True, run 39
+  b66-85 'squares each length': sample 125760 = 5.240000 s, window [5.24, 5.72], abuts True, run 39
+  b90-108 'doubles each angle': sample 162720 = 6.780000 s, window [6.78, 7.2], abuts True, run 39
+03_3 03_3-download01.wav: 272640 frames at 48000 Hz (5.680 s), ingest-01 record 28, sha ba4493b8548e
+  s1 char 30 'after': sample 57600 = 2.400000 s, window [2.4, 2.66], abuts True, run 14
+03_3 03_3-download02.wav: 280320 frames at 48000 Hz (5.840 s), ingest-01 record 29, sha 759fe42ef9f3
+  s1 char 30 'after': sample 59520 = 2.480000 s, window [2.48, 2.76], abuts True, run 14
+03_4 03_4-download01.wav: 1240320 frames at 48000 Hz (25.840 s), ingest-01 record 30, sha 12c09505a51d
+  s1 char 4 'every': sample 16800 = 0.700000 s, window [0.7, 1.22], abuts True, run 69
+  s2 char 94 'the': sample 160800 = 6.700000 s, window [6.7, 7.14], abuts True, run 69
+  s3 char 129 'the': sample 230880 = 9.620000 s, window [9.62, 9.98], abuts True, run 69
+  s4 char 224 'but': sample 365760 = 15.240000 s, window [15.24, 15.78], abuts True, run 69
+  s5 char 257 'they': sample 418560 = 17.440000 s, window [17.440001, 17.72], abuts True, run 69
+  s6 char 317 'keep': sample 526080 = 21.920000 s, window [21.92, 22.4], abuts True, run 69
+  s7 char 336 'it': sample 557760 = 23.240000 s, window [23.24, 23.539999], abuts True, run 69
+  b94-111 'The two axes fold': = sentence 2 onset
+  b129-154 'The horizontal axis lands': = sentence 3 onset
+  b301-315 'except at zero': sample 485760 = 20.240000 s, window [20.24, 20.859999], abuts True, run 69
+03_4 03_4-download02.wav: 1221120 frames at 48000 Hz (25.440 s), ingest-01 record 31, sha 5745b7818ea0
+  s1 char 4 'every': sample 15360 = 0.640000 s, window [0.64, 1.18], abuts True, run 69
+  s2 char 94 'the': sample 159840 = 6.660000 s, window [6.66, 7.04], abuts True, run 69
+  s3 char 129 'the': sample 227520 = 9.480000 s, window [9.48, 9.88], abuts True, run 69
+  s4 char 224 'but': sample 361920 = 15.080000 s, window [15.08, 15.52], abuts True, run 69
+  s5 char 257 'they': sample 413760 = 17.240000 s, window [17.24, 17.52], abuts True, run 69
+  s6 char 317 'keep': sample 517440 = 21.560000 s, window [21.559999, 22.0], abuts True, run 69
+  s7 char 336 'it': sample 548160 = 22.840000 s, window [22.84, 23.139999], abuts True, run 69
+  b94-111 'The two axes fold': = sentence 2 onset
+  b129-154 'The horizontal axis lands': = sentence 3 onset
+  b301-315 'except at zero': sample 477120 = 19.880000 s, window [19.879999, 20.539999], abuts True, run 69
+03_5 03_5-download01.wav: 933120 frames at 48000 Hz (19.440 s), ingest-01 record 32, sha b29aeb6c2a70
+  s1 char 32 'points': sample 74400 = 3.100000 s, window [3.1, 3.101], abuts True, run 48
+  s2 char 89 'the': sample 181440 = 7.560000 s, window [7.56, 7.6], abuts True, run 48
+  s3 char 185 'inside': sample 337920 = 14.080000 s, window [14.08, 14.099999], abuts True, run 48
+  s4 char 218 'at': sample 398880 = 16.620000 s, window [16.62, 16.68], abuts True, run 48
+  b89-104 'The unit circle': = sentence 2 onset
+  b140-156 'each point flips': sample 249600 = 10.400000 s, window [10.4, 10.7], abuts True, run 48
+03_5 03_5-download02.wav: 925440 frames at 48000 Hz (19.280 s), ingest-01 record 33, sha 76f4d6e160c5
+  s1 char 32 'points': sample 66240 = 2.760000 s, window [2.76, 3.0], abuts True, run 48
+  s2 char 89 'the': sample 177120 = 7.380000 s, window [7.38, 7.48], abuts True, run 48
+  s3 char 185 'inside': sample 320160 = 13.340000 s, window [13.34, 13.88], abuts True, run 48
+  s4 char 218 'at': sample 391680 = 16.320000 s, window [16.32, 16.48], abuts True, run 48
+  b89-104 'The unit circle': = sentence 2 onset
+  b140-156 'each point flips': sample 243840 = 10.160000 s, window [10.16, 10.46], abuts True, run 48
+03_6 03_6-download01.wav: 887040 frames at 48000 Hz (18.480 s), ingest-01 record 34, sha 119801244a56
+  s1 char 56 'moving': sample 88320 = 3.680000 s, window [3.68, 4.02], abuts True, run 44
+  s2 char 113 'moving': sample 188160 = 7.840000 s, window [7.84, 8.179999], abuts True, run 44
+  s3 char 181 'so': sample 312000 = 13.000000 s, window [13.0, 13.28], abuts True, run 44
+  b181-198 'So vertical lines': = sentence 3 onset
+03_6 03_6-download02.wav: 871680 frames at 48000 Hz (18.160 s), ingest-01 record 35, sha ce6e95051f9a
+  s1 char 56 'moving': sample 86400 = 3.600000 s, window [3.6, 3.96], abuts True, run 44
+  s2 char 113 'moving': sample 188160 = 7.840000 s, window [7.84, 8.179999], abuts True, run 44
+  s3 char 181 'so': sample 311040 = 12.960000 s, window [12.96, 13.179999], abuts True, run 44
+  b181-198 'So vertical lines': = sentence 3 onset
+03_7 03_7-download01.wav: 472320 frames at 48000 Hz (9.840 s), ingest-02 record 0, sha a18929c7f425
+  s1 char 55 'the': sample 96960 = 4.040000 s, window [4.04, 4.18], abuts True, run 27
+  s2 char 120 'both': sample 197280 = 8.220000 s, window [8.22, 8.44], abuts True, run 27
+  b55-78 'The exponential repeats': = sentence 1 onset
+  b93-118 'and it never reaches zero': sample 150720 = 6.280000 s, window [6.28, 6.44], abuts True, run 27
+03_7 03_7-download02.wav: 468480 frames at 48000 Hz (9.760 s), ingest-02 record 1, sha a392e2e62ae5
+  s1 char 55 'the': sample 93120 = 3.880000 s, window [3.88, 3.94], abuts True, run 27
+  s2 char 120 'both': sample 195360 = 8.140000 s, window [8.14, 8.36], abuts True, run 27
+  b55-78 'The exponential repeats': = sentence 1 onset
+  b93-118 'and it never reaches zero': sample 145920 = 6.080000 s, window [6.08, 6.28], abuts True, run 27
+04_1 04_1-download01.wav: 990720 frames at 48000 Hz (20.640 s), ingest-02 record 2, sha 071ddc33c4fe
+  s1 char 45 'to': sample 80160 = 3.340000 s, window [3.34, 3.4], abuts True, run 54
+  s2 char 101 'at': sample 177120 = 7.380000 s, window [7.38, 7.42], abuts True, run 54
+  s3 char 187 'pointing': sample 310080 = 12.920000 s, window [12.92, 13.0], abuts True, run 54
+  s4 char 210 'pointing': sample 347040 = 14.460000 s, window [14.46, 14.839999], abuts True, run 54
+  s5 char 239 'pointing': sample 408000 = 17.000000 s, window [17.0, 17.24], abuts True, run 54
+  b187-208 'Pointing right is red': = sentence 3 onset
+  b210-237 'Pointing up is yellow green': = sentence 4 onset
+  b239-260 'Pointing left is teal': = sentence 5 onset
+  b266-289 'pointing down is violet': sample 452640 = 18.860000 s, window [18.859999, 19.199999], abuts True, run 54
+04_1 04_1-download02.wav: 990720 frames at 48000 Hz (20.640 s), ingest-02 record 3, sha b15625b71893
+  s1 char 45 'to': sample 81120 = 3.380000 s, window [3.38, 3.42], abuts True, run 54
+  s2 char 101 'at': sample 177600 = 7.400000 s, window [7.4, 7.44], abuts True, run 54
+  s3 char 187 'pointing': sample 310080 = 12.920000 s, window [12.92, 12.98], abuts True, run 54
+  s4 char 210 'pointing': sample 347040 = 14.460000 s, window [14.46, 14.839999], abuts True, run 54
+  s5 char 239 'pointing': sample 406080 = 16.920000 s, window [16.92, 17.16], abuts True, run 54
+  b187-208 'Pointing right is red': = sentence 3 onset
+  b210-237 'Pointing up is yellow green': = sentence 4 onset
+  b239-260 'Pointing left is teal': = sentence 5 onset
+  b266-289 'pointing down is violet': sample 450720 = 18.780000 s, window [18.779999, 19.119999], abuts True, run 54
+04_2 04_2-download01.wav: 733440 frames at 48000 Hz (15.280 s), ingest-02 record 4, sha 9fcb8422b3e6
+  s1 char 42 'so': sample 80640 = 3.360000 s, window [3.36, 3.56], abuts True, run 40
+  s2 char 73 'each': sample 141120 = 5.880000 s, window [5.88, 6.1], abuts True, run 40
+  s3 char 152 'thin': sample 267840 = 11.160000 s, window [11.16, 11.52], abuts True, run 40
+04_2 04_2-download02.wav: 744960 frames at 48000 Hz (15.520 s), ingest-02 record 5, sha 72b7d969fd36
+  s1 char 42 'so': sample 80640 = 3.360000 s, window [3.36, 3.58], abuts True, run 40
+  s2 char 73 'each': sample 144960 = 6.040000 s, window [6.04, 6.24], abuts True, run 40
+  s3 char 152 'thin': sample 270240 = 11.260000 s, window [11.26, 11.599999], abuts True, run 40
+QUESTIONS (8, 8 blocking)
+  content:01_3:01_3-download01.wav [proceed, reject_take]
+  content:01_3:01_3-download02.wav [proceed, reject_take]
+  content:01_6:01_6-download01.wav [proceed, reject_take]
+  content:01_6:01_6-download02.wav [proceed, reject_take]
+  content:02_4:02_4-download02.wav [proceed, reject_take]
+  content:02_5:02_5-download01.wav [proceed, reject_take]
+  content:02_5:02_5-download02.wav [proceed, reject_take]
+  content:03_2:03_2-download01.wav [proceed, reject_take]
+PASS intake-status-read-only: take folder now: 2 WAVs of 1 cues eligible for the next plan (04_3), 42 already processed, refused 0, awaiting download ['04_4']
+REPORT: PASS (5/5)

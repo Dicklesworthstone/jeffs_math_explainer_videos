@@ -1,0 +1,10 @@
+PASS M0 unmutated: exit 0, 79 PASS, 0 FAIL
+KILLED M1 a bare file name shared with a superseded recording is accepted: exit 1, 77 PASS, 2 FAIL; failing checks: G8 G8b
+KILLED M2 question and point ids use the bare file name for every recording: exit 1, 52 PASS, 4 FAIL; failing checks: A1 B1 D4 G3
+KILLED M3 receipt_hash_of is ignored (every inventory read as hashing its downloads receipts): exit 1, no summary line; failing checks: A1; run_checks raised
+KILLED M4 a downloads receipt neither hashed nor pinned is accepted: exit 1, 78 PASS, 1 FAIL; failing checks: G17
+KILLED M5 requests are not checked against their cue and inventoried text: exit 1, 75 PASS, 4 FAIL; failing checks: G10 G11 G12 G9
+KILLED M6 a superseded recording named by its path is reported as merely unknown: exit 1, 77 PASS, 2 FAIL; failing checks: G6 G7
+KILLED M7 a recording is selectable whatever text it records: exit 1, no summary line; failing checks: A1; run_checks raised
+KILLED M8 a superseded recording named by its path can be selected: exit 1, 77 PASS, 2 FAIL; failing checks: G6 G7
+9 of 9 as expected (M0 passes, every mutant killed)

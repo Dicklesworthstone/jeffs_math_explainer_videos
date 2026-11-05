@@ -1,0 +1,46 @@
+{
+ "schema": "complex-frederick-answers-v1",
+ "source_sha256": "7188f725b110e4bfb2faa87e74d447d008f737143c8cb3bb2e645d728271705f",
+ "answers": {
+  "content:01_3:01_3-download01.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "content:01_3:01_3-download02.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "content:01_6:01_6-download01.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "content:01_6:01_6-download02.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "content:02_4:02_4-download02.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "content:02_5:02_5-download01.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "content:02_5:02_5-download02.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "content:03_2:03_2-download01.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  }
+ }
+}

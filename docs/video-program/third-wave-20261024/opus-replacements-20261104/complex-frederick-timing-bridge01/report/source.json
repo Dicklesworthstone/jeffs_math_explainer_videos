@@ -1,0 +1,2249 @@
+{
+ "schema": "complex-frederick-timing-bridge-v1",
+ "kind": "source",
+ "pins": {
+  "script_sha256": "12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3",
+  "units_sha256": "e776c860dcfa66c277ef0e188437cade034f0427d19efa4c975dde313d9b51c6",
+  "map_sha256": "70888624edd6e930b383b277b50f8da5e39ac94f1a661c71b7f0e9575362f20c",
+  "chapter_sources_sha256": "a8e92ca2c94cd8818f9d9b2dfdb6d3db70d219c0ee990f193290628500e2e08b",
+  "dependencies": {
+   "intake": {
+    "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-audio-preparation01/frederick_intake.py",
+    "sha256": "edc154c6c4f7277715981678465be0189e58d6f36b17822c23a608defd7a75d0"
+   },
+   "log_preparation": {
+    "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage08-audio-preparation01/prepare_audio.py",
+    "sha256": "3083d5cdfc98f18c404278155b9d432a0530e7b0eae0b0c09afca02e27c2d540"
+   },
+   "assembler": {
+    "path": "tools/coherent_narration.py",
+    "sha256": "95615cfadb42fbfdddf828340b74ec66d89c975a1f399593e212bdd9840e65d5"
+   },
+   "assembler_cache": {
+    "path": "tools/narration_cache.py",
+    "sha256": "47331efd3952af6d0e66971a1c8fddd08929f881d1f9b470bde223db7a01b0c0"
+   },
+   "kit": {
+    "path": "crates/explainer_kit/src/narration.rs",
+    "sha256": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8"
+   }
+  }
+ },
+ "crate": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual",
+ "chapter_sources": [
+  "argument.rs cc5a8d963de7a3a583c332875cb88337b97b2bc00b27d1b9e6420cbddf17920a",
+  "bookends.rs 9a44d4cea2cecdb51368619c62e29bff6fae565c58ff37b63701b5d17594092b",
+  "boundary.rs 69e41733fd0e4d4e24f4ca1eb59cdf8c718ce07a8507e75a4e0a469331432c64",
+  "cauchy.rs 5993b8bda652d951f7946813f2b81da88b7f232f791c564964bf5d5254f80c66",
+  "closing.rs 373a0340a0f86d1bd3c899e218a7ea7c1f7993e1a4914a2d6a1f238c27d5b93e",
+  "continuation.rs 3fa49900014690913ec0a987f42c7fe615424719414e762a1b31bab16aaca23e",
+  "continuing.rs c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b",
+  "counting.rs d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9",
+  "derivative.rs 6e5176b980bfea4ab7d9291c0138fe345be21ad0e9c2f9adab83a898b13bfdbc",
+  "domain_color.rs 9b3f2728ec74e2886155429a16e4efa06e9eb2642c9629d71bf7f9d2c1f03496",
+  "draw.rs 3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db",
+  "gallery.rs bff74a1524c71d7bd4ed517e35303c15e801241462d19d192d92afb04312f16c",
+  "integral.rs 1ce4ea7ef3d6f80e97bc5a585d25f9dfdc155c10365c970a866a6b577234eb41",
+  "loop_sums.rs f7a46143d709797ff03e748b4b8efad68d9379fea31b8ce0cd6de0d2f25de6d8",
+  "mod.rs 9ddf5283a8d298d9466bacd0e60c9203bdb857049702daf7971bce40c2b4541b",
+  "one_derivative.rs 4f0154ec82bb787cdbee4d11d308eea25ca6cc1164f7f4bdb1d908f8d54df29c",
+  "one_point.rs 76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00",
+  "reading_color.rs 8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d",
+  "real_integral.rs a5ef573dfa68325272a5d7f588fb910b2d99ea6538752616a51e92c3904d61ed",
+  "residues.rs 7d06f69b2aff86ac1bee103c7aaefc58891d0b335312e98df3610769f45af7c1",
+  "rigidity.rs c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e",
+  "the_bump.rs 8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3",
+  "thumbnail.rs 5d90834bba4b0d6acf8f3c437ca66dab046f1c4823e3b773616f4d4d665c2c65",
+  "turning.rs 24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec",
+  "two_planes.rs 98cd46c5cc825095600ae431ae22c142a65c7b0cb8d2507d4c4ba0644ca3c432"
+ ],
+ "hook_sites": 85,
+ "anchors": [
+  {
+   "cue": "01_1",
+   "byte": 127,
+   "byte_end": 144,
+   "char": 127,
+   "phrase": "It has no corners",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "the_bump.rs",
+     "line": 138,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"01_1\") at line 82 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "01_2",
+   "byte": 65,
+   "byte_end": 85,
+   "char": 65,
+   "phrase": "plus x to the fourth",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "the_bump.rs",
+     "line": 179,
+     "call": "wait_for",
+     "via": "indirect: for (deg, phrase) in ",
+     "binding": "say(&kit, stage, \"01_2\") at line 154 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "01_2",
+   "byte": 87,
+   "byte_end": 107,
+   "char": 87,
+   "phrase": "minus x to the sixth",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "the_bump.rs",
+     "line": 179,
+     "call": "wait_for",
+     "via": "indirect: for (deg, phrase) in ",
+     "binding": "say(&kit, stage, \"01_2\") at line 154 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "01_3",
+   "byte": 119,
+   "byte_end": 135,
+   "char": 119,
+   "phrase": "At one point one",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "the_bump.rs",
+     "line": 210,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"01_3\") at line 197 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "01_5",
+   "byte": 39,
+   "byte_end": 64,
+   "char": 39,
+   "phrase": "Let x be a complex number",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "the_bump.rs",
+     "line": 271,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"01_5\") at line 248 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "01_5",
+   "byte": 113,
+   "byte_end": 126,
+   "char": 113,
+   "phrase": "They sit at i",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "the_bump.rs",
+     "line": 278,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"01_5\") at line 248 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "01_5",
+   "byte": 171,
+   "byte_end": 193,
+   "char": 171,
+   "phrase": "A recipe built at zero",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "the_bump.rs",
+     "line": 288,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"01_5\") at line 248 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "01_5",
+   "byte": 261,
+   "byte_end": 287,
+   "char": 261,
+   "phrase": "That circle has radius one",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "the_bump.rs",
+     "line": 309,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"01_5\") at line 248 in the same function"
+    }
+   ],
+   "sentence": 4,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "02_1",
+   "byte": 60,
+   "byte_end": 73,
+   "char": 60,
+   "phrase": "how far right",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "turning.rs",
+     "line": 241,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"02_1\") at line 233 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "02_1",
+   "byte": 91,
+   "byte_end": 101,
+   "char": 91,
+   "phrase": "how far up",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "turning.rs",
+     "line": 252,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"02_1\") at line 233 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "02_2",
+   "byte": 143,
+   "byte_end": 168,
+   "char": 143,
+   "phrase": "and the whole plane turns",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "turning.rs",
+     "line": 338,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"02_2\") at line 280 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "02_5",
+   "byte": 37,
+   "byte_end": 56,
+   "char": 37,
+   "phrase": "an eighth of a turn",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "turning.rs",
+     "line": 432,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"02_5\") at line 428 in the same function"
+    }
+   ],
+   "sentence": 0,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "02_6",
+   "byte": 88,
+   "byte_end": 101,
+   "char": 88,
+   "phrase": "So one plus i",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "turning.rs",
+     "line": 443,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"02_6\") at line 438 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "02_6",
+   "byte": 139,
+   "byte_end": 153,
+   "char": 139,
+   "phrase": "and angles add",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "turning.rs",
+     "line": 478,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"02_6\") at line 438 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "02_6",
+   "byte": 172,
+   "byte_end": 196,
+   "char": 172,
+   "phrase": "Every complex derivative",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "turning.rs",
+     "line": 481,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"02_6\") at line 438 in the same function"
+    }
+   ],
+   "sentence": 4,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "03_2",
+   "byte": 66,
+   "byte_end": 85,
+   "char": 66,
+   "phrase": "squares each length",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "two_planes.rs",
+     "line": 438,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"03_2\") at line 429 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "03_2",
+   "byte": 90,
+   "byte_end": 108,
+   "char": 90,
+   "phrase": "doubles each angle",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "two_planes.rs",
+     "line": 468,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"03_2\") at line 429 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "03_4",
+   "byte": 94,
+   "byte_end": 111,
+   "char": 94,
+   "phrase": "The two axes fold",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "two_planes.rs",
+     "line": 619,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"03_4\") at line 610 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "03_4",
+   "byte": 129,
+   "byte_end": 154,
+   "char": 129,
+   "phrase": "The horizontal axis lands",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "two_planes.rs",
+     "line": 623,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"03_4\") at line 610 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "03_4",
+   "byte": 301,
+   "byte_end": 315,
+   "char": 301,
+   "phrase": "except at zero",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "two_planes.rs",
+     "line": 662,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"03_4\") at line 610 in the same function"
+    }
+   ],
+   "sentence": 5,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "03_5",
+   "byte": 89,
+   "byte_end": 104,
+   "char": 89,
+   "phrase": "The unit circle",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "two_planes.rs",
+     "line": 704,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"03_5\") at line 672 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "03_5",
+   "byte": 140,
+   "byte_end": 156,
+   "char": 140,
+   "phrase": "each point flips",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "two_planes.rs",
+     "line": 725,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"03_5\") at line 672 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "03_6",
+   "byte": 181,
+   "byte_end": 198,
+   "char": 181,
+   "phrase": "So vertical lines",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "two_planes.rs",
+     "line": 825,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"03_6\") at line 758 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "03_7",
+   "byte": 55,
+   "byte_end": 78,
+   "char": 55,
+   "phrase": "The exponential repeats",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "two_planes.rs",
+     "line": 874,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"03_7\") at line 850 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "03_7",
+   "byte": 93,
+   "byte_end": 118,
+   "char": 93,
+   "phrase": "and it never reaches zero",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "two_planes.rs",
+     "line": 888,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"03_7\") at line 850 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "04_1",
+   "byte": 187,
+   "byte_end": 208,
+   "char": 187,
+   "phrase": "Pointing right is red",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "reading_color.rs",
+     "line": 259,
+     "call": "wait_for",
+     "via": "indirect: pub const NAMED: [(&str, f64); 4] = ",
+     "binding": "say(&kit, stage, \"04_1\") at line 213 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "04_1",
+   "byte": 210,
+   "byte_end": 237,
+   "char": 210,
+   "phrase": "Pointing up is yellow green",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "reading_color.rs",
+     "line": 259,
+     "call": "wait_for",
+     "via": "indirect: pub const NAMED: [(&str, f64); 4] = ",
+     "binding": "say(&kit, stage, \"04_1\") at line 213 in the same function"
+    }
+   ],
+   "sentence": 4,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "04_1",
+   "byte": 239,
+   "byte_end": 260,
+   "char": 239,
+   "phrase": "Pointing left is teal",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "reading_color.rs",
+     "line": 259,
+     "call": "wait_for",
+     "via": "indirect: pub const NAMED: [(&str, f64); 4] = ",
+     "binding": "say(&kit, stage, \"04_1\") at line 213 in the same function"
+    }
+   ],
+   "sentence": 5,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "04_1",
+   "byte": 266,
+   "byte_end": 289,
+   "char": 266,
+   "phrase": "pointing down is violet",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "reading_color.rs",
+     "line": 259,
+     "call": "wait_for",
+     "via": "indirect: pub const NAMED: [(&str, f64); 4] = ",
+     "binding": "say(&kit, stage, \"04_1\") at line 213 in the same function"
+    }
+   ],
+   "sentence": 5,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "04_4",
+   "byte": 81,
+   "byte_end": 103,
+   "char": 81,
+   "phrase": "Once for a simple zero",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "reading_color.rs",
+     "line": 328,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"04_4\") at line 315 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "04_4",
+   "byte": 105,
+   "byte_end": 134,
+   "char": 105,
+   "phrase": "twice for a zero of order two",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "reading_color.rs",
+     "line": 330,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"04_4\") at line 315 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "05_1",
+   "byte": 185,
+   "byte_end": 203,
+   "char": 185,
+   "phrase": "Three zeros inside",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 370,
+     "call": "until",
+     "via": "indirect: Self::walk_and_count(",
+     "binding": "receiver is not a local say(); the only script cue containing the phrase"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "05_2",
+   "byte": 118,
+   "byte_end": 134,
+   "char": 118,
+   "phrase": "and at minus one",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 450,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"05_2\") at line 424 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "05_2",
+   "byte": 178,
+   "byte_end": 193,
+   "char": 178,
+   "phrase": "backwards twice",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 370,
+     "call": "until",
+     "via": "indirect: Self::walk_and_count(",
+     "binding": "receiver is not a local say(); the only script cue containing the phrase"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "05_3",
+   "byte": 90,
+   "byte_end": 102,
+   "char": 90,
+   "phrase": "and its size",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 500,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"05_3\") at line 476 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "05_3",
+   "byte": 151,
+   "byte_end": 164,
+   "char": 151,
+   "phrase": "exact squares",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 509,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"05_3\") at line 476 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "05_3",
+   "byte": 166,
+   "byte_end": 188,
+   "char": 166,
+   "phrase": "repeating every two pi",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 512,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"05_3\") at line 476 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "05_4",
+   "byte": 187,
+   "byte_end": 206,
+   "char": 187,
+   "phrase": "and sine of three i",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 608,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"05_4\") at line 537 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "05_5",
+   "byte": 126,
+   "byte_end": 139,
+   "char": 126,
+   "phrase": "and far below",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 646,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"05_5\") at line 615 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "05_6",
+   "byte": 199,
+   "byte_end": 213,
+   "char": 199,
+   "phrase": "a pole at zero",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 719,
+     "call": "wait_for",
+     "via": "indirect: let named = ",
+     "binding": "say(&kit, stage, \"05_6\") at line 668 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "05_6",
+   "byte": 215,
+   "byte_end": 227,
+   "char": 215,
+   "phrase": "at minus one",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 719,
+     "call": "wait_for",
+     "via": "indirect: let named = ",
+     "binding": "say(&kit, stage, \"05_6\") at line 668 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "05_6",
+   "byte": 229,
+   "byte_end": 241,
+   "char": 229,
+   "phrase": "at minus two",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 719,
+     "call": "wait_for",
+     "via": "indirect: let named = ",
+     "binding": "say(&kit, stage, \"05_6\") at line 668 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "05_6",
+   "byte": 259,
+   "byte_end": 280,
+   "char": 259,
+   "phrase": "and no zeros anywhere",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 725,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"05_6\") at line 668 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "05_8",
+   "byte": 71,
+   "byte_end": 96,
+   "char": 71,
+   "phrase": "is the Riemann hypothesis",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 856,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"05_8\") at line 843 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "05_9",
+   "byte": 109,
+   "byte_end": 124,
+   "char": 109,
+   "phrase": "in little tiles",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 917,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"05_9\") at line 867 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "05_9",
+   "byte": 134,
+   "byte_end": 147,
+   "char": 134,
+   "phrase": "nearly square",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "gallery.rs",
+     "line": 955,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"05_9\") at line 867 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "06_1",
+   "byte": 229,
+   "byte_end": 253,
+   "char": 229,
+   "phrase": "that ratio should settle",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "one_derivative.rs",
+     "line": 278,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"06_1\") at line 188 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "06_3",
+   "byte": 80,
+   "byte_end": 98,
+   "char": 80,
+   "phrase": "the function moves",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "one_derivative.rs",
+     "line": 400,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"06_3\") at line 397 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "06_8",
+   "byte": 68,
+   "byte_end": 76,
+   "char": 68,
+   "phrase": "It sends",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "one_derivative.rs",
+     "line": 656,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"06_8\") at line 614 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "07_1",
+   "byte": 185,
+   "byte_end": 206,
+   "char": 185,
+   "phrase": "The angle has doubled",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "one_point.rs",
+     "line": 315,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"07_1\") at line 234 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "07_5",
+   "byte": 266,
+   "byte_end": 281,
+   "char": 266,
+   "phrase": "and the product",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "one_point.rs",
+     "line": 637,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"07_5\") at line 511 in the same function"
+    }
+   ],
+   "sentence": 4,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "08_2",
+   "byte": 145,
+   "byte_end": 162,
+   "char": 145,
+   "phrase": "The total is zero",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "loop_sums.rs",
+     "line": 413,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"08_2\") at line 378 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "08_3",
+   "byte": 153,
+   "byte_end": 172,
+   "char": 153,
+   "phrase": "As the steps shrink",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "loop_sums.rs",
+     "line": 486,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"08_3\") at line 447 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "08_3",
+   "byte": 202,
+   "byte_end": 219,
+   "char": 202,
+   "phrase": "whatever the size",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "loop_sums.rs",
+     "line": 507,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"08_3\") at line 447 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "08_5",
+   "byte": 345,
+   "byte_end": 370,
+   "char": 345,
+   "phrase": "so the inner edges cancel",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "loop_sums.rs",
+     "line": 667,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"08_5\") at line 605 in the same function"
+    }
+   ],
+   "sentence": 5,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "08_5",
+   "byte": 376,
+   "byte_end": 403,
+   "char": 376,
+   "phrase": "only the outer loop is left",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "loop_sums.rs",
+     "line": 672,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"08_5\") at line 605 in the same function"
+    }
+   ],
+   "sentence": 5,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "09_1",
+   "byte": 92,
+   "byte_end": 104,
+   "char": 92,
+   "phrase": "divide it by",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "boundary.rs",
+     "line": 204,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"09_1\") at line 175 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "09_7",
+   "byte": 84,
+   "byte_end": 100,
+   "char": 84,
+   "phrase": "the largest disk",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "boundary.rs",
+     "line": 598,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"09_7\") at line 535 in the same function"
+    }
+   ],
+   "sentence": 0,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "09_7",
+   "byte": 157,
+   "byte_end": 169,
+   "char": 157,
+   "phrase": "That answers",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "boundary.rs",
+     "line": 615,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"09_7\") at line 535 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "09_7",
+   "byte": 357,
+   "byte_end": 367,
+   "char": 357,
+   "phrase": "no further",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "boundary.rs",
+     "line": 651,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"09_7\") at line 535 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "09_9",
+   "byte": 55,
+   "byte_end": 72,
+   "char": 55,
+   "phrase": "So the new recipe",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "boundary.rs",
+     "line": 719,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"09_9\") at line 689 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "10_3",
+   "byte": 157,
+   "byte_end": 175,
+   "char": 157,
+   "phrase": "yet it is not zero",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "rigidity.rs",
+     "line": 370,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"10_3\") at line 319 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "10_4",
+   "byte": 30,
+   "byte_end": 41,
+   "char": 30,
+   "phrase": "one over pi",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "rigidity.rs",
+     "line": 461,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"10_4\") at line 398 in the same function"
+    }
+   ],
+   "sentence": 0,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "10_4",
+   "byte": 43,
+   "byte_end": 58,
+   "char": 43,
+   "phrase": "one over two pi",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "rigidity.rs",
+     "line": 465,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"10_4\") at line 398 in the same function"
+    }
+   ],
+   "sentence": 0,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "10_4",
+   "byte": 60,
+   "byte_end": 77,
+   "char": 60,
+   "phrase": "one over three pi",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "rigidity.rs",
+     "line": 467,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"10_4\") at line 398 in the same function"
+    }
+   ],
+   "sentence": 0,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "10_4",
+   "byte": 79,
+   "byte_end": 88,
+   "char": 79,
+   "phrase": "and so on",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "rigidity.rs",
+     "line": 469,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"10_4\") at line 398 in the same function"
+    }
+   ],
+   "sentence": 0,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "10_6",
+   "byte": 215,
+   "byte_end": 229,
+   "char": 215,
+   "phrase": "must grow huge",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "rigidity.rs",
+     "line": 552,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"10_6\") at line 500 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "11_2",
+   "byte": 121,
+   "byte_end": 133,
+   "char": 121,
+   "phrase": "each counted",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "counting.rs",
+     "line": 259,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"11_2\") at line 238 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "11_2",
+   "byte": 180,
+   "byte_end": 188,
+   "char": 180,
+   "phrase": "It needs",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "counting.rs",
+     "line": 288,
+     "call": "wait_for",
+     "via": "indirect: const NEEDS_SAID: [&str; 3] = ",
+     "binding": "say(&kit, stage, \"11_2\") at line 238 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "11_2",
+   "byte": 230,
+   "byte_end": 244,
+   "char": 230,
+   "phrase": "passes through",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "counting.rs",
+     "line": 288,
+     "call": "wait_for",
+     "via": "indirect: const NEEDS_SAID: [&str; 3] = ",
+     "binding": "say(&kit, stage, \"11_2\") at line 238 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "11_2",
+   "byte": 262,
+   "byte_end": 276,
+   "char": 262,
+   "phrase": "and a function",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "counting.rs",
+     "line": 288,
+     "call": "wait_for",
+     "via": "indirect: const NEEDS_SAID: [&str; 3] = ",
+     "binding": "say(&kit, stage, \"11_2\") at line 238 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "11_4",
+   "byte": 111,
+   "byte_end": 126,
+   "char": 111,
+   "phrase": "There the count",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "counting.rs",
+     "line": 1148,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "receiver is not a local say(); the only script cue containing the phrase"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "11_7",
+   "byte": 45,
+   "byte_end": 63,
+   "char": 45,
+   "phrase": "complex polynomial",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "counting.rs",
+     "line": 525,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"11_7\") at line 504 in the same function"
+    }
+   ],
+   "sentence": 0,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "11_7",
+   "byte": 110,
+   "byte_end": 122,
+   "char": 110,
+   "phrase": "which leaves",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "counting.rs",
+     "line": 536,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"11_7\") at line 504 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "11_7",
+   "byte": 158,
+   "byte_end": 164,
+   "char": 158,
+   "phrase": "with z",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "counting.rs",
+     "line": 554,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"11_7\") at line 504 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "11_8",
+   "byte": 182,
+   "byte_end": 193,
+   "char": 182,
+   "phrase": "But samples",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "counting.rs",
+     "line": 814,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "receiver is not a local say(); the only script cue containing the phrase"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "11_8",
+   "byte": 243,
+   "byte_end": 251,
+   "char": 243,
+   "phrase": "So bound",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "counting.rs",
+     "line": 880,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "receiver is not a local say(); the only script cue containing the phrase"
+    }
+   ],
+   "sentence": 4,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "11_8",
+   "byte": 291,
+   "byte_end": 301,
+   "char": 291,
+   "phrase": "take steps",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "counting.rs",
+     "line": 937,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "receiver is not a local say(); the only script cue containing the phrase"
+    }
+   ],
+   "sentence": 4,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "11_8",
+   "byte": 327,
+   "byte_end": 338,
+   "char": 327,
+   "phrase": "cannot move",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "counting.rs",
+     "line": 970,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "receiver is not a local say(); the only script cue containing the phrase"
+    }
+   ],
+   "sentence": 4,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "12_2",
+   "byte": 172,
+   "byte_end": 186,
+   "char": 172,
+   "phrase": "the residue is",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "residues.rs",
+     "line": 244,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"12_2\") at line 180 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "13_2",
+   "byte": 44,
+   "byte_end": 58,
+   "char": 44,
+   "phrase": "then come back",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "real_integral.rs",
+     "line": 339,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"13_2\") at line 313 in the same function"
+    }
+   ],
+   "sentence": 0,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "13_2",
+   "byte": 93,
+   "byte_end": 109,
+   "char": 93,
+   "phrase": "Inside this loop",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "real_integral.rs",
+     "line": 342,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"13_2\") at line 313 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "13_3",
+   "byte": 52,
+   "byte_end": 63,
+   "char": 52,
+   "phrase": "so the bump",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "real_integral.rs",
+     "line": 436,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"13_3\") at line 381 in the same function"
+    },
+    {
+     "file": "real_integral.rs",
+     "line": 440,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"13_3\") at line 381 in the same function"
+    }
+   ],
+   "sentence": 0,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "13_3",
+   "byte": 205,
+   "byte_end": 218,
+   "char": 205,
+   "phrase": "which shrinks",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "real_integral.rs",
+     "line": 488,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"13_3\") at line 381 in the same function"
+    }
+   ],
+   "sentence": 2,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "13_3",
+   "byte": 239,
+   "byte_end": 248,
+   "char": 239,
+   "phrase": "All of pi",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "real_integral.rs",
+     "line": 498,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"13_3\") at line 381 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "13_8",
+   "byte": 59,
+   "byte_end": 82,
+   "char": 59,
+   "phrase": "each has imaginary part",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "real_integral.rs",
+     "line": 694,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"13_8\") at line 667 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "13_10",
+   "byte": 88,
+   "byte_end": 100,
+   "char": 88,
+   "phrase": "so that part",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "real_integral.rs",
+     "line": 751,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"13_10\") at line 743 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "14_6",
+   "byte": 147,
+   "byte_end": 165,
+   "char": 147,
+   "phrase": "When you come back",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "continuing.rs",
+     "line": 660,
+     "call": "until",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"14_6\") at line 589 in the same function"
+    }
+   ],
+   "sentence": 4,
+   "at_sentence_start": true
+  },
+  {
+   "cue": "14_7",
+   "byte": 200,
+   "byte_end": 216,
+   "char": 200,
+   "phrase": "near a dense set",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "continuing.rs",
+     "line": 705,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"14_7\") at line 679 in the same function"
+    }
+   ],
+   "sentence": 3,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "15_1",
+   "byte": 61,
+   "byte_end": 82,
+   "char": 61,
+   "phrase": "because of two points",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "closing.rs",
+     "line": 257,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"15_1\") at line 217 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "15_1",
+   "byte": 115,
+   "byte_end": 131,
+   "char": 115,
+   "phrase": "at i and minus i",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "closing.rs",
+     "line": 276,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"15_1\") at line 217 in the same function"
+    }
+   ],
+   "sentence": 1,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "15_2",
+   "byte": 263,
+   "byte_end": 291,
+   "char": 263,
+   "phrase": "and it turns a real integral",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "closing.rs",
+     "line": 332,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"15_2\") at line 312 in the same function"
+    }
+   ],
+   "sentence": 4,
+   "at_sentence_start": false
+  },
+  {
+   "cue": "15_4",
+   "byte": 41,
+   "byte_end": 63,
+   "char": 41,
+   "phrase": "the square root of ten",
+   "occurrences_in_cue": 1,
+   "hooks": [
+    {
+     "file": "closing.rs",
+     "line": 414,
+     "call": "wait_for",
+     "via": "literal argument",
+     "binding": "say(&kit, stage, \"15_4\") at line 405 in the same function"
+    }
+   ],
+   "sentence": 0,
+   "at_sentence_start": false
+  }
+ ],
+ "anchor_problems": [],
+ "dispositions": [
+  {
+   "override_index": 0,
+   "cue": "01_4",
+   "kind": "native_visual_hold",
+   "reason": "Prediction window after the complete cue, on the native picture timeline (the_bump.rs:245), before 01_5. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+    "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3"
+   },
+   "end_word_index": 23,
+   "hold_kind": "prediction",
+   "hold_line": 245
+  },
+  {
+   "override_index": 1,
+   "cue": "02_5",
+   "kind": "native_visual_hold",
+   "reason": "Prediction window after the complete cue, on the native picture timeline (turning.rs:435), before 02_6. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+    "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec"
+   },
+   "end_word_index": 26,
+   "hold_kind": "prediction",
+   "hold_line": 435
+  },
+  {
+   "override_index": 2,
+   "cue": "03_3",
+   "kind": "native_visual_hold",
+   "reason": "Prediction window after the complete cue, on the native picture timeline (two_planes.rs:607), before 03_4. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+    "sha256": "98cd46c5cc825095600ae431ae22c142a65c7b0cb8d2507d4c4ba0644ca3c432"
+   },
+   "end_word_index": 13,
+   "hold_kind": "prediction",
+   "hold_line": 607
+  },
+  {
+   "override_index": 3,
+   "cue": "04_4",
+   "kind": "native_visual_hold",
+   "reason": "Reading window after the complete cue, on the native picture timeline (reading_color.rs:341), before 04_5. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+    "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+   },
+   "end_word_index": 43,
+   "hold_kind": "reading",
+   "hold_line": 341
+  },
+  {
+   "override_index": 4,
+   "cue": "04_6",
+   "kind": "native_visual_hold",
+   "reason": "Prediction window after the complete cue, on the native picture timeline (reading_color.rs:389), before 04_7. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+    "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+   },
+   "end_word_index": 30,
+   "hold_kind": "prediction",
+   "hold_line": 389
+  },
+  {
+   "override_index": 5,
+   "cue": "05_8",
+   "kind": "native_visual_hold",
+   "reason": "Reading window after the complete cue, on the native picture timeline (gallery.rs:866), before 05_9. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+    "sha256": "bff74a1524c71d7bd4ed517e35303c15e801241462d19d192d92afb04312f16c"
+   },
+   "end_word_index": 26,
+   "hold_kind": "reading",
+   "hold_line": 866
+  },
+  {
+   "override_index": 6,
+   "cue": "06_8",
+   "kind": "native_visual_hold",
+   "reason": "Prediction window after the complete cue, on the native picture timeline (one_derivative.rs:663), before 06_9. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs",
+    "sha256": "4f0154ec82bb787cdbee4d11d308eea25ca6cc1164f7f4bdb1d908f8d54df29c"
+   },
+   "end_word_index": 29,
+   "hold_kind": "prediction",
+   "hold_line": 663
+  },
+  {
+   "override_index": 7,
+   "cue": "07_2",
+   "kind": "native_visual_hold",
+   "reason": "Reading window after the complete cue, on the native picture timeline (one_point.rs:400), before 07_3. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+    "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+   },
+   "end_word_index": 28,
+   "hold_kind": "reading",
+   "hold_line": 400
+  },
+  {
+   "override_index": 8,
+   "cue": "07_3",
+   "kind": "native_visual_hold",
+   "reason": "Prediction window after the complete cue, on the native picture timeline (one_point.rs:434), before 07_4. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+    "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+   },
+   "end_word_index": 22,
+   "hold_kind": "prediction",
+   "hold_line": 434
+  },
+  {
+   "override_index": 9,
+   "cue": "08_5",
+   "kind": "native_visual_hold",
+   "reason": "Reading window after the complete cue, on the native picture timeline (loop_sums.rs:686), before 09_1. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs",
+    "sha256": "f7a46143d709797ff03e748b4b8efad68d9379fea31b8ce0cd6de0d2f25de6d8"
+   },
+   "end_word_index": 70,
+   "hold_kind": "reading",
+   "hold_line": 686
+  },
+  {
+   "override_index": 10,
+   "cue": "09_4",
+   "kind": "native_visual_hold",
+   "reason": "Prediction window after the complete cue, on the native picture timeline (boundary.rs:342), before 09_5. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+    "sha256": "69e41733fd0e4d4e24f4ca1eb59cdf8c718ce07a8507e75a4e0a469331432c64"
+   },
+   "end_word_index": 23,
+   "hold_kind": "prediction",
+   "hold_line": 342
+  },
+  {
+   "override_index": 11,
+   "cue": "09_5",
+   "kind": "native_visual_hold",
+   "reason": "Reading window after the complete cue, on the native picture timeline (boundary.rs:407), before 09_6. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+    "sha256": "69e41733fd0e4d4e24f4ca1eb59cdf8c718ce07a8507e75a4e0a469331432c64"
+   },
+   "end_word_index": 46,
+   "hold_kind": "reading",
+   "hold_line": 407
+  },
+  {
+   "override_index": 12,
+   "cue": "09_8",
+   "kind": "native_visual_hold",
+   "reason": "Prediction window after the complete cue, on the native picture timeline (boundary.rs:686), before 09_9. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+    "sha256": "69e41733fd0e4d4e24f4ca1eb59cdf8c718ce07a8507e75a4e0a469331432c64"
+   },
+   "end_word_index": 16,
+   "hold_kind": "prediction",
+   "hold_line": 686
+  },
+  {
+   "override_index": 13,
+   "cue": "10_4",
+   "kind": "native_visual_hold",
+   "reason": "Prediction window after the complete cue, on the native picture timeline (rigidity.rs:473), before 10_5. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+    "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e"
+   },
+   "end_word_index": 33,
+   "hold_kind": "prediction",
+   "hold_line": 473
+  },
+  {
+   "override_index": 14,
+   "cue": "10_5",
+   "kind": "native_visual_hold",
+   "reason": "Reading window after the complete cue, on the native picture timeline (rigidity.rs:499), before 10_6. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+    "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e"
+   },
+   "end_word_index": 41,
+   "hold_kind": "reading",
+   "hold_line": 499
+  },
+  {
+   "override_index": 15,
+   "cue": "11_5",
+   "kind": "native_visual_hold",
+   "reason": "Prediction window after the complete cue, on the native picture timeline (counting.rs:440), before 11_6. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+    "sha256": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9"
+   },
+   "end_word_index": 22,
+   "hold_kind": "prediction",
+   "hold_line": 440
+  },
+  {
+   "override_index": 16,
+   "cue": "11_6",
+   "kind": "native_visual_hold",
+   "reason": "Reading window after the complete cue, on the native picture timeline (counting.rs:503), before 11_7. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+    "sha256": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9"
+   },
+   "end_word_index": 39,
+   "hold_kind": "reading",
+   "hold_line": 503
+  },
+  {
+   "override_index": 17,
+   "cue": "11_8",
+   "kind": "native_visual_hold",
+   "reason": "Reading window after the complete cue, on the native picture timeline (counting.rs:604), before 12_1. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+    "sha256": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9"
+   },
+   "end_word_index": 83,
+   "hold_kind": "reading",
+   "hold_line": 604
+  },
+  {
+   "override_index": 18,
+   "cue": "13_5",
+   "kind": "native_visual_hold",
+   "reason": "Prediction window after the complete cue, on the native picture timeline (real_integral.rs:631), before 13_6. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+    "sha256": "a5ef573dfa68325272a5d7f588fb910b2d99ea6538752616a51e92c3904d61ed"
+   },
+   "end_word_index": 41,
+   "hold_kind": "prediction",
+   "hold_line": 631
+  },
+  {
+   "override_index": 19,
+   "cue": "13_11",
+   "kind": "native_visual_hold",
+   "reason": "Reading window after the complete cue, on the native picture timeline (real_integral.rs:813), before 14_1. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+    "sha256": "a5ef573dfa68325272a5d7f588fb910b2d99ea6538752616a51e92c3904d61ed"
+   },
+   "end_word_index": 36,
+   "hold_kind": "reading",
+   "hold_line": 813
+  },
+  {
+   "override_index": 20,
+   "cue": "14_3",
+   "kind": "native_visual_hold",
+   "reason": "Reading window after the complete cue, on the native picture timeline (continuing.rs:522), before 14_4. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+    "sha256": "c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b"
+   },
+   "end_word_index": 98,
+   "hold_kind": "reading",
+   "hold_line": 522
+  },
+  {
+   "override_index": 21,
+   "cue": "14_4",
+   "kind": "native_visual_hold",
+   "reason": "Prediction window after the complete cue, on the native picture timeline (continuing.rs:531), before 14_5. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+    "sha256": "c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b"
+   },
+   "end_word_index": 16,
+   "hold_kind": "prediction",
+   "hold_line": 531
+  },
+  {
+   "override_index": 22,
+   "cue": "15_3",
+   "kind": "native_visual_hold",
+   "reason": "Prediction window after the complete cue, on the native picture timeline (closing.rs:402), before 15_4. No silence is inserted in the take. Derived from the stage05 map's visual_holds; root may replace it.",
+   "evidence": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage05/explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+    "sha256": "373a0340a0f86d1bd3c899e218a7ea7c1f7993e1a4914a2d6a1f238c27d5b93e"
+   },
+   "end_word_index": 18,
+   "hold_kind": "prediction",
+   "hold_line": 402
+  }
+ ],
+ "disposition_problems": [],
+ "film_ignores_measured_sentence_starts": [],
+ "unit_ids": {
+  "01_1": "oliver_01_1",
+  "01_2": "oliver_01_2",
+  "01_3": "oliver_01_3",
+  "01_4": "oliver_01_4",
+  "01_5": "oliver_01_5",
+  "01_6": "oliver_01_6",
+  "02_1": "oliver_02_1",
+  "02_2": "oliver_02_2",
+  "02_3": "oliver_02_3",
+  "02_4": "oliver_02_4",
+  "02_5": "oliver_02_5",
+  "02_6": "oliver_02_6",
+  "03_1": "oliver_03_1",
+  "03_2": "oliver_03_2",
+  "03_3": "oliver_03_3",
+  "03_4": "oliver_03_4",
+  "03_5": "oliver_03_5",
+  "03_6": "oliver_03_6",
+  "03_7": "oliver_03_7",
+  "04_1": "oliver_04_1",
+  "04_2": "oliver_04_2",
+  "04_3": "oliver_04_3",
+  "04_4": "oliver_04_4",
+  "04_5": "oliver_04_5",
+  "04_6": "oliver_04_6",
+  "04_7": "oliver_04_7",
+  "05_1": "oliver_05_1",
+  "05_2": "oliver_05_2",
+  "05_3": "oliver_05_3",
+  "05_4": "oliver_05_4",
+  "05_5": "oliver_05_5",
+  "05_6": "oliver_05_6",
+  "05_7": "oliver_05_7",
+  "05_8": "oliver_05_8",
+  "05_9": "oliver_05_9",
+  "06_1": "oliver_06_1",
+  "06_2": "oliver_06_2",
+  "06_3": "oliver_06_3",
+  "06_4": "oliver_06_4",
+  "06_5": "oliver_06_5",
+  "06_6": "oliver_06_6",
+  "06_7": "oliver_06_7",
+  "06_8": "oliver_06_8",
+  "06_9": "oliver_06_9",
+  "07_1": "oliver_07_1",
+  "07_2": "oliver_07_2",
+  "07_3": "oliver_07_3",
+  "07_4": "oliver_07_4",
+  "07_5": "oliver_07_5",
+  "07_6": "oliver_07_6",
+  "08_1": "oliver_08_1",
+  "08_2": "oliver_08_2",
+  "08_3": "oliver_08_3",
+  "08_4": "oliver_08_4",
+  "08_5": "oliver_08_5",
+  "09_1": "oliver_09_1",
+  "09_2": "oliver_09_2",
+  "09_3": "oliver_09_3",
+  "09_4": "oliver_09_4",
+  "09_5": "oliver_09_5",
+  "09_6": "oliver_09_6",
+  "09_7": "oliver_09_7",
+  "09_8": "oliver_09_8",
+  "09_9": "oliver_09_9",
+  "10_1": "oliver_10_1",
+  "10_2": "oliver_10_2",
+  "10_3": "oliver_10_3",
+  "10_4": "oliver_10_4",
+  "10_5": "oliver_10_5",
+  "10_6": "oliver_10_6",
+  "11_1": "oliver_11_1",
+  "11_2": "oliver_11_2",
+  "11_3": "oliver_11_3",
+  "11_4": "oliver_11_4",
+  "11_5": "oliver_11_5",
+  "11_6": "oliver_11_6",
+  "11_7": "oliver_11_7",
+  "11_8": "oliver_11_8",
+  "12_1": "oliver_12_1",
+  "12_2": "oliver_12_2",
+  "12_3": "oliver_12_3",
+  "12_4": "oliver_12_4",
+  "13_1": "oliver_13_1",
+  "13_2": "oliver_13_2",
+  "13_3": "oliver_13_3",
+  "13_4": "oliver_13_4",
+  "13_5": "oliver_13_5",
+  "13_6": "oliver_13_6",
+  "13_7": "oliver_13_7",
+  "13_8": "oliver_13_8",
+  "13_9": "oliver_13_9",
+  "13_10": "oliver_13_10",
+  "13_11": "oliver_13_11",
+  "14_1": "oliver_14_1",
+  "14_2": "oliver_14_2",
+  "14_3": "oliver_14_3",
+  "14_4": "oliver_14_4",
+  "14_5": "oliver_14_5",
+  "14_6": "oliver_14_6",
+  "14_7": "oliver_14_7",
+  "14_8": "oliver_14_8",
+  "15_1": "oliver_15_1",
+  "15_2": "oliver_15_2",
+  "15_3": "oliver_15_3",
+  "15_4": "oliver_15_4"
+ },
+ "sha256": "7188f725b110e4bfb2faa87e74d447d008f737143c8cb3bb2e645d728271705f"
+}

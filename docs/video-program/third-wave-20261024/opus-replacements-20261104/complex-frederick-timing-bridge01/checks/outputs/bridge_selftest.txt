@@ -1,0 +1,38 @@
+PASS r01-hook-census: 85 hook sites = 80 literal + 5 indirect (independent line grep); 93 anchors in 51 cues; no unbound phrase
+PASS r02-anchor-offsets: every byte, byte_end and char equals Rust str::find semantics (first occurrence); 94 phrase uses, 7 bound by unique text (helper receivers), the rest by a say() in the same function
+PASS r03-dispositions: 23 native_visual_hold rows; end words equal the pinned assembler's direction_contract; its review_directions accepts them with every evidence hash for all 105 cues
+PASS r04-sentence-mirrors: coherent sentences = kit_sentences spans on 105 cues; draw.rs sentence_offsets count equals them, so the film uses measured sentence starts for every cue
+PASS r05-assembler-rebind: canonical tools/coherent_narration.py 95615cfadb42 = sealed patched copy 18c4e75e + 9 inserted lines in 2 places (the LEGACY_OLIVER_VOICES constant; a check inside the legacy branch, after the v2 branch's return); nothing removed or changed
+PASS w01-intake-plan-and-ingest: sealed intake planned and ingested 12 synthetic takes of chapter 01 (ok; ok)
+PASS w02-report-deterministic: source: 85 hook sites, 93 anchors in 51 cues, 0 anchor problems, 23 dispositions; recognition read: 12 takes, sentence onsets 35/36 supported, anchor marks 3/16
+PASS w03-points-exact: all supported points equal round(start x 24000) of their synthetic segment, with window [start, end]; abuts_previous_word true exactly for the abutting takes; wrong []
+PASS w04-questions: 5 blocking questions: a misheard anchor word offers its candidate; a merged segment leaves sentence 2 of 01_5 inside_a_segment and offers the targeted second model; three content differences ('proceed' or 'reject_take')
+PASS w05-supplement-cross-check: supplement placement 206880 for 'They'; delta_s 0.02 on a point both models support
+PASS w06-log-preparation-agreement: statuses and samples equal logarithm-stage08 prepare_audio.points_for on 12 takes; differing []
+PASS n01-selection-needs-basis: the selection needs `by` and `basis`: choosing takes is root's decision
+PASS n02-selection-unknown-take: 01_3: 01_3-download03.wav is not an ingested take of that cue in this lane
+PASS n03-selection-cue-set: the selection must name exactly these 6 cues in script order: 01_1 ... 01_6
+PASS n04-selection-other-source: the selection is not complex-frederick-selection-v1 for this stage05 source side (7188f725b110)
+PASS w07-decode-v2-receipt: 6 takes decoded with root's ffmpeg arguments, ceil(n/2) frames (01_1 has an odd count); every record names the full request path (the downloads receipt's folder joined to its bare name), its sha256 and the exact voice; the pinned assembler's external_ui_voice reads 'Frederick Surrey - Smooth and Velvety'
+PASS n05-unanswered-blocks: open question blocks the selection: content:01_3:01_3-download01.wav: Normalized recognizer disagreements with the script. Ingested recognition: replace 'fortieth' -> 'forty'. A transcript is not listening. 'proceed' records root's decision that the difference does not stop preparation; it states nothing heard.
+PASS n06-unknown-answer: answer to an unknown question or point onset:01_9:s1:x.wav
+PASS n07-sample-needs-int: onset:01_1:s1:01_1-download01.wav: decision 'sample' needs a positive integer sample_24k
+PASS n08-reject-take: content:01_6:01_6-download01.wav: root rejected 01_6-download01.wav; select another take
+PASS n09-answer-needs-basis: anchor:01_2:b65:01_2-download01.wav: an answer needs `by` and `basis`
+PASS n10-order: 01_1 01_1-download01.wav: sentence ends are not strictly increasing inside the take: [10000000, 112800, 232800, 331200, 396001]
+PASS n11-supplement-absent: onset:01_5:s2:01_5-download01.wav: decision 'use_supplementary:other-job' is not one of ['use_supplementary:complex-fixture-targeted-small01', 'sample']
+PASS n12-supplement-must-be-given: onset:01_5:s2:01_5-download01.wav: decision 'use_supplementary:complex-fixture-targeted-small01' is not one of ['sample']
+PASS n13-decoded-file-changed: 01_4: the decoded file, its receipt row and the selected take disagree
+PASS n14-other-voice-receipt: SCRATCH/decoded-voice/decode-receipt.json is not this tool's Frederick v2 decode of this selection
+PASS w08-prepare: prepared 6 units into SCRATCH/prepared; dry run accepted 6 c; sentence ends are the recognizer onsets except root's sample (01_1 s1) and the accepted second-model onset (01_5 s2); 01_2 keeps the candidate mark and omits the other; one native_visual_hold (01_4) with the_bump.rs evidence
+PASS w09-workspace-assemble: the prepared argv ran the pinned workspace assembler on the fixtures: 6 cues
+PASS w10-timings: phrase-timings-fragment-01.json for 6 cues (7 marks) in SCRATCH/timings; report.json onsets equal the prepared sentence ends; marks carry byte, seconds, basis, window and the film's estimate without the mark; anchors at sentence starts reuse the onset
+PASS n15-narration-changed: coherent_narration verify failed: ValueError: cue 01_3 does not reconstruct sample-for-sample
+PASS n16-transcripts-changed: ingest-01: transcripts.json changed since ingest
+PASS n17-command-log-changed: ingest-01: job complex-lane-plan-01-a1 command.log is missing under the jobs folder or changed since ingest
+PASS n18-supplement-manifest: supplement complex-fixture-targeted-small01: not a completed guarded recognition of inputs-other.json
+PASS n19-out-exists: --out SCRATCH/report-a exists; give a new folder (nothing is overwritten)
+PASS n20-script-drift: PIN MOVED: script drift: script script.tsv is 8ca6054cd396, not the pinned 12442480d7e7
+PASS n21-source-scanner: variable hook: probe.rs:4: unrecognised phrase hook `line.wait_for(stage, words)?;`; ; ambiguous and missing literals become problems; comments are skipped
+PASS n22-request-changed: the assembler's own checks refused these spans (ValueError: external request file changed); see SCRATCH/n22/REFUSED.txt
+SELFTEST: PASS (37/37)

@@ -1,0 +1,93 @@
+--- a/prepare_audio.py
++++ b/prepare_audio.py
+@@ -763,8 +763,31 @@
+     return applied
+ 
+ 
+-def resolved_points(entry, applied, frames24):
+-    """Sentence ends (24 kHz samples) and phrase marks (seconds) for one selected recording."""
++def sentence_opens(text):
++    """The byte where each of the kit's sentences opens; the first opens at byte 0. A byte belongs to the last
++    sentence opening at or before it, the rule the films' phrase_seconds use to place a phrase in its sentence."""
++    return [0] + [len(text[:a].encode()) for a, _z in kit_sentences(text)[1:]]
++
++
++def mark_outside_sentence(text, onsets_s, length_s, byte, seconds):
++    """None when a phrase mark lies inside the sentence holding its byte, else why not. That sentence runs from its
++    onset (included) to the next sentence's onset or, for the last sentence, to the recording's length (excluded,
++    as the kit refuses a mark at or past the length). Onsets and length are seconds as the kit computes them,
++    samples / rate."""
++    opens = sentence_opens(text)
++    if len(opens) != len(onsets_s):
++        return f"the text has {len(opens)} sentences, the timing {len(onsets_s)}"
++    k = max(j for j, at in enumerate(opens) if at <= byte)
++    lo = onsets_s[k]
++    hi, edge = (onsets_s[k + 1], f"the onset of sentence {k + 1}") if k + 1 < len(onsets_s) else (length_s, "the recording's end")
++    if lo <= seconds < hi:
++        return None
++    return f"the mark at byte {byte} ({seconds} s) is not inside its sentence {k}, which runs from {lo} s up to {edge} at {hi} s"
++
++
++def resolved_points(entry, applied, frames24, text):
++    """Sentence ends (24 kHz samples) and phrase marks (seconds) for one selected recording of the cue `text`.
++    Each mark must lie inside the sentence holding its byte (mark_outside_sentence)."""
+     starts = []
+     for s in entry["sentences"][1:]:
+         a = applied.get(s["id"], {})
+@@ -779,7 +802,8 @@
+     ends = [s for s, _ in starts] + [frames24]
+     if any(y <= x for x, y in zip([0] + ends, ends)):
+         raise Refused(f"{entry['cue']} {entry['file']}: sentence ends are not strictly increasing inside the recording: {ends}")
+-    marks = []
++    onsets_s = [x / RATE_OUT for x in [0] + ends[:-1]]
++    marks, outside = [], []
+     for m in entry["phrase_anchors"]:
+         a = applied.get(m["id"], {})
+         if a.get("decision") == "omit_mark":
+@@ -792,6 +816,11 @@
+             marks.append({"byte": m["byte"], "seconds": m["asr_start_s"], "basis": "recognizer onset"})
+         else:
+             raise Refused(f"{m['id']}: no mark")
++        why = mark_outside_sentence(text, onsets_s, frames24 / RATE_OUT, m["byte"], marks[-1]["seconds"])
++        if why:
++            outside.append(f"{m['id']} '{m['phrase']}': {why}; answer this mark (sample or omit_mark) or correct the onset")
++    if outside:
++        raise Refused("\n".join(outside))
+     return starts, ends, marks
+ 
+ 
+@@ -902,7 +931,7 @@
+             continue
+         entry = by_file[(cue, os.path.basename(t["rel"]))]
+         try:
+-            starts, ends, marks = resolved_points(entry, applied, frames)
++            starts, ends, marks = resolved_points(entry, applied, frames, inputs["script"][cue])
+         except Refused as e:
+             problems.append(str(e))
+             continue
+@@ -1048,6 +1077,7 @@
+     decoded = {cue_of[u["id"]]: u for u in load_json(spans_path)["units"]}
+     if list(decoded) != cues:
+         raise Refused("the spans and the prepare receipt name different cues")
++    report = load_json(f"{narration}/report.json")
+     entries = {}
+     for cue in cues:
+         _p, frames, pcm = wav_info(f"{narration}/{cue}.wav")
+@@ -1055,10 +1085,17 @@
+         if pcm != pcm_src:
+             problems.append(f"{cue}: the assembled PCM is not the decoded recording sample for sample")
+         length = frames / RATE_OUT
++        onsets, t = [], 0
++        for row in report["lines"].get(cue) or []:  # the sentence onsets the kit's report_starts reads
++            onsets.append(t / report["meta"]["rate"])
++            t += row["out_samples"] + row["gap_after_samples"]
+         marks, prev_t, prev_b = [], 0.0, -1
+         for m in plan.get(cue, []):
+             if not (0 <= m["seconds"] < length) or m["seconds"] < prev_t or m["byte"] <= prev_b:
+                 problems.append(f"{cue}: the mark at byte {m['byte']} ({m['seconds']} s) breaks the kit's order or range rule")
++            why = mark_outside_sentence(script[cue], onsets, length, m["byte"], m["seconds"])
++            if why:
++                problems.append(f"{cue}: {why}")
+             prev_t, prev_b = m["seconds"], m["byte"]
+             marks.append({"byte": m["byte"], "seconds": m["seconds"], "basis": m["basis"]})
+         entries[cue] = {"wav_sha256": sha_file(f"{narration}/{cue}.wav"), "text_sha256": sha_bytes(script[cue].encode()), "marks": marks}

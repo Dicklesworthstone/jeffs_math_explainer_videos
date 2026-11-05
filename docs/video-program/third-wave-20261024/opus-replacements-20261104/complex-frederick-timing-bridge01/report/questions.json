@@ -1,0 +1,128 @@
+{
+ "schema": "complex-frederick-timing-bridge-v1",
+ "kind": "questions",
+ "source_sha256": "7188f725b110e4bfb2faa87e74d447d008f737143c8cb3bb2e645d728271705f",
+ "claim": "A blocking question stops the files it names from being prepared until root answers it. Answers are root's statements; this tool checks their form only.",
+ "questions": [
+  {
+   "id": "content:01_3:01_3-download01.wav",
+   "kind": "content",
+   "cue": "01_3",
+   "files": [
+    "01_3-download01.wav"
+   ],
+   "blocking": true,
+   "detail": "Normalized recognizer disagreements with the script. Ingested recognition: replace 'to the fortieth' -> 'forty'. A transcript is not listening. 'proceed' records root's decision that the difference does not stop preparation; it states nothing heard.",
+   "candidate": null,
+   "decisions": [
+    "proceed",
+    "reject_take"
+   ]
+  },
+  {
+   "id": "content:01_3:01_3-download02.wav",
+   "kind": "content",
+   "cue": "01_3",
+   "files": [
+    "01_3-download02.wav"
+   ],
+   "blocking": true,
+   "detail": "Normalized recognizer disagreements with the script. Ingested recognition: replace 'to the fortieth' -> 'forty'. A transcript is not listening. 'proceed' records root's decision that the difference does not stop preparation; it states nothing heard.",
+   "candidate": null,
+   "decisions": [
+    "proceed",
+    "reject_take"
+   ]
+  },
+  {
+   "id": "content:01_6:01_6-download01.wav",
+   "kind": "content",
+   "cue": "01_6",
+   "files": [
+    "01_6-download01.wav"
+   ],
+   "blocking": true,
+   "detail": "Normalized recognizer disagreements with the script. Ingested recognition: replace 'roots' -> 'routes'. A transcript is not listening. 'proceed' records root's decision that the difference does not stop preparation; it states nothing heard.",
+   "candidate": null,
+   "decisions": [
+    "proceed",
+    "reject_take"
+   ]
+  },
+  {
+   "id": "content:01_6:01_6-download02.wav",
+   "kind": "content",
+   "cue": "01_6",
+   "files": [
+    "01_6-download02.wav"
+   ],
+   "blocking": true,
+   "detail": "Normalized recognizer disagreements with the script. Ingested recognition: replace 'roots' -> 'routes'. A transcript is not listening. 'proceed' records root's decision that the difference does not stop preparation; it states nothing heard.",
+   "candidate": null,
+   "decisions": [
+    "proceed",
+    "reject_take"
+   ]
+  },
+  {
+   "id": "content:02_4:02_4-download02.wav",
+   "kind": "content",
+   "cue": "02_4",
+   "files": [
+    "02_4-download02.wav"
+   ],
+   "blocking": true,
+   "detail": "Normalized recognizer disagreements with the script. Ingested recognition: replace 'turn' -> 'term'. A transcript is not listening. 'proceed' records root's decision that the difference does not stop preparation; it states nothing heard.",
+   "candidate": null,
+   "decisions": [
+    "proceed",
+    "reject_take"
+   ]
+  },
+  {
+   "id": "content:02_5:02_5-download01.wav",
+   "kind": "content",
+   "cue": "02_5",
+   "files": [
+    "02_5-download01.wav"
+   ],
+   "blocking": true,
+   "detail": "Normalized recognizer disagreements with the script. Ingested recognition: delete 'one plus i' -> ''; replace 'turn' -> 'term'; delete 'one plus i' -> ''. ggml-small.en.bin (complex-frederick-targeted-small01): replace 'turn' -> 'term'. A transcript is not listening. 'proceed' records root's decision that the difference does not stop preparation; it states nothing heard.",
+   "candidate": null,
+   "decisions": [
+    "proceed",
+    "reject_take"
+   ]
+  },
+  {
+   "id": "content:02_5:02_5-download02.wav",
+   "kind": "content",
+   "cue": "02_5",
+   "files": [
+    "02_5-download02.wav"
+   ],
+   "blocking": true,
+   "detail": "Normalized recognizer disagreements with the script. Ingested recognition: delete 'one plus i' -> ''; replace 'turn' -> 'term'; delete 'one plus i' -> ''. ggml-small.en.bin (complex-frederick-targeted-small01): replace 'turn' -> 'term'. A transcript is not listening. 'proceed' records root's decision that the difference does not stop preparation; it states nothing heard.",
+   "candidate": null,
+   "decisions": [
+    "proceed",
+    "reject_take"
+   ]
+  },
+  {
+   "id": "content:03_2:03_2-download01.wav",
+   "kind": "content",
+   "cue": "03_2",
+   "files": [
+    "03_2-download01.wav"
+   ],
+   "blocking": true,
+   "detail": "Normalized recognizer disagreements with the script. Ingested recognition: replace 'half' -> 'over two'; replace 'quarter' -> 'over four'. A transcript is not listening. 'proceed' records root's decision that the difference does not stop preparation; it states nothing heard.",
+   "candidate": null,
+   "decisions": [
+    "proceed",
+    "reject_take"
+   ]
+  }
+ ]
+}

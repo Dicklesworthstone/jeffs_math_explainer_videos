@@ -1,0 +1,347 @@
+{
+ "binding": {
+  "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-audio-preparation01/bindings/logarithm-stage09-oliver.json",
+  "sha256": "2d7f4731d373b5089686f5d345834faeb1a7238dc15007abfc7b4fab420d6803",
+  "use": "production",
+  "voice": {
+   "provider": "ElevenLabs",
+   "name": "Oliver"
+  }
+ },
+ "script_sha256": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a",
+ "inventories": [
+  {
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/full80-retained-inventory01.json",
+   "sha256": "d4ee2762f067ca7e1a78ec3d950dae5fce9ba7b8d39be6425a61127ae8eaf44c",
+   "script_sha256": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+   "takes": 162
+  },
+  {
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/clarity-retained-inventory01.json",
+   "sha256": "0f409e93c34ce41d3c70437f05231cde0f27a65075c50738f1e2847d02b7517c",
+   "script_sha256": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a",
+   "takes": 4
+  }
+ ],
+ "cues": 80,
+ "recordings": 162,
+ "rates": [
+  48000
+ ],
+ "superseded_text_recordings": [
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_4-download01.wav",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_4-download02.wav",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_5-download01.wav",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_5-download02.wav"
+ ],
+ "content_questions_for_other_text": [
+  "04_4: base/space",
+  "08_5: halving/having"
+ ],
+ "runs": [
+  {
+   "name": "opening",
+   "model": "ggml-large-v3-turbo.bin",
+   "role": "anchors",
+   "records": 24,
+   "superseded_records": 0,
+   "log_sha256": "4113e65f9c4e91a3aa5fbdacc6de6d7311fc9acdd9318ed5cda9d44eda46a8e8"
+  },
+  {
+   "name": "middle",
+   "model": "ggml-large-v3-turbo.bin",
+   "role": "anchors",
+   "records": 24,
+   "superseded_records": 2,
+   "log_sha256": "1c7fb420b88a6557d49e6ad395926b28c0199620679a80521180fb0e428957a8"
+  },
+  {
+   "name": "turns",
+   "model": "ggml-large-v3-turbo.bin",
+   "role": "anchors",
+   "records": 26,
+   "superseded_records": 0,
+   "log_sha256": "8d20c0079989fd2d652a9e39c49301d6eb9092d9c959669f7696c1aa60557333"
+  },
+  {
+   "name": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "role": "anchors",
+   "records": 82,
+   "superseded_records": 2,
+   "log_sha256": "3e479160bebb7daf0759caab2f7a538df6527cd53d34b3cf218c5a0295a442b7"
+  },
+  {
+   "name": "targeted-small",
+   "model": "ggml-small.en.bin",
+   "role": "corroborates",
+   "records": 0,
+   "superseded_records": 4,
+   "log_sha256": "3e9d2d265480ea7dc7ca83eb0efc102a8192c6a93508de9f89fc93e90985455d"
+  },
+  {
+   "name": "clarity",
+   "model": "ggml-large-v3-turbo.bin",
+   "role": "anchors",
+   "records": 4,
+   "superseded_records": 0,
+   "log_sha256": "5145e630ed8be7f0aec89b2f5afe1262f15c8f598ed3fa3f735c129c66a24d75"
+  }
+ ],
+ "recognized_by_pcm_identity": [
+  "00_1-download03.wav",
+  "00_1-download04.wav"
+ ],
+ "counts": {
+  "phrase_anchor_marks": 66,
+  "phrase_anchor_marks_supported": 66,
+  "sentence_onsets": 570,
+  "sentence_onsets_supported": 570,
+  "supported_onsets_abutting_previous_word": 431
+ },
+ "abutting_onset_word_seconds": {
+  "count": 431,
+  "median": 0.24,
+  "max": 1.64,
+  "meaning": "an abutting onset's word segment begins where the previous word ended, so the onset may lie up to about this long before the word"
+ },
+ "abutting_onsets_with_word_segment_at_least_0_6_s": [
+  {
+   "id": "onset:04_7:s1:04_7-download01.wav",
+   "word": "zero",
+   "word_segment_s": 1.64
+  },
+  {
+   "id": "onset:04_7:s1:04_7-download02.wav",
+   "word": "zero",
+   "word_segment_s": 1.64
+  },
+  {
+   "id": "onset:08_5:s1:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download01.wav",
+   "word": "here",
+   "word_segment_s": 1.26
+  },
+  {
+   "id": "onset:02_5:s4:02_5-download02.wav",
+   "word": "two",
+   "word_segment_s": 1.14
+  },
+  {
+   "id": "onset:02_5:s4:02_5-download01.wav",
+   "word": "two",
+   "word_segment_s": 1.1
+  },
+  {
+   "id": "onset:12_20:s1:12_20-download02.wav",
+   "word": "last",
+   "word_segment_s": 0.86
+  },
+  {
+   "id": "onset:00_6:s2:00_6-download01.wav",
+   "word": "push",
+   "word_segment_s": 0.8
+  },
+  {
+   "id": "onset:01_4:s2:01_4-download02.wav",
+   "word": "nineteen",
+   "word_segment_s": 0.8
+  },
+  {
+   "id": "onset:08_1:s2:08_1-download02.wav",
+   "word": "take",
+   "word_segment_s": 0.78
+  },
+  {
+   "id": "onset:06_6:s2:06_6-download02.wav",
+   "word": "walk",
+   "word_segment_s": 0.76
+  },
+  {
+   "id": "onset:08_4:s1:08_4-download02.wav",
+   "word": "minus",
+   "word_segment_s": 0.74
+  },
+  {
+   "id": "onset:11_4:s1:11_4-download02.wav",
+   "word": "suppose",
+   "word_segment_s": 0.74
+  },
+  {
+   "id": "onset:06_6:s2:06_6-download01.wav",
+   "word": "walk",
+   "word_segment_s": 0.72
+  },
+  {
+   "id": "onset:06_7:s2:06_7-download01.wav",
+   "word": "ours",
+   "word_segment_s": 0.72
+  },
+  {
+   "id": "onset:00_4:s3:00_4-download01.wav",
+   "word": "halfway",
+   "word_segment_s": 0.7
+  },
+  {
+   "id": "onset:00_4:s3:00_4-download02.wav",
+   "word": "halfway",
+   "word_segment_s": 0.7
+  },
+  {
+   "id": "onset:02_2:s1:02_2-download02.wav",
+   "word": "everything",
+   "word_segment_s": 0.7
+  },
+  {
+   "id": "onset:11_8:s2:11_8-download01.wav",
+   "word": "every",
+   "word_segment_s": 0.7
+  },
+  {
+   "id": "onset:02_2:s2:02_2-download02.wav",
+   "word": "find",
+   "word_segment_s": 0.68
+  },
+  {
+   "id": "onset:06_1:s1:06_1-download01.wav",
+   "word": "start",
+   "word_segment_s": 0.68
+  },
+  {
+   "id": "onset:06_6:s1:06_6-download01.wav",
+   "word": "try",
+   "word_segment_s": 0.68
+  },
+  {
+   "id": "onset:06_6:s4:06_6-download01.wav",
+   "word": "so",
+   "word_segment_s": 0.68
+  },
+  {
+   "id": "onset:07_6:s4:07_6-download01.wav",
+   "word": "exponentiating",
+   "word_segment_s": 0.68
+  },
+  {
+   "id": "onset:07_6:s6:07_6-download01.wav",
+   "word": "that",
+   "word_segment_s": 0.68
+  },
+  {
+   "id": "onset:11_20:s1:11_20-download02.wav",
+   "word": "on",
+   "word_segment_s": 0.68
+  },
+  {
+   "id": "onset:11_4:s1:11_4-download01.wav",
+   "word": "suppose",
+   "word_segment_s": 0.68
+  },
+  {
+   "id": "onset:12_3:s3:12_3-download01.wav",
+   "word": "which",
+   "word_segment_s": 0.68
+  },
+  {
+   "id": "onset:00_5:s3:00_5-download02.wav",
+   "word": "equal",
+   "word_segment_s": 0.66
+  },
+  {
+   "id": "onset:05_5:s1:05_5-download01.wav",
+   "word": "which",
+   "word_segment_s": 0.66
+  },
+  {
+   "id": "onset:06_2:s3:06_2-download02.wav",
+   "word": "when",
+   "word_segment_s": 0.66
+  },
+  {
+   "id": "onset:07_6:s1:07_6-download02.wav",
+   "word": "on",
+   "word_segment_s": 0.66
+  },
+  {
+   "id": "onset:07_6:s4:07_6-download02.wav",
+   "word": "exponentiating",
+   "word_segment_s": 0.66
+  },
+  {
+   "id": "onset:08_5:s4:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download02.wav",
+   "word": "taking",
+   "word_segment_s": 0.66
+  },
+  {
+   "id": "onset:00_6:s5:00_6-download01.wav",
+   "word": "we",
+   "word_segment_s": 0.64
+  },
+  {
+   "id": "onset:03_4:s2:03_4-download01.wav",
+   "word": "there",
+   "word_segment_s": 0.64
+  },
+  {
+   "id": "onset:11_1:s2:11_1-download01.wav",
+   "word": "compare",
+   "word_segment_s": 0.64
+  },
+  {
+   "id": "onset:05_6:s4:05_6-download01.wav",
+   "word": "every",
+   "word_segment_s": 0.62
+  },
+  {
+   "id": "onset:11_8:s3:11_8-download01.wav",
+   "word": "only",
+   "word_segment_s": 0.62
+  },
+  {
+   "id": "onset:00_4:s2:00_4-download02.wav",
+   "word": "what",
+   "word_segment_s": 0.6
+  },
+  {
+   "id": "onset:03_1:s1:03_1-download01.wav",
+   "word": "multiplying",
+   "word_segment_s": 0.6
+  },
+  {
+   "id": "onset:03_1:s1:03_1-download02.wav",
+   "word": "multiplying",
+   "word_segment_s": 0.6
+  },
+  {
+   "id": "onset:05_1:s2:05_1-download02.wav",
+   "word": "multiplying",
+   "word_segment_s": 0.6
+  },
+  {
+   "id": "onset:05_20:s1:05_20-download02.wav",
+   "word": "feed",
+   "word_segment_s": 0.6
+  },
+  {
+   "id": "onset:05_5:s1:05_5-download02.wav",
+   "word": "which",
+   "word_segment_s": 0.6
+  },
+  {
+   "id": "onset:06_2:s2:06_2-download01.wav",
+   "word": "halfway",
+   "word_segment_s": 0.6
+  },
+  {
+   "id": "onset:11_1:s1:11_1-download01.wav",
+   "word": "try",
+   "word_segment_s": 0.6
+  }
+ ],
+ "questions": 4,
+ "blocking_questions": 2,
+ "files_with_blocking_questions": [
+  "00_1-download03.wav",
+  "00_1-download04.wav"
+ ],
+ "claim": "Recognizer estimates only (whisper-cpp word segments). No take selected, heard, measured, cut or accepted. A 'supported' onset is a word the recognizer agrees on inside a run of at least 3 agreeing words, first in its segment, in range and in order."
+}

@@ -1,0 +1,31 @@
+--- a/prepare_audio.py
++++ b/prepare_audio.py
+@@ -992,7 +992,7 @@
+         "selection": {"sha256": sha_file(args.selection), "by": sel["by"], "basis": sel["basis"], "takes": sel["takes"]},
+         "answers": {"sha256": sha_file(args.answers) if args.answers else None, "applied": applied},
+         "decode_receipt": {"path": receipt_path, "sha256": sha_file(receipt_path)},
+-        "spans_sha256": sha_file(f"{out}/spans.json"), "cues": plan_cues,
++        "spans_sha256": sha_file(f"{out}/spans.json"), "phrase_marks_plan_sha256": sha_file(f"{out}/phrase-marks-plan.json"), "cues": plan_cues,
+         "claim": ("TEST ONLY, historical recordings. " if not production else "")
+                  + "Source-bound preparation. Selection and answers are root's; nothing here was heard, measured or accepted."}))
+     print(f"prepared {len(units)} units into {out}; dry run accepted {cues} cues; next, from the repository root: {' '.join(assemble)}")
+@@ -1051,12 +1051,17 @@
+     production = test_gate(b, args)
+     prepared = norm(args.prepared).rstrip("/")
+     pr = load_json(f"{prepared}/prepare-receipt.json")
+-    plan = load_json(f"{prepared}/phrase-marks-plan.json")["cues"]
+-    spans_path = f"{prepared}/spans.json"
++    plan_path, spans_path = f"{prepared}/phrase-marks-plan.json", f"{prepared}/spans.json"
+     if pr["binding"]["sha256"] != b["sha256"] or pr["production"] != production:
+         raise Refused("the prepared folder was made from another binding; timings never carry across bindings or voices")
+     if sha_file(spans_path) != pr["spans_sha256"]:
+         raise Refused("spans.json changed since prepare")
++    if not os.path.isfile(plan_path):
++        raise Refused("phrase-marks-plan.json is missing from the prepared folder")
++    if sha_file(plan_path) != pr.get("phrase_marks_plan_sha256"):
++        raise Refused("phrase-marks-plan.json is not the plan this prepare receipt binds: it changed since prepare, "
++                      "or the receipt was written without the binding; prepare again into a new folder")
++    plan = load_json(plan_path)["cues"]
+     for src, dst in ((b["assembler"], "tools/coherent_narration.py"), (b["assembler_cache"], "tools/narration_cache.py"), (b["map"], b["map_in_tree"])):
+         if sha_file(f"{prepared}/workspace/{dst}") != b["pins"][src]:
+             raise Refused(f"workspace copy {dst} changed")

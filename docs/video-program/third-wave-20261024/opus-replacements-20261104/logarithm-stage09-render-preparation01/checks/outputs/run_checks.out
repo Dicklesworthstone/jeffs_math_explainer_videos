@@ -1,0 +1,54 @@
+helper sha256 9ddc2003aa666844214aace166343bb37c1d5baeb6b62abb252f517c634b5388; checks sha256 010753d0d8897d77c8de773239a464aec8b7c376305558f507b6835a1f1e3314
+PASS R1 check passes on root's real build01 and names the blocker: build01 187e119d8e99, preserved e92334010297; compiled topic named 17 times; kit tool ~/scratch/tools/narration_delivery.py present False
+PASS I1 install copies root's 48 stage09 bytes and the 3 canonical tools, nothing else: 48 crate files equal W/logarithm-stage09 byte for byte; tools ['coherent_narration.py', 'narration_cache.py', 'narration_delivery.py']
+PASS I2 install refuses an existing workspace: REFUSED: refusing to overwrite SCRATCH/ws
+PASS I3 install refuses a workspace inside the repository: REFUSED: --ws is inside the repository: it names absolute scratch paths
+PASS I4 install refuses a workspace inside W/logarithm-stage09: REFUSED: --ws is inside W/logarithm-stage09
+PASS I5 install refuses a relative workspace: REFUSED: --ws must be absolute
+PASS I6 the workspace check refuses a changed crate byte: refused: the workspace crate differs from root's stage09 bytes
+PASS I6 the workspace check refuses an extra tool: refused: the workspace tools differ from the pinned canonical bytes
+PASS I6 the workspace check refuses a second topic: refused: explainer_corpus holds another entry
+PASS B1 build-script writes the guarded rebuild: build01's three cargo lines on the workspace manifest: 4248 input rows, preserves 187e119d8e99 (build01's binary: True); python3 -I -B docs/video-program/third-wave-20261024/opus-replacements-20261104/engine-secondary-validation01/guard_owner56g_target20g.py --phase native --job logarithm-stage09-ws-build01 --inputs SCRATCH/ws/logarithm-stage09-ws-build01-inputs.json -- sh SCRATCH/ws/logarithm-stage09-ws-build01.sh
+PASS B2 the cargo lines equal root's build01 script's, line for line
+PASS B3 the job refuses outside the guard, before any cargo: REFUSED: CARGO_TARGET_DIR is not the guard's target
+PASS B4 under the emulated guard with stub cargo the job tests, builds, copies out, lints and lists chapters: exit 0; 12_what_it_forgets
+PASS B5 build-verify passes the emulated run: binary c2431c7a466f, workspace topic named 1 times
+PASS B6 build-verify refuses a failed job: refused: the job did not pass: exit 1, error None
+PASS B7 build-verify refuses another test count: refused: test results: ['test result: ok. 240 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s']
+PASS B8 build-verify refuses an inputs file changed after launch: refused: the guard's input hash is not this attempt's inputs file
+PASS B9 build-verify refuses a binary with no topic: refused: the new binary does not name the workspace topic
+PASS B9 build-verify refuses a binary with old topic: refused: the new binary still names W/logarithm-stage09 (1 times)
+PASS D1 bind refuses the real audio folder today: no production receipt exists yet: re receipt at REPO/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/audio-preparation01/prepare-receipt.json: the real audio preparation has not run
+PASS D2 bind passes a production-shaped fixture: coherent verify and the kit's delivery contract on the workspace topic: 178 files bound, plan canonical, binary c2431c7a466f
+PASS D3 the blocker, run: the canonical tool refuses build01's topic W/logarithm-stage09 on the same narration: narration delivery refused: topic must be in this repository
+PASS D3 the blocker, run: the workspace tool refuses build01's topic W/logarithm-stage09 on the same narration: narration delivery refused: topic must be in this repository
+PASS D4 bind refuses a test-only preparation: refused: the prepare receipt is not a whole-film production run
+PASS D4 bind refuses another voice: refused: prepare receipt binding {'path': 'docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-audio-preparation01/bindings/logarithm-stage09-oliver.json', 'sha256': '2d7f4731d373b5089686f5d345834faeb1a7238dc15007abfc7b4fab420d6803', 'use': 'production', 'voice': {'provider': 
+PASS D4 bind refuses another audio binding: refused: prepare receipt binding {'path': 'docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-audio-preparation01/bindings/logarithm-stage09-oliver.json', 'sha256': '0000000000000000000000000000000000000000000000000000000000000000', 'use': 'production', 'voice': {'provider': 
+PASS D4 bind refuses a one-chapter preparation: refused: the prepare receipt is not a whole-film production run
+PASS D4 bind refuses 79 cues: refused: the prepare receipt covers 79 cues, not the script's 80
+PASS D4 bind refuses a timings receipt for another assembly: refused: the timings receipt names another assembly
+PASS D4 bind refuses test-only timings: refused: timings receipt binding
+PASS D5 bind refuses an installed phrase-timings.json that differs: refused: phrase-timings.json is not installed in the narration (timings-receipt 'install' line)
+PASS D6 bind refuses a narration without the installed phrase timings: refused: phrase-timings.json is not installed in the narration (timings-receipt 'install' line)
+PASS D7 bind refuses an assembled WAV that the phrase timings do not name: refused: phrase timing WAV differs for 03_1
+PASS D8 with the timings forged to match, the real coherent verifier refuses the changed WAV: refused: coherent_narration verify refused: coherent-narration: cue 03_1 does not reconstruct sample-for-sample
+PASS D9 bind refuses an assembly workspace whose tools are not canonical: refused: the assembly workspace's narration_cache.py is not canonical
+PASS D10 no refused bind wrote a binding
+PASS S1 step timeline writes the job: 60 fps timeline-only render of all chapters with the bound narration: python3 -I -B docs/video-program/third-wave-20261024/opus-replacements-20261104/engine-secondary-validation01/guard_owner56g_target20g.py --phase native --job logarithm-stage09-timeline01 --inputs SCRATCH/ws/jobs/logarithm-stage09-timeline01-inputs.json -- python3 -I -B SCRATCH/ws/jobs/logarithm-stage09-timeline01.py
+PASS S2 a step script refuses outside the guard, before the binary runs: REFUSED: launch only through the guard: SCRATCH/lane/logarithm-stage09-timeline01/resource-receipt.json is missing
+PASS S3 the timeline job runs the real coherent verifier, then the stand-in; 13 chapters, 80 cues in order: TIMELINE PASS: 13 chapters at 60 fps; 80 cue placements in script order.
+PASS S4 verify-step timeline: 80 cues, 17160 frames
+PASS S5 a render step refuses before the score has passed: REFUSED: no guard receipt for logarithm-stage09-score01
+PASS S6 preview: 960x540 at 30 fps with real narration, cue order equal to the timeline: render all --res 960x540 --fps 30 --narration SCRATCH/audio/prepared/narration --out SCRATCH/lane/logarithm-stage09-preview01/preview --lint --crf 28 --preset ultrafast
+PASS S7 score: QA passed for every chapter: score --narration SCRATCH/audio/prepared/narration --timelines SCRATCH/lane/logarithm-stage09-timeline01/timeline-output --out SCRATCH/lane/logarithm-stage09-score01/scored
+PASS S8 a 4K chapter whose schedule differs from the timeline fails in the job: REFUSED: 00_ratio_ruler: the frame and cue schedule differs from the 60 fps timeline
+PASS S9 a retry refuses while the failed chapter's mp4 is still in the work folder: REFUSED: 00_ratio_ruler.mp4 exists in the render work folder
+PASS S10 13 chapters at 3840x2160, 60 fps, scored, --lint --crf 16 --preset veryfast; schedules equal the timeline: render 12_what_it_forgets --res 3840x2160 --fps 60 --narration SCRATCH/audio/prepared/narration --score SCRATCH/lane/logarithm-stage09-score01/scored/stems --out SCRATCH/lane/logarithm-stage09-render-work01 --lint --crf 16 --preset veryfast
+PASS S11 master binds the retried chapter, writes the master and captions: master --narration SCRATCH/audio/prepared/narration --score SCRATCH/lane/logarithm-stage09-score01/scored/stems --out SCRATCH/lane/logarithm-stage09-render-work01 | captions all --narration SCRATCH/audio/prepared/narration --out SCRATCH/lane/logarithm-stage09-render-work01
+PASS S12 a step that exists is not rewritten: REFUSED: SCRATCH/ws/jobs/logarithm-stage09-master01.py exists: use a new series (or --retry for a render)
+PASS S13 a timeline whose cues are out of script order fails in the job and verify-step refuses it: REFUSED: logarithm-stage09-timeline02 did not pass: exit 1, error None
+PASS S14 a failed score QA fails the score job: REFUSED: 00_ratio_ruler: score QA did not pass
+PASS S15 a step refuses when a bound narration file moved: REFUSED: bound narration files moved: ['SCRATCH/audio/prepared/narration/report.json']
+PASS U1 the real W stage, receipts lane, EL stage09, tools and shared binary are untouched
+52 PASS, 0 FAIL

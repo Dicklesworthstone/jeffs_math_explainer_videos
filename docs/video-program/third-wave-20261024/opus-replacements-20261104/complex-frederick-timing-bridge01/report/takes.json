@@ -1,0 +1,4999 @@
+{
+ "schema": "complex-frederick-timing-bridge-v1",
+ "kind": "takes",
+ "source_sha256": "7188f725b110e4bfb2faa87e74d447d008f737143c8cb3bb2e645d728271705f",
+ "recognition": {
+  "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+  "ingests": [
+   {
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "processed": 36,
+    "failed": 0,
+    "run_complete": true
+   },
+   {
+    "ingest": "ingest-02",
+    "plan": "plan-02",
+    "job": "complex-frederick-stage05-recognition01-plan-02-a1",
+    "processed": 6,
+    "failed": 0,
+    "run_complete": true
+   }
+  ],
+  "state": "read",
+  "open_plans": [],
+  "supplements": [
+   {
+    "job": "narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-frederick-targeted-small01",
+    "manifest": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-targeted-small01/inputs.json",
+    "manifest_sha256": "d38866483000cfa563139cdaad56f793d58d9d37b397cd80461adadfac4812e1",
+    "receipt_sha256": "ba98ad86093e993d055f0eb8735b3496c0b8abeb21f37a0001c1fdb213a53b34",
+    "command_log_sha256": "6d7c6216917a82f6cf30dfb406335efc3e7dbb5ad7a504378b35236b5fbbc80b",
+    "model": {
+     "name": "ggml-small.en.bin",
+     "sha256": "c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d"
+    },
+    "records": 2
+   }
+  ]
+ },
+ "min_agreeing_run": 3,
+ "uncertainty": "window_s is the recognizer's word segment [start, end]. The spoken onset was not measured. When abuts_previous_word is true the segment may begin in the pause before the word, so the onset can lie anywhere up to the segment end. A recognizer can also place a word late; no bound outside the window is claimed. sample_24k is round(start x 24000) on the decoded take's timeline.",
+ "takes": [
+  {
+   "cue": "01_1",
+   "file": "01_1-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_1-download01.wav",
+   "sha256": "13b3ca49a8dc88b8a1d4f6ff7690d73cc38c1b007e72bf8b028ee3f1155d0beb",
+   "pcm_sha256": "510cad6e49f486251fa4e634de30109e78e59cf720ab2e4b9e53beb919c4d7c6",
+   "frames": 794880,
+   "rate": 48000,
+   "seconds": 16.56,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_1-request01.json",
+    "sha256": "cfa49f038e17cbc0d91dde1ed7a4f7871f3517903af701765b5e04f5119fb64b"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_1-downloads01.json",
+    "sha256": "2a397272f363e188d82974b81f06ca09135109f553d6aad17a65fa0262e09f9f"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 0
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:01_1:s1:01_1-download01.wav",
+     "index": 1,
+     "char": 34,
+     "word": "one",
+     "asr_start_s": 2.92,
+     "asr_end_s": 3.16,
+     "window_s": [
+      2.92,
+      3.16
+     ],
+     "segment_index": 6,
+     "previous_word_end_s": 2.92,
+     "abuts_previous_word": true,
+     "agreeing_run": 45,
+     "status": "supported",
+     "sample_24k": 70080
+    },
+    {
+     "id": "onset:01_1:s2:01_1-download01.wav",
+     "index": 2,
+     "char": 63,
+     "word": "it",
+     "asr_start_s": 5.28,
+     "asr_end_s": 5.76,
+     "window_s": [
+      5.28,
+      5.76
+     ],
+     "segment_index": 12,
+     "previous_word_end_s": 5.28,
+     "abuts_previous_word": true,
+     "agreeing_run": 45,
+     "status": "supported",
+     "sample_24k": 126720
+    },
+    {
+     "id": "onset:01_1:s3:01_1-download01.wav",
+     "index": 3,
+     "char": 127,
+     "word": "it",
+     "asr_start_s": 10.179999,
+     "asr_end_s": 10.679999,
+     "window_s": [
+      10.179999,
+      10.679999
+     ],
+     "segment_index": 27,
+     "previous_word_end_s": 10.179999,
+     "abuts_previous_word": true,
+     "agreeing_run": 45,
+     "status": "supported",
+     "sample_24k": 244320
+    },
+    {
+     "id": "onset:01_1:s4:01_1-download01.wav",
+     "index": 4,
+     "char": 181,
+     "word": "we",
+     "asr_start_s": 14.38,
+     "asr_end_s": 14.88,
+     "window_s": [
+      14.38,
+      14.88
+     ],
+     "segment_index": 39,
+     "previous_word_end_s": 14.38,
+     "abuts_previous_word": true,
+     "agreeing_run": 45,
+     "status": "supported",
+     "sample_24k": 345120
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:01_1:b127:01_1-download01.wav",
+     "byte": 127,
+     "byte_end": 144,
+     "phrase": "It has no corners",
+     "sentence": 3,
+     "status": "sentence_onset",
+     "same_as": "onset:01_1:s3:01_1-download01.wav"
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "01_1",
+   "file": "01_1-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_1-download02.wav",
+   "sha256": "0b4d423ab2c865cbfe4acad81dd5b2a219ab542d1982ebc3a242935af849c253",
+   "pcm_sha256": "949f2476cd07b62c5200249e2a74a60a7cf27e72758a5b64b0bd7237ec3025a0",
+   "frames": 779520,
+   "rate": 48000,
+   "seconds": 16.24,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_1-request01.json",
+    "sha256": "cfa49f038e17cbc0d91dde1ed7a4f7871f3517903af701765b5e04f5119fb64b"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_1-downloads01.json",
+    "sha256": "2a397272f363e188d82974b81f06ca09135109f553d6aad17a65fa0262e09f9f"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 1
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:01_1:s1:01_1-download02.wav",
+     "index": 1,
+     "char": 34,
+     "word": "one",
+     "asr_start_s": 2.72,
+     "asr_end_s": 2.98,
+     "window_s": [
+      2.72,
+      2.98
+     ],
+     "segment_index": 6,
+     "previous_word_end_s": 2.72,
+     "abuts_previous_word": true,
+     "agreeing_run": 45,
+     "status": "supported",
+     "sample_24k": 65280
+    },
+    {
+     "id": "onset:01_1:s2:01_1-download02.wav",
+     "index": 2,
+     "char": 63,
+     "word": "it",
+     "asr_start_s": 5.1,
+     "asr_end_s": 5.58,
+     "window_s": [
+      5.1,
+      5.58
+     ],
+     "segment_index": 12,
+     "previous_word_end_s": 5.1,
+     "abuts_previous_word": true,
+     "agreeing_run": 45,
+     "status": "supported",
+     "sample_24k": 122400
+    },
+    {
+     "id": "onset:01_1:s3:01_1-download02.wav",
+     "index": 3,
+     "char": 127,
+     "word": "it",
+     "asr_start_s": 9.92,
+     "asr_end_s": 10.42,
+     "window_s": [
+      9.92,
+      10.42
+     ],
+     "segment_index": 27,
+     "previous_word_end_s": 9.92,
+     "abuts_previous_word": true,
+     "agreeing_run": 45,
+     "status": "supported",
+     "sample_24k": 238080
+    },
+    {
+     "id": "onset:01_1:s4:01_1-download02.wav",
+     "index": 4,
+     "char": 181,
+     "word": "we",
+     "asr_start_s": 14.56,
+     "asr_end_s": 14.599999,
+     "window_s": [
+      14.56,
+      14.599999
+     ],
+     "segment_index": 39,
+     "previous_word_end_s": 14.56,
+     "abuts_previous_word": true,
+     "agreeing_run": 45,
+     "status": "supported",
+     "sample_24k": 349440
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:01_1:b127:01_1-download02.wav",
+     "byte": 127,
+     "byte_end": 144,
+     "phrase": "It has no corners",
+     "sentence": 3,
+     "status": "sentence_onset",
+     "same_as": "onset:01_1:s3:01_1-download02.wav"
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "01_2",
+   "file": "01_2-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_2-download01.wav",
+   "sha256": "4c70db02ed0faa52abf4a0405e1ba67cc9d95b2db558c350af5c2b5bd8e40d2e",
+   "pcm_sha256": "b241c67e4934ce9f8c7a45bd499acfa196ce77016cea885fea45b46d11389aed",
+   "frames": 576000,
+   "rate": 48000,
+   "seconds": 12.0,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_2-request01.json",
+    "sha256": "6d19e6e23d0b9c931b4b3f0c4c33433c9382d1ccdf75f4dcb9d1d72a9be953e6"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_2-downloads01.json",
+    "sha256": "40ea56973252a55de1ee8448a138a73ffa90e44fe2f0cb1956d041bdb6db6e5a"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 2
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:01_2:s1:01_2-download01.wav",
+     "index": 1,
+     "char": 43,
+     "word": "one",
+     "asr_start_s": 3.2,
+     "asr_end_s": 3.68,
+     "window_s": [
+      3.2,
+      3.68
+     ],
+     "segment_index": 9,
+     "previous_word_end_s": 3.0,
+     "abuts_previous_word": false,
+     "agreeing_run": 34,
+     "status": "supported",
+     "sample_24k": 76800
+    },
+    {
+     "id": "onset:01_2:s2:01_2-download01.wav",
+     "index": 2,
+     "char": 120,
+     "word": "each",
+     "asr_start_s": 9.04,
+     "asr_end_s": 9.54,
+     "window_s": [
+      9.04,
+      9.54
+     ],
+     "segment_index": 26,
+     "previous_word_end_s": 9.0,
+     "abuts_previous_word": false,
+     "agreeing_run": 34,
+     "status": "supported",
+     "sample_24k": 216960
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:01_2:b65:01_2-download01.wav",
+     "byte": 65,
+     "byte_end": 85,
+     "phrase": "plus x to the fourth",
+     "sentence": 1,
+     "word": "plus",
+     "asr_start_s": 5.16,
+     "asr_end_s": 5.5,
+     "window_s": [
+      5.16,
+      5.5
+     ],
+     "segment_index": 13,
+     "previous_word_end_s": 5.16,
+     "abuts_previous_word": true,
+     "agreeing_run": 34,
+     "status": "supported",
+     "sample_24k": 123840
+    },
+    {
+     "id": "anchor:01_2:b87:01_2-download01.wav",
+     "byte": 87,
+     "byte_end": 107,
+     "phrase": "minus x to the sixth",
+     "sentence": 1,
+     "word": "minus",
+     "asr_start_s": 6.66,
+     "asr_end_s": 7.02,
+     "window_s": [
+      6.66,
+      7.02
+     ],
+     "segment_index": 18,
+     "previous_word_end_s": 6.66,
+     "abuts_previous_word": true,
+     "agreeing_run": 34,
+     "status": "supported",
+     "sample_24k": 159840
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "01_2",
+   "file": "01_2-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_2-download02.wav",
+   "sha256": "9402105c58a3b18df8478596c4da79109edc0a9f197882706a570b5017b8b536",
+   "pcm_sha256": "821d0a88797788dfaa7b6e9b1b9d66636285467dc6bee1fe0c3b27aa532deaba",
+   "frames": 587520,
+   "rate": 48000,
+   "seconds": 12.24,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_2-request01.json",
+    "sha256": "6d19e6e23d0b9c931b4b3f0c4c33433c9382d1ccdf75f4dcb9d1d72a9be953e6"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_2-downloads01.json",
+    "sha256": "40ea56973252a55de1ee8448a138a73ffa90e44fe2f0cb1956d041bdb6db6e5a"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 3
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:01_2:s1:01_2-download02.wav",
+     "index": 1,
+     "char": 43,
+     "word": "one",
+     "asr_start_s": 3.24,
+     "asr_end_s": 4.08,
+     "window_s": [
+      3.24,
+      4.08
+     ],
+     "segment_index": 9,
+     "previous_word_end_s": 3.24,
+     "abuts_previous_word": true,
+     "agreeing_run": 34,
+     "status": "supported",
+     "sample_24k": 77760
+    },
+    {
+     "id": "onset:01_2:s2:01_2-download02.wav",
+     "index": 2,
+     "char": 120,
+     "word": "each",
+     "asr_start_s": 9.54,
+     "asr_end_s": 9.78,
+     "window_s": [
+      9.54,
+      9.78
+     ],
+     "segment_index": 26,
+     "previous_word_end_s": 9.54,
+     "abuts_previous_word": true,
+     "agreeing_run": 34,
+     "status": "supported",
+     "sample_24k": 228960
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:01_2:b65:01_2-download02.wav",
+     "byte": 65,
+     "byte_end": 85,
+     "phrase": "plus x to the fourth",
+     "sentence": 1,
+     "word": "plus",
+     "asr_start_s": 5.32,
+     "asr_end_s": 5.68,
+     "window_s": [
+      5.32,
+      5.68
+     ],
+     "segment_index": 13,
+     "previous_word_end_s": 5.32,
+     "abuts_previous_word": true,
+     "agreeing_run": 34,
+     "status": "supported",
+     "sample_24k": 127680
+    },
+    {
+     "id": "anchor:01_2:b87:01_2-download02.wav",
+     "byte": 87,
+     "byte_end": 107,
+     "phrase": "minus x to the sixth",
+     "sentence": 1,
+     "word": "minus",
+     "asr_start_s": 6.84,
+     "asr_end_s": 7.16,
+     "window_s": [
+      6.84,
+      7.16
+     ],
+     "segment_index": 18,
+     "previous_word_end_s": 6.84,
+     "abuts_previous_word": true,
+     "agreeing_run": 34,
+     "status": "supported",
+     "sample_24k": 164160
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "01_3",
+   "file": "01_3-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_3-download01.wav",
+   "sha256": "b29261f6d00f31a4554e702df034b355d0f4f44d7251bf8d17d5e1ff7c56f0b4",
+   "pcm_sha256": "055c294e571358a1059521ff9f4d9bab435060a0cabfe4d7a2ac9b199d0d30f9",
+   "frames": 833280,
+   "rate": 48000,
+   "seconds": 17.36,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_3-request01.json",
+    "sha256": "25bfa9a3f242dffece3ecf3fe4dc07d2b2512a0a48d8f3ae72532f78b0d87b65"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_3-downloads01.json",
+    "sha256": "39dd21954791456f9a576579bcfc3ef5b0cb12d21a1e08ead6b7ca19cc50c25f"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 4
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:01_3:s1:01_3-download01.wav",
+     "index": 1,
+     "char": 88,
+     "word": "just",
+     "asr_start_s": 6.16,
+     "asr_end_s": 6.48,
+     "window_s": [
+      6.16,
+      6.48
+     ],
+     "segment_index": 16,
+     "previous_word_end_s": 6.16,
+     "abuts_previous_word": true,
+     "agreeing_run": 32,
+     "status": "supported",
+     "sample_24k": 147840
+    },
+    {
+     "id": "onset:01_3:s2:01_3-download01.wav",
+     "index": 2,
+     "char": 119,
+     "word": "at",
+     "asr_start_s": 8.96,
+     "asr_end_s": 9.179999,
+     "window_s": [
+      8.96,
+      9.179999
+     ],
+     "segment_index": 22,
+     "previous_word_end_s": 8.96,
+     "abuts_previous_word": true,
+     "agreeing_run": 32,
+     "status": "supported",
+     "sample_24k": 215040
+    },
+    {
+     "id": "onset:01_3:s3:01_3-download01.wav",
+     "index": 3,
+     "char": 197,
+     "word": "the",
+     "asr_start_s": 14.48,
+     "asr_end_s": 14.679999,
+     "window_s": [
+      14.48,
+      14.679999
+     ],
+     "segment_index": 32,
+     "previous_word_end_s": 14.48,
+     "abuts_previous_word": true,
+     "agreeing_run": 13,
+     "status": "supported",
+     "sample_24k": 347520
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:01_3:b119:01_3-download01.wav",
+     "byte": 119,
+     "byte_end": 135,
+     "phrase": "At one point one",
+     "sentence": 2,
+     "status": "sentence_onset",
+     "same_as": "onset:01_3:s2:01_3-download01.wav"
+    }
+   ],
+   "differences": [
+    {
+     "op": "replace",
+     "script": "to the fortieth",
+     "recognized": "forty",
+     "script_token_index": 32
+    }
+   ],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "01_3",
+   "file": "01_3-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_3-download02.wav",
+   "sha256": "9f9e1f8ea2d1688842799ebddbc90b64590d05397f95a377e7c243bdea1584f2",
+   "pcm_sha256": "b452aeb326416b13cc7446a12d7d0f34ba0973ef5e384dbfa964a74f5ea0c492",
+   "frames": 829440,
+   "rate": 48000,
+   "seconds": 17.28,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_3-request01.json",
+    "sha256": "25bfa9a3f242dffece3ecf3fe4dc07d2b2512a0a48d8f3ae72532f78b0d87b65"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_3-downloads01.json",
+    "sha256": "39dd21954791456f9a576579bcfc3ef5b0cb12d21a1e08ead6b7ca19cc50c25f"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 5
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:01_3:s1:01_3-download02.wav",
+     "index": 1,
+     "char": 88,
+     "word": "just",
+     "asr_start_s": 6.1,
+     "asr_end_s": 6.56,
+     "window_s": [
+      6.1,
+      6.56
+     ],
+     "segment_index": 17,
+     "previous_word_end_s": 6.0,
+     "abuts_previous_word": false,
+     "agreeing_run": 32,
+     "status": "supported",
+     "sample_24k": 146400
+    },
+    {
+     "id": "onset:01_3:s2:01_3-download02.wav",
+     "index": 2,
+     "char": 119,
+     "word": "at",
+     "asr_start_s": 9.0,
+     "asr_end_s": 9.16,
+     "window_s": [
+      9.0,
+      9.16
+     ],
+     "segment_index": 23,
+     "previous_word_end_s": 9.0,
+     "abuts_previous_word": true,
+     "agreeing_run": 32,
+     "status": "supported",
+     "sample_24k": 216000
+    },
+    {
+     "id": "onset:01_3:s3:01_3-download02.wav",
+     "index": 3,
+     "char": 197,
+     "word": "the",
+     "asr_start_s": 14.12,
+     "asr_end_s": 14.62,
+     "window_s": [
+      14.12,
+      14.62
+     ],
+     "segment_index": 33,
+     "previous_word_end_s": 14.0,
+     "abuts_previous_word": false,
+     "agreeing_run": 13,
+     "status": "supported",
+     "sample_24k": 338880
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:01_3:b119:01_3-download02.wav",
+     "byte": 119,
+     "byte_end": 135,
+     "phrase": "At one point one",
+     "sentence": 2,
+     "status": "sentence_onset",
+     "same_as": "onset:01_3:s2:01_3-download02.wav"
+    }
+   ],
+   "differences": [
+    {
+     "op": "replace",
+     "script": "to the fortieth",
+     "recognized": "forty",
+     "script_token_index": 32
+    }
+   ],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "01_4",
+   "file": "01_4-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_4-download01.wav",
+   "sha256": "3483363422c29a8c0a64007f23b6cefc0f4bafb8f80d33645004b2eff25d64e3",
+   "pcm_sha256": "275997e67195ce801b984d7f8a019fc31b27593a14af34638aeea36ea76600fd",
+   "frames": 403200,
+   "rate": 48000,
+   "seconds": 8.4,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_4-request01.json",
+    "sha256": "607c40e4a5a0a44b868a45ffbe46ede66b2e1db6731feb5a5baeaa4fcd82f97f"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_4-downloads01.json",
+    "sha256": "64a6eb375995f199c4095acfcc59c68d79ae95d25e8cf5762a13a48319def995"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 6
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:01_4:s1:01_4-download01.wav",
+     "index": 1,
+     "char": 45,
+     "word": "it",
+     "asr_start_s": 2.76,
+     "asr_end_s": 2.88,
+     "window_s": [
+      2.76,
+      2.88
+     ],
+     "segment_index": 8,
+     "previous_word_end_s": 2.76,
+     "abuts_previous_word": true,
+     "agreeing_run": 24,
+     "status": "supported",
+     "sample_24k": 66240
+    },
+    {
+     "id": "onset:01_4:s2:01_4-download01.wav",
+     "index": 2,
+     "char": 85,
+     "word": "so",
+     "asr_start_s": 5.44,
+     "asr_end_s": 5.6,
+     "window_s": [
+      5.44,
+      5.6
+     ],
+     "segment_index": 16,
+     "previous_word_end_s": 5.44,
+     "abuts_previous_word": true,
+     "agreeing_run": 24,
+     "status": "supported",
+     "sample_24k": 130560
+    }
+   ],
+   "anchors": [],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "01_4",
+   "file": "01_4-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_4-download02.wav",
+   "sha256": "c16f4443f055e10d12dedd9995282c006d2176526e7e122f7918ed6a9994fe64",
+   "pcm_sha256": "99fdbbaee598f22d0e273c72f5cb4f6cc37b48a630e27cff7cd4d9b3642e278b",
+   "frames": 407040,
+   "rate": 48000,
+   "seconds": 8.48,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_4-request01.json",
+    "sha256": "607c40e4a5a0a44b868a45ffbe46ede66b2e1db6731feb5a5baeaa4fcd82f97f"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_4-downloads01.json",
+    "sha256": "64a6eb375995f199c4095acfcc59c68d79ae95d25e8cf5762a13a48319def995"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 7
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:01_4:s1:01_4-download02.wav",
+     "index": 1,
+     "char": 45,
+     "word": "it",
+     "asr_start_s": 2.76,
+     "asr_end_s": 2.88,
+     "window_s": [
+      2.76,
+      2.88
+     ],
+     "segment_index": 8,
+     "previous_word_end_s": 2.76,
+     "abuts_previous_word": true,
+     "agreeing_run": 24,
+     "status": "supported",
+     "sample_24k": 66240
+    },
+    {
+     "id": "onset:01_4:s2:01_4-download02.wav",
+     "index": 2,
+     "char": 85,
+     "word": "so",
+     "asr_start_s": 5.5,
+     "asr_end_s": 5.66,
+     "window_s": [
+      5.5,
+      5.66
+     ],
+     "segment_index": 16,
+     "previous_word_end_s": 5.5,
+     "abuts_previous_word": true,
+     "agreeing_run": 24,
+     "status": "supported",
+     "sample_24k": 132000
+    }
+   ],
+   "anchors": [],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "01_5",
+   "file": "01_5-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_5-download01.wav",
+   "sha256": "71599db532f4ed379aeacaf5d8704e4fdc727227eb56219c485627db98027032",
+   "pcm_sha256": "6a622cfcab821aebb7cbaebf38c2065b48629ec76cfd3b4b63520c9447ac711d",
+   "frames": 1017600,
+   "rate": 48000,
+   "seconds": 21.2,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_5-request01.json",
+    "sha256": "41b200dfcd3cf1bafabb23e362fda4973c987a35f3332bd971b76137cf095c58"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_5-downloads01.json",
+    "sha256": "9553b398a87186d16872a06bd7ccf034fc0de56e6e805d2838b4d7fb6f6c3c39"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 8
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:01_5:s1:01_5-download01.wav",
+     "index": 1,
+     "char": 39,
+     "word": "let",
+     "asr_start_s": 2.96,
+     "asr_end_s": 3.22,
+     "window_s": [
+      2.96,
+      3.22
+     ],
+     "segment_index": 9,
+     "previous_word_end_s": 2.96,
+     "abuts_previous_word": true,
+     "agreeing_run": 59,
+     "status": "supported",
+     "sample_24k": 71040
+    },
+    {
+     "id": "onset:01_5:s2:01_5-download01.wav",
+     "index": 2,
+     "char": 113,
+     "word": "they",
+     "asr_start_s": 8.1,
+     "asr_end_s": 8.179999,
+     "window_s": [
+      8.1,
+      8.179999
+     ],
+     "segment_index": 25,
+     "previous_word_end_s": 8.1,
+     "abuts_previous_word": true,
+     "agreeing_run": 59,
+     "status": "supported",
+     "sample_24k": 194400
+    },
+    {
+     "id": "onset:01_5:s3:01_5-download01.wav",
+     "index": 3,
+     "char": 171,
+     "word": "a",
+     "asr_start_s": 13.16,
+     "asr_end_s": 13.28,
+     "window_s": [
+      13.16,
+      13.28
+     ],
+     "segment_index": 38,
+     "previous_word_end_s": 13.16,
+     "abuts_previous_word": true,
+     "agreeing_run": 59,
+     "status": "supported",
+     "sample_24k": 315840
+    },
+    {
+     "id": "onset:01_5:s4:01_5-download01.wav",
+     "index": 4,
+     "char": 261,
+     "word": "that",
+     "asr_start_s": 19.2,
+     "asr_end_s": 19.279999,
+     "window_s": [
+      19.2,
+      19.279999
+     ],
+     "segment_index": 54,
+     "previous_word_end_s": 19.2,
+     "abuts_previous_word": true,
+     "agreeing_run": 59,
+     "status": "supported",
+     "sample_24k": 460800
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:01_5:b39:01_5-download01.wav",
+     "byte": 39,
+     "byte_end": 64,
+     "phrase": "Let x be a complex number",
+     "sentence": 1,
+     "status": "sentence_onset",
+     "same_as": "onset:01_5:s1:01_5-download01.wav"
+    },
+    {
+     "id": "anchor:01_5:b113:01_5-download01.wav",
+     "byte": 113,
+     "byte_end": 126,
+     "phrase": "They sit at i",
+     "sentence": 2,
+     "status": "sentence_onset",
+     "same_as": "onset:01_5:s2:01_5-download01.wav"
+    },
+    {
+     "id": "anchor:01_5:b171:01_5-download01.wav",
+     "byte": 171,
+     "byte_end": 193,
+     "phrase": "A recipe built at zero",
+     "sentence": 3,
+     "status": "sentence_onset",
+     "same_as": "onset:01_5:s3:01_5-download01.wav"
+    },
+    {
+     "id": "anchor:01_5:b261:01_5-download01.wav",
+     "byte": 261,
+     "byte_end": 287,
+     "phrase": "That circle has radius one",
+     "sentence": 4,
+     "status": "sentence_onset",
+     "same_as": "onset:01_5:s4:01_5-download01.wav"
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "01_5",
+   "file": "01_5-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_5-download02.wav",
+   "sha256": "fc4a7b79399edb709012d63a1e2f7433e642c13c5d96b29a8a8c33a9832ef2e2",
+   "pcm_sha256": "1aed6e837f7cf642c7d29cc1f0144a80dd78928a4f1f43eee9e3e8e78c655639",
+   "frames": 1021440,
+   "rate": 48000,
+   "seconds": 21.28,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_5-request01.json",
+    "sha256": "41b200dfcd3cf1bafabb23e362fda4973c987a35f3332bd971b76137cf095c58"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_5-downloads01.json",
+    "sha256": "9553b398a87186d16872a06bd7ccf034fc0de56e6e805d2838b4d7fb6f6c3c39"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 9
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:01_5:s1:01_5-download02.wav",
+     "index": 1,
+     "char": 39,
+     "word": "let",
+     "asr_start_s": 2.9,
+     "asr_end_s": 3.16,
+     "window_s": [
+      2.9,
+      3.16
+     ],
+     "segment_index": 9,
+     "previous_word_end_s": 2.9,
+     "abuts_previous_word": true,
+     "agreeing_run": 59,
+     "status": "supported",
+     "sample_24k": 69600
+    },
+    {
+     "id": "onset:01_5:s2:01_5-download02.wav",
+     "index": 2,
+     "char": 113,
+     "word": "they",
+     "asr_start_s": 8.2,
+     "asr_end_s": 8.28,
+     "window_s": [
+      8.2,
+      8.28
+     ],
+     "segment_index": 25,
+     "previous_word_end_s": 8.2,
+     "abuts_previous_word": true,
+     "agreeing_run": 59,
+     "status": "supported",
+     "sample_24k": 196800
+    },
+    {
+     "id": "onset:01_5:s3:01_5-download02.wav",
+     "index": 3,
+     "char": 171,
+     "word": "a",
+     "asr_start_s": 13.24,
+     "asr_end_s": 13.38,
+     "window_s": [
+      13.24,
+      13.38
+     ],
+     "segment_index": 38,
+     "previous_word_end_s": 13.24,
+     "abuts_previous_word": true,
+     "agreeing_run": 59,
+     "status": "supported",
+     "sample_24k": 317760
+    },
+    {
+     "id": "onset:01_5:s4:01_5-download02.wav",
+     "index": 4,
+     "char": 261,
+     "word": "that",
+     "asr_start_s": 19.3,
+     "asr_end_s": 19.359999,
+     "window_s": [
+      19.3,
+      19.359999
+     ],
+     "segment_index": 54,
+     "previous_word_end_s": 19.3,
+     "abuts_previous_word": true,
+     "agreeing_run": 59,
+     "status": "supported",
+     "sample_24k": 463200
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:01_5:b39:01_5-download02.wav",
+     "byte": 39,
+     "byte_end": 64,
+     "phrase": "Let x be a complex number",
+     "sentence": 1,
+     "status": "sentence_onset",
+     "same_as": "onset:01_5:s1:01_5-download02.wav"
+    },
+    {
+     "id": "anchor:01_5:b113:01_5-download02.wav",
+     "byte": 113,
+     "byte_end": 126,
+     "phrase": "They sit at i",
+     "sentence": 2,
+     "status": "sentence_onset",
+     "same_as": "onset:01_5:s2:01_5-download02.wav"
+    },
+    {
+     "id": "anchor:01_5:b171:01_5-download02.wav",
+     "byte": 171,
+     "byte_end": 193,
+     "phrase": "A recipe built at zero",
+     "sentence": 3,
+     "status": "sentence_onset",
+     "same_as": "onset:01_5:s3:01_5-download02.wav"
+    },
+    {
+     "id": "anchor:01_5:b261:01_5-download02.wav",
+     "byte": 261,
+     "byte_end": 287,
+     "phrase": "That circle has radius one",
+     "sentence": 4,
+     "status": "sentence_onset",
+     "same_as": "onset:01_5:s4:01_5-download02.wav"
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "01_6",
+   "file": "01_6-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_6-download01.wav",
+   "sha256": "be20a9b3b26bf5e3bc38ce29c18dd3297e331ffc7d257f7e50754bcf9f7fb928",
+   "pcm_sha256": "205cad7fb9c8498146ce311464887f434fb8233f8444cf699b0cc7757fe27ca9",
+   "frames": 844800,
+   "rate": 48000,
+   "seconds": 17.6,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_6-request01.json",
+    "sha256": "ed9621d434e0af0066fd3afc50d9b4fd97d72d96c46ef4af8fcaf666b2044528"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_6-downloads01.json",
+    "sha256": "a08138e15cac830edf5e88ddd1baae43cc21568ebe0b78cda8f10d8e2d0dfa83"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 10
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:01_6:s1:01_6-download01.wav",
+     "index": 1,
+     "char": 80,
+     "word": "complex",
+     "asr_start_s": 5.08,
+     "asr_end_s": 5.081,
+     "window_s": [
+      5.08,
+      5.081
+     ],
+     "segment_index": 16,
+     "previous_word_end_s": 5.08,
+     "abuts_previous_word": true,
+     "agreeing_run": 29,
+     "status": "supported",
+     "sample_24k": 121920
+    },
+    {
+     "id": "onset:01_6:s2:01_6-download01.wav",
+     "index": 2,
+     "char": 114,
+     "word": "by",
+     "asr_start_s": 7.24,
+     "asr_end_s": 7.3,
+     "window_s": [
+      7.24,
+      7.3
+     ],
+     "segment_index": 21,
+     "previous_word_end_s": 7.24,
+     "abuts_previous_word": true,
+     "agreeing_run": 29,
+     "status": "supported",
+     "sample_24k": 173760
+    },
+    {
+     "id": "onset:01_6:s3:01_6-download01.wav",
+     "index": 3,
+     "char": 221,
+     "word": "first",
+     "asr_start_s": 14.12,
+     "asr_end_s": 14.759999,
+     "window_s": [
+      14.12,
+      14.759999
+     ],
+     "segment_index": 43,
+     "previous_word_end_s": 14.12,
+     "abuts_previous_word": true,
+     "agreeing_run": 24,
+     "status": "supported",
+     "sample_24k": 338880
+    }
+   ],
+   "anchors": [],
+   "differences": [
+    {
+     "op": "replace",
+     "script": "roots",
+     "recognized": "routes",
+     "script_token_index": 29
+    }
+   ],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "01_6",
+   "file": "01_6-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_6-download02.wav",
+   "sha256": "0d5463cbf841b6e29a98085a9a3109ef47a28df2993f05e5d665b493a84eaa26",
+   "pcm_sha256": "f1532fcea577f8e8ce542fdc49de92dbb333426f64e88a1ceb6b1cadc97032f2",
+   "frames": 856320,
+   "rate": 48000,
+   "seconds": 17.84,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_6-request01.json",
+    "sha256": "ed9621d434e0af0066fd3afc50d9b4fd97d72d96c46ef4af8fcaf666b2044528"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/01_6-downloads01.json",
+    "sha256": "a08138e15cac830edf5e88ddd1baae43cc21568ebe0b78cda8f10d8e2d0dfa83"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 11
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:01_6:s1:01_6-download02.wav",
+     "index": 1,
+     "char": 80,
+     "word": "complex",
+     "asr_start_s": 5.24,
+     "asr_end_s": 5.241,
+     "window_s": [
+      5.24,
+      5.241
+     ],
+     "segment_index": 16,
+     "previous_word_end_s": 5.24,
+     "abuts_previous_word": true,
+     "agreeing_run": 29,
+     "status": "supported",
+     "sample_24k": 125760
+    },
+    {
+     "id": "onset:01_6:s2:01_6-download02.wav",
+     "index": 2,
+     "char": 114,
+     "word": "by",
+     "asr_start_s": 7.42,
+     "asr_end_s": 7.48,
+     "window_s": [
+      7.42,
+      7.48
+     ],
+     "segment_index": 21,
+     "previous_word_end_s": 7.42,
+     "abuts_previous_word": true,
+     "agreeing_run": 29,
+     "status": "supported",
+     "sample_24k": 178080
+    },
+    {
+     "id": "onset:01_6:s3:01_6-download02.wav",
+     "index": 3,
+     "char": 221,
+     "word": "first",
+     "asr_start_s": 14.24,
+     "asr_end_s": 15.08,
+     "window_s": [
+      14.24,
+      15.08
+     ],
+     "segment_index": 43,
+     "previous_word_end_s": 14.24,
+     "abuts_previous_word": true,
+     "agreeing_run": 24,
+     "status": "supported",
+     "sample_24k": 341760
+    }
+   ],
+   "anchors": [],
+   "differences": [
+    {
+     "op": "replace",
+     "script": "roots",
+     "recognized": "routes",
+     "script_token_index": 29
+    }
+   ],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "02_1",
+   "file": "02_1-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_1-download01.wav",
+   "sha256": "77f627c6d58d0a8e3473252dde69489d9f66d10195115aeb04c178f7752ac586",
+   "pcm_sha256": "6a4e20591489993175ce06b7bf4d604b070deeb3861a92fd06250d13cb905887",
+   "frames": 614400,
+   "rate": 48000,
+   "seconds": 12.8,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_1-request01.json",
+    "sha256": "01a4cd6f8f04b384e1ba0002b53c69ebb60c41f171bdac37fe1439e4074cb4ac"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_1-downloads01.json",
+    "sha256": "72f36b9f0e1d7d3972b01229d40160a89abbfbe23c4b6c0d7f3c5d8146968b34"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 12
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:02_1:s1:02_1-download01.wav",
+     "index": 1,
+     "char": 40,
+     "word": "its",
+     "asr_start_s": 3.16,
+     "asr_end_s": 3.24,
+     "window_s": [
+      3.16,
+      3.24
+     ],
+     "segment_index": 9,
+     "previous_word_end_s": 3.16,
+     "abuts_previous_word": true,
+     "agreeing_run": 38,
+     "status": "supported",
+     "sample_24k": 75840
+    },
+    {
+     "id": "onset:02_1:s2:02_1-download01.wav",
+     "index": 2,
+     "char": 103,
+     "word": "we",
+     "asr_start_s": 7.94,
+     "asr_end_s": 8.0,
+     "window_s": [
+      7.94,
+      8.0
+     ],
+     "segment_index": 22,
+     "previous_word_end_s": 7.94,
+     "abuts_previous_word": true,
+     "agreeing_run": 38,
+     "status": "supported",
+     "sample_24k": 190560
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:02_1:b60:02_1-download01.wav",
+     "byte": 60,
+     "byte_end": 73,
+     "phrase": "how far right",
+     "sentence": 1,
+     "word": "how",
+     "asr_start_s": 4.06,
+     "asr_end_s": 4.3,
+     "window_s": [
+      4.06,
+      4.3
+     ],
+     "segment_index": 13,
+     "previous_word_end_s": 4.06,
+     "abuts_previous_word": true,
+     "agreeing_run": 38,
+     "status": "supported",
+     "sample_24k": 97440
+    },
+    {
+     "id": "anchor:02_1:b91:02_1-download01.wav",
+     "byte": 91,
+     "byte_end": 101,
+     "phrase": "how far up",
+     "sentence": 1,
+     "word": "how",
+     "asr_start_s": 6.32,
+     "asr_end_s": 6.64,
+     "window_s": [
+      6.32,
+      6.64
+     ],
+     "segment_index": 19,
+     "previous_word_end_s": 6.32,
+     "abuts_previous_word": true,
+     "agreeing_run": 38,
+     "status": "supported",
+     "sample_24k": 151680
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "02_1",
+   "file": "02_1-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_1-download02.wav",
+   "sha256": "8634c62b89c5807565fcefc70ade9c9ea7bbd8a7ee7fb76d8686d16592d22cc8",
+   "pcm_sha256": "0d150fea649acac3598060054bfd5428d55ac4dd16791326d841b4f83c656552",
+   "frames": 614400,
+   "rate": 48000,
+   "seconds": 12.8,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_1-request01.json",
+    "sha256": "01a4cd6f8f04b384e1ba0002b53c69ebb60c41f171bdac37fe1439e4074cb4ac"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_1-downloads01.json",
+    "sha256": "72f36b9f0e1d7d3972b01229d40160a89abbfbe23c4b6c0d7f3c5d8146968b34"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 13
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:02_1:s1:02_1-download02.wav",
+     "index": 1,
+     "char": 40,
+     "word": "its",
+     "asr_start_s": 2.76,
+     "asr_end_s": 3.18,
+     "window_s": [
+      2.76,
+      3.18
+     ],
+     "segment_index": 9,
+     "previous_word_end_s": 2.76,
+     "abuts_previous_word": true,
+     "agreeing_run": 38,
+     "status": "supported",
+     "sample_24k": 66240
+    },
+    {
+     "id": "onset:02_1:s2:02_1-download02.wav",
+     "index": 2,
+     "char": 103,
+     "word": "we",
+     "asr_start_s": 7.58,
+     "asr_end_s": 8.02,
+     "window_s": [
+      7.58,
+      8.02
+     ],
+     "segment_index": 22,
+     "previous_word_end_s": 7.58,
+     "abuts_previous_word": true,
+     "agreeing_run": 38,
+     "status": "supported",
+     "sample_24k": 181920
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:02_1:b60:02_1-download02.wav",
+     "byte": 60,
+     "byte_end": 73,
+     "phrase": "how far right",
+     "sentence": 1,
+     "word": "how",
+     "asr_start_s": 4.06,
+     "asr_end_s": 4.3,
+     "window_s": [
+      4.06,
+      4.3
+     ],
+     "segment_index": 13,
+     "previous_word_end_s": 4.06,
+     "abuts_previous_word": true,
+     "agreeing_run": 38,
+     "status": "supported",
+     "sample_24k": 97440
+    },
+    {
+     "id": "anchor:02_1:b91:02_1-download02.wav",
+     "byte": 91,
+     "byte_end": 101,
+     "phrase": "how far up",
+     "sentence": 1,
+     "word": "how",
+     "asr_start_s": 6.32,
+     "asr_end_s": 6.66,
+     "window_s": [
+      6.32,
+      6.66
+     ],
+     "segment_index": 19,
+     "previous_word_end_s": 6.32,
+     "abuts_previous_word": true,
+     "agreeing_run": 38,
+     "status": "supported",
+     "sample_24k": 151680
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "02_2",
+   "file": "02_2-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_2-download01.wav",
+   "sha256": "418951abd6476fed63f9d275f28c1279354999c8bab7c77e7ef839d53083f5cb",
+   "pcm_sha256": "a69bdf3d8c56374bbd8e02f239b6cae5da9f03289a2e448402767b7e7238471b",
+   "frames": 602880,
+   "rate": 48000,
+   "seconds": 12.56,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_2-request01.json",
+    "sha256": "44e29b0fbf65528b1ab60f20111ef27c4b6e1da3eba6d8bb225d8febe1e80cde"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_2-downloads01.json",
+    "sha256": "6bd15d382c755312b30c45177bc38ad0d221ef643b60d9adb966e914063a4bb7"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 14
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:02_2:s1:02_2-download01.wav",
+     "index": 1,
+     "char": 58,
+     "word": "multiplying",
+     "asr_start_s": 3.88,
+     "asr_end_s": 4.54,
+     "window_s": [
+      3.88,
+      4.54
+     ],
+     "segment_index": 10,
+     "previous_word_end_s": 3.84,
+     "abuts_previous_word": false,
+     "agreeing_run": 33,
+     "status": "supported",
+     "sample_24k": 93120
+    },
+    {
+     "id": "onset:02_2:s2:02_2-download01.wav",
+     "index": 2,
+     "char": 103,
+     "word": "multiply",
+     "asr_start_s": 6.68,
+     "asr_end_s": 7.24,
+     "window_s": [
+      6.68,
+      7.24
+     ],
+     "segment_index": 15,
+     "previous_word_end_s": 6.68,
+     "abuts_previous_word": true,
+     "agreeing_run": 33,
+     "status": "supported",
+     "sample_24k": 160320
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:02_2:b143:02_2-download01.wav",
+     "byte": 143,
+     "byte_end": 168,
+     "phrase": "and the whole plane turns",
+     "sentence": 2,
+     "word": "and",
+     "asr_start_s": 9.36,
+     "asr_end_s": 9.58,
+     "window_s": [
+      9.36,
+      9.58
+     ],
+     "segment_index": 23,
+     "previous_word_end_s": 9.36,
+     "abuts_previous_word": true,
+     "agreeing_run": 33,
+     "status": "supported",
+     "sample_24k": 224640
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "02_2",
+   "file": "02_2-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_2-download02.wav",
+   "sha256": "bdac481af4e5fa951e09a1b2dd307185b3524af8c4ba3a027faae330cd344da2",
+   "pcm_sha256": "ade904928b138f3d692d186f5ce813642c70b8fd9c41b335011ce81cd9fd1356",
+   "frames": 599040,
+   "rate": 48000,
+   "seconds": 12.48,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_2-request01.json",
+    "sha256": "44e29b0fbf65528b1ab60f20111ef27c4b6e1da3eba6d8bb225d8febe1e80cde"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_2-downloads01.json",
+    "sha256": "6bd15d382c755312b30c45177bc38ad0d221ef643b60d9adb966e914063a4bb7"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 15
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:02_2:s1:02_2-download02.wav",
+     "index": 1,
+     "char": 58,
+     "word": "multiplying",
+     "asr_start_s": 3.92,
+     "asr_end_s": 4.58,
+     "window_s": [
+      3.92,
+      4.58
+     ],
+     "segment_index": 10,
+     "previous_word_end_s": 3.92,
+     "abuts_previous_word": true,
+     "agreeing_run": 33,
+     "status": "supported",
+     "sample_24k": 94080
+    },
+    {
+     "id": "onset:02_2:s2:02_2-download02.wav",
+     "index": 2,
+     "char": 103,
+     "word": "multiply",
+     "asr_start_s": 6.62,
+     "asr_end_s": 7.12,
+     "window_s": [
+      6.62,
+      7.12
+     ],
+     "segment_index": 15,
+     "previous_word_end_s": 6.58,
+     "abuts_previous_word": false,
+     "agreeing_run": 33,
+     "status": "supported",
+     "sample_24k": 158880
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:02_2:b143:02_2-download02.wav",
+     "byte": 143,
+     "byte_end": 168,
+     "phrase": "and the whole plane turns",
+     "sentence": 2,
+     "word": "and",
+     "asr_start_s": 9.16,
+     "asr_end_s": 9.4,
+     "window_s": [
+      9.16,
+      9.4
+     ],
+     "segment_index": 23,
+     "previous_word_end_s": 9.16,
+     "abuts_previous_word": true,
+     "agreeing_run": 33,
+     "status": "supported",
+     "sample_24k": 219840
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "02_3",
+   "file": "02_3-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_3-download01.wav",
+   "sha256": "9bc007fafcde7a1ab2d5a6cad98734144c487538b58daafbb0ad8cb8e6cdb189",
+   "pcm_sha256": "e47a7e97ba84a3f7aeed044aafbcc831be8893ab319866fa4638bdeb8eb73fc8",
+   "frames": 418560,
+   "rate": 48000,
+   "seconds": 8.72,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_3-request01.json",
+    "sha256": "1f58071c43f1fd7cc89f39ae6f730ca9fe59a31ec4dc395827f00fe4518f7b9b"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_3-downloads01.json",
+    "sha256": "a856a804cbcae528e52df03a02f3b8dc388111f638cbfa88aa59297c2e4970e7"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 16
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:02_3:s1:02_3-download01.wav",
+     "index": 1,
+     "char": 29,
+     "word": "it",
+     "asr_start_s": 3.24,
+     "asr_end_s": 3.26,
+     "window_s": [
+      3.24,
+      3.26
+     ],
+     "segment_index": 8,
+     "previous_word_end_s": 3.24,
+     "abuts_previous_word": true,
+     "agreeing_run": 24,
+     "status": "supported",
+     "sample_24k": 77760
+    },
+    {
+     "id": "onset:02_3:s2:02_3-download01.wav",
+     "index": 2,
+     "char": 56,
+     "word": "that",
+     "asr_start_s": 5.54,
+     "asr_end_s": 5.541,
+     "window_s": [
+      5.54,
+      5.541
+     ],
+     "segment_index": 14,
+     "previous_word_end_s": 5.54,
+     "abuts_previous_word": true,
+     "agreeing_run": 24,
+     "status": "supported",
+     "sample_24k": 132960
+    }
+   ],
+   "anchors": [],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "02_3",
+   "file": "02_3-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_3-download02.wav",
+   "sha256": "1443be6705e6598d562e824086b6133298598ac9a1eeca8c9b83b1e752a01970",
+   "pcm_sha256": "c28e3ef92f5ef9d8ee4c141b7bd28265566c547dbc15199cc1c50581d105648d",
+   "frames": 418560,
+   "rate": 48000,
+   "seconds": 8.72,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_3-request01.json",
+    "sha256": "1f58071c43f1fd7cc89f39ae6f730ca9fe59a31ec4dc395827f00fe4518f7b9b"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_3-downloads01.json",
+    "sha256": "a856a804cbcae528e52df03a02f3b8dc388111f638cbfa88aa59297c2e4970e7"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 17
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:02_3:s1:02_3-download02.wav",
+     "index": 1,
+     "char": 29,
+     "word": "it",
+     "asr_start_s": 3.12,
+     "asr_end_s": 3.24,
+     "window_s": [
+      3.12,
+      3.24
+     ],
+     "segment_index": 8,
+     "previous_word_end_s": 3.12,
+     "abuts_previous_word": true,
+     "agreeing_run": 24,
+     "status": "supported",
+     "sample_24k": 74880
+    },
+    {
+     "id": "onset:02_3:s2:02_3-download02.wav",
+     "index": 2,
+     "char": 56,
+     "word": "that",
+     "asr_start_s": 5.42,
+     "asr_end_s": 5.56,
+     "window_s": [
+      5.42,
+      5.56
+     ],
+     "segment_index": 14,
+     "previous_word_end_s": 5.42,
+     "abuts_previous_word": true,
+     "agreeing_run": 24,
+     "status": "supported",
+     "sample_24k": 130080
+    }
+   ],
+   "anchors": [],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "02_4",
+   "file": "02_4-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_4-download01.wav",
+   "sha256": "893d1c88f2c4972b91c5593afe37824150feade13761a4d0c2a6612f7e0426ab",
+   "pcm_sha256": "9579bd22c84ecdeebd7938d638d2578b8594320597d79c9319c6df3012f11670",
+   "frames": 725760,
+   "rate": 48000,
+   "seconds": 15.12,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_4-request01.json",
+    "sha256": "392919dac7d98d9a79f24a59a185db2e5793120f1eccfbefdf60f9fa713bbf62"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_4-downloads01.json",
+    "sha256": "94d9e098f8909c7564329c50724e85dd6d85d6394bfe673588c1995e1901e2e7"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 18
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:02_4:s1:02_4-download01.wav",
+     "index": 1,
+     "char": 59,
+     "word": "it",
+     "asr_start_s": 3.92,
+     "asr_end_s": 4.3,
+     "window_s": [
+      3.92,
+      4.3
+     ],
+     "segment_index": 10,
+     "previous_word_end_s": 3.92,
+     "abuts_previous_word": true,
+     "agreeing_run": 43,
+     "status": "supported",
+     "sample_24k": 94080
+    },
+    {
+     "id": "onset:02_4:s2:02_4-download01.wav",
+     "index": 2,
+     "char": 120,
+     "word": "multiply",
+     "asr_start_s": 8.48,
+     "asr_end_s": 8.98,
+     "window_s": [
+      8.48,
+      8.98
+     ],
+     "segment_index": 21,
+     "previous_word_end_s": 8.48,
+     "abuts_previous_word": true,
+     "agreeing_run": 43,
+     "status": "supported",
+     "sample_24k": 203520
+    }
+   ],
+   "anchors": [],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "02_4",
+   "file": "02_4-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_4-download02.wav",
+   "sha256": "7a53ec2efad97f9f0dce89299395cc7f8f5c58c4c1ec7920ce0035b0122a9247",
+   "pcm_sha256": "781d55a57ff5540a97a66823ddc959b9e76daea679ba4a0e0b4df4d01b6c281e",
+   "frames": 729600,
+   "rate": 48000,
+   "seconds": 15.2,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_4-request01.json",
+    "sha256": "392919dac7d98d9a79f24a59a185db2e5793120f1eccfbefdf60f9fa713bbf62"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_4-downloads01.json",
+    "sha256": "94d9e098f8909c7564329c50724e85dd6d85d6394bfe673588c1995e1901e2e7"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 19
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:02_4:s1:02_4-download02.wav",
+     "index": 1,
+     "char": 59,
+     "word": "it",
+     "asr_start_s": 3.84,
+     "asr_end_s": 4.22,
+     "window_s": [
+      3.84,
+      4.22
+     ],
+     "segment_index": 10,
+     "previous_word_end_s": 3.84,
+     "abuts_previous_word": true,
+     "agreeing_run": 42,
+     "status": "supported",
+     "sample_24k": 92160
+    },
+    {
+     "id": "onset:02_4:s2:02_4-download02.wav",
+     "index": 2,
+     "char": 120,
+     "word": "multiply",
+     "asr_start_s": 8.86,
+     "asr_end_s": 8.94,
+     "window_s": [
+      8.86,
+      8.94
+     ],
+     "segment_index": 21,
+     "previous_word_end_s": 8.86,
+     "abuts_previous_word": true,
+     "agreeing_run": 42,
+     "status": "supported",
+     "sample_24k": 212640
+    }
+   ],
+   "anchors": [],
+   "differences": [
+    {
+     "op": "replace",
+     "script": "turn",
+     "recognized": "term",
+     "script_token_index": 42
+    }
+   ],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "02_5",
+   "file": "02_5-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_5-download01.wav",
+   "sha256": "72d04b4b2f39e6ca61d606ab93b18b8fbb8ca2ee0eac16f26e100e067b47f890",
+   "pcm_sha256": "22b9cc85f90be3a27782695aa0a5273f843394110d23adf20ee338b389696966",
+   "frames": 495360,
+   "rate": 48000,
+   "seconds": 10.32,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_5-request01.json",
+    "sha256": "17164f104b8424e8791cac44cbc59e70d6a2b50ea884702653beb4bec80eba6d"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_5-downloads01.json",
+    "sha256": "fc2d609a091de85d9c0fbaefb06056a1a5cde7b4b5ab5be0a80716f81b2c4cba"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 20
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:02_5:s1:02_5-download01.wav",
+     "index": 1,
+     "char": 58,
+     "word": "what",
+     "asr_start_s": 4.6,
+     "asr_end_s": 4.64,
+     "window_s": [
+      4.6,
+      4.64
+     ],
+     "segment_index": 9,
+     "previous_word_end_s": 4.6,
+     "abuts_previous_word": true,
+     "agreeing_run": 11,
+     "status": "supported",
+     "sample_24k": 110400,
+     "supplementary": [
+      {
+       "job": "complex-frederick-targeted-small01",
+       "model": "ggml-small.en.bin",
+       "status": "supported",
+       "sample_24k": 108000,
+       "window_s": [
+        4.5,
+        4.62
+       ],
+       "abuts_previous_word": false,
+       "agreeing_run": 15,
+       "delta_s": -0.1
+      }
+     ]
+    },
+    {
+     "id": "onset:02_5:s2:02_5-download01.wav",
+     "index": 2,
+     "char": 100,
+     "word": "which",
+     "asr_start_s": 7.46,
+     "asr_end_s": 7.56,
+     "window_s": [
+      7.46,
+      7.56
+     ],
+     "segment_index": 17,
+     "previous_word_end_s": 7.46,
+     "abuts_previous_word": true,
+     "agreeing_run": 11,
+     "status": "supported",
+     "sample_24k": 179040,
+     "supplementary": [
+      {
+       "job": "complex-frederick-targeted-small01",
+       "model": "ggml-small.en.bin",
+       "status": "supported",
+       "sample_24k": 175680,
+       "window_s": [
+        7.32,
+        7.54
+       ],
+       "abuts_previous_word": false,
+       "agreeing_run": 15,
+       "delta_s": -0.14
+      }
+     ]
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:02_5:b37:02_5-download01.wav",
+     "byte": 37,
+     "byte_end": 56,
+     "phrase": "an eighth of a turn",
+     "sentence": 0,
+     "word": "an",
+     "asr_start_s": 2.76,
+     "asr_end_s": 2.92,
+     "window_s": [
+      2.76,
+      2.92
+     ],
+     "segment_index": 4,
+     "previous_word_end_s": 2.76,
+     "abuts_previous_word": true,
+     "agreeing_run": 6,
+     "status": "supported",
+     "sample_24k": 66240,
+     "supplementary": [
+      {
+       "job": "complex-frederick-targeted-small01",
+       "model": "ggml-small.en.bin",
+       "status": "supported",
+       "sample_24k": 64800,
+       "window_s": [
+        2.7,
+        2.94
+       ],
+       "abuts_previous_word": true,
+       "agreeing_run": 11,
+       "delta_s": -0.06
+      }
+     ]
+    }
+   ],
+   "differences": [
+    {
+     "op": "delete",
+     "script": "one plus i",
+     "recognized": "",
+     "script_token_index": 2
+    },
+    {
+     "op": "replace",
+     "script": "turn",
+     "recognized": "term",
+     "script_token_index": 11
+    },
+    {
+     "op": "delete",
+     "script": "one plus i",
+     "recognized": "",
+     "script_token_index": 23
+    }
+   ],
+   "supplementary_recognition": [
+    {
+     "job": "complex-frederick-targeted-small01",
+     "model": {
+      "name": "ggml-small.en.bin",
+      "sha256": "c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d"
+     },
+     "record_index": 0,
+     "differences": [
+      {
+       "op": "replace",
+       "script": "turn",
+       "recognized": "term",
+       "script_token_index": 11
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "cue": "02_5",
+   "file": "02_5-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_5-download02.wav",
+   "sha256": "0d21f5e41df026fa5a60e9d1725b4ec833518dd3fef77d7e2e71a8978ba10d9c",
+   "pcm_sha256": "12ea6c799229abb30b26323b033798bc063944f85cbccaa1b038792e7836803c",
+   "frames": 487680,
+   "rate": 48000,
+   "seconds": 10.16,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_5-request01.json",
+    "sha256": "17164f104b8424e8791cac44cbc59e70d6a2b50ea884702653beb4bec80eba6d"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_5-downloads01.json",
+    "sha256": "fc2d609a091de85d9c0fbaefb06056a1a5cde7b4b5ab5be0a80716f81b2c4cba"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 21
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:02_5:s1:02_5-download02.wav",
+     "index": 1,
+     "char": 58,
+     "word": "what",
+     "asr_start_s": 4.4,
+     "asr_end_s": 4.62,
+     "window_s": [
+      4.4,
+      4.62
+     ],
+     "segment_index": 9,
+     "previous_word_end_s": 4.4,
+     "abuts_previous_word": true,
+     "agreeing_run": 11,
+     "status": "supported",
+     "sample_24k": 105600,
+     "supplementary": [
+      {
+       "job": "complex-frederick-targeted-small01",
+       "model": "ggml-small.en.bin",
+       "status": "supported",
+       "sample_24k": 106560,
+       "window_s": [
+        4.44,
+        4.6
+       ],
+       "abuts_previous_word": false,
+       "agreeing_run": 15,
+       "delta_s": 0.04
+      }
+     ]
+    },
+    {
+     "id": "onset:02_5:s2:02_5-download02.wav",
+     "index": 2,
+     "char": 100,
+     "word": "which",
+     "asr_start_s": 7.2,
+     "asr_end_s": 7.46,
+     "window_s": [
+      7.2,
+      7.46
+     ],
+     "segment_index": 17,
+     "previous_word_end_s": 7.2,
+     "abuts_previous_word": true,
+     "agreeing_run": 11,
+     "status": "supported",
+     "sample_24k": 172800,
+     "supplementary": [
+      {
+       "job": "complex-frederick-targeted-small01",
+       "model": "ggml-small.en.bin",
+       "status": "supported",
+       "sample_24k": 172800,
+       "window_s": [
+        7.2,
+        7.44
+       ],
+       "abuts_previous_word": true,
+       "agreeing_run": 15,
+       "delta_s": 0.0
+      }
+     ]
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:02_5:b37:02_5-download02.wav",
+     "byte": 37,
+     "byte_end": 56,
+     "phrase": "an eighth of a turn",
+     "sentence": 0,
+     "word": "an",
+     "asr_start_s": 2.68,
+     "asr_end_s": 2.84,
+     "window_s": [
+      2.68,
+      2.84
+     ],
+     "segment_index": 4,
+     "previous_word_end_s": 2.68,
+     "abuts_previous_word": true,
+     "agreeing_run": 6,
+     "status": "supported",
+     "sample_24k": 64320,
+     "supplementary": [
+      {
+       "job": "complex-frederick-targeted-small01",
+       "model": "ggml-small.en.bin",
+       "status": "supported",
+       "sample_24k": 63360,
+       "window_s": [
+        2.64,
+        2.9
+       ],
+       "abuts_previous_word": true,
+       "agreeing_run": 11,
+       "delta_s": -0.04
+      }
+     ]
+    }
+   ],
+   "differences": [
+    {
+     "op": "delete",
+     "script": "one plus i",
+     "recognized": "",
+     "script_token_index": 2
+    },
+    {
+     "op": "replace",
+     "script": "turn",
+     "recognized": "term",
+     "script_token_index": 11
+    },
+    {
+     "op": "delete",
+     "script": "one plus i",
+     "recognized": "",
+     "script_token_index": 23
+    }
+   ],
+   "supplementary_recognition": [
+    {
+     "job": "complex-frederick-targeted-small01",
+     "model": {
+      "name": "ggml-small.en.bin",
+      "sha256": "c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d"
+     },
+     "record_index": 1,
+     "differences": [
+      {
+       "op": "replace",
+       "script": "turn",
+       "recognized": "term",
+       "script_token_index": 11
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "cue": "02_6",
+   "file": "02_6-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_6-download01.wav",
+   "sha256": "446187d04406ea5bee5c4fb8fccd69f602364134d0e6792beb026922f1b0bcaf",
+   "pcm_sha256": "53c826c41c1e94a7750ae88d8b0374e65b0e59f0c66b7b4920e48397c26c78fe",
+   "frames": 867840,
+   "rate": 48000,
+   "seconds": 18.08,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_6-request01.json",
+    "sha256": "182edbfdea03f407fa91802520e399c2351fc845111261e39eea6dcf43cded8f"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_6-downloads01.json",
+    "sha256": "733cb1e2318e25e5a0ee7c1314212f2c71e2e72e40563bfaca779f88237e5ef4"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 22
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:02_6:s1:02_6-download01.wav",
+     "index": 1,
+     "char": 88,
+     "word": "so",
+     "asr_start_s": 5.82,
+     "asr_end_s": 5.96,
+     "window_s": [
+      5.82,
+      5.96
+     ],
+     "segment_index": 17,
+     "previous_word_end_s": 5.82,
+     "abuts_previous_word": true,
+     "agreeing_run": 49,
+     "status": "supported",
+     "sample_24k": 139680
+    },
+    {
+     "id": "onset:02_6:s2:02_6-download01.wav",
+     "index": 2,
+     "char": 122,
+     "word": "lengths",
+     "asr_start_s": 9.68,
+     "asr_end_s": 9.8,
+     "window_s": [
+      9.68,
+      9.8
+     ],
+     "segment_index": 24,
+     "previous_word_end_s": 9.68,
+     "abuts_previous_word": true,
+     "agreeing_run": 49,
+     "status": "supported",
+     "sample_24k": 232320
+    },
+    {
+     "id": "onset:02_6:s3:02_6-download01.wav",
+     "index": 3,
+     "char": 155,
+     "word": "hold",
+     "asr_start_s": 12.44,
+     "asr_end_s": 12.58,
+     "window_s": [
+      12.44,
+      12.58
+     ],
+     "segment_index": 29,
+     "previous_word_end_s": 12.44,
+     "abuts_previous_word": true,
+     "agreeing_run": 49,
+     "status": "supported",
+     "sample_24k": 298560
+    },
+    {
+     "id": "onset:02_6:s4:02_6-download01.wav",
+     "index": 4,
+     "char": 172,
+     "word": "every",
+     "asr_start_s": 13.86,
+     "asr_end_s": 13.9,
+     "window_s": [
+      13.86,
+      13.9
+     ],
+     "segment_index": 33,
+     "previous_word_end_s": 13.86,
+     "abuts_previous_word": true,
+     "agreeing_run": 49,
+     "status": "supported",
+     "sample_24k": 332640
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:02_6:b88:02_6-download01.wav",
+     "byte": 88,
+     "byte_end": 101,
+     "phrase": "So one plus i",
+     "sentence": 1,
+     "status": "sentence_onset",
+     "same_as": "onset:02_6:s1:02_6-download01.wav"
+    },
+    {
+     "id": "anchor:02_6:b139:02_6-download01.wav",
+     "byte": 139,
+     "byte_end": 153,
+     "phrase": "and angles add",
+     "sentence": 2,
+     "word": "and",
+     "asr_start_s": 10.3,
+     "asr_end_s": 10.76,
+     "window_s": [
+      10.3,
+      10.76
+     ],
+     "segment_index": 26,
+     "previous_word_end_s": 10.3,
+     "abuts_previous_word": true,
+     "agreeing_run": 49,
+     "status": "supported",
+     "sample_24k": 247200
+    },
+    {
+     "id": "anchor:02_6:b172:02_6-download01.wav",
+     "byte": 172,
+     "byte_end": 196,
+     "phrase": "Every complex derivative",
+     "sentence": 4,
+     "status": "sentence_onset",
+     "same_as": "onset:02_6:s4:02_6-download01.wav"
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "02_6",
+   "file": "02_6-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_6-download02.wav",
+   "sha256": "482033b9292c36919c1747ec042a36d7b7fc9d4ba4f88f6668543136df882900",
+   "pcm_sha256": "d13ce15157d95713ed62ba97259886e07a689de46b63aafae81598e16da990b1",
+   "frames": 856320,
+   "rate": 48000,
+   "seconds": 17.84,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_6-request01.json",
+    "sha256": "182edbfdea03f407fa91802520e399c2351fc845111261e39eea6dcf43cded8f"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/02_6-downloads01.json",
+    "sha256": "733cb1e2318e25e5a0ee7c1314212f2c71e2e72e40563bfaca779f88237e5ef4"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 23
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:02_6:s1:02_6-download02.wav",
+     "index": 1,
+     "char": 88,
+     "word": "so",
+     "asr_start_s": 5.76,
+     "asr_end_s": 5.82,
+     "window_s": [
+      5.76,
+      5.82
+     ],
+     "segment_index": 17,
+     "previous_word_end_s": 5.76,
+     "abuts_previous_word": true,
+     "agreeing_run": 49,
+     "status": "supported",
+     "sample_24k": 138240
+    },
+    {
+     "id": "onset:02_6:s2:02_6-download02.wav",
+     "index": 2,
+     "char": 122,
+     "word": "lengths",
+     "asr_start_s": 9.5,
+     "asr_end_s": 9.599999,
+     "window_s": [
+      9.5,
+      9.599999
+     ],
+     "segment_index": 24,
+     "previous_word_end_s": 9.5,
+     "abuts_previous_word": true,
+     "agreeing_run": 49,
+     "status": "supported",
+     "sample_24k": 228000
+    },
+    {
+     "id": "onset:02_6:s3:02_6-download02.wav",
+     "index": 3,
+     "char": 155,
+     "word": "hold",
+     "asr_start_s": 12.14,
+     "asr_end_s": 12.179999,
+     "window_s": [
+      12.14,
+      12.179999
+     ],
+     "segment_index": 29,
+     "previous_word_end_s": 12.14,
+     "abuts_previous_word": true,
+     "agreeing_run": 49,
+     "status": "supported",
+     "sample_24k": 291360
+    },
+    {
+     "id": "onset:02_6:s4:02_6-download02.wav",
+     "index": 4,
+     "char": 172,
+     "word": "every",
+     "asr_start_s": 13.5,
+     "asr_end_s": 13.54,
+     "window_s": [
+      13.5,
+      13.54
+     ],
+     "segment_index": 33,
+     "previous_word_end_s": 13.5,
+     "abuts_previous_word": true,
+     "agreeing_run": 49,
+     "status": "supported",
+     "sample_24k": 324000
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:02_6:b88:02_6-download02.wav",
+     "byte": 88,
+     "byte_end": 101,
+     "phrase": "So one plus i",
+     "sentence": 1,
+     "status": "sentence_onset",
+     "same_as": "onset:02_6:s1:02_6-download02.wav"
+    },
+    {
+     "id": "anchor:02_6:b139:02_6-download02.wav",
+     "byte": 139,
+     "byte_end": 153,
+     "phrase": "and angles add",
+     "sentence": 2,
+     "word": "and",
+     "asr_start_s": 10.04,
+     "asr_end_s": 10.5,
+     "window_s": [
+      10.04,
+      10.5
+     ],
+     "segment_index": 26,
+     "previous_word_end_s": 10.04,
+     "abuts_previous_word": true,
+     "agreeing_run": 49,
+     "status": "supported",
+     "sample_24k": 240960
+    },
+    {
+     "id": "anchor:02_6:b172:02_6-download02.wav",
+     "byte": 172,
+     "byte_end": 196,
+     "phrase": "Every complex derivative",
+     "sentence": 4,
+     "status": "sentence_onset",
+     "same_as": "onset:02_6:s4:02_6-download02.wav"
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "03_1",
+   "file": "03_1-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_1-download01.wav",
+   "sha256": "06870fc9947b148d41e33f3d2e8c6e3cf9de0712a767b1fbcd67d3c77711c4cb",
+   "pcm_sha256": "0311a65b68dfe2a2e9eb4c2fc309910ca8801a624e26a0eac167673c98a0ae5b",
+   "frames": 641280,
+   "rate": 48000,
+   "seconds": 13.36,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_1-request01.json",
+    "sha256": "9633b18dc0590fadbc9bbe91a3d733c25fdeb068d328ae3cef0a3ffb2d98b7e7"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_1-downloads01.json",
+    "sha256": "41c829353e8ca7e08ac00ce2872dbcd6a1ed63d238f5360e59fceea05e1fcf14"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 24
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:03_1:s1:03_1-download01.wav",
+     "index": 1,
+     "char": 54,
+     "word": "its",
+     "asr_start_s": 4.0,
+     "asr_end_s": 4.06,
+     "window_s": [
+      4.0,
+      4.06
+     ],
+     "segment_index": 10,
+     "previous_word_end_s": 4.0,
+     "abuts_previous_word": true,
+     "agreeing_run": 35,
+     "status": "supported",
+     "sample_24k": 96000
+    },
+    {
+     "id": "onset:03_1:s2:03_1-download01.wav",
+     "index": 2,
+     "char": 92,
+     "word": "instead",
+     "asr_start_s": 6.5,
+     "asr_end_s": 7.34,
+     "window_s": [
+      6.5,
+      7.34
+     ],
+     "segment_index": 16,
+     "previous_word_end_s": 6.5,
+     "abuts_previous_word": true,
+     "agreeing_run": 35,
+     "status": "supported",
+     "sample_24k": 156000
+    },
+    {
+     "id": "onset:03_1:s3:03_1-download01.wav",
+     "index": 3,
+     "char": 131,
+     "word": "the",
+     "asr_start_s": 9.54,
+     "asr_end_s": 10.02,
+     "window_s": [
+      9.54,
+      10.02
+     ],
+     "segment_index": 23,
+     "previous_word_end_s": 9.54,
+     "abuts_previous_word": true,
+     "agreeing_run": 35,
+     "status": "supported",
+     "sample_24k": 228960
+    }
+   ],
+   "anchors": [],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "03_1",
+   "file": "03_1-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_1-download02.wav",
+   "sha256": "6870213deb062f069d49256751dbe9fddf175ce93f96a57e191ce35202626c79",
+   "pcm_sha256": "27ba0d2c285cd6da4510a7dff4c55807ead9c5026c0e24bc8831a0f4dec8ae5c",
+   "frames": 637440,
+   "rate": 48000,
+   "seconds": 13.28,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_1-request01.json",
+    "sha256": "9633b18dc0590fadbc9bbe91a3d733c25fdeb068d328ae3cef0a3ffb2d98b7e7"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_1-downloads01.json",
+    "sha256": "41c829353e8ca7e08ac00ce2872dbcd6a1ed63d238f5360e59fceea05e1fcf14"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 25
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:03_1:s1:03_1-download02.wav",
+     "index": 1,
+     "char": 54,
+     "word": "its",
+     "asr_start_s": 4.0,
+     "asr_end_s": 4.06,
+     "window_s": [
+      4.0,
+      4.06
+     ],
+     "segment_index": 10,
+     "previous_word_end_s": 4.0,
+     "abuts_previous_word": true,
+     "agreeing_run": 35,
+     "status": "supported",
+     "sample_24k": 96000
+    },
+    {
+     "id": "onset:03_1:s2:03_1-download02.wav",
+     "index": 2,
+     "char": 92,
+     "word": "instead",
+     "asr_start_s": 6.46,
+     "asr_end_s": 7.34,
+     "window_s": [
+      6.46,
+      7.34
+     ],
+     "segment_index": 16,
+     "previous_word_end_s": 6.46,
+     "abuts_previous_word": true,
+     "agreeing_run": 35,
+     "status": "supported",
+     "sample_24k": 155040
+    },
+    {
+     "id": "onset:03_1:s3:03_1-download02.wav",
+     "index": 3,
+     "char": 131,
+     "word": "the",
+     "asr_start_s": 9.52,
+     "asr_end_s": 9.98,
+     "window_s": [
+      9.52,
+      9.98
+     ],
+     "segment_index": 23,
+     "previous_word_end_s": 9.52,
+     "abuts_previous_word": true,
+     "agreeing_run": 35,
+     "status": "supported",
+     "sample_24k": 228480
+    }
+   ],
+   "anchors": [],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "03_2",
+   "file": "03_2-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_2-download01.wav",
+   "sha256": "e3a2203422a91b55980e094add107b8c2b91c1e79c301b7f242a51d1b116d949",
+   "pcm_sha256": "d59abdce36ec06803909fee4b67b8e6170608de34f43565a383666d3d2493740",
+   "frames": 791040,
+   "rate": 48000,
+   "seconds": 16.48,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_2-request01.json",
+    "sha256": "70b2abe6d33ebe407b543ad1b3d965e167c3139ed1a5c02d56b0f6e1be140fa2"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_2-downloads01.json",
+    "sha256": "e63bb71983e1e17ad205566d6e07f8487b1dd0a18b2ec387eeea3f552505e500"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 26
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:03_2:s1:03_2-download01.wav",
+     "index": 1,
+     "char": 21,
+     "word": "lengths",
+     "asr_start_s": 1.7,
+     "asr_end_s": 2.36,
+     "window_s": [
+      1.7,
+      2.36
+     ],
+     "segment_index": 3,
+     "previous_word_end_s": 1.7,
+     "abuts_previous_word": true,
+     "agreeing_run": 27,
+     "status": "supported",
+     "sample_24k": 40800
+    },
+    {
+     "id": "onset:03_2:s2:03_2-download01.wav",
+     "index": 2,
+     "char": 110,
+     "word": "walk",
+     "asr_start_s": 8.42,
+     "asr_end_s": 8.98,
+     "window_s": [
+      8.42,
+      8.98
+     ],
+     "segment_index": 17,
+     "previous_word_end_s": 8.42,
+     "abuts_previous_word": true,
+     "agreeing_run": 27,
+     "status": "supported",
+     "sample_24k": 202080
+    },
+    {
+     "id": "onset:03_2:s3:03_2-download01.wav",
+     "index": 3,
+     "char": 164,
+     "word": "its",
+     "asr_start_s": 12.16,
+     "asr_end_s": 12.66,
+     "window_s": [
+      12.16,
+      12.66
+     ],
+     "segment_index": 27,
+     "previous_word_end_s": 12.16,
+     "abuts_previous_word": true,
+     "agreeing_run": 9,
+     "status": "supported",
+     "sample_24k": 291840
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:03_2:b66:03_2-download01.wav",
+     "byte": 66,
+     "byte_end": 85,
+     "phrase": "squares each length",
+     "sentence": 1,
+     "word": "squares",
+     "asr_start_s": 5.32,
+     "asr_end_s": 5.86,
+     "window_s": [
+      5.32,
+      5.86
+     ],
+     "segment_index": 10,
+     "previous_word_end_s": 5.32,
+     "abuts_previous_word": true,
+     "agreeing_run": 27,
+     "status": "supported",
+     "sample_24k": 127680
+    },
+    {
+     "id": "anchor:03_2:b90:03_2-download01.wav",
+     "byte": 90,
+     "byte_end": 108,
+     "phrase": "doubles each angle",
+     "sentence": 1,
+     "word": "doubles",
+     "asr_start_s": 7.0,
+     "asr_end_s": 7.34,
+     "window_s": [
+      7.0,
+      7.34
+     ],
+     "segment_index": 14,
+     "previous_word_end_s": 7.0,
+     "abuts_previous_word": true,
+     "agreeing_run": 27,
+     "status": "supported",
+     "sample_24k": 168000
+    }
+   ],
+   "differences": [
+    {
+     "op": "replace",
+     "script": "half",
+     "recognized": "over two",
+     "script_token_index": 27
+    },
+    {
+     "op": "replace",
+     "script": "quarter",
+     "recognized": "over four",
+     "script_token_index": 37
+    }
+   ],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "03_2",
+   "file": "03_2-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_2-download02.wav",
+   "sha256": "e71b9e2a948cca09daa96a2f7a2decbf0b10e5c6bdbf47dd071f10ff66ae7182",
+   "pcm_sha256": "301cdb583ea5326d441af94c6faf70b55cf3b998e020b812d38e7df4a6f0a265",
+   "frames": 783360,
+   "rate": 48000,
+   "seconds": 16.32,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_2-request01.json",
+    "sha256": "70b2abe6d33ebe407b543ad1b3d965e167c3139ed1a5c02d56b0f6e1be140fa2"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_2-downloads01.json",
+    "sha256": "e63bb71983e1e17ad205566d6e07f8487b1dd0a18b2ec387eeea3f552505e500"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 27
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:03_2:s1:03_2-download02.wav",
+     "index": 1,
+     "char": 21,
+     "word": "lengths",
+     "asr_start_s": 1.88,
+     "asr_end_s": 2.28,
+     "window_s": [
+      1.88,
+      2.28
+     ],
+     "segment_index": 3,
+     "previous_word_end_s": 1.88,
+     "abuts_previous_word": true,
+     "agreeing_run": 39,
+     "status": "supported",
+     "sample_24k": 45120
+    },
+    {
+     "id": "onset:03_2:s2:03_2-download02.wav",
+     "index": 2,
+     "char": 110,
+     "word": "walk",
+     "asr_start_s": 8.56,
+     "asr_end_s": 8.8,
+     "window_s": [
+      8.56,
+      8.8
+     ],
+     "segment_index": 17,
+     "previous_word_end_s": 8.56,
+     "abuts_previous_word": true,
+     "agreeing_run": 39,
+     "status": "supported",
+     "sample_24k": 205440
+    },
+    {
+     "id": "onset:03_2:s3:03_2-download02.wav",
+     "index": 3,
+     "char": 164,
+     "word": "its",
+     "asr_start_s": 12.52,
+     "asr_end_s": 12.559999,
+     "window_s": [
+      12.52,
+      12.559999
+     ],
+     "segment_index": 27,
+     "previous_word_end_s": 12.52,
+     "abuts_previous_word": true,
+     "agreeing_run": 39,
+     "status": "supported",
+     "sample_24k": 300480
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:03_2:b66:03_2-download02.wav",
+     "byte": 66,
+     "byte_end": 85,
+     "phrase": "squares each length",
+     "sentence": 1,
+     "word": "squares",
+     "asr_start_s": 5.24,
+     "asr_end_s": 5.72,
+     "window_s": [
+      5.24,
+      5.72
+     ],
+     "segment_index": 10,
+     "previous_word_end_s": 5.24,
+     "abuts_previous_word": true,
+     "agreeing_run": 39,
+     "status": "supported",
+     "sample_24k": 125760
+    },
+    {
+     "id": "anchor:03_2:b90:03_2-download02.wav",
+     "byte": 90,
+     "byte_end": 108,
+     "phrase": "doubles each angle",
+     "sentence": 1,
+     "word": "doubles",
+     "asr_start_s": 6.78,
+     "asr_end_s": 7.2,
+     "window_s": [
+      6.78,
+      7.2
+     ],
+     "segment_index": 14,
+     "previous_word_end_s": 6.78,
+     "abuts_previous_word": true,
+     "agreeing_run": 39,
+     "status": "supported",
+     "sample_24k": 162720
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "03_3",
+   "file": "03_3-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_3-download01.wav",
+   "sha256": "ba4493b8548e304618affe9d1cf16350ad3bb1da4da3a183abe902a94699c174",
+   "pcm_sha256": "99253896605726473cdf41e84f53012228b1ab17b87e8a44625d71f5e9a4a777",
+   "frames": 272640,
+   "rate": 48000,
+   "seconds": 5.68,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_3-request01.json",
+    "sha256": "b0a61d6ff8c32025ee90e1f0542923038bafa8b6122e22ca75244efee33a7204"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_3-downloads01.json",
+    "sha256": "3d19b7ebb7125010dab4871ee23ec62e6f7d4900fa36ce2e4b6fc21744202f05"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 28
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:03_3:s1:03_3-download01.wav",
+     "index": 1,
+     "char": 30,
+     "word": "after",
+     "asr_start_s": 2.4,
+     "asr_end_s": 2.66,
+     "window_s": [
+      2.4,
+      2.66
+     ],
+     "segment_index": 6,
+     "previous_word_end_s": 2.4,
+     "abuts_previous_word": true,
+     "agreeing_run": 14,
+     "status": "supported",
+     "sample_24k": 57600
+    }
+   ],
+   "anchors": [],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "03_3",
+   "file": "03_3-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_3-download02.wav",
+   "sha256": "759fe42ef9f3b263fddd660ba409e956f2aad1905a1117ce60911b3654fd7ec8",
+   "pcm_sha256": "2e8a5577eb8168f74623a60603c6dc6d6045eaa46a016958d4c850c986655fa5",
+   "frames": 280320,
+   "rate": 48000,
+   "seconds": 5.84,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_3-request01.json",
+    "sha256": "b0a61d6ff8c32025ee90e1f0542923038bafa8b6122e22ca75244efee33a7204"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_3-downloads01.json",
+    "sha256": "3d19b7ebb7125010dab4871ee23ec62e6f7d4900fa36ce2e4b6fc21744202f05"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 29
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:03_3:s1:03_3-download02.wav",
+     "index": 1,
+     "char": 30,
+     "word": "after",
+     "asr_start_s": 2.48,
+     "asr_end_s": 2.76,
+     "window_s": [
+      2.48,
+      2.76
+     ],
+     "segment_index": 6,
+     "previous_word_end_s": 2.48,
+     "abuts_previous_word": true,
+     "agreeing_run": 14,
+     "status": "supported",
+     "sample_24k": 59520
+    }
+   ],
+   "anchors": [],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "03_4",
+   "file": "03_4-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_4-download01.wav",
+   "sha256": "12c09505a51d3a7c17337a9091c2d049249175964ead4baf010115d0601bb62e",
+   "pcm_sha256": "1e12dc91904de5e7743ee3b011912c0ee07ee8e286a545e8e81220c146ab1394",
+   "frames": 1240320,
+   "rate": 48000,
+   "seconds": 25.84,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_4-request01.json",
+    "sha256": "bc5c16b451bcb06ccee2420fe04660cc9241ffe61970c6f72f9aece8c39d2dbf"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_4-downloads01.json",
+    "sha256": "2622bc48122a3c753d6f612a2d8ffb46b5befa39bf7be7cad8f1c81e107b3595"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 30
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:03_4:s1:03_4-download01.wav",
+     "index": 1,
+     "char": 4,
+     "word": "every",
+     "asr_start_s": 0.7,
+     "asr_end_s": 1.22,
+     "window_s": [
+      0.7,
+      1.22
+     ],
+     "segment_index": 1,
+     "previous_word_end_s": 0.7,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 16800
+    },
+    {
+     "id": "onset:03_4:s2:03_4-download01.wav",
+     "index": 2,
+     "char": 94,
+     "word": "the",
+     "asr_start_s": 6.7,
+     "asr_end_s": 7.14,
+     "window_s": [
+      6.7,
+      7.14
+     ],
+     "segment_index": 17,
+     "previous_word_end_s": 6.7,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 160800
+    },
+    {
+     "id": "onset:03_4:s3:03_4-download01.wav",
+     "index": 3,
+     "char": 129,
+     "word": "the",
+     "asr_start_s": 9.62,
+     "asr_end_s": 9.98,
+     "window_s": [
+      9.62,
+      9.98
+     ],
+     "segment_index": 24,
+     "previous_word_end_s": 9.62,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 230880
+    },
+    {
+     "id": "onset:03_4:s4:03_4-download01.wav",
+     "index": 4,
+     "char": 224,
+     "word": "but",
+     "asr_start_s": 15.24,
+     "asr_end_s": 15.78,
+     "window_s": [
+      15.24,
+      15.78
+     ],
+     "segment_index": 41,
+     "previous_word_end_s": 15.24,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 365760
+    },
+    {
+     "id": "onset:03_4:s5:03_4-download01.wav",
+     "index": 5,
+     "char": 257,
+     "word": "they",
+     "asr_start_s": 17.440001,
+     "asr_end_s": 17.72,
+     "window_s": [
+      17.440001,
+      17.72
+     ],
+     "segment_index": 47,
+     "previous_word_end_s": 17.440001,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 418560
+    },
+    {
+     "id": "onset:03_4:s6:03_4-download01.wav",
+     "index": 6,
+     "char": 317,
+     "word": "keep",
+     "asr_start_s": 21.92,
+     "asr_end_s": 22.4,
+     "window_s": [
+      21.92,
+      22.4
+     ],
+     "segment_index": 57,
+     "previous_word_end_s": 21.92,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 526080
+    },
+    {
+     "id": "onset:03_4:s7:03_4-download01.wav",
+     "index": 7,
+     "char": 336,
+     "word": "it",
+     "asr_start_s": 23.24,
+     "asr_end_s": 23.539999,
+     "window_s": [
+      23.24,
+      23.539999
+     ],
+     "segment_index": 61,
+     "previous_word_end_s": 23.24,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 557760
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:03_4:b94:03_4-download01.wav",
+     "byte": 94,
+     "byte_end": 111,
+     "phrase": "The two axes fold",
+     "sentence": 2,
+     "status": "sentence_onset",
+     "same_as": "onset:03_4:s2:03_4-download01.wav"
+    },
+    {
+     "id": "anchor:03_4:b129:03_4-download01.wav",
+     "byte": 129,
+     "byte_end": 154,
+     "phrase": "The horizontal axis lands",
+     "sentence": 3,
+     "status": "sentence_onset",
+     "same_as": "onset:03_4:s3:03_4-download01.wav"
+    },
+    {
+     "id": "anchor:03_4:b301:03_4-download01.wav",
+     "byte": 301,
+     "byte_end": 315,
+     "phrase": "except at zero",
+     "sentence": 5,
+     "word": "except",
+     "asr_start_s": 20.24,
+     "asr_end_s": 20.859999,
+     "window_s": [
+      20.24,
+      20.859999
+     ],
+     "segment_index": 54,
+     "previous_word_end_s": 20.24,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 485760
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "03_4",
+   "file": "03_4-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_4-download02.wav",
+   "sha256": "5745b7818ea09872df1358cc3bd01f84768c72ae2203a27264abedeeafd8aa7a",
+   "pcm_sha256": "3e29b94250c92963e5ce28eb85e22eaa292eee74fa969ebb67365c5c1d832e2f",
+   "frames": 1221120,
+   "rate": 48000,
+   "seconds": 25.44,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_4-request01.json",
+    "sha256": "bc5c16b451bcb06ccee2420fe04660cc9241ffe61970c6f72f9aece8c39d2dbf"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_4-downloads01.json",
+    "sha256": "2622bc48122a3c753d6f612a2d8ffb46b5befa39bf7be7cad8f1c81e107b3595"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 31
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:03_4:s1:03_4-download02.wav",
+     "index": 1,
+     "char": 4,
+     "word": "every",
+     "asr_start_s": 0.64,
+     "asr_end_s": 1.18,
+     "window_s": [
+      0.64,
+      1.18
+     ],
+     "segment_index": 1,
+     "previous_word_end_s": 0.64,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 15360
+    },
+    {
+     "id": "onset:03_4:s2:03_4-download02.wav",
+     "index": 2,
+     "char": 94,
+     "word": "the",
+     "asr_start_s": 6.66,
+     "asr_end_s": 7.04,
+     "window_s": [
+      6.66,
+      7.04
+     ],
+     "segment_index": 17,
+     "previous_word_end_s": 6.66,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 159840
+    },
+    {
+     "id": "onset:03_4:s3:03_4-download02.wav",
+     "index": 3,
+     "char": 129,
+     "word": "the",
+     "asr_start_s": 9.48,
+     "asr_end_s": 9.88,
+     "window_s": [
+      9.48,
+      9.88
+     ],
+     "segment_index": 24,
+     "previous_word_end_s": 9.48,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 227520
+    },
+    {
+     "id": "onset:03_4:s4:03_4-download02.wav",
+     "index": 4,
+     "char": 224,
+     "word": "but",
+     "asr_start_s": 15.08,
+     "asr_end_s": 15.52,
+     "window_s": [
+      15.08,
+      15.52
+     ],
+     "segment_index": 41,
+     "previous_word_end_s": 15.08,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 361920
+    },
+    {
+     "id": "onset:03_4:s5:03_4-download02.wav",
+     "index": 5,
+     "char": 257,
+     "word": "they",
+     "asr_start_s": 17.24,
+     "asr_end_s": 17.52,
+     "window_s": [
+      17.24,
+      17.52
+     ],
+     "segment_index": 47,
+     "previous_word_end_s": 17.24,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 413760
+    },
+    {
+     "id": "onset:03_4:s6:03_4-download02.wav",
+     "index": 6,
+     "char": 317,
+     "word": "keep",
+     "asr_start_s": 21.559999,
+     "asr_end_s": 22.0,
+     "window_s": [
+      21.559999,
+      22.0
+     ],
+     "segment_index": 57,
+     "previous_word_end_s": 21.559999,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 517440
+    },
+    {
+     "id": "onset:03_4:s7:03_4-download02.wav",
+     "index": 7,
+     "char": 336,
+     "word": "it",
+     "asr_start_s": 22.84,
+     "asr_end_s": 23.139999,
+     "window_s": [
+      22.84,
+      23.139999
+     ],
+     "segment_index": 61,
+     "previous_word_end_s": 22.84,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 548160
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:03_4:b94:03_4-download02.wav",
+     "byte": 94,
+     "byte_end": 111,
+     "phrase": "The two axes fold",
+     "sentence": 2,
+     "status": "sentence_onset",
+     "same_as": "onset:03_4:s2:03_4-download02.wav"
+    },
+    {
+     "id": "anchor:03_4:b129:03_4-download02.wav",
+     "byte": 129,
+     "byte_end": 154,
+     "phrase": "The horizontal axis lands",
+     "sentence": 3,
+     "status": "sentence_onset",
+     "same_as": "onset:03_4:s3:03_4-download02.wav"
+    },
+    {
+     "id": "anchor:03_4:b301:03_4-download02.wav",
+     "byte": 301,
+     "byte_end": 315,
+     "phrase": "except at zero",
+     "sentence": 5,
+     "word": "except",
+     "asr_start_s": 19.879999,
+     "asr_end_s": 20.539999,
+     "window_s": [
+      19.879999,
+      20.539999
+     ],
+     "segment_index": 54,
+     "previous_word_end_s": 19.879999,
+     "abuts_previous_word": true,
+     "agreeing_run": 69,
+     "status": "supported",
+     "sample_24k": 477120
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "03_5",
+   "file": "03_5-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_5-download01.wav",
+   "sha256": "b29aeb6c2a70f31fb308e237590c05dca169b6251b75674b7ba87e633d20f1a5",
+   "pcm_sha256": "b978b0ba61467dc3da0e581e0710428b607a75d43fdddde803c12327db837990",
+   "frames": 933120,
+   "rate": 48000,
+   "seconds": 19.44,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_5-request01.json",
+    "sha256": "91ccd64b6aeda61f112c3e7ecd458aed013b085184a396c0d2e31ef77cd797c8"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_5-downloads01.json",
+    "sha256": "cf1bdae66c806f8d5584f9fb64b6ac6d2cc593192c399152ba3c0a96c07e5869"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 32
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:03_5:s1:03_5-download01.wav",
+     "index": 1,
+     "char": 32,
+     "word": "points",
+     "asr_start_s": 3.1,
+     "asr_end_s": 3.101,
+     "window_s": [
+      3.1,
+      3.101
+     ],
+     "segment_index": 6,
+     "previous_word_end_s": 3.1,
+     "abuts_previous_word": true,
+     "agreeing_run": 48,
+     "status": "supported",
+     "sample_24k": 74400
+    },
+    {
+     "id": "onset:03_5:s2:03_5-download01.wav",
+     "index": 2,
+     "char": 89,
+     "word": "the",
+     "asr_start_s": 7.56,
+     "asr_end_s": 7.6,
+     "window_s": [
+      7.56,
+      7.6
+     ],
+     "segment_index": 17,
+     "previous_word_end_s": 7.56,
+     "abuts_previous_word": true,
+     "agreeing_run": 48,
+     "status": "supported",
+     "sample_24k": 181440
+    },
+    {
+     "id": "onset:03_5:s3:03_5-download01.wav",
+     "index": 3,
+     "char": 185,
+     "word": "inside",
+     "asr_start_s": 14.08,
+     "asr_end_s": 14.099999,
+     "window_s": [
+      14.08,
+      14.099999
+     ],
+     "segment_index": 34,
+     "previous_word_end_s": 14.08,
+     "abuts_previous_word": true,
+     "agreeing_run": 48,
+     "status": "supported",
+     "sample_24k": 337920
+    },
+    {
+     "id": "onset:03_5:s4:03_5-download01.wav",
+     "index": 4,
+     "char": 218,
+     "word": "at",
+     "asr_start_s": 16.62,
+     "asr_end_s": 16.68,
+     "window_s": [
+      16.62,
+      16.68
+     ],
+     "segment_index": 39,
+     "previous_word_end_s": 16.62,
+     "abuts_previous_word": true,
+     "agreeing_run": 48,
+     "status": "supported",
+     "sample_24k": 398880
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:03_5:b89:03_5-download01.wav",
+     "byte": 89,
+     "byte_end": 104,
+     "phrase": "The unit circle",
+     "sentence": 2,
+     "status": "sentence_onset",
+     "same_as": "onset:03_5:s2:03_5-download01.wav"
+    },
+    {
+     "id": "anchor:03_5:b140:03_5-download01.wav",
+     "byte": 140,
+     "byte_end": 156,
+     "phrase": "each point flips",
+     "sentence": 2,
+     "word": "each",
+     "asr_start_s": 10.4,
+     "asr_end_s": 10.7,
+     "window_s": [
+      10.4,
+      10.7
+     ],
+     "segment_index": 27,
+     "previous_word_end_s": 10.4,
+     "abuts_previous_word": true,
+     "agreeing_run": 48,
+     "status": "supported",
+     "sample_24k": 249600
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "03_5",
+   "file": "03_5-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_5-download02.wav",
+   "sha256": "76f4d6e160c5bcd378314be82e53a3e2e57fb0a12aba9fb511fbb30e38675d96",
+   "pcm_sha256": "3ef902dd43b36071910f14f22615d35a4785eba36cbdef5daf671d498b265c84",
+   "frames": 925440,
+   "rate": 48000,
+   "seconds": 19.28,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_5-request01.json",
+    "sha256": "91ccd64b6aeda61f112c3e7ecd458aed013b085184a396c0d2e31ef77cd797c8"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_5-downloads01.json",
+    "sha256": "cf1bdae66c806f8d5584f9fb64b6ac6d2cc593192c399152ba3c0a96c07e5869"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 33
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:03_5:s1:03_5-download02.wav",
+     "index": 1,
+     "char": 32,
+     "word": "points",
+     "asr_start_s": 2.76,
+     "asr_end_s": 3.0,
+     "window_s": [
+      2.76,
+      3.0
+     ],
+     "segment_index": 6,
+     "previous_word_end_s": 2.76,
+     "abuts_previous_word": true,
+     "agreeing_run": 48,
+     "status": "supported",
+     "sample_24k": 66240
+    },
+    {
+     "id": "onset:03_5:s2:03_5-download02.wav",
+     "index": 2,
+     "char": 89,
+     "word": "the",
+     "asr_start_s": 7.38,
+     "asr_end_s": 7.48,
+     "window_s": [
+      7.38,
+      7.48
+     ],
+     "segment_index": 17,
+     "previous_word_end_s": 7.38,
+     "abuts_previous_word": true,
+     "agreeing_run": 48,
+     "status": "supported",
+     "sample_24k": 177120
+    },
+    {
+     "id": "onset:03_5:s3:03_5-download02.wav",
+     "index": 3,
+     "char": 185,
+     "word": "inside",
+     "asr_start_s": 13.34,
+     "asr_end_s": 13.88,
+     "window_s": [
+      13.34,
+      13.88
+     ],
+     "segment_index": 34,
+     "previous_word_end_s": 13.34,
+     "abuts_previous_word": true,
+     "agreeing_run": 48,
+     "status": "supported",
+     "sample_24k": 320160
+    },
+    {
+     "id": "onset:03_5:s4:03_5-download02.wav",
+     "index": 4,
+     "char": 218,
+     "word": "at",
+     "asr_start_s": 16.32,
+     "asr_end_s": 16.48,
+     "window_s": [
+      16.32,
+      16.48
+     ],
+     "segment_index": 39,
+     "previous_word_end_s": 16.32,
+     "abuts_previous_word": true,
+     "agreeing_run": 48,
+     "status": "supported",
+     "sample_24k": 391680
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:03_5:b89:03_5-download02.wav",
+     "byte": 89,
+     "byte_end": 104,
+     "phrase": "The unit circle",
+     "sentence": 2,
+     "status": "sentence_onset",
+     "same_as": "onset:03_5:s2:03_5-download02.wav"
+    },
+    {
+     "id": "anchor:03_5:b140:03_5-download02.wav",
+     "byte": 140,
+     "byte_end": 156,
+     "phrase": "each point flips",
+     "sentence": 2,
+     "word": "each",
+     "asr_start_s": 10.16,
+     "asr_end_s": 10.46,
+     "window_s": [
+      10.16,
+      10.46
+     ],
+     "segment_index": 27,
+     "previous_word_end_s": 10.16,
+     "abuts_previous_word": true,
+     "agreeing_run": 48,
+     "status": "supported",
+     "sample_24k": 243840
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "03_6",
+   "file": "03_6-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_6-download01.wav",
+   "sha256": "119801244a5633473a2910f24d8ed2856756853995f391261453038a639a958a",
+   "pcm_sha256": "a387efaa723f8ac72a2fcdecf1e71a3200ed06e947b96463365ded802b0426c6",
+   "frames": 887040,
+   "rate": 48000,
+   "seconds": 18.48,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_6-request01.json",
+    "sha256": "74b8ae230764572d952be698c3ddb2f3df83258772d7237b46da45b2dd70f226"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_6-downloads01.json",
+    "sha256": "6e64da9251d07ceaee0371864d7cd45bbbd1e825c87d8de92724ad80c6bbbf5c"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 34
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:03_6:s1:03_6-download01.wav",
+     "index": 1,
+     "char": 56,
+     "word": "moving",
+     "asr_start_s": 3.68,
+     "asr_end_s": 4.02,
+     "window_s": [
+      3.68,
+      4.02
+     ],
+     "segment_index": 8,
+     "previous_word_end_s": 3.68,
+     "abuts_previous_word": true,
+     "agreeing_run": 44,
+     "status": "supported",
+     "sample_24k": 88320
+    },
+    {
+     "id": "onset:03_6:s2:03_6-download01.wav",
+     "index": 2,
+     "char": 113,
+     "word": "moving",
+     "asr_start_s": 7.84,
+     "asr_end_s": 8.179999,
+     "window_s": [
+      7.84,
+      8.179999
+     ],
+     "segment_index": 18,
+     "previous_word_end_s": 7.84,
+     "abuts_previous_word": true,
+     "agreeing_run": 44,
+     "status": "supported",
+     "sample_24k": 188160
+    },
+    {
+     "id": "onset:03_6:s3:03_6-download01.wav",
+     "index": 3,
+     "char": 181,
+     "word": "so",
+     "asr_start_s": 13.0,
+     "asr_end_s": 13.28,
+     "window_s": [
+      13.0,
+      13.28
+     ],
+     "segment_index": 32,
+     "previous_word_end_s": 13.0,
+     "abuts_previous_word": true,
+     "agreeing_run": 44,
+     "status": "supported",
+     "sample_24k": 312000
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:03_6:b181:03_6-download01.wav",
+     "byte": 181,
+     "byte_end": 198,
+     "phrase": "So vertical lines",
+     "sentence": 3,
+     "status": "sentence_onset",
+     "same_as": "onset:03_6:s3:03_6-download01.wav"
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "03_6",
+   "file": "03_6-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_6-download02.wav",
+   "sha256": "ce6e95051f9af9b4f34dbba2f376db2725778b2ca8be93ac79351f27c42da41e",
+   "pcm_sha256": "bf9b016fd3938e144c8cebb69a734977bb09751b2854554bb2fc75e7f9724848",
+   "frames": 871680,
+   "rate": 48000,
+   "seconds": 18.16,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_6-request01.json",
+    "sha256": "74b8ae230764572d952be698c3ddb2f3df83258772d7237b46da45b2dd70f226"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_6-downloads01.json",
+    "sha256": "6e64da9251d07ceaee0371864d7cd45bbbd1e825c87d8de92724ad80c6bbbf5c"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-01",
+    "plan": "plan-01",
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 35
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:03_6:s1:03_6-download02.wav",
+     "index": 1,
+     "char": 56,
+     "word": "moving",
+     "asr_start_s": 3.6,
+     "asr_end_s": 3.96,
+     "window_s": [
+      3.6,
+      3.96
+     ],
+     "segment_index": 8,
+     "previous_word_end_s": 3.6,
+     "abuts_previous_word": true,
+     "agreeing_run": 44,
+     "status": "supported",
+     "sample_24k": 86400
+    },
+    {
+     "id": "onset:03_6:s2:03_6-download02.wav",
+     "index": 2,
+     "char": 113,
+     "word": "moving",
+     "asr_start_s": 7.84,
+     "asr_end_s": 8.179999,
+     "window_s": [
+      7.84,
+      8.179999
+     ],
+     "segment_index": 18,
+     "previous_word_end_s": 7.84,
+     "abuts_previous_word": true,
+     "agreeing_run": 44,
+     "status": "supported",
+     "sample_24k": 188160
+    },
+    {
+     "id": "onset:03_6:s3:03_6-download02.wav",
+     "index": 3,
+     "char": 181,
+     "word": "so",
+     "asr_start_s": 12.96,
+     "asr_end_s": 13.179999,
+     "window_s": [
+      12.96,
+      13.179999
+     ],
+     "segment_index": 32,
+     "previous_word_end_s": 12.96,
+     "abuts_previous_word": true,
+     "agreeing_run": 44,
+     "status": "supported",
+     "sample_24k": 311040
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:03_6:b181:03_6-download02.wav",
+     "byte": 181,
+     "byte_end": 198,
+     "phrase": "So vertical lines",
+     "sentence": 3,
+     "status": "sentence_onset",
+     "same_as": "onset:03_6:s3:03_6-download02.wav"
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "03_7",
+   "file": "03_7-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_7-download01.wav",
+   "sha256": "a18929c7f4259099dc7b45ec16fc95b7bd706303b199ecf7fc242522f3710f4d",
+   "pcm_sha256": "a70851cad9f679a39aa22fa3e88910c56d2c496fb79b6ee600a4f09792c0622f",
+   "frames": 472320,
+   "rate": 48000,
+   "seconds": 9.84,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_7-request01.json",
+    "sha256": "ce276408ee6b39962f9baa1678dd00479f0606e5e54e2447b8e77ed904871473"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_7-downloads01.json",
+    "sha256": "59db9d73f175815c8f8ed4e17a580da5ada6f2cf6bc1e96ee8b31cec4b755dcf"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-02",
+    "plan": "plan-02",
+    "job": "complex-frederick-stage05-recognition01-plan-02-a1",
+    "command_log_sha256": "e2797254329fb5cbac715cdb45da94c5e6bdd36d08e1c5770365e6f8aebdac31",
+    "record_index": 0
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:03_7:s1:03_7-download01.wav",
+     "index": 1,
+     "char": 55,
+     "word": "the",
+     "asr_start_s": 4.04,
+     "asr_end_s": 4.18,
+     "window_s": [
+      4.04,
+      4.18
+     ],
+     "segment_index": 10,
+     "previous_word_end_s": 4.04,
+     "abuts_previous_word": true,
+     "agreeing_run": 27,
+     "status": "supported",
+     "sample_24k": 96960
+    },
+    {
+     "id": "onset:03_7:s2:03_7-download01.wav",
+     "index": 2,
+     "char": 120,
+     "word": "both",
+     "asr_start_s": 8.22,
+     "asr_end_s": 8.44,
+     "window_s": [
+      8.22,
+      8.44
+     ],
+     "segment_index": 21,
+     "previous_word_end_s": 8.22,
+     "abuts_previous_word": true,
+     "agreeing_run": 27,
+     "status": "supported",
+     "sample_24k": 197280
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:03_7:b55:03_7-download01.wav",
+     "byte": 55,
+     "byte_end": 78,
+     "phrase": "The exponential repeats",
+     "sentence": 1,
+     "status": "sentence_onset",
+     "same_as": "onset:03_7:s1:03_7-download01.wav"
+    },
+    {
+     "id": "anchor:03_7:b93:03_7-download01.wav",
+     "byte": 93,
+     "byte_end": 118,
+     "phrase": "and it never reaches zero",
+     "sentence": 1,
+     "word": "and",
+     "asr_start_s": 6.28,
+     "asr_end_s": 6.44,
+     "window_s": [
+      6.28,
+      6.44
+     ],
+     "segment_index": 16,
+     "previous_word_end_s": 6.28,
+     "abuts_previous_word": true,
+     "agreeing_run": 27,
+     "status": "supported",
+     "sample_24k": 150720
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "03_7",
+   "file": "03_7-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_7-download02.wav",
+   "sha256": "a392e2e62ae5bae43cf87139d1facf3b399906164c58a496cf51d7f879e8cc1b",
+   "pcm_sha256": "28b1af61357b433970ce322bb298cef3eaaa7adbb5858c9925a9e70bb40cdd27",
+   "frames": 468480,
+   "rate": 48000,
+   "seconds": 9.76,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_7-request01.json",
+    "sha256": "ce276408ee6b39962f9baa1678dd00479f0606e5e54e2447b8e77ed904871473"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/03_7-downloads01.json",
+    "sha256": "59db9d73f175815c8f8ed4e17a580da5ada6f2cf6bc1e96ee8b31cec4b755dcf"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-02",
+    "plan": "plan-02",
+    "job": "complex-frederick-stage05-recognition01-plan-02-a1",
+    "command_log_sha256": "e2797254329fb5cbac715cdb45da94c5e6bdd36d08e1c5770365e6f8aebdac31",
+    "record_index": 1
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:03_7:s1:03_7-download02.wav",
+     "index": 1,
+     "char": 55,
+     "word": "the",
+     "asr_start_s": 3.88,
+     "asr_end_s": 3.94,
+     "window_s": [
+      3.88,
+      3.94
+     ],
+     "segment_index": 10,
+     "previous_word_end_s": 3.88,
+     "abuts_previous_word": true,
+     "agreeing_run": 27,
+     "status": "supported",
+     "sample_24k": 93120
+    },
+    {
+     "id": "onset:03_7:s2:03_7-download02.wav",
+     "index": 2,
+     "char": 120,
+     "word": "both",
+     "asr_start_s": 8.14,
+     "asr_end_s": 8.36,
+     "window_s": [
+      8.14,
+      8.36
+     ],
+     "segment_index": 21,
+     "previous_word_end_s": 8.14,
+     "abuts_previous_word": true,
+     "agreeing_run": 27,
+     "status": "supported",
+     "sample_24k": 195360
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:03_7:b55:03_7-download02.wav",
+     "byte": 55,
+     "byte_end": 78,
+     "phrase": "The exponential repeats",
+     "sentence": 1,
+     "status": "sentence_onset",
+     "same_as": "onset:03_7:s1:03_7-download02.wav"
+    },
+    {
+     "id": "anchor:03_7:b93:03_7-download02.wav",
+     "byte": 93,
+     "byte_end": 118,
+     "phrase": "and it never reaches zero",
+     "sentence": 1,
+     "word": "and",
+     "asr_start_s": 6.08,
+     "asr_end_s": 6.28,
+     "window_s": [
+      6.08,
+      6.28
+     ],
+     "segment_index": 16,
+     "previous_word_end_s": 6.08,
+     "abuts_previous_word": true,
+     "agreeing_run": 27,
+     "status": "supported",
+     "sample_24k": 145920
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "04_1",
+   "file": "04_1-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/04_1-download01.wav",
+   "sha256": "071ddc33c4fe99955ae2e01cb006e600b0b29a236df8ec3f25e12e3a480b7483",
+   "pcm_sha256": "b0569ba237f274201fd4cfdaebd298d7c937aae859588aa69d5f62e6a2b9dc47",
+   "frames": 990720,
+   "rate": 48000,
+   "seconds": 20.64,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/04_1-request01.json",
+    "sha256": "baf0d4860729923d2fa3029280a9e76c52b668b7f986766347d5973d7dea1285"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/04_1-downloads01.json",
+    "sha256": "d08a0b8ecadeaa88d9517552e38039b517c96778ccf7aa502a19be1bd84dfc92"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-02",
+    "plan": "plan-02",
+    "job": "complex-frederick-stage05-recognition01-plan-02-a1",
+    "command_log_sha256": "e2797254329fb5cbac715cdb45da94c5e6bdd36d08e1c5770365e6f8aebdac31",
+    "record_index": 2
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:04_1:s1:04_1-download01.wav",
+     "index": 1,
+     "char": 45,
+     "word": "to",
+     "asr_start_s": 3.34,
+     "asr_end_s": 3.4,
+     "window_s": [
+      3.34,
+      3.4
+     ],
+     "segment_index": 10,
+     "previous_word_end_s": 3.34,
+     "abuts_previous_word": true,
+     "agreeing_run": 54,
+     "status": "supported",
+     "sample_24k": 80160
+    },
+    {
+     "id": "onset:04_1:s2:04_1-download01.wav",
+     "index": 2,
+     "char": 101,
+     "word": "at",
+     "asr_start_s": 7.38,
+     "asr_end_s": 7.42,
+     "window_s": [
+      7.38,
+      7.42
+     ],
+     "segment_index": 21,
+     "previous_word_end_s": 7.38,
+     "abuts_previous_word": true,
+     "agreeing_run": 54,
+     "status": "supported",
+     "sample_24k": 177120
+    },
+    {
+     "id": "onset:04_1:s3:04_1-download01.wav",
+     "index": 3,
+     "char": 187,
+     "word": "pointing",
+     "asr_start_s": 12.92,
+     "asr_end_s": 13.0,
+     "window_s": [
+      12.92,
+      13.0
+     ],
+     "segment_index": 36,
+     "previous_word_end_s": 12.92,
+     "abuts_previous_word": true,
+     "agreeing_run": 54,
+     "status": "supported",
+     "sample_24k": 310080
+    },
+    {
+     "id": "onset:04_1:s4:04_1-download01.wav",
+     "index": 4,
+     "char": 210,
+     "word": "pointing",
+     "asr_start_s": 14.46,
+     "asr_end_s": 14.839999,
+     "window_s": [
+      14.46,
+      14.839999
+     ],
+     "segment_index": 40,
+     "previous_word_end_s": 14.46,
+     "abuts_previous_word": true,
+     "agreeing_run": 54,
+     "status": "supported",
+     "sample_24k": 347040
+    },
+    {
+     "id": "onset:04_1:s5:04_1-download01.wav",
+     "index": 5,
+     "char": 239,
+     "word": "pointing",
+     "asr_start_s": 17.0,
+     "asr_end_s": 17.24,
+     "window_s": [
+      17.0,
+      17.24
+     ],
+     "segment_index": 44,
+     "previous_word_end_s": 17.0,
+     "abuts_previous_word": true,
+     "agreeing_run": 54,
+     "status": "supported",
+     "sample_24k": 408000
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:04_1:b187:04_1-download01.wav",
+     "byte": 187,
+     "byte_end": 208,
+     "phrase": "Pointing right is red",
+     "sentence": 3,
+     "status": "sentence_onset",
+     "same_as": "onset:04_1:s3:04_1-download01.wav"
+    },
+    {
+     "id": "anchor:04_1:b210:04_1-download01.wav",
+     "byte": 210,
+     "byte_end": 237,
+     "phrase": "Pointing up is yellow green",
+     "sentence": 4,
+     "status": "sentence_onset",
+     "same_as": "onset:04_1:s4:04_1-download01.wav"
+    },
+    {
+     "id": "anchor:04_1:b239:04_1-download01.wav",
+     "byte": 239,
+     "byte_end": 260,
+     "phrase": "Pointing left is teal",
+     "sentence": 5,
+     "status": "sentence_onset",
+     "same_as": "onset:04_1:s5:04_1-download01.wav"
+    },
+    {
+     "id": "anchor:04_1:b266:04_1-download01.wav",
+     "byte": 266,
+     "byte_end": 289,
+     "phrase": "pointing down is violet",
+     "sentence": 5,
+     "word": "pointing",
+     "asr_start_s": 18.859999,
+     "asr_end_s": 19.199999,
+     "window_s": [
+      18.859999,
+      19.199999
+     ],
+     "segment_index": 49,
+     "previous_word_end_s": 18.859999,
+     "abuts_previous_word": true,
+     "agreeing_run": 54,
+     "status": "supported",
+     "sample_24k": 452640
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "04_1",
+   "file": "04_1-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/04_1-download02.wav",
+   "sha256": "b15625b7189359761178d14b934edbbf080dcf5d9f4dda9e436d94c08d093889",
+   "pcm_sha256": "27d8a9db4ac1c7401f41547d019942bb10ee4bfdcdcf90462dde6dbc4de8c07a",
+   "frames": 990720,
+   "rate": 48000,
+   "seconds": 20.64,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/04_1-request01.json",
+    "sha256": "baf0d4860729923d2fa3029280a9e76c52b668b7f986766347d5973d7dea1285"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/04_1-downloads01.json",
+    "sha256": "d08a0b8ecadeaa88d9517552e38039b517c96778ccf7aa502a19be1bd84dfc92"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-02",
+    "plan": "plan-02",
+    "job": "complex-frederick-stage05-recognition01-plan-02-a1",
+    "command_log_sha256": "e2797254329fb5cbac715cdb45da94c5e6bdd36d08e1c5770365e6f8aebdac31",
+    "record_index": 3
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:04_1:s1:04_1-download02.wav",
+     "index": 1,
+     "char": 45,
+     "word": "to",
+     "asr_start_s": 3.38,
+     "asr_end_s": 3.42,
+     "window_s": [
+      3.38,
+      3.42
+     ],
+     "segment_index": 10,
+     "previous_word_end_s": 3.38,
+     "abuts_previous_word": true,
+     "agreeing_run": 54,
+     "status": "supported",
+     "sample_24k": 81120
+    },
+    {
+     "id": "onset:04_1:s2:04_1-download02.wav",
+     "index": 2,
+     "char": 101,
+     "word": "at",
+     "asr_start_s": 7.4,
+     "asr_end_s": 7.44,
+     "window_s": [
+      7.4,
+      7.44
+     ],
+     "segment_index": 21,
+     "previous_word_end_s": 7.4,
+     "abuts_previous_word": true,
+     "agreeing_run": 54,
+     "status": "supported",
+     "sample_24k": 177600
+    },
+    {
+     "id": "onset:04_1:s3:04_1-download02.wav",
+     "index": 3,
+     "char": 187,
+     "word": "pointing",
+     "asr_start_s": 12.92,
+     "asr_end_s": 12.98,
+     "window_s": [
+      12.92,
+      12.98
+     ],
+     "segment_index": 36,
+     "previous_word_end_s": 12.92,
+     "abuts_previous_word": true,
+     "agreeing_run": 54,
+     "status": "supported",
+     "sample_24k": 310080
+    },
+    {
+     "id": "onset:04_1:s4:04_1-download02.wav",
+     "index": 4,
+     "char": 210,
+     "word": "pointing",
+     "asr_start_s": 14.46,
+     "asr_end_s": 14.839999,
+     "window_s": [
+      14.46,
+      14.839999
+     ],
+     "segment_index": 40,
+     "previous_word_end_s": 14.46,
+     "abuts_previous_word": true,
+     "agreeing_run": 54,
+     "status": "supported",
+     "sample_24k": 347040
+    },
+    {
+     "id": "onset:04_1:s5:04_1-download02.wav",
+     "index": 5,
+     "char": 239,
+     "word": "pointing",
+     "asr_start_s": 16.92,
+     "asr_end_s": 17.16,
+     "window_s": [
+      16.92,
+      17.16
+     ],
+     "segment_index": 44,
+     "previous_word_end_s": 16.92,
+     "abuts_previous_word": true,
+     "agreeing_run": 54,
+     "status": "supported",
+     "sample_24k": 406080
+    }
+   ],
+   "anchors": [
+    {
+     "id": "anchor:04_1:b187:04_1-download02.wav",
+     "byte": 187,
+     "byte_end": 208,
+     "phrase": "Pointing right is red",
+     "sentence": 3,
+     "status": "sentence_onset",
+     "same_as": "onset:04_1:s3:04_1-download02.wav"
+    },
+    {
+     "id": "anchor:04_1:b210:04_1-download02.wav",
+     "byte": 210,
+     "byte_end": 237,
+     "phrase": "Pointing up is yellow green",
+     "sentence": 4,
+     "status": "sentence_onset",
+     "same_as": "onset:04_1:s4:04_1-download02.wav"
+    },
+    {
+     "id": "anchor:04_1:b239:04_1-download02.wav",
+     "byte": 239,
+     "byte_end": 260,
+     "phrase": "Pointing left is teal",
+     "sentence": 5,
+     "status": "sentence_onset",
+     "same_as": "onset:04_1:s5:04_1-download02.wav"
+    },
+    {
+     "id": "anchor:04_1:b266:04_1-download02.wav",
+     "byte": 266,
+     "byte_end": 289,
+     "phrase": "pointing down is violet",
+     "sentence": 5,
+     "word": "pointing",
+     "asr_start_s": 18.779999,
+     "asr_end_s": 19.119999,
+     "window_s": [
+      18.779999,
+      19.119999
+     ],
+     "segment_index": 49,
+     "previous_word_end_s": 18.779999,
+     "abuts_previous_word": true,
+     "agreeing_run": 54,
+     "status": "supported",
+     "sample_24k": 450720
+    }
+   ],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "04_2",
+   "file": "04_2-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/04_2-download01.wav",
+   "sha256": "9fcb8422b3e6dfef5bd24c06bfc2d9d17d980df0fb8a1f2c61ead3242ce1a849",
+   "pcm_sha256": "072bb9d76da2361edd796144346f547b5aec51bda4a3e3210c5fd9db1d42e547",
+   "frames": 733440,
+   "rate": 48000,
+   "seconds": 15.28,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/04_2-request01.json",
+    "sha256": "5626846eaa0bf2b92ed073749eacc57d26adc2d7a6ccf46f4233b5ae0f634682"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/04_2-downloads01.json",
+    "sha256": "8189b8b00bec7cd786d4a50328c709687106db69436311e6481e0724e584693a"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-02",
+    "plan": "plan-02",
+    "job": "complex-frederick-stage05-recognition01-plan-02-a1",
+    "command_log_sha256": "e2797254329fb5cbac715cdb45da94c5e6bdd36d08e1c5770365e6f8aebdac31",
+    "record_index": 4
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:04_2:s1:04_2-download01.wav",
+     "index": 1,
+     "char": 42,
+     "word": "so",
+     "asr_start_s": 3.36,
+     "asr_end_s": 3.56,
+     "window_s": [
+      3.36,
+      3.56
+     ],
+     "segment_index": 8,
+     "previous_word_end_s": 3.36,
+     "abuts_previous_word": true,
+     "agreeing_run": 40,
+     "status": "supported",
+     "sample_24k": 80640
+    },
+    {
+     "id": "onset:04_2:s2:04_2-download01.wav",
+     "index": 2,
+     "char": 73,
+     "word": "each",
+     "asr_start_s": 5.88,
+     "asr_end_s": 6.1,
+     "window_s": [
+      5.88,
+      6.1
+     ],
+     "segment_index": 13,
+     "previous_word_end_s": 5.88,
+     "abuts_previous_word": true,
+     "agreeing_run": 40,
+     "status": "supported",
+     "sample_24k": 141120
+    },
+    {
+     "id": "onset:04_2:s3:04_2-download01.wav",
+     "index": 3,
+     "char": 152,
+     "word": "thin",
+     "asr_start_s": 11.16,
+     "asr_end_s": 11.52,
+     "window_s": [
+      11.16,
+      11.52
+     ],
+     "segment_index": 26,
+     "previous_word_end_s": 11.16,
+     "abuts_previous_word": true,
+     "agreeing_run": 40,
+     "status": "supported",
+     "sample_24k": 267840
+    }
+   ],
+   "anchors": [],
+   "differences": [],
+   "supplementary_recognition": []
+  },
+  {
+   "cue": "04_2",
+   "file": "04_2-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/04_2-download02.wav",
+   "sha256": "72b7d969fd363f563ed5e5471ef860c5259dbb6f10e441f228b5e8460ae4a0e4",
+   "pcm_sha256": "ef6b17338a690492ab0ade19af269d4740e87c2b89b91261abc80fe71c4c0ea3",
+   "frames": 744960,
+   "rate": 48000,
+   "seconds": 15.52,
+   "text_current": true,
+   "request": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/04_2-request01.json",
+    "sha256": "5626846eaa0bf2b92ed073749eacc57d26adc2d7a6ccf46f4233b5ae0f634682"
+   },
+   "downloads": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-01/04_2-downloads01.json",
+    "sha256": "8189b8b00bec7cd786d4a50328c709687106db69436311e6481e0724e584693a"
+   },
+   "recognition": {
+    "lane": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+    "ingest": "ingest-02",
+    "plan": "plan-02",
+    "job": "complex-frederick-stage05-recognition01-plan-02-a1",
+    "command_log_sha256": "e2797254329fb5cbac715cdb45da94c5e6bdd36d08e1c5770365e6f8aebdac31",
+    "record_index": 5
+   },
+   "sentences": [
+    {
+     "index": 0,
+     "char": 0,
+     "status": "file_start",
+     "sample_24k": 0,
+     "basis": "the complete take starts the cue"
+    },
+    {
+     "id": "onset:04_2:s1:04_2-download02.wav",
+     "index": 1,
+     "char": 42,
+     "word": "so",
+     "asr_start_s": 3.36,
+     "asr_end_s": 3.58,
+     "window_s": [
+      3.36,
+      3.58
+     ],
+     "segment_index": 8,
+     "previous_word_end_s": 3.36,
+     "abuts_previous_word": true,
+     "agreeing_run": 40,
+     "status": "supported",
+     "sample_24k": 80640
+    },
+    {
+     "id": "onset:04_2:s2:04_2-download02.wav",
+     "index": 2,
+     "char": 73,
+     "word": "each",
+     "asr_start_s": 6.04,
+     "asr_end_s": 6.24,
+     "window_s": [
+      6.04,
+      6.24
+     ],
+     "segment_index": 13,
+     "previous_word_end_s": 6.04,
+     "abuts_previous_word": true,
+     "agreeing_run": 40,
+     "status": "supported",
+     "sample_24k": 144960
+    },
+    {
+     "id": "onset:04_2:s3:04_2-download02.wav",
+     "index": 3,
+     "char": 152,
+     "word": "thin",
+     "asr_start_s": 11.26,
+     "asr_end_s": 11.599999,
+     "window_s": [
+      11.26,
+      11.599999
+     ],
+     "segment_index": 26,
+     "previous_word_end_s": 11.26,
+     "abuts_previous_word": true,
+     "agreeing_run": 40,
+     "status": "supported",
+     "sample_24k": 270240
+    }
+   ],
+   "anchors": [],
+   "differences": [],
+   "supplementary_recognition": []
+  }
+ ],
+ "limits": "Recognizer estimates and source-bound bookkeeping only. No take selected, heard, measured, cut or accepted here; no fine sync, listening or voice approval. Oliver timings are never read."
+}

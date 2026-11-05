@@ -1,0 +1,637 @@
+id	cue	file	clarity	kind	word	abuts_previous_word	recognizer_onset_s	recognizer_sample_24k	segment_end_s	status	class	pause_start_s	pause_s	leave_s	leave_24k	body_s	body_24k	delta_leave_s	delta_body_s	median_db_recognizer_to_leave	pause_start_minus_recognizer_s	quiet_runs_ending_in_window
+onset:00_1:s1:00_1-download01.wav	00_1	00_1-download01.wav	False	sentence	in	True	5.68	136320	5.88	pause	within	5.23	0.53	5.76	138240	5.78	138720	0.08	0.1	-88.5	-0.45	1
+onset:00_1:s1:00_1-download02.wav	00_1	00_1-download02.wav	False	sentence	in	True	5.88	141120	6.06	pause	within	5.46	0.31	5.77	138480	5.86	140640	-0.11	-0.02		-0.42	1
+onset:00_1:s1:00_1-download03.wav	00_1	00_1-download03.wav	False	sentence	in	True	5.88	141120	6.06	pause	within	5.46	0.31	5.77	138480	5.86	140640	-0.11	-0.02		-0.42	1
+onset:00_1:s1:00_1-download04.wav	00_1	00_1-download04.wav	False	sentence	in	True	5.88	141120	6.06	pause	within	5.46	0.31	5.77	138480	5.86	140640	-0.11	-0.02		-0.42	1
+onset:00_2:s1:00_2-download01.wav	00_2	00_2-download01.wav	False	sentence	the	True	3.26	78240	3.4	pause	within	2.84	0.44	3.28	78720	3.32	79680	0.02	0.06	-71.1	-0.42	1
+onset:00_2:s2:00_2-download01.wav	00_2	00_2-download01.wav	False	sentence	the	True	9.62	230880	9.76	pause	within	9.12	0.53	9.65	231600	9.68	232320	0.03	0.06	-68.4	-0.5	1
+onset:00_2:s1:00_2-download02.wav	00_2	00_2-download02.wav	False	sentence	the	True	3.34	80160	3.48	pause	within	2.96	0.42	3.38	81120	3.4	81600	0.04	0.06	-84.9	-0.38	1
+onset:00_2:s2:00_2-download02.wav	00_2	00_2-download02.wav	False	sentence	the	True	9.78	234720	9.92	pause	within	9.3	0.52	9.82	235680	9.84	236160	0.04	0.06	-73.3	-0.48	1
+onset:00_3:s1:00_3-download01.wav	00_3	00_3-download01.wav	False	sentence	count	False	2.62	62880	2.88	pause	within	2.17	0.41	2.58	61920	2.63	63120	-0.04	0.01		-0.45	1
+onset:00_3:s2:00_3-download01.wav	00_3	00_3-download01.wav	False	sentence	each	True	8.24	197760	8.559999	pause	within	7.76	0.54	8.3	199200	8.32	199680	0.06	0.08	-87.1	-0.48	1
+onset:00_3:s3:00_3-download01.wav	00_3	00_3-download01.wav	False	sentence	to	True	16.04	384960	16.199999	pause	within	15.47	0.63	16.1	386400	16.11	386640	0.06	0.07	-85.0	-0.57	1
+onset:00_3:s1:00_3-download02.wav	00_3	00_3-download02.wav	False	sentence	count	False	2.78	66720	3.02	pause	within	2.27	0.47	2.74	65760	2.74	65760	-0.04	-0.04		-0.51	1
+onset:00_3:s2:00_3-download02.wav	00_3	00_3-download02.wav	False	sentence	each	True	8.4	201600	8.72	pause	within	7.77	0.68	8.45	202800	8.46	203040	0.05	0.06	-82.4	-0.63	1
+onset:00_3:s3:00_3-download02.wav	00_3	00_3-download02.wav	False	sentence	to	True	16.36	392640	16.52	pause	within	15.71	0.7	16.41	393840	16.43	394320	0.05	0.07	-81.2	-0.65	1
+onset:00_4:s1:00_4-download01.wav	00_4	00_4-download01.wav	False	sentence	start	True	1.78	42720	1.98	pause	within	1.27	0.42	1.69	40560	1.7	40800	-0.09	-0.08		-0.51	1
+onset:00_4:s2:00_4-download01.wav	00_4	00_4-download01.wav	False	sentence	what	True	8.0	192000	8.48	pause	recognizer_early	7.82	0.53	8.35	200400	8.36	200640	0.35	0.36	-85.6	-0.18	1
+onset:00_4:s3:00_4-download01.wav	00_4	00_4-download01.wav	False	sentence	halfway	True	10.08	241920	10.78	pause	recognizer_early	9.87	0.5	10.37	248880	10.39	249360	0.29	0.31	-86.8	-0.21	1
+onset:00_4:s1:00_4-download02.wav	00_4	00_4-download02.wav	False	sentence	start	True	1.76	42240	1.98	pause	within	1.24	0.44	1.68	40320	1.7	40800	-0.08	-0.06		-0.52	1
+onset:00_4:s2:00_4-download02.wav	00_4	00_4-download02.wav	False	sentence	what	True	8.0	192000	8.599999	pause	recognizer_early	7.86	0.62	8.48	203520	8.49	203760	0.48	0.49	-84.9	-0.14	1
+onset:00_4:s3:00_4-download02.wav	00_4	00_4-download02.wav	False	sentence	halfway	True	10.08	241920	10.78	pause	recognizer_early	9.9	0.45	10.35	248400	10.38	249120	0.27	0.3	-86.1	-0.18	1
+onset:00_5:s1:00_5-download01.wav	00_5	00_5-download01.wav	False	sentence	so	True	5.28	126720	5.54	pause	within	5.02	0.18	5.2	124800	5.38	129120	-0.08	0.1		-0.26	1
+onset:00_5:s2:00_5-download01.wav	00_5	00_5-download01.wav	False	sentence	the	True	10.16	243840	10.36	pause	within	9.84	0.41	10.25	246000	10.27	246480	0.09	0.11	-88.1	-0.32	1
+onset:00_5:s3:00_5-download01.wav	00_5	00_5-download01.wav	False	sentence	equal	True	14.88	357120	15.28	pause	within	14.49	0.44	14.93	358320	14.95	358800	0.05	0.07	-87.0	-0.39	1
+onset:00_5:s1:00_5-download02.wav	00_5	00_5-download02.wav	False	sentence	so	True	5.36	128640	5.64	pause	within	5.19	0.17	5.36	128640	5.53	132720	0.0	0.17		-0.17	2
+onset:00_5:s2:00_5-download02.wav	00_5	00_5-download02.wav	False	sentence	the	True	10.08	241920	10.36	pause	within	9.77	0.49	10.26	246240	10.29	246960	0.18	0.21	-85.5	-0.31	1
+onset:00_5:s3:00_5-download02.wav	00_5	00_5-download02.wav	False	sentence	equal	True	14.82	355680	15.48	pause	recognizer_early	14.64	0.5	15.14	363360	15.14	363360	0.32	0.32	-85.3	-0.18	1
+onset:00_6:s1:00_6-download01.wav	00_6	00_6-download01.wav	False	sentence	for	False	5.1	122400	5.7	pause	recognizer_early	5.11	0.36	5.47	131280	5.6	134400	0.37	0.5	-66.7	0.01	1
+onset:00_6:s2:00_6-download01.wav	00_6	00_6-download01.wav	False	sentence	push	True	10.8	259200	11.599999	pause	recognizer_early	10.76	0.68	11.44	274560	11.45	274800	0.64	0.65	-84.5	-0.04	1
+onset:00_6:s3:00_6-download01.wav	00_6	00_6-download01.wav	False	sentence	it	True	18.4	441600	18.879999	pause	recognizer_early	18.31	0.47	18.78	450720	18.79	450960	0.38	0.39	-85.2	-0.09	1
+onset:00_6:s4:00_6-download01.wav	00_6	00_6-download01.wav	False	sentence	it	False	22.02	528480	22.559999	pause	recognizer_early	22.13	0.32	22.45	538800	22.47	539280	0.43	0.45	-65.5	0.11	2
+onset:00_6:s5:00_6-download01.wav	00_6	00_6-download01.wav	False	sentence	we	True	26.5	636000	27.139999	pause	recognizer_early	26.39	0.65	27.04	648960	27.05	649200	0.54	0.55	-85.0	-0.11	1
+onset:00_6:s1:00_6-download02.wav	00_6	00_6-download02.wav	False	sentence	for	True	5.5	132000	5.78	pause	within	5.13	0.53	5.66	135840	5.67	136080	0.16	0.17	-65.0	-0.37	1
+onset:00_6:s2:00_6-download02.wav	00_6	00_6-download02.wav	False	sentence	push	True	11.34	272160	11.58	pause	within	10.82	0.59	11.41	273840	11.44	274560	0.07	0.1	-85.0	-0.52	1
+onset:00_6:s3:00_6-download02.wav	00_6	00_6-download02.wav	False	sentence	it	True	18.6	446400	18.799999	pause	within	18.22	0.43	18.65	447600	18.71	449040	0.05	0.11	-69.3	-0.38	1
+onset:00_6:s4:00_6-download02.wav	00_6	00_6-download02.wav	False	sentence	it	True	22.2	532800	22.42	pause	within	22.02	0.22	22.24	533760	22.33	535920	0.04	0.13	-65.9	-0.18	2
+onset:00_6:s5:00_6-download02.wav	00_6	00_6-download02.wav	False	sentence	we	True	26.74	641760	26.98	pause	within	26.26	0.56	26.82	643680	26.86	644640	0.08	0.12	-89.1	-0.48	1
+onset:01_1:s1:01_1-download01.wav	01_1	01_1-download01.wav	False	sentence	put	False	5.02	120480	5.58	pause	recognizer_early	4.85	0.55	5.4	129600	5.42	130080	0.38	0.4	-86.1	-0.17	1
+onset:01_1:s2:01_1-download01.wav	01_1	01_1-download01.wav	False	sentence	choose	True	7.0	168000	7.46	pause	recognizer_early	6.81	0.4	7.21	173040	7.25	174000	0.21	0.25	-86.3	-0.19	1
+onset:01_1:s3:01_1-download01.wav	01_1	01_1-download01.wav	False	sentence	then	False	10.42	250080	10.94	pause	recognizer_early	10.3	0.44	10.74	257760	10.76	258240	0.32	0.34	-85.3	-0.12	1
+onset:01_1:s4:01_1-download01.wav	01_1	01_1-download01.wav	False	sentence	every	True	17.0	408000	17.559999	pause	recognizer_early	16.71	0.51	17.22	413280	17.23	413520	0.22	0.23	-86.3	-0.29	1
+onset:01_1:s1:01_1-download02.wav	01_1	01_1-download02.wav	False	sentence	put	False	5.06	121440	5.58	pause	recognizer_early	4.86	0.58	5.44	130560	5.44	130560	0.38	0.38	-84.5	-0.2	1
+onset:01_1:s2:01_1-download02.wav	01_1	01_1-download02.wav	False	sentence	choose	True	7.0	168000	7.3	pause	within	6.64	0.44	7.08	169920	7.1	170400	0.08	0.1	-86.9	-0.36	1
+onset:01_1:s3:01_1-download02.wav	01_1	01_1-download02.wav	False	sentence	then	False	10.28	246720	10.84	pause	recognizer_early	10.14	0.43	10.57	253680	10.6	254400	0.29	0.32	-86.2	-0.14	1
+onset:01_1:s4:01_1-download02.wav	01_1	01_1-download02.wav	False	sentence	every	True	17.0	408000	17.539999	pause	recognizer_early	16.72	0.5	17.22	413280	17.24	413760	0.22	0.24	-86.7	-0.28	1
+onset:01_2:s1:01_2-download01.wav	01_2	01_2-download01.wav	False	sentence	halving	True	6.94	166560	7.44	pause	within	6.49	0.5	6.99	167760	7.02	168480	0.05	0.08	-88.9	-0.45	1
+onset:01_2:s2:01_2-download01.wav	01_2	01_2-download01.wav	False	sentence	and	True	13.24	317760	13.4	pause	within	12.67	0.61	13.28	318720	13.3	319200	0.04	0.06	-78.8	-0.57	1
+onset:01_2:s1:01_2-download02.wav	01_2	01_2-download02.wav	False	sentence	halving	True	6.96	167040	7.44	pause	within	6.51	0.51	7.02	168480	7.04	168960	0.06	0.08	-79.5	-0.45	1
+onset:01_2:s2:01_2-download02.wav	01_2	01_2-download02.wav	False	sentence	and	True	13.2	316800	13.36	pause	within	12.69	0.56	13.25	318000	13.27	318480	0.05	0.07	-87.5	-0.51	1
+onset:01_3:s1:01_3-download01.wav	01_3	01_3-download01.wav	False	sentence	where	True	1.78	42720	2.34	pause	recognizer_early	1.69	0.5	2.19	52560	2.2	52800	0.41	0.42	-83.5	-0.09	1
+onset:01_3:s2:01_3-download01.wav	01_3	01_3-download01.wav	False	sentence	it	True	4.08	97920	4.12	pause	within	3.49	0.51	4.0	96000	4.03	96720	-0.08	-0.05		-0.59	1
+onset:01_3:s3:01_3-download01.wav	01_3	01_3-download01.wav	False	sentence	but	True	9.74	233760	9.8	pause	within	9.05	0.6	9.65	231600	9.67	232080	-0.09	-0.07		-0.69	1
+onset:01_3:s1:01_3-download02.wav	01_3	01_3-download02.wav	False	sentence	where	True	1.74	41760	2.32	pause	recognizer_early	1.66	0.47	2.13	51120	2.14	51360	0.39	0.4	-80.1	-0.08	1
+onset:01_3:s2:01_3-download02.wav	01_3	01_3-download02.wav	False	sentence	it	False	3.64	87360	4.24	pause	recognizer_early	3.5	0.59	4.09	98160	4.12	98880	0.45	0.48	-86.2	-0.14	1
+onset:01_3:s3:01_3-download02.wav	01_3	01_3-download02.wav	False	sentence	but	True	9.4	225600	9.98	pause	recognizer_early	9.26	0.51	9.77	234480	9.86	236640	0.37	0.46	-69.0	-0.14	1
+onset:01_4:s1:01_4-download01.wav	01_4	01_4-download01.wav	False	sentence	twelve	False	2.36	56640	2.58	pause	within	1.9	0.39	2.29	54960	2.31	55440	-0.07	-0.05		-0.46	1
+onset:01_4:s2:01_4-download01.wav	01_4	01_4-download01.wav	False	sentence	nineteen	True	8.3	199200	8.84	pause	within	7.85	0.49	8.34	200160	8.35	200400	0.04	0.05	-66.8	-0.45	1
+onset:01_4:s3:01_4-download01.wav	01_4	01_4-download01.wav	False	sentence	those	True	13.34	320160	13.599999	pause	within	12.92	0.45	13.37	320880	13.41	321840	0.03	0.07	-79.4	-0.42	1
+onset:01_4:s4:01_4-download01.wav	01_4	01_4-download01.wav	False	sentence	so	True	16.3	391200	16.76	pause	within	15.92	0.42	16.34	392160	16.35	392400	0.04	0.05	-66.3	-0.38	1
+onset:01_4:s1:01_4-download02.wav	01_4	01_4-download02.wav	False	sentence	twelve	False	2.36	56640	2.58	pause	within	1.89	0.41	2.3	55200	2.31	55440	-0.06	-0.05		-0.47	1
+onset:01_4:s2:01_4-download02.wav	01_4	01_4-download02.wav	False	sentence	nineteen	True	8.3	199200	9.099999	pause	recognizer_early	8.1	0.53	8.63	207120	8.64	207360	0.33	0.34	-86.0	-0.2	1
+onset:01_4:s3:01_4-download02.wav	01_4	01_4-download02.wav	False	sentence	those	True	13.5	324000	14.059999	pause	recognizer_early	13.39	0.46	13.85	332400	13.88	333120	0.35	0.38	-86.0	-0.11	1
+onset:01_4:s4:01_4-download02.wav	01_4	01_4-download02.wav	False	sentence	so	False	16.619999	398880	17.24	pause	within	16.41	0.39	16.8	403200	16.82	403680	0.18	0.2	-86.5	-0.21	1
+onset:01_5:s1:01_5-download01.wav	01_5	01_5-download01.wav	False	sentence	nineteen	False	3.08	73920	3.44	pause	within	2.56	0.35	2.91	69840	3.08	73920	-0.17	0.0		-0.52	2
+onset:01_5:s2:01_5-download01.wav	01_5	01_5-download01.wav	False	sentence	closer	True	9.34	224160	9.74	pause	within	8.83	0.57	9.4	225600	9.4	225600	0.06	0.06	-68.6	-0.51	1
+onset:01_5:s3:01_5-download01.wav	01_5	01_5-download01.wav	False	sentence	as	True	16.9	405600	17.059999	pause	within	16.39	0.53	16.92	406080	16.94	406560	0.02	0.04	-61.6	-0.51	1
+onset:01_5:s1:01_5-download02.wav	01_5	01_5-download02.wav	False	sentence	nineteen	True	3.04	72960	3.44	pause	within	2.55	0.51	3.06	73440	3.09	74160	0.02	0.05	-75.0	-0.49	1
+onset:01_5:s2:01_5-download02.wav	01_5	01_5-download02.wav	False	sentence	closer	True	9.48	227520	9.86	pause	within	9.01	0.52	9.53	228720	9.55	229200	0.05	0.07	-76.9	-0.47	1
+onset:01_5:s3:01_5-download02.wav	01_5	01_5-download02.wav	False	sentence	as	True	17.08	409920	17.279999	pause	within	16.51	0.62	17.13	411120	17.15	411600	0.05	0.07	-89.9	-0.57	1
+onset:01_6:s1:01_6-download01.wav	01_6	01_6-download01.wav	False	sentence	measured	True	2.2	52800	2.66	pause	within	1.78	0.48	2.26	54240	2.31	55440	0.06	0.11	-74.8	-0.42	1
+onset:01_6:s2:01_6-download01.wav	01_6	01_6-download01.wav	False	sentence	the	True	6.28	150720	6.46	pause	within	5.82	0.54	6.36	152640	6.38	153120	0.08	0.1	-88.9	-0.46	1
+onset:01_6:s3:01_6-download01.wav	01_6	01_6-download01.wav	False	sentence	choose	True	13.4	321600	13.66	pause	within	12.91	0.56	13.47	323280	13.5	324000	0.07	0.1	-88.5	-0.49	1
+onset:01_6:s4:01_6-download01.wav	01_6	01_6-download01.wav	False	sentence	let	True	17.72	425280	18.0	pause	within	17.17	0.56	17.73	425520	17.84	428160	0.01	0.12	-61.3	-0.55	1
+onset:01_6:s5:01_6-download01.wav	01_6	01_6-download01.wav	False	sentence	every	True	23.16	555840	23.539999	pause	within	22.69	0.55	23.24	557760	23.26	558240	0.08	0.1	-87.8	-0.47	1
+onset:01_6:s1:01_6-download02.wav	01_6	01_6-download02.wav	False	sentence	measured	True	2.18	52320	2.58	pause	within	1.79	0.43	2.22	53280	2.24	53760	0.04	0.06	-66.8	-0.39	1
+onset:01_6:s2:01_6-download02.wav	01_6	01_6-download02.wav	False	sentence	the	True	6.28	150720	6.4	pause	within	5.8	0.52	6.32	151680	6.33	151920	0.04	0.05	-66.0	-0.48	1
+onset:01_6:s3:01_6-download02.wav	01_6	01_6-download02.wav	False	sentence	choose	True	13.26	318240	13.48	pause	within	12.8	0.48	13.28	318720	13.3	319200	0.02	0.04	-77.9	-0.46	1
+onset:01_6:s4:01_6-download02.wav	01_6	01_6-download02.wav	False	sentence	let	True	17.38	417120	17.58	pause	within	16.91	0.5	17.41	417840	17.44	418560	0.03	0.06	-87.9	-0.47	1
+onset:01_6:s5:01_6-download02.wav	01_6	01_6-download02.wav	False	sentence	every	True	22.76	546240	23.08	pause	within	22.25	0.55	22.8	547200	22.82	547680	0.04	0.06	-73.8	-0.51	1
+onset:02_1:s1:02_1-download01.wav	02_1	02_1-download01.wav	False	sentence	mark	True	5.62	134880	5.9	pause	within	5.16	0.5	5.66	135840	5.67	136080	0.04	0.05	-77.4	-0.46	1
+onset:02_1:s2:02_1-download01.wav	02_1	02_1-download01.wav	False	sentence	this	True	10.52	252480	10.9	pause	within	10.07	0.5	10.57	253680	10.6	254400	0.05	0.08	-76.8	-0.45	1
+anchor:02_1:b48:02_1-download01.wav	02_1	02_1-download01.wav	False	mark	one	True	3.52	84480	3.84	no_quiet_run_ends_in_window												0
+onset:02_1:s1:02_1-download02.wav	02_1	02_1-download02.wav	False	sentence	mark	True	5.46	131040	5.76	pause	within	4.95	0.56	5.51	132240	5.52	132480	0.05	0.06	-70.1	-0.51	1
+onset:02_1:s2:02_1-download02.wav	02_1	02_1-download02.wav	False	sentence	this	True	10.46	251040	10.84	pause	within	9.94	0.54	10.48	251520	10.51	252240	0.02	0.05	-63.4	-0.52	1
+anchor:02_1:b48:02_1-download02.wav	02_1	02_1-download02.wav	False	mark	one	True	3.42	82080	3.7	no_quiet_run_ends_in_window												0
+onset:02_2:s1:02_2-download01.wav	02_2	02_2-download01.wav	False	sentence	everything	True	8.26	198240	8.639999	pause	within	7.8	0.49	8.29	198960	8.3	199200	0.03	0.04	-69.7	-0.46	1
+onset:02_2:s2:02_2-download01.wav	02_2	02_2-download01.wav	False	sentence	find	True	12.36	296640	12.74	pause	within	11.86	0.53	12.39	297360	12.43	298320	0.03	0.07	-66.5	-0.5	1
+onset:02_2:s3:02_2-download01.wav	02_2	02_2-download01.wav	False	sentence	which	True	15.44	370560	15.679999	pause	within	15.02	0.46	15.48	371520	15.49	371760	0.04	0.05	-68.8	-0.42	1
+anchor:02_2:b47:02_2-download01.wav	02_2	02_2-download01.wav	False	mark	slide	True	3.5	84000	3.9	pause	within	3.33	0.21	3.54	84960	3.55	85200	0.04	0.05	-79.5	-0.17	1
+onset:02_2:s1:02_2-download02.wav	02_2	02_2-download02.wav	False	sentence	everything	True	8.0	192000	8.7	pause	recognizer_early	7.85	0.48	8.33	199920	8.35	200400	0.33	0.35	-85.8	-0.15	1
+onset:02_2:s2:02_2-download02.wav	02_2	02_2-download02.wav	False	sentence	find	True	12.0	288000	12.679999	pause	recognizer_early	11.8	0.54	12.34	296160	12.37	296880	0.34	0.37	-84.6	-0.2	1
+onset:02_2:s3:02_2-download02.wav	02_2	02_2-download02.wav	False	sentence	which	False	15.08	361920	15.62	pause	recognizer_early	14.93	0.53	15.46	371040	15.47	371280	0.38	0.39	-72.7	-0.15	1
+anchor:02_2:b47:02_2-download02.wav	02_2	02_2-download02.wav	False	mark	slide	True	3.24	77760	3.82	short_quiet_run		3.23	0.12	3.35	80400	3.48	83520	0.11	0.24	-66.7	-0.01	3
+onset:02_3:s1:02_3-download01.wav	02_3	02_3-download01.wav	False	sentence	the	True	0.6	14400	1.14	pause	recognizer_early	0.63	0.4	1.03	24720	1.05	25200	0.43	0.45	-85.7	0.03	1
+onset:02_3:s2:02_3-download01.wav	02_3	02_3-download01.wav	False	sentence	two	False	4.6	110400	5.44	pause	within	4.1	0.47	4.57	109680	4.61	110640	-0.03	0.01		-0.5	1
+onset:02_3:s3:02_3-download01.wav	02_3	02_3-download01.wav	False	sentence	sliding	True	8.2	196800	8.74	pause	within	7.73	0.51	8.24	197760	8.25	198000	0.04	0.05	-71.0	-0.47	1
+onset:02_3:s1:02_3-download02.wav	02_3	02_3-download02.wav	False	sentence	the	True	0.54	12960	1.04	pause	recognizer_early	0.56	0.37	0.93	22320	0.96	23040	0.39	0.42	-84.6	0.02	1
+onset:02_3:s2:02_3-download02.wav	02_3	02_3-download02.wav	False	sentence	two	False	4.52	108480	5.38	pause	within	4.03	0.49	4.52	108480	4.56	109440	0.0	0.04		-0.49	1
+onset:02_3:s3:02_3-download02.wav	02_3	02_3-download02.wav	False	sentence	sliding	True	8.2	196800	8.76	pause	within	7.66	0.58	8.24	197760	8.25	198000	0.04	0.05	-80.4	-0.54	1
+onset:02_4:s1:02_4-download01.wav	02_4	02_4-download01.wav	False	sentence	put	True	2.64	63360	2.8	pause	within	2.19	0.44	2.63	63120	2.68	64320	-0.01	0.04		-0.45	1
+onset:02_4:s2:02_4-download01.wav	02_4	02_4-download01.wav	False	sentence	it	True	5.98	143520	6.1	pause	within	5.57	0.42	5.99	143760	6.02	144480	0.01	0.04	-61.8	-0.41	1
+onset:02_4:s3:02_4-download01.wav	02_4	02_4-download01.wav	False	sentence	the	True	7.78	186720	7.92	pause	within	7.25	0.56	7.81	187440	7.82	187680	0.03	0.04	-61.8	-0.53	1
+onset:02_4:s1:02_4-download02.wav	02_4	02_4-download02.wav	False	sentence	put	True	2.76	66240	2.92	pause	within	2.27	0.51	2.78	66720	2.81	67440	0.02	0.05	-60.9	-0.49	1
+onset:02_4:s2:02_4-download02.wav	02_4	02_4-download02.wav	False	sentence	it	True	5.98	143520	6.1	pause	within	5.64	0.37	6.01	144240	6.02	144480	0.03	0.04	-70.8	-0.34	1
+onset:02_4:s3:02_4-download02.wav	02_4	02_4-download02.wav	False	sentence	the	True	7.7	184800	7.86	pause	within	7.27	0.47	7.74	185760	7.76	186240	0.04	0.06	-63.8	-0.43	1
+onset:02_5:s1:02_5-download01.wav	02_5	02_5-download01.wav	False	sentence	put	True	2.04	48960	2.2	pause	within	1.7	0.35	2.05	49200	2.09	50160	0.01	0.05	-61.1	-0.34	1
+onset:02_5:s2:02_5-download01.wav	02_5	02_5-download01.wav	False	sentence	now	True	5.88	141120	6.1	pause	within	5.35	0.54	5.89	141360	5.91	141840	0.01	0.03	-67.2	-0.53	1
+onset:02_5:s3:02_5-download01.wav	02_5	02_5-download01.wav	False	sentence	the	True	9.08	217920	9.2	pause	within	8.58	0.53	9.11	218640	9.12	218880	0.03	0.04	-66.2	-0.5	1
+onset:02_5:s4:02_5-download01.wav	02_5	02_5-download01.wav	False	sentence	two	True	14.3	343200	15.4	pause	within	13.83	0.47	14.3	343200	14.31	343440	0.0	0.01		-0.47	1
+onset:02_5:s5:02_5-download01.wav	02_5	02_5-download01.wav	False	sentence	the	False	19.779999	474720	20.26	pause	recognizer_early	19.63	0.54	20.17	484080	20.2	484800	0.39	0.42	-84.8	-0.15	1
+onset:02_5:s1:02_5-download02.wav	02_5	02_5-download02.wav	False	sentence	put	True	2.04	48960	2.22	pause	within	1.7	0.33	2.03	48720	2.1	50400	-0.01	0.06		-0.34	1
+onset:02_5:s2:02_5-download02.wav	02_5	02_5-download02.wav	False	sentence	now	True	5.76	138240	6.12	pause	within	5.3	0.49	5.79	138960	5.82	139680	0.03	0.06	-87.1	-0.46	1
+onset:02_5:s3:02_5-download02.wav	02_5	02_5-download02.wav	False	sentence	the	True	9.1	218400	9.26	pause	within	8.55	0.58	9.13	219120	9.17	220080	0.03	0.07	-75.0	-0.55	1
+onset:02_5:s4:02_5-download02.wav	02_5	02_5-download02.wav	False	sentence	two	True	14.42	346080	15.559999	pause	within	14.0	0.46	14.46	347040	14.47	347280	0.04	0.05	-73.7	-0.42	1
+onset:02_5:s5:02_5-download02.wav	02_5	02_5-download02.wav	False	sentence	the	False	20.0	480000	20.42	pause	recognizer_early	19.9	0.43	20.33	487920	20.36	488640	0.33	0.36	-85.7	-0.1	1
+onset:03_1:s1:03_1-download01.wav	03_1	03_1-download01.wav	False	sentence	multiplying	True	4.46	107040	5.06	pause	within	3.98	0.52	4.5	108000	4.51	108240	0.04	0.05	-77.6	-0.48	1
+onset:03_1:s2:03_1-download01.wav	03_1	03_1-download01.wav	False	sentence	so	True	12.46	299040	12.74	pause	within	11.97	0.53	12.5	300000	12.51	300240	0.04	0.05	-74.2	-0.49	1
+onset:03_1:s3:03_1-download01.wav	03_1	03_1-download01.wav	False	sentence	one	True	15.6	374400	15.88	pause	within	15.14	0.4	15.54	372960	15.66	375840	-0.06	0.06		-0.46	2
+onset:03_1:s1:03_1-download02.wav	03_1	03_1-download02.wav	False	sentence	multiplying	True	4.38	105120	4.98	pause	within	3.95	0.46	4.41	105840	4.44	106560	0.03	0.06	-87.4	-0.43	1
+onset:03_1:s2:03_1-download02.wav	03_1	03_1-download02.wav	False	sentence	so	True	12.42	298080	12.759999	pause	within	11.99	0.46	12.45	298800	12.46	299040	0.03	0.04	-84.0	-0.43	1
+onset:03_1:s3:03_1-download02.wav	03_1	03_1-download02.wav	False	sentence	one	True	15.68	376320	15.98	pause	within	15.32	0.4	15.72	377280	15.74	377760	0.04	0.06	-60.5	-0.36	1
+onset:03_2:s1:03_2-download01.wav	03_2	03_2-download01.wav	False	sentence	four	False	3.46	83040	3.72	pause	within	2.97	0.39	3.36	80640	3.39	81360	-0.1	-0.07		-0.49	1
+onset:03_2:s2:03_2-download01.wav	03_2	03_2-download01.wav	False	sentence	six	False	6.2	148800	6.48	pause	within	5.83	0.33	6.16	147840	6.18	148320	-0.04	-0.02		-0.37	1
+onset:03_2:s3:03_2-download01.wav	03_2	03_2-download01.wav	False	sentence	together	False	9.16	219840	9.82	pause	recognizer_early	8.98	0.54	9.52	228480	9.52	228480	0.36	0.36	-84.9	-0.18	1
+onset:03_2:s4:03_2-download01.wav	03_2	03_2-download01.wav	False	sentence	the	False	16.16	387840	16.619999	pause	recognizer_early	16.01	0.49	16.5	396000	16.53	396720	0.34	0.37	-85.9	-0.15	1
+onset:03_2:s1:03_2-download02.wav	03_2	03_2-download02.wav	False	sentence	four	False	3.4	81600	3.76	pause	within	2.96	0.44	3.4	81600	3.42	82080	0.0	0.02		-0.44	1
+onset:03_2:s2:03_2-download02.wav	03_2	03_2-download02.wav	False	sentence	six	False	6.32	151680	6.58	pause	within	5.86	0.43	6.29	150960	6.3	151200	-0.03	-0.02		-0.46	1
+onset:03_2:s3:03_2-download02.wav	03_2	03_2-download02.wav	False	sentence	together	True	9.5	228000	9.92	pause	within	9.03	0.57	9.6	230400	9.6	230400	0.1	0.1	-87.1	-0.47	1
+onset:03_2:s4:03_2-download02.wav	03_2	03_2-download02.wav	False	sentence	the	True	16.6	398400	16.84	pause	within	16.19	0.52	16.71	401040	16.74	401760	0.11	0.14	-89.3	-0.41	1
+onset:03_3:s1:03_3-download01.wav	03_3	03_3-download01.wav	False	sentence	to	True	3.88	93120	4.04	pause	within	3.44	0.49	3.93	94320	3.94	94560	0.05	0.06	-77.5	-0.44	1
+onset:03_3:s2:03_3-download01.wav	03_3	03_3-download01.wav	False	sentence	zero	True	9.18	220320	9.559999	pause	within	8.67	0.57	9.24	221760	9.25	222000	0.06	0.07	-65.4	-0.51	1
+onset:03_3:s3:03_3-download01.wav	03_3	03_3-download01.wav	False	sentence	one	True	12.04	288960	12.32	pause	within	11.64	0.46	12.1	290400	12.11	290640	0.06	0.07	-71.0	-0.4	1
+onset:03_3:s4:03_3-download01.wav	03_3	03_3-download01.wav	False	sentence	minus	True	14.44	346560	14.92	pause	within	14.03	0.46	14.49	347760	14.51	348240	0.05	0.07	-67.8	-0.41	1
+anchor:03_3:b35:03_3-download01.wav	03_3	03_3-download01.wav	False	mark	forgets	True	2.14	51360	2.68	no_quiet_run_ends_in_window												0
+onset:03_3:s1:03_3-download02.wav	03_3	03_3-download02.wav	False	sentence	to	True	4.04	96960	4.2	pause	within	3.47	0.62	4.09	98160	4.1	98400	0.05	0.06	-77.3	-0.57	1
+onset:03_3:s2:03_3-download02.wav	03_3	03_3-download02.wav	False	sentence	zero	True	9.42	226080	9.8	pause	within	8.91	0.56	9.47	227280	9.48	227520	0.05	0.06	-68.3	-0.51	1
+onset:03_3:s3:03_3-download02.wav	03_3	03_3-download02.wav	False	sentence	one	True	12.4	297600	12.66	pause	within	12.01	0.42	12.43	298320	12.45	298800	0.03	0.05	-66.9	-0.39	1
+onset:03_3:s4:03_3-download02.wav	03_3	03_3-download02.wav	False	sentence	minus	True	14.8	355200	15.28	pause	within	14.39	0.44	14.83	355920	14.85	356400	0.03	0.05	-70.5	-0.41	1
+anchor:03_3:b35:03_3-download02.wav	03_3	03_3-download02.wav	False	mark	forgets	True	2.16	51840	2.72	no_quiet_run_ends_in_window												0
+onset:03_4:s1:03_4-download01.wav	03_4	03_4-download01.wav	False	sentence	a	True	3.5	84000	3.66	pause	within	2.99	0.56	3.55	85200	3.58	85920	0.05	0.08	-72.1	-0.51	1
+onset:03_4:s2:03_4-download01.wav	03_4	03_4-download01.wav	False	sentence	there	True	10.6	254400	11.24	pause	within	10.18	0.39	10.57	253680	10.67	256080	-0.03	0.07		-0.42	1
+onset:03_4:s3:03_4-download01.wav	03_4	03_4-download01.wav	False	sentence	the	True	13.9	333600	14.08	pause	within	13.62	0.23	13.85	332400	14.01	336240	-0.05	0.11		-0.28	1
+onset:03_4:s1:03_4-download02.wav	03_4	03_4-download02.wav	False	sentence	a	True	3.5	84000	3.6	pause	within	2.98	0.51	3.49	83760	3.53	84720	-0.01	0.03		-0.52	1
+onset:03_4:s2:03_4-download02.wav	03_4	03_4-download02.wav	False	sentence	there	True	10.74	257760	11.32	pause	within	10.22	0.5	10.72	257280	10.76	258240	-0.02	0.02		-0.52	1
+onset:03_4:s3:03_4-download02.wav	03_4	03_4-download02.wav	False	sentence	the	True	14.14	339360	14.259999	pause	within	13.7	0.45	14.15	339600	14.18	340320	0.01	0.04	-61.6	-0.44	1
+onset:04_1:s1:04_1-download01.wav	04_1	04_1-download01.wav	False	sentence	the	True	3.6	86400	3.74	pause	within	3.13	0.49	3.62	86880	3.65	87600	0.02	0.05	-61.8	-0.47	1
+onset:04_1:s2:04_1-download01.wav	04_1	04_1-download01.wav	False	sentence	adding	True	10.2	244800	10.52	pause	within	9.7	0.54	10.24	245760	10.26	246240	0.04	0.06	-66.6	-0.5	1
+onset:04_1:s3:04_1-download01.wav	04_1	04_1-download01.wav	False	sentence	it	True	13.0	312000	13.16	pause	within	12.58	0.47	13.05	313200	13.07	313680	0.05	0.07	-85.3	-0.42	1
+onset:04_1:s4:04_1-download01.wav	04_1	04_1-download01.wav	False	sentence	the	True	18.04	432960	18.18	pause	within	17.6	0.48	18.08	433920	18.12	434880	0.04	0.08	-86.1	-0.44	1
+onset:04_1:s1:04_1-download02.wav	04_1	04_1-download02.wav	False	sentence	the	True	3.5	84000	3.66	pause	within	2.98	0.55	3.53	84720	3.57	85680	0.03	0.07	-86.2	-0.52	1
+onset:04_1:s2:04_1-download02.wav	04_1	04_1-download02.wav	False	sentence	adding	True	10.04	240960	10.38	pause	within	9.56	0.54	10.1	242400	10.1	242400	0.06	0.06	-85.1	-0.48	1
+onset:04_1:s3:04_1-download02.wav	04_1	04_1-download02.wav	False	sentence	it	True	12.84	308160	12.98	pause	within	12.44	0.44	12.88	309120	12.89	309360	0.04	0.05	-88.5	-0.4	1
+onset:04_1:s4:04_1-download02.wav	04_1	04_1-download02.wav	False	sentence	the	True	17.84	428160	17.98	pause	within	17.44	0.46	17.9	429600	17.92	430080	0.06	0.08	-81.0	-0.4	1
+onset:04_2:s1:04_2-download01.wav	04_2	04_2-download01.wav	False	sentence	it	True	3.3	79200	3.48	pause	within	2.82	0.51	3.33	79920	3.35	80400	0.03	0.05	-79.8	-0.48	1
+onset:04_2:s2:04_2-download01.wav	04_2	04_2-download01.wav	False	sentence	it	True	11.18	268320	11.34	pause	within	10.5	0.71	11.21	269040	11.23	269520	0.03	0.05	-74.7	-0.68	1
+onset:04_2:s3:04_2-download01.wav	04_2	04_2-download01.wav	False	sentence	and	True	18.42	442080	18.939999	pause	within	17.87	0.58	18.45	442800	18.47	443280	0.03	0.05	-69.1	-0.55	1
+onset:04_2:s4:04_2-download01.wav	04_2	04_2-download01.wav	False	sentence	so	True	28.22	677280	28.4	pause	within	27.82	0.44	28.26	678240	28.27	678480	0.04	0.05	-72.6	-0.4	1
+anchor:04_2:b306:04_2-download01.wav	04_2	04_2-download01.wav	False	mark	it	True	21.859999	524640	22.279999	short_quiet_run		21.95	0.14	22.09	530160	22.19	532560	0.23	0.33	-61.5	0.09	1
+onset:04_2:s1:04_2-download02.wav	04_2	04_2-download02.wav	False	sentence	it	True	3.04	72960	3.22	pause	within	2.65	0.44	3.09	74160	3.11	74640	0.05	0.07	-85.9	-0.39	1
+onset:04_2:s2:04_2-download02.wav	04_2	04_2-download02.wav	False	sentence	it	True	10.88	261120	11.099999	pause	within	10.25	0.71	10.96	263040	10.98	263520	0.08	0.1	-79.6	-0.63	1
+onset:04_2:s3:04_2-download02.wav	04_2	04_2-download02.wav	False	sentence	and	True	18.24	437760	18.74	pause	within	17.62	0.66	18.28	438720	18.3	439200	0.04	0.06	-82.3	-0.62	1
+onset:04_2:s4:04_2-download02.wav	04_2	04_2-download02.wav	False	sentence	so	True	28.040001	672960	28.219999	pause	within	27.63	0.46	28.09	674160	28.1	674400	0.05	0.06	-84.9	-0.41	1
+anchor:04_2:b306:04_2-download02.wav	04_2	04_2-download02.wav	False	mark	it	True	21.779999	522720	22.16	short_quiet_run		21.86	0.13	21.99	527760	22.06	529440	0.21	0.28	-63.8	0.08	2
+onset:04_3:s1:04_3-download01.wav	04_3	04_3-download01.wav	False	sentence	the	True	2.08	49920	2.2	pause	within	1.62	0.47	2.09	50160	2.12	50880	0.01	0.04	-64.5	-0.46	1
+onset:04_3:s2:04_3-download01.wav	04_3	04_3-download01.wav	False	sentence	the	True	8.7	208800	8.8	pause	within	8.15	0.56	8.71	209040	8.73	209520	0.01	0.03	-62.7	-0.55	1
+onset:04_3:s3:04_3-download01.wav	04_3	04_3-download01.wav	False	sentence	the	True	11.74	281760	11.84	pause	within	11.32	0.43	11.75	282000	11.77	282480	0.01	0.03	-70.3	-0.42	1
+onset:04_3:s4:04_3-download01.wav	04_3	04_3-download01.wav	False	sentence	zero	True	14.68	352320	15.04	pause	within	14.24	0.43	14.67	352080	14.7	352800	-0.01	0.02		-0.44	1
+onset:04_3:s1:04_3-download02.wav	04_3	04_3-download02.wav	False	sentence	the	True	1.96	47040	2.1	pause	within	1.51	0.48	1.99	47760	2.03	48720	0.03	0.07	-76.9	-0.45	1
+onset:04_3:s2:04_3-download02.wav	04_3	04_3-download02.wav	False	sentence	the	True	8.54	204960	8.679999	pause	within	8.09	0.49	8.58	205920	8.61	206640	0.04	0.07	-67.3	-0.45	1
+onset:04_3:s3:04_3-download02.wav	04_3	04_3-download02.wav	False	sentence	the	True	11.66	279840	11.8	pause	within	11.25	0.45	11.7	280800	11.73	281520	0.04	0.07	-71.7	-0.41	1
+onset:04_3:s4:04_3-download02.wav	04_3	04_3-download02.wav	False	sentence	zero	True	14.72	353280	15.12	pause	within	14.27	0.47	14.74	353760	14.76	354240	0.02	0.04	-61.6	-0.45	1
+onset:04_4:s1:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/04_4-download01.wav	04_4	04_4-download01.wav	True	sentence	reflecting	True	2.8	67200	3.38	pause	within	2.47	0.35	2.82	67680	2.92	70080	0.02	0.12	-61.6	-0.33	2
+onset:04_4:s2:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/04_4-download01.wav	04_4	04_4-download01.wav	True	sentence	where	True	6.54	156960	6.74	pause	within	6.07	0.55	6.62	158880	6.64	159360	0.08	0.1	-86.5	-0.47	1
+onset:04_4:s3:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/04_4-download01.wav	04_4	04_4-download01.wav	True	sentence	at	True	13.34	320160	13.559999	pause	within	12.88	0.47	13.35	320400	13.44	322560	0.01	0.1	-63.5	-0.46	1
+onset:04_4:s4:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/04_4-download01.wav	04_4	04_4-download01.wav	True	sentence	so	True	16.84	404160	17.02	pause	within	16.33	0.37	16.7	400800	16.93	406320	-0.14	0.09		-0.51	1
+onset:04_4:s5:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/04_4-download01.wav	04_4	04_4-download01.wav	True	sentence	a	True	23.46	563040	23.639999	pause	within	23.0	0.54	23.54	564960	23.56	565440	0.08	0.1	-75.5	-0.46	1
+onset:04_4:s1:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/04_4-download02.wav	04_4	04_4-download02.wav	True	sentence	reflecting	True	2.8	67200	3.38	pause	within	2.42	0.37	2.79	66960	2.92	70080	-0.01	0.12		-0.38	1
+onset:04_4:s2:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/04_4-download02.wav	04_4	04_4-download02.wav	True	sentence	where	True	6.24	149760	6.44	pause	within	5.83	0.48	6.31	151440	6.33	151920	0.07	0.09	-72.9	-0.41	1
+onset:04_4:s3:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/04_4-download02.wav	04_4	04_4-download02.wav	True	sentence	at	True	12.92	310080	13.179999	pause	within	12.48	0.51	12.99	311760	13.02	312480	0.07	0.1	-86.6	-0.44	1
+onset:04_4:s4:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/04_4-download02.wav	04_4	04_4-download02.wav	True	sentence	so	True	16.36	392640	16.539999	pause	within	15.95	0.47	16.42	394080	16.44	394560	0.06	0.08	-80.8	-0.41	1
+onset:04_4:s5:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/04_4-download02.wav	04_4	04_4-download02.wav	True	sentence	a	True	23.0	552000	23.139999	pause	within	22.56	0.49	23.05	553200	23.07	553680	0.05	0.07	-72.6	-0.44	1
+onset:04_5:s1:04_5-download01.wav	04_5	04_5-download01.wav	False	sentence	the	False	2.24	53760	2.68	pause	recognizer_early	2.05	0.39	2.44	58560	2.61	62640	0.2	0.37	-71.8	-0.19	1
+onset:04_5:s2:04_5-download01.wav	04_5	04_5-download01.wav	False	sentence	the	False	9.62	230880	10.179999	pause	recognizer_early	9.52	0.56	10.08	241920	10.11	242640	0.46	0.49	-84.5	-0.1	1
+onset:04_5:s3:04_5-download01.wav	04_5	04_5-download01.wav	False	sentence	other	False	21.619999	518880	22.18	pause	recognizer_early	21.18	0.76	21.94	526560	21.95	526800	0.32	0.33	-85.2	-0.44	1
+onset:04_5:s4:04_5-download01.wav	04_5	04_5-download01.wav	False	sentence	the	False	25.0	600000	25.18	pause	within	24.6	0.48	25.08	601920	25.1	602400	0.08	0.1	-87.8	-0.4	1
+onset:04_5:s1:04_5-download02.wav	04_5	04_5-download02.wav	False	sentence	the	True	2.32	55680	2.48	pause	within	1.89	0.48	2.37	56880	2.41	57840	0.05	0.09	-76.6	-0.43	1
+onset:04_5:s2:04_5-download02.wav	04_5	04_5-download02.wav	False	sentence	the	True	10.0	240000	10.139999	pause	within	9.51	0.52	10.03	240720	10.07	241680	0.03	0.07	-68.0	-0.49	1
+onset:04_5:s3:04_5-download02.wav	04_5	04_5-download02.wav	False	sentence	other	True	21.52	516480	21.799999	pause	within	20.94	0.63	21.57	517680	21.6	518400	0.05	0.08	-79.2	-0.58	1
+onset:04_5:s4:04_5-download02.wav	04_5	04_5-download02.wav	False	sentence	the	True	24.72	593280	24.879999	pause	within	24.33	0.42	24.75	594000	24.79	594960	0.03	0.07	-85.0	-0.39	1
+onset:04_6:s1:04_6-download01.wav	04_6	04_6-download01.wav	False	sentence	money	True	2.46	59040	2.72	pause	within	1.97	0.49	2.46	59040	2.48	59520	0.0	0.02		-0.49	1
+onset:04_6:s2:04_6-download01.wav	04_6	04_6-download01.wav	False	sentence	when	False	11.02	264480	11.599999	pause	recognizer_early	10.96	0.42	11.38	273120	11.4	273600	0.36	0.38	-86.2	-0.06	2
+onset:04_6:s1:04_6-download02.wav	04_6	04_6-download02.wav	False	sentence	money	True	2.38	57120	2.64	pause	within	1.9	0.48	2.38	57120	2.39	57360	0.0	0.01		-0.48	1
+onset:04_6:s2:04_6-download02.wav	04_6	04_6-download02.wav	False	sentence	when	False	10.78	258720	11.44	pause	recognizer_early	10.73	0.53	11.26	270240	11.26	270240	0.48	0.48	-71.0	-0.05	2
+onset:04_7:s1:04_7-download01.wav	04_7	04_7-download01.wav	False	sentence	zero	True	3.2	76800	4.84	pause	within	2.77	0.43	3.2	76800	3.23	77520	0.0	0.03		-0.43	1
+onset:04_7:s2:04_7-download01.wav	04_7	04_7-download01.wav	False	sentence	so	False	10.36	248640	11.24	pause	recognizer_early	10.25	0.49	10.74	257760	10.75	258000	0.38	0.39	-85.4	-0.11	1
+onset:04_7:s3:04_7-download01.wav	04_7	04_7-download01.wav	False	sentence	that	False	14.259999	342240	14.88	pause	recognizer_early	14.1	0.49	14.59	350160	14.62	350880	0.33	0.36	-86.2	-0.16	1
+onset:04_7:s4:04_7-download01.wav	04_7	04_7-download01.wav	False	sentence	to	False	20.32	487680	20.84	pause	recognizer_early	20.26	0.48	20.74	497760	20.75	498000	0.42	0.43	-85.3	-0.06	1
+onset:04_7:s5:04_7-download01.wav	04_7	04_7-download01.wav	False	sentence	about	False	29.200001	700800	29.52	pause	within	28.9	0.36	29.26	702240	29.28	702720	0.06	0.08	-80.9	-0.3	1
+onset:04_7:s1:04_7-download02.wav	04_7	04_7-download02.wav	False	sentence	zero	True	3.1	74400	4.74	pause	within	2.65	0.48	3.13	75120	3.16	75840	0.03	0.06	-63.6	-0.45	1
+onset:04_7:s2:04_7-download02.wav	04_7	04_7-download02.wav	False	sentence	so	True	10.44	250560	11.02	pause	within	10.0	0.47	10.47	251280	10.48	251520	0.03	0.04	-70.7	-0.44	1
+onset:04_7:s3:04_7-download02.wav	04_7	04_7-download02.wav	False	sentence	that	True	14.4	345600	14.7	pause	within	13.85	0.57	14.42	346080	14.44	346560	0.02	0.04	-60.8	-0.55	1
+onset:04_7:s4:04_7-download02.wav	04_7	04_7-download02.wav	False	sentence	to	True	20.5	492000	20.639999	pause	within	20.09	0.45	20.54	492960	20.55	493200	0.04	0.05	-88.6	-0.41	1
+onset:04_7:s5:04_7-download02.wav	04_7	04_7-download02.wav	False	sentence	about	True	29.0	696000	29.299999	pause	within	28.65	0.4	29.05	697200	29.07	697680	0.05	0.07	-86.5	-0.35	1
+onset:05_1:s1:05_1-download01.wav	05_1	05_1-download01.wav	False	sentence	a	True	2.96	71040	3.06	pause	within	2.41	0.56	2.97	71280	2.99	71760	0.01	0.03	-74.0	-0.55	1
+onset:05_1:s2:05_1-download01.wav	05_1	05_1-download01.wav	False	sentence	multiplying	True	9.08	217920	9.66	pause	within	8.56	0.54	9.1	218400	9.12	218880	0.02	0.04	-74.3	-0.52	1
+onset:05_1:s3:05_1-download01.wav	05_1	05_1-download01.wav	False	sentence	multiplying	True	13.88	333120	14.42	pause	within	13.31	0.59	13.9	333600	13.92	334080	0.02	0.04	-62.2	-0.57	1
+onset:05_1:s4:05_1-download01.wav	05_1	05_1-download01.wav	False	sentence	so	True	19.46	467040	19.699999	pause	within	18.94	0.53	19.47	467280	19.49	467760	0.01	0.03	-73.2	-0.52	1
+onset:05_1:s1:05_1-download02.wav	05_1	05_1-download02.wav	False	sentence	a	True	2.96	71040	3.06	pause	within	2.26	0.72	2.98	71520	2.99	71760	0.02	0.03	-60.5	-0.7	1
+onset:05_1:s2:05_1-download02.wav	05_1	05_1-download02.wav	False	sentence	multiplying	True	9.12	218880	9.719999	pause	within	8.55	0.59	9.14	219360	9.16	219840	0.02	0.04	-61.8	-0.57	1
+onset:05_1:s3:05_1-download02.wav	05_1	05_1-download02.wav	False	sentence	multiplying	True	13.88	333120	14.46	pause	within	13.46	0.45	13.91	333840	13.92	334080	0.03	0.04	-64.2	-0.42	1
+onset:05_1:s4:05_1-download02.wav	05_1	05_1-download02.wav	False	sentence	so	True	19.56	469440	19.799999	pause	within	19.03	0.56	19.59	470160	19.6	470400	0.03	0.04	-73.7	-0.53	1
+onset:05_2:s1:05_2-download01.wav	05_2	05_2-download01.wav	False	sentence	lengths	True	6.0	144000	6.54	pause	within	5.53	0.47	6.0	144000	6.02	144480	0.0	0.02		-0.47	1
+onset:05_2:s2:05_2-download01.wav	05_2	05_2-download01.wav	False	sentence	one	True	12.76	306240	12.96	pause	within	12.33	0.33	12.66	303840	12.8	307200	-0.1	0.04		-0.43	1
+onset:05_2:s3:05_2-download01.wav	05_2	05_2-download01.wav	False	sentence	and	True	17.5	420000	17.76	pause	within	17.24	0.21	17.45	418800	17.55	421200	-0.05	0.05		-0.26	1
+onset:05_2:s1:05_2-download02.wav	05_2	05_2-download02.wav	False	sentence	lengths	True	5.88	141120	6.42	pause	within	5.43	0.5	5.93	142320	5.94	142560	0.05	0.06	-67.1	-0.45	1
+onset:05_2:s2:05_2-download02.wav	05_2	05_2-download02.wav	False	sentence	one	True	12.72	305280	12.96	pause	within	12.32	0.47	12.79	306960	12.8	307200	0.07	0.08	-71.4	-0.4	1
+onset:05_2:s3:05_2-download02.wav	05_2	05_2-download02.wav	False	sentence	and	True	17.72	425280	17.98	pause	within	17.29	0.46	17.75	426000	17.78	426720	0.03	0.06	-77.8	-0.43	1
+onset:05_20:s1:05_20-download01.wav	05_20	05_20-download01.wav	False	sentence	feed	True	3.5	84000	3.76	pause	within	3.11	0.3	3.41	81840	3.57	85680	-0.09	0.07		-0.39	1
+onset:05_20:s2:05_20-download01.wav	05_20	05_20-download01.wav	False	sentence	the	True	6.5	156000	6.68	pause	within	6.05	0.53	6.58	157920	6.59	158160	0.08	0.09	-85.9	-0.45	1
+onset:05_20:s3:05_20-download01.wav	05_20	05_20-download01.wav	False	sentence	the	True	10.3	247200	10.48	pause	within	9.89	0.39	10.28	246720	10.42	250080	-0.02	0.12		-0.41	1
+onset:05_20:s4:05_20-download01.wav	05_20	05_20-download01.wav	False	sentence	for	True	13.5	324000	13.679999	pause	within	12.98	0.56	13.54	324960	13.56	325440	0.04	0.06	-68.7	-0.52	1
+anchor:05_20:b180:05_20-download01.wav	05_20	05_20-download01.wav	False	mark	the	True	15.58	373920	15.719999	no_quiet_run_ends_in_window												0
+anchor:05_20:b214:05_20-download01.wav	05_20	05_20-download01.wav	False	mark	a	True	18.02	432480	18.16	no_quiet_run_ends_in_window												0
+anchor:05_20:b225:05_20-download01.wav	05_20	05_20-download01.wav	False	mark	the	True	19.5	468000	19.719999	pause	within	19.01	0.5	19.51	468240	19.64	471360	0.01	0.14	-62.3	-0.49	1
+anchor:05_20:b276:05_20-download01.wav	05_20	05_20-download01.wav	False	mark	land	True	23.699999	568800	23.98	no_quiet_run_ends_in_window												0
+onset:05_20:s1:05_20-download02.wav	05_20	05_20-download02.wav	False	sentence	feed	True	3.24	77760	3.84	pause	within	3.09	0.34	3.43	82320	3.62	86880	0.19	0.38	-67.7	-0.15	2
+onset:05_20:s2:05_20-download02.wav	05_20	05_20-download02.wav	False	sentence	the	True	6.24	149760	6.78	pause	recognizer_early	6.14	0.55	6.69	160560	6.7	160800	0.45	0.46	-84.8	-0.1	1
+onset:05_20:s3:05_20-download02.wav	05_20	05_20-download02.wav	False	sentence	the	True	10.24	245760	10.679999	pause	recognizer_early	10.05	0.4	10.45	250800	10.61	254640	0.21	0.37	-64.8	-0.19	2
+onset:05_20:s4:05_20-download02.wav	05_20	05_20-download02.wav	False	sentence	for	False	13.44	322560	13.9	pause	recognizer_early	13.2	0.56	13.76	330240	13.78	330720	0.32	0.34	-84.7	-0.24	1
+anchor:05_20:b180:05_20-download02.wav	05_20	05_20-download02.wav	False	mark	the	True	15.7	376800	15.839999	no_quiet_run_ends_in_window												0
+anchor:05_20:b214:05_20-download02.wav	05_20	05_20-download02.wav	False	mark	a	True	18.219999	437280	18.379999	no_quiet_run_ends_in_window												0
+anchor:05_20:b225:05_20-download02.wav	05_20	05_20-download02.wav	False	mark	the	False	19.4	465600	19.9	pause	recognizer_early	19.21	0.48	19.69	472560	19.81	475440	0.29	0.41	-67.8	-0.19	1
+anchor:05_20:b276:05_20-download02.wav	05_20	05_20-download02.wav	False	mark	land	True	23.559999	565440	23.879999	no_quiet_run_ends_in_window												0
+onset:05_3:s1:05_3-download01.wav	05_3	05_3-download01.wav	False	sentence	on	True	2.38	57120	2.54	pause	within	1.93	0.48	2.41	57840	2.42	58080	0.03	0.04	-87.5	-0.45	1
+onset:05_3:s2:05_3-download01.wav	05_3	05_3-download01.wav	False	sentence	each	True	4.82	115680	5.06	pause	within	4.47	0.38	4.85	116400	4.85	116400	0.03	0.03	-77.6	-0.35	1
+onset:05_3:s3:05_3-download01.wav	05_3	05_3-download01.wav	False	sentence	each	True	9.94	238560	10.179999	pause	within	9.53	0.44	9.97	239280	9.99	239760	0.03	0.05	-86.3	-0.41	1
+onset:05_3:s4:05_3-download01.wav	05_3	05_3-download01.wav	False	sentence	but	True	14.2	340800	14.32	pause	within	13.84	0.4	14.24	341760	14.26	342240	0.04	0.06	-73.6	-0.36	1
+onset:05_3:s5:05_3-download01.wav	05_3	05_3-download01.wav	False	sentence	so	True	19.62	470880	19.799999	pause	within	19.29	0.36	19.65	471600	19.66	471840	0.03	0.04	-71.2	-0.33	1
+onset:05_3:s1:05_3-download02.wav	05_3	05_3-download02.wav	False	sentence	on	True	2.4	57600	2.6	pause	within	1.93	0.52	2.45	58800	2.49	59760	0.05	0.09	-85.8	-0.47	1
+onset:05_3:s2:05_3-download02.wav	05_3	05_3-download02.wav	False	sentence	each	True	4.94	118560	5.22	pause	within	4.58	0.41	4.99	119760	5.02	120480	0.05	0.08	-74.9	-0.36	1
+onset:05_3:s3:05_3-download02.wav	05_3	05_3-download02.wav	False	sentence	each	True	10.18	244320	10.46	pause	within	9.75	0.5	10.25	246000	10.27	246480	0.07	0.09	-86.5	-0.43	1
+onset:05_3:s4:05_3-download02.wav	05_3	05_3-download02.wav	False	sentence	but	True	14.58	349920	14.719999	pause	within	14.18	0.46	14.64	351360	14.65	351600	0.06	0.07	-79.0	-0.4	1
+onset:05_3:s5:05_3-download02.wav	05_3	05_3-download02.wav	False	sentence	so	True	20.12	482880	20.34	pause	within	19.76	0.42	20.18	484320	20.2	484800	0.06	0.08	-74.8	-0.36	1
+onset:05_4:s1:05_4-download01.wav	05_4	05_4-download01.wav	False	sentence	so	True	5.88	141120	6.12	pause	within	5.46	0.32	5.78	138720	5.93	142320	-0.1	0.05		-0.42	1
+onset:05_4:s2:05_4-download01.wav	05_4	05_4-download01.wav	False	sentence	climbing	True	10.66	255840	11.08	pause	within	9.92	0.77	10.69	256560	10.71	257040	0.03	0.05	-81.4	-0.74	1
+onset:05_4:s1:05_4-download02.wav	05_4	05_4-download02.wav	False	sentence	so	False	5.56	133440	6.12	pause	recognizer_early	5.36	0.44	5.8	139200	5.97	143280	0.24	0.41	-67.3	-0.2	1
+onset:05_4:s2:05_4-download02.wav	05_4	05_4-download02.wav	False	sentence	climbing	False	9.9	237600	10.679999	pause	recognizer_early	9.72	0.59	10.31	247440	10.32	247680	0.41	0.42	-84.6	-0.18	1
+onset:05_5:s1:05_5-download01.wav	05_5	05_5-download01.wav	False	sentence	which	True	1.32	31680	1.98	pause	recognizer_early	1.29	0.43	1.72	41280	1.76	42240	0.4	0.44	-85.8	-0.03	1
+onset:05_5:s1:05_5-download02.wav	05_5	05_5-download02.wav	False	sentence	which	True	1.32	31680	1.92	pause	recognizer_early	1.29	0.4	1.69	40560	1.71	41040	0.37	0.39	-85.7	-0.03	1
+onset:05_6:s1:05_6-download01.wav	05_6	05_6-download01.wav	False	sentence	its	True	7.0	168000	7.5	pause	recognizer_early	6.72	0.59	7.31	175440	7.34	176160	0.31	0.34	-85.2	-0.28	1
+onset:05_6:s2:05_6-download01.wav	05_6	05_6-download01.wav	False	sentence	but	True	10.2	244800	10.7	pause	recognizer_early	9.99	0.51	10.5	252000	10.54	252960	0.3	0.34	-86.1	-0.21	1
+onset:05_6:s3:05_6-download01.wav	05_6	05_6-download01.wav	False	sentence	so	True	14.6	350400	14.98	pause	recognizer_early	14.34	0.52	14.86	356640	14.87	356880	0.26	0.27	-86.5	-0.26	1
+onset:05_6:s4:05_6-download01.wav	05_6	05_6-download01.wav	False	sentence	every	True	24.4	585600	25.019999	pause	recognizer_early	24.15	0.5	24.65	591600	24.66	591840	0.25	0.26	-85.8	-0.25	1
+onset:05_6:s1:05_6-download02.wav	05_6	05_6-download02.wav	False	sentence	its	True	7.0	168000	7.54	pause	recognizer_early	6.82	0.56	7.38	177120	7.39	177360	0.38	0.39	-84.9	-0.18	1
+onset:05_6:s2:05_6-download02.wav	05_6	05_6-download02.wav	False	sentence	but	False	10.08	241920	10.599999	pause	recognizer_early	9.93	0.52	10.45	250800	10.48	251520	0.37	0.4	-85.8	-0.15	1
+onset:05_6:s3:05_6-download02.wav	05_6	05_6-download02.wav	False	sentence	so	False	14.299999	343200	14.78	pause	recognizer_early	14.17	0.49	14.66	351840	14.67	352080	0.36	0.37	-85.5	-0.13	1
+onset:05_6:s4:05_6-download02.wav	05_6	05_6-download02.wav	False	sentence	every	False	24.139999	579360	24.84	pause	recognizer_early	24.01	0.43	24.44	586560	24.45	586800	0.3	0.31	-86.2	-0.13	1
+onset:05_7:s1:05_7-download01.wav	05_7	05_7-download01.wav	False	sentence	its	True	2.92	70080	3.2	pause	within	2.67	0.36	3.03	72720	3.06	73440	0.11	0.14	-83.6	-0.25	1
+onset:05_7:s2:05_7-download01.wav	05_7	05_7-download01.wav	False	sentence	only	True	11.68	280320	12.059999	pause	within	11.3	0.48	11.78	282720	11.8	283200	0.1	0.12	-86.5	-0.38	1
+onset:05_7:s3:05_7-download01.wav	05_7	05_7-download01.wav	False	sentence	its	True	13.8	331200	14.099999	pause	within	13.5	0.39	13.89	333360	13.9	333600	0.09	0.1	-88.7	-0.3	1
+onset:05_7:s4:05_7-download01.wav	05_7	05_7-download01.wav	False	sentence	in	True	19.16	459840	19.359999	pause	within	18.43	0.81	19.24	461760	19.27	462480	0.08	0.11	-87.6	-0.73	1
+onset:05_7:s1:05_7-download02.wav	05_7	05_7-download02.wav	False	sentence	its	True	3.0	72000	3.22	pause	within	2.53	0.42	2.95	70800	3.07	73680	-0.05	0.07		-0.47	1
+onset:05_7:s2:05_7-download02.wav	05_7	05_7-download02.wav	False	sentence	only	True	11.5	276000	11.92	pause	within	11.09	0.53	11.62	278880	11.63	279120	0.12	0.13	-87.8	-0.41	1
+onset:05_7:s3:05_7-download02.wav	05_7	05_7-download02.wav	False	sentence	its	True	13.8	331200	14.04	pause	within	13.44	0.41	13.85	332400	13.86	332640	0.05	0.06	-75.6	-0.36	1
+onset:05_7:s4:05_7-download02.wav	05_7	05_7-download02.wav	False	sentence	in	True	19.2	460800	19.4	pause	within	18.45	0.84	19.29	462960	19.31	463440	0.09	0.11	-88.8	-0.75	1
+onset:06_1:s1:06_1-download01.wav	06_1	06_1-download01.wav	False	sentence	start	True	6.76	162240	7.44	pause	recognizer_early	6.59	0.53	7.12	170880	7.14	171360	0.36	0.38	-86.4	-0.17	1
+onset:06_1:s2:06_1-download01.wav	06_1	06_1-download01.wav	False	sentence	keep	False	13.86	332640	14.48	pause	recognizer_early	13.76	0.55	14.31	343440	14.33	343920	0.45	0.47	-85.4	-0.1	1
+onset:06_1:s1:06_1-download02.wav	06_1	06_1-download02.wav	False	sentence	start	False	6.74	161760	7.38	pause	recognizer_early	6.47	0.58	7.05	169200	7.06	169440	0.31	0.32	-85.5	-0.27	1
+onset:06_1:s2:06_1-download02.wav	06_1	06_1-download02.wav	False	sentence	keep	True	14.08	337920	14.639999	pause	recognizer_early	13.91	0.55	14.46	347040	14.47	347280	0.38	0.39	-85.6	-0.17	1
+onset:06_2:s1:06_2-download01.wav	06_2	06_2-download01.wav	False	sentence	a	False	6.14	147360	6.56	pause	recognizer_early	5.87	0.6	6.47	155280	6.49	155760	0.33	0.35	-84.6	-0.27	1
+onset:06_2:s2:06_2-download01.wav	06_2	06_2-download01.wav	False	sentence	halfway	True	11.5	276000	12.099999	pause	recognizer_early	11.22	0.51	11.73	281520	11.74	281760	0.23	0.24	-86.0	-0.28	1
+onset:06_2:s3:06_2-download01.wav	06_2	06_2-download01.wav	False	sentence	when	True	16.0	384000	16.42	pause	recognizer_early	15.59	0.73	16.32	391680	16.32	391680	0.32	0.32	-85.2	-0.41	1
+onset:06_2:s1:06_2-download02.wav	06_2	06_2-download02.wav	False	sentence	a	False	6.24	149760	6.66	pause	recognizer_early	5.94	0.64	6.58	157920	6.59	158160	0.34	0.35	-84.5	-0.3	1
+onset:06_2:s2:06_2-download02.wav	06_2	06_2-download02.wav	False	sentence	halfway	False	11.52	276480	12.28	pause	recognizer_early	11.3	0.59	11.89	285360	11.91	285840	0.37	0.39	-73.2	-0.22	1
+onset:06_2:s3:06_2-download02.wav	06_2	06_2-download02.wav	False	sentence	when	True	16.0	384000	16.66	pause	recognizer_early	15.74	0.81	16.55	397200	16.56	397440	0.55	0.56	-84.6	-0.26	1
+onset:06_3:s1:06_3-download01.wav	06_3	06_3-download01.wav	False	sentence	the	False	2.0	48000	2.54	pause	recognizer_early	1.79	0.63	2.42	58080	2.45	58800	0.42	0.45	-84.5	-0.21	1
+onset:06_3:s2:06_3-download01.wav	06_3	06_3-download01.wav	False	sentence	the	False	3.88	93120	4.28	pause	recognizer_early	3.77	0.38	4.15	99600	4.2	100800	0.27	0.32	-79.5	-0.11	1
+onset:06_3:s3:06_3-download01.wav	06_3	06_3-download01.wav	False	sentence	it	False	5.98	143520	6.52	pause	recognizer_early	5.93	0.34	6.27	150480	6.35	152400	0.29	0.37	-66.7	-0.05	2
+onset:06_3:s4:06_3-download01.wav	06_3	06_3-download01.wav	False	sentence	go	False	10.099999	242400	10.58	pause	recognizer_early	9.73	0.68	10.41	249840	10.42	250080	0.31	0.32	-78.1	-0.37	1
+onset:06_3:s5:06_3-download01.wav	06_3	06_3-download01.wav	False	sentence	go	False	12.92	310080	13.38	pause	recognizer_early	12.71	0.56	13.27	318480	13.29	318960	0.35	0.37	-84.7	-0.21	1
+onset:06_3:s1:06_3-download02.wav	06_3	06_3-download02.wav	False	sentence	the	False	1.94	46560	2.42	pause	recognizer_early	1.77	0.54	2.31	55440	2.34	56160	0.37	0.4	-85.5	-0.17	1
+onset:06_3:s2:06_3-download02.wav	06_3	06_3-download02.wav	False	sentence	the	False	3.78	90720	4.18	pause	recognizer_early	3.73	0.33	4.06	97440	4.1	98400	0.28	0.32	-84.7	-0.05	1
+onset:06_3:s3:06_3-download02.wav	06_3	06_3-download02.wav	False	sentence	it	False	5.76	138240	6.2	pause	recognizer_early	5.61	0.36	5.97	143280	6.11	146640	0.21	0.35	-65.8	-0.15	1
+onset:06_3:s4:06_3-download02.wav	06_3	06_3-download02.wav	False	sentence	go	False	9.559999	229440	10.02	pause	recognizer_early	9.36	0.49	9.85	236400	9.86	236640	0.29	0.3	-85.4	-0.2	1
+onset:06_3:s5:06_3-download02.wav	06_3	06_3-download02.wav	False	sentence	go	False	12.34	296160	12.799999	pause	recognizer_early	12.22	0.43	12.65	303600	12.66	303840	0.31	0.32	-85.6	-0.12	1
+onset:06_4:s1:06_4-download01.wav	06_4	06_4-download01.wav	False	sentence	here	True	4.08	97920	4.32	pause	within	3.57	0.5	4.07	97680	4.15	99600	-0.01	0.07		-0.51	2
+onset:06_4:s2:06_4-download01.wav	06_4	06_4-download01.wav	False	sentence	walk	True	9.0	216000	9.24	pause	within	8.42	0.6	9.02	216480	9.03	216720	0.02	0.03	-68.0	-0.58	1
+onset:06_4:s3:06_4-download01.wav	06_4	06_4-download01.wav	False	sentence	will	True	13.78	330720	13.9	pause	within	13.18	0.63	13.81	331440	13.81	331440	0.03	0.03	-71.0	-0.6	1
+onset:06_4:s1:06_4-download02.wav	06_4	06_4-download02.wav	False	sentence	here	True	4.1	98400	4.32	pause	within	3.57	0.59	4.16	99840	4.18	100320	0.06	0.08	-87.8	-0.53	1
+onset:06_4:s2:06_4-download02.wav	06_4	06_4-download02.wav	False	sentence	walk	True	8.94	214560	9.22	pause	within	8.4	0.6	9.0	216000	9.02	216480	0.06	0.08	-80.8	-0.54	1
+onset:06_4:s3:06_4-download02.wav	06_4	06_4-download02.wav	False	sentence	will	True	13.76	330240	13.96	pause	within	13.2	0.62	13.82	331680	13.84	332160	0.06	0.08	-77.0	-0.56	1
+onset:06_5:s1:06_5-download01.wav	06_5	06_5-download01.wav	False	sentence	what	False	4.56	109440	5.12	pause	within	4.39	0.36	4.75	114000	4.87	116880	0.19	0.31	-67.7	-0.17	1
+onset:06_5:s2:06_5-download01.wav	06_5	06_5-download01.wav	False	sentence	that	False	8.74	209760	9.4	pause	within	8.59	0.32	8.91	213840	9.16	219840	0.17	0.42	-65.3	-0.15	1
+onset:06_5:s1:06_5-download02.wav	06_5	06_5-download02.wav	False	sentence	what	False	4.58	109920	5.14	pause	recognizer_early	4.5	0.31	4.81	115440	4.93	118320	0.23	0.35	-68.1	-0.08	2
+onset:06_5:s2:06_5-download02.wav	06_5	06_5-download02.wav	False	sentence	that	False	8.72	209280	9.32	pause	recognizer_early	8.58	0.35	8.93	214320	9.08	217920	0.21	0.36	-65.5	-0.14	1
+onset:06_6:s1:06_6-download01.wav	06_6	06_6-download01.wav	False	sentence	try	True	4.0	96000	4.68	pause	recognizer_early	3.93	0.57	4.5	108000	4.5	108000	0.5	0.5	-85.0	-0.07	1
+onset:06_6:s2:06_6-download01.wav	06_6	06_6-download01.wav	False	sentence	walk	True	10.5	252000	11.219999	pause	recognizer_early	10.25	0.63	10.88	261120	11.02	264480	0.38	0.52	-68.9	-0.25	1
+onset:06_6:s3:06_6-download01.wav	06_6	06_6-download01.wav	False	sentence	the	True	16.0	384000	16.48	pause	recognizer_early	15.77	0.62	16.39	393360	16.4	393600	0.39	0.4	-85.3	-0.23	1
+onset:06_6:s4:06_6-download01.wav	06_6	06_6-download01.wav	False	sentence	so	True	25.48	611520	26.16	pause	recognizer_early	25.43	0.48	25.91	621840	26.04	624960	0.43	0.56	-65.5	-0.05	1
+anchor:06_6:b267:06_6-download01.wav	06_6	06_6-download01.wav	False	mark	passes	True	18.440001	442560	18.879999	no_quiet_run_ends_in_window												0
+anchor:06_6:b338:06_6-download01.wav	06_6	06_6-download01.wav	False	mark	leaps	True	23.24	557760	23.58	no_quiet_run_ends_in_window												0
+onset:06_6:s1:06_6-download02.wav	06_6	06_6-download02.wav	False	sentence	try	False	4.26	102240	4.8	pause	recognizer_early	4.11	0.51	4.62	110880	4.65	111600	0.36	0.39	-86.6	-0.15	1
+onset:06_6:s2:06_6-download02.wav	06_6	06_6-download02.wav	False	sentence	walk	True	10.64	255360	11.4	pause	recognizer_early	10.61	0.56	11.17	268080	11.18	268320	0.53	0.54	-84.8	-0.03	1
+onset:06_6:s3:06_6-download02.wav	06_6	06_6-download02.wav	False	sentence	the	False	16.18	388320	16.68	pause	recognizer_early	15.98	0.6	16.58	397920	16.59	398160	0.4	0.41	-84.5	-0.2	1
+onset:06_6:s4:06_6-download02.wav	06_6	06_6-download02.wav	False	sentence	so	True	25.84	620160	26.32	pause	recognizer_early	25.7	0.48	26.18	628320	26.19	628560	0.34	0.35	-85.9	-0.14	1
+anchor:06_6:b267:06_6-download02.wav	06_6	06_6-download02.wav	False	mark	passes	True	18.619999	446880	19.08	no_quiet_run_ends_in_window												0
+anchor:06_6:b338:06_6-download02.wav	06_6	06_6-download02.wav	False	mark	leaps	True	23.459999	563040	23.879999	no_quiet_run_ends_in_window												0
+onset:06_20:s1:06_20-download01.wav	06_20	06_20-download01.wav	False	sentence	at	False	5.12	122880	5.68	pause	recognizer_early	4.96	0.45	5.41	129840	5.49	131760	0.29	0.37	-68.2	-0.16	1
+onset:06_20:s2:06_20-download01.wav	06_20	06_20-download01.wav	False	sentence	a	False	12.179999	292320	12.82	pause	recognizer_early	12.11	0.59	12.7	304800	12.71	305040	0.52	0.53	-84.6	-0.07	1
+onset:06_20:s1:06_20-download02.wav	06_20	06_20-download02.wav	False	sentence	at	False	5.06	121440	5.58	pause	recognizer_early	4.92	0.49	5.41	129840	5.46	131040	0.35	0.4	-86.3	-0.14	1
+onset:06_20:s2:06_20-download02.wav	06_20	06_20-download02.wav	False	sentence	a	False	12.2	292800	12.78	pause	recognizer_early	12.13	0.53	12.66	303840	12.68	304320	0.46	0.48	-84.9	-0.07	1
+onset:06_7:s1:06_7-download01.wav	06_7	06_7-download01.wav	False	sentence	theirs	False	2.74	65760	3.28	pause	within	2.34	0.43	2.77	66480	2.78	66720	0.03	0.04	-75.5	-0.4	1
+onset:06_7:s2:06_7-download01.wav	06_7	06_7-download01.wav	False	sentence	ours	True	8.1	194400	8.82	pause	recognizer_early	7.9	0.52	8.42	202080	8.44	202560	0.32	0.34	-86.0	-0.2	1
+onset:06_7:s3:06_7-download01.wav	06_7	06_7-download01.wav	False	sentence	so	True	11.6	278400	11.94	pause	recognizer_early	11.41	0.4	11.81	283440	11.83	283920	0.21	0.23	-86.7	-0.19	1
+onset:06_7:s4:06_7-download01.wav	06_7	06_7-download01.wav	False	sentence	that	True	16.8	403200	17.359999	pause	recognizer_early	16.66	0.37	17.03	408720	17.06	409440	0.23	0.26	-86.9	-0.14	2
+onset:06_7:s5:06_7-download01.wav	06_7	06_7-download01.wav	False	sentence	no	False	18.84	452160	19.359999	pause	recognizer_early	18.67	0.4	19.07	457680	19.09	458160	0.23	0.25	-86.5	-0.17	1
+onset:06_7:s6:06_7-download01.wav	06_7	06_7-download01.wav	False	sentence	something	False	23.719999	569280	24.459999	pause	recognizer_early	23.52	0.45	23.97	575280	23.98	575520	0.25	0.26	-85.9	-0.2	1
+onset:06_7:s1:06_7-download02.wav	06_7	06_7-download02.wav	False	sentence	theirs	False	2.7	64800	3.22	pause	within	2.25	0.48	2.73	65520	2.75	66000	0.03	0.05	-68.7	-0.45	1
+onset:06_7:s2:06_7-download02.wav	06_7	06_7-download02.wav	False	sentence	ours	False	8.02	192480	8.74	pause	recognizer_early	7.85	0.49	8.34	200160	8.36	200640	0.32	0.34	-85.8	-0.17	1
+onset:06_7:s3:06_7-download02.wav	06_7	06_7-download02.wav	False	sentence	so	True	11.4	273600	11.86	pause	recognizer_early	11.31	0.44	11.75	282000	11.76	282240	0.35	0.36	-86.0	-0.09	1
+onset:06_7:s4:06_7-download02.wav	06_7	06_7-download02.wav	False	sentence	that	False	16.52	396480	17.16	pause	recognizer_early	16.37	0.42	16.79	402960	16.83	403920	0.27	0.31	-85.9	-0.15	1
+onset:06_7:s5:06_7-download02.wav	06_7	06_7-download02.wav	False	sentence	no	False	18.6	446400	19.059999	pause	recognizer_early	18.41	0.4	18.81	451440	18.84	452160	0.21	0.24	-86.2	-0.19	1
+onset:06_7:s6:06_7-download02.wav	06_7	06_7-download02.wav	False	sentence	something	False	23.519999	564480	24.219999	pause	recognizer_early	23.34	0.42	23.76	570240	23.77	570480	0.24	0.25	-86.4	-0.18	1
+onset:07_1:s1:07_1-download01.wav	07_1	07_1-download01.wav	False	sentence	draw	True	3.76	90240	4.04	pause	within	3.35	0.46	3.81	91440	3.82	91680	0.05	0.06	-68.2	-0.41	1
+onset:07_1:s2:07_1-download01.wav	07_1	07_1-download01.wav	False	sentence	now	True	8.76	210240	9.26	pause	within	8.28	0.53	8.81	211440	8.84	212160	0.05	0.08	-87.6	-0.48	1
+onset:07_1:s3:07_1-download01.wav	07_1	07_1-download01.wav	False	sentence	the	True	14.44	346560	14.599999	pause	within	13.99	0.5	14.49	347760	14.51	348240	0.05	0.07	-85.7	-0.45	1
+onset:07_1:s1:07_1-download02.wav	07_1	07_1-download02.wav	False	sentence	draw	True	3.84	92160	4.12	pause	within	3.45	0.44	3.89	93360	3.9	93600	0.05	0.06	-84.5	-0.39	1
+onset:07_1:s2:07_1-download02.wav	07_1	07_1-download02.wav	False	sentence	now	True	8.64	207360	8.98	pause	within	8.17	0.53	8.7	208800	8.71	209040	0.06	0.07	-75.9	-0.47	1
+onset:07_1:s3:07_1-download02.wav	07_1	07_1-download02.wav	False	sentence	the	True	14.2	340800	14.36	pause	within	13.77	0.5	14.27	342480	14.28	342720	0.07	0.08	-86.9	-0.43	1
+onset:07_2:s1:07_2-download01.wav	07_2	07_2-download01.wav	False	sentence	the	False	7.12	170880	7.76	pause	recognizer_early	7.07	0.6	7.67	184080	7.69	184560	0.55	0.57	-84.6	-0.05	1
+onset:07_2:s2:07_2-download01.wav	07_2	07_2-download01.wav	False	sentence	on	False	11.98	287520	12.54	pause	recognizer_early	11.84	0.56	12.4	297600	12.43	298320	0.42	0.45	-86.0	-0.14	1
+onset:07_2:s3:07_2-download01.wav	07_2	07_2-download01.wav	False	sentence	for	False	20.98	503520	21.5	pause	recognizer_early	20.82	0.56	21.38	513120	21.42	514080	0.4	0.44	-85.4	-0.16	1
+onset:07_2:s1:07_2-download02.wav	07_2	07_2-download02.wav	False	sentence	the	False	7.12	170880	7.74	pause	recognizer_early	7.07	0.58	7.65	183600	7.66	183840	0.53	0.54	-85.2	-0.05	1
+onset:07_2:s2:07_2-download02.wav	07_2	07_2-download02.wav	False	sentence	on	False	11.92	286080	12.46	pause	recognizer_early	11.84	0.49	12.33	295920	12.35	296400	0.41	0.43	-84.8	-0.08	1
+onset:07_2:s3:07_2-download02.wav	07_2	07_2-download02.wav	False	sentence	for	False	20.82	499680	21.34	pause	recognizer_early	20.7	0.52	21.22	509280	21.26	510240	0.4	0.44	-85.6	-0.12	1
+onset:07_3:s1:07_3-download01.wav	07_3	07_3-download01.wav	False	sentence	the	True	2.56	61440	2.68	pause	within	2.1	0.48	2.58	61920	2.6	62400	0.02	0.04	-65.9	-0.46	1
+onset:07_3:s2:07_3-download01.wav	07_3	07_3-download01.wav	False	sentence	circles	True	9.98	239520	10.52	pause	within	9.44	0.56	10.0	240000	10.01	240240	0.02	0.03	-64.6	-0.54	1
+onset:07_3:s3:07_3-download01.wav	07_3	07_3-download01.wav	False	sentence	rays	True	12.56	301440	13.04	pause	within	12.21	0.38	12.59	302160	12.61	302640	0.03	0.05	-65.7	-0.35	1
+onset:07_3:s4:07_3-download01.wav	07_3	07_3-download01.wav	False	sentence	now	True	15.44	370560	15.7	pause	within	14.82	0.65	15.47	371280	15.48	371520	0.03	0.04	-65.7	-0.62	1
+onset:07_3:s5:07_3-download01.wav	07_3	07_3-download01.wav	False	sentence	where	True	22.52	540480	22.74	pause	within	21.96	0.58	22.54	540960	22.56	541440	0.02	0.04	-61.1	-0.56	1
+onset:07_3:s1:07_3-download02.wav	07_3	07_3-download02.wav	False	sentence	the	True	2.5	60000	2.6	pause	within	2.03	0.45	2.48	59520	2.53	60720	-0.02	0.03		-0.47	1
+onset:07_3:s2:07_3-download02.wav	07_3	07_3-download02.wav	False	sentence	circles	True	9.62	230880	10.139999	pause	within	9.06	0.56	9.62	230880	9.63	231120	0.0	0.01		-0.56	1
+onset:07_3:s3:07_3-download02.wav	07_3	07_3-download02.wav	False	sentence	rays	True	12.2	292800	12.639999	pause	within	11.85	0.36	12.21	293040	12.22	293280	0.01	0.02	-62.2	-0.35	1
+onset:07_3:s4:07_3-download02.wav	07_3	07_3-download02.wav	False	sentence	now	True	15.02	360480	15.24	pause	within	14.42	0.6	15.02	360480	15.04	360960	0.0	0.02		-0.6	1
+onset:07_3:s5:07_3-download02.wav	07_3	07_3-download02.wav	False	sentence	where	True	21.56	517440	21.76	pause	within	20.98	0.56	21.54	516960	21.58	517920	-0.02	0.02		-0.58	1
+onset:07_4:s1:07_4-download01.wav	07_4	07_4-download01.wav	False	sentence	that	False	5.0	120000	5.64	pause	recognizer_early	4.78	0.69	5.47	131280	5.49	131760	0.47	0.49	-84.6	-0.22	1
+onset:07_4:s2:07_4-download01.wav	07_4	07_4-download01.wav	False	sentence	so	False	12.42	298080	13.36	pause	recognizer_early	12.36	0.62	12.98	311520	12.98	311520	0.56	0.56	-84.5	-0.06	1
+onset:07_4:s1:07_4-download02.wav	07_4	07_4-download02.wav	False	sentence	that	False	4.94	118560	5.48	pause	recognizer_early	4.7	0.6	5.3	127200	5.33	127920	0.36	0.39	-84.6	-0.24	1
+onset:07_4:s2:07_4-download02.wav	07_4	07_4-download02.wav	False	sentence	so	False	12.32	295680	12.94	pause	recognizer_early	12.18	0.61	12.79	306960	12.8	307200	0.47	0.48	-84.6	-0.14	1
+onset:07_5:s1:07_5-download01.wav	07_5	07_5-download01.wav	False	sentence	cut	True	3.4	81600	3.56	pause	within	2.73	0.69	3.42	82080	3.43	82320	0.02	0.03	-72.0	-0.67	1
+onset:07_5:s2:07_5-download01.wav	07_5	07_5-download01.wav	False	sentence	or	True	12.9	309600	13.179999	pause	within	12.33	0.59	12.92	310080	12.94	310560	0.02	0.04	-66.2	-0.57	1
+onset:07_5:s3:07_5-download01.wav	07_5	07_5-download01.wav	False	sentence	any	True	15.18	364320	15.4	pause	within	14.62	0.48	15.1	362400	15.22	365280	-0.08	0.04		-0.56	1
+onset:07_5:s4:07_5-download01.wav	07_5	07_5-download01.wav	False	sentence	zero	True	24.6	590400	24.92	pause	within	24.04	0.49	24.53	588720	24.64	591360	-0.07	0.04		-0.56	1
+onset:07_5:s5:07_5-download01.wav	07_5	07_5-download01.wav	False	sentence	it	True	28.18	676320	28.32	pause	within	27.76	0.45	28.21	677040	28.24	677760	0.03	0.06	-77.5	-0.42	1
+onset:07_5:s1:07_5-download02.wav	07_5	07_5-download02.wav	False	sentence	cut	True	3.3	79200	3.5	pause	within	2.72	0.61	3.33	79920	3.35	80400	0.03	0.05	-88.7	-0.58	1
+onset:07_5:s2:07_5-download02.wav	07_5	07_5-download02.wav	False	sentence	or	True	12.62	302880	12.94	pause	within	12.09	0.58	12.67	304080	12.67	304080	0.05	0.05	-87.5	-0.53	1
+onset:07_5:s3:07_5-download02.wav	07_5	07_5-download02.wav	False	sentence	any	True	14.92	358080	15.16	pause	within	14.43	0.42	14.85	356400	14.98	359520	-0.07	0.06		-0.49	1
+onset:07_5:s4:07_5-download02.wav	07_5	07_5-download02.wav	False	sentence	zero	True	24.02	576480	24.359999	pause	within	23.54	0.49	24.03	576720	24.06	577440	0.01	0.04	-61.6	-0.48	1
+onset:07_5:s5:07_5-download02.wav	07_5	07_5-download02.wav	False	sentence	it	True	27.58	661920	27.719999	pause	within	27.12	0.49	27.61	662640	27.64	663360	0.03	0.06	-80.2	-0.46	1
+onset:07_6:s1:07_6-download01.wav	07_6	07_6-download01.wav	False	sentence	on	True	1.22	29280	1.8	pause	recognizer_early	1.14	0.52	1.66	39840	1.7	40800	0.44	0.48	-85.2	-0.08	1
+onset:07_6:s2:07_6-download01.wav	07_6	07_6-download01.wav	False	sentence	but	True	10.12	242880	10.179999	pause	within	9.38	0.54	9.92	238080	9.96	239040	-0.2	-0.16		-0.74	1
+onset:07_6:s3:07_6-download01.wav	07_6	07_6-download01.wav	False	sentence	and	True	16.0	384000	16.039999	pause	within	15.3	0.62	15.92	382080	15.95	382800	-0.08	-0.05		-0.7	1
+onset:07_6:s4:07_6-download01.wav	07_6	07_6-download01.wav	False	sentence	exponentiating	True	20.96	503040	21.639999	pause	within	20.31	0.51	20.82	499680	20.83	499920	-0.14	-0.13		-0.65	1
+onset:07_6:s5:07_6-download01.wav	07_6	07_6-download01.wav	False	sentence	but	True	26.5	636000	26.559999	pause	within	25.98	0.47	26.45	634800	26.46	635040	-0.05	-0.04		-0.52	1
+onset:07_6:s6:07_6-download01.wav	07_6	07_6-download01.wav	False	sentence	that	True	34.639999	831360	35.32	pause	recognizer_early	34.44	0.59	35.03	840720	35.07	841680	0.39	0.43	-86.1	-0.2	1
+onset:07_6:s1:07_6-download02.wav	07_6	07_6-download02.wav	False	sentence	on	True	1.3	31200	1.96	pause	recognizer_early	1.17	0.67	1.84	44160	1.87	44880	0.54	0.57	-84.6	-0.13	1
+onset:07_6:s2:07_6-download02.wav	07_6	07_6-download02.wav	False	sentence	but	True	10.2	244800	10.26	pause	within	9.51	0.52	10.03	240720	10.06	241440	-0.17	-0.14		-0.69	1
+onset:07_6:s3:07_6-download02.wav	07_6	07_6-download02.wav	False	sentence	and	True	15.78	378720	15.799999	pause	within	15.08	0.61	15.69	376560	15.71	377040	-0.09	-0.07		-0.7	1
+onset:07_6:s4:07_6-download02.wav	07_6	07_6-download02.wav	False	sentence	exponentiating	True	20.66	495840	21.32	pause	within	20.11	0.4	20.51	492240	20.55	493200	-0.15	-0.11		-0.55	1
+onset:07_6:s5:07_6-download02.wav	07_6	07_6-download02.wav	False	sentence	but	True	26.120001	626880	26.18	pause	within	25.67	0.41	26.08	625920	26.09	626160	-0.04	-0.03		-0.45	1
+onset:07_6:s6:07_6-download02.wav	07_6	07_6-download02.wav	False	sentence	that	True	34.74	833760	35.040001	pause	within	34.33	0.41	34.74	833760	34.77	834480	0.0	0.03		-0.41	1
+onset:08_1:s1:08_1-download01.wav	08_1	08_1-download01.wav	False	sentence	does	False	5.42	130080	6.06	pause	recognizer_early	5.36	0.58	5.94	142560	5.95	142800	0.52	0.53	-84.6	-0.06	1
+onset:08_1:s2:08_1-download01.wav	08_1	08_1-download01.wav	False	sentence	take	False	7.26	174240	7.9	pause	recognizer_early	7.07	0.68	7.75	186000	7.76	186240	0.49	0.5	-85.1	-0.19	1
+onset:08_1:s3:08_1-download01.wav	08_1	08_1-download01.wav	False	sentence	square	False	12.16	291840	12.759999	pause	recognizer_early	11.93	0.49	12.42	298080	12.43	298320	0.26	0.27	-76.1	-0.23	1
+onset:08_1:s4:08_1-download01.wav	08_1	08_1-download01.wav	False	sentence	the	False	13.299999	319200	13.799999	pause	recognizer_early	13.1	0.58	13.68	328320	13.71	329040	0.38	0.41	-84.6	-0.2	1
+onset:08_1:s5:08_1-download01.wav	08_1	08_1-download01.wav	False	sentence	but	False	18.34	440160	18.879999	pause	recognizer_early	18.21	0.6	18.81	451440	18.82	451680	0.47	0.48	-84.6	-0.13	1
+onset:08_1:s6:08_1-download01.wav	08_1	08_1-download01.wav	False	sentence	so	False	24.699999	592800	25.299999	pause	recognizer_early	24.54	0.58	25.12	602880	25.13	603120	0.42	0.43	-84.6	-0.16	1
+onset:08_1:s1:08_1-download02.wav	08_1	08_1-download02.wav	False	sentence	does	True	5.4	129600	5.98	pause	recognizer_early	5.3	0.56	5.86	140640	5.88	141120	0.46	0.48	-79.0	-0.1	1
+onset:08_1:s2:08_1-download02.wav	08_1	08_1-download02.wav	False	sentence	take	True	7.2	172800	7.98	pause	recognizer_early	6.98	0.83	7.81	187440	7.81	187440	0.61	0.61	-84.6	-0.22	1
+onset:08_1:s3:08_1-download02.wav	08_1	08_1-download02.wav	False	sentence	square	False	12.12	290880	12.74	pause	recognizer_early	11.92	0.5	12.42	298080	12.43	298320	0.3	0.31	-85.3	-0.2	1
+onset:08_1:s4:08_1-download02.wav	08_1	08_1-download02.wav	False	sentence	the	False	13.36	320640	13.82	pause	recognizer_early	13.07	0.51	13.58	325920	13.73	329520	0.22	0.37	-66.8	-0.29	1
+onset:08_1:s5:08_1-download02.wav	08_1	08_1-download02.wav	False	sentence	but	False	18.42	442080	18.959999	pause	recognizer_early	18.26	0.62	18.88	453120	18.89	453360	0.46	0.47	-85.0	-0.16	1
+onset:08_1:s6:08_1-download02.wav	08_1	08_1-download02.wav	False	sentence	so	True	24.8	595200	25.34	pause	recognizer_early	24.62	0.58	25.2	604800	25.22	605280	0.4	0.42	-85.3	-0.18	1
+onset:08_2:s1:08_2-download01.wav	08_2	08_2-download01.wav	False	sentence	it	True	4.44	106560	4.6	short_quiet_run		4.08	0.07	4.15	99600	4.45	106800	-0.29	0.01		-0.36	2
+onset:08_2:s2:08_2-download01.wav	08_2	08_2-download01.wav	False	sentence	so	True	8.44	202560	8.559999	pause	within	7.96	0.49	8.45	202800	8.45	202800	0.01	0.01	-61.6	-0.48	1
+onset:08_2:s3:08_2-download01.wav	08_2	08_2-download01.wav	False	sentence	they	True	17.78	426720	17.92	pause	within	17.24	0.54	17.78	426720	17.82	427680	0.0	0.04		-0.54	1
+onset:08_2:s1:08_2-download02.wav	08_2	08_2-download02.wav	False	sentence	it	True	4.0	96000	4.52	pause	recognizer_early	3.93	0.33	4.26	102240	4.38	105120	0.26	0.38	-63.6	-0.07	2
+onset:08_2:s2:08_2-download02.wav	08_2	08_2-download02.wav	False	sentence	so	True	8.0	192000	8.48	pause	recognizer_early	7.83	0.52	8.35	200400	8.36	200640	0.35	0.36	-84.9	-0.17	1
+onset:08_2:s3:08_2-download02.wav	08_2	08_2-download02.wav	False	sentence	they	False	17.279999	414720	17.84	pause	recognizer_early	17.08	0.46	17.54	420960	17.73	425520	0.26	0.45	-70.7	-0.2	1
+onset:08_3:s1:08_3-download01.wav	08_3	08_3-download01.wav	False	sentence	when	True	3.0	72000	3.16	pause	within	2.59	0.45	3.04	72960	3.06	73440	0.04	0.06	-77.4	-0.41	1
+onset:08_3:s2:08_3-download01.wav	08_3	08_3-download01.wav	False	sentence	the	True	11.86	284640	12.02	pause	within	11.32	0.59	11.91	285840	11.92	286080	0.05	0.06	-64.3	-0.54	1
+onset:08_3:s3:08_3-download01.wav	08_3	08_3-download01.wav	False	sentence	the	True	20.5	492000	20.66	pause	within	19.87	0.67	20.54	492960	20.56	493440	0.04	0.06	-64.2	-0.63	1
+onset:08_3:s4:08_3-download01.wav	08_3	08_3-download01.wav	False	sentence	it	True	22.54	540960	22.719999	pause	within	22.24	0.33	22.57	541680	22.6	542400	0.03	0.06	-74.2	-0.3	1
+onset:08_3:s5:08_3-download01.wav	08_3	08_3-download01.wav	False	sentence	for	True	24.7	592800	24.879999	pause	within	24.26	0.46	24.72	593280	24.75	594000	0.02	0.05	-66.6	-0.44	1
+onset:08_3:s1:08_3-download02.wav	08_3	08_3-download02.wav	False	sentence	when	True	3.0	72000	3.14	pause	within	2.58	0.44	3.02	72480	3.05	73200	0.02	0.05	-66.8	-0.42	1
+onset:08_3:s2:08_3-download02.wav	08_3	08_3-download02.wav	False	sentence	the	True	12.1	290400	12.24	pause	within	11.45	0.7	12.15	291600	12.16	291840	0.05	0.06	-69.8	-0.65	1
+onset:08_3:s3:08_3-download02.wav	08_3	08_3-download02.wav	False	sentence	the	True	20.7	496800	20.84	pause	within	20.03	0.71	20.74	497760	20.77	498480	0.04	0.07	-69.5	-0.67	1
+onset:08_3:s4:08_3-download02.wav	08_3	08_3-download02.wav	False	sentence	it	True	22.66	543840	22.82	pause	within	22.4	0.29	22.69	544560	22.71	545040	0.03	0.05	-72.4	-0.26	1
+onset:08_3:s5:08_3-download02.wav	08_3	08_3-download02.wav	False	sentence	for	True	24.78	594720	24.939999	pause	within	24.33	0.47	24.8	595200	24.82	595680	0.02	0.04	-62.9	-0.45	1
+onset:08_4:s1:08_4-download01.wav	08_4	08_4-download01.wav	False	sentence	minus	False	3.56	85440	4.26	pause	within	3.04	0.5	3.54	84960	3.55	85200	-0.02	-0.01		-0.52	1
+onset:08_4:s2:08_4-download01.wav	08_4	08_4-download01.wav	False	sentence	write	True	6.82	163680	7.1	pause	within	6.3	0.54	6.84	164160	6.86	164640	0.02	0.04	-66.2	-0.52	1
+onset:08_4:s3:08_4-download01.wav	08_4	08_4-download01.wav	False	sentence	combine	True	10.22	245280	10.639999	pause	within	9.79	0.47	10.26	246240	10.27	246480	0.04	0.05	-86.3	-0.43	1
+onset:08_4:s4:08_4-download01.wav	08_4	08_4-download01.wav	False	sentence	that	True	14.76	354240	15.08	pause	within	14.33	0.45	14.78	354720	14.79	354960	0.02	0.03	-61.7	-0.43	1
+onset:08_4:s5:08_4-download01.wav	08_4	08_4-download01.wav	False	sentence	so	True	17.74	425760	18.26	pause	within	17.32	0.46	17.78	426720	17.78	426720	0.04	0.04	-66.4	-0.42	1
+onset:08_4:s6:08_4-download01.wav	08_4	08_4-download01.wav	False	sentence	which	True	20.74	497760	20.98	pause	within	20.24	0.53	20.77	498480	20.79	498960	0.03	0.05	-80.9	-0.5	1
+onset:08_4:s1:08_4-download02.wav	08_4	08_4-download02.wav	False	sentence	minus	True	3.5	84000	4.24	pause	within	3.12	0.43	3.55	85200	3.55	85200	0.05	0.05	-85.3	-0.38	1
+onset:08_4:s2:08_4-download02.wav	08_4	08_4-download02.wav	False	sentence	write	True	6.82	163680	7.08	pause	within	6.31	0.48	6.79	162960	6.88	165120	-0.03	0.06		-0.51	1
+onset:08_4:s3:08_4-download02.wav	08_4	08_4-download02.wav	False	sentence	combine	True	10.28	246720	10.719999	pause	within	9.76	0.55	10.31	247440	10.33	247920	0.03	0.05	-88.6	-0.52	1
+onset:08_4:s4:08_4-download02.wav	08_4	08_4-download02.wav	False	sentence	that	True	14.88	357120	15.24	pause	within	14.46	0.44	14.9	357600	14.93	358320	0.02	0.05	-60.6	-0.42	1
+onset:08_4:s5:08_4-download02.wav	08_4	08_4-download02.wav	False	sentence	so	True	17.92	430080	18.42	pause	within	17.51	0.43	17.94	430560	17.95	430800	0.02	0.03	-74.8	-0.41	1
+onset:08_4:s6:08_4-download02.wav	08_4	08_4-download02.wav	False	sentence	which	True	20.98	503520	21.219999	pause	within	20.42	0.6	21.02	504480	21.03	504720	0.04	0.05	-69.7	-0.56	1
+onset:08_5:s1:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download01.wav	08_5	08_5-download01.wav	True	sentence	here	True	1.64	39360	2.9	pause	recognizer_early	1.56	0.67	2.23	53520	2.26	54240	0.59	0.62	-84.7	-0.08	1
+onset:08_5:s2:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download01.wav	08_5	08_5-download01.wav	True	sentence	each	False	6.7	160800	7.3	pause	recognizer_early	6.52	0.57	7.09	170160	7.1	170400	0.39	0.4	-85.5	-0.18	2
+onset:08_5:s3:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download01.wav	08_5	08_5-download01.wav	True	sentence	but	False	14.719999	353280	15.38	pause	recognizer_early	14.65	0.63	15.28	366720	15.3	367200	0.56	0.58	-85.1	-0.07	1
+onset:08_5:s4:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download01.wav	08_5	08_5-download01.wav	True	sentence	taking	False	20.359999	488640	21.039999	pause	recognizer_early	20.09	0.66	20.75	498000	20.77	498480	0.39	0.41	-85.1	-0.27	1
+onset:08_5:s5:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download01.wav	08_5	08_5-download01.wav	True	sentence	the	False	27.52	660480	27.639999	pause	within	26.9	0.62	27.52	660480	27.54	660960	0.0	0.02		-0.62	1
+anchor:08_5:b267:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download01.wav	08_5	08_5-download01.wav	True	mark	leaves	True	22.42	538080	22.799999	no_quiet_run_ends_in_window												0
+anchor:08_5:b306:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download01.wav	08_5	08_5-download01.wav	True	mark	a	True	25.379999	609120	25.48	no_quiet_run_ends_in_window												0
+onset:08_5:s1:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download02.wav	08_5	08_5-download02.wav	True	sentence	here	True	2.16	51840	2.4	pause	within	1.51	0.59	2.1	50400	2.11	50640	-0.06	-0.05		-0.65	1
+onset:08_5:s2:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download02.wav	08_5	08_5-download02.wav	True	sentence	each	False	6.5	156000	7.18	pause	recognizer_early	6.36	0.5	6.86	164640	6.99	167760	0.36	0.49	-67.8	-0.14	2
+onset:08_5:s3:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download02.wav	08_5	08_5-download02.wav	True	sentence	but	False	14.82	355680	15.36	pause	recognizer_early	14.72	0.56	15.28	366720	15.29	366960	0.46	0.47	-85.2	-0.1	1
+onset:08_5:s4:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download02.wav	08_5	08_5-download02.wav	True	sentence	taking	True	20.32	487680	20.98	pause	recognizer_early	20.15	0.54	20.69	496560	20.71	497040	0.37	0.39	-85.7	-0.17	1
+onset:08_5:s5:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download02.wav	08_5	08_5-download02.wav	True	sentence	the	True	27.059999	649440	27.52	pause	recognizer_early	26.89	0.52	27.41	657840	27.44	658560	0.35	0.38	-86.2	-0.17	1
+anchor:08_5:b267:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download02.wav	08_5	08_5-download02.wav	True	mark	leaves	True	22.32	535680	22.76	no_quiet_run_ends_in_window												0
+anchor:08_5:b306:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download02.wav	08_5	08_5-download02.wav	True	mark	a	True	25.299999	607200	25.42	no_quiet_run_ends_in_window												0
+onset:09_1:s1:09_1-download01.wav	09_1	09_1-download01.wav	False	sentence	a	True	2.02	48480	2.12	pause	within	1.48	0.53	2.01	48240	2.04	48960	-0.01	0.02		-0.54	1
+onset:09_1:s2:09_1-download01.wav	09_1	09_1-download01.wav	False	sentence	it	True	6.84	164160	7.0	pause	within	6.59	0.22	6.81	163440	6.91	165840	-0.03	0.07		-0.25	2
+onset:09_1:s3:09_1-download01.wav	09_1	09_1-download01.wav	False	sentence	a	True	11.66	279840	11.759999	pause	within	11.05	0.61	11.66	279840	11.68	280320	0.0	0.02		-0.61	1
+onset:09_1:s4:09_1-download01.wav	09_1	09_1-download01.wav	False	sentence	the	True	17.28	414720	17.4	pause	within	16.66	0.63	17.29	414960	17.32	415680	0.01	0.04	-64.3	-0.62	1
+onset:09_1:s1:09_1-download02.wav	09_1	09_1-download02.wav	False	sentence	a	True	1.92	46080	2.12	pause	within	1.46	0.55	2.01	48240	2.03	48720	0.09	0.11	-88.5	-0.46	1
+onset:09_1:s2:09_1-download02.wav	09_1	09_1-download02.wav	False	sentence	it	True	6.76	162240	7.0	pause	within	6.49	0.27	6.76	162240	6.83	163920	0.0	0.07		-0.27	2
+onset:09_1:s3:09_1-download02.wav	09_1	09_1-download02.wav	False	sentence	a	True	11.6	278400	11.82	pause	within	11.12	0.57	11.69	280560	11.72	281280	0.09	0.12	-88.6	-0.48	1
+onset:09_1:s4:09_1-download02.wav	09_1	09_1-download02.wav	False	sentence	the	True	17.12	410880	17.32	pause	within	16.64	0.58	17.22	413280	17.24	413760	0.1	0.12	-88.5	-0.48	1
+onset:09_2:s1:09_2-download01.wav	09_2	09_2-download01.wav	False	sentence	here	False	4.28	102720	4.92	pause	recognizer_early	4.07	0.51	4.58	109920	4.63	111120	0.3	0.35	-85.1	-0.21	1
+onset:09_2:s2:09_2-download01.wav	09_2	09_2-download01.wav	False	sentence	a	False	6.84	164160	7.28	pause	recognizer_early	6.67	0.52	7.19	172560	7.2	172800	0.35	0.36	-84.7	-0.17	1
+onset:09_2:s3:09_2-download01.wav	09_2	09_2-download01.wav	False	sentence	let	False	14.98	359520	15.48	pause	recognizer_early	14.78	0.52	15.3	367200	15.32	367680	0.32	0.34	-84.6	-0.2	1
+onset:09_2:s4:09_2-download01.wav	09_2	09_2-download01.wav	False	sentence	where	False	18.879999	453120	19.379999	pause	recognizer_early	18.79	0.43	19.22	461280	19.26	462240	0.34	0.38	-85.9	-0.09	1
+onset:09_2:s1:09_2-download02.wav	09_2	09_2-download02.wav	False	sentence	here	False	4.38	105120	4.94	pause	recognizer_early	4.19	0.5	4.69	112560	4.71	113040	0.31	0.33	-86.5	-0.19	1
+onset:09_2:s2:09_2-download02.wav	09_2	09_2-download02.wav	False	sentence	a	False	6.88	165120	7.3	pause	recognizer_early	6.73	0.48	7.21	173040	7.23	173520	0.33	0.35	-87.3	-0.15	1
+onset:09_2:s3:09_2-download02.wav	09_2	09_2-download02.wav	False	sentence	let	False	14.599999	350400	15.099999	pause	recognizer_early	14.45	0.48	14.93	358320	14.95	358800	0.33	0.35	-86.1	-0.15	1
+onset:09_2:s4:09_2-download02.wav	09_2	09_2-download02.wav	False	sentence	where	False	18.32	439680	18.779999	pause	recognizer_early	18.24	0.38	18.62	446880	18.65	447600	0.3	0.33	-85.9	-0.08	1
+onset:09_3:s1:09_3-download01.wav	09_3	09_3-download01.wav	False	sentence	so	False	7.86	188640	8.42	pause	recognizer_early	7.68	0.58	8.26	198240	8.27	198480	0.4	0.41	-85.2	-0.18	1
+onset:09_3:s2:09_3-download01.wav	09_3	09_3-download01.wav	False	sentence	is	True	13.44	322560	13.94	pause	recognizer_early	13.23	0.58	13.81	331440	13.84	332160	0.37	0.4	-85.3	-0.21	1
+onset:09_3:s1:09_3-download02.wav	09_3	09_3-download02.wav	False	sentence	so	True	8.0	192000	8.46	pause	recognizer_early	7.77	0.57	8.34	200160	8.35	200400	0.34	0.35	-84.5	-0.23	1
+onset:09_3:s2:09_3-download02.wav	09_3	09_3-download02.wav	False	sentence	is	False	13.2	316800	13.719999	pause	recognizer_early	13.07	0.51	13.58	325920	13.61	326640	0.38	0.41	-86.0	-0.13	1
+onset:09_4:s1:09_4-download01.wav	09_4	09_4-download01.wav	False	sentence	the	True	2.24	53760	2.36	pause	within	1.77	0.49	2.26	54240	2.28	54720	0.02	0.04	-61.4	-0.47	1
+onset:09_4:s2:09_4-download01.wav	09_4	09_4-download01.wav	False	sentence	but	True	7.04	168960	7.24	pause	within	6.63	0.29	6.92	166080	7.11	170640	-0.12	0.07		-0.41	1
+onset:09_4:s3:09_4-download01.wav	09_4	09_4-download01.wav	False	sentence	so	True	11.46	275040	11.679999	pause	within	10.96	0.54	11.5	276000	11.51	276240	0.04	0.05	-67.3	-0.5	1
+onset:09_4:s4:09_4-download01.wav	09_4	09_4-download01.wav	False	sentence	this	True	14.4	345600	14.679999	pause	within	13.84	0.56	14.4	345600	14.44	346560	0.0	0.04		-0.56	1
+onset:09_4:s5:09_4-download01.wav	09_4	09_4-download01.wav	False	sentence	matrices	True	17.82	427680	18.279999	pause	within	17.45	0.41	17.86	428640	17.88	429120	0.04	0.06	-69.5	-0.37	1
+onset:09_4:s1:09_4-download02.wav	09_4	09_4-download02.wav	False	sentence	the	True	2.24	53760	2.34	pause	within	1.77	0.49	2.26	54240	2.27	54480	0.02	0.03	-66.3	-0.47	1
+onset:09_4:s2:09_4-download02.wav	09_4	09_4-download02.wav	False	sentence	but	True	7.3	175200	7.4	pause	within	6.66	0.63	7.29	174960	7.32	175680	-0.01	0.02		-0.64	1
+onset:09_4:s3:09_4-download02.wav	09_4	09_4-download02.wav	False	sentence	so	True	11.46	275040	11.639999	pause	within	10.95	0.51	11.46	275040	11.48	275520	0.0	0.02		-0.51	1
+onset:09_4:s4:09_4-download02.wav	09_4	09_4-download02.wav	False	sentence	this	True	14.4	345600	14.679999	pause	within	13.84	0.55	14.39	345360	14.41	345840	-0.01	0.01		-0.56	1
+onset:09_4:s5:09_4-download02.wav	09_4	09_4-download02.wav	False	sentence	matrices	True	17.84	428160	18.26	pause	within	17.35	0.49	17.84	428160	17.85	428400	0.0	0.01		-0.49	1
+onset:10_1:s1:10_1-download01.wav	10_1	10_1-download01.wav	False	sentence	zero	False	5.2	124800	5.56	pause	within	4.74	0.46	5.2	124800	5.24	125760	0.0	0.04		-0.46	1
+onset:10_1:s2:10_1-download01.wav	10_1	10_1-download01.wav	False	sentence	one	False	8.139999	195360	8.4	pause	within	7.76	0.44	8.2	196800	8.21	197040	0.06	0.07	-61.1	-0.38	1
+onset:10_1:s3:10_1-download01.wav	10_1	10_1-download01.wav	False	sentence	with	False	11.099999	266400	11.58	pause	recognizer_early	10.93	0.51	11.44	274560	11.45	274800	0.34	0.35	-84.9	-0.17	1
+onset:10_1:s1:10_1-download02.wav	10_1	10_1-download02.wav	False	sentence	zero	False	5.12	122880	5.68	pause	recognizer_early	4.87	0.5	5.37	128880	5.39	129360	0.25	0.27	-85.4	-0.25	1
+onset:10_1:s2:10_1-download02.wav	10_1	10_1-download02.wav	False	sentence	one	True	8.28	198720	8.52	pause	within	7.9	0.4	8.3	199200	8.32	199680	0.02	0.04	-68.6	-0.38	1
+onset:10_1:s3:10_1-download02.wav	10_1	10_1-download02.wav	False	sentence	with	True	11.48	275520	11.639999	pause	within	10.98	0.52	11.5	276000	11.53	276720	0.02	0.05	-65.5	-0.5	1
+onset:10_2:s1:10_2-download01.wav	10_2	10_2-download01.wav	False	sentence	a	True	2.88	69120	3.0	pause	within	2.32	0.56	2.88	69120	2.9	69600	0.0	0.02		-0.56	1
+onset:10_2:s2:10_2-download01.wav	10_2	10_2-download01.wav	False	sentence	stretch	True	11.4	273600	11.84	pause	within	10.9	0.53	11.43	274320	11.44	274560	0.03	0.04	-81.3	-0.5	1
+onset:10_2:s3:10_2-download01.wav	10_2	10_2-download01.wav	False	sentence	the	True	14.76	354240	14.9	pause	within	14.24	0.55	14.79	354960	14.8	355200	0.03	0.04	-65.3	-0.52	1
+onset:10_2:s1:10_2-download02.wav	10_2	10_2-download02.wav	False	sentence	a	True	2.9	69600	3.0	pause	within	2.31	0.58	2.89	69360	2.91	69840	-0.01	0.01		-0.59	1
+onset:10_2:s2:10_2-download02.wav	10_2	10_2-download02.wav	False	sentence	stretch	True	11.6	278400	12.059999	pause	within	11.12	0.5	11.62	278880	11.63	279120	0.02	0.03	-64.8	-0.48	1
+onset:10_2:s3:10_2-download02.wav	10_2	10_2-download02.wav	False	sentence	the	True	15.08	361920	15.219999	pause	within	14.62	0.49	15.11	362640	15.12	362880	0.03	0.04	-69.3	-0.46	1
+onset:10_3:s1:10_3-download01.wav	10_3	10_3-download01.wav	False	sentence	for	True	2.74	65760	2.9	pause	within	2.24	0.51	2.75	66000	2.77	66480	0.01	0.03	-64.5	-0.5	1
+onset:10_3:s2:10_3-download01.wav	10_3	10_3-download01.wav	False	sentence	matrix	True	10.56	253440	10.96	pause	within	10.07	0.53	10.6	254400	10.61	254640	0.04	0.05	-64.4	-0.49	1
+onset:10_3:s3:10_3-download01.wav	10_3	10_3-download01.wav	False	sentence	every	True	12.92	310080	13.259999	pause	within	12.47	0.46	12.93	310320	12.95	310800	0.01	0.03	-66.3	-0.45	1
+onset:10_3:s4:10_3-download01.wav	10_3	10_3-download01.wav	False	sentence	the	True	24.12	578880	24.26	pause	within	23.6	0.54	24.14	579360	24.15	579600	0.02	0.03	-63.1	-0.52	1
+onset:10_3:s5:10_3-download01.wav	10_3	10_3-download01.wav	False	sentence	each	True	28.0	672000	28.24	pause	within	27.54	0.47	28.01	672240	28.04	672960	0.01	0.04	-80.6	-0.46	1
+anchor:10_3:b208:10_3-download01.wav	10_3	10_3-download01.wav	False	mark	turns	True	15.059999	361440	15.48	no_quiet_run_ends_in_window												0
+anchor:10_3:b302:10_3-download01.wav	10_3	10_3-download01.wav	False	mark	or	True	21.459999	515040	21.84	pause	within	21.39	0.19	21.58	517920	21.64	519360	0.12	0.18	-65.5	-0.07	1
+onset:10_3:s1:10_3-download02.wav	10_3	10_3-download02.wav	False	sentence	for	True	2.66	63840	2.84	pause	within	2.25	0.45	2.7	64800	2.72	65280	0.04	0.06	-63.2	-0.41	1
+onset:10_3:s2:10_3-download02.wav	10_3	10_3-download02.wav	False	sentence	matrix	True	10.54	252960	10.9	pause	within	10.08	0.49	10.57	253680	10.6	254400	0.03	0.06	-86.8	-0.46	1
+onset:10_3:s3:10_3-download02.wav	10_3	10_3-download02.wav	False	sentence	every	True	12.86	308640	13.2	pause	within	12.36	0.53	12.89	309360	12.91	309840	0.03	0.05	-76.1	-0.5	1
+onset:10_3:s4:10_3-download02.wav	10_3	10_3-download02.wav	False	sentence	the	True	23.94	574560	24.1	pause	within	23.42	0.56	23.98	575520	23.99	575760	0.04	0.05	-65.1	-0.52	1
+onset:10_3:s5:10_3-download02.wav	10_3	10_3-download02.wav	False	sentence	each	True	27.76	666240	28.02	pause	within	27.32	0.47	27.79	666960	27.8	667200	0.03	0.04	-85.4	-0.44	1
+anchor:10_3:b208:10_3-download02.wav	10_3	10_3-download02.wav	False	mark	turns	True	15.0	360000	15.42	no_quiet_run_ends_in_window												0
+anchor:10_3:b302:10_3-download02.wav	10_3	10_3-download02.wav	False	mark	or	True	21.44	514560	21.699999	pause	within	21.22	0.24	21.46	515040	21.5	516000	0.02	0.06	-62.9	-0.22	1
+onset:10_4:s1:10_4-download01.wav	10_4	10_4-download01.wav	False	sentence	whenever	True	6.0	144000	6.4	pause	within	5.66	0.48	6.14	147360	6.16	147840	0.14	0.16	-86.6	-0.34	1
+onset:10_4:s2:10_4-download01.wav	10_4	10_4-download01.wav	False	sentence	it	True	15.0	360000	15.24	pause	within	14.58	0.54	15.12	362880	15.15	363600	0.12	0.15	-85.7	-0.42	1
+onset:10_4:s3:10_4-download01.wav	10_4	10_4-download01.wav	False	sentence	for	False	20.08	481920	20.639999	pause	recognizer_early	19.98	0.52	20.5	492000	20.54	492960	0.42	0.46	-85.7	-0.1	1
+onset:10_4:s4:10_4-download01.wav	10_4	10_4-download01.wav	False	sentence	on	False	24.059999	577440	24.539999	pause	recognizer_early	23.73	0.61	24.34	584160	24.35	584400	0.28	0.29	-84.9	-0.33	1
+anchor:10_4:b39:10_4-download01.wav	10_4	10_4-download01.wav	False	mark	strictly	True	2.76	66240	3.34	no_quiet_run_ends_in_window												0
+onset:10_4:s1:10_4-download02.wav	10_4	10_4-download02.wav	False	sentence	whenever	False	5.66	135840	6.4	pause	recognizer_early	5.57	0.57	6.14	147360	6.17	148080	0.48	0.51	-84.9	-0.09	1
+onset:10_4:s2:10_4-download02.wav	10_4	10_4-download02.wav	False	sentence	it	False	14.839999	356160	15.2	pause	recognizer_early	14.59	0.5	15.09	362160	15.11	362640	0.25	0.27	-85.6	-0.25	1
+onset:10_4:s3:10_4-download02.wav	10_4	10_4-download02.wav	False	sentence	for	False	19.959999	479040	20.5	pause	recognizer_early	19.88	0.51	20.39	489360	20.4	489600	0.43	0.44	-85.2	-0.08	1
+onset:10_4:s4:10_4-download02.wav	10_4	10_4-download02.wav	False	sentence	on	False	24.039999	576960	24.48	pause	recognizer_early	23.57	0.69	24.26	582240	24.29	582960	0.22	0.25	-85.6	-0.47	1
+anchor:10_4:b39:10_4-download02.wav	10_4	10_4-download02.wav	False	mark	strictly	True	2.7	64800	3.34	no_quiet_run_ends_in_window												0
+onset:11_1:s1:11_1-download01.wav	11_1	11_1-download01.wav	False	sentence	try	True	3.0	72000	3.6	pause	recognizer_early	2.94	0.44	3.38	81120	3.43	82320	0.38	0.43	-85.6	-0.06	1
+onset:11_1:s2:11_1-download01.wav	11_1	11_1-download01.wav	False	sentence	compare	True	6.5	156000	7.14	pause	recognizer_early	6.28	0.52	6.8	163200	6.85	164400	0.3	0.35	-85.3	-0.22	1
+onset:11_1:s3:11_1-download01.wav	11_1	11_1-download01.wav	False	sentence	the	False	11.54	276960	12.099999	pause	recognizer_early	11.47	0.53	12.0	288000	12.01	288240	0.46	0.47	-85.6	-0.07	1
+onset:11_1:s4:11_1-download01.wav	11_1	11_1-download01.wav	False	sentence	averaging	False	18.52	444480	19.219999	pause	recognizer_early	18.29	0.49	18.78	450720	18.8	451200	0.26	0.28	-85.5	-0.23	1
+anchor:11_1:b320:11_1-download01.wav	11_1	11_1-download01.wav	False	mark	a	True	21.74	521760	21.82	no_quiet_run_ends_in_window												0
+anchor:11_1:b337:11_1-download01.wav	11_1	11_1-download01.wav	False	mark	squashes	True	22.639999	543360	23.5	no_quiet_run_ends_in_window												0
+onset:11_1:s1:11_1-download02.wav	11_1	11_1-download02.wav	False	sentence	try	True	3.4	81600	3.6	pause	within	2.97	0.43	3.4	81600	3.44	82560	0.0	0.04		-0.43	1
+onset:11_1:s2:11_1-download02.wav	11_1	11_1-download02.wav	False	sentence	compare	True	6.68	160320	6.98	pause	within	6.25	0.45	6.7	160800	6.72	161280	0.02	0.04	-62.0	-0.43	1
+onset:11_1:s3:11_1-download02.wav	11_1	11_1-download02.wav	False	sentence	the	True	11.78	282720	11.92	pause	within	11.31	0.5	11.81	283440	11.84	284160	0.03	0.06	-63.8	-0.47	1
+onset:11_1:s4:11_1-download02.wav	11_1	11_1-download02.wav	False	sentence	averaging	True	18.62	446880	19.1	pause	within	18.16	0.48	18.64	447360	18.66	447840	0.02	0.04	-71.7	-0.46	1
+anchor:11_1:b320:11_1-download02.wav	11_1	11_1-download02.wav	False	mark	a	True	21.52	516480	21.6	no_quiet_run_ends_in_window												0
+anchor:11_1:b337:11_1-download02.wav	11_1	11_1-download02.wav	False	mark	squashes	True	22.72	545280	23.34	no_quiet_run_ends_in_window												0
+onset:11_2:s1:11_2-download01.wav	11_2	11_2-download01.wav	False	sentence	it	True	4.16	99840	4.3	pause	within	3.71	0.47	4.18	100320	4.2	100800	0.02	0.04	-63.5	-0.45	1
+onset:11_2:s2:11_2-download01.wav	11_2	11_2-download01.wav	False	sentence	it	True	5.92	142080	6.04	pause	within	5.58	0.35	5.93	142320	5.95	142800	0.01	0.03	-65.3	-0.34	1
+onset:11_2:s3:11_2-download01.wav	11_2	11_2-download01.wav	False	sentence	and	True	8.86	212640	8.98	pause	within	8.47	0.41	8.88	213120	8.9	213600	0.02	0.04	-65.8	-0.39	1
+onset:11_2:s4:11_2-download01.wav	11_2	11_2-download01.wav	False	sentence	a	True	16.74	401760	16.84	pause	within	16.16	0.58	16.74	401760	16.76	402240	0.0	0.02		-0.58	1
+onset:11_2:s5:11_2-download01.wav	11_2	11_2-download01.wav	False	sentence	the	True	22.34	536160	22.459999	pause	within	21.84	0.48	22.32	535680	22.37	536880	-0.02	0.03		-0.5	1
+anchor:11_2:b185:11_2-download01.wav	11_2	11_2-download01.wav	False	mark	run	True	12.84	308160	13.08	no_quiet_run_ends_in_window												0
+onset:11_2:s1:11_2-download02.wav	11_2	11_2-download02.wav	False	sentence	it	True	4.24	101760	4.38	pause	within	3.85	0.41	4.26	102240	4.27	102480	0.02	0.03	-68.1	-0.39	1
+onset:11_2:s2:11_2-download02.wav	11_2	11_2-download02.wav	False	sentence	it	True	6.04	144960	6.18	pause	within	5.75	0.33	6.08	145920	6.1	146400	0.04	0.06	-74.8	-0.29	1
+onset:11_2:s3:11_2-download02.wav	11_2	11_2-download02.wav	False	sentence	and	True	8.94	214560	9.08	pause	within	8.57	0.41	8.98	215520	9.01	216240	0.04	0.07	-74.1	-0.37	1
+onset:11_2:s4:11_2-download02.wav	11_2	11_2-download02.wav	False	sentence	a	True	16.78	402720	16.92	pause	within	16.16	0.65	16.81	403440	16.82	403680	0.03	0.04	-73.9	-0.62	1
+onset:11_2:s5:11_2-download02.wav	11_2	11_2-download02.wav	False	sentence	the	True	22.52	540480	22.699999	pause	within	21.95	0.62	22.57	541680	22.59	542160	0.05	0.07	-78.3	-0.57	1
+anchor:11_2:b185:11_2-download02.wav	11_2	11_2-download02.wav	False	mark	run	True	12.96	311040	13.16	no_quiet_run_ends_in_window												0
+onset:11_3:s1:11_3-download01.wav	11_3	11_3-download01.wav	False	sentence	so	True	3.9	93600	4.42	pause	within	3.47	0.47	3.94	94560	3.95	94800	0.04	0.05	-81.6	-0.43	1
+onset:11_3:s2:11_3-download01.wav	11_3	11_3-download01.wav	False	sentence	is	True	9.34	224160	9.52	pause	within	8.79	0.59	9.38	225120	9.39	225360	0.04	0.05	-69.9	-0.55	1
+onset:11_3:s3:11_3-download01.wav	11_3	11_3-download01.wav	False	sentence	try	True	11.8	283200	11.98	pause	within	11.32	0.49	11.81	283440	11.85	284400	0.01	0.05	-73.3	-0.48	1
+onset:11_3:s4:11_3-download01.wav	11_3	11_3-download01.wav	False	sentence	double	True	13.12	314880	13.42	pause	within	12.71	0.43	13.14	315360	13.15	315600	0.02	0.03	-60.5	-0.41	1
+onset:11_3:s5:11_3-download01.wav	11_3	11_3-download01.wav	False	sentence	halve	True	16.4	393600	16.719999	pause	within	15.93	0.5	16.43	394320	16.45	394800	0.03	0.05	-68.7	-0.47	1
+onset:11_3:s6:11_3-download01.wav	11_3	11_3-download01.wav	False	sentence	the	True	20.24	485760	20.4	pause	within	19.71	0.56	20.27	486480	20.31	487440	0.03	0.07	-86.3	-0.53	1
+onset:11_3:s7:11_3-download01.wav	11_3	11_3-download01.wav	False	sentence	it	True	23.26	558240	23.4	pause	within	22.95	0.36	23.31	559440	23.33	559920	0.05	0.07	-84.1	-0.31	1
+onset:11_3:s8:11_3-download01.wav	11_3	11_3-download01.wav	False	sentence	can	True	26.6	638400	26.779999	pause	within	26.15	0.51	26.66	639840	26.66	639840	0.06	0.06	-82.9	-0.45	1
+onset:11_3:s1:11_3-download02.wav	11_3	11_3-download02.wav	False	sentence	so	True	3.92	94080	4.14	pause	within	3.45	0.5	3.95	94800	3.96	95040	0.03	0.04	-73.2	-0.47	1
+onset:11_3:s2:11_3-download02.wav	11_3	11_3-download02.wav	False	sentence	is	True	9.26	222240	9.44	pause	within	8.72	0.58	9.3	223200	9.31	223440	0.04	0.05	-67.9	-0.54	1
+onset:11_3:s3:11_3-download02.wav	11_3	11_3-download02.wav	False	sentence	try	True	11.72	281280	11.9	pause	within	11.27	0.48	11.75	282000	11.76	282240	0.03	0.04	-83.2	-0.45	1
+onset:11_3:s4:11_3-download02.wav	11_3	11_3-download02.wav	False	sentence	double	True	13.04	312960	13.32	pause	within	12.61	0.45	13.06	313440	13.07	313680	0.02	0.03	-62.2	-0.43	1
+onset:11_3:s5:11_3-download02.wav	11_3	11_3-download02.wav	False	sentence	halve	True	16.24	389760	16.559999	pause	within	15.84	0.44	16.28	390720	16.3	391200	0.04	0.06	-79.9	-0.4	1
+onset:11_3:s6:11_3-download02.wav	11_3	11_3-download02.wav	False	sentence	the	True	19.96	479040	20.1	pause	within	19.53	0.45	19.98	479520	20.01	480240	0.02	0.05	-64.1	-0.43	1
+onset:11_3:s7:11_3-download02.wav	11_3	11_3-download02.wav	False	sentence	it	True	23.02	552480	23.16	pause	within	22.62	0.43	23.05	553200	23.08	553920	0.03	0.06	-79.7	-0.4	1
+onset:11_3:s8:11_3-download02.wav	11_3	11_3-download02.wav	False	sentence	can	True	26.44	634560	26.58	pause	within	25.96	0.5	26.46	635040	26.47	635280	0.02	0.03	-77.4	-0.48	1
+onset:11_4:s1:11_4-download01.wav	11_4	11_4-download01.wav	False	sentence	suppose	True	0.8	19200	1.48	pause	recognizer_early	0.77	0.3	1.07	25680	1.09	26160	0.27	0.29	-85.1	-0.03	1
+onset:11_4:s2:11_4-download01.wav	11_4	11_4-download01.wav	False	sentence	then	False	7.0	168000	7.6	pause	recognizer_early	6.67	0.61	7.28	174720	7.32	175680	0.28	0.32	-85.9	-0.33	1
+onset:11_4:s3:11_4-download01.wav	11_4	11_4-download01.wav	False	sentence	here	False	14.12	338880	14.5	pause	recognizer_early	13.85	0.49	14.34	344160	14.36	344640	0.22	0.24	-86.1	-0.27	1
+onset:11_4:s4:11_4-download01.wav	11_4	11_4-download01.wav	False	sentence	a	False	15.259999	366240	15.86	pause	recognizer_early	15.18	0.47	15.65	375600	15.66	375840	0.39	0.4	-85.3	-0.08	1
+onset:11_4:s5:11_4-download01.wav	11_4	11_4-download01.wav	False	sentence	multiplying	False	23.0	552000	23.82	pause	recognizer_early	22.65	0.61	23.26	558240	23.28	558720	0.26	0.28	-85.2	-0.35	1
+onset:11_4:s1:11_4-download02.wav	11_4	11_4-download02.wav	False	sentence	suppose	True	0.74	17760	1.48	pause	recognizer_early	0.64	0.49	1.13	27120	1.14	27360	0.39	0.4	-85.9	-0.1	1
+onset:11_4:s2:11_4-download02.wav	11_4	11_4-download02.wav	False	sentence	then	False	6.62	158880	7.34	pause	recognizer_early	6.68	0.22	6.9	165600	7.0	168000	0.28	0.38	-65.1	0.06	2
+onset:11_4:s3:11_4-download02.wav	11_4	11_4-download02.wav	False	sentence	here	False	13.82	331680	14.34	pause	recognizer_early	13.6	0.57	14.17	340080	14.19	340560	0.35	0.37	-85.1	-0.22	1
+onset:11_4:s4:11_4-download02.wav	11_4	11_4-download02.wav	False	sentence	a	False	15.12	362880	15.759999	pause	recognizer_early	15.03	0.52	15.55	373200	15.57	373680	0.43	0.45	-85.5	-0.09	1
+onset:11_4:s5:11_4-download02.wav	11_4	11_4-download02.wav	False	sentence	multiplying	False	23.019999	552480	23.859999	pause	recognizer_early	22.66	0.64	23.3	559200	23.32	559680	0.28	0.3	-84.9	-0.36	1
+onset:11_5:s1:11_5-download01.wav	11_5	11_5-download01.wav	False	sentence	take	True	2.54	60960	2.74	pause	within	2.09	0.43	2.52	60480	2.58	61920	-0.02	0.04		-0.45	1
+onset:11_5:s2:11_5-download01.wav	11_5	11_5-download01.wav	False	sentence	if	True	12.2	292800	12.4	pause	within	11.66	0.49	12.15	291600	12.27	294480	-0.05	0.07		-0.54	2
+onset:11_5:s3:11_5-download01.wav	11_5	11_5-download01.wav	False	sentence	each	True	17.62	422880	17.84	pause	within	17.12	0.51	17.63	423120	17.66	423840	0.01	0.04	-69.7	-0.5	1
+onset:11_5:s4:11_5-download01.wav	11_5	11_5-download01.wav	False	sentence	those	True	26.48	635520	26.719999	pause	within	25.86	0.62	26.48	635520	26.51	636240	0.0	0.03		-0.62	1
+anchor:11_5:b72:11_5-download01.wav	11_5	11_5-download01.wav	False	mark	send	True	5.46	131040	5.7	no_quiet_run_ends_in_window												0
+anchor:11_5:b178:11_5-download01.wav	11_5	11_5-download01.wav	False	mark	the	False	14.9	357600	15.0	no_quiet_run_ends_in_window												0
+onset:11_5:s1:11_5-download02.wav	11_5	11_5-download02.wav	False	sentence	take	True	2.5	60000	2.72	pause	within	2.02	0.52	2.54	60960	2.56	61440	0.04	0.06	-81.9	-0.48	1
+onset:11_5:s2:11_5-download02.wav	11_5	11_5-download02.wav	False	sentence	if	True	12.6	302400	12.82	pause	within	12.04	0.63	12.67	304080	12.68	304320	0.07	0.08	-84.0	-0.56	1
+onset:11_5:s3:11_5-download02.wav	11_5	11_5-download02.wav	False	sentence	each	True	18.24	437760	18.52	pause	within	17.8	0.49	18.29	438960	18.31	439440	0.05	0.07	-85.1	-0.44	1
+onset:11_5:s4:11_5-download02.wav	11_5	11_5-download02.wav	False	sentence	those	True	27.0	648000	27.299999	pause	within	26.52	0.53	27.05	649200	27.08	649920	0.05	0.08	-86.1	-0.48	1
+anchor:11_5:b72:11_5-download02.wav	11_5	11_5-download02.wav	False	mark	send	True	5.46	131040	5.7	no_quiet_run_ends_in_window												0
+anchor:11_5:b178:11_5-download02.wav	11_5	11_5-download02.wav	False	mark	the	True	15.32	367680	15.52	short_quiet_run		15.26	0.11	15.37	368880	15.44	370560	0.05	0.12	-61.9	-0.06	1
+onset:11_6:s1:11_6-download01.wav	11_6	11_6-download01.wav	False	sentence	its	True	2.32	55680	2.5	pause	within	2.0	0.33	2.33	55920	2.34	56160	0.01	0.02	-81.2	-0.32	1
+onset:11_6:s2:11_6-download01.wav	11_6	11_6-download01.wav	False	sentence	a	True	9.1	218400	9.2	pause	within	8.58	0.51	9.09	218160	9.11	218640	-0.01	0.01		-0.52	1
+onset:11_6:s3:11_6-download01.wav	11_6	11_6-download01.wav	False	sentence	a	True	17.72	425280	17.82	pause	within	17.2	0.49	17.69	424560	17.72	425280	-0.03	0.0		-0.52	1
+onset:11_6:s4:11_6-download01.wav	11_6	11_6-download01.wav	False	sentence	but	True	24.52	588480	24.66	pause	within	23.92	0.6	24.52	588480	24.55	589200	0.0	0.03		-0.6	1
+anchor:11_6:b273:11_6-download01.wav	11_6	11_6-download01.wav	False	mark	running	True	21.66	519840	21.92	short_quiet_run		21.39	0.14	21.53	516720	21.56	517440	-0.13	-0.1		-0.27	1
+onset:11_6:s1:11_6-download02.wav	11_6	11_6-download02.wav	False	sentence	its	True	2.2	52800	2.42	pause	within	1.86	0.29	2.15	51600	2.27	54480	-0.05	0.07		-0.34	1
+onset:11_6:s2:11_6-download02.wav	11_6	11_6-download02.wav	False	sentence	a	True	8.94	214560	9.08	pause	within	8.35	0.6	8.95	214800	8.96	215040	0.01	0.02	-68.1	-0.59	1
+onset:11_6:s3:11_6-download02.wav	11_6	11_6-download02.wav	False	sentence	a	True	17.48	419520	17.6	pause	within	16.99	0.5	17.49	419760	17.51	420240	0.01	0.03	-62.9	-0.49	1
+onset:11_6:s4:11_6-download02.wav	11_6	11_6-download02.wav	False	sentence	but	True	24.06	577440	24.219999	pause	within	23.6	0.52	24.12	578880	24.12	578880	0.06	0.06	-68.8	-0.46	1
+anchor:11_6:b273:11_6-download02.wav	11_6	11_6-download02.wav	False	mark	running	True	21.4	513600	21.68	pause	within	21.07	0.21	21.28	510720	21.3	511200	-0.12	-0.1		-0.33	1
+onset:11_7:s1:11_7-download01.wav	11_7	11_7-download01.wav	False	sentence	that	True	3.44	82560	3.78	pause	within	3.05	0.39	3.44	82560	3.48	83520	0.0	0.04		-0.39	1
+onset:11_7:s2:11_7-download01.wav	11_7	11_7-download01.wav	False	sentence	why	True	8.54	204960	8.72	pause	within	7.98	0.59	8.57	205680	8.59	206160	0.03	0.05	-70.4	-0.56	1
+onset:11_7:s3:11_7-download01.wav	11_7	11_7-download01.wav	False	sentence	its	True	11.02	264480	11.24	pause	within	10.56	0.49	11.05	265200	11.07	265680	0.03	0.05	-83.5	-0.46	1
+onset:11_7:s4:11_7-download01.wav	11_7	11_7-download01.wav	False	sentence	in	True	20.08	481920	20.24	pause	within	19.5	0.6	20.1	482400	20.12	482880	0.02	0.04	-60.2	-0.58	1
+anchor:11_7:b174:11_7-download01.wav	11_7	11_7-download01.wav	False	mark	so	True	12.82	307680	13.12	short_quiet_run		12.86	0.12	12.98	311520	12.99	311760	0.16	0.17	-63.1	0.04	1
+anchor:11_7:b226:11_7-download01.wav	11_7	11_7-download01.wav	False	mark	the	True	16.379999	393120	16.5	short_quiet_run		16.13	0.13	16.26	390240	16.29	390960	-0.12	-0.09		-0.25	1
+anchor:11_7:b315:11_7-download01.wav	11_7	11_7-download01.wav	False	mark	a	True	23.38	561120	23.5	pause	within	22.98	0.29	23.27	558480	23.42	562080	-0.11	0.04		-0.4	1
+anchor:11_7:b404:11_7-download01.wav	11_7	11_7-download01.wav	False	mark	only	True	28.559999	685440	29.0	short_quiet_run		28.65	0.08	28.73	689520	28.74	689760	0.17	0.18	-57.7	0.09	1
+anchor:11_7:b453:11_7-download01.wav	11_7	11_7-download01.wav	False	mark	a	True	31.8	763200	31.940001	pause	within	31.5	0.25	31.75	762000	31.83	763920	-0.05	0.03		-0.3	1
+onset:11_7:s1:11_7-download02.wav	11_7	11_7-download02.wav	False	sentence	that	True	3.44	82560	3.74	pause	within	3.05	0.41	3.46	83040	3.49	83760	0.02	0.05	-61.7	-0.39	1
+onset:11_7:s2:11_7-download02.wav	11_7	11_7-download02.wav	False	sentence	why	True	8.38	201120	8.559999	pause	within	7.83	0.58	8.41	201840	8.42	202080	0.03	0.04	-72.2	-0.55	1
+onset:11_7:s3:11_7-download02.wav	11_7	11_7-download02.wav	False	sentence	its	True	10.92	262080	11.12	pause	within	10.33	0.6	10.93	262320	10.95	262800	0.01	0.03	-69.9	-0.59	1
+onset:11_7:s4:11_7-download02.wav	11_7	11_7-download02.wav	False	sentence	in	True	19.98	479520	20.139999	pause	within	19.37	0.62	19.99	479760	20.02	480480	0.01	0.04	-70.3	-0.61	1
+anchor:11_7:b174:11_7-download02.wav	11_7	11_7-download02.wav	False	mark	so	True	12.679999	304320	12.96	no_quiet_run_ends_in_window												0
+anchor:11_7:b226:11_7-download02.wav	11_7	11_7-download02.wav	False	mark	the	True	16.119999	386880	16.24	no_quiet_run_ends_in_window												0
+anchor:11_7:b315:11_7-download02.wav	11_7	11_7-download02.wav	False	mark	a	True	23.24	557760	23.359999	pause	within	22.85	0.39	23.24	557760	23.27	558480	0.0	0.03		-0.39	1
+anchor:11_7:b404:11_7-download02.wav	11_7	11_7-download02.wav	False	mark	only	True	28.4	681600	28.860001	short_quiet_run		28.51	0.08	28.59	686160	28.6	686400	0.19	0.2	-55.7	0.11	1
+anchor:11_7:b453:11_7-download02.wav	11_7	11_7-download02.wav	False	mark	a	True	31.66	759840	31.799999	pause	within	31.29	0.31	31.6	758400	31.68	760320	-0.06	0.02		-0.37	1
+onset:11_20:s1:11_20-download01.wav	11_20	11_20-download01.wav	False	sentence	on	False	10.679999	256320	11.32	pause	recognizer_early	10.49	0.62	11.11	266640	11.14	267360	0.43	0.46	-84.6	-0.19	1
+anchor:11_20:b91:11_20-download01.wav	11_20	11_20-download01.wav	False	mark	the	True	6.16	147840	6.3	no_quiet_run_ends_in_window												0
+anchor:11_20:b137:11_20-download01.wav	11_20	11_20-download01.wav	False	mark	come	True	8.72	209280	9.099999	no_quiet_run_ends_in_window												0
+onset:11_20:s1:11_20-download02.wav	11_20	11_20-download02.wav	False	sentence	on	True	10.8	259200	11.48	pause	recognizer_early	10.7	0.58	11.28	270720	11.3	271200	0.48	0.5	-84.4	-0.1	1
+anchor:11_20:b91:11_20-download02.wav	11_20	11_20-download02.wav	False	mark	the	True	6.32	151680	6.46	no_quiet_run_ends_in_window												0
+anchor:11_20:b137:11_20-download02.wav	11_20	11_20-download02.wav	False	mark	come	True	8.96	215040	9.36	no_quiet_run_ends_in_window												0
+onset:11_8:s1:11_8-download01.wav	11_8	11_8-download01.wav	False	sentence	a	False	4.14	99360	4.84	pause	recognizer_early	3.93	0.79	4.72	113280	4.75	114000	0.58	0.61	-84.6	-0.21	1
+onset:11_8:s2:11_8-download01.wav	11_8	11_8-download01.wav	False	sentence	every	True	10.44	250560	11.139999	pause	recognizer_early	10.32	0.5	10.82	259680	10.82	259680	0.38	0.38	-84.9	-0.12	1
+onset:11_8:s3:11_8-download01.wav	11_8	11_8-download01.wav	False	sentence	only	True	14.68	352320	15.299999	pause	recognizer_early	14.57	0.48	15.05	361200	15.08	361920	0.37	0.4	-69.8	-0.11	1
+onset:11_8:s1:11_8-download02.wav	11_8	11_8-download02.wav	False	sentence	a	True	4.44	106560	4.6	pause	within	3.85	0.65	4.5	108000	4.51	108240	0.06	0.07	-88.8	-0.59	1
+onset:11_8:s2:11_8-download02.wav	11_8	11_8-download02.wav	False	sentence	every	True	10.4	249600	10.76	pause	within	9.92	0.53	10.45	250800	10.47	251280	0.05	0.07	-86.5	-0.48	1
+onset:11_8:s3:11_8-download02.wav	11_8	11_8-download02.wav	False	sentence	only	True	14.76	354240	15.059999	pause	within	14.26	0.45	14.71	353040	14.83	355920	-0.05	0.07		-0.5	1
+onset:12_1:s1:12_1-download01.wav	12_1	12_1-download01.wav	False	sentence	on	True	2.0	48000	2.14	pause	within	1.56	0.43	1.99	47760	2.01	48240	-0.01	0.01		-0.44	1
+onset:12_1:s2:12_1-download01.wav	12_1	12_1-download01.wav	False	sentence	every	True	5.94	142560	6.28	pause	within	5.53	0.36	5.89	141360	6.02	144480	-0.05	0.08		-0.41	1
+anchor:12_1:b167:12_1-download01.wav	12_1	12_1-download01.wav	False	mark	the	True	12.5	300000	12.62	pause	within	12.27	0.19	12.46	299040	12.55	301200	-0.04	0.05		-0.23	3
+onset:12_1:s1:12_1-download02.wav	12_1	12_1-download02.wav	False	sentence	on	True	2.04	48960	2.2	pause	within	1.61	0.44	2.05	49200	2.1	50400	0.01	0.06	-74.2	-0.43	1
+onset:12_1:s2:12_1-download02.wav	12_1	12_1-download02.wav	False	sentence	every	True	6.12	146880	6.46	pause	within	5.62	0.41	6.03	144720	6.18	148320	-0.09	0.06		-0.5	1
+anchor:12_1:b167:12_1-download02.wav	12_1	12_1-download02.wav	False	mark	the	True	12.64	303360	12.78	pause	within	12.44	0.22	12.66	303840	12.7	304800	0.02	0.06	-60.5	-0.2	2
+onset:12_2:s1:12_2-download01.wav	12_2	12_2-download01.wav	False	sentence	in	True	4.0	96000	4.12	pause	within	3.43	0.58	4.01	96240	4.03	96720	0.01	0.03	-70.9	-0.57	1
+onset:12_2:s2:12_2-download01.wav	12_2	12_2-download01.wav	False	sentence	a	True	10.16	243840	10.28	pause	within	9.53	0.63	10.16	243840	10.19	244560	0.0	0.03		-0.63	1
+onset:12_2:s1:12_2-download02.wav	12_2	12_2-download02.wav	False	sentence	in	True	3.96	95040	4.1	pause	within	3.48	0.49	3.97	95280	4.01	96240	0.01	0.05	-74.5	-0.48	1
+onset:12_2:s2:12_2-download02.wav	12_2	12_2-download02.wav	False	sentence	a	True	10.16	243840	10.28	pause	within	9.63	0.54	10.17	244080	10.19	244560	0.01	0.03	-64.4	-0.53	1
+onset:12_3:s1:12_3-download01.wav	12_3	12_3-download01.wav	False	sentence	and	True	7.2	172800	7.72	pause	recognizer_early	7.14	0.46	7.6	182400	7.64	183360	0.4	0.44	-84.8	-0.06	1
+onset:12_3:s2:12_3-download01.wav	12_3	12_3-download01.wav	False	sentence	in	False	12.559999	301440	13.259999	pause	recognizer_early	12.33	0.8	13.13	315120	13.14	315360	0.57	0.58	-84.6	-0.23	1
+onset:12_3:s3:12_3-download01.wav	12_3	12_3-download01.wav	False	sentence	which	True	16.9	405600	17.58	pause	recognizer_early	16.75	0.59	17.34	416160	17.36	416640	0.44	0.46	-67.2	-0.15	1
+onset:12_3:s1:12_3-download02.wav	12_3	12_3-download02.wav	False	sentence	and	True	7.64	183360	7.8	pause	within	7.14	0.55	7.69	184560	7.72	185280	0.05	0.08	-86.7	-0.5	1
+onset:12_3:s2:12_3-download02.wav	12_3	12_3-download02.wav	False	sentence	in	True	13.0	312000	13.179999	pause	within	12.32	0.73	13.05	313200	13.06	313440	0.05	0.06	-86.9	-0.68	1
+onset:12_3:s3:12_3-download02.wav	12_3	12_3-download02.wav	False	sentence	which	True	17.24	413760	17.52	pause	within	16.74	0.55	17.29	414960	17.31	415440	0.05	0.07	-73.2	-0.5	1
+onset:12_4:s1:12_4-download01.wav	12_4	12_4-download01.wav	False	sentence	here	True	3.56	85440	3.86	pause	within	3.05	0.55	3.6	86400	3.62	86880	0.04	0.06	-86.3	-0.51	1
+onset:12_4:s2:12_4-download01.wav	12_4	12_4-download01.wav	False	sentence	a	True	11.12	266880	11.24	pause	within	10.58	0.55	11.13	267120	11.15	267600	0.01	0.03	-63.7	-0.54	1
+onset:12_4:s3:12_4-download01.wav	12_4	12_4-download01.wav	False	sentence	follow	True	20.72	497280	21.059999	pause	within	20.07	0.66	20.73	497520	20.77	498480	0.01	0.05	-76.3	-0.65	1
+onset:12_4:s4:12_4-download01.wav	12_4	12_4-download01.wav	False	sentence	every	True	29.34	704160	29.6	pause	within	28.8	0.56	29.36	704640	29.38	705120	0.02	0.04	-67.1	-0.54	1
+onset:12_4:s1:12_4-download02.wav	12_4	12_4-download02.wav	False	sentence	here	True	3.72	89280	4.06	pause	within	3.29	0.47	3.76	90240	3.78	90720	0.04	0.06	-87.6	-0.43	1
+onset:12_4:s2:12_4-download02.wav	12_4	12_4-download02.wav	False	sentence	a	True	11.36	272640	11.48	pause	within	10.75	0.62	11.37	272880	11.4	273600	0.01	0.04	-68.5	-0.61	1
+onset:12_4:s3:12_4-download02.wav	12_4	12_4-download02.wav	False	sentence	follow	True	21.36	512640	21.719999	pause	within	20.76	0.62	21.38	513120	21.41	513840	0.02	0.05	-71.8	-0.6	1
+onset:12_4:s4:12_4-download02.wav	12_4	12_4-download02.wav	False	sentence	every	False	30.0	720000	30.280001	pause	within	29.47	0.56	30.03	720720	30.05	721200	0.03	0.05	-86.2	-0.53	1
+onset:12_5:s1:12_5-download01.wav	12_5	12_5-download01.wav	False	sentence	how	True	1.84	44160	2.02	pause	within	1.34	0.5	1.84	44160	1.86	44640	0.0	0.02		-0.5	1
+onset:12_5:s2:12_5-download01.wav	12_5	12_5-download01.wav	False	sentence	think	True	8.44	202560	8.639999	pause	within	7.91	0.54	8.45	202800	8.47	203280	0.01	0.03	-71.3	-0.53	1
+onset:12_5:s1:12_5-download02.wav	12_5	12_5-download02.wav	False	sentence	how	True	1.76	42240	1.94	pause	within	1.23	0.53	1.76	42240	1.79	42960	0.0	0.03		-0.53	1
+onset:12_5:s2:12_5-download02.wav	12_5	12_5-download02.wav	False	sentence	think	True	8.32	199680	8.54	pause	within	7.78	0.55	8.33	199920	8.34	200160	0.01	0.02	-60.6	-0.54	1
+onset:12_6:s1:12_6-download01.wav	12_6	12_6-download01.wav	False	sentence	laps	False	3.7	88800	4.04	pause	within	2.98	0.69	3.67	88080	3.7	88800	-0.03	0.0		-0.72	1
+anchor:12_6:b89:12_6-download01.wav	12_6	12_6-download01.wav	False	mark	also	True	7.38	177120	7.9	no_quiet_run_ends_in_window												0
+anchor:12_6:b105:12_6-download01.wav	12_6	12_6-download01.wav	False	mark	and	True	9.08	217920	9.22	pause	within	8.75	0.3	9.05	217200	9.14	219360	-0.03	0.06		-0.33	1
+onset:12_6:s1:12_6-download02.wav	12_6	12_6-download02.wav	False	sentence	laps	False	3.58	85920	3.9	pause	within	2.92	0.6	3.52	84480	3.57	85680	-0.06	-0.01		-0.66	1
+anchor:12_6:b89:12_6-download02.wav	12_6	12_6-download02.wav	False	mark	also	True	7.14	171360	7.66	no_quiet_run_ends_in_window												0
+anchor:12_6:b105:12_6-download02.wav	12_6	12_6-download02.wav	False	mark	and	True	8.82	211680	8.96	pause	within	8.56	0.28	8.84	212160	8.87	212880	0.02	0.05	-66.3	-0.26	1
+onset:12_20:s1:12_20-download01.wav	12_20	12_20-download01.wav	False	sentence	last	False	6.08	145920	6.78	pause	within	5.6	0.52	6.12	146880	6.14	147360	0.04	0.06	-77.8	-0.48	1
+onset:12_20:s2:12_20-download01.wav	12_20	12_20-download01.wav	False	sentence	so	True	18.8	451200	18.9	pause	within	18.17	0.51	18.68	448320	18.73	449520	-0.12	-0.07		-0.63	1
+onset:12_20:s1:12_20-download02.wav	12_20	12_20-download02.wav	False	sentence	last	True	6.0	144000	6.86	pause	recognizer_early	5.63	0.58	6.21	149040	6.23	149520	0.21	0.23	-86.6	-0.37	1
+onset:12_20:s2:12_20-download02.wav	12_20	12_20-download02.wav	False	sentence	so	True	19.0	456000	19.24	pause	within	18.51	0.55	19.06	457440	19.08	457920	0.06	0.08	-72.1	-0.49	1
+onset:12_21:s1:12_21-download01.wav	12_21	12_21-download01.wav	False	sentence	for	False	12.5	300000	13.36	pause	recognizer_early	12.31	0.92	13.23	317520	13.26	318240	0.73	0.76	-84.6	-0.19	1
+anchor:12_21:b192:12_21-download01.wav	12_21	12_21-download01.wav	False	mark	a	True	14.82	355680	15.0	no_quiet_run_ends_in_window												0
+anchor:12_21:b230:12_21-download01.wav	12_21	12_21-download01.wav	False	mark	the	True	17.779999	426720	17.940001	no_quiet_run_ends_in_window												0
+onset:12_21:s1:12_21-download02.wav	12_21	12_21-download02.wav	False	sentence	for	False	12.679999	304320	13.28	pause	recognizer_early	12.51	0.64	13.15	315600	13.18	316320	0.47	0.5	-84.6	-0.17	1
+anchor:12_21:b192:12_21-download02.wav	12_21	12_21-download02.wav	False	mark	a	True	14.82	355680	15.0	no_quiet_run_ends_in_window												0
+anchor:12_21:b230:12_21-download02.wav	12_21	12_21-download02.wav	False	mark	the	True	17.76	426240	17.940001	no_quiet_run_ends_in_window												0

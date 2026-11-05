@@ -1,0 +1,26 @@
+{
+ "schema": "audio-preparation-answers-v1",
+ "binding_sha256": "2d7f4731d373b5089686f5d345834faeb1a7238dc15007abfc7b4fab420d6803",
+ "answers": {
+  "provenance:00_1:00_1-download03.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "provenance:00_1:00_1-download04.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "voice:04_3:04_3-download01.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "voice:04_3:04_3-download02.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  }
+ }
+}

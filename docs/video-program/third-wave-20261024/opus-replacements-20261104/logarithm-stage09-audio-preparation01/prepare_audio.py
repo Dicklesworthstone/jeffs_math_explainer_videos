@@ -32,7 +32,8 @@ the recording's cue and exactly its inventoried text. A recording is selectable 
 while its requested text is the binding script's current text for its cue. Recordings of older
 wording stay listed as superseded and are never deleted or selected. A selection names each
 recording by its file name or its repository-relative path; a file name shared with a superseded
-recording must be given as the path, so a choice made about one file cannot land on another. Each selectable recording
+recording must be given as the path, and that recording's question and point ids carry the path,
+so a choice or an answer made about one file cannot land on another. Each selectable recording
 is timed from its own recognition, so a replaced take gets fresh timings and an unchanged take
 keeps the recognition of its unchanged bytes. A binding whose `use` is "historical-test" is test
 input, not production audio: decode, prepare and timings then require --test-only and stamp every
@@ -554,13 +555,17 @@ def build_report(b):
         t.update(rate=params[2], frames=frames, pcm=sha_bytes(pcm))
     recog = recognition_for(inputs)
     recordings, questions, diffs = [], [], []
+    old_names = {os.path.basename(r) for r in inputs["superseded"]}
     for rel in sorted(inputs["takes"], key=lambda r: (order[inputs["takes"][r]["cue"]], r)):
         t = inputs["takes"][rel]
         cue, name, seconds = t["cue"], os.path.basename(rel), t["frames"] / t["rate"]
+        # Question and point ids name the recording by its file name, or by its path where a superseded
+        # recording shares the name, so an answer about the older file cannot apply to this one.
+        label = rel if name in old_names else name
         r = recog[rel]
-        sentences, marks = points_for(cue, name, script[cue], r["result"], seconds, inputs["anchors"])
+        sentences, marks = points_for(cue, label, script[cue], r["result"], seconds, inputs["anchors"])
         recordings.append({
-            "cue": cue, "file": name, "path": rel, "sha256": t["sha256"], "pcm_sha256": t["pcm"], "rate": t["rate"], "frames": t["frames"],
+            "cue": cue, "file": name, "path": rel, "label": label, "sha256": t["sha256"], "pcm_sha256": t["pcm"], "rate": t["rate"], "frames": t["frames"],
             "seconds": seconds,
             "recognition": {"run": r["run"]["name"], "model": r["run"]["model"], "log_sha256": r["run"]["log_sha256"],
                             "recognized_file": os.path.basename(r["via"]) if r["via"] else name},
@@ -573,20 +578,20 @@ def build_report(b):
         for s in sentences[1:]:
             if s["status"] != "supported":
                 questions.append({
-                    "id": s["id"], "kind": "sentence_onset", "cue": cue, "files": [name],
+                    "id": s["id"], "kind": "sentence_onset", "cue": cue, "files": [label],
                     "detail": f"Sentence {s['index']} of {cue} starts with '{s['word']}'; the recognizer gives no supported onset ({s['status']}).",
                     "candidate": s.get("candidate"), "decisions": (["use_candidate"] if s.get("candidate") else []) + ["sample"]})
         for m in marks:
             if m["status"] != "supported":
                 questions.append({
-                    "id": m["id"], "kind": "phrase_anchor", "cue": cue, "files": [name],
+                    "id": m["id"], "kind": "phrase_anchor", "cue": cue, "files": [label],
                     "detail": f"Anchor '{m['phrase']}' at byte {m['byte']} has no supported onset ({m['status']}); without a mark the kit falls back to its estimate.",
                     "candidate": m.get("candidate"), "decisions": (["use_candidate"] if m.get("candidate") else []) + ["sample", "omit_mark"]})
         if t["voice_gap"]:
             gap, voice = t["voice_gap"], f"{b['voice']['provider']} {b['voice']['name']}"
             observed = bool(gap["receipt_says"])
             questions.append({
-                "id": f"voice:{cue}:{name}", "kind": "voice", "cue": cue, "files": [name], "blocking": not observed,
+                "id": f"voice:{cue}:{label}", "kind": "voice", "cue": cue, "files": [label], "blocking": not observed,
                 "detail": f"One binding holds one voice ({voice}). The downloaded file name {gap['file_name']!r} does not contain "
                           f"{b['voice']['download_source_contains']!r}. "
                           + (f"The downloads receipt records a contemporaneous provider observation naming the voice ({' | '.join(gap['receipt_says'])}). "
@@ -597,7 +602,7 @@ def build_report(b):
                 "candidate": None, "decisions": ["confirmed_voice", "reject_take"]})
         if r["via"]:
             questions.append({
-                "id": f"provenance:{cue}:{name}", "kind": "provenance", "cue": cue, "files": [name],
+                "id": f"provenance:{cue}:{label}", "kind": "provenance", "cue": cue, "files": [label],
                 "detail": f"{name} was not recognized itself. Its samples equal {os.path.basename(r['via'])}'s, whose recognition is used. "
                           "Equal samples do not say how many generations produced the files.",
                 "candidate": None, "decisions": ["use_pcm_identity"]})
@@ -612,7 +617,7 @@ def build_report(b):
             heard = sorted({d["model"] for d in diffs if d["file"] == e["file"] for x in d["differences"]
                             if c["script_word"] in x["script"].split() and c["heard"] in x["heard"].split()})
             questions.append({
-                "id": f"content:{c['cue']}:{c['script_word']}:{e['file']}", "kind": "content", "cue": c["cue"], "files": [e["file"]],
+                "id": f"content:{c['cue']}:{c['script_word']}:{e['label']}", "kind": "content", "cue": c["cue"], "files": [e["label"]],
                 "detail": f"{c['note']} Recognizers transcribing '{c['heard']}' for '{c['script_word']}' in {e['file']}: "
                           f"{', '.join(heard) or 'none'}. A transcript is not listening.",
                 "candidate": None, "decisions": ["heard_as_script", "reject_take"]})
@@ -727,7 +732,8 @@ def check_answers(b, path, questions, recordings, chosen):
             points[s["id"]] = ["sample"]
         for m in e["phrase_anchors"]:
             points[m["id"]] = ["sample", "omit_mark"]
-    names = {os.path.basename(t["rel"]) for t in chosen.values()}
+    labels = {e["path"]: e["label"] for e in recordings}
+    names = {labels[t["rel"]] for t in chosen.values()}
     applied = {}
     for qid, a in sorted(data.get("answers", {}).items()):
         q = known.get(qid)
@@ -904,7 +910,7 @@ def cmd_prepare(b, args):
                       "sentence_ends": ends, "gap_after_samples": [0] * len(ends)})
         plan_cues[cue] = {"recording": entry["file"], "recording_path": t["rel"], "recognition": entry["recognition"],
                           "sentence_starts_24k": [{"sample": s, "basis": why} for s, why in starts]}
-        voice_q = next((q for q in questions if q["kind"] == "voice" and q["files"] == [entry["file"]]), None)
+        voice_q = next((q for q in questions if q["kind"] == "voice" and q["files"] == [entry["label"]]), None)
         if voice_q:
             plan_cues[cue]["voice_provenance"] = {"question": voice_q["id"], "blocking": voice_q["blocking"],
                                                   "receipt": voice_q["provenance"], "root_answer": applied.get(voice_q["id"])}
@@ -933,7 +939,7 @@ def cmd_prepare(b, args):
         hint = ""
         if repr(b["voice"]["receipt_source"]) not in open(tool, encoding="utf8").read():
             hint = (f"\nThe pinned assembler's external-take branch does not name the receipt source {b['voice']['receipt_source']!r}, "
-                    "so it read the decode receipt as a native FrankenTTS receipt. Root decides whether to extend that branch.")
+                    "so it cannot read the decode receipt as an external take. Root decides whether to extend that branch.")
         write_new(f"{out}/REFUSED.txt", f"The assembler's own checks refused these spans: {type(e).__name__}: {e}{hint}\n"
                   "Nothing was assembled. Keep this folder as evidence and prepare again into a new one.\n")
         raise Refused(f"the assembler's own checks refused these spans ({type(e).__name__}: {e}){hint}\nSee {out}/REFUSED.txt")
