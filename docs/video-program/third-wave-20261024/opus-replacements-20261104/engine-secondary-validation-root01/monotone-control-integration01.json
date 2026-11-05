@@ -1,0 +1,42 @@
+{
+  "reason": "attempt05 engine-ignored05 exit 101: frame_table_limits.rs:409:18, the monotone control's default half returned Ok(FrameBuffer) instead of refusing 'monotone pieces'",
+  "repaired_by": "RubyRaven, under the standing authorization to fix a concrete test failure at its root cause, preserve attempts and keep every assertion (Mail 3643 and earlier root instructions)",
+  "root_cause": {
+    "engine_behaviour": "shape_digest (fmn-render table.rs:979) hashes an outline's points relative to its first anchor, by design (unit test table.rs:1505: 'position must not be part of an outline's identity'); plan.rs:876-899 interns by that digest",
+    "fixture": "the 1,365 outlines differed only by a translation shift = shape * 0.001, which survives only where the f32 add curve*step + shift rounds",
+    "mirror": "Python mirror of the f32 arithmetic, the relative digest and fill.rs layout_for_segments / monotone_split_times / extremum on the test's ScreenMap: 523 shapes share shape 0's outline, 843 distinct outlines x 3,073 pieces = 2,590,539 <= 4,194,304, so the default admits; every outline still splits at both extrema; one lost shape is already enough (1,364 x 3,073 = 4,191,572)"
+  },
+  "patch": {
+    "test-monotone-control01.patch": "55b40bb9f5543d14d00a1ed9ca66dc04a0810848d719a006f67f93298ea27888",
+    "expected-monotone-control01.sha256": "43b1be2c78c121b5f0b8bfaa23b09817ab565b3e982cb666e9f0c7ba66800e42",
+    "file": "crates/fmn-render/tests/frame_table_limits.rs 136dfc5f1398845ace7451abf6b6d79b90bd17608d9a76525ee5d9101327efca (type-alias01's sealed result) -> 6f77e5d871deba58ff8d43be70b2b12e0bba7e94750715a6377bf93969ff9253",
+    "fixture": "each outline scaled by the dyadic factor 1 + shape/2048 instead of shifted: every coordinate exact in f32 (the mirror asserts each operation), 1,365 pairwise-distinct outlines, extrema still at t = 2/3 and 3/5, placement still off-frame at [100, 0, 0]; the mirror counts 4,194,645 pieces",
+    "assertions": "kept: limit == 1 << 22, requested > limit, admission at 1 << 23 with default table bytes; added: requested == SHAPES * (3 * CURVES + 1)",
+    "docstring": "the claim that shifting defeats interning is corrected",
+    "limits_read": "table bytes 4,194,645 x 48 + 1,365 x 8 = 201,353,880 <= 1 << 28; retained segments 1,397,760 <= the raised 1 << 21; one style (uniform paint, no profile knots)",
+    "format": "rustfmt --check --edition 2024 (pinned nightly) passes on the after file and on the unchanged before file"
+  },
+  "runner_change": {
+    "preserved": "before-monotone-control01-run_validation.py, sha256 14617a224701637bda77c2e6b44a025efaa7f5f3e89e2b30d8e799b5b57ec2dd (the attempt05 runner)",
+    "now": "run_validation.py, sha256 3ac6dd48269a3eb8e75e6ba41936c3a784aec7e85fcdaff66c530657710b3fce",
+    "edits": ["STACK gains a sixth entry: test-monotone-control01.patch and its expected hashes, beside the runner"],
+    "unchanged": "guard, caps, lane, job order, every assertion, every job and command; self-test passed (29 tests, 2 ignored)"
+  },
+  "stage_change": {
+    "method": "git apply --check, then git apply on the stage engine; the result equals the reviewed after-copy and expected-monotone-control01.sha256; no .rej or .orig",
+    "preserved": {
+      "manifests/before-monotone-control01-frame_table_limits.rs": "136dfc5f1398845ace7451abf6b6d79b90bd17608d9a76525ee5d9101327efca"
+    },
+    "pixels": "pixels/combined (written by engine-test05, 20 frames, equal to base and to combined-attempt04) moved aside as pixels/combined-attempt05-written; base and all attempt03/04 copies untouched"
+  },
+  "inputs": "inputs07.tsv is inputs06.tsv's 330 rows unchanged plus the two new rows, 332 rows; every non-source input matched it before launch",
+  "checks_before_launch": [
+    "a fresh copy of root's unpatched fmn, fmn-render and fmn-runtime equals the stage's manifests/unpatched.json (12 files); its fmn-runtime pipeline.rs equals R1's sealed baseline",
+    "the runner's own apply_stack on that copy applies all six entries, each matching its sealed hashes; a second call changes nothing (15 files)",
+    "the stage equals that fresh replay in all 15 stack files, so apply_stack returns at once on the stage",
+    "run_validation.py --self-test: passed",
+    "no validation tmux session or runner process remained and no process held the lane lock"
+  ],
+  "resume": "attempt06 from engine-lint, so Clippy -D warnings and rustfmt lint the changed test before it runs; lint, build and test took 4.5 min in attempt05",
+  "not_checked": "Clippy, compile and the control itself: they run in attempt06; its memory is estimated (well under 1 GiB), not measured"
+}

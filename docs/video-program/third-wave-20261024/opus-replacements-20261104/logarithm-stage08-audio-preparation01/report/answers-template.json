@@ -1,0 +1,56 @@
+{
+ "schema": "audio-preparation-answers-v1",
+ "binding_sha256": "9e569c0e66ec995ae514c3d7e8489299cb3f159a8c0375efcf655d2b1973910b",
+ "answers": {
+  "provenance:00_1:00_1-download03.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "provenance:00_1:00_1-download04.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "voice:04_3:04_3-download01.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "voice:04_3:04_3-download02.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "content:04_4:base:04_4-download01.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "content:04_4:base:04_4-download02.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "content:08_5:halving:08_5-download01.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "content:08_5:halving:08_5-download02.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "onset:08_5:s4:08_5-download01.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "onset:08_5:s4:08_5-download02.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  }
+ }
+}

@@ -24,10 +24,14 @@ a take, synthesizes, renders, builds or listens.
              each assembled cue is its decoded recording sample for sample, mirrors the kit's
              report and phrase-timing checks, and writes phrase-timings.json for root to install.
 
-A binding whose `use` is "historical-test" (the retained Oliver inventory) is test input, not
-production audio: decode, prepare and timings then require --test-only and stamp every output
-"production": false. A new voice needs its own takes, its own recognition runs and a new
-binding; nothing here carries one voice's timings to another.
+One binding holds one voice. A binding may list several inventories, for example the full
+retained set plus later targeted replacements of the same voice. A recording is selectable only
+while its requested text is the binding script's current text for its cue. Recordings of older
+wording stay listed as superseded and are never deleted or selected. Each selectable recording
+is timed from its own recognition, so a replaced take gets fresh timings and an unchanged take
+keeps the recognition of its unchanged bytes. A binding whose `use` is "historical-test" is test
+input, not production audio: decode, prepare and timings then require --test-only and stamp every
+output "production": false. Nothing here carries one recording's or voice's timings to another.
 
 Recognizer times are estimates. whisper-cpp word segments usually start where the previous word
 ended, so an onset can sit at the start of the pause before its word. Root may replace any onset
@@ -69,6 +73,11 @@ class Refused(Exception):
 
 class Stale(Exception):
     pass
+
+
+def usage(message):
+    print(f"refused: {message}", file=sys.stderr)
+    raise SystemExit(2)
 
 
 # ----------------------------------------------------------------------------- basics
@@ -185,40 +194,39 @@ def wav_info(path):
 
 # ----------------------------------------------------------------------------- binding
 
-BINDING_KEYS = ("schema", "use", "voice", "why", "tree", "topic", "takes_dir", "inventory", "take_receipt",
-                "recognition", "phrase_anchors", "anchor_template", "dispositions", "assembler", "assembler_cache",
-                "kit", "content_questions", "pins")
+BINDING_KEYS = ("schema", "use", "voice", "why", "tree", "topic", "inventories", "recognition", "phrase_anchors",
+                "anchor_template", "dispositions", "assembler", "assembler_cache", "kit", "content_questions", "pins")
 
 
 def load_binding(path):
     """The binding names every input and pins each by hash. Exit 2 when malformed, 3 when stale."""
     if os.path.isabs(path) or ".." in norm(path).split("/") or not os.path.isfile(path):
-        raise SystemExit(f"refused: --binding must name a repository-relative file: {path}")
+        usage(f"--binding must name a repository-relative file: {path}")
     raw = open(path, "rb").read()
     b = json.loads(raw)
     missing = [k for k in BINDING_KEYS if k not in b]
     if b.get("schema") != "audio-preparation-binding-v1" or missing:
-        raise SystemExit(f"refused: {path} is not an audio-preparation-binding-v1 file (missing {missing})")
+        usage(f"{path} is not an audio-preparation-binding-v1 file (missing {missing})")
     if b["use"] not in ("historical-test", "production"):
-        raise SystemExit("refused: binding use must be historical-test or production")
+        usage("binding use must be historical-test or production")
     voice = b["voice"]
-    if not all(str(voice.get(k) or "").strip() for k in ("provider", "name", "receipt_source")):
-        raise SystemExit("refused: binding voice needs provider, name and receipt_source")
-    if b["use"] == "production" and not isinstance(voice.get("identity_record"), str):
-        raise SystemExit("refused: a production binding names root's provider-identity record (voice.identity_record), pinned")
+    if not all(str(voice.get(k) or "").strip() for k in ("provider", "name", "receipt_source", "download_source_contains")):
+        usage("binding voice needs provider, name, receipt_source and download_source_contains (the one-voice guard)")
+    if not b["inventories"] or any(not inv.get("take_receipt") for inv in b["inventories"]):
+        usage("every inventory needs takes_dir and a take_receipt pattern; the downloads receipts carry the voice guard")
     crate = f"{b['tree']}/explainer_corpus/{b['topic']}"
     b["script"], b["units"] = f"{crate}/script.tsv", f"{crate}/narration_units.json"
-    needed = [b["script"], b["units"], b["inventory"], b["phrase_anchors"], b["anchor_template"], b["dispositions"],
-              b["assembler"], b["assembler_cache"], b["kit"]]
+    needed = [b["script"], b["units"], b["phrase_anchors"], b["anchor_template"], b["dispositions"],
+              b["assembler"], b["assembler_cache"], b["kit"]] + [inv["path"] for inv in b["inventories"]]
     for run in b["recognition"]:
         needed += [f"{run['job']}/command.log", f"{run['job']}/resource-receipt.json", run["frozen"]]
         if run.get("review"):
             needed.append(run["review"])
-    if b["use"] == "production":
+    if voice.get("identity_record"):
         needed.append(voice["identity_record"])
     unpinned = [p for p in needed if p not in b["pins"]]
     if unpinned:
-        raise SystemExit("refused: the binding does not pin " + ", ".join(unpinned))
+        usage("the binding does not pin " + ", ".join(unpinned))
     stale = []
     for rel, want in sorted(b["pins"].items()):
         got = sha_file(rel) if os.path.isfile(rel) else None
@@ -231,10 +239,12 @@ def load_binding(path):
     b["map_in_tree"] = contract.get("map", {}).get("path")
     b["map"] = f"{b['tree']}/{b['map_in_tree']}"
     if contract.get("topic") != b["topic"] or b["pins"].get(b["map"]) != contract.get("map", {}).get("sha256"):
-        raise SystemExit("refused: the units' direction contract must name this topic and a map the binding pins at the same hash")
+        usage("the units' direction contract must name this topic and a map the binding pins at the same hash")
+    b["evidence"] = []
     for d in load_json(b["dispositions"])["direction_dispositions"]:
         if b["pins"].get(d["evidence"]["path"]) != d["evidence"]["sha256"]:
-            raise SystemExit(f"refused: disposition evidence {d['evidence']['path']} is not pinned at its stated hash")
+            usage(f"disposition evidence {d['evidence']['path']} is not pinned at its stated hash")
+        b["evidence"].append(d["evidence"]["path"])
     b["path"], b["sha256"] = norm(path), sha_bytes(raw)
     return b
 
@@ -243,26 +253,29 @@ def binding_summary(b):
     return {"path": b["path"], "sha256": b["sha256"], "use": b["use"], "voice": {k: b["voice"][k] for k in ("provider", "name")}}
 
 
-def take_rel(path, takes_dir):
+def take_rel(path, takes_dirs):
     """An inventory or recognition path, absolute or relative, as its repository-relative form."""
     name = os.path.basename(path)
-    if not norm(path).endswith(f"{takes_dir}/{name}"):
-        raise Refused(f"{name}: not a recording under {takes_dir}")
-    return f"{takes_dir}/{name}"
+    for d in takes_dirs:
+        if norm(path).endswith(f"{d}/{name}"):
+            return f"{d}/{name}"
+    raise Refused(f"{name}: not a recording under {', '.join(takes_dirs)}")
 
 
 def guard_out(b, out):
     if os.path.isabs(out) or ".." in norm(out).split("/") or not out.strip("/"):
-        raise SystemExit(f"refused: --out {out} must be repository-relative")
+        usage(f"--out {out} must be repository-relative")
     full = os.path.realpath(out)
     if os.path.lexists(out):
-        raise SystemExit(f"refused: OUT {out} exists; name a new folder")
-    guards = ["explainer_corpus", "tools", "crates", HERE, b["tree"], b["takes_dir"]] + [r["job"] for r in b["recognition"]]
-    guards += sorted({os.path.dirname(p) for p in b["pins"]})
+        usage(f"OUT {out} exists; name a new folder")
+    guards = ["explainer_corpus", "tools", "crates", HERE, b["tree"]] + [inv["takes_dir"] for inv in b["inventories"]]
+    for run in b["recognition"]:
+        guards += [run["job"], os.path.dirname(run["frozen"])] + ([os.path.dirname(run["review"])] if run.get("review") else [])
+    guards += [os.path.dirname(p) for p in [b["phrase_anchors"], b["anchor_template"], b["dispositions"]] + b["evidence"]]
     for g in guards:
         gf = os.path.realpath(g)
         if full == gf or full.startswith(gf + os.sep):
-            raise SystemExit(f"refused: OUT {out} lies inside {g}")
+            usage(f"OUT {out} lies inside the input folder {g}")
     return out
 
 
@@ -278,40 +291,47 @@ def load_inputs(b):
     """Everything the subcommands read, each piece checked against the others."""
     problems = []
     script = read_script(b["script"])
-    inv = load_json(b["inventory"])
-    if inv.get("script_sha256") != b["pins"][b["script"]] or inv.get("selection") is not None:
-        problems.append("the inventory does not name this script's hash, or it claims a selection")
-    takes = {}
-    receipts = {}
-    for t in inv["takes"]:
-        try:
-            rel = take_rel(t["wav"], b["takes_dir"])
-        except Refused as e:
-            problems.append(str(e))
-            continue
-        if rel in takes:
-            problems.append(f"{rel} listed twice in the inventory")
-        if t["cue"] not in script:
-            problems.append(f"{rel}: cue {t['cue']} is not in the script")
-        elif t["text_sha256"] != sha_bytes(script[t["cue"]].encode()):
-            problems.append(f"{rel}: its requested text is not the script's {t['cue']}")
-        if b["take_receipt"]:
-            receipt = b["take_receipt"].format(takes_dir=b["takes_dir"], cue=t["cue"])
+    dirs = [inv["takes_dir"] for inv in b["inventories"]]
+    takes, superseded, receipts, inventories = {}, {}, {}, []
+    for spec in b["inventories"]:
+        inv = load_json(spec["path"])
+        if inv.get("selection") is not None:
+            problems.append(f"{spec['path']} claims a selection; an inventory only lists recordings")
+        inventories.append({"path": spec["path"], "sha256": b["pins"][spec["path"]], "script_sha256": inv.get("script_sha256"), "takes": len(inv["takes"])})
+        for t in inv["takes"]:
+            try:
+                rel = take_rel(t["wav"], [spec["takes_dir"]])
+            except Refused as e:
+                problems.append(str(e))
+                continue
+            if rel in takes or rel in superseded:
+                problems.append(f"{rel} is inventoried twice")
+            receipt = spec["take_receipt"].format(takes_dir=spec["takes_dir"], cue=t["cue"])
+            voice_gap = None
             if not os.path.isfile(receipt) or ("receipt_sha256" in t and sha_file(receipt) != t["receipt_sha256"]):
                 problems.append(f"{rel}: downloads receipt {receipt} is missing or changed")
             else:
                 if receipt not in receipts:
                     receipts[receipt] = load_json(receipt)
-                want = b["voice"].get("download_source_contains")
+                want = b["voice"]["download_source_contains"]
                 rows = [d for d in receipts[receipt].get("downloads", []) if os.path.basename(d.get("retained", "")) == os.path.basename(rel)]
                 if len(rows) != 1:
                     problems.append(f"{rel}: its downloads receipt does not list it exactly once")
-                elif want and want not in os.path.basename(rows[0].get("source", "")):
-                    problems.append(f"{rel}: its download was not named for voice {want!r}; one binding holds one voice")
-            t = dict(t, receipt=receipt)
-        takes[rel] = dict(t, rel=rel)
-    if {t["cue"] for t in takes.values()} != set(script):
-        problems.append("the inventory does not cover every script cue")
+                elif want not in os.path.basename(rows[0].get("source", "")):
+                    said = [f"{k}: {v}" for k, v in sorted(receipts[receipt].items()) if isinstance(v, str) and b["voice"]["name"] in v]
+                    voice_gap = (f"The downloaded file name {os.path.basename(rows[0].get('source', ''))!r} does not contain {want!r}. "
+                                 + (f"The downloads receipt's own text says: {' | '.join(said)}" if said else "The downloads receipt does not name the voice."))
+            t = dict(t, rel=rel, receipt=receipt, inventory=spec["path"], voice_gap=voice_gap)
+            if t["cue"] in script and t["text_sha256"] == sha_bytes(script[t["cue"]].encode()):
+                takes[rel] = t
+            else:
+                superseded[rel] = t
+    names = collections.Counter(os.path.basename(r) for r in takes)
+    if any(n > 1 for n in names.values()):
+        problems.append("selectable recordings must have distinct file names: " + ", ".join(n for n, k in names.items() if k > 1))
+    missing = [c for c in script if c not in {t["cue"] for t in takes.values()}]
+    if missing:
+        problems.append("no recording of the current text for: " + ", ".join(missing))
     units = load_json(b["units"])
     if units.get("script_sha256") != b["pins"][b["script"]] or any(len(u["line_ids"]) != 1 for u in units["units"]) \
             or [u["line_ids"][0] for u in units["units"]] != list(script):
@@ -342,10 +362,10 @@ def load_inputs(b):
         for f in load_json(run["frozen"])["files"]:
             if norm(f["path"]).endswith(".wav"):
                 try:
-                    frozen[take_rel(f["path"], b["takes_dir"])] = f["sha256"]
+                    frozen[take_rel(f["path"], dirs)] = f["sha256"]
                 except Refused:
                     pass
-        records = {}
+        records, other_text = {}, 0
         with open(f"{run['job']}/command.log", encoding="utf8") as log:
             for line in log:
                 if not line.startswith("{"):
@@ -354,22 +374,25 @@ def load_inputs(b):
                 if r.get("schema_version") != BATCH_SCHEMA:
                     continue
                 try:
-                    rel = take_rel(r["input"], b["takes_dir"])
+                    rel = take_rel(r["input"], dirs)
                 except Refused as e:
                     problems.append(f"{run['name']}: {e}")
                     continue
+                known = takes.get(rel) or superseded.get(rel)
                 if r["status"] != "ok":
                     problems.append(f"{run['name']}: {rel} status {r['status']}")
-                elif rel not in takes or frozen.get(rel) != takes[rel]["sha256"]:
-                    problems.append(f"{run['name']}: {rel} was not frozen with the inventory's hash")
+                elif known is None or frozen.get(rel) != known["sha256"]:
+                    problems.append(f"{run['name']}: {rel} was not frozen with its inventoried hash")
                 elif rel in records:
                     problems.append(f"{run['name']}: {rel} recognized twice")
+                elif rel in superseded:
+                    other_text += 1
                 else:
                     records[rel] = r["report"]["result"]
-        runs.append(dict(run, records=records, log_sha256=b["pins"][f"{run['job']}/command.log"]))
+        runs.append(dict(run, records=records, superseded_records=other_text, log_sha256=b["pins"][f"{run['job']}/command.log"]))
     if problems:
         raise Refused("\n".join(problems))
-    return {"script": script, "takes": takes, "anchors": anchors, "runs": runs}
+    return {"script": script, "takes": takes, "superseded": superseded, "anchors": anchors, "runs": runs, "inventories": inventories}
 
 
 def recognition_for(inputs):
@@ -496,15 +519,18 @@ def build_report(b):
     inputs = load_inputs(b)
     script = inputs["script"]
     order = {c: k for k, c in enumerate(script)}
+    for rel, t in sorted(inputs["superseded"].items()):
+        if sha_file(rel) != t["sha256"]:
+            raise Refused(f"{rel} changed on disk")
     for rel, t in inputs["takes"].items():
         if sha_file(rel) != t["sha256"]:
             raise Refused(f"{rel} changed on disk")
         params, frames, pcm = wav_info(rel)
         if params[0] != 1 or params[1] != 2 or params[3] != "NONE":
             raise Refused(f"{rel}: not mono PCM16")
-        t.update(rate=params[2], frames=frames, pcm=sha_bytes(pcm))
-        if t.get("pcm_sha256", t["pcm"]) != t["pcm"] or t.get("frames", frames) != frames:
+        if t.get("pcm_sha256", sha_bytes(pcm)) != sha_bytes(pcm) or t.get("frames", frames) != frames:
             raise Refused(f"{rel}: the inventory's frame count or PCM hash differs from the file")
+        t.update(rate=params[2], frames=frames, pcm=sha_bytes(pcm))
     recog = recognition_for(inputs)
     recordings, questions, diffs = [], [], []
     for rel in sorted(inputs["takes"], key=lambda r: (order[inputs["takes"][r]["cue"]], r)):
@@ -535,23 +561,36 @@ def build_report(b):
                     "id": m["id"], "kind": "phrase_anchor", "cue": cue, "files": [name],
                     "detail": f"Anchor '{m['phrase']}' at byte {m['byte']} has no supported onset ({m['status']}); without a mark the kit falls back to its estimate.",
                     "candidate": m.get("candidate"), "decisions": (["use_candidate"] if m.get("candidate") else []) + ["sample", "omit_mark"]})
+        if t["voice_gap"]:
+            questions.append({
+                "id": f"voice:{cue}:{name}", "kind": "voice", "cue": cue, "files": [name],
+                "detail": f"One binding holds one voice ({b['voice']['provider']} {b['voice']['name']}). {t['voice_gap']} "
+                          "Root confirms the provider voice of this recording or rejects it.",
+                "candidate": None, "decisions": ["confirmed_voice", "reject_take"]})
         if r["via"]:
             questions.append({
                 "id": f"provenance:{cue}:{name}", "kind": "provenance", "cue": cue, "files": [name],
                 "detail": f"{name} was not recognized itself. Its samples equal {os.path.basename(r['via'])}'s, whose recognition is used. "
                           "Equal samples do not say how many generations produced the files.",
                 "candidate": None, "decisions": ["use_pcm_identity"]})
+    other_text = []
     for c in b["content_questions"]:
-        names = [e["file"] for e in recordings if e["cue"] == c["cue"]]
-        heard = sorted({f"{d['file']} ({d['model']})" for d in diffs if d["file"] in names for x in d["differences"]
-                        if c["script_word"] in x["script"].split() and c["heard"] in x["heard"].split()})
-        questions.append({
-            "id": f"content:{c['cue']}:{c['script_word']}", "kind": "content", "cue": c["cue"], "files": names,
-            "detail": f"{c['note']} Transcripts with '{c['heard']}' for '{c['script_word']}': {', '.join(heard) or 'none'}. A transcript is not listening.",
-            "candidate": None, "decisions": ["heard_as_script", "reject_take"]})
+        if c["cue"] not in script or c["text_sha256"] != sha_bytes(script[c["cue"]].encode()):
+            other_text.append(f"{c['cue']}: {c['script_word']}/{c['heard']}")
+            continue
+        for e in recordings:
+            if e["cue"] != c["cue"]:
+                continue
+            heard = sorted({d["model"] for d in diffs if d["file"] == e["file"] for x in d["differences"]
+                            if c["script_word"] in x["script"].split() and c["heard"] in x["heard"].split()})
+            questions.append({
+                "id": f"content:{c['cue']}:{c['script_word']}:{e['file']}", "kind": "content", "cue": c["cue"], "files": [e["file"]],
+                "detail": f"{c['note']} Recognizers transcribing '{c['heard']}' for '{c['script_word']}' in {e['file']}: "
+                          f"{', '.join(heard) or 'none'}. A transcript is not listening.",
+                "candidate": None, "decisions": ["heard_as_script", "reject_take"]})
     questions.sort(key=lambda q: (order[q["cue"]], q["id"]))
     counts = collections.Counter()
-    gaps = []
+    gaps, long_words = [], []
     for e in recordings:
         for s in e["sentences"][1:]:
             counts["sentence_onsets"] += 1
@@ -560,9 +599,12 @@ def build_report(b):
                 if s.get("abuts_previous_word"):
                     counts["supported_onsets_abutting_previous_word"] += 1
                     gaps.append(s["asr_end_s"] - s["asr_start_s"])
+                    if gaps[-1] >= 0.6:
+                        long_words.append({"id": s["id"], "word": s["word"], "word_segment_s": round(gaps[-1], 3)})
         for m in e["phrase_anchors"]:
             counts["phrase_anchor_marks"] += 1
             counts["phrase_anchor_marks_supported"] += m["status"] == "supported"
+    long_words.sort(key=lambda r: (-r["word_segment_s"], r["id"]))
     gaps.sort()
     bind = binding_summary(b)
     use_note = ("TEST INPUT ONLY: this binding's recordings are historical, not production audio. " if b["use"] == "historical-test" else "")
@@ -570,14 +612,18 @@ def build_report(b):
              f"A 'supported' onset is a word the recognizer agrees on inside a run of at least {MIN_RUN} agreeing words, "
              "first in its segment, in range and in order.")
     coverage = {
-        "binding": bind, "script_sha256": b["pins"][b["script"]], "inventory_sha256": b["pins"][b["inventory"]],
+        "binding": bind, "script_sha256": b["pins"][b["script"]], "inventories": inputs["inventories"],
         "cues": len(script), "recordings": len(recordings), "rates": sorted({e["rate"] for e in recordings}),
-        "runs": [{"name": r["name"], "model": r["model"], "role": r["role"], "records": len(r["records"]), "log_sha256": r["log_sha256"]} for r in inputs["runs"]],
+        "superseded_text_recordings": sorted(os.path.basename(r) for r in inputs["superseded"]),
+        "content_questions_for_other_text": other_text,
+        "runs": [{"name": r["name"], "model": r["model"], "role": r["role"], "records": len(r["records"]),
+                  "superseded_records": r["superseded_records"], "log_sha256": r["log_sha256"]} for r in inputs["runs"]],
         "recognized_by_pcm_identity": [e["file"] for e in recordings if e["recognition"]["recognized_file"] != e["file"]],
         "counts": dict(sorted(counts.items())),
         "abutting_onset_word_seconds": {"count": len(gaps), "median": round(gaps[len(gaps) // 2], 3) if gaps else None,
                                         "max": round(gaps[-1], 3) if gaps else None,
                                         "meaning": "an abutting onset's word segment begins where the previous word ended, so the onset may lie up to about this long before the word"},
+        "abutting_onsets_with_word_segment_at_least_0_6_s": long_words,
         "questions": len(questions), "files_with_questions": len({f for q in questions for f in q["files"]}),
         "claim": claim}
     files = {
@@ -599,8 +645,8 @@ def load_selection(b, path, inputs, chapter):
     sel = load_json(path)
     problems = []
     if sel.get("schema") != "audio-preparation-selection-v1" or sel.get("binding_sha256") != b["sha256"] \
-            or sel.get("script_sha256") != b["pins"][b["script"]] or sel.get("inventory_sha256") != b["pins"][b["inventory"]]:
-        problems.append("the selection is not audio-preparation-selection-v1 for this binding, script and inventory")
+            or sel.get("script_sha256") != b["pins"][b["script"]]:
+        problems.append("the selection is not audio-preparation-selection-v1 for this binding and script")
     if not str(sel.get("by") or "").strip() or not str(sel.get("basis") or "").strip():
         problems.append("the selection needs `by` and `basis`: choosing takes is root's decision")
     want = [c for c in inputs["script"] if chapter is None or c.startswith(chapter + "_")]
@@ -609,10 +655,13 @@ def load_selection(b, path, inputs, chapter):
     elif list(sel.get("takes", {})) != want:
         problems.append(f"the selection must name exactly these {len(want)} cues in script order: {want[0]} … {want[-1]}")
     chosen = {}
+    by_name = {os.path.basename(r): t for r, t in inputs["takes"].items()}
+    old = {os.path.basename(r) for r in inputs["superseded"]}
     for cue, name in sel.get("takes", {}).items():
-        t = inputs["takes"].get(f"{b['takes_dir']}/{name}")
+        t = by_name.get(name)
         if t is None or t["cue"] != cue:
-            problems.append(f"{cue}: {name} is not an inventoried recording of {cue}")
+            why = "it records superseded wording" if name in old else "it is not an inventoried recording of that cue"
+            problems.append(f"{cue}: {name} cannot be selected; {why}")
             continue
         chosen[cue] = t
     if problems:
@@ -695,18 +744,19 @@ def resolved_points(entry, applied, frames24):
 
 
 def expected_frames(t):
-    """Decoded length: exactly half for 48 kHz (root's precedent), else within one sample of the ratio."""
+    """Decoded length: exactly ceil(n/2) for 48 kHz (ffmpeg with these arguments; equal to root's earlier
+    n // 2 check for every even count), else within one sample of the ratio."""
     if t["rate"] == 48000:
-        return t["frames"] // 2, 0
+        return (t["frames"] + 1) // 2, 0
     return round(t["frames"] * RATE_OUT / t["rate"]), 1
 
 
 def test_gate(b, args):
     if b["use"] == "historical-test" and not args.test_only:
-        raise SystemExit(f"refused: {b['path']} binds historical {b['voice']['name']} recordings; they are test input, not production "
-                         "audio. Pass --test-only to run a test, or bind the production voice's own takes.")
+        usage(f"{b['path']} binds historical {b['voice']['name']} recordings as test input, not production audio. "
+              "Pass --test-only to run a test, or use a production binding.")
     if b["use"] == "production" and args.test_only:
-        raise SystemExit("refused: --test-only is for historical-test bindings")
+        usage("--test-only is for historical-test bindings")
     return b["use"] == "production"
 
 
@@ -714,9 +764,8 @@ def test_gate(b, args):
 
 def cmd_decode(b, args):
     production = test_gate(b, args)
-    inputs = load_inputs(b)
-    files, questions, recordings, inputs = build_report(b)
-    sel, chosen = load_selection(b, args.selection, inputs, args.chapter)
+    _files, _questions, _recordings, inputs = build_report(b)
+    _sel, chosen = load_selection(b, args.selection, inputs, args.chapter)
     out = make_out(b, args.out)
     version = subprocess.run([args.ffmpeg, "-version"], capture_output=True, text=True, check=True).stdout.splitlines()[0]
     records, problems = [], []
@@ -786,6 +835,7 @@ def cmd_prepare(b, args):
             or receipt.get("chapter") != args.chapter or receipt.get("production") != production:
         problems.append("the decode receipt is not this binding's decode of this selection")
     by_file = {(e["cue"], e["file"]): e for e in recordings}
+    unit_ids = {u["line_ids"][0]: u["id"] for u in load_json(b["units"])["units"]}
     units, plan_cues, marks_plan = [], {}, {}
     for cue, t in chosen.items():
         row = rows.get(cue)
@@ -804,17 +854,14 @@ def cmd_prepare(b, args):
         except Refused as e:
             problems.append(str(e))
             continue
-        units.append({"id": f"{cue}", "wav": row["wav"], "sha256": row["wav_sha256"], "generation_receipt": receipt_path,
+        units.append({"id": unit_ids[cue], "wav": row["wav"], "sha256": row["wav_sha256"], "generation_receipt": receipt_path,
                       "sentence_ends": ends, "gap_after_samples": [0] * len(ends)})
         plan_cues[cue] = {"recording": entry["file"], "recognition": entry["recognition"],
                           "sentence_starts_24k": [{"sample": s, "basis": why} for s, why in starts]}
         marks_plan[cue] = marks
     if problems:
         raise Refused("\n".join(problems))
-    unit_ids = {u["line_ids"][0]: u["id"] for u in load_json(b["units"])["units"]}
-    for u in units:
-        u["id"] = unit_ids[u["id"]]
-    dispositions = [d for d in load_json(b["dispositions"])["direction_dispositions"] if d["cue"] in chosen]
+    dispositions =[d for d in load_json(b["dispositions"])["direction_dispositions"] if d["cue"] in chosen]
     out = make_out(b, args.out)
     basis = (("TEST ONLY: historical recordings, not production audio. " if not production else "")
              + f"Complete {b['voice']['provider']} {b['voice']['name']} recordings, converted to 24 kHz only. Sentence ends are the "
@@ -833,9 +880,13 @@ def cmd_prepare(b, args):
     try:
         cues = dry_run(tool, b, f"{out}/spans.json", args.chapter)
     except (ValueError, KeyError, TypeError, OSError) as e:
-        write_new(f"{out}/REFUSED.txt", f"The assembler's own checks refused these spans: {type(e).__name__}: {e}\n"
+        hint = ""
+        if repr(b["voice"]["receipt_source"]) not in open(tool, encoding="utf8").read():
+            hint = (f"\nThe pinned assembler's external-take branch does not name the receipt source {b['voice']['receipt_source']!r}, "
+                    "so it read the decode receipt as a native FrankenTTS receipt. Root decides whether to extend that branch.")
+        write_new(f"{out}/REFUSED.txt", f"The assembler's own checks refused these spans: {type(e).__name__}: {e}{hint}\n"
                   "Nothing was assembled. Keep this folder as evidence and prepare again into a new one.\n")
-        raise Refused(f"the assembler's own checks refused these spans ({type(e).__name__}: {e}); see {out}/REFUSED.txt")
+        raise Refused(f"the assembler's own checks refused these spans ({type(e).__name__}: {e}){hint}\nSee {out}/REFUSED.txt")
     chapter_args = ["--chapter", args.chapter] if args.chapter else []
     assemble = ["python3", "-I", "-B", tool, "assemble", "--script", b["script"], "--units", b["units"], "--require-directions",
                 *chapter_args, "--spans", f"{out}/spans.json", "--out", f"{out}/narration"]
@@ -937,8 +988,10 @@ def cmd_timings(b, args):
     script = read_script(b["script"])
     cues = [c for c in script if c in pr["cues"]]
     problems = kit_mirror(narration, script, cues)
-    spans = {u["wav"]: u for u in load_json(spans_path)["units"]}
-    decoded = {u_cue: u for u_cue, u in zip(cues, load_json(spans_path)["units"])}
+    cue_of = {u["id"]: u["line_ids"][0] for u in load_json(b["units"])["units"]}
+    decoded = {cue_of[u["id"]]: u for u in load_json(spans_path)["units"]}
+    if list(decoded) != cues:
+        raise Refused("the spans and the prepare receipt name different cues")
     entries = {}
     for cue in cues:
         _p, frames, pcm = wav_info(f"{narration}/{cue}.wav")
@@ -955,7 +1008,6 @@ def cmd_timings(b, args):
         entries[cue] = {"wav_sha256": sha_file(f"{narration}/{cue}.wav"), "text_sha256": sha_bytes(script[cue].encode()), "marks": marks}
     if problems:
         raise Refused("\n".join(problems))
-    del spans
     complete = cues == list(script)
     name = "phrase-timings.json" if complete else f"phrase-timings-fragment-{chapter}.json"
     out = make_out(b, args.out)
@@ -1028,12 +1080,12 @@ def main():
     t.add_argument("--test-only", action="store_true")
     args = ap.parse_args()
     if getattr(args, "chapter", None) is not None and not re.fullmatch(r"\d\d", args.chapter):
-        raise SystemExit("refused: --chapter is two digits")
+        usage("--chapter is two digits")
     os.chdir(args.repo)
     for name in ("check", "decoded", "prepared", "narration", "selection", "answers"):
         v = getattr(args, name, None)
         if v is not None and (os.path.isabs(v) or ".." in norm(v).split("/")):
-            raise SystemExit(f"refused: --{name} must be repository-relative")
+            usage(f"--{name} must be repository-relative")
     try:
         b = load_binding(args.binding)
         return {"report": cmd_report, "decode": cmd_decode, "prepare": cmd_prepare, "timings": cmd_timings}[args.cmd](b, args)

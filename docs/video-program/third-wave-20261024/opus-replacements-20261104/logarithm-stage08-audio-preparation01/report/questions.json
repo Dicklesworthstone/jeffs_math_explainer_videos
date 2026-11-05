@@ -1,0 +1,162 @@
+{
+ "binding": {
+  "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage08-audio-preparation01/bindings/logarithm-stage08-oliver.json",
+  "sha256": "9e569c0e66ec995ae514c3d7e8489299cb3f159a8c0375efcf655d2b1973910b",
+  "use": "production",
+  "voice": {
+   "provider": "ElevenLabs",
+   "name": "Oliver"
+  }
+ },
+ "claim": "Each question blocks the files it names until root answers it. Answers are root's statements; this tool checks only their form.",
+ "questions": [
+  {
+   "id": "provenance:00_1:00_1-download03.wav",
+   "kind": "provenance",
+   "cue": "00_1",
+   "files": [
+    "00_1-download03.wav"
+   ],
+   "detail": "00_1-download03.wav was not recognized itself. Its samples equal 00_1-download02.wav's, whose recognition is used. Equal samples do not say how many generations produced the files.",
+   "candidate": null,
+   "decisions": [
+    "use_pcm_identity"
+   ]
+  },
+  {
+   "id": "provenance:00_1:00_1-download04.wav",
+   "kind": "provenance",
+   "cue": "00_1",
+   "files": [
+    "00_1-download04.wav"
+   ],
+   "detail": "00_1-download04.wav was not recognized itself. Its samples equal 00_1-download02.wav's, whose recognition is used. Equal samples do not say how many generations produced the files.",
+   "candidate": null,
+   "decisions": [
+    "use_pcm_identity"
+   ]
+  },
+  {
+   "id": "voice:04_3:04_3-download01.wav",
+   "kind": "voice",
+   "cue": "04_3",
+   "files": [
+    "04_3-download01.wav"
+   ],
+   "detail": "One binding holds one voice (ElevenLabs Oliver). The downloaded file name 'ElevenLabs_2026-11-04T22_56_43__s50_sim75_v4.wav' does not contain 'Oliver - Clean, British and Steady'. The downloads receipt's own text says: submission_resolution: Two matching Oliver provider history entries directly observed and downloaded sequentially; distinct provider creation timestamps. No regeneration. Old unconfirmed request preserved. Root confirms the provider voice of this recording or rejects it.",
+   "candidate": null,
+   "decisions": [
+    "confirmed_voice",
+    "reject_take"
+   ]
+  },
+  {
+   "id": "voice:04_3:04_3-download02.wav",
+   "kind": "voice",
+   "cue": "04_3",
+   "files": [
+    "04_3-download02.wav"
+   ],
+   "detail": "One binding holds one voice (ElevenLabs Oliver). The downloaded file name 'ElevenLabs_2026-11-04T22_56_38__s50_sim75_v4.wav' does not contain 'Oliver - Clean, British and Steady'. The downloads receipt's own text says: submission_resolution: Two matching Oliver provider history entries directly observed and downloaded sequentially; distinct provider creation timestamps. No regeneration. Old unconfirmed request preserved. Root confirms the provider voice of this recording or rejects it.",
+   "candidate": null,
+   "decisions": [
+    "confirmed_voice",
+    "reject_take"
+   ]
+  },
+  {
+   "id": "content:04_4:base:04_4-download01.wav",
+   "kind": "content",
+   "cue": "04_4",
+   "files": [
+    "04_4-download01.wav"
+   ],
+   "detail": "Root (Mail 3651): 04_4 base/space unresolved. The script says 'this base is called natural'. Recognizers transcribing 'space' for 'base' in 04_4-download01.wav: ggml-large-v3-turbo.bin, ggml-small.en.bin. A transcript is not listening.",
+   "candidate": null,
+   "decisions": [
+    "heard_as_script",
+    "reject_take"
+   ]
+  },
+  {
+   "id": "content:04_4:base:04_4-download02.wav",
+   "kind": "content",
+   "cue": "04_4",
+   "files": [
+    "04_4-download02.wav"
+   ],
+   "detail": "Root (Mail 3651): 04_4 base/space unresolved. The script says 'this base is called natural'. Recognizers transcribing 'space' for 'base' in 04_4-download02.wav: ggml-large-v3-turbo.bin, ggml-small.en.bin. A transcript is not listening.",
+   "candidate": null,
+   "decisions": [
+    "heard_as_script",
+    "reject_take"
+   ]
+  },
+  {
+   "id": "content:08_5:halving:08_5-download01.wav",
+   "kind": "content",
+   "cue": "08_5",
+   "files": [
+    "08_5-download01.wav"
+   ],
+   "detail": "Root (Mail 3651): 08_5 halving/having unresolved. The script says 'Halving the lost lap leaves a half turn'. Recognizers transcribing 'having' for 'halving' in 08_5-download01.wav: ggml-large-v3-turbo.bin, ggml-small.en.bin. A transcript is not listening.",
+   "candidate": null,
+   "decisions": [
+    "heard_as_script",
+    "reject_take"
+   ]
+  },
+  {
+   "id": "content:08_5:halving:08_5-download02.wav",
+   "kind": "content",
+   "cue": "08_5",
+   "files": [
+    "08_5-download02.wav"
+   ],
+   "detail": "Root (Mail 3651): 08_5 halving/having unresolved. The script says 'Halving the lost lap leaves a half turn'. Recognizers transcribing 'having' for 'halving' in 08_5-download02.wav: ggml-large-v3-turbo.bin, ggml-small.en.bin. A transcript is not listening.",
+   "candidate": null,
+   "decisions": [
+    "heard_as_script",
+    "reject_take"
+   ]
+  },
+  {
+   "id": "onset:08_5:s4:08_5-download01.wav",
+   "kind": "sentence_onset",
+   "cue": "08_5",
+   "files": [
+    "08_5-download01.wav"
+   ],
+   "detail": "Sentence 4 of 08_5 starts with 'halving'; the recognizer gives no supported onset (no_agreeing_word).",
+   "candidate": {
+    "heard": "having",
+    "asr_start_s": 20.379999,
+    "sample_24k": 489120,
+    "why": "the recognizer's one different word in this slot, between agreeing runs on both sides"
+   },
+   "decisions": [
+    "use_candidate",
+    "sample"
+   ]
+  },
+  {
+   "id": "onset:08_5:s4:08_5-download02.wav",
+   "kind": "sentence_onset",
+   "cue": "08_5",
+   "files": [
+    "08_5-download02.wav"
+   ],
+   "detail": "Sentence 4 of 08_5 starts with 'halving'; the recognizer gives no supported onset (no_agreeing_word).",
+   "candidate": {
+    "heard": "having",
+    "asr_start_s": 20.199999,
+    "sample_24k": 484800,
+    "why": "the recognizer's one different word in this slot, between agreeing runs on both sides"
+   },
+   "decisions": [
+    "use_candidate",
+    "sample"
+   ]
+  }
+ ]
+}

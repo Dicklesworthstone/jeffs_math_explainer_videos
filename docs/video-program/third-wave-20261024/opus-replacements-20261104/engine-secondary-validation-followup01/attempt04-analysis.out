@@ -1,0 +1,40 @@
+engine-test04 log: 441 passed in all; failed: ['a_worker_budget_refusal_behind_a_held_sink_keeps_its_name_and_publishes_nothing']
+  ok                               frame_table_limits.rs: the_default_budgets_are_the_limits_the_engine_always_had
+  ok                               frame_table_limits.rs: monotone_budgets_govern_the_shared_table_and_the_frame_local_pieces
+  ok                               frame_table_limits.rs: binning_budgets_each_refuse_by_name_at_their_exact_boundary
+  ok                               frame_table_limits.rs: a_larger_budget_moves_no_pixel
+  ignored, runs in engine-ignored  frame_table_limits.rs: a_monotone_budget_above_the_default_is_admitted_and_the_default_still_refuses
+  ok                               native_bundle_pipeline.rs: declared_frame_tables_reach_the_compiled_affine_workers_and_not_the_camera_route
+  ok                               native_render.rs: a_lowered_frame_table_budget_refuses_by_name_and_publishes_nothing
+  ok                               native_render.rs: a_declared_binning_budget_above_the_default_is_admitted_and_the_default_still_refuses
+  ok                               three_d.rs: every_working_byte_shortage_names_working_bytes
+  ok                               three_d.rs: the_curve_bin_budget_changes_the_search_and_moves_no_pixel
+  ok                               three_d.rs: the_curve_bin_budget_is_held_to_the_width_of_the_bin_offsets
+  ok                               three_d.rs: a_bin_budget_above_the_default_bins_what_the_default_scans
+  ok                               camera_route_limits.rs: the_default_camera_budgets_are_the_limits_the_engine_always_had
+  ok                               camera_route_limits.rs: both_routes_refuse_each_camera_budget_by_name_at_the_same_boundary
+  ok                               camera_route_limits.rs: a_camera_budget_moves_no_pixel_on_either_route
+  ignored, runs in engine-ignored  camera_route_limits.rs: a_working_byte_budget_above_the_default_is_admitted_and_the_default_still_refuses
+  ok                               native_bundle_pipeline.rs: declared_camera_budgets_reach_the_compiled_camera_workers_and_not_the_affine_route
+  ok                               native_camera_pipeline.rs: declared_camera_budgets_reach_the_camera_rig_route
+  ok                               native_render.rs: a_lowered_camera_budget_refuses_by_name_and_publishes_nothing
+  ok                               native_render.rs: a_camera_budget_moves_no_pixel_on_the_serial_facade
+  not run                          rendering.rs: only_a_closed_stream_or_an_abandoned_slot_is_traded_for_the_stage_failure
+  FAILED                           slow_sink_budget_refusal.rs: a_worker_budget_refusal_behind_a_held_sink_keeps_its_name_and_publishes_nothing
+  ok                               slow_sink_budget_refusal.rs: a_genuine_sink_failure_stays_the_sinks_and_publishes_nothing
+added, not ignored: 19 of 21 ok, 1 failed, 1 not run
+failure: round 1, frame 0 held, false
+  recorded first: stage Emit of frame 0, source Emitter(ReservationAbandoned { sequence: 1 }) }
+  abandoned slot: frame 1; named refusal in the words: False
+  stats: {'submitted': 3, 'prepared': 3, 'rasterized': 1, 'converted': 1, 'emitted': 0, 'backpressure_waits': 1, 'max_in_flight': 3, 'outstanding_slots': 0}
+frames per route, base {'affine-serial': 4, 'affine-worker': 4, 'camera-rig': 4, 'camera-serial': 4, 'camera-worker': 4}
+frames per route, combined (attempt 04) {'affine-serial': 4, 'affine-worker': 4, 'camera-rig': 4, 'camera-serial': 4, 'camera-worker': 4}
+default pixels, base vs attempt 04 (runner.pixel_faults): identical
+  attempt 04 vs pixels/combined-attempt03-written: identical
+  attempt 04 vs pixels/combined-attempt03: identical
+  attempt 04 vs pixels/combined-attempt04: identical
+digest of the 20 attempt 04 frames: 7e1832ee1c16fa45
+distinct frame contents among them: 16
+stage against the F1 entry's sealed hashes: all match
+engine-test04 input manifest, 4193 files re-hashed now: all unchanged
+non-source inputs against inputs05 after attempt 04: all match (42 s)

@@ -1,0 +1,51 @@
+--- a/crates/fmn-render/tests/frame_table_limits.rs
++++ b/crates/fmn-render/tests/frame_table_limits.rs
+@@ -356,9 +356,11 @@
+ 
+ /// Every lower limit above would also pass if a raise were clamped to the default. This one needs
+ /// more than the default: 1,365 distinct outlines of 1,024 quadratics, each split at both extrema.
+-/// That is 1,365 × (3 × 1,024 + 1) = 4,194,645 pieces against 4,194,304. Identical outlines would
+-/// intern to one shape, so each is shifted. The translation takes them all out of the frame, so
+-/// binning and raster stay trivial and the table is the whole cost.
++/// That is 1,365 × (3 × 1,024 + 1) = 4,194,645 pieces against 4,194,304, and the refusal must
++/// name exactly that many. An outline's identity leaves out its position (`shape_digest` hashes
++/// points relative to the first anchor), so shifted copies would intern to one shape: each is
++/// scaled instead. The placement takes them all out of the frame, so binning and raster stay
++/// trivial and the table is the whole cost.
+ #[test]
+ #[ignore = "about 0.55 GiB by arithmetic, not measured: root runs it under guard"]
+ fn a_monotone_budget_above_the_default_is_admitted_and_the_default_still_refuses() {
+@@ -367,14 +369,17 @@
+     let step = 1.0 / CURVES as f32;
+     let mut stage = Stage::new();
+     for shape in 0..SHAPES {
+-        let shift = shape as f32 * 0.001;
++        // 1 + shape/2048 has at most 12 significant bits and `step` is a power of two, so every
++        // coordinate below is exact in f32 and no two outlines are the same. A uniform scale
++        // leaves both extrema where they were.
++        let unit = step * (1.0 + shape as f32 / 2048.0);
+         let mut points = Vec::with_capacity(2 * CURVES + 1);
+         for curve in 0..=CURVES {
+-            let at = curve as f32 * step + shift;
++            let at = curve as f32 * unit;
+             points.push([at, at, 0.0]);
+             if curve < CURVES {
+-                // From `at`, handle (2, 3) and end (1, 1) steps: extrema at t = 2/3 and 3/5.
+-                points.push([at + 2.0 * step, at + 3.0 * step, 0.0]);
++                // From `at`, handle (2, 3) and end (1, 1) units: extrema at t = 2/3 and 3/5.
++                points.push([at + 2.0 * unit, at + 3.0 * unit, 0.0]);
+             }
+         }
+         let mob = stage.add(filled(&points));
+@@ -405,6 +410,11 @@
+         })) => {
+             assert_eq!(limit, 1 << 22);
+             assert!(requested > limit, "{requested}");
++            assert_eq!(
++                requested,
++                SHAPES * (3 * CURVES + 1),
++                "an outline was lost or not split"
++            );
+         }
+         other => panic!("the default should refuse by name: {other:?}"),
+     }

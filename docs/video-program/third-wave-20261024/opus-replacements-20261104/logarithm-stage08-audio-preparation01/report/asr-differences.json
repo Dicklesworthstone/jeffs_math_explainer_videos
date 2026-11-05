@@ -1,0 +1,737 @@
+{
+ "binding": {
+  "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage08-audio-preparation01/bindings/logarithm-stage08-oliver.json",
+  "sha256": "9e569c0e66ec995ae514c3d7e8489299cb3f159a8c0375efcf655d2b1973910b",
+  "use": "production",
+  "voice": {
+   "provider": "ElevenLabs",
+   "name": "Oliver"
+  }
+ },
+ "claim": "Normalized recognizer disagreements, every transcript. Diagnostic only; not speech evidence.",
+ "transcripts": [
+  {
+   "file": "00_1-download01.wav",
+   "run": "opening",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "a",
+     "heard": "one"
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "insert",
+     "script": "",
+     "heard": "eighty 1760"
+    },
+    {
+     "op": "replace",
+     "script": "eighty seventeen sixty and thirty five twenty",
+     "heard": "3520"
+    }
+   ]
+  },
+  {
+   "file": "00_1-download02.wav",
+   "run": "opening",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "a",
+     "heard": "one"
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "insert",
+     "script": "",
+     "heard": "eighty 1760"
+    },
+    {
+     "op": "replace",
+     "script": "eighty seventeen sixty and thirty five twenty",
+     "heard": "3520"
+    }
+   ]
+  },
+  {
+   "file": "00_2-download01.wav",
+   "run": "opening",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "seventeen sixty",
+     "heard": "1760"
+    },
+    {
+     "op": "replace",
+     "script": "thirty five twenty",
+     "heard": "3520"
+    }
+   ]
+  },
+  {
+   "file": "00_2-download02.wav",
+   "run": "opening",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "seventeen sixty",
+     "heard": "1760"
+    },
+    {
+     "op": "replace",
+     "script": "thirty five twenty",
+     "heard": "3520"
+    }
+   ]
+  },
+  {
+   "file": "00_4-download01.wav",
+   "run": "opening",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    }
+   ]
+  },
+  {
+   "file": "00_4-download02.wav",
+   "run": "opening",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    }
+   ]
+  },
+  {
+   "file": "00_5-download01.wav",
+   "run": "opening",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    }
+   ]
+  },
+  {
+   "file": "00_5-download02.wav",
+   "run": "opening",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    }
+   ]
+  },
+  {
+   "file": "01_4-download01.wav",
+   "run": "opening",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "thousand",
+     "heard": ""
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "delete",
+     "script": "thousand",
+     "heard": ""
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "replace",
+     "script": "three's",
+     "heard": "threes"
+    }
+   ]
+  },
+  {
+   "file": "01_4-download02.wav",
+   "run": "opening",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "thousand",
+     "heard": ""
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "delete",
+     "script": "thousand",
+     "heard": ""
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "replace",
+     "script": "three's",
+     "heard": "threes"
+    }
+   ]
+  },
+  {
+   "file": "02_2-download01.wav",
+   "run": "middle",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "five's",
+     "heard": "five s"
+    }
+   ]
+  },
+  {
+   "file": "02_2-download02.wav",
+   "run": "middle",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "five's",
+     "heard": "five s"
+    }
+   ]
+  },
+  {
+   "file": "02_5-download01.wav",
+   "run": "middle",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "replace",
+     "script": "a",
+     "heard": "one"
+    }
+   ]
+  },
+  {
+   "file": "02_5-download02.wav",
+   "run": "middle",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "replace",
+     "script": "a",
+     "heard": "one"
+    }
+   ]
+  },
+  {
+   "file": "03_2-download01.wav",
+   "run": "middle",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "four's",
+     "heard": "four s"
+    }
+   ]
+  },
+  {
+   "file": "03_2-download02.wav",
+   "run": "middle",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "four's",
+     "heard": "four s"
+    }
+   ]
+  },
+  {
+   "file": "04_4-download01.wav",
+   "run": "middle",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "base",
+     "heard": "space"
+    }
+   ]
+  },
+  {
+   "file": "04_4-download01.wav",
+   "run": "targeted-small",
+   "model": "ggml-small.en.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "base",
+     "heard": "space"
+    }
+   ]
+  },
+  {
+   "file": "04_4-download02.wav",
+   "run": "middle",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "base",
+     "heard": "space"
+    }
+   ]
+  },
+  {
+   "file": "04_4-download02.wav",
+   "run": "targeted-small",
+   "model": "ggml-small.en.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "base",
+     "heard": "space"
+    }
+   ]
+  },
+  {
+   "file": "04_7-download01.wav",
+   "run": "turns",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "thousandfold",
+     "heard": "thousand fold"
+    },
+    {
+     "op": "replace",
+     "script": "a",
+     "heard": "one"
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "replace",
+     "script": "tenth",
+     "heard": "ten th"
+    }
+   ]
+  },
+  {
+   "file": "04_7-download02.wav",
+   "run": "turns",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "a",
+     "heard": "one"
+    },
+    {
+     "op": "delete",
+     "script": "and",
+     "heard": ""
+    },
+    {
+     "op": "replace",
+     "script": "tenth",
+     "heard": "ten th"
+    }
+   ]
+  },
+  {
+   "file": "05_7-download01.wav",
+   "run": "turns",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "nonzero",
+     "heard": "non zero"
+    }
+   ]
+  },
+  {
+   "file": "05_7-download02.wav",
+   "run": "turns",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "nonzero",
+     "heard": "non zero"
+    }
+   ]
+  },
+  {
+   "file": "07_6-download01.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "nonzero",
+     "heard": "non zero"
+    }
+   ]
+  },
+  {
+   "file": "07_6-download02.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "nonzero",
+     "heard": "non zero"
+    }
+   ]
+  },
+  {
+   "file": "08_1-download01.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "quarters",
+     "heard": "over four"
+    }
+   ]
+  },
+  {
+   "file": "08_1-download02.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "quarters",
+     "heard": "over four"
+    }
+   ]
+  },
+  {
+   "file": "08_5-download01.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "halving",
+     "heard": "having"
+    }
+   ]
+  },
+  {
+   "file": "08_5-download01.wav",
+   "run": "targeted-small",
+   "model": "ggml-small.en.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "halving",
+     "heard": "having"
+    },
+    {
+     "op": "delete",
+     "script": "roots",
+     "heard": ""
+    }
+   ]
+  },
+  {
+   "file": "08_5-download02.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "halving",
+     "heard": "having"
+    }
+   ]
+  },
+  {
+   "file": "08_5-download02.wav",
+   "run": "targeted-small",
+   "model": "ggml-small.en.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "halving",
+     "heard": "having"
+    },
+    {
+     "op": "replace",
+     "script": "roots",
+     "heard": "routes"
+    }
+   ]
+  },
+  {
+   "file": "09_1-download02.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "by",
+     "heard": "x"
+    }
+   ]
+  },
+  {
+   "file": "09_2-download01.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "too",
+     "heard": "two"
+    }
+   ]
+  },
+  {
+   "file": "10_3-download01.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "too",
+     "heard": "two"
+    },
+    {
+     "op": "replace",
+     "script": "spiralling",
+     "heard": "spiraling"
+    }
+   ]
+  },
+  {
+   "file": "10_3-download02.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "too",
+     "heard": "two"
+    },
+    {
+     "op": "replace",
+     "script": "spiralling",
+     "heard": "spiraling"
+    }
+   ]
+  },
+  {
+   "file": "11_5-download01.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "nonzero",
+     "heard": "non zero"
+    }
+   ]
+  },
+  {
+   "file": "11_5-download02.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "nonzero",
+     "heard": "non zero"
+    }
+   ]
+  },
+  {
+   "file": "11_20-download01.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "nineteen sixty six",
+     "heard": "1966"
+    }
+   ]
+  },
+  {
+   "file": "11_20-download02.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "nineteen sixty six",
+     "heard": "1966"
+    }
+   ]
+  },
+  {
+   "file": "12_2-download01.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "laps",
+     "heard": "lapse"
+    },
+    {
+     "op": "replace",
+     "script": "laps",
+     "heard": "lapse"
+    }
+   ]
+  },
+  {
+   "file": "12_2-download02.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "laps",
+     "heard": "lapse"
+    },
+    {
+     "op": "replace",
+     "script": "laps",
+     "heard": "lapse"
+    }
+   ]
+  },
+  {
+   "file": "12_4-download01.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "centres",
+     "heard": "centers"
+    },
+    {
+     "op": "replace",
+     "script": "too",
+     "heard": "two"
+    }
+   ]
+  },
+  {
+   "file": "12_4-download02.wav",
+   "run": "remaining",
+   "model": "ggml-large-v3-turbo.bin",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "centres",
+     "heard": "centers"
+    },
+    {
+     "op": "replace",
+     "script": "too",
+     "heard": "two"
+    }
+   ]
+  }
+ ]
+}

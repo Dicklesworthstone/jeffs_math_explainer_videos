@@ -55,6 +55,10 @@ STACK = (
      Path(__file__).resolve().parent / "expected-type-alias01.sha256"),
     (W / "engine-budget-error-propagation.patch", W / "expected-engine.sha256"),
     (P / "engine-budget-error-precedence.patch", P / "expected-engine.sha256"),
+    # attempt05: the monotone control's shifted outlines interned together (an outline's digest
+    # leaves out its position), so the default admitted. Each outline is now scaled; no assertion drops.
+    (Path(__file__).resolve().parent / "test-monotone-control01.patch",
+     Path(__file__).resolve().parent / "expected-monotone-control01.sha256"),
 )
 # fmn's library tests from F1 and R1, which no other step runs; each runs alone, by name.
 FMN_LIB = "crates/fmn/src/"
