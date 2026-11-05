@@ -26,5 +26,5 @@ PASS P3 one Clippy unit from the old root: the job fails: job exit 1: REFUSED: d
 PASS P4 tests run from another target: build-verify refuses: job exit 0; verify REFUSED: the tests did not run from the new target
 PASS P5 the uplifted binary is not the unit's output: the job fails: job exit 1: REFUSED: the binary is not the output of a unit compiled from the workspace; verify REFUSED: the job did not pass: exit 1, error None
 PASS P6 cargo also names W/logarithm-stage09: build-verify refuses: job exit 0; verify REFUSED: cargo names another logarithm_mysteries: ['Compiling logarithm_mysteries v0.1.0 (W/logarithm-stage09)', 'Compiling logarithm_mysteries v0.1.0 (W/logarithm-stage09)']
-PASS U1 real inputs untouched: W stage, W names, lane, target names, real workspace files and build01's shared units (bytes and times)
+PASS U1 real inputs untouched: W stage, W names, ws-build lane jobs, target names, real workspace files and build01's shared units (bytes and times)
 29 PASS, 0 FAIL

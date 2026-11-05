@@ -103,13 +103,15 @@ The versioned bind adaptation for the installed audio helper (Mails 4108 and 416
 
 ## Checks: 29 PASS, 0 FAIL
 
-`checks/run_checks.py SCRATCH --w W`, run twice into fresh scratch folders. The transcripts are byte-equal; one is `checks/outputs/run_checks.out`. Each run takes about 22 s.
+`checks/run_checks.py SCRATCH --w W`, run twice into fresh scratch folders (runs 04 and 05). The transcripts are byte-equal; one is `checks/outputs/run_checks.out`. Each run takes about 22 s.
+
+Run 03 (`checks/outputs/run03-u1-root-decode.out`, run with the earlier U1) failed only U1. Root created `logarithm-stage09-audio-decode01` in the real lane (05:58:49Z) while it ran, and U1 then watched every `logarithm-stage09*` lane name. U1 now watches only the `-ws-build` job names, the only lane folders a recovery job creates. If root writes the real workspace or target while the checks run, U1 fails again; rerun the checks then.
 
 - **Real, read-only:**
   - D1–D4: `diagnose` on root's ws-build01.
   - B5: the preserved rows on the real WS and target.
   - B7: `build-script` against the real target root. The script is written into scratch, and the new target is confirmed absent.
-  - U1: the real W stage, W, lane, target names, real WS files, and build01's shared units (bytes and modification times) are unchanged.
+  - U1: unchanged after the run: the real W stage, W's top-level names, the `-ws-build` lane job names, target names, the real WS files, and build01's shared units (bytes and modification times).
 - **Emulated:**
   - The guard binds the inputs before and after. It does no admission, lane lock or sampling.
   - `cargo` is a stub. It writes the files cargo writes for this crate and prints cargo's lines.
@@ -135,4 +137,7 @@ The versioned bind adaptation for the installed audio helper (Mails 4108 and 416
 | `recover_ws_build.py` | `diagnose`, `build-script`, `build-verify`, `artifacts`. It loads the sealed render helper by hash (`9ddc2003`) and pins its seal (`fa654b83`) |
 | `checks/run_checks.py` | the checks above |
 | `checks/outputs/run_checks.out` | transcript, 29 PASS |
+| `checks/outputs/run03-u1-root-decode.out` | run 03 with the earlier U1: 28 PASS, U1 FAIL on root's decode job |
 | `SHA256SUMS` | these files |
+
+A `__pycache__/recover_ws_build.cpython-315.pyc` appeared in this folder at 05:55:10Z, compiled from the current helper. Every Python call in my checks uses `-I -B`, and a rerun with that file renamed wrote no new one, so another process imported the helper without `-B`. That was 6 s before root's sweep commit `fd81490` (05:55:16Z), which first committed this helper; I have not checked what the commit tooling runs. I renamed it in place (`.moved-20261105`), inside the gitignored `__pycache__/`, and it is not in SHA256SUMS.

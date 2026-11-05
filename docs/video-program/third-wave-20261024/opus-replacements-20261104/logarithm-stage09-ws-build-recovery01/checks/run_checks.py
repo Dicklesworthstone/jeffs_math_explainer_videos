@@ -104,7 +104,8 @@ def snapshot():
     """Every real input this run must leave alone, with modification times where cargo would leave a trace."""
     snap = {f"W/{STAGE}/{k}": v for k, v in N.tree(W / STAGE).items()}
     snap["W names"] = sorted(p.name for p in W.iterdir())
-    snap["lane names"] = sorted(p.name for p in REAL_LANE.iterdir() if p.name.startswith(STAGE))
+    # Only ws-build job names: root's other stage09 jobs (audio decode, ...) legitimately appear while this runs.
+    snap["lane ws-build names"] = sorted(p.name for p in REAL_LANE.iterdir() if p.name.startswith(f"{STAGE}-ws-build"))
     snap["target names"] = sorted(p.name for p in REAL_TARGET.iterdir())
     for p in sorted(REAL_WS.iterdir()):
         if p.is_file():
@@ -413,8 +414,8 @@ def main():
 
     after = snapshot()
     changed = sorted(k for k in set(before) | set(after) if before.get(k) != after.get(k))
-    record("U1 real inputs untouched: W stage, W names, lane, target names, real workspace files and build01's "
-           "shared units (bytes and times)", not changed, ", ".join(changed[:5]))
+    record("U1 real inputs untouched: W stage, W names, ws-build lane jobs, target names, real workspace files and "
+           "build01's shared units (bytes and times)", not changed, ", ".join(changed[:5]))
     print(f"{sum(RESULTS)} PASS, {len(RESULTS) - sum(RESULTS)} FAIL")
     return 0 if all(RESULTS) else 1
 
