@@ -494,6 +494,81 @@ def main():
           f"decodes the real master's frame 600 to {size[0]}x{size[1]}; five pictures make sheets of {sheet_sizes}; root's caption "
           f"screen reads the real SRT: {screen.stdout.strip()}")
 
+    # ------------------------------------------------------------------ F11 run_job and verify-job end to end, real master
+    flane, fjobs = scratch / "full-lane", scratch / "full-jobs"
+    for folder in (flane, fjobs):
+        folder.mkdir()
+    fjob = f"{V.STAGE}-final-verify09"
+    fscript, finputs = fjobs / f"{fjob}.py", fjobs / f"{fjob}-inputs.json"
+    take = [samples[i] for i in (0, len(samples) // 4, len(samples) // 2, 3 * len(samples) // 4, len(samples) - 1)]
+    srt_old, vtt_old = OLD_WORK / "logarithm_mysteries.en.srt", OLD_WORK / "logarithm_mysteries.en.vtt"
+    fcfg = {"job": fjob, "lane": str(flane), "script": str(fscript), "helper": str(HELPER), "helper_sha256": sha(HELPER),
+            "master": {"path": str(master), "sha256": sha(master)}, "srt": {"path": str(srt_old), "sha256": sha(srt_old)},
+            "vtt": {"path": str(vtt_old), "sha256": sha(vtt_old)}, "master_job": "logarithm-machine-master01 (Nov 2, real)",
+            "series": "01", "total_frames": total, "fps": 60, "chapters": chapters, "placements": placements, "captions": facts,
+            "strict": str(REPO / V.STRICT_REL), "screen": str(REPO / V.SCREEN_REL), "ffmpeg": V.tool("ffmpeg"),
+            "ffprobe": V.tool("ffprobe"), "expect": V.EXPECT, "samples": take, "success": V.VERIFY_SUCCESS, "scope": V.SCOPE}
+    body = V.JOB_TEMPLATE.replace("@@JOB@@", fjob).replace("@@HELPER@@", sha(HELPER))
+    fscript.write_text(body.replace("@@CONFIG@@", repr(json.dumps(fcfg, indent=1))))
+    finputs.write_text(json.dumps({"files": [{"path": str(p), "sha256": sha(p)} for p in (fscript, HELPER, master, srt_old, vtt_old)]}) + "\n")
+    receipt = {"admitted": True, "phase": "native", "command": ["python3", "-I", "-B", str(fscript)], "inputs_sha256": sha(finputs)}
+
+    def emulated_run(cfg_now):
+        saved_hw = os.environ.get("VERIFY_HWACCEL")
+        os.environ["VERIFY_HWACCEL"] = "none"  # the test skips root's second (hardware) decode
+        log = io.StringIO()
+        try:
+            with contextlib.redirect_stdout(log):
+                result = V.run_job(cfg_now)
+        finally:
+            if saved_hw is None:
+                os.environ.pop("VERIFY_HWACCEL")
+            else:
+                os.environ["VERIFY_HWACCEL"] = saved_hw
+        return result, log.getvalue()
+
+    # a job folder that already holds a frame is refused before any measurement (ffmpeg -n would keep the old picture)
+    stale_job = dict(fcfg, job=f"{V.STAGE}-final-verify08")
+    (flane / stale_job["job"]).mkdir()
+    (flane / stale_job["job"] / "resource-receipt.json").write_text(json.dumps(receipt))
+    (flane / stale_job["job"] / "frame-0003.png").write_bytes(b"left from an earlier attempt")
+    stale_code, stale_log = emulated_run(stale_job)
+    stale_clean = sorted(p.name for p in (flane / stale_job["job"]).iterdir()) == ["frame-0003.png", "resource-receipt.json"]
+    (flane / fjob).mkdir()
+    (flane / fjob / "resource-receipt.json").write_text(json.dumps(receipt))
+    code, run_log = emulated_run(fcfg)
+    (flane / fjob / "command.log").write_text(run_log)
+    receipt.update(exit=code, finished="emulated guard", final_inputs_sha256=receipt["inputs_sha256"])
+    (flane / fjob / "resource-receipt.json").write_text(json.dumps(receipt))
+    fctx = types.SimpleNamespace(verify_job=fjob, job_dir=fjobs, lane=flane)
+    passed = V.verify_job(fctx)
+    produced = json.loads((flane / fjob / "verification.json").read_text())
+    sheet = Path(produced["sheets"][0])
+    aside = sheet.with_name(sheet.name + ".moved-aside")
+    sheet.rename(aside)  # moved aside, never removed, and moved back below
+    try:
+        missing_sheet = refusal(V.verify_job, fctx)
+    finally:
+        aside.rename(sheet)
+    with planted((flane / fjob / "verification.json", lambda d: d.replace(b'"pictures_viewed": false', b'"pictures_viewed": true'))):
+        viewed = refusal(V.verify_job, fctx)
+    decode_logs = sorted(p.name.split(".")[0] for p in (flane / fjob / "decode-logs").iterdir())
+    check("F11-job-end-to-end", code == 0 and passed["frames"] == 17783 and passed["pictures"] == 5 and passed["sheets"] == 2
+          and produced["strict_video_check"] == "passed" and produced["pictures_viewed"] is False and decode_logs == ["verify_decode"]
+          and passed["strict_video_notes"] == ["note: -19.7 LUFS is below -16 because the true peak (-1.5 dBTP) sits at the ceiling "
+                                               "(fixed-gain master)"]
+          and stale_code == 1 and stale_log.strip() == "REFUSED: frame-0003.png exists already" and stale_clean
+          and "a sheet is missing" in (missing_sheet or "") and "claims the pictures were viewed" in (viewed or ""),
+          f"a job folder already holding frame-0003.png is refused before any measurement ({stale_log.strip()!r}; nothing written); "
+          f"run_job under an emulated guard receipt on the real Nov 2 master, five planned pictures: root's strict check "
+          f"(EXPECT 3840x2160, 60, BT.709, -16 LUFS, -1.0 dBTP; software decode only here) passed, its decode log kept in the job's "
+          f"decode-logs/, and its note is carried into verification.json: {passed['strict_video_notes']}; {passed['media']['video_frames']} "
+          f"frames, video {passed['media']['video_seconds']} s, audio {passed['media']['audio_seconds']} s; encoded loudness "
+          f"I {passed['encoded_loudness']['integrated_lufs']} LUFS, LRA {passed['encoded_loudness']['lra_lu']} LU, true peak "
+          f"{passed['encoded_loudness']['true_peak_dbtp']} dBTP; caption screen {passed['caption_screen']}; {passed['pictures']} "
+          f"pictures in {passed['sheets']} sheets; the log ends with the success line; verify-job passes, and refuses a missing "
+          f"sheet ({missing_sheet!r}) and a verification.json that claims viewing ({viewed!r})")
+
     print(f"FINAL-VERIFICATION CHECKS: {'PASS' if all(results) else 'FAIL'} ({sum(results)}/{len(results)})")
     return 0 if all(results) else 1
 

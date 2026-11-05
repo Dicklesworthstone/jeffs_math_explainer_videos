@@ -65,7 +65,7 @@ PINS = {
     GUARD_SOURCE_REL: "819746fb33110d6c133e184812c80a00562d848816f623078ad86f0fb1a316da",
 }
 EXPECT = {"EXPECT_RES": "3840x2160", "EXPECT_FPS": "60", "EXPECT_BT709": "1", "EXPECT_LUFS": "-16", "EXPECT_TP_MAX": "-1.0"}
-OUTPUTS = ("strict-video-verification.log", "encoded-loudness.log", "caption-screen.json", "verification.json")
+OUTPUTS = ("strict-video-verification.log", "decode-logs", "encoded-loudness.log", "caption-screen.json", "verification.json")
 SCOPE = ("Technical checks and extracted pictures of the logarithm stage09 master only (ElevenLabs Oliver). No "
          "listening, picture viewing, fine sync, ASR, independent review or publication acceptance is claimed.")
 STAMP = r"(\d\d):([0-5]\d):([0-5]\d)[{d}](\d{{3}})"
@@ -595,7 +595,8 @@ def make_sheets(pictures, job):
             more = f" (+{len(p['reasons']) - 1})" if len(p["reasons"]) > 1 else ""
             draw.text((x + 10, y + 548), f"{p['seconds']:.2f}s f{p['frame']} | {p['reasons'][0][:78]}{more}", fill="white", font_size=17)
         path = job / f"sheet-{start // 4 + 1:03d}.jpg"
-        sheet.save(path, quality=92)
+        with path.open("xb") as handle:  # never replaces a sheet
+            sheet.save(handle, format="JPEG", quality=92)
         sheets.append(str(path))
     return sheets
 
@@ -613,10 +614,14 @@ def run_job(cfg):
             need(sha(cfg[key]["path"]) == cfg[key]["sha256"], f"the {key} moved since the job was written")
         for name in OUTPUTS:
             need(not (job / name).exists(), f"{name} exists already")
-        env = dict(os.environ, **cfg["expect"])
+        for old in sorted(job.glob("frame-*")) + sorted(job.glob("sheet-*")):
+            need(False, f"{old.name} exists already")  # ffmpeg -n would keep it and still exit 0
+        (job / "decode-logs").mkdir()
+        env = dict(os.environ, **cfg["expect"], TMPDIR=str(job / "decode-logs"))  # root's strict check keeps its decode logs here
         with (job / "strict-video-verification.log").open("x") as log:
             done = subprocess.run(["bash", cfg["strict"], master], stdout=log, stderr=subprocess.STDOUT, env=env, timeout=14400)
         need(done.returncode == 0 and last_line(job / "strict-video-verification.log") == "VERIFY PASS", "root's strict video check failed")
+        notes = [row for row in (job / "strict-video-verification.log").read_text(errors="replace").splitlines() if row.startswith("note:")]
         probe = json.loads(subprocess.run([cfg["ffprobe"], "-v", "error", "-show_streams", "-show_format", "-of", "json", master],
                                           check=True, capture_output=True, text=True, timeout=600).stdout)
         packets = subprocess.run([cfg["ffprobe"], "-v", "error", "-select_streams", "V:0", "-count_packets", "-show_entries",
@@ -632,8 +637,10 @@ def run_job(cfg):
         pictures = []
         for i, s in enumerate(cfg["samples"], 1):
             path = job / f"frame-{i:04d}.png"
+            need(not path.exists(), f"{path.name} exists already")
             subprocess.run([cfg["ffmpeg"], "-nostdin", "-n", "-v", "error", "-xerror", "-ss", f"{s['frame'] / FPS:.9f}", "-i", master,
                             "-frames:v", "1", "-vf", "scale=960:540", str(path)], check=True, timeout=180)
+            need(path.is_file() and path.stat().st_size > 0, f"ffmpeg wrote no picture for frame {s['frame']}")
             pictures.append({**s, "path": str(path)})
         sheets = make_sheets(pictures, job)
         with (job / "verification.json").open("x") as handle:
@@ -641,6 +648,7 @@ def run_job(cfg):
                 "video": master, "sha256": cfg["master"]["sha256"], "srt_sha256": cfg["srt"]["sha256"], "vtt_sha256": cfg["vtt"]["sha256"],
                 "master_job": cfg["master_job"], "frames": cfg["total_frames"], "fps": FPS, "chapters": cfg["chapters"],
                 "placements": cfg["placements"], "captions": cfg["captions"], "media": media, "strict_video_check": "passed",
+                "strict_video_notes": notes,
                 "encoded_loudness": loud, "caption_screen": {"caption_count": screen["caption_count"],
                 "over_20_characters_per_second": len(screen["over_20_characters_per_second"]),
                 "lines_over_42_characters": len(screen["lines_over_42_characters"])},
@@ -669,9 +677,12 @@ def verify_job(c):
     need([p["frame"] for p in v["pictures"]] == [s["frame"] for s in cfg["samples"]], f"{job}: the pictures are not the planned ones")
     need(all(Path(p["path"]).is_file() for p in v["pictures"]), f"{job}: a picture is missing")
     need(len(v["sheets"]) == math.ceil(len(v["pictures"]) / 4) and all(Path(s).is_file() for s in v["sheets"]), f"{job}: a sheet is missing")
-    need(v["pictures_viewed"] is False and last_line(folder / "strict-video-verification.log") == "VERIFY PASS", f"{job}: strict log")
+    need(v["pictures_viewed"] is False, f"{job}: verification.json claims the pictures were viewed; only root views them")
+    need(last_line(folder / "strict-video-verification.log") == "VERIFY PASS", f"{job}: the strict log does not end with VERIFY PASS")
+    need(any((folder / "decode-logs").glob("verify_decode.*")), f"{job}: the strict check's decode logs are missing")
     need(load(folder / "caption-screen.json")["srt_sha256"] == cfg["srt"]["sha256"], f"{job}: the caption screen read another SRT")
-    return {"job": job, "master_sha256": v["sha256"], "frames": v["frames"], "media": v["media"], "encoded_loudness": v["encoded_loudness"],
+    return {"job": job, "master_sha256": v["sha256"], "frames": v["frames"], "media": v["media"], "strict_video_notes": v["strict_video_notes"],
+            "encoded_loudness": v["encoded_loudness"],
             "caption_screen": v["caption_screen"], "pictures": len(v["pictures"]), "sheets": len(v["sheets"]), "sheets_folder": str(folder),
             "pictures_viewed": False, "open": "root views every sheet; listening, fine sync, final ASR and acceptance remain root's"}
 
