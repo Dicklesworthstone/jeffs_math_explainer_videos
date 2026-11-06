@@ -16,7 +16,7 @@ import sys
 
 HERE = Path(__file__).resolve().parent
 RENDER_HELPER = HERE / 'ts1_final_render01.py'
-RENDER_SHA256 = 'a8f83da7832e33e3ad4e5396cf64e8135c5c2295bcad35bb4faeed9ac461d53f'
+RENDER_SHA256 = 'd14527e24ca82f236d5b4a815d9857c51dcd3e740c32e24b5a17d41e8ed89990'
 with RENDER_HELPER.open('rb') as handle:
     assert hashlib.file_digest(handle, 'sha256').hexdigest() == RENDER_SHA256, 'Render helper changed'
 SPEC = importlib.util.spec_from_file_location('complex_final_render', RENDER_HELPER)
@@ -63,6 +63,7 @@ def check_chapters():
         summary = read(JOBS / name / 'render-summary.json')
         assert summary['chapter'] == chapter and summary['fps'] == 60 and summary['binary_sha256'] == Q.BIN_SHA256
         assert summary['frames'] == by_chapter[chapter]['frames']
+        F.same_source(summary)
         for row in summary['files']:
             bind(row)
         capture = F.captured_soundtrack(F.OUT, chapter, summary['frames'])
@@ -112,7 +113,7 @@ def run(name):
     assert OUTPUTS['srt'].stat().st_size and OUTPUTS['vtt'].read_text().startswith('WEBVTT')
     with (JOBS / name / 'master-summary.json').open('x') as handle:
         json.dump({'chapters': list(M.CHAPTERS), 'frames': frames, 'fps': 60, 'binary_sha256': Q.BIN_SHA256, 'host': 'ts1',
-                   'timeline_job': M.NAMES['timeline'], 'narration': str(M.N), 'full_baseline_equivalence_established': False,
+                   'timeline_job': M.NAMES['timeline'], 'narration': str(M.N), **F.narration_source(), 'full_baseline_equivalence_established': False,
                    'render_jobs': {chapter: F.job(chapter) for chapter in M.CHAPTERS},
                    'soundtracks': captures, 'native_bit_identical_replays': replay_lines,
                    'outputs': {k: {'path': str(p), 'sha256': sha(p)} for k, p in OUTPUTS.items()},

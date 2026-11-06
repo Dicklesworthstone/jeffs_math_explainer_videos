@@ -1,10 +1,10 @@
-"""Guarded serial 4K chapters on ts1, from chain02-n2. Requires a real, hash-bound preview review.
+"""Guarded serial 4K chapters on ts1, from the chain pinned below. Requires a real, hash-bound preview review.
 
 WhiteSwan's final_render_optimized01.py on lane O; diff the two to audit it, and HANDOFF.md lists
 every change. It runs the qualified Linux binary on the derived narration folder and refuses to
 import a chain file whose bytes changed. There is no flag that skips the review.
 
-    --check                          read-only: pins, tools, transferred files, job states
+    --check                          read-only: pins, chain names, tools, transferred files, job states
     --check-review                   read-only: the review and everything it binds
     --all [--retry CHAPTER=rN]...    every chapter not yet done, one guarded job at a time
     --run CHAPTER JOB                the guard's child; never call it by hand
@@ -31,10 +31,10 @@ import wave
 
 HERE = Path(__file__).resolve().parent
 CHAIN = HERE.parent / 'complex-remote-ts1-pipeline01/chain02-n2/ts1_chain02_n2.py'
-CHAIN_SHA256 = '64502efaea1bffb1a7e852f43d2679ea9baca29d0d9b622041d7205dd6b68a45'  # seal 625d162d
+CHAIN_SHA256 = '64502efaea1bffb1a7e852f43d2679ea9baca29d0d9b622041d7205dd6b68a45'
 with CHAIN.open('rb') as handle:
-    assert hashlib.file_digest(handle, 'sha256').hexdigest() == CHAIN_SHA256, 'Sealed chain02-n2 changed'
-SPEC = importlib.util.spec_from_file_location('ts1_chain02_n2', CHAIN)
+    assert hashlib.file_digest(handle, 'sha256').hexdigest() == CHAIN_SHA256, 'Sealed chain changed'
+SPEC = importlib.util.spec_from_file_location('pinned_chain', CHAIN)
 L = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(L)
 M, Q = L.M, L.Q
@@ -50,6 +50,31 @@ LANE_LOCK = O / 'expanded-native-lane.lock'
 VOICE = 'ElevenLabs Frederick Surrey'
 SUCCESS = 'RENDER PASS: 4K60 chapter; frame and cue schedule equal the timeline; final AV, pictures and listening remain.'
 HEAD_BYTES = 16 << 20  # x264 writes its settings into the stream, near the front
+CHAIN_NAMES = {'L': ('BIN', 'C', 'JOBS', 'M', 'N1', 'O', 'Q', 'R', 'check_derived', 'check_qualified', 'read', 'sha'),
+               'M': ('CHAPTERS', 'N', 'NAMES', 'PICTURES_OUT', 'PICTURE_PYTHON', 'PREVIEW_OUT', 'SCORE_OUT', 'TIMELINE_OUT', 'check_cue_log', 'check_score', 'check_tools', 'job', 'layout_paths', 'manifest', 'normalized', 'select', 'tool'),
+               'Q': ('BIN_SHA256', 'GUARD', 'PHYSICAL', 'POLICY', 'PRESERVED_GUARD', 'guard_policy', 'job_files', 'success')}  # every name these helpers use from the chain
+
+
+def check_chain_names():
+    """A new chain must export these. Better refused at --check than after the last chapter."""
+    modules = {'L': L, 'M': M, 'Q': Q}
+    missing = [f'{key}.{name}' for key, names in CHAIN_NAMES.items() for name in names if not hasattr(modules[key], name)]
+    missing += ['stage ' + stage for stage in ('derive', 'timeline', 'score', 'preview', 'pictures') if stage not in M.NAMES]
+    assert not missing, f'The pinned chain lacks: {missing}'
+
+
+def narration_source():
+    """Where M.N came from. The retained native-install-receipt.json in M.N is the source folder's, byte for
+    byte, and says nothing about M.N. L.check_derived() is the proof, and this names the record it checks."""
+    path = M.job('derive') / 'derive-summary.json'
+    summary = read(path)
+    assert summary['narration'] == str(M.N) and summary['derived_from'] == str(L.N1), 'Derive summary names another folder'
+    return {'derived_from': summary['derived_from'], 'derive_job': M.NAMES['derive'], 'derive_summary_sha256': sha(path)}
+
+
+def same_source(record):
+    source = narration_source()
+    assert {key: record.get(key) for key in source} == source, 'Narration provenance differs'
 
 
 def attempts(base):
@@ -191,6 +216,7 @@ def check_review():
         for suffix, key in [('.mp4', 'mp4_sha256'), ('.timeline.tsv', 'timeline_sha256'),
                             ('.layout.tsv', 'layout_sha256')]:
             assert sha(M.PREVIEW_OUT / (row['chapter'] + suffix)) == row[key]
+    x264_settings(M.PREVIEW_OUT / (M.CHAPTERS[0] + '.mp4'), 18)  # the 4K gate's reader, on ts1's real kit output, before any 4K job
     return review
 
 
@@ -213,8 +239,18 @@ def captured_soundtrack(work, chapter, frames):
     return {'path': str(path), 'sha256': sha(path), 'samples': samples, 'captures': count}
 
 
+def x264_settings(path, crf):
+    """x264's own record in the stream, which ffprobe does not report. ts1's ffmpeg is not the macOS one."""
+    with path.open('rb') as handle:
+        head = handle.read(HEAD_BYTES)
+    start = head.find(b'x264 - core')
+    settings = head[start:start + 2048].split(b'\0')[0] if start >= 0 else b''
+    assert b' rc=crf' in settings and b' crf=%.1f' % crf in settings, f'No x264 record of CRF {crf}: {path.name}'
+    return settings.decode('ascii', 'replace')
+
+
 def movie_facts(path, frames):
-    """Read from the file. ts1's ffmpeg is not the macOS one, so x264's own record proves CRF 16."""
+    """Read from the file, not from the options this helper passed."""
     probe = json.loads(subprocess.check_output([str(M.tool('ffprobe')), '-v', 'error', '-show_streams', '-of', 'json', str(path)], timeout=120))
     video = [s for s in probe['streams'] if s['codec_type'] == 'video']
     audio = [s for s in probe['streams'] if s['codec_type'] == 'audio']
@@ -222,12 +258,7 @@ def movie_facts(path, frames):
     v, a = video[0], audio[0]
     assert (v['width'], v['height'], v['avg_frame_rate'], int(v['nb_frames'])) == (3840, 2160, '60/1', frames)
     assert (v['codec_name'], v['pix_fmt'], a['codec_name'], a['sample_rate'], a['channels']) == ('h264', 'yuv420p', 'aac', '48000', 2)
-    with path.open('rb') as handle:
-        head = handle.read(HEAD_BYTES)
-    start = head.find(b'x264 - core')
-    settings = head[start:start + 2048].split(b'\0')[0] if start >= 0 else b''
-    assert b' rc=crf' in settings and b' crf=16.0' in settings, 'No x264 record of CRF 16: ' + path.name
-    return settings.decode('ascii', 'replace')
+    return x264_settings(path, 16)
 
 
 def render(chapter, name):
@@ -253,7 +284,7 @@ def render(chapter, name):
     paths = [movie, table, OUT / (chapter + '.layout.tsv'), OUT / (chapter + '.cuelog.tsv')]
     with (JOBS / name / 'render-summary.json').open('x') as handle:
         json.dump({'chapter': chapter, 'frames': frames, 'fps': 60, 'soundtrack': track, 'encoder': encoder,
-                   'binary_sha256': Q.BIN_SHA256, 'narration': str(M.N), 'host': 'ts1',
+                   'binary_sha256': Q.BIN_SHA256, 'narration': str(M.N), **narration_source(), 'host': 'ts1',
                    'files': [{'path': str(p), 'sha256': sha(p)} for p in paths],
                    'scope': '4K chapter render with exact schedule and complete capture. Final AV, picture review, listening and fine sync remain open.'}, handle, indent=2)
     print(SUCCESS, flush=True)
@@ -268,6 +299,7 @@ def verify_chapter(chapter, name):
     assert last_line(JOBS / name / 'command.log') == SUCCESS, 'No success line: ' + name
     summary = read(JOBS / name / 'render-summary.json')
     assert summary['chapter'] == chapter and summary['binary_sha256'] == Q.BIN_SHA256
+    same_source(summary)
     for row in summary['files']:
         assert sha(row['path']) == row['sha256'], row['path']
     assert captured_soundtrack(OUT, chapter, summary['frames']) == summary['soundtrack']
@@ -365,6 +397,7 @@ def launch_all(retries):
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
             raise SystemExit('Another render driver holds this lane') from None
+        check_chain_names()
         check_review()
         Q.guard_policy()
         base = frozen_base()
@@ -383,6 +416,7 @@ def launch_all(retries):
 
 def preflight():
     """Read-only and valid before the chain has finished. Hashes no film file and samples no disk."""
+    check_chain_names()
     Q.guard_policy()
     rows = check_transferred()
     for tool in ('python3', 'ffmpeg', 'ffprobe', 'sbh'):

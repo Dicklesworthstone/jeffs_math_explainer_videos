@@ -1,87 +1,15 @@
 PASS a-parse: all three helpers and start scripts parse
-PASS a-pins: verify pins master and the shared checks, master pins render, render pins WhiteSwan's sealed chain02-n2
+PASS a-pins: verify pins master and the shared checks, master pins render, render pins WhiteSwan's sealed chain
 PASS a-modes: no mode skips the review or the guard
 PASS a-4k: 4K60, CRF 16, veryfast, lint, master and captions
 PASS a-timeouts: every timeout of WhiteSwan's helpers kept; added for new checks: {'render': ['45', '60'], 'master': [], 'verify': []}
 PASS a-no-deletion: no helper calls a deleting function
 PASS a-no-unused-chain: the unused chain02 attempt is never loaded
-PASS f-sealed-refusal: chain01 stops as on ts1, so chain02-n2 may begin
-PASS f-stage-derive: real guard, sealed chain, real tools
-PASS f-stage-timeline: real guard, sealed chain, real tools
-PASS f-stage-score: real guard, sealed chain, real tools
-PASS f-stage-preview: real guard, sealed chain, real tools
-PASS f-stage-pictures: real guard, sealed chain, real tools
-PASS x-real-x264-record: CRF 16 read from a real 4K60 kit chapter's own stream
-PASS x-real-capture: the capture check reads a real capture at 48 kHz, 16-bit stereo, frames x 800 samples
-PASS x-real-proof-lines: the proof-line parse reads a real master log, 13 of 13 chapters in order
-PASS c-check-before-review: read-only
-PASS c-pins-before-master: read-only
-PASS c-transfer-missing: AssertionError: Transfer this file to ts1: narration_lab/third-wave-20261024/root/six-mach
-PASS c-review-missing: AssertionError: Actual narrated preview review is missing; no final render authorized by t
-PASS c-master-check-no-review: AssertionError: Actual narrated preview review is missing; no final render authorized by t
-PASS c-all-refused-without-review: no job name or manifest is spent
-PASS c-review-binds: a complete hash-bound review passes
-PASS v-valid: no refusal
-PASS v-no-viewer: AssertionError Review names no viewer
-PASS v-no-viewer-field: KeyError 'reviewer'
-PASS v-not-viewed: AssertionError Review names no viewer
-PASS v-no-scope: KeyError 'review_scope'
-PASS v-vague-scope: AssertionError Review scope must be explicit
-PASS v-open-defect: AssertionError 
-PASS v-chapters-short: AssertionError 
-PASS v-sheet-dropped: AssertionError 
-PASS v-sheet-hash: AssertionError 
-PASS v-sheet-extra: AssertionError 
-PASS v-extraction-hash: AssertionError 
-PASS v-summary-hash: AssertionError 
-PASS v-preview-movie-changed: AssertionError 
-PASS v-n2-take-changed: AssertionError N2 differs: 01_1.wav
-PASS v-qualification-changed: AssertionError Qualified binary differs
-PASS v-sheet-gone-from-both: AssertionError Sheets differ from the extraction
-PASS v-other-voice: AssertionError Preview is another film
-PASS v-other-binary: AssertionError Preview is another film
-PASS v-valid-again: no refusal
-PASS v-receipt-reread: True 3
-PASS v-receipt-never-settles: AssertionError The guard receipt never settled: x
-PASS v-receipt-missing-not-retried: FileNotFoundError no receipt
-PASS r-render-exit: complex-remote-render-01_the_bump-01: CalledProcessError
-PASS r-failed-stops-all: the next chapter never started
-PASS r-no-retry-without-name: AssertionError: complex-remote-render-01_the_bump-01 did not pass. Preserve it, read its l
-PASS r-wrong-retry-name: AssertionError: complex-remote-render-01_the_bump-01 did not pass. Preserve it, read its l
-PASS r-unknown-retry-chapter: AssertionError: --retry nonsense=r2
-PASS r-admission-refused-burns-no-name: AssertionError: sbh refuses admission: refused
-PASS r-timeline-differs: complex-remote-render-01_the_bump-01-r2: Final table differs
-PASS r-busy-lane-moves-nothing: AssertionError: The lane is busy; a retry moves files only when it is free
-PASS r-second-driver-refused: Another render driver holds this lane
-PASS r-cues-differs: complex-remote-render-02_turning_numbers-01: Final table differs
-PASS r-retry-preserves-attempt: 6 paths with hashes, nothing deleted
-PASS r-cuelog-differs: complex-remote-render-02_turning_numbers-01-r2: Preview score rows differ
-PASS r-layout-missing: complex-remote-render-03_two_planes-01: Rendered lint report missing
-PASS r-res-wrong: complex-remote-render-04_reading_color-01: assert (v['width'], v['height'], v['avg_frame_ra
-PASS r-crf-wrong: complex-remote-render-05_gallery-01: No x264 record of CRF 16
-PASS r-capture-missing: complex-remote-render-06_one_derivative-01: missing soundtrack capture
-PASS r-capture-short: complex-remote-render-07_one_point-01: assert (wav.getframerate(), wav.getnchannels(), 
-PASS r-input-changed: the real guard's final hash differs, so the job failed
-PASS r-existing-movie: complex-remote-render-09_boundary-01: Existing render preserved
-PASS r-existing-movie-kept: the bytes were not touched
-PASS r-all-pass-after-retries: RENDER PASS: 15 chapters at 4K60; final AV, pictures and listening remain.
-PASS r-retry-moved-planted-movie: the planted movie is in the aside folder
-PASS e-resume-runs-nothing: 15 chapters skipped after their hashes held
-PASS e-retry-of-passed-refused: AssertionError: complex-remote-render-15_closing-01 passed; there is nothing to retry
-PASS v-gate-holds: no refusal
-PASS v-gate-not-admitted: AssertionError 
-PASS v-gate-already-exited: AssertionError 
-PASS v-gate-other-command: AssertionError 
-PASS v-gate-other-policy: AssertionError Guard policy changed
-PASS v-gate-row-changed: AssertionError <path>
-PASS v-gate-tool-unbound: AssertionError Child resolves a ffprobe outside the manifest
-PASS e-summary: the x264 record, capture and N2 path are in the summary
-PASS e-receipt: the real guard admitted and closed the job, on the logical path
-PASS e-manifest: review, N, N2, binary, guard, chain, transfers and this helper, by logical paths
-PASS e-changed-movie-refused: AssertionError: <fixture>/tree/logical/repo/narration_lab/third-wave-20261024/root/elevenl
-PASS e-render-last-line: RENDER PASS: 4K60 chapter; frame and cue schedule equal the timeline; final AV, pictures a
-PASS e-success-line-required: AssertionError: No success line: complex-remote-render-15_closing-01
-PASS w-no-master: AssertionError: Stable complex master required
-PASS m-check-prints-growth: estimate 0.004 GiB on the fixture; decides nothing
-PASS m-master-exit: complex-remote-master01: CalledProcessError
-PASS m-no-retry-without-name: AssertionError: complex-remote-master01 did not pass. Preserve it, read its log, then pass
+PASS a-chain-names-complete: 37 names, exactly those the three helpers use
+PASS a-repin-dry-run: prints three new hashes and writes nothing
+PASS a-repin-wrong-hash: AssertionError: The chain file does not have this hash
+PASS a-repin-unsealed-chain: AssertionError: The chain folder seal does not list this hash
+PASS a-repin-writes-in-order: chain, then render into master, then master into verify
+PASS a-repin-sealed-bundle: AssertionError: This bundle is sealed; preserve it and start a new folder
+PASS c-check-before-chain: the read-only check needs no finished stage
+PASS c-pins-before-chain: the read-only pins need no finished stage

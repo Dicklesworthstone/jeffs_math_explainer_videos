@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Rehearse the three final helpers on the sealed N2 fixture, in a tree whose repository path is a symlink.
 
-Real: the helpers (only their hash pins change, in the fixture copies), the sealed qualifier, chain01
-and chain02-n2 run first through their own start scripts, all 105 cues and takes, the unmodified
+Real: the helpers (only their hash pins change, in the fixture copies), the sealed qualifier and the
+sealed chain named below, run first through their own start scripts, all 105 cues and takes, the unmodified
 narration_delivery.py and coherent_narration.py, the real guard (hostname changed), the pinned shared
 media checks, the strict video check and caption screen, ffmpeg, ffprobe and PIL, and the three start
 scripts. Fake: the binary, its tiny 36-frame movies, its tables, the macOS receipts and sbh.
@@ -31,8 +31,14 @@ import tempfile
 HERE = Path(__file__).resolve()
 BUNDLE = HERE.parents[1]
 P = BUNDLE.parent
-SEAL = '625d162dcfccfc2a518fd410804786aa89c815232f628d645547a986fab8227c'
-SPEC = importlib.util.spec_from_file_location('rehearse_n2', P / 'complex-remote-ts1-pipeline01/chain02-n2/checks/rehearse_n2.py')
+# Everything chain-specific in this file. A new chain changes these, and its fixture must keep rehearse_n2's Real.
+CHAIN_FOLDER = P / 'complex-remote-ts1-pipeline01/chain02-n2'
+CHAIN_FILE = 'ts1_chain02_n2.py'
+CHAIN_SEAL = '625d162dcfccfc2a518fd410804786aa89c815232f628d645547a986fab8227c'
+CHAIN_REHEARSAL = CHAIN_FOLDER / 'checks/rehearse_n2.py'
+STAGE_JOB = {stage: f'complex-remote-{stage}02' for stage in ('timeline', 'score', 'preview', 'pictures')}
+PICTURES_INPUTS = 'chain-pictures-inputs02.json'
+SPEC = importlib.util.spec_from_file_location('rehearse_n2', CHAIN_REHEARSAL)
 N = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(N)
 C, Q = N.C, N.Q
@@ -193,7 +199,33 @@ for name, key in (('other-voice', 'voice'), ('other-binary', 'binary_sha256')):
     path.write_text(json.dumps(other))
     attempt(name, lambda r: r.update(preview_summary_sha256=F.sha(path)))
 path.write_bytes(saved)
+movie = M.PREVIEW_OUT / (M.CHAPTERS[0] + '.mp4')
+kept = movie.read_bytes()
+movie.write_bytes((F.O / 'fake-crf23.mp4').read_bytes())
+other = json.loads(saved)
+other['chapters'][0]['mp4_sha256'] = F.sha(movie)
+path.write_text(json.dumps(other))
+attempt('preview-no-x264-record', lambda r: r.update(preview_summary_sha256=F.sha(path)))
+movie.write_bytes(kept)
+path.write_bytes(saved)
 attempt('valid-again')
+say('chain-names-hold', seen(F.check_chain_names))
+kept = L.check_derived
+del L.check_derived
+say('chain-name-missing', seen(F.check_chain_names))
+L.check_derived = kept
+stage = M.NAMES.pop('derive')
+say('chain-stage-missing', seen(F.check_chain_names))
+M.NAMES['derive'] = stage
+summary_path = M.job('derive') / 'derive-summary.json'
+kept = summary_path.read_bytes()
+summary_path.write_text(json.dumps(dict(json.loads(kept), derived_from='another folder')))
+say('derive-summary-names-another', seen(F.narration_source))
+summary_path.write_bytes(kept)
+source = F.narration_source()
+say('source-matches', seen(lambda: F.same_source(source)))
+say('source-other-hash', seen(lambda: F.same_source(dict(source, derive_summary_sha256='0' * 64))))
+say('source-absent', seen(lambda: F.same_source({})))
 real, calls = F.read, []
 def flaky(where):
     calls.append(where)
@@ -278,13 +310,13 @@ def static_checks():
     for text in texts.values():
         ast.parse(text)
     check('a-parse', shells == [0, 0, 0], 'all three helpers and start scripts parse')
-    chain = P / 'complex-remote-ts1-pipeline01/chain02-n2'
+    chain = CHAIN_FOLDER
     sums = (chain / 'SHA256SUMS').read_text()
     pin = lambda name, key: texts[name].split(key)[1].split("'")[1]
-    check('a-pins', sha(chain / 'SHA256SUMS') == SEAL and f"{pin('render', 'CHAIN_SHA256 = ')}  ts1_chain02_n2.py\n" in sums
+    check('a-pins', sha(chain / 'SHA256SUMS') == CHAIN_SEAL and f"{pin('render', 'CHAIN_SHA256 = ')}  {CHAIN_FILE}\n" in sums
           and pin('master', 'RENDER_SHA256 = ') == sha(BUNDLE / PATHS['render']) and pin('verify', 'MASTER_HELPER: ') == sha(BUNDLE / PATHS['master'])
           and pin('verify', 'SHARED: ') == sha(P / 'logarithm-stage09-final-verification02/verify_stage09_final.py'),
-          "verify pins master and the shared checks, master pins render, render pins WhiteSwan's sealed chain02-n2")
+          "verify pins master and the shared checks, master pins render, render pins WhiteSwan's sealed chain")
     check('a-modes', mode_flags(texts['render']) == {'--check', '--check-review', '--all', '--run'} and mode_flags(texts['master']) == {'--check', '--launch', '--run'}
           and mode_flags(texts['verify']) == {'--pins', '--check', '--launch', '--postcheck', '--run'}, 'no mode skips the review or the guard')
     check('a-4k', all(item in texts['render'] for item in ("'--res', '3840x2160', '--fps', '60'", "'--lint', '--crf', '16', '--preset', 'veryfast'"))
@@ -298,6 +330,46 @@ def static_checks():
     names = {node.func.attr for text in texts.values() for node in ast.walk(ast.parse(text)) if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)}
     check('a-no-deletion', not names & {'unlink', 'rmtree', 'rmdir', 'remove', 'removedirs'}, 'no helper calls a deleting function')
     check('a-no-unused-chain', not any("chain02/" in text for text in texts.values()), 'the unused chain02 attempt is never loaded')
+    used = {'L': set(), 'M': set(), 'Q': set()}
+    for text in texts.values():
+        for node in ast.walk(ast.parse(text)):
+            if isinstance(node, ast.Attribute) and isinstance(node.value, ast.Name) and node.value.id in used:
+                used[node.value.id].add(node.attr)
+    declared = next(ast.literal_eval(node.value) for node in ast.parse(texts['render']).body if isinstance(node, ast.Assign) and getattr(node.targets[0], 'id', '') == 'CHAIN_NAMES')
+    check('a-chain-names-complete', {key: set(names) for key, names in declared.items()} == used, f"{sum(map(len, used.values()))} names, exactly those the three helpers use")
+
+
+def repin_checks(root):
+    """The tool, on copies, with a stand-in sealed chain. Nothing here reads a real new chain."""
+    tree = root / 'repin'
+    bundle = tree / 'bundle'
+    (bundle / 'checks').mkdir(parents=True)
+    for name in PATHS.values():
+        shutil.copy(BUNDLE / name, bundle)
+    shutil.copy(BUNDLE / 'checks/repin_chain01.py', bundle / 'checks')
+    folder = tree / 'next-chain'
+    folder.mkdir()
+    (folder / 'ts1_next.py').write_text('# a stand-in chain\n')
+    good = sha(folder / 'ts1_next.py')
+    (folder / 'SHA256SUMS').write_text(f'{good}  ts1_next.py\n')
+    state = lambda: {name: sha(bundle / name) for name in PATHS.values()}
+    call = lambda digest, *more: subprocess.run([sys.executable, '-I', '-B', str(bundle / 'checks/repin_chain01.py'), '--chain', 'next-chain/ts1_next.py', '--sha256', digest, *more], capture_output=True, text=True)
+    before = state()
+    dry = call(good)
+    check('a-repin-dry-run', dry.returncode == 0 and json.loads(dry.stdout)['changed'] == list(PATHS.values()) and state() == before, 'prints three new hashes and writes nothing')
+    wrong = call('0' * 64, '--write')
+    check('a-repin-wrong-hash', wrong.returncode != 0 and 'does not have this hash' in wrong.stderr and state() == before, last(wrong.stderr))
+    (folder / 'SHA256SUMS').rename(folder / 'moved-sums')
+    unsealed = call(good, '--write')
+    (folder / 'moved-sums').rename(folder / 'SHA256SUMS')
+    check('a-repin-unsealed-chain', unsealed.returncode != 0 and 'seal does not list this hash' in unsealed.stderr and state() == before, last(unsealed.stderr))
+    done = call(good, '--write')
+    render, master, verify = ((bundle / PATHS[name]).read_text() for name in HELPERS)
+    check('a-repin-writes-in-order', done.returncode == 0 and "CHAIN = HERE.parent / 'next-chain/ts1_next.py'\n" in render and f"CHAIN_SHA256 = '{good}'\n" in render
+          and f"RENDER_SHA256 = '{sha(bundle / PATHS['render'])}'\n" in master and f"MASTER_HELPER: '{sha(bundle / PATHS['master'])}',\n" in verify, 'chain, then render into master, then master into verify')
+    (bundle / 'SHA256SUMS').write_text('sealed\n')
+    sealed = call(good, '--write')
+    check('a-repin-sealed-bundle', sealed.returncode != 0 and 'This bundle is sealed' in sealed.stderr, last(sealed.stderr))
 
 
 class Final(N.Real):
@@ -309,7 +381,7 @@ class Final(N.Real):
         super().config(case)
         path = self.O / 'fake-config.json'
         data = json.loads(path.read_text())
-        data.update(n2=str(self.n2), stems=str(self.J / 'complex-remote-score02/scored/stems'), preview_out=str(self.J / 'complex-remote-preview02/preview'),
+        data.update(n2=str(self.n2), stems=str(self.J / STAGE_JOB['score'] / 'scored/stems'), preview_out=str(self.J / STAGE_JOB['preview'] / 'preview'),
                     frozen=str(self.R / FOLDER / 'transfer-files01.json'), faults={})
         path.write_text(json.dumps(data))
 
@@ -360,11 +432,11 @@ class Final(N.Real):
         return {row['path']: row['sha256'] for row in json.loads(path.read_text())['files']}
 
     def review(self):
-        folder = self.J / 'complex-remote-pictures02/pictures'
+        folder = self.J / STAGE_JOB['pictures'] / 'pictures'
         self.stage_dir.mkdir(exist_ok=True)
         review = {'reviewer': 'fixture reviewer', 'review_scope': 'source-author', 'pictures_viewed': True, 'chapters': list(Q.CHAPTERS), 'unresolved_visual_defects': [],
                   'sheet_sha256': {str(p): sha(p) for p in sorted(folder.glob('*/sheet-*.png'))}, 'extraction_sha256': sha(folder / 'extraction.json'),
-                  'preview_summary_sha256': sha(self.J / 'complex-remote-preview02/preview-summary.json')}
+                  'preview_summary_sha256': sha(self.J / STAGE_JOB['preview'] / 'preview-summary.json')}
         (self.stage_dir / 'preview-pictures-viewed01.json').write_text(json.dumps(review))
 
     def captions(self):
@@ -372,7 +444,7 @@ class Final(N.Real):
         script = dict(line.split('\t', 1) for line in (self.C / 'script.tsv').read_text().splitlines() if line.strip() and not line.startswith('#'))
         starts, offset = [], 0
         for chapter in Q.CHAPTERS:
-            for line in (self.J / 'complex-remote-timeline02/timeline-output' / f'{chapter}.timeline.tsv').read_text().splitlines():
+            for line in (self.J / STAGE_JOB['timeline'] / 'timeline-output' / f'{chapter}.timeline.tsv').read_text().splitlines():
                 row = line.split('\t')
                 if row[0] == 'line':
                     starts.append((row[1], round((offset + int(row[2])) * 1000 / 60)))
@@ -413,7 +485,9 @@ REVIEW_EXPECTED = {
     'vague-scope': 'Review scope must be explicit', 'open-defect': 'AssertionError', 'chapters-short': 'AssertionError', 'sheet-dropped': 'AssertionError',
     'sheet-hash': 'AssertionError', 'sheet-extra': 'AssertionError', 'extraction-hash': 'AssertionError', 'summary-hash': 'AssertionError',
     'preview-movie-changed': 'AssertionError', 'n2-take-changed': 'N2 differs', 'qualification-changed': 'Qualified binary differs', 'sheet-gone-from-both': 'Sheets differ from the extraction',
-    'other-voice': 'Preview is another film', 'other-binary': 'Preview is another film', 'valid-again': 'no refusal', 'receipt-reread': 'True 3',
+    'other-voice': 'Preview is another film', 'other-binary': 'Preview is another film', 'preview-no-x264-record': 'No x264 record of CRF 18', 'valid-again': 'no refusal',
+    'chain-names-hold': 'no refusal', 'chain-name-missing': 'The pinned chain lacks', 'chain-stage-missing': 'The pinned chain lacks',
+    'derive-summary-names-another': 'Derive summary names another folder', 'source-matches': 'no refusal', 'source-other-hash': 'Narration provenance differs', 'source-absent': 'Narration provenance differs', 'receipt-reread': 'True 3',
     'receipt-never-settles': 'The guard receipt never settled', 'receipt-missing-not-retried': 'FileNotFoundError'}
 GATE_EXPECTED = {
     'gate-holds': 'no refusal', 'gate-not-admitted': 'AssertionError', 'gate-already-exited': 'AssertionError', 'gate-other-command': 'AssertionError',
@@ -532,13 +606,13 @@ def render_records(t):
     probe_results(t, PROBE_GATE, GATE_EXPECTED, str(t.base / 'gate-a.json'), str(t.base / 'gate-b.json'))
     summary = json.loads((t.J / last_job / 'render-summary.json').read_text())
     receipt = json.loads((t.J / last_job / 'resource-receipt.json').read_text())
-    check('e-summary', summary['frames'] == FRAMES and summary['fps'] == 60 and summary['soundtrack']['samples'] == FRAMES * 800 and ' crf=16.0' in summary['encoder'] and len(summary['files']) == 4 and summary['narration'] == str(t.n2),
-          'the x264 record, capture and N2 path are in the summary')
+    check('e-summary', summary['frames'] == FRAMES and summary['fps'] == 60 and summary['soundtrack']['samples'] == FRAMES * 800 and ' crf=16.0' in summary['encoder'] and len(summary['files']) == 4 and summary['narration'] == str(t.n2) and summary['derived_from'] == str(t.N),
+          'the x264 record, capture, N2 path and its source are in the summary')
     check('e-receipt', receipt['exit'] == 0 and receipt['policy'] == Q.POLICY and receipt['inputs_sha256'] == receipt['final_inputs_sha256'] and receipt['command'][1:3] == ['-I', '-B'] and receipt['command'][3] == str(t.D / PATHS['render']),
           'the real guard admitted and closed the job, on the logical path')
     rows = t.listed(t.stage_dir / f'{last_job}-inputs.json')
     wanted = [t.D / PATHS['render'], t.D / 'start-final-render01.sh', t.D / 'transfer-files01.json', t.stage_dir / 'preview-pictures-viewed01.json', t.n2 / 'report.json', t.N / 'report.json', t.script,
-              t.O / 'guard01.py', t.O / 'chain-pictures-inputs02.json', t.J / 'complex-remote-pictures02/pictures/extraction.json', t.J / 'complex-remote-qualify01/qualification-summary.json', t.helper_chain,
+              t.O / 'guard01.py', t.O / PICTURES_INPUTS, t.J / STAGE_JOB['pictures'] / 'pictures/extraction.json', t.J / 'complex-remote-qualify01/qualification-summary.json', t.helper_chain,
               t.O / 'complex_analysis_visual-release01', *(t.R / row['path'] for row in json.loads((BUNDLE / 'transfer-files01.json').read_text())['files'])]
     missing = [str(p) for p in wanted if str(p) not in rows]
     check('e-manifest', not missing and not [p for p in rows if p.startswith(str(t.physical))], 'review, N, N2, binary, guard, chain, transfers and this helper, by logical paths' + (f' MISSING {missing}' if missing else ''))
@@ -589,7 +663,7 @@ def tool_control(t):
         shutil.copy(path, folder)
     keys = [x for chapter in Q.CHAPTERS for x in ('--chapter-key', chapter)]
     call = [t.python, '-I', '-B', str(t.workspace / 'tools/narration_delivery.py'), '--topic', str(t.C), '--narration', str(t.n2), '--consumer', 'master', '--gain-db', '0',
-            *keys, '--timelines', str(folder), '--score', str(t.J / 'complex-remote-score02/scored/stems')]
+            *keys, '--timelines', str(folder), '--score', str(t.J / STAGE_JOB['score'] / 'scored/stems')]
     good = subprocess.run(call, cwd=t.R, env=t.safe_env, capture_output=True, text=True)
     path = folder / f'{Q.CHAPTERS[2]}.cuelog.tsv'
     lines = path.read_text().splitlines(keepends=True)
@@ -654,8 +728,12 @@ def verify_pass(t, master):
     joined = ' | '.join(reason for p in v['pictures'] for reason in p['reasons'])
     missing = [word for word in ('last frame', ' start', 'authored hold', 'still there at 3 later looks', 'stands 0.20 from the edge') if word not in joined]
     sources = v['layout_sources'][Q.CHAPTERS[0]]
-    check('e-samples', not missing and sources[:2] == [str(t.OUT / (Q.CHAPTERS[0] + '.layout.tsv')), str(t.J / 'complex-remote-preview02/preview' / (Q.CHAPTERS[0] + '.layout.tsv'))],
+    check('e-samples', not missing and sources[:2] == [str(t.OUT / (Q.CHAPTERS[0] + '.layout.tsv')), str(t.J / STAGE_JOB['preview'] / 'preview' / (Q.CHAPTERS[0] + '.layout.tsv'))],
           f"{len(v['pictures'])} final pictures; the final lint and the preview lint both add samples" + (f' MISSING {missing}' if missing else ''))
+    derive = t.J / N.DERIVE / 'derive-summary.json'
+    s = json.loads((t.J / master / 'master-summary.json').read_text())
+    check('e-provenance', all(d['narration'] == str(t.n2) and d['derived_from'] == str(t.N) and d['derive_job'] == N.DERIVE and d['derive_summary_sha256'] == sha(derive) for d in (v, s)),
+          'master and verification name N2, the folder it came from, and the derive summary by hash')
     check('e-no-picture-claim', v['pictures_viewed'] is False and 'does not carry over' in v['scope'] and v['preview_review']['review_scope'] == 'source-author' and v['full_baseline_equivalence_established'] is False and v['voice'] == 'ElevenLabs Frederick Surrey',
           'pictures_viewed is false; the preview review does not carry over')
     rows = t.listed(t.stage_dir / f'{VERIFY}-inputs.json')
@@ -665,7 +743,7 @@ def verify_pass(t, master):
     check('e-verify-manifest', not missing and not [p for p in rows if p.startswith(str(t.physical))], 'all three helpers, the shared checks, master and captions, by logical paths' + (f' MISSING {missing}' if missing else ''))
     record = t.stage_dir / f'{VERIFY}-postcheck.json'
     r = json.loads(record.read_text())
-    check('e-postcheck', list(r) == ['job', 'master_job', 'master_sha256', 'srt_sha256', 'vtt_sha256', 'verification_sha256', 'frames', 'pictures', 'sheets', 'pictures_viewed', 'scope']
+    check('e-postcheck', list(r) == ['job', 'master_job', 'master_sha256', 'srt_sha256', 'vtt_sha256', 'derived_from', 'derive_summary_sha256', 'verification_sha256', 'frames', 'pictures', 'sheets', 'pictures_viewed', 'scope']
           and r['job'] == VERIFY and r['master_job'] == master and r['master_sha256'] == sha(t.OUT / 'complex_analysis_visual_master.mp4') and r['verification_sha256'] == sha(out / 'verification.json') and r['pictures_viewed'] is False,
           f"{r['pictures']} pictures, {r['sheets']} sheets, written once by the launch")
     saved = record.read_bytes()
@@ -678,7 +756,7 @@ def verify_pass(t, master):
         run = t.mode('verify', '--postcheck', VERIFY)
         path.write_bytes(data)
         check('p-' + label, run.returncode != 0 and words in run.stderr, last(run.stderr))
-    for label, file_name, key, value, words in (('claim', 'verification.json', 'pictures_viewed', True, 'A claim changed'), ('screen', 'caption-screen.json', 'srt_sha256', '0' * 64, 'Caption screen read another SRT')):
+    for label, file_name, key, value, words in (('claim', 'verification.json', 'pictures_viewed', True, 'A claim changed'), ('provenance', 'verification.json', 'derived_from', 'another folder', 'Narration provenance differs'), ('screen', 'caption-screen.json', 'srt_sha256', '0' * 64, 'Caption screen read another SRT')):
         path = out / file_name
         data = path.read_bytes()
         edited = json.loads(data)
@@ -741,9 +819,10 @@ def main():
     static_checks()
     root = Path(tempfile.mkdtemp(prefix='final-')).resolve()
     Q.FIXTURE[0] = str(root)
+    repin_checks(root)
     shared = root / 'shared'
     shared.mkdir()
-    movie(shared / 'tiny.mp4', FRAMES, '960x540')
+    movie(shared / 'tiny.mp4', FRAMES, '960x540', crf=18)
     base = root / 'tree'
     base.mkdir()
     t = Final(base.resolve(), 'baseline', shared)
@@ -755,10 +834,10 @@ def main():
     check('c-pins-before-chain', run.returncode == 0 and '"launched": false' in run.stdout, last(run.stderr, 'the read-only pins need no finished stage'))
     t.qualify()
     run = t.stage('timeline')
-    check('f-sealed-refusal', run.returncode != 0, 'chain01 stops as on ts1, so chain02-n2 may begin')
+    check('f-sealed-refusal', run.returncode != 0, 'chain01 stops as on ts1, so the next chain may begin')
     for stage in ('derive', 'timeline', 'score', 'preview', 'pictures'):
         run = t.start2(stage)
-        job = N.DERIVE if stage == 'derive' else f'complex-remote-{stage}02'
+        job = N.DERIVE if stage == 'derive' else STAGE_JOB[stage]
         d = json.loads((t.J / job / 'resource-receipt.json').read_text())
         check('f-stage-' + stage, run.returncode == 0 and d['exit'] == 0, last(t.text2(stage)) if run.returncode else 'real guard, sealed chain, real tools')
     movie(t.O / 'fake-final.mp4', FRAMES)

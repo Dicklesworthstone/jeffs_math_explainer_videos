@@ -32,7 +32,7 @@ def module(name, path):
 MASTER_HELPER = HERE / 'ts1_final_master01.py'
 SHARED = HERE.parent / 'logarithm-stage09-final-verification02/verify_stage09_final.py'
 IMPORTED_SHA256 = {
-    MASTER_HELPER: '701f727110ef48e6ba053325a3e77f8aa4af9889f90e68ecb45dd0d8527bfb25',
+    MASTER_HELPER: '7fdee5c1374cca6f39419aa2ac91e2a31aeb6ab0561d28334c4db9b592666cf1',
     SHARED: 'f266a2315e4a9af247c648da416881f3a2999e2682e9c611ff82ca3727b70b94',
 }
 for imported, digest in IMPORTED_SHA256.items():
@@ -67,6 +67,7 @@ def plan():
     assert F.passed(name), 'Stable complex master required'
     assert F.last_line(JOBS / name / 'command.log') == K.SUCCESS, 'No success line: ' + name
     summary = read(JOBS / name / 'master-summary.json')
+    F.same_source(summary)
     captures, total = K.check_chapters()
     assert captures == summary['soundtracks'] and total == summary['frames']
     for value in summary['outputs'].values():
@@ -162,7 +163,7 @@ def run(name):
                    'pictures': pictures, 'sheets': sheets, 'sheet_sha256': {p: sha(Path(p)) for p in sheets},
                    'layout_sources': cfg['layout_sources'], 'host': 'ts1', 'voice': F.VOICE,
                    'pictures_viewed': False, 'binary_sha256': Q.BIN_SHA256, 'timeline_job': M.NAMES['timeline'],
-                   'master_job': cfg['master_job'], 'narration': str(M.N),
+                   'master_job': cfg['master_job'], 'narration': str(M.N), **F.narration_source(),
                    'full_baseline_equivalence_established': False,
                    'preview_review': {'path': str(F.REVIEW), 'sha256': sha(F.REVIEW), 'review_scope': review['review_scope'],
                                       'covers': 'Preview sheets only. Not these final pictures, not listening.'},
@@ -210,6 +211,8 @@ def postcheck(name):
     assert v['video'] == str(K.OUTPUTS['master']) and v['sha256'] == outputs['master'], 'Verified another master'
     assert (v['frames'], v['fps']) == (s['frames'], 60) and [row['chapter'] for row in v['chapters']] == list(M.CHAPTERS)
     assert v['binary_sha256'] == s['binary_sha256'] == Q.BIN_SHA256, 'Another binary'
+    F.same_source(v)
+    F.same_source(s)
     assert all(sha(p['path']) == p['sha256'] for p in v['pictures']), 'A picture changed'
     assert v['sheets'] and len(v['sheets']) == (len(v['pictures']) + 3) // 4, 'Sheets differ from the pictures'
     assert v['sheet_sha256'] == {p: sha(Path(p)) for p in v['sheets']}, 'A sheet changed'
@@ -219,6 +222,7 @@ def postcheck(name):
     assert read(out / 'caption-screen.json')['srt_sha256'] == outputs['srt'], 'Caption screen read another SRT'
     assert v['pictures_viewed'] is False and v['full_baseline_equivalence_established'] is False, 'A claim changed'
     record = {'job': name, 'master_job': master, 'master_sha256': outputs['master'], 'srt_sha256': outputs['srt'], 'vtt_sha256': outputs['vtt'],
+              'derived_from': v['derived_from'], 'derive_summary_sha256': v['derive_summary_sha256'],
               'verification_sha256': sha(out / 'verification.json'), 'frames': v['frames'], 'pictures': len(v['pictures']), 'sheets': len(v['sheets']),
               'pictures_viewed': False, 'scope': 'Technical records only. Actual picture viewing, listening, fine sync, final ASR and independent AV acceptance remain open.'}
     F.write_new(F.STAGE / (name + '-postcheck.json'), (json.dumps(record, indent=2) + '\n').encode())
