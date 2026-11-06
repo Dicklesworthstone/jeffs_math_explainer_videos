@@ -1,0 +1,12 @@
+{
+  "excluded_from_seal": [
+    {
+      "path": "checks/__pycache__/run_checks.cpython-315.pyc",
+      "bytes": 25783,
+      "sha256_when_sealed": "357c272e0c7758101d5a34345d37faf9e225056743e188d9a3cac75ca213db91"
+    }
+  ],
+  "runtime": false,
+  "transfer": false,
+  "basis": "Not written by the delivered scripts, which run as `python -I -B file.py`. A script started that way never reads __pycache__, -I leaves its folder off sys.path, and nothing imports these modules. Git ignores __pycache__. No host needs these files, so leave them out of any transfer; if one arrives, nothing reads it. Their writer wasn't identified, and a later syntax check can rewrite them, so their hashes here are observations, not gates. A compiled file records this machine's source path, so it would fail the path scan that every sealed file passes. It is outside the seal, and git ignores it."
+}

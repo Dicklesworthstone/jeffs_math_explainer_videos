@@ -131,3 +131,5 @@ python3 -I -B docs/video-program/third-wave-20261024/opus-replacements-20261104/
 ```
 
 It is read-only and needs numpy and PIL. The citation checks were by hand and are not in the script.
+
+`checks/__pycache__/run_checks.cpython-315.pyc` appeared even though every run used `-B`, and I didn't find what wrote it. It holds a local path, so it is outside the seal and listed in `ANCILLARY.json`. Git ignores it and nothing reads it. I left it in place, since deletion isn't authorized.
