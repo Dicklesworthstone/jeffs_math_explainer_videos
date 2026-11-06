@@ -26,14 +26,14 @@ import wave
 
 HERE = Path(__file__).resolve().parent
 QUALIFIER = HERE.parent / 'qualify02/ts1_qualify02.py'
-QUALIFIER_SHA256 = '19515b4977c53b9ebc795492a82d67643d44705389357fa10c0a91975be55df4'
+QUALIFIER_SHA256 = 'ebfb187e415943b4a66e692f9991e024a621e3d730978f53bc09b7571835569e'
 SPEC = importlib.util.spec_from_file_location('ts1_qualify', QUALIFIER)
 Q = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(Q)
 R, O, JOBS, C, BIN, CHAPTERS, POLICY, read, sha = Q.R, Q.O, Q.JOBS, Q.C, Q.BIN, Q.CHAPTERS, Q.POLICY, Q.read, Q.sha
 
 SCRIPT_SHA256 = '946a9c07a462eb066fc8d20c6a092d5b7564d38752d26177bdbbcf15c6027cdc'
-BRIDGE_SHA256 = 'b2209b09c71f8ed8b8f215d4a88276d20067d1291d4a4fa12b249a667232a457'  # the tool that wrote the rows file
+BRIDGE_SHA256 = 'b50479b62953fba7da2c2a8af0653030f926a5fcbacb5fccabe968aed8d0427a'  # the tool that wrote the rows file
 COHERENT_SHA256 = '95615cfadb42fbfdddf828340b74ec66d89c975a1f399593e212bdd9840e65d5'
 BASE_BIN_SHA256 = '3c90fb5464fc8736214228d62f1c322629ede230cd58cb11ddb947e5d9e9c168'  # timeline02's binary
 CUES, ROWS, FILES = 105, 414, 110
@@ -162,7 +162,7 @@ def stage_files(stage):
     if stage == 'derive':
         files = base_rows()
         rows = read(Q.MANIFEST)['files']
-        paths = [Q.MANIFEST, AUDIO_ROWS, ME, START, tool('ffmpeg'), *Q.job_files(Q.JOB), BASE_MANIFEST, BASE_EXIT, *Q.job_files(BASE_JOB)]
+        paths = [Q.MANIFEST, AUDIO_ROWS, ME, START, tool('ffmpeg'), Q.BIN, *Q.job_files(Q.JOB), BASE_MANIFEST, BASE_EXIT, *Q.job_files(BASE_JOB)]
     else:
         prior = UPSTREAM[stage][-1]
         files = {}
@@ -402,7 +402,7 @@ def compare_boundary(out):
     After that frame: one whole-frame shift, the same for every row, and every other cell equal. Cue seconds are three
     decimals, so each is recomputed from its shifted frame, and never by subtraction."""
     problems = []
-    old_lines, new_lines = [split_rows(normalized(BASE_OUT / f'{AFFECTED}.timeline.tsv')), None]
+    old_lines = split_rows(normalized(BASE_OUT / f'{AFFECTED}.timeline.tsv'))
     new_lines, timeline_cells = mapped(out / f'{AFFECTED}.timeline.tsv', 'timeline')
     new_lines = split_rows(new_lines)
     starts = {row[1]: int(row[2]) for row in old_lines if row[0] == 'line'}
@@ -412,6 +412,8 @@ def compare_boundary(out):
         return {'problems': problems, 'path_cells_mapped': timeline_cells, 'frame_shift': None}
     cues = list(starts)
     pivot = starts[REPAIRED]
+    if found[REPAIRED] != pivot:
+        problems.append('09_5 itself moved, so something before it changed')
     following = cues[cues.index(REPAIRED) + 1]
     shift = found[following] - starts[following]
     frame_column = {'line': 2, 'mark': 2, 'breath': 1, 'listen': 1}

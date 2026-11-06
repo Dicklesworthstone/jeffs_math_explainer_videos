@@ -6,8 +6,9 @@ build01 evidence is left alone and is not read. The rebuild overwrites O/target'
 pictures job to end. complex_analysis_visual-release01 stays, and this job's binary is copied to its own
 complex_analysis_visual-release02 before anything judges it.
 
-    --check   read-only: stage07 tree, preserved old binary, env, guard policy, unused names; launches nothing
-    --launch  waits for chain02 to end, freezes the manifest, runs ts1's guard (start-build02.sh does this)
+    --check   read-only, any time: stage07 tree, preserved old binary, env, guard policy, unused names; launches nothing
+    --launch  the same checks, then waits for chain02 to end, repeats them, freezes the manifest and runs ts1's guard
+              (start-build02.sh does this)
     --run     the guard's child; never call it by hand
 
 Paths are logical, as in qualify01: R comes from the frozen manifest, samefile proves it is this repository, and
@@ -136,7 +137,7 @@ def check_outputs():
     success(BUILD)
     d = read(job / 'resource-receipt.json')
     assert d.get('inputs_sha256') == sha(MANIFEST), 'Build inputs moved'
-    assert d.get('command') == child_command(), 'Build ran another command'
+    assert d.get('command', [])[1:] == child_command()[1:], 'Build ran another command'  # pictures reads this under its own python
     check_log((job / 'command.log').read_text(errors='replace'))
     native = (job / 'facts-native.tsv').read_bytes()
     assert native and native == (job / 'facts-oracle.tsv').read_bytes() == RELEASE_FACTS.read_bytes(), 'Facts differ'
@@ -195,7 +196,7 @@ def frozen_files():
     files.update(check_tree())
     for path, digest in files.items():
         assert sha(path) == digest, path
-    for path in (INPUTS, TREE / 'tree-receipt.json', LOCK_TOOL, RELEASE_FACTS, OLD_BIN, OLD_CHAIN_END, ME, START, *job_files(ENV_JOB)):
+    for path in (INPUTS, TREE / 'tree-receipt.json', LOCK_TOOL, RELEASE_FACTS, OLD_BIN, ME, START, *job_files(ENV_JOB)):
         files.setdefault(str(path), sha(path))
     return files
 
@@ -235,8 +236,19 @@ def no_cargo_config():
     assert not (Path.home() / '.cargo/config.toml').exists() and not (Path.home() / '.cargo/config').exists(), 'A home cargo config exists'
 
 
+def live_receipt():
+    """The guard rewrites the live receipt just after Popen, so a read can catch it half written. Only that parse failure
+    is retried, briefly."""
+    for _ in range(100):
+        try:
+            return read(JOBS / JOB / 'resource-receipt.json')
+        except json.JSONDecodeError:
+            time.sleep(0.05)
+    return read(JOBS / JOB / 'resource-receipt.json')
+
+
 def run():
-    d = read(JOBS / JOB / 'resource-receipt.json')
+    d = live_receipt()
     assert d.get('admitted') is True and 'exit' not in d
     assert d['command'] == child_command()
     assert d['policy'] == POLICY, 'Guard policy changed'
@@ -301,8 +313,10 @@ def check():
 
 
 def launch():
+    check()  # a bad transfer stops here, not days later
     wait_for_old_chain()
     files = check()
+    files[str(OLD_CHAIN_END)] = sha(OLD_CHAIN_END)
     with MANIFEST.open('x') as handle:
         json.dump({'files': [{'path': path, 'sha256': digest} for path, digest in sorted(files.items())]}, handle, indent=2)
     subprocess.run(guard_command(), cwd=R, check=True)
@@ -310,9 +324,8 @@ def launch():
 
 
 def preflight():
-    assert OLD_CHAIN_END.exists(), 'chain02 has not ended; a rebuild must wait (Mail 5610). --launch waits by itself.'
     files = check()
-    print(json.dumps({'root': str(R), 'frozen_files': len(files), 'engine': str(engine()), 'launched': False}))
+    print(json.dumps({'root': str(R), 'frozen_files': len(files), 'engine': str(engine()), 'chain02_ended': OLD_CHAIN_END.exists(), 'launched': False}))
 
 
 if __name__ == '__main__':
