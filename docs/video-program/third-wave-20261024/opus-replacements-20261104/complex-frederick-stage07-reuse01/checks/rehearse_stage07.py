@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """Rehearse stage07 audio in a throwaway root that links to the real repository.
 
-Real: root's two takes and three receipts, the sealed stage05 and stage06 lanes, root's stage06 decisions, the sealed
-repair, ffmpeg, the assembler and the three stage07 tools, run as they will be run.
-Stand-ins: fw and the guard. fw never saw these takes: each record's words are the request text spread evenly over the
-take's own four spoken stretches, and its times are invented. The guard here writes a receipt and runs the command.
-So this proves the plumbing and the refusals. It says nothing about the takes, and it selects none: take01 is an
-arbitrary fixture choice. The fixture's root is not the repository, so sealed lanes spell paths outside it; the fixture's
-copy of the bridge differs from the bundle's by one line, in rel(), for that reason alone.
+Real: root's two takes and three receipts, the two-take recognition job root fetched and its manifest, the sealed stage05
+and stage06 lanes, root's stage06 decisions, the sealed repair, ffmpeg, the assembler and the three stage07 tools, run as
+they will be run. Stand-in: the guard, which writes a receipt and runs the command. It ran on no real admission.
+take01 is root's provisional choice (Mail 5671), and selection here selects nothing: the fixture's `by` and `basis` say so.
+The fixture's root is not the repository, so sealed lanes spell paths outside it. For that reason alone the fixture's
+copy of the bridge differs from the bundle's by one line, in rel(). A plant changes the job's bytes, which the result
+pins refuse at once, so plants reach the later checks through a copy of the intake with those pins set to the planted
+bytes. A separate check proves the pins themselves. The job is copied into scratch; the real folder is only read.
 
 Run from the repository root:  python3 -I -B <bundle>/checks/rehearse_stage07.py SCRATCH_FOLDER
 """
-import array
 import hashlib
 import json
 import os
@@ -19,7 +19,6 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
-import wave
 
 HERE = Path(__file__).resolve()
 BUNDLE = HERE.parents[1]
@@ -30,7 +29,9 @@ WORK = 'narration_lab/third-wave-20261024/root/five-film-release-20261027'
 STAGE07 = f'{PREL}/{BUNDLE.name}'
 GUARD = f'{PREL}/engine-secondary-validation01/guard_owner56g_target20g.py'
 TAKES = REAL / EC / 'remote-ts1-01/cauchy-cue-repair01'
-MODEL = Path.home() / '.cache/franken_whisper/models/whisper/whisper-large-v3-turbo-f16-v1/ggml-large-v3-turbo.bin'
+MINI = REAL / 'narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01'
+JOB = 'complex-cauchy-take-asr01'
+MANIFEST = 'complex-cauchy-take-asr-inputs01.json'
 OPEN = [f'{EC}/remote-ts1-01', WORK, STAGE07, f'{PREL}/engine-secondary-validation01']
 failed = 0
 
@@ -82,6 +83,8 @@ def graft(root):
 STUB_GUARD = r'''import hashlib, json, subprocess, sys
 from pathlib import Path
 args = sys.argv[1:]
+if '--preflight-only' in args:
+    sys.exit(0)
 job, inputs = args[args.index('--job') + 1], args[args.index('--inputs') + 1]
 command = args[args.index('--') + 1:]
 folder = Path('narration_lab/third-wave-20261024/root/five-film-release-20261027') / job
@@ -95,66 +98,6 @@ receipt.update(exit=code, final_inputs_sha256=digest(inputs), finished='rehearsa
 (folder / 'resource-receipt.json').write_text(json.dumps(receipt))
 sys.exit(code)
 '''
-
-
-def spoken_stretches(path, count):
-    """The take's own `count` stretches of speech, split at its longest quiet runs, in seconds."""
-    with wave.open(str(path)) as handle:
-        rate, data = handle.getframerate(), array.array('h', handle.readframes(handle.getnframes()))
-    step = rate // 100
-    loud = [max(map(abs, data[i:i + step])) > 300 for i in range(0, len(data) - step, step)]
-    runs, start = [], None
-    for i, value in enumerate([*loud, True]):
-        if not value and start is None:
-            start = i
-        elif value and start is not None:
-            runs.append((i - start, start, i))
-            start = None
-    first, last = loud.index(True), len(loud) - 1 - loud[::-1].index(True)
-    inner = sorted(sorted(r for r in runs if r[1] > first and r[2] < last)[-(count - 1):], key=lambda r: r[1])
-    edges = [first, *[x for run in inner for x in run[1:]], last]
-    return [(edges[i] / 100, edges[i + 1] / 100) for i in range(0, len(edges), 2)]
-
-
-def stand_in_job(folder, inputs_path, helper):
-    """A finished two-take job in the shape of the sealed helper's, with invented recognition."""
-    request = read(TAKES / 'request01.json')
-    folder.mkdir(parents=True)
-    takes = read(TAKES / 'download-completion01.json')['takes']
-    sentences = [s.strip() + '.' for s in request['text'].split('.') if s.strip()]
-    compared = []
-    for number, take in enumerate(takes, 1):
-        name = Path(take['path']).name
-        segments = []
-        for sentence, (a, b) in zip(sentences, spoken_stretches(TAKES / name, len(sentences))):
-            words = sentence.split()
-            for i, word in enumerate(words):
-                segments.append({'start_sec': a + (b - a) * i / len(words), 'end_sec': a + (b - a) * (i + 1) / len(words),
-                                 'text': word, 'speaker': None, 'confidence': 0.5})
-        write(folder / f'take{number:02d}-full-large.json', {
-            'input_path': str(TAKES / name),
-            'request': {'input': {'kind': 'file', 'path': str(TAKES / name)}, 'backend': 'whisper_cpp', 'model': str(MODEL),
-                        'language': 'en', 'diarize': False,
-                        'backend_params': {'split_on_word': True, 'decoding': {'max_segment_length': 1}}},
-            'result': {'backend': 'whisper_cpp', 'transcript': request['text'], 'language': 'en', 'segments': segments,
-                       'raw_output': {'model_version_tag': 'fw-native-v1+sha256:1fc70f774d38', 'word_timestamps': True}}})
-        compared.append({'take': name, 'sha256': take['sha256']})
-    write(folder / 'take-comparison.json', {
-        'cue': '09_5', 'text_sha256': request['text_sha256'], 'request_sha256': sha(TAKES / 'request01.json'),
-        'download_completion_sha256': sha(TAKES / 'download-completion01.json'),
-        'fw_sha256': '7b570cf44d1f413ead01340c45e4070ec71009b7c2482d71a2aebf49e8fda47f',
-        'model_sha256': '1fc70f774d38eb169993ac391eea357ef47c88757ef72ee5943879b7e8e2bc69', 'takes': compared,
-        'selected_take': None, 'listening': False, 'fine_sync': False})
-    (folder / 'command.log').write_text('Take recognition complete; stand-in.\n')
-    rows = [{'path': f'/stand-in/{helper}', 'sha256': 'edd34a1ae9852d9f18c66d23424bbd6583ad2c21d91004de61b72566e463c091'},
-            {'path': '/stand-in/fw-0.11.0', 'sha256': '7b570cf44d1f413ead01340c45e4070ec71009b7c2482d71a2aebf49e8fda47f'},
-            {'path': str(MODEL), 'sha256': '1fc70f774d38eb169993ac391eea357ef47c88757ef72ee5943879b7e8e2bc69'}]
-    rows += [{'path': str(TAKES / name), 'sha256': sha(TAKES / name)}
-             for name in ('request01.json', 'submission01.json', 'download-completion01.json', '09_5-take01.wav', '09_5-take02.wav')]
-    write(inputs_path, {'files': rows})
-    write(folder / 'resource-receipt.json', {
-        'phase': 'asr', 'admitted': True, 'exit': 0, 'finished': 'rehearsal', 'inputs_sha256': sha(inputs_path),
-        'final_inputs_sha256': sha(inputs_path), 'command': ['python', '-I', '-B', f'/stand-in/{helper}', '--run', '01']})
 
 
 def change_json(name, change):
@@ -226,19 +169,30 @@ def main():
            'the tree differs from stage06 in exactly the five repair files')
     report(run(*intake, 'tree', '--out', tree).returncode == 2, 'a second tree over the same folder is refused')
 
-    job, inputs = scratch / 'mini/complex-cauchy-take-asr01', scratch / 'mini/inputs.json'
-    stand_in_job(job, inputs, 'mini_take_asr01.py')
-    for what, plant in PLANTS.items():
-        bad = scratch / 'plant/complex-cauchy-take-asr01'
+    job, inputs = scratch / f'mini/jobs/{JOB}', scratch / f'mini/{MANIFEST}'
+    shutil.copytree(MINI / 'jobs' / JOB, job)
+    shutil.copyfile(MINI / MANIFEST, inputs)
+    text = (root / STAGE07 / 'frederick_intake_stage07.py').read_text()
+    names = ('resource-receipt.json', 'take-comparison.json', 'take01-full-large.json', 'take02-full-large.json')
+    for number, (what, plant) in enumerate(PLANTS.items()):
+        folder = scratch / f'plant-{number}'
+        bad, bad_inputs = folder / JOB, folder / MANIFEST
         shutil.copytree(job, bad)
-        bad_inputs = scratch / 'plant/inputs.json'
         shutil.copyfile(inputs, bad_inputs)
         plant(bad, bad_inputs)
         out = run(*intake, 'adopt', '--lane', lane, '--job', str(bad), '--job-inputs', str(bad_inputs))
-        report(out.returncode == 2 and not (root / lane).exists(), f'adopt refuses {what}, and writes nothing')
-        shutil.move(str(scratch / 'plant'), str(scratch / f'plant-used-{len(what)}-{what[:12].replace(" ", "-")}'))
+        report(out.returncode == 2 and 'not the evidence root fetched' in out.stderr and not (root / lane).exists(), f'the pins refuse {what}')
+        changed = text.replace(sha(inputs), sha(bad_inputs))
+        for name in names:
+            changed = changed.replace(sha(job / name), sha(bad / name))
+        (folder / 'intake-pins-moved.py').write_text(changed)
+        out = run(*python, str(folder / 'intake-pins-moved.py'), 'adopt', '--lane', lane, '--job', str(bad), '--job-inputs', str(bad_inputs))
+        report(out.returncode == 2 and 'not the evidence root fetched' not in out.stderr and not (root / lane).exists(), f'past the pins, adopt still refuses {what}')
     out = run(*intake, 'adopt', '--lane', lane, '--job', str(job), '--job-inputs', str(inputs))
-    report(out.returncode == 0 and json.loads(out.stdout)['processed'] == 2, 'adopt reads both takes from the job')
+    report(out.returncode == 0 and json.loads(out.stdout)['processed'] == 2, 'adopt reads both takes from the real job')
+    ingest = read(root / lane / 'ingest-01/ingest.json')
+    report(ingest['non_json_log_lines'] == 1 and ingest['job_inputs_sha256'] == sha(inputs) and len(ingest['records']) == 2,
+           'the ingest counts the one log line that is not JSON and binds the manifest')
     plan = read(root / lane / 'plan-01/plan.json')
     held = {take['name']: take['generation'] for take in plan['takes']}
     report(sorted(held) == ['09_5-take01.wav', '09_5-take02.wav'] and 'adopted_job' in plan['recognition']
@@ -250,9 +204,15 @@ def main():
     report(out.returncode == 2, 'a second adopt on the lane is refused')
 
     common = ['--crate', crate, '--lane', lane, '--jobs', jobs]
+    for path, label in ((job / 'take-comparison.json', 'comparison'), (inputs, 'manifest'), (job / 'take01-full-large.json', 'take01 result')):
+        saved = path.read_bytes()
+        path.write_bytes(saved + b' ')
+        out = run(*bridge, 'report', *common, '--out', f'{scratch}/report-{path.stem}')
+        path.write_bytes(saved)
+        report(out.returncode == 2, f'the bridge refuses a {label} changed after adoption')
     out = run(*bridge, 'carry', *common, '--take', '09_5-download01.wav', '--by', 'x', '--basis', 'x', '--out', f'{scratch}/refused')
     report(out.returncode == 2, 'carry refuses the old stage06 take')
-    out = run(*bridge, 'carry', *common, '--take', '09_5-take01.wav', '--by', 'rehearsal fixture', '--basis', 'rehearsal fixture; selects nothing',
+    out = run(*bridge, 'carry', *common, '--take', '09_5-take01.wav', '--by', 'rehearsal fixture', '--basis', 'fixture copy of the provisional take in Mail 5671; selects nothing',
               '--out', decisions)
     data = json.loads(out.stdout) if out.returncode == 0 else {}
     report(out.returncode == 0 and data['still_open'] == [], f'carry leaves no timing question open {data.get("still_open", out.stderr[-400:])}')
