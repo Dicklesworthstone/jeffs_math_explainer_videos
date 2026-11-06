@@ -1,0 +1,553 @@
+diff --git a/crates/fmn-render/src/engine.rs b/crates/fmn-render/src/engine.rs
+index 78a1653..83886a8 100644
+--- a/crates/fmn-render/src/engine.rs
++++ b/crates/fmn-render/src/engine.rs
+@@ -1096,8 +1096,10 @@ pub(crate) struct StrokeRef {
+     /// Range into the arena's prepared-segment pool.
+     pub(crate) segments: PoolRange,
+     /// The aggregate conservative slab.
+     pub(crate) slab: [f64; 4],
++    /// Whether [`stroke::segments_are_x_sorted`] accepted the segments.
++    pub(crate) x_sorted: bool,
+ }
+ 
+ /// The arena coordinates of a draw's [`GradientField`] stations.
+ #[derive(Debug, Clone, Copy)]
+@@ -1640,13 +1642,18 @@ impl<'a> FrameJob<'a> {
+                     map,
+                     translate,
+                     straight_segments,
+                 );
++                let segments = arena
++                    .stroke_segments
++                    .range_from("prepared stroke rows", start)?;
+                 Some(StrokeRef {
+-                    segments: arena
+-                        .stroke_segments
+-                        .range_from("prepared stroke rows", start)?,
++                    segments,
+                     slab,
++                    x_sorted: stroke::segments_are_x_sorted(
++                        arena.stroke_segments.slice(segments),
++                        slab,
++                    ),
+                 })
+             } else {
+                 None
+             };
+@@ -1784,11 +1791,12 @@ impl<'a> FrameJob<'a> {
+ 
+     /// One draw's prepared stroke, reconstituted as the borrowed view.
+     pub(crate) fn stroke_of(&self, rec: &Draw) -> Option<stroke::PreparedStroke<'_>> {
+         rec.stroke.map(|stroke| {
+-            stroke::PreparedStroke::from_parts(
++            stroke::PreparedStroke::from_parts_indexed(
+                 self.arena().stroke_segments.slice(stroke.segments),
+                 stroke.slab,
++                stroke.x_sorted,
+             )
+         })
+     }
+ 
+@@ -4414,8 +4422,115 @@ mod tests {
+             forced_2x_stats.output_cells * 4
+         );
+     }
+ 
++    /// Strips as a film's blended plate draws them at 64×36: stacked rows far
++    /// thinner than a pixel, no AA band, paint varying along each row, and
++    /// about 25 curves to the pixel. The corner sits at the frame's centre.
++    fn plate_stage(rows: u32, quads: u32) -> Stage {
++        let (cell, thick) = (0.00875, 0.00885);
++        let count = (2 * quads + 1) as usize;
++        let mut stage = Stage::new();
++        for row in 0..rows {
++            let y = cell * f64::from(row);
++            let mut buffer = RecordBuffer::new(RecordSchema::vmobject(), count).unwrap();
++            for i in 0..count {
++                let x = 0.5 * cell * i as f64;
++                let t = i as f32 / (count - 1) as f32;
++                buffer.write(i, "point", &[x as f32, y as f32, 0.0]);
++                buffer.write(i, "fill_rgba", &[0.0f32; 4]);
++                buffer.write(i, "stroke_rgba", &[t, 1.0 - t, 0.5, 1.0]);
++                buffer.write(i, "stroke_width", &[(thick / 0.01) as f32]);
++            }
++            let h = stage.add(Mobject::from_buffer(buffer));
++            stage.add_to_scene(h).expect("live");
++            stage.set_anti_alias_width(h, 0.0, false);
++        }
++        stage
++    }
++
++    #[test]
++    fn the_x_index_shades_a_plate_exactly_as_the_scan() {
++        const ROWS: u32 = 64;
++        let stage = plate_stage(ROWS, 64);
++        let cfg = FrameConfig::new(
++            Viewport {
++                width: 64,
++                height: 36,
++            },
++            ScreenMap::y_up(4.5, [32.0, 18.0]),
++            LinearRgba {
++                r: 0.04,
++                g: 0.04,
++                b: 0.06,
++                a: 1.0,
++            },
++        )
++        .with_aa_policy(AaPolicy::Adaptive);
++        let identity = EngineIdentity {
++            engine: EngineKind::FastCpu,
++            ..EngineIdentity::certified()
++        };
++        let (plan, mono, binning) = derive(&stage, cfg, default_tiling());
++        let job = FrameJob::with_identity(&plan, &mono, &binning, cfg, identity)
++            .expect("matching frame artifacts");
++        let (_, stats) = job.render_with_stats(1).expect("render");
++        assert!(
++            stats.ssaa2x_cells + stats.ssaa4x_cells > 0,
++            "the fixture must reach the supersampled route: {stats:?}"
++        );
++
++        // Every point any route of the frame can shade, on every strip. The
++        // plate spans about (32, 15.5) to (34.5, 18).
++        let (mut indexed, mut inked) = (0u32, 0u64);
++        for rec in job.draws().iter().flatten() {
++            let Some(prepared) = rec.stroke else {
++                continue;
++            };
++            indexed += u32::from(prepared.x_sorted);
++            let index = job.stroke_of(rec).expect("a stroked draw");
++            let scan = stroke::PreparedStroke::from_parts(
++                job.arena().stroke_segments.slice(prepared.segments),
++                prepared.slab,
++            );
++            let (segments, joins) = (job.segments_of(rec), job.joins_of(rec));
++            for py in 13..20 {
++                for px in 30..37 {
++                    for samples in [1, 2, 4] {
++                        for y in 0..samples {
++                            for x in 0..samples {
++                                let p = Subcell {
++                                    px,
++                                    py,
++                                    samples,
++                                    x,
++                                    y,
++                                }
++                                .centre();
++                                let shade = |view: stroke::PreparedStroke<'_>| {
++                                    let (coverage, s) = view.shade(
++                                        segments,
++                                        joins,
++                                        &rec.style,
++                                        cfg.map,
++                                        rec.translate,
++                                        p,
++                                    );
++                                    (coverage.to_bits(), s.to_bits())
++                                };
++                                let expected = shade(scan);
++                                assert_eq!(shade(index), expected, "shade at {p:?}");
++                                inked += u64::from(f64::from_bits(expected.0) > 0.0);
++                            }
++                        }
++                    }
++                }
++            }
++        }
++        assert_eq!(indexed, ROWS, "every strip must take the index");
++        assert!(inked > 0, "the fixture must ink some sample");
++    }
++
+     #[test]
+     fn strokes_inside_two_aa_bands_do_not_promote_complex_cells() {
+         let map = ScreenMap {
+             scale: 1.0,
+diff --git a/crates/fmn-render/src/stroke.rs b/crates/fmn-render/src/stroke.rs
+index 73bce50..491cc55 100644
+--- a/crates/fmn-render/src/stroke.rs
++++ b/crates/fmn-render/src/stroke.rs
+@@ -280,8 +280,34 @@ impl ChordStrip {
+         (lo.is_finite() && hi.is_finite()).then_some((lo, hi))
+     }
+ }
+ 
++/// The shortest stroke [`segments_are_x_sorted`] accepts. Shorter strokes keep
++/// the linear scan, whose cost is already bounded by this constant.
++const STROKE_X_INDEX_MIN_SEGMENTS: usize = 32;
++
++/// May [`PreparedStroke::x_candidates`] search these segments by x?
++///
++/// True for a long stroke whose slabs are all finite and whose left and right
++/// slab edges both never decrease in shape order, which makes the segments a
++/// point can be admitted by a contiguous run. The aggregate `slab` must be the
++/// one [`PreparedStroke::prepare_into`] returned for `segments`.
++///
++/// The slabs are the whole proof, so the geometry that produced them does not
++/// matter. Finiteness is required because a `NaN` edge fails both of the slab
++/// test's comparisons, so that segment is admitted everywhere, and `min`/`max`
++/// drop it from the aggregate.
++#[must_use]
++pub(crate) fn segments_are_x_sorted(segments: &[PreparedSegment], slab: [f64; 4]) -> bool {
++    let finite = |edges: &[f64; 4]| edges.iter().all(|edge| edge.is_finite());
++    segments.len() >= STROKE_X_INDEX_MIN_SEGMENTS
++        && finite(&slab)
++        && segments.iter().all(|prepared| finite(&prepared.slab))
++        && segments
++            .windows(2)
++            .all(|pair| pair[0].slab[0] <= pair[1].slab[0] && pair[0].slab[2] <= pair[1].slab[2])
++}
++
+ /// Per-draw stroke data whose inputs are fixed before a tile is touched.
+ ///
+ /// The retained [`Segment`] remains geometry-only. These values additionally
+ /// depend on style, placement, and camera scale, so they belong to the
+@@ -296,14 +322,30 @@ impl ChordStrip {
+ #[derive(Debug, Clone, Copy)]
+ pub(crate) struct PreparedStroke<'a> {
+     segments: &'a [PreparedSegment],
+     slab: [f64; 4],
++    /// [`segments_are_x_sorted`] accepted `segments`.
++    x_sorted: bool,
+ }
+ 
+ impl<'a> PreparedStroke<'a> {
+     /// The view over caller-owned prepared segments and their aggregate slab.
+     pub(crate) fn from_parts(segments: &'a [PreparedSegment], slab: [f64; 4]) -> Self {
+-        Self { segments, slab }
++        Self::from_parts_indexed(segments, slab, false)
++    }
++
++    /// [`Self::from_parts`], with the verdict of [`segments_are_x_sorted`] on
++    /// these same segments and slab.
++    pub(crate) fn from_parts_indexed(
++        segments: &'a [PreparedSegment],
++        slab: [f64; 4],
++        x_sorted: bool,
++    ) -> Self {
++        Self {
++            segments,
++            slab,
++            x_sorted,
++        }
+     }
+ 
+     /// Derive every segment's slab and total arc length into `out`, returning
+     /// the aggregate slab. Same loop, same order as the retained derivation —
+@@ -388,8 +430,33 @@ impl<'a> PreparedStroke<'a> {
+         }
+         (lo <= hi).then_some((lo, hi))
+     }
+ 
++    /// The segments [`Self::nearest`] has to visit for `p`, in shape order.
++    ///
++    /// Everything outside the returned range fails the slab test, so skipping
++    /// it changes no state. For a stroke [`segments_are_x_sorted`] accepted, a
++    /// `p` outside the aggregate's y-range is outside every segment's, and the
++    /// rest of the test's x half is a contiguous run: `slab[2] < x` holds on a
++    /// prefix and `slab[0] <= x` on a prefix. The run is visited in its
++    /// original order, so the earliest segment still wins a tie.
++    ///
++    /// A `NaN` coordinate fails both comparisons of the slab test and is
++    /// admitted by every segment, so it keeps the whole range.
++    fn x_candidates(&self, p: [f64; 2]) -> std::ops::Range<usize> {
++        if !(self.x_sorted && p[0].is_finite() && p[1].is_finite()) {
++            return 0..self.segments.len();
++        }
++        if p[1] < self.slab[1] || p[1] > self.slab[3] {
++            return 0..0;
++        }
++        let first = self
++            .segments
++            .partition_point(|prepared| prepared.slab[2] < p[0]);
++        let count = self.segments[first..].partition_point(|prepared| prepared.slab[0] <= p[0]);
++        first..first + count
++    }
++
+     fn nearest(
+         &self,
+         segments: &[Segment],
+         style: &Style,
+@@ -400,14 +467,21 @@ impl<'a> PreparedStroke<'a> {
+         let scale = map.scale;
+         if scale == 0.0 || segments.is_empty() || segments.len() != self.segments.len() {
+             return None;
+         }
++        let candidates = self.x_candidates(p);
++        if candidates.is_empty() {
++            return None;
++        }
+         let [ox, oy] = map.to_object(p, translate);
+         let obj = [ox, oy, 0.0];
+         let mut best = f64::INFINITY;
+         let mut best_s = 0.0;
+         let mut admitted = false;
+-        for (segment, prepared) in segments.iter().zip(self.segments.iter()) {
++        for (segment, prepared) in segments[candidates.clone()]
++            .iter()
++            .zip(self.segments[candidates].iter())
++        {
+             if p[0] < prepared.slab[0]
+                 || p[0] > prepared.slab[2]
+                 || p[1] < prepared.slab[1]
+                 || p[1] > prepared.slab[3]
+@@ -1926,8 +2000,257 @@ mod tests {
+             }
+         }
+     }
+ 
++    /// The outline of one blended plate strip along `y`: `quads` straight
++    /// quadratics between two end caps and two zero-length segments.
++    fn plate_strip(left: f64, y: f64, cell: f64, quads: usize) -> Vec<Segment> {
++        let right = left + cell * quads as f64;
++        let mut xs = vec![[left - 2.0 * cell, left - cell, left], [left, left, left]];
++        xs.extend((0..quads).map(|k| {
++            let a = left + cell * k as f64;
++            [a, a + 0.5 * cell, a + cell]
++        }));
++        xs.extend([
++            [right, right, right],
++            [right, right + cell, right + 2.0 * cell],
++        ]);
++        let count = xs.len() as f64;
++        xs.iter()
++            .enumerate()
++            .map(|(k, x)| Segment {
++                p0: [x[0], y, 0.0],
++                p1: [x[1], y, 0.0],
++                p2: [x[2], y, 0.0],
++                s0: k as f64 / count,
++                s1: (k + 1) as f64 / count,
++            })
++            .collect()
++    }
++
++    /// Every coordinate where a slab test can change its answer, and one ulp
++    /// either side of it.
++    fn slab_edge_points(backing: &[PreparedSegment], slab: [f64; 4]) -> Vec<[f64; 2]> {
++        let middle = [0.5 * (slab[0] + slab[2]), 0.5 * (slab[1] + slab[3])];
++        let around = |edge: f64| [edge.next_down(), edge, edge.next_up()];
++        let mut points = Vec::new();
++        for prepared in backing {
++            for edge in [prepared.slab[0], prepared.slab[2]] {
++                points.extend(around(edge).map(|x| [x, middle[1]]));
++            }
++        }
++        for edge in [slab[1], slab[3]] {
++            points.extend(around(edge).map(|y| [middle[0], y]));
++        }
++        points
++    }
++
++    /// `nearest` and `shade` through the index, bit for bit against the scan.
++    /// Returns whether the scan admitted any segment.
++    fn assert_index_matches_scan(
++        index: PreparedStroke<'_>,
++        scan: PreparedStroke<'_>,
++        segments: &[Segment],
++        style: &Style,
++        map: ScreenMap,
++        translate: [f64; 2],
++        p: [f64; 2],
++    ) -> bool {
++        let bits = |found: Option<(f64, f64)>| found.map(|(a, b)| (a.to_bits(), b.to_bits()));
++        let expected = scan.nearest(segments, style, map, translate, p);
++        assert_eq!(
++            bits(index.nearest(segments, style, map, translate, p)),
++            bits(expected),
++            "nearest at {p:?}"
++        );
++        let shaded = index.shade(segments, &[], style, map, translate, p);
++        let reference = scan.shade(segments, &[], style, map, translate, p);
++        assert_eq!(
++            (shaded.0.to_bits(), shaded.1.to_bits()),
++            (reference.0.to_bits(), reference.1.to_bits()),
++            "shade at {p:?}"
++        );
++        expected.is_some()
++    }
++
++    #[test]
++    fn the_x_index_is_bit_exact_on_a_plate_strip() {
++        let segments = plate_strip(-1.0, 0.25, 0.25, 64);
++        let translate = [3.0, -2.0];
++        for map in [
++            ScreenMap::y_up(4.5, [32.0, 18.0]),
++            ScreenMap::y_up(270.0, [1920.0, 1080.0]),
++            ScreenMap {
++                scale: 1.75,
++                origin: [7.0, -4.0],
++                y_up: false,
++            },
++        ] {
++            // Each route of the kernel: capsule, station, and uniform curve,
++            // with and without the film's zero AA band.
++            for (straight, paint_end, aa) in [
++                (true, [0.0, 1.0, 0.5, 1.0], 0.0),
++                (true, [1.0, 1.0, 1.0, 1.0], 1.5),
++                (false, [0.0, 1.0, 0.5, 1.0], 1.5),
++                (false, [1.0, 1.0, 1.0, 1.0], 0.0),
++            ] {
++                let style = Style {
++                    stroke_rgba_end: paint_end,
++                    anti_alias_width: aa,
++                    ..flat_stroke_style(0.885)
++                };
++                let (backing, slab) = prepared(&segments, &style, map, translate, straight);
++                assert!(
++                    segments_are_x_sorted(&backing, slab),
++                    "the fixture must take the index"
++                );
++                let index = PreparedStroke::from_parts_indexed(&backing, slab, true);
++                let scan = PreparedStroke::from_parts(&backing, slab);
++                let middle = [0.5 * (slab[0] + slab[2]), 0.5 * (slab[1] + slab[3])];
++                assert!(
++                    index.x_candidates(middle).len() < segments.len() / 4,
++                    "the index must narrow the search at {middle:?}"
++                );
++                let mut admitted = 0u32;
++                for p in slab_edge_points(&backing, slab) {
++                    let found = assert_index_matches_scan(
++                        index, scan, &segments, &style, map, translate, p,
++                    );
++                    admitted += u32::from(found);
++                }
++                let (width, height) = (slab[2] - slab[0], slab[3] - slab[1]);
++                for j in -4..=52 {
++                    for i in -4..=204 {
++                        let p = [
++                            slab[0] + width * f64::from(i) / 200.0,
++                            slab[1] + height * f64::from(j) / 48.0,
++                        ];
++                        let found = assert_index_matches_scan(
++                            index, scan, &segments, &style, map, translate, p,
++                        );
++                        admitted += u32::from(found);
++                    }
++                }
++                assert!(admitted > 0, "the corpus must exercise an admitted segment");
++            }
++        }
++    }
++
++    #[test]
++    fn the_x_index_keeps_the_earliest_of_tied_segments() {
++        // Two copies of every cell, so each point below has two exactly equal
++        // nearest segments whose stations differ. The scan keeps the first.
++        let cells = 20;
++        let half = 0.5 / f64::from(cells);
++        let mut segments = Vec::new();
++        for k in 0..cells {
++            let a = f64::from(k);
++            for copy in 0..2 {
++                let s0 = a / f64::from(cells) + half * f64::from(copy);
++                segments.push(Segment {
++                    p0: [a, 0.0, 0.0],
++                    p1: [a + 0.5, 0.0, 0.0],
++                    p2: [a + 1.0, 0.0, 0.0],
++                    s0,
++                    s1: s0 + half,
++                });
++            }
++        }
++        let map = unit();
++        let translate = [0.0, 0.0];
++        let style = Style {
++            stroke_rgba_end: [0.0, 1.0, 0.5, 1.0],
++            ..flat_stroke_style(200.0)
++        };
++        let (backing, slab) = prepared(&segments, &style, map, translate, true);
++        assert!(segments_are_x_sorted(&backing, slab));
++        let index = PreparedStroke::from_parts_indexed(&backing, slab, true);
++        let scan = PreparedStroke::from_parts(&backing, slab);
++        for k in 0..cells {
++            let p = [f64::from(k) + 0.5, 0.25];
++            assert!(assert_index_matches_scan(
++                index, scan, &segments, &style, map, translate, p
++            ));
++            let (_, s) = index
++                .nearest(&segments, &style, map, translate, p)
++                .expect("an admitted point");
++            let first = &segments[2 * k as usize];
++            assert_eq!(
++                s.to_bits(),
++                (first.s0 + (first.s1 - first.s0) * 0.5).to_bits(),
++                "the earlier copy of cell {k} must win"
++            );
++        }
++    }
++
++    #[test]
++    fn the_x_index_refuses_what_it_cannot_prove() {
++        let map = unit();
++        let style = flat_stroke_style(100.0);
++        let sorted = |segments: &[Segment]| {
++            let (backing, slab) = prepared(segments, &style, map, [0.0, 0.0], false);
++            segments_are_x_sorted(&backing, slab)
++        };
++        let strip = plate_strip(0.0, 1.0, 0.25, 32);
++        assert!(sorted(&strip), "the positive control");
++        assert!(sorted(&strip[..STROKE_X_INDEX_MIN_SEGMENTS]));
++        assert!(!sorted(&strip[..STROKE_X_INDEX_MIN_SEGMENTS - 1]));
++        assert!(!sorted(&[]));
++
++        let reversed: Vec<Segment> = strip.iter().rev().copied().collect();
++        assert!(!sorted(&reversed), "reversed");
++        let mut swapped = strip.clone();
++        swapped.swap(10, 20);
++        assert!(!sorted(&swapped), "one segment out of place");
++
++        let mirror = ScreenMap {
++            scale: -1.75,
++            origin: [0.0, 0.0],
++            y_up: false,
++        };
++        let (backing, slab) = prepared(&strip, &style, mirror, [0.0, 0.0], false);
++        assert!(!segments_are_x_sorted(&backing, slab), "mirrored");
++
++        let mut poisoned = strip.clone();
++        poisoned[7].p0 = [f64::NAN; 3];
++        poisoned[7].p1 = [f64::NAN; 3];
++        poisoned[7].p2 = [f64::NAN; 3];
++        assert!(!sorted(&poisoned), "a NaN segment");
++        let mut infinite = strip.clone();
++        infinite[7].p2[0] = f64::INFINITY;
++        assert!(!sorted(&infinite), "an unbounded segment");
++    }
++
++    #[test]
++    fn the_x_index_leaves_non_finite_queries_to_the_scan() {
++        let segments = plate_strip(0.0, 1.0, 0.25, 40);
++        let map = unit();
++        let translate = [0.0, 0.0];
++        let style = flat_stroke_style(100.0);
++        let (backing, slab) = prepared(&segments, &style, map, translate, true);
++        assert!(segments_are_x_sorted(&backing, slab));
++        let index = PreparedStroke::from_parts_indexed(&backing, slab, true);
++        let scan = PreparedStroke::from_parts(&backing, slab);
++        let middle = [0.5 * (slab[0] + slab[2]), 0.5 * (slab[1] + slab[3])];
++        for p in [
++            [f64::NAN, middle[1]],
++            [middle[0], f64::NAN],
++            [f64::NAN, f64::NAN],
++            [f64::INFINITY, middle[1]],
++            [f64::NEG_INFINITY, middle[1]],
++            [middle[0], f64::INFINITY],
++            [middle[0], f64::NEG_INFINITY],
++        ] {
++            assert_index_matches_scan(index, scan, &segments, &style, map, translate, p);
++        }
++        assert!(
++            index
++                .nearest(&segments, &style, map, translate, [f64::NAN, middle[1]])
++                .is_some(),
++            "a NaN coordinate is admitted by every segment"
++        );
++    }
++
+     #[test]
+     fn the_degenerate_corpus_produces_no_stroke_rather_than_a_panic() {
+         let map = unit();
+         let style = flat_stroke_style(200.0);
