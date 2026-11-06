@@ -3,10 +3,18 @@
 Three helpers that take the finished chain on ts1 through 4K chapters, master and captions, and technical
 verification. Root launches them. Nothing here has run on ts1, and nothing starts on import.
 
-**Author:** LavenderPike adapted WhiteSwan's `complex-optimized-final-production01` helpers. This is the
-author's rehearsal, not an independent review. Root's independent narrow review (Mail 5544) is separate.
+**Status: on hold and unsealed. Do not launch.** Root's Mail 5589 holds final complex renders until the 09_5
+correction, and Mail 5610 keeps this bundle unsealed until the new identities exist. It is pinned today to
+`chain02-n2`, which a new chain will replace. "Moving to the new chain" below says what then changes.
 
-**Status:** prepared and sealed. No SSH, no launch, no heavy job, no Beads or TODO change, no commit.
+**Author:** LavenderPike adapted WhiteSwan's `complex-optimized-final-production01` helpers. This is the
+author's rehearsal, not an independent review.
+
+**Independent review:** RubyRaven's source review (Mail 5600) found no launch or identity bug, on earlier bytes:
+render `73590bfd` in full, master and verify before their pins. The provenance, chain-name and x264 changes came
+after it, so they have had no independent read.
+
+No SSH, no launch, no heavy job, no live input changed, no Beads or TODO change, no commit.
 
 ## What root does, in order
 
@@ -16,7 +24,7 @@ author's rehearsal, not an independent review. Root's independent narrow review 
 | 2 | `python3 -I -B ts1_final_render01.py --check` | pins, tools, x264 and the three transfers hold. Valid before the chain ends |
 | 3 | `python3 -I -B ts1_final_verify01.py --pins` | strict check, caption screen and imports hold. Valid before any master |
 | 4 | Wait for `pictures02`, view every preview sheet, write the review file below | a person or agent actually viewed the sheets |
-| 5 | `python3 -I -B ts1_final_render01.py --check-review` | the review binds these exact sheets, this preview and this N2 |
+| 5 | `python3 -I -B ts1_final_render01.py --check-review` | the review binds these exact sheets, this preview and this N2, and x264's record reads as CRF 18 from a real preview movie |
 | 6 | `start-final-render01.sh 01` | |
 | 7 | `python3 -I -B ts1_final_master01.py --check`, then read its growth line | see "Master growth" |
 | 8 | `start-final-master01.sh 01` | |
@@ -69,7 +77,7 @@ only. `verification.json` says so and records the final pictures as not viewed.
 
 | Thing | Name |
 |---|---|
-| Chain | `complex-remote-ts1-pipeline01/chain02-n2`, seal `625d162d…227c`, `ts1_chain02_n2.py` `64502efa…8a45`. The unused `chain02/` attempt is never loaded |
+| Chain, current pin | `complex-remote-ts1-pipeline01/chain02-n2`, seal `625d162d…227c`, `ts1_chain02_n2.py` `64502efa…8a45`. The unused `chain02/` attempt is never loaded |
 | Narration | `O/jobs/complex-remote-narration-derive01/narration-n2`, from `M.N`. Bound by `L.check_derived()` and the manifests. Its `native-install-receipt.json` is byte-identical to N's and describes N, so never verify N2 against it |
 | Binary | `O/complex_analysis_visual-release01`, `3c90fb54…c168` (build01 failed only on missing SciPy; qualifier01 qualified it separately) |
 | Inputs | `complex-remote-{timeline,score,preview,pictures}02`, 15 chapters, 105 Frederick cues |
@@ -89,8 +97,35 @@ only. `verification.json` says so and records the final pictures as not viewed.
 `--postcheck JOB` repeats the postcheck read-only. It rechecks the guard's final receipt and command, every
 manifest row, the success line, master and caption hashes, every picture and sheet, the strict log, the caption
 screen and the two recorded `false` claims. Its record holds `job, master_job, master_sha256, srt_sha256,
-vtt_sha256, verification_sha256, frames, pictures, sheets, pictures_viewed, scope`, and identical bytes are
-accepted on a repeat. The record proves that records agree. It is not acceptance.
+vtt_sha256, derived_from, derive_summary_sha256, verification_sha256, frames, pictures, sheets, pictures_viewed,
+scope`, and identical bytes are accepted on a repeat. The record proves that records agree. It is not acceptance.
+
+**Narration provenance.** `render-summary.json`, `master-summary.json` and `verification.json` keep `narration`
+and add `derived_from`, `derive_job` and `derive_summary_sha256`, read from the derive job's own summary. Each
+later step refuses a record whose values differ. A later reader should cite these, not the retained install
+receipt.
+
+## Moving to the new chain
+
+The 09_5 correction brings a new binary, narration folder and chain (Mails 5589, 5600, 5612). This bundle needs
+only new pins. Its job, output and stage-folder names are unused and stay.
+
+1. WhiteSwan seals the chain and sends its path, hash, stage job names and fixture. Mail 5637 lists what it must
+   export.
+2. `python3 -I -B checks/repin_chain01.py --chain <path relative to P> --sha256 <hash>` prints the result. Add
+   `--write` to apply it. It sets `CHAIN`, `CHAIN_SHA256`, `RENDER_SHA256` and the `MASTER_HELPER` pin, in that
+   order. It refuses a hash the chain's own `SHA256SUMS` does not list, and it refuses a sealed bundle.
+3. Update the block marked at the top of `checks/rehearse_final.py` and rerun it. A pin alone proves nothing.
+4. RubyRaven's delta read, then the seal, then the seal and hashes go to BronzeJaguar.
+
+`--check` refuses a chain that lacks any name in `CHAIN_NAMES`, which a rehearsal check holds equal to what the
+helpers use. If the new chain drops derive, `narration_source()` needs a small change first, which no pin covers.
+
+The review file must bind the new sheets, extraction and preview summary, and must list every sheet, including
+chapters whose bytes match the earlier preview. Whether a viewing carries over to matching chapters is root's call.
+
+No change needed: `transfer-files01.json`, the shared checks, the strict script, the caption screen, 105 cues and
+15 chapters.
 
 ## When a job fails
 
@@ -122,6 +157,7 @@ and of the soundtrack, so it would hit the cap only if the 15 chapters sum to ab
 | Six retained complex 4K60 chapters, older film, x264 record says CRF 16 | 0.55 to 0.75 Mbit/s, sound included |
 | Soundtrack for 34 minutes, 48 kHz 16-bit stereo | about 0.36 GiB |
 | Fixed cost, two soundtrack copies | about 0.7 GiB |
+| RubyRaven's separate estimate for the master (Mail 5600) | about 1.1 to 1.7 GiB |
 
 The current film has heavier scenes than that older one: `05_gallery` was the largest preview. Step 7 prints the
 real estimate from the real chapters, with `over_cap`. It decides nothing. If it says `true`, stop and raise it,
@@ -131,10 +167,12 @@ because `Q.POLICY` is checked on every job and no flag here changes it. A stoppe
 
 Diff against `complex-optimized-final-production01/final_{render,master,verify}_optimized01.py`.
 
-- **Chain:** imports sealed `chain02-n2`, not the five macOS modules. Every file comes from `M`, `Q` and `L`, so
+- **Chain:** imports the one sealed chain file pinned at the top of the render helper, not the five macOS modules. Every file comes from `M`, `Q` and `L`, so
   all paths are logical, built from `R`.
-- **Review:** also runs `L.check_qualified()` and `L.check_derived()`, and refuses a preview whose summary names
-  another voice or binary.
+- **Review:** also runs `L.check_qualified()` and `L.check_derived()`, refuses a preview whose summary names
+  another voice or binary, and reads x264's record from a preview movie so the 4K gate's reader is tried on ts1's
+  own kit output before the first long job.
+- **Chain names and provenance:** `CHAIN_NAMES` and `narration_source()`, both new.
 - **Gate:** `live_receipt()` rereads only a half-written receipt, since the real guard rewrites it in place just
   after starting a job. `gate()` also requires python3, ffmpeg and ffprobe in the manifest.
 - **CRF 16:** read from x264's own record in each movie, and kept in `render-summary.json`.
@@ -172,6 +210,8 @@ check: dropping one cue is refused.
 - The real binary has never run `master` or `captions` on ts1. The preview path says nothing about either. The
   first master is their first real run on that host.
 - The guard's 4 GiB stop was not triggered: tiny fixtures cannot reach it.
+- No new chain exists yet. Every result here is against `chain02-n2`, and the re-pin tool ran only on copies with
+  a stand-in chain. Nothing here tests the corrected film.
 - Phrase-mark samples in the final picture selection did not land, because real marks fall past a 36-frame
   chapter. That selection is `M.select` unchanged, which the real `pictures02` exercises.
 - Linux strict decoding, and ts1's ffmpeg 8.0.1, were not run here. The strict script reads as Linux-safe, and a
