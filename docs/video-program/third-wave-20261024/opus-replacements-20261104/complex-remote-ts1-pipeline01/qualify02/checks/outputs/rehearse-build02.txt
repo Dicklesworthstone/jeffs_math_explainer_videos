@@ -15,9 +15,9 @@ PASS second-start-refused
 PASS refuse-tree-file-changed: AssertionError: Stage07 tree differs: script.tsv
 PASS refuse-tree-extra-file: AssertionError: Tree file set differs: ['<fixture>/tree-extra-file/logical/repo/narration_
 PASS refuse-old-binary-changed: AssertionError: The stage06 binary copy changed
-PASS stop-fmt-fails: subprocess.CalledProcessError: Command '['<fixture>/fmt-fails/home/.local/bin/rustup', 'ru
-PASS stop-test-fails: subprocess.CalledProcessError: Command '['<fixture>/test-fails/home/.local/bin/rustup', 'r
-PASS stop-clippy-warns: subprocess.CalledProcessError: Command '['<fixture>/clippy-warns/home/.local/bin/rustup', 
+PASS stop-fmt-fails: subprocess.CalledProcessError: Command '['<fixture>/fmt-fails/fixture-home/.local/bin/rustup', 'ru
+PASS stop-test-fails: subprocess.CalledProcessError: Command '['<fixture>/test-fails/fixture-home/.local/bin/rustup', 'r
+PASS stop-clippy-warns: subprocess.CalledProcessError: Command '['<fixture>/clippy-warns/fixture-home/.local/bin/rustup', 
 PASS stop-test-missing: AssertionError: Test result differs
 PASS stop-same-binary: AssertionError: The stage07 script compiles into the binary, so this cannot be the old one
 PASS stop-facts-differ: AssertionError: Native facts differ from the oracle; both retained

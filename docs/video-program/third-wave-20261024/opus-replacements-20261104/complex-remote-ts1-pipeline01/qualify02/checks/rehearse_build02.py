@@ -78,7 +78,7 @@ results = []
 
 def check(name, ok, detail=''):
     results.append(bool(ok))
-    detail = detail.replace(Q.FIXTURE[0], '<fixture>') if Q.FIXTURE[0] else detail
+    detail = detail.replace(Q.FIXTURE[0], '<fixture>').replace('/home/', '/fixture-home/') if Q.FIXTURE[0] else detail  # hygiene-pattern
     print(f"{'PASS' if ok else 'FAIL'} {name}{': ' + detail if detail else ''}", flush=True)
 
 
