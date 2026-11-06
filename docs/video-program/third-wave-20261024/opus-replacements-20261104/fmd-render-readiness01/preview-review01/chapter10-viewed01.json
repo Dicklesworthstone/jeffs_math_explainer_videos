@@ -1,0 +1,50 @@
+{
+  "time": "2026-11-06T19:22:34.033429+00:00",
+  "chapter": "10_rigidity",
+  "sheets_viewed": [
+    "sheet-000.png",
+    "sheet-001.png",
+    "sheet-002.png",
+    "sheet-003.png",
+    "sheet-004.png",
+    "sheet-005.png",
+    "sheet-006.png",
+    "sheet-007.png",
+    "sheet-008.png",
+    "sheet-009.png",
+    "sheet-010.png",
+    "sheet-011.png",
+    "sheet-012.png",
+    "sheet-013.png",
+    "sheet-014.png",
+    "sheet-015.png"
+  ],
+  "sheet_sha256": {
+    "sheet-000.png": "e65dcfdcccd8f9ee974672ff8422704dd91488e447b3f4d2f6af16609e053dd8",
+    "sheet-001.png": "bc4d5f9b16902c274ac21a8383793177938f7cfc744da583f3ad5bdf1ac3dbfe",
+    "sheet-002.png": "bca822dd745b6f39b322729efd6afc23a0fcb3a94f2495147e20c81aeb658c2f",
+    "sheet-003.png": "f333f727689ac8b9025087ee929ed6e8f080e708ed8e3d75feabfaf7b3f32229",
+    "sheet-004.png": "0b75951e14e47f7afb6d6c063b41cb9ad4a2a581edf35ac778f4134511a9f04f",
+    "sheet-005.png": "18ecabf790363fa6b201401940046154864d9c14dae69ae79a8812f26dcf913c",
+    "sheet-006.png": "15c249667bc52cd40c8909afa99cae52656cf1fb33ca08550a25cc813a3f32f6",
+    "sheet-007.png": "8c898fd1f9b5a0a1530b5b3e96f19573f45bb7a52ccf15fa64880f6317a25046",
+    "sheet-008.png": "69fcdbabdf4ea188f6355b2eb3046d6b989ba6ed77e98a2de60b157d19c8fe9a",
+    "sheet-009.png": "0f1487e38ead7332b535b6190c0c9149eb0d0043e38d37a149df40a2a1817e5d",
+    "sheet-010.png": "768eedb6b3aa8f35255cdf3418ffe211504300b0689cc7a6ffa909f08989228d",
+    "sheet-011.png": "e063e8c262db0e79a0039431fe4a91979fe5e050a6c3c1f5d441858295e5d8fb",
+    "sheet-012.png": "97954ed5f920ca905a05eebca2666f4aff5540c75fe4dfbe6de99ed4390a3012",
+    "sheet-013.png": "44ad5c9fe2be702c291a8b9fd36588733e18719dccf2c2bc60b99f1db322e791",
+    "sheet-014.png": "c1da3a3cd103983c41eedcafbfb6076335efb3d15109a608679afaa1758c1971",
+    "sheet-015.png": "f168fa4fd12b5e1b976782b4fbb0693bd4913b8f2cda477813aa8363bcea0fc2"
+  },
+  "selected_pictures_viewed": 95,
+  "observation": "All16 sheets actually viewed across consecutive review turns. Identity theorem, real smooth counterexample, sin(1/z) accumulating zeros with excluded origin, and Liouville real-line versus complex-plane distinction readable. No new concrete sampled text clipping. Dense sin(1/z) centre and sine contour field require native-resolution inspection; contour bands are not themselves proof of raster pixelation.",
+  "unresolved": [
+    "Inspect native4K dense sin(1/z) and sine colour fields and zoom detail; preview contact sheets cannot qualify fine detail."
+  ],
+  "whole_preview_accepted": false,
+  "native_4k_detail_accepted": false,
+  "listening": false,
+  "fine_sync": false,
+  "independent_AV": false
+}

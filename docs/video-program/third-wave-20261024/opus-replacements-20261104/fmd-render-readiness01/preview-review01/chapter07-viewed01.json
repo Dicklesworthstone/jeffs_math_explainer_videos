@@ -1,0 +1,41 @@
+{
+  "time": "2026-11-06T19:12:03.399476+00:00",
+  "chapter": "07_one_point",
+  "sheets_viewed": [
+    "sheet-000.png",
+    "sheet-001.png",
+    "sheet-002.png",
+    "sheet-003.png",
+    "sheet-004.png",
+    "sheet-005.png",
+    "sheet-006.png",
+    "sheet-007.png",
+    "sheet-008.png",
+    "sheet-009.png",
+    "sheet-010.png",
+    "sheet-011.png",
+    "sheet-012.png"
+  ],
+  "sheet_sha256": {
+    "sheet-000.png": "e56780590178a329a81b90092c951810a772a7238b98ca02032f6f23a1748c3a",
+    "sheet-001.png": "21e2a657d6804b26047772cf4b9288c9e34664b31fa68cd7348775bb253929a1",
+    "sheet-002.png": "74bab18efe650acc6cf3f11e2e7e4c4014840f5df50b9ea117a656f105479587",
+    "sheet-003.png": "648c6136b10a3b6ceba8afecc9c7c4599e75551bd90f27d8f584f2a708f7b65d",
+    "sheet-004.png": "e76455197a36a9fe24bb059dbc95558c24ac11f8c62e268860e4d8dd588449f1",
+    "sheet-005.png": "95d7852f61ab3983be93b96985147a08529e355b9a38f6b32e0df955c6999f88",
+    "sheet-006.png": "ec933fb60f38c4644b287d43b669bfcad43085e29ace185a3dc20248a29ca108",
+    "sheet-007.png": "b99cdd09eb8531a9f8524007fd0436deea7ccf572f88b57a3338344d15cba9c8",
+    "sheet-008.png": "6e5f510ff490a626ebf9f74db3b9f3f8f1cb7aaffe62e77e458bc712126dbf74",
+    "sheet-009.png": "b88a8ecd0c1c963c3fa841026c3dc888b383e6f871df44530da58e4c04554f59",
+    "sheet-010.png": "b8bad7a26cda7fb18e4567ae16e55667156d2b7b210a6fe3df3c0949000db7d5",
+    "sheet-011.png": "e2a4a0b5468f7e3cda7e1b7c39dbb683688c6b4baf5ebc5d8d6c59ba1c45059c",
+    "sheet-012.png": "014699e294b224090e5ed13ba386ac2dd0c333f29984f9240541223efce0c3b6"
+  },
+  "selected_pictures_viewed": 78,
+  "observation": "All13 sheets actually viewed. Critical-point angle doubling and away-zero conformality legible. Absolute-square one-hue rings and derivative-at-zero prediction/reveal readable. Jagged bounded-factor sector diagram is intentionally discontinuous, not evidence for smooth-field quality. Open-region versus one-point distinction legible. No concrete sampled clipping/overlap. Native4K review remains necessary for ring edges and small labels.",
+  "whole_preview_accepted": false,
+  "native_4k_detail_accepted": false,
+  "listening": false,
+  "fine_sync": false,
+  "independent_AV": false
+}
