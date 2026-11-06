@@ -1,0 +1,28 @@
+{
+  "created": "2026-11-06T03:27:24.873193+00:00",
+  "reviewer": "BlueSalmon root, not helper author",
+  "scope": "Full current verifier source and delta against final_verify_optimized01.py; shared caption/media/loudness functions and strict loudness exception; start script. Earlier full master/render source reads remain separate.",
+  "files": {
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-remote-final-production01/ts1_final_verify01.py": "13cf9a09f320dc9caceac0d6c5b8f87fd4141323290b4d3ed72f878462a80667",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-remote-final-production01/ts1_final_master01.py": "6ed3cb2ae08ec2920badf4c87c0e808d7ea0070b751d9732e3aaa85ed1b6cdb2",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-remote-final-production01/ts1_final_render01.py": "23d99bfb8a5cfc30fed702cae186180eacdae4ea482c5666e282fab08bd7fc70",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-remote-final-production01/start-final-verify01.sh": "36cfd4a02fad3f3f8eb36d070f89c5f3868925bce4fda6e5f3f6ce534fcdca04",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-final-verification02/verify_stage09_final.py": "f266a2315e4a9af247c648da416881f3a2999e2682e9c611ff82ca3727b70b94",
+    "narration_lab/third-wave-20261024/root/six-machine-screened-production-20261103/verify_video_preserve_logs01.sh": "3f4c68dbdcb02c1c90ff03cb4f20afc36792b7f20c6cc111a5eef21617a11410"
+  },
+  "observations": [
+    "105 ordered unique placements checked against exact script and all15 normalized chapter timelines",
+    "SRT/VTT exact equality, whole/per-cue text, interval containment and nonoverlap checked; these do not prove audible content or fine timing",
+    "Strict decoded media gates enforce4K60 H264/AAC48kstereo, two streams, exact frames, <=oneAACframe AV duration; fixed-gain low-LUFS exception remains explicit",
+    "Final picture extraction carries timeline/preview/final layout sources; final pictures explicitly unviewed and preview viewing does not carry forward",
+    "Guard launch freezes inherited input bindings, helpers, tools, master and caption outputs; postcheck rehashes outputs, pictures/sheets, current binary and narration provenance",
+    "No new blocking source defect identified in reviewed delta; not runtime qualification"
+  ],
+  "open": [
+    "Bundle remains unsealed pending chosen engine/new chain repin",
+    "Real corrected stage07 build/chain/preview and final execution not yet qualified",
+    "Real timeout and encoder descendant exit evidence remains pending; subprocess.run timeout targets direct process",
+    "All final pictures, caption-on-player review, ASR, listening, fine sync and independent AV acceptance remain open"
+  ],
+  "conflict_handling": "Worker LavenderPike owns final-production directory; this review written to root-owned sibling, no worker files changed"
+}
