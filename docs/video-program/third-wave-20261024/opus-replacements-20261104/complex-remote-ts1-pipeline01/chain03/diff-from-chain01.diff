@@ -40,7 +40,7 @@
 -QUALIFIER = HERE.parent / 'qualify01/ts1_qualify01.py'
 -QUALIFIER_SHA256 = 'ee2d7719218be4e8d77a14f99a352e2f6a8d287fba1befed3bf8db57d0fb619b'
 +QUALIFIER = HERE.parent / 'qualify02/ts1_qualify02.py'
-+QUALIFIER_SHA256 = 'ebfb187e415943b4a66e692f9991e024a621e3d730978f53bc09b7571835569e'
++QUALIFIER_SHA256 = '604ef33814feb1fd6f79166b29593642f1bb44fc83e12ea92dd13c7a1e4460ca'
  SPEC = importlib.util.spec_from_file_location('ts1_qualify', QUALIFIER)
  Q = importlib.util.module_from_spec(SPEC)
  SPEC.loader.exec_module(Q)

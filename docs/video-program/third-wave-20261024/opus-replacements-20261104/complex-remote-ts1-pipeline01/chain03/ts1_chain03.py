@@ -26,7 +26,7 @@ import wave
 
 HERE = Path(__file__).resolve().parent
 QUALIFIER = HERE.parent / 'qualify02/ts1_qualify02.py'
-QUALIFIER_SHA256 = 'ebfb187e415943b4a66e692f9991e024a621e3d730978f53bc09b7571835569e'
+QUALIFIER_SHA256 = '604ef33814feb1fd6f79166b29593642f1bb44fc83e12ea92dd13c7a1e4460ca'
 SPEC = importlib.util.spec_from_file_location('ts1_qualify', QUALIFIER)
 Q = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(Q)
