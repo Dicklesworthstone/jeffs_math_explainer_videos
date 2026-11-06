@@ -14,6 +14,8 @@ HERE = Path(__file__).resolve().parent
 O = Path('narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01')
 MASTER = O / 'jobs/logarithm-remote-render-work01/logarithm_mysteries_master.mp4'
 SRT = O / 'jobs/logarithm-remote-render-work01/logarithm_mysteries.en.srt'
+GUARD = Path('docs/video-program/third-wave-20261024/opus-replacements-20261104/engine-secondary-validation01/guard_owner56g_target20g.py')
+GUARD_SOURCE = Path('narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/run_bounded_phase_oliver_owner48g_target14g_20261102.py')
 MASTER_SHA256 = '8534ec211790fb8400b809de19a6d1cb75af6150a5e90566f6a93bb90e7efd69'
 SRT_SHA256 = 'c9321cd7a2912d4457f2dc617735fd06f0b2fc7d684442815fa46b989bc31b7c'
 FPS, FRAMES = 60, 116665
@@ -96,6 +98,13 @@ def main():
     plan = {'schema': 'logarithm-caption-overlay-plan-v1', 'master': str(MASTER), 'master_sha256': MASTER_SHA256, 'srt': str(SRT),
             'srt_sha256': SRT_SHA256, 'fps': FPS, 'frames': FRAMES, 'coverage': coverage, 'samples': samples}
     (HERE.parent / 'plan01.json').write_text(json.dumps(plan, indent=1, ensure_ascii=False) + '\n')
+    rows = []
+    for path in (GUARD, GUARD_SOURCE, MASTER, SRT):
+        data = path.read_bytes()
+        rows.append({'path': str(path), 'sha256': hashlib.sha256(data).hexdigest(), 'bytes': len(data)})
+    assert rows[2]['sha256'] == MASTER_SHA256
+    transfer = {'note': 'Paths are the same under the repository root here and the css staging root. Send the whole bundle folder too.', 'files': rows}
+    (HERE.parent / 'transfer-files01.json').write_text(json.dumps(transfer, indent=1) + '\n')
     print(len(samples), 'samples')
     for row in samples:
         print(row['id'], row['group'], row['frame'], row['seconds'], 'cue', row['cue'], row['state'], '/'.join(row['lines'])[:60])

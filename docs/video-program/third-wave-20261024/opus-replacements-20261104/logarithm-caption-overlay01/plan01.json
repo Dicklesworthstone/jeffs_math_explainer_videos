@@ -1,0 +1,647 @@
+{
+ "schema": "logarithm-caption-overlay-plan-v1",
+ "master": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/jobs/logarithm-remote-render-work01/logarithm_mysteries_master.mp4",
+ "master_sha256": "8534ec211790fb8400b809de19a6d1cb75af6150a5e90566f6a93bb90e7efd69",
+ "srt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/jobs/logarithm-remote-render-work01/logarithm_mysteries.en.srt",
+ "srt_sha256": "c9321cd7a2912d4457f2dc617735fd06f0b2fc7d684442815fa46b989bc31b7c",
+ "fps": 60,
+ "frames": 116665,
+ "coverage": [
+  {
+   "footer": "F1",
+   "what": "chapter 10 textbook and source rows",
+   "mail_5673_window": [
+    1484.42,
+    1497.62
+   ],
+   "measured": {
+    "first_change": 1483.95,
+    "fully_shown": 1484.3,
+    "fade_starts": 1497.617,
+    "last_visible": 1497.617
+   },
+   "cues": [
+    372,
+    373
+   ],
+   "extended_window": [
+    1483.423,
+    1498.117
+   ]
+  },
+  {
+   "footer": "F2",
+   "what": "chapter 11 Liouville footer",
+   "mail_5673_window": [
+    1547.63,
+    1566.1
+   ],
+   "measured": {
+    "first_change": 1547.367,
+    "fully_shown": 1547.7,
+    "fade_starts": 1565.7,
+    "last_visible": 1566.067
+   },
+   "cues": [
+    387,
+    388,
+    389,
+    390,
+    391
+   ],
+   "extended_window": [
+    1546.84,
+    1568.553
+   ]
+  },
+  {
+   "footer": "F3",
+   "what": "chapter 11 Culver footer",
+   "mail_5673_window": [
+    1720,
+    1751
+   ],
+   "measured": {
+    "first_change": 1719.567,
+    "fully_shown": 1719.85,
+    "fade_starts": 1751.533,
+    "last_visible": 1751.883
+   },
+   "cues": [
+    430,
+    431,
+    432,
+    433
+   ],
+   "extended_window": [
+    1719.05,
+    1756.637
+   ]
+  },
+  {
+   "footer": "F4",
+   "what": "chapter 11 Gallier footer",
+   "mail_5673_window": [
+    1766,
+    1773
+   ],
+   "measured": {
+    "first_change": 1762.267,
+    "fully_shown": 1762.6,
+    "fade_starts": 1773.45,
+    "last_visible": 1773.45
+   },
+   "cues": [
+    435,
+    436,
+    437
+   ],
+   "extended_window": [
+    1761.737,
+    1773.95
+   ]
+  },
+  {
+   "footer": "F5",
+   "what": "chapter 12 closing footer",
+   "mail_5673_window": [
+    1930,
+    1944
+   ],
+   "measured": {
+    "first_change": 1929.667,
+    "fully_shown": 1929.933,
+    "fade_starts": 1943.8,
+    "last_visible": 1944.167
+   },
+   "cues": [
+    474,
+    475
+   ],
+   "extended_window": [
+    1929.147,
+    1944.667
+   ]
+  },
+  {
+   "footer": "F6",
+   "what": "chapter 00 fine print",
+   "mail_5673_window": null,
+   "seen_on_keyframes": [
+    91.667,
+    100.0
+   ],
+   "cues": [
+    23
+   ]
+  },
+  {
+   "footer": "F7",
+   "what": "chapter 02 fine print",
+   "mail_5673_window": null,
+   "seen_on_keyframes": [
+    347.533,
+    351.7
+   ],
+   "cues": [
+    90
+   ]
+  },
+  {
+   "footer": "F8",
+   "what": "chapter 04 fine print",
+   "mail_5673_window": null,
+   "seen_on_keyframes": [
+    605.933,
+    622.6
+   ],
+   "cues": [
+    160
+   ]
+  },
+  {
+   "footer": "F9",
+   "what": "chapter 07 fine print",
+   "mail_5673_window": null,
+   "seen_on_keyframes": [
+    1141.05,
+    1149.383
+   ],
+   "cues": [
+    287
+   ]
+  },
+  {
+   "footer": "F10",
+   "what": "chapter 08 fine print",
+   "mail_5673_window": null,
+   "seen_on_keyframes": [
+    1223.25,
+    1235.75
+   ],
+   "cues": [
+    306
+   ]
+  }
+ ],
+ "samples": [
+  {
+   "group": "F6",
+   "frame": 5594,
+   "seconds": 93.233,
+   "cue": 23,
+   "lines": [
+    "Equal steps on the keyboard are equal",
+    "ratios."
+   ],
+   "cue_start": 91.447,
+   "cue_end": 94.807,
+   "overlap": [
+    91.667,
+    94.807
+   ],
+   "state": "fine print, widest caption seen beside it",
+   "row": -3.62,
+   "row_px": 2057,
+   "id": "S01"
+  },
+  {
+   "group": "F7",
+   "frame": 21006,
+   "seconds": 350.1,
+   "cue": 90,
+   "lines": [
+    "six is between ten and a hundred, so it is",
+    "twenty-four."
+   ],
+   "cue_start": 348.492,
+   "cue_end": 352.35,
+   "overlap": [
+    348.492,
+    351.7
+   ],
+   "state": "fine print, widest caption seen beside it",
+   "row": -3.62,
+   "row_px": 2057,
+   "id": "S02"
+  },
+  {
+   "group": "F8",
+   "frame": 36987,
+   "seconds": 616.45,
+   "cue": 160,
+   "lines": [
+    "thousand, six point nine one, divided by",
+    "zero point zero five."
+   ],
+   "cue_start": 614.213,
+   "cue_end": 618.7,
+   "overlap": [
+    614.213,
+    618.7
+   ],
+   "state": "fine print, widest caption seen beside it",
+   "row": -3.62,
+   "row_px": 2057,
+   "id": "S03"
+  },
+  {
+   "group": "F9",
+   "frame": 68733,
+   "seconds": 1145.55,
+   "cue": 287,
+   "lines": [
+    "when the height of w is above minus pi and",
+    "at most pi."
+   ],
+   "cue_start": 1143.279,
+   "cue_end": 1147.823,
+   "overlap": [
+    1143.279,
+    1147.823
+   ],
+   "state": "fine print, widest caption seen beside it",
+   "row": -3.62,
+   "row_px": 2057,
+   "id": "S04"
+  },
+  {
+   "group": "F10",
+   "frame": 73604,
+   "seconds": 1226.733,
+   "cue": 306,
+   "lines": [
+    "is the sum of the logarithms, plus a whole",
+    "number of laps."
+   ],
+   "cue_start": 1224.58,
+   "cue_end": 1228.9,
+   "overlap": [
+    1224.58,
+    1228.9
+   ],
+   "state": "fine print, widest caption seen beside it",
+   "row": -3.62,
+   "row_px": 2057,
+   "id": "S05"
+  },
+  {
+   "group": "F1",
+   "frame": 89152,
+   "seconds": 1485.867,
+   "cue": 372,
+   "lines": [
+    "On screen is the textbook version, which",
+    "counts the turning"
+   ],
+   "cue_start": 1483.923,
+   "cue_end": 1487.444,
+   "overlap": [
+    1484.3,
+    1487.444
+   ],
+   "state": "both rows",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S06"
+  },
+  {
+   "group": "F1",
+   "frame": 89347,
+   "seconds": 1489.117,
+   "cue": 373,
+   "lines": [
+    "with the imaginary parts of what are",
+    "called eigenvalues."
+   ],
+   "cue_start": 1487.444,
+   "cue_end": 1490.783,
+   "overlap": [
+    1487.444,
+    1490.783
+   ],
+   "state": "both rows",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S07"
+  },
+  {
+   "group": "F2",
+   "frame": 92985,
+   "seconds": 1549.75,
+   "cue": 387,
+   "lines": [
+    "The mirror has signed area minus one, so",
+    "no real flow reaches"
+   ],
+   "cue_start": 1547.34,
+   "cue_end": 1551.79,
+   "overlap": [
+    1547.7,
+    1551.79
+   ],
+   "state": "footer",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S08"
+  },
+  {
+   "group": "F2",
+   "frame": 93225,
+   "seconds": 1553.75,
+   "cue": 388,
+   "lines": [
+    "it, not even one that changes its velocity",
+    "as it runs."
+   ],
+   "cue_start": 1551.79,
+   "cue_end": 1555.72,
+   "overlap": [
+    1551.79,
+    1555.72
+   ],
+   "state": "footer",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S09"
+  },
+  {
+   "group": "F2",
+   "frame": 93498,
+   "seconds": 1558.3,
+   "cue": 389,
+   "lines": [
+    "That factor on signed area is called the",
+    "determinant."
+   ],
+   "cue_start": 1556.333,
+   "cue_end": 1560.253,
+   "overlap": [
+    1556.333,
+    1560.253
+   ],
+   "state": "footer",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S10"
+  },
+  {
+   "group": "F2",
+   "frame": 93775,
+   "seconds": 1562.917,
+   "cue": 390,
+   "lines": [
+    "So a real matrix with a negative",
+    "determinant has no real logarithm."
+   ],
+   "cue_start": 1560.253,
+   "cue_end": 1565.593,
+   "overlap": [
+    1560.253,
+    1565.593
+   ],
+   "state": "footer",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S11"
+  },
+  {
+   "group": "F2",
+   "frame": 93939,
+   "seconds": 1565.65,
+   "cue": 391,
+   "lines": [
+    "Is a positive determinant enough?"
+   ],
+   "cue_start": 1565.593,
+   "cue_end": 1568.053,
+   "overlap": [
+    1565.593,
+    1565.7
+   ],
+   "state": "footer",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S12"
+  },
+  {
+   "group": "F3",
+   "frame": 103350,
+   "seconds": 1722.5,
+   "cue": 430,
+   "lines": [
+    "In higher dimensions, the exact rule, from",
+    "a nineteen sixty-six paper by Culver,"
+   ],
+   "cue_start": 1719.55,
+   "cue_end": 1725.14,
+   "overlap": [
+    1719.85,
+    1725.14
+   ],
+   "state": "footer",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S13"
+  },
+  {
+   "group": "F3",
+   "frame": 103674,
+   "seconds": 1727.9,
+   "cue": 431,
+   "lines": [
+    "asks that the matrix's blocks for each",
+    "negative stretch come in matching pairs."
+   ],
+   "cue_start": 1725.14,
+   "cue_end": 1730.66,
+   "overlap": [
+    1725.14,
+    1730.66
+   ],
+   "state": "footer",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S14"
+  },
+  {
+   "group": "F3",
+   "frame": 103912,
+   "seconds": 1731.867,
+   "cue": 432,
+   "lines": [
+    "On screen is the precise version."
+   ],
+   "cue_start": 1730.66,
+   "cue_end": 1733.07,
+   "overlap": [
+    1730.66,
+    1733.07
+   ],
+   "state": "footer",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S15"
+  },
+  {
+   "group": "F3",
+   "frame": 105088,
+   "seconds": 1751.467,
+   "cue": 433,
+   "lines": [
+    "Allow complex matrices, and the obstacle",
+    "disappears."
+   ],
+   "cue_start": 1751.417,
+   "cue_end": 1756.137,
+   "overlap": [
+    1751.417,
+    1751.533
+   ],
+   "state": "footer",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S16"
+  },
+  {
+   "group": "F4",
+   "frame": 105872,
+   "seconds": 1764.533,
+   "cue": 435,
+   "lines": [
+    "Every invertible complex matrix has a",
+    "complex logarithm."
+   ],
+   "cue_start": 1762.237,
+   "cue_end": 1766.467,
+   "overlap": [
+    1762.6,
+    1766.467
+   ],
+   "state": "footer",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S17"
+  },
+  {
+   "group": "F4",
+   "frame": 106089,
+   "seconds": 1768.15,
+   "cue": 436,
+   "lines": [
+    "Only the singular ones, which squash the",
+    "plane"
+   ],
+   "cue_start": 1766.467,
+   "cue_end": 1769.494,
+   "overlap": [
+    1766.8,
+    1769.494
+   ],
+   "state": "footer, red lines above it",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S18"
+  },
+  {
+   "group": "F4",
+   "frame": 106271,
+   "seconds": 1771.183,
+   "cue": 437,
+   "lines": [
+    "flat, have none, for the same reason zero",
+    "had none."
+   ],
+   "cue_start": 1769.494,
+   "cue_end": 1772.857,
+   "overlap": [
+    1769.494,
+    1772.857
+   ],
+   "state": "footer, red lines above it",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S19"
+  },
+  {
+   "group": "F5",
+   "frame": 115836,
+   "seconds": 1930.6,
+   "cue": 474,
+   "lines": [
+    "For the number minus one, a convention",
+    "broke the"
+   ],
+   "cue_start": 1929.647,
+   "cue_end": 1933.051,
+   "overlap": [
+    1929.933,
+    1931.267
+   ],
+   "state": "footer",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S20"
+  },
+  {
+   "group": "F5",
+   "frame": 115938,
+   "seconds": 1932.3,
+   "cue": 474,
+   "lines": [
+    "For the number minus one, a convention",
+    "broke the"
+   ],
+   "cue_start": 1929.647,
+   "cue_end": 1933.051,
+   "overlap": [
+    1931.533,
+    1933.051
+   ],
+   "state": "footer, convention line",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S21"
+  },
+  {
+   "group": "F5",
+   "frame": 116018,
+   "seconds": 1933.633,
+   "cue": 475,
+   "lines": [
+    "same tie; here the honest answer is the",
+    "whole family."
+   ],
+   "cue_start": 1933.051,
+   "cue_end": 1936.817,
+   "overlap": [
+    1933.051,
+    1934.217
+   ],
+   "state": "footer, convention line",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S22"
+  },
+  {
+   "group": "F5",
+   "frame": 116139,
+   "seconds": 1935.65,
+   "cue": 475,
+   "lines": [
+    "same tie; here the honest answer is the",
+    "whole family."
+   ],
+   "cue_start": 1933.051,
+   "cue_end": 1936.817,
+   "overlap": [
+    1934.483,
+    1936.817
+   ],
+   "state": "footer, convention line, family label",
+   "row": -3.4,
+   "row_px": 1998,
+   "id": "S23"
+  }
+ ]
+}
