@@ -1,0 +1,85 @@
+--- /Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/picture-repair01/before/boundary.rs	2026-11-06 14:34:36.390704291 -0500
++++ /Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/picture-repair01/candidate/boundary.rs	2026-11-06 14:36:02.544793306 -0500
+@@ -302,9 +302,9 @@
+             v(right, -1.4),
+         )?;
+         fade_in_all(stage, &[avg8], 0.4)?;
+-        let pair_up = kit.text(stage, PAIR_UP, 18.0, Palette::dim(), v(right, -0.75))?;
+-        fade_in_all(stage, &[pair_up], 0.3)?;
+-        vp_frame.push(pair_up);
++        let pair_up = carded(&kit, stage, PAIR_UP, 18.0, Palette::dim(), v(right, -0.75), Palette::faint())?;
++        fade_in_all(stage, &pair_up, 0.3)?;
++        vp_frame.extend(pair_up);
+         line.wait_sentence(stage, 2)?;
+         let mut gone = dots8;
+         gone.push(mean8);
+--- /Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/picture-repair01/before/counting.rs	2026-11-06 14:34:37.104930242 -0500
++++ /Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/picture-repair01/candidate/counting.rs	2026-11-06 14:36:02.545556883 -0500
+@@ -552,7 +552,7 @@
+         result.extend(same);
+         fade_in_all(stage, &result, 0.3)?;
+         line.wait_for(stage, "with z")?;
+-        fade_out_all(stage, &[after], 0.3)?;
++        fade_out_all(stage, &[after, same[0], same[1]], 0.3)?;
+         let degree_n = kit.tex(stage, DEGREE_N_TEX, 36.0, Palette::ink(), &[], row)?;
+         fade_in_all(stage, &[degree_n], 0.4)?;
+         let wide = Plane::new(v(-3.45, -0.35), 5.6, (-3.6, 3.6), (-3.6, 3.6));
+@@ -563,7 +563,6 @@
+         line.wait_sentence(stage, 3)?;
+         turning.stop(stage);
+         let mut acted = vec![claim, degree_n, zero_kept, walked_loop, walked_curve, turning.field];
+-        acted.extend(same);
+         acted.extend(roots);
+         fade_out_all(stage, &acted, 0.3)?;
+         fade_in_all(stage, &wide_all, 0.5)?;
+--- /Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/picture-repair01/before/draw.rs	2026-11-06 14:34:35.697094426 -0500
++++ /Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/picture-repair01/candidate/draw.rs	2026-11-06 14:36:02.543539722 -0500
+@@ -332,7 +332,7 @@
+         .width(w)
+         .height(h)
+         .corner_radius(0.12)
+-        .style(Style::default().fill(panel(), 0.94).stroke(edge, 2.0, 1.0))
++        .style(Style::default().fill(panel(), 1.0).stroke(edge, 2.0, 1.0))
+         .build()?
+         .moved_to(at);
+     Ok(stage.arena_mut().add(r))
+@@ -1175,8 +1175,18 @@
+ }
+ 
+ /// A lower third ("precisely:") brought in now; returns it.
+-pub fn precisely_now(kit: &Kit, stage: &mut Stage<'_>, text: &str) -> fmn::Result<Mob> {
++pub fn precisely_card(kit: &Kit, stage: &mut Stage<'_>, text: &str) -> fmn::Result<Mob> {
+     let m = explainer_kit::props::precisely(kit, stage, text)?;
++    // The shared lower third's first child is its background rectangle.
++    // Keep plot strokes and colour fields from showing through settled text.
++    let back = stage.get(m).ok_or_else(|| fail("missing lower third"))?
++        .submobjects().first().copied().ok_or_else(|| fail("missing lower-third background"))?;
++    stage.arena_mut().set_fill(back, None, Some(1.0), None, false);
++    Ok(m)
++}
++
++pub fn precisely_now(kit: &Kit, stage: &mut Stage<'_>, text: &str) -> fmn::Result<Mob> {
++    let m = precisely_card(kit, stage, text)?;
+     fade_in_all(stage, &[m], 0.4)?;
+     Ok(m)
+ }
+@@ -1185,7 +1195,7 @@
+ /// built but not yet shown. Bands sit on the foot of the frame, so this shorter one is lifted
+ /// until it starts where `whole` will: its first line does not move when `whole` replaces it.
+ pub fn precisely_lifted(kit: &Kit, stage: &mut Stage<'_>, text: &str, whole: Mob) -> fmn::Result<Mob> {
+-    let m = explainer_kit::props::precisely(kit, stage, text)?;
++    let m = precisely_card(kit, stage, text)?;
+     let lift = stage.get_height(whole) - stage.get_height(m);
+     let at = stage.get_center(m);
+     stage.move_to(m, v(at[0], at[1] + lift), ORIGIN);
+--- /Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/picture-repair01/before/real_integral.rs	2026-11-06 14:34:37.826897224 -0500
++++ /Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/picture-repair01/candidate/real_integral.rs	2026-11-06 14:36:02.544301257 -0500
+@@ -806,7 +806,7 @@
+         line.wait_sentence(stage, 1)?;
+         // the card is about to cover the lower half plane: the two poles there go first
+         fade_out_all(stage, &dims_below, 0.3)?;
+-        let note = explainer_kit::props::precisely(&kit, stage, HONEST)?;
++        let note = precisely_card(&kit, stage, HONEST)?;
+         let said = precisely_lifted(&kit, stage, HONEST_SAID, note)?;
+         wait_until(stage, line.end())?;
+         precisely_over(stage, said, note)?;
