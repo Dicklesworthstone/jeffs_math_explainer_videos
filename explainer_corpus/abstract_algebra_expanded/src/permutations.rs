@@ -1335,7 +1335,7 @@ fn undo_and_disjoint(stage: &mut Stage<'_>, k: &Kit) -> fmn::Result<Vec<Mob>> {
     )?;
     let contrast = k.text(
         stage,
-        "Overlapping: order matters. Separate: it does not.",
+        "Disjoint cycles commute; overlapping cycles may not.",
         27.0,
         Palette::green(),
         v(0.0, CAPTION_Y),
