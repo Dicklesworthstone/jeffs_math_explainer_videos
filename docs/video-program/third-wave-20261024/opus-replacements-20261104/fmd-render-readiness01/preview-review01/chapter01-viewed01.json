@@ -1,0 +1,63 @@
+{
+  "time": "2026-11-06T18:52:11.358847+00:00",
+  "chapter": "01_the_bump",
+  "sheets_viewed": [
+    "sheet-000.png",
+    "sheet-001.png",
+    "sheet-002.png",
+    "sheet-003.png",
+    "sheet-004.png",
+    "sheet-005.png",
+    "sheet-006.png",
+    "sheet-007.png",
+    "sheet-008.png",
+    "sheet-009.png",
+    "sheet-010.png",
+    "sheet-011.png",
+    "sheet-012.png",
+    "sheet-013.png",
+    "sheet-014.png",
+    "sheet-015.png",
+    "sheet-016.png",
+    "sheet-017.png",
+    "sheet-018.png",
+    "sheet-019.png"
+  ],
+  "sheet_sha256": {
+    "sheet-014.png": "9cba6a8974fc1b91c6d4a8d58964b9c7a93e8a913d1bb8f4211521fe34c910bb",
+    "sheet-000.png": "f7815f78db24a205d21db4e691c5b3140cb9c7f0a386f46b0c23f35ca18a488f",
+    "sheet-001.png": "89a5ad3eabe397f50599ffab3b88e22d5f7d3111e4c865e4036ef5d53266292a",
+    "sheet-015.png": "01e187dd16171581b7a08b03fcafdc096daebd198c19aa283669a0560d2dd5f7",
+    "sheet-003.png": "13d839ca0753e86d83533a45f72e1c3a249eb3130088a0da99b065f26606aa65",
+    "sheet-017.png": "8ba7c433e7fd1e2b2579ebf169c509f5c3c09d41ea2dccfc4b4d28a54448d46d",
+    "sheet-016.png": "72aae9e6eba5fb742a764cbc90acd1093c393537ae223b1fb24dd2eb3465554f",
+    "sheet-002.png": "d9f580a9350defdba1ff439aff6a033d6215d739fdcd60786a4b086fc186a876",
+    "sheet-006.png": "13f3c1f86bae2b68960150bf0417bede5c5ef16122246528c331e072885dbf2f",
+    "sheet-012.png": "f22828ab78c5fffc27ab08cbbcf2934529bcfc5bf302205d644fedc5e14b2aa3",
+    "sheet-013.png": "204a4e4a85891341f910192039a0c0541ec889383c9ceb20286ab5e89e3d0c6c",
+    "sheet-007.png": "60b815bd05f76c707011270bbad0435ba97cfac0c134621ed3ca6876002e9fe1",
+    "sheet-011.png": "a3d92b8257cf82fe22bebce1a722303f6c61f18e394687d9ffa049cd7d76af51",
+    "sheet-005.png": "b1f9c31ff69edf2a91645a2713060442a1f3907bbb77ffbacb57982ec6564f08",
+    "sheet-004.png": "05e02738701c6e008d1027d21cd13058cbf7d23c9a29941b4ae800b6bf25d7df",
+    "sheet-010.png": "6428f4b34aeba93101fa4272841029ec0c529c3597bba96f4e2b3bb09ddb3141",
+    "sheet-009.png": "0b303f805ff17aec55ee2e511a8cff5c9a795eff7e3ac59ac54f75eb2a3c4498",
+    "sheet-008.png": "fff0c486847c0818c1f7f4a9ad06555bd139f9ddb827fe715aa8e5dada37cec7",
+    "sheet-018.png": "d87804f54825435cc2998947498934225cd2b9190b4ac016fd37a4d9e43e0c3f",
+    "sheet-019.png": "27e06bbe489b1645be6f6360d3eab6616e00cbeacc2fd1753a55020387103835"
+  },
+  "selected_pictures_viewed": 116,
+  "observation": "All20sheets actually viewed. Curve tracing, partial-sum comparison, prediction hold, complex poles and convergence circle legible. Native title-safe formula near top visible/not cropped. No concrete overlap/clipping defect in selected preview images. Coming-up colour inset too small to establish fine detail.",
+  "preview_dimensions": [
+    960,
+    540
+  ],
+  "displayed_sheet_dimensions": [
+    1659,
+    1504
+  ],
+  "whole_preview_accepted": false,
+  "extraction_terminal_receipt_pending": true,
+  "listening": false,
+  "fine_sync": false,
+  "independent_AV": false
+}

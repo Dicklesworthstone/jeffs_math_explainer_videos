@@ -1,0 +1,21 @@
+{
+  "time": "2026-11-06T18:40:50.286834+00:00",
+  "status": "HOLD prior thumbnails; uncompiled repair candidate",
+  "prior_candidates": [
+    "thumbnail-upload02.png",
+    "complex_analysis_visual_thumbnail01.png"
+  ],
+  "reason": "Owner rejects coarse flat 51x51 tiles and twelve-colour quantization. Prior layout review is not aesthetic acceptance.",
+  "candidate": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/thumbnail-smooth-candidate01.rs",
+  "sha256": "e1e2ff69e31648ca7de5301c24351082dd84e5cb2ac7e11ce2cb1588c488d70f",
+  "implementation": "Native same film portrait renderer, Square function, hue-only continuous colours, current production07d PLATE_CELLS4. Requires separate preserved build and real render; frozen running production inputs untouched.",
+  "remaining": [
+    "Build isolated native candidate with guarded resource lane",
+    "View native 4K,1280 and320 outputs; check origin and colour seam",
+    "Review final film colour fields and refinement/zoom treatment; low-resolution preview alone cannot prove final detail",
+    "Publish only after technical and actual visual acceptance"
+  ],
+  "listening": false,
+  "fine_sync": false,
+  "independent_AV_review": false
+}

@@ -1,0 +1,12 @@
+{
+  "time": "2026-11-06T18:44:42.151233+00:00",
+  "finding": "Existing final verifier scales every picture to960x540, insufficient to judge native4K fine detail.",
+  "change": "New final-verify04 and launcher preserve all03 technical/layout checks and add native3840x2160 unscaled PNGs at25/50/90 percent of each04_reading_color and05_gallery retained cue. Each PNG dimension/hash verified and explicitly unviewed.",
+  "files": {
+    "final-verify04.py": "9adb32f6f0cd345b17b505601c6ca1e58270949325587a51a85a6cf9157d374f",
+    "launch-final-verify04.py": "50c25b550d84cc004ce28900b58e6a91b33d1e4c443f60e51411dab4caf42a9f"
+  },
+  "validation": "AST compilation and actual CSD imports/child path passed. No final master exists so extraction not executed.",
+  "source_observation": "Actual compiled gallery05_9 rebuilds cubic portrait over zoom_plane, highlights nearly-square tile and keeps overview linked. Source is not visual proof.",
+  "required": "Use launcher04; actually view all native-detail images at1:1 as well as all sheets. Film field detail and coarse-to-fine creative acceptance remains open."
+}
