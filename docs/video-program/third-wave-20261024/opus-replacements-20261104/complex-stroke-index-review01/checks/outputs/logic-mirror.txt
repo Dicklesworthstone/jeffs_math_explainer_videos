@@ -1,0 +1,1 @@
+PASS 3000 random sorted strokes, 3000 accepted, 515349 queries (133432 admitted by the scan), 4 refusals

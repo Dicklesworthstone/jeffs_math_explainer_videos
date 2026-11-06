@@ -1,0 +1,20 @@
+{
+  "observed_at": "2026-11-06T02:48:44.193327+00:00",
+  "reviewer": "root",
+  "scope": "full ts1_final_render01.py source read, independent of Lavender author; NOT master/verify review or runtime test",
+  "file_sha256": "23d99bfb8a5cfc30fed702cae186180eacdae4ea482c5666e282fab08bd7fc70",
+  "observations": [
+    "chain03 module hash pinned before import",
+    "preview review binds complete sheet inventory, extraction, all chapter preview outputs, binary and voice",
+    "derive-summary provenance checked separately from copied install receipt",
+    "4K60 actual stream/frame checks and CRF16 x264 record; exact full captured PCM sample count",
+    "passed chapters require frozen input and output hashes; retries explicit and preserved"
+  ],
+  "open": [
+    "Candidate adoption changes qualifier/chain/binary pins; do not seal current bundle before decision",
+    "43200-second per-chapter timeout adequacy requires real 4K speed, not64x36 inference",
+    "subprocess.run timeout kills immediate render child; encoder process-group/EOF exit must be established for real final path",
+    "Master and verifier delta read still required",
+    "No native final render, listening, fine sync or full independent AV acceptance"
+  ]
+}

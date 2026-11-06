@@ -1,0 +1,32 @@
+{
+ "schema": "logarithm-caption-positions-v1",
+ "note": "Cue numbers from the 475-cue SRT. Every other cue stays at the default position. Tier A holds the fine print and footers the first overlay sampled; tier B holds other low teaching text.",
+ "vtt_setting": "line:2% position:50% align:center",
+ "windows": [
+  {"first": 23, "last": 25, "tier": "A", "low": "chapter 00: equal steps at -3.25, fine print at -3.62"},
+  {"first": 36, "last": 36, "tier": "B", "low": "chapter 01: rule line at -2.75"},
+  {"first": 89, "last": 90, "tier": "A", "low": "chapter 02: fine print"},
+  {"first": 102, "last": 111, "tier": "B", "low": "chapter 03: dial label, spiral label at -3.55"},
+  {"first": 147, "last": 162, "tier": "A", "low": "chapter 04: formula denominator, axis labels, fine print"},
+  {"first": 177, "last": 178, "tier": "B", "low": "chapter 05: angle label at -2.85"},
+  {"first": 184, "last": 184, "tier": "B", "low": "chapter 05: lap note"},
+  {"first": 205, "last": 248, "tier": "B", "low": "chapter 06: stacked labels and theorem, whole chapter"},
+  {"first": 269, "last": 271, "tier": "B", "low": "chapter 07: cut-angle line at -2.95"},
+  {"first": 286, "last": 288, "tier": "A", "low": "chapter 07: fine print"},
+  {"first": 305, "last": 310, "tier": "A", "low": "chapter 08: fine print"},
+  {"first": 324, "last": 324, "tier": "B", "low": "chapter 08: root-of-a-product formula"},
+  {"first": 329, "last": 331, "tier": "B", "low": "chapter 09: before-and-after note"},
+  {"first": 345, "last": 347, "tier": "B", "low": "chapter 09: quarter-turn formula"},
+  {"first": 357, "last": 357, "tier": "B", "low": "chapter 10: infinitely many logarithms line"},
+  {"first": 372, "last": 373, "tier": "A", "low": "chapter 10: rows -2.93 and -3.40"},
+  {"first": 387, "last": 391, "tier": "A", "low": "chapter 11: Liouville footer"},
+  {"first": 430, "last": 437, "tier": "A", "low": "chapter 11: Culver and Gallier footers"},
+  {"first": 474, "last": 475, "tier": "A", "low": "chapter 12: closing footer, family label"}
+ ],
+ "bottom_controls": [
+  {"cue": 19, "kept": "pause prompt at the right edge"},
+  {"cue": 120, "kept": "thin axis line only"},
+  {"cue": 338, "kept": "grid corner only"},
+  {"cue": 445, "kept": "panel edge at the top of the block"}
+ ]
+}

@@ -1,0 +1,5 @@
+inner timeout (probe02 ab/film/profile): guard child exit -15; beats at stop 4 (had 4), 3 s later 10: RENDER SURVIVED THE STOP
+no inner timeout (proposed): guard child exit -15; beats at stop 4 (had 4), 3 s later 4: render stopped
+inner timeout --foreground: guard child exit -15; beats at stop 4 (had 4), 3 s later 4: render stopped
+inner timeout: outer timeout exit 124; beats 5, 3 s later 11: RENDER SURVIVED
+no inner timeout: outer timeout exit 124; beats 4, 3 s later 4: render stopped

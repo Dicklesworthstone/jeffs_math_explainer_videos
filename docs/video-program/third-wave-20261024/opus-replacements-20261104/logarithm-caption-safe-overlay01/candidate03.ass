@@ -1,0 +1,489 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 384
+PlayResY: 288
+ScaledBorderAndShadow: yes
+YCbCr Matrix: None
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,16,&Hffffff,&Hffffff,&H0,&H0,0,0,0,0,100,100,0,0,1,1,0,2,10,10,10,1
+Style: Top,Arial,16,&Hffffff,&Hffffff,&H0,&H0,0,0,0,0,100,100,0,0,1,1,0,8,10,10,2,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.60,0:00:06.28,Default,,0,0,0,,Here are seven notes, all called A, from\Nlow on a piano to near the top.
+Dialogue: 0,0:00:06.28,0:00:10.73,Default,,0,0,0,,In standard tuning their frequencies are\Nfifty-five, a hundred and
+Dialogue: 0,0:00:10.73,0:00:15.46,Default,,0,0,0,,ten, two hundred and twenty, four hundred\Nand forty, eight hundred and
+Dialogue: 0,0:00:15.46,0:00:20.12,Default,,0,0,0,,eighty, seventeen sixty and thirty-five\Ntwenty vibrations per second.
+Dialogue: 0,0:00:20.73,0:00:23.99,Default,,0,0,0,,Mark them on an ordinary ruler of\Nfrequency.
+Dialogue: 0,0:00:23.99,0:00:26.70,Default,,0,0,0,,The last step alone, from seventeen sixty
+Dialogue: 0,0:00:26.70,0:00:30.35,Default,,0,0,0,,to thirty-five twenty, fills half the\Nruler.
+Dialogue: 0,0:00:30.35,0:00:33.45,Default,,0,0,0,,The first four notes crowd into the first\Neighth.
+Dialogue: 0,0:00:34.07,0:00:36.85,Default,,0,0,0,,A keyboard spaces them differently.
+Dialogue: 0,0:00:36.85,0:00:42.47,Default,,0,0,0,,Count every key, black or white, as one\Nstep, called a semitone.
+Dialogue: 0,0:00:42.47,0:00:46.37,Default,,0,0,0,,Each A is twelve semitones above the one\Nbefore, and
+Dialogue: 0,0:00:46.37,0:00:50.43,Default,,0,0,0,,every one of those equal climbs doubles\Nthe frequency.
+Dialogue: 0,0:00:50.43,0:00:53.90,Default,,0,0,0,,To a musician, the distance between two\Nnotes is set by
+Dialogue: 0,0:00:53.90,0:00:57.43,Default,,0,0,0,,the ratio of their frequencies, not by\Ntheir difference.
+Dialogue: 0,0:00:58.03,0:00:59.81,Default,,0,0,0,,So try this.
+Dialogue: 0,0:00:59.81,0:01:02.59,Default,,0,0,0,,Start at the A of four hundred and forty,
+Dialogue: 0,0:01:02.59,0:01:06.38,Default,,0,0,0,,and go up six semitones, half of the\Ntwelve.
+Dialogue: 0,0:01:06.38,0:01:08.40,Default,,0,0,0,,What frequency do you reach?
+Dialogue: 0,0:01:08.40,0:01:16.57,Default,,0,0,0,,Halfway by difference would be six hundred\Nand sixty.
+Dialogue: 0,0:01:16.57,0:01:21.85,Default,,0,0,0,,Six semitones is half the climb, and two\Nof those half climbs must double.
+Dialogue: 0,0:01:21.85,0:01:26.73,Default,,0,0,0,,So each one multiplies by the same number,\Nthe square root of two.
+Dialogue: 0,0:01:26.73,0:01:31.45,Default,,0,0,0,,The note is about six hundred and\Ntwenty-two, not six hundred and sixty.
+Dialogue: 0,0:01:31.45,0:01:34.81,Default,,0,0,0,,{\an8\pos(190.4,25.6)}Equal steps on the keyboard are equal\Nratios.
+Dialogue: 0,0:01:35.42,0:01:40.89,Default,,0,0,0,,{\an8\pos(190.4,25.6)}A ruler whose equal steps mean equal\Nratios is what a logarithm builds.
+Dialogue: 0,0:01:40.89,0:01:46.86,Default,,0,0,0,,{\an8\pos(186.4,27.7)}For centuries it let people multiply by\Nsliding one strip of wood along another.
+Dialogue: 0,0:01:46.86,0:01:50.42,Default,,0,0,0,,Push the same idea into the complex\Nnumbers, or into
+Dialogue: 0,0:01:50.42,0:01:54.20,Default,,0,0,0,,the motions of a plane, and it starts to\Nforget things.
+Dialogue: 0,0:01:54.20,0:01:57.87,Default,,0,0,0,,It can lose count of how many times\Nsomething went around.
+Dialogue: 0,0:01:57.87,0:02:02.46,Default,,0,0,0,,It can even meet a transformation that no\Nsteady motion produces.
+Dialogue: 0,0:02:02.46,0:02:05.18,Default,,0,0,0,,We will follow the ruler all the way\Nthere.
+Dialogue: 0,0:02:06.38,0:02:11.78,Default,,0,0,0,,First, build that ruler for every positive\Nnumber, not just for notes.
+Dialogue: 0,0:02:11.78,0:02:13.59,Default,,0,0,0,,Put one at the start.
+Dialogue: 0,0:02:13.59,0:02:17.12,Default,,0,0,0,,Choose a length for doubling, and call it\None step.
+Dialogue: 0,0:02:17.12,0:02:23.60,Default,,0,0,0,,Then two sits one step along, four sits\Ntwo steps along, and eight sits three.
+Dialogue: 0,0:02:23.60,0:02:26.14,Default,,0,0,0,,Every doubling adds the same length.
+Dialogue: 0,0:02:26.75,0:02:30.00,Default,,0,0,0,,{\an8\pos(191.2,209.1)}The rule behind it fits in one sentence:\Nthe
+Dialogue: 0,0:02:30.00,0:02:33.71,Default,,0,0,0,,position of a product is the sum of the\Npositions.
+Dialogue: 0,0:02:33.71,0:02:39.95,Default,,0,0,0,,Halving must undo a doubling, so one half\Nsits one step before the start.
+Dialogue: 0,0:02:39.95,0:02:42.68,Default,,0,0,0,,And since the square root of two times\Nitself is
+Dialogue: 0,0:02:42.68,0:02:46.59,Default,,0,0,0,,two, the square root of two sits half a\Nstep along.
+Dialogue: 0,0:02:47.20,0:02:49.39,Default,,0,0,0,,Now a harder question.
+Dialogue: 0,0:02:49.39,0:02:51.28,Default,,0,0,0,,Where does three go?
+Dialogue: 0,0:02:51.28,0:02:56.94,Default,,0,0,0,,It lies between two and four, so somewhere\Nbetween one step and two.
+Dialogue: 0,0:02:56.94,0:03:03.42,Default,,0,0,0,,But where, exactly?
+Dialogue: 0,0:03:03.42,0:03:05.78,Default,,0,0,0,,Use the rule in reverse.
+Dialogue: 0,0:03:05.78,0:03:08.08,Default,,0,0,0,,Twelve threes multiplied together make
+Dialogue: 0,0:03:08.08,0:03:11.72,Default,,0,0,0,,five hundred thirty-one thousand, four\Nhundred and forty-one.
+Dialogue: 0,0:03:11.72,0:03:12.84,Default,,0,0,0,,Nineteen twos make
+Dialogue: 0,0:03:12.84,0:03:16.76,Default,,0,0,0,,five hundred twenty-four thousand, two\Nhundred and eighty-eight.
+Dialogue: 0,0:03:16.76,0:03:19.72,Default,,0,0,0,,Those are less than one and a half percent\Napart.
+Dialogue: 0,0:03:19.72,0:03:23.42,Default,,0,0,0,,So twelve copies of three's length almost\Nmatch nineteen
+Dialogue: 0,0:03:23.42,0:03:28.14,Default,,0,0,0,,steps, and three sits close to nineteen\Ntwelfths of a step.
+Dialogue: 0,0:03:28.75,0:03:31.79,Default,,0,0,0,,You have seen this before, on the\Nkeyboard.
+Dialogue: 0,0:03:31.79,0:03:38.23,Default,,0,0,0,,Nineteen semitones above any A is a note\Nalmost exactly three times its frequency.
+Dialogue: 0,0:03:38.23,0:03:42.14,Default,,0,0,0,,Closer matches between powers pin three\Ndown further, and
+Dialogue: 0,0:03:42.14,0:03:45.83,Default,,0,0,0,,its position is about one point five eight\Nfive steps.
+Dialogue: 0,0:03:45.83,0:03:48.75,Default,,0,0,0,,As long as bigger numbers sit further\Nalong,
+Dialogue: 0,0:03:48.75,0:03:51.95,Default,,0,0,0,,this one rule fixes every position on the\Nruler.
+Dialogue: 0,0:03:52.55,0:03:54.75,Default,,0,0,0,,This position has a name.
+Dialogue: 0,0:03:54.75,0:03:58.83,Default,,0,0,0,,Measured in doublings, it is the logarithm\Nbase two.
+Dialogue: 0,0:03:58.83,0:04:02.31,Default,,0,0,0,,The logarithm base two of eight is three,\Nand
+Dialogue: 0,0:04:02.31,0:04:05.95,Default,,0,0,0,,of three it is about one point five eight\Nfive.
+Dialogue: 0,0:04:05.95,0:04:10.27,Default,,0,0,0,,Choose a different length for the first\Nstep and you get a different base.
+Dialogue: 0,0:04:10.27,0:04:15.71,Default,,0,0,0,,Let one step stand for multiplying by ten,\Nand you get the common logarithm.
+Dialogue: 0,0:04:15.71,0:04:19.43,Default,,0,0,0,,Every one of these rulers is the same\Nruler, stretched.
+Dialogue: 0,0:04:20.63,0:04:26.25,Default,,0,0,0,,Now make two copies of the ruler, one\Nfixed and one that slides along it.
+Dialogue: 0,0:04:26.25,0:04:31.15,Default,,0,0,0,,Mark each from one to ten, with ten one\Nfull length along.
+Dialogue: 0,0:04:31.15,0:04:33.59,Default,,0,0,0,,This is the heart of a slide rule.
+Dialogue: 0,0:04:34.20,0:04:38.45,Default,,0,0,0,,To multiply two point five by three point\Ntwo, slide the
+Dialogue: 0,0:04:38.45,0:04:42.46,Default,,0,0,0,,moving ruler until its one sits above two\Npoint five.
+Dialogue: 0,0:04:42.46,0:04:46.56,Default,,0,0,0,,Everything on it is now shifted by two\Npoint five's length.
+Dialogue: 0,0:04:46.56,0:04:49.64,Default,,0,0,0,,Find three point two on the moving ruler.
+Dialogue: 0,0:04:49.64,0:04:56.90,Default,,0,0,0,,Which number sits directly below it?
+Dialogue: 0,0:04:56.90,0:04:57.93,Default,,0,0,0,,Eight.
+Dialogue: 0,0:04:57.93,0:05:01.50,Default,,0,0,0,,The two lengths add, so the numbers\Nmultiply.
+Dialogue: 0,0:05:01.50,0:05:05.10,Default,,0,0,0,,Two point five times three point two is\Neight.
+Dialogue: 0,0:05:05.10,0:05:07.42,Default,,0,0,0,,Sliding added the positions, and the
+Dialogue: 0,0:05:07.42,0:05:10.26,Default,,0,0,0,,markings turned that sum back into a\Nproduct.
+Dialogue: 0,0:05:10.87,0:05:13.51,Default,,0,0,0,,Now try four times six.
+Dialogue: 0,0:05:13.51,0:05:16.85,Default,,0,0,0,,Put the one above four and look for six.
+Dialogue: 0,0:05:16.85,0:05:18.65,Default,,0,0,0,,It has run off the end.
+Dialogue: 0,0:05:18.65,0:05:24.15,Default,,0,0,0,,The answer, twenty-four, is bigger than\Nten, and this ruler stops at ten.
+Dialogue: 0,0:05:24.75,0:05:26.79,Default,,0,0,0,,So use the other end.
+Dialogue: 0,0:05:26.79,0:05:30.63,Default,,0,0,0,,Put the moving ruler's ten above the four\Ninstead.
+Dialogue: 0,0:05:30.63,0:05:33.83,Default,,0,0,0,,Now six sits above two point four.
+Dialogue: 0,0:05:33.83,0:05:39.05,Default,,0,0,0,,The rule gives the digits, a two and a\Nfour, but not the decimal point.
+Dialogue: 0,0:05:39.05,0:05:42.21,Default,,0,0,0,,Two point four, twenty-four and two\Nhundred
+Dialogue: 0,0:05:42.21,0:05:44.92,Default,,0,0,0,,and forty all live on the same mark.
+Dialogue: 0,0:05:44.92,0:05:47.96,Default,,0,0,0,,{\an8\pos(192.0,234.7)}The person holding the rule keeps track:\Nfour times
+Dialogue: 0,0:05:47.96,0:05:52.35,Default,,0,0,0,,{\an8\pos(192.0,234.7)}six is between ten and a hundred, so it is\Ntwenty-four.
+Dialogue: 0,0:05:53.55,0:05:58.01,Default,,0,0,0,,Why can one mark serve both two point four\Nand twenty-four?
+Dialogue: 0,0:05:58.01,0:06:02.20,Default,,0,0,0,,Multiplying by ten moves exactly one full\Nruler length,
+Dialogue: 0,0:06:02.20,0:06:06.01,Default,,0,0,0,,so every decade repeats the same pattern\Nof marks.
+Dialogue: 0,0:06:06.01,0:06:09.15,Default,,0,0,0,,So bend one decade into a circle.
+Dialogue: 0,0:06:09.15,0:06:12.43,Default,,0,0,0,,One full lap of this dial multiplies by\Nten.
+Dialogue: 0,0:06:13.03,0:06:16.43,Default,,0,0,0,,On the dial, multiplying is turning.
+Dialogue: 0,0:06:16.43,0:06:19.35,Default,,0,0,0,,Four sits a little past half a lap.
+Dialogue: 0,0:06:19.35,0:06:22.53,Default,,0,0,0,,Six adds about three quarters of a lap\Nmore.
+Dialogue: 0,0:06:22.53,0:06:26.08,Default,,0,0,0,,Together they pass the top, where one, ten\Nand a
+Dialogue: 0,0:06:26.08,0:06:29.63,Default,,0,0,0,,hundred meet, and stop on two point four's\Nmark.
+Dialogue: 0,0:06:29.63,0:06:34.31,Default,,0,0,0,,The extra lap is the factor of ten the\Nstraight ruler had no room for.
+Dialogue: 0,0:06:34.92,0:06:38.80,Default,,0,0,0,,{\an8\pos(241.6,46.9)}The dial remembers the digits, and forgets\Nthe laps.
+Dialogue: 0,0:06:38.80,0:06:44.10,Default,,0,0,0,,{\an8\pos(274.4,204.8)}To read a number back from a mark, you\Nmust also say how many laps you mean.
+Dialogue: 0,0:06:44.10,0:06:46.96,Default,,0,0,0,,{\an8\pos(274.4,204.8)}Zero laps gives two point four.
+Dialogue: 0,0:06:46.96,0:06:49.36,Default,,0,0,0,,{\an8\pos(274.4,204.8)}One lap gives twenty-four.
+Dialogue: 0,0:06:49.36,0:06:52.76,Default,,0,0,0,,{\an8\pos(191.2,260.3)}Minus one lap gives zero point two four.
+Dialogue: 0,0:06:53.37,0:06:56.87,Default,,0,0,0,,{\an8\pos(272.0,204.8)}Keep this picture of a spiral and its\Nshadow.
+Dialogue: 0,0:06:56.87,0:06:59.97,Default,,0,0,0,,{\an8\pos(276.8,27.7)}A mark that can be reached in different\Nnumbers of laps is
+Dialogue: 0,0:06:59.97,0:07:04.11,Default,,0,0,0,,{\an8\pos(272.8,27.7)}exactly what happens to the logarithm in\Nthe complex numbers.
+Dialogue: 0,0:07:04.11,0:07:07.51,Default,,0,0,0,,{\an8\pos(251.2,260.3)}There, nobody folds anything by hand.
+Dialogue: 0,0:07:07.51,0:07:10.33,Default,,0,0,0,,{\an8\pos(280.0,202.7)}The exponential does the folding by\Nitself.
+Dialogue: 0,0:07:11.53,0:07:15.13,Default,,0,0,0,,But first, the logarithm on its home\Nground.
+Dialogue: 0,0:07:15.13,0:07:17.72,Default,,0,0,0,,The exponential function, written e to the
+Dialogue: 0,0:07:17.72,0:07:21.73,Default,,0,0,0,,x, takes an input and returns a\Nmultiplier.
+Dialogue: 0,0:07:21.73,0:07:24.53,Default,,0,0,0,,Adding inputs multiplies outputs.
+Dialogue: 0,0:07:24.53,0:07:29.57,Default,,0,0,0,,It equals one at zero, and its slope\Neverywhere equals its height.
+Dialogue: 0,0:07:29.57,0:07:32.17,Default,,0,0,0,,The companion video builds it from\Nscratch.
+Dialogue: 0,0:07:32.78,0:07:36.08,Default,,0,0,0,,Three facts about it decide everything.
+Dialogue: 0,0:07:36.08,0:07:39.56,Default,,0,0,0,,It never outputs zero, because e to the x\Ntimes
+Dialogue: 0,0:07:39.56,0:07:43.96,Default,,0,0,0,,e to the minus x is e to the zero, which\Nis one.
+Dialogue: 0,0:07:43.96,0:07:47.16,Default,,0,0,0,,It never outputs a negative number,\Nbecause it starts at
+Dialogue: 0,0:07:47.16,0:07:51.20,Default,,0,0,0,,one and could only turn negative by\Npassing through zero.
+Dialogue: 0,0:07:51.20,0:07:55.89,Default,,0,0,0,,And since its slope is its height, which\Nis positive, it only ever
+Dialogue: 0,0:07:55.89,0:08:01.00,Default,,0,0,0,,climbs, from near zero on the left to as\Nlarge as you like on the right.
+Dialogue: 0,0:08:01.00,0:08:04.54,Default,,0,0,0,,So every positive number is reached\Nexactly once.
+Dialogue: 0,0:08:07.15,0:08:09.23,Default,,0,0,0,,That makes it reversible.
+Dialogue: 0,0:08:09.23,0:08:12.07,Default,,0,0,0,,The natural logarithm takes a positive\Nnumber and
+Dialogue: 0,0:08:12.07,0:08:15.85,Default,,0,0,0,,returns the one input that the exponential\Nsends there.
+Dialogue: 0,0:08:15.85,0:08:18.89,Default,,0,0,0,,The natural logarithm of one is zero.
+Dialogue: 0,0:08:18.89,0:08:21.83,Default,,0,0,0,,The natural logarithm of e is one.
+Dialogue: 0,0:08:21.83,0:08:24.93,Default,,0,0,0,,Zero and the negative numbers have no real\Nlogarithm
+Dialogue: 0,0:08:24.93,0:08:28.03,Default,,0,0,0,,at all, because the exponential never\Nlands on them.
+Dialogue: 0,0:08:28.63,0:08:31.43,Default,,0,0,0,,The mirror image shows something else.
+Dialogue: 0,0:08:31.43,0:08:35.17,Default,,0,0,0,,Reflecting the graph swaps rise and run.
+Dialogue: 0,0:08:35.17,0:08:37.60,Default,,0,0,0,,Where the exponential has slope equal to\Nits
+Dialogue: 0,0:08:37.60,0:08:41.97,Default,,0,0,0,,height, the logarithm at x has slope one\Nover x.
+Dialogue: 0,0:08:41.97,0:08:45.47,Default,,0,0,0,,At one, that slope is exactly one.
+Dialogue: 0,0:08:45.47,0:08:52.09,Default,,0,0,0,,So the natural logarithm of one point zero\None is almost exactly zero point zero one.
+Dialogue: 0,0:08:52.09,0:08:55.08,Default,,0,0,0,,A small percentage change becomes the same\Nsmall
+Dialogue: 0,0:08:55.08,0:08:58.87,Default,,0,0,0,,step, which is why base e is called\Nnatural.
+Dialogue: 0,0:08:59.48,0:09:01.92,Default,,0,0,0,,And this is the ruler again.
+Dialogue: 0,0:09:01.92,0:09:05.14,Default,,0,0,0,,The natural logarithm is the ruler whose\Nstep of one
+Dialogue: 0,0:09:05.14,0:09:09.56,Default,,0,0,0,,multiplies by e, about two point seven one\Neight.
+Dialogue: 0,0:09:09.56,0:09:14.30,Default,,0,0,0,,The position of a product is still the sum\Nof the positions: the logarithm of
+Dialogue: 0,0:09:14.30,0:09:21.42,Default,,0,0,0,,a times b is the logarithm of a plus the\Nlogarithm of b, for positive a and b.
+Dialogue: 0,0:09:21.42,0:09:24.48,Default,,0,0,0,,Other bases are the same ruler stretched.
+Dialogue: 0,0:09:24.48,0:09:28.24,Default,,0,0,0,,{\an8\pos(240.0,76.8)}The logarithm base two of x is the natural\Nlogarithm
+Dialogue: 0,0:09:28.24,0:09:31.56,Default,,0,0,0,,{\an8\pos(240.0,76.8)}of x, divided by the natural logarithm of\Ntwo.
+Dialogue: 0,0:09:32.17,0:09:34.55,Default,,0,0,0,,{\an8\pos(240.0,76.8)}Here is the inverse at work.
+Dialogue: 0,0:09:34.55,0:09:37.85,Default,,0,0,0,,{\an8\pos(203.2,192.0)}Money growing continuously at five percent\Na year is
+Dialogue: 0,0:09:37.85,0:09:43.43,Default,,0,0,0,,{\an8\pos(203.2,192.0)}multiplied by e to the zero point zero\Nfive t after t years.
+Dialogue: 0,0:09:43.43,0:09:49.50,Default,,0,0,0,,{\an8\pos(203.2,192.0)}When has it doubled?
+Dialogue: 0,0:09:49.50,0:09:52.70,Default,,0,0,0,,{\an8\pos(203.2,192.0)}Take the natural logarithm of both sides.
+Dialogue: 0,0:09:52.70,0:09:55.72,Default,,0,0,0,,{\an8\pos(203.2,192.0)}Zero point zero five t equals the natural
+Dialogue: 0,0:09:55.72,0:10:00.24,Default,,0,0,0,,{\an8\pos(203.2,192.0)}logarithm of two, about zero point six\Nnine three.
+Dialogue: 0,0:10:00.24,0:10:04.09,Default,,0,0,0,,{\an8\pos(203.2,192.0)}So t is about thirteen point nine years.
+Dialogue: 0,0:10:04.09,0:10:07.45,Default,,0,0,0,,{\an8\pos(203.2,192.0)}That is the rule of seventy for quick\Nestimates:
+Dialogue: 0,0:10:07.45,0:10:10.24,Default,,0,0,0,,{\an8\pos(203.2,192.0)}divide about seventy by the percentage.
+Dialogue: 0,0:10:10.24,0:10:13.58,Default,,0,0,0,,{\an8\pos(188.0,192.0)}To grow a thousandfold takes the\Nnatural logarithm of a
+Dialogue: 0,0:10:13.58,0:10:18.70,Default,,0,0,0,,{\an8\pos(188.0,192.0)}thousand, six point nine one,\Ndivided by zero point zero five.
+Dialogue: 0,0:10:18.70,0:10:22.02,Default,,0,0,0,,{\an8\pos(192.0,174.9)}About a hundred and\Nthirty-eight years, close\Nto ten
+Dialogue: 0,0:10:22.02,0:10:25.74,Default,,0,0,0,,{\an8\pos(192.0,174.9)}doublings, since two to\Nthe tenth is just over a\Nthousand.
+Dialogue: 0,0:10:26.95,0:10:29.91,Default,,0,0,0,,Now let the numbers leave the line.
+Dialogue: 0,0:10:29.91,0:10:36.03,Default,,0,0,0,,A complex number is a point in the plane,\Nor an arrow from zero to that point.
+Dialogue: 0,0:10:36.03,0:10:40.83,Default,,0,0,0,,Multiplying two of them multiplies their\Nlengths and adds their angles.
+Dialogue: 0,0:10:40.83,0:10:46.41,Default,,0,0,0,,Multiplying by i keeps the length the same\Nand turns the arrow a quarter turn.
+Dialogue: 0,0:10:46.41,0:10:53.80,Default,,0,0,0,,So what is i times i?
+Dialogue: 0,0:10:53.80,0:10:59.68,Default,,0,0,0,,Two quarter turns make a half turn, so i\Ntimes i is minus one.
+Dialogue: 0,0:10:59.68,0:11:03.40,Default,,0,0,0,,Lengths multiply and angles add, so a\Nslide
+Dialogue: 0,0:11:03.40,0:11:06.52,Default,,0,0,0,,rule for complex numbers needs two rulers.
+Dialogue: 0,0:11:06.52,0:11:11.52,Default,,0,0,0,,One for length, which multiplies, so it\Nuses the logarithm we just built.
+Dialogue: 0,0:11:11.52,0:11:14.28,Default,,0,0,0,,And one for angle, which simply adds.
+Dialogue: 0,0:11:14.88,0:11:18.38,Default,,0,0,0,,The complex exponential packs both\Ntogether.
+Dialogue: 0,0:11:18.38,0:11:21.38,Default,,0,0,0,,Feed it x plus i times y.
+Dialogue: 0,0:11:21.38,0:11:25.18,Default,,0,0,0,,The real part x sets the length, e to the\Nx.
+Dialogue: 0,0:11:25.18,0:11:28.38,Default,,0,0,0,,The imaginary part y sets the angle.
+Dialogue: 0,0:11:28.38,0:11:33.26,Default,,0,0,0,,{\an8\pos(126.4,46.9)}For instance, take x to be the logarithm\Nof two, and y to be a half
+Dialogue: 0,0:11:33.26,0:11:40.16,Default,,0,0,0,,{\an8\pos(126.4,46.9)}pi: the length is two, the angle a quarter\Nturn, so we land on two i.
+Dialogue: 0,0:11:40.77,0:11:43.15,Default,,0,0,0,,Watch what that does to a grid.
+Dialogue: 0,0:11:43.15,0:11:45.59,Default,,0,0,0,,On the left is the input plane.
+Dialogue: 0,0:11:45.59,0:11:50.71,Default,,0,0,0,,Each horizontal line keeps one angle, so\Nit goes to a ray from zero.
+Dialogue: 0,0:11:50.71,0:11:54.97,Default,,0,0,0,,Each vertical line keeps one length, so it\Ngoes to a circle.
+Dialogue: 0,0:11:54.97,0:12:00.39,Default,,0,0,0,,But a vertical line is infinitely long,\Nand a circle closes after one lap.
+Dialogue: 0,0:12:00.39,0:12:04.69,Default,,0,0,0,,{\an8\pos(168.8,232.5)}So each vertical line wraps around\Nits circle again and again.
+Dialogue: 0,0:12:05.30,0:12:11.10,Default,,0,0,0,,Zero and two pi times i are different\Ninputs, and both land on one.
+Dialogue: 0,0:12:11.10,0:12:15.61,Default,,0,0,0,,So do four pi times i and minus two pi\Ntimes i.
+Dialogue: 0,0:12:15.61,0:12:18.86,Default,,0,0,0,,Climbing two pi up the input plane carries\Nthe output
+Dialogue: 0,0:12:18.86,0:12:21.86,Default,,0,0,0,,once around its circle, back to where it\Nstarted.
+Dialogue: 0,0:12:22.47,0:12:24.19,Default,,0,0,0,,Here is a question.
+Dialogue: 0,0:12:24.19,0:12:31.72,Default,,0,0,0,,Which inputs land on minus one?
+Dialogue: 0,0:12:31.72,0:12:35.21,Default,,0,0,0,,Minus one has length one, so the real part\Nof
+Dialogue: 0,0:12:35.21,0:12:39.03,Default,,0,0,0,,the input is the logarithm of one, which\Nis zero.
+Dialogue: 0,0:12:39.03,0:12:42.22,Default,,0,0,0,,Its angle is a half turn, pi.
+Dialogue: 0,0:12:42.22,0:12:46.58,Default,,0,0,0,,But pi plus any whole number of laps\Npoints the same way.
+Dialogue: 0,0:12:46.58,0:12:51.12,Default,,0,0,0,,So the inputs are pi times i, three pi\Ntimes i, minus pi
+Dialogue: 0,0:12:51.12,0:12:56.37,Default,,0,0,0,,times i, and so on: a whole column of\Nthem, two pi apart.
+Dialogue: 0,0:12:56.37,0:12:59.40,Default,,0,0,0,,Every one is a logarithm of minus one.
+Dialogue: 0,0:13:00.00,0:13:02.92,Default,,0,0,0,,The same goes for every nonzero number.
+Dialogue: 0,0:13:02.92,0:13:06.78,Default,,0,0,0,,Its logarithms share one real part, the\Nlogarithm of its
+Dialogue: 0,0:13:06.78,0:13:11.68,Default,,0,0,0,,length, and have a whole column of angles,\None for each lap.
+Dialogue: 0,0:13:11.68,0:13:13.80,Default,,0,0,0,,Only zero is left out.
+Dialogue: 0,0:13:13.80,0:13:19.16,Default,,0,0,0,,Its length would have to be e to some x,\Nand that is never zero.
+Dialogue: 0,0:13:19.16,0:13:22.47,Default,,0,0,0,,In the complex numbers, the exponential is\Na dial
+Dialogue: 0,0:13:22.47,0:13:25.92,Default,,0,0,0,,that forgets laps, just like the folded\Nslide rule.
+Dialogue: 0,0:13:27.13,0:13:30.50,Default,,0,0,0,,{\an8\pos(304.0,204.8)}If a number has a whole\Ncolumn of logarithms, can\Nwe
+Dialogue: 0,0:13:30.50,0:13:34.25,Default,,0,0,0,,{\an8\pos(304.0,204.8)}at least choose one in a\Nsensible, continuous way?
+Dialogue: 0,0:13:34.25,0:13:37.81,Default,,0,0,0,,{\an8\pos(304.0,204.8)}Start at one, choose the\Nlogarithm zero, and walk
+Dialogue: 0,0:13:37.81,0:13:41.44,Default,,0,0,0,,{\an8\pos(304.0,204.8)}the number slowly around\Nthe circle of radius one.
+Dialogue: 0,0:13:41.44,0:13:44.33,Default,,0,0,0,,{\an8\pos(304.0,204.8)}Keep the logarithm moving\Nsmoothly along with it.
+Dialogue: 0,0:13:44.93,0:13:47.71,Default,,0,0,0,,{\an8\pos(304.0,204.8)}As the number turns, its\Nlogarithm climbs
+Dialogue: 0,0:13:47.71,0:13:51.51,Default,,0,0,0,,{\an8\pos(304.0,204.8)}straight up, because only\Nthe angle changes.
+Dialogue: 0,0:13:51.51,0:13:56.82,Default,,0,0,0,,{\an8\pos(304.0,204.8)}A quarter of the way\Nround, the logarithm is pi\Nover two times i.
+Dialogue: 0,0:13:56.82,0:14:01.48,Default,,0,0,0,,{\an8\pos(304.0,204.8)}Halfway round, at minus\None, it is pi times i.
+Dialogue: 0,0:14:01.48,0:14:10.03,Default,,0,0,0,,{\an8\pos(304.0,204.8)}When the number arrives\Nback at one, what is the\Nlogarithm?
+Dialogue: 0,0:14:10.03,0:14:12.45,Default,,0,0,0,,{\an8\pos(304.0,204.8)}Two pi times i.
+Dialogue: 0,0:14:12.45,0:14:14.18,Default,,0,0,0,,{\an8\pos(304.0,204.8)}The number came back.
+Dialogue: 0,0:14:14.18,0:14:16.30,Default,,0,0,0,,{\an8\pos(304.0,204.8)}The logarithm did not.
+Dialogue: 0,0:14:16.30,0:14:20.44,Default,,0,0,0,,{\an8\pos(304.0,204.8)}It finished one lap higher\Nin the column than where\Nit began.
+Dialogue: 0,0:14:20.44,0:14:23.30,Default,,0,0,0,,{\an8\pos(304.0,204.8)}Go around again and it\Nclimbs again.
+Dialogue: 0,0:14:23.30,0:14:25.87,Default,,0,0,0,,{\an8\pos(304.0,204.8)}Go the other way and it\Ncomes back down.
+Dialogue: 0,0:14:26.48,0:14:30.58,Default,,0,0,0,,{\an8\pos(143.2,42.7)}A loop that does not\Ngo around zero\Nbehaves differently.
+Dialogue: 0,0:14:30.58,0:14:35.42,Default,,0,0,0,,{\an8\pos(143.2,42.7)}Here is a circle off\Nto one side, which\Nzero is not inside.
+Dialogue: 0,0:14:35.42,0:14:40.24,Default,,0,0,0,,{\an8\pos(143.2,42.7)}Walk the number once\Naround it, carrying\Nthe logarithm along\Nas before.
+Dialogue: 0,0:14:40.24,0:14:47.82,Default,,0,0,0,,{\an8\pos(143.2,42.7)}Will the logarithm\Ncome back to where\Nit began?
+Dialogue: 0,0:14:47.82,0:14:52.38,Default,,0,0,0,,{\an8\pos(143.2,42.7)}It does: it drifts\Nup and down, and\Nreturns exactly.
+Dialogue: 0,0:14:52.38,0:14:56.56,Default,,0,0,0,,{\an8\pos(143.2,42.7)}What matters is how\Nmany times the loop\Nwinds around zero.
+Dialogue: 0,0:14:56.56,0:14:59.91,Default,,0,0,0,,{\an8\pos(143.2,42.7)}That count is the\Nwinding number, and\Nevery
+Dialogue: 0,0:14:59.91,0:15:03.26,Default,,0,0,0,,{\an8\pos(143.2,42.7)}lap moves the\Nlogarithm by two pi\Ntimes i.
+Dialogue: 0,0:15:03.87,0:15:08.37,Default,,0,0,0,,{\an8\pos(289.6,181.3)}Could some other choice of\Nlogarithm be continuous\Nall the way round?
+Dialogue: 0,0:15:08.37,0:15:14.75,Default,,0,0,0,,{\an8\pos(209.6,247.5)}Try the obvious candidate: the logarithm\Nwhose angle stays between minus pi and pi.
+Dialogue: 0,0:15:14.75,0:15:20.26,Default,,0,0,0,,{\an8\pos(209.6,247.5)}Walk round again, comparing it with ours,\Nand track the gap in whole laps.
+Dialogue: 0,0:15:20.26,0:15:24.94,Default,,0,0,0,,{\an8\pos(209.6,247.5)}The gap sits at zero until the number\Npasses minus one, then jumps
+Dialogue: 0,0:15:24.94,0:15:29.78,Default,,0,0,0,,{\an8\pos(209.6,247.5)}down a lap, because the candidate's angle\Nleaps from pi to minus pi.
+Dialogue: 0,0:15:29.78,0:15:32.43,Default,,0,0,0,,{\an8\pos(209.6,247.5)}So that candidate breaks at minus one.
+Dialogue: 0,0:15:33.03,0:15:35.26,Default,,0,0,0,,{\an8\pos(209.6,247.5)}Now suppose someone hands us a logarithm
+Dialogue: 0,0:15:35.26,0:15:38.44,Default,,0,0,0,,{\an8\pos(209.6,247.5)}that is continuous everywhere on the\Ncircle.
+Dialogue: 0,0:15:38.44,0:15:41.66,Default,,0,0,0,,{\an8\pos(277.6,157.9)}At every point it\Ndiffers from ours by\Na whole number
+Dialogue: 0,0:15:41.66,0:15:45.73,Default,,0,0,0,,{\an8\pos(277.6,157.9)}of laps, because\Nboth undo the same\Nexponential.
+Dialogue: 0,0:15:45.73,0:15:50.92,Default,,0,0,0,,{\an8\pos(277.6,157.9)}A gap that is always\Na whole number of\Nlaps, and varies\Ncontinuously, can\Nnever
+Dialogue: 0,0:15:50.92,0:15:55.91,Default,,0,0,0,,{\an8\pos(277.6,157.9)}jump from one whole\Nnumber to the next,\Nso it stays fixed\Nall the way round.
+Dialogue: 0,0:15:56.52,0:15:59.26,Default,,0,0,0,,{\an8\pos(277.6,157.9)}Now follow both back\Nto one.
+Dialogue: 0,0:15:59.26,0:16:01.96,Default,,0,0,0,,{\an8\pos(277.6,157.9)}Theirs is a function\Nof the point, so it
+Dialogue: 0,0:16:01.96,0:16:04.94,Default,,0,0,0,,{\an8\pos(277.6,157.9)}returns to exactly\Nthe value it started\Nwith.
+Dialogue: 0,0:16:04.94,0:16:08.33,Default,,0,0,0,,{\an8\pos(194.4,260.3)}Ours finishes two pi times i higher.
+Dialogue: 0,0:16:08.33,0:16:13.55,Default,,0,0,0,,{\an8\pos(224.8,113.1)}So the gap has changed by one lap, and we\Njust saw that it cannot change.
+Dialogue: 0,0:16:13.55,0:16:15.59,Default,,0,0,0,,{\an8\pos(191.2,260.3)}That is a contradiction.
+Dialogue: 0,0:16:15.59,0:16:20.49,Default,,0,0,0,,{\an8\pos(227.2,113.1)}No continuous logarithm exists on any loop\Nthat winds around zero.
+Dialogue: 0,0:16:20.49,0:16:22.12,Default,,0,0,0,,{\an8\pos(155.2,219.7)}Something has to give.
+Dialogue: 0,0:16:23.32,0:16:27.08,Default,,0,0,0,,What gives is the freedom to walk all the\Nway around.
+Dialogue: 0,0:16:27.08,0:16:32.08,Default,,0,0,0,,Draw a line from zero out to infinity, and\Nforbid crossing it.
+Dialogue: 0,0:16:32.08,0:16:37.76,Default,,0,0,0,,Now no loop can go around zero, and a\Ncontinuous choice becomes possible.
+Dialogue: 0,0:16:37.76,0:16:40.04,Default,,0,0,0,,The line is called a branch cut.
+Dialogue: 0,0:16:40.65,0:16:44.31,Default,,0,0,0,,The usual choice removes zero and the\Nnegative numbers,
+Dialogue: 0,0:16:44.31,0:16:48.32,Default,,0,0,0,,and keeps angles strictly between minus pi\Nand pi.
+Dialogue: 0,0:16:48.32,0:16:53.05,Default,,0,0,0,,The result is the principal logarithm,\Nwritten with a capital L.
+Dialogue: 0,0:16:53.05,0:16:56.90,Default,,0,0,0,,On this cut plane it is a single, well\Nbehaved function, with
+Dialogue: 0,0:16:56.90,0:17:02.03,Default,,0,0,0,,derivative one over z at every point, just\Nas on the positive numbers.
+Dialogue: 0,0:17:02.03,0:17:07.87,Default,,0,0,0,,For example, i has length one and a\Nquarter turn of angle, so Log of i
+Dialogue: 0,0:17:07.87,0:17:14.57,Default,,0,0,0,,is pi over two times i, and Log of minus i\Nis minus pi over two times i.
+Dialogue: 0,0:17:15.18,0:17:17.74,Default,,0,0,0,,Here is where the cut plane goes.
+Dialogue: 0,0:17:17.74,0:17:20.78,Default,,0,0,0,,The principal logarithm unrolls it into a\Nhorizontal
+Dialogue: 0,0:17:20.78,0:17:25.16,Default,,0,0,0,,strip, between height minus pi and height\Npi.
+Dialogue: 0,0:17:25.16,0:17:27.74,Default,,0,0,0,,Circles become vertical segments.
+Dialogue: 0,0:17:27.74,0:17:30.62,Default,,0,0,0,,Rays become horizontal lines.
+Dialogue: 0,0:17:30.62,0:17:33.44,Default,,0,0,0,,Now roll it back, and mark the two sides\Nof
+Dialogue: 0,0:17:33.44,0:17:37.70,Default,,0,0,0,,the cut: one just above it, one just\Nbelow.
+Dialogue: 0,0:17:37.70,0:17:44.52,Default,,0,0,0,,Where will they end up on the strip?
+Dialogue: 0,0:17:44.52,0:17:49.99,Default,,0,0,0,,They land on opposite edges of the strip,\Nthe top edge and the bottom edge.
+Dialogue: 0,0:17:49.99,0:17:52.98,Default,,0,0,0,,{\an8\pos(263.2,27.7)}That is because just above the cut the\Nangle is
+Dialogue: 0,0:17:52.98,0:17:57.50,Default,,0,0,0,,{\an8\pos(263.2,27.7)}close to pi, and just below it, close to\Nminus pi.
+Dialogue: 0,0:17:57.50,0:18:01.72,Default,,0,0,0,,{\an8\pos(263.2,27.7)}So a path that crosses the cut would have\Nto jump by two pi.
+Dialogue: 0,0:18:02.32,0:18:05.72,Default,,0,0,0,,The cut is a choice, not a crack.
+Dialogue: 0,0:18:05.72,0:18:10.02,Default,,0,0,0,,Cut along the upward imaginary axis\Ninstead, and the angles run over
+Dialogue: 0,0:18:10.02,0:18:15.22,Default,,0,0,0,,a different window, from minus three\Nhalves of pi up to a half pi.
+Dialogue: 0,0:18:15.22,0:18:17.50,Default,,0,0,0,,Or cut along a spiral.
+Dialogue: 0,0:18:17.50,0:18:21.56,Default,,0,0,0,,Any curve that runs from zero out to\Ninfinity without crossing itself
+Dialogue: 0,0:18:21.56,0:18:26.92,Default,,0,0,0,,will do: in the plane that is left, no\Nloop can wind around zero.
+Dialogue: 0,0:18:26.92,0:18:30.50,Default,,0,0,0,,Zero is the one point every cut must\Ntouch.
+Dialogue: 0,0:18:30.50,0:18:32.48,Default,,0,0,0,,It is called the branch point.
+Dialogue: 0,0:18:33.08,0:18:34.92,Default,,0,0,0,,Two cautions.
+Dialogue: 0,0:18:34.92,0:18:37.92,Default,,0,0,0,,On the negative numbers themselves, the\Nusual convention
+Dialogue: 0,0:18:37.92,0:18:43.11,Default,,0,0,0,,assigns the angle pi, so the principal\Nvalue exists there too.
+Dialogue: 0,0:18:43.11,0:18:48.77,Default,,0,0,0,,But it jumps: just below the cut, the\Nangles are close to minus pi.
+Dialogue: 0,0:18:48.77,0:18:53.59,Default,,0,0,0,,And the principal logarithm undoes the\Nexponential from one side only.
+Dialogue: 0,0:18:53.59,0:18:59.16,Default,,0,0,0,,Exponentiating the logarithm of z gives\Nback z for every nonzero z.
+Dialogue: 0,0:18:59.16,0:19:03.28,Default,,0,0,0,,{\an8\pos(232.0,98.1)}But the logarithm of e to the w gives back\Nw only
+Dialogue: 0,0:19:03.28,0:19:07.82,Default,,0,0,0,,{\an8\pos(232.0,98.1)}when the height of w is above minus pi and\Nat most pi.
+Dialogue: 0,0:19:07.82,0:19:11.80,Default,,0,0,0,,{\an8\pos(232.0,98.1)}That is the strip, with its top edge added\Nby the convention.
+Dialogue: 0,0:19:13.02,0:19:18.96,Default,,0,0,0,,On the positive numbers, the logarithm of\Na product is the sum of the logarithms.
+Dialogue: 0,0:19:18.96,0:19:20.77,Default,,0,0,0,,Does that survive the cut?
+Dialogue: 0,0:19:20.77,0:19:25.44,Default,,0,0,0,,Take a number of length one, at an angle\Nof three quarters of pi.
+Dialogue: 0,0:19:25.44,0:19:26.70,Default,,0,0,0,,Square it.
+Dialogue: 0,0:19:26.70,0:19:31.83,Default,,0,0,0,,The lengths multiply to one, and the\Nangles add to one and a half pi.
+Dialogue: 0,0:19:31.83,0:19:33.96,Default,,0,0,0,,But the principal logarithm only reports
+Dialogue: 0,0:19:33.96,0:19:38.14,Default,,0,0,0,,angles in its window, from minus pi up to\Npi.
+Dialogue: 0,0:19:38.14,0:19:45.80,Default,,0,0,0,,So what angle will it report for the\Nsquare?
+Dialogue: 0,0:19:45.80,0:19:50.06,Default,,0,0,0,,Not one and a half pi: that is outside the\Nwindow.
+Dialogue: 0,0:19:50.06,0:19:54.15,Default,,0,0,0,,It reports the same direction as minus a\Nhalf pi.
+Dialogue: 0,0:19:54.15,0:19:58.74,Default,,0,0,0,,So the sum of the two logarithms is one\Nand a half pi times i,
+Dialogue: 0,0:19:58.74,0:20:03.34,Default,,0,0,0,,while the logarithm of the product is\Nminus a half pi times i.
+Dialogue: 0,0:20:03.34,0:20:07.80,Default,,0,0,0,,They differ by two pi times i, exactly one\Nlap.
+Dialogue: 0,0:20:08.40,0:20:11.40,Default,,0,0,0,,This is the slide rule's decimal point\Nagain.
+Dialogue: 0,0:20:11.40,0:20:15.48,Default,,0,0,0,,When the sum of the angles runs past the\Nwindow, the chosen logarithm
+Dialogue: 0,0:20:15.48,0:20:20.26,Default,,0,0,0,,drops a lap, just as the slide rule's\Nreading dropped a factor of ten.
+Dialogue: 0,0:20:20.26,0:20:24.20,Default,,0,0,0,,{\an8\pos(232.0,145.1)}The rule that survives is this: the\Nlogarithm of a product
+Dialogue: 0,0:20:24.20,0:20:28.90,Default,,0,0,0,,{\an8\pos(232.0,145.1)}is the sum of the logarithms, plus a whole\Nnumber of laps.
+Dialogue: 0,0:20:28.90,0:20:30.94,Default,,0,0,0,,{\an8\pos(232.0,145.1)}The rule did not break.
+Dialogue: 0,0:20:30.94,0:20:33.10,Default,,0,0,0,,{\an8\pos(192.0,249.6)}It now keeps a lap count.
+Dialogue: 0,0:20:33.10,0:20:37.60,Default,,0,0,0,,{\an8\pos(320.8,219.7)}For our square, the\Ncount is minus one:\None lap down.
+Dialogue: 0,0:20:38.20,0:20:41.76,Default,,0,0,0,,{\an8\pos(320.8,219.7)}That lap count hides\Ninside a famous\Npuzzle.
+Dialogue: 0,0:20:41.76,0:20:45.02,Default,,0,0,0,,Minus one is i times i.
+Dialogue: 0,0:20:45.02,0:20:48.42,Default,,0,0,0,,Write i as the square root of minus one.
+Dialogue: 0,0:20:48.42,0:20:52.96,Default,,0,0,0,,Combine the two roots into the root of\Nminus one times minus one.
+Dialogue: 0,0:20:52.96,0:20:55.94,Default,,0,0,0,,That is the root of one, which is one.
+Dialogue: 0,0:20:55.94,0:20:58.94,Default,,0,0,0,,So minus one equals one.
+Dialogue: 0,0:20:58.94,0:21:05.05,Default,,0,0,0,,Which step broke?
+Dialogue: 0,0:21:05.05,0:21:07.28,Default,,0,0,0,,Combining the roots.
+Dialogue: 0,0:21:07.28,0:21:12.14,Default,,0,0,0,,Here a square root is e to the power of\Nhalf a logarithm.
+Dialogue: 0,0:21:12.14,0:21:16.23,Default,,0,0,0,,Each minus one has principal angle pi, so\Nthe two
+Dialogue: 0,0:21:16.23,0:21:20.33,Default,,0,0,0,,roots together turn by pi and point at\Nminus one.
+Dialogue: 0,0:21:20.33,0:21:25.80,Default,,0,0,0,,But the product, one, has principal angle\Nzero, not two pi.
+Dialogue: 0,0:21:25.80,0:21:28.38,Default,,0,0,0,,Taking half of the lost lap leaves a half
+Dialogue: 0,0:21:28.38,0:21:32.57,Default,,0,0,0,,turn, and a half turn is a factor of minus\None.
+Dialogue: 0,0:21:32.57,0:21:37.45,Default,,0,0,0,,{\an8\pos(156.0,245.3)}The root of a product equals the product\Nof the roots only up to that sign.
+Dialogue: 0,0:21:38.65,0:21:40.57,Default,,0,0,0,,One more step up.
+Dialogue: 0,0:21:40.57,0:21:45.41,Default,,0,0,0,,A two by two matrix is a recipe for moving\Nevery point of the plane.
+Dialogue: 0,0:21:45.41,0:21:50.25,Default,,0,0,0,,It says where the two unit arrows go, and\Neverything else follows along.
+Dialogue: 0,0:21:50.25,0:21:55.77,Default,,0,0,0,,A grid shows the result: turned,\Nstretched, sheared, or flipped.
+Dialogue: 0,0:21:55.77,0:21:59.17,Default,,0,0,0,,{\an8\pos(118.4,38.4)}The matrix only says where each point ends\Nup,
+Dialogue: 0,0:21:59.17,0:22:02.49,Default,,0,0,0,,{\an8\pos(118.4,38.4)}not how it gets there; the travel comes\Nnext.
+Dialogue: 0,0:22:03.10,0:22:07.68,Default,,0,0,0,,{\an8\pos(118.4,38.4)}Matrices have an exponential too, built\Nfrom the same series.
+Dialogue: 0,0:22:07.68,0:22:10.29,Default,,0,0,0,,Here is the picture that matters.
+Dialogue: 0,0:22:10.29,0:22:14.69,Default,,0,0,0,,A matrix X can be read as a velocity: at\Neach point
+Dialogue: 0,0:22:14.69,0:22:18.40,Default,,0,0,0,,it gives an arrow saying which way that\Npoint moves.
+Dialogue: 0,0:22:18.40,0:22:22.32,Default,,0,0,0,,Let every point follow its arrow for one\Nunit of time.
+Dialogue: 0,0:22:22.32,0:22:25.90,Default,,0,0,0,,Where everything ends up is the matrix e\Nto the X.
+Dialogue: 0,0:22:26.50,0:22:30.12,Default,,0,0,0,,A logarithm of a matrix A is then a\Nvelocity that
+Dialogue: 0,0:22:30.12,0:22:34.76,Default,,0,0,0,,carries the plane exactly onto A in one\Nunit of time.
+Dialogue: 0,0:22:34.76,0:22:40.31,Default,,0,0,0,,So the question of whether a logarithm\Nexists becomes a question about motion.
+Dialogue: 0,0:22:40.31,0:22:43.70,Default,,0,0,0,,Is there a steady flow that ends at this\Ntransformation?
+Dialogue: 0,0:22:44.30,0:22:46.54,Default,,0,0,0,,Start with a quarter turn.
+Dialogue: 0,0:22:46.54,0:22:51.60,Default,,0,0,0,,The velocity that turns the plane a\Nquarter turn per unit of time reaches it.
+Dialogue: 0,0:22:51.60,0:22:55.76,Default,,0,0,0,,But so does one that spins one and a\Nquarter turns per unit of time.
+Dialogue: 0,0:22:55.76,0:22:58.70,Default,,0,0,0,,So does three quarters of a turn the other\Nway.
+Dialogue: 0,0:22:58.70,0:23:02.14,Default,,0,0,0,,{\an8\pos(191.2,55.5)}This is the column of complex logarithms\Nagain.
+Dialogue: 0,0:23:02.14,0:23:05.59,Default,,0,0,0,,{\an8\pos(191.2,55.5)}Matrices that only turn and scale behave\Nexactly
+Dialogue: 0,0:23:05.59,0:23:09.26,Default,,0,0,0,,{\an8\pos(191.2,55.5)}like complex numbers, and so do their\Nexponentials.
+Dialogue: 0,0:23:10.47,0:23:15.67,Default,,0,0,0,,Now the identity, the matrix that leaves\Nevery point where it is.
+Dialogue: 0,0:23:15.67,0:23:18.61,Default,,0,0,0,,Zero velocity is one logarithm.
+Dialogue: 0,0:23:18.61,0:23:21.91,Default,,0,0,0,,One full turn per unit of time is another.
+Dialogue: 0,0:23:21.91,0:23:23.91,Default,,0,0,0,,With matrices, there are more.
+Dialogue: 0,0:23:24.52,0:23:27.40,Default,,0,0,0,,Squash the circle into an ellipse.
+Dialogue: 0,0:23:27.40,0:23:30.78,Default,,0,0,0,,A flow that carries every point once\Naround its own ellipse
+Dialogue: 0,0:23:30.78,0:23:35.92,Default,,0,0,0,,in one unit of time also brings the whole\Nplane home exactly.
+Dialogue: 0,0:23:35.92,0:23:39.28,Default,,0,0,0,,Stretch or tilt the ellipse and you get\Nanother.
+Dialogue: 0,0:23:39.28,0:23:43.06,Default,,0,0,0,,The identity has infinitely many real\Nlogarithms, and
+Dialogue: 0,0:23:43.06,0:23:46.84,Default,,0,0,0,,{\an8\pos(128.0,245.3)}not just a column of them: a whole\Ncontinuous family.
+Dialogue: 0,0:23:47.45,0:23:50.19,Default,,0,0,0,,Which one should a calculation return?
+Dialogue: 0,0:23:50.19,0:23:53.27,Default,,0,0,0,,For numbers, the principal logarithm kept\Nthe angle
+Dialogue: 0,0:23:53.27,0:23:58.01,Default,,0,0,0,,within a half turn either way, between\Nminus pi and pi.
+Dialogue: 0,0:23:58.01,0:24:00.37,Default,,0,0,0,,Matrix flows turn too.
+Dialogue: 0,0:24:00.37,0:24:03.52,Default,,0,0,0,,Every steady flow of the plane either\Nturns round at a
+Dialogue: 0,0:24:03.52,0:24:06.91,Default,,0,0,0,,steady rate, sweeping round stretched\Ncircles, perhaps
+Dialogue: 0,0:24:06.91,0:24:11.57,Default,,0,0,0,,spiralling in or out, or does not turn\Nround at all.
+Dialogue: 0,0:24:11.57,0:24:15.45,Default,,0,0,0,,The zero flow turns by nothing in its unit\Nof time.
+Dialogue: 0,0:24:15.45,0:24:18.97,Default,,0,0,0,,Each ellipse flow turns a full lap, two\Npi.
+Dialogue: 0,0:24:19.58,0:24:25.58,Default,,0,0,0,,So use the same rule: keep the turning\Nstrictly between minus pi and pi.
+Dialogue: 0,0:24:25.58,0:24:29.40,Default,,0,0,0,,Whenever a matrix sends no direction to\Nzero or to a negative
+Dialogue: 0,0:24:29.40,0:24:34.58,Default,,0,0,0,,multiple of itself, exactly one of its\Nlogarithms obeys that rule.
+Dialogue: 0,0:24:34.58,0:24:40.08,Default,,0,0,0,,It is called the principal logarithm, and\Nfor a real matrix it is real.
+Dialogue: 0,0:24:40.08,0:24:43.92,Default,,0,0,0,,For the identity it is the flow that does\Nnothing.
+Dialogue: 0,0:24:43.92,0:24:47.16,Default,,0,0,0,,{\an8\pos(266.4,211.2)}On screen is the textbook version, which\Ncounts the turning
+Dialogue: 0,0:24:47.16,0:24:50.78,Default,,0,0,0,,{\an8\pos(266.4,211.2)}with the imaginary parts of what are\Ncalled eigenvalues.
+Dialogue: 0,0:24:58.23,0:25:01.61,Default,,0,0,0,,Can every matrix be reached by a steady\Nflow?
+Dialogue: 0,0:25:01.61,0:25:05.03,Default,,0,0,0,,Try a mirror that flips the plane left to\Nright.
+Dialogue: 0,0:25:05.03,0:25:10.23,Default,,0,0,0,,Compare a shape with a handedness, like\Nthe letter F, before and after.
+Dialogue: 0,0:25:10.23,0:25:13.14,Default,,0,0,0,,The mirror turns it into its reflection,\Nand each
+Dialogue: 0,0:25:13.14,0:25:17.01,Default,,0,0,0,,dashed line only pairs a corner with where\Nit lands.
+Dialogue: 0,0:25:17.01,0:25:20.06,Default,,0,0,0,,Averaging the two matrices, the simplest\Nguess at a
+Dialogue: 0,0:25:20.06,0:25:24.39,Default,,0,0,0,,halfway point, squashes the whole plane\Nflat onto a line.
+Dialogue: 0,0:25:25.00,0:25:29.16,Default,,0,0,0,,Track the signed area of a unit square\Nwhile a flow runs.
+Dialogue: 0,0:25:29.16,0:25:30.92,Default,,0,0,0,,It starts at one.
+Dialogue: 0,0:25:30.92,0:25:33.86,Default,,0,0,0,,It changes smoothly as the plane moves.
+Dialogue: 0,0:25:33.86,0:25:37.28,Default,,0,0,0,,And it can never reach zero, because at\Nevery moment the
+Dialogue: 0,0:25:37.28,0:25:41.74,Default,,0,0,0,,flow can be run backwards, so nothing has\Nbeen squashed flat.
+Dialogue: 0,0:25:41.74,0:25:47.34,Default,,0,0,0,,A smooth quantity that starts at one and\Nnever touches zero stays positive.
+Dialogue: 0,0:25:47.34,0:25:51.79,Default,,0,0,0,,{\an8\pos(297.6,138.7)}The mirror has signed area\Nminus one, so no real flow\Nreaches
+Dialogue: 0,0:25:51.79,0:25:55.72,Default,,0,0,0,,{\an8\pos(297.6,138.7)}it, not even one that\Nchanges its velocity as it\Nruns.
+Dialogue: 0,0:25:56.33,0:26:00.25,Default,,0,0,0,,{\an8\pos(297.6,138.7)}That factor on signed area\Nis called the determinant.
+Dialogue: 0,0:26:00.25,0:26:05.59,Default,,0,0,0,,{\an8\pos(297.6,138.7)}So a real matrix with a\Nnegative determinant has\Nno real logarithm.
+Dialogue: 0,0:26:05.59,0:26:08.05,Default,,0,0,0,,{\an8\pos(297.6,138.7)}Is a positive determinant\Nenough?
+Dialogue: 0,0:26:08.05,0:26:09.37,Default,,0,0,0,,Try this one.
+Dialogue: 0,0:26:09.37,0:26:12.57,Default,,0,0,0,,Double the length along one axis and flip\Nit.
+Dialogue: 0,0:26:12.57,0:26:16.29,Default,,0,0,0,,Halve the length along the other axis and\Nflip that too.
+Dialogue: 0,0:26:16.29,0:26:19.35,Default,,0,0,0,,The area is multiplied by plus one.
+Dialogue: 0,0:26:19.35,0:26:22.77,Default,,0,0,0,,It is even a half turn followed by a\Nstretch.
+Dialogue: 0,0:26:22.77,0:26:30.15,Default,,0,0,0,,Can a single steady flow end here?
+Dialogue: 0,0:26:30.15,0:26:31.22,Default,,0,0,0,,No.
+Dialogue: 0,0:26:31.22,0:26:37.43,Default,,0,0,0,,Suppose some steady flow X did end here,\Nso that A is e to the X.
+Dialogue: 0,0:26:37.43,0:26:41.24,Default,,0,0,0,,Then X and A commute: doing one and then\Nthe
+Dialogue: 0,0:26:41.24,0:26:44.49,Default,,0,0,0,,other gives the same result in either\Norder.
+Dialogue: 0,0:26:44.49,0:26:45.80,Default,,0,0,0,,Here is why.
+Dialogue: 0,0:26:45.80,0:26:49.47,Default,,0,0,0,,A is a sum of powers of X: the identity,
+Dialogue: 0,0:26:49.47,0:26:53.41,Default,,0,0,0,,plus X, plus a half of X squared, and so\Non.
+Dialogue: 0,0:26:53.41,0:26:57.37,Default,,0,0,0,,Multiplying X by any power of X, on either\Nside, gives
+Dialogue: 0,0:26:57.37,0:27:02.31,Default,,0,0,0,,the next power, so X slides past every\Nterm of the sum.
+Dialogue: 0,0:27:02.92,0:27:05.46,Default,,0,0,0,,Now see what commuting costs.
+Dialogue: 0,0:27:05.46,0:27:09.26,Default,,0,0,0,,Take a vector with two nonzero parts, and\Nsend it along
+Dialogue: 0,0:27:09.26,0:27:15.12,Default,,0,0,0,,both routes: first A and then X, or first\NX and then A.
+Dialogue: 0,0:27:15.12,0:27:20.54,Default,,0,0,0,,If X has an entry off its diagonal, the\Ntwo routes end in different places.
+Dialogue: 0,0:27:20.54,0:27:24.76,Default,,0,0,0,,Each part of the gap is an off-diagonal\Nentry of X, times the
+Dialogue: 0,0:27:24.76,0:27:29.40,Default,,0,0,0,,difference between A's two stretches,\Ntimes one part of the vector.
+Dialogue: 0,0:27:29.40,0:27:32.08,Default,,0,0,0,,Those stretches differ, so the routes can\Nonly
+Dialogue: 0,0:27:32.08,0:27:35.64,Default,,0,0,0,,agree when every entry off the diagonal is\Nzero.
+Dialogue: 0,0:27:36.25,0:27:38.57,Default,,0,0,0,,So X is diagonal.
+Dialogue: 0,0:27:38.57,0:27:45.35,Default,,0,0,0,,Its flow only stretches the two axes, each\Nby e raised to a real rate times the time.
+Dialogue: 0,0:27:45.35,0:27:48.90,Default,,0,0,0,,A real exponential is always positive, so\Nthis flow
+Dialogue: 0,0:27:48.90,0:27:53.97,Default,,0,0,0,,never reverses either axis, but A reverses\Nboth.
+Dialogue: 0,0:27:53.97,0:27:56.94,Default,,0,0,0,,A half turn and a stretch each have a\Nsteady flow of
+Dialogue: 0,0:27:56.94,0:28:00.77,Default,,0,0,0,,their own, and running one after the other\Ngets here.
+Dialogue: 0,0:28:00.77,0:28:03.61,Default,,0,0,0,,But no single steady flow does both.
+Dialogue: 0,0:28:04.22,0:28:07.66,Default,,0,0,0,,Compare flipping both axes by the same\Namount.
+Dialogue: 0,0:28:07.66,0:28:12.76,Default,,0,0,0,,That is a plain half turn, and a steady\Nspin reaches it easily.
+Dialogue: 0,0:28:12.76,0:28:15.24,Default,,0,0,0,,Why does the argument fail there?
+Dialogue: 0,0:28:15.24,0:28:19.20,Default,,0,0,0,,Its two stretches are equal, so nothing\Nforces a logarithm to
+Dialogue: 0,0:28:19.20,0:28:24.30,Default,,0,0,0,,keep the axes, and the spin, which turns\Nevery axis, is allowed.
+Dialogue: 0,0:28:24.30,0:28:29.38,Default,,0,0,0,,In two dimensions that is the whole story:\Na matrix that sends some direction
+Dialogue: 0,0:28:29.38,0:28:33.76,Default,,0,0,0,,to a negative multiple of itself has a\Nreal logarithm only when it does
+Dialogue: 0,0:28:33.76,0:28:38.94,Default,,0,0,0,,that to every direction alike, a half turn\Ncombined with an equal stretch.
+Dialogue: 0,0:28:39.55,0:28:45.14,Default,,0,0,0,,{\an8\pos(265.6,228.3)}In higher dimensions, the exact rule, from\Na nineteen sixty-six paper by Culver,
+Dialogue: 0,0:28:45.14,0:28:50.66,Default,,0,0,0,,{\an8\pos(265.6,228.3)}asks that the matrix's blocks for each\Nnegative stretch come in matching pairs.
+Dialogue: 0,0:28:50.66,0:28:53.07,Default,,0,0,0,,{\an8\pos(265.6,228.3)}On screen is the precise version.
+Dialogue: 0,0:29:11.42,0:29:16.14,Default,,0,0,0,,{\an8\pos(265.6,228.3)}Allow complex matrices, and the obstacle\Ndisappears.
+Dialogue: 0,0:29:16.14,0:29:22.24,Default,,0,0,0,,{\an8\pos(265.6,228.3)}A flip is a half turn in a complex\Ndirection, with logarithm pi times i.
+Dialogue: 0,0:29:22.24,0:29:26.47,Default,,0,0,0,,{\an8\pos(265.6,228.3)}Every invertible complex matrix has a\Ncomplex logarithm.
+Dialogue: 0,0:29:26.47,0:29:28.96,Default,,0,0,0,,{\an8\pos(107.2,136.5)}Only the singular ones,\Nwhich squash the plane
+Dialogue: 0,0:29:28.96,0:29:32.86,Default,,0,0,0,,{\an8\pos(107.2,136.5)}flat, have none, for the\Nsame reason zero had none.
+Dialogue: 0,0:29:34.07,0:29:36.07,Default,,0,0,0,,Look back along the way.
+Dialogue: 0,0:29:36.07,0:29:40.01,Default,,0,0,0,,On the positive numbers the exponential\Nforgets nothing.
+Dialogue: 0,0:29:40.01,0:29:44.32,Default,,0,0,0,,Every output has exactly one input, and\Nthe logarithm is a
+Dialogue: 0,0:29:44.32,0:29:48.63,Default,,0,0,0,,perfect ruler for ratios, the keyboard and\Nthe slide rule.
+Dialogue: 0,0:29:49.23,0:29:53.19,Default,,0,0,0,,Fold the ruler into a dial, and it forgets\Nthe decade.
+Dialogue: 0,0:29:53.19,0:29:55.78,Default,,0,0,0,,In the complex plane the exponential does
+Dialogue: 0,0:29:55.78,0:29:59.39,Default,,0,0,0,,that folding by itself, and forgets the\Nlaps.
+Dialogue: 0,0:29:59.39,0:30:04.43,Default,,0,0,0,,A branch cut is a decision about laps, and\Nthe product rule keeps a lap count.
+Dialogue: 0,0:30:05.03,0:30:08.94,Default,,0,0,0,,With matrices the exponential forgets even\Nmore:
+Dialogue: 0,0:30:08.94,0:30:12.67,Default,,0,0,0,,whole families of flows end in the same\Nplace.
+Dialogue: 0,0:30:12.67,0:30:18.03,Default,,0,0,0,,And some places cannot be reached by any\Nsingle steady real flow at all.
+Dialogue: 0,0:30:18.03,0:30:22.27,Default,,0,0,0,,In every setting, a logarithm asks the\Nsame question.
+Dialogue: 0,0:30:22.27,0:30:24.55,Default,,0,0,0,,Which steady motion got us here?
+Dialogue: 0,0:30:25.17,0:30:28.73,Default,,0,0,0,,One more motion, now in three dimensions.
+Dialogue: 0,0:30:28.73,0:30:32.92,Default,,0,0,0,,Here is a solid cube, and a marked axis: a\Nrod
+Dialogue: 0,0:30:32.92,0:30:36.29,Default,,0,0,0,,through the centres of its top and bottom\Nfaces.
+Dialogue: 0,0:30:36.29,0:30:40.63,Default,,0,0,0,,A steady spin about that rod carries every\Ncorner round its own circle
+Dialogue: 0,0:30:40.63,0:30:45.89,Default,,0,0,0,,about the rod, all at the same rate, while\Nthe rod itself stays put.
+Dialogue: 0,0:30:45.89,0:30:50.16,Default,,0,0,0,,Follow one corner: spinning at half a lap\Nper unit of time,
+Dialogue: 0,0:30:50.16,0:30:54.51,Default,,0,0,0,,after one unit it has gone exactly halfway\Nround its circle.
+Dialogue: 0,0:30:54.51,0:30:59.73,Default,,0,0,0,,Every other corner has too, so the whole\Ncube has made a half turn about the rod.
+Dialogue: 0,0:31:00.33,0:31:02.17,Default,,0,0,0,,Here is the puzzle.
+Dialogue: 0,0:31:02.17,0:31:04.62,Default,,0,0,0,,How many different steady spins end at
+Dialogue: 0,0:31:04.62,0:31:08.77,Default,,0,0,0,,exactly this half turn after one unit of\Ntime?
+Dialogue: 0,0:31:08.77,0:31:17.52,Default,,0,0,0,,Think about the laps, the direction of\Nspin, and the axis.
+Dialogue: 0,0:31:17.52,0:31:21.22,Default,,0,0,0,,Here is the answer, one hint at a time.
+Dialogue: 0,0:31:21.22,0:31:26.66,Default,,0,0,0,,Laps first: one and a half laps per unit\Nof time also ends here,
+Dialogue: 0,0:31:26.66,0:31:31.28,Default,,0,0,0,,and so does two and a half, and so does\Nany odd number of half laps.
+Dialogue: 0,0:31:31.88,0:31:37.96,Default,,0,0,0,,Direction next: half a lap the other way\Nlands every corner in the same place.
+Dialogue: 0,0:31:37.96,0:31:42.31,Default,,0,0,0,,Last, the axis: a finished spin leaves\Nevery point of its
+Dialogue: 0,0:31:42.31,0:31:46.20,Default,,0,0,0,,own axis where it was, and our half turn\Nleaves only the
+Dialogue: 0,0:31:46.20,0:31:50.68,Default,,0,0,0,,rod's points in place, so any other axis\Nis ruled out.
+Dialogue: 0,0:31:50.68,0:31:55.80,Default,,0,0,0,,So infinitely many steady spins end here,\Nall about this one rod.
+Dialogue: 0,0:31:56.42,0:32:00.72,Default,,0,0,0,,The two slowest, half a lap each way, turn\Nby exactly
+Dialogue: 0,0:32:00.72,0:32:04.58,Default,,0,0,0,,pi, the very edge of the principal window,\Nand neither
+Dialogue: 0,0:32:04.58,0:32:09.65,Default,,0,0,0,,is slower, so this half turn has no\Nprincipal logarithm.
+Dialogue: 0,0:32:09.65,0:32:12.42,Default,,0,0,0,,{\an8\pos(110.4,25.6)}For the number minus one, a convention\Nbroke the
+Dialogue: 0,0:32:12.42,0:32:16.82,Default,,0,0,0,,{\an8\pos(110.4,25.6)}same tie; here the honest answer is the\Nwhole family.

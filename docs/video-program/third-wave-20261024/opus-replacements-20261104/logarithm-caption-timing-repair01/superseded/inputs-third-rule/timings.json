@@ -1,0 +1,777 @@
+{
+ "basis": "Later of two recognizer onsets, end of quiet run where the onset is inside one; only boundaries to move have marks; not heard boundaries",
+ "script_sha256": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a",
+ "asr_log_sha256": "448fba4724551500c7d5516a1e3248f4b5ddff50822b0b40047b3e1ee22cfd82",
+ "cues": {
+  "00_1": {
+   "wav_sha256": "da0c8222d218b86d7cde3bbfc172cf4ecc8210dae3838a7ba59d2e153e12a964",
+   "text_sha256": "2986667cb17d47efc5b01a53a482cacb77df7f13d9750fe736547c800a2e769e",
+   "marks": []
+  },
+  "00_2": {
+   "wav_sha256": "973de53e6606d0d9e92bb0efd48267a1045a7486aad378129cf27ea9a4e6b245",
+   "text_sha256": "9cff4b6074ce932b6916fa76fbef35e08e31592ca5e96c93482a256ee2c340a4",
+   "marks": [
+    {
+     "byte": 87,
+     "seconds": 5.966667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "00_3": {
+   "wav_sha256": "263bf07a038691c2b8fedcafc686d27d11070d64761bb84ee7bcd665b34e97cf",
+   "text_sha256": "dc1be524334bc27463ec71666c38080f737eb3ced12b12c92a840123bd8c30bc",
+   "marks": []
+  },
+  "00_4": {
+   "wav_sha256": "0e31173f697e47d9f9b436bfb99b353a4de8f3c218c30446b3346a66b9c5305d",
+   "text_sha256": "28aa0759d8ed2062f3854570f9cbc06427f2b43a5604e98ac9526161e564f320",
+   "marks": [
+    {
+     "byte": 55,
+     "seconds": 4.559667,
+     "basis": "later of both, end of quiet run just after it, speech rise"
+    }
+   ]
+  },
+  "00_5": {
+   "wav_sha256": "243db2f6a11c28a623b8146bdcfc226f80bf563b6e6ec46b9c386310755b2f48",
+   "text_sha256": "8b3d94121540f03dfa1199ed97718bf27762b175db4167368fefd3eb5a2d4aa5",
+   "marks": []
+  },
+  "00_6": {
+   "wav_sha256": "462aec1957132d4fed69b72c5f3c1ee9c72969da9d5bc31300c056f7be5dbce3",
+   "text_sha256": "be8fe805a35e2a4a9b270702dfbb9c71a34fd2278ea287b80269d6acc411fb63",
+   "marks": []
+  },
+  "01_1": {
+   "wav_sha256": "7fa884a59448321e9c2178acc9a781eb110166242c3ad97a4ddf80696a55a32e",
+   "text_sha256": "d71a0bd05870ac964963abd4780102349f6794df6dd4f16ea24e7aa67347f7ba",
+   "marks": []
+  },
+  "01_2": {
+   "wav_sha256": "273eb75652c7951a7a698fe56f9d1f54f3986d327eaf7f7ae90b84aafac1d857",
+   "text_sha256": "5df547825cd019fbc45286199a55a4a03309eab34eb4c79fb90637c659e1625e",
+   "marks": [
+    {
+     "byte": 219,
+     "seconds": 15.93,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "01_3": {
+   "wav_sha256": "5df27a86b6ea2a78c58b7036538e7d9e53569ca180afb7e6d03e017b2d3ebee7",
+   "text_sha256": "23f240c35831923a7b47c4dd276719054eb553fa5678c5178e0c9a5260191db3",
+   "marks": []
+  },
+  "01_4": {
+   "wav_sha256": "49ab5ec2c6d769c1127816109944546554b95fe93df37971c9639336563a0eb1",
+   "text_sha256": "e1b96d8cf4625bf2b933ff51eda76d2514fe12635e7b7c61442e410754614937",
+   "marks": [
+    {
+     "byte": 317,
+     "seconds": 20.000333,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "01_5": {
+   "wav_sha256": "05bb927f95ecf8409eea5e587716076441d3b83960828e93cb98dca38d78b2bb",
+   "text_sha256": "f0a6d133ce8d07e4fcb9242c0e7a70966611ce1baca1501d3b0242c58b9e9b92",
+   "marks": []
+  },
+  "01_6": {
+   "wav_sha256": "5dc2a5efd9762e5797424f943e0bd003020d7bfd6123c2348c7614950c824bab",
+   "text_sha256": "342fd8f544892c434e4d2d9dcf4bb0fc142ac85ecb36a3cbd9879f6840ead31a",
+   "marks": []
+  },
+  "02_1": {
+   "wav_sha256": "7d94804e63ef65c2e2e2fa24d2ce52e71dbf28f6a033d46f9f84502624f9780c",
+   "text_sha256": "3110c66e2647d397a38e81a4c77370c9efd4237bd4d9d720ba4af25e454e60af",
+   "marks": []
+  },
+  "02_2": {
+   "wav_sha256": "398f5950da717b9e671d4685d59457484bc9549cd4959d7458ae431a10c72c79",
+   "text_sha256": "bd5822b91f2700d5f2ee189d831ccc47b9253c4e58b4775488af71e4849fc33e",
+   "marks": []
+  },
+  "02_3": {
+   "wav_sha256": "1b862a916ed3389dd68b0683ddeab608355d937e73b5b61e1335c3865688529b",
+   "text_sha256": "4ee6f9d52f173dd7b438f74cd7415fc60bf2f0382ff1febb9533d4647ab3cefd",
+   "marks": []
+  },
+  "02_4": {
+   "wav_sha256": "c8dbf46745d4f5ec5a1b034a6f904bbf3e434d33f1a09e0d0baef4610df00dd4",
+   "text_sha256": "be1cfbe625776b45a9b80fc54f8db6cb074612edcc82b075f4213609d08cde0f",
+   "marks": []
+  },
+  "02_5": {
+   "wav_sha256": "6acc58c8b46d7d87cead6c6833849328a0592189b3ac52c5fdc3ba7c2befedc0",
+   "text_sha256": "3dc26bb4527bc899fa42b3fbc41ee2e1eef0482d535192db49ddd83d3174bb73",
+   "marks": []
+  },
+  "03_1": {
+   "wav_sha256": "10fa69ef2030c44d931a38a452a4a71dd85911fef4223f65a6b8cb1f23f67596",
+   "text_sha256": "620d844f25db5f2fdb93d5b803a017906d3727213f5ad4e037d6b258bf9bd0f1",
+   "marks": []
+  },
+  "03_2": {
+   "wav_sha256": "cd914147fc110a7e7888cd4bab966f75c0f31f8cda5d1732871e33ba12c6cb9f",
+   "text_sha256": "d304b7e87991505e3506d506110c2f1f8ded34313abb5c97575120510f0b6ded",
+   "marks": []
+  },
+  "03_3": {
+   "wav_sha256": "331e1beb41f054aff306b8c50d5fbcd8f4a1ee57ea3a38ec864aa2106be38664",
+   "text_sha256": "4ce29b0933cf7eb5fc8fbe78de804c33749308e5245693fc4a128076568e81c0",
+   "marks": []
+  },
+  "03_4": {
+   "wav_sha256": "ff7c43c0bd3ce447850be802340ab43adecc97a892f816e688b5ba033b56a9a1",
+   "text_sha256": "90eba9a70789356e6faa42e6e0451c0ddd2a6285dbc87bf19b8910588b6ed57d",
+   "marks": [
+    {
+     "byte": 105,
+     "seconds": 6.600333,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "04_1": {
+   "wav_sha256": "24d371d7b2f118a6dea075a6c905788261a005ee628422b295893c96f1bc313c",
+   "text_sha256": "997e38ce5b39b255bbc6bbc8d29ae0a81128337ce65602a1f23f4802aa4d0aba",
+   "marks": [
+    {
+     "byte": 88,
+     "seconds": 6.186667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "04_2": {
+   "wav_sha256": "675a3f0648a6c8918f37f80cd473d0af4461b406cfe3fc32e7c801e2198dfde7",
+   "text_sha256": "9a338a180e93a78f67ad49208255c0aff009c897e0acdf254f8937ce0d11f2bc",
+   "marks": [
+    {
+     "byte": 88,
+     "seconds": 6.776667,
+     "basis": "later of both"
+    },
+    {
+     "byte": 194,
+     "seconds": 14.379667,
+     "basis": "take only"
+    }
+   ]
+  },
+  "04_3": {
+   "wav_sha256": "fcebbaa0f44321fc88d6f12fcfdcc0a04e0ed76f2a4df0ae5e1de4ccd55ff47a",
+   "text_sha256": "e9e79bdcb58af233281c77b77c62a032a6117222f5cd0aa34b41f2018d19bdd8",
+   "marks": [
+    {
+     "byte": 76,
+     "seconds": 4.92,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "04_4": {
+   "wav_sha256": "597dab14911e07ee5a65b63312fcd79d243bddb484c38c7c4c4da137d0c21798",
+   "text_sha256": "7e4e96121ff25f997a75bc882f70884bd61b3b039203e8df9c9d46fe545d2e83",
+   "marks": [
+    {
+     "byte": 125,
+     "seconds": 8.966667,
+     "basis": "later of both"
+    },
+    {
+     "byte": 344,
+     "seconds": 26.446667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "04_5": {
+   "wav_sha256": "e0119fdb9da5bced581e993ee5417a68686347c984b51d879ce919470a5c4401",
+   "text_sha256": "226e67d7c75fc45c65227f9822543bc92d79d1dcd1a26a15e833d6405ce2e30b",
+   "marks": [
+    {
+     "byte": 82,
+     "seconds": 5.656667,
+     "basis": "later of both"
+    },
+    {
+     "byte": 210,
+     "seconds": 14.816667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "04_6": {
+   "wav_sha256": "13fc355212c2fe6ac07126caf5f6c446109cd680373605123be31fdd055da075",
+   "text_sha256": "000edc3ec870fa4557e707caf46603afc19b7763b217de7486ceda3587da509e",
+   "marks": [
+    {
+     "byte": 82,
+     "seconds": 5.680333,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "04_7": {
+   "wav_sha256": "15e729519ff591fc881f1aac1665c6d05491f695a902b431969a6c7f9a798ff4",
+   "text_sha256": "cafb538e311e358ac817af1d9e9ef817822b4e9c427de8ca4625ba0713f5e5d5",
+   "marks": [
+    {
+     "byte": 84,
+     "seconds": 6.22,
+     "basis": "later of both"
+    },
+    {
+     "byte": 321,
+     "seconds": 24.08,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "05_1": {
+   "wav_sha256": "a45623c9ffc3c1f7678d975132b7d195edc289c9bbed19f2f3a6697b97fddd7b",
+   "text_sha256": "5f6674fe362915c5d650bb70dd3d9605991bb2dbf2498419edd312881652c583",
+   "marks": []
+  },
+  "05_2": {
+   "wav_sha256": "5ef221f78db07059573752754667a611ccc125c5e1c146c04345dbd5ed168748",
+   "text_sha256": "dd0ff44d3de36b7d6cc519f538d1fbae67b1ae904e1d65eb2debff35071327a8",
+   "marks": [
+    {
+     "byte": 107,
+     "seconds": 9.6,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "05_20": {
+   "wav_sha256": "594137e6d5eac76bd8743453fa51db3ad1f0c5279f2bce2e201d69e8b91e7aac",
+   "text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+   "marks": [
+    {
+     "byte": 221,
+     "seconds": 18.379667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "05_3": {
+   "wav_sha256": "b99f03d8858126acf95c7cdd0eea0c0d3eecb885ae7fcfe7b29d6d37babeb426",
+   "text_sha256": "3f267c4eb390bcfa1d3de96c16a5b9a5f6ab8ee1133752f5774bab63b1cd6868",
+   "marks": []
+  },
+  "05_4": {
+   "wav_sha256": "54c4b7843fa5541de61b81ddeb139e93da40c9fdf4580b06453354221ec3840e",
+   "text_sha256": "bb0c9ce590095004ece1dc001770a2f1c8042a733e3cb9cb1bfdcd3a2a9ea339",
+   "marks": []
+  },
+  "05_5": {
+   "wav_sha256": "a9c223b4d279c3364db6b4f35ca111ec46884e83a22a1c760d92e533d06bb338",
+   "text_sha256": "4577d97df6052667c611277cd7a4c43425b6f7a7c98b8e290d042448b0ae0cef",
+   "marks": []
+  },
+  "05_6": {
+   "wav_sha256": "210f33dc0b5ee837a001a822af708eb49ef16af0af8d04483cdf14c63d5b4389",
+   "text_sha256": "0efab2f833ca962cd86edf6f77cdb5f32154eafb24784b95f05d91a249102862",
+   "marks": [
+    {
+     "byte": 241,
+     "seconds": 19.403333,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "05_7": {
+   "wav_sha256": "8fb9921820f1ef353ed936039da76087ea15bb91d072dde29836cfefc30e5c6f",
+   "text_sha256": "7a6573c709b24613761472e08ab82557ac55afba998347efff5c02050d2b31e6",
+   "marks": [
+    {
+     "byte": 97,
+     "seconds": 6.78,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "06_1": {
+   "wav_sha256": "29cc595ec323b153098132b510a738cf88d33d66db8b1243048a1727b669bf02",
+   "text_sha256": "b260807f31f65927962909683d5af815e2128a0ad7500d0749e6511c19680aca",
+   "marks": [
+    {
+     "byte": 53,
+     "seconds": 3.366667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "06_2": {
+   "wav_sha256": "0eaf8c56df110297bf763d2e25266ef0ad7584c97f8f8810d484d7be9b99dea8",
+   "text_sha256": "90fece638d89ab1eadbff4cf4913267724cbae1356011dc343b1290f12584f77",
+   "marks": [
+    {
+     "byte": 42,
+     "seconds": 2.779667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "06_3": {
+   "wav_sha256": "f099ce2ce655abcde999e1492605ed4c4c779a6a1722956dbc31fe71e2195c58",
+   "text_sha256": "a909ab31e6173129dcafbbf8a38bf663d6d3a140ce01c2c0e68253ebe77b2db0",
+   "marks": []
+  },
+  "06_4": {
+   "wav_sha256": "dac51479f0dd9357fb3bc60e8447b44761fc94d433fbd02d4750dd2d77c8b6ef",
+   "text_sha256": "435f54c3f9eca4b39e3dd6806b59768e4331e73a57651040c7c24092d149d6ec",
+   "marks": []
+  },
+  "06_5": {
+   "wav_sha256": "1863e66389928f1067bf1589aa85f4b0e07c3a345fe8c07dbf7241dbaf65071f",
+   "text_sha256": "219bc78c759868e8fb229188e8f757704428cf81e9cae40655a75b14506cc8c3",
+   "marks": []
+  },
+  "06_6": {
+   "wav_sha256": "e243867b3bbf854b006bea665ca349793f7bdca087f85949bf680ff40245a675",
+   "text_sha256": "4ca49ca95c948df0d25fa3732e00976bab13395ffff27dcb07bda094b73129e4",
+   "marks": []
+  },
+  "06_20": {
+   "wav_sha256": "b1bc36a0f9dd57b617a18a30425f8989c7b0a66b6d8ece7905e216ac7fd5a05a",
+   "text_sha256": "a82f172588e91e1dc63da895fd4a760ec655fd41ff1b6c9faad669ae434a3e80",
+   "marks": [
+    {
+     "byte": 41,
+     "seconds": 2.226667,
+     "basis": "later of both"
+    },
+    {
+     "byte": 140,
+     "seconds": 8.626667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "06_7": {
+   "wav_sha256": "9f648c8190bc9189c3d89457636e959b8abf9c86d0ecd25a3dae3b9189ffac95",
+   "text_sha256": "0f56c61839a683a4aa7ef25eb221e6912ca2c4c1fec023c68c5fe6d3ae995c7f",
+   "marks": []
+  },
+  "07_1": {
+   "wav_sha256": "9391bdefabc07f1b3e56f349f1d873f5795acb991d92a13b3b36d8b17d6c3400",
+   "text_sha256": "3ea7fd2865464049d0e9b916cdee0ac38a457d8eff28b4889ece8d9f8d70cf07",
+   "marks": []
+  },
+  "07_2": {
+   "wav_sha256": "063df1811bb91691f0f9993c4a6fe67dba2909a5731d0254fa246b9e12d471bf",
+   "text_sha256": "c3936a28ed7e1a198aff633ab96603bdbd141f3c618713c5d82ab4d0b32c54e9",
+   "marks": [
+    {
+     "byte": 56,
+     "seconds": 3.66,
+     "basis": "later of both, speech rise"
+    },
+    {
+     "byte": 234,
+     "seconds": 16.25,
+     "basis": "later of both, speech rise"
+    },
+    {
+     "byte": 376,
+     "seconds": 27.22,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "07_3": {
+   "wav_sha256": "19208de1f2ee7ed806fd6f8511ff139c7f8ce8809ac89b07d9de9313749374b0",
+   "text_sha256": "4ae58d37d06c67306feecf8d1053a54b39ea6a1079e435396a01b037b24d4ea9",
+   "marks": [
+    {
+     "byte": 87,
+     "seconds": 5.599667,
+     "basis": "later of both"
+    },
+    {
+     "byte": 241,
+     "seconds": 18.259667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "07_4": {
+   "wav_sha256": "a3bc58bfb8173d569ec75fa701d1b1c553576838df67ad02ff03c81a48e6fb80",
+   "text_sha256": "09556df40a49b999dd4344dc7ca0f643250191844c40937d050d8d7faafef77c",
+   "marks": [
+    {
+     "byte": 124,
+     "seconds": 8.463333,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "07_5": {
+   "wav_sha256": "3813a5ace4228e2c7283a8eae28ac59118722b141ff1df9d13943389deac3703",
+   "text_sha256": "7de9ef93c93969396f634dc19d6e8134b5d0280509bdbd8827ac63a85b1f4bd6",
+   "marks": [
+    {
+     "byte": 103,
+     "seconds": 7.700333,
+     "basis": "later of both"
+    },
+    {
+     "byte": 263,
+     "seconds": 19.243333,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "07_6": {
+   "wav_sha256": "40a1b520d0bf5b4139c14bd4c19364e7deb26e26269adc0f89e0e51a37041fa5",
+   "text_sha256": "7f99cba22a033160d648cf21f48d99f6d7ee5bb373932960cd081d8918acb2f5",
+   "marks": [
+    {
+     "byte": 71,
+     "seconds": 4.839667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "08_1": {
+   "wav_sha256": "2249613c6e93e92980899db9218508f885c7558c5790366852f50d376b43bd09",
+   "text_sha256": "75556c6aef00b2c0f2bab3027e52d1baf9f1b42642e73678834d431a5cf145e3",
+   "marks": [
+    {
+     "byte": 297,
+     "seconds": 20.943333,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "08_2": {
+   "wav_sha256": "cba9a5040b82e9b5268a5beea11964205b6b559b35f18fb55b7e448509c95ae8",
+   "text_sha256": "3d6d4f49585844a2ed7029ecbd5e858c586bea74f2bd30c75f6184a872ccb98f",
+   "marks": []
+  },
+  "08_3": {
+   "wav_sha256": "cd48a616a91494f43f970e9adfdb6fe565c23c891f8baed7ff29783462eed14f",
+   "text_sha256": "ce2bc329699435775aa76055e5e654dac19a240a7da6e7c8da245a4fc19b7232",
+   "marks": [
+    {
+     "byte": 116,
+     "seconds": 7.08,
+     "basis": "later of both"
+    },
+    {
+     "byte": 246,
+     "seconds": 15.8,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "08_4": {
+   "wav_sha256": "e9b590cf280becfa113bfc3031d58f4b4292fdf00c4340ed30d6a3f03016f1eb",
+   "text_sha256": "f449fbee18eb2cce67e3306905853d7bc3c9eee26b041aa2d064baa8b3e537b7",
+   "marks": []
+  },
+  "08_5": {
+   "wav_sha256": "bd5aff4861ecb7a50c137fe7ef8aad2bfd38e0a91e0367001cc3c4f629413f27",
+   "text_sha256": "8e26bcb04dba0673057649b76a1fce2ce0375bcc1ff1a8fffb7d8379c13f4d82",
+   "marks": [
+    {
+     "byte": 281,
+     "seconds": 23.33,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "09_1": {
+   "wav_sha256": "0f42a18fc16b76c5134a0acb7146a1a20e921e92e6ef6eb7fccfd92dd04caea4",
+   "text_sha256": "37a3a14b437e8357bc2a6953184629a044f80f1fcb1280f9a21de23143acfc6d",
+   "marks": []
+  },
+  "09_2": {
+   "wav_sha256": "7336eec1e13e71457b71df76c316d1532f3d82faef62e5c59d6ab80dbd0a057c",
+   "text_sha256": "bce7e8e43ac65a8ba7a5ed18138685910855233783a6f80f1d085f3a3f42c430",
+   "marks": [
+    {
+     "byte": 148,
+     "seconds": 11.59,
+     "basis": "later of both, speech rise"
+    }
+   ]
+  },
+  "09_3": {
+   "wav_sha256": "16eea7f63a40576ff1bf2f91c88b6d42a8018e729494ba37fa300d1b0a08c896",
+   "text_sha256": "f3de2e233a6f198038ac654b013d128c4d0a65d30ffc238fe1f18e175811e5a8",
+   "marks": [
+    {
+     "byte": 50,
+     "seconds": 3.62,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "09_4": {
+   "wav_sha256": "b0502c40b365dece2a42a069b6b974a1a1a46350fbb86c89bbad44700f6c8075",
+   "text_sha256": "e2c776e31453e1db043fb7b1da039189f57ff5220278957bce1b8aa49adc6095",
+   "marks": []
+  },
+  "10_1": {
+   "wav_sha256": "3839e93640734f9e14d0dcfa950b7e3368bd4da99d1c1e59436755a027f9aa76",
+   "text_sha256": "6fcaeb2f87ad17f8fd6a7eb67b088c7f0b0af6145df048b992777669a1ca1c1b",
+   "marks": []
+  },
+  "10_2": {
+   "wav_sha256": "cdd4e83d6b78d515ffea83a061ce4043843840323fec16580ee78652511068de",
+   "text_sha256": "e77f6de70aafae27bb15ba7d62011beb6bf2d22402b4174274b5f985409c95c8",
+   "marks": [
+    {
+     "byte": 95,
+     "seconds": 6.263333,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "10_3": {
+   "wav_sha256": "e70b9a0974df49057b85a214f882a16868e9581d70726117ecfc5f356e127a5d",
+   "text_sha256": "9645f0e4958247f106e8c2f80155996e2346302c6b34f78bd366dd1112de4baf",
+   "marks": [
+    {
+     "byte": 91,
+     "seconds": 5.82,
+     "basis": "later of both"
+    },
+    {
+     "byte": 225,
+     "seconds": 16.07,
+     "basis": "later of both"
+    },
+    {
+     "byte": 280,
+     "seconds": 19.46,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "10_4": {
+   "wav_sha256": "ee8fd6944c7c5e77df0e241aa81d9a3069b5322098ed47f409688b0e8b9e767c",
+   "text_sha256": "29473bc1659d0ff4d32211f6a5c8ef8abb4374e1b9fb892622eed2e13936bbe4",
+   "marks": [
+    {
+     "byte": 135,
+     "seconds": 9.816667,
+     "basis": "later of both"
+    },
+    {
+     "byte": 385,
+     "seconds": 27.579667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "11_1": {
+   "wav_sha256": "44b8cf6992c1aa2f06e36dca0bc0b855ca2fd60b1ed2615ffdf7f44da44ab4d5",
+   "text_sha256": "9aef00838aedeef5c81aa071586dca516ef9fd475e205c03105594838079ec5d",
+   "marks": [
+    {
+     "byte": 217,
+     "seconds": 14.906667,
+     "basis": "later of both"
+    },
+    {
+     "byte": 322,
+     "seconds": 21.826667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "11_2": {
+   "wav_sha256": "f39b425901f6a8d860b76aa01ff7c867a453229f2ce815868f66eacf4232108f",
+   "text_sha256": "bac00f42e30c5450cea48e0db3786af3a9384ddaeb583ea96e86504b7a21e8e7",
+   "marks": [
+    {
+     "byte": 173,
+     "seconds": 12.28,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "11_3": {
+   "wav_sha256": "e2374b310d209a839a4a54a50f92cd027ec1661a2bce9f2906cad1e9a4d2b0b2",
+   "text_sha256": "70e19e8aa243ef1ff9adcefcf18c96379c5103d26114a8c2a8c3e067383f59db",
+   "marks": []
+  },
+  "11_4": {
+   "wav_sha256": "69feb5a34085a7dcd73ebfba746206e3f2ee3b24834e92d9cd01fe74a71d37d7",
+   "text_sha256": "e94e48675f20ac0ffc624decd4531399dc8a3589f9d9a315cdf0f63885909bdc",
+   "marks": [
+    {
+     "byte": 115,
+     "seconds": 11.09,
+     "basis": "later of both"
+    },
+    {
+     "byte": 314,
+     "seconds": 27.22,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "11_5": {
+   "wav_sha256": "20c2afed8aa5998617736666506df096cdcfe1e18e7b8309579d4e7952dac65d",
+   "text_sha256": "dd0d230909c00dfe74523c3976ad06a759e2afb459e9e8cb252003b1b7615db8",
+   "marks": [
+    {
+     "byte": 86,
+     "seconds": 6.340333,
+     "basis": "later of both, end of quiet run just after it"
+    },
+    {
+     "byte": 395,
+     "seconds": 29.163333,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "11_6": {
+   "wav_sha256": "024288eea6a052e62caf879ad66897542a5baebd84556a3aebeda400dc7425c0",
+   "text_sha256": "ad421c6d611bf9a635d80375ebff4dc413eacbcf8a9906b80cbddab97c73c68d",
+   "marks": [
+    {
+     "byte": 156,
+     "seconds": 12.65,
+     "basis": "later of both"
+    },
+    {
+     "byte": 258,
+     "seconds": 20.69,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "11_7": {
+   "wav_sha256": "ab854495bc9d5d2ebe96befc6f8253e88a2f449ad12813583150b2ed8e354941",
+   "text_sha256": "aae9225a2dbb2a4dcb828e9ffa870f0d24bf4f04a9e7608021366f3622a01fcc",
+   "marks": [
+    {
+     "byte": 207,
+     "seconds": 14.980333,
+     "basis": "later of both, speech rise"
+    },
+    {
+     "byte": 422,
+     "seconds": 29.540333,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "11_20": {
+   "wav_sha256": "51802d403ba05c02b0c678647de0c98fdfca16624720ef2e815b2bc4023ad5e8",
+   "text_sha256": "ec2b4681dc12338d1dd19df6e5866524d0811c18d3f5732a9a8235f96b4f5f02",
+   "marks": []
+  },
+  "11_8": {
+   "wav_sha256": "9871b3867810e41f29742679087b5fa69914a51f18bf5adff3b69d545797ae68",
+   "text_sha256": "b35df432f6f28808909eeb0dec8c25e7e5189993487489e3169a0e089eabd297",
+   "marks": [
+    {
+     "byte": 230,
+     "seconds": 17.543333,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "12_1": {
+   "wav_sha256": "3b0e554b6100088dd55d1473e9327f15c8a6e04be7dc187498ef2055452744c8",
+   "text_sha256": "8ac919312c336ca94988b10063a842dbaeaa2932594199ac44a55a19fae3d8d9",
+   "marks": []
+  },
+  "12_2": {
+   "wav_sha256": "028d49e2f98ce344ba34ed6df62974b826fffd96fdf1248673acd6ffdc38fa4d",
+   "text_sha256": "b412f190e36981bd7ad4336f007bc2987490c4098304ef4ff56a0d49a36d860d",
+   "marks": [
+    {
+     "byte": 97,
+     "seconds": 6.546667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "12_3": {
+   "wav_sha256": "e78096dc5ab4ea5812ebf509e5e546189101b335fed49404109bb07d31af3de5",
+   "text_sha256": "e50368a2cdc197d77542a976d02e3207da2384b9d7840a1645bb2d3cc64d7169",
+   "marks": []
+  },
+  "12_4": {
+   "wav_sha256": "87c332e76a42218f6063c39787e01bbd0908eefe4101d207e1ce7d982ab66e5b",
+   "text_sha256": "94ed881c39edcc7cd15235e3691ae6d3d91203ef54ab3c451f82ec27c400aa93",
+   "marks": [
+    {
+     "byte": 89,
+     "seconds": 7.753333,
+     "basis": "later of both"
+    },
+    {
+     "byte": 209,
+     "seconds": 15.460333,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "12_5": {
+   "wav_sha256": "fa2b0d687c6005f29ecea4a9777ed56ac5b53cf23c11a15f73909042ce2f6dc4",
+   "text_sha256": "e8dd93058126905677716cedcfba6b70413abbf62d2f2bb3a028bcd03b6bb9a7",
+   "marks": [
+    {
+     "byte": 59,
+     "seconds": 4.286667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "12_6": {
+   "wav_sha256": "7d78841ea448ceeb7b99c7a42426a56e23c148dff810e2f1e1d007c050a96fe8",
+   "text_sha256": "c85377e98085cd3000ec836f675c05662c9be4bcff432de7620c669d208e1962",
+   "marks": [
+    {
+     "byte": 105,
+     "seconds": 9.140333,
+     "basis": "later of both, speech rise"
+    }
+   ]
+  },
+  "12_20": {
+   "wav_sha256": "1cce584d1d4a7026a6c05aa4ea0035f0a0a0ab2ef5d0d21265571ec8e780a3b4",
+   "text_sha256": "246388046e76374e4bf7519b3fb92168e46f98211860f262af30225cfda517db",
+   "marks": [
+    {
+     "byte": 194,
+     "seconds": 14.316667,
+     "basis": "later of both"
+    }
+   ]
+  },
+  "12_21": {
+   "wav_sha256": "1db5625d500b731345d13b4330850468908afeb3c109634519f2bbe0e7daebc3",
+   "text_sha256": "0fe204023b8a52a75088216367d1e84e5aa423baa89f7ec2e583c5c1ff558762",
+   "marks": [
+    {
+     "byte": 109,
+     "seconds": 8.160333,
+     "basis": "later of both"
+    },
+    {
+     "byte": 215,
+     "seconds": 16.000333,
+     "basis": "later of both"
+    }
+   ]
+  }
+ }
+}

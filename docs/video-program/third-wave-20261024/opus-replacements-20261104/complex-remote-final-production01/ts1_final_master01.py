@@ -16,7 +16,7 @@ import sys
 
 HERE = Path(__file__).resolve().parent
 RENDER_HELPER = HERE / 'ts1_final_render01.py'
-RENDER_SHA256 = 'd14527e24ca82f236d5b4a815d9857c51dcd3e740c32e24b5a17d41e8ed89990'
+RENDER_SHA256 = '23d99bfb8a5cfc30fed702cae186180eacdae4ea482c5666e282fab08bd7fc70'
 with RENDER_HELPER.open('rb') as handle:
     assert hashlib.file_digest(handle, 'sha256').hexdigest() == RENDER_SHA256, 'Render helper changed'
 SPEC = importlib.util.spec_from_file_location('complex_final_render', RENDER_HELPER)

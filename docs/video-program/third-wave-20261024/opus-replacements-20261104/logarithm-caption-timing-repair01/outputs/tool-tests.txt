@@ -1,0 +1,11 @@
+test_changed_words_or_wav_are_refused (test_retime_captions_from_phrases.CaptionTimingTests.test_changed_words_or_wav_are_refused) ... ok
+test_missing_mark_and_noncontiguous_split_stay_unchanged (test_retime_captions_from_phrases.CaptionTimingTests.test_missing_mark_and_noncontiguous_split_stay_unchanged) ... ok
+test_out_of_order_or_out_of_range_marks_are_refused (test_retime_captions_from_phrases.CaptionTimingTests.test_out_of_order_or_out_of_range_marks_are_refused) ... ok
+test_sentence_boundary_does_not_move (test_retime_captions_from_phrases.CaptionTimingTests.test_sentence_boundary_does_not_move) ... ok
+test_split_uses_mark_and_preserves_sentence_edges_and_hold (test_retime_captions_from_phrases.CaptionTimingTests.test_split_uses_mark_and_preserves_sentence_edges_and_hold) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.003s
+
+OK
+tests 5 failures 0 errors 0

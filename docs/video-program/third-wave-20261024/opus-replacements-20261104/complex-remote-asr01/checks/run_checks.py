@@ -22,13 +22,14 @@ REL_P = 'docs/video-program/third-wave-20261024/opus-replacements-20261104'
 REL_EC = 'narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104'
 REL_O = REL_EC + '/remote-ts1-01'
 REL_LOG = 'narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01'
-REL_SCRIPT = REL_EC + '/native-stage06-root03/workspace/explainer_corpus/complex_analysis_visual/script.tsv'
-REL_Q = REL_P + '/complex-remote-ts1-pipeline01/qualify01/ts1_qualify01.py'
+REL_SCRIPT = REL_EC + '/native-stage07-root01/workspace/explainer_corpus/complex_analysis_visual/script.tsv'
+REL_Q = REL_P + '/complex-remote-ts1-pipeline01/qualify02/ts1_qualify02.py'
 REL_PRESERVED = REL_P + '/engine-secondary-validation01/guard_owner56g_target20g.py'
 ASR02_SEAL = 'f63501eae4cd2097b062c16ca6c2ace0f87e1b1daabf4e5b0e77a4d8a0528189'
 ROOT_COMPLEX = '6ac60883507c84b11b7dcbf2f11416a586ee2d4fd28ebd3562ebbd7fbee86460'
-CHAIN_SEAL = '625d162dcfccfc2a518fd410804786aa89c815232f628d645547a986fab8227c'
-BIN = '3c90fb5464fc8736214228d62f1c322629ede230cd58cb11ddb947e5d9e9c168'
+CHAIN_SEAL = 'bbf00548ba5f804fcecefe31854ffa9af60494ba71003cfc2ccd491fa871daf9'
+QUALIFY_SEAL = 'f6878e685a7202c9cc32865314bfff0686068ce4f678502a06b31305b52cd860'
+BIN = 'b' * 64  # a stand-in: qualify02 reads the real hash from build02's binary.sha256 at import
 V, M, A = 'complex-remote-final-verify01', 'complex-remote-master01', 'complex-remote-asr-audio01'
 VOICE = 'ElevenLabs Frederick Surrey'
 NATIVE = {'admission_gib': 10, 'stop_free_gib': 8, 'phase_growth_gib': 4, 'work_cap_gib': 56, 'target_growth_cap_gib': 20, 'sample_seconds': 10}
@@ -197,7 +198,8 @@ def build(base):
     fx.rows = [line.split('\t', 1) for line in fx.script.read_text().splitlines() if line.strip() and not line.startswith('#')]
     fx.cues = [cue for cue, _ in fx.rows]
     fx.chapters, fx.placements = [], []
-    n2 = fx.jobs / 'complex-remote-narration-derive01/narration-n2'
+    n2 = fx.jobs / 'complex-remote-narration-derive02/narration-n2'
+    write(fx.jobs / 'complex-remote-build02/binary.sha256', BIN + '\n')
     start = 0
     for index, chapter in enumerate(CHAPTERS):
         cues = [c for c in fx.cues if c.startswith(f'{index + 1:02d}_')]
@@ -205,7 +207,7 @@ def build(base):
         lines = [f'line\t{cue}\t{i * FRAMES_PER_CUE}\t0\t{n2.resolve()}/{cue}.wav' for i, cue in enumerate(cues)]
         frames = len(cues) * FRAMES_PER_CUE
         text = '\n'.join(['# explainer timeline v1', f'chapter\t{chapter}', 'fps\t60', f'frames\t{frames}', *lines, 'breath\t1\t2', '']) + '\n'
-        source = write(fx.jobs / 'complex-remote-timeline02/timeline-output' / f'{chapter}.timeline.tsv', text)
+        source = write(fx.jobs / 'complex-remote-timeline03/timeline-output' / f'{chapter}.timeline.tsv', text)
         write(fx.work / f'{chapter}.timeline.tsv', text)  # the kit's own comment line may differ; only normalized lines count
         fx.chapters.append({'chapter': chapter, 'frames': frames, 'cues': cues, 'timeline_sha256': sha(source)})
         for i, cue in enumerate(cues):
@@ -213,7 +215,7 @@ def build(base):
             fx.placements.append({'cue': cue, 'chapter': chapter, 'start_frame': start + i * FRAMES_PER_CUE, 'duration_s': 0.1})
         start += frames
     fx.total = start
-    js(fx.jobs / 'complex-remote-timeline02/timeline-summary.json', {'chapters': fx.chapters, 'total_frames': fx.total, 'fps': 60, 'binary_sha256': BIN})
+    js(fx.jobs / 'complex-remote-timeline03/timeline-summary.json', {'chapters': fx.chapters, 'total_frames': fx.total, 'fps': 60, 'binary_sha256': BIN})
     write(fx.bin / 'ffmpeg.plan', f'16000 1 {fx.total * 16000 // 60}\n')
     film(fx, V, M)
     worker(fx)
@@ -270,8 +272,8 @@ def film(fx, verify, master):
         offset += chapter['frames']
     proof = js(folder / 'verification.json', {
         'video': str(movie), 'sha256': sha(movie), 'frames': fx.total, 'fps': 60, 'chapters': chapters, 'placements': fx.placements, 'host': 'ts1',
-        'voice': VOICE, 'pictures_viewed': False, 'binary_sha256': BIN, 'timeline_job': 'complex-remote-timeline02', 'master_job': master,
-        'narration': str(fx.jobs / 'complex-remote-narration-derive01/narration-n2')})
+        'voice': VOICE, 'pictures_viewed': False, 'binary_sha256': BIN, 'timeline_job': 'complex-remote-timeline03', 'master_job': master,
+        'narration': str(fx.jobs / 'complex-remote-narration-derive02/narration-n2')})
     js(fx.stage / f'{verify}-postcheck.json', {'job': verify, 'master_job': master, 'master_sha256': sha(movie), 'srt_sha256': sha(srt), 'vtt_sha256': sha(vtt),
                                                'verification_sha256': sha(proof), 'frames': fx.total, 'pictures': 3, 'sheets': 1, 'pictures_viewed': False, 'scope': 'stand-in'})
 
@@ -348,7 +350,7 @@ def good_film(base):
     check(text.splitlines()[-1] == want, 'the line root carries: ' + text.splitlines()[-1])
     bound = {x['path'] for x in json.loads((fx.O / 'asr-audio-inputs01.json').read_text())['files']}
     for path in (movie, fx.stage / f'{V}-postcheck.json', fx.jobs / V / 'verification.json', fx.jobs / M / 'master-summary.json', fx.ffmpeg,
-                 fx.work / '15_closing.timeline.tsv', fx.jobs / 'complex-remote-narration-derive01/narration-n2/15_1.wav', fx.logical / REL_SCRIPT, fx.logical / REL_Q):
+                 fx.work / '15_closing.timeline.tsv', fx.jobs / 'complex-remote-narration-derive02/narration-n2/15_1.wav', fx.logical / REL_SCRIPT, fx.logical / REL_Q):
         check(str(path) in bound, f'ts1 manifest binds {path.name}')
     check((fx.O / 'asr-audio01.exit').read_text() == '0\n', 'ts1 exit file')
     code, text = mini(fx, A, sha(summary), '01')
@@ -364,7 +366,7 @@ def good_film(base):
     out = fx.lane_jobs / 'complex-remote-asr01'
     comparison = json.loads((out / 'comparison.json').read_text())
     check(comparison['master_sha256'] == sha(movie) and comparison['wav_sha256'] == sha(wav) and comparison['cue_count'] == 105, 'comparison')
-    check(comparison['script_sha256'] == sha(fx.script) and comparison['expected_words'] == 4658, 'expected words, real script')
+    check(comparison['script_sha256'] == sha(fx.script) and comparison['expected_words'] == 4662, 'expected words, real script')
     found = [x['word'] for change in comparison['differences'] for x in change['recognized']]
     check('nonsense' in found and '-' in found, f'word and sign leads: {found[:12]}')
     boundaries = json.loads((out / 'cue-boundaries.json').read_text())
@@ -439,7 +441,7 @@ def rewrite_table(f, old, new):
 
 
 def fewer_chapters(f):
-    edit(f.jobs / 'complex-remote-timeline02/timeline-summary.json', lambda d: d['chapters'].pop())
+    edit(f.jobs / 'complex-remote-timeline03/timeline-summary.json', lambda d: d['chapters'].pop())
 
 
 def other_ffmpeg(f):
@@ -467,7 +469,8 @@ TS1_CASES = [
     ('proof from another host', lambda f: key(proof(f), 'host', value='mac-mini-max'), 'another host or voice'),
     ('proof with another voice', lambda f: key(proof(f), 'voice', value='ElevenLabs Oliver'), 'another host or voice'),
     ('proof from another binary', lambda f: key(proof(f), 'binary_sha256', value='0' * 64), 'another binary'),
-    ('proof on the first timeline', lambda f: key(proof(f), 'timeline_job', value='complex-remote-timeline01'), 'another timeline or narration'),
+    ('build02 has not finished', lambda f: (f.jobs / 'complex-remote-build02/binary.sha256').unlink(), 'another binary'),
+    ('proof on the older timeline', lambda f: key(proof(f), 'timeline_job', value='complex-remote-timeline02'), 'another timeline or narration'),
     ('proof on N, not N2', lambda f: key(proof(f), 'narration', value='N'), 'another timeline or narration'),
     ('proof names another master file', lambda f: key(proof(f), 'video', value='/other.mp4'), 'another master file'),
     ('proof with another length', lambda f: key(proof(f), 'frames', value=1), 'another length'),
@@ -477,10 +480,10 @@ TS1_CASES = [
     ('proof with one duration changed', lambda f: shift(f, 'duration_s', 9.0), 'other placements'),
     ('final table differs from the timeline', lambda f: rewrite_table(f, 'line\t02_2\t12', 'line\t02_2\t13'), 'differs from the timeline'),
     ('final and timeline tables name N', lambda f: [rewrite_table(f, 'narration-n2/02_1.wav', 'narration01/02_1.wav'),
-                                                    literal(f.jobs / 'complex-remote-timeline02/timeline-output/02_turning_numbers.timeline.tsv', 'narration-n2/02_1.wav', 'narration01/02_1.wav'),
-                                                    edit(f.jobs / 'complex-remote-timeline02/timeline-summary.json', lambda d: d['chapters'][1].update(timeline_sha256=hashlib.sha256((f.jobs / 'complex-remote-timeline02/timeline-output/02_turning_numbers.timeline.tsv').read_bytes()).hexdigest()))],
+                                                    literal(f.jobs / 'complex-remote-timeline03/timeline-output/02_turning_numbers.timeline.tsv', 'narration-n2/02_1.wav', 'narration01/02_1.wav'),
+                                                    edit(f.jobs / 'complex-remote-timeline03/timeline-summary.json', lambda d: d['chapters'][1].update(timeline_sha256=hashlib.sha256((f.jobs / 'complex-remote-timeline03/timeline-output/02_turning_numbers.timeline.tsv').read_bytes()).hexdigest()))],
      'another narration file'),
-    ('timeline table moved', lambda f: key(f.jobs / 'complex-remote-timeline02/timeline-summary.json', 'chapters', 3, 'timeline_sha256', value='0' * 64), 'timeline table moved'),
+    ('timeline table moved', lambda f: key(f.jobs / 'complex-remote-timeline03/timeline-summary.json', 'chapters', 3, 'timeline_sha256', value='0' * 64), 'timeline table moved'),
     ('only 14 chapters', fewer_chapters, 'not the 15 registered chapters'),
     ('strict check log not passed', lambda f: write(f.jobs / V / 'strict-video-verification.log', 'VERIFY FAIL\n'), 'strict video check'),
     ('master replaced after verify', lambda f: write(f.work / 'complex_analysis_visual_master.mp4', 'other\n'), 'changed after verification'),
@@ -733,15 +736,17 @@ def sources():
 
 def peers():
     chain = R / REL_P / 'complex-remote-ts1-pipeline01'
-    check(sha(chain / 'chain02-n2/SHA256SUMS') == CHAIN_SEAL, 'chain seal')
-    body = (chain / 'chain02-n2/ts1_chain02_n2.py').read_text()
-    check("DERIVE = 'complex-remote-narration-derive01'" in body and "N2 = JOBS / DERIVE / 'narration-n2'" in body
-          and "f'complex-remote-{stage}02'" in body, 'chain names')
-    check("PICTURE_ENV = 'complex-remote-picture-env01'" in (chain / 'chain01/ts1_chain01.py').read_text(), 'picture env')
-    print(f'PASS peer White\'s seal {CHAIN_SEAL[:12]}: N2, timeline02 and the picture env agree (source text, not run)')
-    final = R / REL_P / 'complex-remote-final-production01'
+    check(sha(chain / 'chain03/SHA256SUMS') == CHAIN_SEAL, 'chain seal')
+    check(sha(chain / 'qualify02/SHA256SUMS') == QUALIFY_SEAL, 'qualifier seal')
+    body = (chain / 'chain03/ts1_chain03.py').read_text()
+    check("DERIVE = 'complex-remote-narration-derive02'" in body and "N = JOBS / DERIVE / 'narration-n2'" in body
+          and "'timeline': 'complex-remote-timeline03'" in body, 'chain names')
+    check("PICTURE_ENV = 'complex-remote-picture-env01'" in body, 'picture env')
     step1 = (HERE / 'ts1_asr_audio01.py').read_text()
     constant = lambda name: re.search(rf"^{name} = '(.*)'$", step1, re.M).group(1)
+    check(constant('QUALIFIER_SHA256') in body and constant('QUALIFIER_SHA256') in (chain / 'qualify02/SHA256SUMS').read_text(), 'chain and seal pin my qualifier')
+    print(f'PASS peer White\'s seals {CHAIN_SEAL[:12]} and {QUALIFY_SEAL[:12]}: the qualifier, N2, timeline03 and the picture env agree (source text, not run)')
+    final = R / REL_P / 'complex-remote-final-production01'
     master, verify = [(final / name).read_text() for name in ('ts1_final_master01.py', 'ts1_final_verify01.py')]
     render = (final / 'ts1_final_render01.py').read_text()
     for body, spelled in ((master, ["JOB = 'complex-remote-master01'", f"SUCCESS = '{constant('MASTER_SUCCESS')}'",

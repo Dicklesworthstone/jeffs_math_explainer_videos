@@ -1,0 +1,20 @@
+{
+ "note": "Paths are the same under the repository root here and the css staging root. Send the whole bundle folder too.",
+ "files": [
+  {
+   "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/engine-secondary-validation01/guard_owner56g_target20g.py",
+   "sha256": "1c19a9b8f817c3bca06e18fd0785ac21c3cb935be715d67ecc41e4e39d1f5097",
+   "bytes": 1895
+  },
+  {
+   "path": "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/run_bounded_phase_oliver_owner48g_target14g_20261102.py",
+   "sha256": "819746fb33110d6c133e184812c80a00562d848816f623078ad86f0fb1a316da",
+   "bytes": 8185
+  },
+  {
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/jobs/logarithm-remote-render-work01/logarithm_mysteries_master.mp4",
+   "sha256": "8534ec211790fb8400b809de19a6d1cb75af6150a5e90566f6a93bb90e7efd69",
+   "bytes": 201559921
+  }
+ ]
+}

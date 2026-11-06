@@ -44,7 +44,7 @@ PASS v-extraction-hash: AssertionError
 PASS v-summary-hash: AssertionError 
 PASS v-preview-movie-changed: AssertionError 
 PASS v-n2-take-changed: AssertionError N2 differs: 01_1.wav
-PASS v-qualification-changed: AssertionError Qualified binary differs
+PASS v-qualification-changed: AssertionError Build summary differs
 PASS v-sheet-gone-from-both: AssertionError Sheets differ from the extraction
 PASS v-other-voice: AssertionError Preview is another film
 PASS v-other-binary: AssertionError Preview is another film
@@ -121,11 +121,11 @@ PASS e-verify-picture-python: the guard ran the child under the picture env, for
 PASS e-verify-last-line: FINAL VERIFY PASS: strict video check, frame count, A/V length and exact captions passed; 
 PASS e-strict-real: real pinned strict check and ebur128 on the fixture master
 PASS e-captions-real: 105 real cue texts, SRT equals VTT, real caption screen ran
-PASS e-samples: 226 final pictures; the final lint and the preview lint both add samples
+PASS e-samples: 240 final pictures; the final lint and the preview lint both add samples
 PASS e-provenance: master and verification name N2, the folder it came from, and the derive summary by hash
 PASS e-no-picture-claim: pictures_viewed is false; the preview review does not carry over
 PASS e-verify-manifest: all three helpers, the shared checks, master and captions, by logical paths
-PASS e-postcheck: 226 pictures, 57 sheets, written once by the launch
+PASS e-postcheck: 240 pictures, 60 sheets, written once by the launch
 PASS e-postcheck-repeats: read-only repeat; identical bytes accepted
 PASS p-sheet: AssertionError: A sheet changed
 PASS p-picture: AssertionError: A picture changed

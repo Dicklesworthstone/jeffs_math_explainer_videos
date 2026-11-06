@@ -1,0 +1,17 @@
+its logarithm
+  cue 215: label columns 519 to 602, under a line box 49%
+  cue 216: label columns 519 to 602, under a line box 100%
+  cue 217: label columns 519 to 602, under a line box 100%
+  cue 218: label columns 519 to 602, under a line box 90%
+  cue 219: label columns 519 to 602, under a line box 100%
+  cue 220: label columns 519 to 602, under a line box 100%
+bottom edge: left out
+  cue 288: label columns 362 to 486, under a line box 100%
+infinitely many real logarithms
+  cue 357: label columns 547 to 796, under a line box 15%
+  cue 358: label columns 547 to 796, under a line box 58%
+many flows, one place: all home at t = 1
+  cue 446: label columns 517 to 935, under a line box 85%
+  cue 447: label columns 517 to 935, under a line box 78%
+  cue 448: label columns 517 to 935, under a line box 88%
+  cue 449: label columns 517 to 935, under a line box 71%

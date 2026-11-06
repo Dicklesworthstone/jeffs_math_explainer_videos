@@ -1,0 +1,3908 @@
+[
+ {
+  "id": 13,
+  "a": 50.427,
+  "b": 53.895,
+  "n": 2,
+  "count": 1413,
+  "ink": [
+   1296,
+   1788,
+   2544,
+   1856
+  ],
+  "text": "To a musician, the distance between two notes is set by"
+ },
+ {
+  "id": 14,
+  "a": 53.895,
+  "b": 57.427,
+  "n": 2,
+  "count": 1430,
+  "ink": [
+   1296,
+   1788,
+   2544,
+   1856
+  ],
+  "text": "the ratio of their frequencies, not by their difference."
+ },
+ {
+  "id": 19,
+  "a": 68.403,
+  "b": 76.56700000000001,
+  "n": 2,
+  "count": 526,
+  "ink": [
+   2484,
+   1812,
+   2784,
+   1924
+  ],
+  "text": "Halfway by difference would be six hundred and sixty."
+ },
+ {
+  "id": 20,
+  "a": 76.56700000000001,
+  "b": 81.84700000000001,
+  "n": 2,
+  "count": 373,
+  "ink": [
+   2060,
+   1792,
+   2700,
+   1852
+  ],
+  "text": "Six semitones is half the climb, and two of those half climbs must double."
+ },
+ {
+  "id": 21,
+  "a": 81.84700000000001,
+  "b": 86.727,
+  "n": 2,
+  "count": 551,
+  "ink": [
+   2048,
+   1788,
+   2712,
+   1856
+  ],
+  "text": "So each one multiplies by the same number, the square root of two."
+ },
+ {
+  "id": 22,
+  "a": 86.727,
+  "b": 91.447,
+  "n": 2,
+  "count": 497,
+  "ink": [
+   2048,
+   1788,
+   2704,
+   1856
+  ],
+  "text": "The note is about six hundred and twenty-two, not six hundred and sixty."
+ },
+ {
+  "id": 23,
+  "a": 91.447,
+  "b": 94.807,
+  "n": 2,
+  "count": 1854,
+  "ink": [
+   1204,
+   1788,
+   2684,
+   1972
+  ],
+  "text": "Equal steps on the keyboard are equal ratios."
+ },
+ {
+  "id": 24,
+  "a": 95.417,
+  "b": 100.887,
+  "n": 2,
+  "count": 1837,
+  "ink": [
+   1204,
+   1788,
+   2664,
+   1972
+  ],
+  "text": "A ruler whose equal steps mean equal ratios is what a logarithm builds."
+ },
+ {
+  "id": 25,
+  "a": 100.887,
+  "b": 106.857,
+  "n": 2,
+  "count": 1723,
+  "ink": [
+   1204,
+   1788,
+   2712,
+   1972
+  ],
+  "text": "For centuries it let people multiply by sliding one strip of wood along another."
+ },
+ {
+  "id": 35,
+  "a": 143.603,
+  "b": 146.143,
+  "n": 1,
+  "count": 960,
+  "ink": [
+   1352,
+   1856,
+   2488,
+   1896
+  ],
+  "text": "Every doubling adds the same length."
+ },
+ {
+  "id": 36,
+  "a": 146.75,
+  "b": 150.003,
+  "n": 2,
+  "count": 1398,
+  "ink": [
+   1352,
+   1828,
+   2488,
+   1896
+  ],
+  "text": "The rule behind it fits in one sentence: the"
+ },
+ {
+  "id": 51,
+  "a": 199.71699999999998,
+  "b": 203.417,
+  "n": 2,
+  "count": 1605,
+  "ink": [
+   1076,
+   1800,
+   2764,
+   1816
+  ],
+  "text": "So twelve copies of three's length almost match nineteen"
+ },
+ {
+  "id": 52,
+  "a": 203.417,
+  "b": 208.137,
+  "n": 2,
+  "count": 1525,
+  "ink": [
+   1116,
+   1800,
+   2724,
+   1816
+  ],
+  "text": "steps, and three sits close to nineteen twelfths of a step."
+ },
+ {
+  "id": 53,
+  "a": 208.75,
+  "b": 211.79,
+  "n": 2,
+  "count": 1277,
+  "ink": [
+   1240,
+   1800,
+   2600,
+   1816
+  ],
+  "text": "You have seen this before, on the keyboard."
+ },
+ {
+  "id": 54,
+  "a": 211.79,
+  "b": 218.23,
+  "n": 2,
+  "count": 1605,
+  "ink": [
+   1076,
+   1800,
+   2764,
+   1816
+  ],
+  "text": "Nineteen semitones above any A is a note almost exactly three times its frequency."
+ },
+ {
+  "id": 55,
+  "a": 218.23,
+  "b": 222.135,
+  "n": 2,
+  "count": 1525,
+  "ink": [
+   1116,
+   1800,
+   2724,
+   1816
+  ],
+  "text": "Closer matches between powers pin three down further, and"
+ },
+ {
+  "id": 56,
+  "a": 222.135,
+  "b": 225.82999999999998,
+  "n": 2,
+  "count": 1632,
+  "ink": [
+   1056,
+   1800,
+   2772,
+   1816
+  ],
+  "text": "its position is about one point five eight five steps."
+ },
+ {
+  "id": 57,
+  "a": 225.82999999999998,
+  "b": 228.754,
+  "n": 2,
+  "count": 1445,
+  "ink": [
+   1156,
+   1800,
+   2684,
+   1816
+  ],
+  "text": "As long as bigger numbers sit further along,"
+ },
+ {
+  "id": 58,
+  "a": 228.754,
+  "b": 231.95,
+  "n": 2,
+  "count": 1605,
+  "ink": [
+   1076,
+   1800,
+   2764,
+   1816
+  ],
+  "text": "this one rule fixes every position on the ruler."
+ },
+ {
+  "id": 65,
+  "a": 255.71,
+  "b": 259.43,
+  "n": 2,
+  "count": 967,
+  "ink": [
+   1156,
+   1744,
+   2680,
+   1836
+  ],
+  "text": "Every one of these rulers is the same ruler, stretched."
+ },
+ {
+  "id": 78,
+  "a": 307.422,
+  "b": 310.26,
+  "n": 2,
+  "count": 1616,
+  "ink": [
+   1176,
+   1752,
+   2664,
+   1812
+  ],
+  "text": "markings turned that sum back into a product."
+ },
+ {
+  "id": 94,
+  "a": 366.01,
+  "b": 369.15,
+  "n": 1,
+  "count": 123,
+  "ink": [
+   1372,
+   1856,
+   1456,
+   1972
+  ],
+  "text": "So bend one decade into a circle."
+ },
+ {
+  "id": 95,
+  "a": 369.15,
+  "b": 372.43,
+  "n": 2,
+  "count": 529,
+  "ink": [
+   1116,
+   1744,
+   1712,
+   1964
+  ],
+  "text": "One full lap of this dial multiplies by ten."
+ },
+ {
+  "id": 96,
+  "a": 373.033,
+  "b": 376.433,
+  "n": 1,
+  "count": 274,
+  "ink": [
+   1176,
+   1856,
+   1560,
+   1964
+  ],
+  "text": "On the dial, multiplying is turning."
+ },
+ {
+  "id": 97,
+  "a": 376.433,
+  "b": 379.353,
+  "n": 1,
+  "count": 11,
+  "ink": [
+   1248,
+   1856,
+   1276,
+   1868
+  ],
+  "text": "Four sits a little past half a lap."
+ },
+ {
+  "id": 98,
+  "a": 379.353,
+  "b": 382.533,
+  "n": 2,
+  "count": 83,
+  "ink": [
+   1244,
+   1744,
+   1276,
+   1868
+  ],
+  "text": "Six adds about three quarters of a lap more."
+ },
+ {
+  "id": 99,
+  "a": 382.533,
+  "b": 386.08299999999997,
+  "n": 2,
+  "count": 114,
+  "ink": [
+   1244,
+   1744,
+   1744,
+   1868
+  ],
+  "text": "Together they pass the top, where one, ten and a"
+ },
+ {
+  "id": 100,
+  "a": 386.08299999999997,
+  "b": 389.633,
+  "n": 2,
+  "count": 114,
+  "ink": [
+   1244,
+   1744,
+   1744,
+   1868
+  ],
+  "text": "hundred meet, and stop on two point four's mark."
+ },
+ {
+  "id": 101,
+  "a": 389.633,
+  "b": 394.313,
+  "n": 2,
+  "count": 114,
+  "ink": [
+   1244,
+   1744,
+   1744,
+   1868
+  ],
+  "text": "The extra lap is the factor of ten the straight ruler had no room for."
+ },
+ {
+  "id": 102,
+  "a": 394.91700000000003,
+  "b": 398.797,
+  "n": 2,
+  "count": 1615,
+  "ink": [
+   1056,
+   1744,
+   1784,
+   1940
+  ],
+  "text": "The dial remembers the digits, and forgets the laps."
+ },
+ {
+  "id": 103,
+  "a": 398.797,
+  "b": 404.097,
+  "n": 2,
+  "count": 1612,
+  "ink": [
+   1136,
+   1744,
+   2616,
+   1940
+  ],
+  "text": "To read a number back from a mark, you must also say how many laps you mean."
+ },
+ {
+  "id": 104,
+  "a": 404.097,
+  "b": 406.957,
+  "n": 1,
+  "count": 1181,
+  "ink": [
+   1280,
+   1856,
+   2560,
+   1912
+  ],
+  "text": "Zero laps gives two point four."
+ },
+ {
+  "id": 105,
+  "a": 406.957,
+  "b": 409.35699999999997,
+  "n": 1,
+  "count": 1016,
+  "ink": [
+   1384,
+   1856,
+   2456,
+   1908
+  ],
+  "text": "One lap gives twenty-four."
+ },
+ {
+  "id": 106,
+  "a": 409.35699999999997,
+  "b": 412.757,
+  "n": 1,
+  "count": 1413,
+  "ink": [
+   1096,
+   1856,
+   2616,
+   1940
+  ],
+  "text": "Minus one lap gives zero point two four."
+ },
+ {
+  "id": 107,
+  "a": 413.367,
+  "b": 416.867,
+  "n": 2,
+  "count": 1648,
+  "ink": [
+   1156,
+   1744,
+   2616,
+   1940
+  ],
+  "text": "Keep this picture of a spiral and its shadow."
+ },
+ {
+  "id": 108,
+  "a": 416.867,
+  "b": 419.967,
+  "n": 2,
+  "count": 1678,
+  "ink": [
+   1116,
+   1744,
+   2616,
+   1940
+  ],
+  "text": "A mark that can be reached in different numbers of laps is"
+ },
+ {
+  "id": 109,
+  "a": 419.967,
+  "b": 424.107,
+  "n": 2,
+  "count": 1693,
+  "ink": [
+   1096,
+   1744,
+   2616,
+   1940
+  ],
+  "text": "exactly what happens to the logarithm in the complex numbers."
+ },
+ {
+  "id": 110,
+  "a": 424.107,
+  "b": 427.507,
+  "n": 1,
+  "count": 1368,
+  "ink": [
+   1156,
+   1856,
+   2616,
+   1940
+  ],
+  "text": "There, nobody folds anything by hand."
+ },
+ {
+  "id": 111,
+  "a": 427.507,
+  "b": 430.327,
+  "n": 2,
+  "count": 1615,
+  "ink": [
+   1200,
+   1744,
+   2616,
+   1940
+  ],
+  "text": "The exponential does the folding by itself."
+ },
+ {
+  "id": 113,
+  "a": 435.133,
+  "b": 437.72,
+  "n": 1,
+  "count": 9,
+  "ink": [
+   1056,
+   1856,
+   1060,
+   1892
+  ],
+  "text": "The exponential function, written e to the"
+ },
+ {
+  "id": 128,
+  "a": 492.07,
+  "b": 495.85,
+  "n": 2,
+  "count": 37,
+  "ink": [
+   1056,
+   1744,
+   1060,
+   1892
+  ],
+  "text": "returns the one input that the exponential sends there."
+ },
+ {
+  "id": 131,
+  "a": 501.83,
+  "b": 504.93,
+  "n": 2,
+  "count": 116,
+  "ink": [
+   1056,
+   1744,
+   1068,
+   1900
+  ],
+  "text": "Zero and the negative numbers have no real logarithm"
+ },
+ {
+  "id": 138,
+  "a": 525.473,
+  "b": 532.093,
+  "n": 2,
+  "count": 173,
+  "ink": [
+   1056,
+   1744,
+   1096,
+   1896
+  ],
+  "text": "So the natural logarithm of one point zero one is almost exactly zero point zero one."
+ },
+ {
+  "id": 139,
+  "a": 532.093,
+  "b": 535.08,
+  "n": 2,
+  "count": 173,
+  "ink": [
+   1056,
+   1744,
+   1096,
+   1896
+  ],
+  "text": "A small percentage change becomes the same small"
+ },
+ {
+  "id": 147,
+  "a": 564.483,
+  "b": 568.245,
+  "n": 2,
+  "count": 940,
+  "ink": [
+   1644,
+   1744,
+   2196,
+   1932
+  ],
+  "text": "The logarithm base two of x is the natural logarithm"
+ },
+ {
+  "id": 148,
+  "a": 568.245,
+  "b": 571.563,
+  "n": 2,
+  "count": 942,
+  "ink": [
+   1644,
+   1744,
+   2196,
+   1932
+  ],
+  "text": "of x, divided by the natural logarithm of two."
+ },
+ {
+  "id": 149,
+  "a": 572.167,
+  "b": 574.547,
+  "n": 1,
+  "count": 357,
+  "ink": [
+   1644,
+   1856,
+   2188,
+   1932
+  ],
+  "text": "Here is the inverse at work."
+ },
+ {
+  "id": 150,
+  "a": 574.547,
+  "b": 577.847,
+  "n": 2,
+  "count": 856,
+  "ink": [
+   1056,
+   1832,
+   2332,
+   1972
+  ],
+  "text": "Money growing continuously at five percent a year is"
+ },
+ {
+  "id": 151,
+  "a": 577.847,
+  "b": 583.427,
+  "n": 2,
+  "count": 809,
+  "ink": [
+   1136,
+   1832,
+   2332,
+   1972
+  ],
+  "text": "multiplied by e to the zero point zero five t after t years."
+ },
+ {
+  "id": 152,
+  "a": 583.427,
+  "b": 589.5,
+  "n": 1,
+  "count": 168,
+  "ink": [
+   1636,
+   1900,
+   2332,
+   1936
+  ],
+  "text": "When has it doubled?"
+ },
+ {
+  "id": 153,
+  "a": 589.5,
+  "b": 592.7,
+  "n": 1,
+  "count": 225,
+  "ink": [
+   1292,
+   1900,
+   2332,
+   1972
+  ],
+  "text": "Take the natural logarithm of both sides."
+ },
+ {
+  "id": 154,
+  "a": 592.7,
+  "b": 595.72,
+  "n": 1,
+  "count": 225,
+  "ink": [
+   1292,
+   1900,
+   2332,
+   1972
+  ],
+  "text": "Zero point zero five t equals the natural"
+ },
+ {
+  "id": 155,
+  "a": 595.72,
+  "b": 600.24,
+  "n": 2,
+  "count": 807,
+  "ink": [
+   1136,
+   1832,
+   2332,
+   1972
+  ],
+  "text": "logarithm of two, about zero point six nine three."
+ },
+ {
+  "id": 156,
+  "a": 600.24,
+  "b": 604.09,
+  "n": 1,
+  "count": 225,
+  "ink": [
+   1292,
+   1900,
+   2332,
+   1972
+  ],
+  "text": "So t is about thirteen point nine years."
+ },
+ {
+  "id": 157,
+  "a": 604.09,
+  "b": 607.451,
+  "n": 2,
+  "count": 797,
+  "ink": [
+   1156,
+   1832,
+   2332,
+   1972
+  ],
+  "text": "That is the rule of seventy for quick estimates:"
+ },
+ {
+  "id": 158,
+  "a": 607.451,
+  "b": 610.24,
+  "n": 1,
+  "count": 225,
+  "ink": [
+   1292,
+   1900,
+   2332,
+   1972
+  ],
+  "text": "divide about seventy by the percentage."
+ },
+ {
+  "id": 159,
+  "a": 610.24,
+  "b": 613.58,
+  "n": 2,
+  "count": 827,
+  "ink": [
+   1096,
+   1832,
+   2332,
+   1972
+  ],
+  "text": "To grow a thousandfold takes the natural logarithm of a"
+ },
+ {
+  "id": 160,
+  "a": 613.58,
+  "b": 618.7,
+  "n": 2,
+  "count": 827,
+  "ink": [
+   1096,
+   1832,
+   2332,
+   1972
+  ],
+  "text": "thousand, six point nine one, divided by zero point zero five."
+ },
+ {
+  "id": 161,
+  "a": 618.7,
+  "b": 622.024,
+  "n": 2,
+  "count": 827,
+  "ink": [
+   1116,
+   1744,
+   2724,
+   1972
+  ],
+  "text": "About a hundred and thirty-eight years, close to ten"
+ },
+ {
+  "id": 162,
+  "a": 622.024,
+  "b": 625.74,
+  "n": 2,
+  "count": 851,
+  "ink": [
+   1076,
+   1744,
+   2736,
+   1972
+  ],
+  "text": "doublings, since two to the tenth is just over a thousand."
+ },
+ {
+  "id": 175,
+  "a": 681.383,
+  "b": 685.183,
+  "n": 2,
+  "count": 3,
+  "ink": [
+   2576,
+   1744,
+   2588,
+   1748
+  ],
+  "text": "The real part x sets the length, e to the x."
+ },
+ {
+  "id": 176,
+  "a": 685.183,
+  "b": 688.383,
+  "n": 1,
+  "count": 181,
+  "ink": [
+   2188,
+   1856,
+   2628,
+   1880
+  ],
+  "text": "The imaginary part y sets the angle."
+ },
+ {
+  "id": 177,
+  "a": 688.383,
+  "b": 693.263,
+  "n": 2,
+  "count": 464,
+  "ink": [
+   2188,
+   1744,
+   2628,
+   1880
+  ],
+  "text": "For instance, take x to be the logarithm of two, and y to be a half"
+ },
+ {
+  "id": 178,
+  "a": 693.263,
+  "b": 700.163,
+  "n": 2,
+  "count": 464,
+  "ink": [
+   2188,
+   1744,
+   2628,
+   1880
+  ],
+  "text": "pi: the length is two, the angle a quarter turn, so we land on two i."
+ },
+ {
+  "id": 179,
+  "a": 700.767,
+  "b": 703.147,
+  "n": 1,
+  "count": 8,
+  "ink": [
+   2208,
+   1856,
+   2524,
+   1864
+  ],
+  "text": "Watch what that does to a grid."
+ },
+ {
+  "id": 181,
+  "a": 705.587,
+  "b": 710.707,
+  "n": 2,
+  "count": 95,
+  "ink": [
+   2644,
+   1744,
+   2652,
+   1936
+  ],
+  "text": "Each horizontal line keeps one angle, so it goes to a ray from zero."
+ },
+ {
+  "id": 182,
+  "a": 710.707,
+  "b": 714.967,
+  "n": 2,
+  "count": 94,
+  "ink": [
+   2644,
+   1744,
+   2652,
+   1932
+  ],
+  "text": "Each vertical line keeps one length, so it goes to a circle."
+ },
+ {
+  "id": 183,
+  "a": 714.967,
+  "b": 720.387,
+  "n": 2,
+  "count": 94,
+  "ink": [
+   2644,
+   1744,
+   2652,
+   1932
+  ],
+  "text": "But a vertical line is infinitely long, and a circle closes after one lap."
+ },
+ {
+  "id": 184,
+  "a": 720.387,
+  "b": 724.687,
+  "n": 2,
+  "count": 118,
+  "ink": [
+   2596,
+   1744,
+   2700,
+   1932
+  ],
+  "text": "So each vertical line wraps around its circle again and again."
+ },
+ {
+  "id": 185,
+  "a": 725.3,
+  "b": 731.1,
+  "n": 2,
+  "count": 115,
+  "ink": [
+   2592,
+   1744,
+   2684,
+   1932
+  ],
+  "text": "Zero and two pi times i are different inputs, and both land on one."
+ },
+ {
+  "id": 186,
+  "a": 731.1,
+  "b": 735.61,
+  "n": 2,
+  "count": 120,
+  "ink": [
+   2592,
+   1744,
+   2704,
+   1932
+  ],
+  "text": "So do four pi times i and minus two pi times i."
+ },
+ {
+  "id": 187,
+  "a": 735.61,
+  "b": 738.86,
+  "n": 2,
+  "count": 120,
+  "ink": [
+   2592,
+   1744,
+   2704,
+   1932
+  ],
+  "text": "Climbing two pi up the input plane carries the output"
+ },
+ {
+  "id": 188,
+  "a": 738.86,
+  "b": 741.86,
+  "n": 2,
+  "count": 120,
+  "ink": [
+   2592,
+   1744,
+   2704,
+   1932
+  ],
+  "text": "once around its circle, back to where it started."
+ },
+ {
+  "id": 191,
+  "a": 751.717,
+  "b": 755.213,
+  "n": 2,
+  "count": 120,
+  "ink": [
+   2592,
+   1744,
+   2704,
+   1932
+  ],
+  "text": "Minus one has length one, so the real part of"
+ },
+ {
+  "id": 192,
+  "a": 755.213,
+  "b": 759.027,
+  "n": 2,
+  "count": 120,
+  "ink": [
+   2592,
+   1744,
+   2704,
+   1932
+  ],
+  "text": "the input is the logarithm of one, which is zero."
+ },
+ {
+  "id": 194,
+  "a": 762.217,
+  "b": 766.577,
+  "n": 2,
+  "count": 110,
+  "ink": [
+   2592,
+   1744,
+   2664,
+   1932
+  ],
+  "text": "But pi plus any whole number of laps points the same way."
+ },
+ {
+  "id": 195,
+  "a": 766.577,
+  "b": 771.12,
+  "n": 2,
+  "count": 120,
+  "ink": [
+   2592,
+   1744,
+   2704,
+   1932
+  ],
+  "text": "So the inputs are pi times i, three pi times i, minus pi"
+ },
+ {
+  "id": 196,
+  "a": 771.12,
+  "b": 776.367,
+  "n": 2,
+  "count": 115,
+  "ink": [
+   2592,
+   1744,
+   2684,
+   1932
+  ],
+  "text": "times i, and so on: a whole column of them, two pi apart."
+ },
+ {
+  "id": 197,
+  "a": 776.367,
+  "b": 779.397,
+  "n": 1,
+  "count": 38,
+  "ink": [
+   2644,
+   1856,
+   2652,
+   1932
+  ],
+  "text": "Every one is a logarithm of minus one."
+ },
+ {
+  "id": 198,
+  "a": 780.0,
+  "b": 782.92,
+  "n": 1,
+  "count": 38,
+  "ink": [
+   2644,
+   1856,
+   2652,
+   1932
+  ],
+  "text": "The same goes for every nonzero number."
+ },
+ {
+  "id": 199,
+  "a": 782.92,
+  "b": 786.78,
+  "n": 2,
+  "count": 120,
+  "ink": [
+   2592,
+   1744,
+   2704,
+   1932
+  ],
+  "text": "Its logarithms share one real part, the logarithm of its"
+ },
+ {
+  "id": 200,
+  "a": 786.78,
+  "b": 791.68,
+  "n": 2,
+  "count": 120,
+  "ink": [
+   2592,
+   1744,
+   2704,
+   1932
+  ],
+  "text": "length, and have a whole column of angles, one for each lap."
+ },
+ {
+  "id": 202,
+  "a": 793.8,
+  "b": 799.16,
+  "n": 2,
+  "count": 120,
+  "ink": [
+   2592,
+   1744,
+   2704,
+   1932
+  ],
+  "text": "Its length would have to be e to some x, and that is never zero."
+ },
+ {
+  "id": 203,
+  "a": 799.16,
+  "b": 802.471,
+  "n": 2,
+  "count": 120,
+  "ink": [
+   2592,
+   1744,
+   2704,
+   1932
+  ],
+  "text": "In the complex numbers, the exponential is a dial"
+ },
+ {
+  "id": 204,
+  "a": 802.471,
+  "b": 805.92,
+  "n": 2,
+  "count": 120,
+  "ink": [
+   2592,
+   1744,
+   2704,
+   1932
+  ],
+  "text": "that forgets laps, just like the folded slide rule."
+ },
+ {
+  "id": 205,
+  "a": 807.133,
+  "b": 810.5,
+  "n": 2,
+  "count": 641,
+  "ink": [
+   1988,
+   1744,
+   2412,
+   1972
+  ],
+  "text": "If a number has a whole column of logarithms, can we"
+ },
+ {
+  "id": 206,
+  "a": 810.5,
+  "b": 814.253,
+  "n": 2,
+  "count": 641,
+  "ink": [
+   1988,
+   1744,
+   2412,
+   1972
+  ],
+  "text": "at least choose one in a sensible, continuous way?"
+ },
+ {
+  "id": 207,
+  "a": 814.253,
+  "b": 817.811,
+  "n": 2,
+  "count": 856,
+  "ink": [
+   1988,
+   1744,
+   2412,
+   1972
+  ],
+  "text": "Start at one, choose the logarithm zero, and walk"
+ },
+ {
+  "id": 208,
+  "a": 817.811,
+  "b": 821.443,
+  "n": 2,
+  "count": 859,
+  "ink": [
+   1988,
+   1744,
+   2412,
+   1972
+  ],
+  "text": "the number slowly around the circle of radius one."
+ },
+ {
+  "id": 209,
+  "a": 821.443,
+  "b": 824.333,
+  "n": 2,
+  "count": 927,
+  "ink": [
+   1988,
+   1744,
+   2412,
+   1972
+  ],
+  "text": "Keep the logarithm moving smoothly along with it."
+ },
+ {
+  "id": 210,
+  "a": 824.933,
+  "b": 827.713,
+  "n": 1,
+  "count": 357,
+  "ink": [
+   2076,
+   1856,
+   2412,
+   1972
+  ],
+  "text": "As the number turns, its logarithm climbs"
+ },
+ {
+  "id": 211,
+  "a": 827.713,
+  "b": 831.513,
+  "n": 2,
+  "count": 884,
+  "ink": [
+   1988,
+   1744,
+   2412,
+   1972
+  ],
+  "text": "straight up, because only the angle changes."
+ },
+ {
+  "id": 212,
+  "a": 831.513,
+  "b": 836.823,
+  "n": 2,
+  "count": 840,
+  "ink": [
+   1988,
+   1744,
+   2412,
+   1972
+  ],
+  "text": "A quarter of the way round, the logarithm is pi over two times i."
+ },
+ {
+  "id": 213,
+  "a": 836.823,
+  "b": 841.483,
+  "n": 2,
+  "count": 840,
+  "ink": [
+   1988,
+   1744,
+   2412,
+   1972
+  ],
+  "text": "Halfway round, at minus one, it is pi times i."
+ },
+ {
+  "id": 214,
+  "a": 841.483,
+  "b": 850.033,
+  "n": 2,
+  "count": 840,
+  "ink": [
+   1988,
+   1744,
+   2412,
+   1972
+  ],
+  "text": "When the number arrives back at one, what is the logarithm?"
+ },
+ {
+  "id": 215,
+  "a": 850.033,
+  "b": 852.453,
+  "n": 1,
+  "count": 164,
+  "ink": [
+   2076,
+   1856,
+   2232,
+   1972
+  ],
+  "text": "Two pi times i."
+ },
+ {
+  "id": 216,
+  "a": 852.453,
+  "b": 854.183,
+  "n": 1,
+  "count": 297,
+  "ink": [
+   2076,
+   1856,
+   2352,
+   1972
+  ],
+  "text": "The number came back."
+ },
+ {
+  "id": 217,
+  "a": 854.183,
+  "b": 856.303,
+  "n": 1,
+  "count": 322,
+  "ink": [
+   2076,
+   1856,
+   2376,
+   1972
+  ],
+  "text": "The logarithm did not."
+ },
+ {
+  "id": 218,
+  "a": 856.303,
+  "b": 860.443,
+  "n": 2,
+  "count": 895,
+  "ink": [
+   1916,
+   1744,
+   2412,
+   1972
+  ],
+  "text": "It finished one lap higher in the column than where it began."
+ },
+ {
+  "id": 219,
+  "a": 860.443,
+  "b": 863.303,
+  "n": 1,
+  "count": 357,
+  "ink": [
+   2076,
+   1856,
+   2412,
+   1972
+  ],
+  "text": "Go around again and it climbs again."
+ },
+ {
+  "id": 220,
+  "a": 863.303,
+  "b": 865.873,
+  "n": 1,
+  "count": 357,
+  "ink": [
+   2076,
+   1856,
+   2412,
+   1972
+  ],
+  "text": "Go the other way and it comes back down."
+ },
+ {
+  "id": 221,
+  "a": 866.483,
+  "b": 870.583,
+  "n": 2,
+  "count": 1075,
+  "ink": [
+   1916,
+   1744,
+   2640,
+   1972
+  ],
+  "text": "A loop that does not go around zero behaves differently."
+ },
+ {
+  "id": 222,
+  "a": 870.583,
+  "b": 875.423,
+  "n": 2,
+  "count": 375,
+  "ink": [
+   2332,
+   1928,
+   2724,
+   1972
+  ],
+  "text": "Here is a circle off to one side, which zero is not inside."
+ },
+ {
+  "id": 223,
+  "a": 875.423,
+  "b": 880.243,
+  "n": 2,
+  "count": 403,
+  "ink": [
+   2332,
+   1928,
+   2744,
+   1972
+  ],
+  "text": "Walk the number once around it, carrying the logarithm along as before."
+ },
+ {
+  "id": 224,
+  "a": 880.243,
+  "b": 887.817,
+  "n": 2,
+  "count": 404,
+  "ink": [
+   2332,
+   1928,
+   2744,
+   1972
+  ],
+  "text": "Will the logarithm come back to where it began?"
+ },
+ {
+  "id": 225,
+  "a": 887.817,
+  "b": 892.377,
+  "n": 2,
+  "count": 320,
+  "ink": [
+   2332,
+   1928,
+   2640,
+   1972
+  ],
+  "text": "It does: it drifts up and down, and returns exactly."
+ },
+ {
+  "id": 226,
+  "a": 892.377,
+  "b": 896.557,
+  "n": 2,
+  "count": 374,
+  "ink": [
+   2332,
+   1928,
+   2724,
+   1972
+  ],
+  "text": "What matters is how many times the loop winds around zero."
+ },
+ {
+  "id": 227,
+  "a": 896.557,
+  "b": 899.907,
+  "n": 2,
+  "count": 2038,
+  "ink": [
+   1320,
+   1744,
+   2684,
+   1972
+  ],
+  "text": "That count is the winding number, and every"
+ },
+ {
+  "id": 228,
+  "a": 899.907,
+  "b": 903.257,
+  "n": 1,
+  "count": 444,
+  "ink": [
+   2332,
+   1928,
+   2784,
+   1972
+  ],
+  "text": "lap moves the logarithm by two pi times i."
+ },
+ {
+  "id": 229,
+  "a": 903.867,
+  "b": 908.367,
+  "n": 2,
+  "count": 1662,
+  "ink": [
+   1320,
+   1744,
+   2720,
+   1972
+  ],
+  "text": "Could some other choice of logarithm be continuous all the way round?"
+ },
+ {
+  "id": 230,
+  "a": 908.367,
+  "b": 914.747,
+  "n": 2,
+  "count": 209,
+  "ink": [
+   1988,
+   1744,
+   2288,
+   1852
+  ],
+  "text": "Try the obvious candidate: the logarithm whose angle stays between minus pi and pi."
+ },
+ {
+  "id": 231,
+  "a": 914.747,
+  "b": 920.257,
+  "n": 2,
+  "count": 224,
+  "ink": [
+   1988,
+   1744,
+   2288,
+   1852
+  ],
+  "text": "Walk round again, comparing it with ours, and track the gap in whole laps."
+ },
+ {
+  "id": 232,
+  "a": 920.257,
+  "b": 924.945,
+  "n": 2,
+  "count": 224,
+  "ink": [
+   1988,
+   1744,
+   2288,
+   1852
+  ],
+  "text": "The gap sits at zero until the number passes minus one, then jumps"
+ },
+ {
+  "id": 233,
+  "a": 924.945,
+  "b": 929.777,
+  "n": 2,
+  "count": 304,
+  "ink": [
+   1988,
+   1744,
+   2472,
+   1852
+  ],
+  "text": "down a lap, because the candidate's angle leaps from pi to minus pi."
+ },
+ {
+  "id": 236,
+  "a": 935.26,
+  "b": 938.443,
+  "n": 2,
+  "count": 286,
+  "ink": [
+   1988,
+   1744,
+   2468,
+   1852
+  ],
+  "text": "that is continuous everywhere on the circle."
+ },
+ {
+  "id": 237,
+  "a": 938.443,
+  "b": 941.66,
+  "n": 2,
+  "count": 1172,
+  "ink": [
+   1512,
+   1744,
+   2744,
+   1936
+  ],
+  "text": "At every point it differs from ours by a whole number"
+ },
+ {
+  "id": 238,
+  "a": 941.66,
+  "b": 945.733,
+  "n": 2,
+  "count": 1123,
+  "ink": [
+   1512,
+   1744,
+   2640,
+   1936
+  ],
+  "text": "of laps, because both undo the same exponential."
+ },
+ {
+  "id": 239,
+  "a": 945.733,
+  "b": 950.923,
+  "n": 2,
+  "count": 1232,
+  "ink": [
+   1512,
+   1744,
+   2744,
+   1936
+  ],
+  "text": "A gap that is always a whole number of laps, and varies continuously, can never"
+ },
+ {
+  "id": 240,
+  "a": 950.923,
+  "b": 955.913,
+  "n": 2,
+  "count": 1255,
+  "ink": [
+   1512,
+   1744,
+   2760,
+   1936
+  ],
+  "text": "jump from one whole number to the next, so it stays fixed all the way round."
+ },
+ {
+  "id": 241,
+  "a": 956.517,
+  "b": 959.257,
+  "n": 1,
+  "count": 699,
+  "ink": [
+   1512,
+   1856,
+   2496,
+   1936
+  ],
+  "text": "Now follow both back to one."
+ },
+ {
+  "id": 242,
+  "a": 959.257,
+  "b": 961.961,
+  "n": 1,
+  "count": 935,
+  "ink": [
+   1512,
+   1856,
+   2744,
+   1936
+  ],
+  "text": "Theirs is a function of the point, so it"
+ },
+ {
+  "id": 243,
+  "a": 961.961,
+  "b": 964.937,
+  "n": 2,
+  "count": 1368,
+  "ink": [
+   1512,
+   1744,
+   2652,
+   1936
+  ],
+  "text": "returns to exactly the value it started with."
+ },
+ {
+  "id": 244,
+  "a": 964.937,
+  "b": 968.327,
+  "n": 1,
+  "count": 897,
+  "ink": [
+   1512,
+   1856,
+   2652,
+   1936
+  ],
+  "text": "Ours finishes two pi times i higher."
+ },
+ {
+  "id": 245,
+  "a": 968.327,
+  "b": 973.547,
+  "n": 2,
+  "count": 1428,
+  "ink": [
+   1512,
+   1744,
+   2760,
+   1936
+  ],
+  "text": "So the gap has changed by one lap, and we just saw that it cannot change."
+ },
+ {
+  "id": 246,
+  "a": 973.547,
+  "b": 975.587,
+  "n": 1,
+  "count": 650,
+  "ink": [
+   1512,
+   1856,
+   2416,
+   1936
+  ],
+  "text": "That is a contradiction."
+ },
+ {
+  "id": 247,
+  "a": 975.587,
+  "b": 980.487,
+  "n": 2,
+  "count": 1428,
+  "ink": [
+   1512,
+   1744,
+   2760,
+   1936
+  ],
+  "text": "No continuous logarithm exists on any loop that winds around zero."
+ },
+ {
+  "id": 248,
+  "a": 980.487,
+  "b": 982.117,
+  "n": 1,
+  "count": 640,
+  "ink": [
+   1512,
+   1856,
+   2368,
+   1936
+  ],
+  "text": "Something has to give."
+ },
+ {
+  "id": 261,
+  "a": 1037.743,
+  "b": 1040.783,
+  "n": 2,
+  "count": 305,
+  "ink": [
+   1076,
+   1744,
+   1224,
+   1844
+  ],
+  "text": "The principal logarithm unrolls it into a horizontal"
+ },
+ {
+  "id": 262,
+  "a": 1040.783,
+  "b": 1045.163,
+  "n": 2,
+  "count": 614,
+  "ink": [
+   1076,
+   1744,
+   1668,
+   1864
+  ],
+  "text": "strip, between height minus pi and height pi."
+ },
+ {
+  "id": 263,
+  "a": 1045.163,
+  "b": 1047.743,
+  "n": 1,
+  "count": 9,
+  "ink": [
+   1516,
+   1856,
+   1544,
+   1864
+  ],
+  "text": "Circles become vertical segments."
+ },
+ {
+  "id": 264,
+  "a": 1047.743,
+  "b": 1050.623,
+  "n": 1,
+  "count": 9,
+  "ink": [
+   1516,
+   1856,
+   1544,
+   1864
+  ],
+  "text": "Rays become horizontal lines."
+ },
+ {
+  "id": 265,
+  "a": 1050.623,
+  "b": 1053.443,
+  "n": 2,
+  "count": 731,
+  "ink": [
+   1096,
+   1744,
+   2744,
+   1864
+  ],
+  "text": "Now roll it back, and mark the two sides of"
+ },
+ {
+  "id": 266,
+  "a": 1053.443,
+  "b": 1057.703,
+  "n": 2,
+  "count": 558,
+  "ink": [
+   1176,
+   1744,
+   2644,
+   1864
+  ],
+  "text": "the cut: one just above it, one just below."
+ },
+ {
+  "id": 268,
+  "a": 1064.517,
+  "b": 1069.987,
+  "n": 2,
+  "count": 1107,
+  "ink": [
+   1076,
+   1744,
+   2764,
+   1864
+  ],
+  "text": "They land on opposite edges of the strip, the top edge and the bottom edge."
+ },
+ {
+  "id": 269,
+  "a": 1069.987,
+  "b": 1072.98,
+  "n": 2,
+  "count": 1271,
+  "ink": [
+   1136,
+   1744,
+   2704,
+   1904
+  ],
+  "text": "That is because just above the cut the angle is"
+ },
+ {
+  "id": 270,
+  "a": 1072.98,
+  "b": 1077.497,
+  "n": 2,
+  "count": 1380,
+  "ink": [
+   1096,
+   1744,
+   2744,
+   1904
+  ],
+  "text": "close to pi, and just below it, close to minus pi."
+ },
+ {
+  "id": 271,
+  "a": 1077.497,
+  "b": 1081.717,
+  "n": 2,
+  "count": 1500,
+  "ink": [
+   1076,
+   1744,
+   2764,
+   1904
+  ],
+  "text": "So a path that crosses the cut would have to jump by two pi."
+ },
+ {
+  "id": 273,
+  "a": 1085.717,
+  "b": 1090.017,
+  "n": 2,
+  "count": 207,
+  "ink": [
+   2444,
+   1744,
+   2640,
+   1804
+  ],
+  "text": "Cut along the upward imaginary axis instead, and the angles run over"
+ },
+ {
+  "id": 274,
+  "a": 1090.017,
+  "b": 1095.217,
+  "n": 2,
+  "count": 234,
+  "ink": [
+   2444,
+   1744,
+   2664,
+   1804
+  ],
+  "text": "a different window, from minus three halves of pi up to a half pi."
+ },
+ {
+  "id": 276,
+  "a": 1097.497,
+  "b": 1101.56,
+  "n": 2,
+  "count": 447,
+  "ink": [
+   2160,
+   1744,
+   2664,
+   1796
+  ],
+  "text": "Any curve that runs from zero out to infinity without crossing itself"
+ },
+ {
+  "id": 277,
+  "a": 1101.56,
+  "b": 1106.917,
+  "n": 2,
+  "count": 493,
+  "ink": [
+   2160,
+   1744,
+   2704,
+   1796
+  ],
+  "text": "will do: in the plane that is left, no loop can wind around zero."
+ },
+ {
+  "id": 278,
+  "a": 1106.917,
+  "b": 1110.497,
+  "n": 2,
+  "count": 447,
+  "ink": [
+   2160,
+   1744,
+   2664,
+   1796
+  ],
+  "text": "Zero is the one point every cut must touch."
+ },
+ {
+  "id": 279,
+  "a": 1110.497,
+  "b": 1112.477,
+  "n": 1,
+  "count": 496,
+  "ink": [
+   2160,
+   1872,
+   2540,
+   1936
+  ],
+  "text": "It is called the branch point."
+ },
+ {
+  "id": 280,
+  "a": 1113.083,
+  "b": 1114.923,
+  "n": 1,
+  "count": 37,
+  "ink": [
+   2160,
+   1872,
+   2188,
+   1924
+  ],
+  "text": "Two cautions."
+ },
+ {
+  "id": 288,
+  "a": 1147.823,
+  "b": 1151.803,
+  "n": 2,
+  "count": 727,
+  "ink": [
+   1064,
+   1744,
+   1948,
+   1868
+  ],
+  "text": "That is the strip, with its top edge added by the convention."
+ },
+ {
+  "id": 295,
+  "a": 1173.96,
+  "b": 1178.137,
+  "n": 2,
+  "count": 148,
+  "ink": [
+   1336,
+   1804,
+   2648,
+   1844
+  ],
+  "text": "angles in its window, from minus pi up to pi."
+ },
+ {
+  "id": 296,
+  "a": 1178.137,
+  "b": 1185.8,
+  "n": 2,
+  "count": 148,
+  "ink": [
+   1336,
+   1804,
+   2648,
+   1844
+  ],
+  "text": "So what angle will it report for the square?"
+ },
+ {
+  "id": 297,
+  "a": 1185.8,
+  "b": 1190.06,
+  "n": 2,
+  "count": 148,
+  "ink": [
+   1336,
+   1804,
+   2648,
+   1844
+  ],
+  "text": "Not one and a half pi: that is outside the window."
+ },
+ {
+  "id": 298,
+  "a": 1190.06,
+  "b": 1194.15,
+  "n": 2,
+  "count": 148,
+  "ink": [
+   1336,
+   1804,
+   2648,
+   1844
+  ],
+  "text": "It reports the same direction as minus a half pi."
+ },
+ {
+  "id": 299,
+  "a": 1194.15,
+  "b": 1198.745,
+  "n": 2,
+  "count": 148,
+  "ink": [
+   1336,
+   1804,
+   2648,
+   1844
+  ],
+  "text": "So the sum of the two logarithms is one and a half pi times i,"
+ },
+ {
+  "id": 300,
+  "a": 1198.745,
+  "b": 1203.34,
+  "n": 2,
+  "count": 148,
+  "ink": [
+   1336,
+   1804,
+   2648,
+   1844
+  ],
+  "text": "while the logarithm of the product is minus a half pi times i."
+ },
+ {
+  "id": 301,
+  "a": 1203.34,
+  "b": 1207.8,
+  "n": 2,
+  "count": 148,
+  "ink": [
+   1336,
+   1804,
+   2648,
+   1844
+  ],
+  "text": "They differ by two pi times i, exactly one lap."
+ },
+ {
+  "id": 302,
+  "a": 1208.4,
+  "b": 1211.4,
+  "n": 2,
+  "count": 148,
+  "ink": [
+   1336,
+   1804,
+   2648,
+   1844
+  ],
+  "text": "This is the slide rule's decimal point again."
+ },
+ {
+  "id": 303,
+  "a": 1211.4,
+  "b": 1215.48,
+  "n": 2,
+  "count": 148,
+  "ink": [
+   1336,
+   1804,
+   2648,
+   1844
+  ],
+  "text": "When the sum of the angles runs past the window, the chosen logarithm"
+ },
+ {
+  "id": 304,
+  "a": 1215.48,
+  "b": 1220.26,
+  "n": 2,
+  "count": 148,
+  "ink": [
+   1336,
+   1804,
+   2648,
+   1844
+  ],
+  "text": "drops a lap, just as the slide rule's reading dropped a factor of ten."
+ },
+ {
+  "id": 305,
+  "a": 1220.26,
+  "b": 1224.2,
+  "n": 2,
+  "count": 143,
+  "ink": [
+   1336,
+   1804,
+   2640,
+   1844
+  ],
+  "text": "The rule that survives is this: the logarithm of a product"
+ },
+ {
+  "id": 306,
+  "a": 1224.2,
+  "b": 1228.9,
+  "n": 2,
+  "count": 148,
+  "ink": [
+   1336,
+   1804,
+   2648,
+   1844
+  ],
+  "text": "is the sum of the logarithms, plus a whole number of laps."
+ },
+ {
+  "id": 309,
+  "a": 1233.1,
+  "b": 1237.6,
+  "n": 2,
+  "count": 148,
+  "ink": [
+   1336,
+   1804,
+   2648,
+   1844
+  ],
+  "text": "For our square, the count is minus one: one lap down."
+ },
+ {
+  "id": 310,
+  "a": 1238.2,
+  "b": 1241.76,
+  "n": 2,
+  "count": 148,
+  "ink": [
+   1336,
+   1804,
+   2648,
+   1844
+  ],
+  "text": "That lap count hides inside a famous puzzle."
+ },
+ {
+  "id": 324,
+  "a": 1292.57,
+  "b": 1297.45,
+  "n": 2,
+  "count": 202,
+  "ink": [
+   2616,
+   1848,
+   2744,
+   1932
+  ],
+  "text": "The root of a product equals the product of the roots only up to that sign."
+ },
+ {
+  "id": 326,
+  "a": 1300.57,
+  "b": 1305.41,
+  "n": 2,
+  "count": 444,
+  "ink": [
+   1056,
+   1744,
+   1692,
+   1824
+  ],
+  "text": "A two by two matrix is a recipe for moving every point of the plane."
+ },
+ {
+  "id": 327,
+  "a": 1305.41,
+  "b": 1310.25,
+  "n": 2,
+  "count": 416,
+  "ink": [
+   1076,
+   1744,
+   1692,
+   1824
+  ],
+  "text": "It says where the two unit arrows go, and everything else follows along."
+ },
+ {
+  "id": 328,
+  "a": 1310.25,
+  "b": 1315.77,
+  "n": 2,
+  "count": 476,
+  "ink": [
+   1260,
+   1744,
+   1692,
+   1972
+  ],
+  "text": "A grid shows the result: turned, stretched, sheared, or flipped."
+ },
+ {
+  "id": 329,
+  "a": 1315.77,
+  "b": 1319.168,
+  "n": 2,
+  "count": 1191,
+  "ink": [
+   1056,
+   1744,
+   1824,
+   1972
+  ],
+  "text": "The matrix only says where each point ends up,"
+ },
+ {
+  "id": 330,
+  "a": 1319.168,
+  "b": 1322.49,
+  "n": 2,
+  "count": 1087,
+  "ink": [
+   1116,
+   1744,
+   1824,
+   1968
+  ],
+  "text": "not how it gets there; the travel comes next."
+ },
+ {
+  "id": 331,
+  "a": 1323.1,
+  "b": 1327.68,
+  "n": 2,
+  "count": 1069,
+  "ink": [
+   1116,
+   1744,
+   1824,
+   1968
+  ],
+  "text": "Matrices have an exponential too, built from the same series."
+ },
+ {
+  "id": 333,
+  "a": 1330.29,
+  "b": 1334.69,
+  "n": 2,
+  "count": 406,
+  "ink": [
+   1096,
+   1744,
+   1692,
+   1824
+  ],
+  "text": "A matrix X can be read as a velocity: at each point"
+ },
+ {
+  "id": 334,
+  "a": 1334.69,
+  "b": 1338.4,
+  "n": 2,
+  "count": 396,
+  "ink": [
+   1116,
+   1744,
+   1692,
+   1824
+  ],
+  "text": "it gives an arrow saying which way that point moves."
+ },
+ {
+  "id": 335,
+  "a": 1338.4,
+  "b": 1342.32,
+  "n": 2,
+  "count": 1704,
+  "ink": [
+   1096,
+   1744,
+   1720,
+   1972
+  ],
+  "text": "Let every point follow its arrow for one unit of time."
+ },
+ {
+  "id": 336,
+  "a": 1342.32,
+  "b": 1345.9,
+  "n": 2,
+  "count": 267,
+  "ink": [
+   1100,
+   1744,
+   1404,
+   1972
+  ],
+  "text": "Where everything ends up is the matrix e to the X."
+ },
+ {
+  "id": 337,
+  "a": 1346.5,
+  "b": 1350.12,
+  "n": 2,
+  "count": 460,
+  "ink": [
+   1200,
+   1744,
+   2640,
+   1920
+  ],
+  "text": "A logarithm of a matrix A is then a velocity that"
+ },
+ {
+  "id": 338,
+  "a": 1350.12,
+  "b": 1354.76,
+  "n": 2,
+  "count": 614,
+  "ink": [
+   1116,
+   1744,
+   2720,
+   1972
+  ],
+  "text": "carries the plane exactly onto A in one unit of time."
+ },
+ {
+  "id": 339,
+  "a": 1354.76,
+  "b": 1360.31,
+  "n": 2,
+  "count": 614,
+  "ink": [
+   1116,
+   1744,
+   2720,
+   1972
+  ],
+  "text": "So the question of whether a logarithm exists becomes a question about motion."
+ },
+ {
+  "id": 340,
+  "a": 1360.31,
+  "b": 1363.7,
+  "n": 2,
+  "count": 641,
+  "ink": [
+   1100,
+   1744,
+   2744,
+   1972
+  ],
+  "text": "Is there a steady flow that ends at this transformation?"
+ },
+ {
+  "id": 342,
+  "a": 1366.54,
+  "b": 1371.6,
+  "n": 2,
+  "count": 382,
+  "ink": [
+   2252,
+   1744,
+   2764,
+   1792
+  ],
+  "text": "The velocity that turns the plane a quarter turn per unit of time reaches it."
+ },
+ {
+  "id": 343,
+  "a": 1371.6,
+  "b": 1375.76,
+  "n": 2,
+  "count": 312,
+  "ink": [
+   2252,
+   1744,
+   2664,
+   1792
+  ],
+  "text": "But so does one that spins one and a quarter turns per unit of time."
+ },
+ {
+  "id": 344,
+  "a": 1375.76,
+  "b": 1378.7,
+  "n": 2,
+  "count": 399,
+  "ink": [
+   2252,
+   1744,
+   2784,
+   1792
+  ],
+  "text": "So does three quarters of a turn the other way."
+ },
+ {
+  "id": 345,
+  "a": 1378.7,
+  "b": 1382.14,
+  "n": 2,
+  "count": 1927,
+  "ink": [
+   1096,
+   1744,
+   2744,
+   1948
+  ],
+  "text": "This is the column of complex logarithms again."
+ },
+ {
+  "id": 346,
+  "a": 1382.14,
+  "b": 1385.59,
+  "n": 2,
+  "count": 1920,
+  "ink": [
+   1096,
+   1744,
+   2744,
+   1948
+  ],
+  "text": "Matrices that only turn and scale behave exactly"
+ },
+ {
+  "id": 347,
+  "a": 1385.59,
+  "b": 1389.26,
+  "n": 2,
+  "count": 1845,
+  "ink": [
+   1156,
+   1744,
+   2684,
+   1948
+  ],
+  "text": "like complex numbers, and so do their exponentials."
+ },
+ {
+  "id": 348,
+  "a": 1390.467,
+  "b": 1395.667,
+  "n": 2,
+  "count": 296,
+  "ink": [
+   1096,
+   1744,
+   1616,
+   1776
+  ],
+  "text": "Now the identity, the matrix that leaves every point where it is."
+ },
+ {
+  "id": 353,
+  "a": 1407.397,
+  "b": 1410.78,
+  "n": 2,
+  "count": 631,
+  "ink": [
+   1176,
+   1744,
+   1616,
+   1776
+  ],
+  "text": "A flow that carries every point once around its own ellipse"
+ },
+ {
+  "id": 354,
+  "a": 1410.78,
+  "b": 1415.917,
+  "n": 2,
+  "count": 723,
+  "ink": [
+   1076,
+   1744,
+   1616,
+   1776
+  ],
+  "text": "in one unit of time also brings the whole plane home exactly."
+ },
+ {
+  "id": 355,
+  "a": 1415.917,
+  "b": 1419.277,
+  "n": 2,
+  "count": 529,
+  "ink": [
+   1116,
+   1744,
+   1616,
+   1776
+  ],
+  "text": "Stretch or tilt the ellipse and you get another."
+ },
+ {
+  "id": 356,
+  "a": 1419.277,
+  "b": 1423.057,
+  "n": 2,
+  "count": 386,
+  "ink": [
+   1156,
+   1744,
+   2668,
+   1776
+  ],
+  "text": "The identity has infinitely many real logarithms, and"
+ },
+ {
+  "id": 357,
+  "a": 1423.057,
+  "b": 1426.837,
+  "n": 2,
+  "count": 843,
+  "ink": [
+   1220,
+   1744,
+   2620,
+   1936
+  ],
+  "text": "not just a column of them: a whole continuous family."
+ },
+ {
+  "id": 358,
+  "a": 1427.45,
+  "b": 1430.19,
+  "n": 1,
+  "count": 521,
+  "ink": [
+   2188,
+   1872,
+   2704,
+   1936
+  ],
+  "text": "Which one should a calculation return?"
+ },
+ {
+  "id": 362,
+  "a": 1440.37,
+  "b": 1443.52,
+  "n": 2,
+  "count": 630,
+  "ink": [
+   1156,
+   1744,
+   1616,
+   1776
+  ],
+  "text": "Every steady flow of the plane either turns round at a"
+ },
+ {
+  "id": 363,
+  "a": 1443.52,
+  "b": 1446.91,
+  "n": 2,
+  "count": 731,
+  "ink": [
+   1156,
+   1744,
+   1616,
+   1776
+  ],
+  "text": "steady rate, sweeping round stretched circles, perhaps"
+ },
+ {
+  "id": 364,
+  "a": 1446.91,
+  "b": 1451.57,
+  "n": 2,
+  "count": 665,
+  "ink": [
+   1136,
+   1744,
+   1616,
+   1776
+  ],
+  "text": "spiralling in or out, or does not turn round at all."
+ },
+ {
+  "id": 365,
+  "a": 1451.57,
+  "b": 1455.45,
+  "n": 2,
+  "count": 340,
+  "ink": [
+   1056,
+   1744,
+   1616,
+   1776
+  ],
+  "text": "The zero flow turns by nothing in its unit of time."
+ },
+ {
+  "id": 366,
+  "a": 1455.45,
+  "b": 1458.97,
+  "n": 2,
+  "count": 286,
+  "ink": [
+   1116,
+   1744,
+   1616,
+   1776
+  ],
+  "text": "Each ellipse flow turns a full lap, two pi."
+ },
+ {
+  "id": 367,
+  "a": 1459.583,
+  "b": 1465.583,
+  "n": 2,
+  "count": 276,
+  "ink": [
+   1136,
+   1744,
+   1616,
+   1776
+  ],
+  "text": "So use the same rule: keep the turning strictly between minus pi and pi."
+ },
+ {
+  "id": 368,
+  "a": 1465.583,
+  "b": 1469.4,
+  "n": 2,
+  "count": 286,
+  "ink": [
+   1116,
+   1744,
+   1616,
+   1776
+  ],
+  "text": "Whenever a matrix sends no direction to zero or to a negative"
+ },
+ {
+  "id": 369,
+  "a": 1469.4,
+  "b": 1474.583,
+  "n": 2,
+  "count": 276,
+  "ink": [
+   1136,
+   1744,
+   1616,
+   1776
+  ],
+  "text": "multiple of itself, exactly one of its logarithms obeys that rule."
+ },
+ {
+  "id": 370,
+  "a": 1474.583,
+  "b": 1480.083,
+  "n": 2,
+  "count": 306,
+  "ink": [
+   1076,
+   1744,
+   1616,
+   1776
+  ],
+  "text": "It is called the principal logarithm, and for a real matrix it is real."
+ },
+ {
+  "id": 371,
+  "a": 1480.083,
+  "b": 1483.923,
+  "n": 2,
+  "count": 306,
+  "ink": [
+   1076,
+   1744,
+   1616,
+   1776
+  ],
+  "text": "For the identity it is the flow that does nothing."
+ },
+ {
+  "id": 372,
+  "a": 1483.923,
+  "b": 1487.163,
+  "n": 2,
+  "count": 2003,
+  "ink": [
+   1096,
+   1744,
+   2744,
+   1972
+  ],
+  "text": "On screen is the textbook version, which counts the turning"
+ },
+ {
+  "id": 373,
+  "a": 1487.163,
+  "b": 1490.783,
+  "n": 2,
+  "count": 1796,
+  "ink": [
+   1176,
+   1744,
+   2664,
+   1972
+  ],
+  "text": "with the imaginary parts of what are called eigenvalues."
+ },
+ {
+  "id": 376,
+  "a": 1505.033,
+  "b": 1510.233,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "Compare a shape with a handedness, like the letter F, before and after."
+ },
+ {
+  "id": 377,
+  "a": 1510.233,
+  "b": 1513.14,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "The mirror turns it into its reflection, and each"
+ },
+ {
+  "id": 378,
+  "a": 1513.14,
+  "b": 1517.013,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "dashed line only pairs a corner with where it lands."
+ },
+ {
+  "id": 379,
+  "a": 1517.013,
+  "b": 1520.06,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "Averaging the two matrices, the simplest guess at a"
+ },
+ {
+  "id": 380,
+  "a": 1520.06,
+  "b": 1524.393,
+  "n": 2,
+  "count": 83,
+  "ink": [
+   1120,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "halfway point, squashes the whole plane flat onto a line."
+ },
+ {
+  "id": 381,
+  "a": 1525.0,
+  "b": 1529.16,
+  "n": 2,
+  "count": 47,
+  "ink": [
+   1136,
+   1744,
+   2168,
+   1800
+  ],
+  "text": "Track the signed area of a unit square while a flow runs."
+ },
+ {
+  "id": 384,
+  "a": 1533.86,
+  "b": 1537.28,
+  "n": 2,
+  "count": 118,
+  "ink": [
+   1116,
+   1744,
+   2168,
+   1800
+  ],
+  "text": "And it can never reach zero, because at every moment the"
+ },
+ {
+  "id": 385,
+  "a": 1537.28,
+  "b": 1541.74,
+  "n": 2,
+  "count": 218,
+  "ink": [
+   1076,
+   1744,
+   2168,
+   1800
+  ],
+  "text": "flow can be run backwards, so nothing has been squashed flat."
+ },
+ {
+  "id": 386,
+  "a": 1541.74,
+  "b": 1547.34,
+  "n": 2,
+  "count": 245,
+  "ink": [
+   1100,
+   1744,
+   2168,
+   1800
+  ],
+  "text": "A smooth quantity that starts at one and never touches zero stays positive."
+ },
+ {
+  "id": 387,
+  "a": 1547.34,
+  "b": 1551.79,
+  "n": 2,
+  "count": 61,
+  "ink": [
+   1132,
+   1744,
+   2276,
+   1972
+  ],
+  "text": "The mirror has signed area minus one, so no real flow reaches"
+ },
+ {
+  "id": 388,
+  "a": 1551.79,
+  "b": 1555.72,
+  "n": 2,
+  "count": 61,
+  "ink": [
+   1132,
+   1744,
+   2276,
+   1972
+  ],
+  "text": "it, not even one that changes its velocity as it runs."
+ },
+ {
+  "id": 389,
+  "a": 1556.333,
+  "b": 1560.253,
+  "n": 2,
+  "count": 61,
+  "ink": [
+   1132,
+   1744,
+   2276,
+   1972
+  ],
+  "text": "That factor on signed area is called the determinant."
+ },
+ {
+  "id": 390,
+  "a": 1560.253,
+  "b": 1565.593,
+  "n": 2,
+  "count": 52,
+  "ink": [
+   1324,
+   1744,
+   2276,
+   1972
+  ],
+  "text": "So a real matrix with a negative determinant has no real logarithm."
+ },
+ {
+  "id": 391,
+  "a": 1565.593,
+  "b": 1568.053,
+  "n": 1,
+  "count": 10,
+  "ink": [
+   2256,
+   1960,
+   2276,
+   1972
+  ],
+  "text": "Is a positive determinant enough?"
+ },
+ {
+  "id": 393,
+  "a": 1569.373,
+  "b": 1572.573,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "Double the length along one axis and flip it."
+ },
+ {
+  "id": 394,
+  "a": 1572.573,
+  "b": 1576.293,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "Halve the length along the other axis and flip that too."
+ },
+ {
+  "id": 396,
+  "a": 1579.353,
+  "b": 1582.773,
+  "n": 2,
+  "count": 14,
+  "ink": [
+   1324,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "It is even a half turn followed by a stretch."
+ },
+ {
+  "id": 399,
+  "a": 1591.22,
+  "b": 1597.43,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "Suppose some steady flow X did end here, so that A is e to the X."
+ },
+ {
+  "id": 400,
+  "a": 1597.43,
+  "b": 1601.24,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "Then X and A commute: doing one and then the"
+ },
+ {
+  "id": 401,
+  "a": 1601.24,
+  "b": 1604.49,
+  "n": 2,
+  "count": 14,
+  "ink": [
+   1324,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "other gives the same result in either order."
+ },
+ {
+  "id": 404,
+  "a": 1609.467,
+  "b": 1613.41,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "plus X, plus a half of X squared, and so on."
+ },
+ {
+  "id": 405,
+  "a": 1613.41,
+  "b": 1617.37,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "Multiplying X by any power of X, on either side, gives"
+ },
+ {
+  "id": 406,
+  "a": 1617.37,
+  "b": 1622.31,
+  "n": 2,
+  "count": 19,
+  "ink": [
+   1136,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "the next power, so X slides past every term of the sum."
+ },
+ {
+  "id": 408,
+  "a": 1625.457,
+  "b": 1629.257,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "Take a vector with two nonzero parts, and send it along"
+ },
+ {
+  "id": 409,
+  "a": 1629.257,
+  "b": 1635.117,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "both routes: first A and then X, or first X and then A."
+ },
+ {
+  "id": 410,
+  "a": 1635.117,
+  "b": 1640.537,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "If X has an entry off its diagonal, the two routes end in different places."
+ },
+ {
+  "id": 411,
+  "a": 1640.537,
+  "b": 1644.756,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "Each part of the gap is an off-diagonal entry of X, times the"
+ },
+ {
+  "id": 412,
+  "a": 1644.756,
+  "b": 1649.397,
+  "n": 2,
+  "count": 14,
+  "ink": [
+   1324,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "difference between A's two stretches, times one part of the vector."
+ },
+ {
+  "id": 413,
+  "a": 1649.397,
+  "b": 1652.08,
+  "n": 2,
+  "count": 143,
+  "ink": [
+   1132,
+   1744,
+   2752,
+   1764
+  ],
+  "text": "Those stretches differ, so the routes can only"
+ },
+ {
+  "id": 414,
+  "a": 1652.08,
+  "b": 1655.637,
+  "n": 2,
+  "count": 155,
+  "ink": [
+   1132,
+   1744,
+   2784,
+   1764
+  ],
+  "text": "agree when every entry off the diagonal is zero."
+ },
+ {
+  "id": 416,
+  "a": 1658.57,
+  "b": 1665.35,
+  "n": 2,
+  "count": 40,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "Its flow only stretches the two axes, each by e raised to a real rate times the time."
+ },
+ {
+  "id": 417,
+  "a": 1665.35,
+  "b": 1668.9,
+  "n": 2,
+  "count": 64,
+  "ink": [
+   1132,
+   1744,
+   1532,
+   1764
+  ],
+  "text": "A real exponential is always positive, so this flow"
+ },
+ {
+  "id": 418,
+  "a": 1668.9,
+  "b": 1673.97,
+  "n": 2,
+  "count": 70,
+  "ink": [
+   1056,
+   1744,
+   1532,
+   1764
+  ],
+  "text": "never reverses either axis, but A reverses both."
+ },
+ {
+  "id": 419,
+  "a": 1673.97,
+  "b": 1676.94,
+  "n": 2,
+  "count": 44,
+  "ink": [
+   1192,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "A half turn and a stretch each have a steady flow of"
+ },
+ {
+  "id": 420,
+  "a": 1676.94,
+  "b": 1680.77,
+  "n": 2,
+  "count": 231,
+  "ink": [
+   1068,
+   1744,
+   1556,
+   1768
+  ],
+  "text": "their own, and running one after the other gets here."
+ },
+ {
+  "id": 422,
+  "a": 1684.217,
+  "b": 1687.657,
+  "n": 2,
+  "count": 19,
+  "ink": [
+   1136,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "Compare flipping both axes by the same amount."
+ },
+ {
+  "id": 423,
+  "a": 1687.657,
+  "b": 1692.757,
+  "n": 2,
+  "count": 257,
+  "ink": [
+   1124,
+   1744,
+   1548,
+   1768
+  ],
+  "text": "That is a plain half turn, and a steady spin reaches it easily."
+ },
+ {
+  "id": 425,
+  "a": 1695.237,
+  "b": 1699.197,
+  "n": 2,
+  "count": 175,
+  "ink": [
+   1116,
+   1744,
+   1544,
+   1768
+  ],
+  "text": "Its two stretches are equal, so nothing forces a logarithm to"
+ },
+ {
+  "id": 426,
+  "a": 1699.197,
+  "b": 1704.297,
+  "n": 2,
+  "count": 298,
+  "ink": [
+   1096,
+   1744,
+   1548,
+   1768
+  ],
+  "text": "keep the axes, and the spin, which turns every axis, is allowed."
+ },
+ {
+  "id": 427,
+  "a": 1704.297,
+  "b": 1709.377,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "In two dimensions that is the whole story: a matrix that sends some direction"
+ },
+ {
+  "id": 428,
+  "a": 1709.377,
+  "b": 1713.757,
+  "n": 2,
+  "count": 19,
+  "ink": [
+   1136,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "to a negative multiple of itself has a real logarithm only when it does"
+ },
+ {
+  "id": 429,
+  "a": 1713.757,
+  "b": 1718.937,
+  "n": 2,
+  "count": 23,
+  "ink": [
+   1132,
+   1744,
+   1520,
+   1764
+  ],
+  "text": "that to every direction alike, a half turn combined with an equal stretch."
+ },
+ {
+  "id": 430,
+  "a": 1719.55,
+  "b": 1725.14,
+  "n": 2,
+  "count": 44,
+  "ink": [
+   1132,
+   1744,
+   2776,
+   1972
+  ],
+  "text": "In higher dimensions, the exact rule, from a nineteen sixty-six paper by Culver,"
+ },
+ {
+  "id": 431,
+  "a": 1725.14,
+  "b": 1730.66,
+  "n": 2,
+  "count": 19,
+  "ink": [
+   1140,
+   1968,
+   2544,
+   1972
+  ],
+  "text": "asks that the matrix's blocks for each negative stretch come in matching pairs."
+ },
+ {
+  "id": 432,
+  "a": 1730.66,
+  "b": 1733.07,
+  "n": 1,
+  "count": 17,
+  "ink": [
+   1272,
+   1968,
+   2544,
+   1972
+  ],
+  "text": "On screen is the precise version."
+ },
+ {
+  "id": 433,
+  "a": 1751.417,
+  "b": 1756.137,
+  "n": 2,
+  "count": 6,
+  "ink": [
+   1144,
+   1968,
+   2544,
+   1972
+  ],
+  "text": "Allow complex matrices, and the obstacle disappears."
+ },
+ {
+  "id": 435,
+  "a": 1762.237,
+  "b": 1766.467,
+  "n": 2,
+  "count": 14,
+  "ink": [
+   1188,
+   1968,
+   2536,
+   1972
+  ],
+  "text": "Every invertible complex matrix has a complex logarithm."
+ },
+ {
+  "id": 436,
+  "a": 1766.467,
+  "b": 1768.96,
+  "n": 2,
+  "count": 1157,
+  "ink": [
+   1096,
+   1744,
+   2720,
+   1972
+  ],
+  "text": "Only the singular ones, which squash the plane"
+ },
+ {
+  "id": 437,
+  "a": 1768.96,
+  "b": 1772.857,
+  "n": 2,
+  "count": 1158,
+  "ink": [
+   1092,
+   1744,
+   2720,
+   1972
+  ],
+  "text": "flat, have none, for the same reason zero had none."
+ },
+ {
+  "id": 438,
+  "a": 1774.067,
+  "b": 1776.067,
+  "n": 1,
+  "count": 404,
+  "ink": [
+   1424,
+   1856,
+   2416,
+   1868
+  ],
+  "text": "Look back along the way."
+ },
+ {
+  "id": 439,
+  "a": 1776.067,
+  "b": 1780.007,
+  "n": 2,
+  "count": 770,
+  "ink": [
+   1116,
+   1744,
+   2724,
+   1868
+  ],
+  "text": "On the positive numbers the exponential forgets nothing."
+ },
+ {
+  "id": 440,
+  "a": 1780.007,
+  "b": 1784.317,
+  "n": 2,
+  "count": 770,
+  "ink": [
+   1116,
+   1744,
+   2724,
+   1868
+  ],
+  "text": "Every output has exactly one input, and the logarithm is a"
+ },
+ {
+  "id": 441,
+  "a": 1784.317,
+  "b": 1788.627,
+  "n": 2,
+  "count": 830,
+  "ink": [
+   1056,
+   1744,
+   2784,
+   1868
+  ],
+  "text": "perfect ruler for ratios, the keyboard and the slide rule."
+ },
+ {
+  "id": 442,
+  "a": 1789.233,
+  "b": 1793.193,
+  "n": 2,
+  "count": 830,
+  "ink": [
+   1056,
+   1744,
+   2784,
+   1868
+  ],
+  "text": "Fold the ruler into a dial, and it forgets the decade."
+ },
+ {
+  "id": 443,
+  "a": 1793.193,
+  "b": 1795.78,
+  "n": 1,
+  "count": 754,
+  "ink": [
+   1076,
+   1856,
+   2764,
+   1868
+  ],
+  "text": "In the complex plane the exponential does"
+ },
+ {
+  "id": 444,
+  "a": 1795.78,
+  "b": 1799.393,
+  "n": 2,
+  "count": 770,
+  "ink": [
+   1116,
+   1744,
+   2724,
+   1868
+  ],
+  "text": "that folding by itself, and forgets the laps."
+ },
+ {
+  "id": 445,
+  "a": 1799.393,
+  "b": 1804.433,
+  "n": 2,
+  "count": 890,
+  "ink": [
+   1056,
+   1744,
+   2784,
+   1868
+  ],
+  "text": "A branch cut is a decision about laps, and the product rule keeps a lap count."
+ },
+ {
+  "id": 446,
+  "a": 1805.033,
+  "b": 1808.936,
+  "n": 2,
+  "count": 1455,
+  "ink": [
+   1056,
+   1744,
+   2784,
+   1868
+  ],
+  "text": "With matrices the exponential forgets even more:"
+ },
+ {
+  "id": 447,
+  "a": 1808.936,
+  "b": 1812.673,
+  "n": 2,
+  "count": 1409,
+  "ink": [
+   1116,
+   1744,
+   2724,
+   1868
+  ],
+  "text": "whole families of flows end in the same place."
+ },
+ {
+  "id": 448,
+  "a": 1812.673,
+  "b": 1818.033,
+  "n": 2,
+  "count": 1458,
+  "ink": [
+   1096,
+   1744,
+   2744,
+   1868
+  ],
+  "text": "And some places cannot be reached by any single steady real flow at all."
+ },
+ {
+  "id": 449,
+  "a": 1818.033,
+  "b": 1822.273,
+  "n": 2,
+  "count": 1358,
+  "ink": [
+   1136,
+   1744,
+   2704,
+   1868
+  ],
+  "text": "In every setting, a logarithm asks the same question."
+ },
+ {
+  "id": 452,
+  "a": 1828.727,
+  "b": 1832.92,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "Here is a solid cube, and a marked axis: a rod"
+ },
+ {
+  "id": 453,
+  "a": 1832.92,
+  "b": 1836.287,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "through the centres of its top and bottom faces."
+ },
+ {
+  "id": 454,
+  "a": 1836.287,
+  "b": 1840.627,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "A steady spin about that rod carries every corner round its own circle"
+ },
+ {
+  "id": 455,
+  "a": 1840.627,
+  "b": 1845.887,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "about the rod, all at the same rate, while the rod itself stays put."
+ },
+ {
+  "id": 456,
+  "a": 1845.887,
+  "b": 1850.16,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "Follow one corner: spinning at half a lap per unit of time,"
+ },
+ {
+  "id": 457,
+  "a": 1850.16,
+  "b": 1854.507,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "after one unit it has gone exactly halfway round its circle."
+ },
+ {
+  "id": 458,
+  "a": 1854.507,
+  "b": 1859.727,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "Every other corner has too, so the whole cube has made a half turn about the rod."
+ },
+ {
+  "id": 461,
+  "a": 1864.62,
+  "b": 1868.773,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "exactly this half turn after one unit of time?"
+ },
+ {
+  "id": 462,
+  "a": 1868.773,
+  "b": 1877.517,
+  "n": 2,
+  "count": 4,
+  "ink": [
+   2360,
+   1744,
+   2376,
+   1748
+  ],
+  "text": "Think about the laps, the direction of spin, and the axis."
+ },
+ {
+  "id": 464,
+  "a": 1881.217,
+  "b": 1886.657,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "Laps first: one and a half laps per unit of time also ends here,"
+ },
+ {
+  "id": 465,
+  "a": 1886.657,
+  "b": 1891.277,
+  "n": 2,
+  "count": 5,
+  "ink": [
+   1116,
+   1744,
+   1120,
+   1764
+  ],
+  "text": "and so does two and a half, and so does any odd number of half laps."
+ },
+ {
+  "id": 466,
+  "a": 1891.883,
+  "b": 1897.963,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "Direction next: half a lap the other way lands every corner in the same place."
+ },
+ {
+  "id": 468,
+  "a": 1902.307,
+  "b": 1906.2,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "own axis where it was, and our half turn leaves only the"
+ },
+ {
+  "id": 469,
+  "a": 1906.2,
+  "b": 1910.683,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "rod's points in place, so any other axis is ruled out."
+ },
+ {
+  "id": 470,
+  "a": 1910.683,
+  "b": 1915.8029999999999,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "So infinitely many steady spins end here, all about this one rod."
+ },
+ {
+  "id": 471,
+  "a": 1916.417,
+  "b": 1920.716,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "The two slowest, half a lap each way, turn by exactly"
+ },
+ {
+  "id": 472,
+  "a": 1920.716,
+  "b": 1924.577,
+  "n": 2,
+  "count": 28,
+  "ink": [
+   1100,
+   1744,
+   1120,
+   1768
+  ],
+  "text": "pi, the very edge of the principal window, and neither"
+ },
+ {
+  "id": 474,
+  "a": 1929.647,
+  "b": 1932.417,
+  "n": 2,
+  "count": 383,
+  "ink": [
+   1184,
+   1744,
+   2700,
+   1972
+  ],
+  "text": "For the number minus one, a convention broke the"
+ },
+ {
+  "id": 475,
+  "a": 1932.417,
+  "b": 1936.817,
+  "n": 2,
+  "count": 846,
+  "ink": [
+   1116,
+   1744,
+   2724,
+   1972
+  ],
+  "text": "same tie; here the honest answer is the whole family."
+ }
+]

@@ -1,0 +1,437 @@
+[
+ {
+  "id": "S01",
+  "seconds": 93.233,
+  "proxy_box": [
+   998,
+   1857,
+   2842,
+   2072
+  ],
+  "proxy_ink": 34350,
+  "row": -3.62,
+  "cue": 23,
+  "lines": [
+   "Equal steps on the keyboard are equal",
+   "ratios."
+  ],
+  "measured_ink": 18574,
+  "lower_ink": 32185
+ },
+ {
+  "id": "S02",
+  "seconds": 350.1,
+  "proxy_box": [
+   942,
+   1857,
+   2896,
+   2093
+  ],
+  "proxy_ink": 20044,
+  "row": -3.62,
+  "cue": 90,
+  "lines": [
+   "six is between ten and a hundred, so it is",
+   "twenty-four."
+  ],
+  "measured_ink": 0,
+  "lower_ink": 17612
+ },
+ {
+  "id": "S03",
+  "seconds": 616.45,
+  "proxy_box": [
+   970,
+   1857,
+   2870,
+   2092
+  ],
+  "proxy_ink": 19337,
+  "row": -3.62,
+  "cue": 160,
+  "lines": [
+   "thousand, six point nine one, divided by",
+   "zero point zero five."
+  ],
+  "measured_ink": 11733,
+  "lower_ink": 18245
+ },
+ {
+  "id": "S04",
+  "seconds": 1145.55,
+  "proxy_box": [
+   882,
+   1856,
+   2950,
+   2092
+  ],
+  "proxy_ink": 17568,
+  "row": -3.62,
+  "cue": 287,
+  "lines": [
+   "when the height of w is above minus pi and",
+   "at most pi."
+  ],
+  "measured_ink": 0,
+  "lower_ink": 13833
+ },
+ {
+  "id": "S05",
+  "seconds": 1226.733,
+  "proxy_box": [
+   932,
+   1856,
+   2911,
+   2092
+  ],
+  "proxy_ink": 15707,
+  "row": -3.62,
+  "cue": 306,
+  "lines": [
+   "is the sum of the logarithms, plus a whole",
+   "number of laps."
+  ],
+  "measured_ink": 1677,
+  "lower_ink": 15707
+ },
+ {
+  "id": "S06",
+  "seconds": 1485.867,
+  "proxy_box": [
+   950,
+   1856,
+   2888,
+   2093
+  ],
+  "proxy_ink": 33874,
+  "row": -3.4,
+  "cue": 372,
+  "lines": [
+   "On screen is the textbook version, which",
+   "counts the turning"
+  ],
+  "measured_ink": 19669,
+  "lower_ink": 26471
+ },
+ {
+  "id": "S07",
+  "seconds": 1489.117,
+  "proxy_box": [
+   1062,
+   1856,
+   2774,
+   2093
+  ],
+  "proxy_ink": 31314,
+  "row": -3.4,
+  "cue": 373,
+  "lines": [
+   "with the imaginary parts of what are",
+   "called eigenvalues."
+  ],
+  "measured_ink": 17565,
+  "lower_ink": 23710
+ },
+ {
+  "id": "S08",
+  "seconds": 1549.75,
+  "proxy_box": [
+   918,
+   1857,
+   2920,
+   2072
+  ],
+  "proxy_ink": 18022,
+  "row": -3.4,
+  "cue": 387,
+  "lines": [
+   "The mirror has signed area minus one, so",
+   "no real flow reaches"
+  ],
+  "measured_ink": 825,
+  "lower_ink": 14948
+ },
+ {
+  "id": "S09",
+  "seconds": 1553.75,
+  "proxy_box": [
+   964,
+   1857,
+   2882,
+   2072
+  ],
+  "proxy_ink": 17290,
+  "row": -3.4,
+  "cue": 388,
+  "lines": [
+   "it, not even one that changes its velocity",
+   "as it runs."
+  ],
+  "measured_ink": 826,
+  "lower_ink": 15995
+ },
+ {
+  "id": "S10",
+  "seconds": 1558.3,
+  "proxy_box": [
+   986,
+   1856,
+   2852,
+   2072
+  ],
+  "proxy_ink": 16972,
+  "row": -3.4,
+  "cue": 389,
+  "lines": [
+   "That factor on signed area is called the",
+   "determinant."
+  ],
+  "measured_ink": 826,
+  "lower_ink": 14933
+ },
+ {
+  "id": "S11",
+  "seconds": 1562.917,
+  "proxy_box": [
+   1098,
+   1856,
+   2736,
+   2093
+  ],
+  "proxy_ink": 14849,
+  "row": -3.4,
+  "cue": 390,
+  "lines": [
+   "So a real matrix with a negative",
+   "determinant has no real logarithm."
+  ],
+  "measured_ink": 726,
+  "lower_ink": 12707
+ },
+ {
+  "id": "S12",
+  "seconds": 1565.65,
+  "proxy_box": [
+   1113,
+   1976,
+   2731,
+   2093
+  ],
+  "proxy_ink": 14440,
+  "row": -3.4,
+  "cue": 391,
+  "lines": [
+   "Is a positive determinant enough?"
+  ],
+  "measured_ink": 90,
+  "lower_ink": 12135
+ },
+ {
+  "id": "S13",
+  "seconds": 1722.5,
+  "proxy_box": [
+   934,
+   1856,
+   2909,
+   2093
+  ],
+  "proxy_ink": 20978,
+  "row": -3.4,
+  "cue": 430,
+  "lines": [
+   "In higher dimensions, the exact rule, from",
+   "a nineteen sixty-six paper by Culver,"
+  ],
+  "measured_ink": 21,
+  "lower_ink": 18076
+ },
+ {
+  "id": "S14",
+  "seconds": 1727.9,
+  "proxy_box": [
+   955,
+   1856,
+   2882,
+   2093
+  ],
+  "proxy_ink": 20479,
+  "row": -3.4,
+  "cue": 431,
+  "lines": [
+   "asks that the matrix's blocks for each",
+   "negative stretch come in matching pairs."
+  ],
+  "measured_ink": 20,
+  "lower_ink": 17162
+ },
+ {
+  "id": "S15",
+  "seconds": 1731.867,
+  "proxy_box": [
+   1132,
+   1976,
+   2704,
+   2092
+  ],
+  "proxy_ink": 15841,
+  "row": -3.4,
+  "cue": 432,
+  "lines": [
+   "On screen is the precise version."
+  ],
+  "measured_ink": 13,
+  "lower_ink": 12884
+ },
+ {
+  "id": "S16",
+  "seconds": 1751.467,
+  "proxy_box": [
+   924,
+   1857,
+   2911,
+   2092
+  ],
+  "proxy_ink": 21153,
+  "row": -3.4,
+  "cue": 433,
+  "lines": [
+   "Allow complex matrices, and the obstacle",
+   "disappears."
+  ],
+  "measured_ink": 20,
+  "lower_ink": 17164
+ },
+ {
+  "id": "S17",
+  "seconds": 1764.533,
+  "proxy_box": [
+   1028,
+   1857,
+   2816,
+   2093
+  ],
+  "proxy_ink": 18412,
+  "row": -3.4,
+  "cue": 435,
+  "lines": [
+   "Every invertible complex matrix has a",
+   "complex logarithm."
+  ],
+  "measured_ink": 0,
+  "lower_ink": 15716
+ },
+ {
+  "id": "S18",
+  "seconds": 1768.15,
+  "proxy_box": [
+   935,
+   1856,
+   2906,
+   2092
+  ],
+  "proxy_ink": 20440,
+  "row": -3.4,
+  "cue": 436,
+  "lines": [
+   "Only the singular ones, which squash the",
+   "plane"
+  ],
+  "measured_ink": 11187,
+  "lower_ink": 16875
+ },
+ {
+  "id": "S19",
+  "seconds": 1771.183,
+  "proxy_box": [
+   931,
+   1856,
+   2906,
+   2072
+  ],
+  "proxy_ink": 20479,
+  "row": -3.4,
+  "cue": 437,
+  "lines": [
+   "flat, have none, for the same reason zero",
+   "had none."
+  ],
+  "measured_ink": 11214,
+  "lower_ink": 17415
+ },
+ {
+  "id": "S20",
+  "seconds": 1930.6,
+  "proxy_box": [
+   954,
+   1857,
+   2888,
+   2072
+  ],
+  "proxy_ink": 17558,
+  "row": -3.4,
+  "cue": 474,
+  "lines": [
+   "For the number minus one, a convention",
+   "broke the"
+  ],
+  "measured_ink": 0,
+  "lower_ink": 14198
+ },
+ {
+  "id": "S21",
+  "seconds": 1932.3,
+  "proxy_box": [
+   954,
+   1857,
+   2888,
+   2072
+  ],
+  "proxy_ink": 17509,
+  "row": -3.4,
+  "cue": 474,
+  "lines": [
+   "For the number minus one, a convention",
+   "broke the"
+  ],
+  "measured_ink": 3254,
+  "lower_ink": 14162
+ },
+ {
+  "id": "S22",
+  "seconds": 1933.633,
+  "proxy_box": [
+   976,
+   1857,
+   2864,
+   2093
+  ],
+  "proxy_ink": 17174,
+  "row": -3.4,
+  "cue": 475,
+  "lines": [
+   "same tie; here the honest answer is the",
+   "whole family."
+  ],
+  "measured_ink": 3401,
+  "lower_ink": 14589
+ },
+ {
+  "id": "S23",
+  "seconds": 1935.65,
+  "proxy_box": [
+   976,
+   1856,
+   2864,
+   2093
+  ],
+  "proxy_ink": 21050,
+  "row": -3.4,
+  "cue": 475,
+  "lines": [
+   "same tie; here the honest answer is the",
+   "whole family."
+  ],
+  "measured_ink": 7488,
+  "lower_ink": 16317
+ }
+]

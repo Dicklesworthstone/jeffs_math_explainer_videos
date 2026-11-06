@@ -1,0 +1,30 @@
+first	last	class	on_screen
+13	14	T	note interval depends on frequency ratio
+20	25	T	×√2 then ×√2 = ×2; from cue 23 also equal steps on the keyboard = equal ratios
+35	36	T	every doubling adds the same length
+65	65	T	base: the same ruler, stretched
+78	78	T	sliding adds the lengths; the marks turn the sum back into a product
+103	111	T	the 2.4 mark: one place on the dial
+147	149	T	log₂ x = ln x / ln 2, the denominator
+150	162	L	axis ticks 50, 100, 150 and years
+176	178	T	y sets the angle
+205	221	T	its logarithm, beside the marker at 0
+222	226	E	its logarithm, close up: beside the short second line
+227	229	T	change in the logarithm = 2πi × winding number
+237	248	T	e^L(z) = z = e^ℓ ⇒ L(z) − ℓ = 2πik
+265	271	T	rays at angle θ → horizontal lines; height −π; angle just above the cut
+273	274	E	cut upward:
+276	279	T	any curve from 0 out to infinity; branch point
+288	288	T	bottom edge: left out
+295	310	L	axis ticks −π, 0, π, 2π
+324	324	E	√zw = ±√z…, the formula's left end
+329	331	T	where each point lands, not how it travels
+337	344	E	X is a logarithm of A
+345	347	T	X = (π/2 + 2πk) J ⟷ log i = (π/2 + 2πk) i
+356	358	T	2πPJP⁻¹ for every; infinitely many real logarithms
+372	373	T	turning rate of the flow of X = imaginary part of an eigenvalue of X
+413	414	E	the ends meet only
+436	437	T	flattening matrices, like zero, have no logarithm
+443	445	E	targets the laps
+446	449	T	many flows, one place: all home at t = 1
+474	475	T	for the number −1, Log(−1) = iπ by convention; here: the whole family

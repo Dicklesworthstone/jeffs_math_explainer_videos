@@ -1,0 +1,10 @@
+# explainer timeline v1
+# rebuilt from verification.json for the retime tool; not the render job's own file
+chapter	02_slide_rule
+fps	60
+frames	5575
+line	02_1	36	0	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/production-audio-stage09-01/prepared02/narration/02_1.wav
+line	02_2	850	0	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/production-audio-stage09-01/prepared02/narration/02_2.wav
+line	02_3	2212	0	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/production-audio-stage09-01/prepared02/narration/02_3.wav
+line	02_4	3050	0	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/production-audio-stage09-01/prepared02/narration/02_4.wav
+line	02_5	3883	0	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/production-audio-stage09-01/prepared02/narration/02_5.wav

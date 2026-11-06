@@ -1,0 +1,38 @@
+{
+  "scope": "Recognizer estimates only, not heard boundaries. Same model on both sources.",
+  "model": "ggml-large-v3-turbo.bin",
+  "master_run": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/jobs/logarithm-remote-asr02/full-large.json",
+    "sha256": "50d281e7f40b1c017e19d1ad7f8e85aa58b19b5cb863ff52cfda2b2507196eb0"
+  },
+  "take_runs": [
+    {
+      "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-opening-recognition01/command.log",
+      "sha256": "4113e65f9c4e91a3aa5fbdacc6de6d7311fc9acdd9318ed5cda9d44eda46a8e8"
+    },
+    {
+      "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-middle-recognition01/command.log",
+      "sha256": "1c7fb420b88a6557d49e6ad395926b28c0199620679a80521180fb0e428957a8"
+    },
+    {
+      "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-turns-recognition01/command.log",
+      "sha256": "8d20c0079989fd2d652a9e39c49301d6eb9092d9c959669f7696c1aa60557333"
+    },
+    {
+      "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-remaining-recognition01/command.log",
+      "sha256": "3e479160bebb7daf0759caab2f7a538df6527cd53d34b3cf218c5a0295a442b7"
+    },
+    {
+      "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-clarity-recognition01/command.log",
+      "sha256": "5145e630ed8be7f0aec89b2f5afe1262f15c8f598ed3fa3f735c129c66a24d75"
+    }
+  ],
+  "selection": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/production-audio-stage09-01/selection02.json",
+    "sha256": "871e7d0b4ea3c47edd8d059804fb94178bd2fd05c1992f9adb99dff1b82fe2b6"
+  },
+  "phrase_timings": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/production-audio-stage09-01/prepared02-timings/phrase-timings.json",
+    "sha256": "0865029936ddab44eb5a96d3afe95ef9ed8953aaae055c8156db337a7721c1fe"
+  }
+}

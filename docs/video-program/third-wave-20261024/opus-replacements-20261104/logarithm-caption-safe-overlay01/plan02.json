@@ -1,0 +1,661 @@
+{
+ "schema": "logarithm-caption-safe-plan-v2",
+ "fps": 60,
+ "master": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/jobs/logarithm-remote-render-work01/logarithm_mysteries_master.mp4",
+ "master_sha256": "8534ec211790fb8400b809de19a6d1cb75af6150a5e90566f6a93bb90e7efd69",
+ "base_srt": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/sidecars-timing01/captions.en.srt",
+ "base_srt_sha256": "b2914c6fdb517f6316117b539ff84a1f64ded7f0a44d29fceea79a01cb20cb22",
+ "base_vtt": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/sidecars-timing01/captions.en.vtt",
+ "base_vtt_sha256": "a2fb0d69b99652b9457fe39bf724f7affc64296674ea2e3a08265d44c0a64397",
+ "captions": {
+  "A": {
+   "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-safe-overlay01/candidate02.ass",
+   "sha256": "fec8e17d5477dbfe3d1eb1cfea8e6a6d677dc03f0f57df765739185a46440a4b"
+  },
+  "B": {
+   "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-safe-overlay01/candidate03.ass",
+   "sha256": "73e5a66800beb6d0749854d89ef49fc22bd0d1131a17831530df4f53c2dbc596"
+  }
+ },
+ "top_cues": 116,
+ "samples": [
+  {
+   "origin": "control",
+   "frame": 4349,
+   "cue": 19,
+   "state": "pause prompt at the right edge",
+   "id": "F01",
+   "seconds": 72.483,
+   "place": "bottom",
+   "tier": "control",
+   "lines": [
+    "Halfway by difference would be six hundred",
+    "and sixty."
+   ],
+   "cue_start": 68.403,
+   "cue_end": 76.56700000000001
+  },
+  {
+   "origin": "S01",
+   "frame": 5594,
+   "cue": 23,
+   "state": "fine print, widest caption seen beside it",
+   "id": "F02",
+   "seconds": 93.233,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "Equal steps on the keyboard are equal",
+    "ratios."
+   ],
+   "cue_start": 91.447,
+   "cue_end": 94.807
+  },
+  {
+   "origin": "added",
+   "frame": 6232,
+   "cue": 25,
+   "state": "no clean region",
+   "id": "F03",
+   "seconds": 103.867,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "For centuries it let people multiply by",
+    "sliding one strip of wood along another."
+   ],
+   "cue_start": 100.887,
+   "cue_end": 106.857
+  },
+  {
+   "origin": "added",
+   "frame": 8903,
+   "cue": 36,
+   "state": "window",
+   "id": "F04",
+   "seconds": 148.383,
+   "place": "top",
+   "tier": "B",
+   "lines": [
+    "The rule behind it fits in one sentence:",
+    "the"
+   ],
+   "cue_start": 146.75,
+   "cue_end": 150.003
+  },
+  {
+   "origin": "S02",
+   "frame": 21006,
+   "cue": 90,
+   "state": "fine print, widest caption seen beside it",
+   "id": "F05",
+   "seconds": 350.1,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "six is between ten and a hundred, so it is",
+    "twenty-four."
+   ],
+   "cue_start": 347.96,
+   "cue_end": 352.35
+  },
+  {
+   "origin": "added",
+   "frame": 25322,
+   "cue": 109,
+   "state": "window, no clean region",
+   "id": "F06",
+   "seconds": 422.033,
+   "place": "top",
+   "tier": "B",
+   "lines": [
+    "exactly what happens to the logarithm in",
+    "the complex numbers."
+   ],
+   "cue_start": 419.967,
+   "cue_end": 424.107
+  },
+  {
+   "origin": "added",
+   "frame": 25735,
+   "cue": 111,
+   "state": "no clean region",
+   "id": "F07",
+   "seconds": 428.917,
+   "place": "top",
+   "tier": "B",
+   "lines": [
+    "The exponential does the folding by",
+    "itself."
+   ],
+   "cue_start": 427.507,
+   "cue_end": 430.327
+  },
+  {
+   "origin": "control",
+   "frame": 27706,
+   "cue": 120,
+   "state": "thin axis line only",
+   "id": "F08",
+   "seconds": 461.767,
+   "place": "bottom",
+   "tier": "control",
+   "lines": [
+    "e to the minus x is e to the zero, which",
+    "is one."
+   ],
+   "cue_start": 459.56,
+   "cue_end": 463.963
+  },
+  {
+   "origin": "S03",
+   "frame": 36987,
+   "cue": 160,
+   "state": "fine print, widest caption seen beside it",
+   "id": "F09",
+   "seconds": 616.45,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "thousand, six point nine one, divided by",
+    "zero point zero five."
+   ],
+   "cue_start": 613.58,
+   "cue_end": 618.7
+  },
+  {
+   "origin": "added",
+   "frame": 41449,
+   "cue": 177,
+   "state": "window",
+   "id": "F10",
+   "seconds": 690.817,
+   "place": "top",
+   "tier": "B",
+   "lines": [
+    "For instance, take x to be the logarithm",
+    "of two, and y to be a half"
+   ],
+   "cue_start": 688.383,
+   "cue_end": 693.263
+  },
+  {
+   "origin": "added",
+   "frame": 43352,
+   "cue": 184,
+   "state": "window",
+   "id": "F11",
+   "seconds": 722.533,
+   "place": "top",
+   "tier": "B",
+   "lines": [
+    "So each vertical line wraps around its",
+    "circle again and again."
+   ],
+   "cue_start": 720.387,
+   "cue_end": 724.687
+  },
+  {
+   "origin": "added",
+   "frame": 58256,
+   "cue": 245,
+   "state": "no clean region",
+   "id": "F12",
+   "seconds": 970.933,
+   "place": "top",
+   "tier": "B",
+   "lines": [
+    "So the gap has changed by one lap, and we",
+    "just saw that it cannot change."
+   ],
+   "cue_start": 968.327,
+   "cue_end": 973.547
+  },
+  {
+   "origin": "added",
+   "frame": 58682,
+   "cue": 247,
+   "state": "window, no clean region",
+   "id": "F13",
+   "seconds": 978.033,
+   "place": "top",
+   "tier": "B",
+   "lines": [
+    "No continuous logarithm exists on any loop",
+    "that winds around zero."
+   ],
+   "cue_start": 975.587,
+   "cue_end": 980.487
+  },
+  {
+   "origin": "added",
+   "frame": 64776,
+   "cue": 271,
+   "state": "window",
+   "id": "F14",
+   "seconds": 1079.6,
+   "place": "top",
+   "tier": "B",
+   "lines": [
+    "So a path that crosses the cut would have",
+    "to jump by two pi."
+   ],
+   "cue_start": 1077.497,
+   "cue_end": 1081.717
+  },
+  {
+   "origin": "S04",
+   "frame": 68733,
+   "cue": 287,
+   "state": "fine print, widest caption seen beside it",
+   "id": "F15",
+   "seconds": 1145.55,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "when the height of w is above minus pi and",
+    "at most pi."
+   ],
+   "cue_start": 1143.279,
+   "cue_end": 1147.823
+  },
+  {
+   "origin": "S05",
+   "frame": 73604,
+   "cue": 306,
+   "state": "fine print, widest caption seen beside it",
+   "id": "F16",
+   "seconds": 1226.733,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "is the sum of the logarithms, plus a whole",
+    "number of laps."
+   ],
+   "cue_start": 1224.2,
+   "cue_end": 1228.9
+  },
+  {
+   "origin": "added",
+   "frame": 77701,
+   "cue": 324,
+   "state": "window",
+   "id": "F17",
+   "seconds": 1295.017,
+   "place": "top",
+   "tier": "B",
+   "lines": [
+    "The root of a product equals the product",
+    "of the roots only up to that sign."
+   ],
+   "cue_start": 1292.57,
+   "cue_end": 1297.45
+  },
+  {
+   "origin": "added",
+   "frame": 79048,
+   "cue": 329,
+   "state": "window",
+   "id": "F18",
+   "seconds": 1317.467,
+   "place": "top",
+   "tier": "B",
+   "lines": [
+    "The matrix only says where each point ends",
+    "up,"
+   ],
+   "cue_start": 1315.77,
+   "cue_end": 1319.168
+  },
+  {
+   "origin": "control",
+   "frame": 81146,
+   "cue": 338,
+   "state": "grid corner only",
+   "id": "F19",
+   "seconds": 1352.433,
+   "place": "bottom",
+   "tier": "control",
+   "lines": [
+    "carries the plane exactly onto A in one",
+    "unit of time."
+   ],
+   "cue_start": 1350.12,
+   "cue_end": 1354.76
+  },
+  {
+   "origin": "added",
+   "frame": 82825,
+   "cue": 345,
+   "state": "window",
+   "id": "F20",
+   "seconds": 1380.417,
+   "place": "top",
+   "tier": "B",
+   "lines": [
+    "This is the column of complex logarithms",
+    "again."
+   ],
+   "cue_start": 1378.7,
+   "cue_end": 1382.14
+  },
+  {
+   "origin": "added",
+   "frame": 85497,
+   "cue": 357,
+   "state": "window",
+   "id": "F21",
+   "seconds": 1424.95,
+   "place": "top",
+   "tier": "B",
+   "lines": [
+    "not just a column of them: a whole",
+    "continuous family."
+   ],
+   "cue_start": 1423.057,
+   "cue_end": 1426.837
+  },
+  {
+   "origin": "S06",
+   "frame": 89152,
+   "cue": 372,
+   "state": "both rows",
+   "id": "F22",
+   "seconds": 1485.867,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "On screen is the textbook version, which",
+    "counts the turning"
+   ],
+   "cue_start": 1483.923,
+   "cue_end": 1487.163
+  },
+  {
+   "origin": "S07",
+   "frame": 89347,
+   "cue": 373,
+   "state": "both rows",
+   "id": "F23",
+   "seconds": 1489.117,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "with the imaginary parts of what are",
+    "called eigenvalues."
+   ],
+   "cue_start": 1487.163,
+   "cue_end": 1490.783
+  },
+  {
+   "origin": "S08",
+   "frame": 92985,
+   "cue": 387,
+   "state": "footer",
+   "id": "F24",
+   "seconds": 1549.75,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "The mirror has signed area minus one, so",
+    "no real flow reaches"
+   ],
+   "cue_start": 1547.34,
+   "cue_end": 1551.79
+  },
+  {
+   "origin": "S09",
+   "frame": 93225,
+   "cue": 388,
+   "state": "footer",
+   "id": "F25",
+   "seconds": 1553.75,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "it, not even one that changes its velocity",
+    "as it runs."
+   ],
+   "cue_start": 1551.79,
+   "cue_end": 1555.72
+  },
+  {
+   "origin": "S10",
+   "frame": 93498,
+   "cue": 389,
+   "state": "footer",
+   "id": "F26",
+   "seconds": 1558.3,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "That factor on signed area is called the",
+    "determinant."
+   ],
+   "cue_start": 1556.333,
+   "cue_end": 1560.253
+  },
+  {
+   "origin": "S11",
+   "frame": 93775,
+   "cue": 390,
+   "state": "footer",
+   "id": "F27",
+   "seconds": 1562.917,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "So a real matrix with a negative",
+    "determinant has no real logarithm."
+   ],
+   "cue_start": 1560.253,
+   "cue_end": 1565.593
+  },
+  {
+   "origin": "S12",
+   "frame": 93939,
+   "cue": 391,
+   "state": "footer",
+   "id": "F28",
+   "seconds": 1565.65,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "Is a positive determinant enough?"
+   ],
+   "cue_start": 1565.593,
+   "cue_end": 1568.053
+  },
+  {
+   "origin": "S13",
+   "frame": 103350,
+   "cue": 430,
+   "state": "footer",
+   "id": "F29",
+   "seconds": 1722.5,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "In higher dimensions, the exact rule, from",
+    "a nineteen sixty-six paper by Culver,"
+   ],
+   "cue_start": 1719.55,
+   "cue_end": 1725.14
+  },
+  {
+   "origin": "S14",
+   "frame": 103674,
+   "cue": 431,
+   "state": "footer",
+   "id": "F30",
+   "seconds": 1727.9,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "asks that the matrix's blocks for each",
+    "negative stretch come in matching pairs."
+   ],
+   "cue_start": 1725.14,
+   "cue_end": 1730.66
+  },
+  {
+   "origin": "S15",
+   "frame": 103912,
+   "cue": 432,
+   "state": "footer",
+   "id": "F31",
+   "seconds": 1731.867,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "On screen is the precise version."
+   ],
+   "cue_start": 1730.66,
+   "cue_end": 1733.07
+  },
+  {
+   "origin": "S16",
+   "frame": 105088,
+   "cue": 433,
+   "state": "footer",
+   "id": "F32",
+   "seconds": 1751.467,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "Allow complex matrices, and the obstacle",
+    "disappears."
+   ],
+   "cue_start": 1751.417,
+   "cue_end": 1756.137
+  },
+  {
+   "origin": "S17",
+   "frame": 105872,
+   "cue": 435,
+   "state": "footer",
+   "id": "F33",
+   "seconds": 1764.533,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "Every invertible complex matrix has a",
+    "complex logarithm."
+   ],
+   "cue_start": 1762.237,
+   "cue_end": 1766.467
+  },
+  {
+   "origin": "S18",
+   "frame": 106089,
+   "cue": 436,
+   "state": "footer, red lines above it",
+   "id": "F34",
+   "seconds": 1768.15,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "Only the singular ones, which squash the",
+    "plane"
+   ],
+   "cue_start": 1766.467,
+   "cue_end": 1768.96
+  },
+  {
+   "origin": "S19",
+   "frame": 106271,
+   "cue": 437,
+   "state": "footer, red lines above it",
+   "id": "F35",
+   "seconds": 1771.183,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "flat, have none, for the same reason zero",
+    "had none."
+   ],
+   "cue_start": 1768.96,
+   "cue_end": 1772.857
+  },
+  {
+   "origin": "control",
+   "frame": 108115,
+   "cue": 445,
+   "state": "panel edge at the top of the block",
+   "id": "F36",
+   "seconds": 1801.917,
+   "place": "bottom",
+   "tier": "control",
+   "lines": [
+    "A branch cut is a decision about laps, and",
+    "the product rule keeps a lap count."
+   ],
+   "cue_start": 1799.393,
+   "cue_end": 1804.433
+  },
+  {
+   "origin": "S20",
+   "frame": 115836,
+   "cue": 474,
+   "state": "footer",
+   "id": "F37",
+   "seconds": 1930.6,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "For the number minus one, a convention",
+    "broke the"
+   ],
+   "cue_start": 1929.647,
+   "cue_end": 1932.417
+  },
+  {
+   "origin": "S21",
+   "frame": 115938,
+   "cue": 474,
+   "state": "footer, convention line",
+   "id": "F38",
+   "seconds": 1932.3,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "For the number minus one, a convention",
+    "broke the"
+   ],
+   "cue_start": 1929.647,
+   "cue_end": 1932.417
+  },
+  {
+   "origin": "S22",
+   "frame": 116018,
+   "cue": 475,
+   "state": "footer, convention line",
+   "id": "F39",
+   "seconds": 1933.633,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "same tie; here the honest answer is the",
+    "whole family."
+   ],
+   "cue_start": 1932.417,
+   "cue_end": 1936.817
+  },
+  {
+   "origin": "S23",
+   "frame": 116139,
+   "cue": 475,
+   "state": "footer, convention line, family label",
+   "id": "F40",
+   "seconds": 1935.65,
+   "place": "top",
+   "tier": "A",
+   "lines": [
+    "same tie; here the honest answer is the",
+    "whole family."
+   ],
+   "cue_start": 1932.417,
+   "cue_end": 1936.817
+  }
+ ]
+}

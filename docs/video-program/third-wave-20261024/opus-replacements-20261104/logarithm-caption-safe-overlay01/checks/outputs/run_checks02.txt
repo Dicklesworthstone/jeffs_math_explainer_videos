@@ -1,0 +1,42 @@
+PASS p-hashes
+PASS p-cue-text-is-the-srt: 40 samples
+PASS p-samples-inside-their-cue
+PASS p-ass-styles: 116 Top cues
+PASS p-ass-text
+PASS p-b-same-words: only line breaks and places differ
+PASS p-the-first-23-frames-are-all-here: 23 first-run frames, 17 added
+PASS p-vtt-only-adds-the-setting: times and text byte-equal to the base VTT
+PASS p-every-window-has-a-sample: 19 windows
+PASS p-control-a-dropped-window-is-seen
+PASS p-sample-place-matches-cue
+PASS p-ids-in-film-order
+PASS c-check-ready
+PASS c-wrong-seal
+PASS c-wrong-font
+PASS c-no-filter
+PASS c-sbh-refuses
+PASS c-sbh-uses-no-name
+PASS c-plan-changed
+PASS c-transfer-named
+PASS c-wrong-root
+PASS r-run-passes
+PASS r-real-guard-policy
+PASS r-baseline-in-new-lane
+PASS r-all-samples
+PASS r-fourteen-sheets
+PASS r-false-claims
+     job size 63 MiB
+PASS r-postcheck-repeats
+PASS r-used-run-refused
+PASS r-postcheck-sees-a-change
+PASS f-ffmpeg-failure-stops-and-keeps-frames
+PASS f-no-caption-refused
+PASS f-caption-in-the-wrong-place-refused
+PASS f-wrong-frame-refused
+PASS f-postcheck-refuses-failed-job
+PASS f-input-change-stops-guard
+PASS s-start-refuses-repeated-run
+PASS s-start-needs-run
+     scratch job tree/overlay-lane02/jobs/logarithm-safe-overlay-css-01
+PASS z-text-scan
+RESULT PASS, 0 failed of 39

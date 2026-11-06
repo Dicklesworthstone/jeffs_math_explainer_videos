@@ -32,7 +32,7 @@ def module(name, path):
 MASTER_HELPER = HERE / 'ts1_final_master01.py'
 SHARED = HERE.parent / 'logarithm-stage09-final-verification02/verify_stage09_final.py'
 IMPORTED_SHA256 = {
-    MASTER_HELPER: '7fdee5c1374cca6f39419aa2ac91e2a31aeb6ab0561d28334c4db9b592666cf1',
+    MASTER_HELPER: '6ed3cb2ae08ec2920badf4c87c0e808d7ea0070b751d9732e3aaa85ed1b6cdb2',
     SHARED: 'f266a2315e4a9af247c648da416881f3a2999e2682e9c611ff82ca3727b70b94',
 }
 for imported, digest in IMPORTED_SHA256.items():

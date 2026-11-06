@@ -33,8 +33,8 @@ TOOLS = P / 'tools01.json'
 TOOLS_SHA256 = '188b76509f7b3024fe4577d8d01ff7ca396375ca831a2294f7c4dc3bb5497c2c'
 EC = R / 'narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104'
 AUDIO_JOBS = EC / 'remote-ts1-01/jobs'
-SCRIPT = EC / 'native-stage06-root03/workspace/explainer_corpus/complex_analysis_visual/script.tsv'
-SCRIPT_SHA256 = '0bae7acb15f2f0453c8a25ba7110fedd65cf9156eba932143e08db7fdc8bfeee'
+SCRIPT = EC / 'native-stage07-root01/workspace/explainer_corpus/complex_analysis_visual/script.tsv'
+SCRIPT_SHA256 = '946a9c07a462eb066fc8d20c6a092d5b7564d38752d26177bdbbcf15c6027cdc'
 AUDIO_NAME = r'complex-remote-asr-audio\d\d'
 CHAPTERS = ('01_the_bump', '02_turning_numbers', '03_two_planes', '04_reading_color',
             '05_gallery', '06_one_derivative', '07_one_point', '08_loop_sums', '09_boundary',

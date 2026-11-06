@@ -1,0 +1,112 @@
+block	cue	word	old_s	master_s	take_s	estimate_s	basis	new_s	decision	reason
+3	00_1	ten,	10.733					10.733	unchanged	neither source has this word (inside a number recognized as one digit token)
+4	00_1	eighty,	15.461					15.461	unchanged	neither source has this word (inside a number recognized as one digit token)
+7	00_2	to	27.098	5.967	5.940	5.967	later of both	26.700	moved	
+12	00_3	every	46.370	12.333	12.320	12.333	later of both	46.370	unchanged	inside the floor
+14	00_3	the	53.895	19.773	19.760	19.773	later of both	53.895	unchanged	inside the floor
+17	00_4	and	63.020	4.007	4.020	4.560	later of both, end of quiet run just after it, speech rise	62.593	moved	
+27	00_6	the	110.422	14.843	14.840	14.843	later of both	110.422	unchanged	inside the floor
+37	01_2	position	150.003	3.190	3.200	3.200	later of both	150.003	unchanged	inside the floor
+40	01_2	two,	163.167	15.930	15.920	15.930	later of both	162.680	moved	
+47	01_4	five	188.080					188.080	unchanged	neither source has this word (inside a number recognized as one digit token)
+49	01_4	five	192.837					192.837	unchanged	neither source has this word (inside a number recognized as one digit token)
+52	01_4	steps,	203.815	19.983	20.000	20.000	later of both	203.417	moved	
+56	01_5	its	222.135	13.230	13.220	13.230	later of both	222.135	unchanged	inside the floor
+58	01_5	this	228.754	19.850	19.720	19.870	later of both, speech rise	228.754	unchanged	inside the floor
+62	01_6	of	242.311	9.670	9.680	9.680	later of both	242.311	unchanged	inside the floor
+70	02_2	moving	278.446	4.060	4.060	4.060	later of both	278.446	unchanged	inside the floor
+78	02_3	markings	307.422	10.380	10.380	10.380	later of both	307.422	unchanged	inside the floor
+88	02_5	and	342.211					342.211	unchanged	neither source has this word (inside a number recognized as one digit token)
+90	02_5	six	348.492	23.210	23.180	23.210	later of both	347.960	moved	
+93	03_1	so	362.204	8.470	8.700	8.750	later of both, end of quiet run around it, speech rise	362.204	unchanged	inside the floor
+100	03_2	hundred	386.083		12.900	12.900	take only	386.083	unchanged	inside the floor
+109	03_4	exactly	420.394	6.593	6.600	6.600	later of both	419.967	moved	
+114	04_1	x,	438.433	6.187	6.180	6.187	later of both	437.720	moved	
+120	04_2	e	459.981	6.777	6.760	6.777	later of both	459.560	moved	
+122	04_2	one	467.551	14.377	14.380	14.380	later of both	467.163	moved	
+124	04_2	climbs,	475.887	22.957	22.940	22.957	later of both	475.887	unchanged	inside the floor
+128	04_3	returns	492.345	4.910	4.920	4.920	later of both	492.070	moved	
+132	04_3	at	504.930	17.710	17.720	17.720	later of both	504.930	unchanged	inside the floor
+136	04_4	height,	518.422	8.967	8.960	8.967	later of both	517.600	moved	
+140	04_4	step,	535.634	26.447	26.440	26.447	later of both	535.080	moved	
+143	04_5	multiplies	545.859	5.657	5.620	5.657	later of both	545.140	moved	
+145	04_5	a	555.455	14.817	14.800	14.817	later of both	554.300	moved	
+148	04_5	of	568.245	28.537	28.540	28.540	later of both	568.245	unchanged	inside the floor
+151	04_6	multiplied	578.664	5.673	5.680	5.680	later of both	577.847	moved	
+155	04_7	logarithm	596.135	6.220	6.220	6.220	later of both	595.720	moved	
+158	04_7	divide	607.451	17.780	17.680	17.850	later of both, end of quiet run around it, speech rise	607.451	unchanged	inside the floor
+160	04_7	thousand,	614.213	24.080	24.080	24.080	later of both	613.580	moved	
+162	04_7	doublings,	622.024	32.380	32.360	32.380	later of both	622.024	unchanged	inside the floor
+170	05_2	rule	663.100	9.580	9.600	9.600	later of both	663.400	moved	
+178	05_20	pi:	694.185	18.377	18.380	18.380	later of both	693.263	moved	
+188	05_4	once	738.860	13.480	13.460	13.480	later of both	738.860	unchanged	inside the floor
+192	05_6	the	755.213	3.403	3.420	3.420	later of both	755.213	unchanged	inside the floor
+196	05_6	times	771.428	19.403	19.400	19.403	later of both	771.120	moved	
+200	05_7	length,	787.146	6.780	6.780	6.780	later of both	786.780	moved	
+204	05_7	that	802.471	22.280	22.280	22.280	later of both	802.471	unchanged	inside the floor
+206	06_1	at	810.765	3.367	3.360	3.367	later of both	810.500	moved	
+208	06_1	the	817.811	10.667	10.660	10.690	later of both, speech rise	817.811	unchanged	inside the floor
+211	06_2	straight	828.145	2.767	2.780	2.780	later of both	827.713	moved	
+228	06_5	lap	899.907	11.883	11.880	11.883	later of both	899.907	unchanged	inside the floor
+233	06_6	down	924.945	20.933	20.920	20.933	later of both	924.945	unchanged	inside the floor
+236	06_20	that	935.641	2.227	2.220	2.227	later of both	935.260	moved	
+238	06_20	of	942.272	8.627	8.620	8.627	later of both	941.660	moved	
+240	06_20	jump	950.923	17.767	17.780	17.780	later of both	950.923	unchanged	inside the floor
+243	06_7	returns	961.961	5.203	5.200	5.203	later of both	961.961	unchanged	inside the floor
+254	07_2	and	1004.671	3.430	3.460	3.660	later of both, speech rise	1004.310	moved	
+257	07_2	derivative	1017.227	16.170	16.180	16.250	later of both, speech rise	1016.900	moved	
+259	07_2	is	1028.210	27.210	27.220	27.220	later of both	1027.870	moved	
+262	07_3	strip,	1041.727	5.597	5.600	5.600	later of both	1040.783	moved	
+266	07_3	the	1054.163	18.257	18.260	18.260	later of both	1053.443	moved	
+270	07_4	close	1073.623	8.463	8.460	8.463	later of both	1072.980	moved	
+274	07_5	a	1090.539	7.683	7.700	7.700	later of both	1090.017	moved	
+277	07_5	will	1102.349	19.243	19.240	19.243	later of both	1101.560	moved	
+282	07_6	assigns	1118.807	4.817	4.840	4.840	later of both	1117.923	moved	
+287	07_6	when	1143.279	29.957	29.960	29.960	later of both	1143.279	unchanged	inside the floor
+295	08_1	angles	1174.831	20.943	20.940	20.943	later of both	1173.960	moved	
+300	08_2	while	1198.745	12.680	13.000	13.040	later of both, end of quiet run around it, speech rise	1198.745	unchanged	inside the floor
+304	08_3	drops	1215.798	7.080	7.080	7.080	later of both	1215.480	moved	
+306	08_3	is	1224.580	15.780	15.800	15.800	later of both	1224.200	moved	
+320	08_5	roots	1276.235	11.050	11.040	11.050	later of both	1276.235	unchanged	inside the floor
+323	08_5	turn,	1288.990	23.330	23.300	23.330	later of both	1288.380	moved	
+330	09_1	not	1319.168	20.350	20.260	20.400	later of both, end of quiet run around it, speech rise	1319.168	unchanged	inside the floor
+334	09_2	it	1334.305	11.480	11.460	11.590	later of both, speech rise	1334.690	moved	
+338	09_3	carries	1350.465	3.620	3.620	3.620	later of both	1350.120	moved	
+347	09_4	like	1385.590	21.120	21.140	21.140	later of both, speech rise	1385.590	unchanged	inside the floor
+354	10_2	in	1411.584	6.263	6.260	6.263	later of both	1410.780	moved	
+357	10_2	not	1423.057	18.383	18.400	18.400	later of both	1423.057	unchanged	inside the floor
+360	10_3	within	1433.950	5.750	5.820	5.820	later of both	1433.270	moved	
+363	10_3	steady	1444.151	16.070	16.060	16.070	later of both	1443.520	moved	
+364	10_3	spiralling	1447.932	19.430	19.460	19.460	later of both	1446.910	moved	
+369	10_4	multiple	1469.903	9.817	9.800	9.817	later of both	1469.400	moved	
+373	10_4	with	1487.444	27.577	27.580	27.580	later of both	1487.163	moved	
+378	11_1	dashed	1513.521	14.907	14.900	14.907	later of both	1513.140	moved	
+380	11_1	halfway	1520.494	21.827	21.820	21.827	later of both	1520.060	moved	
+385	11_2	flow	1537.629	12.280	12.280	12.280	later of both	1537.280	moved	
+388	11_2	it,	1551.790	26.820	26.820	26.820	later of both	1551.790	unchanged	inside the floor
+401	11_4	other	1600.960	11.090	11.080	11.090	later of both	1601.240	moved	
+404	11_4	plus	1609.467	19.170	19.180	19.330	later of both, speech rise	1609.467	unchanged	inside the floor
+406	11_4	the	1617.818	27.210	27.220	27.220	later of both	1617.370	moved	
+409	11_5	both	1630.287	6.103	6.120	6.340	later of both, end of quiet run just after it	1629.257	moved	
+412	11_5	difference	1644.756	21.723	21.720	21.723	later of both	1644.756	unchanged	inside the floor
+414	11_5	agree	1652.449	29.163	29.160	29.163	later of both	1652.080	moved	
+418	11_6	never	1669.793	12.650	12.640	12.650	later of both	1668.900	moved	
+420	11_6	their	1677.337	20.690	20.680	20.690	later of both	1676.940	moved	
+426	11_7	keep	1699.656	14.923	14.900	14.980	later of both, speech rise	1699.197	moved	
+428	11_7	to	1709.377	25.163	25.160	25.163	later of both	1709.377	unchanged	inside the floor
+429	11_7	that	1714.057	29.523	29.540	29.540	later of both	1713.757	moved	
+431	11_20	asks	1725.140	5.190	5.260	5.620	later of both, end of quiet run just after it, speech rise	1725.140	unchanged	inside the floor
+437	11_8	flat,	1769.494	17.543	17.540	17.543	later of both	1768.960	moved	
+441	12_1	perfect	1784.317	10.313	10.300	10.450	later of both, end of quiet run just after it, speech rise	1784.317	unchanged	inside the floor
+444	12_2	that	1796.184	6.547	6.540	6.547	later of both	1795.780	moved	
+447	12_3	whole	1808.936	3.687	3.800	3.930	later of both, end of quiet run around it, speech rise	1808.936	unchanged	inside the floor
+453	12_4	through	1832.424	7.753	7.740	7.753	later of both	1832.920	moved	
+455	12_4	about	1841.157	15.453	15.460	15.460	later of both	1840.627	moved	
+457	12_4	after	1850.160	25.073	25.120	25.190	later of both, speech rise	1850.160	unchanged	inside the floor
+461	12_5	exactly	1865.195	4.287	4.280	4.287	later of both	1864.620	moved	
+465	12_6	and	1886.092	8.803	9.080	9.140	later of both, speech rise	1886.657	moved	
+468	12_20	own	1902.307	10.597	10.600	10.600	later of both	1902.307	unchanged	inside the floor
+469	12_20	rod's	1906.573	14.317	14.300	14.317	later of both	1906.200	moved	
+472	12_21	pi,	1920.716	4.163	4.180	4.400	later of both, end of quiet run just after it, speech rise	1920.716	unchanged	inside the floor
+473	12_21	is	1925.099	8.143	8.160	8.160	later of both	1924.577	moved	
+475	12_21	same	1933.051	15.983	16.000	16.000	later of both	1932.417	moved	

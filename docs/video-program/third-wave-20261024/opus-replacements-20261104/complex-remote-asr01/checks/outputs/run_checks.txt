@@ -1,7 +1,7 @@
 PASS keep read, sha, check_files, script_rows, tokens, boundary_review equal root's complex after-verify01.py by AST, with its 105-cue count; read, sha, check_files, tokens, boundary_review, live_receipt equal sealed asr02.py
 PASS keep asr02.py's run() from the decode on is exactly step 1's 2 statements then step 2's 13, by AST: decode, fw, timeouts, outputs, scopes
 PASS sign the real script: the token rule loses only . , and ?, so no mathematical sign
-PASS peer White's seal 625d162dcfcc: N2, timeline02 and the picture env agree (source text, not run)
+PASS peer White's seals bbf00548ba5f and f6878e685a72: the qualifier, N2, timeline03 and the picture env agree (source text, not run)
 PASS peer Lavender's helpers: job names, both success lines, child commands, output, manifest and post-check names; each child prints its line last (source text, not run)
 PASS sh   bash -n, both wrappers
 PASS good ts1 decodes and prints the summary hash; the mini recognizes from that hash. Every decode and fw argument exact; 105 cues, 210 windows, 14 chapter joins; a changed word and a minus sign reach the differences; 13 mini rows bound
@@ -25,7 +25,8 @@ PASS ts1  proof claims a viewing: AssertionError: the proof claims a picture vie
 PASS ts1  proof from another host: AssertionError: the proof is for another host or voice
 PASS ts1  proof with another voice: AssertionError: the proof is for another host or voice
 PASS ts1  proof from another binary: AssertionError: the proof names another binary
-PASS ts1  proof on the first timeline: AssertionError: the proof names another timeline or narration
+PASS ts1  build02 has not finished: AssertionError: the proof names another binary
+PASS ts1  proof on the older timeline: AssertionError: the proof names another timeline or narration
 PASS ts1  proof on N, not N2: AssertionError: the proof names another timeline or narration
 PASS ts1  proof names another master file: AssertionError: the proof names another master file
 PASS ts1  proof with another length: AssertionError: the proof has another length

@@ -1,0 +1,78 @@
+--- reviewed bytes (the candidate is unsealed)
+HANDOFF.md 0bc11e2c94aad18531cbd6e6ca54d4d1964faf365a373895bf9ef3eb6c3f9eda
+candidate02.en.vtt 7f1bcee0ec01297355c2b90cbbc925860a1f3328411136439488d0fa37cb488b
+candidate02.ass fec8e17d5477dbfe3d1eb1cfea8e6a6d677dc03f0f57df765739185a46440a4b
+candidate03.ass 73e5a66800beb6d0749854d89ef49fc22bd0d1131a17831530df4f53c2dbc596
+placements03.json 03856cdc0e4899fddf043ed3f7c551f621ccd6a14a2a89f2678bce9465672425
+positions02.json 2e607b6b13306796cb255ceceb1a9e40e9c30cb7ba363fdfac0a22b8e366c9cb
+plan02.json 94a4db7b1678286e4e8692d0ee1fe939e6cc40399be644059a35aa71de7fff3e
+overlay_css02.py 8d07610ee71692838a0cdf62e980dc3daa6878b8352c7582bc538241582a5f14
+checks/make_candidate02.py bdaae2421ede2b2667bfbcd4cf5edb5c38ac66ee85ce7aafa8f83f71dc9240d3
+checks/run_checks02.py 281b551c2f16c692af82c984cc9450a06e9ab4e50bc19f43ac9faffd32018237
+youtube-caption-reference01.json 1504ad907f39ae3ea21701c1e3059ecbde3c6617b3ee6858d58450ba1ef9019b
+maps: cues.json plus 475 pngs, rolled sha256 ba9c5463929bd13ba9a631f1309f242aae1ddc58b8a9b6cd90e6b880cefa94d5
+--- A. root measurement
+PASS A1 16:9 player, so player and frame fractions agree: 1840x1035
+PASS A2 block height is two lines
+PASS A3 the mail's ratios
+MEASURE 4K em 96.0, pitch 112.7, block rows 1745.3 to 1970.7, scene y -2.46 to -3.30
+MEASURE gap under the block 90.7 css px; raw rect, left edge, family and background are not in the record
+PASS A4 Robot SRT is the published one
+PASS A5 root's text is one cue with the file's line break, up during the second shown as 0:50: starts 50.227 s
+PASS A6 that SRT has no tags, so this is default placement
+--- B. libass proxy, real first-run boxes
+MEASURE em fit 107.2 (range 106.7 to 107.6), 4.96% of height, 1.117 times YouTube
+MEASURE line pitch 120, 1.065 times YouTube; nominal 16/288 against 46/1035 would say 1.250
+MEASURE two-line ink rows 1856 to 2093; layout rows about 1845 to 2085; widest px per char 50.9
+MEASURE Arial 46 plus 0.5 em gives 787.5 css px for root's line, measured 788; one line only, family unrecorded
+MEASURE Arial normal line height at 46 would be 52 px, measured 54
+--- C. candidate VTT against the sealed sidecars
+PASS C1 sealed captions.en.srt
+PASS C1 sealed captions.en.vtt
+PASS C2 plan binds both sealed files
+PASS C3 header and 475 cues
+PASS C4 every time and text equals the sealed VTT
+PASS C5 every time and text equals the sealed SRT
+PASS C6 every hold equals the sealed VTT: min 1030 ms, max 8744 ms
+PASS C7 removing the one setting gives the sealed bytes
+PASS C8 the setting sits on exactly the 116 window cues
+PASS C9 no cue needs VTT escaping
+PASS C10 no window edge moved between native and retimed: 38 edges
+PASS C11 planted faults are caught: one letter, one time
+PASS C12 candidate02.ass times within 5 ms of the VTT, 475 events: worst 5 ms
+PASS C12 candidate03.ass times within 5 ms of the VTT, 475 events: worst 5 ms
+PASS C13 sample frames clear their cue edges by more than the rounding: smallest 49.7 ms
+--- D. shared model and the 23 clean frames
+PASS D1 positive control: ink in the proxy box in all 23, as root saw
+PASS D2 the maps hold the master: clear ink (L 60+) of each clean frame is in its own or a neighbouring cue map: own map alone: 22 of 23 complete, smallest 0.988
+MEASURE D2 detail: down to L 34 the own-map share falls to 0.812 (S16, 0.05 s into its cue, before its first 2 fps sample); S16 is the map limit, reported in the review
+PASS D3 candidate B rectangles are near clean on the local frames: at most 8 px
+MEASURE line:2% at measured size has ink on 23 of 23 frames, 7694 to 23075 px
+MEASURE measured box, 4K ink px per frame: S01=8266 S02=0 S03=8990 S04=678 S05=1555 S06=11920 S07=11466 S08=716 S09=628 S10=628 S11=616 S12=88 S13=18 S14=18 S15=12 S16=0 S17=0 S18=10093 S19=10104 S20=312 S21=4035 S22=3853 S23=5374
+--- E. candidate proxies against the geometry
+MEASURE proxy A top row 15; line:2% top row 43.2; two lines at measured size end at row 268.6
+PASS E1 FINDING: exactly one candidate B cue overflows its declared lines: [(239, 5, 4, [2224, 1184, 3328, 1680], '15:45.7', '15:50.9')]
+--- F. all 475 cues on the existing maps, retimed intervals
+PASS F1 map intervals are the native cues
+PASS F2 a retimed cue reaches at most one neighbouring map
+MEASURE bottom row 1911 (shift -60): 260 cues flagged, 1042.9 s
+MEASURE bottom row 1941 (shift -30): 241 cues flagged, 987.1 s
+MEASURE bottom row 1971 (shift +0): 187 cues flagged, 747.5 s
+MEASURE bottom row 2001 (shift +30): 176 cues flagged, 710.9 s
+MEASURE bottom row 2031 (shift +60): 143 cues flagged, 584.5 s
+MEASURE bottom row 2061 (shift +90): 119 cues flagged, 480.9 s
+MEASURE bottom row 2091 (shift +120): 102 cues flagged, 417.1 s
+MEASURE bottom row 2117 (shift +146): 86 cues flagged, 349.3 s
+MEASURE floor 130 map px at shift 0: 91 of the moved 116 flagged, 96 flagged outside it, 25 of the 116 not flagged; 98 cues under the floor were not read
+MEASURE flat 41.1 px per char is narrower than Arial plus padding on 419 of 475 cues, median ratio 1.056
+MEASURE Arial px per char, lines of 30+ chars: median 42.0; the Robot line 38.0
+measured-0.json 79ca5b46ab2fb99219b976f2e09d4a56ee8df6892ebc361e6f193a5e4b580af1
+MEASURE mine 187, Lavender 189, both 183, only mine [94, 131, 135, 136], only Lavender [222, 224, 225, 226, 324, 444]
+--- G. reading table: times attached to the judgment in inputs/reading.tsv
+MEASURE class T: 89 cues, 334.0 s, in 21 spots; 67 are in the moved 116
+MEASURE class L: 27 cues, 113.6 s, in 2 spots; 17 are in the moved 116
+MEASURE class E: 20 cues, 87.2 s, in 6 spots; 6 are in the moved 116
+MEASURE flagged but read as thin lines or diagram strokes: 57 cues
+MEASURE class T cues Candidate A would leave at the bottom: [13, 14, 20, 21, 22, 35, 65, 78, 176, 265, 266, 268, 276, 277, 278, 279, 356, 358, 446, 447, 448, 449]
+MEASURE 193 cue tiles on 9 sheets
+RESULT PASS

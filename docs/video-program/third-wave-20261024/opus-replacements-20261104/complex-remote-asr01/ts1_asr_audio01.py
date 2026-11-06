@@ -22,8 +22,8 @@ import time
 import wave
 
 HERE = Path(__file__).resolve().parent
-QUALIFIER = HERE.parent / 'complex-remote-ts1-pipeline01/qualify01/ts1_qualify01.py'
-QUALIFIER_SHA256 = 'ee2d7719218be4e8d77a14f99a352e2f6a8d287fba1befed3bf8db57d0fb619b'
+QUALIFIER = HERE.parent / 'complex-remote-ts1-pipeline01/qualify02/ts1_qualify02.py'
+QUALIFIER_SHA256 = '604ef33814feb1fd6f79166b29593642f1bb44fc83e12ea92dd13c7a1e4460ca'
 with QUALIFIER.open('rb') as handle:
     assert hashlib.file_digest(handle, 'sha256').hexdigest() == QUALIFIER_SHA256, 'Sealed qualifier changed'
 SPEC = importlib.util.spec_from_file_location('ts1_qualify', QUALIFIER)
@@ -41,11 +41,11 @@ WORK = JOBS / 'complex-remote-render-work01'
 MOVIE = WORK / 'complex_analysis_visual_master.mp4'
 SRT, VTT = WORK / 'complex_analysis_visual.en.srt', WORK / 'complex_analysis_visual.en.vtt'
 PICTURE_PYTHON = JOBS / 'complex-remote-picture-env01/env/bin/python'
-TIMELINE_JOB = 'complex-remote-timeline02'
+TIMELINE_JOB = 'complex-remote-timeline03'
 TIMELINE = JOBS / TIMELINE_JOB / 'timeline-summary.json'
-N2 = JOBS / 'complex-remote-narration-derive01/narration-n2'
+N2 = JOBS / 'complex-remote-narration-derive02/narration-n2'
 SCRIPT = C / 'script.tsv'
-SCRIPT_SHA256 = '0bae7acb15f2f0453c8a25ba7110fedd65cf9156eba932143e08db7fdc8bfeee'
+SCRIPT_SHA256 = '946a9c07a462eb066fc8d20c6a092d5b7564d38752d26177bdbbcf15c6027cdc'
 CUES = 105
 VOICE = 'ElevenLabs Frederick Surrey'
 VERIFY_NAME = r'complex-remote-final-verify01(-r[2-9])?'

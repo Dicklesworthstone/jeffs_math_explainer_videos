@@ -32,13 +32,14 @@ HERE = Path(__file__).resolve()
 BUNDLE = HERE.parents[1]
 P = BUNDLE.parent
 # Everything chain-specific in this file. A new chain changes these, and its fixture must keep rehearse_n2's Real.
-CHAIN_FOLDER = P / 'complex-remote-ts1-pipeline01/chain02-n2'
-CHAIN_FILE = 'ts1_chain02_n2.py'
-CHAIN_SEAL = '625d162dcfccfc2a518fd410804786aa89c815232f628d645547a986fab8227c'
-CHAIN_REHEARSAL = CHAIN_FOLDER / 'checks/rehearse_n2.py'
-STAGE_JOB = {stage: f'complex-remote-{stage}02' for stage in ('timeline', 'score', 'preview', 'pictures')}
-PICTURES_INPUTS = 'chain-pictures-inputs02.json'
-SPEC = importlib.util.spec_from_file_location('rehearse_n2', CHAIN_REHEARSAL)
+CHAIN_FOLDER = P / 'complex-remote-ts1-pipeline01/chain03'
+CHAIN_FILE = 'ts1_chain03.py'
+CHAIN_SEAL = 'bbf00548ba5f804fcecefe31854ffa9af60494ba71003cfc2ccd491fa871daf9'
+CHAIN_REHEARSAL = CHAIN_FOLDER / 'checks/rehearse_chain03.py'
+STAGE_JOB = {stage: f'complex-remote-{stage}03' for stage in ('timeline', 'score', 'preview', 'pictures')}
+PICTURES_INPUTS = 'chain-pictures-inputs03.json'
+BUILD_SUMMARY = 'complex-remote-build02/build-summary.json'
+SPEC = importlib.util.spec_from_file_location('rehearse_chain03', CHAIN_REHEARSAL)
 N = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(N)
 C, Q = N.C, N.Q
@@ -182,7 +183,7 @@ def damaged(name, path, change=lambda r: None):
     path.write_bytes(data)
 damaged('preview-movie-changed', M.PREVIEW_OUT / (M.CHAPTERS[3] + '.mp4'))
 damaged('n2-take-changed', M.N / '01_1.wav')
-path = F.JOBS / 'complex-remote-qualify01/qualification-summary.json'
+path = F.JOBS / 'complex-remote-build02/build-summary.json'
 saved = path.read_bytes()
 path.write_text(json.dumps(dict(json.loads(saved), binary_sha256='0' * 64)))
 attempt('qualification-changed')
@@ -373,6 +374,8 @@ def repin_checks(root):
 
 
 class Final(N.Real):
+    shift = 0  # the fixture soundtrack needs every chapter at FRAMES, so chapter 09's real growth is not rehearsed here
+
     def __init__(self, base, case, shared):
         self.runs = Counter()
         super().__init__(base, case, shared)
@@ -484,7 +487,7 @@ REVIEW_EXPECTED = {
     'valid': 'no refusal', 'no-viewer': 'Review names no viewer', 'no-viewer-field': 'KeyError', 'not-viewed': 'Review names no viewer', 'no-scope': 'KeyError',
     'vague-scope': 'Review scope must be explicit', 'open-defect': 'AssertionError', 'chapters-short': 'AssertionError', 'sheet-dropped': 'AssertionError',
     'sheet-hash': 'AssertionError', 'sheet-extra': 'AssertionError', 'extraction-hash': 'AssertionError', 'summary-hash': 'AssertionError',
-    'preview-movie-changed': 'AssertionError', 'n2-take-changed': 'N2 differs', 'qualification-changed': 'Qualified binary differs', 'sheet-gone-from-both': 'Sheets differ from the extraction',
+    'preview-movie-changed': 'AssertionError', 'n2-take-changed': 'N2 differs', 'qualification-changed': 'Build summary differs', 'sheet-gone-from-both': 'Sheets differ from the extraction',
     'other-voice': 'Preview is another film', 'other-binary': 'Preview is another film', 'preview-no-x264-record': 'No x264 record of CRF 18', 'valid-again': 'no refusal',
     'chain-names-hold': 'no refusal', 'chain-name-missing': 'The pinned chain lacks', 'chain-stage-missing': 'The pinned chain lacks',
     'derive-summary-names-another': 'Derive summary names another folder', 'source-matches': 'no refusal', 'source-other-hash': 'Narration provenance differs', 'source-absent': 'Narration provenance differs', 'receipt-reread': 'True 3',
@@ -612,8 +615,8 @@ def render_records(t):
           'the real guard admitted and closed the job, on the logical path')
     rows = t.listed(t.stage_dir / f'{last_job}-inputs.json')
     wanted = [t.D / PATHS['render'], t.D / 'start-final-render01.sh', t.D / 'transfer-files01.json', t.stage_dir / 'preview-pictures-viewed01.json', t.n2 / 'report.json', t.N / 'report.json', t.script,
-              t.O / 'guard01.py', t.O / PICTURES_INPUTS, t.J / STAGE_JOB['pictures'] / 'pictures/extraction.json', t.J / 'complex-remote-qualify01/qualification-summary.json', t.helper_chain,
-              t.O / 'complex_analysis_visual-release01', *(t.R / row['path'] for row in json.loads((BUNDLE / 'transfer-files01.json').read_text())['files'])]
+              t.O / 'guard01.py', t.O / PICTURES_INPUTS, t.J / STAGE_JOB['pictures'] / 'pictures/extraction.json', t.J / BUILD_SUMMARY,
+              t.O / 'complex_analysis_visual-release02', *(t.R / row['path'] for row in json.loads((BUNDLE / 'transfer-files01.json').read_text())['files'])]
     missing = [str(p) for p in wanted if str(p) not in rows]
     check('e-manifest', not missing and not [p for p in rows if p.startswith(str(t.physical))], 'review, N, N2, binary, guard, chain, transfers and this helper, by logical paths' + (f' MISSING {missing}' if missing else ''))
     movie_path = t.OUT / f'{Q.CHAPTERS[4]}.mp4'

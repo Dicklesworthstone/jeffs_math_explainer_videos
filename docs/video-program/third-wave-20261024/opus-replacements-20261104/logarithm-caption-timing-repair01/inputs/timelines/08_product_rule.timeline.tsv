@@ -1,0 +1,13 @@
+# explainer timeline v1
+chapter	08_product_rule
+fps	60
+frames	8738
+line	08_1	36	0	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/production-audio-stage09-01/prepared02/narration/08_1.wav
+line	08_2	2003	0	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/production-audio-stage09-01/prepared02/narration/08_2.wav
+line	08_3	3359	0	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/production-audio-stage09-01/prepared02/narration/08_3.wav
+line	08_4	5147	0	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/production-audio-stage09-01/prepared02/narration/08_4.wav
+line	08_5	6758	0	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/production-audio-stage09-01/prepared02/narration/08_5.wav
+mark	predict	1748
+mark	predict	6503
+breath	1748	4
+breath	6503	4

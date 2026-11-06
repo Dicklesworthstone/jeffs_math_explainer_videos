@@ -1,0 +1,608 @@
+[
+ {
+  "first": 23,
+  "last": 24,
+  "tier": "A",
+  "low": "chapter 00: equal steps at -3.25, fine print at -3.62",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   928,
+   192,
+   2880,
+   448
+  ]
+ },
+ {
+  "first": 25,
+  "last": 25,
+  "tier": "A",
+  "low": "chapter 00: equal steps at -3.25, fine print at -3.62",
+  "none": {
+   "wrap": "full",
+   "lines": 2,
+   "ink_cells": 4,
+   "rect": [
+    816,
+    208,
+    2912,
+    464
+   ]
+  }
+ },
+ {
+  "first": 36,
+  "last": 36,
+  "tier": "B",
+  "low": "chapter 01: rule line at -2.75",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   864,
+   1568,
+   2960,
+   1824
+  ]
+ },
+ {
+  "first": 89,
+  "last": 90,
+  "tier": "A",
+  "low": "chapter 02: fine print",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   816,
+   1760,
+   3024,
+   2016
+  ]
+ },
+ {
+  "first": 102,
+  "last": 102,
+  "tier": "B",
+  "low": "chapter 03: dial label, spiral label at -3.55",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   1312,
+   352,
+   3520,
+   608
+  ]
+ },
+ {
+  "first": 103,
+  "last": 105,
+  "tier": "B",
+  "low": "chapter 03: dial label, spiral label at -3.55",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   1744,
+   1536,
+   3744,
+   1792
+  ]
+ },
+ {
+  "first": 106,
+  "last": 106,
+  "tier": "B",
+  "low": "chapter 03: dial label, spiral label at -3.55",
+  "wrap": "full",
+  "lines": 1,
+  "rect": [
+   864,
+   1952,
+   2960,
+   2096
+  ]
+ },
+ {
+  "first": 107,
+  "last": 107,
+  "tier": "B",
+  "low": "chapter 03: dial label, spiral label at -3.55",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   1744,
+   1536,
+   3696,
+   1792
+  ]
+ },
+ {
+  "first": 108,
+  "last": 108,
+  "tier": "B",
+  "low": "chapter 03: dial label, spiral label at -3.55",
+  "none": {
+   "wrap": "full",
+   "lines": 2,
+   "ink_cells": 3,
+   "rect": [
+    1744,
+    208,
+    3792,
+    464
+   ]
+  }
+ },
+ {
+  "first": 109,
+  "last": 109,
+  "tier": "B",
+  "low": "chapter 03: dial label, spiral label at -3.55",
+  "none": {
+   "wrap": "full",
+   "lines": 2,
+   "ink_cells": 8,
+   "rect": [
+    1680,
+    208,
+    3776,
+    464
+   ]
+  }
+ },
+ {
+  "first": 110,
+  "last": 110,
+  "tier": "B",
+  "low": "chapter 03: dial label, spiral label at -3.55",
+  "wrap": "full",
+  "lines": 1,
+  "rect": [
+   1536,
+   1952,
+   3488,
+   2096
+  ]
+ },
+ {
+  "first": 111,
+  "last": 111,
+  "tier": "B",
+  "low": "chapter 03: dial label, spiral label at -3.55",
+  "none": {
+   "wrap": "full",
+   "lines": 2,
+   "ink_cells": 18,
+   "rect": [
+    1872,
+    1520,
+    3728,
+    1776
+   ]
+  }
+ },
+ {
+  "first": 147,
+  "last": 149,
+  "tier": "A",
+  "low": "chapter 04: formula denominator, axis labels, fine print",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   1296,
+   576,
+   3504,
+   832
+  ]
+ },
+ {
+  "first": 150,
+  "last": 158,
+  "tier": "A",
+  "low": "chapter 04: formula denominator, axis labels, fine print",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   928,
+   1440,
+   3136,
+   1696
+  ]
+ },
+ {
+  "first": 159,
+  "last": 160,
+  "tier": "A",
+  "low": "chapter 04: formula denominator, axis labels, fine print",
+  "wrap": "w1800",
+  "lines": 2,
+  "rect": [
+   976,
+   1440,
+   2784,
+   1696
+  ]
+ },
+ {
+  "first": 161,
+  "last": 162,
+  "tier": "A",
+  "low": "chapter 04: formula denominator, axis labels, fine print",
+  "wrap": "w1400",
+  "lines": 3,
+  "rect": [
+   1216,
+   1312,
+   2624,
+   1696
+  ]
+ },
+ {
+  "first": 177,
+  "last": 178,
+  "tier": "B",
+  "low": "chapter 05: angle label at -2.85",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   160,
+   352,
+   2368,
+   608
+  ]
+ },
+ {
+  "first": 184,
+  "last": 184,
+  "tier": "B",
+  "low": "chapter 05: lap note",
+  "wrap": "w1800",
+  "lines": 2,
+  "rect": [
+   784,
+   1744,
+   2592,
+   2000
+  ]
+ },
+ {
+  "first": 205,
+  "last": 220,
+  "tier": "B",
+  "low": "chapter 06: stacked labels and theorem, whole chapter",
+  "wrap": "w1400",
+  "lines": 3,
+  "rect": [
+   2336,
+   1536,
+   3744,
+   1920
+  ]
+ },
+ {
+  "first": 221,
+  "last": 228,
+  "tier": "B",
+  "low": "chapter 06: stacked labels and theorem, whole chapter",
+  "wrap": "w1100",
+  "lines": 4,
+  "rect": [
+   880,
+   320,
+   1984,
+   816
+  ]
+ },
+ {
+  "first": 229,
+  "last": 229,
+  "tier": "B",
+  "low": "chapter 06: stacked labels and theorem, whole chapter",
+  "wrap": "w1400",
+  "lines": 3,
+  "rect": [
+   2192,
+   1360,
+   3600,
+   1744
+  ]
+ },
+ {
+  "first": 230,
+  "last": 236,
+  "tier": "B",
+  "low": "chapter 06: stacked labels and theorem, whole chapter",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   992,
+   1856,
+   3200,
+   2112
+  ]
+ },
+ {
+  "first": 237,
+  "last": 243,
+  "tier": "B",
+  "low": "chapter 06: stacked labels and theorem, whole chapter",
+  "wrap": "w1100",
+  "lines": 4,
+  "rect": [
+   2224,
+   1184,
+   3328,
+   1680
+  ]
+ },
+ {
+  "first": 244,
+  "last": 244,
+  "tier": "B",
+  "low": "chapter 06: stacked labels and theorem, whole chapter",
+  "wrap": "full",
+  "lines": 1,
+  "rect": [
+   992,
+   1952,
+   2896,
+   2096
+  ]
+ },
+ {
+  "first": 245,
+  "last": 245,
+  "tier": "B",
+  "low": "chapter 06: stacked labels and theorem, whole chapter",
+  "none": {
+   "wrap": "full",
+   "lines": 2,
+   "ink_cells": 20,
+   "rect": [
+    1168,
+    848,
+    3328,
+    1104
+   ]
+  }
+ },
+ {
+  "first": 246,
+  "last": 246,
+  "tier": "B",
+  "low": "chapter 06: stacked labels and theorem, whole chapter",
+  "wrap": "full",
+  "lines": 1,
+  "rect": [
+   1264,
+   1952,
+   2560,
+   2096
+  ]
+ },
+ {
+  "first": 247,
+  "last": 247,
+  "tier": "B",
+  "low": "chapter 06: stacked labels and theorem, whole chapter",
+  "none": {
+   "wrap": "full",
+   "lines": 2,
+   "ink_cells": 22,
+   "rect": [
+    1168,
+    848,
+    3376,
+    1104
+   ]
+  }
+ },
+ {
+  "first": 248,
+  "last": 248,
+  "tier": "B",
+  "low": "chapter 06: stacked labels and theorem, whole chapter",
+  "wrap": "full",
+  "lines": 1,
+  "rect": [
+   960,
+   1648,
+   2144,
+   1792
+  ]
+ },
+ {
+  "first": 269,
+  "last": 271,
+  "tier": "B",
+  "low": "chapter 07: cut-angle line at -2.95",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   1552,
+   208,
+   3712,
+   464
+  ]
+ },
+ {
+  "first": 286,
+  "last": 288,
+  "tier": "A",
+  "low": "chapter 07: fine print",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   1216,
+   736,
+   3424,
+   992
+  ]
+ },
+ {
+  "first": 305,
+  "last": 307,
+  "tier": "A",
+  "low": "chapter 08: fine print",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   1216,
+   1088,
+   3424,
+   1344
+  ]
+ },
+ {
+  "first": 308,
+  "last": 308,
+  "tier": "A",
+  "low": "chapter 08: fine print",
+  "wrap": "full",
+  "lines": 1,
+  "rect": [
+   1248,
+   1872,
+   2592,
+   2016
+  ]
+ },
+ {
+  "first": 309,
+  "last": 310,
+  "tier": "A",
+  "low": "chapter 08: fine print",
+  "wrap": "w1100",
+  "lines": 3,
+  "rect": [
+   2656,
+   1648,
+   3760,
+   2032
+  ]
+ },
+ {
+  "first": 324,
+  "last": 324,
+  "tier": "B",
+  "low": "chapter 08: root-of-a-product formula",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   512,
+   1840,
+   2608,
+   2096
+  ]
+ },
+ {
+  "first": 329,
+  "last": 331,
+  "tier": "B",
+  "low": "chapter 09: before-and-after note",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   80,
+   288,
+   2288,
+   544
+  ]
+ },
+ {
+  "first": 345,
+  "last": 347,
+  "tier": "B",
+  "low": "chapter 09: quarter-turn formula",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   864,
+   416,
+   2960,
+   672
+  ]
+ },
+ {
+  "first": 357,
+  "last": 357,
+  "tier": "B",
+  "low": "chapter 10: infinitely many logarithms line",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   384,
+   1840,
+   2176,
+   2096
+  ]
+ },
+ {
+  "first": 372,
+  "last": 373,
+  "tier": "A",
+  "low": "chapter 10: rows -2.93 and -3.40",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   1616,
+   1584,
+   3712,
+   1840
+  ]
+ },
+ {
+  "first": 387,
+  "last": 391,
+  "tier": "A",
+  "low": "chapter 11: Liouville footer",
+  "wrap": "w1400",
+  "lines": 3,
+  "rect": [
+   2272,
+   1040,
+   3680,
+   1424
+  ]
+ },
+ {
+  "first": 430,
+  "last": 435,
+  "tier": "A",
+  "low": "chapter 11: Culver and Gallier footers",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   1552,
+   1712,
+   3760,
+   1968
+  ]
+ },
+ {
+  "first": 436,
+  "last": 437,
+  "tier": "A",
+  "low": "chapter 11: Culver and Gallier footers",
+  "wrap": "w1400",
+  "lines": 2,
+  "rect": [
+   368,
+   1024,
+   1776,
+   1280
+  ]
+ },
+ {
+  "first": 474,
+  "last": 475,
+  "tier": "A",
+  "low": "chapter 12: closing footer, family label",
+  "wrap": "full",
+  "lines": 2,
+  "rect": [
+   80,
+   192,
+   2128,
+   448
+  ]
+ }
+]

@@ -1,0 +1,33 @@
+{
+  "observed_at": "2026-11-06T02:29:25.669725+00:00",
+  "session": "jeffs_math_explainer_videos--opus-replacements-20261104",
+  "restored_existing_conversations": true,
+  "model": "claude-opus-5-5",
+  "effort": "xhigh",
+  "agents": [
+    {
+      "pane": "%0",
+      "name": "LavenderPike",
+      "session_id": "6d8d91ab-386b-435d-91e3-ad665c8e7f76",
+      "observed": "fresh complex handoff tool output, working"
+    },
+    {
+      "pane": "%1",
+      "name": "BronzeJaguar",
+      "session_id": "b0a72b9b-6c8d-4794-942e-44d50a9d8626",
+      "observed": "acknowledged assignment in conversation, compacting"
+    },
+    {
+      "pane": "%2",
+      "name": "RubyRaven",
+      "session_id": "d7bac370-73e2-4cb6-88cf-606d6a161b39",
+      "observed": "fresh input manifest investigation, working"
+    },
+    {
+      "pane": "%3",
+      "name": "WhiteSwan",
+      "session_id": "7aa7239f-abc0-4b43-9af5-40020bd20c82",
+      "observed": "acknowledgment and fresh probe04 inspection, working"
+    }
+  ]
+}

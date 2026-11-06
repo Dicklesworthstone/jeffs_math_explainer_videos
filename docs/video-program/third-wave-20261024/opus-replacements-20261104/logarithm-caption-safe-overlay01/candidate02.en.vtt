@@ -1,0 +1,1773 @@
+WEBVTT
+
+00:00:00.600 --> 00:00:06.280
+Here are seven notes, all called A, from
+low on a piano to near the top.
+
+00:00:06.280 --> 00:00:10.733
+In standard tuning their frequencies are
+fifty-five, a hundred and
+
+00:00:10.733 --> 00:00:15.461
+ten, two hundred and twenty, four hundred
+and forty, eight hundred and
+
+00:00:15.461 --> 00:00:20.120
+eighty, seventeen sixty and thirty-five
+twenty vibrations per second.
+
+00:00:20.733 --> 00:00:23.993
+Mark them on an ordinary ruler of
+frequency.
+
+00:00:23.993 --> 00:00:26.700
+The last step alone, from seventeen sixty
+
+00:00:26.700 --> 00:00:30.353
+to thirty-five twenty, fills half the
+ruler.
+
+00:00:30.353 --> 00:00:33.453
+The first four notes crowd into the first
+eighth.
+
+00:00:34.067 --> 00:00:36.847
+A keyboard spaces them differently.
+
+00:00:36.847 --> 00:00:42.467
+Count every key, black or white, as one
+step, called a semitone.
+
+00:00:42.467 --> 00:00:46.370
+Each A is twelve semitones above the one
+before, and
+
+00:00:46.370 --> 00:00:50.427
+every one of those equal climbs doubles
+the frequency.
+
+00:00:50.427 --> 00:00:53.895
+To a musician, the distance between two
+notes is set by
+
+00:00:53.895 --> 00:00:57.427
+the ratio of their frequencies, not by
+their difference.
+
+00:00:58.033 --> 00:00:59.813
+So try this.
+
+00:00:59.813 --> 00:01:02.593
+Start at the A of four hundred and forty,
+
+00:01:02.593 --> 00:01:06.383
+and go up six semitones, half of the
+twelve.
+
+00:01:06.383 --> 00:01:08.403
+What frequency do you reach?
+
+00:01:08.403 --> 00:01:16.567
+Halfway by difference would be six hundred
+and sixty.
+
+00:01:16.567 --> 00:01:21.847
+Six semitones is half the climb, and two
+of those half climbs must double.
+
+00:01:21.847 --> 00:01:26.727
+So each one multiplies by the same number,
+the square root of two.
+
+00:01:26.727 --> 00:01:31.447
+The note is about six hundred and
+twenty-two, not six hundred and sixty.
+
+00:01:31.447 --> 00:01:34.807 line:2% position:50% align:center
+Equal steps on the keyboard are equal
+ratios.
+
+00:01:35.417 --> 00:01:40.887 line:2% position:50% align:center
+A ruler whose equal steps mean equal
+ratios is what a logarithm builds.
+
+00:01:40.887 --> 00:01:46.857 line:2% position:50% align:center
+For centuries it let people multiply by
+sliding one strip of wood along another.
+
+00:01:46.857 --> 00:01:50.422
+Push the same idea into the complex
+numbers, or into
+
+00:01:50.422 --> 00:01:54.197
+the motions of a plane, and it starts to
+forget things.
+
+00:01:54.197 --> 00:01:57.867
+It can lose count of how many times
+something went around.
+
+00:01:57.867 --> 00:02:02.457
+It can even meet a transformation that no
+steady motion produces.
+
+00:02:02.457 --> 00:02:05.177
+We will follow the ruler all the way
+there.
+
+00:02:06.383 --> 00:02:11.783
+First, build that ruler for every positive
+number, not just for notes.
+
+00:02:11.783 --> 00:02:13.593
+Put one at the start.
+
+00:02:13.593 --> 00:02:17.123
+Choose a length for doubling, and call it
+one step.
+
+00:02:17.123 --> 00:02:23.603
+Then two sits one step along, four sits
+two steps along, and eight sits three.
+
+00:02:23.603 --> 00:02:26.143
+Every doubling adds the same length.
+
+00:02:26.750 --> 00:02:30.003 line:2% position:50% align:center
+The rule behind it fits in one sentence:
+the
+
+00:02:30.003 --> 00:02:33.710
+position of a product is the sum of the
+positions.
+
+00:02:33.710 --> 00:02:39.950
+Halving must undo a doubling, so one half
+sits one step before the start.
+
+00:02:39.950 --> 00:02:42.680
+And since the square root of two times
+itself is
+
+00:02:42.680 --> 00:02:46.590
+two, the square root of two sits half a
+step along.
+
+00:02:47.200 --> 00:02:49.390
+Now a harder question.
+
+00:02:49.390 --> 00:02:51.280
+Where does three go?
+
+00:02:51.280 --> 00:02:56.940
+It lies between two and four, so somewhere
+between one step and two.
+
+00:02:56.940 --> 00:03:03.417
+But where, exactly?
+
+00:03:03.417 --> 00:03:05.777
+Use the rule in reverse.
+
+00:03:05.777 --> 00:03:08.080
+Twelve threes multiplied together make
+
+00:03:08.080 --> 00:03:11.717
+five hundred thirty-one thousand, four
+hundred and forty-one.
+
+00:03:11.717 --> 00:03:12.837
+Nineteen twos make
+
+00:03:12.837 --> 00:03:16.757
+five hundred twenty-four thousand, two
+hundred and eighty-eight.
+
+00:03:16.757 --> 00:03:19.717
+Those are less than one and a half percent
+apart.
+
+00:03:19.717 --> 00:03:23.417
+So twelve copies of three's length almost
+match nineteen
+
+00:03:23.417 --> 00:03:28.137
+steps, and three sits close to nineteen
+twelfths of a step.
+
+00:03:28.750 --> 00:03:31.790
+You have seen this before, on the
+keyboard.
+
+00:03:31.790 --> 00:03:38.230
+Nineteen semitones above any A is a note
+almost exactly three times its frequency.
+
+00:03:38.230 --> 00:03:42.135
+Closer matches between powers pin three
+down further, and
+
+00:03:42.135 --> 00:03:45.830
+its position is about one point five eight
+five steps.
+
+00:03:45.830 --> 00:03:48.754
+As long as bigger numbers sit further
+along,
+
+00:03:48.754 --> 00:03:51.950
+this one rule fixes every position on the
+ruler.
+
+00:03:52.550 --> 00:03:54.750
+This position has a name.
+
+00:03:54.750 --> 00:03:58.830
+Measured in doublings, it is the logarithm
+base two.
+
+00:03:58.830 --> 00:04:02.311
+The logarithm base two of eight is three,
+and
+
+00:04:02.311 --> 00:04:05.950
+of three it is about one point five eight
+five.
+
+00:04:05.950 --> 00:04:10.270
+Choose a different length for the first
+step and you get a different base.
+
+00:04:10.270 --> 00:04:15.710
+Let one step stand for multiplying by ten,
+and you get the common logarithm.
+
+00:04:15.710 --> 00:04:19.430
+Every one of these rulers is the same
+ruler, stretched.
+
+00:04:20.633 --> 00:04:26.253
+Now make two copies of the ruler, one
+fixed and one that slides along it.
+
+00:04:26.253 --> 00:04:31.153
+Mark each from one to ten, with ten one
+full length along.
+
+00:04:31.153 --> 00:04:33.593
+This is the heart of a slide rule.
+
+00:04:34.200 --> 00:04:38.446
+To multiply two point five by three point
+two, slide the
+
+00:04:38.446 --> 00:04:42.460
+moving ruler until its one sits above two
+point five.
+
+00:04:42.460 --> 00:04:46.560
+Everything on it is now shifted by two
+point five's length.
+
+00:04:46.560 --> 00:04:49.640
+Find three point two on the moving ruler.
+
+00:04:49.640 --> 00:04:56.900
+Which number sits directly below it?
+
+00:04:56.900 --> 00:04:57.930
+Eight.
+
+00:04:57.930 --> 00:05:01.500
+The two lengths add, so the numbers
+multiply.
+
+00:05:01.500 --> 00:05:05.100
+Two point five times three point two is
+eight.
+
+00:05:05.100 --> 00:05:07.422
+Sliding added the positions, and the
+
+00:05:07.422 --> 00:05:10.260
+markings turned that sum back into a
+product.
+
+00:05:10.867 --> 00:05:13.507
+Now try four times six.
+
+00:05:13.507 --> 00:05:16.847
+Put the one above four and look for six.
+
+00:05:16.847 --> 00:05:18.647
+It has run off the end.
+
+00:05:18.647 --> 00:05:24.147
+The answer, twenty-four, is bigger than
+ten, and this ruler stops at ten.
+
+00:05:24.750 --> 00:05:26.790
+So use the other end.
+
+00:05:26.790 --> 00:05:30.630
+Put the moving ruler's ten above the four
+instead.
+
+00:05:30.630 --> 00:05:33.830
+Now six sits above two point four.
+
+00:05:33.830 --> 00:05:39.050
+The rule gives the digits, a two and a
+four, but not the decimal point.
+
+00:05:39.050 --> 00:05:42.211
+Two point four, twenty-four and two
+hundred
+
+00:05:42.211 --> 00:05:44.920
+and forty all live on the same mark.
+
+00:05:44.920 --> 00:05:47.960 line:2% position:50% align:center
+The person holding the rule keeps track:
+four times
+
+00:05:47.960 --> 00:05:52.350 line:2% position:50% align:center
+six is between ten and a hundred, so it is
+twenty-four.
+
+00:05:53.550 --> 00:05:58.010
+Why can one mark serve both two point four
+and twenty-four?
+
+00:05:58.010 --> 00:06:02.204
+Multiplying by ten moves exactly one full
+ruler length,
+
+00:06:02.204 --> 00:06:06.010
+so every decade repeats the same pattern
+of marks.
+
+00:06:06.010 --> 00:06:09.150
+So bend one decade into a circle.
+
+00:06:09.150 --> 00:06:12.430
+One full lap of this dial multiplies by
+ten.
+
+00:06:13.033 --> 00:06:16.433
+On the dial, multiplying is turning.
+
+00:06:16.433 --> 00:06:19.353
+Four sits a little past half a lap.
+
+00:06:19.353 --> 00:06:22.533
+Six adds about three quarters of a lap
+more.
+
+00:06:22.533 --> 00:06:26.083
+Together they pass the top, where one, ten
+and a
+
+00:06:26.083 --> 00:06:29.633
+hundred meet, and stop on two point four's
+mark.
+
+00:06:29.633 --> 00:06:34.313
+The extra lap is the factor of ten the
+straight ruler had no room for.
+
+00:06:34.917 --> 00:06:38.797 line:2% position:50% align:center
+The dial remembers the digits, and forgets
+the laps.
+
+00:06:38.797 --> 00:06:44.097 line:2% position:50% align:center
+To read a number back from a mark, you
+must also say how many laps you mean.
+
+00:06:44.097 --> 00:06:46.957 line:2% position:50% align:center
+Zero laps gives two point four.
+
+00:06:46.957 --> 00:06:49.357 line:2% position:50% align:center
+One lap gives twenty-four.
+
+00:06:49.357 --> 00:06:52.757 line:2% position:50% align:center
+Minus one lap gives zero point two four.
+
+00:06:53.367 --> 00:06:56.867 line:2% position:50% align:center
+Keep this picture of a spiral and its
+shadow.
+
+00:06:56.867 --> 00:06:59.967 line:2% position:50% align:center
+A mark that can be reached in different
+numbers of laps is
+
+00:06:59.967 --> 00:07:04.107 line:2% position:50% align:center
+exactly what happens to the logarithm in
+the complex numbers.
+
+00:07:04.107 --> 00:07:07.507 line:2% position:50% align:center
+There, nobody folds anything by hand.
+
+00:07:07.507 --> 00:07:10.327 line:2% position:50% align:center
+The exponential does the folding by
+itself.
+
+00:07:11.533 --> 00:07:15.133
+But first, the logarithm on its home
+ground.
+
+00:07:15.133 --> 00:07:17.720
+The exponential function, written e to the
+
+00:07:17.720 --> 00:07:21.733
+x, takes an input and returns a
+multiplier.
+
+00:07:21.733 --> 00:07:24.533
+Adding inputs multiplies outputs.
+
+00:07:24.533 --> 00:07:29.573
+It equals one at zero, and its slope
+everywhere equals its height.
+
+00:07:29.573 --> 00:07:32.173
+The companion video builds it from
+scratch.
+
+00:07:32.783 --> 00:07:36.083
+Three facts about it decide everything.
+
+00:07:36.083 --> 00:07:39.560
+It never outputs zero, because e to the x
+times
+
+00:07:39.560 --> 00:07:43.963
+e to the minus x is e to the zero, which
+is one.
+
+00:07:43.963 --> 00:07:47.163
+It never outputs a negative number,
+because it starts at
+
+00:07:47.163 --> 00:07:51.203
+one and could only turn negative by
+passing through zero.
+
+00:07:51.203 --> 00:07:55.887
+And since its slope is its height, which
+is positive, it only ever
+
+00:07:55.887 --> 00:08:01.003
+climbs, from near zero on the left to as
+large as you like on the right.
+
+00:08:01.003 --> 00:08:04.543
+So every positive number is reached
+exactly once.
+
+00:08:07.150 --> 00:08:09.230
+That makes it reversible.
+
+00:08:09.230 --> 00:08:12.070
+The natural logarithm takes a positive
+number and
+
+00:08:12.070 --> 00:08:15.850
+returns the one input that the exponential
+sends there.
+
+00:08:15.850 --> 00:08:18.890
+The natural logarithm of one is zero.
+
+00:08:18.890 --> 00:08:21.830
+The natural logarithm of e is one.
+
+00:08:21.830 --> 00:08:24.930
+Zero and the negative numbers have no real
+logarithm
+
+00:08:24.930 --> 00:08:28.030
+at all, because the exponential never
+lands on them.
+
+00:08:28.633 --> 00:08:31.433
+The mirror image shows something else.
+
+00:08:31.433 --> 00:08:35.173
+Reflecting the graph swaps rise and run.
+
+00:08:35.173 --> 00:08:37.600
+Where the exponential has slope equal to
+its
+
+00:08:37.600 --> 00:08:41.973
+height, the logarithm at x has slope one
+over x.
+
+00:08:41.973 --> 00:08:45.473
+At one, that slope is exactly one.
+
+00:08:45.473 --> 00:08:52.093
+So the natural logarithm of one point zero
+one is almost exactly zero point zero one.
+
+00:08:52.093 --> 00:08:55.080
+A small percentage change becomes the same
+small
+
+00:08:55.080 --> 00:08:58.873
+step, which is why base e is called
+natural.
+
+00:08:59.483 --> 00:09:01.923
+And this is the ruler again.
+
+00:09:01.923 --> 00:09:05.140
+The natural logarithm is the ruler whose
+step of one
+
+00:09:05.140 --> 00:09:09.563
+multiplies by e, about two point seven one
+eight.
+
+00:09:09.563 --> 00:09:14.300
+The position of a product is still the sum
+of the positions: the logarithm of
+
+00:09:14.300 --> 00:09:21.423
+a times b is the logarithm of a plus the
+logarithm of b, for positive a and b.
+
+00:09:21.423 --> 00:09:24.483
+Other bases are the same ruler stretched.
+
+00:09:24.483 --> 00:09:28.245 line:2% position:50% align:center
+The logarithm base two of x is the natural
+logarithm
+
+00:09:28.245 --> 00:09:31.563 line:2% position:50% align:center
+of x, divided by the natural logarithm of
+two.
+
+00:09:32.167 --> 00:09:34.547 line:2% position:50% align:center
+Here is the inverse at work.
+
+00:09:34.547 --> 00:09:37.847 line:2% position:50% align:center
+Money growing continuously at five percent
+a year is
+
+00:09:37.847 --> 00:09:43.427 line:2% position:50% align:center
+multiplied by e to the zero point zero
+five t after t years.
+
+00:09:43.427 --> 00:09:49.500 line:2% position:50% align:center
+When has it doubled?
+
+00:09:49.500 --> 00:09:52.700 line:2% position:50% align:center
+Take the natural logarithm of both sides.
+
+00:09:52.700 --> 00:09:55.720 line:2% position:50% align:center
+Zero point zero five t equals the natural
+
+00:09:55.720 --> 00:10:00.240 line:2% position:50% align:center
+logarithm of two, about zero point six
+nine three.
+
+00:10:00.240 --> 00:10:04.090 line:2% position:50% align:center
+So t is about thirteen point nine years.
+
+00:10:04.090 --> 00:10:07.451 line:2% position:50% align:center
+That is the rule of seventy for quick
+estimates:
+
+00:10:07.451 --> 00:10:10.240 line:2% position:50% align:center
+divide about seventy by the percentage.
+
+00:10:10.240 --> 00:10:13.580 line:2% position:50% align:center
+To grow a thousandfold takes the natural
+logarithm of a
+
+00:10:13.580 --> 00:10:18.700 line:2% position:50% align:center
+thousand, six point nine one, divided by
+zero point zero five.
+
+00:10:18.700 --> 00:10:22.024 line:2% position:50% align:center
+About a hundred and thirty-eight years,
+close to ten
+
+00:10:22.024 --> 00:10:25.740 line:2% position:50% align:center
+doublings, since two to the tenth is just
+over a thousand.
+
+00:10:26.950 --> 00:10:29.910
+Now let the numbers leave the line.
+
+00:10:29.910 --> 00:10:36.030
+A complex number is a point in the plane,
+or an arrow from zero to that point.
+
+00:10:36.030 --> 00:10:40.830
+Multiplying two of them multiplies their
+lengths and adds their angles.
+
+00:10:40.830 --> 00:10:46.410
+Multiplying by i keeps the length the same
+and turns the arrow a quarter turn.
+
+00:10:46.410 --> 00:10:53.800
+So what is i times i?
+
+00:10:53.800 --> 00:10:59.680
+Two quarter turns make a half turn, so i
+times i is minus one.
+
+00:10:59.680 --> 00:11:03.400
+Lengths multiply and angles add, so a
+slide
+
+00:11:03.400 --> 00:11:06.520
+rule for complex numbers needs two rulers.
+
+00:11:06.520 --> 00:11:11.520
+One for length, which multiplies, so it
+uses the logarithm we just built.
+
+00:11:11.520 --> 00:11:14.280
+And one for angle, which simply adds.
+
+00:11:14.883 --> 00:11:18.383
+The complex exponential packs both
+together.
+
+00:11:18.383 --> 00:11:21.383
+Feed it x plus i times y.
+
+00:11:21.383 --> 00:11:25.183
+The real part x sets the length, e to the
+x.
+
+00:11:25.183 --> 00:11:28.383
+The imaginary part y sets the angle.
+
+00:11:28.383 --> 00:11:33.263 line:2% position:50% align:center
+For instance, take x to be the logarithm
+of two, and y to be a half
+
+00:11:33.263 --> 00:11:40.163 line:2% position:50% align:center
+pi: the length is two, the angle a quarter
+turn, so we land on two i.
+
+00:11:40.767 --> 00:11:43.147
+Watch what that does to a grid.
+
+00:11:43.147 --> 00:11:45.587
+On the left is the input plane.
+
+00:11:45.587 --> 00:11:50.707
+Each horizontal line keeps one angle, so
+it goes to a ray from zero.
+
+00:11:50.707 --> 00:11:54.967
+Each vertical line keeps one length, so it
+goes to a circle.
+
+00:11:54.967 --> 00:12:00.387
+But a vertical line is infinitely long,
+and a circle closes after one lap.
+
+00:12:00.387 --> 00:12:04.687 line:2% position:50% align:center
+So each vertical line wraps around its
+circle again and again.
+
+00:12:05.300 --> 00:12:11.100
+Zero and two pi times i are different
+inputs, and both land on one.
+
+00:12:11.100 --> 00:12:15.610
+So do four pi times i and minus two pi
+times i.
+
+00:12:15.610 --> 00:12:18.860
+Climbing two pi up the input plane carries
+the output
+
+00:12:18.860 --> 00:12:21.860
+once around its circle, back to where it
+started.
+
+00:12:22.467 --> 00:12:24.187
+Here is a question.
+
+00:12:24.187 --> 00:12:31.717
+Which inputs land on minus one?
+
+00:12:31.717 --> 00:12:35.213
+Minus one has length one, so the real part
+of
+
+00:12:35.213 --> 00:12:39.027
+the input is the logarithm of one, which
+is zero.
+
+00:12:39.027 --> 00:12:42.217
+Its angle is a half turn, pi.
+
+00:12:42.217 --> 00:12:46.577
+But pi plus any whole number of laps
+points the same way.
+
+00:12:46.577 --> 00:12:51.120
+So the inputs are pi times i, three pi
+times i, minus pi
+
+00:12:51.120 --> 00:12:56.367
+times i, and so on: a whole column of
+them, two pi apart.
+
+00:12:56.367 --> 00:12:59.397
+Every one is a logarithm of minus one.
+
+00:13:00.000 --> 00:13:02.920
+The same goes for every nonzero number.
+
+00:13:02.920 --> 00:13:06.780
+Its logarithms share one real part, the
+logarithm of its
+
+00:13:06.780 --> 00:13:11.680
+length, and have a whole column of angles,
+one for each lap.
+
+00:13:11.680 --> 00:13:13.800
+Only zero is left out.
+
+00:13:13.800 --> 00:13:19.160
+Its length would have to be e to some x,
+and that is never zero.
+
+00:13:19.160 --> 00:13:22.471
+In the complex numbers, the exponential is
+a dial
+
+00:13:22.471 --> 00:13:25.920
+that forgets laps, just like the folded
+slide rule.
+
+00:13:27.133 --> 00:13:30.500 line:2% position:50% align:center
+If a number has a whole column of
+logarithms, can we
+
+00:13:30.500 --> 00:13:34.253 line:2% position:50% align:center
+at least choose one in a sensible,
+continuous way?
+
+00:13:34.253 --> 00:13:37.811 line:2% position:50% align:center
+Start at one, choose the logarithm zero,
+and walk
+
+00:13:37.811 --> 00:13:41.443 line:2% position:50% align:center
+the number slowly around the circle of
+radius one.
+
+00:13:41.443 --> 00:13:44.333 line:2% position:50% align:center
+Keep the logarithm moving smoothly along
+with it.
+
+00:13:44.933 --> 00:13:47.713 line:2% position:50% align:center
+As the number turns, its logarithm climbs
+
+00:13:47.713 --> 00:13:51.513 line:2% position:50% align:center
+straight up, because only the angle
+changes.
+
+00:13:51.513 --> 00:13:56.823 line:2% position:50% align:center
+A quarter of the way round, the logarithm
+is pi over two times i.
+
+00:13:56.823 --> 00:14:01.483 line:2% position:50% align:center
+Halfway round, at minus one, it is pi
+times i.
+
+00:14:01.483 --> 00:14:10.033 line:2% position:50% align:center
+When the number arrives back at one, what
+is the logarithm?
+
+00:14:10.033 --> 00:14:12.453 line:2% position:50% align:center
+Two pi times i.
+
+00:14:12.453 --> 00:14:14.183 line:2% position:50% align:center
+The number came back.
+
+00:14:14.183 --> 00:14:16.303 line:2% position:50% align:center
+The logarithm did not.
+
+00:14:16.303 --> 00:14:20.443 line:2% position:50% align:center
+It finished one lap higher in the column
+than where it began.
+
+00:14:20.443 --> 00:14:23.303 line:2% position:50% align:center
+Go around again and it climbs again.
+
+00:14:23.303 --> 00:14:25.873 line:2% position:50% align:center
+Go the other way and it comes back down.
+
+00:14:26.483 --> 00:14:30.583 line:2% position:50% align:center
+A loop that does not go around zero
+behaves differently.
+
+00:14:30.583 --> 00:14:35.423 line:2% position:50% align:center
+Here is a circle off to one side, which
+zero is not inside.
+
+00:14:35.423 --> 00:14:40.243 line:2% position:50% align:center
+Walk the number once around it, carrying
+the logarithm along as before.
+
+00:14:40.243 --> 00:14:47.817 line:2% position:50% align:center
+Will the logarithm come back to where it
+began?
+
+00:14:47.817 --> 00:14:52.377 line:2% position:50% align:center
+It does: it drifts up and down, and
+returns exactly.
+
+00:14:52.377 --> 00:14:56.557 line:2% position:50% align:center
+What matters is how many times the loop
+winds around zero.
+
+00:14:56.557 --> 00:14:59.907 line:2% position:50% align:center
+That count is the winding number, and
+every
+
+00:14:59.907 --> 00:15:03.257 line:2% position:50% align:center
+lap moves the logarithm by two pi times i.
+
+00:15:03.867 --> 00:15:08.367 line:2% position:50% align:center
+Could some other choice of logarithm be
+continuous all the way round?
+
+00:15:08.367 --> 00:15:14.747 line:2% position:50% align:center
+Try the obvious candidate: the logarithm
+whose angle stays between minus pi and pi.
+
+00:15:14.747 --> 00:15:20.257 line:2% position:50% align:center
+Walk round again, comparing it with ours,
+and track the gap in whole laps.
+
+00:15:20.257 --> 00:15:24.945 line:2% position:50% align:center
+The gap sits at zero until the number
+passes minus one, then jumps
+
+00:15:24.945 --> 00:15:29.777 line:2% position:50% align:center
+down a lap, because the candidate's angle
+leaps from pi to minus pi.
+
+00:15:29.777 --> 00:15:32.427 line:2% position:50% align:center
+So that candidate breaks at minus one.
+
+00:15:33.033 --> 00:15:35.260 line:2% position:50% align:center
+Now suppose someone hands us a logarithm
+
+00:15:35.260 --> 00:15:38.443 line:2% position:50% align:center
+that is continuous everywhere on the
+circle.
+
+00:15:38.443 --> 00:15:41.660 line:2% position:50% align:center
+At every point it differs from ours by a
+whole number
+
+00:15:41.660 --> 00:15:45.733 line:2% position:50% align:center
+of laps, because both undo the same
+exponential.
+
+00:15:45.733 --> 00:15:50.923 line:2% position:50% align:center
+A gap that is always a whole number of
+laps, and varies continuously, can never
+
+00:15:50.923 --> 00:15:55.913 line:2% position:50% align:center
+jump from one whole number to the next, so
+it stays fixed all the way round.
+
+00:15:56.517 --> 00:15:59.257 line:2% position:50% align:center
+Now follow both back to one.
+
+00:15:59.257 --> 00:16:01.961 line:2% position:50% align:center
+Theirs is a function of the point, so it
+
+00:16:01.961 --> 00:16:04.937 line:2% position:50% align:center
+returns to exactly the value it started
+with.
+
+00:16:04.937 --> 00:16:08.327 line:2% position:50% align:center
+Ours finishes two pi times i higher.
+
+00:16:08.327 --> 00:16:13.547 line:2% position:50% align:center
+So the gap has changed by one lap, and we
+just saw that it cannot change.
+
+00:16:13.547 --> 00:16:15.587 line:2% position:50% align:center
+That is a contradiction.
+
+00:16:15.587 --> 00:16:20.487 line:2% position:50% align:center
+No continuous logarithm exists on any loop
+that winds around zero.
+
+00:16:20.487 --> 00:16:22.117 line:2% position:50% align:center
+Something has to give.
+
+00:16:23.317 --> 00:16:27.077
+What gives is the freedom to walk all the
+way around.
+
+00:16:27.077 --> 00:16:32.077
+Draw a line from zero out to infinity, and
+forbid crossing it.
+
+00:16:32.077 --> 00:16:37.757
+Now no loop can go around zero, and a
+continuous choice becomes possible.
+
+00:16:37.757 --> 00:16:40.037
+The line is called a branch cut.
+
+00:16:40.650 --> 00:16:44.310
+The usual choice removes zero and the
+negative numbers,
+
+00:16:44.310 --> 00:16:48.320
+and keeps angles strictly between minus pi
+and pi.
+
+00:16:48.320 --> 00:16:53.050
+The result is the principal logarithm,
+written with a capital L.
+
+00:16:53.050 --> 00:16:56.900
+On this cut plane it is a single, well
+behaved function, with
+
+00:16:56.900 --> 00:17:02.030
+derivative one over z at every point, just
+as on the positive numbers.
+
+00:17:02.030 --> 00:17:07.870
+For example, i has length one and a
+quarter turn of angle, so Log of i
+
+00:17:07.870 --> 00:17:14.570
+is pi over two times i, and Log of minus i
+is minus pi over two times i.
+
+00:17:15.183 --> 00:17:17.743
+Here is where the cut plane goes.
+
+00:17:17.743 --> 00:17:20.783
+The principal logarithm unrolls it into a
+horizontal
+
+00:17:20.783 --> 00:17:25.163
+strip, between height minus pi and height
+pi.
+
+00:17:25.163 --> 00:17:27.743
+Circles become vertical segments.
+
+00:17:27.743 --> 00:17:30.623
+Rays become horizontal lines.
+
+00:17:30.623 --> 00:17:33.443
+Now roll it back, and mark the two sides
+of
+
+00:17:33.443 --> 00:17:37.703
+the cut: one just above it, one just
+below.
+
+00:17:37.703 --> 00:17:44.517
+Where will they end up on the strip?
+
+00:17:44.517 --> 00:17:49.987
+They land on opposite edges of the strip,
+the top edge and the bottom edge.
+
+00:17:49.987 --> 00:17:52.980 line:2% position:50% align:center
+That is because just above the cut the
+angle is
+
+00:17:52.980 --> 00:17:57.497 line:2% position:50% align:center
+close to pi, and just below it, close to
+minus pi.
+
+00:17:57.497 --> 00:18:01.717 line:2% position:50% align:center
+So a path that crosses the cut would have
+to jump by two pi.
+
+00:18:02.317 --> 00:18:05.717
+The cut is a choice, not a crack.
+
+00:18:05.717 --> 00:18:10.017
+Cut along the upward imaginary axis
+instead, and the angles run over
+
+00:18:10.017 --> 00:18:15.217
+a different window, from minus three
+halves of pi up to a half pi.
+
+00:18:15.217 --> 00:18:17.497
+Or cut along a spiral.
+
+00:18:17.497 --> 00:18:21.560
+Any curve that runs from zero out to
+infinity without crossing itself
+
+00:18:21.560 --> 00:18:26.917
+will do: in the plane that is left, no
+loop can wind around zero.
+
+00:18:26.917 --> 00:18:30.497
+Zero is the one point every cut must
+touch.
+
+00:18:30.497 --> 00:18:32.477
+It is called the branch point.
+
+00:18:33.083 --> 00:18:34.923
+Two cautions.
+
+00:18:34.923 --> 00:18:37.923
+On the negative numbers themselves, the
+usual convention
+
+00:18:37.923 --> 00:18:43.113
+assigns the angle pi, so the principal
+value exists there too.
+
+00:18:43.113 --> 00:18:48.773
+But it jumps: just below the cut, the
+angles are close to minus pi.
+
+00:18:48.773 --> 00:18:53.593
+And the principal logarithm undoes the
+exponential from one side only.
+
+00:18:53.593 --> 00:18:59.163
+Exponentiating the logarithm of z gives
+back z for every nonzero z.
+
+00:18:59.163 --> 00:19:03.279 line:2% position:50% align:center
+But the logarithm of e to the w gives back
+w only
+
+00:19:03.279 --> 00:19:07.823 line:2% position:50% align:center
+when the height of w is above minus pi and
+at most pi.
+
+00:19:07.823 --> 00:19:11.803 line:2% position:50% align:center
+That is the strip, with its top edge added
+by the convention.
+
+00:19:13.017 --> 00:19:18.957
+On the positive numbers, the logarithm of
+a product is the sum of the logarithms.
+
+00:19:18.957 --> 00:19:20.767
+Does that survive the cut?
+
+00:19:20.767 --> 00:19:25.437
+Take a number of length one, at an angle
+of three quarters of pi.
+
+00:19:25.437 --> 00:19:26.697
+Square it.
+
+00:19:26.697 --> 00:19:31.827
+The lengths multiply to one, and the
+angles add to one and a half pi.
+
+00:19:31.827 --> 00:19:33.960
+But the principal logarithm only reports
+
+00:19:33.960 --> 00:19:38.137
+angles in its window, from minus pi up to
+pi.
+
+00:19:38.137 --> 00:19:45.800
+So what angle will it report for the
+square?
+
+00:19:45.800 --> 00:19:50.060
+Not one and a half pi: that is outside the
+window.
+
+00:19:50.060 --> 00:19:54.150
+It reports the same direction as minus a
+half pi.
+
+00:19:54.150 --> 00:19:58.745
+So the sum of the two logarithms is one
+and a half pi times i,
+
+00:19:58.745 --> 00:20:03.340
+while the logarithm of the product is
+minus a half pi times i.
+
+00:20:03.340 --> 00:20:07.800
+They differ by two pi times i, exactly one
+lap.
+
+00:20:08.400 --> 00:20:11.400
+This is the slide rule's decimal point
+again.
+
+00:20:11.400 --> 00:20:15.480
+When the sum of the angles runs past the
+window, the chosen logarithm
+
+00:20:15.480 --> 00:20:20.260
+drops a lap, just as the slide rule's
+reading dropped a factor of ten.
+
+00:20:20.260 --> 00:20:24.200 line:2% position:50% align:center
+The rule that survives is this: the
+logarithm of a product
+
+00:20:24.200 --> 00:20:28.900 line:2% position:50% align:center
+is the sum of the logarithms, plus a whole
+number of laps.
+
+00:20:28.900 --> 00:20:30.940 line:2% position:50% align:center
+The rule did not break.
+
+00:20:30.940 --> 00:20:33.100 line:2% position:50% align:center
+It now keeps a lap count.
+
+00:20:33.100 --> 00:20:37.600 line:2% position:50% align:center
+For our square, the count is minus one:
+one lap down.
+
+00:20:38.200 --> 00:20:41.760 line:2% position:50% align:center
+That lap count hides inside a famous
+puzzle.
+
+00:20:41.760 --> 00:20:45.020
+Minus one is i times i.
+
+00:20:45.020 --> 00:20:48.420
+Write i as the square root of minus one.
+
+00:20:48.420 --> 00:20:52.960
+Combine the two roots into the root of
+minus one times minus one.
+
+00:20:52.960 --> 00:20:55.940
+That is the root of one, which is one.
+
+00:20:55.940 --> 00:20:58.940
+So minus one equals one.
+
+00:20:58.940 --> 00:21:05.050
+Which step broke?
+
+00:21:05.050 --> 00:21:07.280
+Combining the roots.
+
+00:21:07.280 --> 00:21:12.140
+Here a square root is e to the power of
+half a logarithm.
+
+00:21:12.140 --> 00:21:16.235
+Each minus one has principal angle pi, so
+the two
+
+00:21:16.235 --> 00:21:20.330
+roots together turn by pi and point at
+minus one.
+
+00:21:20.330 --> 00:21:25.800
+But the product, one, has principal angle
+zero, not two pi.
+
+00:21:25.800 --> 00:21:28.380
+Taking half of the lost lap leaves a half
+
+00:21:28.380 --> 00:21:32.570
+turn, and a half turn is a factor of minus
+one.
+
+00:21:32.570 --> 00:21:37.450 line:2% position:50% align:center
+The root of a product equals the product
+of the roots only up to that sign.
+
+00:21:38.650 --> 00:21:40.570
+One more step up.
+
+00:21:40.570 --> 00:21:45.410
+A two by two matrix is a recipe for moving
+every point of the plane.
+
+00:21:45.410 --> 00:21:50.250
+It says where the two unit arrows go, and
+everything else follows along.
+
+00:21:50.250 --> 00:21:55.770
+A grid shows the result: turned,
+stretched, sheared, or flipped.
+
+00:21:55.770 --> 00:21:59.168 line:2% position:50% align:center
+The matrix only says where each point ends
+up,
+
+00:21:59.168 --> 00:22:02.490 line:2% position:50% align:center
+not how it gets there; the travel comes
+next.
+
+00:22:03.100 --> 00:22:07.680 line:2% position:50% align:center
+Matrices have an exponential too, built
+from the same series.
+
+00:22:07.680 --> 00:22:10.290
+Here is the picture that matters.
+
+00:22:10.290 --> 00:22:14.690
+A matrix X can be read as a velocity: at
+each point
+
+00:22:14.690 --> 00:22:18.400
+it gives an arrow saying which way that
+point moves.
+
+00:22:18.400 --> 00:22:22.320
+Let every point follow its arrow for one
+unit of time.
+
+00:22:22.320 --> 00:22:25.900
+Where everything ends up is the matrix e
+to the X.
+
+00:22:26.500 --> 00:22:30.120
+A logarithm of a matrix A is then a
+velocity that
+
+00:22:30.120 --> 00:22:34.760
+carries the plane exactly onto A in one
+unit of time.
+
+00:22:34.760 --> 00:22:40.310
+So the question of whether a logarithm
+exists becomes a question about motion.
+
+00:22:40.310 --> 00:22:43.700
+Is there a steady flow that ends at this
+transformation?
+
+00:22:44.300 --> 00:22:46.540
+Start with a quarter turn.
+
+00:22:46.540 --> 00:22:51.600
+The velocity that turns the plane a
+quarter turn per unit of time reaches it.
+
+00:22:51.600 --> 00:22:55.760
+But so does one that spins one and a
+quarter turns per unit of time.
+
+00:22:55.760 --> 00:22:58.700
+So does three quarters of a turn the other
+way.
+
+00:22:58.700 --> 00:23:02.140 line:2% position:50% align:center
+This is the column of complex logarithms
+again.
+
+00:23:02.140 --> 00:23:05.590 line:2% position:50% align:center
+Matrices that only turn and scale behave
+exactly
+
+00:23:05.590 --> 00:23:09.260 line:2% position:50% align:center
+like complex numbers, and so do their
+exponentials.
+
+00:23:10.467 --> 00:23:15.667
+Now the identity, the matrix that leaves
+every point where it is.
+
+00:23:15.667 --> 00:23:18.607
+Zero velocity is one logarithm.
+
+00:23:18.607 --> 00:23:21.907
+One full turn per unit of time is another.
+
+00:23:21.907 --> 00:23:23.907
+With matrices, there are more.
+
+00:23:24.517 --> 00:23:27.397
+Squash the circle into an ellipse.
+
+00:23:27.397 --> 00:23:30.780
+A flow that carries every point once
+around its own ellipse
+
+00:23:30.780 --> 00:23:35.917
+in one unit of time also brings the whole
+plane home exactly.
+
+00:23:35.917 --> 00:23:39.277
+Stretch or tilt the ellipse and you get
+another.
+
+00:23:39.277 --> 00:23:43.057
+The identity has infinitely many real
+logarithms, and
+
+00:23:43.057 --> 00:23:46.837 line:2% position:50% align:center
+not just a column of them: a whole
+continuous family.
+
+00:23:47.450 --> 00:23:50.190
+Which one should a calculation return?
+
+00:23:50.190 --> 00:23:53.270
+For numbers, the principal logarithm kept
+the angle
+
+00:23:53.270 --> 00:23:58.010
+within a half turn either way, between
+minus pi and pi.
+
+00:23:58.010 --> 00:24:00.370
+Matrix flows turn too.
+
+00:24:00.370 --> 00:24:03.520
+Every steady flow of the plane either
+turns round at a
+
+00:24:03.520 --> 00:24:06.910
+steady rate, sweeping round stretched
+circles, perhaps
+
+00:24:06.910 --> 00:24:11.570
+spiralling in or out, or does not turn
+round at all.
+
+00:24:11.570 --> 00:24:15.450
+The zero flow turns by nothing in its unit
+of time.
+
+00:24:15.450 --> 00:24:18.970
+Each ellipse flow turns a full lap, two
+pi.
+
+00:24:19.583 --> 00:24:25.583
+So use the same rule: keep the turning
+strictly between minus pi and pi.
+
+00:24:25.583 --> 00:24:29.400
+Whenever a matrix sends no direction to
+zero or to a negative
+
+00:24:29.400 --> 00:24:34.583
+multiple of itself, exactly one of its
+logarithms obeys that rule.
+
+00:24:34.583 --> 00:24:40.083
+It is called the principal logarithm, and
+for a real matrix it is real.
+
+00:24:40.083 --> 00:24:43.923
+For the identity it is the flow that does
+nothing.
+
+00:24:43.923 --> 00:24:47.163 line:2% position:50% align:center
+On screen is the textbook version, which
+counts the turning
+
+00:24:47.163 --> 00:24:50.783 line:2% position:50% align:center
+with the imaginary parts of what are
+called eigenvalues.
+
+00:24:58.233 --> 00:25:01.613
+Can every matrix be reached by a steady
+flow?
+
+00:25:01.613 --> 00:25:05.033
+Try a mirror that flips the plane left to
+right.
+
+00:25:05.033 --> 00:25:10.233
+Compare a shape with a handedness, like
+the letter F, before and after.
+
+00:25:10.233 --> 00:25:13.140
+The mirror turns it into its reflection,
+and each
+
+00:25:13.140 --> 00:25:17.013
+dashed line only pairs a corner with where
+it lands.
+
+00:25:17.013 --> 00:25:20.060
+Averaging the two matrices, the simplest
+guess at a
+
+00:25:20.060 --> 00:25:24.393
+halfway point, squashes the whole plane
+flat onto a line.
+
+00:25:25.000 --> 00:25:29.160
+Track the signed area of a unit square
+while a flow runs.
+
+00:25:29.160 --> 00:25:30.920
+It starts at one.
+
+00:25:30.920 --> 00:25:33.860
+It changes smoothly as the plane moves.
+
+00:25:33.860 --> 00:25:37.280
+And it can never reach zero, because at
+every moment the
+
+00:25:37.280 --> 00:25:41.740
+flow can be run backwards, so nothing has
+been squashed flat.
+
+00:25:41.740 --> 00:25:47.340
+A smooth quantity that starts at one and
+never touches zero stays positive.
+
+00:25:47.340 --> 00:25:51.790 line:2% position:50% align:center
+The mirror has signed area minus one, so
+no real flow reaches
+
+00:25:51.790 --> 00:25:55.720 line:2% position:50% align:center
+it, not even one that changes its velocity
+as it runs.
+
+00:25:56.333 --> 00:26:00.253 line:2% position:50% align:center
+That factor on signed area is called the
+determinant.
+
+00:26:00.253 --> 00:26:05.593 line:2% position:50% align:center
+So a real matrix with a negative
+determinant has no real logarithm.
+
+00:26:05.593 --> 00:26:08.053 line:2% position:50% align:center
+Is a positive determinant enough?
+
+00:26:08.053 --> 00:26:09.373
+Try this one.
+
+00:26:09.373 --> 00:26:12.573
+Double the length along one axis and flip
+it.
+
+00:26:12.573 --> 00:26:16.293
+Halve the length along the other axis and
+flip that too.
+
+00:26:16.293 --> 00:26:19.353
+The area is multiplied by plus one.
+
+00:26:19.353 --> 00:26:22.773
+It is even a half turn followed by a
+stretch.
+
+00:26:22.773 --> 00:26:30.150
+Can a single steady flow end here?
+
+00:26:30.150 --> 00:26:31.220
+No.
+
+00:26:31.220 --> 00:26:37.430
+Suppose some steady flow X did end here,
+so that A is e to the X.
+
+00:26:37.430 --> 00:26:41.240
+Then X and A commute: doing one and then
+the
+
+00:26:41.240 --> 00:26:44.490
+other gives the same result in either
+order.
+
+00:26:44.490 --> 00:26:45.800
+Here is why.
+
+00:26:45.800 --> 00:26:49.467
+A is a sum of powers of X: the identity,
+
+00:26:49.467 --> 00:26:53.410
+plus X, plus a half of X squared, and so
+on.
+
+00:26:53.410 --> 00:26:57.370
+Multiplying X by any power of X, on either
+side, gives
+
+00:26:57.370 --> 00:27:02.310
+the next power, so X slides past every
+term of the sum.
+
+00:27:02.917 --> 00:27:05.457
+Now see what commuting costs.
+
+00:27:05.457 --> 00:27:09.257
+Take a vector with two nonzero parts, and
+send it along
+
+00:27:09.257 --> 00:27:15.117
+both routes: first A and then X, or first
+X and then A.
+
+00:27:15.117 --> 00:27:20.537
+If X has an entry off its diagonal, the
+two routes end in different places.
+
+00:27:20.537 --> 00:27:24.756
+Each part of the gap is an off-diagonal
+entry of X, times the
+
+00:27:24.756 --> 00:27:29.397
+difference between A's two stretches,
+times one part of the vector.
+
+00:27:29.397 --> 00:27:32.080
+Those stretches differ, so the routes can
+only
+
+00:27:32.080 --> 00:27:35.637
+agree when every entry off the diagonal is
+zero.
+
+00:27:36.250 --> 00:27:38.570
+So X is diagonal.
+
+00:27:38.570 --> 00:27:45.350
+Its flow only stretches the two axes, each
+by e raised to a real rate times the time.
+
+00:27:45.350 --> 00:27:48.900
+A real exponential is always positive, so
+this flow
+
+00:27:48.900 --> 00:27:53.970
+never reverses either axis, but A reverses
+both.
+
+00:27:53.970 --> 00:27:56.940
+A half turn and a stretch each have a
+steady flow of
+
+00:27:56.940 --> 00:28:00.770
+their own, and running one after the other
+gets here.
+
+00:28:00.770 --> 00:28:03.610
+But no single steady flow does both.
+
+00:28:04.217 --> 00:28:07.657
+Compare flipping both axes by the same
+amount.
+
+00:28:07.657 --> 00:28:12.757
+That is a plain half turn, and a steady
+spin reaches it easily.
+
+00:28:12.757 --> 00:28:15.237
+Why does the argument fail there?
+
+00:28:15.237 --> 00:28:19.197
+Its two stretches are equal, so nothing
+forces a logarithm to
+
+00:28:19.197 --> 00:28:24.297
+keep the axes, and the spin, which turns
+every axis, is allowed.
+
+00:28:24.297 --> 00:28:29.377
+In two dimensions that is the whole story:
+a matrix that sends some direction
+
+00:28:29.377 --> 00:28:33.757
+to a negative multiple of itself has a
+real logarithm only when it does
+
+00:28:33.757 --> 00:28:38.937
+that to every direction alike, a half turn
+combined with an equal stretch.
+
+00:28:39.550 --> 00:28:45.140 line:2% position:50% align:center
+In higher dimensions, the exact rule, from
+a nineteen sixty-six paper by Culver,
+
+00:28:45.140 --> 00:28:50.660 line:2% position:50% align:center
+asks that the matrix's blocks for each
+negative stretch come in matching pairs.
+
+00:28:50.660 --> 00:28:53.070 line:2% position:50% align:center
+On screen is the precise version.
+
+00:29:11.417 --> 00:29:16.137 line:2% position:50% align:center
+Allow complex matrices, and the obstacle
+disappears.
+
+00:29:16.137 --> 00:29:22.237 line:2% position:50% align:center
+A flip is a half turn in a complex
+direction, with logarithm pi times i.
+
+00:29:22.237 --> 00:29:26.467 line:2% position:50% align:center
+Every invertible complex matrix has a
+complex logarithm.
+
+00:29:26.467 --> 00:29:28.960 line:2% position:50% align:center
+Only the singular ones, which squash the
+plane
+
+00:29:28.960 --> 00:29:32.857 line:2% position:50% align:center
+flat, have none, for the same reason zero
+had none.
+
+00:29:34.067 --> 00:29:36.067
+Look back along the way.
+
+00:29:36.067 --> 00:29:40.007
+On the positive numbers the exponential
+forgets nothing.
+
+00:29:40.007 --> 00:29:44.317
+Every output has exactly one input, and
+the logarithm is a
+
+00:29:44.317 --> 00:29:48.627
+perfect ruler for ratios, the keyboard and
+the slide rule.
+
+00:29:49.233 --> 00:29:53.193
+Fold the ruler into a dial, and it forgets
+the decade.
+
+00:29:53.193 --> 00:29:55.780
+In the complex plane the exponential does
+
+00:29:55.780 --> 00:29:59.393
+that folding by itself, and forgets the
+laps.
+
+00:29:59.393 --> 00:30:04.433
+A branch cut is a decision about laps, and
+the product rule keeps a lap count.
+
+00:30:05.033 --> 00:30:08.936
+With matrices the exponential forgets even
+more:
+
+00:30:08.936 --> 00:30:12.673
+whole families of flows end in the same
+place.
+
+00:30:12.673 --> 00:30:18.033
+And some places cannot be reached by any
+single steady real flow at all.
+
+00:30:18.033 --> 00:30:22.273
+In every setting, a logarithm asks the
+same question.
+
+00:30:22.273 --> 00:30:24.553
+Which steady motion got us here?
+
+00:30:25.167 --> 00:30:28.727
+One more motion, now in three dimensions.
+
+00:30:28.727 --> 00:30:32.920
+Here is a solid cube, and a marked axis: a
+rod
+
+00:30:32.920 --> 00:30:36.287
+through the centres of its top and bottom
+faces.
+
+00:30:36.287 --> 00:30:40.627
+A steady spin about that rod carries every
+corner round its own circle
+
+00:30:40.627 --> 00:30:45.887
+about the rod, all at the same rate, while
+the rod itself stays put.
+
+00:30:45.887 --> 00:30:50.160
+Follow one corner: spinning at half a lap
+per unit of time,
+
+00:30:50.160 --> 00:30:54.507
+after one unit it has gone exactly halfway
+round its circle.
+
+00:30:54.507 --> 00:30:59.727
+Every other corner has too, so the whole
+cube has made a half turn about the rod.
+
+00:31:00.333 --> 00:31:02.173
+Here is the puzzle.
+
+00:31:02.173 --> 00:31:04.620
+How many different steady spins end at
+
+00:31:04.620 --> 00:31:08.773
+exactly this half turn after one unit of
+time?
+
+00:31:08.773 --> 00:31:17.517
+Think about the laps, the direction of
+spin, and the axis.
+
+00:31:17.517 --> 00:31:21.217
+Here is the answer, one hint at a time.
+
+00:31:21.217 --> 00:31:26.657
+Laps first: one and a half laps per unit
+of time also ends here,
+
+00:31:26.657 --> 00:31:31.277
+and so does two and a half, and so does
+any odd number of half laps.
+
+00:31:31.883 --> 00:31:37.963
+Direction next: half a lap the other way
+lands every corner in the same place.
+
+00:31:37.963 --> 00:31:42.307
+Last, the axis: a finished spin leaves
+every point of its
+
+00:31:42.307 --> 00:31:46.200
+own axis where it was, and our half turn
+leaves only the
+
+00:31:46.200 --> 00:31:50.683
+rod's points in place, so any other axis
+is ruled out.
+
+00:31:50.683 --> 00:31:55.803
+So infinitely many steady spins end here,
+all about this one rod.
+
+00:31:56.417 --> 00:32:00.716
+The two slowest, half a lap each way, turn
+by exactly
+
+00:32:00.716 --> 00:32:04.577
+pi, the very edge of the principal window,
+and neither
+
+00:32:04.577 --> 00:32:09.647
+is slower, so this half turn has no
+principal logarithm.
+
+00:32:09.647 --> 00:32:12.417 line:2% position:50% align:center
+For the number minus one, a convention
+broke the
+
+00:32:12.417 --> 00:32:16.817 line:2% position:50% align:center
+same tie; here the honest answer is the
+whole family.

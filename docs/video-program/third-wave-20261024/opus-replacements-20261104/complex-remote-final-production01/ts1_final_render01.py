@@ -30,8 +30,8 @@ import time
 import wave
 
 HERE = Path(__file__).resolve().parent
-CHAIN = HERE.parent / 'complex-remote-ts1-pipeline01/chain02-n2/ts1_chain02_n2.py'
-CHAIN_SHA256 = '64502efaea1bffb1a7e852f43d2679ea9baca29d0d9b622041d7205dd6b68a45'
+CHAIN = HERE.parent / 'complex-remote-ts1-pipeline01/chain03/ts1_chain03.py'
+CHAIN_SHA256 = '681199ff28409ecb9fc6c133f8ad4ff4f55e799ad4022f714aa04a3d8a3c5c62'
 with CHAIN.open('rb') as handle:
     assert hashlib.file_digest(handle, 'sha256').hexdigest() == CHAIN_SHA256, 'Sealed chain changed'
 SPEC = importlib.util.spec_from_file_location('pinned_chain', CHAIN)

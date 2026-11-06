@@ -1,0 +1,70 @@
+=== 1. inputs measured now; the master and both native sidecars are untouched
+PASS  script.tsv  [559afa3698222952]
+PASS  report.json  [09c01854aabba0c0]
+PASS  verification.json  [f40e3999cf4f3400]
+PASS  logarithm_mysteries.en.srt  [c9321cd7a2912d44]
+PASS  full-large.json  [50d281e7f40b1c01]
+PASS  command.log  [4113e65f9c4e91a3]
+PASS  command.log  [1c7fb420b88a6557]
+PASS  command.log  [8d20c0079989fd2d]
+PASS  command.log  [3e479160bebb7daf]
+PASS  command.log  [5145e630ed8be7f0]
+PASS  logarithm_mysteries_master.mp4  [8534ec211790fb84]
+PASS  logarithm_mysteries.en.vtt  [45833988985413f3]
+PASS  caption-interval-audit01.py  [3cc2643615ce5263]
+=== 2. rebuilt timelines + report reproduce the native sentence edges
+PASS  13 rebuilt timelines give the 80 cues in script order  [80 cues]
+PASS  cue starts equal verification frames / 60
+PASS  all 364 native sentence starts reproduced within 1 ms  [worst 0.333 ms]
+PASS  native sentence ends: exact, or later (a hold), never earlier  [351 exact, 13 held]
+=== 3. only inside-sentence times changed
+PASS  475 blocks; words, line breaks, sentence starts and ends all equal  [475 blocks]
+PASS  plant: a sentence start moved by 1 ms is caught
+PASS  plant: changed text is caught
+PASS  111 boundaries tabled
+PASS  the tool moved exactly the planned 65 boundaries to the planned times  [65 moved]
+PASS  retiming.json binds the real SRT, script, report
+PASS  no boundary was refused by the tool for shape
+PASS  native SRT ends with one more newline than the tool writes; no other tail change
+PASS  SRT otherwise differs only on timestamp lines  [129 lines]
+=== 4. the new VTT says what the new SRT says
+PASS  VTT header
+PASS  VTT equals SRT in every block  [475 cues]
+PASS  native VTT has the same one extra final newline
+PASS  VTT otherwise differs from native VTT only on timestamp lines  [129 lines]
+=== 5. the production caption screen, unchanged, on both files
+  native: 475 captions, over 20 cps 0, lines over 42 0, fastest 17.13 cps block 63
+  new: 475 captions, over 20 cps 0, lines over 42 0, fastest 18.753 cps block 294
+PASS  new SRT: 0 over 20 cps, 0 lines over 42
+  native: median 13.31 cps, over 15: 61, over 17: 1, over 18: 0, over 19: 0; shortest block 1.030 s, under 1.5 s: 6
+  new: median 13.32 cps, over 15: 87, over 17: 17, over 18: 6, over 19: 0; shortest block 1.030 s, under 1.5 s: 6
+  five fastest new blocks: [(294, 18.75, 'But the principal logarithm only reports'), (108, 18.71, 'A mark that can be reached in different numb'), (281, 18.67, 'On the negative numbers themselves, the usua'), (436, 18.45, 'Only the singular ones, which squash the pla'), (372, 18.21, 'On screen is the textbook version, which cou')]
+=== 6. lags, word onset minus block start; negative means the word is spoken before its block appears
+  ASR02 and take rows reuse the marks' own sources, so their after values are near zero by construction.
+  ASR02 master onset
+    before: n 103, median -0.350, worst -1.267, latest +0.496, |lag|>1.0: 3, >0.75: 13, >0.5: 32, >0.25: 65
+    after:  n 103, median -0.010, worst -0.553, latest +0.173, |lag|>1.0: 0, >0.75: 0, >0.5: 1, >0.25: 4
+  take onset
+    before: n 105, median -0.345, worst -1.250, latest +0.505, |lag|>1.0: 3, >0.75: 14, >0.5: 33, >0.25: 69
+    after:  n 105, median -0.007, worst -0.540, latest +0.176, |lag|>1.0: 0, >0.75: 0, >0.5: 1, >0.25: 5
+  estimate (later of both, quiet-run rules)
+    before: n 105, median -0.340, worst -1.155, latest +0.565, |lag|>1.0: 3, >0.75: 12, >0.5: 30, >0.25: 65
+    after:  n 105, median +0.000, worst -0.241, latest +0.200, |lag|>1.0: 0, >0.75: 0, >0.5: 0, >0.25: 0
+  worst before, by the estimate: [(145, 'a', -1.155, 0.0), (409, 'both', -1.03, -0.0), (364, 'spiralling', -1.022, 0.0), (262, 'strip,', -0.944, 0.0), (178, 'pi:', -0.922, 0.0), (418, 'never', -0.893, 0.0), (282, 'assigns', -0.884, 0.0), (295, 'angles', -0.871, -0.0), (136, 'height,', -0.822, 0.0), (151, 'multiplied', -0.817, -0.0), (354, 'in', -0.804, -0.0), (277, 'will', -0.789, -0.0)]
+  worst after, by the estimate:  [(243, 'returns', -0.241), (287, 'when', -0.236), (148, 'of', -0.222), (228, 'lap', -0.207), (441, 'perfect', 0.2), (457, 'after', 0.197), (204, 'that', -0.191), (70, 'moving', -0.186), (468, 'own', 0.176), (27, 'the', -0.162), (56, 'its', -0.155), (100, 'hundred', -0.15)]
+  worst before, ASR02 alone:     [(409, 'both', -1.267), (145, 'a', -1.155), (364, 'spiralling', -1.052), (17, 'and', -0.98), (262, 'strip,', -0.947), (178, 'pi:', -0.925), (282, 'assigns', -0.907), (418, 'never', -0.893), (295, 'angles', -0.871), (151, 'multiplied', -0.824), (136, 'height,', -0.822), (354, 'in', -0.804)]
+  ASR02 minus take at 103 boundaries: median +0.000, |d|>0.1: 6, >0.2: 3, >0.3: 1
+=== 7. every moved boundary has speech energy right after it
+PASS  at least one frame at or above -40 dBFS within 0.2 s after each new boundary  [[]]
+=== 8. boundaries left unresolved, with the take words around them
+  block 3 00_1 'ten,': starts 10.133 in its cue; recording time, take words: [('55,', 7.98, 9.06), ('110,', 9.06, 10.46), ('220,', 10.46, 11.9), ('440,', 11.9, 13.66)]
+  block 4 00_1 'eighty,': starts 14.861 in its cue; recording time, take words: [('880,', 13.66, 15.06), ('1760,', 15.06, 16.72), ('and', 16.72, 16.76), ('3520', 16.76, 17.86)]
+  block 47 01_4 'five': starts 4.663 in its cue; recording time, take words: [('threes', 2.58, 3.04), ('multiplied', 3.04, 3.58), ('together', 3.58, 4.18), ('make', 4.18, 4.6), ('531,441.', 4.6, 8.3)]
+  block 49 01_4 'five': starts 9.420 in its cue; recording time, take words: [('Nineteen', 8.3, 8.84), ('twos', 8.84, 9.38), ('make', 9.38, 9.72), ('524,288.', 9.72, 13.34)]
+  block 88 02_5 'and': starts 17.461 in its cue; recording time, take words: [('24', 15.4, 15.96), ('and', 15.96, 16.42), ('240', 16.42, 17.32), ('all', 17.32, 18.02), ('live', 18.02, 18.38), ('on', 18.38, 18.56), ('the', 18.56, 18.7), ('same', 18.7, 19.02), ('mark.', 19.02, 19.3)]
+  block 90 02_5 'six': starts 23.742 in its cue; recording time, take words: [('track.', 21.68, 22.76), ('4', 22.76, 22.96), ('times', 22.96, 23.18), ('6', 23.18, 23.56), ('is', 23.56, 23.86), ('between', 23.86, 24.14), ('10', 24.14, 24.56), ('and', 24.56, 24.86), ('100,', 24.86, 25.7), ('so', 25.7, 26.08)]
+=== 9. where the visible caption differs, and what that does to the 23 overlay samples
+  65 intervals, 34.968 s of 1936.817 s, are the only times either file shows different text
+  of 23 sample frames: 0 show different text, 10 show the same block with moved times
+=== result
+PASS: 0 failed

@@ -1,0 +1,647 @@
+{
+  "script_sha256": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a",
+  "report_sha256": "09c01854aabba0c07a979195456dcbc92801260786a1416fe1e91bd3a08bb45a",
+  "timings_sha256": "ab5febe06129924d54aa9038a6ed3fd2216fb702011218f3bb79847318362003",
+  "recognition_sha256": "448fba4724551500c7d5516a1e3248f4b5ddff50822b0b40047b3e1ee22cfd82",
+  "srt_sha256": "c9321cd7a2912d4457f2dc617735fd06f0b2fc7d684442815fa46b989bc31b7c",
+  "timeline_sha256": {
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/inputs/timelines/11_unreachable.timeline.tsv": "06c5b19e2abc41039b6fd9361f4fcfbe20806eed87afeee5afe9e39ead0af53d",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/inputs/timelines/05_complex_turns.timeline.tsv": "6ce723bd067b2575df5776cc80444aaaa747c7e042726917005293769605aa27",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/inputs/timelines/04_undoing_growth.timeline.tsv": "add1a4bf2527318dfaefa4bc0dc6dda743b185b2599845fa60f30e2e591099bf",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/inputs/timelines/12_what_it_forgets.timeline.tsv": "45d26e7a9f8ec2222ec8911ecc8e8fdfdbf5458c0f308a57c85ba0e373d0484b",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/inputs/timelines/01_building_ruler.timeline.tsv": "00c6ddc87f53963b2453558e102f42b8bcbbe4e66870e4a1b71d87a7f9df9b1f",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/inputs/timelines/08_product_rule.timeline.tsv": "552c1f46cf3822e30299d12a8a34d0303021eccf3f8776cb35f652a1c0f95411",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/inputs/timelines/10_doing_nothing.timeline.tsv": "a1413eab20585eeb69ec5083d8c5bf5dface71676792bb80ab8476d4b39a7826",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/inputs/timelines/03_folded_decade.timeline.tsv": "9283400f61d9f65f620420cd47759099524f9488974815161ae469d67ef3262a",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/inputs/timelines/06_lifting_loops.timeline.tsv": "5a26c4eae1279796d8700c3f06491336a94bf377e35c08a8e8ea4570a719b5fa",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/inputs/timelines/00_ratio_ruler.timeline.tsv": "ddb1c5ae8b5d2110cd35c135453ce9732d41092e48c1c6f49f1c4b96fe7a54cd",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/inputs/timelines/09_matrix_logs.timeline.tsv": "108db14338ae9e6a4e3d6190893d124be6c5aae0b472db71f62c35e367969832",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/inputs/timelines/02_slide_rule.timeline.tsv": "14c8a1c72b286f1af7d6f0acaac85bcaa47089e1c55de504ac7ac3ea04991d7b",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-caption-timing-repair01/inputs/timelines/07_branch_cut.timeline.tsv": "3bddb174d0fa5236f3a30b9e8584bc693bd889493ead99adbbd475503031d42f"
+  },
+  "changed": [
+    {
+      "caption": 7,
+      "cue": "00_2",
+      "old_ms": 27098,
+      "new_ms": 26700
+    },
+    {
+      "caption": 17,
+      "cue": "00_4",
+      "old_ms": 63020,
+      "new_ms": 62593
+    },
+    {
+      "caption": 40,
+      "cue": "01_2",
+      "old_ms": 163167,
+      "new_ms": 162680
+    },
+    {
+      "caption": 52,
+      "cue": "01_4",
+      "old_ms": 203815,
+      "new_ms": 203417
+    },
+    {
+      "caption": 109,
+      "cue": "03_4",
+      "old_ms": 420394,
+      "new_ms": 419967
+    },
+    {
+      "caption": 114,
+      "cue": "04_1",
+      "old_ms": 438433,
+      "new_ms": 437720
+    },
+    {
+      "caption": 120,
+      "cue": "04_2",
+      "old_ms": 459981,
+      "new_ms": 459560
+    },
+    {
+      "caption": 122,
+      "cue": "04_2",
+      "old_ms": 467551,
+      "new_ms": 467163
+    },
+    {
+      "caption": 128,
+      "cue": "04_3",
+      "old_ms": 492345,
+      "new_ms": 492070
+    },
+    {
+      "caption": 136,
+      "cue": "04_4",
+      "old_ms": 518422,
+      "new_ms": 517600
+    },
+    {
+      "caption": 140,
+      "cue": "04_4",
+      "old_ms": 535634,
+      "new_ms": 535080
+    },
+    {
+      "caption": 143,
+      "cue": "04_5",
+      "old_ms": 545859,
+      "new_ms": 545140
+    },
+    {
+      "caption": 145,
+      "cue": "04_5",
+      "old_ms": 555455,
+      "new_ms": 554300
+    },
+    {
+      "caption": 151,
+      "cue": "04_6",
+      "old_ms": 578664,
+      "new_ms": 577847
+    },
+    {
+      "caption": 155,
+      "cue": "04_7",
+      "old_ms": 596135,
+      "new_ms": 595720
+    },
+    {
+      "caption": 160,
+      "cue": "04_7",
+      "old_ms": 614213,
+      "new_ms": 613580
+    },
+    {
+      "caption": 170,
+      "cue": "05_2",
+      "old_ms": 663100,
+      "new_ms": 663400
+    },
+    {
+      "caption": 178,
+      "cue": "05_20",
+      "old_ms": 694185,
+      "new_ms": 693263
+    },
+    {
+      "caption": 196,
+      "cue": "05_6",
+      "old_ms": 771428,
+      "new_ms": 771120
+    },
+    {
+      "caption": 200,
+      "cue": "05_7",
+      "old_ms": 787146,
+      "new_ms": 786780
+    },
+    {
+      "caption": 206,
+      "cue": "06_1",
+      "old_ms": 810765,
+      "new_ms": 810500
+    },
+    {
+      "caption": 211,
+      "cue": "06_2",
+      "old_ms": 828145,
+      "new_ms": 827713
+    },
+    {
+      "caption": 236,
+      "cue": "06_20",
+      "old_ms": 935641,
+      "new_ms": 935260
+    },
+    {
+      "caption": 238,
+      "cue": "06_20",
+      "old_ms": 942272,
+      "new_ms": 941660
+    },
+    {
+      "caption": 254,
+      "cue": "07_2",
+      "old_ms": 1004671,
+      "new_ms": 1004310
+    },
+    {
+      "caption": 257,
+      "cue": "07_2",
+      "old_ms": 1017227,
+      "new_ms": 1016900
+    },
+    {
+      "caption": 259,
+      "cue": "07_2",
+      "old_ms": 1028210,
+      "new_ms": 1027870
+    },
+    {
+      "caption": 262,
+      "cue": "07_3",
+      "old_ms": 1041727,
+      "new_ms": 1040783
+    },
+    {
+      "caption": 266,
+      "cue": "07_3",
+      "old_ms": 1054163,
+      "new_ms": 1053443
+    },
+    {
+      "caption": 270,
+      "cue": "07_4",
+      "old_ms": 1073623,
+      "new_ms": 1072980
+    },
+    {
+      "caption": 274,
+      "cue": "07_5",
+      "old_ms": 1090539,
+      "new_ms": 1090017
+    },
+    {
+      "caption": 277,
+      "cue": "07_5",
+      "old_ms": 1102349,
+      "new_ms": 1101560
+    },
+    {
+      "caption": 282,
+      "cue": "07_6",
+      "old_ms": 1118807,
+      "new_ms": 1117923
+    },
+    {
+      "caption": 295,
+      "cue": "08_1",
+      "old_ms": 1174831,
+      "new_ms": 1173960
+    },
+    {
+      "caption": 304,
+      "cue": "08_3",
+      "old_ms": 1215798,
+      "new_ms": 1215480
+    },
+    {
+      "caption": 306,
+      "cue": "08_3",
+      "old_ms": 1224580,
+      "new_ms": 1224200
+    },
+    {
+      "caption": 323,
+      "cue": "08_5",
+      "old_ms": 1288990,
+      "new_ms": 1288380
+    },
+    {
+      "caption": 334,
+      "cue": "09_2",
+      "old_ms": 1334305,
+      "new_ms": 1334690
+    },
+    {
+      "caption": 338,
+      "cue": "09_3",
+      "old_ms": 1350465,
+      "new_ms": 1350120
+    },
+    {
+      "caption": 354,
+      "cue": "10_2",
+      "old_ms": 1411584,
+      "new_ms": 1410780
+    },
+    {
+      "caption": 360,
+      "cue": "10_3",
+      "old_ms": 1433950,
+      "new_ms": 1433270
+    },
+    {
+      "caption": 363,
+      "cue": "10_3",
+      "old_ms": 1444151,
+      "new_ms": 1443520
+    },
+    {
+      "caption": 364,
+      "cue": "10_3",
+      "old_ms": 1447932,
+      "new_ms": 1446910
+    },
+    {
+      "caption": 369,
+      "cue": "10_4",
+      "old_ms": 1469903,
+      "new_ms": 1469400
+    },
+    {
+      "caption": 373,
+      "cue": "10_4",
+      "old_ms": 1487444,
+      "new_ms": 1487163
+    },
+    {
+      "caption": 378,
+      "cue": "11_1",
+      "old_ms": 1513521,
+      "new_ms": 1513140
+    },
+    {
+      "caption": 380,
+      "cue": "11_1",
+      "old_ms": 1520494,
+      "new_ms": 1520060
+    },
+    {
+      "caption": 385,
+      "cue": "11_2",
+      "old_ms": 1537629,
+      "new_ms": 1537280
+    },
+    {
+      "caption": 401,
+      "cue": "11_4",
+      "old_ms": 1600960,
+      "new_ms": 1601240
+    },
+    {
+      "caption": 406,
+      "cue": "11_4",
+      "old_ms": 1617818,
+      "new_ms": 1617370
+    },
+    {
+      "caption": 409,
+      "cue": "11_5",
+      "old_ms": 1630287,
+      "new_ms": 1629257
+    },
+    {
+      "caption": 414,
+      "cue": "11_5",
+      "old_ms": 1652449,
+      "new_ms": 1652080
+    },
+    {
+      "caption": 418,
+      "cue": "11_6",
+      "old_ms": 1669793,
+      "new_ms": 1668900
+    },
+    {
+      "caption": 420,
+      "cue": "11_6",
+      "old_ms": 1677337,
+      "new_ms": 1676940
+    },
+    {
+      "caption": 426,
+      "cue": "11_7",
+      "old_ms": 1699656,
+      "new_ms": 1699197
+    },
+    {
+      "caption": 429,
+      "cue": "11_7",
+      "old_ms": 1714057,
+      "new_ms": 1713757
+    },
+    {
+      "caption": 437,
+      "cue": "11_8",
+      "old_ms": 1769494,
+      "new_ms": 1768960
+    },
+    {
+      "caption": 444,
+      "cue": "12_2",
+      "old_ms": 1796184,
+      "new_ms": 1795780
+    },
+    {
+      "caption": 453,
+      "cue": "12_4",
+      "old_ms": 1832424,
+      "new_ms": 1832920
+    },
+    {
+      "caption": 455,
+      "cue": "12_4",
+      "old_ms": 1841157,
+      "new_ms": 1840627
+    },
+    {
+      "caption": 461,
+      "cue": "12_5",
+      "old_ms": 1865195,
+      "new_ms": 1864620
+    },
+    {
+      "caption": 465,
+      "cue": "12_6",
+      "old_ms": 1886092,
+      "new_ms": 1886657
+    },
+    {
+      "caption": 469,
+      "cue": "12_20",
+      "old_ms": 1906573,
+      "new_ms": 1906200
+    },
+    {
+      "caption": 473,
+      "cue": "12_21",
+      "old_ms": 1925099,
+      "new_ms": 1924577
+    },
+    {
+      "caption": 475,
+      "cue": "12_21",
+      "old_ms": 1933051,
+      "new_ms": 1932417
+    }
+  ],
+  "skipped": [
+    {
+      "caption": 3,
+      "cue": "00_1",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 4,
+      "cue": "00_1",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 12,
+      "cue": "00_3",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 14,
+      "cue": "00_3",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 27,
+      "cue": "00_6",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 37,
+      "cue": "01_2",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 47,
+      "cue": "01_4",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 49,
+      "cue": "01_4",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 56,
+      "cue": "01_5",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 58,
+      "cue": "01_5",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 62,
+      "cue": "01_6",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 70,
+      "cue": "02_2",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 78,
+      "cue": "02_3",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 88,
+      "cue": "02_5",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 90,
+      "cue": "02_5",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 93,
+      "cue": "03_1",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 100,
+      "cue": "03_2",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 124,
+      "cue": "04_2",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 132,
+      "cue": "04_3",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 148,
+      "cue": "04_5",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 158,
+      "cue": "04_7",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 162,
+      "cue": "04_7",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 188,
+      "cue": "05_4",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 192,
+      "cue": "05_6",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 204,
+      "cue": "05_7",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 208,
+      "cue": "06_1",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 228,
+      "cue": "06_5",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 233,
+      "cue": "06_6",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 240,
+      "cue": "06_20",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 243,
+      "cue": "06_7",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 287,
+      "cue": "07_6",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 300,
+      "cue": "08_2",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 320,
+      "cue": "08_5",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 330,
+      "cue": "09_1",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 347,
+      "cue": "09_4",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 357,
+      "cue": "10_2",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 388,
+      "cue": "11_2",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 404,
+      "cue": "11_4",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 412,
+      "cue": "11_5",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 428,
+      "cue": "11_7",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 431,
+      "cue": "11_20",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 441,
+      "cue": "12_1",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 447,
+      "cue": "12_3",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 457,
+      "cue": "12_4",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 468,
+      "cue": "12_20",
+      "reason": "missing or out-of-sentence estimate"
+    },
+    {
+      "caption": 472,
+      "cue": "12_21",
+      "reason": "missing or out-of-sentence estimate"
+    }
+  ],
+  "scope": "Provisional recognition estimates; not listening or audiovisual acceptance."
+}

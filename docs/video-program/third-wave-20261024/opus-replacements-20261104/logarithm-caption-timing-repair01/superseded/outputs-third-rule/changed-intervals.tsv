@@ -1,0 +1,66 @@
+from_s	to_s	first_frame	last_frame	native_block	new_block	native_text	new_text
+26.7	27.098	1602	1625	6	7	The last step alone, from seventeen sixty	to thirty-five twenty, fills half the / ruler.
+62.593	63.02	3756	3781	16	17	Start at the A of four hundred and forty,	and go up six semitones, half of the / twelve.
+162.68	163.167	9761	9790	39	40	And since the square root of two times / itself is	two, the square root of two sits half a / step along.
+203.417	203.815	12206	12228	51	52	So twelve copies of three's length almost / match nineteen	steps, and three sits close to nineteen / twelfths of a step.
+419.967	420.394	25199	25223	108	109	A mark that can be reached in different / numbers of laps is	exactly what happens to the logarithm in / the complex numbers.
+437.72	438.433	26264	26305	113	114	The exponential function, written e to the	x, takes an input and returns a / multiplier.
+459.56	459.981	27574	27598	119	120	It never outputs zero, because e to the x / times	e to the minus x is e to the zero, which / is one.
+467.163	467.551	28030	28053	121	122	It never outputs a negative number, / because it starts at	one and could only turn negative by / passing through zero.
+492.07	492.345	29525	29540	127	128	The natural logarithm takes a positive / number and	returns the one input that the exponential / sends there.
+517.6	518.422	31056	31105	135	136	Where the exponential has slope equal to / its	height, the logarithm at x has slope one / over x.
+535.08	535.634	32105	32138	139	140	A small percentage change becomes the same / small	step, which is why base e is called / natural.
+545.14	545.859	32709	32751	142	143	The natural logarithm is the ruler whose / step of one	multiplies by e, about two point seven one / eight.
+554.3	555.455	33258	33327	144	145	The position of a product is still the sum / of the positions: the logarithm of	a times b is the logarithm of a plus the / logarithm of b, for positive a and b.
+577.847	578.664	34671	34719	150	151	Money growing continuously at five percent / a year is	multiplied by e to the zero point zero / five t after t years.
+595.72	596.135	35744	35768	154	155	Zero point zero five t equals the natural	logarithm of two, about zero point six / nine three.
+613.58	614.213	36815	36852	159	160	To grow a thousandfold takes the natural / logarithm of a	thousand, six point nine one, divided by / zero point zero five.
+663.1	663.4	39786	39803	170	169	rule for complex numbers needs two rulers.	Lengths multiply and angles add, so a / slide
+693.263	694.185	41596	41651	177	178	For instance, take x to be the logarithm / of two, and y to be a half	pi: the length is two, the angle a quarter / turn, so we land on two i.
+771.12	771.428	46268	46285	195	196	So the inputs are pi times i, three pi / times i, minus pi	times i, and so on: a whole column of / them, two pi apart.
+786.78	787.146	47207	47228	199	200	Its logarithms share one real part, the / logarithm of its	length, and have a whole column of angles, / one for each lap.
+810.5	810.765	48630	48645	205	206	If a number has a whole column of / logarithms, can we	at least choose one in a sensible, / continuous way?
+827.713	828.145	49663	49688	210	211	As the number turns, its logarithm climbs	straight up, because only the angle / changes.
+935.26	935.641	56116	56138	235	236	Now suppose someone hands us a logarithm	that is continuous everywhere on the / circle.
+941.66	942.272	56500	56536	237	238	At every point it differs from ours by a / whole number	of laps, because both undo the same / exponential.
+1004.31	1004.671	60259	60280	253	254	The usual choice removes zero and the / negative numbers,	and keeps angles strictly between minus pi / and pi.
+1016.9	1017.227	61014	61033	256	257	On this cut plane it is a single, well / behaved function, with	derivative one over z at every point, just / as on the positive numbers.
+1027.87	1028.21	61673	61692	258	259	For example, i has length one and a / quarter turn of angle, so Log of i	is pi over two times i, and Log of minus i / is minus pi over two times i.
+1040.783	1041.727	62447	62503	261	262	The principal logarithm unrolls it into a / horizontal	strip, between height minus pi and height / pi.
+1053.443	1054.163	63207	63249	265	266	Now roll it back, and mark the two sides / of	the cut: one just above it, one just / below.
+1072.98	1073.623	64379	64417	269	270	That is because just above the cut the / angle is	close to pi, and just below it, close to / minus pi.
+1090.017	1090.539	65402	65432	273	274	Cut along the upward imaginary axis / instead, and the angles run over	a different window, from minus three / halves of pi up to a half pi.
+1101.56	1102.349	66094	66140	276	277	Any curve that runs from zero out to / infinity without crossing itself	will do: in the plane that is left, no / loop can wind around zero.
+1117.923	1118.807	67076	67128	281	282	On the negative numbers themselves, the / usual convention	assigns the angle pi, so the principal / value exists there too.
+1173.96	1174.831	70438	70489	294	295	But the principal logarithm only reports	angles in its window, from minus pi up to / pi.
+1215.48	1215.798	72929	72947	303	304	When the sum of the angles runs past the / window, the chosen logarithm	drops a lap, just as the slide rule's / reading dropped a factor of ten.
+1224.2	1224.58	73452	73474	305	306	The rule that survives is this: the / logarithm of a product	is the sum of the logarithms, plus a whole / number of laps.
+1288.38	1288.99	77303	77339	322	323	Taking half of the lost lap leaves a half	turn, and a half turn is a factor of minus / one.
+1334.305	1334.69	80059	80081	334	333	it gives an arrow saying which way that / point moves.	A matrix X can be read as a velocity: at / each point
+1350.12	1350.465	81008	81027	337	338	A logarithm of a matrix A is then a / velocity that	carries the plane exactly onto A in one / unit of time.
+1410.78	1411.584	84647	84695	353	354	A flow that carries every point once / around its own ellipse	in one unit of time also brings the whole / plane home exactly.
+1433.27	1433.95	85997	86036	359	360	For numbers, the principal logarithm kept / the angle	within a half turn either way, between / minus pi and pi.
+1443.52	1444.151	86612	86649	362	363	Every steady flow of the plane either / turns round at a	steady rate, sweeping round stretched / circles, perhaps
+1446.91	1447.932	86815	86875	363	364	steady rate, sweeping round stretched / circles, perhaps	spiralling in or out, or does not turn / round at all.
+1469.4	1469.903	88164	88194	368	369	Whenever a matrix sends no direction to / zero or to a negative	multiple of itself, exactly one of its / logarithms obeys that rule.
+1487.163	1487.444	89230	89246	372	373	On screen is the textbook version, which / counts the turning	with the imaginary parts of what are / called eigenvalues.
+1513.14	1513.521	90789	90811	377	378	The mirror turns it into its reflection, / and each	dashed line only pairs a corner with where / it lands.
+1520.06	1520.494	91204	91229	379	380	Averaging the two matrices, the simplest / guess at a	halfway point, squashes the whole plane / flat onto a line.
+1537.28	1537.629	92237	92257	384	385	And it can never reach zero, because at / every moment the	flow can be run backwards, so nothing has / been squashed flat.
+1600.96	1601.24	96058	96074	401	400	other gives the same result in either / order.	Then X and A commute: doing one and then / the
+1617.37	1617.818	97043	97069	405	406	Multiplying X by any power of X, on either / side, gives	the next power, so X slides past every / term of the sum.
+1629.257	1630.287	97756	97817	408	409	Take a vector with two nonzero parts, and / send it along	both routes: first A and then X, or first / X and then A.
+1652.08	1652.449	99125	99146	413	414	Those stretches differ, so the routes can / only	agree when every entry off the diagonal is / zero.
+1668.9	1669.793	100134	100187	417	418	A real exponential is always positive, so / this flow	never reverses either axis, but A reverses / both.
+1676.94	1677.337	100617	100640	419	420	A half turn and a stretch each have a / steady flow of	their own, and running one after the other / gets here.
+1699.197	1699.656	101952	101979	425	426	Its two stretches are equal, so nothing / forces a logarithm to	keep the axes, and the spin, which turns / every axis, is allowed.
+1713.757	1714.057	102826	102843	428	429	to a negative multiple of itself has a / real logarithm only when it does	that to every direction alike, a half turn / combined with an equal stretch.
+1768.96	1769.494	106138	106169	436	437	Only the singular ones, which squash the / plane	flat, have none, for the same reason zero / had none.
+1795.78	1796.184	107747	107771	443	444	In the complex plane the exponential does	that folding by itself, and forgets the / laps.
+1832.424	1832.92	109946	109975	453	452	through the centres of its top and bottom / faces.	Here is a solid cube, and a marked axis: a / rod
+1840.627	1841.157	110438	110469	454	455	A steady spin about that rod carries every / corner round its own circle	about the rod, all at the same rate, while / the rod itself stays put.
+1864.62	1865.195	111878	111911	460	461	How many different steady spins end at	exactly this half turn after one unit of / time?
+1886.092	1886.657	113166	113199	465	464	and so does two and a half, and so does / any odd number of half laps.	Laps first: one and a half laps per unit / of time also ends here,
+1906.2	1906.573	114372	114394	468	469	own axis where it was, and our half turn / leaves only the	rod's points in place, so any other axis / is ruled out.
+1924.577	1925.099	115475	115505	472	473	pi, the very edge of the principal window, / and neither	is slower, so this half turn has no / principal logarithm.
+1932.417	1933.051	115946	115983	474	475	For the number minus one, a convention / broke the	same tie; here the honest answer is the / whole family.

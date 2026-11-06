@@ -1,0 +1,30 @@
+start	end	first_cue	last_cue	flagged_cues	seconds	class	on_screen
+00:50.4	00:57.4	13	14	2	7.0	T	note interval depends on frequency ratio
+01:16.6	01:46.9	20	25	6	29.7	T	×√2 then ×√2 = ×2; from cue 23 also equal steps on the keyboard = equal ratios
+02:23.6	02:30.0	35	36	2	5.8	T	every doubling adds the same length
+04:15.7	04:19.4	65	65	1	3.7	T	base: the same ruler, stretched
+05:07.4	05:10.3	78	78	1	2.8	T	sliding adds the lengths; the marks turn the sum back into a product
+06:38.8	07:10.3	103	111	9	30.9	T	the 2.4 mark: one place on the dial
+09:24.5	09:34.5	147	149	3	9.5	T	log₂ x = ln x / ln 2, the denominator
+09:34.5	10:25.7	150	162	13	51.2	L	axis ticks 50, 100, 150 and years
+11:25.2	11:40.2	176	178	3	15.0	T	y sets the angle
+13:27.1	14:30.6	205	221	17	62.2	T	its logarithm, beside the marker at 0
+14:30.6	14:56.6	222	226	5	26.0	E	its logarithm, close up: beside the short second line
+14:56.6	15:08.4	227	229	3	11.2	T	change in the logarithm = 2πi × winding number
+15:38.4	16:22.1	237	248	12	43.1	T	e^L(z) = z = e^ℓ ⇒ L(z) − ℓ = 2πik
+17:30.6	18:01.7	265	271	6	24.3	T	rays at angle θ → horizontal lines; height −π; angle just above the cut
+18:05.7	18:15.2	273	274	2	9.5	E	cut upward:
+18:17.5	18:32.5	276	279	4	15.0	T	any curve from 0 out to infinity; branch point
+19:07.8	19:11.8	288	288	1	4.0	T	bottom edge: left out
+19:34.0	20:41.8	295	310	14	62.4	L	axis ticks −π, 0, π, 2π
+21:32.6	21:37.5	324	324	1	4.9	E	√zw = ±√z…, the formula's left end
+21:55.8	22:07.7	329	331	3	11.3	T	where each point lands, not how it travels
+22:26.5	22:58.7	337	344	7	29.4	E	X is a logarithm of A
+22:58.7	23:09.3	345	347	3	10.6	T	X = (π/2 + 2πk) J ⟷ log i = (π/2 + 2πk) i
+23:39.3	23:50.2	356	358	3	10.3	T	2πPJP⁻¹ for every; infinitely many real logarithms
+24:43.9	24:50.8	372	373	2	6.9	T	turning rate of the flow of X = imaginary part of an eigenvalue of X
+27:29.4	27:35.6	413	414	2	6.2	E	the ends meet only
+29:26.5	29:32.9	436	437	2	6.4	T	flattening matrices, like zero, have no logarithm
+29:53.2	30:04.4	443	445	3	11.2	E	targets the laps
+30:05.0	30:22.3	446	449	4	17.2	T	many flows, one place: all home at t = 1
+32:09.6	32:16.8	474	475	2	7.2	T	for the number −1, Log(−1) = iπ by convention; here: the whole family

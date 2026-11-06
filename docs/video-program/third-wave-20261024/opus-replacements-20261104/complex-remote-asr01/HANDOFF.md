@@ -1,9 +1,15 @@
 # Complex encoded-master ASR, two hosts
 
-BronzeJaguar, 2026-11-05, for BlueSalmon. This answers Mail 5511, with the route root approved in Mail 5560.
+BronzeJaguar, 2026-11-05, for BlueSalmon. This answers Mail 5511, with the route root approved in Mail 5560. It was refreshed for
+stage07 and the 09_5 correction from WhiteSwan's Mail 5814.
 
-**Not launchable yet.** Root's hold (Mail 5589) stands. Every literal below names the pre-correction candidate, so this bundle
-refuses a film carrying the 09_5 correction until the bindings in "Refresh after 09_5" change.
+**Not launchable yet.** The bindings now name the corrected film, but three things are still missing:
+
+- `complex-remote-build02`'s binary hash. No local copy of `binary.sha256` exists.
+- The chain03 jobs, then a real final master, verify job and post-check.
+- A sealed `complex-remote-final-production01`. Its helpers name chain03 in source, but it's unsealed.
+
+Root's hold (Mail 5589) stands until root lifts it. The mini also needs the stage07 `script.tsv` at the path below.
 
 **Nothing here has run on ts1 or mac-mini-max.** No SSH, launch, render, build, synthesis or production edit. All checks use
 stand-ins on this host, so they prove the helpers' logic only. **ASR isn't hearing proof: listening and fine sync remain
@@ -61,43 +67,50 @@ Logs: `O/asr-audioNN.log` and `.exit` on ts1, `MINI/complex-asrNN.log` and `.exi
 the spare preflight name is spent, so use the next number. Outputs on the mini, in `MINI/jobs/complex-remote-asrNN/`:
 `full-large.json`, `full-large.stderr.log`, `cue-boundaries.json`, `comparison.json`.
 
-## Refresh after 09_5
+## Refreshed after 09_5
 
 Mail 5599 has the reasoning. The script is compiled into the binary (`src/main.rs:22`), and `crates/explainer_kit/src/cli.rs:400`
-refuses narrated render, captions, score and master when the topic's script differs from it. So the correction brings a new
+refuses narrated render, captions, score and master when the topic's script differs from it. So the correction brought a new
 binary and a reissued qualifier, not only a new take.
 
-| File | Binding | Becomes |
+The values come from WhiteSwan's Mail 5814. I measured the qualifier, both seals, the chain file and the script hash here.
+
+| File | Binding | Now |
 |---|---|---|
-| `ts1_asr_audio01.py` | `QUALIFIER`, `QUALIFIER_SHA256` | the reissued qualifier. `Q.BIN_SHA256` and `Q.C` follow from it |
-| `ts1_asr_audio01.py` | `SCRIPT_SHA256` | the corrected script's hash |
-| `ts1_asr_audio01.py` | `N2` | the new narration folder |
-| `ts1_asr_audio01.py` | `TIMELINE_JOB` | the new timeline job |
-| `ts1_asr_audio01.py` | `FINAL`, `VERIFY_NAME`, `MASTER_NAME`, both success lines | only if Lavender reissues under new names |
-| `start-asr-audio01.sh` | the verify and master name patterns | only if those names change |
-| `mini_asr01.py` | `SCRIPT`, `SCRIPT_SHA256` | the corrected script's path and hash |
-| `checks/run_checks.py` | `REL_SCRIPT`, the qualifier path and pin, the stand-in `BIN`, `CHAIN_SEAL`, the chain name strings | the same |
+| `ts1_asr_audio01.py` | `QUALIFIER`, `QUALIFIER_SHA256` | `complex-remote-ts1-pipeline01/qualify02/ts1_qualify02.py`, `604ef338…60ca` |
+| `ts1_asr_audio01.py` | `SCRIPT_SHA256` | `946a9c07…7cdc` |
+| `ts1_asr_audio01.py` | `N2` | `complex-remote-narration-derive02/narration-n2` under the jobs folder |
+| `ts1_asr_audio01.py` | `TIMELINE_JOB` | `complex-remote-timeline03` |
+| `mini_asr01.py` | `SCRIPT`, `SCRIPT_SHA256` | `EC/native-stage07-root01/workspace/explainer_corpus/complex_analysis_visual/script.tsv`, the same hash |
+| `checks/run_checks.py` | `REL_SCRIPT`, `REL_Q`, `CHAIN_SEAL`, new `QUALIFY_SEAL`, the job names | the same, with seals `bbf00548…daf9` (chain03) and `f6878e68…860` (qualify02) |
+| `checks/run_checks.py` | expected words | 4,662, measured from the stage07 script with `tokens()`. Stage06 was 4,658 |
 
-RubyRaven's Mail 5600 lists the same helper lines from its own read, and adds that a clean build can't pass `ts1_qualify01.py`, so
-that file must be superseded, not re-pinned. **The successor must keep these names, which step 1 loads:** `R`, `O`, `JOBS`, `C`,
-`read`, `sha`, `PHYSICAL`, `POLICY`, `guard_policy`, `success`, `BIN_SHA256`, `CHAPTERS`, `GUARD`.
+**Unchanged:** `FINAL`, `VERIFY_NAME`, `MASTER_NAME`, both success lines and the name patterns in `start-asr-audio01.sh`, because
+Lavender kept those names. `mini_asr01.py`'s `SOURCES_SHA256` and `TOOLS_SHA256` stay too.
 
-**Not affected,** as long as it stays one cue: the 105-cue and 15-chapter counts, the decode, the `fw` settings, the mini's tool
-pins, both guards' phase and all cue-edge windows. The new cue's start frames and length come from the actual final tables.
-`mini_asr01.py`'s two pins move only if root changes its source or tool lists.
+**`Q.BIN_SHA256` is no longer a literal.** `ts1_qualify02.py` reads it from `jobs/complex-remote-build02/binary.sha256` at import, so
+it's `None` until build02 finishes. This bundle compares it only after the chain has run. A film with no `binary.sha256` refuses,
+and the fixture now has that case.
 
-Until then the old bindings refuse a corrected film: by script hash on both hosts, and on ts1 also by binary, narration path
-and timeline job. The fixture covers the script and binary refusals. No real corrected film exists to try.
+`ts1_qualify02.py` keeps every name step 1 loads: `R`, `O`, `JOBS`, `C`, `read`, `sha`, `PHYSICAL`, `POLICY`, `guard_policy`, `success`,
+`BIN_SHA256`, `CHAPTERS`, `GUARD`. `Q.C` is now the stage07 crate.
+
+**Not affected:** the 105-cue and 15-chapter counts, the decode, the `fw` settings, the mini's tool pins, both guards' phase and all
+cue-edge windows. Between the stage06 and stage07 scripts only `09_5` differs. Its start frames and length come from the actual
+final tables.
+
+The new bindings refuse the older film: by script hash on both hosts, and on ts1 also by binary, narration path and timeline job.
+The fixture covers all four refusals. No real corrected film exists to try.
 
 ## What step 1 requires
 
 - **Selection:** the named verify and master jobs are the newest attempts, by name pattern.
-- **Both jobs passed:** `Q.success`, phase `native`, Lavender's exact child command, frozen inputs, her helper's row in those
-  inputs, and her exact success line last in `command.log`.
-- **Proof:** `verification.json` names the selected master, ts1, Frederick, the qualifier's binary, timeline02, N2 and the logical
+- **Both jobs passed:** `Q.success`, phase `native`, Lavender's exact child command, frozen inputs, the helper's row in those
+  inputs, and the exact success line last in `command.log`.
+- **Proof:** `verification.json` names the selected master, ts1, Frederick, the qualifier's binary, timeline03, N2 and the logical
   master path. `pictures_viewed` is false and the strict log ends `VERIFY PASS`.
 - **Placements:** rebuilt from the actual final tables and N2 WAV headers, as the verify job builds them. Each table equals
-  timeline02's, each `line` row resolves to N2 (White's rule), the 105 cues are in script order, and the proof's chapters and
+  timeline03's, each `line` row resolves to N2 (White's rule), the 105 cues are in script order, and the proof's chapters and
   placements are equal to the rebuilt ones.
 - **Master and captions:** the master's hash equals the proof and `master-summary.json`. Both caption files match their records.
 - **Post-check:** `O/final-production01/<verify job>-postcheck.json` agrees on job, master job, verification hash, master hash,
@@ -148,9 +161,9 @@ Both steps run in guard phase `asr`, each as its own job. Model and engine come 
 
 - **Same `python3`.** Lavender's master child command holds `sys.executable`. Step 1 must find the same interpreter, so run it under
   the wrapper's PATH, which is the chain's.
-- **Post-check file first.** Her helper writes the record after the guard's final receipt. If her launch stopped before that,
+- **Post-check file first.** Lavender's helper writes the record after the guard's final receipt. If the launch stopped before that,
   `ts1_final_verify01.py --postcheck JOB` writes it. Step 1 refuses until it exists.
-- **Timeline and narration are fixed** at the constants above. A timeline retry refuses here.
+- **Timeline and narration are fixed** at the constants above. A timeline retry under a new job name refuses here.
 - **ts1 disk:** phase `asr` needs 12 GiB free at preflight and caps growth at 1 GiB. The 56 GiB work cap counts all of `O/jobs`,
   including the 4K chapters and master.
 - **The mini's lane is logarithm's.** Step 2's job folder sits in its `jobs/`, the lane lock queues it behind any logarithm job, and
@@ -166,7 +179,8 @@ Both steps run in guard phase `asr`, each as its own job. Model and engine come 
 ## Checks
 
 From the repository root, with a fresh scratch path: `python3 -I -B P/complex-remote-asr01/checks/run_checks.py SCRATCH`.
-It takes about a minute and writes only small files there. The transcript is `checks/outputs/run_checks.txt`.
+It takes about a minute and writes only small files there. The transcript is `checks/outputs/run_checks.txt` (90 of 90). The run
+before this refresh is kept as `checks/outputs/run_checks-before-stage07.txt`.
 
 The real helpers and wrappers run as subprocesses in a tiny scratch repository, with a physical path and a `logical` symlink
 standing for ts1's alias. Real: the sealed qualifier, the real `script.tsv`. Stand-ins: both guards, ffmpeg (a Python stand-in
@@ -176,15 +190,19 @@ differs only in its two pin literals, and one case edits a wrapper copy's PATH l
 - **Good runs:** a normal film across both hosts, retries beside failed attempts, and a live receipt that's partial for a moment.
   The fixture's tables spell the physical path, as a guard against a spelling comparison.
 - **Refusals:** each new gate fires in a case by its own message. A compound assert is exercised through one of its conditions.
-- **Peers, source text, not run:** White's chain02 seal, and Lavender's job names, both success lines, child commands, output,
-  manifest and post-check names, and that each child prints its line last.
+  This refresh added one case, build02 not finished, and turned the first-timeline case into an older-timeline case.
+- **Peers, source text, not run:** White's chain03 and qualify02 seals, and Lavender's job names, both success lines, child
+  commands, output, manifest and post-check names, and that each child prints its line last.
 
 No mutation sweep was run.
 
 ## Limits
 
-- **No real records exist.** No final master, verify job or post-check exists yet. Their forms come from Lavender's bytes as of
-  18:58 local time, which are unsealed, so no seal of hers is bound here.
+- **No real records exist.** No final master, verify job or post-check exists yet. Their forms come from Lavender's helpers as of
+  20:36 local time: `ts1_final_render01.py` `23d99bfb8a5cfc30…`, `ts1_final_master01.py` `6ed3cb2ae08ec292…` and
+  `ts1_final_verify01.py` `13cf9a09f320dc9c…`. They're unsealed, so no Lavender seal is bound here. The render helper pins chain03,
+  but that bundle's `HANDOFF.md` still says `chain02-n2`.
+- **Mail 5814 is helper-source approval only:** no compile, real table, render or audiovisual acceptance.
 - **`fw transcribe` hasn't run on the worker,** as far as this bundle knows. Nothing here exercised it.
 - **`tools01.json`'s hash was measured on this host only.** The bindings file's was also confirmed remotely (Mail 5503).
 - **Python versions:** these checks ran under local Python 3.15. Neither host's interpreter was exercised.
