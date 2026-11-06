@@ -552,7 +552,7 @@ impl SceneConstruct for Counting {
         result.extend(same);
         fade_in_all(stage, &result, 0.3)?;
         line.wait_for(stage, "with z")?;
-        fade_out_all(stage, &[after], 0.3)?;
+        fade_out_all(stage, &[after, same[0], same[1]], 0.3)?;
         let degree_n = kit.tex(stage, DEGREE_N_TEX, 36.0, Palette::ink(), &[], row)?;
         fade_in_all(stage, &[degree_n], 0.4)?;
         let wide = Plane::new(v(-3.45, -0.35), 5.6, (-3.6, 3.6), (-3.6, 3.6));
@@ -563,7 +563,6 @@ impl SceneConstruct for Counting {
         line.wait_sentence(stage, 3)?;
         turning.stop(stage);
         let mut acted = vec![claim, degree_n, zero_kept, walked_loop, walked_curve, turning.field];
-        acted.extend(same);
         acted.extend(roots);
         fade_out_all(stage, &acted, 0.3)?;
         fade_in_all(stage, &wide_all, 0.5)?;

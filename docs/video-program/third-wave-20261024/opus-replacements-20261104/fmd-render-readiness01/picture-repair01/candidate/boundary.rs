@@ -302,9 +302,9 @@ impl SceneConstruct for Boundary {
             v(right, -1.4),
         )?;
         fade_in_all(stage, &[avg8], 0.4)?;
-        let pair_up = kit.text(stage, PAIR_UP, 18.0, Palette::dim(), v(right, -0.75))?;
-        fade_in_all(stage, &[pair_up], 0.3)?;
-        vp_frame.push(pair_up);
+        let pair_up = carded(&kit, stage, PAIR_UP, 18.0, Palette::dim(), v(right, -0.75), Palette::faint())?;
+        fade_in_all(stage, &pair_up, 0.3)?;
+        vp_frame.extend(pair_up);
         line.wait_sentence(stage, 2)?;
         let mut gone = dots8;
         gone.push(mean8);

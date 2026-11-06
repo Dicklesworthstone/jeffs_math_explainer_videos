@@ -332,7 +332,7 @@ pub fn card(stage: &mut Stage<'_>, w: f64, h: f64, at: Vec3, edge: Srgb) -> fmn:
         .width(w)
         .height(h)
         .corner_radius(0.12)
-        .style(Style::default().fill(panel(), 0.94).stroke(edge, 2.0, 1.0))
+        .style(Style::default().fill(panel(), 1.0).stroke(edge, 2.0, 1.0))
         .build()?
         .moved_to(at);
     Ok(stage.arena_mut().add(r))
@@ -1175,8 +1175,18 @@ pub fn reading_window(kit: &Kit, stage: &mut Stage<'_>, line: &Spoken) -> fmn::R
 }
 
 /// A lower third ("precisely:") brought in now; returns it.
-pub fn precisely_now(kit: &Kit, stage: &mut Stage<'_>, text: &str) -> fmn::Result<Mob> {
+pub fn precisely_card(kit: &Kit, stage: &mut Stage<'_>, text: &str) -> fmn::Result<Mob> {
     let m = explainer_kit::props::precisely(kit, stage, text)?;
+    // The shared lower third's first child is its background rectangle.
+    // Keep plot strokes and colour fields from showing through settled text.
+    let back = stage.get(m).ok_or_else(|| fail("missing lower third"))?
+        .submobjects().first().copied().ok_or_else(|| fail("missing lower-third background"))?;
+    stage.arena_mut().set_fill(back, None, Some(1.0), None, false);
+    Ok(m)
+}
+
+pub fn precisely_now(kit: &Kit, stage: &mut Stage<'_>, text: &str) -> fmn::Result<Mob> {
+    let m = precisely_card(kit, stage, text)?;
     fade_in_all(stage, &[m], 0.4)?;
     Ok(m)
 }
@@ -1185,7 +1195,7 @@ pub fn precisely_now(kit: &Kit, stage: &mut Stage<'_>, text: &str) -> fmn::Resul
 /// built but not yet shown. Bands sit on the foot of the frame, so this shorter one is lifted
 /// until it starts where `whole` will: its first line does not move when `whole` replaces it.
 pub fn precisely_lifted(kit: &Kit, stage: &mut Stage<'_>, text: &str, whole: Mob) -> fmn::Result<Mob> {
-    let m = explainer_kit::props::precisely(kit, stage, text)?;
+    let m = precisely_card(kit, stage, text)?;
     let lift = stage.get_height(whole) - stage.get_height(m);
     let at = stage.get_center(m);
     stage.move_to(m, v(at[0], at[1] + lift), ORIGIN);

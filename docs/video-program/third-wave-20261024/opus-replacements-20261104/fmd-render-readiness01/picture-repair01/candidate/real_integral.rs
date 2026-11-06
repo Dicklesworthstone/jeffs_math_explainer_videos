@@ -806,7 +806,7 @@ impl SceneConstruct for RealIntegral {
         line.wait_sentence(stage, 1)?;
         // the card is about to cover the lower half plane: the two poles there go first
         fade_out_all(stage, &dims_below, 0.3)?;
-        let note = explainer_kit::props::precisely(&kit, stage, HONEST)?;
+        let note = precisely_card(&kit, stage, HONEST)?;
         let said = precisely_lifted(&kit, stage, HONEST_SAID, note)?;
         wait_until(stage, line.end())?;
         precisely_over(stage, said, note)?;
