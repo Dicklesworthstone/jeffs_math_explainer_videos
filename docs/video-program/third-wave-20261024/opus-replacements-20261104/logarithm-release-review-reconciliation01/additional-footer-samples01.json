@@ -1,0 +1,27 @@
+{
+  "utc": "2026-11-06T05:24:38.321006+00:00",
+  "video": "lgpTDROHgQY",
+  "master_sha256": "8534ec211790fb8400b809de19a6d1cb75af6150a5e90566f6a93bb90e7efd69",
+  "images": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/caption-position-platform-trial20/watch-determinant-footer-controls.png",
+      "sha256": "dcceda6d4cf594b01e3a9dd36bed4b0dd6296cb6131b2112f811a05372a42cef",
+      "actually_viewed_this_turn": true
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/caption-position-platform-trial20/watch-culver-footer-controls.png",
+      "sha256": "c6f45b8b44f607c5587ccd138e884d3afeb94b1a3c481dda0e7a031cda19c65f",
+      "actually_viewed_this_turn": true
+    }
+  ],
+  "current_cues_unchanged_from_captured_trial20": [
+    "389",
+    "432"
+  ],
+  "observations": [
+    "Determinant caption and Liouville footer both readable at displayed25:58 with controls visible. Progress line is immediately below footer; no text hidden in this sample.",
+    "Culver criterion and reference readable at displayed28:50 with controls visible; on-screen-is-the-precise-version caption above reference. Seek thumbnail overlays far left, not theorem/reference text. Displayed seconds are rounded, not exact DOM time."
+  ],
+  "remaining_scope": "Selected platform samples only, not complete intervals or every control state; continuous listening, motion/fine-sync and independent full audiovisual review remain unestablished.",
+  "publication_accepted": false
+}

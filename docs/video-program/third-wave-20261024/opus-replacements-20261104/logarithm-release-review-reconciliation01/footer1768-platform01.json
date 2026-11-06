@@ -1,0 +1,18 @@
+{
+  "utc": "2026-11-06T05:13:21.617629+00:00",
+  "video": "lgpTDROHgQY",
+  "visibility": "Private observed",
+  "installed_track": "trial22 manual English",
+  "actual_dom_time": 1768,
+  "ready_state": 4,
+  "paused": true,
+  "screenshot": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/caption-position-platform-trial22/watch-footer-1768-hidden.png",
+  "sha256": "ad0b2ba80b9d8a6934d733b99b81b5e73cba405bcd2669392d4c4ebe7ae8625f",
+  "observed": "Two-line Only the singular ones / which squash the plane caption occupies upper-left clear area. Red singular determinant equation, red flattening explanation and Gallier theorem footer all readable.",
+  "controls": "Hidden. Focusing Play then Tab did not reveal controls in later screenshot; visible-controls check not claimed.",
+  "limitations": [
+    "One actual platform sample, not entire1766-1773interval",
+    "Sticky page header obscures chapter heading in scrolled page, not master-clipping evidence",
+    "No hearing/fine-sync/full independentAV acceptance"
+  ]
+}

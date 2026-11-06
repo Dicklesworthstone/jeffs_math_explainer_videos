@@ -1,0 +1,35 @@
+{
+  "utc": "2026-11-06T05:02:59.620597+00:00",
+  "reviewer": "BlueSalmon root",
+  "independent_of_author": "LavenderPike",
+  "scope": "Full source read of two helpers, targeted imported media/loudness functions and strict-shell loudness gates; not full dependency review or runtime acceptance.",
+  "files": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-remote-final-production01/ts1_final_master01.py",
+      "sha256": "6ed3cb2ae08ec2920badf4c87c0e808d7ea0070b751d9732e3aaa85ed1b6cdb2",
+      "full_source_read": true,
+      "ast_parsed": true
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-remote-final-production01/ts1_final_verify01.py",
+      "sha256": "13cf9a09f320dc9caceac0d6c5b8f87fd4141323290b4d3ed72f878462a80667",
+      "full_source_read": true,
+      "ast_parsed": true
+    }
+  ],
+  "observations": [
+    "Master checks complete chapter registry, successful frozen receipts and exact soundtrack captures before/after; native log must contain each ordered bit-identical replay.",
+    "Verifier checks105 ordered cues and all final timelines equal accepted timeline; carries timeline,preview,final layout sources into sample selection.",
+    "Strict verifier requires4K60/BT709/decode/loudness gates; ebur128 parser only records measurements, strict shell is actual pass/fail including documented peak-limited quiet exception.",
+    "Final pictures and sheets are hashed and explicitly unviewed. Postcheck binds actual master, outputs, source provenance and every picture/sheet."
+  ],
+  "open": [
+    "Host/qualifier/chain/binary remain old ts1 deployment; csd adoption requires new versioned adapter and exact pins, not launch of this bundle.",
+    "Baseline equivalence is hardcodedfalse in current summaries. A future adopted chain must separately bind actual full comparison receipt; no implicit equivalence acceptance.",
+    "Real child/encoder process-group timeout behavior remains unproven for these final entrypoints.",
+    "15chapter terminal timeline,comparison,score,preview andactualreview precede final render.",
+    "No native final master/verification runtime or listening/fine-sync/full independentAV acceptance."
+  ],
+  "source_read_completed": true,
+  "launch_authorized_by_review": false
+}

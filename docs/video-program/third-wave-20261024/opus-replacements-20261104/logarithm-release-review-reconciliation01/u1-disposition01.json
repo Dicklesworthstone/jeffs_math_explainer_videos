@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-11-06T05:12:12.982316+00:00",
+  "master_sha256": "8534ec211790fb8400b809de19a6d1cb75af6150a5e90566f6a93bb90e7efd69",
+  "finding": "pane168 U1:06_2 prediction may telegraph answer",
+  "evidence": [
+    {
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/jobs/logarithm-remote-verify01/sheet-161.jpg",
+      "sha256": "5736e13bc3d1c9be357083108380d35b5ee9d3ba0cd51fe1f89ecd05a2b4a385",
+      "viewed_this_turn": true
+    },
+    {
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/jobs/logarithm-remote-verify01/sheet-163.jpg",
+      "sha256": "c8602bb487faaef1f7d1f32d531f6b27a6cda83b16407df513ba7caf7cacd9ed",
+      "viewed_this_turn": true
+    },
+    {
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/jobs/logarithm-remote-verify01/sheet-164.jpg",
+      "sha256": "392ddc1bfe902380984741ec4cb0c261f26ef6d351b0dff11f60bc32cec127bb",
+      "viewed_this_turn": true
+    }
+  ],
+  "prior_disposition_source": {
+    "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-final-middle-repair01/U1-evidence.md",
+    "sha256": "75d9a49e40d21005f000d5ce91dc5a63065c9634651242bade1a1fb8e4b80557"
+  },
+  "observed": "At sampled hold frames the point is short of1, readout1.86pi i, question remains. At850.03s next cue starts with question still present;850.53readout1.97. At852.45explicit gold2pi i appears. Pause line and bar clear labels.",
+  "decision": "Retain authored prediction. Its task is to extrapolate continuous motion, so showing the current state is germane evidence. No explicit answer leak observed. Earlier reviewer corrected claim that stopping earlier would settle the concern.",
+  "scope": "Root editorial disposition from3current contact sheets and prior source/timing evidence. Not a measured audience outcome, motion review, hearing, fine-sync or independent whole-film AV acceptance.",
+  "release_scope": "This single judgment no longer blocks; other remaining release checks unchanged."
+}
