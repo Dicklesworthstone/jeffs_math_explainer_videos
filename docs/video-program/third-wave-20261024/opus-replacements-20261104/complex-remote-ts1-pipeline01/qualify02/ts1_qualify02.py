@@ -255,6 +255,8 @@ def run():
     step(cargo('clippy', *build_flags(), '--no-deps', '--', '-D', 'warnings'))
     digest = sha(BIN)
     assert sha(target_bin) == digest, 'Target binary moved during clippy'
+    assert digest != OLD_BIN_SHA256, 'The stage07 script compiles into the binary, so this cannot be the old one'
+    check_log((JOBS / JOB / 'command.log').read_text(errors='replace'))
     native = capture('facts-native', [str(BIN), 'facts'])
     oracle = capture('facts-oracle', [str(ENV_PYTHON), '-I', '-B', str(ORACLE)])
     for name, data in (('facts-native.tsv', native), ('facts-oracle.tsv', oracle)):
