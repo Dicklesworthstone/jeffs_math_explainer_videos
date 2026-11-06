@@ -1,0 +1,24 @@
+{
+  "time": "2026-11-06T20:01:31.398579+00:00",
+  "hold": true,
+  "binary_sha256": "0d2501682af29f2fc0ba7fe54d5770b669bc97bef509d7d7c761e6b2e67a4676",
+  "reviewed_native_frames": [
+    {
+      "frame": 60,
+      "seconds": 60,
+      "path": "/data/projects/jmev-fmd-render-qualification-20261106-1111/jobs/fmd-native-detail08/native-pictures/frame-0061.png",
+      "sha256": "6a377fe3cb752786df120ebddfd305db81e5cc947f9ea6d1a94f7ffe6911680c",
+      "viewed": false
+    }
+  ],
+  "display": "Full3840x2160 frame displayed at2048x1152; unscaled1024x1024 crop at(650,260) actually viewed.",
+  "crop_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/native-detail08-review/frame-0061-crop-650-260-1024.png",
+  "crop_sha256": "2d5656fe46357008ef789a6ce30a95a1e29cf1b911d703caaae0437a7d88e37a",
+  "finding": "Visible stair-step edges on circular magnitude contours and angular colour boundaries. Opaque badge repair appears clear in this frame.",
+  "source_observation": "PLATE_CELLS4 uses0.00875scene-unit rows and horizontal colour interpolation, with row coverage constant vertically.",
+  "next": "Investigate continuous two-dimensional colour interpolation or sufficiently fine mathematically sampled raster, preserve narration and all attempts. No further production preview/final for this candidate.",
+  "all111_frames_viewed": false,
+  "listening": false,
+  "fine_sync": false,
+  "independent_AV": false
+}

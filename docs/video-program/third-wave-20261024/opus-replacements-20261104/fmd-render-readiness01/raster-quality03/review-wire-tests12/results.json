@@ -1,0 +1,14 @@
+{
+  "valid": true,
+  "rejections": {
+    "truncated": true,
+    "trailing": true,
+    "corrupt": true,
+    "huge_header": true,
+    "unsafe": true,
+    "duplicate": true,
+    "oversize": true,
+    "negative": true,
+    "overwrite": true
+  }
+}

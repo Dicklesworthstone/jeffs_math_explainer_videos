@@ -1,0 +1,22 @@
+{
+  "utc": "2026-11-06T21:04:20.758066+00:00",
+  "reason": "Superseded held stage08 staircase candidate; new raster09i detail reviewed and timeline12 running on FMD. Preserve all old files.",
+  "signals": "SIGTERM to exact pidfd-bound owned native worker and its observed descendants only; supervisor left alive to record terminal failure.",
+  "identities": [
+    {
+      "pid": 34453,
+      "ppid": 34422,
+      "start": "179789157",
+      "state": "R",
+      "command": "/data/projects/jmev-stroke-probe-20261106/work/bin/production08c render all --timeline-only --fps 60 --narration /data/projects/jmev-stroke-probe-20261106/jobs/stage08-picture-rebind01/narration --out /data/projects/jmev-stroke-probe-20261106/jobs/stage08-picture-timeline01/timeline-output "
+    },
+    {
+      "pid": 2291963,
+      "ppid": 34453,
+      "start": "180238790",
+      "state": "S",
+      "command": "/data/projects/jmev-stroke-probe-20261106/work/tmp/fmn-ffmpeg-session-34453-0/fmn-job-34453-0/fmn-bound-ffmpeg -hide_banner -loglevel error -f rawvideo -pix_fmt nv12 -video_size 64x36 -framerate 60/1 -i - -c:v libx264 -pix_fmt yuv420p -movflags +faststart -color_primaries bt709 -color_trc bt709 -colorspace bt709 -color_range tv -y /data/projects/jmev-stroke-probe-20261106/work/tmp/fmn-ffmpeg-session-34453-0/fmn-job-34453-0/out.mp4 "
+    }
+  ],
+  "live_survivors": []
+}

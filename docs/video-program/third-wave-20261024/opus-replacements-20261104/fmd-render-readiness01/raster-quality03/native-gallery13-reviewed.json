@@ -1,0 +1,310 @@
+{
+  "utc": "2026-11-06T21:18:51.318105+00:00",
+  "chapter": "05_gallery",
+  "binary_sha256": "d3d6273deb37497f4de2c7004534a2207d91641747e0feb6651509676cd10e2f",
+  "movie_sha256": "54cb9f17ecdf58cae1c4c358d04c193e6917de20d09661d0be0022748aecaf9e",
+  "summary_sha256": "d52cc474c880f36e60ca26b7bccd54680ddabec07f1008e6a63fe40829e16845",
+  "actual_viewed_frames": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    124,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    131,
+    132,
+    133,
+    134,
+    135,
+    136,
+    137,
+    138,
+    139,
+    140,
+    141,
+    142,
+    143,
+    144,
+    145,
+    146,
+    147,
+    148,
+    149,
+    150,
+    151,
+    152,
+    153,
+    154,
+    155,
+    156,
+    157,
+    158,
+    159,
+    160,
+    161,
+    162,
+    163,
+    164,
+    165,
+    166,
+    167,
+    168,
+    169,
+    170,
+    171,
+    172,
+    173,
+    174,
+    175,
+    176,
+    177,
+    178,
+    179
+  ],
+  "viewed_sheets": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-01.jpg",
+      "sha256": "b08e42c21119051cfc0405a77a0d2f5b9218853cd26168203c3ebd5d8f1c7d0a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-02.jpg",
+      "sha256": "562727f876fef2aec6ea384165995534eacb99c20be0c4cae484aea869b4024c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-03.jpg",
+      "sha256": "ae7a26a212ae4b740b07a2565d832ffc122247971835053122bd4becad187770"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-04.jpg",
+      "sha256": "81064a0447b1c84132a73712b02e3fd94bf1ede4e618ff9040341a9b7e99fcd8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-05.jpg",
+      "sha256": "9f8fef32053c930db418add10a3c82229c87ebfb5088cdadb9d4f6c499cc1a51"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-06.jpg",
+      "sha256": "85462247146540cba6a70529f19c40a6efa295c3ad76171daa1ee7cd5bd1fe4b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-07.jpg",
+      "sha256": "4fc546277f278af49c949839855d0d4001f845c58c430fe237b41592bd825280"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-08.jpg",
+      "sha256": "124e9ece4044771d7a1f9b5780d7f81d78df8927a42277fe261d4ef3d6eeffeb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-09.jpg",
+      "sha256": "249f25ecded1d67b83863efbfcf52439557c59eeb63a64a33ddb3da12f8fc16b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-10.jpg",
+      "sha256": "7e9c4188f18ac1a5e0aa0f1223588f6230d8c800e62b1501ea3baa79c1a10fd1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-11.jpg",
+      "sha256": "8941c4f18fddec2823d8ec5e6944d862a06c2ec6a1b17af93ac76a60634ec268"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-12.jpg",
+      "sha256": "e04f26ccd55378a2b0db801ba1ca87b05ad4f52b3d94caba6b3979557c7262a3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-13.jpg",
+      "sha256": "0e120e9c27c41d81207955a76cac64698cca52c73e583488f768655722ab534d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-14.jpg",
+      "sha256": "e50f4eeb7f5ce86f78ba0a9fe25a4b550449178cd1fc881e6a850f6811e6baeb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-15.jpg",
+      "sha256": "80dbbf0dc1ca918764986dcfcdbe9dd5ffb7e7a15d0ea42f3781f6ae4d77c479"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-16.jpg",
+      "sha256": "d9522e057c5d81f7bc7f64ced061a10b648c5211d2093499a8dab9a38a04326b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-17.jpg",
+      "sha256": "64cc16dd485cd64820c8da0f4f47062d10e1427e0d0bb08fff02672171518e89"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-18.jpg",
+      "sha256": "f6f4373baa31a837ed29c68673f710d7ac7e80e1348130e55360cd018fead3c5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-19.jpg",
+      "sha256": "55b360f634ec5ef6b0aba999c93ba076418c3277f6ed6191d4ed2cce6be1eeaf"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-20.jpg",
+      "sha256": "0cfeca6e1f4a36fe9b1112df50ac0b55bd0fa4866d302188a74826e926b73421"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-21.jpg",
+      "sha256": "cc49af566ccac7cb02dca89f457acd5c5cc28893c1d287b0896c3df305bfe7dd"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-22.jpg",
+      "sha256": "5aa4e1a5c9d0140100600c10b9c7d2b22fc5541754e078273ceba635b52ac878"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/sheet-23.jpg",
+      "sha256": "81dbea896acf0ac6ecb49d75470f6c27d1a447ff645c15e2815491f1350321ef"
+    }
+  ],
+  "native_crops": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/native-crop-0086.png",
+      "sha256": "01d4804667f634b6f93a23b8ce5f474004c9cfe27668a458ca3ec74834acda27"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/native-crop-0138.png",
+      "sha256": "8d033f82752f34f29b62adbc719d942d86f05606abe12b439c721a8ba8d3a39c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/native-gallery13/native-crop-0174.png",
+      "sha256": "1985c54d5634cd319ebdd88cb29a50d8b7c490d61f49b45d9503af9b4fd76a1c"
+    }
+  ],
+  "full_frame_viewed": 174,
+  "decision": "pass_native_gallery_diagnostic",
+  "unresolved_picture_defects": [],
+  "observations": [
+    "All 180 samples viewed on 23 sheets, full frame174 and unscaled1024 crops at frames86,138,174.",
+    "Polynomial, rational, exponential, sine, tangent, Gamma and zeta displays retain readable labels and smooth colour transitions in these samples.",
+    "Magnified polynomial contours are smooth; fine pixel-scale edge sampling remains visible at 1:1, without prior coarse staircase blocks.",
+    "Gamma domain mask and zeta convergence mask clear as authored; observed zero labels and zoom correspondence remain distinct."
+  ],
+  "scope": "Silent 1fps native4K chapter diagnostic only; not narrated timing,60fps motion,full-film review or final acceptance.",
+  "listening_accepted": false,
+  "fine_sync_accepted": false,
+  "full_independent_av_accepted": false
+}

@@ -1,0 +1,8 @@
+{
+  "time": "2026-11-06T20:19:57.155646+00:00",
+  "receipt_exit": 0,
+  "stable_inputs": true,
+  "limitation": "Cargo fetch used shared ~/.cargo cache outside guard ROOT/work and jobs. Terminal exit0/no resource stop does not establish per-job growth compliance for those external writes. Earlier aggregate cache inventory is not an exact baseline; do not manufacture growth.",
+  "action": "Preserve all downloaded/cache files and receipt. No further fetch with this adapter. Current build03 is offline, target output is ROOT/work/target and remains guarded. Any future network fetch must include cache allocation in admission/growth accounting.",
+  "cache_du": "10620708\t/home/ubuntu/.cargo/git\n4955484\t/home/ubuntu/.cargo/registry\n"
+}

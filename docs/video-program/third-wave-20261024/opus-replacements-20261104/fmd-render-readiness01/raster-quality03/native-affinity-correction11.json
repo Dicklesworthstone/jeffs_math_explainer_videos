@@ -1,0 +1,212 @@
+{
+  "time": "2026-11-06T20:48:43.083107+00:00",
+  "pid": 229813,
+  "command": "/data/projects/jmev-fmd-render-qualification-20261106-1111/work/bin/production09i render 04_reading_color --silent --res 3840x2160 --fps 1 --out /data/projects/jmev-fmd-render-qualification-20261106-1111/jobs/fmd-raster-native-detail11/render --crf 0 --preset veryfast ",
+  "threads": [
+    {
+      "tid": 229813,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 229825,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 229826,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 229827,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 229828,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 229829,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 229873,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 229874,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 229875,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 299834,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 299835,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 299836,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 299837,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 299838,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 299839,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 299840,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    },
+    {
+      "tid": 299841,
+      "before": [
+        11
+      ],
+      "after": [
+        0,
+        1,
+        6,
+        12
+      ]
+    }
+  ],
+  "scope": "Correct inherited one-core affinity only for this owned active native diagnostic; no other session/process or guard policy changed. Not a controlled performance benchmark."
+}

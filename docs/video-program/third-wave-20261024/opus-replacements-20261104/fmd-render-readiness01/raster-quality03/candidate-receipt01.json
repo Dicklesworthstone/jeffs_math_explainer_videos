@@ -1,0 +1,25 @@
+{
+  "time": "2026-11-06T20:06:34.867649+00:00",
+  "files": [
+    {
+      "file": "draw.rs",
+      "before_sha256": "ef09c8f641aae6447817226b7427d857051535cb02b49692bf655d8252083550",
+      "candidate_sha256": "b9eb1922f8307e20c876496d5ce5ec8102f822c33210c73d4a03909aeb4ed33b"
+    },
+    {
+      "file": "main.rs",
+      "relative_path": "src/main.rs",
+      "before_sha256": "9cb163df905294a5de39d0d92003ba66e8377bd1bf143d9fc872261146c7fb39",
+      "candidate_sha256": "19a9e1051360caacba25a9276d1f32a4b7b94700bb25a4c72ca663805619f798"
+    }
+  ],
+  "purpose": "Native ImageQuad with mathematically evaluated360samples/scene-unit raster, clamp edges and both-axis filtering; preserve repaint/fades.",
+  "status": "UNBUILT and visually unaccepted",
+  "tests_expected": 208,
+  "preflight_correction": "Initial check used pre-rustfmt candidate hash; actual built source hash ef09c8f6 confirmed against source-copy receipt and remote file. Initial incomplete manifest retained; no job launched.",
+  "narration_changes": false,
+  "listening": false,
+  "fine_sync": false,
+  "independent_AV": false,
+  "repair": "Wire retained camera route for native ImageQuad; preserve existing explicit camera and export size/fps/background. Actual image review required."
+}

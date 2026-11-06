@@ -1,0 +1,25 @@
+{
+  "binary_sha256": "2ccda773be0d6d9b6a83660a5481277d59b5ce2e6a4b80852d826388cad0cd0e",
+  "chapters": 15,
+  "cues": 105,
+  "qa_sha256": {
+    "01_the_bump": "7bd9826a5f0b949979d8cb6cde11418b3470a41b8d6035957346d1fdd63eb2ec",
+    "02_turning_numbers": "4b28e697d251035f1201769db9e54c4ebe1b5754676fcae73dd6c81943946d34",
+    "03_two_planes": "b64f4aece6c7dc4cdf2f43a12ec2b11868c1729c9e1266d9a2bc16ef298df849",
+    "04_reading_color": "0d2676882ec2b80d896eef0f1b871e3c2abcad314bf52c2d5c937a302c37ab5c",
+    "05_gallery": "0464095fb485d384a83db6a926cc8dbdd115d3af74d950b6d6d4b51ddd20582b",
+    "06_one_derivative": "7eeb8e1290ff6716a7b318fd200be4ec818ea812c0eee5eb3f602301907b1119",
+    "07_one_point": "9a87e16b27b39a9076c8ed790ee7cc11c2de9ce90427d2cbeecf32e7d0fd3984",
+    "08_loop_sums": "b4ef5d7a94fe8ebc181371cfb5a8d2cf323c1f1741592d1b4ba6d088534c575a",
+    "09_boundary": "57b4a682c5fa6e0e1611694f01b7d633bec43ede8a56254a653cf86c1e09ff7a",
+    "10_rigidity": "41cc74cc8838423bc584a1ac477a38131e5dfb80775728154fcd9e20a526c377",
+    "11_counting": "1ba5a0fc6f5511e8c46df76018175e534e4ea5c86b56016c6b32d6331b326e49",
+    "12_residues": "0d97827cc0cdecf32f21e1b8c91fae85ac52b661e0cbaaf49f57254692f43f12",
+    "13_real_integral": "ccd354242dc3261f5c857cce55a66a672ee96a4f2b6cd29b4bc925e555a5c3b6",
+    "14_continuation": "216faf05d1f0258c752f8d853618c23eca9ea61d171a61b388e787843334ff74",
+    "15_closing": "bac8dfa6375e2b8b4eec6d6555509843bfb38060f0863cc5283533e23031a91b"
+  },
+  "comparison_result_sha256": "0fffbe0ad7ccbda5230203670ea8601b6a8f5143cfa82ab35498bae40ace3d32",
+  "chapter09_frame_shift": 67,
+  "scope": "Native score QA only. Actual picture review, listening, fine-sync and independent final AV acceptance remain open."
+}

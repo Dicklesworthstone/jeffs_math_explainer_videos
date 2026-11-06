@@ -1,0 +1,8 @@
+{
+  "utc": "2026-11-06T21:15:07.709199+00:00",
+  "positive_fixtures": 1,
+  "rejection_fixtures": 8,
+  "actual_preview_validated": false,
+  "review_created": false,
+  "note": "Prepared final-review-gate12.py against actual raster preview12/pictures12 paths and current binary binding. AST and isolated record validation passed one positive fixture plus eight rejection cases (unviewed/defects/missing sheets/wrong extraction/hash/listening/fine-sync/independent-AV overclaims). NOT run against unfinished preview; no review or permit created. FMD timeline native355507 freshly live through07; CSD gallery native render completed180frames/322.2s, extraction still active at155/180, no terminal acceptance yet. Existing controllers and exclusive media queue preserved. Full picture/final/listening/fine-sync/independentAV remain open."
+}

@@ -1,0 +1,277 @@
+{
+  "archive_sha256": "88d633747d67b0402784464ca9634c6c7cd3ebe9828a341048d2665a151cebdd",
+  "files": [
+    {
+      "name": "work/bin/production09i",
+      "sha256": "d3d6273deb37497f4de2c7004534a2207d91641747e0feb6651509676cd10e2f"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/Cargo.lock",
+      "sha256": "6a080058520a17788a934bc9eea7e7794e091651f46a1b89827f8c4ff105d9f1"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/Cargo.toml",
+      "sha256": "7644838ed75251307e2863c9a0b63c02b090f433fb00ae8c1a8745ebbca374c7"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage06.json",
+      "sha256": "fa2b976b6e916c3a45652f55753744eb802e1bc95edbad4d29c912ce3722c967"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage07.json",
+      "sha256": "4db4c4d5a433f3212e6af739d71625dd0931ac86bc68c4cfc859212925faff77"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage08.json",
+      "sha256": "6a6e2c6b5bb0fb504ff058c1337b2d1e0e943f6b6d51b6a65dfc5eaed1827ab8"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage09.json",
+      "sha256": "f4a0874e68578277b74e16907102f27304c86a466ac5a62016a595f882837052"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver01.json",
+      "sha256": "1a0c0d13255bd165207be0cbd54c5780465aaa5972472a25a7b98ba5fb74f86d"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver02.json",
+      "sha256": "483eaf6d7037fb4d797e536b4d7cf451f1201cdd7d0d1a041a2824e6ec3aaa0d"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver03.json",
+      "sha256": "0f60a0bce9e3ac6af8849d45b8cf092f112d74011cebe231b481631f6da3b19a"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver04.json",
+      "sha256": "ea29b4a9c9929248197022bac7cc29e52a23dbc2547070a93052c5abe07b215a"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver05.json",
+      "sha256": "668ec55713e8b1fe98ebdbc5403cc4395b451f213ee6cc609f5041ea438fd3f4"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver06.json",
+      "sha256": "77d8bc2b1232d8137a68027f1e7aee532f31101a004b7d2fb63860e3c14e84d6"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver09.json",
+      "sha256": "3750de4927eb964b5505761703a2fb980c85c912b3385110ae11fbfb5237d961"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver10.json",
+      "sha256": "341356cda34ac129fbca1988699f9f20f1cb583d63a5463f780226a13ab3c5b4"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver12.json",
+      "sha256": "70888624edd6e930b383b277b50f8da5e39ac94f1a661c71b7f0e9575362f20c"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v5.json",
+      "sha256": "090301f8352995adfeee59304a2050c85678e434fbcc6af3bc8373681b28d34e"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v6.json",
+      "sha256": "c8bc37e19d4c1112310ff155183add1d2375bde113aded60c7517ee78215fcbe"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v7.json",
+      "sha256": "ab5a01d4013bf721fc02bcc85b32655a2169d6a8b7320dc6e35b77390c262c63"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver02.json",
+      "sha256": "a8000a8669a6866dc2d4be26a3c45befa1694d7ad1e55821b7f5f65ec7fe76cc"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver03.json",
+      "sha256": "18cf247a8ce72ca2e99235e567130714eb418c13927a2453820f99e0be6cfc4c"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver04.json",
+      "sha256": "a7b05cab7fd3cecfa3db03b0ec9ecb0cafbcf7324a5bf455de97cf0c1191ca7d"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/script-as-reviewed-mail622.tsv",
+      "sha256": "860a73d26d7a5f122e7e8c7ff64590b3b1e4f70e155032aa01b11126a933448a"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/docs/storyboard.md",
+      "sha256": "ad1ccd44893116b9acf01999e2a919a28233c57c775368b927d2b6387f3880bc"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/narration_units.before-picture-stage08.json",
+      "sha256": "c937fca1f0d7507117462600f0f478472bd2b8dab93075aba6494bd99ce81141"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/narration_units.before-raster-stage09.json",
+      "sha256": "395b985a1c77b8647ce40674a4cf8f94efe6bd66952270320f55c8513fb5cc09"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/narration_units.json",
+      "sha256": "64ef10aa47eb76c50c1e3efba269adf9d0dbb9b774374ec362add6e1ba13cc37"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/oracle.py",
+      "sha256": "2a596b38c0b3ffcea797c39b801926451d892cb2a44e938f262b37b2ecf6e82d"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/script.tsv",
+      "sha256": "946a9c07a462eb066fc8d20c6a092d5b7564d38752d26177bdbbcf15c6027cdc"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/argument.rs",
+      "sha256": "cc5a8d963de7a3a583c332875cb88337b97b2bc00b27d1b9e6420cbddf17920a"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/bookends.rs",
+      "sha256": "9a44d4cea2cecdb51368619c62e29bff6fae565c58ff37b63701b5d17594092b"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "sha256": "6142165b7e9a49e99bb80216ed83117f6bf752a3beda812af29fa5081bc347e9"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/cauchy.rs",
+      "sha256": "5993b8bda652d951f7946813f2b81da88b7f232f791c564964bf5d5254f80c66"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+      "sha256": "0c217b6b5daee2681a61049b0918ceda7cc211d377ecd0c5f70b8562dd36568b"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/continuation.rs",
+      "sha256": "3fa49900014690913ec0a987f42c7fe615424719414e762a1b31bab16aaca23e"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+      "sha256": "c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "sha256": "1177c885b6815842bc0ac6e6ac71b01808f00a73137002c05d04e1874decb984"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs.orig",
+      "sha256": "cdc154ec074aa446b96cae783fa7e26b0fec3b9cf18e9c16ed19284aab22e32c"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/derivative.rs",
+      "sha256": "6e5176b980bfea4ab7d9291c0138fe345be21ad0e9c2f9adab83a898b13bfdbc"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/domain_color.rs",
+      "sha256": "9b3f2728ec74e2886155429a16e4efa06e9eb2642c9629d71bf7f9d2c1f03496"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "sha256": "a114424c4c101a2404f6d0d50d66478cdb4abf5813c1d3401e74773927d798cf"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+      "sha256": "bff74a1524c71d7bd4ed517e35303c15e801241462d19d192d92afb04312f16c"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/integral.rs",
+      "sha256": "1ce4ea7ef3d6f80e97bc5a585d25f9dfdc155c10365c970a866a6b577234eb41"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs",
+      "sha256": "f7a46143d709797ff03e748b4b8efad68d9379fea31b8ce0cd6de0d2f25de6d8"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+      "sha256": "9ddf5283a8d298d9466bacd0e60c9203bdb857049702daf7971bce40c2b4541b"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs.orig",
+      "sha256": "a13535445ddaf4756dbc985a656259d909a44466a4947e5f92f6820c95854ec4"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs",
+      "sha256": "4f0154ec82bb787cdbee4d11d308eea25ca6cc1164f7f4bdb1d908f8d54df29c"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs.orig",
+      "sha256": "84ed107492e65b39add7b7a3e7fd6e17348b7c5a8fc80b7c2768bac27b0e4115"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+      "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+      "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+      "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/residues.rs",
+      "sha256": "7d06f69b2aff86ac1bee103c7aaefc58891d0b335312e98df3610769f45af7c1"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+      "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+      "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/thumbnail.rs",
+      "sha256": "5d90834bba4b0d6acf8f3c437ca66dab046f1c4823e3b773616f4d4d665c2c65"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+      "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+      "sha256": "98cd46c5cc825095600ae431ae22c142a65c7b0cb8d2507d4c4ba0644ca3c432"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/facts.rs",
+      "sha256": "12f2fef0d6807540d3642972a1125c89e683d5f9615689f4100e6aea522530bc"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/main.rs",
+      "sha256": "19a9e1051360caacba25a9276d1f32a4b7b94700bb25a4c72ca663805619f798"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/model.rs",
+      "sha256": "57981602dee6540b661ca3cbdf099502bc3641bc43085aa88cb2be81a327d251"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/plate_layout.rs",
+      "sha256": "f450c3206bbf4d2ccea7bfc0a6e3092398f8081839b0dd370cd7f860a5bef9c3"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/explainer_corpus/complex_analysis_visual/src/score.rs",
+      "sha256": "0563256da1cd670e7e453a4e840b93d4be9bbd1202941843bdbc77ca46062680"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/tools/coherent_narration.py",
+      "sha256": "95615cfadb42fbfdddf828340b74ec66d89c975a1f399593e212bdd9840e65d5"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/tools/narration_cache.py",
+      "sha256": "47331efd3952af6d0e66971a1c8fddd08929f881d1f9b470bde223db7a01b0c0"
+    },
+    {
+      "name": "work/raster-quality-fmd04/workspace/tools/narration_delivery.py",
+      "sha256": "961f17cc85dd30eadca73f950ec0bab6e52eb47ad43a7384c3710c97962b1878"
+    },
+    {
+      "name": "jobs/fmd-raster-quality-build05/qualification.json",
+      "sha256": "e8be7eaec7524d7f0e726bf443cd9c3a90544a1285727805ee7c12a3871bff7f"
+    },
+    {
+      "name": "jobs/fmd-raster-quality-build05/resource-receipt.json",
+      "sha256": "b8df18d3384e6ca3b7849cd307799609d3f2dcc51b54340d15be8b31d2560bd2"
+    },
+    {
+      "name": "qualification01/raster-quality03/native-detail11-reviewed.json",
+      "sha256": "78343b0def3887d869c9af7ccdebffabeaadaa882ad990040a3f20bc9c890ba9"
+    }
+  ]
+}

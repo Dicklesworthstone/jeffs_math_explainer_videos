@@ -1,0 +1,1065 @@
+{
+  "binary_sha256": "d3d6273deb37497f4de2c7004534a2207d91641747e0feb6651509676cd10e2f",
+  "movie_sha256": "16c3de0898ea98333df66aae168e0060199f03cfe2b73db3d13d801bb94619b1",
+  "frames": 151,
+  "pictures": [
+    {
+      "frame": 0,
+      "seconds": 0,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0001.png",
+      "sha256": "851450adc2fc1cc44a927b8ed95ac30baf686fc9f371ec8bbe8d7f151d799329",
+      "viewed": false
+    },
+    {
+      "frame": 1,
+      "seconds": 1,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0002.png",
+      "sha256": "851450adc2fc1cc44a927b8ed95ac30baf686fc9f371ec8bbe8d7f151d799329",
+      "viewed": false
+    },
+    {
+      "frame": 2,
+      "seconds": 2,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0003.png",
+      "sha256": "851450adc2fc1cc44a927b8ed95ac30baf686fc9f371ec8bbe8d7f151d799329",
+      "viewed": false
+    },
+    {
+      "frame": 3,
+      "seconds": 3,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0004.png",
+      "sha256": "851450adc2fc1cc44a927b8ed95ac30baf686fc9f371ec8bbe8d7f151d799329",
+      "viewed": false
+    },
+    {
+      "frame": 4,
+      "seconds": 4,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0005.png",
+      "sha256": "851450adc2fc1cc44a927b8ed95ac30baf686fc9f371ec8bbe8d7f151d799329",
+      "viewed": false
+    },
+    {
+      "frame": 5,
+      "seconds": 5,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0006.png",
+      "sha256": "851450adc2fc1cc44a927b8ed95ac30baf686fc9f371ec8bbe8d7f151d799329",
+      "viewed": false
+    },
+    {
+      "frame": 6,
+      "seconds": 6,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0007.png",
+      "sha256": "851450adc2fc1cc44a927b8ed95ac30baf686fc9f371ec8bbe8d7f151d799329",
+      "viewed": false
+    },
+    {
+      "frame": 7,
+      "seconds": 7,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0008.png",
+      "sha256": "f1a6379210cd5cd95321d6844a12243a3aef9b1ff011a3cf32b07bdaf9308183",
+      "viewed": false
+    },
+    {
+      "frame": 8,
+      "seconds": 8,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0009.png",
+      "sha256": "00a3be92dd71e3912187d22ff523f85e12aad8bfe3a291dc0ce91441114cba28",
+      "viewed": false
+    },
+    {
+      "frame": 9,
+      "seconds": 9,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0010.png",
+      "sha256": "ee07a93ca12c2f670dfa5d1e81496ccb58f45f59412d4a1fb62117f93b879252",
+      "viewed": false
+    },
+    {
+      "frame": 10,
+      "seconds": 10,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0011.png",
+      "sha256": "933c70d4fccc6e676af2c29af10033eb3dd13830a2601917da8b2c1949cde60b",
+      "viewed": false
+    },
+    {
+      "frame": 11,
+      "seconds": 11,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0012.png",
+      "sha256": "322a4ce6817cc4d2ecd2bc34f9aaa2bb340c043535490030ea63bc414cd04e37",
+      "viewed": false
+    },
+    {
+      "frame": 12,
+      "seconds": 12,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0013.png",
+      "sha256": "d9a894a9099a11f5173b815cce76b1756cfe1d28c2777e6ab303c6bf8633145b",
+      "viewed": false
+    },
+    {
+      "frame": 13,
+      "seconds": 13,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0014.png",
+      "sha256": "983a26b98f88512dfff0de6ac3cfeeda95069a109533645c96c8450900032b01",
+      "viewed": false
+    },
+    {
+      "frame": 14,
+      "seconds": 14,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0015.png",
+      "sha256": "dfa3a898dd82ae36850953d3dd1adb47af0d4aed7df0112f318cfd377e056a27",
+      "viewed": false
+    },
+    {
+      "frame": 15,
+      "seconds": 15,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0016.png",
+      "sha256": "ea956d386bb739387938f90418d7fb705779ddcc1636b70a76f569fc97c00933",
+      "viewed": false
+    },
+    {
+      "frame": 16,
+      "seconds": 16,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0017.png",
+      "sha256": "0d0e3c77bbabcfcca48eb73f89681dd3c39c5d8fa0872caf827a8f8d3d5e80b9",
+      "viewed": false
+    },
+    {
+      "frame": 17,
+      "seconds": 17,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0018.png",
+      "sha256": "1cae0e84ecd395f91a51b1377d418e0f17695e9916ca602b10d23f114089047a",
+      "viewed": false
+    },
+    {
+      "frame": 18,
+      "seconds": 18,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0019.png",
+      "sha256": "ebf9271f3db148ee52777fa780acadf132a27c4d22451322e4991c0faf70ebca",
+      "viewed": false
+    },
+    {
+      "frame": 19,
+      "seconds": 19,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0020.png",
+      "sha256": "0e151206a0d9599c0f31ab2ab74f45b808cd49b733506ad22812494012404e26",
+      "viewed": false
+    },
+    {
+      "frame": 20,
+      "seconds": 20,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0021.png",
+      "sha256": "4c50f983507da7e17ca2bda4aa50fd76bc266a3e685fb3333cb08bd8440e57c4",
+      "viewed": false
+    },
+    {
+      "frame": 21,
+      "seconds": 21,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0022.png",
+      "sha256": "5bd23eedd24a9eef3aeaa6ab909525c53802d51f335415d94949e47fbe644bc4",
+      "viewed": false
+    },
+    {
+      "frame": 22,
+      "seconds": 22,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0023.png",
+      "sha256": "1b1aa361692c85778c76097e542f569528312a1ff3ebf159f61c6dc866a67ccc",
+      "viewed": false
+    },
+    {
+      "frame": 23,
+      "seconds": 23,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0024.png",
+      "sha256": "9d0641be7a82323d03a63f0592f1bba792ea8075fdda14609470e11011a026a2",
+      "viewed": false
+    },
+    {
+      "frame": 24,
+      "seconds": 24,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0025.png",
+      "sha256": "cce54387d0b85e3f0d46ce553024ae45b3f161eee563939221b20c2fe671062b",
+      "viewed": false
+    },
+    {
+      "frame": 25,
+      "seconds": 25,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0026.png",
+      "sha256": "ccd851c066f60cbe53ebff948cc73aa20818d649ac38a478f88456911cd63eb4",
+      "viewed": false
+    },
+    {
+      "frame": 26,
+      "seconds": 26,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0027.png",
+      "sha256": "5ec263d2b655b1c7f1de82ac0dce5e687c9a66f9c2a13fe71559450a392576d8",
+      "viewed": false
+    },
+    {
+      "frame": 27,
+      "seconds": 27,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0028.png",
+      "sha256": "9605c72b3e983ad6b6062a77d19841e9bbe33a34c0187cf5c316240f20b45d91",
+      "viewed": false
+    },
+    {
+      "frame": 28,
+      "seconds": 28,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0029.png",
+      "sha256": "bce7b209c37853b6d8bc1e7cd2120e584e8957bb0c966eba77eda0330d5d29f5",
+      "viewed": false
+    },
+    {
+      "frame": 29,
+      "seconds": 29,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0030.png",
+      "sha256": "74ad00fb732fd3f5cc4fc5e727fcf7da441e3998edeb92082d7df7676fbae074",
+      "viewed": false
+    },
+    {
+      "frame": 30,
+      "seconds": 30,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0031.png",
+      "sha256": "b5a60c32ef08b855355f864785147a2e2ce8104ac182b02c3c781f54b440aa76",
+      "viewed": false
+    },
+    {
+      "frame": 31,
+      "seconds": 31,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0032.png",
+      "sha256": "df4ef078b7dd493ed3b4a95e5191ba552a5cc75bea9ebf2013743ff475ea1057",
+      "viewed": false
+    },
+    {
+      "frame": 32,
+      "seconds": 32,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0033.png",
+      "sha256": "cbc9e5d0ef73e67eb53399d7f908f7bbb5fcb4cdc3c9574cd707a272815c7f32",
+      "viewed": false
+    },
+    {
+      "frame": 33,
+      "seconds": 33,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0034.png",
+      "sha256": "dffefca2f1e1c39a6df90aa7ee17c7d1402c7baa6726aaa1901dece0d131f117",
+      "viewed": false
+    },
+    {
+      "frame": 34,
+      "seconds": 34,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0035.png",
+      "sha256": "c4ab6a7362d7dbaf1e45172521536d34a452ef176eca00d758116f99614dbaec",
+      "viewed": false
+    },
+    {
+      "frame": 35,
+      "seconds": 35,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0036.png",
+      "sha256": "14f50708e5c4c3f79153db3f46f6583effa0f482498b74e67f004dbf58b9a4af",
+      "viewed": false
+    },
+    {
+      "frame": 36,
+      "seconds": 36,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0037.png",
+      "sha256": "648a663940a043b91197d3593b3b5d17ee3538cb88eb5ca4a12a4d7c14f3e6c3",
+      "viewed": false
+    },
+    {
+      "frame": 37,
+      "seconds": 37,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0038.png",
+      "sha256": "aa1820d9c037633c25d563c47d7201669eb9ee1818c26f8c138621726d11a778",
+      "viewed": false
+    },
+    {
+      "frame": 38,
+      "seconds": 38,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0039.png",
+      "sha256": "cd626ebdf4f7f3874f2bde49d0a04b2377181aab85af64469024d174681cf115",
+      "viewed": false
+    },
+    {
+      "frame": 39,
+      "seconds": 39,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0040.png",
+      "sha256": "937857507e26205807fa9b9b961027c88f4e30791685f5e114808f3e1a1a4889",
+      "viewed": false
+    },
+    {
+      "frame": 40,
+      "seconds": 40,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0041.png",
+      "sha256": "937857507e26205807fa9b9b961027c88f4e30791685f5e114808f3e1a1a4889",
+      "viewed": false
+    },
+    {
+      "frame": 41,
+      "seconds": 41,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0042.png",
+      "sha256": "937857507e26205807fa9b9b961027c88f4e30791685f5e114808f3e1a1a4889",
+      "viewed": false
+    },
+    {
+      "frame": 42,
+      "seconds": 42,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0043.png",
+      "sha256": "f29564e7d9f08f7fdabc49f46ba56e0f1a38bc1b75284d0001f6e88e356ea751",
+      "viewed": false
+    },
+    {
+      "frame": 43,
+      "seconds": 43,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0044.png",
+      "sha256": "f29564e7d9f08f7fdabc49f46ba56e0f1a38bc1b75284d0001f6e88e356ea751",
+      "viewed": false
+    },
+    {
+      "frame": 44,
+      "seconds": 44,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0045.png",
+      "sha256": "f29564e7d9f08f7fdabc49f46ba56e0f1a38bc1b75284d0001f6e88e356ea751",
+      "viewed": false
+    },
+    {
+      "frame": 45,
+      "seconds": 45,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0046.png",
+      "sha256": "f29564e7d9f08f7fdabc49f46ba56e0f1a38bc1b75284d0001f6e88e356ea751",
+      "viewed": false
+    },
+    {
+      "frame": 46,
+      "seconds": 46,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0047.png",
+      "sha256": "f29564e7d9f08f7fdabc49f46ba56e0f1a38bc1b75284d0001f6e88e356ea751",
+      "viewed": false
+    },
+    {
+      "frame": 47,
+      "seconds": 47,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0048.png",
+      "sha256": "f29564e7d9f08f7fdabc49f46ba56e0f1a38bc1b75284d0001f6e88e356ea751",
+      "viewed": false
+    },
+    {
+      "frame": 48,
+      "seconds": 48,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0049.png",
+      "sha256": "590ea454041873f8acac9a93217220388aebffc1a601521861fcecbde3fb7f4b",
+      "viewed": false
+    },
+    {
+      "frame": 49,
+      "seconds": 49,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0050.png",
+      "sha256": "546dcafd5d92b4e5668f5f51cb3a04127a2af2ee3d877ac60740fc8a6d8202b9",
+      "viewed": false
+    },
+    {
+      "frame": 50,
+      "seconds": 50,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0051.png",
+      "sha256": "33f38bf5f1af8d671bc11d76d2e225273f23336cdcb3498cabe600f20ae6b827",
+      "viewed": false
+    },
+    {
+      "frame": 51,
+      "seconds": 51,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0052.png",
+      "sha256": "33f38bf5f1af8d671bc11d76d2e225273f23336cdcb3498cabe600f20ae6b827",
+      "viewed": false
+    },
+    {
+      "frame": 52,
+      "seconds": 52,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0053.png",
+      "sha256": "33f38bf5f1af8d671bc11d76d2e225273f23336cdcb3498cabe600f20ae6b827",
+      "viewed": false
+    },
+    {
+      "frame": 53,
+      "seconds": 53,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0054.png",
+      "sha256": "33f38bf5f1af8d671bc11d76d2e225273f23336cdcb3498cabe600f20ae6b827",
+      "viewed": false
+    },
+    {
+      "frame": 54,
+      "seconds": 54,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0055.png",
+      "sha256": "4095c44162b8c6468ec3fbb35c04a1303881858e8eaf29e947a6294564fe1a6f",
+      "viewed": false
+    },
+    {
+      "frame": 55,
+      "seconds": 55,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0056.png",
+      "sha256": "427b3e818c50102e334717e3ca4d21fc2614218a15dc780ea58f73a790f04655",
+      "viewed": false
+    },
+    {
+      "frame": 56,
+      "seconds": 56,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0057.png",
+      "sha256": "c4b382b2220b118a5cbc361afd4218d63ff11264b588fe2ccdf5113476c5f3b2",
+      "viewed": false
+    },
+    {
+      "frame": 57,
+      "seconds": 57,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0058.png",
+      "sha256": "ea262859947f34c8fca10339adf08a4ca43bbd4ae22bd5ac19035bfafa8eaea2",
+      "viewed": false
+    },
+    {
+      "frame": 58,
+      "seconds": 58,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0059.png",
+      "sha256": "ea262859947f34c8fca10339adf08a4ca43bbd4ae22bd5ac19035bfafa8eaea2",
+      "viewed": false
+    },
+    {
+      "frame": 59,
+      "seconds": 59,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0060.png",
+      "sha256": "ea262859947f34c8fca10339adf08a4ca43bbd4ae22bd5ac19035bfafa8eaea2",
+      "viewed": false
+    },
+    {
+      "frame": 60,
+      "seconds": 60,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0061.png",
+      "sha256": "ea262859947f34c8fca10339adf08a4ca43bbd4ae22bd5ac19035bfafa8eaea2",
+      "viewed": false
+    },
+    {
+      "frame": 61,
+      "seconds": 61,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0062.png",
+      "sha256": "ea262859947f34c8fca10339adf08a4ca43bbd4ae22bd5ac19035bfafa8eaea2",
+      "viewed": false
+    },
+    {
+      "frame": 62,
+      "seconds": 62,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0063.png",
+      "sha256": "ea262859947f34c8fca10339adf08a4ca43bbd4ae22bd5ac19035bfafa8eaea2",
+      "viewed": false
+    },
+    {
+      "frame": 63,
+      "seconds": 63,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0064.png",
+      "sha256": "aa1820d9c037633c25d563c47d7201669eb9ee1818c26f8c138621726d11a778",
+      "viewed": false
+    },
+    {
+      "frame": 64,
+      "seconds": 64,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0065.png",
+      "sha256": "5c7d98c5725f7b828d5939ae4098c6c487e31733d9023432f91be374f52c7b8b",
+      "viewed": false
+    },
+    {
+      "frame": 65,
+      "seconds": 65,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0066.png",
+      "sha256": "5c7d98c5725f7b828d5939ae4098c6c487e31733d9023432f91be374f52c7b8b",
+      "viewed": false
+    },
+    {
+      "frame": 66,
+      "seconds": 66,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0067.png",
+      "sha256": "5c7d98c5725f7b828d5939ae4098c6c487e31733d9023432f91be374f52c7b8b",
+      "viewed": false
+    },
+    {
+      "frame": 67,
+      "seconds": 67,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0068.png",
+      "sha256": "70670227afa7833983ee37f625d6faf167194f6ad420581bc44a6acfca84052c",
+      "viewed": false
+    },
+    {
+      "frame": 68,
+      "seconds": 68,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0069.png",
+      "sha256": "70670227afa7833983ee37f625d6faf167194f6ad420581bc44a6acfca84052c",
+      "viewed": false
+    },
+    {
+      "frame": 69,
+      "seconds": 69,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0070.png",
+      "sha256": "70670227afa7833983ee37f625d6faf167194f6ad420581bc44a6acfca84052c",
+      "viewed": false
+    },
+    {
+      "frame": 70,
+      "seconds": 70,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0071.png",
+      "sha256": "70670227afa7833983ee37f625d6faf167194f6ad420581bc44a6acfca84052c",
+      "viewed": false
+    },
+    {
+      "frame": 71,
+      "seconds": 71,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0072.png",
+      "sha256": "70670227afa7833983ee37f625d6faf167194f6ad420581bc44a6acfca84052c",
+      "viewed": false
+    },
+    {
+      "frame": 72,
+      "seconds": 72,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0073.png",
+      "sha256": "b4e1f91840307fbbba9e33333f932a74b3e4c2fc124e01cb6abbd6a67378122e",
+      "viewed": false
+    },
+    {
+      "frame": 73,
+      "seconds": 73,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0074.png",
+      "sha256": "b4e1f91840307fbbba9e33333f932a74b3e4c2fc124e01cb6abbd6a67378122e",
+      "viewed": false
+    },
+    {
+      "frame": 74,
+      "seconds": 74,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0075.png",
+      "sha256": "b4e1f91840307fbbba9e33333f932a74b3e4c2fc124e01cb6abbd6a67378122e",
+      "viewed": false
+    },
+    {
+      "frame": 75,
+      "seconds": 75,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0076.png",
+      "sha256": "5719baa5dc0bda88065931cb78bd27a961355a4a22c9ebe9b7c0ee17156ada4a",
+      "viewed": false
+    },
+    {
+      "frame": 76,
+      "seconds": 76,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0077.png",
+      "sha256": "1176409d66973a390437253e522146f2153f305a537bd9e072a328217be4b4a5",
+      "viewed": false
+    },
+    {
+      "frame": 77,
+      "seconds": 77,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0078.png",
+      "sha256": "369b901233cb007bdd9ce9766979c23b1c90310f5f09545a7f1b0f55611cf611",
+      "viewed": false
+    },
+    {
+      "frame": 78,
+      "seconds": 78,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0079.png",
+      "sha256": "369b901233cb007bdd9ce9766979c23b1c90310f5f09545a7f1b0f55611cf611",
+      "viewed": false
+    },
+    {
+      "frame": 79,
+      "seconds": 79,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0080.png",
+      "sha256": "369b901233cb007bdd9ce9766979c23b1c90310f5f09545a7f1b0f55611cf611",
+      "viewed": false
+    },
+    {
+      "frame": 80,
+      "seconds": 80,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0081.png",
+      "sha256": "369b901233cb007bdd9ce9766979c23b1c90310f5f09545a7f1b0f55611cf611",
+      "viewed": false
+    },
+    {
+      "frame": 81,
+      "seconds": 81,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0082.png",
+      "sha256": "369b901233cb007bdd9ce9766979c23b1c90310f5f09545a7f1b0f55611cf611",
+      "viewed": false
+    },
+    {
+      "frame": 82,
+      "seconds": 82,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0083.png",
+      "sha256": "369b901233cb007bdd9ce9766979c23b1c90310f5f09545a7f1b0f55611cf611",
+      "viewed": false
+    },
+    {
+      "frame": 83,
+      "seconds": 83,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0084.png",
+      "sha256": "369b901233cb007bdd9ce9766979c23b1c90310f5f09545a7f1b0f55611cf611",
+      "viewed": false
+    },
+    {
+      "frame": 84,
+      "seconds": 84,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0085.png",
+      "sha256": "aa1820d9c037633c25d563c47d7201669eb9ee1818c26f8c138621726d11a778",
+      "viewed": false
+    },
+    {
+      "frame": 85,
+      "seconds": 85,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0086.png",
+      "sha256": "e0928dc3e51625037edeef3cf1b97b9a1a24e02499aa4131477b6955e3aa852b",
+      "viewed": false
+    },
+    {
+      "frame": 86,
+      "seconds": 86,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0087.png",
+      "sha256": "20a18b4f903b7761bc485446661ae5e3d790388754806cc187903f688f333c1f",
+      "viewed": false
+    },
+    {
+      "frame": 87,
+      "seconds": 87,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0088.png",
+      "sha256": "8d50bbb8e79ad4d6552d195ddd5dfc96e8350bf239f89243da08cbd481d6b1f0",
+      "viewed": false
+    },
+    {
+      "frame": 88,
+      "seconds": 88,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0089.png",
+      "sha256": "dd80e3d3cbf39bca187bbc9d470890a0d9188da362f3a7ac70f9348665b3dac6",
+      "viewed": false
+    },
+    {
+      "frame": 89,
+      "seconds": 89,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0090.png",
+      "sha256": "dd80e3d3cbf39bca187bbc9d470890a0d9188da362f3a7ac70f9348665b3dac6",
+      "viewed": false
+    },
+    {
+      "frame": 90,
+      "seconds": 90,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0091.png",
+      "sha256": "720d2f9fd4fda6206a94bc748f5018330e0979a7699b8195898a4d39ce863f92",
+      "viewed": false
+    },
+    {
+      "frame": 91,
+      "seconds": 91,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0092.png",
+      "sha256": "5801e5e0ee436100edcbfa8f817df1cd71f21127f4d88eeff73d5ece00ae8a20",
+      "viewed": false
+    },
+    {
+      "frame": 92,
+      "seconds": 92,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0093.png",
+      "sha256": "a3208a5730cb0b2c9003bb6ca3d658317054f23195ae23f66c75ced6102c8bd7",
+      "viewed": false
+    },
+    {
+      "frame": 93,
+      "seconds": 93,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0094.png",
+      "sha256": "a3208a5730cb0b2c9003bb6ca3d658317054f23195ae23f66c75ced6102c8bd7",
+      "viewed": false
+    },
+    {
+      "frame": 94,
+      "seconds": 94,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0095.png",
+      "sha256": "a3208a5730cb0b2c9003bb6ca3d658317054f23195ae23f66c75ced6102c8bd7",
+      "viewed": false
+    },
+    {
+      "frame": 95,
+      "seconds": 95,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0096.png",
+      "sha256": "de4561e8f2831db4f1a7c1a184f67523742acd94416d16a32d91e6f28d445e8f",
+      "viewed": false
+    },
+    {
+      "frame": 96,
+      "seconds": 96,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0097.png",
+      "sha256": "f80ee7b258acfbdfab07e565ff82efb080fb3c00a3ba44c397e3daec4c833301",
+      "viewed": false
+    },
+    {
+      "frame": 97,
+      "seconds": 97,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0098.png",
+      "sha256": "88e8be621b7a5a575981c3b991b648d68a0bbcff5b94ed769973e785926afa7e",
+      "viewed": false
+    },
+    {
+      "frame": 98,
+      "seconds": 98,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0099.png",
+      "sha256": "53bafcb39aa37da28d778602a54b7ed9323d5bcb3d03d0991b954e7a06d9c372",
+      "viewed": false
+    },
+    {
+      "frame": 99,
+      "seconds": 99,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0100.png",
+      "sha256": "82d779e51c3ef40f5d905fc6b917756d298e981053b89f5cc4f576e158bae852",
+      "viewed": false
+    },
+    {
+      "frame": 100,
+      "seconds": 100,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0101.png",
+      "sha256": "2cb8a6e635183031dd0cbe3cbdb900e6422eb85d76073508c9f799ec3800e33a",
+      "viewed": false
+    },
+    {
+      "frame": 101,
+      "seconds": 101,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0102.png",
+      "sha256": "de4561e8f2831db4f1a7c1a184f67523742acd94416d16a32d91e6f28d445e8f",
+      "viewed": false
+    },
+    {
+      "frame": 102,
+      "seconds": 102,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0103.png",
+      "sha256": "a3208a5730cb0b2c9003bb6ca3d658317054f23195ae23f66c75ced6102c8bd7",
+      "viewed": false
+    },
+    {
+      "frame": 103,
+      "seconds": 103,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0104.png",
+      "sha256": "062077a009710518ef8007fe441bdecb9aed92cfcb22bf3da65866a2945bec23",
+      "viewed": false
+    },
+    {
+      "frame": 104,
+      "seconds": 104,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0105.png",
+      "sha256": "b3fe5b1c8e149d264fe5c7e530029a5d988e545ff181ba4aa1ee47493abe0754",
+      "viewed": false
+    },
+    {
+      "frame": 105,
+      "seconds": 105,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0106.png",
+      "sha256": "b3fe5b1c8e149d264fe5c7e530029a5d988e545ff181ba4aa1ee47493abe0754",
+      "viewed": false
+    },
+    {
+      "frame": 106,
+      "seconds": 106,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0107.png",
+      "sha256": "b3fe5b1c8e149d264fe5c7e530029a5d988e545ff181ba4aa1ee47493abe0754",
+      "viewed": false
+    },
+    {
+      "frame": 107,
+      "seconds": 107,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0108.png",
+      "sha256": "b3fe5b1c8e149d264fe5c7e530029a5d988e545ff181ba4aa1ee47493abe0754",
+      "viewed": false
+    },
+    {
+      "frame": 108,
+      "seconds": 108,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0109.png",
+      "sha256": "b3fe5b1c8e149d264fe5c7e530029a5d988e545ff181ba4aa1ee47493abe0754",
+      "viewed": false
+    },
+    {
+      "frame": 109,
+      "seconds": 109,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0110.png",
+      "sha256": "b3fe5b1c8e149d264fe5c7e530029a5d988e545ff181ba4aa1ee47493abe0754",
+      "viewed": false
+    },
+    {
+      "frame": 110,
+      "seconds": 110,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0111.png",
+      "sha256": "ae92efec748a1f88c7f40a46dbebb7e57f2d4f150d1c19c2f530ddfc446b5293",
+      "viewed": false
+    },
+    {
+      "frame": 111,
+      "seconds": 111,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0112.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 112,
+      "seconds": 112,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0113.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 113,
+      "seconds": 113,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0114.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 114,
+      "seconds": 114,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0115.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 115,
+      "seconds": 115,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0116.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 116,
+      "seconds": 116,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0117.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 117,
+      "seconds": 117,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0118.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 118,
+      "seconds": 118,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0119.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 119,
+      "seconds": 119,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0120.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 120,
+      "seconds": 120,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0121.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 121,
+      "seconds": 121,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0122.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 122,
+      "seconds": 122,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0123.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 123,
+      "seconds": 123,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0124.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 124,
+      "seconds": 124,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0125.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 125,
+      "seconds": 125,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0126.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 126,
+      "seconds": 126,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0127.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 127,
+      "seconds": 127,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0128.png",
+      "sha256": "8d2e51feeb1d92f4949e2c627f775f72ff0f4506065905b01819fa6ab4d768f2",
+      "viewed": false
+    },
+    {
+      "frame": 128,
+      "seconds": 128,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0129.png",
+      "sha256": "e0928dc3e51625037edeef3cf1b97b9a1a24e02499aa4131477b6955e3aa852b",
+      "viewed": false
+    },
+    {
+      "frame": 129,
+      "seconds": 129,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0130.png",
+      "sha256": "e0928dc3e51625037edeef3cf1b97b9a1a24e02499aa4131477b6955e3aa852b",
+      "viewed": false
+    },
+    {
+      "frame": 130,
+      "seconds": 130,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0131.png",
+      "sha256": "b21e7b01496d0e6b412585e13bd989b4413519d7d92ae5636c227df0f5378277",
+      "viewed": false
+    },
+    {
+      "frame": 131,
+      "seconds": 131,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0132.png",
+      "sha256": "e375840aa291d5d8e95c4f460a9b0344d83a58ca75dc8bd1ec444f2eb76c75b8",
+      "viewed": false
+    },
+    {
+      "frame": 132,
+      "seconds": 132,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0133.png",
+      "sha256": "fe6ba02ecadb554c837e46ca42a65069c1d0d7fef70d7bd10bdff72cdd1e22ac",
+      "viewed": false
+    },
+    {
+      "frame": 133,
+      "seconds": 133,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0134.png",
+      "sha256": "fe6ba02ecadb554c837e46ca42a65069c1d0d7fef70d7bd10bdff72cdd1e22ac",
+      "viewed": false
+    },
+    {
+      "frame": 134,
+      "seconds": 134,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0135.png",
+      "sha256": "fe6ba02ecadb554c837e46ca42a65069c1d0d7fef70d7bd10bdff72cdd1e22ac",
+      "viewed": false
+    },
+    {
+      "frame": 135,
+      "seconds": 135,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0136.png",
+      "sha256": "fe6ba02ecadb554c837e46ca42a65069c1d0d7fef70d7bd10bdff72cdd1e22ac",
+      "viewed": false
+    },
+    {
+      "frame": 136,
+      "seconds": 136,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0137.png",
+      "sha256": "dd33e03131189e870917f589aa5a3e91447931b8c956a2c9cdf7e56c4dd383fd",
+      "viewed": false
+    },
+    {
+      "frame": 137,
+      "seconds": 137,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0138.png",
+      "sha256": "dd33e03131189e870917f589aa5a3e91447931b8c956a2c9cdf7e56c4dd383fd",
+      "viewed": false
+    },
+    {
+      "frame": 138,
+      "seconds": 138,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0139.png",
+      "sha256": "0364f5254a452e12075df22af1145df4a7153b4e91613dd246af1c1f6949137b",
+      "viewed": false
+    },
+    {
+      "frame": 139,
+      "seconds": 139,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0140.png",
+      "sha256": "0364f5254a452e12075df22af1145df4a7153b4e91613dd246af1c1f6949137b",
+      "viewed": false
+    },
+    {
+      "frame": 140,
+      "seconds": 140,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0141.png",
+      "sha256": "0364f5254a452e12075df22af1145df4a7153b4e91613dd246af1c1f6949137b",
+      "viewed": false
+    },
+    {
+      "frame": 141,
+      "seconds": 141,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0142.png",
+      "sha256": "0364f5254a452e12075df22af1145df4a7153b4e91613dd246af1c1f6949137b",
+      "viewed": false
+    },
+    {
+      "frame": 142,
+      "seconds": 142,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0143.png",
+      "sha256": "0364f5254a452e12075df22af1145df4a7153b4e91613dd246af1c1f6949137b",
+      "viewed": false
+    },
+    {
+      "frame": 143,
+      "seconds": 143,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0144.png",
+      "sha256": "0d3a9da67114543388d4cf21291f9635ba5b5ab6cff9ed34893ff48f7c41b609",
+      "viewed": false
+    },
+    {
+      "frame": 144,
+      "seconds": 144,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0145.png",
+      "sha256": "7e4ed3b316ed0dae73b8104e51952958b56027f555401d6c9a9a093fc2074609",
+      "viewed": false
+    },
+    {
+      "frame": 145,
+      "seconds": 145,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0146.png",
+      "sha256": "ba66991b8da0c69f0a74ff1b0996a0e1e25d3b9130a99a764664927c89b987f4",
+      "viewed": false
+    },
+    {
+      "frame": 146,
+      "seconds": 146,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0147.png",
+      "sha256": "cca2c7e5fc628f01fb0b4a8a9afaca35df9b4d8046e56cc1de382e7482671d68",
+      "viewed": false
+    },
+    {
+      "frame": 147,
+      "seconds": 147,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0148.png",
+      "sha256": "cca2c7e5fc628f01fb0b4a8a9afaca35df9b4d8046e56cc1de382e7482671d68",
+      "viewed": false
+    },
+    {
+      "frame": 148,
+      "seconds": 148,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0149.png",
+      "sha256": "cca2c7e5fc628f01fb0b4a8a9afaca35df9b4d8046e56cc1de382e7482671d68",
+      "viewed": false
+    },
+    {
+      "frame": 149,
+      "seconds": 149,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0150.png",
+      "sha256": "b21e7b01496d0e6b412585e13bd989b4413519d7d92ae5636c227df0f5378277",
+      "viewed": false
+    },
+    {
+      "frame": 150,
+      "seconds": 150,
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-raster-detail13-10_rigidity/native-pictures/frame-0151.png",
+      "sha256": "b21e7b01496d0e6b412585e13bd989b4413519d7d92ae5636c227df0f5378277",
+      "viewed": false
+    }
+  ],
+  "scope": "Actual native4K silent colour-field samples at1fps. No narrated timing, motion, full-film, listening or independent AV acceptance."
+}

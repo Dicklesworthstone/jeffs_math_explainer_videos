@@ -1,0 +1,32 @@
+{
+  "files": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/recover-algebra12_5-01.py",
+      "sha256": "2c7b12034e2806f4e2be25cb0192b2765103c81fe1f6fb2af36644cf34998684"
+    },
+    {
+      "path": "/Users/jemanuel/Downloads/The operation and its labels must travel together..wav",
+      "sha256": "36a14f08f05c18f48541b52c398093cc698f49fbe66a71d4e9c0f3f6b77069c6"
+    },
+    {
+      "path": "/Users/jemanuel/.cache/franken_whisper/models/whisper/whisper-large-v3-turbo-f16-v1/ggml-large-v3-turbo.bin",
+      "sha256": "1fc70f774d38eb169993ac391eea357ef47c88757ef72ee5943879b7e8e2bc69"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/franken-whisper/0.9.2/bin/fw",
+      "sha256": "dddaba940c7be629c5dab6e598e07b80fefb0f2c660d1dbb47905e433955c778"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/frederick-stage03-root01/12_5-request01.json",
+      "sha256": "7371673b6423409b5ca7ef42025e4aa0f9c38bd181a20f1dafae3399a59a5305"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/frederick-stage03-root01/12_5-history-recovery01.json",
+      "sha256": "969b051fd448f1d419a6d378fc6c68c44491a99eaa01ddcf037ac8c5721f03cc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/frederick-stage03-root01/12_5-asset-download-block01.json",
+      "sha256": "ef0c7c283dc0a791f0bda55f9c0870a9a3fc4f08d19177c61185dcd90959a440"
+    }
+  ]
+}

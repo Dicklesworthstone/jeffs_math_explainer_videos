@@ -1,0 +1,16 @@
+{
+  "created_utc": "2026-11-06T21:43:57.987808+00:00",
+  "helper_sha256": "e130564d8117c253abefac5a2dbb8dfa7616751946ad089472ff320f1e427fa1",
+  "results": [
+    "valid twelve-file transfer",
+    "rejected truncated",
+    "rejected trailing",
+    "rejected corrupt",
+    "rejected duplicate",
+    "rejected unsafe-source",
+    "rejected oversized",
+    "rejected missing",
+    "rejected overwrite"
+  ],
+  "scope": "Synthetic bounded receiver fault checks; not real transfer, media or listening proof."
+}

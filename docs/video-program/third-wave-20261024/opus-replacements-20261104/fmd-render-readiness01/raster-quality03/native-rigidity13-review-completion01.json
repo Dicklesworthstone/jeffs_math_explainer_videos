@@ -1,0 +1,310 @@
+{
+  "utc": "2026-11-06T21:25:55.432425+00:00",
+  "chapter": "10_rigidity",
+  "reviewed_this_continuation": {
+    "sheets": [
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26
+    ],
+    "frames": [
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150
+    ],
+    "full_frame_file": "native-pictures/frame-0087.png"
+  },
+  "prior_review_in_handoff": {
+    "sheets": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71
+    ]
+  },
+  "all_sheets": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-01.jpg",
+      "sha256": "82b11e125fe9af474d9457ebc9afc3fb090905b16c05bb7cf702ae10e0049208"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-02.jpg",
+      "sha256": "cd4dcfebbd92fce65be1a0fbfabbbf437d3f6265eae59358d276b14d5685ffb0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-03.jpg",
+      "sha256": "d5853c61c707ee2541b415cf3edd7b4c7eb72185948fed86f9d1ff524dd7db49"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-04.jpg",
+      "sha256": "53a2b4d9dbbd28d556c294be159b9b3e546b9f97c514169595bd0514d460b871"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-05.jpg",
+      "sha256": "72b0e06c1c18b6fe67b791711fb77c91e9a18e85301086f38cf9ed1cc5d3c121"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-06.jpg",
+      "sha256": "0e892106220bbf88e47a73f295d9af867ada16e58207ba7a58052d8b31600766"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-07.jpg",
+      "sha256": "0ad74b959f1226f6904fd829b1baa78045cea8fb4607a9565c886c064b918249"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-08.jpg",
+      "sha256": "8bc6fbd9dee9ae410d6a00470e7e837f86cf0a719d1c18cdeca721cb095f3cf7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-09.jpg",
+      "sha256": "7ded6be2e3f8564f44e39efdc0497ab70788f5e64bfbe050c3f28b6753ba8bc3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-10.jpg",
+      "sha256": "00a6d7f0ab6bbe1f2287f067173d9ce131e86e692e8bfa277552f0da143367aa"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-11.jpg",
+      "sha256": "c48952729883f10a70a7d0489d3e1ea0cc8558ad764a3e4cc87e52865c84a0e6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-12.jpg",
+      "sha256": "382df7ff811955787ace519e023a6d825a82c607cefff24469e5e7c28ed2b441"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-13.jpg",
+      "sha256": "0bb99ad568fd8cf7ea92c23ad7e3aaa56354b8afc2864cdd99a4cf74375b1015"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-14.jpg",
+      "sha256": "2dcd11f227db8b618a7cfcf9f1ea078f06653aae5bb91afab1d3386ff4867cef"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-15.jpg",
+      "sha256": "9c72373b7bd845dff75572fbbc665e67f7190e38cb2cda4bb00bf021ef1e53e2"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-16.jpg",
+      "sha256": "66f361db77638b82201717bdf86fa1ab7445c18e6bb2782c70fe07e7959b0ae1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-17.jpg",
+      "sha256": "99fe8094d3545cc448ac4a36db3f91cb608c0100747b8e621219130c9431027e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-18.jpg",
+      "sha256": "49c32aaa765631a26ab9cddc14f0010821f9ba30f1fdd34ab16364e61127de9b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-19.jpg",
+      "sha256": "c3b93dad6c9009119bd5cf03d37ed4f3a8948a3eed89bf53b067126c593746df"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-20.jpg",
+      "sha256": "d5c9f9865d99d2450bb95f3c092500e38a0f385244d83ab293f59a4c195295c5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-21.jpg",
+      "sha256": "fa7a00ad8297864d4de1d6638b4aa4e2c9128d4bcabb72ee9b179937f504077e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-22.jpg",
+      "sha256": "d5c4b09f6fdb331e86cfbc828e813350b34bb8ef5678e07e7ba73fd36a2c10ba"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-23.jpg",
+      "sha256": "0ae510d3a1e034bff6d63cf787c45d2779e5c41cf48762d1f6c2f36154ef9056"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-24.jpg",
+      "sha256": "d86a3baadb5ae2029ad434c3f9bf33a04ec0bd0931da6eeec67e6e8c720afed5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-25.jpg",
+      "sha256": "7be4725f35364ec054ac7393f070f3e961490472b3bd8fa7969bc680a6fb6f5b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/csd-raster-detail13-10_rigidity/sheet-26.jpg",
+      "sha256": "c9fe158c57d9231a5df32286544beb37d73721b5aef4e15d3171f857b843fbc1"
+    }
+  ],
+  "summary_sha256": "742a23cba32ff960a796b923fa97f73c857b3cd22b85512f3cf4ef743141cb8f",
+  "observations": [
+    "Smooth domain-colouring curves and gradients in sin(1/z) and sin(z) samples; no prior coarse staircase blocks observed.",
+    "Labels and identity-theorem domain qualification remain readable in reviewed samples."
+  ],
+  "unresolved_sampled_picture_defects": [],
+  "scope": "Silent native 4K 1fps diagnostic chapter only; not full narrated film, 60fps motion, listening, fine sync or independent audiovisual acceptance.",
+  "listening_accepted": false,
+  "fine_sync_accepted": false,
+  "independent_av_accepted": false
+}

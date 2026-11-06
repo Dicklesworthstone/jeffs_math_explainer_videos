@@ -1,0 +1,375 @@
+{
+  "started": "2026-11-06T15:43:09.664710+00:00",
+  "phase": "native",
+  "command": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/score01.py",
+    "--run"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-06T15:43:11.029895+00:00",
+      "free_bytes": 19823718400,
+      "work_bytes": 117923840,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:43:21.256182+00:00",
+      "free_bytes": 19823587328,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:43:31.485708+00:00",
+      "free_bytes": 19823587328,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:43:41.710197+00:00",
+      "free_bytes": 19823439872,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:43:51.940179+00:00",
+      "free_bytes": 19823144960,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:44:02.171129+00:00",
+      "free_bytes": 19822907392,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:44:12.396213+00:00",
+      "free_bytes": 19822907392,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:44:22.618655+00:00",
+      "free_bytes": 19822485504,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:44:32.847899+00:00",
+      "free_bytes": 19822448640,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:44:43.078190+00:00",
+      "free_bytes": 19822342144,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:44:53.304442+00:00",
+      "free_bytes": 19822284800,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:45:03.529831+00:00",
+      "free_bytes": 19821780992,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:45:13.755816+00:00",
+      "free_bytes": 19821764608,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:45:23.985569+00:00",
+      "free_bytes": 19821752320,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:45:34.214459+00:00",
+      "free_bytes": 19821740032,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:45:44.438556+00:00",
+      "free_bytes": 19821735936,
+      "work_bytes": 117927936,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:45:54.662274+00:00",
+      "free_bytes": 19821690880,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:46:04.886176+00:00",
+      "free_bytes": 19821686784,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:46:15.109191+00:00",
+      "free_bytes": 19821662208,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:46:25.338358+00:00",
+      "free_bytes": 19821645824,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:46:35.567691+00:00",
+      "free_bytes": 19821608960,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:46:45.798092+00:00",
+      "free_bytes": 19821576192,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:46:56.026814+00:00",
+      "free_bytes": 19821563904,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:47:06.256191+00:00",
+      "free_bytes": 19821563904,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:47:16.485292+00:00",
+      "free_bytes": 19821547520,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:47:26.714955+00:00",
+      "free_bytes": 19821531136,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:47:36.944810+00:00",
+      "free_bytes": 19821473792,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:47:47.175291+00:00",
+      "free_bytes": 19821424640,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:47:57.403014+00:00",
+      "free_bytes": 19821383680,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:48:07.626096+00:00",
+      "free_bytes": 19821395968,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:48:17.849169+00:00",
+      "free_bytes": 19821391872,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:48:28.072085+00:00",
+      "free_bytes": 19821383680,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:48:38.298904+00:00",
+      "free_bytes": 19821355008,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:48:48.526459+00:00",
+      "free_bytes": 19821330432,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:48:58.751106+00:00",
+      "free_bytes": 19821314048,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:49:08.979289+00:00",
+      "free_bytes": 19821314048,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:49:19.209933+00:00",
+      "free_bytes": 19821248512,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:49:29.433717+00:00",
+      "free_bytes": 19821268992,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:49:39.657005+00:00",
+      "free_bytes": 19821268992,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:49:49.878185+00:00",
+      "free_bytes": 19821256704,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:50:00.110854+00:00",
+      "free_bytes": 19821248512,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:50:10.334032+00:00",
+      "free_bytes": 19821232128,
+      "work_bytes": 117932032,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:50:20.561827+00:00",
+      "free_bytes": 19821154304,
+      "work_bytes": 117936128,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:50:30.791614+00:00",
+      "free_bytes": 19821125632,
+      "work_bytes": 117936128,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:50:41.018677+00:00",
+      "free_bytes": 19820384256,
+      "work_bytes": 117936128,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:50:51.246446+00:00",
+      "free_bytes": 19820339200,
+      "work_bytes": 117936128,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:51:01.472765+00:00",
+      "free_bytes": 19820339200,
+      "work_bytes": 117936128,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:51:11.708663+00:00",
+      "free_bytes": 19790741504,
+      "work_bytes": 117936128,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:51:21.935901+00:00",
+      "free_bytes": 19709898752,
+      "work_bytes": 192716800,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:51:32.163288+00:00",
+      "free_bytes": 19556741120,
+      "work_bytes": 345722880,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:51:42.390145+00:00",
+      "free_bytes": 19492540416,
+      "work_bytes": 409919488,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:51:52.618645+00:00",
+      "free_bytes": 19351777280,
+      "work_bytes": 550666240,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:52:02.842653+00:00",
+      "free_bytes": 19227713536,
+      "work_bytes": 674701312,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:52:13.065251+00:00",
+      "free_bytes": 19134324736,
+      "work_bytes": 768057344,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:52:23.294059+00:00",
+      "free_bytes": 19031007232,
+      "work_bytes": 871342080,
+      "target_bytes": 2008858624
+    },
+    {
+      "utc": "2026-11-06T15:52:25.884755+00:00",
+      "free_bytes": 19030966272,
+      "work_bytes": 871362560,
+      "target_bytes": 2008858624
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":19823652864,\"free_excludes_purgeable\":true,\"free_pct\":2.0378320548998747,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-stroke-probe-20261106\",\"platform\":{\"linux\":{\"device_id\":66308,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":972781481984,\"unprotected\":null,\"volume_available_bytes\":19823652864,\"volume_role\":null,\"volume_total_bytes\":972781481984}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-06T15:43:09.684080+00:00",
+    "free_bytes": 19823652864,
+    "work_bytes": 117919744,
+    "target_bytes": 2008858624
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "006d97b107f73e3fc0768ed1a319cede76417d403fd79ca08851ba1682228109",
+  "pid": 2716082,
+  "exit": 0,
+  "final_inputs_sha256": "006d97b107f73e3fc0768ed1a319cede76417d403fd79ca08851ba1682228109",
+  "finished": "2026-11-06T15:52:27.003797+00:00"
+}
