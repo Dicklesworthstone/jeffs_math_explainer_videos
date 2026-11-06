@@ -1,0 +1,38 @@
+{
+  "time": "2026-11-06T19:27:17.851309+00:00",
+  "chapter": "12_residues",
+  "sheets_viewed": [
+    "sheet-000.png",
+    "sheet-001.png",
+    "sheet-002.png",
+    "sheet-003.png",
+    "sheet-004.png",
+    "sheet-005.png",
+    "sheet-006.png",
+    "sheet-007.png",
+    "sheet-008.png",
+    "sheet-009.png"
+  ],
+  "sheet_sha256": {
+    "sheet-000.png": "7db7a85437be852a1cc512c16ab025994b7510b68f69369a19ecf59d390a1180",
+    "sheet-001.png": "5b753b466bcede8a31e2a945d2a6a153a98f7811624d7800f7aff123f1f06b1f",
+    "sheet-002.png": "397fbeaf036db2ca7e14396e03d7fec8ee7348fe35989733ab503f2d6c85de2b",
+    "sheet-003.png": "85c7984838a44b8728fb6d85ae6cc0b33c12ae66ca514f6bb4b4f4cf152a7597",
+    "sheet-004.png": "f6276c5ce5ca442a3e0d77fb4fb6cb27fef4a8e8fda244c00d1ed9142e643315",
+    "sheet-005.png": "4d812b7a41e7088d56a57587ee58e063778243e5be3118e2ad9d15b5524de88f",
+    "sheet-006.png": "601fc295cc1c8213404a75de81252db7d08843c0f4d46ed7b180ce39f2ded821",
+    "sheet-007.png": "847c2a0740b38e4f5be12225a4ff353e212aa959454d02c126fa01b7a940689e",
+    "sheet-008.png": "4c7fdd30d3ab082f0e8b720ec9f9c7b6b417179687dc8fb0823ee01f4f88b554",
+    "sheet-009.png": "30600b677d63b5b5e7a38c37198fb23574c1c35984187886b0a16e9c1f6677a6"
+  },
+  "selected_pictures_viewed": 58,
+  "observation": "All10 sheets and58 selected pictures actually viewed. Laurent coefficient contributions, large loop reduced to small loops, simple-pole quotient residue formula, logarithmic derivative multiplicities and residue at i equal to1/(2i) readable. No new concrete sampled text clipping. Labels i and minus i remain readable over colour field at flagged anchor53s and persistence. Fine colour rings around singularities require native4K inspection.",
+  "unresolved": [
+    "Inspect native4K colour-field detail, including small three-panel examples and rings around poles."
+  ],
+  "whole_preview_accepted": false,
+  "native_4k_detail_accepted": false,
+  "listening": false,
+  "fine_sync": false,
+  "independent_AV": false
+}
