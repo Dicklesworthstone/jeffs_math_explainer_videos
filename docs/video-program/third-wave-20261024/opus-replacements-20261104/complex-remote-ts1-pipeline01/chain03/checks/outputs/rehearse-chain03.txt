@@ -1,0 +1,51 @@
+PASS sealed-chain02-made-the-baseline: chain01 refused, then the five sealed chain02 stages ran
+PASS build02-ran-after-chain02: through start-build02.sh with the real guard
+PASS check-derive-dry-run: 105 cues, 414 rows, 414 source fields, 0 others, on the stage07 report
+PASS dry-run-both-tools: stage07 N refused as spelled; its derivation passes both unmodified tools
+PASS check-spends-no-name
+PASS refuse-baseline-table-edited: AssertionError: timeline02 table changed: 01_the_bump
+PASS refuse-rows-from-another-tool: AssertionError: Audio rows came from another tool
+PASS refuse-rows-bind-another-script: AssertionError: Audio rows bind another script
+PASS refuse-rows-name-another-cue: AssertionError: Audio rows differ
+PASS refuse-qualifier-edited: AssertionError: Sealed qualifier changed
+PASS refuse-n1-take-edited: AssertionError: <fixture>/baseline/logical/repo/narration_lab/third-wave-20261024/root/ele
+PASS refuse-extra-n1-file: AssertionError: File set changed: 1 paths, first ['<fixture>/baseline/logical/repo/narrati
+PASS stage-derive: the real guard admitted and closed the job
+PASS stage-timeline: the real guard admitted and closed the job
+PASS stage-score: the real guard admitted and closed the job
+PASS stage-preview: the real guard admitted and closed the job
+PASS stage-pictures: the real guard admitted and closed the job
+PASS N1-untouched: 110 files
+PASS 108-of-110-identical
+PASS derive-provenance
+PASS fourteen-chapters-equal-timeline02: 42 tables, 192 path cells, 96 cues
+PASS chapter09-holds-the-rules: 9 cues, 18 path cells, later rows moved 8 frames
+PASS cue-seconds-come-from-frames: 0.083 plus 8 frames would give 0.216; frame 13 is 0.217
+PASS 09_5-row-is-the-new-take: 18.00 s, 432000 samples at 24 kHz
+PASS full-equivalence-not-claimed
+PASS tables-spell-N2
+PASS compare-01_the_bump: read-only, exit 0
+PASS compare-09_boundary: read-only, exit 0
+PASS stop-later-row-one-frame-off: timeline: ['line', '09_7', '14', '0', '<fixture>/baseline/logical/repo/narration
+PASS stop-earlier-row-moved: timeline: ['line', '09_2', '2', '0', '<fixture>/baseline/logical/repo/narration_
+PASS stop-repaired-cue-moved: 09_5 itself moved, so something before it changed
+PASS stop-earlier-mark-moved: timeline: ['mark', 'predict', '9'] moved; ['mark', 'predict', '1'] comes before 
+PASS stop-later-hold-left-behind: timeline: ['breath', '5', '0.05'] is not ['breath', '13', '0.05']
+PASS stop-frames-header-not-moved: timeline: ['frames', '6'] is not ['frames', '14']
+PASS stop-later-row-other-gain: timeline: ['line', '09_6', '13', '1', '<fixture>/baseline/logical/repo/narration
+PASS stop-cue-seconds-by-subtraction: cues: ['09_6', '0.216', '1.000'] is not 09_6 at 0.217 with length 1.000
+PASS stop-cue-length-changed: cues: ['09_7', '0.217', '1.001'] is not 09_7 at 0.217 with length 1.000
+PASS stop-later-sample-off-by-one: cuelog: ['<fixture>/baseline/logical/repo/narration_lab/third-wave-20261024/root
+PASS stop-09_5-hash-wrong
+PASS stop-physical-path-spelling
+PASS stop-unaffected-chapter-moved
+PASS release02-in-every-manifest: frozen by hash from derive on, so the guard re-hashes it at each job end
+PASS last-manifest-carries-the-chain: N1, N2, rows, helpers, build, baseline and every stage, all by logical path
+PASS pictures-ran-under-its-own-python: and its build check passed there
+PASS pictures-not-viewed
+PASS old-binary-preserved
+PASS names-for-the-helpers: L.M resolves here; an unknown name is an AttributeError
+PASS second-start-refused
+PASS unknown-stage-refused
+PASS stop-a-chapter-that-moved: AssertionError: ts1 tables differ from timeline02: ['05_gallery.timeline.tsv']
+RESULT PASS, 0 failed

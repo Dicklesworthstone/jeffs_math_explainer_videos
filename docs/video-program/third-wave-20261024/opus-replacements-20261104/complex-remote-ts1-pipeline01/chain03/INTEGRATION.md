@@ -74,7 +74,7 @@ The trade: root should compare the hash `--check` prints with the file from the 
 
 ## What the rehearsal shows
 
-`checks/rehearse_chain03.py` runs the chain after the jobs that really come first: the sealed qualifier, chain01's refusal, all of chain02 (so `timeline02` is a baseline those tools made), the stage07 audio from a `rehearse_stage07.py` root, then `qualify02` and chain03 through their start scripts. `checks/outputs/rehearse-chain03.txt` is its output: 61 checks, 0 failed, the same bytes on a second run.
+`checks/rehearse_chain03.py` runs the chain after the jobs that really come first: the sealed qualifier, chain01's refusal, all of chain02 (so `timeline02` is a baseline those tools made), the stage07 audio from a `rehearse_stage07.py` root, then `qualify02` and chain03 through their start scripts. `checks/outputs/rehearse-chain03.txt` is its output: 50 checks, 0 failed, the same bytes on a second run.
 
 - **Real:** all 105 cues of the rehearsal's stage07 narration, root's receipts, the stage07 tree, both unmodified narration tools, the sealed chains, the real guard, ffmpeg, ffprobe and PIL.
 - **Fake:** the binary, which writes tiny tables in the kit's row order and arithmetic, plus rustup, cargo, the lock tool, the oracle and sbh.
