@@ -166,7 +166,7 @@ index 78a1653..83886a8 100644
          let map = ScreenMap {
              scale: 1.0,
 diff --git a/crates/fmn-render/src/stroke.rs b/crates/fmn-render/src/stroke.rs
-index 73bce50..491cc55 100644
+index 73bce50..be437ff 100644
 --- a/crates/fmn-render/src/stroke.rs
 +++ b/crates/fmn-render/src/stroke.rs
 @@ -280,8 +280,34 @@ impl ChordStrip {
@@ -186,9 +186,9 @@ index 73bce50..491cc55 100644
 +/// one [`PreparedStroke::prepare_into`] returned for `segments`.
 +///
 +/// The slabs are the whole proof, so the geometry that produced them does not
-+/// matter. Finiteness is required because a `NaN` edge fails both of the slab
-+/// test's comparisons, so that segment is admitted everywhere, and `min`/`max`
-+/// drop it from the aggregate.
++/// matter. Finiteness keeps the aggregate a true bound: a `NaN` edge fails both
++/// of the slab test's comparisons, so its segment passes that test, and
++/// `min`/`max` drop the edge from the aggregate.
 +#[must_use]
 +pub(crate) fn segments_are_x_sorted(segments: &[PreparedSegment], slab: [f64; 4]) -> bool {
 +    let finite = |edges: &[f64; 4]| edges.iter().all(|edge| edge.is_finite());
@@ -204,7 +204,7 @@ index 73bce50..491cc55 100644
  ///
  /// The retained [`Segment`] remains geometry-only. These values additionally
  /// depend on style, placement, and camera scale, so they belong to the
-@@ -296,14 +322,30 @@ impl ChordStrip {
+@@ -296,14 +322,31 @@ impl ChordStrip {
  #[derive(Debug, Clone, Copy)]
  pub(crate) struct PreparedStroke<'a> {
      segments: &'a [PreparedSegment],
@@ -214,14 +214,16 @@ index 73bce50..491cc55 100644
  }
  
  impl<'a> PreparedStroke<'a> {
-     /// The view over caller-owned prepared segments and their aggregate slab.
+-    /// The view over caller-owned prepared segments and their aggregate slab.
++    /// The view without the x index: the scan the index is tested against.
++    #[cfg(test)]
      pub(crate) fn from_parts(segments: &'a [PreparedSegment], slab: [f64; 4]) -> Self {
 -        Self { segments, slab }
 +        Self::from_parts_indexed(segments, slab, false)
 +    }
 +
-+    /// [`Self::from_parts`], with the verdict of [`segments_are_x_sorted`] on
-+    /// these same segments and slab.
++    /// The view over caller-owned prepared segments and their aggregate slab,
++    /// with the verdict of [`segments_are_x_sorted`] on those same two.
 +    pub(crate) fn from_parts_indexed(
 +        segments: &'a [PreparedSegment],
 +        slab: [f64; 4],
@@ -236,7 +238,7 @@ index 73bce50..491cc55 100644
  
      /// Derive every segment's slab and total arc length into `out`, returning
      /// the aggregate slab. Same loop, same order as the retained derivation —
-@@ -388,8 +430,33 @@ impl<'a> PreparedStroke<'a> {
+@@ -388,8 +431,33 @@ impl<'a> PreparedStroke<'a> {
          }
          (lo <= hi).then_some((lo, hi))
      }
@@ -270,7 +272,7 @@ index 73bce50..491cc55 100644
          &self,
          segments: &[Segment],
          style: &Style,
-@@ -400,14 +467,21 @@ impl<'a> PreparedStroke<'a> {
+@@ -400,14 +468,21 @@ impl<'a> PreparedStroke<'a> {
          let scale = map.scale;
          if scale == 0.0 || segments.is_empty() || segments.len() != self.segments.len() {
              return None;
@@ -293,7 +295,7 @@ index 73bce50..491cc55 100644
                  || p[0] > prepared.slab[2]
                  || p[1] < prepared.slab[1]
                  || p[1] > prepared.slab[3]
-@@ -1926,8 +2000,257 @@ mod tests {
+@@ -1926,8 +2001,257 @@ mod tests {
              }
          }
      }
