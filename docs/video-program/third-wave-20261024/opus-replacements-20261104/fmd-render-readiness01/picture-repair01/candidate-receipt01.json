@@ -1,0 +1,40 @@
+{
+  "time": "2026-11-06T19:36:27.981148+00:00",
+  "files": [
+    {
+      "file": "boundary.rs",
+      "before_sha256": "1ebe0331ba47144b0968dc553fc2237139d10f2d8f26a207cd0b12f3c5dfdca7",
+      "candidate_sha256": "8d271442991d60a3e3633cae020f79cd103d2561216eb3f16ae49f45b1f07ddf"
+    },
+    {
+      "file": "counting.rs",
+      "before_sha256": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9",
+      "candidate_sha256": "ccd63a004ed6228957963cf836463e1a667dc09d4fc8f44ba7c93cc4d9f7150b"
+    },
+    {
+      "file": "draw.rs",
+      "before_sha256": "3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db",
+      "candidate_sha256": "de502ceaf116d800c34f4c57a221a4a553b24f6fa8e62eca82cd28209ae9fad7"
+    },
+    {
+      "file": "real_integral.rs",
+      "before_sha256": "a5ef573dfa68325272a5d7f588fb910b2d99ea6538752616a51e92c3904d61ed",
+      "candidate_sha256": "453f993fc7a65c364600eb906d56906c95f726df7811e369959a1778a0470a8e"
+    }
+  ],
+  "purpose": "Repair actual preview colour/axis bleed in local cards and lower thirds; mask Cauchy caption; clear example-specific roots badge when general polynomial appears.",
+  "built": false,
+  "visually_verified": false,
+  "narration_changed": false,
+  "prior_frozen_build_preserved": true,
+  "remaining": [
+    "Verify pinned remote style API",
+    "Guarded isolated compile/tests/clippy/facts",
+    "Rebind changed source holds; preserve every WAV/timing",
+    "Compare full chapter schedules before score reuse",
+    "Actually review repaired previews then final native4K detail"
+  ],
+  "listening": false,
+  "fine_sync": false,
+  "independent_AV": false
+}
