@@ -1,0 +1,29 @@
+{
+  "utc": "2026-11-06T05:27:58.566493+00:00",
+  "video": "lgpTDROHgQY",
+  "visibility": "Private",
+  "finding": "pane168 U7 near-cut readout previously unseen",
+  "samples": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-release-review-reconciliation01/boundary-plus0978.png",
+      "sha256": "7a72590f6eca725040a7e89ae9b88387a7d9735412a3deec7809cceb6a3d7ceb",
+      "actual_dom_seconds": 1124.795454,
+      "ready_state": 4,
+      "paused": true,
+      "principal_angle_in_pi": 0.978,
+      "actually_viewed": true
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-release-review-reconciliation01/boundary-minus0984.png",
+      "sha256": "89d6c7b47de2bac393767f6868677248ed64f55a4a89a0c3dea096fb41c8b4b7",
+      "actual_dom_seconds": 1124.995454,
+      "ready_state": 4,
+      "paused": true,
+      "principal_angle_in_pi": -0.984,
+      "actually_viewed": true
+    }
+  ],
+  "disposition": "Selected actual platform frames now show +0.978 above the negative-axis cut and -0.984 below it, consistent with the stated principal-argument convention. The near-boundary readout sample gap is closed; no wrong value or label obstruction observed.",
+  "limitations": "Two paused frame samples, not continuous motion/fine-sync/listening or full independent AV. Earlier loading-state screenshot was stale and was not used. Caption begins describing the jump just before the crossing; no exact spoken-word timing claim.",
+  "publication_accepted": false
+}

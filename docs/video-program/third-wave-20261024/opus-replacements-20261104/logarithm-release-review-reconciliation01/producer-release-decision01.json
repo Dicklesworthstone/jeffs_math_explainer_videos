@@ -1,0 +1,68 @@
+{
+  "utc": "2026-11-06T05:29:50.095911+00:00",
+  "producer": "BlueSalmon",
+  "video": "lgpTDROHgQY",
+  "decision": "Proceed to live publication preflight of the existing private upload; publish if saved metadata, completed4K/checks and uploaded English remain correct. No reupload. Verify public watch before unlisting kyVVPo958Iw.",
+  "basis": "Root selected-picture review all1466pictures/367sheets, scoped colleague mathematical/artifact review, successful master and strict decode verification, all12encoded joins diagnostic review, caption timing/position repairs and actual platform samples,13actualchapterseeks. These establish the described production checks, not perfection.",
+  "asset_hashes_rechecked": 10,
+  "master_sha256": "8534ec211790fb8400b809de19a6d1cb75af6150a5e90566f6a93bb90e7efd69",
+  "dispositions": {
+    "repaired_findings": "Current-master scoped reviewer confirms pause prompts, rounded notation, moved countdown bars, determinant/trace glosses, concrete X card, matrix-log notation and closing hold/fade. Current captions preserve text with timing/placement repairs.",
+    "U1": "Retain authored continuous prediction as separately recorded.",
+    "U7": "Actual near-cut positive/negative samples now inspected.",
+    "cosmetics": "Retain readout spacing, axis extents, minor alignment differences, clipped transformation viewport, compact number formatting and close but distinct flow arrows. Root complete selected-picture review found no persistent label obstruction; these do not justify another render.",
+    "chapter_cuts": "Retain consistent chapter picture reset. All12join spectra/word contexts reviewed diagnostically; continuous perceived transition quality not certified.",
+    "wording": "Whole-number language is contextually shown with negative and positive integer rungs; no mathematics change.",
+    "ASR02_3": "Keep retained take; turn/turned remains unadjudicated recognition discrepancy, not a proven omission or changed mathematical claim."
+  },
+  "explicit_limits": [
+    "No continuous human listening or watch-through claimed.",
+    "Fine-sync and full independent final audiovisual acceptance remain unestablished; review authorship ties disclosed.",
+    "Platform observations are selected samples, not every frame/control state.",
+    "ASR and spectral observations are diagnostics, not proof of exact speech or natural delivery."
+  ],
+  "not_a_claim_of_perfection": true,
+  "evidence": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-repaired-final-review01/REVIEW.md",
+      "sha256": "e12f4da0067f32a279461ff07d5bac757aeb236b88c9e5da3e88fe75e2181d44"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/picture-review-progress11.json",
+      "sha256": "f535175df2b2d046a058e910192217474b202e5eb08b29dc36d780a5349d8687"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/encoded-asr-triage01.json",
+      "sha256": "234d01b1853282e1046bdcb178662511a1bffcd36434a8e463b56876d28e6f03"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/jobs/logarithm-remote-join-spectra01/review01.json",
+      "sha256": "9088386545d814167bc23350fab0f269ca6b5feea2379e14f8e8c34c9d4842f1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/platform-chapter-navigation01.json",
+      "sha256": "d814883c04a93c509f2cdfb5c06d80d4a65fc6df62773c2562bc1cec4c28f151"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-release-review-reconciliation01/u1-disposition01.json",
+      "sha256": "07c7c5e3af4b8e74459c792db05bbab77a9163f4966e3d755146c1c3d2e6c733"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-release-review-reconciliation01/u7-platform-disposition01.json",
+      "sha256": "b55601114af99d12f2b487787bc34cde866258c056445f353b0d83cfc8df44d5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-release-review-reconciliation01/additional-footer-samples01.json",
+      "sha256": "30ab3d4dcba8fa8931cf4291c51f3d351c6f3cf70c0dfab33efb3117ffa84c62"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-release-review-reconciliation01/footer1768-platform01.json",
+      "sha256": "bb9ed8a904872fa5f7b555e1b97beb6820b552ed325c2aa6804c06ebca62dc44"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/delivery-package04.json",
+      "sha256": "ad779cb80a1f66838e3cb5f154c1666b028aeac162f342e1b15d3b2b262906f3"
+    }
+  ],
+  "published": false
+}
