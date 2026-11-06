@@ -84,3 +84,4 @@ PASS e-success-line-required: AssertionError: No success line: complex-remote-re
 PASS w-no-master: AssertionError: Stable complex master required
 PASS m-check-prints-growth: estimate 0.004 GiB on the fixture; decides nothing
 PASS m-master-exit: complex-remote-master01: CalledProcessError
+PASS m-no-retry-without-name: AssertionError: complex-remote-master01 did not pass. Preserve it, read its log, then pass
