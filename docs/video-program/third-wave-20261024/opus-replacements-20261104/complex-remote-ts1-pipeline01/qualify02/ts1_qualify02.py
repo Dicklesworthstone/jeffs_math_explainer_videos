@@ -137,7 +137,9 @@ def check_outputs():
     success(BUILD)
     d = read(job / 'resource-receipt.json')
     assert d.get('inputs_sha256') == sha(MANIFEST), 'Build inputs moved'
-    assert d.get('command', [])[1:] == child_command()[1:], 'Build ran another command'  # pictures reads this under its own python
+    assert d.get('command', [])[1:] == child_command()[1:], 'Build ran another command'
+    python = d['command'][0]  # the chain's pictures stage reads this under its own python, so the frozen row decides
+    assert {row['path']: row['sha256'] for row in read(MANIFEST)['files']}.get(python) == sha(python), 'Build ran another interpreter'
     check_log((job / 'command.log').read_text(errors='replace'))
     native = (job / 'facts-native.tsv').read_bytes()
     assert native and native == (job / 'facts-oracle.tsv').read_bytes() == RELEASE_FACTS.read_bytes(), 'Facts differ'
@@ -317,6 +319,7 @@ def launch():
     wait_for_old_chain()
     files = check()
     files[str(OLD_CHAIN_END)] = sha(OLD_CHAIN_END)
+    files[sys.executable] = sha(sys.executable)
     with MANIFEST.open('x') as handle:
         json.dump({'files': [{'path': path, 'sha256': digest} for path, digest in sorted(files.items())]}, handle, indent=2)
     subprocess.run(guard_command(), cwd=R, check=True)

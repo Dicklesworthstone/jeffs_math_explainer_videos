@@ -226,6 +226,24 @@ def main():
                  "m.check_build()\nprint(m.BIN_SHA256)\n")
         run = subprocess.run([t.python, '-I', '-B', '-c', probe], cwd=t.R, env=t.env, capture_output=True, text=True)
         check('check-build-after-the-job', run.returncode == 0 and run.stdout.strip() == digest, last(run.stderr) if run.returncode else 'BIN_SHA256 reads the job')
+        other = (f"import importlib.util\nspec = importlib.util.spec_from_file_location('q', {str(t.qualify02)!r})\nm = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(m)\n"
+                 "m.sys.executable = '/bin/sh'\nm.check_build()\nprint('ok')\n")
+        run = subprocess.run([t.python, '-I', '-B', '-c', other], cwd=t.R, env=t.env, capture_output=True, text=True)
+        check('another-reader-python-is-accepted', run.returncode == 0 and run.stdout.strip() == 'ok', last(run.stderr) if run.returncode else 'a stage may read the build under its own interpreter')
+        receipt = t.J / 'complex-remote-build02/resource-receipt.json'
+        saved = receipt.read_text()
+        data = json.loads(saved)
+        data['command'][0] = '/bin/sh'
+        receipt.write_text(json.dumps(data))
+        run = subprocess.run([t.python, '-I', '-B', '-c', probe], cwd=t.R, env=t.env, capture_output=True, text=True)
+        receipt.write_text(saved)
+        check('refuse-another-build-interpreter', run.returncode != 0 and 'Build ran another interpreter' in run.stderr, last(run.stderr))
+        data = json.loads(saved)
+        data['command'][-1] = '--other'
+        receipt.write_text(json.dumps(data))
+        run = subprocess.run([t.python, '-I', '-B', '-c', probe], cwd=t.R, env=t.env, capture_output=True, text=True)
+        receipt.write_text(saved)
+        check('refuse-another-build-command', run.returncode != 0 and 'Build ran another command' in run.stderr, last(run.stderr))
         run = start_build(t)
         check('second-start-refused', run.returncode == 1 and 'refused' in run.stderr)
         for name, (damage, words) in CHECK_CASES.items():
