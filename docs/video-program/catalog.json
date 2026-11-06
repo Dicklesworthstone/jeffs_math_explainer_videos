@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-11-03",
+  "updated_on": "2026-11-06",
   "work_tracker": ".beads",
   "consumer": "Channel owner and video producers",
   "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
@@ -399,7 +399,7 @@
     },
     {
       "video_id": "raptorq_gf256",
-      "working_title": "The Arithmetic Where 3 × 7 = 9",
+      "working_title": "The Arithmetic Where 3 \u00d7 7 = 9",
       "work_epic": "mx-e-b-qyy",
       "production_approval": "historical_granted",
       "decisions": [
@@ -1680,7 +1680,7 @@
     {
       "video_id": "square_packing",
       "working_title": "Why turning a square can make the whole box smaller",
-      "pitch": "Five unit squares; construct a side `2 + √2/2` container, distinguish a feasible construction from a lower bound, then explain why local motion and global optimality differ. Contacts and forbidden regions, not a gallery of records.",
+      "pitch": "Five unit squares; construct a side `2 + \u221a2/2` container, distinguish a feasible construction from a lower bound, then explain why local motion and global optimality differ. Contacts and forbidden regions, not a gallery of records.",
       "work_epic": "mx-video-program-program-87do.5",
       "production_approval": "explicit_current_grant",
       "decisions": [
@@ -2170,7 +2170,7 @@
             },
             "evidence_state": "fail"
           },
-          "generation_provenance": "Full 3840x2160/60fps H.264 BT.709 scored export: 14893 frames, 248.216667 seconds, 48 kHz stereo AAC and 79 embedded English captions covering 74 sentences. One bounded following-context seed2 repair replaces the truncated chapter01 ending; its target ends at source sample521040 and excludes96480 context samples. The up/Its seam is at129662 after the measured release. All41 selected cues were reconstructed exactly. All four final timelines match the refreshed score inputs, native PCM replay null checks and score QA pass, and layout files are empty. Full software and VideoToolbox hardware decodes pass with zero errors. All decoded frames of unchanged chapters02–04 equal the previously reviewed 4K export; root additionally viewed all ten new chapter01 cues, two-second samples, question/reveal and ending samples, and three final-master joins. These are technical and sampled visual observations, not continuous listening. Detailed source mappings are in the cue assembly; empty artifact input lists mean incomplete catalog lineage.",
+          "generation_provenance": "Full 3840x2160/60fps H.264 BT.709 scored export: 14893 frames, 248.216667 seconds, 48 kHz stereo AAC and 79 embedded English captions covering 74 sentences. One bounded following-context seed2 repair replaces the truncated chapter01 ending; its target ends at source sample521040 and excludes96480 context samples. The up/Its seam is at129662 after the measured release. All41 selected cues were reconstructed exactly. All four final timelines match the refreshed score inputs, native PCM replay null checks and score QA pass, and layout files are empty. Full software and VideoToolbox hardware decodes pass with zero errors. All decoded frames of unchanged chapters02\u201304 equal the previously reviewed 4K export; root additionally viewed all ten new chapter01 cues, two-second samples, question/reveal and ending samples, and three final-master joins. These are technical and sampled visual observations, not continuous listening. Detailed source mappings are in the cue assembly; empty artifact input lists mean incomplete catalog lineage.",
           "evidence_refs": [
             "mx-video-program-program-87do.6.7",
             "mx-video-program-program-87do.2.11",
@@ -2709,7 +2709,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-expanded-review01.mp4",
@@ -2848,8 +2848,8 @@
     },
     {
       "video_id": "discrete_tomography",
-      "working_title": "Two shadows can lie—even when every number is right",
-      "pitch": "Binary discrete tomography; identical row/column sums, 2×2 switching components, flow reconstruction, feasibility versus uniqueness.",
+      "working_title": "Two shadows can lie\u2014even when every number is right",
+      "pitch": "Binary discrete tomography; identical row/column sums, 2\u00d72 switching components, flow reconstruction, feasibility versus uniqueness.",
       "work_epic": "mx-video-program-program-87do.9",
       "production_approval": "explicit_current_grant",
       "decisions": [
@@ -2969,7 +2969,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-expanded-review01.mp4",
@@ -3133,7 +3133,7 @@
     {
       "video_id": "good_turing",
       "working_title": "How much of the next sample will be something you've never seen?",
-      "pitch": "Good–Turing missing mass from singleton counts; distinguish probability mass from number of unseen species. Animate a frequency-of-frequencies table.",
+      "pitch": "Good\u2013Turing missing mass from singleton counts; distinguish probability mass from number of unseen species. Animate a frequency-of-frequencies table.",
       "work_epic": "mx-video-program-program-87do.11",
       "production_approval": "not_requested",
       "decisions": [
@@ -3745,7 +3745,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-expanded-review01.mp4",
@@ -3937,7 +3937,7 @@
     {
       "video_id": "maxwell_cremona",
       "working_title": "The second drawing that tells you whether a structure can hold itself up",
-      "pitch": "Maxwell–Cremona reciprocal diagrams: equilibrium force polygons, a dual graph, and a lifted surface.",
+      "pitch": "Maxwell\u2013Cremona reciprocal diagrams: equilibrium force polygons, a dual graph, and a lifted surface.",
       "work_epic": "mx-video-program-program-87do.21",
       "production_approval": "not_requested",
       "decisions": [
@@ -3961,7 +3961,7 @@
     {
       "video_id": "crofton",
       "working_title": "Measure a curve by throwing lines at it",
-      "pitch": "Cauchy–Crofton through projection and intersection counts; define the distribution of lines before averaging.",
+      "pitch": "Cauchy\u2013Crofton through projection and intersection counts; define the distribution of lines before averaging.",
       "work_epic": "mx-video-program-program-87do.22",
       "production_approval": "explicit_current_grant",
       "decisions": [
@@ -3969,7 +3969,7 @@
           "on": "2026-10-16",
           "decision": "inbox",
           "by": "planning intake; owner response where stated",
-          "reason": "Reserve. A satisfying exact theorem; generic “random needles find π” would be too familiar.",
+          "reason": "Reserve. A satisfying exact theorem; generic \u201crandom needles find \u03c0\u201d would be too familiar.",
           "source_refs": [
             "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
           ]
@@ -4218,7 +4218,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-expanded-review01.mp4",
@@ -4458,7 +4458,7 @@
     {
       "video_id": "steiner_tree",
       "working_title": "Why the shortest connecting network adds a point nobody asked for",
-      "pitch": "Steiner trees; derive the 120° junction by local length variation, then show topology choices and local/global distinction.",
+      "pitch": "Steiner trees; derive the 120\u00b0 junction by local length variation, then show topology choices and local/global distinction.",
       "work_epic": "mx-video-program-program-87do.28",
       "production_approval": "not_requested",
       "decisions": [
@@ -4481,7 +4481,7 @@
     },
     {
       "video_id": "stable_matching",
-      "working_title": "The matching that is stable—and still rewards someone for lying",
+      "working_title": "The matching that is stable\u2014and still rewards someone for lying",
       "pitch": "Deferred acceptance, stability, proposer advantage, and a concrete manipulation example under stated roles.",
       "work_epic": "mx-video-program-program-87do.29",
       "production_approval": "not_requested",
@@ -4787,7 +4787,37 @@
               ]
             }
           ],
-          "disposition": "Public and watch-verified 2160p60 with uploaded English; opening caption placement cleared in sampled player frames. ASR disagreement, continuous listening, fine sync and independent human review remain open."
+          "disposition": "Superseded short cut; original unlisted after current deep replacement was public-watch verified. Earlier publication history retained."
+        },
+        {
+          "revision_id": "oliver-deep-rebuild-4k60-20261106",
+          "label": "Logarithms Made Visual: From Slide Rules to Matrices",
+          "voice": "oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/jobs/logarithm-remote-render-work01/logarithm_mysteries_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "8534ec211790fb8400b809de19a6d1cb75af6150a5e90566f6a93bb90e7efd69"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "80 retained ElevenLabs Oliver cues; native FrankenManim 13-chapter deep rebuild;116665frames;475captionblocks. Previous takes and short cut preserved.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/publication-receipt01.json",
+            "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-release-review-reconciliation01/producer-release-decision01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/delivery-package04.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-11-06T05:31:57.593179+00:00",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public and watch-verified2160p60 with uploaded English. Original short cut unlisted. Producer release decision is scoped; continuous listening,fine-sync and full independent audiovisual acceptance remain open."
         }
       ],
       "publications": [
@@ -4796,11 +4826,24 @@
           "external_id": "kyVVPo958Iw",
           "url": "https://youtu.be/kyVVPo958Iw",
           "revision_id": "oliver-4k60-20261103",
-          "visibility": "public",
-          "recorded_as_of": "2026-11-03",
+          "visibility": "unlisted",
+          "recorded_as_of": "2026-11-06T05:31:57.593179+00:00",
           "evidence_state": "pass",
           "evidence_refs": [
-            "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/publication-receipt03.json"
+            "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/publication-receipt03.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/publication-receipt01.json"
+          ]
+        },
+        {
+          "venue": "youtube",
+          "external_id": "lgpTDROHgQY",
+          "url": "https://youtu.be/lgpTDROHgQY",
+          "revision_id": "oliver-deep-rebuild-4k60-20261106",
+          "visibility": "public",
+          "recorded_as_of": "2026-11-06T05:31:57.593179+00:00",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/publication-receipt01.json"
           ]
         }
       ]
@@ -5305,7 +5348,7 @@
     },
     {
       "video_id": "reed_solomon_qr",
-      "working_title": "Reed–Solomon and QR codes",
+      "working_title": "Reed\u2013Solomon and QR codes",
       "pitch": "Error correction and an honest code-capacity example.",
       "work_epic": "mx-video-program-program-87do.47",
       "production_approval": "not_requested",
@@ -5521,7 +5564,7 @@
     },
     {
       "video_id": "diffie_hellman",
-      "working_title": "Diffie–Hellman",
+      "working_title": "Diffie\u2013Hellman",
       "pitch": "Public key exchange, hardness assumptions and authentication limits.",
       "work_epic": "mx-video-program-program-87do.56",
       "production_approval": "not_requested",
@@ -5629,7 +5672,7 @@
             },
             "evidence_state": "unknown"
           },
-          "generation_provenance": "Complete native 1920x1080p60 narrated review cut: 53185 frames, 886.416667s, 12 chapters, 256 timed captions covering 233 sentences. Existing Michael-reference route with selected original takes and sample-preserving cue assembly; exact source and narration lineage is in the input and chapter receipts. Every captured chapter soundtrack replayed bit for bit through the native mixer; full master decode passed. Caption text and native timing were verified, with at most 1ms rounding difference. Root viewed actual chapter frames and master opening/join/ending samples. These are sampled visual and technical checks. The catalog does not enumerate the full artifact graph; detailed lineage remains in the pinned receipts. The 12-chapter cut uses 36 seed 2 first takes, all actual EOS, without pickups. Three cue-boundary repairs retain all source samples exactly once. Chapter 12 has a measured six-second reading-hold repair; other 11 rendered chapter files are copied exactly. Native mark-to-answer prediction intervals range 4.55–5.05s. 91/108 normalized assembled-cue ASR checks match; 17 recognition ambiguities remain documented.",
+          "generation_provenance": "Complete native 1920x1080p60 narrated review cut: 53185 frames, 886.416667s, 12 chapters, 256 timed captions covering 233 sentences. Existing Michael-reference route with selected original takes and sample-preserving cue assembly; exact source and narration lineage is in the input and chapter receipts. Every captured chapter soundtrack replayed bit for bit through the native mixer; full master decode passed. Caption text and native timing were verified, with at most 1ms rounding difference. Root viewed actual chapter frames and master opening/join/ending samples. These are sampled visual and technical checks. The catalog does not enumerate the full artifact graph; detailed lineage remains in the pinned receipts. The 12-chapter cut uses 36 seed 2 first takes, all actual EOS, without pickups. Three cue-boundary repairs retain all source samples exactly once. Chapter 12 has a measured six-second reading-hold repair; other 11 rendered chapter files are copied exactly. Native mark-to-answer prediction intervals range 4.55\u20135.05s. 91/108 normalized assembled-cue ASR checks match; 17 recognition ambiguities remain documented.",
           "evidence_refs": [
             "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/review-cut01/verification.json",
             "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/review-cut01/inputs.json",
@@ -5687,7 +5730,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-expanded-review01.mp4",
@@ -5827,7 +5870,7 @@
     },
     {
       "video_id": "stokes_theorem_visual",
-      "working_title": "The Boundary Trick Behind Stokes’ Theorem",
+      "working_title": "The Boundary Trick Behind Stokes\u2019 Theorem",
       "pitch": "A visual path from the fundamental theorem of calculus through circulation, flux and an n-dimensional Stokes proof, with a careful bridge to manifolds and physical applications.",
       "work_epic": "mx-video-program-program-87do.65",
       "production_approval": "explicit_current_grant",
