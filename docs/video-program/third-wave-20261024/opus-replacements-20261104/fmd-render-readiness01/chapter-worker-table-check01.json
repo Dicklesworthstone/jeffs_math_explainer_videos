@@ -1,0 +1,17 @@
+{
+  "checked_at": "2026-11-06T18:14:15.509287+00:00",
+  "host": "fmd",
+  "chapter": "01_the_bump",
+  "frames": 6311,
+  "actual_csd_preview_tables_pass": true,
+  "checks": [
+    "exact timeline bytes",
+    "exact cue bytes",
+    "original cuelog prefix",
+    "score hashes and sizes",
+    "sample offsets and contiguous coverage"
+  ],
+  "final_render_launched": false,
+  "review_permit_exists": false,
+  "scope": "Worker table validation against actual completed narrated preview, not final render or picture acceptance."
+}

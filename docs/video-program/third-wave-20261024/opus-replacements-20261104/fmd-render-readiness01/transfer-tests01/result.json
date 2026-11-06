@@ -1,0 +1,17 @@
+{
+  "synthetic": true,
+  "files": 72,
+  "zero_byte_files": 11,
+  "bytes": 602,
+  "negative_cases": [
+    "truncated",
+    "trailing",
+    "corrupt",
+    "duplicate",
+    "escape",
+    "source-escape",
+    "oversized",
+    "existing-output"
+  ],
+  "scope": "Transport mechanics only. Real guarded transfer, original media checks and master replay not yet run."
+}

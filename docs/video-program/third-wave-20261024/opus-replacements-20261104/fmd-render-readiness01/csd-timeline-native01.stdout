@@ -1,0 +1,17 @@
+{"chapter_scope": null, "consumer": "render", "directed_caption_segments": [], "listening_acceptance": false, "plan_mode": "external-ui", "prediction_holds": [], "promotion": false, "selected_cues": 105, "topic": "complex_analysis_visual", "verified_cues": 105}
+01_the_bump     6311 frames    90.3s    69.9 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/01_the_bump.mp4
+02_turning_numbers  5372 frames    50.8s   105.7 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/02_turning_numbers.mp4
+03_two_planes   7249 frames    83.5s    86.8 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/03_two_planes.mp4
+04_reading_color  6774 frames  1509.3s     4.5 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/04_reading_color.mp4
+05_gallery      9879 frames  2222.7s     4.4 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/05_gallery.mp4
+06_one_derivative 10030 frames   117.9s    85.0 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/06_one_derivative.mp4
+07_one_point    6491 frames   546.0s    11.9 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/07_one_point.mp4
+08_loop_sums    5911 frames    74.3s    79.5 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/08_loop_sums.mp4
+09_boundary     9587 frames  1796.0s     5.3 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/09_boundary.mp4
+10_rigidity     7442 frames   798.3s     9.3 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/10_rigidity.mp4
+11_counting    11932 frames  1680.5s     7.1 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/11_counting.mp4
+12_residues     3943 frames   273.6s    14.4 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/12_residues.mp4
+13_real_integral 10641 frames   113.7s    93.5 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/13_real_integral.mp4
+14_continuation 11756 frames   921.6s    12.8 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/14_continuation.mp4
+15_closing      4379 frames    39.2s   111.7 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/stage07-timeline01/timeline-output/timeline/15_closing.mp4
+total          117697 frames  10317.7s    11.4 fps

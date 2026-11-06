@@ -1,0 +1,219 @@
+{
+  "chapters": [
+    {
+      "chapter": "01_the_bump",
+      "frames": 6311,
+      "cues": [
+        "01_1",
+        "01_2",
+        "01_3",
+        "01_4",
+        "01_5",
+        "01_6"
+      ],
+      "timeline_sha256": "e1a4469b38d43e3012247284bdcc74f891bdb555dc5f153f20c77826f308c58c"
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "frames": 5372,
+      "cues": [
+        "02_1",
+        "02_2",
+        "02_3",
+        "02_4",
+        "02_5",
+        "02_6"
+      ],
+      "timeline_sha256": "24cbae1ec0ba73c7b6f289e5ecf33483b0575c6aaf19e00df3078e1e6474651f"
+    },
+    {
+      "chapter": "03_two_planes",
+      "frames": 7249,
+      "cues": [
+        "03_1",
+        "03_2",
+        "03_3",
+        "03_4",
+        "03_5",
+        "03_6",
+        "03_7"
+      ],
+      "timeline_sha256": "45e011a6efb802e32d7bd1b568a0ea320add6db1755fee8acf104384f5a0d29d"
+    },
+    {
+      "chapter": "04_reading_color",
+      "frames": 6774,
+      "cues": [
+        "04_1",
+        "04_2",
+        "04_3",
+        "04_4",
+        "04_5",
+        "04_6",
+        "04_7"
+      ],
+      "timeline_sha256": "51a798f17e9a3e740226afcd0ca28f6cd1eef92571e71f733efe6c64840ed2ae"
+    },
+    {
+      "chapter": "05_gallery",
+      "frames": 9879,
+      "cues": [
+        "05_1",
+        "05_2",
+        "05_3",
+        "05_4",
+        "05_5",
+        "05_6",
+        "05_7",
+        "05_8",
+        "05_9"
+      ],
+      "timeline_sha256": "c7a4720faf85a1cd834680a331e52560bea6cd9b53f7bf89674d38485cfb005d"
+    },
+    {
+      "chapter": "06_one_derivative",
+      "frames": 10030,
+      "cues": [
+        "06_1",
+        "06_2",
+        "06_3",
+        "06_4",
+        "06_5",
+        "06_6",
+        "06_7",
+        "06_8",
+        "06_9"
+      ],
+      "timeline_sha256": "36952a001d191b826923fc751ea2121229466aa13a406eb1a8f22cff5eed43c0"
+    },
+    {
+      "chapter": "07_one_point",
+      "frames": 6491,
+      "cues": [
+        "07_1",
+        "07_2",
+        "07_3",
+        "07_4",
+        "07_5",
+        "07_6"
+      ],
+      "timeline_sha256": "db33aebc4b1210009b3e47df5a493eb00c66cc52099f38e68e6330215c250732"
+    },
+    {
+      "chapter": "08_loop_sums",
+      "frames": 5911,
+      "cues": [
+        "08_1",
+        "08_2",
+        "08_3",
+        "08_4",
+        "08_5"
+      ],
+      "timeline_sha256": "25cefa066f54bfb237a3daa7213bb08abd49e18eae966f5821274e4816f55c16"
+    },
+    {
+      "chapter": "09_boundary",
+      "frames": 9587,
+      "cues": [
+        "09_1",
+        "09_2",
+        "09_3",
+        "09_4",
+        "09_5",
+        "09_6",
+        "09_7",
+        "09_8",
+        "09_9"
+      ],
+      "timeline_sha256": "d2cb89172a2ef5a5937d6ad42cadf2a66697261bddb3a0c0c28212d4168436ff"
+    },
+    {
+      "chapter": "10_rigidity",
+      "frames": 7442,
+      "cues": [
+        "10_1",
+        "10_2",
+        "10_3",
+        "10_4",
+        "10_5",
+        "10_6"
+      ],
+      "timeline_sha256": "59f6aa7eb0d72c500b1ce3c6f5437de01eb4ecfb0dfac1111a8bd273cc4dc653"
+    },
+    {
+      "chapter": "11_counting",
+      "frames": 11932,
+      "cues": [
+        "11_1",
+        "11_2",
+        "11_3",
+        "11_4",
+        "11_5",
+        "11_6",
+        "11_7",
+        "11_8"
+      ],
+      "timeline_sha256": "eea74b80381e071798828a5973412c2cea7e58bb939b56b4a523acc81928df20"
+    },
+    {
+      "chapter": "12_residues",
+      "frames": 3943,
+      "cues": [
+        "12_1",
+        "12_2",
+        "12_3",
+        "12_4"
+      ],
+      "timeline_sha256": "8e1e33cc53e71301d7205f58e80bb6796b18bcdefb4777fd32b7bc3ced39d2c2"
+    },
+    {
+      "chapter": "13_real_integral",
+      "frames": 10641,
+      "cues": [
+        "13_1",
+        "13_2",
+        "13_3",
+        "13_4",
+        "13_5",
+        "13_6",
+        "13_7",
+        "13_8",
+        "13_9",
+        "13_10",
+        "13_11"
+      ],
+      "timeline_sha256": "563a0720ab73ef3f77eb19c6e4c920048c760e653dd3c32051ae90d4126a23f1"
+    },
+    {
+      "chapter": "14_continuation",
+      "frames": 11756,
+      "cues": [
+        "14_1",
+        "14_2",
+        "14_3",
+        "14_4",
+        "14_5",
+        "14_6",
+        "14_7",
+        "14_8"
+      ],
+      "timeline_sha256": "dce82b1324dfa34a483b6f082e60a31d93f4c2ee4c370d15677d118645dc118b"
+    },
+    {
+      "chapter": "15_closing",
+      "frames": 4379,
+      "cues": [
+        "15_1",
+        "15_2",
+        "15_3",
+        "15_4"
+      ],
+      "timeline_sha256": "560c3117fe0eb4beda0d69b8c415bbca735344ffb701b1fd01d4a9e3295044a5"
+    }
+  ],
+  "cues": 105,
+  "total_frames": 117697,
+  "binary_sha256": "2ccda773be0d6d9b6a83660a5481277d59b5ce2e6a4b80852d826388cad0cd0e",
+  "baseline_comparison": "pending; required before downstream acceptance",
+  "scope": "Native schedule generation only; no picture, listening, fine-sync or final acceptance."
+}

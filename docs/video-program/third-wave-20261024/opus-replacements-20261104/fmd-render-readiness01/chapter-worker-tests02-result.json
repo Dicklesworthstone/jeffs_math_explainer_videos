@@ -1,0 +1,18 @@
+{
+  "real_narrated_chapter_tables_pass": true,
+  "rejections": [
+    "review_json",
+    "extraction_json",
+    "review_sha256",
+    "unviewed record",
+    "false listening claim",
+    "wrong host chapter",
+    "no actual review permit",
+    "changed timeline",
+    "changed cue",
+    "changed score log"
+  ],
+  "synthetic_permit_tests_only": true,
+  "actual_review_exists": false,
+  "render_launched": false
+}

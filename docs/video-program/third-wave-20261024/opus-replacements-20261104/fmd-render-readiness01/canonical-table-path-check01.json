@@ -1,0 +1,8 @@
+{
+  "at": "2026-11-06T18:09:31.732051+00:00",
+  "exact_tables": 45,
+  "resolved_audio_files": 105,
+  "frames": 117697,
+  "pass": true,
+  "scope": "Exact source-table bytes and all native cue-log audio paths/sizes/hashes on FMD; not newly rendered chapter evidence. No path normalization or verifier change."
+}

@@ -1,0 +1,17 @@
+{
+  "utc": "2026-11-06T18:22:24.240529+00:00",
+  "files": {
+    "launch-csd-disjoint01.py": "339683f25e5ae47b4cdacd592db1a8364818f4323a1562d472ce1ccc11993d0e",
+    "launch-fmd-disjoint01.py": "47adfb3df95f489a5ffdb2bbfd4af2a16cab55003e560e0e68e277205ee951ad",
+    "distributed-review-permit01.py": "cbb20e916860b95af56b7486118fa9939f55f5293f1b2e5edb970c62cd67d25d",
+    "export-fmd-final01.py": "263f05bffc6b6cc7ad0a65f904548a186b00893a8ec6cc2a188b24bec8c1eac0",
+    "verify-fmd-import01.py": "b19e45c8436ed462d8020f12fe37aeeccb9c0082f273c3e2d33f2c30415a0fb8",
+    "final-master03.py": "bfd43b9fc5d97cd006bc58392fd5dbc150d340d61a8e6d16959646eec7d4d476"
+  },
+  "actual_host_imports_pass": true,
+  "csd_assignment_matches_actual_timeline": true,
+  "fmd_original_input_and_stop_hashes_pass": true,
+  "fmd_freeze_rejects_absent_actual_review": true,
+  "render_launched": false,
+  "scope": "Helpers deployed and prerequisite checks exercised. Final dispatch/export/import/master execution not yet proven; actual preview review required."
+}

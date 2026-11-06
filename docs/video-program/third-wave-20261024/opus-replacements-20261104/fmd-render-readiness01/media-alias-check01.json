@@ -1,0 +1,11 @@
+{
+  "actual_aliases_pass": true,
+  "effective_score_files": 38,
+  "rejected_aliases": [
+    "CANONICAL",
+    "NARRATION",
+    "STEMS"
+  ],
+  "actual_narrated_table_check": true,
+  "render_launched": false
+}

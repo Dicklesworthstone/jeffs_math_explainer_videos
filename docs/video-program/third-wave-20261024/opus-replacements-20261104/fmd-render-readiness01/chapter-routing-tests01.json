@@ -1,0 +1,13 @@
+{
+  "real_assignment_pass": true,
+  "rejected_mutations": [
+    "missing",
+    "duplicate",
+    "unknown_host",
+    "wrong_frames",
+    "wrong_timeline",
+    "nonfinite_cost",
+    "approval_forged"
+  ],
+  "scope": "Routing validator only; no distributed launch/master execution"
+}

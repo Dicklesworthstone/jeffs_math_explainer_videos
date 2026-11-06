@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-06T18:26:17.894646+00:00",
+  "files": {
+    "final-verify03.py": "f41bb24a6e29e639007ed45d36d8bf41ec831c5e6d09914c8727ae0fbba186ed",
+    "launch-final-verify03.py": "d9921d9e7cbdd459dfcbfad17bccf7e97d1258b228fdb4d26b42704ef4450d3a"
+  },
+  "actual_host_imports": true,
+  "master_child": "final-master03.py",
+  "verifier_child": "final-verify03.py",
+  "native_checks_preserved": true,
+  "executed_final_verification": false
+}

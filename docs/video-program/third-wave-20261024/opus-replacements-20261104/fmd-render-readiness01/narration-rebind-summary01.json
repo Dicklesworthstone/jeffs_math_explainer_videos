@@ -1,0 +1,18 @@
+{
+  "unchanged_full_wavs": 105,
+  "timings_identical": true,
+  "sentence_rows_equal_except_source_path": true,
+  "native_delivery": {
+    "chapter_scope": null,
+    "consumer": "render",
+    "directed_caption_segments": [],
+    "listening_acceptance": false,
+    "plan_mode": "external-ui",
+    "prediction_holds": [],
+    "promotion": false,
+    "selected_cues": 105,
+    "topic": "complex_analysis_visual",
+    "verified_cues": 105
+  },
+  "scope": "Local path rebinding and exact PCM reconstruction only; no listening, fine-sync or picture acceptance."
+}

@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-06T18:00:35.799486+00:00",
+  "files": 701,
+  "bytes": 1172445097,
+  "manifest_sha256": {
+    "fmd-production-assets01.json": "a914bda9af3304895dd38e630cf103d27736e48beeca5ca45dfcf53bc2c4f6b5",
+    "fmd-verifier-assets01.json": "4deb1a6d23e507fcf98082171ed2fe0ee342f18be4af24926f4c220de918e38b"
+  },
+  "pass": true,
+  "scope": "Exact input file-copy verification only. Native compiled path installation/delivery verification and preview picture review remain before final render."
+}
