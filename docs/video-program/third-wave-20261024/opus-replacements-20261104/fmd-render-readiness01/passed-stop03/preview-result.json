@@ -1,0 +1,54 @@
+{
+  "size": "960x540",
+  "command": [
+    "/data/projects/jmev-fmd-render-qualification-20261106-1111/production07d",
+    "render",
+    "01_the_bump",
+    "--silent",
+    "--res",
+    "960x540",
+    "--fps",
+    "60",
+    "--out",
+    "/data/projects/jmev-fmd-render-qualification-20261106-1111/jobs/fmd-encoder-stop03/preview",
+    "--crf",
+    "18",
+    "--preset",
+    "veryfast"
+  ],
+  "before": {
+    "177464": {
+      "pid": 177464,
+      "ppid": 177450,
+      "group": 177464,
+      "state": "S",
+      "start": "591528546",
+      "command": "/data/projects/jmev-fmd-render-qualification-20261106-1111/production07d render 01_the_bump --silent --res 960x540 --fps 60 --out /data/projects/jmev-fmd-render-qualification-20261106-1111/jobs/fmd-encoder-stop03/preview --crf 18 --preset veryfast "
+    },
+    "177525": {
+      "pid": 177525,
+      "ppid": 177464,
+      "group": 177525,
+      "state": "S",
+      "start": "591528578",
+      "command": "/data/projects/jmev-fmd-render-qualification-20261106-1111/work/tmp/fmn-ffmpeg-session-177464-0/fmn-job-177464-0/fmn-bound-ffmpeg -hide_banner -loglevel error -f rawvideo -pix_fmt nv12 -video_size 960x540 -framerate 60/1 -colorspace bt709 -color_range tv -i - -c:v libx264 -crf 18 -preset veryfast -tune animation -pix_fmt yuv420p -movflags +faststart -color_primaries bt709 -color_trc bt709 -colorspace bt709 -color_range tv -y /data/projects/jmev-fmd-render-qualification-20261106-1111/work/tmp/fmn-ffmpeg-session-177464-0/fmn-job-177464-0/out.mp4 "
+    }
+  },
+  "encoder_read_bytes": {
+    "177525": 13829208
+  },
+  "native_exit": -15,
+  "elapsed": 0.366526591591537,
+  "survivors": {},
+  "pass": true,
+  "adapter_stop": {
+    "owner": 177450,
+    "identities": {
+      "177464": "591528546",
+      "177525": "591528578"
+    },
+    "elapsed": 0.317259956151247,
+    "child_exit": -15,
+    "live_descendants": []
+  }
+}

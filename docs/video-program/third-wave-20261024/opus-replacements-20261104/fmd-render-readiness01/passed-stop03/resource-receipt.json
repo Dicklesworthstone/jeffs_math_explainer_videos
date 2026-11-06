@@ -1,0 +1,51 @@
+{
+  "started": "2026-11-06T11:17:47.100543+00:00",
+  "phase": "native",
+  "command": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-fmd-render-qualification-20261106-1111/qualification01/encoder-stop-probe03.py",
+    "--run"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-06T11:17:47.129979+00:00",
+      "free_bytes": 38894759936,
+      "work_bytes": 32768,
+      "target_bytes": 0
+    },
+    {
+      "utc": "2026-11-06T11:17:50.376281+00:00",
+      "free_bytes": 38501126144,
+      "work_bytes": 49152,
+      "target_bytes": 950272
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":38895812608,\"free_excludes_purgeable\":true,\"free_pct\":4.130277928415643,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-fmd-render-qualification-20261106-1111\",\"platform\":{\"linux\":{\"device_id\":2307,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":941723856896,\"unprotected\":null,\"volume_available_bytes\":38895812608,\"volume_role\":null,\"volume_total_bytes\":941723856896}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-06T11:17:47.104618+00:00",
+    "free_bytes": 38895812608,
+    "work_bytes": 28672,
+    "target_bytes": 0
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "6baf9222ae13d7545a7f4f8b87cfde2c331732c5bf60d13c16de74cb00a4132d",
+  "pid": 177450,
+  "exit": 0,
+  "final_inputs_sha256": "6baf9222ae13d7545a7f4f8b87cfde2c331732c5bf60d13c16de74cb00a4132d",
+  "finished": "2026-11-06T11:17:50.471384+00:00"
+}

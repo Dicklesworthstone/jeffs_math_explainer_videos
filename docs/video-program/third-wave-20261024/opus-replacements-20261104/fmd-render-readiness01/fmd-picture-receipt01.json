@@ -1,0 +1,62 @@
+{
+  "started": "2026-11-06T11:20:39.571879+00:00",
+  "phase": "native",
+  "command": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-fmd-render-qualification-20261106-1111/qualification01/fmd-picture-identity01.py"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-06T11:20:39.612923+00:00",
+      "free_bytes": 34786811904,
+      "work_bytes": 53248,
+      "target_bytes": 950272
+    },
+    {
+      "utc": "2026-11-06T11:20:49.614302+00:00",
+      "free_bytes": 34773946368,
+      "work_bytes": 184320,
+      "target_bytes": 1413120
+    },
+    {
+      "utc": "2026-11-06T11:20:59.617109+00:00",
+      "free_bytes": 34767302656,
+      "work_bytes": 184320,
+      "target_bytes": 1675264
+    },
+    {
+      "utc": "2026-11-06T11:21:04.850137+00:00",
+      "free_bytes": 34751975424,
+      "work_bytes": 827392,
+      "target_bytes": 954368
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":34786836480,\"free_excludes_purgeable\":true,\"free_pct\":3.69395298051175,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-fmd-render-qualification-20261106-1111\",\"platform\":{\"linux\":{\"device_id\":2307,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":941723856896,\"unprotected\":null,\"volume_available_bytes\":34786836480,\"volume_role\":null,\"volume_total_bytes\":941723856896}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-06T11:20:39.582349+00:00",
+    "free_bytes": 34786836480,
+    "work_bytes": 49152,
+    "target_bytes": 950272
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "f0bd8e6aab56236e0aa0a97e3e70e1dd4dff99c5ad0ebb960441252d98b704ff",
+  "pid": 244243,
+  "exit": 0,
+  "final_inputs_sha256": "f0bd8e6aab56236e0aa0a97e3e70e1dd4dff99c5ad0ebb960441252d98b704ff",
+  "finished": "2026-11-06T11:21:04.898238+00:00"
+}

@@ -1,0 +1,38 @@
+{
+  "at": "2026-11-06T11:11:15.732346+00:00",
+  "host": "fmd",
+  "cpus": 16,
+  "load1": 1.12,
+  "available_memory_MiB": 49103,
+  "disk_available_KiB": 38616604,
+  "remote_stage": "/data/projects/jmev-fmd-render-qualification-20261106-1111",
+  "binary_sha256": "2ccda773be0d6d9b6a83660a5481277d59b5ce2e6a4b80852d826388cad0cd0e",
+  "loader_and_help_exit": 0,
+  "facts_equal_to_csd": true,
+  "facts_sha256": "7d528509752e532c07edb3fda7c12cd8251ac4ba77022355ae42ad725add4417",
+  "chapters": [
+    "01_the_bump",
+    "02_turning_numbers",
+    "03_two_planes",
+    "04_reading_color",
+    "05_gallery",
+    "06_one_derivative",
+    "07_one_point",
+    "08_loop_sums",
+    "09_boundary",
+    "10_rigidity",
+    "11_counting",
+    "12_residues",
+    "13_real_integral",
+    "14_continuation",
+    "15_closing"
+  ],
+  "render_launched": false,
+  "remaining": [
+    "Transfer exact narration, score and source bindings",
+    "Qualify resource guard and encoder shutdown on FMD",
+    "Bounded render comparison",
+    "Assign disjoint production chapters only after preview review; preserve CSD/TS1 jobs"
+  ],
+  "scope": "Binary readiness only, not render, listening, fine-sync or independent AV acceptance"
+}

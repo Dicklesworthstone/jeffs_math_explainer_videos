@@ -1,0 +1,67 @@
+{
+  "at": "2026-11-06T10:47:15.508257+00:00",
+  "hosts": [
+    {
+      "host": "trj",
+      "logical_cpus": 128,
+      "load_1m": 78.35,
+      "available_KiB": 77743660
+    },
+    {
+      "host": "css",
+      "logical_cpus": 64,
+      "load_1m": 33.03,
+      "available_KiB": 28519516
+    },
+    {
+      "host": "csd",
+      "logical_cpus": 64,
+      "load_1m": 10.83,
+      "available_KiB": 17800044
+    },
+    {
+      "host": "ts1",
+      "logical_cpus": 64,
+      "load_1m": 20.89,
+      "available_KiB": 22410372
+    },
+    {
+      "host": "ts2",
+      "logical_cpus": 128,
+      "load_1m": 77.82,
+      "available_KiB": 158312160
+    },
+    {
+      "host": "fmd",
+      "logical_cpus": 16,
+      "load_1m": 0.68,
+      "available_KiB": 39174524
+    },
+    {
+      "host": "hz1",
+      "logical_cpus": 8,
+      "load_1m": 1.09,
+      "available_KiB": 12566724
+    },
+    {
+      "host": "hz2",
+      "logical_cpus": 16,
+      "load_1m": 0.78,
+      "available_KiB": 23967304
+    },
+    {
+      "host": "mac-mini-old",
+      "logical_cpus": 10,
+      "load_1m": 53.65,
+      "available_KiB": 14720472
+    },
+    {
+      "host": "mac-mini-max",
+      "logical_cpus": 14,
+      "load_1m": 3.46,
+      "available_KiB": 13715272
+    }
+  ],
+  "mac_studio": "host key verification failed",
+  "assessment": "Fleet freshly inspected: FMD lowest relative load (0.68/16 logical CPUs, 37.36 GiB free), HZ2 also quiet (0.78/16,22.86 GiB free). FMD has ffmpeg/ffprobe/Python/tmux/sbh and existing video repo; exact production binary/source/font/encoder and guard qualification not yet established, so not render-ready. TS1 complex reference PID3505037 live11h01m,10/15chapters complete; existing CSD optimized pipeline retained without duplicate jobs. Mac-mini-max remains qualified narration diagnostic host. Mac-studio host-key verification failed; not bypassed. Logarithm already published per recorded receipt. No new render launched by this sweep; next safe parallel render requires a complete ready video or independently assigned chapters and exact dependency/guard qualification. Listening/fine-sync/independent AV gaps unchanged."
+}

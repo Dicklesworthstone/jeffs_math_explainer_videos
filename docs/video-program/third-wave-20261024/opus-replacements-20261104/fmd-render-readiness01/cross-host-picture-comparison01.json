@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-06T11:21:59.252866+00:00",
+  "tests": [
+    {
+      "size": "960x540",
+      "frames": 101,
+      "decoded_rows_equal": true,
+      "fmd_elapsed": 2.9113227212801576,
+      "csd_elapsed": 1.83055603899993
+    },
+    {
+      "size": "3840x2160",
+      "frames": 101,
+      "decoded_rows_equal": true,
+      "fmd_elapsed": 22.24189639184624,
+      "csd_elapsed": 35.10382457310334
+    }
+  ],
+  "pass": true,
+  "scope": "One silent chapter sampled at1fps,losslessCRF0 at540p and4K. Not narrated full-rate final or all chapters, not speed benchmark, no listening/finesync/independentAV."
+}
