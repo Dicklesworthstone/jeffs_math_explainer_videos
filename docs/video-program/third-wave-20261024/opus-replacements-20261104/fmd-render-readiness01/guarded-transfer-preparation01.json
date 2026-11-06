@@ -1,0 +1,22 @@
+{
+  "utc": "2026-11-06T18:32:11.776698+00:00",
+  "csd_to_fmd_alias_probe": "SSH name resolution failed; no remote credential/config changes",
+  "route": "Local configured SSH aliases relay fixed byte stream; CSD guarded receiver owns counted jobs/stage07-fmd-import01/import output",
+  "guard_stdin": "Actual guard Popen inherits stdin; stdout/stderr logged",
+  "synthetic_transport_result": "transfer-tests01/result.json",
+  "deployed": [
+    "stream-fmd-final01.py",
+    "receive-fmd-final01.py",
+    "prepare-fmd-import01.py",
+    "verify-fmd-import01.py"
+  ],
+  "script_sha256": {
+    "stream-fmd-final01.py": "c0c6add61eb0929c7b33fe67c6c2fbf04d29e3b79f441d33bdaf8e7a1ca40298",
+    "receive-fmd-final01.py": "bf1382dd9e9663d560f7cfa98a9b38b5b001f0af50d18dfd43310afdba72987b",
+    "prepare-fmd-import01.py": "a4e87b2f945b4ef3cc10ba6b37d8698372478d3af4b4934e058d2122241bd90e",
+    "verify-fmd-import01.py": "0308f56914755d0a8de8ccbab155af4cfde2dbbd6af1c9eba0c2a879366b8a55",
+    "transfer-fmd-final01.sh": "6de4d59eb40120516b5d219f27d0aa6fbc0b7037aaa6fdda3bcb6d207e4d96c6"
+  },
+  "actual_transfer_started": false,
+  "remaining": "Real review, final chapters, export metadata and guarded actual transfer, media verification and native replay."
+}

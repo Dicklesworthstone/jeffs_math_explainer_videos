@@ -1,0 +1,47 @@
+{
+  "utc": "2026-11-06T18:36:43.915539+00:00",
+  "reviewer": "BlueSalmon",
+  "actually_viewed": [
+    "thumbnail-upload02.png",
+    "thumbnail-phone02.png"
+  ],
+  "sizes": [
+    [
+      1280,
+      720
+    ],
+    [
+      320,
+      180
+    ]
+  ],
+  "observations": [
+    "COMPLEX ANALYSIS remains readable at320x180",
+    "Two-cycle phase-colour pattern remains visible at phone size",
+    "No clipping or overlap observed at either native size",
+    "Secondary formula and subheading are small; the main title carries identification"
+  ],
+  "upload_file": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/thumbnail-upload02.png",
+  "files": [
+    {
+      "path": "/data/projects/jmev-fmd-render-qualification-20261106-1111/jobs/fmd-thumbnail02/output/1280/complex_analysis_visual_thumbnail.png",
+      "sha256": "8ecb6a9582c9b06ad0c906b3c6d89b102eb9157c3f3385a073ade0982101d76c",
+      "size": [
+        1280,
+        720
+      ],
+      "bytes": 80772
+    },
+    {
+      "path": "/data/projects/jmev-fmd-render-qualification-20261106-1111/jobs/fmd-thumbnail02/output/320/complex_analysis_visual_thumbnail.png",
+      "sha256": "a1750cbf139bacdaea47a0eb44144eb5959298f00745d14155f716892b15a574",
+      "size": [
+        320,
+        180
+      ],
+      "bytes": 31772
+    }
+  ],
+  "independent_review": false,
+  "film_acceptance": false
+}

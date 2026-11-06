@@ -1,0 +1,23 @@
+{
+  "utc": "2026-11-06T18:34:10.560386+00:00",
+  "reviewer": "BlueSalmon",
+  "image": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/complex_analysis_visual_thumbnail01.png",
+  "sha256": "68eead09c6d3bd9635924234cad25c0490c95f13820446ad7438de27cc9003ab",
+  "size": [
+    3840,
+    2160
+  ],
+  "actually_viewed": true,
+  "displayed_at": [
+    2048,
+    1152
+  ],
+  "observations": [
+    "Main text and phase-colour square legible; no clipping or overlap observed",
+    "Square phase has two colour turns; central zero marked dark",
+    "Pixelated phase bands are authored51x51 cells, not a decode failure",
+    "Small formula caption is secondary; phone-size legibility not yet established"
+  ],
+  "scope": "Producer still-image review only, not independent review or film/AV acceptance",
+  "publication": "Not uploaded"
+}
