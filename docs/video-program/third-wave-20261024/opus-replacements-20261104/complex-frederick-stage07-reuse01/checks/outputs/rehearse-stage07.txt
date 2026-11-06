@@ -1,0 +1,37 @@
+PASS tree writes the 60-file stage07 workspace
+PASS the tree differs from stage06 in exactly the five repair files
+PASS a second tree over the same folder is refused
+PASS the pins refuse a take selected in the comparison
+PASS past the pins, adopt still refuses a take selected in the comparison
+PASS the pins refuse listening claimed in the comparison
+PASS past the pins, adopt still refuses listening claimed in the comparison
+PASS the pins refuse another model tag in a record
+PASS past the pins, adopt still refuses another model tag in a record
+PASS the pins refuse a record of the other take
+PASS past the pins, adopt still refuses a record of the other take
+PASS the pins refuse a failed job
+PASS past the pins, adopt still refuses a failed job
+PASS the pins refuse a receipt for another manifest
+PASS past the pins, adopt still refuses a receipt for another manifest
+PASS the pins refuse a manifest holding another fw
+PASS past the pins, adopt still refuses a manifest holding another fw
+PASS adopt reads both takes from the real job
+PASS the ingest counts the one log line that is not JSON and binds the manifest
+PASS the plan names the adopted job and has nothing to launch
+PASS each take's generation record names the stage06 script; root's request is unchanged
+PASS a second adopt on the lane is refused
+PASS the bridge refuses a comparison changed after adoption
+PASS the bridge refuses a manifest changed after adoption
+PASS the bridge refuses a take01 result changed after adoption
+PASS carry refuses the old stage06 take
+PASS carry leaves no timing question open []
+PASS the selection differs from stage06 at 09_5 only
+PASS the audio controller check passes 
+PASS the audio controller runs its six jobs in order 
+PASS all six job receipts end with exit 0
+PASS rows: 104 cues equal stage06, only 09_5 differs, 414 report rows
+PASS every rows file hashes as listed
+PASS the rows carry root's receipts, both takes, the decoded WAV and the decode receipt
+PASS the install receipt claims no listening or fine sync
+PASS the controller refuses to run a second time
+RESULT PASS, 0 failed

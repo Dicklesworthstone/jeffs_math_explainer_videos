@@ -1,0 +1,403 @@
+--- stage06/frederick_timing_bridge_stage06.py
++++ stage07/frederick_timing_bridge_stage07.py
+@@ -1,14 +1,17 @@
+-"""Complex Frederick timing bridge, stage06: from ingested recognition and root's selected complete takes to the kit's
++"""Complex Frederick timing bridge, stage07: from ingested recognition and root's selected complete takes to the kit's
+ sentence timing, phrase marks and an elevenlabs-ui-receipt-v2 receipt (bead .39).
+ 
+-Run from the repository root with python3 -I -B. Every subcommand reads the pinned combined-repair-stage06 script,
++Run from the repository root with python3 -I -B. Every subcommand reads the pinned native-stage07 script,
+ units, direction map and chapter sources, and writes only into a NEW folder given by --out.
+ 
+-Stage06 is the repaired bridge (47069583) with stage06 pins and two lanes. Takes come from root's new stage06 lane
+-(--lane) and, only through root's verified stage05 -> stage06 transfer (--transfer), from the sealed stage05 lane:
+-a stage05 take enters when the transfer lists its cue, name and hash, and is reported as not transferred otherwise.
++Stage07 is the stage06 bridge (6ba4ceb5) with stage07 pins and three lanes. The two new 09_5 takes come from root's new
++stage07 lane (--lane). The other 104 cues come from the sealed stage06 lane and, only through root's transfer02, from
++the sealed stage05 lane: a stage05 take enters when the transfer lists its cue, name and hash, and is reported as not
++transferred otherwise. A take is usable only while the hash of the text it was recorded from equals the stage07 row,
++so the two old 09_5 takes stay readable and cannot be selected.
+ Every take keeps the request, receipts and recognition it was made and processed with; the stage05 ones also carry
+-the transfer they rest on, and the decode receipt binds the transfer's hash.
++the transfer they rest on, and the decode receipt binds the transfer's hash. The new 09_5 record also carries root's
++unchanged request, submission and download record, and says the stage06 script was the live one at generation.
+ 
+   report   Read-only on its inputs. The phrase anchors the stage05 chapter code waits on (cue, byte offsets, phrase,
+            call sites), the direction dispositions implied by the map's visual holds, and, for every take that
+@@ -24,10 +27,14 @@
+            map, and the exact assemble command. The spans are dry-run through that assembler code first. Each
+            selected take is first converted again into the new decode-verification/ folder and compared with its
+            decoded PCM; those conversions are kept, and their hashes go in decode-verification.json.
++  carry    Root's run. Root's stage06 selection and answers, rebound to this source side with one change: the 09_5
++           take root names. Writes selection.json and answers.json into a new folder and reports what stays open.
+   timings  Root's run, after root's assemble. Verifies the assembly with the same assembler code, checks every
+            cue is its decoded take sample for sample, and that the retained conversions are unchanged; it
+            mirrors the kit's report and phrase-timing checks, and
+            writes phrase-timings.json (every script cue) or a chapter fragment, which the kit cannot load alone.
++  rows     Root's run, after install. Compares the new narration with stage06's cue by cue, then lists every file ts1
++           needs by repository path and hash. --out is one new file, which the ts1 chain reads.
+ 
+ Recognizer times are estimates, never heard boundaries. A whisper-cpp word segment often starts where the previous
+ word ended, so its start can sit in the pause before the word. Every onset and mark therefore keeps its recognizer
+@@ -50,14 +57,14 @@
+ 
+ sys.dont_write_bytecode = True  # dependencies and the workspace assembler are imported; leave no __pycache__
+ 
+-SCHEMA = "complex-frederick-timing-bridge-stage06-v1"
++SCHEMA = "complex-frederick-timing-bridge-stage07-v1"
+ REPO = Path.cwd()
+ HERE = Path(__file__).resolve()
+ P = "docs/video-program/third-wave-20261024/opus-replacements-20261104"
+ DEPENDENCIES = {  # role: (repository-relative path, sha256); a moved pin exits 3
+-    # The stage06 intake: its pins, its lane rules and its transfer check (which imports the sealed stage05 intake).
+-    "intake": (f"{P}/complex-frederick-stage06-reuse-root01/frederick_intake_stage06.py",
+-               "a28166cbfa05af38d3a3d3a6977a4345f2256220dce62f0c3c19703b2407b0f4"),
++    # The stage07 intake: its pins, its lane rules and its transfer check (which imports the sealed stage05 intake).
++    "intake": (f"{P}/complex-frederick-stage07-reuse01/frederick_intake_stage07.py",
++               "184e3994ad54913b0c842d44ac4524d6d948d2ed710f28dfb1bd1709593c000a"),
+     "log_preparation": (f"{P}/logarithm-stage08-audio-preparation01/prepare_audio.py",
+                         "3083d5cdfc98f18c404278155b9d432a0530e7b0eae0b0c09afca02e27c2d540"),
+     # Canonical since root's Mail 3920: Bronze's elevenlabs-external-voice-repair01 patch (18c4e75e) plus WhiteSwan's
+@@ -67,9 +74,9 @@
+     "assembler_cache": ("tools/narration_cache.py", "47331efd3952af6d0e66971a1c8fddd08929f881d1f9b470bde223db7a01b0c0"),
+     "kit": ("crates/explainer_kit/src/narration.rs", "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8"),
+ }
+-# sha256 of "name sha256\n" for every src/chapters/*.rs of the stage06 crate, sorted by name. Stage05's was a8e92ca2
+-# (25 files); set from root's integrated stage06 crate.
+-CHAPTER_SOURCES_SHA256 = "f710eaae60ddc438a98add17c0195aa78969e2501e8c1adaed21c16e75fd8f87"
++# sha256 of "name sha256\n" for every src/chapters/*.rs of the stage07 crate, sorted by name. Stage06's was f710eaae
++# (25 files); boundary.rs is the only file that differs.
++CHAPTER_SOURCES_SHA256 = "40ed4a20bc57c1165e269d8c712cc7bcd22b37eb00af9be35fa12a7f4dc65762"
+ RATE_OUT = 24000
+ FFMPEG_ARGS = ["-nostdin", "-n", "-v", "error"]  # root's decode arguments, as in logarithm-stage08
+ FFMPEG_OUT = ["-ac", "1", "-ar", "24000", "-c:a", "pcm_s16le"]
+@@ -610,11 +617,17 @@
+ 
+ 
+ def recognitions(lane, jobs, script, takes_dir, transfer=None):
+-    """Stage06: the new lane's takes, plus the sealed stage05 lane's takes that root's verified transfer lists."""
+-    takes, info = read_lane(lane, jobs, script, takes_dir)
+-    info = {"stage06": info, "stage05": None, "transfer": None}
++    """Stage07: the new lane's 09_5 takes, the sealed stage06 lane's takes, and the sealed stage05 lane's takes that
++    root's verified transfer lists."""
++    intake = dep("intake")
++    new, info = read_lane(lane, jobs, script, takes_dir)
++    info = {"stage07": info, "stage06": None, "stage05": None, "transfer": None}
+     if transfer is None:
+-        return takes, info
++        return new, info
++    strays = sorted({t["cue"] for t in new} - {intake.REPAIR["cue"]})
++    if strays:
++        raise Refused(f"the stage07 lane holds takes of cues outside the repair: {strays}")
++    takes, info["stage06"] = read_lane(REPO / intake.STAGE06["lane"], jobs, script, takes_dir)
+     old, info["stage05"] = read_lane(REPO / transfer["lane"], jobs, script, takes_dir)
+     listed = {(cue, t["name"]): t for cue, row in transfer["cues"].items() for t in row["takes"]}
+     kept, left = [], []
+@@ -630,11 +643,14 @@
+     if missing:
+         raise Refused(f"the transfer lists stage05 takes the stage05 lane does not give as listed: {missing}")
+     both = sorted({t["cue"] for t in kept} & {t["cue"] for t in takes})
+-    twins = sorted({t["sha256"] for t in kept} & {t["sha256"] for t in takes})
++    twins = sorted({t["sha256"] for t in kept} & {t["sha256"] for t in takes}
++                   | {t["sha256"] for t in new} & {t["sha256"] for t in kept + takes})
+     if both or twins:
+         raise Refused(f"cues with takes in both lanes {both}, or the same audio in both {twins}")
++    takes = takes + new
+     info["transfer"] = {"path": transfer["path"], "sha256": transfer["sha256"], "cues": len(transfer["cues"]),
+                         "takes": len(kept), "stage05_takes_not_transferred": left}
++    info["takes_of_other_wording"] = sorted(f"{t['cue']} {t['file']}" for t in kept + takes if not t["text_current"])
+     order = {cue: k for k, cue in enumerate(script)}
+     return sorted(kept + takes, key=lambda t: (order[t["cue"]], t["file"])), info
+ 
+@@ -673,12 +689,15 @@
+             if problems:
+                 raise Refused(f"{name}: " + "; ".join(problems))
+             continue
+-        job = Path(jobs) / ing["job"]
++        job = REPO / ing["job_folder"] if ing.get("adopted") else Path(jobs) / ing["job"]
+         log, receipt = job / "command.log", job / "resource-receipt.json"
+         if not log.is_file() or sha_file(log) != ing["command_log_sha256"]:
+             problems.append(f"job {ing['job']} command.log is missing under the jobs folder or changed since ingest")
+         elif not receipt.is_file() or sha_file(receipt) != ing["resource_receipt_sha256"]:
+             problems.append(f"job {ing['job']} resource-receipt.json changed since ingest")
++        if ing.get("adopted") and (sha_file(job / "take-comparison.json") != ing["take_comparison_sha256"]
++                                   or sha_file(REPO / ing["job_inputs"]) != ing["job_inputs_sha256"]):
++            problems.append(f"job {ing['job']} comparison or manifest changed since adoption")
+         if problems:
+             raise Refused(f"{name}: " + "; ".join(problems))
+         records = {}
+@@ -686,6 +705,10 @@
+             if line.startswith("{"):
+                 record = json.loads(line)
+                 records[record["input"]] = record
++        for index, (path, held) in enumerate(ing.get("records", {}).items()):
++            if sha_file(job / held["file"]) != held["sha256"]:
++                raise Refused(f"{name}: {held['file']} changed since adoption")
++            records[path] = {"status": "ok", "index": index, "report": load_json(job / held["file"])}
+         rows = {row["sha256"]: row for row in load_json(folder / "transcripts.json")["rows"]}
+         for brief in ing["processed"]:
+             take = next((t for t in plan["takes"] if t["sha256"] == brief["sha256"] and t["name"] == brief["name"]),
+@@ -717,6 +740,7 @@
+                           "request": {"path": rel(request), "sha256": take["receipts"]["request"]["sha256"]},
+                           "downloads": {"path": rel(path.parent / take["receipts"]["downloads"]["name"]),
+                                         "sha256": take["receipts"]["downloads"]["sha256"]},
++                          "generation": take.get("generation"),
+                           "recognition": {"lane": rel(lane), "ingest": name, "plan": ing["plan"], "job": ing["job"],
+                                           "command_log_sha256": ing["command_log_sha256"],
+                                           "record_index": record["index"]},
+@@ -930,7 +954,7 @@
+ 
+ 
+ def report_for(args):
+-    """The report on root's stage06 lane (if any) and its transfer (if any)."""
++    """The report on root's stage07 lane (if any), the sealed stage06 lane and root's transfer02."""
+     return build_report(Path(args.crate), Path(args.lane) if args.lane else None, Path(args.jobs), Path(args.takes),
+                         args.supplement, transfer=Path(args.transfer) if args.transfer else None)
+ 
+@@ -943,7 +967,7 @@
+     problems = []
+     if sel.get("schema") != SELECTION_SCHEMA or sel.get("source_sha256") != side["sha256"] \
+             or sel.get("script_sha256") != side["pins"]["script_sha256"]:
+-        problems.append(f"the selection is not {SELECTION_SCHEMA} for this stage06 source side ({side['sha256'][:12]})")
++        problems.append(f"the selection is not {SELECTION_SCHEMA} for this stage07 source side ({side['sha256'][:12]})")
+     if not str(sel.get("by") or "").strip() or not str(sel.get("basis") or "").strip():
+         problems.append("the selection needs `by` and `basis`: choosing takes is root's decision")
+     if sel.get("chapter") != chapter:
+@@ -959,7 +983,7 @@
+         if take is None:
+             problems.append(f"{cue}: {name} is not an ingested take of that cue in this lane")
+         elif not take["text_current"]:
+-            problems.append(f"{cue}: {name} records other wording than the stage06 script")
++            problems.append(f"{cue}: {name} records other wording than the stage07 script")
+         else:
+             chosen[cue] = take
+     if problems:
+@@ -972,7 +996,7 @@
+                                          "answers": {}}
+     problems = []
+     if data.get("schema") != ANSWERS_SCHEMA or data.get("source_sha256") != report["side"]["sha256"]:
+-        problems.append(f"the answers are not {ANSWERS_SCHEMA} for this stage06 source side")
++        problems.append(f"the answers are not {ANSWERS_SCHEMA} for this stage07 source side")
+     known = {q["id"]: q for q in report["questions"]}
+     points = {}
+ 
+@@ -1114,7 +1138,7 @@
+         downloads = Path(take["downloads"]["path"])
+         listing = load_json(downloads) if downloads.is_file() else {}
+         if not downloads.is_file() or sha_file(downloads) != take["downloads"]["sha256"] \
+-                or listing.get("cue") != cue or listing.get("request") != request.name \
++                or listing.get("cue", cue) != cue or listing.get("request") != request.name \
+                 or not any(isinstance(t, dict) and Path(str(t.get("path", ""))).name == take["file"]
+                            and t.get("sha256") == take["sha256"] for t in listing.get("takes") or []):
+             problems.append(f"{cue}: the downloads receipt {downloads.name} changed or does not list {take['file']} "
+@@ -1134,7 +1158,8 @@
+                         "wav": rel(dst), "wav_sha256": sha_file(dst), "samples": frames, "rate": RATE_OUT,
+                         "source_pcm_sha256": take["pcm_sha256"], "source_frames": take["frames"],
+                         "source_rate": take["rate"], "downloads_receipt": take["downloads"],
+-                        "recognition": take["recognition"]})
++                        "recognition": take["recognition"],
++                        **({"generation": take["generation"]} if take.get("generation") else {})})
+     receipt = {"schema": RECEIPT_SCHEMA, "source": RECEIPT_SOURCE, "provider": PROVIDER, "voice": intake.VOICE,
+                "records": records,
+                "bridge": {"schema": SCHEMA, "tool": rel(HERE), "tool_sha256": sha_file(HERE),
+@@ -1152,6 +1177,45 @@
+     return 0
+ 
+ 
++# ----------------------------------------------------------------------------- carry
++
++def cmd_carry(args):
++    """Root's stage06 decisions on this source side. Only the 09_5 take changes; `by` and `basis` are root's."""
++    intake = dep("intake")
++    report = report_for(args)
++    side = report["side"]
++    old = {}
++    for kind in ("selection", "answers"):
++        name, pin = intake.STAGE06[kind]
++        if sha_file(REPO / name) != pin:
++            raise PinMoved(f"root's stage06 {kind} {name} is not the pinned {pin[:12]}")
++        old[kind] = load_json(REPO / name)
++    cue = intake.REPAIR["cue"]
++    if args.take not in intake.REPAIR["takes"]:
++        raise Refused(f"--take must be one of {list(intake.REPAIR['takes'])}")
++    if not str(args.by or "").strip() or not str(args.basis or "").strip():
++        raise Refused("choosing a take is root's decision: carry needs --by and --basis")
++    origin = {kind: {"path": intake.STAGE06[kind][0], "sha256": intake.STAGE06[kind][1]} for kind in old}
++    selection = {"schema": SELECTION_SCHEMA, "source_sha256": side["sha256"], "script_sha256": side["pins"]["script_sha256"],
++                 "chapter": None, "by": args.by.strip(), "basis": args.basis.strip(),
++                 "takes": {c: args.take if c == cue else name for c, name in old["selection"]["takes"].items()},
++                 "carried_from": origin["selection"], "changed_cues": [cue]}
++    answers = {"schema": ANSWERS_SCHEMA, "source_sha256": side["sha256"], "answers": old["answers"]["answers"],
++               "carried_from": origin["answers"]}
++    out = make_out(args.out)
++    write_new(out / "selection.json", dumps(selection))
++    write_new(out / "answers.json", dumps(answers))
++    _sel, chosen = load_selection(out / "selection.json", report, None)
++    try:
++        check_answers(out / "answers.json", report, chosen)
++        still_open = []
++    except Refused as error:
++        still_open = str(error).splitlines()
++    print(dumps({"selection": rel(out / "selection.json"), "answers": rel(out / "answers.json"),
++                 "take": args.take, "still_open": still_open}), end="")
++    return 0
++
++
+ # ----------------------------------------------------------------------------- prepare
+ 
+ def import_workspace(tool, tag):
+@@ -1359,7 +1423,7 @@
+     spans_path = prepared / "spans.json"
+     side, script, files = source_side(Path(args.crate))
+     if receipt.get("schema") != SCHEMA or receipt["source_sha256"] != side["sha256"]:
+-        raise Refused("the prepared folder was made for another stage06 source side; timings never carry over")
++        raise Refused("the prepared folder was made for another stage07 source side; timings never carry over")
+     if sha_file(spans_path) != receipt["spans_sha256"]:
+         raise Refused("spans.json changed since prepare")
+     if sha_file(prepared / "phrase-marks-plan.json") != receipt.get("phrase_marks_plan_sha256"):
+@@ -1456,6 +1520,78 @@
+     return 0
+ 
+ 
++# ----------------------------------------------------------------------------- rows
++
++def compare_narration(new, old, script, cue):
++    """Every cue but the corrected one must be stage06's narration: same WAV, same report rows but for the decoded path,
++    same phrase marks. The corrected cue must keep its sentence count, which the ts1 row counts rest on."""
++    report, stage06 = load_json(new / "report.json")["lines"], load_json(old / "report.json")["lines"]
++    marks, marks6 = load_json(new / "phrase-timings.json")["cues"], load_json(old / "phrase-timings.json")["cues"]
++    problems = []
++    if list(report) != list(stage06) or sorted(report) != sorted(script) or list(marks) != list(marks6):
++        raise Refused("the narration does not cover the script's cues in stage06's order")
++    for name in script:
++        if name == cue:
++            continue
++        if sha_file(new / f"{name}.wav") != sha_file(old / f"{name}.wav"):
++            problems.append(f"{name}: the WAV is not stage06's")
++        strip = lambda rows: [{key: value for key, value in row.items() if key != "source"} for row in rows]
++        if strip(report[name]) != strip(stage06[name]):
++            problems.append(f"{name}: the report rows differ beyond the decoded path")
++        if marks[name] != marks6[name]:
++            problems.append(f"{name}: the phrase timing entry differs")
++    if len(report[cue]) != len(stage06[cue]):
++        problems.append(f"{cue}: {len(report[cue])} sentences, stage06 had {len(stage06[cue])}")
++    if problems:
++        raise Refused("\n".join(problems))
++    return {"cues_identical": len(script) - 1, "cue_changed": cue, "sentences_in_changed_cue": len(report[cue]),
++            "report_rows": sum(len(rows) for rows in report.values()),
++            "changed_cue_samples_24k": {"stage06": sum(r["out_samples"] for r in stage06[cue]),
++                                        "stage07": sum(r["out_samples"] for r in report[cue])}}
++
++
++def cmd_rows(args):
++    intake = dep("intake")
++    narration, out = Path(args.narration), Path(args.out)
++    if out.exists() or not out.parent.is_dir():
++        raise Refused("--out must be a new file in an existing folder")
++    _side, script, _files = source_side(Path(args.crate))
++    assembly = load_json(narration / "assembly.json")
++    if sha_file(narration / "report.json") != assembly["report_sha256"]:
++        raise Refused("the narration's assembly does not bind its report")
++    if load_json(narration / "phrase-timings.json").get("script_sha256") != intake.PINS["script"]:
++        raise Refused("the narration's phrase timings bind another script")
++    comparison = compare_narration(narration, REPO / intake.STAGE06["narration"], script, intake.REPAIR["cue"])
++    paths = {p for p in narration.iterdir() if p.is_file()}
++    tree = Path(args.tree or REPO / intake.NATIVE) / "tree-receipt.json"
++    paths.add(tree)
++    paths |= {REPO / row["path"] for row in load_json(tree)["files"]}
++    receipts = {unit["generation_receipt"] for unit in assembly["manifest"]["units"]}
++    if len(receipts) != 1:
++        raise Refused(f"expected one decode receipt, found {len(receipts)}")
++    receipt = next(iter(receipts))
++    paths.add(REPO / receipt)
++    records = load_json(REPO / receipt)["records"]
++    if [row["cue"] for row in records] != list(script):
++        raise Refused("the decode receipt does not cover the script's cues in order")
++    for row in records:
++        paths |= {REPO / row["wav"], REPO / row["source"], REPO / row["request"]}
++        if row.get("generation"):
++            takes = REPO / intake.TAKES
++            paths |= {takes / intake.REPAIR[kind][0] for kind in ("request", "submission", "downloads")}
++            paths |= {takes / name for name in intake.REPAIR["takes"]}
++    if sum(1 for row in records if row.get("generation")) != 1:
++        raise Refused("exactly one cue must carry root's repair receipts")
++    rows = [{"path": rel(p), "sha256": sha_file(p)} for p in sorted(paths)]
++    write_new(out, dumps({"schema": SCHEMA, "kind": "rows", "tool": rel(HERE), "tool_sha256": sha_file(HERE),
++                          "script_sha256": intake.PINS["script"], "narration": rel(narration),
++                          "decode_receipt": {"path": receipt, "sha256": sha_file(REPO / receipt)},
++                          "comparison": comparison, "files": rows,
++                          "claim": "Hashes and source-bound comparison only. No listening, fine sync or acceptance."}))
++    print(dumps({"rows": rel(out), "sha256": sha_file(out), "files": len(rows), **comparison}), end="")
++    return 0
++
++
+ # ----------------------------------------------------------------------------- report and main
+ 
+ def cmd_report(args):
+@@ -1465,7 +1601,7 @@
+         write_new(out / name, data)
+     c = report["coverage"]["counts"]
+     recognition = report["coverage"]["recognition"]
+-    states = ", ".join(f"{name}={recognition[name]['state']}" for name in ("stage05", "stage06")
++    states = ", ".join(f"{name}={recognition[name]['state']}" for name in ("stage05", "stage06", "stage07")
+                        if recognition.get(name) is not None)
+     print(f"source: {c['hook_sites']} hook sites, {c['phrase_anchors']} anchors in {c['anchor_cues']} cues, "
+           f"{c['anchor_problems']} anchor problems, {c['dispositions']} dispositions; recognition "
+@@ -1479,11 +1615,11 @@
+ def main(argv=None):
+     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0],
+                                      formatter_class=argparse.RawDescriptionHelpFormatter, epilog=__doc__)
+-    parser.add_argument("command", choices=("report", "decode", "prepare", "timings"))
+-    parser.add_argument("--crate", help="stage06 crate (pinned; drift exits 3)")
+-    parser.add_argument("--takes", help="retained Frederick take folder")
+-    parser.add_argument("--lane", help="root's stage06 recognition lane (frederick_intake_stage06.py plan/ingest folders)")
+-    parser.add_argument("--transfer", help="root's stage05 -> stage06 transfer.json (frederick_intake_stage06.py transfer)")
++    parser.add_argument("command", choices=("report", "decode", "carry", "prepare", "timings", "rows"))
++    parser.add_argument("--crate", help="stage07 crate (pinned; drift exits 3)")
++    parser.add_argument("--takes", help="root's repair take folder")
++    parser.add_argument("--lane", help="root's stage07 recognition lane (frederick_intake_stage07.py plan/ingest folders)")
++    parser.add_argument("--transfer", help="root's transfer02 (pinned; this is the default)")
+     parser.add_argument("--jobs", help="the guard's job folder holding each ingest's job")
+     parser.add_argument("--out", help="a NEW folder")
+     parser.add_argument("--selection", help=f"root's {SELECTION_SCHEMA} file")
+@@ -1491,7 +1627,11 @@
+     parser.add_argument("--decoded", help="the decode --out folder")
+     parser.add_argument("--reviewer", help="who records the boundary review in the spans")
+     parser.add_argument("--prepared", help="the prepare --out folder")
+-    parser.add_argument("--narration", help="root's assemble --out folder")
++    parser.add_argument("--narration", help="root's assemble --out folder, or the installed folder for rows")
++    parser.add_argument("--tree", help="rows: the folder the intake's tree subcommand wrote (default: the pinned name)")
++    parser.add_argument("--take", help="carry: the 09_5 take root selects")
++    parser.add_argument("--by", help="carry: who selects")
++    parser.add_argument("--basis", help="carry: why")
+     parser.add_argument("--chapter", help="two-digit chapter; omitted means every script cue")
+     parser.add_argument("--ffmpeg", default="ffmpeg")
+     parser.add_argument("--supplement", nargs=2, action="append", metavar=("JOB", "MANIFEST"),
+@@ -1502,20 +1642,21 @@
+         args.crate = args.crate or str(REPO / intake.CRATE)
+         args.takes = args.takes or str(REPO / intake.TAKES)
+         args.jobs = args.jobs or str(REPO / intake.WORK)
++        args.transfer = args.transfer or str(REPO / intake.STAGE06["transfer"][0])
+         need = {"report": ("out",), "decode": ("selection", "out"),
+-                "prepare": ("selection", "decoded", "reviewer", "out"),
+-                "timings": ("prepared", "narration", "out")}[args.command]
++                "carry": ("take", "out"), "prepare": ("selection", "decoded", "reviewer", "out"),
++                "timings": ("prepared", "narration", "out"), "rows": ("narration", "out")}[args.command]
+         missing = [f"--{n}" for n in need if not getattr(args, n)]
+-        if args.command in ("decode", "prepare") and not (args.lane or args.transfer):
+-            missing.append("--lane or --transfer")
++        if args.command in ("decode", "carry", "prepare") and not args.lane:
++            missing.append("--lane")
+         if missing:
+             parser.error(f"{args.command} needs {', '.join(missing)}")
+         if args.chapter is not None and not re.fullmatch(r"\d\d", args.chapter):
+             parser.error("--chapter is two digits")
+         if not (REPO / "tools/coherent_narration.py").is_file():
+             raise Refused("run from the repository root")
+-        return {"report": cmd_report, "decode": cmd_decode, "prepare": cmd_prepare, "timings": cmd_timings}[
+-            args.command](args)
++        return {"report": cmd_report, "decode": cmd_decode, "carry": cmd_carry, "prepare": cmd_prepare,
++                "timings": cmd_timings, "rows": cmd_rows}[args.command](args)
+     except Refused as error:
+         print(f"REFUSED:\n{error}", file=sys.stderr)
+         return 2
