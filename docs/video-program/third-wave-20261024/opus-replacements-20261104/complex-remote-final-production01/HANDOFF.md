@@ -14,7 +14,8 @@ author's rehearsal, not an independent review.
 render `73590bfd` in full, master and verify before their pins. The provenance, chain-name and x264 changes came
 after it, so they have had no independent read.
 
-No SSH, no launch, no heavy job, no live input changed, no Beads or TODO change, no commit.
+No SSH, no launch, no heavy job, no live input changed, no Beads or TODO change. The author made no commit.
+Repository sweeps have picked up most of this folder, so read the working tree, not a commit, as current.
 
 ## What root does, in order
 
@@ -78,9 +79,9 @@ only. `verification.json` says so and records the final pictures as not viewed.
 | Thing | Name |
 |---|---|
 | Chain, current pin | `complex-remote-ts1-pipeline01/chain02-n2`, seal `625d162d…227c`, `ts1_chain02_n2.py` `64502efa…8a45`. The unused `chain02/` attempt is never loaded |
-| Narration | `O/jobs/complex-remote-narration-derive01/narration-n2`, from `M.N`. Bound by `L.check_derived()` and the manifests. Its `native-install-receipt.json` is byte-identical to N's and describes N, so never verify N2 against it |
-| Binary | `O/complex_analysis_visual-release01`, `3c90fb54…c168` (build01 failed only on missing SciPy; qualifier01 qualified it separately) |
-| Inputs | `complex-remote-{timeline,score,preview,pictures}02`, 15 chapters, 105 Frederick cues |
+| Narration, current pin | `O/jobs/complex-remote-narration-derive01/narration-n2`, from `M.N`. Bound by `L.check_derived()` and the manifests. Its `native-install-receipt.json` is byte-identical to N's and describes N, so never verify N2 against it |
+| Binary, current pin | `O/complex_analysis_visual-release01`, `3c90fb54…c168` (build01 failed only on missing SciPy; qualifier01 qualified it separately) |
+| Inputs, current pin | `complex-remote-{timeline,score,preview,pictures}02`, 15 chapters, 105 Frederick cues |
 | Chapter jobs | `complex-remote-render-<chapter>-01`, then `-r2` to `-r9` |
 | Shared outputs | `complex-remote-render-work01`: `<chapter>.mp4` and tables, `complex_analysis_visual_master.mp4`, `.en.srt`, `.en.vtt` |
 | Moved attempts | `complex-remote-render-aside01/<failed job>/`, with `moved.json` |
@@ -108,13 +109,16 @@ receipt.
 ## Moving to the new chain
 
 The 09_5 correction brings a new binary, narration folder and chain (Mails 5589, 5600, 5612). This bundle needs
-only new pins. Its job, output and stage-folder names are unused and stay.
+only new pins. The binary, narration folder and input job names all come from the chain: the helpers hard-code
+only the chain's own path, so the "current pin" rows above change with it. This bundle's job, output and
+stage-folder names are unused and stay.
 
 1. WhiteSwan seals the chain and sends its path, hash, stage job names and fixture. Mail 5637 lists what it must
    export.
-2. `python3 -I -B checks/repin_chain01.py --chain <path relative to P> --sha256 <hash>` prints the result. Add
-   `--write` to apply it. It sets `CHAIN`, `CHAIN_SHA256`, `RENDER_SHA256` and the `MASTER_HELPER` pin, in that
-   order. It refuses a hash the chain's own `SHA256SUMS` does not list, and it refuses a sealed bundle.
+2. On this host, not ts1, run `python3 -I -B <this folder>/checks/repin_chain01.py --chain <path relative to P>
+   --sha256 <hash>`. It prints the result, and `--write` applies it. It sets `CHAIN`, `CHAIN_SHA256`,
+   `RENDER_SHA256` and the `MASTER_HELPER` pin, in that order. It refuses a hash the chain's own `SHA256SUMS` does
+   not list, and it refuses a sealed bundle.
 3. Update the block marked at the top of `checks/rehearse_final.py` and rerun it. A pin alone proves nothing.
 4. RubyRaven's delta read, then the seal, then the seal and hashes go to BronzeJaguar.
 
@@ -167,8 +171,8 @@ because `Q.POLICY` is checked on every job and no flag here changes it. A stoppe
 
 Diff against `complex-optimized-final-production01/final_{render,master,verify}_optimized01.py`.
 
-- **Chain:** imports the one sealed chain file pinned at the top of the render helper, not the five macOS modules. Every file comes from `M`, `Q` and `L`, so
-  all paths are logical, built from `R`.
+- **Chain:** imports the one sealed chain file pinned at the top of the render helper, not the five macOS modules.
+  Every file comes from `M`, `Q` and `L`, so all paths are logical, built from `R`.
 - **Review:** also runs `L.check_qualified()` and `L.check_derived()`, refuses a preview whose summary names
   another voice or binary, and reads x264's record from a preview movie so the 4K gate's reader is tried on ts1's
   own kit output before the first long job.
@@ -188,7 +192,7 @@ caption checks, and `pictures_viewed: false`. New timeouts: 45 s for `sbh`, 60 s
 
 ## What the rehearsal shows
 
-`checks/rehearse_final.py`, output in `checks/outputs/rehearse_final.txt`: **CHECK_COUNT checks, 0 failed.**
+`checks/rehearse_final.py`, output in `checks/outputs/rehearse_final.txt`: **151 checks, 0 failed.**
 
 | Real | Stand-in |
 |---|---|

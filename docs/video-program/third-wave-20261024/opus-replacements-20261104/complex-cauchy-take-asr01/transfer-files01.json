@@ -1,0 +1,40 @@
+{
+  "about": "Everything mac-mini-max needs that it does not already hold, by path from the repository root. Send these files, not the folders.",
+  "files": [
+    {
+      "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-cauchy-take-asr01/mini_take_asr01.py",
+      "sha256": "edd34a1ae9852d9f18c66d23424bbd6583ad2c21d91004de61b72566e463c091",
+      "bytes": 12907
+    },
+    {
+      "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-cauchy-take-asr01/start-take-asr01.sh",
+      "sha256": "64a96a021ead5c66869851de06d3adc316c765deb4250787c3d29376e83f6a83",
+      "bytes": 1856
+    },
+    {
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/remote-ts1-01/cauchy-cue-repair01/09_5-take01.wav",
+      "sha256": "f7c07ffafb2b0becbae44d0a879c7f59b3dd1f404a67643ae8e8bbd1aae80dd7",
+      "bytes": 1744906
+    },
+    {
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/remote-ts1-01/cauchy-cue-repair01/09_5-take02.wav",
+      "sha256": "16f16da361e30e1f91c2dc82eb4807d27a70f6cdd740b15b276a354ceb63b06c",
+      "bytes": 1767946
+    },
+    {
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/remote-ts1-01/cauchy-cue-repair01/request01.json",
+      "sha256": "e9b0aef22537f507fcf968b42065c442f536cd82e0c10a76344c9771e2f9a84a",
+      "bytes": 1008
+    },
+    {
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/remote-ts1-01/cauchy-cue-repair01/submission01.json",
+      "sha256": "cf0b5c049f17abe6178507b808b1d424f8c7b0f31127e9f8390113ed64b8619d",
+      "bytes": 334
+    },
+    {
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/remote-ts1-01/cauchy-cue-repair01/download-completion01.json",
+      "sha256": "57ec25437d212f5197db6e106aa4782cf884c5cd9d26ec3ee2ef7bede75d8f9f",
+      "bytes": 1381
+    }
+  ]
+}

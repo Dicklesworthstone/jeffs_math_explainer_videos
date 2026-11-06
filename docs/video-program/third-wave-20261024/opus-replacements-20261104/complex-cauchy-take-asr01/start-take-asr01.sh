@@ -1,6 +1,7 @@
 #!/bin/bash
-# Root runs this on mac-mini-max, after the logarithm ASR job has ended and the take folder is transferred. It doesn't
-# wait: anything not ready refuses at once, and a refusal before step 3 uses no job name. Each NN is used once.
+# Root runs this on mac-mini-max, after transferring transfer-files01.json's files. It doesn't wait for transfers: a missing
+# or changed file refuses at once. While another job holds the lane, the guard queues steps 2 and 3 behind it. A refusal
+# before step 3 leaves the job name unused. Each NN is used once.
 set -euo pipefail
 set -o noclobber
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"

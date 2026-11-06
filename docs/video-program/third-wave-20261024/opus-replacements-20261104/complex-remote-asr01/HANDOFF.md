@@ -22,8 +22,9 @@ as an argument, is the only link. The mini makes no claim about Linux verificati
 
 ## Start it
 
-Transfer this folder to both hosts at the same path. Both wrappers refuse at once if anything isn't ready, and neither waits,
-because the chain has a human preview gate before final production. Each attempt number is used once, from 01.
+Transfer this folder to both hosts at the same path, without `__pycache__`. Both wrappers refuse at once if an input isn't ready,
+because the chain has a human preview gate before final production. While another job holds a lane, its guard queues steps 2 and 3
+behind it. Each attempt number is used once, from 01.
 
 **Step 1, on ts1, from the repository root,** once the selected verify job's post-check record exists:
 
@@ -157,6 +158,10 @@ Both steps run in guard phase `asr`, each as its own job. Model and engine come 
 - **The WAV's path is compared by its repository-relative part,** so ts1's logical spelling and the mini's physical one both work.
   A WAV at another relative path refuses.
 - **To move recognition to another host,** only `LANE` and the two pins in `mini_asr01.py` change.
+- **Cache (Mail 5610).** Three `.pyc` files sit here, in `__pycache__` and `checks/__pycache__`. They're preserved and non-runtime. These
+  scripts didn't write them, and they were rewritten at 19:15:06 local time by something I didn't identify. The scripts start as
+  `python -I -B file.py`, which never reads a cache, and nothing imports them. Git ignores the folders. At sealing, `ANCILLARY.json` names
+  them outside `SHA256SUMS`, with hashes as observations only, because another syntax check can rewrite them.
 
 ## Checks
 

@@ -1,0 +1,1 @@
+Final chapter title corrected to match its actual 29:33 recap opening. The spinning-cube puzzle begins about 30:25 within that chapter. All timestamps, narration claims, sources, title and tags otherwise unchanged. Prior draft05 preserved. Actual player seeks, caption-overlay review, listening, fine sync, independent final AV acceptance and publication remain open.

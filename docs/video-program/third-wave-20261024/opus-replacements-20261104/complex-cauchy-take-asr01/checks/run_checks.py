@@ -277,7 +277,9 @@ def refusals(base):
     (fx.lane / 'jobs/complex-cauchy-take-asr01').mkdir(parents=True)
     code, text = start(fx)
     check(code == 2 and 'use the next attempt number' in text, 'used attempt')
-    print('PASS refuse bad attempts and a used attempt')
+    code, text = direct(fx, '--check', '01')
+    check(code != 0 and 'Duplicate recognition refused' in text, 'used attempt, direct')
+    print('PASS refuse bad attempts and a used attempt, at the wrapper and in the helper')
     fx = build(base / 'guard')
     write(fx.base / 'guard-refuses', '')
     code, text = start(fx)
@@ -343,19 +345,23 @@ def sources():
     print('PASS keep bound_tools equals the complex ASR helper (unsealed), and sentences equals the sealed stage06 intake, by AST')
     pins = {}
     for n in ast.parse((HERE / 'mini_take_asr01.py').read_text()).body:
-        if isinstance(n, ast.Assign) and n.targets[0].id in ('RECORDS', 'SOURCES_SHA256', 'TOOLS_SHA256', 'TAKE_NAMES'):
+        if isinstance(n, ast.Assign) and n.targets[0].id in ('RECORDS', 'SOURCES_SHA256', 'TOOLS_SHA256'):
             pins[n.targets[0].id] = ast.literal_eval(n.value)
     takes = R / REL_TAKES
     check(all(sha(takes / name) == digest for name, digest in pins['RECORDS'].items()), 'record pins')
     check(sha(R / REL_LANE / 'asr-source-bindings01.json') == pins['SOURCES_SHA256'] and sha(R / REL_LANE / 'tools01.json') == pins['TOOLS_SHA256'], 'tool pins')
     done = json.loads((takes / 'download-completion01.json').read_text())
-    check([Path(x['path']).name for x in done['takes']] == pins['TAKE_NAMES'] == list(MAIL_5610), 'take names')
+    check([Path(x['path']).name for x in done['takes']] == list(MAIL_5610), 'take names')
     for row_ in done['takes']:
         name = Path(row_['path']).name
         with wave.open(str(takes / name)) as w:
             shape = (w.getframerate(), w.getnchannels(), w.getsampwidth(), w.getnframes())
         check(sha(takes / name) == row_['sha256'] == MAIL_5610[name][0] and shape == (48000, 1, 2, MAIL_5610[name][1]), name)
     print('PASS pin root\'s records, both takes and the Mail 5610 hashes and lengths agree on this host\'s copies')
+    listed = json.loads((HERE / 'transfer-files01.json').read_text())['files']
+    check(sorted(Path(x['path']).name for x in listed) == sorted([*TAKE_FILES, 'mini_take_asr01.py', 'start-take-asr01.sh']), 'transfer names')
+    check(all(sha(R / x['path']) == x['sha256'] and (R / x['path']).stat().st_size == x['bytes'] for x in listed), 'transfer bytes')
+    print(f'PASS pin transfer-files01.json names exactly the {len(listed)} files the mini needs, with their measured hashes and sizes')
     text = json.loads((takes / 'request01.json').read_text())['text']
     staged = (p / 'complex-cauchy-wording-repair01/staged/explainer_corpus/complex_analysis_visual/script.tsv').read_text()
     rows = dict(x.split('\t', 1) for x in staged.splitlines() if x.strip() and not x.startswith('#'))
@@ -365,7 +371,7 @@ def sources():
     scope = {'re': re}
     exec(ast.unparse(mine['sentences']) + '\n' + ast.unparse(mine['tokens']), scope)
     pieces = scope['sentences'](text)
-    check(len(pieces) == 4 and [t for s in pieces for t in scope['tokens'](s)] == scope['tokens'](text) and 'minus' in scope['tokens'](text), 'sentences and tokens')
+    check(len(pieces) == 4 and [t for s in pieces for t in scope['tokens'](s)] == scope['tokens'](text) and 'minus' in scope['tokens'](text), 'sentence words add up to the cue words')
     lost = set(re.sub(r"[a-z]+(?:'[a-z]+)?|\d+(?:\.\d+)?|[-+/%^π]", '', text.lower()).replace(' ', ''))
     check(lost == {'.', ','}, f'token rule loses {lost}')
     print(f'PASS sign four sentences, {len(scope["tokens"](text))} words; the token rule loses only . and , from this cue, so no mathematical sign')

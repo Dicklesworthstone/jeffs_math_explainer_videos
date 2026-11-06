@@ -1,6 +1,7 @@
 #!/bin/bash
-# Root runs this on ts1, once the selected verify job's post-check record exists. It doesn't wait: anything not ready
-# refuses at once, and a refusal before step 3 uses no job name. Each NN is used once.
+# Root runs this on ts1, once the selected verify job's post-check record exists. It doesn't wait for that record: anything
+# not ready refuses at once. While another job holds the lane, the guard queues steps 2 and 3 behind it. A refusal before
+# step 3 leaves the job name unused. Each NN is used once.
 set -euo pipefail
 set -o noclobber
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:/usr/bin:/bin"

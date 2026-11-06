@@ -1,0 +1,116 @@
+{
+  "basis": "Exact frame starts and counts previously matched actual final master; selected chapter-start pictures viewed. Player seek verification remains open.",
+  "schedule_comparison_sha256": "4c4e42beb92abdf554a4f5068288320e8021a2bd5dbfd84838b8c1ba5aa1d58b",
+  "chapters": [
+    {
+      "key": "00_ratio_ruler",
+      "title": "A keyboard measures ratios",
+      "frame_start": 0,
+      "seconds": 0.0,
+      "timestamp": "0:00",
+      "frames": 7547
+    },
+    {
+      "key": "01_building_ruler",
+      "title": "Building a logarithmic ruler",
+      "frame_start": 7547,
+      "seconds": 125.78333333333333,
+      "timestamp": "2:05",
+      "frames": 8055
+    },
+    {
+      "key": "02_slide_rule",
+      "title": "Multiplication on a slide rule",
+      "frame_start": 15602,
+      "seconds": 260.03333333333336,
+      "timestamp": "4:20",
+      "frames": 5575
+    },
+    {
+      "key": "03_folded_decade",
+      "title": "The dial that forgets decades",
+      "frame_start": 21177,
+      "seconds": 352.95,
+      "timestamp": "5:52",
+      "frames": 4679
+    },
+    {
+      "key": "04_undoing_growth",
+      "title": "Undoing exponential growth",
+      "frame_start": 25856,
+      "seconds": 430.93333333333334,
+      "timestamp": "7:10",
+      "frames": 11725
+    },
+    {
+      "key": "05_complex_turns",
+      "title": "Complex numbers and forgotten turns",
+      "frame_start": 37581,
+      "seconds": 626.35,
+      "timestamp": "10:26",
+      "frames": 10811
+    },
+    {
+      "key": "06_lifting_loops",
+      "title": "Why a continuous logarithm cannot close the loop",
+      "frame_start": 48392,
+      "seconds": 806.5333333333333,
+      "timestamp": "13:26",
+      "frames": 10571
+    },
+    {
+      "key": "07_branch_cut",
+      "title": "Choosing a branch cut",
+      "frame_start": 58963,
+      "seconds": 982.7166666666667,
+      "timestamp": "16:22",
+      "frames": 10182
+    },
+    {
+      "key": "08_product_rule",
+      "title": "When the product rule loses a turn",
+      "frame_start": 69145,
+      "seconds": 1152.4166666666667,
+      "timestamp": "19:12",
+      "frames": 8738
+    },
+    {
+      "key": "09_matrix_logs",
+      "title": "Matrix logarithms as steady flows",
+      "frame_start": 77883,
+      "seconds": 1298.05,
+      "timestamp": "21:38",
+      "frames": 5509
+    },
+    {
+      "key": "10_doing_nothing",
+      "title": "Many ways to do nothing",
+      "frame_start": 83392,
+      "seconds": 1389.8666666666666,
+      "timestamp": "23:09",
+      "frames": 6466
+    },
+    {
+      "key": "11_unreachable",
+      "title": "Transformations no real logarithm can reach",
+      "frame_start": 89858,
+      "seconds": 1497.6333333333334,
+      "timestamp": "24:57",
+      "frames": 16550
+    },
+    {
+      "key": "12_what_it_forgets",
+      "title": "What the exponential forgets",
+      "frame_start": 106408,
+      "seconds": 1773.4666666666667,
+      "timestamp": "29:33",
+      "frames": 10257
+    }
+  ],
+  "total_frames": 116665,
+  "fps": 60,
+  "master_checked": true,
+  "seeks_checked": false,
+  "uploaded": false,
+  "master_sha256": "8534ec211790fb8400b809de19a6d1cb75af6150a5e90566f6a93bb90e7efd69"
+}

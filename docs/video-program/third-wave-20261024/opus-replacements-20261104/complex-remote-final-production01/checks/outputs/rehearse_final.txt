@@ -13,3 +13,140 @@ PASS a-repin-writes-in-order: chain, then render into master, then master into v
 PASS a-repin-sealed-bundle: AssertionError: This bundle is sealed; preserve it and start a new folder
 PASS c-check-before-chain: the read-only check needs no finished stage
 PASS c-pins-before-chain: the read-only pins need no finished stage
+PASS f-sealed-refusal: chain01 stops as on ts1, so the next chain may begin
+PASS f-stage-derive: real guard, sealed chain, real tools
+PASS f-stage-timeline: real guard, sealed chain, real tools
+PASS f-stage-score: real guard, sealed chain, real tools
+PASS f-stage-preview: real guard, sealed chain, real tools
+PASS f-stage-pictures: real guard, sealed chain, real tools
+PASS x-real-x264-record: CRF 16 read from a real 4K60 kit chapter's own stream
+PASS x-real-capture: the capture check reads a real capture at 48 kHz, 16-bit stereo, frames x 800 samples
+PASS x-real-proof-lines: the proof-line parse reads a real master log, 13 of 13 chapters in order
+PASS c-check-before-review: read-only
+PASS c-pins-before-master: read-only
+PASS c-transfer-missing: AssertionError: Transfer this file to ts1: narration_lab/third-wave-20261024/root/six-mach
+PASS c-review-missing: AssertionError: Actual narrated preview review is missing; no final render authorized by t
+PASS c-master-check-no-review: AssertionError: Actual narrated preview review is missing; no final render authorized by t
+PASS c-all-refused-without-review: no job name or manifest is spent
+PASS c-review-binds: a complete hash-bound review passes
+PASS v-valid: no refusal
+PASS v-no-viewer: AssertionError Review names no viewer
+PASS v-no-viewer-field: KeyError 'reviewer'
+PASS v-not-viewed: AssertionError Review names no viewer
+PASS v-no-scope: KeyError 'review_scope'
+PASS v-vague-scope: AssertionError Review scope must be explicit
+PASS v-open-defect: AssertionError 
+PASS v-chapters-short: AssertionError 
+PASS v-sheet-dropped: AssertionError 
+PASS v-sheet-hash: AssertionError 
+PASS v-sheet-extra: AssertionError 
+PASS v-extraction-hash: AssertionError 
+PASS v-summary-hash: AssertionError 
+PASS v-preview-movie-changed: AssertionError 
+PASS v-n2-take-changed: AssertionError N2 differs: 01_1.wav
+PASS v-qualification-changed: AssertionError Qualified binary differs
+PASS v-sheet-gone-from-both: AssertionError Sheets differ from the extraction
+PASS v-other-voice: AssertionError Preview is another film
+PASS v-other-binary: AssertionError Preview is another film
+PASS v-preview-no-x264-record: AssertionError No x264 record of CRF 18: 01_the_bump.mp4
+PASS v-valid-again: no refusal
+PASS v-chain-names-hold: no refusal
+PASS v-chain-name-missing: AssertionError The pinned chain lacks: ['L.check_derived']
+PASS v-chain-stage-missing: AssertionError The pinned chain lacks: ['stage derive']
+PASS v-derive-summary-names-another: AssertionError Derive summary names another folder
+PASS v-source-matches: no refusal
+PASS v-source-other-hash: AssertionError Narration provenance differs
+PASS v-source-absent: AssertionError Narration provenance differs
+PASS v-receipt-reread: True 3
+PASS v-receipt-never-settles: AssertionError The guard receipt never settled: x
+PASS v-receipt-missing-not-retried: FileNotFoundError no receipt
+PASS r-render-exit: complex-remote-render-01_the_bump-01: CalledProcessError
+PASS r-failed-stops-all: the next chapter never started
+PASS r-no-retry-without-name: AssertionError: complex-remote-render-01_the_bump-01 did not pass. Preserve it, read its l
+PASS r-wrong-retry-name: AssertionError: complex-remote-render-01_the_bump-01 did not pass. Preserve it, read its l
+PASS r-unknown-retry-chapter: AssertionError: --retry nonsense=r2
+PASS r-admission-refused-burns-no-name: AssertionError: sbh refuses admission: refused
+PASS r-timeline-differs: complex-remote-render-01_the_bump-01-r2: Final table differs
+PASS r-busy-lane-moves-nothing: AssertionError: The lane is busy; a retry moves files only when it is free
+PASS r-second-driver-refused: Another render driver holds this lane
+PASS r-cues-differs: complex-remote-render-02_turning_numbers-01: Final table differs
+PASS r-retry-preserves-attempt: 6 paths with hashes, nothing deleted
+PASS r-cuelog-differs: complex-remote-render-02_turning_numbers-01-r2: Preview score rows differ
+PASS r-layout-missing: complex-remote-render-03_two_planes-01: Rendered lint report missing
+PASS r-res-wrong: complex-remote-render-04_reading_color-01: assert (v['width'], v['height'], v['avg_frame_ra
+PASS r-crf-wrong: complex-remote-render-05_gallery-01: No x264 record of CRF 16
+PASS r-capture-missing: complex-remote-render-06_one_derivative-01: missing soundtrack capture
+PASS r-capture-short: complex-remote-render-07_one_point-01: assert (wav.getframerate(), wav.getnchannels(), 
+PASS r-input-changed: the real guard's final hash differs, so the job failed
+PASS r-existing-movie: complex-remote-render-09_boundary-01: Existing render preserved
+PASS r-existing-movie-kept: the bytes were not touched
+PASS r-all-pass-after-retries: RENDER PASS: 15 chapters at 4K60; final AV, pictures and listening remain.
+PASS r-retry-moved-planted-movie: the planted movie is in the aside folder
+PASS e-resume-runs-nothing: 15 chapters skipped after their hashes held
+PASS e-retry-of-passed-refused: AssertionError: complex-remote-render-15_closing-01 passed; there is nothing to retry
+PASS v-gate-holds: no refusal
+PASS v-gate-not-admitted: AssertionError 
+PASS v-gate-already-exited: AssertionError 
+PASS v-gate-other-command: AssertionError 
+PASS v-gate-other-policy: AssertionError Guard policy changed
+PASS v-gate-row-changed: AssertionError <path>
+PASS v-gate-tool-unbound: AssertionError Child resolves a ffprobe outside the manifest
+PASS e-summary: the x264 record, capture, N2 path and its source are in the summary
+PASS e-receipt: the real guard admitted and closed the job, on the logical path
+PASS e-manifest: review, N, N2, binary, guard, chain, transfers and this helper, by logical paths
+PASS e-changed-movie-refused: AssertionError: <fixture>/tree/logical/repo/narration_lab/third-wave-20261024/root/elevenl
+PASS e-render-last-line: RENDER PASS: 4K60 chapter; frame and cue schedule equal the timeline; final AV, pictures a
+PASS e-success-line-required: AssertionError: No success line: complex-remote-render-15_closing-01
+PASS w-no-master: AssertionError: Stable complex master required
+PASS m-check-prints-growth: estimate 0.004 GiB on the fixture; decides nothing
+PASS m-master-exit: complex-remote-master01: CalledProcessError
+PASS m-no-retry-without-name: AssertionError: complex-remote-master01 did not pass. Preserve it, read its log, then pass
+PASS m-proof-missing: complex-remote-master01-r2: Missing native soundtrack replay proof
+PASS m-captions-exit: complex-remote-master01-r3: CalledProcessError
+PASS m-retry-moved-kit-work: the failed master and the kit folder are preserved
+PASS m-master-wrong: complex-remote-master01-r4: assert (v['width'], v['height'], v['avg_frame_ra
+PASS m-srt-empty: complex-remote-master01-r5: assert OUTPUTS['srt'].stat().st_size and OUTPUTS
+PASS m-real-tool-control: narration delivery refused: cue log omits verified narration
+PASS e-master: real ffprobe at 3840x2160, 60/1 and 540 frames
+PASS e-master-last-line: MASTER WRITTEN: candidate master and captions; strict verify, pictures, ASR, loudness and 
+PASS e-master-summary: all 15 proof lines; master, SRT and VTT hash-bound; no acceptance claimed
+PASS e-master-manifest: both helpers, the review and every chapter file, by logical paths
+PASS m-duplicate-refused: AssertionError: Duplicate master refused
+PASS m-retry-of-passed-refused: AssertionError: complex-remote-master01-r6 passed; there is nothing to retry
+PASS w-master-changed: AssertionError
+PASS w-master-success-line: AssertionError: No success line: complex-remote-master01-r6
+PASS w-check-read-only: plan holds; nothing written
+PASS e-verify: finished on the fixture master
+PASS e-verify-picture-python: the guard ran the child under the picture env, for Pillow
+PASS e-verify-last-line: FINAL VERIFY PASS: strict video check, frame count, A/V length and exact captions passed; 
+PASS e-strict-real: real pinned strict check and ebur128 on the fixture master
+PASS e-captions-real: 105 real cue texts, SRT equals VTT, real caption screen ran
+PASS e-samples: 226 final pictures; the final lint and the preview lint both add samples
+PASS e-provenance: master and verification name N2, the folder it came from, and the derive summary by hash
+PASS e-no-picture-claim: pictures_viewed is false; the preview review does not carry over
+PASS e-verify-manifest: all three helpers, the shared checks, master and captions, by logical paths
+PASS e-postcheck: 226 pictures, 57 sheets, written once by the launch
+PASS e-postcheck-repeats: read-only repeat; identical bytes accepted
+PASS p-sheet: AssertionError: A sheet changed
+PASS p-picture: AssertionError: A picture changed
+PASS p-strict-log: AssertionError: Strict log differs
+PASS p-success-line: AssertionError: No success line: complex-remote-final-verify01
+PASS p-master: AssertionError: <fixture>/tree/logical/repo/narration_lab/third-wave-20261024/root/elevenl
+PASS p-other-record: AssertionError: <fixture>/tree/logical/repo/narration_lab/third-wave-20261024/root/elevenl
+PASS p-claim: AssertionError: A claim changed
+PASS p-provenance: AssertionError: Narration provenance differs
+PASS p-screen: AssertionError: Caption screen read another SRT
+PASS w-duplicate: AssertionError: Duplicate final verification refused
+PASS w-caption-text: qualified_media_checks.Refused: the captions' text differs from the script
+PASS w-caption-differs: qualified_media_checks.Refused: SRT and VTT differ at caption 105 (105 SRT, 105 VTT captio
+PASS w-master-quiet: VERIFY FAIL
+PASS w-no-retry-without-name: AssertionError: complex-remote-final-verify01 did not pass. Preserve it, read its log, the
+PASS w-named-retry-runs: the second attempt ran in its own folder; the first is preserved
+PASS s-render-usage: a run number is required; nothing was written
+PASS s-render-repeat: a repeated run number leaves that run's log and exit file alone
+PASS s-master-usage: a run number is required; nothing was written
+PASS s-master-repeat: a repeated run number leaves that run's log and exit file alone
+PASS s-verify-usage: a run number is required; nothing was written
+PASS s-verify-repeat: a repeated run number leaves that run's log and exit file alone
+PASS z-repository-clean: no job or stage folder appeared on the local lane
+RESULT PASS, 0 failed of 151

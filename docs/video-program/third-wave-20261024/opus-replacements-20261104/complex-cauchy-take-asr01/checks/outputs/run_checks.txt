@@ -1,0 +1,28 @@
+PASS keep read, sha, check_files, tokens, boundary_review, live_receipt equal sealed asr02.py by AST, so the token rule and cue-edge windows are unchanged
+PASS keep the fw command is asr02.py's with one change, --timeout 180; each difference record is asr02.py's
+PASS keep bound_tools equals the complex ASR helper (unsealed), and sentences equals the sealed stage06 intake, by AST
+PASS pin root's records, both takes and the Mail 5610 hashes and lengths agree on this host's copies
+PASS pin transfer-files01.json names exactly the 7 files the mini needs, with their measured hashes and sizes
+PASS pin the request's text is White's sealed 09_5 row, sha256 c84c83bd91b6
+PASS sign four sentences, 51 words; the token rule loses only . and , from this cue, so no mathematical sign
+PASS sh   bash -n, the wrapper
+PASS good both takes run under one guarded job with exact fw arguments; a real minus sign and a dropped word reach the differences and the sentence rollup; no take is selected
+PASS refuse take01 changed in transfer: AssertionError: 09_5-take01.wav changed in transfer
+PASS refuse take02 not transferred: AssertionError: not transferred: 09_5-take02.wav
+PASS refuse request changed: AssertionError: not root's record: request01.json
+PASS refuse submission changed: AssertionError: not root's record: submission01.json
+PASS refuse completion record changed: AssertionError: not root's record: download-completion01.json
+PASS refuse completion record not transferred: AssertionError: not transferred: download-completion01.json
+PASS refuse root bindings changed: AssertionError: not root's verified ASR bindings
+PASS refuse worker tools changed: AssertionError: not the worker tools file
+PASS refuse bindings ffmpeg is not the pinned tool: AssertionError: ASR ffmpeg is not the pinned tool
+PASS refuse fw bytes changed: AssertionError: SCRATCH/repo/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/stand-ins/fw
+PASS refuse model bytes changed: AssertionError: SCRATCH/repo/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/stand-ins/model.bin
+PASS refuse sbh off PATH: REFUSED: sbh is not on PATH: the guard would fail after making its job folder
+PASS refuse another interpreter, or changed interpreter bytes
+PASS refuse bad attempts and a used attempt, at the wrapper and in the helper
+PASS refuse a guard refusal at preflight leaves the job name unused
+PASS refuse --run outside the guard, under a foreign receipt or under another command, before fw
+PASS fail fw failing on take02 fails the job, keeps take01 and writes no comparison
+PASS fail no recognized speech fails the job and writes no comparison
+ALL PASS. Stand-ins only: nothing ran on mac-mini-max, and fw transcribe, the real guard and the model did not run.
