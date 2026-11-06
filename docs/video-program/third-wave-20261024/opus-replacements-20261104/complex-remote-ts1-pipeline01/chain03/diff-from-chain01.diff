@@ -217,7 +217,7 @@
      assert d.get('admitted') is True and 'exit' not in d
      assert d['command'] == child_command(stage)
      assert d['policy'] == POLICY, 'Guard policy changed'
-@@ -200,32 +211,295 @@
+@@ -200,32 +211,296 @@
          assert result.returncode == 0, (name, result.returncode)
          facts[name] = result.stdout
      assert facts['native'] and facts['native'] == facts['oracle'], 'Native facts differ from oracle; both outputs retained'
@@ -421,7 +421,8 @@
 +    """The one expected change, as rules. Timeline tables list rows by kind, so a row's frame says which side it is on.
 +
 +    At or before 09_5's baseline frame: every row equal under the mapping, except 09_5 itself.
-+    09_5 is new: its frame, hash, size, length and sample count may change, and its hash and size must be this N2's.
++    09_5 is new: its start frame must equal the baseline's. Its hash, size, length and sample count may change, and its
++    hash, size and samples must be this N2's.
 +    After that frame: one whole-frame shift, the same for every row, and every other cell equal. Cue seconds are three
 +    decimals, so each is recomputed from its shifted frame, and never by subtraction."""
 +    problems = []
@@ -528,7 +529,7 @@
  
  
  def check_tables(out, script):
-@@ -251,50 +525,50 @@
+@@ -251,50 +526,50 @@
  def run_timeline():
      child_gate('timeline')
      check_qualified()
@@ -596,7 +597,7 @@
      seen = []
      total = 0
      for item in summary['chapters']:
-@@ -312,7 +586,7 @@
+@@ -312,7 +587,7 @@
          seen.extend(row[1] for row in cues)
          total += frames
      ordered = script_ids()
@@ -605,7 +606,7 @@
      assert total == summary['total_frames']
      return folder
  
-@@ -543,20 +817,22 @@
+@@ -543,20 +818,22 @@
  
  def check_upstream(stage):
      check_qualified()
@@ -633,7 +634,7 @@
      for _ in range(WAIT_POLLS):
          codes = [path.read_text().strip() if path.exists() else '' for path in exits]
          failed = [path.name for path, code in zip(exits, codes) if code not in ('', '0')]
-@@ -583,22 +859,61 @@
+@@ -583,22 +860,61 @@
  
  
  def preflight(stage):

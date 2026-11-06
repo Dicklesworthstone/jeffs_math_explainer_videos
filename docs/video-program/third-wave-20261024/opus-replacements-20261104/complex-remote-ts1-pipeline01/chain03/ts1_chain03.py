@@ -398,7 +398,8 @@ def compare_boundary(out):
     """The one expected change, as rules. Timeline tables list rows by kind, so a row's frame says which side it is on.
 
     At or before 09_5's baseline frame: every row equal under the mapping, except 09_5 itself.
-    09_5 is new: its frame, hash, size, length and sample count may change, and its hash and size must be this N2's.
+    09_5 is new: its start frame must equal the baseline's. Its hash, size, length and sample count may change, and its
+    hash, size and samples must be this N2's.
     After that frame: one whole-frame shift, the same for every row, and every other cell equal. Cue seconds are three
     decimals, so each is recomputed from its shifted frame, and never by subtraction."""
     problems = []
