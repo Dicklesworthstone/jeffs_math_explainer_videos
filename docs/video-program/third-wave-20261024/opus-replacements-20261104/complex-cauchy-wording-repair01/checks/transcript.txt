@@ -1,0 +1,31 @@
+PASS live inputs still match the old hashes
+PASS staged files match the new hashes
+PASS line counts unchanged, changed lines exactly as listed: script.tsv 1, boundary.rs 1, storyboard.md 1, narration-direction-map-frederick-stage06.json 6, narration_units.json 6
+PASS cue is the first three sentences unchanged plus root's exact last sentence
+PASS cue text hashes
+PASS voice rules: no colon, semicolon, bracket, digit or dash; sentences at most 28 words
+PASS card states sufficiency and keeps the test's unspoken clause: Cauchy's formula holds if f is holomorphic on an open set containing the closed disk: on the circle and inside it
+PASS card adds no new character, so no new glyph
+PASS boundary.rs stays within max_width 120
+PASS storyboard row carries the new cue and card
+PASS card wraps to two lines before and after (animatic::wrap mirror at 92): Cauchy's formula holds if f is holomorphic on an open set containing the closed disk: on the / circle and inside it
+PASS card stays two lines down to the wrap loop's step at 60
+PASS reading window inequalities hold unchanged: 3.60 s against 2.53 and 15.07
+PASS caption wrap mirror at 42: old 3 lines, new 4 lines, longest 40
+PASS 09_5 uses sentences 1 to 3 and no phrase anchor or mark: [1, 2, 3]
+PASS no scene hook names a removed phrase
+PASS 09_4 and 09_6 requests carry no following or previous context
+PASS neighbouring cues unchanged
+PASS control: live stage06 script, units and map pass the unmodified read_units: 105
+PASS staged script, units and map pass; 23 directions; 09_5 direction ends on the cue's last word
+PASS refused: new script with stage06 units: unit plan does not bind current script bytes
+PASS refused: staged map changed by one byte: direction map changed
+PASS refused: map that still names the old cue: direction phrase is missing or ambiguous
+PASS refused: units that still hold the old cue: unit oliver_09_5 must contain exact script text, at most 100 words
+PASS tool sentence split: four before and after, first three identical: sentence ends [35520, 185280, 269760, 405120]
+PASS witness against necessity: sqrt(1 - z) has no holomorphic extension past z = 1, yet its circle average equals its centre value: average 1.00000, centre 1
+PASS control: bump on radius 2 still averages 0, not 1: 7.6e-18
+PASS chapter-source listing hash, old and new, by the bridge's rule
+PASS request record has the new text and script hash, the live settings, and is unsubmitted
+PASS root's submitted request has this exact cue and these settings
+RESULT PASS, 0 failed

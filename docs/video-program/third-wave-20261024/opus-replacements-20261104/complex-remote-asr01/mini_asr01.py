@@ -86,6 +86,7 @@ def bound_proof():
     assert proof['fps'] == 60 and isinstance(proof['frames'], int) and proof['frames'] > 0, 'the summary has another length'
     assert tuple(x['chapter'] for x in proof['chapters']) == CHAPTERS, 'not the 15 registered chapters'
     assert sum(x['frames'] for x in proof['chapters']) == proof['frames'], 'the summary has another length'
+    assert [x['cue'] for x in proof['placements']] == [cue for cue, _ in script_rows(SCRIPT)], 'the summary does not place the 105 cues in order'
     assert proof['wav'].endswith('/' + str(WAV.relative_to(R))), 'the summary names another WAV'
     assert sha(WAV) == proof['wav_sha256'], 'the WAV changed in transfer'
     return proof
@@ -203,7 +204,6 @@ def run():
 def check():
     assert not OUT.exists() and not MANIFEST.exists(), 'Duplicate ASR refused'
     bound_tools()
-    script_rows(SCRIPT)
     proof = bound_proof()
     print(json.dumps({'job': JOB, 'master_sha256': proof['sha256'], 'wav_sha256': proof['wav_sha256'], 'launched': False}))
 
@@ -211,7 +211,6 @@ def check():
 def launch():
     assert not OUT.exists() and not MANIFEST.exists(), 'Duplicate ASR refused'
     sources = bound_tools()
-    script_rows(SCRIPT)
     bound_proof()
     paths = [Path(x['path']) for x in sources[1:]] + [Path(__file__).resolve(), HERE / 'start-asr01.sh', SOURCES, TOOLS, GUARD, P / 'guard-pins01.json',
              SCRIPT, AUDIO / 'audio-summary.json', WAV]

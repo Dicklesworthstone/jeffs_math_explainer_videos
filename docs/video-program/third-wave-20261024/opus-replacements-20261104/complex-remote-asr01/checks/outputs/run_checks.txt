@@ -1,0 +1,90 @@
+PASS keep read, sha, check_files, script_rows, tokens, boundary_review equal root's complex after-verify01.py by AST, with its 105-cue count; read, sha, check_files, tokens, boundary_review, live_receipt equal sealed asr02.py
+PASS keep asr02.py's run() from the decode on is exactly step 1's 2 statements then step 2's 13, by AST: decode, fw, timeouts, outputs, scopes
+PASS sign the real script: the token rule loses only . , and ?, so no mathematical sign
+PASS peer White's seal 625d162dcfcc: N2, timeline02 and the picture env agree (source text, not run)
+PASS peer Lavender's helpers: job names, both success lines, child commands, output, manifest and post-check names; each child prints its line last (source text, not run)
+PASS sh   bash -n, both wrappers
+PASS good ts1 decodes and prints the summary hash; the mini recognizes from that hash. Every decode and fw argument exact; 105 cues, 210 windows, 14 chapter joins; a changed word and a minus sign reach the differences; 13 mini rows bound
+PASS good final-verify01-r2 of master01-r2 reaches ASR as attempt 02, beside the failed attempts, reading its own post-check
+PASS good a partial live receipt for a second, on both hosts: both jobs run
+PASS ts1  verify job failed: AssertionError: complex-remote-final-verify01
+PASS ts1  verify stopped for resources: AssertionError: complex-remote-final-verify01
+PASS ts1  verify under another policy: AssertionError: Guard policy changed: complex-remote-final-verify01
+PASS ts1  verify in another phase: AssertionError: complex-remote-final-verify01 ran in phase asr
+PASS ts1  verify under ts1 python, not the picture env: AssertionError: complex-remote-final-verify01 ran another command
+PASS ts1  verify inputs moved: AssertionError: complex-remote-final-verify01: its frozen inputs moved
+PASS ts1  verify helper moved: AssertionError: complex-remote-final-verify01: its helper moved
+PASS ts1  verify log ends on a near-match: AssertionError: complex-remote-final-verify01: the log does not end with its success line
+PASS ts1  master job failed: AssertionError: complex-remote-master01
+PASS ts1  master ran another command: AssertionError: complex-remote-master01 ran another command
+PASS ts1  master log lacks its success line: AssertionError: complex-remote-master01: the log does not end with its success line
+PASS ts1  later master attempt ignored: AssertionError: complex-remote-master01 is not the newest: ['complex-remote-master01-r2']
+PASS ts1  later verify attempt ignored: AssertionError: complex-remote-final-verify01 is not the newest: ['complex-remote-final-verify01-r2']
+PASS ts1  proof of another master job: AssertionError: the proof is for complex-remote-master01-r9
+PASS ts1  proof claims a viewing: AssertionError: the proof claims a picture viewing
+PASS ts1  proof from another host: AssertionError: the proof is for another host or voice
+PASS ts1  proof with another voice: AssertionError: the proof is for another host or voice
+PASS ts1  proof from another binary: AssertionError: the proof names another binary
+PASS ts1  proof on the first timeline: AssertionError: the proof names another timeline or narration
+PASS ts1  proof on N, not N2: AssertionError: the proof names another timeline or narration
+PASS ts1  proof names another master file: AssertionError: the proof names another master file
+PASS ts1  proof with another length: AssertionError: the proof has another length
+PASS ts1  proof with other chapters: AssertionError: the proof has other chapters
+PASS ts1  proof with two cues swapped: AssertionError: the proof has other placements
+PASS ts1  proof with one start moved: AssertionError: the proof has other placements
+PASS ts1  proof with one duration changed: AssertionError: the proof has other placements
+PASS ts1  final table differs from the timeline: AssertionError: 02_turning_numbers: the final table differs from the timeline
+PASS ts1  final and timeline tables name N: AssertionError: 02_1: the final table names another narration file
+PASS ts1  timeline table moved: AssertionError: 04_reading_color: the timeline table moved
+PASS ts1  only 14 chapters: AssertionError: not the 15 registered chapters
+PASS ts1  strict check log not passed: AssertionError: the strict video check did not pass
+PASS ts1  master replaced after verify: AssertionError: the master changed after verification
+PASS ts1  summary of another master: AssertionError: the summary is for another master
+PASS ts1  summary names another file: AssertionError: the summary is for another master
+PASS ts1  captions replaced after verify: AssertionError: the summary names other captions
+PASS ts1  web captions replaced after verify: AssertionError: the summary names other captions
+PASS ts1  summary of another length: AssertionError: the summary is for another film
+PASS ts1  no post-check record: AssertionError: no verify post-check record: complex-remote-final-verify01-postcheck.json
+PASS ts1  post-check of another verify job: AssertionError: the post-check is for another job
+PASS ts1  post-check of another master job: AssertionError: the post-check is for another job
+PASS ts1  proof changed after the post-check: AssertionError: the post-check read another proof
+PASS ts1  post-check of another master: AssertionError: the post-check read another master
+PASS ts1  post-check of another length: AssertionError: the post-check read another master
+PASS ts1  post-check of other captions: AssertionError: the post-check read other captions
+PASS ts1  post-check of other web captions: AssertionError: the post-check read other captions
+PASS ts1  post-check claims a viewing: AssertionError: the post-check claims a picture viewing
+PASS ts1  script one comma different: AssertionError: script.tsv is not the frozen Frederick script
+PASS ts1  ffmpeg is not the verify job's bytes: AssertionError: ffmpeg is not the verify job's tool
+PASS ts1  sbh off PATH: REFUSED: sbh is not on PATH: the guard would fail after making its job folder
+PASS ts1  ffmpeg off PATH: REFUSED: ffmpeg is not on PATH
+PASS ts1  preflight not admitted: guard exit 75
+PASS ts1  a used attempt refuses before any step; a failed gate reaches no guard; a refused preflight reaches no launch
+PASS ts1  bad master name, bad verify name and attempt 00: wrapper and helper both refuse
+PASS ts1  a decode that is not 16 kHz mono PCM, or 0.25 s short, fails its job and writes no summary
+PASS ts1  --run outside the guard, under a foreign receipt, another selection or another policy refuses before any decode
+PASS ts1  a live receipt that never parses refuses after the bounded reread, before any decode
+PASS mini no transferred summary: AssertionError: no transferred summary: audio-summary.json
+PASS mini summary is not the one ts1 printed: AssertionError: this is not the summary ts1 printed
+PASS mini WAV changed in transfer: AssertionError: the WAV changed in transfer
+PASS mini script one comma different: AssertionError: script.tsv is not the frozen Frederick script
+PASS mini root bindings changed: AssertionError: not root's verified ASR bindings
+PASS mini worker tools changed: AssertionError: not the worker tools file
+PASS mini bindings ffmpeg is not the pinned tool: AssertionError: ASR ffmpeg is not the pinned tool
+PASS mini fw bytes changed: AssertionError: SCRATCH/physical/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/stand-ins/fw
+PASS mini model bytes changed: AssertionError: SCRATCH/physical/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/stand-ins/model.bin
+PASS mini sbh off PATH: REFUSED: sbh is not on PATH: the guard would fail after making its job folder
+PASS mini summary of another job: AssertionError: the summary is for another job
+PASS mini summary from another host: AssertionError: the summary is for another job
+PASS mini summary with another voice: AssertionError: the summary is for another film
+PASS mini summary claims a viewing: AssertionError: the summary is for another film
+PASS mini summary of another script: AssertionError: script.tsv is not the frozen Frederick script
+PASS mini summary at another rate: AssertionError: the summary has another length
+PASS mini summary with 14 chapters: AssertionError: not the 15 registered chapters
+PASS mini summary frames disagree: AssertionError: the summary has another length
+PASS mini summary names another WAV: AssertionError: the summary names another WAV
+PASS mini placements swapped: AssertionError: the summary does not place the 105 cues in order
+PASS mini one placement missing: AssertionError: the summary does not place the 105 cues in order
+PASS mini another interpreter, or changed interpreter bytes: refused
+PASS mini a used attempt, a bad audio job, a bad hash and attempt 00 refuse
+PASS mini --run outside the guard, under a foreign receipt or under another summary hash refuses before fw
+ALL PASS. Stand-ins only: nothing ran on ts1 or mac-mini-max, and fw transcribe, ffmpeg, both real guards and the real final jobs did not run.

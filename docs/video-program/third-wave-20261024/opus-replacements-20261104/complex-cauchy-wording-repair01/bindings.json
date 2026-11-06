@@ -1,0 +1,33 @@
+{
+  "cue": "09_5",
+  "old_cue_sha256": "d18f20bebac4de1c877f4806efcf82229d9b96c68d3e9a9ebb6a643d9d39ca74",
+  "new_cue_sha256": "c84c83bd91b69948de77e1d21089e71c70abe71fcde6c49510c81568be104bcb",
+  "chapter_sources_sha256": {
+    "old": "f710eaae60ddc438a98add17c0195aa78969e2501e8c1adaed21c16e75fd8f87",
+    "new": "40ed4a20bc57c1165e269d8c712cc7bcd22b37eb00af9be35fa12a7f4dc65762"
+  },
+  "files": {
+    "script.tsv": {
+      "old": "0bae7acb15f2f0453c8a25ba7110fedd65cf9156eba932143e08db7fdc8bfeee",
+      "new": "946a9c07a462eb066fc8d20c6a092d5b7564d38752d26177bdbbcf15c6027cdc"
+    },
+    "src/chapters/boundary.rs": {
+      "old": "69e41733fd0e4d4e24f4ca1eb59cdf8c718ce07a8507e75a4e0a469331432c64",
+      "new": "1ebe0331ba47144b0968dc553fc2237139d10f2d8f26a207cd0b12f3c5dfdca7"
+    },
+    "docs/storyboard.md": {
+      "old": "9ea68add5ac48474ba430ec14174df504fcdc5250efd29010cbbf9e60e571c9e",
+      "new": "ad1ccd44893116b9acf01999e2a919a28233c57c775368b927d2b6387f3880bc"
+    },
+    "direction map": {
+      "old_path": "docs/narration-direction-map-frederick-stage06.json",
+      "old": "fa2b976b6e916c3a45652f55753744eb802e1bc95edbad4d29c912ce3722c967",
+      "new_path": "docs/narration-direction-map-frederick-stage07.json",
+      "new": "4db4c4d5a433f3212e6af739d71625dd0931ac86bc68c4cfc859212925faff77"
+    },
+    "narration_units.json": {
+      "old": "e8d2d91dcb0e6d444923185ceaf400cdaed7fa54f9843a80930ae2b81b4189e3",
+      "new": "c937fca1f0d7507117462600f0f478472bd2b8dab93075aba6494bd99ce81141"
+    }
+  }
+}

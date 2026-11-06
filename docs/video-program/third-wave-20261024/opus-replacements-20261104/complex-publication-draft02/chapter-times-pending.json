@@ -1,0 +1,141 @@
+{
+ "basis": "Pending. No time exists yet. Root fills every null from the successful complex timeline and final master, then seeks each timestamp. Each token in description.txt takes that chapter's timestamp.",
+ "script_sha256": "0bae7acb15f2f0453c8a25ba7110fedd65cf9156eba932143e08db7fdc8bfeee",
+ "chapters": [
+  {
+   "key": "01_the_bump",
+   "title": "A smooth curve whose series stops at one",
+   "token": "[T01]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  },
+  {
+   "key": "02_turning_numbers",
+   "title": "Numbers that turn",
+   "token": "[T02]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  },
+  {
+   "key": "03_two_planes",
+   "title": "Two planes",
+   "token": "[T03]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  },
+  {
+   "key": "04_reading_color",
+   "title": "Reading zeros and poles in colour",
+   "token": "[T04]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  },
+  {
+   "key": "05_gallery",
+   "title": "A gallery from polynomials to zeta",
+   "token": "[T05]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  },
+  {
+   "key": "06_one_derivative",
+   "title": "One derivative from every direction",
+   "token": "[T06]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  },
+  {
+   "key": "07_one_point",
+   "title": "Why one point is not enough",
+   "token": "[T07]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  },
+  {
+   "key": "08_loop_sums",
+   "title": "Walking a loop to Cauchy's theorem",
+   "token": "[T08]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  },
+  {
+   "key": "09_boundary",
+   "title": "Cauchy's integral formula",
+   "token": "[T09]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  },
+  {
+   "key": "10_rigidity",
+   "title": "Rigidity: the identity theorem and Liouville",
+   "token": "[T10]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  },
+  {
+   "key": "11_counting",
+   "title": "The argument principle",
+   "token": "[T11]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  },
+  {
+   "key": "12_residues",
+   "title": "The residue theorem",
+   "token": "[T12]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  },
+  {
+   "key": "13_real_integral",
+   "title": "Real areas from poles off the line",
+   "token": "[T13]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  },
+  {
+   "key": "14_continuation",
+   "title": "Analytic continuation and its limits",
+   "token": "[T14]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  },
+  {
+   "key": "15_closing",
+   "title": "Back to the bump",
+   "token": "[T15]",
+   "frame_start": null,
+   "seconds": null,
+   "timestamp": null,
+   "frames": null
+  }
+ ]
+}

@@ -1,0 +1,79 @@
+--- a/script.tsv
++++ b/script.tsv
+@@ -60,3 +60,3 @@
+ 09_4	Now take a circle of radius two. The bump is still one at the centre. Is the average around this bigger circle still one?
+-09_5	It is zero. The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic. Each pole pulls the average down by one half. The formula only holds when the function is holomorphic out to the circle and a little beyond.
++09_5	It is zero. The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic. Each pole pulls the average down by one half. For this formula, a sufficient condition is that the function is holomorphic throughout the disk and a little beyond its edge.
+ 09_6	The same circle tells you more than the value. Turn each sample back by its own angle, average, and divide by the radius. That gives the slope at the centre. Turn back by twice the angle and divide by the radius squared, and you get the next coefficient of the recipe. Every derivative at the centre is hidden in the boundary values.
+--- a/src/chapters/boundary.rs
++++ b/src/chapters/boundary.rs
+@@ -56,3 +56,3 @@
+ pub const NEEDS: &str =
+-    "Cauchy's formula needs f holomorphic on an open set containing the closed disk: on the circle and inside it";
++    "Cauchy's formula holds if f is holomorphic on an open set containing the closed disk: on the circle and inside it";
+ pub const COEF_TEX: &str =
+--- a/docs/storyboard.md
++++ b/docs/storyboard.md
+@@ -197,3 +197,3 @@
+ | 09_4 | ⟨predict⟩ Now take a circle of radius two. The bump is still one at the centre. Is the average around this bigger circle still one? | Radius 2 circle with 16 samples, average hidden; violet card "average = 1?" | predict card | listen 5 s |
+-| 09_5 | It is zero. The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic. Each pole pulls the average down by one half. The formula only holds when the function is holomorphic out to the circle and a little beyond. | Average readout "−0.000015" (`cauchy.r_two.n16`) → "limit 0"; the two pink poles flash with "− ½" each (`cauchy.pole_share`). With the last sentence, lower third "precisely: Cauchy's formula needs f holomorphic on an open set containing the closed disk: on the circle and inside it". | live readout | read 3 s |
++| 09_5 | It is zero. The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic. Each pole pulls the average down by one half. For this formula, a sufficient condition is that the function is holomorphic throughout the disk and a little beyond its edge. | Average readout "−0.000015" (`cauchy.r_two.n16`) → "limit 0"; the two pink poles flash with "− ½" each (`cauchy.pole_share`). With the last sentence, lower third "precisely: Cauchy's formula holds if f is holomorphic on an open set containing the closed disk: on the circle and inside it". | live readout | read 3 s |
+ | 09_6 | The same circle tells you more than the value. Turn each sample back by its own angle, average, and divide by the radius. That gives the slope at the centre. Turn back by twice the angle and divide by the radius squared, and you get the next coefficient of the recipe. Every derivative at the centre is hidden in the boundary values. | Formula `cₙ = (1/rⁿ) · average of f(a + r e^{iθ}) e^{−inθ}`; for the bump at radius ½, 16 samples: `c₀ ≈ 1, c₁ ≈ 0, c₂ ≈ −1, c₄ ≈ 1` (`cauchy.coef`). | formula | |
+--- a/docs/narration-direction-map-frederick-stage06.json
++++ b/docs/narration-direction-map-frederick-stage07.json
+@@ -3,3 +3,3 @@
+   "scripts": {
+-    "complex_analysis_visual": "0bae7acb15f2f0453c8a25ba7110fedd65cf9156eba932143e08db7fdc8bfeee"
++    "complex_analysis_visual": "946a9c07a462eb066fc8d20c6a092d5b7564d38752d26177bdbbcf15c6027cdc"
+   },
+@@ -86,3 +86,3 @@
+       "cue": "09_5",
+-      "after": "It is zero. The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic. Each pole pulls the average down by one half. The formula only holds when the function is holomorphic out to the circle and a little beyond.",
++      "after": "It is zero. The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic. Each pole pulls the average down by one half. For this formula, a sufficient condition is that the function is holomorphic throughout the disk and a little beyond its edge.",
+       "role": "visual",
+@@ -285,3 +285,3 @@
+       "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+-      "sha256": "69e41733fd0e4d4e24f4ca1eb59cdf8c718ce07a8507e75a4e0a469331432c64",
++      "sha256": "1ebe0331ba47144b0968dc553fc2237139d10f2d8f26a207cd0b12f3c5dfdca7",
+       "line": 342,
+@@ -296,3 +296,3 @@
+       "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+-      "sha256": "69e41733fd0e4d4e24f4ca1eb59cdf8c718ce07a8507e75a4e0a469331432c64",
++      "sha256": "1ebe0331ba47144b0968dc553fc2237139d10f2d8f26a207cd0b12f3c5dfdca7",
+       "line": 407,
+@@ -307,3 +307,3 @@
+       "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+-      "sha256": "69e41733fd0e4d4e24f4ca1eb59cdf8c718ce07a8507e75a4e0a469331432c64",
++      "sha256": "1ebe0331ba47144b0968dc553fc2237139d10f2d8f26a207cd0b12f3c5dfdca7",
+       "line": 686,
+@@ -459,3 +459,3 @@
+   ],
+-  "scope": "Stage06 root candidate: five unsynthesized cue corrections and closing nonzero-derivative caption. Existing hold calls retained; source hash/marker checks only, not listening/timing acceptance."
++  "scope": "Stage07 candidate: stage06 with cue 09_5's last sentence and its card corrected. Existing hold calls retained; source hash/marker checks only, not listening/timing acceptance."
+ }
+--- a/narration_units.json
++++ b/narration_units.json
+@@ -2,3 +2,3 @@
+   "schema_version": 1,
+-  "script_sha256": "0bae7acb15f2f0453c8a25ba7110fedd65cf9156eba932143e08db7fdc8bfeee",
++  "script_sha256": "946a9c07a462eb066fc8d20c6a092d5b7564d38752d26177bdbbcf15c6027cdc",
+   "direction_contract": {
+@@ -6,9 +6,9 @@
+     "topic": "complex_analysis_visual",
+-    "script_sha256": "0bae7acb15f2f0453c8a25ba7110fedd65cf9156eba932143e08db7fdc8bfeee",
++    "script_sha256": "946a9c07a462eb066fc8d20c6a092d5b7564d38752d26177bdbbcf15c6027cdc",
+     "map": {
+-      "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage06.json",
+-      "sha256": "fa2b976b6e916c3a45652f55753744eb802e1bc95edbad4d29c912ce3722c967"
++      "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage07.json",
++      "sha256": "4db4c4d5a433f3212e6af739d71625dd0931ac86bc68c4cfc859212925faff77"
+     }
+   },
+-  "scope": "Stage06 candidate, ElevenLabs Frederick Surrey; 105 stable unit/cue IDs. Legacy oliver identifiers retained for compatibility only. No take selection/listening acceptance.",
++  "scope": "Stage07 candidate, stage06 with cue 09_5's last sentence corrected, ElevenLabs Frederick Surrey; 105 stable unit/cue IDs. Legacy oliver identifiers retained for compatibility only. No take selection/listening acceptance.",
+   "units": [
+@@ -432,3 +432,3 @@
+       ],
+-      "text": "It is zero. The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic. Each pole pulls the average down by one half. The formula only holds when the function is holomorphic out to the circle and a little beyond."
++      "text": "It is zero. The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic. Each pole pulls the average down by one half. For this formula, a sufficient condition is that the function is holomorphic throughout the disk and a little beyond its edge."
+     },

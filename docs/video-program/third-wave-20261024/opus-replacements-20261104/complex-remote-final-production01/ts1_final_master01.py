@@ -16,7 +16,7 @@ import sys
 
 HERE = Path(__file__).resolve().parent
 RENDER_HELPER = HERE / 'ts1_final_render01.py'
-RENDER_SHA256 = 'pending-render-helper'
+RENDER_SHA256 = 'a8f83da7832e33e3ad4e5396cf64e8135c5c2295bcad35bb4faeed9ac461d53f'
 with RENDER_HELPER.open('rb') as handle:
     assert hashlib.file_digest(handle, 'sha256').hexdigest() == RENDER_SHA256, 'Render helper changed'
 SPEC = importlib.util.spec_from_file_location('complex_final_render', RENDER_HELPER)
@@ -56,7 +56,7 @@ def check_chapters():
         assert previous == row['sha256'], 'Conflicting frozen dependency: ' + row['path']
     for chapter in M.CHAPTERS:
         name = F.job(chapter)
-        assert Q.success(name), f'Incomplete final chapter: {chapter}'
+        assert F.passed(name), f'Incomplete final chapter: {chapter}'
         assert read(JOBS / name / 'resource-receipt.json')['command'][1:] == F.child_tail(chapter, name), name
         for row in read(F.manifest(name))['files']:
             bind(row)

@@ -121,7 +121,7 @@ def final_placements(timeline):
         assert frames == chapter['frames'], f'{name}: the final table has another length'
         for row in rows:
             if row[0] == 'line':
-                assert row[4] == f'{N2}/{row[1]}.wav', f'{row[1]}: the final table names another narration file'
+                assert Path(row[4]).resolve() == (N2 / f'{row[1]}.wav').resolve(), f'{row[1]}: the final table names another narration file'
                 with wave.open(row[4]) as take:
                     placements.append({'cue': row[1], 'chapter': name, 'start_frame': offset + int(row[2]),
                                        'duration_s': take.getnframes() / take.getframerate()})
@@ -221,6 +221,8 @@ def run():
                    'wav': str(wav), 'wav_sha256': sha(wav), 'wav_samples': samples,
                    'verification_sha256': sha(JOBS / VERIFY_JOB / 'verification.json'), 'postcheck_sha256': sha(POSTCHECK),
                    'ffmpeg': {'path': ffmpeg, 'sha256': sha(ffmpeg)},
+                   'decode_command': [ffmpeg, '-nostdin', '-n', '-v', 'error', '-xerror', '-i', str(movie),
+                                      '-map', '0:a:0', '-ac', '1', '-ar', '16000', '-c:a', 'pcm_s16le', str(wav)],
                    'scope': 'Audio decoded from the verified master for ASR triage on another host. No recognition has run. No speech correctness, listening, fine sync or independent AV acceptance.'}, handle, indent=2)
     print(f'ASR AUDIO DECODED: {samples} samples from master {proof["sha256"]}.', flush=True)
 
@@ -241,9 +243,9 @@ def manifest_paths():
 
 def check():
     assert not OUT.exists() and not MANIFEST.exists(), 'Duplicate decode refused'
-    bound_ffmpeg()
     Q.guard_policy()
     proof = bound_proof()
+    bound_ffmpeg()
     print(json.dumps({'job': JOB, 'master_sha256': proof['sha256'], 'frames': proof['frames'], 'cues': len(proof['placements']), 'launched': False}))
 
 

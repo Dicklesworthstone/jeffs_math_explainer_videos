@@ -1,0 +1,14 @@
+{
+  "cue": "09_5",
+  "text": "It is zero. The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic. Each pole pulls the average down by one half. For this formula, a sufficient condition is that the function is holomorphic throughout the disk and a little beyond its edge.",
+  "text_sha256": "c84c83bd91b69948de77e1d21089e71c70abe71fcde6c49510c81568be104bcb",
+  "script_sha256": "946a9c07a462eb066fc8d20c6a092d5b7564d38752d26177bdbbcf15c6027cdc",
+  "voice": "Frederick Surrey - Smooth and Velvety",
+  "model": "Eleven v4",
+  "stability": 0.5,
+  "similarity": 0.75,
+  "clone_strength": 0,
+  "output": "WAV 48 kHz Lossless",
+  "submitted": false,
+  "limits": "Intake-shaped record only, written by WhiteSwan. It asks for no synthesis. Root submitted this exact text once as cauchy-cue-repair01/request01.json, sha256 e9b0aef22537f507fcf968b42065c442f536cd82e0c10a76344c9771e2f9a84a. Settings match 09_5-request02.json."
+}

@@ -154,7 +154,8 @@ def check_transferred():
     rows = read(TRANSFERRED)['files']
     assert rows
     for row in rows:
-        assert sha(R / row['path']) == row['sha256'], 'Transfer this file to ts1: ' + row['path']
+        path = R / row['path']
+        assert path.is_file() and sha(path) == row['sha256'], 'Transfer this file to ts1: ' + row['path']
     return rows
 
 
@@ -224,9 +225,9 @@ def movie_facts(path, frames):
     with path.open('rb') as handle:
         head = handle.read(HEAD_BYTES)
     start = head.find(b'x264 - core')
-    settings = head[start:start + 2048] if start >= 0 else b''
+    settings = head[start:start + 2048].split(b'\0')[0] if start >= 0 else b''
     assert b' rc=crf' in settings and b' crf=16.0' in settings, 'No x264 record of CRF 16: ' + path.name
-    return settings.split(b' options:')[0].decode('ascii', 'replace')
+    return settings.decode('ascii', 'replace')
 
 
 def render(chapter, name):

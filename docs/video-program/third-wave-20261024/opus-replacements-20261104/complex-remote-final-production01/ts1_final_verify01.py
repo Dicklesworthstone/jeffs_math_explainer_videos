@@ -32,7 +32,7 @@ def module(name, path):
 MASTER_HELPER = HERE / 'ts1_final_master01.py'
 SHARED = HERE.parent / 'logarithm-stage09-final-verification02/verify_stage09_final.py'
 IMPORTED_SHA256 = {
-    MASTER_HELPER: 'pending-master-helper',
+    MASTER_HELPER: '701f727110ef48e6ba053325a3e77f8aa4af9889f90e68ecb45dd0d8527bfb25',
     SHARED: 'f266a2315e4a9af247c648da416881f3a2999e2682e9c611ff82ca3727b70b94',
 }
 for imported, digest in IMPORTED_SHA256.items():
@@ -64,7 +64,7 @@ def child_command(name):
 
 def plan():
     name = K.job()
-    assert Q.success(name), 'Stable complex master required'
+    assert F.passed(name), 'Stable complex master required'
     assert F.last_line(JOBS / name / 'command.log') == K.SUCCESS, 'No success line: ' + name
     summary = read(JOBS / name / 'master-summary.json')
     captures, total = K.check_chapters()
