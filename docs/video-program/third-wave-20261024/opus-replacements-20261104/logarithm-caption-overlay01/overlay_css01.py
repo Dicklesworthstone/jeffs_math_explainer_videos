@@ -24,7 +24,7 @@ FFMPEG = '/usr/bin/ffmpeg'
 FFMPEG_SHA256 = 'bdf6aabffdba7411edff8d36c389d695257fcdf823d196020176e117612862f6'
 FFPROBE = '/usr/bin/ffprobe'
 FFPROBE_SHA256 = 'a6dac1e9e8631e04075d06854cc4069308aec279bb04683b4a0bca5e4f54b2fe'
-FONT = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
+FONT = '/usr/share/fonts/truetype/msttcorefonts/Arial.ttf'  # what libass's default Arial selects on css; hash passed to run
 PILLOW = '12.1.1'
 LANE = R / 'overlay-lane01'
 JOBS = LANE / 'jobs'
@@ -109,7 +109,7 @@ def admission():
 
 
 def ready(seal, font_sha256):
-    require(str(R) == STAGING, f'Run this in the staging root {STAGING}, not {R}')
+    require(R == Path(STAGING).resolve(), f'Run this in the staging root {STAGING}, not {R}')
     check_seal(seal)
     rows = check_transfers()
     facts = check_tools(font_sha256)
@@ -189,11 +189,12 @@ def child(args):
         clean, over = out / 'clean' / (row['id'] + '.png'), out / 'overlay' / (row['id'] + '.png')
         grab(row['frame'], None, clean, out / 'logs' / (row['id'] + '-clean.log'))
         text = grab(row['frame'], f'subtitles=filename={srt}', over, out / 'logs' / (row['id'] + '-overlay.log'))
-        fonts.update(re.findall(r'fontselect: \(.*?\) -> ([^,]+),', text))
+        chosen = {str(Path(name).resolve()) for name in re.findall(r'fontselect: \(.*?\) -> ([^,]+),', text)}
+        require(chosen <= {str(Path(FONT).resolve())}, f'libass chose another font: {sorted(chosen)}')
+        fonts |= chosen
         box, peak = compare(clean, over, row['row_px'])
         rows.append({**row, 'clean_sha256': sha(clean), 'overlay_sha256': sha(over), 'caption_box': box, 'footer_row_peak': peak})
         print(row['id'], row['frame'], 'caption box', box, flush=True)
-    require(fonts <= {FONT}, f'libass chose another font: {sorted(fonts)}')
     written = sheets(out, rows, data)
     summary = {'schema': 'logarithm-caption-overlay-summary-v1', 'job': name, 'master_sha256': data['master_sha256'], 'srt_sha256': data['srt_sha256'],
                'tools': facts, 'libass_fonts_logged': sorted(fonts), 'samples': rows, 'sheets': written, 'pictures_viewed': False, 'youtube_ui_proof': False,

@@ -1,0 +1,93 @@
+=== 1. identities, measured now
+PASS  logarithm_mysteries_master.mp4  [8534ec211790fb84]
+PASS  logarithm_mysteries.en.srt  [c9321cd7a2912d44]
+PASS  logarithm_mysteries.en.vtt  [45833988985413f3]
+PASS  verification.json  [f40e3999cf4f3400]
+PASS  strict-video-verification.log  [57be45b2920a750b]
+PASS  master-summary.json  [0d696cacbb84295c]
+PASS  integration.json  [8f7c4a9f45c4dd25]
+PASS  logarithm_mysteries_thumbnail.png  [0fed0895987e9d3e]
+PASS  delivery package lists 8 assets
+PASS  delivery package master hash
+PASS  delivery package thumbnail hash
+PASS  delivery package title is draft06
+PASS  delivery package description is draft06
+PASS  delivery package tags is draft06
+PASS  delivery package chapter_times is draft06
+package status held_for_remaining_release_review uploaded False publication_accepted False
+=== 2. terminal receipts
+PASS  logarithm-remote-verify01 exit 0  [2026-11-06T00:12:43.722051+00:00]
+PASS  logarithm-remote-master01 exit 0  [2026-11-05T23:52:36.832914+00:00]
+PASS  strict verifier printed VERIFY PASS
+   A/V duration delta: 0.001 s (video 1944.416667 s, audio 1944.416000 s)
+   loudness     I:         -20.1 LUFS
+   loudness     LRA:         2.2 LU
+   loudness     Peak:       -1.5 dBFS
+   full decode (video + audio, software, stops at the first error): 0 error lines, ffmpeg exit 0, 101 s
+   full decode (video + audio, hwaccel videotoolbox, second opinion): 0 error lines, ffmpeg exit 0, 796 s
+PASS  prior master had the same -20.1 LUFS and -1.5 dBTP
+PASS  all contact sheets equal their recorded hashes  [367 sheets, 1466 pictures]
+=== 3. source bindings
+source changes recorded 6
+PASS  undoing_growth.rs on disk equals verification  [350ce26fcfd3]
+PASS  undoing_growth.rs on disk equals integration
+PASS  unreachable.rs on disk equals verification  [ba25565067fd]
+PASS  unreachable.rs on disk equals integration
+PASS  lifting_loops.rs on disk equals verification  [daf5b18dd4d5]
+PASS  lifting_loops.rs on disk equals integration
+PASS  complex_turns.rs on disk equals verification  [678812f166e9]
+PASS  complex_turns.rs on disk equals integration
+PASS  draw.rs on disk equals verification  [060504c6b72a]
+PASS  draw.rs on disk equals integration
+PASS  what_it_forgets.rs on disk equals verification  [5d04fefaef89]
+PASS  what_it_forgets.rs on disk equals integration
+=== 4. captions
+PASS  475 blocks  [475]
+PASS  SRT equals VTT
+PASS  no overlap, positive durations
+PASS  at most 2 lines of 42 characters
+PASS  ASCII only
+shortest 1.03 fastest cps 16.9
+PASS  every cue caption equals script text  [80 cues]
+PASS  no caption during reading hold 10_4  [1491.38-1497.63]
+PASS  no caption during reading hold 11_20  [1733.68-1751.42]
+=== 5. mid-sentence caption lag (word onset minus block start, recognizer estimate)
+blocks measured 96 median -0.35 p10 -0.8 p90 0.03
+late by over 0.5 s 28 over 0.75 s 11 over 1 s 2
+   (-1.27, 409, 'both', 'both routes: first A and then X, or first X ')
+   (-1.16, 145, 'a', 'a times b is the logarithm of a plus the log')
+   (-0.95, 262, 'strip', 'strip, between height minus pi and height pi')
+   (-0.92, 178, 'pi', 'pi: the length is two, the angle a quarter t')
+   (-0.91, 282, 'assigns', 'assigns the angle pi, so the principal value')
+   (-0.89, 418, 'never', 'never reverses either axis, but A reverses b')
+   (-0.87, 295, 'angles', 'angles in its window, from minus pi up to pi')
+   (-0.82, 136, 'height', 'height, the logarithm at x has slope one ove')
+   (-0.82, 151, 'multiplied', 'multiplied by e to the zero point zero five ')
+   (-0.8, 354, 'in', 'in one unit of time also brings the whole pl')
+   (-0.79, 277, 'will', 'will do: in the plane that is left, no loop ')
+=== 6. chapters and publication text
+PASS  0:00 A keyboard measures ratios
+PASS  2:05 Building a logarithmic ruler
+PASS  4:20 Multiplication on a slide rule
+PASS  5:52 The dial that forgets decades
+PASS  7:10 Undoing exponential growth
+PASS  10:26 Complex numbers and forgotten turns
+PASS  13:26 Why a continuous logarithm cannot close the loop
+PASS  16:22 Choosing a branch cut
+PASS  19:12 When the product rule loses a turn
+PASS  21:38 Matrix logarithms as steady flows
+PASS  23:09 Many ways to do nothing
+PASS  24:57 Transformations no real logarithm can reach
+PASS  29:33 What the exponential forgets
+PASS  chapter frames sum to the master
+PASS  chapter file names this master
+title 52 description 2671 tags 196
+PASS  no angle brackets in the description
+recap caption [(1774.07, 'Look back along the way.')]
+PASS  draft06 files equal its SHA256SUMS
+=== 7. every chapter join: picture ink before and after, from the sheets
+last frame before each of 12 joins, ink% 1.78 to 4.19
+first frame after each join, ink% 0.0
+PASS  all 12 joins cut from a full picture to an empty one
+
+FAILURES []

@@ -1,0 +1,35 @@
+PASS p-master-srt-hash
+PASS p-cue-text-is-the-srt: 23 samples
+PASS p-samples-inside-cue-and-overlap
+PASS p-every-footer-cue-has-a-sample: 21 footer and cue pairs
+PASS p-control-a-dropped-sample-is-seen
+PASS p-ids-in-film-order
+PASS c-check-ready
+PASS c-wrong-seal
+PASS c-wrong-font
+PASS c-no-filter
+PASS c-sbh-refuses
+PASS c-sbh-uses-no-name
+PASS c-plan-changed
+PASS c-transfer-named
+PASS c-wrong-root
+PASS r-run-passes
+PASS r-real-guard-policy
+PASS r-baseline-in-new-lane
+PASS r-all-samples
+PASS r-twelve-sheets
+PASS r-false-claims
+     job size 27 MiB
+PASS r-postcheck-repeats
+PASS r-used-run-refused
+PASS r-postcheck-sees-a-change
+PASS f-ffmpeg-failure-stops-and-keeps-frames
+PASS f-no-caption-refused
+PASS f-wrong-frame-refused
+PASS f-postcheck-refuses-failed-job
+PASS f-input-change-stops-guard
+PASS s-start-refuses-repeated-run
+PASS s-start-needs-run
+     scratch job tree/overlay-lane01/jobs/logarithm-overlay-css-01
+PASS z-text-scan
+RESULT PASS, 0 failed of 32

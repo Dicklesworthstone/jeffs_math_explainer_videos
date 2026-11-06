@@ -1,0 +1,49 @@
+sheet	first_seconds	last_seconds	picture_labels
+001	0.00	3.00	00_ratio_ruler periodic 10s / 00_1 cue start / 00_1 sentence 1 plus half second / 00_ratio_ruler opening
+013	72.82	76.30	pause-00_4.1 +30 pause line on, no answer / 00_4 post-cue prediction hold / pause-00_4.1 +120 pause line on, no answer / pause-00_4.2 -1 pause line, last full, then fa
+023	126.38	131.78	01_1 cue start / 01_1 sentence 1 plus half second / 01_building_ruler opening / 01_1 sentence 2
+033	180.57	183.22	01_3 post-cue prediction hold / pause-01_3.1 +120 pause line on, no answer / pause-01_3.2 -1 pause line, last full, then fa / 01_3 prediction hold, last moment before 01_4
+046	261.13	264.65	02_1 sentence 1 plus half second / 02_slide_rule opening / 02_1 phrase byte 48 'one that slides along' at / 02_1 phrase byte 48 'one that slides along' pl
+054	293.15	296.63	p167-judge.4 +30 visible during hold, judged / p167-judge.4 +83 visible during hold, judged / pause-02_2.1 +120 pause line on, no answer / pause-02_2.2 -1 pause line, last full, then fa
+070	352.95	355.95	p167-O3.6 +0 C left end off frame / 03_1 cue start / 03_1 sentence 1 plus half second / 03_folded_decade opening
+086	433.93	440.93	04_undoing_growth opening / 04_1 sentence 2 / 04_1 sentence 2 plus half second / 04_undoing_growth periodic 10s
+111	586.65	589.30	p167-judge.9 +84 visible during hold, judged / pause-04_6.1 +120 pause line on, no answer / pause-04_6.2 -1 pause line, last full, then fa / p167-judge.9 +243 visible during hold, judged
+116	611.23	618.70	rep-04-reveal.1 +60 04_7 fraction only, no ans / p167-U1.2 +275 was a sampling gap / rep-04-reveal.2 -12 04_7 answer reveal / p167-O1.3 +0 answer led sentence 6
+117	618.90	619.70	rep-04-reveal.2 +12 04_7 answer reveal / rep-04-reveal.2 +24 04_7 answer reveal / p167-O1.3 +30 answer led sentence 6 / rep-04-reveal.2 +60 04_7 answer reveal
+118	620.93	625.73	p167-C1.2 +134 heavy operator glyphs / 04_undoing_growth closing / 04_7 cue end / rep-04-reveal.3 +0 04_7 after the voice, new t
+119	626.23	626.95	rep-04-reveal.3 +30 04_7 after the voice, new  / join-04-05.1 -1 last frame before the join / join-04-05.2 +0 first frame after the join / 05_1 cue start
+120	627.45	630.42	05_1 sentence 1 plus half second / 05_complex_turns opening / 05_1 sentence 2 / p167-C2.9 +30 upright caption variables
+124	649.95	651.55	05_1 post-cue prediction hold / pause-05_1.1 +30 pause line on, no answer / 05_1 post-cue prediction hold / pause-05_1.1 +120 pause line on, no answer
+145	747.07	747.97	05_5 post-cue prediction hold / pause-05_5.1 +0 pause line on, no answer / root-seen.5 +24 root viewed this sheet / p168-O3.1 +30 bar under question, was on axis
+146	748.87	751.52	root-seen.5 +84 root viewed this sheet / pause-05_5.1 +120 pause line on, no answer / pause-05_5.2 -1 pause line, last full, then fa / root-seen.5 +243 root viewed this sheet
+152	786.35	792.97	p168-O2.1 +206 ln 2 approx, was = 0.693 / p168-O2.2 +0 ln 2 approx, was = 0.693 / p168-O2.2 +30 ln 2 approx, was = 0.693 / p168-O2.2 +77 ln 2 approx, was = 0.693
+156	809.53	815.73	06_lifting_loops opening / 06_1 sentence 2 / 06_1 sentence 2 plus half second / p168-O4.1 +89 gap before pi i in readout
+162	846.53	849.77	06_lifting_loops periodic 10s / 06_2 post-cue prediction hold / pause-06_2.1 +120 pause line on, no answer / pause-06_2.2 -1 pause line, last full, then fa
+171	884.07	886.53	pause-06_4.1 +30 pause line on, no answer / 06_4 post-cue prediction hold / pause-06_4.1 +120 pause line on, no answer / p168-O5.2 +178 teal circle past axis end
+189	983.32	987.08	07_1 cue start / 07_1 sentence 1 plus half second / 07_branch_cut opening / 07_1 sentence 2
+200	1060.67	1062.27	07_3 post-cue prediction hold / pause-07_3.1 +30 pause line on, no answer / 07_3 post-cue prediction hold / pause-07_3.1 +120 pause line on, no answer
+215	1155.42	1160.77	08_product_rule opening / 08_1 sentence 2 / 08_1 sentence 2 plus half second / 08_1 sentence 3
+220	1182.05	1183.55	pause-08_1.1 +30 pause line on, no answer / 08_product_rule periodic 10s / 08_1 post-cue prediction hold / pause-08_1.1 +120 pause line on, no answer
+234	1260.80	1262.20	pause-08_4.1 +0 pause line on, no answer / 08_4 post-cue prediction hold / pause-08_4.1 +30 pause line on, no answer / 08_4 post-cue prediction hold
+244	1301.05	1305.92	09_matrix_logs opening / 09_1 sentence 2 plus half second / 09_1 sentence 3 / 09_1 sentence 3 plus half second
+258	1389.87	1392.87	p169-P3.3 +0 text past title-safe line / 10_1 cue start / 10_1 sentence 1 plus half second / 10_doing_nothing opening
+277	1495.63	1497.63	p169-U2.4 +255 footer may meet captions / p169-U2.4 +363 footer may meet captions / join-10-11.1 -1 last frame before the join / p169-U2.5 +0 footer may meet captions
+278	1498.23	1501.62	11_1 cue start / 11_1 sentence 1 plus half second / 11_unreachable opening / 11_1 sentence 2
+279	1502.12	1507.63	11_1 sentence 2 plus half second / 11_1 sentence 3 / 11_1 sentence 3 plus half second / 11_unreachable periodic 10s
+282	1520.47	1521.37	p169-F1.1 +207 det before it is spoken / rep-11-gloss.3 +0 11_1 gloss with avg_b moved / 11_1 phrase byte 320 'a halfway point, squashe / rep-11-gloss.3 +30 11_1 gloss with avg_b moved
+284	1524.80	1525.50	rep-11-gloss.4 -12 11_1 gloss clears at 11_2 / 11_2 cue start / rep-11-gloss.4 +12 11_1 gloss clears at 11_2 / rep-11-gloss.4 +30 11_1 gloss clears at 11_2
+289	1547.63	1555.52	p169-F1.2 +18 det before it is spoken / p169-F1.2 +30 det before it is spoken / rep-11-gloss.5 +60 11_2 footer: det, trace glo / p169-F1.2 +491 det before it is spoken
+297	1587.30	1589.88	p169-P5.7 +84 arrow along the yellow arm / p169-P5.7 +104 arrow along the yellow arm / pause-11_3.1 +120 pause line on, no answer / pause-11_3.2 -1 pause line, last full, then fa
+304	1628.38	1628.88	p169-M1.1 +176 concrete X must be labelled / rep-11-sample.1 +12 11_5 here X is a new sampl / rep-11-sample.1 +24 11_5 here X is a new sampl / p169-M1.1 +206 concrete X must be labelled
+305	1629.38	1635.55	p169-M1.1 +236 concrete X must be labelled / p169-M1.1 +296 concrete X must be labelled / p169-M1.2 +0 concrete X must be labelled / p169-M1.2 +26 concrete X must be labelled
+309	1649.90	1652.40	p169-M1.4 +30 concrete X must be labelled / rep-11-sample.2 +78 11_5 sample X card, arrows / rep-11-sample.2 +156 11_5 sample X card, arrow / rep-11-sample.2 +180 11_5 sample X card, arrow
+328	1733.68	1735.68	reading-11_20.1 +0 reading hold / p169-H1.3 +23 11_20 row walk / p169-H1.3 +83 11_20 row walk / reading-11_20.1 +120 reading hold
+331	1756.63	1758.13	p169-F2.2 +30 X with e^X = A, was log A / rep-11-formula.1 +60 11_8 a complex logarithm, / p169-F2.2 +90 X with e^X = A, was log A / rep-11-formula.1 +120 11_8 a complex logarithm
+333	1766.97	1771.47	p169-F2.4 +30 X with e^X = A, was log A / rep-11-formula.2 +60 11_8 singular, e^trace X / p169-F2.4 +70 X with e^X = A, was log A / p169-F2.4 +300 X with e^X = A, was log A
+334	1772.47	1773.47	rep-11-formula.3 -60 11_8 last frames of the c / p169-F2.4 +371 X with e^X = A, was log A / join-11-12.1 -1 last frame before the join / join-11-12.2 +0 first frame after the join
+335	1774.07	1776.47	12_1 cue start / 12_1 sentence 1 plus half second / 12_1 sentence 2 / 12_what_it_forgets opening
+351	1873.65	1875.27	12_5 post-cue prediction hold / pause-12_5.1 +30 pause line on, no answer / 12_5 post-cue prediction hold / pause-12_5.1 +120 pause line on, no answer
+363	1936.20	1936.98	p169-U2.19 +393 footer may meet captions / p169-F3.1 +418 old stop, no closing hold / rep-12-closing.1 +0 12_21 last word, family fa / p169-F3.2 +10 old stop, no closing hold
+365	1937.92	1942.90	rep-12-closing.2 +30 closing hold / rep-12-closing.2 +165 closing hold / 12_what_it_forgets closing / rep-12-closing.3 -1 closing fade
+366	1942.92	1943.67	rep-12-closing.3 +0 closing fade / rep-12-closing.3 +22 closing fade / 12_what_it_forgets periodic 10s / rep-12-closing.3 +45 closing fade
+367	1944.03	1944.40	rep-12-closing.3 +67 closing fade / rep-12-closing.4 -1 last frame of the film
