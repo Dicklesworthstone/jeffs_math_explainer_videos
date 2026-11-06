@@ -4,7 +4,7 @@ These are root's stage06 scripts (decode01.sh, prepare-after-decode01.py, instal
 the stage07 tools and names. It selects nothing, synthesizes nothing and hears nothing.
 
     --check     read-only: every input present, every name unused; launches nothing
-    --launch    runs the six jobs in order; a failed job stops the rest
+    --launch    a guard preflight on a spare name, then the six jobs in order; a failed job stops the rest
     --install   the install job's child; never call it by hand
 """
 import hashlib
@@ -32,7 +32,7 @@ TAKES = E / 'remote-ts1-01/cauchy-cue-repair01'
 DECISIONS = E / 'stage07-timing-decisions01'
 SELECTION, ANSWERS = DECISIONS / 'selection.json', DECISIONS / 'answers.json'
 ROWS = E / 'remote-ts1-01/stage07-rows01.json'
-REVIEWER = 'BlueSalmon provisional ASR and waveform review; unlistened'
+REVIEWER = 'BlueSalmon provisional ASR review; unlistened'
 JOBS = {stage: f'complex-stage07-audio-{stage}01' for stage in ('decode', 'prepare', 'assemble', 'timings', 'rows')}
 JOBS['install'] = 'complex-stage07-native-audio-install01'
 DECODED, PREPARED = O / 'decoded01', O / 'prepared01'
@@ -136,6 +136,9 @@ def check():
 
 def launch():
     check()
+    number = next(n for n in range(1, 100) if not (B / f'complex-stage07-audio-preflight{n:02d}').exists())
+    subprocess.run([sys.executable, '-I', '-B', str(G), '--phase', 'native', '--job', f'complex-stage07-audio-preflight{number:02d}',
+                    '--preflight-only'], cwd=R, check=True)
     base = base_files()
     O.mkdir()
     bridge = [sys.executable, '-I', '-B', str(H)]

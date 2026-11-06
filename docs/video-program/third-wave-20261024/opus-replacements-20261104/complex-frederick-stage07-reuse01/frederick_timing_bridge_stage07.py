@@ -64,7 +64,7 @@ P = "docs/video-program/third-wave-20261024/opus-replacements-20261104"
 DEPENDENCIES = {  # role: (repository-relative path, sha256); a moved pin exits 3
     # The stage07 intake: its pins, its lane rules and its transfer check (which imports the sealed stage05 intake).
     "intake": (f"{P}/complex-frederick-stage07-reuse01/frederick_intake_stage07.py",
-               "5515fd754c9e3757623b505ae84df232e9b49f8845b812ee658615530bb1312f"),
+               "184e3994ad54913b0c842d44ac4524d6d948d2ed710f28dfb1bd1709593c000a"),
     "log_preparation": (f"{P}/logarithm-stage08-audio-preparation01/prepare_audio.py",
                         "3083d5cdfc98f18c404278155b9d432a0530e7b0eae0b0c09afca02e27c2d540"),
     # Canonical since root's Mail 3920: Bronze's elevenlabs-external-voice-repair01 patch (18c4e75e) plus WhiteSwan's
@@ -695,6 +695,9 @@ def read_lane(lane, jobs, script, takes_dir):
             problems.append(f"job {ing['job']} command.log is missing under the jobs folder or changed since ingest")
         elif not receipt.is_file() or sha_file(receipt) != ing["resource_receipt_sha256"]:
             problems.append(f"job {ing['job']} resource-receipt.json changed since ingest")
+        if ing.get("adopted") and (sha_file(job / "take-comparison.json") != ing["take_comparison_sha256"]
+                                   or sha_file(REPO / ing["job_inputs"]) != ing["job_inputs_sha256"]):
+            problems.append(f"job {ing['job']} comparison or manifest changed since adoption")
         if problems:
             raise Refused(f"{name}: " + "; ".join(problems))
         records = {}
@@ -1526,7 +1529,7 @@ def compare_narration(new, old, script, cue):
     marks, marks6 = load_json(new / "phrase-timings.json")["cues"], load_json(old / "phrase-timings.json")["cues"]
     problems = []
     if list(report) != list(stage06) or sorted(report) != sorted(script) or list(marks) != list(marks6):
-        problems.append("the narration does not cover the script's cues in stage06's order")
+        raise Refused("the narration does not cover the script's cues in stage06's order")
     for name in script:
         if name == cue:
             continue

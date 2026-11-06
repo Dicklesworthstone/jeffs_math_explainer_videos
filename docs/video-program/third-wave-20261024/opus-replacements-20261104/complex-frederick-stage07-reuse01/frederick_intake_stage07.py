@@ -84,7 +84,13 @@ STAGE06 = {
     "narration": f"{EC}/production-audio-stage06-01/native-narration01",
 }
 TAKE_ASR = {"helper": "mini_take_asr01.py", "helper_sha256": "edd34a1ae9852d9f18c66d23424bbd6583ad2c21d91004de61b72566e463c091",
-            "job": r"complex-cauchy-take-asr\d\d", "fw_name": "fw-0.11.0", "model_name": "ggml-large-v3-turbo.bin"}
+            "job": r"complex-cauchy-take-asr\d\d", "fw_name": "fw-0.11.0", "model_name": "ggml-large-v3-turbo.bin",
+            # Root's fetched evidence (Mails 5671, 5683). The guard hashes inputs only, so these name the results.
+            "inputs_sha256": "fae416a681b9c17539f4a1fa172813d9ce89a6afeab78564ad12968a644fe213",
+            "results": {"resource-receipt.json": "08d231f044a8977f4d4a91e45b2bceab4d84dd4dae1d12970e81d459693e93b8",
+                        "take-comparison.json": "b3873b2e5bd634a3102a3da5744889f3843619aac928879cd1b0b4a1fb984c61",
+                        "take01-full-large.json": "e8543ba1d7d037b91b191616433b87e902ffe2bfab5296a4d74044b74cc034bd",
+                        "take02-full-large.json": "087c954ee8de13590bde5b29d0f00b38cf93919c3159a47491261d03799439c4"}}
 # Root's one submission of the corrected cue, and the five sealed files that make the stage07 tree.
 REPAIR = {
     "cue": "09_5",
@@ -1019,6 +1025,10 @@ def check_adopted(job, inputs, eligible, script):
     """Bronze's finished job, bound from its receipt to its manifest, then to the helper, the tools and root's takes."""
     if not re.fullmatch(TAKE_ASR["job"], job.name):
         raise Refused(f"{job.name!r} is not a two-take recognition job")
+    moved = sorted(name for name, value in TAKE_ASR["results"].items()
+                   if not (job / name).is_file() or sha_file(job / name) != value)
+    if moved or sha_file(inputs) != TAKE_ASR["inputs_sha256"]:
+        raise Refused(f"not the evidence root fetched: {moved or 'the manifest'}")
     receipt = load_json(job / "resource-receipt.json")
     command = receipt.get("command") or []
     if receipt.get("phase") != "asr" or not receipt.get("admitted") or receipt.get("preflight_only") \
@@ -1090,13 +1100,15 @@ def cmd_adopt(args):
                                            "limits": LIMITS})
     dump_new(folder / "ingest.json", {
         "schema": SCHEMA, "kind": "ingest", "ingest": folder.name, "plan": plan["plan"], "at": utc(), "job": job.name,
-        "adopted": True, "job_folder": rel(job), "job_inputs_sha256": sha_file(inputs),
+        "adopted": True, "job_folder": rel(job), "job_inputs": rel(inputs), "job_inputs_sha256": sha_file(inputs),
         "take_comparison_sha256": sha_file(job / "take-comparison.json"),
         "records": {path: {"file": held["file"], "sha256": held["sha256"]} for path, held in records.items()},
         "resource_receipt_sha256": sha_file(job / "resource-receipt.json"),
         "command_log_sha256": sha_file(job / "command.log"),
         "frozen_inputs_sha256": sha_file(lane / plan["plan"] / "frozen-inputs.json"), "run_complete": True,
-        "non_json_log_lines": 0, "transcripts_sha256": sha_file(folder / "transcripts.json"),
+        "non_json_log_lines": sum(not line.startswith("{") for line in
+                                  (job / "command.log").read_text(encoding="utf-8").splitlines()),
+        "transcripts_sha256": sha_file(folder / "transcripts.json"),
         "processed": processed, "failed": [], "limits": LIMITS})
     print(json.dumps({"ingest": folder.name, "plan": plan["plan"], "adopted_job": job.name, "processed": len(processed),
                       "differences": {f"{r['cue']} {r['name']}": len(r["alignment"]["differences"]) for r in rows}},
