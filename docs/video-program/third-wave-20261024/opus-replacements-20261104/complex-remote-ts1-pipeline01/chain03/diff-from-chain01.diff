@@ -1,0 +1,707 @@
+--- chain01/ts1_chain01.py
++++ chain03/ts1_chain03.py
+@@ -1,59 +1,71 @@
+-"""Timeline, score, preview and pictures for the qualified ts1 complex binary.
++"""Derive, timeline, score, preview and pictures for the stage07 complex binary on ts1.
+ 
+-These are the sealed macOS stages from complex-optimized-recovery-review01 and
+-complex-optimized-downstream01 in one file, with every check kept. What changes: the lane, the job
+-names, logical paths, the two isolated Pythons, and the time limits INTEGRATION.md lists. Nothing
+-synthesizes, and viewing stays a separate human step.
+-
+-    --check STAGE    read-only: pins, frozen files, prior run, tools, unused names; launches nothing
+-    --launch STAGE   wait for upstream exit files, freeze, run ts1's guard (start-chain01.sh)
+-    --run STAGE      the guard's child; never call it by hand
++One file, from the sealed chain01 and chain02-n2 with every check kept. What changes: the stage07 narration and tree, the
++new binary from qualify02, new job names, and the prior comparison. timeline02, the stage06 wording on the old binary,
++is now the baseline: 14 chapters must equal it under one exact path mapping, and 09_boundary must differ from it only as
++compare_boundary says. Nothing synthesizes, and viewing stays a separate human step.
++
++    --check STAGE      read-only; for derive also a dry N2, both unmodified tools and the binary call
++    --launch STAGE     wait for upstream exit files, freeze, run ts1's guard (start-chain03.sh)
++    --run STAGE        the guard's child; never call it by hand
++    --compare CHAPTER  read-only: one chapter's tables against timeline02, under the same rules
+ """
++import hashlib
+ import importlib.util
+ import json
++import os
+ from pathlib import Path
+ import re
+ import shutil
+ import struct
+ import subprocess
+ import sys
++import tempfile
+ import time
+ import wave
+ 
+ HERE = Path(__file__).resolve().parent
+-QUALIFIER = HERE.parent / 'qualify01/ts1_qualify01.py'
+-QUALIFIER_SHA256 = 'ee2d7719218be4e8d77a14f99a352e2f6a8d287fba1befed3bf8db57d0fb619b'
++QUALIFIER = HERE.parent / 'qualify02/ts1_qualify02.py'
++QUALIFIER_SHA256 = 'ebfb187e415943b4a66e692f9991e024a621e3d730978f53bc09b7571835569e'
+ SPEC = importlib.util.spec_from_file_location('ts1_qualify', QUALIFIER)
+ Q = importlib.util.module_from_spec(SPEC)
+ SPEC.loader.exec_module(Q)
+ R, O, JOBS, C, BIN, CHAPTERS, POLICY, read, sha = Q.R, Q.O, Q.JOBS, Q.C, Q.BIN, Q.CHAPTERS, Q.POLICY, Q.read, Q.sha
+ 
+-AUDIO_ROWS_SHA256 = 'dd8dbc6fc6ca85ad859ce0f2a0a3024a56f97283e7c15218ac7fe58904086fd2'
+-CLOSURE_SHA256 = '694241727ca3b162e298624501ca0349138b3209927e9cac5bb92274df6582a7'
+-FAILED_MANIFEST_SHA256 = '7d6aeaf7d1f8b83a55fb7818f48ff01c2c6fa62ba135d84ea63c8a087307072c'
++SCRIPT_SHA256 = '946a9c07a462eb066fc8d20c6a092d5b7564d38752d26177bdbbcf15c6027cdc'
++BRIDGE_SHA256 = 'b50479b62953fba7da2c2a8af0653030f926a5fcbacb5fccabe968aed8d0427a'  # the tool that wrote the rows file
++COHERENT_SHA256 = '95615cfadb42fbfdddf828340b74ec66d89c975a1f399593e212bdd9840e65d5'
++BASE_BIN_SHA256 = '3c90fb5464fc8736214228d62f1c322629ede230cd58cb11ddb947e5d9e9c168'  # timeline02's binary
++CUES, ROWS, FILES = 105, 414, 110
++AFFECTED, REPAIRED = '09_boundary', '09_5'
++REFUSAL = 'coherent-narration: assembly sentence/source spans differ from the supplied script and generation receipts'
+ PILLOW = '12.1.1'
+ TIMELINE_SECONDS = PREVIEW_SECONDS = 172800  # a bound, not an estimate; see INTEGRATION.md
+ SCORE_SECONDS = 7200
+ WAIT_POLLS = 30240  # 7 days at 20 s, because each upstream limit is 48 h
+ 
+ ME = R / Path(__file__).resolve().relative_to(Q.PHYSICAL)
+-START = ME.parent / 'start-chain01.sh'
++START = ME.parent / 'start-chain03.sh'
+ EC = R / Q.EC
+-NATIVE = EC / 'native-stage06-root03'
+-N = EC / 'production-audio-stage06-01/native-narration01'
+-AUDIO_ROWS = O / 'audio-support-transfer01.json'
+-CLOSURE = ME.parent.parent / 'narration-closure01.json'
+-B = R / 'narration_lab/third-wave-20261024/root/five-film-release-20261027'
+-FAILED = B / 'complex-stage06-timeline01'
+-PRIOR_OUT = FAILED / 'timeline-output'
+-PRIOR_CHAPTERS = CHAPTERS[:4]
++NATIVE = EC / 'native-stage07-root01'
++TOOLS = NATIVE / 'workspace/tools'
++N1 = EC / 'production-audio-stage07-01/native-narration01'
++AUDIO_ROWS = O / 'stage07-rows01.json'  # hash frozen into every manifest; see INTEGRATION.md
++BASE_JOB = 'complex-remote-timeline02'
++BASE_OUT = JOBS / BASE_JOB / 'timeline-output'
++BASE_N2 = JOBS / 'complex-remote-narration-derive01/narration-n2'
++BASE_MANIFEST = O / 'chain-timeline-inputs02.json'
++BASE_EXIT = O / 'chain-timeline-controller02.exit'
++UNAFFECTED = tuple(chapter for chapter in CHAPTERS if chapter != AFFECTED)
+ TABLES = ('timeline', 'cues', 'cuelog')
+ PICTURE_ENV = 'complex-remote-picture-env01'
+ PICTURE_PYTHON = JOBS / PICTURE_ENV / 'env/bin/python'
+-NAMES = {'timeline': 'complex-remote-timeline01', 'score': 'complex-remote-score01',
+-         'preview': 'complex-remote-preview01', 'pictures': 'complex-remote-pictures01'}
+-UPSTREAM = {'timeline': (), 'score': ('timeline',), 'preview': ('timeline', 'score'),
+-            'pictures': ('timeline', 'score', 'preview')}
++DERIVE = 'complex-remote-narration-derive02'
++NAMES = {'derive': DERIVE, 'timeline': 'complex-remote-timeline03', 'score': 'complex-remote-score03',
++         'preview': 'complex-remote-preview03', 'pictures': 'complex-remote-pictures03'}
++UPSTREAM = {'derive': (), 'timeline': ('derive',), 'score': ('derive', 'timeline'), 'preview': ('derive', 'timeline', 'score'),
++            'pictures': ('derive', 'timeline', 'score', 'preview')}
++N2 = N = JOBS / DERIVE / 'narration-n2'
+ TIMELINE_OUT = JOBS / NAMES['timeline'] / 'timeline-output'
+ SCORE_OUT = JOBS / NAMES['score'] / 'scored'
+ PREVIEW_OUT = JOBS / NAMES['preview'] / 'preview'
+@@ -65,11 +77,11 @@
+ 
+ 
+ def exit_file(stage):
+-    return O / f'chain-{stage}-controller01.exit'
++    return O / f'chain-{stage}-controller03.exit'
+ 
+ 
+ def manifest(stage):
+-    return O / f'chain-{stage}-inputs01.json'
++    return O / f'chain-{stage}-inputs03.json'
+ 
+ 
+ def child_command(stage):
+@@ -105,49 +117,39 @@
+ 
+ def check_pins():
+     assert sha(QUALIFIER) == QUALIFIER_SHA256, 'Sealed qualifier changed'
+-    assert sha(AUDIO_ROWS) == AUDIO_ROWS_SHA256, 'Audio transfer rows changed'
+-    assert sha(CLOSURE) == CLOSURE_SHA256, 'Narration closure changed'
++    rows = read(AUDIO_ROWS)
++    assert rows['tool_sha256'] == BRIDGE_SHA256, 'Audio rows came from another tool'
++    assert rows['script_sha256'] == SCRIPT_SHA256 == sha(C / 'script.tsv'), 'Audio rows bind another script'
++    comparison = rows['comparison']
++    assert (comparison['cues_identical'], comparison['cue_changed'], comparison['report_rows']) == (CUES - 1, REPAIRED, ROWS), 'Audio rows differ'
+ 
+ 
+ def check_qualified():
+-    """Downstream needs the qualifier's success and the original failed receipt together."""
++    """Downstream needs the clean build, with its inputs, log, facts and both binaries."""
+     Q.check_build()
+-    Q.success(Q.JOB)
+-    s = read(JOBS / Q.JOB / 'qualification-summary.json')
+-    assert s['original_build_job'] == Q.BUILD and s['original_build_exit'] == 1, 'Original build was relabelled'
+-    assert s['original_build_relabelled'] is False, 'Original build was relabelled'
+-    assert s['original_receipt_sha256'] == sha(JOBS / Q.BUILD / 'resource-receipt.json'), 'Original evidence changed'
+-    assert s['original_log_sha256'] == sha(JOBS / Q.BUILD / 'command.log'), 'Original evidence changed'
+-    assert s['binary_sha256'] == Q.BIN_SHA256 == sha(BIN), 'Qualified binary differs'
+-    assert s['chapters'] == list(CHAPTERS) and s['fact_rows'] > 0, 'Qualification summary differs'
+-
+-
+-def check_failed_run():
+-    """The macOS debug job is what its receipts say: a timeout with four finished chapters."""
+-    d = read(FAILED / 'resource-receipt.json')
+-    assert d.get('admitted') is True and d.get('exit') == 1 and d.get('finished'), 'Failed receipt changed'
+-    assert d.get('inputs_sha256') == d.get('final_inputs_sha256') == FAILED_MANIFEST_SHA256
+-    assert not d.get('stopped_for_resource_limit') and 'error' not in d
+-    assert d.get('policy') == POLICY, 'Failed run used another policy'
+-    log = (FAILED / 'command.log').read_text()
+-    assert 'timed out after 14400 seconds' in log
+-    assert not (FAILED / 'timeline-summary.json').exists(), 'No full baseline may exist'
+-    assert sorted(p.name for p in PRIOR_OUT.glob('*.tsv')) == sorted(
+-        f'{chapter}.{table}.tsv' for chapter in PRIOR_CHAPTERS for table in TABLES)
+-    for chapter in PRIOR_CHAPTERS:
+-        rows = [line.split('\t') for line in (PRIOR_OUT / f'{chapter}.timeline.tsv').read_text().splitlines()]
+-        assert re.search(rf'^{chapter}\s+{table_value(rows, "frames")} frames\s', log, re.M), chapter
++
++
++def check_baseline():
++    """timeline02 stays what it is: the stage06 wording on the old binary. Here it only supplies expected values."""
++    d = read(JOBS / BASE_JOB / 'resource-receipt.json')
++    Q.success(BASE_JOB)
++    assert d.get('inputs_sha256') == sha(BASE_MANIFEST), 'timeline02 inputs changed'
++    assert BASE_EXIT.read_text().strip() == '0', 'timeline02 controller changed'
++    s = read(JOBS / BASE_JOB / 'timeline-summary.json')
++    assert s['binary_sha256'] == BASE_BIN_SHA256 and s['cues'] == CUES, 'timeline02 summary differs'
++    assert [row['chapter'] for row in s['chapters']] == list(CHAPTERS), 'timeline02 chapters differ'
++    for row in s['chapters']:
++        assert sha(BASE_OUT / (row['chapter'] + '.timeline.tsv')) == row['timeline_sha256'], 'timeline02 table changed: ' + row['chapter']
++    assert sorted(p.name for p in BASE_OUT.glob('*.tsv')) == sorted(f'{chapter}.{table}.tsv' for chapter in CHAPTERS for table in TABLES)
+ 
+ 
+ def base_rows():
+-    """The source rows, the audio rows and the 316 files the narration verifiers open. A file added
+-    to the audio or workspace folders is refused as firmly as a changed one."""
+-    rows = [*read(Q.INPUTS)['files'], *read(AUDIO_ROWS)['files']]
+-    rows += [{'path': str(R / row['path']), 'sha256': row['sha256']} for row in read(CLOSURE)['files']]
++    """The build manifest's rows and the rows file's. A file added to N1 or the workspace is refused as firmly as a changed one."""
++    rows = [*read(Q.MANIFEST)['files'], *({'path': str(R / row['path']), 'sha256': row['sha256']} for row in read(AUDIO_ROWS)['files'])]
+     files = {}
+     for row in rows:
+         assert files.setdefault(row['path'], row['sha256']) == row['sha256'], row['path']
+-    for root in (N, NATIVE / 'workspace'):
++    for root in (N1, NATIVE / 'workspace'):
+         listed = {path for path in files if path.startswith(str(root) + '/')}
+         different = sorted(listed ^ {str(p) for p in root.rglob('*') if p.is_file()})
+         assert not different, f'File set changed: {len(different)} paths, first {different[:3]}'
+@@ -157,10 +159,10 @@
+ 
+ 
+ def stage_files(stage):
+-    if stage == 'timeline':
++    if stage == 'derive':
+         files = base_rows()
+         rows = read(Q.MANIFEST)['files']
+-        paths = [Q.MANIFEST, AUDIO_ROWS, CLOSURE, ME, START, tool('ffmpeg'), *Q.job_files(Q.JOB)]
++        paths = [Q.MANIFEST, AUDIO_ROWS, ME, START, tool('ffmpeg'), Q.BIN, *Q.job_files(Q.JOB), BASE_MANIFEST, BASE_EXIT, *Q.job_files(BASE_JOB)]
+     else:
+         prior = UPSTREAM[stage][-1]
+         files = {}
+@@ -179,7 +181,16 @@
+ 
+ 
+ def child_gate(stage):
+-    d = read(job(stage) / 'resource-receipt.json')
++    """The guard rewrites the live receipt just after Popen, so a read can catch it half written. Only that parse failure
++    is retried, briefly."""
++    for _ in range(100):
++        try:
++            d = read(job(stage) / 'resource-receipt.json')
++            break
++        except json.JSONDecodeError:
++            time.sleep(0.05)
++    else:
++        d = read(job(stage) / 'resource-receipt.json')
+     assert d.get('admitted') is True and 'exit' not in d
+     assert d['command'] == child_command(stage)
+     assert d['policy'] == POLICY, 'Guard policy changed'
+@@ -200,32 +211,295 @@
+         assert result.returncode == 0, (name, result.returncode)
+         facts[name] = result.stdout
+     assert facts['native'] and facts['native'] == facts['oracle'], 'Native facts differ from oracle; both outputs retained'
+-    assert facts['native'] == (FAILED / 'facts-native.stdout').read_bytes() == Q.RELEASE_FACTS.read_bytes(), 'ts1 facts differ from macOS'
++    assert facts['native'] == (JOBS / Q.BUILD / 'facts-native.tsv').read_bytes() == Q.RELEASE_FACTS.read_bytes(), 'ts1 facts differ from the build or macOS'
+     keys = [line.split(b'\t', 1)[0] for line in facts['native'].splitlines()]
+     assert len(keys) == len(set(keys))
+     return len(keys)
+ 
+ 
+ def verify_narration():
+-    subprocess.run([sys.executable, '-I', '-B', str(NATIVE / 'workspace/tools/coherent_narration.py'),
++    subprocess.run([sys.executable, '-I', '-B', str(TOOLS / 'coherent_narration.py'),
+                     'verify', str(N), '--script', str(C / 'script.tsv'), '--units',
+                     str(N / 'external-units.json'), '--require-directions'], cwd=R, check=True, timeout=900)
+ 
+ 
+-def compare_prior(out):
+-    """Write the comparison before judging it, so a mismatch leaves its evidence."""
+-    rows = []
+-    for chapter in PRIOR_CHAPTERS:
+-        for table in TABLES:
+-            name = f'{chapter}.{table}.tsv'
+-            old, new = normalized(PRIOR_OUT / name), normalized(out / name)
+-            rows.append({'table': name, 'lines': len(old), 'normalized_equal': old == new,
+-                         'prior_sha256': sha(PRIOR_OUT / name), 'new_sha256': sha(out / name)})
+-    with (job('timeline') / 'prior-table-comparison.json').open('x') as handle:
+-        json.dump({'prior_job': FAILED.name, 'new_binary_sha256': Q.BIN_SHA256, 'tables': rows}, handle, indent=2)
++def digest(data):
++    return hashlib.sha256(data).hexdigest()
++
++
++def derived_bytes():
++    """N's report and assembly with the two permitted changes, from the sealed unit_spans.
++
++    Exact quoted strings are substituted, so every other byte stays by construction. The parsed
++    result must then equal what the unmodified verifier will compute."""
++    os.chdir(R)
++    assert sha(TOOLS / 'coherent_narration.py') == COHERENT_SHA256, 'Sealed coherent_narration.py changed'
++    spec = importlib.util.spec_from_file_location('coherent', TOOLS / 'coherent_narration.py')
++    coherent = importlib.util.module_from_spec(spec)
++    spec.loader.exec_module(coherent)
++    report_bytes, assembly_bytes = (N1 / 'report.json').read_bytes(), (N1 / 'assembly.json').read_bytes()
++    report, assembly = json.loads(report_bytes), json.loads(assembly_bytes)
++    assert assembly['report_sha256'] == digest(report_bytes), 'Assembly does not bind this report'
++    records = assembly['manifest']['units']
++    script, units = coherent.read_units(C / 'script.tsv', N1 / 'external-units.json', True)
++    assert [row['id'] for row in records] == [unit['id'] for unit in units], 'Assembly units differ from the plan'
++    fresh = {}
++    for unit, record in zip(units, records):
++        for cue, row, _ in coherent.unit_spans(unit, script, record):
++            fresh.setdefault(cue, []).append(row)
++    assert set(fresh) == set(report['lines']) and len(fresh) == CUES, 'Cue coverage differs'
++    renames, uses = {}, {}
++    for cue, stored in report['lines'].items():
++        assert len(stored) == len(fresh[cue]), 'Row count differs: ' + cue
++        for old, new in zip(stored, fresh[cue]):
++            assert set(old) == set(new), 'Row keys differ: ' + cue
++            assert [key for key in old if old[key] != new[key]] == ['source'], 'More than source differs: ' + cue
++            assert os.path.samefile(old['source'], new['source']), 'Not the same file: ' + cue
++            assert sha(new['source']) == old['source_sha256'], 'Take hash differs: ' + cue
++            assert renames.setdefault(old['source'], new['source']) == new['source'], 'Source maps twice: ' + cue
++            uses[old['source']] = uses.get(old['source'], 0) + 1
++    assert sum(uses.values()) == ROWS and len(renames) == len(set(renames.values())) == CUES, 'Row or take count differs'
++    text = report_bytes
++    for old, new in renames.items():
++        quoted = json.dumps(old).encode()
++        assert text.count(quoted) == uses[old], 'Source string appears outside its rows'
++        text = text.replace(quoted, json.dumps(new).encode())
++    derived = json.loads(text)
++    assert derived['lines'] == fresh and {k: v for k, v in derived.items() if k != 'lines'} == {k: v for k, v in report.items() if k != 'lines'}, 'Derived report differs'
++    quoted = json.dumps(assembly['report_sha256']).encode()
++    assert assembly_bytes.count(quoted) == 1, 'Report hash appears more than once'
++    assembly_out = assembly_bytes.replace(quoted, json.dumps(digest(text)).encode())
++    assert json.loads(assembly_out) == {**assembly, 'report_sha256': digest(text)}, 'Derived assembly differs'
++    tally = {'cues': len(fresh), 'rows': sum(uses.values()), 'source_fields_changed': sum(uses.values()), 'other_fields_changed': 0,
++             'samefile': sum(uses.values()), 'take_hash_equal': sum(uses.values()), 'takes': len(renames)}
++    return text, assembly_out, renames, tally
++
++
++def names():
++    found = sorted(path.name for path in N1.iterdir())
++    assert len(found) == FILES and all((N1 / name).is_file() for name in found), 'N file set differs'
++    return found
++
++
++def write_folder(out, report, assembly, place):
++    out.mkdir()
++    for name in names():
++        data = {'report.json': report, 'assembly.json': assembly}.get(name)
++        if data is None:
++            place(N1 / name, out / name)
++            continue
++        with (out / name).open('xb') as handle:
++            handle.write(data)
++
++
++def check_folder(out, report, assembly):
++    """N2 is exactly the derivation: two rebuilt files, and 108 byte for byte."""
++    assert sorted(path.name for path in out.iterdir()) == names(), 'N2 file set differs'
++    changed = {'report.json': digest(report), 'assembly.json': digest(assembly)}
++    for name in names():
++        assert sha(out / name) == changed.get(name, sha(N1 / name)), 'N2 differs: ' + name
++
++
++def tool_argv(folder):
++    return [sys.executable, '-I', '-B', str(TOOLS / 'coherent_narration.py'), 'verify', str(folder), '--script', str(C / 'script.tsv'),
++            '--units', str(folder / 'external-units.json'), '--require-directions']
++
++
++def binary_call(folder):
++    """The real binary's first narrated call. check_delivery_contract comes before any output, so a
++    refusing python3 stops it there. The stub records the call and nothing else."""
++    probe = Path(tempfile.mkdtemp(prefix='chain03-probe-'))
++    stub = probe / 'python3'
++    stub.write_text('#!/bin/sh\nfor a; do printf "%s\\n" "$a"; done > "$0.argv"\nexit 3\n')
++    stub.chmod(0o755)
++    out = probe / 'out'
++    run = subprocess.run([str(BIN), 'render', 'all', '--timeline-only', '--fps', '60', '--narration', str(folder), '--out', str(out)],
++                         cwd=R, env={**os.environ, 'PATH': f"{probe}:{os.environ['PATH']}"}, capture_output=True, text=True, timeout=300)
++    assert run.returncode != 0 and not out.exists(), 'Binary went past its narration gate'
++    argv = (probe / 'python3.argv').read_text().splitlines()
++    assert argv[:2] == ['-I', '-B'] and Path(argv[2]).samefile(TOOLS / 'narration_delivery.py'), f'Binary call differs: {argv[:3]}'
++    assert argv[3] == '--topic' and Path(argv[4]).samefile(C) and argv[5:7] == ['--narration', str(folder)], f'Binary call differs: {argv[3:7]}'
++    assert argv[7:9] == ['--consumer', 'render'] and argv[9] == '--gain-db', f'Binary call differs: {argv[7:10]}'
++    assert argv[11::2] == ['--chapter-key'] * 15 and argv[12::2] == list(CHAPTERS), 'Binary chapter keys differ'
++    return argv
++
++
++def prove(folder):
++    """Both tools, unmodified, called as their owners call them. N must still be refused."""
++    refused = subprocess.run(tool_argv(N1), cwd=R, capture_output=True, text=True, timeout=900)
++    assert refused.returncode != 0 and REFUSAL in refused.stderr, f'Frozen N is no longer refused: {refused.stderr.strip()[-200:]}'
++    run = subprocess.run(tool_argv(folder), cwd=R, capture_output=True, text=True, timeout=900)
++    assert run.returncode == 0, f'coherent_narration refused N2: {run.stderr.strip()[-300:]}'
++    call = binary_call(folder)
++    delivery = subprocess.run([sys.executable, *call], cwd=R, capture_output=True, text=True, timeout=900)
++    assert delivery.returncode == 0, f'narration_delivery refused N2: {delivery.stderr.strip()[-300:]}'
++    result = json.loads(delivery.stdout)
++    assert (result['consumer'], result['verified_cues'], result['selected_cues'], result['plan_mode']) == ('render', CUES, CUES, 'external-ui'), f'Delivery differs: {result}'
++    return {'standalone_refuses_N': True, 'standalone_passes': run.stdout.strip(), 'binary_tool': call[2], 'binary_topic': call[4],
++            'binary_gain_db': call[10], 'delivery_consumer': result['consumer'], 'delivery_cues': result['verified_cues'], 'plan_mode': result['plan_mode']}
++
++
++def run_derive():
++    child_gate('derive')
++    check_qualified()
++    check_baseline()
++    assert not N2.exists(), 'Existing N2 retained'
++    report, assembly, renames, tally = derived_bytes()
++    write_folder(N2, report, assembly, shutil.copyfile)
++    check_folder(N2, report, assembly)
++    proof = prove(N2)
++    with (job('derive') / 'derive-summary.json').open('x') as handle:
++        json.dump({**tally, 'files_total': FILES, 'files_changed': ['assembly.json', 'report.json'], 'files_identical': FILES - 2,
++                   'narration': str(N2), 'derived_from': str(N1), 'report_sha256': digest(report), 'source_report_sha256': sha(N1 / 'report.json'),
++                   'assembly_sha256': digest(assembly), 'source_assembly_sha256': sha(N1 / 'assembly.json'), 'tools': proof, 'source_map': renames,
++                   'scope': 'Path spelling of report.source and the assembly hash of that report only. Takes, timing, text and receipts are unchanged. No listening, picture, fine sync or AV claim.'}, handle, indent=2)
++    print('DERIVE PASS: 105 cues, 414 rows, 2 of 110 files changed; both unmodified tools pass N2.', flush=True)
++
++
++def check_derived():
++    Q.success(DERIVE)
++    report, assembly, renames, tally = derived_bytes()
++    check_folder(N2, report, assembly)
++    summary = read(job('derive') / 'derive-summary.json')
++    assert summary['source_map'] == renames and (summary['cues'], summary['rows'], summary['files_identical']) == (CUES, ROWS, FILES - 2), 'Derive summary differs'
++    assert summary['report_sha256'] == digest(report) and summary['assembly_sha256'] == digest(assembly), 'Derive summary differs'
++    return tally
++
++
++def mapped(path, table):
++    """The new table in timeline02's spelling. Only timeline `line` column 4 and cue-log column 0 can change, and only from
++    exactly N2/<cue>.wav to BASE_N2/<cue>.wav. Anything else stays and fails."""
++    lines, cells = [], 0
++    for line in normalized(path):
++        row = line.split('\t')
++        at = 4 if table == 'timeline' and row[0] == 'line' else 0 if table == 'cuelog' else None
++        if at is not None:
++            cue = row[1] if at == 4 else Path(row[0]).stem
++            if row[at] == f'{N2}/{cue}.wav':
++                row[at] = f'{BASE_N2}/{cue}.wav'
++                cells += 1
++        lines.append('\t'.join(row))
++    return lines, cells
++
++
++def compare_table(chapter, table, out):
++    name = f'{chapter}.{table}.tsv'
++    old = normalized(BASE_OUT / name)
++    new, cells = mapped(out / name, table)
++    return {'table': name, 'lines': len(old), 'normalized_equal': old == new, 'path_cells_mapped': cells,
++            'baseline_sha256': sha(BASE_OUT / name), 'new_sha256': sha(out / name)}
++
++
++def split_rows(lines):
++    return [line.split('\t') for line in lines]
++
++
++def compare_boundary(out):
++    """The one expected change, as rules. Timeline tables list rows by kind, so a row's frame says which side it is on.
++
++    At or before 09_5's baseline frame: every row equal under the mapping, except 09_5 itself.
++    09_5 is new: its frame, hash, size, length and sample count may change, and its hash and size must be this N2's.
++    After that frame: one whole-frame shift, the same for every row, and every other cell equal. Cue seconds are three
++    decimals, so each is recomputed from its shifted frame, and never by subtraction."""
++    problems = []
++    old_lines = split_rows(normalized(BASE_OUT / f'{AFFECTED}.timeline.tsv'))
++    new_lines, timeline_cells = mapped(out / f'{AFFECTED}.timeline.tsv', 'timeline')
++    new_lines = split_rows(new_lines)
++    starts = {row[1]: int(row[2]) for row in old_lines if row[0] == 'line'}
++    found = {row[1]: int(row[2]) for row in new_lines if row[0] == 'line'}
++    if list(starts) != list(found):
++        problems.append('09_boundary cues differ')
++        return {'problems': problems, 'path_cells_mapped': timeline_cells, 'frame_shift': None}
++    cues = list(starts)
++    pivot = starts[REPAIRED]
++    if found[REPAIRED] != pivot:
++        problems.append('09_5 itself moved, so something before it changed')
++    following = cues[cues.index(REPAIRED) + 1]
++    shift = found[following] - starts[following]
++    frame_column = {'line': 2, 'mark': 2, 'breath': 1, 'listen': 1}
++
++    def moved(table, old, new, column):
++        expect = list(old)
++        expect[column] = str(int(old[column]) + shift)
++        if new != expect:
++            problems.append(f'{table}: {new} is not {expect}')
++
++    if len(old_lines) != len(new_lines):
++        problems.append('timeline rows differ in number')
++    for old, new in zip(old_lines, new_lines):
++        kind = old[0]
++        if kind == 'frames':
++            moved('timeline', old, new, 1)
++        elif kind == 'line' and old[1] == REPAIRED:
++            if new[:2] != old[:2] or new[3:] != old[3:]:
++                problems.append(f'timeline: {new} is not 09_5 with a new frame only')
++        elif kind in frame_column:
++            if int(old[frame_column[kind]]) > pivot:
++                moved('timeline', old, new, frame_column[kind])
++            elif new != old:
++                problems.append(f'timeline: {new} moved; {old} comes before 09_5')
++        elif new != old:
++            problems.append(f'timeline: {new} is not {old}')
++    old_rows, new_rows = split_rows(normalized(BASE_OUT / f'{AFFECTED}.cues.tsv')), split_rows(normalized(out / f'{AFFECTED}.cues.tsv'))
++    if [row[0] for row in old_rows] != [row[0] for row in new_rows]:
++        problems.append('cues rows differ')
++    for old, new in zip(old_rows, new_rows):
++        seconds = f'{found[old[0]] / 60:.3f}'
++        if old[0] == REPAIRED:
++            if new[1] != seconds or float(new[2]) <= 0:
++                problems.append(f'cues: {new} does not start at frame {found[REPAIRED]}')
++        elif starts[old[0]] > pivot:
++            if found[old[0]] != starts[old[0]] + shift or new != [old[0], seconds, old[2]]:
++                problems.append(f'cues: {new} is not {old[0]} at {seconds} with length {old[2]}')
++        elif new != old:
++            problems.append(f'cues: {new} moved; {old} comes before 09_5')
++    old_log = split_rows(normalized(BASE_OUT / f'{AFFECTED}.cuelog.tsv'))
++    log_lines, log_cells = mapped(out / f'{AFFECTED}.cuelog.tsv', 'cuelog')
++    new_log = split_rows(log_lines)
++    if [Path(row[0]).stem for row in old_log] != [Path(row[0]).stem for row in new_log]:
++        problems.append('cue log rows differ')
++    wav = N / f'{REPAIRED}.wav'
++    with wave.open(str(wav)) as handle:
++        samples = handle.getnframes()
++    for old, new in zip(old_log, new_log):
++        frame = int(old[3])
++        if Path(old[0]).stem == REPAIRED:
++            expect = [old[0], sha(wav), str(wav.stat().st_size), str(found[REPAIRED]), *old[4:11], str(samples),
++                      str(int(old[12]) + (found[REPAIRED] - frame) * 800)]
++        elif frame > pivot:
++            expect = [*old[:3], str(frame + shift), *old[4:12], str(int(old[12]) + shift * 800)]
++        else:
++            expect = old
++        if new != expect:
++            problems.append(f'cuelog: {new} is not {expect}')
++    return {'problems': problems, 'frame_shift': shift, 'repaired_frame': {'baseline': pivot, 'new': found[REPAIRED]},
++            'cues': len(cues), 'path_cells_mapped': timeline_cells + log_cells}
++
++
++def expected_cells():
++    """Timeline `line` rows and cue-log rows of the unaffected chapters, counted in the baseline's own tables."""
++    count = 0
++    for chapter in UNAFFECTED:
++        count += sum(1 for row in split_rows(normalized(BASE_OUT / f'{chapter}.timeline.tsv')) if row[0] == 'line')
++        count += len(normalized(BASE_OUT / f'{chapter}.cuelog.tsv'))
++    return count
++
++
++def compare_baseline(out):
++    """Written before it is judged, so a mismatch leaves its evidence."""
++    rows = [compare_table(chapter, table, out) for chapter in UNAFFECTED for table in TABLES]
++    boundary = compare_boundary(out)
++    expected = expected_cells()
++    with (job('timeline') / 'baseline-table-comparison.json').open('x') as handle:
++        json.dump({'baseline_job': BASE_JOB, 'baseline_binary_sha256': BASE_BIN_SHA256, 'new_binary_sha256': Q.BIN_SHA256,
++                   'mapped_from': str(N2), 'mapped_to': str(BASE_N2), 'mapped_columns': {'timeline': 'line rows, column 4', 'cuelog': 'column 0', 'cues': 'none'},
++                   'unaffected_chapters': list(UNAFFECTED), 'expected_path_cells': expected, 'tables': rows, 'chapter09': boundary}, handle, indent=2)
+     different = [row['table'] for row in rows if not row['normalized_equal']]
+-    assert not different, f'ts1 tables differ from the macOS run: {different}'
+-    return rows
++    assert not different, f'ts1 tables differ from timeline02: {different}'
++    assert not boundary['problems'], f"09_boundary differs beyond the expected change: {boundary['problems'][:3]}"
++    assert sum(row['path_cells_mapped'] for row in rows) == expected == 2 * (CUES - boundary['cues']), 'Mapped path cells differ'
++    assert boundary['path_cells_mapped'] == 2 * boundary['cues'], '09_boundary path cells differ'
++    return rows, boundary
+ 
+ 
+ def check_tables(out, script):
+@@ -251,50 +525,50 @@
+ def run_timeline():
+     child_gate('timeline')
+     check_qualified()
+-    check_failed_run()
++    check_baseline()
+     listed = subprocess.check_output([str(BIN), 'chapters'], text=True).splitlines()
+     assert listed == list(CHAPTERS), listed
+     script = script_ids()
+-    assert len(script) == len(set(script)) == 105
++    assert len(script) == len(set(script)) == CUES
+     fact_rows = check_facts(job('timeline'))
+     verify_narration()
+     assert not TIMELINE_OUT.exists(), 'Existing timeline output retained'
+     subprocess.run([str(BIN), 'render', 'all', '--timeline-only', '--fps', '60', '--narration', str(N),
+                     '--out', str(TIMELINE_OUT)], cwd=R, check=True, timeout=TIMELINE_SECONDS)
+-    compared = compare_prior(TIMELINE_OUT)
++    compared, boundary = compare_baseline(TIMELINE_OUT)
+     chapters, seen = check_tables(TIMELINE_OUT, script)
+     with (job('timeline') / 'timeline-summary.json').open('x') as handle:
+         json.dump({'chapters': chapters, 'cues': len(seen), 'fps': 60, 'native_oracle_fact_rows_matched': fact_rows,
+                    'total_frames': sum(row['frames'] for row in chapters), 'binary_sha256': Q.BIN_SHA256,
+-                   'profile': 'release', 'host': 'ts1', 'qualifier_job': Q.JOB, 'failed_job': FAILED.name,
+-                   'prior_chapters_compared': list(PRIOR_CHAPTERS), 'prior_tables_compared': len(compared),
+-                   'chapters_without_prior_table': list(CHAPTERS[len(PRIOR_CHAPTERS):]),
++                   'profile': 'release', 'host': 'ts1', 'qualifier_job': Q.JOB, 'baseline_job': BASE_JOB,
++                   'baseline_binary_sha256': BASE_BIN_SHA256, 'unaffected_chapters': list(UNAFFECTED), 'baseline_tables_compared': len(compared),
++                   'chapter09_frame_shift': boundary['frame_shift'], 'chapter09_repaired_frame': boundary['repaired_frame'],
+                    'full_baseline_equivalence_established': False,
+-                   'scope': 'ts1 release native timeline only. Tables for chapters 01-04 equal the macOS debug run line for line; chapters 05-15 have no prior table. No speedup, frame, PCM, listening or AV equivalence established.'}, handle, indent=2)
+-    print('TIMELINE PASS: 15 chapters, 105 cues, 12 prior tables equal; no full baseline equivalence.', flush=True)
++                   'scope': 'ts1 release native timeline of stage07. Tables for 14 chapters equal timeline02 under one exact path mapping. In 09_boundary rows up to 09_5 are equal, 09_5 is new, and later rows moved by one whole-frame shift. No speedup, frame, PCM, listening or AV equivalence established.'}, handle, indent=2)
++    print(f"TIMELINE PASS: 15 chapters, 105 cues; {len(compared)} baseline tables equal; 09_boundary later rows moved {boundary['frame_shift']} frames.", flush=True)
+ 
+ 
+ def check_timeline():
+     Q.success(NAMES['timeline'])
+     summary = read(job('timeline') / 'timeline-summary.json')
+     assert summary['binary_sha256'] == Q.BIN_SHA256 == sha(BIN) and summary['profile'] == 'release', 'Timeline binary differs'
+-    assert summary['failed_job'] == FAILED.name, 'Timeline names another failed run'
++    assert summary['baseline_job'] == BASE_JOB, 'Timeline names another baseline'
+     assert summary['full_baseline_equivalence_established'] is False, 'Full baseline equivalence cannot be claimed'
+-    assert summary['prior_chapters_compared'] == list(PRIOR_CHAPTERS)
+-    assert summary['chapters_without_prior_table'] == list(CHAPTERS[len(PRIOR_CHAPTERS):])
++    assert summary['unaffected_chapters'] == list(UNAFFECTED)
+     assert [row['chapter'] for row in summary['chapters']] == list(CHAPTERS)
+-    assert summary['cues'] == 105 and summary['fps'] == 60
++    assert summary['cues'] == CUES and summary['fps'] == 60
+     assert summary['native_oracle_fact_rows_matched'] > 0
+     folder = TIMELINE_OUT
+     assert {p.stem.removesuffix('.timeline') for p in folder.glob('*.timeline.tsv')} == set(CHAPTERS)
+     assert all((folder / f'{chapter}.{table}.tsv').is_file() for chapter in CHAPTERS for table in TABLES)
+-    compared = read(job('timeline') / 'prior-table-comparison.json')
+-    assert compared['prior_job'] == FAILED.name and compared['new_binary_sha256'] == Q.BIN_SHA256
+-    assert len(compared['tables']) == summary['prior_tables_compared'] == 12
++    compared = read(job('timeline') / 'baseline-table-comparison.json')
++    assert compared['baseline_job'] == BASE_JOB and compared['new_binary_sha256'] == Q.BIN_SHA256
++    assert len(compared['tables']) == summary['baseline_tables_compared'] == 3 * len(UNAFFECTED)
++    assert compared['chapter09']['problems'] == [] and compared['chapter09']['frame_shift'] == summary['chapter09_frame_shift']
+     for row in compared['tables']:
+-        assert row['normalized_equal'] is True, 'Prior table differs: ' + row['table']
++        assert row['normalized_equal'] is True, 'Baseline table differs: ' + row['table']
+         assert sha(folder / row['table']) == row['new_sha256'], 'New table changed: ' + row['table']
+-        assert sha(PRIOR_OUT / row['table']) == row['prior_sha256'], 'Prior table changed: ' + row['table']
++        assert sha(BASE_OUT / row['table']) == row['baseline_sha256'], 'Baseline table changed: ' + row['table']
+     seen = []
+     total = 0
+     for item in summary['chapters']:
+@@ -312,7 +586,7 @@
+         seen.extend(row[1] for row in cues)
+         total += frames
+     ordered = script_ids()
+-    assert seen == ordered and len(seen) == len(set(seen)) == 105
++    assert seen == ordered and len(seen) == len(set(seen)) == CUES
+     assert total == summary['total_frames']
+     return folder
+ 
+@@ -543,20 +817,22 @@
+ 
+ def check_upstream(stage):
+     check_qualified()
+-    if stage == 'timeline':
+-        check_failed_run()
+-    elif stage == 'score':
++    check_baseline()
++    if stage == 'derive':
++        return
++    check_derived()
++    if stage == 'score':
+         check_timeline()
+     elif stage == 'preview':
+         check_score()
+-    else:
++    elif stage == 'pictures':
+         Q.success(NAMES['preview'])
+         check_score()
+ 
+ 
+ def wait_for(stage):
+     """Each controller writes its exit file after its job's receipt is final."""
+-    exits = [O / 'qualify-controller01.exit', *(exit_file(name) for name in UPSTREAM[stage])]
++    exits = [Q.CONTROLLER_EXIT, BASE_EXIT, *(exit_file(name) for name in UPSTREAM[stage])]
+     for _ in range(WAIT_POLLS):
+         codes = [path.read_text().strip() if path.exists() else '' for path in exits]
+         failed = [path.name for path, code in zip(exits, codes) if code not in ('', '0')]
+@@ -583,22 +859,61 @@
+ 
+ 
+ def preflight(stage):
+-    """Read-only, and valid before the upstream jobs have finished."""
++    """Read-only. Run it once the build has ended; the stages' own upstream jobs may still be running."""
+     check_pins()
++    check_baseline()
++    check_qualified()
+     files = base_rows()
+-    check_failed_run()
+     Q.guard_policy()
+     check_tools(stage)
+     assert not job(stage).exists() and not manifest(stage).exists(), f'Duplicate {stage} refused'
+-    print(json.dumps({'stage': stage, 'job': NAMES[stage], 'root': str(R), 'frozen_files': len(files), 'launched': False}))
++    print(json.dumps({'stage': stage, 'job': NAMES[stage], 'root': str(R), 'frozen_files': len(files), 'binary_sha256': Q.BIN_SHA256,
++                      'audio_rows_sha256': sha(AUDIO_ROWS), 'launched': False}))
++    if stage == 'derive':
++        assert not N2.exists(), 'Existing N2 retained'
++        report, assembly, _, tally = derived_bytes()
++        folder = Path(tempfile.mkdtemp(prefix='chain03-dry-')) / 'narration-n2'
++        write_folder(folder, report, assembly, os.symlink)
++        check_folder(folder, report, assembly)
++        print(json.dumps({'derivation': tally, 'tools': prove(folder), 'dry_folder': str(folder)}))
++
++
++def run(stage):
++    if stage == 'derive':
++        run_derive()
++        return
++    check_derived()
++    {'timeline': run_timeline, 'score': run_score, 'preview': run_preview, 'pictures': run_pictures}[stage]()
++
++
++def compare(chapter):
++    if chapter == AFFECTED:
++        boundary = compare_boundary(TIMELINE_OUT)
++        print(json.dumps(boundary))
++        return 1 if boundary['problems'] else 0
++    rows = [compare_table(chapter, table, TIMELINE_OUT) for table in TABLES]
++    for row in rows:
++        print(json.dumps(row))
++    return 0 if all(row['normalized_equal'] for row in rows) else 1
++
+ 
++class Names:
++    """Helpers that pin this chain read L.M.name, as they did with chain02-n2 over chain01. Here both are this file."""
++
++    def __getattr__(self, name):
++        try:
++            return globals()[name]
++        except KeyError:
++            raise AttributeError(name) from None
++
++
++M = Names()
+ 
+ if __name__ == '__main__':
+-    assert len(sys.argv) == 3 and sys.argv[1] in ('--check', '--launch', '--run') and sys.argv[2] in NAMES, __doc__
++    assert len(sys.argv) == 3, __doc__
+     mode, name = sys.argv[1:]
+-    if mode == '--check':
+-        preflight(name)
+-    elif mode == '--launch':
+-        launch(name)
+-    else:
+-        {'timeline': run_timeline, 'score': run_score, 'preview': run_preview, 'pictures': run_pictures}[name]()
++    if mode == '--compare':
++        assert name in CHAPTERS, __doc__
++        sys.exit(compare(name))
++    assert mode in ('--check', '--launch', '--run') and name in NAMES, __doc__
++    {'--check': preflight, '--launch': launch, '--run': run}[mode](name)

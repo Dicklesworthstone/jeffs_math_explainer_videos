@@ -384,7 +384,8 @@ def main():
         C.check('compare-' + chapter, run.returncode == 0, C.last(run.stderr, 'read-only, exit 0'))
     for name, (kind, old, new, words) in BOUNDARY_PLANTS.items():
         run = compare_planted(t, table(t, kind), old, new, '09_boundary')
-        C.check('stop-' + name, run.returncode == 1 and words in json.loads(run.stdout)['problems'][0] if run.returncode == 1 else False, C.last(run.stderr, json.loads(run.stdout)['problems'][0][:80] if run.stdout.strip() else 'no output'))
+        problems = json.loads(run.stdout)['problems'] if run.returncode == 1 else []
+        C.check('stop-' + name, run.returncode == 1 and words in problems[0], problems[0].replace(str(root), '<fixture>')[:80] if problems else C.last(run.stderr, 'no output'))
     run = compare_planted(t, table(t, 'cuelog'), sha(t.n2 / '09_5.wav'), '0' * 64, '09_boundary')
     C.check('stop-09_5-hash-wrong', run.returncode == 1 and 'cuelog' in run.stdout)
     run = compare_planted(t, table(t, 'timeline'), f'{t.n2}/09_6.wav', f'{t.n2.resolve()}/09_6.wav', '09_boundary')
