@@ -1,0 +1,1877 @@
+{
+ "basis": "recognizer word onsets (whisper-cpp word segments) unless a mark's basis names root's sample; not heard boundaries",
+ "uncertainty": "window_s is the recognizer's word segment [start, end]. The spoken onset was not measured. When abuts_previous_word is true the segment may begin in the pause before the word, so the onset can lie anywhere up to the segment end. A recognizer can also place a word late; no bound outside the window is claimed. sample_24k is round(start x 24000) on the decoded take's timeline.",
+ "voice": "Frederick Surrey - Smooth and Velvety",
+ "schema": "complex-frederick-timing-bridge-stage07-v1",
+ "script_sha256": "946a9c07a462eb066fc8d20c6a092d5b7564d38752d26177bdbbcf15c6027cdc",
+ "source_sha256": "e1044d1ebe91fac2f3bbb971b3566d02d3f82cf8843176e76b46d29fab875d87",
+ "prepare_receipt_sha256": "e3acf9cc4184873e8a5b929447eec815b3182e06c76e9e736b2b135a8b52d029",
+ "cues": {
+  "01_1": {
+   "wav_sha256": "444c02c93d7368b744f64f1fdcdacaaf54d3f3fc1090c2e7982506d50fe90c37",
+   "text_sha256": "31681cbbfca0faa7fc227bcd0fade1451bfaa960b4f477c03b3b43088a7987ef",
+   "marks": [
+    {
+     "byte": 127,
+     "seconds": 10.18,
+     "sample_24k": 244320,
+     "phrase": "It has no corners",
+     "basis": "sentence 3 onset: recognizer onset",
+     "window_s": [
+      10.179999,
+      10.679999
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 10.18
+    }
+   ]
+  },
+  "01_2": {
+   "wav_sha256": "3650b22a9bd77b8d5af004dcc6721b466f7d1857a3fd882a1b8b46f10df660dd",
+   "text_sha256": "0439cd1e4ed9459bb68b301ea59b520e366b9437b7892d308f1b07ade389b43c",
+   "marks": [
+    {
+     "byte": 65,
+     "seconds": 5.16,
+     "sample_24k": 123840,
+     "phrase": "plus x to the fourth",
+     "basis": "recognizer onset",
+     "window_s": [
+      5.16,
+      5.5
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 4.79
+    },
+    {
+     "byte": 87,
+     "seconds": 6.66,
+     "sample_24k": 159840,
+     "phrase": "minus x to the sixth",
+     "basis": "recognizer onset",
+     "window_s": [
+      6.66,
+      7.02
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 6.49
+    }
+   ]
+  },
+  "01_3": {
+   "wav_sha256": "aa573fa8c3a415a3056ee35da41c935b4d0589b6ba65404575722a88ac31c736",
+   "text_sha256": "121a5fe786313c212030a23806eed5a2d80256a6f71778d6e36e85622bb8eff0",
+   "marks": [
+    {
+     "byte": 119,
+     "seconds": 8.96,
+     "sample_24k": 215040,
+     "phrase": "At one point one",
+     "basis": "sentence 2 onset: recognizer onset",
+     "window_s": [
+      8.96,
+      9.179999
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 8.96
+    }
+   ]
+  },
+  "01_4": {
+   "wav_sha256": "6576bf44bd84c537ec926f92393503998b69a5a40c82f4c7de8e21636cb2c58d",
+   "text_sha256": "1e6fdcb6a57a64616453ecc149163b54f640a877b3099cfffb6b6413155a1cb5",
+   "marks": []
+  },
+  "01_5": {
+   "wav_sha256": "8ff2491a1981eb81b74411d9f5e6f2a10a3c790e1f931089111da6fd9ecffecb",
+   "text_sha256": "6154d42063787accfd86a13e2d083f26105d6aafbb0a435e4b8f2be0eae818d6",
+   "marks": [
+    {
+     "byte": 39,
+     "seconds": 2.96,
+     "sample_24k": 71040,
+     "phrase": "Let x be a complex number",
+     "basis": "sentence 1 onset: recognizer onset",
+     "window_s": [
+      2.96,
+      3.22
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 2.96
+    },
+    {
+     "byte": 113,
+     "seconds": 8.1,
+     "sample_24k": 194400,
+     "phrase": "They sit at i",
+     "basis": "sentence 2 onset: recognizer onset",
+     "window_s": [
+      8.1,
+      8.179999
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 8.1
+    },
+    {
+     "byte": 171,
+     "seconds": 13.16,
+     "sample_24k": 315840,
+     "phrase": "A recipe built at zero",
+     "basis": "sentence 3 onset: recognizer onset",
+     "window_s": [
+      13.16,
+      13.28
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 13.16
+    },
+    {
+     "byte": 261,
+     "seconds": 19.09,
+     "sample_24k": 458160,
+     "phrase": "That circle has radius one",
+     "basis": "sentence 4 onset: sample given by BlueSalmon: the recognizer start 19.2 s is 0.08 s after the word sounds (body 19.12 s); this is the end of the take's pause [18.68, 19.09] s; envelope reading, no listening Root adopts for provisional preparation after RubyRaven independent waveform/recognizer review; same retained take/text verified through stage06 transfer. No hearing, fine sync or final acceptance.",
+     "window_s": null,
+     "abuts_previous_word": null,
+     "cross_checks": [],
+     "film_without_mark_s": 19.09
+    }
+   ]
+  },
+  "01_6": {
+   "wav_sha256": "e29d55e59467d2e2fa5a54c7378a7bbd63de3b4be8f667a3189146264ce6cdc9",
+   "text_sha256": "853770de64bd72f5ec5124b24b0ad503a751a9543840844b09583932efc00185",
+   "marks": []
+  },
+  "02_1": {
+   "wav_sha256": "e398c332b2f082758d489f53b3463506ba6487f7345d81c20759be1815777dcc",
+   "text_sha256": "109fc4702bbbbb091c52fcae2b9c66eeed8dd79dbbce60c6f59dd40d6a1cd096",
+   "marks": [
+    {
+     "byte": 60,
+     "seconds": 4.06,
+     "sample_24k": 97440,
+     "phrase": "how far right",
+     "basis": "recognizer onset",
+     "window_s": [
+      4.06,
+      4.3
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 4.633095
+    },
+    {
+     "byte": 91,
+     "seconds": 6.32,
+     "sample_24k": 151680,
+     "phrase": "how far up",
+     "basis": "recognizer onset",
+     "window_s": [
+      6.32,
+      6.64
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 7.017143
+    }
+   ]
+  },
+  "02_2": {
+   "wav_sha256": "4f94e83542c6a255c5713cc83f1df5480e0815cffbaeb2ac8a3d80978144bacb",
+   "text_sha256": "ec65a618c990d59c274cfd79b1a39ee1a756197fa75932bb21672761d1bad999",
+   "marks": [
+    {
+     "byte": 143,
+     "seconds": 9.36,
+     "sample_24k": 224640,
+     "phrase": "and the whole plane turns",
+     "basis": "recognizer onset",
+     "window_s": [
+      9.36,
+      9.58
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 9.236522
+    }
+   ]
+  },
+  "02_3": {
+   "wav_sha256": "bf388283696690d39469408430fe55b475f9534fb37faad2fbc835f799bc2996",
+   "text_sha256": "db48f2026b1a1af45d612e0d5e43aa795b55afb20d307eec107bf416c5ddad6a",
+   "marks": []
+  },
+  "02_4": {
+   "wav_sha256": "4d77aa9f9949aa2997b2e946e5147cfb8ba0828f3df67c11686d6368cc4755b9",
+   "text_sha256": "168704a9dc05d4f172facb63de879fe6e0ba730a0982e52fdcdb10bb2fed4618",
+   "marks": []
+  },
+  "02_5": {
+   "wav_sha256": "ff09175d9adcf8de12cea1c0b6f3a55d0f366ad4f174cccaf0d675bbf013fa04",
+   "text_sha256": "3d987fe08bcc4c9f00ac646fabe5cc6527923c075513a07ede32662a17e15532",
+   "marks": [
+    {
+     "byte": 37,
+     "seconds": 2.72,
+     "sample_24k": 65280,
+     "phrase": "an eighth of a turn",
+     "basis": "recognizer onset",
+     "window_s": [
+      2.72,
+      2.86
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 2.896207
+    }
+   ]
+  },
+  "02_6": {
+   "wav_sha256": "99e40ec1361c85efd64cba4eeed2dd26821ded7fed2b41556b4e084f52ec8008",
+   "text_sha256": "cdecd1a7b82898435fb5379880351e0bccd70ea0c33999baefa56a0fd5cbc130",
+   "marks": [
+    {
+     "byte": 88,
+     "seconds": 5.715,
+     "sample_24k": 137160,
+     "phrase": "So one plus i",
+     "basis": "sentence 1 onset: sample given by BlueSalmon: the recognizer start 5.82 s is 0.075 s after the word sounds (body 5.745 s); this is the end of the take's pause [5.195, 5.715] s; envelope reading, no listening Root adopts for provisional preparation after RubyRaven independent waveform/recognizer review; same retained take/text verified through stage06 transfer. No hearing, fine sync or final acceptance.",
+     "window_s": null,
+     "abuts_previous_word": null,
+     "cross_checks": [],
+     "film_without_mark_s": 5.715
+    },
+    {
+     "byte": 139,
+     "seconds": 10.3,
+     "sample_24k": 247200,
+     "phrase": "and angles add",
+     "basis": "recognizer onset",
+     "window_s": [
+      10.3,
+      10.76
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 10.889697
+    },
+    {
+     "byte": 172,
+     "seconds": 13.6,
+     "sample_24k": 326400,
+     "phrase": "Every complex derivative",
+     "basis": "sentence 4 onset: sample given by BlueSalmon: the recognizer start 13.86 s is 0.24 s after the word sounds (body 13.62 s); this is the end of the take's pause [13.21, 13.6] s; envelope reading, no listening Root adopts for provisional preparation after RubyRaven independent waveform/recognizer review; same retained take/text verified through stage06 transfer. No hearing, fine sync or final acceptance.",
+     "window_s": null,
+     "abuts_previous_word": null,
+     "cross_checks": [],
+     "film_without_mark_s": 13.6
+    }
+   ]
+  },
+  "03_1": {
+   "wav_sha256": "58ff34759d059b5a71dc6a80ce6954cbd38532b3e8dcea28540d18f795920479",
+   "text_sha256": "f9db55ac0b7c888b1ef47e3bfd9bff122cb5ed062988af3bccdc3a48d6fe360d",
+   "marks": []
+  },
+  "03_2": {
+   "wav_sha256": "142c6bd64020f56e28fa947f74736d705bee400bc6e613169c09f3edee0bb8d8",
+   "text_sha256": "532296fe650e2a6e8b001dd3087163f372f303e01c7e196187912dede71cfd00",
+   "marks": [
+    {
+     "byte": 66,
+     "seconds": 5.32,
+     "sample_24k": 127680,
+     "phrase": "squares each length",
+     "basis": "recognizer onset",
+     "window_s": [
+      5.32,
+      5.86
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 5.097753
+    },
+    {
+     "byte": 90,
+     "seconds": 7.0,
+     "sample_24k": 168000,
+     "phrase": "doubles each angle",
+     "basis": "recognizer onset",
+     "window_s": [
+      7.0,
+      7.34
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 6.909888
+    }
+   ]
+  },
+  "03_3": {
+   "wav_sha256": "816483c29f4dde34e2c7424e6b3ec8af2b0793a43de3299b9b93e27d74553667",
+   "text_sha256": "b8f4dc6340f466fc47afbb0746401354a222dcf0b3c3ed9aac031ecdfbd5b788",
+   "marks": []
+  },
+  "03_4": {
+   "wav_sha256": "c539864e09f556efea2ca72c9a01c3f5ff4a058cdbb79f75d96b540fc374e1cc",
+   "text_sha256": "bd84dd549938a51d19f930111997c2e897612e155d3500fde52e0e5b7ae99383",
+   "marks": [
+    {
+     "byte": 94,
+     "seconds": 6.7,
+     "sample_24k": 160800,
+     "phrase": "The two axes fold",
+     "basis": "sentence 2 onset: recognizer onset",
+     "window_s": [
+      6.7,
+      7.14
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 6.7
+    },
+    {
+     "byte": 129,
+     "seconds": 9.62,
+     "sample_24k": 230880,
+     "phrase": "The horizontal axis lands",
+     "basis": "sentence 3 onset: recognizer onset",
+     "window_s": [
+      9.62,
+      9.98
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 9.62
+    },
+    {
+     "byte": 301,
+     "seconds": 20.24,
+     "sample_24k": 485760,
+     "phrase": "except at zero",
+     "basis": "recognizer onset",
+     "window_s": [
+      20.24,
+      20.859999
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 20.725333
+    }
+   ]
+  },
+  "03_5": {
+   "wav_sha256": "ea5a8a74162ad568d19dd87a78150f0f9b393f51115a1ae1f5321c311b6a1146",
+   "text_sha256": "6df2c01b05befaed6c0609e346fea8fd4db5df4d9f1fb39eef2966061324556f",
+   "marks": [
+    {
+     "byte": 89,
+     "seconds": 7.56,
+     "sample_24k": 181440,
+     "phrase": "The unit circle",
+     "basis": "sentence 2 onset: recognizer onset",
+     "window_s": [
+      7.56,
+      7.6
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 7.56
+    },
+    {
+     "byte": 140,
+     "seconds": 10.4,
+     "sample_24k": 249600,
+     "phrase": "each point flips",
+     "basis": "recognizer onset",
+     "window_s": [
+      10.4,
+      10.7
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 10.752813
+    }
+   ]
+  },
+  "03_6": {
+   "wav_sha256": "55a4cc839723fe3425a8b209aa86eba6fb82859d30186ff10267b7392bdee57d",
+   "text_sha256": "89a8007ef42ccf26d1edfe884b4e27ec2c891727ac738b038a305b12d29c314c",
+   "marks": [
+    {
+     "byte": 181,
+     "seconds": 13.0,
+     "sample_24k": 312000,
+     "phrase": "So vertical lines",
+     "basis": "sentence 3 onset: recognizer onset",
+     "window_s": [
+      13.0,
+      13.28
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 13.0
+    }
+   ]
+  },
+  "03_7": {
+   "wav_sha256": "c62e5df73d5564eba1b2de979e5e2d816eb4963a83b0a056eb45d2fb5283a1d3",
+   "text_sha256": "83fb732d2bfb45ccf033f6b4b6f42a1ecc3c772121138223a1e5c415f50cbf5d",
+   "marks": [
+    {
+     "byte": 55,
+     "seconds": 4.04,
+     "sample_24k": 96960,
+     "phrase": "The exponential repeats",
+     "basis": "sentence 1 onset: recognizer onset",
+     "window_s": [
+      4.04,
+      4.18
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 4.04
+    },
+    {
+     "byte": 93,
+     "seconds": 6.28,
+     "sample_24k": 150720,
+     "phrase": "and it never reaches zero",
+     "basis": "recognizer onset",
+     "window_s": [
+      6.28,
+      6.44
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 6.483692
+    }
+   ]
+  },
+  "04_1": {
+   "wav_sha256": "2f97daaa7ee15ef04877047ffafec695d8eaab58b511d3f7621f56eff7c2e605",
+   "text_sha256": "d24c73b716e5ead79c63b970136da720b0be1b0d81ef8e68447d16a8bfbe484d",
+   "marks": [
+    {
+     "byte": 187,
+     "seconds": 12.645,
+     "sample_24k": 303480,
+     "phrase": "Pointing right is red",
+     "basis": "sentence 3 onset: sample given by BlueSalmon: the recognizer start 12.92 s is 0.26 s after the word sounds (body 12.66 s); this is the end of the take's pause [12.215, 12.645] s; envelope reading, no listening Root adopts for provisional preparation after RubyRaven independent waveform/recognizer review; same retained take/text verified through stage06 transfer. No hearing, fine sync or final acceptance.",
+     "window_s": null,
+     "abuts_previous_word": null,
+     "cross_checks": [],
+     "film_without_mark_s": 12.645
+    },
+    {
+     "byte": 210,
+     "seconds": 14.46,
+     "sample_24k": 347040,
+     "phrase": "Pointing up is yellow green",
+     "basis": "sentence 4 onset: recognizer onset",
+     "window_s": [
+      14.46,
+      14.839999
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 14.46
+    },
+    {
+     "byte": 239,
+     "seconds": 17.0,
+     "sample_24k": 408000,
+     "phrase": "Pointing left is teal",
+     "basis": "sentence 5 onset: recognizer onset",
+     "window_s": [
+      17.0,
+      17.24
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 17.0
+    },
+    {
+     "byte": 266,
+     "seconds": 18.86,
+     "sample_24k": 452640,
+     "phrase": "pointing down is violet",
+     "basis": "recognizer onset",
+     "window_s": [
+      18.859999,
+      19.199999
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 18.927059
+    }
+   ]
+  },
+  "04_2": {
+   "wav_sha256": "40b999fe5c3d83713cf9584ab3a5d4d216abdafea41b6a8070faff155948b2fe",
+   "text_sha256": "176ac9285f75d3e626bf1aae43c193f96ce47f645e6d1534ab1bae051d3217bc",
+   "marks": []
+  },
+  "04_3": {
+   "wav_sha256": "77b9d0db378edcbcddb416485de1cc6496f13818d5d250ad2865c2e7195a55fc",
+   "text_sha256": "6f5fb7845fb656fda079d4f972766ea93a104c778f0065c233590014393473b4",
+   "marks": []
+  },
+  "04_4": {
+   "wav_sha256": "41522b9eeccfab6c57a33f6ca8d6c297dae6bbd08ab05cc4c4a6efe4454567c8",
+   "text_sha256": "8fdab5202e12b49367108f97e2bff8dacab7efea64757bf71336ed377fd4b55a",
+   "marks": [
+    {
+     "byte": 81,
+     "seconds": 5.32,
+     "sample_24k": 127680,
+     "phrase": "Once for a simple zero",
+     "basis": "sentence 1 onset: recognizer onset",
+     "window_s": [
+      5.32,
+      5.58
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 5.32
+    },
+    {
+     "byte": 105,
+     "seconds": 6.96,
+     "sample_24k": 167040,
+     "phrase": "twice for a zero of order two",
+     "basis": "recognizer onset",
+     "window_s": [
+      6.96,
+      7.48
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 7.229091
+    }
+   ]
+  },
+  "04_5": {
+   "wav_sha256": "08a808206db27771402ac22abd5b5a636d95d18f9545fbb09dd0549180d70f5b",
+   "text_sha256": "0fff65c3c12320daf4242384c9f12e5d152191461975b3ddcdc625959a01a320",
+   "marks": []
+  },
+  "04_6": {
+   "wav_sha256": "efe88d78889979514fdc9c52dee8b1f438434867cffa871bec44490cb75ebdb1",
+   "text_sha256": "b26e6e6d7cd67ccc27254950a4a53835a8426908679875ddecd03b8ceb2814bc",
+   "marks": []
+  },
+  "04_7": {
+   "wav_sha256": "9a7c9e5f9238f26d9476d2d19f5356c45926ecd9cd4e03de647fb9ba66d94143",
+   "text_sha256": "184e97fbe202da0bea0e4737f10e854b472ff553bef75e40aee0eb51375cc101",
+   "marks": []
+  },
+  "05_1": {
+   "wav_sha256": "147564c6adae82800745d5422c56b241995c65f6dc23ad6c1257eee6b155494a",
+   "text_sha256": "c4075e44fdf430b11ab110ad3e2689ce4b9d925041b64745ea5c6779e2a2a4b0",
+   "marks": [
+    {
+     "byte": 185,
+     "seconds": 14.64,
+     "sample_24k": 351360,
+     "phrase": "Three zeros inside",
+     "basis": "sentence 3 onset: recognizer onset",
+     "window_s": [
+      14.64,
+      15.04
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 14.64
+    }
+   ]
+  },
+  "05_2": {
+   "wav_sha256": "c9a0311b90cb931a48e532fb3d70ecf970ad93240a70f3932aac19e5324f6c53",
+   "text_sha256": "318ef4d360d4404acf53a8944afd9e1c5542b9e920d0400c0b838c4c432a7339",
+   "marks": [
+    {
+     "byte": 118,
+     "seconds": 9.5,
+     "sample_24k": 228000,
+     "phrase": "and at minus one",
+     "basis": "recognizer onset",
+     "window_s": [
+      9.5,
+      9.84
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 9.25551
+    },
+    {
+     "byte": 178,
+     "seconds": 13.2,
+     "sample_24k": 316800,
+     "phrase": "backwards twice",
+     "basis": "recognizer onset",
+     "window_s": [
+      13.2,
+      13.72
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 13.443265
+    }
+   ]
+  },
+  "05_3": {
+   "wav_sha256": "e4ee81eca47acf30ab373bc47879cdda51a9e8facc6a168cc9d1b423ab9467e9",
+   "text_sha256": "d47eaad9c271f8f4286ea2a43ad75130410ebed679deb434f74080d162ed56cc",
+   "marks": [
+    {
+     "byte": 90,
+     "seconds": 6.58,
+     "sample_24k": 157920,
+     "phrase": "and its size",
+     "basis": "recognizer onset",
+     "window_s": [
+      6.58,
+      6.78
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 6.700976
+    },
+    {
+     "byte": 151,
+     "seconds": 10.66,
+     "sample_24k": 255840,
+     "phrase": "exact squares",
+     "basis": "recognizer onset",
+     "window_s": [
+      10.66,
+      11.08
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 10.835
+    },
+    {
+     "byte": 166,
+     "seconds": 11.94,
+     "sample_24k": 286560,
+     "phrase": "repeating every two pi",
+     "basis": "recognizer onset",
+     "window_s": [
+      11.94,
+      12.38
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 11.907059
+    }
+   ]
+  },
+  "05_4": {
+   "wav_sha256": "e7aeb4d8017d5367283ef295081909892d62c095c9296563b8edb21251dfe24d",
+   "text_sha256": "f8bed110432ef42bbb7a6787a6f6c0bcc89da6188e390ef1066cf4fc2e878acc",
+   "marks": [
+    {
+     "byte": 187,
+     "seconds": 13.58,
+     "sample_24k": 325920,
+     "phrase": "and sine of three i",
+     "basis": "recognizer onset",
+     "window_s": [
+      13.58,
+      13.9
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 13.726818
+    }
+   ]
+  },
+  "05_5": {
+   "wav_sha256": "0d1e9eb4a60532715e68d699b7bfd6f70ceee2f8fa97927780f3142b3d45abe8",
+   "text_sha256": "d6d2e40115f2b901a3b9bd28706c4d6c993cc175ff2a7832546f64d336449484",
+   "marks": [
+    {
+     "byte": 126,
+     "seconds": 9.42,
+     "sample_24k": 226080,
+     "phrase": "and far below",
+     "basis": "recognizer onset",
+     "window_s": [
+      9.42,
+      9.74
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 9.489524
+    }
+   ]
+  },
+  "05_6": {
+   "wav_sha256": "e0dec06b10def55beffa06e48286723a0d90b3f89a26494d8e39d6ac777e5114",
+   "text_sha256": "92ccf59730b0aef748fdf1e67c07f1ad15640be3f7eac9a8e8728f6f30b31e3f",
+   "marks": [
+    {
+     "byte": 199,
+     "seconds": 13.58,
+     "sample_24k": 325920,
+     "phrase": "a pole at zero",
+     "basis": "recognizer onset",
+     "window_s": [
+      13.58,
+      13.7
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 14.175
+    },
+    {
+     "byte": 215,
+     "seconds": 14.72,
+     "sample_24k": 353280,
+     "phrase": "at minus one",
+     "basis": "recognizer onset",
+     "window_s": [
+      14.719999,
+      14.96
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 15.375
+    },
+    {
+     "byte": 229,
+     "seconds": 15.82,
+     "sample_24k": 379680,
+     "phrase": "at minus two",
+     "basis": "recognizer onset",
+     "window_s": [
+      15.82,
+      16.039999
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 16.425
+    },
+    {
+     "byte": 259,
+     "seconds": 18.48,
+     "sample_24k": 443520,
+     "phrase": "and no zeros anywhere",
+     "basis": "recognizer onset",
+     "window_s": [
+      18.48,
+      18.52
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 18.675
+    }
+   ]
+  },
+  "05_7": {
+   "wav_sha256": "ccfbf847a68ef4e7b66b78e893297468741884723e9652f7956c0df4fe40d5c4",
+   "text_sha256": "89f9b58477cf2f76220ec773d2660d3c7cd050af9dd9b35221287e00e78aa781",
+   "marks": []
+  },
+  "05_8": {
+   "wav_sha256": "0310026051aec7a8ddf6f122f78d73b365f4e29ebd6fb16f4a4c1be57784f1f8",
+   "text_sha256": "27d73dcb7e60659574c7f3e6774911c973e4a2ab32e389d4432faa80af8b0e0b",
+   "marks": [
+    {
+     "byte": 123,
+     "seconds": 8.9,
+     "sample_24k": 213600,
+     "phrase": "is the Riemann hypothesis",
+     "basis": "recognizer onset",
+     "window_s": [
+      8.9,
+      9.24
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 9.57973
+    }
+   ]
+  },
+  "05_9": {
+   "wav_sha256": "43ce4e6646b82da2bb4d9aeeb4dfa38f25de480a9f90195d193c49da8125ab86",
+   "text_sha256": "8b4696e7e0b953e49987704a4a111f83d5dedc0586fd6485a6d0c4c39956b080",
+   "marks": [
+    {
+     "byte": 109,
+     "seconds": 7.66,
+     "sample_24k": 183840,
+     "phrase": "in little tiles",
+     "basis": "recognizer onset",
+     "window_s": [
+      7.66,
+      7.96
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 7.98
+    },
+    {
+     "byte": 134,
+     "seconds": 9.06,
+     "sample_24k": 217440,
+     "phrase": "nearly square",
+     "basis": "recognizer onset",
+     "window_s": [
+      9.059999,
+      9.4
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 9.5425
+    }
+   ]
+  },
+  "06_1": {
+   "wav_sha256": "537ff48f66c1243d213b731824a34e403a7cce4169009cf89a4df43c613b2c67",
+   "text_sha256": "6c2e851f5cd12f6a4381e3357ccdbf5cf0f435b358fe2ef166b5343be48bdfe7",
+   "marks": [
+    {
+     "byte": 229,
+     "seconds": 16.38,
+     "sample_24k": 393120,
+     "phrase": "that ratio should settle",
+     "basis": "recognizer onset",
+     "window_s": [
+      16.379999,
+      16.66
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 16.130824
+    }
+   ]
+  },
+  "06_2": {
+   "wav_sha256": "014a2b5ed289acdc10655fe186b87544d48dc48db4d92e1333297fe9bc7fd565",
+   "text_sha256": "01dc5171df6c675078c9f7c50f8646ce4596c6e3624e39de6ddf5af746cb99c9",
+   "marks": []
+  },
+  "06_3": {
+   "wav_sha256": "efdd4a541c463433c3e9211581385cfb9e196bf09c501c5bd976c122b07bb56c",
+   "text_sha256": "95c6a2027fcd5ddc8ef39bcdfe008e853fe7e0fd859e5330a00908adc29e0819",
+   "marks": [
+    {
+     "byte": 80,
+     "seconds": 5.32,
+     "sample_24k": 127680,
+     "phrase": "the function moves",
+     "basis": "recognizer onset",
+     "window_s": [
+      5.32,
+      5.82
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 5.440678
+    }
+   ]
+  },
+  "06_4": {
+   "wav_sha256": "53f897c743f97cda4a1166790483a665986c1f1d36707ffac49d6a2ebe1e243c",
+   "text_sha256": "26e729325f63acc711fc82490103c63122af938dcef215c8adbcd5d7db67b63d",
+   "marks": []
+  },
+  "06_5": {
+   "wav_sha256": "8d3010093195a73479586166fdf7f3d5424913cdf2655b9ca38bbb1fdaedd71a",
+   "text_sha256": "1f73bb5ab708a30407876e3bf42df9337f2f8055587a5298906d768d97ff68cd",
+   "marks": []
+  },
+  "06_6": {
+   "wav_sha256": "8167478d3f5a03ac7a90ac1359c40609c740d0e0f777483bf033c0e0cfafdad1",
+   "text_sha256": "1b6a544f962200d7cdb3ffd08643f1b614cc9a544972389a8417e0fc1b7907e5",
+   "marks": []
+  },
+  "06_7": {
+   "wav_sha256": "808cacab29f884f406bdeafbc68391a2a315400506ce5b335b45875f5b796b86",
+   "text_sha256": "7a987eef56450f6db82c85e0635035e5b5ff7cb3eb1853308478ebdfd6506dc8",
+   "marks": []
+  },
+  "06_8": {
+   "wav_sha256": "ec48c0fd7950560d680afb83a0ad0ac9a7ff0cdc3be118c8a18e281cc8b96fb0",
+   "text_sha256": "85b7aeb3ff3e681007821f8c4b14b6eeef4b620c44ce46c11e4bdc6ce2258d13",
+   "marks": [
+    {
+     "byte": 68,
+     "seconds": 5.3,
+     "sample_24k": 127200,
+     "phrase": "It sends",
+     "basis": "sentence 2 onset: recognizer onset",
+     "window_s": [
+      5.3,
+      5.32
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 5.3
+    }
+   ]
+  },
+  "06_9": {
+   "wav_sha256": "ac9c5b0cbccbe538b032bf11c694a3c67ce4edc050403360713a1d33e8e1d6af",
+   "text_sha256": "e10422d98d93d9832a84e9e8fbbcd1121d3a44df7b367b7f4626de846f20f856",
+   "marks": []
+  },
+  "07_1": {
+   "wav_sha256": "f68b53372b8e4c567e670d9af5c04f2cb213750c7a09b3b469d15c4eb38562cb",
+   "text_sha256": "22c07b2256d0b963387287a63f241854f6d23675114eb47fdf68762e5d6d2cb2",
+   "marks": [
+    {
+     "byte": 185,
+     "seconds": 12.76,
+     "sample_24k": 306240,
+     "phrase": "The angle has doubled",
+     "basis": "sentence 3 onset: recognizer onset",
+     "window_s": [
+      12.76,
+      12.9
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 12.76
+    }
+   ]
+  },
+  "07_2": {
+   "wav_sha256": "deed66069c6d765389e1083795065b06413e408a78707f44446f0f94661191ce",
+   "text_sha256": "b789e3a630e3809f11e0d0bd74624439b9fcf516524efed43ac0a5e2d0edb8d8",
+   "marks": []
+  },
+  "07_3": {
+   "wav_sha256": "7e5c8b69908bad3f0d8369391953118700f4ef490478363f3a32f4619f58aafb",
+   "text_sha256": "84dbebf9425a306d6a775c5a8c3d47428543ee728d933204894a6b9c7f8f22a9",
+   "marks": []
+  },
+  "07_4": {
+   "wav_sha256": "228b031c39e009f39bd95fc70b774bc79f2b1fa55cf6ab4e292a58397e838add",
+   "text_sha256": "5d87030b827db94a30baf862d25c79e98194bc5a4942ce755e7912a17e1893d2",
+   "marks": []
+  },
+  "07_5": {
+   "wav_sha256": "45b33f011819b5b07bfca2fc8405f8ff0e361352f0f7cfb93761d34b0a71c588",
+   "text_sha256": "fe12e2f2baec0b95998abec2ef1c4b896c6af5d77d9001652788f2071099a378",
+   "marks": [
+    {
+     "byte": 266,
+     "seconds": 18.54,
+     "sample_24k": 444960,
+     "phrase": "and the product",
+     "basis": "recognizer onset",
+     "window_s": [
+      18.539999,
+      18.859999
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 18.473929
+    }
+   ]
+  },
+  "07_6": {
+   "wav_sha256": "8a0e73bd8993e8f1842264153f476e3a62c0426de87cb48a1b290a889631c0b6",
+   "text_sha256": "f20085828b2fb81537bdac4f5dbc7dc4f69d443ba573145c1a657275ea8ae5f0",
+   "marks": []
+  },
+  "08_1": {
+   "wav_sha256": "77013b399e39b4b62f214e90e166be29fd4296e95e40cb57f55bb0931e57d01a",
+   "text_sha256": "67bc6d23d489686a4025b911a791199e69f530efcaf4aba3a9ce8164b1dc6881",
+   "marks": []
+  },
+  "08_2": {
+   "wav_sha256": "848fc5301731e03042d7484dfbe263689a9eee8d94c44f0f3d9926dd087775db",
+   "text_sha256": "4bb807f673f4ccc797e8b9f8cf257be16cbeb768c6cda1ceecabc83a56e44b2d",
+   "marks": [
+    {
+     "byte": 145,
+     "seconds": 10.72,
+     "sample_24k": 257280,
+     "phrase": "The total is zero",
+     "basis": "sentence 2 onset: recognizer onset",
+     "window_s": [
+      10.72,
+      10.8
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 10.72
+    }
+   ]
+  },
+  "08_3": {
+   "wav_sha256": "4cf2231b57a4734a24b7d88c7ff51bf087488d6010a194be48b604cad95e8db3",
+   "text_sha256": "7030c9a5c752b7b698008c34a94b98b2f3287c91af231476bc89e42cc4f3521f",
+   "marks": [
+    {
+     "byte": 153,
+     "seconds": 11.14,
+     "sample_24k": 267360,
+     "phrase": "As the steps shrink",
+     "basis": "sentence 3 onset: recognizer onset",
+     "window_s": [
+      11.139999,
+      11.7
+     ],
+     "abuts_previous_word": false,
+     "cross_checks": [],
+     "film_without_mark_s": 11.14
+    },
+    {
+     "byte": 202,
+     "seconds": 15.0,
+     "sample_24k": 360000,
+     "phrase": "whatever the size",
+     "basis": "recognizer onset",
+     "window_s": [
+      15.0,
+      15.44
+     ],
+     "abuts_previous_word": false,
+     "cross_checks": [],
+     "film_without_mark_s": 14.563951
+    }
+   ]
+  },
+  "08_4": {
+   "wav_sha256": "74cf2bafc68c89797eb19e8c8f36f775754a7dc632263faaf0f8b20f687d8670",
+   "text_sha256": "a8a803f248d7ac049855bdf74b780817854b6d7818f93f19e6e507422ea223f2",
+   "marks": []
+  },
+  "08_5": {
+   "wav_sha256": "c7cdd3c2b18121858c839888a0c048efdd679f82e357644dba335b75dd2c5aa5",
+   "text_sha256": "542205a376a4454c8569076ab69c91bc1e282d485efebfcfc93c5513c8c9d76a",
+   "marks": [
+    {
+     "byte": 345,
+     "seconds": 23.86,
+     "sample_24k": 572640,
+     "phrase": "so the inner edges cancel",
+     "basis": "recognizer onset",
+     "window_s": [
+      23.859999,
+      24.16
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 24.241465
+    },
+    {
+     "byte": 376,
+     "seconds": 25.9,
+     "sample_24k": 621600,
+     "phrase": "only the outer loop is left",
+     "basis": "recognizer onset",
+     "window_s": [
+      25.9,
+      26.24
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 26.13222
+    }
+   ]
+  },
+  "09_1": {
+   "wav_sha256": "88120c2db2fa3e22db3a045c323898e66ecc39d64229ed9d174fc23195d8dfe7",
+   "text_sha256": "03dff22bff84bdb3bc58f016c541309e378a12b36d1cba31e735fa67771585cf",
+   "marks": [
+    {
+     "byte": 92,
+     "seconds": 6.121,
+     "sample_24k": 146904,
+     "phrase": "divide it by",
+     "basis": "recognizer onset",
+     "window_s": [
+      6.121,
+      6.5
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 6.857647
+    }
+   ]
+  },
+  "09_2": {
+   "wav_sha256": "9cf44cbe1bfb80f161a8bf8723970686098c02a767b3bda65fe42216dc51d225",
+   "text_sha256": "3560233900658a3afec3740ce0131431a130ef2fecefce6227f227530d069a4d",
+   "marks": []
+  },
+  "09_3": {
+   "wav_sha256": "1cdd671284e19128790761a07f46eb106262a995f84863a0865d11c1a9ba5539",
+   "text_sha256": "0b47100adb03c7a067186f7ff93fe6bce2c21ddbd5573d9297eaea70187f097c",
+   "marks": []
+  },
+  "09_4": {
+   "wav_sha256": "eb63094cbf9df3b3c0159c748a9fa7bc8b3586cb12cf6b9e058e51b1f3f8600d",
+   "text_sha256": "5ee0aa3bdc03f6e3cd3b8133859e5ead89ceeeed2ddabbafee9d621312d33805",
+   "marks": []
+  },
+  "09_5": {
+   "wav_sha256": "0cce4af3f3bd0e6ed607ca7a7b525da37dc011fe6dbca84fb6e56ef998482bcc",
+   "text_sha256": "c84c83bd91b69948de77e1d21089e71c70abe71fcde6c49510c81568be104bcb",
+   "marks": []
+  },
+  "09_6": {
+   "wav_sha256": "3dad56c85ca3000ece6e062154303b2260d8efdb61067d6975a544516fbd2ae8",
+   "text_sha256": "0931e3bb9a26b14582acc0dae1d4288fd4e8e4629b6ceb805a8649b772ce8bf2",
+   "marks": []
+  },
+  "09_7": {
+   "wav_sha256": "5c9b0ebf25615d2268b2b6939b2e4a89721e9ae4d2fefadf8c4021561a919206",
+   "text_sha256": "2128853f2aaf707e40c414dc288289f260b2294a9edb45c28fe8c82b177b5512",
+   "marks": [
+    {
+     "byte": 84,
+     "seconds": 4.78,
+     "sample_24k": 114720,
+     "phrase": "the largest disk",
+     "basis": "recognizer onset",
+     "window_s": [
+      4.78,
+      4.84
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 5.007898
+    },
+    {
+     "byte": 157,
+     "seconds": 9.36,
+     "sample_24k": 224640,
+     "phrase": "That answers",
+     "basis": "sentence 1 onset: recognizer onset",
+     "window_s": [
+      9.36,
+      9.4
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 9.36
+    },
+    {
+     "byte": 357,
+     "seconds": 22.52,
+     "sample_24k": 540480,
+     "phrase": "no further",
+     "basis": "recognizer onset",
+     "window_s": [
+      22.519999,
+      22.879999
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 22.884068
+    }
+   ]
+  },
+  "09_8": {
+   "wav_sha256": "c361a61a1b32bffe6e71aa60be3913b994ff59abc4a8821cfb7023cc9a0d3d23",
+   "text_sha256": "e731b7db781031bb6bb39737bab0ea5e9d6f99574af0e9f53da62afaa282394c",
+   "marks": []
+  },
+  "09_9": {
+   "wav_sha256": "d4a6483385e1e4c01eb43b8017db2e08da34f94c0447d265d49740bcc8dd85e9",
+   "text_sha256": "ccf367be22843f96a47044732f91c35977af413c76df63e51a936faf306da3e7",
+   "marks": [
+    {
+     "byte": 55,
+     "seconds": 3.0,
+     "sample_24k": 72000,
+     "phrase": "So the new recipe",
+     "basis": "sentence 1 onset: recognizer onset",
+     "window_s": [
+      3.0,
+      3.62
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 3.0
+    }
+   ]
+  },
+  "10_1": {
+   "wav_sha256": "40de1ac403384692b20ab68ee926df1f2d864eeb8f5c569cf08a132de14c292d",
+   "text_sha256": "f3440f63c80068c020a5b9a00881dd2742b9a956ffe8bd351befd06e9de01a6d",
+   "marks": []
+  },
+  "10_2": {
+   "wav_sha256": "1573b6a209628f9937cc0d362e5325cfd21d35fe6518314a017388030849e1cb",
+   "text_sha256": "74f8cce11e514e67f83dc181379bf61a7ad968baf50cf8c53c1163fa093eeb2f",
+   "marks": []
+  },
+  "10_3": {
+   "wav_sha256": "291f3ffa39d68c6df4b7c7c251561c568f945c674102421e7b4db25d399bcae7",
+   "text_sha256": "72c5fe9c20c4477a67393ca225ff9e4d202ce6ca2df34823d27557172633e91e",
+   "marks": [
+    {
+     "byte": 157,
+     "seconds": 11.24,
+     "sample_24k": 269760,
+     "phrase": "yet it is not zero",
+     "basis": "recognizer onset",
+     "window_s": [
+      11.24,
+      11.54
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 11.904516
+    }
+   ]
+  },
+  "10_4": {
+   "wav_sha256": "eb8e953e7d83f39c3700e56848c782b9b86208e05c2385d6e5fefd1db8e7148c",
+   "text_sha256": "ab07062869e357f5b33377ee5acaf033a771cd06c49a291f26e3ad0bf043e215",
+   "marks": [
+    {
+     "byte": 30,
+     "seconds": 2.52,
+     "sample_24k": 60480,
+     "phrase": "one over pi",
+     "basis": "recognizer onset",
+     "window_s": [
+      2.52,
+      2.76
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 2.426667
+    },
+    {
+     "byte": 43,
+     "seconds": 3.58,
+     "sample_24k": 85920,
+     "phrase": "one over two pi",
+     "basis": "recognizer onset",
+     "window_s": [
+      3.58,
+      3.84
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 3.478222
+    },
+    {
+     "byte": 60,
+     "seconds": 4.86,
+     "sample_24k": 116640,
+     "phrase": "one over three pi",
+     "basis": "recognizer onset",
+     "window_s": [
+      4.86,
+      5.06
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 4.853333
+    },
+    {
+     "byte": 79,
+     "seconds": 6.06,
+     "sample_24k": 145440,
+     "phrase": "and so on",
+     "basis": "recognizer onset",
+     "window_s": [
+      6.06,
+      6.22
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 6.390222
+    }
+   ]
+  },
+  "10_5": {
+   "wav_sha256": "b42af52f4973992d490091583e4f668a17ce4ee9e225adcafb8aec10d38e28e9",
+   "text_sha256": "d36be1fc8166411960480f6a5e2c8cf56aefaeb90ed37e99b86e065da36dac8c",
+   "marks": []
+  },
+  "10_6": {
+   "wav_sha256": "1ea33da946b884948dc70bf644af72376ec11fdd3dae6b7568465545804a44d9",
+   "text_sha256": "0af6020d7a53557097b00c593f6e0b57015fec34abd2950bf6af08e1aff80fd1",
+   "marks": [
+    {
+     "byte": 215,
+     "seconds": 14.64,
+     "sample_24k": 351360,
+     "phrase": "must grow huge",
+     "basis": "recognizer onset",
+     "window_s": [
+      14.639999,
+      14.94
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 14.859184
+    }
+   ]
+  },
+  "11_1": {
+   "wav_sha256": "b67c16a684648049a8603251c45a1a5d49561609156c8699995a1fd625ed48c4",
+   "text_sha256": "1b4c3fe2ca27e14c9899a95942c6651c5d41ca29865855a1f57055611d0d6125",
+   "marks": []
+  },
+  "11_2": {
+   "wav_sha256": "76617c44c309c0483a6900faa7253f644cf5715e716f695728dea3c4fcdb6a29",
+   "text_sha256": "2f4ae53e8053df682854eff29c7da48c64c246ef96902f1c784487e75cd66370",
+   "marks": [
+    {
+     "byte": 121,
+     "seconds": 8.12,
+     "sample_24k": 194880,
+     "phrase": "each counted",
+     "basis": "recognizer onset",
+     "window_s": [
+      8.12,
+      8.54
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 8.687347
+    },
+    {
+     "byte": 180,
+     "seconds": 12.8,
+     "sample_24k": 307200,
+     "phrase": "It needs",
+     "basis": "sentence 3 onset: recognizer onset",
+     "window_s": [
+      12.8,
+      12.86
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 12.8
+    },
+    {
+     "byte": 230,
+     "seconds": 15.62,
+     "sample_24k": 374880,
+     "phrase": "passes through",
+     "basis": "recognizer onset",
+     "window_s": [
+      15.62,
+      16.08
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 16.114286
+    },
+    {
+     "byte": 262,
+     "seconds": 18.04,
+     "sample_24k": 432960,
+     "phrase": "and a function",
+     "basis": "recognizer onset",
+     "window_s": [
+      18.039999,
+      18.359999
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 18.235429
+    }
+   ]
+  },
+  "11_3": {
+   "wav_sha256": "a65874d85b08048e7600e3f2f78063c6a51ca70992f8d3c43447c6ec60e712b7",
+   "text_sha256": "fe3a4da323cccb90b610996b4d293ad1dc3b9f9881e98856e15b6e142add0689",
+   "marks": []
+  },
+  "11_4": {
+   "wav_sha256": "253a7d994d22cd0cb87b11942a30e7f33f2f3a72b8767ed8057fe300053c29f2",
+   "text_sha256": "ecee64d691a568119345c7068b28e6bae093bcf6dd227141f4f19b8e7d13e012",
+   "marks": [
+    {
+     "byte": 111,
+     "seconds": 7.18,
+     "sample_24k": 172320,
+     "phrase": "There the count",
+     "basis": "sentence 1 onset: recognizer onset",
+     "window_s": [
+      7.18,
+      7.84
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 7.18
+    }
+   ]
+  },
+  "11_5": {
+   "wav_sha256": "59cd3d748482657cdd71161ce5e6be0ed975e6c7731ab5a0e4ae2f599515fda1",
+   "text_sha256": "7137f63e91a23ff85ce3f09ae3ade0985b9a474c18ddd0b9b17975ab42c39ec1",
+   "marks": []
+  },
+  "11_6": {
+   "wav_sha256": "434774bd0887e9cd32fce89bea741479443e8365da911cdd22769f07f2b18e2a",
+   "text_sha256": "6b467fc1718f343017f33709beb8cfca6d41aa3d98a69f73dcb702f9b373ab71",
+   "marks": []
+  },
+  "11_7": {
+   "wav_sha256": "ff38498f4f66d5946ef0e09d4faceec4cd5d1bd33d2adbd55aff5df5b31e0e03",
+   "text_sha256": "a3d4e44c1b7cfdbbcf68755ad73fa75732685461ccf4f2f57931c99632dc4b35",
+   "marks": [
+    {
+     "byte": 45,
+     "seconds": 2.72,
+     "sample_24k": 65280,
+     "phrase": "complex polynomial",
+     "basis": "recognizer onset",
+     "window_s": [
+      2.72,
+      3.06
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 3.144
+    },
+    {
+     "byte": 110,
+     "seconds": 7.14,
+     "sample_24k": 171360,
+     "phrase": "which leaves",
+     "basis": "recognizer onset",
+     "window_s": [
+      7.14,
+      7.36
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 7.512464
+    },
+    {
+     "byte": 158,
+     "seconds": 10.34,
+     "sample_24k": 248160,
+     "phrase": "with z",
+     "basis": "recognizer onset",
+     "window_s": [
+      10.34,
+      10.559999
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 10.746667
+    }
+   ]
+  },
+  "11_8": {
+   "wav_sha256": "3e7d3ddcd0f638bd702480c3d80b0d52efffc3771245b0793d571b088181cac8",
+   "text_sha256": "52736170bad01a58180421599dbbea0a8899e779ef64e51b48cfe03e04a56186",
+   "marks": [
+    {
+     "byte": 182,
+     "seconds": 12.04,
+     "sample_24k": 288960,
+     "phrase": "But samples",
+     "basis": "sentence 3 onset: recognizer onset",
+     "window_s": [
+      12.04,
+      12.099999
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 12.04
+    },
+    {
+     "byte": 243,
+     "seconds": 15.8,
+     "sample_24k": 379200,
+     "phrase": "So bound",
+     "basis": "sentence 4 onset: recognizer onset",
+     "window_s": [
+      15.8,
+      15.88
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 15.8
+    },
+    {
+     "byte": 291,
+     "seconds": 18.78,
+     "sample_24k": 450720,
+     "phrase": "take steps",
+     "basis": "recognizer onset",
+     "window_s": [
+      18.779999,
+      19.02
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 18.879385
+    },
+    {
+     "byte": 327,
+     "seconds": 20.86,
+     "sample_24k": 500640,
+     "phrase": "cannot move",
+     "basis": "recognizer onset",
+     "window_s": [
+      20.859999,
+      21.28
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 21.188923
+    }
+   ]
+  },
+  "12_1": {
+   "wav_sha256": "0ab025da706c37d2f973eeab530e4fb9a85db4db579b46fea06fd3dabd72c362",
+   "text_sha256": "a6eaeb5778286aca70ec0ed4fb55cbaea151432055f94586b375c0c06874ae80",
+   "marks": []
+  },
+  "12_2": {
+   "wav_sha256": "76a66b22cf489bc8901f7d808b36ae95040db308f82371f4b38d4c50af507880",
+   "text_sha256": "3084e9da9a99f22b2c4b68b2c89034e6d3e2dc0d176966d10dcf5365b0ddbe8e",
+   "marks": [
+    {
+     "byte": 172,
+     "seconds": 12.56,
+     "sample_24k": 301440,
+     "phrase": "the residue is",
+     "basis": "recognizer onset",
+     "window_s": [
+      12.559999,
+      12.94
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 12.795224
+    }
+   ]
+  },
+  "12_3": {
+   "wav_sha256": "e3cf24859c39ce35e71ffe307649e2bb7951def2efc58ba9f9fd3a5e08e75783",
+   "text_sha256": "6c85e712f9c011c485add161e1f732794e5516eed1d231da709c55f18ca1981f",
+   "marks": []
+  },
+  "12_4": {
+   "wav_sha256": "921cecf486cd65ba91de0b31102709c273e8b5530a7b850d3d2b92897ffbd52a",
+   "text_sha256": "403f54b5486c56a2bdacd16e2fd690b856f07f24474efd2ae8fec05b31717e0f",
+   "marks": []
+  },
+  "13_1": {
+   "wav_sha256": "c3f06f7ecc32c8e2214cfed68fc7086185f7cd706c4b848a992b71f2e1c8f358",
+   "text_sha256": "c4d5ad208d12c3d00d85fa117007f910c9769177861198b6bff2d194d15f7580",
+   "marks": []
+  },
+  "13_2": {
+   "wav_sha256": "d7fcc9f4886902c85e3d6c3fec28fab8cf97ea57ef3f3c879d20c21b64a16569",
+   "text_sha256": "8aa51dead2519672f3f14be748375335a73a442043389ecaf11db8671778ded7",
+   "marks": [
+    {
+     "byte": 44,
+     "seconds": 3.26,
+     "sample_24k": 78240,
+     "phrase": "then come back",
+     "basis": "recognizer onset",
+     "window_s": [
+      3.26,
+      3.64
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 3.283441
+    },
+    {
+     "byte": 93,
+     "seconds": 6.94,
+     "sample_24k": 166560,
+     "phrase": "Inside this loop",
+     "basis": "sentence 1 onset: recognizer onset",
+     "window_s": [
+      6.94,
+      7.2
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 6.94
+    }
+   ]
+  },
+  "13_3": {
+   "wav_sha256": "5c97bbdb8dae6b4d9a9695ca80e3a8694f82d21c70aae463e5bc9483391059a5",
+   "text_sha256": "ec96f41ab07037c8cb2ebee6dcbbfea4d03deb4287171c52ce3022c7f4290af0",
+   "marks": [
+    {
+     "byte": 52,
+     "seconds": 3.6,
+     "sample_24k": 86400,
+     "phrase": "so the bump",
+     "basis": "recognizer onset",
+     "window_s": [
+      3.6,
+      3.98
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 3.55581
+    },
+    {
+     "byte": 205,
+     "seconds": 14.34,
+     "sample_24k": 344160,
+     "phrase": "which shrinks",
+     "basis": "recognizer onset",
+     "window_s": [
+      14.34,
+      14.7
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 14.596634
+    },
+    {
+     "byte": 239,
+     "seconds": 16.98,
+     "sample_24k": 407520,
+     "phrase": "All of pi",
+     "basis": "sentence 3 onset: recognizer onset",
+     "window_s": [
+      16.98,
+      17.48
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 16.98
+    }
+   ]
+  },
+  "13_4": {
+   "wav_sha256": "026f1ee6c09b04c58f0060cd7a283946d94e49d81f69d2b8fc8072bb059ba0dd",
+   "text_sha256": "9b019edd9c37c4c4c821582f2fdf7a78438fdba629fda2accdec6ed2bd1aec47",
+   "marks": []
+  },
+  "13_5": {
+   "wav_sha256": "8f6bfabbf30209caf8072c6f83962019f98150c6f8b234a2b8e2cd926bc2e393",
+   "text_sha256": "a95a70b9df3f38b0c87d55481c3f48d24ac07921becc6f144b324fc51f0ce002",
+   "marks": []
+  },
+  "13_6": {
+   "wav_sha256": "e7954625467b91b55634226791551b69bc6ea9eefac1b718907358294bfd7649",
+   "text_sha256": "54ab2f1e4d78ca2777a87ce038d833e6e2e16d15aa4fd5ca192e0a60db95b2ef",
+   "marks": []
+  },
+  "13_7": {
+   "wav_sha256": "7b275fdab292b95f9863251cf5984233195a5441c1a3a737a0344026b3b65489",
+   "text_sha256": "8cc063e6f092e87f34982d8299b5733e52c96339ee134a0e4e4de794169e905b",
+   "marks": []
+  },
+  "13_8": {
+   "wav_sha256": "f3587b15eca495cd3cecf9407a525adbaaaeed62b48b354134b27e95fccc15be",
+   "text_sha256": "f1b21bbf48afb1bb94c56aaea4602facbe64e1dbd559a9e78ac4339c396adb6b",
+   "marks": [
+    {
+     "byte": 59,
+     "seconds": 4.64,
+     "sample_24k": 111360,
+     "phrase": "each has imaginary part",
+     "basis": "recognizer onset",
+     "window_s": [
+      4.64,
+      4.92
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 4.383301
+    }
+   ]
+  },
+  "13_9": {
+   "wav_sha256": "8839041c30570f4c30f228878be46d7ab15de342bc1c8864af234551175c5d80",
+   "text_sha256": "4ce23da3bf3522b68fff5db43c68c72c72b1b570a3607d53d0824a0955ef89b0",
+   "marks": []
+  },
+  "13_10": {
+   "wav_sha256": "d8cd0bb64766befb879e9f528c2e4340097e15c0151b286e60b5441311d6317b",
+   "text_sha256": "de301442f2c82199d77a158df6230dcc1d6032fe93118156ebc2f2f4426adc0e",
+   "marks": [
+    {
+     "byte": 88,
+     "seconds": 5.72,
+     "sample_24k": 137280,
+     "phrase": "so that part",
+     "basis": "recognizer onset",
+     "window_s": [
+      5.72,
+      6.22
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 6.411875
+    }
+   ]
+  },
+  "13_11": {
+   "wav_sha256": "793bbef7a93a518762448b25429ba182cbd68de521bb94d1140cbb044cd49e0b",
+   "text_sha256": "ab09c58621254a93249b1b160d7f7b824ee96e2a4c780ef573f00e4dfe94a4aa",
+   "marks": []
+  },
+  "14_1": {
+   "wav_sha256": "e5aafe5c9f73a3f544817bfd09041005b4e1cb7f2d40a8f0337a9b481546504c",
+   "text_sha256": "db1087ffb53eba2aa6d3c577698912af736ad3a06fe8af75f52e71617b667dd1",
+   "marks": []
+  },
+  "14_2": {
+   "wav_sha256": "39e066c4fa99aa5a2c83489aa773bd5481a9e966425aeb97a3ffe36ab6bd1eb3",
+   "text_sha256": "f6ae51b2c6219a9edf8bd2cb71d819eced8899040ef7d5ce5ead7dee0251f5a9",
+   "marks": []
+  },
+  "14_3": {
+   "wav_sha256": "f9f2ca25fb347b0b67536dd557369bc7ff8f3ceef4d48590d118f5d12b59e89b",
+   "text_sha256": "f5a3dcdf6653fffcd69363b3434e77b291e4d3f8b0e582c524ab582938a7a9af",
+   "marks": []
+  },
+  "14_4": {
+   "wav_sha256": "5a29e84e84e010064f8f73d8624b4faeb4bf7529451c47b8c5521c7e587745b8",
+   "text_sha256": "e27efb470c489cb93a1185ee23415d42d4d3193b8993152c7d4fd5b55f0be193",
+   "marks": []
+  },
+  "14_5": {
+   "wav_sha256": "98ba60b464c362672f8729f30f388140c738cd1e4d01062c5f4645f497d7f17a",
+   "text_sha256": "b3f0d5fd1f9e2ffcf45451958ae41872c1775d8be37ba1c6105c54beeb8aff6b",
+   "marks": []
+  },
+  "14_6": {
+   "wav_sha256": "8dc7dd55b446950f9de08a37304f94e05beaf9f169ac41a9b13118324abb2819",
+   "text_sha256": "8353af2f13215d3d751f5666e27e0e7298572c210560357b854a9642d3c33660",
+   "marks": [
+    {
+     "byte": 147,
+     "seconds": 10.3,
+     "sample_24k": 247200,
+     "phrase": "When you come back",
+     "basis": "sentence 4 onset: recognizer onset",
+     "window_s": [
+      10.3,
+      10.74
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 10.3
+    }
+   ]
+  },
+  "14_7": {
+   "wav_sha256": "78064e7720f941654bcf6b88d180b0a0dc67967f08553d89fcd3832bc7b524bb",
+   "text_sha256": "3e2ae6ccb38d4dbb18b9ac894eb02b166c2536017718e644a5736277c84e7ca4",
+   "marks": [
+    {
+     "byte": 200,
+     "seconds": 15.2,
+     "sample_24k": 364800,
+     "phrase": "near a dense set",
+     "basis": "recognizer onset",
+     "window_s": [
+      15.2,
+      15.36
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 15.248602
+    }
+   ]
+  },
+  "14_8": {
+   "wav_sha256": "3d3c3e1daa7148b39e0ee1acb3f27f0ddcf5fb16bf0008692b0e92261339ac00",
+   "text_sha256": "c429f3d17842b8b42395266b74e911c6aa8f0070063388f8cd1ce27f33a1022d",
+   "marks": []
+  },
+  "15_1": {
+   "wav_sha256": "ad7d057545112d7d443b6a20b01a0b649ae402553f34ca48699978fd52df820e",
+   "text_sha256": "10e36f29c9c48e5e5f56b63955169bb9e5c3b64d0ced24d041ef3047f09a5967",
+   "marks": [
+    {
+     "byte": 61,
+     "seconds": 3.72,
+     "sample_24k": 89280,
+     "phrase": "because of two points",
+     "basis": "recognizer onset",
+     "window_s": [
+      3.72,
+      4.16
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 3.939794
+    },
+    {
+     "byte": 115,
+     "seconds": 6.72,
+     "sample_24k": 161280,
+     "phrase": "at i and minus i",
+     "basis": "recognizer onset",
+     "window_s": [
+      6.72,
+      7.04
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 7.636289
+    }
+   ]
+  },
+  "15_2": {
+   "wav_sha256": "ddeea6197db35f9a85b0913f5cc9f9fbd8edc816d4ca43956035a4e81e75c965",
+   "text_sha256": "ded5e1559b42bcad39509b2234702df309cc9c3f9d7657729630ba2eea122032",
+   "marks": [
+    {
+     "byte": 290,
+     "seconds": 19.86,
+     "sample_24k": 476640,
+     "phrase": "and it turns a real integral",
+     "basis": "recognizer onset",
+     "window_s": [
+      19.86,
+      19.9
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 19.735824
+    }
+   ]
+  },
+  "15_3": {
+   "wav_sha256": "c56aa06af2760facd56a921e26b25fc9145e119b78faa0713fdbd94c4e827cfa",
+   "text_sha256": "a0669ff9fcfc197c4330355aec92527b5817218b0ac00a043505af63cbee1730",
+   "marks": []
+  },
+  "15_4": {
+   "wav_sha256": "92ec3b3cd20634815e35a9a4d126afa93cdc0a7514837a087952253f8a50bfca",
+   "text_sha256": "118dbbe36c84a3e8c9d06b7c4aae770c03e02d341fbb7c52ee310686e3919d6d",
+   "marks": [
+    {
+     "byte": 41,
+     "seconds": 2.92,
+     "sample_24k": 70080,
+     "phrase": "the square root of ten",
+     "basis": "recognizer onset",
+     "window_s": [
+      2.92,
+      3.0
+     ],
+     "abuts_previous_word": true,
+     "cross_checks": [],
+     "film_without_mark_s": 2.670857
+    }
+   ]
+  }
+ }
+}

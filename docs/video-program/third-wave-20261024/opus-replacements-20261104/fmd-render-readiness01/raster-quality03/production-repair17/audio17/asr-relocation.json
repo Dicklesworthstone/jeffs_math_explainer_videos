@@ -1,0 +1,14 @@
+[
+  {
+    "cue": "08_5",
+    "original": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-repair17-recognition08-01/08_5-take1.json",
+    "file": "08_5-primary-asr.json",
+    "sha256": "430121796b7881076f49f9d0f08fb706542cf4bcd2adc7ca25d6c0c745f063a6"
+  },
+  {
+    "cue": "09_1",
+    "original": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-repair17-recognition09-01/09_1-take2.json",
+    "file": "09_1-primary-asr.json",
+    "sha256": "2f6fed94b8670cab76d2339ce2324ecf38e7d7f3357b9d3e509e53a98cf38aac"
+  }
+]

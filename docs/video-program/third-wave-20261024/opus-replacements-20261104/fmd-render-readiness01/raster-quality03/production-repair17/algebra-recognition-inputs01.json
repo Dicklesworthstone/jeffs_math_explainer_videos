@@ -1,0 +1,36 @@
+{
+  "files": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-recognition-plan01.json",
+      "sha256": "73333b73bf2fcb634c173e4289fa5e106b76c8de76c918114bab471fd3eb8313"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/recognize-cues17.py",
+      "sha256": "b1f3309ea83fc160284b4d56ae33b3d534bef2b4e904e327f8f478c9b5f40882"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/engine-secondary-validation01/guard_owner56g_target20g.py",
+      "sha256": "1c19a9b8f817c3bca06e18fd0785ac21c3cb935be715d67ecc41e4e39d1f5097"
+    },
+    {
+      "path": "/Users/jemanuel/.cache/franken_whisper/models/whisper/whisper-large-v3-turbo-f16-v1/ggml-large-v3-turbo.bin",
+      "sha256": "1fc70f774d38eb169993ac391eea357ef47c88757ef72ee5943879b7e8e2bc69"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/franken-whisper/0.9.2/bin/fw",
+      "sha256": "dddaba940c7be629c5dab6e598e07b80fefb0f2c660d1dbb47905e433955c778"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/raw11_17-ui01/receipt.json",
+      "sha256": "b9c33c8147adfb09f50850e6095cca9b1b6d8208fdc29df3995410b36fee5372"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/raw11_17-ui01/ElevenLabs_2026-11-07T14_40_49_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4 (1).wav",
+      "sha256": "b54a0b02b66af7d347d5130b2e107aa9df34877df91f8c0069b07f8207720595"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/raw11_17-ui01/ElevenLabs_2026-11-07T14_40_49_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4.wav",
+      "sha256": "4e2b20d10d9cf169ae393f5c9da0124d98c365dbf63600d41c98dd70b2df9d9a"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "passed": [
+    "native100",
+    "native101-refused",
+    "actual-reviewed08",
+    "provider10000",
+    "provider10001-refused",
+    "unknown-provider-refused",
+    "multiple-cues-refused",
+    "native-synthesis-refused"
+  ],
+  "scope": "Input validation only; not assembly, audio or release approval."
+}

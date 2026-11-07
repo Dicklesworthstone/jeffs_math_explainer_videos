@@ -1,0 +1,1 @@
+{"schema_version": 1, "script_sha256": "1fada5f81745c57b639075955f5874c5dc7c5fe39b6acbe6521296d09eecd765", "units": [{"id": "unit01", "line_ids": ["01_1", "01_2"], "text": "A cue. Second cue.", "external_ui_provider": "elevenlabs"}]}

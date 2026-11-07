@@ -1,0 +1,53 @@
+{
+  "files": [
+    {
+      "file": "loop_sums.rs",
+      "relative": "src/chapters/loop_sums.rs",
+      "before_sha256": "f7a46143d709797ff03e748b4b8efad68d9379fea31b8ce0cd6de0d2f25de6d8",
+      "sha256": "fc0b49ab10fdddc292ad8ab6149ac4a78da0d12da21a64805b786ec55674b577"
+    },
+    {
+      "file": "boundary.rs",
+      "relative": "src/chapters/boundary.rs",
+      "before_sha256": "6142165b7e9a49e99bb80216ed83117f6bf752a3beda812af29fa5081bc347e9",
+      "sha256": "c9e6b5ba84c4cf5ae327a8268d67c4f134484be8538cb99bdf1828ebe051f630"
+    },
+    {
+      "file": "mod.rs",
+      "relative": "src/chapters/mod.rs",
+      "before_sha256": "9ddf5283a8d298d9466bacd0e60c9203bdb857049702daf7971bce40c2b4541b",
+      "sha256": "fedb9075d73901baefb03753d5b8c58417ec4dc458b0c1c55c612ddf501234ed"
+    },
+    {
+      "file": "counting.rs",
+      "relative": "src/chapters/counting.rs",
+      "before_sha256": "1177c885b6815842bc0ac6e6ac71b01808f00a73137002c05d04e1874decb984",
+      "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+    },
+    {
+      "file": "two_planes.rs",
+      "relative": "src/chapters/two_planes.rs",
+      "before_sha256": "98cd46c5cc825095600ae431ae22c142a65c7b0cb8d2507d4c4ba0644ca3c432",
+      "sha256": "0f22d63febc18e05dc4123bedf84eeadf967938bcbc4260cfb0d9e8925ff4cb9"
+    },
+    {
+      "file": "gallery.rs",
+      "relative": "src/chapters/gallery.rs",
+      "before_sha256": "da7b806fee85584e111c8a66b95e0f9f8c87bbb42501d79a1129d6b032663290",
+      "sha256": "7d1cf20fd25c8d9233f3c14426b0196fd4fd6673e4b25becba47b50f2635b282"
+    },
+    {
+      "file": "continuing.rs",
+      "relative": "src/chapters/continuing.rs",
+      "before_sha256": "c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b",
+      "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96"
+    },
+    {
+      "file": "script.tsv",
+      "relative": "script.tsv",
+      "before_sha256": "946a9c07a462eb066fc8d20c6a092d5b7564d38752d26177bdbbcf15c6027cdc",
+      "sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c"
+    }
+  ],
+  "scope": "Reviewed native source candidate; rendered picture, timing and AV acceptance pending"
+}

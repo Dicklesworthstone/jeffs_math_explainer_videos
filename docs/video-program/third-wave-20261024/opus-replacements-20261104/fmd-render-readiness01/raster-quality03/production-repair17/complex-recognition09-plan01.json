@@ -1,0 +1,27 @@
+{
+  "job_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-repair17-recognition09-01",
+  "fw": "/opt/homebrew/Cellar/franken-whisper/0.9.2/bin/fw",
+  "model": "/Users/jemanuel/.cache/franken_whisper/models/whisper/whisper-large-v3-turbo-f16-v1/ggml-large-v3-turbo.bin",
+  "takes": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw09_1-ui01/ElevenLabs_2026-11-07T14_45_50_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4 (1).wav",
+      "sha256": "0b83c57918983d058a2e261b2d4745647d6c0e0c09f6586997c373ea5578aae3",
+      "rate": 48000,
+      "frames": 6604800,
+      "channels": 1,
+      "sample_width": 2,
+      "duration": 137.6,
+      "id": "09_1-take1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw09_1-ui01/ElevenLabs_2026-11-07T14_45_50_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4.wav",
+      "sha256": "88412b70967858a8a74cce5ab030e61611083a8953a28972385524bc620fee98",
+      "rate": 48000,
+      "frames": 6608640,
+      "channels": 1,
+      "sample_width": 2,
+      "duration": 137.68,
+      "id": "09_1-take2"
+    }
+  ]
+}

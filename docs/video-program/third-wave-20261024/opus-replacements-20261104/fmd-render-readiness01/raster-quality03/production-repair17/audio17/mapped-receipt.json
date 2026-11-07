@@ -1,0 +1,42 @@
+{
+  "schema": "elevenlabs-ui-receipt-v2",
+  "source": "ElevenLabs UI, Frederick Surrey",
+  "provider": "ElevenLabs",
+  "voice": "Frederick Surrey - Smooth and Velvety",
+  "records": [
+    {
+      "cue": "08_5",
+      "text": "Cauchy's theorem says more. If a function is holomorphic on a loop and everywhere inside it, its loop integral is zero. We will prove the pieces we need, starting with a square, and a function holomorphic on it, inside it, and a little beyond. Cut the square into four smaller squares, and walk each one counterclockwise. When we add their four loop integrals, every shared edge is walked twice, in opposite directions, so those parts cancel exactly. What remains is the loop integral around the original square. Now suppose that integral were not zero. Then some small square must have an integral at least a quarter of that size. Four integrals each under a quarter of that size could not add up to it. Keep that square, and cut it into four again. Each time, keep a piece whose integral has at least a quarter of its parent's size. These nested squares shrink toward a single point, which we call c. From here on, we use the derivative at that one point only. Near c, the function is a constant, plus a linear term that stretches and turns z minus c, plus a remainder. The constant integrates to zero, because the steps around a closed loop add up to nothing. The linear term integrates to zero too, because it is the derivative of a quadratic, whose changes around a closed loop also add up to nothing. So only the remainder contributes. Pick any tiny factor, and call it epsilon. Close enough to c, the remainder's size is at most epsilon times the distance to c, and that is exactly what having a derivative at c means. After enough cuts, the whole nested square lies that close. There, the distance to c is at most the square's diagonal, and the steps add up to the perimeter. So the integral around that square has size at most epsilon, times its diagonal, times its perimeter. Each cut halves the diagonal and halves the perimeter, so this bound shrinks to a quarter every time. But our rule kept at least a quarter of the integral's size at every cut. So after n cuts, the original integral's size is at most four to the n times the size of the small square's integral. The small square's integral has size at most epsilon, times the original diagonal and perimeter, divided by four to the n. Multiplying by four to the n cancels the fours, so the original integral's size is at most epsilon times the original diagonal and perimeter. Since epsilon can be as small as we like, the integral is zero. The same shrinking argument works for a triangle. Join the midpoints of its sides, and you get four triangles at half the size. Walk all four counterclockwise, even the upside down one in the middle, and their shared edges cancel again. The longest side plays the diagonal's part, and it halves with the perimeter at every cut. So around every triangle, the integral is zero too.",
+      "voice": "Frederick Surrey - Smooth and Velvety",
+      "wav": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/audio17/08_5.wav",
+      "wav_sha256": "f1c8ecccca689befb8d119fa2e07fd8eb9c3788cad18cdd41ebbe3520be776f4",
+      "samples": 4287360,
+      "rate": 24000,
+      "source": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/audio17/raw08_5.wav",
+      "source_sha256": "59126895f607c64c75efa2e9fd997e8e8d57257a3bdd291d5a51ab7e3bf4ee22",
+      "request": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/audio17/request08_5.json",
+      "request_sha256": "be319ba76271e4aa46762f542ce0c06a3337379f3b19fdd9d72935fa8d805e94",
+      "original_wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-repair17-decode01/decoded/08_5.wav",
+      "original_source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw08_5-ui01/ElevenLabs_2026-11-07T14_43_40_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4 (1).wav",
+      "original_request": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw08_5-ui01/receipt.json"
+    },
+    {
+      "cue": "09_1",
+      "text": "Here is the payoff. Take a function holomorphic on a disk and a little beyond its edge, and divide it by z minus a, where a is the centre. Split that quotient into two pieces. The first is f of a, times one over z minus a, and we already know its loop integral: two pi i times f of a. The second is the difference quotient: f of z minus f of a, over z minus a. It is undefined at a itself, so it has a hole in the middle, and we cannot simply call it holomorphic there. But as z approaches a, it approaches the derivative at a, so near a its size stays below some bound. Draw a small circle around the hole. Between the two circles, the difference quotient is holomorphic. Trace each circle with a polygon, and tile the ring between them with triangles, keeping the hole empty. We saw that the shrinking argument works for triangles: around each one, the integral is zero. Now add up all the triangles. Every inside edge is walked twice, in opposite directions, so those parts cancel. What survives is the outer polygon, counterclockwise, and the inner polygon, clockwise. So the two polygons, both walked counterclockwise, have the same integral. Now keep the small circle fixed, and give the polygons more and more sides, so they hug the circles. Each short chord and its arc share their endpoints, so a constant has the same integral along both. The difference comes only from how much the quotient wobbles there, and its size is at most that wobble times their combined length. Continuity makes every wobble small at once, while the total length stays bounded. So in the limit, the big circle's integral equals the small circle's, both walked counterclockwise. That holds for every small radius. Only now do we shrink the small circle. The magnitude of its integral is at most its circumference, two pi times its radius, times that bound, and that goes to zero. But the big circle's integral never changed, so it must be zero. The second piece contributes nothing, and the loop integral is two pi i times f of a.",
+      "voice": "Frederick Surrey - Smooth and Velvety",
+      "wav": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/audio17/09_1.wav",
+      "wav_sha256": "16f34846437e7004bb2fbff0fdfa83e9e3d75874460008b044be87d47237ceeb",
+      "samples": 3304320,
+      "rate": 24000,
+      "source": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/audio17/raw09_1.wav",
+      "source_sha256": "88412b70967858a8a74cce5ab030e61611083a8953a28972385524bc620fee98",
+      "request": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/audio17/request09_1.json",
+      "request_sha256": "e2bd64679932756a86178cefc7566512354bd269802650e35af3a4d0e7e42836",
+      "original_wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-repair17-decode01/decoded/09_1.wav",
+      "original_source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw09_1-ui01/ElevenLabs_2026-11-07T14_45_50_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4.wav",
+      "original_request": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw09_1-ui01/receipt.json"
+    }
+  ],
+  "scope": "Complete take conversion only; no time or pitch processing. Listening and sync unreviewed.",
+  "relocation_source_receipt_sha256": "85fb93a53dc625b1f2e55368ec25214cbf74a7f8419c8cae8fff2557758e2e01"
+}

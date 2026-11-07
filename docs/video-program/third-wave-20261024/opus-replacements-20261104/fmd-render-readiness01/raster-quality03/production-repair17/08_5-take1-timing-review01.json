@@ -1,0 +1,638 @@
+{
+  "sentence_starts": [
+    {
+      "index": 0,
+      "char": 0,
+      "status": "file_start",
+      "sample_24k": 0,
+      "basis": "the complete take starts the cue"
+    },
+    {
+      "id": "onset:08_5:s1:08_5-take1",
+      "index": 1,
+      "char": 28,
+      "word": "if",
+      "asr_start_s": 2.28,
+      "asr_end_s": 2.38,
+      "window_s": [
+        2.28,
+        2.38
+      ],
+      "segment_index": 4,
+      "previous_word_end_s": 2.28,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 54720
+    },
+    {
+      "id": "onset:08_5:s2:08_5-take1",
+      "index": 2,
+      "char": 120,
+      "word": "we",
+      "asr_start_s": 8.44,
+      "asr_end_s": 8.559999,
+      "window_s": [
+        8.44,
+        8.559999
+      ],
+      "segment_index": 21,
+      "previous_word_end_s": 8.44,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 202560
+    },
+    {
+      "id": "onset:08_5:s3:08_5-take1",
+      "index": 3,
+      "char": 244,
+      "word": "cut",
+      "asr_start_s": 16.32,
+      "asr_end_s": 16.440001,
+      "window_s": [
+        16.32,
+        16.440001
+      ],
+      "segment_index": 44,
+      "previous_word_end_s": 16.32,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 391680
+    },
+    {
+      "id": "onset:08_5:s4:08_5-take1",
+      "index": 4,
+      "char": 322,
+      "word": "when",
+      "asr_start_s": 21.42,
+      "asr_end_s": 21.52,
+      "window_s": [
+        21.42,
+        21.52
+      ],
+      "segment_index": 56,
+      "previous_word_end_s": 21.42,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 514080
+    },
+    {
+      "id": "onset:08_5:s5:08_5-take1",
+      "index": 5,
+      "char": 451,
+      "word": "what",
+      "asr_start_s": 29.859999,
+      "asr_end_s": 29.88,
+      "window_s": [
+        29.859999,
+        29.88
+      ],
+      "segment_index": 77,
+      "previous_word_end_s": 29.859999,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 716640
+    },
+    {
+      "id": "onset:08_5:s6:08_5-take1",
+      "index": 6,
+      "char": 513,
+      "word": "now",
+      "asr_start_s": 34.0,
+      "asr_end_s": 34.419998,
+      "window_s": [
+        34.0,
+        34.419998
+      ],
+      "segment_index": 87,
+      "previous_word_end_s": 34.0,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 816000
+    },
+    {
+      "id": "onset:08_5:s7:08_5-take1",
+      "index": 7,
+      "char": 554,
+      "word": "then",
+      "asr_start_s": 36.860001,
+      "asr_end_s": 37.119999,
+      "window_s": [
+        36.860001,
+        37.119999
+      ],
+      "segment_index": 94,
+      "previous_word_end_s": 36.860001,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 884640
+    },
+    {
+      "id": "onset:08_5:s8:08_5-take1",
+      "index": 8,
+      "char": 632,
+      "word": "four",
+      "asr_start_s": 41.619999,
+      "asr_end_s": 41.860001,
+      "window_s": [
+        41.619999,
+        41.860001
+      ],
+      "segment_index": 109,
+      "previous_word_end_s": 41.619999,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 998880
+    },
+    {
+      "id": "onset:08_5:s9:08_5-take1",
+      "index": 9,
+      "char": 705,
+      "word": "keep",
+      "asr_start_s": 45.959999,
+      "asr_end_s": 46.119999,
+      "window_s": [
+        45.959999,
+        46.119999
+      ],
+      "segment_index": 124,
+      "previous_word_end_s": 45.959999,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 1103040
+    },
+    {
+      "id": "onset:08_5:s10:08_5-take1",
+      "index": 10,
+      "char": 751,
+      "word": "each",
+      "asr_start_s": 48.959999,
+      "asr_end_s": 49.32,
+      "window_s": [
+        48.959999,
+        49.32
+      ],
+      "segment_index": 133,
+      "previous_word_end_s": 48.959999,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 1175040
+    },
+    {
+      "id": "onset:08_5:s11:08_5-take1",
+      "index": 11,
+      "char": 835,
+      "word": "these",
+      "asr_start_s": 54.0,
+      "asr_end_s": 54.34,
+      "window_s": [
+        54.0,
+        54.34
+      ],
+      "segment_index": 149,
+      "previous_word_end_s": 54.0,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 1296000
+    },
+    {
+      "id": "onset:08_5:s12:08_5-take1",
+      "index": 12,
+      "char": 903,
+      "word": "from",
+      "asr_start_s": 58.739998,
+      "asr_end_s": 58.919998,
+      "window_s": [
+        58.739998,
+        58.919998
+      ],
+      "segment_index": 161,
+      "previous_word_end_s": 58.739998,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 1409760
+    },
+    {
+      "id": "onset:08_5:s13:08_5-take1",
+      "index": 13,
+      "char": 963,
+      "word": "near",
+      "asr_start_s": 62.919998,
+      "asr_end_s": 63.18,
+      "window_s": [
+        62.919998,
+        63.18
+      ],
+      "segment_index": 173,
+      "previous_word_end_s": 62.919998,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 1510080
+    },
+    {
+      "id": "onset:08_5:s14:08_5-take1",
+      "index": 14,
+      "char": 1072,
+      "word": "the",
+      "asr_start_s": 70.440002,
+      "asr_end_s": 70.879997,
+      "window_s": [
+        70.440002,
+        70.879997
+      ],
+      "segment_index": 194,
+      "previous_word_end_s": 70.440002,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 1690560
+    },
+    {
+      "id": "onset:08_5:s15:08_5-take1",
+      "index": 15,
+      "char": 1163,
+      "word": "the",
+      "asr_start_s": 75.879997,
+      "asr_end_s": 76.18,
+      "window_s": [
+        75.879997,
+        76.18
+      ],
+      "segment_index": 210,
+      "previous_word_end_s": 75.879997,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 1821120
+    },
+    {
+      "id": "onset:08_5:s16:08_5-take1",
+      "index": 16,
+      "char": 1307,
+      "word": "so",
+      "asr_start_s": 84.400002,
+      "asr_end_s": 84.699997,
+      "window_s": [
+        84.400002,
+        84.699997
+      ],
+      "segment_index": 236,
+      "previous_word_end_s": 84.400002,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 2025600
+    },
+    {
+      "id": "onset:08_5:s17:08_5-take1",
+      "index": 17,
+      "char": 1342,
+      "word": "pick",
+      "asr_start_s": 86.900002,
+      "asr_end_s": 87.220001,
+      "window_s": [
+        86.900002,
+        87.220001
+      ],
+      "segment_index": 241,
+      "previous_word_end_s": 86.900002,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 2085600
+    },
+    {
+      "id": "onset:08_5:s18:08_5-take1",
+      "index": 18,
+      "char": 1385,
+      "word": "close",
+      "asr_start_s": 89.88,
+      "asr_end_s": 90.620003,
+      "window_s": [
+        89.88,
+        90.620003
+      ],
+      "segment_index": 249,
+      "previous_word_end_s": 89.86,
+      "abuts_previous_word": false,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 2157120
+    },
+    {
+      "id": "onset:08_5:s19:08_5-take1",
+      "index": 19,
+      "char": 1526,
+      "word": "after",
+      "asr_start_s": 99.900002,
+      "asr_end_s": 100.159996,
+      "window_s": [
+        99.900002,
+        100.159996
+      ],
+      "segment_index": 276,
+      "previous_word_end_s": 99.900002,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 2397600
+    },
+    {
+      "id": "onset:08_5:s20:08_5-take1",
+      "index": 20,
+      "char": 1586,
+      "word": "there",
+      "asr_start_s": 104.220001,
+      "asr_end_s": 104.620003,
+      "window_s": [
+        104.220001,
+        104.620003
+      ],
+      "segment_index": 286,
+      "previous_word_end_s": 104.220001,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 2501280
+    },
+    {
+      "id": "onset:08_5:s21:08_5-take1",
+      "index": 21,
+      "char": 1684,
+      "word": "so",
+      "asr_start_s": 110.059998,
+      "asr_end_s": 110.220001,
+      "window_s": [
+        110.059998,
+        110.220001
+      ],
+      "segment_index": 305,
+      "previous_word_end_s": 110.059998,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 2641440
+    },
+    {
+      "id": "onset:08_5:s22:08_5-take1",
+      "index": 22,
+      "char": 1786,
+      "word": "each",
+      "asr_start_s": 116.659996,
+      "asr_end_s": 116.979996,
+      "window_s": [
+        116.659996,
+        116.979996
+      ],
+      "segment_index": 322,
+      "previous_word_end_s": 116.659996,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 2799840
+    },
+    {
+      "id": "onset:08_5:s23:08_5-take1",
+      "index": 23,
+      "char": 1888,
+      "word": "but",
+      "asr_start_s": 123.139999,
+      "asr_end_s": 123.419998,
+      "window_s": [
+        123.139999,
+        123.419998
+      ],
+      "segment_index": 340,
+      "previous_word_end_s": 123.139999,
+      "abuts_previous_word": true,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 2955360
+    },
+    {
+      "id": "onset:08_5:s24:08_5-take1",
+      "index": 24,
+      "char": 1962,
+      "word": "so",
+      "asr_start_s": 127.339996,
+      "asr_end_s": 127.599998,
+      "window_s": [
+        127.339996,
+        127.599998
+      ],
+      "segment_index": 355,
+      "previous_word_end_s": 126.88,
+      "abuts_previous_word": false,
+      "agreeing_run": 367,
+      "status": "supported",
+      "sample_24k": 3056160
+    },
+    {
+      "id": "onset:08_5:s25:08_5-take1",
+      "index": 25,
+      "char": 2080,
+      "word": "the",
+      "asr_start_s": 134.679993,
+      "asr_end_s": 134.919998,
+      "window_s": [
+        134.679993,
+        134.919998
+      ],
+      "segment_index": 375,
+      "previous_word_end_s": 133.88,
+      "abuts_previous_word": false,
+      "agreeing_run": 3,
+      "status": "supported",
+      "sample_24k": 3232320
+    },
+    {
+      "id": "onset:08_5:s26:08_5-take1",
+      "index": 26,
+      "char": 2203,
+      "word": "multiplying",
+      "asr_start_s": 142.020004,
+      "asr_end_s": 142.440002,
+      "window_s": [
+        142.020004,
+        142.440002
+      ],
+      "segment_index": 393,
+      "previous_word_end_s": 140.88,
+      "abuts_previous_word": false,
+      "agreeing_run": 4,
+      "status": "supported",
+      "sample_24k": 3408480
+    },
+    {
+      "id": "onset:08_5:s27:08_5-take1",
+      "index": 27,
+      "char": 2345,
+      "word": "since",
+      "asr_start_s": 149.880005,
+      "asr_end_s": 151.0,
+      "window_s": [
+        149.880005,
+        151.0
+      ],
+      "segment_index": 414,
+      "previous_word_end_s": 148.88,
+      "abuts_previous_word": false,
+      "agreeing_run": 74,
+      "status": "supported",
+      "sample_24k": 3597120
+    },
+    {
+      "id": "onset:08_5:s28:08_5-take1",
+      "index": 28,
+      "char": 2409,
+      "word": "the",
+      "asr_start_s": 155.100006,
+      "asr_end_s": 155.360001,
+      "window_s": [
+        155.100006,
+        155.360001
+      ],
+      "segment_index": 427,
+      "previous_word_end_s": 155.04,
+      "abuts_previous_word": false,
+      "agreeing_run": 74,
+      "status": "supported",
+      "sample_24k": 3722400
+    },
+    {
+      "id": "onset:08_5:s29:08_5-take1",
+      "index": 29,
+      "char": 2459,
+      "word": "join",
+      "asr_start_s": 157.940002,
+      "asr_end_s": 158.100006,
+      "window_s": [
+        157.940002,
+        158.100006
+      ],
+      "segment_index": 435,
+      "previous_word_end_s": 157.94,
+      "abuts_previous_word": false,
+      "agreeing_run": 74,
+      "status": "supported",
+      "sample_24k": 3790560
+    },
+    {
+      "id": "onset:08_5:s30:08_5-take1",
+      "index": 30,
+      "char": 2537,
+      "word": "walk",
+      "asr_start_s": 162.880005,
+      "asr_end_s": 163.139999,
+      "window_s": [
+        162.880005,
+        163.139999
+      ],
+      "segment_index": 450,
+      "previous_word_end_s": 162.82,
+      "abuts_previous_word": false,
+      "agreeing_run": 74,
+      "status": "supported",
+      "sample_24k": 3909120
+    },
+    {
+      "id": "onset:08_5:s31:08_5-take1",
+      "index": 31,
+      "char": 2646,
+      "word": "the",
+      "asr_start_s": 169.520004,
+      "asr_end_s": 169.839996,
+      "window_s": [
+        169.520004,
+        169.839996
+      ],
+      "segment_index": 467,
+      "previous_word_end_s": 169.44,
+      "abuts_previous_word": false,
+      "agreeing_run": 74,
+      "status": "supported",
+      "sample_24k": 4068480
+    },
+    {
+      "id": "onset:08_5:s32:08_5-take1",
+      "index": 32,
+      "char": 2737,
+      "word": "so",
+      "asr_start_s": 175.179993,
+      "asr_end_s": 175.5,
+      "window_s": [
+        175.179993,
+        175.5
+      ],
+      "segment_index": 483,
+      "previous_word_end_s": 175.12,
+      "abuts_previous_word": false,
+      "agreeing_run": 18,
+      "status": "supported",
+      "sample_24k": 4204320
+    }
+  ],
+  "differences": [
+    {
+      "op": "delete",
+      "script": "to the",
+      "recognized": "",
+      "script_token_index": 367
+    },
+    {
+      "op": "replace",
+      "script": "square's",
+      "recognized": "squares",
+      "script_token_index": 376
+    },
+    {
+      "op": "replace",
+      "script": "square's",
+      "recognized": "squares",
+      "script_token_index": 380
+    },
+    {
+      "op": "delete",
+      "script": "to the",
+      "recognized": "",
+      "script_token_index": 396
+    },
+    {
+      "op": "delete",
+      "script": "to the",
+      "recognized": "",
+      "script_token_index": 402
+    },
+    {
+      "op": "replace",
+      "script": "fours",
+      "recognized": "four s",
+      "script_token_index": 407
+    },
+    {
+      "op": "replace",
+      "script": "diagonal's",
+      "recognized": "diagonals",
+      "script_token_index": 482
+    },
+    {
+      "op": "replace",
+      "script": "too",
+      "recognized": "two",
+      "script_token_index": 501
+    }
+  ],
+  "claim": "Provisional recognizer segment starts; no listening or fine synchronization."
+}

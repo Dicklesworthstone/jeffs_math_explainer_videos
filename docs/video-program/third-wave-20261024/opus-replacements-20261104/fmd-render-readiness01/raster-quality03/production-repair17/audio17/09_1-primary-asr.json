@@ -1,0 +1,3304 @@
+{
+  "run_id": "f425d23a-6651-4e44-a4bf-d3cda6a60708",
+  "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+  "started_at_rfc3339": "2026-11-07T14:50:21.049357+00:00",
+  "finished_at_rfc3339": "2026-11-07T14:50:28.309501+00:00",
+  "input_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw09_1-ui01/ElevenLabs_2026-11-07T14_45_50_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4.wav",
+  "normalized_wav_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/.franken_whisper/tmp/fw-run-oSGO0u/normalized_16k_mono.wav",
+  "request": {
+    "input": {
+      "kind": "file",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw09_1-ui01/ElevenLabs_2026-11-07T14_45_50_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4.wav"
+    },
+    "backend": "whisper_cpp",
+    "model": "/Users/jemanuel/.cache/franken_whisper/models/whisper/whisper-large-v3-turbo-f16-v1/ggml-large-v3-turbo.bin",
+    "language": "en",
+    "translate": false,
+    "diarize": false,
+    "persist": false,
+    "db_path": ".franken_whisper/storage.sqlite3",
+    "timeout_ms": 600000,
+    "backend_params": {
+      "output_formats": [],
+      "timestamp_level": null,
+      "decoding": {
+        "best_of": null,
+        "beam_size": null,
+        "max_context": null,
+        "max_segment_length": 1,
+        "temperature": null,
+        "temperature_increment": null,
+        "entropy_threshold": null,
+        "logprob_threshold": null,
+        "no_speech_threshold": null
+      },
+      "vad": null,
+      "diarization_config": null,
+      "gpu_device": null,
+      "flash_attention": null,
+      "insanely_fast_transcript_path": null,
+      "no_timestamps": false,
+      "detect_language_only": false,
+      "batch_size": null,
+      "split_on_word": true,
+      "threads": 4,
+      "processors": null,
+      "no_gpu": false,
+      "prompt": null,
+      "carry_initial_prompt": false,
+      "no_fallback": false,
+      "suppress_nst": false,
+      "offset_ms": null,
+      "duration_ms": null,
+      "audio_ctx": null,
+      "word_threshold": null,
+      "suppress_regex": null,
+      "tiny_diarize": false,
+      "word_timestamps": null,
+      "insanely_fast_tuning": null,
+      "alignment": null,
+      "punctuation": null,
+      "source_separation": null,
+      "speculative": null
+    }
+  },
+  "result": {
+    "backend": "whisper_cpp",
+    "transcript": "Here is the payoff. Take a function holomorphic on a disk, and a little beyond its edge, and divide it by z minus a, where a is the centre. Split that quotient into two pieces. The first is f of a times 1 over z minus a, and we already know its loop integral: 2pi i times f of a. The second is the difference quotient: f of z minus f of a over z minus a. It is undefined at a itself, so it has a hole in the middle, and we cannot simply call it holomorphic there. But as z approaches a, it approaches the derivative at a, so near a, its size stays below some bound. Draw a small circle around the hole. Between the two circles, the difference quotient is holomorphic. Trace each circle with a polygon, and tile the ring between them with triangles, keeping the hole empty. We saw that the shrinking argument works for triangles: around each one the integral is zero. Now add up all the triangles. Every inside edge is walked twice in opposite directions, so those parts cancel. What survives is the outer polygon counterclockwise and the inner polygon clockwise, so the two polygons, both walked counterclockwise, have the same integral. Now keep the small circle fixed and give the polygons more and more sides so they hug the circles. Each short chord and its arc share their endpoints, so a constant has the same integral along both. The difference comes only from how much the quotient wobbles there, and its size is at most that wobble times their combined length. Continuity makes every wobble small at once, while the total length stays bounded. So in the limit, The big circle's integral equals the small circles, both walked counterclockwise. That holds for every small radius. Only now do we shrink the small circle. The magnitude of its integral is at most its circumference: 2pi times its radius times that bound, and that goes to zero. But the big circle's integral never changed, so it must be zero. The second piece contributes nothing, and the loop integral is 2pi times f .",
+    "language": "en",
+    "segments": [
+      {
+        "start_sec": 0.0,
+        "end_sec": 0.5399999618530273,
+        "text": "Here",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 0.5399999618530273,
+        "end_sec": 0.6800000071525574,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 0.6800000071525574,
+        "end_sec": 1.0399999618530273,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 1.0399999618530273,
+        "end_sec": 2.0999999046325684,
+        "text": "payoff.",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 2.0999999046325684,
+        "end_sec": 2.2200000286102295,
+        "text": "Take",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 2.2200000286102295,
+        "end_sec": 2.6399998664855957,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 2.6399998664855957,
+        "end_sec": 2.9600000381469727,
+        "text": "function",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 2.9600000381469727,
+        "end_sec": 3.559999942779541,
+        "text": "holomorphic",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 3.559999942779541,
+        "end_sec": 3.6599998474121094,
+        "text": "on",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 3.6599998474121094,
+        "end_sec": 4.079999923706055,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 4.079999923706055,
+        "end_sec": 4.519999980926514,
+        "text": "disk,",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 4.519999980926514,
+        "end_sec": 4.619999885559082,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 4.619999885559082,
+        "end_sec": 4.799999713897705,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 4.799999713897705,
+        "end_sec": 5.099999904632568,
+        "text": "little",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 5.099999904632568,
+        "end_sec": 5.279999732971191,
+        "text": "beyond",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 5.279999732971191,
+        "end_sec": 5.619999885559082,
+        "text": "its",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 5.619999885559082,
+        "end_sec": 6.0,
+        "text": "edge,",
+        "speaker": null,
+        "confidence": 0.0026467622703550096
+      },
+      {
+        "start_sec": 6.039999961853027,
+        "end_sec": 6.359999656677246,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 6.359999656677246,
+        "end_sec": 6.579999923706055,
+        "text": "divide",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 6.579999923706055,
+        "end_sec": 6.779999732971191,
+        "text": "it",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 6.779999732971191,
+        "end_sec": 7.079999923706055,
+        "text": "by",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 7.079999923706055,
+        "end_sec": 7.460000038146973,
+        "text": "z",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 7.460000038146973,
+        "end_sec": 7.87999963760376,
+        "text": "minus",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 7.87999963760376,
+        "end_sec": 8.399999618530273,
+        "text": "a,",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 8.399999618530273,
+        "end_sec": 8.679999351501465,
+        "text": "where",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 8.679999351501465,
+        "end_sec": 8.9399995803833,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 8.9399995803833,
+        "end_sec": 9.079999923706055,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 9.079999923706055,
+        "end_sec": 9.399999618530273,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 9.399999618530273,
+        "end_sec": 10.5,
+        "text": "centre.",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 10.5,
+        "end_sec": 10.679999351501465,
+        "text": "Split",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 10.679999351501465,
+        "end_sec": 11.0,
+        "text": "that",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 11.0,
+        "end_sec": 11.4399995803833,
+        "text": "quotient",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 11.4399995803833,
+        "end_sec": 11.719999313354492,
+        "text": "into",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 11.719999313354492,
+        "end_sec": 12.219999313354492,
+        "text": "two",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 12.219999313354492,
+        "end_sec": 12.88,
+        "text": "pieces.",
+        "speaker": null,
+        "confidence": 0.002707120264809573
+      },
+      {
+        "start_sec": 12.960000038146973,
+        "end_sec": 13.359999656677246,
+        "text": "The",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 13.359999656677246,
+        "end_sec": 13.639999389648438,
+        "text": "first",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 13.639999389648438,
+        "end_sec": 13.960000038146973,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 13.960000038146973,
+        "end_sec": 14.059999465942383,
+        "text": "f",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 14.059999465942383,
+        "end_sec": 14.299999237060547,
+        "text": "of",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 14.299999237060547,
+        "end_sec": 14.679999351501465,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 14.679999351501465,
+        "end_sec": 14.979999542236328,
+        "text": "times",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 14.979999542236328,
+        "end_sec": 15.199999809265137,
+        "text": "1",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 15.199999809265137,
+        "end_sec": 15.399999618530273,
+        "text": "over",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 15.399999618530273,
+        "end_sec": 15.679999351501465,
+        "text": "z",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 15.679999351501465,
+        "end_sec": 16.020000457763672,
+        "text": "minus",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 16.020000457763672,
+        "end_sec": 16.520000457763672,
+        "text": "a,",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 16.520000457763672,
+        "end_sec": 16.639999389648438,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 16.639999389648438,
+        "end_sec": 16.940000534057617,
+        "text": "we",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 16.940000534057617,
+        "end_sec": 17.279998779296875,
+        "text": "already",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 17.279998779296875,
+        "end_sec": 17.559999465942383,
+        "text": "know",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 17.559999465942383,
+        "end_sec": 17.760000228881836,
+        "text": "its",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 17.760000228881836,
+        "end_sec": 18.19999885559082,
+        "text": "loop",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 18.19999885559082,
+        "end_sec": 18.779998779296875,
+        "text": "integral:",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 18.779998779296875,
+        "end_sec": 19.12,
+        "text": "2pi",
+        "speaker": null,
+        "confidence": 0.0026202732328395578
+      },
+      {
+        "start_sec": 19.279998779296875,
+        "end_sec": 19.69999885559082,
+        "text": "i",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 19.69999885559082,
+        "end_sec": 20.020000457763672,
+        "text": "times",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 20.020000457763672,
+        "end_sec": 20.139999389648438,
+        "text": "f",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 20.139999389648438,
+        "end_sec": 20.35999870300293,
+        "text": "of",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 20.35999870300293,
+        "end_sec": 21.239999771118164,
+        "text": "a.",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 21.239999771118164,
+        "end_sec": 21.559999465942383,
+        "text": "The",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 21.559999465942383,
+        "end_sec": 21.920000076293945,
+        "text": "second",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 21.920000076293945,
+        "end_sec": 22.079999923706055,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 22.079999923706055,
+        "end_sec": 22.439998626708984,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 22.439998626708984,
+        "end_sec": 22.799999237060547,
+        "text": "difference",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 22.799999237060547,
+        "end_sec": 23.65999984741211,
+        "text": "quotient:",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 23.65999984741211,
+        "end_sec": 23.779998779296875,
+        "text": "f",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 23.779998779296875,
+        "end_sec": 24.0,
+        "text": "of",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 24.0,
+        "end_sec": 24.639999389648438,
+        "text": "z",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 24.639999389648438,
+        "end_sec": 24.959999084472656,
+        "text": "minus",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 24.959999084472656,
+        "end_sec": 25.100000381469727,
+        "text": "f",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 25.100000381469727,
+        "end_sec": 25.35999870300293,
+        "text": "of",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 25.35999870300293,
+        "end_sec": 25.939998626708984,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 25.939998626708984,
+        "end_sec": 26.239999771118164,
+        "text": "over",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 26.239999771118164,
+        "end_sec": 26.579999923706055,
+        "text": "z",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 26.579999923706055,
+        "end_sec": 26.6,
+        "text": "minus",
+        "speaker": null,
+        "confidence": 0.0027912483989012055
+      },
+      {
+        "start_sec": 26.600000381469727,
+        "end_sec": 27.780000686645508,
+        "text": "a.",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 27.780000686645508,
+        "end_sec": 27.920000076293945,
+        "text": "It",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 27.920000076293945,
+        "end_sec": 28.15999984741211,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 28.15999984741211,
+        "end_sec": 28.780000686645508,
+        "text": "undefined",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 28.780000686645508,
+        "end_sec": 28.959999084472656,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 28.959999084472656,
+        "end_sec": 29.440000534057617,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 29.440000534057617,
+        "end_sec": 29.940000534057617,
+        "text": "itself,",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 29.940000534057617,
+        "end_sec": 30.03999900817871,
+        "text": "so",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 30.03999900817871,
+        "end_sec": 30.200000762939453,
+        "text": "it",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 30.200000762939453,
+        "end_sec": 30.299999237060547,
+        "text": "has",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 30.299999237060547,
+        "end_sec": 30.520000457763672,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 30.520000457763672,
+        "end_sec": 30.719999313354492,
+        "text": "hole",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 30.719999313354492,
+        "end_sec": 30.780000686645508,
+        "text": "in",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 30.780000686645508,
+        "end_sec": 31.020000457763672,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 31.020000457763672,
+        "end_sec": 31.3799991607666,
+        "text": "middle,",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 31.3799991607666,
+        "end_sec": 31.479999542236328,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 31.479999542236328,
+        "end_sec": 31.739999771118164,
+        "text": "we",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 31.739999771118164,
+        "end_sec": 32.119998931884766,
+        "text": "cannot",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 32.119998931884766,
+        "end_sec": 32.359,
+        "text": "simply",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 32.359,
+        "end_sec": 32.36,
+        "text": "call",
+        "speaker": null,
+        "confidence": 0.0028779624020784937
+      },
+      {
+        "start_sec": 32.540000915527344,
+        "end_sec": 32.70000076293945,
+        "text": "it",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 32.70000076293945,
+        "end_sec": 33.380001068115234,
+        "text": "holomorphic",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 33.380001068115234,
+        "end_sec": 34.18000030517578,
+        "text": "there.",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 34.18000030517578,
+        "end_sec": 34.459999084472656,
+        "text": "But",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 34.459999084472656,
+        "end_sec": 34.619998931884766,
+        "text": "as",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 34.619998931884766,
+        "end_sec": 35.23999786376953,
+        "text": "z",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 35.23999786376953,
+        "end_sec": 35.599998474121094,
+        "text": "approaches",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 35.599998474121094,
+        "end_sec": 36.040000915527344,
+        "text": "a,",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 36.040000915527344,
+        "end_sec": 36.439998626708984,
+        "text": "it",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 36.439998626708984,
+        "end_sec": 36.68000030517578,
+        "text": "approaches",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 36.68000030517578,
+        "end_sec": 37.13999938964844,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 37.13999938964844,
+        "end_sec": 37.400001525878906,
+        "text": "derivative",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 37.400001525878906,
+        "end_sec": 37.619998931884766,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 37.619998931884766,
+        "end_sec": 38.15999984741211,
+        "text": "a,",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 38.15999984741211,
+        "end_sec": 38.47999954223633,
+        "text": "so",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 38.47999954223633,
+        "end_sec": 38.779998779296875,
+        "text": "near",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 38.779998779296875,
+        "end_sec": 38.92,
+        "text": "a,",
+        "speaker": null,
+        "confidence": 0.0028378435731792597
+      },
+      {
+        "start_sec": 39.15999984741211,
+        "end_sec": 39.560001373291016,
+        "text": "its",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 39.560001373291016,
+        "end_sec": 39.89999771118164,
+        "text": "size",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 39.89999771118164,
+        "end_sec": 40.279998779296875,
+        "text": "stays",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 40.279998779296875,
+        "end_sec": 40.70000076293945,
+        "text": "below",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 40.70000076293945,
+        "end_sec": 41.07999801635742,
+        "text": "some",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 41.07999801635742,
+        "end_sec": 42.13999938964844,
+        "text": "bound.",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 42.13999938964844,
+        "end_sec": 42.36000061035156,
+        "text": "Draw",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 42.36000061035156,
+        "end_sec": 42.63999938964844,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 42.63999938964844,
+        "end_sec": 43.18000030517578,
+        "text": "small",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 43.18000030517578,
+        "end_sec": 43.55999755859375,
+        "text": "circle",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 43.55999755859375,
+        "end_sec": 43.779998779296875,
+        "text": "around",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 43.779998779296875,
+        "end_sec": 44.07999801635742,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 44.07999801635742,
+        "end_sec": 45.05999755859375,
+        "text": "hole.",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 45.05999755859375,
+        "end_sec": 45.20000076293945,
+        "text": "Between",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 45.20000076293945,
+        "end_sec": 45.36000061035156,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 45.36000061035156,
+        "end_sec": 45.86000061035156,
+        "text": "two",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 45.86000061035156,
+        "end_sec": 46.04,
+        "text": "circles,",
+        "speaker": null,
+        "confidence": 0.0028864526787235967
+      },
+      {
+        "start_sec": 46.29999923706055,
+        "end_sec": 46.619998931884766,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 46.619998931884766,
+        "end_sec": 47.02000045776367,
+        "text": "difference",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 47.02000045776367,
+        "end_sec": 47.36000061035156,
+        "text": "quotient",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 47.36000061035156,
+        "end_sec": 47.57999801635742,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 47.57999801635742,
+        "end_sec": 49.099998474121094,
+        "text": "holomorphic.",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 49.099998474121094,
+        "end_sec": 49.52000045776367,
+        "text": "Trace",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 49.52000045776367,
+        "end_sec": 49.959999084472656,
+        "text": "each",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 49.959999084472656,
+        "end_sec": 50.13999938964844,
+        "text": "circle",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 50.13999938964844,
+        "end_sec": 50.23999786376953,
+        "text": "with",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 50.23999786376953,
+        "end_sec": 50.68000030517578,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 50.68000030517578,
+        "end_sec": 51.20000076293945,
+        "text": "polygon,",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 51.20000076293945,
+        "end_sec": 51.52000045776367,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 51.52000045776367,
+        "end_sec": 51.68000030517578,
+        "text": "tile",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 51.68000030517578,
+        "end_sec": 51.86000061035156,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 51.86000061035156,
+        "end_sec": 52.18000030517578,
+        "text": "ring",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 52.18000030517578,
+        "end_sec": 52.2,
+        "text": "between",
+        "speaker": null,
+        "confidence": 0.0028425671781759643
+      },
+      {
+        "start_sec": 52.20000076293945,
+        "end_sec": 52.63999938964844,
+        "text": "them",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 52.63999938964844,
+        "end_sec": 53.119998931884766,
+        "text": "with",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 53.119998931884766,
+        "end_sec": 53.7599983215332,
+        "text": "triangles,",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 53.7599983215332,
+        "end_sec": 53.939998626708984,
+        "text": "keeping",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 53.939998626708984,
+        "end_sec": 54.15999984741211,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 54.15999984741211,
+        "end_sec": 54.619998931884766,
+        "text": "hole",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 54.619998931884766,
+        "end_sec": 55.540000915527344,
+        "text": "empty.",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 55.540000915527344,
+        "end_sec": 55.779998779296875,
+        "text": "We",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 55.779998779296875,
+        "end_sec": 55.959999084472656,
+        "text": "saw",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 55.959999084472656,
+        "end_sec": 56.060001373291016,
+        "text": "that",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 56.060001373291016,
+        "end_sec": 56.380001068115234,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 56.380001068115234,
+        "end_sec": 56.79999923706055,
+        "text": "shrinking",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 56.79999923706055,
+        "end_sec": 57.2599983215332,
+        "text": "argument",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 57.2599983215332,
+        "end_sec": 57.399,
+        "text": "works",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 57.399,
+        "end_sec": 57.4,
+        "text": "for",
+        "speaker": null,
+        "confidence": 0.0027601801737338694
+      },
+      {
+        "start_sec": 57.91999816894531,
+        "end_sec": 58.7599983215332,
+        "text": "triangles:",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 58.7599983215332,
+        "end_sec": 59.040000915527344,
+        "text": "around",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 59.040000915527344,
+        "end_sec": 59.36000061035156,
+        "text": "each",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 59.36000061035156,
+        "end_sec": 59.68000030517578,
+        "text": "one",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 59.68000030517578,
+        "end_sec": 60.060001373291016,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 60.060001373291016,
+        "end_sec": 60.34000015258789,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 60.34000015258789,
+        "end_sec": 60.68000030517578,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 60.68000030517578,
+        "end_sec": 61.7599983215332,
+        "text": "zero.",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 61.7599983215332,
+        "end_sec": 62.099998474121094,
+        "text": "Now",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 62.099998474121094,
+        "end_sec": 62.31999969482422,
+        "text": "add",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 62.31999969482422,
+        "end_sec": 62.619998931884766,
+        "text": "up",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 62.619998931884766,
+        "end_sec": 62.81999969482422,
+        "text": "all",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 62.81999969482422,
+        "end_sec": 63.2599983215332,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 63.2599983215332,
+        "end_sec": 64.33999633789062,
+        "text": "triangles.",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 64.33999633789062,
+        "end_sec": 64.69999694824219,
+        "text": "Every",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 64.69999694824219,
+        "end_sec": 65.079,
+        "text": "inside",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 65.079,
+        "end_sec": 65.08,
+        "text": "edge",
+        "speaker": null,
+        "confidence": 0.0025645986935777993
+      },
+      {
+        "start_sec": 65.27999877929688,
+        "end_sec": 65.54000091552734,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 65.54000091552734,
+        "end_sec": 66.0199966430664,
+        "text": "walked",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 66.0199966430664,
+        "end_sec": 66.44000244140625,
+        "text": "twice",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 66.44000244140625,
+        "end_sec": 66.73999786376953,
+        "text": "in",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 66.73999786376953,
+        "end_sec": 67.30000305175781,
+        "text": "opposite",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 67.30000305175781,
+        "end_sec": 67.83999633789062,
+        "text": "directions,",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 67.83999633789062,
+        "end_sec": 68.04000091552734,
+        "text": "so",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 68.04000091552734,
+        "end_sec": 68.4000015258789,
+        "text": "those",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 68.4000015258789,
+        "end_sec": 68.81999969482422,
+        "text": "parts",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 68.81999969482422,
+        "end_sec": 69.77999877929688,
+        "text": "cancel.",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 69.77999877929688,
+        "end_sec": 70.27999877929688,
+        "text": "What",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 70.27999877929688,
+        "end_sec": 70.5,
+        "text": "survives",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 70.5,
+        "end_sec": 70.65999603271484,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 70.65999603271484,
+        "end_sec": 70.95999908447266,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 70.95999908447266,
+        "end_sec": 71.5,
+        "text": "outer",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 71.5,
+        "end_sec": 71.72,
+        "text": "polygon",
+        "speaker": null,
+        "confidence": 0.0028694092717123074
+      },
+      {
+        "start_sec": 72.04000091552734,
+        "end_sec": 73.05999755859375,
+        "text": "counterclockwise",
+        "speaker": null,
+        "confidence": 0.002631264876569402
+      },
+      {
+        "start_sec": 73.05999755859375,
+        "end_sec": 73.18000030517578,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.002631264876569402
+      },
+      {
+        "start_sec": 73.18000030517578,
+        "end_sec": 73.41999816894531,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002631264876569402
+      },
+      {
+        "start_sec": 73.41999816894531,
+        "end_sec": 73.95999908447266,
+        "text": "inner",
+        "speaker": null,
+        "confidence": 0.002631264876569402
+      },
+      {
+        "start_sec": 73.95999908447266,
+        "end_sec": 74.5,
+        "text": "polygon",
+        "speaker": null,
+        "confidence": 0.002631264876569402
+      },
+      {
+        "start_sec": 74.5,
+        "end_sec": 75.5199966430664,
+        "text": "clockwise,",
+        "speaker": null,
+        "confidence": 0.002631264876569402
+      },
+      {
+        "start_sec": 75.5199966430664,
+        "end_sec": 75.68000030517578,
+        "text": "so",
+        "speaker": null,
+        "confidence": 0.002631264876569402
+      },
+      {
+        "start_sec": 75.68000030517578,
+        "end_sec": 75.86000061035156,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002631264876569402
+      },
+      {
+        "start_sec": 75.86000061035156,
+        "end_sec": 76.18000030517578,
+        "text": "two",
+        "speaker": null,
+        "confidence": 0.002631264876569402
+      },
+      {
+        "start_sec": 76.18000030517578,
+        "end_sec": 77.0199966430664,
+        "text": "polygons,",
+        "speaker": null,
+        "confidence": 0.002631264876569402
+      },
+      {
+        "start_sec": 77.0199966430664,
+        "end_sec": 77.33999633789062,
+        "text": "both",
+        "speaker": null,
+        "confidence": 0.002631264876569402
+      },
+      {
+        "start_sec": 77.33999633789062,
+        "end_sec": 77.68000030517578,
+        "text": "walked",
+        "speaker": null,
+        "confidence": 0.002631264876569402
+      },
+      {
+        "start_sec": 77.68000030517578,
+        "end_sec": 78.44,
+        "text": "counterclockwise,",
+        "speaker": null,
+        "confidence": 0.002631264876569402
+      },
+      {
+        "start_sec": 78.44000244140625,
+        "end_sec": 78.86000061035156,
+        "text": "have",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 78.86000061035156,
+        "end_sec": 79.22000122070312,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 79.22000122070312,
+        "end_sec": 79.72000122070312,
+        "text": "same",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 79.72000122070312,
+        "end_sec": 80.83999633789062,
+        "text": "integral.",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 80.83999633789062,
+        "end_sec": 81.0999984741211,
+        "text": "Now",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 81.0999984741211,
+        "end_sec": 81.23999786376953,
+        "text": "keep",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 81.23999786376953,
+        "end_sec": 81.54000091552734,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 81.54000091552734,
+        "end_sec": 81.94000244140625,
+        "text": "small",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 81.94000244140625,
+        "end_sec": 82.45999908447266,
+        "text": "circle",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 82.45999908447266,
+        "end_sec": 82.86000061035156,
+        "text": "fixed",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 82.86000061035156,
+        "end_sec": 83.04000091552734,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 83.04000091552734,
+        "end_sec": 83.15999603271484,
+        "text": "give",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 83.15999603271484,
+        "end_sec": 83.4000015258789,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 83.4000015258789,
+        "end_sec": 83.95999908447266,
+        "text": "polygons",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 83.95999908447266,
+        "end_sec": 84.13999938964844,
+        "text": "more",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 84.13999938964844,
+        "end_sec": 84.31999969482422,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 84.31999969482422,
+        "end_sec": 84.83999633789062,
+        "text": "more",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 84.83999633789062,
+        "end_sec": 85.23999786376953,
+        "text": "sides",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 85.23999786376953,
+        "end_sec": 85.37999725341797,
+        "text": "so",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 85.37999725341797,
+        "end_sec": 85.68000030517578,
+        "text": "they",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 85.68000030517578,
+        "end_sec": 85.87999725341797,
+        "text": "hug",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 85.87999725341797,
+        "end_sec": 86.31999969482422,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 86.31999969482422,
+        "end_sec": 87.33999633789062,
+        "text": "circles.",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 87.33999633789062,
+        "end_sec": 87.73999786376953,
+        "text": "Each",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 87.73999786376953,
+        "end_sec": 88.12000274658203,
+        "text": "short",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 88.12000274658203,
+        "end_sec": 88.30000305175781,
+        "text": "chord",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 88.30000305175781,
+        "end_sec": 88.44000244140625,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 88.44000244140625,
+        "end_sec": 88.73999786376953,
+        "text": "its",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 88.73999786376953,
+        "end_sec": 89.15999603271484,
+        "text": "arc",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 89.15999603271484,
+        "end_sec": 89.37999725341797,
+        "text": "share",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 89.37999725341797,
+        "end_sec": 89.5999984741211,
+        "text": "their",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 89.5999984741211,
+        "end_sec": 90.4800033569336,
+        "text": "endpoints,",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 90.4800033569336,
+        "end_sec": 90.63999938964844,
+        "text": "so",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 90.63999938964844,
+        "end_sec": 91.0,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 91.0,
+        "end_sec": 91.26000213623047,
+        "text": "constant",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 91.26000213623047,
+        "end_sec": 91.41999816894531,
+        "text": "has",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 91.41999816894531,
+        "end_sec": 91.69999694824219,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 91.69999694824219,
+        "end_sec": 92.15999603271484,
+        "text": "same",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 92.15999603271484,
+        "end_sec": 92.5199966430664,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 92.5199966430664,
+        "end_sec": 92.86000061035156,
+        "text": "along",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 92.86000061035156,
+        "end_sec": 93.83999633789062,
+        "text": "both.",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 93.83999633789062,
+        "end_sec": 94.19999694824219,
+        "text": "The",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 94.19999694824219,
+        "end_sec": 94.54000091552734,
+        "text": "difference",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 94.54000091552734,
+        "end_sec": 94.91999816894531,
+        "text": "comes",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 94.91999816894531,
+        "end_sec": 95.0999984741211,
+        "text": "only",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 95.0999984741211,
+        "end_sec": 95.31999969482422,
+        "text": "from",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 95.31999969482422,
+        "end_sec": 95.55999755859375,
+        "text": "how",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 95.55999755859375,
+        "end_sec": 95.76000213623047,
+        "text": "much",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 95.76000213623047,
+        "end_sec": 96.05999755859375,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 96.05999755859375,
+        "end_sec": 96.47999572753906,
+        "text": "quotient",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 96.47999572753906,
+        "end_sec": 96.97999572753906,
+        "text": "wobbles",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 96.97999572753906,
+        "end_sec": 97.45999908447266,
+        "text": "there,",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 97.45999908447266,
+        "end_sec": 97.62000274658203,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 97.62000274658203,
+        "end_sec": 98.0199966430664,
+        "text": "its",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 98.0199966430664,
+        "end_sec": 98.23999786376953,
+        "text": "size",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 98.23999786376953,
+        "end_sec": 98.36000061035156,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 98.36000061035156,
+        "end_sec": 98.76000213623047,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 98.76000213623047,
+        "end_sec": 99.0999984741211,
+        "text": "most",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 99.0999984741211,
+        "end_sec": 99.37999725341797,
+        "text": "that",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 99.37999725341797,
+        "end_sec": 99.95999908447266,
+        "text": "wobble",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 99.95999908447266,
+        "end_sec": 100.19999694824219,
+        "text": "times",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 100.19999694824219,
+        "end_sec": 100.62000274658203,
+        "text": "their",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 100.62000274658203,
+        "end_sec": 101.04000091552734,
+        "text": "combined",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 101.04000091552734,
+        "end_sec": 102.12000274658203,
+        "text": "length.",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 102.12000274658203,
+        "end_sec": 102.76000213623047,
+        "text": "Continuity",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 102.76000213623047,
+        "end_sec": 103.19999694824219,
+        "text": "makes",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 103.19999694824219,
+        "end_sec": 103.44000244140625,
+        "text": "every",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 103.44000244140625,
+        "end_sec": 103.97999572753906,
+        "text": "wobble",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 103.97999572753906,
+        "end_sec": 104.23999786376953,
+        "text": "small",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 104.23999786376953,
+        "end_sec": 104.62000274658203,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 104.62000274658203,
+        "end_sec": 105.05999755859375,
+        "text": "once,",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 105.05999755859375,
+        "end_sec": 105.19999694824219,
+        "text": "while",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 105.19999694824219,
+        "end_sec": 105.5,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 105.5,
+        "end_sec": 105.83999633789062,
+        "text": "total",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 105.83999633789062,
+        "end_sec": 106.26000213623047,
+        "text": "length",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 106.26000213623047,
+        "end_sec": 106.72000122070312,
+        "text": "stays",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 106.72000122070312,
+        "end_sec": 107.5199966430664,
+        "text": "bounded.",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 107.5199966430664,
+        "end_sec": 107.68000030517578,
+        "text": "So",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 107.68000030517578,
+        "end_sec": 107.79999542236328,
+        "text": "in",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 107.79999542236328,
+        "end_sec": 108.0999984741211,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 108.0999984741211,
+        "end_sec": 108.36,
+        "text": "limit,",
+        "speaker": null,
+        "confidence": 0.0028542131326674755
+      },
+      {
+        "start_sec": 108.36000061035156,
+        "end_sec": 108.80000305175781,
+        "text": "The",
+        "speaker": null,
+        "confidence": 0.0026438765239279747
+      },
+      {
+        "start_sec": 108.80000305175781,
+        "end_sec": 109.16000366210938,
+        "text": "big",
+        "speaker": null,
+        "confidence": 0.0026438765239279747
+      },
+      {
+        "start_sec": 109.16000366210938,
+        "end_sec": 109.63999938964844,
+        "text": "circle's",
+        "speaker": null,
+        "confidence": 0.0026438765239279747
+      },
+      {
+        "start_sec": 109.63999938964844,
+        "end_sec": 110.16000366210938,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.0026438765239279747
+      },
+      {
+        "start_sec": 110.16000366210938,
+        "end_sec": 110.4000015258789,
+        "text": "equals",
+        "speaker": null,
+        "confidence": 0.0026438765239279747
+      },
+      {
+        "start_sec": 110.4000015258789,
+        "end_sec": 110.68000030517578,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0026438765239279747
+      },
+      {
+        "start_sec": 110.68000030517578,
+        "end_sec": 111.22000122070312,
+        "text": "small",
+        "speaker": null,
+        "confidence": 0.0026438765239279747
+      },
+      {
+        "start_sec": 111.22000122070312,
+        "end_sec": 111.80000305175781,
+        "text": "circles,",
+        "speaker": null,
+        "confidence": 0.0026438765239279747
+      },
+      {
+        "start_sec": 111.80000305175781,
+        "end_sec": 112.16000366210938,
+        "text": "both",
+        "speaker": null,
+        "confidence": 0.0026438765239279747
+      },
+      {
+        "start_sec": 112.16000366210938,
+        "end_sec": 112.5,
+        "text": "walked",
+        "speaker": null,
+        "confidence": 0.0026438765239279747
+      },
+      {
+        "start_sec": 112.5,
+        "end_sec": 114.12,
+        "text": "counterclockwise.",
+        "speaker": null,
+        "confidence": 0.0026438765239279747
+      },
+      {
+        "start_sec": 114.15999603271484,
+        "end_sec": 114.5,
+        "text": "That",
+        "speaker": null,
+        "confidence": 0.002866306455219107
+      },
+      {
+        "start_sec": 114.5,
+        "end_sec": 114.72000122070312,
+        "text": "holds",
+        "speaker": null,
+        "confidence": 0.002866306455219107
+      },
+      {
+        "start_sec": 114.72000122070312,
+        "end_sec": 115.0999984741211,
+        "text": "for",
+        "speaker": null,
+        "confidence": 0.002866306455219107
+      },
+      {
+        "start_sec": 115.0999984741211,
+        "end_sec": 115.45999908447266,
+        "text": "every",
+        "speaker": null,
+        "confidence": 0.002866306455219107
+      },
+      {
+        "start_sec": 115.45999908447266,
+        "end_sec": 115.91999816894531,
+        "text": "small",
+        "speaker": null,
+        "confidence": 0.002866306455219107
+      },
+      {
+        "start_sec": 115.91999816894531,
+        "end_sec": 116.88,
+        "text": "radius.",
+        "speaker": null,
+        "confidence": 0.002866306455219107
+      },
+      {
+        "start_sec": 116.94000244140625,
+        "end_sec": 117.26000213623047,
+        "text": "Only",
+        "speaker": null,
+        "confidence": 0.0029147381178092372
+      },
+      {
+        "start_sec": 117.26000213623047,
+        "end_sec": 117.5,
+        "text": "now",
+        "speaker": null,
+        "confidence": 0.0029147381178092372
+      },
+      {
+        "start_sec": 117.5,
+        "end_sec": 117.5999984741211,
+        "text": "do",
+        "speaker": null,
+        "confidence": 0.0029147381178092372
+      },
+      {
+        "start_sec": 117.5999984741211,
+        "end_sec": 117.95999908447266,
+        "text": "we",
+        "speaker": null,
+        "confidence": 0.0029147381178092372
+      },
+      {
+        "start_sec": 117.95999908447266,
+        "end_sec": 118.18000030517578,
+        "text": "shrink",
+        "speaker": null,
+        "confidence": 0.0029147381178092372
+      },
+      {
+        "start_sec": 118.18000030517578,
+        "end_sec": 118.41999816894531,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0029147381178092372
+      },
+      {
+        "start_sec": 118.41999816894531,
+        "end_sec": 118.87999725341797,
+        "text": "small",
+        "speaker": null,
+        "confidence": 0.0029147381178092372
+      },
+      {
+        "start_sec": 118.87999725341797,
+        "end_sec": 119.58,
+        "text": "circle.",
+        "speaker": null,
+        "confidence": 0.0029147381178092372
+      },
+      {
+        "start_sec": 119.66000366210938,
+        "end_sec": 120.08000183105469,
+        "text": "The",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 120.08000183105469,
+        "end_sec": 120.31999969482422,
+        "text": "magnitude",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 120.31999969482422,
+        "end_sec": 120.44000244140625,
+        "text": "of",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 120.44000244140625,
+        "end_sec": 120.80000305175781,
+        "text": "its",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 120.80000305175781,
+        "end_sec": 121.08000183105469,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 121.08000183105469,
+        "end_sec": 121.19999694824219,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 121.19999694824219,
+        "end_sec": 121.58000183105469,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 121.58000183105469,
+        "end_sec": 121.77999877929688,
+        "text": "most",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 121.77999877929688,
+        "end_sec": 122.04000091552734,
+        "text": "its",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 122.04000091552734,
+        "end_sec": 123.04000091552734,
+        "text": "circumference:",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 123.04000091552734,
+        "end_sec": 123.65999603271484,
+        "text": "2pi",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 123.65999603271484,
+        "end_sec": 123.81999969482422,
+        "text": "times",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 123.81999969482422,
+        "end_sec": 124.26000213623047,
+        "text": "its",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 124.26000213623047,
+        "end_sec": 124.9000015258789,
+        "text": "radius",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 124.9000015258789,
+        "end_sec": 124.92,
+        "text": "times",
+        "speaker": null,
+        "confidence": 0.0026211319042564376
+      },
+      {
+        "start_sec": 125.15999603271484,
+        "end_sec": 125.55999755859375,
+        "text": "that",
+        "speaker": null,
+        "confidence": 0.0027969126504396855
+      },
+      {
+        "start_sec": 125.55999755859375,
+        "end_sec": 126.08000183105469,
+        "text": "bound,",
+        "speaker": null,
+        "confidence": 0.0027969126504396855
+      },
+      {
+        "start_sec": 126.08000183105469,
+        "end_sec": 126.37999725341797,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0027969126504396855
+      },
+      {
+        "start_sec": 126.37999725341797,
+        "end_sec": 126.65999603271484,
+        "text": "that",
+        "speaker": null,
+        "confidence": 0.0027969126504396855
+      },
+      {
+        "start_sec": 126.65999603271484,
+        "end_sec": 126.81999969482422,
+        "text": "goes",
+        "speaker": null,
+        "confidence": 0.0027969126504396855
+      },
+      {
+        "start_sec": 126.81999969482422,
+        "end_sec": 127.13999938964844,
+        "text": "to",
+        "speaker": null,
+        "confidence": 0.0027969126504396855
+      },
+      {
+        "start_sec": 127.13999938964844,
+        "end_sec": 128.0,
+        "text": "zero.",
+        "speaker": null,
+        "confidence": 0.0027969126504396855
+      },
+      {
+        "start_sec": 128.0399932861328,
+        "end_sec": 128.16000366210938,
+        "text": "But",
+        "speaker": null,
+        "confidence": 0.002919666197267705
+      },
+      {
+        "start_sec": 128.16000366210938,
+        "end_sec": 128.36000061035156,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002919666197267705
+      },
+      {
+        "start_sec": 128.36000061035156,
+        "end_sec": 128.74000549316406,
+        "text": "big",
+        "speaker": null,
+        "confidence": 0.002919666197267705
+      },
+      {
+        "start_sec": 128.74000549316406,
+        "end_sec": 129.1999969482422,
+        "text": "circle's",
+        "speaker": null,
+        "confidence": 0.002919666197267705
+      },
+      {
+        "start_sec": 129.1999969482422,
+        "end_sec": 129.5,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.002919666197267705
+      },
+      {
+        "start_sec": 129.5,
+        "end_sec": 130.0399932861328,
+        "text": "never",
+        "speaker": null,
+        "confidence": 0.002919666197267705
+      },
+      {
+        "start_sec": 130.0399932861328,
+        "end_sec": 130.52000427246094,
+        "text": "changed,",
+        "speaker": null,
+        "confidence": 0.002919666197267705
+      },
+      {
+        "start_sec": 130.52000427246094,
+        "end_sec": 130.74000549316406,
+        "text": "so",
+        "speaker": null,
+        "confidence": 0.002919666197267705
+      },
+      {
+        "start_sec": 130.74000549316406,
+        "end_sec": 130.9199981689453,
+        "text": "it",
+        "speaker": null,
+        "confidence": 0.002919666197267705
+      },
+      {
+        "start_sec": 130.9199981689453,
+        "end_sec": 131.05999755859375,
+        "text": "must",
+        "speaker": null,
+        "confidence": 0.002919666197267705
+      },
+      {
+        "start_sec": 131.05999755859375,
+        "end_sec": 131.3800048828125,
+        "text": "be",
+        "speaker": null,
+        "confidence": 0.002919666197267705
+      },
+      {
+        "start_sec": 131.3800048828125,
+        "end_sec": 132.16,
+        "text": "zero.",
+        "speaker": null,
+        "confidence": 0.002919666197267705
+      },
+      {
+        "start_sec": 132.25999450683594,
+        "end_sec": 132.5399932861328,
+        "text": "The",
+        "speaker": null,
+        "confidence": 0.002504496687293896
+      },
+      {
+        "start_sec": 132.5399932861328,
+        "end_sec": 132.8800048828125,
+        "text": "second",
+        "speaker": null,
+        "confidence": 0.002504496687293896
+      },
+      {
+        "start_sec": 132.8800048828125,
+        "end_sec": 133.27999877929688,
+        "text": "piece",
+        "speaker": null,
+        "confidence": 0.002504496687293896
+      },
+      {
+        "start_sec": 133.27999877929688,
+        "end_sec": 133.8199920654297,
+        "text": "contributes",
+        "speaker": null,
+        "confidence": 0.002504496687293896
+      },
+      {
+        "start_sec": 133.8199920654297,
+        "end_sec": 134.44000244140625,
+        "text": "nothing,",
+        "speaker": null,
+        "confidence": 0.002504496687293896
+      },
+      {
+        "start_sec": 134.44000244140625,
+        "end_sec": 134.55999755859375,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.002504496687293896
+      },
+      {
+        "start_sec": 134.55999755859375,
+        "end_sec": 134.77999877929688,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002504496687293896
+      },
+      {
+        "start_sec": 134.77999877929688,
+        "end_sec": 135.16000366210938,
+        "text": "loop",
+        "speaker": null,
+        "confidence": 0.002504496687293896
+      },
+      {
+        "start_sec": 135.16000366210938,
+        "end_sec": 135.47999572753906,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.002504496687293896
+      },
+      {
+        "start_sec": 135.47999572753906,
+        "end_sec": 135.74000549316406,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.002504496687293896
+      },
+      {
+        "start_sec": 135.74000549316406,
+        "end_sec": 136.6199951171875,
+        "text": "2pi",
+        "speaker": null,
+        "confidence": 0.002504496687293896
+      },
+      {
+        "start_sec": 136.6199951171875,
+        "end_sec": 137.05999755859375,
+        "text": "times",
+        "speaker": null,
+        "confidence": 0.002504496687293896
+      },
+      {
+        "start_sec": 137.05999755859375,
+        "end_sec": 137.3199920654297,
+        "text": "f",
+        "speaker": null,
+        "confidence": 0.002504496687293896
+      },
+      {
+        "start_sec": 137.3199920654297,
+        "end_sec": 137.67,
+        "text": ".",
+        "speaker": null,
+        "confidence": 0.002504496687293896
+      }
+    ],
+    "acceleration": {
+      "backend": "none",
+      "input_values": 361,
+      "normalized_confidences": true,
+      "pre_mass": 338.97385436831826,
+      "post_mass": 0.9999999999999963,
+      "notes": [
+        "using deterministic CPU normalization"
+      ]
+    },
+    "raw_output": {
+      "engine": "whisper.cpp-native",
+      "schema_version": "native-v2",
+      "in_process": true,
+      "implementation": "real-inference",
+      "silence": false,
+      "model": "/Users/jemanuel/.cache/franken_whisper/models/whisper/whisper-large-v3-turbo-f16-v1/ggml-large-v3-turbo.bin",
+      "model_path": "/Users/jemanuel/.cache/franken_whisper/models/whisper/whisper-large-v3-turbo-f16-v1/ggml-large-v3-turbo.bin",
+      "model_version_tag": "fw-native-v1+sha256:1fc70f774d38",
+      "encoder_int8_policy": {
+        "action": "f32",
+        "reason": "operator_f32_kill_switch",
+        "calibration_id": "encoder-int8-calibration-2026-07-10",
+        "corpus_wer_delta_budget": 0.0,
+        "quant_rel_rmse_budget": 0.09
+      },
+      "windows": [
+        {
+          "window_offset_sec": 0.0,
+          "tokens": 100,
+          "avg_logprob": -0.16289203643798827,
+          "no_speech_prob": 1.0454541399251838e-10
+        },
+        {
+          "window_offset_sec": 26.6,
+          "tokens": 99,
+          "avg_logprob": -0.06516948854080354,
+          "no_speech_prob": 2.8089648662632527e-11
+        },
+        {
+          "window_offset_sec": 52.2,
+          "tokens": 84,
+          "avg_logprob": -0.1285094420115153,
+          "no_speech_prob": 3.704101608770216e-11
+        },
+        {
+          "window_offset_sec": 78.44,
+          "tokens": 101,
+          "avg_logprob": -0.06151766824250174,
+          "no_speech_prob": 1.9513855809005776e-10
+        },
+        {
+          "window_offset_sec": 108.36,
+          "tokens": 103,
+          "avg_logprob": -0.16503721070521085,
+          "no_speech_prob": 1.0998643662496477e-10
+        }
+      ],
+      "dropped_windows": [],
+      "decode_work": {
+        "prompt_reset_retries": 2,
+        "temperature_fallback_retries": 0
+      },
+      "word_timestamps": "dtw",
+      "projection_timeline": {
+        "schema_version": "dtw-projection-v2",
+        "unit": "seconds",
+        "interval_semantics": "half_open",
+        "timestamp_epsilon_sec": 1e-6,
+        "minimum_duration_sec": 0.001,
+        "input_engine_segments": 20,
+        "input_timed_segments": 20,
+        "canonical_units": 361,
+        "output_segments": 361,
+        "decoder_word_units": 361,
+        "interpolated_fallback_units": 0,
+        "segment_geometry_fallback_units": 0,
+        "interpolated_fallback_segments": 0,
+        "segment_geometry_fallback_segments": 0,
+        "clamped_units": 6,
+        "expanded_units": 3,
+        "fallback_reasons": [],
+        "word_aligned_safe": true,
+        "supported_provenance": [
+          "decoder_word_timestamp",
+          "segment_interpolation_fallback",
+          "segment_geometry_fallback"
+        ]
+      },
+      "encoder_route": "gpu_fused_stem"
+    },
+    "artifact_paths": []
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts_rfc3339": "2026-11-07T14:50:21.049487+00:00",
+      "stage": "orchestration",
+      "code": "orchestration.budgets",
+      "message": "applied per-stage orchestration budgets",
+      "payload": {
+        "stage_budgets": {
+          "ingest_ms": 15000,
+          "normalize_ms": 180000,
+          "probe_ms": 8000,
+          "vad_ms": 10000,
+          "separate_ms": 30000,
+          "backend_ms": 900000,
+          "acceleration_ms": 20000,
+          "align_ms": 30000,
+          "punctuate_ms": 10000,
+          "diarize_ms": 900000,
+          "persist_ms": 20000,
+          "cleanup_budget_ms": 5000,
+          "overrides": [
+            "FRANKEN_WHISPER_STAGE_BUDGET_INGEST_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_NORMALIZE_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_PROBE_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_VAD_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_SEPARATE_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_BACKEND_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_ACCELERATION_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_ALIGN_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_PUNCTUATE_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_DIARIZE_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_PERSIST_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_CLEANUP_MS"
+          ]
+        },
+        "request_timeout_ms": 600000,
+        "pipeline_stages": [
+          "ingest",
+          "normalize",
+          "vad",
+          "separate",
+          "backend",
+          "acceleration",
+          "align",
+          "punctuate",
+          "diarize",
+          "persist"
+        ],
+        "safe_mode": "deterministic configurable stage order",
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074"
+      }
+    },
+    {
+      "seq": 2,
+      "ts_rfc3339": "2026-11-07T14:50:21.049496+00:00",
+      "stage": "ingest",
+      "code": "ingest.start",
+      "message": "materializing input",
+      "payload": {
+        "input": {
+          "kind": "file",
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw09_1-ui01/ElevenLabs_2026-11-07T14_45_50_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4.wav"
+        },
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 3,
+      "ts_rfc3339": "2026-11-07T14:50:21.049568+00:00",
+      "stage": "ingest",
+      "code": "ingest.ok",
+      "message": "input materialized",
+      "payload": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw09_1-ui01/ElevenLabs_2026-11-07T14_45_50_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4.wav",
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 4,
+      "ts_rfc3339": "2026-11-07T14:50:21.049572+00:00",
+      "stage": "normalize",
+      "code": "normalize.start",
+      "message": "normalizing to 16kHz mono wav",
+      "payload": {
+        "input": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw09_1-ui01/ElevenLabs_2026-11-07T14_45_50_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4.wav",
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 5,
+      "ts_rfc3339": "2026-11-07T14:50:21.085459+00:00",
+      "stage": "normalize",
+      "code": "normalize.ok",
+      "message": "audio normalized",
+      "payload": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/.franken_whisper/tmp/fw-run-oSGO0u/normalized_16k_mono.wav",
+        "duration_seconds": 137.68,
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 35
+      }
+    },
+    {
+      "seq": 6,
+      "ts_rfc3339": "2026-11-07T14:50:21.095805+00:00",
+      "stage": "vad",
+      "code": "vad.skip",
+      "message": "skipping vad stage",
+      "payload": {
+        "reason": "no_vad_requested",
+        "details": {
+          "requested": false
+        },
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 46
+      }
+    },
+    {
+      "seq": 7,
+      "ts_rfc3339": "2026-11-07T14:50:21.095808+00:00",
+      "stage": "separate",
+      "code": "separate.skip",
+      "message": "skipping separate stage",
+      "payload": {
+        "reason": "diarization_not_requested",
+        "details": {
+          "diarize": false
+        },
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 46
+      }
+    },
+    {
+      "seq": 8,
+      "ts_rfc3339": "2026-11-07T14:50:21.095819+00:00",
+      "stage": "backend",
+      "code": "backend.start",
+      "message": "executing backend",
+      "payload": {
+        "requested_backend": "whisper_cpp",
+        "budget_ms": 900000,
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 9,
+      "ts_rfc3339": "2026-11-07T14:50:28.309361+00:00",
+      "stage": "backend",
+      "code": "backend.ok",
+      "message": "backend completed",
+      "payload": {
+        "resolved_backend": "whisper_cpp",
+        "segments": 361,
+        "engine_identity": "whisper.cpp-native",
+        "engine_version": "native-pilot-v1/0.9.2",
+        "implementation": "native",
+        "execution_mode": "native_only",
+        "native_rollout_stage": "sole",
+        "native_fallback_error": null,
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 7213
+      }
+    },
+    {
+      "seq": 10,
+      "ts_rfc3339": "2026-11-07T14:50:28.309387+00:00",
+      "stage": "replay",
+      "code": "replay.envelope",
+      "message": "captured deterministic replay envelope metadata",
+      "payload": {
+        "normalized_input_sha256": "f505a8d5fa90210ac7ef1fc1ef8f5b4b0393aa96775a3a679ccbe030e20c646e",
+        "backend_output_sha256": "2529b15787df38c3c7bee7aa432a0fcda65365cc6d31c72f4274c16409535cd2",
+        "backend": "whisper_cpp",
+        "engine_identity": "whisper.cpp-native",
+        "engine_version": "native-pilot-v1/0.9.2",
+        "implementation": "native",
+        "execution_mode": "native_only",
+        "native_rollout_stage": "sole",
+        "native_fallback_error": null,
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 7213
+      }
+    },
+    {
+      "seq": 11,
+      "ts_rfc3339": "2026-11-07T14:50:28.309390+00:00",
+      "stage": "acceleration",
+      "code": "acceleration.start",
+      "message": "running confidence normalization",
+      "payload": {
+        "implementation": "cpu_mass_normalization",
+        "segments": 361,
+        "budget_ms": 20000,
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 12,
+      "ts_rfc3339": "2026-11-07T14:50:28.309457+00:00",
+      "stage": "acceleration",
+      "code": "acceleration.context",
+      "message": "captured acceleration execution context",
+      "payload": {
+        "mode": "cpu_normalization",
+        "acceleration_backend": "none",
+        "logical_stream_kind": "cpu_lane",
+        "logical_stream_owner_id": "01a1b67d33f94c799748fbcd7d1a1074:acceleration:none:cpu",
+        "requested_gpu_device": null,
+        "flash_attention_requested": null,
+        "cancellation_fence": {
+          "status": "open",
+          "checked_at_rfc3339": "2026-11-07T14:50:28.309436+00:00",
+          "budget_remaining_ms": 600000,
+          "error": null,
+          "error_code": null
+        },
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 13,
+      "ts_rfc3339": "2026-11-07T14:50:28.309458+00:00",
+      "stage": "acceleration",
+      "code": "acceleration.ok",
+      "message": "confidence normalization finished",
+      "payload": {
+        "backend": "none",
+        "normalized": true,
+        "pre_mass": 338.97385436831826,
+        "post_mass": 0.9999999999999963,
+        "notes": [
+          "using deterministic CPU normalization"
+        ],
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 14,
+      "ts_rfc3339": "2026-11-07T14:50:28.309461+00:00",
+      "stage": "align",
+      "code": "align.skip",
+      "message": "skipping align stage",
+      "payload": {
+        "reason": "alignment_not_requested",
+        "details": {
+          "diarize": false
+        },
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 15,
+      "ts_rfc3339": "2026-11-07T14:50:28.309463+00:00",
+      "stage": "punctuate",
+      "code": "punctuate.skip",
+      "message": "skipping punctuate stage",
+      "payload": {
+        "reason": "punctuation_not_requested",
+        "details": {
+          "diarize": false,
+          "punctuation_enabled": false
+        },
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 16,
+      "ts_rfc3339": "2026-11-07T14:50:28.309464+00:00",
+      "stage": "diarize",
+      "code": "diarize.skip",
+      "message": "skipping diarize stage",
+      "payload": {
+        "reason": "diarization_not_requested",
+        "details": {
+          "diarize": false
+        },
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 17,
+      "ts_rfc3339": "2026-11-07T14:50:28.309500+00:00",
+      "stage": "orchestration",
+      "code": "orchestration.latency_profile",
+      "message": "captured stage latency decomposition and budget tuning recommendations",
+      "payload": {
+        "artifact": "stage_latency_decomposition_v1",
+        "generated_at_rfc3339": "2026-11-07T14:50:28.309486+00:00",
+        "stages": {
+          "ingest": {
+            "queue_ms": 0,
+            "service_ms": 0,
+            "external_process_ms": 0,
+            "p50_ms": 0,
+            "p95_ms": 0,
+            "p99_ms": 0,
+            "budget_ms": 15000,
+            "utilization_ratio": 0.0,
+            "tuning_action": "decrease_budget_candidate",
+            "tuning_reason": "observed service is far below budget ceiling",
+            "recommended_budget_ms": 1000
+          },
+          "normalize": {
+            "queue_ms": 0,
+            "service_ms": 35,
+            "external_process_ms": 35,
+            "p50_ms": 35,
+            "p95_ms": 35,
+            "p99_ms": 35,
+            "budget_ms": 180000,
+            "utilization_ratio": 0.00019444444444444443,
+            "tuning_action": "decrease_budget_candidate",
+            "tuning_reason": "observed service is far below budget ceiling",
+            "recommended_budget_ms": 1000
+          },
+          "backend": {
+            "queue_ms": 10,
+            "service_ms": 7213,
+            "external_process_ms": 7213,
+            "p50_ms": 7213,
+            "p95_ms": 7213,
+            "p99_ms": 7213,
+            "budget_ms": 900000,
+            "utilization_ratio": 0.008014444444444444,
+            "tuning_action": "decrease_budget_candidate",
+            "tuning_reason": "observed service is far below budget ceiling",
+            "recommended_budget_ms": 11541
+          },
+          "acceleration": {
+            "queue_ms": 0,
+            "service_ms": 0,
+            "external_process_ms": 0,
+            "p50_ms": 0,
+            "p95_ms": 0,
+            "p99_ms": 0,
+            "budget_ms": 20000,
+            "utilization_ratio": 0.0,
+            "tuning_action": "decrease_budget_candidate",
+            "tuning_reason": "observed service is far below budget ceiling",
+            "recommended_budget_ms": 1000
+          }
+        },
+        "summary": {
+          "observed_stages": 4,
+          "queue_total_ms": 10,
+          "service_total_ms": 7248,
+          "external_process_total_ms": 7248
+        },
+        "budget_tuning": {
+          "policy": "heuristic_v1",
+          "target_utilization_band": {
+            "min": 0.3,
+            "max": 0.9
+          },
+          "recommendations": [
+            {
+              "stage": "ingest",
+              "action": "decrease_budget_candidate",
+              "current_budget_ms": 15000,
+              "recommended_budget_ms": 1000,
+              "utilization_ratio": 0.0,
+              "basis": {
+                "queue_ms": 0,
+                "service_ms": 0,
+                "external_process_ms": 0,
+                "p95_ms": 0,
+                "p99_ms": 0
+              }
+            },
+            {
+              "stage": "normalize",
+              "action": "decrease_budget_candidate",
+              "current_budget_ms": 180000,
+              "recommended_budget_ms": 1000,
+              "utilization_ratio": 0.00019444444444444443,
+              "basis": {
+                "queue_ms": 0,
+                "service_ms": 35,
+                "external_process_ms": 35,
+                "p95_ms": 35,
+                "p99_ms": 35
+              }
+            },
+            {
+              "stage": "backend",
+              "action": "decrease_budget_candidate",
+              "current_budget_ms": 900000,
+              "recommended_budget_ms": 11541,
+              "utilization_ratio": 0.008014444444444444,
+              "basis": {
+                "queue_ms": 10,
+                "service_ms": 7213,
+                "external_process_ms": 7213,
+                "p95_ms": 7213,
+                "p99_ms": 7213
+              }
+            },
+            {
+              "stage": "acceleration",
+              "action": "decrease_budget_candidate",
+              "current_budget_ms": 20000,
+              "recommended_budget_ms": 1000,
+              "utilization_ratio": 0.0,
+              "basis": {
+                "queue_ms": 0,
+                "service_ms": 0,
+                "external_process_ms": 0,
+                "p95_ms": 0,
+                "p99_ms": 0
+              }
+            }
+          ]
+        },
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 18,
+      "ts_rfc3339": "2026-11-07T14:50:28.309509+00:00",
+      "stage": "persist",
+      "code": "persist.skip",
+      "message": "skipping persistence stage",
+      "payload": {
+        "reason": "persist_disabled",
+        "details": {
+          "persist": false
+        },
+        "trace_id": "01a1b67d33f94c799748fbcd7d1a1074",
+        "elapsed_ms": 0
+      }
+    }
+  ],
+  "warnings": [
+    "using deterministic CPU normalization"
+  ],
+  "evidence": [
+    {
+      "mode": "cpu_normalization",
+      "acceleration_backend": "none",
+      "logical_stream_kind": "cpu_lane",
+      "logical_stream_owner_id": "01a1b67d33f94c799748fbcd7d1a1074:acceleration:none:cpu",
+      "requested_gpu_device": null,
+      "flash_attention_requested": null,
+      "cancellation_fence": {
+        "status": "open",
+        "checked_at_rfc3339": "2026-11-07T14:50:28.309436+00:00",
+        "budget_remaining_ms": 600000,
+        "error": null,
+        "error_code": null
+      }
+    },
+    {
+      "artifact": "stage_latency_decomposition_v1",
+      "generated_at_rfc3339": "2026-11-07T14:50:28.309486+00:00",
+      "stages": {
+        "ingest": {
+          "queue_ms": 0,
+          "service_ms": 0,
+          "external_process_ms": 0,
+          "p50_ms": 0,
+          "p95_ms": 0,
+          "p99_ms": 0,
+          "budget_ms": 15000,
+          "utilization_ratio": 0.0,
+          "tuning_action": "decrease_budget_candidate",
+          "tuning_reason": "observed service is far below budget ceiling",
+          "recommended_budget_ms": 1000
+        },
+        "normalize": {
+          "queue_ms": 0,
+          "service_ms": 35,
+          "external_process_ms": 35,
+          "p50_ms": 35,
+          "p95_ms": 35,
+          "p99_ms": 35,
+          "budget_ms": 180000,
+          "utilization_ratio": 0.00019444444444444443,
+          "tuning_action": "decrease_budget_candidate",
+          "tuning_reason": "observed service is far below budget ceiling",
+          "recommended_budget_ms": 1000
+        },
+        "backend": {
+          "queue_ms": 10,
+          "service_ms": 7213,
+          "external_process_ms": 7213,
+          "p50_ms": 7213,
+          "p95_ms": 7213,
+          "p99_ms": 7213,
+          "budget_ms": 900000,
+          "utilization_ratio": 0.008014444444444444,
+          "tuning_action": "decrease_budget_candidate",
+          "tuning_reason": "observed service is far below budget ceiling",
+          "recommended_budget_ms": 11541
+        },
+        "acceleration": {
+          "queue_ms": 0,
+          "service_ms": 0,
+          "external_process_ms": 0,
+          "p50_ms": 0,
+          "p95_ms": 0,
+          "p99_ms": 0,
+          "budget_ms": 20000,
+          "utilization_ratio": 0.0,
+          "tuning_action": "decrease_budget_candidate",
+          "tuning_reason": "observed service is far below budget ceiling",
+          "recommended_budget_ms": 1000
+        }
+      },
+      "summary": {
+        "observed_stages": 4,
+        "queue_total_ms": 10,
+        "service_total_ms": 7248,
+        "external_process_total_ms": 7248
+      },
+      "budget_tuning": {
+        "policy": "heuristic_v1",
+        "target_utilization_band": {
+          "min": 0.3,
+          "max": 0.9
+        },
+        "recommendations": [
+          {
+            "stage": "ingest",
+            "action": "decrease_budget_candidate",
+            "current_budget_ms": 15000,
+            "recommended_budget_ms": 1000,
+            "utilization_ratio": 0.0,
+            "basis": {
+              "queue_ms": 0,
+              "service_ms": 0,
+              "external_process_ms": 0,
+              "p95_ms": 0,
+              "p99_ms": 0
+            }
+          },
+          {
+            "stage": "normalize",
+            "action": "decrease_budget_candidate",
+            "current_budget_ms": 180000,
+            "recommended_budget_ms": 1000,
+            "utilization_ratio": 0.00019444444444444443,
+            "basis": {
+              "queue_ms": 0,
+              "service_ms": 35,
+              "external_process_ms": 35,
+              "p95_ms": 35,
+              "p99_ms": 35
+            }
+          },
+          {
+            "stage": "backend",
+            "action": "decrease_budget_candidate",
+            "current_budget_ms": 900000,
+            "recommended_budget_ms": 11541,
+            "utilization_ratio": 0.008014444444444444,
+            "basis": {
+              "queue_ms": 10,
+              "service_ms": 7213,
+              "external_process_ms": 7213,
+              "p95_ms": 7213,
+              "p99_ms": 7213
+            }
+          },
+          {
+            "stage": "acceleration",
+            "action": "decrease_budget_candidate",
+            "current_budget_ms": 20000,
+            "recommended_budget_ms": 1000,
+            "utilization_ratio": 0.0,
+            "basis": {
+              "queue_ms": 0,
+              "service_ms": 0,
+              "external_process_ms": 0,
+              "p95_ms": 0,
+              "p99_ms": 0
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "replay": {
+    "input_content_hash": "f505a8d5fa90210ac7ef1fc1ef8f5b4b0393aa96775a3a679ccbe030e20c646e",
+    "backend_identity": "whisper.cpp-native",
+    "backend_version": "native-pilot-v1/0.9.2",
+    "output_payload_hash": "2529b15787df38c3c7bee7aa432a0fcda65365cc6d31c72f4274c16409535cd2"
+  },
+  "acceleration_context": {
+    "mode": "cpu_normalization",
+    "acceleration_backend": "none",
+    "logical_stream_kind": "cpu_lane",
+    "logical_stream_owner_id": "01a1b67d33f94c799748fbcd7d1a1074:acceleration:none:cpu",
+    "requested_gpu_device": null,
+    "flash_attention_requested": null,
+    "cancellation_fence": {
+      "status": "open",
+      "checked_at_rfc3339": "2026-11-07T14:50:28.309436+00:00",
+      "budget_remaining_ms": 600000,
+      "error": null,
+      "error_code": null
+    }
+  }
+}

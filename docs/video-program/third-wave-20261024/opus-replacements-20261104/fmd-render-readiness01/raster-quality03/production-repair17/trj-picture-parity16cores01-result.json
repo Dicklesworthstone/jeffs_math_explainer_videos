@@ -1,0 +1,16 @@
+{
+  "binary_sha256": "8dc5e8c4f640b73d9e4e6c4575cb492ebcc0deb0c2de0a658bbccf40d46082d1",
+  "chapter": "04_reading_color",
+  "frames": 111,
+  "resolution": [
+    3840,
+    2160
+  ],
+  "fps": 1,
+  "different_frames": [],
+  "all_decoded_frames_equal": true,
+  "render_seconds": 242.93841848010197,
+  "reference_mp4_sha256": "eecf77538d835bcc77cd0e452b8d481a86837d4db1a2cadecd748a5176f30b01",
+  "trj_mp4_sha256": "90a5b6676f05bbe905b0ad95d7dae9536ece2c8fe9c65aa74224b7b4ae45fdeb",
+  "scope": "Full decoded YUV-frame parity for one silent 4K diagnostic only. Not narrated timing, audio mux, 60fps motion, all scenes or release approval."
+}

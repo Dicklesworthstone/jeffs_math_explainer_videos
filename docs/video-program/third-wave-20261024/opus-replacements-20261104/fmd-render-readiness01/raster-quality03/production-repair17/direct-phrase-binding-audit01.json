@@ -1,0 +1,311 @@
+{
+  "08_5": [
+    {
+      "phrase": "starting with a square",
+      "byte": 154,
+      "seconds": 10.66
+    },
+    {
+      "phrase": "Cut the square into four smaller squares",
+      "byte": 244,
+      "seconds": 16.32
+    },
+    {
+      "phrase": "every shared edge is walked twice",
+      "byte": 361,
+      "seconds": 23.799
+    },
+    {
+      "phrase": "so those parts cancel exactly",
+      "byte": 420,
+      "seconds": 27.58
+    },
+    {
+      "phrase": "Now suppose that integral were not zero",
+      "byte": 513,
+      "seconds": 34.0
+    },
+    {
+      "phrase": "some small square must have an integral",
+      "byte": 559,
+      "seconds": 37.12
+    },
+    {
+      "phrase": "Four integrals each under a quarter",
+      "byte": 632,
+      "seconds": 41.62
+    },
+    {
+      "phrase": "Keep that square, and cut it into four again",
+      "byte": 705,
+      "seconds": 45.96
+    },
+    {
+      "phrase": "These nested squares shrink toward a single point",
+      "byte": 835,
+      "seconds": 54.0
+    },
+    {
+      "phrase": "the derivative at that one point only",
+      "byte": 924,
+      "seconds": 59.86
+    },
+    {
+      "phrase": "Near c, the function is a constant",
+      "byte": 963,
+      "seconds": 62.92
+    },
+    {
+      "phrase": "So only the remainder contributes",
+      "byte": 1307,
+      "seconds": 84.4
+    },
+    {
+      "phrase": "Pick any tiny factor, and call it epsilon",
+      "byte": 1342,
+      "seconds": 86.9
+    },
+    {
+      "phrase": "Close enough to c",
+      "byte": 1385,
+      "seconds": 89.88
+    },
+    {
+      "phrase": "After enough cuts, the whole nested square",
+      "byte": 1526,
+      "seconds": 99.9
+    },
+    {
+      "phrase": "the distance to c is at most the square's diagonal",
+      "byte": 1593,
+      "seconds": 104.62
+    },
+    {
+      "phrase": "the steps add up to the perimeter",
+      "byte": 1649,
+      "seconds": 107.82
+    },
+    {
+      "phrase": "size at most epsilon, times its diagonal, times its perimeter",
+      "byte": 1723,
+      "seconds": 112.26
+    },
+    {
+      "phrase": "Each cut halves the diagonal and halves the perimeter",
+      "byte": 1786,
+      "seconds": 116.66
+    },
+    {
+      "phrase": "this bound shrinks to a quarter every time",
+      "byte": 1844,
+      "seconds": 120.24
+    },
+    {
+      "phrase": "But our rule kept at least a quarter",
+      "byte": 1888,
+      "seconds": 123.14
+    },
+    {
+      "phrase": "So after n cuts",
+      "byte": 1962,
+      "seconds": 127.34
+    },
+    {
+      "phrase": "The small square's integral has size at most epsilon",
+      "byte": 2080,
+      "seconds": 134.68
+    },
+    {
+      "phrase": "Multiplying by four to the n cancels the fours",
+      "byte": 2203,
+      "seconds": 142.02
+    },
+    {
+      "phrase": "the original integral's size is at most epsilon times",
+      "byte": 2254,
+      "seconds": 144.92
+    },
+    {
+      "phrase": "Since epsilon can be as small as we like",
+      "byte": 2345,
+      "seconds": 149.88
+    },
+    {
+      "phrase": "The same shrinking argument works for a triangle",
+      "byte": 2409,
+      "seconds": 155.1
+    },
+    {
+      "phrase": "Join the midpoints of its sides",
+      "byte": 2459,
+      "seconds": 157.94
+    },
+    {
+      "phrase": "Walk all four counterclockwise",
+      "byte": 2537,
+      "seconds": 162.88
+    },
+    {
+      "phrase": "even the upside down one in the middle",
+      "byte": 2569,
+      "seconds": 165.16
+    },
+    {
+      "phrase": "their shared edges cancel again",
+      "byte": 2613,
+      "seconds": 167.2
+    },
+    {
+      "phrase": "The longest side plays the diagonal's part",
+      "byte": 2646,
+      "seconds": 169.52
+    },
+    {
+      "phrase": "So around every triangle, the integral is zero too",
+      "byte": 2737,
+      "seconds": 175.18
+    }
+  ],
+  "09_1": [
+    {
+      "phrase": "divide it by",
+      "byte": 92,
+      "seconds": 6.36
+    },
+    {
+      "phrase": "Split that quotient",
+      "byte": 139,
+      "seconds": 10.5
+    },
+    {
+      "phrase": "The first is",
+      "byte": 176,
+      "seconds": 12.96
+    },
+    {
+      "phrase": "The second is",
+      "byte": 285,
+      "seconds": 21.24
+    },
+    {
+      "phrase": "It is undefined at a itself",
+      "byte": 361,
+      "seconds": 27.78
+    },
+    {
+      "phrase": "But as z approaches a",
+      "byte": 470,
+      "seconds": 34.18
+    },
+    {
+      "phrase": "so near a",
+      "byte": 528,
+      "seconds": 38.16
+    },
+    {
+      "phrase": "Draw a small circle",
+      "byte": 571,
+      "seconds": 42.14
+    },
+    {
+      "phrase": "Between the two circles",
+      "byte": 608,
+      "seconds": 45.06
+    },
+    {
+      "phrase": "Trace each circle with a polygon",
+      "byte": 673,
+      "seconds": 49.1
+    },
+    {
+      "phrase": "We saw that the shrinking argument works for triangles",
+      "byte": 778,
+      "seconds": 55.54
+    },
+    {
+      "phrase": "Now add up all the triangles",
+      "byte": 873,
+      "seconds": 61.76
+    },
+    {
+      "phrase": "Every inside edge is walked twice",
+      "byte": 903,
+      "seconds": 64.34
+    },
+    {
+      "phrase": "so those parts cancel",
+      "byte": 962,
+      "seconds": 67.84
+    },
+    {
+      "phrase": "What survives is the outer polygon",
+      "byte": 985,
+      "seconds": 69.78
+    },
+    {
+      "phrase": "So the two polygons, both walked counterclockwise",
+      "byte": 1073,
+      "seconds": 75.52
+    },
+    {
+      "phrase": "Now keep the small circle fixed",
+      "byte": 1148,
+      "seconds": 80.84
+    },
+    {
+      "phrase": "give the polygons more and more sides",
+      "byte": 1185,
+      "seconds": 83.04
+    },
+    {
+      "phrase": "Each short chord and its arc share their endpoints",
+      "byte": 1249,
+      "seconds": 87.34
+    },
+    {
+      "phrase": "so a constant has the same integral along both",
+      "byte": 1301,
+      "seconds": 90.48
+    },
+    {
+      "phrase": "The difference comes only from how much the quotient wobbles",
+      "byte": 1349,
+      "seconds": 93.84
+    },
+    {
+      "phrase": "Continuity makes every wobble small at once",
+      "byte": 1482,
+      "seconds": 102.12
+    },
+    {
+      "phrase": "That holds for every small radius",
+      "byte": 1665,
+      "seconds": 114.16
+    },
+    {
+      "phrase": "Only now do we shrink the small circle",
+      "byte": 1700,
+      "seconds": 116.94
+    },
+    {
+      "phrase": "The magnitude of its integral is at most",
+      "byte": 1740,
+      "seconds": 119.66
+    },
+    {
+      "phrase": "and that goes to zero",
+      "byte": 1843,
+      "seconds": 126.08
+    },
+    {
+      "phrase": "But the big circle's integral never changed",
+      "byte": 1866,
+      "seconds": 128.04
+    },
+    {
+      "phrase": "The second piece contributes nothing",
+      "byte": 1931,
+      "seconds": 132.26
+    }
+  ]
+}

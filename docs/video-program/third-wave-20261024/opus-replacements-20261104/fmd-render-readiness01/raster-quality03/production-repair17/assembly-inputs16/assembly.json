@@ -1,0 +1,2967 @@
+{
+  "manifest": {
+    "boundary_review": {
+      "basis": "Complete ElevenLabs Frederick Surrey takes, converted to 24 kHz only. Sentence ends are recognizer word onsets (estimates; an onset can sit in the pause before its word) except where root's answers give samples. No samples removed, no silence inserted, no gain, time or pitch processing.",
+      "listening": "unreviewed",
+      "reviewer": "BlueSalmon provisional ASR review; unlistened"
+    },
+    "direction_dispositions": [
+      {
+        "cue": "01_4",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+          "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 0,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs:245. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "02_5",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+          "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 1,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/turning.rs:435. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "03_3",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+          "sha256": "98cd46c5cc825095600ae431ae22c142a65c7b0cb8d2507d4c4ba0644ca3c432"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 2,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs:607. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "04_4",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+          "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 3,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs:341. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "04_6",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+          "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 4,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs:389. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "05_8",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+          "sha256": "da7b806fee85584e111c8a66b95e0f9f8c87bbb42501d79a1129d6b032663290"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 5,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs:866. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "06_8",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs",
+          "sha256": "4f0154ec82bb787cdbee4d11d308eea25ca6cc1164f7f4bdb1d908f8d54df29c"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 6,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs:663. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "07_2",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+          "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 7,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs:400. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "07_3",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+          "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 8,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs:434. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "08_5",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs",
+          "sha256": "f7a46143d709797ff03e748b4b8efad68d9379fea31b8ce0cd6de0d2f25de6d8"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 9,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs:686. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "09_4",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+          "sha256": "6142165b7e9a49e99bb80216ed83117f6bf752a3beda812af29fa5081bc347e9"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 10,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs:350. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "09_5",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+          "sha256": "6142165b7e9a49e99bb80216ed83117f6bf752a3beda812af29fa5081bc347e9"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 11,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs:415. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "09_8",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+          "sha256": "6142165b7e9a49e99bb80216ed83117f6bf752a3beda812af29fa5081bc347e9"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 12,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs:694. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "10_4",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+          "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 13,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs:473. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "10_5",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+          "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 14,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs:499. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "11_5",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+          "sha256": "1177c885b6815842bc0ac6e6ac71b01808f00a73137002c05d04e1874decb984"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 15,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/counting.rs:440. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "11_6",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+          "sha256": "1177c885b6815842bc0ac6e6ac71b01808f00a73137002c05d04e1874decb984"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 16,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/counting.rs:503. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "11_8",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+          "sha256": "1177c885b6815842bc0ac6e6ac71b01808f00a73137002c05d04e1874decb984"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 17,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/counting.rs:603. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "13_5",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+          "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 18,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs:631. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "13_11",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+          "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 19,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs:813. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "14_3",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+          "sha256": "c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 20,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs:522. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "14_4",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+          "sha256": "c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 21,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs:531. No samples or silence changed; listening unreviewed."
+      },
+      {
+        "cue": "15_3",
+        "evidence": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace/explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+          "sha256": "0c217b6b5daee2681a61049b0918ceda7cc211d377ecd0c5f70b8562dd36568b"
+        },
+        "kind": "native_visual_hold",
+        "override_index": 22,
+        "reason": "Existing native visual hold retained at explainer_corpus/complex_analysis_visual/src/chapters/closing.rs:402. No samples or silence changed; listening unreviewed."
+      }
+    ],
+    "schema_version": 1,
+    "units": [
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_01_1",
+        "sentence_ends": [
+          70080,
+          126720,
+          244320,
+          345120,
+          397440
+        ],
+        "sha256": "c06e7a1db1a7e53bb0874ecab946defb4d614a86a355c08b00c9a8d6d7204f64",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/01_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_01_2",
+        "sentence_ends": [
+          74160,
+          216960,
+          288000
+        ],
+        "sha256": "7c4d553f71d63e311e976aad64467967ad5b11cfa8fcbd54163b4baa7d1867ec",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/01_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_01_3",
+        "sentence_ends": [
+          147840,
+          215040,
+          347520,
+          416640
+        ],
+        "sha256": "23ce78c9f42c84354f9ef801069b8c6d2e168d1ae36853ba81c2c8d9f15fe3bb",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/01_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_01_4",
+        "sentence_ends": [
+          66240,
+          130560,
+          201600
+        ],
+        "sha256": "e52f58ed3e204179a58539a0f81dc11f3c2ea09e12082b6b5bd73a4138d2534d",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/01_4.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_01_5",
+        "sentence_ends": [
+          71040,
+          194400,
+          315840,
+          458160,
+          508800
+        ],
+        "sha256": "9cd4ae6cac3885e61c7530924069b0d69e90fa740ad877466a1a5aafec519d19",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/01_5.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_01_6",
+        "sentence_ends": [
+          112920,
+          173760,
+          338880,
+          422400
+        ],
+        "sha256": "df78404a99fd82fb22e98274bf7ea3a2e42adb30397cd1a2c76368d93e466e20",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/01_6.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_02_1",
+        "sentence_ends": [
+          74280,
+          190560,
+          307200
+        ],
+        "sha256": "f2ec016751df3c8c759f3b5fb3cea50ae980ce1ec9f4ac8b2371c05892a62e32",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/02_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_02_2",
+        "sentence_ends": [
+          93120,
+          160320,
+          301440
+        ],
+        "sha256": "94988e6a11811345ceea9273d88331c051316d0557e4d848aeef1e39745830c1",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/02_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_02_3",
+        "sentence_ends": [
+          75480,
+          129720,
+          209280
+        ],
+        "sha256": "8be1c17594e6b0d4fd7c79c9d7f571cb114ba450bd8c577765f5367d88ef33d3",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/02_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_02_4",
+        "sentence_ends": [
+          94080,
+          203520,
+          362880
+        ],
+        "sha256": "ee1c8e76879e668ea73fb60cc30317964bda3c3d578e5ceee495e15b85ca3165",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/02_4.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_02_5",
+        "sentence_ends": [
+          108960,
+          175680,
+          243840
+        ],
+        "sha256": "224bf47a7e98ad68940faf61b04710afbcd20b6e1b01051109f9dcb3d0492870",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/02_5.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_02_6",
+        "sentence_ends": [
+          137160,
+          224880,
+          295680,
+          326400,
+          433920
+        ],
+        "sha256": "ed8f4da7d364f98b7ba42f9e164804e47720463ecd53a211b1076a9de92aff1f",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/02_6.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_03_1",
+        "sentence_ends": [
+          94200,
+          156000,
+          228960,
+          320640
+        ],
+        "sha256": "14406913c7189c4bc901a9b1c9145496772e5a2b1fc95af042f856d6a4b2f344",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/03_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_03_2",
+        "sentence_ends": [
+          40800,
+          202080,
+          291840,
+          395520
+        ],
+        "sha256": "648f346e0dd4730724fb8dede8125847d984e5e5c63be1eca6ec971a1897fc2a",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/03_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_03_3",
+        "sentence_ends": [
+          57600,
+          136320
+        ],
+        "sha256": "b7efb1cd8c951e8c0caa1f0b0ed8fa4ee3a14ccf061e3c53823edc50dbf52dce",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/03_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_03_4",
+        "sentence_ends": [
+          16800,
+          160800,
+          230880,
+          365760,
+          418560,
+          526080,
+          557760,
+          620160
+        ],
+        "sha256": "e3e39444786cbfa2f8a1494d5e933b9c278704d1a4f8fd1d0dfa957bf25cb229",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/03_4.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_03_5",
+        "sentence_ends": [
+          68040,
+          181440,
+          325680,
+          397080,
+          466560
+        ],
+        "sha256": "9136319e8b13fe9558f05bcc4388e6f8905e1af686eeec9ab1acd3d181b38b2e",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/03_5.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_03_6",
+        "sentence_ends": [
+          88320,
+          188160,
+          312000,
+          443520
+        ],
+        "sha256": "6f3894d78aa172ca24f99c48ab2cd848cd3e61371770bb9d8781ff8b84f363ee",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/03_6.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_03_7",
+        "sentence_ends": [
+          96960,
+          197280,
+          236160
+        ],
+        "sha256": "0ff2019a9dc8a6e6cd4c61f35b8488c6f71c2a48434e450fa47aaf4e532b0c45",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/03_7.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_04_1",
+        "sentence_ends": [
+          80160,
+          175320,
+          303480,
+          347040,
+          408000,
+          495360
+        ],
+        "sha256": "1f2b8fcd33aa21d302d57b0c37b585f92f3b4c684acff6d2fba7565ff9e5affc",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/04_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_04_2",
+        "sentence_ends": [
+          80640,
+          141120,
+          267840,
+          366720
+        ],
+        "sha256": "a1600f5c5696dd0f8d4c46183a61593e593cb0972e01bce6c1aefe0f13b0bced",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/04_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_04_3",
+        "sentence_ends": [
+          37800,
+          156000,
+          263040
+        ],
+        "sha256": "bdc6cfcbbcd78f51ae1d1434724269edd1e3f47eeee051153c3d4d75a0483503",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/04_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_04_4",
+        "sentence_ends": [
+          127680,
+          253680,
+          355200
+        ],
+        "sha256": "200bdf971c8e4ba11d607e855bfb0f80bba1e1af0cbcb5b1f017722ddaf4be77",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/04_4.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_04_5",
+        "sentence_ends": [
+          74880,
+          182400
+        ],
+        "sha256": "cca30298204349335c6cba4f24ccd69cfabbbc6d8e84e7d241da1305fe20706d",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/04_5.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_04_6",
+        "sentence_ends": [
+          98880,
+          251520
+        ],
+        "sha256": "fa83e3e906bb06514fe37b5dc47b949bb7d5d44b94ca8cf68db1d2934afce74f",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/04_6.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_04_7",
+        "sentence_ends": [
+          122400,
+          229320,
+          301440
+        ],
+        "sha256": "73e499a745b16400198112657ff7cf42fde4f595ba8ca1a09eca3dae684a1da8",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/04_7.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_05_1",
+        "sentence_ends": [
+          44160,
+          174720,
+          351360,
+          393600
+        ],
+        "sha256": "af87695c0aa9282add8e2b969e61d8b4b016b751fee2bdfc8b0b738d14a77387",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/05_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_05_2",
+        "sentence_ends": [
+          86400,
+          185280,
+          349440
+        ],
+        "sha256": "7b69de7a3ee1a084e202a8e276d91f4fd62e4adc3d3b7bf6b3a6a9166304558d",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/05_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_05_3",
+        "sentence_ends": [
+          100320,
+          230880,
+          347520
+        ],
+        "sha256": "d6141a7067d6828668679c1067455a574eccb34f50a58b4876491b0e32bf7624",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/05_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_05_4",
+        "sentence_ends": [
+          130560,
+          186720,
+          254760,
+          391680
+        ],
+        "sha256": "56d7adfda32f1bb5e0dd2efead4e4e52e9943a7b8e5dc77c857a319d62606ad4",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/05_4.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_05_5",
+        "sentence_ends": [
+          64800,
+          147840,
+          330240
+        ],
+        "sha256": "6720fe57988ed8684667b8c0bf95cd55fba298e399254a84c22117f72661ab82",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/05_5.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_05_6",
+        "sentence_ends": [
+          73440,
+          153600,
+          273600,
+          489600,
+          549120
+        ],
+        "sha256": "7665640f26925f76b17d2cfbf8cd80f47617852a4bfba29f600fd13cecd8adc0",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/05_6.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_05_7",
+        "sentence_ends": [
+          178200,
+          287040,
+          319680,
+          376800,
+          455040,
+          554880
+        ],
+        "sha256": "a0becaf15df8ee24d5dc566b8a18c1c418b55f95b63e9c9379d01f40892d0604",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/05_7.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_05_8",
+        "sentence_ends": [
+          179040,
+          300480,
+          345600
+        ],
+        "sha256": "207d42f8af599b9d17de2df287833ca5cbf366b5a16b92426ae7f32d01c4ce83",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/05_8.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_05_9",
+        "sentence_ends": [
+          57120,
+          131520,
+          251520,
+          303360,
+          376320
+        ],
+        "sha256": "f7b3e856d2e074f444c5a2c2f0d6468f30a84954192d214875e92f9537a51100",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/05_9.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_06_1",
+        "sentence_ends": [
+          146520,
+          199440,
+          351360,
+          489600
+        ],
+        "sha256": "7e0531cfb6cca1b5ca1733c528ee9434a80a431c582e64bd543ee71c998384dd",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/06_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_06_2",
+        "sentence_ends": [
+          78720,
+          166560,
+          288720,
+          353280
+        ],
+        "sha256": "e05162d5278ac6467bb4a9433fda043d8201a9e34cb17fabf186b9c52f865951",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/06_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_06_3",
+        "sentence_ends": [
+          25920,
+          210240,
+          267360,
+          363840,
+          531840
+        ],
+        "sha256": "6459ea9dd8adea0344545d0f35602abc5ea9268aea3c8972d3dd768e881f6db1",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/06_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_06_4",
+        "sentence_ends": [
+          157920,
+          261120,
+          362880
+        ],
+        "sha256": "f95b0de6b7608da0a140dd7e265a08b2d3e6fe57ad0943e5d50d365a7d219182",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/06_4.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_06_5",
+        "sentence_ends": [
+          58200,
+          124320,
+          264960,
+          448320,
+          501120
+        ],
+        "sha256": "f640242fa52a00a2c263393cc2243c2b0e8766a790688b039a011ae572dcbc5c",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/06_5.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_06_6",
+        "sentence_ends": [
+          43680,
+          147840,
+          257280,
+          320640
+        ],
+        "sha256": "1a3560e537000359c6cb9a142d6ad69167d667b90f184a4e7a7b316884ca5b9c",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/06_6.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_06_7",
+        "sentence_ends": [
+          166080,
+          321240,
+          416640
+        ],
+        "sha256": "e5e3fb75af9f6c0b66d757a6f44548cbce45a152405d97fc8b387ef74b1ca0c8",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/06_7.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_06_8",
+        "sentence_ends": [
+          48000,
+          127200,
+          226560,
+          278400
+        ],
+        "sha256": "d695e2dea9306209688ea2209a56606bbc63582d1602945622268ef1b82056dc",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/06_8.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_06_9",
+        "sentence_ends": [
+          28800,
+          94080,
+          169440,
+          293760,
+          338880,
+          426240
+        ],
+        "sha256": "f584094bc34d935877741fad1973dd1f8050dbe4fedd3030a2890f78fa8dbc07",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/06_9.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_07_1",
+        "sentence_ends": [
+          85440,
+          164160,
+          306240,
+          401280
+        ],
+        "sha256": "4c943cdc4227b34f2db5893e5355e917bf9677c2cc0ddc03df4910bfdbcb3103",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/07_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_07_2",
+        "sentence_ends": [
+          81120,
+          149760,
+          288000
+        ],
+        "sha256": "044006f3d3c2d83175808803c74246a2fc72fd75fb6b4f4683de25a036468c96",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/07_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_07_3",
+        "sentence_ends": [
+          46200,
+          138720,
+          207360
+        ],
+        "sha256": "b1e31cc51af0b66ae38f9c76a4e9fe02b7522739f310687616bdea5a487c8b18",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/07_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_07_4",
+        "sentence_ends": [
+          30720,
+          136440,
+          253680,
+          341760
+        ],
+        "sha256": "126a2ef91287fb4a5b2a20043dcc13dc597edd6e144ac85b05ca57de967bd133",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/07_4.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_07_5",
+        "sentence_ends": [
+          36960,
+          107520,
+          178320,
+          343200,
+          524160
+        ],
+        "sha256": "d671d3efc1052e61215f740cd916c5c25ec730fcb84f6804082086e13b370109",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/07_5.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_07_6",
+        "sentence_ends": [
+          67200,
+          276000,
+          363720,
+          437760
+        ],
+        "sha256": "856ec5bbb76a575b1379de8a930aa23571e8bce45cd67d7c2743308d86a32119",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/07_6.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_08_1",
+        "sentence_ends": [
+          96000,
+          160320,
+          304320,
+          362880,
+          468480
+        ],
+        "sha256": "55c781f70cd5243ba46f8c3edbb4180ed6198bbf823ae7d8538a972a073a6b43",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/08_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_08_2",
+        "sentence_ends": [
+          110400,
+          257280,
+          293760
+        ],
+        "sha256": "21bb434ebed0f0b329e29f855c74b9d67b501195dc4f5f9bb99c844d6c002306",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/08_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_08_3",
+        "sentence_ends": [
+          40320,
+          212640,
+          267360,
+          403200
+        ],
+        "sha256": "7b8e57f5bf1fd7b048c4658410278a5dd9265021b59d517d908960727a161779",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/08_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_08_4",
+        "sentence_ends": [
+          79680,
+          138240,
+          261120
+        ],
+        "sha256": "1c1369c35372ccdb52dc511cb2993fcb1015ea151f1ea9b8cd50fe76d148e6ff",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/08_4.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_08_5",
+        "sentence_ends": [
+          43680,
+          214080,
+          240000,
+          321120,
+          482256,
+          668160
+        ],
+        "sha256": "c68362ae281cf2b8c8ce22fbfb627b67a825079a456676bcf55029bc433b62b7",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/08_5.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_09_1",
+        "sentence_ends": [
+          44640,
+          242880,
+          375360,
+          456480,
+          537600
+        ],
+        "sha256": "bc0de5cd2a8ed107ec8b23b02dd152ed73fd9ee7970a1e46c1d1c7df05b13166",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/09_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_09_2",
+        "sentence_ends": [
+          92640,
+          198240,
+          251520
+        ],
+        "sha256": "a70b679029955a9c5dca7949d8ad77b329f358cac39e2b6310deab80064f6698",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/09_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_09_3",
+        "sentence_ends": [
+          114240,
+          261120,
+          353280
+        ],
+        "sha256": "85cc3fa040c9a67fcc5ae3c24ec5a45dec6d1af2d50e803e5909bd6138eef3ff",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/09_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_09_4",
+        "sentence_ends": [
+          65280,
+          127680,
+          201600
+        ],
+        "sha256": "5a56ffac054c3c1e5ac30c12040c2bc5875e0015bcd9fc844b50b2d4caef4d18",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/09_4.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_09_5",
+        "sentence_ends": [
+          35520,
+          181440,
+          265920,
+          432000
+        ],
+        "sha256": "c17edeb4ee3c91f655a73fa1f8d524fc88671724994e5bc608816cc07d87afbe",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/09_5.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_09_6",
+        "sentence_ends": [
+          79680,
+          204000,
+          260160,
+          418560,
+          503040
+        ],
+        "sha256": "49f711552cea8033b1a0d4de49ffaa9efa94b458a0f9405b5182b91deb511adf",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/09_6.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_09_7",
+        "sentence_ends": [
+          224640,
+          268800,
+          382080,
+          566400
+        ],
+        "sha256": "fc4090b665f91cd16df05b4f221594f7d4e000ed3f0cff44d543c55e6879230c",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/09_7.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_09_8",
+        "sentence_ends": [
+          72960,
+          140160
+        ],
+        "sha256": "cbade5c76073e61006753bce0e9bf4770713c3029ab8eba8fcbf664aa01f41ce",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/09_8.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_09_9",
+        "sentence_ends": [
+          72000,
+          218400,
+          284160
+        ],
+        "sha256": "b82a8bb703f14105b97fe3c2beb07e6780b6386626b6f28393e908f9ca830ab2",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/09_9.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_10_1",
+        "sentence_ends": [
+          89280,
+          150720,
+          248640,
+          372480
+        ],
+        "sha256": "3e8b709ce86bf832e519aa77219f6396b4f88508372146aebf8672f692062d1f",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/10_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_10_2",
+        "sentence_ends": [
+          123840,
+          243360,
+          379680,
+          570240
+        ],
+        "sha256": "7b57efbc8e8bb8dbae18b1b0cfee7c9264fb1555b77d823cdcd94ab7396d3691",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/10_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_10_3",
+        "sentence_ends": [
+          81600,
+          208320,
+          322560,
+          481920
+        ],
+        "sha256": "2ac21985e38dd51cfe708d19408ed7275abe68c07eef9a116ebbdbbe06e51e4b",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/10_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_10_4",
+        "sentence_ends": [
+          174720,
+          234240,
+          293760
+        ],
+        "sha256": "c6382e2f8e3e91a8eeb452b3e0ba4883c1d7b8439075b6a791c1167caa896acd",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/10_4.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_10_5",
+        "sentence_ends": [
+          19608,
+          175680,
+          257760,
+          351360
+        ],
+        "sha256": "8b9fe13e983471c9b710dd9e27e7af7cf059b44c7cefb54316da1db9559be5f0",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/10_5.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_10_6",
+        "sentence_ends": [
+          72000,
+          206400,
+          251040,
+          403200
+        ],
+        "sha256": "d6e0da070f9a827d7722e91ebaa99ffd545cdc00be6074e5b7c9e5142bbb8185",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/10_6.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_11_1",
+        "sentence_ends": [
+          25440,
+          128640,
+          261120,
+          332160,
+          422400
+        ],
+        "sha256": "8d7bfe9fbadcd5114ff2ef3c75671f397cd6760f05ad1fbcc5bbfe8eef2ba892",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/11_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_11_2",
+        "sentence_ends": [
+          84000,
+          255840,
+          307200,
+          529920
+        ],
+        "sha256": "c3af15470db027c5e9b381028af6b2afb03390aab90df3fea15ebdcb25186607",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/11_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_11_3",
+        "sentence_ends": [
+          151680,
+          302400,
+          391680,
+          504000,
+          567360,
+          685440
+        ],
+        "sha256": "6c7c5f41bd14fa20f5185b93894f789fc435bb293ccef1bf4c2b8c51d7db11bf",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/11_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_11_4",
+        "sentence_ends": [
+          172320,
+          234240,
+          301440
+        ],
+        "sha256": "efdd17ae7b93f977e8a292fafbbc7188a4cbe7e8530373883319504668792e1b",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/11_4.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_11_5",
+        "sentence_ends": [
+          153600,
+          222720
+        ],
+        "sha256": "b0a8155e56c38a49179a4b93335b1adce6167938ba64cd9a8804a5de9e4b2e3c",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/11_5.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_11_6",
+        "sentence_ends": [
+          15840,
+          144000,
+          378240
+        ],
+        "sha256": "110683500f0f1a51f9b35b138ccbfde8367f20f43d9b6df24f538a283ebce0ef",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/11_6.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_11_7",
+        "sentence_ends": [
+          125760,
+          233280,
+          338880,
+          447840,
+          605280,
+          749760,
+          850560
+        ],
+        "sha256": "eef359b7f35b90fb6bce4ad2da6b8852ba5ddd24fa10001a236a1d91ef1f5938",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/11_7.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_11_8",
+        "sentence_ends": [
+          36480,
+          124800,
+          288960,
+          379200,
+          579360,
+          673920
+        ],
+        "sha256": "f6d52b1075c9b46c811903206284c36279bae361528e2a01965e8c50dffbed07",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/11_8.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_12_1",
+        "sentence_ends": [
+          84480,
+          251520,
+          407040,
+          458880
+        ],
+        "sha256": "b06dded68a39133aa0155a1e4a70a6eea1cb11216e71b4327cbc78996ef898b7",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/12_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_12_2",
+        "sentence_ends": [
+          132000,
+          181440,
+          408960
+        ],
+        "sha256": "4fb7282adfecc877afd87832426205e60bdfda5a09a6452a8a4dd6c583e567d2",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/12_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_12_3",
+        "sentence_ends": [
+          69120,
+          184320,
+          274560
+        ],
+        "sha256": "bc17dc9e903d91d9bb90f70ab6ee4877d8ed942260b515f10590ee69731d4fa3",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/12_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_12_4",
+        "sentence_ends": [
+          139680,
+          207840,
+          289920
+        ],
+        "sha256": "96cc5f1a89e8dd02b5ef4167be02894030aa5e4e570dabca71ba97328093a3a3",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/12_4.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_13_1",
+        "sentence_ends": [
+          36480,
+          147840,
+          185280,
+          308160,
+          384000
+        ],
+        "sha256": "b64bc320ae744654445f99212e061134e6652e928bdb9510f1f0ebe323c6414b",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/13_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_13_2",
+        "sentence_ends": [
+          166560,
+          238560,
+          349920,
+          399360
+        ],
+        "sha256": "8939ec320f2ac23bf7893086fa6a35e8fe34491c4fa0cdfcbae50085829fa79b",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/13_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_13_3",
+        "sentence_ends": [
+          172320,
+          237600,
+          407520,
+          468480
+        ],
+        "sha256": "6b7b49127cefca58e447db666ab9ea56598219e7b32365531fedd6a3729b7081",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/13_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_13_4",
+        "sentence_ends": [
+          49920,
+          122400,
+          207360,
+          264960
+        ],
+        "sha256": "dcc47ebfc05d05a874e2c14c3494bdcc0341ad405be2bcc9fd88456808882555",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/13_4.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_13_5",
+        "sentence_ends": [
+          99840,
+          292800,
+          366720
+        ],
+        "sha256": "f83c0083d4a214622e78dd10869315948f1235237653af9e446a2cb3ffe47844",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/13_5.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_13_6",
+        "sentence_ends": [
+          53760,
+          113280
+        ],
+        "sha256": "90feebd4ae6c843581d9641c6862f749006035a8eb827f7606cb14b3fcb84915",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/13_6.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_13_7",
+        "sentence_ends": [
+          189120,
+          303840,
+          382080
+        ],
+        "sha256": "05e98b6a4bacbaded99cbb7bdfc8d5f737b38857651067e4ed2990a4799148a0",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/13_7.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_13_8",
+        "sentence_ends": [
+          33600,
+          193920,
+          320640
+        ],
+        "sha256": "1cc851664c65af3125a440cd729b995b1686ba7d88d6aa0daed9d2d6eaca6f2f",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/13_8.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_13_9",
+        "sentence_ends": [
+          61920,
+          236640,
+          280320
+        ],
+        "sha256": "2bba210cffb826a9eb0247594e071f3c7d3728f0c715863c4fec765308f1da05",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/13_9.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_13_10",
+        "sentence_ends": [
+          40320,
+          257280,
+          358560,
+          472320
+        ],
+        "sha256": "38ee266934498a22572777bf93acea93ca8484d9066ff0860e14ff3ed418230f",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/13_10.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_13_11",
+        "sentence_ends": [
+          39360,
+          202560,
+          309120
+        ],
+        "sha256": "0f6d7181bff66248b5daf803f09498bc59206155d5c57354ded1620b817a100a",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/13_11.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_14_1",
+        "sentence_ends": [
+          74880,
+          145920,
+          173760,
+          262560,
+          393120,
+          451200
+        ],
+        "sha256": "9673496c0ae05423c5b99722e27e5cbf026b29d20e0fb5d41a40fe8728113929",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/14_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_14_2",
+        "sentence_ends": [
+          127680,
+          235680,
+          306240,
+          375360,
+          474720,
+          514560
+        ],
+        "sha256": "cc0cbbe521f60e0a643fab6ec8cad69fe6ff8d6485fa06376f678d6b82f04552",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/14_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_14_3",
+        "sentence_ends": [
+          192960,
+          313920,
+          390168,
+          529920,
+          650880,
+          710400,
+          842880
+        ],
+        "sha256": "7bf71836d5fe8146234f8511c60c8bd2f17a6da0c0a4b204382869f3333ac810",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/14_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_14_4",
+        "sentence_ends": [
+          142080
+        ],
+        "sha256": "90b68ca35649cd722909a5cbe460002a4515b46c532afb87bf441d9ea2ec7a7d",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/14_4.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_14_5",
+        "sentence_ends": [
+          48000,
+          113280,
+          307680,
+          354720,
+          434880,
+          589440,
+          700800,
+          760320
+        ],
+        "sha256": "05d2a23a42cbee762fd443d49e3cce837942fec144f3ba6d07a9e1c122356aff",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/14_5.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_14_6",
+        "sentence_ends": [
+          29280,
+          96000,
+          178560,
+          247200,
+          315840,
+          422880,
+          470400
+        ],
+        "sha256": "3a5e61fd12da5b90ba1e2bc014b3c8f7d4235d3f91b70bd3d347348012a366ea",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/14_6.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_14_7",
+        "sentence_ends": [
+          49440,
+          108960,
+          299520,
+          450240,
+          516480
+        ],
+        "sha256": "983b02a22e2af378fb7a902c0aacb6ee84404de986880c9c8c7e356bfe13de0c",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/14_7.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_14_8",
+        "sentence_ends": [
+          108480,
+          211680,
+          322080,
+          543360
+        ],
+        "sha256": "3164234a52496c42e17a09e5da1037e912ba45d82eedf62fb9344c854ab95609",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/14_8.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_15_1",
+        "sentence_ends": [
+          51840,
+          211200
+        ],
+        "sha256": "e17649ec5aafa810f90e5d4923f86fadbbb39bf4fbccdef0f5807932da437182",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/15_1.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_15_2",
+        "sentence_ends": [
+          68640,
+          167520,
+          336960,
+          409920,
+          562560,
+          771840
+        ],
+        "sha256": "a2d49ec67b8da6f07728d2e6d47a06ab60df2d03ebd7ad77e4df0a3951d872c4",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/15_2.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_15_3",
+        "sentence_ends": [
+          51840,
+          133440,
+          170880
+        ],
+        "sha256": "6ef4f122cd5a0425268e036bfa5bb55904d1cddf8be18d7ba765af9054e481c8",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/15_3.wav"
+      },
+      {
+        "gap_after_samples": [
+          0,
+          0
+        ],
+        "generation_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+        "id": "oliver_15_4",
+        "sentence_ends": [
+          109440,
+          184320
+        ],
+        "sha256": "36e3eebea161f37176e586d3cb842b1e870f9031f5cd65e86defe690b708b731",
+        "wav": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decoded/15_4.wav"
+      }
+    ],
+    "units_sha256": "22492be980800ece5be0e947a3e0d50cbc1bc21903ab6dd8411f2520a47392f0"
+  },
+  "outputs": {
+    "01_1": {
+      "bytes": 794924,
+      "channels": 1,
+      "frames": 397440,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "444c02c93d7368b744f64f1fdcdacaaf54d3f3fc1090c2e7982506d50fe90c37"
+    },
+    "01_2": {
+      "bytes": 576044,
+      "channels": 1,
+      "frames": 288000,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "3650b22a9bd77b8d5af004dcc6721b466f7d1857a3fd882a1b8b46f10df660dd"
+    },
+    "01_3": {
+      "bytes": 833324,
+      "channels": 1,
+      "frames": 416640,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "aa573fa8c3a415a3056ee35da41c935b4d0589b6ba65404575722a88ac31c736"
+    },
+    "01_4": {
+      "bytes": 403244,
+      "channels": 1,
+      "frames": 201600,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "6576bf44bd84c537ec926f92393503998b69a5a40c82f4c7de8e21636cb2c58d"
+    },
+    "01_5": {
+      "bytes": 1017644,
+      "channels": 1,
+      "frames": 508800,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "8ff2491a1981eb81b74411d9f5e6f2a10a3c790e1f931089111da6fd9ecffecb"
+    },
+    "01_6": {
+      "bytes": 844844,
+      "channels": 1,
+      "frames": 422400,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "e29d55e59467d2e2fa5a54c7378a7bbd63de3b4be8f667a3189146264ce6cdc9"
+    },
+    "02_1": {
+      "bytes": 614444,
+      "channels": 1,
+      "frames": 307200,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "e398c332b2f082758d489f53b3463506ba6487f7345d81c20759be1815777dcc"
+    },
+    "02_2": {
+      "bytes": 602924,
+      "channels": 1,
+      "frames": 301440,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "4f94e83542c6a255c5713cc83f1df5480e0815cffbaeb2ac8a3d80978144bacb"
+    },
+    "02_3": {
+      "bytes": 418604,
+      "channels": 1,
+      "frames": 209280,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "bf388283696690d39469408430fe55b475f9534fb37faad2fbc835f799bc2996"
+    },
+    "02_4": {
+      "bytes": 725804,
+      "channels": 1,
+      "frames": 362880,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "4d77aa9f9949aa2997b2e946e5147cfb8ba0828f3df67c11686d6368cc4755b9"
+    },
+    "02_5": {
+      "bytes": 487724,
+      "channels": 1,
+      "frames": 243840,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "ff09175d9adcf8de12cea1c0b6f3a55d0f366ad4f174cccaf0d675bbf013fa04"
+    },
+    "02_6": {
+      "bytes": 867884,
+      "channels": 1,
+      "frames": 433920,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "99e40ec1361c85efd64cba4eeed2dd26821ded7fed2b41556b4e084f52ec8008"
+    },
+    "03_1": {
+      "bytes": 641324,
+      "channels": 1,
+      "frames": 320640,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "58ff34759d059b5a71dc6a80ce6954cbd38532b3e8dcea28540d18f795920479"
+    },
+    "03_2": {
+      "bytes": 791084,
+      "channels": 1,
+      "frames": 395520,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "142c6bd64020f56e28fa947f74736d705bee400bc6e613169c09f3edee0bb8d8"
+    },
+    "03_3": {
+      "bytes": 272684,
+      "channels": 1,
+      "frames": 136320,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "816483c29f4dde34e2c7424e6b3ec8af2b0793a43de3299b9b93e27d74553667"
+    },
+    "03_4": {
+      "bytes": 1240364,
+      "channels": 1,
+      "frames": 620160,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "c539864e09f556efea2ca72c9a01c3f5ff4a058cdbb79f75d96b540fc374e1cc"
+    },
+    "03_5": {
+      "bytes": 933164,
+      "channels": 1,
+      "frames": 466560,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "ea5a8a74162ad568d19dd87a78150f0f9b393f51115a1ae1f5321c311b6a1146"
+    },
+    "03_6": {
+      "bytes": 887084,
+      "channels": 1,
+      "frames": 443520,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "55a4cc839723fe3425a8b209aa86eba6fb82859d30186ff10267b7392bdee57d"
+    },
+    "03_7": {
+      "bytes": 472364,
+      "channels": 1,
+      "frames": 236160,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "c62e5df73d5564eba1b2de979e5e2d816eb4963a83b0a056eb45d2fb5283a1d3"
+    },
+    "04_1": {
+      "bytes": 990764,
+      "channels": 1,
+      "frames": 495360,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "2f97daaa7ee15ef04877047ffafec695d8eaab58b511d3f7621f56eff7c2e605"
+    },
+    "04_2": {
+      "bytes": 733484,
+      "channels": 1,
+      "frames": 366720,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "40b999fe5c3d83713cf9584ab3a5d4d216abdafea41b6a8070faff155948b2fe"
+    },
+    "04_3": {
+      "bytes": 526124,
+      "channels": 1,
+      "frames": 263040,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "77b9d0db378edcbcddb416485de1cc6496f13818d5d250ad2865c2e7195a55fc"
+    },
+    "04_4": {
+      "bytes": 710444,
+      "channels": 1,
+      "frames": 355200,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "41522b9eeccfab6c57a33f6ca8d6c297dae6bbd08ab05cc4c4a6efe4454567c8"
+    },
+    "04_5": {
+      "bytes": 364844,
+      "channels": 1,
+      "frames": 182400,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "08a808206db27771402ac22abd5b5a636d95d18f9545fbb09dd0549180d70f5b"
+    },
+    "04_6": {
+      "bytes": 503084,
+      "channels": 1,
+      "frames": 251520,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "efe88d78889979514fdc9c52dee8b1f438434867cffa871bec44490cb75ebdb1"
+    },
+    "04_7": {
+      "bytes": 602924,
+      "channels": 1,
+      "frames": 301440,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "9a7c9e5f9238f26d9476d2d19f5356c45926ecd9cd4e03de647fb9ba66d94143"
+    },
+    "05_1": {
+      "bytes": 787244,
+      "channels": 1,
+      "frames": 393600,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "147564c6adae82800745d5422c56b241995c65f6dc23ad6c1257eee6b155494a"
+    },
+    "05_2": {
+      "bytes": 698924,
+      "channels": 1,
+      "frames": 349440,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "c9a0311b90cb931a48e532fb3d70ecf970ad93240a70f3932aac19e5324f6c53"
+    },
+    "05_3": {
+      "bytes": 695084,
+      "channels": 1,
+      "frames": 347520,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "e4ee81eca47acf30ab373bc47879cdda51a9e8facc6a168cc9d1b423ab9467e9"
+    },
+    "05_4": {
+      "bytes": 783404,
+      "channels": 1,
+      "frames": 391680,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "e7aeb4d8017d5367283ef295081909892d62c095c9296563b8edb21251dfe24d"
+    },
+    "05_5": {
+      "bytes": 660524,
+      "channels": 1,
+      "frames": 330240,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "0d1e9eb4a60532715e68d699b7bfd6f70ceee2f8fa97927780f3142b3d45abe8"
+    },
+    "05_6": {
+      "bytes": 1098284,
+      "channels": 1,
+      "frames": 549120,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "e0dec06b10def55beffa06e48286723a0d90b3f89a26494d8e39d6ac777e5114"
+    },
+    "05_7": {
+      "bytes": 1109804,
+      "channels": 1,
+      "frames": 554880,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "ccfbf847a68ef4e7b66b78e893297468741884723e9652f7956c0df4fe40d5c4"
+    },
+    "05_8": {
+      "bytes": 691244,
+      "channels": 1,
+      "frames": 345600,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "0310026051aec7a8ddf6f122f78d73b365f4e29ebd6fb16f4a4c1be57784f1f8"
+    },
+    "05_9": {
+      "bytes": 752684,
+      "channels": 1,
+      "frames": 376320,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "43ce4e6646b82da2bb4d9aeeb4dfa38f25de480a9f90195d193c49da8125ab86"
+    },
+    "06_1": {
+      "bytes": 979244,
+      "channels": 1,
+      "frames": 489600,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "537ff48f66c1243d213b731824a34e403a7cce4169009cf89a4df43c613b2c67"
+    },
+    "06_2": {
+      "bytes": 706604,
+      "channels": 1,
+      "frames": 353280,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "014a2b5ed289acdc10655fe186b87544d48dc48db4d92e1333297fe9bc7fd565"
+    },
+    "06_3": {
+      "bytes": 1063724,
+      "channels": 1,
+      "frames": 531840,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "efdd4a541c463433c3e9211581385cfb9e196bf09c501c5bd976c122b07bb56c"
+    },
+    "06_4": {
+      "bytes": 725804,
+      "channels": 1,
+      "frames": 362880,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "53f897c743f97cda4a1166790483a665986c1f1d36707ffac49d6a2ebe1e243c"
+    },
+    "06_5": {
+      "bytes": 1002284,
+      "channels": 1,
+      "frames": 501120,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "8d3010093195a73479586166fdf7f3d5424913cdf2655b9ca38bbb1fdaedd71a"
+    },
+    "06_6": {
+      "bytes": 641324,
+      "channels": 1,
+      "frames": 320640,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "8167478d3f5a03ac7a90ac1359c40609c740d0e0f777483bf033c0e0cfafdad1"
+    },
+    "06_7": {
+      "bytes": 833324,
+      "channels": 1,
+      "frames": 416640,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "808cacab29f884f406bdeafbc68391a2a315400506ce5b335b45875f5b796b86"
+    },
+    "06_8": {
+      "bytes": 556844,
+      "channels": 1,
+      "frames": 278400,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "ec48c0fd7950560d680afb83a0ad0ac9a7ff0cdc3be118c8a18e281cc8b96fb0"
+    },
+    "06_9": {
+      "bytes": 852524,
+      "channels": 1,
+      "frames": 426240,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "ac9c5b0cbccbe538b032bf11c694a3c67ce4edc050403360713a1d33e8e1d6af"
+    },
+    "07_1": {
+      "bytes": 802604,
+      "channels": 1,
+      "frames": 401280,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "f68b53372b8e4c567e670d9af5c04f2cb213750c7a09b3b469d15c4eb38562cb"
+    },
+    "07_2": {
+      "bytes": 576044,
+      "channels": 1,
+      "frames": 288000,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "deed66069c6d765389e1083795065b06413e408a78707f44446f0f94661191ce"
+    },
+    "07_3": {
+      "bytes": 414764,
+      "channels": 1,
+      "frames": 207360,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "7e5c8b69908bad3f0d8369391953118700f4ef490478363f3a32f4619f58aafb"
+    },
+    "07_4": {
+      "bytes": 683564,
+      "channels": 1,
+      "frames": 341760,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "228b031c39e009f39bd95fc70b774bc79f2b1fa55cf6ab4e292a58397e838add"
+    },
+    "07_5": {
+      "bytes": 1048364,
+      "channels": 1,
+      "frames": 524160,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "45b33f011819b5b07bfca2fc8405f8ff0e361352f0f7cfb93761d34b0a71c588"
+    },
+    "07_6": {
+      "bytes": 875564,
+      "channels": 1,
+      "frames": 437760,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "8a0e73bd8993e8f1842264153f476e3a62c0426de87cb48a1b290a889631c0b6"
+    },
+    "08_1": {
+      "bytes": 937004,
+      "channels": 1,
+      "frames": 468480,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "77013b399e39b4b62f214e90e166be29fd4296e95e40cb57f55bb0931e57d01a"
+    },
+    "08_2": {
+      "bytes": 587564,
+      "channels": 1,
+      "frames": 293760,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "848fc5301731e03042d7484dfbe263689a9eee8d94c44f0f3d9926dd087775db"
+    },
+    "08_3": {
+      "bytes": 806444,
+      "channels": 1,
+      "frames": 403200,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "4cf2231b57a4734a24b7d88c7ff51bf087488d6010a194be48b604cad95e8db3"
+    },
+    "08_4": {
+      "bytes": 522284,
+      "channels": 1,
+      "frames": 261120,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "74cf2bafc68c89797eb19e8c8f36f775754a7dc632263faaf0f8b20f687d8670"
+    },
+    "08_5": {
+      "bytes": 1336364,
+      "channels": 1,
+      "frames": 668160,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "c7cdd3c2b18121858c839888a0c048efdd679f82e357644dba335b75dd2c5aa5"
+    },
+    "09_1": {
+      "bytes": 1075244,
+      "channels": 1,
+      "frames": 537600,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "88120c2db2fa3e22db3a045c323898e66ecc39d64229ed9d174fc23195d8dfe7"
+    },
+    "09_2": {
+      "bytes": 503084,
+      "channels": 1,
+      "frames": 251520,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "9cf44cbe1bfb80f161a8bf8723970686098c02a767b3bda65fe42216dc51d225"
+    },
+    "09_3": {
+      "bytes": 706604,
+      "channels": 1,
+      "frames": 353280,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "1cdd671284e19128790761a07f46eb106262a995f84863a0865d11c1a9ba5539"
+    },
+    "09_4": {
+      "bytes": 403244,
+      "channels": 1,
+      "frames": 201600,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "eb63094cbf9df3b3c0159c748a9fa7bc8b3586cb12cf6b9e058e51b1f3f8600d"
+    },
+    "09_5": {
+      "bytes": 864044,
+      "channels": 1,
+      "frames": 432000,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "0cce4af3f3bd0e6ed607ca7a7b525da37dc011fe6dbca84fb6e56ef998482bcc"
+    },
+    "09_6": {
+      "bytes": 1006124,
+      "channels": 1,
+      "frames": 503040,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "3dad56c85ca3000ece6e062154303b2260d8efdb61067d6975a544516fbd2ae8"
+    },
+    "09_7": {
+      "bytes": 1132844,
+      "channels": 1,
+      "frames": 566400,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "5c9b0ebf25615d2268b2b6939b2e4a89721e9ae4d2fefadf8c4021561a919206"
+    },
+    "09_8": {
+      "bytes": 280364,
+      "channels": 1,
+      "frames": 140160,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "c361a61a1b32bffe6e71aa60be3913b994ff59abc4a8821cfb7023cc9a0d3d23"
+    },
+    "09_9": {
+      "bytes": 568364,
+      "channels": 1,
+      "frames": 284160,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "d4a6483385e1e4c01eb43b8017db2e08da34f94c0447d265d49740bcc8dd85e9"
+    },
+    "10_1": {
+      "bytes": 745004,
+      "channels": 1,
+      "frames": 372480,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "40de1ac403384692b20ab68ee926df1f2d864eeb8f5c569cf08a132de14c292d"
+    },
+    "10_2": {
+      "bytes": 1140524,
+      "channels": 1,
+      "frames": 570240,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "1573b6a209628f9937cc0d362e5325cfd21d35fe6518314a017388030849e1cb"
+    },
+    "10_3": {
+      "bytes": 963884,
+      "channels": 1,
+      "frames": 481920,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "291f3ffa39d68c6df4b7c7c251561c568f945c674102421e7b4db25d399bcae7"
+    },
+    "10_4": {
+      "bytes": 587564,
+      "channels": 1,
+      "frames": 293760,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "eb8e953e7d83f39c3700e56848c782b9b86208e05c2385d6e5fefd1db8e7148c"
+    },
+    "10_5": {
+      "bytes": 702764,
+      "channels": 1,
+      "frames": 351360,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "b42af52f4973992d490091583e4f668a17ce4ee9e225adcafb8aec10d38e28e9"
+    },
+    "10_6": {
+      "bytes": 806444,
+      "channels": 1,
+      "frames": 403200,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "1ea33da946b884948dc70bf644af72376ec11fdd3dae6b7568465545804a44d9"
+    },
+    "11_1": {
+      "bytes": 844844,
+      "channels": 1,
+      "frames": 422400,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "b67c16a684648049a8603251c45a1a5d49561609156c8699995a1fd625ed48c4"
+    },
+    "11_2": {
+      "bytes": 1059884,
+      "channels": 1,
+      "frames": 529920,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "76617c44c309c0483a6900faa7253f644cf5715e716f695728dea3c4fcdb6a29"
+    },
+    "11_3": {
+      "bytes": 1370924,
+      "channels": 1,
+      "frames": 685440,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "a65874d85b08048e7600e3f2f78063c6a51ca70992f8d3c43447c6ec60e712b7"
+    },
+    "11_4": {
+      "bytes": 602924,
+      "channels": 1,
+      "frames": 301440,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "253a7d994d22cd0cb87b11942a30e7f33f2f3a72b8767ed8057fe300053c29f2"
+    },
+    "11_5": {
+      "bytes": 445484,
+      "channels": 1,
+      "frames": 222720,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "59cd3d748482657cdd71161ce5e6be0ed975e6c7731ab5a0e4ae2f599515fda1"
+    },
+    "11_6": {
+      "bytes": 756524,
+      "channels": 1,
+      "frames": 378240,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "434774bd0887e9cd32fce89bea741479443e8365da911cdd22769f07f2b18e2a"
+    },
+    "11_7": {
+      "bytes": 1701164,
+      "channels": 1,
+      "frames": 850560,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "ff38498f4f66d5946ef0e09d4faceec4cd5d1bd33d2adbd55aff5df5b31e0e03"
+    },
+    "11_8": {
+      "bytes": 1347884,
+      "channels": 1,
+      "frames": 673920,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "3e7d3ddcd0f638bd702480c3d80b0d52efffc3771245b0793d571b088181cac8"
+    },
+    "12_1": {
+      "bytes": 917804,
+      "channels": 1,
+      "frames": 458880,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "0ab025da706c37d2f973eeab530e4fb9a85db4db579b46fea06fd3dabd72c362"
+    },
+    "12_2": {
+      "bytes": 817964,
+      "channels": 1,
+      "frames": 408960,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "76a66b22cf489bc8901f7d808b36ae95040db308f82371f4b38d4c50af507880"
+    },
+    "12_3": {
+      "bytes": 549164,
+      "channels": 1,
+      "frames": 274560,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "e3cf24859c39ce35e71ffe307649e2bb7951def2efc58ba9f9fd3a5e08e75783"
+    },
+    "12_4": {
+      "bytes": 579884,
+      "channels": 1,
+      "frames": 289920,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "921cecf486cd65ba91de0b31102709c273e8b5530a7b850d3d2b92897ffbd52a"
+    },
+    "13_1": {
+      "bytes": 768044,
+      "channels": 1,
+      "frames": 384000,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "c3f06f7ecc32c8e2214cfed68fc7086185f7cd706c4b848a992b71f2e1c8f358"
+    },
+    "13_10": {
+      "bytes": 944684,
+      "channels": 1,
+      "frames": 472320,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "d8cd0bb64766befb879e9f528c2e4340097e15c0151b286e60b5441311d6317b"
+    },
+    "13_11": {
+      "bytes": 618284,
+      "channels": 1,
+      "frames": 309120,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "793bbef7a93a518762448b25429ba182cbd68de521bb94d1140cbb044cd49e0b"
+    },
+    "13_2": {
+      "bytes": 798764,
+      "channels": 1,
+      "frames": 399360,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "d7fcc9f4886902c85e3d6c3fec28fab8cf97ea57ef3f3c879d20c21b64a16569"
+    },
+    "13_3": {
+      "bytes": 937004,
+      "channels": 1,
+      "frames": 468480,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "5c97bbdb8dae6b4d9a9695ca80e3a8694f82d21c70aae463e5bc9483391059a5"
+    },
+    "13_4": {
+      "bytes": 529964,
+      "channels": 1,
+      "frames": 264960,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "026f1ee6c09b04c58f0060cd7a283946d94e49d81f69d2b8fc8072bb059ba0dd"
+    },
+    "13_5": {
+      "bytes": 733484,
+      "channels": 1,
+      "frames": 366720,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "8f6bfabbf30209caf8072c6f83962019f98150c6f8b234a2b8e2cd926bc2e393"
+    },
+    "13_6": {
+      "bytes": 226604,
+      "channels": 1,
+      "frames": 113280,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "e7954625467b91b55634226791551b69bc6ea9eefac1b718907358294bfd7649"
+    },
+    "13_7": {
+      "bytes": 764204,
+      "channels": 1,
+      "frames": 382080,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "7b275fdab292b95f9863251cf5984233195a5441c1a3a737a0344026b3b65489"
+    },
+    "13_8": {
+      "bytes": 641324,
+      "channels": 1,
+      "frames": 320640,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "f3587b15eca495cd3cecf9407a525adbaaaeed62b48b354134b27e95fccc15be"
+    },
+    "13_9": {
+      "bytes": 560684,
+      "channels": 1,
+      "frames": 280320,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "8839041c30570f4c30f228878be46d7ab15de342bc1c8864af234551175c5d80"
+    },
+    "14_1": {
+      "bytes": 902444,
+      "channels": 1,
+      "frames": 451200,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "e5aafe5c9f73a3f544817bfd09041005b4e1cb7f2d40a8f0337a9b481546504c"
+    },
+    "14_2": {
+      "bytes": 1029164,
+      "channels": 1,
+      "frames": 514560,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "39e066c4fa99aa5a2c83489aa773bd5481a9e966425aeb97a3ffe36ab6bd1eb3"
+    },
+    "14_3": {
+      "bytes": 1685804,
+      "channels": 1,
+      "frames": 842880,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "f9f2ca25fb347b0b67536dd557369bc7ff8f3ceef4d48590d118f5d12b59e89b"
+    },
+    "14_4": {
+      "bytes": 284204,
+      "channels": 1,
+      "frames": 142080,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "5a29e84e84e010064f8f73d8624b4faeb4bf7529451c47b8c5521c7e587745b8"
+    },
+    "14_5": {
+      "bytes": 1520684,
+      "channels": 1,
+      "frames": 760320,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "98ba60b464c362672f8729f30f388140c738cd1e4d01062c5f4645f497d7f17a"
+    },
+    "14_6": {
+      "bytes": 940844,
+      "channels": 1,
+      "frames": 470400,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "8dc7dd55b446950f9de08a37304f94e05beaf9f169ac41a9b13118324abb2819"
+    },
+    "14_7": {
+      "bytes": 1033004,
+      "channels": 1,
+      "frames": 516480,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "78064e7720f941654bcf6b88d180b0a0dc67967f08553d89fcd3832bc7b524bb"
+    },
+    "14_8": {
+      "bytes": 1086764,
+      "channels": 1,
+      "frames": 543360,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "3d3c3e1daa7148b39e0ee1acb3f27f0ddcf5fb16bf0008692b0e92261339ac00"
+    },
+    "15_1": {
+      "bytes": 422444,
+      "channels": 1,
+      "frames": 211200,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "ad7d057545112d7d443b6a20b01a0b649ae402553f34ca48699978fd52df820e"
+    },
+    "15_2": {
+      "bytes": 1543724,
+      "channels": 1,
+      "frames": 771840,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "ddeea6197db35f9a85b0913f5cc9f9fbd8edc816d4ca43956035a4e81e75c965"
+    },
+    "15_3": {
+      "bytes": 341804,
+      "channels": 1,
+      "frames": 170880,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "c56aa06af2760facd56a921e26b25fc9145e119b78faa0713fdbd94c4e827cfa"
+    },
+    "15_4": {
+      "bytes": 368684,
+      "channels": 1,
+      "frames": 184320,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "sha256": "92ec3b3cd20634815e35a9a4d126afa93cdc0a7514837a087952253f8a50bfca"
+    }
+  },
+  "report_sha256": "ffc0f1ba3a7ebd2ba8c222ed915c662cc18b5f78b57abab4e47acb05534399b6",
+  "schema_version": 1
+}

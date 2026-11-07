@@ -1,0 +1,180 @@
+diff --git a/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/before-cosets.rs b/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/cosets.rs
+index 81f1c9d5..3068feb2 100644
+--- a/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/before-cosets.rs
++++ b/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/cosets.rs
+@@ -146,14 +146,41 @@ fn carry_h(stage: &mut Stage<'_>, kit: &Kit, g: Elem, run_time: f64) -> fmn::Res
+     Ok(())
+ }
+ 
+-/// A straight link between the two members of a right coset on the rack.
+-fn link_of(stage: &mut Stage<'_>, coset: &[Elem], color: Srgb) -> fmn::Result<Mob> {
+-    let (a, b) = (rack_at(coset[0]), rack_at(coset[1]));
+-    Ok(stage.arena_mut().add(
+-        Line::new(v(a.0, a.1), v(b.0, b.1))
+-            .style(stroke_style(color, 6.0))
+-            .build()?,
+-    ))
++/// Half a rack tile: `d4g::thumb` draws the square at ±0.48.
++const TILE_HALF: f64 = 0.48;
++/// The link's half width (stroke 6.0), so its round cap just meets a tile edge.
++const LINK_CAP: f64 = 0.03;
++/// A link leaves or enters a tile this far right or left of the column centre,
++/// clear of the name under the top tile and of the corner dots inside it.
++const LINK_OFFSET: f64 = 0.25;
++/// The heights where links run between columns, below the top row's names and
++/// above the bottom row's tiles: one for links going right, one for left.
++const LINK_LANES: [f64; 2] = [0.1, -0.1];
++
++/// The corners of the link from a right coset's rotation (top row) to its flip
++/// (bottom row). It leaves the bottom edge of the top tile and enters the top
++/// edge of the bottom tile, beside the names, so it never crosses a tile, a
++/// corner number or a name. A link between two columns runs along a lane in
++/// the gap between the rows.
++fn link_route(coset: &[Elem]) -> Vec<(f64, f64)> {
++    let (top, bottom) = (rack_at(coset[0]), rack_at(coset[1]));
++    let leave = (top.0 + LINK_OFFSET, top.1 - TILE_HALF - LINK_CAP);
++    let arrive_y = bottom.1 + TILE_HALF + LINK_CAP;
++    if coset[0].turns == coset[1].turns {
++        return vec![leave, (leave.0, arrive_y)];
++    }
++    let arrive_x = bottom.0 - LINK_OFFSET;
++    let lane = LINK_LANES[usize::from(bottom.0 < top.0)];
++    vec![leave, (leave.0, lane), (arrive_x, lane), (arrive_x, arrive_y)]
++}
++
++/// A link between the two members of a right coset on the rack, drawn from
++/// the rotation to the flip.
++fn link_of(stage: &mut Stage<'_>, coset: &[Elem], color: Srgb) -> Mob {
++    let corners = link_route(coset).into_iter().map(|(x, y)| v(x, y));
++    stage
++        .arena_mut()
++        .add(Polygon::polyline(corners).style(stroke_style(color, 6.0)).build())
+ }
+ 
+ /// A token walks the clock from `from` to `to` one position at a time; a
+@@ -356,11 +383,19 @@ impl SceneConstruct for Cosets {
+         )?;
+         d4g::show(stage, &[column_note], 0.4)?;
+ 
+-        // 14_14: right cosets cross the columns.
++        // 14_14: right cosets cross the columns; the heading now names both.
+         k.say(stage, "14_14")?;
+-        let mut old = vec![definition, column_note];
++        let mut old = vec![definition, column_note, heading];
+         old.extend(example);
+         d4g::hide(stage, &old, 0.3)?;
++        let both = k.text(
++            stage,
++            "When order matters: left and right cosets",
++            34.0,
++            Palette::ink(),
++            v(0.0, 3.3),
++        )?;
++        d4g::show(stage, &[both], 0.4)?;
+         k.until_sentence(stage, "14_14", 1)?;
+         let hr = tex_at(stage, &k, r"Hr=\{r,sr\}", 36.0, Palette::purple(), 1.1)?;
+         d4g::show(stage, &[hr], 0.4)?;
+@@ -368,13 +403,13 @@ impl SceneConstruct for Cosets {
+         let sr = S.mul(R);
+         let rewrite = tex_at(stage, &k, &format!("sr={}", sr.tex()), 36.0, Palette::purple(), 0.3)?;
+         d4g::show(stage, &[rewrite], 0.4)?;
+-        let first_link = link_of(stage, &d4g::right_coset(R, &FLIP_H), Palette::purple())?;
++        let first_link = link_of(stage, &d4g::right_coset(R, &FLIP_H), Palette::purple());
+         play!(stage; show_creation(first_link).rt(0.8));
+         k.until_sentence(stage, "14_14", 4)?;
+         let mut links = vec![first_link];
+         for coset in right_cosets(&FLIP_H) {
+             if coset != d4g::right_coset(R, &FLIP_H) {
+-                let link = link_of(stage, &coset, Palette::purple())?;
++                let link = link_of(stage, &coset, Palette::purple());
+                 play!(stage; show_creation(link).rt(0.5));
+                 links.push(link);
+             }
+@@ -403,7 +438,7 @@ impl SceneConstruct for Cosets {
+         let mut old = rack_items.clone();
+         old.extend(columns.iter().copied());
+         old.extend(links);
+-        old.extend([heading, h_name, hr, rewrite, cuts, differ]);
++        old.extend([both, h_name, hr, rewrite, cuts, differ]);
+         d4g::hide(stage, &old, 0.5)?;
+         let heading = k.text(stage, "Same coset? Look at the step", 34.0, Palette::ink(), v(0.0, 3.2))?;
+         let dial = stage.arena_mut().add(
+@@ -801,6 +836,78 @@ mod tests {
+         assert!(rights.iter().all(|c| c.len() == 2));
+     }
+ 
++    /// `[x0, x1, y0, y1]` boxes overlap by more than rounding.
++    fn overlaps(a: [f64; 4], b: [f64; 4]) -> bool {
++        a[0] < b[1] - 1e-9 && b[0] < a[1] - 1e-9 && a[2] < b[3] - 1e-9 && b[2] < a[3] - 1e-9
++    }
++
++    #[test]
++    fn right_coset_links_touch_their_tiles_and_cross_no_tile_or_name() {
++        // A top-row name: 24 pt at 0.68 below the tile centre, at most "r³" wide.
++        let (name_half_w, name_half_h) = (0.15, 0.1);
++        let routes: Vec<Vec<(f64, f64)>> = right_cosets(&FLIP_H).iter().map(|c| link_route(c.as_slice())).collect();
++        // The left-coset column frames are 1.3 wide; no link runs along a border.
++        let borders: Vec<f64> = (0..4u8)
++            .flat_map(|t| [-0.65, 0.65].map(|side| RACK_X0 + RACK_DX * f64::from(t) + side))
++            .collect();
++        let mut segments = Vec::new();
++        for (coset, route) in right_cosets(&FLIP_H).iter().zip(&routes) {
++            // Rotation first, then the flip: the link runs from the top row down.
++            assert!(!coset[0].flip && coset[1].flip, "{coset:?}");
++            let (top, bottom) = (rack_at(coset[0]), rack_at(coset[1]));
++            let (first, last) = (route[0], route[route.len() - 1]);
++            assert!((first.1 + LINK_CAP - (top.1 - TILE_HALF)).abs() < 1e-9);
++            assert!((last.1 - LINK_CAP - (bottom.1 + TILE_HALF)).abs() < 1e-9);
++            assert!((first.0 - top.0).abs() < TILE_HALF && (last.0 - bottom.0).abs() < TILE_HALF);
++            for pair in route.windows(2) {
++                let (a, b) = (pair[0], pair[1]);
++                assert!(a.0 == b.0 || a.1 == b.1, "segments are vertical or horizontal");
++                if a.0 == b.0 {
++                    assert!(
++                        borders.iter().all(|x| (x - a.0).abs() > 0.1),
++                        "{coset:?} runs along a column frame"
++                    );
++                }
++                let stroke = [
++                    a.0.min(b.0) - LINK_CAP,
++                    a.0.max(b.0) + LINK_CAP,
++                    a.1.min(b.1) - LINK_CAP,
++                    a.1.max(b.1) + LINK_CAP,
++                ];
++                for g in ALL {
++                    let (x, y) = rack_at(g);
++                    let tile = [x - TILE_HALF, x + TILE_HALF, y - TILE_HALF, y + TILE_HALF];
++                    assert!(!overlaps(stroke, tile), "{coset:?} crosses the tile of {g:?}");
++                    let name = [
++                        x - name_half_w,
++                        x + name_half_w,
++                        y - 0.68 - name_half_h,
++                        y - 0.68 + name_half_h,
++                    ];
++                    assert!(!overlaps(stroke, name), "{coset:?} crosses the name of {g:?}");
++                }
++                segments.push((a, b));
++            }
++        }
++        // Two links may cross, but never run along each other.
++        for (i, &(a, b)) in segments.iter().enumerate() {
++            for &(c, d) in &segments[i + 1..] {
++                let same_x = a.0 == b.0 && c.0 == d.0 && a.0 == c.0;
++                let same_y = a.1 == b.1 && c.1 == d.1 && a.1 == c.1;
++                if same_x {
++                    assert!(a.1.max(b.1) < c.1.min(d.1) || c.1.max(d.1) < a.1.min(b.1));
++                }
++                if same_y {
++                    assert!(a.0.max(b.0) < c.0.min(d.0) || c.0.max(d.0) < a.0.min(b.0));
++                }
++            }
++        }
++        // The two links that change column use different lanes.
++        let lanes: Vec<f64> = routes.iter().filter(|r| r.len() == 4).map(|r| r[1].1).collect();
++        assert_eq!(lanes.len(), 2);
++        assert!(lanes[0] != lanes[1]);
++    }
++
+     #[test]
+     fn correction_and_reshuffle_examples_hold() {
+         assert_eq!(R.inv().mul(RS), S);

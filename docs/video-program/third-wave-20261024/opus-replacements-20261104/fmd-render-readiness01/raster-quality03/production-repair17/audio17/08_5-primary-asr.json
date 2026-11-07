@@ -1,0 +1,4227 @@
+{
+  "run_id": "43e53c9f-fdf5-47d1-b83f-fb25ff9d026c",
+  "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+  "started_at_rfc3339": "2026-11-07T14:47:46.243274+00:00",
+  "finished_at_rfc3339": "2026-11-07T14:47:57.156469+00:00",
+  "input_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw08_5-ui01/ElevenLabs_2026-11-07T14_43_40_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4 (1).wav",
+  "normalized_wav_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/.franken_whisper/tmp/fw-run-HuwS4Y/normalized_16k_mono.wav",
+  "request": {
+    "input": {
+      "kind": "file",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw08_5-ui01/ElevenLabs_2026-11-07T14_43_40_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4 (1).wav"
+    },
+    "backend": "whisper_cpp",
+    "model": "/Users/jemanuel/.cache/franken_whisper/models/whisper/whisper-large-v3-turbo-f16-v1/ggml-large-v3-turbo.bin",
+    "language": "en",
+    "translate": false,
+    "diarize": false,
+    "persist": false,
+    "db_path": ".franken_whisper/storage.sqlite3",
+    "timeout_ms": 600000,
+    "backend_params": {
+      "output_formats": [],
+      "timestamp_level": null,
+      "decoding": {
+        "best_of": null,
+        "beam_size": null,
+        "max_context": null,
+        "max_segment_length": 1,
+        "temperature": null,
+        "temperature_increment": null,
+        "entropy_threshold": null,
+        "logprob_threshold": null,
+        "no_speech_threshold": null
+      },
+      "vad": null,
+      "diarization_config": null,
+      "gpu_device": null,
+      "flash_attention": null,
+      "insanely_fast_transcript_path": null,
+      "no_timestamps": false,
+      "detect_language_only": false,
+      "batch_size": null,
+      "split_on_word": true,
+      "threads": 4,
+      "processors": null,
+      "no_gpu": false,
+      "prompt": null,
+      "carry_initial_prompt": false,
+      "no_fallback": false,
+      "suppress_nst": false,
+      "offset_ms": null,
+      "duration_ms": null,
+      "audio_ctx": null,
+      "word_threshold": null,
+      "suppress_regex": null,
+      "tiny_diarize": false,
+      "word_timestamps": null,
+      "insanely_fast_tuning": null,
+      "alignment": null,
+      "punctuation": null,
+      "source_separation": null,
+      "speculative": null
+    }
+  },
+  "result": {
+    "backend": "whisper_cpp",
+    "transcript": "Cauchy's theorem says more: if a function is holomorphic on a loop and everywhere inside it, its loop integral is zero. We will prove the pieces we need, starting with a square and a function holomorphic on it, inside it, and a little beyond. Cut the square into four smaller squares and walk each one counterclockwise. When we add their four loop integrals, every shared edge is walked twice in opposite directions, so those parts cancel exactly. What remains is the loop integral around the original square. Now suppose that integral were not zero. Then some small square must have an integral at least a quarter of that size. Four integrals each under a quarter of that size could not add up to it. Keep that square and cut it into four again. Each time, keep a piece whose integral has at least a quarter of its parent's size. These nested squares shrink toward a single point, which we call c. From here on, we use the derivative at that one point only. Near c, the function is a constant, plus a linear term that stretches and turns z minus c, plus a remainder. The constant integrates to zero, because the steps around a closed loop add up to nothing. The linear term integrates to zero too, because it is the derivative of a quadratic, whose changes around a closed loop also add up to nothing. So only the remainder contributes. Pick any tiny factor and call it epsilon. Close enough to c, the remainder's size is at most epsilon times the distance to c, and that is exactly what having a derivative at c means. After enough cuts, the whole nested square lies that close. There, the distance to c is at most the square's diagonal, and the steps add up to the perimeter. So the integral around that square has size at most epsilon times its diagonal times its perimeter. Each cut halves the diagonal and halves the perimeter. So this bound shrinks to a quarter every time. But our rule kept at least a quarter of the integral's size at every cut. So after n cuts, the original integral's size is at most 4^n times the size of the small squares integral. The small squares integral has size at most epsilon times the original diagonal and perimeter divided by 4^n. Multiplying by 4^n cancels the 4's, so the original integral's size is at most epsilon times the original diagonal and perimeter. Since epsilon can be as small as we like, the integral is zero. The same shrinking argument works for a triangle. Join the midpoints of its sides and you get four triangles at half the size. Walk all four counterclockwise, even the upside-down one in the middle, and their shared edges cancel again. The longest side plays the diagonals part, and it halves with the perimeter at every cut. So around every triangle, the integral is zero, two.",
+    "language": "en",
+    "segments": [
+      {
+        "start_sec": 0.0,
+        "end_sec": 0.7999999523162842,
+        "text": "Cauchy's",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 0.7999999523162842,
+        "end_sec": 1.1200000047683716,
+        "text": "theorem",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 1.1200000047683716,
+        "end_sec": 1.5399999618530273,
+        "text": "says",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 1.5399999618530273,
+        "end_sec": 2.2799999713897705,
+        "text": "more:",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 2.2799999713897705,
+        "end_sec": 2.379999876022339,
+        "text": "if",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 2.379999876022339,
+        "end_sec": 2.679999828338623,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 2.679999828338623,
+        "end_sec": 2.8999998569488525,
+        "text": "function",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 2.8999998569488525,
+        "end_sec": 3.119999885559082,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 3.119999885559082,
+        "end_sec": 3.759999990463257,
+        "text": "holomorphic",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 3.759999990463257,
+        "end_sec": 3.879999876022339,
+        "text": "on",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 3.879999876022339,
+        "end_sec": 4.159999847412109,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 4.159999847412109,
+        "end_sec": 4.440000057220459,
+        "text": "loop",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 4.440000057220459,
+        "end_sec": 4.920000076293945,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 4.920000076293945,
+        "end_sec": 5.299999713897705,
+        "text": "everywhere",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 5.299999713897705,
+        "end_sec": 5.44,
+        "text": "inside",
+        "speaker": null,
+        "confidence": 0.0020264274992614303
+      },
+      {
+        "start_sec": 5.71999979019165,
+        "end_sec": 6.279999732971191,
+        "text": "it,",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 6.279999732971191,
+        "end_sec": 6.539999961853027,
+        "text": "its",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 6.539999961853027,
+        "end_sec": 6.920000076293945,
+        "text": "loop",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 6.920000076293945,
+        "end_sec": 7.199999809265137,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 7.199999809265137,
+        "end_sec": 7.579999923706055,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 7.579999923706055,
+        "end_sec": 8.4399995803833,
+        "text": "zero.",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 8.4399995803833,
+        "end_sec": 8.559999465942383,
+        "text": "We",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 8.559999465942383,
+        "end_sec": 8.880000114440918,
+        "text": "will",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 8.880000114440918,
+        "end_sec": 9.09999942779541,
+        "text": "prove",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 9.09999942779541,
+        "end_sec": 9.399999618530273,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 9.399999618530273,
+        "end_sec": 9.619999885559082,
+        "text": "pieces",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 9.619999885559082,
+        "end_sec": 9.960000038146973,
+        "text": "we",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 9.960000038146973,
+        "end_sec": 10.65999984741211,
+        "text": "need,",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 10.65999984741211,
+        "end_sec": 10.819999694824219,
+        "text": "starting",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 10.819999694824219,
+        "end_sec": 10.9399995803833,
+        "text": "with",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 10.9399995803833,
+        "end_sec": 11.359999656677246,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 11.359999656677246,
+        "end_sec": 11.68,
+        "text": "square",
+        "speaker": null,
+        "confidence": 0.002013872143095287
+      },
+      {
+        "start_sec": 11.819999694824219,
+        "end_sec": 11.920000076293945,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 11.920000076293945,
+        "end_sec": 12.25999927520752,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 12.25999927520752,
+        "end_sec": 12.539999961853027,
+        "text": "function",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 12.539999961853027,
+        "end_sec": 13.139999389648438,
+        "text": "holomorphic",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 13.139999389648438,
+        "end_sec": 13.34000015258789,
+        "text": "on",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 13.34000015258789,
+        "end_sec": 14.0,
+        "text": "it,",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 14.0,
+        "end_sec": 14.279999732971191,
+        "text": "inside",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 14.279999732971191,
+        "end_sec": 14.619999885559082,
+        "text": "it,",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 14.619999885559082,
+        "end_sec": 14.719999313354492,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 14.719999313354492,
+        "end_sec": 14.880000114440918,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 14.880000114440918,
+        "end_sec": 15.25999927520752,
+        "text": "little",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 15.25999927520752,
+        "end_sec": 16.31999969482422,
+        "text": "beyond.",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 16.31999969482422,
+        "end_sec": 16.440000534057617,
+        "text": "Cut",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 16.440000534057617,
+        "end_sec": 16.779998779296875,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 16.779998779296875,
+        "end_sec": 17.020000457763672,
+        "text": "square",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 17.020000457763672,
+        "end_sec": 17.398999999999997,
+        "text": "into",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 17.398999999999997,
+        "end_sec": 17.4,
+        "text": "four",
+        "speaker": null,
+        "confidence": 0.0020156292254968175
+      },
+      {
+        "start_sec": 17.8799991607666,
+        "end_sec": 18.399999618530273,
+        "text": "smaller",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 18.399999618530273,
+        "end_sec": 18.779998779296875,
+        "text": "squares",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 18.779998779296875,
+        "end_sec": 19.03999900817871,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 19.03999900817871,
+        "end_sec": 19.31999969482422,
+        "text": "walk",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 19.31999969482422,
+        "end_sec": 19.619998931884766,
+        "text": "each",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 19.619998931884766,
+        "end_sec": 20.03999900817871,
+        "text": "one",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 20.03999900817871,
+        "end_sec": 21.420000076293945,
+        "text": "counterclockwise.",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 21.420000076293945,
+        "end_sec": 21.520000457763672,
+        "text": "When",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 21.520000457763672,
+        "end_sec": 21.779998779296875,
+        "text": "we",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 21.779998779296875,
+        "end_sec": 22.0,
+        "text": "add",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 22.0,
+        "end_sec": 22.31999969482422,
+        "text": "their",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 22.31999969482422,
+        "end_sec": 22.619998931884766,
+        "text": "four",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 22.619998931884766,
+        "end_sec": 22.8799991607666,
+        "text": "loop",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 22.8799991607666,
+        "end_sec": 23.799,
+        "text": "integrals,",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 23.799,
+        "end_sec": 23.8,
+        "text": "every",
+        "speaker": null,
+        "confidence": 0.0019955706509395934
+      },
+      {
+        "start_sec": 24.219999313354492,
+        "end_sec": 24.600000381469727,
+        "text": "shared",
+        "speaker": null,
+        "confidence": 0.0020206657618227312
+      },
+      {
+        "start_sec": 24.600000381469727,
+        "end_sec": 24.799999237060547,
+        "text": "edge",
+        "speaker": null,
+        "confidence": 0.0020206657618227312
+      },
+      {
+        "start_sec": 24.799999237060547,
+        "end_sec": 25.03999900817871,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0020206657618227312
+      },
+      {
+        "start_sec": 25.03999900817871,
+        "end_sec": 25.51999855041504,
+        "text": "walked",
+        "speaker": null,
+        "confidence": 0.0020206657618227312
+      },
+      {
+        "start_sec": 25.51999855041504,
+        "end_sec": 26.0,
+        "text": "twice",
+        "speaker": null,
+        "confidence": 0.0020206657618227312
+      },
+      {
+        "start_sec": 26.0,
+        "end_sec": 26.31999969482422,
+        "text": "in",
+        "speaker": null,
+        "confidence": 0.0020206657618227312
+      },
+      {
+        "start_sec": 26.31999969482422,
+        "end_sec": 26.920000076293945,
+        "text": "opposite",
+        "speaker": null,
+        "confidence": 0.0020206657618227312
+      },
+      {
+        "start_sec": 26.920000076293945,
+        "end_sec": 27.579999923706055,
+        "text": "directions,",
+        "speaker": null,
+        "confidence": 0.0020206657618227312
+      },
+      {
+        "start_sec": 27.579999923706055,
+        "end_sec": 27.779998779296875,
+        "text": "so",
+        "speaker": null,
+        "confidence": 0.0020206657618227312
+      },
+      {
+        "start_sec": 27.779998779296875,
+        "end_sec": 28.139999389648438,
+        "text": "those",
+        "speaker": null,
+        "confidence": 0.0020206657618227312
+      },
+      {
+        "start_sec": 28.139999389648438,
+        "end_sec": 28.559999465942383,
+        "text": "parts",
+        "speaker": null,
+        "confidence": 0.0020206657618227312
+      },
+      {
+        "start_sec": 28.559999465942383,
+        "end_sec": 29.079999923706055,
+        "text": "cancel",
+        "speaker": null,
+        "confidence": 0.0020206657618227312
+      },
+      {
+        "start_sec": 29.079999923706055,
+        "end_sec": 29.85999870300293,
+        "text": "exactly.",
+        "speaker": null,
+        "confidence": 0.0020206657618227312
+      },
+      {
+        "start_sec": 29.85999870300293,
+        "end_sec": 29.88,
+        "text": "What",
+        "speaker": null,
+        "confidence": 0.0020206657618227312
+      },
+      {
+        "start_sec": 29.88,
+        "end_sec": 30.639999389648438,
+        "text": "remains",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 30.639999389648438,
+        "end_sec": 30.780000686645508,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 30.780000686645508,
+        "end_sec": 31.020000457763672,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 31.020000457763672,
+        "end_sec": 31.3799991607666,
+        "text": "loop",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 31.3799991607666,
+        "end_sec": 31.799999237060547,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 31.799999237060547,
+        "end_sec": 32.0,
+        "text": "around",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 32.0,
+        "end_sec": 32.400001525878906,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 32.400001525878906,
+        "end_sec": 32.880001068115234,
+        "text": "original",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 32.880001068115234,
+        "end_sec": 34.0,
+        "text": "square.",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 34.0,
+        "end_sec": 34.41999816894531,
+        "text": "Now",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 34.41999816894531,
+        "end_sec": 34.63999938964844,
+        "text": "suppose",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 34.63999938964844,
+        "end_sec": 35.07999801635742,
+        "text": "that",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 35.07999801635742,
+        "end_sec": 35.36000061035156,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 35.36000061035156,
+        "end_sec": 35.63999938964844,
+        "text": "were",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 35.63999938964844,
+        "end_sec": 36.07999801635742,
+        "text": "not",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 36.07999801635742,
+        "end_sec": 36.86000061035156,
+        "text": "zero.",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 36.86000061035156,
+        "end_sec": 37.119998931884766,
+        "text": "Then",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 37.119998931884766,
+        "end_sec": 37.5,
+        "text": "some",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 37.5,
+        "end_sec": 37.880001068115234,
+        "text": "small",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 37.880001068115234,
+        "end_sec": 38.220001220703125,
+        "text": "square",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 38.220001220703125,
+        "end_sec": 38.380001068115234,
+        "text": "must",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 38.380001068115234,
+        "end_sec": 38.5,
+        "text": "have",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 38.5,
+        "end_sec": 38.84000015258789,
+        "text": "an",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 38.84000015258789,
+        "end_sec": 39.05999755859375,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 39.05999755859375,
+        "end_sec": 39.36000061035156,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 39.36000061035156,
+        "end_sec": 39.52000045776367,
+        "text": "least",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 39.52000045776367,
+        "end_sec": 39.86000061035156,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 39.86000061035156,
+        "end_sec": 40.05999755859375,
+        "text": "quarter",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 40.05999755859375,
+        "end_sec": 40.220001220703125,
+        "text": "of",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 40.220001220703125,
+        "end_sec": 40.65999984741211,
+        "text": "that",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 40.65999984741211,
+        "end_sec": 41.619998931884766,
+        "text": "size.",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 41.619998931884766,
+        "end_sec": 41.86000061035156,
+        "text": "Four",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 41.86000061035156,
+        "end_sec": 42.36000061035156,
+        "text": "integrals",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 42.36000061035156,
+        "end_sec": 42.65999984741211,
+        "text": "each",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 42.65999984741211,
+        "end_sec": 42.79999923706055,
+        "text": "under",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 42.79999923706055,
+        "end_sec": 43.099998474121094,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 43.099998474121094,
+        "end_sec": 43.279998779296875,
+        "text": "quarter",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 43.279998779296875,
+        "end_sec": 43.439998626708984,
+        "text": "of",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 43.439998626708984,
+        "end_sec": 43.779998779296875,
+        "text": "that",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 43.779998779296875,
+        "end_sec": 44.040000915527344,
+        "text": "size",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 44.040000915527344,
+        "end_sec": 44.31999969482422,
+        "text": "could",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 44.31999969482422,
+        "end_sec": 44.57999801635742,
+        "text": "not",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 44.57999801635742,
+        "end_sec": 44.70000076293945,
+        "text": "add",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 44.70000076293945,
+        "end_sec": 44.86000061035156,
+        "text": "up",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 44.86000061035156,
+        "end_sec": 45.040000915527344,
+        "text": "to",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 45.040000915527344,
+        "end_sec": 45.959999084472656,
+        "text": "it.",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 45.959999084472656,
+        "end_sec": 46.119998931884766,
+        "text": "Keep",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 46.119998931884766,
+        "end_sec": 46.47999954223633,
+        "text": "that",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 46.47999954223633,
+        "end_sec": 46.84000015258789,
+        "text": "square",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 46.84000015258789,
+        "end_sec": 47.07999801635742,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 47.07999801635742,
+        "end_sec": 47.20000076293945,
+        "text": "cut",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 47.20000076293945,
+        "end_sec": 47.380001068115234,
+        "text": "it",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 47.380001068115234,
+        "end_sec": 47.68000030517578,
+        "text": "into",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 47.68000030517578,
+        "end_sec": 48.040000915527344,
+        "text": "four",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 48.040000915527344,
+        "end_sec": 48.959999084472656,
+        "text": "again.",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 48.959999084472656,
+        "end_sec": 49.31999969482422,
+        "text": "Each",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 49.31999969482422,
+        "end_sec": 49.68000030517578,
+        "text": "time,",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 49.68000030517578,
+        "end_sec": 49.81999969482422,
+        "text": "keep",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 49.81999969482422,
+        "end_sec": 50.07999801635742,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 50.07999801635742,
+        "end_sec": 50.29999923706055,
+        "text": "piece",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 50.29999923706055,
+        "end_sec": 50.619998931884766,
+        "text": "whose",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 50.619998931884766,
+        "end_sec": 50.900001525878906,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 50.900001525878906,
+        "end_sec": 51.060001373291016,
+        "text": "has",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 51.060001373291016,
+        "end_sec": 51.279998779296875,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 51.279998779296875,
+        "end_sec": 51.439998626708984,
+        "text": "least",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 51.439998626708984,
+        "end_sec": 51.779998779296875,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 51.779998779296875,
+        "end_sec": 52.0,
+        "text": "quarter",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 52.0,
+        "end_sec": 52.119998931884766,
+        "text": "of",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 52.119998931884766,
+        "end_sec": 52.47999954223633,
+        "text": "its",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 52.47999954223633,
+        "end_sec": 53.040000915527344,
+        "text": "parent's",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 53.040000915527344,
+        "end_sec": 54.0,
+        "text": "size.",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 54.0,
+        "end_sec": 54.34000015258789,
+        "text": "These",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 54.34000015258789,
+        "end_sec": 54.86000061035156,
+        "text": "nested",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 54.86000061035156,
+        "end_sec": 55.39999771118164,
+        "text": "squares",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 55.39999771118164,
+        "end_sec": 55.68000030517578,
+        "text": "shrink",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 55.68000030517578,
+        "end_sec": 55.89999771118164,
+        "text": "toward",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 55.89999771118164,
+        "end_sec": 56.220001220703125,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 56.220001220703125,
+        "end_sec": 56.68000030517578,
+        "text": "single",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 56.68000030517578,
+        "end_sec": 57.099998474121094,
+        "text": "point,",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 57.099998474121094,
+        "end_sec": 57.220001220703125,
+        "text": "which",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 57.220001220703125,
+        "end_sec": 57.5,
+        "text": "we",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 57.5,
+        "end_sec": 57.86000061035156,
+        "text": "call",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 57.86000061035156,
+        "end_sec": 58.73999786376953,
+        "text": "c.",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 58.73999786376953,
+        "end_sec": 58.91999816894531,
+        "text": "From",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 58.91999816894531,
+        "end_sec": 59.18000030517578,
+        "text": "here",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 59.18000030517578,
+        "end_sec": 59.55999755859375,
+        "text": "on,",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 59.55999755859375,
+        "end_sec": 59.7599983215332,
+        "text": "we",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 59.7599983215332,
+        "end_sec": 59.86000061035156,
+        "text": "use",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 59.86000061035156,
+        "end_sec": 59.88,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002052724441334005
+      },
+      {
+        "start_sec": 59.880001068115234,
+        "end_sec": 60.599998474121094,
+        "text": "derivative",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 60.599998474121094,
+        "end_sec": 60.79999923706055,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 60.79999923706055,
+        "end_sec": 61.099998474121094,
+        "text": "that",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 61.099998474121094,
+        "end_sec": 61.47999954223633,
+        "text": "one",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 61.47999954223633,
+        "end_sec": 61.900001525878906,
+        "text": "point",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 61.900001525878906,
+        "end_sec": 62.91999816894531,
+        "text": "only.",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 62.91999816894531,
+        "end_sec": 63.18000030517578,
+        "text": "Near",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 63.18000030517578,
+        "end_sec": 63.63999938964844,
+        "text": "c,",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 63.63999938964844,
+        "end_sec": 63.91999816894531,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 63.91999816894531,
+        "end_sec": 64.15999603271484,
+        "text": "function",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 64.15999603271484,
+        "end_sec": 64.27999877929688,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 64.27999877929688,
+        "end_sec": 64.80000305175781,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 64.80000305175781,
+        "end_sec": 65.33999633789062,
+        "text": "constant,",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 65.33999633789062,
+        "end_sec": 65.45999908447266,
+        "text": "plus",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 65.45999908447266,
+        "end_sec": 65.73999786376953,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 65.73999786376953,
+        "end_sec": 66.08000183105469,
+        "text": "linear",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 66.08000183105469,
+        "end_sec": 66.27999877929688,
+        "text": "term",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 66.27999877929688,
+        "end_sec": 66.80000305175781,
+        "text": "that",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 66.80000305175781,
+        "end_sec": 67.12000274658203,
+        "text": "stretches",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 67.12000274658203,
+        "end_sec": 67.58000183105469,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 67.58000183105469,
+        "end_sec": 67.9000015258789,
+        "text": "turns",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 67.9000015258789,
+        "end_sec": 68.18000030517578,
+        "text": "z",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 68.18000030517578,
+        "end_sec": 68.62000274658203,
+        "text": "minus",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 68.62000274658203,
+        "end_sec": 69.12000274658203,
+        "text": "c,",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 69.12000274658203,
+        "end_sec": 69.23999786376953,
+        "text": "plus",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 69.23999786376953,
+        "end_sec": 69.58000183105469,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 69.58000183105469,
+        "end_sec": 70.44000244140625,
+        "text": "remainder.",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 70.44000244140625,
+        "end_sec": 70.87999725341797,
+        "text": "The",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 70.87999725341797,
+        "end_sec": 71.30000305175781,
+        "text": "constant",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 71.30000305175781,
+        "end_sec": 71.65999603271484,
+        "text": "integrates",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 71.65999603271484,
+        "end_sec": 72.0199966430664,
+        "text": "to",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 72.0199966430664,
+        "end_sec": 72.58000183105469,
+        "text": "zero,",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 72.58000183105469,
+        "end_sec": 72.73999786376953,
+        "text": "because",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 72.73999786376953,
+        "end_sec": 73.04000091552734,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 73.04000091552734,
+        "end_sec": 73.30000305175781,
+        "text": "steps",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 73.30000305175781,
+        "end_sec": 73.45999908447266,
+        "text": "around",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 73.45999908447266,
+        "end_sec": 73.76000213623047,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 73.76000213623047,
+        "end_sec": 74.12000274658203,
+        "text": "closed",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 74.12000274658203,
+        "end_sec": 74.45999908447266,
+        "text": "loop",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 74.45999908447266,
+        "end_sec": 74.58000183105469,
+        "text": "add",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 74.58000183105469,
+        "end_sec": 74.73999786376953,
+        "text": "up",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 74.73999786376953,
+        "end_sec": 75.04000091552734,
+        "text": "to",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 75.04000091552734,
+        "end_sec": 75.87999725341797,
+        "text": "nothing.",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 75.87999725341797,
+        "end_sec": 76.18000030517578,
+        "text": "The",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 76.18000030517578,
+        "end_sec": 76.4800033569336,
+        "text": "linear",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 76.4800033569336,
+        "end_sec": 76.83999633789062,
+        "text": "term",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 76.83999633789062,
+        "end_sec": 77.18000030517578,
+        "text": "integrates",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 77.18000030517578,
+        "end_sec": 77.4800033569336,
+        "text": "to",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 77.4800033569336,
+        "end_sec": 77.80000305175781,
+        "text": "zero",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 77.80000305175781,
+        "end_sec": 78.4800033569336,
+        "text": "too,",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 78.4800033569336,
+        "end_sec": 78.5999984741211,
+        "text": "because",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 78.5999984741211,
+        "end_sec": 78.72000122070312,
+        "text": "it",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 78.72000122070312,
+        "end_sec": 78.83999633789062,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 78.83999633789062,
+        "end_sec": 79.27999877929688,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 79.27999877929688,
+        "end_sec": 79.55999755859375,
+        "text": "derivative",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 79.55999755859375,
+        "end_sec": 79.63999938964844,
+        "text": "of",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 79.63999938964844,
+        "end_sec": 80.13999938964844,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 80.13999938964844,
+        "end_sec": 80.73999786376953,
+        "text": "quadratic,",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 80.73999786376953,
+        "end_sec": 81.13999938964844,
+        "text": "whose",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 81.13999938964844,
+        "end_sec": 81.41999816894531,
+        "text": "changes",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 81.41999816894531,
+        "end_sec": 81.58000183105469,
+        "text": "around",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 81.58000183105469,
+        "end_sec": 81.83999633789062,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 81.83999633789062,
+        "end_sec": 82.23999786376953,
+        "text": "closed",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 82.23999786376953,
+        "end_sec": 82.76000213623047,
+        "text": "loop",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 82.76000213623047,
+        "end_sec": 83.05999755859375,
+        "text": "also",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 83.05999755859375,
+        "end_sec": 83.18000030517578,
+        "text": "add",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 83.18000030517578,
+        "end_sec": 83.30000305175781,
+        "text": "up",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 83.30000305175781,
+        "end_sec": 83.62000274658203,
+        "text": "to",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 83.62000274658203,
+        "end_sec": 84.4000015258789,
+        "text": "nothing.",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 84.4000015258789,
+        "end_sec": 84.69999694824219,
+        "text": "So",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 84.69999694824219,
+        "end_sec": 84.86000061035156,
+        "text": "only",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 84.86000061035156,
+        "end_sec": 85.26000213623047,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 85.26000213623047,
+        "end_sec": 85.94000244140625,
+        "text": "remainder",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 85.94000244140625,
+        "end_sec": 86.9000015258789,
+        "text": "contributes.",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 86.9000015258789,
+        "end_sec": 87.22000122070312,
+        "text": "Pick",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 87.22000122070312,
+        "end_sec": 87.63999938964844,
+        "text": "any",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 87.63999938964844,
+        "end_sec": 88.0999984741211,
+        "text": "tiny",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 88.0999984741211,
+        "end_sec": 88.5199966430664,
+        "text": "factor",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 88.5199966430664,
+        "end_sec": 88.73999786376953,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 88.73999786376953,
+        "end_sec": 88.9000015258789,
+        "text": "call",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 88.9000015258789,
+        "end_sec": 89.33999633789062,
+        "text": "it",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 89.33999633789062,
+        "end_sec": 89.86,
+        "text": "epsilon.",
+        "speaker": null,
+        "confidence": 0.002014336030139186
+      },
+      {
+        "start_sec": 89.88,
+        "end_sec": 90.62000274658203,
+        "text": "Close",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 90.62000274658203,
+        "end_sec": 90.81999969482422,
+        "text": "enough",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 90.81999969482422,
+        "end_sec": 91.08000183105469,
+        "text": "to",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 91.08000183105469,
+        "end_sec": 91.55999755859375,
+        "text": "c,",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 91.55999755859375,
+        "end_sec": 91.87999725341797,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 91.87999725341797,
+        "end_sec": 92.4000015258789,
+        "text": "remainder's",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 92.4000015258789,
+        "end_sec": 92.62000274658203,
+        "text": "size",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 92.62000274658203,
+        "end_sec": 92.76000213623047,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 92.76000213623047,
+        "end_sec": 93.13999938964844,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 93.13999938964844,
+        "end_sec": 93.66000366210938,
+        "text": "most",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 93.66000366210938,
+        "end_sec": 94.08000183105469,
+        "text": "epsilon",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 94.08000183105469,
+        "end_sec": 94.30000305175781,
+        "text": "times",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 94.30000305175781,
+        "end_sec": 94.63999938964844,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 94.63999938964844,
+        "end_sec": 94.91999816894531,
+        "text": "distance",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 94.91999816894531,
+        "end_sec": 95.18000030517578,
+        "text": "to",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 95.18000030517578,
+        "end_sec": 95.77999877929688,
+        "text": "c,",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 95.77999877929688,
+        "end_sec": 96.0199966430664,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 96.0199966430664,
+        "end_sec": 96.27999877929688,
+        "text": "that",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 96.27999877929688,
+        "end_sec": 96.77999877929688,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 96.77999877929688,
+        "end_sec": 97.04000091552734,
+        "text": "exactly",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 97.04000091552734,
+        "end_sec": 97.30000305175781,
+        "text": "what",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 97.30000305175781,
+        "end_sec": 97.41999816894531,
+        "text": "having",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 97.41999816894531,
+        "end_sec": 97.83999633789062,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 97.83999633789062,
+        "end_sec": 98.12000274658203,
+        "text": "derivative",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 98.12000274658203,
+        "end_sec": 98.36000061035156,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 98.36000061035156,
+        "end_sec": 98.83999633789062,
+        "text": "c",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 98.83999633789062,
+        "end_sec": 99.9000015258789,
+        "text": "means.",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 99.9000015258789,
+        "end_sec": 100.15999603271484,
+        "text": "After",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 100.15999603271484,
+        "end_sec": 100.5999984741211,
+        "text": "enough",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 100.5999984741211,
+        "end_sec": 101.0199966430664,
+        "text": "cuts,",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 101.0199966430664,
+        "end_sec": 101.30000305175781,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 101.30000305175781,
+        "end_sec": 101.62000274658203,
+        "text": "whole",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 101.62000274658203,
+        "end_sec": 102.05999755859375,
+        "text": "nested",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 102.05999755859375,
+        "end_sec": 102.5199966430664,
+        "text": "square",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 102.5199966430664,
+        "end_sec": 102.80000305175781,
+        "text": "lies",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 102.80000305175781,
+        "end_sec": 103.22000122070312,
+        "text": "that",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 103.22000122070312,
+        "end_sec": 104.22000122070312,
+        "text": "close.",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 104.22000122070312,
+        "end_sec": 104.62000274658203,
+        "text": "There,",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 104.62000274658203,
+        "end_sec": 104.94000244140625,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 104.94000244140625,
+        "end_sec": 105.15999603271484,
+        "text": "distance",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 105.15999603271484,
+        "end_sec": 105.37999725341797,
+        "text": "to",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 105.37999725341797,
+        "end_sec": 105.63999938964844,
+        "text": "c",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 105.63999938964844,
+        "end_sec": 105.76000213623047,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 105.76000213623047,
+        "end_sec": 106.0999984741211,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 106.0999984741211,
+        "end_sec": 106.31999969482422,
+        "text": "most",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 106.31999969482422,
+        "end_sec": 106.63999938964844,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 106.63999938964844,
+        "end_sec": 107.15999603271484,
+        "text": "square's",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 107.15999603271484,
+        "end_sec": 107.69999694824219,
+        "text": "diagonal,",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 107.69999694824219,
+        "end_sec": 107.81999969482422,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 107.81999969482422,
+        "end_sec": 108.18000030517578,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 108.18000030517578,
+        "end_sec": 108.45999908447266,
+        "text": "steps",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 108.45999908447266,
+        "end_sec": 108.58000183105469,
+        "text": "add",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 108.58000183105469,
+        "end_sec": 108.69999694824219,
+        "text": "up",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 108.69999694824219,
+        "end_sec": 108.81999969482422,
+        "text": "to",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 108.81999969482422,
+        "end_sec": 109.23999786376953,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 109.23999786376953,
+        "end_sec": 110.05999755859375,
+        "text": "perimeter.",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 110.05999755859375,
+        "end_sec": 110.22000122070312,
+        "text": "So",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 110.22000122070312,
+        "end_sec": 110.55999755859375,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 110.55999755859375,
+        "end_sec": 110.87999725341797,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 110.87999725341797,
+        "end_sec": 111.15999603271484,
+        "text": "around",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 111.15999603271484,
+        "end_sec": 111.5199966430664,
+        "text": "that",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 111.5199966430664,
+        "end_sec": 111.91999816894531,
+        "text": "square",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 111.91999816894531,
+        "end_sec": 112.26000213623047,
+        "text": "has",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 112.26000213623047,
+        "end_sec": 112.41999816894531,
+        "text": "size",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 112.41999816894531,
+        "end_sec": 112.80000305175781,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 112.80000305175781,
+        "end_sec": 113.41999816894531,
+        "text": "most",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 113.41999816894531,
+        "end_sec": 113.87999725341797,
+        "text": "epsilon",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 113.87999725341797,
+        "end_sec": 114.05999755859375,
+        "text": "times",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 114.05999755859375,
+        "end_sec": 114.5199966430664,
+        "text": "its",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 114.5199966430664,
+        "end_sec": 115.04000091552734,
+        "text": "diagonal",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 115.04000091552734,
+        "end_sec": 115.23999786376953,
+        "text": "times",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 115.23999786376953,
+        "end_sec": 115.68000030517578,
+        "text": "its",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 115.68000030517578,
+        "end_sec": 116.65999603271484,
+        "text": "perimeter.",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 116.65999603271484,
+        "end_sec": 116.97999572753906,
+        "text": "Each",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 116.97999572753906,
+        "end_sec": 117.44000244140625,
+        "text": "cut",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 117.44000244140625,
+        "end_sec": 117.63999938964844,
+        "text": "halves",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 117.63999938964844,
+        "end_sec": 118.08000183105469,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 118.08000183105469,
+        "end_sec": 118.5,
+        "text": "diagonal",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 118.5,
+        "end_sec": 118.87999725341797,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 118.87999725341797,
+        "end_sec": 119.0199966430664,
+        "text": "halves",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 119.0199966430664,
+        "end_sec": 119.41999816894531,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 119.41999816894531,
+        "end_sec": 119.44,
+        "text": "perimeter.",
+        "speaker": null,
+        "confidence": 0.002078715764676378
+      },
+      {
+        "start_sec": 119.88,
+        "end_sec": 120.23999786376953,
+        "text": "So",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 120.23999786376953,
+        "end_sec": 120.54000091552734,
+        "text": "this",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 120.54000091552734,
+        "end_sec": 120.81999969482422,
+        "text": "bound",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 120.81999969482422,
+        "end_sec": 121.08000183105469,
+        "text": "shrinks",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 121.08000183105469,
+        "end_sec": 121.18000030517578,
+        "text": "to",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 121.18000030517578,
+        "end_sec": 121.5,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 121.5,
+        "end_sec": 121.95999908447266,
+        "text": "quarter",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 121.95999908447266,
+        "end_sec": 122.36000061035156,
+        "text": "every",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 122.36000061035156,
+        "end_sec": 123.13999938964844,
+        "text": "time.",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 123.13999938964844,
+        "end_sec": 123.41999816894531,
+        "text": "But",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 123.41999816894531,
+        "end_sec": 123.66000366210938,
+        "text": "our",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 123.66000366210938,
+        "end_sec": 123.94000244140625,
+        "text": "rule",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 123.94000244140625,
+        "end_sec": 124.13999938964844,
+        "text": "kept",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 124.13999938964844,
+        "end_sec": 124.27999877929688,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 124.27999877929688,
+        "end_sec": 124.41999816894531,
+        "text": "least",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 124.41999816894531,
+        "end_sec": 124.77999877929688,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 124.77999877929688,
+        "end_sec": 124.9800033569336,
+        "text": "quarter",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 124.9800033569336,
+        "end_sec": 125.08000183105469,
+        "text": "of",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 125.08000183105469,
+        "end_sec": 125.37999725341797,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 125.37999725341797,
+        "end_sec": 125.77999877929688,
+        "text": "integral's",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 125.77999877929688,
+        "end_sec": 125.9800033569336,
+        "text": "size",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 125.9800033569336,
+        "end_sec": 126.30000305175781,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 126.30000305175781,
+        "end_sec": 126.68000030517578,
+        "text": "every",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 126.68000030517578,
+        "end_sec": 126.88,
+        "text": "cut.",
+        "speaker": null,
+        "confidence": 0.0020593281101749317
+      },
+      {
+        "start_sec": 127.33999633789062,
+        "end_sec": 127.5999984741211,
+        "text": "So",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 127.5999984741211,
+        "end_sec": 127.91999816894531,
+        "text": "after",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 127.91999816894531,
+        "end_sec": 128.3000030517578,
+        "text": "n",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 128.3000030517578,
+        "end_sec": 128.75999450683594,
+        "text": "cuts,",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 128.75999450683594,
+        "end_sec": 129.13999938964844,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 129.13999938964844,
+        "end_sec": 129.55999755859375,
+        "text": "original",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 129.55999755859375,
+        "end_sec": 130.10000610351562,
+        "text": "integral's",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 130.10000610351562,
+        "end_sec": 130.36000061035156,
+        "text": "size",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 130.36000061035156,
+        "end_sec": 130.47999572753906,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 130.47999572753906,
+        "end_sec": 130.74000549316406,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 130.74000549316406,
+        "end_sec": 131.10000610351562,
+        "text": "most",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 131.10000610351562,
+        "end_sec": 132.0399932861328,
+        "text": "4^n",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 132.0399932861328,
+        "end_sec": 132.1999969482422,
+        "text": "times",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 132.1999969482422,
+        "end_sec": 132.5,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 132.5,
+        "end_sec": 132.66000366210938,
+        "text": "size",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 132.66000366210938,
+        "end_sec": 132.77999877929688,
+        "text": "of",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 132.77999877929688,
+        "end_sec": 133.05999755859375,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 133.05999755859375,
+        "end_sec": 133.47999572753906,
+        "text": "small",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 133.47999572753906,
+        "end_sec": 133.86000061035156,
+        "text": "squares",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 133.86000061035156,
+        "end_sec": 133.88,
+        "text": "integral.",
+        "speaker": null,
+        "confidence": 0.0019580971521057327
+      },
+      {
+        "start_sec": 134.67999267578125,
+        "end_sec": 134.9199981689453,
+        "text": "The",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 134.9199981689453,
+        "end_sec": 135.3000030517578,
+        "text": "small",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 135.3000030517578,
+        "end_sec": 135.63999938964844,
+        "text": "squares",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 135.63999938964844,
+        "end_sec": 136.0,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 136.0,
+        "end_sec": 136.3000030517578,
+        "text": "has",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 136.3000030517578,
+        "end_sec": 136.4600067138672,
+        "text": "size",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 136.4600067138672,
+        "end_sec": 136.6999969482422,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 136.6999969482422,
+        "end_sec": 137.1999969482422,
+        "text": "most",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 137.1999969482422,
+        "end_sec": 137.72000122070312,
+        "text": "epsilon",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 137.72000122070312,
+        "end_sec": 137.89999389648438,
+        "text": "times",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 137.89999389648438,
+        "end_sec": 138.24000549316406,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 138.24000549316406,
+        "end_sec": 138.74000549316406,
+        "text": "original",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 138.74000549316406,
+        "end_sec": 138.9600067138672,
+        "text": "diagonal",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 138.9600067138672,
+        "end_sec": 139.39999389648438,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 139.39999389648438,
+        "end_sec": 139.97999572753906,
+        "text": "perimeter",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 139.97999572753906,
+        "end_sec": 140.36000061035156,
+        "text": "divided",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 140.36000061035156,
+        "end_sec": 140.6199951171875,
+        "text": "by",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 140.6199951171875,
+        "end_sec": 140.88,
+        "text": "4^n.",
+        "speaker": null,
+        "confidence": 0.0020862183183232752
+      },
+      {
+        "start_sec": 142.02000427246094,
+        "end_sec": 142.44000244140625,
+        "text": "Multiplying",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 142.44000244140625,
+        "end_sec": 142.6999969482422,
+        "text": "by",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 142.6999969482422,
+        "end_sec": 143.5,
+        "text": "4^n",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 143.5,
+        "end_sec": 143.86000061035156,
+        "text": "cancels",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 143.86000061035156,
+        "end_sec": 144.10000610351562,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 144.10000610351562,
+        "end_sec": 144.77999877929688,
+        "text": "4's,",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 144.77999877929688,
+        "end_sec": 144.9199981689453,
+        "text": "so",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 144.9199981689453,
+        "end_sec": 145.3000030517578,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 145.3000030517578,
+        "end_sec": 145.72000122070312,
+        "text": "original",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 145.72000122070312,
+        "end_sec": 146.22000122070312,
+        "text": "integral's",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 146.22000122070312,
+        "end_sec": 146.5,
+        "text": "size",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 146.5,
+        "end_sec": 146.6199951171875,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 146.6199951171875,
+        "end_sec": 146.86000061035156,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 146.86000061035156,
+        "end_sec": 147.36000061035156,
+        "text": "most",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 147.36000061035156,
+        "end_sec": 147.8000030517578,
+        "text": "epsilon",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 147.8000030517578,
+        "end_sec": 147.9600067138672,
+        "text": "times",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 147.9600067138672,
+        "end_sec": 148.36000061035156,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 148.36000061035156,
+        "end_sec": 148.86000061035156,
+        "text": "original",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 148.86000061035156,
+        "end_sec": 148.86100061035157,
+        "text": "diagonal",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 148.86100061035157,
+        "end_sec": 148.86200061035157,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 148.86200061035157,
+        "end_sec": 148.88,
+        "text": "perimeter.",
+        "speaker": null,
+        "confidence": 0.002007886483583897
+      },
+      {
+        "start_sec": 149.8800048828125,
+        "end_sec": 151.0,
+        "text": "Since",
+        "speaker": null,
+        "confidence": 0.0020601087232053608
+      },
+      {
+        "start_sec": 151.0,
+        "end_sec": 151.25999450683594,
+        "text": "epsilon",
+        "speaker": null,
+        "confidence": 0.0020601087232053608
+      },
+      {
+        "start_sec": 151.25999450683594,
+        "end_sec": 151.39999389648438,
+        "text": "can",
+        "speaker": null,
+        "confidence": 0.0020601087232053608
+      },
+      {
+        "start_sec": 151.39999389648438,
+        "end_sec": 151.55999755859375,
+        "text": "be",
+        "speaker": null,
+        "confidence": 0.0020601087232053608
+      },
+      {
+        "start_sec": 151.55999755859375,
+        "end_sec": 151.8000030517578,
+        "text": "as",
+        "speaker": null,
+        "confidence": 0.0020601087232053608
+      },
+      {
+        "start_sec": 151.8000030517578,
+        "end_sec": 151.9600067138672,
+        "text": "small",
+        "speaker": null,
+        "confidence": 0.0020601087232053608
+      },
+      {
+        "start_sec": 151.9600067138672,
+        "end_sec": 152.0800018310547,
+        "text": "as",
+        "speaker": null,
+        "confidence": 0.0020601087232053608
+      },
+      {
+        "start_sec": 152.0800018310547,
+        "end_sec": 152.4199981689453,
+        "text": "we",
+        "speaker": null,
+        "confidence": 0.0020601087232053608
+      },
+      {
+        "start_sec": 152.4199981689453,
+        "end_sec": 152.89999389648438,
+        "text": "like,",
+        "speaker": null,
+        "confidence": 0.0020601087232053608
+      },
+      {
+        "start_sec": 152.89999389648438,
+        "end_sec": 153.27999877929688,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0020601087232053608
+      },
+      {
+        "start_sec": 153.27999877929688,
+        "end_sec": 153.75999450683594,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.0020601087232053608
+      },
+      {
+        "start_sec": 153.75999450683594,
+        "end_sec": 154.10000610351562,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0020601087232053608
+      },
+      {
+        "start_sec": 154.10000610351562,
+        "end_sec": 155.04,
+        "text": "zero.",
+        "speaker": null,
+        "confidence": 0.0020601087232053608
+      },
+      {
+        "start_sec": 155.10000610351562,
+        "end_sec": 155.36000061035156,
+        "text": "The",
+        "speaker": null,
+        "confidence": 0.0020882761403204684
+      },
+      {
+        "start_sec": 155.36000061035156,
+        "end_sec": 155.77999877929688,
+        "text": "same",
+        "speaker": null,
+        "confidence": 0.0020882761403204684
+      },
+      {
+        "start_sec": 155.77999877929688,
+        "end_sec": 156.16000366210938,
+        "text": "shrinking",
+        "speaker": null,
+        "confidence": 0.0020882761403204684
+      },
+      {
+        "start_sec": 156.16000366210938,
+        "end_sec": 156.66000366210938,
+        "text": "argument",
+        "speaker": null,
+        "confidence": 0.0020882761403204684
+      },
+      {
+        "start_sec": 156.66000366210938,
+        "end_sec": 156.82000732421875,
+        "text": "works",
+        "speaker": null,
+        "confidence": 0.0020882761403204684
+      },
+      {
+        "start_sec": 156.82000732421875,
+        "end_sec": 156.89999389648438,
+        "text": "for",
+        "speaker": null,
+        "confidence": 0.0020882761403204684
+      },
+      {
+        "start_sec": 156.89999389648438,
+        "end_sec": 157.3800048828125,
+        "text": "a",
+        "speaker": null,
+        "confidence": 0.0020882761403204684
+      },
+      {
+        "start_sec": 157.3800048828125,
+        "end_sec": 157.94,
+        "text": "triangle.",
+        "speaker": null,
+        "confidence": 0.0020882761403204684
+      },
+      {
+        "start_sec": 157.94000244140625,
+        "end_sec": 158.10000610351562,
+        "text": "Join",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 158.10000610351562,
+        "end_sec": 158.3000030517578,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 158.3000030517578,
+        "end_sec": 158.77999877929688,
+        "text": "midpoints",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 158.77999877929688,
+        "end_sec": 158.9199981689453,
+        "text": "of",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 158.9199981689453,
+        "end_sec": 159.3800048828125,
+        "text": "its",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 159.3800048828125,
+        "end_sec": 159.72000122070312,
+        "text": "sides",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 159.72000122070312,
+        "end_sec": 159.8199920654297,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 159.8199920654297,
+        "end_sec": 159.9600067138672,
+        "text": "you",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 159.9600067138672,
+        "end_sec": 160.3000030517578,
+        "text": "get",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 160.3000030517578,
+        "end_sec": 160.77999877929688,
+        "text": "four",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 160.77999877929688,
+        "end_sec": 161.13999938964844,
+        "text": "triangles",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 161.13999938964844,
+        "end_sec": 161.44000244140625,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 161.44000244140625,
+        "end_sec": 161.66000366210938,
+        "text": "half",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 161.66000366210938,
+        "end_sec": 162.05999755859375,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 162.05999755859375,
+        "end_sec": 162.82,
+        "text": "size.",
+        "speaker": null,
+        "confidence": 0.0020108170041163646
+      },
+      {
+        "start_sec": 162.8800048828125,
+        "end_sec": 163.13999938964844,
+        "text": "Walk",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 163.13999938964844,
+        "end_sec": 163.52000427246094,
+        "text": "all",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 163.52000427246094,
+        "end_sec": 163.9600067138672,
+        "text": "four",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 163.9600067138672,
+        "end_sec": 165.16000366210938,
+        "text": "counterclockwise,",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 165.16000366210938,
+        "end_sec": 165.3000030517578,
+        "text": "even",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 165.3000030517578,
+        "end_sec": 165.55999755859375,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 165.55999755859375,
+        "end_sec": 166.05999755859375,
+        "text": "upside-down",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 166.05999755859375,
+        "end_sec": 166.17999267578125,
+        "text": "one",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 166.17999267578125,
+        "end_sec": 166.25999450683594,
+        "text": "in",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 166.25999450683594,
+        "end_sec": 166.5,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 166.5,
+        "end_sec": 167.02000427246094,
+        "text": "middle,",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 167.02000427246094,
+        "end_sec": 167.1999969482422,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 167.1999969482422,
+        "end_sec": 167.5399932861328,
+        "text": "their",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 167.5399932861328,
+        "end_sec": 167.83999633789062,
+        "text": "shared",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 167.83999633789062,
+        "end_sec": 168.32000732421875,
+        "text": "edges",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 168.32000732421875,
+        "end_sec": 168.38,
+        "text": "cancel",
+        "speaker": null,
+        "confidence": 0.0019349586268785617
+      },
+      {
+        "start_sec": 168.72000122070312,
+        "end_sec": 169.44,
+        "text": "again.",
+        "speaker": null,
+        "confidence": 0.0021168185008603167
+      },
+      {
+        "start_sec": 169.52000427246094,
+        "end_sec": 169.83999633789062,
+        "text": "The",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 169.83999633789062,
+        "end_sec": 170.1999969482422,
+        "text": "longest",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 170.1999969482422,
+        "end_sec": 170.55999755859375,
+        "text": "side",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 170.55999755859375,
+        "end_sec": 170.74000549316406,
+        "text": "plays",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 170.74000549316406,
+        "end_sec": 171.05999755859375,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 171.05999755859375,
+        "end_sec": 171.72000122070312,
+        "text": "diagonals",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 171.72000122070312,
+        "end_sec": 172.1199951171875,
+        "text": "part,",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 172.1199951171875,
+        "end_sec": 172.24000549316406,
+        "text": "and",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 172.24000549316406,
+        "end_sec": 172.67999267578125,
+        "text": "it",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 172.67999267578125,
+        "end_sec": 172.8800048828125,
+        "text": "halves",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 172.8800048828125,
+        "end_sec": 172.97999572753906,
+        "text": "with",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 172.97999572753906,
+        "end_sec": 173.4199981689453,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 173.4199981689453,
+        "end_sec": 173.74000549316406,
+        "text": "perimeter",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 173.74000549316406,
+        "end_sec": 174.10000610351562,
+        "text": "at",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 174.10000610351562,
+        "end_sec": 174.5,
+        "text": "every",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 174.5,
+        "end_sec": 175.12,
+        "text": "cut.",
+        "speaker": null,
+        "confidence": 0.0020562366256799696
+      },
+      {
+        "start_sec": 175.17999267578125,
+        "end_sec": 175.5,
+        "text": "So",
+        "speaker": null,
+        "confidence": 0.0018474752958478888
+      },
+      {
+        "start_sec": 175.5,
+        "end_sec": 175.8800048828125,
+        "text": "around",
+        "speaker": null,
+        "confidence": 0.0018474752958478888
+      },
+      {
+        "start_sec": 175.8800048828125,
+        "end_sec": 176.39999389648438,
+        "text": "every",
+        "speaker": null,
+        "confidence": 0.0018474752958478888
+      },
+      {
+        "start_sec": 176.39999389648438,
+        "end_sec": 176.83999633789062,
+        "text": "triangle,",
+        "speaker": null,
+        "confidence": 0.0018474752958478888
+      },
+      {
+        "start_sec": 176.83999633789062,
+        "end_sec": 177.3199920654297,
+        "text": "the",
+        "speaker": null,
+        "confidence": 0.0018474752958478888
+      },
+      {
+        "start_sec": 177.3199920654297,
+        "end_sec": 177.6199951171875,
+        "text": "integral",
+        "speaker": null,
+        "confidence": 0.0018474752958478888
+      },
+      {
+        "start_sec": 177.6199951171875,
+        "end_sec": 177.94000244140625,
+        "text": "is",
+        "speaker": null,
+        "confidence": 0.0018474752958478888
+      },
+      {
+        "start_sec": 177.94000244140625,
+        "end_sec": 178.27999877929688,
+        "text": "zero,",
+        "speaker": null,
+        "confidence": 0.0018474752958478888
+      },
+      {
+        "start_sec": 178.27999877929688,
+        "end_sec": 178.63,
+        "text": "two.",
+        "speaker": null,
+        "confidence": 0.0018474752958478888
+      }
+    ],
+    "acceleration": {
+      "backend": "none",
+      "input_values": 492,
+      "normalized_confidences": true,
+      "pre_mass": 466.2221322739837,
+      "post_mass": 0.9999999999999963,
+      "notes": [
+        "using deterministic CPU normalization"
+      ]
+    },
+    "raw_output": {
+      "engine": "whisper.cpp-native",
+      "schema_version": "native-v2",
+      "in_process": true,
+      "implementation": "real-inference",
+      "silence": false,
+      "model": "/Users/jemanuel/.cache/franken_whisper/models/whisper/whisper-large-v3-turbo-f16-v1/ggml-large-v3-turbo.bin",
+      "model_path": "/Users/jemanuel/.cache/franken_whisper/models/whisper/whisper-large-v3-turbo-f16-v1/ggml-large-v3-turbo.bin",
+      "model_version_tag": "fw-native-v1+sha256:1fc70f774d38",
+      "encoder_int8_policy": {
+        "action": "f32",
+        "reason": "operator_f32_kill_switch",
+        "calibration_id": "encoder-int8-calibration-2026-07-10",
+        "corpus_wer_delta_budget": 0.0,
+        "quant_rel_rmse_budget": 0.09
+      },
+      "windows": [
+        {
+          "window_offset_sec": 0.0,
+          "tokens": 109,
+          "avg_logprob": -0.12420710292431193,
+          "no_speech_prob": 1.8214325880894222e-10
+        },
+        {
+          "window_offset_sec": 29.88,
+          "tokens": 104,
+          "avg_logprob": -0.0769396057495704,
+          "no_speech_prob": 9.318164295724074e-12
+        },
+        {
+          "window_offset_sec": 59.88,
+          "tokens": 98,
+          "avg_logprob": -0.08977498570267035,
+          "no_speech_prob": 4.9268977786454116e-11
+        },
+        {
+          "window_offset_sec": 89.88,
+          "tokens": 97,
+          "avg_logprob": -0.05022551841342572,
+          "no_speech_prob": 1.0362549707210178e-9
+        },
+        {
+          "window_offset_sec": 119.88,
+          "tokens": 112,
+          "avg_logprob": -0.10599246195384435,
+          "no_speech_prob": 1.0549527917902424e-10
+        },
+        {
+          "window_offset_sec": 149.88,
+          "tokens": 109,
+          "avg_logprob": -0.17964107618419403,
+          "no_speech_prob": 2.0816257051414766e-10
+        }
+      ],
+      "dropped_windows": [],
+      "decode_work": {
+        "prompt_reset_retries": 1,
+        "temperature_fallback_retries": 0
+      },
+      "word_timestamps": "dtw",
+      "projection_timeline": {
+        "schema_version": "dtw-projection-v2",
+        "unit": "seconds",
+        "interval_semantics": "half_open",
+        "timestamp_epsilon_sec": 1e-6,
+        "minimum_duration_sec": 0.001,
+        "input_engine_segments": 19,
+        "input_timed_segments": 19,
+        "canonical_units": 492,
+        "output_segments": 492,
+        "decoder_word_units": 492,
+        "interpolated_fallback_units": 0,
+        "segment_geometry_fallback_units": 0,
+        "interpolated_fallback_segments": 0,
+        "segment_geometry_fallback_segments": 0,
+        "clamped_units": 9,
+        "expanded_units": 4,
+        "fallback_reasons": [],
+        "word_aligned_safe": true,
+        "supported_provenance": [
+          "decoder_word_timestamp",
+          "segment_interpolation_fallback",
+          "segment_geometry_fallback"
+        ]
+      },
+      "encoder_route": "gpu_fused_stem"
+    },
+    "artifact_paths": []
+  },
+  "events": [
+    {
+      "seq": 1,
+      "ts_rfc3339": "2026-11-07T14:47:46.243606+00:00",
+      "stage": "orchestration",
+      "code": "orchestration.budgets",
+      "message": "applied per-stage orchestration budgets",
+      "payload": {
+        "stage_budgets": {
+          "ingest_ms": 15000,
+          "normalize_ms": 180000,
+          "probe_ms": 8000,
+          "vad_ms": 10000,
+          "separate_ms": 30000,
+          "backend_ms": 900000,
+          "acceleration_ms": 20000,
+          "align_ms": 30000,
+          "punctuate_ms": 10000,
+          "diarize_ms": 900000,
+          "persist_ms": 20000,
+          "cleanup_budget_ms": 5000,
+          "overrides": [
+            "FRANKEN_WHISPER_STAGE_BUDGET_INGEST_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_NORMALIZE_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_PROBE_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_VAD_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_SEPARATE_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_BACKEND_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_ACCELERATION_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_ALIGN_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_PUNCTUATE_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_DIARIZE_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_PERSIST_MS",
+            "FRANKEN_WHISPER_STAGE_BUDGET_CLEANUP_MS"
+          ]
+        },
+        "request_timeout_ms": 600000,
+        "pipeline_stages": [
+          "ingest",
+          "normalize",
+          "vad",
+          "separate",
+          "backend",
+          "acceleration",
+          "align",
+          "punctuate",
+          "diarize",
+          "persist"
+        ],
+        "safe_mode": "deterministic configurable stage order",
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933"
+      }
+    },
+    {
+      "seq": 2,
+      "ts_rfc3339": "2026-11-07T14:47:46.243684+00:00",
+      "stage": "ingest",
+      "code": "ingest.start",
+      "message": "materializing input",
+      "payload": {
+        "input": {
+          "kind": "file",
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw08_5-ui01/ElevenLabs_2026-11-07T14_43_40_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4 (1).wav"
+        },
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 3,
+      "ts_rfc3339": "2026-11-07T14:47:46.243868+00:00",
+      "stage": "ingest",
+      "code": "ingest.ok",
+      "message": "input materialized",
+      "payload": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw08_5-ui01/ElevenLabs_2026-11-07T14_43_40_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4 (1).wav",
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 4,
+      "ts_rfc3339": "2026-11-07T14:47:46.243870+00:00",
+      "stage": "normalize",
+      "code": "normalize.start",
+      "message": "normalizing to 16kHz mono wav",
+      "payload": {
+        "input": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw08_5-ui01/ElevenLabs_2026-11-07T14_43_40_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4 (1).wav",
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 5,
+      "ts_rfc3339": "2026-11-07T14:47:46.321579+00:00",
+      "stage": "normalize",
+      "code": "normalize.ok",
+      "message": "audio normalized",
+      "payload": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/.franken_whisper/tmp/fw-run-HuwS4Y/normalized_16k_mono.wav",
+        "duration_seconds": 178.64,
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 77
+      }
+    },
+    {
+      "seq": 6,
+      "ts_rfc3339": "2026-11-07T14:47:46.335897+00:00",
+      "stage": "vad",
+      "code": "vad.skip",
+      "message": "skipping vad stage",
+      "payload": {
+        "reason": "no_vad_requested",
+        "details": {
+          "requested": false
+        },
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 92
+      }
+    },
+    {
+      "seq": 7,
+      "ts_rfc3339": "2026-11-07T14:47:46.335900+00:00",
+      "stage": "separate",
+      "code": "separate.skip",
+      "message": "skipping separate stage",
+      "payload": {
+        "reason": "diarization_not_requested",
+        "details": {
+          "diarize": false
+        },
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 92
+      }
+    },
+    {
+      "seq": 8,
+      "ts_rfc3339": "2026-11-07T14:47:46.335923+00:00",
+      "stage": "backend",
+      "code": "backend.start",
+      "message": "executing backend",
+      "payload": {
+        "requested_backend": "whisper_cpp",
+        "budget_ms": 900000,
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 9,
+      "ts_rfc3339": "2026-11-07T14:47:57.156223+00:00",
+      "stage": "backend",
+      "code": "backend.ok",
+      "message": "backend completed",
+      "payload": {
+        "resolved_backend": "whisper_cpp",
+        "segments": 492,
+        "engine_identity": "whisper.cpp-native",
+        "engine_version": "native-pilot-v1/0.9.2",
+        "implementation": "native",
+        "execution_mode": "native_only",
+        "native_rollout_stage": "sole",
+        "native_fallback_error": null,
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 10820
+      }
+    },
+    {
+      "seq": 10,
+      "ts_rfc3339": "2026-11-07T14:47:57.156284+00:00",
+      "stage": "replay",
+      "code": "replay.envelope",
+      "message": "captured deterministic replay envelope metadata",
+      "payload": {
+        "normalized_input_sha256": "daa5db5c3c12840cdb84389c467f5ba04970899910cbc9f03c684273ed63bb07",
+        "backend_output_sha256": "60f0e5e81af5f4681411141476a4d4e9102b11e32b4711d121a9b4d8a7b3c63d",
+        "backend": "whisper_cpp",
+        "engine_identity": "whisper.cpp-native",
+        "engine_version": "native-pilot-v1/0.9.2",
+        "implementation": "native",
+        "execution_mode": "native_only",
+        "native_rollout_stage": "sole",
+        "native_fallback_error": null,
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 10820
+      }
+    },
+    {
+      "seq": 11,
+      "ts_rfc3339": "2026-11-07T14:47:57.156287+00:00",
+      "stage": "acceleration",
+      "code": "acceleration.start",
+      "message": "running confidence normalization",
+      "payload": {
+        "implementation": "cpu_mass_normalization",
+        "segments": 492,
+        "budget_ms": 20000,
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 12,
+      "ts_rfc3339": "2026-11-07T14:47:57.156414+00:00",
+      "stage": "acceleration",
+      "code": "acceleration.context",
+      "message": "captured acceleration execution context",
+      "payload": {
+        "mode": "cpu_normalization",
+        "acceleration_backend": "none",
+        "logical_stream_kind": "cpu_lane",
+        "logical_stream_owner_id": "01a1b67ad7434dedb7b0ce8615e14933:acceleration:none:cpu",
+        "requested_gpu_device": null,
+        "flash_attention_requested": null,
+        "cancellation_fence": {
+          "status": "open",
+          "checked_at_rfc3339": "2026-11-07T14:47:57.156346+00:00",
+          "budget_remaining_ms": 600000,
+          "error": null,
+          "error_code": null
+        },
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 13,
+      "ts_rfc3339": "2026-11-07T14:47:57.156416+00:00",
+      "stage": "acceleration",
+      "code": "acceleration.ok",
+      "message": "confidence normalization finished",
+      "payload": {
+        "backend": "none",
+        "normalized": true,
+        "pre_mass": 466.2221322739837,
+        "post_mass": 0.9999999999999963,
+        "notes": [
+          "using deterministic CPU normalization"
+        ],
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 14,
+      "ts_rfc3339": "2026-11-07T14:47:57.156419+00:00",
+      "stage": "align",
+      "code": "align.skip",
+      "message": "skipping align stage",
+      "payload": {
+        "reason": "alignment_not_requested",
+        "details": {
+          "diarize": false
+        },
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 15,
+      "ts_rfc3339": "2026-11-07T14:47:57.156421+00:00",
+      "stage": "punctuate",
+      "code": "punctuate.skip",
+      "message": "skipping punctuate stage",
+      "payload": {
+        "reason": "punctuation_not_requested",
+        "details": {
+          "diarize": false,
+          "punctuation_enabled": false
+        },
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 16,
+      "ts_rfc3339": "2026-11-07T14:47:57.156422+00:00",
+      "stage": "diarize",
+      "code": "diarize.skip",
+      "message": "skipping diarize stage",
+      "payload": {
+        "reason": "diarization_not_requested",
+        "details": {
+          "diarize": false
+        },
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 17,
+      "ts_rfc3339": "2026-11-07T14:47:57.156468+00:00",
+      "stage": "orchestration",
+      "code": "orchestration.latency_profile",
+      "message": "captured stage latency decomposition and budget tuning recommendations",
+      "payload": {
+        "artifact": "stage_latency_decomposition_v1",
+        "generated_at_rfc3339": "2026-11-07T14:47:57.156449+00:00",
+        "stages": {
+          "ingest": {
+            "queue_ms": 0,
+            "service_ms": 0,
+            "external_process_ms": 0,
+            "p50_ms": 0,
+            "p95_ms": 0,
+            "p99_ms": 0,
+            "budget_ms": 15000,
+            "utilization_ratio": 0.0,
+            "tuning_action": "decrease_budget_candidate",
+            "tuning_reason": "observed service is far below budget ceiling",
+            "recommended_budget_ms": 1000
+          },
+          "normalize": {
+            "queue_ms": 0,
+            "service_ms": 77,
+            "external_process_ms": 77,
+            "p50_ms": 77,
+            "p95_ms": 77,
+            "p99_ms": 77,
+            "budget_ms": 180000,
+            "utilization_ratio": 0.0004277777777777778,
+            "tuning_action": "decrease_budget_candidate",
+            "tuning_reason": "observed service is far below budget ceiling",
+            "recommended_budget_ms": 1000
+          },
+          "backend": {
+            "queue_ms": 14,
+            "service_ms": 10820,
+            "external_process_ms": 10820,
+            "p50_ms": 10820,
+            "p95_ms": 10820,
+            "p99_ms": 10820,
+            "budget_ms": 900000,
+            "utilization_ratio": 0.012022222222222222,
+            "tuning_action": "decrease_budget_candidate",
+            "tuning_reason": "observed service is far below budget ceiling",
+            "recommended_budget_ms": 17312
+          },
+          "acceleration": {
+            "queue_ms": 0,
+            "service_ms": 0,
+            "external_process_ms": 0,
+            "p50_ms": 0,
+            "p95_ms": 0,
+            "p99_ms": 0,
+            "budget_ms": 20000,
+            "utilization_ratio": 0.0,
+            "tuning_action": "decrease_budget_candidate",
+            "tuning_reason": "observed service is far below budget ceiling",
+            "recommended_budget_ms": 1000
+          }
+        },
+        "summary": {
+          "observed_stages": 4,
+          "queue_total_ms": 14,
+          "service_total_ms": 10897,
+          "external_process_total_ms": 10897
+        },
+        "budget_tuning": {
+          "policy": "heuristic_v1",
+          "target_utilization_band": {
+            "min": 0.3,
+            "max": 0.9
+          },
+          "recommendations": [
+            {
+              "stage": "ingest",
+              "action": "decrease_budget_candidate",
+              "current_budget_ms": 15000,
+              "recommended_budget_ms": 1000,
+              "utilization_ratio": 0.0,
+              "basis": {
+                "queue_ms": 0,
+                "service_ms": 0,
+                "external_process_ms": 0,
+                "p95_ms": 0,
+                "p99_ms": 0
+              }
+            },
+            {
+              "stage": "normalize",
+              "action": "decrease_budget_candidate",
+              "current_budget_ms": 180000,
+              "recommended_budget_ms": 1000,
+              "utilization_ratio": 0.0004277777777777778,
+              "basis": {
+                "queue_ms": 0,
+                "service_ms": 77,
+                "external_process_ms": 77,
+                "p95_ms": 77,
+                "p99_ms": 77
+              }
+            },
+            {
+              "stage": "backend",
+              "action": "decrease_budget_candidate",
+              "current_budget_ms": 900000,
+              "recommended_budget_ms": 17312,
+              "utilization_ratio": 0.012022222222222222,
+              "basis": {
+                "queue_ms": 14,
+                "service_ms": 10820,
+                "external_process_ms": 10820,
+                "p95_ms": 10820,
+                "p99_ms": 10820
+              }
+            },
+            {
+              "stage": "acceleration",
+              "action": "decrease_budget_candidate",
+              "current_budget_ms": 20000,
+              "recommended_budget_ms": 1000,
+              "utilization_ratio": 0.0,
+              "basis": {
+                "queue_ms": 0,
+                "service_ms": 0,
+                "external_process_ms": 0,
+                "p95_ms": 0,
+                "p99_ms": 0
+              }
+            }
+          ]
+        },
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 0
+      }
+    },
+    {
+      "seq": 18,
+      "ts_rfc3339": "2026-11-07T14:47:57.156477+00:00",
+      "stage": "persist",
+      "code": "persist.skip",
+      "message": "skipping persistence stage",
+      "payload": {
+        "reason": "persist_disabled",
+        "details": {
+          "persist": false
+        },
+        "trace_id": "01a1b67ad7434dedb7b0ce8615e14933",
+        "elapsed_ms": 0
+      }
+    }
+  ],
+  "warnings": [
+    "using deterministic CPU normalization"
+  ],
+  "evidence": [
+    {
+      "mode": "cpu_normalization",
+      "acceleration_backend": "none",
+      "logical_stream_kind": "cpu_lane",
+      "logical_stream_owner_id": "01a1b67ad7434dedb7b0ce8615e14933:acceleration:none:cpu",
+      "requested_gpu_device": null,
+      "flash_attention_requested": null,
+      "cancellation_fence": {
+        "status": "open",
+        "checked_at_rfc3339": "2026-11-07T14:47:57.156346+00:00",
+        "budget_remaining_ms": 600000,
+        "error": null,
+        "error_code": null
+      }
+    },
+    {
+      "artifact": "stage_latency_decomposition_v1",
+      "generated_at_rfc3339": "2026-11-07T14:47:57.156449+00:00",
+      "stages": {
+        "ingest": {
+          "queue_ms": 0,
+          "service_ms": 0,
+          "external_process_ms": 0,
+          "p50_ms": 0,
+          "p95_ms": 0,
+          "p99_ms": 0,
+          "budget_ms": 15000,
+          "utilization_ratio": 0.0,
+          "tuning_action": "decrease_budget_candidate",
+          "tuning_reason": "observed service is far below budget ceiling",
+          "recommended_budget_ms": 1000
+        },
+        "normalize": {
+          "queue_ms": 0,
+          "service_ms": 77,
+          "external_process_ms": 77,
+          "p50_ms": 77,
+          "p95_ms": 77,
+          "p99_ms": 77,
+          "budget_ms": 180000,
+          "utilization_ratio": 0.0004277777777777778,
+          "tuning_action": "decrease_budget_candidate",
+          "tuning_reason": "observed service is far below budget ceiling",
+          "recommended_budget_ms": 1000
+        },
+        "backend": {
+          "queue_ms": 14,
+          "service_ms": 10820,
+          "external_process_ms": 10820,
+          "p50_ms": 10820,
+          "p95_ms": 10820,
+          "p99_ms": 10820,
+          "budget_ms": 900000,
+          "utilization_ratio": 0.012022222222222222,
+          "tuning_action": "decrease_budget_candidate",
+          "tuning_reason": "observed service is far below budget ceiling",
+          "recommended_budget_ms": 17312
+        },
+        "acceleration": {
+          "queue_ms": 0,
+          "service_ms": 0,
+          "external_process_ms": 0,
+          "p50_ms": 0,
+          "p95_ms": 0,
+          "p99_ms": 0,
+          "budget_ms": 20000,
+          "utilization_ratio": 0.0,
+          "tuning_action": "decrease_budget_candidate",
+          "tuning_reason": "observed service is far below budget ceiling",
+          "recommended_budget_ms": 1000
+        }
+      },
+      "summary": {
+        "observed_stages": 4,
+        "queue_total_ms": 14,
+        "service_total_ms": 10897,
+        "external_process_total_ms": 10897
+      },
+      "budget_tuning": {
+        "policy": "heuristic_v1",
+        "target_utilization_band": {
+          "min": 0.3,
+          "max": 0.9
+        },
+        "recommendations": [
+          {
+            "stage": "ingest",
+            "action": "decrease_budget_candidate",
+            "current_budget_ms": 15000,
+            "recommended_budget_ms": 1000,
+            "utilization_ratio": 0.0,
+            "basis": {
+              "queue_ms": 0,
+              "service_ms": 0,
+              "external_process_ms": 0,
+              "p95_ms": 0,
+              "p99_ms": 0
+            }
+          },
+          {
+            "stage": "normalize",
+            "action": "decrease_budget_candidate",
+            "current_budget_ms": 180000,
+            "recommended_budget_ms": 1000,
+            "utilization_ratio": 0.0004277777777777778,
+            "basis": {
+              "queue_ms": 0,
+              "service_ms": 77,
+              "external_process_ms": 77,
+              "p95_ms": 77,
+              "p99_ms": 77
+            }
+          },
+          {
+            "stage": "backend",
+            "action": "decrease_budget_candidate",
+            "current_budget_ms": 900000,
+            "recommended_budget_ms": 17312,
+            "utilization_ratio": 0.012022222222222222,
+            "basis": {
+              "queue_ms": 14,
+              "service_ms": 10820,
+              "external_process_ms": 10820,
+              "p95_ms": 10820,
+              "p99_ms": 10820
+            }
+          },
+          {
+            "stage": "acceleration",
+            "action": "decrease_budget_candidate",
+            "current_budget_ms": 20000,
+            "recommended_budget_ms": 1000,
+            "utilization_ratio": 0.0,
+            "basis": {
+              "queue_ms": 0,
+              "service_ms": 0,
+              "external_process_ms": 0,
+              "p95_ms": 0,
+              "p99_ms": 0
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "replay": {
+    "input_content_hash": "daa5db5c3c12840cdb84389c467f5ba04970899910cbc9f03c684273ed63bb07",
+    "backend_identity": "whisper.cpp-native",
+    "backend_version": "native-pilot-v1/0.9.2",
+    "output_payload_hash": "60f0e5e81af5f4681411141476a4d4e9102b11e32b4711d121a9b4d8a7b3c63d"
+  },
+  "acceleration_context": {
+    "mode": "cpu_normalization",
+    "acceleration_backend": "none",
+    "logical_stream_kind": "cpu_lane",
+    "logical_stream_owner_id": "01a1b67ad7434dedb7b0ce8615e14933:acceleration:none:cpu",
+    "requested_gpu_device": null,
+    "flash_attention_requested": null,
+    "cancellation_fence": {
+      "status": "open",
+      "checked_at_rfc3339": "2026-11-07T14:47:57.156346+00:00",
+      "budget_remaining_ms": 600000,
+      "error": null,
+      "error_code": null
+    }
+  }
+}

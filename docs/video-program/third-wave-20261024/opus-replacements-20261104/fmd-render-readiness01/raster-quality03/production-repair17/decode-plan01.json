@@ -1,0 +1,29 @@
+{
+  "job_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-repair17-decode01",
+  "ffmpeg": "/opt/homebrew/Cellar/ffmpeg/8.1.2_1/bin/ffmpeg",
+  "takes": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw08_5-ui01/ElevenLabs_2026-11-07T14_43_40_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4 (1).wav",
+      "sha256": "59126895f607c64c75efa2e9fd997e8e8d57257a3bdd291d5a51ab7e3bf4ee22",
+      "rate": 48000,
+      "frames": 8574720,
+      "channels": 1,
+      "sample_width": 2,
+      "duration": 178.64,
+      "cue": "08_5",
+      "request": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw08_5-ui01/receipt.json"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw09_1-ui01/ElevenLabs_2026-11-07T14_45_50_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4.wav",
+      "sha256": "88412b70967858a8a74cce5ab030e61611083a8953a28972385524bc620fee98",
+      "rate": 48000,
+      "frames": 6608640,
+      "channels": 1,
+      "sample_width": 2,
+      "duration": 137.68,
+      "cue": "09_1",
+      "request": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw09_1-ui01/receipt.json"
+    }
+  ],
+  "selection_basis": "08take1 avoids repeated a recognized in take2;09take2 preserves around each one in primaryASR. Independent small.en recognizes09 final two pi i times f of a and08 four to the n. ASR differences remain uncertainty; not listening proof."
+}

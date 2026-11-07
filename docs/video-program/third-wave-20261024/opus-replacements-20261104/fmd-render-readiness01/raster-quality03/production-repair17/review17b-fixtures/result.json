@@ -1,0 +1,18 @@
+{
+  "source_sha256": "a7fc6705aead7999134d8619458c8b2973ef771be069d4ce98462ac5f97fc42f",
+  "native_receipt_rejected": "declared external UI unit requires a verified external UI receipt",
+  "real_external_receipt": {
+    "status": "PASS",
+    "cue": "01_1",
+    "sentence_spans": 5,
+    "samples": 397440,
+    "receipt": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json",
+    "receipt_sha256": "c0af1e2fa7d8d8c42b0d38846ef72c220c795881e435a9297a8da639df28223b"
+  },
+  "ring_triangle_mirror": {
+    "counterclockwise_triangles": 240,
+    "interior_edge_reverse_pairs": "PASS",
+    "nonzero_inner_clearance": "PASS"
+  },
+  "scope": "Branch validation and arithmetic mirror only. Synthetic negative fixture is not provider evidence; no assembly artifact, rendering, synthesis or listening."
+}

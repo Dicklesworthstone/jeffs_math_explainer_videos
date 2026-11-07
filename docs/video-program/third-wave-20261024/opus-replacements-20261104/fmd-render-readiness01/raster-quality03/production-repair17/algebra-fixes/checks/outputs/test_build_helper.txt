@@ -1,0 +1,25 @@
+ok   prepare exits 0 (0) 
+ok   exactly four workspace files change: ['explainer_corpus/abstract_algebra_expanded/narration_units.json', 'explainer_corpus/abstract_algebra_expanded/script.tsv', 'explainer_corpus/abstract_algebra_expanded/src/cosets.rs', 'explainer_corpus/abstract_algebra_expanded/src/permutations.rs']
+ok   one file is added, the stage14 map, and none is lost
+ok   both candidate sources installed
+ok   script.tsv: only the 11_17 row changes, to the whole new text
+ok   stage14 binds the new script; overrides unchanged
+ok   changed holds point at their marker after their cue's say: [('11_2', '4124->4124'), ('11_3', '4174->4174'), ('11_12', '4186->4186'), ('11_15', '4198->4198'), ('11_6', '4285->4285'), ('11_10', '4342->4342'), ('14_2', '277->304')]
+ok   plan: only the 11_17 text, the script hashes and the map binding change
+ok   manifest keeps root's 4271 rows first, 4357 rows in all, every hash current
+ok   manifest binds the new workspace, the build files, build.env, expected tests and root's outputs
+ok   expected tests: root's 122 plus the new one
+ok   build.env names root's engine patch table
+ok   a second prepare into the same folder refuses and writes nothing
+ok   tests check, root's log alone (new test missing): exit 1
+ok   tests check, root's log plus the new test: exit 0
+ok   tests check, one test failed: exit 1
+ok   tests check, summary still counts 122: exit 1
+ok   tests check, one test ignored: exit 1
+ok   facts check passes on root's facts
+ok   facts check refuses a changed value
+ok   facts check refuses a repeated key
+ok   build01.sh parses (sh -n)
+ok   build01.sh's eight levels up is the repository root
+ok   root's fmt, test, build and Clippy commands appear unchanged except the --config variable
+RESULT PASS

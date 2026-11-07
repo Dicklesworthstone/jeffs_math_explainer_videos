@@ -1,0 +1,24 @@
+diff --git a/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/before-permutations.rs b/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/permutations.rs
+index a4fae016..c9c00474 100644
+--- a/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/before-permutations.rs
++++ b/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/permutations.rs
+@@ -2797,7 +2797,7 @@ fn overlap_warning(stage: &mut Stage<'_>, k: &Kit) -> fmn::Result<Vec<Mob>> {
+     }
+     let actual = k.text(
+         stage,
+-        &format!("Home after {}, not {}", first_return(&p), lcm(3, 2)),
++        &format!("First return: {} (it also returns at {})", first_return(&p), lcm(3, 2)),
+         28.0,
+         Palette::green(),
+         v(0.0, -2.2),
+@@ -4451,6 +4451,10 @@ mod repetition_tests {
+         assert_eq!(cycle_tex(p), r"(1\;3)");
+         assert_eq!(first_return(&p), 2);
+         assert_eq!(lcm(3, 2), 6);
++        // The card and 11_17: the first return is two, and six is a return
++        // too, the third one, so "not six" would be false.
++        let every: Vec<usize> = (0..p.len()).collect();
++        assert_eq!(home_runs(&p, &every, lcm(3, 2)), [2, 4, 6]);
+     }
+ 
+     #[test]

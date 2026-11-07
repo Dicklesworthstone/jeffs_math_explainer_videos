@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-07T14:46:36.714343+00:00",
+  "cue": "08_5",
+  "text": "Cauchy's theorem says more. If a function is holomorphic on a loop and everywhere inside it, its loop integral is zero. We will prove the pieces we need, starting with a square, and a function holomorphic on it, inside it, and a little beyond. Cut the square into four smaller squares, and walk each one counterclockwise. When we add their four loop integrals, every shared edge is walked twice, in opposite directions, so those parts cancel exactly. What remains is the loop integral around the original square. Now suppose that integral were not zero. Then some small square must have an integral at least a quarter of that size. Four integrals each under a quarter of that size could not add up to it. Keep that square, and cut it into four again. Each time, keep a piece whose integral has at least a quarter of its parent's size. These nested squares shrink toward a single point, which we call c. From here on, we use the derivative at that one point only. Near c, the function is a constant, plus a linear term that stretches and turns z minus c, plus a remainder. The constant integrates to zero, because the steps around a closed loop add up to nothing. The linear term integrates to zero too, because it is the derivative of a quadratic, whose changes around a closed loop also add up to nothing. So only the remainder contributes. Pick any tiny factor, and call it epsilon. Close enough to c, the remainder's size is at most epsilon times the distance to c, and that is exactly what having a derivative at c means. After enough cuts, the whole nested square lies that close. There, the distance to c is at most the square's diagonal, and the steps add up to the perimeter. So the integral around that square has size at most epsilon, times its diagonal, times its perimeter. Each cut halves the diagonal and halves the perimeter, so this bound shrinks to a quarter every time. But our rule kept at least a quarter of the integral's size at every cut. So after n cuts, the original integral's size is at most four to the n times the size of the small square's integral. The small square's integral has size at most epsilon, times the original diagonal and perimeter, divided by four to the n. Multiplying by four to the n cancels the fours, so the original integral's size is at most epsilon times the original diagonal and perimeter. Since epsilon can be as small as we like, the integral is zero. The same shrinking argument works for a triangle. Join the midpoints of its sides, and you get four triangles at half the size. Walk all four counterclockwise, even the upside down one in the middle, and their shared edges cancel again. The longest side plays the diagonal's part, and it halves with the perimeter at every cut. So around every triangle, the integral is zero too.",
+  "script_fragment_sha256": "15e727f0bf7696a24123a6c7c8d5ac1f56a31ebccb08c0e561e164d4ad7ee8a7",
+  "voice": "Frederick Surrey - Smooth and Velvety",
+  "model": "Eleven v4",
+  "stability": 0.5,
+  "similarity": 0.75,
+  "clone_strength": 0,
+  "ui_generation_clicks": 1,
+  "credits_before": 292287,
+  "credits_after": 289499,
+  "files": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw08_5-ui01/ElevenLabs_2026-11-07T14_43_40_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4 (1).wav",
+      "sha256": "59126895f607c64c75efa2e9fd997e8e8d57257a3bdd291d5a51ab7e3bf4ee22",
+      "rate": 48000,
+      "frames": 8574720,
+      "channels": 1,
+      "sample_width": 2,
+      "duration": 178.64
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/raw08_5-ui01/ElevenLabs_2026-11-07T14_43_40_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4.wav",
+      "sha256": "b6e0bb111449c0ccdfa28a79384b0361df08126ab89932c5c0085423473de8ce",
+      "rate": 48000,
+      "frames": 8805120,
+      "channels": 1,
+      "sample_width": 2,
+      "duration": 183.44
+    }
+  ],
+  "scope": "Two full generated takes preserved; no listening/content/timing acceptance."
+}
