@@ -1,0 +1,7 @@
+{
+  "at": "2026-11-07T15:42:19.328192+00:00",
+  "reason": "Source and actual emitted files show tables at flat out path; only MP4 temporaries nested. Earlier recovery premise was wrong.",
+  "controller": "jmev-production-recovery22",
+  "action": "Interrupted own waiting controller before any job22 launch; native timeline21 and original pipeline21 preserved",
+  "job22_launched": false
+}
