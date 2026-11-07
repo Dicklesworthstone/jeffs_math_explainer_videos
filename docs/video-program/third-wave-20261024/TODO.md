@@ -1,3 +1,53 @@
+### 2026-11-07T06:40:32.694481+00:00: out-shuffle review
+
+- Permutation0143-0154:48 selected pictures actually viewed. Ten-card out-shuffle split/interleave gives1,6,2,7,3,8,4,9,5,10, with top/bottom fixed and odd/even destination explanation legible. Question remains unanswered through553.3s sampled hold and fades553.5s. No new concrete overlap or clipping. Gray explanatory line requires final-resolution contrast review; explanatory holds and shuffle motion need listening/pacing evaluation. Existing first-return wording defect and motion/fine-sync/independentAV gaps remain open. Cumulative603/1248 sheets,2402 selected pictures; next permutation0155.
+- Complex CSD PID3461840 live at4:31:17 elapsed,345% CPU,10 completed chapters; no terminal success claimed.
+
+### 2026-11-07T06:39:42.943281+00:00: square symmetry and permutation review
+
+- Permutation0131-0142:48 selected pictures actually viewed. Non-symmetry swap changes adjacent2/3 to opposite corners; eight square symmetries highlighted within24 permutations. Rotation r=(1432)=(12)(13)(14), r-squared=(13)(24), and rs=(24) versus sr=(13) agree with settled numbered squares and remain legible. Eight thumbnail digits are small at preview resolution; final4K readability remains a review item. Edge deformation490s and moving tokens require motion review. Title-only transition520-524.5s adds pacing anchor. No new persistent clipping in sampled settled frames; prior wording defect and listening/fine-sync/independentAV gaps remain open. Cumulative591/1248 sheets,2354 selected pictures; next permutation0143.
+
+### 2026-11-07T06:39:02.016893+00:00: algebra counting argument reviewed
+
+- Permutation0119-0130:48 selected pictures actually viewed. Even-subgroup worked example, odd-set identity exclusion, all24 permutations paired into12 even/odd pairs, and identity/double-swap/three-cycle classification legible and separated. Separate direct Python inversion-count check verified every displayed pair changes parity by swapping first two positions and covers all24 permutations exactly. This is arithmetic validation, not independent reviewer acceptance. General subgroup proof narration and motion remain unreviewed. No new persistent clipping in samples through489.017s; prior wording and motion issues remain open. Cumulative579/1248 sheets,2306 selected pictures; next permutation0131. Existing repaired preview PID40522 live at21:59; terminal receipt still pending, no duplicate.
+
+### 2026-11-07T06:38:19.545875+00:00: continued review and live render progress
+
+- Permutation0111-0118:32 selected pictures actually viewed. Parity multiplication table, sign(pq)=sign(p)sign(q), identity as zero swaps and even-permutation subgroup setup legible and separated. Formula morph408.8s scrambled and requires motion review; settled410s clear. Undo-b example3412 and two swaps at435-437.017s correct. No new persistent clipping established. Existing first-return wording defect, motion/listening/fine-sync and independent AV remain open. Cumulative567/1248 sheets,2258 pictures; next permutation0119.
+- Complex CSD PID3461840 live at4:29:12,346%CPU; chapter10_rigidity completed7442 frames in1607.3s, now10/15 chapters complete. Terminal receipt still pending. Algebra repaired-preview log15/16 chapters complete; receipt pending. No duplicate jobs or release acceptance.
+
+### 2026-11-07T06:37:39.099711+00:00: algebra parity review continued
+
+- Permutation0099-0110:48 additional selected pictures actually viewed. Paired one/three-swap decompositions, nonzero Vandermonde argument and parity multiplication rule legible. Counter at380s lags completed second swap until382.55s; moving tokens overlap382.85s, requiring motion/synchronization review. Four-swap and two-swap routes reach4321, both even; parity table and (132) two-swap example correct and separated in settled samples through405s. Counter morph395s is transitional. No new persistent clipping established. Existing first-return wording defect remains open; no listening, fine-sync or independent AV acceptance. Cumulative559/1248 sheets,2226 selected pictures; next permutation0111.
+
+### 2026-11-07 06:34 UTC: algebra parity review
+
+- Permutation0079-0098:80 selected pictures actually viewed. Parity question unanswered through299.317s; morph299.517-299.700s scrambled, add motion-review anchor. Vandermonde differences for1,2,4,8 correctly show1,3,7,2,6,4 and product1008. After swapping1and4, factor updates are staged through333s and total remains old+1008 until338.967s morph; settled340s correctly shows-1008. This long old-total carryover needs explicit before/after labeling or narrated framing review, not accepted from static samples. Moving discs overlap at320.0-320.1s; track motion readability. Settled labels separated. First-return wording issue unresolved; no listening/fine-sync/independentAV acceptance. Cumulative547/1248 sheets,2178 selected pictures; next permutation0099.
+
+### 2026-11-07 06:33 UTC: algebra review continued
+
+- Permutation0075-0078:16 selected pictures actually viewed. Transposition decomposition (134)=(14)(13) paths and final labels legible; equivalent (34)(14) expression correct. Empty scaffold persists through273.367s before token273.567s, extending pacing-review interval. Scrambled formula morph284.867-285.000s added to motion-review anchors, settled285.167s legible. No new persistent clipping/overlap. First-return wording issue remains unresolved; motion/listening/fine-sync/independent AV open. Cumulative527/1248 sheets,2098 selected pictures; next permutation0079.
+- Repaired preview log has12/16 completed chapters and chapter14 built-in Darwin EPERM retry; receipt nonterminal, no duplicate launched.
+
+### 2026-11-07 06:35 UTC: algebra first-return wording issue
+
+- Permutation0067-0074:32 selected pictures actually viewed. Disjointness counterexample and transposition definition legible. Concrete wording issue245-257.583s: Home after 2, not 6 misleadingly denies return at six, although (13)^6=e. Recommended First return: 2, not 6. Current corner-repair workspace permutations.rs2800 retains this wording; source observed, no production edit made. New empty transposition decomposition scaffold265-270s needs narration/pacing review. No new persistent clipping/overlap. Motion/listening/fine-sync/independent AV remain open. Cumulative523/1248 sheets,2082 selected pictures; next permutation0075.
+- [ ] Correct first-return label in a new preserved candidate and verify resulting pictures; current source remains unchanged under planning/review scope. Evidence native-stage08-root01/permutation-first-return-wording-review01.json.
+
+### 2026-11-07 06:33 UTC: review continued while complex render remains live
+
+- Permutation0059-0066:32 selected pictures actually viewed. Prediction stays unanswered through212.817s; movement begins213.117s. Two-run state341256 and four-run identity123456 match (1234)(56); lcm(4,2)=4 and later-return versus no-return comparison are legible. Separate-cycles requirement introduced231.4s. No new persistent clipping/overlap found. Motion/listening/fine-sync/independent AV remain open. Cumulative515/1248 sheets,2050 selected pictures; next permutation0067.
+- Complex CSD PID3461840 verified live at4h22m57s elapsed,346% CPU; nine completed chapters in native log, no duplicate job.
+
+### 2026-11-07 06:32 UTC: algebra review 507/1248 sheets
+
+- Permutation sheets0056-0058:12 selected pictures actually viewed. Four-cycle/two-cycle example, distinct return rows and competing 4x2=8? versus 4+2=6? prompts are legible and separated. Prediction remains unanswered through208.900s sample. No concrete clipping/overlap found in these samples. Motion, listening, fine-sync and independent AV remain open. Cumulative2018 selected pictures. Next permutation sheet0059.
+
+### 2026-11-07 06:31 UTC: algebra picture review continuation
+
+- Reviewed permutation sheets0032–0055: 96 additional selected pictures; cumulative 504/1248 sheets, 2006 selected pictures. Permutations0032-0055:96 selected pictures actually viewed. Disjoint-cycle identity, repeated permutation states and lcm(3,2)=6 are legible in settled samples; first return shown at six applications. Scrambled formula morph112.950s requires motion review. At190-193.967s the five-step counterexample highlights the 5 column while the upper arrangement retains the six-step identity state; narrated framing and motion must clarify current versus hypothetical state. No new persistent clipping/overlap established. Static review does not accept motion, listening, fine sync or independent AV.
+- Existing repaired algebra preview has completed 9/16 chapters; terminal receipt still pending. No duplicate job launched. Next old-preview sheet: permutations0056.
+
 2026-11-07T06:27:41.717123+00:00: Algebra static review480/1248 sheets1910 pictures; permutations0016-0031 viewed/hash-recorded. Composition, inverse and disjoint-cycle results legible. Pacing anchor extended through60.467s; moving token overlap81.483s and prior equality heading during red invalid-map example105-110.233s require motion/narrated framing review. No listening/fine-sync/independentAV/final4K acceptance. Previous goal turn made concrete review progress.
 
 2026-11-07T06:26:56.675991+00:00: Algebra static review464/1248 sheets1846 selected pictures; permutations0000-0015 viewed/hash-recorded. Collision/cycle diagrams legible; four-node10-22.883s and composition-scaffold51.550-55.183s intervals require actual narration/pacing review. Previous turn made recorded review progress. Motion/listening/fine-sync/independentAV/final4K remain open.
