@@ -1,0 +1,56 @@
+{
+  "files": [
+    {
+      "path": "/Users/jemanuel/.cache/franken_whisper/models/whisper/whisper-large-v3-turbo-f16-v1/ggml-large-v3-turbo.bin",
+      "sha256": "1fc70f774d38eb169993ac391eea357ef47c88757ef72ee5943879b7e8e2bc69"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/franken-whisper/0.9.2/bin/fw",
+      "sha256": "dddaba940c7be629c5dab6e598e07b80fefb0f2c660d1dbb47905e433955c778"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/preserve-algebra-chapter12-tail01.py",
+      "sha256": "1589d7ba5173708fcf07cde2a3e599e9717e46a3bdf6e119698038fef5032972"
+    },
+    {
+      "path": "/Users/jemanuel/Downloads/ElevenLabs_2026-11-06T22_38_11_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4.wav",
+      "sha256": "30f2ffc406bb3cd34be3339ecae4bd16bc3a544ca2158e04346e32d143b9002f"
+    },
+    {
+      "path": "/Users/jemanuel/Downloads/ElevenLabs_2026-11-06T22_38_11_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4 (1).wav",
+      "sha256": "5f9e96e3f31d302e986cdb02f7fa590f138e33b12be19eb6a33d9e3f5abd32f6"
+    },
+    {
+      "path": "/Users/jemanuel/Downloads/ElevenLabs_2026-11-06T22_39_15_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4.wav",
+      "sha256": "889c9edec36d2b75bb8a026ea5a2f9d4c8e081882075d474baff60741306d436"
+    },
+    {
+      "path": "/Users/jemanuel/Downloads/ElevenLabs_2026-11-06T22_39_15_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4 (1).wav",
+      "sha256": "71ccbd41456ad882544a4ae62daad35755f99977d49ee594e93d07733462ac11"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/frederick-stage03-root01/chapter12-tail-source-downloads01.json",
+      "sha256": "02b9f822c25f9ad663c6995e44b17edbed080f7e09a0de5525916cb7aee1b5dc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/native-stage03-root01/workspace/explainer_corpus/abstract_algebra_expanded/script.tsv",
+      "sha256": "9c983cae910562d1ca75e41c316cb88f25dbb8fbc062f730ea87f223bc250400"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/frederick-stage03-root01/12_9-request01.json",
+      "sha256": "ba6fec76a49d2c13f7b8733ab3a39a34e1e9a111bb4c0b41ebe7e12db7658a78"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/frederick-stage03-root01/12_9-submission01.json",
+      "sha256": "01cd2f26bef70308db03ad9246e9272f462c2f1324469989a8e3ff5b03afdb1b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/frederick-stage03-root01/12_10-request01.json",
+      "sha256": "3d3b31413fe6b842ad5c224f736de23d9a369b6ad694470a4f73de3607cb4a2d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/frederick-stage03-root01/12_10-submission01.json",
+      "sha256": "b8d6772149b449462b2d2e26b00ce4d39206e226bfee64f9215ab39e602864fd"
+    }
+  ]
+}

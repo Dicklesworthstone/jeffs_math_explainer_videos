@@ -1,0 +1,25 @@
+{
+  "utc": "2026-11-07T00:13:43.046074+00:00",
+  "files": [
+    {
+      "file": "model.rs",
+      "relative": "src/model.rs",
+      "before_sha256": "57981602dee6540b661ca3cbdf099502bc3641bc43085aa88cb2be81a327d251",
+      "sha256": "118172af9d69006c370fddf67a8c9d97431485cd36aea42e92f04f65a80a58b2"
+    },
+    {
+      "file": "draw.rs",
+      "relative": "src/chapters/draw.rs",
+      "before_sha256": "a114424c4c101a2404f6d0d50d66478cdb4abf5813c1d3401e74773927d798cf",
+      "sha256": "80bf6cf27757662868f4ddcd6df02c3488bdb2c45dc25194f558a36815dfabeb"
+    },
+    {
+      "file": "gallery.rs",
+      "relative": "src/chapters/gallery.rs",
+      "before_sha256": "bff74a1524c71d7bd4ed517e35303c15e801241462d19d192d92afb04312f16c",
+      "sha256": "da7b806fee85584e111c8a66b95e0f9f8c87bbb42501d79a1129d6b032663290"
+    }
+  ],
+  "reason": "Build14 failed obsolete brightness discontinuity assertion; preserve geometry, window, narration order and band locations while testing continuous minima and visible contrast. Combine continuous Painter candidate; all visual/motion acceptance open.",
+  "tests_expected": 212
+}

@@ -1,0 +1,5 @@
+{
+  "utc": "2026-11-06T23:57:36.093552+00:00",
+  "observation": "Owner visual requirement: coarse sampling may introduce intuition, but must resolve to fine, smooth, rich detail. Reopened native-gallery13/native-crop-0086.png: smooth interiors still have prominent tile-shaped contour shading. Prior diagnostic pass is not aesthetic acceptance. OPEN: revise/show coarse-to-continuous transition, reduce dominant tiled contour styling in settled views, and inspect native4K detail plus actual motion before release. Current frozen preview inputs remain untouched; no duplicate render or final acceptance. Listening/fine-sync/independent AV gaps remain open.",
+  "release_accepted": false
+}

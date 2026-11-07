@@ -1,0 +1,13 @@
+# explainer timeline v1
+chapter	07_one_point
+fps	60
+frames	6491
+line	07_1	36	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/07_1.wav
+line	07_2	1076	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/07_2.wav
+line	07_3	2102	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/07_3.wav
+line	07_4	2972	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/07_4.wav
+line	07_5	3863	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/07_5.wav
+line	07_6	5210	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/07_6.wav
+mark	predict	2657
+breath	6341	2
+listen	2657	5	07_one_point:07_3

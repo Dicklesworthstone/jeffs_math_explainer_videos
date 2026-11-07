@@ -1,0 +1,99 @@
+{
+  "utc": "2026-11-06T23:17:09.749498+00:00",
+  "source_sha256": "f5653796ed5f5cedab6d0b3374ebc136614aac5b74a584b5ba3bc05208b84d79",
+  "samples_actually_viewed": 165,
+  "sheets_actually_viewed": [
+    {
+      "path": "sheet-01.jpg",
+      "sha256": "dda11eb63d8f649f1b034ab323dff69fe5120f6ffc80f207e3dd6c8188158297"
+    },
+    {
+      "path": "sheet-02.jpg",
+      "sha256": "d0ea44d987c0cfb0498b9739c7016acdcbb045e98b8b9546e37831517ff8ac22"
+    },
+    {
+      "path": "sheet-03.jpg",
+      "sha256": "6c47ee374718046baa99a96fff768b93217abd04e283ac8ca293addd428a7823"
+    },
+    {
+      "path": "sheet-04.jpg",
+      "sha256": "cb9991449f73ccb140987d46a2cc6b717bcb6a36fc4d269aa1eb2bb339ee6dcc"
+    },
+    {
+      "path": "sheet-05.jpg",
+      "sha256": "d87e341d3308817df09f2edf8739f77160a8ef956df961804079634b7fa70817"
+    },
+    {
+      "path": "sheet-06.jpg",
+      "sha256": "1d04661468093866815967f0883c9f544d482d068f5efbcd034e07b364df5d9c"
+    },
+    {
+      "path": "sheet-07.jpg",
+      "sha256": "1879e6bee5df6833e84a2ebd49b30cb41794ffa8913f29da34beccbbb935e9a8"
+    },
+    {
+      "path": "sheet-08.jpg",
+      "sha256": "90962ec9f111f8efc82d95bf25111a98219ad1d214463333fb4f08d84c0e3810"
+    },
+    {
+      "path": "sheet-09.jpg",
+      "sha256": "7a64d30ec69f44e191c6439e46b4a7a1248f913a6dc325f3956e62353aef8873"
+    },
+    {
+      "path": "sheet-10.jpg",
+      "sha256": "c5263b4e089beb7781e4a4e3af2d7e28353ffff2206c7b708cda42170da0369d"
+    },
+    {
+      "path": "sheet-11.jpg",
+      "sha256": "376aab0235f76c7e2bd64b93641c9bdcff037b160fff3b8654754100f8be12c8"
+    },
+    {
+      "path": "sheet-12.jpg",
+      "sha256": "a183de87b8a6cbf668286e61139abd903856df258328a1cb5bc52969b555cbb2"
+    },
+    {
+      "path": "sheet-13.jpg",
+      "sha256": "0230bd523d610dd2eaa4764cba8e39fcbaf2bbfa8244a07ec88638170b2e8bbe"
+    },
+    {
+      "path": "sheet-14.jpg",
+      "sha256": "3856789ad37b5397422407b61300e96ec9fa9cd984bb5855cf30009321eeda54"
+    },
+    {
+      "path": "sheet-15.jpg",
+      "sha256": "2861e22b17dd5491233e358443f4bc0b222cee43a9a05effddd5e7998d730719"
+    },
+    {
+      "path": "sheet-16.jpg",
+      "sha256": "3cf0ea68ef061cce01e9f624f4554c2daceedeb95e6ce62ba52b9a7fb7d24e17"
+    },
+    {
+      "path": "sheet-17.jpg",
+      "sha256": "2b77c644f713b821c045f5c082f917f3072100167761f060668566a0dd929b17"
+    },
+    {
+      "path": "sheet-18.jpg",
+      "sha256": "96dd8b28192ede6d0352435b5a69a679812455d1f0dfff952818cfb5e6017f39"
+    },
+    {
+      "path": "sheet-19.jpg",
+      "sha256": "61358d36af7d2a8dd9835a6c494ef798fcb7f37b4b2f75832a826c50c27751d5"
+    },
+    {
+      "path": "sheet-20.jpg",
+      "sha256": "692ee67daf9c3ae13328bde5f93d1a559a0b2be05f3670442cc3641a55c7d8da"
+    },
+    {
+      "path": "sheet-21.jpg",
+      "sha256": "aaf0aba6cde45f87d3f151fe5b68a0e8b801b122ec4fc80e5a2f4c1e886a1793"
+    }
+  ],
+  "scope": "Early chapter05 narrated 540p preview, one frame per second. Sheets displayed resized to1440x1709. Not exhaustive frames, motion, final4K, listening, fine sync or independent AV acceptance.",
+  "observations": [
+    "Polynomial and rational-map contours appear smoothly curved; markers and turn counters remain separated.",
+    "Exponential bands remain an intentional mathematical grid; fine colour gradients are visible.",
+    "Sine/tangent annotations, gamma half-plane mask, zeta strip and four zero labels remain legible without observed persistent collision.",
+    "Closing local tile enlargement has smooth colour and clear gold traced boundary."
+  ],
+  "decision": "No concrete persistent layout defect observed in these165 samples; full preview review and final4K detail/motion checks still required. No release permit issued."
+}

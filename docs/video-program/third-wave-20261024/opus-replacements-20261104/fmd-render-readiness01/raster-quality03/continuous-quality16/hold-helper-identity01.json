@@ -1,0 +1,8 @@
+{
+  "old_sha256": "a114424c4c101a2404f6d0d50d66478cdb4abf5813c1d3401e74773927d798cf",
+  "new_sha256": "80bf6cf27757662868f4ddcd6df02c3488bdb2c45dc25194f558a36815dfabeb",
+  "runtime_suffix_from_predict_to_tests_identical": true,
+  "bytes": 7742,
+  "sha256": "b0922e0e67266c80df2d56a9ce93cf546f0de19b84b5d734df9a01bfd92575eb",
+  "scope": "Source identity for prediction, reading-window and subsequent runtime helpers; not rendered schedule or listening proof."
+}

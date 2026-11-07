@@ -1,0 +1,8 @@
+{
+  "utc": "2026-11-07T00:08:40.814105+00:00",
+  "reason": "Exclude mutable controller log from frozen inputs before any build15 launch",
+  "stopped_exact_waiting_pid": 3360370,
+  "new_session": "jmev-continuous-build15-02",
+  "old_files_preserved": true,
+  "build15_started": false
+}

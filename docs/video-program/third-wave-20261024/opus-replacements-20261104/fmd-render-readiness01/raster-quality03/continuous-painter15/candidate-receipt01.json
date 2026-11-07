@@ -1,0 +1,15 @@
+{
+  "utc": "2026-11-07T00:06:12.542351+00:00",
+  "source_sha256": "a114424c4c101a2404f6d0d50d66478cdb4abf5813c1d3401e74773927d798cf",
+  "candidate_sha256": "80bf6cf27757662868f4ddcd6df02c3488bdb2c45dc25194f558a36815dfabeb",
+  "status": "Prepared only. Not staged, compiled or visually accepted.",
+  "change": "Remove12step crossfade and20step enhancement quantization; cache two endpoint colour arrays per active function; interpolate exact tracker values.",
+  "risks": [
+    "Higher per-frame texture update volume; bounded native timing/memory qualification required",
+    "No motion acceptance from source or static sheets",
+    "Must combine only with reviewed shade candidate and requalify source-bound holds/timelines"
+  ],
+  "listening_accepted": false,
+  "independent_av_accepted": false,
+  "tests_added": 2
+}

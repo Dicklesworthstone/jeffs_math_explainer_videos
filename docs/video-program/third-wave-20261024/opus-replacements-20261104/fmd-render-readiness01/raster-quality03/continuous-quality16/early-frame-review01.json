@@ -1,0 +1,16 @@
+{
+  "utc": "2026-11-07T00:22:30.424661+00:00",
+  "image": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/continuous-quality16/native04-frame0061.png",
+  "sha256": "d87e01348df8c6c754b79d65a071eb5bf72ebec8cb7e6aca86cd4c2b9838984f",
+  "viewed": true,
+  "display_resolution": [
+    2048,
+    1152
+  ],
+  "native_resolution": [
+    3840,
+    2160
+  ],
+  "observations": "Complex continuous-quality16 chapter04 native4K1fps diagnostic exited0 with identical c392512b input hashes. Actually viewed frame0061 (display resized to2048x1152): smooth field interiors and curved contour bands; teaching band divisions remain visible as intended. This single frame is not full chapter, native pixel, motion or aesthetic acceptance. All sheets/native closeups and60fps motion review remain required; chapter05 diagnostic/controller already launched, never duplicate. Listening/fine-sync/independentAV remain open.",
+  "release_accepted": false
+}

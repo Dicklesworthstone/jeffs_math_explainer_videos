@@ -1,0 +1,34 @@
+{
+  "started": "2026-11-06T22:45:42.815328+00:00",
+  "phase": "asr",
+  "command": [
+    "/opt/homebrew/bin/python3",
+    "-I",
+    "-B",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/jobs/algebra-tail02-inputs/preserve-tail02.py",
+    "--run"
+  ],
+  "preflight_only": false,
+  "samples": [],
+  "sbh": {
+    "exit": 1,
+    "stdout": "{\"command\":\"check\",\"container_available_bytes\":12364324864,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":1995218165760,\"exit_code\":1,\"free_bytes\":12364324864,\"free_excludes_purgeable\":true,\"free_pct\":0.6196978894932172,\"mount_point\":\"/System/Volumes/Data\",\"need_bytes\":12884901888,\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":12364324864,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":1995218165760,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":1040946944,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":12364386304,\"volume_role\":\"Data\",\"volume_total_bytes\":1995218165760}}},\"schema_version\":2,\"status\":\"critical\",\"total_bytes\":1995218165760,\"volume_available_bytes\":12364386304,\"volume_role\":\"Data\",\"volume_total_bytes\":1995218165760}\n",
+    "stderr": "sbh: insufficient disk space\n"
+  },
+  "admission": {
+    "utc": "2026-11-06T22:45:43.139509+00:00",
+    "free_bytes": 12364345344,
+    "work_bytes": 2779607040,
+    "target_bytes": 1091293184
+  },
+  "policy": {
+    "admission_gib": 12,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 1,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": false,
+  "finished": "2026-11-06T22:45:43.409265+00:00"
+}

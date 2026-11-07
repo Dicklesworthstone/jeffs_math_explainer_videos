@@ -1,0 +1,28 @@
+{
+  "files": [
+    {
+      "path": "final-review-gate16.py",
+      "sha256": "6d14516f5323ffa3aa0d8ec0d1c454e1ae276c59ee598d5c0a8b3b4bebd08ea6"
+    },
+    {
+      "path": "final-chapter16.py",
+      "sha256": "63fa91806fa427d0f4f5e344f19169a325c9b48b3eafb5e4521b092f84050e79"
+    },
+    {
+      "path": "final-master16.py",
+      "sha256": "53f384e68239f8eaf61ea03a6f5f81162c83bb5064a8851ec2fd37a800c5df60"
+    },
+    {
+      "path": "final-verify16.py",
+      "sha256": "d5102c56b609678b3ee13d73a9a2177eea49f5dde230c782d25496673abdce83"
+    },
+    {
+      "path": "final-samples16.py",
+      "sha256": "8c84ae1689640727ab2584bf31d91225231878431464f272a9a01cfea8f857a3"
+    }
+  ],
+  "ast_parse": true,
+  "staged": false,
+  "launched": false,
+  "scope": "Prepared helpers only, not runtime qualification. Actual preview sheets/motion/permit, guarded manifests, final extraction viewing and all publication checks remain required."
+}

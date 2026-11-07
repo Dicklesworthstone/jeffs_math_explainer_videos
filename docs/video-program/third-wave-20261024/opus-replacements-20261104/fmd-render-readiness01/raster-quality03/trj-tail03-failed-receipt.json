@@ -1,0 +1,261 @@
+{
+  "started": "2026-11-06T22:50:00.669662+00:00",
+  "phase": "asr",
+  "command": [
+    "python3",
+    "-I",
+    "-B",
+    "/home/ubuntu/jmev-algebra-asr-20261106/work/tail03-inputs/preserve-tail03.py",
+    "--run"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-06T22:50:15.246260+00:00",
+      "free_bytes": 57595461632,
+      "work_bytes": 1624576000,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:50:25.251814+00:00",
+      "free_bytes": 57595461632,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:50:35.277941+00:00",
+      "free_bytes": 57595461632,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:50:45.287909+00:00",
+      "free_bytes": 57595461632,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:50:55.336480+00:00",
+      "free_bytes": 57595461632,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:51:05.355624+00:00",
+      "free_bytes": 57595461632,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:51:15.368496+00:00",
+      "free_bytes": 57595461632,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:51:25.390613+00:00",
+      "free_bytes": 57194864640,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:51:35.403584+00:00",
+      "free_bytes": 57194864640,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:51:45.490572+00:00",
+      "free_bytes": 57194864640,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:51:55.499914+00:00",
+      "free_bytes": 57194864640,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:52:05.507859+00:00",
+      "free_bytes": 57194864640,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:52:15.514914+00:00",
+      "free_bytes": 57194864640,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:52:25.536193+00:00",
+      "free_bytes": 57194864640,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:52:35.560673+00:00",
+      "free_bytes": 57194864640,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:52:45.588305+00:00",
+      "free_bytes": 57194864640,
+      "work_bytes": 1627058176,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:52:55.594390+00:00",
+      "free_bytes": 57194864640,
+      "work_bytes": 1627062272,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:53:05.604462+00:00",
+      "free_bytes": 57194864640,
+      "work_bytes": 1629642752,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:53:15.618847+00:00",
+      "free_bytes": 57194864640,
+      "work_bytes": 1629642752,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:53:25.628829+00:00",
+      "free_bytes": 57189728256,
+      "work_bytes": 1629642752,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:53:35.642010+00:00",
+      "free_bytes": 57189728256,
+      "work_bytes": 1629642752,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:53:45.657373+00:00",
+      "free_bytes": 57189728256,
+      "work_bytes": 1629642752,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:53:55.676889+00:00",
+      "free_bytes": 57189728256,
+      "work_bytes": 1629642752,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:54:05.686003+00:00",
+      "free_bytes": 57189728256,
+      "work_bytes": 1629642752,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:54:15.698350+00:00",
+      "free_bytes": 57189728256,
+      "work_bytes": 1629642752,
+      "target_bytes": 10440704
+    },
+    {
+      "utc": "2026-11-06T22:54:25.708088+00:00",
+      "free_bytes": 57189728256,
+      "work_bytes": 1629642752,
+      "target_bytes": 12464128
+    },
+    {
+      "utc": "2026-11-06T22:54:35.721497+00:00",
+      "free_bytes": 57189728256,
+      "work_bytes": 1629642752,
+      "target_bytes": 12464128
+    },
+    {
+      "utc": "2026-11-06T22:54:45.744412+00:00",
+      "free_bytes": 57189728256,
+      "work_bytes": 1629642752,
+      "target_bytes": 12464128
+    },
+    {
+      "utc": "2026-11-06T22:54:55.767760+00:00",
+      "free_bytes": 57189728256,
+      "work_bytes": 1629642752,
+      "target_bytes": 12468224
+    },
+    {
+      "utc": "2026-11-06T22:55:05.784024+00:00",
+      "free_bytes": 57189728256,
+      "work_bytes": 1629642752,
+      "target_bytes": 12468224
+    },
+    {
+      "utc": "2026-11-06T22:55:15.807616+00:00",
+      "free_bytes": 57189728256,
+      "work_bytes": 1629642752,
+      "target_bytes": 12468224
+    },
+    {
+      "utc": "2026-11-06T22:55:25.816695+00:00",
+      "free_bytes": 57178693632,
+      "work_bytes": 1629642752,
+      "target_bytes": 12468224
+    },
+    {
+      "utc": "2026-11-06T22:55:35.826263+00:00",
+      "free_bytes": 57178693632,
+      "work_bytes": 1629642752,
+      "target_bytes": 12468224
+    },
+    {
+      "utc": "2026-11-06T22:55:45.842259+00:00",
+      "free_bytes": 57178693632,
+      "work_bytes": 1629642752,
+      "target_bytes": 12468224
+    },
+    {
+      "utc": "2026-11-06T22:55:55.872782+00:00",
+      "free_bytes": 57178693632,
+      "work_bytes": 1629642752,
+      "target_bytes": 12468224
+    },
+    {
+      "utc": "2026-11-06T22:56:05.888608+00:00",
+      "free_bytes": 57178693632,
+      "work_bytes": 1629642752,
+      "target_bytes": 12468224
+    },
+    {
+      "utc": "2026-11-06T22:56:07.452155+00:00",
+      "free_bytes": 57178693632,
+      "work_bytes": 1629646848,
+      "target_bytes": 12468224
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":5,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":57595461632,\"free_excludes_purgeable\":true,\"free_pct\":5.49273125,\"mount_point\":\"/\",\"path\":\"/home/ubuntu/jmev-algebra-asr-20261106\",\"platform\":{\"linux\":{\"device_id\":36,\"fs_type\":\"btrfs\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":1048576000000,\"unprotected\":null,\"volume_available_bytes\":57595461632,\"volume_role\":null,\"volume_total_bytes\":1048576000000}\n",
+    "stderr": "[SBH-CONFIG] Using system config at /etc/sbh/config.toml\n"
+  },
+  "admission": {
+    "utc": "2026-11-06T22:50:00.739528+00:00",
+    "free_bytes": 57595461632,
+    "work_bytes": 1624571904,
+    "target_bytes": 10440704
+  },
+  "policy": {
+    "admission_gib": 12,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 1,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "96f1f3630b58fad87f4528a0e29205bba64875e3fd2dc7a77b1ae62b6641f896",
+  "pid": 3741227,
+  "exit": 1,
+  "final_inputs_sha256": "96f1f3630b58fad87f4528a0e29205bba64875e3fd2dc7a77b1ae62b6641f896",
+  "finished": "2026-11-06T22:56:24.224260+00:00"
+}

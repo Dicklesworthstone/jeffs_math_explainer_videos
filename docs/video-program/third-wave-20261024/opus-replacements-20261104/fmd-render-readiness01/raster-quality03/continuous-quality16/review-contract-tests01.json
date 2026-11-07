@@ -1,0 +1,14 @@
+{
+  "valid_fixture_passed": true,
+  "rejected": [
+    "missing sheet",
+    "wrong sheet hash",
+    "unresolved defect",
+    "false listening claim",
+    "wrong extraction",
+    "missing chapter",
+    "missing or changed picture assets"
+  ],
+  "total": 8,
+  "scope": "Isolated synthetic record-contract checks only; no remote runtime, picture viewing, motion or AV acceptance."
+}

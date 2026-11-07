@@ -1,0 +1,177 @@
+{
+  "started": "2026-11-06T23:02:32.490556+00:00",
+  "phase": "asr",
+  "command": [
+    "python3",
+    "-I",
+    "-B",
+    "/home/ubuntu/jmev-algebra-asr-20261106/work/clock02-inputs/preserve-clock02.py",
+    "--run"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-06T23:03:04.974332+00:00",
+      "free_bytes": 57163501568,
+      "work_bytes": 1631678464,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:03:15.035738+00:00",
+      "free_bytes": 57163501568,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:03:25.068376+00:00",
+      "free_bytes": 57163501568,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:03:35.092836+00:00",
+      "free_bytes": 57159745536,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:03:45.163583+00:00",
+      "free_bytes": 57159745536,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:03:55.180297+00:00",
+      "free_bytes": 57157902336,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:04:05.205491+00:00",
+      "free_bytes": 57157902336,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:04:15.230571+00:00",
+      "free_bytes": 57157902336,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:04:25.300954+00:00",
+      "free_bytes": 57157902336,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:04:35.319801+00:00",
+      "free_bytes": 57157902336,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:04:45.506481+00:00",
+      "free_bytes": 57157902336,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:04:55.557924+00:00",
+      "free_bytes": 57157902336,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:05:05.590720+00:00",
+      "free_bytes": 57157902336,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:05:15.746522+00:00",
+      "free_bytes": 57157902336,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:05:25.908386+00:00",
+      "free_bytes": 57157902336,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:05:35.951833+00:00",
+      "free_bytes": 57157902336,
+      "work_bytes": 1633169408,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:05:46.640222+00:00",
+      "free_bytes": 57157902336,
+      "work_bytes": 1633173504,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:05:56.943419+00:00",
+      "free_bytes": 57149485056,
+      "work_bytes": 1633173504,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:06:07.736066+00:00",
+      "free_bytes": 57149485056,
+      "work_bytes": 1633173504,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:06:18.061015+00:00",
+      "free_bytes": 57149485056,
+      "work_bytes": 1633173504,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:06:28.092682+00:00",
+      "free_bytes": 57149485056,
+      "work_bytes": 1633173504,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:06:38.197578+00:00",
+      "free_bytes": 57149485056,
+      "work_bytes": 1633173504,
+      "target_bytes": 21958656
+    },
+    {
+      "utc": "2026-11-06T23:06:43.818590+00:00",
+      "free_bytes": 57149485056,
+      "work_bytes": 1633177600,
+      "target_bytes": 21958656
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":5,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":57163501568,\"free_excludes_purgeable\":true,\"free_pct\":5.451536328125,\"mount_point\":\"/\",\"path\":\"/home/ubuntu/jmev-algebra-asr-20261106\",\"platform\":{\"linux\":{\"device_id\":36,\"fs_type\":\"btrfs\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":1048576000000,\"unprotected\":null,\"volume_available_bytes\":57163501568,\"volume_role\":null,\"volume_total_bytes\":1048576000000}\n",
+    "stderr": "[SBH-CONFIG] Using system config at /etc/sbh/config.toml\n"
+  },
+  "admission": {
+    "utc": "2026-11-06T23:02:32.606877+00:00",
+    "free_bytes": 57163501568,
+    "work_bytes": 1631674368,
+    "target_bytes": 19001344
+  },
+  "policy": {
+    "admission_gib": 12,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 1,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "14284320c95a9ee71b725ec0fee52f1bbff0ef093804825700c8b2838e2fac1f",
+  "pid": 3991544,
+  "exit": 1,
+  "final_inputs_sha256": "14284320c95a9ee71b725ec0fee52f1bbff0ef093804825700c8b2838e2fac1f",
+  "finished": "2026-11-06T23:07:51.197194+00:00"
+}

@@ -1,0 +1,12 @@
+# explainer timeline v1
+chapter	15_closing
+fps	60
+frames	4379
+line	15_1	36	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/15_1.wav
+line	15_2	624	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/15_2.wav
+line	15_3	2626	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/15_3.wav
+line	15_4	3465	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/15_4.wav
+mark	predict	3090
+breath	3962	1.5
+breath	4150	3
+listen	3090	6	15_closing:15_3

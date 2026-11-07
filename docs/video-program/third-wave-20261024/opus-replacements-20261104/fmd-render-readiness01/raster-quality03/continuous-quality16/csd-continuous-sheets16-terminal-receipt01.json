@@ -1,0 +1,88 @@
+{
+  "started": "2026-11-07T00:28:40.165455+00:00",
+  "phase": "native",
+  "command": [
+    "/usr/bin/timeout",
+    "1800",
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/continuous-quality16/sheets16.py"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-07T00:28:41.925155+00:00",
+      "free_bytes": 16856334336,
+      "work_bytes": 2871992320,
+      "target_bytes": 2153381888
+    },
+    {
+      "utc": "2026-11-07T00:28:52.231498+00:00",
+      "free_bytes": 16854458368,
+      "work_bytes": 2873827328,
+      "target_bytes": 2153381888
+    },
+    {
+      "utc": "2026-11-07T00:29:02.690699+00:00",
+      "free_bytes": 16850939904,
+      "work_bytes": 2877313024,
+      "target_bytes": 2153381888
+    },
+    {
+      "utc": "2026-11-07T00:29:13.001551+00:00",
+      "free_bytes": 16848515072,
+      "work_bytes": 2879709184,
+      "target_bytes": 2153381888
+    },
+    {
+      "utc": "2026-11-07T00:29:23.355513+00:00",
+      "free_bytes": 16845881344,
+      "work_bytes": 2882318336,
+      "target_bytes": 2153381888
+    },
+    {
+      "utc": "2026-11-07T00:29:33.892484+00:00",
+      "free_bytes": 16843157504,
+      "work_bytes": 2885009408,
+      "target_bytes": 2153381888
+    },
+    {
+      "utc": "2026-11-07T00:29:44.210220+00:00",
+      "free_bytes": 16839720960,
+      "work_bytes": 2888392704,
+      "target_bytes": 2153381888
+    },
+    {
+      "utc": "2026-11-07T00:29:50.776614+00:00",
+      "free_bytes": 16837406720,
+      "work_bytes": 2890698752,
+      "target_bytes": 2153381888
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":16856334336,\"free_excludes_purgeable\":true,\"free_pct\":1.7327976167495802,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-stroke-probe-20261106\",\"platform\":{\"linux\":{\"device_id\":66308,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":972781481984,\"unprotected\":null,\"volume_available_bytes\":16856334336,\"volume_role\":null,\"volume_total_bytes\":972781481984}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-07T00:28:40.188806+00:00",
+    "free_bytes": 16856334336,
+    "work_bytes": 2871988224,
+    "target_bytes": 2153381888
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "ed185b7992874b9900c25e60c4d0b6f338763a9969f25a86cae15572366b5380",
+  "pid": 3455280,
+  "exit": 0,
+  "final_inputs_sha256": "ed185b7992874b9900c25e60c4d0b6f338763a9969f25a86cae15572366b5380",
+  "finished": "2026-11-07T00:29:53.184388+00:00"
+}

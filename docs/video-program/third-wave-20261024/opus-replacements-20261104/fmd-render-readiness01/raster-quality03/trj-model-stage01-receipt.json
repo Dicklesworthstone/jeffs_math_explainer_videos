@@ -1,0 +1,128 @@
+{
+  "started": "2026-11-06T22:47:05.104480+00:00",
+  "phase": "native",
+  "command": [
+    "python3",
+    "-I",
+    "-B",
+    "/home/ubuntu/jmev-algebra-asr-20261106/inputs/receive-model01.py"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-06T22:47:05.348183+00:00",
+      "free_bytes": 58926718976,
+      "work_bytes": 8192,
+      "target_bytes": 0
+    },
+    {
+      "utc": "2026-11-06T22:47:15.352145+00:00",
+      "free_bytes": 58896109568,
+      "work_bytes": 87040000,
+      "target_bytes": 0
+    },
+    {
+      "utc": "2026-11-06T22:47:25.362206+00:00",
+      "free_bytes": 58896109568,
+      "work_bytes": 224911360,
+      "target_bytes": 0
+    },
+    {
+      "utc": "2026-11-06T22:47:35.381547+00:00",
+      "free_bytes": 58865999872,
+      "work_bytes": 387981312,
+      "target_bytes": 0
+    },
+    {
+      "utc": "2026-11-06T22:47:45.411366+00:00",
+      "free_bytes": 58597068800,
+      "work_bytes": 535834624,
+      "target_bytes": 0
+    },
+    {
+      "utc": "2026-11-06T22:47:55.487334+00:00",
+      "free_bytes": 58597068800,
+      "work_bytes": 672145408,
+      "target_bytes": 0
+    },
+    {
+      "utc": "2026-11-06T22:48:05.522112+00:00",
+      "free_bytes": 58597068800,
+      "work_bytes": 816848896,
+      "target_bytes": 0
+    },
+    {
+      "utc": "2026-11-06T22:48:15.532699+00:00",
+      "free_bytes": 58597068800,
+      "work_bytes": 882909184,
+      "target_bytes": 0
+    },
+    {
+      "utc": "2026-11-06T22:48:25.562980+00:00",
+      "free_bytes": 58597068800,
+      "work_bytes": 933240832,
+      "target_bytes": 0
+    },
+    {
+      "utc": "2026-11-06T22:48:35.574572+00:00",
+      "free_bytes": 58597068800,
+      "work_bytes": 985669632,
+      "target_bytes": 10436608
+    },
+    {
+      "utc": "2026-11-06T22:48:45.591137+00:00",
+      "free_bytes": 58597068800,
+      "work_bytes": 1068507136,
+      "target_bytes": 10436608
+    },
+    {
+      "utc": "2026-11-06T22:48:55.601358+00:00",
+      "free_bytes": 58597068800,
+      "work_bytes": 1214259200,
+      "target_bytes": 10436608
+    },
+    {
+      "utc": "2026-11-06T22:49:05.613297+00:00",
+      "free_bytes": 58597068800,
+      "work_bytes": 1356865536,
+      "target_bytes": 10436608
+    },
+    {
+      "utc": "2026-11-06T22:49:15.619917+00:00",
+      "free_bytes": 57595461632,
+      "work_bytes": 1494228992,
+      "target_bytes": 10436608
+    },
+    {
+      "utc": "2026-11-06T22:49:23.856801+00:00",
+      "free_bytes": 57595461632,
+      "work_bytes": 1624567808,
+      "target_bytes": 10436608
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":5,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":58926718976,\"free_excludes_purgeable\":true,\"free_pct\":5.61968984375,\"mount_point\":\"/\",\"path\":\"/home/ubuntu/jmev-algebra-asr-20261106\",\"platform\":{\"linux\":{\"device_id\":36,\"fs_type\":\"btrfs\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":1048576000000,\"unprotected\":null,\"volume_available_bytes\":58926718976,\"volume_role\":null,\"volume_total_bytes\":1048576000000}\n",
+    "stderr": "[SBH-CONFIG] Using system config at /etc/sbh/config.toml\n"
+  },
+  "admission": {
+    "utc": "2026-11-06T22:47:05.310684+00:00",
+    "free_bytes": 58926718976,
+    "work_bytes": 0,
+    "target_bytes": 0
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "7224d9af03b4174d154d64ec2eb438d0dee5b2b24b07ea2a4058ae5c4bd329b4",
+  "pid": 3679385,
+  "exit": 0,
+  "final_inputs_sha256": "7224d9af03b4174d154d64ec2eb438d0dee5b2b24b07ea2a4058ae5c4bd329b4",
+  "finished": "2026-11-06T22:49:23.867182+00:00"
+}

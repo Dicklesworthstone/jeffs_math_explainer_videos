@@ -1,0 +1,30 @@
+{
+  "utc": "2026-11-06T23:59:19.859186+00:00",
+  "status": "candidate only; native Rust tests/build/render NOT run",
+  "source_sha256": "57981602dee6540b661ca3cbdf099502bc3641bc43085aa88cb2be81a327d251",
+  "candidate_sha256": "118172af9d69006c370fddf67a8c9d97431485cd36aea42e92f04f65a80a58b2",
+  "numerical_checks": {
+    "period_samples": 1001,
+    "range_samples": 10001,
+    "seams": 25,
+    "max_seam_difference": 2.9629609829824927e-12
+  },
+  "unchanged": [
+    "hue wheel",
+    "12 phase lines",
+    "band ratio",
+    "band offset",
+    "functions",
+    "narration",
+    "timelines"
+  ],
+  "remaining": [
+    "native guarded tests/build",
+    "actual chapter04 teaching legibility",
+    "chapter05 contour zoom and smooth settled gallery",
+    "4K close-up and motion comparison",
+    "full review before release"
+  ],
+  "listening_accepted": false,
+  "independent_av_accepted": false
+}

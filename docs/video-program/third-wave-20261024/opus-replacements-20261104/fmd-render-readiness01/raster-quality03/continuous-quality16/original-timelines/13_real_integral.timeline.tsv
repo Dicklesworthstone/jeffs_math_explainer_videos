@@ -1,0 +1,18 @@
+# explainer timeline v1
+chapter	13_real_integral
+fps	60
+frames	10641
+line	13_1	36	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/13_1.wav
+line	13_2	1032	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/13_2.wav
+line	13_3	2067	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/13_3.wav
+line	13_4	3275	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/13_4.wav
+line	13_5	3974	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/13_5.wav
+line	13_6	5242	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/13_6.wav
+line	13_7	5562	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/13_7.wav
+line	13_8	6554	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/13_8.wav
+line	13_9	7392	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/13_9.wav
+line	13_10	8129	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/13_10.wav
+line	13_11	9346	0	/data/projects/jmev-stroke-probe-20261106/jobs/stage07-narration-derive01/narration/13_11.wav
+mark	predict	4927
+breath	10455	2.5
+listen	4927	5	13_real_integral:13_5

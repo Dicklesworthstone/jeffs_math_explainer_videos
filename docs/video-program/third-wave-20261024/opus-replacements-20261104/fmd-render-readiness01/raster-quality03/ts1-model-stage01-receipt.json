@@ -1,0 +1,62 @@
+{
+  "started": "2026-11-06T23:37:43.348805+00:00",
+  "phase": "native",
+  "command": [
+    "python3",
+    "-I",
+    "-B",
+    "/home/ubuntu/jmev-algebra-asr-20261106/inputs/receive-model01.py"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-06T23:37:43.366611+00:00",
+      "free_bytes": 42574721024,
+      "work_bytes": 8192,
+      "target_bytes": 0
+    },
+    {
+      "utc": "2026-11-06T23:37:53.367205+00:00",
+      "free_bytes": 41743925248,
+      "work_bytes": 702558208,
+      "target_bytes": 0
+    },
+    {
+      "utc": "2026-11-06T23:38:03.368382+00:00",
+      "free_bytes": 41007808512,
+      "work_bytes": 1397796864,
+      "target_bytes": 39960576
+    },
+    {
+      "utc": "2026-11-06T23:38:06.392185+00:00",
+      "free_bytes": 40780894208,
+      "work_bytes": 1624604672,
+      "target_bytes": 39960576
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":5,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":42574729216,\"free_excludes_purgeable\":true,\"free_pct\":2.115586857850049,\"mount_point\":\"/\",\"path\":\"/home/ubuntu/jmev-algebra-asr-20261106\",\"platform\":{\"linux\":{\"device_id\":64512,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":2012431163392,\"unprotected\":null,\"volume_available_bytes\":42574729216,\"volume_role\":null,\"volume_total_bytes\":2012431163392}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-06T23:37:43.364678+00:00",
+    "free_bytes": 42574729216,
+    "work_bytes": 0,
+    "target_bytes": 0
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "6d9c276ac8492ad10e04b4c42ba0fc12f264115ada1b4c32b230e0492a4dc628",
+  "pid": 1515480,
+  "exit": 0,
+  "final_inputs_sha256": "6d9c276ac8492ad10e04b4c42ba0fc12f264115ada1b4c32b230e0492a4dc628",
+  "finished": "2026-11-06T23:38:06.393158+00:00"
+}

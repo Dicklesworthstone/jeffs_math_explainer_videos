@@ -1,0 +1,53 @@
+{
+  "started": "2026-11-07T00:35:59.096517+00:00",
+  "phase": "native",
+  "command": [
+    "/usr/bin/timeout",
+    "3600",
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/continuous-quality16/rebind16.py",
+    "--run"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-07T00:36:00.827529+00:00",
+      "free_bytes": 16834662400,
+      "work_bytes": 2890752000,
+      "target_bytes": 2153451520
+    },
+    {
+      "utc": "2026-11-07T00:36:03.809628+00:00",
+      "free_bytes": 16750731264,
+      "work_bytes": 2974273536,
+      "target_bytes": 2153451520
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":16834666496,\"free_excludes_purgeable\":true,\"free_pct\":1.7305702059280041,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-stroke-probe-20261106\",\"platform\":{\"linux\":{\"device_id\":66308,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":972781481984,\"unprotected\":null,\"volume_available_bytes\":16834666496,\"volume_role\":null,\"volume_total_bytes\":972781481984}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-07T00:35:59.119446+00:00",
+    "free_bytes": 16834662400,
+    "work_bytes": 2890747904,
+    "target_bytes": 2153381888
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "482fac7ea5ebb22916f0f743acbc6f3526746c22bfc02242ab5e4550e81eafe9",
+  "pid": 3468009,
+  "exit": 0,
+  "final_inputs_sha256": "482fac7ea5ebb22916f0f743acbc6f3526746c22bfc02242ab5e4550e81eafe9",
+  "finished": "2026-11-07T00:36:05.442678+00:00"
+}

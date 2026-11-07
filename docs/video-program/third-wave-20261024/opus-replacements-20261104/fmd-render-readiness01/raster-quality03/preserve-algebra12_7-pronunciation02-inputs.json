@@ -1,0 +1,44 @@
+{
+  "files": [
+    {
+      "path": "/Users/jemanuel/.cache/franken_whisper/models/whisper/whisper-large-v3-turbo-f16-v1/ggml-large-v3-turbo.bin",
+      "sha256": "1fc70f774d38eb169993ac391eea357ef47c88757ef72ee5943879b7e8e2bc69"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/franken-whisper/0.9.2/bin/fw",
+      "sha256": "dddaba940c7be629c5dab6e598e07b80fefb0f2c660d1dbb47905e433955c778"
+    },
+    {
+      "path": "/Users/jemanuel/models/whisper/ggml-small.en.bin",
+      "sha256": "c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/preserve-algebra12_7-pronunciation02.py",
+      "sha256": "46f2502e2741354e839b9b9671cba5d7c8f35f655e9e6269fb71007ebac52daa"
+    },
+    {
+      "path": "/Users/jemanuel/Downloads/ElevenLabs_2026-11-06T22_34_35_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4.wav",
+      "sha256": "1e05ea0d4acc03fb18b57eb838a7b1acb0fc5de02bcd9adafd5717011aa7d57a"
+    },
+    {
+      "path": "/Users/jemanuel/Downloads/ElevenLabs_2026-11-06T22_34_35_Frederick Surrey - Smooth and Velvety_pvc_s50_sim75_v4 (1).wav",
+      "sha256": "e3f28d5fa64131c3009c00d8e245d63ba88cf0f4942cb39f405db4999457b2e5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/frederick-stage03-root01/12_7-pronunciation-source-downloads02.json",
+      "sha256": "c373e64235b5198b9f0471fb796810cff66200dbd3f666434bc42673b483273c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/frederick-stage03-root01/12_7-pronunciation-request02.json",
+      "sha256": "7e7c70a11b71ec4e7fce98319a45a2bf65c1cd2aeffe2762dd867a2c1f38cc17"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/frederick-stage03-root01/12_7-pronunciation-submission02.json",
+      "sha256": "9b4090af172dad1b214a3c1684b70dce6016f694b68837282cc0cfd1c7a795be"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/frederick-stage03-root01/12_7-recognition-review01.json",
+      "sha256": "9e2195a7ff5bfca3837b26d72a440833f88c8d5079248bb6665ddd2951b1a2bf"
+    }
+  ]
+}

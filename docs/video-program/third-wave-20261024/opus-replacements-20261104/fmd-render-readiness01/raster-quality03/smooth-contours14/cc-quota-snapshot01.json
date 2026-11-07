@@ -1,0 +1,33 @@
+{
+  "utc": "2026-11-07T00:02:05.428662+00:00",
+  "panes": [
+    {
+      "pane": "%0",
+      "evidence": [
+        "\u23bf \u00a0You've hit your weekly limit \u00b7 resets Nov 12 at 12am (America/New_York)",
+        "3. Switch to usage credits"
+      ]
+    },
+    {
+      "pane": "%1",
+      "evidence": [
+        "\u23bf \u00a0You've hit your weekly limit \u00b7 resets Nov 12 at 12am (America/New_York)",
+        "3. Switch to usage credits"
+      ]
+    },
+    {
+      "pane": "%2",
+      "evidence": [
+        "\u23bf \u00a0You've hit your weekly limit \u00b7 resets Nov 12 at 12am (America/New_York)",
+        "3. Switch to usage credits"
+      ]
+    },
+    {
+      "pane": "%3",
+      "evidence": [
+        "\u23bf \u00a0You've hit your weekly limit \u00b7 resets Nov 12 at 12am (America/New_York)",
+        "3. Switch to usage credits"
+      ]
+    }
+  ]
+}

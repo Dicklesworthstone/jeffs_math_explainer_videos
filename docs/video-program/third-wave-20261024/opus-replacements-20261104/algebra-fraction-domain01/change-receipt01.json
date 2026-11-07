@@ -1,0 +1,14 @@
+{
+  "utc": "2026-11-07T00:41:30.346891+00:00",
+  "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/native-stage03-root01/workspace/explainer_corpus/abstract_algebra_expanded/src/transitivity.rs",
+  "before_sha256": "96de7a203513265bfa00641e49d0015342783a0e5c67c17c6552282a9d7906a5",
+  "after_sha256": "44b3789a0bb42f45b48586501088ea4b43d750be09927d08a7f8ea4c83fa300b",
+  "change": "Explicit denominator domain; same show/hide durations and no narration changes.",
+  "verified": false,
+  "remaining": [
+    "guarded compile/test",
+    "source hold-map rebind",
+    "timeline comparison",
+    "actual picture review"
+  ]
+}
