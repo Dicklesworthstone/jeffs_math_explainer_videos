@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "script_sha256": "cfcec06911c7d94efa6b7b29a820be9bf73a608810b4b57085f02f5b95939313",
+  "script_sha256": "29aa2993426bb323e5723162e446f1cf70d00836b8bc91ebb6503ad3ca48cf07",
   "direction_contract": {
     "schema_version": 1,
     "topic": "apportionment",
-    "script_sha256": "cfcec06911c7d94efa6b7b29a820be9bf73a608810b4b57085f02f5b95939313",
+    "script_sha256": "29aa2993426bb323e5723162e446f1cf70d00836b8bc91ebb6503ad3ca48cf07",
     "map": {
-      "path": "explainer_corpus/apportionment/docs/narration-direction-map-oliver04.json",
-      "sha256": "8136388e58082b74395b2b8141207bc5fd6dc7d5f80fb93f9f8f16eb518c7bd8"
+      "path": "explainer_corpus/apportionment/docs/narration-direction-map-frederick01.json",
+      "sha256": "8ae86ed5e848a94c3a9f33a592d01495ee5c0eace068aa592e4fd80f97762c53"
     }
   },
-  "scope": "Candidate full-cue source plan for ElevenLabs Oliver, combined-repair-stage03: one unit per cue, at most 100 words. It says nothing about whether a recording of any cue exists; unchanged wording is not evidence of a usable take. No synthesis, take selection, listening, timing or independent acceptance.",
+  "scope": "Frederick source plan140. Cue05_2 clarifies town-specific increments;08_6 specifies fixed tie order and scopes the no-tie examples to fifteen through seventeen seats. All prior takes retained; native build and final timing review pending.",
   "units": [
     {
       "id": "oliver_01_1",
@@ -73,7 +73,7 @@
       "line_ids": [
         "02_3"
       ],
-      "text": "But a seat is a person. Nobody can sit in point five four of a chair. Each share has to become a whole number, and the whole numbers have to add up to exactly fifteen."
+      "text": "But a seat is a person. Nobody can sit in point five four of a chair. Each town needs a whole number of seats, and the whole numbers have to add up to exactly fifteen."
     },
     {
       "id": "oliver_02_4",
@@ -192,7 +192,7 @@
       "line_ids": [
         "05_2"
       ],
-      "text": "Adding one seat to the council adds the same fraction of the population to every share. Ash has four thousand of the thirty nine thousand people, so one more seat turns Ash's hand by four thirty ninths of a turn. Birch's hand turns nine thirty ninths. Cedar's turns twenty six thirty ninths, two thirds of the way around."
+      "text": "Adding one seat to the council increases each town's share by that town's fraction of the total population. Ash has four thousand of the thirty nine thousand people, so one more seat turns Ash's hand by four thirty ninths of a turn. Birch's hand turns nine thirty ninths. Cedar's turns twenty six thirty ninths, two thirds of the way around."
     },
     {
       "id": "oliver_05_3",
@@ -332,7 +332,7 @@
       "line_ids": [
         "08_6"
       ],
-      "text": "Precisely, that needs a single order on the list. At two thousand people per seat, Ash's second signpost and Cedar's thirteenth are exactly tied, so a council of eighteen would need a tie rule. Every example in this film stays clear of that tie."
+      "text": "Precisely, that needs a single order on the list. At two thousand people per seat, Ash's second signpost and Cedar's thirteenth are exactly tied, so a council of eighteen would need a tie rule. Fix the order of tied signposts once, and keep it as the house grows. Our fifteen, sixteen and seventeen seat allocations stop before this tie."
     },
     {
       "id": "oliver_09_1",
@@ -577,7 +577,7 @@
       "line_ids": [
         "14_1"
       ],
-      "text": "Balinski and Young proved in nineteen eighty two that the answer is no, with one extra assumption. A town with strictly more people than another must never get fewer seats. A recent paper by Paul Gölz, Dominik Peters and Ariel Procaccia proves the answer is still no without that assumption, for any rule that always gives the same answer to the same question."
+      "text": "Balinski and Young proved in nineteen eighty two that the answer is no, with one extra assumption. A town with strictly more people than another must never get fewer seats. A recent paper by Paul G\u00f6lz, Dominik Peters and Ariel Procaccia proves the answer is still no without that assumption, for any rule that always gives the same answer to the same question."
     },
     {
       "id": "oliver_14_2",

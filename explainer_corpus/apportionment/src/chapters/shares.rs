@@ -194,7 +194,7 @@ impl SceneConstruct for Shares {
         let s = say(&kit, stage, "02_3")?;
         s.wait_for(stage, "Nobody can sit")?;
         flash_all(stage, &[rows.bands[ASH][1]], 1.0)?;
-        s.wait_for(stage, "Each share has")?;
+        s.wait_for(stage, "Each town needs")?;
         let mut arrows = Vec::new();
         let mut marks = Vec::new();
         for (i, &y) in ROW_Y.iter().enumerate() {
