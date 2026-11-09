@@ -1,13 +1,24 @@
 {
-  "utc": "2026-11-09T17:22:54.728329+00:00",
+  "utc": "2026-11-09T17:40:51.632972+00:00",
   "viewed": {
     "01_one_more_seat": [
       1,
       2,
-      3
+      3,
+      4,
+      5,
+      6
     ]
   },
-  "selected_pictures_viewed": 24,
-  "observations": "Population bars,15-seat allocation and16-seat prediction remain readable in sampled opening frames. Review incomplete; no full chapter or AV acceptance.",
-  "scope": "Actual selected static pictures only; no listening/fine-sync/independent finalAV acceptance."
+  "selected_pictures_viewed": 48,
+  "observations": "All48 chapter01 selected pictures actually viewed; sheets004-006 re-viewed individually after prior truncated display. Prediction holds retain15-seat allocation until answer;16-seat reveal shows Ash2to1,Birch3to4,Cedar10to11. Settled summary text and closing three visual motifs separated and readable. Brief blank title transition sampled51.267-51.283s, settled title visible59.517s. No concrete persistent clipping in these samples. Remaining14chapters and full AV review open.",
+  "scope": "Actual selected static pictures only; no listening/fine-sync/independent finalAV acceptance.",
+  "sheet_hashes": {
+    "sheet-0001.jpg": "3067179006e077daab768b9e0ed9900e9c40ed924ee8666870e26e5c347e7bd1",
+    "sheet-0002.jpg": "b64be4584df2c9fc7759167c48817fabfcea0743f97d898aabd431553cda713c",
+    "sheet-0003.jpg": "1dcec9b76b349ba28435b4823a07583f777d34e0b6d806126a1ae298997c58f2",
+    "sheet-0004.jpg": "86a7c478242ab6bdd0f9715aec30348c7fe85ac88fc5a9d245388664b8153be0",
+    "sheet-0005.jpg": "507a86ce5c173a7be7754b7cfcc82534b1cc4dcc610ebdd6b76e9c04b8299d96",
+    "sheet-0006.jpg": "699db6b08e012df0cc4e75a43298465bc9b7226b4efe7707309af139b648a426"
+  }
 }
