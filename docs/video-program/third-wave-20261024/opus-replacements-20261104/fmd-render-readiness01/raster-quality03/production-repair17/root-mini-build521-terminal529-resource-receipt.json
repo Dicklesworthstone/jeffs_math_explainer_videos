@@ -1,0 +1,340 @@
+{
+  "started": "2026-11-09T06:27:58.090975+00:00",
+  "phase": "native",
+  "command": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/jemanuel/scratch/jmev-complex-native-20261109/qualification/mini-max-native-build521.py",
+    "--job",
+    "native-build521"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-09T06:28:00.138675+00:00",
+      "free_bytes": 108408676352,
+      "work_bytes": 12288,
+      "target_bytes": 0
+    },
+    {
+      "utc": "2026-11-09T06:28:10.139789+00:00",
+      "free_bytes": 108404465664,
+      "work_bytes": 20480,
+      "target_bytes": 1245184
+    },
+    {
+      "utc": "2026-11-09T06:28:20.181517+00:00",
+      "free_bytes": 108395749376,
+      "work_bytes": 20480,
+      "target_bytes": 7393280
+    },
+    {
+      "utc": "2026-11-09T06:28:30.223329+00:00",
+      "free_bytes": 108330938368,
+      "work_bytes": 20480,
+      "target_bytes": 70930432
+    },
+    {
+      "utc": "2026-11-09T06:28:40.277570+00:00",
+      "free_bytes": 108259246080,
+      "work_bytes": 20480,
+      "target_bytes": 140845056
+    },
+    {
+      "utc": "2026-11-09T06:28:50.329348+00:00",
+      "free_bytes": 108219793408,
+      "work_bytes": 20480,
+      "target_bytes": 182984704
+    },
+    {
+      "utc": "2026-11-09T06:29:00.368936+00:00",
+      "free_bytes": 108010987520,
+      "work_bytes": 24576,
+      "target_bytes": 222035968
+    },
+    {
+      "utc": "2026-11-09T06:29:10.411524+00:00",
+      "free_bytes": 107993264128,
+      "work_bytes": 24576,
+      "target_bytes": 239636480
+    },
+    {
+      "utc": "2026-11-09T06:29:20.453738+00:00",
+      "free_bytes": 107978473472,
+      "work_bytes": 24576,
+      "target_bytes": 253767680
+    },
+    {
+      "utc": "2026-11-09T06:29:30.507262+00:00",
+      "free_bytes": 107974242304,
+      "work_bytes": 24576,
+      "target_bytes": 257769472
+    },
+    {
+      "utc": "2026-11-09T06:29:40.551405+00:00",
+      "free_bytes": 107943972864,
+      "work_bytes": 24576,
+      "target_bytes": 271908864
+    },
+    {
+      "utc": "2026-11-09T06:29:50.610456+00:00",
+      "free_bytes": 107913682944,
+      "work_bytes": 24576,
+      "target_bytes": 285384704
+    },
+    {
+      "utc": "2026-11-09T06:30:00.658166+00:00",
+      "free_bytes": 107904753664,
+      "work_bytes": 28672,
+      "target_bytes": 294027264
+    },
+    {
+      "utc": "2026-11-09T06:30:10.705188+00:00",
+      "free_bytes": 107894644736,
+      "work_bytes": 32768,
+      "target_bytes": 303955968
+    },
+    {
+      "utc": "2026-11-09T06:30:20.763024+00:00",
+      "free_bytes": 107868807168,
+      "work_bytes": 32768,
+      "target_bytes": 328945664
+    },
+    {
+      "utc": "2026-11-09T06:30:30.818354+00:00",
+      "free_bytes": 107628859392,
+      "work_bytes": 32768,
+      "target_bytes": 568741888
+    },
+    {
+      "utc": "2026-11-09T06:30:40.874221+00:00",
+      "free_bytes": 107623993344,
+      "work_bytes": 32768,
+      "target_bytes": 573329408
+    },
+    {
+      "utc": "2026-11-09T06:30:50.920933+00:00",
+      "free_bytes": 107646529536,
+      "work_bytes": 32768,
+      "target_bytes": 575139840
+    },
+    {
+      "utc": "2026-11-09T06:31:00.966297+00:00",
+      "free_bytes": 107594375168,
+      "work_bytes": 32768,
+      "target_bytes": 578797568
+    },
+    {
+      "utc": "2026-11-09T06:31:11.010912+00:00",
+      "free_bytes": 107621560320,
+      "work_bytes": 32768,
+      "target_bytes": 583532544
+    },
+    {
+      "utc": "2026-11-09T06:31:21.059887+00:00",
+      "free_bytes": 107617210368,
+      "work_bytes": 32768,
+      "target_bytes": 585220096
+    },
+    {
+      "utc": "2026-11-09T06:31:31.104865+00:00",
+      "free_bytes": 107608678400,
+      "work_bytes": 32768,
+      "target_bytes": 593256448
+    },
+    {
+      "utc": "2026-11-09T06:31:41.152790+00:00",
+      "free_bytes": 107608379392,
+      "work_bytes": 32768,
+      "target_bytes": 596729856
+    },
+    {
+      "utc": "2026-11-09T06:31:51.203686+00:00",
+      "free_bytes": 107602993152,
+      "work_bytes": 32768,
+      "target_bytes": 601452544
+    },
+    {
+      "utc": "2026-11-09T06:32:01.257454+00:00",
+      "free_bytes": 107603787776,
+      "work_bytes": 32768,
+      "target_bytes": 601452544
+    },
+    {
+      "utc": "2026-11-09T06:32:11.306308+00:00",
+      "free_bytes": 107599810560,
+      "work_bytes": 32768,
+      "target_bytes": 605196288
+    },
+    {
+      "utc": "2026-11-09T06:32:21.351807+00:00",
+      "free_bytes": 107595083776,
+      "work_bytes": 32768,
+      "target_bytes": 609550336
+    },
+    {
+      "utc": "2026-11-09T06:32:31.405064+00:00",
+      "free_bytes": 107587866624,
+      "work_bytes": 32768,
+      "target_bytes": 616882176
+    },
+    {
+      "utc": "2026-11-09T06:32:41.456336+00:00",
+      "free_bytes": 107582431232,
+      "work_bytes": 32768,
+      "target_bytes": 621043712
+    },
+    {
+      "utc": "2026-11-09T06:32:51.504217+00:00",
+      "free_bytes": 107570319360,
+      "work_bytes": 32768,
+      "target_bytes": 632369152
+    },
+    {
+      "utc": "2026-11-09T06:33:01.553561+00:00",
+      "free_bytes": 107558653952,
+      "work_bytes": 32768,
+      "target_bytes": 644386816
+    },
+    {
+      "utc": "2026-11-09T06:33:11.606911+00:00",
+      "free_bytes": 107609743360,
+      "work_bytes": 32768,
+      "target_bytes": 651689984
+    },
+    {
+      "utc": "2026-11-09T06:33:21.652851+00:00",
+      "free_bytes": 107543408640,
+      "work_bytes": 32768,
+      "target_bytes": 663797760
+    },
+    {
+      "utc": "2026-11-09T06:33:31.702227+00:00",
+      "free_bytes": 107534557184,
+      "work_bytes": 32768,
+      "target_bytes": 676872192
+    },
+    {
+      "utc": "2026-11-09T06:33:41.759466+00:00",
+      "free_bytes": 107524431872,
+      "work_bytes": 32768,
+      "target_bytes": 685604864
+    },
+    {
+      "utc": "2026-11-09T06:33:51.805073+00:00",
+      "free_bytes": 107509473280,
+      "work_bytes": 32768,
+      "target_bytes": 700391424
+    },
+    {
+      "utc": "2026-11-09T06:34:01.855710+00:00",
+      "free_bytes": 107504615424,
+      "work_bytes": 32768,
+      "target_bytes": 703381504
+    },
+    {
+      "utc": "2026-11-09T06:34:11.901936+00:00",
+      "free_bytes": 107473461248,
+      "work_bytes": 32768,
+      "target_bytes": 713809920
+    },
+    {
+      "utc": "2026-11-09T06:34:21.965957+00:00",
+      "free_bytes": 107485061120,
+      "work_bytes": 32768,
+      "target_bytes": 721682432
+    },
+    {
+      "utc": "2026-11-09T06:34:32.015585+00:00",
+      "free_bytes": 107475587072,
+      "work_bytes": 32768,
+      "target_bytes": 730624000
+    },
+    {
+      "utc": "2026-11-09T06:34:42.062579+00:00",
+      "free_bytes": 107357270016,
+      "work_bytes": 36864,
+      "target_bytes": 736931840
+    },
+    {
+      "utc": "2026-11-09T06:34:52.113217+00:00",
+      "free_bytes": 107460792320,
+      "work_bytes": 36864,
+      "target_bytes": 743030784
+    },
+    {
+      "utc": "2026-11-09T06:35:02.159400+00:00",
+      "free_bytes": 107407872000,
+      "work_bytes": 69632,
+      "target_bytes": 793595904
+    },
+    {
+      "utc": "2026-11-09T06:35:12.229683+00:00",
+      "free_bytes": 107336806400,
+      "work_bytes": 73728,
+      "target_bytes": 864116736
+    },
+    {
+      "utc": "2026-11-09T06:35:22.293939+00:00",
+      "free_bytes": 107232702464,
+      "work_bytes": 73728,
+      "target_bytes": 892874752
+    },
+    {
+      "utc": "2026-11-09T06:35:32.380435+00:00",
+      "free_bytes": 107281358848,
+      "work_bytes": 77824,
+      "target_bytes": 918781952
+    },
+    {
+      "utc": "2026-11-09T06:35:42.460470+00:00",
+      "free_bytes": 107265941504,
+      "work_bytes": 77824,
+      "target_bytes": 934514688
+    },
+    {
+      "utc": "2026-11-09T06:35:52.529190+00:00",
+      "free_bytes": 107150893056,
+      "work_bytes": 77824,
+      "target_bytes": 940150784
+    },
+    {
+      "utc": "2026-11-09T06:36:02.595537+00:00",
+      "free_bytes": 107119136768,
+      "work_bytes": 81920,
+      "target_bytes": 1077583872
+    },
+    {
+      "utc": "2026-11-09T06:36:08.500248+00:00",
+      "free_bytes": 107090407424,
+      "work_bytes": 14036992,
+      "target_bytes": 1105506304
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":10,\"configured_pool_bytes\":10737418240,\"health\":\"ok\",\"missing_count\":0,\"releasable_bytes\":10737418240,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":108409876480,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":1995218165760,\"exit_code\":0,\"forecast\":null,\"free_bytes\":108409876480,\"free_excludes_purgeable\":true,\"free_pct\":5.433484835915451,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/scratch/jmev-complex-native-20261109/repo\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":108409876480,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":1995218165760,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":1263988800,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":108409745408,\"volume_role\":\"Data\",\"volume_total_bytes\":1995218165760}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":1995218165760,\"unprotected\":null,\"volume_available_bytes\":108409745408,\"volume_role\":\"Data\",\"volume_total_bytes\":1995218165760}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-09T06:27:58.422901+00:00",
+    "free_bytes": 108409819136,
+    "work_bytes": 4096,
+    "target_bytes": 0
+  },
+  "policy": {
+    "admission_gib": 20,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 80,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "01698c8ab02394969bb7f22f45374b650a4520492f7d91df71c4a295f7bf5ddd",
+  "pid": 34213,
+  "exit": 0,
+  "final_inputs_sha256": "01698c8ab02394969bb7f22f45374b650a4520492f7d91df71c4a295f7bf5ddd",
+  "finished": "2026-11-09T06:36:08.702549+00:00"
+}

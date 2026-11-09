@@ -1,0 +1,18 @@
+{
+  "utc": "2026-11-09T06:54:00.033423+00:00",
+  "reviewer": "root",
+  "helper_sha256": "4206b9fc00966c5d13f78d0a90aa11a5a4343dbf2b8304d5b40de8d29cabb838",
+  "manifest_sha256": "305def1602af050883d897be3a5f7bdda7de830950e2341ed47121235d170bee",
+  "rows": 3874,
+  "decision": "Proceed with bounded narrated preview recovery under unchanged owner80 guard; reuse original eight chapters, render only nine through fifteen",
+  "evidence": [
+    "Root read full code implementation, author notes, independent predecessor524/526, actual test528-run01.txt:12/12 stand-in cases including reproduced prior escape and corrected timeout/guard stop",
+    "All original3820 input bindings retained,52 original output file listing exact, helper and manifest bindings added"
+  ],
+  "limits": [
+    "CC0 independent delta530 interrupted by provider weekly limit; not completed or claimed",
+    "Own descendant identity sweep is best effort: one-second guard-stop gap, ps failure, start-time precision and hard SIGKILL limits documented",
+    "No final pictures, audio listening, fine sync or independent final AV acceptance"
+  ],
+  "policy": "10GiB preview admission,8GiB free stop,4GiB job,80GiB work,20GiB target growth,exclusive original lane,14400s total render budget"
+}

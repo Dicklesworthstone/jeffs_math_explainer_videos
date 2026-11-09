@@ -1,0 +1,29 @@
+{
+  "files": [
+    {
+      "build_host": "D/jobs/csd-review-repair-rebind269/narration/report.json",
+      "sha256": "b4a4c91e8e8fd26dbad621d118b762660e60532a2bbcf535ad88b87a45406bdd",
+      "bytes": 365593,
+      "mini": "ROOT/inputs523/rebind269-narration/report.json"
+    },
+    {
+      "build_host": "D/jobs/csd-review-repair-rebind269/narration/assembly.json",
+      "sha256": "f0366ea40b3c23fd17c00a0222003b9041368bea995b3c1bac3c9d34f4743864",
+      "bytes": 106672,
+      "mini": "ROOT/inputs523/rebind269-narration/assembly.json"
+    },
+    {
+      "build_host": "D/jobs/csd-review-repair-rebind269/narration/external-units.json",
+      "sha256": "fd90880fbe7c1737786a9695e3c627dad0e4bfbaad0efba706e052e901b71968",
+      "bytes": 39639,
+      "mini": "ROOT/inputs523/rebind269-narration/external-units.json"
+    },
+    {
+      "build_host": "D/work/review-repair268/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-review269.json",
+      "sha256": "7eb0e40d6366950169eb10727b3386fa1d290eaeb60078d609d5e57a0ef344e3",
+      "bytes": 32108,
+      "mini": "ROOT/inputs523/topic269/narration-direction-map-frederick-review269.json"
+    }
+  ],
+  "scope": "Read-only exact source metadata retrieval; no build or render"
+}

@@ -1,0 +1,9 @@
+{
+  "files": 433,
+  "bytes": 430656541,
+  "written": 433,
+  "identical_existing": 0,
+  "all_hashes_match": true,
+  "manifest_sha256": "5be46fe5fa39de86d6f9169233cc5093912d94caef49a560d9cfc7c32af35e02",
+  "scope": "Exact input transfer only; no delivery rebind or render"
+}
