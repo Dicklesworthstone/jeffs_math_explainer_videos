@@ -1,0 +1,296 @@
+{
+ "version": "394",
+ "chapter": "14_continuation",
+ "attempt": 1,
+ "manifest": "css352-import371-14-continuation-manifest424.json",
+ "manifest_sha256": "79fc3bf9e5c9ffa86f5f30df19a22431acb2b51d0ac620ac259706344caa5206",
+ "started": "2026-11-09T20:41:30.099794+00:00",
+ "steps": [
+  {
+   "step": "check",
+   "utc": "2026-11-09T20:41:41.633350+00:00",
+   "exit": 0,
+   "report": {
+    "helper": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371.py",
+    "helper_sha256": "ba337aca143316748561c4300d5774386387690b49052e72d29a04b103dd244f",
+    "job": "csd-css352-import371-14-continuation-a1",
+    "job_exists": false,
+    "manifest_sha256": "79fc3bf9e5c9ffa86f5f30df19a22431acb2b51d0ac620ac259706344caa5206",
+    "problems": [],
+    "new_files": 16,
+    "existing_identical": 3452,
+    "space": {
+     "free_bytes": 108060786688,
+     "new_bytes": 57425957,
+     "jobs_bytes": 11889238016,
+     "work_bytes": 6385602560,
+     "work_baseline_bytes": 0
+    },
+    "alias": "/data/projects/jmev-css-render-worker-20261107",
+    "alias_state": "symlink to /data/projects/jmev-stroke-probe-20261106/work/imported-css-root311"
+   },
+   "stderr": ""
+  },
+  {
+   "step": "prepare",
+   "utc": "2026-11-09T20:41:52.358920+00:00",
+   "exit": 0,
+   "report": {
+    "job": "csd-css352-import371-14-continuation-a1",
+    "inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-14-continuation-a1-inputs.json",
+    "inputs_sha256": "cc4cea48e96ea12194040290b9000484dceda7d4e4221de9e10803d5e4ab5c52",
+    "manifest_sha256": "79fc3bf9e5c9ffa86f5f30df19a22431acb2b51d0ac620ac259706344caa5206",
+    "chapter_pin": {
+     "job": "css-reviewed-final-14-continuation352",
+     "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+     "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+     "inputs": "/data/projects/jmev-css-render-worker-20261107/qualification01/final-14_continuation-inputs352.json",
+     "inputs_sha256": "8c0c5a58bd737da954ede1128df5c27ef03a3fd00013932a7d428a7c43ac04d5",
+     "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/14_continuation-css-permit370.json",
+     "permit_sha256": "778ca1114a4ae70dea3f03cf1af44d5aad5310bb293acbcefb191d9d3c40c661",
+     "receipt_sha256": "a3f237e9595fa997f2ffdd80d064520654e9b67712de6cf5e34bee306ce202b5",
+     "summary_sha256": "f654b7ae755008089b3bd00508800b367bcdcbb7c6eca3e20b2fda9301a9bec8",
+     "movie_sha256": "8a72acacea5908482dfa3bbf0efc9fe9a39abc57b2487bf8f35bba98c3ac199a",
+     "frames": 11756
+    },
+    "new_files": 16,
+    "existing_identical": 3452,
+    "shared_files": 3202,
+    "system_files": 2269,
+    "streamed_bytes": 2252727256,
+    "space": {
+     "free_bytes": 108060762112,
+     "new_bytes": 57425957,
+     "jobs_bytes": 11889238016,
+     "work_bytes": 6385602560,
+     "work_baseline_bytes": 0
+    },
+    "guard_command": [
+     "/usr/bin/python3",
+     "-I",
+     "-B",
+     "/data/projects/jmev-stroke-probe-20261106/guard_csd02.py",
+     "--phase",
+     "native",
+     "--job",
+     "csd-css352-import371-14-continuation-a1",
+     "--inputs",
+     "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-14-continuation-a1-inputs.json",
+     "--",
+     "/usr/bin/timeout",
+     "14400",
+     "/usr/bin/python3",
+     "-I",
+     "-B",
+     "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371.py",
+     "receive",
+     "--chapter",
+     "14_continuation",
+     "--attempt",
+     "1",
+     "--manifest",
+     "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/css352-import371-14-continuation-manifest424.json"
+    ],
+    "rows350": {
+     "14_continuation": {
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-14-continuation-a1/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-14-continuation-a1-inputs.json"
+     }
+    }
+   },
+   "stderr": ""
+  },
+  {
+   "step": "receive started",
+   "utc": "2026-11-09T20:41:52.983378+00:00",
+   "command": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/guard_csd02.py",
+    "--phase",
+    "native",
+    "--job",
+    "csd-css352-import371-14-continuation-a1",
+    "--inputs",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-14-continuation-a1-inputs.json",
+    "--",
+    "/usr/bin/timeout",
+    "14400",
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371.py",
+    "receive",
+    "--chapter",
+    "14_continuation",
+    "--attempt",
+    "1",
+    "--manifest",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/css352-import371-14-continuation-manifest424.json"
+   ]
+  },
+  {
+   "step": "admission poll",
+   "utc": "2026-11-09T20:41:54.091822+00:00",
+   "exists": false,
+   "admitted": false,
+   "pid": null,
+   "finished": null,
+   "exit": null
+  },
+  {
+   "step": "admission poll",
+   "utc": "2026-11-09T20:42:09.632617+00:00",
+   "exists": true,
+   "admitted": true,
+   "pid": 833797,
+   "finished": null,
+   "exit": null
+  },
+  {
+   "step": "send started",
+   "utc": "2026-11-09T20:42:09.638356+00:00"
+  },
+  {
+   "step": "stream ended",
+   "utc": "2026-11-09T20:45:41.457891+00:00",
+   "send_exit": 0,
+   "receive_exit": 0
+  },
+  {
+   "step": "post-import validation",
+   "validator": "relay394 validate a-h",
+   "chapter": "14_continuation",
+   "attempt": 1,
+   "job": "csd-css352-import371-14-continuation-a1",
+   "manifest": "css352-import371-14-continuation-manifest424.json",
+   "manifest_sha256": "79fc3bf9e5c9ffa86f5f30df19a22431acb2b51d0ac620ac259706344caa5206",
+   "manifest_rows": 8939,
+   "inputs_rows": 5475,
+   "inputs_rows_expected": 5475,
+   "inputs_changed": [],
+   "inputs_changed_count": 0,
+   "check_exit": 0,
+   "check_problems": [],
+   "check_problem_count": 0,
+   "check_stderr": "",
+   "passed": [
+    "a. 371 check exits 0",
+    "b. 371 check reports csd-css352-import371-14-continuation-a1 and the job folder exists",
+    "c. the guard receipt is a terminal success",
+    "d. import-result.json exists and names manifest 79fc3bf9e5c9",
+    "e. every manifest row is at its size and hash through its original path (371 check problems [])",
+    "f. the guard inputs file is the one the guard admitted",
+    "g. the guard inputs hold exactly the 5475 frozen rows and every row re-hashes",
+    "h. rows350 from 371 check and import-result.json equal the expected names"
+   ],
+   "failures": [],
+   "rows350": {
+    "14_continuation": {
+     "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-14-continuation-a1/resource-receipt.json",
+     "import_inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-14-continuation-a1-inputs.json"
+    }
+   },
+   "utc": "2026-11-09T20:45:48.591511+00:00"
+  }
+ ],
+ "lane": [
+  {
+   "utc": "2026-11-09T20:41:32.815568+00:00",
+   "lane": {
+    "holders": [],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T20:41:52.974050+00:00",
+   "lane": {
+    "holders": [],
+    "waiters": []
+   }
+  }
+ ],
+ "status": {
+  "code": 0,
+  "message": "imported and validated",
+  "rows350": {
+   "14_continuation": {
+    "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-14-continuation-a1/resource-receipt.json",
+    "import_inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-14-continuation-a1-inputs.json"
+   }
+  },
+  "validation_passed": [
+   "a. 371 check exits 0",
+   "b. 371 check reports csd-css352-import371-14-continuation-a1 and the job folder exists",
+   "c. the guard receipt is a terminal success",
+   "d. import-result.json exists and names manifest 79fc3bf9e5c9",
+   "e. every manifest row is at its size and hash through its original path (371 check problems [])",
+   "f. the guard inputs file is the one the guard admitted",
+   "g. the guard inputs hold exactly the 5475 frozen rows and every row re-hashes",
+   "h. rows350 from 371 check and import-result.json equal the expected names"
+  ]
+ },
+ "chapter_pin": {
+  "job": "css-reviewed-final-14-continuation352",
+  "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+  "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+  "inputs": "/data/projects/jmev-css-render-worker-20261107/qualification01/final-14_continuation-inputs352.json",
+  "inputs_sha256": "8c0c5a58bd737da954ede1128df5c27ef03a3fd00013932a7d428a7c43ac04d5",
+  "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/14_continuation-css-permit370.json",
+  "permit_sha256": "778ca1114a4ae70dea3f03cf1af44d5aad5310bb293acbcefb191d9d3c40c661",
+  "receipt_sha256": "a3f237e9595fa997f2ffdd80d064520654e9b67712de6cf5e34bee306ce202b5",
+  "summary_sha256": "f654b7ae755008089b3bd00508800b367bcdcbb7c6eca3e20b2fda9301a9bec8",
+  "movie_sha256": "8a72acacea5908482dfa3bbf0efc9fe9a39abc57b2487bf8f35bba98c3ac199a",
+  "frames": 11756
+ },
+ "facts": {
+  "css": {
+   "helper": "ba337aca143316748561c4300d5774386387690b49052e72d29a04b103dd244f",
+   "manifest": "79fc3bf9e5c9ffa86f5f30df19a22431acb2b51d0ac620ac259706344caa5206",
+   "receipt": "a3f237e9595fa997f2ffdd80d064520654e9b67712de6cf5e34bee306ce202b5",
+   "summary": "f654b7ae755008089b3bd00508800b367bcdcbb7c6eca3e20b2fda9301a9bec8",
+   "terminal": true
+  },
+  "csd": {
+   "helper": "ba337aca143316748561c4300d5774386387690b49052e72d29a04b103dd244f",
+   "manifest": "79fc3bf9e5c9ffa86f5f30df19a22431acb2b51d0ac620ac259706344caa5206",
+   "imports": {
+    "01-the-bump": [
+     {
+      "job": "csd-css352-import371-01-the-bump-a1",
+      "attempt": 1,
+      "finished": true,
+      "imported": true
+     }
+    ],
+    "04-reading-color": [
+     {
+      "job": "csd-css352-import371-04-reading-color-a1",
+      "attempt": 1,
+      "finished": true,
+      "imported": true
+     }
+    ],
+    "12-residues": [
+     {
+      "job": "csd-css352-import371-12-residues-a1",
+      "attempt": 1,
+      "finished": true,
+      "imported": true
+     }
+    ],
+    "14-continuation": []
+   },
+   "inputs": [],
+   "lane": {
+    "holders": [],
+    "waiters": []
+   },
+   "running": [
+    "csd-reviewed-final-10-rigidity352"
+   ]
+  }
+ },
+ "ended": "2026-11-09T20:45:48.591726+00:00"
+}

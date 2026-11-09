@@ -1,0 +1,37 @@
+{
+  "utc": "2026-11-09T20:55:01.337718+00:00",
+  "host": "csd",
+  "method": "Executed combined-master606 chapter_gate with actual film() frame map and manifest625 rows after completed imports. No rendering or master invocation.",
+  "master_sha256": "7c8269fbd291352f4ef9a7828e3539b045f0414dada4870ddc00a057a7b5b163",
+  "manifest_sha256": "6fde63a4029af7765491d0f38f5371feb701f954277d2cf3728d9f0ae4220942",
+  "chapters": [
+    {
+      "chapter": "04_reading_color",
+      "passed": true,
+      "dependencies": 8943,
+      "frames": 6774
+    },
+    {
+      "chapter": "08_loop_sums",
+      "passed": true,
+      "dependencies": 8941,
+      "frames": 14959
+    },
+    {
+      "chapter": "12_residues",
+      "passed": true,
+      "dependencies": 8942,
+      "frames": 3943
+    },
+    {
+      "chapter": "14_continuation",
+      "passed": true,
+      "dependencies": 8942,
+      "frames": 11756
+    }
+  ],
+  "limits": [
+    "Assembly prerequisites only; not final pictures, motion, listening, fine sync, captions, independent final AV or publication acceptance.",
+    "09 manifest row remains obsolete and must be replaced after actual native553 final review/materialization."
+  ]
+}

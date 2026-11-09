@@ -1,3 +1,62 @@
+## Apportionment chapter01 enlarged-frame follow-up, 2026-11-09T21:23:05.887119+00:00
+
+- [x] Viewed individual final frame000625 and002320 from pictures634-01 (3840x2160 source, tool displayed2048x1152). Apparent top-edge concern in contact-sheet display is not in source frame:15-seat title has visible upper margin. Prediction timer and pause text remain within frame, separate from seat grid. This supplements648 selected-picture review; no source change needed.
+- [ ] Mac09 same39339 live1h26m37s/344m28sCPU; no terminal receipt. Existing controllers retained. Other chapters, continuous motion/listening/fine sync and independentAV release checks remain open.
+
+## First apportionment final pictures actually viewed, 2026-11-09T21:19:11.584836+00:00
+
+- [x] Final632-02_shares exited0 at21:16:15UTC;6647frames technical checks passed,1725.5s native render. Existing633 advanced03_largest_tails; do not duplicate.
+- [x] Pictures634-01_one_more_seat exited0 at21:17:19UTC stable inputs. Actually viewed ALL48 selected pictures on6 sheets; lead-in/bars/seat grids/prediction timer/Ash2to1/comparison/closing icons clear at sampled points, no concrete persistent defect. Record final01-pictures-viewed648.json binds movie, sampling, extraction receipt and all6 sheets;48 source image hashes checked.
+- [ ] Only chapter01 final selected-picture review completed. Chapter02 picture extraction queued by existing635; all remaining final sheets still require viewing. Whole-film motion/listening/fine-sync/independent AV/master/publication acceptance remains open. Mac09 still live at lastcheck; existing586/588/629 unchanged.
+
+## Final verifier corrected for recovered native10 route, 2026-11-09T21:13:38.003770+00:00
+
+- [x] Found prepared608 still pinned nonexistent superseded csd-native-stage581-10-a1, while actual successful625 manifest usesa2. Preserved608 unchanged; new csd-final-verify647.py bindsa2 and new647 verification/picture output names. SHA11c1f97be530b3d5f94ba1d21afdb28f98335c699d0a8b3580fb098ea99a5f0f, copied exclusively to CSD and hash matched.
+- [x] AST parses; all37 function bodies identical to608. Executed route function withactuala2 record: accepted; olda1 refused. No checks removed or relaxed; actual master606 gates, full decode/frame identity/caption/loudness/final picture checks preserved. Full runtime NOT RUN pendingmaster. Use647, not608, downstream.
+- [ ] Existing final picture extractor requires verified assembled master, so did not invent a separate early-review path. Native09 and apportionment02 still existing active renders; no duplicate. Actual final picture/motion/listening/fine-sync/independentAV/publication gaps remain.
+
+## All imported complex chapters qualified for assembly, 2026-11-09T21:07:49.625348+00:00
+
+- [x] Recovered06 import371 finished21:06:58UTC exit0; relay644 completed, original612 failure preserved. Actual606 chapter_gate passed8943 dependencies and10030frames; evidence root-ready-derivative646-check.json. Fourteen of15 chapter assembly prerequisites checked across625/626/642/643/645/646.
+- [ ] Only09 still needs final586 terminal success,587 full decode/extraction, actual313-picture/40-sheet review, existing629 transfer594/materialization595, then new final manifest replacing obsolete09 row. Master606 and verifier608 must then execute, with actual full final-picture/caption/loudness and public watch checks before release.
+- [ ] Mac09 same39339 live1h11m17s/283m24sCPU. No restart/duplicate. Apportionment02 continues existing633; final-picture635/master637/verifier639 remain existing owners. Listening/fine-sync/independentAV acceptance still open; fourCC weekly limits persist.
+
+## Gallery imported and assembly gate passed, 2026-11-09T21:01:48.883531+00:00
+
+- [x] Actual gallery05 import448 terminal21:00:25UTC exit0. Actual606 chapter_gate passed8952 dependencies and9879frames; evidence root-ready-gallery645-check.json. Thirteen of15 chapter assembly prerequisites checked;06 transfer and09 native final/review/materialization remain.
+- [ ] Existing644 owns06 transfer after guarded lane release. Mac09 same39339 confirmed live1h04m54s/257m58sCPU; apportionment02 same83795 live14m27s/51m15sCPU. No duplicate/restart. Final pictures/motion/listening/fine-sync/independentAV/publication checks remain.
+
+## Complex06 prelaunch transfer recovery, 2026-11-09T20:57:01.649182+00:00
+
+- [x] Existing612 stopped before any remote job: relay599 folder.mkdir raised FileNotFoundError because root-css06-612-records parent absent. Failed log/controller preserved. Actual CSD inspection found no06 job; no local relay599 process or612 pane remained. Existing gallery592 relay92196 active and05 import directory present, left untouched.
+- [x] Created new root-css06-644-records parent and started ONE tmux complex-css06-import644 using unchanged hash-verified599 relay and611 manifest, attempt1 (no prior remote attempt existed). All original transport/resource/lane gates remain; no code or renderer changed.
+- [ ] Require actual terminal guarded transfer and full closure before06 assembly gate. Existing gallery05 and boundary09 production continue. No new picture/listening/fine-sync/independent AV acceptance.
+
+## Complex chapter07 assembly gate passed, 2026-11-09T20:56:11.168644+00:00
+
+- [x] Import07 terminal20:55:05UTC exit0. Executed actual606 chapter_gate: passed8943 dependencies and6491frames, evidence root-ready-chapter07-643-check.json. Twelve of15 assembly prerequisites checked across625/626/642/643.
+- [ ] Existing592gallery and612derivative controllers own next transfers after07; no duplicate. Native09 still rendering; its final pictures/materialization remain prerequisites. Apportionment02 still rendering with existing downstream controllers. All final picture/motion/listening/fine-sync/independentAV/release gates remain open.
+
+## Four more complex assembly gates passed, 2026-11-09T20:55:01.337718+00:00
+
+- [x] Executed actual master606 chapter_gate on newly imported04/08/12/14: all passed with8943/8941/8942/8942 dependencies and6774/14959/3943/11756 frames. Evidence root-ready-chapters642-check.json binds actual master606/manifest625. With earlier625/626 checks,11 of15 chapter assembly prerequisites checked; not whole-film qualification.
+- [x] Import08 completed20:50:55UTC exit0; existing590 controller advanced07, no duplicate. Mac39339 and local83795 confirmed live rendering09 and apportionment02.
+- [ ] Remaining complex05/06/07 transfers and09 native final/review/materialization precede final manifest/master. All new final pictures, motion/listening/fine-sync/independent AV and public playback/caption gates remain. Current apportionment633/635/637/639 controllers retain ownership. Four CC panes still weekly limited, no paid credits or account change.
+
+## Remaining-film scope audit while priority finals run, 2026-11-09T20:49:53.418656+00:00
+
+- [x] Read actual canonical script.tsv files: exponential_magic16 cues/677 whitespace-delimited spoken words; five_math_paradoxes21/871; stokes_theorem_visual34/1902. These are script counts, not final runtime or measured coverage. Current Beads61/62/65 remain in_progress; their latest production notes still describe Nov3 short candidates, not newly qualified long-form productions.
+- [ ] After complex/apportionment priority completion, expand exponential and five-paradoxes treatment to the owner's depth/visual-production standard before treating these short candidates as final. Preserve all earlier scripts/takes. Exponential must earn the growth/composition law, equivalent definitions, slide-rule/log bridge and useful examples; five-paradoxes must explain mechanisms/assumptions with worked visual examples, not five slogan sketches. Do not rush these old candidates to publication merely because artifacts exist.
+- [ ] Stokes needs explicit coverage review of1D/2D/3D build-up, orientation/seam cancellation, the actualN-dimensional proof and physics/engineering applications against the1902-word script. Counts alone neither prove nor disprove sufficient visual depth. No new synthesis/render started; Frederick Surrey remains selected for new work, old takes preserved. Independent review/listening/fine-sync gaps remain open.
+- [ ] Priority complex09 render and08 transfer remain existing live work; completed01/04/12/14 imports retained. Apportionment632-01 recovered successfully;02/render and634picture extraction controllers own next work. No duplicate or extra worker spawned; all4 CC still limited.
+
+## Actual terminal recovery and continuing transfers, 2026-11-09T20:48:16.929646+00:00
+
+- [x] Apportionment final632-01_one_more_seat finished20:45:57UTC exit0, identical initial/final inputs790554c9ba2574410c19769e6201e30ca3ff362e487292ed95aadf45f19ce397, no resource stop.4806 preserved frames passed full corrected technical check; no rerender.633 queued02;635 prepared first final-picture inputs3984 bindings/48 samples under guard, not yet viewed.
+- [x] Complex CSS12 import371 finished20:41:22UTC exit0;14 finished20:45:41UTC exit0;08 import currently pending terminal. Existing590 sequence continues, then592gallery/612derivative. Native10 import/stage already passed. No duplicate.
+- [x] Mac09 same39339 re-observed live51m42s,205:24CPU time,391.8%CPU after intermittent observation failures. Stopped only a hung local read-only SSH observer40622 after exact command match, no render signal. Used bounded keepalive read-only SSH to reobserve same render;629 retains existing prerequisites.
+- [ ] Final native09 still lacks terminal receipt/pictures; no final acceptance. All actual picture/motion/listening/fine-sync/independentAV/publication gates remain. All4 CC panes still limited as recorded; no account/credit action.
+
 ## Apportionment encoder-check repair and preserved-render recovery, 2026-11-09T20:45:24.351900+00:00
 
 - [x] Original final614 chapter01 native render completed4806frames in1220.9s. Post-render checker failed at expected x264 settings; terminal receipt exit1 stable initial/final d56682204a2b04ff84c6b948ae760c8726eedafa0602bf865958a03090710164, no resource stop. Failed615/618/620 and every output preserved. No native rerender of01 needed or launched.

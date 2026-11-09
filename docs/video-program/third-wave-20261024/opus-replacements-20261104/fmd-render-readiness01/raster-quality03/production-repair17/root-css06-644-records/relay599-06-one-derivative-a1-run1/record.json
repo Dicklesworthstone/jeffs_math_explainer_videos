@@ -1,0 +1,359 @@
+{
+ "version": "599",
+ "chapter": "06_one_derivative",
+ "attempt": 1,
+ "manifest": "css352-import371-06-one-derivative-manifest611.json",
+ "manifest_sha256": "6b12cc889dbc15a39b0d88d068d5d819ab5699e10c644a2eff2a225554d5da0c",
+ "started": "2026-11-09T20:56:45.215304+00:00",
+ "steps": [
+  {
+   "step": "check",
+   "utc": "2026-11-09T21:00:59.688660+00:00",
+   "exit": 0,
+   "report": {
+    "helper": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371.py",
+    "helper_sha256": "ba337aca143316748561c4300d5774386387690b49052e72d29a04b103dd244f",
+    "job": "csd-css352-import371-06-one-derivative-a1",
+    "job_exists": false,
+    "manifest_sha256": "6b12cc889dbc15a39b0d88d068d5d819ab5699e10c644a2eff2a225554d5da0c",
+    "problems": [],
+    "new_files": 16,
+    "existing_identical": 3451,
+    "space": {
+     "free_bytes": 107825352704,
+     "new_bytes": 46053016,
+     "jobs_bytes": 12118384640,
+     "work_bytes": 6606540800,
+     "work_baseline_bytes": 0
+    },
+    "alias": "/data/projects/jmev-css-render-worker-20261107",
+    "alias_state": "symlink to /data/projects/jmev-stroke-probe-20261106/work/imported-css-root311"
+   },
+   "stderr": ""
+  },
+  {
+   "step": "prepare",
+   "utc": "2026-11-09T21:01:10.406637+00:00",
+   "exit": 0,
+   "report": {
+    "job": "csd-css352-import371-06-one-derivative-a1",
+    "inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-06-one-derivative-a1-inputs.json",
+    "inputs_sha256": "f79bcdae0579ff8bb4d0911aeb998c6d80acfb83b9b8a006c302e40642b71802",
+    "manifest_sha256": "6b12cc889dbc15a39b0d88d068d5d819ab5699e10c644a2eff2a225554d5da0c",
+    "chapter_pin": {
+     "job": "css-reviewed-final-06-one-derivative352",
+     "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+     "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+     "inputs": "/data/projects/jmev-css-render-worker-20261107/qualification01/final-06_one_derivative-inputs352.json",
+     "inputs_sha256": "e07a053c65b5e21e1ebb3913500bc657dbc91d7c0a56c8fef38bf7a61d995ba1",
+     "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/06_one_derivative-css-permit577.json",
+     "permit_sha256": "acd8b1744fdce09f1c3eda93fcac49621b932b42e1b0ac46cdeddcfc21f42f9a",
+     "receipt_sha256": "0efd5a4d7ccfd91045ee52e820eed29910009b40f3f9301703800e97cf28d05d",
+     "summary_sha256": "e57ccd9d5cc146ed45d5e3d0aaaeb22ad7ae0e8d7462602d2500eced8b60e085",
+     "movie_sha256": "77759153561cce2523f7b2b4c567913d074959961aac16e455cd9c59bd930887",
+     "frames": 10030
+    },
+    "new_files": 16,
+    "existing_identical": 3451,
+    "shared_files": 3204,
+    "system_files": 2269,
+    "streamed_bytes": 2241316755,
+    "space": {
+     "free_bytes": 107825328128,
+     "new_bytes": 46053016,
+     "jobs_bytes": 12118384640,
+     "work_bytes": 6606540800,
+     "work_baseline_bytes": 0
+    },
+    "guard_command": [
+     "/usr/bin/python3",
+     "-I",
+     "-B",
+     "/data/projects/jmev-stroke-probe-20261106/guard_csd02.py",
+     "--phase",
+     "native",
+     "--job",
+     "csd-css352-import371-06-one-derivative-a1",
+     "--inputs",
+     "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-06-one-derivative-a1-inputs.json",
+     "--",
+     "/usr/bin/timeout",
+     "14400",
+     "/usr/bin/python3",
+     "-I",
+     "-B",
+     "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371.py",
+     "receive",
+     "--chapter",
+     "06_one_derivative",
+     "--attempt",
+     "1",
+     "--manifest",
+     "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/css352-import371-06-one-derivative-manifest611.json"
+    ],
+    "rows350": {
+     "06_one_derivative": {
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-06-one-derivative-a1/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-06-one-derivative-a1-inputs.json"
+     }
+    }
+   },
+   "stderr": ""
+  },
+  {
+   "step": "receive started",
+   "utc": "2026-11-09T21:01:10.890403+00:00",
+   "command": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/guard_csd02.py",
+    "--phase",
+    "native",
+    "--job",
+    "csd-css352-import371-06-one-derivative-a1",
+    "--inputs",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-06-one-derivative-a1-inputs.json",
+    "--",
+    "/usr/bin/timeout",
+    "14400",
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371.py",
+    "receive",
+    "--chapter",
+    "06_one_derivative",
+    "--attempt",
+    "1",
+    "--manifest",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/css352-import371-06-one-derivative-manifest611.json"
+   ]
+  },
+  {
+   "step": "admission poll",
+   "utc": "2026-11-09T21:01:11.368056+00:00",
+   "exists": false,
+   "admitted": false,
+   "pid": null,
+   "finished": null,
+   "exit": null
+  },
+  {
+   "step": "admission poll",
+   "utc": "2026-11-09T21:01:26.923369+00:00",
+   "exists": true,
+   "admitted": true,
+   "pid": 913244,
+   "finished": null,
+   "exit": null
+  },
+  {
+   "step": "send started",
+   "utc": "2026-11-09T21:01:26.951561+00:00"
+  },
+  {
+   "step": "stream ended",
+   "utc": "2026-11-09T21:06:58.528124+00:00",
+   "send_exit": 0,
+   "receive_exit": 0
+  },
+  {
+   "step": "post-import validation",
+   "validator": "relay599 validate a-h",
+   "chapter": "06_one_derivative",
+   "attempt": 1,
+   "job": "csd-css352-import371-06-one-derivative-a1",
+   "manifest": "css352-import371-06-one-derivative-manifest611.json",
+   "manifest_sha256": "6b12cc889dbc15a39b0d88d068d5d819ab5699e10c644a2eff2a225554d5da0c",
+   "manifest_rows": 8940,
+   "inputs_rows": 5477,
+   "inputs_rows_expected": 5477,
+   "inputs_changed": [],
+   "inputs_changed_count": 0,
+   "check_exit": 0,
+   "check_problems": [],
+   "check_problem_count": 0,
+   "check_stderr": "",
+   "passed": [
+    "a. 371 check exits 0",
+    "b. 371 check reports csd-css352-import371-06-one-derivative-a1 and the job folder exists",
+    "c. the guard receipt is a terminal success of the exact 371 receive command, and 371 check reports the pinned ba337aca",
+    "d. import-result.json exists and names manifest 6b12cc889dbc",
+    "e. every manifest row is at its size and hash through its original path (371 check problems [])",
+    "f. the guard inputs file is the one the guard admitted",
+    "g. the guard inputs hold exactly the 5477 frozen rows at their pinned hashes (the --prepared set) and every row re-hashes",
+    "h. rows350 from 371 check and import-result.json equal the expected names"
+   ],
+   "failures": [],
+   "rows350": {
+    "06_one_derivative": {
+     "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-06-one-derivative-a1/resource-receipt.json",
+     "import_inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-06-one-derivative-a1-inputs.json"
+    }
+   },
+   "utc": "2026-11-09T21:07:06.039624+00:00"
+  }
+ ],
+ "lane": [
+  {
+   "utc": "2026-11-09T20:56:47.866396+00:00",
+   "lane": {
+    "holders": [
+     889598
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T20:57:48.542078+00:00",
+   "lane": {
+    "holders": [
+     889598
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T20:58:49.219800+00:00",
+   "lane": {
+    "holders": [
+     889598
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T20:59:50.174713+00:00",
+   "lane": {
+    "holders": [
+     889598
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T21:00:50.660098+00:00",
+   "lane": {
+    "holders": [],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T21:01:10.883365+00:00",
+   "lane": {
+    "holders": [],
+    "waiters": []
+   }
+  }
+ ],
+ "status": {
+  "code": 0,
+  "message": "imported and validated",
+  "rows350": {
+   "06_one_derivative": {
+    "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-06-one-derivative-a1/resource-receipt.json",
+    "import_inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-06-one-derivative-a1-inputs.json"
+   }
+  },
+  "validation_passed": [
+   "a. 371 check exits 0",
+   "b. 371 check reports csd-css352-import371-06-one-derivative-a1 and the job folder exists",
+   "c. the guard receipt is a terminal success of the exact 371 receive command, and 371 check reports the pinned ba337aca",
+   "d. import-result.json exists and names manifest 6b12cc889dbc",
+   "e. every manifest row is at its size and hash through its original path (371 check problems [])",
+   "f. the guard inputs file is the one the guard admitted",
+   "g. the guard inputs hold exactly the 5477 frozen rows at their pinned hashes (the --prepared set) and every row re-hashes",
+   "h. rows350 from 371 check and import-result.json equal the expected names"
+  ]
+ },
+ "chapter_pin": {
+  "job": "css-reviewed-final-06-one-derivative352",
+  "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+  "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+  "inputs": "/data/projects/jmev-css-render-worker-20261107/qualification01/final-06_one_derivative-inputs352.json",
+  "inputs_sha256": "e07a053c65b5e21e1ebb3913500bc657dbc91d7c0a56c8fef38bf7a61d995ba1",
+  "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/06_one_derivative-css-permit577.json",
+  "permit_sha256": "acd8b1744fdce09f1c3eda93fcac49621b932b42e1b0ac46cdeddcfc21f42f9a",
+  "receipt_sha256": "0efd5a4d7ccfd91045ee52e820eed29910009b40f3f9301703800e97cf28d05d",
+  "summary_sha256": "e57ccd9d5cc146ed45d5e3d0aaaeb22ad7ae0e8d7462602d2500eced8b60e085",
+  "movie_sha256": "77759153561cce2523f7b2b4c567913d074959961aac16e455cd9c59bd930887",
+  "frames": 10030
+ },
+ "facts": {
+  "css": {
+   "helper": "ba337aca143316748561c4300d5774386387690b49052e72d29a04b103dd244f",
+   "manifest": "6b12cc889dbc15a39b0d88d068d5d819ab5699e10c644a2eff2a225554d5da0c",
+   "receipt": "0efd5a4d7ccfd91045ee52e820eed29910009b40f3f9301703800e97cf28d05d",
+   "summary": "e57ccd9d5cc146ed45d5e3d0aaaeb22ad7ae0e8d7462602d2500eced8b60e085",
+   "terminal": true
+  },
+  "csd": {
+   "helper": "ba337aca143316748561c4300d5774386387690b49052e72d29a04b103dd244f",
+   "manifest": "6b12cc889dbc15a39b0d88d068d5d819ab5699e10c644a2eff2a225554d5da0c",
+   "imports": {
+    "01-the-bump": [
+     {
+      "job": "csd-css352-import371-01-the-bump-a1",
+      "attempt": 1,
+      "finished": true,
+      "imported": true
+     }
+    ],
+    "04-reading-color": [
+     {
+      "job": "csd-css352-import371-04-reading-color-a1",
+      "attempt": 1,
+      "finished": true,
+      "imported": true
+     }
+    ],
+    "12-residues": [
+     {
+      "job": "csd-css352-import371-12-residues-a1",
+      "attempt": 1,
+      "finished": true,
+      "imported": true
+     }
+    ],
+    "14-continuation": [
+     {
+      "job": "csd-css352-import371-14-continuation-a1",
+      "attempt": 1,
+      "finished": true,
+      "imported": true
+     }
+    ],
+    "08-loop-sums": [
+     {
+      "job": "csd-css352-import371-08-loop-sums-a1",
+      "attempt": 1,
+      "finished": true,
+      "imported": true
+     }
+    ],
+    "07-one-point": [
+     {
+      "job": "csd-css352-import371-07-one-point-a1",
+      "attempt": 1,
+      "finished": true,
+      "imported": true
+     }
+    ],
+    "06-one-derivative": []
+   },
+   "inputs": [],
+   "lane": {
+    "holders": [
+     889598
+    ],
+    "waiters": []
+   },
+   "running": [
+    "csd-css352-import448-05-gallery-a1",
+    "csd-reviewed-final-10-rigidity352"
+   ]
+  }
+ },
+ "ended": "2026-11-09T21:07:06.039944+00:00"
+}

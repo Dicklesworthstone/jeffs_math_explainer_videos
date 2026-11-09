@@ -1,0 +1,53 @@
+{
+  "utc": "2026-11-09T21:19:11.584836+00:00",
+  "chapter": "01_one_more_seat",
+  "movie_sha256": "bc3725c2722d6cd31d2918cf94ab7a87395ad98cac83ab2bbbbb39546708a174",
+  "extraction_manifest_sha256": "4b95e3602a1d56f904253aa923da0e978fce0bb295a3b6384146b22e61ea4779",
+  "extraction_receipt_sha256": "1d159c7a971112283134298b5c8b53a0273947480244db6caa1489f8383d56ce",
+  "selected_pictures_viewed": 48,
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "sheet_files": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0001.jpg",
+      "sha256": "6313dc9e038259b1385da20293c9a0659b672027b9de8a977b9b7414b6d0898d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0002.jpg",
+      "sha256": "c88780a9fdbb8af93fba41092e2fbe61e85dc5cedfd345bc2f5b49e69c3a5bab"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0003.jpg",
+      "sha256": "30d4ea29d777c4a4c8e3ce788ffa2afd8f3a5ad3193b898585c85a0060b68243"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0004.jpg",
+      "sha256": "c6ae454285eb1737ef26db4c4f907126ea92cd024a5df2e9131ead659a241f70"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0005.jpg",
+      "sha256": "18cfd9b7c2af2213775d21ade24d26f3a8b7d80332aebce676bd5f4680701b55"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0006.jpg",
+      "sha256": "38f2653abb4e11ad0e4e7757f55ba5552c5e6b450f70c755bcd0da3400c83094"
+    }
+  ],
+  "concrete_picture_defects_observed": [],
+  "observations": [
+    "Viewed all six sheets including lead-in, population bars, seat-grid transformation, added-seat prediction timer, Ash loss from2to1, comparison rows and closing application icons.",
+    "Settled labels and seat grids remain distinct and legible; prediction timer stays separate from the chart.",
+    "Blank/fading frames occur at authored lead-in and transition samples; no persistent clipping or overlap observed in selected frames."
+  ],
+  "continuous_motion_acceptance": false,
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "independent_av_acceptance": false,
+  "release_acceptance": false
+}

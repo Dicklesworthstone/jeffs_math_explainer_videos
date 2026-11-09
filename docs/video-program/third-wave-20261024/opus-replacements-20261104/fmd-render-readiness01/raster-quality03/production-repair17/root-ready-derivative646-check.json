@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-09T21:07:49.625348+00:00",
+  "host": "csd",
+  "chapter": "06_one_derivative",
+  "passed": true,
+  "dependencies": 8943,
+  "frames": 10030,
+  "master_sha256": "7c8269fbd291352f4ef9a7828e3539b045f0414dada4870ddc00a057a7b5b163",
+  "manifest_sha256": "6fde63a4029af7765491d0f38f5371feb701f954277d2cf3728d9f0ae4220942",
+  "method": "Executed actual chapter_gate with film() frame map after import371-06 finished exit0 at21:06:58UTC; recovered relay644 completed.",
+  "limits": "Assembly prerequisites only; no final picture, motion, listening, fine sync, independent final AV or release acceptance."
+}

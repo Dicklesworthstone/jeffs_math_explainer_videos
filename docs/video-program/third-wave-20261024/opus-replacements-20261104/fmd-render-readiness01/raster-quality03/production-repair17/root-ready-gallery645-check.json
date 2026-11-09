@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-09T21:01:48.883531+00:00",
+  "host": "csd",
+  "chapter": "05_gallery",
+  "passed": true,
+  "dependencies": 8952,
+  "frames": 9879,
+  "master_sha256": "7c8269fbd291352f4ef9a7828e3539b045f0414dada4870ddc00a057a7b5b163",
+  "manifest_sha256": "6fde63a4029af7765491d0f38f5371feb701f954277d2cf3728d9f0ae4220942",
+  "method": "Executed actual chapter_gate with film() frame map after import448-05 finished exit0 at21:00:25UTC.",
+  "limits": "Assembly prerequisites only; no final picture, motion, listening, fine sync, independent final AV or release acceptance."
+}
