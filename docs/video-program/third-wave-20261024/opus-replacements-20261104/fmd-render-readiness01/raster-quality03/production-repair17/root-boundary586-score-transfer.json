@@ -1,0 +1,37 @@
+{
+  "utc": "2026-11-09T19:12:06.559436+00:00",
+  "files": [
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems/09_boundary.music.f32.parts.tsv",
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/score586/09_boundary.music.f32.parts.tsv",
+      "bytes": 387,
+      "sha256": "db31e88404eb9af836c6575cf5b4178a292eaeceea283d717bf2a4a7166ffe2e"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems/09_boundary.music.f32.wav.part0000.wav",
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/score586/09_boundary.music.f32.wav.part0000.wav",
+      "bytes": 46080080,
+      "sha256": "ea2207e2a92ea9751fc688878b0a781aeb2a44c79a5e0a3de78197005d508483"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems/09_boundary.music.f32.wav.part0001.wav",
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/score586/09_boundary.music.f32.wav.part0001.wav",
+      "bytes": 46080080,
+      "sha256": "492613e4cefe62bf730532c375a17fd8815e497e570d81f07b76c052989b0758"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems/09_boundary.music.f32.wav.part0002.wav",
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/score586/09_boundary.music.f32.wav.part0002.wav",
+      "bytes": 13465680,
+      "sha256": "a57f58d245399bdbc8a615b9c3d85cefd1891449de2bccfa9a541dc506efb3de"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems/qa/09_boundary.json",
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/score586/qa/09_boundary.json",
+      "bytes": 3198,
+      "sha256": "445daec7a3652361923c34c2a0e6e3e50b23a2b596d89f4744ccf3f350e6b58e"
+    }
+  ],
+  "total_bytes": 105629425,
+  "scope": "Exact retained score input transfer only; source hashes checked against score21 summary and QA passed. No new scoring, native09 render or audiovisual acceptance."
+}

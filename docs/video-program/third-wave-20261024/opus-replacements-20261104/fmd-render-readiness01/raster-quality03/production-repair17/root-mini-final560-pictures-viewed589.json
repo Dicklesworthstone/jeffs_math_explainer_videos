@@ -1,0 +1,123 @@
+{
+  "utc": "2026-11-09T19:19:58.777275+00:00",
+  "movie_sha256": "6a489dd33443130e2b098bec7b6de75c66c90ee7348253560c5ff15aa61ffbc8",
+  "extraction_manifest_sha256": "c5c5f7b0c4ffa6392e2f9f8d17ba6f31fca33ac1c2d23db6cfc1c65da1383b8c",
+  "selected_pictures_viewed": 113,
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "sheet_hashes": [
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-001.jpg",
+      "sha256": "dbbd2a29a100c263025bfaffd142a558188b66baca6fac889fc1f795c4b88de6",
+      "first_picture": 1,
+      "last_picture": 8
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-002.jpg",
+      "sha256": "043cdd6448ed36b53b36514fdc0424cee2c9a5d3af8bae9bd840155e08846b53",
+      "first_picture": 9,
+      "last_picture": 16
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-003.jpg",
+      "sha256": "d384b9ef032e534d89737e73535cd7f667815b5ff6286cc6fb22203ec2071b9c",
+      "first_picture": 17,
+      "last_picture": 24
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-004.jpg",
+      "sha256": "4a95a901cdaee2b87c4e913704fbcbea2abdc6a7ba4396fc11142b0dbd6880f2",
+      "first_picture": 25,
+      "last_picture": 32
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-005.jpg",
+      "sha256": "452231961d0184124cdf1346ada5f7a8f75031015e341773354a3c48362080d6",
+      "first_picture": 33,
+      "last_picture": 40
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-006.jpg",
+      "sha256": "64541f1a8cdb11f28cd8ba57d6310ad87553790451c2c98760b683df94c24f60",
+      "first_picture": 41,
+      "last_picture": 48
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-007.jpg",
+      "sha256": "c42d378abc747f8f598c92ad7c43b7f233e93a756d223e9c345db85b3d5ac4f2",
+      "first_picture": 49,
+      "last_picture": 56
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-008.jpg",
+      "sha256": "f77b86b8d39c1196448de2ea4b2fe93e0091cc3d1ad8cca4605e14dbf793fa99",
+      "first_picture": 57,
+      "last_picture": 64
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-009.jpg",
+      "sha256": "ee867a2d0f84e802a034dcb11c759b3dcdeb60a9b68c89c962411450a17f1d0a",
+      "first_picture": 65,
+      "last_picture": 72
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-010.jpg",
+      "sha256": "bb4124ac41008f1d21976769a19e0420804f7c29467b12cc6eac8c03aef860d3",
+      "first_picture": 73,
+      "last_picture": 80
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-011.jpg",
+      "sha256": "7df4455675dc38f8b8639a9b38493ddeaeaa6026c05ad579638a5520c3e53e59",
+      "first_picture": 81,
+      "last_picture": 88
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-012.jpg",
+      "sha256": "d7444f8e30b9eece8c2eef57fd558d3d691afe23c0fb0c2c11b94eafcf722541",
+      "first_picture": 89,
+      "last_picture": 96
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-013.jpg",
+      "sha256": "9a4e4b5a3e3307b75275db0c6467877f99deb85318743278271d69057fcf31cc",
+      "first_picture": 97,
+      "last_picture": 104
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-014.jpg",
+      "sha256": "cca8de6558ad3b70a64877d81048c22c600ef22a5a084bf83c0c86952a8c0acf",
+      "first_picture": 105,
+      "last_picture": 112
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-final-pictures560/sheets/sheet-015.jpg",
+      "sha256": "72b3d0b6677c57a633a1a3cea16a9095650cd4b2d6256374d2f2874b815ae21c",
+      "first_picture": 113,
+      "last_picture": 113
+    }
+  ],
+  "concrete_picture_defects_observed": [],
+  "observations": [
+    "All 113 selected pictures viewed on 15 sheets from final 4K chapter10. Region propagation, real versus complex identity example, flat real function and sin(1/z) accumulating zeros inspected.",
+    "Prediction timer and theorem panel remain separate from graph labels. Domain-color plates show curved contours rather than coarse square tiles at sheet resolution. Fade samples show outgoing plate clearing before incoming sin(z) plate.",
+    "Sampled still-image review only; full-resolution detail inspection, continuous motion, listening, fine sync and independent final audiovisual acceptance remain open."
+  ],
+  "continuous_listening_accepted": false,
+  "independent_final_av_accepted": false
+}
