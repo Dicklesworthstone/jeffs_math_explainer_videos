@@ -1,0 +1,18 @@
+{
+  "helper_sha256": "5739b6901d895b02668f6642437260e02afea78078d55a55347ed9ae39c9b969",
+  "stager_sha256": "ba337aca143316748561c4300d5774386387690b49052e72d29a04b103dd244f",
+  "checks": {
+    "complete": "exact bytes retained including empty file",
+    "truncated": "refused",
+    "trailing": "refused",
+    "bad_hash": "refused",
+    "manifest_shape": "passed; incomplete closure deliberately not accepted",
+    "wrong_chapter": "refused",
+    "wrong_frames": "refused",
+    "duplicate": "refused",
+    "traversal": "refused",
+    "oversize": "refused",
+    "incomplete_closure": "refused"
+  },
+  "scope": "Bounded transport/stager refusal tests only. No real final export/import or guard runtime acceptance."
+}

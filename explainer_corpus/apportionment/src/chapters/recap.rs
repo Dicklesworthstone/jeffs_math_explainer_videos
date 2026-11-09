@@ -13,7 +13,7 @@ use super::dials::{house_trackers, ranking, three_dials};
 use super::draw::{
     CARD_H, CARD_W, CardKey, LIST_X, ListCard, ROW_Y, SCORE_STEP, card_y, cutoff, fade_in_all, fade_in_lagged,
     fade_out_all, fail, flash_all, flat, keyed_cards, morph_all, pause, rank_column, run_trackers, say, score_head,
-    score_row, slide_cards, think_here, town_color, wipe,
+    score_row, slide_cards, think, town_color, wipe,
 };
 use crate::model::{self, ASH, BIRCH, CEDAR, NAMES, POP, POP_PUZZLE, Rule, grouped, people};
 
@@ -177,7 +177,7 @@ impl SceneConstruct for Recap {
             .collect();
         let glow = glows(stage, &cedar_ranks)?;
         fade_in_all(stage, &glow, 0.5)?;
-        let q = think_here(&kit, stage)?;
+        let q = think(&kit, stage, v(-1.0, -2.7))?;
 
         // 15_4 no: Cedar's signposts rise, Ash's and Birch's keep their
         // values and can only be pushed down, the cutoff rises

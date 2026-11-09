@@ -9,7 +9,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     CARD_H, CARD_W, LIST_X, ROW_Y, card_y, cutoff, cutoff_y, fade_in_all, fade_in_lagged, fade_out_all, fail,
-    flash_all, flat, line_style, morph_all, move_all, pause, say, signpost_cards, stroke, think_here, town_color,
+    flash_all, flat, line_style, morph_all, move_all, pause, say, signpost_cards, stroke, think, town_color,
 };
 use crate::model::{self, BIRCH, NAMES, POP, Rule};
 
@@ -118,7 +118,7 @@ impl SceneConstruct for Signposts {
             .moved_to(v(LIST_X, card_y(16)));
         let blank = stage.arena_mut().add(blank);
         fade_in_all(stage, &[blank], 0.4)?;
-        let q = think_here(&kit, stage)?;
+        let q = think(&kit, stage, v(-1.0, -2.7))?;
 
         // 08_4 Birch's fourth; then Cedar's twelfth
         let s = say(&kit, stage, "08_4")?;

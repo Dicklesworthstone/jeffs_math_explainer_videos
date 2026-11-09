@@ -150,7 +150,7 @@ impl SceneConstruct for Population {
         }
         let notes: Vec<Mob> = notes.into_iter().flatten().collect();
         s.wait_for(stage, "The council stays at sixteen seats")?;
-        let seats16 = kit.text(stage, "16 seats", 30.0, Palette::ink(), v(1.2, 3.3))?;
+        let seats16 = kit.text(stage, "16 seats", 30.0, Palette::ink(), v(0.0, 2.65))?;
         fade_in_all(stage, &[seats16], 0.4)?;
 
         // 13_3 before the census Hamilton gave 1, 4, 11; now?

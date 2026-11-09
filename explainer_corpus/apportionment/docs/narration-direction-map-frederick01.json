@@ -194,9 +194,9 @@
       "next_cue": "08_4",
       "kind": "prediction",
       "path": "explainer_corpus/apportionment/src/chapters/signposts.rs",
-      "sha256": "16f6ff6285f205309cd9462d725f1cee152eb9311adb062ff815ac85a6f4663c",
+      "sha256": "14c4f9156a25a2a4f69180d92be86d870678dda3adbb8558490e0a95c2bc50ea",
       "line": 121,
-      "marker": "let q = think_here(&kit, stage)?;",
+      "marker": "let q = think(&kit, stage, v(-1.0, -2.7))?;",
       "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
     },
     {
@@ -249,7 +249,7 @@
       "next_cue": "13_4",
       "kind": "prediction",
       "path": "explainer_corpus/apportionment/src/chapters/population.rs",
-      "sha256": "f7e75ed4eaf8892c736430a7618f6b8d5adf450f0cdea1253c7e76b41a20636a",
+      "sha256": "97e01b65255f569014a26e95b432fa28eff85f1001162c0f89c221413076a930",
       "line": 185,
       "marker": "let q = think_here(&kit, stage)?;",
       "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
@@ -271,9 +271,9 @@
       "next_cue": "15_4",
       "kind": "prediction",
       "path": "explainer_corpus/apportionment/src/chapters/recap.rs",
-      "sha256": "3be379158a19314eb954aa9749c3b352080e96dd3214cbda6b3a165a436cd0bb",
+      "sha256": "c31f6cc5dfa92a605914af6693219d3ac19d275ec3c04dfc48db91095893650d",
       "line": 180,
-      "marker": "let q = think_here(&kit, stage)?;",
+      "marker": "let q = think(&kit, stage, v(-1.0, -2.7))?;",
       "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
     }
   ],

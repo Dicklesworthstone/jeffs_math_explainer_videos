@@ -1,0 +1,23 @@
+{
+  "helper_sha256": "92407bbf10b0a83e8a19a106a15d0c17752503f9bf6c0887ee25fd246103bd8f",
+  "checks": {
+    "actual_native_three_table_equality": true,
+    "audio_files": 6,
+    "path_edits": 12,
+    "wrong_hash_refused": true,
+    "missing_mapping_refused": true,
+    "unused_mapping_refused": true,
+    "wrong_cue_size_refused": true
+  },
+  "reference_files": {
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-frederick-timeline444/timeline/01_one_more_seat.timeline.tsv": "35d6ba169078dd24069ba6c133c1d6a00f74fec74c930fbae3a1260e20f6badb",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-frederick-timeline444/timeline/01_one_more_seat.cues.tsv": "ad408c17122d51115c33f117b63a5f44e35c979554026131c36d05fb5d1ee393",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-frederick-timeline444/timeline/01_one_more_seat.cuelog.tsv": "4e6ebcf1ea2b6f00d8573724e7bab47260cc49e643cab34a30f1b0570c434597"
+  },
+  "actual_native_files": {
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-timeline567/timeline/01_one_more_seat.timeline.tsv": "28a41228dc55e9ce13202ae2af2adac208e9819ba1d395490f43fba6b11612a8",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-timeline567/timeline/01_one_more_seat.cuelog.tsv": "4e9e9f0bba81a58d7a2081311069dd49484d04aba9f60f0a777685629592003f",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-timeline567/timeline/01_one_more_seat.cues.tsv": "ad408c17122d51115c33f117b63a5f44e35c979554026131c36d05fb5d1ee393"
+  },
+  "scope": "Read-only path migration tested on actual apportionment chapter01 tables and six retained WAVs against new native567 output. Not Mac import, master, listening, or final qualification."
+}

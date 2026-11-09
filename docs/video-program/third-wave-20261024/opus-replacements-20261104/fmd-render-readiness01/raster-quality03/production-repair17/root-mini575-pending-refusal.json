@@ -1,0 +1,11 @@
+{
+  "utc": "2026-11-09T18:44:03.905517+00:00",
+  "helper_sha256": "f918f54791e7eacf3a0c16e71bd80c705099b2e9588bf58d1f3689462cb73ce8",
+  "remote_readback_matches": true,
+  "actual_pending_job": "mini-final555",
+  "expected_refusal": true,
+  "observed_exit": 1,
+  "reason": "Not a completed successful job",
+  "files_exported": 0,
+  "scope": "Negative gate check on actual running render. Successful export and guarded import not yet performed."
+}
