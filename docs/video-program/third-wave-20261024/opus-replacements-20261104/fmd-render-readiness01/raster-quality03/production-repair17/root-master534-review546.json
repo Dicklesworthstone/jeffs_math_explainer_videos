@@ -1,0 +1,13 @@
+{
+  "utc": "2026-11-09T07:14:10.210182+00:00",
+  "controller_sha256": "a9ee2a69532762da765c138254f17ed14056cc6e9d1b49246b4c730fb79fd119",
+  "draft_sha256": "5a73491f64b81ee48519a01882b4c5197253827d68547489078108d85f6efe31",
+  "changed_rows": [
+    "07_one_point"
+  ],
+  "registry_rows": 15,
+  "dependency_pins_verified": true,
+  "source_review": "Root read476-to534 diff and534 routing, receipt state/import order, export pins and rehash, duplicate refusal and launch gates. Only07 route changes; other14 rows unchanged. Explanatory metadata intentionally renamed draft476 to draft534. No blocking defect found in narrow source delta.",
+  "first_audit": "Initial audit incorrectly required identical top-level metadata keys and stopped before writing this report; actual metadata difference inspected and accounted for.",
+  "scope": "Source review only;534 remains unlaunched. Actual07 successful export, imported bytes and all15 terminal chapters required. No runtime, picture, listening, fine-sync or independent finalAV acceptance."
+}

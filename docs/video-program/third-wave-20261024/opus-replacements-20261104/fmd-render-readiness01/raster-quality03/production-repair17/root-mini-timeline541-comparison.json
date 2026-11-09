@@ -1,0 +1,25 @@
+{
+  "chapter": "10_rigidity",
+  "expected_frames": 7442,
+  "checks": {
+    "cues.tsv": {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-timeline541/timeline-output/10_rigidity.cues.tsv",
+      "sha256": "a58e14f5f22089df8902439f751b0a05cfe52b29502f7c530054745d6f7a6ca3",
+      "normalized_sha256": "a58e14f5f22089df8902439f751b0a05cfe52b29502f7c530054745d6f7a6ca3",
+      "replaced_paths": 0
+    },
+    "timeline.tsv": {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-timeline541/timeline-output/10_rigidity.timeline.tsv",
+      "sha256": "47c2935ec3b028a41eaadceb8dbd61f2b93ad2e35cabcb5198e197122e8413de",
+      "normalized_sha256": "99fd22e62d5c6e53104ec3c622135d0748c3dc68e375141d3da4a38114d5860b",
+      "replaced_paths": 6
+    },
+    "cuelog.tsv": {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-timeline541/timeline-output/10_rigidity.cuelog.tsv",
+      "sha256": "102361fe5c3dc2746cf818c198c35c915011660d09d2c841c87b970bb4033f76",
+      "normalized_sha256": "11bc0949b31f6483f0a5df01d2c3c71485185384c5cc41c9ba8a6cd6df14bdde",
+      "replaced_paths": 6
+    }
+  },
+  "scope": "Exact normalized tables only; no picture or listening acceptance."
+}

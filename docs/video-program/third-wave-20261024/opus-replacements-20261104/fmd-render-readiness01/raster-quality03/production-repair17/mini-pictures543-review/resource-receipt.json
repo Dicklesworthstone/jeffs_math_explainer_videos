@@ -1,0 +1,50 @@
+{
+  "started": "2026-11-09T07:16:23.062671+00:00",
+  "phase": "native",
+  "command": [
+    "/opt/homebrew/opt/python@3.14/bin/python3.14",
+    "-I",
+    "-B",
+    "/Users/jemanuel/scratch/jmev-complex-native-20261109/qualification/root-mini-pictures543.py"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-09T07:16:23.810511+00:00",
+      "free_bytes": 102552174592,
+      "work_bytes": 140718080,
+      "target_bytes": 1093332992
+    },
+    {
+      "utc": "2026-11-09T07:16:26.907670+00:00",
+      "free_bytes": 102540877824,
+      "work_bytes": 149192704,
+      "target_bytes": 1093332992
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":10,\"configured_pool_bytes\":10737418240,\"health\":\"ok\",\"missing_count\":0,\"releasable_bytes\":10737418240,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":102552899584,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":1995218165760,\"exit_code\":0,\"forecast\":null,\"free_bytes\":102552899584,\"free_excludes_purgeable\":true,\"free_pct\":5.139934135720767,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/scratch/jmev-complex-native-20261109/repo\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":102552899584,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":1995218165760,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":1277366336,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":102552969216,\"volume_role\":\"Data\",\"volume_total_bytes\":1995218165760}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":1995218165760,\"unprotected\":null,\"volume_available_bytes\":102552969216,\"volume_role\":\"Data\",\"volume_total_bytes\":1995218165760}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-09T07:16:23.360484+00:00",
+    "free_bytes": 102552551424,
+    "work_bytes": 140713984,
+    "target_bytes": 1093332992
+  },
+  "policy": {
+    "admission_gib": 20,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 80,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "1a3c3a7a771f7f33ab2828ce5f7f427ced75ec1fffbfceef8995a6cbfb0748a6",
+  "pid": 57905,
+  "exit": 0,
+  "final_inputs_sha256": "1a3c3a7a771f7f33ab2828ce5f7f427ced75ec1fffbfceef8995a6cbfb0748a6",
+  "finished": "2026-11-09T07:16:27.349206+00:00"
+}

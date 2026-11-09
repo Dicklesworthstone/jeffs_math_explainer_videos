@@ -1,0 +1,164 @@
+{
+  "schema": "mini-delivery540",
+  "helper_sha256": "23be4c05ef843e2cd40d07eb1de09205c2f5054e3370f307c2af577db021cabb",
+  "manifest523_sha256": "5be46fe5fa39de86d6f9169233cc5093912d94caef49a560d9cfc7c32af35e02",
+  "guard": {
+    "job": "mini-delivery540",
+    "command": [
+      "/opt/homebrew/opt/python@3.14/bin/python3.14",
+      "-I",
+      "-B",
+      "/Users/jemanuel/scratch/jmev-complex-native-20261109/qualification/root-mini-delivery540.py",
+      "--job",
+      "mini-delivery540",
+      "--manifest",
+      "/Users/jemanuel/scratch/jmev-complex-native-20261109/qualification/cc3-mini-chapter10-handoff523-manifest.json"
+    ],
+    "admission": {
+      "utc": "2026-11-09T07:04:06.212149+00:00",
+      "free_bytes": 105240039424,
+      "work_bytes": 14036992,
+      "target_bytes": 1093332992
+    },
+    "inputs_sha256": "0b36715c91f44ae50d158dd2856aaa73be41cc30bcee0fcbcba14d06da764865"
+  },
+  "build": {
+    "qualification_sha256": "63533e3c4ede63060a1801ddf1aa0ff3775f9d6c84851ad5b4ec32accc4fbb60",
+    "binary": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/native-build521/complex_analysis_visual-521",
+    "binary_sha256": "5b77a1c8a33a41bab3c3987c9d4f40797bb6a6f1a76bbb57f1ab562ae9960312",
+    "facts_sha256": "7d528509752e532c07edb3fda7c12cd8251ac4ba77022355ae42ad725add4417"
+  },
+  "inputs": {
+    "rows": 428,
+    "fetched": {
+      "report.json": "b4a4c91e8e8fd26dbad621d118b762660e60532a2bbcf535ad88b87a45406bdd",
+      "assembly.json": "f0366ea40b3c23fd17c00a0222003b9041368bea995b3c1bac3c9d34f4743864",
+      "external-units.json": "fd90880fbe7c1737786a9695e3c627dad0e4bfbaad0efba706e052e901b71968"
+    },
+    "map": "7eb0e40d6366950169eb10727b3386fa1d290eaeb60078d609d5e57a0ef344e3"
+  },
+  "source": {
+    "topic_step": "applied",
+    "before": {
+      "files": 4197,
+      "listing": "770e5239a547a6b81b079400c7a11d47a401b2c76a8e90f95746da55d3211cea"
+    },
+    "after": {
+      "files": 4199,
+      "listing": "be161e50591708bd16a485b5c8e8ccfdb4a8abefefdebe89c8b873420d41d00c"
+    }
+  },
+  "narration": {
+    "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-delivery540/narration",
+    "files": 109,
+    "report_sha256": "09b665658337ea8be6dd39eba409ac03c8ad86a7cb14afde4a3f78282c4d23be",
+    "assembly_sha256": "aa805c0b626430eadcbe9b5cee585b551a8cfab7c84f76d88c225fae67cd4aca",
+    "receipt_copy": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-delivery540/mapped-receipt-mini540.json",
+    "receipt_copy_sha256": "674ac44b5b8dddc64d09af0720240be45ddb0af46ae3a99794a49731c7272594",
+    "changed_fields": {
+      "receipt": 6,
+      "report": 484,
+      "assembly": 28
+    }
+  },
+  "timeline_mapping": {
+    "replace": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration",
+    "by": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-delivery540/narration"
+  },
+  "python3": {
+    "path": "/opt/homebrew/bin/python3",
+    "realpath": "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "version": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]"
+  },
+  "delivery": {
+    "all_chapters": {
+      "argv": [
+        "/opt/homebrew/bin/python3",
+        "-I",
+        "-B",
+        "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/workspace/tools/narration_delivery.py",
+        "--topic",
+        "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/workspace/explainer_corpus/complex_analysis_visual",
+        "--narration",
+        "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-delivery540/narration",
+        "--consumer",
+        "render",
+        "--gain-db",
+        "0",
+        "--chapter-key",
+        "01_the_bump",
+        "--chapter-key",
+        "02_turning_numbers",
+        "--chapter-key",
+        "03_two_planes",
+        "--chapter-key",
+        "04_reading_color",
+        "--chapter-key",
+        "05_gallery",
+        "--chapter-key",
+        "06_one_derivative",
+        "--chapter-key",
+        "07_one_point",
+        "--chapter-key",
+        "08_loop_sums",
+        "--chapter-key",
+        "09_boundary",
+        "--chapter-key",
+        "10_rigidity",
+        "--chapter-key",
+        "11_counting",
+        "--chapter-key",
+        "12_residues",
+        "--chapter-key",
+        "13_real_integral",
+        "--chapter-key",
+        "14_continuation",
+        "--chapter-key",
+        "15_closing"
+      ],
+      "result": {
+        "chapter_scope": null,
+        "consumer": "render",
+        "directed_caption_segments": [],
+        "listening_acceptance": false,
+        "plan_mode": "external-ui",
+        "prediction_holds": [],
+        "promotion": false,
+        "selected_cues": 105,
+        "topic": "complex_analysis_visual",
+        "verified_cues": 105
+      }
+    },
+    "chapter10": {
+      "argv": [
+        "/opt/homebrew/bin/python3",
+        "-I",
+        "-B",
+        "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/workspace/tools/narration_delivery.py",
+        "--topic",
+        "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/workspace/explainer_corpus/complex_analysis_visual",
+        "--narration",
+        "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-delivery540/narration",
+        "--consumer",
+        "render",
+        "--gain-db",
+        "0",
+        "--chapter-key",
+        "10_rigidity"
+      ],
+      "result": {
+        "chapter_scope": null,
+        "consumer": "render",
+        "directed_caption_segments": [],
+        "listening_acceptance": false,
+        "plan_mode": "external-ui",
+        "prediction_holds": [],
+        "promotion": false,
+        "selected_cues": 6,
+        "topic": "complex_analysis_visual",
+        "verified_cues": 105
+      }
+    }
+  },
+  "scope": "Path-only rebinding and sample reconstruction on the mini. No render, picture, timing, listening or AV acceptance; timeline equality and new-picture reads remain before final use."
+}

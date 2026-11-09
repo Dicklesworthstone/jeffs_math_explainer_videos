@@ -1,0 +1,673 @@
+{
+  "movie": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-preview542/preview/10_rigidity.mp4",
+  "movie_sha256": "9ef7ea9df7f2bff62a9e6c01ab221536d4a24045408a60216abab5b4f2c1f6d6",
+  "frames": 7442,
+  "tables": {
+    "cues.tsv": "a58e14f5f22089df8902439f751b0a05cfe52b29502f7c530054745d6f7a6ca3",
+    "timeline.tsv": "47c2935ec3b028a41eaadceb8dbd61f2b93ad2e35cabcb5198e197122e8413de",
+    "cuelog.tsv": "102361fe5c3dc2746cf818c198c35c915011660d09d2c841c87b970bb4033f76"
+  },
+  "full_decode": true,
+  "selected_frames": [
+    0,
+    36,
+    66,
+    96,
+    156,
+    720,
+    735,
+    750,
+    765,
+    780,
+    795,
+    810,
+    825,
+    840,
+    855,
+    870,
+    885,
+    900,
+    915,
+    930,
+    945,
+    960,
+    975,
+    990,
+    1002,
+    1004,
+    1034,
+    1064,
+    1124,
+    2466,
+    2496,
+    2526,
+    2586,
+    3707,
+    3736,
+    3737,
+    3738,
+    3766,
+    3767,
+    3796,
+    3797,
+    3827,
+    3858,
+    3978,
+    4098,
+    4218,
+    4338,
+    4458,
+    4478,
+    4508,
+    4538,
+    4578,
+    4598,
+    4698,
+    4793,
+    4818,
+    4823,
+    4853,
+    4913,
+    4938,
+    5058,
+    5178,
+    5280,
+    5298,
+    5340,
+    5400,
+    5418,
+    5460,
+    5520,
+    5538,
+    5580,
+    5640,
+    5658,
+    5700,
+    5760,
+    5778,
+    5820,
+    5880,
+    5898,
+    5940,
+    6000,
+    6018,
+    6060,
+    6120,
+    6138,
+    6180,
+    6216,
+    6218,
+    6240,
+    6242,
+    6243,
+    6248,
+    6257,
+    6270,
+    6271,
+    6272,
+    6273,
+    6274,
+    6275,
+    6276,
+    6278,
+    6302,
+    6303,
+    6332,
+    6333,
+    6338,
+    6363,
+    7411,
+    7412,
+    7426,
+    7439,
+    7440,
+    7441
+  ],
+  "sheets": [
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-001.jpg",
+      "sha256": "906ffedaff69e1bcdbd7d7210126a3320fa14c4b7ab6c83d5396a05a83cba4bf",
+      "first_picture": 1,
+      "last_picture": 8
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-002.jpg",
+      "sha256": "37bb299d60d25a50e101c0c101d323da8c82a303a5d99bd96553f0fdd1b966ae",
+      "first_picture": 9,
+      "last_picture": 16
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-003.jpg",
+      "sha256": "e71b9a99a89705f6c13c5b860fadb1c2633451dbb6ca0750199bff8b505550e1",
+      "first_picture": 17,
+      "last_picture": 24
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-004.jpg",
+      "sha256": "42d5c8eeec0261047f8d5c588607db6904a1d43bdf7c458e65594dae9238e499",
+      "first_picture": 25,
+      "last_picture": 32
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-005.jpg",
+      "sha256": "d7e8a0f0ebdf1df0458a7abc326d4d22811da132bb6dc11c2d62358304704fda",
+      "first_picture": 33,
+      "last_picture": 40
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-006.jpg",
+      "sha256": "60a7a06989131e98fa45c989aed06636015cc4cea4f9767a5c5a3c5b6b8ac270",
+      "first_picture": 41,
+      "last_picture": 48
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-007.jpg",
+      "sha256": "9513f1ea78f5839b7d31f6fda60c94c5fc50235ebd131b63ab6730753670fb86",
+      "first_picture": 49,
+      "last_picture": 56
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-008.jpg",
+      "sha256": "ae7ae9c78dd308f11d3c2da499b1ba85f2a7665163c972d2e4a89664b60ce7ba",
+      "first_picture": 57,
+      "last_picture": 64
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-009.jpg",
+      "sha256": "dcd63d916d731168805a681116855337f846b9ec6d35a718b5a3901d6361a52c",
+      "first_picture": 65,
+      "last_picture": 72
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-010.jpg",
+      "sha256": "38140c2833f21ef66247f1b49fb96a1db42d0112cab789c881665a234cc9151d",
+      "first_picture": 73,
+      "last_picture": 80
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-011.jpg",
+      "sha256": "42605bcd64b081466db9fccf33bea69108d258be035e3bdcd2e0a11e32e70214",
+      "first_picture": 81,
+      "last_picture": 88
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-012.jpg",
+      "sha256": "c3b73fdf0b0c13fc39491b516c454666917d08e374647f595a897711b5b1696c",
+      "first_picture": 89,
+      "last_picture": 96
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-013.jpg",
+      "sha256": "0b28c52bc7496655202a9379b06cbdc50cc3c9911b8d64f202d0219e9c5ce3df",
+      "first_picture": 97,
+      "last_picture": 104
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-014.jpg",
+      "sha256": "d28d93f343d69748ca09fd8cf02a60726a1b48b0f8748c9ab418aec9b0e4dd01",
+      "first_picture": 105,
+      "last_picture": 112
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/sheets/sheet-015.jpg",
+      "sha256": "72b3d0b6677c57a633a1a3cea16a9095650cd4b2d6256374d2f2874b815ae21c",
+      "first_picture": 113,
+      "last_picture": 113
+    }
+  ],
+  "pictures": [
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000001.jpg",
+      "sha256": "437458ecaf54656815adc6963e6be1a48a8c11b5bcda712743dbca773f7a10d8"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000002.jpg",
+      "sha256": "437458ecaf54656815adc6963e6be1a48a8c11b5bcda712743dbca773f7a10d8"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000003.jpg",
+      "sha256": "09ba57bf0ac27a611864736193215899a7bbbcaa7b5e20b04d4a1871830e95c6"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000004.jpg",
+      "sha256": "16687aa200ce3613034cf39f193ac04c31f5bf2dfd4be60e64f6475665ef2403"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000005.jpg",
+      "sha256": "16687aa200ce3613034cf39f193ac04c31f5bf2dfd4be60e64f6475665ef2403"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000006.jpg",
+      "sha256": "0710315d8c97b47ae5582fbfa4ef1ede83d6298c879c9dcbb6dcf3b18ba5c1dd"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000007.jpg",
+      "sha256": "eb3065342420d0781fc73f206aeb7d662397b2ba3a418d04d569b721d37c3ecb"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000008.jpg",
+      "sha256": "4766b9d7fd37d3503d520a5a58e5ff4653e10fde840aa9d6c443491b67201421"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000009.jpg",
+      "sha256": "587097c770cf64a793378ea7a6c546eff9a957a70eab0b7c391e40b83f1d6b23"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000010.jpg",
+      "sha256": "f36fb3cf554e8a3a3d9c3a5a4888f302f9dd42cd159a6eb51a49cb658893545a"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000011.jpg",
+      "sha256": "186edcc875fde61a7efda5f6e02285d9110c58d0f517872f5e806c8ae00a105d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000012.jpg",
+      "sha256": "186edcc875fde61a7efda5f6e02285d9110c58d0f517872f5e806c8ae00a105d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000013.jpg",
+      "sha256": "186edcc875fde61a7efda5f6e02285d9110c58d0f517872f5e806c8ae00a105d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000014.jpg",
+      "sha256": "186edcc875fde61a7efda5f6e02285d9110c58d0f517872f5e806c8ae00a105d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000015.jpg",
+      "sha256": "186edcc875fde61a7efda5f6e02285d9110c58d0f517872f5e806c8ae00a105d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000016.jpg",
+      "sha256": "186edcc875fde61a7efda5f6e02285d9110c58d0f517872f5e806c8ae00a105d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000017.jpg",
+      "sha256": "186edcc875fde61a7efda5f6e02285d9110c58d0f517872f5e806c8ae00a105d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000018.jpg",
+      "sha256": "186edcc875fde61a7efda5f6e02285d9110c58d0f517872f5e806c8ae00a105d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000019.jpg",
+      "sha256": "186edcc875fde61a7efda5f6e02285d9110c58d0f517872f5e806c8ae00a105d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000020.jpg",
+      "sha256": "186edcc875fde61a7efda5f6e02285d9110c58d0f517872f5e806c8ae00a105d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000021.jpg",
+      "sha256": "186edcc875fde61a7efda5f6e02285d9110c58d0f517872f5e806c8ae00a105d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000022.jpg",
+      "sha256": "186edcc875fde61a7efda5f6e02285d9110c58d0f517872f5e806c8ae00a105d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000023.jpg",
+      "sha256": "186edcc875fde61a7efda5f6e02285d9110c58d0f517872f5e806c8ae00a105d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000024.jpg",
+      "sha256": "186edcc875fde61a7efda5f6e02285d9110c58d0f517872f5e806c8ae00a105d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000025.jpg",
+      "sha256": "0d049134a213c8787b8151f9a066ef3f6270bfc9b94674501ae0e5aef370bc26"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000026.jpg",
+      "sha256": "b2d649a6e491b971b97a5ddc3e27d7b189cbc58fd89f365f671199acb08d81ac"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000027.jpg",
+      "sha256": "437458ecaf54656815adc6963e6be1a48a8c11b5bcda712743dbca773f7a10d8"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000028.jpg",
+      "sha256": "90661b18c8006222877aefcdec9e1aa17b8cfb3fafb6b332c8c00ba34e67c307"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000029.jpg",
+      "sha256": "9ffb9e5a5af9ad11a3cf0c252c971d5e8ee792b973e024ff3259a9cf38aa966b"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000030.jpg",
+      "sha256": "132cc1d0062befe05f91bc712e28338b65911dc1ff231b7a3f4d4b2b142091f1"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000031.jpg",
+      "sha256": "437458ecaf54656815adc6963e6be1a48a8c11b5bcda712743dbca773f7a10d8"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000032.jpg",
+      "sha256": "84345050e51e59509fb921d40004ffd818e681d46411befabf4822061e75f31b"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000033.jpg",
+      "sha256": "84345050e51e59509fb921d40004ffd818e681d46411befabf4822061e75f31b"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000034.jpg",
+      "sha256": "b5915d6b0359b17d2ceec79993a1d3c746f02642899445201143d9ccd50110a5"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000035.jpg",
+      "sha256": "2ac0149e4933873a41b3082f5ae6a567f37d2374f72c31a02e96183240500529"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000036.jpg",
+      "sha256": "437458ecaf54656815adc6963e6be1a48a8c11b5bcda712743dbca773f7a10d8"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000037.jpg",
+      "sha256": "9d395d3bf710d0b706a9f458da49e243c80921a0c87c857b9a44fc08e696e965"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000038.jpg",
+      "sha256": "bfea90975ae27b1682f5560a986c4f6bccbec599b1bd8f132a915b6ec77ec1a8"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000039.jpg",
+      "sha256": "8a5960ec45acd47a4c78aa76c53b5b781e5c66a94802a15b7e0e01c09756e574"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000040.jpg",
+      "sha256": "581eafcea6f7eb6328522b2fa9e5ae20ab5615c6da80377b4bd2f8cca038d911"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000041.jpg",
+      "sha256": "c0cbbca63364d4569f73ac54d80da3e56d33b3d0e429b746ea0eb9b976740a68"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000042.jpg",
+      "sha256": "7dbec927b12dae527a61b6a1b2fa69645529853e4548f653b0f330f01cece024"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000043.jpg",
+      "sha256": "428c725b63f8c1749fd15d75be60acac824ccc9c593f69aa4b4d11b060e08353"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000044.jpg",
+      "sha256": "1b7f1bcb270f7d5e504762ccc9c2db6c45a2db5a4068cc1d21fb561026c11008"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000045.jpg",
+      "sha256": "e081ec9b018dd97f639e50716270cb23c5e00894fa012d132f648809587a7a40"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000046.jpg",
+      "sha256": "8ee6519edc139d42ac17e6ef3961928df1f578454a4afaee6d74054e780b109b"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000047.jpg",
+      "sha256": "8279a3a33626e3e8e9a0b359e40a1484db7dbddf5bfc916ad488722cdcf560b0"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000048.jpg",
+      "sha256": "8279a3a33626e3e8e9a0b359e40a1484db7dbddf5bfc916ad488722cdcf560b0"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000049.jpg",
+      "sha256": "245375ed27a525a639f9c915de673a0f7145869b4a511b9fd1c544196efbb8f8"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000050.jpg",
+      "sha256": "feacc1317536fe0e284f84cbe6305eb974fff29d18079bd790fff37aeab29f47"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000051.jpg",
+      "sha256": "a267fdbc1638593004203bc6248f1e58f629627890f0c86e6fea4c8b23b48790"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000052.jpg",
+      "sha256": "f5dd274cc4398c38e775de0041e4dcf4a7dafc0de0110dbceef61946a5701f8f"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000053.jpg",
+      "sha256": "d3e10e98eb5a93148e6ba0e33ea81b209ae5b7c0da0be3b9d0f78e436b2f3622"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000054.jpg",
+      "sha256": "e9b46193438ae846c2fa917a2105622f61d0484c34e8e7732714e3d72c794b9c"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000055.jpg",
+      "sha256": "03be07b25910c0ea74fecd0126b4b8bbe7d4be66b98f90a79bbca0787a73c5b5"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000056.jpg",
+      "sha256": "abef623f880914074847c61152cf7cdb87c8050a4298aa0a5faa2c38cfc75247"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000057.jpg",
+      "sha256": "abef623f880914074847c61152cf7cdb87c8050a4298aa0a5faa2c38cfc75247"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000058.jpg",
+      "sha256": "569233b4743dc2a1b7df12947e2c419ab7b62e1ac4d9a816fa4d9e605683497c"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000059.jpg",
+      "sha256": "5c73faed54a845b054d9626a5329c0a81f8535657834c49cfd2bd0b7d6e9b32c"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000060.jpg",
+      "sha256": "5c73faed54a845b054d9626a5329c0a81f8535657834c49cfd2bd0b7d6e9b32c"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000061.jpg",
+      "sha256": "adb4b38abc9050358b09b931f2d246908356ee626d17a4a0466eee1faf46d83d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000062.jpg",
+      "sha256": "adb4b38abc9050358b09b931f2d246908356ee626d17a4a0466eee1faf46d83d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000063.jpg",
+      "sha256": "f32ce0b9faf468e5049071de538982f70764e09cbb34a3f74f1ca3d26a4869d7"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000064.jpg",
+      "sha256": "a7c357dfdedec576dd8bfccc07588472586483e807a3d4bf409a904f6d5ae7c6"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000065.jpg",
+      "sha256": "a7c357dfdedec576dd8bfccc07588472586483e807a3d4bf409a904f6d5ae7c6"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000066.jpg",
+      "sha256": "a7c357dfdedec576dd8bfccc07588472586483e807a3d4bf409a904f6d5ae7c6"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000067.jpg",
+      "sha256": "a7c357dfdedec576dd8bfccc07588472586483e807a3d4bf409a904f6d5ae7c6"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000068.jpg",
+      "sha256": "a7c357dfdedec576dd8bfccc07588472586483e807a3d4bf409a904f6d5ae7c6"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000069.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000070.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000071.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000072.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000073.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000074.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000075.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000076.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000077.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000078.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000079.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000080.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000081.jpg",
+      "sha256": "5be66d1e3c77250ee0024a3853ce51803576bd5d0757f800a145d9d3d5f3d1f5"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000082.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000083.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000084.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000085.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000086.jpg",
+      "sha256": "253679f5234193876c0606494cf3cd5493191f6acdc172576caaa398dd77e96d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000087.jpg",
+      "sha256": "3a9e8b92e8cc360270e5fef27fe5729d6a78d37570e21a1a0306c7a84fd1801a"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000088.jpg",
+      "sha256": "eefe76e3fc39061560af6a2c1cbfc76db0a17e7f10a5645270629855ea8f8a59"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000089.jpg",
+      "sha256": "617870682b1c3740fb532b50df5eeb39c7a9a9a9a22a70e188134e8500d7b0a8"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000090.jpg",
+      "sha256": "4996f54b7ef96d1c11aca7f80abaa1e176e2ce97ff0feadcbada81ee1c90e124"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000091.jpg",
+      "sha256": "e80cbb4f860f5508852777a2b1dcd47e03970731d9226f8980e610957ccad4d6"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000092.jpg",
+      "sha256": "189ab1109c02726c492e686c3d27e960bea16c1fef72c3786423b4d277334fcc"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000093.jpg",
+      "sha256": "175f33821b6886aba502b4efb0d6044437938c8e9d8048659e5cced0624778f2"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000094.jpg",
+      "sha256": "c6ec0b3dea8ce005a7e11ee2c8de7cc5dc791d995f1614f7d0f58bb7592e6789"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000095.jpg",
+      "sha256": "8a9fc8fdbc985e0e8bd2b293867e97e5b00d1121dfc8cb45d58db49e91fd6d60"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000096.jpg",
+      "sha256": "c840589b0802349d713d5a6f61f477a50df93797ad1aea0e810ecde034e3231e"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000097.jpg",
+      "sha256": "437458ecaf54656815adc6963e6be1a48a8c11b5bcda712743dbca773f7a10d8"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000098.jpg",
+      "sha256": "48fe88f5c8e2659320f579b5e17b33213f2871ecc20ef6ca4ebfadae0dbdba7d"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000099.jpg",
+      "sha256": "dec88262602c87ee3dd1fc6d7439db378389616d03013bb7ccb736979bdc9e0f"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000100.jpg",
+      "sha256": "7f9b1d38a1ba0f59fba722a0e182340995923123cea09cb71a20a4ff3e7bf1c1"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000101.jpg",
+      "sha256": "0319cb95b63b8bee9f07de4611f48fa0fea9554349211ab67b91427a228441fa"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000102.jpg",
+      "sha256": "7df9026c5b1304c9c4a99ab284694057a8c4b0cfdf28c9ecad41838e9867b164"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000103.jpg",
+      "sha256": "c57ff0d491a6144d0440543e5ad5b1c559d1d25dce557a3af99e656d9c39599b"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000104.jpg",
+      "sha256": "ff7a81225886dfa490131e385d2b0e9ad909d1f87071f437cc6ae35611d05d9c"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000105.jpg",
+      "sha256": "9b9f24f8dad04f6b03a0df98d2130a4d821e2bbf74835f99e3ba1006da9e13b1"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000106.jpg",
+      "sha256": "781c390e5ac0248ed15cd8709187b300cf00800590b80f6dd69c7b466bb6bb49"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000107.jpg",
+      "sha256": "6849506543e4059d6ad4c22be9aaf2c536fb6a991f8466e0bc64c3a9cfe0e615"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000108.jpg",
+      "sha256": "1ef08353d0245662705199973d4c606882af66dc3e28e8e65e625d5a9f3308a1"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000109.jpg",
+      "sha256": "d981c34bca28f076fa7dbc4cffc485bc17bbdbff9f55adaa58cd87ec55ca7175"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000110.jpg",
+      "sha256": "57b8bd2c5e6689868d9f13a7c93b055d7610fe28591a357cc55f6f1e616500a3"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000111.jpg",
+      "sha256": "1e9a9e5216793c7d5da939e5035fc5b55e9f897f37660fc1551f46e948306c1a"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000112.jpg",
+      "sha256": "12f8bbd09a48238d3024662f7f12242c568ce0362f1646d5e9bd90f1b88e73f1"
+    },
+    {
+      "path": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-pictures543/pictures/frame-000113.jpg",
+      "sha256": "437458ecaf54656815adc6963e6be1a48a8c11b5bcda712743dbca773f7a10d8"
+    }
+  ],
+  "scope": "Technical checks and extraction only. No picture viewing, listening, fine sync or independent AV acceptance."
+}

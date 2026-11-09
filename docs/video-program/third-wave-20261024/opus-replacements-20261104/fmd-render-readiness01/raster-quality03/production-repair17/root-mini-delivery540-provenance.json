@@ -1,0 +1,7 @@
+{
+  "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/7aa7239f-abc0-4b43-9af5-40020bd20c82/scratchpad/dev536/mini-delivery536.py",
+  "source_sha256": "5a3adc3447607823a051b3d08d7a2492fb35d6b54309441770793803ecf811d3",
+  "helper_sha256": "23be4c05ef843e2cd40d07eb1de09205c2f5054e3370f307c2af577db021cabb",
+  "review": "Root read full scratch implementation and handoff523; changes are names/provenance only; interrupted CC3 scratch is preserved and not claimed sealed or independently accepted",
+  "scope": "Guarded path-only delivery setup, no render or AV acceptance"
+}
