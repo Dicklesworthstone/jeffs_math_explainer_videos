@@ -57,6 +57,7 @@ def main():
     mapping=read(mapfile)
     assert sha(mapfile)==summary['map_sha256']
     oldmap=read(R/'inputs523/topic269/narration-direction-map-frederick-review269.json')
+    assert {k:v for k,v in mapping.items() if k not in ['visual_holds','scope']}=={k:v for k,v in oldmap.items() if k not in ['visual_holds','scope']}
     assert mapping['helpers']==oldmap['helpers']
     moved={}
     for old,new in zip(oldmap['visual_holds'],mapping['visual_holds'],strict=True):
@@ -80,6 +81,7 @@ def main():
     for p in replica.glob('*.wav'):assert sha(p)==sha(original/p.name)
     plan=TOPIC/'narration_units.json';backup=TOPIC/'narration_units.before-mini557.json'
     newplan=replica/'external-units.json'
+    assert {k:v for k,v in read(newplan).items() if k!='direction_contract'}=={k:v for k,v in read(plan).items() if k!='direction_contract'}
     assert read(newplan)['direction_contract']['map']=={'path':MAPREL,'sha256':sha(mapfile)}
     with backup.open('xb') as f:f.write(plan.read_bytes())
     with (W/MAPREL).open('xb') as f:f.write(mapfile.read_bytes())
