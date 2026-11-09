@@ -1,0 +1,13 @@
+# fmn npy fixture manifest v1
+# reference: 3b1b/manim @ 6199a00d4c1b1127ebe45cb629c3f22538b10e13
+# generator: scripts/gen_npy_fixtures.py (numpy 2.2.4)
+# columns: file	dtype	shape	sha256	formula
+arc_quarter_n4.npy	<f8	9x3	5d1019d7270ec7e7576d0f4d7ac968a5185134793075be689c13fbcbff5e2c29	quadratic_bezier_points_for_arc(TAU/4, n_components=4)
+arc_full_n8.npy	<f8	17x3	33ff40c203ecf68d1051ae1323a32d7eff864cbbd33af613344efa0548fae517	quadratic_bezier_points_for_arc(TAU, n_components=8)
+arc_neg_third_n2.npy	<f8	5x3	7f4b1061ed524e9f50c7c9d3d40415200600132611eb12eb285238f053e4e0ea	quadratic_bezier_points_for_arc(-TAU/3, n_components=2)
+arc_half_n8.npy	<f8	17x3	5b354b1e582f023d5968f728a52c185d9c917f548bd33b228fb2725d49b52282	quadratic_bezier_points_for_arc(TAU/2, n_components=8)
+partial_quad.npy	<f8	3x3	acdf740923ae14f4f8a6ac7b161be06e7b6d023a8376ea205d38205f05cb7a1f	partial_quadratic_bezier_points(PARTIAL_QUAD, 0.25, 0.75)
+partial_quad_first_half.npy	<f8	3x3	c8eecab169ac2ccfd2a846aa13173f7fa66e6885f5f68f54224aafacf6fc0abe	partial_quadratic_bezier_points(PARTIAL_QUAD, 0.0, 0.5)
+partial_quad_second_half.npy	<f8	3x3	fc18ec5e6f90db7b247887cb0660d7bb42f1243ed7faa709f57cdecb844e04bb	partial_quadratic_bezier_points(PARTIAL_QUAD, 0.5, 1.0)
+quad_eval.npy	<f8	9x3	033d1c456aa1f3488f9af1eb014e261928ce758f69f938f1c7e59096edbde4aa	bezier(PARTIAL_QUAD)(t) for t in {0, 1/8, ..., 1}
+integer_interpolate.npy	<f8	5x2	7b9fadb6e381adf74cd412761ba7b50d116dc2b1099ce102c2ac68d1d3b6080f	integer_interpolate(0, 10, a) for a in {0.05, 0.25, 0.5, 0.75, 0.95}

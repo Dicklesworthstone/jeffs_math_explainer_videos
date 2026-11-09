@@ -1,0 +1,595 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # R22's full SIMD build-tier matrix.
+    - cron: "23 5 * * 1"
+
+permissions:
+  contents: read
+
+# In-progress runs on main are allowed to FINISH: with multiple agents
+# pushing every ~30 minutes, cancel-in-progress starved main of any
+# completed verdict (11+ consecutive runs died mid-flight on 2026-08-09).
+# Superseded runs that are still queued collapse to the newest one either
+# way; only branches cancel in-progress work.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: "true"
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: "1"
+
+jobs:
+  portable:
+    name: check (portable, linux-x86-64)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      CARGO_TARGET_DIR: target/portable
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      # rustup resolves the exact toolchain from rust-toolchain.toml; no
+      # floating "nightly" ever runs in CI.
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+
+      - name: Cache cargo
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+
+      # The PG-8 binding-tax bridge embeds the host CPython and imports real
+      # NumPy; without it the perf_pg8 suite fails with ModuleNotFoundError.
+      - name: Install NumPy for the PG-8 bridge
+        run: python3 -m pip install --user --break-system-packages numpy || python3 -m pip install --user numpy
+
+      - name: Run the mandatory gate
+        run: bash scripts/check.sh
+
+      # The default gate runs the deterministic campaign at its reduced
+      # per-commit case counts.  The committed corpus and outcome-class
+      # manifest are authoritative only at the full case counts, so exercise
+      # that exact mode on the weekly schedule as well.  Blessing is never
+      # enabled in CI: any manifest or corpus drift remains a hard failure.
+      - name: Run the scheduled full deterministic fuzz campaign
+        if: github.event_name == 'schedule'
+        env:
+          FMN_FUZZ_FULL: "1"
+        run: cargo test --locked -p fmn-conformance --test fuzz_campaign full_campaign_is_the_campaign_authority
+
+  x86-64-v3:
+    name: check (x86-64-v3)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      CARGO_TARGET_DIR: target/x86-64-v3
+      RUSTFLAGS: -C target-feature=+avx2,+bmi2,+fma
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+
+      - name: Verify runner ISA
+        run: |
+          for feature in avx2 bmi2 fma; do
+            grep -m1 -qw "$feature" /proc/cpuinfo || {
+              echo "runner lacks required x86-64-v3 feature: $feature" >&2
+              exit 1
+            }
+          done
+
+      - name: Cache cargo
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/x86-64-v3
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-x86-64-v3-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+
+      # The PG-8 binding-tax bridge embeds the host CPython and imports real
+      # NumPy; without it the perf_pg8 suite fails with ModuleNotFoundError.
+      - name: Install NumPy for the PG-8 bridge
+        run: python3 -m pip install --user --break-system-packages numpy || python3 -m pip install --user numpy
+
+      - name: Run the mandatory gate
+        run: bash scripts/check.sh
+
+  x86-64-v4:
+    # qemu-user TCG cannot emulate AVX-512 (any qemu version to date), and
+    # ADR-0016's crate-wide tier flags emit AVX-512 unconditionally, so the
+    # v4 test binaries SIGILL under emulation by construction. The lane
+    # therefore runs the full gate natively when the runner's CPU has
+    # AVX-512 (Xeon-backed runners) and downgrades — loudly, never
+    # silently — to a compile+clippy tier check when it does not
+    # (EPYC-backed runners). Execution coverage on a guaranteed-AVX-512
+    # host is fm-inr.1's dedicated-hardware program.
+    name: weekly check (x86-64-v4)
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      CARGO_BUILD_TARGET: x86_64-unknown-linux-gnu
+      CARGO_TARGET_DIR: target/x86-64-v4
+      FMN_SIMD_TIER_GATE: "1"
+      RUSTFLAGS: -C target-feature=+avx512f,+avx512bw,+avx512dq,+avx512vl
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+
+      - name: Cache cargo
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/x86-64-v4
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-x86-64-v4-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+
+      - name: Install NumPy for the PG-8 bridge
+        run: python3 -m pip install --user --break-system-packages numpy || python3 -m pip install --user numpy
+
+      - name: Run the SIMD tier gate (native AVX-512 or compile-only)
+        run: |
+          if grep -q avx512f /proc/cpuinfo; then
+            echo "runner CPU has AVX-512; running the full gate natively"
+            bash scripts/check.sh
+          else
+            echo "::warning::runner CPU lacks AVX-512 and qemu TCG cannot emulate it; v4 tier downgraded to compile+clippy only this week"
+            cargo check --all-targets
+            cargo clippy --all-targets -- -D warnings
+          fi
+
+  aarch64-neon:
+    name: weekly check (aarch64-neon)
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 45
+    env:
+      CARGO_TARGET_DIR: target/aarch64-neon
+      RUSTFLAGS: -C target-feature=+neon
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+
+      - name: Cache cargo
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/aarch64-neon
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-aarch64-neon-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+
+      # The PG-8 binding-tax bridge embeds the host CPython and imports real
+      # NumPy; without it the perf_pg8 suite fails with ModuleNotFoundError.
+      - name: Install NumPy for the PG-8 bridge
+        run: python3 -m pip install --user --break-system-packages numpy || python3 -m pip install --user numpy
+
+      - name: Run the mandatory gate
+        run: bash scripts/check.sh
+
+  exact-image-native:
+    # fm-x4pp is deliberately narrower than fm-sol's future all-workspace
+    # platform skeleton: this job proves the one-tool process capability on
+    # every host/libc combination named by its acceptance contract.
+    name: exact-image native (${{ matrix.label }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: linux-aarch64-musl
+            runner: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-musl
+          - label: macos-aarch64
+            runner: macos-14
+            target: aarch64-apple-darwin
+          - label: windows-x86-64-msvc
+            runner: windows-latest
+            target: x86_64-pc-windows-msvc
+    env:
+      CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER: musl-gcc
+      CARGO_TARGET_DIR: target/exact-image-${{ matrix.label }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install pinned toolchain target
+        run: |
+          rustup show active-toolchain
+          rustup target add ${{ matrix.target }}
+
+      - name: Install native musl linker
+        if: matrix.target == 'aarch64-unknown-linux-musl'
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes musl-tools
+          musl-gcc --version
+
+      - name: Fingerprint native host and target
+        run: |
+          rustc -vV
+          cargo -vV
+
+      - name: Cache cargo
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/exact-image-${{ matrix.label }}
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-${{ matrix.target }}-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+
+      - name: Run native exact-image capability suite
+        run: cargo test --locked -p fmn-platform --test capabilities --target ${{ matrix.target }}
+
+  windows:
+    # fm-sol (a), R18: windows-x86-64 FUNCTIONAL CI. This job promises
+    # exactly that the workspace compiles and its tests pass on Windows on
+    # the pinned nightly — it is NOT bit-certification. The certified
+    # matrix stays linux-x86-64 / linux-aarch64 / macos-aarch64
+    # (docs/INPUT_CLOSURE.md §5); whether Windows ever joins it is OQ-6, a
+    # separate declared decision, not implied by this job being green.
+    # Steps are the fmt/check/clippy/test equivalents of scripts/check.sh,
+    # in bash on the GitHub Windows runner (the boring correct form); the
+    # wasm32, crate-DAG, and node-smoke legs of check.sh stay Linux-side.
+    name: check (functional, windows-x86-64)
+    runs-on: windows-latest
+    timeout-minutes: 90
+    defaults:
+      run:
+        shell: bash
+    env:
+      CARGO_TARGET_DIR: target/windows-portable
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+
+      - name: Cache cargo
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/windows-portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-windows-portable-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+
+      - name: fmt
+        run: cargo fmt --check
+
+      - name: check
+        run: |
+          cargo check --all-targets
+          cargo check -p fmn-cli --features batch --all-targets
+          cargo check -p fmn-output --features ffmpeg-test-fixture --all-targets
+
+      - name: clippy
+        run: |
+          cargo clippy --all-targets -- -D warnings
+          cargo clippy -p fmn-cli --features batch --all-targets -- -D warnings
+          cargo clippy -p fmn-output --features ffmpeg-test-fixture --all-targets -- -D warnings
+
+      - name: Install NumPy for the PG-8 bridge
+        run: python -m pip install numpy
+
+      - name: test
+        # --no-fail-fast: Windows-only failures surface crate by crate as this
+        # lane comes up; showing them all per run beats one CI round-trip each.
+        run: |
+          cargo test --no-fail-fast
+          cargo test -p fmn-cli --features batch --all-targets
+          cargo test -p fmn-output --features ffmpeg-test-fixture --all-targets
+
+      # §17.4/§17.6 watch items, named so their coverage is visible in the
+      # job log rather than implied by the workspace run above (already
+      # compiled there, so this step is cheap):
+      # - fmn-platform topology: synthetic >64-logical-CPU processor-group
+      #   models ([64, 32], fallback(128)) and the std path/filesystem
+      #   implementations;
+      # - fmn-output boundary: the subprocess env allowlist with the pinned
+      #   LANG=C / LC_ALL=C locale.
+      - name: Windows watch items (processor groups, path/fs, locale pinning)
+        run: |
+          cargo test -p fmn-platform
+          cargo test -p fmn-output --features ffmpeg-test-fixture --test boundary
+
+  certified-matrix:
+    # fm-sol (b): the certified matrix's CI legs (G0-6's frozen list, minus
+    # linux-x86-64 whose leg is the per-commit `portable` job). Each leg
+    # runs the workspace tests — which include the one certified
+    # scene_goldens lock — the fmn-dmath cross-platform vector gate by
+    # name, and PG-5's {1,4,16} sweep on real multicore hardware, exactly
+    # as docs/INPUT_CLOSURE.md §5 describes. Weekly (R22 budget) plus
+    # manual dispatch; per-commit stays the two pinned linux-x86-64
+    # profiles.
+    name: certified-matrix (${{ matrix.label }})
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: linux-aarch64
+            runner: ubuntu-24.04-arm
+          - label: macos-aarch64
+            runner: macos-14
+    env:
+      CARGO_TARGET_DIR: target/certified-${{ matrix.label }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+
+      - name: Cache cargo
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/certified-${{ matrix.label }}
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-certified-${{ matrix.label }}-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+
+      # The PG-8 bridge harness drives the host CPython against real
+      # NumPy; without it the perf_pg8 suite fails with ModuleNotFoundError.
+      - name: Install NumPy for the PG-8 bridge
+        run: python3 -m pip install --user --break-system-packages numpy || python3 -m pip install --user numpy
+
+      - name: Run the workspace tests
+        run: cargo test
+
+      # The bit-identity base layer, named per leg from day one: the same
+      # committed mpmath vectors must hold on every certified target.
+      - name: fmn-dmath cross-platform vector gate
+        run: cargo test -p fmn-dmath --test vectors
+
+      - name: PG-5 {1,4,16} thread sweep on this leg
+        run: bash scripts/pg5_thread_determinism.sh
+
+  pg5-thread-determinism:
+    # fm-sol (c), PG-5 per-commit lane: the {1,4,16}-thread determinism
+    # check over today's thread-invariance tests, as its own named job so
+    # scheduling drift reads as its own signal. Thread count is declared
+    # outside the input closure (§16.7); this lane is the standing proof
+    # of inertness. No wall-clock assertions anywhere in the lane.
+    name: PG-5 thread determinism {1,4,16}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      CARGO_TARGET_DIR: target/pg5
+      FMN_PG5_THREAD_COUNTS: "1,4,16"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+
+      - name: Cache cargo
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/pg5
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-pg5-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+
+      - name: Run the per-commit PG-5 sweep
+        run: bash scripts/pg5_thread_determinism.sh
+
+  pg5-high-core:
+    # fm-sol (c), PG-5 weekly cadence: the {32,96} high-core sweep, env-gated
+    # through FMN_PG5_THREAD_COUNTS (same harness, no code-path change).
+    # Schedule-only — never a merge gate. Runner size is irrelevant to the
+    # verdict: the gate proves byte-invariance of the frame under thread
+    # oversubscription, not throughput.
+    name: weekly PG-5 thread determinism {32,96}
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      CARGO_TARGET_DIR: target/pg5-high-core
+      FMN_PG5_THREAD_COUNTS: "1,32,96"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+
+      - name: Cache cargo
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/pg5-high-core
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-pg5-high-core-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+
+      - name: Run the weekly high-core PG-5 sweep
+        run: bash scripts/pg5_thread_determinism.sh
+
+  fuzz-codec:
+    # fm-ntp (ADR-0003 class=fuzz): coverage-guided fuzzing of the
+    # fmn-codec untrusted-input parsers. SCHEDULED ONLY — never a merge
+    # gate; scripts/check.sh does not run it.
+    name: weekly fuzz (fmn-codec parsers)
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+
+      - name: Cache cargo
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-fuzz-codec-${{ hashFiles('rust-toolchain.toml', 'fuzz/Cargo.lock') }}
+
+      # cargo-fuzz is the class=fuzz toolchain (ADR-0003): pinned install,
+      # unreachable from any shipped artifact.
+      # Not --locked: cargo-fuzz 0.13.1's committed lockfile pins rustix
+      # 0.36.5, which the pinned nightly refuses to compile (its rustc_attrs
+      # probe no longer fires). The version stays pinned; its dependency
+      # graph resolves against the live index. The tool is unreachable from
+      # any shipped artifact, so D1's closure discipline is not in play.
+      - name: Install cargo-fuzz
+        run: cargo install cargo-fuzz --version 0.13.1
+
+      - name: Run the scheduled fuzz campaign
+        run: bash scripts/fuzz_scheduled.sh
+        # Any crash fails the step; the reproducer is logged by libFuzzer
+        # (base64) and written under fuzz/artifacts/ — a finding to fix at
+        # the source in fmn-codec.
+
+  e2e-full:
+    # fm-e2e-full-ci-lane-ryq3: the full-tier e2e matrix (fm-fjq catalog)
+    # on its weekly budget. The fast tier already runs per-commit inside
+    # scripts/check.sh's workspace test; this lane adds the FMN_E2E_FULL=1
+    # rows — the --uhd 4K render-matrix rows, the 16-thread determinism
+    # drill, and the PG-6 peak UHD gallery — through the same entry point
+    # the per-commit lane uses: cargo test --locked -p fmn-conformance
+    # --test e2e_scenarios. The harness renders one frame per matrix row,
+    # which keeps even the 4K rows inside the default profile's budget
+    # (measured: the full binary passes in ~4 minutes of test time on a
+    # 16-core linux-x86-64 host), so the lane matches the other cargo
+    # test lanes and builds no separate release or perf profile.
+    # Certified rows verify every emitted artifact against the committed
+    # lock crates/fmn-conformance/goldens/e2e.certified.lock (12 digests)
+    # in check mode: drift fails the run. Blessing is never enabled in
+    # CI — a drift is a finding to adjudicate, never a number to
+    # re-bless.
+    name: weekly e2e full matrix (fmn-conformance)
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      CARGO_TARGET_DIR: target/e2e-full
+      FMN_E2E_FULL: "1"
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+
+      - name: Cache cargo
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/e2e-full
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-e2e-full-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+
+      # The portal scenarios drive the real embedded-CPython bridge,
+      # whose record views are NumPy arrays (same requirement as the
+      # PG-8 bridge lanes above).
+      - name: Install NumPy for the embedded-CPython bridge
+        run: python3 -m pip install --user --break-system-packages numpy || python3 -m pip install --user numpy
+
+      - name: Run the full-tier e2e matrix
+        run: cargo test --locked -p fmn-conformance --test e2e_scenarios
+
+      # The 12 certified artifact digests the run just verified, attached
+      # to the run (also on drift failure) so a red lane can be audited
+      # against the exact lock it checked.
+      - name: Upload the certified e2e artifact digests
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: e2e-certified-digests
+          path: crates/fmn-conformance/goldens/e2e.certified.lock
+
+  pg56-release-perf:
+    # fm-inr.2 / fm-0q0g (c): the release-perf producers on their weekly
+    # cadence. These are the REAL timing rigs — PG-5's certified
+    # thread-matrix + frame-parallel + ordered-pipeline schedule sweep over
+    # the committed 27-scene goldens, and PG-6's warm/reused-arena
+    # allocation probes plus the 4K gallery peak — each anchored per scene
+    # against the committed scene-golden lock. The fast-tier thread sweep
+    # already runs per commit (pg5-thread-determinism); this lane adds the
+    # producers, which require the release-perf profile and are too heavy
+    # for the mandatory gate. Samples are wall-clock/RSS observations, not
+    # verdicts: no pinned-host qualification is claimed from a shared
+    # runner — the lane proves the rigs RUN and replay, and that schedule
+    # mismatches cannot regress silently. No bless env is set anywhere.
+    name: PG-5/PG-6 release-perf producers
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      CARGO_TARGET_DIR: target/pg56
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+
+      - name: Cache cargo
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/pg56
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-pg56-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+
+      - name: Run the release-perf PG-5/PG-6 producers
+        run: cargo test --profile release-perf --locked -p fmn-conformance --test perf_pg5 --test perf_pg6 -- --ignored
+
+      - name: Upload the producer traces
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: pg56-producer-traces
+          path: crates/fmn-conformance/tests/artifacts/perf/
+          if-no-files-found: warn

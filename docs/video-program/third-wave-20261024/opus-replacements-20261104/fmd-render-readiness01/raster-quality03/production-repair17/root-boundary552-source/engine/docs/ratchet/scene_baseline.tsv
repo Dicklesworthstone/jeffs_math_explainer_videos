@@ -1,0 +1,8 @@
+# The corpus scene-sweep ratchet (fm-5wq.14), enforced by
+# crates/fmn-conformance/tests/scene_ratchet.rs against scene_outcomes.tsv.
+# denominator: Scene classes the sweep enumerates in scripts/videos_ref/_2020-_2026
+# at the pinned 3b1b/videos tree; a corpus re-pin changes it deliberately.
+# ok_floor: the committed sweep may not report fewer ok scenes. Raise it with
+# each published sweep; lowering it needs a written reason in the same commit.
+denominator	2814
+ok_floor	1052

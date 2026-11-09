@@ -1,0 +1,80 @@
+name: Native mathematical documents
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-markdown.yml'
+      - 'crates/fmn-library/src/markdown*.rs'
+      - 'crates/fmn-library/tests/markdown_documents.rs'
+      - 'crates/fmn-library/src/text.rs'
+      - 'crates/fmn-library/src/tex.rs'
+      - 'crates/fmn-python/src/portal_markdown.rs'
+      - 'crates/fmn-python/src/portal_typography.rs'
+      - 'crates/fmn-python/python/fmn_python/markdown.py'
+      - 'crates/fmn-python/tests/native_math_markdown.py'
+      - 'crates/fmn-python/tests/markdown_documents.py'
+      - 'crates/fmn-python/tests/markdown_restoration.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-mathematical-documents
+  cancel-in-progress: false
+jobs:
+  markdown:
+    if: github.repository == 'Dicklesworthstone/franken_manim'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Native document and typography regression
+        run: |
+          set -euo pipefail
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          cargo test --locked -p fmn-library --test markdown_documents --test code_and_markdown --test text_authoring 2>&1 | tee /tmp/markdown-native.log
+          cargo clippy --locked -p fmn-library --all-targets -- -D warnings 2>&1 | tee /tmp/markdown-library-clippy.log
+          cargo clippy --locked -p fmn-python --lib -- -D warnings 2>&1 | tee /tmp/markdown-clippy.log
+      - name: Build and exercise native documents
+        run: |
+          set -euo pipefail
+          python -m maturin build --locked --interpreter python --profile dev --out target/markdown-wheel 2>&1 | tee /tmp/markdown-build.log
+          python -m venv target/markdown-venv
+          target/markdown-venv/bin/python -m pip install 'numpy==2.5.2' target/markdown-wheel/*.whl
+          for suite in native_math_markdown markdown_documents markdown_restoration native_markdown live_markdown text_authoring code_authoring portal_initialization; do
+            target/markdown-venv/bin/python -I "crates/fmn-python/tests/$suite.py" 2>&1 | tee "/tmp/markdown-$suite.log"
+          done
+      - name: Preserve exact source and evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/markdown-source-sha.txt
+          git diff --exit-code
+          git archive --format=tar.gz HEAD > /tmp/markdown-source.tar.gz
+          for path in crates/fmn-library/src/markdown*.rs crates/fmn-library/tests/markdown_documents.rs crates/fmn-python/src/portal_markdown.rs; do
+            rustfmt --edition 2024 --config skip_children=true --emit stdout "$path" > "/tmp/markdown-formatted-$(basename "$path")"
+          done
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-markdown-${{ github.run_id }}
+          path: |
+            /tmp/markdown-*
+            target/markdown-wheel/*.whl
+          retention-days: 3

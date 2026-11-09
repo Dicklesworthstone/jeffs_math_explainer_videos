@@ -1,0 +1,33 @@
+# A real macOS sysctl recording for HardwareTopology::detect_macos
+# (fm-macos-hardware-topology-l29x).
+# Machine: Apple M4 Pro (10 performance + 4 efficiency cores),
+# macOS 26.2 (25C56), aarch64.
+# Every non-comment line is the unedited stdout of:
+#   sysctl hw.packages hw.physicalcpu hw.logicalcpu hw.memsize hw.cacheconfig hw.l2cachesize hw.nperflevels hw.perflevel0 hw.perflevel1
+# (stdout SHA-256 3facb90b23bbdf2dd257919850d1fa3b156dfb25988fc60b2375a2c4e8c92c07).
+# Lines are sysctl(8) "name: value" pairs; "#" lines are comments.
+hw.packages: 1
+hw.physicalcpu: 14
+hw.logicalcpu: 14
+hw.memsize: 68719476736
+hw.cacheconfig: 14 1 4 0 0 0 0 0 0 0
+hw.l2cachesize: 4194304
+hw.nperflevels: 2
+hw.perflevel0.physicalcpu: 10
+hw.perflevel0.physicalcpu_max: 10
+hw.perflevel0.logicalcpu: 10
+hw.perflevel0.logicalcpu_max: 10
+hw.perflevel0.l1icachesize: 196608
+hw.perflevel0.l1dcachesize: 131072
+hw.perflevel0.l2cachesize: 16777216
+hw.perflevel0.cpusperl2: 5
+hw.perflevel0.name: Performance
+hw.perflevel1.physicalcpu: 4
+hw.perflevel1.physicalcpu_max: 4
+hw.perflevel1.logicalcpu: 4
+hw.perflevel1.logicalcpu_max: 4
+hw.perflevel1.l1icachesize: 131072
+hw.perflevel1.l1dcachesize: 65536
+hw.perflevel1.l2cachesize: 4194304
+hw.perflevel1.cpusperl2: 4
+hw.perflevel1.name: Efficiency

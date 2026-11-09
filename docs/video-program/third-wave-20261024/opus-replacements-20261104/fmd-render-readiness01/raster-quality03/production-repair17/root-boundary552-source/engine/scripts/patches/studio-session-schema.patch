@@ -1,0 +1,12 @@
+diff --git a/API_OVERLAY.tsv b/API_OVERLAY.tsv
+--- a/API_OVERLAY.tsv
++++ b/API_OVERLAY.tsv
+@@ -17,7 +17,7 @@
+ 
+ [meta]
+ overlay_version	1
+-ledger_reviewed_digest	c44adfd61e5e19d75baf965576b862f31292bcce7e48310c513bbf2052ed340e
++ledger_reviewed_digest	44ce27d59d4ecb55dcf0ee26aa566e5678ec4dbbe46179a385e2d470a01280d8
+ 
+ # ---------------------------------------------------------------------------
+ # [canonical] — Appendix C ruling C-9: public-surface typos.

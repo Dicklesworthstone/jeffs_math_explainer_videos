@@ -1,0 +1,91 @@
+name: Native retained stroke profiles
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/stroke-profiles.yml'
+      - 'scripts/patches/stroke-profiles.patch.gz'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: stroke-profiles
+  cancel-in-progress: false
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Apply reviewed native implementation
+        run: |
+          set -euo pipefail
+          gzip -dc scripts/patches/stroke-profiles.patch.gz > /tmp/stroke-profiles.patch
+          echo "78860561bb6257063a586176eacbd7b5adb1b18d579d77deb70c084c554ece4f  /tmp/stroke-profiles.patch" | sha256sum --check
+          if ! grep -q '^pub mod stroke_profile;' crates/fmn-render/src/lib.rs; then
+            git apply --check /tmp/stroke-profiles.patch
+            git apply /tmp/stroke-profiles.patch
+          fi
+          rustup show active-toolchain
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-render/src/{bin,engine,lib,metal,plan,snapshot,stroke,stroke_profile,table,three_d}.rs crates/fmn-render/tests/stroke_profiles.rs
+          git diff --check
+      - name: Native profile and retained pixel contracts
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-render --lib stroke_profile 2>&1 | tee /tmp/stroke-profile-kernels.log
+          cargo test --locked -p fmn-render --test stroke_profiles 2>&1 | tee /tmp/stroke-profile-pixels.log
+          cargo test --locked -p fmn-render --lib 2>&1 | tee /tmp/stroke-profile-renderer.log
+          cargo check --locked -p fmn-render --features metal --lib 2>&1 | tee /tmp/stroke-profile-metal-check.log
+      - name: Build and validate a clean native wheel
+        run: |
+          set -euo pipefail
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          python -m maturin build --locked --interpreter python --profile dev --out target/stroke-profile-wheel 2>&1 | tee /tmp/stroke-profile-build.log
+          python -m venv target/stroke-profile-venv
+          target/stroke-profile-venv/bin/python -m pip install 'numpy==2.5.2' target/stroke-profile-wheel/*.whl
+          for suite in stroke_profile_pixels streamline_authoring streamline_rebuild live_vector_fields portal_initialization; do
+            target/stroke-profile-venv/bin/python -I crates/fmn-python/tests/$suite.py 2>&1 | tee /tmp/stroke-profile-$suite.log
+          done
+      - name: Land verified implementation directly on main
+        run: |
+          set -euo pipefail
+          git add crates/fmn-render/src/{bin,engine,lib,metal,plan,snapshot,stroke,stroke_profile,table,three_d}.rs crates/fmn-render/tests/stroke_profiles.rs crates/fmn-python/tests/stroke_profile_pixels.py
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(render): retain full stroke profiles through analytic CPU rendering and cache identity'
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
+          fi
+      - name: Preserve exact source and build evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/stroke-profile-source-sha.txt
+          git archive --format=tar.gz HEAD > /tmp/stroke-profile-source.tar.gz
+          git diff > /tmp/stroke-profile-working.patch
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: stroke-profiles-${{ github.sha }}
+          path: |
+            /tmp/stroke-profile-*
+            target/stroke-profile-wheel/*.whl
+          retention-days: 3

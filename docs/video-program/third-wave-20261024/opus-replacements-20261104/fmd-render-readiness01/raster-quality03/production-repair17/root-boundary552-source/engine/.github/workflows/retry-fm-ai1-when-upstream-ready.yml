@@ -1,0 +1,73 @@
+name: Retry fm-ai1 When Upstream Is Ready
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/retry-fm-ai1-when-upstream-ready.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: retry-fm-ai1-upstream-readiness
+  cancel-in-progress: false
+
+jobs:
+  handoff:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Wait for the tested upstream authority commit
+        id: upstream
+        shell: bash
+        run: |
+          set -euo pipefail
+          ready=0
+          upstream_sha=""
+          for _ in $(seq 1 80); do
+            upstream_sha="$(git ls-remote https://github.com/Dicklesworthstone/franken_numpy.git refs/heads/main | awk '{print $1}')"
+            random_url="https://raw.githubusercontent.com/Dicklesworthstone/franken_numpy/${upstream_sha}/crates/fnp-random/src/lib.rs"
+            migration_url="https://raw.githubusercontent.com/Dicklesworthstone/franken_numpy/${upstream_sha}/.github/workflows/centralize-pcg64dxsm.yml"
+            if curl --fail --silent --show-error "$random_url" | grep -Fq 'core: fnp_random_core::Pcg64Dxsm' \
+              && ! curl --fail --silent "$migration_url" >/dev/null; then
+              ready=1
+              break
+            fi
+            sleep 20
+          done
+          if [[ "$ready" -ne 1 || ! "$upstream_sha" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "FrankenNumPy did not publish the tested centralized authority" >&2
+            exit 2
+          fi
+          echo "sha=$upstream_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Retrigger or retire the downstream cutover
+        env:
+          FNP_SHA: ${{ steps.upstream.outputs.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git reset --hard origin/main
+          git config user.name "FrankenManim RNG Handoff"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if [[ -e .github/workflows/complete-fm-ai1.yml ]]; then
+            marker="# upstream-ready-retry: ${FNP_SHA}"
+            grep -Fq "$marker" .github/workflows/complete-fm-ai1.yml || printf '\n%s\n' "$marker" >> .github/workflows/complete-fm-ai1.yml
+            git rm .github/workflows/retry-fm-ai1-when-upstream-ready.yml
+            git add .github/workflows/complete-fm-ai1.yml
+            git commit -m "ci(core): retrigger fm-ai1 on centralized upstream" -m "Bind the retry to FrankenNumPy ${FNP_SHA}; the complete cutover workflow still performs every semantic, closure, wasm, documentation, and full-Gauntlet check before product changes land."
+          else
+            git rm .github/workflows/retry-fm-ai1-when-upstream-ready.yml
+            git commit -m "ci(core): retire completed fm-ai1 handoff" -m "The downstream cutover already landed while the readiness handoff was running."
+          fi
+          git push origin HEAD:main

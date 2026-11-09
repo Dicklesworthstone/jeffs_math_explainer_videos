@@ -1,0 +1,14 @@
+# schema: fmn-python-wheel-size/v1
+# budget: each compressed platform wheel must be <= 10485760 bytes (10 MiB)
+# source artifacts are retained outside the repository; this ledger records immutable identities
+version	wheel_tag	bytes	budget_bytes	sha256	verdict	provenance
+0.1.0	cp313-cp313-manylinux_2_34_x86_64	3255554	10485760	d8d75e1d92ab5972260c7d30be77b5af75c6855d04db8a0f3cbd17e58e0acb5d	pass	commit-5cdc8cbb03a78f0207b95026317b0a2d2ce9b321-cpython-3.13.7
+0.1.0	cp313-cp313-manylinux_2_34_x86_64	3626309	10485760	fd75aa17026f4e7afd50b9c4bb3d01b7a8336ebbd96e9f33fd0d96fb05cbf9c6	pass	commit-4dcdcfe8590065782f6b559fb9e0b47e11f881d8-cpython-3.13.1-production-png-smoke
+0.1.0	cp313-cp313-macosx_11_0_arm64	3525607	10485760	9db0a64995b76185b978ca1b25e547b934df34cb1b629277e09c3544978f4651	pass	commit-4dcdcfe8590065782f6b559fb9e0b47e11f881d8-macos-26.2-arm64-cpython-3.13.9-production-png-smoke
+0.1.0	cp313-cp313-win_amd64	3579688	10485760	1f92a7f333ecc71ba8f3c109f31c0c529363d6171169a67fc44a0ce81303c040	pass	commit-4dcdcfe8590065782f6b559fb9e0b47e11f881d8-windows-11-x86_64-cpython-3.13.15-production-png-smoke
+0.2.0	cp313-cp313-manylinux_2_34_x86_64	3626368	10485760	7e4b01abfb8697a2b4f6fddb3a4b87ff5bab287722458eeb17df7afb28d8b1f7	pass	tag-v0.2.0-commit-88b431e17d8e1cf3c3b09d91b82b6ae06f2f3ba9-cpython-3.13.1-production-png-smoke
+0.2.0	cp313-cp313-macosx_11_0_arm64	3525532	10485760	463ac35e0aff55d3801b9d7fbde8d379403b57eb941caed15384f770af8ea30f	pass	tag-v0.2.0-commit-88b431e17d8e1cf3c3b09d91b82b6ae06f2f3ba9-macos-26.2-arm64-cpython-3.13.9-production-png-smoke
+0.2.0	cp313-cp313-win_amd64	3579650	10485760	26bc556328b999cffc53bc9926c1dcf6b79d380db6972b30c55b7360e34769c2	pass	tag-v0.2.0-commit-88b431e17d8e1cf3c3b09d91b82b6ae06f2f3ba9-windows-11-x86_64-cpython-3.13.15-production-png-smoke
+0.3.0	cp313-cp313-manylinux_2_34_x86_64	3701690	10485760	5c52ba3b0fc26fa74de36c0406dc6c0fed02dd0dc7f145900ae0273f9a8c6785	pass	tag-v0.3.0-commit-82c3daa84129e31d742e691e3835366b7356d1c4-cpython-3.13.1-production-sequence-final-png-smoke-fresh-download
+0.3.0	cp313-cp313-macosx_11_0_arm64	3589233	10485760	1adb262a99a119490744e7eae5c4ec352d2faa84b1c75a4de003fa444e065a51	pass	tag-v0.3.0-commit-82c3daa84129e31d742e691e3835366b7356d1c4-macos-26.2-arm64-cpython-3.13.9-production-sequence-final-png-smoke
+0.3.0	cp313-cp313-win_amd64	3656274	10485760	375f08b8ec8dc0f5d5a0b9ed3b9c3ff6149e874ad335293426d4a25d2730457a	pass	tag-v0.3.0-commit-82c3daa84129e31d742e691e3835366b7356d1c4-windows-11-x86_64-cpython-3.13.15-production-sequence-final-png-smoke

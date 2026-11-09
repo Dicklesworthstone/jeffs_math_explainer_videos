@@ -1,0 +1,79 @@
+name: Native Studio execution
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'crates/fmn-studio/**'
+      - 'crates/fmn-scene/**'
+      - 'scripts/check_native_project_host.py'
+      - '.github/workflows/native-studio.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-studio-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  integration-sources:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Archive exact tracked integration sources
+        run: git archive --format=tar.gz --output=native-studio-source.tar.gz HEAD crates/fmn-studio
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: native-studio-source-${{ github.sha }}
+          path: native-studio-source.tar.gz
+          retention-days: 1
+          if-no-files-found: error
+  native-studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/pg5
+      RUST_BACKTRACE: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Install repository-pinned toolchain
+        run: rustup show active-toolchain
+      - name: Reuse portable native build cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/pg5
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-pg5-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      # An additional product-behavior lane, not a replacement or bypass for
+      # the repository's mandatory governance/format/closure gates in ci.yml.
+      - name: Execute native Studio library and integration tests
+        run: cargo test --locked -p fmn-studio
+      - name: Execute native editing history tests
+        if: ${{ !cancelled() }}
+        run: cargo test --locked -p fmn-scene --test interactive_history
+      - name: Run real native child and HTTP host acceptance
+        if: ${{ !cancelled() }}
+        run: cargo run --locked -p fmn-studio --example native_live -- --self-test
+      - name: Run real camera child and HTTP host acceptance
+        if: ${{ !cancelled() }}
+        run: cargo run --locked -p fmn-studio --example native_camera -- --self-test
+      - name: Execute real Cargo project rebuild and HTTP acceptance
+        if: ${{ !cancelled() }}
+        run: |
+          cargo test --locked -p fmn-studio --features native-build --test project_cargo --test project_cargo_config -- --nocapture
+          cargo build --locked -p fmn-studio --features native-build --example native_project
+      - name: Exercise automatic source watching in the actual project host
+        run: |
+          python3 scripts/check_native_project_host.py \
+            --host target/pg5/debug/examples/native_project \
+            --cargo "$(rustup which cargo)"

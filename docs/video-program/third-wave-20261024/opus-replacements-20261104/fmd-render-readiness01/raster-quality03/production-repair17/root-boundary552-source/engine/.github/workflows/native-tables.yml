@@ -1,0 +1,80 @@
+name: Native data tables
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-tables.yml'
+      - 'crates/fmn-library/src/data_mobjects.rs'
+      - 'crates/fmn-library/src/markdown.rs'
+      - 'crates/fmn-python/src/portal_table.rs'
+      - 'crates/fmn-python/src/portal_typography.rs'
+      - 'crates/fmn-python/python/fmn_python/table.py'
+      - 'crates/fmn-python/tests/native_table.py'
+      - 'crates/fmn-python/tests/live_table.py'
+      - 'crates/fmn-python/python/fmn_python/markdown.py'
+      - 'crates/fmn-python/tests/native_markdown.py'
+      - 'crates/fmn-python/tests/live_markdown.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-data-tables
+  cancel-in-progress: false
+jobs:
+  tables:
+    if: github.repository == 'Dicklesworthstone/franken_manim'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Native data and typography regression
+        run: |
+          set -euo pipefail
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          cargo test --locked -p fmn-library 2>&1 | tee /tmp/table-native.log
+          cargo clippy --locked -p fmn-library --all-targets -- -D warnings 2>&1 | tee /tmp/table-library-clippy.log
+      - name: Build and exercise installed tables
+        run: |
+          set -euo pipefail
+          python -m maturin build --locked --interpreter python --profile dev --out target/table-wheel 2>&1 | tee /tmp/table-build.log
+          python -m venv target/table-venv
+          target/table-venv/bin/python -m pip install 'numpy==2.5.2' target/table-wheel/*.whl
+          cargo test --locked -p fmn-python --lib markdown_tests -- --nocapture 2>&1 | tee /tmp/table-markdown-embedded.log
+          cargo clippy --locked -p fmn-python --lib -- -D warnings 2>&1 | tee /tmp/table-clippy.log
+          for suite in native_table live_table native_markdown live_markdown text_authoring matrix_authoring portal_initialization; do
+            target/table-venv/bin/python -I "crates/fmn-python/tests/$suite.py" 2>&1 | tee "/tmp/table-$suite.log"
+          done
+      - name: Preserve exact source and evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/table-source-sha.txt
+          git diff --exit-code
+          git archive --format=tar.gz HEAD > /tmp/table-source.tar.gz
+          rustfmt --edition 2024 --emit stdout crates/fmn-python/src/portal_table.rs > /tmp/table-formatted-portal_table.rs
+          rustfmt --edition 2024 --emit stdout crates/fmn-library/src/markdown.rs > /tmp/table-formatted-markdown.rs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-table-${{ github.run_id }}
+          path: |
+            /tmp/table-*
+            target/table-wheel/*.whl
+          retention-days: 3

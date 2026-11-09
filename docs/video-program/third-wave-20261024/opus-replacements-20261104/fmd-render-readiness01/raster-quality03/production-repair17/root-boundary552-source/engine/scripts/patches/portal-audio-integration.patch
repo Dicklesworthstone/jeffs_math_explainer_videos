@@ -1,0 +1,334 @@
+diff --git a/crates/fmn-python/python/fmn_python/console_rendering.py b/crates/fmn-python/python/fmn_python/console_rendering.py
+index 16041bd..e75eed9 100644
+--- a/crates/fmn-python/python/fmn_python/console_rendering.py
++++ b/crates/fmn-python/python/fmn_python/console_rendering.py
+@@ -39,3 +39,3 @@ _OUTPUT_HELP = """Native output profiles:
+   --pix_fmt FORMAT        Native wire: rgba, bgra, nv12/yuv420p, p010le.
+-  --ffmpeg_bin PATH       Explicit ffmpeg executable; paths with spaces work.
++  --ffmpeg_bin PATH       Video encoder or WAV input decoder; paths with spaces work.
+ 
+@@ -53,4 +53,6 @@ def _output_overrides(options):
+     format = options["format"]
+-    if any(name in result for name in ("vcodec", "pix_fmt", "ffmpeg_bin")) and format not in {"mp4", "mov"}:
+-        raise ValueError("--vcodec/--pix_fmt/--ffmpeg_bin require mp4 or mov output")
++    if any(name in result for name in ("vcodec", "pix_fmt")) and format not in {"mp4", "mov"}:
++        raise ValueError("--vcodec/--pix_fmt require mp4 or mov output")
++    if "ffmpeg_bin" in result and format not in {"mp4", "mov", "wav"}:
++        raise ValueError("--ffmpeg_bin requires mp4, mov, or wav output")
+     if result.get("transparent"):
+diff --git a/crates/fmn-python/python/fmn_python/rendering.py b/crates/fmn-python/python/fmn_python/rendering.py
+index fe530c3..14b62db 100644
+--- a/crates/fmn-python/python/fmn_python/rendering.py
++++ b/crates/fmn-python/python/fmn_python/rendering.py
+@@ -71,2 +71,3 @@ class RenderResult:
+     animation_range: tuple[int, int | None] | None = None
++    audio_inputs: tuple[dict[str, Any], ...] = ()
+ 
+@@ -81,2 +82,3 @@ class RenderResult:
+             "ffmpeg_invocations": copy.deepcopy(list(self.ffmpeg_invocations)),
++            "audio_inputs": copy.deepcopy(list(self.audio_inputs)),
+         }
+@@ -216,9 +218,11 @@ class RenderSession:
+         )
+-        if self.format in _VIDEO_FORMATS:
++        if self.format in _VIDEO_FORMATS or self.format == "wav":
+             try:
+-                self.result = replace(self.result, ffmpeg_invocations=tuple(
+-                    copy.deepcopy(self.scene._render_invocations),
+-                ))
++                self.result = replace(
++                    self.result,
++                    ffmpeg_invocations=tuple(copy.deepcopy(self.scene._render_invocations)),
++                    audio_inputs=tuple(copy.deepcopy(self.scene._render_audio_inputs)),
++                )
+             except BaseException as error:
+-                error.add_note(f"native artifact is already published at {path}; ffmpeg provenance could not be read")
++                error.add_note(f"native artifact is already published at {path}; media provenance could not be read")
+                 raise
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+index ea85fb1..9f7f255 100644
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -20,2 +20,3 @@ mod method_cache;
+ pub mod perf_harness;
++mod portal_audio;
+ mod portal_playback;
+@@ -124,2 +125,3 @@ struct PortalArtifactReport {
+     invocations: Vec<fmn_output::InvocationReport>,
++    audio_inputs: Vec<portal_audio::PortalAudioInput>,
+ }
+@@ -134,2 +136,3 @@ impl From<NativeArtifactReport> for PortalArtifactReport {
+             invocations: Vec::new(),
++            audio_inputs: Vec::new(),
+         }
+@@ -154,2 +157,3 @@ enum PortalRenderSession {
+         timeline: OutputTimeline,
++        audio: Box<portal_audio::PortalAudio>,
+     },
+@@ -158,2 +162,3 @@ enum PortalRenderSession {
+ impl PortalRenderSession {
++    #[allow(clippy::too_many_arguments)]
+     fn new(
+@@ -166,2 +171,3 @@ impl PortalRenderSession {
+         video: Option<portal_video::PortalVideoConfig>,
++        audio: Box<portal_audio::PortalAudio>,
+     ) -> PyResult<(Self, RuntimeConfig)> {
+@@ -177,2 +183,3 @@ impl PortalRenderSession {
+                     video,
++                    audio,
+                 )?;
+@@ -198,2 +205,3 @@ impl PortalRenderSession {
+                         timeline: OutputTimeline::default(),
++                        audio,
+                     },
+@@ -248,4 +256,5 @@ impl PortalRenderSession {
+                 timeline,
++                mut audio,
+             } => {
+-                let mix = mix_portal_soundtrack(scene, threads, &timeline)?.ok_or_else(|| {
++                let mix = audio.mix(scene, threads, &timeline)?.ok_or_else(|| {
+                     PyRuntimeError::new_err("WAV output requires at least one Scene.add_sound cue")
+@@ -279,3 +288,4 @@ impl PortalRenderSession {
+                         digest: report.digest,
+-                        invocations: Vec::new(),
++                        invocations: audio.invocations(),
++                        audio_inputs: std::mem::take(&mut audio.inputs),
+                     },
+@@ -289,53 +299,2 @@ impl PortalRenderSession {
+ 
+-fn mix_portal_soundtrack(
+-    scene: &Scene,
+-    threads: usize,
+-    timeline: &OutputTimeline,
+-) -> PyResult<Option<fmn_output::MixReport>> {
+-    let requests = scene.sound_requests();
+-    if requests.is_empty() {
+-        return Ok(None);
+-    }
+-    let config = fmn_output::MixerConfig::default();
+-    let time = scene.time();
+-    let timeline_frames = fmn_output::frames_to_samples(
+-        timeline.output_frame(time.frames())?,
+-        time.fps(),
+-        config.sample_rate,
+-    )
+-    .map_err(native_error)?;
+-    let mut mixer = fmn_output::SoundMixer::new(config)
+-        .map_err(native_error)?
+-        .with_timeline_frames(u64::try_from(timeline_frames).map_err(native_error)?);
+-    let fs = fmn_platform::fs::StdFs;
+-    for request in requests {
+-        let bytes =
+-            fmn_platform::fs::FileSystem::read_bounded(&fs, &request.sound_file, 64 * 1024 * 1024)
+-                .map_err(|error| {
+-                    PyOSError::new_err(format!(
+-                        "sound cue {}: {error}",
+-                        request.sound_file.display(),
+-                    ))
+-                })?;
+-        let audio =
+-            fmn_codec::decode_wav(&bytes, &fmn_codec::WavLimits::default()).map_err(|error| {
+-                PyValueError::new_err(format!(
+-                    "sound cue {} is not decodable PCM WAV: {error}",
+-                    request.sound_file.display(),
+-                ))
+-            })?;
+-        mixer
+-            .add(fmn_output::SoundCue {
+-                audio,
+-                frame: timeline.output_frame(request.time.frames())?,
+-                fps: request.time.fps(),
+-                time_offset: request.time_offset,
+-                gain: request.gain,
+-                gain_to_background: request.gain_to_background,
+-            })
+-            .map_err(native_error)?;
+-    }
+-    mixer.mix(threads).map(Some).map_err(native_error)
+-}
+-
+ /// One fmn-python render generation, retained across every `play` and `wait`.
+@@ -350,2 +309,3 @@ struct PortalFrameSession {
+     soundtrack: Option<fmn_output::FfmpegSoundtrack>,
++    audio: Box<portal_audio::PortalAudio>,
+     light_mob: Option<Mob>,
+@@ -367,2 +327,3 @@ impl PortalFrameSession {
+         video: Option<portal_video::PortalVideoConfig>,
++        audio: Box<portal_audio::PortalAudio>,
+     ) -> PyResult<(Self, RuntimeConfig)> {
+@@ -648,2 +609,3 @@ impl PortalFrameSession {
+                 soundtrack,
++                audio,
+                 light_mob: None,
+@@ -746,3 +708,3 @@ impl PortalFrameSession {
+             soundtrack
+-                .finish(mix_portal_soundtrack(
++                .finish(self.audio.mix(
+                     scene,
+@@ -758,3 +720,3 @@ impl PortalFrameSession {
+             .map_err(|error| PyRuntimeError::new_err(error.to_string()))?;
+-        let report = match &self.receipt {
++        let mut report: PortalArtifactReport = match &self.receipt {
+             PortalReceipt::Native(receipt) => receipt.take().map_err(native_error)?.into(),
+@@ -768,2 +730,3 @@ impl PortalFrameSession {
+                     invocations: report.boundary.invocations,
++                    audio_inputs: Vec::new(),
+                 }
+@@ -771,2 +734,7 @@ impl PortalFrameSession {
+         };
++        // The video encoder starts first; cue decodes finish before the final
++        // mux. Preserve that ordering and do not conceal external audio work.
++        let index = usize::from(!report.invocations.is_empty());
++        report.invocations.splice(index..index, self.audio.invocations());
++        report.audio_inputs = std::mem::take(&mut self.audio.inputs);
+         Ok((report, renderer.engine.closure_string(), renderer.threads))
+@@ -895,2 +863,3 @@ struct PyScene {
+     render_invocations: Vec<fmn_output::InvocationReport>,
++    render_audio_inputs: Vec<portal_audio::PortalAudioInput>,
+ }
+@@ -7636,14 +7605,4 @@ fn begin_portal_render(slf: &Bound<'_, PyScene>, request: PortalRenderRequest) -
+     }
+-    let render_slot = {
+-        let scene = slf.borrow();
+-        if !scene.proxies.borrow().is_empty()
+-            || !scene.engine.borrow().stage().roots().is_empty()
+-            || scene.engine.borrow().stage().time() != 0.0
+-        {
+-            return Err(PyRuntimeError::new_err(
+-                "render configuration must be installed before Scene construction mutates engine state",
+-            ));
+-        }
+-        Arc::clone(&scene.render)
+-    };
++    portal_video::check_scene_ownership(slf)?;
++    let render_slot = Arc::clone(&slf.borrow().render);
+     let video = match &format {
+@@ -7660,2 +7619,4 @@ fn begin_portal_render(slf: &Bound<'_, PyScene>, request: PortalRenderRequest) -
+     };
++    let audio = portal_audio::PortalAudio::from_scene(slf, &format, video.as_ref())?;
++    portal_video::check_scene_ownership(slf)?;
+     let (session, runtime_config) = PortalRenderSession::new(
+@@ -7668,2 +7629,3 @@ fn begin_portal_render(slf: &Bound<'_, PyScene>, request: PortalRenderRequest) -
+         video,
++        audio,
+     )?;
+@@ -7695,2 +7657,3 @@ fn begin_portal_render(slf: &Bound<'_, PyScene>, request: PortalRenderRequest) -
+         scene.render_invocations.clear();
++        scene.render_audio_inputs.clear();
+     }
+@@ -7712,2 +7675,3 @@ impl PyScene {
+             render_invocations: Vec::new(),
++            render_audio_inputs: Vec::new(),
+         })
+@@ -7878,3 +7842,7 @@ impl PyScene {
+         let (report, engine, threads) = session.finish(&engine.borrow())?;
+-        slf.borrow_mut().render_invocations = report.invocations;
++        {
++            let mut scene = slf.borrow_mut();
++            scene.render_invocations = report.invocations;
++            scene.render_audio_inputs = report.audio_inputs;
++        }
+         Ok((
+@@ -7889,2 +7857,7 @@ impl PyScene {
+ 
++    #[getter]
++    fn _render_audio_inputs(slf: &Bound<'_, Self>) -> PyResult<Py<PyList>> {
++        portal_audio::input_facts(slf)
++    }
++
+     #[getter]
+@@ -8071,2 +8044,10 @@ impl PyScene {
+         }
++        let mut sound_file = PathBuf::from(sound_file);
++        let active = slf.borrow().render.lock()
++            .map_err(|_| PyRuntimeError::new_err("portal render session lock was poisoned"))?
++            .is_some();
++        if active && sound_file.is_relative() {
++            sound_file = std::env::current_dir().map_err(|error| PyOSError::new_err(error.to_string()))?
++                .join(sound_file);
++        }
+         let engine = Rc::clone(&slf.borrow().engine);
+diff --git a/crates/fmn-python/src/portal_video.rs b/crates/fmn-python/src/portal_video.rs
+index fabd486..64d0657 100644
+--- a/crates/fmn-python/src/portal_video.rs
++++ b/crates/fmn-python/src/portal_video.rs
+@@ -72,3 +72,3 @@ impl PortalVideoConfig {
+ 
+-fn check_scene_ownership(scene: &Bound<'_, PyScene>) -> PyResult<()> {
++pub(crate) fn check_scene_ownership(scene: &Bound<'_, PyScene>) -> PyResult<()> {
+     let scene = scene.try_borrow()?;
+@@ -87,2 +87,3 @@ fn check_scene_ownership(scene: &Bound<'_, PyScene>) -> PyResult<()> {
+         || scene.engine.borrow().stage().time() != 0.0
++        || !scene.engine.borrow().sound_requests().is_empty()
+     {
+@@ -158,3 +159,3 @@ fn video_job(
+     // Both ordinary container paths encode 4:2:0, even for an RGBA input wire.
+-    if !transparent && (width % 2 != 0 || height % 2 != 0) {
++    if !transparent && (!width.is_multiple_of(2) || !height.is_multiple_of(2)) {
+         return Err("ordinary video requires even width and height for 4:2:0 output".into());
+diff --git a/crates/fmn-python/tests/native_outputs.py b/crates/fmn-python/tests/native_outputs.py
+index ee1f1e0..2260c4a 100644
+--- a/crates/fmn-python/tests/native_outputs.py
++++ b/crates/fmn-python/tests/native_outputs.py
+@@ -409,3 +409,3 @@ for scene_name, failure_code, message in (
+     ("MissingSound", 6, "missing.wav"),
+-    ("MalformedSound", 6, "not decodable PCM WAV"),
++    ("MalformedSound", 6, "unrecognized audio container"),
+     ("OversizedSound", 6, "budget"),
+diff --git a/crates/fmn-python/tests/test_batch_rendering_protocol.py b/crates/fmn-python/tests/test_batch_rendering_protocol.py
+index c508750..11ed9e0 100644
+--- a/crates/fmn-python/tests/test_batch_rendering_protocol.py
++++ b/crates/fmn-python/tests/test_batch_rendering_protocol.py
+@@ -43,2 +43,3 @@ class Scene:
+         self._render_invocations = [{"argv": ["ffmpeg", "input"]}]
++        self._render_audio_inputs = []
+         self.kwargs = kwargs
+diff --git a/crates/fmn-python/tests/test_console_rendering_protocol.py b/crates/fmn-python/tests/test_console_rendering_protocol.py
+index ebea182..40048f0 100644
+--- a/crates/fmn-python/tests/test_console_rendering_protocol.py
++++ b/crates/fmn-python/tests/test_console_rendering_protocol.py
+@@ -58,2 +58,3 @@ def native_fixture():
+             self.active = self.published = False
++            self._render_audio_inputs = []
+ 
+@@ -157,2 +158,18 @@ class ConsoleRenderingProtocol(unittest.TestCase):
+ 
++    def test_audio_decoder_path_reaches_wav_writer(self):
++        code, report, _, _ = self.render("--format", "wav", "--ffmpeg_bin", "tools/decoder with spaces")
++        self.assertEqual(code, 0)
++        self.assertEqual(self.native.instances[0].file_writer.ffmpeg_bin,
++                         str(self.root / "tools/decoder with spaces"))
++        self.assertEqual(report["audio_inputs"], [])
++        self.assertEqual(report["ffmpeg_invocations"], [{"fixture": True}])
++
++    def test_video_codec_and_pixel_format_are_not_audio_decode_options(self):
++        for option, value in (("--vcodec", "aac"), ("--pix_fmt", "rgba")):
++            with self.subTest(option=option):
++                code, report, _, _ = self.render("--format", "wav", option, value)
++                self.assertEqual(code, 2)
++                self.assertIn("require mp4 or mov", report["message"])
++        self.assertEqual(self.native.instances, [])
++
+     def test_single_uses_actual_session_and_native_finish_signature(self):
+diff --git a/crates/fmn-python/tests/test_render_session_protocol.py b/crates/fmn-python/tests/test_render_session_protocol.py
+index f40dc93..3f8ae2b 100644
+--- a/crates/fmn-python/tests/test_render_session_protocol.py
++++ b/crates/fmn-python/tests/test_render_session_protocol.py
+@@ -45,2 +45,3 @@ class Scene:
+         self._render_invocations = [{"argv": ["ffmpeg", "-i", "pipe:0"]}]
++        self._render_audio_inputs = []
+ 
+@@ -88,2 +89,13 @@ class RenderSessionTests(unittest.TestCase):
+ 
++    def test_audio_decode_receipt_is_available_for_wav_and_detached_from_native(self):
++        self.scene._render_audio_inputs = [{"source_sha256": "a" * 64, "decoder": "ffmpeg"}]
++        result = render_scene(self.scene, "soundtrack.wav", threads=1)
++        self.assertEqual(result.sample_frames, 4800)
++        self.assertEqual(result.ffmpeg_invocations[0]["argv"], ["ffmpeg", "-i", "pipe:0"])
++        self.scene._render_audio_inputs[0]["source_sha256"] = "changed"
++        self.assertEqual(result.audio_inputs[0]["source_sha256"], "a" * 64)
++        report = result.as_dict()
++        report["audio_inputs"][0]["source_sha256"] = "changed again"
++        self.assertEqual(result.audio_inputs[0]["source_sha256"], "a" * 64)
++
+     def test_imperative_context_publishes_one_native_receipt(self):

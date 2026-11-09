@@ -1,0 +1,336 @@
+diff --git a/crates/fmn-studio/src/studio.js b/crates/fmn-studio/src/studio.js
+index 94a7ada..46911e3 100644
+--- a/crates/fmn-studio/src/studio.js
++++ b/crates/fmn-studio/src/studio.js
+@@ -13,14 +13,14 @@
+   const MAX_JSON = 8 * 1024 * 1024, MAX_PNG = 64 * 1024 * 1024;
+   const state = {snapshot: null, overlay: null, selected: null, collapsed: new Set(),
+     shown: null, expected: null, busy: false, busyKind: null, pending: null, refreshNeeded: false, playing: false, connected: false,
+-    generation: null, inputs: [], restartPending: false};
++    generation: null, inputs: [], restartPending: false, savePending: false, canSave: false};
+   const safeText = value => String(value).split(capability).join("[session]").slice(0, 600);
+   function report(error) {
+     $("error").textContent = safeText(error.message || error);
+     $("error").hidden = false;
+   }
+   function clearError() { $("error").hidden = true; $("error").textContent = ""; }
+-  async function boundedBody(response, limit) {
++  async function boundedBytes(response, limit) {
+     const reader = response.body.getReader(), chunks = [];
+     let length = 0;
+     try {
+@@ -34,9 +34,25 @@
+       const bytes = new Uint8Array(length);
+       let at = 0;
+       for (const chunk of chunks) { bytes.set(chunk, at); at += chunk.length; }
+-      return new TextDecoder("utf-8", {fatal: true}).decode(bytes);
++      return bytes;
+     } finally { await reader.cancel().catch(() => {}); }
+   }
++  async function boundedBody(response, limit) {
++    return new TextDecoder("utf-8", {fatal: true}).decode(await boundedBytes(response, limit));
++  }
++  async function downloadSession() {
++    const response = await fetch("/api/session", {headers, signal: AbortSignal.timeout(30000)});
++    if (!response.ok) throw new Error(`Studio ${response.status}: ${safeText(await boundedBody(response, 8192))}`);
++    if (response.headers.get("Content-Type") !== "application/vnd.frankenmanim.studio-session") throw new Error("Unexpected saved-session content type.");
++    const bytes = await boundedBytes(response, 64 * 1024 * 1024);
++    if (bytes.length < 4 || new TextDecoder().decode(bytes.slice(0,4)) !== "FMNS") throw new Error("Invalid saved-session envelope.");
++    const hash = [...new Uint8Array(await crypto.subtle.digest("SHA-256", bytes))].map(n => n.toString(16).padStart(2,"0")).join("");
++    if (hash !== response.headers.get("X-FMN-SHA256")) throw new Error("Saved-session checksum mismatch.");
++    const url = URL.createObjectURL(new Blob([bytes], {type:"application/vnd.frankenmanim.studio-session"}));
++    const link = document.createElement("a"); link.href = url; link.download = "studio-session.fmns";
++    document.body.append(link); link.click(); link.remove();
++    setTimeout(() => URL.revokeObjectURL(url), 1000);
++  }
+   async function api(path, fields) {
+     const response = await fetch(path, {headers: fields ? {...headers,
+       "Content-Type": "application/x-www-form-urlencoded"} : headers,
+@@ -47,6 +63,7 @@
+     try { data = JSON.parse(text); } catch { if (response.ok) throw new Error("Invalid Studio JSON response."); }
+     if (!response.ok) throw new Error(`Studio ${response.status}: ${safeText(data?.message || text)}`);
+     if (path === "/api/inspect") {
++      state.canSave = response.headers.get("X-FMN-Session-Export") === "true";
+       const raw = response.headers.get("X-FMN-Worker-Generation");
+       const generation = raw !== null && /^[0-9]+$/.test(raw) ? Number(raw) : NaN;
+       if (!Number.isSafeInteger(generation) || generation < 1) throw new Error("Missing or invalid worker generation.");
+@@ -79,6 +96,7 @@
+       (!state.expected || (state.expected.frame_index === state.shown.index && state.expected.sha256 === state.shown.hash));
+   }
+   function displayState() {
++    $("save-session").disabled = !state.canSave || state.savePending || state.busyKind === "save";
+     const matched = matchesFrame(), shown = state.shown;
+     $("display").textContent = shown ? `Displayed frame ${shown.index}${matched ? " · inspector synchronized" : " · waiting for synchronized inspector / stream"}` : "Waiting for the first frame…";
+     $("display").dataset.frame = shown ? String(shown.index) : "";
+@@ -242,12 +260,13 @@
+     if (state.busy) return;
+     state.busy = true; state.busyKind = kind; $("restart").disabled = kind === "restart"; $("inspect").disabled = true;
+     try { clearError(); await operation(); }
+-    catch (error) { state.playing = false; report(error); }
++    catch (error) { state.playing = false; state.savePending = false; report(error); }
+     finally {
+       state.busy = false; state.busyKind = null; $("restart").disabled = false; $("inspect").disabled = false; $("play").textContent = state.playing ? "Pause" : "Play";
+       if (state.inputs.length) void drainInputs();
+       else if (state.restartPending) void restartWorker();
+       else if (state.pending) void drain();
++      else if (state.savePending) void saveSession();
+       else if (state.refreshNeeded) { state.refreshNeeded = false; void run(refresh); }
+     }
+   }
+@@ -263,6 +282,7 @@
+     }, "seek");
+   }
+   function seek(frame, commit = true) {
++    if (state.savePending || state.busyKind === "save") return;
+     const v = state.snapshot?.view;
+     if (!v || !Number.isSafeInteger(frame) || frame < 0 || frame >= v.frame_count) { report(new Error(`Choose an integer frame from 0 to ${v ? v.frame_count - 1 : "the available range"}.`)); return; }
+     releaseInputs();
+@@ -276,7 +296,7 @@
+     ["previous", () => Math.max(0, state.snapshot.view.frame_index - 1)], ["next", () => Math.min(state.snapshot.view.frame_count - 1, state.snapshot.view.frame_index + 1)]]) {
+     $(id).addEventListener("click", () => { state.playing = false; if (state.snapshot) seek(next()); });
+   }
+-  $("play").addEventListener("click", () => { const playing = !state.playing; releaseInputs(); state.playing = playing; $("play").textContent = state.playing ? "Pause" : "Play"; });
++  $("play").addEventListener("click", () => { if (state.savePending || state.busyKind === "save") return; const playing = !state.playing; releaseInputs(); state.playing = playing; $("play").textContent = state.playing ? "Pause" : "Play"; });
+   // Preview playback advances nominal frames; it never invents variable sampling
+   // or claims real-time rendering when the worker takes longer than a frame.
+   let lastTick = 0;
+@@ -305,9 +325,34 @@
+     }, "restart");
+   }
+   $("restart").addEventListener("click", () => {
++    if (state.savePending || state.busyKind === "save") return;
+     releaseInputs(); state.playing = false; state.pending = null; state.restartPending = true;
+     if (state.inputs.length) void drainInputs(); else void restartWorker();
+   });
++  async function saveSession() {
++    await run(async () => {
++      state.savePending = false;
++      $("save-session").disabled = true;
++      $("session-save").textContent = "Preparing committed session…";
++      try {
++        await downloadSession();
++        $("session-save").textContent = "Session download started. Reopen with --restore-session and the same scene/settings. Preview-only positions are not saved.";
++      } catch (error) { $("session-save").textContent = "Session was not downloaded."; throw error; }
++      finally { $("save-session").disabled = !state.canSave; }
++    }, "save");
++  }
++  $("save-session").addEventListener("click", () => {
++    if (!state.canSave || state.savePending || state.busyKind === "save") return;
++    // Release held modes with their original frame owner, then drain admitted
++    // input and an earlier seek. Never silently commit preview-only playback.
++    releaseInputs(); state.playing = false; state.savePending = true;
++    $("session-save").textContent = "Waiting for accepted edits…";
++    if (state.busy) return;
++    if (state.inputs.length) void drainInputs();
++    else if (state.restartPending) void restartWorker();
++    else if (state.pending) void drain();
++    else void saveSession();
++  });
+   const keyNames = {ArrowLeft:"arrow_left", ArrowRight:"arrow_right", ArrowUp:"arrow_up", ArrowDown:"arrow_down", Escape:"escape", Enter:"enter", Tab:"tab", Backspace:"backspace"};
+   // Physical ownership survives modifier/layout changes between down and up.
+   // The native key itself remains the value admitted by the original press.
+@@ -330,6 +375,7 @@
+   // transitions while a render is in flight. Do not coalesce nonlinear drags.
+   function enqueueInput(fields, owner = null, release = false) {
+     if (!supportsInput() || (!$("input-events").checked && !release)) return false;
++    if (!release && (state.savePending || state.busyKind === "save")) return false;
+     if (!owner && (state.restartPending || state.busyKind === "seek" || state.busyKind === "restart" ||
+         (!state.busy && !matchesFrame()))) {
+       report(new Error("Scene input requires a synchronized, paused preview.")); return false;
+diff --git a/crates/fmn-studio/src/ui.rs b/crates/fmn-studio/src/ui.rs
+index bc2e07c..1c490dd 100644
+--- a/crates/fmn-studio/src/ui.rs
++++ b/crates/fmn-studio/src/ui.rs
+@@ -56,7 +56,8 @@ const STUDIO_INDEX_HTML_PREFIX: &str = concat!(
+     "<title>FrankenManim Studio</title></head><body>",
+     r#"<header><div><p class="eyebrow">FRANKENMANIM</p><h1>Studio</h1></div>
+ <div class="session"><p id="worker" role="status">Connecting to worker…</p>
+-<button id="inspect">Refresh inspector</button><button id="restart">Restart worker</button></div></header>
++<button id="inspect">Refresh inspector</button><button id="restart">Restart worker</button>
++<button id="save-session" disabled>Save session</button><span id="session-save" role="status"></span></div></header>
+ <p id="error" role="alert" hidden></p>
+ <main><section class="stage" aria-label="Scene preview and timeline">
+ <div class="preview-wrap"><canvas id="preview" width="960" height="540" tabindex="0"
+diff --git a/crates/fmn-studio/tests/browser.mjs b/crates/fmn-studio/tests/browser.mjs
+index 53aa900..9cf3f54 100644
+--- a/crates/fmn-studio/tests/browser.mjs
++++ b/crates/fmn-studio/tests/browser.mjs
+@@ -1,8 +1,8 @@
+ // Real Chrome + shipped fmn Studio acceptance. No browser framework or mock
+ // server. Build fmn through RCH first, then pass its exact executable path.
+ // Usage: /usr/bin/node browser.mjs /absolute/fmn /absolute/evidence-directory
+-import {spawn, execFileSync} from "node:child_process";
+-import {mkdir, mkdtemp, readFile, writeFile} from "node:fs/promises";
++import {spawn, spawnSync, execFileSync} from "node:child_process";
++import {mkdir, mkdtemp, readFile, writeFile, open, symlink} from "node:fs/promises";
+ import {createHash} from "node:crypto";
+ import {tmpdir} from "node:os";
+ import {join, resolve} from "node:path";
+@@ -30,8 +30,8 @@ async function stop(child) {
+   const killTimer = setTimeout(() => child.kill("SIGKILL"), 10000);
+   try { await stopped; } finally { clearTimeout(timer); clearTimeout(killTimer); }
+ }
+-async function startStudio(scene) {
+-  const child = spawn(binary, ["studio","--robot","--no-browser","--resolution","384x216","--fps","8","--threads","1","@builtin",scene],
++async function startStudio(scene, extra = [], threads = "1") {
++  const child = spawn(binary, ["studio","--robot","--no-browser","--resolution","384x216","--fps","8","--threads",threads,...extra,"@builtin",scene],
+     {stdio:["pipe","pipe","pipe"], env:{...process.env, PYTHONHOME:"", PYTHONPATH:""}});
+   let stdout = "";
+   let stderr = "";
+@@ -350,8 +350,94 @@ try {
+   receipt.scenarios.push({scene:"interactive.v1",nested_selection:true,drag:true,resize:true,recolor:true,clipboard:true,undo:true,
+     pause_resume:true,restart_same_pixels:true,restart_same_state:true,initial_pixels:initialPixels,final_pixels:finalPixels,
+     refusals:refusalCases.map(([,status])=>status),unauthorized:deniedInput.status});
++
++  // Download through the actual UI, terminate the entire host (not /restart),
++  // then resume with an independent process, cache and fresh capability.
++  async function download(directory) {
++    const folder = join(output, directory); await mkdir(folder, {recursive:true});
++    await command("Browser.setDownloadBehavior", {behavior:"allow",downloadPath:folder});
++    assert.equal(await evaluate("document.getElementById('save-session').disabled"), false);
++    await click("#save-session");
++    const path = join(folder, "studio-session.fmns");
++    const bytes = await until(async () => {
++      try { const data = await readFile(path); return data.length > 4 ? data : null; } catch { return null; }
++    }, "complete browser session download");
++    assert.equal(bytes.subarray(0,4).toString(), "FMNS");
++    assert.ok(secrets.every(secret => !bytes.includes(Buffer.from(secret))), "saved data carries no session capability");
++    await until(() => evaluate("document.getElementById('session-save').textContent.includes('download started') && !document.getElementById('inspect').disabled"), "save status");
++    return {path,bytes};
++  }
++  const saved = await download("saved-session");
++  for (const headers of [{}, {"X-FMN-Capability":"0".repeat(64)}, {"X-FMN-Capability":studio.cap,"Origin":"https://untrusted.invalid"}]) {
++    const response = await fetch(new URL("/api/session",studio.url), {headers:{"User-Agent":userAgent,...headers},signal:AbortSignal.timeout(10000)});
++    assert.equal(response.status, 403, "session export retains authentication and origin checks");
++    assert.ok(!(await response.text()).includes(studio.cap));
++  }
++  const oldCapability = studio.cap, committedFrame = restoredState.view.frame_index;
++  // A transient scrub is deliberately excluded from the saved position.
++  await evaluate("document.getElementById('timeline').value='0'; document.getElementById('timeline').dispatchEvent(new Event('input',{bubbles:true}));");
++  await synchronized(0);
++  const previewSaved = await download("saved-preview");
++  assert.deepEqual(previewSaved.bytes, saved.bytes, "preview-only navigation leaves the committed archive unchanged");
+   await command("Page.navigate",{url:"about:blank"}); await stop(studio.child);
+   assert.equal(studio.child.exitCode,0); assert.equal(studio.stderr(),""); studio = null;
++  studio = await startStudio("interactive.v1", ["--restore-session",saved.path], "4");
++  assert.notEqual(studio.cap, oldCapability, "fresh host rotates the capability");
++  await command("Emulation.setDeviceMetricsOverride",{width:1280,height:1000,deviceScaleFactor:1,mobile:false});
++  await command("Page.navigate", {url:studio.url.href}); await synchronized(committedFrame);
++  assert.deepEqual((await inspect()).nodes, restoredState.nodes, "entire-host restart restores exact edited nodes");
++  assert.equal((await inspect()).view.input_revision, restoredState.view.input_revision);
++  assert.equal(await pixelHash(), finalPixels, "one-to-four-thread fresh-host resume restores exact decoded pixels");
++  const stale = await fetch(new URL("/api/session",studio.url), {headers:{"User-Agent":userAgent,"X-FMN-Capability":oldCapability},signal:AbortSignal.timeout(10000)});
++  assert.equal(stale.status,403);
++  await click("#input-events"); await evaluate("document.getElementById('preview').focus()");
++  await nativeKey("z",2);
++  assert.equal(await pixelHash(), coloredPixels, "native undo history survives closing the entire host");
++  await nativeKey("ArrowRight"); await nativeKey("ArrowRight");
++  const continuedState = await inspect(), continuedPixels = await pixelHash();
++  assert.notEqual(continuedPixels, finalPixels, "resumed scene remains editable");
++  await screenshot("interactive.v1.session-resumed.desktop.png");
++  const continued = await download("saved-continued");
++  await command("Page.navigate",{url:"about:blank"}); await stop(studio.child);
++  assert.equal(studio.child.exitCode,0); assert.equal(studio.stderr(),""); studio = null;
++  studio = await startStudio("interactive.v1", ["--restore-session",continued.path]);
++  await command("Page.navigate", {url:studio.url.href}); await synchronized(committedFrame);
++  assert.deepEqual((await inspect()).nodes, continuedState.nodes, "re-saved continuation survives a second whole-host restart");
++  assert.equal(await pixelHash(), continuedPixels);
++  await screenshot("interactive.v1.session-reopened.desktop.png");
++  await command("Page.navigate",{url:"about:blank"}); await stop(studio.child);
++  assert.equal(studio.child.exitCode,0); assert.equal(studio.stderr(),""); studio = null;
++
++  // Import refusals must happen before publishing a ready listener, without
++  // modifying the input archive or falling back to an empty scene.
++  const badPath = join(output,"damaged-session.fmns"), shortPath = join(output,"truncated-session.fmns");
++  const damaged = Buffer.from(saved.bytes); damaged[40] ^= 1; await writeFile(badPath,damaged);
++  await writeFile(shortPath,saved.bytes.subarray(0,saved.bytes.length-1));
++  const hugePath = join(output,"oversize-session.fmns");
++  const huge = await open(hugePath,"wx"); await huge.truncate(64*1024*1024+1); await huge.close();
++  const linkPath = join(output,"linked-session.fmns"); await symlink(saved.path,linkPath);
++  const rejected = [];
++  for (const [path,scene,resolution,diagnostic] of [
++    [badPath,"interactive.v1","384x216",/decode saved session/],
++    [shortPath,"interactive.v1","384x216",/decode saved session/],
++    [hugePath,"interactive.v1","384x216",/read saved session/],
++    [linkPath,"interactive.v1","384x216",/regular file/],
++    [saved.path,"circle_shift.v1","384x216",/registered live/],
++    [saved.path,"interactive.v1","192x108",/configuration/],
++  ]) {
++    const result = spawnSync(binary,["studio","--robot","--no-browser","--resolution",resolution,"--fps","8","--threads","1","--restore-session",path,"@builtin",scene],
++      {input:"",encoding:"utf8",timeout:15000,maxBuffer:65536});
++    assert.equal(result.signal,null,"invalid session must not hang");
++    assert.notEqual(result.status,0,"invalid session must refuse");
++    assert.ok(!result.stdout.includes('"kind":"studio_ready"'), "invalid session must not publish a listener");
++    assert.match(result.stdout + result.stderr,diagnostic);
++    rejected.push(result.status);
++  }
++  assert.deepEqual(await readFile(saved.path),saved.bytes,"restore never overwrites the archive");
++  receipt.scenarios.push({scene:"saved-session.v1",whole_host_restarts:2,preview_not_committed:true,
++    cross_thread_resume:true,undo_history:true,continued_editing:true,rotated_capability:true,
++    rejected_imports:rejected,session_sha256:createHash("sha256").update(saved.bytes).digest("hex"),
++    saved_frame:committedFrame,saved_pixels:finalPixels,continued_pixels:continuedPixels});
+   assert.deepEqual(receipt.browser_errors,[]);
+   receipt.passed = true;
+ } catch (error) {
+diff --git a/crates/fmn-studio/tests/input_queue.mjs b/crates/fmn-studio/tests/input_queue.mjs
+index adf78fd..41510e6 100644
+--- a/crates/fmn-studio/tests/input_queue.mjs
++++ b/crates/fmn-studio/tests/input_queue.mjs
+@@ -40,7 +40,7 @@ function fixture() {
+   const calls = [], errors = [], control = {fail:false, conflict:false};
+   const state = {snapshot:null, shown:null, expected:null, connected:true, generation,
+     inputs:[], restartPending:false, busy:false, pending:null, playing:false,
+-    collapsed:new Set(), refreshNeeded:false};
++    collapsed:new Set(), refreshNeeded:false, canSave:true, savePending:false};
+   const refresh = async () => {
+     state.generation = generation;
+     state.snapshot = {view:{frame_index:frame, frame_count:61, width:96, height:54,
+@@ -61,19 +61,47 @@ function fixture() {
+       reused_entries:revision, replayed_entries:0, reexecuted_entries:0};
+   };
+   const context = vm.createContext({$,window,document,state,api,refresh,
++    async downloadSession() { calls.push({path:'/api/session'}); if (control.failDownload) throw new Error('download refused'); },
+     clearError() {}, report(error) { errors.push(error.message); }, displayState() {},
+     matchesFrame() { return true; }, requestAnimationFrame() {}});
+   vm.runInContext(controller + '\n globalThis.queue = {enqueueInput,seek,heldKeys};', context);
+   return {$,window,document,state,calls,errors,control,release,queue:context.queue,
+     async settled() {
+       release();
+-      for (let i=0; i<1000 && (state.busy || state.inputs.length || state.restartPending || state.pending); i++) {
++      for (let i=0; i<1000 && (state.busy || state.inputs.length || state.restartPending || state.pending || state.savePending); i++) {
+         await new Promise(resolve => setImmediate(resolve));
+       }
+       assert.equal(state.busy, false, 'controller must settle');
+     }};
+ }
+ const eventCalls = f => f.calls.filter(call => call.path === '/api/event');
++test('saving drains accepted gestures and releases before exactly one export', async () => {
++  const f = fixture(), preview = f.$('preview');
++  preview.emit('keydown', {key:'g'}); preview.emit('pointerdown', {buttons:1});
++  preview.emit('pointermove', {buttons:1, clientX:60});
++  f.$('save-session').emit('click'); f.$('save-session').emit('click');
++  preview.emit('keydown', {key:'x'}); f.queue.seek(15); f.$('restart').emit('click');
++  await f.settled();
++  assert.deepEqual(f.calls.map(x => x.type || x.path), ['key_press','mouse_press','mouse_drag','mouse_release','key_release','/api/session']);
++  assert.match(f.$('session-save').textContent, /download started/);
++  assert.equal(f.state.playing, false);
++});
++test('saving waits for an admitted seek without promoting a preview to a commit', async () => {
++  const f = fixture(); f.queue.seek(12, false); f.$('save-session').emit('click');
++  await f.settled();
++  assert.deepEqual(f.calls.map(x=>x.path), ['/api/scrub','/api/session']);
++  assert.equal(f.calls[0].commit, 'false');
++});
++test('failed edits cancel queued save and failed downloads never report success', async () => {
++  const f = fixture(); f.control.fail = true;
++  f.$('preview').emit('keydown', {key:'g'}); f.$('save-session').emit('click');
++  await f.settled();
++  assert.ok(!f.calls.some(x=>x.path === '/api/session'));
++  const download = fixture(); download.control.failDownload = true;
++  download.$('save-session').emit('click'); await download.settled();
++  assert.equal(download.$('session-save').textContent, 'Session was not downloaded.');
++  assert.deepEqual(download.errors, ['download refused']);
++});
+ function gesture(f) {
+   const preview = f.$('preview');
+   preview.emit('keydown', {key:'g'});

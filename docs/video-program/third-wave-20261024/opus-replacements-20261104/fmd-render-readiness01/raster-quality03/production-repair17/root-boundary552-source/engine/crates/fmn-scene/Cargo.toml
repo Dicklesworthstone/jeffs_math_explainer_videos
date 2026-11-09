@@ -1,0 +1,19 @@
+[package]
+name = "fmn-scene"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Proscenium"
+
+[dependencies]
+fmn-core.workspace = true
+fmn-config.workspace = true
+fmn-hash.workspace = true
+fmn-platform.workspace = true
+fmn-mobject.workspace = true
+fmn-anim.workspace = true
+fmn-render.workspace = true
+
+[lints]
+workspace = true

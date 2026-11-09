@@ -1,0 +1,85 @@
+name: Repair deterministic RNG job orchestration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/repair-deterministic-rng-job-orchestration.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: implement-deterministic-rng-jobs
+  cancel-in-progress: true
+
+jobs:
+  repair:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Replace blocking dependency polling with fail-fast dispatch
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path(".github/workflows/implement-deterministic-rng-jobs.yml")
+          source = path.read_text(encoding="utf-8")
+          source = source.replace(
+              "  cancel-in-progress: false\n",
+              "  cancel-in-progress: true\n",
+              1,
+          ).replace(
+              "    timeout-minutes: 180\n",
+              "    timeout-minutes: 75\n",
+              1,
+          )
+          start_marker = "      - name: Wait for the verified replay/reservation foundation\n"
+          end_marker = "      - name: Refresh to latest canonical main and install the toolchain\n"
+          start = source.find(start_marker)
+          end = source.find(end_marker, start)
+          if start < 0 or end < 0:
+              raise SystemExit("deterministic RNG dependency guard anchors drifted")
+          replacement = "\n".join([
+              "      - name: Require the verified replay/reservation foundation",
+              "        shell: bash",
+              "        run: |",
+              "          set -euo pipefail",
+              "          receipt=\"https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/artifacts/implementation/rng-replay-tranche-final.json\"",
+              "          if curl --fail --silent \"$receipt\" | grep -Fq '\"result\": \"pass\"'; then",
+              "            exit 0",
+              "          fi",
+              "          if gh api \"repos/${GITHUB_REPOSITORY}/contents/.github/workflows/finalize-rng-replay-tranche.yml?ref=main\" >/dev/null 2>&1; then",
+              "            gh api --method POST \\",
+              "              \"repos/${GITHUB_REPOSITORY}/actions/workflows/finalize-rng-replay-tranche.yml/dispatches\" \\",
+              "              -f ref=main || true",
+              "          fi",
+              "          echo \"deterministic RNG jobs are not ready: rng-replay-tranche-final.json is absent or non-passing\" >&2",
+              "          echo \"Dispatched the finalizer once; re-run this workflow after the receipt records result=pass.\" >&2",
+              "          exit 2",
+              "",
+          ])
+          path.write_text(source[:start] + replacement + source[end:], encoding="utf-8")
+          PY
+          git diff --check
+
+      - name: Commit and publish orchestration repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "FrankenManim orchestration repair"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/workflows/implement-deterministic-rng-jobs.yml
+          git rm .github/workflows/repair-deterministic-rng-job-orchestration.yml
+          git commit -m "ci: make deterministic RNG job dependency fail fast" -m "Cancel stale attempts, dispatch the replay finalizer once, and release the runner immediately when the prerequisite receipt is not yet passing instead of polling for up to two hours."
+          git pull --rebase origin main
+          git push origin HEAD:main

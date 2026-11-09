@@ -1,0 +1,382 @@
+diff --git a/crates/fmn-conformance/tests/e2e_scenarios.rs b/crates/fmn-conformance/tests/e2e_scenarios.rs
+index 383d487..a9156ec 100644
+--- a/crates/fmn-conformance/tests/e2e_scenarios.rs
++++ b/crates/fmn-conformance/tests/e2e_scenarios.rs
+@@ -2079,6 +2079,35 @@ fn python_complex_readouts_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioE
+         .with_artifact("complex_readouts_last.png", report.last_png))
+ }
+ 
++/// Native macros retain formula spans through matching and live-number edits.
++fn python_tex_preamble_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError> {
++    let root = scenario_dir("python_tex_preamble")?;
++    let report = manimlib::run_portal_gauntlet_tex_preamble(&root, ctx.seed)
++        .map_err(|error| fail(format!("Python TeX preambles: {error}")))?;
++    let first = fmn_codec::decode_png(&report.first_png, &fmn_codec::PngLimits::default())
++        .map_err(|error| fail(format!("decode first preamble frame: {error}")))?;
++    let last = fmn_codec::decode_png(&report.last_png, &fmn_codec::PngLimits::default())
++        .map_err(|error| fail(format!("decode last preamble frame: {error}")))?;
++    if (first.width, first.height) != (192, 108)
++        || (last.width, last.height) != (192, 108)
++        || first.rgba == last.rgba
++    {
++        return Err(fail("TeX preambles did not animate native 192x108 pixels"));
++    }
++    ctx.event(
++        LogEvent::new("e2e.python.tex_preamble")
++            .field("frames", report.frame_count)
++            .field("thread_counts", report.thread_counts)
++            .field("failure_paths", report.failure_paths),
++    );
++    Ok(RunOutcome::ok()
++        .with_counter("tex_preamble_frames", report.frame_count)
++        .with_counter("tex_preamble_thread_counts", report.thread_counts)
++        .with_counter("tex_preamble_failure_paths", report.failure_paths)
++        .with_artifact("tex_preamble_first.png", report.first_png)
++        .with_artifact("tex_preamble_last.png", report.last_png))
++}
++
+ fn python_textured_surfaces_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError> {
+     let (first, last) = manimlib::run_portal_gauntlet_textures()
+         .map_err(|error| fail(format!("textured surfaces: {error}")))?;
+@@ -4745,6 +4774,30 @@ pub fn catalog() -> Vec<ScenarioSpec> {
+             ],
+         )],
+     ));
++    specs.push(spec(
++        "render_matrix.python_tex_preamble.v1",
++        ScenarioClass::RenderMatrix,
++        Surface::PythonInProcess,
++        Invocation::new(python_tex_preamble_run),
++        vec![
++            Assertion::ExitCode(0),
++            Assertion::FileInventory(vec![
++                "tex_preamble_first.png".to_owned(),
++                "tex_preamble_last.png".to_owned(),
++            ]),
++            counter_eq("tex_preamble_frames", 8),
++            counter_eq("tex_preamble_thread_counts", 3),
++            counter_eq("tex_preamble_failure_paths", 1),
++        ],
++        vec![LogExpect::span_present(
++            "e2e.python.tex_preamble",
++            vec![
++                FieldPred::u64_eq("frames", 8),
++                FieldPred::u64_eq("thread_counts", 3),
++                FieldPred::u64_eq("failure_paths", 1),
++            ],
++        )],
++    ));
+     specs.push(spec(
+         "render_matrix.python_textured_surfaces.v1",
+         ScenarioClass::RenderMatrix,
+@@ -5551,6 +5604,17 @@ fn python_complex_readouts_scenario_passes() {
+     assert!(report.is_pass(), "{}", report.summary());
+ }
+ 
++/// Native macro layout, matching, source spans and failed publication.
++#[test]
++fn python_tex_preamble_scenario_passes() {
++    let scenario = catalog()
++        .into_iter()
++        .find(|scenario| scenario.name == "render_matrix.python_tex_preamble.v1")
++        .expect("Python TeX preamble scenario is registered");
++    let report = Runner::from_env().run(scenario);
++    assert!(report.is_pass(), "{}", report.summary());
++}
++
+ /// Sampled wireframes through the native portal, renderer and PNG publisher.
+ #[test]
+ fn python_svg_scenario_passes() {
+diff --git a/crates/fmn-library/src/tex.rs b/crates/fmn-library/src/tex.rs
+index bc16bec..945ca77 100644
+--- a/crates/fmn-library/src/tex.rs
++++ b/crates/fmn-library/src/tex.rs
+@@ -153,6 +153,7 @@ impl From<TexMobject> for Mobject {
+ #[derive(Debug, Clone)]
+ pub struct Tex<'a> {
+     source: &'a str,
++    preamble: &'a str,
+     mode: Mode,
+     font_size: f64,
+     font_size_for_unit_height: f64,
+@@ -167,6 +168,7 @@ impl<'a> Tex<'a> {
+     pub fn new(source: &'a str) -> Self {
+         Self {
+             source,
++            preamble: "",
+             mode: Mode::Math(MathStyle::Text),
+             font_size: DEFAULT_FONT_SIZE,
+             font_size_for_unit_height: DEFAULT_FONT_SIZE_FOR_UNIT_HEIGHT,
+@@ -196,6 +198,14 @@ impl<'a> Tex<'a> {
+         self
+     }
+ 
++    /// Native macro declarations applied only to this formula. Spans continue
++    /// to address the original source, never the prepended definitions.
++    #[must_use]
++    pub fn preamble(mut self, preamble: &'a str) -> Self {
++        self.preamble = preamble;
++        self
++    }
++
+     /// The config's `tex.font_size_for_unit_height` — the font size at
+     /// which "0" stands one manim unit tall.
+     #[must_use]
+@@ -228,7 +238,7 @@ impl<'a> Tex<'a> {
+     /// silence, never garbage. [`TexMobjectError::Calibration`]: the
+     /// math face roster maps no measurable "0".
+     pub fn build(&self, engine: &TexEngine) -> Result<TexMobject, TexMobjectError> {
+-        let typeset = engine.typeset(self.mode, self.source)?;
++        let typeset = engine.typeset_with_preamble(self.mode, self.source, self.preamble)?;
+         let scale = calibrate(engine, self.font_size, self.font_size_for_unit_height)?;
+         // tex_to_color_map, resolved to child ordinals before
+         // construction: later entries win (the Reference's dict-update).
+@@ -281,6 +291,13 @@ impl<'a> TexText<'a> {
+         self
+     }
+ 
++    /// Native macro declarations for this text-mainland request.
++    #[must_use]
++    pub fn preamble(mut self, preamble: &'a str) -> Self {
++        self.inner = self.inner.preamble(preamble);
++        self
++    }
++
+     /// The config's `tex.font_size_for_unit_height`.
+     #[must_use]
+     pub fn font_size_for_unit_height(mut self, fsuh: f64) -> Self {
+diff --git a/crates/fmn-python/python/manimlib_bootstrap.py b/crates/fmn-python/python/manimlib_bootstrap.py
+index 5e85d45..ed2fde8 100644
+--- a/crates/fmn-python/python/manimlib_bootstrap.py
++++ b/crates/fmn-python/python/manimlib_bootstrap.py
+@@ -8174,10 +8174,9 @@ class Tex(StringMobject):
+             type(self).__name__ + "()",
+             [
+                 ("alignment", alignment != "\\centering"),
+-                ("template", template != ""),
+-                ("additional_preamble", additional_preamble != ""),
+             ],
+         )
++        _validate_tex_options(template, additional_preamble, bool(self._native_text_mode))
+         color_map = dict(t2c or {})
+         color_map.update(tex_to_color_map or {})
+         isolate = [] if isolate is None else isolate
+@@ -8220,6 +8219,8 @@ class Tex(StringMobject):
+             self.font_size,
+             native_t2c or None,
+             bool(self._native_group_single_part),
++            template,
++            additional_preamble,
+         )
+         _hang_native_children(self, specs)
+         self._validate_isolate_spans()
+@@ -10256,10 +10257,9 @@ class SingleStringTex(SVGMobject):
+             "SingleStringTex()",
+             [
+                 ("alignment", alignment != r"\centering"),
+-                ("template", template != ""),
+-                ("additional_preamble", additional_preamble != ""),
+             ],
+         )
++        _validate_tex_options(template, additional_preamble, bool(not math_mode))
+         style = dict(kwargs)
+         style.update(
+             fill_color=fill_color,
+@@ -10286,6 +10286,8 @@ class SingleStringTex(SVGMobject):
+             float(font_size),
+             None,
+             False,
++            template,
++            additional_preamble,
+         )
+         _hang_native_children(self, specs)
+         _apply_vmobject_style_kwargs(self, style)
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+index 3298642..94b30eb 100644
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -46,6 +46,10 @@ mod complex_readouts;
+ #[cfg(feature = "gauntlet")]
+ pub use complex_readouts::run_portal_gauntlet_complex_readouts;
+ 
++mod tex_preamble;
++#[cfg(feature = "gauntlet")]
++pub use tex_preamble::run_portal_gauntlet_tex_preamble;
++
+ #[cfg(feature = "gauntlet")]
+ pub use portal_svg::{PortalSvgReport, run_portal_gauntlet_svg};
+ 
+@@ -6834,6 +6838,7 @@ impl BridgeMobject {
+     /// span map, no heuristic splitting), matching the Reference's
+     /// per-`SingleStringTex` submobject structure.
+     #[allow(clippy::too_many_arguments)]
++    #[pyo3(signature = (factory, parts, separator, text_mode, font_size, t2c, group_single_part, template="", preamble=""))]
+     fn _build_tex<'py>(
+         slf: &Bound<'py, Self>,
+         factory: &Bound<'py, PyAny>,
+@@ -6843,6 +6848,8 @@ impl BridgeMobject {
+         font_size: f64,
+         t2c: Option<&Bound<'py, PyDict>>,
+         group_single_part: bool,
++        template: &str,
++        preamble: &str,
+     ) -> PyResult<Bound<'py, PyList>> {
+         let source = parts.join(separator);
+         let pairs = t2c_pairs(t2c)?;
+@@ -6850,14 +6857,16 @@ impl BridgeMobject {
+             .iter()
+             .map(|(needle, color)| (needle.as_str(), *color))
+             .collect();
+-        let built = with_tex_engine(|engine| {
++        let built = portal_typography::with_tex_template(template, |engine| {
+             if text_mode {
+                 fmn_library::TexText::new(&source)
++                    .preamble(preamble)
+                     .font_size(font_size)
+                     .t2c(&refs)
+                     .build(engine)
+             } else {
+                 fmn_library::Tex::new(&source)
++                    .preamble(preamble)
+                     .font_size(font_size)
+                     .t2c(&refs)
+                     .build(engine)
+diff --git a/crates/fmn-python/src/portal_typography.rs b/crates/fmn-python/src/portal_typography.rs
+index 4f20433..895ce2f 100644
+--- a/crates/fmn-python/src/portal_typography.rs
++++ b/crates/fmn-python/src/portal_typography.rs
+@@ -13,6 +13,58 @@ use fmn_core::color::Srgb;
+ const MAX_BYTES: usize = 262_144;
+ const MAX_ITEMS: usize = 4096;
+ 
++thread_local! {
++    static BASIC_TEX_ENGINE: std::cell::OnceCell<fmn_library::TexEngine> =
++        const { std::cell::OnceCell::new() };
++    static EMPTY_TEX_ENGINE: std::cell::OnceCell<fmn_library::TexEngine> =
++        const { std::cell::OnceCell::new() };
++}
++
++/// Reuse a bounded set of native engines; never share mutable macro state.
++pub(crate) fn with_tex_template<T>(
++    template: &str,
++    operation: impl FnOnce(&fmn_library::TexEngine) -> PyResult<T>,
++) -> PyResult<T> {
++    if template.len() > 1024 {
++        return Err(PyValueError::new_err("Tex template exceeds 1024 UTF-8 bytes"));
++    }
++    let registry = fmn_config::PackRegistry::builtin();
++    let pack = registry
++        .resolve_template(if template.is_empty() { "default" } else { template })
++        .map_err(super::tex_error)?;
++    let cell = match pack.name {
++        "default" => return super::with_tex_engine(operation),
++        "basic" => &BASIC_TEX_ENGINE,
++        "empty" => &EMPTY_TEX_ENGINE,
++        _ => return Err(super::tex_error("native Tex pack has no engine slot")),
++    };
++    cell.with(|cell| {
++        if cell.get().is_none() {
++            let engine = fmn_library::TexEngine::new(pack.content_id, None)
++                .map_err(super::tex_error)?;
++            let _ = cell.set(engine);
++        }
++        operation(cell.get().expect("initialized above"))
++    })
++}
++
++/// Admission happens before a Python constructor installs its live state.
++#[pyfunction]
++fn _validate_tex_options(template: &str, preamble: &str, text_mode: bool) -> PyResult<()> {
++    with_tex_template(template, |engine| {
++        if preamble.is_empty() {
++            return Ok(());
++        }
++        if text_mode {
++            fmn_library::TexText::new("").preamble(preamble).build(engine)
++        } else {
++            fmn_library::Tex::new("").preamble(preamble).build(engine)
++        }
++        .map(|_| ())
++        .map_err(super::tex_error)
++    })
++}
++
+ fn number(options: &Bound<'_, PyDict>, name: &str, default: f64, positive: bool) -> PyResult<f64> {
+     let value = match options.get_item(name)? {
+         Some(v) => v.extract::<f64>()?,
+@@ -244,5 +296,6 @@ fn _build_styled_text<'py>(
+ }
+ 
+ pub(crate) fn install(module: &Bound<'_, PyModule>) -> PyResult<()> {
+-    module.add_function(wrap_pyfunction!(_build_styled_text, module)?)
++    module.add_function(wrap_pyfunction!(_build_styled_text, module)?)?;
++    module.add_function(wrap_pyfunction!(_validate_tex_options, module)?)
+ }
+diff --git a/crates/fmn-python/tests/bridge.py b/crates/fmn-python/tests/bridge.py
+index 2bbc4b4..1b1bf1d 100644
+--- a/crates/fmn-python/tests/bridge.py
++++ b/crates/fmn-python/tests/bridge.py
+@@ -5880,11 +5880,9 @@ try:
+         "x",
+         template="external-latex-template",
+     )
+-except NotImplementedError as error:
+-    assert str(error) == (
+-        "SingleStringTex() keyword(s) not yet routed to the native builder: "
+-        "template"
+-    )
++except ValueError as error:
++    assert "unknown tex template" in str(error)
++    assert "available packs: default, basic, empty" in str(error)
+ else:
+     raise AssertionError("SingleStringTex accepted an external template")
+ assert not hasattr(failed_single_tex, "submobjects")
+@@ -12075,14 +12073,14 @@ assert all(
+     for leaf in mapped_tex.get_part_by_tex("x")
+ )
+ 
+-for unsupported_tex_kwargs, named_knob in [
+-    ({"alignment": r"\raggedright"}, "alignment"),
+-    ({"template": "legacy"}, "template"),
+-    ({"additional_preamble": r"\usepackage{foo}"}, "additional_preamble"),
++for unsupported_tex_kwargs, named_knob, error_type in [
++    ({"alignment": r"\raggedright"}, "alignment", NotImplementedError),
++    ({"template": "legacy"}, "template", ValueError),
++    ({"additional_preamble": r"\usepackage{foo}"}, "additional_preamble", ValueError),
+ ]:
+     try:
+         manimlib.Tex("x", **unsupported_tex_kwargs)
+-    except NotImplementedError as error:
++    except error_type as error:
+         assert named_knob in str(error)
+     else:
+         raise AssertionError(f"unsupported Tex {named_knob} silently succeeded")
+@@ -13836,7 +13834,7 @@ assert native_shape_matrix.get_row(0)[0] is native_shape_cell
+ assert native_shape_matrix.get_column(0)[0] is native_shape_cell
+ try:
+     matrix_module.TexMatrix([["x"]], tex_config={"template": "legacy"})
+-except NotImplementedError as error:
++except ValueError as error:
+     assert "template" in str(error)
+ else:
+     raise AssertionError("TexMatrix silently discarded an unsupported entry option")
+diff --git a/scripts/check_portal_runtime.sh b/scripts/check_portal_runtime.sh
+index f5da034..c219e8c 100755
+--- a/scripts/check_portal_runtime.sh
++++ b/scripts/check_portal_runtime.sh
+@@ -11,7 +11,7 @@ if not path:
+ print(f"auditing imported manimlib: {path}")
+ PY
+ 
+-for suite in decimal_authoring complex_matrix complex_readouts_render checkpoint_identity fill_profile_pixels fill_profile_animation functional_color pointwise_color pointwise_paint_integration textured_surfaces portal_initialization point_editing text_authoring code_authoring persistent_recovery fading_family bridge animation_semantics matching_transform_semantics matching_authoring composition_lifecycle camera_animation_semantics camera_motion camera_execution updater_family drawing_runtime creation_semantics subset_reveal text_reveal native_outputs programmatic_rendering runtime_provenance batch_rendering reproducible_batch builder_playback restore_playback cyclic_replace deferred_transform_playback fading_semantics movement_semantics rotation_semantics indication_semantics composite_effects tracker_interpolation live_tex live_tex_render live_rates animation_updaters native_animation_updaters deferred_animation_updaters console_rendering scene_state temporal_visualization detached_tracing_tail streamline_authoring streamline_rebuild control_interaction color_sliders scene_execution matrix_authoring source_autoreload scene_project scene_project_editor live_graphing live_vector_fields; do
++for suite in tex_preamble tex_preamble_render decimal_authoring complex_matrix complex_readouts_render checkpoint_identity fill_profile_pixels fill_profile_animation functional_color pointwise_color pointwise_paint_integration textured_surfaces portal_initialization point_editing text_authoring code_authoring persistent_recovery fading_family bridge animation_semantics matching_transform_semantics matching_authoring composition_lifecycle camera_animation_semantics camera_motion camera_execution updater_family drawing_runtime creation_semantics subset_reveal text_reveal native_outputs programmatic_rendering runtime_provenance batch_rendering reproducible_batch builder_playback restore_playback cyclic_replace deferred_transform_playback fading_semantics movement_semantics rotation_semantics indication_semantics composite_effects tracker_interpolation live_tex live_tex_render live_rates animation_updaters native_animation_updaters deferred_animation_updaters console_rendering scene_state temporal_visualization detached_tracing_tail streamline_authoring streamline_rebuild control_interaction color_sliders scene_execution matrix_authoring source_autoreload scene_project scene_project_editor live_graphing live_vector_fields; do
+     python3 - "$suite" <<'PY'
+ import pathlib
+ import runpy
+diff --git a/UPSTREAM_LEDGER.md b/UPSTREAM_LEDGER.md
+index 7f499c7..a6476c0 100644
+--- a/UPSTREAM_LEDGER.md
++++ b/UPSTREAM_LEDGER.md
+@@ -30 +30,2 @@
+ | 12 | Dependency-free SeedSequence and PCG64DXSM core, preserving NumPy bit-parity without OS entropy, arrays, parallel fills, or the shaped-distribution surface | franken_numpy · `fnp-random-core` | Jeffrey Emanuel; W1 sessions (fm-ai1) | **pinned** (consumption validated 2026-09-09 UTC) | Consumed at `SUITE.lock` pin `a15d5c32e9330b555b0a653058bcfcff22fcb4ec`; migration `843a916f` delegates primitive state to the upstream crate and preserves the RngRoot/Substream/frame-fork API and canonical name encoding. Pin-only commit `28fbce58` selects the verified upstream authority. At unchanged fmn source `43f772eeefc65a7bba7f9ffbfd998ca38c30ad02`, RCH `scripts/check.sh` returned remote/client exit 0, including the five unchanged NumPy fixture tests, governed-closure checks, native self-goldens, WASM compile axis, and Node WASM smoke (digest `1f248a71347b82aa`). The full `fnp-random` package is absent from the native lock, and `fnp-random-core` has no dependencies. Exact commands, retained logs, UBS findings, and optional gate exclusions are recorded on fm-ai1; this task closure does not adjudicate the separate release matrix or Look Gallery owner gates. |
++| 13 | Definition-nested macro argument substitution and expansion-site provenance | franken_markdown · `fmd-math` | W6; unassigned | **proposed** (2026-09-21) | At pin `82588865c453b175cb1263b36e30f5b9b1941a2e`, `Expansion::splice` calls a nested macro on raw definition-body tokens before substituting the outer parameters or rebasing their spans. `\newcommand{\sq}[1]{#1^2}\newcommand{\outer}[1]{\sq{#1}}` followed by `\outer{x}` can retain definition spans and literal parameter tokens. Even zero-argument aliases lose call-site provenance. Source-nested calls such as `\half{\sq{x}}` work. Fix substitution/rescan and token accounting upstream, test nested calls/forwarded arguments/recursion/budgets/spans, then consume through a separately reviewed pin-only Gauntlet run. `TexEngine::typeset_with_preamble` currently rejects any escaped span instead of clamping it into the formula; downstream native/portal regression tests preserve that refusal. No dependency upgrade or upstream completion is claimed. |

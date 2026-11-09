@@ -1,3 +1,17 @@
+## Boundary transfer connected to existing final jobs, 2026-11-09T20:41:19.428793+00:00
+
+- [x] Started ONE tmux complex-boundary629 (initial panePID10720) running root-boundary629-after-pictures.py SHA684a2a60fc7821113827c6f7fc48e784c96b52386551f4c4851d31cae52a2e19. Initial CSD inspection found no594/595/600 jobs or controllers; no duplicate. It waits actual stable586 and587 success, executes pinned read-only593 export, preserves new manifest629 locally/Mac/CSD, uses pinned598 to freeze594-a1, and delays source sending until guard admission. It then uses unchanged pinned600/595 materialization. No guard/resource gates weakened and no automatic retry.
+- [ ] No09 export/import/materialization launched yet; current586/588 remain owners. Actual313 final pictures40 sheets must still be viewed, review record bound through607 before master. No picture/listening/fine-sync/independent AV acceptance inferred by transfer. Transient Mac SSH connect timeout re-polled successfully: same39339 alive43m48s at370.3%CPU; no restart.
+- [x] Fresh four CC pane captures%0-%3 still show weekly limit resettingNov13 5amET. Processes/session preserved; no credit/account changes. NTM actual version1.38.0 inspected; tmux pane truth authoritative despite robot version reporting tmux_available false.
+- [ ] Existing complex12 transfer active;01/04 terminal success. Apportionment existing final/render/picture/master/verifier controllers retained. Final release gates remain open.
+
+## Apportionment publication copy prepared, 2026-11-09T20:38:21.386082+00:00
+
+- [x] Preserved482; new apportionment-publication627/title.txt is "How Adding a Seat Can Cost You One" (34characters), description2139characters, retained23 tags/source credits and Frederick Surrey credit. Full new copy manually read; no script or narration edits, no em dash, no claim of actual enacted Alabama seat loss or that every fairness combination is impossible.
+- [x] Rechecked all15 chapter starts/counts against successful repaired timeline567:100886frames, exact482 times retained. These remain provisional until master619 verified; no final master-time claim.
+- [x] Opened arXiv2202.11061v2 and Census Young26-page PDF, matched titles/authors/version. DOI tool route inaccessible; verified PubMed16592200 exact1974paper/DOI and used it in new copy. Evidence publication627/review.json; this is metadata preparation, not independent review or final release acceptance.
+- [ ] Existing complex09/apportionment614 renders and guarded import/assembly/picture/verifier controllers continue. No publication until actual final technical/picture/caption/watch checks. Listening/fine-sync/independent AV gaps unchanged.
+
 ## Complex actual assembly gates pass for seven ready chapters, 2026-11-09T20:36:09.947586+00:00
 
 - [x] Preserved578; draft625 changes only chapter10 to actual completed csd-native-stage581-10-a2, imported576-a2 and actual final picture review589 (113 pictures/15 sheets). Staged review589 hash3cc6544d8f06d94942c952eb82d0b886cbfae5b2a232d1c8762edc182d0040e7 and manifest625 hash6fde63a4029af7765491d0f38f5371feb701f954277d2cf3728d9f0ae4220942. DRAFT IS NOT MASTER READY:09 obsolete route still requires final586/587 review/import/materialization.

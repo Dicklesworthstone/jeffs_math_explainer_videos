@@ -1,0 +1,283 @@
+//! Loudness (ITU-R BS.1770 / EBU R128) and true peak, at 48 kHz.
+//!
+//! Integrated loudness gates 400 ms blocks (75% overlap) absolutely at −70 LUFS
+//! and relatively at −10 LU; momentary uses 400 ms and short-term 3 s windows.
+//! True peak oversamples 4× with a windowed-sinc interpolator.
+
+use crate::filter::Biquad;
+use crate::{FS, Stereo};
+
+/// The K-weighting pre-filter (BS.1770 stage 1 shelf + stage 2 high-pass),
+/// coefficients as published for 48 kHz.
+fn k_weight(x: &[f64]) -> Vec<f64> {
+    let mut s1 = Biquad::from_coefficients(
+        [1.535_124_859_586_97, -2.691_696_189_406_38, 1.198_392_810_852_85],
+        [-1.690_659_293_182_41, 0.732_480_774_215_85],
+    );
+    let mut s2 = Biquad::from_coefficients([1.0, -2.0, 1.0], [-1.990_047_454_833_98, 0.990_072_250_366_21]);
+    x.iter().map(|&v| s2.process(s1.process(v))).collect()
+}
+
+/// Per-block mean-square sums (both channels, weights 1) for blocks of
+/// `block` samples stepping by `step`.
+fn block_powers(audio: &Stereo, block: usize, step: usize) -> Vec<f64> {
+    let (l, r) = (k_weight(&audio.l), k_weight(&audio.r));
+    let n = audio.len();
+    if n < block {
+        return Vec::new();
+    }
+    // prefix sums of squares for O(1) window means
+    let mut pl = vec![0.0; n + 1];
+    let mut pr = vec![0.0; n + 1];
+    for i in 0..n {
+        pl[i + 1] = pl[i] + l[i] * l[i];
+        pr[i + 1] = pr[i] + r[i] * r[i];
+    }
+    (0..=(n - block) / step)
+        .map(|k| {
+            let (a, b) = (k * step, k * step + block);
+            ((pl[b] - pl[a]) + (pr[b] - pr[a])) / block as f64
+        })
+        .collect()
+}
+
+fn lufs(power: f64) -> f64 {
+    -0.691 + 10.0 * power.max(1e-30).log10()
+}
+
+/// Integrated loudness (LUFS); −∞ (as f64::NEG_INFINITY) for silence.
+pub fn integrated(audio: &Stereo) -> f64 {
+    let block = (0.4 * FS) as usize;
+    let p = block_powers(audio, block, block / 4);
+    let abs: Vec<f64> = p.into_iter().filter(|&z| lufs(z) > -70.0).collect();
+    if abs.is_empty() {
+        return f64::NEG_INFINITY;
+    }
+    let rel_gate = lufs(abs.iter().sum::<f64>() / abs.len() as f64) - 10.0;
+    let gated: Vec<f64> = abs.into_iter().filter(|&z| lufs(z) > rel_gate).collect();
+    lufs(gated.iter().sum::<f64>() / gated.len() as f64)
+}
+
+/// The `p`-th percentile (0–100) of `v` by nearest rank; NaN for no values.
+pub fn percentile(v: &[f64], p: f64) -> f64 {
+    if v.is_empty() {
+        return f64::NAN;
+    }
+    let mut s = v.to_vec();
+    s.sort_by(f64::total_cmp);
+    let i = ((s.len() - 1) as f64 * p / 100.0).round() as usize;
+    s[i]
+}
+
+/// Voice minus music short-term (3 s) loudness (LU), one value per 0.1 s
+/// window whose centre lies in one of the `speech` regions (seconds). Silent
+/// music counts as −120 LUFS. QA's level gate judges these, and the score
+/// sets its bed by their median.
+pub fn voice_minus_music(voice: &Stereo, music: &Stereo, speech: &[(f64, f64)]) -> Vec<f64> {
+    let v = windowed(voice, 3.0, 0.1);
+    let m = windowed(music, 3.0, 0.1);
+    v.iter()
+        .zip(&m)
+        .enumerate()
+        .filter(|(k, _)| {
+            let t = *k as f64 * 0.1 + 1.5;
+            speech.iter().any(|&(a, b)| t >= a && t < b)
+        })
+        .map(|(_, (&a, &b))| a - b.max(-120.0))
+        .collect()
+}
+
+/// Loudness in sliding windows of `window_s` seconds, one value per `hop_s`
+/// (momentary = 0.4 s, short-term = 3 s). Values are LUFS.
+pub fn windowed(audio: &Stereo, window_s: f64, hop_s: f64) -> Vec<f64> {
+    let block = (window_s * FS) as usize;
+    let step = (hop_s * FS).max(1.0) as usize;
+    block_powers(audio, block, step).into_iter().map(lufs).collect()
+}
+
+/// The music's level step across a chapter join at `join_s` (seconds in
+/// `music`): the median momentary (400 ms) loudness of the windows centred
+/// 0.2 to 1.5 s after the join minus 0.2 to 1.5 s before it (LU). `None` when
+/// either side is shorter than that or silent (an authored silence is not a
+/// mix step).
+pub fn join_step_db(music: &Stereo, join_s: f64) -> Option<f64> {
+    join_levels(music, join_s).map(|(before, after)| after - before)
+}
+
+/// The two levels [`join_step_db`] subtracts: the median momentary (400 ms)
+/// loudness (LUFS) 1.5 to 0.2 s before the join and 0.2 to 1.5 s after it.
+pub fn join_levels(music: &Stereo, join_s: f64) -> Option<(f64, f64)> {
+    levels_across(music, join_s, join_s)
+}
+
+/// The same two levels read either side of a stretch: 1.5 to 0.2 s before
+/// `from_s` and 0.2 to 1.5 s after `to_s`. A join is `from_s == to_s`; an
+/// authored silence over a join is read from where it begins to fade out to
+/// where its return has finished, so the level the music left at and the one
+/// it came back to are what is compared, not the nothing between.
+pub fn levels_across(music: &Stereo, from_s: f64, to_s: f64) -> Option<(f64, f64)> {
+    let (before, after) = (
+        level_near(music, from_s, -1.5, -0.2)?,
+        level_near(music, to_s, 0.2, 1.5)?,
+    );
+    (before > -100.0 && after > -100.0).then_some((before, after))
+}
+
+/// The median momentary (400 ms) loudness of the windows centred `lo` to `hi`
+/// seconds from `at_s`, read on the 3.2 s about it; `None` for fewer than 8.
+fn level_near(music: &Stereo, at_s: f64, lo: f64, hi: f64) -> Option<f64> {
+    let a = ((at_s - 1.6).max(0.0) * FS) as usize;
+    let b = (((at_s + 1.6) * FS) as usize).min(music.len());
+    if a >= b {
+        return None;
+    }
+    let slice = Stereo {
+        l: music.l[a..b].to_vec(),
+        r: music.r[a..b].to_vec(),
+    };
+    let m = windowed(&slice, 0.4, 0.1);
+    let t0 = a as f64 / FS;
+    let v: Vec<f64> = m
+        .iter()
+        .enumerate()
+        .filter(|(k, _)| {
+            let t = t0 + *k as f64 * 0.1 + 0.2;
+            t >= at_s + lo && t < at_s + hi
+        })
+        .map(|(_, v)| v.max(-120.0))
+        .collect();
+    (v.len() >= 8).then(|| percentile(&v, 50.0))
+}
+
+/// Maximum momentary (400 ms) loudness, in LUFS.
+pub fn max_momentary(audio: &Stereo) -> f64 {
+    windowed(audio, 0.4, 0.1).into_iter().fold(f64::NEG_INFINITY, f64::max)
+}
+
+/// True peak (dBTP): the largest absolute value of the 4× oversampled signal
+/// (Blackman-windowed sinc, 48 input taps per phase).
+pub fn true_peak_db(audio: &Stereo) -> f64 {
+    const TAPS: i64 = 48; // per phase span (in input samples)
+    let pi = std::f64::consts::PI;
+    // kernel[phase − 1][j] multiplies x[i + j − TAPS/2 + 1] for the point i + phase/4
+    let kernel: Vec<Vec<f64>> = (1..4)
+        .map(|phase| {
+            (0..TAPS)
+                .map(|j| {
+                    let d = phase as f64 / 4.0 - (j - TAPS / 2 + 1) as f64;
+                    let w = 0.42
+                        + 0.5 * (pi * d / (TAPS as f64 / 2.0)).cos()
+                        + 0.08 * (2.0 * pi * d / (TAPS as f64 / 2.0)).cos();
+                    (pi * d).sin() / (pi * d) * w
+                })
+                .collect()
+        })
+        .collect();
+    let mut peak = 0.0_f64;
+    for ch in [&audio.l, &audio.r] {
+        let n = ch.len() as i64;
+        for i in 0..n {
+            peak = peak.max(ch[i as usize].abs());
+            for k in &kernel {
+                let mut acc = 0.0;
+                for (j, c) in k.iter().enumerate() {
+                    let at = i + j as i64 - TAPS / 2 + 1;
+                    if (0..n).contains(&at) {
+                        acc += ch[at as usize] * c;
+                    }
+                }
+                peak = peak.max(acc.abs());
+            }
+        }
+    }
+    20.0 * peak.max(1e-12).log10()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::f64::consts::TAU;
+
+    /// A stereo 1 kHz sine at `dbfs` peak level for `seconds` (EBU Tech 3341's
+    /// test-signal definition).
+    fn tone(dbfs: f64, seconds: f64) -> Stereo {
+        let a = 10f64.powf(dbfs / 20.0);
+        let n = (seconds * FS) as usize;
+        let m: Vec<f64> = (0..n).map(|i| a * (TAU * 1_000.0 * i as f64 / FS).sin()).collect();
+        Stereo::from_mono(&m)
+    }
+
+    fn concat(parts: &[Stereo]) -> Stereo {
+        let mut s = Stereo::default();
+        for p in parts {
+            s.l.extend_from_slice(&p.l);
+            s.r.extend_from_slice(&p.r);
+        }
+        s
+    }
+
+    #[test]
+    fn ebu_tech_3341_integrated_cases() {
+        // Case 1 and 2: steady tones.
+        assert!((integrated(&tone(-23.0, 20.0)) + 23.0).abs() < 0.1);
+        assert!((integrated(&tone(-33.0, 20.0)) + 33.0).abs() < 0.1);
+        // Case 3: the relative gate ignores the quiet ends.
+        let c3 = concat(&[tone(-36.0, 10.0), tone(-23.0, 60.0), tone(-36.0, 10.0)]);
+        assert!((integrated(&c3) + 23.0).abs() < 0.1, "{}", integrated(&c3));
+        // Case 4: absolute and relative gates together.
+        let c4 = concat(&[
+            tone(-72.0, 10.0),
+            tone(-36.0, 10.0),
+            tone(-23.0, 60.0),
+            tone(-36.0, 10.0),
+            tone(-72.0, 10.0),
+        ]);
+        assert!((integrated(&c4) + 23.0).abs() < 0.1, "{}", integrated(&c4));
+        // Case 5: −26 / −20 / −26 dBFS integrates to −23.
+        let c5 = concat(&[tone(-26.0, 20.0), tone(-20.0, 20.1), tone(-26.0, 20.0)]);
+        assert!((integrated(&c5) + 23.0).abs() < 0.1, "{}", integrated(&c5));
+        assert_eq!(integrated(&Stereo::silence(48_000)), f64::NEG_INFINITY);
+    }
+
+    #[test]
+    fn momentary_and_short_term_track_a_step() {
+        let s = concat(&[tone(-40.0, 5.0), tone(-20.0, 5.0)]);
+        let m = windowed(&s, 0.4, 0.1);
+        assert!((m[5] + 40.0).abs() < 0.2, "{}", m[5]);
+        assert!((m[m.len() - 1] + 20.0).abs() < 0.2);
+        assert!((max_momentary(&s) + 20.0).abs() < 0.2);
+    }
+
+    #[test]
+    fn the_levels_across_a_silence_are_the_ones_either_side_of_it() {
+        // 10 s of a tone, 10 s of nothing, 10 s of the tone 6 dB up
+        let s = concat(&[tone(-40.0, 10.0), Stereo::silence(10 * 48_000), tone(-34.0, 10.0)]);
+        let (before, after) = levels_across(&s, 10.0, 20.0).expect("both sides sound");
+        assert!(
+            (before + 40.0).abs() < 0.2 && (after + 34.0).abs() < 0.2,
+            "{before} {after}"
+        );
+        // read as a join inside the silence there is no level after it
+        assert_eq!(levels_across(&s, 10.0, 10.0), None);
+        assert_eq!(join_levels(&s, 15.0), None);
+        // a join with no silence near is the same two reads as before
+        let t = concat(&[tone(-40.0, 5.0), tone(-34.0, 5.0)]);
+        let (b, a) = join_levels(&t, 5.0).unwrap();
+        assert_eq!(join_levels(&t, 5.0), levels_across(&t, 5.0, 5.0));
+        assert!((a - b - 6.0).abs() < 0.3, "{}", a - b);
+        assert!((join_step_db(&t, 5.0).unwrap() - 6.0).abs() < 0.3);
+    }
+
+    #[test]
+    fn true_peak_sees_inter_sample_peaks() {
+        // fs/4 sine at 45° phase: samples sit at ±0.707·A, the waveform reaches A.
+        let a = 0.5;
+        let n = 4_800;
+        let m: Vec<f64> = (0..n).map(|i| a * (TAU * 0.25 * i as f64 + TAU / 8.0).sin()).collect();
+        let s = Stereo::from_mono(&m);
+        let sample_peak = 20.0 * s.peak().log10();
+        let tp = true_peak_db(&s);
+        assert!((tp - 20.0 * a.log10()).abs() < 0.2, "true peak {tp:.2} dB");
+        assert!(tp > sample_peak + 2.5, "sample peak {sample_peak:.2}, true {tp:.2}");
+    }
+}

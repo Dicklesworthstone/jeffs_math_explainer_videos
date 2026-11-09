@@ -1,0 +1,17 @@
+# fmn-core rate-function parity manifest (f64 LE in rate_functions.bin)
+# generated from 3b1b/manim @ 6199a00d4c1b1127ebe45cb629c3f22538b10e13
+linear	10001
+smooth	10001
+rush_into	10001
+rush_from	10001
+slow_into	10001
+double_smooth	10001
+there_and_back	10001
+there_and_back_with_pause	10001
+running_start	10001
+overshoot	10001
+wiggle	10001
+lingering	10001
+exponential_decay	10001
+not_quite_there_smooth_0.7	10001
+squish_smooth_0.4_0.6	10001

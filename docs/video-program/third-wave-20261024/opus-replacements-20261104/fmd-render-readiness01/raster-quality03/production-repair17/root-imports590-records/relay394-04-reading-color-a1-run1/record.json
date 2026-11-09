@@ -1,0 +1,301 @@
+{
+ "version": "394",
+ "chapter": "04_reading_color",
+ "attempt": 1,
+ "manifest": "css352-import371-04-reading-color-manifest396.json",
+ "manifest_sha256": "04d1cd99e0114e63abfeaefa23aab7d3ce6e56092d77d8a4459fa3cb2da6896c",
+ "started": "2026-11-09T20:30:26.530306+00:00",
+ "steps": [
+  {
+   "step": "check",
+   "utc": "2026-11-09T20:31:39.542726+00:00",
+   "exit": 0,
+   "report": {
+    "helper": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371.py",
+    "helper_sha256": "ba337aca143316748561c4300d5774386387690b49052e72d29a04b103dd244f",
+    "job": "csd-css352-import371-04-reading-color-a1",
+    "job_exists": false,
+    "manifest_sha256": "04d1cd99e0114e63abfeaefa23aab7d3ce6e56092d77d8a4459fa3cb2da6896c",
+    "problems": [],
+    "new_files": 16,
+    "existing_identical": 3452,
+    "space": {
+     "free_bytes": 108129546240,
+     "new_bytes": 38812181,
+     "jobs_bytes": 11824758784,
+     "work_bytes": 6325248000,
+     "work_baseline_bytes": 0
+    },
+    "alias": "/data/projects/jmev-css-render-worker-20261107",
+    "alias_state": "symlink to /data/projects/jmev-stroke-probe-20261106/work/imported-css-root311"
+   },
+   "stderr": ""
+  },
+  {
+   "step": "prepare",
+   "utc": "2026-11-09T20:31:50.362782+00:00",
+   "exit": 0,
+   "report": {
+    "job": "csd-css352-import371-04-reading-color-a1",
+    "inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-04-reading-color-a1-inputs.json",
+    "inputs_sha256": "085f216bdb53a730444805af52878bf688db4df990f57187e9d493632a475ec8",
+    "manifest_sha256": "04d1cd99e0114e63abfeaefa23aab7d3ce6e56092d77d8a4459fa3cb2da6896c",
+    "chapter_pin": {
+     "job": "css-reviewed-final-04-reading-color352",
+     "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+     "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+     "inputs": "/data/projects/jmev-css-render-worker-20261107/qualification01/final-04_reading_color-inputs352.json",
+     "inputs_sha256": "596c2624e1b87907e2aff3d7a4510f6f61db5fefb5c8e9d1598981461382e9a8",
+     "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/04_reading_color-css-permit366.json",
+     "permit_sha256": "110168feb09d299c17a5ee63d4364898edf92b9d1af87d6137a5d3caf2980a8f",
+     "receipt_sha256": "b5d4800b72b38112b3684eb1b97200d72a05a9cd8abbb87da6ad2a4d9db06829",
+     "summary_sha256": "5f39009cec308ee9ac4c90341c6d6c673fe8246243182f23e919770812b9e7e5",
+     "movie_sha256": "6b3eddb2a878ad0a6069a79c6b82311895e2910f3f0470641f9f27342022f64f",
+     "frames": 6774
+    },
+    "new_files": 16,
+    "existing_identical": 3452,
+    "shared_files": 3203,
+    "system_files": 2269,
+    "streamed_bytes": 2234135719,
+    "space": {
+     "free_bytes": 108129538048,
+     "new_bytes": 38812181,
+     "jobs_bytes": 11824758784,
+     "work_bytes": 6325248000,
+     "work_baseline_bytes": 0
+    },
+    "guard_command": [
+     "/usr/bin/python3",
+     "-I",
+     "-B",
+     "/data/projects/jmev-stroke-probe-20261106/guard_csd02.py",
+     "--phase",
+     "native",
+     "--job",
+     "csd-css352-import371-04-reading-color-a1",
+     "--inputs",
+     "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-04-reading-color-a1-inputs.json",
+     "--",
+     "/usr/bin/timeout",
+     "14400",
+     "/usr/bin/python3",
+     "-I",
+     "-B",
+     "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371.py",
+     "receive",
+     "--chapter",
+     "04_reading_color",
+     "--attempt",
+     "1",
+     "--manifest",
+     "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/css352-import371-04-reading-color-manifest396.json"
+    ],
+    "rows350": {
+     "04_reading_color": {
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-04-reading-color-a1/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-04-reading-color-a1-inputs.json"
+     }
+    }
+   },
+   "stderr": ""
+  },
+  {
+   "step": "receive started",
+   "utc": "2026-11-09T20:32:52.072269+00:00",
+   "command": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/guard_csd02.py",
+    "--phase",
+    "native",
+    "--job",
+    "csd-css352-import371-04-reading-color-a1",
+    "--inputs",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-04-reading-color-a1-inputs.json",
+    "--",
+    "/usr/bin/timeout",
+    "14400",
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371.py",
+    "receive",
+    "--chapter",
+    "04_reading_color",
+    "--attempt",
+    "1",
+    "--manifest",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/css352-import371-04-reading-color-manifest396.json"
+   ]
+  },
+  {
+   "step": "admission poll",
+   "utc": "2026-11-09T20:32:52.625737+00:00",
+   "exists": false,
+   "admitted": false,
+   "pid": null,
+   "finished": null,
+   "exit": null
+  },
+  {
+   "step": "admission poll",
+   "utc": "2026-11-09T20:33:08.325800+00:00",
+   "exists": true,
+   "admitted": true,
+   "pid": 822398,
+   "finished": null,
+   "exit": null
+  },
+  {
+   "step": "send started",
+   "utc": "2026-11-09T20:33:08.329684+00:00"
+  },
+  {
+   "step": "stream ended",
+   "utc": "2026-11-09T20:37:32.302485+00:00",
+   "send_exit": 0,
+   "receive_exit": 0
+  },
+  {
+   "step": "post-import validation",
+   "validator": "relay394 validate a-h",
+   "chapter": "04_reading_color",
+   "attempt": 1,
+   "job": "csd-css352-import371-04-reading-color-a1",
+   "manifest": "css352-import371-04-reading-color-manifest396.json",
+   "manifest_sha256": "04d1cd99e0114e63abfeaefa23aab7d3ce6e56092d77d8a4459fa3cb2da6896c",
+   "manifest_rows": 8940,
+   "inputs_rows": 5476,
+   "inputs_rows_expected": 5476,
+   "inputs_changed": [],
+   "inputs_changed_count": 0,
+   "check_exit": 0,
+   "check_problems": [],
+   "check_problem_count": 0,
+   "check_stderr": "",
+   "passed": [
+    "a. 371 check exits 0",
+    "b. 371 check reports csd-css352-import371-04-reading-color-a1 and the job folder exists",
+    "c. the guard receipt is a terminal success",
+    "d. import-result.json exists and names manifest 04d1cd99e011",
+    "e. every manifest row is at its size and hash through its original path (371 check problems [])",
+    "f. the guard inputs file is the one the guard admitted",
+    "g. the guard inputs hold exactly the 5476 frozen rows and every row re-hashes",
+    "h. rows350 from 371 check and import-result.json equal the expected names"
+   ],
+   "failures": [],
+   "rows350": {
+    "04_reading_color": {
+     "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-04-reading-color-a1/resource-receipt.json",
+     "import_inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-04-reading-color-a1-inputs.json"
+    }
+   },
+   "utc": "2026-11-09T20:37:39.210625+00:00"
+  }
+ ],
+ "lane": [
+  {
+   "utc": "2026-11-09T20:30:29.861992+00:00",
+   "lane": {
+    "holders": [
+     814975
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T20:31:30.683918+00:00",
+   "lane": {
+    "holders": [],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T20:31:51.193597+00:00",
+   "lane": {
+    "holders": [
+     821622
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T20:32:52.064044+00:00",
+   "lane": {
+    "holders": [],
+    "waiters": []
+   }
+  }
+ ],
+ "status": {
+  "code": 0,
+  "message": "imported and validated",
+  "rows350": {
+   "04_reading_color": {
+    "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-04-reading-color-a1/resource-receipt.json",
+    "import_inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-04-reading-color-a1-inputs.json"
+   }
+  },
+  "validation_passed": [
+   "a. 371 check exits 0",
+   "b. 371 check reports csd-css352-import371-04-reading-color-a1 and the job folder exists",
+   "c. the guard receipt is a terminal success",
+   "d. import-result.json exists and names manifest 04d1cd99e011",
+   "e. every manifest row is at its size and hash through its original path (371 check problems [])",
+   "f. the guard inputs file is the one the guard admitted",
+   "g. the guard inputs hold exactly the 5476 frozen rows and every row re-hashes",
+   "h. rows350 from 371 check and import-result.json equal the expected names"
+  ]
+ },
+ "chapter_pin": {
+  "job": "css-reviewed-final-04-reading-color352",
+  "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+  "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+  "inputs": "/data/projects/jmev-css-render-worker-20261107/qualification01/final-04_reading_color-inputs352.json",
+  "inputs_sha256": "596c2624e1b87907e2aff3d7a4510f6f61db5fefb5c8e9d1598981461382e9a8",
+  "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/04_reading_color-css-permit366.json",
+  "permit_sha256": "110168feb09d299c17a5ee63d4364898edf92b9d1af87d6137a5d3caf2980a8f",
+  "receipt_sha256": "b5d4800b72b38112b3684eb1b97200d72a05a9cd8abbb87da6ad2a4d9db06829",
+  "summary_sha256": "5f39009cec308ee9ac4c90341c6d6c673fe8246243182f23e919770812b9e7e5",
+  "movie_sha256": "6b3eddb2a878ad0a6069a79c6b82311895e2910f3f0470641f9f27342022f64f",
+  "frames": 6774
+ },
+ "facts": {
+  "css": {
+   "helper": "ba337aca143316748561c4300d5774386387690b49052e72d29a04b103dd244f",
+   "manifest": "04d1cd99e0114e63abfeaefa23aab7d3ce6e56092d77d8a4459fa3cb2da6896c",
+   "receipt": "b5d4800b72b38112b3684eb1b97200d72a05a9cd8abbb87da6ad2a4d9db06829",
+   "summary": "5f39009cec308ee9ac4c90341c6d6c673fe8246243182f23e919770812b9e7e5",
+   "terminal": true
+  },
+  "csd": {
+   "helper": "ba337aca143316748561c4300d5774386387690b49052e72d29a04b103dd244f",
+   "manifest": "04d1cd99e0114e63abfeaefa23aab7d3ce6e56092d77d8a4459fa3cb2da6896c",
+   "imports": {
+    "01-the-bump": [
+     {
+      "job": "csd-css352-import371-01-the-bump-a1",
+      "attempt": 1,
+      "finished": true,
+      "imported": true
+     }
+    ],
+    "04-reading-color": []
+   },
+   "inputs": [],
+   "lane": {
+    "holders": [
+     814975
+    ],
+    "waiters": []
+   },
+   "running": [
+    "csd-mini-import576-10-a2",
+    "csd-reviewed-final-10-rigidity352"
+   ]
+  }
+ },
+ "ended": "2026-11-09T20:37:39.210770+00:00"
+}

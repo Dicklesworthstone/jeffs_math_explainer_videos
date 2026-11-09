@@ -1,0 +1,9 @@
+[package]
+name = "explainer_score"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "Warm procedural score engine for narrated math explainers: analog-style synthesis, offline look-ahead ducking under narration, and score QA (std only)"
+
+# std only, by design: fast to build, nothing to audit, deterministic from seeds.
+[dependencies]

@@ -1,0 +1,153 @@
+diff --git a/crates/fmn-scene/src/runtime.rs b/crates/fmn-scene/src/runtime.rs
+index b229faa..d63601b 100644
+--- a/crates/fmn-scene/src/runtime.rs
++++ b/crates/fmn-scene/src/runtime.rs
+@@ -22,6 +22,9 @@ use std::collections::VecDeque;
+ use std::fmt;
+ use std::path::{Path, PathBuf};
+ 
++mod idle;
++pub use idle::IdleFrame;
++
+ use fmn_anim::{
+     AnimError, Animation, AnimationBoundary, FramePacket, ImpureEffect, OpenSegment, OpenWait,
+     Purity, RateFunc, RationalFrameClock, RationalTime, SceneUpdaterBoundary, SegmentKind,
+@@ -333,7 +336,7 @@ pub enum CaptureReason {
+     Show,
+     /// The configured windowed preview at the end of a skipped segment.
+     SkippedPreview,
+-    /// A frame emitted while presenter mode is holding.
++    /// A frame emitted at a live idle boundary or while presenter mode holds.
+     PresenterHold,
+ }
+ 
+@@ -588,6 +591,8 @@ enum QueuedEvent {
+ 
+ /// The Scene state machine.
+ pub struct Scene {
++    idle_owner: std::rc::Rc<()>,
++    idle_sequence: u64,
+     config: RuntimeConfig,
+     stage: Stage,
+     clock: RationalFrameClock,
+@@ -685,6 +690,8 @@ impl Scene {
+         let skipping = original_skipping || config.start_at_play.is_some();
+         let event_inbox = EventInbox::new(config.max_pending_events)?;
+         Ok(Self {
++            idle_owner: std::rc::Rc::new(()),
++            idle_sequence: 0,
+             config,
+             stage: Stage::new(),
+             clock: RationalFrameClock::new(fps).map_err(AnimError::Clock)?,
+diff --git a/crates/fmn-studio/src/inspect.rs b/crates/fmn-studio/src/inspect.rs
+index 8f67c9c..38a0e19 100644
+--- a/crates/fmn-studio/src/inspect.rs
++++ b/crates/fmn-studio/src/inspect.rs
+@@ -365,6 +365,8 @@ pub struct InspectorView {
+     /// Whether the selected worker implements live input events.
+     pub input_events: bool,
+     pub input_revision: Option<u64>,
++    /// Explicit capability to execute nominal live-clock steps, not seeks.
++    pub live_advance: bool,
+ }
+ 
+ impl InspectorView {
+@@ -393,6 +395,7 @@ impl InspectorView {
+             origin: map.origin,
+             input_events,
+             input_revision: None,
++            live_advance: false,
+         }
+         .validate()
+     }
+@@ -632,6 +635,9 @@ impl InspectorSnapshot {
+             push_f64_array(&mut out, &view.origin)?;
+             out.push_str(",\"input_events\":")?;
+             push_bool(&mut out, view.input_events)?;
++            if view.live_advance {
++                out.push_str(",\"live_advance\":true")?;
++            }
+             if let Some(input_revision) = view.input_revision {
+                 out.push_str(",\"input_revision\":")?;
+                 push_display(&mut out, input_revision)?;
+diff --git a/crates/fmn-studio/src/lib.rs b/crates/fmn-studio/src/lib.rs
+index f57d9c9..bd66636 100644
+--- a/crates/fmn-studio/src/lib.rs
++++ b/crates/fmn-studio/src/lib.rs
+@@ -9,6 +9,7 @@
+ //! reusable `SceneState` and replay the journal's verified suffix.
+ #![forbid(unsafe_code)]
+ 
++pub mod advance;
+ pub mod host;
+ pub mod inspect;
+ pub mod interaction;
+diff --git a/crates/fmn-studio/src/recorded.rs b/crates/fmn-studio/src/recorded.rs
+index a89c2b2..b0a306f 100644
+--- a/crates/fmn-studio/src/recorded.rs
++++ b/crates/fmn-studio/src/recorded.rs
+@@ -10,6 +10,7 @@
+ use std::sync::Arc;
+ use std::time::Duration;
+ 
++mod advance;
+ mod live;
+ 
+ use fmn_codec::{PngLimits, decode_png};
+@@ -53,6 +54,7 @@ pub struct RecordedTimeline {
+     max_bytes: usize,
+     commands: u64,
+     input_revision: Option<u64>,
++    advance_enabled: bool,
+     limits: ProtocolLimits,
+ }
+ 
+@@ -86,6 +88,7 @@ impl RecordedTimeline {
+             max_bytes,
+             commands: 0,
+             input_revision: None,
++            advance_enabled: false,
+             limits,
+         })
+     }
+@@ -303,6 +306,7 @@ impl WorkerService for RecordedTimeline {
+                 view.frame_count = count;
+                 view.input_events = revision.is_some();
+                 view.input_revision = revision;
++                view.live_advance = self.advance_enabled && revision.is_some();
+                 let bytes = snapshot
+                     .to_json(InspectorLimits {
+                         max_json_bytes: self.limits.max_studio_data_bytes,
+diff --git a/crates/fmn-studio/src/recorded/live.rs b/crates/fmn-studio/src/recorded/live.rs
+index 100fe98..3a67d2f 100644
+--- a/crates/fmn-studio/src/recorded/live.rs
++++ b/crates/fmn-studio/src/recorded/live.rs
+@@ -55,27 +55,13 @@ impl RecordedTimeline {
+         scene: &str,
+         command: &CommandRecord,
+     ) -> Result<StudioInput, ServiceError> {
+-        self.check_scene(scene)?;
+         let input = studio_input_payload(scene, command).map_err(failed)?;
+-        let revision = self
+-            .input_revision
+-            .ok_or_else(|| invalid("live input is disabled; reload the scene"))?;
+-        if input.frame != self.frames.len() as i64 - 1 || input.frame != self.position as i64 {
+-            return Err(invalid(
+-                "live input requires the selected final frame; historical frames are read-only",
+-            ));
+-        }
+-        if input.revision != revision {
+-            return Err(invalid("stale live input revision"));
+-        }
++        self.check_live_owner(scene, input.frame, input.revision)?;
+         if input.target.is_some() {
+             return Err(invalid(
+                 "Python input uses scene hit testing, not native object targets",
+             ));
+         }
+-        if self.commands >= 4096 {
+-            return Err(invalid("recorded position journal budget exceeded"));
+-        }
+         Ok(input)
+     }
+ 

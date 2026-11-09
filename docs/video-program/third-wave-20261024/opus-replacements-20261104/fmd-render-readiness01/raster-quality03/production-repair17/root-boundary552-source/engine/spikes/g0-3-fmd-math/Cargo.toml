@@ -1,0 +1,23 @@
+# G0-3: the fmd-math architecture spike (fm-nh0). Proves the math-layout
+# engine's shape — atom classes + the inter-atom spacing table, style
+# propagation, Appendix-G constructions, CM metrics synthesis, and the
+# extensible-delimiter strategy (OQ-2) — before the real fmd-math crate's
+# API freezes in franken_markdown. Compile-tested and structurally
+# asserted; W6 implements fmd-math from the ratification note
+# (docs/g0/G0-3-fmd-math-ratification.md), not from this spike's internals.
+[package]
+# Named to the sanctioned fmn-spike-* convention (§20.1) so the crate-DAG
+# check exempts it from the §19 map, like fmn-spike-object-model.
+name = "fmn-spike-fmd-math"
+version = "0.0.0"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "G0-3 spike: fmd-math parse-and-layout proof over the hard constructs"
+publish = false
+
+[dependencies]
+fmd-font.workspace = true
+
+[lints]
+workspace = true

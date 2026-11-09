@@ -1,0 +1,133 @@
+name: Native bounded frame overlap
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-frame-overlap.yml'
+      - 'scripts/patches/native-frame-overlap.patch'
+      - 'scripts/patches/portal-frame-overlap.patch'
+      - 'scripts/patches/frame-pipeline-acceptance.patch'
+      - 'crates/fmn-runtime/src/stream.rs'
+      - 'crates/fmn-python/src/portal_pipeline.rs'
+      - 'crates/fmn-python/tests/frame_pipeline.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: native-frame-overlap
+  cancel-in-progress: false
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+  CARGO_TARGET_DIR: target/portable
+  PYO3_PYTHON: python
+jobs:
+  native:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Integrate owned frames and observational camera readback
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! grep -q 'pub fn prepare_with_camera' crates/fmn-render/src/retained.rs; then
+            git apply --check scripts/patches/native-frame-overlap.patch
+            git apply scripts/patches/native-frame-overlap.patch
+          fi
+          if ! grep -q '^mod portal_pipeline;' crates/fmn-python/src/lib.rs; then
+            git apply --check scripts/patches/portal-frame-overlap.patch
+            git apply scripts/patches/portal-frame-overlap.patch
+          fi
+          if ! grep -q '^pub use portal_pipeline::run_portal_gauntlet_frame_pipeline;' crates/fmn-python/src/lib.rs; then
+            git apply --check scripts/patches/frame-pipeline-acceptance.patch
+            git apply scripts/patches/frame-pipeline-acceptance.patch
+          fi
+          python scripts/enable_camera_readback.py
+          git diff --check
+          git rev-parse HEAD
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Prepare pinned native toolchain and host
+        run: |
+          rustup show active-toolchain
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        id: cache
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-frame-overlap-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}-${{ github.sha }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-frame-overlap-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}-
+            cargo-${{ runner.os }}-${{ runner.arch }}-frame-overlap-
+            cargo-${{ runner.os }}-${{ runner.arch }}-texture-pairs-
+            cargo-${{ runner.os }}-${{ runner.arch }}-svg-
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Verify native source and scheduler
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-render/src/lib.rs crates/fmn-render/src/retained.rs crates/fmn-runtime/src/lib.rs crates/fmn-runtime/src/stream.rs crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_pipeline.rs crates/fmn-python/src/portal_readback.rs crates/fmn-conformance/tests/e2e_scenarios.rs
+          cargo check --locked -p fmn-python --tests
+          cargo test --locked -p fmn-runtime
+          cargo test --locked -p fmn-render --lib
+          cargo test --locked -p fmn-render --test texture_pairs
+          PYTHONPATH=crates/fmn-python/python:crates/fmn-python/tests python -m unittest test_camera_capture_protocol
+      - name: Verify real camera readback and pipeline pixels
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-python --lib production_camera_readback_acceptance_suite -- --nocapture
+          cargo test --locked -p fmn-python portal_pipeline -- --nocapture
+          cargo test --locked -p fmn-conformance --test e2e_scenarios python_frame_pipeline_scenario_passes -- --nocapture
+          cargo test --locked -p fmn-python --lib production_bridge_acceptance_suite -- --nocapture
+      - name: Verify installed-wheel output paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m maturin build --locked --profile dev --out /tmp/frame-overlap-wheels
+          python -m pip install --no-deps --force-reinstall /tmp/frame-overlap-wheels/*.whl
+          python crates/fmn-python/tests/camera_readback.py
+          python crates/fmn-python/tests/frame_pipeline.py
+          python crates/fmn-python/tests/native_outputs.py
+          python crates/fmn-python/tests/batch_rendering.py
+          python crates/fmn-python/tests/batch_checkpoint_acceptance.py
+          python crates/fmn-python/tests/svg_output.py
+          python crates/fmn-python/tests/texture_pairs.py
+          cargo clippy --locked -p fmn-runtime -p fmn-render -p fmn-python --lib -- -D warnings
+          git diff --check
+      - name: Commit tested native integration directly to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add Cargo.lock crates/fmn-render/src/lib.rs crates/fmn-render/src/retained.rs crates/fmn-runtime/src/lib.rs crates/fmn-runtime/src/stream.rs crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_pipeline.rs crates/fmn-python/src/portal_readback.rs crates/fmn-python/python/fmn_python/initialization.py crates/fmn-python/tests/bridge.py crates/fmn-python/tests/frame_pipeline.py crates/fmn-conformance/tests/e2e_scenarios.rs
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(render): activate bounded native frame overlap and camera pixel readback'
+            git push origin HEAD:main
+          fi
+          git archive --format=tar.gz HEAD > /tmp/native-frame-overlap-source.tar.gz
+      - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        if: always() && steps.cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: ${{ steps.cache.outputs.cache-primary-key }}
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-frame-overlap-${{ github.sha }}
+          path: |
+            /tmp/native-frame-overlap-source.tar.gz
+            /tmp/frame-overlap-wheels/*.whl
+          if-no-files-found: ignore
+          retention-days: 1

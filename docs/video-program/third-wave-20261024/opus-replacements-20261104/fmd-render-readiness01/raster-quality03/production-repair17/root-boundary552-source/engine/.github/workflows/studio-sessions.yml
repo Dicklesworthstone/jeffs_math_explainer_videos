@@ -1,0 +1,69 @@
+name: Studio saved sessions
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/studio-sessions.yml'
+      - 'crates/fmn-studio/src/**'
+      - 'crates/fmn-studio/tests/**'
+      - 'crates/fmn-cli/src/**'
+      - 'crates/fmn-scene/src/journal.rs'
+      - 'crates/fmn-scene/tests/journal.rs'
+      - 'API_OVERLAY.tsv'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: studio-sessions
+  cancel-in-progress: true
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+  CARGO_TARGET_DIR: target/portable
+  PYO3_PYTHON: python
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - run: |
+          rustup show active-toolchain
+          python -m pip install numpy
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Verify versioned archives, native editing and recovery
+        run: |
+          cargo test --locked -p fmn-conformance --test api_schema
+          cargo test --locked -p fmn-studio
+          cargo test --locked -p fmn-cli --features cli,batch --lib
+          cargo test --locked -p fmn-scene
+          cargo clippy --locked -p fmn-studio --lib -- -D warnings
+          node --test crates/fmn-studio/tests/input_queue.mjs
+      - name: Verify authenticated HTTP and worker lifecycle
+        run: cargo test --locked -p fmn-conformance --test e2e_scenarios studio_native_ -- --nocapture
+      - name: Verify real browser downloads and editable sessions across whole-host restarts
+        run: |
+          cargo build --locked -p fmn-cli --features cli,batch --bin fmn
+          node crates/fmn-studio/tests/browser.mjs "$PWD/target/portable/debug/fmn" "$RUNNER_TEMP/saved-session-browser"
+          git diff --exit-code
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: studio-session-browser-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/saved-session-browser/*.json
+            ${{ runner.temp }}/saved-session-browser/*.png
+            ${{ runner.temp }}/saved-session-browser/saved-*/studio-session.fmns
+          retention-days: 3
+          if-no-files-found: warn

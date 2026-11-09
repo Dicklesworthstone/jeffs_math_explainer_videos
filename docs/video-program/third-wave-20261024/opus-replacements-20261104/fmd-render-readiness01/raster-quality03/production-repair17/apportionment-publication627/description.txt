@@ -1,0 +1,39 @@
+Three towns share fifteen council seats. Add one more seat, without changing anyone's population, and the smallest town loses a seat. How can that happen?
+
+We build Hamilton's rule from whole seats and leftover fractions, then follow those fractions around moving dials to see exactly why the Alabama paradox occurs. From there, we explore divisor rules, the quota method, population changes, and a five-town example that exposes a fundamental conflict between two promises of fairness.
+
+Along the way, you can predict the next seat, watch the competing rules disagree, and see why there is more to fair representation than rounding carefully. We finish with what randomized apportionment can achieve, and the promises even a lottery cannot keep together.
+
+Chapters:
+0:00 One more seat
+1:20 Seats do not come in fractions
+3:10 Whole parts first, then the largest tails
+4:43 The sixteenth seat
+5:53 Tails move at different speeds
+7:38 It comes and goes
+9:01 Change the yardstick, not the rounding
+10:25 One list for every house size
+12:12 The cost of never taking back
+13:34 Round up, round to the nearest
+15:55 Can Webster break quota?
+17:43 Both promises at once
+21:28 When populations change
+23:32 No rule keeps both
+26:25 The whole map
+
+Sources and further reading:
+M. L. Balinski and H. P. Young, "A New Method for Congressional Apportionment," PNAS 71(11), 1974:
+https://pubmed.ncbi.nlm.nih.gov/16592200/
+
+P. Gölz, D. Peters and A. D. Procaccia, "In This Apportionment Lottery, the House Always Wins," 2024 version:
+https://arxiv.org/abs/2202.11061v2
+
+H. Peyton Young, "Fairness in Apportionment," prepared for the U.S. Census Bureau Symposium, 2004:
+https://www2.census.gov/about/history/historical-censuses-surveys/survey-census-history/decennial/fairness-in-apportionment-young.pdf
+
+M. L. Balinski and H. P. Young, Fair Representation, 1982, as cited by Gölz, Peters and Procaccia.
+M. L. Balinski and H. P. Young, "The Quota Method of Apportionment," American Mathematical Monthly 82, 1975.
+
+Visuals: native FrankenManim scenes.
+Narration: ElevenLabs Frederick Surrey, a synthetic voice.
+Music: procedural score generated in code.

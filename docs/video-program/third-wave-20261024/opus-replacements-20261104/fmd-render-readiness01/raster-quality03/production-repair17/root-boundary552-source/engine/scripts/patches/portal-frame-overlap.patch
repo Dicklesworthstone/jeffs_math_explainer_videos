@@ -1,0 +1,204 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index bb54607..3522ab9 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -922,6 +922,7 @@ dependencies = [
+  "fmn-config",
+  "fmn-core",
+  "fmn-frame",
++ "fmn-hash",
+  "fmn-library",
+  "fmn-mobject",
+  "fmn-output",
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+index 3ad6052..e3ba7ae 100644
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -20,5 +20,6 @@
+ mod live_tex;
+ mod method_cache;
+ pub mod perf_harness;
+ mod portal_audio;
++mod portal_pipeline;
+ mod portal_playback;
+@@ -342,7 +343,7 @@ struct PortalFrameSession {
+     soundtrack: Option<fmn_output::FfmpegSoundtrack>,
+     audio: Box<portal_audio::PortalAudio>,
+     light_mob: Option<Mob>,
+-    rgba8_scratch: Option<FrameBuffer>,
++    pipeline: Option<portal_pipeline::Stream>,
+     opaque_video: bool,
+     next_sequence: u64,
+     timeline: OutputTimeline,
+@@ -625,6 +626,8 @@ impl PortalFrameSession {
+             vec![binding],
+         )
+         .map_err(|error| PyRuntimeError::new_err(error.to_string()))?;
++        let pipeline = portal_pipeline::start(plan, rgba8_scratch)
++            .map_err(|error| PyRuntimeError::new_err(error.to_string()))?;
+         let mut runtime_config = RuntimeConfig::from_config(&config);
+         if single_frame {
+             // Match the native front door's final-state PNG semantics: run
+@@ -642,7 +645,7 @@ impl PortalFrameSession {
+                 soundtrack,
+                 audio,
+                 light_mob: None,
+-                rgba8_scratch,
++                pipeline: Some(pipeline),
+                 opaque_video,
+                 next_sequence: 0,
+                 timeline: OutputTimeline::new(single_frame),
+@@ -655,46 +658,36 @@ impl PortalFrameSession {
+         &mut self,
+         packet: fmn_scene::studio_bridge::FramePacket,
+     ) -> Result<(), fmn_scene::IntegrationError> {
++        let pipeline = self.pipeline.as_mut().ok_or_else(|| {
++            fmn_scene::IntegrationError::new("pipeline", "render generation is already closed")
++        })?;
++        // Wait before materializing records or cloning compiled geometry. Only
++        // the Send stream reference enters detach; the Stage and all Python
++        // objects stay on this serial owner throughout the six-step clock.
++        let permit = Python::attach(|py| py.detach(move || portal_pipeline::reserve(pipeline)))
++            .map_err(|error| fmn_scene::IntegrationError::new("pipeline", error.to_string()))?;
+         let stage = packet.materialize_stage();
+         if let Some(light) = self.light_mob {
+             if stage.get(light).is_none() {
+                 return Err(fmn_scene::IntegrationError::new(
+-                    "portal-render",
+-                    "camera light handle is stale",
+-                ));
++                    "portal-render", "camera light handle is stale"));
+             }
+-            self.camera
+-                .set_light_source_position(stage.get_center(light))
+-                .map_err(|error| {
+-                    fmn_scene::IntegrationError::new("portal-render", error.to_string())
+-                })?;
++            self.camera.set_light_source_position(stage.get_center(light))
++                .map_err(|error| fmn_scene::IntegrationError::new("portal-render", error.to_string()))?;
+         }
+-        // Portal coordinates follow manim's +Y-up camera plane, while every
+-        // FrameBuffer is already in top-row-first output orientation.  The
+-        // camera route owns that projection (including the Y inversion) for
+-        // vector content as well as 3D primitives.  Bypassing it for a
+-        // default affine frame reflects the delivered image vertically and
+-        // violates D-23's no-post-render-vflip contract.
+-        self.renderer
+-            .render_with_camera(&stage, &self.camera)
++        // Freeze the actual +Y-up camera projection, background/light, painter
++        // sequence, surfaces and textures. Native workers never reread Stage.
++        let frame = self.renderer.prepare_with_camera(&stage, &self.camera)
+             .map_err(|error| fmn_scene::IntegrationError::new("lumen", error.to_string()))?;
+-        let mut reservation = self
+-            .emitter
+-            .as_ref()
+-            .ok_or_else(|| {
+-                fmn_scene::IntegrationError::new("reel", "render generation is already closed")
+-            })?
+-            .reserve(self.next_sequence)
+-            .map_err(|error| fmn_scene::IntegrationError::new("reel", error.to_string()))?;
+-        portal_video::convert_frame(
+-            self.renderer.frame(),
+-            reservation.frame_mut(),
+-            self.rgba8_scratch.as_mut(),
+-        )
+-        .map_err(|error| fmn_scene::IntegrationError::new("reel", error.to_string()))?;
+-        reservation
+-            .publish()
++        let emitter = self.emitter.as_ref().ok_or_else(|| {
++            fmn_scene::IntegrationError::new("reel", "render generation is already closed")
++        })?.handle();
++        let sequence = self.next_sequence;
++        let destination = Python::attach(|py| py.detach(|| emitter.reserve(sequence)))
+             .map_err(|error| fmn_scene::IntegrationError::new("reel", error.to_string()))?;
++        Python::attach(|py| py.detach(move || permit.submit(sequence,
++            portal_pipeline::Work { frame, destination })))
++            .map_err(|error| fmn_scene::IntegrationError::new("pipeline", error.to_string()))?;
+         self.next_sequence = self
+             .next_sequence
+             .checked_add(1)
+@@ -732,20 +725,27 @@ impl PortalFrameSession {
+     }
+ 
+     fn abort(mut self) {
+-        self.cancel_and_join();
++        let pipeline = self.pipeline.take();
++        let emitter = self.emitter.take();
++        Python::attach(|py| py.detach(move || portal_pipeline::cancel(pipeline, emitter)));
+     }
+ 
+     fn finish(mut self, scene: &Scene) -> PyResult<(PortalArtifactReport, String, usize)> {
+         let renderer = self.renderer.config();
++        let pipeline = self.pipeline.take().ok_or_else(|| {
++            PyRuntimeError::new_err("portal frame pipeline is already closed")
++        })?;
++        Python::attach(|py| py.detach(move || pipeline.finish()))
++            .map_err(|error| PyRuntimeError::new_err(error.to_string()))?;
+         if let Some(soundtrack) = self.soundtrack.take() {
+             soundtrack
+                 .finish(self.audio.mix(scene, renderer.threads, &self.timeline)?)
+                 .map_err(native_error)?;
+         }
+-        self.emitter
+-            .take()
+-            .ok_or_else(|| PyRuntimeError::new_err("portal render generation is already closed"))?
+-            .finish()
++        let emitter = self.emitter.take().ok_or_else(|| {
++            PyRuntimeError::new_err("portal render generation is already closed")
++        })?;
++        Python::attach(|py| py.detach(move || emitter.finish()))
+             .map_err(|error| PyRuntimeError::new_err(error.to_string()))?;
+         let mut report: PortalArtifactReport = match &self.receipt {
+             PortalReceipt::Native(receipt) => receipt.take().map_err(native_error)?.into(),
+@@ -772,10 +772,9 @@ impl PortalFrameSession {
+     }
+ 
+     fn cancel_and_join(&mut self) {
+-        if let Some(emitter) = self.emitter.take() {
+-            emitter.cancel();
+-            let _ = emitter.finish();
+-        }
++        // Drop must not attach to a finalizing interpreter. Explicit abort and
++        // normal finish release the GIL; unwinding still joins native owners.
++        portal_pipeline::cancel(self.pipeline.take(), self.emitter.take());
+     }
+ }
+ 
+diff --git a/crates/fmn-runtime/src/stream.rs b/crates/fmn-runtime/src/stream.rs
+--- a/crates/fmn-runtime/src/stream.rs
++++ b/crates/fmn-runtime/src/stream.rs
+@@ -28,7 +28,7 @@
+     /// The existing pipeline reported a stage failure after joining workers.
+     Pipeline(PipelineFailure<E>),
+     /// A permit was submitted after worker-side failure or cancellation.
+-    /// `finish` still returns the underlying pipeline failure.
++    /// `reserve` or `finish` returns the underlying pipeline failure when joining.
+     Closed,
+     /// The coordinator itself panicked outside the stage containment boundary.
+     CoordinatorPanicked,
+@@ -91,16 +91,22 @@
+     /// without submitting aborts the stream, rather than silently omitting a
+     /// semantic frame. `finish` cannot race an outstanding permit.
+     pub fn reserve(&mut self) -> Result<FramePermit<'_, F>, FrameStreamError<E>> {
+-        let receiver = self.requests.as_ref().ok_or(FrameStreamError::Closed)?;
+         loop {
+-            if self.cancellation.is_cancelled() { return Err(FrameStreamError::Closed); }
++            if self.cancellation.is_cancelled() {
++                self.requests.take();
++                return Err(self.join().err().unwrap_or(FrameStreamError::Closed));
++            }
++            let receiver = self.requests.as_ref().ok_or(FrameStreamError::Closed)?;
+             match receiver.recv_timeout(STOP_CHECK) {
+                 Ok(sender) => return Ok(FramePermit {
+                     sender: Some(sender), cancellation: self.cancellation.clone(),
+                     owner: PhantomData,
+                 }),
+                 Err(RecvTimeoutError::Timeout) => continue,
+-                Err(RecvTimeoutError::Disconnected) => return Err(FrameStreamError::Closed),
++                Err(RecvTimeoutError::Disconnected) => {
++                    self.requests.take();
++                    return Err(self.join().err().unwrap_or(FrameStreamError::Closed));
++                },
+             }
+         }
+     }

@@ -1,0 +1,37 @@
+refresh	Verify the current governed RNG closure	﻿2026-09-04T07:32:42.6995260Z ##[group]Run set -euo pipefail
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.6995624Z ^[[36;1mset -euo pipefail^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.6995867Z ^[[36;1mpython3 - <<'PY'^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.6996112Z ^[[36;1mimport re^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.6996333Z ^[[36;1mfrom pathlib import Path^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.6996576Z ^[[36;1m^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.6996842Z ^[[36;1msuite = Path("SUITE.lock").read_text(encoding="utf-8")^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.6997322Z ^[[36;1mrows = [line for line in suite.splitlines() if line.startswith("franken_numpy\t")]^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.6997723Z ^[[36;1mif len(rows) != 1:^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.6998105Z ^[[36;1m    raise SystemExit(f"expected one franken_numpy SUITE.lock row, found {len(rows)}")^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.6998530Z ^[[36;1mpin = rows[0].split("\t", 2)[1]^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.6998846Z ^[[36;1mif re.fullmatch(r"[0-9a-f]{40}", pin) is None:^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.6999211Z ^[[36;1m    raise SystemExit(f"invalid FrankenNumPy pin {pin!r}")^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.6999614Z ^[[36;1mcargo = Path("Cargo.toml").read_text(encoding="utf-8")^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7000088Z ^[[36;1mfor package in ("fnp-dtype", "fnp-ndarray", "fnp-io", "fnp-random-core"):^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7000470Z ^[[36;1m    match = re.search(^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7001255Z ^[[36;1m        rf'^{re.escape(package)} = \{{ git = "https://github.com/Dicklesworthstone/franken_numpy", rev = "([0-9a-f]{{40}})"',^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7001793Z ^[[36;1m        cargo,^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7002013Z ^[[36;1m        re.MULTILINE,^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7002240Z ^[[36;1m    )^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7002479Z ^[[36;1m    if match is None or match.group(1) != pin:^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7002878Z ^[[36;1m        raise SystemExit(f"{package} does not share governed pin {pin}")^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7003301Z ^[[36;1mlock = Path("Cargo.lock").read_text(encoding="utf-8")^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7003655Z ^[[36;1mif '\nname = "fnp-random-core"\n' not in lock:^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7004018Z ^[[36;1m    raise SystemExit("Cargo.lock lacks fnp-random-core")^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7004363Z ^[[36;1mif '\nname = "fnp-random"\n' in lock:^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7004722Z ^[[36;1m    raise SystemExit("full fnp-random entered the governed lock")^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7005175Z ^[[36;1mrng = Path("crates/fmn-core/src/rng.rs").read_text(encoding="utf-8")^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7005677Z ^[[36;1mfor marker in ("pub use fnp_random_core::SeedSequence", "fnp_random_core::Pcg64Dxsm"):^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7006106Z ^[[36;1m    if marker not in rng:^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7006438Z ^[[36;1m        raise SystemExit(f"fmn-core RNG wrapper lacks {marker!r}")^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7006771Z ^[[36;1mPY^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7007072Z ^[[36;1mcargo check --locked --target wasm32-unknown-unknown -p fmn-core^[[0m
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7030465Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7030821Z ##[endgroup]
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7292748Z Cargo.lock lacks fnp-random-core
+refresh	Verify the current governed RNG closure	2026-09-04T07:32:42.7343533Z ##[error]Process completed with exit code 1.

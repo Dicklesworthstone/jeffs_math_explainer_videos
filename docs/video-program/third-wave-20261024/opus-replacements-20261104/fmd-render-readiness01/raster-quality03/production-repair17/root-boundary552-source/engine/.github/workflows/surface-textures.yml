@@ -1,0 +1,75 @@
+name: Native textured surfaces
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/surface-textures.yml'
+      - 'scripts/patches/surface-textures-*.patch'
+      - 'crates/fmn-render/src/retained_texture_tests.rs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: native-surface-textures
+  cancel-in-progress: false
+jobs:
+  texture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/portable
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          clean: false
+      - name: Connect durable surface images to the retained renderer
+        run: |
+          set -euo pipefail
+          patch=scripts/patches/surface-textures-retained.patch
+          if ! grep -q 'mod texture_tests;' crates/fmn-render/src/retained.rs; then
+            git apply --check --whitespace=error-all "$patch"
+            git apply --whitespace=error-all "$patch"
+          fi
+          git diff --check
+          git rev-parse HEAD > /tmp/surface-textures-parent.txt
+          git ls-files -z | tar --null -T - -czf /tmp/surface-textures-source.tar.gz
+      - name: Install pinned compiler
+        run: rustup show active-toolchain
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-surface-textures-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-surface-mesh-
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-
+      - name: Verify real textured geometry and the complete renderer
+        run: |
+          set -euo pipefail
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-render/src/retained.rs crates/fmn-render/src/retained_texture_tests.rs
+          cargo test --locked -p fmn-render retained::texture_tests -- --nocapture 2>&1 | tee /tmp/surface-textures-focused.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/surface-textures-focused.log
+          cargo test --locked -p fmn-render 2>&1 | tee /tmp/surface-textures-renderer.log
+          cargo clippy --locked -p fmn-render --all-targets -- -D warnings 2>&1 | tee /tmp/surface-textures-clippy.log
+      - name: Commit tested renderer directly to main
+        run: |
+          set -euo pipefail
+          git diff --check
+          git add -- crates/fmn-render/src/retained.rs crates/fmn-render/src/retained_texture_tests.rs
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(render): render durable textured UV surfaces and triangle meshes'
+            git push origin HEAD:main
+          fi
+          git rev-parse HEAD
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: surface-textures-${{ github.sha }}
+          path: /tmp/surface-textures-*
+          retention-days: 2

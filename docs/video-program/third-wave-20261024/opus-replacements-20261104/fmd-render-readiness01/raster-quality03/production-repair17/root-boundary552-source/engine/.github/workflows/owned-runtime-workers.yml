@@ -1,0 +1,81 @@
+name: Owned native runtime workers
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/owned-runtime-workers.yml'
+      - 'scripts/patches/owned-worker-teardown.patch'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: owned-runtime-workers
+  cancel-in-progress: false
+jobs:
+  owner-lifetimes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Apply owned-worker lifetime implementation
+        run: |
+          set -euo pipefail
+          if ! grep -q 'failed_workloads_release_cached_class_owners_before_thread_exit' crates/fmn-python/src/perf_harness.rs; then
+            git apply --check scripts/patches/owned-worker-teardown.patch
+            git apply scripts/patches/owned-worker-teardown.patch
+          fi
+          git diff --check
+          rustup show active-toolchain
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-python/src/perf_harness.rs crates/fmn-python/src/method_cache.rs
+          python -m pip install 'numpy==2.5.2'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Validate all four native workload classes on fresh owner threads
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-python perf_harness::tests:: -- --nocapture 2>&1 | tee /tmp/owned-worker-measurements.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/owned-worker-measurements.log
+          cargo test --locked -p fmn-python python_suite_cycles_are_collected_before_the_owner_thread_changes -- --nocapture 2>&1 | tee /tmp/owned-worker-cycles.log
+          cargo test --locked -p fmn-python production_persistent_runtime_acceptance_suite -- --nocapture 2>&1 | tee /tmp/owned-worker-persistent.log
+          cargo clippy --locked -p fmn-python --lib -- -D warnings 2>&1 | tee /tmp/owned-worker-clippy.log
+      - name: Commit tested native worker lifetimes directly to main
+        run: |
+          set -euo pipefail
+          git add crates/fmn-python/src/perf_harness.rs crates/fmn-python/src/method_cache.rs
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'fix(runtime): release cached native worker owners before their thread exits'
+            git push origin HEAD:main
+          fi
+      - name: Preserve complete unfiltered portal regression outcome
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-python --lib 2>&1 | tee /tmp/owned-worker-full-portal.log
+      - name: Preserve exact code and evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/owned-worker-sha.txt
+          git diff > /tmp/owned-worker-working.patch
+          git archive --format=tar.gz HEAD > /tmp/owned-worker-source.tar.gz
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: owned-workers-${{ github.sha }}
+          path: /tmp/owned-worker-*
+          retention-days: 2

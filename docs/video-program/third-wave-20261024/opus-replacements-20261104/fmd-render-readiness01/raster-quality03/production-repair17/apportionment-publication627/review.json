@@ -1,0 +1,25 @@
+{
+  "utc": "2026-11-09T20:37:55.103523+00:00",
+  "status": "Prepared metadata, not release acceptance",
+  "prior_copy_preserved": "cc2-apportionment-publication482-*",
+  "changes": "Shortened title and public introduction; retained15 chapter titles/times, all source credits, Frederick Surrey credit. Replaced inaccessible DOI tool route with verified PubMed record for same DOI. No script or narration changes.",
+  "all_15_times_match_repaired_timeline567": true,
+  "frames": 100886,
+  "master_times_verified": false,
+  "links": {
+    "https://arxiv.org/abs/2202.11061v2": "opened; correct title/authors and version",
+    "https://www2.census.gov/about/history/historical-censuses-surveys/survey-census-history/decennial/fairness-in-apportionment-young.pdf": "opened26-page PDF, correct title/author/date",
+    "https://pubmed.ncbi.nlm.nih.gov/16592200/": "search result verified exact title/authors1974pages4602-6 DOI10.1073/pnas.71.11.4602; direct DOI open inaccessible in tool"
+  },
+  "manual_copy_review": "Read full new copy; opening matches01 script, methods/proof/lottery scope matches482 and retained script. No em dash; no claim all fairness properties impossible or actual Alabama delegation loss.",
+  "limits": [
+    "Final master times still required",
+    "No new listening, fine-sync or independent AV acceptance",
+    "Thumbnail/final media/captions/public playback still require release checks"
+  ],
+  "files": {
+    "title.txt": "8e1ad8917797009399752c8616c2d3605dd04e56c822c351b664ac26e4ae1c7b",
+    "description.txt": "fb38b93c33ddd5e09d649a9db0a2934bdcbeac4d408116ea50dfb56bb69e9390",
+    "tags.txt": "59356d6510cbed091ba9198cde3af5fe77135bd5542efdb884f10ae01c25cd07"
+  }
+}

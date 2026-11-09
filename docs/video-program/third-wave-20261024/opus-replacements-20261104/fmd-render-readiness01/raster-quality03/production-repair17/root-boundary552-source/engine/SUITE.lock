@@ -1,0 +1,57 @@
+# SUITE.lock — the governed universe (D1, §2.8, §3; fm-g2c).
+#
+# Everything FrankenManim builds against is pinned HERE: the exact rustc
+# nightly (never "or later"), the exact commit of every FrankenSuite
+# foundation repo, every governed transitive source patch, and the certified
+# target-feature sets per SIMD build tier. CI builds only from this lock. The
+# companion per-package allowlist is SUITE_ALLOWLIST.tsv; the enforcement is
+# crates/fmn-conformance/tests/governed_closure.rs, which fails on any
+# package in the workspace's Cargo.lock that this pair does not admit.
+# The native library/CLI/Studio closure deliberately contains no CPython,
+# libpython, PyO3, or NumPy runtime. ADR-0017 assigns Python source execution
+# to the separately installed fmn-python wheel; ADR-0015 governs its host
+# CPython/PyO3/NumPy boundary instead of pretending an interpreter is a native
+# suite pin or a second tool launched by fmn.
+#
+# THE UPGRADE RITUAL (R17): upgrades are deliberate, never incidental.
+# 1. Bump the pin here (and the allowlist rows it affects) in a commit
+#    that does nothing else.
+# 2. Run the full Gauntlet; diff self-goldens and the Look Gallery.
+#    A drifted golden is a finding to adjudicate, not noise to re-bless.
+# 3. Record the adjudication in the commit message; land only green.
+# Line format: section-tagged, tab-separated, std-parseable — no TOML/
+# YAML dependency anywhere in the checker.
+
+[toolchain]
+rustc	nightly-2026-08-31
+edition	2024
+
+[repos]
+# repo	commit	notes
+franken_numpy	a15d5c32e9330b555b0a653058bcfcff22fcb4ec	fnp-* workspace; RNG + arrays; fmn-core consumes the dependency-free fnp-random-core SeedSequence/PCG64DXSM authority (fm-ai1), Marionette consumes fnp-dtype + fnp-ndarray for §8.2 zero-copy NumPy export, and the Gauntlet consumes fnp-io for .npy interchange; the full fnp-random distribution/entropy/parallel surface is not in the native closure; this pin includes the upstream native/wasm/vector/Clippy/zero-dependency proof and generated lock receipt
+frankenscipy	85edd7a99f2a6487ef35135e135b9959cc0010c1	fsci-* workspace; solves/quadrature/assignment
+franken_markdown	126a5304e8d94eaea62b1b8e13bbe9c40918ac72	workspace since fm-ydw: fmd-font 0.3.3 and fmd-math 0.1.2 (core fm-wgl + placement fm-hk9 + span maps fm-70s + extensions fm-kg9 + tier-2 fm-j5t, then upstream through e911be2: Noto math alphanumerics, trailing-operator spacing, Send+Sync Engine, \\ unskip; through 68fe29b: display integrals at cmex10's 2.0x display size; through 4c8caa2: rule 17 italic-correction kerns with clean_box and group-collapse semantics; through f059cac: PDF inline $…$ through fmd-math Layout; through bfb3221: \root degree placement and radical box depth per plain TeX; through 0a02812: TeX text-font quote and dash ligatures; through a3578a0: \ldots/\cdots as three thin-spaced punctuation dots, amsmath \pmod, and text-mode spaces per TeX's modes; through a8aab0d: the drawn paren as a simple outline, \tbinom and \dbinom; through d664c13: the Tex surface's \\ rows open up by \jot like amsmath's align*; through e4e8e2e: TeX null delimiters around \frac and \over, LaTeX \vdots and \ddots, \hdots as \ldots, no empty row after a trailing \\; through 798de11: the Tex surface's rows as align* rows (cells aligned at &, rows without & right-aligned, right-hand cells opened by {}); through bd00a24: accents in TeX's accent-character geometry, the \big family at 1.2/1.8/2.4/3.0 em, and LaTeX's array struts in matrices, cases and arrays; through 3ed1d33: TeX's \scriptspace on every script box, primes as cmsy's prime character, LaTeX's brace fills for \overbrace and \underbrace, Layout.order in TeX's emission order, and the default pack's \DisableLigatures; through 126a530: rule contours from the bottom-right corner, counterclockwise, as the Reference's <rect> becomes a Rectangle, and TeX's inter-atom spacing across explicit spaces and kerns) consumed as git deps at this rev; repinned from 3ed1d332 (fm-15k9, fm-tex-layout-oracle-bkbc) after bd00a247 -> 3ed1d332 (fm-tex-layout-oracle-bkbc, fm-aia1), 798de11b -> bd00a247 (fm-tex-layout-oracle-bkbc), e4e8e2ee -> 798de11b (fm-tex-layout-oracle-bkbc), d664c138 -> e4e8e2ee (fm-tex-layout-oracle-bkbc), a8aab0db -> d664c138 (fm-tex-layout-oracle-bkbc), a3578a0f -> a8aab0db (fm-binom-delimiters-glyph-gaps-ed1k), 0a028127 -> a3578a0f (fm-y5fl), bfb3221c -> 0a028127 (fm-5wq.56), f059cac6 -> bfb3221c (fm-5wq.60) and 4c8caa25 -> f059cac6 (fm-djcw) and 68fe29b8 -> 4c8caa25 (fm-tex-metrics-glyphs-ru72) and e911be2a -> 68fe29b8 (fm-tex-display-style-nclg) and 82588865 -> e911be2a (fm-fmd-repin-g2-truth-y3gr)
+franken_networkx	9d710b1c33e99412c94de7fa4de2f7ce4954110f	enhanced-tier Graph mobjects; never blocks core gates
+frankenpandas	da85cf65df48965e027b2f5aa21b7d0ce6a7e29c	enhanced-tier Data mobjects; never blocks core gates
+frankentorch	523aaf827faf538aa541126ee222fcd7af348410	the only GPU gateway; includes checked Metal compute, native CAMetalLayer presentation, and the governed block-runtime patch consumed by the standard-only Accelerator Annex
+asupersync	c48399f20a9780ef420de64fe504ff922e5afe5e	batch farms + scheduler lab plus the exact-image host process primitive; never in the frame loop; pin rides branch fmn/darwin-exact-image-spawn (333981298 + the Darwin spawn/killpg fix only)
+
+[patches]
+# repo	commit	notes
+rust-block	b39ae859d1ee8e8cb5eef6a516471f1578d26b96	reviewed block 0.1.6 fork; models the external Objective-C class symbol by raw address without an uninhabited extern static
+
+[reference]
+# The design oracle — never a build input.
+3b1b/manim	6199a00d4c1b1127ebe45cb629c3f22538b10e13	checked out (gitignored) at scripts/manim_ref for fixture generation
+3b1b/videos	e317d6c5eaa8370a2deb4d148c246b0d0e9fbe6f	checked out (gitignored) at scripts/videos_ref; the G0-4 corpus-harvest source and the coverage-ratchet denominator's pin (fm-or4, §11.5)
+
+[target-features]
+# Certified SIMD build tiers (§17.3, D-15). The certified engine's scalar
+# path is the definition; every tier must match it bit-for-bit under the
+# §10.5 lane rules (fixed-order, lane-count-independent reductions; no
+# FMA contraction on certified paths even where the tier enables the
+# instruction set).
+portable	baseline	no target-feature flags; the definition tier
+x86-64-v3	+avx2,+bmi2,+fma	fma enabled at ISA level, forbidden in certified kernels by construction (§10.5d)
+x86-64-v4	+avx512f,+avx512bw,+avx512dq,+avx512vl	weekly-matrix tier (R22)
+aarch64-neon	+neon	baseline on aarch64; certified matrix member

@@ -1,0 +1,5 @@
+[toolchain]
+# Must equal franken_manim's pinned nightly (fmn uses std::simd). Bump the two
+# together, with the fmn rev in Cargo.toml and FRANKEN_MANIM.pin.
+channel = "nightly-2026-08-31"
+components = ["rustfmt", "clippy", "rust-src"]

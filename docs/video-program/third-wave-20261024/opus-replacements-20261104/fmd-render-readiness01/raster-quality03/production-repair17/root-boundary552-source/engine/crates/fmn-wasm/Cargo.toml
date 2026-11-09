@@ -1,0 +1,30 @@
+[package]
+name = "fmn-wasm"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "FrankenManim's browser renderer, threaded frame pool, and FMTL timeline player"
+readme = "README.md"
+
+[lib]
+# cdylib is the wasm32 deliverable; rlib keeps host-side tests and clippy on
+# the same code (the bindgen macros are inert off-target).
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+fmn-core.workspace = true
+fmn-dmath.workspace = true
+fmn-frame.workspace = true
+fmn-geom.workspace = true
+fmn-mobject.workspace = true
+fmn-anim.workspace = true
+fmn-render.workspace = true
+fmn-scene.workspace = true
+fmn-hash.workspace = true
+# The single D1-sanctioned new dependency (SUITE_ALLOWLIST.tsv row trued up
+# from pending at consumption): macro expansion only, pinned exactly.
+wasm-bindgen = "=0.2.127"
+
+[lints]
+workspace = true

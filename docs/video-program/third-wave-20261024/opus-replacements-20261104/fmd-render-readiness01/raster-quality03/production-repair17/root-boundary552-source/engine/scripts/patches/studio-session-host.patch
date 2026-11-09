@@ -1,0 +1,359 @@
+diff --git a/API_OVERLAY.tsv b/API_OVERLAY.tsv
+index 8a39ba1..c88b608 100644
+--- a/API_OVERLAY.tsv
++++ b/API_OVERLAY.tsv
+@@ -2739,6 +2739,7 @@ scene_names	same	-	render	scene_names	crates/fmn-cli/src/lib.rs#tests	explicit s
+ --tui	store_true	-	False	-	studio	tui	improved	BN-15	crates/fmn-cli/src/lib.rs#tests	Attach the kitty or sixel terminal client
+ --checkpoint-frames	store	-	120	u64	studio	checkpoint_frames	improved	BN-15	crates/fmn-cli/src/lib.rs#tests	Maximum frames between replay checkpoints
+ --preview-codec	store	-	png	preview_codec	studio	preview_codec	improved	BN-15	crates/fmn-cli/src/lib.rs#tests	Select permanent multipart PNG or optional MJPEG preview
++--restore-session	store	-	-	path	studio	restore_session	improved	BN-15	crates/fmn-cli/src/studio_session.rs#tests	Restore a saved native Studio session with matching scene and render settings
+ 
+ # ---------------------------------------------------------------------------
+ # [subcommands] — the native command tree. `render` is also the default when
+ diff --git a/crates/fmn-cli/src/lib.rs b/crates/fmn-cli/src/lib.rs
+index 4acd9ad..289857d 100644
+--- a/crates/fmn-cli/src/lib.rs
++++ b/crates/fmn-cli/src/lib.rs
+@@ -8,6 +8,7 @@
+ 
+ mod generated;
+ mod studio_live;
++mod studio_session;
+ 
+ pub use generated::{
+     CommandScope, EXIT_CODE_SPECS, ExitCodeSpec, FLAG_SPECS, FlagAction, FlagArity, FlagSource,
+@@ -399,6 +400,8 @@ pub struct StudioCommand {
+     pub checkpoint_frames: u64,
+     /// Preview transport.
+     pub preview_codec: PreviewCodec,
++    /// Restore committed native editing data from a saved Studio session.
++    pub restore_session: Option<PathBuf>,
+ }
+ 
+ /// Provenance of the topology used for `fmn doctor`.
+@@ -689,7 +692,7 @@ fn typed_consumer_scope(binding: &str) -> Option<CommandScope> {
+         | "math_pack" => CommandScope::Render,
+         "require_ffmpeg" => CommandScope::Doctor,
+         "budget_ms" | "max_scenes" | "fail_fast" | "manifest_dir" => CommandScope::Batch,
+-        "bind" | "port" | "no_browser" | "tui" | "checkpoint_frames" | "preview_codec" => {
++        "bind" | "port" | "no_browser" | "tui" | "checkpoint_frames" | "preview_codec" | "restore_session" => {
+             CommandScope::Studio
+         }
+         _ => return None,
+@@ -1108,6 +1111,7 @@ fn build_invocation(
+                 tui: values.bool("tui"),
+                 checkpoint_frames,
+                 preview_codec,
++                restore_session: values.value("restore_session").map(PathBuf::from),
+             }))
+         }
+         CommandScope::Global => Err(internal("global scope cannot be dispatched")),
+@@ -7366,6 +7370,22 @@ fn execute_studio(
+     // derives the same plan again before constructing its renderer.
+     let _ =
+         derive_studio_execution_plan(fs.as_ref(), &config, fmn_runtime::OutputPixelFormat::Rgba8)?;
++    let protocol_limits = fmn_studio::ProtocolLimits::default();
++    let (session_context, saved) = studio_session::prepare(&*fs, &command, &scene, &config, protocol_limits)?;
++    let restored_frame = saved.as_ref().map_or(0, |saved| saved.committed_frame());
++    let live_reads = studio_live::source_reads(&*fs, &command)?;
++    let live_scene = studio_live::selected(&command.render);
++    let asset_fs = Arc::clone(&fs);
++    let asset_ok: Arc<dyn Fn(&AssetRead) -> bool + Send + Sync> = Arc::new(move |read| {
++        // A saved native journal cannot nominate arbitrary host files to read.
++        // Its input closure was independently resolved by this host.
++        if live_scene || read.path.starts_with("native/") {
++            return live_reads.iter().any(|expected| expected == read);
++        }
++        asset_fs
++            .read_bounded(Path::new(&read.path), DEFAULT_MAX_BUNDLE_BYTES)
++            .is_ok_and(|bytes| fmn_studio::protocol_digest(&bytes) == read.digest)
++    });
+     let mut token_bytes = [0_u8; 32];
+     fmn_platform::entropy::HostEntropy::fill(
+         &fmn_platform::entropy::StdHostEntropy,
+@@ -7403,7 +7423,6 @@ fn execute_studio(
+         build_id,
+     };
+     let clock: Arc<dyn fmn_platform::clock::Clock> = Arc::new(fmn_platform::clock::StdClock::new());
+-    let protocol_limits = fmn_studio::ProtocolLimits::default();
+     let mut supervisor = fmn_studio::Supervisor::new(
+         Box::new(fmn_studio::StdWorkerLauncher::default()),
+         Arc::clone(&clock),
+@@ -7414,18 +7433,24 @@ fn execute_studio(
+             ..fmn_studio::SupervisorConfig::default()
+         },
+     );
+-    supervisor
+-        .install_session(scene.clone(), fmn_scene::Journal::new())
+-        .and_then(|()| supervisor.build_and_start(&mut builder))
+-        .map_err(|error| CliError::new("scene", format!("Studio worker startup: {error}")))?;
++    if let Some(saved) = saved {
++        let context = session_context.ok_or_else(|| internal("missing saved-session context"))?;
++        supervisor.resume_saved_session(&mut builder, saved, &scene, context, &*asset_ok)
++            .map_err(|error| CliError::new("scene", format!("Studio session restore: {error}")))?;
++    } else {
++        supervisor
++            .install_session(scene.clone(), fmn_scene::Journal::new())
++            .and_then(|()| supervisor.build_and_start(&mut builder))
++            .map_err(|error| CliError::new("scene", format!("Studio worker startup: {error}")))?;
++    }
+     let generation = supervisor.generation();
+     let initial = supervisor
+         .request(
+             fmn_studio::SupervisorRequest::Scrub {
+                 scene: scene.clone(),
+-                frame: 0,
++                frame: restored_frame,
+             },
+-            &|_| false,
++            &*asset_ok,
+         )
+         .map_err(|error| CliError::new("render", format!("Studio first frame: {error}")))?;
+     let initial = match initial {
+@@ -7449,19 +7474,13 @@ fn execute_studio(
+         .publish(&initial, protocol_limits)
+         .map_err(|error| CliError::new("render", format!("Studio first frame: {error}")))?;
+     let tui_frames = command.tui.then(|| frames.clone());
+-    let live_reads = studio_live::source_reads(&*fs, &command)?;
+-    let asset_fs = Arc::clone(&fs);
+-    let asset_ok: Arc<dyn Fn(&AssetRead) -> bool + Send + Sync> = Arc::new(move |read| {
+-        if read.path.starts_with("native/") {
+-            return live_reads.iter().any(|expected| expected == read);
+-        }
+-        asset_fs
+-            .read_bounded(Path::new(&read.path), DEFAULT_MAX_BUNDLE_BYTES)
+-            .is_ok_and(|bytes| fmn_studio::protocol_digest(&bytes) == read.digest)
+-    });
+     let session = Arc::new(
+         fmn_studio::StudioWorkerSession::new(&scene, supervisor, Box::new(builder), asset_ok)
+             .map(fmn_studio::StudioWorkerSession::require_guarded_input)
++            .and_then(|session| match session_context {
++                Some(context) => session.with_saved_session_context(context, restored_frame),
++                None => Ok(session),
++            })
+             .map_err(|error| internal(format!("Studio session: {error}")))?,
+     );
+     let host = match fmn_studio::StudioHost::bind(
+diff --git a/crates/fmn-cli/src/studio_live.rs b/crates/fmn-cli/src/studio_live.rs
+index f168ebc..1c82e7b 100644
+--- a/crates/fmn-cli/src/studio_live.rs
++++ b/crates/fmn-cli/src/studio_live.rs
+@@ -71,7 +71,7 @@ fn configuration(
+     closure.extend_from_slice(include_bytes!("../../fmn/src/lib.rs"));
+     closure.extend_from_slice(SUITE_LOCK_BYTES);
+     closure.extend_from_slice(build.as_bytes());
+-    closure.extend_from_slice(format!("{config:?}").as_bytes());
++    closure.extend_from_slice(&config.canonical_bytes().map_err(|error| internal(error.to_string()))?);
+     let mut native = NativeWorkerConfig::new(
+         fmn::builtins::INTERACTIVE_SCENE_NAME,
+         build,
+diff --git a/crates/fmn-studio/src/host.rs b/crates/fmn-studio/src/host.rs
+index 05cd52d..b026339 100644
+--- a/crates/fmn-studio/src/host.rs
++++ b/crates/fmn-studio/src/host.rs
+@@ -35,6 +35,7 @@ use crate::supervisor::{
+ use crate::ui;
+ 
+ mod input;
++mod session;
+ 
+ /// Multipart boundary used by the permanent browser preview floor.
+ pub const MULTIPART_BOUNDARY: &str = "fmn-frame";
+@@ -505,6 +506,7 @@ pub struct StudioWorkerSession {
+     committed_frame: AtomicI64,
+     operations: Mutex<()>,
+     guarded_input: bool,
++    session_context: Option<Digest>,
+ }
+ 
+ impl fmt::Debug for StudioWorkerSession {
+@@ -549,6 +551,7 @@ impl StudioWorkerSession {
+             committed_frame: AtomicI64::new(0),
+             operations: Mutex::new(()),
+             guarded_input: false,
++            session_context: None,
+         })
+     }
+ 
+@@ -1055,6 +1058,7 @@ impl HostHandler {
+             (Method::Post, "/api/event") => self.event(stream, &request),
+             (Method::Get, "/api/inspect") => self.inspect(stream),
+             (Method::Get, "/api/overlays") => self.overlays(stream, &request),
++            (Method::Get, "/api/session") => self.saved_session(stream),
+             _ => write_http_response(
+                 stream,
+                 404,
+@@ -1172,7 +1176,10 @@ impl HostHandler {
+                 "OK",
+                 "application/json; charset=utf-8",
+                 &bytes,
+-                &[("X-FMN-Worker-Generation", &generation.to_string())],
++                &[
++                    ("X-FMN-Worker-Generation", &generation.to_string()),
++                    ("X-FMN-Session-Export", if self.session.session_context.is_some() { "true" } else { "false" }),
++                ],
+             )
+         } else {
+             self.write_worker_response(stream, response, Some(StudioDataKind::Inspection))
+diff --git a/crates/fmn-studio/src/interaction.rs b/crates/fmn-studio/src/interaction.rs
+index c0c2160..622aaf0 100644
+--- a/crates/fmn-studio/src/interaction.rs
++++ b/crates/fmn-studio/src/interaction.rs
+@@ -186,8 +186,7 @@ impl InteractivePreview {
+             .snapshot()
+             .to_bytes()
+             .map_err(|error| InteractivePreviewError::SnapshotEncode(error.to_string()))?;
+-        let mut config = RuntimeConfig::default();
+-        config.fps = fps;
++        let config = RuntimeConfig { fps, ..RuntimeConfig::default() };
+         let scene = Scene::new(config, seed)?;
+         let mut scene = InteractiveScene::new(scene)?;
+         let decoded = Snapshot::from_bytes(&bytes, scene.scene().stage())
+diff --git a/crates/fmn-studio/src/native/service/recovery.rs b/crates/fmn-studio/src/native/service/recovery.rs
+index f28b212..0002613 100644
+--- a/crates/fmn-studio/src/native/service/recovery.rs
++++ b/crates/fmn-studio/src/native/service/recovery.rs
+@@ -45,10 +45,9 @@ impl NativeSceneWorker {
+             if total_frames > self.config.max_replay_frames || total_inputs > self.config.max_replay_inputs {
+                 return Err(refuse("native replay exceeds its total frame or input work budget"));
+             }
+-            if let Some(state) = &entry.checkpoint {
+-                if state.len() > self.config.limits.max_checkpoint_bytes || protocol_digest(state) != entry.state_hash {
+-                    return Err(refuse("native replay checkpoint digest or budget is invalid"));
+-                }
++            if let Some(state) = &entry.checkpoint
++                && (state.len() > self.config.limits.max_checkpoint_bytes || protocol_digest(state) != entry.state_hash) {
++                return Err(refuse("native replay checkpoint digest or budget is invalid"));
+             }
+         }
+         let mut edits = self.edits.try_clone()?;
+diff --git a/crates/fmn-studio/src/protocol.rs b/crates/fmn-studio/src/protocol.rs
+index 0ac43da..5e3b635 100644
+--- a/crates/fmn-studio/src/protocol.rs
++++ b/crates/fmn-studio/src/protocol.rs
+@@ -178,7 +178,7 @@ pub fn studio_input_payload(
+     }
+     let mut document = vec_with_capacity(hex.len() / 2, "Studio input command document")?;
+     let bytes = hex.as_bytes();
+-    for pair in bytes.chunks_exact(2) {
++    for pair in bytes.as_chunks::<2>().0 {
+         document.push(hex_digit(pair[0])? << 4 | hex_digit(pair[1])?);
+     }
+     let limits = Limits {
+diff --git a/crates/fmn-studio/src/supervisor/session.rs b/crates/fmn-studio/src/supervisor/session.rs
+index e72238f..4708480 100644
+--- a/crates/fmn-studio/src/supervisor/session.rs
++++ b/crates/fmn-studio/src/supervisor/session.rs
+@@ -164,6 +164,9 @@ impl Supervisor {
+             return Err(SupervisorError::InvalidSession("resume requires a fresh supervisor"));
+         }
+         saved.validate_context(scene, context)?;
++        // SavedSession may have been decoded by an embedder with wider limits.
++        // Recheck the complete receiving envelope before rebuilding any worker.
++        saved.to_bytes(self.config.protocol_limits)?;
+         validate_journal(&saved.journal, self.config.protocol_limits)?;
+         let commands = require_replayable(&saved.journal, asset_ok)?;
+         let started = self.clock.monotonic();
+diff --git a/crates/fmn-studio/tests/supervisor.rs b/crates/fmn-studio/tests/supervisor.rs
+index 49bd094..ca830b1 100644
+--- a/crates/fmn-studio/tests/supervisor.rs
++++ b/crates/fmn-studio/tests/supervisor.rs
+@@ -2400,3 +2400,98 @@ fn real_worker_process_panic_is_isolated_and_auto_restarted() {
+         SupervisorReply::Worker(WorkerResponse::Scenes(vec!["Demo".to_owned()]))
+     );
+ }
++
++#[test]
++fn saved_session_restores_into_a_new_supervisor_without_the_old_cache() {
++    use fmn_studio::supervisor::session::SavedSession;
++    let clock = Arc::new(FakeClock::new());
++    let state = Arc::new(Mutex::new(FakeState::default()));
++    let mut original = fake_supervisor(state.clone(), clock.clone(), Duration::ZERO);
++    original.install_session("Demo", make_journal(4, Some(1))).unwrap();
++    original.build_and_start(&mut ScriptedBuilder::fake(clock.clone(), Duration::ZERO)).unwrap();
++    let context = sha256(b"resolved configuration");
++    let bytes = original.save_session(context, 3, &|_| true).unwrap();
++    original.shutdown_worker();
++    drop(original);
++    // fake_supervisor opens an independent VirtualFs cache each time.
++    let mut resumed = fake_supervisor(state.clone(), clock.clone(), Duration::ZERO);
++    let saved = SavedSession::from_bytes(&bytes, ProtocolLimits::default()).unwrap();
++    let result = resumed.resume_saved_session(
++        &mut ScriptedBuilder::fake(clock, Duration::ZERO), saved, "Demo", context, &|_| true,
++    ).unwrap();
++    assert_eq!(result.plan.reuse, 4);
++    assert_eq!(result.restored_checkpoint, Some(1));
++    assert_eq!(result.replayed_entries, 2);
++    assert!(!result.cold_fallback);
++    assert_eq!(resumed.save_session(context, 3, &|_| true).unwrap(), bytes);
++    assert_eq!(state.lock().unwrap().launches, 2);
++}
++
++#[test]
++fn saved_session_does_not_replace_a_running_supervisor() {
++    use fmn_studio::supervisor::session::SavedSession;
++    let clock = Arc::new(FakeClock::new());
++    let state = Arc::new(Mutex::new(FakeState::default()));
++    let mut supervisor = fake_supervisor(state.clone(), clock.clone(), Duration::ZERO);
++    supervisor.install_session("Demo", make_journal(3, Some(0))).unwrap();
++    supervisor.build_and_start(&mut ScriptedBuilder::fake(clock.clone(), Duration::ZERO)).unwrap();
++    let context = sha256(b"context");
++    let bytes = supervisor.save_session(context, 2, &|_| true).unwrap();
++    let saved = SavedSession::from_bytes(&bytes, ProtocolLimits::default()).unwrap();
++    let error = supervisor.resume_saved_session(
++        &mut ScriptedBuilder::fake(clock, Duration::ZERO), saved, "Demo", context, &|_| true,
++    ).unwrap_err();
++    assert!(error.to_string().contains("fresh supervisor"));
++    assert_eq!(supervisor.save_session(context, 2, &|_| true).unwrap(), bytes);
++    assert_eq!(state.lock().unwrap().launches, 1);
++    assert_eq!(state.lock().unwrap().terminated, 0);
++}
++
++#[test]
++fn saved_session_changed_context_or_build_refuses_before_worker_launch() {
++    use fmn_studio::supervisor::session::SavedSession;
++    let clock = Arc::new(FakeClock::new());
++    let state = Arc::new(Mutex::new(FakeState::default()));
++    let mut original = fake_supervisor(state.clone(), clock.clone(), Duration::ZERO);
++    original.install_session("Demo", make_journal(3, Some(0))).unwrap();
++    original.build_and_start(&mut ScriptedBuilder::fake(clock.clone(), Duration::ZERO)).unwrap();
++    let context = sha256(b"config");
++    let bytes = original.save_session(context, 2, &|_| true).unwrap();
++    original.shutdown_worker();
++    for (name, supplied_context, build, diagnostic) in [
++        ("Other", context, 0, "configuration"),
++        ("Demo", sha256(b"different"), 0, "configuration"),
++        ("Demo", context, 1, "worker build"),
++    ] {
++        let mut resumed = fake_supervisor(state.clone(), clock.clone(), Duration::ZERO);
++        let saved = SavedSession::from_bytes(&bytes, ProtocolLimits::default()).unwrap();
++        let mut builder = ScriptedBuilder::fake(clock.clone(), Duration::ZERO);
++        builder.build = build;
++        let error = resumed.resume_saved_session(&mut builder, saved, name, supplied_context, &|_| true).unwrap_err();
++        assert!(error.to_string().contains(diagnostic), "{error}");
++        assert_eq!(state.lock().unwrap().launches, 1);
++        assert_eq!(resumed.generation(), 0);
++    }
++}
++
++#[test]
++fn saved_session_replay_divergence_is_failure_not_successful_cold_fallback() {
++    use fmn_studio::supervisor::session::SavedSession;
++    let clock = Arc::new(FakeClock::new());
++    let state = Arc::new(Mutex::new(FakeState::default()));
++    let mut original = fake_supervisor(state.clone(), clock.clone(), Duration::ZERO);
++    original.install_session("Demo", make_journal(3, Some(0))).unwrap();
++    original.build_and_start(&mut ScriptedBuilder::fake(clock.clone(), Duration::ZERO)).unwrap();
++    let context = sha256(b"config");
++    let bytes = original.save_session(context, 2, &|_| true).unwrap();
++    original.shutdown_worker();
++    state.lock().unwrap().diverge_next_replay = true;
++    let mut resumed = fake_supervisor(state.clone(), clock.clone(), Duration::ZERO);
++    let saved = SavedSession::from_bytes(&bytes, ProtocolLimits::default()).unwrap();
++    let error = resumed.resume_saved_session(
++        &mut ScriptedBuilder::fake(clock, Duration::ZERO), saved, "Demo", context, &|_| true,
++    ).unwrap_err();
++    assert!(error.to_string().contains("refusing partial recovery"), "{error}");
++    let state = state.lock().unwrap();
++    assert_eq!(state.launches, state.terminated);
++}

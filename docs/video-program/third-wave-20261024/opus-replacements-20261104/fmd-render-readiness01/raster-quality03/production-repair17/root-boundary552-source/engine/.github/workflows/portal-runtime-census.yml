@@ -1,0 +1,97 @@
+name: Portal Runtime Census
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/portal-runtime-census.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portal-runtime-census
+  cancel-in-progress: false
+
+jobs:
+  census:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install governed Rust toolchain and wheel builder
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustup toolchain install nightly-2026-07-05 --profile minimal
+          rustup override set nightly-2026-07-05
+          python -m pip install --upgrade pip
+          python -m pip install maturin==1.14.1 numpy==2.5.2
+
+      - name: Build and install the exact wheel
+        shell: bash
+        run: |
+          set -euo pipefail
+          maturin build --release --locked --out dist
+          python -m venv /tmp/fmn-portal
+          /tmp/fmn-portal/bin/python -m pip install --upgrade pip
+          /tmp/fmn-portal/bin/python -m pip install numpy==2.5.2 dist/*.whl
+
+      - name: Audit reviewed runtime claims and group contradictions
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          /tmp/fmn-portal/bin/python -m fmn_python --audit-parity --robot > /tmp/portal-runtime.json
+          audit_status=$?
+          set -e
+          echo "portal_audit_exit=$audit_status"
+          cat /tmp/portal-runtime.json
+          /tmp/fmn-portal/bin/python - <<'PY'
+          import collections
+          import json
+          from pathlib import Path
+
+          report = json.loads(Path('/tmp/portal-runtime.json').read_text(encoding='utf-8'))
+          contradictions = report.get('contradictions', [])
+          print('PORTAL_CENSUS_BEGIN')
+          print(f"ok={report.get('ok')} reviewed={report.get('reviewed_claims')} contradictions={len(contradictions)}")
+          by_reason = collections.Counter(item.get('reason', '<missing>') for item in contradictions)
+          print('BY_REASON')
+          for key, count in sorted(by_reason.items(), key=lambda item: (-item[1], item[0])):
+              print(f"{count}\t{key}")
+          by_module = collections.Counter(item.get('module', '<missing>') for item in contradictions)
+          print('BY_MODULE')
+          for key, count in sorted(by_module.items(), key=lambda item: (-item[1], item[0])):
+              print(f"{count}\t{key}")
+          by_owner = collections.Counter()
+          for item in contradictions:
+              symbol = item.get('symbol') or item.get('qualified') or '<missing>'
+              owner = symbol.rsplit('.', 1)[0] if '.' in symbol else '<module-function>'
+              by_owner[(item.get('module', '<missing>'), owner)] += 1
+          print('BY_OWNER_TOP_100')
+          for (module, owner), count in sorted(by_owner.items(), key=lambda item: (-item[1], item[0]))[:100]:
+              print(f"{count}\t{module}\t{owner}")
+          print('CONTRADICTIONS')
+          for item in contradictions:
+              print(json.dumps(item, sort_keys=True, separators=(',', ':')))
+          print('PORTAL_CENSUS_END')
+          PY
+
+      - name: Run the permanent Python portal acceptance suite
+        shell: bash
+        env:
+          PYO3_PYTHON: python3
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-python

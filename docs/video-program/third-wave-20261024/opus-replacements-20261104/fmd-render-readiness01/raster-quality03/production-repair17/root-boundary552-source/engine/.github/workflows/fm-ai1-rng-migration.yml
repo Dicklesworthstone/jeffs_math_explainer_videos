@@ -1,0 +1,287 @@
+name: fm-ai1 fnp-random migration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/fm-ai1-rng-migration.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fm-ai1-rng-migration
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    if: github.repository == 'Dicklesworthstone/franken_manim'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Replace the duplicate RNG engine with fnp-random
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          old_pin = "8d7415dc48887efc8925b9c2536ceec1d0a2bb9c"
+          new_pin = "fba5e19ef98860cd6b6380457bbfb9a9bcc9481d"
+
+          rng = Path("crates/fmn-core/src/rng.rs")
+          text = rng.read_text(encoding="utf-8")
+          if "use fnp_random::{" in text:
+              raise SystemExit("fm-ai1 migration is already present")
+          start_token = "const XSHIFT: u32 = 16;"
+          end_token = "/// The canonical substream-name encoding"
+          if text.count(start_token) != 1 or text.count(end_token) != 1:
+              raise SystemExit("unexpected rng.rs authority boundary")
+          start = text.index(start_token)
+          end = text.index(end_token)
+          replacement = '''use fnp_random::{
+              DEFAULT_SEED_SEQUENCE_POOL_SIZE, Pcg64DxsmRng, SeedSequence as FnpSeedSequence,
+          };
+
+          /// NumPy's `SeedSequence`, delegated to the sovereign `fnp-random`
+          /// implementation while retaining FrankenManim's public constructor shape.
+          #[derive(Debug, Clone, PartialEq, Eq)]
+          pub struct SeedSequence {
+              inner: FnpSeedSequence,
+          }
+
+          /// A u64 seed as NumPy coerces integers: little-endian u32 words (zero is
+          /// the single word `[0]`).
+          fn entropy_words(seed: u64) -> Vec<u32> {
+              if seed == 0 {
+                  return vec![0];
+              }
+              let mut words = Vec::new();
+              let mut value = seed;
+              while value != 0 {
+                  words.push(value as u32);
+                  value >>= 32;
+              }
+              words
+          }
+
+          fn seed_sequence(entropy: &[u32], spawn_key: &[u32]) -> FnpSeedSequence {
+              FnpSeedSequence::with_spawn_key(
+                  entropy,
+                  spawn_key,
+                  DEFAULT_SEED_SEQUENCE_POOL_SIZE,
+              )
+              .unwrap_or_else(|error| {
+                  panic!("valid FrankenManim SeedSequence rejected by fnp-random: {error}")
+              })
+          }
+
+          impl SeedSequence {
+              /// A root sequence from a u64 seed (NumPy: `SeedSequence(seed)`).
+              #[must_use]
+              pub fn from_seed(seed: u64) -> Self {
+                  Self {
+                      inner: seed_sequence(&entropy_words(seed), &[]),
+                  }
+              }
+
+              /// A child sequence (NumPy: `SeedSequence(entropy=seed, spawn_key=key)`).
+              #[must_use]
+              pub fn with_spawn_key(seed: u64, spawn_key: &[u32]) -> Self {
+                  Self {
+                      inner: seed_sequence(&entropy_words(seed), spawn_key),
+                  }
+              }
+
+              /// `generate_state(n)` as u32 words.
+              #[must_use]
+              pub fn generate_state(&self, n_words: usize) -> Vec<u32> {
+                  self.inner.generate_state_u32(n_words).unwrap_or_else(|error| {
+                      panic!("SeedSequence state request rejected by fnp-random: {error}")
+                  })
+              }
+
+              /// `generate_state(n, np.uint64)`: pairs of u32 words, low word first
+              /// (NumPy's little-endian view).
+              #[must_use]
+              pub fn generate_state_u64(&self, n_words: usize) -> Vec<u64> {
+                  self.inner.generate_state_u64(n_words).unwrap_or_else(|error| {
+                      panic!("SeedSequence u64 state request rejected by fnp-random: {error}")
+                  })
+              }
+          }
+
+          /// NumPy's PCG64DXSM bit generator, with stream authority delegated to
+          /// `fnp-random` and FrankenManim's stable snapshot/API surface preserved.
+          #[derive(Debug, Clone, PartialEq, Eq)]
+          pub struct Pcg64Dxsm {
+              inner: Pcg64DxsmRng,
+          }
+
+          impl Pcg64Dxsm {
+              /// Seed from a `SeedSequence` exactly as NumPy's `PCG64DXSM.__init__`.
+              #[must_use]
+              pub fn from_seed_sequence(seq: &SeedSequence) -> Self {
+                  let inner = Pcg64DxsmRng::from_seed_sequence(&seq.inner).unwrap_or_else(|error| {
+                      panic!("valid FrankenManim SeedSequence rejected by fnp-random: {error}")
+                  });
+                  Self { inner }
+              }
+
+              /// Convenience: seed like `PCG64DXSM(seed)`.
+              #[must_use]
+              pub fn from_seed(seed: u64) -> Self {
+                  Self::from_seed_sequence(&SeedSequence::from_seed(seed))
+              }
+
+              /// The next raw u64.
+              pub fn next_u64(&mut self) -> u64 {
+                  self.inner.next_u64()
+              }
+
+              /// The next double in `[0, 1)`, NumPy's `random()`.
+              pub fn next_f64(&mut self) -> f64 {
+                  self.inner.next_f64()
+              }
+
+              /// Full state snapshot `((state_hi, state_lo), (inc_hi, inc_lo))` for
+              /// SceneState and the replay journal.
+              #[must_use]
+              pub fn state(&self) -> ([u64; 2], [u64; 2]) {
+                  let (state, increment) = self.inner.raw_state();
+                  (
+                      [(state >> 64) as u64, state as u64],
+                      [(increment >> 64) as u64, increment as u64],
+                  )
+              }
+
+              /// Restore a snapshot taken with [`Pcg64Dxsm::state`].
+              #[must_use]
+              pub fn restore(state: [u64; 2], inc: [u64; 2]) -> Self {
+                  let state = (u128::from(state[0]) << 64) | u128::from(state[1]);
+                  let inc = (u128::from(inc[0]) << 64) | u128::from(inc[1]);
+                  Self {
+                      inner: Pcg64DxsmRng::from_raw_state(state, inc),
+                  }
+              }
+          }
+
+          '''
+          text = text[:start] + replacement + text[end:]
+          old_note = '''//! Ownership note (D-4): the RNG belongs to franken_numpy (`fnp-random`,
+          //! already bit-exact to NumPy). This owned implementation carries the
+          //! contract until SUITE.lock (fm-g2c) makes fnp consumable; the migration
+          //! bead swaps the internals, the API and the vectors stay.
+          '''
+          new_note = '''//! Ownership note (D-4): `fnp-random` owns SeedSequence and PCG64DXSM.
+          //! This module is the thin FrankenManim stream-layout adapter: names, frame
+          //! keys, snapshots, and the public API remain stable while the algorithm has
+          //! one sovereign implementation.
+          '''
+          if text.count(old_note) != 1:
+              raise SystemExit("unexpected rng.rs ownership note")
+          rng.write_text(text.replace(old_note, new_note, 1), encoding="utf-8")
+
+          root = Path("Cargo.toml")
+          text = root.read_text(encoding="utf-8")
+          if text.count(old_pin) != 3 or new_pin in text:
+              raise SystemExit("unexpected FrankenNumPy workspace pins")
+          text = text.replace(old_pin, new_pin)
+          anchor = f'fnp-io = {{ git = "https://github.com/Dicklesworthstone/franken_numpy", rev = "{new_pin}" }}\n'
+          if text.count(anchor) != 1:
+              raise SystemExit("missing fnp-io dependency anchor")
+          root.write_text(
+              text.replace(
+                  anchor,
+                  anchor + f'fnp-random = {{ git = "https://github.com/Dicklesworthstone/franken_numpy", rev = "{new_pin}", default-features = false }}\n',
+                  1,
+              ),
+              encoding="utf-8",
+          )
+
+          core_manifest = Path("crates/fmn-core/Cargo.toml")
+          text = core_manifest.read_text(encoding="utf-8")
+          anchor = "fmn-dmath.workspace = true\n"
+          if text.count(anchor) != 1 or "fnp-random.workspace" in text:
+              raise SystemExit("unexpected fmn-core dependency block")
+          core_manifest.write_text(
+              text.replace(anchor, anchor + "fnp-random.workspace = true\n", 1),
+              encoding="utf-8",
+          )
+
+          suite = Path("SUITE.lock")
+          text = suite.read_text(encoding="utf-8")
+          old_row = "franken_numpy\t" + old_pin + "\tfnp-* workspace; RNG + arrays; consumed since fm-n1b by Marionette's §8.2 zero-copy NumPy export (fnp-dtype dtype model + fnp-ndarray NdLayout; the columnar StructuredStorage deliberately not consumed) and since fm-sum by the Gauntlet's .npy fixture interchange (fnp-io as the workspace's sole npy parser/encoder; its NPZ flate2 arm is unused but ungated at this pin)"
+          new_row = "franken_numpy\t" + new_pin + "\tfnp-* workspace; RNG + arrays; consumed since fm-n1b by Marionette's §8.2 zero-copy NumPy export (fnp-dtype dtype model + fnp-ndarray NdLayout; the columnar StructuredStorage deliberately not consumed), since fm-sum by the Gauntlet's .npy fixture interchange (fnp-io as the workspace's sole npy parser/encoder), and since fm-ai1 as the sole SeedSequence/PCG64DXSM authority (fnp-random with default features disabled: no ndarray, OS entropy, or rayon)"
+          if text.count(old_row) != 1:
+              raise SystemExit("unexpected SUITE.lock FrankenNumPy row")
+          suite.write_text(text.replace(old_row, new_row, 1), encoding="utf-8")
+
+          allowlist = Path("SUITE_ALLOWLIST.tsv")
+          text = allowlist.read_text(encoding="utf-8")
+          anchor = "fnp-ndarray\t0.2.0\tgit+franken_numpy@SUITE.lock"
+          if text.count(anchor) != 1 or "\nfnp-random\t" in text:
+              raise SystemExit("unexpected fnp allowlist section")
+          index = text.index(anchor)
+          line_end = text.index("\n", index) + 1
+          row = "fnp-random\t0.2.0\tgit+franken_numpy@SUITE.lock\t-\tdefault-features=false\tMIT+rider\tno\tno\tno\tno\tforbid\truntime\t§6.5 (fm-ai1): sole SeedSequence/PCG64DXSM authority; consumed core-only with ndarray, getrandom, and rayon disabled while fmn-core retains stream naming, frame-key, and snapshot layout\tfm\tsuite-lock-ritual\n"
+          allowlist.write_text(text[:line_end] + row + text[line_end:], encoding="utf-8")
+
+          lock = Path("Cargo.lock")
+          text = lock.read_text(encoding="utf-8")
+          if text.count(old_pin) != 6 or 'name = "fnp-random"' in text:
+              raise SystemExit("unexpected Cargo.lock FrankenNumPy graph")
+          text = text.replace(old_pin, new_pin)
+          core_old = 'name = "fmn-core"\nversion = "0.4.0"\ndependencies = [\n "fmn-dmath",\n]'
+          core_new = 'name = "fmn-core"\nversion = "0.4.0"\ndependencies = [\n "fmn-dmath",\n "fnp-random",\n]'
+          if text.count(core_old) != 1:
+              raise SystemExit("unexpected fmn-core lock entry")
+          text = text.replace(core_old, core_new, 1)
+          package = '[[package]]\nname = "fnp-ndarray"\nversion = "0.2.0"\nsource = "git+https://github.com/Dicklesworthstone/franken_numpy?rev=' + new_pin + '#' + new_pin + '"\n\n'
+          if text.count(package) != 1:
+              raise SystemExit("unexpected fnp-ndarray lock entry")
+          random_package = '[[package]]\nname = "fnp-random"\nversion = "0.2.0"\nsource = "git+https://github.com/Dicklesworthstone/franken_numpy?rev=' + new_pin + '#' + new_pin + '"\n\n'
+          lock.write_text(text.replace(package, package + random_package, 1), encoding="utf-8")
+          PY
+
+          cargo fmt --all
+          cargo fmt --all -- --check
+          git diff --check
+
+          mapfile -t changed < <(git diff --name-only | LC_ALL=C sort)
+          expected=(
+            Cargo.lock
+            Cargo.toml
+            SUITE.lock
+            SUITE_ALLOWLIST.tsv
+            crates/fmn-core/Cargo.toml
+            crates/fmn-core/src/rng.rs
+          )
+          if [[ "${changed[*]}" != "${expected[*]}" ]]; then
+            printf 'unexpected migration diff:\n%s\n' "${changed[*]}" >&2
+            exit 1
+          fi
+
+          cargo test --locked -p fmn-core
+          cargo clippy --locked -p fmn-core --all-targets -- -D warnings
+          cargo test --locked -p fmn-conformance --test governed_closure
+
+          git config user.name "Jeff Emanuel"
+          git config user.email "35050222+Dicklesworthstone@users.noreply.github.com"
+          git add "${expected[@]}"
+          git commit -m "feat(w1): delegate RNG authority to fnp-random" -m "Replace fmn-core's duplicate SeedSequence and PCG64DXSM algorithms with thin adapters over the pinned fnp-random implementation. Preserve named substreams, keyed frame forks, snapshot layout, public methods, and every existing NumPy fixture while consuming fnp-random core-only with ndarray, OS entropy, and rayon disabled." -m "Closes: fm-ai1"
+
+          git fetch --no-tags origin refs/heads/main:refs/remotes/origin/main
+          if [[ "$(git rev-parse HEAD^)" != "$(git rev-parse refs/remotes/origin/main)" ]]; then
+            git rebase refs/remotes/origin/main
+            cargo fmt --all -- --check
+            cargo test --locked -p fmn-core
+            cargo test --locked -p fmn-conformance --test governed_closure
+          fi
+          git push origin HEAD:main

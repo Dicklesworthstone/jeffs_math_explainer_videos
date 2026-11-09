@@ -1,0 +1,53 @@
+name: Repair Final RNG Receipt Cleanup
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/repair-final-rng-receipt-cleanup.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Patch final cleanup and self-remove
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path(".github/workflows/record-rng-implementation-receipt.yml")
+          text = path.read_text(encoding="utf-8")
+          old = "          git rm .github/workflows/record-rng-implementation-receipt.yml\n"
+          new = (
+              old
+              + "          if [[ -e .github/workflows/finalize-rng-migration.yml ]]; then\n"
+              + "            git rm .github/workflows/finalize-rng-migration.yml\n"
+              + "          fi\n"
+          )
+          if new not in text:
+              if text.count(old) != 1:
+                  raise SystemExit("final receipt cleanup anchor drifted")
+              text = text.replace(old, new, 1)
+          path.write_text(text, encoding="utf-8")
+          PY
+          git rm .github/workflows/repair-final-rng-receipt-cleanup.yml
+          git add .github/workflows/record-rng-implementation-receipt.yml
+          git config user.name "FrankenManim Receipt Cleanup"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix(ci): retire obsolete RNG migration workflow with receipt" -m "Leave only permanent gates after the verified implementation chain completes."
+          git fetch origin main master
+          git rebase origin/main
+          git push --atomic origin HEAD:main HEAD:master

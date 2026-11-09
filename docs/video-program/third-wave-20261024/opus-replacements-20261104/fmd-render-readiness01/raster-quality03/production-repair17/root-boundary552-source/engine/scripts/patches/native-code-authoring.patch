@@ -1,0 +1,92 @@
+diff --git a/crates/fmn-library/src/code.rs b/crates/fmn-library/src/code.rs
+index c2d2739..16351cd 100644
+--- a/crates/fmn-library/src/code.rs
++++ b/crates/fmn-library/src/code.rs
+@@ -163,7 +163,11 @@ impl<'a> Code<'a> {
+ 
+     /// Translate fmd's byte-span tiling into per-character overrides with
+     /// the typewriter family on every char.
+-    fn overrides(&self) -> Vec<CharOverride<'static>> {
++    /// Positional styles from the native highlighter, retaining original source
++    /// byte-token boundaries. Consumers may override the typewriter family while
++    /// reusing the token fills in the ordinary Scribe text pipeline.
++    #[must_use]
++    pub fn character_overrides(&self) -> Vec<CharOverride<'static>> {
+         let spans = highlight::highlight(self.language, self.code);
+         let mut out = Vec::with_capacity(self.code.chars().count());
+         let mut spans_iter = spans.iter();
+@@ -195,7 +199,7 @@ impl<'a> Code<'a> {
+     /// # Errors
+     /// Whatever [`Text::build`] hits — font policy and shaping are shared.
+     pub fn build(&self, book: &fmn_text::FontBook) -> Result<TextMobject, TextMobjectError> {
+-        let overrides = self.overrides();
++        let overrides = self.character_overrides();
+         let body = Text::new(self.code)
+             .char_overrides(&overrides)
+             .font_size(self.font_size)
+diff --git a/crates/fmn-python/python/fmn_python/matrix.py b/crates/fmn-python/python/fmn_python/matrix.py
+index 32818e5..0291694 100644
+--- a/crates/fmn-python/python/fmn_python/matrix.py
++++ b/crates/fmn-python/python/fmn_python/matrix.py
+@@ -134,7 +134,13 @@ def install_matrix(native: Any) -> None:
+         for entry, dots in replacements:
+             self.swap_entry_for_dots(entry, dots)
+         if row_index is not None and col_index is not None:
+-            rows[row_index][col_index].rotate(-45 * native.DEG)
++            entry = rows[row_index][col_index]
++            center = entry.get_center().copy()
++            entry.rotate(-45 * native.DEG)
++            # Native glyph contours need not have rotationally symmetric
++            # bounds. Keep the matrix cell's layout anchor after rotation;
++            # rotating about that anchor alone does not preserve its bbox.
++            entry.move_to(center)
+         return self
+ 
+     def set_column_colors(self, *colors):
+diff --git a/crates/fmn-python/tests/bridge.py b/crates/fmn-python/tests/bridge.py
+index 4a111d4..66e7d9d 100644
+--- a/crates/fmn-python/tests/bridge.py
++++ b/crates/fmn-python/tests/bridge.py
+@@ -11984,20 +11984,22 @@ assert native_code.font_size == 24
+ assert native_code.lsh == 1.0
+ assert native_code.language == "python"
+ assert native_code.code_style == "monokai"
+-assert native_code.get_num_points() > 0
++assert native_code.get_num_points() == 0  # One live glyph family, no duplicate root ink.
++assert len(native_code.get_all_points()) > 0
++assert native_code.native_font == "CM Typewriter"
++rust_code = text_module.Code("fn", language="rust")
++assert all(part.get_fill_color() == "#68C246" for part in rust_code.family_members_with_points())
+ colored_code = text_module.Code("y", fill_color=manimlib.GREEN)
+ assert colored_code.get_fill_color() == manimlib.GREEN
+ code_scene = Scene().add(native_code)
+ assert native_code._is_bound()
+ failed_code = text_module.Code.__new__(text_module.Code)
+ try:
+-    text_module.Code.__init__(failed_code, "x", language="rust")
+-except NotImplementedError as error:
+-    assert str(error) == (
+-        "Code() keyword(s) not yet routed to the native builder: language"
+-    )
++    text_module.Code.__init__(failed_code, "x", language=object())
++except TypeError as error:
++    assert str(error) == "Code language and code_style must be strings"
+ else:
+-    raise AssertionError("Code silently accepted an unrouted language")
++    raise AssertionError("Code silently accepted an invalid language declaration")
+ assert not hasattr(failed_code, "submobjects")
+ 
+ tex = manimlib.Tex("E = mc^2", isolate=["mc"])
+diff --git a/scripts/check_portal_runtime.sh b/scripts/check_portal_runtime.sh
+index ea56b90..f5eeb0d 100755
+--- a/scripts/check_portal_runtime.sh
++++ b/scripts/check_portal_runtime.sh
+@@ -11,7 +11,7 @@ if not path:
+ print(f"auditing imported manimlib: {path}")
+ PY
+ 
+-for suite in textured_surfaces portal_initialization point_editing persistent_recovery fading_family bridge animation_semantics matching_transform_semantics matching_authoring composition_lifecycle camera_animation_semantics camera_motion camera_execution updater_family drawing_runtime creation_semantics subset_reveal text_reveal native_outputs programmatic_rendering runtime_provenance batch_rendering reproducible_batch builder_playback restore_playback cyclic_replace deferred_transform_playback fading_semantics movement_semantics rotation_semantics indication_semantics composite_effects tracker_interpolation live_tex live_tex_render live_rates animation_updaters native_animation_updaters deferred_animation_updaters console_rendering scene_state temporal_visualization detached_tracing_tail streamline_authoring streamline_rebuild control_interaction color_sliders scene_execution matrix_authoring source_autoreload scene_project scene_project_editor live_graphing live_vector_fields; do
++for suite in textured_surfaces portal_initialization point_editing text_authoring code_authoring persistent_recovery fading_family bridge animation_semantics matching_transform_semantics matching_authoring composition_lifecycle camera_animation_semantics camera_motion camera_execution updater_family drawing_runtime creation_semantics subset_reveal text_reveal native_outputs programmatic_rendering runtime_provenance batch_rendering reproducible_batch builder_playback restore_playback cyclic_replace deferred_transform_playback fading_semantics movement_semantics rotation_semantics indication_semantics composite_effects tracker_interpolation live_tex live_tex_render live_rates animation_updaters native_animation_updaters deferred_animation_updaters console_rendering scene_state temporal_visualization detached_tracing_tail streamline_authoring streamline_rebuild control_interaction color_sliders scene_execution matrix_authoring source_autoreload scene_project scene_project_editor live_graphing live_vector_fields; do
+     python3 - "$suite" <<'PY'
+ import pathlib
+ import runpy

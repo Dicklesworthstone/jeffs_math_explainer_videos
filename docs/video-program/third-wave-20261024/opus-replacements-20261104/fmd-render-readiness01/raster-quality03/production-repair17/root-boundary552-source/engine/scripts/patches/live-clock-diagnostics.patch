@@ -1,0 +1,16 @@
+diff --git a/crates/fmn-studio/src/supervisor.rs b/crates/fmn-studio/src/supervisor.rs
+index a016386..589092f 100644
+--- a/crates/fmn-studio/src/supervisor.rs
++++ b/crates/fmn-studio/src/supervisor.rs
+@@ -250,8 +250,10 @@ impl ChannelError {
+ impl fmt::Display for ChannelError {
+     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+-        write!(f, "worker channel {:?}: {}", self.kind, self.detail)
++        diagnostic::display(self, f)
+     }
+ }
+ 
++mod diagnostic;
++
+ impl std::error::Error for ChannelError {}
+ 

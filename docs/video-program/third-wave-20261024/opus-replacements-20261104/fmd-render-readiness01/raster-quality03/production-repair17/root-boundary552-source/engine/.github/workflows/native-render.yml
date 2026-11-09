@@ -1,0 +1,156 @@
+name: Native Rust scene rendering
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-render.yml'
+  workflow_dispatch:
+# Candidate-only verification: immutable blobs may be archived after checks.
+# No commit, push, ref update or repository-source publication is performed.
+# The explicit connector source commit restores this lane to read-only CI.
+permissions:
+  contents: write
+concurrency:
+  group: native-fmtl-rate-validation
+  cancel-in-progress: true
+jobs:
+  native-render:
+    if: github.repository == 'Dicklesworthstone/franken_manim' && github.ref == 'refs/heads/main'
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 55
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      CARGO_TARGET_DIR: target/portable
+      CARGO_BUILD_JOBS: '2'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - run: rustup show active-toolchain
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: fmtl-rates-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-
+      - name: Verify immutable candidate and reproduce shipping failure
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import base64, hashlib, json, os, pathlib, subprocess, urllib.request
+          out = pathlib.Path(os.environ['RUNNER_TEMP']) / 'fmtl-rate-validation'
+          out.mkdir()
+          sha = 'fa9e02e8eab10fcbf6a21565fb9ab9f08984346a'
+          request = urllib.request.Request(
+              f'https://api.github.com/repos/{os.environ["GITHUB_REPOSITORY"]}/git/blobs/{sha}',
+              headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN']})
+          with urllib.request.urlopen(request, timeout=60) as response:
+              value = json.load(response)
+          patch = base64.b64decode(value['content'])
+          assert hashlib.sha1(b'blob '+str(len(patch)).encode()+b'\0'+patch).hexdigest() == sha
+          assert hashlib.sha256(patch).hexdigest() == '2978d55b84510e1386a357bfab769d8cef3bc1772f3be9817499713a8ba662bf'
+          path = out / 'candidate.patch'
+          path.write_bytes(patch)
+          allowed = {
+              'crates/fmn-core/src/rate.rs', 'crates/fmn-anim/src/animation.rs',
+              'crates/fmn-anim/src/bundle.rs', 'crates/fmn-anim/tests/catalog_rates.rs',
+              'crates/fmn-scene/tests/shared_bundle.rs', 'crates/fmn-cli/tests/timeline_catalog.rs',
+          }
+          stats = subprocess.check_output(['git','apply','--numstat',str(path)], text=True)
+          assert {line.split('\t',2)[2] for line in stats.splitlines()} == allowed
+          subprocess.run(['git','apply','--check',str(path)], check=True)
+          (out / 'paths.json').write_text(json.dumps(sorted(allowed)))
+          fixture = pathlib.Path('demo/wasm/bundle.fmtl').read_bytes()
+          (out / 'fixture.sha256').write_text(hashlib.sha256(fixture).hexdigest())
+          # Add only the CLI regression to the original production code first.
+          test = 'crates/fmn-cli/tests/timeline_catalog.rs'
+          subprocess.run(['git','apply','--include='+test,str(path)], check=True)
+          command = ['cargo','test','--release','--locked','-p','fmn-cli','--features','cli,batch','--test','timeline_catalog','--','--nocapture']
+          with (out / 'baseline-release.log').open('w') as log:
+              result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)
+          text = (out / 'baseline-release.log').read_text()
+          print(text[-12000:])
+          assert result.returncode != 0 and 'shared pure rate is not in the catalog' in text, 'negative must be the reproduced runtime failure, never a compile error'
+          # The debug build of the identical source must accept the same file.
+          with (out / 'baseline-debug.log').open('w') as log:
+              result = subprocess.run([x for x in command if x != '--release'], stdout=log, stderr=subprocess.STDOUT)
+          print((out / 'baseline-debug.log').read_text()[-5000:])
+          assert result.returncode == 0, 'baseline debug regression failed'
+          subprocess.run(['git','apply','--exclude='+test,str(path)], check=True)
+          subprocess.run(['rustfmt','--edition','2024','--config','skip_children=true',*sorted(allowed)], check=True)
+          subprocess.run(['git','diff','--check'], check=True)
+          PY
+      - name: Test actual debug and optimized candidate
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, subprocess
+          out = pathlib.Path(os.environ['RUNNER_TEMP']) / 'fmtl-rate-validation'
+          commands = [
+              ('debug-core-anim-scene', ['cargo','test','--locked','-p','fmn-core','-p','fmn-anim','-p','fmn-scene','--no-fail-fast']),
+              ('release-catalog', ['cargo','test','--release','--locked','-p','fmn-anim','--test','catalog_rates']),
+              ('release-bundle', ['cargo','test','--release','--locked','-p','fmn-scene','--test','shared_bundle','--test','tracker_bundle','--test','method_bundle']),
+              ('release-cli', ['cargo','test','--release','--locked','-p','fmn-cli','--features','cli,batch','--test','timeline_catalog','--test','compiled_pipeline']),
+              ('wasm-player-host', ['cargo','test','--release','--locked','-p','fmn-wasm','--lib']),
+              ('clippy', ['cargo','clippy','--locked','-p','fmn-core','-p','fmn-anim','-p','fmn-scene','--all-targets','--','-D','warnings']),
+              ('workspace-check', ['cargo','check','--locked','--workspace','--all-targets']),
+          ]
+          statuses = {}
+          for name, command in commands:
+              print('RUN', name, flush=True)
+              with (out / (name+'.log')).open('w') as log:
+                  result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)
+              statuses[name] = result.returncode
+              print((out / (name+'.log')).read_text()[-10000:], flush=True)
+              (out / 'results.json').write_text(json.dumps(statuses, indent=2))
+          assert all(code == 0 for code in statuses.values()), statuses
+          PY
+      - name: Preserve source identity without publishing any ref
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VALIDATION_STATUS: ${{ job.status }}
+        run: |
+          python3 - <<'PY'
+          import base64, hashlib, json, os, pathlib, subprocess, urllib.request
+          out = pathlib.Path(os.environ['RUNNER_TEMP']) / 'fmtl-rate-validation'
+          paths = json.loads((out / 'paths.json').read_text())
+          changed = set(subprocess.check_output(['git','diff','--name-only'], text=True).splitlines())
+          assert changed <= set(paths), changed - set(paths)
+          fixture = pathlib.Path('demo/wasm/bundle.fmtl').read_bytes()
+          assert hashlib.sha256(fixture).hexdigest() == (out / 'fixture.sha256').read_text()
+          receipt = {'base_commit': os.environ['GITHUB_SHA'], 'validation_status': os.environ['VALIDATION_STATUS'], 'files': []}
+          for path in paths:
+              if not pathlib.Path(path).exists():
+                  continue
+              data = pathlib.Path(path).read_bytes()
+              sha = hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()
+              request = urllib.request.Request(
+                  f'https://api.github.com/repos/{os.environ["GITHUB_REPOSITORY"]}/git/blobs',
+                  method='POST', data=json.dumps({'content':base64.b64encode(data).decode(),'encoding':'base64'}).encode(),
+                  headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Content-Type':'application/json'})
+              with urllib.request.urlopen(request, timeout=60) as response:
+                  returned = json.load(response)
+              assert returned['sha'] == sha
+              receipt['files'].append({'path':path,'sha':sha})
+          (out / 'candidate.json').write_text(json.dumps(receipt, indent=2))
+          print(json.dumps(receipt, indent=2))
+          existing = [p for p in paths if pathlib.Path(p).exists()]
+          subprocess.run(['tar','-czf',str(out/'sources.tar.gz'),*existing],check=True)
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: fmtl-rate-validation-${{ github.run_id }}-${{ runner.arch }}
+          path: ${{ runner.temp }}/fmtl-rate-validation
+          retention-days: 7
+          if-no-files-found: error

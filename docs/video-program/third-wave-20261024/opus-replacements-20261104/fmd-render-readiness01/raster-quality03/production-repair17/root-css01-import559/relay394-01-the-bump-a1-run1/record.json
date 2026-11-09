@@ -1,0 +1,1897 @@
+{
+ "version": "394",
+ "chapter": "01_the_bump",
+ "attempt": 1,
+ "manifest": "css352-import371-01-the-bump-manifest392.json",
+ "manifest_sha256": "633c06d0542f6669eeb42993a3b1b91a1403a752ec259757ef5ab7297a24ac4b",
+ "started": "2026-11-09T17:50:22.275614+00:00",
+ "steps": [
+  {
+   "step": "check",
+   "utc": "2026-11-09T20:24:35.602572+00:00",
+   "exit": 0,
+   "report": {
+    "helper": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371.py",
+    "helper_sha256": "ba337aca143316748561c4300d5774386387690b49052e72d29a04b103dd244f",
+    "job": "csd-css352-import371-01-the-bump-a1",
+    "job_exists": false,
+    "manifest_sha256": "633c06d0542f6669eeb42993a3b1b91a1403a752ec259757ef5ab7297a24ac4b",
+    "problems": [],
+    "new_files": 2743,
+    "existing_identical": 724,
+    "space": {
+     "free_bytes": 109759963136,
+     "new_bytes": 857159617,
+     "jobs_bytes": 10217955328,
+     "work_bytes": 5462515712,
+     "work_baseline_bytes": 0
+    },
+    "alias": "/data/projects/jmev-css-render-worker-20261107",
+    "alias_state": "symlink to /data/projects/jmev-stroke-probe-20261106/work/imported-css-root311"
+   },
+   "stderr": ""
+  },
+  {
+   "step": "prepare",
+   "utc": "2026-11-09T20:24:45.645912+00:00",
+   "exit": 0,
+   "report": {
+    "job": "csd-css352-import371-01-the-bump-a1",
+    "inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-01-the-bump-a1-inputs.json",
+    "inputs_sha256": "fa1872e6452e499632f47b805ddb548c2a7ef412b95bf20bd53eac08ac43c19d",
+    "manifest_sha256": "633c06d0542f6669eeb42993a3b1b91a1403a752ec259757ef5ab7297a24ac4b",
+    "chapter_pin": {
+     "job": "css-reviewed-final-01-the-bump352",
+     "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+     "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+     "inputs": "/data/projects/jmev-css-render-worker-20261107/qualification01/final-01_the_bump-inputs352.json",
+     "inputs_sha256": "b95913176d1e6f402a58894b2266cc118bc1a20428db3d1fcfb0363138b7d282",
+     "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/01_the_bump-css-permit364.json",
+     "permit_sha256": "299b8fe0db20ca2559ea97845df8a3300c078e92b7d05ab2483f205e43dbff40",
+     "receipt_sha256": "c09f7d31294bb6d74d255cb619e881766c7e71187b1e00129ac7f4027586a640",
+     "summary_sha256": "a2595416c905bc3287ee33acf09b0fbd546a4f4ee463a1619cbc0aad8e033f48",
+     "movie_sha256": "0998b42d8ec726d6721dbd8b98018cda628efe82e7d47a551e45ad48d9c5dfba",
+     "frames": 6311
+    },
+    "new_files": 2743,
+    "existing_identical": 724,
+    "shared_files": 3203,
+    "system_files": 2269,
+    "streamed_bytes": 2225603352,
+    "space": {
+     "free_bytes": 109759959040,
+     "new_bytes": 857159617,
+     "jobs_bytes": 10217955328,
+     "work_bytes": 5462515712,
+     "work_baseline_bytes": 0
+    },
+    "guard_command": [
+     "/usr/bin/python3",
+     "-I",
+     "-B",
+     "/data/projects/jmev-stroke-probe-20261106/guard_csd02.py",
+     "--phase",
+     "native",
+     "--job",
+     "csd-css352-import371-01-the-bump-a1",
+     "--inputs",
+     "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-01-the-bump-a1-inputs.json",
+     "--",
+     "/usr/bin/timeout",
+     "14400",
+     "/usr/bin/python3",
+     "-I",
+     "-B",
+     "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371.py",
+     "receive",
+     "--chapter",
+     "01_the_bump",
+     "--attempt",
+     "1",
+     "--manifest",
+     "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/css352-import371-01-the-bump-manifest392.json"
+    ],
+    "rows350": {
+     "01_the_bump": {
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-01-the-bump-a1/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-01-the-bump-a1-inputs.json"
+     }
+    }
+   },
+   "stderr": ""
+  },
+  {
+   "step": "receive started",
+   "utc": "2026-11-09T20:24:46.639117+00:00",
+   "command": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/guard_csd02.py",
+    "--phase",
+    "native",
+    "--job",
+    "csd-css352-import371-01-the-bump-a1",
+    "--inputs",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-01-the-bump-a1-inputs.json",
+    "--",
+    "/usr/bin/timeout",
+    "14400",
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371.py",
+    "receive",
+    "--chapter",
+    "01_the_bump",
+    "--attempt",
+    "1",
+    "--manifest",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/css352-import371-01-the-bump-manifest392.json"
+   ]
+  },
+  {
+   "step": "admission poll",
+   "utc": "2026-11-09T20:24:47.381125+00:00",
+   "exists": true,
+   "admitted": false,
+   "pid": null,
+   "finished": null,
+   "exit": null
+  },
+  {
+   "step": "admission poll",
+   "utc": "2026-11-09T20:25:02.955870+00:00",
+   "exists": true,
+   "admitted": true,
+   "pid": 810506,
+   "finished": null,
+   "exit": null
+  },
+  {
+   "step": "send started",
+   "utc": "2026-11-09T20:25:02.968763+00:00"
+  },
+  {
+   "step": "stream ended",
+   "utc": "2026-11-09T20:29:29.512448+00:00",
+   "send_exit": 0,
+   "receive_exit": 0
+  },
+  {
+   "step": "post-import validation",
+   "validator": "relay394 validate a-h",
+   "chapter": "01_the_bump",
+   "attempt": 1,
+   "job": "csd-css352-import371-01-the-bump-a1",
+   "manifest": "css352-import371-01-the-bump-manifest392.json",
+   "manifest_sha256": "633c06d0542f6669eeb42993a3b1b91a1403a752ec259757ef5ab7297a24ac4b",
+   "manifest_rows": 8939,
+   "inputs_rows": 5476,
+   "inputs_rows_expected": 5476,
+   "inputs_changed": [],
+   "inputs_changed_count": 0,
+   "check_exit": 0,
+   "check_problems": [],
+   "check_problem_count": 0,
+   "check_stderr": "",
+   "passed": [
+    "a. 371 check exits 0",
+    "b. 371 check reports csd-css352-import371-01-the-bump-a1 and the job folder exists",
+    "c. the guard receipt is a terminal success",
+    "d. import-result.json exists and names manifest 633c06d0542f",
+    "e. every manifest row is at its size and hash through its original path (371 check problems [])",
+    "f. the guard inputs file is the one the guard admitted",
+    "g. the guard inputs hold exactly the 5476 frozen rows and every row re-hashes",
+    "h. rows350 from 371 check and import-result.json equal the expected names"
+   ],
+   "failures": [],
+   "rows350": {
+    "01_the_bump": {
+     "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-01-the-bump-a1/resource-receipt.json",
+     "import_inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-01-the-bump-a1-inputs.json"
+    }
+   },
+   "utc": "2026-11-09T20:29:37.732898+00:00"
+  }
+ ],
+ "lane": [
+  {
+   "utc": "2026-11-09T17:50:25.114737+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T17:51:25.744169+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T17:52:26.412483+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T17:53:27.117810+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T17:54:27.898796+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T17:55:28.493903+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T17:56:29.125931+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T17:57:29.904916+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T17:58:30.641708+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T17:59:31.259403+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:00:31.745189+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:01:32.309836+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:02:32.902117+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:03:33.826389+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:04:34.787999+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:05:35.579883+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:06:37.183105+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:07:39.181194+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:08:39.844920+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:09:40.419296+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:10:41.014897+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:11:43.588347+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:12:44.942865+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:13:45.794954+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:14:46.589052+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:15:47.345888+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:16:48.163535+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:17:48.871612+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:18:49.870104+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:19:50.918777+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:20:52.207318+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:21:52.950199+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:22:53.879885+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:23:54.392417+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:24:55.084463+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:25:55.702177+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:26:56.223987+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:27:56.790575+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:28:57.366818+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:29:57.978500+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:30:58.700586+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:31:59.422535+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:33:00.265513+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:34:01.040905+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:35:02.369344+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:36:03.272274+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:37:04.387492+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:38:05.013820+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:39:05.732024+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:40:06.552727+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:41:07.080292+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:42:07.607858+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:43:08.473850+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:44:09.285994+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:45:09.929119+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:46:11.224816+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:47:12.202747+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:48:13.697568+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:49:14.704182+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:50:15.350680+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:51:16.383059+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:52:16.958744+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:53:18.053771+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:54:18.786317+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T18:55:19.385387+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T18:56:20.051057+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T18:57:20.785061+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T18:58:22.529200+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T18:59:23.204031+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:00:24.040631+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:01:25.482982+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:02:26.234382+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:03:27.052366+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:04:27.618155+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:05:28.523335+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:06:29.771521+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:07:30.619482+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:08:31.355141+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:09:31.986465+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:10:32.641517+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:11:33.300227+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:12:33.951883+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:13:34.530255+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:14:35.288167+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:15:36.002861+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:16:36.652737+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:17:37.539672+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:18:38.131695+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:19:38.777889+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:20:39.318386+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T19:21:39.881479+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:22:40.514012+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:23:41.074618+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:24:41.694246+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:25:42.396408+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:26:43.068678+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:27:43.903438+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:28:44.421910+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:29:45.075765+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:30:45.648613+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:31:46.622984+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:32:47.551307+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:33:48.304175+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:34:49.339420+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:35:49.947535+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:36:50.642664+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:37:51.304290+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:38:51.842311+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:39:52.340878+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:40:53.364401+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:41:54.021517+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:42:54.588310+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:43:55.131260+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:44:55.701363+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:45:56.473825+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:46:57.649961+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:47:58.304599+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:48:59.220783+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:49:59.973263+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:51:00.869673+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:52:01.468976+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:53:02.312393+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:54:03.076866+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:55:03.657165+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:56:04.193974+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:57:04.723972+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:58:05.379439+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T19:59:06.416008+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:00:06.981718+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:01:07.720888+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:02:08.239532+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:03:08.789954+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:04:10.403272+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:05:11.299118+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:06:11.909158+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:07:12.575228+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:08:13.147387+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:09:13.709021+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:10:14.241557+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:11:14.865305+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:12:15.748199+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:13:16.588087+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:14:17.313685+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:15:17.928458+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:16:19.078478+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:17:20.174565+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:18:21.441245+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:19:22.275142+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:20:23.127151+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:21:23.796874+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:22:24.704712+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:23:25.618390+00:00",
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     386471
+    ]
+   }
+  },
+  {
+   "utc": "2026-11-09T20:24:26.478365+00:00",
+   "lane": {
+    "holders": [],
+    "waiters": []
+   }
+  },
+  {
+   "utc": "2026-11-09T20:24:46.558783+00:00",
+   "lane": {
+    "holders": [],
+    "waiters": []
+   }
+  }
+ ],
+ "status": {
+  "code": 0,
+  "message": "imported and validated",
+  "rows350": {
+   "01_the_bump": {
+    "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-01-the-bump-a1/resource-receipt.json",
+    "import_inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-01-the-bump-a1-inputs.json"
+   }
+  },
+  "validation_passed": [
+   "a. 371 check exits 0",
+   "b. 371 check reports csd-css352-import371-01-the-bump-a1 and the job folder exists",
+   "c. the guard receipt is a terminal success",
+   "d. import-result.json exists and names manifest 633c06d0542f",
+   "e. every manifest row is at its size and hash through its original path (371 check problems [])",
+   "f. the guard inputs file is the one the guard admitted",
+   "g. the guard inputs hold exactly the 5476 frozen rows and every row re-hashes",
+   "h. rows350 from 371 check and import-result.json equal the expected names"
+  ]
+ },
+ "chapter_pin": {
+  "job": "css-reviewed-final-01-the-bump352",
+  "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+  "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+  "inputs": "/data/projects/jmev-css-render-worker-20261107/qualification01/final-01_the_bump-inputs352.json",
+  "inputs_sha256": "b95913176d1e6f402a58894b2266cc118bc1a20428db3d1fcfb0363138b7d282",
+  "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/01_the_bump-css-permit364.json",
+  "permit_sha256": "299b8fe0db20ca2559ea97845df8a3300c078e92b7d05ab2483f205e43dbff40",
+  "receipt_sha256": "c09f7d31294bb6d74d255cb619e881766c7e71187b1e00129ac7f4027586a640",
+  "summary_sha256": "a2595416c905bc3287ee33acf09b0fbd546a4f4ee463a1619cbc0aad8e033f48",
+  "movie_sha256": "0998b42d8ec726d6721dbd8b98018cda628efe82e7d47a551e45ad48d9c5dfba",
+  "frames": 6311
+ },
+ "facts": {
+  "css": {
+   "helper": "ba337aca143316748561c4300d5774386387690b49052e72d29a04b103dd244f",
+   "manifest": "633c06d0542f6669eeb42993a3b1b91a1403a752ec259757ef5ab7297a24ac4b",
+   "receipt": "c09f7d31294bb6d74d255cb619e881766c7e71187b1e00129ac7f4027586a640",
+   "summary": "a2595416c905bc3287ee33acf09b0fbd546a4f4ee463a1619cbc0aad8e033f48",
+   "terminal": true
+  },
+  "csd": {
+   "helper": "ba337aca143316748561c4300d5774386387690b49052e72d29a04b103dd244f",
+   "manifest": "633c06d0542f6669eeb42993a3b1b91a1403a752ec259757ef5ab7297a24ac4b",
+   "imports": {
+    "01-the-bump": []
+   },
+   "inputs": [],
+   "lane": {
+    "holders": [
+     22214
+    ],
+    "waiters": [
+     23548
+    ]
+   },
+   "running": [
+    "csd-reviewed-final-10-rigidity352",
+    "csd-reviewed-final-11-counting352"
+   ]
+  }
+ },
+ "ended": "2026-11-09T20:29:37.733149+00:00"
+}

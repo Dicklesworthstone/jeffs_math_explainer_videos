@@ -1,0 +1,134 @@
+name: Apply Animation composition semantics
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/apply-animation-composition.yml"
+      - "scripts/apply_animation_composition_patch.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apply-animation-composition-semantics
+  cancel-in-progress: true
+
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: "true"
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: "1"
+  CARGO_TARGET_DIR: target/animation-composition
+
+jobs:
+  apply:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Bind the exact starting commit
+        shell: bash
+        run: echo "START_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 # v5
+        with:
+          python-version: "3.13"
+
+      - name: Install the pinned Rust toolchain
+        shell: bash
+        run: rustup show active-toolchain
+
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/animation-composition
+          key: animation-composition-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+
+      - name: Install the exact Python dependency
+        run: python -m pip install --disable-pip-version-check numpy==2.5.2
+
+      - name: Apply the exact source transaction
+        shell: bash
+        run: |
+          set -euo pipefail
+          python scripts/apply_animation_composition_patch.py
+          git diff --check
+
+      - name: Prove the Python installer and bootstrap contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile \
+            crates/fmn-python/python/manimlib/__init__.py \
+            crates/fmn-python/python/manimlib/_animation_semantics.py \
+            crates/fmn-python/python/manimlib_bootstrap.py \
+            crates/fmn-python/tests/animation_semantics.py \
+            scripts/test_animation_composition_semantics.py
+          bash -n scripts/check.sh
+          PYTHONPATH=scripts:crates/fmn-python/python \
+            python scripts/test_animation_composition_semantics.py
+          PYTHONPATH=scripts:crates/fmn-python/python \
+            python scripts/test_audit_portal_runtime.py
+          PYTHONPATH=crates/fmn-python/python \
+            python scripts/test_schema_provenance.py
+
+      - name: Reject unrelated source changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected='^(crates/fmn-python/python/manimlib/__init__\.py|crates/fmn-python/python/manimlib/_animation_semantics\.py|crates/fmn-python/python/manimlib_bootstrap\.py|crates/fmn-python/src/lib\.rs|crates/fmn-python/tests/animation_semantics\.py|scripts/check\.sh|scripts/test_animation_composition_semantics\.py)$'
+          unexpected="$(git diff --name-only | grep -Ev "$expected" || true)"
+          if [[ -n "$unexpected" ]]; then
+            printf 'composition transaction modified unrelated paths:\n%s\n' "$unexpected" >&2
+            exit 2
+          fi
+
+      - name: Prove the direct extension and compatibility surfaces
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo fmt -p fmn-python -- --check
+          cargo check --locked -p fmn-python --all-targets
+          cargo clippy --locked -p fmn-python --all-targets -- -D warnings
+          cargo test --locked -p fmn-python production_animation_semantics_acceptance_suite -- --nocapture
+          cargo test --locked -p fmn-python
+          cargo test --locked -p fmn-conformance --test api_schema
+          git diff --check
+
+      - name: Publish the proven composition slice
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          [[ "$(git rev-parse origin/main)" == "$START_SHA" ]] || {
+            echo "main moved during validation; refusing to publish an untested merge" >&2
+            exit 3
+          }
+          git config user.name "FrankenManim Animation Semantics"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f \
+            .github/workflows/activate-animation-semantics.yml \
+            .github/workflows/apply-animation-composition.yml \
+            .github/workflows/codex-source-snapshot.yml \
+            scripts/activate_animation_semantics.py \
+            scripts/apply_animation_composition_patch.py
+          git add \
+            crates/fmn-python/python/manimlib/__init__.py \
+            crates/fmn-python/python/manimlib/_animation_semantics.py \
+            crates/fmn-python/python/manimlib_bootstrap.py \
+            crates/fmn-python/src/lib.rs \
+            crates/fmn-python/tests/animation_semantics.py \
+            scripts/check.sh \
+            scripts/test_animation_composition_semantics.py
+          git diff --cached --check
+          git commit \
+            -m "feat(python): complete composition animation semantics" \
+            -m "Construct real composition groups, mirror the native interval algebra and linear group timeline, preserve zero-duration behavior, walk Succession handoffs lazily and in order, activate the same versioned installer for direct-extension and wheel entrypoints, and run the acceptance suite from the permanent Rust harness. Retire superseded one-shot activation and snapshot machinery only after the focused Python, Rust, Clippy, and API-schema gates pass."
+          git push origin HEAD:main

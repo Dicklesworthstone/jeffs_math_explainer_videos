@@ -1,0 +1,97 @@
+name: Native full fill color profiles
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fill-profiles.yml'
+      - 'scripts/patches/fill-profiles.patch.gz'
+      - 'scripts/patches/fill-profile-boundaries.patch'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: fill-profiles
+  cancel-in-progress: false
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Apply reviewed native fill implementation
+        run: |
+          set -euo pipefail
+          gzip -dc scripts/patches/fill-profiles.patch.gz > /tmp/fill-profiles.patch
+          echo 'c144daa28d75cae370fe97d512bc0964fd84a3e22b5ab1701a9fc51625133b18  /tmp/fill-profiles.patch' | sha256sum --check
+          if ! grep -q '^pub mod fill_profile;' crates/fmn-render/src/lib.rs; then
+            git apply --check /tmp/fill-profiles.patch
+            git apply /tmp/fill-profiles.patch
+          fi
+          if ! grep -q '^fn nearest_boundary_location(' crates/fmn-render/src/fill.rs; then
+            git apply --check scripts/patches/fill-profile-boundaries.patch
+            git apply scripts/patches/fill-profile-boundaries.patch
+          fi
+          rustup show active-toolchain
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-render/src/{bin,engine,fill,fill_profile,lib,metal,plan,snapshot,stroke_profile,table,three_d}.rs crates/fmn-render/src/fill/color_field.rs crates/fmn-render/tests/fill_profiles.rs
+          git diff --check
+      - name: Native color fields and real retained pixels
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-render --lib fill 2>&1 | tee /tmp/fill-profile-kernels.log
+          cargo test --locked -p fmn-render --test fill_profiles 2>&1 | tee /tmp/fill-profile-pixels.log
+          cargo test --locked -p fmn-render --test stroke_profiles 2>&1 | tee /tmp/fill-profile-stroke-regression.log
+          cargo test --locked -p fmn-render --lib 2>&1 | tee /tmp/fill-profile-renderer.log
+          cargo check --locked -p fmn-render --features metal --lib 2>&1 | tee /tmp/fill-profile-metal-check.log
+      - name: Build and validate a clean native wheel
+        run: |
+          set -euo pipefail
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          python -m maturin build --locked --interpreter python --profile dev --out target/fill-profile-wheel 2>&1 | tee /tmp/fill-profile-build.log
+          python -m venv target/fill-profile-venv
+          target/fill-profile-venv/bin/python -m pip install 'numpy==2.5.2' target/fill-profile-wheel/*.whl
+          for suite in fill_profile_pixels stroke_profile_pixels streamline_authoring streamline_rebuild live_vector_fields portal_initialization temporal_visualization; do
+            target/fill-profile-venv/bin/python -I crates/fmn-python/tests/$suite.py 2>&1 | tee /tmp/fill-profile-$suite.log
+          done
+      - name: Land tested fill rendering directly on main
+        run: |
+          set -euo pipefail
+          git add crates/fmn-render/src/{bin,engine,fill,fill_profile,lib,metal,plan,snapshot,stroke_profile,table,three_d}.rs crates/fmn-render/src/fill/color_field.rs crates/fmn-render/tests/fill_profiles.rs crates/fmn-python/tests/fill_profile_pixels.py
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(render): preserve complete fill color and opacity profiles through native rendering'
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
+          fi
+      - name: Preserve exact source and build evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/fill-profile-source-sha.txt
+          git archive --format=tar.gz HEAD > /tmp/fill-profile-source.tar.gz
+          git diff > /tmp/fill-profile-working.patch
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: fill-profiles-${{ github.sha }}
+          path: |
+            /tmp/fill-profile-*
+            target/fill-profile-wheel/*.whl
+          retention-days: 3

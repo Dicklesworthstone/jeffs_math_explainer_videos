@@ -1,0 +1,106 @@
+name: Native mathematical titles and lists
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-math-compositions.yml'
+      - 'scripts/patches/math-compositions.patch'
+      - 'crates/fmn-python/tests/math_compositions.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: native-math-compositions
+  cancel-in-progress: false
+jobs:
+  native-math:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/math-compositions
+      CARGO_TERM_COLOR: never
+      CARGO_PROFILE_DEV_DEBUG: '0'
+      CARGO_PROFILE_TEST_DEBUG: '0'
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Apply native preambles and mathematical compositions
+        run: |
+          set -euo pipefail
+          if ! grep -q 'pub fn typeset_with_preamble' crates/fmn-tex/src/engine.rs; then
+            git apply --check scripts/patches/tex-native-preambles.patch
+            git apply scripts/patches/tex-native-preambles.patch
+          fi
+          if ! grep -q 'mod portal_tex;' crates/fmn-python/src/lib.rs; then
+            git apply --check scripts/patches/tex-portal-preambles.patch
+            git apply scripts/patches/tex-portal-preambles.patch
+          fi
+          if ! grep -q 'fn production_math_compositions_acceptance_suite' crates/fmn-python/src/lib.rs; then
+            git apply --recount --check scripts/patches/math-compositions.patch
+            git apply --recount scripts/patches/math-compositions.patch
+          fi
+          python -m py_compile crates/fmn-python/python/manimlib_bootstrap.py crates/fmn-python/tests/tex_preambles.py crates/fmn-python/tests/math_compositions.py
+      - name: Install pinned tools and use a clean build without remote cache restoration
+        run: |
+          rustup show active-toolchain
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+      - name: Validate native preambles, mathematical compositions and literal compatibility
+        run: |
+          set -euo pipefail
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-tex/src/lib.rs crates/fmn-tex/src/engine.rs crates/fmn-tex/src/preamble.rs crates/fmn-tex/tests/preambles.rs crates/fmn-library/src/tex.rs crates/fmn-library/src/special_tex.rs crates/fmn-library/tests/tex_preambles.rs crates/fmn-library/tests/math_compositions.rs crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_tex.rs crates/fmn-conformance/tests/e2e_scenarios.rs
+          cargo test --locked -p fmn-tex 2>&1 | tee /tmp/math-native-tex.log
+          cargo test --locked -p fmn-library --test tex_preambles --test math_compositions 2>&1 | tee /tmp/math-native-compositions.log
+          cargo test --locked -p fmn-library --lib special_tex 2>&1 | tee /tmp/math-native-literal.log
+          PYTHONPATH="$PWD/crates/fmn-python/python" cargo test --locked -p fmn-python production_tex_preambles_acceptance_suite -- --nocapture 2>&1 | tee /tmp/math-portal-preambles.log
+          PYTHONPATH="$PWD/crates/fmn-python/python" cargo test --locked -p fmn-python production_math_compositions_acceptance_suite -- --nocapture 2>&1 | tee /tmp/math-portal-compositions.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/math-portal-compositions.log
+      - name: Validate installed wheel, formula geometry and deterministic PNG output
+        run: |
+          set -euo pipefail
+          python -m maturin build --locked --interpreter python --profile dev --out target/math-wheel
+          python -m venv target/math-venv
+          target/math-venv/bin/python -m pip install 'numpy==2.5.2' target/math-wheel/*.whl
+          for suite in tex_preambles math_compositions matching_transform_semantics surface_mesh callback_cleanup; do
+            target/math-venv/bin/python -I "crates/fmn-python/tests/$suite.py" 2>&1 | tee "/tmp/math-wheel-$suite.log"
+          done
+      - name: Run permanent native rendering Gauntlet and strict lints
+        run: |
+          set -euo pipefail
+          PYTHONPATH="$PWD/crates/fmn-python/python" cargo test --locked -p fmn-conformance --test e2e_scenarios python_tex_preambles_scenario_passes -- --nocapture 2>&1 | tee /tmp/math-gauntlet.log
+          cargo clippy --locked -p fmn-tex -p fmn-library -p fmn-python --lib -- -D warnings 2>&1 | tee /tmp/math-clippy.log
+          git diff --check
+      - name: Commit tested source directly to main
+        run: |
+          set -euo pipefail
+          git add crates/fmn-tex/src/lib.rs crates/fmn-tex/src/engine.rs crates/fmn-tex/src/preamble.rs crates/fmn-tex/tests/preambles.rs crates/fmn-library/src/tex.rs crates/fmn-library/src/special_tex.rs crates/fmn-library/tests/tex_preambles.rs crates/fmn-library/tests/math_compositions.rs crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_tex.rs crates/fmn-python/python/manimlib_bootstrap.py crates/fmn-python/tests/tex_preambles.py crates/fmn-python/tests/math_compositions.py crates/fmn-conformance/tests/e2e_scenarios.rs docs/behavior_notes/BN-05-native-text-typesetting.md
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(scribe): enable native preambles and mathematical title/list composition'
+            git push origin HEAD:main
+          fi
+      - name: Run the complete library regression suite
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-library 2>&1 | tee /tmp/math-library-all.log
+      - name: Preserve exact tested source and executable evidence
+        if: always()
+        run: |
+          git archive --format=tar.gz HEAD > /tmp/math-source.tar.gz
+          git rev-parse HEAD > /tmp/math-source-sha.txt
+          git diff > /tmp/math-working.patch
+          tar -czf /tmp/math-working-source.tar.gz crates/fmn-tex crates/fmn-library/src/tex.rs crates/fmn-library/src/special_tex.rs crates/fmn-library/tests/tex_preambles.rs crates/fmn-library/tests/math_compositions.rs crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_tex.rs crates/fmn-python/python/manimlib_bootstrap.py crates/fmn-python/tests/tex_preambles.py crates/fmn-python/tests/math_compositions.py crates/fmn-conformance/tests/e2e_scenarios.rs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: mathematical-compositions-${{ github.sha }}
+          path: |
+            /tmp/math-*
+            target/math-wheel/*.whl
+          retention-days: 2

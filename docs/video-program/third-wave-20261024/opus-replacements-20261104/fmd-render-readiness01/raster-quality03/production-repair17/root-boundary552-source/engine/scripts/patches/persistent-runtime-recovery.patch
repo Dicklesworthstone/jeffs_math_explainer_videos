@@ -1,0 +1,200 @@
+diff --git a/crates/fmn-python/python/fmn_python/animation_updaters.py b/crates/fmn-python/python/fmn_python/animation_updaters.py
+index 8e85cc2..c204313 100644
+--- a/crates/fmn-python/python/fmn_python/animation_updaters.py
++++ b/crates/fmn-python/python/fmn_python/animation_updaters.py
+@@ -13,6 +13,8 @@ import math
+ import sys
+ from typing import Any
+ 
++from .scene_execution import _Execution
++
+ 
+ def _note(error, message):
+     try:
+@@ -148,7 +150,7 @@ class _PersistentAnimation:
+         self.groups = ()
+         self.closed = self.busy = self.begun = False
+         self.cleanup_pending = False
+-        self.prior_suspension = []
++        self.execution = _Execution(g)
+ 
+         def update(current, dt):
+             return self.step(current, dt)
+@@ -181,29 +183,29 @@ class _PersistentAnimation:
+ 
+     def _unwind(self, original=None):
+         self.cleanup_pending = False
+-        actions = []
+-        if self.begun:
+-            if callable(getattr(self.driver, "abort", None)):
+-                actions.append(lambda: self.call("abort"))
+-            actions.append(lambda: self.anchor.set_animating_status(False))
+-            if isinstance(self.animation, self.g["Transform"]):
+-                actions.append(self.anchor.unlock_data)
+-            for member, suspended in self.prior_suspension:
+-                if not suspended:
+-                    actions.append(lambda member=member: member.resume_updating(
+-                        recurse=False, call_updater=False,
+-                    ) if member._is_updating_suspended() else None)
+-        actions.append(self.detach)
+         first = None
+-        for action in actions:
+-            try:
+-                action()
+-            except BaseException as error:
+-                if first is None:
+-                    first = error
+-                if original is not None:
+-                    _note(original, "animation updater cleanup failed: " + type(error).__name__)
+-        self.driver = None
++        diagnostic = original if original is not None else RuntimeError("animation updater cancellation failed")
++        try:
++            if self.begun:
++                # Use the same snapshots and exactly-once abort ownership as
++                # Scene.play. Root-only resumption lost prior locks, ancestor
++                # flags and already-suspended descendants after a bad callback.
++                with _composition_context(self.g, self.animation, self.scene, self.groups):
++                    first = self.execution.unwind(diagnostic)
++        except BaseException as error:
++            first = error
++            if original is not None:
++                _note(original, "animation updater cleanup failed: " + type(error).__name__)
++        try:
++            self.detach()
++        except BaseException as error:
++            if first is None:
++                first = error
++            if original is not None:
++                _note(original, "animation updater detachment failed: " + type(error).__name__)
++        finally:
++            self.execution.release()
++            self.driver = None
+         if first is not None and original is None:
+             raise first
+ 
+@@ -228,10 +230,14 @@ class _PersistentAnimation:
+         duration = _duration(self.driver)
+         if self.cycle and duration == 0:
+             raise ValueError("a cycling animation updater requires positive run_time")
+-        self.prior_suspension = [
+-            (member, member._is_updating_suspended())
+-            for member in self.anchor.get_family()
+-        ]
++        # Snapshot actual public roots before begin, including ancestors and
++        # shared descendants. A native-only adapter may expose no Python root,
++        # so capture the public animation even when driving a native handle.
++        public_handle, = self.execution.wrap((self.animation,))
++        if self.driver is self.animation:
++            self.driver = public_handle
++        else:
++            self.driver, = self.execution.wrap((self.driver,))
+         self.begun = True
+         self.call("begin")
+         return not self.closed
+@@ -293,6 +299,7 @@ class _PersistentAnimation:
+                             if isinstance(retained, group_driver) and retained.group is group:
+                                 group._composition_driver = None
+                     self.driver = None
++                    self.execution.release()
+                 return
+             following = elapsed + delta
+             if not math.isfinite(following):
+diff --git a/crates/fmn-python/python/fmn_python/scene_execution.py b/crates/fmn-python/python/fmn_python/scene_execution.py
+index 7aa94fa..eeea4c6 100644
+--- a/crates/fmn-python/python/fmn_python/scene_execution.py
++++ b/crates/fmn-python/python/fmn_python/scene_execution.py
+@@ -63,6 +63,7 @@ class _TransientState:
+ 
+     def restore(self, primary):
+         mob = self.mob
++        first_error = None
+         # Independent best efforts: a stale native handle must not prevent
+         # recovery of another family member or its Python lock projection.
+         try:
+@@ -72,6 +73,7 @@ class _TransientState:
+             elif not self.suspended and now:
+                 mob.resume_updating(recurse=False, call_updater=False)
+         except BaseException as error:
++            first_error = error
+             _note(primary, "animation suspension recovery failed: " + type(error).__name__)
+         try:
+             attrs = vars(mob)
+@@ -86,7 +88,10 @@ class _TransientState:
+             for name in self.absent_locks:
+                 attrs.pop(name, None)
+         except BaseException as error:
++            if first_error is None:
++                first_error = error
+             _note(primary, "animation lock recovery failed: " + type(error).__name__)
++        return first_error
+ 
+ 
+ class _Callback:
+@@ -158,6 +163,7 @@ class _Execution:
+         if self.closed:
+             return
+         self.closed = True
++        first_error = None
+         seen = set()
+         for handle in reversed(self.begun):
+             callback = handle.callback
+@@ -170,11 +176,18 @@ class _Execution:
+                     if callable(abort) and not getattr(abort, "_fmn_schema_placeholder", False):
+                         abort()
+                 except BaseException as cleanup_error:
++                    if first_error is None:
++                        first_error = cleanup_error
+                     _note(error, "animation abort also failed: " + type(cleanup_error).__name__)
+         # Restore only after all specialized/legacy abort handlers have run.
+         if self.begun:
+             for snapshot in reversed(tuple(self.snapshots.values())):
+-                snapshot.restore(error)
++                recovery_error = snapshot.restore(error)
++                if first_error is None:
++                    first_error = recovery_error
++        # Scene failures preserve their primary exception; explicit persistent
++        # cancellation has no primary and must surface a failed abort/recovery.
++        return first_error
+ 
+ 
+ def install_scene_execution(native: Any) -> None:
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+index d28a614..a984ea6 100644
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -11699,6 +11699,22 @@ mod tests {
+         });
+     }
+ 
++    #[test]
++    fn production_persistent_runtime_acceptance_suite() {
++        crate::with_python_test_module("persistent runtime recovery", |py, _module, globals| {
++            for (name, text) in [
++                ("animation_updaters.py", include_str!("../tests/animation_updaters.py")),
++                ("persistent_recovery.py", include_str!("../tests/persistent_recovery.py")),
++            ] {
++                globals.set_item("__file__", name).expect("suite filename");
++                let source = CString::new(text).expect("persistent suite contains no NUL");
++                py.run(source.as_c_str(), Some(globals), Some(globals))
++                    .inspect_err(|error| error.print(py))
++                    .expect("native persistent lifecycle and failure ownership");
++            }
++        });
++    }
++
+     #[test]
+     fn production_portal_runtime_acceptance_suite() {
+         crate::with_python_test_module("complete portal runtime", |py, _module, globals| {
+diff --git a/scripts/check_portal_runtime.sh b/scripts/check_portal_runtime.sh
+index 84a4720..cb7ffd7 100755
+--- a/scripts/check_portal_runtime.sh
++++ b/scripts/check_portal_runtime.sh
+@@ -11,7 +11,7 @@ if not path:
+ print(f"auditing imported manimlib: {path}")
+ PY
+ 
+-for suite in portal_initialization fading_family bridge animation_semantics matching_transform_semantics composition_lifecycle camera_animation_semantics camera_motion camera_execution updater_family creation_semantics native_outputs programmatic_rendering batch_rendering builder_playback restore_playback cyclic_replace deferred_transform_playback fading_semantics movement_semantics rotation_semantics indication_semantics composite_effects tracker_interpolation live_rates animation_updaters native_animation_updaters deferred_animation_updaters console_rendering scene_state temporal_visualization control_interaction color_sliders scene_execution; do
++for suite in portal_initialization persistent_recovery fading_family bridge animation_semantics matching_transform_semantics composition_lifecycle camera_animation_semantics camera_motion camera_execution updater_family creation_semantics native_outputs programmatic_rendering batch_rendering builder_playback restore_playback cyclic_replace deferred_transform_playback fading_semantics movement_semantics rotation_semantics indication_semantics composite_effects tracker_interpolation live_rates animation_updaters native_animation_updaters deferred_animation_updaters console_rendering scene_state temporal_visualization control_interaction color_sliders scene_execution; do
+     python3 - "$suite" <<'PY'
+ import pathlib
+ import runpy

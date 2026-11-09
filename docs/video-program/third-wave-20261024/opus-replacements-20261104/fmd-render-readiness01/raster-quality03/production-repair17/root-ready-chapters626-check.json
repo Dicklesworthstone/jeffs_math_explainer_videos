@@ -1,0 +1,374 @@
+{
+  "01_the_bump": {
+    "passed": true,
+    "record": {
+      "chapter": "01_the_bump",
+      "kind": "combined",
+      "host": "/data/projects/jmev-css-render-worker-20261107",
+      "job": "css-reviewed-final-01-the-bump352",
+      "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+      "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+      "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/01_the_bump-css-permit364.json",
+      "permit_sha256": "299b8fe0db20ca2559ea97845df8a3300c078e92b7d05ab2483f205e43dbff40",
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "narration": "/data/projects/jmev-css-render-worker-20261107/jobs/css-repair-delivery309/narration",
+      "frames": 6311,
+      "movie_sha256": "0998b42d8ec726d6721dbd8b98018cda628efe82e7d47a551e45ad48d9c5dfba",
+      "staged": [
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-01-the-bump352/render/01_the_bump.mp4",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-01-the-bump352/render/01_the_bump.timeline.tsv",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-01-the-bump352/render/01_the_bump.cues.tsv",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-01-the-bump352/render/01_the_bump.cuelog.tsv",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-01-the-bump352/render/01_the_bump.layout.tsv",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-01-the-bump352/render/soundtrack/01_the_bump/soundtrack_0.wav"
+      ],
+      "review_basis": "sampled_preview",
+      "review_scope": {
+        "basis": "sampled_preview",
+        "purpose": "technical_4k_render",
+        "preview_movie_sha256": "1f6834a6b6fb5ed481f66c0a8eded204ede670501eae5d81a277814206353d19",
+        "sampled_intervals": [
+          [
+            5493,
+            5531
+          ],
+          [
+            6273,
+            6310
+          ]
+        ],
+        "playback_seconds": [],
+        "open_reviews": [
+          "final_picture",
+          "motion",
+          "audio",
+          "fine_sync",
+          "captions",
+          "independent_final_av",
+          "publication"
+        ]
+      },
+      "sampled_intervals": [
+        [
+          5493,
+          5531
+        ],
+        [
+          6273,
+          6310
+        ]
+      ],
+      "sampled_frames": 77,
+      "open_reviews": [
+        "final_picture",
+        "motion",
+        "audio",
+        "fine_sync",
+        "captions",
+        "independent_final_av",
+        "publication"
+      ],
+      "stated_false": [
+        "continuous_motion_acceptance",
+        "final_4k_acceptance",
+        "fine_sync_acceptance",
+        "listening_acceptance",
+        "publication_acceptance",
+        "release_acceptance"
+      ],
+      "preview_movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/01_the_bump.mp4",
+        "sha256": "1f6834a6b6fb5ed481f66c0a8eded204ede670501eae5d81a277814206353d19"
+      },
+      "frame_records": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/sampling.json",
+          "sha256": "35854fb507a7d6b2f01db0ebe0c336bfedcaaf1df1cb72f408cea2eec2b08abc",
+          "frames": 74,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/bump-transition-frames305/manifest.json",
+          "sha256": "e2341ee728c464a4220aada1459a064d29f48efac7c6cc851c64b9c5753f7f9a",
+          "frames": 74,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/bump-transition-review305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/coverage-grid305b/01_the_bump/sampling.json",
+          "sha256": "54071925d3b867add04ac26ed93da0e63603fbb3d40ffef4ca44ef8554a27ab8",
+          "frames": 88,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json"
+          ]
+        }
+      ],
+      "independent_confirmation": [
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json"
+      ],
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-01-the-bump-a1/resource-receipt.json",
+      "independent_reviewer": "cc3",
+      "preview_job": "csd-review-repair-preview274",
+      "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+    },
+    "checked_dependencies": 8942
+  },
+  "02_turning_numbers": {
+    "passed": true,
+    "record": {
+      "chapter": "02_turning_numbers",
+      "kind": "retained",
+      "host": "/data/projects/jmev-render-worker-20261107",
+      "job": "trj-production19-final-02-turning-numbers32",
+      "worker": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-final-chapter19-02.py",
+      "worker_sha256": "788f75666d687140c6ab67e8f517b6e713f0e885508c258f055c44e8dc09c1c8",
+      "permit": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review02-32/final-render-permit32.json",
+      "permit_sha256": "ccdff19cd315f5e4893b59fdc11e84486e8db15ab6f9fd63ae73535bd7dc5ac2",
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "narration": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-delivery02/narration",
+      "frames": 5372,
+      "movie_sha256": "bf0891a409f589bd4fc125c038e03dd027ec334436e25cdc129463c659984f07",
+      "staged": [
+        "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32/render/02_turning_numbers.mp4",
+        "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32/render/02_turning_numbers.timeline.tsv",
+        "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32/render/02_turning_numbers.cues.tsv",
+        "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32/render/02_turning_numbers.cuelog.tsv",
+        "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32/render/02_turning_numbers.layout.tsv",
+        "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32/render/soundtrack/02_turning_numbers/soundtrack_0.wav"
+      ],
+      "review_basis": "historical_permit",
+      "retention_decision": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/retention-dependency-disposition283.json",
+        "sha256": "9fd8d9720cbf1b8fc811b5fca952b1d34b762bee3e0b77cdf7927fa76d4dd512"
+      },
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-trj-a1/resource-receipt.json"
+    },
+    "checked_dependencies": 738
+  },
+  "03_two_planes": {
+    "passed": true,
+    "record": {
+      "chapter": "03_two_planes",
+      "kind": "retained",
+      "host": "/data/projects/jmev-render-worker-20261107",
+      "job": "trj-production19-final-03-two-planes28",
+      "worker": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-final-chapter19-02.py",
+      "worker_sha256": "788f75666d687140c6ab67e8f517b6e713f0e885508c258f055c44e8dc09c1c8",
+      "permit": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review03-28/final-render-permit28.json",
+      "permit_sha256": "107aebb15239c67d66569c5e1217c1343c7490901431ef935ce044962e7c64ca",
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "narration": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-delivery02/narration",
+      "frames": 7249,
+      "movie_sha256": "20353d01ee564ef101ecad80bdfa8ec1db87ac2188b2e4642969b371f2e82cf3",
+      "staged": [
+        "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28/render/03_two_planes.mp4",
+        "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28/render/03_two_planes.timeline.tsv",
+        "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28/render/03_two_planes.cues.tsv",
+        "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28/render/03_two_planes.cuelog.tsv",
+        "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28/render/03_two_planes.layout.tsv",
+        "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28/render/soundtrack/03_two_planes/soundtrack_0.wav"
+      ],
+      "review_basis": "historical_permit",
+      "retention_decision": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/retention-dependency-disposition283.json",
+        "sha256": "9fd8d9720cbf1b8fc811b5fca952b1d34b762bee3e0b77cdf7927fa76d4dd512"
+      },
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-trj-a1/resource-receipt.json"
+    },
+    "checked_dependencies": 735
+  },
+  "11_counting": {
+    "passed": true,
+    "record": {
+      "chapter": "11_counting",
+      "kind": "combined",
+      "host": "/data/projects/jmev-stroke-probe-20261106",
+      "job": "csd-reviewed-final-11-counting352",
+      "worker": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-reviewed-final352.py",
+      "worker_sha256": "23d55c286aba2fc58b77a5af8dbd539293592daa3a4e0e8584f18f324d868760",
+      "permit": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/11_counting-csd-permit370.json",
+      "permit_sha256": "f6222de09bf29d27f446a1f6056ec5c602f6c7cd9f774b281e3b1d1caf232054",
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "narration": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration",
+      "frames": 11932,
+      "movie_sha256": "6867d4d933d2d1e99f555b29600ecc19a017e11f87b274f7e950c21d5d045f5e",
+      "staged": [
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-11-counting352/render/11_counting.mp4",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-11-counting352/render/11_counting.timeline.tsv",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-11-counting352/render/11_counting.cues.tsv",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-11-counting352/render/11_counting.cuelog.tsv",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-11-counting352/render/11_counting.layout.tsv",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-11-counting352/render/soundtrack/11_counting/soundtrack_0.wav"
+      ],
+      "review_basis": "sampled_preview",
+      "review_scope": {
+        "basis": "sampled_preview",
+        "purpose": "technical_4k_render",
+        "preview_movie_sha256": "0b6244a005f64ff9b9b381a8ec8a58ffb7c174d085aceb452871d7f5dd0f811e",
+        "sampled_intervals": [
+          [
+            34,
+            87
+          ],
+          [
+            7464,
+            7494
+          ],
+          [
+            8294,
+            8344
+          ]
+        ],
+        "playback_seconds": [],
+        "open_reviews": [
+          "final_picture",
+          "motion",
+          "audio",
+          "fine_sync",
+          "captions",
+          "independent_final_av",
+          "publication"
+        ]
+      },
+      "sampled_intervals": [
+        [
+          34,
+          87
+        ],
+        [
+          7464,
+          7494
+        ],
+        [
+          8294,
+          8344
+        ]
+      ],
+      "sampled_frames": 136,
+      "open_reviews": [
+        "final_picture",
+        "motion",
+        "audio",
+        "fine_sync",
+        "captions",
+        "independent_final_av",
+        "publication"
+      ],
+      "stated_false": [
+        "continuous_motion_acceptance",
+        "final_4k_acceptance",
+        "fine_sync_acceptance",
+        "listening_acceptance",
+        "publication_acceptance",
+        "release_acceptance"
+      ],
+      "preview_movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/11_counting.mp4",
+        "sha256": "0b6244a005f64ff9b9b381a8ec8a58ffb7c174d085aceb452871d7f5dd0f811e"
+      },
+      "frame_records": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sampling.json",
+          "sha256": "eb67bf33a9ad2f7c91c5601026816d7ebd5d1fc3dafb5a68ae3c5004e8307846",
+          "frames": 193,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json",
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/counting-transition-frames305/manifest.json",
+          "sha256": "9e74486edaaac78d1a4a868f83507a69378f1be9d64ab0456ddd453a34fc64d6",
+          "frames": 81,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json",
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/counting-transition-review305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/counting-opening-frames305/manifest.json",
+          "sha256": "9b889e043ce97bfbb2ce8b72f8306c3dbd3718a29c52b97f4adefa2b702bea8a",
+          "frames": 54,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json",
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/counting-opening-review305.json"
+          ]
+        }
+      ],
+      "independent_confirmation": [
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json"
+      ],
+      "independent_reviewer": "cc1",
+      "preview_job": "csd-review-repair-preview274",
+      "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+    },
+    "checked_dependencies": 13946
+  },
+  "13_real_integral": {
+    "passed": true,
+    "record": {
+      "chapter": "13_real_integral",
+      "kind": "retained",
+      "host": "/data/projects/jmev-css-render-worker-20261107",
+      "job": "css-production19-final-13-real-integral96",
+      "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-chapter78.py",
+      "worker_sha256": "8edccab96593344242386d4ae08399d9cff96da588b00bd3c7f63b0fd1b4accb",
+      "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/review13-96/final-render-permit96.json",
+      "permit_sha256": "e86b5d886b6adf15ff2e682308b19b2284f0c00a6229e4dced6994b70290f8e2",
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "narration": "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-delivery76/narration",
+      "frames": 10641,
+      "movie_sha256": "49934034d4611b81155925e667dab463072b21ba0240467447b9ddfb52d32f51",
+      "staged": [
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96/render/13_real_integral.mp4",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96/render/13_real_integral.timeline.tsv",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96/render/13_real_integral.cues.tsv",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96/render/13_real_integral.cuelog.tsv",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96/render/13_real_integral.layout.tsv",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96/render/soundtrack/13_real_integral/soundtrack_0.wav"
+      ],
+      "review_basis": "historical_permit",
+      "retention_decision": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/retention-dependency-disposition283.json",
+        "sha256": "9fd8d9720cbf1b8fc811b5fca952b1d34b762bee3e0b77cdf7927fa76d4dd512"
+      },
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-css-a1/resource-receipt.json"
+    },
+    "checked_dependencies": 926
+  },
+  "15_closing": {
+    "passed": true,
+    "record": {
+      "chapter": "15_closing",
+      "kind": "retained",
+      "host": "/data/projects/jmev-hz2-render-worker-20261107",
+      "job": "hz2-production19-final-15-closing53",
+      "worker": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-final-chapter53.py",
+      "worker_sha256": "20f5c3a94ddada0afd5150c2ac81a028c789bf3dcd33a7f3608a5a8d4f618fac",
+      "permit": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/final-render-permit53.json",
+      "permit_sha256": "ec74b68375331470ac18c2c7e5db4fc60bb82a247e2eeead844233c453fecd20",
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "narration": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-delivery49/narration",
+      "frames": 4379,
+      "movie_sha256": "3e2440a8785319cf9477e73303e6391c8a4165c7fbfd3fa6f4ad97e81f874fd4",
+      "staged": [
+        "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/15_closing.mp4",
+        "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/15_closing.timeline.tsv",
+        "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/15_closing.cues.tsv",
+        "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/15_closing.cuelog.tsv",
+        "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/15_closing.layout.tsv",
+        "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/soundtrack/15_closing/soundtrack_0.wav"
+      ],
+      "review_basis": "historical_permit",
+      "retention_decision": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/retention-dependency-disposition283.json",
+        "sha256": "9fd8d9720cbf1b8fc811b5fca952b1d34b762bee3e0b77cdf7927fa76d4dd512"
+      },
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-hz2-a1/resource-receipt.json"
+    },
+    "checked_dependencies": 915
+  }
+}

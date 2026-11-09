@@ -1,0 +1,321 @@
+diff --git a/crates/fmn-library/src/solids.rs b/crates/fmn-library/src/solids.rs
+index beb7a7a..9bd0fad 100644
+--- a/crates/fmn-library/src/solids.rs
++++ b/crates/fmn-library/src/solids.rs
+@@ -58,8 +58,9 @@
+ //!   draw with VMobject defaults (GREY_A stroke, width `4`, `auto` joint,
+ //!   no depth test) while `stroke_width=1`/`joint_type='no_joint'`/
+ //!   `depth_test=True` sit on the empty group and style nothing. This is
+-//!   kept as-is (candidate Appendix-C row); the *geometry* — the
+-//!   `1e-2` normal nudge and the floor/ceil index interpolation — is exact.
++//!   corrected here: stroke and uniform settings reach every wireframe
++//!   child (BN-07). The `1e-2` normal nudge and floor/ceil interpolation
++//!   are unchanged.
+ //! * **C-4 (`TexturedGeometry`).** The Reference's `init_points`
+ //!   triple-reads `triangle_indices[0::3]` into `v0`/`v1`/`v2` (dead code)
+ //!   and nudges normals by `1e-5·0` over `normals = points` — its stored
+@@ -2058,13 +2059,14 @@ impl From<Prismify> for Mobject {
+ /// wireframe over a sampled surface, lifted by `normal_nudge=1e-2` along
+ /// the surface normals.
+ ///
+-/// The paths are bare-VMobject children; in the Reference the style
+-/// kwargs land on the point-less parent (module docs), so the wireframe
+-/// draws with VMobject defaults. The geometry — indices, interpolation,
+-/// nudge — is the Reference's exactly.
++/// The sampled grid may come from a native surface or from live portal
++/// records. Both routes use this one mesher; neither reconstructs a solid
++/// from constructor parameters or evaluates its original UV callback.
+ #[derive(Debug, Clone)]
+ pub struct SurfaceMesh {
+-    uv_surface: Surface,
++    points: Vec<Vec3>,
++    unit_normals: Vec<Vec3>,
++    source_resolution: (usize, usize),
+     resolution: (usize, usize),
+     normal_nudge: f64,
+     stroke_width: f64,
+@@ -2073,12 +2075,49 @@ pub struct SurfaceMesh {
+     joint_type: JointType,
+ }
+ 
++/// Why a live sampled grid cannot be admitted to [`SurfaceMesh`].
++#[derive(Debug, Clone, Copy, PartialEq, Eq)]
++pub enum SurfaceMeshError {
++    /// Resolution and point/normal record counts do not agree.
++    InvalidGrid,
++    /// A source sample or a nudged point is not finite.
++    NonFiniteGeometry,
++    /// Nudge/width is not finite, or the stroke width is negative.
++    InvalidStyle,
++    /// Source or requested wireframe samples exceed the Atlas budget.
++    SampleLimit,
++}
++
++impl std::fmt::Display for SurfaceMeshError {
++    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
++        f.write_str(match self {
++            Self::InvalidGrid => "SurfaceMesh resolution must match its point and normal records",
++            Self::NonFiniteGeometry => "SurfaceMesh points and normals must produce finite geometry",
++            Self::InvalidStyle => "SurfaceMesh requires a finite nudge and finite nonnegative stroke width",
++            Self::SampleLimit => "SurfaceMesh exceeds the Atlas sampling budget",
++        })
++    }
++}
++
++impl std::error::Error for SurfaceMeshError {}
++
+ impl SurfaceMesh {
+     /// The wireframe over `uv_surface` at the default `(21, 11)` density.
+     #[must_use]
+     pub fn new(uv_surface: Surface) -> Self {
++        let unit_normals = uv_surface.unit_normals();
++        Self::from_parts(uv_surface.points, unit_normals, uv_surface.resolution)
++    }
++
++    fn from_parts(
++        points: Vec<Vec3>,
++        unit_normals: Vec<Vec3>,
++        source_resolution: (usize, usize),
++    ) -> Self {
+         Self {
+-            uv_surface,
++            points,
++            unit_normals,
++            source_resolution,
+             resolution: MESH_RESOLUTION,
+             normal_nudge: MESH_NORMAL_NUDGE,
+             stroke_width: 1.0,
+@@ -2088,6 +2127,70 @@ impl SurfaceMesh {
+         }
+     }
+ 
++    /// Build over current, u-major sampled records rather than a UV recipe.
++    ///
++    /// Normals are the caller's unit-normal samples (including a portal
++    /// subclass's `get_unit_normals` override). Records are owned snapshots;
++    /// later source edits cannot mutate an already constructed wireframe.
++    ///
++    /// # Errors
++    ///
++    /// Refuses malformed, non-finite or over-budget grids before meshing.
++    pub fn from_samples(
++        points: Vec<Vec3>,
++        unit_normals: Vec<Vec3>,
++        resolution: (usize, usize),
++    ) -> Result<Self, SurfaceMeshError> {
++        let mesh = Self::from_parts(points, unit_normals, resolution);
++        mesh.validate_grid()?;
++        Ok(mesh)
++    }
++
++    fn validate_grid(&self) -> Result<(), SurfaceMeshError> {
++        let budget = crate::SamplingBudget::DEFAULT.max_samples();
++        let (nu, nv) = self.source_resolution;
++        let count = nu.checked_mul(nv).ok_or(SurfaceMeshError::SampleLimit)?;
++        if count > budget || nu > budget || nv > budget {
++            return Err(SurfaceMeshError::SampleLimit);
++        }
++        if self.points.len() != count || self.unit_normals.len() != count {
++            return Err(SurfaceMeshError::InvalidGrid);
++        }
++        if self.points.iter().chain(&self.unit_normals).flatten().any(|v| !v.is_finite()) {
++            return Err(SurfaceMeshError::NonFiniteGeometry);
++        }
++        Ok(())
++    }
++
++    /// The bounded entry point for caller-controlled wireframe settings.
++    ///
++    /// # Errors
++    ///
++    /// Refuses malformed grids, invalid styles, non-finite nudged points,
++    /// and excessive line/sample counts before proportional allocation.
++    pub fn try_build(self) -> Result<VMobject, SurfaceMeshError> {
++        self.validate_grid()?;
++        if !self.normal_nudge.is_finite() || !self.stroke_width.is_finite() || self.stroke_width < 0.0 {
++            return Err(SurfaceMeshError::InvalidStyle);
++        }
++        let budget = crate::SamplingBudget::DEFAULT.max_samples();
++        let (nu, nv) = self.source_resolution;
++        let (part_nu, part_nv) = self.resolution;
++        let lines = part_nu.checked_add(part_nv).ok_or(SurfaceMeshError::SampleLimit)?;
++        let samples = part_nu.checked_mul(nv)
++            .and_then(|u| part_nv.checked_mul(nu).and_then(|v| u.checked_add(v)))
++            .ok_or(SurfaceMeshError::SampleLimit)?;
++        if lines > budget || samples > budget {
++            return Err(SurfaceMeshError::SampleLimit);
++        }
++        if self.points.iter().zip(&self.unit_normals).any(|(&p, &n)| {
++            add(p, mul(n, self.normal_nudge)).iter().any(|v| !v.is_finite())
++        }) {
++            return Err(SurfaceMeshError::NonFiniteGeometry);
++        }
++        Ok(self.build())
++    }
++
+     /// The wireframe's own `(part_nu, part_nv)` line counts.
+     #[must_use]
+     pub fn resolution(mut self, nu: usize, nv: usize) -> Self {
+@@ -2102,29 +2205,28 @@ impl SurfaceMesh {
+         self
+     }
+ 
+-    /// The parent's stroke width (Reference `1`; see module docs for where
+-    /// it lands).
++    /// The stroke width of every wireframe path (default `1`).
+     #[must_use]
+     pub fn stroke_width(mut self, width: f64) -> Self {
+         self.stroke_width = width;
+         self
+     }
+ 
+-    /// The parent's stroke color (Reference `GREY_A`).
++    /// The stroke color of every wireframe path (default `GREY_A`).
+     #[must_use]
+     pub fn stroke_color(mut self, color: Srgb) -> Self {
+         self.stroke_color = color;
+         self
+     }
+ 
+-    /// The parent's depth-test flag (Reference `True`).
++    /// The depth-test flag of every wireframe path (default `True`).
+     #[must_use]
+     pub fn depth_test(mut self, depth_test: bool) -> Self {
+         self.depth_test = depth_test;
+         self
+     }
+ 
+-    /// The parent's joint type (Reference `'no_joint'`).
++    /// The joint type of every wireframe path (default `'no_joint'`).
+     #[must_use]
+     pub fn joint_type(mut self, joint_type: JointType) -> Self {
+         self.joint_type = joint_type;
+@@ -2135,13 +2237,13 @@ impl SurfaceMesh {
+     /// iso-v paths, each approx-smoothed (`set_points_smoothly`).
+     #[must_use]
+     pub fn build(self) -> VMobject {
+-        let (full_nu, full_nv) = self.uv_surface.resolution();
+-        let (part_nu, part_nv) = self.resolution;
+-        let points = self.uv_surface.points();
+-        let normals = self.uv_surface.unit_normals();
+-        let nudged: Vec<Vec3> = points
++        let (full_nu, full_nv) = self.source_resolution;
++        // Empty sampled surfaces have no iso-curves, including (0, n)
++        // and (n, 0). Do not index a missing row or synthesize fake points.
++        let (part_nu, part_nv) = if self.points.is_empty() { (0, 0) } else { self.resolution };
++        let nudged: Vec<Vec3> = self.points
+             .iter()
+-            .zip(&normals)
++            .zip(&self.unit_normals)
+             .map(|(&p, &n)| add(p, mul(n, self.normal_nudge)))
+             .collect();
+ 
+@@ -2155,11 +2257,16 @@ impl SurfaceMesh {
+             // On a smoothing failure the corner path remains — the
+             // `let _ =` convention of `Polygon::build`.
+             let _ = path.set_points_smoothly(samples, true);
+-            VMobject::from_path(&path)
++            VMobject::from_path(&path).map_uniforms(|mut u| {
++                u.depth_test = self.depth_test;
++                u.joint_type = self.joint_type;
++                u
++            })
+         };
+ 
+         let mut children = Vec::with_capacity(part_nu + part_nv);
+         for ui in u_indices {
++            let ui = ui.clamp(0.0, full_nu.saturating_sub(1) as f64);
+             let low = full_nv * (ui.floor() as usize);
+             let high = full_nv * (ui.ceil() as usize);
+             let t = ui % 1.0;
+@@ -2169,6 +2276,7 @@ impl SurfaceMesh {
+             children.push(smooth_path(&row));
+         }
+         for vi in v_indices {
++            let vi = vi.clamp(0.0, full_nv.saturating_sub(1) as f64);
+             let low = vi.floor() as usize;
+             let high = vi.ceil() as usize;
+             let t = vi % 1.0;
+@@ -2179,7 +2287,7 @@ impl SurfaceMesh {
+         }
+ 
+         let mut group = v_group(children)
+-            .map_style(|s| s.stroke(self.stroke_color, self.stroke_width, s.stroke_opacity));
++            .map_style_deep(|s| s.stroke(self.stroke_color, self.stroke_width, s.stroke_opacity));
+         group = group.map_uniforms(move |mut u| {
+             u.depth_test = self.depth_test;
+             u.joint_type = self.joint_type;
+@@ -3032,6 +3140,73 @@ mod tests {
+         assert!((anchor[0] - 0.5).abs() < 1e-9, "x = {}", anchor[0]);
+     }
+ 
++    #[test]
++    fn surface_mesh_live_grid_matches_native_surface() {
++        let surface = ParametricSurface::new(|u, v| [u, v, u * v])
++            .resolution(5, 3)
++            .build()
++            .stretched(2.0, 0)
++            .shifted([3.0, -2.0, 0.5]);
++        let live = SurfaceMesh::from_samples(
++            surface.points().to_vec(), surface.unit_normals(), surface.resolution(),
++        ).expect("valid sampled surface")
++            .resolution(4, 2).normal_nudge(0.15).try_build().expect("bounded mesh");
++        let native = SurfaceMesh::new(surface)
++            .resolution(4, 2).normal_nudge(0.15).build();
++        assert_eq!(live, native);
++    }
++
++    #[test]
++    fn surface_mesh_honors_live_normals_and_leaf_style() {
++        let points = vec![[1.0, 0.0, 2.0], [1.0, 1.0, 2.0],
++                          [3.0, 0.0, 2.0], [3.0, 1.0, 2.0]];
++        let mesh = SurfaceMesh::from_samples(points, vec![RIGHT; 4], (2, 2))
++            .expect("grid").resolution(3, 1).normal_nudge(0.25)
++            .stroke_color(BLUE).stroke_width(3.5).depth_test(true)
++            .joint_type(JointType::Bevel).try_build().expect("mesh");
++        assert_eq!(mesh.children().len(), 4);
++        assert_eq!(mesh.children()[1].points()[0], [2.25, 0.0, 2.0]);
++        for child in mesh.children() {
++            assert_eq!(child.style().stroke_color, BLUE);
++            assert_eq!(child.style().stroke_width, 3.5);
++            assert_eq!(child.style().fill_opacity, 0.0);
++            assert!(child.uniforms().depth_test);
++            assert_eq!(child.uniforms().joint_type, JointType::Bevel);
++        }
++    }
++
++    #[test]
++    fn surface_mesh_empty_and_singleton_grids_do_not_index_missing_rows() {
++        for resolution in [(0, 0), (0, 3), (3, 0)] {
++            let mesh = SurfaceMesh::from_samples(vec![], vec![], resolution)
++                .expect("empty grid").try_build().expect("empty mesh");
++            assert!(mesh.children().is_empty());
++        }
++        let mesh = SurfaceMesh::from_samples(vec![ORIGIN], vec![OUT], (1, 1))
++            .expect("singleton").resolution(1, 1).try_build().expect("mesh");
++        assert_eq!(mesh.children().len(), 2);
++        assert_eq!(mesh.children()[0].points(), &[[0.0, 0.0, MESH_NORMAL_NUDGE]]);
++    }
++
++    #[test]
++    fn surface_mesh_refuses_malformed_and_unbounded_grid_data() {
++        assert_eq!(SurfaceMesh::from_samples(vec![ORIGIN], vec![], (1, 1)).unwrap_err(),
++                   SurfaceMeshError::InvalidGrid);
++        assert_eq!(SurfaceMesh::from_samples(vec![], vec![], (usize::MAX, 2)).unwrap_err(),
++                   SurfaceMeshError::SampleLimit);
++        assert_eq!(SurfaceMesh::from_samples(vec![[f64::NAN, 0.0, 0.0]], vec![OUT], (1, 1)).unwrap_err(),
++                   SurfaceMeshError::NonFiniteGeometry);
++        assert_eq!(SurfaceMesh::from_samples(vec![ORIGIN], vec![[0.0, f64::INFINITY, 0.0]], (1, 1)).unwrap_err(),
++                   SurfaceMeshError::NonFiniteGeometry);
++        let mesh = SurfaceMesh::from_samples(vec![ORIGIN], vec![OUT], (1, 1)).expect("grid");
++        assert_eq!(mesh.clone().resolution(usize::MAX, 1).try_build().unwrap_err(),
++                   SurfaceMeshError::SampleLimit);
++        assert_eq!(mesh.clone().normal_nudge(f64::NAN).try_build().unwrap_err(),
++                   SurfaceMeshError::InvalidStyle);
++        assert_eq!(mesh.stroke_width(-1.0).try_build().unwrap_err(),
++                   SurfaceMeshError::InvalidStyle);
++    }
++
+     #[test]
+     fn textured_surface_copies_grid_and_flips_v() {
+         let surface = Square3D::new(2.0).build().with_opacity(0.5);

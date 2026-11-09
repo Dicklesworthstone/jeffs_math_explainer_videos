@@ -1,0 +1,193 @@
+name: Scribe
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'crates/fmn/**'
+      - 'crates/fmn-cli/src/typesetting.rs'
+      - 'crates/fmn-cli/tests/typesetting_cache.rs'
+      - 'crates/fmn-text/**'
+      - 'crates/fmn-tex/**'
+      - 'crates/fmn-library/src/text.rs'
+      - 'crates/fmn-library/src/tex.rs'
+      - 'crates/fmn-library/tests/scribe_cache.rs'
+      - 'Cargo.lock'
+      - 'rust-toolchain.toml'
+      - '.github/workflows/scribe.yml'
+  pull_request:
+    paths:
+      - 'crates/fmn/**'
+      - 'crates/fmn-cli/src/typesetting.rs'
+      - 'crates/fmn-cli/tests/typesetting_cache.rs'
+      - 'crates/fmn-text/**'
+      - 'crates/fmn-tex/**'
+      - 'crates/fmn-library/src/text.rs'
+      - 'crates/fmn-library/src/tex.rs'
+      - 'crates/fmn-library/tests/scribe_cache.rs'
+      - 'Cargo.lock'
+      - 'rust-toolchain.toml'
+      - '.github/workflows/scribe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scribe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/scribe
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/scribe
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-scribe-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      # Independent of the Python portal gate: a failure in that unrelated
+      # surface must not prevent the native Scribe regression suites running.
+      - name: Native text and TeX regression suites
+        run: cargo test --locked -p fmn-text -p fmn-tex --all-targets
+      - name: Scribe clippy
+        run: cargo clippy --locked -p fmn-text -p fmn-tex --all-targets -- -D warnings
+      - name: Production Scribe builders
+        run: cargo test --locked -p fmn-library --test scribe_cache
+      - name: Native scene typesetting lifecycle
+        run: cargo test --locked -p fmn --test native_typesetting --test dynamic_typesetting
+      - name: Standalone typesetting cache lifecycle
+        shell: bash
+        run: |
+          if test -f crates/fmn-cli/tests/typesetting_cache.rs; then
+            cargo test --locked -p fmn-cli --features batch --test typesetting_cache
+          else
+            echo 'CLI cache integration candidate is not published in this source commit.'
+          fi
+      - name: Formatting
+        run: cargo fmt --all -- --check
+
+  cli-typesetting-candidate:
+    # A bounded one-time candidate, not a source-mutating main-push workflow.
+    # Later pushes validate the published source in the ordinary job above.
+    if: github.event_name == 'push' && github.event.before == '4110c0e8929121a22e6f3b64c4fffd2b1b39f15b'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    permissions:
+      contents: write
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/scribe-candidate
+      CARGO_TERM_COLOR: never
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Materialize the exact reviewed CLI candidate
+        shell: python
+        run: |
+          import base64, hashlib, pathlib, subprocess, zlib
+          source = pathlib.Path('crates/fmn-cli/src/lib.rs').read_bytes()
+          digest = hashlib.sha1(b'blob ' + str(len(source)).encode() + b'\0' + source).hexdigest()
+          assert digest == 'b1d27f97e23a131c0906b10a1c0a275f6494ad5f', 'CLI source changed: refuse to apply a stale candidate'
+          patch = zlib.decompress(base64.b64decode(
+              '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'
+          ))
+          assert hashlib.sha256(patch).hexdigest() == '3fcf2b441873f39848aabb8f6941f4004aca86109014a800497102b8db22278a'
+          subprocess.run(['git', 'apply', '--check', '-'], input=patch, check=True)
+          subprocess.run(['git', 'apply', '-'], input=patch, check=True)
+      - name: Install the pinned toolchain and format candidate sources
+        run: |
+          rustup show active-toolchain
+          cargo fmt --all
+          git diff --check
+      - name: Prepare unreferenced source blobs and exact-source evidence
+        id: source
+        # Only this step receives the token; this script creates blobs, never refs.
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          SOURCE_HEAD: ${{ github.sha }}
+        shell: python
+        run: |
+          import base64, hashlib, json, os, pathlib, subprocess, urllib.request
+          allowed = {
+              'crates/fmn-cli/src/lib.rs',
+              'crates/fmn-cli/src/typesetting.rs',
+              'crates/fmn-cli/tests/typesetting_cache.rs',
+              'crates/fmn/src/typesetting.rs',
+              'crates/fmn/tests/native_typesetting.rs',
+              'crates/fmn/tests/dynamic_typesetting.rs',
+              'crates/fmn-tex/src/session.rs',
+              'crates/fmn-tex/tests/session.rs',
+          }
+          changed = set(subprocess.check_output(['git', 'diff', '--name-only']).decode().splitlines())
+          changed.update(subprocess.check_output(['git', 'ls-files', '--others', '--exclude-standard']).decode().splitlines())
+          assert changed <= allowed, f'unexpected candidate changes: {changed - allowed}'
+          root = pathlib.Path(os.environ['RUNNER_TEMP']) / 'typesetting-candidate'
+          root.mkdir()
+          rows = []
+          for name in sorted(changed):
+              data = pathlib.Path(name).read_bytes()
+              expected = hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest()
+              request = urllib.request.Request(
+                  f"https://api.github.com/repos/{os.environ['GH_REPOSITORY']}/git/blobs",
+                  data=json.dumps({'content': base64.b64encode(data).decode(), 'encoding': 'base64'}).encode(),
+                  headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN'],
+                           'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json',
+                           'User-Agent': 'OpenAI File Downloader, XaiImageApiFetch/1.0'},
+                  method='POST',
+              )
+              with urllib.request.urlopen(request, timeout=60) as response:
+                  blob = json.load(response)
+              assert blob['sha'] == expected, f'blob mismatch for {name}'
+              target = root / name
+              target.parent.mkdir(parents=True, exist_ok=True)
+              target.write_bytes(data)
+              rows.append({'path': name, 'sha': expected, 'sha256': hashlib.sha256(data).hexdigest()})
+          report = {'source_head': os.environ['SOURCE_HEAD'], 'patch_sha256': '3fcf2b441873f39848aabb8f6941f4004aca86109014a800497102b8db22278a',
+                    'status': 'prepared-only-not-validated-or-committed', 'files': rows}
+          (root / 'sources.json').write_text(json.dumps(report, indent=2) + '\n')
+          print('TYPESETTING_CANDIDATE_SOURCES=' + json.dumps(report, sort_keys=True))
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: typesetting-candidate-sources-${{ github.sha }}
+          path: ${{ runner.temp }}/typesetting-candidate
+          retention-days: 3
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/scribe-candidate
+          key: typesetting-candidate-${{ runner.os }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml') }}
+      - name: Native scene and real-process CLI regressions
+        id: tests
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn --test native_typesetting --test dynamic_typesetting
+          cargo test --locked -p fmn-cli --features batch --test typesetting_cache --test camera_pipeline --test compiled_pipeline
+      - name: Clippy on the candidate
+        id: clippy
+        run: cargo clippy --locked -p fmn -p fmn-cli --features fmn-cli/batch --all-targets -- -D warnings
+      - name: Final validation receipt
+        if: always()
+        env:
+          SOURCE_OUTCOME: ${{ steps.source.outcome }}
+          TEST_OUTCOME: ${{ steps.tests.outcome }}
+          CLIPPY_OUTCOME: ${{ steps.clippy.outcome }}
+        shell: python
+        run: |
+          import json, os
+          print('TYPESETTING_CANDIDATE_VALIDATION=' + json.dumps({
+              name: os.environ.get(name, '') for name in
+              ['SOURCE_OUTCOME', 'TEST_OUTCOME', 'CLIPPY_OUTCOME']
+          }, sort_keys=True))

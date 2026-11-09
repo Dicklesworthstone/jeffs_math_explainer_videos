@@ -1,0 +1,24 @@
+[package]
+name = "fmn-tex"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Scribe II"
+
+[dependencies]
+fmn-core.workspace = true
+fmn-config.workspace = true
+fmn-mobject.workspace = true
+fmn-text.workspace = true
+fmn-cache.workspace = true
+# Capability-bound scene sessions attach the existing cache without ambient
+# filesystem access when the host supplies an injected filesystem.
+fmn-platform.workspace = true
+# The native TeX-mathematics layout engine (§11.4): tier-1 grammar, the
+# atom/spacing engine, and style machinery — pinned to the SUITE.lock
+# franken_markdown rev (fm-wgl; layout/placement arrives with fm-hk9).
+fmd-math.workspace = true
+
+[lints]
+workspace = true

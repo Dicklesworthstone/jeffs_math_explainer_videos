@@ -1,0 +1,136 @@
+name: Native sampled surface wireframes
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/python-surface-mesh.yml'
+      - 'scripts/patches/surface-mesh-*.patch'
+      - 'crates/fmn-python/tests/surface_mesh.py'
+      - 'crates/fmn-python/tests/callback_cleanup.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: python-surface-mesh
+  cancel-in-progress: false
+jobs:
+  surface-mesh:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/portable
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Apply reviewed native mesher and portal integration
+        run: |
+          set -euo pipefail
+          if ! grep -q 'pub enum SurfaceMeshError' crates/fmn-library/src/solids.rs; then
+            git apply --check scripts/patches/surface-mesh-native.patch
+            git apply scripts/patches/surface-mesh-native.patch
+          fi
+          if ! grep -q 'pub fn run_portal_gauntlet_surface_mesh' crates/fmn-python/src/lib.rs; then
+            git apply --check scripts/patches/surface-mesh-portal.patch
+            git apply scripts/patches/surface-mesh-portal.patch
+          fi
+          if ! grep -q 'Native builders do not call VMobject.__init__' crates/fmn-python/python/manimlib_bootstrap.py; then
+            git apply --check scripts/patches/surface-mesh-uniforms.patch
+            git apply scripts/patches/surface-mesh-uniforms.patch
+          fi
+          if ! grep -q 'The Python lifecycle owns cleanup' crates/fmn-python/python/manimlib_bootstrap.py; then
+            git apply --check scripts/patches/surface-mesh-callback-cleanup.patch
+            git apply scripts/patches/surface-mesh-callback-cleanup.patch
+          fi
+          python -m py_compile crates/fmn-python/tests/surface_mesh.py crates/fmn-python/python/manimlib_bootstrap.py
+      - name: Install pinned build tools
+        run: |
+          rustup show active-toolchain
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        id: cargo-cache
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-surface-mesh-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-surface-mesh-
+            cargo-${{ runner.os }}-${{ runner.arch }}-editing-
+            cargo-${{ runner.os }}-${{ runner.arch }}-live-clock-
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-
+      - name: Validate native geometry and real Python dispatch
+        run: |
+          set -euo pipefail
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-library/src/solids.rs crates/fmn-python/src/lib.rs crates/fmn-conformance/tests/e2e_scenarios.rs
+          cargo test --locked -p fmn-library surface_mesh -- --nocapture 2>&1 | tee /tmp/surface-mesh-native.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/surface-mesh-native.log
+          PYTHONPATH="$PWD/crates/fmn-python/python" cargo test --locked -p fmn-python production_surface_mesh_acceptance_suite -- --nocapture 2>&1 | tee /tmp/surface-mesh-portal.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/surface-mesh-portal.log
+          PYTHONPATH="$PWD/crates/fmn-python/python" cargo test --locked -p fmn-python production_callback_cleanup_acceptance_suite -- --nocapture 2>&1 | tee /tmp/surface-mesh-callback.log
+      - name: Verify installed wheel and independently authored PNG pixels
+        run: |
+          set -euo pipefail
+          python -m maturin build --locked --interpreter python --profile dev --out target/surface-mesh-wheel
+          python -m venv target/surface-mesh-venv
+          target/surface-mesh-venv/bin/python -m pip install 'numpy==2.5.2' target/surface-mesh-wheel/*.whl
+          target/surface-mesh-venv/bin/python -I crates/fmn-python/tests/surface_mesh.py 2>&1 | tee /tmp/surface-mesh-wheel.log
+          target/surface-mesh-venv/bin/python -I crates/fmn-python/tests/callback_cleanup.py 2>&1 | tee /tmp/surface-mesh-callback-wheel.log
+          target/surface-mesh-venv/bin/python -I crates/fmn-python/tests/matching_transform_semantics.py 2>&1 | tee /tmp/surface-mesh-matching.log
+          git diff --check
+      - name: Validate permanent Gauntlet and compatibility regression
+        run: |
+          set -euo pipefail
+          PYTHONPATH="$PWD/crates/fmn-python/python" cargo test --locked -p fmn-conformance --test e2e_scenarios python_surface_mesh_scenario_passes -- --nocapture 2>&1 | tee /tmp/surface-mesh-gauntlet.log
+          cargo clippy --locked -p fmn-library -p fmn-python --lib -- -D warnings 2>&1 | tee /tmp/surface-mesh-clippy.log
+      - name: Commit tested sampled wireframes directly to main
+        run: |
+          set -euo pipefail
+          git add crates/fmn-library/src/solids.rs crates/fmn-python/src/lib.rs crates/fmn-python/python/manimlib_bootstrap.py crates/fmn-python/tests/bridge.py crates/fmn-conformance/tests/e2e_scenarios.rs docs/behavior_notes/BN-07-stroke-uniform-fixes.md
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(surface): enable live wireframes, native shape uniforms and exactly-once callback cleanup'
+            git push origin HEAD:main
+          fi
+      - name: Run unfiltered workspace regression gate
+        run: |
+          set +e
+          set -uo pipefail
+          # Preserve both broad results even when the legacy bridge stops on
+          # obsolete matching-plan metadata. Do not turn either failure green.
+          PYTHONPATH="$PWD/crates/fmn-python/python" cargo test --locked -p fmn-python production_bridge_acceptance_suite -- --nocapture 2>&1 | tee /tmp/surface-mesh-bridge.log
+          bridge_status=${PIPESTATUS[0]}
+          PYTHONPATH="$PWD/crates/fmn-python/python" cargo test 2>&1 | tee /tmp/surface-mesh-workspace.log
+          workspace_status=${PIPESTATUS[0]}
+          test "$bridge_status" -eq 0 && test "$workspace_status" -eq 0
+      - name: Preserve exact source and executable evidence
+        if: always()
+        run: |
+          git archive --format=tar.gz HEAD > /tmp/surface-mesh-source.tar.gz
+          git rev-parse HEAD > /tmp/surface-mesh-source-sha.txt
+          git diff > /tmp/surface-mesh-working.patch
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: surface-mesh-${{ github.sha }}
+          path: |
+            /tmp/surface-mesh-*
+            target/surface-mesh-wheel/*.whl
+          retention-days: 2
+      - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        if: always() && steps.cargo-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-surface-mesh-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
