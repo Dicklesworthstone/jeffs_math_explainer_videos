@@ -1,0 +1,37 @@
+{
+  "schema": "mini-max-native-build553",
+  "binary": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/native-boundary553/complex_analysis_visual-553",
+  "binary_sha256": "119ebe43fbde39e90cb1352656be280b71d52aa736751f0e6f819af6ceb9613d",
+  "release_binary_sha256": "119ebe43fbde39e90cb1352656be280b71d52aa736751f0e6f819af6ceb9613d",
+  "tests_passed": 233,
+  "explicit_native_plate_fade_probe_passed": true,
+  "clippy_passed": true,
+  "facts_sha256": "7d528509752e532c07edb3fda7c12cd8251ac4ba77022355ae42ad725add4417",
+  "chapters": [
+    "01_the_bump",
+    "02_turning_numbers",
+    "03_two_planes",
+    "04_reading_color",
+    "05_gallery",
+    "06_one_derivative",
+    "07_one_point",
+    "08_loop_sums",
+    "09_boundary",
+    "10_rigidity",
+    "11_counting",
+    "12_residues",
+    "13_real_integral",
+    "14_continuation",
+    "15_closing"
+  ],
+  "source_listing": "bc28832077485754da2a0883a73ed1426a0b9b2504c4d4ffc2b0131566ecff1e",
+  "preflight_sha256": "facf0f04341257cc8d904502cfab600ba17777f9e204a618ac875714a05839c6",
+  "toolchain_sha256": {
+    "cargo": "619e58abcbc93f0a6b67e295fcc03b45f02fc2e7d088a77755821ca53456e1fe",
+    "rustc": "0c43651a112b23ebaecf7de11b0fa7956758052dc2d03a8cfd4d4bc05bbc3e6c",
+    "cargo_clippy": "de6e9364f5320c59642ac70359e0dbbdd3a617d13ecfdb1074b71251f86f1e8c",
+    "clippy_driver": "32ed579e70060473166c25ae3191c3f977cfc4f33909f798331e199fcc4d0f34"
+  },
+  "linux_268_binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+  "scope": "Native mac-mini-max build of source268 plus the exact reviewed313 boundary repair; automated checks only; no timeline, frame, picture, motion, listening, AV or release acceptance"
+}

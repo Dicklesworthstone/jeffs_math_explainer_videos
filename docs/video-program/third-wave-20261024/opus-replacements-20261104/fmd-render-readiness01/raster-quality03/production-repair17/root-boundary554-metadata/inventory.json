@@ -1,0 +1,34 @@
+[
+  {
+    "path": "jobs/csd-review-repair-rebind313/narration/report.json",
+    "sha256": "69cb32ee3eb9cf83c5d8b18da8bda7682f4a55d1b91e21ad0b543ca73e25af85"
+  },
+  {
+    "path": "jobs/csd-review-repair-rebind313/narration/assembly.json",
+    "sha256": "7a9dcf43f1581bcb7888c396839e33781d1ef56f515c44b30a1551f9e4eb50b6"
+  },
+  {
+    "path": "jobs/csd-review-repair-rebind313/narration/external-units.json",
+    "sha256": "9308c2b230a7cafd933dc826511bc8111748e9355ab9e445d3f7f89c81511c39"
+  },
+  {
+    "path": "jobs/csd-review-repair-rebind313/resource-receipt.json",
+    "sha256": "35a2dbdb302ae1fcccf03d2ca181233db02c96d8ff9f2958713d951ae608741b"
+  },
+  {
+    "path": "jobs/csd-review-repair-rebind313/rebind-summary.json",
+    "sha256": "359052a7f1d01b5811b1817bccd3164cffa9f97e40cb56a48faf8c54caed6bd3"
+  },
+  {
+    "path": "work/review-repair313/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-review313.json",
+    "sha256": "c3ccd2f23f4cc99b1941e931d2971738111126884288457f563dc4903300ed79"
+  },
+  {
+    "path": "jobs/csd-reviewed-final-09-boundary344/resource-receipt.json",
+    "sha256": "c119b4d705d5a7e8072fed79f0a4d54fdd2c5347df6674d139bdc19e8b2ce7b5"
+  },
+  {
+    "path": "jobs/csd-reviewed-final-10-rigidity352/resource-receipt.json",
+    "sha256": "e827188247fd7f5bc59a7c6636482641f83b7aeba9f468ab253c3165d1ae2071"
+  }
+]

@@ -1,0 +1,433 @@
+{
+  "holds": 23,
+  "helpers": 5,
+  "marker_checks": [
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+      "cue": "01_4",
+      "before": {
+        "line": 245,
+        "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3"
+      },
+      "after": {
+        "line": 245,
+        "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(4.9, 3.0))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+      "cue": "02_5",
+      "before": {
+        "line": 435,
+        "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec"
+      },
+      "after": {
+        "line": 435,
+        "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(COLUMN, -1.0))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+      "cue": "03_3",
+      "before": {
+        "line": 607,
+        "sha256": "0f22d63febc18e05dc4123bedf84eeadf967938bcbc4260cfb0d9e8925ff4cb9"
+      },
+      "after": {
+        "line": 607,
+        "sha256": "0f22d63febc18e05dc4123bedf84eeadf967938bcbc4260cfb0d9e8925ff4cb9"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, out.p(ASK_AT))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+      "cue": "04_4",
+      "before": {
+        "line": 341,
+        "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+      },
+      "after": {
+        "line": 341,
+        "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+      "cue": "04_6",
+      "before": {
+        "line": 389,
+        "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+      },
+      "after": {
+        "line": 389,
+        "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right - 0.15, 0.75))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+      "cue": "05_8",
+      "before": {
+        "line": 866,
+        "sha256": "7d1cf20fd25c8d9233f3c14426b0196fd4fd6673e4b25becba47b50f2635b282"
+      },
+      "after": {
+        "line": 876,
+        "sha256": "d57e003a4067f3e67abb654e98c19ca0274c9b7edae5ac26da756757e33230b5"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs",
+      "cue": "06_8",
+      "before": {
+        "line": 663,
+        "sha256": "4f0154ec82bb787cdbee4d11d308eea25ca6cc1164f7f4bdb1d908f8d54df29c"
+      },
+      "after": {
+        "line": 734,
+        "sha256": "7a4cc01acb497ad881c0d8478c696ab74db025494ab9381d0b414355fe3fd30d"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(4.2, 2.4))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+      "cue": "07_2",
+      "before": {
+        "line": 400,
+        "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+      },
+      "after": {
+        "line": 400,
+        "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+      "cue": "07_3",
+      "before": {
+        "line": 434,
+        "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+      },
+      "after": {
+        "line": 434,
+        "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 0.6))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs",
+      "cue": "08_5",
+      "before": {
+        "line": 1177,
+        "sha256": "69042b14117ce6ba7d36c27716c0a55436b7a021493ecc47e57c9cf74e7b58d8"
+      },
+      "after": {
+        "line": 1186,
+        "sha256": "8a13e8a190cd502e7b58efbcb7c40872cdb0e6e702feb69e1b789e451a7a42b5"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "cue": "09_4",
+      "before": {
+        "line": 938,
+        "sha256": "c9e6b5ba84c4cf5ae327a8268d67c4f134484be8538cb99bdf1828ebe051f630"
+      },
+      "after": {
+        "line": 942,
+        "sha256": "bda7d931498b23bd3203cd0c6106de69dc0a8c5e160e738d698376322ff39e53"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, -2.0))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "cue": "09_5",
+      "before": {
+        "line": 1003,
+        "sha256": "c9e6b5ba84c4cf5ae327a8268d67c4f134484be8538cb99bdf1828ebe051f630"
+      },
+      "after": {
+        "line": 1007,
+        "sha256": "bda7d931498b23bd3203cd0c6106de69dc0a8c5e160e738d698376322ff39e53"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "cue": "09_8",
+      "before": {
+        "line": 1282,
+        "sha256": "c9e6b5ba84c4cf5ae327a8268d67c4f134484be8538cb99bdf1828ebe051f630"
+      },
+      "after": {
+        "line": 1286,
+        "sha256": "bda7d931498b23bd3203cd0c6106de69dc0a8c5e160e738d698376322ff39e53"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK_RECENTRE, v(3.9, 2.2))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+      "cue": "10_4",
+      "before": {
+        "line": 473,
+        "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e"
+      },
+      "after": {
+        "line": 502,
+        "sha256": "0bcfbc7d7962b2ab8fa2d27895fce104ab6cb71ce5aac26fdd0b97dca04a3df0"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 0.9))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+      "cue": "10_5",
+      "before": {
+        "line": 499,
+        "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e"
+      },
+      "after": {
+        "line": 528,
+        "sha256": "0bcfbc7d7962b2ab8fa2d27895fce104ab6cb71ce5aac26fdd0b97dca04a3df0"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "cue": "11_5",
+      "before": {
+        "line": 440,
+        "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+      },
+      "after": {
+        "line": 440,
+        "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(ASK_AT.0, ASK_AT.1))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "cue": "11_6",
+      "before": {
+        "line": 503,
+        "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+      },
+      "after": {
+        "line": 503,
+        "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "cue": "11_8",
+      "before": {
+        "line": 603,
+        "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+      },
+      "after": {
+        "line": 603,
+        "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+      "cue": "13_5",
+      "before": {
+        "line": 631,
+        "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae"
+      },
+      "after": {
+        "line": 631,
+        "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 1.2))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+      "cue": "13_11",
+      "before": {
+        "line": 813,
+        "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae"
+      },
+      "after": {
+        "line": 813,
+        "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+      "cue": "14_3",
+      "before": {
+        "line": 522,
+        "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96"
+      },
+      "after": {
+        "line": 522,
+        "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+      "cue": "14_4",
+      "before": {
+        "line": 531,
+        "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96"
+      },
+      "after": {
+        "line": 531,
+        "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(0.0, 1.4))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+      "cue": "15_3",
+      "before": {
+        "line": 402,
+        "sha256": "0c217b6b5daee2681a61049b0918ceda7cc211d377ecd0c5f70b8562dd36568b"
+      },
+      "after": {
+        "line": 402,
+        "sha256": "0c217b6b5daee2681a61049b0918ceda7cc211d377ecd0c5f70b8562dd36568b"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &[ask.as_str()], v(ASK_AT.0, ASK_AT.1))?;"
+    },
+    {
+      "kind": "helpers",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "cue": null,
+      "before": {
+        "line": 1211,
+        "sha256": "cd394e5a451bf1114bead7a086660d8f22cc282e8bb66de4b17b833a98bd9af1"
+      },
+      "after": {
+        "line": 1251,
+        "sha256": "9bb07b3ff030d1ac0885d1382097bde596e8cae419d86b51933e12e7eeed8218"
+      },
+      "marker": "pub fn predict(kit: &Kit, stage: &mut Stage<'_>, line: &Spoken, lines: &[&str], at: Vec3) -> fmn::Result<Vec<Mob>> {"
+    },
+    {
+      "kind": "helpers",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "cue": null,
+      "before": {
+        "line": 1265,
+        "sha256": "cd394e5a451bf1114bead7a086660d8f22cc282e8bb66de4b17b833a98bd9af1"
+      },
+      "after": {
+        "line": 1305,
+        "sha256": "9bb07b3ff030d1ac0885d1382097bde596e8cae419d86b51933e12e7eeed8218"
+      },
+      "marker": "pub fn reading_window(kit: &Kit, stage: &mut Stage<'_>, line: &Spoken) -> fmn::Result<()> {"
+    },
+    {
+      "kind": "helpers",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+      "cue": null,
+      "before": {
+        "line": 31,
+        "sha256": "4f4b17c35bf01aaa587d8d3c97b6e79059baef6925f68c1748a121776d841ce6"
+      },
+      "after": {
+        "line": 31,
+        "sha256": "e1f4d1b87f4b36f979e7800f7b2048117b9a4809b2372f385350698f5c3e7cbd"
+      },
+      "marker": "pub const PREDICTS: &[(&str, f64)] = &["
+    },
+    {
+      "kind": "helpers",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "cue": null,
+      "before": {
+        "line": 1312,
+        "sha256": "cd394e5a451bf1114bead7a086660d8f22cc282e8bb66de4b17b833a98bd9af1"
+      },
+      "after": {
+        "line": 1352,
+        "sha256": "9bb07b3ff030d1ac0885d1382097bde596e8cae419d86b51933e12e7eeed8218"
+      },
+      "marker": "pub fn precisely_over(stage: &mut Stage<'_>, said: Mob, whole: Mob) -> fmn::Result<()> {"
+    },
+    {
+      "kind": "helpers",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+      "cue": null,
+      "before": {
+        "line": 58,
+        "sha256": "4f4b17c35bf01aaa587d8d3c97b6e79059baef6925f68c1748a121776d841ce6"
+      },
+      "after": {
+        "line": 58,
+        "sha256": "e1f4d1b87f4b36f979e7800f7b2048117b9a4809b2372f385350698f5c3e7cbd"
+      },
+      "marker": "pub const READING_WINDOWS: &[(&str, f64)] = &["
+    }
+  ],
+  "boundary_holds_moved": {
+    "09_4": [
+      938,
+      942
+    ],
+    "09_5": [
+      1003,
+      1007
+    ],
+    "09_8": [
+      1282,
+      1286
+    ]
+  },
+  "other_holds_and_helpers_equal_review269": true,
+  "wav_files_byte_identical": 105,
+  "wav_files_equal_rebind269": 105,
+  "unchanged_files": 106,
+  "report_sentence_rows_unchanged": true,
+  "generation_records_unchanged": true,
+  "delivery": {
+    "chapter_scope": null,
+    "consumer": "render",
+    "directed_caption_segments": [],
+    "listening_acceptance": false,
+    "plan_mode": "external-ui",
+    "prediction_holds": [],
+    "promotion": false,
+    "selected_cues": 105,
+    "topic": "complex_analysis_visual",
+    "verified_cues": 105
+  },
+  "map_sha256": "c3ccd2f23f4cc99b1941e931d2971738111126884288457f563dc4903300ed79",
+  "canonical_sha256": "9308c2b230a7cafd933dc826511bc8111748e9355ab9e445d3f7f89c81511c39",
+  "scope": "Source bindings and sample reconstruction only; 09 timeline equality, repaired pictures, native4K detail, audio (none heard or checked), fine sync and independent AV remain open."
+}
