@@ -1,0 +1,8 @@
+{
+  "sha256": {
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/apportionment/src/chapters/signposts.rs": "14c4f9156a25a2a4f69180d92be86d870678dda3adbb8558490e0a95c2bc50ea",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/apportionment/src/chapters/population.rs": "97e01b65255f569014a26e95b432fa28eff85f1001162c0f89c221413076a930",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/apportionment/src/chapters/recap.rs": "c31f6cc5dfa92a605914af6693219d3ac19d275ec3c04dfc48db91095893650d"
+  },
+  "status": "UNTESTED and visually unvalidated; old files preserved; requires guarded build, source hold rebinding, exact timeline checks and fresh picture review"
+}

@@ -1,0 +1,257 @@
+{
+  "time_utc": "2026-11-09T20:13:10.263130+00:00",
+  "reviewer": "root",
+  "scope": "Actual selected still-picture review of repaired preview569, not final 4K or continuous audiovisual review",
+  "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/resource-receipt.json",
+  "receipt_sha256": "61347d3d6ba0c719177a909604e1ca5904eb55ce298a0a88fadf8e49a1a55193",
+  "chapters": [
+    {
+      "chapter": "08_signposts",
+      "sampling": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sampling.json",
+      "sampling_sha256": "5abb8e2234af7d01fc6f5fc753f132f7a1c003337b313769170c1cb4842c4449",
+      "selected_pictures": 121,
+      "sheets_actually_viewed": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0001.jpg",
+          "sha256": "596047365c780cbe00c5d2f8c9a27bd03431a03778bafbc6a89fb7f6968004ca"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0002.jpg",
+          "sha256": "de7dd577a9ccd04aa57f35af86b0c75a1e7d6cd2938197ff805cbeb02f73ebce"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0003.jpg",
+          "sha256": "2d6cc703e6ec530bbeeada27abe50835172a8c759d8bee3eb14a4decb46ee1d5"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0004.jpg",
+          "sha256": "d4b905087fcb0cc0962c82708dc44cb5f639238915dbbce357e9b81c4c33c11f"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0005.jpg",
+          "sha256": "3566088dc626edc08cf887aaeae1e34123fb5cbefaae1563ecd50b1facb256ad"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0006.jpg",
+          "sha256": "c85fe907f49e19fb3a5d4f98439f72981082118e7e030e5f1c9b238df876d654"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0007.jpg",
+          "sha256": "ef8e20cf3b1a6e196391a74506f70b8d1412c4734148862d843384a77d89b36a"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0008.jpg",
+          "sha256": "bf18f4b61ca173e6b9a0a5dd2924d3ff47e368d6e106abe33341e6d817ecdd63"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0009.jpg",
+          "sha256": "b2bdb47e9b405135f7197acedfefd74f27f9201ea9be5bb88c35ede8842c03ef"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0010.jpg",
+          "sha256": "f76a1787bc79be769436f93daf500ff7138c1ef764987445dd7c924d459fab27"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0011.jpg",
+          "sha256": "c3db7e0aede95d0bc9a52e891698de79955fb7edc092ee23aa9b38e35faaacfb"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0012.jpg",
+          "sha256": "e8848400d045a05300f863f9ffd01a51c4f4aea31ddcbc40faa6cbd13b292753"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0013.jpg",
+          "sha256": "c05d4abb843d2355ae8dfbc78f396b2cfb63cbea7a1cb1270b5b2f543f42b440"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0014.jpg",
+          "sha256": "3349ed9810ee6a69a776f08d6d113da80588c156e3321ba639bbef445c5e618f"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0015.jpg",
+          "sha256": "c3d69601f903f2d0da61fd63579577585ebec9bc508d0c51ec8d4a05bdc94626"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/08_signposts/sheet-0016.jpg",
+          "sha256": "e3a1be3215bed4bde7444abb77baa20f555a0a598afb412fdf51d97dd66df8c4"
+        }
+      ],
+      "movie": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-preview569/preview/08_signposts.mp4",
+        "sha256": "331492f76cc758acf54477089fdb5866a1108b2687674ff1489aadc4cf63f8b5"
+      }
+    },
+    {
+      "chapter": "13_population",
+      "sampling": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sampling.json",
+      "sampling_sha256": "14cf304c91837cc0fc508f53060cc55f84fc1e68e43b335ba013a6d84d90346e",
+      "selected_pictures": 168,
+      "sheets_actually_viewed": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0001.jpg",
+          "sha256": "74f76e0e57214fe825928b0d174c43b4d12998491c1af98b78cda4990ef34949"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0002.jpg",
+          "sha256": "9383eb22e082da5fd0aee8a11c103e4f39ab14535f4671148be5a7ef299aed71"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0003.jpg",
+          "sha256": "12f9deddc797a1c5cb606f60150a63b9b1ff533de6a0f7cf14b25bb00932f206"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0004.jpg",
+          "sha256": "1b1f5d326391486e4f15599f34f2c22d7709d9b13bc77b8064bbad49025b6600"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0005.jpg",
+          "sha256": "a272d20b243b33c2f3d18b7466afd49f971a90c96c45b3bf486ed94a28c160da"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0006.jpg",
+          "sha256": "a0895f829e5ba687cf01eb414404feed378d681dfcc956f92daf71495bb3152c"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0007.jpg",
+          "sha256": "8049e07b4a17a24d206de06741ad9d4d743dc1596ac34e492a9fc47d4f743c2e"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0008.jpg",
+          "sha256": "a10014ada5a70a6915122f9a0214f9a14980edae677d9b8cd1c9100c732d0b5b"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0009.jpg",
+          "sha256": "19dadd00db76be88f58059575a40b8fe4465498ab499e53d7848286c03406c4a"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0010.jpg",
+          "sha256": "343cd6db94a734d9df9d21c2a7301d339d49d456a194eee5e5fea319b2409925"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0011.jpg",
+          "sha256": "5e837214a1d18de9b1eb088a548e040a56df72f620c41715c7b1107e9e4b383e"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0012.jpg",
+          "sha256": "8c6e67192bffcf6c008dcdc465feb114b8efb870736756903ce4d95343485251"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0013.jpg",
+          "sha256": "0a1f164b00f130bb1784bb7208b7564da124caca42e9d1ae997c323f7ec8cb07"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0014.jpg",
+          "sha256": "f2ac5b110c77946a3cded9fab1a353267fffc5277a85d1ffee555fbd1fe3f8a9"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0015.jpg",
+          "sha256": "b9a32003f9313cf450e6d3ab907c98a08436b5928fdf887ed05922a6cd3ce619"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0016.jpg",
+          "sha256": "5787a75ddcec58d0ca1357b1c82b54c42ccc3501789c386015ae9e6a0251d2e8"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0017.jpg",
+          "sha256": "26009131ee4bd1872e8e1ea9995dba4b2aae190165241c810864bd06a0e79d8a"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0018.jpg",
+          "sha256": "0f0d0c8800f6efe075f37ccd35ffff9f914456683b4ad0b81719486e80f0285d"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0019.jpg",
+          "sha256": "55bf6f630ffd37a5018f16f3ad1303a8de55ebaad49088f1a8ca40b08cff780f"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0020.jpg",
+          "sha256": "fcf658491ff7aa843c832a652fa928b3c63b412d29c9c758965ab3ebb45fe03e"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/13_population/sheet-0021.jpg",
+          "sha256": "6d287e63ce3165dfee1ec107f94755071238f5234f59ee905b771a35b47386a1"
+        }
+      ],
+      "movie": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-preview569/preview/13_population.mp4",
+        "sha256": "b600082c59e36087d1f0b780905b74aa8e90eb731995a395ef7d1154c1dd66e1"
+      }
+    },
+    {
+      "chapter": "15_recap",
+      "sampling": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/15_recap/sampling.json",
+      "sampling_sha256": "68f607bf453bccb87e036c25ada7661c1e1c04f44b311782c893dcfd43736af4",
+      "selected_pictures": 90,
+      "sheets_actually_viewed": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/15_recap/sheet-0001.jpg",
+          "sha256": "46b4652a6d53b6f1c0f31e7b1383e0369fb934064786b0af560b743662634d7e"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/15_recap/sheet-0002.jpg",
+          "sha256": "9132dc389f36c03e3946867a111e5627a95f97a2ee51340b254cb44d81689819"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/15_recap/sheet-0003.jpg",
+          "sha256": "f438c109a99599f5233c53ca8b228043c251e8629b2a97843d47a65a91527e65"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/15_recap/sheet-0004.jpg",
+          "sha256": "b09f4995a8164ba640b2487187ef62061e748257a42c1b02f4dff7a83d9f5627"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/15_recap/sheet-0005.jpg",
+          "sha256": "e580c6a8458be69f6f4c91fb29bc2f9566648d9cd79ce7988f463b3bc5397126"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/15_recap/sheet-0006.jpg",
+          "sha256": "d809a7622672426eeb5002b2d788ccf6532058589ef995a92c96243becde52fe"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/15_recap/sheet-0007.jpg",
+          "sha256": "ef0d30248ec5cd7df556d20b808d772fc3e830282d92e1b1afc0653cf3233348"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/15_recap/sheet-0008.jpg",
+          "sha256": "3f0389514bb8353e03f913736e2d79805b3813f1cd21f6fd49fd1d3bfee6f7d4"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/15_recap/sheet-0009.jpg",
+          "sha256": "03180cfd284948dc57e110869807a65bee4c74d8fa46c81e8e6f6c0cc3ff702e"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/15_recap/sheet-0010.jpg",
+          "sha256": "4582e15244e215a1c6149d88407b8c4d9e935faca31ae7da7ad824ad06ce9473"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/15_recap/sheet-0011.jpg",
+          "sha256": "00875f17ad9a49576cd3190d91703ef8949821996e8a3277e3c3bc8e444a5823"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-review584/15_recap/sheet-0012.jpg",
+          "sha256": "cc73d18333a8aaeb1dba43dc635de240b27507626761e740610d7cb43fc6c141"
+        }
+      ],
+      "movie": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-preview569/preview/15_recap.mp4",
+        "sha256": "09df6dbdc9485c4ae807987353d64c32060fd34f2140a26db763eb54eb5a1016"
+      }
+    }
+  ],
+  "total_selected_pictures_viewed": 379,
+  "total_sheets_viewed": 49,
+  "observations": {
+    "08_signposts": "Timer clears ladder and labels across sampled prediction hold. Ranking heading close to top edge but fully visible. Highlighted tied rows remain readable.",
+    "13_population": "Population promise heading separated from 16 seats through prior overlap interval and later census samples. Ranking heading fully visible near top. Moving ranking cards cross destinations during authored sorting; settled displays readable.",
+    "15_recap": "Timer now left of ranking ladder, separated from cutoff annotation through sampled prediction hold. Later ranking and dial recap readable."
+  },
+  "concrete_sampled_layout_defects_found": [],
+  "limitations": [
+    "No continuous-motion review",
+    "No listening acceptance",
+    "No fine-sync acceptance",
+    "No independent final audiovisual review",
+    "Final 4K production and final review remain pending"
+  ],
+  "display_note": "Previously truncated chapter13 sheets4-6 explicitly redisplayed; all49 sheets displayed successfully across continuation."
+}

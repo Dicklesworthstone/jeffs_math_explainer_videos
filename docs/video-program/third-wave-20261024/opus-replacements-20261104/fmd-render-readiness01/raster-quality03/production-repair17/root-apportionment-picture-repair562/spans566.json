@@ -1,0 +1,1756 @@
+{
+  "boundary_review": {
+    "basis": "Recognition-derived provisional boundaries431/432, all full takes retained; no fine-sync acceptance",
+    "listening": "unreviewed",
+    "reviewer": "BlueSalmon"
+  },
+  "direction_dispositions": [
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/01_3.wav",
+        "sha256": "b544384872eeb9e9a215a728887be8ba7b5d101548d55fb782e8adcbee7f71e3"
+      },
+      "kind": "retained_source",
+      "override_index": 0,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/02_4.wav",
+        "sha256": "0042e9a489efd63aaeaad782e21a1f5e709fd930dd0c98721310a15c5286ca0b"
+      },
+      "kind": "retained_source",
+      "override_index": 1,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/03_3.wav",
+        "sha256": "9e206cee2eb4eb41da8ab83cfaa5e4108748067255f041eb985611609079d457"
+      },
+      "kind": "retained_source",
+      "override_index": 2,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/04_3.wav",
+        "sha256": "d58bc9e6008ae0233997ab459bbd75484b6e4c07481eff48854db800282f655f"
+      },
+      "kind": "retained_source",
+      "override_index": 3,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/05_3.wav",
+        "sha256": "48a2528e758dc98c726e55c39dcb15640b3a5e692ce2fae1993d5149e5b3eca9"
+      },
+      "kind": "retained_source",
+      "override_index": 4,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/06_1.wav",
+        "sha256": "8b13985993e52940cef89b2e7b2b066ce8caa5aa8c1bf339c9da30f996271730"
+      },
+      "kind": "retained_source",
+      "override_index": 5,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/07_2.wav",
+        "sha256": "92e4d96b6a51d7ae6c57ef7749509a3f4b4d72ed099030eb3f4c60cd7854d2e6"
+      },
+      "kind": "retained_source",
+      "override_index": 6,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/08_3.wav",
+        "sha256": "8453e0911dd5783946077d1e381cd5372781e485e2a378a04503c0e708099c6b"
+      },
+      "kind": "retained_source",
+      "override_index": 7,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/09_1.wav",
+        "sha256": "eae0c92a8ae2ee71c60045335d9317e88865a2d93b1ee30eeddb1e28804ff44b"
+      },
+      "kind": "retained_source",
+      "override_index": 8,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/10_3.wav",
+        "sha256": "c124bec7018fc9236b17aa70b567096e1f129f34e8e1338cdeba1520ffc9445c"
+      },
+      "kind": "retained_source",
+      "override_index": 9,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/11_1.wav",
+        "sha256": "a0ba5a1282430f268d0e9db487265b7d1ee086e7c8de1db610c0c4efad51d751"
+      },
+      "kind": "retained_source",
+      "override_index": 10,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/12_1.wav",
+        "sha256": "fdc42e68a6c6d6fc73a10adb9700295708503194f75dfa4ca0342dd1c95e4477"
+      },
+      "kind": "retained_source",
+      "override_index": 11,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/13_3.wav",
+        "sha256": "9937227b357fe41cf0c676611a17e9ee8371e7300e7f3f2408cc9cc87e5527c0"
+      },
+      "kind": "retained_source",
+      "override_index": 12,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/14_3.wav",
+        "sha256": "793155ae34af6c845883aace190b5eb4a4e5bf970a8e4ecf1cf901ebaedea7cf"
+      },
+      "kind": "retained_source",
+      "override_index": 13,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/15_3.wav",
+        "sha256": "bed98af11ba2cef3f7edc5c9ad59e30e53c4aa92797edb7dfba9348de3bdb975"
+      },
+      "kind": "retained_source",
+      "override_index": 14,
+      "reason": "Complete retained recording without added silence; intended spoken pause unlistened. Native visual holds remain source-bound separately."
+    }
+  ],
+  "schema_version": 1,
+  "units": [
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_01_1",
+      "sentence_ends": [
+        85920,
+        228480
+      ],
+      "sha256": "9da22fbb9bbf81b38700e6af513b16364252d737db55d0df68be8e84b1b1d536",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/01_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_01_2",
+      "sentence_ends": [
+        144480,
+        238080
+      ],
+      "sha256": "32cd6b2c5c20a1c47cec25c277b3946f24f1d0bcd413f69815027c6dbced52c9",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/01_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_01_3",
+      "sentence_ends": [
+        79680,
+        190560,
+        303840,
+        332160
+      ],
+      "sha256": "b544384872eeb9e9a215a728887be8ba7b5d101548d55fb782e8adcbee7f71e3",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/01_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_01_4",
+      "sentence_ends": [
+        66720,
+        126720,
+        213120
+      ],
+      "sha256": "ae233fa39bfbb4a06ee27a4579fa686f00583173bb4bfbfa9117d80725a4acba",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/01_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_01_5",
+      "sentence_ends": [
+        148800,
+        261120,
+        324480,
+        395520
+      ],
+      "sha256": "daf4373219602032e80a0d4228d315fb403b5389dfb077377ef89714a23ae32a",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/01_5.wav"
+    },
+    {
+      "gap_after_samples": [
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_01_6",
+      "sentence_ends": [
+        266880
+      ],
+      "sha256": "e166dd47a4435b03f270cafe58be9c233cc9d57b95a37198e3f2d6dd3003371e",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/01_6.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_02_1",
+      "sentence_ends": [
+        109440,
+        197760,
+        339840
+      ],
+      "sha256": "600e695676e1ca353338e4bb335b2d3cd58fb2000f40cfd6132687b060d8197f",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/02_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_02_2",
+      "sentence_ends": [
+        147360,
+        223680,
+        288000,
+        347520,
+        428160,
+        474240
+      ],
+      "sha256": "7526333b189f37646a25a2559e2649331466a3fa1667d3421e989b609b8e5688",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/02_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_02_3",
+      "sentence_ends": [
+        58080,
+        138240,
+        274560
+      ],
+      "sha256": "a74a234a39797e8d81e6db9b82c1b1dcc818b2c0027cb96c05868a441a356618",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/02_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_02_4",
+      "sentence_ends": [
+        103200,
+        238080,
+        307200
+      ],
+      "sha256": "0042e9a489efd63aaeaad782e21a1f5e709fd930dd0c98721310a15c5286ca0b",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/02_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_02_5",
+      "sentence_ends": [
+        23520,
+        194880,
+        290880,
+        393600
+      ],
+      "sha256": "66d8ccb45d45f50140cb31373766354aa52684bd026af4e92f787a23fb9d6fff",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/02_5.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_02_6",
+      "sentence_ends": [
+        147360,
+        280320
+      ],
+      "sha256": "794fb2e53062a78fb7f175dbaf763e2aed70435f65849bc15de33c2faad0df92",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/02_6.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_02_7",
+      "sentence_ends": [
+        61440,
+        150720,
+        281760,
+        337920
+      ],
+      "sha256": "3bc8f58fc613eae7db7806f24adf16dfb7d87369fe5a3ea3c8b0eed8107a80b6",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/02_7.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_03_1",
+      "sentence_ends": [
+        79200,
+        237600,
+        314400,
+        453120
+      ],
+      "sha256": "fe62c5c280d07b74f9ceacfd653dace02d320398ce464d32bbaf6a819a50f094",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/03_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_03_2",
+      "sentence_ends": [
+        94080,
+        196320,
+        276480
+      ],
+      "sha256": "00a536187bf5aa6bade96b8595893b39f63c131968d616230bb236666c92293d",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/03_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_03_3",
+      "sentence_ends": [
+        176160,
+        211200
+      ],
+      "sha256": "9e206cee2eb4eb41da8ab83cfaa5e4108748067255f041eb985611609079d457",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/03_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_03_4",
+      "sentence_ends": [
+        83520,
+        209280
+      ],
+      "sha256": "75973eae2d161e3a754e5cd9ee658d45ae5bd46e6d1c6e0c5773c060ece9c73b",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/03_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_03_5",
+      "sentence_ends": [
+        67680,
+        300000,
+        458880
+      ],
+      "sha256": "a585069432df8bf0f06f29a413a374fce4446c326f6a4b74b1dfce214d855daf",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/03_5.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_03_6",
+      "sentence_ends": [
+        107520,
+        160800,
+        230880,
+        317760,
+        393600
+      ],
+      "sha256": "a563e3d6ffe48916421c3731c7548f3993b539930638cb2a37045fdc680e6fd9",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/03_6.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_04_1",
+      "sentence_ends": [
+        59520,
+        167040,
+        332160
+      ],
+      "sha256": "38280129c2a8c9a06706d3122a64b0e75e89cc910d46b1c9bd4c7d7964f7b083",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/04_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_04_2",
+      "sentence_ends": [
+        89280,
+        178560
+      ],
+      "sha256": "4a0be6b424192013d9b03b230ca08ea2521fcbdf4a336ad724258a6986c1ca5b",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/04_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_04_3",
+      "sentence_ends": [
+        70560,
+        127680,
+        186240,
+        247680
+      ],
+      "sha256": "d58bc9e6008ae0233997ab459bbd75484b6e4c07481eff48854db800282f655f",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/04_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_04_4",
+      "sentence_ends": [
+        46560,
+        121440,
+        243360,
+        312960
+      ],
+      "sha256": "9b3aace4170927d6e79cd7c69d86be356422d727e9f3da93ff87602353f098e6",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/04_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_04_5",
+      "sentence_ends": [
+        58080,
+        206400,
+        274560,
+        343680,
+        428160
+      ],
+      "sha256": "ad816bf6c44ad312f5c0002a00a44a3df2eb6cfb56f5e245f15202bcee752048",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/04_5.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_05_1",
+      "sentence_ends": [
+        80640,
+        163200,
+        274560,
+        436800,
+        541440
+      ],
+      "sha256": "b4ad28a4386050972c5c1cd38690c41449f629bdb5614791dfebda8607f814ee",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/05_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_05_2",
+      "sentence_ends": [
+        169920,
+        370560,
+        441120,
+        545280
+      ],
+      "sha256": "8249d02872676861ff6089c4850b17ae857db8894e6adec826c655dacc37d2da",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/05_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_05_3",
+      "sentence_ends": [
+        162720,
+        224640,
+        261120
+      ],
+      "sha256": "48a2528e758dc98c726e55c39dcb15640b3a5e692ce2fae1993d5149e5b3eca9",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/05_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_05_4",
+      "sentence_ends": [
+        35520,
+        92640,
+        178560,
+        270720,
+        318720,
+        366720
+      ],
+      "sha256": "0d0d35481a53db5a68a76f70566e855643b31c5f1b23a153854c22345b38c961",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/05_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_05_5",
+      "sentence_ends": [
+        59040,
+        210720,
+        272640,
+        348480,
+        541440,
+        618240
+      ],
+      "sha256": "3f0761539f161b26b8f0ce4e4718bf356aa1210724a3a088f7e6ae51b62aa5c0",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/05_5.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_06_1",
+      "sentence_ends": [
+        80640,
+        117120
+      ],
+      "sha256": "8b13985993e52940cef89b2e7b2b066ce8caa5aa8c1bf339c9da30f996271730",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/06_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_06_2",
+      "sentence_ends": [
+        30720,
+        240000,
+        282240
+      ],
+      "sha256": "35f44006ae462b047aedf2483372ce4eaca32002689a8f15269eb11e34fbf548",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/06_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_06_3",
+      "sentence_ends": [
+        61440,
+        128640,
+        231360,
+        305280,
+        416640
+      ],
+      "sha256": "4f87e8b26091819e21fbce4390c68f8325ea3d4c781fd754da461d060494f67a",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/06_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_06_4",
+      "sentence_ends": [
+        58080,
+        350880,
+        487680
+      ],
+      "sha256": "60e644841bad3db58b97418a3ce9b52d9c67e7c463058f02875e05be029cfe13",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/06_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_06_5",
+      "sentence_ends": [
+        112800,
+        266880
+      ],
+      "sha256": "bc05ca366270f4c431e0f5ffffc8b4f28f0cd9fc9477375fd49f524c3aa431e9",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/06_5.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_06_6",
+      "sentence_ends": [
+        142080,
+        199680
+      ],
+      "sha256": "f9d76a38ab28ccf522d99ac69f566d4c40b50f8fcc152929dc3b76f2bc93a9d2",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/06_6.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_07_1",
+      "sentence_ends": [
+        48480,
+        100800,
+        276480,
+        343200,
+        387840
+      ],
+      "sha256": "7cf8f2b9977531b885b4bedc1f1e744c3110a22e6e88d7146f7f72349437ba00",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/07_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_07_2",
+      "sentence_ends": [
+        116640,
+        239040,
+        334080
+      ],
+      "sha256": "92e4d96b6a51d7ae6c57ef7749509a3f4b4d72ed099030eb3f4c60cd7854d2e6",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/07_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_07_3",
+      "sentence_ends": [
+        29760,
+        147360,
+        265920,
+        444960,
+        532800,
+        570240
+      ],
+      "sha256": "ae67ad33c08287536dcc40d2a3c1430b6a2250dbc75f51147809f846e9ab10ee",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/07_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_07_4",
+      "sentence_ends": [
+        192960,
+        241440,
+        341760
+      ],
+      "sha256": "654c049503bb06e52c994c70429ef55a5e382ade8cf7384df461fcc97ef9d341",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/07_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_07_5",
+      "sentence_ends": [
+        55200,
+        192000
+      ],
+      "sha256": "6bb9dfde2d5e82cc97a2bd98ae3f27062ca7572c3a89d125249949d80e26c8c8",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/07_5.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_08_1",
+      "sentence_ends": [
+        65760,
+        198720,
+        451200,
+        539520
+      ],
+      "sha256": "44954b0756a2bf5eaf8826765d9dd247395ef21cc5cef33ac9974a8c4b0e9f12",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/08_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_08_2",
+      "sentence_ends": [
+        100320,
+        224640,
+        283200,
+        450720,
+        526080
+      ],
+      "sha256": "96148150af15b3cfc93abf913953255cd216c71d804193765f17eb007177295b",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/08_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_08_3",
+      "sentence_ends": [
+        112320,
+        155520
+      ],
+      "sha256": "8453e0911dd5783946077d1e381cd5372781e485e2a378a04503c0e708099c6b",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/08_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_08_4",
+      "sentence_ends": [
+        101760,
+        299520
+      ],
+      "sha256": "a5771d846c0e8cffbdd4b4391e01103d5bb98bd3f5e0d0137565bcc84d243fab",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/08_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_08_5",
+      "sentence_ends": [
+        95520,
+        223680,
+        293760
+      ],
+      "sha256": "e5312ee9c2811369cad00158c0fb7cee6a08f8e0593c6994d5323ac9170baf1d",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/08_5.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_08_6",
+      "sentence_ends": [
+        96960,
+        329280,
+        438240,
+        556800
+      ],
+      "sha256": "ca844b2fb33292ea64aff05d38d7211fb2953f9a88a144aaac226b749b7c7ec7",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/08_6.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_09_1",
+      "sentence_ends": [
+        74880,
+        141600,
+        175200,
+        215040
+      ],
+      "sha256": "eae0c92a8ae2ee71c60045335d9317e88865a2d93b1ee30eeddb1e28804ff44b",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/09_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_09_2",
+      "sentence_ends": [
+        35040,
+        204480,
+        241920,
+        364800
+      ],
+      "sha256": "bab56729bf99f09530291477caebb7e561fa20310f6fd67d07a31b22612d9f93",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/09_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_09_3",
+      "sentence_ends": [
+        58080,
+        234240,
+        393120,
+        464640,
+        528000
+      ],
+      "sha256": "aa18988197e2f30bc8c90950096ad610472da37f8797e5c188e5ae59a8aa861b",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/09_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_09_4",
+      "sentence_ends": [
+        54720,
+        280800,
+        351360
+      ],
+      "sha256": "385255363961a1b63a755de404608b5ee00acdb9e0d66787991a40b3ab5c343d",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/09_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_09_5",
+      "sentence_ends": [
+        70080,
+        169440,
+        266880
+      ],
+      "sha256": "35e2b090120dde190beb789a1a898623c8a0309d4a5517ff8e8b2adc34f49e2d",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/09_5.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_10_1",
+      "sentence_ends": [
+        77280,
+        272640
+      ],
+      "sha256": "3fb904b3453e95195ee2cf6e07bfce60804c1e2a0f2d3d44a1c66de7eb7e3332",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/10_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_10_2",
+      "sentence_ends": [
+        91680,
+        235200,
+        335520,
+        403200
+      ],
+      "sha256": "d5cb54be8ee386915b491b8bb65484064838ce244845cda7e5ec05fca54e4712",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/10_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_10_3",
+      "sentence_ends": [
+        154560,
+        205440
+      ],
+      "sha256": "c124bec7018fc9236b17aa70b567096e1f129f34e8e1338cdeba1520ffc9445c",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/10_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_10_4",
+      "sentence_ends": [
+        100800,
+        153600,
+        315840,
+        366240,
+        455040
+      ],
+      "sha256": "67af581e752eee93dd09f4eecce54eaf847e496b8ff5cb91f8cb97443eb3b0b8",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/10_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_10_5",
+      "sentence_ends": [
+        157920,
+        231360,
+        417120,
+        531840
+      ],
+      "sha256": "1e70029763ae773d1e8c184b41c4a066bdf9fb5d886c0c8d7bfc17470d42a65b",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/10_5.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_10_6",
+      "sentence_ends": [
+        166560,
+        288000,
+        407040,
+        538080,
+        662400
+      ],
+      "sha256": "e852e898ce2cb37b777e004370059c4f6cde7243caece7ede0ef60d8b1d7d62f",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/10_6.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_10_7",
+      "sentence_ends": [
+        233760,
+        381120,
+        606720
+      ],
+      "sha256": "e2ab41cb3c9424dfa401f28d34efb21bb25bda030de3389f5ac2f673c8b0dd84",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/10_7.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_11_1",
+      "sentence_ends": [
+        83040,
+        130560
+      ],
+      "sha256": "a0ba5a1282430f268d0e9db487265b7d1ee086e7c8de1db610c0c4efad51d751",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/11_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_11_2",
+      "sentence_ends": [
+        46560,
+        96480,
+        127680,
+        366240,
+        512160,
+        660000,
+        764640,
+        808320
+      ],
+      "sha256": "5e75a3ef6e2da9d7baa67b6129d3d467354ec038dc985c7d2b3baf733ca7e3ea",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/11_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_11_3",
+      "sentence_ends": [
+        207360,
+        281280,
+        524160,
+        607680,
+        733440
+      ],
+      "sha256": "4acb0e1a95e6a236d513e3e2b68339a84a65f7f2d0da17dfe4ad3d706addfc4d",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/11_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_11_4",
+      "sentence_ends": [
+        162240,
+        230880,
+        351360,
+        432480,
+        506880
+      ],
+      "sha256": "cee7451ccd9576491be0bf1ecc93143813c00ba613c1c2d56cdb2769140f6cf4",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/11_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_11_5",
+      "sentence_ends": [
+        96000,
+        190080
+      ],
+      "sha256": "e7e9b7f228a3948a452de0c2a073eb922bec66a696abb47f8491b946e397ef80",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/11_5.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_12_1",
+      "sentence_ends": [
+        149280,
+        267840,
+        316800
+      ],
+      "sha256": "fdc42e68a6c6d6fc73a10adb9700295708503194f75dfa4ca0342dd1c95e4477",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/12_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_12_2",
+      "sentence_ends": [
+        34560,
+        212640,
+        267840,
+        371040,
+        543840,
+        631680
+      ],
+      "sha256": "fc8efb725e1198d112b1102e47f23b6f1c178ccf60074a9cd2f20776fb507bb2",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/12_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_12_3",
+      "sentence_ends": [
+        168960,
+        344160,
+        415680,
+        526080
+      ],
+      "sha256": "20c868f2add6d0d07cb3b182e306a2b5ca12f7513a529288034edae05549ddc0",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/12_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_12_4",
+      "sentence_ends": [
+        131520,
+        278880,
+        349440,
+        403200
+      ],
+      "sha256": "fffed538648159b0447a43cd11ee5990444394292a2e17ecd2ac22b4e6fc72e0",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/12_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_12_5",
+      "sentence_ends": [
+        113760,
+        350400,
+        501120
+      ],
+      "sha256": "db6e98be5c8e3703da8c1502be3362b45e6a73acf291235cb151a905cbb45ff3",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/12_5.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_12_6",
+      "sentence_ends": [
+        74880,
+        207360,
+        296160,
+        478080
+      ],
+      "sha256": "7ed4640341465dd41a2f1793b45018a49df372e91d5ee848c35029a5d1cf9097",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/12_6.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_12_7",
+      "sentence_ends": [
+        97920,
+        297120,
+        464640
+      ],
+      "sha256": "a5ef5a4fc1fd34d1a5d297c4dab279725dd36c47651a936e7db96912916becbc",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/12_7.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_12_8",
+      "sentence_ends": [
+        77280,
+        109440,
+        294240,
+        491520,
+        541440
+      ],
+      "sha256": "9cd5925b8641ae287e650917a7f56e40ac5ef364db148781765c8f3da464a100",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/12_8.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_12_9",
+      "sentence_ends": [
+        192480,
+        359520,
+        535680,
+        700800
+      ],
+      "sha256": "11cd8563e1f0d6c3b6d1aeb7e629f83bb77710204e342caa9fa0c7ee743ca8f0",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/12_9.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_12_10",
+      "sentence_ends": [
+        202080,
+        249120,
+        355200
+      ],
+      "sha256": "3bcc7d99272b60f46a532fbe6572b3b6423f4936c27d5b20df652a38247d644e",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/12_10.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_13_1",
+      "sentence_ends": [
+        78720,
+        183840,
+        293760
+      ],
+      "sha256": "81e3bfc6595ba73f824402a0ccd4681366980dcbf81406883256a019e5f943c8",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/13_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_13_2",
+      "sentence_ends": [
+        52320,
+        122880,
+        194400,
+        281280,
+        339840
+      ],
+      "sha256": "fce13dc32ea87abae779885402ff2ba2ce78d5026d3d08ed5f5fcc86df494060",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/13_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_13_3",
+      "sentence_ends": [
+        110400,
+        134400
+      ],
+      "sha256": "9937227b357fe41cf0c676611a17e9ee8371e7300e7f3f2408cc9cc87e5527c0",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/13_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_13_4",
+      "sentence_ends": [
+        59520,
+        204960,
+        359040
+      ],
+      "sha256": "acf76e24d35ffead0aff555d407be52ea3f1d1e85a8a2b29706a21ffb0bc5b04",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/13_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_13_5",
+      "sentence_ends": [
+        65760,
+        166560,
+        372000,
+        570240
+      ],
+      "sha256": "93eac83608bba42ce58b5e96abe240c8c5ec56746de74e04016e2d420e624833",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/13_5.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_13_6",
+      "sentence_ends": [
+        109440,
+        215520,
+        372000,
+        465120,
+        610560,
+        769920
+      ],
+      "sha256": "00d843ed6d23246d3e16af25d7ca3176a409b9f416822ea6a3ec8cf6ab053a96",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/13_6.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_13_7",
+      "sentence_ends": [
+        84000,
+        154560,
+        264960
+      ],
+      "sha256": "7c817dfbe1daca981a1d45e124cb200535399ccc53b2ceffdbead87b3837202a",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/13_7.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_14_1",
+      "sentence_ends": [
+        167520,
+        300000,
+        585600
+      ],
+      "sha256": "c65343ba7c639916e72341ef36a9e4e47ba1e5c675f681ac90eeb2864e700dab",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/14_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_14_2",
+      "sentence_ends": [
+        161760,
+        280320
+      ],
+      "sha256": "192275b938a20bded0cca7638a1e0ffbc8813b6901cced3ca13520d432472c2a",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/14_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_14_3",
+      "sentence_ends": [
+        177600,
+        306720,
+        408960,
+        439680
+      ],
+      "sha256": "793155ae34af6c845883aace190b5eb4a4e5bf970a8e4ecf1cf901ebaedea7cf",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/14_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_14_4",
+      "sentence_ends": [
+        32640,
+        76800,
+        138240,
+        173760,
+        284160,
+        423360,
+        544800,
+        618240
+      ],
+      "sha256": "ccd04a3a832b3f85f833bc0c098ce0ba63adcb71fa9ca923430afd80ade4415f",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/14_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_14_5",
+      "sentence_ends": [
+        256800,
+        374400,
+        426240
+      ],
+      "sha256": "768e56dbce0637025dc9c45a8fda1bafe96aa09d5bab739864b5f485cc9d6237",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/14_5.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_14_6",
+      "sentence_ends": [
+        74400,
+        138720,
+        193920,
+        290400,
+        432960,
+        564480,
+        677760
+      ],
+      "sha256": "62a67a53a5095ab1a23cbd116d8f73db2e4142a6c787b54201933d4d3d580fb7",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/14_6.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_14_7",
+      "sentence_ends": [
+        50880,
+        255840,
+        333600,
+        432000
+      ],
+      "sha256": "a2ba31e6bc39c8fd2f64c3fb6340dd0c1d26cb0463e48a92bb02a32f3c4af3ae",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/14_7.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_14_8",
+      "sentence_ends": [
+        78720,
+        286080,
+        401280
+      ],
+      "sha256": "6416f989dd1224922fcb65e7f6cd5726bfc2ef3afea69625cf2f168ded41c706",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/14_8.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_15_1",
+      "sentence_ends": [
+        51360,
+        236160
+      ],
+      "sha256": "bdae62d958f1c93b1f98af2daf7ccccfc4f67ef87da8d67693aa3c21051bbabe",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/15_1.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_15_2",
+      "sentence_ends": [
+        209760,
+        428160
+      ],
+      "sha256": "d5e525dafc9e818f6c4866e707dafe231877801034cf97147cebbb43f35c664e",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/15_2.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_15_3",
+      "sentence_ends": [
+        57120,
+        261120,
+        303360
+      ],
+      "sha256": "bed98af11ba2cef3f7edc5c9ad59e30e53c4aa92797edb7dfba9348de3bdb975",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/15_3.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_15_4",
+      "sentence_ends": [
+        25920,
+        178560,
+        315360,
+        494880,
+        583680
+      ],
+      "sha256": "fc0f80f1d4571ec615e94a3ecdca88b9b6edec3204c5e418fbc5abbee7434c6b",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/15_4.wav"
+    },
+    {
+      "gap_after_samples": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "generation_receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/prepared434/external-receipt.json",
+      "id": "oliver_15_5",
+      "sentence_ends": [
+        50880,
+        308160,
+        356640,
+        522240
+      ],
+      "sha256": "cbf47a9eba0a4a73fed71f2f81e07514ed64148f08462f10a4d34c92aede4c20",
+      "wav": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89/decoded433/15_5.wav"
+    }
+  ],
+  "units_sha256": "d18c1f93ff069d9230dd19089c9880fddb82f1bbb089f4e25b8cf6eb70dad80a"
+}

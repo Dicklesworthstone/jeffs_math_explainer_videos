@@ -1,0 +1,667 @@
+{
+  "schema_version": 1,
+  "script_sha256": "b9344e1123170e7e3898d8aea2123e0b659bcd571085008fc97894e7d69da624",
+  "direction_contract": {
+    "schema_version": 1,
+    "topic": "apportionment",
+    "script_sha256": "b9344e1123170e7e3898d8aea2123e0b659bcd571085008fc97894e7d69da624",
+    "map": {
+      "path": "explainer_corpus/apportionment/docs/narration-direction-map-frederick01.json",
+      "sha256": "212ae493dfa80d0f700b736303e32505f86ba9cb73265c46b44726ac4b8d94f7"
+    }
+  },
+  "scope": "Frederick source plan202. Cue10_2 names quotients, not shares, as what Adams rounds up; 14_7 scopes the open four-town case to the question without the extra assumption; 14_8 says what a lottery adds and that it still cannot keep the quota and population promises together. All prior takes retained; native build and final timing review pending.",
+  "units": [
+    {
+      "id": "oliver_01_1",
+      "line_ids": [
+        "01_1"
+      ],
+      "text": "Three towns share a council of fifteen seats. Ash has four thousand people, Birch has nine thousand, and Cedar has twenty six thousand."
+    },
+    {
+      "id": "oliver_01_2",
+      "line_ids": [
+        "01_2"
+      ],
+      "text": "A careful rule, which we will rebuild together in a few minutes, splits the seats like this. Ash gets two, Birch gets three, and Cedar gets ten."
+    },
+    {
+      "id": "oliver_01_3",
+      "line_ids": [
+        "01_3"
+      ],
+      "text": "Now the council grows to sixteen seats. Nobody moves, nobody is born, and no population changes at all. There is simply one more seat to hand out, under exactly the same rule. What happens to Ash?"
+    },
+    {
+      "id": "oliver_01_4",
+      "line_ids": [
+        "01_4"
+      ],
+      "text": "Ash drops from two seats to one. Birch and Cedar each gain a seat. The council got bigger, and the smallest town came out with less."
+    },
+    {
+      "id": "oliver_01_5",
+      "line_ids": [
+        "01_5"
+      ],
+      "text": "This is called the Alabama paradox, after a real state that met it in eighteen eighty. Nothing in the arithmetic is wrong, and every step we take will be exact. The trouble lives in a deeper question. How should fair fractions become whole seats?"
+    },
+    {
+      "id": "oliver_01_6",
+      "line_ids": [
+        "01_6"
+      ],
+      "text": "We will rebuild the rule that did this, see exactly why it happens, meet the rules invented to avoid it, and end with a theorem about which promises no rule can keep together."
+    },
+    {
+      "id": "oliver_02_1",
+      "line_ids": [
+        "02_1"
+      ],
+      "text": "Start with what fair would mean if seats could be cut into pieces. Together the towns hold thirty nine thousand people. Fifteen seats for thirty nine thousand people is one seat for every two thousand six hundred people."
+    },
+    {
+      "id": "oliver_02_2",
+      "line_ids": [
+        "02_2"
+      ],
+      "text": "So each town's fair share of seats is its population divided by two thousand six hundred. Ash's share is one point five four seats. Birch's is three point four six. Cedar's is exactly ten. Mathematicians call this exact number the quota. I will call it the town's share."
+    },
+    {
+      "id": "oliver_02_3",
+      "line_ids": [
+        "02_3"
+      ],
+      "text": "But a seat is a person. Nobody can sit in point five four of a chair. Each town needs a whole number of seats, and the whole numbers have to add up to exactly fifteen."
+    },
+    {
+      "id": "oliver_02_4",
+      "line_ids": [
+        "02_4"
+      ],
+      "text": "The obvious move is to round each share to the nearest whole number. At fifteen seats that works, because two plus three plus ten is fifteen. Will rounding to the nearest always give the right total?"
+    },
+    {
+      "id": "oliver_02_5",
+      "line_ids": [
+        "02_5"
+      ],
+      "text": "No. At fourteen seats the shares are one point four four, three point two three and nine point three three. Every one rounds down, and the council is a seat short. At sixteen seats every share rounds up, and we hand out seventeen."
+    },
+    {
+      "id": "oliver_02_6",
+      "line_ids": [
+        "02_6"
+      ],
+      "text": "Rounding each town on its own forgets the one thing that ties them together, the total. So every rule needs a second idea, a way to settle the seats that rounding gets wrong."
+    },
+    {
+      "id": "oliver_02_7",
+      "line_ids": [
+        "02_7"
+      ],
+      "text": "There are two classic families. One keeps the shares fixed and compares what is left over. The other changes how many people count as a seat until ordinary rounding adds up. The paradox lives in the first family."
+    },
+    {
+      "id": "oliver_03_1",
+      "line_ids": [
+        "03_1"
+      ],
+      "text": "Here is the first family's most natural rule. It carries Alexander Hamilton's name, and it is also called the method of largest remainders. Give every town the whole part of its share. Then hand out the seats that remain, one each, to the towns with the largest leftover fractions."
+    },
+    {
+      "id": "oliver_03_2",
+      "line_ids": [
+        "03_2"
+      ],
+      "text": "Call the fraction after the whole part the town's tail. At fifteen seats, the whole parts are one, three and ten. That makes fourteen seats, so one seat is left over."
+    },
+    {
+      "id": "oliver_03_3",
+      "line_ids": [
+        "03_3"
+      ],
+      "text": "The tails are point five four for Ash, point four six for Birch, and nothing at all for Cedar. Who gets the leftover seat?"
+    },
+    {
+      "id": "oliver_03_4",
+      "line_ids": [
+        "03_4"
+      ],
+      "text": "Ash has the largest tail, so Ash gets it. Two seats for Ash, three for Birch, ten for Cedar, the allocation we started with."
+    },
+    {
+      "id": "oliver_03_5",
+      "line_ids": [
+        "03_5"
+      ],
+      "text": "This rule comes with a real guarantee. The shares add up to the house, and the whole parts are whole, so the tails always add up to a whole number, which is exactly the number of leftover seats. Every tail is less than one, so there are fewer leftover seats than towns, and no town can receive two of them."
+    },
+    {
+      "id": "oliver_03_6",
+      "line_ids": [
+        "03_6"
+      ],
+      "text": "So every town ends up with its share rounded down or rounded up. Call that the quota promise. Hamilton's rule keeps it at every house size. Judged one size at a time, it looks perfectly fair. The trouble only appears when we compare two sizes."
+    },
+    {
+      "id": "oliver_04_1",
+      "line_ids": [
+        "04_1"
+      ],
+      "text": "Now add the sixteenth seat. Every share grows, because the same people now divide more seats. Ash's share becomes one point six four, Birch's three point six nine, and Cedar's ten point six seven."
+    },
+    {
+      "id": "oliver_04_2",
+      "line_ids": [
+        "04_2"
+      ],
+      "text": "The whole parts are still one, three and ten. That is fourteen again, so this time two seats are left over."
+    },
+    {
+      "id": "oliver_04_3",
+      "line_ids": [
+        "04_3"
+      ],
+      "text": "Ash's tail is now point six four. Birch's is point six nine. Cedar's is point six seven. Which two towns get the two leftover seats?"
+    },
+    {
+      "id": "oliver_04_4",
+      "line_ids": [
+        "04_4"
+      ],
+      "text": "Birch and Cedar. A moment ago Ash had the largest tail. Now it has the smallest, so the result is one, four, eleven. Ash's share went up, and Ash lost a seat."
+    },
+    {
+      "id": "oliver_04_5",
+      "line_ids": [
+        "04_5"
+      ],
+      "text": "Look how close the race is. Measured in thirty ninths of a seat, the tails are twenty five, twenty seven and twenty six. Ash misses by a single thirty ninth. But a near miss does not explain anything. The real question is why the order of the tails changed at all."
+    },
+    {
+      "id": "oliver_05_1",
+      "line_ids": [
+        "05_1"
+      ],
+      "text": "Picture each share as a hand on a dial. One full turn of the hand is one whole seat. Watch Ash's dial as the council grows from no seats to fifteen. Each time the hand passes the top, the whole part ticks up by one, and the tail starts again from zero. Birch's and Cedar's dials show their own shares at fifteen seats in the same way."
+    },
+    {
+      "id": "oliver_05_2",
+      "line_ids": [
+        "05_2"
+      ],
+      "text": "Adding one seat to the council increases each town's share by that town's fraction of the total population. Ash has four thousand of the thirty nine thousand people, so one more seat turns Ash's hand by four thirty ninths of a turn. Birch's hand turns nine thirty ninths. Cedar's turns twenty six thirty ninths, two thirds of the way around."
+    },
+    {
+      "id": "oliver_05_3",
+      "line_ids": [
+        "05_3"
+      ],
+      "text": "At fifteen seats, Ash's hand is ahead of Birch's, and Cedar's points straight up at zero. Turn every hand by its own step. Which hand ends up in front?"
+    },
+    {
+      "id": "oliver_05_4",
+      "line_ids": [
+        "05_4"
+      ],
+      "text": "Birch's. Ash's hand creeps forward. Birch's moves more than twice as far and passes it. Cedar's swings two thirds of a turn and passes it too. Nothing about Ash got worse. The other hands simply moved faster."
+    },
+    {
+      "id": "oliver_05_5",
+      "line_ids": [
+        "05_5"
+      ],
+      "text": "So here is the mechanism. Hamilton's rule hands out leftover seats by rank, and the rank is decided by tails. Tails do not grow steadily with the house. They wrap around, each at its own speed. A slow hand, like a small town's, can be overtaken from one house size to the next while its whole part stays put. That is how a share can rise while its seats fall."
+    },
+    {
+      "id": "oliver_06_1",
+      "line_ids": [
+        "06_1"
+      ],
+      "text": "Add one more seat, seventeen in all. Does Ash get its seat back?"
+    },
+    {
+      "id": "oliver_06_2",
+      "line_ids": [
+        "06_2"
+      ],
+      "text": "It does. The whole parts become one, three and eleven, two seats are left over, and the largest tails now belong to Birch and Ash. Two, four, eleven."
+    },
+    {
+      "id": "oliver_06_3",
+      "line_ids": [
+        "06_3"
+      ],
+      "text": "So the paradox is not a slide. It comes and goes as the hands turn. Run Hamilton's rule for every council from one seat to a hundred. That is ninety nine additions of a single seat. Five of them take a seat away from somebody, and every time it is Ash."
+    },
+    {
+      "id": "oliver_06_4",
+      "line_ids": [
+        "06_4"
+      ],
+      "text": "History found the same thing. After the eighteen eighty census, the chief clerk of the Census Office, a man named Seaton, worked out Hamilton apportionments for every House size from two hundred seventy five to three hundred fifty. Alabama received eight seats in a House of two hundred ninety nine, and seven in a House of three hundred."
+    },
+    {
+      "id": "oliver_06_5",
+      "line_ids": [
+        "06_5"
+      ],
+      "text": "Seaton reported it to Congress in a letter, which Peyton Young quotes. Such a result as this is to me conclusive proof that the process employed in obtaining it is defective."
+    },
+    {
+      "id": "oliver_06_6",
+      "line_ids": [
+        "06_6"
+      ],
+      "text": "Those were alternative calculations, not a real House that grew and took a seat away. But they showed that the danger was real."
+    },
+    {
+      "id": "oliver_07_1",
+      "line_ids": [
+        "07_1"
+      ],
+      "text": "Now the second family. Go back to fifteen seats. Divide each population by two thousand six hundred, the exact number of people per seat, and drop every tail. You get one, three and ten. Fourteen seats, one short."
+    },
+    {
+      "id": "oliver_07_2",
+      "line_ids": [
+        "07_2"
+      ],
+      "text": "Thomas Jefferson's rule keeps the rounding and changes the yardstick instead. It always rounds down, and it adjusts how many people count as one seat. To hand out one more seat, should that number go up or down?"
+    },
+    {
+      "id": "oliver_07_3",
+      "line_ids": [
+        "07_3"
+      ],
+      "text": "Down. Fewer people per seat means every town has more seats' worth of people. Slide the yardstick from two thousand six hundred down to two thousand three hundred. Ash now has one point seven four seats' worth, Birch three point nine one, and Cedar eleven point three. Drop the tails, and you get one, three, eleven. Fifteen seats exactly."
+    },
+    {
+      "id": "oliver_07_4",
+      "line_ids": [
+        "07_4"
+      ],
+      "text": "Any yardstick above two thousand two hundred fifty, and up to about two thousand three hundred sixty four, gives the same answer. That is Jefferson's rule. Choose the number of people per seat that makes the whole parts add up to the house."
+    },
+    {
+      "id": "oliver_07_5",
+      "line_ids": [
+        "07_5"
+      ],
+      "text": "Notice what changed. Every town is measured with the same yardstick, and no town's tail is ever compared with another's."
+    },
+    {
+      "id": "oliver_08_1",
+      "line_ids": [
+        "08_1"
+      ],
+      "text": "Look at the same slide another way. As the yardstick falls, each town gains its next seat at a definite moment. Cedar gains its first seat when the yardstick reaches twenty six thousand, its second at thirteen thousand, its third at about eight thousand six hundred sixty seven. Those are twenty six thousand divided by one, two and three."
+    },
+    {
+      "id": "oliver_08_2",
+      "line_ids": [
+        "08_2"
+      ],
+      "text": "Ash's seats open at four thousand, then two thousand. Birch's open at nine thousand, four thousand five hundred and three thousand. Call each of these a signpost. Put every signpost on one list, largest first, and Jefferson's rule just reads the list from the top. Fifteen seats means the first fifteen signposts."
+    },
+    {
+      "id": "oliver_08_3",
+      "line_ids": [
+        "08_3"
+      ],
+      "text": "The first fifteen signposts give one, three, eleven. Whose signpost comes sixteenth?"
+    },
+    {
+      "id": "oliver_08_4",
+      "line_ids": [
+        "08_4"
+      ],
+      "text": "Birch's fourth seat, at two thousand two hundred fifty. Sixteen seats gives one, four, eleven, and the seventeenth signpost, Cedar's twelfth, gives one, four, twelve."
+    },
+    {
+      "id": "oliver_08_5",
+      "line_ids": [
+        "08_5"
+      ],
+      "text": "And this is why the family can never take a seat back. Sixteen seats are the first sixteen signposts, and the first fifteen are among them. A bigger house just reads further down the same list."
+    },
+    {
+      "id": "oliver_08_6",
+      "line_ids": [
+        "08_6"
+      ],
+      "text": "Precisely, that needs a single order on the list. At two thousand people per seat, Ash's second signpost and Cedar's thirteenth are exactly tied, so a council of eighteen would need a tie rule. Fix the order of tied signposts once, and keep it as the house grows. Our fifteen, sixteen and seventeen seat allocations stop before this tie."
+    },
+    {
+      "id": "oliver_09_1",
+      "line_ids": [
+        "09_1"
+      ],
+      "text": "Jefferson's rule never takes a seat back. But look at Cedar at fifteen seats. It gets eleven. Does that keep the quota promise?"
+    },
+    {
+      "id": "oliver_09_2",
+      "line_ids": [
+        "09_2"
+      ],
+      "text": "It does not. Cedar's share at fifteen seats is exactly ten, so rounded down or up it is still ten. Jefferson gives it eleven. And the extra seat came from Ash, which gets one seat for a share of one point five four."
+    },
+    {
+      "id": "oliver_09_3",
+      "line_ids": [
+        "09_3"
+      ],
+      "text": "That is no accident. Rounding down throws away less than a seat from every town, but the same sliver is a bigger slice of a small town. At two thousand three hundred people per seat, Ash throws away forty two and a half percent of its count. Cedar throws away less than three percent. Jefferson's rule leans toward large towns."
+    },
+    {
+      "id": "oliver_09_4",
+      "line_ids": [
+        "09_4"
+      ],
+      "text": "History shows the lean. In the apportionment after the eighteen thirty census, made with Jefferson's rule, New York's exact share was thirty eight point five nine three seats. Peyton Young's table records that it received forty."
+    },
+    {
+      "id": "oliver_09_5",
+      "line_ids": [
+        "09_5"
+      ],
+      "text": "So the two families trade flaws. Hamilton's rule keeps the quota promise but can take a seat back. Jefferson's rule never takes a seat back but can break the quota promise."
+    },
+    {
+      "id": "oliver_10_1",
+      "line_ids": [
+        "10_1"
+      ],
+      "text": "Jefferson rounds every quotient down. Change where the rounding happens and you get the rest of the family, each one built the same way, with a sliding yardstick and one list of signposts."
+    },
+    {
+      "id": "oliver_10_2",
+      "line_ids": [
+        "10_2"
+      ],
+      "text": "John Quincy Adams proposed rounding up instead. Now any piece of a quotient earns a whole seat, so the lean flips toward small towns. At fifteen seats Adams gives two, four and nine. Cedar falls below its share of exactly ten."
+    },
+    {
+      "id": "oliver_10_3",
+      "line_ids": [
+        "10_3"
+      ],
+      "text": "Between always down and always up sits the compromise, round to the nearest. What does that give at fifteen seats?"
+    },
+    {
+      "id": "oliver_10_4",
+      "line_ids": [
+        "10_4"
+      ],
+      "text": "Two, three, ten, the same as Hamilton. This is Daniel Webster's rule. At sixteen seats it gives two, four, ten, and at seventeen, two, four, eleven. Nobody ever loses a seat. In our three towns, Webster does what we hoped Hamilton would do."
+    },
+    {
+      "id": "oliver_10_5",
+      "line_ids": [
+        "10_5"
+      ],
+      "text": "One more relative is worth knowing, because it became the law for the United States House in nineteen forty one. It is called the Huntington Hill method. Between one and two, it rounds up once a quotient passes the square root of one times two, about one point four one. For our towns it agrees with Webster at fifteen, sixteen and seventeen seats."
+    },
+    {
+      "id": "oliver_10_6",
+      "line_ids": [
+        "10_6"
+      ],
+      "text": "Each pair of neighbouring whole numbers gets its own threshold, the square root of the two multiplied together. Between two and three, it is the square root of six, about two point four five. Between three and four, the square root of twelve, about three point four six. Each one sits a little below Webster's halfway mark, and closer to it the higher you go. But between zero and one, the threshold is the square root of zero, which is zero."
+    },
+    {
+      "id": "oliver_10_7",
+      "line_ids": [
+        "10_7"
+      ],
+      "text": "So whenever there are enough seats to go round, Hill's rule gives every town at least one seat, and that can break the quota promise even with three towns. At three seats it gives each town one seat, though Cedar's share is exactly two. Every rule in this family reads one list of signposts, so none of them ever takes a seat back, and every one of them can break the quota promise for some map of towns."
+    },
+    {
+      "id": "oliver_11_1",
+      "line_ids": [
+        "11_1"
+      ],
+      "text": "Webster's rule looks like the best of both families. Can it ever break the quota promise?"
+    },
+    {
+      "id": "oliver_11_2",
+      "line_ids": [
+        "11_2"
+      ],
+      "text": "Not with three towns. Balinski and Young proved it. Here is why. To break the promise, a town must end a whole seat or more below its share, so its quotient is below its share, and the yardstick sits above the exact one. Then every other quotient is below its share, and rounding to the nearest adds at most half a seat. So the other two towns end less than one seat above their shares, too little to cover the missing seat. Turned around, the same reasoning rules out a whole seat too many. With four towns, it can happen."
+    },
+    {
+      "id": "oliver_11_3",
+      "line_ids": [
+        "11_3"
+      ],
+      "text": "Take four towns of two thousand, five thousand, eight thousand and twenty seven thousand people, sharing fourteen seats. The biggest town's share is exactly nine. The three small shares are point six seven, one point six seven and two point six seven, and rounding to the nearest lifts each one by a third of a seat. Three small towns, three thirds, one whole seat. Rounding everything to the nearest hands out fifteen seats, one too many."
+    },
+    {
+      "id": "oliver_11_4",
+      "line_ids": [
+        "11_4"
+      ],
+      "text": "To take one away, the yardstick must grow until some town's quotient drops below its halfway mark. The big town's halfway mark comes first. Its quotient falls below eight and a half while the small towns still round up. Webster gives one, two, three and eight. The town whose share is exactly nine gets eight."
+    },
+    {
+      "id": "oliver_11_5",
+      "line_ids": [
+        "11_5"
+      ],
+      "text": "So even the best divisor rule can break the quota promise. Is there any rule that keeps the quota promise and never takes a seat back?"
+    },
+    {
+      "id": "oliver_12_1",
+      "line_ids": [
+        "12_1"
+      ],
+      "text": "Jefferson broke the quota promise at fifteen seats by giving Cedar its eleventh seat. Suppose a rule refuses any seat that would lift a town above its share rounded up. Who gets the fifteenth seat instead?"
+    },
+    {
+      "id": "oliver_12_2",
+      "line_ids": [
+        "12_2"
+      ],
+      "text": "Birch. Michel Balinski and Peyton Young published exactly this rule in nineteen seventy four, and called it the quota method. Here it is in a simple form. Hand out seats one at a time, from the top of Jefferson's list. Before giving a town its next seat, check that the seat would not lift it above its share rounded up at the new house size. If it would, skip that signpost for now and go to the next one."
+    },
+    {
+      "id": "oliver_12_3",
+      "line_ids": [
+        "12_3"
+      ],
+      "text": "At fifteen seats Cedar already has ten, and its share is exactly ten, so it is skipped. The next signpost is Birch's fourth, at two thousand two hundred fifty, which beats Ash's second at two thousand. The result is one, four, ten. At sixteen seats Cedar's ceiling rises to eleven, and it gets its seat."
+    },
+    {
+      "id": "oliver_12_4",
+      "line_ids": [
+        "12_4"
+      ],
+      "text": "Each house is the previous house plus one seat, so nobody ever loses one. And Balinski and Young's theorem says the skipping never strands a town below its share rounded down either. Both promises, at every house size. Here is one way to see why that is true."
+    },
+    {
+      "id": "oliver_12_5",
+      "line_ids": [
+        "12_5"
+      ],
+      "text": "Lay each town's seats along the house sizes as a row of tiles. Every added seat raises a town's share by its fraction of the people, so each tile is as long as the stretch of house sizes it takes to earn one whole seat. Ash's tiles are nine and three quarters long, Birch's four and a third, and Cedar's one and a half."
+    },
+    {
+      "id": "oliver_12_6",
+      "line_ids": [
+        "12_6"
+      ],
+      "text": "Now slide a marker along the house sizes. A town's share, rounded down, counts the tiles the marker has passed completely. Rounded up, it counts the tiles the marker has entered. So the quota promise says that every tile the marker has passed is already handed out, and no tile it has not entered is."
+    },
+    {
+      "id": "oliver_12_7",
+      "line_ids": [
+        "12_7"
+      ],
+      "text": "And Jefferson's list is these tiles in the order they end. A seat's signpost is the population divided by the seat number, so the bigger the signpost, the sooner that seat's tile ends. At every house size, the quota method takes the entered tiles nobody holds yet and hands out the one that ends soonest."
+    },
+    {
+      "id": "oliver_12_8",
+      "line_ids": [
+        "12_8"
+      ],
+      "text": "Could a passed tile ever be left out? Suppose one were. Go back to the last moment the rule handed out a tile that ends later than the missing one, or to the very start if it never did. Every tile handed out since then, and the missing tile too, had not been entered at that moment, or the rule would have picked a tile ending sooner. And every one of them ends by now."
+    },
+    {
+      "id": "oliver_12_9",
+      "line_ids": [
+        "12_9"
+      ],
+      "text": "So all those tiles fit inside the stretch from that moment to now, and there is one more of them than seats added in the stretch. But each town's row fits at most the stretch times its fraction of the people, and the fractions add up to one. So a stretch never holds more whole tiles than the seats added across it, and no passed tile is ever left out. The quota method never hands out a tile before the marker enters it, so it keeps the quota promise at every house size."
+    },
+    {
+      "id": "oliver_12_10",
+      "line_ids": [
+        "12_10"
+      ],
+      "text": "Notice that the quota method gives one, four, ten at fifteen seats, while Hamilton gives two, three, ten. Both keep the quota promise. That promise can allow more than one answer, and different rules choose differently."
+    },
+    {
+      "id": "oliver_13_1",
+      "line_ids": [
+        "13_1"
+      ],
+      "text": "So far no population has changed. Real towns grow and shrink, which suggests a third promise. A town that did not shrink should never lose a seat to a town that did not grow."
+    },
+    {
+      "id": "oliver_13_2",
+      "line_ids": [
+        "13_2"
+      ],
+      "text": "Take a later census. Ash shrinks to three thousand nine hundred. Birch grows to nine thousand five hundred. Cedar grows a little, to twenty six thousand one hundred. The council stays at sixteen seats."
+    },
+    {
+      "id": "oliver_13_3",
+      "line_ids": [
+        "13_3"
+      ],
+      "text": "Before the census, Hamilton gave one, four, eleven. What does it give now?"
+    },
+    {
+      "id": "oliver_13_4",
+      "line_ids": [
+        "13_4"
+      ],
+      "text": "Two, four, ten. The new shares are one point five eight, three point eight five and ten point five seven. Ash's tail now beats Cedar's, so Cedar, which grew, loses a seat to Ash, which shrank."
+    },
+    {
+      "id": "oliver_13_5",
+      "line_ids": [
+        "13_5"
+      ],
+      "text": "Divisor rules cannot do this. Every signpost is a population divided by a fixed number. When a town grows, all of its signposts get bigger, so they can pass the signposts of towns that did not grow, but never fall behind them. When a town shrinks, all of its signposts get smaller, so they can fall behind the signposts of towns that did not shrink, but never pass them."
+    },
+    {
+      "id": "oliver_13_6",
+      "line_ids": [
+        "13_6"
+      ],
+      "text": "Watch Jefferson's list through the census, one town at a time. Birch grows, and its fourth signpost passes Cedar's eleventh. Cedar grows a little, and its thirteenth signpost, once tied with Ash's second, moves ahead of it. Ash shrinks, and only the values on its cards change. Its first signpost falls from four thousand to three thousand nine hundred, and no card moves. At sixteen seats the list still gives one, four, eleven, before the census and after it."
+    },
+    {
+      "id": "oliver_13_7",
+      "line_ids": [
+        "13_7"
+      ],
+      "text": "That is a strong reason to prefer divisor rules. But they cannot always keep the quota promise. Could some cleverer rule keep the quota promise and the population promise together?"
+    },
+    {
+      "id": "oliver_14_1",
+      "line_ids": [
+        "14_1"
+      ],
+      "text": "Balinski and Young proved in nineteen eighty two that the answer is no, with one extra assumption. A town with strictly more people than another must never get fewer seats. A recent paper by Paul G\u00f6lz, Dominik Peters and Ariel Procaccia proves the answer is still no without that assumption, for any rule that always gives the same answer to the same question."
+    },
+    {
+      "id": "oliver_14_2",
+      "line_ids": [
+        "14_2"
+      ],
+      "text": "Their proof needs more than our three towns, because with three towns Webster's rule keeps both promises. It uses a city and four villages sharing ten seats, and we can follow all of it."
+    },
+    {
+      "id": "oliver_14_3",
+      "line_ids": [
+        "14_3"
+      ],
+      "text": "One city of eight hundred twenty four people and four villages of forty four people each share ten seats. The city's share is eight point two four, and each village's is point four four. So the quota promise lets the city have eight seats or nine. Which choice is safe?"
+    },
+    {
+      "id": "oliver_14_4",
+      "line_ids": [
+        "14_4"
+      ],
+      "text": "Neither. Suppose the city gets nine. Then the last seat goes to one village. Call it the fifth. Now let only the fifth village grow, to two hundred twenty two people. The city's share falls to six point nine nine, so it can have at most seven seats. The fifth village's share is one point eight eight, so it can have at most two. That leaves at least one seat for the other three villages."
+    },
+    {
+      "id": "oliver_14_5",
+      "line_ids": [
+        "14_5"
+      ],
+      "text": "So some village with an unchanged population goes from no seats to one, while the city, also unchanged, drops from nine seats to seven or fewer. The city did not shrink, and it lost seats to a village that did not grow. The population promise is broken."
+    },
+    {
+      "id": "oliver_14_6",
+      "line_ids": [
+        "14_6"
+      ],
+      "text": "Suppose instead the city gets eight. Then two villages get one seat each. Call them the fourth and fifth. This time shrink the other two villages to a single person each. The city's share rises to nine point zero two, so it needs at least nine seats. Only one seat is left for the fourth and fifth villages, so one of them drops to zero. That village did not shrink, and it lost its seat to a city that did not grow."
+    },
+    {
+      "id": "oliver_14_7",
+      "line_ids": [
+        "14_7"
+      ],
+      "text": "Both choices fail. So no rule that keeps the quota promise can keep the population promise for every map of five towns, and the same trick works with more. With three towns, Webster's rule keeps both. With four, without the extra assumption, nobody knew as of that paper."
+    },
+    {
+      "id": "oliver_14_8",
+      "line_ids": [
+        "14_8"
+      ],
+      "text": "The same paper shows what a lottery can add. If the rule may draw lots, it can keep the quota promise, never take a seat back, and give every town exactly its share on average. But even a lottery cannot keep the quota promise and the population promise together."
+    },
+    {
+      "id": "oliver_15_1",
+      "line_ids": [
+        "15_1"
+      ],
+      "text": "Here is the whole map. Hamilton's rule keeps the quota promise, but it can take a seat back when the house grows, and it can punish a town for growing."
+    },
+    {
+      "id": "oliver_15_2",
+      "line_ids": [
+        "15_2"
+      ],
+      "text": "Jefferson, Adams, Webster and Hill never take a seat back and never punish growth, but each can break the quota promise. The quota method of Balinski and Young keeps the quota promise and never takes a seat back, and the theorem says it must break the population promise for some map."
+    },
+    {
+      "id": "oliver_15_3",
+      "line_ids": [
+        "15_3"
+      ],
+      "text": "Here is one to try yourself. Under Webster's rule, suppose Cedar grows while Ash and Birch stay exactly the same, and the council stays at fifteen seats. Can Ash ever gain a seat?"
+    },
+    {
+      "id": "oliver_15_4",
+      "line_ids": [
+        "15_4"
+      ],
+      "text": "No. Cedar's signposts all get bigger, while Ash's and Birch's keep exactly the same values. As Cedar's climb past some of them, those are pushed down the list, but none can move up. So the cutoff for fifteen seats can only rise, and any signpost of Ash's that was below it stays below it. Ash can keep its seats or lose some, but it can never gain one."
+    },
+    {
+      "id": "oliver_15_5",
+      "line_ids": [
+        "15_5"
+      ],
+      "text": "Back where we started. Ash lost a seat when the council grew, not because anyone slipped in the arithmetic, but because Hamilton's rule ranks tails, and tails wrap around at different speeds. Fair fractions are easy. Fair whole numbers force a choice, and now you know exactly which promises can be kept together and which cannot."
+    }
+  ]
+}

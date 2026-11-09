@@ -1,0 +1,27 @@
+{
+  "checked_holds": 15,
+  "changes": [
+    {
+      "cue": "08_3",
+      "before": "16f6ff6285f205309cd9462d725f1cee152eb9311adb062ff815ac85a6f4663c",
+      "after": "14c4f9156a25a2a4f69180d92be86d870678dda3adbb8558490e0a95c2bc50ea",
+      "line": 121,
+      "marker": "let q = think(&kit, stage, v(-1.0, -2.7))?;"
+    },
+    {
+      "cue": "13_3",
+      "before": "f7e75ed4eaf8892c736430a7618f6b8d5adf450f0cdea1253c7e76b41a20636a",
+      "after": "97e01b65255f569014a26e95b432fa28eff85f1001162c0f89c221413076a930",
+      "line": 185,
+      "marker": "let q = think_here(&kit, stage)?;"
+    },
+    {
+      "cue": "15_3",
+      "before": "3be379158a19314eb954aa9749c3b352080e96dd3214cbda6b3a165a436cd0bb",
+      "after": "c31f6cc5dfa92a605914af6693219d3ac19d275ec3c04dfc48db91095893650d",
+      "line": 180,
+      "marker": "let q = think(&kit, stage, v(-1.0, -2.7))?;"
+    }
+  ],
+  "claim": "source bindings only; no timing or listening acceptance"
+}

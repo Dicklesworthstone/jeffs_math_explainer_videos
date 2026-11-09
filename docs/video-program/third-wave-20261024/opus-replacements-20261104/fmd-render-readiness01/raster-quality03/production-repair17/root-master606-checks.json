@@ -1,0 +1,43 @@
+{
+  "master_sha256": "7c8269fbd291352f4ef9a7828e3539b045f0414dada4870ddc00a057a7b5b163",
+  "gate_sha256": "9293391ff356226af4b7689a50a97308fa6c933b5d17870afafcdf7d53c8b2a1",
+  "changed_functions": [
+    "chapter_gate",
+    "master"
+  ],
+  "unchanged_functions": 33,
+  "actual_ast_selection_checks": [
+    {
+      "case": "native",
+      "accepted": true,
+      "expected": true
+    },
+    {
+      "case": "historical",
+      "accepted": true,
+      "expected": true
+    },
+    {
+      "case": "missing",
+      "accepted": false,
+      "expected": false
+    },
+    {
+      "case": "wrong_chapter",
+      "accepted": false,
+      "expected": false
+    },
+    {
+      "case": "duplicate",
+      "accepted": false,
+      "expected": false
+    },
+    {
+      "case": "wrong_kind",
+      "accepted": false,
+      "expected": false
+    }
+  ],
+  "scope": "Source and bounded selection tests only; no native import/master or independent review acceptance",
+  "runtime_master_passed": false
+}

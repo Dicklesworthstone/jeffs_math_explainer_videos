@@ -1,3 +1,80 @@
+## Guarded assembly controller connected, 2026-11-09T20:24:30.343746+00:00
+
+- [x] Started ONE master620 controller in tmux apportionment-master620, PID22280 confirmed waiting. It waits actual stable success of all15 existing614 finals, freezes union of their exact inputs/receipts/output hashes and checks100886frames plus exact encoder consistency before launching guarded master619 once. No final inputs or master job created yet. Helper620 SHA dfbfc159c2038f5e3f6dbf792fd4ca2a24478f4a5f397af9d9a6c6b9a08b80c7.
+- [ ] Final technical verifier must check native master output full decode,93 exact placements, SRT/VTT/script equality, encoded loudness and actual chapter-to-master video identity. Chapter617 selected pictures still need actual viewing; no listening/fine-sync/independent AV accepted. Final publication remains gated.
+
+## Native apportionment assembly prepared, 2026-11-09T20:22:46.014541+00:00
+
+- [x] Inspected actual explainer_kit master/captions code: native master replays each cue log, requires bit-identical captured soundtrack, applies one fixed programme gain, stream-copies chapter video and checks full timestamp grid/frame count. Captions consume exact chapter timelines and retained narration report.
+- [x] Prepared root-apportionment-picture-repair562/master619.py SHA bda28acef3134b9630ef5b36c9fd795ab1c9744d78f49bacb1462435c81639b1; AST valid, NOT RUN. Requires15 successful stable final614 receipts, frozen output hashes, identical encoder settings, exact567 schedules and100886frames. Materializes new hardlinks only; maps each verified latest capture to a new soundtrack_0.wav so native replay checks actual recorded PCM. Originals preserved. Uses existing owned-process cleanup and guard policy; master/captions each4hour bound.
+- [ ] Freeze full actual final dependencies and launch master619 only after all15 final614 jobs complete. No master620 controller or input manifest exists yet. Then full decode, exact captions, encoded loudness and actual final picture/motion review; listening/fine-sync/independentAV limitations remain explicit.
+- [x] Fresh20:21UTC: CSD11 same22312 live2h45m at1381%CPU; Mac09 same39339 live25m at364%CPU,588 waits. No restart/duplicate. Existing guarded imports remain queued; final publication still open.
+
+## Final picture pipeline connected, 2026-11-09T20:20:54.489227+00:00
+
+- [x] Prepared support616 from462: native probe now requires3840x2160; full4K selected JPEGs preserved, sheets use960x540 thumbnails. Only sheets function changed;17 other functions unchanged including extraction, frame selection and warning persistence. No final-picture acceptance claimed by extraction.
+- [x] Prepared617 per-chapter final picture helper, preserving actual final614 receipt/input/output hashes and all prior sample frames: repaired584 plans for08/13/15, original545 for other12. Read all15 plans and counted1147 retained preview sample frames; new final lint/holds can add more. Entire former defect intervals retained through584 plans.
+- [x] Started ONE tmux apportionment-pictures618, PID41271 confirmed waiting for existing final614 chapter01. It requires successful stable final receipts, freezes actual inputs, runs extraction under existing exclusive guard, aborts on failure and never retries existing jobs. Do not duplicate.
+- [ ] final614 native71904 still live20:20UTC, chapter01. No terminal success yet. Final pictures, continuous motion/listening, fine sync, independent AV, master/captions/loudness and publication remain open. All original takes and prior attempts preserved.
+
+## Apportionment final render admitted, 2026-11-09T20:18:46.415737+00:00
+
+- [x] First guarded final614 chapter01 admitted, inputs d56682204a2b04ff84c6b948ae760c8726eedafa0602bf865958a03090710164, nativePID71904 observed rendering3840x2160/60 CRF16 slow four renderer threads. Controller615PID40705 serially owns all15 jobs; NEVER duplicate. Actual technical/final-picture/audio/master/publication checks remain open.
+- [x] Mac09 final586 re-polled after transient SSH timeout: same39339 live22m10s,87:47CPU,351.9%CPU; no restart. Timeout was observation-only.
+
+## Final production continuation, 2026-11-09T20:17:54.613883+00:00
+
+- [x] Started ONE root-css06-after07-612.py controller in tmux complex-css06-import612, PID22404 confirmed. Uses frozen relay599 and actual manifest611; waits successful stable07 receipt before guarded06 import. Existing590/592/576/591 remain untouched. Do not duplicate.
+- [x] Prepared final-support613 from528 preserving25 function bodies including resource/process ownership and cleanup. Only chapter checker changes:4K dimensions, encoder auto-thread counts normalized while every quality option remains exact; actual encoder string retained and must match across all15 finals. AST and bounded quality-drift/zero-thread refusal checks pass. No independent review or final runtime pass claimed.
+- [x] Prepared one-chapter final614 helper and serial controller615; all15 source/timeline/score bindings, original1078picture review551 and repaired379picture review610 required. Each chapter receives its own exclusive guarded job and4hour limit; no retries, existing jobs/inputs refused; actual terminal stable success required before next chapter. Full decode and exact schedules retained; final picture/master/audio/release review still required.
+- [ ] Started ONE tmux apportionment-final615; PID40705 confirmed hashing prerequisites, no admitted render yet at20:17UTC. Inspect actual log and receipts before claiming admission. Preserve all93 full Frederick recordings; no synthesis or time/pitch processing. Complex remains first for publication.
+
+## Complex chapter06 terminal success and export, 2026-11-09T20:14:37.204201+00:00
+
+- [x] CSS06 guarded final352 exited0 at20:07:49UTC, initial/final inputs e07a053c65b5e21e1ebb3913500bc657dbc91d7c0a56c8fef38bf7a61d995ba1, no resource stop. Actual export371 passed complete dependency closure;10030frames, movie SHA77759153561cce2523f7b2b4c567913d074959961aac16e455cd9c59bd930887.
+- [x] New css352-import371-06-one-derivative-manifest611.json SHA6b12cc889dbc15a39b0d88d068d5d819ab5699e10c644a2eff2a225554d5da0c created locally and staged byte-identically on CSS/CSD. No import started; prepared relay599 requires preceding01/04/12/14/08/07 imports. Existing590/592 controllers must not be duplicated.
+- [ ] CSD11 native22312 freshly live20:13UTC at1376%CPU; import576 guard386471 and stage591 controller399200 remain waiting. Mac09 final586 freshly live20:10UTC. Inspect actual terminal receipts and final pictures before assembly606/verification608/publication.
+- [ ] Four CC panes %0-%3 freshly checked20:14UTC: all weekly limited untilNov13 5amET. Preserved, no credits/account changes. Root continues production; independent review gaps remain open.
+
+## Repaired apportionment pictures reviewed, 2026-11-09T20:13:10.263130+00:00
+
+- [x] Guarded picture-review584 exited0, finished20:07:30UTC, identical initial/final inputs2905292c9995770c0ebfa28fbb968482edcad27132f141212700dfc41ddda8f9. All379 selected pictures on49 sheets actually viewed and all sample/sheet hashes verified. Evidence root-apportionment-picture-repair562/pictures-viewed610.json. Prior08/15 timer collisions and13 heading overlap clear in sampled pictures; near-edge ranking headings remain visible. No new concrete sampled layout defect.
+- [ ] Proceed to guarded final4K production after checking exact current dependencies and source bindings. Preview review is not final4K, continuous motion, listening, fine-sync or independent audiovisual acceptance. Preserve93 retained Frederick recordings and all attempts. Complex analysis remains first for publication.
+
+## Apportionment repaired preview completion, 2026-11-09T20:07:15.303324+00:00
+
+- [x] Guarded preview569 exited0 at20:06:21UTC, initial/final inputs identical59d6db55e1a2a59dca24aae0d4ec0b5420eb10aabae68ad4c3fbda72341014c4, no resource stop. Repaired08/13/15 all rendered and exact schedules checked.
+- [ ] Existing585 controller launched guarded picture-review584 ONCE, admitted with inputs2905292c9995770c0ebfa28fbb968482edcad27132f141212700dfc41ddda8f9. Extraction running; inspect actual terminal receipt and view every resulting sheet, especially timer/heading repairs. No repaired-picture acceptance yet.
+- [ ] Mac586 low-CPU instant investigated without restarting: same39339 accumulated23:59CPU by6minutes walltime and encoded file786480bytes, sample609 shows live task. Render still active, no resource stop or terminal success claimed.
+
+## Final verifier integration, 2026-11-09 20:03 UTC
+
+- [x] Preserved451; prepared csd-final-verify608.py pinned to master606 and exact native553/native521 routes. It re-runs606 full chapter gates against the frozen manifest and requires exact equality with master-summary records, including all rechecked dependency hashes. Native materialized records are checked explicitly; no invented render-summary files.
+- [x] AST comparison: only expected_worker451,source_job451,master350 changed;34 function bodies unchanged, including schedules,delivery347,film,picture_plan,frame_hashes,verify,plan_for,pictures,launch. Two actual native routing functions accepted correct identities and refused six changed kind/job/binary fields. Source evidence root-verifier608-checks.json.
+- [x] Staged608 CSD SHA a8845469c257bcd8505c20fd51cf5dcb2376efec1b1f683fdf3578e9b4ad2b61 and verified remote hash. Read-only check exits1 at missing master606/resource-receipt.json as expected; no verification/picture job launched, no positive runtime qualification claimed.
+- [ ] Once all actual chapter imports/reviews qualify, assemble606 manifest, run606 checks/master, then608 check/verify/overview/native pictures. Final media and listening/fine-sync/independent AV review remain open. Four CC panes still show weekly-limit prompts; preserved without enabling credits.
+
+## Assembly correction, 2026-11-09 20:00 UTC
+
+- [x] Found concrete unlaunched master597 defect: after native master execution, boundary summary still selected only kind boundary313; native553 would raise StopIteration. Gate596 also checked replay evidence but omitted capture_check_before_master from its output record, causing a subsequent KeyError.
+- [x] Preserved597/596. New combined-master606 selects exactly one chapter09 of boundary313/native553; root-boundary607-gate carries the already verified replay evidence and native571 preview capture binding. All33 other master function bodies unchanged. Actual selection AST checks: native/historical accepted; missing/wrong chapter/duplicate/wrong kind refused. Evidence root-master606-checks.json. No full runtime or independent acceptance claimed.
+- [x] Both new helpers staged on CSD and SHA verified: master606 7c8269fbd291352f4ef9a7828e3539b045f0414dada4870ddc00a057a7b5b163; gate607 9293391ff356226af4b7689a50a97308fa6c933b5d17870afafcdf7d53c8b2a1. NOT launched; wait actual imports and final picture review. Use606 instead of597 for eventual master.
+- [ ] Verifier451 still pins master447 and old09/10 render-summary schema. Adapt a preserved successor to606/native553/native521 with unchanged full decode/frame identity/caption/loudness/picture sampling gates before final verification. This is a concrete remaining integration task, not a finished verifier.
+
+## Verified progress, 2026-11-09 19:58 UTC
+
+- [x] Apportionment timeline567 terminal receipt: admitted, exit0, finished19:51:10UTC, initial/final input SHA fc0d7c4814700213b7ccb4811b17840bc21160cbfbceb10158e517ef48644873, no resource stop. Actual comparison567 records all15 chapters/45 normalized tables equal after narration-path-only change,100886frames,15score QA passed.
+- [x] Existing preview569 completed chapter08,6448frames,231.6seconds, exact technical schedule check; chapter13 now active. Two chapter08 lint findings still require actual repaired-picture inspection. Existing585 waits to extract all three repaired chapters; no duplicate work started.
+- [ ] Complex final586 native39339 live; CSD11 native22312 live; CSS06 native2719146 live. Existing576import guard386471 and591stage controller399200 remain waiting. No terminal success inferred from processes or elapsed time.
+
+## Current update, 2026-11-09 19:57 UTC
+
+- [x] Native chapter09 preview571 and pictures572 completed stable exit0; all 313 selected pictures on 40 sheets actually viewed. Previously truncated sheets31-35 redisplayed. No concrete sampled layout defect observed, including prior09_3 and09_7 anchors/persistence. Evidence: production-repair17/root-boundary572-pictures-viewed604.json, SHA e6b203d70ea7774a45a960d06976465c51c86769d6d18dc0fcf4ca9f259b7a88.
+- [x] Review604 copied and hash verified on mac-mini-max. Guarded mini-boundary-final586 launched ONCE; native PID39339 observed live rendering 3840x2160/60, CRF16 veryfast, four threads. Controller588 PID39432 observed live, waits for successful stable final before guarded full decode/pictures587. Do not duplicate.
+- [ ] Inspect actual final586/587 terminal receipts and all final pictures before import/master. Preview review is not final4K acceptance; continuous listening, motion, fine sync and independent finalAV remain open.
+- [ ] Local apportionment preview569 now running chapter08 after timeline567 dependency; inspect actual terminal receipt and resulting repaired pictures via existing controllers570/585.
+- [ ] Other active CSD/CSS jobs and queued imports retain all prior gates. Four CC workers remain weekly-limited at last verified check, not productive; no paid credits or replacement sessions launched.
+
 # Current production handoff
 
 Updated 2026-11-09T19:49:12.511350+00:00. This handoff supersedes older running-state and packaging notes below. Preserve every prior file, take, receipt and failure. No duplicate jobs; a timeout observing SSH is not a failed render.
