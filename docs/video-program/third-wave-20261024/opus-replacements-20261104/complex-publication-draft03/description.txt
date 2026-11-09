@@ -1,0 +1,55 @@
+The power series of the bump 1/(1+x²) works between −1 and 1 and falls apart just past 1, while the curve stays perfectly smooth. At x = 1.1 the series up to x⁴⁰ gives about 25, and the curve is below 1/2. The cause is off the real line: the function blows up at i and −i, one unit from zero.
+
+We build complex numbers from multiplication as a stretch and a turn, draw functions on two planes, and read them through domain colouring: hue for direction, brightness bands for size. A gallery runs from polynomials through sine, tangent, gamma and zeta to the Riemann hypothesis, still unsolved.
+
+A complex derivative must give the same answer from every direction. That gives the Cauchy–Riemann equations and makes each small piece of the map a stretch and a turn, so the map is conformal away from critical points. A derivative at one point buys almost nothing: |z|² has one at exactly one point. The strong results need a holomorphic function, one with a derivative at every point of an open region.
+
+Then we walk loops. Among whole powers of z, only 1/z survives a trip around a circle, and that leads to Cauchy's theorem and Cauchy's integral formula: the value at the centre of a circle is the average of the values on it, and every derivative there comes from those same values. The formula answers the opening puzzle and predicts a radius of √2 when the series is recentred at x = 1. The identity theorem and Liouville's theorem show how rigid holomorphic functions are, which smooth real functions are not.
+
+The argument principle reads zeros minus poles inside a loop from the turns of the output. We use it to count the one root of z⁵ − 3z + 1 inside the unit circle without finding it, and to prove the fundamental theorem of algebra with a walker and a dog on a leash. For programmers, a bound on how fast f can change makes the count certain. Residues then give two real areas: π under the bump, from the one pole at i inside a half-circle loop, and π/√2 under 1/(1+x⁴), from the two poles above the real line.
+
+Analytic continuation comes last. A function has at most one holomorphic extension to a given connected region, and there may be none: z + z² + z⁴ + z⁸ + ... cannot be continued across the unit circle anywhere. A continuation can depend on the path, as the square root and the logarithm do. It never makes a divergent series converge. 1 + 2 + 4 + 8 + ... has no sum, 1 + 2 + 3 + ... diverges, and the −1/12 often quoted for it is the value of the continued zeta function at −1.
+
+The film keeps the conditions on its main theorems. Cauchy's integral formula is used for a function holomorphic out to the circle and a little beyond; with the poles inside a circle of radius 2, the bump's average is 0. The identity theorem needs a connected region and a pile-up point inside it, which is why the zeros of sin(1/z) force nothing. Liouville's theorem covers bounded functions holomorphic on the whole plane. The argument principle needs a loop that winds once counterclockwise and passes through no zero or pole, with the function holomorphic inside except at poles, and its count is a net total.
+
+You should know what a function and a derivative are and have heard of i. The film stops for questions along the way. Both real integrals are worked through step by step. Cauchy's theorem, the residue theorem and the argument principle get the idea of the proof, and the identity theorem and Liouville's theorem are stated without proof.
+
+The logarithm's story has its own film: https://youtu.be/lgpTDROHgQY
+
+Chapters:
+0:00 A smooth curve whose series stops at one
+1:45 Numbers that turn
+3:14 Two planes
+5:15 Reading zeros and poles in colour
+7:08 A gallery from polynomials to zeta
+9:53 One derivative from every direction
+12:40 Why one point is not enough
+14:28 Walking a loop to Cauchy's theorem
+18:37 Cauchy's integral formula
+23:12 Rigidity: the identity theorem and Liouville
+25:16 The argument principle
+28:35 The residue theorem
+29:41 Real areas from poles off the line
+32:38 Analytic continuation and its limits
+35:54 Back to the bump
+
+Sources and further reading:
+NIST DLMF, Calculus of a Complex Variable:
+https://dlmf.nist.gov/1.9
+NIST DLMF, Functions of a Complex Variable:
+https://dlmf.nist.gov/1.10
+NIST DLMF, gamma function:
+https://dlmf.nist.gov/5.2
+https://dlmf.nist.gov/5.5
+NIST DLMF, zeta function:
+https://dlmf.nist.gov/25.2
+https://dlmf.nist.gov/25.6
+https://dlmf.nist.gov/25.10
+Howell and Mathews, Complex Analysis, section 8.7:
+https://complexanalysis.org/web/sec_argument-rouche.html
+Lacunary functions:
+https://en.wikipedia.org/wiki/Lacunary_function
+
+Visuals: native FrankenManim scenes.
+Narration: ElevenLabs Frederick Surrey, a synthetic voice.
+Music: procedural score generated in code.

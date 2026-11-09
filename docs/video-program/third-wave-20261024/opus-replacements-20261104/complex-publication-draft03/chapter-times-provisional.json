@@ -1,0 +1,162 @@
+{
+  "basis": "Successful timeline269 measured frame counts. Provisional publication timestamps: must match final master chapter boundaries and be sought on completed movie before publication.",
+  "script_sha256": "0bae7acb15f2f0453c8a25ba7110fedd65cf9156eba932143e08db7fdc8bfeee",
+  "chapters": [
+    {
+      "key": "01_the_bump",
+      "title": "A smooth curve whose series stops at one",
+      "token": "[T01]",
+      "frame_start": 0,
+      "seconds": 0.0,
+      "timestamp": "0:00",
+      "frames": 6311,
+      "timeline_sha256": "6149d6fa5e0e7086f1a61a727b0d9492bf32952815e378ffb82dd6cb973197ef"
+    },
+    {
+      "key": "02_turning_numbers",
+      "title": "Numbers that turn",
+      "token": "[T02]",
+      "frame_start": 6311,
+      "seconds": 105.18333333333334,
+      "timestamp": "1:45",
+      "frames": 5372,
+      "timeline_sha256": "d6786da2a0b27058798dba8f2c3428186dbeb10b01a4368150dc15981fac2a0d"
+    },
+    {
+      "key": "03_two_planes",
+      "title": "Two planes",
+      "token": "[T03]",
+      "frame_start": 11683,
+      "seconds": 194.71666666666667,
+      "timestamp": "3:14",
+      "frames": 7249,
+      "timeline_sha256": "98960c5350162890005782a7e254b5cac5cf1b38bcb0ff124012041d4db288cb"
+    },
+    {
+      "key": "04_reading_color",
+      "title": "Reading zeros and poles in colour",
+      "token": "[T04]",
+      "frame_start": 18932,
+      "seconds": 315.53333333333336,
+      "timestamp": "5:15",
+      "frames": 6774,
+      "timeline_sha256": "438587cb208d2bdf5fee9510ea2c7c57af7a1247d8a140e023f4edd9ce48edb4"
+    },
+    {
+      "key": "05_gallery",
+      "title": "A gallery from polynomials to zeta",
+      "token": "[T05]",
+      "frame_start": 25706,
+      "seconds": 428.43333333333334,
+      "timestamp": "7:08",
+      "frames": 9879,
+      "timeline_sha256": "df3cdeae1dab98a6b28cfde7ac2e30ae0a7242de9bda6ad9b0659fb10e52a260"
+    },
+    {
+      "key": "06_one_derivative",
+      "title": "One derivative from every direction",
+      "token": "[T06]",
+      "frame_start": 35585,
+      "seconds": 593.0833333333334,
+      "timestamp": "9:53",
+      "frames": 10030,
+      "timeline_sha256": "8abb0519b2945269f5def975e1adde7968905fab45f72b85b242dc4a11d0ca71"
+    },
+    {
+      "key": "07_one_point",
+      "title": "Why one point is not enough",
+      "token": "[T07]",
+      "frame_start": 45615,
+      "seconds": 760.25,
+      "timestamp": "12:40",
+      "frames": 6491,
+      "timeline_sha256": "5bbc64ab95fe36169b1dee002c6ddc8222a7c1bbb32758c8e812b66b42be97bb"
+    },
+    {
+      "key": "08_loop_sums",
+      "title": "Walking a loop to Cauchy's theorem",
+      "token": "[T08]",
+      "frame_start": 52106,
+      "seconds": 868.4333333333333,
+      "timestamp": "14:28",
+      "frames": 14959,
+      "timeline_sha256": "e2276be4d8b190bddf5c944e82c00c4b4febc6d65886142b890b99594ef64945"
+    },
+    {
+      "key": "09_boundary",
+      "title": "Cauchy's integral formula",
+      "token": "[T09]",
+      "frame_start": 67065,
+      "seconds": 1117.75,
+      "timestamp": "18:37",
+      "frames": 16504,
+      "timeline_sha256": "e05a6679f8105d7bec1647088c276d52871753770a3af4fbc99c3e3af5bffb76"
+    },
+    {
+      "key": "10_rigidity",
+      "title": "Rigidity: the identity theorem and Liouville",
+      "token": "[T10]",
+      "frame_start": 83569,
+      "seconds": 1392.8166666666666,
+      "timestamp": "23:12",
+      "frames": 7442,
+      "timeline_sha256": "99fd22e62d5c6e53104ec3c622135d0748c3dc68e375141d3da4a38114d5860b"
+    },
+    {
+      "key": "11_counting",
+      "title": "The argument principle",
+      "token": "[T11]",
+      "frame_start": 91011,
+      "seconds": 1516.85,
+      "timestamp": "25:16",
+      "frames": 11932,
+      "timeline_sha256": "29a3afd345fa3a376e5c163d5bf5e01267a866e2305bdd27c6413a5bab46807d"
+    },
+    {
+      "key": "12_residues",
+      "title": "The residue theorem",
+      "token": "[T12]",
+      "frame_start": 102943,
+      "seconds": 1715.7166666666667,
+      "timestamp": "28:35",
+      "frames": 3943,
+      "timeline_sha256": "d25e8b958cd32f2a233b38c293183f3d39b2d1502137c389c69ba49ff0d0dca7"
+    },
+    {
+      "key": "13_real_integral",
+      "title": "Real areas from poles off the line",
+      "token": "[T13]",
+      "frame_start": 106886,
+      "seconds": 1781.4333333333334,
+      "timestamp": "29:41",
+      "frames": 10641,
+      "timeline_sha256": "54995e05de124d1462cb9841ac0d14e6abbc351583c5743d2287ef24c44fd505"
+    },
+    {
+      "key": "14_continuation",
+      "title": "Analytic continuation and its limits",
+      "token": "[T14]",
+      "frame_start": 117527,
+      "seconds": 1958.7833333333333,
+      "timestamp": "32:38",
+      "frames": 11756,
+      "timeline_sha256": "2b3a5bff177889f00fb06871a8910d98babb4ac3c4636f50758c897cb11fbc99"
+    },
+    {
+      "key": "15_closing",
+      "title": "Back to the bump",
+      "token": "[T15]",
+      "frame_start": 129283,
+      "seconds": 2154.7166666666667,
+      "timestamp": "35:54",
+      "frames": 4379,
+      "timeline_sha256": "1d0532d139899817358b829a095ac31f258833fb61aef314f2a758be7e38ebc7"
+    }
+  ],
+  "final_master_checked": false,
+  "total_frames": 133662,
+  "fps": 60,
+  "total_seconds": 2227.7,
+  "logarithm_publication_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/publication-receipt01.json",
+  "logarithm_publication_receipt_sha256": "6fcfbc5c6a350f99e3eddd78d0df1a4f54792cdde97149e16ed8d82594de23a9"
+}
