@@ -1,0 +1,39 @@
+{
+  "utc": "2026-11-09T17:19:20.215706+00:00",
+  "movie_sha256": "9ef7ea9df7f2bff62a9e6c01ab221536d4a24045408a60216abab5b4f2c1f6d6",
+  "extraction_manifest_sha256": "768cf71e1c08ca22811fde91242b9a4a101ce38c5ef11108a9df3e147800e302",
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "selected_pictures_viewed": 113,
+  "observations": [
+    "Identity-theorem region/disks and separated text remain readable in settled samples.",
+    "Real-line trigonometric identity and smooth nonanalytic counterexample remain separated from explanatory text.",
+    "sin(1/z) color plate, accumulating zeros and excluded-origin explanation are visible; central zeros intentionally cluster.",
+    "Near-black transition frames at104.5s precede sin(z) plate fade-in; endpoint fade-out sampled.",
+    "No persistent concrete clipping or overlap identified in these selected540p pictures."
+  ],
+  "decision": "Native Mac preview picture check passes at selected-frame scope; permits preparing final render, not final4K acceptance.",
+  "open": [
+    "continuous motion review",
+    "listening",
+    "fine sync",
+    "independent final audiovisual review",
+    "final4K render and picture review",
+    "verify CSD10 still unadmitted before withdrawal to prevent duplicate final"
+  ]
+}
