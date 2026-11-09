@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-09T03:27:40.307175+00:00",
+  "attempt441": "admitted then exited1 stable c7dcd7ed; engine rejected new tmp ancestor group-write permission; preserved",
+  "repair": "chmod700 only new recovery root/jobs/work/tmp/cache; shared ancestors inspected755, unchanged",
+  "attempt442": {
+    "tmux": "jmev-gallery-ssd442",
+    "full_check_frames": 9879,
+    "frozen_files": 8937,
+    "includes_failed441_receipt": true,
+    "worker_sha256": "ce9baf6a922682ea5792ccbdb3758b68383e7e8e23e2e968a83d9136f9448429",
+    "controller_sha256": "6daf9713f10dad918a4b17c62202bd155ec25debeac2d51b5e6156ac2fa8fb49",
+    "started": true,
+    "admission_observed": false
+  },
+  "limits": "No final render success, listening, fine-sync, independent finalAV or release acceptance"
+}

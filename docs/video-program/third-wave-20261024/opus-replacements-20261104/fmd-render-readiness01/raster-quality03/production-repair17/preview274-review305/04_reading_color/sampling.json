@@ -1,0 +1,656 @@
+{
+  "movie_sha256": "8836b7e6d87b170d9cb7327fd51fd3e93fb7b5bfd2b2a89605d7cc1ed2d7e890",
+  "schedule": [
+    {
+      "kind": "timeline",
+      "sha256": "438587cb208d2bdf5fee9510ea2c7c57af7a1247d8a140e023f4edd9ce48edb4",
+      "equals_timeline269": true,
+      "equals_production_timeline21_after_path_mapping": true
+    },
+    {
+      "kind": "cues",
+      "sha256": "7581709f8c6972f6bf3c099cf05e25fc37d28dcccfd327e7bd6e24580b360a4c",
+      "equals_timeline269": true,
+      "equals_production_timeline21_after_path_mapping": true
+    },
+    {
+      "kind": "cuelog",
+      "sha256": "9f023f867686d1b96992761a10c35e01e6be99baabdb777c72c9ca5f8988873c",
+      "equals_timeline269": true,
+      "equals_production_timeline21_after_path_mapping": true
+    }
+  ],
+  "frames": 6774,
+  "fades": [
+    {
+      "id": "B1",
+      "why": "identity plate in, after sentence 1",
+      "frames": 72,
+      "repeat": 1,
+      "source": "reading_color.rs:221",
+      "start": 240,
+      "how": "chroma fit",
+      "exact": false,
+      "search": [
+        36,
+        1221
+      ],
+      "fit": {
+        "start": 240,
+        "score": 296.2836664483764,
+        "runner_up": 46.49209650686844,
+        "amplitude": 17.508130965673598,
+        "slopes": [
+          {
+            "play": "B1#1",
+            "slope": 17.508130965673598,
+            "t": 296.2836664483764
+          },
+          {
+            "play": "post:223",
+            "slope": -0.3964776837305213,
+            "t": -6.969622721583238
+          }
+        ]
+      }
+    },
+    {
+      "id": "B2",
+      "why": "closing plate leave, after the vector closing fade",
+      "frames": 30,
+      "repeat": 1,
+      "source": "reading_color.rs:438",
+      "start": 6744,
+      "how": "exact breath",
+      "exact": true,
+      "check": {
+        "score_at_anchor": 161.02906833615975,
+        "amplitude_at_anchor": 15.211875178974882,
+        "best_shift": 1,
+        "best_score": 198.3337639166589
+      },
+      "flag": false,
+      "end_check": "site end equals the timeline frame total 6774"
+    }
+  ],
+  "fade_flags": [],
+  "samples": [
+    {
+      "frame": 0,
+      "seconds": 0.0,
+      "chroma": 2.0,
+      "reasons": [
+        "First frame"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000001.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 36,
+      "seconds": 0.6,
+      "chroma": 2.0,
+      "reasons": [
+        "line:04_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000002.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 66,
+      "seconds": 1.1,
+      "chroma": 2.74003,
+      "reasons": [
+        "line:04_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000003.jpg",
+      "sha256": "11180e1a8d0b0144b1f999bc4bec98267adc4b651d4fcf2c41471dd85f9e30c2"
+    },
+    {
+      "frame": 96,
+      "seconds": 1.6,
+      "chroma": 2.74936,
+      "reasons": [
+        "line:04_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000004.jpg",
+      "sha256": "fe66d716bd3dcf6eb95a5b376d7324c96331e8143589122fe333e688c8e04b3a"
+    },
+    {
+      "frame": 156,
+      "seconds": 2.6,
+      "chroma": 2.74936,
+      "reasons": [
+        "line:04_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000005.jpg",
+      "sha256": "d9b2d251b81ad7bf4218bc6c27dfd26d2cd50e14231011ca0e993f5f79b8ffdb"
+    },
+    {
+      "frame": 237,
+      "seconds": 3.95,
+      "chroma": 2.74937,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000006.jpg",
+      "sha256": "1b3ec2aae4d70af698e8c668ff57290c04f86e187502ad8bde9c11125e4e418e"
+    },
+    {
+      "frame": 238,
+      "seconds": 3.966666666666667,
+      "chroma": 2.74937,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000007.jpg",
+      "sha256": "2cb2a08d2b8ee168b40917b07ae0f9cf79a3ae2956cd60d73c8bb727b71f62be"
+    },
+    {
+      "frame": 239,
+      "seconds": 3.9833333333333334,
+      "chroma": 2.88668,
+      "reasons": [
+        "Plate fade, frame before start: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)",
+        "Localization bracket, start and end +-3 frames: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000008.jpg",
+      "sha256": "e01a2e56fe3f8b26d64f15f3c99558efa9a810dbaefe18492af31a20121042b7"
+    },
+    {
+      "frame": 240,
+      "seconds": 4.0,
+      "chroma": 2.90255,
+      "reasons": [
+        "Plate fade start, ramp frame 1 of 72: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)",
+        "Localization bracket, start and end +-3 frames: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000009.jpg",
+      "sha256": "7a47103f53cbf1a66d86a1516c484d638fc256af0ea4c9cfec873929e2aaa2b3"
+    },
+    {
+      "frame": 241,
+      "seconds": 4.016666666666667,
+      "chroma": 2.92149,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000010.jpg",
+      "sha256": "7dd978176a1b2b543e157868686031dc2bce0ce201b4347d87566cc56d6b5b5c"
+    },
+    {
+      "frame": 242,
+      "seconds": 4.033333333333333,
+      "chroma": 3.05541,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000011.jpg",
+      "sha256": "5fe4cd9123a25e22fd8a153ba42f2b9dcd7ef7b5ba8501fc32fd49aa32768500"
+    },
+    {
+      "frame": 275,
+      "seconds": 4.583333333333333,
+      "chroma": 16.0312,
+      "reasons": [
+        "Plate fade middle, ramp frame 36 of 72: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000012.jpg",
+      "sha256": "2ce5eaa322906704c5ecf778df1cd0c8ec0f780987fbfe82c7ff7bba63edaf80"
+    },
+    {
+      "frame": 309,
+      "seconds": 5.15,
+      "chroma": 19.8069,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000013.jpg",
+      "sha256": "09886d0a3ee4a094617b157c49893c3437efcad266c0706115a3aa7a9eaf084c"
+    },
+    {
+      "frame": 310,
+      "seconds": 5.166666666666667,
+      "chroma": 19.809,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000014.jpg",
+      "sha256": "095f25ef24c7c4ab62287e55ed933ca601a71b1455f35490b59226f385c586df"
+    },
+    {
+      "frame": 311,
+      "seconds": 5.183333333333334,
+      "chroma": 19.809,
+      "reasons": [
+        "Plate fade last frame, ramp frame 72 of 72: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)",
+        "Localization bracket, start and end +-3 frames: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000015.jpg",
+      "sha256": "bbf09c061b5c3da1ea2b1ff37f5bfcce66e462e6b753ee82639a63db4e783345"
+    },
+    {
+      "frame": 312,
+      "seconds": 5.2,
+      "chroma": 19.7978,
+      "reasons": [
+        "First hold frame after plate fade: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)",
+        "Localization bracket, start and end +-3 frames: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000016.jpg",
+      "sha256": "3be29a60313f0982210359c1ec3c78171e199f163cef4464f1e45d8269ba8b6d"
+    },
+    {
+      "frame": 313,
+      "seconds": 5.216666666666667,
+      "chroma": 19.7922,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000017.jpg",
+      "sha256": "d4ab9cd16df903e121f0087ae51b563b9a32da2cb4943379540afbe23f95c40d"
+    },
+    {
+      "frame": 314,
+      "seconds": 5.233333333333333,
+      "chroma": 19.7824,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000018.jpg",
+      "sha256": "72c3b0da25039bb0557a0b698c70b2a7e3a134b10ae60540e09a22c1802fbc87"
+    },
+    {
+      "frame": 315,
+      "seconds": 5.25,
+      "chroma": 19.7717,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000019.jpg",
+      "sha256": "442420cbd193f190efb1c0355182c3c27defa3536783a34a2826398414e35cee"
+    },
+    {
+      "frame": 342,
+      "seconds": 5.7,
+      "chroma": 19.628,
+      "reasons": [
+        "Hold +0.5 s after plate fade (persistence): B1 painter.show(stage, 1.2)?; (reading_color.rs:221, in 1.20 s = 72 frames, cue 04_1, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000020.jpg",
+      "sha256": "3e244cfed62d2ea85819dfb2ab65003f58372897d0fc4ba06d5e1052d00bebea"
+    },
+    {
+      "frame": 1311,
+      "seconds": 21.85,
+      "chroma": 19.5566,
+      "reasons": [
+        "line:04_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000021.jpg",
+      "sha256": "b8c00b9f98fac770f3041f9997c73cbdd849cbfb07de4f5bc2d4f3803b19b8aa"
+    },
+    {
+      "frame": 1341,
+      "seconds": 22.35,
+      "chroma": 19.6035,
+      "reasons": [
+        "line:04_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000022.jpg",
+      "sha256": "634428e7d894b2e5dc28675cb35fcf3f693cb8483612121233fab4d5c98bdf7e"
+    },
+    {
+      "frame": 1371,
+      "seconds": 22.85,
+      "chroma": 19.6031,
+      "reasons": [
+        "line:04_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000023.jpg",
+      "sha256": "36dc2ed07689c73ac17e8dc35bbdf93d51378651193b7df9d87bad03a72d26a1"
+    },
+    {
+      "frame": 1431,
+      "seconds": 23.85,
+      "chroma": 19.6031,
+      "reasons": [
+        "line:04_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000024.jpg",
+      "sha256": "36dc2ed07689c73ac17e8dc35bbdf93d51378651193b7df9d87bad03a72d26a1"
+    },
+    {
+      "frame": 2264,
+      "seconds": 37.733333333333334,
+      "chroma": 16.9906,
+      "reasons": [
+        "line:04_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000025.jpg",
+      "sha256": "4e005059bf2f00a713bc253e7436c23d3c332753dc4bced68e06e1664098f4d3"
+    },
+    {
+      "frame": 2294,
+      "seconds": 38.233333333333334,
+      "chroma": 16.3729,
+      "reasons": [
+        "line:04_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000026.jpg",
+      "sha256": "ca5d604c6537b7d53f6a0095b95f8be266293cf8d1405361a4cd6dd052e09c9c"
+    },
+    {
+      "frame": 2324,
+      "seconds": 38.733333333333334,
+      "chroma": 12.3766,
+      "reasons": [
+        "line:04_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000027.jpg",
+      "sha256": "83ab75ed6fdc3a0ee7229cebe2960e288bffdd2cc7c59cdbf4a736fc6a01223f"
+    },
+    {
+      "frame": 2384,
+      "seconds": 39.733333333333334,
+      "chroma": 16.5439,
+      "reasons": [
+        "line:04_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000028.jpg",
+      "sha256": "216ac54ef5d6134425fc6189f704b8b117b8609a7d204d758b29d77c936b70b4"
+    },
+    {
+      "frame": 2958,
+      "seconds": 49.3,
+      "chroma": 16.6785,
+      "reasons": [
+        "line:04_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000029.jpg",
+      "sha256": "68b817cf88edbb0746c8963a24a07dfdbf877a33946874584fe50714ece73331"
+    },
+    {
+      "frame": 2988,
+      "seconds": 49.8,
+      "chroma": 16.6684,
+      "reasons": [
+        "line:04_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000030.jpg",
+      "sha256": "295599a3b64bc0aaa51dae5ee0cbcff362be92711e99fc66fea8d422890ac857"
+    },
+    {
+      "frame": 3018,
+      "seconds": 50.3,
+      "chroma": 16.6867,
+      "reasons": [
+        "line:04_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000031.jpg",
+      "sha256": "22814690941c5674db6c0bba7088b351dc77beac05ae71fb44470bc256a24cd2"
+    },
+    {
+      "frame": 3078,
+      "seconds": 51.3,
+      "chroma": 16.6761,
+      "reasons": [
+        "line:04_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000032.jpg",
+      "sha256": "bc84cbf3a33d0122082c17d6d8c83aa37e613356cdeb8a64026c8fca890c7e74"
+    },
+    {
+      "frame": 4332,
+      "seconds": 72.2,
+      "chroma": 15.7032,
+      "reasons": [
+        "line:04_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000033.jpg",
+      "sha256": "4968284a61ec77a913c58434fb0f3ca0473423894c1af855a5908f7cc5b6545f"
+    },
+    {
+      "frame": 4362,
+      "seconds": 72.7,
+      "chroma": 16.6305,
+      "reasons": [
+        "line:04_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000034.jpg",
+      "sha256": "568db6bf1e1488c202a6d1b277e964c9c68aadc8c20c94da88d2110d0c3feb6d"
+    },
+    {
+      "frame": 4392,
+      "seconds": 73.2,
+      "chroma": 12.4724,
+      "reasons": [
+        "line:04_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000035.jpg",
+      "sha256": "eaf66a999b868988169a6818772a612316f78257085045ecb968e5a2067074c6"
+    },
+    {
+      "frame": 4452,
+      "seconds": 74.2,
+      "chroma": 16.73,
+      "reasons": [
+        "line:04_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000036.jpg",
+      "sha256": "c17e0802d33b5ac2131ec54657ef55f349c5b3dafcbc47bd276ecc3bf59edcac"
+    },
+    {
+      "frame": 4824,
+      "seconds": 80.4,
+      "chroma": 16.565,
+      "reasons": [
+        "line:04_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000037.jpg",
+      "sha256": "82acbe25c4c60d2702a4ad6aee1d076e5ffdc684668e99b172c9004ae7a73961"
+    },
+    {
+      "frame": 4854,
+      "seconds": 80.9,
+      "chroma": 16.6026,
+      "reasons": [
+        "line:04_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000038.jpg",
+      "sha256": "c4cc454cb8c13ba95a60ec820916b75f6ccf422be0e522fff411d3c247b881a4"
+    },
+    {
+      "frame": 4884,
+      "seconds": 81.4,
+      "chroma": 3.64543,
+      "reasons": [
+        "line:04_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000039.jpg",
+      "sha256": "7944e88f665f0367156bee2b7406402adabeadb45fd2332fd8d0e8e63db5aabd"
+    },
+    {
+      "frame": 4944,
+      "seconds": 82.4,
+      "chroma": 2.78127,
+      "reasons": [
+        "line:04_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000040.jpg",
+      "sha256": "a5b40be47b902dc59101462c4c2cbdbb2c6a26072d8c2ee134620d514b24741a"
+    },
+    {
+      "frame": 5489,
+      "seconds": 91.48333333333333,
+      "chroma": 3.1901,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000041.jpg",
+      "sha256": "3ebd71ab1964d46063ecb006d2a539fc1c724f2a9f268727473b9c37d083c642"
+    },
+    {
+      "frame": 5519,
+      "seconds": 91.98333333333333,
+      "chroma": 3.18918,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000042.jpg",
+      "sha256": "f0d9754d7e4f7e65ded48ad3c909563c8ab046e4b4d21fb34073a4ecf6187b71"
+    },
+    {
+      "frame": 5549,
+      "seconds": 92.48333333333333,
+      "chroma": 3.187,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000043.jpg",
+      "sha256": "1e8e72aa49a60e3d314ef16ee46768279f6401cfac897dff7ca1b6554ee6148a"
+    },
+    {
+      "frame": 5609,
+      "seconds": 93.48333333333333,
+      "chroma": 3.18173,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000044.jpg",
+      "sha256": "dff435b7df193ba9c0ce8bc54b2bfff6bb59ff8455d105f6d4309a371769b91e"
+    },
+    {
+      "frame": 5804,
+      "seconds": 96.73333333333333,
+      "chroma": 3.15468,
+      "reasons": [
+        "line:04_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000045.jpg",
+      "sha256": "a286102e8092e06814f25545d3d36c60cfeaa0589c6f3a4112df929c31deab43"
+    },
+    {
+      "frame": 5834,
+      "seconds": 97.23333333333333,
+      "chroma": 2.91402,
+      "reasons": [
+        "line:04_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000046.jpg",
+      "sha256": "8d9c0f992507e8d3011f161ba581cf2cfd877eb811108d298bb1efc1dc722e18"
+    },
+    {
+      "frame": 5864,
+      "seconds": 97.73333333333333,
+      "chroma": 9.77252,
+      "reasons": [
+        "line:04_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000047.jpg",
+      "sha256": "9a47f1c82333d5be0c409fd2a08090a6fe4112510deb44b2f34d06afedb8078d"
+    },
+    {
+      "frame": 5924,
+      "seconds": 98.73333333333333,
+      "chroma": 17.2612,
+      "reasons": [
+        "line:04_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000048.jpg",
+      "sha256": "eea12a26e1a9dd874ff6d80503708edef6cdef9d7fa5b545cf0883e0386cbefb"
+    },
+    {
+      "frame": 6743,
+      "seconds": 112.38333333333334,
+      "chroma": 16.8415,
+      "reasons": [
+        "Plate fade, frame before start: B2 painter.leave(stage, 0.5)?; (reading_color.rs:438, out 0.50 s = 30 frames, cue 04_7, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000049.jpg",
+      "sha256": "1ce73b4ce06a3ff82ecb4faca5deb9077d57b39dd6c86e518eab3dde3c0d1cf9"
+    },
+    {
+      "frame": 6744,
+      "seconds": 112.4,
+      "chroma": 16.8436,
+      "reasons": [
+        "Plate fade start, ramp frame 1 of 30: B2 painter.leave(stage, 0.5)?; (reading_color.rs:438, out 0.50 s = 30 frames, cue 04_7, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000050.jpg",
+      "sha256": "8da1861b0bb8df437a88deba79b3d1d1984651a7625a1643e15fe9892f446ff1"
+    },
+    {
+      "frame": 6758,
+      "seconds": 112.63333333333334,
+      "chroma": 12.5353,
+      "reasons": [
+        "Plate fade middle, ramp frame 15 of 30: B2 painter.leave(stage, 0.5)?; (reading_color.rs:438, out 0.50 s = 30 frames, cue 04_7, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000051.jpg",
+      "sha256": "c6040db653f484c8202484e3921a0dd1e3e327e6fe5da151d03e1b7689ad24f9"
+    },
+    {
+      "frame": 6771,
+      "seconds": 112.85,
+      "chroma": 2.10449,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): B2 painter.leave(stage, 0.5)?; (reading_color.rs:438, out 0.50 s = 30 frames, cue 04_7, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000052.jpg",
+      "sha256": "816b4ec36b1684733e9fd9909186e474b618d8538f67823754a0039a55f9f8f4"
+    },
+    {
+      "frame": 6772,
+      "seconds": 112.86666666666666,
+      "chroma": 2.00118,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): B2 painter.leave(stage, 0.5)?; (reading_color.rs:438, out 0.50 s = 30 frames, cue 04_7, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000053.jpg",
+      "sha256": "8be59d6d04d5c626117be8a60521180093e70d113f9987e073d23d847c7f735d"
+    },
+    {
+      "frame": 6773,
+      "seconds": 112.88333333333334,
+      "chroma": 2.0,
+      "reasons": [
+        "Last frame",
+        "Plate fade last frame, ramp frame 30 of 30: B2 painter.leave(stage, 0.5)?; (reading_color.rs:438, out 0.50 s = 30 frames, cue 04_7, exact breath)",
+        "Fade-out end bracket, every frame (no reappearance): B2 painter.leave(stage, 0.5)?; (reading_color.rs:438, out 0.50 s = 30 frames, cue 04_7, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/pictures/frame-000054.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    }
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/sheet-0001.jpg",
+      "sha256": "4b642d249afa46fc5f0dfde93940d8d20f16354dac1c6459b51dcf55a38ac548"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/sheet-0002.jpg",
+      "sha256": "3c3776dabdbbe3c83aa44e0b5e928822ce0cb2b115b524dc7401086da2108bb8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/sheet-0003.jpg",
+      "sha256": "c9c930d0b58ea983c97cc445ef8e3cc7c5bff681a55e8109f70b1d8651166c81"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/sheet-0004.jpg",
+      "sha256": "d9d5f63031728dbbc2a5f53d9b5ab5779c79b7d876654307795682c24fe8e7c6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/sheet-0005.jpg",
+      "sha256": "3fd5f865853f4ae36af1dd45c93cf1d8d19ff12526e4c82392954c6ea14cf3f7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/sheet-0006.jpg",
+      "sha256": "ea84d5a9b4c5c41588c8e5ac60b699d66d8347e03d6871a718dd43c350bd6304"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/sheet-0007.jpg",
+      "sha256": "25ee9a429be99a35f5aa3c98e85b0b31bcbffae71cd694967bbc899c7fa60e1b"
+    }
+  ],
+  "scope": "Native 540p60 plate-fade preview extraction of build268; picks only. Actual viewing of every sheet, motion, 4K, listening, fine-sync and independent AV review still required; no picture or AV acceptance."
+}

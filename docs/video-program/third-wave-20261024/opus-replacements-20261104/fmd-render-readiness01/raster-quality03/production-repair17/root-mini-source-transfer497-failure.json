@@ -1,0 +1,10 @@
+{
+  "utc": "2026-11-09T05:45:31.694697+00:00",
+  "session": 71361,
+  "local_exit": 1,
+  "failure": "subprocess.TimeoutExpired after180seconds; ssh killed by subprocess.run timeout handler",
+  "remote_last_observed_pid": 40106,
+  "last_observed_source_allocated_kib": 4120,
+  "terminal_remote_state": "pending recheck",
+  "scope": "Partial source transfer, no build; preserve every existing file. No automated retry."
+}

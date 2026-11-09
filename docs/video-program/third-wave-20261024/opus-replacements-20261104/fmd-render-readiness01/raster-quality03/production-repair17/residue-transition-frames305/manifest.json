@@ -1,0 +1,1499 @@
+{
+  "movie": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview274-review305/preview/12_residues.mp4",
+  "sha256": "a78c20024c257eaa4783db80f9b99c23442fe67ac8f646e354e633074f842199",
+  "frames": [
+    2475,
+    2476,
+    2477,
+    2478,
+    2479,
+    2480,
+    2481,
+    2482,
+    2483,
+    2484,
+    2485,
+    2486,
+    2487,
+    2488,
+    2489,
+    2490,
+    2491,
+    2492,
+    2493,
+    2494,
+    2495,
+    2496,
+    2497,
+    2498,
+    2499,
+    2500,
+    2501,
+    2502,
+    2503,
+    2504,
+    2505,
+    2506,
+    2507,
+    2508,
+    2509,
+    2510,
+    2511,
+    2512,
+    2513,
+    2514,
+    2515,
+    2516,
+    2536,
+    2537,
+    2538,
+    2539,
+    2540,
+    2541,
+    2542,
+    2543,
+    2544,
+    2545,
+    2546,
+    2547,
+    2548,
+    2549,
+    2550,
+    2551,
+    2552,
+    2553,
+    2554,
+    2555,
+    2556,
+    2557,
+    2558,
+    2559,
+    2560,
+    2561,
+    2562,
+    2563,
+    2564,
+    2565,
+    2566,
+    2567,
+    2568,
+    2569,
+    2570,
+    2571,
+    2572,
+    2573,
+    2574,
+    2575,
+    2576,
+    2577,
+    2763,
+    2764,
+    2765,
+    2766,
+    2767,
+    2768,
+    2769,
+    2770,
+    2771,
+    2772,
+    2773,
+    2774,
+    2775,
+    2776,
+    2777,
+    2778,
+    2779,
+    2780,
+    2781,
+    2782,
+    2783,
+    2784,
+    2785,
+    2786,
+    2787,
+    2788,
+    2789,
+    2790,
+    2791,
+    2792,
+    2793,
+    2794,
+    2795,
+    2796,
+    2797,
+    2798,
+    2799,
+    2800,
+    2801,
+    2802,
+    2803,
+    2804,
+    3025,
+    3026,
+    3027,
+    3028,
+    3029,
+    3030,
+    3031,
+    3032,
+    3033,
+    3034,
+    3035,
+    3036,
+    3037,
+    3038,
+    3039,
+    3040,
+    3041,
+    3042,
+    3043,
+    3044,
+    3045,
+    3046,
+    3047,
+    3048,
+    3049,
+    3050,
+    3051,
+    3052,
+    3053,
+    3054,
+    3055,
+    3056,
+    3057,
+    3058,
+    3059,
+    3060,
+    3061,
+    3062,
+    3063,
+    3064,
+    3065,
+    3066,
+    3067,
+    3068,
+    3069,
+    3070,
+    3071,
+    3072,
+    3073,
+    3074,
+    3075,
+    3076,
+    3077,
+    3078,
+    3079,
+    3080,
+    3081,
+    3082,
+    3083,
+    3084,
+    3085,
+    3086,
+    3087,
+    3088,
+    3089,
+    3090,
+    3091,
+    3092,
+    3093,
+    3094,
+    3095,
+    3096,
+    3097,
+    3098,
+    3099,
+    3100,
+    3101,
+    3102,
+    3103,
+    3104,
+    3105,
+    3106,
+    3107,
+    3108,
+    3109,
+    3110,
+    3111,
+    3112,
+    3113,
+    3114,
+    3115,
+    3116,
+    3117,
+    3118,
+    3119,
+    3120,
+    3121,
+    3122,
+    3123,
+    3124,
+    3125,
+    3126,
+    3127,
+    3128,
+    3129,
+    3130,
+    3131,
+    3132,
+    3133,
+    3134,
+    3135,
+    3136,
+    3137,
+    3138,
+    3139,
+    3140,
+    3141,
+    3142,
+    3143,
+    3144,
+    3145,
+    3146,
+    3147,
+    3148,
+    3149,
+    3150,
+    3151,
+    3152,
+    3153,
+    3154,
+    3911,
+    3912,
+    3913,
+    3914,
+    3915,
+    3916,
+    3917,
+    3918,
+    3919,
+    3920,
+    3921,
+    3922,
+    3923,
+    3924,
+    3925,
+    3926,
+    3927,
+    3928,
+    3929,
+    3930,
+    3931,
+    3932,
+    3933,
+    3934,
+    3935,
+    3936,
+    3937,
+    3938,
+    3939,
+    3940,
+    3941,
+    3942
+  ],
+  "windows": [
+    [
+      2475,
+      2516
+    ],
+    [
+      2536,
+      2577
+    ],
+    [
+      2763,
+      2804
+    ],
+    [
+      3025,
+      3154
+    ],
+    [
+      3911,
+      3942
+    ]
+  ],
+  "pictures": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0001.png",
+      "sha256": "45028b95afddb983ba8af9c1427c532dcf05d480b183ee826d49f9c8fbe1568d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0002.png",
+      "sha256": "f192a180f900a9d6c9222aba0388fb919a7d4bf8088bc09bfad4ce36a95177d7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0003.png",
+      "sha256": "fcd42cea42998e0202668791a1b94abaa09d413f0e76a1f389fc68efd89d7a75"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0004.png",
+      "sha256": "3ae8866a391a2f26b6f4e21cc3c0df19e74eeff30d2eaa074586665255e3c30d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0005.png",
+      "sha256": "33d83a35f072918a2967a07cbd39cbf9b1eea7c7cee8418ebb4d1ea9f60f0dd0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0006.png",
+      "sha256": "70e0a8229ee9e6bffc48e280e682d184ef2860b210005ec188ad9db06e9dac6a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0007.png",
+      "sha256": "b8dbc5e9409f3dd4897d262e25368ae786cc57075269e0b691995c32d54db81c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0008.png",
+      "sha256": "e57b57d1003418dae8b592b2c27201e756ca67b25d6661a6e320a71df0b8fcc7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0009.png",
+      "sha256": "3d8a4d47b6fffac24b912fd2db6829fa1dd02932de22fcb6f03db83b22b2307f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0010.png",
+      "sha256": "cd0717c4110e2f623c5620fad8ba59d8755b38b1739901595b60b9ded75f5d3d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0011.png",
+      "sha256": "a5bf787f8678e66c45740e097b355488d725ce6d33963debf95525516ce3497e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0012.png",
+      "sha256": "a1fb270c0b30ddf71942994bbd30ba8fedd2b7c039031fa9afa134902329a23c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0013.png",
+      "sha256": "875401ac3abfa23971b351dc56268d1b71bf24a168f019f66c15b0212b4d5ea8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0014.png",
+      "sha256": "263add0677a86957d05135e69ef9633a8e487a0d76b4fc56d4bfbdb3af1656fd"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0015.png",
+      "sha256": "13badc3013501f650b1fd1d4277cf33061d4046d84e9d45aa2b4baecec30eaa9"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0016.png",
+      "sha256": "8dcb5b82533e2d065cbc8ecfcb5c39a0079bd2814a79f88ac9a260e6c9895ca8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0017.png",
+      "sha256": "6a42bd5ea08d0ac0a70a07e1f1292abfc28fd5873a5ffa65b4274a6907726646"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0018.png",
+      "sha256": "2380246a6e71f913e08c24c3d5058f3e20914eb4124853304a7f4a3069a8dc14"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0019.png",
+      "sha256": "07b46e8371b317600c1dbba2854d9b7e01cfeeaa058b7db6ca82ad1edd5d6547"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0020.png",
+      "sha256": "b59259bb9c82d4802e9f9287c4dddcb412324cc8457b81a6c5e4fa639160b53c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0021.png",
+      "sha256": "47488c78bc71e6ba5eeb9e632758c423d5bb746f5450302beb8995ba72fe7955"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0022.png",
+      "sha256": "be16f7d83bd8eff5814c19791293625f7f107603a6cfc3bc14c6ef462ea7e4d6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0023.png",
+      "sha256": "63a309a8d4a3302953eaed3f4645574ae0694987a66bc2c24ddad71dc9ad1159"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0024.png",
+      "sha256": "dfce03c14c3e0e6eab20efe9d7690e8f345a63bf60f656f186d9810b7b57e1bb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0025.png",
+      "sha256": "6b517ea28a2976d31c07fc0f1db7ff31774f17079e7097bc334f2dfb6ad5ae79"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0026.png",
+      "sha256": "f3eb9880e3823ce068ed1781e338e65927d9029564e713fb9b067c87897423a1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0027.png",
+      "sha256": "ab28bd7eda22a82d651f2a204481c9135660464ea39eaf4d8efb8a6a7f04331c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0028.png",
+      "sha256": "264bd1ab5cb17ed8017f2b4c2c23aca99149c82c0379dd6d5945ba679532a584"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0029.png",
+      "sha256": "563f403eafe62daa1fd3f5de6d8b0ffae9f3354a20df9d5405264009646e72d8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0030.png",
+      "sha256": "868b5be129dc21bb441ad1130de00207c345ef3f99597c84a3d4fccd0b7e531b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0031.png",
+      "sha256": "b81f322bc1e87709919437aba1753f95f7aca94c2ee88de06ffacb435eb5dd45"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0032.png",
+      "sha256": "c9b2a338bc5dc1eb78b9f683d57474bf2e38bc61cae9b4b34540b95ad5daee1f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0033.png",
+      "sha256": "24abd145eaa69c3a61457786d9c622fefb55ce3d80140d15e028b0f730d8c1da"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0034.png",
+      "sha256": "63b3030a72aa4ca109d88f5e9de4fb6079573549e12a4566f42307eb2dc7788a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0035.png",
+      "sha256": "5f56fb797f1d50b8165efe1d3f15d2ead8377a9c66f3d7c05544b56e759abb0d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0036.png",
+      "sha256": "a166c413606d29c40068e63f74014b822630a7adb54f75a4561bb046b4c0fad5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0037.png",
+      "sha256": "b65815d7472831aa6a93213de71717eaf216676f574b3f96124a57fe7e019551"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0038.png",
+      "sha256": "a38f02e8914bbbf79ca838fa4b7b7c6062dc19f11c7441b2a7cbc5a11116c6e5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0039.png",
+      "sha256": "1b46b4fde71f808d2553d010e8775f867b836e6e4aaa52ee3207fc0acf3db029"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0040.png",
+      "sha256": "097edf47cfe97b3ea92fd229c8e17f02ee3893766f08c5eea11c9a439676e95a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0041.png",
+      "sha256": "7400360765e7e716c866d45cc37b04ec6273603675f7e37c3a82f7e7ccf0e0da"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0042.png",
+      "sha256": "3d1cced89957ad02e5d74857c719401914c264b8413cfc5bc5bcfece53a26c9e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0043.png",
+      "sha256": "2479767818ad27fa1bd7a3b02330ad42cf582d4e04d38cfaed65dcf3c1c12056"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0044.png",
+      "sha256": "eb64f30dc80a48b891a76e6aec15f313ca236d93426e9c16acbfdfb18efcb87b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0045.png",
+      "sha256": "29e29750ec765507679130b2a6e493cae951e6c2553767f00305dcc073f50c34"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0046.png",
+      "sha256": "f606e776643b59fa194b0e0fbe7bafbb5ee9b5d34e8252f2ed82a850c304012d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0047.png",
+      "sha256": "57136cbebe763973f11aa17f6de759afcfce9306e28c07d328ab77f081841721"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0048.png",
+      "sha256": "5935954d5e3e65d41d36dac8e6997cd7531a740a7748837f84172370c2899740"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0049.png",
+      "sha256": "f686d971a416e02f4e27f9ec86ef6426e9d1352c8d20fb2b171f2ab3f7f71fa6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0050.png",
+      "sha256": "10332aebc924a472fbd463bf8bf2babf822e47b98705215dd5b865fbcdfd728a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0051.png",
+      "sha256": "00030c7cb95a4a31100dbb7fe1627c1d9db2bef8e6f497e9e932c1930a562367"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0052.png",
+      "sha256": "a612a01270e14815894e7ea28471ef7f7067f9d5be6aa4321f00f0abcab767d8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0053.png",
+      "sha256": "516023a9fdde143878edc625cbe17a4726793bac5643ee6eb0aacf747521e919"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0054.png",
+      "sha256": "6001a723bf2153eed8fb958d20ce3ec00704bd4ab133d2d7a64cd2af2a894a45"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0055.png",
+      "sha256": "1746b77a2240ecd3a43059fe9657c81e98a5b465fcd1a4b3607772c83f4e32db"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0056.png",
+      "sha256": "07f5c969be03f735ac9e2e5dc3659012f4805a47d5fd49631e698fe76004c1a9"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0057.png",
+      "sha256": "276012297037a88b407f6c2d11f2aa5d791f1b3f3da8920162a11f5133d3e657"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0058.png",
+      "sha256": "6f904f28aaa6474eb6e0520b0598d6e8617da035a609f5d0e4338e9f008ceba1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0059.png",
+      "sha256": "7c038b817cb06b48a79d74e6a4f9059577705c326f04feda2dbdd8afba387ee7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0060.png",
+      "sha256": "0d4ce575112184a9bf9acc9ce441274cd308e972c40a11d3938b80be9c587eea"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0061.png",
+      "sha256": "14b88cbe1caf735fadc0066231884d8147b07978b9a664107b9ed29ebe05df6e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0062.png",
+      "sha256": "7e6698da62afca40760708dd457e1282ac2a0283c16327c8f40dcedfdc635a54"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0063.png",
+      "sha256": "baad398c29cecb93d0248b8a172c91efbab199bc05ab8a805dc9a7cfd4a185c2"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0064.png",
+      "sha256": "530961c162b8f348e60adb50146d7bb0a718881237839ac976082b393f772205"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0065.png",
+      "sha256": "ef16f5abf4be5c2b35597e92443fbeccdcf964f18b7dc63559552e63742cfb27"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0066.png",
+      "sha256": "e06ca9683b351ad3d251880b38ccfc83841c9894985b6538de3bd377326b8600"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0067.png",
+      "sha256": "10ca3cc6ab35ad18201aaded95018c63f2052d01c101454fdf86f9f811755cc5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0068.png",
+      "sha256": "0789530142ff97cc200e4484eb31eaee8b63cb9e1041f17c2ef7474c3826089b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0069.png",
+      "sha256": "9ad084878ea6ffc32667b23f94b39f8b8d8bc22a6462fd1959f044248b1c1312"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0070.png",
+      "sha256": "8c5312615f0cb5c73c11f1c16d904e2dbcf0ced2de3ff93ed7dd2fca92dddabb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0071.png",
+      "sha256": "f3912f4a801d18a0b8d18e659c5ba5447d8e803d3e50fae697f64c621f1f65a4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0072.png",
+      "sha256": "35058503606323c1f8187e9364aa3222691b3cc25d936b5d6d4d3489fbff5fd9"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0073.png",
+      "sha256": "2894984727e4d1c775902be3b322353b7fd9b57af4c3bd605e4539c53b395737"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0074.png",
+      "sha256": "6b779d48c3c7ea1240b49af693e4dfc49d591c915309a2a135a880e407daaebc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0075.png",
+      "sha256": "835b9c3ac4eb9877a8c64a4e5ccedfc3d59ec453072cab1359508812bd7b6eef"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0076.png",
+      "sha256": "f3536896c7a4799166ae9cbd1ad7bd5f8a8d5f02e5a4fdda43ae73012e7e64a0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0077.png",
+      "sha256": "93a9c8e078995372ddad519266fa37b05c2a8c09cb324a312e439aa3d4219d90"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0078.png",
+      "sha256": "fe47924ec6ba7e54a5b5f29e6d3aee5de3da9fb52f0dc9d0ca2c3edd006e6dc8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0079.png",
+      "sha256": "8a09b743f3eeb200a22bdd935b81b9edf2bc33d12e42840ccf38716666d6d26f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0080.png",
+      "sha256": "8377afb0510f75ca459a54b4822abf5d2e812fb501cbb80ab5162e9145e24a41"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0081.png",
+      "sha256": "5ab3d3e38a258513748b77175dff1ac639bc1b341b854fdb701e0a56d38c2811"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0082.png",
+      "sha256": "55d54d60648b3654a7fae04db7e68cb3d872ac239dbf57e7dd1f88dfde354894"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0083.png",
+      "sha256": "f04e66a465bdcd8f90f6e4ac084f7178d7890a49507a812505fa1aa7b02aba39"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0084.png",
+      "sha256": "63cd42dd3d8e869e493e72716439c01ffc4deeba45d5c56b065af1d9231483cc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0085.png",
+      "sha256": "42fe683666e554c69572195779c73c3b4cacecb6cc648e34e68d5ec740362222"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0086.png",
+      "sha256": "6b0b6dc3e6d8307ee5ba79ea82bdf94a96e2f63ffa8eb05001e158abad47ef64"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0087.png",
+      "sha256": "0488b82ccb1695b316843b3949ab91ed3318193ddadfb38c3ec58951c58421bf"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0088.png",
+      "sha256": "4938b3adfe2f19de3910087d3cd059ec3fa7414b924c0bb76f1df2220b437ad3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0089.png",
+      "sha256": "4177f479c8f8bc1c7516cae0cd2b88f0d7d9c59ffb6abaed719af6a4c0053886"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0090.png",
+      "sha256": "fdb55c8449264528a5b4c010e416169d9499f0a9b6296e5379d4eaf7c56d6fee"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0091.png",
+      "sha256": "1dae4a01d4b9a0373148d569947483a3ce20306e1a1b8fc8a61b5e8be22d9949"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0092.png",
+      "sha256": "c500b6977333e100959413bc35fe69bc90c9fd266e4a2f0be4ddfc86b21b0225"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0093.png",
+      "sha256": "2e25168503b5f7cea83e46eaf86e3d89d4dab7ae0cb75dec302820621f6f42a4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0094.png",
+      "sha256": "b3aa83b4ad7e2cef331c8d39e9f2e94c93eedf5cc422959106b1238578bd00bb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0095.png",
+      "sha256": "8bdc0c42af9b9ac1592a692e74f230616a67a6c70bff1936ec23d5367e24d772"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0096.png",
+      "sha256": "5b2a7a33aa482ba5489beebbe523b4c0e5bfa529eef5c4b12afeab00d1612db3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0097.png",
+      "sha256": "1a1428c26a50c9030264752eb6aba3ca9215846ac9a7152f7960d9c551ee8cdd"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0098.png",
+      "sha256": "6b2543c807db6795bec3dd1cb8b7bf548b499fb63a1c1ba67c585e24ca2753ae"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0099.png",
+      "sha256": "0d5bb3f1c09d1c58772d2b0bf65cf220a16f9e18fc125991af18a2e73d1bdb7d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0100.png",
+      "sha256": "60fc45a81542267d81eb4f95225a8475fb9a33c85a0b01d6eb518af59e80364e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0101.png",
+      "sha256": "317f2975d82cf9c5ec623ebebd7d0b6183caa51bb5c914c7f8bb4f41b48dda20"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0102.png",
+      "sha256": "faa2cbcdf233faef51ff890ec7bedaa6b4791bc7196773715186a7bb2f18bd30"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0103.png",
+      "sha256": "29f72482d0e45f1cd90abe377bb5e89318e01193f4e589996b188d8eaf8becbb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0104.png",
+      "sha256": "97d64fc827a43e960498f86b2f03825f08aac75cceb2baeedc6e32077df243ae"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0105.png",
+      "sha256": "ce99839e519d644840d94cd5b658ca55cb07990d1a49980c70500b33c4456dd6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0106.png",
+      "sha256": "2eb0b220950758e91dfaf5e553d5e286e322a26d8f1da187aaac507db3762e48"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0107.png",
+      "sha256": "76128701da0c0c0a479ebe4ec9cac67f4cbb6ef9e1aaac944ec19f5a3b7e09be"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0108.png",
+      "sha256": "9c68196355f5c72b8b9ae0844521bff0128bebbb7b55686317a5d43866d81216"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0109.png",
+      "sha256": "05069d74570dfc9be8e485b41039cf05f44b4e83464a41a3154f6e329fff6d73"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0110.png",
+      "sha256": "208e2b336d6fe5188f4b390454da54cab168275dedc813494b23b7d276db5572"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0111.png",
+      "sha256": "c1dfb83e279103a7994404b297fe31f6e04d9b9761e4e8d741396546949c6768"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0112.png",
+      "sha256": "f0de4b4af0695ba9ef0bba0c7cb140847e607f0b8119ac7e651a2c43f486fdf0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0113.png",
+      "sha256": "befa77c33922ed939231b761e19a959f14e3e831e44efdc9419ed55d71e87802"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0114.png",
+      "sha256": "0a87f8c2c6bf67824730926ae26ea16486d66fb64272db7fff88acddf8c90bba"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0115.png",
+      "sha256": "4e817a986127b2310ada6b77930768d9ccae4634ead41bece4bd22ccd46a3692"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0116.png",
+      "sha256": "289204ba9b50cd6bb977d6fd34f59cfe0c30308168b4374dbd967d1fe86d70eb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0117.png",
+      "sha256": "7ff5c9c298019748b84737d22099ab1b793236dd8b65eaecdff17b47b81ac8b4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0118.png",
+      "sha256": "5185900d4854545c01afd0e24854fb0b0021e7ce2a78439634f4c28cf8a07f3f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0119.png",
+      "sha256": "f6667224262a3f9304d43c550b7e1d2ad42105dfb025beb56c822bf4b57f03ae"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0120.png",
+      "sha256": "36c8280a1ef9763f71b3caeb3a3dea7f793de0529c2fa35fecce2f3d5825f04f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0121.png",
+      "sha256": "eaaf8e97bd172fe480cee4d1ecdb8fff5d8fccd98d39b0489b7af1f6e1d173ad"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0122.png",
+      "sha256": "9d76bb6206ba1c22412c94ec0c07f3d42fa1f07d91f2c69e80009940d658b0d0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0123.png",
+      "sha256": "cbb1660ab2bf7db78818820331df9f0a911f44cf37402a058b5823e7f0b02bbf"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0124.png",
+      "sha256": "fa038ab15536a01f70e99eb4c01cc44f5fe62fb0cbc7fb83cf218851f39a1b00"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0125.png",
+      "sha256": "225c9089dc8fb841250fc28d3fac89e14ebe7f310c6eb54308ce7e372241dcf0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0126.png",
+      "sha256": "1691bd5ee995d7d3620c5b5f436eb00534383390a7856022fa5b0ea41480db73"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0127.png",
+      "sha256": "de141331f746e1bc67c36fd6efddc97e6b5b97405057297210257a8ed4540347"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0128.png",
+      "sha256": "96c0ee9d480774fff039c02db2e9a5324a56490f031e5948a7f4a766a35d117b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0129.png",
+      "sha256": "ef037507ddbaebd3fe90f76fe1d954ec6441ffab4d1e5437aabfc1ab590f5bea"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0130.png",
+      "sha256": "bbe87717192d782c783ec81629300380efb59c91f79015b23eb76f73f8a7a906"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0131.png",
+      "sha256": "a89b0a63b6c714c40fa530692438301c597724098aec05129f019ef38c75c53c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0132.png",
+      "sha256": "4bf05d991032dc9ad790e15158bcfe41f6eb3fa1f30732cfc74543a5a1496339"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0133.png",
+      "sha256": "08ebacc55f519eef79dd0ff91443620c8c3eea0d86beb2d0e2e83cd38a8d4d8e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0134.png",
+      "sha256": "6a64d5c45fce5cccdaf40088807b790c13d7ff47f744a79671239afca39570e8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0135.png",
+      "sha256": "0f45724fc104526e1a20eabad373fc94f22f201c653002aecacbdac2ca3fc45e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0136.png",
+      "sha256": "edb932f9d9fff8e3c4b6c08fb44ae9f4d342029ea1f8d8ade12b4359c535eaac"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0137.png",
+      "sha256": "3667627f1202e45f715df0312a6358bcdd0d5d1d4515b08a5f57985ef4024bf4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0138.png",
+      "sha256": "7d626c0d7ba22461178566ad92a0b46d93fb074773bc19471d50e1050e396328"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0139.png",
+      "sha256": "b8c95d2aff2bf1db1fb5f6e1aa008cd2b297fd99122da64f9d013d74810010d4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0140.png",
+      "sha256": "2d98c3f3ce9419b3105371357a309c9fd867b58ef83815ab5486c1a532ef6a9b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0141.png",
+      "sha256": "fbfbe65eb7e04b5adab4d28e317bd1166ec7c1b640b1e3d1f7ce8a92c943467e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0142.png",
+      "sha256": "6a5bab235ad368a861a157db42379e4ba5fe70c22e50af0be1d66d66e4ffe71e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0143.png",
+      "sha256": "476df8408d50bfee8f3f5f69406d7d586fcbc3029f05da5d68a2bb7088bf6aac"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0144.png",
+      "sha256": "ac6fcef21495ee51a9a6f45cb38547bd9913951b355b58d428b1c04dbd4b42c0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0145.png",
+      "sha256": "2a16691906c0e2773e37b95c43dc2cb414a9bb43f2bb508fa32563fad140d640"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0146.png",
+      "sha256": "1936a1f3f9859259f02ba29073c1e675981d247c3a2bff1e18d040fab89d5198"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0147.png",
+      "sha256": "4e1db84435c145f12753b79c71cb67413ba400cfb7e95900eaf87658795004d2"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0148.png",
+      "sha256": "9f08e7c42ab41a8b1bb29e636be00b8935648af817c5837336fcec4ebd2be12d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0149.png",
+      "sha256": "0237a41b9331669a13d2f9fedb0e7f04f05663b5bf653e555a56467a30f221a3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0150.png",
+      "sha256": "e258e26ffa2bf2320f21b43a56d55046d020039b6dc63ab9919e3e3ea8ad4cc0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0151.png",
+      "sha256": "2ccb953675cd63abb90144f6e66543384993cf7c92cae82bae3b1ed3eb3a3333"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0152.png",
+      "sha256": "561169d41dce106b9710999b26451190c238d79c9e457c40f6b11106bdee585a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0153.png",
+      "sha256": "3a9271abfb55744840e7ff2dfb0a837731275b1febb16f17e4ad9f54b06d21a2"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0154.png",
+      "sha256": "22bef76816b26d86bc52f11ef582de02e21e20d51021ada1b2d0141dbf750d19"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0155.png",
+      "sha256": "f68a78505c910038f977d6459f15632f97bdb0aa72c92d9676accdabf2cac4ea"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0156.png",
+      "sha256": "ff0adeb0650b222b1db3815aae98617d71d44dbf365424f6e2c19d5c8dcd651b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0157.png",
+      "sha256": "585611ab4bf9e4c89912a03622082987c3d58792e97ea066ec57cb8eb52236f3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0158.png",
+      "sha256": "d6d486f77306cb0e995629041fbb9535383ba1cb2ed95f751a781f756683748b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0159.png",
+      "sha256": "fb8dc196c1205071fc223aafaff53901e2c31229a4b99fc54fd15dcbb9f0cba6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0160.png",
+      "sha256": "50a12e4c468b8f3b44a0db9d208fcae54545c1c3c936ef041bae60b6e27bc5fe"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0161.png",
+      "sha256": "1e7bac5b7305a5745aace1c286582b81b9b9f8192be8ccc93ad7798b00bf1cbc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0162.png",
+      "sha256": "92c3477c03d3ea7b756e60a806c89695dc04c2963601a3b0ed632e084016eecd"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0163.png",
+      "sha256": "de9c7b8727e523bfbb487f9b6464047665b2238bd23ef331b499d47573f8fbe2"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0164.png",
+      "sha256": "4a99e2a4aa19507d80f2ef266417e13f63e5f6c0b534ce33503f75b4cfb353d1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0165.png",
+      "sha256": "b942eb0147de17e5b58eb56b41ba8a2b25eb3d79c3ced63e47426fe305d4514e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0166.png",
+      "sha256": "e5a7c47fdfef0df36394f37d219b0ad8e0a0d4895c9bd2301e635756f4380dfc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0167.png",
+      "sha256": "958661a0c992fa54e1c00c76c9791212840dfe046fec683eba76061ad76d1559"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0168.png",
+      "sha256": "6fd9a99d07ee408279f6ccc53ccda75f53c12020d5383b1a878f18b71706e275"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0169.png",
+      "sha256": "696635bd6d82f0e3697debc6d2937a0fdd68bddd37ba1dcd92efc538c7bdb0b6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0170.png",
+      "sha256": "972f73b37fc3a9c5e33e78de26094bf44b9b0e4e0abbf1726e117e1bf3ec4fc4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0171.png",
+      "sha256": "00d0d14b6d501e59bc5754c115bd1e14d3a68b4019c5a1b858fb71d482f9d513"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0172.png",
+      "sha256": "5d6922c82088b450bae35f44fe373007660bed665deb7375c3ca4574797c7f12"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0173.png",
+      "sha256": "605b6441dcb94a3c0ebe0134cec1a5c096c14a0e19cf10cb35020e22b2480eda"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0174.png",
+      "sha256": "ccce0cd32e09f341382c9c8879c4fefe0deaca1d9e6df68cceeb3ae27d7e27f6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0175.png",
+      "sha256": "b56c6deb5b51c2f9b11b261c0e08e31783cccce9269920449e514562b8cbc527"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0176.png",
+      "sha256": "451d4acaf253f4b518394ced82d174e563f4561bf9827fe1dc154985a2bc544b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0177.png",
+      "sha256": "8021b087fed8df5836184a31ad9519e91b125b5c567cb3b4b172caacd75e52b5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0178.png",
+      "sha256": "cbb145df357c41c66fb03a35a4f8c3dabe6ee2459591e22fbe2a4b0bf7fbb571"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0179.png",
+      "sha256": "f6b8bdd2058a37a44db68f06b879f6439c79422144bf4c041645403efd1a42cd"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0180.png",
+      "sha256": "a2e0701da5687562d109cbeb33bfe84d5c837e7ac344d8c7ffb0168c62cce1d1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0181.png",
+      "sha256": "9afcae5260a5457ef1eb9423a77e895dca2d5584aa25f7ef4ad01245a4218e2e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0182.png",
+      "sha256": "dbd5f47cc1501e35ab7f40f3d0694845369dedfa34ceef5c3a92b50fbe223977"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0183.png",
+      "sha256": "9bf60acc0efc9f9073162fc0abc875bce74fc423d64054d5242e628c96b12f3f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0184.png",
+      "sha256": "70a6d219cb8215f4b627ce8de141daf54f45c94954f87adab8c411b73b8bc684"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0185.png",
+      "sha256": "b769e97b0ef67cfc27628fa0038a2ac66b2c6be2656093f4438b20b987a4fe73"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0186.png",
+      "sha256": "f35a2b99c01528fb968b56ac97299917de1bfb78b7897e06debcb0a36a89e619"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0187.png",
+      "sha256": "260492af873b1695f09d9d7d69139e62f6d735257f2e2484fb198b180e41d4e4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0188.png",
+      "sha256": "3eb1dfa6fbab9f29373382df0c61736656773b732302d40d7e5f068603fd8664"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0189.png",
+      "sha256": "959db0007d7f28052d1ecbc4b4c0be6fcd7e6ba18457af53dde1d18754b67615"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0190.png",
+      "sha256": "1fcae013d64c2363a3d3e0aadfa3630af6a6a9e28304d4aa7959d107fbe30f08"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0191.png",
+      "sha256": "ac048327842b2d4f6d970594eb1e3c94b7437be222049ee405bfd1a8550416bb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0192.png",
+      "sha256": "14081f0266d153fde2a1e83eff8a93c2ae0fa14cf604ce8c940d91ad79f6f22b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0193.png",
+      "sha256": "4d00a06f29f7d0841dffe5292280199bda35a51c007fe94d3a6d317dd2721c5b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0194.png",
+      "sha256": "a9df7cb126bf1785b69cf6b9f516d622f19914126415a784a22d4457ff18a3ab"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0195.png",
+      "sha256": "cba0262702bc62559d59f05b9d522ccdd6efdf5889cf93b1c79995189c7d7e51"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0196.png",
+      "sha256": "4da2babbf63c54dd3fa6d81d8722cf78e818d987d40e431dcde35264d4327542"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0197.png",
+      "sha256": "fa2598a912c896fa17ee226c7e4cccc7707eee1a060dca1c57fe13758bfa9c89"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0198.png",
+      "sha256": "d3d5dc47629808512f5a88f3a1118e7fa2e8f56e12dc1c83bf722836adb63f3f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0199.png",
+      "sha256": "0f287bcbc5d7d51b0d3a3f6f3221a3dbc8b5ccf444d2b0dcd402ee86b1a1713f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0200.png",
+      "sha256": "633b54ef3bc19e40f7b011371b6ec4ba6f3777633d65190a33a88a8c74f78dbf"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0201.png",
+      "sha256": "22760d5988768fec181bfc77966e38324c68098674d5e511f9102bb467db0fd7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0202.png",
+      "sha256": "8d94b73fddfd7fe9e06b04cb56c9720d75feaea6b0e0a224416700c8b935a5f9"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0203.png",
+      "sha256": "8d94b73fddfd7fe9e06b04cb56c9720d75feaea6b0e0a224416700c8b935a5f9"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0204.png",
+      "sha256": "d7decea9b7cb7f9c1dc508a76e4084b0502f5029d0568edcc9df005ff9ce3eeb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0205.png",
+      "sha256": "029367c08f0d34ea228a8c2377d4697746d7823d15ac70a8f6edd19bedcf32aa"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0206.png",
+      "sha256": "98684e0f01fa113ca5bc28eb75c6b38bab470a65c54e69b69e2adc54b61e21de"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0207.png",
+      "sha256": "43163834fa49c62d711c4c9ef19a3e9b5aee2da60f423e59c2c7312b7f03bbf1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0208.png",
+      "sha256": "46595e30a7d412b71d30795113e3e3726da91844897df8c8edab7d7415b21b29"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0209.png",
+      "sha256": "a7c2fa78b12dc5d7d4ce314cef75341d0f9acd510b76b87adc356982fca046af"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0210.png",
+      "sha256": "0cb864b8ec55d0f90ef930ca7c97a31e84b4a1c102047232bf2315c6d1a52661"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0211.png",
+      "sha256": "bc11be5689bca6f335f697e28bd11ee479837a3cce8f6fb0842a2209b058e4be"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0212.png",
+      "sha256": "c82a9dcc69258815804eee6f9442533a43ac6d911ecb3b273bf773564ea0cc7e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0213.png",
+      "sha256": "52e59ccd8a69fc9e931da7bc3e96b29c29bdd6505cd41bf1d52bbda438e26079"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0214.png",
+      "sha256": "4d3eef46b4359ed4841fc9489798464e5112548f6820eb9dece5c14d2b6a3743"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0215.png",
+      "sha256": "c5f0f70f0359838ad0db729bb3c1ac73b8143c21b94c89ad911d35add7919876"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0216.png",
+      "sha256": "fc7b10afee282c3575613d123cd996c31ca0ade103cc704839f83b3518ad2f97"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0217.png",
+      "sha256": "8f5dd1f12b45c00b727cc5a3d694f6f39f00b6b89979e54e0f6960be0160bf81"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0218.png",
+      "sha256": "5bcf5a92fef14fc0594302064a734befcef0f4ac914b5e3aa8e183b21c18d4f6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0219.png",
+      "sha256": "8c333c1b15cd626b0ba8191d79d0e47b2621ad4aaf4ef9a4a94a52b2a686dab0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0220.png",
+      "sha256": "2f3118717f0c381e65735541f7f1075cba5d542071cae3647f33d7607a8d7c75"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0221.png",
+      "sha256": "97a87be7b342d6385de2e7ffb5ef31510102aa34be1bfa90c820536457a09f52"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0222.png",
+      "sha256": "48642788b19bad2672511822a5d2594ddd526c6a6778024eb2fe955f6f85dc41"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0223.png",
+      "sha256": "ed152a4e2f43e9f8b35e68ee98717a29a2bf5622ab49575b3753445331c2450f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0224.png",
+      "sha256": "bb88bb34f697ed862d286dbcdb981780a01feebf270fe7a2b1cf417f4bc39531"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0225.png",
+      "sha256": "2fb3d3258d4885504a84bf381569d8c2c55aa07c8e515572bc0ccb78ab6cee3b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0226.png",
+      "sha256": "cef563bbd74e80ef8053cd2b18d28044effb224d9ce5f1bf082464131a2e5a1a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0227.png",
+      "sha256": "aa33a2501f48d22455c3509a9e72da2bcfed5ce584e9ae728080539dbf28c22e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0228.png",
+      "sha256": "33dc404b4e19f77d31079246a758e40db0a8dbcae44e7e43d7ad7c04719b15d6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0229.png",
+      "sha256": "857286b26875de3e58ed0f44613c2c246b78104af65fd12207b20f261c0ac707"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0230.png",
+      "sha256": "879ad8fa4ab3cd7e7b09a41b1314deeb07798b439fdea40de091a6290bad642a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0231.png",
+      "sha256": "39996b48308e7fe49ca1eb7ae357a9160db4a615422a5090864c9c4664b41a45"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0232.png",
+      "sha256": "98ce4d81f6ae1da03177703f1c7885c739a950a4927b30dddc2aa95a2467c31a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0233.png",
+      "sha256": "bb3f71aa025f65794c4266cb3b06bae2449150f659fe60bf40f8e24749e9b073"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0234.png",
+      "sha256": "94ca65909a0cab4536d7afff5ace137e5371dfec33737b72c71830291541358a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0235.png",
+      "sha256": "ee04fd87d867260b8d84c0800637c0a3990ad8983e59b8b1218aa9b763b165c2"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0236.png",
+      "sha256": "5bdcb9f9b76e4ea805cab539a76db4d364487a11157fe7ab78001f31fc5b6dea"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0237.png",
+      "sha256": "065a4d4ed75b801f51b11382e099d26475b50c41c534d2bb7b73721f15c5dfd4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0238.png",
+      "sha256": "f2dcb6827678b96c332b5f849afd58c1d8eac1ea8c535c5d75b42ea64c4f868c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0239.png",
+      "sha256": "460fbf71f0737689b8ae3d518ea3381218043b700c7585508f32ddb02d981eb7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0240.png",
+      "sha256": "4118dcac72fe573640596befd2eff632cc7c543a3e7dabfd32853994f687c78d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0241.png",
+      "sha256": "ff9b146412bed538cb04b2604eb9496327f0f1c4333c62f0b08385503483afbf"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0242.png",
+      "sha256": "0f4b37fa110712e7a2f54f602684ec447bfed056ebb61267baee2444b9a4ef51"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0243.png",
+      "sha256": "5282bd88cdcdf4a6ff5f2de656923e9a169e5f79d70b5ea5dc4cf2ebd27737a1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0244.png",
+      "sha256": "be8bbb11bd90134a0ac9543321374c0e1d994a2f68665b3326506cea909b2b7d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0245.png",
+      "sha256": "da80b366f9abd614d68f74e0fae387fad97860218c52b8a5f84079b3bf832d52"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0246.png",
+      "sha256": "302a9e689f64289175391f75961b6292b91832cf58c200b7403eca1f7709c6c5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0247.png",
+      "sha256": "95ccf7d1b5d8ebda2df195d9769dad2817572d42ad1c991afe5197d29c2f53fe"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0248.png",
+      "sha256": "dad123728339f4df087907fe77bd4104bdedf08910eaac7746f5e65724c1252d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0249.png",
+      "sha256": "ebd6caa7ea7081cb63085d3c0feea35303b60a9d7db1eab6a6e4a24117295e2c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0250.png",
+      "sha256": "d95342f454b5fcad7d2d506d58d5e01d760d299796a0782e1bed893bc0c428c1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0251.png",
+      "sha256": "5ffd98c361796232528d8575187473ae8f50df8f4c10e06ead374bfb42b6ded5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0252.png",
+      "sha256": "fbc5581f5160d790f9e499129a1123958ab485c2a87aaed081ef922a7650b288"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0253.png",
+      "sha256": "7a11b194c0a6f69c8235ab5065e4da68d5d6bdf0b69e7df9a56d0a25881c85f7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0254.png",
+      "sha256": "61cfcc537cdf18166569074180c1300956b3aefd4b945c66b09a0e209a726dcc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0255.png",
+      "sha256": "cae45d93b60ffb8411cba52686715a1aab823dcf6f173074cdbc0553db20d313"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0256.png",
+      "sha256": "e66adb8b5e90aa48ff73d39e25ba09a531d42558593366990dfb10d03ae16661"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0257.png",
+      "sha256": "e3a65b13943053ff319b8d99f63ae3af033fd7f06be5ce2cd11efd73f66c4c26"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0258.png",
+      "sha256": "7a501796a91298146146185c576f37dd60e5115decfbc0b4d1cafba7955d54cf"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0259.png",
+      "sha256": "2de3261c1b66cb04bc2bfaaaab0f54e07b6174b52ecd62680112287890e2ea79"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0260.png",
+      "sha256": "3b5c30384512cf1ed86ea101c12ceb8587da8729208df8fbbadb10d5d62f9a8f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0261.png",
+      "sha256": "fab4d1896e3c18b03d694eb74bc4e26fb31f86d4dc9115ee871dd8fe250d3834"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0262.png",
+      "sha256": "3c511c2537b6d6a27b76337a98ace34a9dde4599c689dba529ede50a49f26715"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0263.png",
+      "sha256": "2c95f53842bf9a2c3da525063a166d60b08bcc351d31eb7c2966de3f34c4aa4a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0264.png",
+      "sha256": "2a7ac1b5c9b87dcb8e14c9cb0a3af32f952fe8c2111dcd3913f3ba014316e75a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0265.png",
+      "sha256": "bb348bb39c8fc14dbe357232e42c8ae54313512c915d5b40120de10ae60d2c07"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0266.png",
+      "sha256": "1d5fe56cf7ee0536a823da14578a633b36195b76b1f142fbed004e00fa383597"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0267.png",
+      "sha256": "d956c8774d403a6d2702f2396019e5391acf1571a2e34323eae72b865e919d5c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0268.png",
+      "sha256": "0eb8b7c5849a869d8878ba00626c22ee52b0fd7d3c37f1be7f15219179888deb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0269.png",
+      "sha256": "b24eef9602eb48721ebe55c974d213adac2808a040859155d7bfd59c07f0aede"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0270.png",
+      "sha256": "35a03220e8bd210280e2a736d69f9c988acfb62ac80c11dcc0857d36acec8dcd"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0271.png",
+      "sha256": "6ae2f0b4a4f5dfca909c4e54d876158beeba405e9ab8cb935655ef9295b74e9c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0272.png",
+      "sha256": "d0176a063de04babe30135698f8b6bf24c20e8daef347d23fb7bd7281ef1cbe5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0273.png",
+      "sha256": "55cfa80cdcaa56a89cd17a322b866f127ec1248280b9a157ab8a87b74346abbc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0274.png",
+      "sha256": "bca1c9cf4f8bddc44a3e5b80b55d06d12734501958d1ac0d7af7bf2c2cf786c3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0275.png",
+      "sha256": "fbf320fa623825a30e027ccb45eeb714b18d2ae6cf03515f413463ae146c4527"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0276.png",
+      "sha256": "61bb56f39a9e7f0a741afe90c2f5c49518eef43bedf8defa956a8562a6274cf3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0277.png",
+      "sha256": "48daaf5f59143cb535f8b0f84c028b1a7b648c4cdd786244e7f92d88bdb94ee1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0278.png",
+      "sha256": "4cb45aa27886c023f9bd0bafea15f12a05fc0277a17441639ef771be84ee2479"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0279.png",
+      "sha256": "6c3d36d92d9709403c716924c45243117c19cd7bc4f73c1386bb6dfeb122a376"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0280.png",
+      "sha256": "caab65049f3821395550131338023739cdb5211b978a56adf940810d51313c74"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0281.png",
+      "sha256": "98211b7b63c1762a2fdd028bcac125674f8908125e598a4a72bc75faf86af57c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0282.png",
+      "sha256": "ecb120b213e8eb4099014255627b3b1cb3c4372eb19c7cf514893d9cafb73c39"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0283.png",
+      "sha256": "d2ca74d46892bcc1a216b3cc0ea38478e4d4a946448138af64274e839a48b22f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0284.png",
+      "sha256": "7b37b48876d091db63f2d9b7c743d6f2d836f7334884ecfb821bdae40a552667"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0285.png",
+      "sha256": "eec5f28521ac75cfbd662ac94f86e27f4365b61b8e3ec5a6f6f7d8a61e721789"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0286.png",
+      "sha256": "325480c6db0aa6de51b54af5592ac801bf45f8424e3b0a6b05e37999aaba48c3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0287.png",
+      "sha256": "7ade0c0b32ce487bf11b34088ad6fd2fc73335cb67ef4e5659b8f80d028f5fae"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/0288.png",
+      "sha256": "d7decea9b7cb7f9c1dc508a76e4084b0502f5029d0568edcc9df005ff9ce3eeb"
+    }
+  ],
+  "sheets": [
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-001.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-002.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-003.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-004.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-005.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-006.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-007.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-008.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-009.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-010.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-011.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-012.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-013.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-014.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-015.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-016.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-017.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-018.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-019.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-020.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-021.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-022.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-023.jpg",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/residue-transition-frames305/sheet-024.jpg"
+  ],
+  "decode_exit": 0,
+  "viewed": false,
+  "scope": "Every encoded frame in named windows; still-sequence inspection, no audio or real-time playback claim"
+}

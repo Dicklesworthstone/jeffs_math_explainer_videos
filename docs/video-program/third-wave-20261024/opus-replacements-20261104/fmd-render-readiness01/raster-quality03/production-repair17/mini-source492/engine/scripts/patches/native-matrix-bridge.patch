@@ -1,0 +1,99 @@
+--- a/crates/fmn-python/tests/bridge.py
++++ b/crates/fmn-python/tests/bridge.py
+@@ -13824,16 +13824,16 @@
+     assert str(error) == "matrix must be an iterable of row iterables"
+ else:
+     raise AssertionError("Matrix(None) did not raise its named TypeError")
+-for unsupported_matrix, expected_text in [
+-    ([[1 + 2j]], "complex entries"),
+-    ([[manimlib.Circle()]], "VMobject entries"),
+-]:
+-    try:
+-        matrix_module.Matrix(unsupported_matrix)
+-    except NotImplementedError as error:
+-        assert expected_text in str(error)
+-    else:
+-        raise AssertionError("an unsupported Matrix entry silently succeeded")
++native_complex_matrix = matrix_module.Matrix([[1 + 2j]])
++native_complex_cell = native_complex_matrix.get_entries()[0]
++assert isinstance(native_complex_cell, manimlib.DecimalNumber)
++assert native_complex_cell.get_value() == 1 + 2j
++assert native_complex_cell.get_tex() == "1.00+2.00i"
++native_shape_cell = manimlib.Circle()
++native_shape_matrix = matrix_module.Matrix([[native_shape_cell]])
++assert native_shape_matrix.get_entries()[0] is native_shape_cell
++assert native_shape_matrix.get_row(0)[0] is native_shape_cell
++assert native_shape_matrix.get_column(0)[0] is native_shape_cell
+ try:
+     matrix_module.TexMatrix([["x"]], tex_config={"template": "legacy"})
+ except NotImplementedError as error:
+@@ -17889,9 +17889,8 @@
+     raise AssertionError("ShowCreationThenFadeOut accepted None")
+ 
+ # fm-5wq.4.108: Matrix.element_to_mobject complex entries route through
+-# DecimalNumber — the fm-5wq.4.80 degenerate reductions render natively,
+-# a general complex entry inherits BN-08's named refusal, and nothing
+-# falls through to Tex(str(...))'s "(1+2j)" spelling.
++# DecimalNumber for both degenerate reductions and general complex values.
++# Nothing falls through to Tex(str(...))'s "(1+2j)" spelling.
+ complex_entry_matrix = matrix_module.Matrix([[1.0]])
+ complex_entry_real = complex_entry_matrix.element_to_mobject(complex(1, 0))
+ assert isinstance(complex_entry_real, manimlib.DecimalNumber)
+@@ -17903,14 +17902,12 @@
+ assert complex_entry_imag.get_value() == complex(0, 2)
+ assert any(child.has_points() for child in complex_entry_imag.submobjects)
+ 
+-try:
+-    complex_entry_matrix.element_to_mobject(complex(1, 2))
+-except NotImplementedError as error:
+-    assert "BN-08" in str(error), error
+-else:
+-    raise AssertionError(
+-        "a general complex matrix entry was rendered silently"
+-    )
++complex_entry_general = complex_entry_matrix.element_to_mobject(complex(1, 2))
++assert isinstance(complex_entry_general, manimlib.DecimalNumber)
++assert complex_entry_general.get_value() == complex(1, 2)
++assert complex_entry_general.get_tex() == "1.00+2.00i"
++assert len(complex_entry_general) == len(complex_entry_general.get_tex())
++assert complex_entry_general.family_members_with_points()
+ 
+ # The non-Matrix negative stays the existing named TypeError.
+ try:
+@@ -20344,7 +20341,7 @@
+ # file_name_to_svg_string routes through the governed reader: content or a
+ # typed refusal, never a silent substitute.
+ _read_back = _svg_family.file_name_to_svg_string(
+-    "/data/projects/franken_manim/crates/fmn-python/tests/chisel_sample.svg"
++    str(pathlib.Path(__file__).with_name("chisel_sample.svg"))
+ )
+ assert "<svg" in _read_back
+ try:
+@@ -21178,18 +21175,15 @@
+ _imag = manimlib.DecimalNumber(complex(0, 2.5))
+ _check("imag-only construction value", _imag.get_value() == complex(0, 2.5))
+ _check("imag-only num string", _imag.num_string == "2.50i")
+-_general_refused = False
+-try:
+-    manimlib.DecimalNumber(complex(1.0, 2.0))
+-except NotImplementedError:
+-    _general_refused = True
+-_check("general complex refuses by BN-08 name", _general_refused)
+-_switch_refused = False
+-try:
+-    manimlib.DecimalNumber(1.0).set_value(complex(0.0, 1.0))
+-except NotImplementedError:
+-    _switch_refused = True
+-_check("real display refuses imaginary switch", _switch_refused)
++_general = manimlib.DecimalNumber(complex(1.0, 2.0))
++_check("general complex composes native readouts",
++       _general.get_value() == complex(1.0, 2.0)
++       and _general.get_tex() == "1.00+2.00i"
++       and len(_general) == len(_general.num_string))
++_switch = manimlib.DecimalNumber(1.0)
++_check("real display can become imaginary",
++       _switch.set_value(complex(0.0, 1.0)) is _switch
++       and _switch.get_value() == 1j and _switch.num_string == "1.00i")
+ 
+ _grow = manimlib.DecimalNumber(1.0, num_decimal_places=2)
+ _family_before = len([sm for sm in _grow.get_family() if sm.has_points()])

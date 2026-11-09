@@ -1,0 +1,340 @@
+{
+  "tables": [
+    {
+      "chapter": "01_the_bump",
+      "kind": "timeline",
+      "old_sha256": "d6ddcc1ffb9991be25d2f44d8bf554f2c56695e84acc3733d034961e0826d764",
+      "new_sha256": "6149d6fa5e0e7086f1a61a727b0d9492bf32952815e378ffb82dd6cb973197ef",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "01_the_bump",
+      "kind": "cues",
+      "old_sha256": "e7fea540de13ec0b72077e8d43e9d3dfecdf0ad92ab8c628f19845e7fe41561b",
+      "new_sha256": "e7fea540de13ec0b72077e8d43e9d3dfecdf0ad92ab8c628f19845e7fe41561b",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "01_the_bump",
+      "kind": "cuelog",
+      "old_sha256": "45c44d9db6cebfaf0f9a424c73b6350d4b0a9537647f92f07923dea4ce4c4673",
+      "new_sha256": "101722b4b6cf31284d9e3a2d18329877b91169821320115d0c7984f6a96fcc09",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "kind": "timeline",
+      "old_sha256": "cf6531fcb050fa1b43c3f8334ac0aa9c8169eac50dc18176ab0225cf99ae4c3f",
+      "new_sha256": "d6786da2a0b27058798dba8f2c3428186dbeb10b01a4368150dc15981fac2a0d",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "kind": "cues",
+      "old_sha256": "97102b8f71bd574d3ed6d96698edc3efeadc5c4fb0b1bdbef14c623386e299fc",
+      "new_sha256": "97102b8f71bd574d3ed6d96698edc3efeadc5c4fb0b1bdbef14c623386e299fc",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "kind": "cuelog",
+      "old_sha256": "737362e7f8212ce33b29468f0ace51cf4dce27ce34d38450e6bb0998db24d487",
+      "new_sha256": "bec825e4271cf37c65c41708afa7cb1d857eecb3f89aefc2a135f618e3d0a1da",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "03_two_planes",
+      "kind": "timeline",
+      "old_sha256": "13f8cd117082ec0b82427de1aca576670cb2492476db6bf08e75ef9fd47cae54",
+      "new_sha256": "98960c5350162890005782a7e254b5cac5cf1b38bcb0ff124012041d4db288cb",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "03_two_planes",
+      "kind": "cues",
+      "old_sha256": "dc3c4311e5914349fe832277c6eef4e531173621b3a962d2be4a46173e0c1322",
+      "new_sha256": "dc3c4311e5914349fe832277c6eef4e531173621b3a962d2be4a46173e0c1322",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "03_two_planes",
+      "kind": "cuelog",
+      "old_sha256": "2b498f8f447c0270ae154006d008ae707c77a0725ca77411cba056f61a202574",
+      "new_sha256": "ac297affef35bbbc7e73f6fefced5045d2e3e7e91bce3f5b5e4867d3c3b9e41f",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "04_reading_color",
+      "kind": "timeline",
+      "old_sha256": "2bb6d0fcb0cc9a90dd1435fb3a97b34385e1108cff7db7c42ba4a8c9606df280",
+      "new_sha256": "438587cb208d2bdf5fee9510ea2c7c57af7a1247d8a140e023f4edd9ce48edb4",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "04_reading_color",
+      "kind": "cues",
+      "old_sha256": "7581709f8c6972f6bf3c099cf05e25fc37d28dcccfd327e7bd6e24580b360a4c",
+      "new_sha256": "7581709f8c6972f6bf3c099cf05e25fc37d28dcccfd327e7bd6e24580b360a4c",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "04_reading_color",
+      "kind": "cuelog",
+      "old_sha256": "b181facad7a72f9f400009d1613b94f52250810741917d1846acf0a09297582f",
+      "new_sha256": "9f023f867686d1b96992761a10c35e01e6be99baabdb777c72c9ca5f8988873c",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "05_gallery",
+      "kind": "timeline",
+      "old_sha256": "be2691b3ed37664dcd66f7fef7778718bff89a18064b22d8fca51919433d525d",
+      "new_sha256": "df3cdeae1dab98a6b28cfde7ac2e30ae0a7242de9bda6ad9b0659fb10e52a260",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "05_gallery",
+      "kind": "cues",
+      "old_sha256": "19f9713f25a37f9b82074d3e1024a1e634bccc505573a2ccc5de176f803196c3",
+      "new_sha256": "19f9713f25a37f9b82074d3e1024a1e634bccc505573a2ccc5de176f803196c3",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "05_gallery",
+      "kind": "cuelog",
+      "old_sha256": "90851d1950a22fa9edd75e9136c3770426f13e7435b69e44ce675a97c8377f20",
+      "new_sha256": "9e00d8193497584700817fc3e64e2bf33c48d80b47cf3d03828af60c4ee6d9c3",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "06_one_derivative",
+      "kind": "timeline",
+      "old_sha256": "dbc82d8481d8f511ae404c5f3eeff517c2540c9b8330ca2cfb5b8d7c83e6412d",
+      "new_sha256": "8abb0519b2945269f5def975e1adde7968905fab45f72b85b242dc4a11d0ca71",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "06_one_derivative",
+      "kind": "cues",
+      "old_sha256": "ee8eb35a2d8621e5cb0ba6d3c6d3cbe6e844c5cce9b8199113388fa20da2d853",
+      "new_sha256": "ee8eb35a2d8621e5cb0ba6d3c6d3cbe6e844c5cce9b8199113388fa20da2d853",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "06_one_derivative",
+      "kind": "cuelog",
+      "old_sha256": "91f5695913803d174038e749b85bb607a378622132c4b36566fbd91418982810",
+      "new_sha256": "9c0e22d3de947a159884511c2d6ce8e18ad1a2aa3d4dd40d6fd9ea142f9491c8",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "07_one_point",
+      "kind": "timeline",
+      "old_sha256": "c2e3c183019525c01aca2dc376c61d4eaab72c10f4b23f44ea184c1d44bd3f3c",
+      "new_sha256": "5bbc64ab95fe36169b1dee002c6ddc8222a7c1bbb32758c8e812b66b42be97bb",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "07_one_point",
+      "kind": "cues",
+      "old_sha256": "ea5cf40807968d38f9e6d0faa8395afaa72aba292ae1589dbc6379ddff54a68a",
+      "new_sha256": "ea5cf40807968d38f9e6d0faa8395afaa72aba292ae1589dbc6379ddff54a68a",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "07_one_point",
+      "kind": "cuelog",
+      "old_sha256": "42eb81c3601f4df75a993e334bf936a8812d1ada8bd921743cd295f942526eab",
+      "new_sha256": "22a0e73f3525f25d7ed75f73fbf0ffc02bc1a1f6ebda5353cb9ef39c1261fbf9",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "08_loop_sums",
+      "kind": "timeline",
+      "old_sha256": "fed5faea5359e1c149030b42a5b2d37a706618d1d868b6e4048a4767e1de58cc",
+      "new_sha256": "e2276be4d8b190bddf5c944e82c00c4b4febc6d65886142b890b99594ef64945",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "08_loop_sums",
+      "kind": "cues",
+      "old_sha256": "1beae064b4b1a8115a70180d92740299195fd6cc55b68cebcdbd97ace8e127d3",
+      "new_sha256": "1beae064b4b1a8115a70180d92740299195fd6cc55b68cebcdbd97ace8e127d3",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "08_loop_sums",
+      "kind": "cuelog",
+      "old_sha256": "cadf1d0cfcd98fa388c893f8ba8ada1a1e8d966008bdc1b4314a99bdcfc2be08",
+      "new_sha256": "49c1eeec155a29fd73d1f600613922dc411b124204f484c4a6b63a825891d9c5",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "09_boundary",
+      "kind": "timeline",
+      "old_sha256": "ae7a13f413f431811f68c0141c14031195d64d1ba5b821b69f661bf75f5565e4",
+      "new_sha256": "e05a6679f8105d7bec1647088c276d52871753770a3af4fbc99c3e3af5bffb76",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "09_boundary",
+      "kind": "cues",
+      "old_sha256": "eed5a50ad5797fa258ee3fcf9319e29946f403a86b3909090e73a3a15dc74249",
+      "new_sha256": "eed5a50ad5797fa258ee3fcf9319e29946f403a86b3909090e73a3a15dc74249",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "09_boundary",
+      "kind": "cuelog",
+      "old_sha256": "cb69ba38311e72bae2f3b9566c0f84689183c18192fb638626d3d79ae966be61",
+      "new_sha256": "a36389b792ee7c9e0d9efde38c4efa581660622bf4dc1cf11e9fa5f0363d07a0",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "10_rigidity",
+      "kind": "timeline",
+      "old_sha256": "340167657b8420e4056a07e85ea258b16b797d031c98057d4510f19a2be00970",
+      "new_sha256": "99fd22e62d5c6e53104ec3c622135d0748c3dc68e375141d3da4a38114d5860b",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "10_rigidity",
+      "kind": "cues",
+      "old_sha256": "a58e14f5f22089df8902439f751b0a05cfe52b29502f7c530054745d6f7a6ca3",
+      "new_sha256": "a58e14f5f22089df8902439f751b0a05cfe52b29502f7c530054745d6f7a6ca3",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "10_rigidity",
+      "kind": "cuelog",
+      "old_sha256": "b7e1e115d4fa2687c64c3bc5bedd66a179ec92160bc9b7bdeedc8b91ee7e0751",
+      "new_sha256": "11bc0949b31f6483f0a5df01d2c3c71485185384c5cc41c9ba8a6cd6df14bdde",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "11_counting",
+      "kind": "timeline",
+      "old_sha256": "13f593bc19082ddacd7d3adbd5f739110fec02c1ab43958cff748f1154641242",
+      "new_sha256": "29a3afd345fa3a376e5c163d5bf5e01267a866e2305bdd27c6413a5bab46807d",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "11_counting",
+      "kind": "cues",
+      "old_sha256": "8659b78f9ff443163d4e37270c62532fa4b90d0ee34bab51231eb915aac3ff41",
+      "new_sha256": "8659b78f9ff443163d4e37270c62532fa4b90d0ee34bab51231eb915aac3ff41",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "11_counting",
+      "kind": "cuelog",
+      "old_sha256": "c00984bb9bb8d9cc9b964fcd97e0675fa1a4a711827fd4c62ab121594fdad27e",
+      "new_sha256": "96620b403d788ee439d66e09294a5a43c9ba8df55ced67a5ad3bf46231b479cb",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "12_residues",
+      "kind": "timeline",
+      "old_sha256": "d19560b5c9a1fab46a4250b5b9fc1aa9bb0f3eff1847fa0111a5c8bed8964485",
+      "new_sha256": "d25e8b958cd32f2a233b38c293183f3d39b2d1502137c389c69ba49ff0d0dca7",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "12_residues",
+      "kind": "cues",
+      "old_sha256": "be53a37b59431c46e3bbc5a3be5ea6380c9816aeb2966d3285264b555aafb101",
+      "new_sha256": "be53a37b59431c46e3bbc5a3be5ea6380c9816aeb2966d3285264b555aafb101",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "12_residues",
+      "kind": "cuelog",
+      "old_sha256": "d302fef1a4b02d3c3a14ae43d14e9b50f73f93b1755932d713d9d402cacd8de4",
+      "new_sha256": "0c82540d8cda7b06a6c7d81afc493de97f1d9c79aeecd8ea8832465476527b21",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "13_real_integral",
+      "kind": "timeline",
+      "old_sha256": "208d07a7e8a38ff01cb8ae8061f05eecc30d5fd941682d426329e404a562c072",
+      "new_sha256": "54995e05de124d1462cb9841ac0d14e6abbc351583c5743d2287ef24c44fd505",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "13_real_integral",
+      "kind": "cues",
+      "old_sha256": "c19f91943c0a206cf0a0b0adfd31c3d1f8b0214af69106d8df566d91d4940255",
+      "new_sha256": "c19f91943c0a206cf0a0b0adfd31c3d1f8b0214af69106d8df566d91d4940255",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "13_real_integral",
+      "kind": "cuelog",
+      "old_sha256": "ca53864c89f85729990438b564015269112e51e5ba9ec34eb32bd31663d92418",
+      "new_sha256": "a4e5002a2925c7bc720d78d9a6b3030af236904e3b7527e77289385003416584",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "14_continuation",
+      "kind": "timeline",
+      "old_sha256": "e9da7ef1030b88041dd134833282e72442dce42cbc3fcfac8dfa74870d57d30b",
+      "new_sha256": "2b3a5bff177889f00fb06871a8910d98babb4ac3c4636f50758c897cb11fbc99",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "14_continuation",
+      "kind": "cues",
+      "old_sha256": "ed6ffa4c6fb34de7af8b217b61c1b6e2fec133132f2b4bd06145078d607223ad",
+      "new_sha256": "ed6ffa4c6fb34de7af8b217b61c1b6e2fec133132f2b4bd06145078d607223ad",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "14_continuation",
+      "kind": "cuelog",
+      "old_sha256": "2d36f6f2fb8846013e99896f2d9d4c83194d5f03a1a271f553e828cd8c43981f",
+      "new_sha256": "29cc0cdbd4475e5e9a7ac3edb2c38957b0ef00cdabbe41beb237fa699f1451ea",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "15_closing",
+      "kind": "timeline",
+      "old_sha256": "ea0338b79a8db9adcb64a9426dd31e4703383ada44ea609aa5c92ca234c828d6",
+      "new_sha256": "1d0532d139899817358b829a095ac31f258833fb61aef314f2a758be7e38ebc7",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "15_closing",
+      "kind": "cues",
+      "old_sha256": "9e0801e22fa155f51129c48709286de603b499e6307fcd7db51ac3f4a964d880",
+      "new_sha256": "9e0801e22fa155f51129c48709286de603b499e6307fcd7db51ac3f4a964d880",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "15_closing",
+      "kind": "cuelog",
+      "old_sha256": "230a81ce8b6bf8778884ef3d13077f4e2fc105eb2bba71bffd4b319ee3e8aab3",
+      "new_sha256": "629614794def9a93c9c306c77f3287da23a506f31e2368133d4efef65b504ad3",
+      "equal_after_named_narration_path_mapping": true
+    }
+  ],
+  "frames": {
+    "01_the_bump": 6311,
+    "02_turning_numbers": 5372,
+    "03_two_planes": 7249,
+    "04_reading_color": 6774,
+    "05_gallery": 9879,
+    "06_one_derivative": 10030,
+    "07_one_point": 6491,
+    "08_loop_sums": 14959,
+    "09_boundary": 16504,
+    "10_rigidity": 7442,
+    "11_counting": 11932,
+    "12_residues": 3943,
+    "13_real_integral": 10641,
+    "14_continuation": 11756,
+    "15_closing": 4379
+  },
+  "named_path_mapping": {
+    "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration"
+  },
+  "scope": "All 45 complete chapter tables; repaired pictures, motion, 4K and audio review remain separate."
+}

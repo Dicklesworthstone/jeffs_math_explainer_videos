@@ -1,0 +1,50 @@
+{
+  "utc": "2026-11-08T04:09:04.671907+00:00",
+  "movie_sha256": "c00d0c837b81174ce43ee283e2366f7bc450d159310596626d3260d708e19bf4",
+  "selected_frames_viewed": 230,
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29
+  ],
+  "native_detail_seconds": [
+    27,
+    73,
+    155
+  ],
+  "observations": [
+    "No blocking persistent clipping or unintended label overlap observed in selected pictures.",
+    "Geometric series formula at27s has clear top margin. Natural boundary formula at155s is close to top but fully visible.",
+    "Smooth domain color fields, re-centering disks, square-root continuation and Gamma recurrence pictures reviewed."
+  ],
+  "limits": [
+    "Sampled still review, not every movie frame or continuous playback.",
+    "Continuous listening, fine synchronization, independent final AV review and platform caption overlays remain open."
+  ]
+}

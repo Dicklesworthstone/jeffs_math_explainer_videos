@@ -1,0 +1,13 @@
+{
+  "utc": "2026-11-08T04:34:00.279216+00:00",
+  "movie_sha256": "5278d2daf0543c5bee035e346477b1772a6774bdd4f173a60e6c7c86572412ed",
+  "frames_viewed": 61,
+  "sheets_viewed": 8,
+  "frame_range": [
+    10260,
+    10320
+  ],
+  "observations": "Root viewed all61 consecutive frames171.000-172.000s on8sheets plus detailed frames10280 and10303. Actual green distance line crosses D_n around171.33s and c around171.72s; independent predicted crossing confirmed. Candidate232 must address both labels without changing timing. This is frame evidence, not continuous listening or independent final AV acceptance.",
+  "listening": false,
+  "fine_sync": false
+}

@@ -1,0 +1,225 @@
+diff --git a/crates/fmn-python/python/fmn_python/studio.py b/crates/fmn-python/python/fmn_python/studio.py
+index b578c63..648f4ca 100644
+--- a/crates/fmn-python/python/fmn_python/studio.py
++++ b/crates/fmn-python/python/fmn_python/studio.py
+@@ -98,7 +98,7 @@ class Studio:
+         max_frames: int = _DEFAULT_FRAMES, max_bytes: int = _DEFAULT_BYTES,
+         timeout: int = 120, port: int = 0,
+         autoreload: bool = False, watch_paths: tuple[os.PathLike[str] | str, ...] | list = (),
+-        debounce_ms: int = 200,
++        debounce_ms: int = 200, interactive: bool = False,
+     ) -> None:
+         _ensure_exclusive_manimlib_namespace()
+         from manimlib import _native
+@@ -107,6 +107,8 @@ class Studio:
+             raise ValueError("Studio requires one explicit Scene class name")
+         if not isinstance(autoreload, bool):
+             raise ValueError("autoreload must be a bool")
++        if not isinstance(interactive, bool):
++            raise ValueError("interactive must be a bool")
+         if not isinstance(watch_paths, (tuple, list)) or len(watch_paths) > 62:
+             raise ValueError("watch_paths must be a list or tuple of at most 62 paths")
+         if watch_paths and not autoreload:
+@@ -129,6 +131,7 @@ class Studio:
+             "threads": _integer(threads, "threads", 1, 96),
+             "max_frames": _integer(max_frames, "max_frames", 1, 100000),
+             "max_bytes": _integer(max_bytes, "max_bytes", 1, 1024 * 1024 * 1024),
++            "interactive": interactive,
+         }
+         timeout = _integer(timeout, "timeout", 1, 900)
+         port = _integer(port, "port", 0, 65535)
+@@ -161,6 +164,7 @@ class Studio:
+         self._watch = _native._StudioHost.watch_sources(roots, debounce_ms) if autoreload else None
+         self._timeout = timeout + 5
+         self._autoreload = autoreload
++        self._interactive = interactive
+         self._reload_status = {"revision": 0, "completed": 0, "error": None, "result": None}
+         self._host = _native._StudioHost(rebuild, scene, secrets.token_hex(32), port, timeout)
+         try:
+@@ -189,6 +193,10 @@ class Studio:
+     def autoreload(self) -> bool:
+         return self._autoreload
+ 
++    @property
++    def interactive(self) -> bool:
++        return self._interactive
++
+     @property
+     def reload_status(self) -> dict[str, Any]:
+         """Detached status; a failed edit is not a terminal host failure."""
+@@ -319,6 +327,12 @@ def _capture(request: dict[str, Any], native: Any):
+                 scene.run()
+             except native.EndScene:
+                 pass
++            if request.get("interactive", False):
++                # Retain both the source/import context and the actual scene
++                # on this worker thread for event callbacks. Never reconstruct
++                # their behavior from snapshots or execute them in the host.
++                scene._serve_studio_live()
++                return None
+             return scene._finish_studio_capture()
+         except BaseException:
+             scene._abort_render()
+@@ -345,14 +359,15 @@ def _worker(encoded: str) -> int:
+         if request["runtime"] != actual:
+             raise RuntimeError("Studio worker interpreter/engine differs from the selected host runtime")
+         recording = _capture(request, _native)
+-    recording.serve()
++    if recording is not None:
++        recording.serve()
+     return 0
+ 
+ 
+ _HELP = """Read-only native Studio for Python scenes:
+   fmn-python studio SOURCE.py SCENE [--resolution WxH] [--fps N] [--threads N]
+                     [--max_frames N] [--max_bytes N] [--timeout SECONDS] [--port N]
+-                    [--autoreload] [--watch PATH ...] [--debounce_ms N]
++                    [--autoreload] [--watch PATH ...] [--debounce_ms N] [--interactive]
+ 
+ Executes once in a disposable host-CPython worker; scrub and inspect the captured
+ frames in the authenticated native Studio UI. Reload explicitly executes fresh
+@@ -361,8 +376,12 @@ source and imports. Ctrl-C closes the host and worker. This is not a sandbox.
+ files; --watch adds directories or explicit asset files. Native bounded scans
+ ignore caches/virtualenvs and debounce edits. A failed edit retains the healthy
+ preview and is retried only after another edit, not in an execution loop.
+-No live Python event editing, sound playback, callback checkpoints, or certified
+-render claim. Default: 640x360, 30 FPS, 7200 frames, 256 MiB encoded capture budget.
++--interactive retains the live scene in its worker. Select the last timeline
++frame and enable Scene input to send keyboard, pointer, drag and wheel events
++through existing scene callbacks. Prior frames remain read-only. Failed callbacks
++freeze input until reload; they are not rolled back or automatically retried.
++No sound playback, callback checkpoints, or certified render claim.
++Default: 640x360, 30 FPS, 7200 frames, 256 MiB encoded capture budget.
+ """
+ 
+ 
+@@ -384,6 +403,7 @@ def try_studio_cli(native: Any, arguments: list[str]) -> int | None:
+     parser.add_argument("scene")
+     parser.add_argument("--resolution", default="640x360")
+     parser.add_argument("--autoreload", action="store_true")
++    parser.add_argument("--interactive", action="store_true")
+     parser.add_argument("--watch", dest="watch_paths", action="append", default=[])
+     parser.add_argument("--debounce_ms", type=int, default=200)
+     for flag, default in (("fps", 30), ("threads", 1), ("max_frames", _DEFAULT_FRAMES),
+@@ -401,10 +421,11 @@ def try_studio_cli(native: Any, arguments: list[str]) -> int | None:
+         with Studio(**config) as host:
+             if robot:
+                 native._portal_cli_emit(0, "success", "studio", "Python Studio is ready", True,
+-                                       url=host.url, scene=options.scene, preview_mode="captured-read-only",
++                                       url=host.url, scene=options.scene,
++                                       preview_mode="live-final-frame" if host.interactive else "captured-read-only",
+                                        certified=False, autoreload=host.autoreload)
+             else:
+-                print("Python Studio (read-only): " + host.url)
++                print("Python Studio (" + ("live final frame" if host.interactive else "read-only") + "): " + host.url)
+                 print("Reload runs fresh source. Ctrl-C closes Studio.", file=sys.stderr)
+             sys.stdout.flush()
+             phase = "serve"
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+index 78d4736..4e23df2 100644
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -7810,6 +7810,10 @@ impl PyScene {
+         portal_studio::finish(slf)
+     }
+ 
++    fn _serve_studio_live(slf: &Bound<'_, Self>) -> PyResult<()> {
++        portal_studio::live::serve(slf)
++    }
++
+     /// Cancel an active generation and join its ordered output worker.
+     fn _abort_render(slf: &Bound<'_, Self>) -> PyResult<()> {
+         let render = Arc::clone(&slf.borrow().render);
+diff --git a/crates/fmn-python/src/portal_studio.rs b/crates/fmn-python/src/portal_studio.rs
+index 53ec762..37f5f83 100644
+--- a/crates/fmn-python/src/portal_studio.rs
++++ b/crates/fmn-python/src/portal_studio.rs
+@@ -12,6 +12,8 @@ use fmn_studio::{
+ };
+ use std::time::Duration;
+ 
++pub(super) mod live;
++
+ pub(super) struct Capture {
+     renderer: RetainedFrameRenderer,
+     camera: Camera,
+@@ -20,6 +22,8 @@ pub(super) struct Capture {
+     scene: String,
+     recorded: fmn_studio::recorded::RecordedTimeline,
+     failure: Option<String>,
++    live: bool,
++    live_refresh: bool,
+     pub(super) timeline: OutputTimeline,
+ }
+ 
+@@ -124,6 +128,8 @@ impl Capture {
+                 scene,
+                 recorded,
+                 failure: None,
++                live: false,
++                live_refresh: false,
+                 timeline: OutputTimeline::default(),
+             },
+             RuntimeConfig::from_config(&config),
+@@ -158,6 +164,13 @@ impl Capture {
+         &mut self,
+         packet: fmn_scene::studio_bridge::FramePacket,
+     ) -> Result<(), fmn_scene::IntegrationError> {
++        // Live input is a paused edit boundary. play/wait still execute their
++        // ordinary samples and updaters, but only the completed callback's
++        // final state replaces the live view. Intermediate/failed callback
++        // captures cannot publish a partial edit or grow recorded history.
++        if self.live && !self.live_refresh {
++            return Ok(());
++        }
+         if let Some(error) = &self.failure {
+             return Err(fmn_scene::IntegrationError::new(
+                 "python-studio",
+@@ -222,14 +235,22 @@ impl Capture {
+                 self.camera.fps(),
+                 Viewport { width, height },
+                 ScreenMap {
+-                    scale: 1.0 / self.camera.pixel_size(),
++                    scale: if self.live {
++                        f64::from(height) / fmn_core::constants::FRAME_HEIGHT
++                    } else {
++                        1.0 / self.camera.pixel_size()
++                    },
+                     origin: [f64::from(width) / 2.0, f64::from(height) / 2.0],
+                 },
+                 false,
+             )
+             .map_err(native_error)?,
+         );
+-        self.recorded.push(stream, snapshot).map_err(native_error)
++        if self.live {
++            self.recorded.replace_live_frame(stream, snapshot).map_err(native_error)
++        } else {
++            self.recorded.push(stream, snapshot).map_err(native_error)
++        }
+     }
+ }
+ 
+diff --git a/crates/fmn-python/tests/test_studio_protocol.py b/crates/fmn-python/tests/test_studio_protocol.py
+index 86e8144..88d458f 100644
+--- a/crates/fmn-python/tests/test_studio_protocol.py
++++ b/crates/fmn-python/tests/test_studio_protocol.py
+@@ -73,6 +73,18 @@ class StudioPolicyTests(unittest.TestCase):
+                 host._host.builder()
+             self.assertTrue(host.alive)
+ 
++    def test_interactive_authority_is_explicit_and_part_of_the_worker_identity(self):
++        with Studio(self.source, "Lesson") as recorded:
++            first = recorded._host.artifact[-1]
++            self.assertFalse(recorded.interactive)
++        with Studio(self.source, "Lesson", interactive=True) as live:
++            request = json.loads(live._host.artifact[1][-1])
++            self.assertTrue(request["interactive"])
++            self.assertTrue(live.interactive)
++            self.assertNotEqual(first, request["build_id"])
++        with self.assertRaisesRegex(ValueError, "interactive must be a bool"):
++            Studio(self.source, "Lesson", interactive=1)
++
+     def test_invalid_resource_profiles_fail_before_launch(self):
+         for options in ({"fps": True}, {"fps": 0}, {"threads": 97}, {"max_frames": 0},
+                         {"max_bytes": 2**31}, {"resolution": (16384, 16384)},

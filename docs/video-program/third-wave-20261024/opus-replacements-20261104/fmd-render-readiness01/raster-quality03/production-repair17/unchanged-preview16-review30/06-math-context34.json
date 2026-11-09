@@ -1,0 +1,16 @@
+{
+  "script_sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c",
+  "source_observations": {
+    "06_3": "Here is why. If the ratio is the same number from every direction, then near z, the function moves every small arrow the same way. It multiplies it by the derivative. And multiplying by a complex number is a stretch and a turn. So a tiny square around z lands as a tiny square, bigger and turned, but still square.",
+    "06_4": "Squaring at one plus i has derivative two times one plus i, which is two plus two i. It stretches by about two point eight and turns an eighth of a turn. Shrink the square, and its image gets ever closer to exactly that.",
+    "06_7": "In matrix form, the local map must be a stretch and a turn, with no squash and no reflection. For squaring at one plus i, the four rates are two, minus two, two, and two. That grid is exactly multiplication by two plus two i.",
+    "07_1": "Where the derivative is zero, the picture changes. Squaring has derivative zero at zero. Two lines crossing there at a right angle come out as two rays pointing in opposite directions. The angle has doubled, from a right angle to a straight line.",
+    "07_2": "So a nonzero derivative keeps angles. A map like that is called conformal. A point where the derivative is zero is a critical point, and there angles get multiplied."
+  },
+  "assessment": "Chapter06 visual example is z squared at1+i, whose derivative2+2i is nonzero. General stretch-and-turn language must be read with following07 critical-point treatment and explicit nonzero qualification. This check does not certify standalone06 narration as an exhaustive theorem. Preserve final07 and closing qualification, review their actual pictures before release.",
+  "remaining": [
+    "Equation sequence pacing against actual narration not established by muted screenshots",
+    "Final4K lower cards/captions",
+    "Continuous listening and independent final AV"
+  ]
+}

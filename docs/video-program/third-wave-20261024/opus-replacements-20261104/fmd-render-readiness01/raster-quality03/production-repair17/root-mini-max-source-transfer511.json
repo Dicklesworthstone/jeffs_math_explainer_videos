@@ -1,0 +1,6 @@
+{
+  "returncode": 0,
+  "stdout": "{\"files\": 4197, \"bytes\": 49004935, \"listing_sha256\": \"770e5239a547a6b81b079400c7a11d47a401b2c76a8e90f95746da55d3211cea\", \"root\": \"/Users/jemanuel/scratch/jmev-complex-native-20261109/source\"}\n",
+  "stderr": "",
+  "expected_listing": "770e5239a547a6b81b079400c7a11d47a401b2c76a8e90f95746da55d3211cea"
+}

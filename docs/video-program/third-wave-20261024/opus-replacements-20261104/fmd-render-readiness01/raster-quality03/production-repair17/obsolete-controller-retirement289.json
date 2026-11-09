@@ -1,0 +1,35 @@
+{
+  "time": "2026-11-08T06:01:32.038176+00:00",
+  "reason": "Retire idle superseded production19 master/verification/picture/join waiters; current build268/timeline269 and CC workers untouched. All files preserved. New combined-repair master pipeline still required.",
+  "remote": [
+    {
+      "pid": 792437,
+      "script": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-joins-after-verify83.py",
+      "had_children": false,
+      "process_absent": true
+    },
+    {
+      "pid": 1253153,
+      "script": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-master-after-imports184.py",
+      "had_children": false,
+      "process_absent": true
+    },
+    {
+      "pid": 1224847,
+      "script": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-pictures-after-verify182.py",
+      "had_children": false,
+      "process_absent": true
+    },
+    {
+      "pid": 2997342,
+      "script": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-verify-after-master40.py",
+      "had_children": false,
+      "process_absent": true
+    }
+  ],
+  "local": {
+    "pid": 68053,
+    "command": "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/Resources/Python.app/Contents/MacOS/Python -I -B /Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/complex-join-after-extract88.py",
+    "signal": "SIGTERM"
+  }
+}

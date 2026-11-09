@@ -1,0 +1,25 @@
+{
+  "files": [
+    {
+      "name": "13_real_integral.mp4",
+      "sha256": "8cc749f1da302700345fd11fbf0d4e9a67614510886db571519ab8b84222985f"
+    },
+    {
+      "name": "13_real_integral.timeline.tsv",
+      "sha256": "208d07a7e8a38ff01cb8ae8061f05eecc30d5fd941682d426329e404a562c072"
+    },
+    {
+      "name": "13_real_integral.cues.tsv",
+      "sha256": "c19f91943c0a206cf0a0b0adfd31c3d1f8b0214af69106d8df566d91d4940255"
+    },
+    {
+      "name": "13_real_integral.cuelog.tsv",
+      "sha256": "ca53864c89f85729990438b564015269112e51e5ba9ec34eb32bd31663d92418"
+    },
+    {
+      "name": "13_real_integral.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "scope": "Completed sixth preview chapter only; overall preview21 still active, no terminal batch acceptance."
+}

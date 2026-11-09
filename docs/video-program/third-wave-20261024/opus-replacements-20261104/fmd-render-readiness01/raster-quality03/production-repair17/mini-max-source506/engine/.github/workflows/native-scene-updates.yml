@@ -1,0 +1,173 @@
+name: Native scene update dispatch
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-scene-updates.yml'
+      - 'scripts/patches/native-scene-updates/**'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: native-scene-updates-publication
+  cancel-in-progress: true
+jobs:
+  implement_and_validate:
+    if: github.repository == 'Dicklesworthstone/franken_manim' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 60
+    env:
+      CARGO_TARGET_DIR: target/portable
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 200
+          clean: false
+      - name: Verify and apply the exact reviewed implementation
+        id: patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git merge --ff-only origin/main
+          python - <<'PY'
+          import gzip, hashlib, os, pathlib, subprocess
+          root = pathlib.Path('scripts/patches/native-scene-updates')
+          compressed = b''.join((root / f'phase.patch.gz.{i:03}').read_bytes() for i in range(1, 5))
+          assert len(compressed) == 10947
+          assert hashlib.sha256(compressed).hexdigest() == '3824fa8c98a6e63c58fa79252ac00dc49bad141b3befaa04dd16ffe2dd18cf1b'
+          patch = gzip.decompress(compressed)
+          digest = 'a9ee88e14416a3ba162fb5e7b2601ada2edd970c93f6734e4cc5de5b919f5f89'
+          assert len(patch) == 45613 and hashlib.sha256(patch).hexdigest() == digest
+          allowed = {
+              'crates/fmn-anim/src/frame.rs', 'crates/fmn-anim/src/lib.rs',
+              'crates/fmn-python/src/lib.rs', 'crates/fmn-python/src/portal_playback.rs',
+              'crates/fmn-python/tests/native_scene_update_dispatch.py',
+              'crates/fmn-scene/src/runtime.rs', 'crates/fmn-scene/tests/external_scene_updates.rs',
+              'docs/PUBLIC_UPDATE_DISPATCH.md', 'scripts/check_portal_runtime.sh',
+          }
+          path = pathlib.Path(os.environ['RUNNER_TEMP']) / 'native-scene-updates.patch'
+          path.write_bytes(patch)
+          stats = subprocess.check_output(['git', 'apply', '--numstat', str(path)], text=True)
+          assert {line.split('\t', 2)[2] for line in stats.splitlines()} == allowed
+          marker = 'Scene-Update-Patch-SHA256: ' + digest
+          applied = bool(subprocess.check_output(['git', 'log', '-200', '--format=%H', '--fixed-strings', '--grep=' + marker], text=True).strip())
+          if not applied:
+              # Another accepted suite was inserted beside the old hunk. Keep
+              # every existing gate invocation; apply the eight source hunks
+              # byte-for-byte and reconcile only these two additive entries.
+              gate = pathlib.Path('scripts/check_portal_runtime.sh')
+              before = gate.read_text()
+              anchor = 'python3 crates/fmn-python/tests/public_update_dispatch.py\n'
+              assert before.count(anchor) == 1, 'missing or ambiguous public-update gate'
+              additions = ''.join(
+                  'python3 crates/fmn-python/tests/' + suite + '.py\n'
+                  for suite in ('scene_update_phase', 'native_scene_update_dispatch')
+                  if 'python3 crates/fmn-python/tests/' + suite + '.py\n' not in before
+              )
+              args = ['git', 'apply', '--exclude=scripts/check_portal_runtime.sh']
+              subprocess.run([*args, '--check', str(path)], check=True)
+              subprocess.run([*args, str(path)], check=True)
+              gate.write_text(before.replace(anchor, anchor + additions, 1))
+          # The prepared tests used decimal-intent counts, contrary to the
+          # existing BN-02 binary64 clock fixtures. This correction changes
+          # only that new suite and adds independent Fraction-based controls.
+          oracle = root / 'clock-oracle.patch'
+          assert hashlib.sha256(oracle.read_bytes()).hexdigest() == '5b3bf00bd4506cae80726fa01872c8bf8ffc1296bc75e1eaf16a89877223473d'
+          oracle_stats = subprocess.check_output(['git', 'apply', '--numstat', str(oracle)], text=True)
+          assert {line.split('\t', 2)[2] for line in oracle_stats.splitlines()} == {'crates/fmn-python/tests/native_scene_update_dispatch.py'}
+          if not applied:
+              subprocess.run(['git', 'apply', '--check', str(oracle)], check=True)
+              subprocess.run(['git', 'apply', str(oracle)], check=True)
+          pathlib.Path(os.environ['RUNNER_TEMP'], 'scene-update-files.txt').write_text('\n'.join(sorted(allowed)) + '\n')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write('applied=' + str(applied).lower() + '\n')
+          PY
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: scene-updates-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-bundle-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Build and test the real native implementation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          rustup show active-toolchain
+          cat > "$RUNNER_TEMP/check-scene-updates.sh" <<'SH'
+          #!/usr/bin/env bash
+          set -euo pipefail
+          out="$RUNNER_TEMP/scene-updates"
+          mkdir -p "$out"
+          git rev-parse HEAD | tee "$out/base.txt"
+          rustfmt --edition 2024 --config skip_children=true \
+            crates/fmn-anim/src/frame.rs crates/fmn-anim/src/lib.rs \
+            crates/fmn-scene/src/runtime.rs crates/fmn-scene/tests/external_scene_updates.rs \
+            crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_playback.rs
+          git diff --check
+          cargo test --locked -p fmn-scene --test external_scene_updates --test runtime 2>&1 | tee "$out/scene-tests.log"
+          cargo test --locked -p fmn-anim --test frame_order --test clock 2>&1 | tee "$out/frame-tests.log"
+          python -m maturin build --locked --interpreter python --profile dev --out "$out/wheels" 2>&1 | tee "$out/build.log"
+          python -m pip install --force-reinstall --no-deps "$out"/wheels/*.whl
+          status=0
+          for suite in scene_update_phase native_scene_update_dispatch public_update_dispatch updater_family builder_playback creation_semantics movement_semantics rotation_semantics native_animation_updaters animation_updaters camera_execution scene_execution; do
+            python -I "crates/fmn-python/tests/$suite.py" > "$out/$suite.log" 2>&1 || status=1
+            cat "$out/$suite.log"
+          done
+          cargo test --locked -p fmn-python portal_playback::tests::public_scene_update_dispatch -- --nocapture 2>&1 | tee "$out/embedded.log" || status=1
+          bash -n scripts/check_portal_runtime.sh
+          git diff --check
+          exit "$status"
+          SH
+          bash "$RUNNER_TEMP/check-scene-updates.sh"
+      - name: Publish tested source directly to main without force
+        if: steps.patch.outputs.applied == 'false'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os, pathlib, subprocess
+          paths = pathlib.Path(os.environ['RUNNER_TEMP'], 'scene-update-files.txt').read_text().splitlines()
+          tracked = set(subprocess.check_output(['git', 'diff', '--name-only'], text=True).splitlines())
+          assert tracked <= set(paths), sorted(tracked - set(paths))
+          subprocess.run(['git', 'add', '--', *paths], check=True)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'feat(python): execute public scene updates during native play and wait' \
+            -m 'Consume externally completed scene-updater phases at the existing native frame boundary. Preserve clock, capture, stop-condition, event and zero-time cleanup ordering without duplicate native ticks. Authored drawable and scene overrides select the public protocol; unchanged scenes retain native execution. External updates conservatively invalidate pure-segment snapshots. Native scene/frame tests, fresh installed-wheel playback regressions and the embedded acceptance test pass in this workflow. No full-workspace or certification claim.' \
+            -m 'Scene-Update-Patch-SHA256: a9ee88e14416a3ba162fb5e7b2601ada2edd970c93f6734e4cc5de5b919f5f89'
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if ! git merge-base --is-ancestor origin/main HEAD; then
+              git rebase origin/main
+              bash "$RUNNER_TEMP/check-scene-updates.sh"
+              git diff --exit-code
+            fi
+            if git push origin HEAD:refs/heads/main; then
+              git rev-parse HEAD | tee "$RUNNER_TEMP/scene-updates/published.txt"
+              exit 0
+            fi
+          done
+          echo 'main advanced repeatedly; no force update attempted' >&2
+          exit 1
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-scene-updates-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/scene-updates
+            ${{ runner.temp }}/native-scene-updates.patch
+          retention-days: 3

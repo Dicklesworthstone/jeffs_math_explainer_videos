@@ -1,0 +1,22 @@
+{
+  "text_sample": {
+    "X": {
+      "path": "/data/projects/franken_manim/gallery/reference_captures/text_sample.png",
+      "sha256": "e65ffc3b3ca299744258d23ede0e37f12cf28e85ffc5eb1d9738596c940ca877"
+    },
+    "Y": {
+      "path": "/data/projects/franken_manim/docs/g0/g0-2-renders/fmn-text-sample.png",
+      "sha256": "8f175ae968fcc0aeaa30e1595b492b9d24d5d59d287362efb2346fc7c0fec143"
+    }
+  },
+  "math_formula": {
+    "X": {
+      "path": "/data/projects/franken_manim/docs/g0/g0-2-renders/fmn-math-formula.png",
+      "sha256": "39f17d2f5775da04d1f64e4f661081d77a5f135d41a7c14ad3039c8af12be4e0"
+    },
+    "Y": {
+      "path": "/data/projects/franken_manim/gallery/reference_captures/math_formula.png",
+      "sha256": "c2eb1124091572f076c6badb10ba8716aff7d84a6f05751df5b0b7534d20807c"
+    }
+  }
+}

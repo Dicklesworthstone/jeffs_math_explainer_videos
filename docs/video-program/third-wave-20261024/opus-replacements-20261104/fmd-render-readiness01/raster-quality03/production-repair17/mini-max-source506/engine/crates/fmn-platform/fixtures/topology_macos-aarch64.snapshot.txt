@@ -1,0 +1,26 @@
+# fmn hardware-topology snapshot v1
+logical_cores	14
+physical_cores	14
+packages	1
+smt	false
+simd_tier	aarch64-neon
+memory_bytes	68719476736
+cpu	0	package	0	core	0	class	P	capacity	-	max_freq_khz	-
+cpu	1	package	0	core	1	class	P	capacity	-	max_freq_khz	-
+cpu	2	package	0	core	2	class	P	capacity	-	max_freq_khz	-
+cpu	3	package	0	core	3	class	P	capacity	-	max_freq_khz	-
+cpu	4	package	0	core	4	class	P	capacity	-	max_freq_khz	-
+cpu	5	package	0	core	5	class	P	capacity	-	max_freq_khz	-
+cpu	6	package	0	core	6	class	P	capacity	-	max_freq_khz	-
+cpu	7	package	0	core	7	class	P	capacity	-	max_freq_khz	-
+cpu	8	package	0	core	8	class	P	capacity	-	max_freq_khz	-
+cpu	9	package	0	core	9	class	P	capacity	-	max_freq_khz	-
+cpu	10	package	0	core	10	class	E	capacity	-	max_freq_khz	-
+cpu	11	package	0	core	11	class	E	capacity	-	max_freq_khz	-
+cpu	12	package	0	core	12	class	E	capacity	-	max_freq_khz	-
+cpu	13	package	0	core	13	class	E	capacity	-	max_freq_khz	-
+l2	size	16777216	cpus	0-4
+l2	size	16777216	cpus	5-9
+l2	size	4194304	cpus	10-13
+numa	0	cpus	0-13
+group	0	cpus	0-13

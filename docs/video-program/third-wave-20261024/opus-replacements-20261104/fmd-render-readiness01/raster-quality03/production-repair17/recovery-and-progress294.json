@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-08T06:15:46.977836+00:00",
+  "processes": {
+    "0": "52901 47615 /Users/jemanuel/.local/bin/claude --dangerously-skip-permissions --model claude-opus-5-5 --effort xhigh --resume 6d8d91ab-386b-435d-91e3-ad665c8e7f76",
+    "1": "52930 47655 /Users/jemanuel/.local/bin/claude --dangerously-skip-permissions --model claude-opus-5-5 --effort xhigh --resume b0a72b9b-6c8d-4794-942e-44d50a9d8626",
+    "2": "52962 47697 /Users/jemanuel/.local/bin/claude --dangerously-skip-permissions --model claude-opus-5-5 --effort xhigh --resume d7bac370-73e2-4cb6-88cf-606d6a161b39",
+    "3": "52990 47737 /Users/jemanuel/.local/bin/claude --dangerously-skip-permissions --model claude-opus-5-5 --effort xhigh --resume 7aa7239f-abc0-4b43-9af5-40020bd20c82"
+  },
+  "note": "Four CC exact conversations restarted after owner account swap; new PIDs52901/52930/52962/52990, Opus5.5/xhigh, captures in /tmp/video-cc-recovery-20261108-061327. Three resumed290/284/274; CC0 now prepares combined-master293 from actual184 implementation after old waiters were retired. CSD timeline269 PID258555 freshly live, seven chapters completed; no duplicate. QuickTime08 sampled opening playback only: seek attempts did not establish target170s; no motion/listening/fine-sync acceptance. All release gates remain; no complex upload.",
+  "motion_review_complete": false,
+  "listening_acceptance": false
+}

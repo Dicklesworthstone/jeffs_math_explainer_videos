@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FrankenManim — W5 wasm tier-1 demo (fm-l97)</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; gap: 12px; padding: 24px;
+    background: #101014; color: #e8e8ee;
+    font: 14px/1.5 system-ui, sans-serif;
+  }
+  h1 { font-size: 18px; font-weight: 600; margin: 0; }
+  .controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; }
+  select, button {
+    background: #1c1c24; color: inherit; border: 1px solid #3a3a48;
+    border-radius: 6px; padding: 6px 10px; font: inherit; cursor: pointer;
+  }
+  input[type="range"] { width: 280px; }
+  canvas {
+    background: #000; border: 1px solid #2a2a36; border-radius: 8px;
+    max-width: 100%; image-rendering: pixelated;
+  }
+  #status { color: #9a9ab0; min-height: 1.5em; }
+  .err { color: #ff7a7a; }
+</style>
+</head>
+<body>
+  <h1>FrankenManim — wasm32 frame renderer (W5 tier 1)</h1>
+  <div class="controls">
+    <label>Scene
+      <select id="kind"></select>
+    </label>
+    <label>Frame <input id="scrub" type="range" min="0" max="0" value="0"></label>
+    <button id="play">Play</button>
+    <span id="frameLabel">0 / 0</span>
+  </div>
+  <canvas id="canvas" width="640" height="360"></canvas>
+  <div id="status">loading wasm…</div>
+
+<script type="module">
+  import init, { FmnScene } from "./pkg/fmn_wasm.js";
+
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  const status = document.getElementById("status");
+  const kindSel = document.getElementById("kind");
+  const scrub = document.getElementById("scrub");
+  const frameLabel = document.getElementById("frameLabel");
+  const playBtn = document.getElementById("play");
+
+  let scene = null;
+  let scratch = null;   // reused JS destination; wasm-bindgen still marshals it
+  let playing = false;
+  let rafId = 0;
+
+  function show(index) {
+    if (!scene) return;
+    const i = Math.min(index, scene.frame_count - 1);
+    scene.render_into(i, scratch);
+    const image = new ImageData(
+      new Uint8ClampedArray(scratch.buffer, 0, scene.width * scene.height * 4),
+      scene.width, scene.height);
+    ctx.putImageData(image, 0, 0);
+    frameLabel.textContent = `${i} / ${scene.frame_count - 1}`;
+    scrub.value = String(i);
+  }
+
+  function construct(kind) {
+    stop();
+    try {
+      scene = new FmnScene(kind, canvas.width, canvas.height);
+      scratch = new Uint8Array(scene.width * scene.height * 4);
+      scrub.max = String(scene.frame_count - 1);
+      status.textContent =
+        `${kind}: ${scene.frame_count} frames @ ${scene.width}x${scene.height}`;
+      show(0);
+    } catch (e) {
+      status.innerHTML = `<span class="err">construction failed: ${e}</span>`;
+    }
+  }
+
+  function stop() { playing = false; playBtn.textContent = "Play"; cancelAnimationFrame(rafId); }
+
+  function tick() {
+    if (!playing || !scene) return;
+    const next = (Number(scrub.value) + 1) % scene.frame_count;
+    show(next);
+    rafId = requestAnimationFrame(tick);
+  }
+
+  try {
+    await init();
+    for (const kind of FmnScene.scene_kinds()) {
+      const opt = document.createElement("option");
+      opt.value = kind; opt.textContent = kind;
+      kindSel.appendChild(opt);
+    }
+    kindSel.addEventListener("change", () => construct(kindSel.value));
+    scrub.addEventListener("input", () => { stop(); show(Number(scrub.value)); });
+    playBtn.addEventListener("click", () => {
+      if (playing) { stop(); } else { playing = true; playBtn.textContent = "Stop"; tick(); }
+    });
+    construct(kindSel.value);
+  } catch (e) {
+    status.innerHTML =
+      `<span class="err">wasm init failed: ${e}. Did you build demo/wasm/pkg? See README.md.</span>`;
+  }
+</script>
+</body>
+</html>

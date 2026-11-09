@@ -1,0 +1,56 @@
+{
+  "at": "2026-11-08T21:30:44.583844+00:00",
+  "reviewer": "root",
+  "chapter": "06_one_derivative",
+  "movie_sha256": "5e45d72da91701c9c7c346b98ded8491c13ba1befed6be1b6301c1c6d33ed62d",
+  "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cc0-preview06-review270.md",
+  "review_sha256": "d4ad3533de6a6034285973a2a921a235d319fc569073d36c1b41e999c4d6b531",
+  "sampling_sha256": "34ee8c6ae24ccd33e234ac2b1b27cf5441fae1087af8f53f4b4436942efd22ba",
+  "pictures": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview243-review265/06_one_derivative/pictures/frame-000025.jpg",
+      "sha256": "b1c9179c552bab3638d2aecd5a357b32aee101cc2183d675c193b038fa648470",
+      "frame": 600,
+      "actually_viewed": true
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview243-review265/06_one_derivative/pictures/frame-000065.jpg",
+      "sha256": "7b52f3bf1d307035140b3a70e923fd60e7109b8cc606cbee26906b44bfb20d1a",
+      "frame": 1680,
+      "actually_viewed": true
+    }
+  ],
+  "dispositions": [
+    {
+      "item": "270 R1",
+      "severity": "Low cosmetic",
+      "decision": "Retain existing scene for technical 4K rendering",
+      "observation": "Actually viewed frame600. The change-in-output label approaches the right frame edge but all letters remain visible, with a visible gap and no overlap. The border does not obscure the words."
+    },
+    {
+      "item": "270 R2",
+      "severity": "Low cosmetic",
+      "decision": "Retain existing scene for technical 4K rendering",
+      "observation": "Actually viewed frame1680. z0=1+i is close to the vertical axis but remains distinct and legible; no contact or clipping visible."
+    }
+  ],
+  "required_final_checks": {
+    "frames": [
+      600,
+      900,
+      1200,
+      1290,
+      1320,
+      1680,
+      1890
+    ],
+    "purpose": "Verify label-edge and label-axis separation in native final output; preview is not final pixel proof."
+  },
+  "scope": "Disposition of the two new270 cosmetic findings only. Prior whole-sheet277 and consecutive-frame359 records remain separate. No source change or new render launched.",
+  "continuous_motion_acceptance": false,
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "final_4k_acceptance": false,
+  "release_acceptance": false,
+  "publication_acceptance": false
+}

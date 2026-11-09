@@ -1,0 +1,68 @@
+{
+  "utc": "2026-11-07T19:58:51.297585+00:00",
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "chapter": "07_one_point",
+  "frames": 6491,
+  "timeline_sha256": "c2e3c183019525c01aca2dc376c61d4eaab72c10f4b23f44ea184c1d44bd3f3c",
+  "actually_reviewed_pictures": true,
+  "actually_reviewed_motion": true,
+  "reviewer": "root",
+  "unresolved_defects": [],
+  "motion_intervals": [
+    [
+      14,
+      2031
+    ],
+    [
+      4773,
+      6490
+    ]
+  ],
+  "observations": "Muted QuickTime playback sampled: z squared maps right-angle rays at zero to180 degrees; nonzero derivative case preserves90 degrees; first-nonvanishing derivative precision card shown; earlier |z| squared prediction and at0 quotient plus at1 directional disagreement observed; bounded jagged g example shows quotient bound M|h| and scattered ratio points; open-region U definition and interior disks observed at conclusion. Replay0.237-33.852s,79.540s onward and87.826s onward were sampled; not exhaustive frames or continuous listening. Prior78pictures/13sheets hashes checked. General |z| squared only-at0 proof recorded. Final4K details/captions and fine-sync/independentAV remain open.",
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review07-84/07_one_point.mp4",
+      "sha256": "717964ba7dffeca95d17623a0f0dfdda4c4e9fcc770023f589ae044cc41f8215"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review07-84/07-playback-samples35.json",
+      "sha256": "839df67bef468f33311750b974752f9a516582dfd5f64c3fbeeb07eb3d098c29"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review07-84/07-prior-picture-evidence35.json",
+      "sha256": "f25d91c5f8eeb269bcd030779b1d0fbd4f92ba53de6e22430720dcee4ab9bfe3"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review07-84/07-math-context35.json",
+      "sha256": "4d409b2a1688516298edd53d93b260c1b3053c1566b6672ad7675a79ef41e54a"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review07-84/script-production19-review34.tsv",
+      "sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review07-84/transfer30.json",
+      "sha256": "788a34e783b78c672ed580b21303de64b1d975eed26fd2ba94d20f6da5a18ffd"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review07-84/timeline-equality31.json",
+      "sha256": "0b53f3f3c4373515ed2c68f1d253305d4ec3a48aae6499506dfbafc3850299e3"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review07-84/new-07_one_point.timeline.tsv",
+      "sha256": "c2e3c183019525c01aca2dc376c61d4eaab72c10f4b23f44ea184c1d44bd3f3c"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review07-84/unchanged-eight-source-audio01.json",
+      "sha256": "d99aa8e623da64f3b3c498a3ae2d496b97d5f7165a41d8507bda98b9c9378413"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review07-84/unchanged-dependency-union02.json",
+      "sha256": "be23cf9282d2a8f3249bdcf053a8edb3f5cef1d461b846418188cc413eae7ea6"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review07-84/unchanged-dependency-intersection01.json",
+      "sha256": "f382ad6202918a37dc8798174939b4a3434f442dc32c8a8578ea6d786de33899"
+    }
+  ]
+}

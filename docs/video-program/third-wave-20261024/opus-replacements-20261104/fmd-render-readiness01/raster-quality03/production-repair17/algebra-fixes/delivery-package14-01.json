@@ -1,0 +1,42 @@
+{
+  "created_at": "2026-11-07T19:08:16.112385+00:00",
+  "video_id": "TLIrVzLkQro",
+  "files": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/publication-draft01/title.txt",
+      "bytes": 38,
+      "sha256": "db7a5730ee3c0633764d2d5a6f035aff1863fd844d27b8295dd055935248f46d",
+      "md5": "a4eb2c8ddf9a19dbaa68d3bb9ecf18a3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/publication-draft01/description.txt",
+      "bytes": 1368,
+      "sha256": "a8cfa4cc8884c39229655f4d1cdea43a7899cce99c612d38ececddf22bc1c0d6",
+      "md5": "d4bfc30e86c7d4817e3aade019cb25bb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/publication-draft01/tags.txt",
+      "bytes": 185,
+      "sha256": "98c24deb05d7a22fa95ade8917d306970ab462c6c436d875edd1d25973038fc8",
+      "md5": "60657aa805c6c44d875db2d67675f317"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-final-master14/final/abstract_algebra_expanded_master.mp4",
+      "bytes": 370830839,
+      "sha256": "69dba6d493bfa510a371015ba4383d1f6b1930d38202a2a123fdf97e3008333f",
+      "md5": "30dfa68eafa4f8e80c7ccc6fddc3abff"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-final-master14/final/abstract_algebra_expanded.en.srt",
+      "bytes": 96935,
+      "sha256": "d6053c3a5ebede5dfcadd047fa96514e056883cf1da25b245832f870e888677f",
+      "md5": "a00285f12fc358fdf43ab764c13168e0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-thumbnail-frame15/abstract_algebra_thumbnail.png",
+      "bytes": 263468,
+      "sha256": "101d47d9a0dff25312ee6acb4b517845b8b983e4b3d74d27c5a97f459c597b6a",
+      "md5": "dd176386d07bde5fffcf5628de5ce508"
+    }
+  ]
+}

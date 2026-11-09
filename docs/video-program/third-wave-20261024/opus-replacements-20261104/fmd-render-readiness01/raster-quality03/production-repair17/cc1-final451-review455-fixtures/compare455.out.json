@@ -1,0 +1,43 @@
+{
+ "scenarios_391": 31,
+ "scenarios_455": 31,
+ "identical": [
+  "S01_happy",
+  "S02_rerun_after_happy",
+  "S03_master_absent_timeout",
+  "S04_master_partial_then_success",
+  "S05_master_exit1",
+  "S06_master_refused_admission",
+  "S07_master_resource_stop",
+  "S08_master_receipt_rewritten_after_finished",
+  "S09_pin_V_changes_during_wait",
+  "S09b_master_running_timeout",
+  "S10_preexisting_ledger",
+  "S10_preexisting_native_inputs",
+  "S10_preexisting_native_job",
+  "S10_preexisting_overview_inputs",
+  "S10_preexisting_overview_job",
+  "S10_preexisting_verify_inputs",
+  "S10_preexisting_verify_job",
+  "S11_check_refuses",
+  "S12_verify_job_exit1",
+  "S13_verify_guard_refused_admission",
+  "S14_V_free_space_refusal",
+  "S14b_rerun_after_free_space_refusal",
+  "S15_overview_resource_stop",
+  "S16_overview_extra_last_line",
+  "S17_overview_sampling_changed_after_print",
+  "S18_sampling_changed_after_ledger",
+  "S19_native_job_exit1",
+  "S20_two_controllers",
+  "S21_wait_hours_49",
+  "S21_wait_hours_minus1",
+  "S21_wait_hours_nan"
+ ],
+ "differ": {},
+ "inputs_455": {
+  "runner": "819746fb33110d6c133e184812c80a00562d848816f623078ad86f0fb1a316da",
+  "fakeguard": "0952bcffef22344dc034d168d02904f37f7ff73d4825040115d052e618e8ac21",
+  "python": "3.15.0"
+ }
+}

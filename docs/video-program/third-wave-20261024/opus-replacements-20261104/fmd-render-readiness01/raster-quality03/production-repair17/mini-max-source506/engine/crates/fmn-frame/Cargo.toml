@@ -1,0 +1,14 @@
+[package]
+name = "fmn-frame"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Frame buffers, pixel formats (RGBA/RGBA16F/NV12/P010), and transfer functions (§14.1)."
+
+[dependencies]
+fmn-core.workspace = true
+fmn-dmath.workspace = true
+
+[lints]
+workspace = true

@@ -1,0 +1,21 @@
+# Every package of the lab's lock from franken_manim, as path copies of one patched export.
+[patch."https://github.com/Dicklesworthstone/franken_manim"]
+fmn = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn" }
+fmn-anim = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-anim" }
+fmn-cache = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-cache" }
+fmn-codec = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-codec" }
+fmn-config = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-config" }
+fmn-core = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-core" }
+fmn-dmath = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-dmath" }
+fmn-frame = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-frame" }
+fmn-geom = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-geom" }
+fmn-hash = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-hash" }
+fmn-library = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-library" }
+fmn-mobject = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-mobject" }
+fmn-output = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-output" }
+fmn-platform = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-platform" }
+fmn-render = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-render" }
+fmn-runtime = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-runtime" }
+fmn-scene = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-scene" }
+fmn-tex = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-tex" }
+fmn-text = { path = "/Users/jemanuel/scratch/jmev-complex-native-20261109/source/engine/crates/fmn-text" }

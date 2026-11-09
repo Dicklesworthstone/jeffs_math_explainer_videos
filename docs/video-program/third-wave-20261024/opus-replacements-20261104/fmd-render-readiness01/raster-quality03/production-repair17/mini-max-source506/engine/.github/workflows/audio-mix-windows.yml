@@ -1,0 +1,73 @@
+name: Native exact audio windows
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/audio-mix-windows.yml'
+      - 'scripts/patches/audio-mix-windows.patch'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: native-audio-mix-windows
+  cancel-in-progress: false
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 64
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Compile and test the bounded native mixer implementation
+        run: |
+          set -euo pipefail
+          rustup show active-toolchain
+          if ! grep -q 'pub fn mix_window(' crates/fmn-output/src/sound.rs; then
+            git apply --check scripts/patches/audio-mix-windows.patch
+            git apply scripts/patches/audio-mix-windows.patch
+          fi
+          rustfmt --edition 2024 crates/fmn-output/src/sound.rs crates/fmn-output/tests/audio_windows.rs
+          cargo test --locked -p fmn-output --lib --test audio_windows 2>&1 | tee /tmp/audio-window-tests.log
+          cargo clippy --locked -p fmn-output --all-targets -- -D warnings 2>&1 | tee /tmp/audio-window-clippy.log
+          git diff --check
+      - name: Commit the tested implementation directly to main
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add crates/fmn-output/src/sound.rs crates/fmn-output/tests/audio_windows.rs
+          if ! git diff --cached --quiet; then
+            git commit -m 'feat(output): mix bounded sample-exact audio windows with the existing native kernels'
+          fi
+          published=0
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            cargo test --locked -p fmn-output --lib --test audio_windows 2>&1 | tee /tmp/audio-window-rebase.log
+            if git push origin HEAD:main; then published=1; break; fi
+          done
+          test "$published" = 1
+      - name: Preserve exact source and verification results
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/audio-window-head.txt
+          git archive --format=tar.gz HEAD > /tmp/audio-window-source.tar.gz
+          git diff > /tmp/audio-window-working.patch
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: audio-windows-${{ github.sha }}
+          path: /tmp/audio-window-*
+          retention-days: 3

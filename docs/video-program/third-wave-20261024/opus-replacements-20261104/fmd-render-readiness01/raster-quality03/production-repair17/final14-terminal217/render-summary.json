@@ -1,0 +1,34 @@
+{
+  "chapter": "14_continuation",
+  "frames": 11756,
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "permit_sha256": "10838cbf5066c79bbb63cd1d320d3115aa975d41935c90f4375dbf903068d641",
+  "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+  "files": [
+    {
+      "path": "/data/projects/jmev-ts1-render-worker-20261107/jobs/ts1-production19-final-14-continuation111/render/14_continuation.cuelog.tsv",
+      "sha256": "d4d02a811861127d2a9b79e3fa19e937d11794d982f64bfc26be1cf2d082e6e7"
+    },
+    {
+      "path": "/data/projects/jmev-ts1-render-worker-20261107/jobs/ts1-production19-final-14-continuation111/render/14_continuation.cues.tsv",
+      "sha256": "ed6ffa4c6fb34de7af8b217b61c1b6e2fec133132f2b4bd06145078d607223ad"
+    },
+    {
+      "path": "/data/projects/jmev-ts1-render-worker-20261107/jobs/ts1-production19-final-14-continuation111/render/14_continuation.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data/projects/jmev-ts1-render-worker-20261107/jobs/ts1-production19-final-14-continuation111/render/14_continuation.mp4",
+      "sha256": "c00d0c837b81174ce43ee283e2366f7bc450d159310596626d3260d708e19bf4"
+    },
+    {
+      "path": "/data/projects/jmev-ts1-render-worker-20261107/jobs/ts1-production19-final-14-continuation111/render/14_continuation.timeline.tsv",
+      "sha256": "24e8f8c6c76eaafea17f560712239c981bf3368f15dd66091a1e0dd7b5213330"
+    },
+    {
+      "path": "/data/projects/jmev-ts1-render-worker-20261107/jobs/ts1-production19-final-14-continuation111/render/soundtrack/14_continuation/soundtrack_0.wav",
+      "sha256": "7d7b558721567b2492bb8dd5d5d2285992eb71b6ede8990085d0fbe6de27e3e4"
+    }
+  ],
+  "scope": "Technical scored4K60 chapter only; full decode, master replay, final pictures/motion/audio/captions and publication remain."
+}

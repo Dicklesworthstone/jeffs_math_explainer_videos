@@ -1,0 +1,44 @@
+diff --git a/crates/fmn-output/src/ffmpeg.rs b/crates/fmn-output/src/ffmpeg.rs
+index 9e1499b..f3410ef 100644
+--- a/crates/fmn-output/src/ffmpeg.rs
++++ b/crates/fmn-output/src/ffmpeg.rs
+@@ -45,6 +45,8 @@
+ //! between the final check and the OS operation. That stronger threat requires
+ //! a future host capability rather than an unsafe platform carve-out.
+ 
++mod audio;
++
+ use std::fs::{File, OpenOptions};
+ use std::io::{Read, Seek, Write};
+ use std::path::{Path, PathBuf};
+diff --git a/crates/fmn-output/src/lib.rs b/crates/fmn-output/src/lib.rs
+index a289c70..558c218 100644
+--- a/crates/fmn-output/src/lib.rs
++++ b/crates/fmn-output/src/lib.rs
+@@ -41,6 +41,7 @@
+ #![cfg_attr(windows, feature(windows_by_handle))]
+ #![forbid(unsafe_code)]
+ 
++pub mod audio;
+ pub mod emitter;
+ pub mod ffmpeg;
+ pub mod negotiate;
+@@ -50,6 +51,8 @@ pub mod sound;
+ 
+ pub use fmn_hash::Digest as ArtifactDigest;
+ 
++pub use audio::{AudioDecodeError, AudioDecodeLimits, AudioDecodeReport, AudioDecoder, AudioInputFormat, DecodedAudio};
++
+ pub use emitter::{
+     CancelOutcome, EmitterConfig, EmitterError, EmitterFailure, EmitterHandle, EmitterReport,
+     EmitterStats, FrameReservation, FrameSink, OrderedEmitter, SinkBinding, SinkFailure, SinkMode,
+diff --git a/crates/fmn-output/src/audio.rs b/crates/fmn-output/src/audio.rs
+--- a/crates/fmn-output/src/audio.rs
++++ b/crates/fmn-output/src/audio.rs
+@@ -167,5 +167,5 @@
+         return Err(AudioDecodeError::InvalidPcm("only mono and stereo layouts are supported; implicit downmix is forbidden"));
+     }
+-    if audio.sample_rate == 0 || audio.samples.len() % usize::from(audio.channels) != 0 {
++    if audio.sample_rate == 0 || !audio.samples.len().is_multiple_of(usize::from(audio.channels)) {
+         return Err(AudioDecodeError::InvalidPcm("sample rate must be nonzero and samples must contain complete channel frames"));
+     }

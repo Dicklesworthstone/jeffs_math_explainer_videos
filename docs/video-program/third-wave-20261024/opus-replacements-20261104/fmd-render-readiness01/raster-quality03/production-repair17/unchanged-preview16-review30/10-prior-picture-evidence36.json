@@ -1,0 +1,208 @@
+{
+  "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/native-stage08-root01/complex-full-preview16-review-progress01.json",
+  "source_sha256": "54670338fb1e3b0386d3efcc29e317867ca852f1df90a611a8b68e9c8292d422",
+  "chapter": {
+    "status": "selected_picture_review_complete",
+    "sheets": 16,
+    "pictures": 95,
+    "sheet_indices_viewed": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "sample_indices_viewed": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94
+    ],
+    "observations": [
+      "All95 selected pictures on16 sheets actually viewed. Overlapping disks illustrate propagation through connected U; accumulating points and identity theorem are shown.",
+      "Complex sine/cosine identity followed by smooth real flat-function counterexample; distinct zero-left/nonzero-right graph and zero Taylor coefficients readable.",
+      "sin(1/z) zeros approach excluded0. Prediction remains unanswered in selected samples72.05-80.083s; excluded0 explanation appears81.2s. Precision card91-103.433s explicitly requires holomorphic functions on connected open U and a limit point in U.",
+      "Liouville statement explicitly requires entire and bounded; sine bounded only on real line, then sin(3i) approximately10i displayed. No concrete persistent label obstruction found in selected pictures."
+    ],
+    "followups": [
+      "Dense sin(1/z) center requires final4K detail and motion inspection; resized540p contact sheets cannot qualify aliasing.",
+      "Check source-bound opening curve-to-all-derivatives explanation for nontrivial curve/accumulation assumptions and proof clarity; later identity theorem precision card has correct hypotheses.",
+      "Check readability and uploaded-caption placement over low identity theorem and Liouville cards.",
+      "Continuous listening, fine-sync, final4K motion and independent final AV review remain open."
+    ],
+    "numeric_diagnostics_this_pass": {
+      "sin_3i_squared": "(-100.35781806122796+0j)",
+      "cos_3i_squared": "(101.35781806122793+0j)",
+      "sum": "(0.9999999999999716+0j)",
+      "scope": "Own stdlib arithmetic, not independent review or listening."
+    }
+  },
+  "rehashed_sheets": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-000.png",
+      "sha256": "f01971ad7a5c0675b2981e7d76bc5be5ebb1776a770b7de1cf355b38158fecd7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-001.png",
+      "sha256": "e7eaafa5b6b519018c278ee5f5dea83debc58214877da6c99e1a3bc44885b441"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-002.png",
+      "sha256": "93ae5a4f3e7d4b864541ff985a425e99fb6ee4604188f0e4378131deb63ea3a2"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-003.png",
+      "sha256": "749ffcfea071d64f380bf77a50344d09d80f9449f3b12877338d3212d34c8be2"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-004.png",
+      "sha256": "9d7fc09c8b56f9bdcaac575417267c412f669c89abea65f418ba73ab45573cab"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-005.png",
+      "sha256": "90f3b804cf42dde34884001754d250fe5c23dc149f1d317adca7466206fc7f06"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-006.png",
+      "sha256": "6f3bee875deeb6e1735a3236cc9df174126913c2e3fa0535b5a104b03a6074be"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-007.png",
+      "sha256": "a63d2364b16350a305b14af15f2c9e03f46feb6992281fd79ec537e96d2f1ebe"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-008.png",
+      "sha256": "832d7f15989de5e78a341416e270feb74e87c0c09f486ee6742ef54601f47018"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-009.png",
+      "sha256": "eb597277e78c7b175e3ff41c6d0efc677482a293efd90822b8f62ca73dc73432"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-010.png",
+      "sha256": "fceab43fe5121f1aa750c5e30da0ae8ae0eaa07ade93c04628d60d31a1f15a36"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-011.png",
+      "sha256": "b55515936104f80ee29a4a12df6b99d43f1ec7eea2e80a9fbcd6568e5f341d21"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-012.png",
+      "sha256": "c3797c8818c7cc3af4cad256ee3b68957fa64b20618251ca5a8d377668a662fc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-013.png",
+      "sha256": "623e9a46ec3a25e0b89f33b316e8cc988b3da2852c1cf804263b1ed82aae4e0f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-014.png",
+      "sha256": "09f9c57b3d5441c0972d704663b261d9953b7359717ffca7f8e895c0653e833b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/10_rigidity/sheet-015.png",
+      "sha256": "1528604fd94a96a2a0002c52e22607ee0d750e0ac4851c8207f2cba1cc20f61a"
+    }
+  ]
+}

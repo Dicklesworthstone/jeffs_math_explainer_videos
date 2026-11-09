@@ -1,0 +1,33 @@
+{
+  "time": "2026-11-08T18:54:09.663778+00:00",
+  "manifest_sha256": "a787e39d74c54651b8bbb3a97f0c75e7c863be4ab946c3004bb5aa153e34649b",
+  "actually_viewed_all_319_frames_on_27_sheets": true,
+  "intervals_inclusive": [
+    [
+      34,
+      98
+    ],
+    [
+      1223,
+      1257
+    ],
+    [
+      8876,
+      8940
+    ],
+    [
+      10179,
+      10300
+    ],
+    [
+      11724,
+      11755
+    ]
+  ],
+  "observations": [
+    "Opening two-pole field appears progressively without a bright first-frame flash; exit dims progressively before the next formula.",
+    "Natural-boundary circle progressively appears. At10179-10230 labels and boundary marks leave before the field dims; brief blank follows, then the first Gamma strip appears progressively. No stale circle reappearance.",
+    "Closing full Gamma field progressively dims through11755 without a final bright flash."
+  ],
+  "scope": "Exhaustive encoded-frame still sequences in these windows at480x270 tiles only; not real-time playback, listening, fine-sync or final4K acceptance."
+}

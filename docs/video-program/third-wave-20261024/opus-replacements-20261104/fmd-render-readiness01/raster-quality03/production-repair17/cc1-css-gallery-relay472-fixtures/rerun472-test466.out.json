@@ -1,0 +1,687 @@
+{
+ "F1": {
+  "prepare": {
+   "exit": 0,
+   "stderr": [],
+   "rows": 8,
+   "relay_expected_inputs": 8,
+   "path_set_equals_463_expression": true,
+   "helper_row_sha": true,
+   "guard_command_matches_463": true
+  },
+  "receive_binding": {
+   "shared row": {
+    "attempt": 2,
+    "rows": 8,
+    "exit": 1,
+    "refusal": "AssertionError: shared and system rows are not frozen at their hashes",
+    "byte_read_or_staged": false,
+    "import_result": false
+   },
+   "system row": {
+    "attempt": 3,
+    "rows": 8,
+    "exit": 1,
+    "refusal": "AssertionError: shared and system rows are not frozen at their hashes",
+    "byte_read_or_staged": false,
+    "import_result": false
+   },
+   "Q permit copy": {
+    "attempt": 4,
+    "rows": 8,
+    "exit": 1,
+    "refusal": "AssertionError: root's Q copy of the permit is not frozen at the permit's hash",
+    "byte_read_or_staged": false,
+    "import_result": false
+   },
+   "helper": {
+    "attempt": 5,
+    "rows": 8,
+    "exit": 1,
+    "refusal": "AssertionError: not frozen: W/[path truncated before cleaning; full text in test466b.out.json F1r]",
+    "byte_read_or_staged": false,
+    "import_result": false
+   },
+   "guard": {
+    "attempt": 6,
+    "rows": 8,
+    "exit": 1,
+    "refusal": "AssertionError: not frozen: W/[path truncated before cleaning; full text in test466b.out.json F1r]",
+    "byte_read_or_staged": false,
+    "import_result": false
+   },
+   "manifest": {
+    "attempt": 7,
+    "rows": 8,
+    "exit": 1,
+    "refusal": "AssertionError: not frozen: W/[path truncated before cleaning; full text in test466b.out.json F1r]",
+    "byte_read_or_staged": false,
+    "import_result": false
+   },
+   "none (exact rows)": {
+    "attempt": 8,
+    "rows": 8,
+    "exit": 1,
+    "refusal": "AssertionError: stream does not start with a header line",
+    "byte_read_or_staged": false,
+    "import_result": false
+   }
+  },
+  "validate_fabricated_completion": {
+   "exact rows": {
+    "attempt": 20,
+    "rows": 8,
+    "failures": [],
+    "passed": 8
+   },
+   "substituted shared row (same count)": {
+    "attempt": 21,
+    "rows": 8,
+    "failures": [
+     "g. the guard inputs hold exactly the 8 frozen rows at their pinned hashes (the --prepared set) and every row re-hashes"
+    ],
+    "passed": 7
+   },
+   "substituted Q permit copy (same count)": {
+    "attempt": 22,
+    "rows": 8,
+    "failures": [
+     "g. the guard inputs hold exactly the 8 frozen rows at their pinned hashes (the --prepared set) and every row re-hashes"
+    ],
+    "passed": 7
+   },
+   "one row dropped": {
+    "attempt": 23,
+    "rows": 7,
+    "failures": [
+     "g. the guard inputs hold exactly the 8 frozen rows at their pinned hashes (the --prepared set) and every row re-hashes"
+    ],
+    "passed": 7
+   },
+   "one extra row": {
+    "attempt": 24,
+    "rows": 9,
+    "failures": [
+     "g. the guard inputs hold exactly the 8 frozen rows at their pinned hashes (the --prepared set) and every row re-hashes"
+    ],
+    "passed": 7
+   }
+  },
+  "check_prepared": {
+   "exact rows": {
+    "outcome": "accepted",
+    "guard_sha256": "6774ddd8d8d5404545edb380b3be766b989c76adab47c01993be5b78b22102d5"
+   },
+   "substituted shared row (same count)": {
+    "outcome": "refused",
+    "code": 1,
+    "message": "--prepared: the existing inputs are not the set import448 prepare writes for this manifest"
+   }
+  }
+ },
+ "F2": {
+  "S01_happy": {
+   "run": 0,
+   "stop": null,
+   "record_status": {
+    "code": 0,
+    "message": "imported and validated",
+    "rows350": {
+     "05_gallery": {
+      "import_receipt": "W/csd/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import448-05-gallery-a1/resource-receipt.json",
+      "import_inputs": "W/csd/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import448-05-gallery-a1-inputs.json"
+     }
+    },
+    "validation_passed": [
+     "a. import448 check exits 0",
+     "b. import448 check reports csd-css352-import448-05-gallery-a1 and the job folder exists",
+     "c. the guard receipt is a terminal success of the exact import448 receive command, and import448 check reports the pinned b6653757",
+     "d. import-result.json exists and names manifest 29490df1e581",
+     "e. every manifest row is at its size and hash through its original path (import448 check problems [])",
+     "f. the guard inputs file is the one the guard admitted",
+     "g. the guard inputs hold exactly the 8 frozen rows at their pinned hashes (the --prepared set) and every row re-hashes",
+     "h. rows350 from import448 check and import-result.json equal the expected names"
+    ]
+   },
+   "steps": [
+    "check",
+    "prepare",
+    "receive started",
+    "admission poll",
+    "send started",
+    "stream ended",
+    "post-import validation"
+   ],
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE",
+    "CSD_PROBE",
+    "helper check",
+    "helper prepare",
+    "CSD_PROBE",
+    "receive",
+    "JOB_PROBE",
+    "send",
+    "helper check",
+    "POST_PROBE"
+   ],
+   "send_started": true,
+   "inputs_before": [],
+   "inputs_after": [
+    "csd-css352-import448-05-gallery-a1-inputs.json"
+   ],
+   "job_exists": true,
+   "receipt": {
+    "admitted": true,
+    "exit": 0,
+    "finished": true
+   },
+   "import_result": true
+  },
+  "S02_stream_lost_after_remote_completed": {
+   "run": 2,
+   "stop": "STOP 2: transport failure during the stream (send 0, receive 255); attempt 1 is root's to investigate; run verify --attempt 1 when both hosts answer",
+   "record_status": {
+    "code": 2,
+    "message": "transport failure during the stream (send 0, receive 255); attempt 1 is root's to investigate; run verify --attempt 1 when both hosts answer"
+   },
+   "steps": [
+    "check",
+    "prepare",
+    "receive started",
+    "admission poll",
+    "send started",
+    "stream ended"
+   ],
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE",
+    "CSD_PROBE",
+    "helper check",
+    "helper prepare",
+    "CSD_PROBE",
+    "receive",
+    "JOB_PROBE",
+    "send"
+   ],
+   "send_started": true,
+   "inputs_before": [],
+   "inputs_after": [
+    "csd-css352-import448-05-gallery-a1-inputs.json"
+   ],
+   "job_exists": true,
+   "receipt": {
+    "admitted": true,
+    "exit": 0,
+    "finished": true
+   },
+   "import_result": true,
+   "verify": {
+    "code": 0,
+    "stop": null,
+    "csd_jobs_unchanged": true,
+    "csd_q_unchanged": true,
+    "failures": [],
+    "passed": 8
+   },
+   "rerun same attempt": {
+    "code": 1,
+    "stop": "STOP 1: already imported by csd-css352-import448-05-gallery-a1; nothing to do; attempt 1 is not above every existing attempt ['1', '1']; the relay never re-admits or picks a number",
+    "csd_jobs_unchanged": true,
+    "csd_q_unchanged": true
+   },
+   "run attempt 2": {
+    "code": 1,
+    "stop": "STOP 1: already imported by csd-css352-import448-05-gallery-a1; nothing to do",
+    "csd_jobs_unchanged": true,
+    "csd_q_unchanged": true
+   },
+   "status": {
+    "code": 1,
+    "stop": null,
+    "csd_jobs_unchanged": true,
+    "csd_q_unchanged": true,
+    "problems": [
+     "already imported by csd-css352-import448-05-gallery-a1; nothing to do",
+     "attempt 1 is not above every existing attempt ['1', '1']; the relay never re-admits or picks a number"
+    ]
+   }
+  },
+  "S03_stream_lost_remote_failed": {
+   "run": 2,
+   "stop": "STOP 2: transport failure during the stream (send 0, receive 255); attempt 1 is root's to investigate; run verify --attempt 1 when both hosts answer",
+   "record_status": {
+    "code": 2,
+    "message": "transport failure during the stream (send 0, receive 255); attempt 1 is root's to investigate; run verify --attempt 1 when both hosts answer"
+   },
+   "steps": [
+    "check",
+    "prepare",
+    "receive started",
+    "admission poll",
+    "send started",
+    "stream ended"
+   ],
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE",
+    "CSD_PROBE",
+    "helper check",
+    "helper prepare",
+    "CSD_PROBE",
+    "receive",
+    "JOB_PROBE",
+    "send"
+   ],
+   "send_started": true,
+   "inputs_before": [],
+   "inputs_after": [
+    "csd-css352-import448-05-gallery-a1-inputs.json"
+   ],
+   "job_exists": true,
+   "receipt": {
+    "admitted": true,
+    "exit": 1,
+    "finished": true
+   },
+   "import_result": false,
+   "verify": {
+    "code": 3,
+    "stop": null,
+    "csd_jobs_unchanged": true,
+    "csd_q_unchanged": true,
+    "failures": [
+     "c. the guard receipt is a terminal success of the exact import448 receive command, and import448 check reports the pinned b6653757",
+     "d. import-result.json exists and names manifest b456e01bfd0f",
+     "h. rows350 from import448 check and import-result.json equal the expected names"
+    ],
+    "passed": 5
+   },
+   "rerun same attempt": {
+    "code": 1,
+    "stop": "STOP 1: attempt 1 is not above every existing attempt ['1', '1']; the relay never re-admits or picks a number",
+    "csd_jobs_unchanged": true,
+    "csd_q_unchanged": true
+   },
+   "rerun --prepared": {
+    "code": 1,
+    "stop": "STOP 1: --prepared needs attempt 1 to be the latest, with inputs and no job: [1, 1]",
+    "csd_jobs_unchanged": true,
+    "csd_q_unchanged": true
+   }
+  },
+  "S04_validation_post_probe_timeout": {
+   "run": 2,
+   "stop": "STOP 2: both ends exited 0, but the post-import validation did not complete: csd: no answer within 3600 s; the remote outcome is unknown (it may still run); stopped, nothing retried: /usr/bin/python3 -I -B -; nothing is used until `verify` for attempt 1 passes",
+   "record_status": {
+    "code": 2,
+    "message": "both ends exited 0, but the post-import validation did not complete: csd: no answer within 3600 s; the remote outcome is unknown (it may still run); stopped, nothing retried: /usr/bin/python3 -I -B -; nothing is used until `verify` for attempt 1 passes"
+   },
+   "steps": [
+    "check",
+    "prepare",
+    "receive started",
+    "admission poll",
+    "send started",
+    "stream ended"
+   ],
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE",
+    "CSD_PROBE",
+    "helper check",
+    "helper prepare",
+    "CSD_PROBE",
+    "receive",
+    "JOB_PROBE",
+    "send",
+    "helper check",
+    "POST_PROBE"
+   ],
+   "send_started": true,
+   "inputs_before": [],
+   "inputs_after": [
+    "csd-css352-import448-05-gallery-a1-inputs.json"
+   ],
+   "job_exists": true,
+   "receipt": {
+    "admitted": true,
+    "exit": 0,
+    "finished": true
+   },
+   "import_result": true,
+   "verify": {
+    "code": 0,
+    "stop": null,
+    "csd_jobs_unchanged": true,
+    "csd_q_unchanged": true,
+    "failures": [],
+    "passed": 8
+   }
+  },
+  "S05_validation_check_255": {
+   "run": 2,
+   "stop": "; nothing is used until `verify` for attempt 1 passes",
+   "record_status": {
+    "code": 2,
+    "message": "both ends exited 0, but the post-import validation did not complete: csd: ssh exit 255 (transport); stopped, nothing retried: ssh: connect to host: Operation timed out\n; nothing is used until `verify` for attempt 1 passes"
+   },
+   "steps": [
+    "check",
+    "prepare",
+    "receive started",
+    "admission poll",
+    "send started",
+    "stream ended"
+   ],
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE",
+    "CSD_PROBE",
+    "helper check",
+    "helper prepare",
+    "CSD_PROBE",
+    "receive",
+    "JOB_PROBE",
+    "send",
+    "helper check"
+   ],
+   "send_started": true,
+   "inputs_before": [],
+   "inputs_after": [
+    "csd-css352-import448-05-gallery-a1-inputs.json"
+   ],
+   "job_exists": true,
+   "receipt": {
+    "admitted": true,
+    "exit": 0,
+    "finished": true
+   },
+   "import_result": true,
+   "verify": {
+    "code": 0,
+    "stop": null,
+    "csd_jobs_unchanged": true,
+    "csd_q_unchanged": true,
+    "failures": [],
+    "passed": 8
+   }
+  },
+  "S06_admission_poll_timeout": {
+   "run": 2,
+   "stop": "STOP 2: receive started, admission unknown: csd: no answer within 300 s; the remote outcome is unknown (it may still run); stopped, nothing retried: /usr/bin/python3 -I -B -; no byte sent; attempt 1 is root's to investigate",
+   "record_status": {
+    "code": 2,
+    "message": "receive started, admission unknown: csd: no answer within 300 s; the remote outcome is unknown (it may still run); stopped, nothing retried: /usr/bin/python3 -I -B -; no byte sent; attempt 1 is root's to investigate"
+   },
+   "steps": [
+    "check",
+    "prepare",
+    "receive started"
+   ],
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE",
+    "CSD_PROBE",
+    "helper check",
+    "helper prepare",
+    "CSD_PROBE",
+    "receive",
+    "JOB_PROBE"
+   ],
+   "send_started": false,
+   "inputs_before": [],
+   "inputs_after": [
+    "csd-css352-import448-05-gallery-a1-inputs.json"
+   ],
+   "job_exists": true,
+   "receipt": {
+    "admitted": true,
+    "exit": 1,
+    "finished": true
+   },
+   "import_result": false,
+   "verify": {
+    "code": 3,
+    "stop": null,
+    "csd_jobs_unchanged": true,
+    "csd_q_unchanged": true,
+    "failures": [
+     "c. the guard receipt is a terminal success of the exact import448 receive command, and import448 check reports the pinned b6653757",
+     "d. import-result.json exists and names manifest 023ffcdfd1c8",
+     "h. rows350 from import448 check and import-result.json equal the expected names"
+    ],
+    "passed": 5
+   },
+   "rerun same attempt": {
+    "code": 1,
+    "stop": "STOP 1: attempt 1 is not above every existing attempt ['1', '1']; the relay never re-admits or picks a number",
+    "csd_jobs_unchanged": true,
+    "csd_q_unchanged": true
+   }
+  },
+  "S07_guard_refused_admission": {
+   "run": 3,
+   "stop": "STOP 3: the job was not admitted for this receive (finished 2026-11-09T04:45:01.115009+00:00, guard exit 75); no byte sent; attempt 1 is root's to investigate",
+   "record_status": {
+    "code": 3,
+    "message": "the job was not admitted for this receive (finished 2026-11-09T04:45:01.115009+00:00, guard exit 75); no byte sent; attempt 1 is root's to investigate"
+   },
+   "steps": [
+    "check",
+    "prepare",
+    "receive started",
+    "admission poll"
+   ],
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE",
+    "CSD_PROBE",
+    "helper check",
+    "helper prepare",
+    "CSD_PROBE",
+    "receive",
+    "JOB_PROBE"
+   ],
+   "send_started": false,
+   "inputs_before": [],
+   "inputs_after": [
+    "csd-css352-import448-05-gallery-a1-inputs.json"
+   ],
+   "job_exists": true,
+   "receipt": {
+    "admitted": false,
+    "exit": null,
+    "finished": true
+   },
+   "import_result": false,
+   "verify": {
+    "code": 3,
+    "stop": null,
+    "csd_jobs_unchanged": true,
+    "csd_q_unchanged": true,
+    "failures": [
+     "c. the guard receipt is a terminal success of the exact import448 receive command, and import448 check reports the pinned b6653757",
+     "d. import-result.json exists and names manifest 0a93e1d67f26",
+     "f. the guard inputs file is the one the guard admitted",
+     "h. rows350 from import448 check and import-result.json equal the expected names"
+    ],
+    "passed": 4
+   },
+   "rerun same attempt": {
+    "code": 1,
+    "stop": "STOP 1: attempt 1 is not above every existing attempt ['1', '1']; the relay never re-admits or picks a number",
+    "csd_jobs_unchanged": true,
+    "csd_q_unchanged": true
+   }
+  },
+  "S08_lane_busy": {
+   "run": 4,
+   "stop": "STOP 4: the native lane stayed busy until the deadline: {'holders': [31337], 'waiters': []}; nothing started",
+   "record_status": {
+    "code": 4,
+    "message": "the native lane stayed busy until the deadline: {'holders': [31337], 'waiters': []}; nothing started"
+   },
+   "steps": [],
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE",
+    "CSD_PROBE"
+   ],
+   "send_started": false,
+   "inputs_before": [],
+   "inputs_after": [],
+   "job_exists": false,
+   "receipt": null,
+   "import_result": false
+  },
+  "S09_stopped_prepare_without_flag": {
+   "run": 1,
+   "stop": "STOP 1: attempt 1 is not above every existing attempt ['1']; the relay never re-admits or picks a number",
+   "record_status": {
+    "code": 1,
+    "message": "attempt 1 is not above every existing attempt ['1']; the relay never re-admits or picks a number"
+   },
+   "steps": [],
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE"
+   ],
+   "send_started": false,
+   "inputs_before": [
+    "csd-css352-import448-05-gallery-a1-inputs.json"
+   ],
+   "inputs_after": [
+    "csd-css352-import448-05-gallery-a1-inputs.json"
+   ],
+   "job_exists": false,
+   "receipt": null,
+   "import_result": false
+  },
+  "S10_stopped_prepare_with_flag": {
+   "run": 0,
+   "stop": null,
+   "record_status": {
+    "code": 0,
+    "message": "imported and validated",
+    "rows350": {
+     "05_gallery": {
+      "import_receipt": "W/csd/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import448-05-gallery-a1/resource-receipt.json",
+      "import_inputs": "W/csd/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import448-05-gallery-a1-inputs.json"
+     }
+    },
+    "validation_passed": [
+     "a. import448 check exits 0",
+     "b. import448 check reports csd-css352-import448-05-gallery-a1 and the job folder exists",
+     "c. the guard receipt is a terminal success of the exact import448 receive command, and import448 check reports the pinned b6653757",
+     "d. import-result.json exists and names manifest c619c5740d3e",
+     "e. every manifest row is at its size and hash through its original path (import448 check problems [])",
+     "f. the guard inputs file is the one the guard admitted",
+     "g. the guard inputs hold exactly the 8 frozen rows at their pinned hashes (the --prepared set) and every row re-hashes",
+     "h. rows350 from import448 check and import-result.json equal the expected names"
+    ]
+   },
+   "steps": [
+    "check",
+    "prepared",
+    "receive started",
+    "admission poll",
+    "send started",
+    "stream ended",
+    "post-import validation"
+   ],
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE",
+    "CSD_PROBE",
+    "helper check",
+    "INPUTS_PROBE",
+    "CSD_PROBE",
+    "receive",
+    "JOB_PROBE",
+    "send",
+    "helper check",
+    "POST_PROBE"
+   ],
+   "send_started": true,
+   "inputs_before": [
+    "csd-css352-import448-05-gallery-a1-inputs.json"
+   ],
+   "inputs_after": [
+    "csd-css352-import448-05-gallery-a1-inputs.json"
+   ],
+   "job_exists": true,
+   "receipt": {
+    "admitted": true,
+    "exit": 0,
+    "finished": true
+   },
+   "import_result": true
+  },
+  "S11_substituted_inputs_with_flag": {
+   "run": 1,
+   "stop": "STOP 1: --prepared: the existing inputs are not the set import448 prepare writes for this manifest",
+   "record_status": {
+    "code": 1,
+    "message": "--prepared: the existing inputs are not the set import448 prepare writes for this manifest"
+   },
+   "steps": [
+    "check"
+   ],
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE",
+    "CSD_PROBE",
+    "helper check",
+    "INPUTS_PROBE"
+   ],
+   "send_started": false,
+   "inputs_before": [
+    "csd-css352-import448-05-gallery-a1-inputs.json"
+   ],
+   "inputs_after": [
+    "csd-css352-import448-05-gallery-a1-inputs.json"
+   ],
+   "job_exists": false,
+   "receipt": null,
+   "import_result": false
+  },
+  "S12_serial_gate_14_missing": {
+   "run": 1,
+   "stop": "STOP 1: serial order: 14_continuation has no completed 371 import yet",
+   "record_status": {
+    "code": 1,
+    "message": "serial order: 14_continuation has no completed 371 import yet"
+   },
+   "steps": [],
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE"
+   ],
+   "send_started": false,
+   "inputs_before": [],
+   "inputs_after": [],
+   "job_exists": false,
+   "receipt": null,
+   "import_result": false
+  },
+  "S13_css_probe_255": {
+   "run": 2,
+   "stop": "STOP 2: css: ssh exit 255 (transport); stopped, nothing retried: ssh: connect to host: Operation timed out",
+   "record_status": {
+    "code": 2,
+    "message": "css: ssh exit 255 (transport); stopped, nothing retried: ssh: connect to host: Operation timed out\n"
+   },
+   "steps": [],
+   "transport": [
+    "CSS_PROBE"
+   ],
+   "send_started": false,
+   "inputs_before": [],
+   "inputs_after": [],
+   "job_exists": false,
+   "receipt": null,
+   "import_result": false
+  }
+ }
+}

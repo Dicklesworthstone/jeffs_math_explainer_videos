@@ -1,0 +1,82 @@
+{
+  "started": "2026-11-08T05:35:14.321173+00:00",
+  "phase": "native",
+  "command": [
+    "/usr/bin/timeout",
+    "22000",
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/review-repair-build268.py"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-08T05:35:17.199191+00:00",
+      "free_bytes": 104758779904,
+      "work_bytes": 6238351360,
+      "target_bytes": 2324676608
+    },
+    {
+      "utc": "2026-11-08T05:35:27.733957+00:00",
+      "free_bytes": 104755757056,
+      "work_bytes": 6238367744,
+      "target_bytes": 2324668416
+    },
+    {
+      "utc": "2026-11-08T05:35:38.482424+00:00",
+      "free_bytes": 104751939584,
+      "work_bytes": 6238367744,
+      "target_bytes": 2329042944
+    },
+    {
+      "utc": "2026-11-08T05:35:49.004942+00:00",
+      "free_bytes": 104746893312,
+      "work_bytes": 6238367744,
+      "target_bytes": 2333409280
+    },
+    {
+      "utc": "2026-11-08T05:35:59.652108+00:00",
+      "free_bytes": 104750768128,
+      "work_bytes": 6238404608,
+      "target_bytes": 2327511040
+    },
+    {
+      "utc": "2026-11-08T05:36:10.256145+00:00",
+      "free_bytes": 104747888640,
+      "work_bytes": 6238404608,
+      "target_bytes": 2330349568
+    },
+    {
+      "utc": "2026-11-08T05:36:13.835070+00:00",
+      "free_bytes": 104713617408,
+      "work_bytes": 6238420992,
+      "target_bytes": 2364452864
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":104758788096,\"free_excludes_purgeable\":true,\"free_pct\":10.768994891056431,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-stroke-probe-20261106\",\"platform\":{\"linux\":{\"device_id\":66308,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":972781481984,\"unprotected\":null,\"volume_available_bytes\":104758788096,\"volume_role\":null,\"volume_total_bytes\":972781481984}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-08T05:35:14.351399+00:00",
+    "free_bytes": 104758784000,
+    "work_bytes": 6238347264,
+    "target_bytes": 2322567168
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "53f1360e1102252a59a82e088f51152601d356562d152270f989bf1e86251663",
+  "pid": 252492,
+  "exit": 0,
+  "final_inputs_sha256": "53f1360e1102252a59a82e088f51152601d356562d152270f989bf1e86251663",
+  "finished": "2026-11-08T05:36:17.202015+00:00"
+}

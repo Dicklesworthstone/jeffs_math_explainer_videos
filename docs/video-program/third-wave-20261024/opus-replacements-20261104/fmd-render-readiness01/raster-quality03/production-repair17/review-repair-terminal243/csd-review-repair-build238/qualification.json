@@ -1,0 +1,24 @@
+{
+  "binary_sha256": "f31690e648393923c373922b513a77e65dc44fef10dbd39f8b88b561e283e9da",
+  "tests_passed": 226,
+  "clippy_passed": true,
+  "facts_sha256": "7d528509752e532c07edb3fda7c12cd8251ac4ba77022355ae42ad725add4417",
+  "chapters": [
+    "01_the_bump",
+    "02_turning_numbers",
+    "03_two_planes",
+    "04_reading_color",
+    "05_gallery",
+    "06_one_derivative",
+    "07_one_point",
+    "08_loop_sums",
+    "09_boundary",
+    "10_rigidity",
+    "11_counting",
+    "12_residues",
+    "13_real_integral",
+    "14_continuation",
+    "15_closing"
+  ],
+  "scope": "Native build only; no image/motion/listening or release acceptance"
+}

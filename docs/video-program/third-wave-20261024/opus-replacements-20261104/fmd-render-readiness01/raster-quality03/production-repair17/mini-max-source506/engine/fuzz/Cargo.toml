@@ -1,0 +1,119 @@
+# The fm-ntp fuzz harness crate (ADR-0003 class=`fuzz`).
+#
+# Governance contract:
+#   - NOT a workspace member: the empty `[workspace]` table below makes
+#     this directory its own workspace root, so it never enters the
+#     workspace build graph or any shipped artifact.
+#   - It may depend ONLY on the crates under test (the workspace crates
+#     below and fmd-font/fmd-math at the SUITE.lock revision) plus
+#     `libfuzzer-sys`, pinned exactly.
+#   - Its own committed Cargo.lock is walked by the governed-closure
+#     check (crates/fmn-conformance/tests/governed_closure.rs) with the
+#     same admission and checksum rules as the workspace lock.
+#   - Fuzz targets run as a scheduled job (scripts/fuzz_scheduled.sh),
+#     never as a merge gate.
+
+[package]
+name = "fmn-codec-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[workspace]
+
+[dependencies]
+libfuzzer-sys = "=0.4.13"
+fmd-font = { git = "https://github.com/Dicklesworthstone/franken_markdown", rev = "126a5304e8d94eaea62b1b8e13bbe9c40918ac72", features = ["bundled-faces"] }
+fmd-math = { git = "https://github.com/Dicklesworthstone/franken_markdown", rev = "126a5304e8d94eaea62b1b8e13bbe9c40918ac72" }
+[dependencies.fmn-codec]
+path = "../crates/fmn-codec"
+
+[dependencies.fmn-cache]
+path = "../crates/fmn-cache"
+
+[dependencies.fmn-hash]
+path = "../crates/fmn-hash"
+
+[dependencies.fmn-geom]
+path = "../crates/fmn-geom"
+
+[dependencies.fmn-config]
+path = "../crates/fmn-config"
+
+# fmd-math arrives transitively through fmn-tex (workspace dep) so the
+# fuzz target can drive the typed Engine + parse + typeset surface.
+[dependencies.fmn-tex]
+path = "../crates/fmn-tex"
+
+[dependencies.fmn-library]
+path = "../crates/fmn-library"
+
+[dependencies.fmn-text]
+path = "../crates/fmn-text"
+
+
+# Prevent this from accidentally linking arbitrary code in release builds.
+[profile.release]
+debug = false
+codegen-units = 1
+
+[[bin]]
+name = "inflate_bytes"
+path = "fuzz_targets/inflate_bytes.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "decode_png"
+path = "fuzz_targets/decode_png.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "decode_jpeg"
+path = "fuzz_targets/decode_jpeg.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "decode_entry_envelope"
+path = "fuzz_targets/decode_entry_envelope.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "namespace_and_object_paths"
+path = "fuzz_targets/namespace_and_object_paths.rs"
+test = false
+
+[[bin]]
+name = "svg_document"
+path = "fuzz_targets/svg_document.rs"
+test = false
+doc = false
+[[bin]]
+name = "yaml_config"
+path = "fuzz_targets/yaml_config.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "tex_math"
+path = "fuzz_targets/tex_math.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "ttf_font_parse"
+path = "fuzz_targets/ttf_font_parse.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "path_boolean"
+path = "fuzz_targets/path_boolean.rs"
+test = false
+doc = false

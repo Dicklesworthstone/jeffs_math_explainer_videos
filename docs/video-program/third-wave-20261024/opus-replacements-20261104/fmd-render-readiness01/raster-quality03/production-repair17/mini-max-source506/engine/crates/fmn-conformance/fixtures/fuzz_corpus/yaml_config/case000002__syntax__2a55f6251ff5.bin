@@ -1,0 +1,6 @@
+templateitems:
+  - a
+  - b
+nested:
+144  deep:
+  -   key: 1

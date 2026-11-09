@@ -1,0 +1,291 @@
+{
+  "at": "2026-11-08T04:25:53.544851+00:00",
+  "all57_unchanged_after_copy": true,
+  "files": [
+    {
+      "source_relative": "work/tree/repo-view/Cargo.toml",
+      "bytes": 2544,
+      "sha256": "2fa23046569fa50378540c709509e12943a73733682564acdaa394541c7e2d05"
+    },
+    {
+      "source_relative": "work/tree/repo-view/Cargo.lock",
+      "bytes": 63419,
+      "sha256": "472710f8a7de0d2e0c2b477ffc457f81687f17cb120c6ae6b21bfebbc1f618f1"
+    },
+    {
+      "source_relative": "work/tree/engine/crates/fmn/tests/native_render.rs",
+      "bytes": 19895,
+      "sha256": "d64416e4536cde9a0fbfa7e3e87ac488a36b0b9723c789bb304a68a818ac70cd"
+    },
+    {
+      "source_relative": "work/two-label68/workspace/explainer_corpus/complex_analysis_visual/narration_units.json",
+      "bytes": 39637,
+      "sha256": "662eafca457bd09c6cce19f2e82159a7c5a67d6903802a3f6bb181d605151db8"
+    },
+    {
+      "source_relative": "work/two-label68/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-label69.json",
+      "bytes": 32104,
+      "sha256": "846ee418691ee856ce337d75d4e34af5e50c40b206e4b2230539e8abba62fec0"
+    },
+    {
+      "source_relative": "work/two-label164/workspace/explainer_corpus/complex_analysis_visual/narration_units.json",
+      "bytes": 39638,
+      "sha256": "c711c40ca5a78924aed20e4cfa4bd0e7fecec49d26b56e4fc402b47beaa28c7d"
+    },
+    {
+      "source_relative": "work/two-label164/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-label165.json",
+      "bytes": 32104,
+      "sha256": "864ad3a80f012fa4aea676c895cf8d10c5ec2f9f06bf5b5476b944a5cc692ed1"
+    },
+    {
+      "source_relative": "jobs/csd-production-repair-build19/source-copy.json",
+      "bytes": 10242,
+      "sha256": "b6799c42cefad68f1f0545ad39108e1ea5743351d9cae7c3c44c87c5237edaa7"
+    },
+    {
+      "source_relative": "jobs/csd-production-repair-build19/resource-receipt.json",
+      "bytes": 2818,
+      "sha256": "1e25502fa2e7ca459fa125e26f696840fb9e67f91be2e0bb5847559970f9fadf"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build68/source-copy.json",
+      "bytes": 10206,
+      "sha256": "25acda128de6e5f1aa35be3f9564450261566da31261a50274aa0e8799709253"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build68/qualification.json",
+      "bytes": 638,
+      "sha256": "8ba49d69effb7a986a7be96f19c3ee6df97ee7fac45dcaaf2c6e509efb1835b3"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build68/resource-receipt.json",
+      "bytes": 12649,
+      "sha256": "9e55421ea417e05ac18c2e96384197bc72b7d3f8010d5d2554787988897b391f"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build164/source-copy.json",
+      "bytes": 10206,
+      "sha256": "da5884289e4d0fe15c12dfd82f5a3d44daaee5524e198f2727896d2aa3adfd56"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build164/qualification.json",
+      "bytes": 638,
+      "sha256": "d2a4b76040d8f5c8159828b682f7351b1a97e8af8ae6cc9df11bae915b0f0e51"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build164/resource-receipt.json",
+      "bytes": 2668,
+      "sha256": "162d46d875dc400538d41fef6fb975314621ab0508840542fa5a286b68ca78a7"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-rebind69/rebind-summary.json",
+      "bytes": 14508,
+      "sha256": "c5017b9a30fc22a7cfeaabd294fcb8ad038560da2c563ceb320c159550a07d98"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-rebind69/resource-receipt.json",
+      "bytes": 2199,
+      "sha256": "20514c08ecdae8fe0285ddc58f58f1aaa510a591330c11912e374447134d178c"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-rebind69/narration/assembly.json",
+      "bytes": 106557,
+      "sha256": "37cda29fc0e1fc2bed46d6da7d56b5d36c3c613eac2dc1779bd2d82bdec1c090"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-rebind69/narration/report.json",
+      "bytes": 365476,
+      "sha256": "4679dfeccaa0b213e2f16b4257a0d6925079009181b0bba87e35c984ee092602"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-rebind165/rebind-summary.json",
+      "bytes": 14508,
+      "sha256": "395603860ad4810b085a34c07fc3c4da0167beda467e4362ae75920a8e79218a"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-rebind165/resource-receipt.json",
+      "bytes": 2200,
+      "sha256": "9e29a35a3f0befd308ffd7c451a5931bc1fdd5033c37be21a4c0e54b083997c4"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-rebind165/narration/assembly.json",
+      "bytes": 106580,
+      "sha256": "98eb77245daa140bb8df187d6cdda0d0a98cb832cd8ac4faf99908386619765b"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-rebind165/narration/report.json",
+      "bytes": 365500,
+      "sha256": "a47f8d0b394fc0dad54acf6afa315f05352191da62b01719394deed5f258ba0d"
+    },
+    {
+      "source_relative": "qualification01/production-repair17/build19-inputs.json",
+      "bytes": 2620897,
+      "sha256": "290dd1e4b0ae129e22c6157953a5583ee213793023aae8c79863fcbcaed4aec6"
+    },
+    {
+      "source_relative": "qualification01/production-repair17/two-label-build68-inputs.json",
+      "bytes": 2736542,
+      "sha256": "f5013e8c700d80cc2080e1b3df0981d615458810729e7c037face2e6df879357"
+    },
+    {
+      "source_relative": "qualification01/production-repair17/two-label-build164-inputs.json",
+      "bytes": 2736541,
+      "sha256": "a7fcc02c5141c32f7dd364dab246926097c2bef3923b1ae64a86bd81aa055b5f"
+    },
+    {
+      "source_relative": "qualification01/production-repair17/two-label-rebind69-inputs.json",
+      "bytes": 2757672,
+      "sha256": "77c466ff9d77beb7f953343a16cbab24ae21cb71353d99ba3d85a46cad2d9a51"
+    },
+    {
+      "source_relative": "qualification01/production-repair17/two-label-rebind165-inputs.json",
+      "bytes": 2757759,
+      "sha256": "0cdc1f1a75af13f179a6c389c58366bf7da0b46c9ee6d385758abe13e85e055d"
+    },
+    {
+      "source_relative": "jobs/csd-production-assembly19/narration/08_5.wav",
+      "bytes": 8574764,
+      "sha256": "fb88052b87ca09b853e1e4ed630ed1163e0966e8b6128ba44f0469c12bfbfb0f"
+    },
+    {
+      "source_relative": "jobs/csd-production-assembly19/narration/09_1.wav",
+      "bytes": 6608684,
+      "sha256": "cf37ead1c5bb398864c4090cb925c6002e1a9e4443f6d24a326b6b4f488e22ef"
+    },
+    {
+      "source_relative": "jobs/csd-production-assembly19/narration/assembly.json",
+      "bytes": 78284,
+      "sha256": "98ca5465426dd348c5944617357ade3c9fff411009f651c136d2c6073d90d839"
+    },
+    {
+      "source_relative": "jobs/csd-production-assembly19/narration/report.json",
+      "bytes": 295705,
+      "sha256": "2f899d2fb0c9580e9ddea690d263bd24f0508b37184cbf0cc39a8d9aa3372495"
+    },
+    {
+      "source_relative": "jobs/csd-production-assembly19/assembly19-summary.json",
+      "bytes": 42646,
+      "sha256": "17e5766ff9c93341cf2aef5478641212f8ea586c116265550f8870c33f9babc6"
+    },
+    {
+      "source_relative": "jobs/csd-production-assembly19/resource-receipt.json",
+      "bytes": 2187,
+      "sha256": "1791a42f8cfc3f42d480a51f3a42d2fa4495d2d20f93263a167b1a1bbf8a4725"
+    },
+    {
+      "source_relative": "qualification01/production-repair17/assembly19-inputs.json",
+      "bytes": 2691835,
+      "sha256": "d6a498e44126647c8a98d04a2e7abb6b8c7e79e423199459c267f8aa0c7bec48"
+    },
+    {
+      "source_relative": "jobs/csd-production-repair-build19/command.log",
+      "bytes": 85,
+      "sha256": "2c354988951adab91c09a668f8d4585f13b824ed4e27bf1b90bd7adce90f1758"
+    },
+    {
+      "source_relative": "jobs/csd-production-repair-build19/build.stderr",
+      "bytes": 460,
+      "sha256": "5c8e7fa5ed95859decd04ee9f2c354844c22ecbac4eb69e70e5fbdba431ccd4e"
+    },
+    {
+      "source_relative": "jobs/csd-production-repair-build19/clippy.stderr",
+      "bytes": 459,
+      "sha256": "6310747c97d10e0ded6600fa305b674466476f3ac730aa0d415083020c948166"
+    },
+    {
+      "source_relative": "jobs/csd-production-repair-build19/tests.stderr",
+      "bytes": 651,
+      "sha256": "bd94df8e0763936cadcff2a1e85099778d88b16dc48d7e16344b122700e2bcd0"
+    },
+    {
+      "source_relative": "jobs/csd-production-repair-build19/tests.stdout",
+      "bytes": 19022,
+      "sha256": "67c662355cb0b96e0f52d1516e939428dff9c73739cfd3a0476626ddd60efefd"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build68/command.log",
+      "bytes": 98,
+      "sha256": "b05e3240f7d0479186bc53c593b9da3c6e9a066f5c16b377eef8078ed0a1a259"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build68/build.stderr",
+      "bytes": 452,
+      "sha256": "3957aff4f235e9a2105fe232e812dda95c384bff8c5b6f59583d812aff0d389b"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build68/clippy.stderr",
+      "bytes": 6788,
+      "sha256": "7e54792cea61703d34ae231161cca44cae1f5d0ce1c19c72002d5dbe880f0206"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build68/tests.stderr",
+      "bytes": 7107,
+      "sha256": "f8bc086da1ba71729b6204d3c7bff8d390ca9e76cd5beab989140d802d31eadc"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build68/tests.stdout",
+      "bytes": 19022,
+      "sha256": "c53f789514995a282901390cb1e7e7637862529a7f7c61594def5df821eb2ce0"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build164/command.log",
+      "bytes": 98,
+      "sha256": "b05e3240f7d0479186bc53c593b9da3c6e9a066f5c16b377eef8078ed0a1a259"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build164/build.stderr",
+      "bytes": 453,
+      "sha256": "4e8c1b2c48f6211433623867d5c58160cdc16dfb81bbbc7aff421a63d6d5749a"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build164/clippy.stderr",
+      "bytes": 452,
+      "sha256": "61f8d61c7318df4912e0063287f5c71f45c737269c7f15169a62c66a9316abf6"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build164/tests.stderr",
+      "bytes": 644,
+      "sha256": "4c701579f1457d16a76f16c84fabb66f20d2ebfc9188ba39ba72fd0f603e018a"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-build164/tests.stdout",
+      "bytes": 19022,
+      "sha256": "5abf71f63f8e4e9129809a9f00ee8b517036e4e0745ba9b931db93feb20539a2"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-rebind69/command.log",
+      "bytes": 101,
+      "sha256": "9c12c67393169a0e5b3d5288cae2d2506994ce3c86099fbdc8e5c84a6a2c6f6f"
+    },
+    {
+      "source_relative": "jobs/csd-two-label-rebind165/command.log",
+      "bytes": 101,
+      "sha256": "9c12c67393169a0e5b3d5288cae2d2506994ce3c86099fbdc8e5c84a6a2c6f6f"
+    },
+    {
+      "source_relative": "jobs/csd-production-assembly19/command.log",
+      "bytes": 97,
+      "sha256": "ed074547f10b788be0df8b56b5db1ffbb55be65bb36ddbfb7d69899084fdf259"
+    },
+    {
+      "source_relative": "jobs/csd-production-assembly19/assemble.stdout",
+      "bytes": 134,
+      "sha256": "e4f690c7e0ca0fa80f6b511ce7d337e322200e06016eee59fd6c6b4648e9bc42"
+    },
+    {
+      "source_relative": "jobs/csd-production-assembly19/spans.json",
+      "bytes": 78378,
+      "sha256": "6c788fa43d1b1d2194058a9ee6c060c515c7e38ddb70bcead96b939b8cde6f42"
+    },
+    {
+      "source_relative": "jobs/csd-production-assembly19/phrase-hook-audit.json",
+      "bytes": 15004,
+      "sha256": "1862ad765b247402b480282222b50e62d7d7156f7a62586c2155161a676f9e6c"
+    },
+    {
+      "source_relative": "jobs/csd-production-assembly19/workspace-after.json",
+      "bytes": 10439,
+      "sha256": "e2971eb1fab657464dcdce950858e9501e6a7f6346fd3a21ffe8a7faba3857b7"
+    }
+  ]
+}

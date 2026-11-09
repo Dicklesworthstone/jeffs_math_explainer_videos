@@ -1,0 +1,4 @@
+# fmn-golden-lock v1 suite=self_goldens key=certified
+geom_lifecycle.v1	1316	f0e73e89cc16b0eb7fb5aab97def9bb69b126371ef790a4b320dd1d504a061f3
+stage_lifecycle.v1	325	958ff777ddf4a88a7720a66304ba9b2e9fbe34e98c43d4ea8ae9fee339afdb81
+stream_lines.v1	12012	48d9c4cfc785682b01fba2b7c2f3666c4be1eb02d3c157098e578b95831b32a2

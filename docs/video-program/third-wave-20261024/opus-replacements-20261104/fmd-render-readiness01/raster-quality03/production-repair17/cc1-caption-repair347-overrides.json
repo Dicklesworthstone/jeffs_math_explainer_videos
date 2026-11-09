@@ -1,0 +1,2845 @@
+{
+ "schema": "cc1-caption-repair347-overrides-v1",
+ "note": "Hand-authored caption groups for the sentences that fail the 347 boundary rules, plus the three F5 answer merges. Every word, in order, equals the rebind269 report sentence(s) named. Line breaks are \" / \" in the spec and separate strings here. Unlisted sentences keep their 327 captions.",
+ "exceptions": [
+  {
+   "cue": "14_4",
+   "sentence": 0,
+   "rule": "L2",
+   "why": "Held prediction question kept as the single 327 caption so the whole sum stays on screen through the 5.86 s hold; at 76 characters no two-line break avoids the sum, and two captions would hide its start during the hold."
+  }
+ ],
+ "overrides": [
+  {
+   "cue": "01_2",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "One, minus x squared, plus x to the fourth, minus x to the sixth, and so on."
+   ],
+   "captions": [
+    [
+     "One, minus x squared,",
+     "plus x to the fourth,"
+    ],
+    [
+     "minus x to the sixth, and so on."
+    ]
+   ]
+  },
+  {
+   "cue": "01_2",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "Each extra term should make the recipe better."
+   ],
+   "captions": [
+    [
+     "Each extra term should",
+     "make the recipe better."
+    ]
+   ]
+  },
+  {
+   "cue": "01_3",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Between minus one and one, it works, though near the ends it needs more and more terms."
+   ],
+   "captions": [
+    [
+     "Between minus one and one, it works,"
+    ],
+    [
+     "though near the ends",
+     "it needs more and more terms."
+    ]
+   ]
+  },
+  {
+   "cue": "01_3",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "The bump itself is less than one half there."
+   ],
+   "captions": [
+    [
+     "The bump itself is less",
+     "than one half there."
+    ]
+   ]
+  },
+  {
+   "cue": "01_4",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Nothing special happens to the curve at one."
+   ],
+   "captions": [
+    [
+     "Nothing special happens",
+     "to the curve at one."
+    ]
+   ]
+  },
+  {
+   "cue": "01_5",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "A recipe built at zero only works inside the largest circle around zero that avoids them."
+   ],
+   "captions": [
+    [
+     "A recipe built at zero only works"
+    ],
+    [
+     "inside the largest circle around zero",
+     "that avoids them."
+    ]
+   ]
+  },
+  {
+   "cue": "01_6",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "By the end, the same idea will count roots we never find and compute a real area from points off the line."
+   ],
+   "captions": [
+    [
+     "By the end, the same idea will count",
+     "roots we never find"
+    ],
+    [
+     "and compute a real area",
+     "from points off the line."
+    ]
+   ]
+  },
+  {
+   "cue": "02_2",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "Multiply every point of the plane by i, and the whole plane turns a quarter turn about zero."
+   ],
+   "captions": [
+    [
+     "Multiply every point of the plane by i,"
+    ],
+    [
+     "and the whole plane turns",
+     "a quarter turn about zero."
+    ]
+   ]
+  },
+  {
+   "cue": "02_3",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "That is all that i squared equals minus one means."
+   ],
+   "captions": [
+    [
+     "That is all that i squared",
+     "equals minus one means."
+    ]
+   ]
+  },
+  {
+   "cue": "02_4",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "Multiply by one plus i, and the plane grows by the square root of two and turns an eighth of a turn."
+   ],
+   "captions": [
+    [
+     "Multiply by one plus i, and the plane",
+     "grows by the square root of two"
+    ],
+    [
+     "and turns an eighth of a turn."
+    ]
+   ]
+  },
+  {
+   "cue": "02_5",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Multiplying by one plus i once makes an eighth of a turn."
+   ],
+   "captions": [
+    [
+     "Multiplying by one plus i once",
+     "makes an eighth of a turn."
+    ]
+   ]
+  },
+  {
+   "cue": "02_6",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "A quarter turn, with the stretch of the square root of two applied twice, which is two."
+   ],
+   "captions": [
+    [
+     "A quarter turn, with the stretch",
+     "of the square root of two"
+    ],
+    [
+     "applied twice, which is two."
+    ]
+   ]
+  },
+  {
+   "cue": "02_6",
+   "sentences": [
+    4
+   ],
+   "texts": [
+    "Every complex derivative in this video will be one of these stretch and turn moves."
+   ],
+   "captions": [
+    [
+     "Every complex derivative in this video"
+    ],
+    [
+     "will be one of these",
+     "stretch and turn moves."
+    ]
+   ]
+  },
+  {
+   "cue": "03_2",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "Lengths multiply and angles add, so squaring squares each length and doubles each angle."
+   ],
+   "captions": [
+    [
+     "Lengths multiply and angles add,"
+    ],
+    [
+     "so squaring squares each length",
+     "and doubles each angle."
+    ]
+   ]
+  },
+  {
+   "cue": "03_4",
+   "sentences": [
+    0,
+    1
+   ],
+   "texts": [
+    "No.",
+    "Every vertical line off the axis bends into a parabola, and so does every horizontal one."
+   ],
+   "captions": [
+    [
+     "No. Every vertical line off the axis",
+     "bends into a parabola,"
+    ],
+    [
+     "and so does every horizontal one."
+    ]
+   ]
+  },
+  {
+   "cue": "03_4",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "The horizontal axis lands on the positive real ray, and the vertical axis on the negative one."
+   ],
+   "captions": [
+    [
+     "The horizontal axis lands",
+     "on the positive real ray,"
+    ],
+    [
+     "and the vertical axis",
+     "on the negative one."
+    ]
+   ]
+  },
+  {
+   "cue": "03_5",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "The unit circle lands on itself as a whole, though each point flips across the horizontal axis."
+   ],
+   "captions": [
+    [
+     "The unit circle lands on itself",
+     "as a whole,"
+    ],
+    [
+     "though each point flips",
+     "across the horizontal axis."
+    ]
+   ]
+  },
+  {
+   "cue": "03_6",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "Moving right by one multiplies the output's length by e."
+   ],
+   "captions": [
+    [
+     "Moving right by one multiplies",
+     "the output's length by e."
+    ]
+   ]
+  },
+  {
+   "cue": "03_7",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Climb two pi, and you land on exactly the same output."
+   ],
+   "captions": [
+    [
+     "Climb two pi, and you land",
+     "on exactly the same output."
+    ]
+   ]
+  },
+  {
+   "cue": "04_1",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Two planes show only a few curves at a time."
+   ],
+   "captions": [
+    [
+     "Two planes show only",
+     "a few curves at a time."
+    ]
+   ]
+  },
+  {
+   "cue": "04_1",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "To see a whole function at once, paint the input plane."
+   ],
+   "captions": [
+    [
+     "To see a whole function at once,",
+     "paint the input plane."
+    ]
+   ]
+  },
+  {
+   "cue": "04_1",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "At each input point, find the output, and colour the point by the output's direction."
+   ],
+   "captions": [
+    [
+     "At each input point, find the output,"
+    ],
+    [
+     "and colour the point",
+     "by the output's direction."
+    ]
+   ]
+  },
+  {
+   "cue": "04_3",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "And the colours run around zero in the same order as the wheel itself."
+   ],
+   "captions": [
+    [
+     "And the colours run around zero",
+     "in the same order as the wheel itself."
+    ]
+   ]
+  },
+  {
+   "cue": "04_6",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Here is the bump, one over one plus z squared."
+   ],
+   "captions": [
+    [
+     "Here is the bump,",
+     "one over one plus z squared."
+    ]
+   ]
+  },
+  {
+   "cue": "04_7",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "That is the opening puzzle, seen in colour."
+   ],
+   "captions": [
+    [
+     "That is the opening puzzle,",
+     "seen in colour."
+    ]
+   ]
+  },
+  {
+   "cue": "05_1",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "Far from zero, z cubed swamps the minus one, so a large loop sees the colours cycle three times."
+   ],
+   "captions": [
+    [
+     "Far from zero, z cubed",
+     "swamps the minus one,"
+    ],
+    [
+     "so a large loop sees",
+     "the colours cycle three times."
+    ]
+   ]
+  },
+  {
+   "cue": "05_2",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "A simple zero at one, and at minus one a pole of order two, where the colours run backwards twice."
+   ],
+   "captions": [
+    [
+     "A simple zero at one,",
+     "and at minus one a pole of order two,"
+    ],
+    [
+     "where the colours run backwards twice."
+    ]
+   ]
+  },
+  {
+   "cue": "05_5",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "Its zeros and poles alternate along the real line."
+   ],
+   "captions": [
+    [
+     "Its zeros and poles alternate",
+     "along the real line."
+    ]
+   ]
+  },
+  {
+   "cue": "05_5",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "Far above the line, tangent settles toward i, and far below toward minus i, so the colours there go flat."
+   ],
+   "captions": [
+    [
+     "Far above the line, tangent",
+     "settles toward i,"
+    ],
+    [
+     "and far below toward minus i,",
+     "so the colours there go flat."
+    ]
+   ]
+  },
+  {
+   "cue": "05_6",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "Yet the picture continues left, with a pole at zero, at minus one, at minus two, and on forever, and no zeros anywhere."
+   ],
+   "captions": [
+    [
+     "Yet the picture continues left,",
+     "with a pole at zero, at minus one,"
+    ],
+    [
+     "at minus two, and on forever,",
+     "and no zeros anywhere."
+    ]
+   ]
+  },
+  {
+   "cue": "05_7",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "The zeta function starts as one, plus one over two to the s, plus one over three to the s, and so on."
+   ],
+   "captions": [
+    [
+     "The zeta function starts as one,",
+     "plus one over two to the s,"
+    ],
+    [
+     "plus one over three to the s,",
+     "and so on."
+    ]
+   ]
+  },
+  {
+   "cue": "05_7",
+   "sentences": [
+    5
+   ],
+   "texts": [
+    "And more zeros climbing the line where the real part is one half."
+   ],
+   "captions": [
+    [
+     "And more zeros climbing the line",
+     "where the real part is one half."
+    ]
+   ]
+  },
+  {
+   "cue": "05_8",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Apart from those at minus two, minus four, and on, no zero found so far sits off that line."
+   ],
+   "captions": [
+    [
+     "Apart from those at minus two,",
+     "minus four, and on,"
+    ],
+    [
+     "no zero found so far",
+     "sits off that line."
+    ]
+   ]
+  },
+  {
+   "cue": "05_8",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "Whether all the rest lie on it is the Riemann hypothesis, still unsolved."
+   ],
+   "captions": [
+    [
+     "Whether all the rest lie on it",
+     "is the Riemann hypothesis, still unsolved."
+    ]
+   ]
+  },
+  {
+   "cue": "05_9",
+   "sentences": [
+    4
+   ],
+   "texts": [
+    "It comes from what a complex derivative demands."
+   ],
+   "captions": [
+    [
+     "It comes from what",
+     "a complex derivative demands."
+    ]
+   ]
+  },
+  {
+   "cue": "06_1",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "For a real function, the derivative compares a small change out with a small change in."
+   ],
+   "captions": [
+    [
+     "For a real function,",
+     "the derivative compares"
+    ],
+    [
+     "a small change out",
+     "with a small change in."
+    ]
+   ]
+  },
+  {
+   "cue": "06_1",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "As h shrinks to zero, that ratio should settle on one complex number, the derivative."
+   ],
+   "captions": [
+    [
+     "As h shrinks to zero,",
+     "that ratio should settle"
+    ],
+    [
+     "on one complex number, the derivative."
+    ]
+   ]
+  },
+  {
+   "cue": "06_2",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "From the right, from above, along a spiral."
+   ],
+   "captions": [
+    [
+     "From the right, from above,",
+     "along a spiral."
+    ]
+   ]
+  },
+  {
+   "cue": "06_2",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "That demand is much stronger than it looks."
+   ],
+   "captions": [
+    [
+     "That demand is much stronger",
+     "than it looks."
+    ]
+   ]
+  },
+  {
+   "cue": "06_3",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "If the ratio is the same number from every direction, then near z, the function moves every small arrow the same way."
+   ],
+   "captions": [
+    [
+     "If the ratio is the same number",
+     "from every direction,"
+    ],
+    [
+     "then near z, the function moves",
+     "every small arrow the same way."
+    ]
+   ]
+  },
+  {
+   "cue": "06_3",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "And multiplying by a complex number is a stretch and a turn."
+   ],
+   "captions": [
+    [
+     "And multiplying by a complex number",
+     "is a stretch and a turn."
+    ]
+   ]
+  },
+  {
+   "cue": "06_3",
+   "sentences": [
+    4
+   ],
+   "texts": [
+    "So a tiny square around z lands as a tiny square, bigger and turned, but still square."
+   ],
+   "captions": [
+    [
+     "So a tiny square around z lands",
+     "as a tiny square,"
+    ],
+    [
+     "bigger and turned, but still square."
+    ]
+   ]
+  },
+  {
+   "cue": "06_4",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Squaring at one plus i has derivative two times one plus i, which is two plus two i."
+   ],
+   "captions": [
+    [
+     "Squaring at one plus i has derivative",
+     "two times one plus i,"
+    ],
+    [
+     "which is two plus two i."
+    ]
+   ]
+  },
+  {
+   "cue": "06_5",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "Step up, by i times a small number, and you also divide by i, which turns the answer back a quarter turn."
+   ],
+   "captions": [
+    [
+     "Step up, by i times a small number,",
+     "and you also divide by i,"
+    ],
+    [
+     "which turns the answer back",
+     "a quarter turn."
+    ]
+   ]
+  },
+  {
+   "cue": "06_6",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "The rate of u along x equals the rate of v along y."
+   ],
+   "captions": [
+    [
+     "The rate of u along x",
+     "equals the rate of v along y."
+    ]
+   ]
+  },
+  {
+   "cue": "06_7",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "In matrix form, the local map must be a stretch and a turn, with no squash and no reflection."
+   ],
+   "captions": [
+    [
+     "In matrix form, the local map",
+     "must be a stretch and a turn,"
+    ],
+    [
+     "with no squash and no reflection."
+    ]
+   ]
+  },
+  {
+   "cue": "06_7",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "That grid is exactly multiplication by two plus two i."
+   ],
+   "captions": [
+    [
+     "That grid is exactly multiplication",
+     "by two plus two i."
+    ]
+   ]
+  },
+  {
+   "cue": "06_8",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "Reflect the plane across the horizontal axis."
+   ],
+   "captions": [
+    [
+     "Reflect the plane",
+     "across the horizontal axis."
+    ]
+   ]
+  },
+  {
+   "cue": "07_1",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Where the derivative is zero, the picture changes."
+   ],
+   "captions": [
+    [
+     "Where the derivative is zero,",
+     "the picture changes."
+    ]
+   ]
+  },
+  {
+   "cue": "07_1",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "Two lines crossing there at a right angle come out as two rays pointing in opposite directions."
+   ],
+   "captions": [
+    [
+     "Two lines crossing there",
+     "at a right angle"
+    ],
+    [
+     "come out as two rays",
+     "pointing in opposite directions."
+    ]
+   ]
+  },
+  {
+   "cue": "07_2",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "A point where the derivative is zero is a critical point, and there angles get multiplied."
+   ],
+   "captions": [
+    [
+     "A point where the derivative is zero",
+     "is a critical point,"
+    ],
+    [
+     "and there angles get multiplied."
+    ]
+   ]
+  },
+  {
+   "cue": "07_3",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "Take the function that sends z to the square of its length."
+   ],
+   "captions": [
+    [
+     "Take the function that sends",
+     "z to the square of its length."
+    ]
+   ]
+  },
+  {
+   "cue": "07_4",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "So the derivative at zero exists, and it is zero."
+   ],
+   "captions": [
+    [
+     "So the derivative at zero exists,",
+     "and it is zero."
+    ]
+   ]
+  },
+  {
+   "cue": "07_5",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "This function has a complex derivative at exactly one point in the whole plane, and that buys almost nothing."
+   ],
+   "captions": [
+    [
+     "This function has a complex derivative",
+     "at exactly one point in the whole plane,"
+    ],
+    [
+     "and that buys almost nothing."
+    ]
+   ]
+  },
+  {
+   "cue": "07_5",
+   "sentences": [
+    4
+   ],
+   "texts": [
+    "Multiply it by any bounded function at all, smooth or jagged, and the product still has derivative zero at zero."
+   ],
+   "captions": [
+    [
+     "Multiply it by any bounded function",
+     "at all, smooth or jagged,"
+    ],
+    [
+     "and the product still has",
+     "derivative zero at zero."
+    ]
+   ]
+  },
+  {
+   "cue": "07_6",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "They need the derivative to exist at every point of an open region, so that around each point there is a small disk where it works everywhere."
+   ],
+   "captions": [
+    [
+     "They need the derivative to exist",
+     "at every point of an open region,"
+    ],
+    [
+     "so that around each point there is",
+     "a small disk where it works everywhere."
+    ]
+   ]
+  },
+  {
+   "cue": "08_1",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "At each step, take the function's value there, and multiply it by the step, as a complex number."
+   ],
+   "captions": [
+    [
+     "At each step, take",
+     "the function's value there,"
+    ],
+    [
+     "and multiply it by the step,",
+     "as a complex number."
+    ]
+   ]
+  },
+  {
+   "cue": "08_1",
+   "sentences": [
+    4
+   ],
+   "texts": [
+    "As the steps shrink, the total is the contour integral around the loop."
+   ],
+   "captions": [
+    [
+     "As the steps shrink, the total is",
+     "the contour integral around the loop."
+    ]
+   ]
+  },
+  {
+   "cue": "08_2",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Draw each product as an arrow, and lay the arrows tip to tail."
+   ],
+   "captions": [
+    [
+     "Draw each product as an arrow,",
+     "and lay the arrows tip to tail."
+    ]
+   ]
+  },
+  {
+   "cue": "08_2",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "For f of z equals z, around the unit circle, the arrows curl around and close up."
+   ],
+   "captions": [
+    [
+     "For f of z equals z,",
+     "around the unit circle,"
+    ],
+    [
+     "the arrows curl around and close up."
+    ]
+   ]
+  },
+  {
+   "cue": "08_3",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "At each step, dividing by z undoes the turn of the step's position, and what is left points straight up."
+   ],
+   "captions": [
+    [
+     "At each step, dividing by z undoes",
+     "the turn of the step's position,"
+    ],
+    [
+     "and what is left points straight up."
+    ]
+   ]
+  },
+  {
+   "cue": "08_3",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "As the steps shrink, the total becomes two pi i, whatever the size of the circle."
+   ],
+   "captions": [
+    [
+     "As the steps shrink, the total becomes",
+     "two pi i, whatever the size of the circle."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "If a function is holomorphic on a loop and everywhere inside it, its loop integral is zero."
+   ],
+   "captions": [
+    [
+     "If a function is holomorphic",
+     "on a loop and everywhere inside it,"
+    ],
+    [
+     "its loop integral is zero."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "We will prove the pieces we need, starting with a square, and a function holomorphic on it, inside it, and a little beyond."
+   ],
+   "captions": [
+    [
+     "We will prove the pieces we need,",
+     "starting with a square,"
+    ],
+    [
+     "and a function holomorphic on it,",
+     "inside it, and a little beyond."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    7
+   ],
+   "texts": [
+    "Then some small square must have an integral at least a quarter of that size."
+   ],
+   "captions": [
+    [
+     "Then some small square must have",
+     "an integral"
+    ],
+    [
+     "at least a quarter of that size."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    9
+   ],
+   "texts": [
+    "Keep that square, and cut it into four again."
+   ],
+   "captions": [
+    [
+     "Keep that square,",
+     "and cut it into four again."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    11
+   ],
+   "texts": [
+    "These nested squares shrink toward a single point, which we call c."
+   ],
+   "captions": [
+    [
+     "These nested squares shrink",
+     "toward a single point, which we call c."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    13
+   ],
+   "texts": [
+    "Near c, the function is a constant, plus a linear term that stretches and turns z minus c, plus a remainder."
+   ],
+   "captions": [
+    [
+     "Near c, the function is a constant,",
+     "plus a linear term"
+    ],
+    [
+     "that stretches and turns z minus c,",
+     "plus a remainder."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    14
+   ],
+   "texts": [
+    "The constant integrates to zero, because the steps around a closed loop add up to nothing."
+   ],
+   "captions": [
+    [
+     "The constant integrates to zero,"
+    ],
+    [
+     "because the steps around a closed loop",
+     "add up to nothing."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    15
+   ],
+   "texts": [
+    "The linear term integrates to zero too, because it is the derivative of a quadratic, whose changes around a closed loop also add up to nothing."
+   ],
+   "captions": [
+    [
+     "The linear term integrates to zero too,"
+    ],
+    [
+     "because it is the derivative",
+     "of a quadratic,"
+    ],
+    [
+     "whose changes around a closed loop",
+     "also add up to nothing."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    18
+   ],
+   "texts": [
+    "Close enough to c, the remainder's size is at most epsilon times the distance to c, and that is exactly what having a derivative at c means."
+   ],
+   "captions": [
+    [
+     "Close enough to c, the remainder's size is",
+     "at most epsilon times the distance to c,"
+    ],
+    [
+     "and that is exactly what",
+     "having a derivative at c means."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    20
+   ],
+   "texts": [
+    "There, the distance to c is at most the square's diagonal, and the steps add up to the perimeter."
+   ],
+   "captions": [
+    [
+     "There, the distance to c is at most",
+     "the square's diagonal,"
+    ],
+    [
+     "and the steps add up to the perimeter."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    22
+   ],
+   "texts": [
+    "Each cut halves the diagonal and halves the perimeter, so this bound shrinks to a quarter every time."
+   ],
+   "captions": [
+    [
+     "Each cut halves the diagonal",
+     "and halves the perimeter,"
+    ],
+    [
+     "so this bound shrinks",
+     "to a quarter every time."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    25
+   ],
+   "texts": [
+    "The small square's integral has size at most epsilon, times the original diagonal and perimeter, divided by four to the n."
+   ],
+   "captions": [
+    [
+     "The small square's integral",
+     "has size at most epsilon,"
+    ],
+    [
+     "times the original diagonal and perimeter,",
+     "divided by four to the n."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    26
+   ],
+   "texts": [
+    "Multiplying by four to the n cancels the fours, so the original integral's size is at most epsilon times the original diagonal and perimeter."
+   ],
+   "captions": [
+    [
+     "Multiplying by four to the n",
+     "cancels the fours,"
+    ],
+    [
+     "so the original integral's size is at most"
+    ],
+    [
+     "epsilon times the original diagonal",
+     "and perimeter."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    28
+   ],
+   "texts": [
+    "The same shrinking argument works for a triangle."
+   ],
+   "captions": [
+    [
+     "The same shrinking argument",
+     "works for a triangle."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    30
+   ],
+   "texts": [
+    "Walk all four counterclockwise, even the upside down one in the middle, and their shared edges cancel again."
+   ],
+   "captions": [
+    [
+     "Walk all four counterclockwise,",
+     "even the upside down one in the middle,"
+    ],
+    [
+     "and their shared edges cancel again."
+    ]
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentences": [
+    31
+   ],
+   "texts": [
+    "The longest side plays the diagonal's part, and it halves with the perimeter at every cut."
+   ],
+   "captions": [
+    [
+     "The longest side plays",
+     "the diagonal's part,"
+    ],
+    [
+     "and it halves with the perimeter",
+     "at every cut."
+    ]
+   ]
+  },
+  {
+   "cue": "09_1",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "The first is f of a, times one over z minus a, and we already know its loop integral: two pi i times f of a."
+   ],
+   "captions": [
+    [
+     "The first is f of a,",
+     "times one over z minus a,"
+    ],
+    [
+     "and we already know its loop integral:",
+     "two pi i times f of a."
+    ]
+   ]
+  },
+  {
+   "cue": "09_1",
+   "sentences": [
+    5
+   ],
+   "texts": [
+    "It is undefined at a itself, so it has a hole in the middle, and we cannot simply call it holomorphic there."
+   ],
+   "captions": [
+    [
+     "It is undefined at a itself,",
+     "so it has a hole in the middle,"
+    ],
+    [
+     "and we cannot simply call it",
+     "holomorphic there."
+    ]
+   ]
+  },
+  {
+   "cue": "09_1",
+   "sentences": [
+    6
+   ],
+   "texts": [
+    "But as z approaches a, it approaches the derivative at a, so near a its size stays below some bound."
+   ],
+   "captions": [
+    [
+     "But as z approaches a,",
+     "it approaches the derivative at a,"
+    ],
+    [
+     "so near a its size stays below some bound."
+    ]
+   ]
+  },
+  {
+   "cue": "09_1",
+   "sentences": [
+    9
+   ],
+   "texts": [
+    "Trace each circle with a polygon, and tile the ring between them with triangles, keeping the hole empty."
+   ],
+   "captions": [
+    [
+     "Trace each circle with a polygon,",
+     "and tile the ring between them"
+    ],
+    [
+     "with triangles,",
+     "keeping the hole empty."
+    ]
+   ]
+  },
+  {
+   "cue": "09_1",
+   "sentences": [
+    10
+   ],
+   "texts": [
+    "We saw that the shrinking argument works for triangles: around each one, the integral is zero."
+   ],
+   "captions": [
+    [
+     "We saw that the shrinking argument",
+     "works for triangles:"
+    ],
+    [
+     "around each one, the integral is zero."
+    ]
+   ]
+  },
+  {
+   "cue": "09_1",
+   "sentences": [
+    12
+   ],
+   "texts": [
+    "Every inside edge is walked twice, in opposite directions, so those parts cancel."
+   ],
+   "captions": [
+    [
+     "Every inside edge is walked twice,",
+     "in opposite directions,"
+    ],
+    [
+     "so those parts cancel."
+    ]
+   ]
+  },
+  {
+   "cue": "09_1",
+   "sentences": [
+    15
+   ],
+   "texts": [
+    "Now keep the small circle fixed, and give the polygons more and more sides, so they hug the circles."
+   ],
+   "captions": [
+    [
+     "Now keep the small circle fixed,",
+     "and give the polygons more and more sides,"
+    ],
+    [
+     "so they hug the circles."
+    ]
+   ]
+  },
+  {
+   "cue": "09_1",
+   "sentences": [
+    16
+   ],
+   "texts": [
+    "Each short chord and its arc share their endpoints, so a constant has the same integral along both."
+   ],
+   "captions": [
+    [
+     "Each short chord and its arc",
+     "share their endpoints,"
+    ],
+    [
+     "so a constant has the same integral",
+     "along both."
+    ]
+   ]
+  },
+  {
+   "cue": "09_1",
+   "sentences": [
+    18
+   ],
+   "texts": [
+    "Continuity makes every wobble small at once, while the total length stays bounded."
+   ],
+   "captions": [
+    [
+     "Continuity makes every wobble",
+     "small at once,"
+    ],
+    [
+     "while the total length stays bounded."
+    ]
+   ]
+  },
+  {
+   "cue": "09_1",
+   "sentences": [
+    19
+   ],
+   "texts": [
+    "So in the limit, the big circle's integral equals the small circle's, both walked counterclockwise."
+   ],
+   "captions": [
+    [
+     "So in the limit, the big circle's integral",
+     "equals the small circle's,"
+    ],
+    [
+     "both walked counterclockwise."
+    ]
+   ]
+  },
+  {
+   "cue": "09_1",
+   "sentences": [
+    22
+   ],
+   "texts": [
+    "The magnitude of its integral is at most its circumference, two pi times its radius, times that bound, and that goes to zero."
+   ],
+   "captions": [
+    [
+     "The magnitude of its integral",
+     "is at most its circumference,"
+    ],
+    [
+     "two pi times its radius, times that bound,",
+     "and that goes to zero."
+    ]
+   ]
+  },
+  {
+   "cue": "09_1",
+   "sentences": [
+    24
+   ],
+   "texts": [
+    "The second piece contributes nothing, and the loop integral is two pi i times f of a."
+   ],
+   "captions": [
+    [
+     "The second piece contributes nothing,"
+    ],
+    [
+     "and the loop integral is",
+     "two pi i times f of a."
+    ]
+   ]
+  },
+  {
+   "cue": "09_2",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Around a circle centred at a, that has a simple meaning."
+   ],
+   "captions": [
+    [
+     "Around a circle centred at a,",
+     "that has a simple meaning."
+    ]
+   ]
+  },
+  {
+   "cue": "09_3",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "Eight sample points already average to within half a percent of one, which is the bump's value at zero."
+   ],
+   "captions": [
+    [
+     "Eight sample points already average",
+     "to within half a percent of one,"
+    ],
+    [
+     "which is the bump's value at zero."
+    ]
+   ]
+  },
+  {
+   "cue": "09_5",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic."
+   ],
+   "captions": [
+    [
+     "The bigger circle has swallowed",
+     "the poles at i and minus i,"
+    ],
+    [
+     "where the bump is not holomorphic."
+    ]
+   ]
+  },
+  {
+   "cue": "09_5",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "Each pole pulls the average down by one half."
+   ],
+   "captions": [
+    [
+     "Each pole pulls the average",
+     "down by one half."
+    ]
+   ]
+  },
+  {
+   "cue": "09_5",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "For this formula, a sufficient condition is that the function is holomorphic throughout the disk and a little beyond its edge."
+   ],
+   "captions": [
+    [
+     "For this formula, a sufficient condition",
+     "is that the function"
+    ],
+    [
+     "is holomorphic throughout the disk",
+     "and a little beyond its edge."
+    ]
+   ]
+  },
+  {
+   "cue": "09_6",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "The same circle tells you more than the value."
+   ],
+   "captions": [
+    [
+     "The same circle tells you",
+     "more than the value."
+    ]
+   ]
+  },
+  {
+   "cue": "09_6",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "Turn back by twice the angle and divide by the radius squared, and you get the next coefficient of the recipe."
+   ],
+   "captions": [
+    [
+     "Turn back by twice the angle",
+     "and divide by the radius squared,"
+    ],
+    [
+     "and you get the next coefficient",
+     "of the recipe."
+    ]
+   ]
+  },
+  {
+   "cue": "09_7",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "From zero they are one unit away, so the recipe works out to radius one, and since the bump blows up at i, no further."
+   ],
+   "captions": [
+    [
+     "From zero they are one unit away,",
+     "so the recipe works out"
+    ],
+    [
+     "to radius one, and since the bump blows up",
+     "at i, no further."
+    ]
+   ]
+  },
+  {
+   "cue": "09_8",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "How far along the real line will it work now?"
+   ],
+   "captions": [
+    [
+     "How far along the real line",
+     "will it work now?"
+    ]
+   ]
+  },
+  {
+   "cue": "09_9",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "So the new recipe works from about minus point four one to about two point four one."
+   ],
+   "captions": [
+    [
+     "So the new recipe works",
+     "from about minus point four one"
+    ],
+    [
+     "to about two point four one."
+    ]
+   ]
+  },
+  {
+   "cue": "10_1",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "Even agreeing on a sequence of points that piles up at a point inside the region is enough."
+   ],
+   "captions": [
+    [
+     "Even agreeing on a sequence of points"
+    ],
+    [
+     "that piles up at a point",
+     "inside the region is enough."
+    ]
+   ]
+  },
+  {
+   "cue": "10_2",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "So the identity holds for every complex number, even where sine and cosine are huge."
+   ],
+   "captions": [
+    [
+     "So the identity holds",
+     "for every complex number,"
+    ],
+    [
+     "even where sine and cosine are huge."
+    ]
+   ]
+  },
+  {
+   "cue": "10_2",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "At three i, sine squared is about minus one hundred, cosine squared is about one hundred and one, and they still add to one."
+   ],
+   "captions": [
+    [
+     "At three i, sine squared",
+     "is about minus one hundred,"
+    ],
+    [
+     "cosine squared is about",
+     "one hundred and one,"
+    ],
+    [
+     "and they still add to one."
+    ]
+   ]
+  },
+  {
+   "cue": "10_3",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "Every derivative exists at zero, and every one is zero, so its power series misses the whole rise."
+   ],
+   "captions": [
+    [
+     "Every derivative exists at zero,",
+     "and every one is zero,"
+    ],
+    [
+     "so its power series misses the whole rise."
+    ]
+   ]
+  },
+  {
+   "cue": "10_4",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Sine of one over z is zero at one over pi, one over two pi, one over three pi, and so on."
+   ],
+   "captions": [
+    [
+     "Sine of one over z",
+     "is zero at one over pi,"
+    ],
+    [
+     "one over two pi, one over three pi,",
+     "and so on."
+    ]
+   ]
+  },
+  {
+   "cue": "10_5",
+   "sentences": [
+    0,
+    1
+   ],
+   "texts": [
+    "No.",
+    "The pile up point is zero, and zero is not in the region, because the function is undefined there."
+   ],
+   "captions": [
+    [
+     "No. The pile up point is zero,",
+     "and zero is not in the region,"
+    ],
+    [
+     "because the function is undefined there."
+    ]
+   ]
+  },
+  {
+   "cue": "10_6",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "It is why sine, trapped between minus one and one on the real line, must grow huge somewhere else."
+   ],
+   "captions": [
+    [
+     "It is why sine, trapped between",
+     "minus one and one on the real line,"
+    ],
+    [
+     "must grow huge somewhere else."
+    ]
+   ]
+  },
+  {
+   "cue": "11_2",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "For a loop around several of them, the turns add."
+   ],
+   "captions": [
+    [
+     "For a loop around several of them,",
+     "the turns add."
+    ]
+   ]
+  },
+  {
+   "cue": "11_2",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "So the number of turns equals the zeros inside minus the poles inside, each counted by its order."
+   ],
+   "captions": [
+    [
+     "So the number of turns equals",
+     "the zeros inside minus the poles inside,"
+    ],
+    [
+     "each counted by its order."
+    ]
+   ]
+  },
+  {
+   "cue": "11_2",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "It needs a loop that winds once counterclockwise, passes through no zero or pole, and a function that is holomorphic inside except at poles."
+   ],
+   "captions": [
+    [
+     "It needs a loop that winds once",
+     "counterclockwise,"
+    ],
+    [
+     "passes through no zero or pole,"
+    ],
+    [
+     "and a function that is holomorphic",
+     "inside except at poles."
+    ]
+   ]
+  },
+  {
+   "cue": "11_3",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Here is a function with a zero at zero point four five and a pole at one point three five."
+   ],
+   "captions": [
+    [
+     "Here is a function with a zero",
+     "at zero point four five"
+    ],
+    [
+     "and a pole at one point three five."
+    ]
+   ]
+  },
+  {
+   "cue": "11_3",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "A circle of radius zero point eight encloses only the zero, and the output turns once."
+   ],
+   "captions": [
+    [
+     "A circle of radius zero point eight",
+     "encloses only the zero,"
+    ],
+    [
+     "and the output turns once."
+    ]
+   ]
+  },
+  {
+   "cue": "11_5",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "This polynomial, z to the fifth minus three z plus one, has five roots."
+   ],
+   "captions": [
+    [
+     "This polynomial,",
+     "z to the fifth minus three z plus one,"
+    ],
+    [
+     "has five roots."
+    ]
+   ]
+  },
+  {
+   "cue": "11_5",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "How many of them lie inside the unit circle?"
+   ],
+   "captions": [
+    [
+     "How many of them lie",
+     "inside the unit circle?"
+    ]
+   ]
+  },
+  {
+   "cue": "11_6",
+   "sentences": [
+    0,
+    1
+   ],
+   "texts": [
+    "One.",
+    "Walk the unit circle, and the output turns around zero exactly once."
+   ],
+   "captions": [
+    [
+     "One. Walk the unit circle, and the output",
+     "turns around zero exactly once."
+    ]
+   ]
+  },
+  {
+   "cue": "11_7",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "On a huge circle, z to the n dwarfs the other terms."
+   ],
+   "captions": [
+    [
+     "On a huge circle, z to the n",
+     "dwarfs the other terms."
+    ]
+   ]
+  },
+  {
+   "cue": "11_7",
+   "sentences": [
+    4
+   ],
+   "texts": [
+    "Picture z to the n as a walker going n times around zero, and the polynomial as a dog on a leash."
+   ],
+   "captions": [
+    [
+     "Picture z to the n as a walker",
+     "going n times around zero,"
+    ],
+    [
+     "and the polynomial as a dog on a leash."
+    ]
+   ]
+  },
+  {
+   "cue": "11_7",
+   "sentences": [
+    5
+   ],
+   "texts": [
+    "The leash is shorter than the walker's distance from zero, so the dog circles zero n times too."
+   ],
+   "captions": [
+    [
+     "The leash is shorter than",
+     "the walker's distance from zero,"
+    ],
+    [
+     "so the dog circles zero n times too."
+    ]
+   ]
+  },
+  {
+   "cue": "11_8",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "Walk the loop in small steps, add up the change in the output's angle at each step, and divide by a full turn."
+   ],
+   "captions": [
+    [
+     "Walk the loop in small steps,",
+     "add up the change in the output's angle"
+    ],
+    [
+     "at each step, and divide by a full turn."
+    ]
+   ]
+  },
+  {
+   "cue": "11_8",
+   "sentences": [
+    4
+   ],
+   "texts": [
+    "So bound how fast f can change on the loop, and take steps so small that the output cannot move as far as its distance from zero."
+   ],
+   "captions": [
+    [
+     "So bound how fast f can change",
+     "on the loop,"
+    ],
+    [
+     "and take steps so small",
+     "that the output cannot move"
+    ],
+    [
+     "as far as its distance from zero."
+    ]
+   ]
+  },
+  {
+   "cue": "12_1",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Counting turns is one use of a bigger idea."
+   ],
+   "captions": [
+    [
+     "Counting turns is one use",
+     "of a bigger idea."
+    ]
+   ]
+  },
+  {
+   "cue": "12_1",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "Near a pole, a function looks like a few negative powers of z minus p, plus something holomorphic."
+   ],
+   "captions": [
+    [
+     "Near a pole, a function looks like",
+     "a few negative powers of z minus p,"
+    ],
+    [
+     "plus something holomorphic."
+    ]
+   ]
+  },
+  {
+   "cue": "12_1",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "Around a small loop, all of those terms integrate to zero, except one over z minus p."
+   ],
+   "captions": [
+    [
+     "Around a small loop,",
+     "all of those terms integrate to zero,"
+    ],
+    [
+     "except one over z minus p."
+    ]
+   ]
+  },
+  {
+   "cue": "12_2",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "So a loop integral is two pi i times the sum of the residues inside."
+   ],
+   "captions": [
+    [
+     "So a loop integral is two pi i times",
+     "the sum of the residues inside."
+    ]
+   ]
+  },
+  {
+   "cue": "12_2",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "For a simple pole of g over h, where h is zero but its derivative is not, the residue is g over the derivative of h, both at the pole."
+   ],
+   "captions": [
+    [
+     "For a simple pole of g over h,",
+     "where h is zero but its derivative is not,"
+    ],
+    [
+     "the residue is g over the derivative of h,",
+     "both at the pole."
+    ]
+   ]
+  },
+  {
+   "cue": "12_3",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "Near a pole of order n, its residue is minus n."
+   ],
+   "captions": [
+    [
+     "Near a pole of order n,",
+     "its residue is minus n."
+    ]
+   ]
+  },
+  {
+   "cue": "12_4",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "For the bump, the bottom is one plus z squared, and its derivative is two z."
+   ],
+   "captions": [
+    [
+     "For the bump, the bottom",
+     "is one plus z squared,"
+    ],
+    [
+     "and its derivative is two z."
+    ]
+   ]
+  },
+  {
+   "cue": "12_4",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "So the residue of the bump at i is one over two i."
+   ],
+   "captions": [
+    [
+     "So the residue of the bump at i",
+     "is one over two i."
+    ]
+   ]
+  },
+  {
+   "cue": "13_1",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "What is the area under the bump, along the whole real line?"
+   ],
+   "captions": [
+    [
+     "What is the area under the bump,",
+     "along the whole real line?"
+    ]
+   ]
+  },
+  {
+   "cue": "13_2",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Walk along the real line from minus R to R, then come back along a big half circle above it."
+   ],
+   "captions": [
+    [
+     "Walk along the real line",
+     "from minus R to R,"
+    ],
+    [
+     "then come back along",
+     "a big half circle above it."
+    ]
+   ]
+  },
+  {
+   "cue": "13_2",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "So the loop integral is two pi i, times one over two i."
+   ],
+   "captions": [
+    [
+     "So the loop integral is",
+     "two pi i, times one over two i."
+    ]
+   ]
+  },
+  {
+   "cue": "13_3",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "On the half circle, z squared has length R squared, so the bump is at most one over R squared minus one."
+   ],
+   "captions": [
+    [
+     "On the half circle,",
+     "z squared has length R squared,"
+    ],
+    [
+     "so the bump is at most",
+     "one over R squared minus one."
+    ]
+   ]
+  },
+  {
+   "cue": "13_3",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "So that part of the loop is at most pi R over R squared minus one, which shrinks to zero as R grows."
+   ],
+   "captions": [
+    [
+     "So that part of the loop is at most",
+     "pi R over R squared minus one,"
+    ],
+    [
+     "which shrinks to zero as R grows."
+    ]
+   ]
+  },
+  {
+   "cue": "13_5",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "They sit on the unit circle at forty five, one hundred thirty five, two hundred twenty five and three hundred fifteen degrees."
+   ],
+   "captions": [
+    [
+     "They sit on the unit circle",
+     "at forty five, one hundred thirty five,"
+    ],
+    [
+     "two hundred twenty five",
+     "and three hundred fifteen degrees."
+    ]
+   ]
+  },
+  {
+   "cue": "13_5",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "Which ones lie inside the half circle loop?"
+   ],
+   "captions": [
+    [
+     "Which ones lie inside",
+     "the half circle loop?"
+    ]
+   ]
+  },
+  {
+   "cue": "13_7",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Each is a simple pole, so its residue is one over the derivative of the bottom, one over four p cubed."
+   ],
+   "captions": [
+    [
+     "Each is a simple pole,"
+    ],
+    [
+     "so its residue is one over the derivative",
+     "of the bottom, one over four p cubed."
+    ]
+   ]
+  },
+  {
+   "cue": "13_7",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "Because p to the fourth is minus one, one over p cubed is minus p."
+   ],
+   "captions": [
+    [
+     "Because p to the fourth is minus one,",
+     "one over p cubed is minus p."
+    ]
+   ]
+  },
+  {
+   "cue": "13_8",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "The real parts of p one and p two cancel, and each has imaginary part the square root of two over two."
+   ],
+   "captions": [
+    [
+     "The real parts of p one and p two cancel,"
+    ],
+    [
+     "and each has imaginary part",
+     "the square root of two over two."
+    ]
+   ]
+  },
+  {
+   "cue": "13_8",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "So the residues add to minus i times the square root of two, over four."
+   ],
+   "captions": [
+    [
+     "So the residues add to minus i times",
+     "the square root of two, over four."
+    ]
+   ]
+  },
+  {
+   "cue": "13_9",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "The two i's make minus one, which cancels the minus sign, and the area is pi over the square root of two."
+   ],
+   "captions": [
+    [
+     "The two i's make minus one,",
+     "which cancels the minus sign,"
+    ],
+    [
+     "and the area is",
+     "pi over the square root of two."
+    ]
+   ]
+  },
+  {
+   "cue": "13_10",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "On it, the function is at most one over R to the fourth minus one, so that part is at most pi R over R to the fourth minus one."
+   ],
+   "captions": [
+    [
+     "On it, the function is at most",
+     "one over R to the fourth minus one,"
+    ],
+    [
+     "so that part is at most",
+     "pi R over R to the fourth minus one."
+    ]
+   ]
+  },
+  {
+   "cue": "13_11",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "The real integral converges on its own, because the function falls off fast in both directions."
+   ],
+   "captions": [
+    [
+     "The real integral converges on its own,"
+    ],
+    [
+     "because the function falls off",
+     "fast in both directions."
+    ]
+   ]
+  },
+  {
+   "cue": "14_1",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "Is the bump itself stuck inside that circle?"
+   ],
+   "captions": [
+    [
+     "Is the bump itself stuck",
+     "inside that circle?"
+    ]
+   ]
+  },
+  {
+   "cue": "14_1",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "We know it everywhere except at i and minus i."
+   ],
+   "captions": [
+    [
+     "We know it everywhere",
+     "except at i and minus i."
+    ]
+   ]
+  },
+  {
+   "cue": "14_2",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "The clearest example is one, plus z, plus z squared, and so on."
+   ],
+   "captions": [
+    [
+     "The clearest example is",
+     "one, plus z, plus z squared, and so on."
+    ]
+   ]
+  },
+  {
+   "cue": "14_2",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "Inside the unit circle it adds up to one over one minus z."
+   ],
+   "captions": [
+    [
+     "Inside the unit circle it adds up",
+     "to one over one minus z."
+    ]
+   ]
+  },
+  {
+   "cue": "14_3",
+   "sentences": [
+    0
+   ],
+   "texts": [
+    "Because holomorphic functions are rigid, a function has at most one holomorphic extension to a given connected region."
+   ],
+   "captions": [
+    [
+     "Because holomorphic functions are rigid,"
+    ],
+    [
+     "a function has at most one holomorphic",
+     "extension to a given connected region."
+    ]
+   ]
+  },
+  {
+   "cue": "14_3",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "You can also build an extension step by step."
+   ],
+   "captions": [
+    [
+     "You can also build",
+     "an extension step by step."
+    ]
+   ]
+  },
+  {
+   "cue": "14_3",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "Recentre the series at a point inside the disk, and its new disk pokes outside the old one."
+   ],
+   "captions": [
+    [
+     "Recentre the series",
+     "at a point inside the disk,"
+    ],
+    [
+     "and its new disk pokes",
+     "outside the old one."
+    ]
+   ]
+  },
+  {
+   "cue": "14_3",
+   "sentences": [
+    6
+   ],
+   "texts": [
+    "Here every path gives back one over one minus z, but that is not always so."
+   ],
+   "captions": [
+    [
+     "Here every path gives back",
+     "one over one minus z,"
+    ],
+    [
+     "but that is not always so."
+    ]
+   ]
+  },
+  {
+   "cue": "14_5",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "The continued function equals minus one at two, but that is a value of the function, not a sum of the series."
+   ],
+   "captions": [
+    [
+     "The continued function equals",
+     "minus one at two,"
+    ],
+    [
+     "but that is a value of the function,",
+     "not a sum of the series."
+    ]
+   ]
+  },
+  {
+   "cue": "14_5",
+   "sentences": [
+    5
+   ],
+   "texts": [
+    "The same goes for the famous claim that one plus two plus three, and so on, equals minus one twelfth."
+   ],
+   "captions": [
+    [
+     "The same goes for the famous claim",
+     "that one plus two plus three,"
+    ],
+    [
+     "and so on, equals minus one twelfth."
+    ]
+   ]
+  },
+  {
+   "cue": "14_5",
+   "sentences": [
+    6
+   ],
+   "texts": [
+    "Minus one twelfth is the value of the continued zeta function at minus one."
+   ],
+   "captions": [
+    [
+     "Minus one twelfth is the value of",
+     "the continued zeta function at minus one."
+    ]
+   ]
+  },
+  {
+   "cue": "14_6",
+   "sentences": [
+    4
+   ],
+   "texts": [
+    "When you come back, it has become minus one."
+   ],
+   "captions": [
+    [
+     "When you come back,",
+     "it has become minus one."
+    ]
+   ]
+  },
+  {
+   "cue": "14_6",
+   "sentences": [
+    5
+   ],
+   "texts": [
+    "The logarithm does the same, gaining two pi i each time around."
+   ],
+   "captions": [
+    [
+     "The logarithm does the same,",
+     "gaining two pi i each time around."
+    ]
+   ]
+  },
+  {
+   "cue": "14_7",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "This series adds z, z squared, z to the fourth, z to the eighth, and on, doubling the power each time."
+   ],
+   "captions": [
+    [
+     "This series adds z, z squared,",
+     "z to the fourth, z to the eighth,"
+    ],
+    [
+     "and on, doubling the power each time."
+    ]
+   ]
+  },
+  {
+   "cue": "14_7",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "It converges inside the unit circle, but near a dense set of points on the edge it blows up."
+   ],
+   "captions": [
+    [
+     "It converges inside the unit circle,"
+    ],
+    [
+     "but near a dense set of points",
+     "on the edge it blows up."
+    ]
+   ]
+  },
+  {
+   "cue": "14_8",
+   "sentences": [
+    3
+   ],
+   "texts": [
+    "Use that to step left, one strip at a time, and each step adds a new pole, at zero, minus one, minus two, and on."
+   ],
+   "captions": [
+    [
+     "Use that to step left,",
+     "one strip at a time,"
+    ],
+    [
+     "and each step adds a new pole,",
+     "at zero, minus one, minus two, and on."
+    ]
+   ]
+  },
+  {
+   "cue": "15_1",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "Its recipe stopped at one because of two points we could not see from the line, at i and minus i."
+   ],
+   "captions": [
+    [
+     "Its recipe stopped at one",
+     "because of two points"
+    ],
+    [
+     "we could not see from the line,",
+     "at i and minus i."
+    ]
+   ]
+  },
+  {
+   "cue": "15_2",
+   "sentences": [
+    2
+   ],
+   "texts": [
+    "On an open region, away from critical points, that makes every small piece of the map a stretch and a turn."
+   ],
+   "captions": [
+    [
+     "On an open region,",
+     "away from critical points,"
+    ],
+    [
+     "that makes every small piece of the map",
+     "a stretch and a turn."
+    ]
+   ]
+  },
+  {
+   "cue": "15_2",
+   "sentences": [
+    4
+   ],
+   "texts": [
+    "It lets a loop count zeros and poles, and it turns a real integral into a sum of residues."
+   ],
+   "captions": [
+    [
+     "It lets a loop count zeros and poles,"
+    ],
+    [
+     "and it turns a real integral",
+     "into a sum of residues."
+    ]
+   ]
+  },
+  {
+   "cue": "15_2",
+   "sentences": [
+    5
+   ],
+   "texts": [
+    "It allows at most one extension to a given connected region, though there may be none, and along different paths a continuation can branch."
+   ],
+   "captions": [
+    [
+     "It allows at most one extension",
+     "to a given connected region,"
+    ],
+    [
+     "though there may be none, and along",
+     "different paths a continuation can branch."
+    ]
+   ]
+  },
+  {
+   "cue": "15_3",
+   "sentences": [
+    1
+   ],
+   "texts": [
+    "Centre the bump's recipe at x equals three."
+   ],
+   "captions": [
+    [
+     "Centre the bump's recipe",
+     "at x equals three."
+    ]
+   ]
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+# path	sha256	bytes	frame	fps	offset	offset_bits	gain_db	gain_bits	rate	channels	frames	start_sample
+/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration/12_1.wav	0ab025da706c37d2f973eeab530e4fb9a85db4db579b46fea06fd3dabd72c362	917804	36	60	0.0	0x0000000000000000	0.0	0x0000000000000000	24000	1	458880	28800
+/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration/12_2.wav	76a66b22cf489bc8901f7d808b36ae95040db308f82371f4b38d4c50af507880	817964	1220	60	0.0	0x0000000000000000	0.0	0x0000000000000000	24000	1	408960	976000
+/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration/12_3.wav	e3cf24859c39ce35e71ffe307649e2bb7951def2efc58ba9f9fd3a5e08e75783	549164	2279	60	0.0	0x0000000000000000	0.0	0x0000000000000000	24000	1	274560	1823200
+/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration/12_4.wav	921cecf486cd65ba91de0b31102709c273e8b5530a7b850d3d2b92897ffbd52a	579884	3002	60	0.0	0x0000000000000000	0.0	0x0000000000000000	24000	1	289920	2401600

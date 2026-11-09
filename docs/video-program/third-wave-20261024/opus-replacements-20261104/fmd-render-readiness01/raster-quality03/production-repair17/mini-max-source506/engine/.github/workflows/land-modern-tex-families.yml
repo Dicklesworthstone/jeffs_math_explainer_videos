@@ -1,0 +1,94 @@
+name: Land validated modern Tex families
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/land-modern-tex-families.yml'
+      - 'scripts/patches/modern-tex-families.patch'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: land-modern-tex-families-macos
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: macos-14
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Verify and apply the locally native-tested source transaction
+        id: apply
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PYTHON'
+          import hashlib, json, os, pathlib, py_compile, subprocess
+          pairs = {'crates/fmn-python/python/fmn_python/string_lifecycle.py': ['f2e91e26c674b0a6af3aee9532862316fcd87309', 'f8fd1ed165910e7f1644eb1c5d3125ff99f5d6aa'], 'crates/fmn-python/tests/string_lifecycle.py': ['4bc5db75c29da794c3d752ca725be99c1a85456e', '90b45c2152ae1b3f47f355065a9a39dd5c5f9898'], 'crates/fmn-python/tests/live_tex.py': ['001a640ebc8b229ea8a4cb475db9ddde41c45736', 'deffdb1c07cd0614277326f7aa9fc98ed915b6b0'], 'crates/fmn-python/tests/tex_preamble.py': ['15e669dc949c8d705d1a45853f6f20e028f45748', '94fdd7ac2d030bac8e2d25b8a5ac3749cb8ddb99'], 'crates/fmn-python/tests/bridge.py': ['44dcb168ba76411d346b81742bb79b3bf128a68c', '538f9bd2ca185cf66979759de73bd29a98e36f89'], 'crates/fmn-conformance/fixtures/structural_facts/exclusions.json': ['57a76ba7ec8a3208be10617ca62b2d6adeeb47ba', '38f93d438dfcd7c77fb20cca59f6bea9a84ffb8e']}
+          patch = pathlib.Path('scripts/patches/modern-tex-families.patch')
+          assert hashlib.sha256(patch.read_bytes()).hexdigest() == '65990b325f3580de11ada955ddefb829f03fd00c733be6ffce902980fc864ac7'
+          def blob(path):
+              data = pathlib.Path(path).read_bytes()
+              return hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest()
+          current = {path: blob(path) for path in pairs}
+          if all(current[path] == pair[1] for path, pair in pairs.items()):
+              with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+                  out.write('changed=false\n')
+              print('The exact tested transaction is already present; no write.')
+              raise SystemExit(0)
+          assert all(current[path] == pair[0] for path, pair in pairs.items()), 'A source file changed; reconcile instead of overwriting it.'
+          subprocess.run(['git', 'apply', '--check', str(patch)], check=True)
+          subprocess.run(['git', 'apply', str(patch)], check=True)
+          assert all(blob(path) == pair[1] for path, pair in pairs.items()), 'Applied bytes differ from the tested files.'
+          changed = subprocess.check_output(['git', 'diff', '--name-only'], text=True).splitlines()
+          assert set(changed) == set(pairs), changed
+          for i, path in enumerate(pairs):
+              if path.endswith('.py'):
+                  py_compile.compile(path, cfile=os.path.join(os.environ['RUNNER_TEMP'], f'modern-tex-{i}.pyc'), doraise=True)
+          json.loads(pathlib.Path('crates/fmn-conformance/fixtures/structural_facts/exclusions.json').read_text())
+          subprocess.run(['git', 'diff', '--check'], check=True)
+          pathlib.Path(os.environ['RUNNER_TEMP'], 'modern-tex-targets.json').write_text(json.dumps({p: v[1] for p, v in pairs.items()}))
+          subprocess.run(['git', 'add', '--', *pairs], check=True)
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write('changed=true\n')
+          PYTHON
+      - name: Commit exact tested files directly to main without force
+        if: steps.apply.outputs.changed == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git diff --cached --check
+          cat > "$RUNNER_TEMP/modern-tex-message" <<'MESSAGE'
+          fix(python): expose modern Tex as a flat native glyph family
+
+          Build modern Tex/TexText from one normalized source through the existing native typesetter branch. Arguments and isolate selectors remain logical source spans, not point-free scene-graph wrappers. Preserve legacy OldTex/OldTexText grouping, the infix fraction ordering fix, explicit text-channel colors, custom schemas/children, native glyph geometry, selectors, copies, pickle, regeneration and animation. Empty argument edges use the same trimmed source as the public metadata.
+
+          Add fourteen cases to the existing string lifecycle suite. Locally executed native evidence: 40 string lifecycle, 23 live TeX, 15 preamble, 20 legacy TeX, 14 text authoring and 14 decimal lifecycle tests pass (126 total). The same fourteen new tests with the old adapter fail 25 assertions/subtests and two cases with errors. Four changing indexed-glyph PNG frames equal direct native-layout controls at 1/4/16 workers. All three affected bridge blocks pass, including native fade samples, nested word/letter reveal and nested live-number playback. Nested rollback fixtures now explicitly author their real native groups; existing rollback/identity assertions remain. The pinned Reference Tex#2 fixture has zero unexcluded differences without the fm-4qmn exemption; remove only that obsolete row.
+
+          Evidence uses the unchanged GitHub-built f9e970fd extension and relevant current Python adapters, not a fresh final-tree wheel, full-workspace, full class-sweep or cross-platform certification. Longer standalone copied-string/text-reveal/live-render attempts did not produce terminal acceptance and are not counted. This workflow is a hash-checked publication transport for the complete six-file transaction, including the 900 KB bridge suite; its syntax/hash checks are not native-test claims. Every applied blob is verified before staging and after any rebase. No Rust change, dependency, new runtime installer, renderer, PR, force push, deletion or bead closure.
+
+          Relates-to: fm-4qmn; fm-5wq.28; plan sections 8.3, 11.4 and 15.2.
+          MESSAGE
+          git commit -F "$RUNNER_TEMP/modern-tex-message"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main
+            python3 - <<'PYTHON'
+          import hashlib, json, os, pathlib
+          targets = json.loads(pathlib.Path(os.environ['RUNNER_TEMP'], 'modern-tex-targets.json').read_text())
+          for path, expected in targets.items():
+              data = pathlib.Path(path).read_bytes()
+              assert hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest() == expected, path
+          PYTHON
+            if git push origin HEAD:main; then
+              echo "PUBLISHED_SHA=$(git rev-parse HEAD)"
+              exit 0
+            fi
+          done
+          echo 'Main kept moving; no force update was attempted.' >&2
+          exit 1

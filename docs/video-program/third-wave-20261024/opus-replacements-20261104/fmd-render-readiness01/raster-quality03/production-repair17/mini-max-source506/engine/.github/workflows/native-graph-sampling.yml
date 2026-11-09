@@ -1,0 +1,85 @@
+name: Native graph sampling
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-graph-sampling.yml'
+      - 'crates/fmn-geom/src/isolines.rs'
+      - 'crates/fmn-geom/src/lib.rs'
+      - 'crates/fmn-library/src/graphs.rs'
+      - 'crates/fmn-library/tests/fallible_graph_sampling.rs'
+      - 'crates/fmn-python/src/lib.rs'
+      - 'crates/fmn-python/python/fmn_python/graphing.py'
+      - 'crates/fmn-python/python/fmn_python/curve_regeneration.py'
+      - 'crates/fmn-python/python/fmn_python/bar_chart.py'
+      - 'crates/fmn-python/python/fmn_python/coordinate_mapping.py'
+      - 'crates/fmn-python/python/fmn_python/graph_admission.py'
+      - 'crates/fmn-python/python/fmn_python/initialization.py'
+      - 'crates/fmn-python/tests/native_graph_sampling.py'
+      - 'crates/fmn-python/tests/live_implicit.py'
+      - 'crates/fmn-python/tests/live_curves.py'
+      - 'crates/fmn-python/tests/live_bar_chart.py'
+      - 'crates/fmn-python/tests/coordinate_labels.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-graph-sampling
+  cancel-in-progress: false
+jobs:
+  native:
+    if: github.repository == 'Dicklesworthstone/franken_manim'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Native geometry, constructors and animation regressions
+        run: |
+          set -euo pipefail
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          cargo test --locked -p fmn-geom -p fmn-library -p fmn-mobject -p fmn-anim 2>&1 | tee /tmp/graph-native.log
+          cargo clippy --locked -p fmn-geom -p fmn-library -p fmn-mobject -p fmn-anim --all-targets -- -D warnings 2>&1 | tee /tmp/graph-clippy.log
+      - name: Embedded callbacks and fresh installed wheel
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-python --lib fallible_native_graph_sampling -- --nocapture 2>&1 | tee /tmp/graph-embedded.log
+          cargo test --locked -p fmn-python --lib portal_texture::surface::tests -- --nocapture 2>&1 | tee /tmp/graph-surface-embedded.log
+          cargo clippy --locked -p fmn-python --lib -- -D warnings 2>&1 | tee /tmp/graph-portal-clippy.log
+          python -m maturin build --locked --interpreter python --profile dev --out target/graph-wheel 2>&1 | tee /tmp/graph-build.log
+          python -m venv target/graph-venv
+          target/graph-venv/bin/python -m pip install 'numpy==2.5.2' target/graph-wheel/*.whl
+          for suite in native_graph_sampling graph_admission native_surface_sampling surface_admission live_graphing live_implicit live_curves live_bar_chart calculus_area coordinate_mapping coordinate_labels portal_initialization; do
+            target/graph-venv/bin/python -I "crates/fmn-python/tests/$suite.py" 2>&1 | tee "/tmp/graph-$suite.log"
+          done
+      - name: Preserve exact source and evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/graph-source-sha.txt
+          git diff --exit-code
+          git archive --format=tar.gz HEAD > /tmp/graph-source.tar.gz
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-graph-${{ github.run_id }}
+          path: |
+            /tmp/graph-*
+            target/graph-wheel/*.whl
+          retention-days: 3

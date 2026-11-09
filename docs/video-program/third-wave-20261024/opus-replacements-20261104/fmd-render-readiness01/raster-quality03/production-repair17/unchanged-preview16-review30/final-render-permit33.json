@@ -1,0 +1,56 @@
+{
+  "utc": "2026-11-07T19:48:18.076146+00:00",
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "chapter": "04_reading_color",
+  "frames": 6774,
+  "timeline_sha256": "2bb6d0fcb0cc9a90dd1435fb3a97b34385e1108cff7db7c42ba4a8c9606df280",
+  "actually_reviewed_pictures": true,
+  "actually_reviewed_motion": true,
+  "reviewer": "root",
+  "unresolved_defects": [],
+  "motion_intervals": [
+    [
+      0,
+      6773
+    ]
+  ],
+  "observations": "Muted QuickTime playback traversed chapter04 from0 through closing search card; sparse screenshots inspected phase key, smooth identity field, magnitude bands, z-squared moving point/counter to+2, opaque order2 card, reciprocal reversal to-1, unanswered prediction, rational-function pole reveal and gold convergence segment. Playback ended and space restarted; paused replay at7.1643s. Not continuous frame-by-frame review, listening, fine sync or independent AV. Final4K detail and caption overlap checks remain. Prior133pictures/23sheets reviewed and rehashed. Exact source/audio/dependency and full schedules equal; NEWproduction19 render only, not release.",
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review04-33/04_reading_color.mp4",
+      "sha256": "96b768967376b10aace367d9cfdec9c4fe97c6e46a853c937588ae25136f7740"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review04-33/04-playback-samples33.json",
+      "sha256": "f95e73a14b48e0dce87873c71606cfc8645d58ccae3367cf7e7589afce0cd95f"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review04-33/04-prior-picture-evidence33.json",
+      "sha256": "0d51d97d1a6fd084d948d1bdc148daaf6daeec1d2eaa97d6c529c2eb4c2cfd38"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review04-33/transfer30.json",
+      "sha256": "788a34e783b78c672ed580b21303de64b1d975eed26fd2ba94d20f6da5a18ffd"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review04-33/timeline-equality31.json",
+      "sha256": "0b53f3f3c4373515ed2c68f1d253305d4ec3a48aae6499506dfbafc3850299e3"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review04-33/new-04_reading_color.timeline.tsv",
+      "sha256": "2bb6d0fcb0cc9a90dd1435fb3a97b34385e1108cff7db7c42ba4a8c9606df280"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review04-33/unchanged-eight-source-audio01.json",
+      "sha256": "d99aa8e623da64f3b3c498a3ae2d496b97d5f7165a41d8507bda98b9c9378413"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review04-33/unchanged-dependency-union02.json",
+      "sha256": "be23cf9282d2a8f3249bdcf053a8edb3f5cef1d461b846418188cc413eae7ea6"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review04-33/unchanged-dependency-intersection01.json",
+      "sha256": "f382ad6202918a37dc8798174939b4a3434f442dc32c8a8578ea6d786de33899"
+    }
+  ]
+}

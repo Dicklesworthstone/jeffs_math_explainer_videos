@@ -1,0 +1,22 @@
+[
+  {
+    "host": "css",
+    "path": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final11-export80.py",
+    "sha256": "fa2e616973f5478a8d5396a752a534a8a209b8ae476c210d5a4b27e9d2bfd5c8"
+  },
+  {
+    "host": "css",
+    "path": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final11-send80.py",
+    "sha256": "e541376340de3926ca39c30146483f05f76a942b152a12bc31bcd60d3b4e0f01"
+  },
+  {
+    "host": "trj",
+    "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-prepare-css-import80.py",
+    "sha256": "410ac17a690a15e9b8d578b4d49d142e1893f8d8d51e171b827e3b59b54f7a6b"
+  },
+  {
+    "host": "trj",
+    "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-import-css-final11-80.py",
+    "sha256": "691a07c4dd24db6bf861d0c28d07fe5d36aa690e4b9429d2203d6b2c6f240742"
+  }
+]

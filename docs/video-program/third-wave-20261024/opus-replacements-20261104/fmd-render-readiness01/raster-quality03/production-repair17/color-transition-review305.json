@@ -1,0 +1,20 @@
+{
+  "time": "2026-11-08T18:39:14.928160+00:00",
+  "manifest_sha256": "a58e25460f12f09ed228a1ddd7b5df097048c7d2b27cb746c428a78c9b75e192",
+  "actually_viewed_all_109_frames_on_10_sheets": true,
+  "intervals_inclusive": [
+    [
+      235,
+      311
+    ],
+    [
+      6742,
+      6773
+    ]
+  ],
+  "observations": [
+    "Opening field increases progressively from near-black to full colour; wheel remains stable; no single-frame bright flash or premature full-strength plate.",
+    "Closing field progressively dims through last frame6773; no final-frame full-strength reappearance."
+  ],
+  "scope": "Every encoded frame in these two preview windows viewed as480x270 tiles. Not real-time motion, listening or final4K acceptance."
+}

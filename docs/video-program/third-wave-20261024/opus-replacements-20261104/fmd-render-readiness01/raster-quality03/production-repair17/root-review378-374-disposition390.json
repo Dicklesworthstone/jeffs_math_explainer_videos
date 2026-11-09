@@ -1,0 +1,11 @@
+{
+  "time": "2026-11-09T00:49:34.994496+00:00",
+  "reviews": {
+    "cc0-verifier377-review378.md": "5354f41f551907e214daa4242b6194dfce7dbcecfbaf644a7f56e9eabba10c3b",
+    "cc1-import371-review374.md": "356dd513c678478620ca50abe938ecd19bdf05d2a2f7275abcb8be786d8e0a19"
+  },
+  "read_scope": "Both reports read in full",
+  "verifier377": "Accept frozen377 source for technical verification after successful master. Low378 wording corrected here:09 uses07 sampling rule PLUS native centres;07 centres are not all native.",
+  "import371": "Independent374 no High/Medium. Root full helper source review and current host/lane checks still pending before execution. Never queue CSD finals for CSS assigned chapters. No automatic retry increments; inspect actual prior terminal failure. First real import requires post-import check before master manifest adoption.",
+  "acceptance": "No listening, fine sync, final picture or independent final AV acceptance"
+}

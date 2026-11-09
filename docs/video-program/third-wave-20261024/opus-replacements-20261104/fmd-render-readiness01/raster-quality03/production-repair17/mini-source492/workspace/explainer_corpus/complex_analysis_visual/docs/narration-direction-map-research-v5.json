@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "complex_analysis_visual": "f2904d2aa3e2883570a120fc105463e5d65411ffe94066c3a75dd45519055fe8"
+  },
+  "overrides": [
+    {
+      "video": "complex_analysis_visual",
+      "cue": "01_1",
+      "after": "Square a complex number and its distance from zero is squared while its angle is doubled. A whole grid bends and folds. Take a reciprocal and the inside and outside trade places, except at zero, where the reciprocal is undefined. The exponential turns horizontal motion into scaling and vertical motion into rotation. With color we can see the output angle across an entire input plane at once. But first we must learn what the colors mean.",
+      "role": "visual",
+      "reason": "Native visual hold accounts for this cue; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "02_1",
+      "after": "A complex derivative asks for one number that describes the limiting change, no matter which direction we approach from. Multiplying by that one complex number scales and rotates every tiny arrow by the same amount. So wherever the derivative is nonzero, a sufficiently small picture keeps its angles.",
+      "role": "visual",
+      "reason": "Native visual hold accounts for this cue; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "03_0",
+      "after": "Imagine a holomorphic function on and around this disk. You know its values all the way around the boundary, but not the formula inside. Can those boundary values tell you the value at the center?",
+      "role": "visual",
+      "reason": "Research draft has a native prediction marker and three-second visual wait after this question; no audible evidence."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "03_1",
+      "after": "Here is the surprise. If a function is holomorphic throughout a neighborhood of a closed disk, its values around the boundary circle determine the value at the center. More than that: the same boundary values determine every derivative there. That is Cauchy's integral formula.",
+      "role": "visual",
+      "reason": "Native visual hold accounts for this cue; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "05_1",
+      "after": "Here is a real question: what is the area under one over one plus x to the fourth, from minus infinity to infinity? Rather than finding a long real antiderivative, let x become a complex variable and close the path with a huge semicircle above the real axis.",
+      "role": "visual",
+      "reason": "Native visual hold accounts for this cue; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "06_1",
+      "after": "A power series can give us a function only inside the region where it converges. The geometric series gives one over one minus z inside the unit circle. The rational expression continues the same function beyond that circle, but not through its pole at one. Analytic continuation extends a function; it does not make the original divergent series converge.",
+      "role": "visual",
+      "reason": "Native visual hold accounts for this cue; no listening claim."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "complex_analysis_visual",
+      "cue": "01_1",
+      "next_cue": "01_2",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/domain_color.rs",
+      "sha256": "9cf121c845e7f8e7352ceded5551012f1338269601e00972c92578ddbadf3678",
+      "line": 106,
+      "marker": "if kind==2 { kit.hold(stage)?; }",
+      "basis": "hold before next example; source evidence only, not an audible pause claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "02_1",
+      "next_cue": "02_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/derivative.rs",
+      "sha256": "6e5176b980bfea4ab7d9291c0138fe345be21ad0e9c2f9adab83a898b13bfdbc",
+      "line": 81,
+      "marker": "kit.hold(stage)?;",
+      "basis": "prediction; source evidence only, not an audible pause claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "03_0",
+      "next_cue": "03_1",
+      "kind": "prediction",
+      "path": "docs/video-program/research-20261016/evidence/complex-cauchy-prediction-candidate-20261102-v5.rs",
+      "sha256": "ecc3d9dcafd23ded1dcb4dcd833a06356de15eabc66d04269f65c9e1083c9646",
+      "line": 51,
+      "marker": "kit.mark(stage,\"predict\");",
+      "basis": "Research source marks the prediction after 03_0 hold and before a three-second wait; no audible or exported timeline proof."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "03_1",
+      "next_cue": "03_2",
+      "kind": "reading",
+      "path": "docs/video-program/research-20261016/evidence/complex-cauchy-prediction-candidate-20261102-v5.rs",
+      "sha256": "ecc3d9dcafd23ded1dcb4dcd833a06356de15eabc66d04269f65c9e1083c9646",
+      "line": 54,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Research source waits for 03_1 before illustrating the boundary average and subsequent 03_2; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "05_1",
+      "next_cue": "05_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/integral.rs",
+      "sha256": "1ce4ea7ef3d6f80e97bc5a585d25f9dfdc155c10365c970a866a6b577234eb41",
+      "line": 97,
+      "marker": "kit.hold(stage)?;",
+      "basis": "prediction; source evidence only, not an audible pause claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "06_1",
+      "next_cue": "06_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuation.rs",
+      "sha256": "a7290110541e7c25d98872973af6ce4d5c2580dccbcbdd9cdc2e53395c14b2fc",
+      "line": 37,
+      "marker": "kit.hold(stage)?;",
+      "basis": "prediction; source evidence only, not an audible pause claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "04_1",
+      "kind": "prediction_before",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/argument.rs",
+      "sha256": "cc5a8d963de7a3a583c332875cb88337b97b2bc00b27d1b9e6420cbddf17920a",
+      "line": 66,
+      "marker": "stage.wait(3.0)?;",
+      "basis": "Question is shown and held before the cue; no preceding audio pause claimed."
+    }
+  ],
+  "scope": "Research-only v5 binding; no production promotion, listening, narration or accepted timing. Candidate source is a retained research file."
+}

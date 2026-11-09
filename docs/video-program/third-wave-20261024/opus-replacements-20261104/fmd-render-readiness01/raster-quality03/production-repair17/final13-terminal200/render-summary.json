@@ -1,0 +1,34 @@
+{
+  "chapter": "13_real_integral",
+  "frames": 10641,
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "permit_sha256": "e86b5d886b6adf15ff2e682308b19b2284f0c00a6229e4dced6994b70290f8e2",
+  "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+  "files": [
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96/render/13_real_integral.cuelog.tsv",
+      "sha256": "a9d5cd053501b69ff1130951cb43e9f675d8c94a29882953be6db352a14fc4f7"
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96/render/13_real_integral.cues.tsv",
+      "sha256": "c19f91943c0a206cf0a0b0adfd31c3d1f8b0214af69106d8df566d91d4940255"
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96/render/13_real_integral.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96/render/13_real_integral.mp4",
+      "sha256": "49934034d4611b81155925e667dab463072b21ba0240467447b9ddfb52d32f51"
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96/render/13_real_integral.timeline.tsv",
+      "sha256": "819ffec50efd82df351a6f900eb1d70cc3a5a50cfda6e2767bb7f819bee0a847"
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96/render/soundtrack/13_real_integral/soundtrack_0.wav",
+      "sha256": "630e8f38b150364b66bbeaa27d6af8f3f6e1b2ae36f2380514e271394e07058c"
+    }
+  ],
+  "scope": "Technical scored4K60 chapter only; full decode, master replay, final pictures/motion/audio/captions and publication remain."
+}

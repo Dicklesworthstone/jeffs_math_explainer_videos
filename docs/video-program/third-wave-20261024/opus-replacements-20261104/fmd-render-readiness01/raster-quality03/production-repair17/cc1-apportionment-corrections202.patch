@@ -1,0 +1,172 @@
+cc1 apportionment corrections 202: 10_2 (quotient), 14_7 (four towns without the extra assumption),
+14_8 (what a lottery adds; still impossible). Cut against the live bytes named in
+cc1-apportionment-corrections202.md. Not applied. Apply at the repo root with: git apply <this file>
+
+diff --git a/explainer_corpus/apportionment/docs/storyboard.md b/explainer_corpus/apportionment/docs/storyboard.md
+--- a/explainer_corpus/apportionment/docs/storyboard.md
++++ b/explainer_corpus/apportionment/docs/storyboard.md
+@@ -158,7 +158,7 @@
+ | id | words | picture | features | hold/listen |
+ |---|---|---|---|---|
+ | 10_1 | Jefferson rounds every quotient down. Change where the rounding happens and you get the rest of the family, each one built the same way, with a sliding yardstick and one list of signposts. | A ruler from a whole number n to n + 1 with a mark where a quotient starts to round up: for Jefferson, at n + 1. | number line | hold |
+-| 10_2 | John Quincy Adams proposed rounding up instead. Now any piece of a share earns a whole seat, so the lean flips toward small towns. At fifteen seats Adams gives two, four and nine. Cedar falls below its share of exactly ten. | The ruler mark moves to n (Adams); the rows show 2, 4, 9; Cedar's ninth token sits below its bracket, flashing red. | `adams.15.*`; flash | hold |
++| 10_2 | John Quincy Adams proposed rounding up instead. Now any piece of a quotient earns a whole seat, so the lean flips toward small towns. At fifteen seats Adams gives two, four and nine. Cedar falls below its share of exactly ten. | The ruler mark moves to n (Adams); the rows show 2, 4, 9; Cedar's ninth token sits below its bracket, flashing red. | `adams.15.*`; flash | hold |
+ | 10_3 | ⟨predict⟩ Between always down and always up sits the compromise, round to the nearest. What does that give at fifteen seats? | Ruler mark at n + 1/2; think ring. | quiz | listen 4 s |
+ | 10_4 | Two, three, ten, the same as Hamilton. This is Daniel Webster's rule. At sixteen seats it gives two, four, ten, and at seventeen, two, four, eleven. Nobody ever loses a seat. In our three towns, Webster does what we hoped Hamilton would do. | A table, rows 15, 16, 17 seats, columns Hamilton and Webster; Ash's Hamilton column 2, 1, 2 (the 1 red) beside Webster's 2, 2, 2. | `webster.15.*`, `webster.16.*`, `webster.17.*`, `hamilton.16.*`; table | hold |
+ | 10_5 | One more relative is worth knowing, because it became the law for the United States House in nineteen forty one. It is called the Huntington Hill method. Between one and two, it rounds up once a quotient passes the square root of one times two, about one point four one. For our towns it agrees with Webster at fifteen, sixteen and seventeen seats. | "United States House, since 1941" over the table; a faint ghost stays at Webster's 1.5 on the 1-to-2 ruler; at "it rounds up once a quotient passes" the mark slides left from 1.5 to "√(1 × 2) ≈ 1.41", caption "Hill: past the square root"; at "it agrees with Webster" the table gains a "Hill" column equal to Webster's, both flashing. | `hill.threshold.1`, `hill.15.*`, `hill.16.*`, `hill.17.*`, `history.hill_law_year`; number line, table | hold |
+@@ -212,8 +212,8 @@
+ | 14_4 | Neither. Suppose the city gets nine. Then the last seat goes to one village. Call it the fifth. Now let only the fifth village grow, to two hundred twenty two people. The city's share falls to six point nine nine, so it can have at most seven seats. The fifth village's share is one point eight eight, so it can have at most two. That leaves at least one seat for the other three villages. | Left branch, "city gets 9": seats 9, 0, 0, 0, 1; the fifth village's bar grows to 222; brackets city ≤ 7, fifth ≤ 2; "at least 1" over villages two to four. | `gpp.B.*` | hold |
+ | 14_5 | So some village with an unchanged population goes from no seats to one, while the city, also unchanged, drops from nine seats to seven or fewer. The city did not shrink, and it lost seats to a village that did not grow. The population promise is broken. | A red arrow from the city to a village; a red cross on the left branch. | flash | hold |
+ | 14_6 | Suppose instead the city gets eight. Then two villages get one seat each. Call them the fourth and fifth. This time shrink the other two villages to a single person each. The city's share rises to nine point zero two, so it needs at least nine seats. Only one seat is left for the fourth and fifth villages, so one of them drops to zero. That village did not shrink, and it lost its seat to a city that did not grow. | Right branch, "city gets 8": seats 8, 0, 0, 1, 1; villages two and three shrink to 1; city bracket ≥ 9; one of villages four and five loses its token; red cross. | `gpp.C.*`; flash | hold |
+-| 14_7 | Both choices fail. So no rule that keeps the quota promise can keep the population promise for every map of five towns, and the same trick works with more. With three towns, Webster's rule keeps both. With four, as of that paper, nobody knew. | Summary card: "3 towns: Webster keeps both", "4 towns: open (as of the 2024 paper)", "5 or more: impossible". | card | hold |
+-| 14_8 | The same paper shows a way out. If the rule may draw lots, it can keep the quota promise, never take a seat back, and give every town exactly its share on average. | "a lottery rule (same paper)": three checks (quota promise in every draw; never takes a seat back; every town its exact share on average), then Ash at 15 seats: 2 seats in 54% of draws, 1 in 46%, on average 1.54. | `lottery.15.ash.*`, `share.15.ash`; card | hold |
++| 14_7 | Both choices fail. So no rule that keeps the quota promise can keep the population promise for every map of five towns, and the same trick works with more. With three towns, Webster's rule keeps both. With four, without the extra assumption, nobody knew as of that paper. | Summary card: "3 towns: Webster keeps both", "4 towns: open (as of the 2024 paper)", "5 or more: impossible". | card | hold |
++| 14_8 | The same paper shows what a lottery can add. If the rule may draw lots, it can keep the quota promise, never take a seat back, and give every town exactly its share on average. But even a lottery cannot keep the quota promise and the population promise together. | "a lottery rule (same paper)": three checks (quota promise in every draw; never takes a seat back; every town its exact share on average), then Ash at 15 seats: 2 seats in 54% of draws, 1 in 46%, on average 1.54. | `lottery.15.ash.*`, `share.15.ash`; card | hold |
+ 
+ ## 15_recap: the whole map
+ 
+diff --git a/explainer_corpus/apportionment/script.tsv b/explainer_corpus/apportionment/script.tsv
+--- a/explainer_corpus/apportionment/script.tsv
++++ b/explainer_corpus/apportionment/script.tsv
+@@ -51,7 +51,7 @@
+ 09_4	History shows the lean. In the apportionment after the eighteen thirty census, made with Jefferson's rule, New York's exact share was thirty eight point five nine three seats. Peyton Young's table records that it received forty.
+ 09_5	So the two families trade flaws. Hamilton's rule keeps the quota promise but can take a seat back. Jefferson's rule never takes a seat back but can break the quota promise.
+ 10_1	Jefferson rounds every quotient down. Change where the rounding happens and you get the rest of the family, each one built the same way, with a sliding yardstick and one list of signposts.
+-10_2	John Quincy Adams proposed rounding up instead. Now any piece of a share earns a whole seat, so the lean flips toward small towns. At fifteen seats Adams gives two, four and nine. Cedar falls below its share of exactly ten.
++10_2	John Quincy Adams proposed rounding up instead. Now any piece of a quotient earns a whole seat, so the lean flips toward small towns. At fifteen seats Adams gives two, four and nine. Cedar falls below its share of exactly ten.
+ 10_3	Between always down and always up sits the compromise, round to the nearest. What does that give at fifteen seats?
+ 10_4	Two, three, ten, the same as Hamilton. This is Daniel Webster's rule. At sixteen seats it gives two, four, ten, and at seventeen, two, four, eleven. Nobody ever loses a seat. In our three towns, Webster does what we hoped Hamilton would do.
+ 10_5	One more relative is worth knowing, because it became the law for the United States House in nineteen forty one. It is called the Huntington Hill method. Between one and two, it rounds up once a quotient passes the square root of one times two, about one point four one. For our towns it agrees with Webster at fifteen, sixteen and seventeen seats.
+@@ -85,8 +85,8 @@
+ 14_4	Neither. Suppose the city gets nine. Then the last seat goes to one village. Call it the fifth. Now let only the fifth village grow, to two hundred twenty two people. The city's share falls to six point nine nine, so it can have at most seven seats. The fifth village's share is one point eight eight, so it can have at most two. That leaves at least one seat for the other three villages.
+ 14_5	So some village with an unchanged population goes from no seats to one, while the city, also unchanged, drops from nine seats to seven or fewer. The city did not shrink, and it lost seats to a village that did not grow. The population promise is broken.
+ 14_6	Suppose instead the city gets eight. Then two villages get one seat each. Call them the fourth and fifth. This time shrink the other two villages to a single person each. The city's share rises to nine point zero two, so it needs at least nine seats. Only one seat is left for the fourth and fifth villages, so one of them drops to zero. That village did not shrink, and it lost its seat to a city that did not grow.
+-14_7	Both choices fail. So no rule that keeps the quota promise can keep the population promise for every map of five towns, and the same trick works with more. With three towns, Webster's rule keeps both. With four, as of that paper, nobody knew.
+-14_8	The same paper shows a way out. If the rule may draw lots, it can keep the quota promise, never take a seat back, and give every town exactly its share on average.
++14_7	Both choices fail. So no rule that keeps the quota promise can keep the population promise for every map of five towns, and the same trick works with more. With three towns, Webster's rule keeps both. With four, without the extra assumption, nobody knew as of that paper.
++14_8	The same paper shows what a lottery can add. If the rule may draw lots, it can keep the quota promise, never take a seat back, and give every town exactly its share on average. But even a lottery cannot keep the quota promise and the population promise together.
+ 15_1	Here is the whole map. Hamilton's rule keeps the quota promise, but it can take a seat back when the house grows, and it can punish a town for growing.
+ 15_2	Jefferson, Adams, Webster and Hill never take a seat back and never punish growth, but each can break the quota promise. The quota method of Balinski and Young keeps the quota promise and never takes a seat back, and the theorem says it must break the population promise for some map.
+ 15_3	Here is one to try yourself. Under Webster's rule, suppose Cedar grows while Ash and Birch stay exactly the same, and the council stays at fifteen seats. Can Ash ever gain a seat?
+diff --git a/explainer_corpus/apportionment/src/chapters/rounding_rules.rs b/explainer_corpus/apportionment/src/chapters/rounding_rules.rs
+--- a/explainer_corpus/apportionment/src/chapters/rounding_rules.rs
++++ b/explainer_corpus/apportionment/src/chapters/rounding_rules.rs
+@@ -169,7 +169,7 @@
+         s.wait_for(stage, "Change where the rounding happens")?;
+         flash_all(stage, &ruler.parts[2..4], 0.9)?;
+ 
+-        // 10_2 Adams rounds up: any piece of a share earns a seat
++        // 10_2 Adams rounds up: any piece of a quotient earns a seat
+         let s = say(&kit, stage, "10_2")?;
+         s.wait_for(stage, "proposed rounding up")?;
+         reruler(&kit, stage, &ruler, 1.0, "just above 1", "Adams: round up", 1.2)?;
+diff --git a/explainer_corpus/apportionment/src/chapters/no_rule.rs b/explainer_corpus/apportionment/src/chapters/no_rule.rs
+--- a/explainer_corpus/apportionment/src/chapters/no_rule.rs
++++ b/explainer_corpus/apportionment/src/chapters/no_rule.rs
+@@ -467,7 +467,7 @@
+         let four_q = kit.text(stage, "?", 36.0, Palette::hero(), v(-5.6, -0.8))?;
+         fade_in_all(stage, &[four, four_q], 0.6)?;
+ 
+-        // 14_8 the way out: draw lots
++        // 14_8 what drawing lots adds; it still cannot keep the population promise
+         wipe(&kit, stage)?;
+         let s = say(&kit, stage, "14_8")?;
+         let title = kit.text(stage, "a lottery rule (same paper)", 30.0, Palette::hero(), v(0.0, 2.9))?;
+diff --git a/explainer_corpus/apportionment/docs/description.md b/explainer_corpus/apportionment/docs/description.md
+--- a/explainer_corpus/apportionment/docs/description.md
++++ b/explainer_corpus/apportionment/docs/description.md
+@@ -162,10 +162,12 @@
+ villages of 44 (shares 8.24 and 0.44); the same map with the fifth village
+ grown to 222 (shares 6.99 and 1.88); and the first map with villages two and
+ three shrunk to one person each (city share 9.02). With three towns Webster
+-keeps both promises, and four towns were open as of that paper. The paper's
++keeps both promises, and four towns, without the extra assumption, were open
++as of that paper. The paper's
+ lottery rule keeps the quota promise in every draw, never takes a seat back,
+ and gives every town exactly its share on average: Ash at fifteen seats gets 2
+-seats in 54% of draws and 1 in 46%.
++seats in 54% of draws and 1 in 46%. It does not escape their impossibility
++theorem: no lottery keeps the quota promise and the population promise together.
+ 
+ ## Sources
+ 
+diff --git a/explainer_corpus/apportionment/docs/narration-direction-map-frederick01.json b/explainer_corpus/apportionment/docs/narration-direction-map-frederick01.json
+--- a/explainer_corpus/apportionment/docs/narration-direction-map-frederick01.json
++++ b/explainer_corpus/apportionment/docs/narration-direction-map-frederick01.json
+@@ -1,7 +1,7 @@
+ {
+   "schema_version": 1,
+   "scripts": {
+-    "apportionment": "29aa2993426bb323e5723162e446f1cf70d00836b8bc91ebb6503ad3ca48cf07"
++    "apportionment": "b9344e1123170e7e3898d8aea2123e0b659bcd571085008fc97894e7d69da624"
+   },
+   "overrides": [
+     {
+@@ -216,7 +216,7 @@
+       "next_cue": "10_4",
+       "kind": "prediction",
+       "path": "explainer_corpus/apportionment/src/chapters/rounding_rules.rs",
+-      "sha256": "d5baaecdde2dd7d50b1cc8cbef60b177f6bf2e647709c181c3b9022aa04163f5",
++      "sha256": "7b82c0f0514fd1e65d613532e64b76ff0566e372b37c6743681a0ceae485c835",
+       "line": 189,
+       "marker": "let q = think_here(&kit, stage)?;",
+       "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+@@ -260,7 +260,7 @@
+       "next_cue": "14_4",
+       "kind": "prediction",
+       "path": "explainer_corpus/apportionment/src/chapters/no_rule.rs",
+-      "sha256": "aceba2952c63fd44692d5015958eb76e1ce96c87f63ac17cf7212c62815cbd5e",
++      "sha256": "7c88a18d610884876403498fa5b1f6f208c633c55d122beced7a7bc6b2bc805d",
+       "line": 289,
+       "marker": "let q = think(&kit, stage, v(5.6, -0.4))?;",
+       "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+diff --git a/explainer_corpus/apportionment/narration_units.json b/explainer_corpus/apportionment/narration_units.json
+--- a/explainer_corpus/apportionment/narration_units.json
++++ b/explainer_corpus/apportionment/narration_units.json
+@@ -1,16 +1,16 @@
+ {
+   "schema_version": 1,
+-  "script_sha256": "29aa2993426bb323e5723162e446f1cf70d00836b8bc91ebb6503ad3ca48cf07",
++  "script_sha256": "b9344e1123170e7e3898d8aea2123e0b659bcd571085008fc97894e7d69da624",
+   "direction_contract": {
+     "schema_version": 1,
+     "topic": "apportionment",
+-    "script_sha256": "29aa2993426bb323e5723162e446f1cf70d00836b8bc91ebb6503ad3ca48cf07",
++    "script_sha256": "b9344e1123170e7e3898d8aea2123e0b659bcd571085008fc97894e7d69da624",
+     "map": {
+       "path": "explainer_corpus/apportionment/docs/narration-direction-map-frederick01.json",
+-      "sha256": "8ae86ed5e848a94c3a9f33a592d01495ee5c0eace068aa592e4fd80f97762c53"
++      "sha256": "212ae493dfa80d0f700b736303e32505f86ba9cb73265c46b44726ac4b8d94f7"
+     }
+   },
+-  "scope": "Frederick source plan140. Cue05_2 clarifies town-specific increments;08_6 specifies fixed tie order and scopes the no-tie examples to fifteen through seventeen seats. All prior takes retained; native build and final timing review pending.",
++  "scope": "Frederick source plan202. Cue10_2 names quotients, not shares, as what Adams rounds up; 14_7 scopes the open four-town case to the question without the extra assumption; 14_8 says what a lottery adds and that it still cannot keep the quota and population promises together. All prior takes retained; native build and final timing review pending.",
+   "units": [
+     {
+       "id": "oliver_01_1",
+@@ -381,7 +381,7 @@
+       "line_ids": [
+         "10_2"
+       ],
+-      "text": "John Quincy Adams proposed rounding up instead. Now any piece of a share earns a whole seat, so the lean flips toward small towns. At fifteen seats Adams gives two, four and nine. Cedar falls below its share of exactly ten."
++      "text": "John Quincy Adams proposed rounding up instead. Now any piece of a quotient earns a whole seat, so the lean flips toward small towns. At fifteen seats Adams gives two, four and nine. Cedar falls below its share of exactly ten."
+     },
+     {
+       "id": "oliver_10_3",
+@@ -619,14 +619,14 @@
+       "line_ids": [
+         "14_7"
+       ],
+-      "text": "Both choices fail. So no rule that keeps the quota promise can keep the population promise for every map of five towns, and the same trick works with more. With three towns, Webster's rule keeps both. With four, as of that paper, nobody knew."
++      "text": "Both choices fail. So no rule that keeps the quota promise can keep the population promise for every map of five towns, and the same trick works with more. With three towns, Webster's rule keeps both. With four, without the extra assumption, nobody knew as of that paper."
+     },
+     {
+       "id": "oliver_14_8",
+       "line_ids": [
+         "14_8"
+       ],
+-      "text": "The same paper shows a way out. If the rule may draw lots, it can keep the quota promise, never take a seat back, and give every town exactly its share on average."
++      "text": "The same paper shows what a lottery can add. If the rule may draw lots, it can keep the quota promise, never take a seat back, and give every town exactly its share on average. But even a lottery cannot keep the quota promise and the population promise together."
+     },
+     {
+       "id": "oliver_15_1",

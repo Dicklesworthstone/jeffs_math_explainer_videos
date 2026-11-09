@@ -1,0 +1,37 @@
+Why does a power series fail where the curve it describes is perfectly smooth? The answer lies above and below the real number line.
+
+We follow one simple function, 1/(1+x²), into the complex plane. Moving grids explain multiplication and differentiation. Colour reveals zeros and poles. We build the proof of Cauchy's theorem from shrinking squares and cancelling edges, then use it to show why boundary values determine the inside. Loops count roots without finding them, and two complex poles solve a real integral.
+
+Along the way: polynomials, the exponential, sine, tangent, gamma and zeta; the Cauchy–Riemann equations; holomorphic functions and critical points; Cauchy's integral formula; the identity theorem; the argument principle; residues; and analytic continuation.
+
+The limits matter too. A derivative at one point is not enough. A loop cannot pass through a zero or pole when we count its winding. Continuation can depend on the path, can meet a natural boundary, and does not make a divergent series converge.
+
+Some calculus is helpful. We build the complex-number geometry from multiplication as a stretch and a rotation.
+
+Chapters:
+0:00 Why a smooth curve defeats its power series
+1:45 Complex multiplication: stretch and turn
+3:14 Watching functions move the plane
+5:15 Reading a function in colour
+7:08 Polynomials, exponential, sine, gamma and zeta
+9:53 What a complex derivative demands
+12:40 One derivative is not enough
+14:28 Contour integrals and a proof of Cauchy's theorem
+18:37 Proving Cauchy's formula: the boundary decides the inside
+23:12 Why holomorphic functions are rigid
+25:16 Counting roots without finding them
+28:35 Residues: the term that survives
+29:41 Real integrals from complex poles
+32:38 Analytic continuation and its limits
+35:54 Back to the opening puzzle
+
+Sister video, Logarithms Made Visual:
+https://youtu.be/lgpTDROHgQY
+
+Further reading:
+NIST DLMF, Functions of a Complex Variable: https://dlmf.nist.gov/1.10
+NIST DLMF, Gamma Function: https://dlmf.nist.gov/5.2
+NIST DLMF, Riemann Zeta Function: https://dlmf.nist.gov/25.2
+
+Animation: FrankenManim.
+Narration: ElevenLabs, Frederick Surrey.

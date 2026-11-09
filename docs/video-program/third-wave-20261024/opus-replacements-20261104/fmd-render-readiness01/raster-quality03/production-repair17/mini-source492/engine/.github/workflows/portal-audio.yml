@@ -1,0 +1,95 @@
+name: Portal compressed soundtracks
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/portal-audio.yml'
+      - 'scripts/patches/portal-audio-integration.patch'
+      - 'crates/fmn-python/src/portal_audio.rs'
+      - 'crates/fmn-python/tests/audio_inputs.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: portal-compressed-audio
+  cancel-in-progress: false
+jobs:
+  soundtrack:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/portable
+      CARGO_TERM_COLOR: always
+      PYO3_PYTHON: python
+      PYTHONPATH: ${{ github.workspace }}/crates/fmn-python/python:${{ github.workspace }}/crates/fmn-python/tests
+      FMN_REQUIRE_FFMPEG: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+      - name: Connect the reviewed native soundtrack path
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! grep -qx 'mod portal_audio;' crates/fmn-python/src/lib.rs; then
+            git apply --check scripts/patches/portal-audio-integration.patch
+            git apply scripts/patches/portal-audio-integration.patch
+          fi
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Install test-only capabilities
+        run: |
+          rustup show active-toolchain
+          python -m pip install numpy
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-
+      - name: Verify real sound assets, native mixing and atomic output
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_video.rs crates/fmn-python/src/portal_audio.rs
+          python -m unittest test_render_session_protocol test_console_rendering_protocol test_batch_rendering_protocol test_render_selection_protocol test_video_console_protocol
+          cargo test --locked -p fmn-python portal_compressed_audio_acceptance -- --nocapture
+          cargo test --locked -p fmn-python production_native_output_acceptance_suite -- --nocapture
+          cargo test --locked -p fmn-python portal_video -- --nocapture
+          cargo clippy --locked -p fmn-python --lib -- -D warnings
+          git diff --check
+      - name: Commit tested integration directly to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_audio.rs crates/fmn-python/src/portal_video.rs crates/fmn-python/python/fmn_python/rendering.py crates/fmn-python/python/fmn_python/console_rendering.py crates/fmn-python/tests/native_outputs.py crates/fmn-python/tests/test_render_session_protocol.py crates/fmn-python/tests/test_console_rendering_protocol.py crates/fmn-python/tests/test_batch_rendering_protocol.py
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(python): activate compressed sound cues in WAV, movie and batch renders'
+            git push origin HEAD:main
+          fi
+          git rev-parse HEAD
+      - name: Preserve exact verified source
+        if: always()
+        run: |
+          git diff > /tmp/portal-audio-tested.patch
+          git rev-parse HEAD > /tmp/portal-audio-tested-sha.txt
+          git archive --format=tar.gz HEAD > /tmp/portal-audio-source.tar.gz
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: portal-audio-source-${{ github.sha }}
+          path: |
+            /tmp/portal-audio-tested.patch
+            /tmp/portal-audio-tested-sha.txt
+            /tmp/portal-audio-source.tar.gz
+          retention-days: 1

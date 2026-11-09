@@ -1,0 +1,13 @@
+{
+ "helper": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-retained-import311.py",
+ "helper_sha256": "862968830a076c2030599b65e1f48b776501f87d99045cb662570045e613d5ea",
+ "job": "csd-retained-import311-hz2-a1",
+ "job_exists": false,
+ "manifest_sha256": "dd354d223b2e8c96ac00addb71f4b727f5d26d904b9f1f501164b2916f448820",
+ "problems": [],
+ "new_files": 854,
+ "new_bytes": 1492418495,
+ "existing_identical": 0,
+ "alias": "/data/projects/jmev-hz2-render-worker-20261107",
+ "alias_state": "absent"
+}

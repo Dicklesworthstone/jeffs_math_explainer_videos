@@ -1,0 +1,27 @@
+{
+  "time": "2026-11-08T18:02:22.621193+00:00",
+  "reviewer": "root",
+  "scope": "Full source read of worker303 and launcher303, worker diff against287, and author notes. Independent of author; static review only.",
+  "files": {
+    "csd-reviewed-final303.py": "db3ce8e424f17a604e5f2cc802db81e5dcd7b631301808625e20a7c9b658d057",
+    "csd-launch-final303.py": "def224f04d86cf34db3c8af27ea10109378573cce2852201da3bd74440272cb0"
+  },
+  "findings": [],
+  "verified_in_source": [
+    "Nine preview274 chapters bind exact completed receipt inputs and build268;06/08 retain explicit238-to268 bridge.",
+    "Worker and permit hashes checked before worker import; fewer than16 inherited CPUs refuses before inputs write.",
+    "Unique inputs/job names, prior-version exclusion, host-specific permit, unchanged exclusive resource guard.",
+    "Actual picture and motion requirements retained; all45 schedules, score files, source bindings and frozen inputs checked.",
+    "4K60 CRF16 command and post-render soundtrack/frame/cue/encoder checks retained."
+  ],
+  "limitations": [
+    "No real303 launch or runtime validation performed.",
+    "43 mock cases reported by author were read, not independently rerun.",
+    "This is not a picture/motion/listening/fine-sync/finalAV acceptance or render permit."
+  ],
+  "next": [
+    "Complete targeted missing-preview coverage and source-aware308 disposition.",
+    "Use unique host-specific permits only after actual required review.",
+    "Review309 and307 before parallel final production and master."
+  ]
+}

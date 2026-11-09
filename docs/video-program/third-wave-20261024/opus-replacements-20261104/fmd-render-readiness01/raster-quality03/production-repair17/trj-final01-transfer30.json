@@ -1,0 +1,49 @@
+{
+  "all_exact": true,
+  "files": [
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/01_the_bump.mp4",
+      "sha256": "9f4307695c8af42a830756f4ca056c322a1ee70e45c76fc5deed5c5e318c8d01"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/01-playback-samples30.json",
+      "sha256": "b7585183a5e0cc6576a6bd21703f20448874748996c6a0460f6ce9351ce4dafa"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/01-prior-picture-evidence30.json",
+      "sha256": "8d338bc60d539179a6ef3c2ed53b92ef1b0dd26661ce6d7552fd52e3fcfaad97"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/transfer30.json",
+      "sha256": "788a34e783b78c672ed580b21303de64b1d975eed26fd2ba94d20f6da5a18ffd"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/timeline-equality31.json",
+      "sha256": "0b53f3f3c4373515ed2c68f1d253305d4ec3a48aae6499506dfbafc3850299e3"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/new-01_the_bump.timeline.tsv",
+      "sha256": "d6ddcc1ffb9991be25d2f44d8bf554f2c56695e84acc3733d034961e0826d764"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/unchanged-eight-source-audio01.json",
+      "sha256": "d99aa8e623da64f3b3c498a3ae2d496b97d5f7165a41d8507bda98b9c9378413"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/unchanged-dependency-union02.json",
+      "sha256": "be23cf9282d2a8f3249bdcf053a8edb3f5cef1d461b846418188cc413eae7ea6"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/unchanged-dependency-intersection01.json",
+      "sha256": "f382ad6202918a37dc8798174939b4a3434f442dc32c8a8578ea6d786de33899"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/final-render-permit30.json",
+      "sha256": "1b9c017f31a7d12f2d185a8cafdd79d5db32b8636002097a61a8720c4e3637f6"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-launch-final01-30.py",
+      "sha256": "cf1b1b77dd9478a7fc62381bd763cab1b5d995604ec2b1f4dbc26527f999c44c"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "utc": "2026-11-07T21:05:28.989604+00:00",
+  "chapter": "12_residues",
+  "prior_controller_stopped": 2707753,
+  "hz2_controller": 848129,
+  "return_controller": 59290,
+  "frames": 3943,
+  "review_scope": "14 prior actual review evidence files rehashed; no new final acceptance",
+  "hz2_queue": [
+    "15_closing",
+    "12_residues"
+  ],
+  "trj_queue": [
+    "08_loop_sums",
+    "03_two_planes",
+    "05_gallery",
+    "01_the_bump",
+    "02_turning_numbers",
+    "04_reading_color",
+    "06_one_derivative",
+    "07_one_point",
+    "10_rigidity"
+  ]
+}

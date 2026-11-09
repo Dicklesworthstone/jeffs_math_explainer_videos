@@ -1,0 +1,26 @@
+{
+  "utc": "2026-11-08T06:28:54.915498+00:00",
+  "review": "cc2-preview-worker-review284.md",
+  "high": 0,
+  "medium": 0,
+  "disposition": {
+    "L1": "Chroma localization is a hypothesis only; actual selected frames must show the fade. No score establishes acceptance.",
+    "L2": "Current only pause0.6 has identical36frames under both rules; no need alter frozen helper. New pause values require kit rule.",
+    "L3": "Compiled Cargo.toml line12 absolute repo-view kit path verified, narration SHA8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8 exact.",
+    "L4": "Kit finish can hold; zero extra frames only established for seven closing chains by their measured totals, not general rule.",
+    "L5": "Actual/usr/bin/ffprobe and ffmpeg present. Runtime extraction can fail; preserve native outputs and diagnose without blind rerender."
+  },
+  "controller": {
+    "host": "csd",
+    "tmux": "jmev-preview-after-timeline301",
+    "pid": 855549,
+    "sha256": "9e87035a494cd7de90aa6f00d1d1f0e8766f9ce523c3a18270bc7acb9e4009aa",
+    "state": "waiting on successful stable269; launcher296 rechecks45tables and all frozeninputs before guarded274",
+    "duplicate_forbidden": true
+  },
+  "preview_started": false,
+  "motion_review": false,
+  "listening": false,
+  "fine_sync": false,
+  "independent_final_av": false
+}

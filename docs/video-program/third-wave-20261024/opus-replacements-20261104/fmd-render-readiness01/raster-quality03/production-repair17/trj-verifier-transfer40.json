@@ -1,0 +1,29 @@
+{
+  "files": [
+    {
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/trj-final-verify19-02.py",
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-final-verify19-02.py",
+      "sha256": "355781524ca0df4634b88642bc58930d8bedde82bd1429cbb8c74e401d2d7f5c"
+    },
+    {
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/trj-verify-after-master40.py",
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-verify-after-master40.py",
+      "sha256": "416c4088b58fea1695ffa645be2f86f202cb35cc12eb436bd049eed115f6bf32"
+    },
+    {
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-final-verification02/verify_stage09_final.py",
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/verify_stage09_final.py",
+      "sha256": "f266a2315e4a9af247c648da416881f3a2999e2682e9c611ff82ca3727b70b94"
+    },
+    {
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/six-machine-screened-production-20261103/verify_video_preserve_logs01.sh",
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/verify_video_preserve_logs01.sh",
+      "sha256": "3f4c68dbdcb02c1c90ff03cb4f20afc36792b7f20c6cc111a5eef21617a11410"
+    },
+    {
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/six-machine-screened-production-20261103/caption-interval-audit01.py",
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/caption-interval-audit01.py",
+      "sha256": "3cc2643615ce5263b01d429ae6f72326c95e777af3e7f29ef9266a05155fa0c4"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "chapter": "11_counting",
+  "frames": 11932,
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "timeline_sha256": "13f593bc19082ddacd7d3adbd5f739110fec02c1ab43958cff748f1154641242",
+  "actually_reviewed_pictures": true,
+  "actually_reviewed_motion": true,
+  "reviewer": "root",
+  "observations": "235 selected stills and sampled muted advancing playback checked. No persistent concrete defect found. Motion review is sampled, not continuous. Authorizes guarded final render only; final 4K/master/listening/fine sync and independent AV acceptance remain open.",
+  "unresolved_defects": [],
+  "motion_intervals": [
+    [
+      261,
+      3811
+    ],
+    [
+      9530,
+      11749
+    ]
+  ],
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review11-73/pictures-review72.json",
+      "sha256": "77d1c1537f38c9cd705593853b709557e88cce91af877483e82ed800864509c4"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review11-73/copy-evidence.json",
+      "sha256": "fcdee4370c5067bb5246383c04eab32ad407683eae7df1aa0c6ea5f74d2dbd03"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review11-73/11_counting.timeline.tsv",
+      "sha256": "13f593bc19082ddacd7d3adbd5f739110fec02c1ab43958cff748f1154641242"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review11-73/11_counting.cues.tsv",
+      "sha256": "8659b78f9ff443163d4e37270c62532fa4b90d0ee34bab51231eb915aac3ff41"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review11-73/11_counting.cuelog.tsv",
+      "sha256": "c00984bb9bb8d9cc9b964fcd97e0675fa1a4a711827fd4c62ab121594fdad27e"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review11-73/playback-samples73.json",
+      "sha256": "7ef730f54f8061245ab918ac1590d5d8e6671e1c3680b5f55726f09616aee6dc"
+    }
+  ]
+}

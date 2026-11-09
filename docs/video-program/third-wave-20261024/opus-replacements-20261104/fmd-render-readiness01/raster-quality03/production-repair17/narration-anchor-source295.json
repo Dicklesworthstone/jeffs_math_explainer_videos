@@ -1,0 +1,10 @@
+{
+  "utc": "2026-11-08T06:18:41.291610+00:00",
+  "remote_host": "csd",
+  "compiled_path": "/data/projects/jmev-stroke-probe-20261106/work/tree/repo-view/crates/explainer_kit/src/narration.rs",
+  "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/crates/explainer_kit/src/narration.rs",
+  "sha256": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8",
+  "equal": true,
+  "source_observation": "say waits gap before capturing frame, places sound and logs that frame, sets busy_until then returns without advancing stage again.",
+  "limits": "Source anchoring evidence only. Timeline269 pending; no motion, listening, sync or release acceptance."
+}

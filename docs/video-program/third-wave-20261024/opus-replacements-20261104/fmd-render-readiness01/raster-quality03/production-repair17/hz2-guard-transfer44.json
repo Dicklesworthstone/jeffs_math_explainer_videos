@@ -1,0 +1,29 @@
+{
+  "files": [
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/guard_hz201.py",
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/hz2-guard44/guard_hz201.py",
+      "sha256": "8ae6459e52b5b7efed15f0bc75d80fe89e3c42b1ab0126e02fdd5fd61b1ca1dd"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/encoder-stop-probe01.py",
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/hz2-guard44/encoder-stop-probe01.py",
+      "sha256": "5707322c71f43863cd1b8a262167a151cebbf9bad515f39586585834b900f12d"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/owned-process-stop02.py",
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/stop-probe-stage01/qualification01/owned-process-stop02.py",
+      "sha256": "a2fe7985bf76a1982e8d08b3dfb23354d2f60b322b95ed82ca83fc5e39a09236"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/inputs/repo/docs/video-program/third-wave-20261024/opus-replacements-20261104/engine-secondary-validation01/guard_owner56g_target20g.py",
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/stop-probe-stage01/inputs/repo/docs/video-program/third-wave-20261024/opus-replacements-20261104/engine-secondary-validation01/guard_owner56g_target20g.py",
+      "sha256": "1c19a9b8f817c3bca06e18fd0785ac21c3cb935be715d67ecc41e4e39d1f5097"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/inputs/repo/narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/run_bounded_phase_oliver_owner48g_target14g_20261102.py",
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/stop-probe-stage01/inputs/repo/narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/run_bounded_phase_oliver_owner48g_target14g_20261102.py",
+      "sha256": "819746fb33110d6c133e184812c80a00562d848816f623078ad86f0fb1a316da"
+    }
+  ]
+}

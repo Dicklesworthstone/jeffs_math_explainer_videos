@@ -1,0 +1,162 @@
+{
+ "check_captions_f266a231": {
+  "caption_blocks": 579,
+  "srt_equals_vtt": true,
+  "text_equals_script": "whole and per cue",
+  "last_caption_end_ms": 2220147,
+  "video_ms": 2227700
+ },
+ "screen_3cc26436": {
+  "caption_count": 579,
+  "fastest": {
+   "number": 466,
+   "start_ms": 1788193,
+   "end_ms": 1789753,
+   "characters": 30,
+   "characters_per_second": 19.231,
+   "longest_line_characters": 30
+  },
+  "over_20": 0,
+  "lines_over_42": 0
+ },
+ "structure": {
+  "captions": 579,
+  "captions_327": 571,
+  "start_before_end": true,
+  "lines_1_or_2": true,
+  "line_chars_max": 42,
+  "no_overlap": true,
+  "min_duration_ms": 1060,
+  "max_cps": 19.231,
+  "srt_equals_vtt": true
+ },
+ "text": {
+  "whole_equals_327": true,
+  "per_cue_equals_report": true
+ },
+ "boundaries": {
+  "units": 458,
+  "sentence_or_unit_start_and_end_equal_327": true,
+  "merges": [
+   {
+    "cue": "03_4",
+    "answer": "No.",
+    "first_caption": 64,
+    "starts_at_answer_start": true,
+    "starts_at_cue_placement": true,
+    "previous_caption_ends": 236900,
+    "previous_is_held_question": true,
+    "following_sentence_recorded_start_ms": 237600,
+    "following_shown_from_ms": 236900,
+    "following_lead_ms": 700,
+    "unit_ends_at_327_end": true
+   },
+   {
+    "cue": "10_5",
+    "answer": "No.",
+    "first_caption": 390,
+    "starts_at_answer_start": true,
+    "starts_at_cue_placement": true,
+    "previous_caption_ends": 1472700,
+    "previous_is_held_question": true,
+    "following_sentence_recorded_start_ms": 1473517,
+    "following_shown_from_ms": 1472700,
+    "following_lead_ms": 817,
+    "unit_ends_at_327_end": true
+   },
+   {
+    "cue": "11_6",
+    "answer": "One.",
+    "first_caption": 426,
+    "starts_at_answer_start": true,
+    "starts_at_cue_placement": true,
+    "previous_caption_ends": 1617617,
+    "previous_is_held_question": true,
+    "following_sentence_recorded_start_ms": 1618277,
+    "following_shown_from_ms": 1617617,
+    "following_lead_ms": 660,
+    "unit_ends_at_327_end": true
+   }
+  ],
+  "cues_same_first_start_last_end_and_contiguous": 105,
+  "cues": 105,
+  "prediction_holds": 13,
+  "holds_end_unchanged": true,
+  "held_captions_end_with_the_question": true,
+  "kept_units_byte_identical": true
+ },
+ "semantic_rules": {
+  "failures_327_by_code": {
+   "F1": 1,
+   "F2": 23,
+   "F3": 39,
+   "F4": 205
+  },
+  "units_failing_327": 163,
+  "failures_candidate": [
+   {
+    "cue": "14_4",
+    "sentence": 0,
+    "rule": "L2",
+    "code": "F4",
+    "detail": "expr split across lines \"plus / eight,\""
+   }
+  ],
+  "unexpected_candidate_failures": 0,
+  "failing_327_units_not_changed": [
+   [
+    "14_4",
+    [
+     0
+    ]
+   ]
+  ],
+  "exceptions": [
+   {
+    "cue": "14_4",
+    "sentence": 0,
+    "rule": "L2",
+    "why": "Held prediction question kept as the single 327 caption so the whole sum stays on screen through the 5.86 s hold; at 76 characters no two-line break avoids the sum, and two captions would hide its start during the hold."
+   }
+  ]
+ },
+ "durations": {
+  "candidate_min_ms": 1060,
+  "candidate_under_833ms": [],
+  "candidate_under_1000ms": [],
+  "changed_caption_min_ms": 1391
+ },
+ "all_passed": true,
+ "inputs": {
+  "complex_analysis_visual.en.srt": "5d06423248f088a34774f361721bf05e1c4950ac834086e3666661e1adfe5e1b",
+  "complex_analysis_visual.en.vtt": "26e0d7e0eec26eb6f9136bb56f795a6ff8ab9cead26f29fc76a75e9abc4bb2e3",
+  "report.json": "b4a4c91e8e8fd26dbad621d118b762660e60532a2bbcf535ad88b87a45406bdd",
+  "script.tsv": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c",
+  "verify": "f266a2315e4a9af247c648da416881f3a2999e2682e9c611ff82ca3727b70b94",
+  "screen": "3cc2643615ce5263b01d429ae6f72326c95e777af3e7f29ef9266a05155fa0c4",
+  "timelines": {
+   "01_the_bump": "6149d6fa5e0e7086f1a61a727b0d9492bf32952815e378ffb82dd6cb973197ef",
+   "02_turning_numbers": "d6786da2a0b27058798dba8f2c3428186dbeb10b01a4368150dc15981fac2a0d",
+   "03_two_planes": "98960c5350162890005782a7e254b5cac5cf1b38bcb0ff124012041d4db288cb",
+   "04_reading_color": "438587cb208d2bdf5fee9510ea2c7c57af7a1247d8a140e023f4edd9ce48edb4",
+   "05_gallery": "df3cdeae1dab98a6b28cfde7ac2e30ae0a7242de9bda6ad9b0659fb10e52a260",
+   "06_one_derivative": "8abb0519b2945269f5def975e1adde7968905fab45f72b85b242dc4a11d0ca71",
+   "07_one_point": "5bbc64ab95fe36169b1dee002c6ddc8222a7c1bbb32758c8e812b66b42be97bb",
+   "08_loop_sums": "e2276be4d8b190bddf5c944e82c00c4b4febc6d65886142b890b99594ef64945",
+   "09_boundary": "e05a6679f8105d7bec1647088c276d52871753770a3af4fbc99c3e3af5bffb76",
+   "10_rigidity": "99fd22e62d5c6e53104ec3c622135d0748c3dc68e375141d3da4a38114d5860b",
+   "11_counting": "29a3afd345fa3a376e5c163d5bf5e01267a866e2305bdd27c6413a5bab46807d",
+   "12_residues": "d25e8b958cd32f2a233b38c293183f3d39b2d1502137c389c69ba49ff0d0dca7",
+   "13_real_integral": "54995e05de124d1462cb9841ac0d14e6abbc351583c5743d2287ef24c44fd505",
+   "14_continuation": "2b3a5bff177889f00fb06871a8910d98babb4ac3c4636f50758c897cb11fbc99",
+   "15_closing": "1d0532d139899817358b829a095ac31f258833fb61aef314f2a758be7e38ebc7"
+  },
+  "overrides_sha256": "4b8330c430f1392192a965db6bdcd6c534f04addecd8a8d9ec56bbf7b29b20cf"
+ },
+ "limits": "Caption files only. Split times inside a sentence are character-share estimates of the kit rule, not word timing; no listening, ASR, sync or accessibility acceptance.",
+ "outputs": {
+  "candidate.en.srt": "0ea9277e6d598540e5e9057a84ee84daf7f88420b076434659fc3d3ad0ff3230",
+  "candidate.en.vtt": "6a383cb7f207be81254e9a820ecb701ca77d00a26557194c675dc1717ef6979b",
+  "changes.tsv": "2ad1a40b845bca205bb5075aeb16823d4ac8a94c17b546415b4031d7f0839b63"
+ }
+}

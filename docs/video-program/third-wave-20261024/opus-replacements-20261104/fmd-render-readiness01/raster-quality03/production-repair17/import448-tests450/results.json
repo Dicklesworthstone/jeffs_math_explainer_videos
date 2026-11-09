@@ -1,0 +1,15 @@
+{
+  "helper_sha256": "b6653757c5c114029a94832a0dd4cb9597c42808614fbb959ef6448a5d994f6e",
+  "passed": 8,
+  "checks": [
+    "positive two-root streamed staging and hardlink placement",
+    "identical preexisting files retained",
+    "different destination refused without overwrite",
+    "symlink parent refused",
+    "missing second alias refused",
+    "truncated stream refused before destination writes",
+    "wrong-hash stream refused before destination writes",
+    "trailing stream refused before destination writes"
+  ],
+  "scope": "Root synthetic filesystem tests; no production import, independent review or final AV acceptance"
+}

@@ -1,0 +1,48 @@
+name: Repair Keyed Fork Migration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/repair-keyed-fork-migration.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Repair the queued regression and self-remove
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path(".github/workflows/add-keyed-rng-forks.yml")
+          text = path.read_text(encoding="utf-8")
+          old = "        assert_eq!(KEYED_FORK_LAYOUT_VERSION, 1);"
+          new = "        assert_eq!(super::KEYED_FORK_LAYOUT_VERSION, 1);"
+          if old in text:
+              text = text.replace(old, new, 1)
+          elif new not in text:
+              raise SystemExit("keyed-fork layout-version assertion anchor drifted")
+          path.write_text(text, encoding="utf-8")
+          PY
+          git rm .github/workflows/repair-keyed-fork-migration.yml
+          git add .github/workflows/add-keyed-rng-forks.yml
+          git config user.name "FrankenManim Migration Repair"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix(ci): scope keyed-fork layout version in queued test" -m "Reference the parent-module constant explicitly before the one-shot implementation workflow runs."
+          git fetch origin main
+          git rebase origin/main
+          git push origin HEAD:main

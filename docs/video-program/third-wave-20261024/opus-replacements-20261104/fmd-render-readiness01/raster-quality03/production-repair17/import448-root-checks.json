@@ -1,0 +1,18 @@
+{
+  "candidate_sha256": "b6653757c5c114029a94832a0dd4cb9597c42808614fbb959ef6448a5d994f6e",
+  "mapping_and_refusal_checks": 7,
+  "unchanged_functions": [
+    "terminal",
+    "stage",
+    "header_fields",
+    "read_header",
+    "allocated",
+    "preflight",
+    "prepare"
+  ],
+  "actual_transfer_tested": false,
+  "independent_review_complete": false,
+  "staged": false,
+  "launched": false,
+  "requires": "CSD access and safe guarded establishment of absent SSD alias/physical directory, without modifying existing paths"
+}

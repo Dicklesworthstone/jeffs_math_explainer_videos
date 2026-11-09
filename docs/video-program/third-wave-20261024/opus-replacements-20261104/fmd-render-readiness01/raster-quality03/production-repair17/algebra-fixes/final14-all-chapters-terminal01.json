@@ -1,0 +1,1800 @@
+{
+  "chapters": [
+    {
+      "chapter": "05_order",
+      "frames": 4914,
+      "receipt": {
+        "started": "2026-11-07T16:55:32.667783+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "05_order"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T16:55:43.263368+00:00",
+            "free_bytes": 132077809664,
+            "work_bytes": 63178625024,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:56:03.012532+00:00",
+            "free_bytes": 132040220672,
+            "work_bytes": 63178625024,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:56:24.185990+00:00",
+            "free_bytes": 132249317376,
+            "work_bytes": 63178625024,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:56:44.708426+00:00",
+            "free_bytes": 131844153344,
+            "work_bytes": 63178625024,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:57:04.277200+00:00",
+            "free_bytes": 132187406336,
+            "work_bytes": 63194353664,
+            "target_bytes": 14475522048
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":133327159296,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":133327159296,\"free_excludes_purgeable\":true,\"free_pct\":3.3362843125644788,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":133327159296,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":23303352513,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":131728093184,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":131728093184,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T16:55:32.783137+00:00",
+          "free_bytes": 131728089088,
+          "work_bytes": 63178616832,
+          "target_bytes": 14475522048
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 46100,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T16:57:15.979785+00:00"
+      },
+      "technical_check": {
+        "chapter": "05_order",
+        "frames": 4914,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "07_eight_moves",
+      "frames": 6504,
+      "receipt": {
+        "started": "2026-11-07T17:00:24.239823+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "07_eight_moves"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T17:00:30.864463+00:00",
+            "free_bytes": 131892076544,
+            "work_bytes": 63273435136,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:00:45.360068+00:00",
+            "free_bytes": 131585765376,
+            "work_bytes": 63273439232,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:01:00.888934+00:00",
+            "free_bytes": 131894611968,
+            "work_bytes": 63273439232,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:01:16.969251+00:00",
+            "free_bytes": 131835015168,
+            "work_bytes": 63273439232,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:01:31.927626+00:00",
+            "free_bytes": 131802701824,
+            "work_bytes": 63273439232,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:01:42.322327+00:00",
+            "free_bytes": 131775361024,
+            "work_bytes": 63304347648,
+            "target_bytes": 14475522048
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":132199653376,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":132199653376,\"free_excludes_purgeable\":true,\"free_pct\":3.3080704037623847,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":132199653376,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24566894785,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":131864150016,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":131864150016,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T17:00:24.374297+00:00",
+          "free_bytes": 131864117248,
+          "work_bytes": 63273431040,
+          "target_bytes": 14475522048
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 34439,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T17:01:51.785739+00:00"
+      },
+      "technical_check": {
+        "chapter": "07_eight_moves",
+        "frames": 6504,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "13_arithmetic",
+      "frames": 15890,
+      "receipt": {
+        "started": "2026-11-07T17:12:51.305034+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "13_arithmetic"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T17:13:08.531249+00:00",
+            "free_bytes": 138444730368,
+            "work_bytes": 63575662592,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:13:35.122294+00:00",
+            "free_bytes": 138150141952,
+            "work_bytes": 63575662592,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:14:02.391655+00:00",
+            "free_bytes": 138331451392,
+            "work_bytes": 63575662592,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:14:33.555669+00:00",
+            "free_bytes": 137782104064,
+            "work_bytes": 63575662592,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:15:03.172459+00:00",
+            "free_bytes": 137270562816,
+            "work_bytes": 63575662592,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:15:36.608985+00:00",
+            "free_bytes": 136699908096,
+            "work_bytes": 63575662592,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:16:04.712937+00:00",
+            "free_bytes": 137002577920,
+            "work_bytes": 63575662592,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:16:33.710479+00:00",
+            "free_bytes": 136224440320,
+            "work_bytes": 63653744640,
+            "target_bytes": 14475522048
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":129959555072,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":129959555072,\"free_excludes_purgeable\":true,\"free_pct\":3.2520157719101803,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":129959555072,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":33422237889,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":138478612480,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":138478612480,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T17:12:51.419008+00:00",
+          "free_bytes": 138478596096,
+          "work_bytes": 63575654400,
+          "target_bytes": 14475522048
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 17141,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T17:16:52.829455+00:00"
+      },
+      "technical_check": {
+        "chapter": "13_arithmetic",
+        "frames": 15890,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "01_clock",
+      "frames": 2747,
+      "receipt": {
+        "started": "2026-11-07T16:52:10.238030+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "01_clock"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T16:52:15.424981+00:00",
+            "free_bytes": 133294940160,
+            "work_bytes": 63106465792,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:52:29.508761+00:00",
+            "free_bytes": 133639274496,
+            "work_bytes": 63106469888,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:52:39.557631+00:00",
+            "free_bytes": 133282402304,
+            "work_bytes": 63118311424,
+            "target_bytes": 14475522048
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":133327159296,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":133327159296,\"free_excludes_purgeable\":true,\"free_pct\":3.3362843125644788,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":133327159296,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24902385857,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":133327106048,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":133327106048,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T16:52:10.890588+00:00",
+          "free_bytes": 133327122432,
+          "work_bytes": 63106461696,
+          "target_bytes": 14475522048
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 10228,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T16:52:48.676932+00:00"
+      },
+      "technical_check": {
+        "chapter": "01_clock",
+        "frames": 2747,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "06_axioms",
+      "frames": 14779,
+      "receipt": {
+        "started": "2026-11-07T16:57:16.029560+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "06_axioms"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T16:57:27.669284+00:00",
+            "free_bytes": 132151738368,
+            "work_bytes": 63201538048,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:57:47.656546+00:00",
+            "free_bytes": 132163772416,
+            "work_bytes": 63201538048,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:58:07.669949+00:00",
+            "free_bytes": 132098826240,
+            "work_bytes": 63201538048,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:58:27.939719+00:00",
+            "free_bytes": 131742965760,
+            "work_bytes": 63201538048,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:58:47.355502+00:00",
+            "free_bytes": 131406954496,
+            "work_bytes": 63201538048,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:59:12.542762+00:00",
+            "free_bytes": 131927810048,
+            "work_bytes": 63201538048,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:59:36.880480+00:00",
+            "free_bytes": 131953676288,
+            "work_bytes": 63201538048,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:59:55.928188+00:00",
+            "free_bytes": 131883925504,
+            "work_bytes": 63201538048,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:00:14.549108+00:00",
+            "free_bytes": 131865108480,
+            "work_bytes": 63273431040,
+            "target_bytes": 14475522048
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":132199653376,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":132199653376,\"free_excludes_purgeable\":true,\"free_pct\":3.3080704037623847,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":132199653376,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24919040193,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":132200730624,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":132200730624,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T16:57:16.717826+00:00",
+          "free_bytes": 132216270848,
+          "work_bytes": 63201529856,
+          "target_bytes": 14475522048
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 16060,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T17:00:24.195522+00:00"
+      },
+      "technical_check": {
+        "chapter": "06_axioms",
+        "frames": 14779,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "08_subgroups",
+      "frames": 13591,
+      "receipt": {
+        "started": "2026-11-07T17:01:51.839630+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "08_subgroups"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T17:01:57.810242+00:00",
+            "free_bytes": 131743113216,
+            "work_bytes": 63304351744,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:02:13.570753+00:00",
+            "free_bytes": 131707908096,
+            "work_bytes": 63304355840,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:02:32.545649+00:00",
+            "free_bytes": 131060707328,
+            "work_bytes": 63304355840,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:02:50.475689+00:00",
+            "free_bytes": 131019698176,
+            "work_bytes": 63304355840,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:03:08.846544+00:00",
+            "free_bytes": 131803107328,
+            "work_bytes": 63304355840,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:03:27.352154+00:00",
+            "free_bytes": 131642769408,
+            "work_bytes": 63304355840,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:03:45.871523+00:00",
+            "free_bytes": 131698724864,
+            "work_bytes": 63304355840,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:04:04.337832+00:00",
+            "free_bytes": 131656704000,
+            "work_bytes": 63304355840,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:04:21.844040+00:00",
+            "free_bytes": 131608477696,
+            "work_bytes": 63368503296,
+            "target_bytes": 14475522048
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":132199653376,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":132199653376,\"free_excludes_purgeable\":true,\"free_pct\":3.3080704037623847,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":132199653376,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24439988417,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":131737223168,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":131737223168,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T17:01:51.963311+00:00",
+          "free_bytes": 131749498880,
+          "work_bytes": 63304347648,
+          "target_bytes": 14475522048
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 88451,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T17:04:32.233959+00:00"
+      },
+      "technical_check": {
+        "chapter": "08_subgroups",
+        "frames": 13591,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "09_centralizer",
+      "frames": 11534,
+      "receipt": {
+        "started": "2026-11-07T17:04:32.296112+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "09_centralizer"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T17:04:43.021282+00:00",
+            "free_bytes": 131134128128,
+            "work_bytes": 63368507392,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:04:58.149844+00:00",
+            "free_bytes": 131433136128,
+            "work_bytes": 63368511488,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:05:16.023758+00:00",
+            "free_bytes": 131388887040,
+            "work_bytes": 63368511488,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:05:45.957100+00:00",
+            "free_bytes": 131379388416,
+            "work_bytes": 63368511488,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:06:08.058217+00:00",
+            "free_bytes": 131360317440,
+            "work_bytes": 63368511488,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:06:25.841164+00:00",
+            "free_bytes": 131081080832,
+            "work_bytes": 63368511488,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:06:43.820129+00:00",
+            "free_bytes": 130749210624,
+            "work_bytes": 63368511488,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:07:01.514130+00:00",
+            "free_bytes": 131105615872,
+            "work_bytes": 63405420544,
+            "target_bytes": 14475522048
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":131290361856,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":131290361856,\"free_excludes_purgeable\":true,\"free_pct\":3.2853169374038247,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":131290361856,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24901759169,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":131291328512,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":131291328512,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T17:04:33.181664+00:00",
+          "free_bytes": 131289104384,
+          "work_bytes": 63368503296,
+          "target_bytes": 14475522048
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 92000,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T17:07:09.779324+00:00"
+      },
+      "technical_check": {
+        "chapter": "09_centralizer",
+        "frames": 11534,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "10_cyclic",
+      "frames": 16840,
+      "receipt": {
+        "started": "2026-11-07T17:07:09.821957+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "10_cyclic"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T17:07:19.206121+00:00",
+            "free_bytes": 130917416960,
+            "work_bytes": 63430639616,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:07:39.358283+00:00",
+            "free_bytes": 130513154048,
+            "work_bytes": 63430639616,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:07:58.625779+00:00",
+            "free_bytes": 130502225920,
+            "work_bytes": 63430639616,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:08:18.442315+00:00",
+            "free_bytes": 130485018624,
+            "work_bytes": 63430639616,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:08:37.366752+00:00",
+            "free_bytes": 130156879872,
+            "work_bytes": 63430639616,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:08:57.994001+00:00",
+            "free_bytes": 129744691200,
+            "work_bytes": 63430639616,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:09:27.349267+00:00",
+            "free_bytes": 129950498816,
+            "work_bytes": 63430639616,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:09:55.933012+00:00",
+            "free_bytes": 129972862976,
+            "work_bytes": 63484530688,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:10:04.453384+00:00",
+            "free_bytes": 129962971136,
+            "work_bytes": 63509078016,
+            "target_bytes": 14475522048
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":131290361856,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":131290361856,\"free_excludes_purgeable\":true,\"free_pct\":3.2853169374038247,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":131290361856,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24741658817,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":131128827904,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":131128827904,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T17:07:09.911298+00:00",
+          "free_bytes": 131128823808,
+          "work_bytes": 63430631424,
+          "target_bytes": 14475522048
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 95929,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T17:10:14.784099+00:00"
+      },
+      "technical_check": {
+        "chapter": "10_cyclic",
+        "frames": 16840,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "11_permutations",
+      "frames": 42265,
+      "receipt": {
+        "started": "2026-11-07T16:39:05.904151+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "11_permutations"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T16:39:29.110659+00:00",
+            "free_bytes": 136602890240,
+            "work_bytes": 62800404480,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:39:47.273409+00:00",
+            "free_bytes": 136755482624,
+            "work_bytes": 62800404480,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:40:06.238336+00:00",
+            "free_bytes": 136729169920,
+            "work_bytes": 62800404480,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:40:25.077944+00:00",
+            "free_bytes": 136576819200,
+            "work_bytes": 62800404480,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:40:44.113136+00:00",
+            "free_bytes": 136556548096,
+            "work_bytes": 62800404480,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:41:03.616234+00:00",
+            "free_bytes": 136199819264,
+            "work_bytes": 62800404480,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:41:23.155599+00:00",
+            "free_bytes": 136512372736,
+            "work_bytes": 62800404480,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:41:40.275118+00:00",
+            "free_bytes": 136539721728,
+            "work_bytes": 62800404480,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:42:12.040944+00:00",
+            "free_bytes": 135528783872,
+            "work_bytes": 62800404480,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:42:35.559335+00:00",
+            "free_bytes": 135402446848,
+            "work_bytes": 62800404480,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:42:55.374710+00:00",
+            "free_bytes": 135654027264,
+            "work_bytes": 62800404480,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:43:15.927844+00:00",
+            "free_bytes": 135877844992,
+            "work_bytes": 62800404480,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:43:35.959257+00:00",
+            "free_bytes": 135886368768,
+            "work_bytes": 62800408576,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:43:56.342583+00:00",
+            "free_bytes": 135150211072,
+            "work_bytes": 62800408576,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:44:15.465677+00:00",
+            "free_bytes": 135119175680,
+            "work_bytes": 62800408576,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:44:36.202492+00:00",
+            "free_bytes": 134739976192,
+            "work_bytes": 62800408576,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:44:55.605978+00:00",
+            "free_bytes": 134705930240,
+            "work_bytes": 62800408576,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:45:14.422578+00:00",
+            "free_bytes": 134513209344,
+            "work_bytes": 62800408576,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:45:31.821335+00:00",
+            "free_bytes": 134465585152,
+            "work_bytes": 62800408576,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:45:49.355983+00:00",
+            "free_bytes": 134810611712,
+            "work_bytes": 62800408576,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:46:03.074057+00:00",
+            "free_bytes": 134773792768,
+            "work_bytes": 62800408576,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:46:20.363205+00:00",
+            "free_bytes": 134421417984,
+            "work_bytes": 62935658496,
+            "target_bytes": 14475522048
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":137367715840,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":137367715840,\"free_excludes_purgeable\":true,\"free_pct\":3.437392334988094,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":137367715840,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24293851329,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":136759267328,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":136759267328,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T16:39:06.028301+00:00",
+          "free_bytes": 136759316480,
+          "work_bytes": 62800396288,
+          "target_bytes": 14475522048
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 23910,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T16:46:29.607747+00:00"
+      },
+      "technical_check": {
+        "chapter": "11_permutations",
+        "frames": 42265,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "12_isomorphism",
+      "frames": 15704,
+      "receipt": {
+        "started": "2026-11-07T17:10:14.834027+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "12_isomorphism"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T17:10:26.831515+00:00",
+            "free_bytes": 129841815552,
+            "work_bytes": 63509082112,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:10:45.910568+00:00",
+            "free_bytes": 132251357184,
+            "work_bytes": 63509086208,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:11:04.031755+00:00",
+            "free_bytes": 133816053760,
+            "work_bytes": 63509086208,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:11:23.298997+00:00",
+            "free_bytes": 134044352512,
+            "work_bytes": 63509086208,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:11:41.714920+00:00",
+            "free_bytes": 135624888320,
+            "work_bytes": 63509086208,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:12:00.083277+00:00",
+            "free_bytes": 138430398464,
+            "work_bytes": 63509086208,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:12:18.624685+00:00",
+            "free_bytes": 138875420672,
+            "work_bytes": 63509086208,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:12:34.898149+00:00",
+            "free_bytes": 138507104256,
+            "work_bytes": 63575654400,
+            "target_bytes": 14475522048
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":129959555072,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":129959555072,\"free_excludes_purgeable\":true,\"free_pct\":3.2520157719101803,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":129959555072,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24902844609,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":129959624704,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":129959624704,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T17:10:15.598373+00:00",
+          "free_bytes": 129959202816,
+          "work_bytes": 63509078016,
+          "target_bytes": 14475522048
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 6970,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T17:12:51.254504+00:00"
+      },
+      "technical_check": {
+        "chapter": "12_isomorphism",
+        "frames": 15704,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "02_equivalence",
+      "frames": 3608,
+      "receipt": {
+        "started": "2026-11-07T16:52:48.728253+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "02_equivalence"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T16:52:57.591655+00:00",
+            "free_bytes": 132980101120,
+            "work_bytes": 63118319616,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:53:17.704942+00:00",
+            "free_bytes": 132277047296,
+            "work_bytes": 63118319616,
+            "target_bytes": 14475522048
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":133327159296,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":133327159296,\"free_excludes_purgeable\":true,\"free_pct\":3.3362843125644788,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":133327159296,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24884695233,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":133309472768,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":133309472768,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T16:52:48.823392+00:00",
+          "free_bytes": 133309423616,
+          "work_bytes": 63118311424,
+          "target_bytes": 14475522048
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 37026,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T16:53:30.908122+00:00"
+      },
+      "technical_check": {
+        "chapter": "02_equivalence",
+        "frames": 3608,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "03_counterexample",
+      "frames": 10011,
+      "receipt": {
+        "started": "2026-11-07T16:53:30.951548+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "03_counterexample"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T16:53:42.427112+00:00",
+            "free_bytes": 133359538176,
+            "work_bytes": 63133847552,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:54:04.320086+00:00",
+            "free_bytes": 133314584576,
+            "work_bytes": 63133847552,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:54:23.632522+00:00",
+            "free_bytes": 133270487040,
+            "work_bytes": 63133847552,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:54:43.875174+00:00",
+            "free_bytes": 133221957632,
+            "work_bytes": 63133847552,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:55:05.790026+00:00",
+            "free_bytes": 132884598784,
+            "work_bytes": 63133847552,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:55:21.615054+00:00",
+            "free_bytes": 131824680960,
+            "work_bytes": 63178616832,
+            "target_bytes": 14475522048
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":133327159296,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":133327159296,\"free_excludes_purgeable\":true,\"free_pct\":3.3362843125644788,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":133327159296,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24553578689,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":132978200576,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":132978200576,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T16:53:31.043992+00:00",
+          "free_bytes": 132978311168,
+          "work_bytes": 63133839360,
+          "target_bytes": 14475522048
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 68287,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T16:55:32.624737+00:00"
+      },
+      "technical_check": {
+        "chapter": "03_counterexample",
+        "frames": 10011,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "14_cosets",
+      "frames": 21786,
+      "receipt": {
+        "started": "2026-11-07T16:46:29.670375+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "14_cosets"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T16:46:38.657236+00:00",
+            "free_bytes": 134502297600,
+            "work_bytes": 63007977472,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:46:55.876059+00:00",
+            "free_bytes": 134051172352,
+            "work_bytes": 63007981568,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:47:12.978045+00:00",
+            "free_bytes": 133821353984,
+            "work_bytes": 63007981568,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:47:33.236118+00:00",
+            "free_bytes": 133793587200,
+            "work_bytes": 63007981568,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:47:50.575195+00:00",
+            "free_bytes": 133795962880,
+            "work_bytes": 63007981568,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:48:09.257177+00:00",
+            "free_bytes": 134088572928,
+            "work_bytes": 63007981568,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:48:28.586035+00:00",
+            "free_bytes": 133510299648,
+            "work_bytes": 63007981568,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:48:46.238004+00:00",
+            "free_bytes": 133448134656,
+            "work_bytes": 63007981568,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:49:05.547320+00:00",
+            "free_bytes": 133701402624,
+            "work_bytes": 63007981568,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:49:23.362101+00:00",
+            "free_bytes": 134002458624,
+            "work_bytes": 63007981568,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:49:41.579508+00:00",
+            "free_bytes": 133972344832,
+            "work_bytes": 63007981568,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:50:00.601663+00:00",
+            "free_bytes": 133557424128,
+            "work_bytes": 63007981568,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T16:50:10.085674+00:00",
+            "free_bytes": 133550002176,
+            "work_bytes": 63105380352,
+            "target_bytes": 14475522048
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":134467575808,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":134467575808,\"free_excludes_purgeable\":true,\"free_pct\":3.3648212868678775,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":134467575808,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24901808321,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":134467477504,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":134467477504,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T16:46:30.570909+00:00",
+          "free_bytes": 134467141632,
+          "work_bytes": 63007973376,
+          "target_bytes": 14475522048
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 94758,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T16:50:19.719309+00:00"
+      },
+      "technical_check": {
+        "chapter": "14_cosets",
+        "frames": 21786,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "15_products",
+      "frames": 19375,
+      "receipt": {
+        "started": "2026-11-07T17:16:52.870033+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "15_products"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T17:17:11.717177+00:00",
+            "free_bytes": 136135806976,
+            "work_bytes": 63653752832,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:17:33.058230+00:00",
+            "free_bytes": 135670341632,
+            "work_bytes": 63653752832,
+            "target_bytes": 14475522048
+          },
+          {
+            "utc": "2026-11-07T17:17:51.315213+00:00",
+            "free_bytes": 135707697152,
+            "work_bytes": 63653752832,
+            "target_bytes": 14097256448
+          },
+          {
+            "utc": "2026-11-07T17:18:09.367501+00:00",
+            "free_bytes": 136451510272,
+            "work_bytes": 63653752832,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:18:26.587389+00:00",
+            "free_bytes": 136489136128,
+            "work_bytes": 63653752832,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:18:44.824860+00:00",
+            "free_bytes": 136500908032,
+            "work_bytes": 63653752832,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:19:07.878670+00:00",
+            "free_bytes": 136432975872,
+            "work_bytes": 63653752832,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:19:33.919235+00:00",
+            "free_bytes": 141453934592,
+            "work_bytes": 63653752832,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:19:54.188982+00:00",
+            "free_bytes": 149407072256,
+            "work_bytes": 63653752832,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:20:04.159407+00:00",
+            "free_bytes": 149590667264,
+            "work_bytes": 63740821504,
+            "target_bytes": 14024273920
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":136171175936,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":136171175936,\"free_excludes_purgeable\":true,\"free_pct\":3.4074509687117005,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":136171175936,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24885731521,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":136171184128,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":136171184128,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T17:16:53.374881+00:00",
+          "free_bytes": 136154476544,
+          "work_bytes": 63653744640,
+          "target_bytes": 14475522048
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 71986,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T17:20:13.367174+00:00"
+      },
+      "technical_check": {
+        "chapter": "15_products",
+        "frames": 19375,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "16_quotients",
+      "frames": 25953,
+      "receipt": {
+        "started": "2026-11-07T17:20:13.419295+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "16_quotients"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T17:20:23.517584+00:00",
+            "free_bytes": 154425462784,
+            "work_bytes": 63740829696,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:20:40.198621+00:00",
+            "free_bytes": 154502545408,
+            "work_bytes": 63740829696,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:20:55.908760+00:00",
+            "free_bytes": 154472652800,
+            "work_bytes": 63740829696,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:21:21.669332+00:00",
+            "free_bytes": 154408820736,
+            "work_bytes": 63740829696,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:21:51.099754+00:00",
+            "free_bytes": 154054328320,
+            "work_bytes": 63740829696,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:22:22.281274+00:00",
+            "free_bytes": 153896271872,
+            "work_bytes": 63740829696,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:22:50.609792+00:00",
+            "free_bytes": 153824862208,
+            "work_bytes": 63740829696,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:23:20.161654+00:00",
+            "free_bytes": 153266778112,
+            "work_bytes": 63740829696,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:23:48.645540+00:00",
+            "free_bytes": 152643821568,
+            "work_bytes": 63740829696,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:24:21.497721+00:00",
+            "free_bytes": 152357318656,
+            "work_bytes": 63740829696,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:24:51.079686+00:00",
+            "free_bytes": 152622092288,
+            "work_bytes": 63740829696,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:25:25.038302+00:00",
+            "free_bytes": 152111058944,
+            "work_bytes": 63740829696,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:25:53.185562+00:00",
+            "free_bytes": 152113008640,
+            "work_bytes": 63740833792,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:26:23.475915+00:00",
+            "free_bytes": 151673815040,
+            "work_bytes": 63740833792,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:26:44.183937+00:00",
+            "free_bytes": 152047554560,
+            "work_bytes": 63740833792,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:27:04.033814+00:00",
+            "free_bytes": 152018485248,
+            "work_bytes": 63740833792,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:27:23.364720+00:00",
+            "free_bytes": 151906889728,
+            "work_bytes": 63740833792,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:27:42.560672+00:00",
+            "free_bytes": 151927922688,
+            "work_bytes": 63740833792,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:28:04.696124+00:00",
+            "free_bytes": 151954800640,
+            "work_bytes": 63740833792,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:28:31.764413+00:00",
+            "free_bytes": 151344435200,
+            "work_bytes": 63740833792,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:28:58.753237+00:00",
+            "free_bytes": 151596122112,
+            "work_bytes": 63740833792,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:29:30.371581+00:00",
+            "free_bytes": 150994747392,
+            "work_bytes": 63740833792,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:30:02.709703+00:00",
+            "free_bytes": 150373339136,
+            "work_bytes": 63740833792,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:30:33.201339+00:00",
+            "free_bytes": 149787947008,
+            "work_bytes": 63740833792,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:31:03.724931+00:00",
+            "free_bytes": 150124421120,
+            "work_bytes": 63823884288,
+            "target_bytes": 14024273920
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":136171175936,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":136171175936,\"free_excludes_purgeable\":true,\"free_pct\":3.4074509687117005,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":136171175936,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":38328905921,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":149597286400,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":149597286400,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T17:20:13.550275+00:00",
+          "free_bytes": 149597233152,
+          "work_bytes": 63740821504,
+          "target_bytes": 14024273920
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 33509,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T17:31:18.880229+00:00"
+      },
+      "technical_check": {
+        "chapter": "16_quotients",
+        "frames": 25953,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    },
+    {
+      "chapter": "17_applications",
+      "frames": 26361,
+      "receipt": {
+        "started": "2026-11-07T17:31:44.050675+00:00",
+        "phase": "native",
+        "command": [
+          "python3",
+          "-I",
+          "-B",
+          "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-chapter14.py",
+          "17_applications"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-07T17:31:56.270230+00:00",
+            "free_bytes": 150081503232,
+            "work_bytes": 63863496704,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:32:17.373966+00:00",
+            "free_bytes": 149747134464,
+            "work_bytes": 63863496704,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:32:38.547976+00:00",
+            "free_bytes": 149690642432,
+            "work_bytes": 63863496704,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:32:58.570682+00:00",
+            "free_bytes": 149618339840,
+            "work_bytes": 63863496704,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:33:18.809460+00:00",
+            "free_bytes": 149939978240,
+            "work_bytes": 63863496704,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:33:39.131140+00:00",
+            "free_bytes": 149390426112,
+            "work_bytes": 63863496704,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:34:01.237153+00:00",
+            "free_bytes": 149406007296,
+            "work_bytes": 63863496704,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:34:21.268203+00:00",
+            "free_bytes": 149117218816,
+            "work_bytes": 63863496704,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:34:53.048152+00:00",
+            "free_bytes": 149124726784,
+            "work_bytes": 63863496704,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:35:22.923714+00:00",
+            "free_bytes": 149351100416,
+            "work_bytes": 63863496704,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:35:43.825216+00:00",
+            "free_bytes": 149294211072,
+            "work_bytes": 63863496704,
+            "target_bytes": 14024273920
+          },
+          {
+            "utc": "2026-11-07T17:36:05.826522+00:00",
+            "free_bytes": 148706340864,
+            "work_bytes": 63981551616,
+            "target_bytes": 14024273920
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":150073384960,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":150073384960,\"free_excludes_purgeable\":true,\"free_pct\":3.75532999142298,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":150073384960,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24890589377,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":150061047808,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":150061047808,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-07T17:31:44.191935+00:00",
+          "free_bytes": 150061105152,
+          "work_bytes": 63863488512,
+          "target_bytes": 14024273920
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 80,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "pid": 70873,
+        "exit": 0,
+        "final_inputs_sha256": "ff32bb3a282d41abfbb0c53ab44931d4b4ed37e903c369b91154ec205c87a72f",
+        "finished": "2026-11-07T17:36:20.373253+00:00"
+      },
+      "technical_check": {
+        "chapter": "17_applications",
+        "frames": 26361,
+        "resolution": "3840x2160",
+        "fps": 60,
+        "timeline_and_cues_equal": true,
+        "final_picture_review": false,
+        "motion_review": false,
+        "listening_accepted": false,
+        "publication_accepted": false
+      }
+    }
+  ],
+  "frames": 251862,
+  "scope": "All16 terminal stable render receipts and exact schedule comparisons. No final master or audiovisual acceptance."
+}

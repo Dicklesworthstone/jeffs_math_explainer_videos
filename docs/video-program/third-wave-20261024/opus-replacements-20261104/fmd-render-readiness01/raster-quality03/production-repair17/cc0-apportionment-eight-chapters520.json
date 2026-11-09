@@ -1,0 +1,1139 @@
+{
+ "schema": "cc0-apportionment-eight-chapters520",
+ "author": "cc0",
+ "utc": "2026-11-09T06:19Z",
+ "roots": {
+  "W": "narration_lab/third-wave-20261024/root/five-film-release-20261027",
+  "S": "narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/frederick-generation89"
+ },
+ "method": "Read-only, at nice 19: sha256 of every file named; ffprobe of stream and format headers plus -count_packets (demux only, nothing decoded); the x264 option string read from the movie bytes; WAV headers through Python's wave module; byte comparison of the side tables. No decode, frame extraction, render, launch or SSH. Nothing was written outside this note and its md.",
+ "checked_at_utc": "2026-11-09T06:16:39Z",
+ "failed_preview458": {
+  "receipt": {
+   "path": "W/apportionment-frederick-preview458/resource-receipt.json",
+   "sha256": "a8d25c31a921545220e6911d73fc870c827dede9311d4a3cf00cb59e0fe4d96d",
+   "started": "2026-11-09T05:13:40.632326+00:00",
+   "finished": "2026-11-09T05:48:55.235493+00:00",
+   "exit": 1,
+   "admitted": true,
+   "preflight_only": false,
+   "resource_stop": false,
+   "samples": 53,
+   "inputs_sha256": "5817cb642dbe308bf2c838f64784b62ea613bdcf4678061ee34f0a2457e26024",
+   "final_inputs_sha256": "5817cb642dbe308bf2c838f64784b62ea613bdcf4678061ee34f0a2457e26024"
+  },
+  "command_log": {
+   "path": "W/apportionment-frederick-preview458/command.log",
+   "sha256": "875ceb2e4628cd303d0561ffb3941271e7bd80ab0f926404f28fe482969086e1"
+  },
+  "helper": {
+   "path": "S/preview458.py",
+   "sha256": "7ab178d17b2e0279ccf5940d9327dc691610c676e855228ed5391ae5be1c073d"
+  },
+  "binary": {
+   "path": "W/apportionment-frederick-corrections-build209/apportionment-native209",
+   "sha256": "c77303562bc062943796a55462a84f61af19262de760c0230e8318bd873b2df6",
+   "in_input_manifest": true
+  },
+  "render_flags": "render all --res 960x540 --fps 60 --lint --narration S/narration437 --score W/apportionment-frederick-score445/score/stems --crf 16 --preset slow --threads 4",
+  "failure": "After 08_signposts finished, the binary could not spawn its ffmpeg helper for the next chapter (os error 35, Resource temporarily unavailable), and exited 1. preview458.py then raised CalledProcessError. So 09_cost to 15_recap have no output, and preview458-summary.json was never written; the helper's own check that all 15 timelines equal timeline444's never ran.",
+  "retries": "01 took 2 attempts, 06 took 5 and 07 took 2, each after a \"transient Darwin EPERM after ffmpeg exit\". The renderer moved the earlier 06 and 07 soundtracks to soundtrack/previous/*.v1. The movies on disk are from the last attempts, by the log and by their times.",
+  "input_manifest": {
+   "path": "S/preview458-inputs.json",
+   "sha256": "5817cb642dbe308bf2c838f64784b62ea613bdcf4678061ee34f0a2457e26024",
+   "equals_receipt": true,
+   "rows": 3820,
+   "bytes": 1573623430,
+   "rehashed_at_utc": "06:16:41Z",
+   "mismatched": 0,
+   "missing": 0,
+   "all_rows_match": true
+  },
+  "output_files": {
+   "count": 50,
+   "hidden_files": 0,
+   "per_chapter": [
+    ".mp4",
+    ".timeline.tsv",
+    ".cues.tsv",
+    ".cuelog.tsv",
+    ".layout.tsv",
+    "soundtrack/<chapter>/soundtrack_0.wav"
+   ],
+   "plus": [
+    "soundtrack/previous/06_not_every_time.v1/soundtrack_0.wav",
+    "soundtrack/previous/07_yardstick.v1/soundtrack_0.wav"
+   ],
+   "chapters_09_to_15": "no file of any kind"
+  }
+ },
+ "successful_timeline444": {
+  "receipt": {
+   "path": "W/apportionment-frederick-timeline444/resource-receipt.json",
+   "sha256": "567a9b6271cb55fb12940606939c6f15bab78856f40b07a84bc248b8e822d864",
+   "started": "2026-11-09T03:31:35.116359+00:00",
+   "finished": "2026-11-09T04:55:22.461856+00:00",
+   "exit": 0,
+   "admitted": true,
+   "preflight_only": false,
+   "inputs_sha256": "a266ac12c0180fe5d2b1bc7c1bd829b0c81a2800397594be6af9610eb74a6f00",
+   "final_inputs_sha256": "a266ac12c0180fe5d2b1bc7c1bd829b0c81a2800397594be6af9610eb74a6f00"
+  },
+  "summary": {
+   "path": "W/apportionment-frederick-timeline444/timeline444-summary.json",
+   "sha256": "686bf77dd9e392de1ee563e7bd691ad9cb71e783c05b7da2346d1f366f726277"
+  },
+  "bound_in_preview458_inputs": "its 01-08 movies, timeline, cue, cuelog and layout tables and soundtracks are rows of preview458-inputs.json, and all still hash to those rows"
+ },
+ "chapters": {
+  "01_one_more_seat": {
+   "movie": {
+    "path": "W/apportionment-frederick-preview458/preview/01_one_more_seat.mp4",
+    "sha256": "0d30be361dafad25d06fd9bfc7df901e607aedc18c05e630b30b83e88e208e24",
+    "bytes": 3123069,
+    "mtime_utc": "2026-11-09T05:18:48Z",
+    "render_attempts": 2
+   },
+   "video": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": "960x540",
+    "fps": "60/1",
+    "avg_fps": "60/1",
+    "frames_header": 4806,
+    "packets_counted": 4806,
+    "time_base": "1/15360",
+    "duration": "80.100000",
+    "color_range": "tv",
+    "color_space": "bt709",
+    "color_transfer": null,
+    "color_primaries": null,
+    "x264_crf": "16.0",
+    "bit_rate": 44827
+   },
+   "audio": {
+    "codec": "aac",
+    "profile": "LC",
+    "sample_rate": 48000,
+    "channels": 2,
+    "packets_counted": 3756,
+    "duration": "80.100000",
+    "bit_rate": 255357
+   },
+   "format": {
+    "container": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration": "80.100000",
+    "encoder": "Lavf62.12.102"
+   },
+   "against_timeline444": {
+    "frames": {
+     "timeline444_summary": 4806,
+     "timeline444_movie_packets": 4806,
+     "preview458_log": 4806,
+     "preview458_packets": 4806,
+     "equal": true
+    },
+    "fps_equal": true,
+    "audio_packets_equal": true,
+    "audio_duration_equal": true,
+    "video_duration": [
+     "80.100000",
+     "80.100000"
+    ],
+    "size": [
+     "960x540",
+     "64x36"
+    ],
+    "timeline444_movie_sha256": "ce604515047ce19888068285421bc9e52319d0285b7f453df21ac2950ec24f2b",
+    "x264_options_differ_only_in": {
+     "lookahead_threads": [
+      "2",
+      "1"
+     ],
+     "threads": [
+      "17",
+      "1"
+     ]
+    },
+    "color_tags_equal": true
+   },
+   "tables": {
+    "timeline": {
+     "equal_to_timeline444": true,
+     "sha256": "35d6ba169078dd24069ba6c133c1d6a00f74fec74c930fbae3a1260e20f6badb",
+     "bytes": 1259
+    },
+    "cues": {
+     "equal_to_timeline444": true,
+     "sha256": "ad408c17122d51115c33f117b63a5f44e35c979554026131c36d05fb5d1ee393",
+     "bytes": 110
+    },
+    "layout": {
+     "equal_to_timeline444": true,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0
+    }
+   },
+   "cuelog": {
+    "sha256": "b1ba19534ff7dbae53862f8f296b0cebadca0f7427e306e51c1a06b33438a558",
+    "timeline444_sha256": "4e6ebcf1ea2b6f00d8573724e7bab47260cc49e643cab34a30f1b0570c434597",
+    "timeline444_rows_present_in_order": true,
+    "rows_458": 8,
+    "rows_444": 7,
+    "added_row": {
+     "path": "W/apportionment-frederick-score445/score/stems/01_one_more_seat.music.f32.wav",
+     "sha256": "3894b0b058a1d8dc12a0ba7862ba857bb6b0e2eaeb181428fdbe5be6e48f20f0",
+     "bytes": 30758480,
+     "frame": 4806,
+     "fps": 60,
+     "offset_s": -80.1,
+     "gain_db": 0.0,
+     "rate": 48000,
+     "channels": 2,
+     "sample_frames": 3844800,
+     "start_sample": 0
+    },
+    "added_row_in_inputs458": true
+   },
+   "soundtrack": {
+    "path": "W/apportionment-frederick-preview458/preview/soundtrack/01_one_more_seat/soundtrack_0.wav",
+    "sha256": "64bf575b2bce8ad26e27c599a6d2a4b39d08c4219a8251dd1fb30bdd306a3293",
+    "timeline444_sha256": "31274d330dad1a623f5b7ddde6512a755ee3ce4c1279db62b6df5bd963b1f249",
+    "equal_to_timeline444": false,
+    "format": {
+     "rate": 48000,
+     "channels": 2,
+     "bits": 16,
+     "frames": 3844800
+    },
+    "same_format_and_length_as_timeline444": true,
+    "sample_frames_equal_chapter_frames_x_800": true
+   }
+  },
+  "02_shares": {
+   "movie": {
+    "path": "W/apportionment-frederick-preview458/preview/02_shares.mp4",
+    "sha256": "921d635c45938302f67179ed23e78ce054c4daf02f4a962750c57aed357db23a",
+    "bytes": 4548306,
+    "mtime_utc": "2026-11-09T05:22:41Z",
+    "render_attempts": 1
+   },
+   "video": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": "960x540",
+    "fps": "60/1",
+    "avg_fps": "60/1",
+    "frames_header": 6647,
+    "packets_counted": 6647,
+    "time_base": "1/15360",
+    "duration": "110.783333",
+    "color_range": "tv",
+    "color_space": "bt709",
+    "color_transfer": null,
+    "color_primaries": null,
+    "x264_crf": "16.0",
+    "bit_rate": 62041
+   },
+   "audio": {
+    "codec": "aac",
+    "profile": "LC",
+    "sample_rate": 48000,
+    "channels": 2,
+    "packets_counted": 5194,
+    "duration": "110.783000",
+    "bit_rate": 254728
+   },
+   "format": {
+    "container": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration": "110.783333",
+    "encoder": "Lavf62.12.102"
+   },
+   "against_timeline444": {
+    "frames": {
+     "timeline444_summary": 6647,
+     "timeline444_movie_packets": 6647,
+     "preview458_log": 6647,
+     "preview458_packets": 6647,
+     "equal": true
+    },
+    "fps_equal": true,
+    "audio_packets_equal": true,
+    "audio_duration_equal": true,
+    "video_duration": [
+     "110.783333",
+     "110.783333"
+    ],
+    "size": [
+     "960x540",
+     "64x36"
+    ],
+    "timeline444_movie_sha256": "c9f43b0ac5e494e57539ea3c60758cb5485fbee74061de1cda8ba857e6de5dcd",
+    "x264_options_differ_only_in": {
+     "lookahead_threads": [
+      "2",
+      "1"
+     ],
+     "threads": [
+      "17",
+      "1"
+     ]
+    },
+    "color_tags_equal": true
+   },
+   "tables": {
+    "timeline": {
+     "equal_to_timeline444": true,
+     "sha256": "80c1a230687c251d1673b1ff94b7020b1905b77d8961ddfb12e2d0e38f15722f",
+     "bytes": 1448
+    },
+    "cues": {
+     "equal_to_timeline444": true,
+     "sha256": "22f502d908f3a70f66e53f5c0a18d2aa7159af0e955c74cbbf21c17eec672c98",
+     "bytes": 132
+    },
+    "layout": {
+     "equal_to_timeline444": true,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0
+    }
+   },
+   "cuelog": {
+    "sha256": "08f5057e1ae557a0c60f4e33a19fb1e8c93f0887847f568fa92624cf95112922",
+    "timeline444_sha256": "d1d7705becacdd9b4e76bd1e3f0f6589e6919efc5fbf8784ac30d1a4c922bbc7",
+    "timeline444_rows_present_in_order": true,
+    "rows_458": 9,
+    "rows_444": 8,
+    "added_row": {
+     "path": "W/apportionment-frederick-score445/score/stems/02_shares.music.f32.wav",
+     "sha256": "c0228fa198829a394eb47c81cb7436f55fc07101c232beaba5da41d86ecce309",
+     "bytes": 42540880,
+     "frame": 6647,
+     "fps": 60,
+     "offset_s": -110.78333333333333,
+     "gain_db": 0.0,
+     "rate": 48000,
+     "channels": 2,
+     "sample_frames": 5317600,
+     "start_sample": 0
+    },
+    "added_row_in_inputs458": true
+   },
+   "soundtrack": {
+    "path": "W/apportionment-frederick-preview458/preview/soundtrack/02_shares/soundtrack_0.wav",
+    "sha256": "ddeb1646247de8114c12f6bac0789e98b10319e7336c38a622804676b707031c",
+    "timeline444_sha256": "a8d8de6f597aa2615aa1867c3f7fa9a85646cf81417ae46bc860d307f13a7cc1",
+    "equal_to_timeline444": false,
+    "format": {
+     "rate": 48000,
+     "channels": 2,
+     "bits": 16,
+     "frames": 5317600
+    },
+    "same_format_and_length_as_timeline444": true,
+    "sample_frames_equal_chapter_frames_x_800": true
+   }
+  },
+  "03_largest_tails": {
+   "movie": {
+    "path": "W/apportionment-frederick-preview458/preview/03_largest_tails.mp4",
+    "sha256": "23a9cc1a4a2d5c2642e191de38396979d9ba9e46ca4d81afa42a8d60e45e9e32",
+    "bytes": 3670435,
+    "mtime_utc": "2026-11-09T05:25:21Z",
+    "render_attempts": 1
+   },
+   "video": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": "960x540",
+    "fps": "60/1",
+    "avg_fps": "60/1",
+    "frames_header": 5527,
+    "packets_counted": 5527,
+    "time_base": "1/15360",
+    "duration": "92.116667",
+    "color_range": "tv",
+    "color_space": "bt709",
+    "color_transfer": null,
+    "color_primaries": null,
+    "x264_crf": "16.0",
+    "bit_rate": 51780
+   },
+   "audio": {
+    "codec": "aac",
+    "profile": "LC",
+    "sample_rate": 48000,
+    "channels": 2,
+    "packets_counted": 4319,
+    "duration": "92.116000",
+    "bit_rate": 255281
+   },
+   "format": {
+    "container": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration": "92.116667",
+    "encoder": "Lavf62.12.102"
+   },
+   "against_timeline444": {
+    "frames": {
+     "timeline444_summary": 5527,
+     "timeline444_movie_packets": 5527,
+     "preview458_log": 5527,
+     "preview458_packets": 5527,
+     "equal": true
+    },
+    "fps_equal": true,
+    "audio_packets_equal": true,
+    "audio_duration_equal": true,
+    "video_duration": [
+     "92.116667",
+     "92.116667"
+    ],
+    "size": [
+     "960x540",
+     "64x36"
+    ],
+    "timeline444_movie_sha256": "0ae9c0ea5d9b92ab5f17282da937bb21714f1d2763ab7d580632056ad0b30002",
+    "x264_options_differ_only_in": {
+     "lookahead_threads": [
+      "2",
+      "1"
+     ],
+     "threads": [
+      "17",
+      "1"
+     ]
+    },
+    "color_tags_equal": true
+   },
+   "tables": {
+    "timeline": {
+     "equal_to_timeline444": true,
+     "sha256": "193092fcdeb06ffca58e91fecadcca57a89e07173ada7842f7565c8a1734f63e",
+     "bytes": 1260
+    },
+    "cues": {
+     "equal_to_timeline444": true,
+     "sha256": "4b10ad40d284d73ce32d9abc11fe3d3895e0d8354213828b3662a8110c49b5e5",
+     "bytes": 111
+    },
+    "layout": {
+     "equal_to_timeline444": true,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0
+    }
+   },
+   "cuelog": {
+    "sha256": "3c6d2832de124bd213b71e93a205e8a87ee12a6350180d6649bdc09d66c449dd",
+    "timeline444_sha256": "8bb9aa146d3a4823025cebba0e95636d319a54878dfd8309d02368e561d5c9db",
+    "timeline444_rows_present_in_order": true,
+    "rows_458": 8,
+    "rows_444": 7,
+    "added_row": {
+     "path": "W/apportionment-frederick-score445/score/stems/03_largest_tails.music.f32.wav",
+     "sha256": "b9a51291b4f82b2938e9075a460133ff3a0362436cf29355b34a78c321e13f5c",
+     "bytes": 35372880,
+     "frame": 5527,
+     "fps": 60,
+     "offset_s": -92.11666666666666,
+     "gain_db": 0.0,
+     "rate": 48000,
+     "channels": 2,
+     "sample_frames": 4421600,
+     "start_sample": 0
+    },
+    "added_row_in_inputs458": true
+   },
+   "soundtrack": {
+    "path": "W/apportionment-frederick-preview458/preview/soundtrack/03_largest_tails/soundtrack_0.wav",
+    "sha256": "cda101c2768b47c8059cc9d1a3d9413065c15a4f36fab2648f4957e1596b4e13",
+    "timeline444_sha256": "0451e2d31ea021a854256f4e30499dd72e5460e8ab79880e966975487a6eb7e0",
+    "equal_to_timeline444": false,
+    "format": {
+     "rate": 48000,
+     "channels": 2,
+     "bits": 16,
+     "frames": 4421600
+    },
+    "same_format_and_length_as_timeline444": true,
+    "sample_frames_equal_chapter_frames_x_800": true
+   }
+  },
+  "04_sixteenth": {
+   "movie": {
+    "path": "W/apportionment-frederick-preview458/preview/04_sixteenth.mp4",
+    "sha256": "d6e69f37f152f56a434cdb5db5543c6cf94fcfcbe89f1dd3f5ea420edfdb10fa",
+    "bytes": 2892911,
+    "mtime_utc": "2026-11-09T05:27:53Z",
+    "render_attempts": 1
+   },
+   "video": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": "960x540",
+    "fps": "60/1",
+    "avg_fps": "60/1",
+    "frames_header": 4238,
+    "packets_counted": 4238,
+    "time_base": "1/15360",
+    "duration": "70.633008",
+    "color_range": "tv",
+    "color_space": "bt709",
+    "color_transfer": null,
+    "color_primaries": null,
+    "x264_crf": "16.0",
+    "bit_rate": 61311
+   },
+   "audio": {
+    "codec": "aac",
+    "profile": "LC",
+    "sample_rate": 48000,
+    "channels": 2,
+    "packets_counted": 3312,
+    "duration": "70.633000",
+    "bit_rate": 254567
+   },
+   "format": {
+    "container": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration": "70.633008",
+    "encoder": "Lavf62.12.102"
+   },
+   "against_timeline444": {
+    "frames": {
+     "timeline444_summary": 4238,
+     "timeline444_movie_packets": 4238,
+     "preview458_log": 4238,
+     "preview458_packets": 4238,
+     "equal": true
+    },
+    "fps_equal": true,
+    "audio_packets_equal": true,
+    "audio_duration_equal": true,
+    "video_duration": [
+     "70.633008",
+     "70.633333"
+    ],
+    "size": [
+     "960x540",
+     "64x36"
+    ],
+    "timeline444_movie_sha256": "dbaed760a4b52bfe8369bc13161f132442c13c553d566803379e25b836ac61f6",
+    "x264_options_differ_only_in": {
+     "lookahead_threads": [
+      "2",
+      "1"
+     ],
+     "threads": [
+      "17",
+      "1"
+     ]
+    },
+    "color_tags_equal": true
+   },
+   "tables": {
+    "timeline": {
+     "equal_to_timeline444": true,
+     "sha256": "9dbfbe64448f31355340e44004fce8dfee4c6df49c009f53b0b6dd8b45e979cd",
+     "bytes": 1059
+    },
+    "cues": {
+     "equal_to_timeline444": true,
+     "sha256": "a4a7d3ee3ee360c34c135f39da9b24c6f6764ab880e39db6a91e4e8c089b9869",
+     "bytes": 93
+    },
+    "layout": {
+     "equal_to_timeline444": true,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0
+    }
+   },
+   "cuelog": {
+    "sha256": "2116cd88f4dcf2197171247916a8d915f2c34afc716781434f5df94546f81248",
+    "timeline444_sha256": "614a5f5631f58e69a70ab70dca7b43d0f3bf9093205385c7a00cd2a95ba4b37c",
+    "timeline444_rows_present_in_order": true,
+    "rows_458": 7,
+    "rows_444": 6,
+    "added_row": {
+     "path": "W/apportionment-frederick-score445/score/stems/04_sixteenth.music.f32.wav",
+     "sha256": "03c9e3d28c3db81983960b01135c9202ddf2b945525b83da62d09e97e930cb6d",
+     "bytes": 27123280,
+     "frame": 4238,
+     "fps": 60,
+     "offset_s": -70.63333333333334,
+     "gain_db": 0.0,
+     "rate": 48000,
+     "channels": 2,
+     "sample_frames": 3390400,
+     "start_sample": 0
+    },
+    "added_row_in_inputs458": true
+   },
+   "soundtrack": {
+    "path": "W/apportionment-frederick-preview458/preview/soundtrack/04_sixteenth/soundtrack_0.wav",
+    "sha256": "1ed89121a1fdfdfe3700393b31bac8fe81bb500f75fa65dc11bb20d59afb58b2",
+    "timeline444_sha256": "c051275b6e0cf71539bdb729cf67826fac71d30a8b83404fc0314dbce27adfc6",
+    "equal_to_timeline444": false,
+    "format": {
+     "rate": 48000,
+     "channels": 2,
+     "bits": 16,
+     "frames": 3390400
+    },
+    "same_format_and_length_as_timeline444": true,
+    "sample_frames_equal_chapter_frames_x_800": true
+   }
+  },
+  "05_dials": {
+   "movie": {
+    "path": "W/apportionment-frederick-preview458/preview/05_dials.mp4",
+    "sha256": "5499f041ca1e377527dadf7a2239c8312cac9cdbc99037b4d0d9a6be9937f98d",
+    "bytes": 4428309,
+    "mtime_utc": "2026-11-09T05:32:03Z",
+    "render_attempts": 1
+   },
+   "video": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": "960x540",
+    "fps": "60/1",
+    "avg_fps": "60/1",
+    "frames_header": 6316,
+    "packets_counted": 6316,
+    "time_base": "1/15360",
+    "duration": "105.266667",
+    "color_range": "tv",
+    "color_space": "bt709",
+    "color_transfer": null,
+    "color_primaries": null,
+    "x264_crf": "16.0",
+    "bit_rate": 69649
+   },
+   "audio": {
+    "codec": "aac",
+    "profile": "LC",
+    "sample_rate": 48000,
+    "channels": 2,
+    "packets_counted": 4936,
+    "duration": "105.266000",
+    "bit_rate": 255138
+   },
+   "format": {
+    "container": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration": "105.266667",
+    "encoder": "Lavf62.12.102"
+   },
+   "against_timeline444": {
+    "frames": {
+     "timeline444_summary": 6316,
+     "timeline444_movie_packets": 6316,
+     "preview458_log": 6316,
+     "preview458_packets": 6316,
+     "equal": true
+    },
+    "fps_equal": true,
+    "audio_packets_equal": true,
+    "audio_duration_equal": true,
+    "video_duration": [
+     "105.266667",
+     "105.266667"
+    ],
+    "size": [
+     "960x540",
+     "64x36"
+    ],
+    "timeline444_movie_sha256": "7aa41a7ea275016d7c2816162778ca83bd94415f202bfb53ff4d6f2c54940a47",
+    "x264_options_differ_only_in": {
+     "lookahead_threads": [
+      "2",
+      "1"
+     ],
+     "threads": [
+      "17",
+      "1"
+     ]
+    },
+    "color_tags_equal": true
+   },
+   "tables": {
+    "timeline": {
+     "equal_to_timeline444": true,
+     "sha256": "53e2c4ea7510b9151d507345f82fe813934da41f7f2a8467b5dafccf6166b634",
+     "bytes": 1056
+    },
+    "cues": {
+     "equal_to_timeline444": true,
+     "sha256": "a0ec2201b3e4b4c56bf444e2a539775a35c24633bc4323a0de730474fd373329",
+     "bytes": 94
+    },
+    "layout": {
+     "equal_to_timeline444": true,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0
+    }
+   },
+   "cuelog": {
+    "sha256": "8772583cce26abb44879772953cd2addfec24641afeebd261382e0a62c6f3270",
+    "timeline444_sha256": "dfe59263bb99e879ac3b41ea96bbe0e3e94b51a70475e9bca7e5ae7b733d99e9",
+    "timeline444_rows_present_in_order": true,
+    "rows_458": 7,
+    "rows_444": 6,
+    "added_row": {
+     "path": "W/apportionment-frederick-score445/score/stems/05_dials.music.f32.wav",
+     "sha256": "62d148f7dc93e49164d01147cdb232b0fa47f63644275a6606cc6e3aa5a086b6",
+     "bytes": 40422480,
+     "frame": 6316,
+     "fps": 60,
+     "offset_s": -105.26666666666667,
+     "gain_db": 0.0,
+     "rate": 48000,
+     "channels": 2,
+     "sample_frames": 5052800,
+     "start_sample": 0
+    },
+    "added_row_in_inputs458": true
+   },
+   "soundtrack": {
+    "path": "W/apportionment-frederick-preview458/preview/soundtrack/05_dials/soundtrack_0.wav",
+    "sha256": "d702caa51ebe12077c7880c7158ca619a071b7c5390c3ec6aacd9dd05beeef72",
+    "timeline444_sha256": "e51ffb88546c6cf4b0af0e0484ded0f9801781047163772a6a55831ddcb82bc6",
+    "equal_to_timeline444": false,
+    "format": {
+     "rate": 48000,
+     "channels": 2,
+     "bits": 16,
+     "frames": 5052800
+    },
+    "same_format_and_length_as_timeline444": true,
+    "sample_frames_equal_chapter_frames_x_800": true
+   }
+  },
+  "06_not_every_time": {
+   "movie": {
+    "path": "W/apportionment-frederick-preview458/preview/06_not_every_time.mp4",
+    "sha256": "06a69e2269db1a0f3265ee4c9c3d1a3a6c43c4d429c15c176cb1836f839e5591",
+    "bytes": 3501326,
+    "mtime_utc": "2026-11-09T05:39:11Z",
+    "render_attempts": 5
+   },
+   "video": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": "960x540",
+    "fps": "60/1",
+    "avg_fps": "60/1",
+    "frames_header": 4947,
+    "packets_counted": 4947,
+    "time_base": "1/15360",
+    "duration": "82.450000",
+    "color_range": "tv",
+    "color_space": "bt709",
+    "color_transfer": null,
+    "color_primaries": null,
+    "x264_crf": "16.0",
+    "bit_rate": 73583
+   },
+   "audio": {
+    "codec": "aac",
+    "profile": "LC",
+    "sample_rate": 48000,
+    "channels": 2,
+    "packets_counted": 3866,
+    "duration": "82.450000",
+    "bit_rate": 254404
+   },
+   "format": {
+    "container": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration": "82.450000",
+    "encoder": "Lavf62.12.102"
+   },
+   "against_timeline444": {
+    "frames": {
+     "timeline444_summary": 4947,
+     "timeline444_movie_packets": 4947,
+     "preview458_log": 4947,
+     "preview458_packets": 4947,
+     "equal": true
+    },
+    "fps_equal": true,
+    "audio_packets_equal": true,
+    "audio_duration_equal": true,
+    "video_duration": [
+     "82.450000",
+     "82.450000"
+    ],
+    "size": [
+     "960x540",
+     "64x36"
+    ],
+    "timeline444_movie_sha256": "b049bc3c9a33ee37fde0ff7dfad0ac912eac0c8c5a31e0635c21da0e1d5658b4",
+    "x264_options_differ_only_in": {
+     "lookahead_threads": [
+      "2",
+      "1"
+     ],
+     "threads": [
+      "17",
+      "1"
+     ]
+    },
+    "color_tags_equal": true
+   },
+   "tables": {
+    "timeline": {
+     "equal_to_timeline444": true,
+     "sha256": "fd46bfbc8baa35df1d46bd4c7c8fa5267d636ec1724fb26a09f4f8c5e1abad8b",
+     "bytes": 1259
+    },
+    "cues": {
+     "equal_to_timeline444": true,
+     "sha256": "520f69ea626a793268488b2b48bfa385ed6b5ef34f7f84270fa042c616bac663",
+     "bytes": 111
+    },
+    "layout": {
+     "equal_to_timeline444": true,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0
+    }
+   },
+   "cuelog": {
+    "sha256": "1ab92af51e4cb4ca08b7fb838705deb0c5b88c3ab5bf0393903c3d75981bf686",
+    "timeline444_sha256": "18f68ed26336bb0f7748b6794a7458644ec3adf27d18aea391632561b0fee0c8",
+    "timeline444_rows_present_in_order": true,
+    "rows_458": 8,
+    "rows_444": 7,
+    "added_row": {
+     "path": "W/apportionment-frederick-score445/score/stems/06_not_every_time.music.f32.wav",
+     "sha256": "a7d492cdc282bffb546819bcb806ea8bc36f80450fcbf11926c5f03ad156add8",
+     "bytes": 31660880,
+     "frame": 4947,
+     "fps": 60,
+     "offset_s": -82.45,
+     "gain_db": 0.0,
+     "rate": 48000,
+     "channels": 2,
+     "sample_frames": 3957600,
+     "start_sample": 0
+    },
+    "added_row_in_inputs458": true
+   },
+   "soundtrack": {
+    "path": "W/apportionment-frederick-preview458/preview/soundtrack/06_not_every_time/soundtrack_0.wav",
+    "sha256": "b455077f12ef5035f26cd6eb303380feeec9ad0eea647d42e264534b47ab3f97",
+    "timeline444_sha256": "a8014eebec0f87b6a753d9433c4d780ad5b27742fe025649a07e2f43e7973e4f",
+    "equal_to_timeline444": false,
+    "format": {
+     "rate": 48000,
+     "channels": 2,
+     "bits": 16,
+     "frames": 3957600
+    },
+    "same_format_and_length_as_timeline444": true,
+    "sample_frames_equal_chapter_frames_x_800": true,
+    "previous_v1": {
+     "path": "W/apportionment-frederick-preview458/preview/soundtrack/previous/06_not_every_time.v1/soundtrack_0.wav",
+     "sha256": "b455077f12ef5035f26cd6eb303380feeec9ad0eea647d42e264534b47ab3f97",
+     "equal_to_current": true,
+     "mtime_utc": "2026-11-09T05:35:28Z"
+    }
+   }
+  },
+  "07_yardstick": {
+   "movie": {
+    "path": "W/apportionment-frederick-preview458/preview/07_yardstick.mp4",
+    "sha256": "eaf0b19071289e99cedde9b4f98fc9300f1f20a9f9ed0de3b2b3ebf3a1e0e861",
+    "bytes": 3424936,
+    "mtime_utc": "2026-11-09T05:45:07Z",
+    "render_attempts": 2
+   },
+   "video": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": "960x540",
+    "fps": "60/1",
+    "avg_fps": "60/1",
+    "frames_header": 5049,
+    "packets_counted": 5049,
+    "time_base": "1/15360",
+    "duration": "84.150000",
+    "color_range": "tv",
+    "color_space": "bt709",
+    "color_transfer": null,
+    "color_primaries": null,
+    "x264_crf": "16.0",
+    "bit_rate": 59321
+   },
+   "audio": {
+    "codec": "aac",
+    "profile": "LC",
+    "sample_rate": 48000,
+    "channels": 2,
+    "packets_counted": 3946,
+    "duration": "84.150000",
+    "bit_rate": 254548
+   },
+   "format": {
+    "container": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration": "84.150000",
+    "encoder": "Lavf62.12.102"
+   },
+   "against_timeline444": {
+    "frames": {
+     "timeline444_summary": 5049,
+     "timeline444_movie_packets": 5049,
+     "preview458_log": 5049,
+     "preview458_packets": 5049,
+     "equal": true
+    },
+    "fps_equal": true,
+    "audio_packets_equal": true,
+    "audio_duration_equal": true,
+    "video_duration": [
+     "84.150000",
+     "84.150000"
+    ],
+    "size": [
+     "960x540",
+     "64x36"
+    ],
+    "timeline444_movie_sha256": "6b877edbd740ea472014cb00139a31819ef146c656ab7233818bd0948d2eea48",
+    "x264_options_differ_only_in": {
+     "lookahead_threads": [
+      "2",
+      "1"
+     ],
+     "threads": [
+      "17",
+      "1"
+     ]
+    },
+    "color_tags_equal": true
+   },
+   "tables": {
+    "timeline": {
+     "equal_to_timeline444": true,
+     "sha256": "bd119ea30bdf633d6b37069b998b8bfbfd139dcb56600c69393bdbd927dc7618",
+     "bytes": 1060
+    },
+    "cues": {
+     "equal_to_timeline444": true,
+     "sha256": "1de67bfcb5c0445c7aa9a7092eedc08f11e0d6dfc9b0254d15cdc90f95ab8996",
+     "bytes": 93
+    },
+    "layout": {
+     "equal_to_timeline444": true,
+     "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "bytes": 0
+    }
+   },
+   "cuelog": {
+    "sha256": "2fb78cb89ebf8c4408833eae5105a04d6956db01dce11429e613e3f91f06e577",
+    "timeline444_sha256": "d111d83f548eaf9aa4ee86a3dc18b6b6f33f7e307db7091d125e979cce8c12f1",
+    "timeline444_rows_present_in_order": true,
+    "rows_458": 7,
+    "rows_444": 6,
+    "added_row": {
+     "path": "W/apportionment-frederick-score445/score/stems/07_yardstick.music.f32.wav",
+     "sha256": "5c8140bc81c8c6b682ca46702a17be3826bd862f888b99c21f29bef4f6feff6c",
+     "bytes": 32313680,
+     "frame": 5049,
+     "fps": 60,
+     "offset_s": -84.15,
+     "gain_db": 0.0,
+     "rate": 48000,
+     "channels": 2,
+     "sample_frames": 4039200,
+     "start_sample": 0
+    },
+    "added_row_in_inputs458": true
+   },
+   "soundtrack": {
+    "path": "W/apportionment-frederick-preview458/preview/soundtrack/07_yardstick/soundtrack_0.wav",
+    "sha256": "bedf4d68d00a98d43f4bed341e8bd2fb2f755e06c4204bab0b5bde79d3674855",
+    "timeline444_sha256": "5c54edff82634f16c9072b78c4b002f8ec4443edd8bc1ae4e6836125b2a41f25",
+    "equal_to_timeline444": false,
+    "format": {
+     "rate": 48000,
+     "channels": 2,
+     "bits": 16,
+     "frames": 4039200
+    },
+    "same_format_and_length_as_timeline444": true,
+    "sample_frames_equal_chapter_frames_x_800": true,
+    "previous_v1": {
+     "path": "W/apportionment-frederick-preview458/preview/soundtrack/previous/07_yardstick.v1/soundtrack_0.wav",
+     "sha256": "bedf4d68d00a98d43f4bed341e8bd2fb2f755e06c4204bab0b5bde79d3674855",
+     "equal_to_current": true,
+     "mtime_utc": "2026-11-09T05:42:07Z"
+    }
+   }
+  },
+  "08_signposts": {
+   "movie": {
+    "path": "W/apportionment-frederick-preview458/preview/08_signposts.mp4",
+    "sha256": "cbec602aa1cc71556c2c47af7f95b6502bebadcc7f7e54823df0a2ad83e04b97",
+    "bytes": 4522357,
+    "mtime_utc": "2026-11-09T05:48:42Z",
+    "render_attempts": 1
+   },
+   "video": {
+    "codec": "h264",
+    "profile": "High",
+    "pix_fmt": "yuv420p",
+    "size": "960x540",
+    "fps": "60/1",
+    "avg_fps": "60/1",
+    "frames_header": 6448,
+    "packets_counted": 6448,
+    "time_base": "1/15360",
+    "duration": "107.466667",
+    "color_range": "tv",
+    "color_space": "bt709",
+    "color_transfer": null,
+    "color_primaries": null,
+    "x264_crf": "16.0",
+    "bit_rate": 70002
+   },
+   "audio": {
+    "codec": "aac",
+    "profile": "LC",
+    "sample_rate": 48000,
+    "channels": 2,
+    "packets_counted": 5039,
+    "duration": "107.466000",
+    "bit_rate": 254954
+   },
+   "format": {
+    "container": "mov,mp4,m4a,3gp,3g2,mj2",
+    "duration": "107.466667",
+    "encoder": "Lavf62.12.102"
+   },
+   "against_timeline444": {
+    "frames": {
+     "timeline444_summary": 6448,
+     "timeline444_movie_packets": 6448,
+     "preview458_log": 6448,
+     "preview458_packets": 6448,
+     "equal": true
+    },
+    "fps_equal": true,
+    "audio_packets_equal": true,
+    "audio_duration_equal": true,
+    "video_duration": [
+     "107.466667",
+     "107.466667"
+    ],
+    "size": [
+     "960x540",
+     "64x36"
+    ],
+    "timeline444_movie_sha256": "9193befd93902a0fb3b1fc3e9ba065313342390258ffe764ef83bdcddde49482",
+    "x264_options_differ_only_in": {
+     "lookahead_threads": [
+      "2",
+      "1"
+     ],
+     "threads": [
+      "17",
+      "1"
+     ]
+    },
+    "color_tags_equal": true
+   },
+   "tables": {
+    "timeline": {
+     "equal_to_timeline444": true,
+     "sha256": "329f1c491972dce7963f9e5b825a0c1e284fcd01cbced91b250a000e794b2fd2",
+     "bytes": 1256
+    },
+    "cues": {
+     "equal_to_timeline444": true,
+     "sha256": "72a3b521def55e5b3fd38f7f24589bac2c5f28345b906c82146f8f6fd291a399",
+     "bytes": 112
+    },
+    "layout": {
+     "equal_to_timeline444": true,
+     "sha256": "692e00029de305b8e8605fb14b0ae538fbdaaf656d0e6b7f5da7f752d54d74fd",
+     "bytes": 585
+    }
+   },
+   "cuelog": {
+    "sha256": "f1cc8107e36cbc71024c5f288cc6e35eda5791d4c9a5cee25b06aeb456245e90",
+    "timeline444_sha256": "eb281cff5d296d5d75bf6bf0a31322cc67ea54d49b748f6460077f8adfd6ab31",
+    "timeline444_rows_present_in_order": true,
+    "rows_458": 8,
+    "rows_444": 7,
+    "added_row": {
+     "path": "W/apportionment-frederick-score445/score/stems/08_signposts.music.f32.wav",
+     "sha256": "47804ce527158d401715040d57eb9bddf5896fe2d03428edd38a67dd35d27413",
+     "bytes": 41267280,
+     "frame": 6448,
+     "fps": 60,
+     "offset_s": -107.46666666666667,
+     "gain_db": 0.0,
+     "rate": 48000,
+     "channels": 2,
+     "sample_frames": 5158400,
+     "start_sample": 0
+    },
+    "added_row_in_inputs458": true
+   },
+   "soundtrack": {
+    "path": "W/apportionment-frederick-preview458/preview/soundtrack/08_signposts/soundtrack_0.wav",
+    "sha256": "4e7ad48ecf33171acc3423cb9344cb48254a28a57434f231ade8af68ee6b47b3",
+    "timeline444_sha256": "83b3f59a7b69f446bcc69caf4acf06cfc25b7271ee09b3a86d806b9305e713cb",
+    "equal_to_timeline444": false,
+    "format": {
+     "rate": 48000,
+     "channels": 2,
+     "bits": 16,
+     "frames": 5158400
+    },
+    "same_format_and_length_as_timeline444": true,
+    "sample_frames_equal_chapter_frames_x_800": true
+   }
+  }
+ },
+ "differences": [
+  {
+   "id": "D1",
+   "what": "cuelog: one added row per chapter, the score stem",
+   "detail": "Every timeline444 row is present, in the same order. 458 adds W/apportionment-frederick-score445/score/stems/<chapter>.music.f32.wav at the chapter's last frame with offset minus the chapter length, so it starts at sample 0. Gain is 0 dB, 48 kHz stereo, and its length is the chapter's. Each stem hash equals its row in preview458-inputs.json. This follows from 458 rendering with --score and 444 without."
+  },
+  {
+   "id": "D2",
+   "what": "soundtrack and AAC: different bytes from timeline444, same format and length",
+   "detail": "soundtrack_0.wav differs from timeline444's in all eight chapters, consistent with D1. Format is the same (48 kHz, stereo, 16-bit) and so is the length (chapter frames x 800 samples). AAC packet counts and durations equal timeline444's. Audio content was not decoded or compared."
+  },
+  {
+   "id": "D3",
+   "what": "04_sixteenth: video stream header 5 ticks short",
+   "detail": "Video duration_ts is 1,084,923 against 1,084,928 (= 4,238 x 256) in timeline444. That is 5 ticks of 1/15360 s, or 0.33 ms: duration 70.633008 s against 70.633333 s. The last packets' pts, dts and durations (256) are the same in both files, and the frame and packet counts equal 4,238. Only the header duration differs. The other seven chapters equal frames x 256 exactly."
+  },
+  {
+   "id": "D4",
+   "what": "by design: size and encoder threads",
+   "detail": "960x540 against timeline444's 64x36. The x264 option strings are identical (crf=16.0, the same preset-level settings) except threads 17 vs 1 and lookahead_threads 2 vs 1."
+  },
+  {
+   "id": "D5",
+   "what": "not a difference: color tags",
+   "detail": "Both jobs tag range tv and matrix bt709 but leave transfer and primaries unset. A check that needs all bt709 tags would flag both."
+  }
+ ],
+ "reuse_reading": "For chapters 01-08, every metadata check here agrees with timeline444: frames, fps, packets, codec, audio format, timeline, cues and layout. The only differences are the score row (D1-D2) and a 0.33 ms header duration in 04 (D3). The inputs that made them still hash to the manifest. That supports reusing these files as preview458's 01-08 instead of rendering them again. It is metadata only. It accepts no picture, motion, sound, sync or AV result.",
+ "not_checked": [
+  "any decoded frame or sample",
+  "the AAC audio against soundtrack_0.wav",
+  "loudness",
+  "chapters 09-15",
+  "CC2's 516 recovery helper",
+  "how a resumed run would name or bind these files"
+ ],
+ "scope": "No audio heard or checked. Metadata only; not picture, sound, sync or final AV acceptance. Failed 458 and every file are preserved and unchanged."
+}

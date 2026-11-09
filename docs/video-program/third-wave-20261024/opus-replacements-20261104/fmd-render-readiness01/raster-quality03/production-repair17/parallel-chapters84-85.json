@@ -1,0 +1,28 @@
+{
+  "at": "2026-11-07T22:11:52.406522+00:00",
+  "chapters": [
+    {
+      "chapter": "07_one_point",
+      "job": "hz2-production19-final-07-one-point84",
+      "worker": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-final-chapter53.py",
+      "permit": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review07-84/final-render-permit84.json",
+      "inputs": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/final07-84-inputs.json",
+      "import_receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-import-hz2-final07-86/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/import-hz2-final07-86-inputs.json",
+      "controller_pid": 1481422,
+      "state": "waiting prerequisite; no final acceptance"
+    },
+    {
+      "chapter": "10_rigidity",
+      "job": "hz2-production19-final-10-rigidity85",
+      "worker": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-final-chapter53.py",
+      "permit": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review10-85/final-render-permit85.json",
+      "inputs": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/final10-85-inputs.json",
+      "import_receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-import-hz2-final10-87/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/import-hz2-final10-87-inputs.json",
+      "controller_pid": 1486400,
+      "state": "waiting prerequisite; no final acceptance"
+    }
+  ],
+  "scope": "Future assembly rows only; not a complete master plan or render acceptance."
+}

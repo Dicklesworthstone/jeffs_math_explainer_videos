@@ -1,0 +1,1 @@
+complex_analysis_visual: ffmpeg is unavailable: cannot canonicalize ffmpeg candidate "/root/.local/bin/ffmpeg": Permission denied (os error 13); native outputs need no ffmpeg: y4m, PNG sequences, and GIF are built in; ffmpeg is only required for encoded video (mp4/mov), audio mux, and media transcode

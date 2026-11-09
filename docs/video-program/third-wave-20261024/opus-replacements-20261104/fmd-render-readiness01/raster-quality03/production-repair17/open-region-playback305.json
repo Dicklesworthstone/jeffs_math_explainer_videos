@@ -1,0 +1,28 @@
+{
+  "time": "2026-11-08T18:32:09.650480+00:00",
+  "movie": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview274-review305/preview/07_one_point.mp4",
+  "observations": [
+    {
+      "seconds": 88.06224945295405,
+      "playing": true,
+      "picture": "blank screen with QuickTime controls"
+    },
+    {
+      "seconds": 91.13969365426695,
+      "playing": true,
+      "picture": "gold open region visible, growing teal neighborhood circles"
+    },
+    {
+      "seconds": 94.45386433260394,
+      "playing": true,
+      "picture": "region and three expanded neighborhoods visible; one-point counterexample label appears"
+    },
+    {
+      "seconds": 98.00476148796498,
+      "playing": false,
+      "picture": "paused; AX time only"
+    }
+  ],
+  "scope": "Native QuickTime playback sampled by sequential screenshots; controls partially cover lower scene. Not continuous-motion acceptance, not listening or fine sync.",
+  "seek_note": "Initial keyboard open and AX setValue did not establish intended seek. File menu open verified actual07 file; coordinate timeline click verified87.8995s. Playback began88.062s, missing earlier fade5210-5240."
+}

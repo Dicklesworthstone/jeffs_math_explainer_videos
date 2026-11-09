@@ -1,0 +1,140 @@
+name: Repair RNG Job Public Interface
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/repair-rng-job-public-interface.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: repair-rng-job-public-interface
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Patch queued and landed interfaces
+        id: changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          def patch_source(text: str) -> str:
+              text = text.replace(
+                  "          type JobOutcome<T, E> = Result<T, RngJobError<E>>;\n",
+                  "          /// Canonically indexed success or per-job failure.\n"
+                  "          pub type RngJobOutcome<T, E> = Result<T, RngJobError<E>>;\n",
+              )
+              text = text.replace(
+                  "type JobOutcome<T, E> = Result<T, RngJobError<E>>;\n",
+                  "/// Canonically indexed success or per-job failure.\n"
+                  "pub type RngJobOutcome<T, E> = Result<T, RngJobError<E>>;\n",
+              )
+              text = text.replace("JobOutcome<T, E>", "RngJobOutcome<T, E>")
+              return text
+
+          workflow = Path(".github/workflows/implement-deterministic-rng-jobs.yml")
+          if workflow.exists():
+              text = patch_source(workflow.read_text(encoding="utf-8"))
+              text = text.replace(
+                  '              "    RngJobBatch, RngJobError, RngJobSetupError, run_deterministic_rng_jobs,\\n"',
+                  '              "    RngJobBatch, RngJobError, RngJobOutcome, RngJobSetupError,\\n"\n'
+                  '              "    run_deterministic_rng_jobs,\\n"',
+              )
+              workflow.write_text(text, encoding="utf-8")
+
+          source = Path("crates/fmn-runtime/src/deterministic_rng_jobs.rs")
+          if source.exists():
+              source.write_text(
+                  patch_source(source.read_text(encoding="utf-8")),
+                  encoding="utf-8",
+              )
+
+          lib = Path("crates/fmn-runtime/src/lib.rs")
+          if lib.exists() and source.exists():
+              text = lib.read_text(encoding="utf-8")
+              text = text.replace(
+                  "    RngJobBatch, RngJobError, RngJobSetupError, run_deterministic_rng_jobs,\n",
+                  "    RngJobBatch, RngJobError, RngJobOutcome, RngJobSetupError,\n"
+                  "    run_deterministic_rng_jobs,\n",
+              )
+              lib.write_text(text, encoding="utf-8")
+          PY
+
+          if git diff --quiet -- crates/fmn-runtime/src/deterministic_rng_jobs.rs crates/fmn-runtime/src/lib.rs; then
+            echo "landed=0" >> "$GITHUB_OUTPUT"
+          else
+            echo "landed=1" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify an already-landed source repair
+        if: steps.changed.outputs.landed == '1'
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustup toolchain install nightly-2026-07-05 --profile minimal --component clippy,rustfmt
+          rustup override set nightly-2026-07-05
+          python3 -m pip install --user --break-system-packages numpy || python3 -m pip install --user numpy
+          cargo fmt --all
+          cargo check -p fmn-runtime --all-targets
+          cargo test -p fmn-runtime deterministic_rng_jobs
+          cargo clippy -p fmn-runtime --all-targets -- -D warnings
+          bash scripts/check.sh
+          git diff --check
+
+      - name: Publish the repair to both canonical refs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/repair-rng-job-public-interface.yml
+          git add .github/workflows/implement-deterministic-rng-jobs.yml \
+            crates/fmn-runtime/src/deterministic_rng_jobs.rs \
+            crates/fmn-runtime/src/lib.rs 2>/dev/null || true
+          git config user.name "FrankenManim Runtime API Repair"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix(runtime): expose deterministic job outcomes explicitly" -m "Use and re-export a documented public RngJobOutcome alias in the batch report API; avoid a private alias in public signatures and preserve all runtime semantics."
+          git fetch origin main master
+          git rebase origin/main
+          git push --atomic origin HEAD:main HEAD:master
+
+      - name: Redispatch runtime integration if its receipt is absent
+        shell: bash
+        run: |
+          set -euo pipefail
+          if curl --fail --silent \
+            "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/artifacts/implementation/deterministic-rng-jobs-receipt.json" \
+            | grep -Fq '"result": "pass"'; then
+            exit 0
+          fi
+          for cycle in $(seq 1 240); do
+            if curl --fail --silent \
+              "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/artifacts/implementation/rng-replay-tranche-final.json" \
+              | grep -Fq '"result": "pass"'; then
+              if gh api "repos/${GITHUB_REPOSITORY}/contents/.github/workflows/implement-deterministic-rng-jobs.yml?ref=main" >/dev/null 2>&1; then
+                gh api --method POST \
+                  "repos/${GITHUB_REPOSITORY}/actions/workflows/implement-deterministic-rng-jobs.yml/dispatches" \
+                  -f ref=main
+              fi
+              exit 0
+            fi
+            sleep 30
+          done
+          echo "runtime foundation did not become ready" >&2
+          exit 2

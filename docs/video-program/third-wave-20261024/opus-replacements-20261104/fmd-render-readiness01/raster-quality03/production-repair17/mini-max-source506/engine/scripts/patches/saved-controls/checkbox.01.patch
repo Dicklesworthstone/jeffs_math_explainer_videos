@@ -1,0 +1,96 @@
+diff --git a/crates/fmn-python/tests/bridge.py b/crates/fmn-python/tests/bridge.py
+index 7dec0ec413722b2fc6bc62f4ae27b3fef9b7d0e4..83791228d21f3262e3f4e5234524d903ed1a41dc 100644
+--- a/crates/fmn-python/tests/bridge.py
++++ b/crates/fmn-python/tests/bridge.py
+@@ -4342,20 +4342,40 @@ assert list(checkbox_false.submobjects) == [
+     checkbox_false.box,
+     checkbox_false.box_content,
+ ]
+-checked_points = len(checkbox_true.box_content.get_points())
+-crossed_points = len(checkbox_false.box_content.get_points())
+-assert checked_points > 0
+-assert crossed_points > checked_points
++# Reference interactive.py builds each mark from two Line children, not a
++# filled glyph on its root. Check the real family and independent native
++# line geometry rather than locking the old anonymous shell's point count.
++def _checkbox_reference_mark(box, checked):
++    pairs = ((manimlib.UP / 2 + 2 * manimlib.LEFT, manimlib.DOWN + manimlib.LEFT),
++             (manimlib.DOWN + manimlib.LEFT, manimlib.UP + manimlib.RIGHT)) if checked else (
++             (manimlib.UP + manimlib.LEFT, manimlib.DOWN + manimlib.RIGHT),
++             (manimlib.UP + manimlib.RIGHT, manimlib.DOWN + manimlib.LEFT))
++    mark = manimlib.VGroup(*(manimlib.Line(start, end) for start, end in pairs))
++    mark.stretch_to_fit_width(box.get_width())
++    mark.stretch_to_fit_height(box.get_height())
++    return mark.scale(.5).move_to(box).get_all_points()
++
++checked_points = _checkbox_reference_mark(checkbox_true.box, True)
++crossed_points = _checkbox_reference_mark(checkbox_false.box, False)
++for widget, points in ((checkbox_true, checked_points), (checkbox_false, crossed_points)):
++    assert type(widget.box) is manimlib.Rectangle
++    assert type(widget.box_content) is manimlib.VGroup
++    assert not widget.box_content.has_points()
++    assert len(widget.box_content) == 2
++    assert all(type(line) is manimlib.Line for line in widget.box_content)
++    np.testing.assert_array_equal(widget.box_content.get_all_points(), points)
++assert checked_points.shape == crossed_points.shape == (6, 3)
++assert not np.array_equal(checked_points, crossed_points)
+ 
+ true_content = checkbox_true.box_content
+ checkbox_true.toggle_value()
+ assert bool(checkbox_true.get_value()) is False
+ assert checkbox_true.box_content is true_content
+-assert len(checkbox_true.box_content.get_points()) == crossed_points
++np.testing.assert_array_equal(checkbox_true.box_content.get_all_points(), crossed_points)
+ checkbox_true.set_value(True)
+ assert bool(checkbox_true.get_value()) is True
+ assert checkbox_true.box_content is true_content
+-assert len(checkbox_true.box_content.get_points()) == checked_points
++np.testing.assert_array_equal(checkbox_true.box_content.get_all_points(), checked_points)
+ try:
+     checkbox_true.set_value(1)
+ except AssertionError as error:
+@@ -4368,7 +4388,7 @@ assert checkbox_true.on_mouse_press(
+ ) is False
+ assert bool(checkbox_true.get_value()) is False
+ assert checkbox_true.box_content is true_content
+-assert len(checkbox_true.box_content.get_points()) == crossed_points
++np.testing.assert_array_equal(checkbox_true.box_content.get_all_points(), crossed_points)
+ 
+ failed_checkbox = interactive.Checkbox.__new__(interactive.Checkbox)
+ try:
+@@ -4394,20 +4414,21 @@ stroked_checkbox = interactive.Checkbox(
+     checkmark_kwargs=dict(stroke_color=manimlib.GREEN, stroke_width=3.0),
+     cross_kwargs=dict(stroke_color=manimlib.RED, stroke_width=4.0),
+ )
+-assert np.isclose(stroked_checkbox.box_content.get_stroke_width(), 3.0)
++assert all(np.isclose(line.get_stroke_width(), 3.0) for line in stroked_checkbox.box_content)
+ stroked_content = stroked_checkbox.box_content
+ stroked_checkbox.toggle_value()
+ assert stroked_checkbox.box_content is stroked_content
+-assert np.isclose(stroked_checkbox.box_content.get_stroke_width(), 4.0)
+-assert stroked_checkbox.box_content.get_fill_color() == manimlib.RED
++assert all(np.isclose(line.get_stroke_width(), 4.0) for line in stroked_checkbox.box_content)
++assert all(line.get_stroke_color() == manimlib.RED and line.get_fill_opacity() == 0.0
++           for line in stroked_checkbox.box_content)
+ assert str(inspect.signature(interactive.Checkbox.get_checkmark)) == "(self)"
+ assert str(inspect.signature(interactive.Checkbox.get_cross)) == "(self)"
+ native_check = checkbox_true.get_checkmark()
+ native_cross = checkbox_true.get_cross()
+ assert native_check is not checkbox_true.box_content
+ assert native_cross is not checkbox_true.box_content
+-assert len(native_check.get_points()) == checked_points
+-assert len(native_cross.get_points()) == crossed_points
++np.testing.assert_array_equal(native_check.get_all_points(), checked_points)
++np.testing.assert_array_equal(native_cross.get_all_points(), crossed_points)
+ 
+ # EnableDisableButton is a one-box native control on the same real tracker
+ # base. Construction preserves the Reference's default-white quirk; the first
+@@ -22568,7 +22589,7 @@ except AssertionError:
+ _check("checkbox refuses non-bool values", _cb_assert_refused)
+ _check("checkbox mark builders return pointful mobjects",
+        isinstance(_cb.get_checkmark(), manimlib.VMobject)
+-       and _cb.get_checkmark().has_points()
++       and len(_cb.get_checkmark().family_members_with_points()) == 2
+        and isinstance(_cb.get_cross(), manimlib.VMobject))
+ _cb_kwarg_refused = False
+ try:

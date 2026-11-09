@@ -1,0 +1,20 @@
+{
+  "files": [
+    {
+      "name": "final-picture-plan61.json",
+      "sha256": "e6f895dd37b42bb549ec5b1fe4ae49ef86b8a6008791bb5e6ee4d184fde2eed9"
+    },
+    {
+      "name": "trj-final-pictures61.py",
+      "sha256": "1af778f3f8ee9a6689615a914571a625378469561da2904cb59a17532250ef37"
+    },
+    {
+      "name": "trj-pictures-after-verify62.py",
+      "sha256": "997d323fe96722cc578c4f029153bd75af97613343d69a47b620b2b9ca290f46"
+    }
+  ],
+  "remote_hashes_equal": true,
+  "controller_pid": 4163803,
+  "old_controller_stopped": 3074932,
+  "scope": "Prepared extraction connected, not run or reviewed."
+}

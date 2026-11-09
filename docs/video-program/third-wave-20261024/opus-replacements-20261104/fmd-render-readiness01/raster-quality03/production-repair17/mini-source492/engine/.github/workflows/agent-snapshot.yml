@@ -1,0 +1,189 @@
+name: Agent snapshot
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".beads/issues.jsonl"
+      - "AGENTS.md"
+      - "README.md"
+      - "scripts/agent_*.py"
+      - "scripts/generate_agent_brief.py"
+      - "docs/AGENT_*.md"
+      - "docs/GOVERNANCE.md"
+      - ".github/workflows/agent-snapshot.yml"
+  schedule:
+    - cron: "47 4 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: agent-snapshot-main
+  cancel-in-progress: true
+
+jobs:
+  snapshot:
+    name: publish canonical agent snapshot
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Build fail-closed snapshot
+        id: snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          export LC_ALL=C
+          out="${RUNNER_TEMP}/fmn-agent-snapshot"
+          mkdir "${out}"
+
+          head_sha="$(git rev-parse HEAD)"
+          tree_sha="$(git rev-parse 'HEAD^{tree}')"
+          ledger_blob_sha="$(git rev-parse 'HEAD:.beads/issues.jsonl')"
+          snapshot_as_of="$(git show -s --format=%cI HEAD)"
+
+          python3 scripts/agent_brief.py \
+            --as-of "${snapshot_as_of}" \
+            --format json \
+            --check > "${out}/brief.json"
+          python3 scripts/agent_next.py \
+            --as-of "${snapshot_as_of}" \
+            --format json \
+            --check > "${out}/plan.json"
+          python3 scripts/agent_claim_guard.py \
+            --as-of "${snapshot_as_of}" \
+            --format json > "${out}/guard.json"
+
+          git archive --format=tar HEAD | gzip -n -9 > "${out}/source.tar.gz"
+
+          SNAPSHOT_OUT="${out}" \
+          SNAPSHOT_HEAD="${head_sha}" \
+          SNAPSHOT_TREE="${tree_sha}" \
+          SNAPSHOT_LEDGER_BLOB="${ledger_blob_sha}" \
+          SNAPSHOT_AS_OF="${snapshot_as_of}" \
+          SNAPSHOT_REPOSITORY="${GITHUB_REPOSITORY}" \
+          SNAPSHOT_REF="${GITHUB_REF}" \
+          SNAPSHOT_RUN_ID="${GITHUB_RUN_ID}" \
+          python3 - <<'PY'
+          from __future__ import annotations
+
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+
+          out = Path(os.environ["SNAPSHOT_OUT"])
+          brief = json.loads((out / "brief.json").read_text(encoding="utf-8"))
+          plan = json.loads((out / "plan.json").read_text(encoding="utf-8"))
+          guard = json.loads((out / "guard.json").read_text(encoding="utf-8"))
+          recommendation = plan["recommendation"]["issue"]
+          recommendation_id = "none" if recommendation is None else recommendation["id"]
+          token = guard["token"]
+          (out / "recommendation.txt").write_text(recommendation_id + "\n", encoding="utf-8")
+          (out / "claim-token.txt").write_text(token + "\n", encoding="utf-8")
+
+          def digest(path: Path) -> str:
+              value = hashlib.sha256()
+              with path.open("rb") as handle:
+                  for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                      value.update(chunk)
+              return value.hexdigest()
+
+          ledger = Path(".beads/issues.jsonl")
+          payload_files = (
+              "brief.json",
+              "plan.json",
+              "guard.json",
+              "recommendation.txt",
+              "claim-token.txt",
+              "source.tar.gz",
+          )
+          manifest = {
+              "schema": "fmn.agent.snapshot",
+              "version": 1,
+              "repository": os.environ["SNAPSHOT_REPOSITORY"],
+              "ref": os.environ["SNAPSHOT_REF"],
+              "workflow_run_id": int(os.environ["SNAPSHOT_RUN_ID"]),
+              "commit_sha": os.environ["SNAPSHOT_HEAD"],
+              "tree_sha": os.environ["SNAPSHOT_TREE"],
+              "as_of": os.environ["SNAPSHOT_AS_OF"],
+              "ledger": {
+                  "path": str(ledger),
+                  "git_blob_sha": os.environ["SNAPSHOT_LEDGER_BLOB"],
+                  "sha256": digest(ledger),
+                  "bytes": ledger.stat().st_size,
+              },
+              "control_plane": {
+                  "brief_schema_version": brief["schema_version"],
+                  "plan_schema": plan["schema"],
+                  "plan_version": plan["version"],
+                  "guard_schema": guard["schema"],
+                  "guard_version": guard["version"],
+                  "graph_sha256": guard["graph_sha256"],
+                  "claim_sha256": guard["claim_sha256"],
+                  "integrity_ok": guard["integrity"]["ok"],
+                  "activation_within_cap": guard["activation"]["within_cap"],
+              },
+              "recommendation_id": recommendation_id,
+              "claim_token": token,
+              "claim_token_is_lease": False,
+              "authority": {
+                  "task_graph": ".beads/issues.jsonl",
+                  "leaf_selector": "scripts/agent_next.py",
+                  "claim_guard": "scripts/agent_claim_guard.py",
+                  "artifact_is_authoritative": False,
+              },
+              "files": {
+                  name: {
+                      "sha256": digest(out / name),
+                      "bytes": (out / name).stat().st_size,
+                  }
+                  for name in payload_files
+              },
+          }
+          (out / "manifest.json").write_text(
+              json.dumps(
+                  manifest,
+                  ensure_ascii=False,
+                  allow_nan=False,
+                  indent=2,
+                  sort_keys=True,
+              )
+              + "\n",
+              encoding="utf-8",
+          )
+          checksum_names = (*payload_files, "manifest.json")
+          (out / "SHA256SUMS").write_text(
+              "".join(f"{digest(out / name)}  {name}\n" for name in checksum_names),
+              encoding="ascii",
+          )
+          PY
+
+          echo "path=${out}" >> "${GITHUB_OUTPUT}"
+          echo "commit=${head_sha}" >> "${GITHUB_OUTPUT}"
+          echo "recommendation=$(cat "${out}/recommendation.txt")" >> "${GITHUB_OUTPUT}"
+
+          {
+            echo "## Canonical agent snapshot"
+            echo
+            echo "- Commit: \`${head_sha}\`"
+            echo "- Tree: \`${tree_sha}\`"
+            echo "- Ledger blob: \`${ledger_blob_sha}\`"
+            echo "- Recommendation: \`$(cat "${out}/recommendation.txt")\`"
+            echo "- Artifact authority: **read-only cache; Beads remains authoritative**"
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Upload snapshot artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: fmn-agent-snapshot
+          path: ${{ steps.snapshot.outputs.path }}
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0

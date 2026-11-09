@@ -1,0 +1,103 @@
+diff --git a/crates/fmn-python/python/manimlib_bootstrap.py b/crates/fmn-python/python/manimlib_bootstrap.py
+--- a/crates/fmn-python/python/manimlib_bootstrap.py
++++ b/crates/fmn-python/python/manimlib_bootstrap.py
+@@ -3230,6 +3230,14 @@
+             opacity=self.fill_opacity,
+             border_width=self.fill_border_width,
+         )
++
++    def refresh_joint_angles(self):
++        # This public method invalidates the whole family's derived metadata;
++        # it does not alter geometry or consume the renderer's native data.
++        # Marionette already maintains joint-angle columns on point writes.
++        for member in self.get_family():
++            member.needs_new_joint_angles = True
++        return self
+ 
+     def get_group_class(self):
+         return getattr(_FMN_ROOT, "VGroup", VMobject)
+diff --git a/crates/fmn-python/python/manimlib/_animation_semantics.py b/crates/fmn-python/python/manimlib/_animation_semantics.py
+--- a/crates/fmn-python/python/manimlib/_animation_semantics.py
++++ b/crates/fmn-python/python/manimlib/_animation_semantics.py
+@@ -511,13 +511,21 @@
+ 
+     def draw_border_get_outline(self):
+         """Expose a native-backed outline copy without changing the source."""
++        # The animation accepts one RGB color, not a per-vertex color list.
++        # Normalize it once so array/tuple RGB values do not enter the style
++        # setter's gradient-list interpretation or an ambiguous truth test.
++        color = (None if self.stroke_color is None else
++                 g["_ColorValue"](g["_color_to_rgb"](self.stroke_color)))
+         outline = self.mobject.copy()
+         outline.set_fill(opacity=0)
+         for member in outline.family_members_with_points():
+             member.set_stroke(
+-                color=self.stroke_color or member.get_stroke_color(),
++                color=color if color is not None else member.get_stroke_color(),
+                 width=self.stroke_width,
+-                behind=self.mobject.stroke_behind,
++                # Native-built shapes skip VMobject.__init__, and a later
++                # set_stroke(behind=...) changes the renderer's live uniform,
++                # not the constructor's cached Python attribute.
++                behind=bool(self.mobject.uniforms["stroke_behind"]),
+             )
+         return outline
+ 
+@@ -1975,7 +1983,8 @@
+                     and not self._partial_was_suspended
+                     and self.mobject._is_updating_suspended()):
+                 self.mobject_was_updating = False
+-                self.mobject.resume_updating()
++                # Failure unwinding must not execute another authored updater.
++                self.mobject.resume_updating(call_updater=False)
+ 
+     def abort_preserving_error(self):
+         try:
+@@ -2200,7 +2209,8 @@
+             if (self.suspend_mobject_updating and not self._border_was_suspended
+                     and self.mobject._is_updating_suspended()):
+                 self.mobject_was_updating = False
+-                self.mobject.resume_updating()
++                # Failure unwinding must not execute another authored updater.
++                self.mobject.resume_updating(call_updater=False)
+ 
+     def abort_preserving_error(self):
+         try:
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -11735,6 +11735,22 @@
+     }
+ 
+     #[test]
++    fn production_drawing_runtime_acceptance_suite() {
++        crate::with_python_test_module("native drawing runtime", |py, _module, globals| {
++            for (name, text) in [
++                ("creation_semantics.py", include_str!("../tests/creation_semantics.py")),
++                ("drawing_runtime.py", include_str!("../tests/drawing_runtime.py")),
++            ] {
++                globals.set_item("__file__", name).expect("suite filename");
++                let source = CString::new(text).expect("drawing suite contains no NUL");
++                py.run(source.as_c_str(), Some(globals), Some(globals))
++                    .inspect_err(|error| error.print(py))
++                    .expect("native creation phases and failure ownership");
++            }
++        });
++    }
++
++    #[test]
+     fn production_portal_runtime_acceptance_suite() {
+         crate::with_python_test_module("complete portal runtime", |py, _module, globals| {
+             for (name, text) in [
+diff --git a/scripts/check_portal_runtime.sh b/scripts/check_portal_runtime.sh
+--- a/scripts/check_portal_runtime.sh
++++ b/scripts/check_portal_runtime.sh
+@@ -11,7 +11,7 @@
+ print(f"auditing imported manimlib: {path}")
+ PY
+ 
+-for suite in portal_initialization persistent_recovery fading_family bridge animation_semantics matching_transform_semantics composition_lifecycle camera_animation_semantics camera_motion camera_execution updater_family creation_semantics native_outputs programmatic_rendering batch_rendering builder_playback restore_playback cyclic_replace deferred_transform_playback fading_semantics movement_semantics rotation_semantics indication_semantics composite_effects tracker_interpolation live_rates animation_updaters native_animation_updaters deferred_animation_updaters console_rendering scene_state temporal_visualization control_interaction color_sliders scene_execution; do
++for suite in portal_initialization persistent_recovery fading_family bridge animation_semantics matching_transform_semantics composition_lifecycle camera_animation_semantics camera_motion camera_execution updater_family drawing_runtime creation_semantics native_outputs programmatic_rendering batch_rendering builder_playback restore_playback cyclic_replace deferred_transform_playback fading_semantics movement_semantics rotation_semantics indication_semantics composite_effects tracker_interpolation live_rates animation_updaters native_animation_updaters deferred_animation_updaters console_rendering scene_state temporal_visualization control_interaction color_sliders scene_execution; do
+     python3 - "$suite" <<'PY'
+ import pathlib
+ import runpy

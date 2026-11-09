@@ -1,0 +1,7 @@
+{
+  "at": "2026-11-07T23:40:22.990114+00:00",
+  "old_pid": 2233093,
+  "old_command": "python3 -I -B /data/projects/jmev-render-worker-20261107/qualification01/production19/trj-launch-final06-34.py ",
+  "old_controller_stopped_before_job": true,
+  "destination": "ts2-production19-final-06-one-derivative123"
+}

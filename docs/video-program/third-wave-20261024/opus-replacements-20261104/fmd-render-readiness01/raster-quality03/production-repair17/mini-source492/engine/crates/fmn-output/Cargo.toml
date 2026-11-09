@@ -1,0 +1,36 @@
+[package]
+name = "fmn-output"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Sink orchestration, the negotiated ffmpeg boundary, and sound (§14)."
+
+[features]
+default = ["exact-process"]
+exact-process = ["fmn-platform/exact-process"]
+ffmpeg-test-fixture = ["exact-process"]
+
+[[bin]]
+name = "fmn-manifest-compare"
+path = "src/bin/fmn-manifest-compare.rs"
+
+[[bin]]
+name = "fmn-ffmpeg-test-fixture"
+path = "tests/support/native_ffmpeg.rs"
+required-features = ["ffmpeg-test-fixture"]
+test = false
+bench = false
+doc = false
+
+[dependencies]
+fmn-core.workspace = true
+fmn-dmath.workspace = true
+fmn-hash.workspace = true
+fmn-platform.workspace = true
+fmn-frame.workspace = true
+fmn-codec.workspace = true
+fmn-cache.workspace = true
+
+[lints]
+workspace = true

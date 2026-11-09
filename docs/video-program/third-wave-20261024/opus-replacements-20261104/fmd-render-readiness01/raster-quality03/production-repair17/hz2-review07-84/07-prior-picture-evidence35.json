@@ -1,0 +1,171 @@
+{
+  "prior_review": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/native-stage08-root01/complex-full-preview16-review-progress01.json",
+  "chapter": "07_one_point",
+  "review": {
+    "status": "selected_picture_review_complete",
+    "sheets": 13,
+    "pictures": 78,
+    "sheet_indices_viewed": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "sample_indices_viewed": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77
+    ],
+    "observations": [
+      "All78 selected pictures actually viewed. z-squared at zero shows derivative zero and90-to180-degree angle change; nonzero-derivative conformal qualification explicitly appears21-23.933s. This supplies the qualification missing from isolated chapter06 stills, though narration continuity remains unchecked.",
+      "Absolute-square example has smooth radial magnitude bands and explicitly one hue for real outputs. Prediction question remains unanswered through49.333s; conjugate-h difference quotient appears afterward, converging to zero.",
+      "At1 right/up quotients2/0 demonstrate failure away from zero; later bounded jagged-g illustration has deliberately discrete sectors and shrinking ratio bound, distinct from smooth holomorphic domain-colouring renders.",
+      "Open-region definition explicitly requires a derivative at every point; little disks remain inside dashed open boundary. No concrete persistent label collision in selected pictures."
+    ],
+    "followups": [
+      "Inspect exact source/script binding for general claim derivative only at zero; demonstration at1 alone is an example rather than general proof.",
+      "Check critical-point angle-multiplication precision card assumptions: nonconstant holomorphic neighborhood and first nonzero derivative; qualify angles modulo full turns as needed.",
+      "Final4K inspect dense central radial rings, ratio inset and small bound/precision/footer text; verify uploaded caption placement.",
+      "Continuous motion/narration listening, fine synchronization and independent final AV acceptance remain open."
+    ]
+  },
+  "sheets_rehashed": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/07_one_point/sheet-000.png",
+      "sha256": "97e9a4a5cde69e19f5685aab90e6ab842aae9a8e2544d845006163a46ef7441c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/07_one_point/sheet-001.png",
+      "sha256": "3ce8c74ca0810456eeb63c7677692370140c06ebd48a0c4cca19d8789c0da585"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/07_one_point/sheet-002.png",
+      "sha256": "56480300008c56ad5ad6753341748dd274db8e0d9154a88ed69c5486b7ac3a90"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/07_one_point/sheet-003.png",
+      "sha256": "e0b2d2b63054a9307f04beb9cc3c72b9499bbca99de898ed98316390466a413c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/07_one_point/sheet-004.png",
+      "sha256": "be6efa900076975f854d710115cdeadd9dcc08002f569b72284c48e32dfbf220"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/07_one_point/sheet-005.png",
+      "sha256": "117dcacaeae8b431e5878964b3a3101c5c27f4864b5a16ea08c6c547f4d0559e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/07_one_point/sheet-006.png",
+      "sha256": "bd4d0d0bc04a9271307d582447a9ee161a984b91699215173d7540df74a3b349"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/07_one_point/sheet-007.png",
+      "sha256": "cff69039400d5bd5a1869f69eeba337ca75e1ee47ecbb54a090d126d3b09663b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/07_one_point/sheet-008.png",
+      "sha256": "acd3bb3da9e078dfe5a0d87a2d9b426b37700d2873b7e636cd0f0471052d3f9f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/07_one_point/sheet-009.png",
+      "sha256": "f7926127c8de5fbd1e29d10a005f244b59d06e35d9c7d4fb33b4a3f94476dd20"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/07_one_point/sheet-010.png",
+      "sha256": "e9798e010077e540cedb23e501606b82e4635306bcc74e026a039a9df5dd0a91"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/07_one_point/sheet-011.png",
+      "sha256": "c769bb9f6fa6295bfee086fbf20b16a2cd360dec0226860aba2cf7154b3efd1a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/07_one_point/sheet-012.png",
+      "sha256": "29d58dcc24e076a9840c05e9d6f1ec4061a3aac098c7e4469ccd68a5a4d5c286"
+    }
+  ],
+  "scope": "Prior actual78picture/13sheet review, hashes checked; not fresh continuous review or hearing."
+}

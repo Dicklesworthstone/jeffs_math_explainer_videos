@@ -1,0 +1,4 @@
+{"chapter_scope": null, "consumer": "render", "directed_caption_segments": [], "listening_acceptance": false, "plan_mode": "external-ui", "prediction_holds": [], "promotion": false, "selected_cues": 14, "topic": "complex_analysis_visual", "verified_cues": 105}
+06_one_derivative 10030 frames   840.5s    11.9 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/preview/06_one_derivative.mp4
+08_loop_sums   14959 frames   867.3s    17.2 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/preview/08_loop_sums.mp4
+total          24989 frames  1707.8s    14.6 fps

@@ -1,0 +1,79 @@
+{
+  "utc": "2026-11-08T19:21:34.449208+00:00",
+  "review_json_sha256": "58a7381dd8506497e10bd147d54837a6472e72651e3724e9dd99747f83e6e651",
+  "root_read_full_md": true,
+  "source_manifest_and_60_sheet_hashes_rechecked": true,
+  "independent_coverage": {
+    "sheets_viewed": 60,
+    "frames_viewed": 715,
+    "windows": [
+      {
+        "window": [
+          34,
+          98
+        ],
+        "frames": 65
+      },
+      {
+        "window": [
+          1989,
+          2072
+        ],
+        "frames": 84
+      },
+      {
+        "window": [
+          2894,
+          2977
+        ],
+        "frames": 84
+      },
+      {
+        "window": [
+          4772,
+          4855
+        ],
+        "frames": 84
+      },
+      {
+        "window": [
+          6181,
+          6264
+        ],
+        "frames": 84
+      },
+      {
+        "window": [
+          7312,
+          7365
+        ],
+        "frames": 54
+      },
+      {
+        "window": [
+          8715,
+          8859
+        ],
+        "frames": 145
+      },
+      {
+        "window": [
+          9168,
+          9220
+        ],
+        "frames": 53
+      },
+      {
+        "window": [
+          9817,
+          9878
+        ],
+        "frames": 62
+      }
+    ],
+    "sites": 17,
+    "site_frames_in_authored_windows": 673
+  },
+  "disposition": "Accept319 as actual independent still-frame review of715frames60sheets, no defect identified. Low-amplitude preview compression and static edge contacts must be checked in final4K; no root continuous-motion/listening/fine-sync/finalAV acceptance.",
+  "final_render_permit": false
+}

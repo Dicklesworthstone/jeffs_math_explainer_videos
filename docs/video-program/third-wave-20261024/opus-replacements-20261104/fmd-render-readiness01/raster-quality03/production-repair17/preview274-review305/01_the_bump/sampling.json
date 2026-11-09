@@ -1,0 +1,875 @@
+{
+  "movie_sha256": "1f6834a6b6fb5ed481f66c0a8eded204ede670501eae5d81a277814206353d19",
+  "schedule": [
+    {
+      "kind": "timeline",
+      "sha256": "6149d6fa5e0e7086f1a61a727b0d9492bf32952815e378ffb82dd6cb973197ef",
+      "equals_timeline269": true,
+      "equals_production_timeline21_after_path_mapping": true
+    },
+    {
+      "kind": "cues",
+      "sha256": "e7fea540de13ec0b72077e8d43e9d3dfecdf0ad92ab8c628f19845e7fe41561b",
+      "equals_timeline269": true,
+      "equals_production_timeline21_after_path_mapping": true
+    },
+    {
+      "kind": "cuelog",
+      "sha256": "101722b4b6cf31284d9e3a2d18329877b91169821320115d0c7984f6a96fcc09",
+      "equals_timeline269": true,
+      "equals_production_timeline21_after_path_mapping": true
+    }
+  ],
+  "frames": 6311,
+  "fades": [
+    {
+      "id": "A1",
+      "why": "first of three chunk fades: chunk 1 is [caption, pic.group, circle], so the z^2 preview plate fades in here; the model repeats the loop body twice more",
+      "frames": 30,
+      "repeat": 1,
+      "source": "the_bump.rs:330",
+      "start": 5496,
+      "how": "chroma fit",
+      "exact": false,
+      "search": [
+        5063,
+        6113
+      ],
+      "fit": {
+        "start": 5496,
+        "score": 420.2812938416613,
+        "runner_up": 47.86955771619597,
+        "amplitude": 0.8375355431028693,
+        "slopes": [
+          {
+            "play": "A1#1",
+            "slope": 0.8375355431028693,
+            "t": 420.2812938416613
+          },
+          {
+            "play": "post:330",
+            "slope": 0.07175073664997947,
+            "t": 49.820846503406806
+          },
+          {
+            "play": "post:330",
+            "slope": 0.00037046729274235713,
+            "t": 0.19801563417833892
+          }
+        ]
+      }
+    },
+    {
+      "id": "A2",
+      "why": "closing fade; all holds thumbs, so the preview plate leaves here",
+      "frames": 36,
+      "repeat": 1,
+      "source": "the_bump.rs:349",
+      "start": 6275,
+      "how": "exact breath",
+      "exact": true,
+      "check": {
+        "score_at_anchor": 161.0759868994802,
+        "amplitude_at_anchor": 1.3800873187412215,
+        "best_shift": 1,
+        "best_score": 189.8442757823062
+      },
+      "flag": false,
+      "end_check": "site end equals the timeline frame total 6311"
+    }
+  ],
+  "fade_flags": [],
+  "samples": [
+    {
+      "frame": 0,
+      "seconds": 0.0,
+      "chroma": 2.0,
+      "reasons": [
+        "First frame"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000001.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 36,
+      "seconds": 0.6,
+      "chroma": 2.0,
+      "reasons": [
+        "line:01_1",
+        "Current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000002.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 48,
+      "seconds": 0.8,
+      "chroma": 2.0,
+      "reasons": [
+        "Current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)",
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000003.jpg",
+      "sha256": "5fecf8732c6a4c4ce7f46e70d65507f104b5076a6eb21ecbd715aa8a8b72949e"
+    },
+    {
+      "frame": 60,
+      "seconds": 1.0,
+      "chroma": 2.00049,
+      "reasons": [
+        "Current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000004.jpg",
+      "sha256": "91e18231eda2de935507a26bdd5355eb793f673ff730fc754a2016f7ce28f60c"
+    },
+    {
+      "frame": 66,
+      "seconds": 1.1,
+      "chroma": 2.00568,
+      "reasons": [
+        "line:01_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000005.jpg",
+      "sha256": "2f4d90744d26a46642a5ab2cf48c8025c9d4db74425714ed45b62afc50915f25"
+    },
+    {
+      "frame": 96,
+      "seconds": 1.6,
+      "chroma": 2.01695,
+      "reasons": [
+        "line:01_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000006.jpg",
+      "sha256": "4f07eabe7a5d46d736f948bb7eb5b4c4afb78ee7791280cf46d00935f6cd7caf"
+    },
+    {
+      "frame": 108,
+      "seconds": 1.8,
+      "chroma": 2.01695,
+      "reasons": [
+        "Current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000007.jpg",
+      "sha256": "4f07eabe7a5d46d736f948bb7eb5b4c4afb78ee7791280cf46d00935f6cd7caf"
+    },
+    {
+      "frame": 156,
+      "seconds": 2.6,
+      "chroma": 2.01695,
+      "reasons": [
+        "line:01_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000008.jpg",
+      "sha256": "4f07eabe7a5d46d736f948bb7eb5b4c4afb78ee7791280cf46d00935f6cd7caf"
+    },
+    {
+      "frame": 168,
+      "seconds": 2.8,
+      "chroma": 2.01695,
+      "reasons": [
+        "Current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000009.jpg",
+      "sha256": "4f07eabe7a5d46d736f948bb7eb5b4c4afb78ee7791280cf46d00935f6cd7caf"
+    },
+    {
+      "frame": 348,
+      "seconds": 5.8,
+      "chroma": 2.03185,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000010.jpg",
+      "sha256": "90c8381ef4023ea4cf912911efecd57336a0664e9813b6f01bab3fcf2b91903a"
+    },
+    {
+      "frame": 648,
+      "seconds": 10.8,
+      "chroma": 2.0341,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000011.jpg",
+      "sha256": "37252773775ecaa1ae9e4544d9b3343485e78c9b0ca35f08db8608c1a0a21846"
+    },
+    {
+      "frame": 948,
+      "seconds": 15.8,
+      "chroma": 2.0215,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000012.jpg",
+      "sha256": "3aceda455352bdfa11e4d73e222fb5380204c83c82b0cb1ec05b0215176119a8"
+    },
+    {
+      "frame": 1066,
+      "seconds": 17.766666666666666,
+      "chroma": 2.0215,
+      "reasons": [
+        "line:01_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000013.jpg",
+      "sha256": "3aceda455352bdfa11e4d73e222fb5380204c83c82b0cb1ec05b0215176119a8"
+    },
+    {
+      "frame": 1096,
+      "seconds": 18.266666666666666,
+      "chroma": 2.05853,
+      "reasons": [
+        "line:01_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000014.jpg",
+      "sha256": "c4ad1908e72a1f05f5fae4fb2ac6061ac151e07ecba9ea1978b047800b0fd63f"
+    },
+    {
+      "frame": 1126,
+      "seconds": 18.766666666666666,
+      "chroma": 2.05923,
+      "reasons": [
+        "line:01_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000015.jpg",
+      "sha256": "d9ad76e5ebcd8104fcf4b94b241ad403a95da15919960881cadcbc707eab1081"
+    },
+    {
+      "frame": 1186,
+      "seconds": 19.766666666666666,
+      "chroma": 2.05923,
+      "reasons": [
+        "line:01_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000016.jpg",
+      "sha256": "d9ad76e5ebcd8104fcf4b94b241ad403a95da15919960881cadcbc707eab1081"
+    },
+    {
+      "frame": 1248,
+      "seconds": 20.8,
+      "chroma": 2.05923,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000017.jpg",
+      "sha256": "d9ad76e5ebcd8104fcf4b94b241ad403a95da15919960881cadcbc707eab1081"
+    },
+    {
+      "frame": 1548,
+      "seconds": 25.8,
+      "chroma": 2.27646,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000018.jpg",
+      "sha256": "8de9a694a42b6f21d48e05730fe5018c29a411e0a28169df727d56beaeabd3a0"
+    },
+    {
+      "frame": 1822,
+      "seconds": 30.366666666666667,
+      "chroma": 2.28468,
+      "reasons": [
+        "line:01_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000019.jpg",
+      "sha256": "1ef12dc657d9975299ee2e0d0e99090149168df9013d8e4eddc14e4158470af2"
+    },
+    {
+      "frame": 1848,
+      "seconds": 30.8,
+      "chroma": 2.27686,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000020.jpg",
+      "sha256": "ff96a461d0da80b209702d6e7dafaf9fff466983db3bf5db68f58c5933254544"
+    },
+    {
+      "frame": 1852,
+      "seconds": 30.866666666666667,
+      "chroma": 2.28242,
+      "reasons": [
+        "line:01_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000021.jpg",
+      "sha256": "f5a92f1c358c097dcd1cae1d018af03b03faa6fddf36c2795c98ff18a4b66bc0"
+    },
+    {
+      "frame": 1882,
+      "seconds": 31.366666666666667,
+      "chroma": 2.25686,
+      "reasons": [
+        "line:01_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000022.jpg",
+      "sha256": "d838a5987f3c714ac4bae0751917377409d89155270c6c432efb46cfb97fbd67"
+    },
+    {
+      "frame": 1942,
+      "seconds": 32.36666666666667,
+      "chroma": 2.3445,
+      "reasons": [
+        "line:01_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000023.jpg",
+      "sha256": "864bc1adee5e08325c64b45a6bea842221b510eabd8049fd87507d3db96a4f50"
+    },
+    {
+      "frame": 2148,
+      "seconds": 35.8,
+      "chroma": 2.25845,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000024.jpg",
+      "sha256": "c3b8678a0cf15baf8ab7394dc57f52d83529598e50a15a49bb7c7dd303ab740d"
+    },
+    {
+      "frame": 2448,
+      "seconds": 40.8,
+      "chroma": 2.30336,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000025.jpg",
+      "sha256": "5271bc1c5467bbf39e81c67cae19a305f0484d9ceeea25feecf177cb4f96507f"
+    },
+    {
+      "frame": 2748,
+      "seconds": 45.8,
+      "chroma": 2.3069,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000026.jpg",
+      "sha256": "06070fa1e6baa6b60b5f2f958dd4b7ae3acde2212c66d008f055f9b53efabfbe"
+    },
+    {
+      "frame": 2900,
+      "seconds": 48.333333333333336,
+      "chroma": 2.37147,
+      "reasons": [
+        "line:01_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000027.jpg",
+      "sha256": "f8bad50fd1626a6892edbdd0fe3e3d75585cf2c6526c433afffb69ad59c7ec09"
+    },
+    {
+      "frame": 2930,
+      "seconds": 48.833333333333336,
+      "chroma": 2.37189,
+      "reasons": [
+        "line:01_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000028.jpg",
+      "sha256": "fce351bd87b5e72d3d817d1c45184803442c98e55c70fa75c728cb929de248b1"
+    },
+    {
+      "frame": 2960,
+      "seconds": 49.333333333333336,
+      "chroma": 2.37189,
+      "reasons": [
+        "line:01_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000029.jpg",
+      "sha256": "fce351bd87b5e72d3d817d1c45184803442c98e55c70fa75c728cb929de248b1"
+    },
+    {
+      "frame": 3020,
+      "seconds": 50.333333333333336,
+      "chroma": 2.37895,
+      "reasons": [
+        "line:01_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000030.jpg",
+      "sha256": "aa85abc8e6380574e8de52f582c7a6c6c9b2540da8ce151f94be237870f53b3c"
+    },
+    {
+      "frame": 3048,
+      "seconds": 50.8,
+      "chroma": 2.37895,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000031.jpg",
+      "sha256": "aa85abc8e6380574e8de52f582c7a6c6c9b2540da8ce151f94be237870f53b3c"
+    },
+    {
+      "frame": 3348,
+      "seconds": 55.8,
+      "chroma": 2.62008,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000032.jpg",
+      "sha256": "d76fc0ab601642578520998451ed7bf79d101f7cd2f18b72ec7827e95bb9d542"
+    },
+    {
+      "frame": 3440,
+      "seconds": 57.333333333333336,
+      "chroma": 2.65626,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000033.jpg",
+      "sha256": "6825425f217f6cd40f78a4fbb39b40a317425eb25a5eee83285bb4e27c946ea0"
+    },
+    {
+      "frame": 3470,
+      "seconds": 57.833333333333336,
+      "chroma": 2.65509,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000034.jpg",
+      "sha256": "ec3a20c7da09de2298297c943c09757e91a257187d351823ee1a82a4565fb78b"
+    },
+    {
+      "frame": 3500,
+      "seconds": 58.333333333333336,
+      "chroma": 2.65341,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000035.jpg",
+      "sha256": "37788158e7d39b8aa13ccb4a926ad8fb12a3793d5392218abc16fc830de9c330"
+    },
+    {
+      "frame": 3560,
+      "seconds": 59.333333333333336,
+      "chroma": 2.64789,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000036.jpg",
+      "sha256": "4a8aad3617c2935ef89caaf266a38dd414d64ac589b0ec978bb43f7083738f21"
+    },
+    {
+      "frame": 3648,
+      "seconds": 60.8,
+      "chroma": 2.6395,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000037.jpg",
+      "sha256": "e805342905e4364fef7626c6a6ad55cbb27595426a0f1c892237b64ce56ab64c"
+    },
+    {
+      "frame": 3755,
+      "seconds": 62.583333333333336,
+      "chroma": 2.62148,
+      "reasons": [
+        "line:01_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000038.jpg",
+      "sha256": "7d3e04ee4ef53e10a6eeae86f26b918bbb9ee8c23038eb5ac43244d8cef860a7"
+    },
+    {
+      "frame": 3785,
+      "seconds": 63.083333333333336,
+      "chroma": 2.03488,
+      "reasons": [
+        "line:01_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000039.jpg",
+      "sha256": "a04fa9d2ffca047d530221b0fb056eb47fead0defb57c88021906be088b481f3"
+    },
+    {
+      "frame": 3815,
+      "seconds": 63.583333333333336,
+      "chroma": 2.01863,
+      "reasons": [
+        "line:01_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000040.jpg",
+      "sha256": "71acca915fd908ceaad92b0a2c9e08f28296241c378412da41c688844aa7575f"
+    },
+    {
+      "frame": 3875,
+      "seconds": 64.58333333333333,
+      "chroma": 2.0191,
+      "reasons": [
+        "line:01_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000041.jpg",
+      "sha256": "7e221a6890b8ed94aea201e16c1db39e1379c9c118282540716624f7a40d3995"
+    },
+    {
+      "frame": 3948,
+      "seconds": 65.8,
+      "chroma": 2.04031,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000042.jpg",
+      "sha256": "6ac7f40eeb769e701bd2644d450f8a09d9e0c51dddfb33b25def153cb278bc8f"
+    },
+    {
+      "frame": 4248,
+      "seconds": 70.8,
+      "chroma": 2.06683,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000043.jpg",
+      "sha256": "d08ea7981c23f6769869752335803b71c057a768aa9d8d2645ec2a1590ccbafa"
+    },
+    {
+      "frame": 4548,
+      "seconds": 75.8,
+      "chroma": 2.11235,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000044.jpg",
+      "sha256": "f1cbdbaa7057de9e93310de6a3e16c09360e72db252f4d24230800fe7d822f01"
+    },
+    {
+      "frame": 4848,
+      "seconds": 80.8,
+      "chroma": 2.33174,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000045.jpg",
+      "sha256": "22794a3ecf78c323c2b241ff9971931e8cc8217c9c3b385b52f6f4ca1d6ccc4f"
+    },
+    {
+      "frame": 5063,
+      "seconds": 84.38333333333334,
+      "chroma": 2.41833,
+      "reasons": [
+        "line:01_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000046.jpg",
+      "sha256": "0a033a8bb2a9d13eb2d0235da54860689bfe485ba125b3ac50088a6d03eb9ccb"
+    },
+    {
+      "frame": 5093,
+      "seconds": 84.88333333333334,
+      "chroma": 2.41833,
+      "reasons": [
+        "line:01_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000047.jpg",
+      "sha256": "0a033a8bb2a9d13eb2d0235da54860689bfe485ba125b3ac50088a6d03eb9ccb"
+    },
+    {
+      "frame": 5123,
+      "seconds": 85.38333333333334,
+      "chroma": 2.41833,
+      "reasons": [
+        "line:01_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000048.jpg",
+      "sha256": "0a033a8bb2a9d13eb2d0235da54860689bfe485ba125b3ac50088a6d03eb9ccb"
+    },
+    {
+      "frame": 5148,
+      "seconds": 85.8,
+      "chroma": 2.41833,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000049.jpg",
+      "sha256": "0a033a8bb2a9d13eb2d0235da54860689bfe485ba125b3ac50088a6d03eb9ccb"
+    },
+    {
+      "frame": 5183,
+      "seconds": 86.38333333333334,
+      "chroma": 2.41833,
+      "reasons": [
+        "line:01_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000050.jpg",
+      "sha256": "0a033a8bb2a9d13eb2d0235da54860689bfe485ba125b3ac50088a6d03eb9ccb"
+    },
+    {
+      "frame": 5448,
+      "seconds": 90.8,
+      "chroma": 2.41833,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000051.jpg",
+      "sha256": "0a033a8bb2a9d13eb2d0235da54860689bfe485ba125b3ac50088a6d03eb9ccb"
+    },
+    {
+      "frame": 5493,
+      "seconds": 91.55,
+      "chroma": 2.41833,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000052.jpg",
+      "sha256": "0a033a8bb2a9d13eb2d0235da54860689bfe485ba125b3ac50088a6d03eb9ccb"
+    },
+    {
+      "frame": 5494,
+      "seconds": 91.56666666666666,
+      "chroma": 2.41833,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000053.jpg",
+      "sha256": "0a033a8bb2a9d13eb2d0235da54860689bfe485ba125b3ac50088a6d03eb9ccb"
+    },
+    {
+      "frame": 5495,
+      "seconds": 91.58333333333333,
+      "chroma": 2.41833,
+      "reasons": [
+        "Plate fade, frame before start: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)",
+        "Localization bracket, start and end +-3 frames: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000054.jpg",
+      "sha256": "0a033a8bb2a9d13eb2d0235da54860689bfe485ba125b3ac50088a6d03eb9ccb"
+    },
+    {
+      "frame": 5496,
+      "seconds": 91.6,
+      "chroma": 2.41833,
+      "reasons": [
+        "Plate fade start, ramp frame 1 of 30: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)",
+        "Localization bracket, start and end +-3 frames: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000055.jpg",
+      "sha256": "0a033a8bb2a9d13eb2d0235da54860689bfe485ba125b3ac50088a6d03eb9ccb"
+    },
+    {
+      "frame": 5497,
+      "seconds": 91.61666666666666,
+      "chroma": 2.41833,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000056.jpg",
+      "sha256": "832a9ef4dc9cb12f4c70221163c90c9bd426eb470f71f709b36590626fed2225"
+    },
+    {
+      "frame": 5498,
+      "seconds": 91.63333333333334,
+      "chroma": 2.41833,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000057.jpg",
+      "sha256": "1c019346060b722dc6a66d4e8f8408a3dfdb0bf02278a298e2385862cd438067"
+    },
+    {
+      "frame": 5510,
+      "seconds": 91.83333333333333,
+      "chroma": 2.93066,
+      "reasons": [
+        "Plate fade middle, ramp frame 15 of 30: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000058.jpg",
+      "sha256": "864b756ab6f7d63b28eed1119aae66ea04efd93d0f8a8c0e4e33eb51bfab2243"
+    },
+    {
+      "frame": 5523,
+      "seconds": 92.05,
+      "chroma": 3.24039,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000059.jpg",
+      "sha256": "d2e0e7cac7f1eb7aa5e7e88df03bd184d6d2f2125cdd7957dd8f043d30fb7e6c"
+    },
+    {
+      "frame": 5524,
+      "seconds": 92.06666666666666,
+      "chroma": 3.25035,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000060.jpg",
+      "sha256": "1399feaa54bd6557a535e6d210d2e7eaa85597787552446ac40eb4304cc1823e"
+    },
+    {
+      "frame": 5525,
+      "seconds": 92.08333333333333,
+      "chroma": 3.25036,
+      "reasons": [
+        "Plate fade last frame, ramp frame 30 of 30: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)",
+        "Localization bracket, start and end +-3 frames: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000061.jpg",
+      "sha256": "1c1ee5e1c84e3e21af2d3df3b8afcb9a408e1f3530ae3247a89fd6fe97cfc2ae"
+    },
+    {
+      "frame": 5526,
+      "seconds": 92.1,
+      "chroma": 3.25042,
+      "reasons": [
+        "First hold frame after plate fade: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)",
+        "Localization bracket, start and end +-3 frames: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000062.jpg",
+      "sha256": "73c10a013f88dc35fe3d6bdb378800a643ed159aae797fe24dd1a8d74f31f607"
+    },
+    {
+      "frame": 5527,
+      "seconds": 92.11666666666666,
+      "chroma": 3.25044,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000063.jpg",
+      "sha256": "e2ce578642c7146deaf181baad5e73773af450f0d2688b3e282b088028fa0777"
+    },
+    {
+      "frame": 5528,
+      "seconds": 92.13333333333334,
+      "chroma": 3.25052,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000064.jpg",
+      "sha256": "ef7371b7d9b50f8e582cfe511a726bc6102b82e436c38b2c47ccbdc63620bc0c"
+    },
+    {
+      "frame": 5529,
+      "seconds": 92.15,
+      "chroma": 3.25091,
+      "reasons": [
+        "Localization bracket, start and end +-3 frames: A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000065.jpg",
+      "sha256": "45fe1bd4d0e283063759a6ab0ce86f51abdc9b98258f97f943b948d89a2918ca"
+    },
+    {
+      "frame": 5556,
+      "seconds": 92.6,
+      "chroma": 3.25215,
+      "reasons": [
+        "Hold +0.5 s after plate fade (persistence): A1 fade_in_all(stage, chunk, 0.5)?; (the_bump.rs:330, in 0.50 s = 30 frames, cue 01_6, chroma fit)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000066.jpg",
+      "sha256": "cbfddd92a6062d0414669636a5cdf2f23b1f60fc2094d7e7aecda28b9a568b5f"
+    },
+    {
+      "frame": 5748,
+      "seconds": 95.8,
+      "chroma": 3.32344,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000067.jpg",
+      "sha256": "e6c7fbb9524448b1da524c46bff87fdd6b158f55dc507b74cba978db1e620f21"
+    },
+    {
+      "frame": 6048,
+      "seconds": 100.8,
+      "chroma": 3.34883,
+      "reasons": [
+        "Persistent current lint: 01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000068.jpg",
+      "sha256": "1005c8adfad4687c49f22b250b2341e7131a89362626e1e2311d3713a5f94251"
+    },
+    {
+      "frame": 6274,
+      "seconds": 104.56666666666666,
+      "chroma": 3.34883,
+      "reasons": [
+        "Plate fade, frame before start: A2 fade_out_all(stage, &all, 0.6)?; (the_bump.rs:349, out 0.60 s = 36 frames, cue 01_6, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000069.jpg",
+      "sha256": "1005c8adfad4687c49f22b250b2341e7131a89362626e1e2311d3713a5f94251"
+    },
+    {
+      "frame": 6275,
+      "seconds": 104.58333333333333,
+      "chroma": 3.34883,
+      "reasons": [
+        "Plate fade start, ramp frame 1 of 36: A2 fade_out_all(stage, &all, 0.6)?; (the_bump.rs:349, out 0.60 s = 36 frames, cue 01_6, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000070.jpg",
+      "sha256": "1005c8adfad4687c49f22b250b2341e7131a89362626e1e2311d3713a5f94251"
+    },
+    {
+      "frame": 6292,
+      "seconds": 104.86666666666666,
+      "chroma": 2.95309,
+      "reasons": [
+        "Plate fade middle, ramp frame 18 of 36: A2 fade_out_all(stage, &all, 0.6)?; (the_bump.rs:349, out 0.60 s = 36 frames, cue 01_6, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000071.jpg",
+      "sha256": "de4fcad7bf2f87b8804cd57ebda6343271e384b7ea86def732da95bfce2da1d1"
+    },
+    {
+      "frame": 6308,
+      "seconds": 105.13333333333334,
+      "chroma": 2.00711,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): A2 fade_out_all(stage, &all, 0.6)?; (the_bump.rs:349, out 0.60 s = 36 frames, cue 01_6, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000072.jpg",
+      "sha256": "f91b8f0668b02d5de9b30b7c1b7ed5fe791746437230161ab90db663277f33f6"
+    },
+    {
+      "frame": 6309,
+      "seconds": 105.15,
+      "chroma": 2.00173,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): A2 fade_out_all(stage, &all, 0.6)?; (the_bump.rs:349, out 0.60 s = 36 frames, cue 01_6, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000073.jpg",
+      "sha256": "9f2b36425579d7b2da22f8ae5be45660be96570d35ed1c4355e9f5f562ffc210"
+    },
+    {
+      "frame": 6310,
+      "seconds": 105.16666666666667,
+      "chroma": 2.0,
+      "reasons": [
+        "Last frame",
+        "Plate fade last frame, ramp frame 36 of 36: A2 fade_out_all(stage, &all, 0.6)?; (the_bump.rs:349, out 0.60 s = 36 frames, cue 01_6, exact breath)",
+        "Fade-out end bracket, every frame (no reappearance): A2 fade_out_all(stage, &all, 0.6)?; (the_bump.rs:349, out 0.60 s = 36 frames, cue 01_6, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/pictures/frame-000074.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    }
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/sheet-0001.jpg",
+      "sha256": "880509bdb8c7f380aa1570ed9bf5205f38603f20f85667c6b7e4a8e6e8c82f7a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/sheet-0002.jpg",
+      "sha256": "b8727a86bb2716b0009c8ef30275cbae605107afd198fa6eb5f4b80b62bf089b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/sheet-0003.jpg",
+      "sha256": "5b64d1ae793542c5dcc7f9cdfb19390340335bbb60e936550a32799208bdbc68"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/sheet-0004.jpg",
+      "sha256": "825837aa92206a685a39c1e7f22c81e5798734cda2b3a517e4ed72c6c5e5bd4a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/sheet-0005.jpg",
+      "sha256": "c29c3a4783ba3207790af1fc6751a932e9128ee8e5068e3fdcdfa74fe02bc93c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/sheet-0006.jpg",
+      "sha256": "1914914c5391e142b4964a888307640a53a746c2ebadf811759aaa9a7b346392"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/sheet-0007.jpg",
+      "sha256": "47677ded1824f8050e3681d1915d4cdd6b1ecb39078dafc9a36a76b718aca63d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/sheet-0008.jpg",
+      "sha256": "08ddc215f8189031d34df7b0fa16a988e03a60cb7347475741c43a0c12b297c1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/sheet-0009.jpg",
+      "sha256": "c6978a6a6b742518bf95bac81b5fb9cb3f1586f2f4e21cf6a432871b1963fb9b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/sheet-0010.jpg",
+      "sha256": "f4270dcded0610b5de5af58bd802c40078bfd621bcfdcc6db2d44512ccd30b16"
+    }
+  ],
+  "scope": "Native 540p60 plate-fade preview extraction of build268; picks only. Actual viewing of every sheet, motion, 4K, listening, fine-sync and independent AV review still required; no picture or AV acceptance."
+}

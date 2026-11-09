@@ -1,0 +1,55 @@
+{
+  "chapter": "14_continuation",
+  "frames": 11756,
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "timeline_sha256": "e9da7ef1030b88041dd134833282e72442dce42cbc3fcfac8dfa74870d57d30b",
+  "actually_reviewed_pictures": true,
+  "actually_reviewed_motion": true,
+  "reviewer": "root",
+  "observations": "230 selected stills and sparse muted advancing motion samples reviewed; no persistent concrete defect found. Final4K/master/audio/captions and independentAV remain open.",
+  "unresolved_defects": [],
+  "motion_intervals": [
+    [
+      0,
+      566
+    ],
+    [
+      3781,
+      4039
+    ],
+    [
+      8180,
+      8361
+    ],
+    [
+      11138,
+      11370
+    ]
+  ],
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-ts1-render-worker-20261107/qualification01/review14-111/pictures-reviewed110.json",
+      "sha256": "3aa137ca23a6e248d7a0e9c9cd0c9a3616786dab4b61b60b91ab01d7ee0ad1f6"
+    },
+    {
+      "path": "/data/projects/jmev-ts1-render-worker-20261107/qualification01/review14-111/copy-evidence.json",
+      "sha256": "b16c7319624b3682e6f54830adf11d0b51d5978992d265f75b31f50e55630bad"
+    },
+    {
+      "path": "/data/projects/jmev-ts1-render-worker-20261107/qualification01/review14-111/playback-samples111.json",
+      "sha256": "e70b50b27ec19c6a283e7cecfa20a48988c1c14b6fd2cf560e09eb1612c10dc3"
+    },
+    {
+      "path": "/data/projects/jmev-ts1-render-worker-20261107/qualification01/review14-111/14_continuation.timeline.tsv",
+      "sha256": "e9da7ef1030b88041dd134833282e72442dce42cbc3fcfac8dfa74870d57d30b"
+    },
+    {
+      "path": "/data/projects/jmev-ts1-render-worker-20261107/qualification01/review14-111/14_continuation.cues.tsv",
+      "sha256": "ed6ffa4c6fb34de7af8b217b61c1b6e2fec133132f2b4bd06145078d607223ad"
+    },
+    {
+      "path": "/data/projects/jmev-ts1-render-worker-20261107/qualification01/review14-111/14_continuation.cuelog.tsv",
+      "sha256": "2d36f6f2fb8846013e99896f2d9d4c83194d5f03a1a271f553e828cd8c43981f"
+    }
+  ]
+}

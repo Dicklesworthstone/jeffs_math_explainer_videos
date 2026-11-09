@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-09T03:24:10.257072+00:00",
+  "original_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+  "candidate_sha256": "9c80ceb68605aa272dfdb67dc72b40c5cce5b71f141122994f16bb891fdae519",
+  "syntax_passed": true,
+  "runtime_tested": false,
+  "launched": false,
+  "ssd_free_kib": 94162048,
+  "remaining": [
+    "SSD guard with original lane, baseline and combined allocation accounting",
+    "actual input qualification and refusal tests",
+    "stage and launch"
+  ]
+}

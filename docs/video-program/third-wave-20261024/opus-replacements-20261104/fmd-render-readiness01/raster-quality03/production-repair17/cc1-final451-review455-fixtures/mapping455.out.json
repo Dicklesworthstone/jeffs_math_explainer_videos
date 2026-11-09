@@ -1,0 +1,166 @@
+{
+ "pins": {
+  "combined-master447.py": "2b01ecaab2b409268d86fe13b83e97a7e374dd61f1c657680a32444fdb6aa524",
+  "csd-final-verify451.py": "c876caf664124e9becc1d8698608ae456978badbfca114316f93459a18186d03",
+  "master447-manifest-draft449.json": "0108537698028e0b7389533f85c552c652e9b7aef72f86b6028ae209870be5aa"
+ },
+ "toplevel_calls": {
+  "combined-master447.py": [
+   "Path",
+   "dict",
+   "re.compile",
+   "tuple"
+  ],
+  "csd-final-verify451.py": [
+   "Path",
+   "dict",
+   "range"
+  ]
+ },
+ "positive": [
+  {
+   "chapter": "01_the_bump",
+   "kind": "combined",
+   "host": "/data/projects/jmev-css-render-worker-20261107",
+   "source447": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-01-the-bump352",
+   "source451": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-01-the-bump352",
+   "equal": true
+  },
+  {
+   "chapter": "02_turning_numbers",
+   "kind": "retained",
+   "host": "/data/projects/jmev-render-worker-20261107",
+   "source447": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32",
+   "source451": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32",
+   "equal": true
+  },
+  {
+   "chapter": "03_two_planes",
+   "kind": "retained",
+   "host": "/data/projects/jmev-render-worker-20261107",
+   "source447": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28",
+   "source451": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28",
+   "equal": true
+  },
+  {
+   "chapter": "04_reading_color",
+   "kind": "combined",
+   "host": "/data/projects/jmev-css-render-worker-20261107",
+   "source447": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-04-reading-color352",
+   "source451": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-04-reading-color352",
+   "equal": true
+  },
+  {
+   "chapter": "05_gallery",
+   "kind": "combined",
+   "host": "/data/projects/jmev-css-render-worker-20261107",
+   "source447": "/data/ssd/work/jmev-gallery-recovery440/jobs/css-reviewed-final-05-gallery352-ssd442",
+   "source451": "/data/ssd/work/jmev-gallery-recovery440/jobs/css-reviewed-final-05-gallery352-ssd442",
+   "equal": true
+  },
+  {
+   "chapter": "06_one_derivative",
+   "kind": "combined",
+   "host": "/data/projects/jmev-stroke-probe-20261106",
+   "source447": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-06-one-derivative352",
+   "source451": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-06-one-derivative352",
+   "equal": true
+  },
+  {
+   "chapter": "07_one_point",
+   "kind": "combined",
+   "host": "/data/projects/jmev-stroke-probe-20261106",
+   "source447": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-07-one-point352",
+   "source451": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-07-one-point352",
+   "equal": true
+  },
+  {
+   "chapter": "08_loop_sums",
+   "kind": "combined",
+   "host": "/data/projects/jmev-stroke-probe-20261106",
+   "source447": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-08-loop-sums352",
+   "source451": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-08-loop-sums352",
+   "equal": true
+  },
+  {
+   "chapter": "09_boundary",
+   "kind": "boundary313",
+   "host": "/data/projects/jmev-stroke-probe-20261106",
+   "source447": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-09-boundary344",
+   "source451": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-09-boundary344",
+   "equal": true
+  },
+  {
+   "chapter": "10_rigidity",
+   "kind": "combined",
+   "host": "/data/projects/jmev-stroke-probe-20261106",
+   "source447": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-10-rigidity352",
+   "source451": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-10-rigidity352",
+   "equal": true
+  },
+  {
+   "chapter": "11_counting",
+   "kind": "combined",
+   "host": "/data/projects/jmev-stroke-probe-20261106",
+   "source447": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-11-counting352",
+   "source451": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-11-counting352",
+   "equal": true
+  },
+  {
+   "chapter": "12_residues",
+   "kind": "combined",
+   "host": "/data/projects/jmev-css-render-worker-20261107",
+   "source447": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-12-residues352",
+   "source451": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-12-residues352",
+   "equal": true
+  },
+  {
+   "chapter": "13_real_integral",
+   "kind": "retained",
+   "host": "/data/projects/jmev-css-render-worker-20261107",
+   "source447": "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96",
+   "source451": "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96",
+   "equal": true
+  },
+  {
+   "chapter": "14_continuation",
+   "kind": "combined",
+   "host": "/data/projects/jmev-css-render-worker-20261107",
+   "source447": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-14-continuation352",
+   "source451": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-14-continuation352",
+   "equal": true
+  },
+  {
+   "chapter": "15_closing",
+   "kind": "retained",
+   "host": "/data/projects/jmev-hz2-render-worker-20261107",
+   "source447": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53",
+   "source451": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53",
+   "equal": true
+  }
+ ],
+ "positive_all_equal": true,
+ "negatives": {
+  "gallery host recorded as D": "AssertionError: ",
+  "gallery on the old CSS 352 worker and failed job": "AssertionError: ",
+  "gallery on the CSD 352 worker": "AssertionError: ",
+  "gallery job of failed attempt 440": "AssertionError: ",
+  "gallery worker sha of 440": "AssertionError: ",
+  "gallery kind retained": "AssertionError: ",
+  "SSD442 worker on 04": "AssertionError: SSD442 worker belongs only to gallery",
+  "SSD442 worker on 06 (CSD host)": "AssertionError: SSD442 worker belongs only to gallery",
+  "SSD442 job name on 04": "AssertionError: 04_reading_color: not the frozen 344/352 worker and job"
+ },
+ "negatives_all_refused": true,
+ "same_mutations_at_447_row_mapping": {
+  "gallery host recorded as D": "passes 447 row mapping",
+  "gallery on the old CSS 352 worker and failed job": "passes 447 row mapping",
+  "gallery on the CSD 352 worker": "passes 447 row mapping",
+  "gallery job of failed attempt 440": "447 refuses: AssertionError",
+  "gallery worker sha of 440": "447 refuses: AssertionError",
+  "gallery kind retained": "447 refuses: KeyError",
+  "SSD442 worker on 04": "447 refuses: AssertionError",
+  "SSD442 worker on 06 (CSD host)": "447 refuses: AssertionError",
+  "SSD442 job name on 04": "447 refuses: AssertionError"
+ }
+}

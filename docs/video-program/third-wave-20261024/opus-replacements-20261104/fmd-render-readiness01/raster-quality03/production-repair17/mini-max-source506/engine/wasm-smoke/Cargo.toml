@@ -1,0 +1,32 @@
+# W5 wasm tier 1 (fm-l97): the headless smoke probe for the wasm32
+# foundation. NOT a workspace member (ADR-0003's non-member pattern, like
+# fuzz/): it is a cdylib so it can emit a .wasm, which a workspace rlib
+# cannot. Its dependency universe is a subset of the governed closure —
+# path deps on fmn crates plus the D1-sanctioned wasm-bindgen pin — so its
+# lockfile introduces no new packages.
+[package]
+name = "fmn-wasm-smoke"
+version = "0.0.0"
+edition = "2024"
+publish = false
+description = "Headless node smoke probe for the W5 wasm tier-1 foundation (fm-l97); non-member test infra."
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+fmn-core = { path = "../crates/fmn-core" }
+fmn-mobject = { path = "../crates/fmn-mobject" }
+fmn-platform = { path = "../crates/fmn-platform" }
+fmn-render = { path = "../crates/fmn-render" }
+wasm-bindgen = "=0.2.127"
+
+[profile.release]
+# The probe renders at instantiation time in a JS VM; keep the artifact
+# small and the build honest.
+opt-level = 2
+
+# Opt out of the enclosing workspace: member-ness would force rlib-only
+# builds into every native `cargo build/test` and drag a cdylib into the
+# workspace target directory.
+[workspace]

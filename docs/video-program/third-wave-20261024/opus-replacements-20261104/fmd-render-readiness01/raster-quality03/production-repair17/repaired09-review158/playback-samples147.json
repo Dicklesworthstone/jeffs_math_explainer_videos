@@ -1,0 +1,29 @@
+{
+  "utc": "2026-11-08T01:02:16.313943+00:00",
+  "movie": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview58-review146/09_boundary.mp4",
+  "sha256": "a277716fe8f951691e4a85d544ebeaa77ada326bbb6e706aa56d9c3965e73689",
+  "method": "Actual QuickTime muted playback with sparse screenshot and AX observations; not continuous viewing or listening",
+  "observed_ax_seconds": [
+    10.23225164113786,
+    21.06640043763676,
+    45.14228665207878,
+    49.95746389496718,
+    73.43145295404814,
+    100.5168249452954,
+    118.5737396061269,
+    137.8344485776805
+  ],
+  "observations": [
+    "Staged decomposition to g and bounded punctured disk visible.",
+    "Triangle tiling and oriented arrows followed by boundary cancellation visible.",
+    "At 73.43 seconds P and p labels sit outside polygon edges; no old crossing observed.",
+    "At 118.57 seconds rho follows shrinking green circle and remains separated from circle.",
+    "Cauchy formula reveal remains readable."
+  ],
+  "limits": [
+    "540p preview only; final 4K review still required",
+    "Sparse observations, not exhaustive motion proof",
+    "No listening, fine sync or independent final audiovisual acceptance"
+  ],
+  "seek_note": "AX setValue did not seek; elapsed times above are observed actual playback, not requested seek values."
+}

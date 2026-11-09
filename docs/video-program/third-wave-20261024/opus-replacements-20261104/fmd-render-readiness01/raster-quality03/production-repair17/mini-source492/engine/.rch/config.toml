@@ -1,0 +1,38 @@
+# The owned-host gate reads committed fuzz seeds and distribution licenses.
+# Host-wide "fuzz/corpus/" and "dist/" exclusions silently omitted those
+# inputs and made cargo test fail on a file that exists in the source tree.
+# Override that list for this project while keeping build output, private
+# corpus checkouts, credentials, and mutable tracker databases out of uploads.
+# Keep Git objects: the package gate resolves HEAD and records source identity;
+# refs without their objects made that real gate fail with "bad object HEAD".
+[transfer]
+exclude_patterns = [
+    "target/",
+    "target_*/",
+    "/.rch-target/",
+    ".rch-target-*/",
+    ".rch_target*/",
+    "/.rch-tmp/",
+    "/.rch-results/",
+    ".rch_cargo_home*/",
+    "*.rlib",
+    "*.rmeta",
+    "node_modules/",
+    ".beads/*.db",
+    ".beads/*.db-*",
+    ".beads/*.db.*",
+    ".beads/*.backup_*",
+    ".beads/*.corrupt_*",
+    ".beads/*.orphan_*",
+    ".beads/recovery*/",
+    "/corpus/",
+    "/scripts/videos_ref/",
+    "/fuzz/artifacts/",
+    ".env",
+    ".env.*",
+    "*.pem",
+    "*.key",
+    "credentials.json",
+    "secrets.json",
+    "secrets.yaml",
+]

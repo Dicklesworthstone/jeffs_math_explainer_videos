@@ -1,0 +1,16 @@
+# explainer timeline v1
+chapter	06_one_derivative
+fps	60
+frames	10030
+line	06_1	36	0	/data/projects/jmev-ts2-render-worker-20261107/jobs/ts2-production19-delivery119/narration/06_1.wav
+line	06_2	1296	0	/data/projects/jmev-ts2-render-worker-20261107/jobs/ts2-production19-delivery119/narration/06_2.wav
+line	06_3	2216	0	/data/projects/jmev-ts2-render-worker-20261107/jobs/ts2-production19-delivery119/narration/06_3.wav
+line	06_4	3582	0	/data/projects/jmev-ts2-render-worker-20261107/jobs/ts2-production19-delivery119/narration/06_4.wav
+line	06_5	4526	0	/data/projects/jmev-ts2-render-worker-20261107/jobs/ts2-production19-delivery119/narration/06_5.wav
+line	06_6	5815	0	/data/projects/jmev-ts2-render-worker-20261107/jobs/ts2-production19-delivery119/narration/06_6.wav
+line	06_7	6653	0	/data/projects/jmev-ts2-render-worker-20261107/jobs/ts2-production19-delivery119/narration/06_7.wav
+line	06_8	7731	0	/data/projects/jmev-ts2-render-worker-20261107/jobs/ts2-production19-delivery119/narration/06_8.wav
+line	06_9	8778	0	/data/projects/jmev-ts2-render-worker-20261107/jobs/ts2-production19-delivery119/narration/06_9.wav
+mark	predict	8463
+breath	9880	2
+listen	8463	5	06_one_derivative:06_8

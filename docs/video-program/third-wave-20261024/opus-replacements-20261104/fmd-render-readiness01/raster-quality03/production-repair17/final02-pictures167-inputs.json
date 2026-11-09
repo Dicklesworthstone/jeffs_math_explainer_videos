@@ -1,0 +1,44 @@
+{
+  "files": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final02-terminal167/02_turning_numbers.cues.tsv",
+      "sha256": "97102b8f71bd574d3ed6d96698edc3efeadc5c4fb0b1bdbef14c623386e299fc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final02-terminal167/02_turning_numbers.timeline.tsv",
+      "sha256": "06b60e54827aa8ae7f947a2a55ec7f172493e0602d9ad42cd2640985ba485978"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final02-terminal167/02_turning_numbers.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final02-terminal167/02_turning_numbers.cuelog.tsv",
+      "sha256": "254c50a31e867368e16691f9853ba77973061107882686024bbdd189eb3b7ddf"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final02-terminal167/copy-evidence.json",
+      "sha256": "819f521882f5f7a893ba7b002c175e1e44ed56973258ef8eda18dc14ceba3166"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final02-terminal167/resource-receipt.json",
+      "sha256": "fc60ac86e58581a9aec368659436f625ccefdd3080e63d7ae22fb59566898f5d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final02-terminal167/render-summary.json",
+      "sha256": "df3de467042cbb1c638f1413fd5584e76c097707c8516dc67f9854c5addb57ed"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final02-terminal167/02_turning_numbers.mp4",
+      "sha256": "bf0891a409f589bd4fc125c038e03dd027ec334436e25cdc129463c659984f07"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-chapter-pictures142.py",
+      "sha256": "a0430c030b48e9defdbaa50b22494cb7f96a763ce9ec1419233dff752edd8dc5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/guard_owner80g_target20g.py",
+      "sha256": "4f34e0d1e9a8f9d164860828f87a734e99b697d2d3048c7b65508e5d84b8b4ad"
+    }
+  ]
+}

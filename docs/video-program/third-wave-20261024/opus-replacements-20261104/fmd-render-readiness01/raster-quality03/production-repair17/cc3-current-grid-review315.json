@@ -1,0 +1,242 @@
+{
+ "review": "cc3-current-grid-review315",
+ "reviewer": "cc3",
+ "time": "2026-11-08T18:34:09+00:00",
+ "task": "315: actually view every coverage-grid305b sheet for 01_the_bump (11), 04_reading_color (12), 05_gallery (17), 07_one_point (12) and 10_rigidity (11), the 488 grid pictures that coverage-grid-review305.json assigns to cc3.",
+ "scope": "Stills only. Each sheet (8 tiles of 480x270 from 960x540 pictures) was opened with the Read tool and looked at as an image, and two pictures were opened at 960x540. No 4K frame, no listening, no continuous motion, no fine sync, no final AV and no picture acceptance of a master is claimed. No render, source, TODO or Beads edit. cc3-preview-results308.md is unchanged.",
+ "how_viewed": "01, 04 and 05 sheets 1-9 were viewed before a context summary in this session, and their observations below come from notes made at the time. 05 sheets 10-17, all of 07 and all of 10 were viewed after it. 04 sheets 7, 8 and 12 were viewed again after it to confirm the exact frames of D1 and D2. Sheet hashes identify what was viewed; no viewing is inferred from a hash.",
+ "totals": {
+  "chapters": 5,
+  "sheets_viewed": 63,
+  "pictures_seen_on_sheets": 488,
+  "pictures_opened_individually": 2
+ },
+ "binding": {
+  "01_the_bump": {
+   "manifest": "coverage-grid305b/01_the_bump/sampling.json",
+   "manifest_sha256": "54071925d3b867add04ac26ed93da0e63603fbb3d40ffef4ca44ef8554a27ab8",
+   "movie": "preview274-review305/preview/01_the_bump.mp4",
+   "movie_sha256": "1f6834a6b6fb5ed481f66c0a8eded204ede670501eae5d81a277814206353d19",
+   "manifest_movie_equals_preview274_movie": true,
+   "frames_equal_cc3_308_tier_b_rule": true,
+   "pictures": 88,
+   "sheets": 11
+  },
+  "04_reading_color": {
+   "manifest": "coverage-grid305b/04_reading_color/sampling.json",
+   "manifest_sha256": "073e69f845e69817e720fa14584403a672236494451c3537c5b42281e4c8fd75",
+   "movie": "preview274-review305/preview/04_reading_color.mp4",
+   "movie_sha256": "8836b7e6d87b170d9cb7327fd51fd3e93fb7b5bfd2b2a89605d7cc1ed2d7e890",
+   "manifest_movie_equals_preview274_movie": true,
+   "frames_equal_cc3_308_tier_b_rule": true,
+   "pictures": 94,
+   "sheets": 12
+  },
+  "05_gallery": {
+   "manifest": "coverage-grid305b/05_gallery/sampling.json",
+   "manifest_sha256": "f67f171bd2d126c92ed98b1c3c99c759cd4df8cee0dd70bb5ac8c853d05c85f1",
+   "movie": "preview274-review305/preview/05_gallery.mp4",
+   "movie_sha256": "f5123300084eba264276377f36518d263324bb9e28dd5df0f77ecf5f20cf5e48",
+   "manifest_movie_equals_preview274_movie": true,
+   "frames_equal_cc3_308_tier_b_rule": true,
+   "pictures": 129,
+   "sheets": 17
+  },
+  "07_one_point": {
+   "manifest": "coverage-grid305b/07_one_point/sampling.json",
+   "manifest_sha256": "fbc372dca14d06048eacea1be913646a9e0041ff4cf0453cbc26598a25fb7916",
+   "movie": "preview274-review305/preview/07_one_point.mp4",
+   "movie_sha256": "2517772cb632db4eafe5be1ed266e6e8aa596778d7f3742ecdab8fa5d204b7b0",
+   "manifest_movie_equals_preview274_movie": true,
+   "frames_equal_cc3_308_tier_b_rule": true,
+   "pictures": 92,
+   "sheets": 12
+  },
+  "10_rigidity": {
+   "manifest": "coverage-grid305b/10_rigidity/sampling.json",
+   "manifest_sha256": "04b35730a9171aae67d2a5c2f064c5ac32ca9898dd6e0efd0ca8670af8483c82",
+   "movie": "preview274-review305/preview/10_rigidity.mp4",
+   "movie_sha256": "78eb267faa780b2a4d38804deede56088852fed606ac544b7d05f02300672562",
+   "manifest_movie_equals_preview274_movie": true,
+   "frames_equal_cc3_308_tier_b_rule": true,
+   "pictures": 85,
+   "sheets": 11
+  }
+ },
+ "concrete_defects": [
+  {
+   "id": "D1",
+   "severity": "Low",
+   "status": "known, persists in preview274 pixels",
+   "chapter": "04_reading_color",
+   "sheets": [
+    "sheet-0007.jpg",
+    "sheet-0008.jpg"
+   ],
+   "frames": [
+    3900,
+    3960,
+    4020,
+    4080,
+    4140,
+    4200,
+    4260,
+    4320
+   ],
+   "what": "The opaque \"precisely:\" lower-third card covers the foot of the f(z) = z^2 plate (about the bottom 23 px of a 270 px tile, about 180 px at 4K). 4500 and 4560 (1/z) are clear.",
+   "reference": "cc2-final04-picture-review207.md L1 (65.0-72.2 s, \"may well be intended\")",
+   "note": "10_rigidity repaired the analogous \"precisely\" card over the sin(1/z) plate foot (cc1 review241 L1); 04 still shows the overlap. Repair or acceptance is root's call."
+  },
+  {
+   "id": "D2",
+   "severity": "Low",
+   "status": "known, persists in preview274 pixels",
+   "chapter": "04_reading_color",
+   "sheets": [
+    "sheet-0012.jpg"
+   ],
+   "frames": [
+    6420,
+    6480,
+    6540,
+    6600,
+    6660,
+    6720
+   ],
+   "what": "The translucent \"names to search: domain colouring - enhanced phase portrait\" card overlaps the foot of the 1/(1+z^2) plate. The pole at -i and the gold circle stay clear of it.",
+   "reference": "cc2-final04-picture-review207.md L2 (107.0-112.0 s)"
+  },
+  {
+   "id": "D3",
+   "severity": "Low",
+   "status": "known, persists in preview274 pixels",
+   "chapter": "05_gallery",
+   "sheets": [
+    "sheet-0016.jpg",
+    "sheet-0017.jpg"
+   ],
+   "frames": [
+    8940,
+    9000,
+    9060,
+    9120
+   ],
+   "what": "In the six-panel mosaic, the sin z panel's zero marks at +-2pi touch the panel's left and right borders. Measured in picture frame-0129.jpg (frame 9120, 960 px wide): the panel spans columns 36-317 and the white cores of the two marks span 37-45 and 307-315, so their dark rims reach or cross the border by a pixel or two (a few px at 4K).",
+   "source": "gallery.rs:196 (sin panel x range -6.6..6.6)",
+   "reference": "cc0-final05-picture-review240.md N3"
+  },
+  {
+   "id": "D4",
+   "severity": "Low (pacing, root's judgment)",
+   "status": "known, persists in preview274 pixels",
+   "chapter": "07_one_point",
+   "sheets": [
+    "sheet-0010.jpg"
+   ],
+   "frames": [
+    5340
+   ],
+   "what": "Frame 5340 (89.00 s) is empty, inside the opening of 07_6 (line start 5210). The 274 samples 5240, 5270 and 5330 are empty too (chroma 2.0). U is up by 5400.",
+   "source": "one_point.rs:671-672 fades the 07_5 picture out over 0.5 s, then waits for sentence 1 (\"The strong results ahead need more.\") before U fades in at :696. Authored, not a render fault.",
+   "reference": "cc3-final07-picture-review229.md L1 (5238-5379 in final07). Speech onset was not measured."
+  }
+ ],
+ "new_observations": [
+  {
+   "id": "O1",
+   "severity": "Observation, no overlap",
+   "chapter": "05_gallery",
+   "frames": [
+    8940,
+    9000,
+    9060,
+    9120
+   ],
+   "what": "The mosaic's bottom-row names (sin z, Gamma(z), zeta(s)) sit in a 0.30-unit gutter between the rows. In frame 9120 at 960 px, sin z column: top-row panel ends at row 252, name glyphs occupy rows 259-267, bottom panel starts at row 273 (about 6 and 5 px; about 24 and 20 px at 4K). The top-row names have about 14 px (about 56 px at 4K) to their panels. Readable, not clipped, not overlapping.",
+   "source": "gallery.rs:81-82 PANEL_NAME_Y = [3.15, 0.1] (\"in the gap over the bottom row\"); mosaic() :187-199",
+   "action": "none required; root may widen the gutter if it wants more air"
+  }
+ ],
+ "known_observations_seen_again": [
+  {
+   "chapter": "10_rigidity",
+   "frames": [
+    7140
+   ],
+   "what": "\"|sin z| =   1.68\" has a wide gap between the label and the live number.",
+   "reference": "cc1-final10-picture-review241.md O5"
+  }
+ ],
+ "cleared_suspects": [
+  {
+   "chapter": "10_rigidity",
+   "frames": [
+    660
+   ],
+   "picture": "frame-0009.jpg",
+   "what": "On the sheet, the yellow disk chain looked as if it might cross U's edge. At 960x540 every disk sits inside U."
+  },
+  {
+   "chapter": "10_rigidity",
+   "frames": [
+    3900,
+    3960,
+    4020,
+    4080,
+    4140,
+    4200,
+    4260,
+    4320,
+    4380,
+    4440,
+    4620,
+    4680,
+    4740,
+    4980,
+    5040,
+    5100,
+    5160,
+    5220
+   ],
+   "what": "No lower-third card covers the sin(1/z) plate foot in these grid frames, consistent with the review241 L1 repair. 5280-6360 are not grid frames: preview274 sampled them."
+  },
+  {
+   "chapter": "07_one_point",
+   "frames": [
+    5580,
+    5640,
+    5700,
+    5760,
+    5820,
+    5880,
+    5940,
+    6000,
+    6060,
+    6120,
+    6180,
+    6240,
+    6300,
+    6360,
+    6420,
+    6480
+   ],
+   "what": "The red dot beside \"|z|^2: one point, no disk\" is the legend marker `lone` (one_point.rs:738-740), not a missing point in U."
+  }
+ ],
+ "per_chapter": {
+  "01_the_bump": "11 sheets, 88 pictures. No concrete defect. The recipe value 25.2 at x = 1.1 (degree 40) and the bump value 0.452 are right; (1 + 1.21^21)/2.21 = 25.23 and 1/2.21 = 0.4525. The \"what stops the recipe at x = 1?\" card has its countdown ring at 3600-3720. The \"coming up\" column is up from 93 s. Static holds at 12-17 s and 93-104 s. The pole marks at +-i are drawn in the plane panel's own unit; noted, not a defect. Transient: the -i label is briefly under the growing circle at 4620.",
+  "04_reading_color": "12 sheets, 94 pictures. Concrete defects: D1 and D2 (known Lows) only. The colour readings are right: z^2 cycles twice (+2.0), 1/z gives -1, and 1/(1+z^2) has poles at +-i, each -1 turn. The gold segment is shown. The question card \"where are the bump's poles? how many turns at each?\" sits over an empty plane at 83-96 s, an intended prediction hold.",
+  "05_gallery": "17 sheets, 129 pictures. Concrete defect: D3 (known Low); observation O1. Values checked: z^3 - 1 has three zeros and \"turns: 3 = zeros inside\". (z-1)/(z+1)^2 has a simple zero at 1, a pole of order 2 and turns -2. e^z has no zeros or poles; 2pi = 6.28. sin(i) = 1.18i and sin(3i) = 10.0i. tan(0.4 +- 12i) = +-1.0000i. Gamma(4) = 6, Gamma(5) = 24, poles appear at 0 to -4, \"no zeros anywhere\". zeta: the series converges for Re s > 1 (left side dimmed), a single pole at 1, trivial zeros at -2, -4, -6. The strip zeros 1/2 + 14.13i, 21.02i, 25.01i and 30.42i match 14.1347, 21.0220, 25.0109 and 30.4249. \"Riemann hypothesis: open\" and the \"precisely\" card (four zeros by Newton's method) are clear of the strip. The strip is faint at 7320, inside the C10 window that root already viewed.",
+  "07_one_point": "12 sheets, 92 pictures. Concrete defect: D4 (known pacing Low). z^2 doubles the 90 deg angle at 0 to 180 deg, and a cross away from 0 keeps 90 deg. The ratio |h|^2/h = conj(h) goes to 0 along the right, up and spiral approaches; a real step gives a positive ratio and an upward step a downward one, as conj requires. At 1, a step right gives 2 and a step up gives 0 (f(1+it) - f(1) = t^2, so the ratio is -it). In the |z|^2 x jagged g panel the inside radius shrinks 0.55 -> 0.06 and the ratio scatter stays inside its circle (checked only at sheet resolution). U, its three disks and the holomorphic definition card are clear. No lower card overlaps a plate.",
+  "10_rigidity": "11 sheets, 85 pictures. No new concrete defect. The disk chain stays in U (cleared at 960x540). sin^2 + cos^2 = 1 holds on the real line and so on the whole plane: sin^2(3i) is about -100.36 and cos^2(3i) about 101.36 (exactly -100.357 and 101.357), with sum 1.000000. e^(-1/x) has every derivative 0 at 0, recipe 0. The zeros of sin(1/z) are at 0.318, 0.159, 0.106 -> 0, with \"0 is not in the region\". For sin z, Liouville is stated right; |sin z| = 1.68 at about 1.3i (sinh 1.29 = 1.68) and sin(3i) is about 10.0i. The \"names to search: Liouville's theorem\" card clears the plate bottom."
+ },
+ "limitations": [
+  "Tiles were 480x270 views of 960x540 pictures. Small grey annotation text was readable at that size but not judged for 4K legibility or contrast.",
+  "One-second grid stills between preview274 samples. Brief contacts shorter than the sampling gap, motion paths and fade timing are not covered.",
+  "The grid manifests carry no per-picture hashes. Pictures are bound by manifest order and frame list; the sheet hashes here only identify the sheets viewed.",
+  "No listening and no WAV onset measurement, so D4 is not converted into a time over speech."
+ ],
+ "frozen": {
+  "cc3-preview-results308.md": "4b73ecfd652005fdbe0afe56c189f377b295c16f6baf72622d0600b9f5fc0027"
+ }
+}

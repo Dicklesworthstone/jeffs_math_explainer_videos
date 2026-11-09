@@ -1,0 +1,20 @@
+{
+  "receipt_at_review": "2026-11-07T18:24:17.917676+00:00",
+  "transcripts_read": [
+    1,
+    3,
+    6,
+    9,
+    10
+  ],
+  "observations": {
+    "1": "Full ending outline looks unchanged recovered. produce/produced mismatch remains recognition uncertainty.",
+    "3": "Full Where will the marker land recovered.",
+    "6": "Compare and What do you predict recovered.",
+    "9": "Full results back without changing how combination works recovered.",
+    "10": "is an example recovered; four-clock rendered foreclock."
+  },
+  "interpretation": "Same model on sample-exact short excerpts recovers all four missing endings from encoded master. Evidence favors context/windowing transcription failure; not independent recognition or hearing proof.",
+  "listening_accepted": false,
+  "independent_av_accepted": false
+}

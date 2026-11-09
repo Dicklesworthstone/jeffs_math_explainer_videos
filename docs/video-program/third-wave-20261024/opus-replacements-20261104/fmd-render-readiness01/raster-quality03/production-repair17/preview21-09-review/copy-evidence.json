@@ -1,0 +1,38 @@
+{
+  "files": [
+    {
+      "name": "09_boundary.mp4",
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-preview21/preview/09_boundary.mp4",
+      "sha256": "b417a99a6f6ab4a49718c3f3875a268fbbf377a5fe58acee7a91a2da0d5f0963",
+      "bytes": 11463876
+    },
+    {
+      "name": "09_boundary.timeline.tsv",
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-preview21/preview/09_boundary.timeline.tsv",
+      "sha256": "ae7a13f413f431811f68c0141c14031195d64d1ba5b821b69f661bf75f5565e4",
+      "bytes": 1165
+    },
+    {
+      "name": "09_boundary.cues.tsv",
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-preview21/preview/09_boundary.cues.tsv",
+      "sha256": "eed5a50ad5797fa258ee3fcf9319e29946f403a86b3909090e73a3a15dc74249",
+      "bytes": 177
+    },
+    {
+      "name": "09_boundary.cuelog.tsv",
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-preview21/preview/09_boundary.cuelog.tsv",
+      "sha256": "cb69ba38311e72bae2f3b9566c0f84689183c18192fb638626d3d79ae966be61",
+      "bytes": 2278
+    },
+    {
+      "name": "09_boundary.layout.tsv",
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-preview21/preview/09_boundary.layout.tsv",
+      "sha256": "3a76aa106c5b5e80ef5b2e6ae785eb6b1d8d4093e5df801c49417200c9803ae7",
+      "bytes": 690
+    }
+  ],
+  "completed_native_line": [
+    "09_boundary    16504 frames  5148.3s     3.2 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/csd-production-preview21/preview/09_boundary.mp4"
+  ],
+  "overall_job_complete": false
+}

@@ -1,0 +1,3 @@
+{
+  "observation": "Initial full preview-cuelog versus timeline-cuelog assertion failed at01: preview has7 rows plus header, timeline6 plus header. Extra preview row is scored stem, not narration. Failed comparison is preserved; do not claim exact full preview/timeline cuelog identity."
+}

@@ -1,0 +1,128 @@
+{
+ "X1": {
+  "exact rows (control)": {
+   "463": {
+    "rows": 8,
+    "passed": 8,
+    "failures": []
+   },
+   "472": {
+    "rows": 8,
+    "passed": 8,
+    "failures": []
+   }
+  },
+  "shared row": {
+   "463": {
+    "rows": 8,
+    "passed": 8,
+    "failures": []
+   },
+   "472": {
+    "rows": 8,
+    "passed": 7,
+    "failures": [
+     "g"
+    ]
+   }
+  },
+  "system row": {
+   "463": {
+    "rows": 8,
+    "passed": 8,
+    "failures": []
+   },
+   "472": {
+    "rows": 8,
+    "passed": 7,
+    "failures": [
+     "g"
+    ]
+   }
+  },
+  "Q permit copy": {
+   "463": {
+    "rows": 8,
+    "passed": 8,
+    "failures": []
+   },
+   "472": {
+    "rows": 8,
+    "passed": 7,
+    "failures": [
+     "g"
+    ]
+   }
+  },
+  "helper": {
+   "463": {
+    "rows": 8,
+    "passed": 8,
+    "failures": []
+   },
+   "472": {
+    "rows": 8,
+    "passed": 7,
+    "failures": [
+     "g"
+    ]
+   }
+  },
+  "guard": {
+   "463": {
+    "rows": 8,
+    "passed": 8,
+    "failures": []
+   },
+   "472": {
+    "rows": 8,
+    "passed": 7,
+    "failures": [
+     "g"
+    ]
+   }
+  },
+  "manifest": {
+   "463": {
+    "rows": 8,
+    "passed": 8,
+    "failures": []
+   },
+   "472": {
+    "rows": 8,
+    "passed": 7,
+    "failures": [
+     "g"
+    ]
+   }
+  }
+ },
+ "X2": {
+  "check unchanged (control) / 463": {
+   "code": 0,
+   "passed": 8,
+   "failures": [],
+   "stop": null
+  },
+  "check unchanged (control) / 472": {
+   "code": 0,
+   "passed": 8,
+   "failures": [],
+   "stop": null
+  },
+  "check reports helper_sha256 0000... (forged) / 463": {
+   "code": 0,
+   "passed": 8,
+   "failures": [],
+   "stop": null
+  },
+  "check reports helper_sha256 0000... (forged) / 472": {
+   "code": 3,
+   "passed": 7,
+   "failures": [
+    "c"
+   ],
+   "stop": null
+  }
+ }
+}

@@ -1,0 +1,57 @@
+diff --git a/docs/CONTROL_INTERACTION.md b/docs/CONTROL_INTERACTION.md
+index b58877536b8e665a335fbae151a422e4d713f93d..3fa082943b9bf523984639140bb8b96ea52f5270 100644
+--- a/docs/CONTROL_INTERACTION.md
++++ b/docs/CONTROL_INTERACTION.md
+@@ -24,6 +24,52 @@ scrolling. Registrations use the public misspelled `*_listner` APIs retained
+ from the Reference, including authored handler/registrar overrides. A failed
+ later registration attempts to remove only the registrations it just added.
+ 
++## Authoring the control family
++
++`LinearNumberSlider` owns a public `RoundedRectangle` bar, `Circle` handle and
++invisible `Line` axis. `EnableDisableButton` owns a `Rectangle`; `Checkbox`
++owns a `Rectangle` and a `VGroup` of two `Line` marks. These are real public
++objects, not anonymous proxies cast to a different class. Their constructors
++and methods use the existing native geometry and record machinery.
++
++Named children exist before the cooperative `ControlMobject` initialization
++hooks run. A subclass can inspect or decorate them in `init_data`,
++`init_points`, `init_uniforms` or `init_colors`, including with a custom root
++record schema. Checkbox construction calls the public `get_checkmark` or
++`get_cross` factory first and retains the actual returned object. Factory and
++initialization exceptions propagate rather than falling back to stock shapes.
++
++```python
++from manimlib import Checkbox, BLUE, YELLOW
++
++class HighlightedCheckbox(Checkbox):
++    def init_colors(self):
++        super().init_colors()
++        self.box.set_stroke(YELLOW, width=2)
++
++checkbox = HighlightedCheckbox(
++    rect_kwargs={"width": 0.8, "height": 0.5, "fill_opacity": 0},
++    checkmark_kwargs={"stroke_color": BLUE, "stroke_width": 4},
++)
++checkbox.set_value(False)
++```
++
++Primitive option dictionaries accept the corresponding public shape's
++constructor/style options. A standalone control's dictionary is its complete
++primitive recipe; the color-bank adapter merges its partial overrides with
++the public slider defaults so compact channel geometry is retained. Scalar
++controls keep the existing midpoint-at-construction slider behavior and
++white-at-construction default toggle box. A later `set_value` applies the live
++state style or position. Finite, ordered ranges wholly outside the default
++slider interval are supported; invalid ranges, steps and degenerate axes
++refuse before tracker initialization.
++
++Stock scalar controls use a serializable dynamic-marker updater. Copies,
++deep copies and pickle round trips keep the typed child family and native
++values. This does not make arbitrary authored callbacks pickleable. Checkbox
++replacement marks fit the current box and inherit its fixed/unfixed camera
++status, so a toggle cannot detach the mark from its box when the camera moves.
++
+ ## Scene input semantics
+ 
+ Scene mouse callbacks consume world-space coordinates. Each event's point is

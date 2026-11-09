@@ -1,0 +1,42 @@
+name: Positional anchor contract
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "crates/fmn-mobject/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "rust-toolchain.toml"
+      - ".github/workflows/position-contract.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  positional-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: "true"
+      CARGO_TARGET_DIR: target/position-contract
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Install repository-pinned Rust toolchain
+        run: rustup show active-toolchain
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/position-contract
+          key: position-contract-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Empty-anchor regression tests
+        run: cargo test --locked -p fmn-mobject --test empty_position
+      - name: Complete mobject regression suite
+        run: cargo test --locked -p fmn-mobject
+      - name: Mobject lint gate
+        run: cargo clippy --locked -p fmn-mobject --all-targets -- -D warnings

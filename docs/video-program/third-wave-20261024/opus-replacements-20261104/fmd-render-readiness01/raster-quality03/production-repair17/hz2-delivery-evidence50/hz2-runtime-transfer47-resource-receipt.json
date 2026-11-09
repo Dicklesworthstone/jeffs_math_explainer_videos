@@ -1,0 +1,98 @@
+{
+  "started": "2026-11-07T20:29:42.558731+00:00",
+  "phase": "native",
+  "command": [
+    "python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-runtime-receiver47.py"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-07T20:29:42.596601+00:00",
+      "free_bytes": 46168195072,
+      "work_bytes": 57344,
+      "target_bytes": 942080
+    },
+    {
+      "utc": "2026-11-07T20:29:52.598801+00:00",
+      "free_bytes": 45937643520,
+      "work_bytes": 57344,
+      "target_bytes": 156372992
+    },
+    {
+      "utc": "2026-11-07T20:30:02.606573+00:00",
+      "free_bytes": 45726969856,
+      "work_bytes": 57344,
+      "target_bytes": 305139712
+    },
+    {
+      "utc": "2026-11-07T20:30:12.616020+00:00",
+      "free_bytes": 45507809280,
+      "work_bytes": 57344,
+      "target_bytes": 465473536
+    },
+    {
+      "utc": "2026-11-07T20:30:22.623377+00:00",
+      "free_bytes": 45341958144,
+      "work_bytes": 57344,
+      "target_bytes": 622542848
+    },
+    {
+      "utc": "2026-11-07T20:30:32.636217+00:00",
+      "free_bytes": 45123670016,
+      "work_bytes": 57344,
+      "target_bytes": 785657856
+    },
+    {
+      "utc": "2026-11-07T20:30:42.667107+00:00",
+      "free_bytes": 44863557632,
+      "work_bytes": 57344,
+      "target_bytes": 938618880
+    },
+    {
+      "utc": "2026-11-07T20:30:52.684088+00:00",
+      "free_bytes": 44656082944,
+      "work_bytes": 57344,
+      "target_bytes": 1099849728
+    },
+    {
+      "utc": "2026-11-07T20:31:02.701813+00:00",
+      "free_bytes": 44517355520,
+      "work_bytes": 57344,
+      "target_bytes": 1238454272
+    },
+    {
+      "utc": "2026-11-07T20:31:11.164571+00:00",
+      "free_bytes": 44372508672,
+      "work_bytes": 421888,
+      "target_bytes": 1375182848
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":46168199168,\"free_excludes_purgeable\":true,\"free_pct\":7.1595437159258895,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-hz2-render-worker-20261107\",\"platform\":{\"linux\":{\"device_id\":2049,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":644848345088,\"unprotected\":null,\"volume_available_bytes\":46168199168,\"volume_role\":null,\"volume_total_bytes\":644848345088}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-07T20:29:42.585317+00:00",
+    "free_bytes": 46168199168,
+    "work_bytes": 53248,
+    "target_bytes": 942080
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "6980431d68e541f79ffa2d034124e0fea8bd93a99ca426f262c29c19fdae86a2",
+  "pid": 611123,
+  "exit": 0,
+  "final_inputs_sha256": "6980431d68e541f79ffa2d034124e0fea8bd93a99ca426f262c29c19fdae86a2",
+  "finished": "2026-11-07T20:31:11.206735+00:00"
+}

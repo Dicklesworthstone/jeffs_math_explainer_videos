@@ -1,0 +1,221 @@
+name: Finalize RNG Authority
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/finalize-rng-authority.yml"
+      - "Cargo.toml"
+      - "SUITE.lock"
+      - "crates/fmn-core/Cargo.toml"
+      - "crates/fmn-core/src/rng.rs"
+      - "crates/fmn-core/tests/rng_parity.rs"
+      - "crates/fmn-conformance/tests/franken_numpy_pin.rs"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: finalize-rng-authority
+  cancel-in-progress: true
+
+jobs:
+  finalize:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Capture exact source identity
+        shell: bash
+        run: echo "START_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Install the governed toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          toolchain="$(awk -F '\t' '$1 == "rustc" { print $2 }' SUITE.lock)"
+          [[ "$toolchain" == "nightly-2026-08-31" ]] || {
+            echo "unexpected governed toolchain: $toolchain" >&2
+            exit 2
+          }
+          grep -Fq "channel = \"$toolchain\"" rust-toolchain.toml
+          rustup toolchain install "$toolchain" \
+            --profile minimal \
+            --component clippy,rustfmt,rust-src \
+            --target wasm32-unknown-unknown
+          rustup override set "$toolchain"
+          rustc -vV
+          cargo -vV
+
+      - name: Admit only fnp-random-core
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path("SUITE_ALLOWLIST.tsv")
+          lines = path.read_text(encoding="utf-8").splitlines(keepends=True)
+          row = (
+              "fnp-random-core\t0.2.0\tgit+franken_numpy@SUITE.lock\t-\t-\t"
+              "MIT+rider\tno\tno\tno\tno\tforbid\truntime\t"
+              "fm-ai1: dependency-free SeedSequence and PCG64DXSM authority; no host entropy, ndarray, rayon, or distribution surface; rev must equal the SUITE.lock franken_numpy pin\t"
+              "fm\tsuite-lock-ritual\n"
+          )
+          matches = [
+              index
+              for index, line in enumerate(lines)
+              if line.startswith("fnp-random-core\t")
+          ]
+          if len(matches) > 1:
+              raise SystemExit(f"duplicate fnp-random-core allowlist rows: {matches}")
+          if matches:
+              lines[matches[0]] = row
+          else:
+              anchors = [
+                  index
+                  for index, line in enumerate(lines)
+                  if line.startswith(
+                      "fnp-ndarray\t0.2.0\tgit+franken_numpy@SUITE.lock\t"
+                  )
+              ]
+              if len(anchors) != 1:
+                  raise SystemExit(
+                      f"expected one fnp-ndarray allowlist anchor, found {len(anchors)}"
+                  )
+              lines.insert(anchors[0] + 1, row)
+          path.write_text("".join(lines), encoding="utf-8")
+          PY
+
+      - name: Resolve the manifest graph before package-specific validation
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Cargo.lock predates the new direct dependency. A package-specific
+          # `cargo update -p fnp-random-core` cannot name a package that is not
+          # in that lock yet. Resolve the current manifests first; their exact
+          # git revs admit the new package and advance every consumed fnp crate
+          # in one transaction.
+          cargo check -p fmn-core --all-targets
+          cargo metadata --locked --format-version 1 > "$RUNNER_TEMP/fmn-metadata.json"
+
+      - name: Prove the resolved RNG closure before compiling dependents
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import tomllib
+          from pathlib import Path
+
+          suite = Path("SUITE.lock").read_text(encoding="utf-8")
+          pin = next(
+              line.split("\t")[1]
+              for line in suite.splitlines()
+              if line.startswith("franken_numpy\t")
+          )
+          lock = tomllib.loads(Path("Cargo.lock").read_text(encoding="utf-8"))
+          packages = {}
+          for package in lock["package"]:
+              packages.setdefault(package["name"], []).append(package)
+
+          consumed = ("fnp-dtype", "fnp-io", "fnp-ndarray", "fnp-random-core")
+          for name in consumed:
+              matches = packages.get(name, [])
+              if len(matches) != 1:
+                  raise SystemExit(
+                      f"Cargo.lock must contain one governed {name}, found {len(matches)}"
+                  )
+              source = matches[0].get("source", "")
+              expected_prefix = (
+                  "git+https://github.com/Dicklesworthstone/franken_numpy"
+                  f"?rev={pin}#"
+              )
+              if not source.startswith(expected_prefix) or not source.endswith(pin):
+                  raise SystemExit(
+                      f"{name} resolved outside SUITE.lock pin {pin}: {source}"
+                  )
+
+          if "fnp-random" in packages:
+              raise SystemExit("the full fnp-random package entered Cargo.lock")
+          random_core = packages["fnp-random-core"][0]
+          if random_core.get("dependencies"):
+              raise SystemExit(
+                  "fnp-random-core is no longer dependency-free: "
+                  + repr(random_core["dependencies"])
+              )
+          core_matches = packages.get("fmn-core", [])
+          if len(core_matches) != 1:
+              raise SystemExit(
+                  f"Cargo.lock must contain one fmn-core, found {len(core_matches)}"
+              )
+          core_dependencies = set(core_matches[0].get("dependencies", []))
+          if "fnp-random-core" not in core_dependencies:
+              raise SystemExit(
+                  "fmn-core did not resolve fnp-random-core: "
+                  + repr(sorted(core_dependencies))
+              )
+          forbidden = {"fnp-random", "rayon", "getrandom 0.4.3"}
+          leaked = sorted(core_dependencies & forbidden)
+          if leaked:
+              raise SystemExit(f"RNG-adjacent dependencies leaked into fmn-core: {leaked}")
+          PY
+
+      - name: Verify native, wasm, parity, and governance contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo check --locked -p fmn-core --all-targets
+          cargo test --locked -p fmn-core
+          cargo check --locked --target wasm32-unknown-unknown -p fmn-core
+          cargo test --locked -p fmn-conformance --test franken_numpy_pin
+          cargo test --locked -p fmn-conformance --test governed_closure \
+            workspace_closure_is_exactly_the_governed_universe -- --exact
+          cargo test --locked -p fmn-conformance --test governed_closure \
+            git_dependencies_ride_their_suite_lock_pins -- --exact
+          cargo test --locked -p fmn-conformance --test governed_closure \
+            suite_lock_parses_and_matches_the_pinned_toolchain -- --exact
+          cargo fmt --all -- --check
+          cargo clippy --locked -p fmn-core --all-targets -- -D warnings
+          cargo clippy --locked -p fmn-conformance --test franken_numpy_pin -- -D warnings
+          git diff --check
+
+      - name: Refuse unrelated generated changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          unexpected="$({ git diff --name-only; git ls-files --others --exclude-standard; } \
+            | sort -u \
+            | grep -Ev '^(Cargo\.lock|SUITE_ALLOWLIST\.tsv)$' || true)"
+          if [[ -n "$unexpected" ]]; then
+            printf 'RNG closure resolution changed unrelated paths:\n%s\n' "$unexpected" >&2
+            exit 3
+          fi
+          git diff --stat -- Cargo.lock SUITE_ALLOWLIST.tsv
+          git diff -- Cargo.lock SUITE_ALLOWLIST.tsv
+
+      - name: Publish generated authorities only for the tested head
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add Cargo.lock SUITE_ALLOWLIST.tsv
+          if git diff --cached --quiet; then
+            echo "RNG closure authorities are already current"
+            exit 0
+          fi
+          git config user.name "FrankenManim RNG Authority"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit \
+            -m "build(core): lock the verified RNG authority" \
+            -m "Resolve the manifests before naming the newly admitted package, then record the exact dependency-free fnp-random-core closure after native, wasm32, NumPy parity, source-identity, governance, formatting, and Clippy checks."
+          git fetch origin main
+          if [[ "$(git rev-parse origin/main)" != "$START_SHA" ]]; then
+            echo "main moved after verification; refusing to publish authorities for an untested tree" >&2
+            exit 4
+          fi
+          git push origin HEAD:main

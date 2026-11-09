@@ -1,0 +1,26 @@
+{
+  "utc": "2026-11-07T19:20:31.977570+00:00",
+  "movie_sha256": "253aa51ec6f8a90c6e4be99731f38cd22551d38c7f7f2b39d2da8135f3b25865",
+  "player": "QuickTime Player via CUA",
+  "muted": true,
+  "playback_intervals_seconds": [
+    [
+      0,
+      19.64
+    ],
+    [
+      73.65,
+      99.84
+    ],
+    [
+      227.49,
+      240.04
+    ]
+  ],
+  "observations": [
+    "Actual native playback opened successfully after setting the Go To path explicitly; prior paste had retained old03 path.",
+    "Sampled evolving frames showed unit-circle samples and product arrows appearing; square subdivision and opposite interior walks; triangle interior-edge cancellation and diameter estimate.",
+    "No persistent defect in observed states."
+  ],
+  "scope": "Sparse screenshots during actual playback, not continuous frame-by-frame motion review or listening; smoothness, fine synchronization and independent AV acceptance not established. No final-render authorization issued by this record."
+}

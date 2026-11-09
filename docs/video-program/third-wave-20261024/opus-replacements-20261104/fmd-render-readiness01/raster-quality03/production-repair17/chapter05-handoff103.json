@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-07T22:51:45.930487+00:00",
+  "chapter": "05_gallery",
+  "prior_controller_stopped": true,
+  "prior_job_absent": true,
+  "controllers": [
+    {
+      "pid": 1968521,
+      "command": "python3 -I -B /data/projects/jmev-render-worker-20261107/qualification01/production19/trj-launch-final05-29.py ",
+      "job": "trj-production19-final-05-gallery29",
+      "job_absent": true,
+      "no_children": true,
+      "stopped": true
+    },
+    {
+      "pid": 2044344,
+      "command": "python3 -I -B /data/projects/jmev-render-worker-20261107/qualification01/production19/trj-launch-final01-30.py ",
+      "job": "trj-production19-final-01-the-bump30",
+      "job_absent": true,
+      "no_children": true,
+      "stopped": true
+    }
+  ],
+  "purpose": "Move reviewed05 to qualifiedTS1; replacement01 controller waits03, same final01job30"
+}

@@ -1,0 +1,28 @@
+Turn a square, then flip it. Now do the same moves in the opposite order. Why does the answer change, and what kind of arithmetic describes these moves?
+
+We build abstract algebra from that experiment, keeping track of the same coloured corners as turns and flips become group operations. Along the way we explore subgroups, centralizers, cyclic groups, permutations, equivalence classes, cosets and quotient groups. Worked examples and pauses let you predict what happens before the answer appears.
+
+The final section connects these ideas to check digits and error-correcting codes. Basic arithmetic is enough to begin; the notation is introduced as we need it.
+
+CHAPTERS
+0:00 Why the order of moves matters
+1:21 The eight symmetries of a square
+3:10 Calculating with turns and flips
+7:35 Clock arithmetic
+8:20 What makes a group
+12:27 Subgroups
+16:13 Which moves commute? Centralizers
+19:25 Cyclic groups and generators
+24:06 Permutations and cycle notation
+35:51 Same structure, different objects
+40:12 Equivalence relations and classes
+41:12 When grouping things goes wrong
+43:59 Left and right cosets
+50:02 Direct products
+55:25 Normal subgroups and quotient groups
+1:02:38 Check digits, error correction and exercises
+
+REFERENCE
+Joseph A. Gallian, Contemporary Abstract Algebra.
+
+Created with FrankenManim. Narration generated with ElevenLabs, Frederick Surrey.

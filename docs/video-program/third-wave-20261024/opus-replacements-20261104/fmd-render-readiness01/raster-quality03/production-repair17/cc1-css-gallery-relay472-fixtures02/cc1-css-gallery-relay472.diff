@@ -1,0 +1,146 @@
+--- Q/cc3-css-gallery-relay463.py
++++ Q/cc1-css-gallery-relay472.py
+@@ -1,5 +1,7 @@
+-"""Root-review relay 463: one guarded build-host import of the gallery final rendered on the SSD (442),
+-with frozen import448. Prepared only; nothing here has run. Relay 394 (371f5d1f) with 448 routing.
++"""Root-review relay 472: one guarded build-host import of the gallery final rendered on the SSD (442),
++with frozen import448. Prepared only; nothing here has run. Relay 463 (d1822a51) with review 466's three
++changes: c binds the exact receive command and helper hash, g the exact path:hash set, and the
++stream-loss stop names verify. 463 is relay 394 (371f5d1f) with 448 routing.
+ 
+ Only 05_gallery goes through this relay and 448. Root runs it on the controller, from Q. It is
+ refused until 01_the_bump, 04_reading_color, 12_residues and 14_continuation each have a completed
+@@ -28,14 +30,17 @@
+      `verify` mode). All eight conditions must hold, each named in the record when it fails:
+        a. 448 check for this attempt exits 0;
+        b. it reports this job, and the job folder exists;
+-       c. the job's guard receipt is a terminal success (448 check and a direct read agree);
++       c. the job's guard receipt is a terminal success (448 check and a direct read agree), it
++          records this exact 448 receive command, and 448 check reports the pinned b6653757;
+        d. import-result.json exists and names this manifest's sha;
+        e. 448 check found every manifest row (foreign under CSS or RECOVERY, shared, system) at its
+           size and hash through its original path, as 350 reads it (problems []);
+        f. the guard inputs file is the one the guard admitted (its sha equals the receipt's
+           inputs_sha256);
+        g. every row of that inputs file re-hashes, as 350's imported() re-hashes it, and the
+-          inputs hold exactly the shared + system + 4 frozen rows that 448 prepare writes;
++          inputs hold exactly the shared + system + 4 frozen rows that 448 prepare writes, path for
++          path at the manifest's and the pins' hashes (the guard's row at the hash prepare read):
++          the set --prepared checks;
+        h. rows350 from 448 check and from import-result.json both equal the expected names.
+      Only then does it print rows350. The master controller must not use gallery's rows350 without
+      a passing validation report for that attempt and manifest sha.
+@@ -44,7 +49,7 @@
+ the receive started leaves that attempt to root's investigation; `verify` then answers whether
+ it imported, without starting anything.
+ 
+-Writes: one new folder here per run, relay463-05-gallery-a<N>-run<K>/ (the first unused K; mkdir
++Writes: one new folder here per run, relay472-05-gallery-a<N>-run<K>/ (the first unused K; mkdir
+ refuses an existing one), holding record.json and the two ends' logs, all opened with 'x'. A run
+ refused before it started anything leaves only its record, and the attempt number stays free. On
+ CSD, only what 448 prepare and the guarded job write. On CSS, nothing.
+@@ -55,7 +60,7 @@
+ import argparse, datetime, hashlib, importlib.util, json, shlex, subprocess, sys, time
+ from pathlib import Path
+ 
+-VERSION = '463'
++VERSION = '472'
+ HERE = Path(__file__).resolve().parent
+ HELPER = 'csd-gallery-import448.py'
+ HELPER_SHA256 = 'b6653757c5c114029a94832a0dd4cb9597c42808614fbb959ef6448a5d994f6e'
+@@ -205,7 +210,9 @@
+ listed = (state(A['inputs']) or {}).get('files') or []
+ changed = [x.get('path') for x in listed if not isinstance(x.get('path'), str) or sha(x['path']) != x.get('sha256')]
+ print(json.dumps(dict(terminal=terminal(r), inputs_sha256=sha(A['inputs']), receipt_inputs_sha256=(r or {}).get('inputs_sha256'),
++                      receipt_command=[str(c) for c in (r or {}).get('command') or []],
+                       rows=len(listed), distinct=len({x.get('path') for x in listed}), changed=changed[:50], changed_count=len(changed),
++                      listed_rows=[[x.get('path'), x.get('sha256')] for x in listed],
+                       result_manifest_sha256=(result or {}).get('manifest_sha256'), result_rows350=(result or {}).get('rows350'))))
+ '''
+ 
+@@ -279,6 +286,24 @@
+                | {str(h.Q/HELPER), str(h.Q/args.manifest), str(h.GUARD), str(h.q_permit(pin))})
+ 
+ 
++def frozen_rows(h, m, pin, args):
++    """448 prepare's rows besides the guard's own, as {path: sha256}: every shared and system row at its manifest hash, and the
++    helper, the manifest and Q's permit copy at their pins. Both --prepared and validate() g compare against it."""
++    want = {x['path']: x['sha256'] for x in m['files'] if x['kind'] in ('shared', 'system')}
++    want.update({str(h.Q/HELPER): HELPER_SHA256, str(h.Q/args.manifest): args.manifest_sha, str(h.q_permit(pin)): pin['permit_sha256']})
++    return want
++
++
++def is_frozen_set(rows, h, m, pin, args):
++    """rows ({path: sha256}) are exactly 448 prepare's set: frozen_rows() plus the guard's row, at the hash prepare read."""
++    return rows.get(str(h.GUARD)) is not None and {k: v for k, v in rows.items() if k != str(h.GUARD)} == frozen_rows(h, m, pin, args)
++
++
++def pinned_receive(h, args):
++    """The exact 448 receive command the guard runs for this attempt (the tail of 448's guard command)."""
++    return [str(c) for c in h.receive_command(h.Q/HELPER, args.chapter, args.attempt, h.Q/args.manifest)]
++
++
+ def validate(h, args, m, pin):
+     """Post-import validation (docstring step 8, a-h). Read-only. Returns a report; report['failures'] empty means imported."""
+     job = h.job_name(args.chapter, args.attempt)
+@@ -287,18 +312,22 @@
+     post = probe(HOST_CSD, POST_PROBE, dict(job=str(h.D/'jobs'/job), inputs=str(h.inputs_path(job))), timeout=CHECK_SECONDS)
+     shown = shown or {}
+     want = expected_inputs(h, m, pin, args)
++    listed = {p: s for p, s in post['listed_rows'] if isinstance(p, str)}
+     conditions = (
+         ('a. %s check exits 0' % HELPER_LABEL, code == 0),
+         ('b. %s check reports %s and the job folder exists' % (HELPER_LABEL, job), shown.get('job') == job and shown.get('job_exists') is True),
+-        ('c. the guard receipt is a terminal success', shown.get('terminal_success') is True and post['terminal'] is True),
++        ('c. the guard receipt is a terminal success of the exact %s receive command, and %s check reports the pinned %s'
++         % (HELPER_LABEL, HELPER_LABEL, HELPER_SHA256[:8]),
++         shown.get('terminal_success') is True and post['terminal'] is True and post['receipt_command'] == pinned_receive(h, args)
++         and shown.get('helper_sha256') == HELPER_SHA256),
+         ('d. import-result.json exists and names manifest %s' % args.manifest_sha[:12],
+          shown.get('import_result') is True and post['result_manifest_sha256'] == args.manifest_sha),
+         ('e. every manifest row is at its size and hash through its original path (%s check problems [])' % HELPER_LABEL,
+          shown.get('problems') == []),
+         ('f. the guard inputs file is the one the guard admitted',
+          post['inputs_sha256'] is not None and post['inputs_sha256'] == post['receipt_inputs_sha256']),
+-        ('g. the guard inputs hold exactly the %d frozen rows and every row re-hashes' % want,
+-         post['rows'] == post['distinct'] == want and post['changed_count'] == 0),
++        ('g. the guard inputs hold exactly the %d frozen rows at their pinned hashes (the --prepared set) and every row re-hashes' % want,
++         post['rows'] == post['distinct'] == want and post['changed_count'] == 0 and is_frozen_set(listed, h, m, pin, args)),
+         ('h. rows350 from %s check and import-result.json equal the expected names' % HELPER_LABEL,
+          shown.get('rows350') == rows350 and post['result_rows350'] == rows350))
+     problems = shown.get('problems')
+@@ -331,12 +360,9 @@
+     if got['job'] or not got['rows']:
+         raise Stop(1, '--prepared: the job exists or the inputs are unreadable: '+job)
+     rows = {x['path']: x['sha256'] for x in got['rows']}
+-    want = {x['path']: x['sha256'] for x in m['files'] if x['kind'] in ('shared', 'system')}
+-    want.update({str(h.Q/HELPER): HELPER_SHA256, str(h.Q/args.manifest): args.manifest_sha, str(h.q_permit(pin)): pin['permit_sha256']})
+-    guard = rows.get(str(h.GUARD))
+-    if guard is None or {k: v for k, v in rows.items() if k != str(h.GUARD)} != want:
++    if not is_frozen_set(rows, h, m, pin, args):
+         raise Stop(1, '--prepared: the existing inputs are not the set %s prepare writes for this manifest' % HELPER_LABEL)
+-    return dict(job=job, inputs=str(h.inputs_path(job)), guard_sha256=guard)
++    return dict(job=job, inputs=str(h.inputs_path(job)), guard_sha256=rows[str(h.GUARD)])
+ 
+ 
+ def wait_lane(h, args, deadline, record):
+@@ -405,7 +431,7 @@
+     logs = {name: (folder/name).open('xb') for name in ('receive.stdout', 'receive.stderr', 'send.stderr')}
+     receiver = spawn(HOST_CSD, shlex.join(guard_command), stdin=subprocess.PIPE, stdout=logs['receive.stdout'], stderr=logs['receive.stderr'])
+     record['steps'].append(dict(step='receive started', utc=utc(), command=guard_command))
+-    receive = [str(c) for c in h.receive_command(h.Q/HELPER, args.chapter, args.attempt, h.Q/args.manifest)]
++    receive = pinned_receive(h, args)
+     deadline = time.monotonic() + ADMISSION_SECONDS
+     while True:
+         try:
+@@ -444,8 +470,8 @@
+         f.close()
+     record['steps'].append(dict(step='stream ended', utc=utc(), send_exit=sender.returncode, receive_exit=receiver.returncode))
+     if 255 in (sender.returncode, receiver.returncode):
+-        raise Stop(2, 'transport failure during the stream (send %d, receive %d); attempt %d is root\'s to investigate; run status when both hosts answer'
+-                   % (sender.returncode, receiver.returncode, args.attempt))
++        raise Stop(2, 'transport failure during the stream (send %d, receive %d); attempt %d is root\'s to investigate; '
++                   'run verify --attempt %d when both hosts answer' % (sender.returncode, receiver.returncode, args.attempt, args.attempt))
+     if (sender.returncode, receiver.returncode) != (0, 0):
+         raise Stop(3, 'the import did not complete (send %d, receive/guard %d; 75 = resource stop); attempt %d is root\'s to investigate'
+                    % (sender.returncode, receiver.returncode, args.attempt))

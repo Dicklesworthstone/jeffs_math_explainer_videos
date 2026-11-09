@@ -1,0 +1,31 @@
+{
+  "utc": "2026-11-08T21:54:12.516253+00:00",
+  "review353_sha256": "50185f20e4cb1f7baf8a53c27aa37962bf6f264d26984c0d0c7f17a407cc341f",
+  "disposition": "F1 addressed operationally for these exact permits only: canonical paths, actual bound hashes, no viewing own digest, no duplicate digest on different paths. Frozen350 preserved. Recheck every further permit. Not audiovisual or release acceptance.",
+  "permits": [
+    {
+      "permit": "01_the_bump-css-permit364.json",
+      "sha256": "299b8fe0db20ca2559ea97845df8a3300c078e92b7d05ab2483f205e43dbff40",
+      "bound_items": 10,
+      "passed": true
+    },
+    {
+      "permit": "04_reading_color-css-permit366.json",
+      "sha256": "110168feb09d299c17a5ee63d4364898edf92b9d1af87d6137a5d3caf2980a8f",
+      "bound_items": 10,
+      "passed": true
+    },
+    {
+      "permit": "07_one_point-csd-permit366.json",
+      "sha256": "d321fb6d13e017336ff335247cb9907ba9f63e971b206818c2970df1e613e598",
+      "bound_items": 10,
+      "passed": true
+    },
+    {
+      "permit": "10_rigidity-csd-permit366.json",
+      "sha256": "917aca2c429bcca449620041257015a977ab57a8530a2868dff0aef77644eede",
+      "bound_items": 10,
+      "passed": true
+    }
+  ]
+}

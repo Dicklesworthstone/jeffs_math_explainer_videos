@@ -1,0 +1,21 @@
+{
+  "time": "2026-11-08T18:06:02.770510+00:00",
+  "cwd": "/data/projects/jmev-stroke-probe-20261106/work/production-repo07",
+  "reason": "Corrected preflight cwd to actual master293 line521; earlier attempt retained.",
+  "ssh_exit": 0,
+  "results": [
+    {
+      "consumer": "master",
+      "exit": 0,
+      "stdout": "{\"chapter_scope\": null, \"consumer\": \"master\", \"directed_caption_segments\": [], \"listening_acceptance\": false, \"plan_mode\": \"external-ui\", \"prediction_holds\": [{\"cue\": \"01_4\", \"end_ms\": 62583, \"next_cue\": \"01_5\"}, {\"cue\": \"02_5\", \"end_ms\": 173433, \"next_cue\": \"02_6\"}, {\"cue\": \"03_3\", \"end_ms\": 236900, \"next_cue\": \"03_4\"}, {\"cue\": \"04_6\", \"end_ms\": 412267, \"next_cue\": \"04_7\"}, {\"cue\": \"06_8\", \"end_ms\": 739383, \"next_cue\": \"06_9\"}, {\"cue\": \"07_3\", \"end_ms\": 809783, \"next_cue\": \"07_4\"}, {\"cue\": \"09_4\", \"end_ms\": 1297300, \"next_cue\": \"09_5\"}, {\"cue\": \"09_8\", \"end_ms\": 1377367, \"next_cue\": \"09_9\"}, {\"cue\": \"10_4\", \"end_ms\": 1472700, \"next_cue\": \"10_5\"}, {\"cue\": \"11_5\", \"end_ms\": 1617617, \"next_cue\": \"11_6\"}, {\"cue\": \"13_5\", \"end_ms\": 1868800, \"next_cue\": \"13_6\"}, {\"cue\": \"14_4\", \"end_ms\": 2053850, \"next_cue\": \"14_5\"}, {\"cue\": \"15_3\", \"end_ms\": 2212467, \"next_cue\": \"15_4\"}], \"promotion\": false, \"selected_cues\": 105, \"topic\": \"complex_analysis_visual\", \"verified_cues\": 105}\n",
+      "stderr": ""
+    },
+    {
+      "consumer": "captions",
+      "exit": 0,
+      "stdout": "{\"chapter_scope\": null, \"consumer\": \"captions\", \"directed_caption_segments\": [], \"listening_acceptance\": false, \"plan_mode\": \"external-ui\", \"prediction_holds\": [], \"promotion\": false, \"selected_cues\": 105, \"topic\": \"complex_analysis_visual\", \"verified_cues\": 105}\n",
+      "stderr": ""
+    }
+  ],
+  "scope": "Python consumer preflight only without score rows or native caption export."
+}

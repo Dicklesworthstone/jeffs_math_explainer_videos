@@ -1,0 +1,21 @@
+"""Export only terminal, unchanged CSS chapter13 and its actual dependencies."""
+from pathlib import Path
+import json,hashlib
+H=Path('/data/projects/jmev-css-render-worker-20261107');Q=H/'qualification01';J=H/'jobs/css-production19-final-13-real-integral96';M=Q/'final13-96-inputs.json'
+def sha(p):
+ with p.open('rb') as f:return hashlib.file_digest(f,'sha256').hexdigest()
+r=json.loads((J/'resource-receipt.json').read_text());assert r.get('finished') and r.get('exit')==0 and r['inputs_sha256']==r['final_inputs_sha256']==sha(M)
+assert not any(r.get(k) for k in ('error','resource_stop','stopped_for_resource_limit'))
+paths={M,J/'resource-receipt.json',J/'render-summary.json',Path(__file__).resolve()}
+for x in json.loads(M.read_text())['files']:
+ p=Path(x['path']);assert sha(p)==x['sha256'];paths.add(p)
+s=json.loads((J/'render-summary.json').read_text());assert s['chapter']=='13_real_integral' and s['frames']==10641
+for x in s['files']:
+ p=Path(x['path']);assert p.is_relative_to(J/'render') and sha(p)==x['sha256'];paths.add(p)
+paths.update(p for p in J.rglob('*') if p.is_file())
+rows=[]
+for p in sorted(paths):
+ assert p.is_absolute() and '..' not in p.parts and str(p).startswith((str(H)+'/', '/data/projects/jmev-stroke-probe-20261106/','/data/projects/jmev-render-worker-20261107/'))
+ rows.append(dict(path=str(p),sha256=sha(p),bytes=p.stat().st_size,mode=p.stat().st_mode & 0o777))
+assert sha(M)==r['inputs_sha256']
+print(json.dumps(dict(source_job=str(J),receipt_sha256=sha(J/'resource-receipt.json'),files=rows,bytes=sum(x['bytes'] for x in rows)),indent=2))

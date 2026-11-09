@@ -1,0 +1,15 @@
+{
+  "files": [
+    {
+      "name": "boundary-label-preview58.py",
+      "sha256": "e7dfac5e8a982ac2f1db6a7574e437799ce64a855af54efa9aa16c2924cbe50f"
+    },
+    {
+      "name": "boundary-label-preview-after-timeline58.py",
+      "sha256": "7fed286f9d349f80c72a27f29c8d1c922904ec703fe7d6b98d779d600a8b4fc0"
+    }
+  ],
+  "remote_hashes_equal": true,
+  "controller_pid": 2636959,
+  "scope": "Controller waiting; no preview or acceptance yet."
+}

@@ -1,0 +1,95 @@
+{
+  "chapter": "09_boundary",
+  "host": "csd",
+  "binary_sha256": "1a82f72c53dba2d5db8a3478bac252e46bf711afd59ec9d425ee6639708611db",
+  "preview_job": "csd-review-repair-preview313",
+  "frames": 16504,
+  "timeline_sha256": "5a91b8f9e2e5b5d6223a49285c06039b1b43bd16c11cecdd163a8e2e545baa9e",
+  "actually_reviewed_pictures": true,
+  "unresolved_defects": [],
+  "reviewer": "root",
+  "observations": "Root341 viewed all313 selected pictures on40 sheets; independent340 confirms repaired guide exit and old crossing anchors clear. Root343 observed playback only at recorded instants. Low caption/card proximity and formula margin disposed345 as readable in preview, mandatory native4K recheck remains. This authorizes technical rendering, not release.",
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-preview313-pictures341.json",
+      "sha256": "7350b30a4bcc595a1fffd31c7670c18c97ef4dac00045f46ec916c225132dca9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-preview313-playback343.json",
+      "sha256": "d9f250ec00007fe0687c7bf2a3155652b30df45956c5dfe53e9922dd0ec67e81"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-preview313-disposition345.json",
+      "sha256": "cf42fd8ebd43d4ae30fc24dee9826fcc630d7d9f50aeba9a2290bee489a4f08e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview313/09_boundary/sampling.json",
+      "sha256": "4e7ab1d8d2e96b61e2dda0ef051964fe4455085fe587183d3d1f12575c82c0a5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview313/09_boundary/zoom-probe.json",
+      "sha256": "e2d05d81ebdbbeabe03db8afd470b7ee22648c9be5fa819de90c1d22977c2e99"
+    }
+  ],
+  "source_binding_evidence": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build313/qualification.json",
+      "sha256": "1e0116f7ea850eab0afb959c6ad9faf3bcd7806ca48408200aad82bdb954afc6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build313/source-copy.json",
+      "sha256": "cb4d402ef6086aebd10dcf18e95df5f5bc69b89a2e613bbbc2cd7420a9d6d5b8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-timeline313/comparison.json",
+      "sha256": "e63cbc5e97bc2037e62153f9f48d37e2ef935a112f0103132f13aa7d081ae033"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind313/rebind-summary.json",
+      "sha256": "359052a7f1d01b5811b1817bccd3164cffa9f97e40cb56a48faf8c54caed6bd3"
+    }
+  ],
+  "independent_reviewer": "cc3 WhiteSwan",
+  "independent_review": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-preview313-pictures340.md",
+      "sha256": "7a0c1f9fd38a62c437b66cf1d356ef3d479008070c9ff9af06a51e1d3b6b9c14"
+    }
+  ],
+  "review_scope": {
+    "basis": "sampled_preview",
+    "purpose": "technical_4k_render",
+    "preview_movie_sha256": "5e50811b77c075ae638c3d539775ccb29134504152a60f5e327ca28940cb3a1c",
+    "sampled_intervals": [
+      [
+        2080,
+        2109
+      ],
+      [
+        2316,
+        2336
+      ]
+    ],
+    "playback_seconds": [
+      27.68726914660832,
+      31.90054923413567,
+      35.51193216630197,
+      39.12331509846828
+    ],
+    "open_reviews": [
+      "final_picture",
+      "motion",
+      "audio",
+      "fine_sync",
+      "captions",
+      "independent_final_av",
+      "publication"
+    ]
+  },
+  "continuous_motion_acceptance": false,
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "final_4k_acceptance": false,
+  "release_acceptance": false,
+  "publication_acceptance": false
+}

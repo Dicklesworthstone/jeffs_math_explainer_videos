@@ -1,0 +1,22 @@
+{
+  "shared_files": 595,
+  "problems": [],
+  "free_bytes": 112376020992,
+  "roots": [
+    {
+      "path": "/data/projects/jmev-render-worker-20261107",
+      "exists": false,
+      "link": null
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107",
+      "exists": false,
+      "link": null
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107",
+      "exists": false,
+      "link": null
+    }
+  ]
+}

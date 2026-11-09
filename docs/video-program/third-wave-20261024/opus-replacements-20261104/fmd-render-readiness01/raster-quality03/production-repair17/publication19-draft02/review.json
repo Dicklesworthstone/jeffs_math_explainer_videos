@@ -1,0 +1,116 @@
+{
+  "utc": "2026-11-07T17:13:39.996555+00:00",
+  "timeline_audit_sha256": "7a843816b3fca94163c0c8f97dd7e9a341ff8a650905188e87766c2981f9d927",
+  "chapters": [
+    {
+      "chapter": "01_the_bump",
+      "start_frame": 0,
+      "frames": 6311,
+      "cues": 6,
+      "timeline_sha256": "d6ddcc1ffb9991be25d2f44d8bf554f2c56695e84acc3733d034961e0826d764"
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "start_frame": 6311,
+      "frames": 5372,
+      "cues": 6,
+      "timeline_sha256": "cf6531fcb050fa1b43c3f8334ac0aa9c8169eac50dc18176ab0225cf99ae4c3f"
+    },
+    {
+      "chapter": "03_two_planes",
+      "start_frame": 11683,
+      "frames": 7249,
+      "cues": 7,
+      "timeline_sha256": "13f8cd117082ec0b82427de1aca576670cb2492476db6bf08e75ef9fd47cae54"
+    },
+    {
+      "chapter": "04_reading_color",
+      "start_frame": 18932,
+      "frames": 6774,
+      "cues": 7,
+      "timeline_sha256": "2bb6d0fcb0cc9a90dd1435fb3a97b34385e1108cff7db7c42ba4a8c9606df280"
+    },
+    {
+      "chapter": "05_gallery",
+      "start_frame": 25706,
+      "frames": 9879,
+      "cues": 9,
+      "timeline_sha256": "be2691b3ed37664dcd66f7fef7778718bff89a18064b22d8fca51919433d525d"
+    },
+    {
+      "chapter": "06_one_derivative",
+      "start_frame": 35585,
+      "frames": 10030,
+      "cues": 9,
+      "timeline_sha256": "dbc82d8481d8f511ae404c5f3eeff517c2540c9b8330ca2cfb5b8d7c83e6412d"
+    },
+    {
+      "chapter": "07_one_point",
+      "start_frame": 45615,
+      "frames": 6491,
+      "cues": 6,
+      "timeline_sha256": "c2e3c183019525c01aca2dc376c61d4eaab72c10f4b23f44ea184c1d44bd3f3c"
+    },
+    {
+      "chapter": "08_loop_sums",
+      "start_frame": 52106,
+      "frames": 14959,
+      "cues": 5,
+      "timeline_sha256": "fed5faea5359e1c149030b42a5b2d37a706618d1d868b6e4048a4767e1de58cc"
+    },
+    {
+      "chapter": "09_boundary",
+      "start_frame": 67065,
+      "frames": 16504,
+      "cues": 9,
+      "timeline_sha256": "ae7a13f413f431811f68c0141c14031195d64d1ba5b821b69f661bf75f5565e4"
+    },
+    {
+      "chapter": "10_rigidity",
+      "start_frame": 83569,
+      "frames": 7442,
+      "cues": 6,
+      "timeline_sha256": "340167657b8420e4056a07e85ea258b16b797d031c98057d4510f19a2be00970"
+    },
+    {
+      "chapter": "11_counting",
+      "start_frame": 91011,
+      "frames": 11932,
+      "cues": 8,
+      "timeline_sha256": "13f593bc19082ddacd7d3adbd5f739110fec02c1ab43958cff748f1154641242"
+    },
+    {
+      "chapter": "12_residues",
+      "start_frame": 102943,
+      "frames": 3943,
+      "cues": 4,
+      "timeline_sha256": "d19560b5c9a1fab46a4250b5b9fc1aa9bb0f3eff1847fa0111a5c8bed8964485"
+    },
+    {
+      "chapter": "13_real_integral",
+      "start_frame": 106886,
+      "frames": 10641,
+      "cues": 11,
+      "timeline_sha256": "208d07a7e8a38ff01cb8ae8061f05eecc30d5fd941682d426329e404a562c072"
+    },
+    {
+      "chapter": "14_continuation",
+      "start_frame": 117527,
+      "frames": 11756,
+      "cues": 8,
+      "timeline_sha256": "e9da7ef1030b88041dd134833282e72442dce42cbc3fcfac8dfa74870d57d30b"
+    },
+    {
+      "chapter": "15_closing",
+      "start_frame": 129283,
+      "frames": 4379,
+      "cues": 4,
+      "timeline_sha256": "ea0338b79a8db9adcb64a9426dd31e4703383ada44ea609aa5c92ca234c828d6"
+    }
+  ],
+  "chapter_times_from_successful_timeline": true,
+  "final_master_times_rechecked": false,
+  "thumbnail_reviewed": false,
+  "publication": false,
+  "scope": "Reviewed description body plus15 actual successful timeline times; final master timing recheck and thumbnail review still required."
+}

@@ -1,0 +1,11 @@
+# fmn-fuzz-manifest v1
+# columns: target	seed	ci_cases	full_cases	max_input_bytes	max_output_bytes	outcome_classes
+canon_deser	14627128644946886662	600	20000	262144	0	accepted,unframed
+codec_jpeg	54287296588939269	400	10000	2097152	16384	accepted,bad-scan,bad-segment,bad-table,corrupt-entropy,not-jpeg,too-large,truncated,unsupported-mode,unsupported-sampling
+codec_png	54287292277194756	400	10000	2097152	16384	accepted,chunk-crc,not-png,truncated
+obj_model	801077788936241159	600	20000	262144	-	accepted,bad-float,bad-index,face-too-small,index-out-of-range,not-utf8
+path_boolean	12682418030903296009	600	20000	259	0	accepted
+svg_document_processor	6619728507515699208	600	20000	262144	-	accepted,doctype-refused,external-ref,malformed,missing-reference,non-finite,not-utf8,too-many-commands,unknown-entity,unsupported-feature
+tex_math	9104026651880062979	200	5000	8192	33554432	accepted,layout-pending,malformed,non-utf8,unmapped-char,unsupported-untiered
+ttf_font_parse	8391444564728086529	600	20000	1048576	-	accepted,bad-magic,missing-table-cmap,missing-table-head,missing-table-hhea,missing-table-hmtx,missing-table-maxp,no-unicode-cmap,truncated
+yaml_config	11104750915171647490	600	20000	65536	-	accepted,non-utf8,over-depth-budget,syntax

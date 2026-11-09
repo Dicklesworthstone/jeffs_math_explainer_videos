@@ -1,0 +1,99 @@
+{
+  "chapter": "01_the_bump",
+  "host": "css",
+  "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+  "preview_job": "csd-review-repair-preview274",
+  "frames": 6311,
+  "timeline_sha256": "6149d6fa5e0e7086f1a61a727b0d9492bf32952815e378ffb82dd6cb973197ef",
+  "actually_reviewed_pictures": true,
+  "unresolved_defects": [],
+  "reviewer": "root",
+  "observations": "Root305 sampled review and root bump transition review cover the preview; independent cc3 grid315 reports no concrete chapter01 defect. Transition pictures were viewed as still sequences, not continuous playback. Technical 4K render only; all final reviews remain open.",
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/sampling.json",
+      "sha256": "35854fb507a7d6b2f01db0ebe0c336bfedcaaf1df1cb72f408cea2eec2b08abc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json",
+      "sha256": "d4547c553a9c6dddabbc5d07448a86f447b0ddc9cac9a70930b2cec63fe9abb2",
+      "views": [
+        "35854fb507a7d6b2f01db0ebe0c336bfedcaaf1df1cb72f408cea2eec2b08abc"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/bump-transition-frames305/manifest.json",
+      "sha256": "e2341ee728c464a4220aada1459a064d29f48efac7c6cc851c64b9c5753f7f9a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/bump-transition-review305.json",
+      "sha256": "bc48a64de5fe9c69e00874fed6ba1326959f4fbb4da07409cfed35a4a0e6e2b3",
+      "views": [
+        "e2341ee728c464a4220aada1459a064d29f48efac7c6cc851c64b9c5753f7f9a"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/coverage-grid305b/01_the_bump/sampling.json",
+      "sha256": "54071925d3b867add04ac26ed93da0e63603fbb3d40ffef4ca44ef8554a27ab8"
+    }
+  ],
+  "source_binding_evidence": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build268/qualification.json",
+      "sha256": "2f3430a82dc1561eecbc1485aa00c18070606c4d8728fc6811b62b1f141dc857"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build268/source-copy.json",
+      "sha256": "81d28272a7a23b63199e79e6aa1086f01f131f0ddd685d4ae859d04b1de1934c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-timeline269/comparison.json",
+      "sha256": "d2bf8e9b9ede33b429e61f8e87e238d1a64a11ebd970d34851e12e11c6e5d0ea"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/rebind-summary.json",
+      "sha256": "fa263d8a6c14c21ef037525fd316e2d64019c0f506e934a4e2d38886b5167da6"
+    }
+  ],
+  "independent_reviewer": "cc3",
+  "independent_review": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json",
+      "sha256": "e9a881ffd9a0a2cd813eecdcb4e94a3824f55c4e51743ec69feae389d943d866",
+      "views": [
+        "54071925d3b867add04ac26ed93da0e63603fbb3d40ffef4ca44ef8554a27ab8"
+      ]
+    }
+  ],
+  "review_scope": {
+    "basis": "sampled_preview",
+    "purpose": "technical_4k_render",
+    "preview_movie_sha256": "1f6834a6b6fb5ed481f66c0a8eded204ede670501eae5d81a277814206353d19",
+    "sampled_intervals": [
+      [
+        5493,
+        5531
+      ],
+      [
+        6273,
+        6310
+      ]
+    ],
+    "playback_seconds": [],
+    "open_reviews": [
+      "final_picture",
+      "motion",
+      "audio",
+      "fine_sync",
+      "captions",
+      "independent_final_av",
+      "publication"
+    ]
+  },
+  "continuous_motion_acceptance": false,
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "final_4k_acceptance": false,
+  "release_acceptance": false,
+  "publication_acceptance": false
+}

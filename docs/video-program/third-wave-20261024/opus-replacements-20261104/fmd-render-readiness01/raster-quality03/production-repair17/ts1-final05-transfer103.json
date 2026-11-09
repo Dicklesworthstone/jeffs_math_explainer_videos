@@ -1,0 +1,46 @@
+[
+  {
+    "path": "/data/projects/jmev-ts1-render-worker-20261107/qualification01/ts1-final-chapter103.py",
+    "sha256": "e64e53f27bbe8929204a2e80830ee7832ee34aabd5e5def3bc3695038ace8e1e"
+  },
+  {
+    "path": "/data/projects/jmev-ts1-render-worker-20261107/qualification01/ts1-launch-final05-103.py",
+    "sha256": "eaa9fddea21576cd50af264fc5b43546a78b8b7ed3639cbf5a01f4b763bff899"
+  },
+  {
+    "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review05-29/05_gallery.mp4",
+    "sha256": "d89b253dd032e31c03ee8314afdca2cce4ad0f3cd7c816bc1d685e52160f3e3d"
+  },
+  {
+    "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review05-29/05_gallery.timeline.tsv",
+    "sha256": "be2691b3ed37664dcd66f7fef7778718bff89a18064b22d8fca51919433d525d"
+  },
+  {
+    "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review05-29/copy-evidence.json",
+    "sha256": "10d689e1dbc2af8c2410fc06c96307e94883e585d253dd29e0b995f81ae53a99"
+  },
+  {
+    "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review05-29/pictures-reviewed26.json",
+    "sha256": "2bb2658e94f0a849d2a8ce937c9056649132546b571b056e71f7be65ab2339ce"
+  },
+  {
+    "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review05-29/playback-samples01.json",
+    "sha256": "e33d648e210d09e6841a5c05b1f2654f0d4dca28b556b0ebc70f00598afede7e"
+  },
+  {
+    "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review05-29/final-render-permit29.json",
+    "sha256": "1e758a930366a09b79a23bafa2ed6396fa739b5d8c19d027e812d45e1e4f8265"
+  },
+  {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-timeline21/timeline-output/05_gallery.timeline.tsv",
+    "sha256": "be2691b3ed37664dcd66f7fef7778718bff89a18064b22d8fca51919433d525d"
+  },
+  {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-timeline21/timeline-output/05_gallery.cues.tsv",
+    "sha256": "19f9713f25a37f9b82074d3e1024a1e634bccc505573a2ccc5de176f803196c3"
+  },
+  {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-timeline21/timeline-output/05_gallery.cuelog.tsv",
+    "sha256": "90851d1950a22fa9edd75e9136c3770426f13e7435b69e44ce675a97c8377f20"
+  }
+]

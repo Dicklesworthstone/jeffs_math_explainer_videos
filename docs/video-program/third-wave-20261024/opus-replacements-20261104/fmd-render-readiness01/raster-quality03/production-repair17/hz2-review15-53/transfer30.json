@@ -1,0 +1,166 @@
+{
+  "utc": "2026-11-07T19:36:47.125866+00:00",
+  "remote_before_after_local_equal": true,
+  "files": [
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/01_the_bump.mp4",
+      "sha256": "9f4307695c8af42a830756f4ca056c322a1ee70e45c76fc5deed5c5e318c8d01"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/01_the_bump.timeline.tsv",
+      "sha256": "b459936a47e9c473c92ace3ad9900487cd3797f2fc1b0f1c15adf8973dd6adb1"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/01_the_bump.cues.tsv",
+      "sha256": "e7fea540de13ec0b72077e8d43e9d3dfecdf0ad92ab8c628f19845e7fe41561b"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/01_the_bump.cuelog.tsv",
+      "sha256": "1775ad271ea528c2f10bf14cb629d7bf57edaff2a7c0f5646c36573a9cfc3110"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/01_the_bump.layout.tsv",
+      "sha256": "f47a0de94926bf43544e85891272a3329a2bc6fdb5ae325b66c03e0098d3d9d1"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/02_turning_numbers.mp4",
+      "sha256": "9ec54f2cc4243b71f5e28c964420deaaeaf2dd358d83410b9ac70b985b1e84f0"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/02_turning_numbers.timeline.tsv",
+      "sha256": "10370cb3aa86a06f7cf22beb2a1caa3479fb2fa493bf77a898111812079e322b"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/02_turning_numbers.cues.tsv",
+      "sha256": "97102b8f71bd574d3ed6d96698edc3efeadc5c4fb0b1bdbef14c623386e299fc"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/02_turning_numbers.cuelog.tsv",
+      "sha256": "d7fb4286fca3327747ccec61fed1874d269e2e214a9fce2c7b4df94fb8cb5ad2"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/02_turning_numbers.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/04_reading_color.mp4",
+      "sha256": "96b768967376b10aace367d9cfdec9c4fe97c6e46a853c937588ae25136f7740"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/04_reading_color.timeline.tsv",
+      "sha256": "24e52e645a62d92e8ba8ebf9e86439bf995de04d054647385047e842f2f50b99"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/04_reading_color.cues.tsv",
+      "sha256": "7581709f8c6972f6bf3c099cf05e25fc37d28dcccfd327e7bd6e24580b360a4c"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/04_reading_color.cuelog.tsv",
+      "sha256": "c063efabf0a60337818f4a0b0c6186fd2e44f82db44420a661910a3f8949f64c"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/04_reading_color.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/06_one_derivative.mp4",
+      "sha256": "8504503f35128e1c551f305129d326101de7e86372f09a23665a6d4e882ed495"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/06_one_derivative.timeline.tsv",
+      "sha256": "6126ae251ca1d492eec45ca759e93fe64c4f594555345d0702112e1573dc9d67"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/06_one_derivative.cues.tsv",
+      "sha256": "ee8eb35a2d8621e5cb0ba6d3c6d3cbe6e844c5cce9b8199113388fa20da2d853"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/06_one_derivative.cuelog.tsv",
+      "sha256": "445a9485b191b3f3bb46c7e0528240b5bd34f6ee97f24457ed558a9ddf864068"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/06_one_derivative.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/07_one_point.mp4",
+      "sha256": "717964ba7dffeca95d17623a0f0dfdda4c4e9fcc770023f589ae044cc41f8215"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/07_one_point.timeline.tsv",
+      "sha256": "b41ee718afa76a2b8a5952bc59a20915bd88259575bb7ede82ee9ca60ec10285"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/07_one_point.cues.tsv",
+      "sha256": "ea5cf40807968d38f9e6d0faa8395afaa72aba292ae1589dbc6379ddff54a68a"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/07_one_point.cuelog.tsv",
+      "sha256": "3539acb4ac602b9293bdee047fb6b356a7c7ffe1dafa294ac384c6ca5c955926"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/07_one_point.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/10_rigidity.mp4",
+      "sha256": "52b55f1fc3f810b81dbdf42e43d9831683b02f873186ab7c81d683cb00469162"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/10_rigidity.timeline.tsv",
+      "sha256": "5b31b6dd5514404ea0bf9e7e2c009aaaca4989d145dbd306b6267e6bc143d9b8"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/10_rigidity.cues.tsv",
+      "sha256": "a58e14f5f22089df8902439f751b0a05cfe52b29502f7c530054745d6f7a6ca3"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/10_rigidity.cuelog.tsv",
+      "sha256": "e53b831d122496fc217609bccf674199f38c96f68c078a0858a1332821d9f30c"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/10_rigidity.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/12_residues.mp4",
+      "sha256": "09bdeda8b4dbf831df6e06b9452d001e8c5e1eb4886e800bc6ac54ed59bd7b30"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/12_residues.timeline.tsv",
+      "sha256": "3d6cf503e94e198ed16c8bfc5c86b0be080fe8c1f4943fd8e5e3fa75abdfb81a"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/12_residues.cues.tsv",
+      "sha256": "be53a37b59431c46e3bbc5a3be5ea6380c9816aeb2966d3285264b555aafb101"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/12_residues.cuelog.tsv",
+      "sha256": "f3821fa178f5d32d8ca256b324f438606f121e00e92de7d302163ee860d835c6"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/12_residues.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/15_closing.mp4",
+      "sha256": "3b109069a4d76accb82b5a77f6e474916b6010e2eeff70b9f865c458089a5593"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/15_closing.timeline.tsv",
+      "sha256": "ac0e26a2b54eaba4379f487521c1106db2a04a5cbf823a35296099b3ceacc1ad"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/15_closing.cues.tsv",
+      "sha256": "9e0801e22fa155f51129c48709286de603b499e6307fcd7db51ac3f4a964d880"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/15_closing.cuelog.tsv",
+      "sha256": "7eba14794d69182a1ed0ff94b6152ca6d4f3ca3ad5d76ac843e7e6a9ba64f815"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-preview16/preview/15_closing.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

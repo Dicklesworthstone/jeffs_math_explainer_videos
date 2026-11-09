@@ -1,0 +1,34 @@
+# The shape of the 3b1b videos tree's custom_config.yml (the pinned
+# production user config): partial section overrides, an open subdirs map
+# gaining a new key, tuple-strings, and Python-style booleans.
+directories:
+  mirror_module_path: True
+  removed_mirror_prefix: "/Users/grant/cs/videos/"
+  base: "/Users/grant/3Blue1Brown Dropbox/3Blue1Brown/"
+  subdirs:
+    raster_images: "images/raster"
+    vector_images: "images/vector"
+    three_d_models: "images/models"
+    pi_creature_images: "images/pi_creature/svg"
+    downloads: "manim_downloads"
+    # Use the default value for the rest
+universal_import_line: "from manim_imports_ext import *"
+window:
+  position_string: UR
+  monitor_index: 0
+  full_screen: False
+camera:
+  resolution: (3840, 2160)
+  background_color: "#000000"
+  fps: 30
+  background_opacity: 1.0
+file_writer:
+  saturation: 1.5
+text:
+  font: "CMU Serif"
+  alignment: "CENTER"
+tex:
+  template: "default"
+embed:
+  autoreload: True
+ignore_manimlib_modules_on_reload: True

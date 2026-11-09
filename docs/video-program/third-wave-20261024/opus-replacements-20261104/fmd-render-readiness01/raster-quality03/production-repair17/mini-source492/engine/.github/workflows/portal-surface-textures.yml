@@ -1,0 +1,104 @@
+name: Textured surface portal
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/portal-surface-textures.yml'
+      - 'scripts/activate_surface_textures.py'
+      - 'scripts/patches/texture-bridge-acceptance.patch'
+      - 'crates/fmn-python/src/portal_texture.rs'
+      - 'crates/fmn-python/python/fmn_python/surface_textures.py'
+      - 'crates/fmn-python/tests/textured_surfaces.py'
+      - 'crates/fmn-library/tests/textured_mesh_records.rs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: native-texture-portal
+  cancel-in-progress: false
+jobs:
+  portal:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/portable
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          clean: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Activate the native-tested texture implementation on main
+        run: |
+          set -euo pipefail
+          rustup show active-toolchain
+          python scripts/activate_surface_textures.py
+          python -m py_compile crates/fmn-python/python/fmn_python/surface_textures.py crates/fmn-python/tests/textured_surfaces.py crates/fmn-python/tests/bridge.py
+          git diff --check
+          git add -- crates/fmn-render/src/retained.rs crates/fmn-render/src/retained_texture_tests.rs crates/fmn-library/src/solids.rs crates/fmn-library/tests/textured_mesh_records.rs crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_texture.rs crates/fmn-python/python/fmn_python/initialization.py crates/fmn-python/tests/bridge.py crates/fmn-conformance/tests/e2e_scenarios.rs scripts/check_portal_runtime.sh
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(texture): activate native surface and indexed-mesh textures with executable acceptance'
+            git push origin HEAD:main
+          fi
+          git rev-parse HEAD > /tmp/texture-portal-source-sha.txt
+      - name: Install host test dependencies
+        run: python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-texture-portal-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-surface-textures-
+            cargo-${{ runner.os }}-${{ runner.arch }}-surface-mesh-
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-
+      - name: Verify native geometry and the complete renderer
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s crates/fmn-python/tests -p 'test_text_reveal*protocol.py' 2>&1 | tee /tmp/texture-portal-initialization.log
+          cargo test --locked -p fmn-library 2>&1 | tee /tmp/texture-portal-library.log
+          cargo test --locked -p fmn-render 2>&1 | tee /tmp/texture-portal-render.log
+      - name: Build a fresh native wheel
+        run: |
+          set -euo pipefail
+          python -m maturin build --locked --interpreter python --profile dev --out target/texture-wheel 2>&1 | tee /tmp/texture-portal-build.log
+      - name: Embedded texture and Gauntlet acceptance
+        run: |
+          set -euo pipefail
+          PYTHONPATH="$PWD/crates/fmn-python/python" cargo test --locked -p fmn-python native_textured_surface_and_mesh_acceptance -- --nocapture 2>&1 | tee /tmp/texture-portal-native.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/texture-portal-native.log
+          PYTHONPATH="$PWD/crates/fmn-python/python" cargo test --locked -p fmn-conformance --test e2e_scenarios python_textured_surfaces_scenario_passes -- --nocapture 2>&1 | tee /tmp/texture-portal-gauntlet.log
+      - name: Verify a fresh installed wheel
+        run: |
+          set -euo pipefail
+          python -m venv target/texture-venv
+          target/texture-venv/bin/python -m pip install 'numpy==2.5.2' target/texture-wheel/*.whl
+          target/texture-venv/bin/python -I crates/fmn-python/tests/textured_surfaces.py 2>&1 | tee /tmp/texture-portal-wheel.log
+      - name: Strict source checks
+        run: |
+          set -euo pipefail
+          cargo clippy --locked -p fmn-render -p fmn-library -p fmn-python --all-targets -- -D warnings 2>&1 | tee /tmp/texture-portal-clippy.log
+          git diff --exit-code
+      - name: Preserve exact candidate and executable evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/texture-portal-parent.txt
+          git diff > /tmp/texture-portal-working.patch
+          git ls-files -z | tar --null -T - -czf /tmp/texture-portal-source.tar.gz
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: texture-portal-${{ github.sha }}
+          path: |
+            /tmp/texture-portal-*
+            target/texture-wheel/*.whl
+          retention-days: 2

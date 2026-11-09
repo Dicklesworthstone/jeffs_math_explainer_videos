@@ -1,0 +1,117 @@
+name: Dispatch fm-ai1 Chain
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/dispatch-fm-ai1-chain.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Wait for the upstream single authority
+        id: upstream
+        shell: bash
+        run: |
+          set -euo pipefail
+          ready=0
+          upstream_sha=""
+          for _ in $(seq 1 100); do
+            upstream_sha="$(git ls-remote https://github.com/Dicklesworthstone/franken_numpy.git refs/heads/main | awk '{print $1}')"
+            random_url="https://raw.githubusercontent.com/Dicklesworthstone/franken_numpy/${upstream_sha}/crates/fnp-random/src/lib.rs"
+            migration_url="https://raw.githubusercontent.com/Dicklesworthstone/franken_numpy/${upstream_sha}/.github/workflows/centralize-pcg64dxsm.yml"
+            if curl --fail --silent --show-error "$random_url" | grep -Fq 'core: fnp_random_core::Pcg64Dxsm' \
+              && ! curl --fail --silent "$migration_url" >/dev/null; then
+              ready=1
+              break
+            fi
+            sleep 20
+          done
+          if [[ "$ready" -ne 1 || ! "$upstream_sha" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "FrankenNumPy did not publish the centralized PCG64DXSM authority" >&2
+            exit 2
+          fi
+          echo "sha=$upstream_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Normalize queued stages and choose the earliest unfinished one
+        id: stage
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          paths = [
+              Path(".github/workflows/complete-fm-ai1.yml"),
+              Path(".github/workflows/extend-rng-replay-api.yml"),
+              Path(".github/workflows/add-keyed-rng-forks.yml"),
+              Path(".github/workflows/finalize-rng-migration.yml"),
+          ]
+          for path in paths:
+              if not path.exists():
+                  continue
+              text = path.read_text(encoding="utf-8")
+              text = text.replace("git push origin HEAD:main", "git push --atomic origin HEAD:main HEAD:master")
+              if path.name == "add-keyed-rng-forks.yml":
+                  text = text.replace(
+                      "assert_eq!(KEYED_FORK_LAYOUT_VERSION, 1);",
+                      "assert_eq!(super::KEYED_FORK_LAYOUT_VERSION, 1);",
+                  )
+              path.write_text(text, encoding="utf-8")
+          PY
+
+          stage=""
+          if [[ -e .github/workflows/complete-fm-ai1.yml ]] && ! grep -F '"id":"fm-ai1"' .beads/issues.jsonl | grep -Fq '"status":"closed"'; then
+            stage="complete-fm-ai1.yml"
+          elif [[ -e .github/workflows/extend-rng-replay-api.yml ]] && ! grep -Fq 'pub fn advance(&mut self, draws: u128)' crates/fmn-core/src/rng.rs; then
+            stage="extend-rng-replay-api.yml"
+          elif [[ -e .github/workflows/add-keyed-rng-forks.yml ]] && ! grep -Fq 'pub fn fork_keyed(&self, key: &[u32])' crates/fmn-core/src/rng.rs; then
+            stage="add-keyed-rng-forks.yml"
+          fi
+          echo "name=$stage" >> "$GITHUB_OUTPUT"
+
+      - name: Publish coordinator cleanup and normalized definitions
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/dispatch-fm-ai1-chain.yml
+          for obsolete in \
+            .github/workflows/retry-fm-ai1-when-upstream-ready.yml \
+            .github/workflows/repair-keyed-fork-migration.yml \
+            .github/workflows/atomic-canonical-queued-writes.yml; do
+            [[ -e "$obsolete" ]] && git rm "$obsolete" || true
+          done
+          git add .github/workflows
+          git config user.name "FrankenManim fm-ai1 Coordinator"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "fix(ci): explicitly coordinate the fm-ai1 implementation chain" -m "Normalize atomic canonical publication, remove superseded repair helpers, and prepare the earliest unfinished stage for explicit dispatch after upstream authority verification."
+          git fetch origin main master
+          git rebase origin/main
+          git push --atomic origin HEAD:main HEAD:master
+
+      - name: Dispatch the earliest unfinished stage
+        if: steps.stage.outputs.name != ''
+        shell: bash
+        env:
+          STAGE: ${{ steps.stage.outputs.name }}
+        run: |
+          set -euo pipefail
+          gh api --method POST \
+            "repos/${GITHUB_REPOSITORY}/actions/workflows/${STAGE}/dispatches" \
+            -f ref=main
+          echo "dispatched ${STAGE} on canonical main"

@@ -1,0 +1,19 @@
+{
+  "binary_sha256": "9b2a01d626346ff2ce8df156df6d8f0ed95082664fe4ba0db7f4192c6e187f44",
+  "image": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-thumbnail24/output/complex_analysis_visual_thumbnail.png",
+  "image_sha256": "e5dfc2bd04aa3af148ee66ca8107594acf3015a237f5f36a08f1c3c72c4c2eab",
+  "tests": 223,
+  "clippy": true,
+  "only_changed_source": [
+    "explainer_corpus/complex_analysis_visual/src/chapters/thumbnail.rs"
+  ],
+  "pictures_viewed": true,
+  "scope": "Separate native thumbnail candidate, no production movie or narration changed; actual visual review required.",
+  "reviewed_utc": "2026-11-07T17:34:47.118934+00:00",
+  "review_scope": "Whole PNG viewed at2048x1152 and original3840x2160; no movie/motion/listening acceptance.",
+  "observations": [
+    "Smooth continuous two-turn hue field, no prior coarse51x51 flat tiles.",
+    "Title, subtitle and z squared hue legend readable, separated with clear margins.",
+    "No concrete clipping or overlap found."
+  ]
+}

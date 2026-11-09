@@ -1,0 +1,3698 @@
+{
+  "movie_sha256": "a277716fe8f951691e4a85d544ebeaa77ada326bbb6e706aa56d9c3965e73689",
+  "samples": [
+    {
+      "frame": 0,
+      "seconds": 0.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000001.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 36,
+      "seconds": 0.6,
+      "reasons": [
+        "line:09_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000002.jpg",
+      "sha256": "255b59e1e81baf426fb4ce1ea5eb9be3bf9b4d8e22e195138e6a9b86459e759e"
+    },
+    {
+      "frame": 60,
+      "seconds": 1.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000003.jpg",
+      "sha256": "f5fd211115ebd8c229131d77b127472ff3b6d903f0d7e91ba2600fbc3df35974"
+    },
+    {
+      "frame": 66,
+      "seconds": 1.1,
+      "reasons": [
+        "line:09_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000004.jpg",
+      "sha256": "f5fd211115ebd8c229131d77b127472ff3b6d903f0d7e91ba2600fbc3df35974"
+    },
+    {
+      "frame": 96,
+      "seconds": 1.6,
+      "reasons": [
+        "line:09_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000005.jpg",
+      "sha256": "f5fd211115ebd8c229131d77b127472ff3b6d903f0d7e91ba2600fbc3df35974"
+    },
+    {
+      "frame": 120,
+      "seconds": 2.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000006.jpg",
+      "sha256": "396509b867f37797e6b5b75340aae1f5807cbd779d9590278ad92ef3b70a37cc"
+    },
+    {
+      "frame": 156,
+      "seconds": 2.6,
+      "reasons": [
+        "line:09_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000007.jpg",
+      "sha256": "041727d1d799da699bbf9609cfc6a70ba2b171572d9cff37860662d1977a1ee4"
+    },
+    {
+      "frame": 180,
+      "seconds": 3.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000008.jpg",
+      "sha256": "ed3b0f1b486dafcaa7a2491bd9974edc88e277b958d0f035db29ddc587590a88"
+    },
+    {
+      "frame": 240,
+      "seconds": 4.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000009.jpg",
+      "sha256": "01bce2babbb53c7f5d42b1cef4ec2c2a2f9199bbd617da7822d3385212104082"
+    },
+    {
+      "frame": 300,
+      "seconds": 5.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000010.jpg",
+      "sha256": "b467024a03802d66d3612eaae5191fdb0aef34e91a556ea0794bfaaac3c1496b"
+    },
+    {
+      "frame": 360,
+      "seconds": 6.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000011.jpg",
+      "sha256": "b467024a03802d66d3612eaae5191fdb0aef34e91a556ea0794bfaaac3c1496b"
+    },
+    {
+      "frame": 420,
+      "seconds": 7.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000012.jpg",
+      "sha256": "37b4786106ec973329fa0e2d65473106d5aa5d24d25454960da941ca0ae47b14"
+    },
+    {
+      "frame": 480,
+      "seconds": 8.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000013.jpg",
+      "sha256": "2b2e6204628baf2143758a22d1bac72d38f914ea57efcb9821b0651f0613a4b3"
+    },
+    {
+      "frame": 540,
+      "seconds": 9.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000014.jpg",
+      "sha256": "a1289bd426c29a8627ce71e4a479fd83df954db871fe207739ef439d379e8dd4"
+    },
+    {
+      "frame": 600,
+      "seconds": 10.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000015.jpg",
+      "sha256": "1664db66c00ea448c25de24230b761fefdc60fc242893039cb7e4bc3776d10b4"
+    },
+    {
+      "frame": 660,
+      "seconds": 11.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000016.jpg",
+      "sha256": "1664db66c00ea448c25de24230b761fefdc60fc242893039cb7e4bc3776d10b4"
+    },
+    {
+      "frame": 720,
+      "seconds": 12.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000017.jpg",
+      "sha256": "da4c18c99b078ef27a50314f8235c5e078914e21a2ce07dea4255e78f4626a14"
+    },
+    {
+      "frame": 780,
+      "seconds": 13.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000018.jpg",
+      "sha256": "da4c18c99b078ef27a50314f8235c5e078914e21a2ce07dea4255e78f4626a14"
+    },
+    {
+      "frame": 840,
+      "seconds": 14.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000019.jpg",
+      "sha256": "51ccabccdf7353c3173c396d5642066e4212161aadaa3c1f423ab60f4f891614"
+    },
+    {
+      "frame": 900,
+      "seconds": 15.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000020.jpg",
+      "sha256": "2d7cafb47a672ef5b108c8ea7db7a26d000998acf7f907f967bcad0ff9996e12"
+    },
+    {
+      "frame": 960,
+      "seconds": 16.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000021.jpg",
+      "sha256": "2d7cafb47a672ef5b108c8ea7db7a26d000998acf7f907f967bcad0ff9996e12"
+    },
+    {
+      "frame": 1020,
+      "seconds": 17.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000022.jpg",
+      "sha256": "2d7cafb47a672ef5b108c8ea7db7a26d000998acf7f907f967bcad0ff9996e12"
+    },
+    {
+      "frame": 1080,
+      "seconds": 18.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000023.jpg",
+      "sha256": "a91f9a44b0d8711125aea6682fc1c044877d37b3a88afb14c4bba0e946a5c730"
+    },
+    {
+      "frame": 1140,
+      "seconds": 19.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000024.jpg",
+      "sha256": "a91f9a44b0d8711125aea6682fc1c044877d37b3a88afb14c4bba0e946a5c730"
+    },
+    {
+      "frame": 1200,
+      "seconds": 20.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000025.jpg",
+      "sha256": "a91f9a44b0d8711125aea6682fc1c044877d37b3a88afb14c4bba0e946a5c730"
+    },
+    {
+      "frame": 1260,
+      "seconds": 21.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000026.jpg",
+      "sha256": "a91f9a44b0d8711125aea6682fc1c044877d37b3a88afb14c4bba0e946a5c730"
+    },
+    {
+      "frame": 1320,
+      "seconds": 22.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000027.jpg",
+      "sha256": "d16a57144ad14566ae312596d56d2e4c7397f9b718c788e3d13b560d8a4ab992"
+    },
+    {
+      "frame": 1380,
+      "seconds": 23.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000028.jpg",
+      "sha256": "453f5cce94e1ca0d084c00a16e9f253f89009abd967ac59f093fd1319b8fbb5b"
+    },
+    {
+      "frame": 1440,
+      "seconds": 24.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000029.jpg",
+      "sha256": "453f5cce94e1ca0d084c00a16e9f253f89009abd967ac59f093fd1319b8fbb5b"
+    },
+    {
+      "frame": 1500,
+      "seconds": 25.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000030.jpg",
+      "sha256": "453f5cce94e1ca0d084c00a16e9f253f89009abd967ac59f093fd1319b8fbb5b"
+    },
+    {
+      "frame": 1560,
+      "seconds": 26.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000031.jpg",
+      "sha256": "276f3f9ab6d47ceb2f531f2e400fa576b1eab807ac1cb92ee18ed55cbbff9fb7"
+    },
+    {
+      "frame": 1620,
+      "seconds": 27.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000032.jpg",
+      "sha256": "276f3f9ab6d47ceb2f531f2e400fa576b1eab807ac1cb92ee18ed55cbbff9fb7"
+    },
+    {
+      "frame": 1680,
+      "seconds": 28.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000033.jpg",
+      "sha256": "276f3f9ab6d47ceb2f531f2e400fa576b1eab807ac1cb92ee18ed55cbbff9fb7"
+    },
+    {
+      "frame": 1740,
+      "seconds": 29.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000034.jpg",
+      "sha256": "f08ad7d0a07423a2ddb144b27dbc2de7d89cb0853b01b785f1df719d6a237d2c"
+    },
+    {
+      "frame": 1800,
+      "seconds": 30.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000035.jpg",
+      "sha256": "6c1ea5d383fc14caa32fedb8c3e54a7ee972f601bcc15de40316a26bdd8e8ac7"
+    },
+    {
+      "frame": 1860,
+      "seconds": 31.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000036.jpg",
+      "sha256": "d0da533558743ba0762df9ce54a964c8b2335045f1854ae61c52fa31d8af26e3"
+    },
+    {
+      "frame": 1920,
+      "seconds": 32.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000037.jpg",
+      "sha256": "d0da533558743ba0762df9ce54a964c8b2335045f1854ae61c52fa31d8af26e3"
+    },
+    {
+      "frame": 1980,
+      "seconds": 33.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000038.jpg",
+      "sha256": "d0da533558743ba0762df9ce54a964c8b2335045f1854ae61c52fa31d8af26e3"
+    },
+    {
+      "frame": 2040,
+      "seconds": 34.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000039.jpg",
+      "sha256": "3f7c905d0f29c4455544a76da107a73ea77987ffa67717e4dc8d43d8b94321ac"
+    },
+    {
+      "frame": 2100,
+      "seconds": 35.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000040.jpg",
+      "sha256": "14e44c3e7a927112e4fd73c413122fbe685fe87b090e75ce7bb0123e817ef81c"
+    },
+    {
+      "frame": 2160,
+      "seconds": 36.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000041.jpg",
+      "sha256": "a92556dd0bf8c0e966439494e3c1102d560bb1504cbbf04082aa4ee51f6cd205"
+    },
+    {
+      "frame": 2220,
+      "seconds": 37.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000042.jpg",
+      "sha256": "bcaffcf7f43660b5386b97d5f4b70ee14b32bea8ec82215b573a705be178a7dd"
+    },
+    {
+      "frame": 2280,
+      "seconds": 38.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000043.jpg",
+      "sha256": "78030b565d82680a226cb1975361e0602139d29d92b115f2e44b62d25da222a7"
+    },
+    {
+      "frame": 2340,
+      "seconds": 39.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000044.jpg",
+      "sha256": "a6bd6d1ddafde4d1ed4b5be71c383edb98d2627587856e313a42dec1e5743d97"
+    },
+    {
+      "frame": 2400,
+      "seconds": 40.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000045.jpg",
+      "sha256": "41da6442c5ee91a060fe9b41098aba1843b4c74134de0af9a8c4325710c537c3"
+    },
+    {
+      "frame": 2460,
+      "seconds": 41.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000046.jpg",
+      "sha256": "41da6442c5ee91a060fe9b41098aba1843b4c74134de0af9a8c4325710c537c3"
+    },
+    {
+      "frame": 2520,
+      "seconds": 42.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000047.jpg",
+      "sha256": "41da6442c5ee91a060fe9b41098aba1843b4c74134de0af9a8c4325710c537c3"
+    },
+    {
+      "frame": 2580,
+      "seconds": 43.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000048.jpg",
+      "sha256": "0cfb8f3e70edde7f53c1a4c043a4aa67e30c6064e58ae64c42f480e6b2879005"
+    },
+    {
+      "frame": 2640,
+      "seconds": 44.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000049.jpg",
+      "sha256": "f05cf7886695df53c15bb920266958e0cae32c5c5387c42dd29f7638b97ee7e0"
+    },
+    {
+      "frame": 2700,
+      "seconds": 45.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000050.jpg",
+      "sha256": "f05cf7886695df53c15bb920266958e0cae32c5c5387c42dd29f7638b97ee7e0"
+    },
+    {
+      "frame": 2760,
+      "seconds": 46.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000051.jpg",
+      "sha256": "92108de195eb32d2e617caab2e22dfc9fd2977325d19732fbc4e5cabce788322"
+    },
+    {
+      "frame": 2820,
+      "seconds": 47.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000052.jpg",
+      "sha256": "0755c83c0296d4de42d7ee8f799a815a721920fa468cb42bef1b4b9162757bc9"
+    },
+    {
+      "frame": 2880,
+      "seconds": 48.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000053.jpg",
+      "sha256": "0755c83c0296d4de42d7ee8f799a815a721920fa468cb42bef1b4b9162757bc9"
+    },
+    {
+      "frame": 2940,
+      "seconds": 49.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000054.jpg",
+      "sha256": "0755c83c0296d4de42d7ee8f799a815a721920fa468cb42bef1b4b9162757bc9"
+    },
+    {
+      "frame": 3000,
+      "seconds": 50.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000055.jpg",
+      "sha256": "572ffaa85549d2dcdebed8cefa2b991f05f697f9e099cc04a567a593b98e3e64"
+    },
+    {
+      "frame": 3060,
+      "seconds": 51.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000056.jpg",
+      "sha256": "dfc8cd1b3766c71afbee4c6a52c22dd53473c274d626dd932471d5c773784cdb"
+    },
+    {
+      "frame": 3120,
+      "seconds": 52.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000057.jpg",
+      "sha256": "dfc8cd1b3766c71afbee4c6a52c22dd53473c274d626dd932471d5c773784cdb"
+    },
+    {
+      "frame": 3180,
+      "seconds": 53.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000058.jpg",
+      "sha256": "dfc8cd1b3766c71afbee4c6a52c22dd53473c274d626dd932471d5c773784cdb"
+    },
+    {
+      "frame": 3240,
+      "seconds": 54.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000059.jpg",
+      "sha256": "dfc8cd1b3766c71afbee4c6a52c22dd53473c274d626dd932471d5c773784cdb"
+    },
+    {
+      "frame": 3300,
+      "seconds": 55.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000060.jpg",
+      "sha256": "b419494cff25c454b0612ce47e6c8e11704668521ca7335b63de79776002aa47"
+    },
+    {
+      "frame": 3330,
+      "seconds": 55.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000061.jpg",
+      "sha256": "7d7119dbe52a1a3663b3215735a3024bba7da292d74444d30fd1ad488602efa5"
+    },
+    {
+      "frame": 3360,
+      "seconds": 56.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000062.jpg",
+      "sha256": "7d7119dbe52a1a3663b3215735a3024bba7da292d74444d30fd1ad488602efa5"
+    },
+    {
+      "frame": 3390,
+      "seconds": 56.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000063.jpg",
+      "sha256": "2f75ddf805acabd68f06f95aa229bb9fe7a221b8b846c68cf362a30db4e3bc3b"
+    },
+    {
+      "frame": 3420,
+      "seconds": 57.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000064.jpg",
+      "sha256": "f8d89df8653993fefc6fed1d87d3899eecdcea6c11897e5f0eee6bb67c188982"
+    },
+    {
+      "frame": 3432,
+      "seconds": 57.2,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000065.jpg",
+      "sha256": "923d0f90ac57d90ab9cb41642189ab0afbe6d914175b515893137ad598b93da4"
+    },
+    {
+      "frame": 3444,
+      "seconds": 57.4,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000066.jpg",
+      "sha256": "b9a446db5a471a6011679447a0ec7e11742a920b4db45bfa85e9ff05a7c656b7"
+    },
+    {
+      "frame": 3450,
+      "seconds": 57.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000067.jpg",
+      "sha256": "52186f0072e8c07bed992bd4b3fe0e23b3ddab5c80768ed3781e88496aa2e125"
+    },
+    {
+      "frame": 3456,
+      "seconds": 57.6,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000068.jpg",
+      "sha256": "5070eb08be9e115fa28bf931dc6a5c54d6d2e0899bee7fdb2e05d92275d670d3"
+    },
+    {
+      "frame": 3480,
+      "seconds": 58.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000069.jpg",
+      "sha256": "5070eb08be9e115fa28bf931dc6a5c54d6d2e0899bee7fdb2e05d92275d670d3"
+    },
+    {
+      "frame": 3492,
+      "seconds": 58.2,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000070.jpg",
+      "sha256": "5070eb08be9e115fa28bf931dc6a5c54d6d2e0899bee7fdb2e05d92275d670d3"
+    },
+    {
+      "frame": 3504,
+      "seconds": 58.4,
+      "reasons": [
+        "Prior collision anchor",
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000071.jpg",
+      "sha256": "5070eb08be9e115fa28bf931dc6a5c54d6d2e0899bee7fdb2e05d92275d670d3"
+    },
+    {
+      "frame": 3510,
+      "seconds": 58.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000072.jpg",
+      "sha256": "5070eb08be9e115fa28bf931dc6a5c54d6d2e0899bee7fdb2e05d92275d670d3"
+    },
+    {
+      "frame": 3516,
+      "seconds": 58.6,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000073.jpg",
+      "sha256": "5070eb08be9e115fa28bf931dc6a5c54d6d2e0899bee7fdb2e05d92275d670d3"
+    },
+    {
+      "frame": 3540,
+      "seconds": 59.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000074.jpg",
+      "sha256": "a4ee6f0ed18c49640e08ad6960447277da5a9dc74a06ca29299591104b042efb"
+    },
+    {
+      "frame": 3552,
+      "seconds": 59.2,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000075.jpg",
+      "sha256": "a1e5f6f528bba5796167c4dd62063a442d8af7cb676749dc3fc7d32dc61c1919"
+    },
+    {
+      "frame": 3564,
+      "seconds": 59.4,
+      "reasons": [
+        "Prior collision anchor",
+        "Prior collision anchor",
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000076.jpg",
+      "sha256": "a1e5f6f528bba5796167c4dd62063a442d8af7cb676749dc3fc7d32dc61c1919"
+    },
+    {
+      "frame": 3570,
+      "seconds": 59.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000077.jpg",
+      "sha256": "a1e5f6f528bba5796167c4dd62063a442d8af7cb676749dc3fc7d32dc61c1919"
+    },
+    {
+      "frame": 3576,
+      "seconds": 59.6,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000078.jpg",
+      "sha256": "a1e5f6f528bba5796167c4dd62063a442d8af7cb676749dc3fc7d32dc61c1919"
+    },
+    {
+      "frame": 3600,
+      "seconds": 60.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000079.jpg",
+      "sha256": "a1e5f6f528bba5796167c4dd62063a442d8af7cb676749dc3fc7d32dc61c1919"
+    },
+    {
+      "frame": 3624,
+      "seconds": 60.4,
+      "reasons": [
+        "Prior collision anchor",
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000080.jpg",
+      "sha256": "a1e5f6f528bba5796167c4dd62063a442d8af7cb676749dc3fc7d32dc61c1919"
+    },
+    {
+      "frame": 3630,
+      "seconds": 60.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000081.jpg",
+      "sha256": "a1e5f6f528bba5796167c4dd62063a442d8af7cb676749dc3fc7d32dc61c1919"
+    },
+    {
+      "frame": 3660,
+      "seconds": 61.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000082.jpg",
+      "sha256": "a1e5f6f528bba5796167c4dd62063a442d8af7cb676749dc3fc7d32dc61c1919"
+    },
+    {
+      "frame": 3684,
+      "seconds": 61.4,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000083.jpg",
+      "sha256": "a1e5f6f528bba5796167c4dd62063a442d8af7cb676749dc3fc7d32dc61c1919"
+    },
+    {
+      "frame": 3690,
+      "seconds": 61.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000084.jpg",
+      "sha256": "a1e5f6f528bba5796167c4dd62063a442d8af7cb676749dc3fc7d32dc61c1919"
+    },
+    {
+      "frame": 3720,
+      "seconds": 62.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000085.jpg",
+      "sha256": "a1e5f6f528bba5796167c4dd62063a442d8af7cb676749dc3fc7d32dc61c1919"
+    },
+    {
+      "frame": 3750,
+      "seconds": 62.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000086.jpg",
+      "sha256": "58ddf78032b40e4dbc34206448314225af868c7d9bea199375975145825bc4ec"
+    },
+    {
+      "frame": 3780,
+      "seconds": 63.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000087.jpg",
+      "sha256": "6f61a403867b9aefe778b68ff4393c573f79d0090fa668f31806fe99df341d33"
+    },
+    {
+      "frame": 3810,
+      "seconds": 63.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000088.jpg",
+      "sha256": "f06ca0b1b46e46d664a48f62d088e04e30d3b28e8a40eb5ac96f17fb6f4f84d7"
+    },
+    {
+      "frame": 3828,
+      "seconds": 63.8,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000089.jpg",
+      "sha256": "f06ca0b1b46e46d664a48f62d088e04e30d3b28e8a40eb5ac96f17fb6f4f84d7"
+    },
+    {
+      "frame": 3840,
+      "seconds": 64.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample",
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000090.jpg",
+      "sha256": "f06ca0b1b46e46d664a48f62d088e04e30d3b28e8a40eb5ac96f17fb6f4f84d7"
+    },
+    {
+      "frame": 3852,
+      "seconds": 64.2,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000091.jpg",
+      "sha256": "f06ca0b1b46e46d664a48f62d088e04e30d3b28e8a40eb5ac96f17fb6f4f84d7"
+    },
+    {
+      "frame": 3870,
+      "seconds": 64.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000092.jpg",
+      "sha256": "f06ca0b1b46e46d664a48f62d088e04e30d3b28e8a40eb5ac96f17fb6f4f84d7"
+    },
+    {
+      "frame": 3900,
+      "seconds": 65.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample",
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000093.jpg",
+      "sha256": "f1e93260d3b917ab40bc07ea2a817ceec58684447ab2014abab3f592bcc2e443"
+    },
+    {
+      "frame": 3930,
+      "seconds": 65.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000094.jpg",
+      "sha256": "a13f7b79352d8dec4ad136c3c63e6c77f6d403f1f93df8c203d6be78679000b1"
+    },
+    {
+      "frame": 3960,
+      "seconds": 66.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample",
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000095.jpg",
+      "sha256": "a13f7b79352d8dec4ad136c3c63e6c77f6d403f1f93df8c203d6be78679000b1"
+    },
+    {
+      "frame": 3990,
+      "seconds": 66.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000096.jpg",
+      "sha256": "a13f7b79352d8dec4ad136c3c63e6c77f6d403f1f93df8c203d6be78679000b1"
+    },
+    {
+      "frame": 4020,
+      "seconds": 67.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000097.jpg",
+      "sha256": "a13f7b79352d8dec4ad136c3c63e6c77f6d403f1f93df8c203d6be78679000b1"
+    },
+    {
+      "frame": 4050,
+      "seconds": 67.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000098.jpg",
+      "sha256": "caa8eabc00e8610b8941aba098d57dacef1c1a687e3c9144b53322689d55e57c"
+    },
+    {
+      "frame": 4080,
+      "seconds": 68.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000099.jpg",
+      "sha256": "caa8eabc00e8610b8941aba098d57dacef1c1a687e3c9144b53322689d55e57c"
+    },
+    {
+      "frame": 4110,
+      "seconds": 68.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000100.jpg",
+      "sha256": "cdbaf860c729cafedd2fc1196b5762f06b3d7dc9fa3ee2b1d0d11f2fa2761432"
+    },
+    {
+      "frame": 4140,
+      "seconds": 69.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000101.jpg",
+      "sha256": "269b62d923554224c85cbeb5681ac75f50742d1fd412ddffeca546e4fc4d62fb"
+    },
+    {
+      "frame": 4170,
+      "seconds": 69.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000102.jpg",
+      "sha256": "beedf26d99fe3b5df5d618fd5599baaee84558b472f8c211721fc4ff65f629f5"
+    },
+    {
+      "frame": 4200,
+      "seconds": 70.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000103.jpg",
+      "sha256": "ceb567cb65cf383b54472ac54433b7ae3f07c0d3356fa136eb20ed5ad59aa619"
+    },
+    {
+      "frame": 4230,
+      "seconds": 70.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000104.jpg",
+      "sha256": "638e78224364272b75b81a1ace4195b33b85eef69f97de52c5c8e9c4fb36c8e1"
+    },
+    {
+      "frame": 4260,
+      "seconds": 71.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000105.jpg",
+      "sha256": "2d4d1f03c645b36731fb477c6897d0ea32644e5daddcc7374ac9acaa164fae2a"
+    },
+    {
+      "frame": 4290,
+      "seconds": 71.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000106.jpg",
+      "sha256": "3bb4e62ad50a7ea6731345270db8369bd3e07e32a787682884758af0c554ed62"
+    },
+    {
+      "frame": 4296,
+      "seconds": 71.6,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000107.jpg",
+      "sha256": "f6a1643b6e137bb7f989867fc0238d9d088fc9908892048150408b39a5206424"
+    },
+    {
+      "frame": 4308,
+      "seconds": 71.8,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000108.jpg",
+      "sha256": "d3e003f14aa1b7f99ad88aa15cf7dc39b37987cc8d17d30561b1ea92e496cdd4"
+    },
+    {
+      "frame": 4320,
+      "seconds": 72.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample",
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000109.jpg",
+      "sha256": "c50d3c9cfe12a31cd286af1ed50455c8c3aa7a4d1a0b99a1876ea25be8d56b3f"
+    },
+    {
+      "frame": 4350,
+      "seconds": 72.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000110.jpg",
+      "sha256": "144771b94cb3f43002d5c14b48a2760ecaca995ed35addcf1ad7acc196a1a4e8"
+    },
+    {
+      "frame": 4356,
+      "seconds": 72.6,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000111.jpg",
+      "sha256": "144771b94cb3f43002d5c14b48a2760ecaca995ed35addcf1ad7acc196a1a4e8"
+    },
+    {
+      "frame": 4368,
+      "seconds": 72.8,
+      "reasons": [
+        "Prior collision anchor",
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000112.jpg",
+      "sha256": "144771b94cb3f43002d5c14b48a2760ecaca995ed35addcf1ad7acc196a1a4e8"
+    },
+    {
+      "frame": 4380,
+      "seconds": 73.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample",
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000113.jpg",
+      "sha256": "144771b94cb3f43002d5c14b48a2760ecaca995ed35addcf1ad7acc196a1a4e8"
+    },
+    {
+      "frame": 4410,
+      "seconds": 73.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000114.jpg",
+      "sha256": "144771b94cb3f43002d5c14b48a2760ecaca995ed35addcf1ad7acc196a1a4e8"
+    },
+    {
+      "frame": 4416,
+      "seconds": 73.6,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000115.jpg",
+      "sha256": "144771b94cb3f43002d5c14b48a2760ecaca995ed35addcf1ad7acc196a1a4e8"
+    },
+    {
+      "frame": 4428,
+      "seconds": 73.8,
+      "reasons": [
+        "Prior collision anchor",
+        "Prior collision anchor",
+        "Prior collision anchor",
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000116.jpg",
+      "sha256": "144771b94cb3f43002d5c14b48a2760ecaca995ed35addcf1ad7acc196a1a4e8"
+    },
+    {
+      "frame": 4440,
+      "seconds": 74.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample",
+        "Prior collision anchor",
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000117.jpg",
+      "sha256": "144771b94cb3f43002d5c14b48a2760ecaca995ed35addcf1ad7acc196a1a4e8"
+    },
+    {
+      "frame": 4452,
+      "seconds": 74.2,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000118.jpg",
+      "sha256": "144771b94cb3f43002d5c14b48a2760ecaca995ed35addcf1ad7acc196a1a4e8"
+    },
+    {
+      "frame": 4470,
+      "seconds": 74.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000119.jpg",
+      "sha256": "144771b94cb3f43002d5c14b48a2760ecaca995ed35addcf1ad7acc196a1a4e8"
+    },
+    {
+      "frame": 4488,
+      "seconds": 74.8,
+      "reasons": [
+        "Prior collision anchor",
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000120.jpg",
+      "sha256": "144771b94cb3f43002d5c14b48a2760ecaca995ed35addcf1ad7acc196a1a4e8"
+    },
+    {
+      "frame": 4500,
+      "seconds": 75.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample",
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000121.jpg",
+      "sha256": "144771b94cb3f43002d5c14b48a2760ecaca995ed35addcf1ad7acc196a1a4e8"
+    },
+    {
+      "frame": 4530,
+      "seconds": 75.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000122.jpg",
+      "sha256": "144771b94cb3f43002d5c14b48a2760ecaca995ed35addcf1ad7acc196a1a4e8"
+    },
+    {
+      "frame": 4548,
+      "seconds": 75.8,
+      "reasons": [
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000123.jpg",
+      "sha256": "a29bc4c89ce5527fd69dc0daba16a6c9cdf2298cf4f9de72f6d18df9741c6a3b"
+    },
+    {
+      "frame": 4560,
+      "seconds": 76.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample",
+        "Prior collision anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000124.jpg",
+      "sha256": "1e0c28a69346b75f0878766c5190ef6d94faa60f2d3d680b3e2c9ac461e64eea"
+    },
+    {
+      "frame": 4590,
+      "seconds": 76.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000125.jpg",
+      "sha256": "a0d088730089597475e7086a2ab0fd8e8885ab703b98e7a94aacc8acd93774c9"
+    },
+    {
+      "frame": 4620,
+      "seconds": 77.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000126.jpg",
+      "sha256": "ed9695e6df3b43e3d31c894d279aa8c4a342dfd627f70dc543ed526559cc41e6"
+    },
+    {
+      "frame": 4650,
+      "seconds": 77.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000127.jpg",
+      "sha256": "8795afe86111f4477f717e4e383312f03fb1a56d207fb0d70242361141cf960c"
+    },
+    {
+      "frame": 4680,
+      "seconds": 78.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000128.jpg",
+      "sha256": "a0487ced9a3c36a012147b865301b265f46e20e1afab778e43b3a2272796849f"
+    },
+    {
+      "frame": 4710,
+      "seconds": 78.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000129.jpg",
+      "sha256": "a0487ced9a3c36a012147b865301b265f46e20e1afab778e43b3a2272796849f"
+    },
+    {
+      "frame": 4740,
+      "seconds": 79.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000130.jpg",
+      "sha256": "a0487ced9a3c36a012147b865301b265f46e20e1afab778e43b3a2272796849f"
+    },
+    {
+      "frame": 4770,
+      "seconds": 79.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000131.jpg",
+      "sha256": "a0487ced9a3c36a012147b865301b265f46e20e1afab778e43b3a2272796849f"
+    },
+    {
+      "frame": 4800,
+      "seconds": 80.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000132.jpg",
+      "sha256": "6c94596918e75cbbb97c2fdb3003a27365997bb46e20d00ce6bb2b211e59dcf1"
+    },
+    {
+      "frame": 4830,
+      "seconds": 80.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000133.jpg",
+      "sha256": "ed9f7b1ac16a1aa277fd701f04c7cbcf356d70be29f9c440548381bb68d9d7b3"
+    },
+    {
+      "frame": 4860,
+      "seconds": 81.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000134.jpg",
+      "sha256": "ed9f7b1ac16a1aa277fd701f04c7cbcf356d70be29f9c440548381bb68d9d7b3"
+    },
+    {
+      "frame": 4890,
+      "seconds": 81.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000135.jpg",
+      "sha256": "0a47b81fabb4675b4e0f517888b029a296d495f840f172ebce9281469295a920"
+    },
+    {
+      "frame": 4920,
+      "seconds": 82.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000136.jpg",
+      "sha256": "5f324c5166e8d9757a0aca875c330e22d4a08dc30aa841d8035e70b2085f38a5"
+    },
+    {
+      "frame": 4950,
+      "seconds": 82.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000137.jpg",
+      "sha256": "eef1ae514e8c43263cb5bd3e993a184a1ace7bc0c1f30941b7d4769762898dd5"
+    },
+    {
+      "frame": 4980,
+      "seconds": 83.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000138.jpg",
+      "sha256": "3ce7369e465e3ead0743317a65c3903bf3d473c91896db6082fff14e579729c0"
+    },
+    {
+      "frame": 5010,
+      "seconds": 83.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000139.jpg",
+      "sha256": "3ce7369e465e3ead0743317a65c3903bf3d473c91896db6082fff14e579729c0"
+    },
+    {
+      "frame": 5040,
+      "seconds": 84.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000140.jpg",
+      "sha256": "45582b77750f1c104274eea0646f2f6b669628c051dc6bb636962fa9ec05f037"
+    },
+    {
+      "frame": 5070,
+      "seconds": 84.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000141.jpg",
+      "sha256": "963870906c28381842d1f1c65568bf803a36fa164579326699060ec372564481"
+    },
+    {
+      "frame": 5100,
+      "seconds": 85.0,
+      "reasons": [
+        "one-second sample",
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000142.jpg",
+      "sha256": "df5d657b5f7c75277b8a7e54b423377c1ccbedf3a383f11f01182a5fe22df61c"
+    },
+    {
+      "frame": 5130,
+      "seconds": 85.5,
+      "reasons": [
+        "Prior rho/p collision and persistence: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000143.jpg",
+      "sha256": "00569788201bff234ba3a0757679966338b1774403844c846ea2a08f661b852a"
+    },
+    {
+      "frame": 5160,
+      "seconds": 86.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000144.jpg",
+      "sha256": "00569788201bff234ba3a0757679966338b1774403844c846ea2a08f661b852a"
+    },
+    {
+      "frame": 5220,
+      "seconds": 87.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000145.jpg",
+      "sha256": "00569788201bff234ba3a0757679966338b1774403844c846ea2a08f661b852a"
+    },
+    {
+      "frame": 5280,
+      "seconds": 88.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000146.jpg",
+      "sha256": "bd2e2e25e78a64cba9c920d95aa0f5d64dbceb4e65c2f1ece6fa0d207263a90c"
+    },
+    {
+      "frame": 5340,
+      "seconds": 89.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000147.jpg",
+      "sha256": "600bea22daab69d6ebac9c005f752ab5b4d360a92fcc6e323aa91596ee3c1ff7"
+    },
+    {
+      "frame": 5400,
+      "seconds": 90.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000148.jpg",
+      "sha256": "600bea22daab69d6ebac9c005f752ab5b4d360a92fcc6e323aa91596ee3c1ff7"
+    },
+    {
+      "frame": 5460,
+      "seconds": 91.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000149.jpg",
+      "sha256": "600bea22daab69d6ebac9c005f752ab5b4d360a92fcc6e323aa91596ee3c1ff7"
+    },
+    {
+      "frame": 5520,
+      "seconds": 92.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000150.jpg",
+      "sha256": "b7289a7d76e0c574ee6498d0e0e309e1ac7b2de7e3e4216f619b8b8302b1ecf3"
+    },
+    {
+      "frame": 5580,
+      "seconds": 93.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000151.jpg",
+      "sha256": "81453469b097ebf8d48a238fc9ff21047671cfe3e5e4dbe4824aa2c0cb2c4a6c"
+    },
+    {
+      "frame": 5640,
+      "seconds": 94.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000152.jpg",
+      "sha256": "81453469b097ebf8d48a238fc9ff21047671cfe3e5e4dbe4824aa2c0cb2c4a6c"
+    },
+    {
+      "frame": 5700,
+      "seconds": 95.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000153.jpg",
+      "sha256": "8ff7d8b1c73e4a2b6a142c61a13e4d14e13616d7328e75c6961ac465808fa3bd"
+    },
+    {
+      "frame": 5760,
+      "seconds": 96.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000154.jpg",
+      "sha256": "f3fd70e4af08fafb991f559d37ce9f5690326e3796c894398123bea9a4b56443"
+    },
+    {
+      "frame": 5820,
+      "seconds": 97.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000155.jpg",
+      "sha256": "9258f1ee8b6a26e472b3b79e02b221478cbde46f53daefcdb9ca2816e9288a31"
+    },
+    {
+      "frame": 5880,
+      "seconds": 98.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000156.jpg",
+      "sha256": "9258f1ee8b6a26e472b3b79e02b221478cbde46f53daefcdb9ca2816e9288a31"
+    },
+    {
+      "frame": 5940,
+      "seconds": 99.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000157.jpg",
+      "sha256": "9258f1ee8b6a26e472b3b79e02b221478cbde46f53daefcdb9ca2816e9288a31"
+    },
+    {
+      "frame": 6000,
+      "seconds": 100.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000158.jpg",
+      "sha256": "9258f1ee8b6a26e472b3b79e02b221478cbde46f53daefcdb9ca2816e9288a31"
+    },
+    {
+      "frame": 6060,
+      "seconds": 101.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000159.jpg",
+      "sha256": "06df1b9fc6af6af31ba35d4d19366e71df7143072732732baa94f8846e665f96"
+    },
+    {
+      "frame": 6120,
+      "seconds": 102.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000160.jpg",
+      "sha256": "06df1b9fc6af6af31ba35d4d19366e71df7143072732732baa94f8846e665f96"
+    },
+    {
+      "frame": 6180,
+      "seconds": 103.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000161.jpg",
+      "sha256": "f4caa0d566a255f2312aaff23cea0c0f3fca0b3d5cb1bdcc10d4392d5e999f15"
+    },
+    {
+      "frame": 6240,
+      "seconds": 104.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000162.jpg",
+      "sha256": "ad2a3c77036fec0e40922740040108b4795da0d671a43d5114618707736134d4"
+    },
+    {
+      "frame": 6300,
+      "seconds": 105.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000163.jpg",
+      "sha256": "79b6ef3e4c1b86dd57b469b600d2edec1e220f513bf8dafb69dacc956a347caf"
+    },
+    {
+      "frame": 6360,
+      "seconds": 106.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000164.jpg",
+      "sha256": "cdbf1ea88afe3b76718afa14bc615c3a185ce6bcb851a29cfb25f05d4e077db7"
+    },
+    {
+      "frame": 6420,
+      "seconds": 107.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000165.jpg",
+      "sha256": "cdbf1ea88afe3b76718afa14bc615c3a185ce6bcb851a29cfb25f05d4e077db7"
+    },
+    {
+      "frame": 6480,
+      "seconds": 108.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000166.jpg",
+      "sha256": "cdbf1ea88afe3b76718afa14bc615c3a185ce6bcb851a29cfb25f05d4e077db7"
+    },
+    {
+      "frame": 6540,
+      "seconds": 109.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000167.jpg",
+      "sha256": "b1e891c99cbbcfc5e9608d44f19717600d24fd6fd92e5c981b69cb55685ae01a"
+    },
+    {
+      "frame": 6600,
+      "seconds": 110.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000168.jpg",
+      "sha256": "9723b269759cc5a2d70ddeedb7643eced759ffc4ab2af80661b0ffe2c793878f"
+    },
+    {
+      "frame": 6660,
+      "seconds": 111.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000169.jpg",
+      "sha256": "9723b269759cc5a2d70ddeedb7643eced759ffc4ab2af80661b0ffe2c793878f"
+    },
+    {
+      "frame": 6720,
+      "seconds": 112.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000170.jpg",
+      "sha256": "9723b269759cc5a2d70ddeedb7643eced759ffc4ab2af80661b0ffe2c793878f"
+    },
+    {
+      "frame": 6780,
+      "seconds": 113.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000171.jpg",
+      "sha256": "9723b269759cc5a2d70ddeedb7643eced759ffc4ab2af80661b0ffe2c793878f"
+    },
+    {
+      "frame": 6840,
+      "seconds": 114.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000172.jpg",
+      "sha256": "55790f0694bc6841d7a37694e189a3a77984c576220f3ac6f53bb5e0dedf1f7d"
+    },
+    {
+      "frame": 6900,
+      "seconds": 115.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000173.jpg",
+      "sha256": "9c38d74537451cc32af47247bedc15f36d4caf7fe0d8bd877457af9cf6532f29"
+    },
+    {
+      "frame": 6960,
+      "seconds": 116.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000174.jpg",
+      "sha256": "bef319b49e8ec5340387d24c03109472707d11adb2a0c5713d3df7d4918ea23a"
+    },
+    {
+      "frame": 7020,
+      "seconds": 117.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000175.jpg",
+      "sha256": "bef319b49e8ec5340387d24c03109472707d11adb2a0c5713d3df7d4918ea23a"
+    },
+    {
+      "frame": 7080,
+      "seconds": 118.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000176.jpg",
+      "sha256": "57756607b25d6f7d5441567fc70cdd79d7badc46dad200b28e2b760deea5bbcb"
+    },
+    {
+      "frame": 7140,
+      "seconds": 119.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000177.jpg",
+      "sha256": "f5ea586065957777e7f22a8c15942d531b6422e1d649fc1ecea142138781d111"
+    },
+    {
+      "frame": 7200,
+      "seconds": 120.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000178.jpg",
+      "sha256": "ed1117b0ab3188d6628783e234cce38cc38ee5db3c0f0834952241d2032e4bfa"
+    },
+    {
+      "frame": 7260,
+      "seconds": 121.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000179.jpg",
+      "sha256": "ebafabf35a6b97aba1b08caf6ea45b45941a0735369897583a7372863d1f4a7c"
+    },
+    {
+      "frame": 7320,
+      "seconds": 122.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000180.jpg",
+      "sha256": "10579b179b8181fd1b9baa8076b480b40964774fe2ae070a6c4c7776daac9256"
+    },
+    {
+      "frame": 7380,
+      "seconds": 123.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000181.jpg",
+      "sha256": "10579b179b8181fd1b9baa8076b480b40964774fe2ae070a6c4c7776daac9256"
+    },
+    {
+      "frame": 7440,
+      "seconds": 124.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000182.jpg",
+      "sha256": "10579b179b8181fd1b9baa8076b480b40964774fe2ae070a6c4c7776daac9256"
+    },
+    {
+      "frame": 7500,
+      "seconds": 125.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000183.jpg",
+      "sha256": "10579b179b8181fd1b9baa8076b480b40964774fe2ae070a6c4c7776daac9256"
+    },
+    {
+      "frame": 7560,
+      "seconds": 126.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000184.jpg",
+      "sha256": "10579b179b8181fd1b9baa8076b480b40964774fe2ae070a6c4c7776daac9256"
+    },
+    {
+      "frame": 7620,
+      "seconds": 127.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000185.jpg",
+      "sha256": "195e851a0b58f55c9eac59edc8d1c4c1e21464bde2a94319f3b95f9d42b5e853"
+    },
+    {
+      "frame": 7680,
+      "seconds": 128.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000186.jpg",
+      "sha256": "33c69a71dfb8578969022afb108ccb70d27ebbd94e109582baef6d910670fef8"
+    },
+    {
+      "frame": 7740,
+      "seconds": 129.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000187.jpg",
+      "sha256": "db261cc0f9bfef2c759902dd873d99de3687d1e4f398d0b92af7afb0e7fe87ce"
+    },
+    {
+      "frame": 7800,
+      "seconds": 130.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000188.jpg",
+      "sha256": "8413a83fd1bdcf70c4d5b6958161927d604c0a9f9737dc48c9c082c56aa1f215"
+    },
+    {
+      "frame": 7860,
+      "seconds": 131.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000189.jpg",
+      "sha256": "14d6d03b8f2617794fdc57eae4b2cb4c6b41e600921ea44d9eb80772c0c77f46"
+    },
+    {
+      "frame": 7920,
+      "seconds": 132.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000190.jpg",
+      "sha256": "14d6d03b8f2617794fdc57eae4b2cb4c6b41e600921ea44d9eb80772c0c77f46"
+    },
+    {
+      "frame": 7980,
+      "seconds": 133.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000191.jpg",
+      "sha256": "c023983a2725ecee8b601ad70cdda33f33e53f4b8b4e2e2c31222e7ba4ead6fb"
+    },
+    {
+      "frame": 8040,
+      "seconds": 134.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000192.jpg",
+      "sha256": "70459c19e77c018624332a70eadd6f043911358200bb650bfbd31c8596ab6498"
+    },
+    {
+      "frame": 8100,
+      "seconds": 135.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000193.jpg",
+      "sha256": "51ef99ca7047ed94291701d3b8efd6145666d1a4e39ba69f4814a519f2479124"
+    },
+    {
+      "frame": 8160,
+      "seconds": 136.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000194.jpg",
+      "sha256": "51ef99ca7047ed94291701d3b8efd6145666d1a4e39ba69f4814a519f2479124"
+    },
+    {
+      "frame": 8220,
+      "seconds": 137.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000195.jpg",
+      "sha256": "51ef99ca7047ed94291701d3b8efd6145666d1a4e39ba69f4814a519f2479124"
+    },
+    {
+      "frame": 8280,
+      "seconds": 138.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000196.jpg",
+      "sha256": "51ef99ca7047ed94291701d3b8efd6145666d1a4e39ba69f4814a519f2479124"
+    },
+    {
+      "frame": 8333,
+      "seconds": 138.88333333333333,
+      "reasons": [
+        "line:09_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000197.jpg",
+      "sha256": "b63dde34a0bc2a6700bc33fe057dd9ade55444d6a034832789815d0e10866173"
+    },
+    {
+      "frame": 8340,
+      "seconds": 139.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000198.jpg",
+      "sha256": "c72abdc3b378591052cd10532865eca7b057ea46041664405c93ed322138f513"
+    },
+    {
+      "frame": 8363,
+      "seconds": 139.38333333333333,
+      "reasons": [
+        "line:09_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000199.jpg",
+      "sha256": "f2e5aaf94ecd9517d02ee37c8fb774515110ae67e42940ef899969bd5d557b13"
+    },
+    {
+      "frame": 8393,
+      "seconds": 139.88333333333333,
+      "reasons": [
+        "line:09_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000200.jpg",
+      "sha256": "e220211172eaba32e9e3226ff4483da85d68b804b954d32e693f95a4ced0b2ab"
+    },
+    {
+      "frame": 8400,
+      "seconds": 140.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000201.jpg",
+      "sha256": "e220211172eaba32e9e3226ff4483da85d68b804b954d32e693f95a4ced0b2ab"
+    },
+    {
+      "frame": 8453,
+      "seconds": 140.88333333333333,
+      "reasons": [
+        "line:09_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000202.jpg",
+      "sha256": "e220211172eaba32e9e3226ff4483da85d68b804b954d32e693f95a4ced0b2ab"
+    },
+    {
+      "frame": 8460,
+      "seconds": 141.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000203.jpg",
+      "sha256": "e220211172eaba32e9e3226ff4483da85d68b804b954d32e693f95a4ced0b2ab"
+    },
+    {
+      "frame": 8520,
+      "seconds": 142.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000204.jpg",
+      "sha256": "e220211172eaba32e9e3226ff4483da85d68b804b954d32e693f95a4ced0b2ab"
+    },
+    {
+      "frame": 8580,
+      "seconds": 143.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000205.jpg",
+      "sha256": "03e0afc4f33559ad7aa17045966d1f2f877f551b8f6faba48709a45246e55806"
+    },
+    {
+      "frame": 8640,
+      "seconds": 144.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000206.jpg",
+      "sha256": "e2a8d5c7c5379fd2875ac3cb1388a21a20e0be8d6f4e9af8d805a04373b7ef8c"
+    },
+    {
+      "frame": 8700,
+      "seconds": 145.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000207.jpg",
+      "sha256": "e2a8d5c7c5379fd2875ac3cb1388a21a20e0be8d6f4e9af8d805a04373b7ef8c"
+    },
+    {
+      "frame": 8760,
+      "seconds": 146.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000208.jpg",
+      "sha256": "e2a8d5c7c5379fd2875ac3cb1388a21a20e0be8d6f4e9af8d805a04373b7ef8c"
+    },
+    {
+      "frame": 8820,
+      "seconds": 147.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000209.jpg",
+      "sha256": "ae9af881e05d98b60b37f12673b1eac2a51e69ba6301518c299fce67f5b3c0e4"
+    },
+    {
+      "frame": 8880,
+      "seconds": 148.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000210.jpg",
+      "sha256": "1eedf27cb62ea7b6ddd1eb71f28314d166d85da75c779ae648bb446b6eafba2c"
+    },
+    {
+      "frame": 8940,
+      "seconds": 149.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000211.jpg",
+      "sha256": "1eedf27cb62ea7b6ddd1eb71f28314d166d85da75c779ae648bb446b6eafba2c"
+    },
+    {
+      "frame": 8998,
+      "seconds": 149.96666666666667,
+      "reasons": [
+        "line:09_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000212.jpg",
+      "sha256": "1eedf27cb62ea7b6ddd1eb71f28314d166d85da75c779ae648bb446b6eafba2c"
+    },
+    {
+      "frame": 9000,
+      "seconds": 150.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000213.jpg",
+      "sha256": "27fafb82b190b740d24176e7607e9cbb0f27ee675a6077615ae1d292a203b399"
+    },
+    {
+      "frame": 9028,
+      "seconds": 150.46666666666667,
+      "reasons": [
+        "line:09_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000214.jpg",
+      "sha256": "9bf40dd13fd74a03aa9de515516836f7f28c2054887e60d4370ef29556c2d635"
+    },
+    {
+      "frame": 9058,
+      "seconds": 150.96666666666667,
+      "reasons": [
+        "line:09_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000215.jpg",
+      "sha256": "64229c3425decfdc18cab9b67bd2292634663bc0a512698ee3e87dd15b8a8fa1"
+    },
+    {
+      "frame": 9060,
+      "seconds": 151.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000216.jpg",
+      "sha256": "e83c08fd9d80ed4151ce592adcc8d4654c920e80f775146ca01b698d7733077b"
+    },
+    {
+      "frame": 9118,
+      "seconds": 151.96666666666667,
+      "reasons": [
+        "line:09_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000217.jpg",
+      "sha256": "e764c84cab3919b349a205b78180e44ca3c4f77883348f0e21ae882d8c8ff29d"
+    },
+    {
+      "frame": 9120,
+      "seconds": 152.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000218.jpg",
+      "sha256": "e764c84cab3919b349a205b78180e44ca3c4f77883348f0e21ae882d8c8ff29d"
+    },
+    {
+      "frame": 9180,
+      "seconds": 153.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000219.jpg",
+      "sha256": "e764c84cab3919b349a205b78180e44ca3c4f77883348f0e21ae882d8c8ff29d"
+    },
+    {
+      "frame": 9240,
+      "seconds": 154.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000220.jpg",
+      "sha256": "e764c84cab3919b349a205b78180e44ca3c4f77883348f0e21ae882d8c8ff29d"
+    },
+    {
+      "frame": 9300,
+      "seconds": 155.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000221.jpg",
+      "sha256": "4579f08b89483870b4657eab20b96bf3043c75b2c46e66e605bc1ea21fdc6890"
+    },
+    {
+      "frame": 9360,
+      "seconds": 156.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000222.jpg",
+      "sha256": "d282a377273a00ecd34197c2d90dac60f3b0b9d705056d84ffd6aa202db6e772"
+    },
+    {
+      "frame": 9396,
+      "seconds": 156.6,
+      "reasons": [
+        "Current lint: 09_3 +6.8s @156.8s\tbehind\ta stroke of an unlabeled shape (x 2.80..2.82, y -1.02..1.62), painted under \"opposite samples share a value\", passes through it near (2.81, -0.76) (still there at 223 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000223.jpg",
+      "sha256": "f1d7adab70100d5a8a6e49359f4f04b5598e97e2592c45701e41de8b34ec5633"
+    },
+    {
+      "frame": 9408,
+      "seconds": 156.8,
+      "reasons": [
+        "Current lint: 09_3 +6.8s @156.8s\tbehind\ta stroke of an unlabeled shape (x 2.80..2.82, y -1.02..1.62), painted under \"opposite samples share a value\", passes through it near (2.81, -0.76) (still there at 223 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000224.jpg",
+      "sha256": "0b82f6009326f1752a480aef08206e8987e51a42cc0d54f1808ea29234090126"
+    },
+    {
+      "frame": 9420,
+      "seconds": 157.0,
+      "reasons": [
+        "one-second sample",
+        "Current lint: 09_3 +6.8s @156.8s\tbehind\ta stroke of an unlabeled shape (x 2.80..2.82, y -1.02..1.62), painted under \"opposite samples share a value\", passes through it near (2.81, -0.76) (still there at 223 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000225.jpg",
+      "sha256": "aa5c9fe8ee8fab4d2a14c627cc80d4d583729ae52a401da5b96f226a43a2d97d"
+    },
+    {
+      "frame": 9468,
+      "seconds": 157.8,
+      "reasons": [
+        "Current lint: 09_3 +6.8s @156.8s\tbehind\ta stroke of an unlabeled shape (x 2.80..2.82, y -1.02..1.62), painted under \"opposite samples share a value\", passes through it near (2.81, -0.76) (still there at 223 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000226.jpg",
+      "sha256": "0721956b8e0146b2ebafdebb49f088a2fc71079881a4a53e826fa624684fca20"
+    },
+    {
+      "frame": 9480,
+      "seconds": 158.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000227.jpg",
+      "sha256": "0721956b8e0146b2ebafdebb49f088a2fc71079881a4a53e826fa624684fca20"
+    },
+    {
+      "frame": 9528,
+      "seconds": 158.8,
+      "reasons": [
+        "Current lint: 09_3 +6.8s @156.8s\tbehind\ta stroke of an unlabeled shape (x 2.80..2.82, y -1.02..1.62), painted under \"opposite samples share a value\", passes through it near (2.81, -0.76) (still there at 223 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000228.jpg",
+      "sha256": "0721956b8e0146b2ebafdebb49f088a2fc71079881a4a53e826fa624684fca20"
+    },
+    {
+      "frame": 9540,
+      "seconds": 159.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000229.jpg",
+      "sha256": "5677d231b1721885d6899cd81a49b74fc0d0b96d66d6f12479712e327cdcc99c"
+    },
+    {
+      "frame": 9600,
+      "seconds": 160.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000230.jpg",
+      "sha256": "69be367371cc4c431f88d9c8f72a50465dc12026854d0c3e4451f2c1a13c73c1"
+    },
+    {
+      "frame": 9660,
+      "seconds": 161.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000231.jpg",
+      "sha256": "a0cfe6c36695ca0aa29795f14d5c8d923d307ca0e06c964ba9f89220effd6096"
+    },
+    {
+      "frame": 9720,
+      "seconds": 162.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000232.jpg",
+      "sha256": "5dcfd2dc058b598783bac5379a1405724388c5ff9a20c795711d141b1e9a38bf"
+    },
+    {
+      "frame": 9780,
+      "seconds": 163.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000233.jpg",
+      "sha256": "df48300b3887b93b51d2013a578ebd5f7a191b9dca7cdcbef071a00697023294"
+    },
+    {
+      "frame": 9840,
+      "seconds": 164.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000234.jpg",
+      "sha256": "6a5f527fda7a50a045401506f37684fb7bf7d53852be778abd3c55f4c020f5af"
+    },
+    {
+      "frame": 9900,
+      "seconds": 165.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000235.jpg",
+      "sha256": "6a5f527fda7a50a045401506f37684fb7bf7d53852be778abd3c55f4c020f5af"
+    },
+    {
+      "frame": 9918,
+      "seconds": 165.3,
+      "reasons": [
+        "line:09_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000236.jpg",
+      "sha256": "d798579d373ba3b6d5669e1b44055e942443e50b906c0a3d91cb13ab8d1bbbc9"
+    },
+    {
+      "frame": 9948,
+      "seconds": 165.8,
+      "reasons": [
+        "line:09_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000237.jpg",
+      "sha256": "b4cd4bb49ca1f81f982f6599ff5d1f668d7850dfbc8f8ecba576a451db04f611"
+    },
+    {
+      "frame": 9960,
+      "seconds": 166.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000238.jpg",
+      "sha256": "2258ab28c9c4ab62c519b6e4515ae6c9754dfa95ee452b190e2334496a45d73c"
+    },
+    {
+      "frame": 9978,
+      "seconds": 166.3,
+      "reasons": [
+        "line:09_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000239.jpg",
+      "sha256": "2ed911a5c5275ac29077739fa942a5e1b645e8f8850444e2b3d620bdc0843dc2"
+    },
+    {
+      "frame": 10020,
+      "seconds": 167.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000240.jpg",
+      "sha256": "ca8abbe18b73acc300feb1b5ef815a7b3afe936a78ffe492ab0700f28720a855"
+    },
+    {
+      "frame": 10038,
+      "seconds": 167.3,
+      "reasons": [
+        "line:09_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000241.jpg",
+      "sha256": "aa3da03dc13fafe6b8acb204743aff6f913b159c487d3e54d2a1cc9478856e35"
+    },
+    {
+      "frame": 10080,
+      "seconds": 168.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000242.jpg",
+      "sha256": "ce51895798e29296ce83500192aa20833a1eb2e467c8c116aea8507fe41a0f63"
+    },
+    {
+      "frame": 10140,
+      "seconds": 169.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000243.jpg",
+      "sha256": "ce51895798e29296ce83500192aa20833a1eb2e467c8c116aea8507fe41a0f63"
+    },
+    {
+      "frame": 10200,
+      "seconds": 170.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000244.jpg",
+      "sha256": "ce51895798e29296ce83500192aa20833a1eb2e467c8c116aea8507fe41a0f63"
+    },
+    {
+      "frame": 10260,
+      "seconds": 171.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000245.jpg",
+      "sha256": "ac8ff8dff133a531c812017e38f8de0a6efdffb16ff00fdac1022db71bcbfbb1"
+    },
+    {
+      "frame": 10320,
+      "seconds": 172.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000246.jpg",
+      "sha256": "80d9a88de9accd7f6841768dc0495dc76f6c8d070d91ad4a0d26d4ae4f415bd5"
+    },
+    {
+      "frame": 10380,
+      "seconds": 173.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000247.jpg",
+      "sha256": "1b821c8270d2bfbaf12cc91971465575a9abf24e19dd689e20520e1ef5a912ac"
+    },
+    {
+      "frame": 10440,
+      "seconds": 174.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000248.jpg",
+      "sha256": "1b821c8270d2bfbaf12cc91971465575a9abf24e19dd689e20520e1ef5a912ac"
+    },
+    {
+      "frame": 10458,
+      "seconds": 174.3,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000249.jpg",
+      "sha256": "ac35d4eb36bf04890cfc522207d85c6b16be816dae00608d0a50ea3706aba0a3"
+    },
+    {
+      "frame": 10488,
+      "seconds": 174.8,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000250.jpg",
+      "sha256": "94ba4e2a36fc39630b61b607d4afdf7090017ef35c15c2209f62ea625e9b07a2"
+    },
+    {
+      "frame": 10500,
+      "seconds": 175.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000251.jpg",
+      "sha256": "267a1bf06e527a5b372731b0012ed8af5bd582b78eeb2670bf3cbf479f23fc34"
+    },
+    {
+      "frame": 10518,
+      "seconds": 175.3,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000252.jpg",
+      "sha256": "32549ede71e85b6ca61bdb57f4ffa9fbae2629b2871016b87cf05a64fb2c378c"
+    },
+    {
+      "frame": 10560,
+      "seconds": 176.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000253.jpg",
+      "sha256": "012f281accae193919fd22c2efe3da0f337c2d56273a0dcf7845d95c1800a22d"
+    },
+    {
+      "frame": 10578,
+      "seconds": 176.3,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000254.jpg",
+      "sha256": "014bec8b905214dc33f298b3791ee3c7c63ad8851f974c754f4c2dff31cd76f5"
+    },
+    {
+      "frame": 10620,
+      "seconds": 177.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000255.jpg",
+      "sha256": "871957b09c0244a990ce2365a9a4e058080dc8350a6c1b24d5149952155edb46"
+    },
+    {
+      "frame": 10680,
+      "seconds": 178.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000256.jpg",
+      "sha256": "979dbca48d45eacdadbad8d4e6aa378e6db28d8eb423207c4f490b92ef4e9806"
+    },
+    {
+      "frame": 10740,
+      "seconds": 179.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000257.jpg",
+      "sha256": "1507ae3b06b6e5de9027c4e4c2151bd749b894b288d373d17397df350e5d44b9"
+    },
+    {
+      "frame": 10773,
+      "seconds": 179.55,
+      "reasons": [
+        "line:09_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000258.jpg",
+      "sha256": "798e067697c335a77dd6d146a693dfc78464bbcb82b7673673ebd82c083b6e2d"
+    },
+    {
+      "frame": 10800,
+      "seconds": 180.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000259.jpg",
+      "sha256": "dbf40f4c1103b42b04a517d527f2ecc3146a405847833c490580219eab61cf89"
+    },
+    {
+      "frame": 10803,
+      "seconds": 180.05,
+      "reasons": [
+        "line:09_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000260.jpg",
+      "sha256": "f7abbc5436e123a675e0464be60bbe72b3888378e8fa05f4e9175e7b59b4f2c6"
+    },
+    {
+      "frame": 10833,
+      "seconds": 180.55,
+      "reasons": [
+        "line:09_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000261.jpg",
+      "sha256": "93da979b9eb05459220be141fa0218a10146c70a52f5515a357df35c70059d33"
+    },
+    {
+      "frame": 10860,
+      "seconds": 181.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000262.jpg",
+      "sha256": "bda177df3c661aadf1ebe148895e7110712b77dd430a938f3d9a85324e57a720"
+    },
+    {
+      "frame": 10893,
+      "seconds": 181.55,
+      "reasons": [
+        "line:09_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000263.jpg",
+      "sha256": "65c72447dde53312eb4163fe0f660603cac239ddbad2e6d38aed610dda28ed9e"
+    },
+    {
+      "frame": 10920,
+      "seconds": 182.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000264.jpg",
+      "sha256": "8382ecb021556ce759dee07ba6b77715938657913825ced366b9313ca4fad718"
+    },
+    {
+      "frame": 10980,
+      "seconds": 183.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000265.jpg",
+      "sha256": "8382ecb021556ce759dee07ba6b77715938657913825ced366b9313ca4fad718"
+    },
+    {
+      "frame": 11040,
+      "seconds": 184.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000266.jpg",
+      "sha256": "ab512906101142641de697b1d8774305751c55ceef2cbff1902d8393f1d02e66"
+    },
+    {
+      "frame": 11100,
+      "seconds": 185.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000267.jpg",
+      "sha256": "5dc16efdbc7ef7ad759b84cd5a29769160c28dba6ca798525d5e857d46c7015c"
+    },
+    {
+      "frame": 11160,
+      "seconds": 186.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000268.jpg",
+      "sha256": "5dc16efdbc7ef7ad759b84cd5a29769160c28dba6ca798525d5e857d46c7015c"
+    },
+    {
+      "frame": 11220,
+      "seconds": 187.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000269.jpg",
+      "sha256": "5dc16efdbc7ef7ad759b84cd5a29769160c28dba6ca798525d5e857d46c7015c"
+    },
+    {
+      "frame": 11280,
+      "seconds": 188.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000270.jpg",
+      "sha256": "5125e2ba6fb6fb467a7de6f3910affa642976525573b3860ec61e10c8ff030f7"
+    },
+    {
+      "frame": 11340,
+      "seconds": 189.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000271.jpg",
+      "sha256": "f0cf60fdc78a48485d73b61f54dc9bbe9cf7300242d92245716b5ef51eca7a6a"
+    },
+    {
+      "frame": 11400,
+      "seconds": 190.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000272.jpg",
+      "sha256": "f0cf60fdc78a48485d73b61f54dc9bbe9cf7300242d92245716b5ef51eca7a6a"
+    },
+    {
+      "frame": 11460,
+      "seconds": 191.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000273.jpg",
+      "sha256": "07e098ca38ccacb53f6afdde3b931a35c2f1f4e857e94e370f584e9b1445f8ff"
+    },
+    {
+      "frame": 11520,
+      "seconds": 192.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000274.jpg",
+      "sha256": "c59f5ec99dec0fcb55e72a840432cc609f0c43af126d5efcaf41de9fc3237762"
+    },
+    {
+      "frame": 11580,
+      "seconds": 193.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000275.jpg",
+      "sha256": "5d0572b04a7471131eb7aff71ae9648c243df0cf47ddd233dffb1518fecc6ae7"
+    },
+    {
+      "frame": 11640,
+      "seconds": 194.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000276.jpg",
+      "sha256": "5d0572b04a7471131eb7aff71ae9648c243df0cf47ddd233dffb1518fecc6ae7"
+    },
+    {
+      "frame": 11700,
+      "seconds": 195.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000277.jpg",
+      "sha256": "5d0572b04a7471131eb7aff71ae9648c243df0cf47ddd233dffb1518fecc6ae7"
+    },
+    {
+      "frame": 11760,
+      "seconds": 196.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000278.jpg",
+      "sha256": "5d0572b04a7471131eb7aff71ae9648c243df0cf47ddd233dffb1518fecc6ae7"
+    },
+    {
+      "frame": 11820,
+      "seconds": 197.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000279.jpg",
+      "sha256": "5d0572b04a7471131eb7aff71ae9648c243df0cf47ddd233dffb1518fecc6ae7"
+    },
+    {
+      "frame": 11880,
+      "seconds": 198.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000280.jpg",
+      "sha256": "5d0572b04a7471131eb7aff71ae9648c243df0cf47ddd233dffb1518fecc6ae7"
+    },
+    {
+      "frame": 11940,
+      "seconds": 199.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000281.jpg",
+      "sha256": "5d0572b04a7471131eb7aff71ae9648c243df0cf47ddd233dffb1518fecc6ae7"
+    },
+    {
+      "frame": 12000,
+      "seconds": 200.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000282.jpg",
+      "sha256": "5d0572b04a7471131eb7aff71ae9648c243df0cf47ddd233dffb1518fecc6ae7"
+    },
+    {
+      "frame": 12060,
+      "seconds": 201.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000283.jpg",
+      "sha256": "5d0572b04a7471131eb7aff71ae9648c243df0cf47ddd233dffb1518fecc6ae7"
+    },
+    {
+      "frame": 12069,
+      "seconds": 201.15,
+      "reasons": [
+        "line:09_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000284.jpg",
+      "sha256": "0e80845a6ee2307857c05a864fce4e594d9731a0c5b9fa952f7fecaa269e9dd7"
+    },
+    {
+      "frame": 12099,
+      "seconds": 201.65,
+      "reasons": [
+        "line:09_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000285.jpg",
+      "sha256": "aca28749b3622ed3248377eead740959eecdc31ce58a1d1a34e504d09dfbf6f6"
+    },
+    {
+      "frame": 12120,
+      "seconds": 202.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000286.jpg",
+      "sha256": "2072fca5361a887c8949382fe062f5c461fe75f37c320a2a0f683ba7e493535d"
+    },
+    {
+      "frame": 12129,
+      "seconds": 202.15,
+      "reasons": [
+        "line:09_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000287.jpg",
+      "sha256": "66bc2610e917f601fae57a8829f19079062e1580b5bf0098845d62324a085904"
+    },
+    {
+      "frame": 12144,
+      "seconds": 202.4,
+      "reasons": [
+        "Current lint: 09_3 +6.8s @156.8s\tbehind\ta stroke of an unlabeled shape (x 2.80..2.82, y -1.02..1.62), painted under \"opposite samples share a value\", passes through it near (2.81, -0.76) (still there at 223 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000288.jpg",
+      "sha256": "ca60fe50a283988ca3af74dad6d08cf3fee14471f3154c81b6d77c75fdafc3e1"
+    },
+    {
+      "frame": 12180,
+      "seconds": 203.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000289.jpg",
+      "sha256": "67abf9c7b9d6b200f5c984f97cf15419d5b66ff136da8955359d53b8f07e999f"
+    },
+    {
+      "frame": 12189,
+      "seconds": 203.15,
+      "reasons": [
+        "line:09_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000290.jpg",
+      "sha256": "5324acafb918ffa6a07ca9c3fb6cbad511ec0f6d81572e1f98eaf354fff5d136"
+    },
+    {
+      "frame": 12204,
+      "seconds": 203.4,
+      "reasons": [
+        "Current lint: 09_3 +6.8s @156.8s\tbehind\ta stroke of an unlabeled shape (x 2.80..2.82, y -1.02..1.62), painted under \"opposite samples share a value\", passes through it near (2.81, -0.76) (still there at 223 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000291.jpg",
+      "sha256": "14b6573c3b544d3d4e59dd492c89124877cfa617a3c4095ef949427339326f5c"
+    },
+    {
+      "frame": 12240,
+      "seconds": 204.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000292.jpg",
+      "sha256": "14b6573c3b544d3d4e59dd492c89124877cfa617a3c4095ef949427339326f5c"
+    },
+    {
+      "frame": 12300,
+      "seconds": 205.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000293.jpg",
+      "sha256": "963169106d82cf0d6a15f2a846b362441d0ef30a57ceb19ee0a0604ffa7c9436"
+    },
+    {
+      "frame": 12360,
+      "seconds": 206.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000294.jpg",
+      "sha256": "609aa5ecd48bf4f4105ff37a2cd0956370b05936ed028ade19efeacff915c6e2"
+    },
+    {
+      "frame": 12420,
+      "seconds": 207.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000295.jpg",
+      "sha256": "e071e5cc64b099071b120f5e0e6261b42638e200e9e49dcfa20edc9b0a900831"
+    },
+    {
+      "frame": 12480,
+      "seconds": 208.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000296.jpg",
+      "sha256": "4de27c885dcdaa569d24fb616f62e76a97b4ea00c475d190129cbfadd36197ef"
+    },
+    {
+      "frame": 12540,
+      "seconds": 209.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000297.jpg",
+      "sha256": "291714cdd935fc59903501559c68f4705d48f8f9f984a14bff3d14e3705cadd2"
+    },
+    {
+      "frame": 12600,
+      "seconds": 210.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000298.jpg",
+      "sha256": "afb43bcab6a1fb4dfa324e11fed9617206b167a15e9d8357c5fceef4eb320ea9"
+    },
+    {
+      "frame": 12660,
+      "seconds": 211.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000299.jpg",
+      "sha256": "a382902ec6834135f47cc83bfc95964272552ab8fadb2982310fbb91dae94ed3"
+    },
+    {
+      "frame": 12720,
+      "seconds": 212.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000300.jpg",
+      "sha256": "a382902ec6834135f47cc83bfc95964272552ab8fadb2982310fbb91dae94ed3"
+    },
+    {
+      "frame": 12780,
+      "seconds": 213.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000301.jpg",
+      "sha256": "9cf9624178bdc69b11e2b50f06aad9fde9f4c2c213cde1547c28c670ea0416cf"
+    },
+    {
+      "frame": 12840,
+      "seconds": 214.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000302.jpg",
+      "sha256": "268b44b7592ffd57dcea605c13b4c1919d96eb3370a143c38e9720fb34eafc48"
+    },
+    {
+      "frame": 12900,
+      "seconds": 215.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000303.jpg",
+      "sha256": "03ca13bbdaa3268cb81af247f84f72cecfd880f029238ce425fea901c011c9a4"
+    },
+    {
+      "frame": 12960,
+      "seconds": 216.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000304.jpg",
+      "sha256": "ad6464f107169871aa66ab677b49f83144a84e14a12b0c284e42db04c7eafefa"
+    },
+    {
+      "frame": 13020,
+      "seconds": 217.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000305.jpg",
+      "sha256": "ad6464f107169871aa66ab677b49f83144a84e14a12b0c284e42db04c7eafefa"
+    },
+    {
+      "frame": 13080,
+      "seconds": 218.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000306.jpg",
+      "sha256": "a45ce6b4468240df42dac991a4c1feafc4d4846fa7f3cbf28e929b5465359418"
+    },
+    {
+      "frame": 13140,
+      "seconds": 219.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000307.jpg",
+      "sha256": "d575c69d3fb753c9de47081335b0415d30cb7d250517e725a2cfe11dfccc99a2"
+    },
+    {
+      "frame": 13200,
+      "seconds": 220.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000308.jpg",
+      "sha256": "15a6f876198fdf99c90e93194445abdffb4d711c3ed97c0a391aa29a42b48e89"
+    },
+    {
+      "frame": 13260,
+      "seconds": 221.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000309.jpg",
+      "sha256": "15a6f876198fdf99c90e93194445abdffb4d711c3ed97c0a391aa29a42b48e89"
+    },
+    {
+      "frame": 13320,
+      "seconds": 222.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000310.jpg",
+      "sha256": "6d600897da5fff0ba3db1347f4bb6c890e7cf9aea02ad85961e9a3804115fc40"
+    },
+    {
+      "frame": 13363,
+      "seconds": 222.71666666666667,
+      "reasons": [
+        "line:09_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000311.jpg",
+      "sha256": "d7bc892417bc0f0bfb8a1836db76f26994c71c7f1b06e3aecc7f64abc04784dc"
+    },
+    {
+      "frame": 13380,
+      "seconds": 223.0,
+      "reasons": [
+        "one-second sample",
+        "Current lint: 09_7 +0.5s @223.2s\ttight\t\"x\" stands 0.18 from the right edge; a text wants 0.25 (title-safe) (still there at 255 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000312.jpg",
+      "sha256": "e012282c84953fb3c076f8ae4dc1d9af6753c54e74bf8f03daf700d59496f746"
+    },
+    {
+      "frame": 13392,
+      "seconds": 223.2,
+      "reasons": [
+        "Current lint: 09_7 +0.5s @223.2s\ttight\t\"x\" stands 0.18 from the right edge; a text wants 0.25 (title-safe) (still there at 255 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000313.jpg",
+      "sha256": "0725790069b12b9e8f0bdde31ef76e476d45899e34b36180e58e7b81d63722e9"
+    },
+    {
+      "frame": 13393,
+      "seconds": 223.21666666666667,
+      "reasons": [
+        "line:09_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000314.jpg",
+      "sha256": "519f0631ea31fe9b90eaa8a47b8a2916e32b7d9928f431087036b577d8a86753"
+    },
+    {
+      "frame": 13404,
+      "seconds": 223.4,
+      "reasons": [
+        "Current lint: 09_7 +0.5s @223.2s\ttight\t\"x\" stands 0.18 from the right edge; a text wants 0.25 (title-safe) (still there at 255 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000315.jpg",
+      "sha256": "a751669d43f00a25953c84b9d65e78e22aaebb476b28db2e73e85c316be5f3fb"
+    },
+    {
+      "frame": 13423,
+      "seconds": 223.71666666666667,
+      "reasons": [
+        "line:09_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000316.jpg",
+      "sha256": "0221561b82d9af8fbd8e591bd53e545bc222ffed2e31e3b608d61a70542ad10e"
+    },
+    {
+      "frame": 13440,
+      "seconds": 224.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000317.jpg",
+      "sha256": "d1ba39ec61adcd946c40a3a52ea9dcaf3f36d46746d1b2d7de71b27e42960ed4"
+    },
+    {
+      "frame": 13452,
+      "seconds": 224.2,
+      "reasons": [
+        "Current lint: 09_7 +0.5s @223.2s\ttight\t\"x\" stands 0.18 from the right edge; a text wants 0.25 (title-safe) (still there at 255 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000318.jpg",
+      "sha256": "c206476e95920d8ea49ea8690efd9fa09b778a7df1c9591e6ebe0ac7ad8f12cd"
+    },
+    {
+      "frame": 13483,
+      "seconds": 224.71666666666667,
+      "reasons": [
+        "line:09_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000319.jpg",
+      "sha256": "41228a760561d048a615d99b408ac38e9552f4152e3ce7f2407cca41f0d96705"
+    },
+    {
+      "frame": 13500,
+      "seconds": 225.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000320.jpg",
+      "sha256": "41228a760561d048a615d99b408ac38e9552f4152e3ce7f2407cca41f0d96705"
+    },
+    {
+      "frame": 13512,
+      "seconds": 225.2,
+      "reasons": [
+        "Current lint: 09_7 +0.5s @223.2s\ttight\t\"x\" stands 0.18 from the right edge; a text wants 0.25 (title-safe) (still there at 255 later looks)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000321.jpg",
+      "sha256": "41228a760561d048a615d99b408ac38e9552f4152e3ce7f2407cca41f0d96705"
+    },
+    {
+      "frame": 13560,
+      "seconds": 226.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000322.jpg",
+      "sha256": "b97cdbe1365fd7f09f5acc44ca7ee4af0435abcf5be041f79acc7b4c57db9082"
+    },
+    {
+      "frame": 13620,
+      "seconds": 227.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000323.jpg",
+      "sha256": "b97cdbe1365fd7f09f5acc44ca7ee4af0435abcf5be041f79acc7b4c57db9082"
+    },
+    {
+      "frame": 13680,
+      "seconds": 228.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000324.jpg",
+      "sha256": "cbc354ae174e45df798ba9607472749abd167dc9cdd0693c569fa8a3e4996e16"
+    },
+    {
+      "frame": 13740,
+      "seconds": 229.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000325.jpg",
+      "sha256": "c8ac26747b65989cc522759003f1f4b44d1ea3eb1c2d2eb9f505b58065455989"
+    },
+    {
+      "frame": 13800,
+      "seconds": 230.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000326.jpg",
+      "sha256": "0c0144670edb5799f78d7a1e9009859cd8faf71bd4f0fe6585690e1ddc8f1ffe"
+    },
+    {
+      "frame": 13860,
+      "seconds": 231.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000327.jpg",
+      "sha256": "0f65d587a9736d1d3f8a72112f65e361f201c17bb3a27ceb74f035222d0e2eba"
+    },
+    {
+      "frame": 13920,
+      "seconds": 232.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000328.jpg",
+      "sha256": "0f65d587a9736d1d3f8a72112f65e361f201c17bb3a27ceb74f035222d0e2eba"
+    },
+    {
+      "frame": 13980,
+      "seconds": 233.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000329.jpg",
+      "sha256": "0f65d587a9736d1d3f8a72112f65e361f201c17bb3a27ceb74f035222d0e2eba"
+    },
+    {
+      "frame": 14040,
+      "seconds": 234.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000330.jpg",
+      "sha256": "eca1301338a3bb2e5caefd2f4d1c7fca273cb5d427e0c99460d4449f1e8573c7"
+    },
+    {
+      "frame": 14100,
+      "seconds": 235.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000331.jpg",
+      "sha256": "e9e44c5ca621a7e87f427290e8bded20f34884fc546e68f7f95c569bb9c74df2"
+    },
+    {
+      "frame": 14160,
+      "seconds": 236.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000332.jpg",
+      "sha256": "e9e44c5ca621a7e87f427290e8bded20f34884fc546e68f7f95c569bb9c74df2"
+    },
+    {
+      "frame": 14220,
+      "seconds": 237.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000333.jpg",
+      "sha256": "e9e44c5ca621a7e87f427290e8bded20f34884fc546e68f7f95c569bb9c74df2"
+    },
+    {
+      "frame": 14280,
+      "seconds": 238.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000334.jpg",
+      "sha256": "e9e44c5ca621a7e87f427290e8bded20f34884fc546e68f7f95c569bb9c74df2"
+    },
+    {
+      "frame": 14340,
+      "seconds": 239.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000335.jpg",
+      "sha256": "3fc7a7b50ef44cad38235157c21ceec7fb89a9181d6756d2a0d4a3060e2bec4a"
+    },
+    {
+      "frame": 14400,
+      "seconds": 240.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000336.jpg",
+      "sha256": "cbed78d09f018f13f880a0a9653ef247db0ea0ad14e80e2ca93d08c1e2047f7b"
+    },
+    {
+      "frame": 14460,
+      "seconds": 241.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000337.jpg",
+      "sha256": "cbed78d09f018f13f880a0a9653ef247db0ea0ad14e80e2ca93d08c1e2047f7b"
+    },
+    {
+      "frame": 14520,
+      "seconds": 242.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000338.jpg",
+      "sha256": "cbed78d09f018f13f880a0a9653ef247db0ea0ad14e80e2ca93d08c1e2047f7b"
+    },
+    {
+      "frame": 14580,
+      "seconds": 243.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000339.jpg",
+      "sha256": "f31cb50a7f86f08c4865267c792c144372df98797ce4e880b32ef2e5b059b821"
+    },
+    {
+      "frame": 14640,
+      "seconds": 244.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000340.jpg",
+      "sha256": "f31cb50a7f86f08c4865267c792c144372df98797ce4e880b32ef2e5b059b821"
+    },
+    {
+      "frame": 14700,
+      "seconds": 245.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000341.jpg",
+      "sha256": "f31cb50a7f86f08c4865267c792c144372df98797ce4e880b32ef2e5b059b821"
+    },
+    {
+      "frame": 14760,
+      "seconds": 246.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000342.jpg",
+      "sha256": "af48f9e2b2294bee57b411dca557be38111dbfade165ca3c1d0be7936c42a6c0"
+    },
+    {
+      "frame": 14815,
+      "seconds": 246.91666666666666,
+      "reasons": [
+        "line:09_8"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000343.jpg",
+      "sha256": "e2652b46d6ec9bd410ae5b0f0444da197e324984cd559b3617b8a52a798a85f7"
+    },
+    {
+      "frame": 14820,
+      "seconds": 247.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000344.jpg",
+      "sha256": "bb59dafbbaf84f532672bdc1ccbd9aafe5e1dd52ce3d3366cde025cdd032248c"
+    },
+    {
+      "frame": 14845,
+      "seconds": 247.41666666666666,
+      "reasons": [
+        "line:09_8"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000345.jpg",
+      "sha256": "617520f450bfec331c03e9c098e477f15a2cd248062204e12052964d240084e0"
+    },
+    {
+      "frame": 14875,
+      "seconds": 247.91666666666666,
+      "reasons": [
+        "line:09_8"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000346.jpg",
+      "sha256": "5285a4299ce9e371b32bce26a7a76f823c745b24798f86132dc116fe1abdc8ce"
+    },
+    {
+      "frame": 14880,
+      "seconds": 248.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000347.jpg",
+      "sha256": "10be7feaf7fd428394da2777e91d1a023296ea182a2833abf7cee73134aea048"
+    },
+    {
+      "frame": 14935,
+      "seconds": 248.91666666666666,
+      "reasons": [
+        "line:09_8"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000348.jpg",
+      "sha256": "d918fec632aa8d94f579031e6e574e010dde83d56d861a5c42ebf93cc386ab6a"
+    },
+    {
+      "frame": 14940,
+      "seconds": 249.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000349.jpg",
+      "sha256": "164d1c46b9cff4d2a739b307480705e755a6c2c12e97b76bdcc1cfcd803876ff"
+    },
+    {
+      "frame": 15000,
+      "seconds": 250.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000350.jpg",
+      "sha256": "f3cc7f1426faa23ac040d67695d3fa01f167fd0061e971dec9a24f60fcc277de"
+    },
+    {
+      "frame": 15060,
+      "seconds": 251.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000351.jpg",
+      "sha256": "2353a93f6c91abd13af148575a10187de4bfbe767c6df417b5aa56a2ed6baa00"
+    },
+    {
+      "frame": 15120,
+      "seconds": 252.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000352.jpg",
+      "sha256": "2353a93f6c91abd13af148575a10187de4bfbe767c6df417b5aa56a2ed6baa00"
+    },
+    {
+      "frame": 15180,
+      "seconds": 253.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000353.jpg",
+      "sha256": "2353a93f6c91abd13af148575a10187de4bfbe767c6df417b5aa56a2ed6baa00"
+    },
+    {
+      "frame": 15202,
+      "seconds": 253.36666666666667,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000354.jpg",
+      "sha256": "98a15550b5ea59021b782695bb8013a1aea8100ec0a0da9388a0f8b80b14e949"
+    },
+    {
+      "frame": 15232,
+      "seconds": 253.86666666666667,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000355.jpg",
+      "sha256": "cbb0a72545518abcd330cf52f98ae69db32b5b45fcacbc37eae65240aebc74c8"
+    },
+    {
+      "frame": 15240,
+      "seconds": 254.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000356.jpg",
+      "sha256": "c138e50816ee7adf6d38b604dd5b5c57476fca97e0ca6f4104cdd128b72593f7"
+    },
+    {
+      "frame": 15262,
+      "seconds": 254.36666666666667,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000357.jpg",
+      "sha256": "55db0ffae3f16f163e46a8301b42b785c26e83815ced13615838019676003271"
+    },
+    {
+      "frame": 15300,
+      "seconds": 255.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000358.jpg",
+      "sha256": "d87cf63b5562728e0e25b1270f9de5cb5c81c7d8c3c07f1e846ede02adea7085"
+    },
+    {
+      "frame": 15322,
+      "seconds": 255.36666666666667,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000359.jpg",
+      "sha256": "f010a5f377dd20401800b77c7db0c7f5db51c7b36fe19c0e3d6cf1d7291617ef"
+    },
+    {
+      "frame": 15360,
+      "seconds": 256.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000360.jpg",
+      "sha256": "cc281478767a664b36e22e1f7cf69d1883181d316c4ad47bdcdc4502297d81cc"
+    },
+    {
+      "frame": 15420,
+      "seconds": 257.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000361.jpg",
+      "sha256": "9d59dee0e929dd2274c0264a972605b46c2f4a117f3e5488c279be4abe8bb211"
+    },
+    {
+      "frame": 15480,
+      "seconds": 258.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000362.jpg",
+      "sha256": "097417380836ceb42393bdde63afde772b1bd9a09199c8648ed0023e4176ac2d"
+    },
+    {
+      "frame": 15540,
+      "seconds": 259.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000363.jpg",
+      "sha256": "3af6bbf99b157baf2060948068707afee813a3c630de32cec3224cf79651ab28"
+    },
+    {
+      "frame": 15577,
+      "seconds": 259.6166666666667,
+      "reasons": [
+        "line:09_9"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000364.jpg",
+      "sha256": "ff0ee372cfa30b0dbcbf340c0360942a781c1c29446e070f33914343695ca732"
+    },
+    {
+      "frame": 15600,
+      "seconds": 260.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000365.jpg",
+      "sha256": "994bd4c81c997589572a725320c9e17e74bf947a7d678b4f258365218f1dd7e1"
+    },
+    {
+      "frame": 15607,
+      "seconds": 260.1166666666667,
+      "reasons": [
+        "line:09_9"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000366.jpg",
+      "sha256": "84c32bda3b4f9904b364f686364c25f9a60d64a7b0b1f118c74069ca37a45854"
+    },
+    {
+      "frame": 15637,
+      "seconds": 260.6166666666667,
+      "reasons": [
+        "line:09_9"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000367.jpg",
+      "sha256": "ace9f4bfee0f91f4b2e2f76a09b26cb18bf5cd7d2a476d76cde566511261a055"
+    },
+    {
+      "frame": 15660,
+      "seconds": 261.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000368.jpg",
+      "sha256": "915766039a86a666d5ae1355c39e74f142316c04c304b4936408704bd3fac2bb"
+    },
+    {
+      "frame": 15697,
+      "seconds": 261.6166666666667,
+      "reasons": [
+        "line:09_9"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000369.jpg",
+      "sha256": "73aee4cd6ca7689fc0edde088d07304ada4bd2089f4276e7718415546daf3fb2"
+    },
+    {
+      "frame": 15720,
+      "seconds": 262.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000370.jpg",
+      "sha256": "971ba93f435fa5402a252b13be6adc117c77a2ab1712a7a4847fa292ad007e45"
+    },
+    {
+      "frame": 15780,
+      "seconds": 263.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000371.jpg",
+      "sha256": "4ee4a7fe0fe52b6fbb2b1bf8d1b56f57179e0d9076b961ef85de3ee3e179e391"
+    },
+    {
+      "frame": 15840,
+      "seconds": 264.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000372.jpg",
+      "sha256": "f8de7375649875996fd28505aa2faabb44fd9471b9c442c9de2447f8bfcc73f5"
+    },
+    {
+      "frame": 15900,
+      "seconds": 265.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000373.jpg",
+      "sha256": "f8de7375649875996fd28505aa2faabb44fd9471b9c442c9de2447f8bfcc73f5"
+    },
+    {
+      "frame": 15960,
+      "seconds": 266.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000374.jpg",
+      "sha256": "f8de7375649875996fd28505aa2faabb44fd9471b9c442c9de2447f8bfcc73f5"
+    },
+    {
+      "frame": 16020,
+      "seconds": 267.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000375.jpg",
+      "sha256": "f8de7375649875996fd28505aa2faabb44fd9471b9c442c9de2447f8bfcc73f5"
+    },
+    {
+      "frame": 16080,
+      "seconds": 268.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000376.jpg",
+      "sha256": "507643f46c3c7d8f3e739781daa526030b8b68e8efa16596fefe19570d035351"
+    },
+    {
+      "frame": 16140,
+      "seconds": 269.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000377.jpg",
+      "sha256": "490749a9c3a08f1ea7258890f078c8a58930393e9cdc00568a4d75cb3ce6bdd5"
+    },
+    {
+      "frame": 16200,
+      "seconds": 270.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000378.jpg",
+      "sha256": "2ab6545e0f7736f19b9994f683188b0078cccbafc67760b82388d1f9365516dd"
+    },
+    {
+      "frame": 16260,
+      "seconds": 271.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000379.jpg",
+      "sha256": "2ab6545e0f7736f19b9994f683188b0078cccbafc67760b82388d1f9365516dd"
+    },
+    {
+      "frame": 16320,
+      "seconds": 272.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000380.jpg",
+      "sha256": "252114ec93e16168b8efa5a110e71607cc0c074c248208aeaa1cca9115a27131"
+    },
+    {
+      "frame": 16380,
+      "seconds": 273.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000381.jpg",
+      "sha256": "252114ec93e16168b8efa5a110e71607cc0c074c248208aeaa1cca9115a27131"
+    },
+    {
+      "frame": 16440,
+      "seconds": 274.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000382.jpg",
+      "sha256": "252114ec93e16168b8efa5a110e71607cc0c074c248208aeaa1cca9115a27131"
+    },
+    {
+      "frame": 16500,
+      "seconds": 275.0,
+      "reasons": [
+        "one-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/pictures/frame-000383.jpg",
+      "sha256": "c53242bae86e86328f12ad9752e6d8611fe1eaf583f4e0f96ee7402bce72bf00"
+    }
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0001.jpg",
+      "sha256": "9abeaa78331b22dd90ea2ff966a068dafbf8d5c8422669d7f3838e6441cb1eea"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0002.jpg",
+      "sha256": "b74d553d69d87c66ccb5e616ca2aef928bb6cff124b0f2e2dd3e9c115ee02cfa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0003.jpg",
+      "sha256": "eb69008e36782756d642f29f710dcb3cb8bf85ec3e96c57edc7dc5bd213faa20"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0004.jpg",
+      "sha256": "8759952a5d1b84a66e88cb035bf6e72ad511b42e0073ad05efaed0b477a9bce2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0005.jpg",
+      "sha256": "785b204bef710280b0bb22a8048aaa42330c06bfe67a90750c37d45f882068c0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0006.jpg",
+      "sha256": "59ccea2d49cc44107d03a6f469e639b2b2e050d0c6ace9d3d33eff90add9e343"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0007.jpg",
+      "sha256": "35a0a2f19ae8f7a0210f0a71943bec3b5bf4ed2fcdcc04e82e77db01063cafdd"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0008.jpg",
+      "sha256": "5f7962ac8b0749d0aeb8f414f1ff8808bc30bf1c52682cab59a32ea7f873f7d6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0009.jpg",
+      "sha256": "42eaea2964106143ca5c9f764a6681ddc30bb3e7de32eb2178c9c93b5621b0f1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0010.jpg",
+      "sha256": "1e85b0424935a2bd99dfa6f4ff7d1441ea9ae7b691ac5c674aabc952df74e556"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0011.jpg",
+      "sha256": "6112cd181493c60a1cc08d0e8070d0e1d6853bb1fd69f21ea03e64c905bee646"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0012.jpg",
+      "sha256": "3760b3dc64b8614bf0a320dbb5683eaabc3a725d40b251270404f8c7513db4b4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0013.jpg",
+      "sha256": "27b1dcebff3835fa77399eb8864be3a6c1d8b4ed8393de6521673caea74928a0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0014.jpg",
+      "sha256": "f349e8405d85a8281563f0928b91240cf5965b0920f7060829e4ee3b450c09ff"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0015.jpg",
+      "sha256": "64f3e8721c02ff4997f857811ccc9e5034cf5da390ef3545099723edc217754d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0016.jpg",
+      "sha256": "733b7ae24134d1fd40aa5a1a0a05a9d1840aa5b206cbb899fdbab40f8d11b686"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0017.jpg",
+      "sha256": "e8fabc327d3823ee875d45c4fa930f4d645c1cf572cc51714ae4816d101d5c4b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0018.jpg",
+      "sha256": "f56c418f07e70e273544f247c2022678ec954cbb43a89483a858156472cc5ebe"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0019.jpg",
+      "sha256": "55b548749097021ac4c041bbf6d024c2ddd9160a81e1304b05aa31343fdfc7f5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0020.jpg",
+      "sha256": "3022666fb7c3bfd1faff19f91e69ee786b9a16b28ffec0a03c29c7712261d08b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0021.jpg",
+      "sha256": "2d7dd5f955c35337973f42a6a34179c4d8604a43d8bca3a1765efcc4f018bea7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0022.jpg",
+      "sha256": "78c195b1315168b4e978aea422bc35be268a25604bfd721daba7342cae4b3d98"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0023.jpg",
+      "sha256": "f9aae0fc9e7ad039e32e39ac6adeb992976a8e9f372bd8c3a279fe2e4b29ede8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0024.jpg",
+      "sha256": "60eb26699d885357e07f17227911d5a14ff6b7ac652e11ac19c861dedf886d60"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0025.jpg",
+      "sha256": "77540680f03e4cc9173b055f2e7a0a7ab82436b11d35646bc1e676e66b8f29be"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0026.jpg",
+      "sha256": "4ed7bb794e180f72cdedc23636de7d70efa394ac20ca6a428d67961c74aca992"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0027.jpg",
+      "sha256": "b27953fc7fe6e32b64012b5903cc7f2ffab67b74d1c8d148bf311d23ce7d0e4b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0028.jpg",
+      "sha256": "db1e6a8f674a43713259fdf4b4412c1d7bd5af4fc807fa58b7d4ebf355e913b9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0029.jpg",
+      "sha256": "f0b60d81075f272faeee5ac3ae325947ae1a318c450976175254724dc47349a1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0030.jpg",
+      "sha256": "0e3c5f870f846172fa2cf8a9ffeea232ba886cd46ca99c7f296c74d804330597"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0031.jpg",
+      "sha256": "b1ba8338ae74e8592fac137ebaf460e87a8d95b85a99f12b61b54c3a3684bcf5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0032.jpg",
+      "sha256": "8e0d4fa0c1f5a7510e164870fb2953cad5c7a3a0f3e359a4cabff35bb38f2d18"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0033.jpg",
+      "sha256": "3fdfd0d98aa2c02ce6187fa425c6f964d97b4f18236e4b201a1ec94ab27b0d40"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0034.jpg",
+      "sha256": "2edc8231a61824d111789154154696a45f5666c0cb1138d7a8a34a06628116c5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0035.jpg",
+      "sha256": "255ad7017918bdfb85081b238297f587cab3a82d944858e4480a143ca86775f3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0036.jpg",
+      "sha256": "91000621a794b8120d9b72ae557540c55994dab5f9fc15966d34ce5188ac71a6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0037.jpg",
+      "sha256": "b87152eb221e2be014cdc93279ed9fec3d2c3ce1f9239396e037ae523a76f535"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0038.jpg",
+      "sha256": "6be76b62601de2add4cfa0ef3044710ace7fc34283a6cd11a68df26c7f40ee96"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0039.jpg",
+      "sha256": "6c697d5aff8cf44bad46a9852f084711998cf8c10e4e7e9d1336085b93ed8f38"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0040.jpg",
+      "sha256": "3a3e423f1a672dd2dba2d5bf75a60a2365918e47bc9bf223d6f4b645e252dba3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0041.jpg",
+      "sha256": "9509bf84888434838a1764e4e5369e512ef2b171a9c647fdd9ede7af8cfd9743"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0042.jpg",
+      "sha256": "bea996038600bda753e04fafd61febf74a8f8d8439d951b7e9ba8cb31876ed35"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0043.jpg",
+      "sha256": "9c6bcd75e417790013576c88db2d1ccce1c49f712b2e32005083428a56cf8552"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0044.jpg",
+      "sha256": "0b717c338d0a53bc8c59b0fe92773ccb9109b424d6f47cbfa57627b5ac893149"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0045.jpg",
+      "sha256": "162b29c298fbc96ca5d8692089094bf7621e8616ed68b5c6e52d65de83b07620"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0046.jpg",
+      "sha256": "295a9be54eca6e454db3e0ff1b26a0f4335f2850fd02c16225be1c239e59b532"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0047.jpg",
+      "sha256": "34748e8d2fc894947136502fb2bcc38c778cfcc17845817cc26d4a560d35ddbc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-boundary-label-preview58/sheet-0048.jpg",
+      "sha256": "a76e21387affa8f5c7b1332fff4d5024b85068cf8a593e89ac5d7fa0a3aafb8e"
+    }
+  ],
+  "scope": "Label-repaired native540p preview extraction; actual viewing/motion,4K, listening/fine-sync and independent AV still required."
+}

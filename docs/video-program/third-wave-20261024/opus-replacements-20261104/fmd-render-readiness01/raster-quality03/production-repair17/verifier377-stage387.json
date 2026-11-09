@@ -1,0 +1,25 @@
+{
+  "time": "2026-11-08T22:28:36.310833+00:00",
+  "files": [
+    {
+      "file": "csd-final-verify377.py",
+      "sha256": "827be351861d0fd4ebc083aa24d594111b059dd9f78c7ca43072b0b6f12f22fe",
+      "remote": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-final-verify377.py"
+    },
+    {
+      "file": "cc2-final-verify377-notes.md",
+      "sha256": "d176024bacf77fc3e853b99f928e5c8b564fad5e24c63218145ca770ae6c78d7",
+      "remote": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc2-final-verify377-notes.md"
+    }
+  ],
+  "changed_functions": [
+    "main",
+    "master350",
+    "picture_plan",
+    "pictures",
+    "plan_for"
+  ],
+  "independent_review_pending": "378",
+  "launched": false,
+  "scope": "Root read full notes and complete363-to377 source delta; AST unchanged other functions. Staging only, not runtime or AV acceptance."
+}

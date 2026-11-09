@@ -1,0 +1,7 @@
+{
+  "source_observation": "Current source and script explicitly use z squared for critical-point angle doubling, and show derivative !=0 for conformal case. Precision card refers to first nonvanishing derivative. Later definition explicitly requires holomorphic on an open region.",
+  "derivation": "For F(z)=|z|^2 at z=x+iy, quotient along real h=t tends to2x; along imaginary h=it tends to-2iy. Equality requires x=y=0; at0 absolute quotient=|h| tends0. This establishes the exactly-one-point claim, whereas the at1 picture is only one illustrative counterexample. For bounded g, |g(h)| |h|^2 / |h| <= M|h| proves product derivative0 at0.",
+  "precision_limits": "Angle multiplication is local leading-term behavior for a nonconstant holomorphic germ with finite first nonzero derivative; oriented arguments are modulo2pi. The constant map is not an angle-multiplication example. Do not present isolated critical-point slogan as an unconditional theorem.",
+  "listening_accepted": false,
+  "independent_review": false
+}

@@ -1,0 +1,49 @@
+{
+  "utc": "2026-11-07T16:55:50.470786+00:00",
+  "extraction": {
+    "pictures": [
+      {
+        "frame": 14160,
+        "seconds": 236.0,
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-final14-permutation-details01/frame-01.png",
+        "sha256": "93bb1c38ca85356d4f1caacf5fd2bb0019697e83f9a2cf7947b0db09fe98bce6"
+      },
+      {
+        "frame": 14880,
+        "seconds": 248.0,
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-final14-permutation-details01/frame-02.png",
+        "sha256": "82524a9afb5b772aaecc4653d97bb28174bae329b0adf92c5782cb5a57b4d110"
+      },
+      {
+        "frame": 15300,
+        "seconds": 255.0,
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-final14-permutation-details01/frame-03.png",
+        "sha256": "5b498d8e48dcd81a64cb94ec39849a8131e59c601e032a1c2b72f060267ec5cd"
+      },
+      {
+        "frame": 42264,
+        "seconds": 704.4,
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-final14-permutation-details01/frame-04.png",
+        "sha256": "7769aa30d4300ae2bf414cf76baa7bc4be3273ccd54fedde59bf7befdd5373a5"
+      }
+    ],
+    "viewed": false,
+    "scope": "Four native4K detail samples only; no motion/listening/fullchapter acceptance."
+  },
+  "viewed_frames": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "original_resolution_viewed_frames": [
+    2
+  ],
+  "observations": [
+    "Corrected first return at 2 and return at 6 statement clear.",
+    "Disjoint-cycle qualification visible and separated from other labels.",
+    "End-frame inverse equations, colored bars and next-chapter question readable."
+  ],
+  "concrete_defects": [],
+  "scope": "Four static 4K source frames; 1,3,4 displayed at2048x1152; frame2 additionally at original4K. Not continuous motion, listening or independent review."
+}

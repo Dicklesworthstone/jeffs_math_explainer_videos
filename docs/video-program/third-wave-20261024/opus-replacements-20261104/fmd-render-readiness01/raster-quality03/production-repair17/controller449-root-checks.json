@@ -1,0 +1,11 @@
+{
+  "sha256": "3e8d5fa215399b590a27ce95591c6df7ff3d05f8667c419b5b5ac8247ecfb38b",
+  "chapters": 15,
+  "prerequisite_receipts": 24,
+  "unchanged_rows": 14,
+  "gallery_ssd_receipt_correct": true,
+  "actual_remote_run": false,
+  "independent_review_complete": false,
+  "staged": false,
+  "launched": false
+}

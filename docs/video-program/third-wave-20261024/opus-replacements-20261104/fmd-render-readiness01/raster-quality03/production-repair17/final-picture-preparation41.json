@@ -1,0 +1,11 @@
+{
+  "syntax": "pass",
+  "runtime": "not run",
+  "transferred": false,
+  "launched": false,
+  "plan_samples": 5064,
+  "chapters": 15,
+  "frames": 133662,
+  "helper_sha256": "46f22f90b40782df9284e6ed9261b6fea2a3bc0e4d6b3e4574c0c99bdaed3007",
+  "pending": "Transfer source snapshots with explicit path mapping; freeze master and verification outputs after successful receipts; guarded extraction, then actually review sheets and native4K details."
+}

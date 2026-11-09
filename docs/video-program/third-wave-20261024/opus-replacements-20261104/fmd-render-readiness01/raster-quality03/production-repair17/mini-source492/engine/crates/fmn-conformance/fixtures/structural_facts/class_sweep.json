@@ -1,0 +1,491 @@
+{
+ "schema": "fmn.structural-class-sweep",
+ "version": 1,
+ "source": "plan Appendix A (the 257-class census), every mobject/* row; private helpers (_Name) excluded",
+ "classes": [
+  "Union",
+  "Difference",
+  "Intersection",
+  "Exclusion",
+  "AnimatedBoundary",
+  "TracedPath",
+  "TracingTail",
+  "CoordinateSystem",
+  "Axes",
+  "ThreeDAxes",
+  "NumberPlane",
+  "ComplexPlane",
+  "ScreenRectangle",
+  "FullScreenRectangle",
+  "FullScreenFadeRectangle",
+  "ParametricCurve",
+  "FunctionGraph",
+  "ImplicitFunction",
+  "TipableVMobject",
+  "Arc",
+  "ArcBetweenPoints",
+  "CurvedArrow",
+  "CurvedDoubleArrow",
+  "Circle",
+  "Dot",
+  "SmallDot",
+  "Ellipse",
+  "AnnularSector",
+  "Sector",
+  "Annulus",
+  "Line",
+  "DashedLine",
+  "TangentLine",
+  "Elbow",
+  "StrokeArrow",
+  "Arrow",
+  "Vector",
+  "CubicBezier",
+  "Polygon",
+  "Polyline",
+  "RegularPolygon",
+  "Triangle",
+  "ArrowTip",
+  "Rectangle",
+  "Square",
+  "RoundedRectangle",
+  "MotionMobject",
+  "Button",
+  "ControlMobject",
+  "EnableDisableButton",
+  "Checkbox",
+  "LinearNumberSlider",
+  "ColorSliders",
+  "Textbox",
+  "ControlPanel",
+  "Matrix",
+  "DecimalMatrix",
+  "IntegerMatrix",
+  "TexMatrix",
+  "MobjectMatrix",
+  "Mobject",
+  "Group",
+  "Point",
+  "NumberLine",
+  "UnitInterval",
+  "Slider",
+  "DecimalNumber",
+  "Integer",
+  "SampleSpace",
+  "BarChart",
+  "SurroundingRectangle",
+  "BackgroundRectangle",
+  "Cross",
+  "Underline",
+  "Brace",
+  "BraceLabel",
+  "BraceText",
+  "LineBrace",
+  "Checkmark",
+  "Exmark",
+  "Lightbulb",
+  "Speedometer",
+  "Laptop",
+  "VideoIcon",
+  "VideoSeries",
+  "Clock",
+  "ClockPassesTime",
+  "Bubble",
+  "SpeechBubble",
+  "ThoughtBubble",
+  "OldSpeechBubble",
+  "DoubleSpeechBubble",
+  "OldThoughtBubble",
+  "VectorizedEarth",
+  "Piano",
+  "Piano3D",
+  "DieFace",
+  "Dartboard",
+  "SingleStringTex",
+  "OldTex",
+  "OldTexText",
+  "BulletedList",
+  "TexTextFromPresetString",
+  "Title",
+  "StringMobject",
+  "SVGMobject",
+  "VMobjectFromSVGPath",
+  "Tex",
+  "TexText",
+  "MarkupText",
+  "Text",
+  "Code",
+  "SurfaceMesh",
+  "Sphere",
+  "Torus",
+  "Cylinder",
+  "Cone",
+  "Line3D",
+  "Disk3D",
+  "Square3D",
+  "Cube",
+  "Prism",
+  "VGroup3D",
+  "VCube",
+  "VPrism",
+  "Dodecahedron",
+  "Prismify",
+  "DotCloud",
+  "TrueDot",
+  "GlowDots",
+  "GlowDot",
+  "ImageMobject",
+  "PMobject",
+  "PGroup",
+  "Surface",
+  "ParametricSurface",
+  "SGroup",
+  "TexturedSurface",
+  "TexturedGeometry",
+  "ThreeDModel",
+  "VMobject",
+  "VGroup",
+  "VectorizedPoint",
+  "CurvesAsSubmobjects",
+  "DashedVMobject",
+  "VHighlight",
+  "ValueTracker",
+  "ExponentialValueTracker",
+  "ComplexValueTracker",
+  "VectorField",
+  "TimeVaryingVectorField",
+  "StreamLines",
+  "AnimatedStreamLines"
+ ],
+ "calls": {
+  "Union": [
+   "Union(Square(), Circle())",
+   "Union(Square(), Square().shift(RIGHT))"
+  ],
+  "Difference": [
+   "Difference(Square(), Circle(radius=0.5))",
+   "Difference(Circle(), Square(side_length=0.5))"
+  ],
+  "Intersection": [
+   "Intersection(Square(), Circle())",
+   "Intersection(Square(), Square().shift(RIGHT))"
+  ],
+  "Exclusion": [
+   "Exclusion(Square(), Circle())",
+   "Exclusion(Square(), Square().shift(0.5 * RIGHT))"
+  ],
+  "AnimatedBoundary": [
+   "AnimatedBoundary(Square())"
+  ],
+  "TracedPath": [
+   "TracedPath(Dot().get_center)"
+  ],
+  "TracingTail": [
+   "TracingTail(Dot())"
+  ],
+  "Axes": [
+   "Axes((-3, 3), (-2, 2))",
+   "Axes(x_range=(0, 10, 2), y_range=(-1, 1, 0.5), width=6, height=4)"
+  ],
+  "ThreeDAxes": [
+   "ThreeDAxes((-2, 2), (-2, 2), (-1, 1))"
+  ],
+  "NumberPlane": [
+   "NumberPlane((-4, 4), (-2, 2))",
+   "NumberPlane(x_range=(-2, 2, 0.5), y_range=(-1, 1, 0.5))"
+  ],
+  "ComplexPlane": [
+   "ComplexPlane((-2, 2), (-2, 2))"
+  ],
+  "ScreenRectangle": [
+   "ScreenRectangle(height=3)"
+  ],
+  "ParametricCurve": [
+   "ParametricCurve(lambda t: [t, t * t, 0], t_range=(-1, 1, 0.1))",
+   "ParametricCurve(lambda t: [t, 0.5 * t, 0], t_range=(0, 2, 0.5))"
+  ],
+  "FunctionGraph": [
+   "FunctionGraph(lambda x: x ** 2, x_range=(-2, 2, 0.25))",
+   "FunctionGraph(lambda x: 0.5 * x - 1, x_range=(-3, 3, 1))"
+  ],
+  "Arc": [
+   "Arc(0, PI / 2, radius=2)",
+   "Arc(start_angle=PI, angle=-PI / 3, n_components=4)"
+  ],
+  "ArcBetweenPoints": [
+   "ArcBetweenPoints(LEFT, RIGHT, angle=PI / 2)",
+   "ArcBetweenPoints(DOWN, UP, angle=-PI / 3)"
+  ],
+  "CurvedArrow": [
+   "CurvedArrow(LEFT, RIGHT)"
+  ],
+  "CurvedDoubleArrow": [
+   "CurvedDoubleArrow(LEFT, RIGHT)"
+  ],
+  "Circle": [
+   "Circle(radius=2)",
+   "Circle(radius=0.5, color=RED)"
+  ],
+  "Dot": [
+   "Dot(UP, radius=0.2)",
+   "Dot(RIGHT, fill_opacity=0.5)",
+   "Dot(color=RED)",
+   "Dot(color=RED, fill_color=BLUE)"
+  ],
+  "Ellipse": [
+   "Ellipse(width=4, height=1)"
+  ],
+  "AnnularSector": [
+   "AnnularSector(inner_radius=1, outer_radius=2, angle=PI / 2)"
+  ],
+  "Sector": [
+   "Sector(angle=PI / 3)"
+  ],
+  "Annulus": [
+   "Annulus(inner_radius=0.5, outer_radius=1)"
+  ],
+  "Line": [
+   "Line(LEFT, RIGHT)",
+   "Line(ORIGIN, UP, buff=0.2)"
+  ],
+  "DashedLine": [
+   "DashedLine(LEFT, RIGHT)",
+   "DashedLine(ORIGIN, 3 * UP, dash_length=0.2)"
+  ],
+  "TangentLine": [
+   "TangentLine(Circle(), 0.25)"
+  ],
+  "Elbow": [
+   "Elbow(width=0.5, angle=PI / 4)"
+  ],
+  "StrokeArrow": [
+   "StrokeArrow(LEFT, RIGHT)"
+  ],
+  "Arrow": [
+   "Arrow(LEFT, RIGHT, buff=0)",
+   "Arrow(LEFT, RIGHT, path_arc=PI / 2)"
+  ],
+  "Vector": [
+   "Vector(RIGHT + UP)",
+   "Vector(2 * LEFT)"
+  ],
+  "CubicBezier": [
+   "CubicBezier(ORIGIN, UP, RIGHT + UP, RIGHT)"
+  ],
+  "Polygon": [
+   "Polygon(ORIGIN, RIGHT, UP)",
+   "Polygon(ORIGIN, 2 * RIGHT, 2 * RIGHT + UP, UP)"
+  ],
+  "Polyline": [
+   "Polyline(ORIGIN, RIGHT, RIGHT + UP)"
+  ],
+  "RegularPolygon": [
+   "RegularPolygon(5)",
+   "RegularPolygon(8, start_angle=0)"
+  ],
+  "Triangle": [
+   "Triangle(start_angle=0)"
+  ],
+  "ArrowTip": [
+   "ArrowTip(angle=PI / 2)"
+  ],
+  "Rectangle": [
+   "Rectangle(width=3, height=1)",
+   "Rectangle(2, 4)"
+  ],
+  "Square": [
+   "Square(side_length=3)",
+   "Square(0.5)",
+   "Square(color=RED, fill_color=BLUE)",
+   "Square(color=RED, stroke_color=GREEN)"
+  ],
+  "RoundedRectangle": [
+   "RoundedRectangle(corner_radius=0.3)",
+   "RoundedRectangle(width=3, height=1, corner_radius=0.5)"
+  ],
+  "Matrix": [
+   "Matrix([[1, 2], [3, 4]])"
+  ],
+  "DecimalMatrix": [
+   "DecimalMatrix([[1.5, 2.25], [3.0, 4.125]])"
+  ],
+  "IntegerMatrix": [
+   "IntegerMatrix([[1, 2], [3, 4]])"
+  ],
+  "Group": [
+   "Group(Square(), Circle())"
+  ],
+  "Point": [
+   "Point(UP)"
+  ],
+  "NumberLine": [
+   "NumberLine((-3, 3, 1))",
+   "NumberLine(x_range=(0, 10, 2), width=6)"
+  ],
+  "UnitInterval": [
+   "UnitInterval(width=4)"
+  ],
+  "DecimalNumber": [
+   "DecimalNumber(3.14159, num_decimal_places=3)",
+   "DecimalNumber(-12.5, include_sign=True)"
+  ],
+  "Integer": [
+   "Integer(42)",
+   "Integer(-7)"
+  ],
+  "BarChart": [
+   "BarChart([1, 2, 3])"
+  ],
+  "SurroundingRectangle": [
+   "SurroundingRectangle(Circle())",
+   "SurroundingRectangle(Square(), buff=0.5)"
+  ],
+  "BackgroundRectangle": [
+   "BackgroundRectangle(Circle())"
+  ],
+  "Cross": [
+   "Cross(Square())"
+  ],
+  "Underline": [
+   "Underline(Square())"
+  ],
+  "Brace": [
+   "Brace(Square(), DOWN)",
+   "Brace(Square(), LEFT)"
+  ],
+  "BraceLabel": [
+   "BraceLabel(Square(), 'x')"
+  ],
+  "BraceText": [
+   "BraceText(Square(), 'side')"
+  ],
+  "LineBrace": [
+   "LineBrace(Line(LEFT, RIGHT))"
+  ],
+  "Clock": [
+   "Clock()"
+  ],
+  "DieFace": [
+   "DieFace(3)",
+   "DieFace(6)"
+  ],
+  "OldTex": [
+   "OldTex('x^2')"
+  ],
+  "OldTexText": [
+   "OldTexText('words')"
+  ],
+  "BulletedList": [
+   "BulletedList('one', 'two')"
+  ],
+  "Title": [
+   "Title('Heading')"
+  ],
+  "Tex": [
+   "Tex(r'x^2 + \\frac{1}{2}')",
+   "Tex('a', '+', 'b')"
+  ],
+  "TexText": [
+   "TexText('Hello world')"
+  ],
+  "MarkupText": [
+   "MarkupText('<b>bold</b> text')"
+  ],
+  "Text": [
+   "Text('Hello')",
+   "Text('ab', font_size=24)"
+  ],
+  "Code": [
+   "Code('x = 1')"
+  ],
+  "SurfaceMesh": [
+   "SurfaceMesh(Sphere())"
+  ],
+  "Sphere": [
+   "Sphere(radius=2)",
+   "Sphere(resolution=(9, 7))"
+  ],
+  "Torus": [
+   "Torus(r1=2, r2=0.5)"
+  ],
+  "Cylinder": [
+   "Cylinder(height=3, radius=0.5)",
+   "Cylinder(axis=RIGHT)"
+  ],
+  "Cone": [
+   "Cone(height=3, radius=0.5)",
+   "Cone(axis=RIGHT)"
+  ],
+  "Line3D": [
+   "Line3D(ORIGIN, OUT)"
+  ],
+  "Disk3D": [
+   "Disk3D(radius=2)"
+  ],
+  "Square3D": [
+   "Square3D(side_length=3)"
+  ],
+  "Cube": [
+   "Cube(side_length=3)"
+  ],
+  "Prism": [
+   "Prism(width=3, height=2, depth=1)"
+  ],
+  "VCube": [
+   "VCube(side_length=3)"
+  ],
+  "VPrism": [
+   "VPrism(width=3, height=2, depth=1)"
+  ],
+  "DotCloud": [
+   "DotCloud([ORIGIN, RIGHT, UP])"
+  ],
+  "TrueDot": [
+   "TrueDot(UP)"
+  ],
+  "GlowDots": [
+   "GlowDots([ORIGIN, RIGHT])"
+  ],
+  "GlowDot": [
+   "GlowDot(UP)"
+  ],
+  "Surface": [
+   "Surface(resolution=(4, 7))"
+  ],
+  "ParametricSurface": [
+   "ParametricSurface(lambda u, v: [u, v, u * v], u_range=(-1, 1), v_range=(-1, 1), resolution=(5, 5))"
+  ],
+  "VMobject": [
+   "VMobject().set_points_as_corners([ORIGIN, RIGHT, UP])"
+  ],
+  "VGroup": [
+   "VGroup(Square(), Circle())",
+   "VGroup(Square(), Circle()).arrange(RIGHT)"
+  ],
+  "VectorizedPoint": [
+   "VectorizedPoint(UP)"
+  ],
+  "CurvesAsSubmobjects": [
+   "CurvesAsSubmobjects(Square())"
+  ],
+  "DashedVMobject": [
+   "DashedVMobject(Circle())",
+   "DashedVMobject(Square(), num_dashes=10)"
+  ],
+  "VHighlight": [
+   "VHighlight(Square())"
+  ],
+  "ValueTracker": [
+   "ValueTracker(3)"
+  ],
+  "ExponentialValueTracker": [
+   "ExponentialValueTracker(2)"
+  ],
+  "ComplexValueTracker": [
+   "ComplexValueTracker(1 + 2j)"
+  ],
+  "VectorField": [
+   "VectorField(lambda x, y: [y, -x], Axes((-2, 2), (-2, 2)))"
+  ]
+ }
+}

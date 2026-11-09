@@ -1,0 +1,461 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "complex_analysis_visual": "946a9c07a462eb066fc8d20c6a092d5b7564d38752d26177bdbbcf15c6027cdc"
+  },
+  "overrides": [
+    {
+      "video": "complex_analysis_visual",
+      "cue": "01_4",
+      "after": "Nothing special happens to the curve at one. It is as smooth there as anywhere else. So what stops the recipe at exactly one?",
+      "role": "visual",
+      "reason": "Prediction window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "02_5",
+      "after": "Multiplying by one plus i once makes an eighth of a turn. What happens if you multiply by it twice? Which number is one plus i, squared?",
+      "role": "visual",
+      "reason": "Prediction window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "03_3",
+      "after": "Now a grid of straight lines. After squaring, will the vertical lines stay straight?",
+      "role": "visual",
+      "reason": "Prediction window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "04_4",
+      "after": "Around a point where the output is zero, the colours always cycle in this order. Once for a simple zero, twice for a zero of order two, and so on. That is how to spot a zero, and its order, in a single glance.",
+      "role": "visual",
+      "reason": "Reading window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "04_6",
+      "after": "Here is the bump, one over one plus z squared. Before the colours appear, where do you expect its poles, and how many times will the colours turn around each one?",
+      "role": "visual",
+      "reason": "Prediction window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "05_8",
+      "after": "Apart from those at minus two, minus four, and on, no zero found so far sits off that line. Whether all the rest lie on it is the Riemann hypothesis, still unsolved. A picture cannot settle it.",
+      "role": "visual",
+      "reason": "Reading window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "06_8",
+      "after": "Here is a simple map. Reflect the plane across the horizontal axis. It sends x plus i y to x minus i y. Does it have a complex derivative anywhere?",
+      "role": "visual",
+      "reason": "Prediction window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "07_2",
+      "after": "So a nonzero derivative keeps angles. A map like that is called conformal. A point where the derivative is zero is a critical point, and there angles get multiplied.",
+      "role": "visual",
+      "reason": "Reading window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "07_3",
+      "after": "A subtler question. Take the function that sends z to the square of its length. At zero, does it have a complex derivative?",
+      "role": "visual",
+      "reason": "Prediction window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "08_5",
+      "after": "Cauchy's theorem says more. If a function is holomorphic on a loop and everywhere inside it, its loop integral is zero. Here is the idea. Cut the inside into tiny squares. Around each one, the function is almost a constant plus a stretch and turn, and those integrate to zero. Neighbouring squares walk their shared edge in opposite directions, so the inner edges cancel, and only the outer loop is left.",
+      "role": "visual",
+      "reason": "Reading window after this complete cue, before the chapter's closing music breath of 2 s and its closing fade: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "09_4",
+      "after": "Now take a circle of radius two. The bump is still one at the centre. Is the average around this bigger circle still one?",
+      "role": "visual",
+      "reason": "Prediction window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "09_5",
+      "after": "It is zero. The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic. Each pole pulls the average down by one half. For this formula, a sufficient condition is that the function is holomorphic throughout the disk and a little beyond its edge.",
+      "role": "visual",
+      "reason": "Reading window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "09_8",
+      "after": "Recentre the recipe at x equals one. How far along the real line will it work now?",
+      "role": "visual",
+      "reason": "Prediction window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "10_4",
+      "after": "Sine of one over z is zero at one over pi, one over two pi, one over three pi, and so on. Those zeros pile up at zero. Must the function be zero everywhere?",
+      "role": "visual",
+      "reason": "Prediction window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "10_5",
+      "after": "No. The pile up point is zero, and zero is not in the region, because the function is undefined there. The theorem needs the pile up point inside the region. Nothing forces sine of one over z to vanish, and it doesn't.",
+      "role": "visual",
+      "reason": "Reading window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "11_5",
+      "after": "This polynomial, z to the fifth minus three z plus one, has five roots. How many of them lie inside the unit circle?",
+      "role": "visual",
+      "reason": "Prediction window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "11_6",
+      "after": "One. Walk the unit circle, and the output turns around zero exactly once. On that circle, the minus three z term is always bigger than the other two terms combined, so the output follows minus three z, which turns once.",
+      "role": "visual",
+      "reason": "Reading window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "11_8",
+      "after": "For programmers. This counts roots inside a loop without finding them. Walk the loop in small steps, add up the change in the output's angle at each step, and divide by a full turn. But samples alone can miss a turn made quickly between them. So bound how fast f can change on the loop, and take steps so small that the output cannot move as far as its distance from zero. Then no turn can hide between samples, and the count is certain.",
+      "role": "visual",
+      "reason": "Reading window after this complete cue, before the chapter's closing music breath of 2 s and its closing fade: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "13_5",
+      "after": "The bottom is zero at the four fourth roots of minus one. They sit on the unit circle at forty five, one hundred thirty five, two hundred twenty five and three hundred fifteen degrees. Which ones lie inside the half circle loop?",
+      "role": "visual",
+      "reason": "Prediction window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "13_11",
+      "after": "One honest note. The real integral converges on its own, because the function falls off fast in both directions. That is what lets us find it as the limit of the stretch from minus R to R.",
+      "role": "visual",
+      "reason": "Reading window after this complete cue, before the chapter's closing music breath of 2.5 s and its closing fade: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "14_3",
+      "after": "Because holomorphic functions are rigid, a function has at most one holomorphic extension to a given connected region. Two extensions that agree on the small disk agree everywhere in that region. You can also build an extension step by step. Recentre the series at a point inside the disk, and its new disk pokes outside the old one. Chain disks along a path, and you can walk all the way around the pole at one. Each step along the path is forced. Here every path gives back one over one minus z, but that is not always so.",
+      "role": "visual",
+      "reason": "Reading window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "14_4",
+      "after": "So what does one plus two plus four plus eight, and so on forever, add up to?",
+      "role": "visual",
+      "reason": "Prediction window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "15_3",
+      "after": "One question to take with you. Centre the bump's recipe at x equals three. How far will it reach?",
+      "role": "visual",
+      "reason": "Prediction window after this complete cue, before the next cue: held on the native picture timeline, not as silence in the take."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "complex_analysis_visual",
+      "cue": "01_4",
+      "next_cue": "01_5",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+      "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3",
+      "line": 245,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(4.9, 3.0))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "02_5",
+      "next_cue": "02_6",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+      "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec",
+      "line": 435,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(COLUMN, -1.0))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "03_3",
+      "next_cue": "03_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+      "sha256": "98cd46c5cc825095600ae431ae22c142a65c7b0cb8d2507d4c4ba0644ca3c432",
+      "line": 607,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, out.p(ASK_AT))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 4 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "04_4",
+      "next_cue": "04_5",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+      "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d",
+      "line": 341,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 7.5 s that chapters::READING_WINDOWS authors, with exact on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "04_6",
+      "next_cue": "04_7",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+      "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d",
+      "line": 389,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right - 0.15, 0.75))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "05_8",
+      "next_cue": "05_9",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+      "sha256": "bff74a1524c71d7bd4ed517e35303c15e801241462d19d192d92afb04312f16c",
+      "line": 866,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 3.5 s that chapters::READING_WINDOWS authors, with four on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "06_8",
+      "next_cue": "06_9",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs",
+      "sha256": "4f0154ec82bb787cdbee4d11d308eea25ca6cc1164f7f4bdb1d908f8d54df29c",
+      "line": 663,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(4.2, 2.4))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "07_2",
+      "next_cue": "07_3",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+      "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00",
+      "line": 400,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 4.5 s that chapters::READING_WINDOWS authors, with exact on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "07_3",
+      "next_cue": "07_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+      "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00",
+      "line": 434,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 0.6))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "08_5",
+      "next_cue": "09_1",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs",
+      "sha256": "f7a46143d709797ff03e748b4b8efad68d9379fea31b8ce0cd6de0d2f25de6d8",
+      "line": 686,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 5 s that chapters::READING_WINDOWS authors, with exact on screen and nothing drawn or cleared, before the chapter's closing music breath of 2 s and its closing fade. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "09_4",
+      "next_cue": "09_5",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "sha256": "1ebe0331ba47144b0968dc553fc2237139d10f2d8f26a207cd0b12f3c5dfdca7",
+      "line": 342,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, -2.0))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "09_5",
+      "next_cue": "09_6",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "sha256": "1ebe0331ba47144b0968dc553fc2237139d10f2d8f26a207cd0b12f3c5dfdca7",
+      "line": 407,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 3 s that chapters::READING_WINDOWS authors, with needs on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "09_8",
+      "next_cue": "09_9",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "sha256": "1ebe0331ba47144b0968dc553fc2237139d10f2d8f26a207cd0b12f3c5dfdca7",
+      "line": 686,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK_RECENTRE, v(3.9, 2.2))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 6 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "10_4",
+      "next_cue": "10_5",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+      "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e",
+      "line": 473,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 0.9))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "10_5",
+      "next_cue": "10_6",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+      "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e",
+      "line": 499,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 8.5 s that chapters::READING_WINDOWS authors, with exact on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "11_5",
+      "next_cue": "11_6",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "sha256": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9",
+      "line": 440,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(ASK_AT.0, ASK_AT.1))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 6 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "11_6",
+      "next_cue": "11_7",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "sha256": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9",
+      "line": 503,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 7 s that chapters::READING_WINDOWS authors, with squashed on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "11_8",
+      "next_cue": "12_1",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "sha256": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9",
+      "line": 604,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 7.5 s that chapters::READING_WINDOWS authors, with panel on screen and nothing drawn or cleared, before the chapter's closing music breath of 2 s and its closing fade. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "13_5",
+      "next_cue": "13_6",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+      "sha256": "a5ef573dfa68325272a5d7f588fb910b2d99ea6538752616a51e92c3904d61ed",
+      "line": 631,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 1.2))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "13_11",
+      "next_cue": "14_1",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+      "sha256": "a5ef573dfa68325272a5d7f588fb910b2d99ea6538752616a51e92c3904d61ed",
+      "line": 813,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 5 s that chapters::READING_WINDOWS authors, with note on screen and nothing drawn or cleared, before the chapter's closing music breath of 2.5 s and its closing fade. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "14_3",
+      "next_cue": "14_4",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+      "sha256": "c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b",
+      "line": 522,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 5.5 s that chapters::READING_WINDOWS authors, with exact on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "14_4",
+      "next_cue": "14_5",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+      "sha256": "c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b",
+      "line": 531,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(0.0, 1.4))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "15_3",
+      "next_cue": "15_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+      "sha256": "0c217b6b5daee2681a61049b0918ceda7cc211d377ecd0c5f70b8562dd36568b",
+      "line": 402,
+      "marker": "let asked = predict(&kit, stage, &line, &[ask.as_str()], v(ASK_AT.0, ASK_AT.1))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 6 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    }
+  ],
+  "hold_kinds": {
+    "prediction": 13,
+    "reading": 10
+  },
+  "helpers": [
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "sha256": "3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db",
+      "line": 1112,
+      "marker": "pub fn predict(kit: &Kit, stage: &mut Stage<'_>, line: &Spoken, lines: &[&str], at: Vec3) -> fmn::Result<Vec<Mob>> {"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "sha256": "3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db",
+      "line": 1166,
+      "marker": "pub fn reading_window(kit: &Kit, stage: &mut Stage<'_>, line: &Spoken) -> fmn::Result<()> {"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+      "sha256": "9ddf5283a8d298d9466bacd0e60c9203bdb857049702daf7971bce40c2b4541b",
+      "line": 31,
+      "marker": "pub const PREDICTS: &[(&str, f64)] = &["
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "sha256": "3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db",
+      "line": 1198,
+      "marker": "pub fn precisely_over(stage: &mut Stage<'_>, said: Mob, whole: Mob) -> fmn::Result<()> {"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+      "sha256": "9ddf5283a8d298d9466bacd0e60c9203bdb857049702daf7971bce40c2b4541b",
+      "line": 58,
+      "marker": "pub const READING_WINDOWS: &[(&str, f64)] = &["
+    }
+  ],
+  "scope": "Stage07 candidate: stage06 with cue 09_5's last sentence and its card corrected. Existing hold calls retained; source hash/marker checks only, not listening/timing acceptance."
+}

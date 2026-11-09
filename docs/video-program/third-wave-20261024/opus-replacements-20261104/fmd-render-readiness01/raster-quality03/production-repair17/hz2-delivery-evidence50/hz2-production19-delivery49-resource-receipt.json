@@ -1,0 +1,50 @@
+{
+  "started": "2026-11-07T20:33:19.963958+00:00",
+  "phase": "native",
+  "command": [
+    "python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-delivery49.py"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-07T20:33:22.125946+00:00",
+      "free_bytes": 34181726208,
+      "work_bytes": 96808960,
+      "target_bytes": 1375186944
+    },
+    {
+      "utc": "2026-11-07T20:33:24.516815+00:00",
+      "free_bytes": 34079817728,
+      "work_bytes": 193183744,
+      "target_bytes": 1375186944
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":34184937472,\"free_excludes_purgeable\":true,\"free_pct\":5.301236753167895,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-hz2-render-worker-20261107\",\"platform\":{\"linux\":{\"device_id\":2049,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":644848345088,\"unprotected\":null,\"volume_available_bytes\":34184937472,\"volume_role\":null,\"volume_total_bytes\":644848345088}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-07T20:33:20.012275+00:00",
+    "free_bytes": 34184912896,
+    "work_bytes": 96804864,
+    "target_bytes": 1375186944
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "72bd5c901c32d7640d5fc2fe14e64d8dc811fc1230ddb58a83b0ceb212ba4b8c",
+  "pid": 650348,
+  "exit": 0,
+  "final_inputs_sha256": "72bd5c901c32d7640d5fc2fe14e64d8dc811fc1230ddb58a83b0ceb212ba4b8c",
+  "finished": "2026-11-07T20:33:25.723879+00:00"
+}

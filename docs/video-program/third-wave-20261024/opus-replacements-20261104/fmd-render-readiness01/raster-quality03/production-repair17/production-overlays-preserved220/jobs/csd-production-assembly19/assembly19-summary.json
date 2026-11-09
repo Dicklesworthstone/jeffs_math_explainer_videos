@@ -1,0 +1,1063 @@
+{
+  "schema": "production-assembly19-v1",
+  "narration": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration",
+  "script_sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c",
+  "units_sha256": "995e25c7788943deff65c4d84050d8a17edc3c2c3498be0d665d7ac5b661357a",
+  "canonical_sha256": "995e25c7788943deff65c4d84050d8a17edc3c2c3498be0d665d7ac5b661357a",
+  "adapter_sha256": "a7fc6705aead7999134d8619458c8b2973ef771be069d4ce98462ac5f97fc42f",
+  "assembly_sha256": "98ca5465426dd348c5944617357ade3c9fff411009f651c136d2c6073d90d839",
+  "report_sha256": "2f899d2fb0c9580e9ddea690d263bd24f0508b37184cbf0cc39a8d9aa3372495",
+  "phrase_timings_sha256": "b025eaa7989c40281e6edc72a65f7677275051c36ad67add8114819a45fccabc",
+  "direction_map_sha256": "0d5bec55f58d40ad9b8ef5d81163606f9a48408786d4f82804ee403b327bdc29",
+  "build_binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "build_source_copy_sha256": "b6799c42cefad68f1f0545ad39108e1ea5743351d9cae7c3c44c87c5237edaa7",
+  "retained_wav_cues_byte_identical": 103,
+  "retained_sentence_and_phrase_cues": 103,
+  "replaced_cues": [
+    "08_5",
+    "09_1"
+  ],
+  "sample_verified_cues": 105,
+  "phrase_hook_audit": [
+    {
+      "cue": "08_5",
+      "phrase": "starting with a square",
+      "byte": 154,
+      "status": "provisional_mark",
+      "sample_24k": 255840,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "Cut the square into four smaller squares",
+      "byte": 244,
+      "status": "provisional_mark",
+      "sample_24k": 391680,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "every shared edge is walked twice",
+      "byte": 361,
+      "status": "provisional_mark",
+      "sample_24k": 571176,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "so those parts cancel exactly",
+      "byte": 420,
+      "status": "provisional_mark",
+      "sample_24k": 661920,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "Now suppose that integral were not zero",
+      "byte": 513,
+      "status": "provisional_mark",
+      "sample_24k": 816000,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "some small square must have an integral",
+      "byte": 559,
+      "status": "provisional_mark",
+      "sample_24k": 890880,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "Four integrals each under a quarter",
+      "byte": 632,
+      "status": "provisional_mark",
+      "sample_24k": 998880,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "Keep that square, and cut it into four again",
+      "byte": 705,
+      "status": "provisional_mark",
+      "sample_24k": 1103040,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "These nested squares shrink toward a single point",
+      "byte": 835,
+      "status": "provisional_mark",
+      "sample_24k": 1296000,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "the derivative at that one point only",
+      "byte": 924,
+      "status": "provisional_mark",
+      "sample_24k": 1436640,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "Near c, the function is a constant",
+      "byte": 963,
+      "status": "provisional_mark",
+      "sample_24k": 1510080,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "So only the remainder contributes",
+      "byte": 1307,
+      "status": "provisional_mark",
+      "sample_24k": 2025600,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "Pick any tiny factor, and call it epsilon",
+      "byte": 1342,
+      "status": "provisional_mark",
+      "sample_24k": 2085600,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "Close enough to c",
+      "byte": 1385,
+      "status": "provisional_mark",
+      "sample_24k": 2157120,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "After enough cuts, the whole nested square",
+      "byte": 1526,
+      "status": "provisional_mark",
+      "sample_24k": 2397600,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "the distance to c is at most the square's diagonal",
+      "byte": 1593,
+      "status": "provisional_mark",
+      "sample_24k": 2510880,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "the steps add up to the perimeter",
+      "byte": 1649,
+      "status": "provisional_mark",
+      "sample_24k": 2587680,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "size at most epsilon, times its diagonal, times its perimeter",
+      "byte": 1723,
+      "status": "provisional_mark",
+      "sample_24k": 2694240,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "Each cut halves the diagonal and halves the perimeter",
+      "byte": 1786,
+      "status": "provisional_mark",
+      "sample_24k": 2799840,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "this bound shrinks to a quarter every time",
+      "byte": 1844,
+      "status": "provisional_mark",
+      "sample_24k": 2885760,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "But our rule kept at least a quarter",
+      "byte": 1888,
+      "status": "provisional_mark",
+      "sample_24k": 2955360,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "So after n cuts",
+      "byte": 1962,
+      "status": "provisional_mark",
+      "sample_24k": 3056160,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "The small square's integral has size at most epsilon",
+      "byte": 2080,
+      "status": "provisional_mark",
+      "sample_24k": 3232320,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "Multiplying by four to the n cancels the fours",
+      "byte": 2203,
+      "status": "provisional_mark",
+      "sample_24k": 3408480,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "the original integral's size is at most epsilon times",
+      "byte": 2254,
+      "status": "provisional_mark",
+      "sample_24k": 3478080,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "Since epsilon can be as small as we like",
+      "byte": 2345,
+      "status": "provisional_mark",
+      "sample_24k": 3597120,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "The same shrinking argument works for a triangle",
+      "byte": 2409,
+      "status": "provisional_mark",
+      "sample_24k": 3722400,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "Join the midpoints of its sides",
+      "byte": 2459,
+      "status": "provisional_mark",
+      "sample_24k": 3790560,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "Walk all four counterclockwise",
+      "byte": 2537,
+      "status": "provisional_mark",
+      "sample_24k": 3909120,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "even the upside down one in the middle",
+      "byte": 2569,
+      "status": "provisional_mark",
+      "sample_24k": 3963840,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "their shared edges cancel again",
+      "byte": 2613,
+      "status": "provisional_mark",
+      "sample_24k": 4012800,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "The longest side plays the diagonal's part",
+      "byte": 2646,
+      "status": "provisional_mark",
+      "sample_24k": 4068480,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "So around every triangle, the integral is zero too",
+      "byte": 2737,
+      "status": "provisional_mark",
+      "sample_24k": 4204320,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "The constant integrates to zero",
+      "byte": 1072,
+      "status": "provisional_mark",
+      "sample_24k": 1690560,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "08_5",
+      "phrase": "The linear term integrates to zero too",
+      "byte": 1163,
+      "status": "provisional_mark",
+      "sample_24k": 1821120,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "divide it by",
+      "byte": 92,
+      "status": "provisional_mark",
+      "sample_24k": 152640,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "Split that quotient",
+      "byte": 139,
+      "status": "provisional_mark",
+      "sample_24k": 252000,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "The first is",
+      "byte": 176,
+      "status": "provisional_mark",
+      "sample_24k": 311040,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "The second is",
+      "byte": 285,
+      "status": "provisional_mark",
+      "sample_24k": 509760,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "It is undefined at a itself",
+      "byte": 361,
+      "status": "provisional_mark",
+      "sample_24k": 666720,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "But as z approaches a",
+      "byte": 470,
+      "status": "provisional_mark",
+      "sample_24k": 820320,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "so near a",
+      "byte": 528,
+      "status": "provisional_mark",
+      "sample_24k": 915840,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "Draw a small circle",
+      "byte": 571,
+      "status": "provisional_mark",
+      "sample_24k": 1011360,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "Between the two circles",
+      "byte": 608,
+      "status": "provisional_mark",
+      "sample_24k": 1081440,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "Trace each circle with a polygon",
+      "byte": 673,
+      "status": "provisional_mark",
+      "sample_24k": 1178400,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "We saw that the shrinking argument works for triangles",
+      "byte": 778,
+      "status": "provisional_mark",
+      "sample_24k": 1332960,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "Now add up all the triangles",
+      "byte": 873,
+      "status": "provisional_mark",
+      "sample_24k": 1482240,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "Every inside edge is walked twice",
+      "byte": 903,
+      "status": "provisional_mark",
+      "sample_24k": 1544160,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "so those parts cancel",
+      "byte": 962,
+      "status": "provisional_mark",
+      "sample_24k": 1628160,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "What survives is the outer polygon",
+      "byte": 985,
+      "status": "provisional_mark",
+      "sample_24k": 1674720,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "So the two polygons, both walked counterclockwise",
+      "byte": 1073,
+      "status": "provisional_mark",
+      "sample_24k": 1812480,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "Now keep the small circle fixed",
+      "byte": 1148,
+      "status": "provisional_mark",
+      "sample_24k": 1940160,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "give the polygons more and more sides",
+      "byte": 1185,
+      "status": "provisional_mark",
+      "sample_24k": 1992960,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "Each short chord and its arc share their endpoints",
+      "byte": 1249,
+      "status": "provisional_mark",
+      "sample_24k": 2096160,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "so a constant has the same integral along both",
+      "byte": 1301,
+      "status": "provisional_mark",
+      "sample_24k": 2171520,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "The difference comes only from how much the quotient wobbles",
+      "byte": 1349,
+      "status": "provisional_mark",
+      "sample_24k": 2252160,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "Continuity makes every wobble small at once",
+      "byte": 1482,
+      "status": "provisional_mark",
+      "sample_24k": 2450880,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "So in the limit, the big circle's integral equals the small circle's",
+      "byte": 1565,
+      "status": "provisional_mark",
+      "sample_24k": 2580480,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "That holds for every small radius",
+      "byte": 1665,
+      "status": "provisional_mark",
+      "sample_24k": 2739840,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "Only now do we shrink the small circle",
+      "byte": 1700,
+      "status": "provisional_mark",
+      "sample_24k": 2806560,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "The magnitude of its integral is at most",
+      "byte": 1740,
+      "status": "provisional_mark",
+      "sample_24k": 2871840,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "and that goes to zero",
+      "byte": 1843,
+      "status": "provisional_mark",
+      "sample_24k": 3025920,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "But the big circle's integral never changed",
+      "byte": 1866,
+      "status": "provisional_mark",
+      "sample_24k": 3072960,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    },
+    {
+      "cue": "09_1",
+      "phrase": "The second piece contributes nothing",
+      "byte": 1931,
+      "status": "provisional_mark",
+      "sample_24k": 3174240,
+      "basis": "provisional recognized word-segment start, not heard onset"
+    }
+  ],
+  "source_relocations": [
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+      "cue": "01_4",
+      "before": {
+        "line": 245,
+        "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3"
+      },
+      "after": {
+        "line": 245,
+        "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(4.9, 3.0))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+      "cue": "02_5",
+      "before": {
+        "line": 435,
+        "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec"
+      },
+      "after": {
+        "line": 435,
+        "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(COLUMN, -1.0))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+      "cue": "03_3",
+      "before": {
+        "line": 607,
+        "sha256": "98cd46c5cc825095600ae431ae22c142a65c7b0cb8d2507d4c4ba0644ca3c432"
+      },
+      "after": {
+        "line": 607,
+        "sha256": "0f22d63febc18e05dc4123bedf84eeadf967938bcbc4260cfb0d9e8925ff4cb9"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, out.p(ASK_AT))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+      "cue": "04_4",
+      "before": {
+        "line": 341,
+        "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+      },
+      "after": {
+        "line": 341,
+        "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+      "cue": "04_6",
+      "before": {
+        "line": 389,
+        "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+      },
+      "after": {
+        "line": 389,
+        "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right - 0.15, 0.75))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+      "cue": "05_8",
+      "before": {
+        "line": 866,
+        "sha256": "da7b806fee85584e111c8a66b95e0f9f8c87bbb42501d79a1129d6b032663290"
+      },
+      "after": {
+        "line": 866,
+        "sha256": "7d1cf20fd25c8d9233f3c14426b0196fd4fd6673e4b25becba47b50f2635b282"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs",
+      "cue": "06_8",
+      "before": {
+        "line": 663,
+        "sha256": "4f0154ec82bb787cdbee4d11d308eea25ca6cc1164f7f4bdb1d908f8d54df29c"
+      },
+      "after": {
+        "line": 663,
+        "sha256": "4f0154ec82bb787cdbee4d11d308eea25ca6cc1164f7f4bdb1d908f8d54df29c"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(4.2, 2.4))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+      "cue": "07_2",
+      "before": {
+        "line": 400,
+        "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+      },
+      "after": {
+        "line": 400,
+        "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+      "cue": "07_3",
+      "before": {
+        "line": 434,
+        "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+      },
+      "after": {
+        "line": 434,
+        "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 0.6))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs",
+      "cue": "08_5",
+      "before": {
+        "line": 686,
+        "sha256": "f7a46143d709797ff03e748b4b8efad68d9379fea31b8ce0cd6de0d2f25de6d8"
+      },
+      "after": {
+        "line": 1177,
+        "sha256": "69042b14117ce6ba7d36c27716c0a55436b7a021493ecc47e57c9cf74e7b58d8"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "cue": "09_4",
+      "before": {
+        "line": 350,
+        "sha256": "6142165b7e9a49e99bb80216ed83117f6bf752a3beda812af29fa5081bc347e9"
+      },
+      "after": {
+        "line": 938,
+        "sha256": "c9e6b5ba84c4cf5ae327a8268d67c4f134484be8538cb99bdf1828ebe051f630"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, -2.0))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "cue": "09_5",
+      "before": {
+        "line": 415,
+        "sha256": "6142165b7e9a49e99bb80216ed83117f6bf752a3beda812af29fa5081bc347e9"
+      },
+      "after": {
+        "line": 1003,
+        "sha256": "c9e6b5ba84c4cf5ae327a8268d67c4f134484be8538cb99bdf1828ebe051f630"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "cue": "09_8",
+      "before": {
+        "line": 694,
+        "sha256": "6142165b7e9a49e99bb80216ed83117f6bf752a3beda812af29fa5081bc347e9"
+      },
+      "after": {
+        "line": 1282,
+        "sha256": "c9e6b5ba84c4cf5ae327a8268d67c4f134484be8538cb99bdf1828ebe051f630"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK_RECENTRE, v(3.9, 2.2))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+      "cue": "10_4",
+      "before": {
+        "line": 473,
+        "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e"
+      },
+      "after": {
+        "line": 473,
+        "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 0.9))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+      "cue": "10_5",
+      "before": {
+        "line": 499,
+        "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e"
+      },
+      "after": {
+        "line": 499,
+        "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "cue": "11_5",
+      "before": {
+        "line": 440,
+        "sha256": "1177c885b6815842bc0ac6e6ac71b01808f00a73137002c05d04e1874decb984"
+      },
+      "after": {
+        "line": 440,
+        "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(ASK_AT.0, ASK_AT.1))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "cue": "11_6",
+      "before": {
+        "line": 503,
+        "sha256": "1177c885b6815842bc0ac6e6ac71b01808f00a73137002c05d04e1874decb984"
+      },
+      "after": {
+        "line": 503,
+        "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "cue": "11_8",
+      "before": {
+        "line": 603,
+        "sha256": "1177c885b6815842bc0ac6e6ac71b01808f00a73137002c05d04e1874decb984"
+      },
+      "after": {
+        "line": 603,
+        "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+      "cue": "13_5",
+      "before": {
+        "line": 631,
+        "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae"
+      },
+      "after": {
+        "line": 631,
+        "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 1.2))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+      "cue": "13_11",
+      "before": {
+        "line": 813,
+        "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae"
+      },
+      "after": {
+        "line": 813,
+        "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+      "cue": "14_3",
+      "before": {
+        "line": 522,
+        "sha256": "c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b"
+      },
+      "after": {
+        "line": 522,
+        "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96"
+      },
+      "marker": "reading_window(&kit, stage, &line)?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+      "cue": "14_4",
+      "before": {
+        "line": 531,
+        "sha256": "c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b"
+      },
+      "after": {
+        "line": 531,
+        "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(0.0, 1.4))?;"
+    },
+    {
+      "kind": "visual_holds",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+      "cue": "15_3",
+      "before": {
+        "line": 402,
+        "sha256": "0c217b6b5daee2681a61049b0918ceda7cc211d377ecd0c5f70b8562dd36568b"
+      },
+      "after": {
+        "line": 402,
+        "sha256": "0c217b6b5daee2681a61049b0918ceda7cc211d377ecd0c5f70b8562dd36568b"
+      },
+      "marker": "let asked = predict(&kit, stage, &line, &[ask.as_str()], v(ASK_AT.0, ASK_AT.1))?;"
+    },
+    {
+      "kind": "helpers",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "cue": null,
+      "before": {
+        "line": 1211,
+        "sha256": "cd394e5a451bf1114bead7a086660d8f22cc282e8bb66de4b17b833a98bd9af1"
+      },
+      "after": {
+        "line": 1211,
+        "sha256": "cd394e5a451bf1114bead7a086660d8f22cc282e8bb66de4b17b833a98bd9af1"
+      },
+      "marker": "pub fn predict(kit: &Kit, stage: &mut Stage<'_>, line: &Spoken, lines: &[&str], at: Vec3) -> fmn::Result<Vec<Mob>> {"
+    },
+    {
+      "kind": "helpers",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "cue": null,
+      "before": {
+        "line": 1265,
+        "sha256": "cd394e5a451bf1114bead7a086660d8f22cc282e8bb66de4b17b833a98bd9af1"
+      },
+      "after": {
+        "line": 1265,
+        "sha256": "cd394e5a451bf1114bead7a086660d8f22cc282e8bb66de4b17b833a98bd9af1"
+      },
+      "marker": "pub fn reading_window(kit: &Kit, stage: &mut Stage<'_>, line: &Spoken) -> fmn::Result<()> {"
+    },
+    {
+      "kind": "helpers",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+      "cue": null,
+      "before": {
+        "line": 31,
+        "sha256": "9ddf5283a8d298d9466bacd0e60c9203bdb857049702daf7971bce40c2b4541b"
+      },
+      "after": {
+        "line": 31,
+        "sha256": "4f4b17c35bf01aaa587d8d3c97b6e79059baef6925f68c1748a121776d841ce6"
+      },
+      "marker": "pub const PREDICTS: &[(&str, f64)] = &["
+    },
+    {
+      "kind": "helpers",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "cue": null,
+      "before": {
+        "line": 1312,
+        "sha256": "cd394e5a451bf1114bead7a086660d8f22cc282e8bb66de4b17b833a98bd9af1"
+      },
+      "after": {
+        "line": 1312,
+        "sha256": "cd394e5a451bf1114bead7a086660d8f22cc282e8bb66de4b17b833a98bd9af1"
+      },
+      "marker": "pub fn precisely_over(stage: &mut Stage<'_>, said: Mob, whole: Mob) -> fmn::Result<()> {"
+    },
+    {
+      "kind": "helpers",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+      "cue": null,
+      "before": {
+        "line": 58,
+        "sha256": "9ddf5283a8d298d9466bacd0e60c9203bdb857049702daf7971bce40c2b4541b"
+      },
+      "after": {
+        "line": 58,
+        "sha256": "4f4b17c35bf01aaa587d8d3c97b6e79059baef6925f68c1748a121776d841ce6"
+      },
+      "marker": "pub const READING_WINDOWS: &[(&str, f64)] = &["
+    }
+  ],
+  "delivery": {
+    "chapter_scope": null,
+    "consumer": "render",
+    "directed_caption_segments": [],
+    "listening_acceptance": false,
+    "plan_mode": "external-ui",
+    "prediction_holds": [],
+    "promotion": false,
+    "selected_cues": 105,
+    "topic": "complex_analysis_visual",
+    "verified_cues": 105
+  },
+  "output_hashes": {
+    "phrase-hook-audit.json": "1862ad765b247402b480282222b50e62d7d7156f7a62586c2155161a676f9e6c",
+    "external-units.json": "995e25c7788943deff65c4d84050d8a17edc3c2c3498be0d665d7ac5b661357a",
+    "spans.json": "6c788fa43d1b1d2194058a9ee6c060c515c7e38ddb70bcead96b939b8cde6f42",
+    "workspace-after.json": "e2971eb1fab657464dcdce950858e9501e6a7f6346fd3a21ffe8a7faba3857b7",
+    "assemble.stdout": "e4f690c7e0ca0fa80f6b511ce7d337e322200e06016eee59fd6c6b4648e9bc42",
+    "assemble.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "verify.stdout": "75da3478c6091a3c5b9a7c9e5d2d1492378b96ed5fe32de5844cffb7dc90d0de",
+    "verify.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "delivery.stdout": "a82590ec6955d9fa3a0dca3c9c0884ff3bd394e0df329eab96918e11a49d9361",
+    "delivery.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "narration/14_3.wav": "f9f2ca25fb347b0b67536dd557369bc7ff8f3ceef4d48590d118f5d12b59e89b",
+    "narration/09_9.wav": "d4a6483385e1e4c01eb43b8017db2e08da34f94c0447d265d49740bcc8dd85e9",
+    "narration/14_1.wav": "e5aafe5c9f73a3f544817bfd09041005b4e1cb7f2d40a8f0337a9b481546504c",
+    "narration/09_7.wav": "5c9b0ebf25615d2268b2b6939b2e4a89721e9ae4d2fefadf8c4021561a919206",
+    "narration/13_4.wav": "026f1ee6c09b04c58f0060cd7a283946d94e49d81f69d2b8fc8072bb059ba0dd",
+    "narration/14_6.wav": "8dc7dd55b446950f9de08a37304f94e05beaf9f169ac41a9b13118324abb2819",
+    "narration/11_6.wav": "434774bd0887e9cd32fce89bea741479443e8365da911cdd22769f07f2b18e2a",
+    "narration/10_4.wav": "eb8e953e7d83f39c3700e56848c782b9b86208e05c2385d6e5fefd1db8e7148c",
+    "narration/10_2.wav": "1573b6a209628f9937cc0d362e5325cfd21d35fe6518314a017388030849e1cb",
+    "narration/01_2.wav": "3650b22a9bd77b8d5af004dcc6721b466f7d1857a3fd882a1b8b46f10df660dd",
+    "narration/06_2.wav": "014a2b5ed289acdc10655fe186b87544d48dc48db4d92e1333297fe9bc7fd565",
+    "narration/01_5.wav": "8ff2491a1981eb81b74411d9f5e6f2a10a3c790e1f931089111da6fd9ecffecb",
+    "narration/04_1.wav": "2f97daaa7ee15ef04877047ffafec695d8eaab58b511d3f7621f56eff7c2e605",
+    "narration/09_3.wav": "1cdd671284e19128790761a07f46eb106262a995f84863a0865d11c1a9ba5539",
+    "narration/12_1.wav": "0ab025da706c37d2f973eeab530e4fb9a85db4db579b46fea06fd3dabd72c362",
+    "narration/13_7.wav": "7b275fdab292b95f9863251cf5984233195a5441c1a3a737a0344026b3b65489",
+    "narration/09_2.wav": "9cf44cbe1bfb80f161a8bf8723970686098c02a767b3bda65fe42216dc51d225",
+    "narration/phrase-timings.json": "b025eaa7989c40281e6edc72a65f7677275051c36ad67add8114819a45fccabc",
+    "narration/07_1.wav": "f68b53372b8e4c567e670d9af5c04f2cb213750c7a09b3b469d15c4eb38562cb",
+    "narration/04_7.wav": "9a7c9e5f9238f26d9476d2d19f5356c45926ecd9cd4e03de647fb9ba66d94143",
+    "narration/01_3.wav": "aa573fa8c3a415a3056ee35da41c935b4d0589b6ba65404575722a88ac31c736",
+    "narration/10_3.wav": "291f3ffa39d68c6df4b7c7c251561c568f945c674102421e7b4db25d399bcae7",
+    "narration/10_6.wav": "1ea33da946b884948dc70bf644af72376ec11fdd3dae6b7568465545804a44d9",
+    "narration/assembly.json": "98ca5465426dd348c5944617357ade3c9fff411009f651c136d2c6073d90d839",
+    "narration/07_5.wav": "45b33f011819b5b07bfca2fc8405f8ff0e361352f0f7cfb93761d34b0a71c588",
+    "narration/02_2.wav": "4f94e83542c6a255c5713cc83f1df5480e0815cffbaeb2ac8a3d80978144bacb",
+    "narration/05_2.wav": "c9a0311b90cb931a48e532fb3d70ecf970ad93240a70f3932aac19e5324f6c53",
+    "narration/03_2.wav": "142c6bd64020f56e28fa947f74736d705bee400bc6e613169c09f3edee0bb8d8",
+    "narration/08_4.wav": "74cf2bafc68c89797eb19e8c8f36f775754a7dc632263faaf0f8b20f687d8670",
+    "narration/13_8.wav": "f3587b15eca495cd3cecf9407a525adbaaaeed62b48b354134b27e95fccc15be",
+    "narration/14_5.wav": "98ba60b464c362672f8729f30f388140c738cd1e4d01062c5f4645f497d7f17a",
+    "narration/15_4.wav": "92ec3b3cd20634815e35a9a4d126afa93cdc0a7514837a087952253f8a50bfca",
+    "narration/15_2.wav": "ddeea6197db35f9a85b0913f5cc9f9fbd8edc816d4ca43956035a4e81e75c965",
+    "narration/02_1.wav": "e398c332b2f082758d489f53b3463506ba6487f7345d81c20759be1815777dcc",
+    "narration/09_1.wav": "cf37ead1c5bb398864c4090cb925c6002e1a9e4443f6d24a326b6b4f488e22ef",
+    "narration/11_8.wav": "3e7d3ddcd0f638bd702480c3d80b0d52efffc3771245b0793d571b088181cac8",
+    "narration/11_5.wav": "59cd3d748482657cdd71161ce5e6be0ed975e6c7731ab5a0e4ae2f599515fda1",
+    "narration/06_1.wav": "537ff48f66c1243d213b731824a34e403a7cce4169009cf89a4df43c613b2c67",
+    "narration/12_3.wav": "e3cf24859c39ce35e71ffe307649e2bb7951def2efc58ba9f9fd3a5e08e75783",
+    "narration/02_3.wav": "bf388283696690d39469408430fe55b475f9534fb37faad2fbc835f799bc2996",
+    "narration/05_3.wav": "e4ee81eca47acf30ab373bc47879cdda51a9e8facc6a168cc9d1b423ab9467e9",
+    "narration/04_2.wav": "40b999fe5c3d83713cf9584ab3a5d4d216abdafea41b6a8070faff155948b2fe",
+    "narration/13_2.wav": "d7fcc9f4886902c85e3d6c3fec28fab8cf97ea57ef3f3c879d20c21b64a16569",
+    "narration/02_5.wav": "ff09175d9adcf8de12cea1c0b6f3a55d0f366ad4f174cccaf0d675bbf013fa04",
+    "narration/13_11.wav": "793bbef7a93a518762448b25429ba182cbd68de521bb94d1140cbb044cd49e0b",
+    "narration/07_6.wav": "8a0e73bd8993e8f1842264153f476e3a62c0426de87cb48a1b290a889631c0b6",
+    "narration/07_2.wav": "deed66069c6d765389e1083795065b06413e408a78707f44446f0f94661191ce",
+    "narration/09_8.wav": "c361a61a1b32bffe6e71aa60be3913b994ff59abc4a8821cfb7023cc9a0d3d23",
+    "narration/01_1.wav": "444c02c93d7368b744f64f1fdcdacaaf54d3f3fc1090c2e7982506d50fe90c37",
+    "narration/12_2.wav": "76a66b22cf489bc8901f7d808b36ae95040db308f82371f4b38d4c50af507880",
+    "narration/05_6.wav": "e0dec06b10def55beffa06e48286723a0d90b3f89a26494d8e39d6ac777e5114",
+    "narration/06_4.wav": "53f897c743f97cda4a1166790483a665986c1f1d36707ffac49d6a2ebe1e243c",
+    "narration/03_1.wav": "58ff34759d059b5a71dc6a80ce6954cbd38532b3e8dcea28540d18f795920479",
+    "narration/13_5.wav": "8f6bfabbf30209caf8072c6f83962019f98150c6f8b234a2b8e2cd926bc2e393",
+    "narration/05_4.wav": "e7aeb4d8017d5367283ef295081909892d62c095c9296563b8edb21251dfe24d",
+    "narration/14_8.wav": "3d3c3e1daa7148b39e0ee1acb3f27f0ddcf5fb16bf0008692b0e92261339ac00",
+    "narration/external-units.json": "995e25c7788943deff65c4d84050d8a17edc3c2c3498be0d665d7ac5b661357a",
+    "narration/14_4.wav": "5a29e84e84e010064f8f73d8624b4faeb4bf7529451c47b8c5521c7e587745b8",
+    "narration/11_2.wav": "76617c44c309c0483a6900faa7253f644cf5715e716f695728dea3c4fcdb6a29",
+    "narration/04_5.wav": "08a808206db27771402ac22abd5b5a636d95d18f9545fbb09dd0549180d70f5b",
+    "narration/08_3.wav": "4cf2231b57a4734a24b7d88c7ff51bf087488d6010a194be48b604cad95e8db3",
+    "narration/06_9.wav": "ac9c5b0cbccbe538b032bf11c694a3c67ce4edc050403360713a1d33e8e1d6af",
+    "narration/01_6.wav": "e29d55e59467d2e2fa5a54c7378a7bbd63de3b4be8f667a3189146264ce6cdc9",
+    "narration/15_3.wav": "c56aa06af2760facd56a921e26b25fc9145e119b78faa0713fdbd94c4e827cfa",
+    "narration/15_1.wav": "ad7d057545112d7d443b6a20b01a0b649ae402553f34ca48699978fd52df820e",
+    "narration/07_4.wav": "228b031c39e009f39bd95fc70b774bc79f2b1fa55cf6ab4e292a58397e838add",
+    "narration/09_6.wav": "3dad56c85ca3000ece6e062154303b2260d8efdb61067d6975a544516fbd2ae8",
+    "narration/05_7.wav": "ccfbf847a68ef4e7b66b78e893297468741884723e9652f7956c0df4fe40d5c4",
+    "narration/06_8.wav": "ec48c0fd7950560d680afb83a0ad0ac9a7ff0cdc3be118c8a18e281cc8b96fb0",
+    "narration/13_1.wav": "c3f06f7ecc32c8e2214cfed68fc7086185f7cd706c4b848a992b71f2e1c8f358",
+    "narration/07_3.wav": "7e5c8b69908bad3f0d8369391953118700f4ef490478363f3a32f4619f58aafb",
+    "narration/13_10.wav": "d8cd0bb64766befb879e9f528c2e4340097e15c0151b286e60b5441311d6317b",
+    "narration/12_4.wav": "921cecf486cd65ba91de0b31102709c273e8b5530a7b850d3d2b92897ffbd52a",
+    "narration/08_5.wav": "fb88052b87ca09b853e1e4ed630ed1163e0966e8b6128ba44f0469c12bfbfb0f",
+    "narration/14_2.wav": "39e066c4fa99aa5a2c83489aa773bd5481a9e966425aeb97a3ffe36ab6bd1eb3",
+    "narration/13_3.wav": "5c97bbdb8dae6b4d9a9695ca80e3a8694f82d21c70aae463e5bc9483391059a5",
+    "narration/06_3.wav": "efdd4a541c463433c3e9211581385cfb9e196bf09c501c5bd976c122b07bb56c",
+    "narration/03_6.wav": "55a4cc839723fe3425a8b209aa86eba6fb82859d30186ff10267b7392bdee57d",
+    "narration/11_1.wav": "b67c16a684648049a8603251c45a1a5d49561609156c8699995a1fd625ed48c4",
+    "narration/13_6.wav": "e7954625467b91b55634226791551b69bc6ea9eefac1b718907358294bfd7649",
+    "narration/11_7.wav": "ff38498f4f66d5946ef0e09d4faceec4cd5d1bd33d2adbd55aff5df5b31e0e03",
+    "narration/06_5.wav": "8d3010093195a73479586166fdf7f3d5424913cdf2655b9ca38bbb1fdaedd71a",
+    "narration/11_3.wav": "a65874d85b08048e7600e3f2f78063c6a51ca70992f8d3c43447c6ec60e712b7",
+    "narration/01_4.wav": "6576bf44bd84c537ec926f92393503998b69a5a40c82f4c7de8e21636cb2c58d",
+    "narration/02_4.wav": "4d77aa9f9949aa2997b2e946e5147cfb8ba0828f3df67c11686d6368cc4755b9",
+    "narration/report.json": "2f899d2fb0c9580e9ddea690d263bd24f0508b37184cbf0cc39a8d9aa3372495",
+    "narration/06_6.wav": "8167478d3f5a03ac7a90ac1359c40609c740d0e0f777483bf033c0e0cfafdad1",
+    "narration/08_1.wav": "77013b399e39b4b62f214e90e166be29fd4296e95e40cb57f55bb0931e57d01a",
+    "narration/10_1.wav": "40de1ac403384692b20ab68ee926df1f2d864eeb8f5c569cf08a132de14c292d",
+    "narration/05_8.wav": "0310026051aec7a8ddf6f122f78d73b365f4e29ebd6fb16f4a4c1be57784f1f8",
+    "narration/04_6.wav": "efe88d78889979514fdc9c52dee8b1f438434867cffa871bec44490cb75ebdb1",
+    "narration/04_3.wav": "77b9d0db378edcbcddb416485de1cc6496f13818d5d250ad2865c2e7195a55fc",
+    "narration/03_5.wav": "ea5a8a74162ad568d19dd87a78150f0f9b393f51115a1ae1f5321c311b6a1146",
+    "narration/02_6.wav": "99e40ec1361c85efd64cba4eeed2dd26821ded7fed2b41556b4e084f52ec8008",
+    "narration/10_5.wav": "b42af52f4973992d490091583e4f668a17ce4ee9e225adcafb8aec10d38e28e9",
+    "narration/05_9.wav": "43ce4e6646b82da2bb4d9aeeb4dfa38f25de480a9f90195d193c49da8125ab86",
+    "narration/06_7.wav": "808cacab29f884f406bdeafbc68391a2a315400506ce5b335b45875f5b796b86",
+    "narration/05_5.wav": "0d1e9eb4a60532715e68d699b7bfd6f70ceee2f8fa97927780f3142b3d45abe8",
+    "narration/03_4.wav": "c539864e09f556efea2ca72c9a01c3f5ff4a058cdbb79f75d96b540fc374e1cc",
+    "narration/05_1.wav": "147564c6adae82800745d5422c56b241995c65f6dc23ad6c1257eee6b155494a",
+    "narration/03_7.wav": "c62e5df73d5564eba1b2de979e5e2d816eb4963a83b0a056eb45d2fb5283a1d3",
+    "narration/09_4.wav": "eb63094cbf9df3b3c0159c748a9fa7bc8b3586cb12cf6b9e058e51b1f3f8600d",
+    "narration/04_4.wav": "41522b9eeccfab6c57a33f6ca8d6c297dae6bbd08ab05cc4c4a6efe4454567c8",
+    "narration/08_2.wav": "848fc5301731e03042d7484dfbe263689a9eee8d94c44f0f3d9926dd087775db",
+    "narration/11_4.wav": "253a7d994d22cd0cb87b11942a30e7f33f2f3a72b8767ed8057fe300053c29f2",
+    "narration/14_7.wav": "78064e7720f941654bcf6b88d180b0a0dc67967f08553d89fcd3832bc7b524bb",
+    "narration/09_5.wav": "0cce4af3f3bd0e6ed607ca7a7b525da37dc011fe6dbca84fb6e56ef998482bcc",
+    "narration/03_3.wav": "816483c29f4dde34e2c7424e6b3ec8af2b0793a43de3299b9b93e27d74553667",
+    "narration/13_9.wav": "8839041c30570f4c30f228878be46d7ab15de342bc1c8864af234551175c5d80"
+  },
+  "scope": "Technical complete-take assembly and exact source binding only; provisional ASR timing, no listening, fine synchronization, picture or release acceptance."
+}

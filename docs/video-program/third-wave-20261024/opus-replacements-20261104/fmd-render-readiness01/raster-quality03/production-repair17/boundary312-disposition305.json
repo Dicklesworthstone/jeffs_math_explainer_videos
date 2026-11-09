@@ -1,0 +1,18 @@
+{
+  "time": "2026-11-08T18:20:50.356339+00:00",
+  "review": "cc1-boundary-review312.md",
+  "review_sha256": "15ae2d9a331e0a638806ff3c819d6511de9c7c6e59923e57221149d21d5a0fe4",
+  "root_disposition": "Accept310 source candidate for guarded qualification; no picture or release acceptance.",
+  "findings": {
+    "L1": "CC0 helper313 explicitly rebinds changed boundary source and E2 line1402; existing303/309 cannot render repaired09.",
+    "L2": "Actual repaired preview must show exit2087-2099, bound arrival2326 onward,69.67/90.28/104s and coarse39-133s persistence. Lint alone cannot pass.",
+    "L3": "Prior root observed samples incomplete: independent reviewer sees additional104s lower crossing. Included in313 instructions.",
+    "N1": "6.3s introductory zoom connectors enough while close-up appears; no spoken reference or timing change. Remove before proof text rather than cramped rerouting."
+  },
+  "open": [
+    "313 helper completion and independent314 review",
+    "guarded build/tests/clippy/facts/rebind and unchanged105 WAVs",
+    "targeted09 timeline equality and actual repaired pixels",
+    "full final review, motion/listening/fine-sync and publication"
+  ]
+}

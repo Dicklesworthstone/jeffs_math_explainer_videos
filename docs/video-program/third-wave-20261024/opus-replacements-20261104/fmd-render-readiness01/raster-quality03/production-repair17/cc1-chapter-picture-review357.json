@@ -1,0 +1,3777 @@
+{
+ "schema": "cc1-chapter-picture-review357/v1",
+ "task": "357",
+ "independent_reviewer": "cc1",
+ "reviewer_agent": "BronzeJaguar",
+ "independence": "cc1 is independent of root and of CC2. Readings are cc1's own; existing *-transition-review305.json files and other reviews of these chapters were not consulted.",
+ "written_utc": "2026-11-08T21:39:06Z",
+ "batch_notes_written": "2026-11-08 21:14:28Z to 21:33:55Z",
+ "basis": "still pictures: every listed JPEG contact sheet opened as an image and every tile read; amplified crops (PNG pictures or sheets) for the faint spots listed under method",
+ "chapters_reviewed": [
+  "11_counting",
+  "12_residues",
+  "14_continuation"
+ ],
+ "totals": {
+  "sheets_viewed": 163,
+  "pictures_viewed": 1491,
+  "sets_viewed": 10
+ },
+ "chapters": {
+  "11_counting": {
+   "movie": {
+    "path": "preview274-review305/preview/11_counting.mp4",
+    "sha256": "0b6244a005f64ff9b9b381a8ec8a58ffb7c174d085aceb452871d7f5dd0f811e",
+    "frames": 11932,
+    "fps": 60,
+    "render": "preview274 540p60"
+   },
+   "timeline": {
+    "path": "preview274-review305/preview/11_counting.timeline.tsv",
+    "sha256": "29a3afd345fa3a376e5c163d5bf5e01267a866e2305bdd27c6413a5bab46807d"
+   },
+   "preview274_sampling": {
+    "path": "preview274-review305/11_counting/sampling.json",
+    "sha256": "eb67bf33a9ad2f7c91c5601026816d7ebd5d1fc3dafb5a68ae3c5004e8307846"
+   },
+   "sets_viewed": [
+    "preview274-review305/11_counting",
+    "coverage-grid305b/11_counting",
+    "counting-opening-frames305",
+    "counting-transition-frames305"
+   ],
+   "viewed_picture_bindings": [
+    {
+     "path": "preview274-review305/11_counting/sampling.json",
+     "sha256": "eb67bf33a9ad2f7c91c5601026816d7ebd5d1fc3dafb5a68ae3c5004e8307846",
+     "pictures_viewed_from_it": "preview274-review305/11_counting: all 25 sheets, 193 pictures"
+    },
+    {
+     "path": "coverage-grid305b/sampling.json",
+     "sha256": "163f404d7d9e0e7e57b02fb9d02a2764115546dd06976bf76369ec1365670f65",
+     "pictures_viewed_from_it": "coverage-grid305b/11_counting: all 19 sheets, 146 pictures (only this chapter's entry of a multi-chapter sampling)"
+    },
+    {
+     "path": "counting-opening-frames305/manifest.json",
+     "sha256": "9b889e043ce97bfbb2ce8b72f8306c3dbd3718a29c52b97f4adefa2b702bea8a",
+     "pictures_viewed_from_it": "counting-opening-frames305: all 5 sheets, 54 pictures"
+    },
+    {
+     "path": "counting-transition-frames305/manifest.json",
+     "sha256": "9e74486edaaac78d1a4a868f83507a69378f1be9d64ab0456ddd453a34fc64d6",
+     "pictures_viewed_from_it": "counting-transition-frames305: all 11 sheets, 81 pictures"
+    }
+   ],
+   "timeline_note": "timeline sha256 is a source binding taken from the preview274 sampling, not a viewed picture set",
+   "sheets_viewed": 60,
+   "pictures_viewed": 474,
+   "coverage": {
+    "distinct_frames_viewed": 456,
+    "movie_frames": 11932,
+    "first_viewed": 0,
+    "last_viewed": 11931,
+    "unviewed_runs_of_60_frames_or_more": [],
+    "longest_unviewed_run": [
+     181,
+     239
+    ],
+    "longest_unviewed_run_frames": 59
+   },
+   "fades_seen_frame_by_frame": [
+    "G1 (36+49): 34-36 blank; plate faint at 37, about full by 70; output axes start at 85-87.",
+    "G2 window (7464-7493): steady quintic scene with no visible plate change; the title starts fading in at 7492.",
+    "G3 (flagged as not localized in the sampling): seen frame by frame in counting-transition. The full scene holds to about 8300. Dimming is first visible at 8301-8304 (the preview274 sample at 8301 is already slightly dimmer; at sheet scale the every-frame window shows it clearly from 8304). The scene is very faint at 8311-8312 and the plate is gone at 8313. A new unit circle fades in from 8314 and the counter appears at 8344."
+   ],
+   "concrete_picture_defects_observed": [],
+   "observations": [
+    "O1",
+    "O2",
+    "O3",
+    "O4",
+    "O5",
+    "O12",
+    "O13",
+    "O17",
+    "O18"
+   ]
+  },
+  "12_residues": {
+   "movie": {
+    "path": "preview274-review305/preview/12_residues.mp4",
+    "sha256": "a78c20024c257eaa4783db80f9b99c23442fe67ac8f646e354e633074f842199",
+    "frames": 3943,
+    "fps": 60,
+    "render": "preview274 540p60"
+   },
+   "timeline": {
+    "path": "preview274-review305/preview/12_residues.timeline.tsv",
+    "sha256": "d25e8b958cd32f2a233b38c293183f3d39b2d1502137c389c69ba49ff0d0dca7"
+   },
+   "preview274_sampling": {
+    "path": "preview274-review305/12_residues/sampling.json",
+    "sha256": "df4ac4872fe729b2cb11b91b44041f143f9cfca707a4872c3056503cda59272e"
+   },
+   "sets_viewed": [
+    "preview274-review305/12_residues",
+    "coverage-grid305/12_residues",
+    "residue-transition-frames305"
+   ],
+   "viewed_picture_bindings": [
+    {
+     "path": "preview274-review305/12_residues/sampling.json",
+     "sha256": "df4ac4872fe729b2cb11b91b44041f143f9cfca707a4872c3056503cda59272e",
+     "pictures_viewed_from_it": "preview274-review305/12_residues: all 13 sheets, 101 pictures"
+    },
+    {
+     "path": "coverage-grid305/12_residues/sampling.json",
+     "sha256": "bd9bd9969c332a18b141947030a37aba1b472191960f0b9844d5f6825ece6c00",
+     "pictures_viewed_from_it": "coverage-grid305/12_residues: all 7 sheets, 53 pictures"
+    },
+    {
+     "path": "residue-transition-frames305/manifest.json",
+     "sha256": "c6cca51f4290b32b7e4f2587900cdf1adefde66bf48d032b32f322edd684eea2",
+     "pictures_viewed_from_it": "residue-transition-frames305: all 24 sheets, 288 pictures"
+    }
+   ],
+   "timeline_note": "timeline sha256 is a source binding taken from the preview274 sampling, not a viewed picture set",
+   "sheets_viewed": 44,
+   "pictures_viewed": 442,
+   "coverage": {
+    "distinct_frames_viewed": 368,
+    "movie_frames": 3943,
+    "first_viewed": 0,
+    "last_viewed": 3942,
+    "unviewed_runs_of_60_frames_or_more": [],
+    "longest_unviewed_run": [
+     97,
+     155
+    ],
+    "longest_unviewed_run_frames": 59
+   },
+   "fades_seen_frame_by_frame": [
+    "H1a (2474+36), H1b (2535+36), H1c (2767+36): each plate fades in smoothly and its labels follow; earlier plates and labels hold. H1c's first trace is at 2766 (O8).",
+    "H2 (3027+25 ×3): three sequential plate leaves. Plate 1 is gone from 3050, plate 2 from 3075, plate 3 by 3100. 3100-3102 are empty. No plate returns.",
+    "H3 (3102+49): the bump plate fades in from 3103 and is full by about 3140.",
+    "H4 (3913+30): smooth dimming, faint blocky residue at 3941, blank at 3942 (the last frame)."
+   ],
+   "concrete_picture_defects_observed": [],
+   "observations": [
+    "O6",
+    "O7",
+    "O8",
+    "O15"
+   ]
+  },
+  "14_continuation": {
+   "movie": {
+    "path": "preview274-review305/preview/14_continuation.mp4",
+    "sha256": "a0d34489e9757ff3db96e3d8b7a438845a90036453b2d4d7c9426efd8dc7c432",
+    "frames": 11756,
+    "fps": 60,
+    "render": "preview274 540p60"
+   },
+   "timeline": {
+    "path": "preview274-review305/preview/14_continuation.timeline.tsv",
+    "sha256": "2b3a5bff177889f00fb06871a8910d98babb4ac3c4636f50758c897cb11fbc99"
+   },
+   "preview274_sampling": {
+    "path": "preview274-review305/14_continuation/sampling.json",
+    "sha256": "5faa729974a76a216bfcc5d2a36975df67fabd0bd79a07a1912fc784db5feb2b"
+   },
+   "sets_viewed": [
+    "preview274-review305/14_continuation",
+    "coverage-grid305b/14_continuation",
+    "continuation-transition-frames305"
+   ],
+   "viewed_picture_bindings": [
+    {
+     "path": "preview274-review305/14_continuation/sampling.json",
+     "sha256": "5faa729974a76a216bfcc5d2a36975df67fabd0bd79a07a1912fc784db5feb2b",
+     "pictures_viewed_from_it": "preview274-review305/14_continuation: all 10 sheets, 80 pictures"
+    },
+    {
+     "path": "coverage-grid305b/sampling.json",
+     "sha256": "163f404d7d9e0e7e57b02fb9d02a2764115546dd06976bf76369ec1365670f65",
+     "pictures_viewed_from_it": "coverage-grid305b/14_continuation: all 22 sheets, 176 pictures (only this chapter's entry of a multi-chapter sampling)"
+    },
+    {
+     "path": "continuation-transition-frames305/manifest.json",
+     "sha256": "a787e39d74c54651b8bbb3a97f0c75e7c863be4ab946c3004bb5aa153e34649b",
+     "pictures_viewed_from_it": "continuation-transition-frames305: all 27 sheets, 319 pictures"
+    }
+   ],
+   "timeline_note": "timeline sha256 is a source binding taken from the preview274 sampling, not a viewed picture set",
+   "sheets_viewed": 59,
+   "pictures_viewed": 575,
+   "coverage": {
+    "distinct_frames_viewed": 527,
+    "movie_frames": 11756,
+    "first_viewed": 0,
+    "last_viewed": 11755,
+    "unviewed_runs_of_60_frames_or_more": [],
+    "longest_unviewed_run": [
+     181,
+     239
+    ],
+    "longest_unviewed_run_frames": 59
+   },
+   "fades_seen_frame_by_frame": [
+    "I1 (36+60): 34-36 blank (identical hash); smooth fade-in, about full by 70.",
+    "I2 (1225+30): smooth leave, faint blocky residue at 1253, empty 1254-1255 (O16 is sub-visible); the series formula fades in from 1256.",
+    "I3 (8878+60): 8876-8878 empty at normal contrast (O10 is sub-visible); the lacunary disk fades in from 8879.",
+    "I4 (10206+25): text, red boundary and frame leave 10190-10202, the disk dims 10206-10228, empty at 10229.",
+    "I5 (10231+7): 10230-10239 empty (10238 and 10239 carry the blank-frame hash), so the Γ painter adds nothing visible. The Γ strip fades in from 10240 and the outline draws 10246-10300 (O11).",
+    "I6 (11726+30): full Γ plate with five poles shown as plate singularities; smooth leave; blank at 11755."
+   ],
+   "concrete_picture_defects_observed": [],
+   "observations": [
+    "O9",
+    "O10",
+    "O11",
+    "O14",
+    "O16"
+   ]
+  }
+ },
+ "sets": [
+  {
+   "set": "preview274-review305/11_counting",
+   "chapter": "11_counting",
+   "kind": "preview274 fade and cue samples",
+   "binding": {
+    "path": "preview274-review305/11_counting/sampling.json",
+    "sha256": "eb67bf33a9ad2f7c91c5601026816d7ebd5d1fc3dafb5a68ae3c5004e8307846"
+   },
+   "layout": "2x4 tiles, 1920x2260",
+   "pictures": 193,
+   "sheets_viewed_by_cc1": 25,
+   "sheets_existing": 25,
+   "pictures_viewed_by_cc1": 193,
+   "sheets": [
+    {
+     "path": "preview274-review305/11_counting/sheet-0001.jpg",
+     "sha256": "ab03d33b4d46633dd85dea3c3c471d6f8d494b906ccddc3a048896ca37a500db",
+     "frames": [
+      0,
+      35,
+      36,
+      60,
+      66,
+      84,
+      85,
+      96
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0002.jpg",
+     "sha256": "781c1267347aca9cdd313677b8615d55ecc988ee97b3cb323f29f1904aceaa9c",
+     "frames": [
+      115,
+      156,
+      1177,
+      1207,
+      1237,
+      1297,
+      2538,
+      2568
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0003.jpg",
+     "sha256": "f17b263e8bfafecaab5eaca3e0c1539a15decea5f98c9c5ac95326092c605ca0",
+     "frames": [
+      2598,
+      2658,
+      4288,
+      4318,
+      4348,
+      4408,
+      5078,
+      5108
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0004.jpg",
+     "sha256": "52dc741209355865936ae0d40828caab8133f280793dc41c9dff5ca519f17bf3",
+     "frames": [
+      5138,
+      5198,
+      5671,
+      5701,
+      5731,
+      5791,
+      6046,
+      6076
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0005.jpg",
+     "sha256": "3a9e7d51d7c88b5e65973b63d86e0657bbbff29923002d00405e4038fa6947aa",
+     "frames": [
+      6106,
+      6166,
+      7448,
+      7465,
+      7466,
+      7478,
+      7488,
+      7489
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0006.jpg",
+     "sha256": "5f125e944d13ea49c1690a6bc2bc4908a3e803d04066e02530bb91fa6ff6eb9a",
+     "frames": [
+      7490,
+      7491,
+      7492,
+      7493,
+      7494,
+      7506,
+      7508,
+      7521
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0007.jpg",
+     "sha256": "a6a48d02dcb4caf9e24c56b01cb5fc256b9b25aa5bfd767a7e2d0b82615fe5c8",
+     "frames": [
+      7536,
+      7551,
+      7566,
+      7568,
+      7581,
+      7596,
+      7611,
+      7626
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0008.jpg",
+     "sha256": "344a737f18d21661fe690e54f3f508bc1a63422120b9abeda97db4e77f64248b",
+     "frames": [
+      7641,
+      7656,
+      7671,
+      7686,
+      7701,
+      7716,
+      7731,
+      7746
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0009.jpg",
+     "sha256": "42b470245fe9a203b6bf881f0c9ad020220a740adf3e8ca123dff8985600a116",
+     "frames": [
+      7761,
+      7776,
+      7791,
+      7806,
+      7821,
+      7836,
+      7851,
+      7866
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0010.jpg",
+     "sha256": "f7eacb089ffbf4c0a1d62b7cbe885928b17f9e992df7a7666dfa0f5c319d2292",
+     "frames": [
+      7881,
+      7896,
+      7911,
+      7926,
+      7941,
+      7956,
+      7971,
+      7986
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0011.jpg",
+     "sha256": "283c3ce83dc173f64550f798b07575cf926ab4a5fa41d1b75d9cb3841f442aa9",
+     "frames": [
+      8001,
+      8016,
+      8031,
+      8046,
+      8061,
+      8076,
+      8091,
+      8106
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0012.jpg",
+     "sha256": "e4d7f92df693cf478737bc746abc6fae19dd7d62fdeb3192172b972c52be3c8c",
+     "frames": [
+      8121,
+      8136,
+      8151,
+      8166,
+      8181,
+      8196,
+      8211,
+      8226
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0013.jpg",
+     "sha256": "2e8bd9cc54fc4b786a270a0afb092b0c9a191b5e26601488ebac7eb578703448",
+     "frames": [
+      8241,
+      8256,
+      8271,
+      8286,
+      8301,
+      8316,
+      8331,
+      8346
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0014.jpg",
+     "sha256": "b5c6b17ba38e5d94e25aab1712ca0276e830127d891fb482103f1823bcdcd66d",
+     "frames": [
+      8361,
+      8376,
+      8391,
+      8406,
+      8421,
+      8436,
+      8451,
+      8466
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0015.jpg",
+     "sha256": "0acd25439d9952025b2572e61a045ac718f7250792e6fe3d72eed90b6d665423",
+     "frames": [
+      8481,
+      8496,
+      8511,
+      8526,
+      8541,
+      8556,
+      8571,
+      8586
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0016.jpg",
+     "sha256": "1ed6e5cd263d50143eb255310cf8389a3cc29c4c458428af70000db969796854",
+     "frames": [
+      8601,
+      8616,
+      8631,
+      8646,
+      8661,
+      8676,
+      8691,
+      8706
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0017.jpg",
+     "sha256": "3145f9a2883289bac1bd8293e5f47d1feee04d651bf7accd3f977f99e9d5c04b",
+     "frames": [
+      8721,
+      8736,
+      8751,
+      8766,
+      8781,
+      8796,
+      8811,
+      8826
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0018.jpg",
+     "sha256": "7b18aa6f572994648ad50ff7250e4e0ef629d1267d7c851278e99957789d3003",
+     "frames": [
+      8841,
+      8856,
+      8871,
+      8886,
+      8901,
+      8916,
+      8931,
+      8946
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0019.jpg",
+     "sha256": "3595a41342a649b36beff612636cc528b40e8fc49312bb3b91ef24d444b9cf11",
+     "frames": [
+      8961,
+      8976,
+      8991,
+      9006,
+      9021,
+      9036,
+      9051,
+      9066
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0020.jpg",
+     "sha256": "b60abb0dd5e34ed7196f714d99e4f09a9bbf958229bff68dd1ffcafe8170707e",
+     "frames": [
+      9081,
+      9096,
+      9111,
+      9126,
+      9141,
+      9156,
+      9171,
+      9186
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0021.jpg",
+     "sha256": "76ebecbc83f788fc507daa17861b6dcc3a24034491336c113ff93b746503c099",
+     "frames": [
+      9201,
+      9216,
+      9231,
+      9246,
+      9261,
+      9276,
+      9291,
+      9306
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0022.jpg",
+     "sha256": "ef19f195ae4897a8a768e4acd393cf56e875ae841dfd0812f78f6cb296856ad1",
+     "frames": [
+      9321,
+      9336,
+      9351,
+      9366,
+      9381,
+      9396,
+      9411,
+      9426
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0023.jpg",
+     "sha256": "9645fb307877e713af4224e99d62ae47d49f94aff8b23b9ef8b4d576a8e0aa9e",
+     "frames": [
+      9441,
+      9456,
+      9471,
+      9486,
+      9501,
+      9516,
+      9531,
+      9546
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0024.jpg",
+     "sha256": "e187c0fd942e36c6de709c26bd33780a1e8c0b725ef57bc35a6b09029c32b8b0",
+     "frames": [
+      9561,
+      9576,
+      9591,
+      9606,
+      9611,
+      9641,
+      9671,
+      9731
+     ]
+    },
+    {
+     "path": "preview274-review305/11_counting/sheet-0025.jpg",
+     "sha256": "b54ce6a0e2486764fdc564ab08ded8dae2e7806cc7db25825d9f7ff1f1cffa00",
+     "frames": [
+      11931
+     ]
+    }
+   ]
+  },
+  {
+   "set": "preview274-review305/12_residues",
+   "chapter": "12_residues",
+   "kind": "preview274 fade and cue samples",
+   "binding": {
+    "path": "preview274-review305/12_residues/sampling.json",
+    "sha256": "df4ac4872fe729b2cb11b91b44041f143f9cfca707a4872c3056503cda59272e"
+   },
+   "layout": "2x4 tiles, 1920x2260",
+   "pictures": 101,
+   "sheets_viewed_by_cc1": 13,
+   "sheets_existing": 13,
+   "pictures_viewed_by_cc1": 101,
+   "sheets": [
+    {
+     "path": "preview274-review305/12_residues/sheet-0001.jpg",
+     "sha256": "97251560012a406cc93a7f765a1aed3656a92cbbd806f65c0db40764c5fa17b8",
+     "frames": [
+      0,
+      36,
+      66,
+      96,
+      156,
+      1220,
+      1250,
+      1280
+     ]
+    },
+    {
+     "path": "preview274-review305/12_residues/sheet-0002.jpg",
+     "sha256": "42c3b9347b9f7033b1429ab7f4529cacf3ded49f4484c1c11a820e623affd5fc",
+     "frames": [
+      1340,
+      2279,
+      2309,
+      2339,
+      2399,
+      2471,
+      2472,
+      2473
+     ]
+    },
+    {
+     "path": "preview274-review305/12_residues/sheet-0003.jpg",
+     "sha256": "296012cc688b26583a396ba3a644229fbdb7790e83275083be9d9fff4429b535",
+     "frames": [
+      2474,
+      2475,
+      2476,
+      2491,
+      2507,
+      2508,
+      2509,
+      2510
+     ]
+    },
+    {
+     "path": "preview274-review305/12_residues/sheet-0004.jpg",
+     "sha256": "452a0a8ea46b038b82e244a9931a7fc7f2796f87d9d0bf99de153d21e5a515df",
+     "frames": [
+      2511,
+      2512,
+      2513,
+      2532,
+      2533,
+      2534,
+      2535,
+      2536
+     ]
+    },
+    {
+     "path": "preview274-review305/12_residues/sheet-0005.jpg",
+     "sha256": "73e83513f7391f6fef9da550eac01e54691870155406b7ecd1697bdfadd776c9",
+     "frames": [
+      2537,
+      2540,
+      2552,
+      2568,
+      2569,
+      2570,
+      2571,
+      2572
+     ]
+    },
+    {
+     "path": "preview274-review305/12_residues/sheet-0006.jpg",
+     "sha256": "d21ee1963ecc65243e80b689b9e2e48d87cf39361e6910544c6648839cdf717a",
+     "frames": [
+      2573,
+      2574,
+      2601,
+      2764,
+      2765,
+      2766,
+      2767,
+      2768
+     ]
+    },
+    {
+     "path": "preview274-review305/12_residues/sheet-0007.jpg",
+     "sha256": "33cb0df00636cfe08455907648e43afd2d311db7eac4276e22147e4e3671f8c6",
+     "frames": [
+      2769,
+      2784,
+      2800,
+      2801,
+      2802,
+      2803,
+      2804,
+      2805
+     ]
+    },
+    {
+     "path": "preview274-review305/12_residues/sheet-0008.jpg",
+     "sha256": "3b6a2d8008dc1d99df9f3d788b90b88866d4888928c6b06470959775c049e09a",
+     "frames": [
+      2806,
+      2833,
+      3002,
+      3026,
+      3027,
+      3032,
+      3039,
+      3049
+     ]
+    },
+    {
+     "path": "preview274-review305/12_residues/sheet-0009.jpg",
+     "sha256": "9458245f25d30df5dcaed299ba53723664b7e5d0d94b49834bfc28e2cc7cc469",
+     "frames": [
+      3050,
+      3051,
+      3052,
+      3053,
+      3054,
+      3055,
+      3062,
+      3064
+     ]
+    },
+    {
+     "path": "preview274-review305/12_residues/sheet-0010.jpg",
+     "sha256": "ad3e6dfda7385c6baddd7197729ee257eca091594b28626936ecd0fcb7383d29",
+     "frames": [
+      3074,
+      3075,
+      3076,
+      3077,
+      3078,
+      3079,
+      3080,
+      3082
+     ]
+    },
+    {
+     "path": "preview274-review305/12_residues/sheet-0011.jpg",
+     "sha256": "fcac8060691fa68c570de68e72b6f7223bbe45bc669d7b23e602788696f9c45c",
+     "frames": [
+      3089,
+      3099,
+      3100,
+      3101,
+      3102,
+      3103,
+      3104,
+      3105
+     ]
+    },
+    {
+     "path": "preview274-review305/12_residues/sheet-0012.jpg",
+     "sha256": "5dc9bae9be24d38a4b65b8db89ca857e1edc235ad6d8b5e4727ce968034b2e61",
+     "frames": [
+      3107,
+      3122,
+      3126,
+      3132,
+      3150,
+      3151,
+      3181,
+      3912
+     ]
+    },
+    {
+     "path": "preview274-review305/12_residues/sheet-0013.jpg",
+     "sha256": "ea187a62faadd7ca8e07955a47354c872d17e4858439fcaae3e654aeb3cbd183",
+     "frames": [
+      3913,
+      3927,
+      3940,
+      3941,
+      3942
+     ]
+    }
+   ]
+  },
+  {
+   "set": "preview274-review305/14_continuation",
+   "chapter": "14_continuation",
+   "kind": "preview274 fade and cue samples",
+   "binding": {
+    "path": "preview274-review305/14_continuation/sampling.json",
+    "sha256": "5faa729974a76a216bfcc5d2a36975df67fabd0bd79a07a1912fc784db5feb2b"
+   },
+   "layout": "2x4 tiles, 1920x2260",
+   "pictures": 80,
+   "sheets_viewed_by_cc1": 10,
+   "sheets_existing": 10,
+   "pictures_viewed_by_cc1": 80,
+   "sheets": [
+    {
+     "path": "preview274-review305/14_continuation/sheet-0001.jpg",
+     "sha256": "4d4c5c508cf15172255559b0d3348f601521ade33cfc1b6da56dbc701f4058b1",
+     "frames": [
+      0,
+      35,
+      36,
+      65,
+      66,
+      95,
+      96,
+      126
+     ]
+    },
+    {
+     "path": "preview274-review305/14_continuation/sheet-0002.jpg",
+     "sha256": "bcd50a45edaa9e0c15ef757bb3d252965a2873ba265002e7cf6e92a54b834668",
+     "frames": [
+      156,
+      1200,
+      1224,
+      1225,
+      1230,
+      1239,
+      1252,
+      1253
+     ]
+    },
+    {
+     "path": "preview274-review305/14_continuation/sheet-0003.jpg",
+     "sha256": "c5f76b5184029b744148f91b895be0d2f746dae09be2a103205c445ceee250ff",
+     "frames": [
+      1254,
+      1255,
+      1256,
+      1257,
+      1258,
+      1260,
+      1285,
+      1320
+     ]
+    },
+    {
+     "path": "preview274-review305/14_continuation/sheet-0004.jpg",
+     "sha256": "64b5fe7050835c70c4fd61945dd9c46d80794e4b51f17bcc2c325a3ca6db044f",
+     "frames": [
+      2523,
+      2553,
+      2583,
+      2643,
+      4997,
+      5027,
+      5057,
+      5117
+     ]
+    },
+    {
+     "path": "preview274-review305/14_continuation/sheet-0005.jpg",
+     "sha256": "40b850844d2a20033bf8db4ba55635ae452a3da4bf8520a989adbb2575728f29",
+     "frames": [
+      5389,
+      5419,
+      5449,
+      5509,
+      5704,
+      5734,
+      5764,
+      5824
+     ]
+    },
+    {
+     "path": "preview274-review305/14_continuation/sheet-0006.jpg",
+     "sha256": "e67cdaa74b558ed1b22364abb16b0182e2550e0d83885f27285cbd2d274fd133",
+     "frames": [
+      7641,
+      7671,
+      7701,
+      7761,
+      8853,
+      8877,
+      8878,
+      8883
+     ]
+    },
+    {
+     "path": "preview274-review305/14_continuation/sheet-0007.jpg",
+     "sha256": "fb2d9c1dd1a087b45e0b4ee168b65bd7a7e10a619db71713ae78fbd2042bf811",
+     "frames": [
+      8907,
+      8913,
+      8937,
+      8938,
+      8968,
+      8973,
+      10181,
+      10205
+     ]
+    },
+    {
+     "path": "preview274-review305/14_continuation/sheet-0008.jpg",
+     "sha256": "99879c5c411418f34da393d3e42d4eb9ea0ffc6531d0cb8464ed48f589e839c8",
+     "frames": [
+      10206,
+      10211,
+      10218,
+      10226,
+      10227,
+      10228,
+      10229,
+      10230
+     ]
+    },
+    {
+     "path": "preview274-review305/14_continuation/sheet-0009.jpg",
+     "sha256": "e0523e68b88e748aa154ed6b09074f99b8d9a0b9be6e4f1fca50dfc60278fdbe",
+     "frames": [
+      10231,
+      10232,
+      10233,
+      10234,
+      10237,
+      10238,
+      10241,
+      10261
+     ]
+    },
+    {
+     "path": "preview274-review305/14_continuation/sheet-0010.jpg",
+     "sha256": "0bd630c87169dd254ff0544bd39496b291f463eeb59552283214dbb8f978053b",
+     "frames": [
+      10268,
+      10301,
+      11725,
+      11726,
+      11740,
+      11753,
+      11754,
+      11755
+     ]
+    }
+   ]
+  },
+  {
+   "set": "coverage-grid305b/11_counting",
+   "chapter": "11_counting",
+   "kind": "coverage grid, every 60 frames outside dense preview274 windows",
+   "binding": {
+    "path": "coverage-grid305b/sampling.json",
+    "sha256": "163f404d7d9e0e7e57b02fb9d02a2764115546dd06976bf76369ec1365670f65"
+   },
+   "layout": "2x4 tiles, 960x1200",
+   "pictures": 146,
+   "sheets_viewed_by_cc1": 19,
+   "sheets_existing": 19,
+   "pictures_viewed_by_cc1": 146,
+   "sheets": [
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0001.jpg",
+     "sha256": "90de6f24c312d720d7278e3a49901db748cdb752986f921fa81d9a0521f77c2d",
+     "frames": [
+      180,
+      240,
+      300,
+      360,
+      420,
+      480,
+      540,
+      600
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0002.jpg",
+     "sha256": "421e5f2e1e1a3be38c3528866b84b72028b15d47be5ee361f84c8a1ea36202c1",
+     "frames": [
+      660,
+      720,
+      780,
+      840,
+      900,
+      960,
+      1020,
+      1080
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0003.jpg",
+     "sha256": "34965b2d4b6be2f78093d284ae7608c0e1307a67b2debaa04a92b5b43da2bd4e",
+     "frames": [
+      1140,
+      1320,
+      1380,
+      1440,
+      1500,
+      1560,
+      1620,
+      1680
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0004.jpg",
+     "sha256": "fabf1954c026331593bd588fef453d28017f245ff0c28e0eed8fb502240ddcae",
+     "frames": [
+      1740,
+      1800,
+      1860,
+      1920,
+      1980,
+      2040,
+      2100,
+      2160
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0005.jpg",
+     "sha256": "7fa2e781efb51f66811b57bfbe2dc7de6fe1a206174d7c7d861b4b98caf34cff",
+     "frames": [
+      2220,
+      2280,
+      2340,
+      2400,
+      2460,
+      2520,
+      2700,
+      2760
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0006.jpg",
+     "sha256": "ac1eb9414d6138647254439ac907322e2b6e7d2530bb06e0a06526036f752eb8",
+     "frames": [
+      2820,
+      2880,
+      2940,
+      3000,
+      3060,
+      3120,
+      3180,
+      3240
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0007.jpg",
+     "sha256": "9480e1de76a4d1d33a714fb070b56e79cc2fa4e1a50494d0cfcaacd23281fc22",
+     "frames": [
+      3300,
+      3360,
+      3420,
+      3480,
+      3540,
+      3600,
+      3660,
+      3720
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0008.jpg",
+     "sha256": "e4c34792c342da45d4a2743225f1809eafb541f2662c35714eb269f48601feea",
+     "frames": [
+      3780,
+      3840,
+      3900,
+      3960,
+      4020,
+      4080,
+      4140,
+      4200
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0009.jpg",
+     "sha256": "86142b7d96ab923779dbe9e27497583384cb577d04a5eecac5912c703f5bfbf7",
+     "frames": [
+      4260,
+      4440,
+      4500,
+      4560,
+      4620,
+      4680,
+      4740,
+      4800
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0010.jpg",
+     "sha256": "86622369b5b28e1acf8085614903c1efad7edea15af7e691896caa4696bba423",
+     "frames": [
+      4860,
+      4920,
+      4980,
+      5040,
+      5220,
+      5280,
+      5340,
+      5400
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0011.jpg",
+     "sha256": "b8649a79b512129d835207f4e4fa9a59a83e1caa1ecdf3e9448946c062d6853e",
+     "frames": [
+      5460,
+      5520,
+      5580,
+      5640,
+      5820,
+      5880,
+      5940,
+      6000
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0012.jpg",
+     "sha256": "e762bce90ef307439a193fbc15754b416ac300aba94338fb49d48c7632928d48",
+     "frames": [
+      6180,
+      6240,
+      6300,
+      6360,
+      6420,
+      6480,
+      6540,
+      6600
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0013.jpg",
+     "sha256": "64f2c70b2cdb77b48d194da979c093898d39e15691c95df3662ac35a6e06bb20",
+     "frames": [
+      6660,
+      6720,
+      6780,
+      6840,
+      6900,
+      6960,
+      7020,
+      7080
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0014.jpg",
+     "sha256": "7f724f8753661f7a17842ad5b8652e773f867e8d0140c94f5c79f88f1b7ede46",
+     "frames": [
+      7140,
+      7200,
+      7260,
+      7320,
+      7380,
+      7440,
+      9780,
+      9840
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0015.jpg",
+     "sha256": "5ec3ea5d1026533ef8200870cdcb798685c70c3836acad8ae331e9e5d908307c",
+     "frames": [
+      9900,
+      9960,
+      10020,
+      10080,
+      10140,
+      10200,
+      10260,
+      10320
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0016.jpg",
+     "sha256": "92c28b7f2fef1b343a450338390f0af11304963861ac8c8b49231bbec9f0380a",
+     "frames": [
+      10380,
+      10440,
+      10500,
+      10560,
+      10620,
+      10680,
+      10740,
+      10800
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0017.jpg",
+     "sha256": "10d993c180d157285bb298055a1d07c9e005e033bb0513546e42d9ad2fc78362",
+     "frames": [
+      10860,
+      10920,
+      10980,
+      11040,
+      11100,
+      11160,
+      11220,
+      11280
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0018.jpg",
+     "sha256": "d81ab30cf31342f54e95d4c6e9b4a6df96618c814c6e80566e3b6193bfb8325e",
+     "frames": [
+      11340,
+      11400,
+      11460,
+      11520,
+      11580,
+      11640,
+      11700,
+      11760
+     ]
+    },
+    {
+     "path": "coverage-grid305b/11_counting/sheet-0019.jpg",
+     "sha256": "39981c72fa0e6a72381c5ac632f5e9358c8d7b2dd8f227151980d5160b9537be",
+     "frames": [
+      11820,
+      11880
+     ]
+    }
+   ]
+  },
+  {
+   "set": "coverage-grid305b/14_continuation",
+   "chapter": "14_continuation",
+   "kind": "coverage grid, every 60 frames outside dense preview274 windows",
+   "binding": {
+    "path": "coverage-grid305b/sampling.json",
+    "sha256": "163f404d7d9e0e7e57b02fb9d02a2764115546dd06976bf76369ec1365670f65"
+   },
+   "layout": "2x4 tiles, 960x1200",
+   "pictures": 176,
+   "sheets_viewed_by_cc1": 22,
+   "sheets_existing": 22,
+   "pictures_viewed_by_cc1": 176,
+   "sheets": [
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0001.jpg",
+     "sha256": "e5ecf89c599a473a10921ea09100457f8343eb7a9851feb1f4bf08c3846734f5",
+     "frames": [
+      180,
+      240,
+      300,
+      360,
+      420,
+      480,
+      540,
+      600
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0002.jpg",
+     "sha256": "3bed727757b1f31b570c76685ed4b5df65b817cba1fc1671a75906784bbb6ef5",
+     "frames": [
+      660,
+      720,
+      780,
+      840,
+      900,
+      960,
+      1020,
+      1080
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0003.jpg",
+     "sha256": "d3217afd4abf9fc2653b691b9fc32a216688ec11aa08df2347089fb53c0d19d6",
+     "frames": [
+      1140,
+      1380,
+      1440,
+      1500,
+      1560,
+      1620,
+      1680,
+      1740
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0004.jpg",
+     "sha256": "cf11675ff24b0cdef6c5a30bb24a1856319965fe3ddeb361adc24ef718e13007",
+     "frames": [
+      1800,
+      1860,
+      1920,
+      1980,
+      2040,
+      2100,
+      2160,
+      2220
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0005.jpg",
+     "sha256": "02ea5683de0143998087eec5637d3e4dbb758cdb481871cfdf9b8c57f62a2747",
+     "frames": [
+      2280,
+      2340,
+      2400,
+      2460,
+      2520,
+      2700,
+      2760,
+      2820
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0006.jpg",
+     "sha256": "8099c5f132c5fb30235837b5d1c2c983d91a9919c661b3467b422f400ac049e9",
+     "frames": [
+      2880,
+      2940,
+      3000,
+      3060,
+      3120,
+      3180,
+      3240,
+      3300
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0007.jpg",
+     "sha256": "af039c4c94e351f0409d234c427799b9f1511043fdc076c9d41585ee7cecd741",
+     "frames": [
+      3360,
+      3420,
+      3480,
+      3540,
+      3600,
+      3660,
+      3720,
+      3780
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0008.jpg",
+     "sha256": "e5fb8cd731545bb2ba816dcbb137cb71cb14cab2a58e3e093c60acd5f9302880",
+     "frames": [
+      3840,
+      3900,
+      3960,
+      4020,
+      4080,
+      4140,
+      4200,
+      4260
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0009.jpg",
+     "sha256": "2ef2af5734737e342daedca7d96ca27debee00aeef973b6c239ce1618fd85d0b",
+     "frames": [
+      4320,
+      4380,
+      4440,
+      4500,
+      4560,
+      4620,
+      4680,
+      4740
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0010.jpg",
+     "sha256": "31dd9c9993a294e008e73ccabdc18abe70800f11e0c07c915e227bf829e37e42",
+     "frames": [
+      4800,
+      4860,
+      4920,
+      4980,
+      5160,
+      5220,
+      5280,
+      5340
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0011.jpg",
+     "sha256": "28527f23de3a62a06893f5868796c19408e7ea9019e0e8ff49f71bb0c569bfac",
+     "frames": [
+      5520,
+      5580,
+      5640,
+      5700,
+      5880,
+      5940,
+      6000,
+      6060
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0012.jpg",
+     "sha256": "d92df56606ad1d5e77d0a8c5373fa61b5181bce5191b5233ef0acd2d13b4084e",
+     "frames": [
+      6120,
+      6180,
+      6240,
+      6300,
+      6360,
+      6420,
+      6480,
+      6540
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0013.jpg",
+     "sha256": "78d6ce250f8bdf60c9322e0bd3283e352180adccec1e632fbed27699c3444f30",
+     "frames": [
+      6600,
+      6660,
+      6720,
+      6780,
+      6840,
+      6900,
+      6960,
+      7020
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0014.jpg",
+     "sha256": "a95a2f6c33bc8e33aeac195b39595be788cb9aea57456aef52d4d3a186b8ab72",
+     "frames": [
+      7080,
+      7140,
+      7200,
+      7260,
+      7320,
+      7380,
+      7440,
+      7500
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0015.jpg",
+     "sha256": "59669e8472c10d9be4490730be67d0710b2dfb8edb52e27397810641982e6607",
+     "frames": [
+      7560,
+      7620,
+      7800,
+      7860,
+      7920,
+      7980,
+      8040,
+      8100
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0016.jpg",
+     "sha256": "7d7d5540946261a43f2110ee90e1150036cc2d4d5748845bd1719522844dc21d",
+     "frames": [
+      8160,
+      8220,
+      8280,
+      8340,
+      8400,
+      8460,
+      8520,
+      8580
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0017.jpg",
+     "sha256": "7f90becb3a8687996214dce829726ff745f4e96663f75c86fb3215fa14d9cf31",
+     "frames": [
+      8640,
+      8700,
+      8760,
+      8820,
+      9000,
+      9060,
+      9120,
+      9180
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0018.jpg",
+     "sha256": "e7689fcd43b76e387eb50994a11f3c5887bae29634dd74b1227ce37a1b69aadb",
+     "frames": [
+      9240,
+      9300,
+      9360,
+      9420,
+      9480,
+      9540,
+      9600,
+      9660
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0019.jpg",
+     "sha256": "492139faf698873bd23e0239242090514cd387833802dc5abb379d63da7a1d90",
+     "frames": [
+      9720,
+      9780,
+      9840,
+      9900,
+      9960,
+      10020,
+      10080,
+      10140
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0020.jpg",
+     "sha256": "e661ac4c899c806d718026b057b02a4bd93416850f074e07d3aa4e60a3afebe5",
+     "frames": [
+      10320,
+      10380,
+      10440,
+      10500,
+      10560,
+      10620,
+      10680,
+      10740
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0021.jpg",
+     "sha256": "79da5dbc1cbbd238ac776d7959116dc871ac7097ba8789173a8a86c48e10a4d2",
+     "frames": [
+      10800,
+      10860,
+      10920,
+      10980,
+      11040,
+      11100,
+      11160,
+      11220
+     ]
+    },
+    {
+     "path": "coverage-grid305b/14_continuation/sheet-0022.jpg",
+     "sha256": "462fb100710f85e27d3621aac9e75a3142b9c85f4a838ca458a763f80a798c5f",
+     "frames": [
+      11280,
+      11340,
+      11400,
+      11460,
+      11520,
+      11580,
+      11640,
+      11700
+     ]
+    }
+   ]
+  },
+  {
+   "set": "coverage-grid305/12_residues",
+   "chapter": "12_residues",
+   "kind": "coverage grid, every 60 frames outside dense preview274 windows",
+   "binding": {
+    "path": "coverage-grid305/12_residues/sampling.json",
+    "sha256": "bd9bd9969c332a18b141947030a37aba1b472191960f0b9844d5f6825ece6c00"
+   },
+   "layout": "2x4 tiles, 960x1200",
+   "pictures": 53,
+   "sheets_viewed_by_cc1": 7,
+   "sheets_existing": 7,
+   "pictures_viewed_by_cc1": 53,
+   "sheets": [
+    {
+     "path": "coverage-grid305/12_residues/sheet-0001.jpg",
+     "sha256": "0690a3e1332a21a9724dcd08a840ad038e5dd3ad45efb706f209142bc1867719",
+     "frames": [
+      180,
+      240,
+      300,
+      360,
+      420,
+      480,
+      540,
+      600
+     ]
+    },
+    {
+     "path": "coverage-grid305/12_residues/sheet-0002.jpg",
+     "sha256": "070a6da9548df5f2a19c08bca1d6711d90f3f45f119cb1357042b7e83e9393eb",
+     "frames": [
+      660,
+      720,
+      780,
+      840,
+      900,
+      960,
+      1020,
+      1080
+     ]
+    },
+    {
+     "path": "coverage-grid305/12_residues/sheet-0003.jpg",
+     "sha256": "0ce5f2565b2e5ebb6890045a3ef8ac742a8875f07cc2d36d51a605c5395ebb75",
+     "frames": [
+      1140,
+      1200,
+      1380,
+      1440,
+      1500,
+      1560,
+      1620,
+      1680
+     ]
+    },
+    {
+     "path": "coverage-grid305/12_residues/sheet-0004.jpg",
+     "sha256": "234e33d3201a46ecb02aa6e641a779e7c6b82b078e1e7e0960b445c975fd1e3d",
+     "frames": [
+      1740,
+      1800,
+      1860,
+      1920,
+      1980,
+      2040,
+      2100,
+      2160
+     ]
+    },
+    {
+     "path": "coverage-grid305/12_residues/sheet-0005.jpg",
+     "sha256": "63e9e3daba5a331965449f58e805e465ea5be1ea5004a96a2ce5e3974ff0121c",
+     "frames": [
+      2220,
+      2400,
+      2460,
+      2640,
+      2700,
+      2760,
+      2880,
+      2940
+     ]
+    },
+    {
+     "path": "coverage-grid305/12_residues/sheet-0006.jpg",
+     "sha256": "9ebb9a69f4691ab816b9d04928e08070d169eb1ed680db99b3fb45814fbdfa2d",
+     "frames": [
+      3000,
+      3240,
+      3300,
+      3360,
+      3420,
+      3480,
+      3540,
+      3600
+     ]
+    },
+    {
+     "path": "coverage-grid305/12_residues/sheet-0007.jpg",
+     "sha256": "d1cf62bb208bf1b4072d1c578403bdd4bbe20d2a2abd575d0bb408013a91958a",
+     "frames": [
+      3660,
+      3720,
+      3780,
+      3840,
+      3900
+     ]
+    }
+   ]
+  },
+  {
+   "set": "counting-opening-frames305",
+   "chapter": "11_counting",
+   "kind": "every encoded frame in named windows",
+   "binding": {
+    "path": "counting-opening-frames305/manifest.json",
+    "sha256": "9b889e043ce97bfbb2ce8b72f8306c3dbd3718a29c52b97f4adefa2b702bea8a"
+   },
+   "windows": [
+    [
+     34,
+     87
+    ]
+   ],
+   "layout": "3x4 tiles, 1920x1536",
+   "pictures": 54,
+   "sheets_viewed_by_cc1": 5,
+   "sheets_existing": 5,
+   "pictures_viewed_by_cc1": 54,
+   "sheets": [
+    {
+     "path": "counting-opening-frames305/sheet-001.jpg",
+     "sha256": "3152e94c2eda060ef62510b3e7eaa16974fbc5db5a3e4e53a9525c4b0034a930",
+     "frames": [
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45
+     ]
+    },
+    {
+     "path": "counting-opening-frames305/sheet-002.jpg",
+     "sha256": "bae5e39418bf282342182caa36d33d04d8787aa78161181b0061b9bc3b5aa0da",
+     "frames": [
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57
+     ]
+    },
+    {
+     "path": "counting-opening-frames305/sheet-003.jpg",
+     "sha256": "2522b9c9724d46e728dd536f0b73951b822cf9c92bbf03097355882923cf8e11",
+     "frames": [
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69
+     ]
+    },
+    {
+     "path": "counting-opening-frames305/sheet-004.jpg",
+     "sha256": "413b7a5412850e22fc1113b248575bf11164261266f6b48807d2a65249d39cd7",
+     "frames": [
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81
+     ]
+    },
+    {
+     "path": "counting-opening-frames305/sheet-005.jpg",
+     "sha256": "f156b93bd0a96b5923163a755ae10f55a153d19115d647307b23aaecc5715710",
+     "frames": [
+      82,
+      83,
+      84,
+      85,
+      86,
+      87
+     ]
+    }
+   ]
+  },
+  {
+   "set": "counting-transition-frames305",
+   "chapter": "11_counting",
+   "kind": "every encoded frame in named windows",
+   "binding": {
+    "path": "counting-transition-frames305/manifest.json",
+    "sha256": "9e74486edaaac78d1a4a868f83507a69378f1be9d64ab0456ddd453a34fc64d6"
+   },
+   "windows": null,
+   "layout": "2x4 tiles, 1280x1520",
+   "pictures": 81,
+   "sheets_viewed_by_cc1": 11,
+   "sheets_existing": 11,
+   "pictures_viewed_by_cc1": 81,
+   "sheets": [
+    {
+     "path": "counting-transition-frames305/sheet-001.jpg",
+     "sha256": "92243e680963ef6f70cc94cf67e513c66b55bd26daa62a395d201e766d224e98",
+     "frames": [
+      7464,
+      7465,
+      7466,
+      7467,
+      7468,
+      7469,
+      7470,
+      7471
+     ]
+    },
+    {
+     "path": "counting-transition-frames305/sheet-002.jpg",
+     "sha256": "efa35f2cd272dd89fe8d6cfdf1e4acec62ce468024eb712b69b2c7d5f1caf8ec",
+     "frames": [
+      7472,
+      7473,
+      7474,
+      7475,
+      7476,
+      7477,
+      7478,
+      7479
+     ]
+    },
+    {
+     "path": "counting-transition-frames305/sheet-003.jpg",
+     "sha256": "34e318181d48e684663e60a72324219efb6052ea3937a87d1c611e9cfa97d518",
+     "frames": [
+      7480,
+      7481,
+      7482,
+      7483,
+      7484,
+      7485,
+      7486,
+      7487
+     ]
+    },
+    {
+     "path": "counting-transition-frames305/sheet-004.jpg",
+     "sha256": "04653e90bd40043ff176d9f063bcb77f727d91c59170c5931b7bbb3f39bfd5cb",
+     "frames": [
+      7488,
+      7489,
+      7490,
+      7491,
+      7492,
+      7493,
+      8294,
+      8295
+     ]
+    },
+    {
+     "path": "counting-transition-frames305/sheet-005.jpg",
+     "sha256": "9fbc4bd142a1f2dc1f7826dadeac3d3144e29a7527b584c89904d41ab3f71b58",
+     "frames": [
+      8296,
+      8297,
+      8298,
+      8299,
+      8300,
+      8301,
+      8302,
+      8303
+     ]
+    },
+    {
+     "path": "counting-transition-frames305/sheet-006.jpg",
+     "sha256": "c7dbe8067c1d498bd7e144704b7eccf6dc5076429bb94c4f49c0f418176c5d2f",
+     "frames": [
+      8304,
+      8305,
+      8306,
+      8307,
+      8308,
+      8309,
+      8310,
+      8311
+     ]
+    },
+    {
+     "path": "counting-transition-frames305/sheet-007.jpg",
+     "sha256": "6dfd101c93392deb9566282ab1562ae8b15027322bdc223ce42a86f3f4eed232",
+     "frames": [
+      8312,
+      8313,
+      8314,
+      8315,
+      8316,
+      8317,
+      8318,
+      8319
+     ]
+    },
+    {
+     "path": "counting-transition-frames305/sheet-008.jpg",
+     "sha256": "a619f31246a337f3020d910be95cbabe736120847bfabef538f3445af77d290f",
+     "frames": [
+      8320,
+      8321,
+      8322,
+      8323,
+      8324,
+      8325,
+      8326,
+      8327
+     ]
+    },
+    {
+     "path": "counting-transition-frames305/sheet-009.jpg",
+     "sha256": "a46853c970f416cbc0c07195bf5700fd0e06e6382f28ec269944f9044a2dbce6",
+     "frames": [
+      8328,
+      8329,
+      8330,
+      8331,
+      8332,
+      8333,
+      8334,
+      8335
+     ]
+    },
+    {
+     "path": "counting-transition-frames305/sheet-010.jpg",
+     "sha256": "5979f012b7eb7cf6d6becb208f8ef4436b3215b3ae6f1c7878402393e4301fbf",
+     "frames": [
+      8336,
+      8337,
+      8338,
+      8339,
+      8340,
+      8341,
+      8342,
+      8343
+     ]
+    },
+    {
+     "path": "counting-transition-frames305/sheet-011.jpg",
+     "sha256": "22b2f6c6ac6bd5057eb3db3bcd75516b6cf03b9c61ef73c6f3a76fa9a511a627",
+     "frames": [
+      8344
+     ]
+    }
+   ]
+  },
+  {
+   "set": "residue-transition-frames305",
+   "chapter": "12_residues",
+   "kind": "every encoded frame in named windows",
+   "binding": {
+    "path": "residue-transition-frames305/manifest.json",
+    "sha256": "c6cca51f4290b32b7e4f2587900cdf1adefde66bf48d032b32f322edd684eea2"
+   },
+   "windows": [
+    [
+     2475,
+     2516
+    ],
+    [
+     2536,
+     2577
+    ],
+    [
+     2763,
+     2804
+    ],
+    [
+     3025,
+     3154
+    ],
+    [
+     3911,
+     3942
+    ]
+   ],
+   "layout": "3x4 tiles, 1440x1160",
+   "pictures": 288,
+   "sheets_viewed_by_cc1": 24,
+   "sheets_existing": 24,
+   "pictures_viewed_by_cc1": 288,
+   "sheets": [
+    {
+     "path": "residue-transition-frames305/sheet-001.jpg",
+     "sha256": "99127088f40d6f0d9ffd4a38c4538ae11b221655ec8eed68bb86141df724bb11",
+     "frames": [
+      2475,
+      2476,
+      2477,
+      2478,
+      2479,
+      2480,
+      2481,
+      2482,
+      2483,
+      2484,
+      2485,
+      2486
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-002.jpg",
+     "sha256": "8f174a6dcfb8a15eb486c63053910927dec4df5c6fdb1c159d41d65e672e5491",
+     "frames": [
+      2487,
+      2488,
+      2489,
+      2490,
+      2491,
+      2492,
+      2493,
+      2494,
+      2495,
+      2496,
+      2497,
+      2498
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-003.jpg",
+     "sha256": "327a28624517a6360e3f5cf0a7ed67f78679ac3647986420c4b5718b1befbfc0",
+     "frames": [
+      2499,
+      2500,
+      2501,
+      2502,
+      2503,
+      2504,
+      2505,
+      2506,
+      2507,
+      2508,
+      2509,
+      2510
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-004.jpg",
+     "sha256": "96cfd54cef0021ffef8f423845b5a78e2a1b22d5dc9cd65814e5f28acb19bd0a",
+     "frames": [
+      2511,
+      2512,
+      2513,
+      2514,
+      2515,
+      2516,
+      2536,
+      2537,
+      2538,
+      2539,
+      2540,
+      2541
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-005.jpg",
+     "sha256": "ad4075a2f2f5c947c1130b1201db4c3c4ae301004cb7155c5d83c6df01eb4619",
+     "frames": [
+      2542,
+      2543,
+      2544,
+      2545,
+      2546,
+      2547,
+      2548,
+      2549,
+      2550,
+      2551,
+      2552,
+      2553
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-006.jpg",
+     "sha256": "d0caae71fd5c633e1f256ccfeccdc777a10d8ad8cdb5a0ff708e8d0218a20316",
+     "frames": [
+      2554,
+      2555,
+      2556,
+      2557,
+      2558,
+      2559,
+      2560,
+      2561,
+      2562,
+      2563,
+      2564,
+      2565
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-007.jpg",
+     "sha256": "0212c3e0e9aede7e1c607f8227e2386cb1f7514f6abcdcc4b77531029c26cc0e",
+     "frames": [
+      2566,
+      2567,
+      2568,
+      2569,
+      2570,
+      2571,
+      2572,
+      2573,
+      2574,
+      2575,
+      2576,
+      2577
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-008.jpg",
+     "sha256": "aff02d0dac3f03b83b5f8a67eeeb5e73ac4314fb91a823b4b00c076b1ca44fd7",
+     "frames": [
+      2763,
+      2764,
+      2765,
+      2766,
+      2767,
+      2768,
+      2769,
+      2770,
+      2771,
+      2772,
+      2773,
+      2774
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-009.jpg",
+     "sha256": "36c4281eda5de9ec00ac8e75d5b591912552f16786eb483a393c436c8200e162",
+     "frames": [
+      2775,
+      2776,
+      2777,
+      2778,
+      2779,
+      2780,
+      2781,
+      2782,
+      2783,
+      2784,
+      2785,
+      2786
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-010.jpg",
+     "sha256": "4f59ce2b1c42be0d3e5f2263d7c48f5cfbe667b6c441e078ce7f0da74aa6e875",
+     "frames": [
+      2787,
+      2788,
+      2789,
+      2790,
+      2791,
+      2792,
+      2793,
+      2794,
+      2795,
+      2796,
+      2797,
+      2798
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-011.jpg",
+     "sha256": "b97c55819aab43eb4b2c370e29a300eb777b758a75942651f3b2b1a8cf49deae",
+     "frames": [
+      2799,
+      2800,
+      2801,
+      2802,
+      2803,
+      2804,
+      3025,
+      3026,
+      3027,
+      3028,
+      3029,
+      3030
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-012.jpg",
+     "sha256": "366143f2cbf4981ccd822881fb3d4c61831b05fd1e9e5f0bc5456fa9ff9078d7",
+     "frames": [
+      3031,
+      3032,
+      3033,
+      3034,
+      3035,
+      3036,
+      3037,
+      3038,
+      3039,
+      3040,
+      3041,
+      3042
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-013.jpg",
+     "sha256": "03821425f37ba3851231c65be81e30d280d0f208acff4e84174c4c21c72ca934",
+     "frames": [
+      3043,
+      3044,
+      3045,
+      3046,
+      3047,
+      3048,
+      3049,
+      3050,
+      3051,
+      3052,
+      3053,
+      3054
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-014.jpg",
+     "sha256": "3c1479a844d9b1e152e6881093c3c4125edbbddbb5c9ee240851f3b38c157680",
+     "frames": [
+      3055,
+      3056,
+      3057,
+      3058,
+      3059,
+      3060,
+      3061,
+      3062,
+      3063,
+      3064,
+      3065,
+      3066
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-015.jpg",
+     "sha256": "13072da560b75de79c00c1c8c32dcefa5f549e655d1263d99f8f82f48ddbcd11",
+     "frames": [
+      3067,
+      3068,
+      3069,
+      3070,
+      3071,
+      3072,
+      3073,
+      3074,
+      3075,
+      3076,
+      3077,
+      3078
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-016.jpg",
+     "sha256": "6ca4cc05587a32f99dfe33f9a4b7f8ffb5c321d9421dc693b2ad03384721b2ee",
+     "frames": [
+      3079,
+      3080,
+      3081,
+      3082,
+      3083,
+      3084,
+      3085,
+      3086,
+      3087,
+      3088,
+      3089,
+      3090
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-017.jpg",
+     "sha256": "e9a75b979becab797a56e364c2b22b46d46cf3957c9c85b241b5dc166ad4f46a",
+     "frames": [
+      3091,
+      3092,
+      3093,
+      3094,
+      3095,
+      3096,
+      3097,
+      3098,
+      3099,
+      3100,
+      3101,
+      3102
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-018.jpg",
+     "sha256": "c4ecb781e093adf55874db48abd9f2fc7cc4b8462a65a1a5ca92118c0c8a99cb",
+     "frames": [
+      3103,
+      3104,
+      3105,
+      3106,
+      3107,
+      3108,
+      3109,
+      3110,
+      3111,
+      3112,
+      3113,
+      3114
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-019.jpg",
+     "sha256": "5da562eca4b178594f61b3e0d331c30c4a3b7b2c1248b9d390baec1e85525d8a",
+     "frames": [
+      3115,
+      3116,
+      3117,
+      3118,
+      3119,
+      3120,
+      3121,
+      3122,
+      3123,
+      3124,
+      3125,
+      3126
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-020.jpg",
+     "sha256": "ad828e1dc181e561b93fdede0313517167856d91728bf3cb5c22ac3c75d62e86",
+     "frames": [
+      3127,
+      3128,
+      3129,
+      3130,
+      3131,
+      3132,
+      3133,
+      3134,
+      3135,
+      3136,
+      3137,
+      3138
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-021.jpg",
+     "sha256": "64f690126189816fd36975edea18a05719dc20813d4df8fe10d370a5b6f684df",
+     "frames": [
+      3139,
+      3140,
+      3141,
+      3142,
+      3143,
+      3144,
+      3145,
+      3146,
+      3147,
+      3148,
+      3149,
+      3150
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-022.jpg",
+     "sha256": "012a9400c4df680c164269eb360aaeed0cd345990e5893137a0871a23c76d3e3",
+     "frames": [
+      3151,
+      3152,
+      3153,
+      3154,
+      3911,
+      3912,
+      3913,
+      3914,
+      3915,
+      3916,
+      3917,
+      3918
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-023.jpg",
+     "sha256": "6a5eea9c50d39b042b17a2b79554716456b82bc26935651a94e5203090f5451f",
+     "frames": [
+      3919,
+      3920,
+      3921,
+      3922,
+      3923,
+      3924,
+      3925,
+      3926,
+      3927,
+      3928,
+      3929,
+      3930
+     ]
+    },
+    {
+     "path": "residue-transition-frames305/sheet-024.jpg",
+     "sha256": "184227c29487fc41cc542f960b2b50f5251ff7a12831366e2659ec8c71be7920",
+     "frames": [
+      3931,
+      3932,
+      3933,
+      3934,
+      3935,
+      3936,
+      3937,
+      3938,
+      3939,
+      3940,
+      3941,
+      3942
+     ]
+    }
+   ]
+  },
+  {
+   "set": "continuation-transition-frames305",
+   "chapter": "14_continuation",
+   "kind": "every encoded frame in named windows",
+   "binding": {
+    "path": "continuation-transition-frames305/manifest.json",
+    "sha256": "a787e39d74c54651b8bbb3a97f0c75e7c863be4ab946c3004bb5aa153e34649b"
+   },
+   "windows": [
+    [
+     34,
+     98
+    ],
+    [
+     1223,
+     1257
+    ],
+    [
+     8876,
+     8940
+    ],
+    [
+     10179,
+     10300
+    ],
+    [
+     11724,
+     11755
+    ]
+   ],
+   "layout": "4x3 tiles, 1920x876",
+   "pictures": 319,
+   "sheets_viewed_by_cc1": 27,
+   "sheets_existing": 27,
+   "pictures_viewed_by_cc1": 319,
+   "sheets": [
+    {
+     "path": "continuation-transition-frames305/sheet-001.jpg",
+     "sha256": "59e5bf527bbd4687638eacd8bb63678b9b6ceb7cf39e17254dfa39e367a814f7",
+     "frames": [
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-002.jpg",
+     "sha256": "5cf8300dd78a2a930e39704bf99b52334787bca76a943453bf38774c80fb3409",
+     "frames": [
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-003.jpg",
+     "sha256": "b08ed0bc0540981a98a948fd285c83e19e2848222db6af0681b3cdd91b56ec9b",
+     "frames": [
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-004.jpg",
+     "sha256": "c132919eb88d45f4d3bd38abffc7c71070a1d7773b046b968a2dc1760f5b1d5e",
+     "frames": [
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-005.jpg",
+     "sha256": "b294649e621dabfbe0f939e04f4bbf205f294337b3a454d0ab9bb3b7efbe3298",
+     "frames": [
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-006.jpg",
+     "sha256": "b0574a43d5cf5cd5a0713a1ec88e03a8850c9393cda721956696fa1b5f8c3ace",
+     "frames": [
+      94,
+      95,
+      96,
+      97,
+      98,
+      1223,
+      1224,
+      1225,
+      1226,
+      1227,
+      1228,
+      1229
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-007.jpg",
+     "sha256": "45b2ec81672638cecb7a2779f499089429621d416b006ce5fd2c5641d216ba26",
+     "frames": [
+      1230,
+      1231,
+      1232,
+      1233,
+      1234,
+      1235,
+      1236,
+      1237,
+      1238,
+      1239,
+      1240,
+      1241
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-008.jpg",
+     "sha256": "43ad85ea865ef4cc21fe00885990446c910c8bce9f1846011a9e4d4fb4dfa8a8",
+     "frames": [
+      1242,
+      1243,
+      1244,
+      1245,
+      1246,
+      1247,
+      1248,
+      1249,
+      1250,
+      1251,
+      1252,
+      1253
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-009.jpg",
+     "sha256": "e38d621008bc53598fb3396d59cdeb0b5c3591c485305d917bc5ef1ceaea7d1e",
+     "frames": [
+      1254,
+      1255,
+      1256,
+      1257,
+      8876,
+      8877,
+      8878,
+      8879,
+      8880,
+      8881,
+      8882,
+      8883
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-010.jpg",
+     "sha256": "98627635b9b2a4eda1902d19c80e762dabcbeb82af3090f56d47456accaf7cd6",
+     "frames": [
+      8884,
+      8885,
+      8886,
+      8887,
+      8888,
+      8889,
+      8890,
+      8891,
+      8892,
+      8893,
+      8894,
+      8895
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-011.jpg",
+     "sha256": "d5a2bed2fd125943275531e4a142bf2b74a34fe01f07f57d8c572d32e3087ef0",
+     "frames": [
+      8896,
+      8897,
+      8898,
+      8899,
+      8900,
+      8901,
+      8902,
+      8903,
+      8904,
+      8905,
+      8906,
+      8907
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-012.jpg",
+     "sha256": "2c8d543ce466a8acca9dddb7c0b1ba277194ad1336b95a12f81ac5b05d673455",
+     "frames": [
+      8908,
+      8909,
+      8910,
+      8911,
+      8912,
+      8913,
+      8914,
+      8915,
+      8916,
+      8917,
+      8918,
+      8919
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-013.jpg",
+     "sha256": "189a86085adb1863b5ffed15dc1473df9d5ef331d3081796b6c2a803ddec6aec",
+     "frames": [
+      8920,
+      8921,
+      8922,
+      8923,
+      8924,
+      8925,
+      8926,
+      8927,
+      8928,
+      8929,
+      8930,
+      8931
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-014.jpg",
+     "sha256": "5cc74ef42153b8e5c86dacd33ac2a93adb6db71a306b2c34cf966be84faf0511",
+     "frames": [
+      8932,
+      8933,
+      8934,
+      8935,
+      8936,
+      8937,
+      8938,
+      8939,
+      8940,
+      10179,
+      10180,
+      10181
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-015.jpg",
+     "sha256": "8381243e7ce38113a1d272b0678a4108a248054e6e37a9ec1cdded8afe3a7811",
+     "frames": [
+      10182,
+      10183,
+      10184,
+      10185,
+      10186,
+      10187,
+      10188,
+      10189,
+      10190,
+      10191,
+      10192,
+      10193
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-016.jpg",
+     "sha256": "a54523844e00acd6bc1b29d940e3c67bf431361a86ff9284ae1b076af8ff3d6d",
+     "frames": [
+      10194,
+      10195,
+      10196,
+      10197,
+      10198,
+      10199,
+      10200,
+      10201,
+      10202,
+      10203,
+      10204,
+      10205
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-017.jpg",
+     "sha256": "b8d0da5c64b1deb889025c6ce6079b07da25c8d4ecdf30d9aa65be061152d7cd",
+     "frames": [
+      10206,
+      10207,
+      10208,
+      10209,
+      10210,
+      10211,
+      10212,
+      10213,
+      10214,
+      10215,
+      10216,
+      10217
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-018.jpg",
+     "sha256": "6d0a06c2701f7e4e62a925285c0e5a395a6015dddfcc8343b401dc50591e6764",
+     "frames": [
+      10218,
+      10219,
+      10220,
+      10221,
+      10222,
+      10223,
+      10224,
+      10225,
+      10226,
+      10227,
+      10228,
+      10229
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-019.jpg",
+     "sha256": "a50fb1e63f6f849dcd2425b7ffc5bf27f2b8f5d3f83fc12f06bf339088659ae2",
+     "frames": [
+      10230,
+      10231,
+      10232,
+      10233,
+      10234,
+      10235,
+      10236,
+      10237,
+      10238,
+      10239,
+      10240,
+      10241
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-020.jpg",
+     "sha256": "1e284a33ee8fd873867528bd79123df5d9aaf687c6bc7241cce39748b0095677",
+     "frames": [
+      10242,
+      10243,
+      10244,
+      10245,
+      10246,
+      10247,
+      10248,
+      10249,
+      10250,
+      10251,
+      10252,
+      10253
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-021.jpg",
+     "sha256": "b76ed53244669e0f946f9ac9d5246c2edc21a21e3b97e4f8b3defddc5816d330",
+     "frames": [
+      10254,
+      10255,
+      10256,
+      10257,
+      10258,
+      10259,
+      10260,
+      10261,
+      10262,
+      10263,
+      10264,
+      10265
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-022.jpg",
+     "sha256": "14cf308d43ef439add19fbff5679ecbbc06001919c6734ae432ed2adda56ec35",
+     "frames": [
+      10266,
+      10267,
+      10268,
+      10269,
+      10270,
+      10271,
+      10272,
+      10273,
+      10274,
+      10275,
+      10276,
+      10277
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-023.jpg",
+     "sha256": "460f483ff21f9e4fbddc2589d6197d1ac219636e862b33293f0900c8a5695872",
+     "frames": [
+      10278,
+      10279,
+      10280,
+      10281,
+      10282,
+      10283,
+      10284,
+      10285,
+      10286,
+      10287,
+      10288,
+      10289
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-024.jpg",
+     "sha256": "9dffa34c4a116af656b8c01ca0ef3b8170bdface9d346c1a9aee96d539fed54c",
+     "frames": [
+      10290,
+      10291,
+      10292,
+      10293,
+      10294,
+      10295,
+      10296,
+      10297,
+      10298,
+      10299,
+      10300,
+      11724
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-025.jpg",
+     "sha256": "d2e633f8ff74d8357fa0f3a97b7e5761451e4b35f19100769c8d5882d78e177a",
+     "frames": [
+      11725,
+      11726,
+      11727,
+      11728,
+      11729,
+      11730,
+      11731,
+      11732,
+      11733,
+      11734,
+      11735,
+      11736
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-026.jpg",
+     "sha256": "060878e50189ad331d096fe3183b87eb220399ed3306a107168b178a03955f52",
+     "frames": [
+      11737,
+      11738,
+      11739,
+      11740,
+      11741,
+      11742,
+      11743,
+      11744,
+      11745,
+      11746,
+      11747,
+      11748
+     ]
+    },
+    {
+     "path": "continuation-transition-frames305/sheet-027.jpg",
+     "sha256": "3e557b26ef70b9591e24da24b057a9942c1796ef3cf7b804c77f8f9bad0f266f",
+     "frames": [
+      11749,
+      11750,
+      11751,
+      11752,
+      11753,
+      11754,
+      11755
+     ]
+    }
+   ]
+  }
+ ],
+ "not_viewed_or_not_existing": [
+  "coverage-grid305b has no 12_residues folder; coverage-grid305/12_residues was viewed in its place",
+  "coverage-grid305/14_continuation has no sheets; the 14 grid viewed is coverage-grid305b/14_continuation",
+  "individual extracted pictures were not opened except the amplified PNG crops listed under method",
+  "no frames outside the listed samples, grids and windows"
+ ],
+ "concrete_picture_defects_observed": [],
+ "observations": [
+  {
+   "id": "O1",
+   "chapter": "11_counting",
+   "frames": "4348",
+   "where": "preview274 s0003",
+   "class": "low",
+   "text": "The \"|f| =\" readout is written without its value at 4348; \"|f| = 0.7\" is present at 4408. Looks like a transient write-in; motion not checked."
+  },
+  {
+   "id": "O2",
+   "chapter": "11_counting",
+   "frames": "7448",
+   "where": "preview274 s0005",
+   "class": "low",
+   "text": "The bottom root marker touches the top edge of the chip \"one root inside, at distance 0.335\". Both stay readable."
+  },
+  {
+   "id": "O3",
+   "chapter": "11_counting",
+   "frames": "8121-8303",
+   "where": "preview274 s0012-s0013; counting-transition",
+   "class": "low",
+   "text": "\"0 ÷ 2i = 0, and nothing else lands on 0\" stays up after the formula has become \"p(z) = zⁿ + ⋯\". The sentence is still true but its context has gone. A wording/context note, not a picture fault."
+  },
+  {
+   "id": "O4",
+   "chapter": "11_counting",
+   "frames": "9081-9096",
+   "where": "preview274 s0020",
+   "class": "informational",
+   "text": "The counter goes +3.3 then +3.5 between 15-frame samples (+3.4 falls between them). This is a sampling effect. The geometry agrees (walker ≈ 293° at 9186 gives +4.1)."
+  },
+  {
+   "id": "O5",
+   "chapter": "11_counting",
+   "frames": "9731-11880",
+   "where": "preview274 s0024; grid s14-s19",
+   "class": "low",
+   "text": "The \"for programmers\" code type is small at 540p. Legibility has to be judged at 4K."
+  },
+  {
+   "id": "O6",
+   "chapter": "12_residues",
+   "frames": "2339-3000",
+   "where": "preview274 s0002; residue-transition",
+   "class": "low",
+   "text": "The right text block's right edge is about 4% of the frame width from the edge. It stays inside the frame."
+  },
+  {
+   "id": "O7",
+   "chapter": "12_residues",
+   "frames": "2532-3002",
+   "where": "preview274 s0004; residue-transition",
+   "class": "low",
+   "text": "The \"residue 1\" baseline is about 4% of the frame height from the bottom edge, so a player's captions could cover it."
+  },
+  {
+   "id": "O8",
+   "chapter": "12_residues",
+   "frames": "2766",
+   "where": "preview274 s0006; residue-transition s008",
+   "class": "informational",
+   "text": "A faint plate-3 square is already visible at 2766, one frame before the localized H1c start (2767). This is a localization note, not a picture fault."
+  },
+  {
+   "id": "O9",
+   "chapter": "14_continuation",
+   "frames": "1080-1200",
+   "where": "preview274 s0002; grid s02",
+   "class": "low",
+   "text": "The top edge of the footer chip \"names to search: analytic continuation\" meets the plate's bottom edge. The text does not collide."
+  },
+  {
+   "id": "O10",
+   "chapter": "14_continuation",
+   "frames": "8876-8877",
+   "where": "preview274 s0006 (zoom); continuation-transition (PNG zoom)",
+   "class": "informational",
+   "text": "The lower half of the z-panel's right edge leaves a vertical line at ≤ 2 code values above background for 2 frames. It is gone at 8878 (the blank-frame hash). Invisible at normal contrast."
+  },
+  {
+   "id": "O11",
+   "chapter": "14_continuation",
+   "frames": "10260-10278",
+   "where": "preview274 s0009-s0010 (zoom); continuation-transition",
+   "class": "low",
+   "text": "While the Γ box outline is drawn in, its bottom edge carries a faint warm or multicolour tint along its length. It reads uniform grey by about 10290-10301. The cause cannot be resolved from 540p stills: a 1-px plate leak or chroma fringe."
+  },
+  {
+   "id": "O12",
+   "chapter": "11_counting",
+   "frames": "1860-2160",
+   "where": "grid s04",
+   "class": "low",
+   "text": "The top edge of the footer \"names to search: argument principle · winding number\" meets the plate's bottom edge. The text does not collide."
+  },
+  {
+   "id": "O13",
+   "chapter": "11_counting",
+   "frames": "3840-4260",
+   "where": "grid s08-s09",
+   "class": "low",
+   "text": "The inset chip \"+1 − 1 = 0\" overlaps the top-right corner of the output panel border. The text does not collide."
+  },
+  {
+   "id": "O14",
+   "chapter": "14_continuation",
+   "frames": "2160-2340",
+   "where": "grid s04-s05",
+   "class": "informational",
+   "text": "\"1/(1 − 1.2) =\" is held with an empty right side for at least 3 s before \"−5\" appears. Reads as a deliberate reveal; pacing not judged."
+  },
+  {
+   "id": "O15",
+   "chapter": "12_residues",
+   "frames": "3911-3916",
+   "where": "residue-transition (PNG zoom)",
+   "class": "informational",
+   "text": "A blocky remnant of the three right-hand text lines stays after their fade: ≤ 3 code values at 3911-3912 and ≤ 2 through at least 3916. Invisible at normal contrast; looks like codec residue."
+  },
+  {
+   "id": "O16",
+   "chapter": "14_continuation",
+   "frames": "1253-1254",
+   "where": "continuation-transition (PNG zoom)",
+   "class": "informational",
+   "text": "After the I2 plate leave, a horizontal line at ≤ 2 code values stays at the old plate's bottom edge. It is gone at 1255 (the blank-frame hash). Invisible at normal contrast."
+  },
+  {
+   "id": "O17",
+   "chapter": "11_counting",
+   "frames": "2280",
+   "where": "grid s05",
+   "class": "low",
+   "text": "Three condition chips stack edge to edge, and the third sits on the output panel's horizontal axis. Still legible."
+  },
+  {
+   "id": "O18",
+   "chapter": "11_counting",
+   "frames": "8304-8344",
+   "where": "counting-transition s005-s011",
+   "class": "informational",
+   "text": "During the G3 fade the output panel frame, axes and \"0\" stay at full brightness while everything else fades. They are reused straight away (counter at 8344), so this reads as a deliberate carry-over."
+  }
+ ],
+ "still_only_limits": [
+  "JPEG contact sheets of decoded 540p60 preview frames; tiles downscaled; 1-2 px faults at 4K may not show",
+  "sampled: frames between samples outside the every-frame windows were not seen (see coverage)",
+  "no playback: motion smoothness, flicker between samples, pacing not judged",
+  "no audio: no listening, narration sync, caption sync or loudness",
+  "preview274 render only; no 4K, final-render or master pixel equivalence claimed",
+  "amplified-crop residues of 1-3 code values are reported for completeness, not as defects"
+ ],
+ "method": {
+  "sheet_reading": "Read tool on each JPEG, every tile read",
+  "frames_per_sheet": "binding sampling or manifest frame list chunked by layout (8 or 12 tiles); tile labels agreed where read",
+  "amplified_crops": [
+   "residue-transition 3154, 3911-3916 right text area",
+   "continuation-transition 1253-1255 and 8876-8878 full frame",
+   "preview274 12 sheets 0010, 0011, 0013; 14 sheets 0006, 0009, 0010"
+  ],
+  "no_changes": "no render, source, TODO, Beads or launch action"
+ },
+ "checks": [
+  {
+   "check": "11_counting movie sha256 equals CC2 value",
+   "ok": true,
+   "detail": "0b6244a005f64ff9b9b381a8ec8a58ffb7c174d085aceb452871d7f5dd0f811e"
+  },
+  {
+   "check": "11_counting preview274 sampling sha256 equals CC2 value",
+   "ok": true,
+   "detail": "eb67bf33a9ad2f7c91c5601026816d7ebd5d1fc3dafb5a68ae3c5004e8307846"
+  },
+  {
+   "check": "11_counting sampling names movie",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "11_counting sampling names timeline",
+   "ok": true,
+   "detail": "29a3afd345fa3a376e5c163d5bf5e01267a866e2305bdd27c6413a5bab46807d"
+  },
+  {
+   "check": "11_counting preview274 sheets = ceil(samples/8)",
+   "ok": true,
+   "detail": "193 samples, 25 sheets"
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0001.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0002.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0003.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0004.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0005.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0006.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0007.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0008.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0009.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0010.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0011.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0012.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0013.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0014.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0015.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0016.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0017.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0018.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0019.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0020.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0021.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0022.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0023.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0024.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/11_counting/sheet-0025.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "12_residues movie sha256 equals CC2 value",
+   "ok": true,
+   "detail": "a78c20024c257eaa4783db80f9b99c23442fe67ac8f646e354e633074f842199"
+  },
+  {
+   "check": "12_residues preview274 sampling sha256 equals CC2 value",
+   "ok": true,
+   "detail": "df4ac4872fe729b2cb11b91b44041f143f9cfca707a4872c3056503cda59272e"
+  },
+  {
+   "check": "12_residues sampling names movie",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "12_residues sampling names timeline",
+   "ok": true,
+   "detail": "d25e8b958cd32f2a233b38c293183f3d39b2d1502137c389c69ba49ff0d0dca7"
+  },
+  {
+   "check": "12_residues preview274 sheets = ceil(samples/8)",
+   "ok": true,
+   "detail": "101 samples, 13 sheets"
+  },
+  {
+   "check": "preview274-review305/12_residues/sheet-0001.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/12_residues/sheet-0002.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/12_residues/sheet-0003.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/12_residues/sheet-0004.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/12_residues/sheet-0005.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/12_residues/sheet-0006.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/12_residues/sheet-0007.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/12_residues/sheet-0008.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/12_residues/sheet-0009.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/12_residues/sheet-0010.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/12_residues/sheet-0011.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/12_residues/sheet-0012.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/12_residues/sheet-0013.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "14_continuation movie sha256 equals CC2 value",
+   "ok": true,
+   "detail": "a0d34489e9757ff3db96e3d8b7a438845a90036453b2d4d7c9426efd8dc7c432"
+  },
+  {
+   "check": "14_continuation preview274 sampling sha256 equals CC2 value",
+   "ok": true,
+   "detail": "5faa729974a76a216bfcc5d2a36975df67fabd0bd79a07a1912fc784db5feb2b"
+  },
+  {
+   "check": "14_continuation sampling names movie",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "14_continuation sampling names timeline",
+   "ok": true,
+   "detail": "2b3a5bff177889f00fb06871a8910d98babb4ac3c4636f50758c897cb11fbc99"
+  },
+  {
+   "check": "14_continuation preview274 sheets = ceil(samples/8)",
+   "ok": true,
+   "detail": "80 samples, 10 sheets"
+  },
+  {
+   "check": "preview274-review305/14_continuation/sheet-0001.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/14_continuation/sheet-0002.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/14_continuation/sheet-0003.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/14_continuation/sheet-0004.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/14_continuation/sheet-0005.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/14_continuation/sheet-0006.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/14_continuation/sheet-0007.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/14_continuation/sheet-0008.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/14_continuation/sheet-0009.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "preview274-review305/14_continuation/sheet-0010.jpg sha256 equals sampling",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting grid names movie",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0001.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0002.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0003.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0004.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0005.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0006.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0007.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0008.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0009.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0010.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0011.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0012.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0013.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0014.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0015.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0016.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0017.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0018.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting/sheet-0019.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/11_counting no further sheet",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation grid names movie",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0001.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0002.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0003.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0004.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0005.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0006.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0007.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0008.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0009.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0010.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0011.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0012.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0013.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0014.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0015.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0016.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0017.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0018.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0019.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0020.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0021.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation/sheet-0022.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305b/14_continuation no further sheet",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305/12_residues grid names movie",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305/12_residues/sheet-0001.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305/12_residues/sheet-0002.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305/12_residues/sheet-0003.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305/12_residues/sheet-0004.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305/12_residues/sheet-0005.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305/12_residues/sheet-0006.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305/12_residues/sheet-0007.jpg exists",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "coverage-grid305/12_residues no further sheet",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "counting-opening-frames305/manifest.json sha256 equals CC2 value",
+   "ok": true,
+   "detail": "9b889e043ce97bfbb2ce8b72f8306c3dbd3718a29c52b97f4adefa2b702bea8a"
+  },
+  {
+   "check": "counting-opening-frames305/manifest.json names movie",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "counting-opening-frames305/manifest.json frames strictly increasing",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "counting-opening-frames305/manifest.json sheet count",
+   "ok": true,
+   "detail": "5 vs 5"
+  },
+  {
+   "check": "counting-transition-frames305/manifest.json sha256 equals CC2 value",
+   "ok": true,
+   "detail": "9e74486edaaac78d1a4a868f83507a69378f1be9d64ab0456ddd453a34fc64d6"
+  },
+  {
+   "check": "counting-transition-frames305/manifest.json names movie",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "counting-transition-frames305/manifest.json frames strictly increasing",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "counting-transition-frames305/manifest.json sheet count",
+   "ok": true,
+   "detail": "11 vs 11"
+  },
+  {
+   "check": "residue-transition-frames305/manifest.json sha256 equals CC2 value",
+   "ok": true,
+   "detail": "c6cca51f4290b32b7e4f2587900cdf1adefde66bf48d032b32f322edd684eea2"
+  },
+  {
+   "check": "residue-transition-frames305/manifest.json names movie",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "residue-transition-frames305/manifest.json frames strictly increasing",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "residue-transition-frames305/manifest.json sheet count",
+   "ok": true,
+   "detail": "24 vs 24"
+  },
+  {
+   "check": "continuation-transition-frames305/manifest.json sha256 equals CC2 value",
+   "ok": true,
+   "detail": "a787e39d74c54651b8bbb3a97f0c75e7c863be4ab946c3004bb5aa153e34649b"
+  },
+  {
+   "check": "continuation-transition-frames305/manifest.json names movie",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "continuation-transition-frames305/manifest.json frames strictly increasing",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "continuation-transition-frames305/manifest.json sheet count",
+   "ok": true,
+   "detail": "27 vs 27"
+  },
+  {
+   "check": "11_counting last frame viewed",
+   "ok": true,
+   "detail": "11931 vs 11931"
+  },
+  {
+   "check": "12_residues last frame viewed",
+   "ok": true,
+   "detail": "3942 vs 3942"
+  },
+  {
+   "check": "14_continuation last frame viewed",
+   "ok": true,
+   "detail": "11755 vs 11755"
+  }
+ ],
+ "continuous_motion_acceptance": false,
+ "listening_acceptance": false,
+ "fine_sync_acceptance": false,
+ "final_4k_acceptance": false,
+ "release_acceptance": false,
+ "publication_acceptance": false
+}

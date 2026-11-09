@@ -1,0 +1,40 @@
+{
+  "files": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview11-pictures72.py",
+      "sha256": "208e64cc892fabc52e8761f0f6e75cdfc620b88481a2ef08ba259287876d55ed"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/guard_owner80g_target20g.py",
+      "sha256": "4f34e0d1e9a8f9d164860828f87a734e99b697d2d3048c7b65508e5d84b8b4ad"
+    },
+    {
+      "path": "/opt/homebrew/bin/ffmpeg",
+      "sha256": "1332dc2de372bade9a8a63da0d6cdfab9de97fcefbae707bcc0b0506e1203327"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview21-11-review72/11_counting.cuelog.tsv",
+      "sha256": "c00984bb9bb8d9cc9b964fcd97e0675fa1a4a711827fd4c62ab121594fdad27e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview21-11-review72/11_counting.cues.tsv",
+      "sha256": "8659b78f9ff443163d4e37270c62532fa4b90d0ee34bab51231eb915aac3ff41"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview21-11-review72/11_counting.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview21-11-review72/11_counting.mp4",
+      "sha256": "42cf1003ffbb18e20b19ebfd32a59a1236bbdb0b9531f7de39466252fea0a630"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview21-11-review72/11_counting.timeline.tsv",
+      "sha256": "13f593bc19082ddacd7d3adbd5f739110fec02c1ab43958cff748f1154641242"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview21-11-review72/copy-evidence.json",
+      "sha256": "fcdee4370c5067bb5246383c04eab32ad407683eae7df1aa0c6ea5f74d2dbd03"
+    }
+  ]
+}

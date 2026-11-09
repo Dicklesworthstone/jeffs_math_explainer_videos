@@ -1,0 +1,48 @@
+{
+ "F5": {
+  "control (receipt unchanged)": {
+   "code": 0,
+   "passed": 8,
+   "failures": [],
+   "stop": null,
+   "command_changed": false,
+   "command_equals_receive_command": true
+  },
+  "receipt command names another helper path": {
+   "code": 0,
+   "passed": 8,
+   "failures": [],
+   "stop": null,
+   "command_changed": true,
+   "command_equals_receive_command": false
+  },
+  "receipt command names attempt 7": {
+   "code": 0,
+   "passed": 8,
+   "failures": [],
+   "stop": null,
+   "command_changed": true,
+   "command_equals_receive_command": false
+  }
+ },
+ "F5r": {
+  "admitted receipt names another helper path": {
+   "exit": 1,
+   "refusal": "AssertionError: job admitted for another command",
+   "incoming": false,
+   "import_result": false
+  },
+  "admitted receipt names attempt 7": {
+   "exit": 1,
+   "refusal": "AssertionError: job admitted for another command",
+   "incoming": false,
+   "import_result": false
+  },
+  "admitted receipt names the exact receive command": {
+   "exit": 1,
+   "refusal": "AssertionError: stream does not start with a header line",
+   "incoming": false,
+   "import_result": false
+  }
+ }
+}

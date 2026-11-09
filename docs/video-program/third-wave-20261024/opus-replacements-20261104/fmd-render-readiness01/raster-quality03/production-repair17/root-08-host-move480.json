@@ -1,0 +1,45 @@
+{
+  "utc": "2026-11-09T05:02:29.911598+00:00",
+  "scope": "Actual root process transition, not render/AV acceptance",
+  "source": "SSH session60338 terminal0; exact pidfd signals",
+  "waiter_pid": 1940830,
+  "launcher_pid": 1939820,
+  "guard_holder_pid": 982043,
+  "boundary_native_pid": 983027,
+  "input_sha256_before_and_after": "184934f514e4c2142b961bdeb0775b709c07673c7f9073aa2e3ac8342c2b8511",
+  "before": {
+    "exact_08_cmdline": true,
+    "parent_matches": true,
+    "blocked_flock": true,
+    "no_children": true,
+    "no_job_directory": true
+  },
+  "transition": [
+    "pidfd SIGSTOP",
+    "confirmed proc state T",
+    "job absent, no children, no holder lock, 344 still holder",
+    "pidfd SIGKILL"
+  ],
+  "after": {
+    "waiter_absent": true,
+    "job_absent": true,
+    "inputs_unchanged": true,
+    "boundary_native_exists": true,
+    "holder_unchanged": true,
+    "other_waiters": [
+      1869541,
+      1882972,
+      1892282,
+      1940827
+    ]
+  },
+  "css": {
+    "preflight": "full352 check passed14959frames83bindingfiles3144carriedrows",
+    "free_kib": 29732332,
+    "session": "jmev-final08-css474",
+    "launcher_pid": 168285,
+    "launched_once": true,
+    "terminal_success": false
+  },
+  "decision": "Root proceeds with existing reviewed generic352/371/447 route; 476 controller sealing/review remains before master, not a prerequisite for the proven individual chapter renderer. Existing344 and otherwaiters untouched."
+}

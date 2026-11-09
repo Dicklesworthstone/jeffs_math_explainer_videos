@@ -1,0 +1,29 @@
+{
+  "utc": "2026-11-07T16:02:15.355734+00:00",
+  "host": "csd",
+  "old_workspace": "/data/projects/jmev-stroke-probe-20261106/work/continuous-quality16/workspace",
+  "new_workspace": "/data/projects/jmev-stroke-probe-20261106/work/production-repair19/workspace",
+  "native_snapshot_files_equal": 25,
+  "changed_native_files": [
+    "boundary.rs",
+    "continuing.rs",
+    "counting.rs",
+    "gallery.rs",
+    "loop_sums.rs",
+    "mod.rs",
+    "two_planes.rs"
+  ],
+  "unchanged_chapter_prefixes": [
+    "01",
+    "02",
+    "04",
+    "06",
+    "07",
+    "10",
+    "12",
+    "15"
+  ],
+  "unchanged_cue_count": 48,
+  "source_script_wavs_sentence_rows_phrase_marks_equal": true,
+  "scope": "Observed remote source/audio comparison; not complete dependency, timeline, picture, motion or reuse acceptance"
+}

@@ -1,0 +1,490 @@
+{
+ "schema": "cc0-mac-source-parity489",
+ "author": "cc0",
+ "utc": "2026-11-09T05:36:55Z",
+ "scope": "Content equality only: the owner Mac original engine and repo-view against the exact CSD inputs that build 268 compiled, after path normalization of the Cargo config. Read-only. No build, test, staging, launch, tracker edit, publication or AV claim.",
+ "names": {
+  "L": "the owner Mac original copy jmev-geometry-native-20261104-01 (outside the repo): L/engine, L/repo-view, L/engine-budget.toml",
+  "W": "/data/projects/jmev-stroke-probe-20261106/work/tree",
+  "Q": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17"
+ },
+ "result": "Exact after one known patch and one path mapping. L/repo-view equals W/repo-view (68/68, kit 39, score 23). L/engine equals W/engine in 4,055 of 4,057 files; the other two are the pinned a399d626 originals, and the reviewed stroke-index.patch turns them into the exact CSD bytes. L/engine-budget.toml equals W/engine-budget.toml once its local root is replaced by W. The CSD work/.cargo/config.toml equals L/repo-view/.cargo/config.toml. All 70 files of the 268 scene source exist in Q byte for byte.",
+ "csd_binding": {
+  "manifest": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/qualification01/production-repair17/build19-inputs.json",
+  "manifest_sha256": "290dd1e4b0ae129e22c6157953a5583ee213793023aae8c79863fcbcaed4aec6",
+  "manifest_rows": 11770,
+  "work_tree_rows": 4184,
+  "why_build19_rows_are_268s": [
+   "cc1-preview-to-final-binding282.md: the build238 and build268 input manifests have identical rows for work/tree/engine (4,057), work/tree/repo-view (68), engine-budget.toml and work/.cargo/config.toml.",
+   "cc1-retention-dependencies273.md: outside the eight recipe files, build268 compiled the same workspace, Cargo.toml, Cargo.lock, engine, kit and score content as build19; all 4,057 engine files re-hashed to build19's values."
+  ],
+  "not_read": "CSD review-repair-build268-inputs.json itself (268 receipt inputs_sha256 53f1360e1102252a59a82e088f51152601d356562d152270f989bf1e86251663). Two bounded read-only ssh attempts, ending 05:32:43Z and 05:35:29Z, got \"server not responding\"; nothing was read or written on CSD."
+ },
+ "engine": {
+  "csd_rows": 4057,
+  "local_files": 4057,
+  "equal": 4055,
+  "csd_only": 0,
+  "local_only": 0,
+  "differ": {
+   "crates/fmn-render/src/engine.rs": {
+    "local": "85bdc6b721cf40fb836eaa07d324138ced6d8edd0e3e7919e37379b62f764d8c",
+    "csd": "de6551fc9f697b4a529e60d4ef502ca99abce0b4b3c243c2e017658836f1f519",
+    "local_is_pin_a399d626": true,
+    "local_plus_patch": "de6551fc9f697b4a529e60d4ef502ca99abce0b4b3c243c2e017658836f1f519",
+    "local_plus_patch_equals_csd": true
+   },
+   "crates/fmn-render/src/stroke.rs": {
+    "local": "e0feeab4dfbc0ead02628dcd28a48b4724146ef068dbdccefbcefea2a6ed69a4",
+    "csd": "668867dffefe1378f1e5f6631cc31c297103d6b197f724c7fdd210db685a0431",
+    "local_is_pin_a399d626": true,
+    "local_plus_patch": "668867dffefe1378f1e5f6631cc31c297103d6b197f724c7fdd210db685a0431",
+    "local_plus_patch_equals_csd": true
+   }
+  },
+  "patch": {
+   "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stroke-index-candidate01/stroke-index.patch",
+   "sha256": "da6b42b652cf4b6b5788e2246951310f7bd349af1b82bcb4e2fcdb256ecc95c5",
+   "note": "Its HANDOFF.md lists the same frozen and candidate hashes. Applied with git apply to copies outside the repo; L itself is unchanged."
+  },
+  "pin_check": "git show a399d626c43ecc852a5c795288979f52b446bc5c:<file> in the local franken_manim clone gives the two local hashes."
+ },
+ "repo_view": {
+  "csd_rows": 68,
+  "local_files": 68,
+  "equal": 68,
+  "differ": 0,
+  "csd_only": 0,
+  "local_only": 0,
+  "kit_files": 39,
+  "score_files": 23,
+  "cargo_toml": "2fa23046569fa50378540c709509e12943a73733682564acdaa394541c7e2d05",
+  "cargo_lock": "472710f8a7de0d2e0c2b477ffc457f81687f17cb120c6ae6b21bfebbc1f618f1",
+  "rustfmt_toml": "dcfd71b23fb377130f8639f9871e0a2cfb4e19160d043e282c6b19d5ada3c877"
+ },
+ "cargo_configs": {
+  "engine_budget": {
+   "local": "cdd28268804053230a1feb172f190d0010e09b3021e8b3ab0c69d9096feb9ed6",
+   "csd": "7277a6c07463d2b827907dfe692fc80c68b89ae0b8612adf59e089715d602f5b",
+   "local_root_occurrences": 19,
+   "normalized": "7277a6c07463d2b827907dfe692fc80c68b89ae0b8612adf59e089715d602f5b",
+   "normalized_equals_csd": true,
+   "rule": "replace the local root (19 occurrences, all in [patch] path lines) with W"
+  },
+  "work_cargo_config": {
+   "csd_path": "work/.cargo/config.toml",
+   "csd": "79fb8766d1f41365d64066e5b2e68b0fb89c50015425d109b155ccaf8eff2716",
+   "local_equal": "L/repo-view/.cargo/config.toml",
+   "local": "79fb8766d1f41365d64066e5b2e68b0fb89c50015425d109b155ccaf8eff2716",
+   "note": "On CSD it applies by cargo ancestor search (the crate sits under work/). On the mini it must sit in an ancestor of the crate directory, or the build differs (-Z threads=4, checksum freshness)."
+  },
+  "crate_cargo_toml": {
+   "sha256": "7644838ed75251307e2863c9a0b63c02b090f433fb00ae8c1a8745ebbca374c7",
+   "absolute_csd_lines": [
+    "explainer_kit = { path = \"/data/projects/jmev-stroke-probe-20261106/work/tree/repo-view/crates/explainer_kit\" }",
+    "explainer_score = { path = \"/data/projects/jmev-stroke-probe-20261106/work/tree/repo-view/crates/explainer_score\" }"
+   ],
+   "note": "The only path-bearing lines. On the mini these two path values must point at the copied repo-view; that edit changes this file hash, so record the before and after bytes."
+  },
+  "crate_cargo_lock": {
+   "sha256": "6a080058520a17788a934bc9eea7e7794e091651f46a1b89827f8c4ff105d9f1",
+   "absolute_paths": 0
+  }
+ },
+ "scene_source": {
+  "files": 70,
+  "locally_exact": 70,
+  "from_recipe268_candidates": 8,
+  "from_preserved214": 62,
+  "files_map": {
+   "explainer_corpus/complex_analysis_visual/Cargo.lock": {
+    "sha256": "6a080058520a17788a934bc9eea7e7794e091651f46a1b89827f8c4ff105d9f1",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/Cargo.lock",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/Cargo.toml": {
+    "sha256": "7644838ed75251307e2863c9a0b63c02b090f433fb00ae8c1a8745ebbca374c7",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/Cargo.toml",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-production19.json": {
+    "sha256": "0d5bec55f58d40ad9b8ef5d81163606f9a48408786d4f82804ee403b327bdc29",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-production19.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-quality16.json": {
+    "sha256": "7867f5891b0a5bd6112f4c2b3d5b75df7d35c18d958f0c863738070a799d50b8",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-quality16.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage06.json": {
+    "sha256": "fa2b976b6e916c3a45652f55753744eb802e1bc95edbad4d29c912ce3722c967",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage06.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage07.json": {
+    "sha256": "4db4c4d5a433f3212e6af739d71625dd0931ac86bc68c4cfc859212925faff77",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage07.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage08.json": {
+    "sha256": "6a6e2c6b5bb0fb504ff058c1337b2d1e0e943f6b6d51b6a65dfc5eaed1827ab8",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage08.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage09.json": {
+    "sha256": "f4a0874e68578277b74e16907102f27304c86a466ac5a62016a595f882837052",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage09.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver01.json": {
+    "sha256": "1a0c0d13255bd165207be0cbd54c5780465aaa5972472a25a7b98ba5fb74f86d",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver01.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver02.json": {
+    "sha256": "483eaf6d7037fb4d797e536b4d7cf451f1201cdd7d0d1a041a2824e6ec3aaa0d",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver02.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver03.json": {
+    "sha256": "0f60a0bce9e3ac6af8849d45b8cf092f112d74011cebe231b481631f6da3b19a",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver03.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver04.json": {
+    "sha256": "ea29b4a9c9929248197022bac7cc29e52a23dbc2547070a93052c5abe07b215a",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver04.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver05.json": {
+    "sha256": "668ec55713e8b1fe98ebdbc5403cc4395b451f213ee6cc609f5041ea438fd3f4",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver05.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver06.json": {
+    "sha256": "77d8bc2b1232d8137a68027f1e7aee532f31101a004b7d2fb63860e3c14e84d6",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver06.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver09.json": {
+    "sha256": "3750de4927eb964b5505761703a2fb980c85c912b3385110ae11fbfb5237d961",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver09.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver10.json": {
+    "sha256": "341356cda34ac129fbca1988699f9f20f1cb583d63a5463f780226a13ab3c5b4",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver10.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver12.json": {
+    "sha256": "70888624edd6e930b383b277b50f8da5e39ac94f1a661c71b7f0e9575362f20c",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver12.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v5.json": {
+    "sha256": "090301f8352995adfeee59304a2050c85678e434fbcc6af3bc8373681b28d34e",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v5.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v6.json": {
+    "sha256": "c8bc37e19d4c1112310ff155183add1d2375bde113aded60c7517ee78215fcbe",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v6.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v7.json": {
+    "sha256": "ab5a01d4013bf721fc02bcc85b32655a2169d6a8b7320dc6e35b77390c262c63",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v7.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver02.json": {
+    "sha256": "a8000a8669a6866dc2d4be26a3c45befa1694d7ad1e55821b7f5f65ec7fe76cc",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver02.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver03.json": {
+    "sha256": "18cf247a8ce72ca2e99235e567130714eb418c13927a2453820f99e0be6cfc4c",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver03.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver04.json": {
+    "sha256": "a7b05cab7fd3cecfa3db03b0ec9ecb0cafbcf7324a5bf455de97cf0c1191ca7d",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver04.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/script-as-reviewed-mail622.tsv": {
+    "sha256": "860a73d26d7a5f122e7e8c7ff64590b3b1e4f70e155032aa01b11126a933448a",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/script-as-reviewed-mail622.tsv",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/docs/storyboard.md": {
+    "sha256": "e45d2bb52e74557aa95d40c22dded1eebc6211812b87acd0d7a870538768b153",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/storyboard.md",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/narration_units.before-picture-stage08.json": {
+    "sha256": "c937fca1f0d7507117462600f0f478472bd2b8dab93075aba6494bd99ce81141",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.before-picture-stage08.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/narration_units.before-production19.json": {
+    "sha256": "22492be980800ece5be0e947a3e0d50cbc1bc21903ab6dd8411f2520a47392f0",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.before-production19.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/narration_units.before-quality16.json": {
+    "sha256": "64ef10aa47eb76c50c1e3efba269adf9d0dbb9b774374ec362add6e1ba13cc37",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.before-quality16.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/narration_units.before-raster-stage09.json": {
+    "sha256": "395b985a1c77b8647ce40674a4cf8f94efe6bd66952270320f55c8513fb5cc09",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.before-raster-stage09.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/narration_units.json": {
+    "sha256": "995e25c7788943deff65c4d84050d8a17edc3c2c3498be0d665d7ac5b661357a",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.json",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/oracle.py": {
+    "sha256": "2a596b38c0b3ffcea797c39b801926451d892cb2a44e938f262b37b2ecf6e82d",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/oracle.py",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/script.tsv": {
+    "sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/script.tsv",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/argument.rs": {
+    "sha256": "cc5a8d963de7a3a583c332875cb88337b97b2bc00b27d1b9e6420cbddf17920a",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/argument.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/bookends.rs": {
+    "sha256": "9a44d4cea2cecdb51368619c62e29bff6fae565c58ff37b63701b5d17594092b",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/bookends.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs": {
+    "sha256": "dc80c541799209f10d02701d18c7fab5a14327000719929e5e2fad0c6fd62f9f",
+    "local": "Q/boundary-label-repair52.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/cauchy.rs": {
+    "sha256": "5993b8bda652d951f7946813f2b81da88b7f232f791c564964bf5d5254f80c66",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/cauchy.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/closing.rs": {
+    "sha256": "0c217b6b5daee2681a61049b0918ceda7cc211d377ecd0c5f70b8562dd36568b",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/continuation.rs": {
+    "sha256": "3fa49900014690913ec0a987f42c7fe615424719414e762a1b31bab16aaca23e",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/continuation.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs": {
+    "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs": {
+    "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs.orig": {
+    "sha256": "cdc154ec074aa446b96cae783fa7e26b0fec3b9cf18e9c16ed19284aab22e32c",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs.orig",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/derivative.rs": {
+    "sha256": "6e5176b980bfea4ab7d9291c0138fe345be21ad0e9c2f9adab83a898b13bfdbc",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/derivative.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/domain_color.rs": {
+    "sha256": "9b3f2728ec74e2886155429a16e4efa06e9eb2642c9629d71bf7f9d2c1f03496",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/domain_color.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs": {
+    "sha256": "9bb07b3ff030d1ac0885d1382097bde596e8cae419d86b51933e12e7eeed8218",
+    "local": "Q/cc2-plate-fade-candidate264-draw.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs": {
+    "sha256": "d57e003a4067f3e67abb654e98c19ca0274c9b7edae5ac26da756757e33230b5",
+    "local": "Q/gallery-review-repair249.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/integral.rs": {
+    "sha256": "1ce4ea7ef3d6f80e97bc5a585d25f9dfdc155c10365c970a866a6b577234eb41",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/integral.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs": {
+    "sha256": "8a13e8a190cd502e7b58efbcb7c40872cdb0e6e702feb69e1b789e451a7a42b5",
+    "local": "Q/loop-sums-review-repair238.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs": {
+    "sha256": "e1f4d1b87f4b36f979e7800f7b2048117b9a4809b2372f385350698f5c3e7cbd",
+    "local": "Q/mod-review-repair256.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs.orig": {
+    "sha256": "a13535445ddaf4756dbc985a656259d909a44466a4947e5f92f6820c95854ec4",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs.orig",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs": {
+    "sha256": "7a4cc01acb497ad881c0d8478c696ab74db025494ab9381d0b414355fe3fd30d",
+    "local": "Q/one-derivative-review-repair238.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs.orig": {
+    "sha256": "84ed107492e65b39add7b7a3e7fd6e17348b7c5a8fc80b7c2768bac27b0e4115",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs.orig",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs": {
+    "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/plate_fade_probe.rs": {
+    "sha256": "c0c56084be04c9ff3605e0cb1d05fe989510c35d043ce6215688e72be909155f",
+    "local": "Q/cc2-plate-fade-probe246.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs": {
+    "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs": {
+    "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/residues.rs": {
+    "sha256": "7d06f69b2aff86ac1bee103c7aaefc58891d0b335312e98df3610769f45af7c1",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/residues.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs": {
+    "sha256": "0bcfbc7d7962b2ab8fa2d27895fce104ab6cb71ce5aac26fdd0b97dca04a3df0",
+    "local": "Q/rigidity-review-repair247.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs": {
+    "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/thumbnail.rs": {
+    "sha256": "5d90834bba4b0d6acf8f3c437ca66dab046f1c4823e3b773616f4d4d665c2c65",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/thumbnail.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/turning.rs": {
+    "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs": {
+    "sha256": "0f22d63febc18e05dc4123bedf84eeadf967938bcbc4260cfb0d9e8925ff4cb9",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/facts.rs": {
+    "sha256": "12f2fef0d6807540d3642972a1125c89e683d5f9615689f4100e6aea522530bc",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/facts.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/main.rs": {
+    "sha256": "19a9e1051360caacba25a9276d1f32a4b7b94700bb25a4c72ca663805619f798",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/main.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/model.rs": {
+    "sha256": "118172af9d69006c370fddf67a8c9d97431485cd36aea42e92f04f65a80a58b2",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/model.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/plate_layout.rs": {
+    "sha256": "f450c3206bbf4d2ccea7bfc0a6e3092398f8081839b0dd370cd7f860a5bef9c3",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/plate_layout.rs",
+    "local_equal": true
+   },
+   "explainer_corpus/complex_analysis_visual/src/score.rs": {
+    "sha256": "0563256da1cd670e7e453a4e840b93d4be9bbd1202941843bdbc77ca46062680",
+    "local": "Q/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/score.rs",
+    "local_equal": true
+   },
+   "tools/coherent_narration.before-production19.py": {
+    "sha256": "95615cfadb42fbfdddf828340b74ec66d89c975a1f399593e212bdd9840e65d5",
+    "local": "Q/production-source-preserved214/workspace/tools/coherent_narration.before-production19.py",
+    "local_equal": true
+   },
+   "tools/coherent_narration.py": {
+    "sha256": "a7fc6705aead7999134d8619458c8b2973ef771be069d4ce98462ac5f97fc42f",
+    "local": "Q/production-source-preserved214/workspace/tools/coherent_narration.py",
+    "local_equal": true
+   },
+   "tools/narration_cache.py": {
+    "sha256": "47331efd3952af6d0e66971a1c8fddd08929f881d1f9b470bde223db7a01b0c0",
+    "local": "Q/production-source-preserved214/workspace/tools/narration_cache.py",
+    "local_equal": true
+   },
+   "tools/narration_delivery.py": {
+    "sha256": "961f17cc85dd30eadca73f950ec0bab6e52eb47ad43a7384c3710c97962b1878",
+    "local": "Q/production-source-preserved214/workspace/tools/narration_delivery.py",
+    "local_equal": true
+   }
+  }
+ },
+ "do_not_use": {
+  "local_crate": {
+   "path": "L/crate",
+   "why": "Not 268 source: vs W/tree/crate 30 equal, 21 differ, 7 CSD-only, 2 local-only. 268 compiled its own 70-file workspace copy."
+  },
+  "repo_checkout_kit": {
+   "path": "crates/explainer_kit in this repo checkout",
+   "differ": {
+    "src/cli.rs": {
+     "checkout": "a63970e0120e2ae2ce5c374b4593cb2ad45011696b0112ac17e801e110640d4a",
+     "compiled": "3c5221febc3e3d92d37aa97e2f8d38c319121215a67a1dc68d24534d41d862c9"
+    },
+    "src/glyphs.rs": {
+     "checkout": "8652dd294c7416e577d4c4a2df821d3f528fda09b7b4185c8f0d2a7db0bf3d2d",
+     "compiled": "225504a6ecbcd771b22dcf6d489b9980df2756d75205ea66316f83836d0071da"
+    },
+    "tests/cli_pipeline.rs": {
+     "checkout": "2887963149e41253be3fbca91d9da0720d7e4a5976332f0e00b5678b0df3dc5d",
+     "compiled": "8da9d8761672b67fd2185c26bae34375015e99b091e11a389afd0b6a23c224a4"
+    }
+   },
+   "compiled_only": [
+    "tests/options_hook_routes.rs"
+   ],
+   "checkout_only": [
+    "src/.ee/hook-state/session_start_orient.last.json"
+   ]
+  },
+  "repo_checkout_score": "equal to the compiled score (23/23)"
+ },
+ "outside_content_equality": [
+  "crates.io registry and the six locked git sources: the mini needs the same locked versions; CC1 273 records clean CSD checkouts at the locked revisions. Not compared here.",
+  "the CSD user's own cargo config (CC1 273: debug levels and a target-dir that CARGO_TARGET_DIR overrides). Not compared.",
+  "toolchain nightly-2026-08-31: CSD cargo b854c942 and rustc 49f9fa06 are Linux binaries; a Mac toolchain cannot match those bytes.",
+  "build 268's flags and environment (review-repair-build268.py): --release --locked --offline --config engine-budget.toml, CARGO_INCREMENTAL=0, CARGO_BUILD_JOBS=2, rustfmt with repo-view/rustfmt.toml, metadata jmev_review_repair268.",
+  "binary 983954c5 is a Linux build; a Mac build is a new binary. Its platform-independent records are facts sha 7d528509 and the 15-chapter list."
+ ],
+ "not_claimed": "No build, test, staging, launch, tracker edit, publication, picture or AV acceptance. No audio heard or checked."
+}

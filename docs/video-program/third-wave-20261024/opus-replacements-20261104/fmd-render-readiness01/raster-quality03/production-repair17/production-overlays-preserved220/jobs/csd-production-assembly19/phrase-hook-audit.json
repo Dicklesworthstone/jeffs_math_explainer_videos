@@ -1,0 +1,514 @@
+[
+  {
+    "cue": "08_5",
+    "phrase": "starting with a square",
+    "byte": 154,
+    "status": "provisional_mark",
+    "sample_24k": 255840,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "Cut the square into four smaller squares",
+    "byte": 244,
+    "status": "provisional_mark",
+    "sample_24k": 391680,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "every shared edge is walked twice",
+    "byte": 361,
+    "status": "provisional_mark",
+    "sample_24k": 571176,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "so those parts cancel exactly",
+    "byte": 420,
+    "status": "provisional_mark",
+    "sample_24k": 661920,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "Now suppose that integral were not zero",
+    "byte": 513,
+    "status": "provisional_mark",
+    "sample_24k": 816000,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "some small square must have an integral",
+    "byte": 559,
+    "status": "provisional_mark",
+    "sample_24k": 890880,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "Four integrals each under a quarter",
+    "byte": 632,
+    "status": "provisional_mark",
+    "sample_24k": 998880,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "Keep that square, and cut it into four again",
+    "byte": 705,
+    "status": "provisional_mark",
+    "sample_24k": 1103040,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "These nested squares shrink toward a single point",
+    "byte": 835,
+    "status": "provisional_mark",
+    "sample_24k": 1296000,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "the derivative at that one point only",
+    "byte": 924,
+    "status": "provisional_mark",
+    "sample_24k": 1436640,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "Near c, the function is a constant",
+    "byte": 963,
+    "status": "provisional_mark",
+    "sample_24k": 1510080,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "So only the remainder contributes",
+    "byte": 1307,
+    "status": "provisional_mark",
+    "sample_24k": 2025600,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "Pick any tiny factor, and call it epsilon",
+    "byte": 1342,
+    "status": "provisional_mark",
+    "sample_24k": 2085600,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "Close enough to c",
+    "byte": 1385,
+    "status": "provisional_mark",
+    "sample_24k": 2157120,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "After enough cuts, the whole nested square",
+    "byte": 1526,
+    "status": "provisional_mark",
+    "sample_24k": 2397600,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "the distance to c is at most the square's diagonal",
+    "byte": 1593,
+    "status": "provisional_mark",
+    "sample_24k": 2510880,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "the steps add up to the perimeter",
+    "byte": 1649,
+    "status": "provisional_mark",
+    "sample_24k": 2587680,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "size at most epsilon, times its diagonal, times its perimeter",
+    "byte": 1723,
+    "status": "provisional_mark",
+    "sample_24k": 2694240,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "Each cut halves the diagonal and halves the perimeter",
+    "byte": 1786,
+    "status": "provisional_mark",
+    "sample_24k": 2799840,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "this bound shrinks to a quarter every time",
+    "byte": 1844,
+    "status": "provisional_mark",
+    "sample_24k": 2885760,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "But our rule kept at least a quarter",
+    "byte": 1888,
+    "status": "provisional_mark",
+    "sample_24k": 2955360,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "So after n cuts",
+    "byte": 1962,
+    "status": "provisional_mark",
+    "sample_24k": 3056160,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "The small square's integral has size at most epsilon",
+    "byte": 2080,
+    "status": "provisional_mark",
+    "sample_24k": 3232320,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "Multiplying by four to the n cancels the fours",
+    "byte": 2203,
+    "status": "provisional_mark",
+    "sample_24k": 3408480,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "the original integral's size is at most epsilon times",
+    "byte": 2254,
+    "status": "provisional_mark",
+    "sample_24k": 3478080,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "Since epsilon can be as small as we like",
+    "byte": 2345,
+    "status": "provisional_mark",
+    "sample_24k": 3597120,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "The same shrinking argument works for a triangle",
+    "byte": 2409,
+    "status": "provisional_mark",
+    "sample_24k": 3722400,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "Join the midpoints of its sides",
+    "byte": 2459,
+    "status": "provisional_mark",
+    "sample_24k": 3790560,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "Walk all four counterclockwise",
+    "byte": 2537,
+    "status": "provisional_mark",
+    "sample_24k": 3909120,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "even the upside down one in the middle",
+    "byte": 2569,
+    "status": "provisional_mark",
+    "sample_24k": 3963840,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "their shared edges cancel again",
+    "byte": 2613,
+    "status": "provisional_mark",
+    "sample_24k": 4012800,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "The longest side plays the diagonal's part",
+    "byte": 2646,
+    "status": "provisional_mark",
+    "sample_24k": 4068480,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "So around every triangle, the integral is zero too",
+    "byte": 2737,
+    "status": "provisional_mark",
+    "sample_24k": 4204320,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "The constant integrates to zero",
+    "byte": 1072,
+    "status": "provisional_mark",
+    "sample_24k": 1690560,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "08_5",
+    "phrase": "The linear term integrates to zero too",
+    "byte": 1163,
+    "status": "provisional_mark",
+    "sample_24k": 1821120,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "divide it by",
+    "byte": 92,
+    "status": "provisional_mark",
+    "sample_24k": 152640,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "Split that quotient",
+    "byte": 139,
+    "status": "provisional_mark",
+    "sample_24k": 252000,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "The first is",
+    "byte": 176,
+    "status": "provisional_mark",
+    "sample_24k": 311040,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "The second is",
+    "byte": 285,
+    "status": "provisional_mark",
+    "sample_24k": 509760,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "It is undefined at a itself",
+    "byte": 361,
+    "status": "provisional_mark",
+    "sample_24k": 666720,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "But as z approaches a",
+    "byte": 470,
+    "status": "provisional_mark",
+    "sample_24k": 820320,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "so near a",
+    "byte": 528,
+    "status": "provisional_mark",
+    "sample_24k": 915840,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "Draw a small circle",
+    "byte": 571,
+    "status": "provisional_mark",
+    "sample_24k": 1011360,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "Between the two circles",
+    "byte": 608,
+    "status": "provisional_mark",
+    "sample_24k": 1081440,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "Trace each circle with a polygon",
+    "byte": 673,
+    "status": "provisional_mark",
+    "sample_24k": 1178400,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "We saw that the shrinking argument works for triangles",
+    "byte": 778,
+    "status": "provisional_mark",
+    "sample_24k": 1332960,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "Now add up all the triangles",
+    "byte": 873,
+    "status": "provisional_mark",
+    "sample_24k": 1482240,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "Every inside edge is walked twice",
+    "byte": 903,
+    "status": "provisional_mark",
+    "sample_24k": 1544160,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "so those parts cancel",
+    "byte": 962,
+    "status": "provisional_mark",
+    "sample_24k": 1628160,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "What survives is the outer polygon",
+    "byte": 985,
+    "status": "provisional_mark",
+    "sample_24k": 1674720,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "So the two polygons, both walked counterclockwise",
+    "byte": 1073,
+    "status": "provisional_mark",
+    "sample_24k": 1812480,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "Now keep the small circle fixed",
+    "byte": 1148,
+    "status": "provisional_mark",
+    "sample_24k": 1940160,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "give the polygons more and more sides",
+    "byte": 1185,
+    "status": "provisional_mark",
+    "sample_24k": 1992960,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "Each short chord and its arc share their endpoints",
+    "byte": 1249,
+    "status": "provisional_mark",
+    "sample_24k": 2096160,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "so a constant has the same integral along both",
+    "byte": 1301,
+    "status": "provisional_mark",
+    "sample_24k": 2171520,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "The difference comes only from how much the quotient wobbles",
+    "byte": 1349,
+    "status": "provisional_mark",
+    "sample_24k": 2252160,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "Continuity makes every wobble small at once",
+    "byte": 1482,
+    "status": "provisional_mark",
+    "sample_24k": 2450880,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "So in the limit, the big circle's integral equals the small circle's",
+    "byte": 1565,
+    "status": "provisional_mark",
+    "sample_24k": 2580480,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "That holds for every small radius",
+    "byte": 1665,
+    "status": "provisional_mark",
+    "sample_24k": 2739840,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "Only now do we shrink the small circle",
+    "byte": 1700,
+    "status": "provisional_mark",
+    "sample_24k": 2806560,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "The magnitude of its integral is at most",
+    "byte": 1740,
+    "status": "provisional_mark",
+    "sample_24k": 2871840,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "and that goes to zero",
+    "byte": 1843,
+    "status": "provisional_mark",
+    "sample_24k": 3025920,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "But the big circle's integral never changed",
+    "byte": 1866,
+    "status": "provisional_mark",
+    "sample_24k": 3072960,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  },
+  {
+    "cue": "09_1",
+    "phrase": "The second piece contributes nothing",
+    "byte": 1931,
+    "status": "provisional_mark",
+    "sample_24k": 3174240,
+    "basis": "provisional recognized word-segment start, not heard onset"
+  }
+]

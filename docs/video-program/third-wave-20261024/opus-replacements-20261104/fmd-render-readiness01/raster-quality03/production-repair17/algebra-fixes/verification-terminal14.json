@@ -1,0 +1,1656 @@
+{
+  "receipt": {
+    "started": "2026-11-07T17:44:39.852839+00:00",
+    "phase": "native",
+    "command": [
+      "python3",
+      "-I",
+      "-B",
+      "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-verify14.py"
+    ],
+    "preflight_only": false,
+    "samples": [
+      {
+        "utc": "2026-11-07T17:44:56.623782+00:00",
+        "free_bytes": 142501744640,
+        "work_bytes": 66200768512,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:45:17.173302+00:00",
+        "free_bytes": 142446174208,
+        "work_bytes": 66200768512,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:45:36.689327+00:00",
+        "free_bytes": 142137061376,
+        "work_bytes": 66200768512,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:45:55.503125+00:00",
+        "free_bytes": 142149722112,
+        "work_bytes": 66200768512,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:46:14.733024+00:00",
+        "free_bytes": 142410022912,
+        "work_bytes": 66200768512,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:46:34.234960+00:00",
+        "free_bytes": 142355456000,
+        "work_bytes": 66200768512,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:46:55.330421+00:00",
+        "free_bytes": 142409531392,
+        "work_bytes": 66200768512,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:47:14.232245+00:00",
+        "free_bytes": 142359007232,
+        "work_bytes": 66200768512,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:47:32.908603+00:00",
+        "free_bytes": 141945151488,
+        "work_bytes": 66200768512,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:47:48.122991+00:00",
+        "free_bytes": 142264016896,
+        "work_bytes": 66200768512,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:48:05.379527+00:00",
+        "free_bytes": 142251958272,
+        "work_bytes": 66200768512,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:48:20.776053+00:00",
+        "free_bytes": 142196940800,
+        "work_bytes": 66200768512,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:48:37.067981+00:00",
+        "free_bytes": 141608009728,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:48:55.513262+00:00",
+        "free_bytes": 141626507264,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:49:13.840713+00:00",
+        "free_bytes": 140885000192,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:49:33.186074+00:00",
+        "free_bytes": 141279162368,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:49:50.269827+00:00",
+        "free_bytes": 141659062272,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:50:06.916172+00:00",
+        "free_bytes": 141610504192,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:50:23.918226+00:00",
+        "free_bytes": 141401653248,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:50:40.329508+00:00",
+        "free_bytes": 141362647040,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:50:57.921582+00:00",
+        "free_bytes": 141322493952,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:51:15.053054+00:00",
+        "free_bytes": 140969000960,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:51:33.089979+00:00",
+        "free_bytes": 141291585536,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:51:50.572644+00:00",
+        "free_bytes": 141263024128,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:52:08.340433+00:00",
+        "free_bytes": 141190230016,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:52:25.626551+00:00",
+        "free_bytes": 141048016896,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:52:43.359463+00:00",
+        "free_bytes": 140963844096,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:53:01.407994+00:00",
+        "free_bytes": 141049597952,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:53:19.079295+00:00",
+        "free_bytes": 140713807872,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:53:37.910019+00:00",
+        "free_bytes": 140546088960,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:53:57.430852+00:00",
+        "free_bytes": 140499230720,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:54:20.104162+00:00",
+        "free_bytes": 140267569152,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:54:40.325491+00:00",
+        "free_bytes": 140291981312,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:55:01.395175+00:00",
+        "free_bytes": 140320960512,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:55:23.175648+00:00",
+        "free_bytes": 140148903936,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:55:44.302413+00:00",
+        "free_bytes": 139716218880,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:56:07.135288+00:00",
+        "free_bytes": 139194253312,
+        "work_bytes": 66200772608,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:56:27.478834+00:00",
+        "free_bytes": 139538288640,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:56:47.819500+00:00",
+        "free_bytes": 139441000448,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:57:08.588778+00:00",
+        "free_bytes": 139520045056,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:57:27.359529+00:00",
+        "free_bytes": 139506540544,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:57:46.763901+00:00",
+        "free_bytes": 139553718272,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:58:05.186554+00:00",
+        "free_bytes": 139618668544,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:58:24.483183+00:00",
+        "free_bytes": 139314237440,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:58:45.540389+00:00",
+        "free_bytes": 139585961984,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:59:06.263814+00:00",
+        "free_bytes": 139566034944,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:59:25.276567+00:00",
+        "free_bytes": 139512856576,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:59:43.999715+00:00",
+        "free_bytes": 139492392960,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T18:00:02.259500+00:00",
+        "free_bytes": 139414347776,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T18:00:20.671817+00:00",
+        "free_bytes": 139006849024,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T18:00:38.203414+00:00",
+        "free_bytes": 138681663488,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T18:00:54.657205+00:00",
+        "free_bytes": 138980466688,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T18:01:10.945178+00:00",
+        "free_bytes": 138919284736,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T18:01:29.723117+00:00",
+        "free_bytes": 138898837504,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T18:01:47.359200+00:00",
+        "free_bytes": 138993086464,
+        "work_bytes": 66200776704,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T18:02:06.769859+00:00",
+        "free_bytes": 138494304256,
+        "work_bytes": 66202894336,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T18:02:23.315325+00:00",
+        "free_bytes": 138479439872,
+        "work_bytes": 66208174080,
+        "target_bytes": 14024273920
+      }
+    ],
+    "sbh": {
+      "exit": 0,
+      "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":142322495488,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":142322495488,\"free_excludes_purgeable\":true,\"free_pct\":3.561377228232063,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":142322495488,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24905842881,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":142322339840,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":142322339840,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+      "stderr": ""
+    },
+    "admission": {
+      "utc": "2026-11-07T17:44:40.723401+00:00",
+      "free_bytes": 142321598464,
+      "work_bytes": 66200760320,
+      "target_bytes": 14024273920
+    },
+    "policy": {
+      "admission_gib": 10,
+      "stop_free_gib": 8,
+      "phase_growth_gib": 4,
+      "work_cap_gib": 80,
+      "target_growth_cap_gib": 20,
+      "sample_seconds": 10
+    },
+    "admitted": true,
+    "inputs_sha256": "f252d1b1d1c17c93d4cb25ddb6415002a299839944daf8756d25a0f866b07351",
+    "pid": 6979,
+    "exit": 0,
+    "final_inputs_sha256": "f252d1b1d1c17c93d4cb25ddb6415002a299839944daf8756d25a0f866b07351",
+    "finished": "2026-11-07T18:02:38.480348+00:00"
+  },
+  "verification": {
+    "frames": 251862,
+    "chapters": [
+      {
+        "chapter": "05_order",
+        "frames": 4914,
+        "start_frame": 0
+      },
+      {
+        "chapter": "07_eight_moves",
+        "frames": 6504,
+        "start_frame": 4914
+      },
+      {
+        "chapter": "13_arithmetic",
+        "frames": 15890,
+        "start_frame": 11418
+      },
+      {
+        "chapter": "01_clock",
+        "frames": 2747,
+        "start_frame": 27308
+      },
+      {
+        "chapter": "06_axioms",
+        "frames": 14779,
+        "start_frame": 30055
+      },
+      {
+        "chapter": "08_subgroups",
+        "frames": 13591,
+        "start_frame": 44834
+      },
+      {
+        "chapter": "09_centralizer",
+        "frames": 11534,
+        "start_frame": 58425
+      },
+      {
+        "chapter": "10_cyclic",
+        "frames": 16840,
+        "start_frame": 69959
+      },
+      {
+        "chapter": "11_permutations",
+        "frames": 42265,
+        "start_frame": 86799
+      },
+      {
+        "chapter": "12_isomorphism",
+        "frames": 15704,
+        "start_frame": 129064
+      },
+      {
+        "chapter": "02_equivalence",
+        "frames": 3608,
+        "start_frame": 144768
+      },
+      {
+        "chapter": "03_counterexample",
+        "frames": 10011,
+        "start_frame": 148376
+      },
+      {
+        "chapter": "14_cosets",
+        "frames": 21786,
+        "start_frame": 158387
+      },
+      {
+        "chapter": "15_products",
+        "frames": 19375,
+        "start_frame": 180173
+      },
+      {
+        "chapter": "16_quotients",
+        "frames": 25953,
+        "start_frame": 199548
+      },
+      {
+        "chapter": "17_applications",
+        "frames": 26361,
+        "start_frame": 225501
+      }
+    ],
+    "placements": [
+      {
+        "cue": "05_1",
+        "chapter": "05_order",
+        "start_frame": 36,
+        "duration_s": 8.16
+      },
+      {
+        "cue": "05_2",
+        "chapter": "05_order",
+        "start_frame": 562,
+        "duration_s": 3.6
+      },
+      {
+        "cue": "05_3",
+        "chapter": "05_order",
+        "start_frame": 814,
+        "duration_s": 5.68
+      },
+      {
+        "cue": "05_4",
+        "chapter": "05_order",
+        "start_frame": 1191,
+        "duration_s": 7.6
+      },
+      {
+        "cue": "05_5",
+        "chapter": "05_order",
+        "start_frame": 1941,
+        "duration_s": 9.04
+      },
+      {
+        "cue": "05_6",
+        "chapter": "05_order",
+        "start_frame": 2520,
+        "duration_s": 11.68
+      },
+      {
+        "cue": "05_7",
+        "chapter": "05_order",
+        "start_frame": 3257,
+        "duration_s": 12.64
+      },
+      {
+        "cue": "05_8",
+        "chapter": "05_order",
+        "start_frame": 4052,
+        "duration_s": 13.76
+      },
+      {
+        "cue": "07_1",
+        "chapter": "07_eight_moves",
+        "start_frame": 4950,
+        "duration_s": 15.76
+      },
+      {
+        "cue": "07_2",
+        "chapter": "07_eight_moves",
+        "start_frame": 5932,
+        "duration_s": 21.76
+      },
+      {
+        "cue": "07_3",
+        "chapter": "07_eight_moves",
+        "start_frame": 7274,
+        "duration_s": 18.16
+      },
+      {
+        "cue": "07_4",
+        "chapter": "07_eight_moves",
+        "start_frame": 8400,
+        "duration_s": 11.68
+      },
+      {
+        "cue": "07_5",
+        "chapter": "07_eight_moves",
+        "start_frame": 9137,
+        "duration_s": 18.48
+      },
+      {
+        "cue": "07_6",
+        "chapter": "07_eight_moves",
+        "start_frame": 10282,
+        "duration_s": 18.32
+      },
+      {
+        "cue": "13_1",
+        "chapter": "13_arithmetic",
+        "start_frame": 11454,
+        "duration_s": 15.28
+      },
+      {
+        "cue": "13_2",
+        "chapter": "13_arithmetic",
+        "start_frame": 12407,
+        "duration_s": 23.12
+      },
+      {
+        "cue": "13_3",
+        "chapter": "13_arithmetic",
+        "start_frame": 13906,
+        "duration_s": 19.04
+      },
+      {
+        "cue": "13_4",
+        "chapter": "13_arithmetic",
+        "start_frame": 15085,
+        "duration_s": 19.04
+      },
+      {
+        "cue": "13_5",
+        "chapter": "13_arithmetic",
+        "start_frame": 16264,
+        "duration_s": 18.56
+      },
+      {
+        "cue": "13_6",
+        "chapter": "13_arithmetic",
+        "start_frame": 17414,
+        "duration_s": 22.0
+      },
+      {
+        "cue": "13_7",
+        "chapter": "13_arithmetic",
+        "start_frame": 18770,
+        "duration_s": 22.72
+      },
+      {
+        "cue": "13_8",
+        "chapter": "13_arithmetic",
+        "start_frame": 20170,
+        "duration_s": 21.12
+      },
+      {
+        "cue": "13_9",
+        "chapter": "13_arithmetic",
+        "start_frame": 21474,
+        "duration_s": 23.76
+      },
+      {
+        "cue": "13_10",
+        "chapter": "13_arithmetic",
+        "start_frame": 22936,
+        "duration_s": 20.72
+      },
+      {
+        "cue": "13_11",
+        "chapter": "13_arithmetic",
+        "start_frame": 24216,
+        "duration_s": 25.76
+      },
+      {
+        "cue": "13_12",
+        "chapter": "13_arithmetic",
+        "start_frame": 25798,
+        "duration_s": 24.56
+      },
+      {
+        "cue": "01_1",
+        "chapter": "01_clock",
+        "start_frame": 27344,
+        "duration_s": 5.2
+      },
+      {
+        "cue": "01_2",
+        "chapter": "01_clock",
+        "start_frame": 27872,
+        "duration_s": 3.44
+      },
+      {
+        "cue": "01_3",
+        "chapter": "01_clock",
+        "start_frame": 28115,
+        "duration_s": 12.4
+      },
+      {
+        "cue": "01_4",
+        "chapter": "01_clock",
+        "start_frame": 28895,
+        "duration_s": 18.72
+      },
+      {
+        "cue": "06_1",
+        "chapter": "06_axioms",
+        "start_frame": 30091,
+        "duration_s": 18.72
+      },
+      {
+        "cue": "06_2",
+        "chapter": "06_axioms",
+        "start_frame": 31251,
+        "duration_s": 13.44
+      },
+      {
+        "cue": "06_3",
+        "chapter": "06_axioms",
+        "start_frame": 32094,
+        "duration_s": 32.48
+      },
+      {
+        "cue": "06_4",
+        "chapter": "06_axioms",
+        "start_frame": 34079,
+        "duration_s": 16.16
+      },
+      {
+        "cue": "06_5",
+        "chapter": "06_axioms",
+        "start_frame": 35085,
+        "duration_s": 18.88
+      },
+      {
+        "cue": "06_6",
+        "chapter": "06_axioms",
+        "start_frame": 36254,
+        "duration_s": 16.64
+      },
+      {
+        "cue": "06_7",
+        "chapter": "06_axioms",
+        "start_frame": 37289,
+        "duration_s": 22.4
+      },
+      {
+        "cue": "06_8",
+        "chapter": "06_axioms",
+        "start_frame": 38669,
+        "duration_s": 24.64
+      },
+      {
+        "cue": "06_9",
+        "chapter": "06_axioms",
+        "start_frame": 40184,
+        "duration_s": 20.4
+      },
+      {
+        "cue": "06_10",
+        "chapter": "06_axioms",
+        "start_frame": 41444,
+        "duration_s": 26.24
+      },
+      {
+        "cue": "06_11",
+        "chapter": "06_axioms",
+        "start_frame": 43055,
+        "duration_s": 29.04
+      },
+      {
+        "cue": "08_1",
+        "chapter": "08_subgroups",
+        "start_frame": 44870,
+        "duration_s": 18.8
+      },
+      {
+        "cue": "08_2",
+        "chapter": "08_subgroups",
+        "start_frame": 46034,
+        "duration_s": 10.88
+      },
+      {
+        "cue": "08_3",
+        "chapter": "08_subgroups",
+        "start_frame": 46873,
+        "duration_s": 11.36
+      },
+      {
+        "cue": "08_7",
+        "chapter": "08_subgroups",
+        "start_frame": 47591,
+        "duration_s": 21.12
+      },
+      {
+        "cue": "08_8",
+        "chapter": "08_subgroups",
+        "start_frame": 48895,
+        "duration_s": 14.56
+      },
+      {
+        "cue": "08_9",
+        "chapter": "08_subgroups",
+        "start_frame": 49805,
+        "duration_s": 18.72
+      },
+      {
+        "cue": "08_10",
+        "chapter": "08_subgroups",
+        "start_frame": 50965,
+        "duration_s": 12.0
+      },
+      {
+        "cue": "08_11",
+        "chapter": "08_subgroups",
+        "start_frame": 51721,
+        "duration_s": 23.52
+      },
+      {
+        "cue": "08_4",
+        "chapter": "08_subgroups",
+        "start_frame": 53169,
+        "duration_s": 23.76
+      },
+      {
+        "cue": "08_5",
+        "chapter": "08_subgroups",
+        "start_frame": 54631,
+        "duration_s": 14.16
+      },
+      {
+        "cue": "08_12",
+        "chapter": "08_subgroups",
+        "start_frame": 55517,
+        "duration_s": 11.28
+      },
+      {
+        "cue": "08_13",
+        "chapter": "08_subgroups",
+        "start_frame": 56230,
+        "duration_s": 16.64
+      },
+      {
+        "cue": "08_6",
+        "chapter": "08_subgroups",
+        "start_frame": 57265,
+        "duration_s": 18.72
+      },
+      {
+        "cue": "09_1",
+        "chapter": "09_centralizer",
+        "start_frame": 58461,
+        "duration_s": 13.44
+      },
+      {
+        "cue": "09_2",
+        "chapter": "09_centralizer",
+        "start_frame": 59454,
+        "duration_s": 15.92
+      },
+      {
+        "cue": "09_3",
+        "chapter": "09_centralizer",
+        "start_frame": 60446,
+        "duration_s": 12.88
+      },
+      {
+        "cue": "09_4",
+        "chapter": "09_centralizer",
+        "start_frame": 61255,
+        "duration_s": 9.36
+      },
+      {
+        "cue": "09_5",
+        "chapter": "09_centralizer",
+        "start_frame": 62059,
+        "duration_s": 14.16
+      },
+      {
+        "cue": "09_9",
+        "chapter": "09_centralizer",
+        "start_frame": 63035,
+        "duration_s": 20.72
+      },
+      {
+        "cue": "09_10",
+        "chapter": "09_centralizer",
+        "start_frame": 64315,
+        "duration_s": 22.32
+      },
+      {
+        "cue": "09_6",
+        "chapter": "09_centralizer",
+        "start_frame": 65691,
+        "duration_s": 16.16
+      },
+      {
+        "cue": "09_7",
+        "chapter": "09_centralizer",
+        "start_frame": 66697,
+        "duration_s": 32.4
+      },
+      {
+        "cue": "09_8",
+        "chapter": "09_centralizer",
+        "start_frame": 68677,
+        "duration_s": 20.16
+      },
+      {
+        "cue": "10_1",
+        "chapter": "10_cyclic",
+        "start_frame": 69995,
+        "duration_s": 20.8
+      },
+      {
+        "cue": "10_2",
+        "chapter": "10_cyclic",
+        "start_frame": 71459,
+        "duration_s": 27.04
+      },
+      {
+        "cue": "10_3",
+        "chapter": "10_cyclic",
+        "start_frame": 73118,
+        "duration_s": 23.84
+      },
+      {
+        "cue": "10_4",
+        "chapter": "10_cyclic",
+        "start_frame": 74585,
+        "duration_s": 18.16
+      },
+      {
+        "cue": "10_5",
+        "chapter": "10_cyclic",
+        "start_frame": 75711,
+        "duration_s": 24.4
+      },
+      {
+        "cue": "10_6",
+        "chapter": "10_cyclic",
+        "start_frame": 77211,
+        "duration_s": 27.04
+      },
+      {
+        "cue": "10_7",
+        "chapter": "10_cyclic",
+        "start_frame": 78870,
+        "duration_s": 34.0
+      },
+      {
+        "cue": "10_8",
+        "chapter": "10_cyclic",
+        "start_frame": 80946,
+        "duration_s": 16.24
+      },
+      {
+        "cue": "10_9",
+        "chapter": "10_cyclic",
+        "start_frame": 81957,
+        "duration_s": 20.4
+      },
+      {
+        "cue": "10_10",
+        "chapter": "10_cyclic",
+        "start_frame": 83217,
+        "duration_s": 33.92
+      },
+      {
+        "cue": "10_11",
+        "chapter": "10_cyclic",
+        "start_frame": 85289,
+        "duration_s": 24.56
+      },
+      {
+        "cue": "11_1",
+        "chapter": "11_permutations",
+        "start_frame": 86835,
+        "duration_s": 21.68
+      },
+      {
+        "cue": "11_2",
+        "chapter": "11_permutations",
+        "start_frame": 88172,
+        "duration_s": 24.88
+      },
+      {
+        "cue": "11_3",
+        "chapter": "11_permutations",
+        "start_frame": 89761,
+        "duration_s": 31.92
+      },
+      {
+        "cue": "11_4",
+        "chapter": "11_permutations",
+        "start_frame": 91842,
+        "duration_s": 33.52
+      },
+      {
+        "cue": "11_12",
+        "chapter": "11_permutations",
+        "start_frame": 93890,
+        "duration_s": 23.04
+      },
+      {
+        "cue": "11_13",
+        "chapter": "11_permutations",
+        "start_frame": 95489,
+        "duration_s": 23.84
+      },
+      {
+        "cue": "11_14",
+        "chapter": "11_permutations",
+        "start_frame": 96956,
+        "duration_s": 24.08
+      },
+      {
+        "cue": "11_15",
+        "chapter": "11_permutations",
+        "start_frame": 98437,
+        "duration_s": 15.04
+      },
+      {
+        "cue": "11_16",
+        "chapter": "11_permutations",
+        "start_frame": 99556,
+        "duration_s": 17.68
+      },
+      {
+        "cue": "11_17",
+        "chapter": "11_permutations",
+        "start_frame": 100653,
+        "duration_s": 27.36
+      },
+      {
+        "cue": "11_5",
+        "chapter": "11_permutations",
+        "start_frame": 102331,
+        "duration_s": 26.48
+      },
+      {
+        "cue": "11_6",
+        "chapter": "11_permutations",
+        "start_frame": 103956,
+        "duration_s": 11.04
+      },
+      {
+        "cue": "11_7",
+        "chapter": "11_permutations",
+        "start_frame": 104835,
+        "duration_s": 19.68
+      },
+      {
+        "cue": "11_11",
+        "chapter": "11_permutations",
+        "start_frame": 106052,
+        "duration_s": 20.96
+      },
+      {
+        "cue": "11_8",
+        "chapter": "11_permutations",
+        "start_frame": 107346,
+        "duration_s": 34.88
+      },
+      {
+        "cue": "11_18",
+        "chapter": "11_permutations",
+        "start_frame": 109475,
+        "duration_s": 21.12
+      },
+      {
+        "cue": "11_19",
+        "chapter": "11_permutations",
+        "start_frame": 110779,
+        "duration_s": 14.56
+      },
+      {
+        "cue": "11_20",
+        "chapter": "11_permutations",
+        "start_frame": 111689,
+        "duration_s": 36.24
+      },
+      {
+        "cue": "11_21",
+        "chapter": "11_permutations",
+        "start_frame": 113900,
+        "duration_s": 34.08
+      },
+      {
+        "cue": "11_9",
+        "chapter": "11_permutations",
+        "start_frame": 115981,
+        "duration_s": 33.84
+      },
+      {
+        "cue": "11_10",
+        "chapter": "11_permutations",
+        "start_frame": 118048,
+        "duration_s": 30.16
+      },
+      {
+        "cue": "11_22",
+        "chapter": "11_permutations",
+        "start_frame": 120074,
+        "duration_s": 25.2
+      },
+      {
+        "cue": "11_23",
+        "chapter": "11_permutations",
+        "start_frame": 121622,
+        "duration_s": 16.56
+      },
+      {
+        "cue": "11_24",
+        "chapter": "11_permutations",
+        "start_frame": 122652,
+        "duration_s": 21.04
+      },
+      {
+        "cue": "11_25",
+        "chapter": "11_permutations",
+        "start_frame": 124217,
+        "duration_s": 19.92
+      },
+      {
+        "cue": "11_26",
+        "chapter": "11_permutations",
+        "start_frame": 125449,
+        "duration_s": 24.08
+      },
+      {
+        "cue": "11_27",
+        "chapter": "11_permutations",
+        "start_frame": 126930,
+        "duration_s": 34.96
+      },
+      {
+        "cue": "12_1",
+        "chapter": "12_isomorphism",
+        "start_frame": 129100,
+        "duration_s": 19.6
+      },
+      {
+        "cue": "12_2",
+        "chapter": "12_isomorphism",
+        "start_frame": 130312,
+        "duration_s": 23.76
+      },
+      {
+        "cue": "12_3",
+        "chapter": "12_isomorphism",
+        "start_frame": 131954,
+        "duration_s": 23.28
+      },
+      {
+        "cue": "12_4",
+        "chapter": "12_isomorphism",
+        "start_frame": 133387,
+        "duration_s": 28.08
+      },
+      {
+        "cue": "12_5",
+        "chapter": "12_isomorphism",
+        "start_frame": 135108,
+        "duration_s": 23.92
+      },
+      {
+        "cue": "12_6",
+        "chapter": "12_isomorphism",
+        "start_frame": 136580,
+        "duration_s": 27.04
+      },
+      {
+        "cue": "12_7",
+        "chapter": "12_isomorphism",
+        "start_frame": 138239,
+        "duration_s": 25.2
+      },
+      {
+        "cue": "12_8",
+        "chapter": "12_isomorphism",
+        "start_frame": 139787,
+        "duration_s": 27.52
+      },
+      {
+        "cue": "12_9",
+        "chapter": "12_isomorphism",
+        "start_frame": 141475,
+        "duration_s": 25.6
+      },
+      {
+        "cue": "12_10",
+        "chapter": "12_isomorphism",
+        "start_frame": 143047,
+        "duration_s": 28.08
+      },
+      {
+        "cue": "02_1",
+        "chapter": "02_equivalence",
+        "start_frame": 144804,
+        "duration_s": 10.0
+      },
+      {
+        "cue": "02_2",
+        "chapter": "02_equivalence",
+        "start_frame": 145440,
+        "duration_s": 15.28
+      },
+      {
+        "cue": "02_3",
+        "chapter": "02_equivalence",
+        "start_frame": 146393,
+        "duration_s": 17.2
+      },
+      {
+        "cue": "02_4",
+        "chapter": "02_equivalence",
+        "start_frame": 147461,
+        "duration_s": 14.64
+      },
+      {
+        "cue": "03_1",
+        "chapter": "03_counterexample",
+        "start_frame": 148412,
+        "duration_s": 9.44
+      },
+      {
+        "cue": "03_2",
+        "chapter": "03_counterexample",
+        "start_frame": 149015,
+        "duration_s": 9.44
+      },
+      {
+        "cue": "03_3",
+        "chapter": "03_counterexample",
+        "start_frame": 149798,
+        "duration_s": 15.28
+      },
+      {
+        "cue": "03_4",
+        "chapter": "03_counterexample",
+        "start_frame": 150751,
+        "duration_s": 16.4
+      },
+      {
+        "cue": "03_5",
+        "chapter": "03_counterexample",
+        "start_frame": 151771,
+        "duration_s": 25.2
+      },
+      {
+        "cue": "03_6",
+        "chapter": "03_counterexample",
+        "start_frame": 153319,
+        "duration_s": 19.28
+      },
+      {
+        "cue": "03_7",
+        "chapter": "03_counterexample",
+        "start_frame": 154512,
+        "duration_s": 21.12
+      },
+      {
+        "cue": "03_8",
+        "chapter": "03_counterexample",
+        "start_frame": 155816,
+        "duration_s": 28.64
+      },
+      {
+        "cue": "03_9",
+        "chapter": "03_counterexample",
+        "start_frame": 157571,
+        "duration_s": 12.4
+      },
+      {
+        "cue": "14_1",
+        "chapter": "14_cosets",
+        "start_frame": 158423,
+        "duration_s": 25.52
+      },
+      {
+        "cue": "14_2",
+        "chapter": "14_cosets",
+        "start_frame": 159991,
+        "duration_s": 8.08
+      },
+      {
+        "cue": "14_13",
+        "chapter": "14_cosets",
+        "start_frame": 160692,
+        "duration_s": 13.04
+      },
+      {
+        "cue": "14_3",
+        "chapter": "14_cosets",
+        "start_frame": 161511,
+        "duration_s": 23.28
+      },
+      {
+        "cue": "14_4",
+        "chapter": "14_cosets",
+        "start_frame": 162944,
+        "duration_s": 24.48
+      },
+      {
+        "cue": "14_14",
+        "chapter": "14_cosets",
+        "start_frame": 164449,
+        "duration_s": 22.88
+      },
+      {
+        "cue": "14_5",
+        "chapter": "14_cosets",
+        "start_frame": 165858,
+        "duration_s": 23.12
+      },
+      {
+        "cue": "14_15",
+        "chapter": "14_cosets",
+        "start_frame": 167282,
+        "duration_s": 28.24
+      },
+      {
+        "cue": "14_6",
+        "chapter": "14_cosets",
+        "start_frame": 169013,
+        "duration_s": 26.32
+      },
+      {
+        "cue": "14_7",
+        "chapter": "14_cosets",
+        "start_frame": 170629,
+        "duration_s": 24.08
+      },
+      {
+        "cue": "14_8",
+        "chapter": "14_cosets",
+        "start_frame": 172110,
+        "duration_s": 29.84
+      },
+      {
+        "cue": "14_9",
+        "chapter": "14_cosets",
+        "start_frame": 173937,
+        "duration_s": 26.16
+      },
+      {
+        "cue": "14_10",
+        "chapter": "14_cosets",
+        "start_frame": 175543,
+        "duration_s": 32.4
+      },
+      {
+        "cue": "14_11",
+        "chapter": "14_cosets",
+        "start_frame": 177523,
+        "duration_s": 23.36
+      },
+      {
+        "cue": "14_12",
+        "chapter": "14_cosets",
+        "start_frame": 178961,
+        "duration_s": 19.6
+      },
+      {
+        "cue": "15_1",
+        "chapter": "15_products",
+        "start_frame": 180209,
+        "duration_s": 23.68
+      },
+      {
+        "cue": "15_2",
+        "chapter": "15_products",
+        "start_frame": 181666,
+        "duration_s": 24.96
+      },
+      {
+        "cue": "15_3",
+        "chapter": "15_products",
+        "start_frame": 183200,
+        "duration_s": 25.36
+      },
+      {
+        "cue": "15_4",
+        "chapter": "15_products",
+        "start_frame": 184758,
+        "duration_s": 24.96
+      },
+      {
+        "cue": "15_5",
+        "chapter": "15_products",
+        "start_frame": 186595,
+        "duration_s": 25.44
+      },
+      {
+        "cue": "15_6",
+        "chapter": "15_products",
+        "start_frame": 188158,
+        "duration_s": 24.56
+      },
+      {
+        "cue": "15_7",
+        "chapter": "15_products",
+        "start_frame": 189880,
+        "duration_s": 29.84
+      },
+      {
+        "cue": "15_8",
+        "chapter": "15_products",
+        "start_frame": 191707,
+        "duration_s": 24.72
+      },
+      {
+        "cue": "15_9",
+        "chapter": "15_products",
+        "start_frame": 193227,
+        "duration_s": 26.8
+      },
+      {
+        "cue": "15_10",
+        "chapter": "15_products",
+        "start_frame": 195119,
+        "duration_s": 36.64
+      },
+      {
+        "cue": "15_12",
+        "chapter": "15_products",
+        "start_frame": 197354,
+        "duration_s": 18.88
+      },
+      {
+        "cue": "15_11",
+        "chapter": "15_products",
+        "start_frame": 198523,
+        "duration_s": 16.48
+      },
+      {
+        "cue": "16_1",
+        "chapter": "16_quotients",
+        "start_frame": 199584,
+        "duration_s": 22.8
+      },
+      {
+        "cue": "16_2",
+        "chapter": "16_quotients",
+        "start_frame": 200988,
+        "duration_s": 24.08
+      },
+      {
+        "cue": "16_3",
+        "chapter": "16_quotients",
+        "start_frame": 202649,
+        "duration_s": 25.52
+      },
+      {
+        "cue": "16_14",
+        "chapter": "16_quotients",
+        "start_frame": 204217,
+        "duration_s": 22.56
+      },
+      {
+        "cue": "16_4",
+        "chapter": "16_quotients",
+        "start_frame": 205607,
+        "duration_s": 23.92
+      },
+      {
+        "cue": "16_5",
+        "chapter": "16_quotients",
+        "start_frame": 207079,
+        "duration_s": 28.8
+      },
+      {
+        "cue": "16_6",
+        "chapter": "16_quotients",
+        "start_frame": 208843,
+        "duration_s": 29.44
+      },
+      {
+        "cue": "16_7",
+        "chapter": "16_quotients",
+        "start_frame": 210646,
+        "duration_s": 26.4
+      },
+      {
+        "cue": "16_8",
+        "chapter": "16_quotients",
+        "start_frame": 212266,
+        "duration_s": 28.08
+      },
+      {
+        "cue": "16_9",
+        "chapter": "16_quotients",
+        "start_frame": 213987,
+        "duration_s": 26.24
+      },
+      {
+        "cue": "16_10",
+        "chapter": "16_quotients",
+        "start_frame": 215598,
+        "duration_s": 27.76
+      },
+      {
+        "cue": "16_15",
+        "chapter": "16_quotients",
+        "start_frame": 217300,
+        "duration_s": 21.6
+      },
+      {
+        "cue": "16_16",
+        "chapter": "16_quotients",
+        "start_frame": 218632,
+        "duration_s": 8.08
+      },
+      {
+        "cue": "16_11",
+        "chapter": "16_quotients",
+        "start_frame": 219153,
+        "duration_s": 31.04
+      },
+      {
+        "cue": "16_17",
+        "chapter": "16_quotients",
+        "start_frame": 221052,
+        "duration_s": 21.12
+      },
+      {
+        "cue": "16_12",
+        "chapter": "16_quotients",
+        "start_frame": 222356,
+        "duration_s": 26.32
+      },
+      {
+        "cue": "16_13",
+        "chapter": "16_quotients",
+        "start_frame": 223972,
+        "duration_s": 24.88
+      },
+      {
+        "cue": "17_1",
+        "chapter": "17_applications",
+        "start_frame": 225537,
+        "duration_s": 30.72
+      },
+      {
+        "cue": "17_2",
+        "chapter": "17_applications",
+        "start_frame": 227417,
+        "duration_s": 24.88
+      },
+      {
+        "cue": "17_3",
+        "chapter": "17_applications",
+        "start_frame": 228946,
+        "duration_s": 28.48
+      },
+      {
+        "cue": "17_4",
+        "chapter": "17_applications",
+        "start_frame": 230691,
+        "duration_s": 21.44
+      },
+      {
+        "cue": "17_5",
+        "chapter": "17_applications",
+        "start_frame": 232014,
+        "duration_s": 29.44
+      },
+      {
+        "cue": "17_6",
+        "chapter": "17_applications",
+        "start_frame": 233817,
+        "duration_s": 25.04
+      },
+      {
+        "cue": "17_7",
+        "chapter": "17_applications",
+        "start_frame": 235356,
+        "duration_s": 27.28
+      },
+      {
+        "cue": "17_8",
+        "chapter": "17_applications",
+        "start_frame": 237029,
+        "duration_s": 31.12
+      },
+      {
+        "cue": "17_14",
+        "chapter": "17_applications",
+        "start_frame": 238933,
+        "duration_s": 13.2
+      },
+      {
+        "cue": "17_9",
+        "chapter": "17_applications",
+        "start_frame": 239761,
+        "duration_s": 20.8
+      },
+      {
+        "cue": "17_15",
+        "chapter": "17_applications",
+        "start_frame": 241045,
+        "duration_s": 19.76
+      },
+      {
+        "cue": "17_16",
+        "chapter": "17_applications",
+        "start_frame": 242267,
+        "duration_s": 31.68
+      },
+      {
+        "cue": "17_17",
+        "chapter": "17_applications",
+        "start_frame": 244204,
+        "duration_s": 21.12
+      },
+      {
+        "cue": "17_18",
+        "chapter": "17_applications",
+        "start_frame": 245508,
+        "duration_s": 15.36
+      },
+      {
+        "cue": "17_11",
+        "chapter": "17_applications",
+        "start_frame": 246466,
+        "duration_s": 24.24
+      },
+      {
+        "cue": "17_12",
+        "chapter": "17_applications",
+        "start_frame": 247957,
+        "duration_s": 23.6
+      },
+      {
+        "cue": "17_13",
+        "chapter": "17_applications",
+        "start_frame": 249709,
+        "duration_s": 35.28
+      }
+    ],
+    "captions": {
+      "caption_blocks": 1112,
+      "srt_equals_vtt": true,
+      "text_equals_script": "whole and per cue",
+      "last_caption_end_ms": 4197097,
+      "video_ms": 4197700
+    },
+    "media": {
+      "video": "h264 3840x2160 60/1",
+      "audio": "aac 48000 Hz stereo",
+      "video_frames": 251862,
+      "video_seconds": 4197.7,
+      "audio_seconds": 4197.7,
+      "picture_seconds": 4197.7
+    },
+    "full_decode": [
+      "full decode (video + audio, software, stops at the first error): 0 error lines, ffmpeg exit 0, 96 s",
+      "full decode (video + audio, hwaccel videotoolbox, second opinion): 0 error lines, ffmpeg exit 0, 911 s"
+    ],
+    "encoded_loudness": {
+      "integrated_lufs": "-18.9",
+      "lra_lu": "3.8",
+      "true_peak_dbtp": "-1.5"
+    },
+    "caption_screen": {
+      "srt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-final-master14/final/abstract_algebra_expanded.en.srt",
+      "srt_sha256": "d6053c3a5ebede5dfcadd047fa96514e056883cf1da25b245832f870e888677f",
+      "frames": 251862,
+      "fps": 60,
+      "caption_count": 1112,
+      "fastest": {
+        "number": 180,
+        "start_ms": 639363,
+        "end_ms": 642563,
+        "characters": 69,
+        "characters_per_second": 21.562,
+        "longest_line_characters": 40
+      },
+      "over_20_characters_per_second": [
+        {
+          "number": 180,
+          "start_ms": 639363,
+          "end_ms": 642563,
+          "characters": 69,
+          "characters_per_second": 21.562,
+          "longest_line_characters": 40
+        }
+      ],
+      "lines_over_42_characters": [],
+      "method": "Unicode code points after whitespace collapse; rates and line lengths are screening flags, not accessibility or speech-sync acceptance."
+    },
+    "outputs": {
+      "master": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-final-master14/final/abstract_algebra_expanded_master.mp4",
+        "sha256": "69dba6d493bfa510a371015ba4383d1f6b1930d38202a2a123fdf97e3008333f"
+      },
+      "srt": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-final-master14/final/abstract_algebra_expanded.en.srt",
+        "sha256": "d6053c3a5ebede5dfcadd047fa96514e056883cf1da25b245832f870e888677f"
+      },
+      "vtt": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-final-master14/final/abstract_algebra_expanded.en.vtt",
+        "sha256": "a36dfbe768cb950924b8212e73fa7fece373dec5df70da5a61e6a408bfec1e17"
+      }
+    },
+    "final_pictures_reviewed": false,
+    "motion_reviewed": false,
+    "listening_accepted": false,
+    "independent_av_accepted": false,
+    "publication_accepted": false
+  },
+  "review_note": "Actual software and Apple VideoToolbox full decodes both zero errors. One caption180 screening flag21.562cps,69characters3.2s, two lines<=40chars; neighboring captions176-184 actually read, unchanged. Actual final picture/readability/ASR join review still pending; no listening or independent acceptance."
+}

@@ -1,0 +1,22 @@
+error: unclosed table, expected `]`
+ --> ../../../../../../../../home/ubuntu/.cargo/git/checkouts/asupersync-b12181f74b36652e/c48399f/tests/fixtures/migration_readiness_planner/malformed/Cargo.toml:1:9
+  |
+1 | [package
+  |         ^
+   Compiling complex_analysis_visual v0.1.0 (/data/projects/jmev-stroke-probe-20261106/work/review-repair262/workspace/explainer_corpus/complex_analysis_visual)
+error[E0369]: binary operation `>` cannot be applied to type `fmn::prelude::Mob`
+    --> src/chapters/draw.rs:1890:27
+     |
+1890 |                     if dt > 0.0 && s.roots().contains(&group) {
+     |                        -- ^ --- {float}
+     |                        |
+     |                        fmn::prelude::Mob
+     |
+note: `fmn::prelude::Mob` does not implement `PartialOrd<{float}>`
+    --> /data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-mobject/src/stage.rs:91:1
+     |
+  91 | pub struct Mob {
+     | ^^^^^^^^^^^^^^ `fmn::prelude::Mob` is defined in another crate
+
+For more information about this error, try `rustc --explain E0369`.
+error: could not compile `complex_analysis_visual` (bin "complex_analysis_visual" test) due to 1 previous error

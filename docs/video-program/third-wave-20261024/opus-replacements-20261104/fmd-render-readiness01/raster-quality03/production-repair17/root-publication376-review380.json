@@ -1,0 +1,18 @@
+{
+  "timestamp": "2026-11-08T22:15:33.067598+00:00",
+  "decision": "Adopt publication376 as current copy candidate, conditional on final-master timestamp and actual platform checks.",
+  "files": {
+    "title.txt": "48a242e3e4209b446850be61f1868d8f6280881d00d34d2bc387e529c0edc920",
+    "description.txt": "868c83d3528fc71a6412040045ad01d031b4d0e70c18978874083b92d2b323aa",
+    "tags.txt": "40e49939e363bb750de3884b2c8b0ed3664303887829417622e5ac79d52594a8",
+    "review376.json": "6469ff2ee75a8e94df4026fdc2da764face4c49a67e4e15666e90a3a31933655"
+  },
+  "checked": "Read all copy and author record; independently recomputed15 offsets and total133662frames; checked source cue support for mathematical caveats and one-vs-two pole correction; script and previously reviewed thumbnail hashes exact.",
+  "title_choice": "The Hidden Geometry of Complex Functions",
+  "scope": "Text and arithmetic review only. No new image viewing or audio listening.",
+  "final_master_matched": false,
+  "uploaded": false,
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "independent_final_av_acceptance": false
+}

@@ -1,0 +1,76 @@
+{
+  "utc": "2026-11-08T21:01:24.201575+00:00",
+  "reviewer": "root, independent of CC1 author",
+  "scope": "Caption-text and boundary review for delivery candidate; final master binding and visual caption playback remain open",
+  "evidence": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cc1-caption-repair347.py",
+      "sha256": "61fee2e97b1febf23927926a5e9886032d6d004414e938e014ba8f97c258cdb8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cc1-caption-repair347-overrides.json",
+      "sha256": "4b8330c430f1392192a965db6bdcd6c534f04addecd8a8d9ec56bbf7b29b20cf"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cc1-caption-repair347-candidate.en.srt",
+      "sha256": "0ea9277e6d598540e5e9057a84ee84daf7f88420b076434659fc3d3ad0ff3230"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cc1-caption-repair347-candidate.en.vtt",
+      "sha256": "6a383cb7f207be81254e9a820ecb701ca77d00a26557194c675dc1717ef6979b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cc1-caption-repair347-checks.json",
+      "sha256": "8b3ef4f40eaf35adfbea2df8f8faa3cf4711c897b5cfb70027bb9265bd9ed458"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cc1-caption-repair347.md",
+      "sha256": "054cbb4be32a582cd4a6183cab21e60d576d376b34ff0c0a2bbff3848c858241"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-caption327-copy348/complex_analysis_visual.en.srt",
+      "sha256": "5d06423248f088a34774f361721bf05e1c4950ac834086e3666661e1adfe5e1b"
+    }
+  ],
+  "read_completely": [
+    "347 helper",
+    "347 notes",
+    "all 163 hand-authored override entries",
+    "347 checks"
+  ],
+  "independently_executed_checks": {
+    "whole_word_stream_equal_to_native327": true,
+    "captions_before": 571,
+    "captions_after": 579,
+    "all_163_changed_units_outer_start_end_equal": true,
+    "all_caption_duration_positive": true,
+    "all_at_most_2_lines_42_characters": true,
+    "all_at_most_20_characters_per_second": true,
+    "no_overlap": true
+  },
+  "actually_read_before_after_caption_numbers": [
+    45,
+    63,
+    137,
+    216,
+    326,
+    335,
+    350,
+    385,
+    406,
+    420,
+    470,
+    478,
+    479
+  ],
+  "decision": "Adopt347 as final delivery caption candidate, contingent on final master schedule/text equality and final caption playback checks. Preserve native327/export unchanged.",
+  "dispositions": {
+    "three_answer_merges": "Accept: answers begin exactly when held questions end; following sentence words lead their original sentence start by 0.660-0.817s within the same caption. No early quiz answer.",
+    "14_4_line_break": "Accept line-break exception to retain whole prediction sum during hold; no temporal split of number.",
+    "04_6_two_caption_question": "Retain existing text and timing. Final visual context still subject to playback review."
+  },
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "final_av_acceptance": false,
+  "publication_acceptance": false
+}

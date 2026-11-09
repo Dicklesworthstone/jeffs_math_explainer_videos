@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-08T02:31:58.278377+00:00",
+  "reviewer": "root",
+  "movie_sha256": "d42464cc6040a536cd6830e7cde9a2206e450d7562a8ea22129d8bac6a8b2042",
+  "muted": true,
+  "actually_reviewed_motion": true,
+  "observed_playing_positions_seconds": [
+    118.9302100656455,
+    123.2946214442013,
+    152.2088468271335,
+    158.7554638949672,
+    162.028772428884,
+    166.9387352297593
+  ],
+  "additional_screenshot_position_approx_seconds": 156,
+  "observations": "QuickTime playback was running and sampled at these observed positions. c remains clear while green circle appears and through magnified-square transition. These are sparse playback observations, not continuous motion or listening proof.",
+  "continuous_review": false,
+  "listening": false,
+  "fine_sync": false,
+  "independent_review": false
+}

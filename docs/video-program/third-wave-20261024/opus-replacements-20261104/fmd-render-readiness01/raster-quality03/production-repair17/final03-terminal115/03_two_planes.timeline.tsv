@@ -1,0 +1,14 @@
+# explainer timeline v1
+chapter	03_two_planes
+fps	60
+frames	7249
+line	03_1	36	0	/data/projects/jmev-render-worker-20261107/jobs/trj-production19-delivery02/narration/03_1.wav
+line	03_2	874	0	/data/projects/jmev-render-worker-20261107/jobs/trj-production19-delivery02/narration/03_2.wav
+line	03_3	1899	0	/data/projects/jmev-render-worker-20261107/jobs/trj-production19-delivery02/narration/03_3.wav
+line	03_4	2531	0	/data/projects/jmev-render-worker-20261107/jobs/trj-production19-delivery02/narration/03_4.wav
+line	03_5	4118	0	/data/projects/jmev-render-worker-20261107/jobs/trj-production19-delivery02/narration/03_5.wav
+line	03_6	5321	0	/data/projects/jmev-render-worker-20261107/jobs/trj-production19-delivery02/narration/03_6.wav
+line	03_7	6466	0	/data/projects/jmev-render-worker-20261107/jobs/trj-production19-delivery02/narration/03_7.wav
+mark	predict	2276
+breath	7093	2
+listen	2276	4	03_two_planes:03_3

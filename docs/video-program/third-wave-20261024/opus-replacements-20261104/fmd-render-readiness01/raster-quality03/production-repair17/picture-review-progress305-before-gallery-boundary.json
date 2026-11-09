@@ -1,0 +1,125 @@
+{
+  "utc": "2026-11-08T17:48:16.655899+00:00",
+  "reviewer": "root",
+  "chapters": {
+    "01_the_bump": {
+      "sheets_viewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "pictures": 74,
+      "sheet_sha256": {
+        "sheet-0001.jpg": "880509bdb8c7f380aa1570ed9bf5205f38603f20f85667c6b7e4a8e6e8c82f7a",
+        "sheet-0002.jpg": "b8727a86bb2716b0009c8ef30275cbae605107afd198fa6eb5f4b80b62bf089b",
+        "sheet-0003.jpg": "5b64d1ae793542c5dcc7f9cdfb19390340335bbb60e936550a32799208bdbc68",
+        "sheet-0004.jpg": "825837aa92206a685a39c1e7f22c81e5798734cda2b3a517e4ed72c6c5e5bd4a",
+        "sheet-0005.jpg": "c29c3a4783ba3207790af1fc6751a932e9128ee8e5068e3fdcdfa74fe02bc93c",
+        "sheet-0006.jpg": "1914914c5391e142b4964a888307640a53a746c2ebadf811759aaa9a7b346392",
+        "sheet-0007.jpg": "47677ded1824f8050e3681d1915d4cdd6b1ecb39078dafc9a36a76b718aca63d",
+        "sheet-0008.jpg": "08ddc215f8189031d34df7b0fa16a988e03a60cb7347475741c43a0c12b297c1",
+        "sheet-0009.jpg": "c6978a6a6b742518bf95bac81b5fb9cb3f1586f2f4e21cf6a432871b1963fb9b",
+        "sheet-0010.jpg": "f4270dcded0610b5de5af58bd802c40078bfd621bcfdcc6db2d44512ccd30b16"
+      }
+    },
+    "04_reading_color": {
+      "sheets_viewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "pictures": 54,
+      "sheet_sha256": {
+        "sheet-0001.jpg": "4b642d249afa46fc5f0dfde93940d8d20f16354dac1c6459b51dcf55a38ac548",
+        "sheet-0002.jpg": "3c3776dabdbbe3c83aa44e0b5e928822ce0cb2b115b524dc7401086da2108bb8",
+        "sheet-0003.jpg": "c9c930d0b58ea983c97cc445ef8e3cc7c5bff681a55e8109f70b1d8651166c81",
+        "sheet-0004.jpg": "d9d5f63031728dbbc2a5f53d9b5ab5779c79b7d876654307795682c24fe8e7c6",
+        "sheet-0005.jpg": "3fd5f865853f4ae36af1dd45c93cf1d8d19ff12526e4c82392954c6ea14cf3f7",
+        "sheet-0006.jpg": "ea84d5a9b4c5c41588c8e5ac60b699d66d8347e03d6871a718dd43c350bd6304",
+        "sheet-0007.jpg": "25ee9a429be99a35f5aa3c98e85b0b31bcbffae71cd694967bbc899c7fa60e1b"
+      }
+    },
+    "07_one_point": {
+      "sheets_viewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "pictures": 59,
+      "sheet_sha256": {
+        "sheet-0001.jpg": "b241c54ed7d3c3700fb50dbfa6dd84afb551f5783ae86c2c72b2db5be02d6ae6",
+        "sheet-0002.jpg": "b685de29077d48757cc01f5886f32863e542853d24fb4130e6458a5772ab094c",
+        "sheet-0003.jpg": "d75ccf19e76dc73735b2dd2f628e94352964206866b0222ede771f36f6f2a151",
+        "sheet-0004.jpg": "066a00a950c8ffdcf1bb8e835adfe033836c90c205d3c8f06db85ae038e2a86d",
+        "sheet-0005.jpg": "a9b1cd4f0847c85f6313d399b905119ca44341fd7035e8d78dcbad1a22648c30",
+        "sheet-0006.jpg": "6addb2aab7014b9469f230767d97e5b9553f62163744bd66077db2ceac364ec1",
+        "sheet-0007.jpg": "0a7b1ae89140581277f8d3a7d4c4775e385e9b134ccc233ed1d83765f8655cf2",
+        "sheet-0008.jpg": "d6fe69b0f087cde468b9a4232d612f53e3c8258bbaa12ef57fdaf026f1be2bf4"
+      }
+    },
+    "14_continuation": {
+      "sheets_viewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "pictures": 80,
+      "sheet_sha256": {
+        "sheet-0001.jpg": "4d4c5c508cf15172255559b0d3348f601521ade33cfc1b6da56dbc701f4058b1",
+        "sheet-0002.jpg": "bcd50a45edaa9e0c15ef757bb3d252965a2873ba265002e7cf6e92a54b834668",
+        "sheet-0003.jpg": "c5f76b5184029b744148f91b895be0d2f746dae09be2a103205c445ceee250ff",
+        "sheet-0004.jpg": "64b5fe7050835c70c4fd61945dd9c46d80794e4b51f17bcc2c325a3ca6db044f",
+        "sheet-0005.jpg": "40b850844d2a20033bf8db4ba55635ae452a3da4bf8520a989adbb2575728f29",
+        "sheet-0006.jpg": "e67cdaa74b558ed1b22364abb16b0182e2550e0d83885f27285cbd2d274fd133",
+        "sheet-0007.jpg": "fb2d9c1dd1a087b45e0b4ee168b65bd7a7e10a619db71713ae78fbd2042bf811",
+        "sheet-0008.jpg": "99879c5c411418f34da393d3e42d4eb9ea0ffc6531d0cb8464ed48f589e839c8",
+        "sheet-0009.jpg": "e0523e68b88e748aa154ed6b09074f99b8d9a0b9be6e4f1fca50dfc60278fdbe",
+        "sheet-0010.jpg": "0bd630c87169dd254ff0544bd39496b291f463eeb59552283214dbb8f978053b"
+      }
+    }
+  },
+  "pictures_viewed": 267,
+  "sheets_viewed": 35,
+  "total_pictures": 996,
+  "total_sheets": 129,
+  "findings": {
+    "01_the_bump": "Selected fade start/middle/end and final frames show no reappearance; labels visible, no concrete persistent overlap. Still samples only.",
+    "04_reading_color": "Selected field fade-in and fade-out clear, smooth field in preview, prediction holds keep answer hidden. Still samples only.",
+    "07_one_point": "HOLD: completely blank sampled frames5270(87.833s),5330(88.833s) while cue07_6 runs86.833-105.073s. Previous5240(87.333s) populated. Cause investigation assignedCC3. Source inspection confirms fade_out0.5 then wait_sentence1 before drawing open region; no evidence entire20-second cue is blank. Need actual transition-duration/later-frame evidence before classifying defect.",
+    "14_continuation": "All80 selected pictures viewed. I5 exact fade sample stays blank then partial gamma field appears171.017s and full field later; need source-aware progressive-reveal disposition fromCC3, not presumed failure. Other sampled fades clear, no persistent label overlap."
+  },
+  "motion_review": false,
+  "listening": false,
+  "fine_sync": false,
+  "final_av_acceptance": false,
+  "remaining_chapters": [
+    "05_gallery",
+    "09_boundary",
+    "10_rigidity",
+    "11_counting",
+    "12_residues"
+  ]
+}

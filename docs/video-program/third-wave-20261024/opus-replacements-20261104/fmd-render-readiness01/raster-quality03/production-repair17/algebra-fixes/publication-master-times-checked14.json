@@ -1,0 +1,347 @@
+{
+  "utc": "2026-11-07T17:44:27.734567+00:00",
+  "master_summary": {
+    "chapters": [
+      "05_order",
+      "07_eight_moves",
+      "13_arithmetic",
+      "01_clock",
+      "06_axioms",
+      "08_subgroups",
+      "09_centralizer",
+      "10_cyclic",
+      "11_permutations",
+      "12_isomorphism",
+      "02_equivalence",
+      "03_counterexample",
+      "14_cosets",
+      "15_products",
+      "16_quotients",
+      "17_applications"
+    ],
+    "frames": 251862,
+    "native_bit_identical_replays": 16,
+    "outputs": {
+      "master": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-final-master14/final/abstract_algebra_expanded_master.mp4",
+        "sha256": "69dba6d493bfa510a371015ba4383d1f6b1930d38202a2a123fdf97e3008333f"
+      },
+      "srt": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-final-master14/final/abstract_algebra_expanded.en.srt",
+        "sha256": "d6053c3a5ebede5dfcadd047fa96514e056883cf1da25b245832f870e888677f"
+      },
+      "vtt": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-final-master14/final/abstract_algebra_expanded.en.vtt",
+        "sha256": "a36dfbe768cb950924b8212e73fa7fece373dec5df70da5a61e6a408bfec1e17"
+      }
+    },
+    "final_picture_review": false,
+    "full_decode": false,
+    "exact_caption_check": false,
+    "encoded_loudness": false,
+    "motion_review": false,
+    "listening_accepted": false,
+    "independent_av_acceptance": false,
+    "publication_accepted": false
+  },
+  "receipt": {
+    "started": "2026-11-07T17:36:37.611247+00:00",
+    "phase": "native",
+    "command": [
+      "python3",
+      "-I",
+      "-B",
+      "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/final-master14.py"
+    ],
+    "preflight_only": false,
+    "samples": [
+      {
+        "utc": "2026-11-07T17:36:51.434388+00:00",
+        "free_bytes": 147335901184,
+        "work_bytes": 63981559808,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:37:12.456749+00:00",
+        "free_bytes": 147358699520,
+        "work_bytes": 63981613056,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:37:33.103558+00:00",
+        "free_bytes": 147706458112,
+        "work_bytes": 63981613056,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:37:54.871653+00:00",
+        "free_bytes": 147674116096,
+        "work_bytes": 63981613056,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:38:22.950266+00:00",
+        "free_bytes": 146936037376,
+        "work_bytes": 63981613056,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:38:42.869590+00:00",
+        "free_bytes": 146556051456,
+        "work_bytes": 63981613056,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:39:03.626133+00:00",
+        "free_bytes": 146486706176,
+        "work_bytes": 63981613056,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:39:25.145851+00:00",
+        "free_bytes": 146480287744,
+        "work_bytes": 63981613056,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:39:43.710475+00:00",
+        "free_bytes": 146776121344,
+        "work_bytes": 63981613056,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:40:04.033132+00:00",
+        "free_bytes": 146260799488,
+        "work_bytes": 63981613056,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:40:23.972937+00:00",
+        "free_bytes": 146273087488,
+        "work_bytes": 63981613056,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:40:43.616926+00:00",
+        "free_bytes": 146156359680,
+        "work_bytes": 63981613056,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:41:04.052433+00:00",
+        "free_bytes": 144030720000,
+        "work_bytes": 65920299008,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:41:32.491178+00:00",
+        "free_bytes": 143838769152,
+        "work_bytes": 66054516736,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:42:01.295783+00:00",
+        "free_bytes": 144005693440,
+        "work_bytes": 66171957248,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:42:30.330958+00:00",
+        "free_bytes": 143964565504,
+        "work_bytes": 66222292992,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:42:59.836501+00:00",
+        "free_bytes": 143406440448,
+        "work_bytes": 66200563712,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:43:29.293635+00:00",
+        "free_bytes": 142701162496,
+        "work_bytes": 66200563712,
+        "target_bytes": 14024273920
+      },
+      {
+        "utc": "2026-11-07T17:43:52.783998+00:00",
+        "free_bytes": 142624112640,
+        "work_bytes": 66200563712,
+        "target_bytes": 14024273920
+      }
+    ],
+    "sbh": {
+      "exit": 0,
+      "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":147326992384,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":147326992384,\"free_excludes_purgeable\":true,\"free_pct\":3.6866062106431756,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":147326992384,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24902983873,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":147327025152,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":147327025152,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+      "stderr": ""
+    },
+    "admission": {
+      "utc": "2026-11-07T17:36:38.249255+00:00",
+      "free_bytes": 147327135744,
+      "work_bytes": 63981555712,
+      "target_bytes": 14024273920
+    },
+    "policy": {
+      "admission_gib": 10,
+      "stop_free_gib": 8,
+      "phase_growth_gib": 4,
+      "work_cap_gib": 80,
+      "target_growth_cap_gib": 20,
+      "sample_seconds": 10
+    },
+    "admitted": true,
+    "inputs_sha256": "e1c8a2ec65ecef0b2262946fe37dc075dffe99318b70389b135eb9abaadc9f54",
+    "pid": 66192,
+    "exit": 0,
+    "final_inputs_sha256": "e1c8a2ec65ecef0b2262946fe37dc075dffe99318b70389b135eb9abaadc9f54",
+    "finished": "2026-11-07T17:44:08.352045+00:00"
+  },
+  "chapters": [
+    {
+      "chapter": "05_order",
+      "label": "Why the order of moves matters",
+      "start_frame": 0,
+      "start_seconds": 0.0,
+      "timestamp": "0:00",
+      "frames": 4914,
+      "timeline_sha256": "f6e515ae8bfc80f3f4d4b4109f0d90afa41012aeb5e119f2e693065457f492ad"
+    },
+    {
+      "chapter": "07_eight_moves",
+      "label": "The eight symmetries of a square",
+      "start_frame": 4914,
+      "start_seconds": 81.9,
+      "timestamp": "1:21",
+      "frames": 6504,
+      "timeline_sha256": "b92d213b856db0f6bb0e0073a8ae61d583a41fca41736782fbbd3dc9c57ffc00"
+    },
+    {
+      "chapter": "13_arithmetic",
+      "label": "Calculating with turns and flips",
+      "start_frame": 11418,
+      "start_seconds": 190.3,
+      "timestamp": "3:10",
+      "frames": 15890,
+      "timeline_sha256": "205c1a12f5946a4b66bbf8f59c05310b6a4ec3634cce3eaeebfcf0dae8d9dfe7"
+    },
+    {
+      "chapter": "01_clock",
+      "label": "Clock arithmetic",
+      "start_frame": 27308,
+      "start_seconds": 455.1333333333333,
+      "timestamp": "7:35",
+      "frames": 2747,
+      "timeline_sha256": "e8be1fc8110f8bf917a03430e69122bd9cfa5a923e7c54a6574cf512c7d34eda"
+    },
+    {
+      "chapter": "06_axioms",
+      "label": "What makes a group",
+      "start_frame": 30055,
+      "start_seconds": 500.9166666666667,
+      "timestamp": "8:20",
+      "frames": 14779,
+      "timeline_sha256": "524e14cb7438f24156aaee7d408bd0ec3afd64fa00e8b89f10a619a7ffb03ad5"
+    },
+    {
+      "chapter": "08_subgroups",
+      "label": "Subgroups",
+      "start_frame": 44834,
+      "start_seconds": 747.2333333333333,
+      "timestamp": "12:27",
+      "frames": 13591,
+      "timeline_sha256": "8e581297b1b1cd524360e40867192ff5cffaca4b2fc13faf86094cb0a59147a7"
+    },
+    {
+      "chapter": "09_centralizer",
+      "label": "Which moves commute? Centralizers",
+      "start_frame": 58425,
+      "start_seconds": 973.75,
+      "timestamp": "16:13",
+      "frames": 11534,
+      "timeline_sha256": "57e331a69ae4f4fb7a3fbf3f82595e4ebe2ebff34c0ede46afff8ab726471f27"
+    },
+    {
+      "chapter": "10_cyclic",
+      "label": "Cyclic groups and generators",
+      "start_frame": 69959,
+      "start_seconds": 1165.9833333333333,
+      "timestamp": "19:25",
+      "frames": 16840,
+      "timeline_sha256": "e71e5b0e397839c9be85d213d8f8b6ac7393e8cfc7fc0fa0fab8ea073d43382b"
+    },
+    {
+      "chapter": "11_permutations",
+      "label": "Permutations and cycle notation",
+      "start_frame": 86799,
+      "start_seconds": 1446.65,
+      "timestamp": "24:06",
+      "frames": 42265,
+      "timeline_sha256": "c7731e77b148312ab7791dc320218000df1c78a3050b0241e6bbeed63f3705eb"
+    },
+    {
+      "chapter": "12_isomorphism",
+      "label": "Same structure, different objects",
+      "start_frame": 129064,
+      "start_seconds": 2151.0666666666666,
+      "timestamp": "35:51",
+      "frames": 15704,
+      "timeline_sha256": "3e75aefc0f4f1ce8acd086524e760a1c008686be792b497b0d82366ccdec1e74"
+    },
+    {
+      "chapter": "02_equivalence",
+      "label": "Equivalence relations and classes",
+      "start_frame": 144768,
+      "start_seconds": 2412.8,
+      "timestamp": "40:12",
+      "frames": 3608,
+      "timeline_sha256": "51cf6f369422dc71e65c45afd71812136aa78ada8286ccdb5369600873be21a7"
+    },
+    {
+      "chapter": "03_counterexample",
+      "label": "When grouping things goes wrong",
+      "start_frame": 148376,
+      "start_seconds": 2472.9333333333334,
+      "timestamp": "41:12",
+      "frames": 10011,
+      "timeline_sha256": "164763a7b356105b6433959d089f84e03229700616cc388900d638164fd2535f"
+    },
+    {
+      "chapter": "14_cosets",
+      "label": "Left and right cosets",
+      "start_frame": 158387,
+      "start_seconds": 2639.7833333333333,
+      "timestamp": "43:59",
+      "frames": 21786,
+      "timeline_sha256": "53e1b2671693bfd478be23a1a7bbe45a02bc67b5529d6812311d6c448d40ebe0"
+    },
+    {
+      "chapter": "15_products",
+      "label": "Direct products",
+      "start_frame": 180173,
+      "start_seconds": 3002.883333333333,
+      "timestamp": "50:02",
+      "frames": 19375,
+      "timeline_sha256": "9990250e3f94c93e25d3c38bf181bddcf4ba8c49624f9ec95e4d3ae3240ab7c8"
+    },
+    {
+      "chapter": "16_quotients",
+      "label": "Normal subgroups and quotient groups",
+      "start_frame": 199548,
+      "start_seconds": 3325.8,
+      "timestamp": "55:25",
+      "frames": 25953,
+      "timeline_sha256": "14f300cd26e9a6d2c04fb7d62b0a7a792d7ea437fcdb09f70da707a168047c34"
+    },
+    {
+      "chapter": "17_applications",
+      "label": "Check digits, error correction and exercises",
+      "start_frame": 225501,
+      "start_seconds": 3758.35,
+      "timestamp": "1:02:38",
+      "frames": 26361,
+      "timeline_sha256": "be3cf76e5a56eca4a3a5288635de39970c2207aeb3a7c65ce5cded2d43cd0be5"
+    }
+  ],
+  "final_master_times_rechecked": true,
+  "scope": "Exact final chapter tables and cumulative frame offsets match all 16 public timestamps. No final visual, listening or independent AV acceptance."
+}

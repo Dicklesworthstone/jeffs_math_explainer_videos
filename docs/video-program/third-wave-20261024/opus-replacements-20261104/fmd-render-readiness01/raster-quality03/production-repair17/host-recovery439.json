@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-09T03:21:41.968549+00:00",
+  "prior_turn": "status restatement; no production progress",
+  "observed_hosts": {
+    "css": {
+      "available_kib": 72872,
+      "load_1m": 19.19
+    },
+    "trj": {
+      "available_kib": 140286972,
+      "load_1m": 57.66,
+      "available_ram_mib": 330405,
+      "existing_worker_root_present": true
+    },
+    "fmd": {
+      "available_kib": 13939272,
+      "load_1m": 1.09
+    }
+  },
+  "decision": "TRJ preferred recovery candidate; sufficient observed disk, existing production worker. Exact frozen runtime/source/permit transfer and lane qualification still required before a new uniquely named gallery attempt. CSS unavailable for render admission. No job launched or restarted.",
+  "cc0": "weekly limit menu freshly observed; four existing pane processes retained",
+  "csd": "not reobserved this turn; prior command-open timeouts are not terminal render evidence",
+  "failure_receipt": "css05-resource-stop438.json",
+  "safety": "No deletion, account change, paid credits or guard change. Dynamic SSH heredoc rejected by DCG; equivalent explicit read-only SSH commands succeeded, no allowlist."
+}

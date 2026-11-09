@@ -1,0 +1,5 @@
+{
+  "exit": 0,
+  "stdout": "{\"staged\": true, \"verified_inputs\": 4207, \"inputs_sha256\": \"01698c8ab02394969bb7f22f45374b650a4520492f7d91df71c4a295f7bf5ddd\", \"helper_sha256\": \"9af15207ade5b74d756872c0af316da1cfad26bd7b2885f29801118fee544b60\", \"job_absent\": true, \"launched\": false}\n",
+  "stderr": ""
+}

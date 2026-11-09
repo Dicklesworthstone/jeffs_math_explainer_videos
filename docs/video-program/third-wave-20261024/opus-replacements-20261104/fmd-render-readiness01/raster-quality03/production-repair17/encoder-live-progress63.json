@@ -1,0 +1,36 @@
+{
+  "utc": "2026-11-07T21:19:00.076091+00:00",
+  "observations": [
+    {
+      "host": "hz2",
+      "native_pid": 749144,
+      "encoder_pid": 749255,
+      "rchar_before": 28379453178,
+      "rchar_after": 29063741178,
+      "wchar_before": 1310768,
+      "wchar_after": 1572912,
+      "rchar_delta": 684288000
+    },
+    {
+      "host": "trj",
+      "native_pid": 1868388,
+      "encoder_pid": 1868679,
+      "rchar_before": 181261835860,
+      "rchar_after": 182692619860,
+      "wchar_before": 9699376,
+      "wchar_after": 9699376,
+      "rchar_delta": 1430784000
+    },
+    {
+      "host": "csd",
+      "native_pid": 1120330,
+      "encoder_pid": 2480283,
+      "rchar_before": 6225632548,
+      "rchar_after": 6566998948,
+      "wchar_before": 2097200,
+      "wchar_after": 2097200,
+      "rchar_delta": 341366400
+    }
+  ],
+  "scope": "Live same-PID Linux IO counters increased across a 60-second sleep plus tool overhead. Counters include all reads; not exact finished frame counts, ETA, terminal success or media acceptance. Existing producers preserved."
+}

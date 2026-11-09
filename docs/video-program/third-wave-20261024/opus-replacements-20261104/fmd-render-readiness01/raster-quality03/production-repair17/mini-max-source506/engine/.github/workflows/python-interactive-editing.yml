@@ -1,0 +1,119 @@
+name: Python InteractiveScene editing
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/python-interactive-editing.yml'
+      - 'crates/fmn-python/python/fmn_python/interactive_editing.py'
+      - 'crates/fmn-python/tests/studio_editing.py'
+      - 'crates/fmn-python/tests/test_live_input_context_protocol.py'
+      - 'scripts/patches/interactive-editing.patch'
+      - 'scripts/patches/interactive-selection.patch'
+      - 'scripts/patches/interactive-key-symbols.patch'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: python-interactive-editing
+  cancel-in-progress: false
+jobs:
+  editing:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/portable
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Connect reviewed scene input and editing integration
+        run: |
+          set -euo pipefail
+          if ! grep -q '_install_interactive_editing(_native)' crates/fmn-python/python/manimlib/__init__.py; then
+            git apply --check scripts/patches/interactive-editing.patch
+            git apply scripts/patches/interactive-editing.patch
+          fi
+          if ! grep -q '^from itertools import product' crates/fmn-python/python/fmn_python/interactive_editing.py; then
+            git apply --check scripts/patches/interactive-selection.patch
+            git apply scripts/patches/interactive-selection.patch
+          fi
+          if ! grep -q 'c.to_ascii_lowercase()' crates/fmn-python/src/portal_studio/live.rs; then
+            git apply --check scripts/patches/interactive-key-symbols.patch
+            git apply scripts/patches/interactive-key-symbols.patch
+          fi
+      - name: Install pinned build tools
+        run: |
+          rustup show active-toolchain
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        id: cargo-cache
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-editing-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-editing-
+            cargo-${{ runner.os }}-${{ runner.arch }}-live-clock-
+            cargo-${{ runner.os }}-${{ runner.arch }}-live-studio-
+            cargo-${{ runner.os }}-${{ runner.arch }}-portal-studio-
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-
+      - name: Validate input ownership and native worker integration
+        run: |
+          set -euo pipefail
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-python/src/portal_studio/live.rs
+          PYTHONPATH=crates/fmn-python/python:crates/fmn-python/tests python -m unittest test_live_input_context_protocol test_interaction_protocol test_control_events_protocol test_dispatcher_binding_protocol test_studio_navigation_protocol 2>&1 | tee /tmp/editing-protocol.log
+          node --test crates/fmn-studio/tests/input_queue.mjs 2>&1 | tee /tmp/editing-browser.log
+          PYTHONPATH="$PWD/crates/fmn-python/python" cargo test --locked -p fmn-python portal_studio -- --nocapture 2>&1 | tee /tmp/editing-native.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/editing-native.log
+          cargo clippy --locked -p fmn-python --lib -- -D warnings 2>&1 | tee /tmp/editing-clippy.log
+      - name: Verify real records, socket input, history and decoded pixels
+        run: |
+          set -euo pipefail
+          python -m maturin build --locked --interpreter python --profile dev --out target/editing-wheel
+          python -m venv target/editing-venv
+          target/editing-venv/bin/python -m pip install 'numpy==2.5.2' target/editing-wheel/*.whl
+          target/editing-venv/bin/python -I crates/fmn-python/tests/studio_editing.py 2>&1 | tee /tmp/editing-wheel.log
+          target/editing-venv/bin/python -I crates/fmn-python/tests/studio_live.py 2>&1 | tee /tmp/editing-live.log
+          target/editing-venv/bin/python -I crates/fmn-python/tests/studio_clock.py 2>&1 | tee /tmp/editing-clock.log
+          target/editing-venv/bin/python -I crates/fmn-python/tests/studio_preview.py 2>&1 | tee /tmp/editing-preview.log
+          git diff --check
+      - name: Commit tested scene editing directly to main
+        run: |
+          set -euo pipefail
+          git add crates/fmn-python/python/fmn_python/interaction.py crates/fmn-python/python/manimlib/__init__.py crates/fmn-python/src/portal_studio/live.rs
+          git add crates/fmn-python/python/fmn_python/interactive_editing.py crates/fmn-python/tests/studio_editing.py crates/fmn-python/tests/test_live_input_context_protocol.py docs/dist/python_studio.md docs/behavior_notes/BN-19-interactive-editing.md
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'fix(studio): preserve shifted editing bindings and native state restoration'
+            git push origin HEAD:main
+          fi
+      - name: Preserve exact source and terminal evidence
+        if: always()
+        run: |
+          git archive --format=tar.gz HEAD > /tmp/editing-source.tar.gz
+          git rev-parse HEAD > /tmp/editing-source-sha.txt
+          git diff > /tmp/editing-working.patch
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: python-editing-${{ github.sha }}
+          path: /tmp/editing-*
+          retention-days: 1
+      - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        if: always() && steps.cargo-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: ${{ steps.cargo-cache.outputs.cache-primary-key }}

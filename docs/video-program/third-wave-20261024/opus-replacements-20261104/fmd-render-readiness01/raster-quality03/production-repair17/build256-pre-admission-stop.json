@@ -1,0 +1,8 @@
+{
+  "time": "2026-11-08T05:21:38.225273+00:00",
+  "reason": "Supersedes queued256: CC3 independent source review found fade-site assertion rejects legitimate vector-only fades in accepted06/08 candidates. Root verified no admission receipt/guard child, terminated ONLY queuedguard33880; controller exits fromSIGTERM, no build was run. Frozen recipe/helpers/manifest/log retained. CC2 prepares separately named260 correction with precise vector-only exceptions and retained plate bypass detection; CC3 reviews. CC1 assigned impact audit261 for existing unaffected chapters, no reuse accepted. All four workers assigned. Preview243 continues, no duplicate. Listening/fine-sync/independent finalAV remain open.",
+  "guard_pid": 33880,
+  "signal": "SIGTERM",
+  "admitted": false,
+  "build_started": false
+}

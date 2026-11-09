@@ -1,0 +1,753 @@
+{
+  "schema_version": 1,
+  "script_sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c",
+  "direction_contract": {
+    "schema_version": 1,
+    "topic": "complex_analysis_visual",
+    "script_sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c",
+    "map": {
+      "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-production19.json",
+      "sha256": "0d5bec55f58d40ad9b8ef5d81163606f9a48408786d4f82804ee403b327bdc29"
+    }
+  },
+  "scope": "Production17 complete Frederick Surrey UI takes; 103 retained cues, two full-cue replacements.",
+  "units": [
+    {
+      "id": "oliver_01_1",
+      "line_ids": [
+        "01_1"
+      ],
+      "text": "Here is a perfectly smooth curve. One over one plus x squared. It rises to a peak of one at zero and fades away on both sides. It has no corners and no gaps, and it never blows up. We will call it the bump."
+    },
+    {
+      "id": "oliver_01_2",
+      "line_ids": [
+        "01_2"
+      ],
+      "text": "Near zero there is a simple recipe for it. One, minus x squared, plus x to the fourth, minus x to the sixth, and so on. Each extra term should make the recipe better."
+    },
+    {
+      "id": "oliver_01_3",
+      "line_ids": [
+        "01_3"
+      ],
+      "text": "Between minus one and one, it works, though near the ends it needs more and more terms. Just past one, it falls apart. At one point one, the recipe up to x to the fortieth gives about twenty five. The bump itself is less than one half there."
+    },
+    {
+      "id": "oliver_01_4",
+      "line_ids": [
+        "01_4"
+      ],
+      "text": "Nothing special happens to the curve at one. It is as smooth there as anywhere else. So what stops the recipe at exactly one?"
+    },
+    {
+      "id": "oliver_01_5",
+      "line_ids": [
+        "01_5"
+      ],
+      "text": "The answer is not on this line at all. Let x be a complex number, and the bump has two points where it blows up. They sit at i and minus i, one unit above and below zero. A recipe built at zero only works inside the largest circle around zero that avoids them. That circle has radius one."
+    },
+    {
+      "id": "oliver_01_6",
+      "line_ids": [
+        "01_6"
+      ],
+      "text": "So points we could not see from the real line were deciding what happens on it. Complex functions are that rigid. By the end, the same idea will count roots we never find and compute a real area from points off the line. First, we need a way to see complex functions at all."
+    },
+    {
+      "id": "oliver_02_1",
+      "line_ids": [
+        "02_1"
+      ],
+      "text": "A complex number is a point in a plane. Its first part says how far right, its second part how far up. We write it as x plus i y, and draw it as an arrow from zero."
+    },
+    {
+      "id": "oliver_02_2",
+      "line_ids": [
+        "02_2"
+      ],
+      "text": "Adding two complex numbers puts their arrows tip to tail. Multiplying does something more interesting. Multiply every point of the plane by i, and the whole plane turns a quarter turn about zero."
+    },
+    {
+      "id": "oliver_02_3",
+      "line_ids": [
+        "02_3"
+      ],
+      "text": "So i times i is a half turn. It sends one to minus one. That is all that i squared equals minus one means."
+    },
+    {
+      "id": "oliver_02_4",
+      "line_ids": [
+        "02_4"
+      ],
+      "text": "Multiplying by any complex number does two things at once. It stretches by that number's length and turns by its angle. Multiply by one plus i, and the plane grows by the square root of two and turns an eighth of a turn."
+    },
+    {
+      "id": "oliver_02_5",
+      "line_ids": [
+        "02_5"
+      ],
+      "text": "Multiplying by one plus i once makes an eighth of a turn. What happens if you multiply by it twice? Which number is one plus i, squared?"
+    },
+    {
+      "id": "oliver_02_6",
+      "line_ids": [
+        "02_6"
+      ],
+      "text": "A quarter turn, with the stretch of the square root of two applied twice, which is two. So one plus i, squared, is two i. Lengths multiply and angles add. Hold on to that. Every complex derivative in this video will be one of these stretch and turn moves."
+    },
+    {
+      "id": "oliver_03_1",
+      "line_ids": [
+        "03_1"
+      ],
+      "text": "A complex function takes a point and returns a point. Its graph would need four dimensions. Instead, draw two planes side by side. The input plane on the left, the output plane on the right."
+    },
+    {
+      "id": "oliver_03_2",
+      "line_ids": [
+        "03_2"
+      ],
+      "text": "Start with squaring. Lengths multiply and angles add, so squaring squares each length and doubles each angle. Walk a point once around a circle of radius one half. Its image goes around a circle of radius one quarter, twice."
+    },
+    {
+      "id": "oliver_03_3",
+      "line_ids": [
+        "03_3"
+      ],
+      "text": "Now a grid of straight lines. After squaring, will the vertical lines stay straight?"
+    },
+    {
+      "id": "oliver_03_4",
+      "line_ids": [
+        "03_4"
+      ],
+      "text": "No. Every vertical line off the axis bends into a parabola, and so does every horizontal one. The two axes fold in half instead. The horizontal axis lands on the positive real ray, and the vertical axis on the negative one. But look where the curves cross. They still meet at right angles everywhere, except at zero. Keep that in mind. It is the first sign of something rigid."
+    },
+    {
+      "id": "oliver_03_5",
+      "line_ids": [
+        "03_5"
+      ],
+      "text": "One over z does something else. Points near zero go far away, and far points come close. The unit circle lands on itself as a whole, though each point flips across the horizontal axis. Inside and outside trade places. At zero itself there is no output at all."
+    },
+    {
+      "id": "oliver_03_6",
+      "line_ids": [
+        "03_6"
+      ],
+      "text": "The exponential turns the grid into something familiar. Moving right by one multiplies the output's length by e. Moving up turns the output, a full turn for every two pi you climb. So vertical lines become circles, and horizontal lines become rays from zero."
+    },
+    {
+      "id": "oliver_03_7",
+      "line_ids": [
+        "03_7"
+      ],
+      "text": "Climb two pi, and you land on exactly the same output. The exponential repeats as you climb, and it never reaches zero. Both facts will come back."
+    },
+    {
+      "id": "oliver_04_1",
+      "line_ids": [
+        "04_1"
+      ],
+      "text": "Two planes show only a few curves at a time. To see a whole function at once, paint the input plane. At each input point, find the output, and colour the point by the output's direction. Pointing right is red. Pointing up is yellow green. Pointing left is teal, and pointing down is violet."
+    },
+    {
+      "id": "oliver_04_2",
+      "line_ids": [
+        "04_2"
+      ],
+      "text": "Colour alone hides how big the output is. So brightness climbs in bands. Each time the output's size grows by about one point seven, a new band begins. Thin dark lines also mark every twelfth of a turn in direction."
+    },
+    {
+      "id": "oliver_04_3",
+      "line_ids": [
+        "04_3"
+      ],
+      "text": "Now square. Every colour appears twice around zero, because squaring doubles each angle. And the colours run around zero in the same order as the wheel itself."
+    },
+    {
+      "id": "oliver_04_4",
+      "line_ids": [
+        "04_4"
+      ],
+      "text": "Around a point where the output is zero, the colours always cycle in this order. Once for a simple zero, twice for a zero of order two, and so on. That is how to spot a zero, and its order, in a single glance."
+    },
+    {
+      "id": "oliver_04_5",
+      "line_ids": [
+        "04_5"
+      ],
+      "text": "One over z runs the colours the other way. Around a pole, where the output blows up, the colours cycle backwards."
+    },
+    {
+      "id": "oliver_04_6",
+      "line_ids": [
+        "04_6"
+      ],
+      "text": "Here is the bump, one over one plus z squared. Before the colours appear, where do you expect its poles, and how many times will the colours turn around each one?"
+    },
+    {
+      "id": "oliver_04_7",
+      "line_ids": [
+        "04_7"
+      ],
+      "text": "Two poles, at i and minus i, each with one backwards cycle. And the circle of radius one around zero just touches them. That is the opening puzzle, seen in colour."
+    },
+    {
+      "id": "oliver_05_1",
+      "line_ids": [
+        "05_1"
+      ],
+      "text": "Polynomials first. z cubed minus one has three zeros, evenly spaced on the unit circle. Far from zero, z cubed swamps the minus one, so a large loop sees the colours cycle three times. Three zeros inside."
+    },
+    {
+      "id": "oliver_05_2",
+      "line_ids": [
+        "05_2"
+      ],
+      "text": "Rational functions divide one polynomial by another. Here z minus one, over z plus one squared. A simple zero at one, and at minus one a pole of order two, where the colours run backwards twice."
+    },
+    {
+      "id": "oliver_05_3",
+      "line_ids": [
+        "05_3"
+      ],
+      "text": "The exponential has no zeros and no poles anywhere. Its direction depends only on height, and its size only on how far right you are. So its tiles are exact squares, repeating every two pi as you climb."
+    },
+    {
+      "id": "oliver_05_4",
+      "line_ids": [
+        "05_4"
+      ],
+      "text": "Sine has zeros at every multiple of pi on the real line, and nowhere else. On the real line it never passes one. But off the line it grows fast. Sine of i is about one point one eight i, and sine of three i is about ten i."
+    },
+    {
+      "id": "oliver_05_5",
+      "line_ids": [
+        "05_5"
+      ],
+      "text": "Tangent is sine over cosine. Its zeros and poles alternate along the real line. Far above the line, tangent settles toward i, and far below toward minus i, so the colours there go flat."
+    },
+    {
+      "id": "oliver_05_6",
+      "line_ids": [
+        "05_6"
+      ],
+      "text": "The gamma function extends the factorial. Gamma of n plus one is n factorial. It starts as an integral that only makes sense when the real part of z is positive. Yet the picture continues left, with a pole at zero, at minus one, at minus two, and on forever, and no zeros anywhere. Chapter fourteen shows how it gets there."
+    },
+    {
+      "id": "oliver_05_7",
+      "line_ids": [
+        "05_7"
+      ],
+      "text": "The zeta function starts as one, plus one over two to the s, plus one over three to the s, and so on. That sum only settles when the real part of s is bigger than one. The picture goes further. A single pole at one. Zeros at minus two, minus four, and on. And more zeros climbing the line where the real part is one half."
+    },
+    {
+      "id": "oliver_05_8",
+      "line_ids": [
+        "05_8"
+      ],
+      "text": "Apart from those at minus two, minus four, and on, no zero found so far sits off that line. Whether all the rest lie on it is the Riemann hypothesis, still unsolved. A picture cannot settle it."
+    },
+    {
+      "id": "oliver_05_9",
+      "line_ids": [
+        "05_9"
+      ],
+      "text": "These pictures share a pattern. Zeros and poles are isolated points. Between them, the colours flow smoothly in little tiles that are nearly square. That is not a coincidence. It comes from what a complex derivative demands."
+    },
+    {
+      "id": "oliver_06_1",
+      "line_ids": [
+        "06_1"
+      ],
+      "text": "For a real function, the derivative compares a small change out with a small change in. Do the same for a complex function. Step from z by a small complex number h, and divide the change in the output by h. As h shrinks to zero, that ratio should settle on one complex number, the derivative."
+    },
+    {
+      "id": "oliver_06_2",
+      "line_ids": [
+        "06_2"
+      ],
+      "text": "In the plane, h can shrink from any direction. From the right, from above, along a spiral. The derivative exists only if every one of those approaches gives the same answer. That demand is much stronger than it looks."
+    },
+    {
+      "id": "oliver_06_3",
+      "line_ids": [
+        "06_3"
+      ],
+      "text": "Here is why. If the ratio is the same number from every direction, then near z, the function moves every small arrow the same way. It multiplies it by the derivative. And multiplying by a complex number is a stretch and a turn. So a tiny square around z lands as a tiny square, bigger and turned, but still square."
+    },
+    {
+      "id": "oliver_06_4",
+      "line_ids": [
+        "06_4"
+      ],
+      "text": "Squaring at one plus i has derivative two times one plus i, which is two plus two i. It stretches by about two point eight and turns an eighth of a turn. Shrink the square, and its image gets ever closer to exactly that."
+    },
+    {
+      "id": "oliver_06_5",
+      "line_ids": [
+        "06_5"
+      ],
+      "text": "Now write the rule in coordinates. Call the output's parts u and v. Step to the right, and the ratio becomes how fast u and v change as x changes. Step up, by i times a small number, and you also divide by i, which turns the answer back a quarter turn. The two answers must agree."
+    },
+    {
+      "id": "oliver_06_6",
+      "line_ids": [
+        "06_6"
+      ],
+      "text": "That gives two equations. The rate of u along x equals the rate of v along y. The rate of v along x is minus the rate of u along y. These are the Cauchy Riemann equations."
+    },
+    {
+      "id": "oliver_06_7",
+      "line_ids": [
+        "06_7"
+      ],
+      "text": "In matrix form, the local map must be a stretch and a turn, with no squash and no reflection. For squaring at one plus i, the four rates are two, minus two, two, and two. That grid is exactly multiplication by two plus two i."
+    },
+    {
+      "id": "oliver_06_8",
+      "line_ids": [
+        "06_8"
+      ],
+      "text": "Here is a simple map. Reflect the plane across the horizontal axis. It sends x plus i y to x minus i y. Does it have a complex derivative anywhere?"
+    },
+    {
+      "id": "oliver_06_9",
+      "line_ids": [
+        "06_9"
+      ],
+      "text": "Nowhere. Step to the right, and the ratio is one. Step up, and the ratio is minus one. A reflection reverses every little square, and no stretch and turn can do that. Squashing fails too. Double every height, and squares become tall rectangles."
+    },
+    {
+      "id": "oliver_07_1",
+      "line_ids": [
+        "07_1"
+      ],
+      "text": "Where the derivative is zero, the picture changes. Squaring has derivative zero at zero. Two lines crossing there at a right angle come out as two rays pointing in opposite directions. The angle has doubled, from a right angle to a straight line."
+    },
+    {
+      "id": "oliver_07_2",
+      "line_ids": [
+        "07_2"
+      ],
+      "text": "So a nonzero derivative keeps angles. A map like that is called conformal. A point where the derivative is zero is a critical point, and there angles get multiplied."
+    },
+    {
+      "id": "oliver_07_3",
+      "line_ids": [
+        "07_3"
+      ],
+      "text": "A subtler question. Take the function that sends z to the square of its length. At zero, does it have a complex derivative?"
+    },
+    {
+      "id": "oliver_07_4",
+      "line_ids": [
+        "07_4"
+      ],
+      "text": "It does. The ratio is the square of the length of h, divided by h. Its size is the length of h, which shrinks to zero from every direction. So the derivative at zero exists, and it is zero."
+    },
+    {
+      "id": "oliver_07_5",
+      "line_ids": [
+        "07_5"
+      ],
+      "text": "Move to the point one. Step right, and the ratio heads to two. Step up, and it heads to zero. This function has a complex derivative at exactly one point in the whole plane, and that buys almost nothing. Multiply it by any bounded function at all, smooth or jagged, and the product still has derivative zero at zero."
+    },
+    {
+      "id": "oliver_07_6",
+      "line_ids": [
+        "07_6"
+      ],
+      "text": "The strong results ahead need more. They need the derivative to exist at every point of an open region, so that around each point there is a small disk where it works everywhere. A function like that is called holomorphic on the region. From here on, every claim carries that condition."
+    },
+    {
+      "id": "oliver_08_1",
+      "line_ids": [
+        "08_1"
+      ],
+      "text": "To see what holomorphic buys, we need one new tool. Walk around a loop in small steps. At each step, take the function's value there, and multiply it by the step, as a complex number. Then add all those products. As the steps shrink, the total is the contour integral around the loop."
+    },
+    {
+      "id": "oliver_08_2",
+      "line_ids": [
+        "08_2"
+      ],
+      "text": "Draw each product as an arrow, and lay the arrows tip to tail. For f of z equals z, around the unit circle, the arrows curl around and close up. The total is zero."
+    },
+    {
+      "id": "oliver_08_3",
+      "line_ids": [
+        "08_3"
+      ],
+      "text": "Now one over z. At each step, dividing by z undoes the turn of the step's position, and what is left points straight up. The arrows stack into a column. As the steps shrink, the total becomes two pi i, whatever the size of the circle."
+    },
+    {
+      "id": "oliver_08_4",
+      "line_ids": [
+        "08_4"
+      ],
+      "text": "Every other whole power of z gives zero. The arrows always close up. Only one over z survives, and that single fact powers most of what follows."
+    },
+    {
+      "id": "oliver_08_5",
+      "line_ids": [
+        "08_5"
+      ],
+      "text": "Cauchy's theorem says more. If a function is holomorphic on a loop and everywhere inside it, its loop integral is zero. We will prove the pieces we need, starting with a square, and a function holomorphic on it, inside it, and a little beyond. Cut the square into four smaller squares, and walk each one counterclockwise. When we add their four loop integrals, every shared edge is walked twice, in opposite directions, so those parts cancel exactly. What remains is the loop integral around the original square. Now suppose that integral were not zero. Then some small square must have an integral at least a quarter of that size. Four integrals each under a quarter of that size could not add up to it. Keep that square, and cut it into four again. Each time, keep a piece whose integral has at least a quarter of its parent's size. These nested squares shrink toward a single point, which we call c. From here on, we use the derivative at that one point only. Near c, the function is a constant, plus a linear term that stretches and turns z minus c, plus a remainder. The constant integrates to zero, because the steps around a closed loop add up to nothing. The linear term integrates to zero too, because it is the derivative of a quadratic, whose changes around a closed loop also add up to nothing. So only the remainder contributes. Pick any tiny factor, and call it epsilon. Close enough to c, the remainder's size is at most epsilon times the distance to c, and that is exactly what having a derivative at c means. After enough cuts, the whole nested square lies that close. There, the distance to c is at most the square's diagonal, and the steps add up to the perimeter. So the integral around that square has size at most epsilon, times its diagonal, times its perimeter. Each cut halves the diagonal and halves the perimeter, so this bound shrinks to a quarter every time. But our rule kept at least a quarter of the integral's size at every cut. So after n cuts, the original integral's size is at most four to the n times the size of the small square's integral. The small square's integral has size at most epsilon, times the original diagonal and perimeter, divided by four to the n. Multiplying by four to the n cancels the fours, so the original integral's size is at most epsilon times the original diagonal and perimeter. Since epsilon can be as small as we like, the integral is zero. The same shrinking argument works for a triangle. Join the midpoints of its sides, and you get four triangles at half the size. Walk all four counterclockwise, even the upside down one in the middle, and their shared edges cancel again. The longest side plays the diagonal's part, and it halves with the perimeter at every cut. So around every triangle, the integral is zero too.",
+      "external_ui_provider": "elevenlabs"
+    },
+    {
+      "id": "oliver_09_1",
+      "line_ids": [
+        "09_1"
+      ],
+      "text": "Here is the payoff. Take a function holomorphic on a disk and a little beyond its edge, and divide it by z minus a, where a is the centre. Split that quotient into two pieces. The first is f of a, times one over z minus a, and we already know its loop integral: two pi i times f of a. The second is the difference quotient: f of z minus f of a, over z minus a. It is undefined at a itself, so it has a hole in the middle, and we cannot simply call it holomorphic there. But as z approaches a, it approaches the derivative at a, so near a its size stays below some bound. Draw a small circle around the hole. Between the two circles, the difference quotient is holomorphic. Trace each circle with a polygon, and tile the ring between them with triangles, keeping the hole empty. We saw that the shrinking argument works for triangles: around each one, the integral is zero. Now add up all the triangles. Every inside edge is walked twice, in opposite directions, so those parts cancel. What survives is the outer polygon, counterclockwise, and the inner polygon, clockwise. So the two polygons, both walked counterclockwise, have the same integral. Now keep the small circle fixed, and give the polygons more and more sides, so they hug the circles. Each short chord and its arc share their endpoints, so a constant has the same integral along both. The difference comes only from how much the quotient wobbles there, and its size is at most that wobble times their combined length. Continuity makes every wobble small at once, while the total length stays bounded. So in the limit, the big circle's integral equals the small circle's, both walked counterclockwise. That holds for every small radius. Only now do we shrink the small circle. The magnitude of its integral is at most its circumference, two pi times its radius, times that bound, and that goes to zero. But the big circle's integral never changed, so it must be zero. The second piece contributes nothing, and the loop integral is two pi i times f of a.",
+      "external_ui_provider": "elevenlabs"
+    },
+    {
+      "id": "oliver_09_2",
+      "line_ids": [
+        "09_2"
+      ],
+      "text": "Around a circle centred at a, that has a simple meaning. The value at the centre is the average of the values on the circle. This is Cauchy's integral formula."
+    },
+    {
+      "id": "oliver_09_3",
+      "line_ids": [
+        "09_3"
+      ],
+      "text": "Try it on the bump, on a circle of radius one half around zero. Eight sample points already average to within half a percent of one, which is the bump's value at zero. With sixteen samples, it is off by about fifteen millionths."
+    },
+    {
+      "id": "oliver_09_4",
+      "line_ids": [
+        "09_4"
+      ],
+      "text": "Now take a circle of radius two. The bump is still one at the centre. Is the average around this bigger circle still one?"
+    },
+    {
+      "id": "oliver_09_5",
+      "line_ids": [
+        "09_5"
+      ],
+      "text": "It is zero. The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic. Each pole pulls the average down by one half. For this formula, a sufficient condition is that the function is holomorphic throughout the disk and a little beyond its edge."
+    },
+    {
+      "id": "oliver_09_6",
+      "line_ids": [
+        "09_6"
+      ],
+      "text": "The same circle tells you more than the value. Turn each sample back by its own angle, average, and divide by the radius. That gives the slope at the centre. Turn back by twice the angle and divide by the radius squared, and you get the next coefficient of the recipe. Every derivative at the centre is hidden in the boundary values."
+    },
+    {
+      "id": "oliver_09_7",
+      "line_ids": [
+        "09_7"
+      ],
+      "text": "Those coefficients build a power series, and Cauchy's formula shows it converges on the largest disk around the centre where the function stays holomorphic. That answers the opening puzzle. The bump is holomorphic everywhere except at i and minus i. From zero they are one unit away, so the recipe works out to radius one, and since the bump blows up at i, no further."
+    },
+    {
+      "id": "oliver_09_8",
+      "line_ids": [
+        "09_8"
+      ],
+      "text": "Recentre the recipe at x equals one. How far along the real line will it work now?"
+    },
+    {
+      "id": "oliver_09_9",
+      "line_ids": [
+        "09_9"
+      ],
+      "text": "The nearest poles are now the square root of two away. So the new recipe works from about minus point four one to about two point four one. A computer check of sixty terms agrees."
+    },
+    {
+      "id": "oliver_10_1",
+      "line_ids": [
+        "10_1"
+      ],
+      "text": "This makes holomorphic functions astonishingly rigid. Take two of them on a connected region. If they agree along any little curve, they agree everywhere. Even agreeing on a sequence of points that piles up at a point inside the region is enough."
+    },
+    {
+      "id": "oliver_10_2",
+      "line_ids": [
+        "10_2"
+      ],
+      "text": "Sine squared plus cosine squared equals one for every real number. Both sides are holomorphic on the whole plane, and they agree along the real line. So the identity holds for every complex number, even where sine and cosine are huge. At three i, sine squared is about minus one hundred, cosine squared is about one hundred and one, and they still add to one."
+    },
+    {
+      "id": "oliver_10_3",
+      "line_ids": [
+        "10_3"
+      ],
+      "text": "Real smooth functions have no such rigidity. This curve is exactly zero for every negative x, then rises smoothly. It agrees with zero on a whole half line, yet it is not zero. Every derivative exists at zero, and every one is zero, so its power series misses the whole rise."
+    },
+    {
+      "id": "oliver_10_4",
+      "line_ids": [
+        "10_4"
+      ],
+      "text": "Sine of one over z is zero at one over pi, one over two pi, one over three pi, and so on. Those zeros pile up at zero. Must the function be zero everywhere?"
+    },
+    {
+      "id": "oliver_10_5",
+      "line_ids": [
+        "10_5"
+      ],
+      "text": "No. The pile up point is zero, and zero is not in the region, because the function is undefined there. The theorem needs the pile up point inside the region. Nothing forces sine of one over z to vanish, and it doesn't."
+    },
+    {
+      "id": "oliver_10_6",
+      "line_ids": [
+        "10_6"
+      ],
+      "text": "Rigidity also limits what is possible. A function holomorphic on the whole plane that stays bounded must be constant. That is Liouville's theorem. It is why sine, trapped between minus one and one on the real line, must grow huge somewhere else."
+    },
+    {
+      "id": "oliver_11_1",
+      "line_ids": [
+        "11_1"
+      ],
+      "text": "Back to colour. Walk a loop in the input plane and watch the output's direction. Around a simple zero, the output makes one full turn, the same way you walk. Around a zero of order two, it makes two. Around a simple pole, it makes one turn the other way."
+    },
+    {
+      "id": "oliver_11_2",
+      "line_ids": [
+        "11_2"
+      ],
+      "text": "For a loop around several of them, the turns add. So the number of turns equals the zeros inside minus the poles inside, each counted by its order. This is the argument principle. It needs a loop that winds once counterclockwise, passes through no zero or pole, and a function that is holomorphic inside except at poles."
+    },
+    {
+      "id": "oliver_11_3",
+      "line_ids": [
+        "11_3"
+      ],
+      "text": "Here is a function with a zero at zero point four five and a pole at one point three five. A circle of radius zero point eight encloses only the zero, and the output turns once. Grow the circle to one point seven, and it encloses both. The zero's turn and the pole's turn cancel, so the count is zero. The count is always a net total. An output could circle zero once and then unwind, and it would still count zero."
+    },
+    {
+      "id": "oliver_11_4",
+      "line_ids": [
+        "11_4"
+      ],
+      "text": "At radius one point three five exactly, the loop runs through the pole, and the output shoots off to infinity. There the count has no meaning. The loop must avoid every zero and pole."
+    },
+    {
+      "id": "oliver_11_5",
+      "line_ids": [
+        "11_5"
+      ],
+      "text": "This polynomial, z to the fifth minus three z plus one, has five roots. How many of them lie inside the unit circle?"
+    },
+    {
+      "id": "oliver_11_6",
+      "line_ids": [
+        "11_6"
+      ],
+      "text": "One. Walk the unit circle, and the output turns around zero exactly once. On that circle, the minus three z term is always bigger than the other two terms combined, so the output follows minus three z, which turns once."
+    },
+    {
+      "id": "oliver_11_7",
+      "line_ids": [
+        "11_7"
+      ],
+      "text": "The same trick proves that every nonconstant complex polynomial has roots. Divide by its leading coefficient, which leaves its roots unchanged. Now it starts with z to the n, for some positive integer n. On a huge circle, z to the n dwarfs the other terms. Picture z to the n as a walker going n times around zero, and the polynomial as a dog on a leash. The leash is shorter than the walker's distance from zero, so the dog circles zero n times too. So there are exactly n roots inside, counted by order."
+    },
+    {
+      "id": "oliver_11_8",
+      "line_ids": [
+        "11_8"
+      ],
+      "text": "For programmers. This counts roots inside a loop without finding them. Walk the loop in small steps, add up the change in the output's angle at each step, and divide by a full turn. But samples alone can miss a turn made quickly between them. So bound how fast f can change on the loop, and take steps so small that the output cannot move as far as its distance from zero. Then no turn can hide between samples, and the count is certain."
+    },
+    {
+      "id": "oliver_12_1",
+      "line_ids": [
+        "12_1"
+      ],
+      "text": "Counting turns is one use of a bigger idea. Near a pole, a function looks like a few negative powers of z minus p, plus something holomorphic. Around a small loop, all of those terms integrate to zero, except one over z minus p. Its coefficient is called the residue."
+    },
+    {
+      "id": "oliver_12_2",
+      "line_ids": [
+        "12_2"
+      ],
+      "text": "So a loop integral is two pi i times the sum of the residues inside. That is the residue theorem. For a simple pole of g over h, where h is zero but its derivative is not, the residue is g over the derivative of h, both at the pole."
+    },
+    {
+      "id": "oliver_12_3",
+      "line_ids": [
+        "12_3"
+      ],
+      "text": "The turns we counted are residues too. Near a zero of order m, f prime over f has residue m. Near a pole of order n, its residue is minus n."
+    },
+    {
+      "id": "oliver_12_4",
+      "line_ids": [
+        "12_4"
+      ],
+      "text": "For the bump, the bottom is one plus z squared, and its derivative is two z. At i, that is two i. So the residue of the bump at i is one over two i."
+    },
+    {
+      "id": "oliver_13_1",
+      "line_ids": [
+        "13_1"
+      ],
+      "text": "Now a real question. What is the area under the bump, along the whole real line? You may know it from calculus. The antiderivative is the arctangent, and the area is pi. Here is a second way, with no antiderivative at all."
+    },
+    {
+      "id": "oliver_13_2",
+      "line_ids": [
+        "13_2"
+      ],
+      "text": "Walk along the real line from minus R to R, then come back along a big half circle above it. Inside this loop sits one pole, at i. So the loop integral is two pi i, times one over two i. That is exactly pi."
+    },
+    {
+      "id": "oliver_13_3",
+      "line_ids": [
+        "13_3"
+      ],
+      "text": "On the half circle, z squared has length R squared, so the bump is at most one over R squared minus one. The half circle has length pi R. So that part of the loop is at most pi R over R squared minus one, which shrinks to zero as R grows. All of pi comes from the real line."
+    },
+    {
+      "id": "oliver_13_4",
+      "line_ids": [
+        "13_4"
+      ],
+      "text": "Now a harder area. One over one plus x to the fourth. Its antiderivative exists, but it looks like this. Instead, use the same loop."
+    },
+    {
+      "id": "oliver_13_5",
+      "line_ids": [
+        "13_5"
+      ],
+      "text": "The bottom is zero at the four fourth roots of minus one. They sit on the unit circle at forty five, one hundred thirty five, two hundred twenty five and three hundred fifteen degrees. Which ones lie inside the half circle loop?"
+    },
+    {
+      "id": "oliver_13_6",
+      "line_ids": [
+        "13_6"
+      ],
+      "text": "The two above the real line. Call them p one and p two."
+    },
+    {
+      "id": "oliver_13_7",
+      "line_ids": [
+        "13_7"
+      ],
+      "text": "Each is a simple pole, so its residue is one over the derivative of the bottom, one over four p cubed. Because p to the fourth is minus one, one over p cubed is minus p. So each residue is minus p over four."
+    },
+    {
+      "id": "oliver_13_8",
+      "line_ids": [
+        "13_8"
+      ],
+      "text": "Add the two. The real parts of p one and p two cancel, and each has imaginary part the square root of two over two. So the residues add to minus i times the square root of two, over four."
+    },
+    {
+      "id": "oliver_13_9",
+      "line_ids": [
+        "13_9"
+      ],
+      "text": "Multiply by two pi i. The two i's make minus one, which cancels the minus sign, and the area is pi over the square root of two. About two point two two."
+    },
+    {
+      "id": "oliver_13_10",
+      "line_ids": [
+        "13_10"
+      ],
+      "text": "And the half circle? On it, the function is at most one over R to the fourth minus one, so that part is at most pi R over R to the fourth minus one. At R equals ten, that is already less than one three hundredth. A numerical sum along the real line agrees with pi over the square root of two."
+    },
+    {
+      "id": "oliver_13_11",
+      "line_ids": [
+        "13_11"
+      ],
+      "text": "One honest note. The real integral converges on its own, because the function falls off fast in both directions. That is what lets us find it as the limit of the stretch from minus R to R."
+    },
+    {
+      "id": "oliver_14_1",
+      "line_ids": [
+        "14_1"
+      ],
+      "text": "The bump's recipe stops at radius one. Is the bump itself stuck inside that circle? Of course not. We know it everywhere except at i and minus i. A function given by a series can often be extended beyond where its series works. This is called analytic continuation."
+    },
+    {
+      "id": "oliver_14_2",
+      "line_ids": [
+        "14_2"
+      ],
+      "text": "The clearest example is one, plus z, plus z squared, and so on. Inside the unit circle it adds up to one over one minus z. At one half, the sums settle on two. At one point two, they grow without limit. But one over one minus z makes perfect sense at one point two. It equals minus five."
+    },
+    {
+      "id": "oliver_14_3",
+      "line_ids": [
+        "14_3"
+      ],
+      "text": "Because holomorphic functions are rigid, a function has at most one holomorphic extension to a given connected region. Two extensions that agree on the small disk agree everywhere in that region. You can also build an extension step by step. Recentre the series at a point inside the disk, and its new disk pokes outside the old one. Chain disks along a path, and you can walk all the way around the pole at one. Each step along the path is forced. Here every path gives back one over one minus z, but that is not always so."
+    },
+    {
+      "id": "oliver_14_4",
+      "line_ids": [
+        "14_4"
+      ],
+      "text": "So what does one plus two plus four plus eight, and so on forever, add up to?"
+    },
+    {
+      "id": "oliver_14_5",
+      "line_ids": [
+        "14_5"
+      ],
+      "text": "It has no sum at all. The partial sums grow without limit. The continued function equals minus one at two, but that is a value of the function, not a sum of the series. Continuation extends the function. It never makes a divergent series converge. The same goes for the famous claim that one plus two plus three, and so on, equals minus one twelfth. Minus one twelfth is the value of the continued zeta function at minus one. The sum itself diverges."
+    },
+    {
+      "id": "oliver_14_6",
+      "line_ids": [
+        "14_6"
+      ],
+      "text": "A second limit. Continuation can depend on the path. Start with the square root near one, where it is one. Carry it continuously once around zero. When you come back, it has become minus one. The logarithm does the same, gaining two pi i each time around. That story has its own video."
+    },
+    {
+      "id": "oliver_14_7",
+      "line_ids": [
+        "14_7"
+      ],
+      "text": "A third limit. Sometimes there is no way across at all. This series adds z, z squared, z to the fourth, z to the eighth, and on, doubling the power each time. It converges inside the unit circle, but near a dense set of points on the edge it blows up. No continuation can cross the circle anywhere."
+    },
+    {
+      "id": "oliver_14_8",
+      "line_ids": [
+        "14_8"
+      ],
+      "text": "When a continuation does exist, a formula usually does the work. Gamma's integral only works to the right of the vertical line through zero. But gamma of z equals gamma of z plus one, divided by z. Use that to step left, one strip at a time, and each step adds a new pole, at zero, minus one, minus two, and on."
+    },
+    {
+      "id": "oliver_15_1",
+      "line_ids": [
+        "15_1"
+      ],
+      "text": "Back to the bump on the real line. Its recipe stopped at one because of two points we could not see from the line, at i and minus i."
+    },
+    {
+      "id": "oliver_15_2",
+      "line_ids": [
+        "15_2"
+      ],
+      "text": "Everything since came from one demand. The complex derivative must be the same from every direction. On an open region, away from critical points, that makes every small piece of the map a stretch and a turn. It lets boundary values decide the inside. It lets a loop count zeros and poles, and it turns a real integral into a sum of residues. It allows at most one extension to a given connected region, though there may be none, and along different paths a continuation can branch."
+    },
+    {
+      "id": "oliver_15_3",
+      "line_ids": [
+        "15_3"
+      ],
+      "text": "One question to take with you. Centre the bump's recipe at x equals three. How far will it reach?"
+    },
+    {
+      "id": "oliver_15_4",
+      "line_ids": [
+        "15_4"
+      ],
+      "text": "To the poles at i and minus i, which are the square root of ten away. About three point one six in each direction."
+    }
+  ]
+}

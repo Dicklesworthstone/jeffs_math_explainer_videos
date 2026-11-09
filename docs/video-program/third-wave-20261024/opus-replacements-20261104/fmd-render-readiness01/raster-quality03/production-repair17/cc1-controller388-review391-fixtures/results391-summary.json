@@ -1,0 +1,2283 @@
+{
+ "harness": {
+  "started": "2026-11-09T03:54:13.769303+00:00",
+  "real388": "5599e007e6b1debf37fe98a22ad1db322896e446a07d3f837fcddcd9e33fb59e",
+  "runner": "819746fb33110d6c133e184812c80a00562d848816f623078ad86f0fb1a316da",
+  "fake377": "c78885c5e619f88620b2a400fd5fd6c2c8f27e7ee2c6deec703f452a8e6cb13f",
+  "fakeguard": "32704bf9fd64ccdade72730d67590ebd1ada8d8f967aa85b585f1c8fec4fc7cb",
+  "run388": "f6a24b55b786fe8a35501a9f14b8ba9915f50bd436a4669cb8efc38e548227a6",
+  "python": "3.15.0",
+  "scenarios": {
+   "S01_happy": {
+    "exit": 0,
+    "result": "RESULT rc 0",
+    "runs": [
+     "check",
+     "launch-verify",
+     "launch-pictures",
+     "launch-pictures"
+    ],
+    "json_lines": [
+     [
+      "captions",
+      "chapters",
+      "check",
+      "cues",
+      "frames",
+      "free_gib_now",
+      "launch_verify_free_needed_gib",
+      "native_4k",
+      "picture_job_budget_gib",
+      "picture_jobs",
+      "picture_samples",
+      "plan_sha256",
+      "sheets"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "pillow",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "part",
+      "pillow",
+      "plan_sha256",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "overview_sampling_sha256",
+      "part",
+      "pillow",
+      "plan_sha256",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "controller",
+      "ledger",
+      "ledger_sha256",
+      "parts",
+      "plan_sha256",
+      "scope"
+     ]
+    ],
+    "ledger_line": true,
+    "hook": [],
+    "log_lines": 14,
+    "state": {
+     "verify_job": true,
+     "verify_inputs": true,
+     "overview_job": true,
+     "overview_inputs": true,
+     "native_job": true,
+     "native_inputs": true,
+     "ledger": true,
+     "jobs": {
+      "csd-final-pictures377-native": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:15.698183+00:00",
+       "finished_utc": "2026-11-09T03:54:15.796477+00:00",
+       "command_log_last": "3 native 4K frames await root's viewing; with the overview job, the plan's 19 samples and 3 natives are all extracted.",
+       "command_log_lines": 1
+      },
+      "csd-final-pictures377-overview": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:15.326978+00:00",
+       "finished_utc": "2026-11-09T03:54:15.409606+00:00",
+       "command_log_last": "19 pictures in 3 sheets await root's viewing; the native job is next. sampling.json sha256 65c1616a221774d090a5f99d3e9dc288da747ef4771b62d6dacbc40b79e47947",
+       "command_log_lines": 1
+      },
+      "csd-final-verify377": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:14.357708+00:00",
+       "finished_utc": "2026-11-09T03:54:14.477922+00:00",
+       "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+       "command_log_lines": 1
+      }
+     },
+     "ledger_keys": [
+      "controller",
+      "master_receipt_sha256",
+      "overview_job",
+      "overview_last_line",
+      "overview_receipt_sha256",
+      "overview_sampling_sha256",
+      "plan_sha256",
+      "sampling_json",
+      "verifier_sha256",
+      "verify_receipt_sha256",
+      "written_utc"
+     ],
+     "ledger_value_types": [
+      "str"
+     ],
+     "ledger_written_utc": "2026-11-09T03:54:15.492379+00:00",
+     "ledger_sha256": "0dc403b34cbaff261fb63e0b034c4f98e4aee45bbb86e42720832fde6f64a994",
+     "ledger_overview_sampling_sha256": "65c1616a221774d090a5f99d3e9dc288da747ef4771b62d6dacbc40b79e47947",
+     "ledger_equals_sampling_now": true,
+     "native_inputs_row_equals_ledger": true,
+     "native_union_equals_ledger": true
+    },
+    "tree_unchanged": false
+   },
+   "S02_rerun_after_happy": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S01_happy/jobs/csd-final-verify377",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "tree_unchanged": true
+   },
+   "S03_master_absent_timeout": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: master350 not finished; no 377 job launched",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": true
+   },
+   "S04_master_partial_then_success": {
+    "exit": 0,
+    "result": "RESULT rc 0",
+    "runs": [
+     "check",
+     "launch-verify",
+     "launch-pictures",
+     "launch-pictures"
+    ],
+    "json_lines": [
+     [
+      "captions",
+      "chapters",
+      "check",
+      "cues",
+      "frames",
+      "free_gib_now",
+      "launch_verify_free_needed_gib",
+      "native_4k",
+      "picture_job_budget_gib",
+      "picture_jobs",
+      "picture_samples",
+      "plan_sha256",
+      "sheets"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "pillow",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "part",
+      "pillow",
+      "plan_sha256",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "overview_sampling_sha256",
+      "part",
+      "pillow",
+      "plan_sha256",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "controller",
+      "ledger",
+      "ledger_sha256",
+      "parts",
+      "plan_sha256",
+      "scope"
+     ]
+    ],
+    "ledger_line": true,
+    "hook": [],
+    "log_lines": 14,
+    "state": {
+     "verify_job": true,
+     "verify_inputs": true,
+     "overview_job": true,
+     "overview_inputs": true,
+     "native_job": true,
+     "native_inputs": true,
+     "ledger": true,
+     "jobs": {
+      "csd-final-pictures377-native": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:20.228807+00:00",
+       "finished_utc": "2026-11-09T03:54:20.314920+00:00",
+       "command_log_last": "3 native 4K frames await root's viewing; with the overview job, the plan's 19 samples and 3 natives are all extracted.",
+       "command_log_lines": 1
+      },
+      "csd-final-pictures377-overview": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:20.012091+00:00",
+       "finished_utc": "2026-11-09T03:54:20.079372+00:00",
+       "command_log_last": "19 pictures in 3 sheets await root's viewing; the native job is next. sampling.json sha256 59c3cb0a4697bceb1d9429db8ddbf6f709be6c103c709c8700c80324fa547fb9",
+       "command_log_lines": 1
+      },
+      "csd-final-verify377": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:19.749127+00:00",
+       "finished_utc": "2026-11-09T03:54:19.833891+00:00",
+       "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+       "command_log_lines": 1
+      }
+     },
+     "ledger_keys": [
+      "controller",
+      "master_receipt_sha256",
+      "overview_job",
+      "overview_last_line",
+      "overview_receipt_sha256",
+      "overview_sampling_sha256",
+      "plan_sha256",
+      "sampling_json",
+      "verifier_sha256",
+      "verify_receipt_sha256",
+      "written_utc"
+     ],
+     "ledger_value_types": [
+      "str"
+     ],
+     "ledger_written_utc": "2026-11-09T03:54:20.096399+00:00",
+     "ledger_sha256": "0448c309be5beb68e312bbfa3d9025dea0dc318f4defa8822aec39088b891beb",
+     "ledger_overview_sampling_sha256": "59c3cb0a4697bceb1d9429db8ddbf6f709be6c103c709c8700c80324fa547fb9",
+     "ledger_equals_sampling_now": true,
+     "native_inputs_row_equals_ledger": true,
+     "native_union_equals_ledger": true
+    },
+    "tree_unchanged": false
+   },
+   "S05_master_exit1": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: T/runs/S05_master_exit1/jobs/csd-combined-master350/resource-receipt.json",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": true
+   },
+   "S06_master_refused_admission": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: T/runs/S06_master_refused_admission/jobs/csd-combined-master350/resource-receipt.json",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": true
+   },
+   "S07_master_resource_stop": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: T/runs/S07_master_resource_stop/jobs/csd-combined-master350/resource-receipt.json",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": true
+   },
+   "S08_master_receipt_rewritten_after_finished": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: master350 receipt changed after it finished; no 377 job launched",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": false
+   },
+   "S09_pin_377_changes_during_wait": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: changed: T/runs/S09_pin_377_changes_during_wait/qualification01/production-repair17/csd-final-verify377.py",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": false
+   },
+   "S09b_master_running_timeout": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: master350 not finished; no 377 job launched",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": true
+   },
+   "S10_preexisting_verify_job": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S10_preexisting_verify_job/jobs/csd-final-verify377",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": true,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {
+      "csd-final-verify377": {
+       "receipt": false
+      }
+     }
+    },
+    "tree_unchanged": true
+   },
+   "S10_preexisting_verify_inputs": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S10_preexisting_verify_inputs/qualification01/production-repair17/final-verify377-inputs.json",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": true,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": true
+   },
+   "S10_preexisting_overview_job": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S10_preexisting_overview_job/jobs/csd-final-pictures377-overview",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": true,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {
+      "csd-final-pictures377-overview": {
+       "receipt": false
+      }
+     }
+    },
+    "tree_unchanged": true
+   },
+   "S10_preexisting_overview_inputs": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S10_preexisting_overview_inputs/qualification01/production-repair17/final-pictures377-overview-inputs.json",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": true,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": true
+   },
+   "S10_preexisting_native_job": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S10_preexisting_native_job/jobs/csd-final-pictures377-native",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": true,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {
+      "csd-final-pictures377-native": {
+       "receipt": false
+      }
+     }
+    },
+    "tree_unchanged": true
+   },
+   "S10_preexisting_native_inputs": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S10_preexisting_native_inputs/qualification01/production-repair17/final-pictures377-native-inputs.json",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": true,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": true
+   },
+   "S10_preexisting_ledger": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S10_preexisting_ledger/qualification01/production-repair17/final-pictures377-overview-ledger388.json",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": true,
+     "jobs": {},
+     "ledger_keys": [],
+     "ledger_value_types": [],
+     "ledger_written_utc": null,
+     "ledger_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+     "ledger_overview_sampling_sha256": null,
+     "ledger_equals_sampling_now": false
+    },
+    "tree_unchanged": true
+   },
+   "S11_check_refuses": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: 377 check exited 1; nothing further launched",
+    "runs": [
+     "check"
+    ],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 15,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": true
+   },
+   "S12_verify_job_exit1": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: 377 launch-verify exited 1; nothing further launched",
+    "runs": [
+     "check",
+     "launch-verify"
+    ],
+    "json_lines": [
+     [
+      "captions",
+      "chapters",
+      "check",
+      "cues",
+      "frames",
+      "free_gib_now",
+      "launch_verify_free_needed_gib",
+      "native_4k",
+      "picture_job_budget_gib",
+      "picture_jobs",
+      "picture_samples",
+      "plan_sha256",
+      "sheets"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "pillow",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ]
+    ],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 24,
+    "state": {
+     "verify_job": true,
+     "verify_inputs": true,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {
+      "csd-final-verify377": {
+       "admitted": true,
+       "exit": 1,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:28.474635+00:00",
+       "finished_utc": "2026-11-09T03:54:29.149075+00:00",
+       "command_log_last": "stub: verify refuses",
+       "command_log_lines": 1
+      }
+     }
+    },
+    "tree_unchanged": false
+   },
+   "S13_verify_guard_refused_admission": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: 377 launch-verify exited 1; nothing further launched",
+    "runs": [
+     "check",
+     "launch-verify"
+    ],
+    "json_lines": [
+     [
+      "captions",
+      "chapters",
+      "check",
+      "cues",
+      "frames",
+      "free_gib_now",
+      "launch_verify_free_needed_gib",
+      "native_4k",
+      "picture_job_budget_gib",
+      "picture_jobs",
+      "picture_samples",
+      "plan_sha256",
+      "sheets"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "pillow",
+      "runtime"
+     ],
+     [
+      "admitted",
+      "launched",
+      "receipt"
+     ]
+    ],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 24,
+    "state": {
+     "verify_job": true,
+     "verify_inputs": true,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {
+      "csd-final-verify377": {
+       "admitted": false,
+       "exit": null,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:30.288404+00:00",
+       "finished_utc": "2026-11-09T03:54:30.289048+00:00"
+      }
+     }
+    },
+    "tree_unchanged": false
+   },
+   "S14_377_free_space_refusal": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: 377 launch-verify exited 1; nothing further launched",
+    "runs": [
+     "check",
+     "launch-verify"
+    ],
+    "json_lines": [
+     [
+      "captions",
+      "chapters",
+      "check",
+      "cues",
+      "frames",
+      "free_gib_now",
+      "launch_verify_free_needed_gib",
+      "native_4k",
+      "picture_job_budget_gib",
+      "picture_jobs",
+      "picture_samples",
+      "plan_sha256",
+      "sheets"
+     ]
+    ],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 14,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": true
+   },
+   "S14b_rerun_after_free_space_refusal": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: 377 launch-verify exited 1; nothing further launched",
+    "runs": [
+     "check",
+     "launch-verify"
+    ],
+    "json_lines": [
+     [
+      "captions",
+      "chapters",
+      "check",
+      "cues",
+      "frames",
+      "free_gib_now",
+      "launch_verify_free_needed_gib",
+      "native_4k",
+      "picture_job_budget_gib",
+      "picture_jobs",
+      "picture_samples",
+      "plan_sha256",
+      "sheets"
+     ]
+    ],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 14,
+    "tree_unchanged": true,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    }
+   },
+   "S15_overview_resource_stop": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: 377 launch-pictures exited 1; nothing further launched",
+    "runs": [
+     "check",
+     "launch-verify",
+     "launch-pictures"
+    ],
+    "json_lines": [
+     [
+      "captions",
+      "chapters",
+      "check",
+      "cues",
+      "frames",
+      "free_gib_now",
+      "launch_verify_free_needed_gib",
+      "native_4k",
+      "picture_job_budget_gib",
+      "picture_jobs",
+      "picture_samples",
+      "plan_sha256",
+      "sheets"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "pillow",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "part",
+      "pillow",
+      "plan_sha256",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ]
+    ],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 28,
+    "state": {
+     "verify_job": true,
+     "verify_inputs": true,
+     "overview_job": true,
+     "overview_inputs": true,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {
+      "csd-final-pictures377-overview": {
+       "admitted": true,
+       "exit": -15,
+       "finished": true,
+       "stopped": true,
+       "error": false,
+       "started": "2026-11-09T03:54:31.753539+00:00",
+       "finished_utc": "2026-11-09T03:54:31.760695+00:00",
+       "command_log_last": null,
+       "command_log_lines": 0
+      },
+      "csd-final-verify377": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:31.576361+00:00",
+       "finished_utc": "2026-11-09T03:54:31.634807+00:00",
+       "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+       "command_log_lines": 1
+      }
+     }
+    },
+    "tree_unchanged": false
+   },
+   "S16_overview_extra_last_line": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: the overview job did not print its sampling.json sha256 last",
+    "runs": [
+     "check",
+     "launch-verify",
+     "launch-pictures"
+    ],
+    "json_lines": [
+     [
+      "captions",
+      "chapters",
+      "check",
+      "cues",
+      "frames",
+      "free_gib_now",
+      "launch_verify_free_needed_gib",
+      "native_4k",
+      "picture_job_budget_gib",
+      "picture_jobs",
+      "picture_samples",
+      "plan_sha256",
+      "sheets"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "pillow",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "part",
+      "pillow",
+      "plan_sha256",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ]
+    ],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 9,
+    "state": {
+     "verify_job": true,
+     "verify_inputs": true,
+     "overview_job": true,
+     "overview_inputs": true,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {
+      "csd-final-pictures377-overview": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:32.429258+00:00",
+       "finished_utc": "2026-11-09T03:54:32.498326+00:00",
+       "command_log_last": "stub: one more line after the 377 line",
+       "command_log_lines": 2
+      },
+      "csd-final-verify377": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:32.242755+00:00",
+       "finished_utc": "2026-11-09T03:54:32.309979+00:00",
+       "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+       "command_log_lines": 1
+      }
+     }
+    },
+    "tree_unchanged": false
+   },
+   "S17_overview_sampling_changed_after_print": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: overview sampling.json is not the one its job printed",
+    "runs": [
+     "check",
+     "launch-verify",
+     "launch-pictures"
+    ],
+    "json_lines": [
+     [
+      "captions",
+      "chapters",
+      "check",
+      "cues",
+      "frames",
+      "free_gib_now",
+      "launch_verify_free_needed_gib",
+      "native_4k",
+      "picture_job_budget_gib",
+      "picture_jobs",
+      "picture_samples",
+      "plan_sha256",
+      "sheets"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "pillow",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "part",
+      "pillow",
+      "plan_sha256",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ]
+    ],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 9,
+    "state": {
+     "verify_job": true,
+     "verify_inputs": true,
+     "overview_job": true,
+     "overview_inputs": true,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {
+      "csd-final-pictures377-overview": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:33.145910+00:00",
+       "finished_utc": "2026-11-09T03:54:33.215699+00:00",
+       "command_log_last": "19 pictures in 3 sheets await root's viewing; the native job is next. sampling.json sha256 45a4dae1e98c4256239c307a5aa6d58ac6272b424e9480132b832dc625456c61",
+       "command_log_lines": 1
+      },
+      "csd-final-verify377": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:32.947586+00:00",
+       "finished_utc": "2026-11-09T03:54:33.022915+00:00",
+       "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+       "command_log_lines": 1
+      }
+     }
+    },
+    "tree_unchanged": false
+   },
+   "S18_sampling_changed_after_ledger": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: overview sampling.json or the ledger changed; no native job",
+    "runs": [
+     "check",
+     "launch-verify",
+     "launch-pictures"
+    ],
+    "json_lines": [
+     [
+      "captions",
+      "chapters",
+      "check",
+      "cues",
+      "frames",
+      "free_gib_now",
+      "launch_verify_free_needed_gib",
+      "native_4k",
+      "picture_job_budget_gib",
+      "picture_jobs",
+      "picture_samples",
+      "plan_sha256",
+      "sheets"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "pillow",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "part",
+      "pillow",
+      "plan_sha256",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ]
+    ],
+    "ledger_line": true,
+    "hook": [
+     "HOOK: appended a newline to the overview sampling.json"
+    ],
+    "log_lines": 11,
+    "state": {
+     "verify_job": true,
+     "verify_inputs": true,
+     "overview_job": true,
+     "overview_inputs": true,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": true,
+     "jobs": {
+      "csd-final-pictures377-overview": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:33.849160+00:00",
+       "finished_utc": "2026-11-09T03:54:33.927170+00:00",
+       "command_log_last": "19 pictures in 3 sheets await root's viewing; the native job is next. sampling.json sha256 0dbc110132e653650c75e404bc937795ef83e27a48e241b8a40497b9bbe941e3",
+       "command_log_lines": 1
+      },
+      "csd-final-verify377": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:33.642323+00:00",
+       "finished_utc": "2026-11-09T03:54:33.721630+00:00",
+       "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+       "command_log_lines": 1
+      }
+     },
+     "ledger_keys": [
+      "controller",
+      "master_receipt_sha256",
+      "overview_job",
+      "overview_last_line",
+      "overview_receipt_sha256",
+      "overview_sampling_sha256",
+      "plan_sha256",
+      "sampling_json",
+      "verifier_sha256",
+      "verify_receipt_sha256",
+      "written_utc"
+     ],
+     "ledger_value_types": [
+      "str"
+     ],
+     "ledger_written_utc": "2026-11-09T03:54:33.940805+00:00",
+     "ledger_sha256": "5cc70edd3fc8ab36b3a206d3583e4f62d3834c88efb26186771491064592df8c",
+     "ledger_overview_sampling_sha256": "0dbc110132e653650c75e404bc937795ef83e27a48e241b8a40497b9bbe941e3",
+     "ledger_equals_sampling_now": false
+    },
+    "tree_unchanged": false
+   },
+   "S19_native_job_exit1": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: 377 launch-pictures exited 1; nothing further launched",
+    "runs": [
+     "check",
+     "launch-verify",
+     "launch-pictures",
+     "launch-pictures"
+    ],
+    "json_lines": [
+     [
+      "captions",
+      "chapters",
+      "check",
+      "cues",
+      "frames",
+      "free_gib_now",
+      "launch_verify_free_needed_gib",
+      "native_4k",
+      "picture_job_budget_gib",
+      "picture_jobs",
+      "picture_samples",
+      "plan_sha256",
+      "sheets"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "pillow",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "part",
+      "pillow",
+      "plan_sha256",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "overview_sampling_sha256",
+      "part",
+      "pillow",
+      "plan_sha256",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ]
+    ],
+    "ledger_line": true,
+    "hook": [],
+    "log_lines": 32,
+    "state": {
+     "verify_job": true,
+     "verify_inputs": true,
+     "overview_job": true,
+     "overview_inputs": true,
+     "native_job": true,
+     "native_inputs": true,
+     "ledger": true,
+     "jobs": {
+      "csd-final-pictures377-native": {
+       "admitted": true,
+       "exit": 1,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:35.445341+00:00",
+       "finished_utc": "2026-11-09T03:54:35.538295+00:00",
+       "command_log_last": "stub: native refuses",
+       "command_log_lines": 1
+      },
+      "csd-final-pictures377-overview": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:34.603640+00:00",
+       "finished_utc": "2026-11-09T03:54:34.683064+00:00",
+       "command_log_last": "19 pictures in 3 sheets await root's viewing; the native job is next. sampling.json sha256 854031a63147555abab861ad7287397045e7c2bdced0b1abb0b08c90b481a2e5",
+       "command_log_lines": 1
+      },
+      "csd-final-verify377": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:34.421310+00:00",
+       "finished_utc": "2026-11-09T03:54:34.475249+00:00",
+       "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+       "command_log_lines": 1
+      }
+     },
+     "ledger_keys": [
+      "controller",
+      "master_receipt_sha256",
+      "overview_job",
+      "overview_last_line",
+      "overview_receipt_sha256",
+      "overview_sampling_sha256",
+      "plan_sha256",
+      "sampling_json",
+      "verifier_sha256",
+      "verify_receipt_sha256",
+      "written_utc"
+     ],
+     "ledger_value_types": [
+      "str"
+     ],
+     "ledger_written_utc": "2026-11-09T03:54:34.696620+00:00",
+     "ledger_sha256": "9096492273fbf301052a2b6f8c2ff5e223b41c11da24e1140bc27910e77426e6",
+     "ledger_overview_sampling_sha256": "854031a63147555abab861ad7287397045e7c2bdced0b1abb0b08c90b481a2e5",
+     "ledger_equals_sampling_now": true,
+     "native_inputs_row_equals_ledger": true,
+     "native_union_equals_ledger": true
+    },
+    "tree_unchanged": false
+   },
+   "S20_two_controllers": {
+    "A": {
+     "exit": 0,
+     "result": "RESULT rc 0",
+     "runs": [
+      "check",
+      "launch-verify",
+      "launch-pictures",
+      "launch-pictures"
+     ],
+     "json_lines": [
+      [
+       "captions",
+       "chapters",
+       "check",
+       "cues",
+       "frames",
+       "free_gib_now",
+       "launch_verify_free_needed_gib",
+       "native_4k",
+       "picture_job_budget_gib",
+       "picture_jobs",
+       "picture_samples",
+       "plan_sha256",
+       "sheets"
+      ],
+      [
+       "files",
+       "free_bytes",
+       "free_needed_bytes",
+       "inputs",
+       "inputs_sha256",
+       "job",
+       "master_helper_sha256",
+       "master_inputs_sha256",
+       "pillow",
+       "runtime"
+      ],
+      [
+       "exit",
+       "receipt",
+       "resource_stop"
+      ],
+      [
+       "files",
+       "free_bytes",
+       "free_needed_bytes",
+       "inputs",
+       "inputs_sha256",
+       "job",
+       "master_helper_sha256",
+       "master_inputs_sha256",
+       "part",
+       "pillow",
+       "plan_sha256",
+       "runtime"
+      ],
+      [
+       "exit",
+       "receipt",
+       "resource_stop"
+      ],
+      [
+       "files",
+       "free_bytes",
+       "free_needed_bytes",
+       "inputs",
+       "inputs_sha256",
+       "job",
+       "master_helper_sha256",
+       "master_inputs_sha256",
+       "overview_sampling_sha256",
+       "part",
+       "pillow",
+       "plan_sha256",
+       "runtime"
+      ],
+      [
+       "exit",
+       "receipt",
+       "resource_stop"
+      ],
+      [
+       "controller",
+       "ledger",
+       "ledger_sha256",
+       "parts",
+       "plan_sha256",
+       "scope"
+      ]
+     ],
+     "ledger_line": true,
+     "hook": [],
+     "log_lines": 14
+    },
+    "B": {
+     "exit": 4,
+     "result": "RESULT exc AssertionError: 377 launch-verify exited 1; nothing further launched",
+     "runs": [
+      "check",
+      "launch-verify"
+     ],
+     "json_lines": [
+      [
+       "captions",
+       "chapters",
+       "check",
+       "cues",
+       "frames",
+       "free_gib_now",
+       "launch_verify_free_needed_gib",
+       "native_4k",
+       "picture_job_budget_gib",
+       "picture_jobs",
+       "picture_samples",
+       "plan_sha256",
+       "sheets"
+      ]
+     ],
+     "ledger_line": false,
+     "hook": [],
+     "log_lines": 14
+    },
+    "state": {
+     "verify_job": true,
+     "verify_inputs": true,
+     "overview_job": true,
+     "overview_inputs": true,
+     "native_job": true,
+     "native_inputs": true,
+     "ledger": true,
+     "jobs": {
+      "csd-final-pictures377-native": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:38.044628+00:00",
+       "finished_utc": "2026-11-09T03:54:38.112796+00:00",
+       "command_log_last": "3 native 4K frames await root's viewing; with the overview job, the plan's 19 samples and 3 natives are all extracted.",
+       "command_log_lines": 1
+      },
+      "csd-final-pictures377-overview": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:37.715316+00:00",
+       "finished_utc": "2026-11-09T03:54:37.862216+00:00",
+       "command_log_last": "19 pictures in 3 sheets await root's viewing; the native job is next. sampling.json sha256 31dce2b5969aa12dc15b19085463db4321f366ba22efb616c750e9608c3b3d48",
+       "command_log_lines": 1
+      },
+      "csd-final-verify377": {
+       "admitted": true,
+       "exit": 0,
+       "finished": true,
+       "stopped": false,
+       "error": false,
+       "started": "2026-11-09T03:54:36.735170+00:00",
+       "finished_utc": "2026-11-09T03:54:36.829512+00:00",
+       "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+       "command_log_lines": 1
+      }
+     },
+     "ledger_keys": [
+      "controller",
+      "master_receipt_sha256",
+      "overview_job",
+      "overview_last_line",
+      "overview_receipt_sha256",
+      "overview_sampling_sha256",
+      "plan_sha256",
+      "sampling_json",
+      "verifier_sha256",
+      "verify_receipt_sha256",
+      "written_utc"
+     ],
+     "ledger_value_types": [
+      "str"
+     ],
+     "ledger_written_utc": "2026-11-09T03:54:37.900792+00:00",
+     "ledger_sha256": "f8863398195d392a1129c4496ec2c7ff30372ffda9c43c8710fae26fc01a8314",
+     "ledger_overview_sampling_sha256": "31dce2b5969aa12dc15b19085463db4321f366ba22efb616c750e9608c3b3d48",
+     "ledger_equals_sampling_now": true,
+     "native_inputs_row_equals_ledger": true,
+     "native_union_equals_ledger": true
+    }
+   },
+   "S21_wait_hours_49": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: ",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": true
+   },
+   "S21_wait_hours_minus1": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: ",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": true
+   },
+   "S21_wait_hours_nan": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: ",
+    "runs": [],
+    "json_lines": [],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 1,
+    "state": {
+     "verify_job": false,
+     "verify_inputs": false,
+     "overview_job": false,
+     "overview_inputs": false,
+     "native_job": false,
+     "native_inputs": false,
+     "ledger": false,
+     "jobs": {}
+    },
+    "tree_unchanged": true
+   }
+  },
+  "finished": "2026-11-09T03:54:39.026460+00:00"
+ },
+ "static": {
+  "388_toplevel": {
+   "kinds": [
+    "Assign",
+    "Expr",
+    "FunctionDef",
+    "If",
+    "Import",
+    "ImportFrom"
+   ],
+   "calls": [
+    "Path",
+    "re.compile"
+   ]
+  },
+  "377_toplevel": {
+   "kinds": [
+    "Assign",
+    "Expr",
+    "FunctionDef",
+    "If",
+    "Import",
+    "ImportFrom"
+   ],
+   "calls": [
+    "Path",
+    "dict",
+    "range"
+   ]
+  },
+  "shared_toplevel": {
+   "kinds": [
+    "Assign",
+    "ClassDef",
+    "Expr",
+    "FunctionDef",
+    "If",
+    "Import",
+    "ImportFrom"
+   ],
+   "calls": [
+    "Path",
+    "Path(__file__).resolve"
+   ]
+  },
+  "388_write_capable_calls": [
+   {
+    "line": 99,
+    "call": "subprocess.Popen(argv, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)"
+   },
+   {
+    "line": 47,
+    "call": "Path(path).open('rb')"
+   },
+   {
+    "line": 153,
+    "call": "LEDGER.open('x')"
+   }
+  ],
+  "388_subprocess": [
+   {
+    "line": 99,
+    "call": "subprocess.Popen(argv, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)"
+   }
+  ],
+  "388_step_modes": [
+   "step(path, v, pins, 'launch-verify')",
+   "step(path, v, pins, 'launch-pictures')",
+   "step(path, v, pins, 'launch-pictures')",
+   "step(path, v, pins, 'check')"
+  ],
+  "v_names_used": [
+   "D",
+   "GUARD",
+   "MASTER",
+   "MASTER_INPUTS",
+   "PICTURE_PARTS",
+   "PYTHON",
+   "Q",
+   "TOTAL_FRAMES",
+   "VERIFY",
+   "VERIFY_INPUTS",
+   "VERSION",
+   "part_done",
+   "part_paths",
+   "read",
+   "success"
+  ],
+  "v_names_missing": [],
+  "last_line_regex": {
+   "rendered": true,
+   "zero_sheets": true,
+   "upper_hex": false,
+   "short_hash": false,
+   "trailing_space": false,
+   "native_line": false
+  },
+  "377_printed_dict_keys": {
+   "launch": [
+    "**note",
+    "files",
+    "free_bytes",
+    "free_needed_bytes",
+    "inputs",
+    "inputs_sha256",
+    "job",
+    "master_helper_sha256",
+    "master_inputs_sha256",
+    "pillow",
+    "runtime"
+   ],
+   "main": [
+    "captions",
+    "chapters",
+    "check",
+    "cues",
+    "frames",
+    "free_gib_now",
+    "launch_verify_free_needed_gib",
+    "native_4k",
+    "picture_job_budget_gib",
+    "picture_jobs",
+    "picture_samples",
+    "plan_sha256",
+    "sheets"
+   ]
+  },
+  "377_launch_calls": [
+   "launch(job, inputs, 'pictures', files, ADMISSION_BYTES + upper[part], ('--part', part), part=part, plan_sha256=digest, **anchors)",
+   "launch(VERIFY, VERIFY_INPUTS, 'verify', f['files'], VERIFY_FREE_BYTES)"
+  ]
+ },
+ "csd_read_only": {
+  "q": {
+   "csd-final-verify377.py": {
+    "exists": true,
+    "is_symlink": false,
+    "sha256": "827be351861d0fd4ebc083aa24d594111b059dd9f78c7ca43072b0b6f12f22fe",
+    "bytes": 89985
+   },
+   "csd-final-controller388.py": {
+    "exists": false,
+    "is_symlink": false,
+    "sha256": null,
+    "bytes": null
+   },
+   "cc2-final-verify377-notes.md": {
+    "exists": true,
+    "is_symlink": false,
+    "sha256": "d176024bacf77fc3e853b99f928e5c8b564fad5e24c63218145ca770ae6c78d7",
+    "bytes": 11503
+   },
+   "cc2-final-controller388-notes.md": {
+    "exists": false,
+    "is_symlink": false,
+    "sha256": null,
+    "bytes": null
+   },
+   "final-verify377-inputs.json": {
+    "exists": false,
+    "is_symlink": false,
+    "sha256": null,
+    "bytes": null
+   },
+   "final-pictures377-overview-inputs.json": {
+    "exists": false,
+    "is_symlink": false,
+    "sha256": null,
+    "bytes": null
+   },
+   "final-pictures377-native-inputs.json": {
+    "exists": false,
+    "is_symlink": false,
+    "sha256": null,
+    "bytes": null
+   },
+   "final-pictures377-overview-ledger388.json": {
+    "exists": false,
+    "is_symlink": false,
+    "sha256": null,
+    "bytes": null
+   },
+   "csd-final-controller388.log": {
+    "exists": false,
+    "is_symlink": false,
+    "sha256": null,
+    "bytes": null
+   },
+   "combined-master350-inputs.json": {
+    "exists": false,
+    "is_symlink": false,
+    "sha256": null,
+    "bytes": null
+   },
+   "cc0-combined-master350.py": {
+    "exists": true,
+    "is_symlink": false,
+    "sha256": "60575944736159139b05733c299b984ab6627ada3d88a5aff65ecde1bbde28d6",
+    "bytes": 84429
+   }
+  },
+  "guard": {
+   "guard_csd02.py": {
+    "exists": true,
+    "sha256": "f1cae1dbc80075311b0e1a2abf8637439d2d8d0edbc643e771e2eefe2b3bdfb6",
+    "realpath_differs": false
+   },
+   "guard_owner56g_target20g.py": {
+    "exists": true,
+    "sha256": "1c19a9b8f817c3bca06e18fd0785ac21c3cb935be715d67ecc41e4e39d1f5097",
+    "realpath_differs": false
+   },
+   "run_bounded_phase_oliver_owner48g_target14g_20261102.py": {
+    "exists": true,
+    "sha256": "819746fb33110d6c133e184812c80a00562d848816f623078ad86f0fb1a316da",
+    "realpath_differs": false
+   },
+   "owned-process-stop02.py": {
+    "exists": true,
+    "sha256": "a2fe7985bf76a1982e8d08b3dfb23354d2f60b322b95ed82ca83fc5e39a09236",
+    "realpath_differs": false
+   }
+  },
+  "job_count": 99,
+  "master_and_377_jobs": {},
+  "master_exists": false,
+  "not_finished": [
+   "csd-reviewed-final-09-boundary344"
+  ],
+  "no_receipt": [
+   "allocation-baseline.json",
+   "fmd-raster-rebind12"
+  ],
+  "free_gib": 97.58,
+  "recent_jobs": [
+   {
+    "job": "csd-review-repair-build262",
+    "keys": [
+     "started",
+     "phase",
+     "command",
+     "preflight_only",
+     "samples",
+     "sbh",
+     "admission",
+     "policy",
+     "admitted",
+     "inputs_sha256",
+     "pid",
+     "exit",
+     "final_inputs_sha256",
+     "finished"
+    ],
+    "admitted": true,
+    "exit": 1,
+    "finished": true,
+    "last_is_json": false,
+    "guard_line_in_log": false,
+    "log_bytes": 665
+   },
+   {
+    "job": "csd-review-repair-build268",
+    "keys": [
+     "started",
+     "phase",
+     "command",
+     "preflight_only",
+     "samples",
+     "sbh",
+     "admission",
+     "policy",
+     "admitted",
+     "inputs_sha256",
+     "pid",
+     "exit",
+     "final_inputs_sha256",
+     "finished"
+    ],
+    "admitted": true,
+    "exit": 0,
+    "finished": true,
+    "last_is_json": false,
+    "guard_line_in_log": false,
+    "log_bytes": 137
+   },
+   {
+    "job": "csd-review-repair-rebind269",
+    "keys": [
+     "started",
+     "phase",
+     "command",
+     "preflight_only",
+     "samples",
+     "sbh",
+     "admission",
+     "policy",
+     "admitted",
+     "inputs_sha256",
+     "pid",
+     "exit",
+     "final_inputs_sha256",
+     "finished"
+    ],
+    "admitted": true,
+    "exit": 0,
+    "finished": true,
+    "last_is_json": false,
+    "guard_line_in_log": false,
+    "log_bytes": 101
+   },
+   {
+    "job": "csd-review-repair-timeline269",
+    "keys": [
+     "started",
+     "phase",
+     "command",
+     "preflight_only",
+     "samples",
+     "sbh",
+     "admission",
+     "policy",
+     "admitted",
+     "inputs_sha256",
+     "pid",
+     "exit",
+     "final_inputs_sha256",
+     "finished"
+    ],
+    "admitted": true,
+    "exit": 0,
+    "finished": true,
+    "last_is_json": false,
+    "guard_line_in_log": false,
+    "log_bytes": 0
+   },
+   {
+    "job": "csd-review-repair-preview274",
+    "keys": [
+     "started",
+     "phase",
+     "command",
+     "preflight_only",
+     "samples",
+     "sbh",
+     "admission",
+     "policy",
+     "admitted",
+     "inputs_sha256",
+     "pid",
+     "exit",
+     "final_inputs_sha256",
+     "finished"
+    ],
+    "admitted": true,
+    "exit": 0,
+    "finished": true,
+    "last_is_json": false,
+    "guard_line_in_log": false,
+    "log_bytes": 0
+   },
+   {
+    "job": "csd-review-repair-build313",
+    "keys": [
+     "started",
+     "phase",
+     "command",
+     "preflight_only",
+     "samples",
+     "sbh",
+     "admission",
+     "policy",
+     "admitted",
+     "inputs_sha256",
+     "pid",
+     "exit",
+     "final_inputs_sha256",
+     "finished"
+    ],
+    "admitted": true,
+    "exit": 0,
+    "finished": true,
+    "last_is_json": false,
+    "guard_line_in_log": false,
+    "log_bytes": 146
+   },
+   {
+    "job": "csd-retained-import311-trj-a1",
+    "keys": [
+     "started",
+     "phase",
+     "command",
+     "preflight_only",
+     "samples",
+     "sbh",
+     "admission",
+     "policy",
+     "admitted",
+     "inputs_sha256",
+     "pid",
+     "exit",
+     "final_inputs_sha256",
+     "finished"
+    ],
+    "admitted": true,
+    "exit": 0,
+    "finished": true,
+    "last_is_json": false,
+    "guard_line_in_log": false,
+    "log_bytes": 81
+   },
+   {
+    "job": "csd-retained-import311-css-a1",
+    "keys": [
+     "started",
+     "phase",
+     "command",
+     "preflight_only",
+     "samples",
+     "sbh",
+     "admission",
+     "policy",
+     "admitted",
+     "inputs_sha256",
+     "pid",
+     "exit",
+     "final_inputs_sha256",
+     "finished"
+    ],
+    "admitted": true,
+    "exit": 0,
+    "finished": true,
+    "last_is_json": false,
+    "guard_line_in_log": false,
+    "log_bytes": 80
+   },
+   {
+    "job": "csd-retained-import311-hz2-a1",
+    "keys": [
+     "started",
+     "phase",
+     "command",
+     "preflight_only",
+     "samples",
+     "sbh",
+     "admission",
+     "policy",
+     "admitted",
+     "inputs_sha256",
+     "pid",
+     "exit",
+     "final_inputs_sha256",
+     "finished"
+    ],
+    "admitted": true,
+    "exit": 0,
+    "finished": true,
+    "last_is_json": false,
+    "guard_line_in_log": false,
+    "log_bytes": 80
+   },
+   {
+    "job": "csd-review-repair-rebind313",
+    "keys": [
+     "started",
+     "phase",
+     "command",
+     "preflight_only",
+     "samples",
+     "sbh",
+     "admission",
+     "policy",
+     "admitted",
+     "inputs_sha256",
+     "pid",
+     "exit",
+     "final_inputs_sha256",
+     "finished"
+    ],
+    "admitted": true,
+    "exit": 0,
+    "finished": true,
+    "last_is_json": false,
+    "guard_line_in_log": false,
+    "log_bytes": 119
+   },
+   {
+    "job": "csd-review-repair-timeline313",
+    "keys": [
+     "started",
+     "phase",
+     "command",
+     "preflight_only",
+     "samples",
+     "sbh",
+     "admission",
+     "policy",
+     "admitted",
+     "inputs_sha256",
+     "pid",
+     "exit",
+     "final_inputs_sha256",
+     "finished"
+    ],
+    "admitted": true,
+    "exit": 0,
+    "finished": true,
+    "last_is_json": false,
+    "guard_line_in_log": false,
+    "log_bytes": 99
+   },
+   {
+    "job": "csd-review-repair-preview313",
+    "keys": [
+     "started",
+     "phase",
+     "command",
+     "preflight_only",
+     "samples",
+     "sbh",
+     "admission",
+     "policy",
+     "admitted",
+     "inputs_sha256",
+     "pid",
+     "exit",
+     "final_inputs_sha256",
+     "finished"
+    ],
+    "admitted": true,
+    "exit": 0,
+    "finished": true,
+    "last_is_json": false,
+    "guard_line_in_log": false,
+    "log_bytes": 0
+   },
+   {
+    "job": "csd-caption-preflight327",
+    "keys": [
+     "started",
+     "phase",
+     "command",
+     "preflight_only",
+     "samples",
+     "sbh",
+     "admission",
+     "policy",
+     "admitted",
+     "inputs_sha256",
+     "pid",
+     "exit",
+     "final_inputs_sha256",
+     "finished"
+    ],
+    "admitted": true,
+    "exit": 0,
+    "finished": true,
+    "last_is_json": false,
+    "guard_line_in_log": false,
+    "log_bytes": 419
+   },
+   {
+    "job": "csd-reviewed-final-09-boundary344",
+    "keys": [
+     "started",
+     "phase",
+     "command",
+     "preflight_only",
+     "samples",
+     "sbh",
+     "admission",
+     "policy",
+     "admitted",
+     "inputs_sha256",
+     "pid"
+    ],
+    "admitted": true,
+    "exit": null,
+    "finished": false,
+    "last_is_json": false,
+    "guard_line_in_log": false,
+    "log_bytes": 0
+   }
+  ]
+ }
+}

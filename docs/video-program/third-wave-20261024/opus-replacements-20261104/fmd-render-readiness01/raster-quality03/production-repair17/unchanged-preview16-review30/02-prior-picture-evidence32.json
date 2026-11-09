@@ -1,0 +1,84 @@
+{
+  "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/native-stage08-root01/complex-full-preview16-review-progress01.json",
+  "source_sha256": "54670338fb1e3b0386d3efcc29e317867ca852f1df90a611a8b68e9c8292d422",
+  "chapter": {
+    "sheets": 15,
+    "pictures": 86,
+    "observations": [
+      "All 15 sheets / 86 selected pictures actually viewed.",
+      "Coordinate projections, tip-to-tail addition and clockwise-as-screen versus mathematical counterclockwise rotation inspected: multiplying by i turns the F counterclockwise through 90 degrees.",
+      "Two quarter-turns give -1; multiplication by 1+i visibly turns and enlarges the grid; repeated multiplication resolves to 2i with total turn 90 degrees and total stretch 2.",
+      "Question remains unanswered at selected 60.05 through 68.05 second frames; answer appears after the hold.",
+      "No concrete settled label collision found on selected frames; persistent 1+i arrow and 45-degree legend are distinct from later 2i total."
+    ],
+    "followups": [
+      "Verify continuous rotation and counter synchronization; stills do not establish motion quality.",
+      "Check final caption placement over low modulus/argument definitions at 45.48-52.03 seconds and final lengths-multiply/angles-add line.",
+      "Final 4K text contrast/detail and full narration listening remain open."
+    ]
+  },
+  "reviewed_sheets": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-000.png",
+      "sha256": "4ebc179ca52f62b3645a2f8b39a2dbe88b131d2a440cb1992d5b6478a605f526"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-001.png",
+      "sha256": "f9e05f4b08ea028b4a261cca79700e6304b4c2521d5a5f3b652e70384128720e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-002.png",
+      "sha256": "1d3dc957d7d4865655b225312e89bef6423bc24ee165e4ebaea30855aa4aa3be"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-003.png",
+      "sha256": "6f6b8ed2dbe7a892257b8bcf9a5e65aca5939cd2c2fac3576d7387d7288509cc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-004.png",
+      "sha256": "f43438729605bec1a87b0c72781a4cf43cdd71d8767053e12529640ea8dfc359"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-005.png",
+      "sha256": "38a8c8f5584e64b1b10599650b371647e6a1e77f314ba2502f967829780e3d4e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-006.png",
+      "sha256": "3a0f466ebb9e5bc67706f787fe6d3171aecfb3f1327d2c4783553ac8fdb6298a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-007.png",
+      "sha256": "d15abb04098d91495def6fb9d3cc8b7ed9300e473652e20b1fe8935a741b6c57"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-008.png",
+      "sha256": "032defcb321335e63871ddc524768d144e0006679dcb91fe491abba0c08d3248"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-009.png",
+      "sha256": "cea649bfd2b0933f58b9131d69fd03c018e99f32f38d1c2363efa0df9240147c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-010.png",
+      "sha256": "fe8b3350b8f47ce5e739647f9a761993b9271e1bf79150322d8d9612f9605f63"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-011.png",
+      "sha256": "dd478fc4a45d749a7813d52926a7d07440087a603e17735756be9d764b3fca48"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-012.png",
+      "sha256": "27697fa065ecc27c72bad35932276949ee00a3f99e891be62f1caf353d074da9"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-013.png",
+      "sha256": "c2a6c804b83f17ed01021a43ed926cbad87ec70a11efc8117bc985ceaa8c0231"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/02_turning_numbers/sheet-014.png",
+      "sha256": "0e2ed13a79389c222cfb53ef4a13c8bb1206bab0d9971e0a251ee295f0bc5ba1"
+    }
+  ],
+  "all15_current_hashes_match": true,
+  "scope": "Prior actual selected-picture review evidence rechecked; not new viewing in this step."
+}

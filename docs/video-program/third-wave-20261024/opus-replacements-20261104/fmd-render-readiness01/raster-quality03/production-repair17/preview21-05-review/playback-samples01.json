@@ -1,0 +1,17 @@
+{
+  "utc": "2026-11-07T19:33:12.292837+00:00",
+  "movie_sha256": "d89b253dd032e31c03ee8314afdca2cce4ad0f3cd7c816bc1d685e52160f3e3d",
+  "reviewer": "root",
+  "muted": true,
+  "sampled_playback_seconds": [
+    [
+      0,
+      21.25
+    ],
+    [
+      90.43,
+      152.4
+    ]
+  ],
+  "observations": "All201 selected pictures on26 sheets reviewed previously. Actual muted QuickTime playback sampled0-21.25s and90.43-152.40s: polynomial input trace and output winding evolve to3; gamma half-plane shading lifts and poles appear; zeta half-plane boundary, pole and trivial zeros appear, critical-strip inset and four marked numerical zeros build, Riemann hypothesis explicitly remains open, six-function recap follows. Smooth filtered fields; no persistent concrete clipping or overlap in sampled observations. Sparse screenshots during playback, not continuous frame-by-frame review, listening, fine-sync or independent AV acceptance."
+}

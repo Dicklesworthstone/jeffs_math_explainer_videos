@@ -1,0 +1,15 @@
+{
+  "time": "2026-11-08T04:17:59.049032+00:00",
+  "independent_review": "cc0-final03-picture-review212.md",
+  "review_sha256": "139887685971b2688fffbfadd2ca127c449bf3012cb2da8bf2fba14b100dcb17",
+  "root_images_viewed": [
+    40,
+    145
+  ],
+  "disposition": {
+    "F1": "Accepted separate rounded approximations during motion. 1.00 and1.99 is visible before settled1.00/2.00; underlying twice-angle geometry correct. Do not double already-rounded input as that would reduce true output accuracy. No rerender for this low issue.",
+    "F2": "Accepted heavier but legible not-equal glyph.",
+    "F3": "Accepted translucent panel fade; numerical text remains readable in viewed112s frame."
+  },
+  "scope": "Selected stills and independent review only. Continuous listening, motion/fine-sync, final joined AV and platform checks remain open."
+}

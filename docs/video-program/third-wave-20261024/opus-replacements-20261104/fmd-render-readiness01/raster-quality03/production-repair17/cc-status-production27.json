@@ -1,0 +1,25 @@
+{
+  "utc": "2026-11-07T19:26:07.296893+00:00",
+  "panes": [
+    {
+      "pane": "%0",
+      "weekly_limit": true,
+      "reset_line": "\u23bf \u00a0You've hit your weekly limit \u00b7 resets Nov 13 at 3pm (America/New_York)"
+    },
+    {
+      "pane": "%1",
+      "weekly_limit": true,
+      "reset_line": "\u23bf \u00a0You've hit your weekly limit \u00b7 resets Nov 13 at 3pm (America/New_York)"
+    },
+    {
+      "pane": "%2",
+      "weekly_limit": true,
+      "reset_line": "\u23bf \u00a0You've hit your weekly limit \u00b7 resets Nov 13 at 3pm (America/New_York)"
+    },
+    {
+      "pane": "%3",
+      "weekly_limit": true,
+      "reset_line": "\u23bf \u00a0You've hit your weekly limit \u00b7 resets Nov 13 at 3pm (America/New_York)"
+    }
+  ]
+}

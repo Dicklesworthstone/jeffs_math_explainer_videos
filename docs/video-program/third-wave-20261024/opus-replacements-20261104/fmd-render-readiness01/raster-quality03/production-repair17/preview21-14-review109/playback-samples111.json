@@ -1,0 +1,18 @@
+{
+  "utc": "2026-11-07T23:14:10.300302+00:00",
+  "movie_sha256": "9b5e5f12414c805f74dfdc78c24b985b25b7224ede5dc5a4fbedf81fcb61648a",
+  "muted": true,
+  "observed_seconds": [
+    0,
+    9.432,
+    63.025,
+    67.312,
+    136.339,
+    139.34,
+    185.644,
+    189.074,
+    189.503
+  ],
+  "observations": "Sparse advancing QuickTime playback: expanding opening field, moving recentering disks, square-root half turn, and Gamma domain extension. No concrete motion defect found in samples. Paused at189.503s with volume0.",
+  "limitations": "Not continuous playback or listening; no fine-sync or independent AV acceptance."
+}

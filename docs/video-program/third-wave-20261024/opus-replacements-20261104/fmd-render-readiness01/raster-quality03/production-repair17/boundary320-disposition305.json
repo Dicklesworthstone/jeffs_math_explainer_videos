@@ -1,0 +1,16 @@
+{
+  "utc": "2026-11-08T19:19:34.773328+00:00",
+  "review": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cc3-boundary-final-review320.md",
+  "review_sha256": "e0661a6e005685ea580ac58259e146c0e701988a9e160247cff121573446bd53",
+  "root_read_complete": true,
+  "high": 0,
+  "medium": 0,
+  "low_disposition": "L1: enforced probe exit window is2086-2100 inclusive;2087-2099 is historical by-eye estimate, not enforced bound. Preserve frozen notes; use actual measured exit and full brackets in review.",
+  "runtime_permission": false,
+  "remaining": [
+    "Read preview313 flags and not_localized and view every output sheet",
+    "Actual repaired-picture and motion review; independent review must cover pixels, not only helper code",
+    "No317 permit before successful stable313 prerequisites",
+    "318 mixed consumer independent review and actual replay before master acceptance"
+  ]
+}

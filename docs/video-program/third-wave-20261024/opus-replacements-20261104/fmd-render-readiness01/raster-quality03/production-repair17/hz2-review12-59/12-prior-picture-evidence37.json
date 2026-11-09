@@ -1,0 +1,135 @@
+{
+  "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/native-stage08-root01/complex-full-preview16-review-progress01.json",
+  "source_sha256": "54670338fb1e3b0386d3efcc29e317867ca852f1df90a611a8b68e9c8292d422",
+  "chapter": {
+    "status": "selected_picture_review_complete",
+    "sheets": 10,
+    "pictures": 58,
+    "sheet_indices_viewed": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "sample_indices_viewed": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57
+    ],
+    "observations": [
+      "All58 selected pictures on10 sheets actually viewed. Laurent example separates double-pole, simple-pole and holomorphic contributions; head-to-tail arrows show zero,2pi i,zero with residue a_-1 highlighted.",
+      "Outer loop and three smaller pole loops illustrate residue theorem using Cauchy between them. Simple denominator zero formula explicitly shows h(p)=0 and hprime(p)nonzero.",
+      "Logarithmic derivative examples f=z,z^2,1/z display residues1,2,-1, connecting prior winding chapter.",
+      "Final 1/(1+z^2) example marks poles +/-i, hprime(i)=2i and residue1/(2i)=-0.5i. Native label-anchor and persistence samples53-65.2s show readable i/-i; no concrete persistent label obstruction observed."
+    ],
+    "followups": [
+      "Check narration/source makes the displayed order-at-most-two Laurent expression an example rather than general formula for every pole.",
+      "Verify residue theorem assumptions explicitly accompany big-loop claim: positive simple contour, no boundary poles, meromorphic neighborhood of interior and contour; clarify equality of integrals rather than literal loops.",
+      "Check g,h holomorphic hypothesis for simple-zero residue formula and distinguish residue of fprime/f from residue of f.",
+      "Final4K detail, uploaded-caption/footer collision, continuous motion/listening, fine-sync and independent final AV review remain open."
+    ]
+  },
+  "rehashed_sheets": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/12_residues/sheet-000.png",
+      "sha256": "20079b2c245e14563280e879d49832a291cc23c1efb2f01166cf3ceeddd1dea4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/12_residues/sheet-001.png",
+      "sha256": "1a31a3df660c660f2688e5b9ba39e37f50f0b99405f3d04aed0e20d503ca33ea"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/12_residues/sheet-002.png",
+      "sha256": "4c29800fa2fa6b1b83ec2a76e94992904883286016b0df6336d947f852ac75e3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/12_residues/sheet-003.png",
+      "sha256": "f659ad4bb505decb1c128d6b06bab85c96ae38e6873da40c11baa180def9398a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/12_residues/sheet-004.png",
+      "sha256": "ede9460698dd078fe441fe8fc5dae4745edc51c31eadb4c5c1b5e27332e367dc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/12_residues/sheet-005.png",
+      "sha256": "1aa969ff1d49f9e0e678858cd66738dcf7e33abbd4d8ba48215b83b3d94dafdb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/12_residues/sheet-006.png",
+      "sha256": "8e9b122a8eaf72e858a8732e4008ea6029344763bc6237dd5d7f58a2f891ddb3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/12_residues/sheet-007.png",
+      "sha256": "098d2302d9d672ae4add45eb24a4befe80d1404e5e3a8b4b8c3325d2f5858a2e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/12_residues/sheet-008.png",
+      "sha256": "6395f0059354cfda98bf176b7f8c2dfe7c48bfeb6c12993133f00170eefa14f7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/12_residues/sheet-009.png",
+      "sha256": "9038a7a38c79a65a0664c0cbb78acac663c073f48d955387e93d0cdc23bb83da"
+    }
+  ]
+}

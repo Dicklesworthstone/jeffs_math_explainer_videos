@@ -1,0 +1,148 @@
+{
+ "controller476": "77cd7be786d87b847f31a31a281ef2d0d76f789276e9666af2667a45f691107e",
+ "draft476": "3e7b59d0cfb843cd3cd9741f72746139ee39359975d6bd99bb1c69e50cd3b457",
+ "python": "3.15.0",
+ "ok": true,
+ "passed": 16,
+ "cases": 16,
+ "results": [
+  {
+   "case": "D0 pins",
+   "shows": "controller 476 pins draft 476 at the sha it was written with; 464 still pins draft 460",
+   "ok": true,
+   "draft476": "3e7b59d0cfb843cd3cd9741f72746139ee39359975d6bd99bb1c69e50cd3b457",
+   "draft460": "fcf0e7d738c5bbe142f3a938a7526f7847cdb16fe006eed2ba53596f5a6525b3"
+  },
+  {
+   "case": "D1 serialisation",
+   "shows": "draft 476 is json.dumps(indent=2) + newline, as draft 460 is",
+   "ok": true
+  },
+  {
+   "case": "D2 fourteen rows",
+   "shows": "each non-08 row of draft 460 occurs byte for byte, once, in draft 476; the order of all 15 is unchanged; the old 08 row is gone",
+   "ok": true,
+   "byte_identical": 14
+  },
+  {
+   "case": "D3 row 08",
+   "shows": "row 08 is the planned CSS352 row: frozen 371's names for attempt 1, 447's CSS worker and sha, 447's ROW_KEYS | IMPORT_KEYS in row 01's key order, 08 in 447 CHANGED, and root's Q permit copy at 92119d3a",
+   "ok": true,
+   "row08": {
+    "chapter": "08_loop_sums",
+    "kind": "combined",
+    "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+    "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+    "job": "css-reviewed-final-08-loop-sums352",
+    "inputs": "/data/projects/jmev-css-render-worker-20261107/qualification01/final-08_loop_sums-inputs352.json",
+    "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/08_loop_sums-css-permit474.json",
+    "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-08-loop-sums-a1/resource-receipt.json",
+    "import_inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-08-loop-sums-a1-inputs.json"
+   }
+  },
+  {
+   "case": "R1 receipts",
+   "shows": "476's receipts are 464's with only 08's replaced, in the same place: 08 waits for its 371 a1 import receipt, then its CSS render receipt (as 01/04/12/14); the CSD 08 job is no longer read",
+   "ok": true,
+   "receipts464": 24,
+   "receipts476": 25,
+   "row08_464": [
+    [
+     "render",
+     "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-08-loop-sums352/resource-receipt.json"
+    ]
+   ],
+   "row08_476": [
+    [
+     "import371",
+     "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-08-loop-sums-a1/resource-receipt.json"
+    ],
+    [
+     "css render",
+     "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-08-loop-sums352/resource-receipt.json"
+    ]
+   ]
+  },
+  {
+   "case": "A1 arguments",
+   "shows": "loop_sums_arguments refuses each malformed, missing or reused name or sha (gallery given), returns None for check given neither, refuses run given neither, and accepts a plain new pair",
+   "ok": true,
+   "refused": {
+    "missing sha": "give both --loop-sums-manifest and --loop-sums-sha (root, after the CSS 08 job is terminal and its 371 export succeeds)",
+    "missing name": "give both --loop-sums-manifest and --loop-sums-sha (root, after the CSS 08 job is terminal and its 371 export succeeds)",
+    "folder in name": "the 08 manifest must be a plain .json file name directly in Q: 'x/fixture476-08-manifest.json'",
+    "leading dot": "the 08 manifest must be a plain .json file name directly in Q: '.fixture476-08-manifest.json'",
+    "not json": "the 08 manifest must be a plain .json file name directly in Q: 'fixture476-08.txt'",
+    "upper-case sha": "the 08 sha must be the full sha256, 64 lowercase hex digits: 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB'",
+    "short sha": "the 08 sha must be the full sha256, 64 lowercase hex digits: 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'",
+    "a pinned 371 name": "the 08 manifest name is a pinned 371 export, the draft or the launch manifest: css352-import371-14-continuation-manifest424.json",
+    "a pinned 371 sha": "the 08 sha is a pinned 371 export sha",
+    "the draft name": "the 08 manifest name is a pinned 371 export, the draft or the launch manifest: cc1-master447-manifest-draft476.json",
+    "the launch manifest name": "the 08 manifest name is a pinned 371 export, the draft or the launch manifest: master447-launch-manifest476.json",
+    "the gallery's name": "the 08 manifest name or sha is the gallery export's",
+    "the gallery's sha": "the 08 manifest name or sha is the gallery export's"
+   }
+  },
+  {
+   "case": "P1 real exports",
+   "shows": "on this checkout's Q, the four pinned 371 exports still pass 476's widened CSS set; 08 and the gallery are skipped when not given",
+   "ok": true
+  },
+  {
+   "case": "P2 08 export",
+   "shows": "with 08 given, its manifest is checked as a 371 export (version, chapter, manifest_problems) and must bind row 08's job, worker, worker sha, inputs and permit; the four pins pass beside it",
+   "ok": true,
+   "fixture_sha256": "5daba78851121d3ee2220538aa5de4a43570930343580805c72048ce4af705fe"
+  },
+  {
+   "case": "P3 wrong sha",
+   "shows": "a given 08 sha that is not the file's is refused",
+   "ok": true
+  },
+  {
+   "case": "P4 other permit",
+   "shows": "an 08 manifest that 371 itself accepts but that binds another permit than the draft's permit474 is refused",
+   "ok": true
+  },
+  {
+   "case": "P5 08 row required",
+   "shows": "a draft without a CSS 08 row is refused by the CSS-set assertion",
+   "ok": true
+  },
+  {
+   "case": "M1 launch manifest",
+   "shows": "the launch manifest holds the 15 draft-476 rows and a launch476 block with the draft-476 source, six import pins (08 included) and both argument pairs",
+   "ok": true
+  },
+  {
+   "case": "K1 check, no root arguments",
+   "shows": "the four pins pass, 08 and the gallery are \"not given\", every receipt is pending, nothing launched, exit 3",
+   "ok": true,
+   "exit": 3,
+   "summary": {
+    "receipts": 25,
+    "successful": 0,
+    "pending": 25,
+    "failed": 0,
+    "pins": "ok"
+   }
+  },
+  {
+   "case": "K2 check, 08 pair given",
+   "shows": "08's export is pinned beside the four; receipts pending; exit 3",
+   "ok": true,
+   "exit": 3
+  },
+  {
+   "case": "K3 check, 08 export absent",
+   "shows": "an 08 pair naming a file not in Q refuses the pins; exit 1",
+   "ok": true,
+   "exit": 1
+  },
+  {
+   "case": "U1 run needs 08",
+   "shows": "run given the gallery pair but no 08 pair refuses at loop_sums_arguments, before any receipt is read or anything printed",
+   "ok": true
+  }
+ ]
+}

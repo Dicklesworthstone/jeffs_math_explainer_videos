@@ -1,0 +1,143 @@
+{
+  "chapter": "05_gallery",
+  "host": "css",
+  "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+  "preview_job": "csd-review-repair-preview274",
+  "frames": 9879,
+  "timeline_sha256": "df3cdeae1dab98a6b28cfde7ac2e30ae0a7242de9bda6ad9b0659fb10e52a260",
+  "actually_reviewed_pictures": true,
+  "unresolved_defects": [],
+  "reviewer": "root",
+  "observations": "Root305 sampled pass (all 28 sheets), the framewise gallery-transition record viewed by independent cc1 319 (715 frames on 60 sheets; root disposition gallery319-disposition305) and independent cc3 315 grid review support technical rendering only. Known Low D3 (sin z zero marks at the mosaic panel edge) was accepted for preview composition in root grid315 review; recheck at native final resolution. No continuous playback or listening judgment is claimed.",
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/05_gallery/sampling.json",
+      "sha256": "b8011d9025f5128b3582990cff2cfc59337f3d939ec94c226accd7fccf23c1b9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json",
+      "sha256": "d4547c553a9c6dddabbc5d07448a86f447b0ddc9cac9a70930b2cec63fe9abb2",
+      "views": [
+        "b8011d9025f5128b3582990cff2cfc59337f3d939ec94c226accd7fccf23c1b9"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/gallery-transition-frames305/manifest.json",
+      "sha256": "5a98dd205a39f9b596f61e9c3dcc048b75c3aa9f1aac286f1872ab26acfe7d49"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/gallery319-disposition305.json",
+      "sha256": "de33e72ed1f3e7bd10d2e8f41f6e2252fac5fcaa089054861cf93a16c376fac6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/coverage-grid305b/05_gallery/sampling.json",
+      "sha256": "f67f171bd2d126c92ed98b1c3c99c759cd4df8cee0dd70bb5ac8c853d05c85f1"
+    }
+  ],
+  "source_binding_evidence": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build268/qualification.json",
+      "sha256": "2f3430a82dc1561eecbc1485aa00c18070606c4d8728fc6811b62b1f141dc857"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build268/source-copy.json",
+      "sha256": "81d28272a7a23b63199e79e6aa1086f01f131f0ddd685d4ae859d04b1de1934c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-timeline269/comparison.json",
+      "sha256": "d2bf8e9b9ede33b429e61f8e87e238d1a64a11ebd970d34851e12e11c6e5d0ea"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/rebind-summary.json",
+      "sha256": "fa263d8a6c14c21ef037525fd316e2d64019c0f506e934a4e2d38886b5167da6"
+    }
+  ],
+  "independent_reviewer": "cc1, cc3",
+  "independent_review": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-gallery-transition-review319.json",
+      "sha256": "58a7381dd8506497e10bd147d54837a6472e72651e3724e9dd99747f83e6e651",
+      "views": [
+        "5a98dd205a39f9b596f61e9c3dcc048b75c3aa9f1aac286f1872ab26acfe7d49"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json",
+      "sha256": "e9a881ffd9a0a2cd813eecdcb4e94a3824f55c4e51743ec69feae389d943d866",
+      "views": [
+        "f67f171bd2d126c92ed98b1c3c99c759cd4df8cee0dd70bb5ac8c853d05c85f1"
+      ]
+    }
+  ],
+  "review_scope": {
+    "basis": "sampled_preview",
+    "purpose": "technical_4k_render",
+    "preview_movie_sha256": "f5123300084eba264276377f36518d263324bb9e28dd5df0f77ecf5f20cf5e48",
+    "sampled_intervals": [
+      [
+        34,
+        98
+      ],
+      [
+        1989,
+        2072
+      ],
+      [
+        2894,
+        2977
+      ],
+      [
+        4772,
+        4855
+      ],
+      [
+        6181,
+        6264
+      ],
+      [
+        6872,
+        6877
+      ],
+      [
+        6921,
+        6927
+      ],
+      [
+        7312,
+        7365
+      ],
+      [
+        8715,
+        8859
+      ],
+      [
+        9167,
+        9221
+      ],
+      [
+        9247,
+        9248
+      ],
+      [
+        9817,
+        9878
+      ]
+    ],
+    "playback_seconds": [],
+    "open_reviews": [
+      "final_picture",
+      "motion",
+      "audio",
+      "fine_sync",
+      "captions",
+      "independent_final_av",
+      "publication"
+    ]
+  },
+  "continuous_motion_acceptance": false,
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "final_4k_acceptance": false,
+  "release_acceptance": false,
+  "publication_acceptance": false
+}

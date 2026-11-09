@@ -1,0 +1,606 @@
+name: Implement Deterministic RNG Jobs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/implement-deterministic-rng-jobs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: implement-deterministic-rng-jobs
+  cancel-in-progress: false
+
+jobs:
+  implement:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Wait for the verified replay/reservation foundation
+        shell: bash
+        run: |
+          set -euo pipefail
+          receipt="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/artifacts/implementation/rng-replay-tranche-final.json"
+          for cycle in $(seq 1 240); do
+            if curl --fail --silent "$receipt" | grep -Fq '"result": "pass"'; then
+              exit 0
+            fi
+            if (( cycle == 1 || cycle % 30 == 0 )); then
+              if gh api "repos/${GITHUB_REPOSITORY}/contents/.github/workflows/finalize-rng-replay-tranche.yml?ref=main" >/dev/null 2>&1; then
+                gh api --method POST \
+                  "repos/${GITHUB_REPOSITORY}/actions/workflows/finalize-rng-replay-tranche.yml/dispatches" \
+                  -f ref=main || true
+              fi
+            fi
+            sleep 30
+          done
+          echo "verified replay/reservation foundation did not become ready" >&2
+          exit 2
+
+      - name: Refresh to latest canonical main and install the toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main master
+          git reset --hard origin/main
+          [[ "$(git rev-parse origin/main)" == "$(git rev-parse origin/master)" ]] || {
+            echo "main/master diverged before runtime integration" >&2
+            exit 3
+          }
+          rustup toolchain install nightly-2026-07-05 --profile minimal --component clippy,rustfmt
+          rustup override set nightly-2026-07-05
+          python3 -m pip install --user --break-system-packages numpy || python3 -m pip install --user numpy
+
+      - name: Add the deterministic scoped worker runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          manifest_path = Path("crates/fmn-runtime/Cargo.toml")
+          manifest = manifest_path.read_text(encoding="utf-8")
+          if "fmn-core" not in manifest:
+              if "[dependencies]\n" in manifest:
+                  manifest = manifest.replace(
+                      "[dependencies]\n",
+                      "[dependencies]\nfmn-core.workspace = true\n",
+                      1,
+                  )
+              else:
+                  manifest += "\n[dependencies]\nfmn-core.workspace = true\n"
+              manifest_path.write_text(manifest, encoding="utf-8")
+          PY
+
+          cat > crates/fmn-runtime/src/deterministic_rng_jobs.rs <<'RS'
+          //! Completion-order-independent scoped jobs with fixed RNG budgets.
+          //!
+          //! Every job receives a disjoint [`RngReservation`] before any worker
+          //! starts. The parent cursor advances past the entire batch up front;
+          //! worker count, scheduling, panic timing, and completion order cannot
+          //! change another job's stream or the parent's continuation.
+
+          use std::{
+              panic::{AssertUnwindSafe, catch_unwind},
+              sync::{
+                  Mutex, MutexGuard,
+                  atomic::{AtomicUsize, Ordering},
+              },
+              thread,
+          };
+
+          use fmn_core::{
+              rng_cursor::{RngCursor, RngCursorError},
+              rng_reservation::{RngReservation, RngReservationError},
+          };
+
+          type JobOutcome<T, E> = Result<T, RngJobError<E>>;
+          type OutcomeSlot<T, E> = Mutex<Option<JobOutcome<T, E>>>;
+          type ReservationSlot = Mutex<Option<RngReservation>>;
+
+          /// Canonically ordered outcomes from one deterministic batch.
+          #[derive(Debug, PartialEq, Eq)]
+          pub struct RngJobBatch<T, E> {
+              start_position: u128,
+              end_position: u128,
+              outcomes: Vec<JobOutcome<T, E>>,
+          }
+
+          impl<T, E> RngJobBatch<T, E> {
+              /// Absolute parent-stream position before reservations.
+              #[must_use]
+              pub const fn start_position(&self) -> u128 {
+                  self.start_position
+              }
+
+              /// Absolute parent-stream position after all reservations.
+              #[must_use]
+              pub const fn end_position(&self) -> u128 {
+                  self.end_position
+              }
+
+              /// Outcomes in the exact order of the input budgets.
+              #[must_use]
+              pub fn outcomes(&self) -> &[JobOutcome<T, E>] {
+                  &self.outcomes
+              }
+
+              /// Consume the report and return canonically ordered outcomes.
+              #[must_use]
+              pub fn into_outcomes(self) -> Vec<JobOutcome<T, E>> {
+                  self.outcomes
+              }
+
+              /// Number of successful jobs.
+              #[must_use]
+              pub fn success_count(&self) -> usize {
+                  self.outcomes.iter().filter(|outcome| outcome.is_ok()).count()
+              }
+
+              /// Number of failed, panicked, under-consumed, or unexecuted jobs.
+              #[must_use]
+              pub fn failure_count(&self) -> usize {
+                  self.outcomes.len() - self.success_count()
+              }
+
+              /// Whether every job completed successfully and consumed exactly.
+              #[must_use]
+              pub fn all_succeeded(&self) -> bool {
+                  self.outcomes.iter().all(Result::is_ok)
+              }
+          }
+
+          /// Run one scoped deterministic batch.
+          ///
+          /// Setup failures are atomic with respect to `cursor`. Once reservation
+          /// succeeds, the parent remains advanced even when individual jobs fail
+          /// or panic; retry policy must therefore be explicit at a higher layer.
+          pub fn run_deterministic_rng_jobs<T, E, F>(
+              cursor: &mut RngCursor,
+              budgets: &[u128],
+              worker_count: usize,
+              job: F,
+          ) -> Result<RngJobBatch<T, E>, RngJobSetupError>
+          where
+              T: Send,
+              E: Send,
+              F: Fn(usize, &mut RngReservation) -> Result<T, E> + Sync,
+          {
+              if budgets.is_empty() {
+                  let position = cursor.position();
+                  return Ok(RngJobBatch {
+                      start_position: position,
+                      end_position: position,
+                      outcomes: Vec::new(),
+                  });
+              }
+              if worker_count == 0 {
+                  return Err(RngJobSetupError::ZeroWorkers);
+              }
+
+              let start_position = cursor.position();
+              let reservations = cursor.reserve_many(budgets)?;
+              let end_position = cursor.position();
+              let reservations: Vec<ReservationSlot> = reservations
+                  .into_iter()
+                  .map(|reservation| Mutex::new(Some(reservation)))
+                  .collect();
+              let outcomes: Vec<OutcomeSlot<T, E>> = (0..budgets.len())
+                  .map(|_| Mutex::new(None))
+                  .collect();
+              let next_index = AtomicUsize::new(0);
+              let actual_workers = worker_count.min(budgets.len());
+
+              thread::scope(|scope| {
+                  let job = &job;
+                  let reservations = &reservations;
+                  let outcomes = &outcomes;
+                  let next_index = &next_index;
+                  for _ in 0..actual_workers {
+                      scope.spawn(move || loop {
+                          let index = next_index.fetch_add(1, Ordering::Relaxed);
+                          if index >= reservations.len() {
+                              break;
+                          }
+
+                          let reservation = {
+                              let mut slot = lock_unpoisoned(&reservations[index]);
+                              slot.take()
+                          };
+                          let outcome = match reservation {
+                              Some(mut reservation) => match catch_unwind(
+                                  AssertUnwindSafe(|| job(index, &mut reservation)),
+                              ) {
+                                  Ok(Ok(value)) => match reservation.finish_exact() {
+                                      Ok(_) => Ok(value),
+                                      Err(error) => Err(RngJobError::Reservation(error)),
+                                  },
+                                  Ok(Err(error)) => Err(RngJobError::Worker(error)),
+                                  Err(_) => Err(RngJobError::Panicked),
+                              },
+                              None => Err(RngJobError::NotExecuted),
+                          };
+                          *lock_unpoisoned(&outcomes[index]) = Some(outcome);
+                      });
+                  }
+              });
+
+              let outcomes = outcomes
+                  .into_iter()
+                  .map(|slot| {
+                      match slot.into_inner() {
+                          Ok(Some(outcome)) => outcome,
+                          Ok(None) => Err(RngJobError::NotExecuted),
+                          Err(poisoned) => poisoned
+                              .into_inner()
+                              .unwrap_or(Err(RngJobError::NotExecuted)),
+                      }
+                  })
+                  .collect();
+
+              Ok(RngJobBatch {
+                  start_position,
+                  end_position,
+                  outcomes,
+              })
+          }
+
+          fn lock_unpoisoned<T>(mutex: &Mutex<T>) -> MutexGuard<'_, T> {
+              match mutex.lock() {
+                  Ok(guard) => guard,
+                  Err(poisoned) => poisoned.into_inner(),
+              }
+          }
+
+          /// Batch setup failure; no job ran and the cursor is unchanged.
+          #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+          pub enum RngJobSetupError {
+              ZeroWorkers,
+              Cursor(RngCursorError),
+          }
+
+          impl From<RngCursorError> for RngJobSetupError {
+              fn from(error: RngCursorError) -> Self {
+                  Self::Cursor(error)
+              }
+          }
+
+          impl std::fmt::Display for RngJobSetupError {
+              fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                  match self {
+                      Self::ZeroWorkers => formatter.write_str(
+                          "deterministic RNG job batch requires at least one worker",
+                      ),
+                      Self::Cursor(error) => std::fmt::Display::fmt(error, formatter),
+                  }
+              }
+          }
+
+          impl std::error::Error for RngJobSetupError {}
+
+          /// Per-job outcome failure in canonical input order.
+          #[derive(Debug, Clone, PartialEq, Eq)]
+          pub enum RngJobError<E> {
+              Worker(E),
+              Reservation(RngReservationError),
+              Panicked,
+              NotExecuted,
+          }
+
+          impl<E: std::fmt::Display> std::fmt::Display for RngJobError<E> {
+              fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+                  match self {
+                      Self::Worker(error) => write!(formatter, "worker returned error: {error}"),
+                      Self::Reservation(error) => {
+                          std::fmt::Display::fmt(error, formatter)
+                      }
+                      Self::Panicked => formatter.write_str("worker panicked"),
+                      Self::NotExecuted => formatter.write_str("job was not executed"),
+                  }
+              }
+          }
+
+          impl<E> std::error::Error for RngJobError<E>
+          where
+              E: std::error::Error + 'static,
+          {
+          }
+
+          #[cfg(test)]
+          mod tests {
+              use std::time::Duration;
+
+              use super::*;
+
+              fn render_words(
+                  worker_count: usize,
+              ) -> (RngJobBatch<Vec<u64>, ()>, RngCursor) {
+                  let budgets = vec![32_u128; 64];
+                  let mut cursor = RngCursor::from_seed(42);
+                  let report = run_deterministic_rng_jobs(
+                      &mut cursor,
+                      &budgets,
+                      worker_count,
+                      |_, reservation| {
+                          let mut output = vec![0_u64; 32];
+                          reservation.fill_u64(&mut output).map_err(|_| ())?;
+                          Ok(output)
+                      },
+                  )
+                  .expect("batch setup");
+                  (report, cursor)
+              }
+
+              #[test]
+              fn worker_count_cannot_change_outputs_or_parent_continuation() {
+                  let (serial, serial_cursor) = render_words(1);
+                  let (parallel, parallel_cursor) = render_words(8);
+                  assert_eq!(serial, parallel);
+                  assert_eq!(serial_cursor, parallel_cursor);
+                  assert!(parallel.all_succeeded());
+                  assert_eq!(parallel.success_count(), 64);
+                  assert_eq!(parallel.failure_count(), 0);
+              }
+
+              #[test]
+              fn reverse_completion_order_still_returns_canonical_results() {
+                  let budgets = vec![1_u128; 16];
+                  let mut cursor = RngCursor::from_seed(7);
+                  let report = run_deterministic_rng_jobs(
+                      &mut cursor,
+                      &budgets,
+                      16,
+                      |index, reservation| {
+                          thread::sleep(Duration::from_millis((16 - index) as u64));
+                          reservation.next_u64().map_err(|_| ())
+                      },
+                  )
+                  .expect("batch");
+                  let actual: Vec<u64> = report
+                      .into_outcomes()
+                      .into_iter()
+                      .map(|outcome| outcome.expect("successful job"))
+                      .collect();
+                  let mut expected = fmn_core::rng::Pcg64Dxsm::from_seed(7);
+                  let expected: Vec<u64> = (0..16).map(|_| expected.next_u64()).collect();
+                  assert_eq!(actual, expected);
+              }
+
+              #[test]
+              fn failures_panics_and_underuse_are_contained_per_job() {
+                  let budgets = [1_u128, 1, 2, 2];
+                  let mut cursor = RngCursor::from_seed(11);
+                  let report = run_deterministic_rng_jobs(
+                      &mut cursor,
+                      &budgets,
+                      4,
+                      |index, reservation| -> Result<u64, &'static str> {
+                          match index {
+                              0 => reservation.next_u64().map_err(|_| "budget"),
+                              1 => Err("declined"),
+                              2 => panic!("synthetic contained worker panic"),
+                              _ => reservation.next_u64().map_err(|_| "budget"),
+                          }
+                      },
+                  )
+                  .expect("batch");
+                  assert_eq!(report.success_count(), 1);
+                  assert_eq!(report.failure_count(), 3);
+                  assert!(report.outcomes()[0].is_ok());
+                  assert_eq!(
+                      report.outcomes()[1],
+                      Err(RngJobError::Worker("declined"))
+                  );
+                  assert_eq!(report.outcomes()[2], Err(RngJobError::Panicked));
+                  assert_eq!(
+                      report.outcomes()[3],
+                      Err(RngJobError::Reservation(
+                          RngReservationError::UnderConsumed { remaining: 1 }
+                      ))
+                  );
+                  assert_eq!(cursor.position(), 6);
+              }
+
+              #[test]
+              fn zero_workers_and_cursor_overflow_are_atomic_setup_failures() {
+                  let mut cursor = RngCursor::from_seed(13);
+                  let before = cursor.clone();
+                  assert_eq!(
+                      run_deterministic_rng_jobs::<(), (), _>(
+                          &mut cursor,
+                          &[1],
+                          0,
+                          |_, _| Ok(())
+                      ),
+                      Err(RngJobSetupError::ZeroWorkers)
+                  );
+                  assert_eq!(cursor, before);
+
+                  cursor.seek(u128::MAX - 1);
+                  let before_overflow = cursor.clone();
+                  assert_eq!(
+                      run_deterministic_rng_jobs::<(), (), _>(
+                          &mut cursor,
+                          &[1, 1],
+                          1,
+                          |_, reservation| {
+                              let _ = reservation.next_u64();
+                              Ok(())
+                          }
+                      ),
+                      Err(RngJobSetupError::Cursor(
+                          RngCursorError::PositionOverflow
+                      ))
+                  );
+                  assert_eq!(cursor, before_overflow);
+              }
+
+              #[test]
+              fn empty_batch_is_a_noop_even_with_zero_workers() {
+                  let mut cursor = RngCursor::from_seed(17);
+                  let before = cursor.clone();
+                  let report = run_deterministic_rng_jobs::<(), (), _>(
+                      &mut cursor,
+                      &[],
+                      0,
+                      |_, _| Ok(()),
+                  )
+                  .expect("empty batch");
+                  assert!(report.all_succeeded());
+                  assert_eq!(report.start_position(), report.end_position());
+                  assert_eq!(cursor, before);
+              }
+          }
+          RS
+
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path("crates/fmn-runtime/src/lib.rs")
+          source = path.read_text(encoding="utf-8")
+          declaration = "pub mod deterministic_rng_jobs;\n"
+          reexport = (
+              "pub use deterministic_rng_jobs::{\n"
+              "    RngJobBatch, RngJobError, RngJobSetupError, run_deterministic_rng_jobs,\n"
+              "};\n"
+          )
+          if declaration not in source:
+              source += "\n" + declaration
+          if reexport not in source:
+              source += reexport
+          path.write_text(source, encoding="utf-8")
+          PY
+
+          cargo fmt --all
+          cargo check -p fmn-runtime --all-targets
+          cargo test -p fmn-runtime deterministic_rng_jobs
+          cargo clippy -p fmn-runtime --all-targets -- -D warnings
+          git diff --check
+
+          git add crates/fmn-runtime/Cargo.toml crates/fmn-runtime/src/lib.rs crates/fmn-runtime/src/deterministic_rng_jobs.rs Cargo.lock
+          git config user.name "FrankenManim Deterministic Jobs"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "feat(runtime): add deterministic parallel RNG job batches" -m "Reserve every job's fixed stream interval before scoped workers start, contain panics and worker failures per canonical input index, require exact budget use, and prove worker-count and reverse-completion invariance plus atomic setup refusal."
+
+      - name: Update living documentation and run the full product gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          changelog_path = Path("CHANGELOG.md")
+          changelog = changelog_path.read_text(encoding="utf-8")
+          marker = "### Deterministic parallel RNG job batches (2026-09-03)"
+          if marker not in changelog:
+              entry = (
+                  "\n" + marker + "\n\n"
+                  "- Added `fmn-runtime::run_deterministic_rng_jobs`, which reserves every task's fixed RNG interval before any scoped worker starts and returns outcomes in canonical input order.\n"
+                  "- Worker count, scheduler order, panic timing, and reverse completion cannot change another task's bytes or the parent continuation; setup overflow is atomic and successful tasks must consume exactly their budget.\n"
+                  "- Worker errors, contained panics, under-consumption, and impossible nonexecution are represented per job rather than aborting or silently reusing stream intervals.\n"
+              )
+              first_break = changelog.find("\n", changelog.find("#"))
+              changelog = changelog[: first_break + 1] + entry + changelog[first_break + 1 :]
+              changelog_path.write_text(changelog, encoding="utf-8")
+
+          readme_path = Path("README.md")
+          readme = readme_path.read_text(encoding="utf-8")
+          heading = "### Deterministic scoped RNG jobs"
+          if heading not in readme:
+              section = (
+                  "\n" + heading + "\n\n"
+                  "`fmn-runtime::run_deterministic_rng_jobs` turns fixed per-task draw budgets into a real scoped worker batch. All stream reservations are committed before worker startup; results are returned by input index, and changing worker count or completion order cannot alter task-local random data or the parent's next draw. Panics and worker errors are contained in their own outcome slots, while successful jobs must exhaust their reservation exactly.\n"
+              )
+              insertion = readme.find("\n## Architecture")
+              if insertion < 0:
+                  insertion = readme.find("\n## ")
+              if insertion < 0:
+                  insertion = len(readme)
+              readme = readme[:insertion] + section + readme[insertion:]
+              readme_path.write_text(readme, encoding="utf-8")
+
+          status_candidates = [
+              Path("IMPLEMENTATION_STATUS.md"),
+              Path("docs/IMPLEMENTATION_STATUS.md"),
+              Path("docs/implementation_status.md"),
+          ]
+          status_path = next((path for path in status_candidates if path.exists()), status_candidates[-1])
+          status = status_path.read_text(encoding="utf-8") if status_path.exists() else "# Implementation Status\n"
+          status_marker = "## 2026-09-03: deterministic scoped RNG jobs"
+          if status_marker not in status:
+              status += (
+                  "\n" + status_marker + "\n\n"
+                  "**Implemented and fully gated in `fmn-runtime`:** a scoped worker batch that pre-reserves fixed RNG intervals, returns canonically ordered outcomes, contains panics/errors per task, detects under-consumption, and leaves the parent cursor advanced across the committed batch even when work fails. Tests prove identical bytes and continuation with one versus eight workers and with deliberately reversed completion order.\n"
+              )
+              status_path.parent.mkdir(parents=True, exist_ok=True)
+              status_path.write_text(status, encoding="utf-8")
+
+          receipt = {
+              "schema_version": 1,
+              "recorded_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+              "feature": "deterministic scoped RNG jobs",
+              "source_sha256": hashlib.sha256(
+                  Path("crates/fmn-runtime/src/deterministic_rng_jobs.rs").read_bytes()
+              ).hexdigest(),
+              "result": "pending-full-gate",
+          }
+          output = Path("artifacts/implementation/deterministic-rng-jobs-receipt.json")
+          output.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          PY
+
+          cargo fmt --all
+          git diff --check
+          cargo test -p fmn-runtime deterministic_rng_jobs
+          cargo test -p fmn-core
+          bash scripts/check.sh
+          git diff --exit-code
+          git diff --cached --exit-code
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("artifacts/implementation/deterministic-rng-jobs-receipt.json")
+          receipt = json.loads(path.read_text(encoding="utf-8"))
+          receipt["result"] = "pass"
+          receipt["verified"] = [
+              "cargo test -p fmn-runtime deterministic_rng_jobs",
+              "cargo test -p fmn-core",
+              "bash scripts/check.sh",
+          ]
+          path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          PY
+
+          git add README.md CHANGELOG.md artifacts/implementation/deterministic-rng-jobs-receipt.json
+          for status in IMPLEMENTATION_STATUS.md docs/IMPLEMENTATION_STATUS.md docs/implementation_status.md; do
+            [[ -e "$status" ]] && git add "$status"
+          done
+          git commit -m "docs(runtime): record deterministic scoped RNG jobs" -m "Document the actual runtime worker surface after worker-count, completion-order, panic/error containment, exact-budget, atomic setup, and full mandatory-Gauntlet checks passed; record a machine-readable implementation receipt."
+
+      - name: Retire the one-shot and publish both incremental commits canonically
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/implement-deterministic-rng-jobs.yml
+          git commit -m "chore(ci): retire completed deterministic RNG job migration" -m "Permanent source, tests, documentation, and the implementation receipt now carry the runtime contract."
+          git fetch origin main master
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            git rebase origin/main
+            cargo test -p fmn-runtime deterministic_rng_jobs
+            bash scripts/check.sh
+          fi
+          git push --atomic origin HEAD:main HEAD:master

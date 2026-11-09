@@ -1,0 +1,3 @@
+{"chapter_scope": null, "consumer": "render", "directed_caption_segments": [], "listening_acceptance": false, "plan_mode": "external-ui", "prediction_holds": [], "promotion": false, "selected_cues": 5, "topic": "complex_analysis_visual", "verified_cues": 105}
+08_loop_sums   14959 frames  7088.9s     2.1 fps  -> /data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-08-loop-sums27/render/08_loop_sums.mp4
+total          14959 frames  7088.9s     2.1 fps

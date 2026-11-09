@@ -1,0 +1,13 @@
+# explainer timeline v1
+chapter	02_turning_numbers
+fps	60
+frames	5372
+line	02_1	36	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/02_1.wav
+line	02_2	840	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/02_2.wav
+line	02_3	1630	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/02_3.wav
+line	02_4	2190	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/02_4.wav
+line	02_5	3134	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/02_5.wav
+line	02_6	4095	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/02_6.wav
+mark	predict	3780
+breath	5216	2
+listen	3780	5	02_turning_numbers:02_5

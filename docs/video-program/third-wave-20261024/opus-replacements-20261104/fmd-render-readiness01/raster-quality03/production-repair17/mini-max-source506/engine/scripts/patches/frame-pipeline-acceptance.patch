@@ -1,0 +1,193 @@
+diff --git a/crates/fmn-render/src/retained.rs b/crates/fmn-render/src/retained.rs
+--- a/crates/fmn-render/src/retained.rs
++++ b/crates/fmn-render/src/retained.rs
+@@ -346,12 +346,14 @@
+     pub fn render_into(&self, threads: usize, frame: &mut FrameBuffer)
+         -> Result<(), RetainedFrameRendererError>
+     {
++        if threads == 0 { return Err(RetainedFrameRendererError::InvalidThreads); }
+         render_camera_scene(&self.plan, &self.scene, &self.camera,
+                             self.tiling, threads, frame)
+     }
+ 
+     /// Rasterize into a new worker-owned raw frame.
+     pub fn render(&self, threads: usize) -> Result<FrameBuffer, RetainedFrameRendererError> {
++        if threads == 0 { return Err(RetainedFrameRendererError::InvalidThreads); }
+         let mut frame = FrameBuffer::new(self.layout()?);
+         self.render_into(threads, &mut frame)?;
+         Ok(frame)
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -23,3 +23,5 @@
+ mod portal_audio;
+ mod portal_pipeline;
++#[cfg(feature = "gauntlet")]
++pub use portal_pipeline::run_portal_gauntlet_frame_pipeline;
+ mod portal_playback;
+diff --git a/crates/fmn-conformance/tests/e2e_scenarios.rs b/crates/fmn-conformance/tests/e2e_scenarios.rs
+index 339cffe..ad6ca8c 100644
+--- a/crates/fmn-conformance/tests/e2e_scenarios.rs
++++ b/crates/fmn-conformance/tests/e2e_scenarios.rs
+@@ -2069,6 +2069,32 @@ fn python_textured_surfaces_run(ctx: &mut RunCtx) -> Result<RunOutcome, Scenario
+         .with_artifact("textures_last.png", last))
+ }
+ 
++fn python_frame_pipeline_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError> {
++    let (first, last) = manimlib::run_portal_gauntlet_frame_pipeline()
++        .map_err(|error| fail(format!("Python native frame pipeline: {error}")))?;
++    let limits = fmn_codec::PngLimits::default();
++    for artifact in [&first, &last] {
++        let decoded = fmn_codec::decode_png(artifact, &limits)
++            .map_err(|error| fail(format!("decode pipeline witness: {error}")))?;
++        if (decoded.width, decoded.height) != (96, 54) {
++            return Err(fail("pipeline lost its frozen viewport"));
++        }
++    }
++    if first == last {
++        return Err(fail("pipeline did not preserve moving capture-time camera/view state"));
++    }
++    ctx.event(LogEvent::new("e2e.python.frame_pipeline")
++        .field("frames_per_run", 12_u64)
++        .field("thread_counts", 3_u64)
++        .field("capture_time_oracle", true)
++        .field("native_gil_release", true));
++    Ok(RunOutcome::ok()
++        .with_counter("pipeline_frames_per_run", 12)
++        .with_counter("pipeline_thread_counts", 3)
++        .with_artifact("pipeline_first.png", first)
++        .with_artifact("pipeline_last.png", last))
++}
++
+ fn python_svg_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError> {
+     let report = manimlib::run_portal_gauntlet_svg()
+         .map_err(|error| fail(format!("Python native SVG: {error}")))?;
+@@ -4629,6 +4655,22 @@ pub fn catalog() -> Vec<ScenarioSpec> {
+             ],
+         )],
+     ));
++    specs.push(spec(
++        "render_matrix.python_frame_pipeline.v1",
++        ScenarioClass::RenderMatrix,
++        Surface::PythonInProcess,
++        Invocation::new(python_frame_pipeline_run),
++        vec![
++            Assertion::ExitCode(0),
++            Assertion::FileInventory(vec!["pipeline_first.png".to_owned(), "pipeline_last.png".to_owned()]),
++            counter_eq("pipeline_frames_per_run", 12),
++            counter_eq("pipeline_thread_counts", 3),
++        ],
++        vec![LogExpect::span_present("e2e.python.frame_pipeline", vec![
++            FieldPred::u64_eq("frames_per_run", 12),
++            FieldPred::u64_eq("thread_counts", 3),
++        ])],
++    ));
+     specs.push(spec(
+         "render_matrix.python_svg.v1",
+         ScenarioClass::RenderMatrix,
+@@ -5468,6 +5510,15 @@ fn python_live_tex_scenario_passes() {
+ }
+ 
+ /// Sampled wireframes through the native portal, renderer and PNG publisher.
++#[test]
++fn python_frame_pipeline_scenario_passes() {
++    let scenario = catalog().into_iter()
++        .find(|scenario| scenario.name == "render_matrix.python_frame_pipeline.v1")
++        .expect("Python frame pipeline scenario is registered");
++    let report = Runner::from_env().run(scenario);
++    assert!(report.is_pass(), "{}", report.summary());
++}
++
+ #[test]
+ fn python_svg_scenario_passes() {
+     let scenario = catalog()
+diff --git a/crates/fmn-python/tests/frame_pipeline.py b/crates/fmn-python/tests/frame_pipeline.py
+--- a/crates/fmn-python/tests/frame_pipeline.py
++++ b/crates/fmn-python/tests/frame_pipeline.py
+@@ -60,6 +60,7 @@
+ 
+ def capture_time_pixels(root):
+     outputs = []
++    evidence = None
+     for threads in (1, 4, 16):
+         scene = m.Scene()
+         expected = []
+@@ -90,7 +91,10 @@
+             np.testing.assert_array_equal(png_pixels(frame), reference,
+                 err_msg=f'capture-time camera/view state was lost: {frame}')
+         outputs.append([hashlib.sha256(frame.read_bytes()).digest() for frame in frames])
++        if evidence is None:
++            evidence = (frames[0].read_bytes(), frames[-1].read_bytes())
+     assert outputs[0] == outputs[1] == outputs[2], 'thread scheduling changed canonical PNGs'
++    return evidence
+ 
+ 
+ def real_render_releases_the_gil(root):
+@@ -183,12 +187,16 @@
+              failure_cancels_all_workers_without_partial_publication,
+              late_publication_conflict_keeps_existing_artifact,
+              independent_generations_do_not_share_worker_state)
++    evidence = None
+     with tempfile.TemporaryDirectory(prefix='fmn-frame-pipeline-') as directory:
+         for case in cases:
+             root = Path(directory) / case.__name__
+             root.mkdir()
+-            case(root)
++            result = case(root)
++            if case is capture_time_pixels:
++                evidence = result
+             print('native frame pipeline passed:', case.__name__, flush=True)
+-
+-
+-run_pipeline_acceptance()
++    return evidence
++
++
++_FMN_PIPELINE_EVIDENCE = run_pipeline_acceptance()
+diff --git a/crates/fmn-python/src/portal_pipeline.rs b/crates/fmn-python/src/portal_pipeline.rs
+--- a/crates/fmn-python/src/portal_pipeline.rs
++++ b/crates/fmn-python/src/portal_pipeline.rs
+@@ -88,6 +88,26 @@
+     if let Some(emitter) = emitter { let _ = emitter.finish(); }
+ }
+ 
++/// Run the same actual native pipeline contract used by installed wheels.
++/// Captured artifacts are returned by value; no interpreter-owned state escapes.
++#[cfg(any(test, feature = "gauntlet"))]
++pub fn run_portal_gauntlet_frame_pipeline() -> Result<(Vec<u8>, Vec<u8>), String> {
++    crate::with_python_test_module("native file frame pipeline", |py, _module, globals| {
++        use pyo3::prelude::*;
++        globals.set_item("__file__", concat!(env!("CARGO_MANIFEST_DIR"), "/tests/frame_pipeline.py"))
++            .map_err(|error| error.to_string())?;
++        let source = std::ffi::CString::new(include_str!("../tests/frame_pipeline.py"))
++            .map_err(|error| error.to_string())?;
++        py.run(source.as_c_str(), Some(globals), Some(globals))
++            .inspect_err(|error| error.print(py))
++            .map_err(|error| error.to_string())?;
++        globals.get_item("_FMN_PIPELINE_EVIDENCE")
++            .map_err(|error| error.to_string())?
++            .ok_or_else(|| "missing native pipeline pixel evidence".to_owned())?
++            .extract().map_err(|error: PyErr| error.to_string())
++    })
++}
++
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+@@ -103,13 +124,8 @@
+ 
+     #[test]
+     fn production_frame_pipeline_acceptance() {
+-        crate::with_python_test_module("native file frame pipeline", |py, _module, globals| {
+-            use pyo3::types::PyDictMethods as _;
+-            globals.set_item("__file__", concat!(env!("CARGO_MANIFEST_DIR"), "/tests/frame_pipeline.py")).unwrap();
+-            let source = std::ffi::CString::new(include_str!("../tests/frame_pipeline.py")).unwrap();
+-            py.run(source.as_c_str(), Some(globals), Some(globals))
+-                .inspect_err(|error| error.print(py))
+-                .expect("native pipeline pixel, clock, ownership and cancellation acceptance");
+-        });
++        let (first, last) = run_portal_gauntlet_frame_pipeline().unwrap();
++        assert!(!first.is_empty());
++        assert_ne!(first, last, "the frozen view/camera witness did not move");
+     }
+ }

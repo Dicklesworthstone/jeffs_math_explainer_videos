@@ -1,0 +1,1 @@
+2026-11-07T23:44:33.734873Z  WARN fsqlite_core::connection: WAL-FEC requires a caller-owned runtime blocking pool; primary WAL durability is unchanged

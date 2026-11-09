@@ -1,0 +1,42 @@
+{
+  "utc": "2026-11-08T21:36:24.887791+00:00",
+  "files": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json",
+      "sha256": "d4547c553a9c6dddabbc5d07448a86f447b0ddc9cac9a70930b2cec63fe9abb2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/bump-transition-frames305/manifest.json",
+      "sha256": "e2341ee728c464a4220aada1459a064d29f48efac7c6cc851c64b9c5753f7f9a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/bump-transition-review305.json",
+      "sha256": "bc48a64de5fe9c69e00874fed6ba1326959f4fbb4da07409cfed35a4a0e6e2b3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/coverage-grid305b/01_the_bump/sampling.json",
+      "sha256": "54071925d3b867add04ac26ed93da0e63603fbb3d40ffef4ca44ef8554a27ab8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json",
+      "sha256": "e9a881ffd9a0a2cd813eecdcb4e94a3824f55c4e51743ec69feae389d943d866"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/final-01-css-permit364.json",
+      "sha256": "299b8fe0db20ca2559ea97845df8a3300c078e92b7d05ab2483f205e43dbff40"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-reviewed-final352.py",
+      "sha256": "23d55c286aba2fc58b77a5af8dbd539293592daa3a4e0e8584f18f324d868760"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-launch-final352.py",
+      "sha256": "06451123b958db9d4806e2645fd84d8e0b37d604867dae9f25d4cb3c5155859e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/css-final-repair352.py",
+      "sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a"
+    }
+  ],
+  "scope": "Exact small-file staging only; no job launched. Independent worker355 review and CSS guarded permit transfer/check remain required."
+}

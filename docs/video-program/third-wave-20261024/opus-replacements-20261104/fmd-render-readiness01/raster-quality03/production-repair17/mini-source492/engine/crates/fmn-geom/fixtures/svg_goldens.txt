@@ -1,0 +1,105 @@
+== shapes_basic ==
+viewport 200.0000x100.0000
+viewBox none
+shape 0: curves=4 points=9 closed=true
+  points: (10.0000,10.0000) (35.0000,10.0000) (60.0000,10.0000) (60.0000,25.0000) (60.0000,40.0000) (35.0000,40.0000) (10.0000,40.0000) (10.0000,25.0000) (10.0000,10.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 1: curves=20 points=41 closed=true
+  points: (75.0000,10.0000) (90.0000,10.0000) (105.0000,10.0000) (106.0355,10.0000) (106.9418,10.6215) (107.8480,11.2431) (108.5355,12.3431) (109.2231,13.4432) (109.6115,14.8932) (110.0000,16.3431) (110.0000,18.0000) (110.0000,25.0000) (110.0000,32.0000) (110.0000,33.6569) (109.6115,35.1068) (109.2231,36.5568) (108.5355,37.6569) (107.8480,38.7569) (106.9418,39.3785) (106.0355,40.0000) (105.0000,40.0000) (90.0000,40.0000) (75.0000,40.0000) (73.9645,40.0000) (73.0582,39.3785) (72.1520,38.7569) (71.4645,37.6569) (70.7769,36.5568) (70.3885,35.1068) (70.0000,33.6569) (70.0000,32.0000) (70.0000,25.0000) (70.0000,18.0000) (70.0000,16.3431) (70.3885,14.8932) (70.7769,13.4432) (71.4645,12.3431) (72.1520,11.2431) (73.0582,10.6215) (73.9645,10.0000) (75.0000,10.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 2: curves=16 points=33 closed=true
+  points: (45.0000,70.0000) (45.0000,73.1066) (43.8346,75.8253) (42.6693,78.5439) (40.6066,80.6066) (38.5439,82.6693) (35.8253,83.8346) (33.1066,85.0000) (30.0000,85.0000) (26.8934,85.0000) (24.1747,83.8346) (21.4561,82.6693) (19.3934,80.6066) (17.3307,78.5439) (16.1654,75.8253) (15.0000,73.1066) (15.0000,70.0000) (15.0000,66.8934) (16.1654,64.1747) (17.3307,61.4561) (19.3934,59.3934) (21.4561,57.3307) (24.1747,56.1654) (26.8934,55.0000) (30.0000,55.0000) (33.1066,55.0000) (35.8253,56.1654) (38.5439,57.3307) (40.6066,59.3934) (42.6693,61.4561) (43.8346,64.1747) (45.0000,66.8934) (45.0000,70.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 3: curves=16 points=33 closed=true
+  points: (110.0000,70.0000) (110.0000,72.0711) (108.4462,73.8835) (106.8923,75.6960) (104.1421,77.0711) (101.3919,78.4462) (97.7670,79.2231) (94.1421,80.0000) (90.0000,80.0000) (85.8579,80.0000) (82.2330,79.2231) (78.6081,78.4462) (75.8579,77.0711) (73.1077,75.6960) (71.5538,73.8835) (70.0000,72.0711) (70.0000,70.0000) (70.0000,67.9289) (71.5538,66.1165) (73.1077,64.3040) (75.8579,62.9289) (78.6081,61.5538) (82.2330,60.7769) (85.8579,60.0000) (90.0000,60.0000) (94.1421,60.0000) (97.7670,60.7769) (101.3919,61.5538) (104.1421,62.9289) (106.8923,64.3040) (108.4462,66.1165) (110.0000,67.9289) (110.0000,70.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 4: curves=1 points=3 closed=false
+  points: (130.0000,10.0000) (155.0000,25.0000) (180.0000,40.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 5: curves=3 points=7 closed=false
+  points: (130.0000,50.0000) (140.0000,60.0000) (150.0000,70.0000) (160.0000,62.5000) (170.0000,55.0000) (180.0000,67.5000) (190.0000,80.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 6: curves=3 points=7 closed=true
+  points: (130.0000,90.0000) (145.0000,87.5000) (160.0000,85.0000) (172.5000,90.0000) (185.0000,95.0000) (157.5000,92.5000) (130.0000,90.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+== nested_transforms ==
+viewport 100.0000x100.0000
+viewBox none
+shape 0: curves=4 points=9 closed=true
+  points: (26.0000,22.0000) (26.0000,25.0000) (26.0000,28.0000) (22.0000,28.0000) (18.0000,28.0000) (18.0000,25.0000) (18.0000,22.0000) (22.0000,22.0000) (26.0000,22.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=2.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 1: curves=8 points=17 closed=true
+  points: (65.0000,73.0000) (65.8284,73.0000) (66.4142,73.5858) (67.0000,74.1716) (67.0000,75.0000) (67.0000,75.8284) (66.4142,76.4142) (65.8284,77.0000) (65.0000,77.0000) (64.1716,77.0000) (63.5858,76.4142) (63.0000,75.8284) (63.0000,75.0000) (63.0000,74.1716) (63.5858,73.5858) (64.1716,73.0000) (65.0000,73.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 2: curves=4 points=9 closed=true
+  points: (60.0000,60.0000) (70.0000,60.0000) (80.0000,60.0000) (80.0000,70.0000) (80.0000,80.0000) (70.0000,80.0000) (60.0000,80.0000) (60.0000,70.0000) (60.0000,60.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=2.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+== defs_use ==
+viewport 100.0000x100.0000
+viewBox none
+shape 0: curves=16 points=33 closed=true
+  points: (15.0000,20.0000) (15.0000,21.0355) (14.6115,21.9418) (14.2231,22.8480) (13.5355,23.5355) (12.8480,24.2231) (11.9418,24.6115) (11.0355,25.0000) (10.0000,25.0000) (8.9645,25.0000) (8.0582,24.6115) (7.1520,24.2231) (6.4645,23.5355) (5.7769,22.8480) (5.3885,21.9418) (5.0000,21.0355) (5.0000,20.0000) (5.0000,18.9645) (5.3885,18.0582) (5.7769,17.1520) (6.4645,16.4645) (7.1520,15.7769) (8.0582,15.3885) (8.9645,15.0000) (10.0000,15.0000) (11.0355,15.0000) (11.9418,15.3885) (12.8480,15.7769) (13.5355,16.4645) (14.2231,17.1520) (14.6115,18.0582) (15.0000,18.9645) (15.0000,20.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 1: curves=4 points=9 closed=true
+  points: (8.0000,18.0000) (10.0000,18.0000) (12.0000,18.0000) (12.0000,20.0000) (12.0000,22.0000) (10.0000,22.0000) (8.0000,22.0000) (8.0000,20.0000) (8.0000,18.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 2: curves=16 points=33 closed=true
+  points: (110.0000,120.0000) (110.0000,122.0711) (109.2231,123.8835) (108.4462,125.6960) (107.0711,127.0711) (105.6960,128.4462) (103.8835,129.2231) (102.0711,130.0000) (100.0000,130.0000) (97.9289,130.0000) (96.1165,129.2231) (94.3040,128.4462) (92.9289,127.0711) (91.5538,125.6960) (90.7769,123.8835) (90.0000,122.0711) (90.0000,120.0000) (90.0000,117.9289) (90.7769,116.1165) (91.5538,114.3040) (92.9289,112.9289) (94.3040,111.5538) (96.1165,110.7769) (97.9289,110.0000) (100.0000,110.0000) (102.0711,110.0000) (103.8835,110.7769) (105.6960,111.5538) (107.0711,112.9289) (108.4462,114.3040) (109.2231,116.1165) (110.0000,117.9289) (110.0000,120.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=2.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 3: curves=4 points=9 closed=true
+  points: (96.0000,116.0000) (100.0000,116.0000) (104.0000,116.0000) (104.0000,120.0000) (104.0000,124.0000) (100.0000,124.0000) (96.0000,124.0000) (96.0000,120.0000) (96.0000,116.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=2.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+== path_arcs_and_curves ==
+viewport 100.0000x100.0000
+viewBox none
+shape 0: curves=9 points=19 closed=true
+  points: (10.0000,10.0000) (10.0000,6.8934) (12.3307,4.1747) (14.6615,1.4561) (18.7868,-0.6066) (22.9121,-2.6693) (28.3495,-3.8346) (33.7868,-5.0000) (40.0000,-5.0000) (46.2132,-5.0000) (51.6505,-3.8346) (57.0879,-2.6693) (61.2132,-0.6066) (65.3385,1.4561) (67.6693,4.1747) (70.0000,6.8934) (70.0000,10.0000) (40.0000,10.0000) (10.0000,10.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 1: curves=8 points=17 closed=false
+  points: (10.0000,50.0000) (6.8934,53.1066) (5.3401,56.9906) (3.7868,60.8747) (3.7868,65.0000) (3.7868,69.1253) (5.3401,73.0094) (6.8934,76.8934) (10.0000,80.0000) (13.1066,83.1066) (16.9906,84.6599) (20.8747,86.2132) (25.0000,86.2132) (29.1253,86.2132) (33.0094,84.6599) (36.8934,83.1066) (40.0000,80.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 2: curves=7 points=15 closed=true
+  points: (10.0000,90.0000) (17.5000,82.5000) (25.0000,90.0000) (32.5000,97.5000) (40.0000,90.0000) (45.0000,95.0000) (50.0000,90.0000) (55.0000,85.0000) (60.0000,90.0000) (62.5000,90.0000) (65.0000,90.0000) (65.0000,87.5000) (65.0000,85.0000) (37.5000,87.5000) (10.0000,90.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 3: curves=2 points=5 closed=false
+  points: (60.0000,90.0000) (60.2321,89.8660) (60.5000,89.8660) (60.7679,89.8660) (61.0000,90.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+== cascade ==
+viewport 100.0000x100.0000
+viewBox none
+shape 0: curves=4 points=9 closed=true
+  points: (5.0000,5.0000) (15.0000,5.0000) (25.0000,5.0000) (25.0000,15.0000) (25.0000,25.0000) (15.0000,25.0000) (5.0000,25.0000) (5.0000,15.0000) (5.0000,5.0000)
+  style: fill=#ff0000 fill-opacity=0.5000 fill-rule=EvenOdd stroke=#0000ff stroke-width=2.0000 stroke-opacity=1.0000 cap=round join=bevel miter=4.0000 dash=[4.0, 2.0] dash-offset=0.0000 opacity=0.8000
+shape 1: curves=4 points=9 closed=true
+  points: (30.0000,30.0000) (40.0000,30.0000) (50.0000,30.0000) (50.0000,40.0000) (50.0000,50.0000) (40.0000,50.0000) (30.0000,50.0000) (30.0000,40.0000) (30.0000,30.0000)
+  style: fill=#ffa500 fill-opacity=0.5000 fill-rule=EvenOdd stroke=#0000ff stroke-width=2.0000 stroke-opacity=1.0000 cap=round join=bevel miter=4.0000 dash=[4.0, 2.0] dash-offset=0.0000 opacity=0.4000
+shape 2: curves=4 points=9 closed=true
+  points: (60.0000,60.0000) (65.0000,60.0000) (70.0000,60.0000) (70.0000,65.0000) (70.0000,70.0000) (65.0000,70.0000) (60.0000,70.0000) (60.0000,65.0000) (60.0000,60.0000)
+  style: fill=none fill-opacity=0.5000 fill-rule=EvenOdd stroke=#ff0000 stroke-width=2.0000 stroke-opacity=0.2500 cap=round join=bevel miter=4.0000 dash=[4.0, 2.0] dash-offset=0.0000 opacity=0.4000
+== viewbox_default_meet ==
+viewport 200.0000x100.0000
+viewBox 0.0000 0.0000 100.0000 100.0000
+shape 0: curves=4 points=9 closed=true
+  points: (50.0000,0.0000) (100.0000,0.0000) (150.0000,0.0000) (150.0000,50.0000) (150.0000,100.0000) (100.0000,100.0000) (50.0000,100.0000) (50.0000,50.0000) (50.0000,0.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+== viewbox_none_stretch ==
+viewport 200.0000x100.0000
+viewBox 10.0000 10.0000 50.0000 50.0000
+shape 0: curves=4 points=9 closed=true
+  points: (0.0000,0.0000) (100.0000,0.0000) (200.0000,0.0000) (200.0000,50.0000) (200.0000,100.0000) (100.0000,100.0000) (0.0000,100.0000) (0.0000,50.0000) (0.0000,0.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=2.8284 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+== viewbox_slice_max ==
+viewport 200.0000x100.0000
+viewBox 0.0000 0.0000 100.0000 100.0000
+shape 0: curves=16 points=33 closed=true
+  points: (150.0000,0.0000) (150.0000,10.3553) (146.1154,19.4176) (142.2309,28.4798) (135.3553,35.3553) (128.4798,42.2309) (119.4176,46.1154) (110.3553,50.0000) (100.0000,50.0000) (89.6447,50.0000) (80.5824,46.1154) (71.5202,42.2309) (64.6447,35.3553) (57.7691,28.4798) (53.8846,19.4176) (50.0000,10.3553) (50.0000,0.0000) (50.0000,-10.3553) (53.8846,-19.4176) (57.7691,-28.4798) (64.6447,-35.3553) (71.5202,-42.2309) (80.5824,-46.1154) (89.6447,-50.0000) (100.0000,-50.0000) (110.3553,-50.0000) (119.4176,-46.1154) (128.4798,-42.2309) (135.3553,-35.3553) (142.2309,-28.4798) (146.1154,-19.4176) (150.0000,-10.3553) (150.0000,0.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=2.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+== units_and_percent ==
+viewport 96.0000x96.0000
+viewBox none
+shape 0: curves=4 points=9 closed=true
+  points: (96.0000,96.0000) (144.0000,96.0000) (192.0000,96.0000) (192.0000,144.0000) (192.0000,192.0000) (144.0000,192.0000) (96.0000,192.0000) (96.0000,144.0000) (96.0000,96.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=1.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000
+shape 1: curves=1 points=3 closed=false
+  points: (0.0000,0.0000) (24.0000,12.0000) (48.0000,24.0000)
+  style: fill=#000000 fill-opacity=1.0000 fill-rule=NonZero stroke=none stroke-width=96.0000 stroke-opacity=1.0000 cap=butt join=miter miter=4.0000 dash=[] dash-offset=0.0000 opacity=1.0000

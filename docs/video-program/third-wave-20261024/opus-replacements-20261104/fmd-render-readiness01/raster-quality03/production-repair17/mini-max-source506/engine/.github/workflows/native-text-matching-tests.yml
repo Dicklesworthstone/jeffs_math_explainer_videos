@@ -1,0 +1,53 @@
+name: Native text matching tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "crates/fmn-library/src/text_matching.rs"
+      - "crates/fmn-library/tests/text_matching.rs"
+      - ".github/workflows/native-text-matching-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  native:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: "true"
+      CARGO_TARGET_DIR: target/portable
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Record formatter output without changing the checkout
+        run: |
+          mkdir -p "$RUNNER_TEMP/native-text-matching/src" "$RUNNER_TEMP/native-text-matching/tests"
+          for file in src/text_matching.rs tests/text_matching.rs src/lib.rs; do
+            rustfmt --edition 2024 --config skip_children=true --emit stdout "crates/fmn-library/$file" > "$RUNNER_TEMP/native-text-matching/$file"
+          done
+      - name: Exercise native span planning and Choreo playback
+        run: |
+          set -o pipefail
+          cargo test --locked -p fmn-library --lib text_matching::tests 2>&1 | tee "$RUNNER_TEMP/native-text-matching/planner.log"
+          cargo test --locked -p fmn-library --test text_matching 2>&1 | tee "$RUNNER_TEMP/native-text-matching/playback.log"
+      - name: Check native matching formatting
+        run: rustfmt --edition 2024 --config skip_children=true --check crates/fmn-library/src/text_matching.rs crates/fmn-library/tests/text_matching.rs
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        if: always()
+        with:
+          name: native-text-matching-check
+          path: ${{ runner.temp }}/native-text-matching
+          retention-days: 3

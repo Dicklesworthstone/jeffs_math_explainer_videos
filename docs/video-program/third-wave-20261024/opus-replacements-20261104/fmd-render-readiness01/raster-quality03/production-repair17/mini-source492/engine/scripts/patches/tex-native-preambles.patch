@@ -1,0 +1,393 @@
+diff --git a/crates/fmn-library/src/tex.rs b/crates/fmn-library/src/tex.rs
+--- a/crates/fmn-library/src/tex.rs
++++ b/crates/fmn-library/src/tex.rs
+@@ -153,6 +153,7 @@
+ #[derive(Debug, Clone)]
+ pub struct Tex<'a> {
+     source: &'a str,
++    additional_preamble: &'a str,
+     mode: Mode,
+     font_size: f64,
+     font_size_for_unit_height: f64,
+@@ -167,12 +168,21 @@
+     pub fn new(source: &'a str) -> Self {
+         Self {
+             source,
++            additional_preamble: "",
+             mode: Mode::Math(MathStyle::Text),
+             font_size: DEFAULT_FONT_SIZE,
+             font_size_for_unit_height: DEFAULT_FONT_SIZE_FOR_UNIT_HEIGHT,
+             style: text_style(),
+             t2c: &[],
+         }
++    }
++
++    /// Document-local native macro definitions. Span selections continue
++    /// to refer to the original formula, not the preamble prefix.
++    #[must_use]
++    pub fn additional_preamble(mut self, preamble: &'a str) -> Self {
++        self.additional_preamble = preamble;
++        self
+     }
+ 
+     /// Display-style mathematics (`\displaystyle`).
+@@ -228,7 +238,7 @@
+     /// silence, never garbage. [`TexMobjectError::Calibration`]: the
+     /// math face roster maps no measurable "0".
+     pub fn build(&self, engine: &TexEngine) -> Result<TexMobject, TexMobjectError> {
+-        let typeset = engine.typeset(self.mode, self.source)?;
++        let typeset = engine.typeset_with_preamble(self.mode, self.source, self.additional_preamble)?;
+         let scale = calibrate(engine, self.font_size, self.font_size_for_unit_height)?;
+         // tex_to_color_map, resolved to child ordinals before
+         // construction: later entries win (the Reference's dict-update).
+@@ -263,6 +273,13 @@
+ }
+ 
+ impl<'a> TexText<'a> {
++    /// Document-local native macro definitions, shared by all math islands.
++    #[must_use]
++    pub fn additional_preamble(mut self, preamble: &'a str) -> Self {
++        self.inner = self.inner.additional_preamble(preamble);
++        self
++    }
++
+     /// A `TexText` with the Reference's defaults.
+     #[must_use]
+     pub fn new(source: &'a str) -> Self {
+diff --git a/crates/fmn-library/tests/tex_preambles.rs b/crates/fmn-library/tests/tex_preambles.rs
+new file mode 100644
+--- /dev/null
++++ b/crates/fmn-library/tests/tex_preambles.rs
+@@ -0,0 +1,32 @@
++//! Native library consumers share the same document-local Scribe path.
++use fmn_core::constants::{RED, BLUE};
++use fmn_library::{Tex, TexText, TexEngine};
++
++#[test]
++fn tex_preambles_color_native_children_by_original_source() {
++    let engine = TexEngine::new("fmd-math/pack/default", None).unwrap();
++    let colors = [(r"\half{x}", RED), ("y", BLUE)];
++    let built = Tex::new(r"\half{x}+y")
++        .additional_preamble(r"\newcommand{\half}[1]{\frac{#1}{2}}")
++        .t2c(&colors).build(&engine).unwrap();
++    for id in &built.occurrences(r"\half{x}")[0] {
++        assert_eq!(built.vmob.children()[*id].style().fill_color, RED);
++    }
++    for id in &built.occurrences("y")[0] {
++        assert_eq!(built.vmob.children()[*id].style().fill_color, BLUE);
++    }
++    assert_eq!(built.span_map().source.as_ref(), r"\half{x}+y");
++}
++
++#[test]
++fn tex_preambles_work_in_library_text_and_named_pack_engines() {
++    for pack in ["fmd-math/pack/default", "fmd-math/pack/basic", "fmd-math/pack/empty"] {
++        let engine = TexEngine::new(pack, None).unwrap();
++        let built = TexText::new(r"half: $\half{x}$")
++            .additional_preamble(r"\newcommand{\half}[1]{\frac{#1}{2}}")
++            .build(&engine).unwrap();
++        assert!(!built.is_empty());
++        assert_eq!(built.typeset.source, r"half: $\half{x}$");
++        assert_eq!(built.occurrences("x")[0].len(), 1);
++    }
++}
+diff --git a/crates/fmn-tex/src/engine.rs b/crates/fmn-tex/src/engine.rs
+--- a/crates/fmn-tex/src/engine.rs
++++ b/crates/fmn-tex/src/engine.rs
+@@ -229,6 +229,28 @@
+         self.layout(mode, source)
+     }
+ 
++    /// Typeset using a per-document `\newcommand`/`\renewcommand` preamble.
++    ///
++    /// Definitions use fmd-math's parser and expansion budgets. The named
++    /// pack and complete preamble participate in cache identity, while
++    /// returned source spans still index only `source`. Definitions do not
++    /// escape this call or mutate the engine. Text-mode preamble whitespace
++    /// produces no visible material.
++    ///
++    /// # Errors
++    ///
++    /// As [`Self::typeset`], plus malformed or oversized preambles. A
++    /// preamble contains only definitions, comments and whitespace; system
++    /// packages and external-tool directives are not native macros.
++    pub fn typeset_with_preamble(
++        &self,
++        mode: Mode,
++        source: &str,
++        additional_preamble: &str,
++    ) -> Result<Typeset, TexError> {
++        crate::preamble::typeset(self, &self.macros, mode, source, additional_preamble)
++    }
++
+     fn layout(&self, mode: Mode, source: &str) -> Result<Typeset, TexError> {
+         let layout = match mode {
+             Mode::Math(style) => self
+diff --git a/crates/fmn-tex/src/lib.rs b/crates/fmn-tex/src/lib.rs
+--- a/crates/fmn-tex/src/lib.rs
++++ b/crates/fmn-tex/src/lib.rs
+@@ -36,10 +36,12 @@
+ 
+ mod engine;
+ mod error;
++mod preamble;
+ mod typeset;
+ 
+ pub use engine::{Mode, TexEngine};
+ pub use error::{PreflightError, TexError};
++pub use preamble::PREAMBLE_LIMIT_BYTES;
+ pub use typeset::{
+     Prim, Sub, TYPESET_DOCUMENT_LIMIT_BYTES, TYPESET_FORMAT_VERSION, Typeset, TypesetError,
+ };
+diff --git a/crates/fmn-tex/src/preamble.rs b/crates/fmn-tex/src/preamble.rs
+new file mode 100644
+--- /dev/null
++++ b/crates/fmn-tex/src/preamble.rs
+@@ -0,0 +1,97 @@
++//! Per-document macro preambles over fmd-math's one token expander.
++//!
++//! The validated definition prefix is part of the cache input, but never
++//! part of the consumer's source or span coordinates. Text mode encloses
++//! the prefix in an empty math island: newlines in a preamble must not
++//! become visible prose whitespace. No macro grammar is reimplemented.
++
++use crate::{Mode, TexEngine, TexError, Typeset, TypesetError};
++use fmd_math::{MacroSet, MathError, NodeKind, Span};
++
++/// Maximum UTF-8 bytes in a document's additional macro preamble.
++pub const PREAMBLE_LIMIT_BYTES: usize = 65_536;
++
++pub(crate) fn typeset(
++    engine: &TexEngine,
++    macros: &MacroSet,
++    mode: Mode,
++    source: &str,
++    preamble: &str,
++) -> Result<Typeset, TexError> {
++    if preamble.is_empty() {
++        return engine.typeset(mode, source);
++    }
++    if preamble.len() > PREAMBLE_LIMIT_BYTES {
++        return Err(malformed(format!(
++            "additional_preamble has {} UTF-8 bytes; limit is {PREAMBLE_LIMIT_BYTES}",
++            preamble.len()
++        )));
++    }
++    // Definition parsing, parameter validation, shadowing and recursion
++    // policy remain upstream. A preamble cannot smuggle rendered material
++    // or mode/style declarations into the visible document.
++    let parsed = fmd_math::parse_with_macros(preamble, macros)?;
++    if !matches!(&parsed.kind, NodeKind::List(items) if items.is_empty()) {
++        return Err(malformed(
++            "additional_preamble must contain only native macro definitions, comments and whitespace"
++                .to_owned(),
++        ));
++    }
++    let (open, close) = match mode {
++        Mode::Math(_) => ("", "\n"),
++        Mode::Text => ("$", "\n$"),
++    };
++    let prefix = preamble.len().checked_add(open.len() + close.len()).ok_or(
++        TypesetError::SizeOverflow { context: "preamble prefix" },
++    )?;
++    let size = prefix.checked_add(source.len()).ok_or(TypesetError::SizeOverflow {
++        context: "preamble and source",
++    })?;
++    // Reuse the typeset document's resource ceiling before creating an
++    // additional owned copy; a rejected request never warms the cache.
++    if size > crate::TYPESET_DOCUMENT_LIMIT_BYTES {
++        return Err(TypesetError::DocumentTooLarge {
++            bytes: size,
++            limit: crate::TYPESET_DOCUMENT_LIMIT_BYTES,
++        }.into());
++    }
++    let mut input = String::new();
++    input.try_reserve_exact(size).map_err(|error| TypesetError::AllocationFailed {
++        context: "preamble and source bytes", requested: size, error,
++    })?;
++    input.push_str(open);
++    input.push_str(preamble);
++    // A newline terminates a final comment instead of commenting out the
++    // formula (or the closing math island in text mode).
++    input.push_str(close);
++    input.push_str(source);
++    let mut layout = engine.typeset(mode, &input)?.layout;
++    for span in layout.glyphs.iter_mut().map(|p| &mut p.span)
++        .chain(layout.rules.iter_mut().map(|p| &mut p.span))
++        .chain(layout.paths.iter_mut().map(|p| &mut p.span))
++    {
++        rebase(span, prefix, size)?;
++    }
++    let mut original = String::new();
++    original.try_reserve_exact(source.len()).map_err(|error| TypesetError::AllocationFailed {
++        context: "original Tex source bytes", requested: source.len(), error,
++    })?;
++    original.push_str(source);
++    Ok(Typeset::new(original, layout)?)
++}
++
++fn malformed(what: String) -> TexError {
++    TexError::Math(MathError::Malformed { what, at: 0 })
++}
++
++fn rebase(span: &mut Span, prefix: usize, end: usize) -> Result<(), TexError> {
++    if span.start < prefix || span.end < span.start || span.end > end {
++        return Err(TypesetError::NonCanonical {
++            field: "preamble output span",
++            reason: "macro expansion retained a definition-site span; nested macro calls in definition bodies require an upstream fmd-math fix",
++        }.into());
++    }
++    span.start -= prefix;
++    span.end -= prefix;
++    Ok(())
++}
+diff --git a/crates/fmn-tex/tests/preambles.rs b/crates/fmn-tex/tests/preambles.rs
+new file mode 100644
+--- /dev/null
++++ b/crates/fmn-tex/tests/preambles.rs
+@@ -0,0 +1,145 @@
++//! Native preambles must change semantics/cache identity, never source identity.
++use fmn_tex::{Layout, Mode, PREAMBLE_LIMIT_BYTES, Span, Style, TexEngine, Typeset};
++
++const HALF: &str = r"\newcommand{\half}[1]{\frac{#1}{2}}";
++
++fn engine(pack: &'static str) -> TexEngine {
++    TexEngine::new(pack, None).expect("bundled engine")
++}
++
++fn geometry(mut layout: Layout) -> Layout {
++    for span in layout.glyphs.iter_mut().map(|p| &mut p.span)
++        .chain(layout.rules.iter_mut().map(|p| &mut p.span))
++        .chain(layout.paths.iter_mut().map(|p| &mut p.span))
++    {
++        *span = Span::new(0, 0);
++    }
++    layout
++}
++
++#[test]
++fn empty_preamble_preserves_canonical_documents() {
++    let e = engine("fmd-math/pack/default");
++    for (mode, src) in [(Mode::Math(Style::Text), r"\frac{x}{2}"), (Mode::Text, "a $x$ b")] {
++        assert_eq!(e.typeset(mode, src).unwrap().to_bytes().unwrap(),
++            e.typeset_with_preamble(mode, src, "").unwrap().to_bytes().unwrap());
++    }
++}
++
++#[test]
++fn preamble_geometry_matches_independent_expansions_in_every_style() {
++    let e = engine("fmd-math/pack/default");
++    let preamble = format!("{HALF}\n{}", r"\newcommand{\outer}[1]{\left(\sqrt{#1}\right)}");
++    for style in [Style::Display, Style::Text, Style::Script, Style::ScriptScript] {
++        let mode = Mode::Math(style);
++        let actual = e.typeset_with_preamble(mode, r"\outer{\half{x}}", &preamble).unwrap();
++        let expected = e.typeset(mode, r"\left(\sqrt{\frac{x}{2}}\right)").unwrap();
++        assert_eq!(geometry(actual.layout), geometry(expected.layout));
++    }
++}
++
++#[test]
++fn preamble_whitespace_and_trailing_comments_are_invisible_in_text_mode() {
++    let e = engine("fmd-math/pack/default");
++    let preamble = format!("\n% λ UTF-8 comment\n{HALF}\n% comment without a final newline");
++    for (src, expanded) in [
++        (r"half: $\half{x}$", r"half: $\frac{x}{2}$"),
++        (r"$\half{x}$", r"$\frac{x}{2}$"),
++        (r"$$\half{x}$$", r"$$\frac{x}{2}$$"),
++        (r"\half{x}", r"\frac{x}{2}"),
++    ] {
++        let t = e.typeset_with_preamble(Mode::Text, src, &preamble).unwrap();
++        assert_eq!(t.source, src);
++        assert_eq!(geometry(t.layout), geometry(e.typeset(Mode::Text, expanded).unwrap().layout));
++    }
++}
++
++#[test]
++fn preamble_spans_refer_to_original_utf8_source_and_arguments() {
++    let e = engine("fmd-math/pack/default");
++    let source = r"λ+\half{x}+\half{y}";
++    let t = e.typeset_with_preamble(Mode::Math(Style::Text), source, HALF).unwrap();
++    assert_eq!(t.source, source);
++    for sub in &t.subs {
++        assert!(sub.span.start <= sub.span.end && sub.span.end <= source.len());
++        assert!(source.is_char_boundary(sub.span.start) && source.is_char_boundary(sub.span.end));
++    }
++    assert_eq!(t.occurrences("x")[0].len(), 1);
++    assert_eq!(t.occurrences("y")[0].len(), 1);
++    let first = &t.occurrences(r"\half{x}")[0];
++    let second = &t.occurrences(r"\half{y}")[0];
++    assert!(first.len() >= 3 && second.len() >= 3);
++    assert!(first.iter().all(|id| !second.contains(id)));
++    assert_eq!(Typeset::from_bytes(&t.to_bytes().unwrap()).unwrap().subs, t.subs);
++}
++
++#[test]
++fn preamble_cache_is_content_sensitive_and_does_not_leak_definitions() {
++    use fmn_cache::{Store, StoreConfig};
++    use fmn_platform::{clock::FakeClock, fs::VirtualFs};
++    use std::sync::Arc;
++    let root = if cfg!(windows) { r"C:\preamble-cache" } else { "/preamble-cache" };
++    let store = Store::open(Arc::new(VirtualFs::new()), Arc::new(FakeClock::new()), root,
++        StoreConfig::default()).unwrap();
++    let e = engine("fmd-math/pack/default").with_cache(&store).unwrap();
++    let mode = Mode::Math(Style::Text);
++    let a = r"\newcommand{\value}{x}";
++    let b = r"\newcommand{\value}{y}";
++    let first = e.typeset_with_preamble(mode, r"\value", a).unwrap();
++    let other = e.typeset_with_preamble(mode, r"\value", b).unwrap();
++    assert_ne!(first.layout.glyphs[0].gid, other.layout.glyphs[0].gid);
++    let warm = e.typeset_with_preamble(mode, r"\value", a).unwrap();
++    assert_eq!(first.to_bytes().unwrap(), warm.to_bytes().unwrap());
++    assert!(e.typeset(mode, r"\value").is_err());
++}
++
++#[test]
++fn preamble_renewal_respects_selected_pack_and_source_layering() {
++    let mode = Mode::Math(Style::Text);
++    let default = engine("fmd-math/pack/default");
++    let empty = engine("fmd-math/pack/empty");
++    let renew = r"\renewcommand{\minus}{+}";
++    let t = default.typeset_with_preamble(mode, r"a\minus b", renew).unwrap();
++    assert_eq!(geometry(t.layout), geometry(default.typeset(mode, "a+b").unwrap().layout));
++    assert!(empty.typeset_with_preamble(mode, "x", renew).is_err());
++    let t = default.typeset_with_preamble(mode,
++        r"\renewcommand{\half}[1]{\sqrt{#1}}\half{x}", HALF).unwrap();
++    assert_eq!(geometry(t.layout), geometry(default.typeset(mode, r"\sqrt{x}").unwrap().layout));
++    assert!(default.typeset_with_preamble(mode, r"\newcommand{\half}{x}", HALF).is_err());
++}
++
++#[test]
++fn preamble_errors_are_bounded_and_never_silently_rendered() {
++    let e = engine("fmd-math/pack/default");
++    let mode = Mode::Math(Style::Text);
++    for preamble in ["visible", r"\quad", r"\displaystyle", r"\usepackage{amsmath}",
++        r"\input{secret}", r"\newcommand{\bad}[1]{#2}", r"\newcommand{\bad}{unclosed",
++        r"\newcommand{\same}{a}\newcommand{\same}{b}", r"\renewcommand{\absent}{x}"] {
++        assert!(e.typeset_with_preamble(mode, "x", preamble).is_err(), "{preamble}");
++    }
++    let oversized = " ".repeat(PREAMBLE_LIMIT_BYTES + 1);
++    assert!(e.typeset_with_preamble(mode, "x", &oversized).unwrap_err().to_string().contains("limit"));
++    assert!(e.typeset_with_preamble(mode, r"\loop", r"\newcommand{\loop}{\loop}").is_err());
++    assert!(e.typeset_with_preamble(mode, r"\half{x}", HALF).is_ok());
++}
++
++#[test]
++fn preamble_whitespace_only_preserves_empty_and_nonempty_documents() {
++    let e = engine("fmd-math/pack/default");
++    for mode in [Mode::Math(Style::Text), Mode::Text] {
++        for src in ["", "x"] {
++            let t = e.typeset_with_preamble(mode, src, " \n% comment").unwrap();
++            assert_eq!(t.to_bytes().unwrap(), e.typeset(mode, src).unwrap().to_bytes().unwrap());
++        }
++    }
++}
++
++
++#[test]
++fn preamble_definition_site_spans_are_refused_instead_of_publishing_wrong_geometry() {
++    let e = engine("fmd-math/pack/default");
++    let preamble = format!("{HALF}\n{}", r"\newcommand{\outer}[1]{\half{#1}}");
++    let error = e.typeset_with_preamble(Mode::Math(Style::Text), r"\outer{x}", &preamble)
++        .expect_err("the pinned upstream expander retains definition-site spans");
++    assert!(error.to_string().contains("definition-site span"), "{error}");
++}

@@ -1,0 +1,20 @@
+{
+  "utc": "2026-11-07T16:34:31.546947+00:00",
+  "source_differences": {
+    "kit": [
+      "Cargo.toml",
+      "src/encode.rs"
+    ],
+    "video": [
+      "Cargo.toml"
+    ]
+  },
+  "binary_sha256": "0ccabd390649aa38fe2471ab22824b84ef8af6fc327ed335f985b455c317932e",
+  "tests": 123,
+  "facts_equal": true,
+  "registry_equal": true,
+  "actual_max_raw_yuv420_bytes": 525844224000,
+  "source_comment_typo": "Comment says525845184000; computed change-evidence value525844224000 authoritative. Frozen source retained.",
+  "geometry_or_audio_changes": false,
+  "final_render_acceptance": false
+}

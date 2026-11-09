@@ -1,0 +1,48 @@
+# G0-8: the accelerator proof spike (fm-ekx). Proves the compiled render IR
+# (§10.8) maps onto a GPU *before* W5 freezes it, by expressing the highest-ROI
+# stage — stroke signed-distance evaluation + AA resolve — as a Metal kernel
+# dispatched through frankentorch, the only GPU gateway this program admits
+# (D-22, §10.7: no wgpu, ever).
+#
+# NOT a workspace member, deliberately: per ADR-0003's non-shipped tier (the
+# g0-5-python-ext pattern), this crate never enters the workspace build graph
+# or any shipped artifact. It carries its own committed Cargo.lock; its
+# non-suite packages carry class=dev rows in SUITE_ALLOWLIST.tsv. The *shipped*
+# annex consumption happens once, with fmn-render's `metal` feature (fm-xsz),
+# against rows authored at that time — this spike only proves the mapping.
+#
+# ft-kernel-metal remains at the exact historical revision ratified by this
+# proof. This keeps the standalone spike reproducible without a sibling
+# frankentorch checkout; the production annex may advance independently under
+# the SUITE.lock ritual (UPSTREAM_LEDGER row 8; fm-xsz's §2.9 pin ritual).
+[package]
+name = "fmn-spike-accelerator"
+version = "0.0.0"
+edition = "2024"
+license = "MIT"
+publish = false
+description = "G0-8 spike: the render IR's stroke-SDF + AA-resolve stage on Metal through frankentorch"
+
+[dependencies]
+fmn-core = { path = "../../crates/fmn-core" }
+fmn-dmath = { path = "../../crates/fmn-dmath" }
+fmn-geom = { path = "../../crates/fmn-geom" }
+fmn-hash = { path = "../../crates/fmn-hash" }
+fmn-frame = { path = "../../crates/fmn-frame" }
+fmn-codec = { path = "../../crates/fmn-codec" }
+fmn-mobject = { path = "../../crates/fmn-mobject" }
+fmn-render = { path = "../../crates/fmn-render" }
+fmn-text = { path = "../../crates/fmn-text" }
+fmn-library = { path = "../../crates/fmn-library" }
+ft-kernel-metal = { git = "https://github.com/Dicklesworthstone/frankentorch", rev = "5dbcc1d2c2a857f3ead07138055c3451b8094438" }
+
+[patch.crates-io]
+# This standalone historical spike owns its resolver root, so it must repeat
+# the reviewed block patch rather than inheriting the workspace declaration.
+block = { git = "https://github.com/Dicklesworthstone/rust-block", rev = "b39ae859d1ee8e8cb5eef6a516471f1578d26b96" }
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }
+
+# Opt out of the franken_manim workspace: this crate resolves alone.
+[workspace]

@@ -1,0 +1,1510 @@
+//! Score QA (plan §7.6): per chapter, from the voice bus and the music stem,
+//! the measurements that say whether the music stays out of the narrator's
+//! way; and, for a score this engine wrote, checks of the notes it played
+//! against the hard rules of §7.3. A failing metric fails the render; the
+//! JSON report keeps every number either way.
+//!
+//! Audio metrics need only two buffers, so the same code judges a score made
+//! elsewhere (the Hoeffding v5 pad and chimes) for a fair A/B. Metrics with
+//! nothing to measure (no speech in a chapter, no notes for an outside score)
+//! are reported as informational, never as passes.
+
+use std::fmt::Write as _;
+
+use crate::duck;
+use crate::fft::{third_octave_levels, welch};
+use crate::filter::{Biquad, Kind};
+use crate::meter;
+use crate::score::{ChordSpan, Event, RETURN_FADE, SILENCE_FADE, Score, Track};
+use crate::units::midi_to_hz;
+use crate::{FS, Stereo};
+
+/// ANSI S3.5-1997 one-third-octave band importance, average speech, for the
+/// bands of [`crate::fft::THIRD_OCTAVES`] (160 Hz–8 kHz).
+pub const BAND_IMPORTANCE: [f64; 18] = [
+    0.0083, 0.0095, 0.0150, 0.0289, 0.0440, 0.0578, 0.0653, 0.0711, 0.0818, 0.0844, 0.0882, 0.0898, 0.0868, 0.0844,
+    0.0771, 0.0527, 0.0364, 0.0185,
+];
+
+/// One measurement. `pass` is `None` for informational rows.
+#[derive(Clone, Debug, PartialEq)]
+pub struct Metric {
+    pub name: String,
+    pub value: f64,
+    pub limit: String,
+    pub pass: Option<bool>,
+    pub detail: String,
+}
+
+/// A chapter's QA.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct Report {
+    pub chapter: String,
+    pub metrics: Vec<Metric>,
+}
+
+impl Report {
+    pub fn passed(&self) -> bool {
+        self.metrics.iter().all(|m| m.pass != Some(false))
+    }
+
+    pub fn failures(&self) -> Vec<&Metric> {
+        self.metrics.iter().filter(|m| m.pass == Some(false)).collect()
+    }
+
+    pub fn get(&self, name: &str) -> Option<&Metric> {
+        self.metrics.iter().find(|m| m.name == name)
+    }
+
+    fn push(&mut self, name: &str, value: f64, limit: &str, pass: Option<bool>, detail: impl Into<String>) {
+        self.metrics.push(Metric {
+            name: name.into(),
+            value,
+            limit: limit.into(),
+            pass,
+            detail: detail.into(),
+        });
+    }
+
+    /// The report as JSON (std only; non-finite numbers become `null`).
+    pub fn to_json(&self) -> String {
+        let mut s = String::new();
+        let _ = write!(
+            s,
+            "{{\"chapter\":{},\"passed\":{},\"metrics\":[",
+            json_str(&self.chapter),
+            self.passed()
+        );
+        for (i, m) in self.metrics.iter().enumerate() {
+            let _ = write!(
+                s,
+                "{}{{\"name\":{},\"value\":{},\"limit\":{},\"pass\":{},\"detail\":{}}}",
+                if i == 0 { "" } else { "," },
+                json_str(&m.name),
+                json_num(m.value),
+                json_str(&m.limit),
+                m.pass.map_or("null".to_string(), |p| p.to_string()),
+                json_str(&m.detail)
+            );
+        }
+        s.push_str("]}");
+        s
+    }
+}
+
+fn json_num(v: f64) -> String {
+    if v.is_finite() {
+        format!("{}", (v * 1e4).round() / 1e4)
+    } else {
+        "null".into()
+    }
+}
+
+fn json_str(s: &str) -> String {
+    let mut out = String::from("\"");
+    for c in s.chars() {
+        match c {
+            '"' => out.push_str("\\\""),
+            '\\' => out.push_str("\\\\"),
+            '\n' => out.push_str("\\n"),
+            c if (c as u32) < 0x20 => {
+                let _ = write!(out, "\\u{:04x}", c as u32);
+            }
+            c => out.push(c),
+        }
+    }
+    out.push('"');
+    out
+}
+
+/// What a score played inside one chapter, in chapter-relative seconds, and
+/// the narrator's band it had to keep out of (Hz).
+#[derive(Clone, Debug)]
+pub struct ScoreFacts {
+    pub events: Vec<Event>,
+    pub chords: Vec<ChordSpan>,
+    pub phrases: Vec<(f64, f64)>,
+    pub no_fly: (f64, f64),
+    /// Declared authored/composed silences inside the chapter: where the stem must be exactly
+    /// zero (from each fade's end to the music's return).
+    pub silences: Vec<(f64, f64)>,
+    /// The authored silences of the chapter that no `silence_end` mark closes
+    /// (the score inferred where the music returns): each one's name, how
+    /// long it is exactly zero (s), and how many narration lines it runs over.
+    pub open_silences: Vec<(String, f64, usize)>,
+    /// Listen windows carrying a scene's sonification: its notes come and go
+    /// there (it is not the score's steady sound).
+    pub sonified: Vec<(f64, f64)>,
+    /// The identity held the duck for the whole video (`Identity::steady_bed`):
+    /// the bed's swell and the step at the chapter's join are then judged;
+    /// otherwise they are reported and nothing more.
+    pub steady_bed: bool,
+    /// The bed's level step into this chapter from the one before (LU, see
+    /// [`join_step_db`]); `None` for the first chapter or where the stem is
+    /// silent at the join.
+    pub join_step_db: Option<f64>,
+}
+
+impl ScoreFacts {
+    /// Chapter `k` of a whole-video score: notes that start in it, chords that
+    /// overlap it (whole, so a chord's real length is judged), phrases that
+    /// start in it.
+    pub fn chapter(score: &Score, k: usize) -> Self {
+        let (_, a, b) = score.chapters[k];
+        let (t0, t1) = (a as f64 / FS, b as f64 / FS);
+        Self {
+            steady_bed: score.steady_bed,
+            join_step_db: score.join_step_db(k),
+            no_fly: score.voice_band(),
+            sonified: score
+                .sonified
+                .iter()
+                .filter(|w| w.1 > t0 && w.0 < t1)
+                .map(|w| (w.0.max(t0) - t0, w.1.min(t1) - t0))
+                .collect(),
+            silences: score
+                .silences
+                .iter()
+                .filter(|s| s.back > t0 && s.fade_end < t1)
+                .map(|s| (s.fade_end.max(t0) - t0, s.back.min(t1) - t0))
+                .collect(),
+            open_silences: score
+                .silences
+                .iter()
+                .filter(|s| !s.closed && s.back > t0 && s.fade_end < t1)
+                .map(|s| (s.name.clone(), s.back.min(t1) - s.fade_end.max(t0), s.lines))
+                .collect(),
+            events: score
+                .events
+                .iter()
+                .filter(|e| e.start >= t0 && e.start < t1)
+                .map(|e| Event {
+                    start: e.start - t0,
+                    ..e.clone()
+                })
+                .collect(),
+            chords: score
+                .chords
+                .iter()
+                .filter(|c| c.end > t0 && c.start < t1)
+                .map(|c| ChordSpan {
+                    start: c.start - t0,
+                    end: c.end - t0,
+                    ..c.clone()
+                })
+                .collect(),
+            phrases: score
+                .phrases
+                .iter()
+                .filter(|p| p.0 >= t0 && p.0 < t1)
+                .map(|p| (p.0 - t0, p.1 - t0))
+                .collect(),
+        }
+    }
+}
+
+// ----------------------------------------------------------------- helpers
+
+fn mono(x: &Stereo) -> Vec<f64> {
+    x.l.iter().zip(&x.r).map(|(a, b)| (a + b) / 2f64.sqrt()).collect()
+}
+
+fn inside(t: f64, regions: &[(f64, f64)]) -> bool {
+    regions.iter().any(|&(a, b)| t >= a && t < b)
+}
+
+fn percentile(v: &[f64], p: f64) -> f64 {
+    meter::percentile(v, p)
+}
+
+/// Speech regions of a voice bus, as the duck sees them.
+pub fn speech_regions(voice: &Stereo) -> Vec<(f64, f64)> {
+    duck::regions(&duck::vad(voice), 1.2)
+}
+
+/// Voice minus music short-term (3 s) loudness, one value per 0.1 s window
+/// whose centre lies in speech. Silent music counts as −120 LUFS.
+pub fn voice_minus_music(voice: &Stereo, music: &Stereo, speech: &[(f64, f64)]) -> Vec<f64> {
+    meter::voice_minus_music(voice, music, speech)
+}
+
+/// The music's loudest momentary (400 ms) loudness during speech minus the
+/// speech's loudest (LU).
+pub fn loudest_400ms(voice: &Stereo, music: &Stereo, speech: &[(f64, f64)]) -> f64 {
+    let v = meter::windowed(voice, 0.4, 0.1);
+    let m = meter::windowed(music, 0.4, 0.1);
+    let (mut vmax, mut mmax) = (f64::NEG_INFINITY, f64::NEG_INFINITY);
+    for (k, (&a, &b)) in v.iter().zip(&m).enumerate() {
+        if inside(k as f64 * 0.1 + 0.2, speech) {
+            vmax = vmax.max(a);
+            mmax = mmax.max(b);
+        }
+    }
+    mmax.max(-120.0) - vmax
+}
+
+/// SII-lite loss per 400 ms block of speech (docs/research/sound_design/
+/// scripts/sii.py): the speech spectrum S is the voice's long-term third-octave
+/// levels over its active samples; each block's music levels N are the masker;
+/// band audibility clip((S − N + 15) / 30); loss = Σ w·(1 − A).
+pub fn sii_losses(voice: &Stereo, music: &Stereo, speech: &[(f64, f64)]) -> Vec<(f64, f64)> {
+    let active = duck::vad(voice);
+    let vm = mono(voice);
+    let speech_samples: Vec<f64> = active
+        .iter()
+        .enumerate()
+        .filter(|(_, a)| **a)
+        .flat_map(|(k, _)| vm[k * duck::VAD_FRAME..(k + 1) * duck::VAD_FRAME].iter().copied())
+        .collect();
+    if speech_samples.len() < 8_192 {
+        return Vec::new();
+    }
+    let s = third_octave_levels(&speech_samples, FS);
+    let mm = mono(music);
+    let block = (0.4 * FS) as usize;
+    (0..mm.len() / block)
+        .filter(|&k| inside((k as f64 + 0.5) * 0.4, speech))
+        .map(|k| {
+            let n = third_octave_levels(&mm[k * block..(k + 1) * block], FS);
+            let loss = s
+                .iter()
+                .zip(&n)
+                .zip(&BAND_IMPORTANCE)
+                .map(|((sv, nv), w)| w * (1.0 - ((sv - nv + 15.0) / 30.0).clamp(0.0, 1.0)))
+                .sum();
+            ((k as f64 + 0.5) * 0.4, loss)
+        })
+        .collect()
+}
+
+/// Music-to-voice energy ratio (dB) in [lo, hi) Hz over the speech regions.
+pub fn band_ratio_db(voice: &Stereo, music: &Stereo, speech: &[(f64, f64)], lo: f64, hi: f64) -> f64 {
+    let pick = |x: &Stereo| -> Vec<f64> {
+        let m = mono(x);
+        speech
+            .iter()
+            .flat_map(|&(a, b)| {
+                let (i, j) = ((a * FS) as usize, ((b * FS) as usize).min(m.len()));
+                m[i.min(j)..j].to_vec()
+            })
+            .collect()
+    };
+    let (v, m) = (pick(voice), pick(music));
+    if v.len() < 4_096 {
+        return f64::NAN;
+    }
+    let band = |x: &[f64]| {
+        let (df, p) = welch(x, FS, 4_096);
+        p.iter()
+            .enumerate()
+            .filter(|(k, _)| (lo..hi).contains(&(*k as f64 * df)))
+            .map(|(_, v)| v)
+            .sum::<f64>()
+    };
+    10.0 * (band(&m).max(1e-30) / band(&v).max(1e-30)).log10()
+}
+
+/// Clicks: 5 ms frames of the music above 8 kHz that jump ≥ 20 dB over the
+/// previous 50 ms and exceed −70 dBFS in that band.
+pub fn click_flags(music: &Stereo) -> usize {
+    click_flags_outside(music, &[])
+}
+
+/// [`click_flags`] but for the frames outside the `exempt` spans (seconds): a
+/// listen window's sonification, whose strikes (a countdown's mallet) are the
+/// scene's sound, and stand 20 dB over the top of a bed held at its ducked
+/// level, which has nothing there (the bed under speech has no energy above
+/// 2.5 kHz). A frame is exempt from 5 ms before the window to 50 ms after it.
+pub fn click_flags_outside(music: &Stereo, exempt: &[(f64, f64)]) -> usize {
+    let mut hp = Biquad::new(Kind::HighPass { q: 0.707 }, 8_000.0);
+    let x: Vec<f64> = mono(music).into_iter().map(|v| hp.process(v)).collect();
+    let frame = 240;
+    let db: Vec<f64> = x
+        .chunks(frame)
+        .map(|c| 10.0 * (c.iter().map(|v| v * v).sum::<f64>() / c.len() as f64 + 1e-30).log10())
+        .collect();
+    (10..db.len())
+        .filter(|&k| {
+            let t = (k * frame) as f64 / FS;
+            let prev = db[k - 10..k].iter().copied().fold(f64::NEG_INFINITY, f64::max);
+            db[k] > -70.0 && db[k] >= prev + 20.0 && !exempt.iter().any(|&(a, b)| t >= a - 0.005 && t < b + 0.05)
+        })
+        .count()
+}
+
+/// The lowest L/R correlation over 3 s windows with any real signal.
+pub fn min_mono_correlation(music: &Stereo) -> f64 {
+    let w = (3.0 * FS) as usize;
+    let mut worst = f64::INFINITY;
+    for k in 0..music.len() / w {
+        let (l, r) = (&music.l[k * w..(k + 1) * w], &music.r[k * w..(k + 1) * w]);
+        let (ll, rr): (f64, f64) = (l.iter().map(|v| v * v).sum(), r.iter().map(|v| v * v).sum());
+        if (ll + rr) / (2 * w) as f64 > 1e-6 {
+            let lr: f64 = l.iter().zip(r).map(|(a, b)| a * b).sum();
+            worst = worst.min(lr / (ll * rr).sqrt().max(1e-30));
+        }
+    }
+    worst
+}
+
+/// How far the music's loudest stretches outside speech stand over what it is
+/// under speech (LU): the 95th percentile of the momentary (400 ms) loudness
+/// of every window centred outside the `speech` regions and outside the
+/// `exempt` ones (a listen window's sonification is the scene's sound, kept
+/// out by 0.2 s each side, a window's half length), minus the median of the
+/// windows centred in speech. A score that releases its duck in a gap (an
+/// open one: 8 to 12 dB, Video F) reads that swell here; one that holds the
+/// duck reads about its own musical movement. NaN when either side has
+/// nothing to measure.
+pub fn bed_swell_db(music: &Stereo, speech: &[(f64, f64)], exempt: &[(f64, f64)]) -> f64 {
+    let m = meter::windowed(music, 0.4, 0.1);
+    let centre = |k: usize| k as f64 * 0.1 + 0.2;
+    let under: Vec<f64> = (0..m.len())
+        .filter(|&k| inside(centre(k), speech))
+        .map(|k| m[k].max(-120.0))
+        .collect();
+    let padded: Vec<(f64, f64)> = exempt.iter().map(|&(a, b)| (a - 0.2, b + 0.2)).collect();
+    let outside: Vec<f64> = (0..m.len())
+        .filter(|&k| !inside(centre(k), speech) && !inside(centre(k), &padded) && m[k] > -100.0)
+        .map(|k| m[k])
+        .collect();
+    if under.is_empty() || outside.is_empty() {
+        return f64::NAN;
+    }
+    percentile(&outside, 95.0) - percentile(&under, 50.0)
+}
+
+pub use crate::meter::join_step_db;
+
+/// QA's limits for a steady bed ([`ScoreFacts::steady_bed`]), LU: the bed's
+/// swell outside speech (`bed_swell_db`) and the step across a chapter join
+/// (`join_step_db`). The swell's 3 is set between what a held bed with its
+/// ceiling reads (-0.7 to 1.6 over Video F's 14 chapters) and what a released
+/// duck reads (10.6 to 15.3: F as it is), nearer the one a score can stay
+/// under without trying. The join's 3.5 is set on the 91 joins of Videos E to
+/// K scored with the steady bed on (the studio's timelines of 2026-10-14):
+/// |step| median 0.9, 95th percentile 1.9, largest 3.3 (a join inside an
+/// authored silence's return is not read at all, [`Score::join_step_db`]).
+/// Where a chapter ends under its last line, the step is the bed's own level
+/// from one chapter to the next, which the held duck cannot move (the voice's
+/// frames stay as they were) and the open score has as well (I's 06 to 07 is
+/// -2.8 open, -3.3 steady); what the steady bed removes is the duck's release
+/// before a chapter's end, which reads 3 to 16 LU in the open scores (median
+/// 9.2). The first limit, 1.5 (the bead's, F's 13 joins were within 1.3),
+/// failed 10 chapters of E, G, H and I that way. The carry meeting a join from
+/// both sides outside speech ([`crate::duck::carry`]) brings that to 7 over
+/// 1.5 and 3 over 2.0 of the 90 joins read: I's 06 to 07 (-3.3), G's 08 to 09
+/// (-2.6) and 03 to 04 (+2.2), chapters whose tail after the last line and
+/// head before the first are 0.6 s each, so most of the 1.5 s either side the
+/// step is read over is under the voice, where the bed is not moved.
+pub const STEADY_BED_SWELL_LU: f64 = 3.0;
+pub const STEADY_JOIN_STEP_LU: f64 = 3.5;
+
+/// How many narration lines a silence without an end mark may run over. The
+/// four we have authored that way and meant each hold exactly one (Video I's
+/// 02_6 for 6.4 s, K's closing sentence for 5.8 s and last question for
+/// 2.1 s, J's 09_6 for 3.0 s); J's fifth, 14_4, held three for 29.8 s because
+/// the voice never paused for 1.2 s after it. One that has to run on is
+/// closed with a `silence_end` mark, which has no bound: A's Kosovo silence
+/// is 43 s on purpose.
+pub const MAX_OPEN_SILENCE_LINES: usize = 1;
+
+/// The most times any 8 s segment recurs (correlation > 0.98) elsewhere,
+/// comparing the stem's consecutive 8 s chunks (a loop whose period is a
+/// multiple of 8 s is caught exactly; other periods only partly).
+pub fn max_repeats(music: &Stereo) -> usize {
+    let w = (8.0 * FS) as usize;
+    let m = mono(music);
+    let segs: Vec<&[f64]> = m
+        .chunks_exact(w)
+        .filter(|s| s.iter().map(|v| v * v).sum::<f64>() / w as f64 > 1e-6)
+        .collect();
+    let norms: Vec<f64> = segs
+        .iter()
+        .map(|s| s.iter().map(|v| v * v).sum::<f64>().sqrt())
+        .collect();
+    (0..segs.len())
+        .map(|i| {
+            (0..segs.len())
+                .filter(|&j| j != i)
+                .filter(|&j| {
+                    let dot: f64 = segs[i].iter().zip(segs[j]).map(|(a, b)| a * b).sum();
+                    dot / (norms[i] * norms[j]) > 0.98
+                })
+                .count()
+        })
+        .max()
+        .unwrap_or(0)
+}
+
+/// Exposed beating (plan §7.6): the deepest slow amplitude modulation of the
+/// music over steady stretches, in dB. Each 2 s window (hop 0.5 s) counts
+/// only when the level cannot be moving for another reason: no score onset
+/// in the 3 s before it or inside it (a chord change crossfades for ~3 s), no
+/// duck ramp (wholly inside speech after its first 0.4 s, or wholly in a gap
+/// from 1.5 s after the voice stops to 0.4 s before it returns), clear of the
+/// stem's first and last 3 s, and above −60 dBFS. Depth is the p95/p5 ratio
+/// of the 25 ms RMS envelope divided by its 1 s moving mean. `None` when no
+/// window qualifies.
+pub fn exposed_beating_db(music: &Stereo, onsets: &[f64], speech: &[(f64, f64)], busy: &[(f64, f64)]) -> Option<f64> {
+    let m = mono(music);
+    let frame = (0.025 * FS) as usize;
+    let env: Vec<f64> = m
+        .chunks(frame)
+        .map(|c| (c.iter().map(|v| v * v).sum::<f64>() / c.len() as f64).sqrt())
+        .collect();
+    let fps = 1.0 / 0.025;
+    let half = (0.5 * fps) as usize;
+    let total = m.len() as f64 / FS;
+    let steady = |a: f64, b: f64| {
+        let in_speech = speech.iter().any(|&(s, e)| a >= s + 0.4 && b <= e);
+        let in_gap = !speech.iter().any(|&(s, e)| s < b + 0.4 && e + 1.5 > a);
+        // a sonification's strikes and closing fade are onsets and decays,
+        // as the score's own are, not beating
+        let quiet = !busy.iter().any(|&(s, e)| a < e + 1.0 && b > s - 0.5);
+        (in_speech || in_gap) && quiet && a >= 3.0 && b <= total - 3.0 && !onsets.iter().any(|&t| t > a - 3.0 && t < b)
+    };
+    let mut worst: Option<f64> = None;
+    let mut a = 0.0;
+    while a + 2.0 <= total {
+        let b = a + 2.0;
+        if steady(a, b) {
+            let (i0, i1) = ((a * fps) as usize, (b * fps) as usize);
+            let ratio: Vec<f64> = (i0..i1.min(env.len()))
+                .filter_map(|i| {
+                    let (lo, hi) = (i.saturating_sub(half), (i + half).min(env.len()));
+                    let mean = env[lo..hi].iter().sum::<f64>() / (hi - lo) as f64;
+                    (mean > 1e-3).then(|| env[i] / mean)
+                })
+                .collect();
+            if ratio.len() > 20 {
+                let depth = 20.0 * (percentile(&ratio, 95.0) / percentile(&ratio, 5.0).max(1e-9)).log10();
+                worst = Some(worst.map_or(depth, |w: f64| w.max(depth)));
+            }
+        }
+        a += 0.5;
+    }
+    worst
+}
+
+/// Unique onset times of the score's notes (a chord's bed notes start together).
+fn onsets(events: &[Event]) -> Vec<f64> {
+    let mut t: Vec<f64> = events.iter().map(|e| (e.start * 100.0).round() / 100.0).collect();
+    t.sort_by(f64::total_cmp);
+    t.dedup();
+    t
+}
+
+fn max_per_second(times: &[f64]) -> usize {
+    times
+        .iter()
+        .map(|&t| times.iter().filter(|&&u| u >= t && u < t + 1.0).count())
+        .max()
+        .unwrap_or(0)
+}
+
+// ----------------------------------------------------------------- evaluate
+
+/// QA one chapter: `voice` and `music` are its buses (same length, which must
+/// equal `expected_len`); `facts` are the score's notes when it is ours.
+pub fn evaluate(
+    chapter: &str,
+    voice: &Stereo,
+    music: &Stereo,
+    expected_len: usize,
+    facts: Option<&ScoreFacts>,
+) -> Report {
+    let mut r = Report {
+        chapter: chapter.into(),
+        ..Default::default()
+    };
+    let speech = speech_regions(voice);
+    let has_speech = !speech.is_empty();
+    // a speech metric with nothing to measure (no speech, a chapter shorter
+    // than its window) is informational, never a pass and never a failure
+    let judge = |value: f64, ok: bool| {
+        if has_speech && value.is_finite() {
+            Some(ok)
+        } else {
+            None
+        }
+    };
+
+    // sanity first: everything below assumes finite, aligned buffers
+    let finite = music.is_finite();
+    r.push("finite", if finite { 1.0 } else { 0.0 }, "no NaN/inf", Some(finite), "");
+    let len_ok = music.len() == expected_len && voice.len() == expected_len;
+    r.push(
+        "length",
+        music.len() as f64,
+        &format!("= {expected_len} samples"),
+        Some(len_ok),
+        format!("voice {} samples", voice.len()),
+    );
+    if !finite || !len_ok {
+        return r;
+    }
+    let dc = [&music.l, &music.r]
+        .iter()
+        .map(|c| (c.iter().sum::<f64>() / c.len().max(1) as f64).abs())
+        .fold(0.0, f64::max);
+    let dc_db = 20.0 * dc.max(1e-12).log10();
+    r.push("dc_dbfs", dc_db, "<= -60", Some(dc_db <= -60.0), "");
+
+    // levels and masking over speech
+    let vm = voice_minus_music(voice, music, &speech);
+    let (med, p5) = (percentile(&vm, 50.0), percentile(&vm, 5.0));
+    r.push(
+        "voice_minus_music_median_lu",
+        med,
+        ">= 16",
+        judge(med, med >= 16.0),
+        "short-term (3 s) windows centred in speech",
+    );
+    r.push("voice_minus_music_p5_lu", p5, ">= 12", judge(p5, p5 >= 12.0), "");
+    let l400 = loudest_400ms(voice, music, &speech);
+    r.push(
+        "music_loudest_400ms_re_speech_lu",
+        l400,
+        "<= -15",
+        judge(l400, l400 <= -15.0),
+        "music's loudest momentary during speech minus the speech's",
+    );
+    let blocks = sii_losses(voice, music, &speech);
+    let sii: Vec<f64> = blocks.iter().map(|b| b.1).collect();
+    let (sii_med, sii_max) = (percentile(&sii, 50.0), sii.iter().copied().fold(f64::NAN, f64::max));
+    let worst = blocks.iter().copied().max_by(|a, b| a.1.total_cmp(&b.1));
+    r.push(
+        "sii_loss_median",
+        sii_med,
+        "<= 0.01",
+        judge(sii_med, sii_med <= 0.01),
+        format!("{} blocks of 400 ms", sii.len()),
+    );
+    r.push(
+        "sii_loss_max",
+        sii_max,
+        "<= 0.03",
+        judge(sii_max, sii_max <= 0.03),
+        worst.map_or(String::new(), |(t, _)| format!("worst block centred at {t:.1} s")),
+    );
+    let br = band_ratio_db(voice, music, &speech, 1_000.0, 4_000.0);
+    r.push(
+        "music_to_voice_1_4khz_db",
+        br,
+        "<= -20",
+        judge(br, br <= -20.0),
+        "energy ratio over speech",
+    );
+
+    // the stem itself
+    let tp = meter::true_peak_db(music);
+    r.push("true_peak_dbtp", tp, "<= -12", Some(tp <= -12.0), "");
+    // a steady bed has no energy above 2.5 kHz to hide a mallet's strike in
+    // (the open duck's bed does, in its windows): the sonification is the
+    // scene's own sound, not a click of the score's
+    let exempt: &[(f64, f64)] = facts.filter(|f| f.steady_bed).map_or(&[], |f| &f.sonified);
+    let clicks = click_flags_outside(music, exempt);
+    r.push(
+        "clicks",
+        clicks as f64,
+        "= 0",
+        Some(clicks == 0),
+        if exempt.is_empty() {
+            "5 ms frames > 8 kHz jumping >= 20 dB"
+        } else {
+            "5 ms frames > 8 kHz jumping >= 20 dB, outside the sonified windows"
+        },
+    );
+    let corr = min_mono_correlation(music);
+    r.push(
+        "min_lr_correlation",
+        corr,
+        ">= 0",
+        if corr.is_finite() { Some(corr >= 0.0) } else { None },
+        "per 3 s window",
+    );
+    let rep = max_repeats(music);
+    r.push(
+        "max_8s_repeats",
+        rep as f64,
+        "<= 3",
+        Some(rep <= 3),
+        "other 8 s segments correlating > 0.98 with one",
+    );
+
+    // the score's own notes
+    let Some(f) = facts else {
+        r.push(
+            "score_rules",
+            f64::NAN,
+            "n/a",
+            None,
+            "no score facts: an outside score is judged on its audio only",
+        );
+        return r;
+    };
+    // the bed's swell outside speech and the step into this chapter: judged
+    // when the identity holds the duck (opt-in), reported otherwise
+    let swell = bed_swell_db(music, &speech, &f.sonified);
+    r.push(
+        "bed_swell_db",
+        swell,
+        &format!("<= {STEADY_BED_SWELL_LU} (steady bed)"),
+        if f.steady_bed {
+            judge(swell, swell <= STEADY_BED_SWELL_LU)
+        } else {
+            None
+        },
+        "loudest 5% of 400 ms windows outside speech and sonified windows, over the median under speech",
+    );
+    if let Some(step) = f.join_step_db {
+        r.push(
+            "join_step_db",
+            step,
+            &format!("|step| <= {STEADY_JOIN_STEP_LU} (steady bed)"),
+            if f.steady_bed {
+                Some(step.abs() <= STEADY_JOIN_STEP_LU)
+            } else {
+                None
+            },
+            "0.2 to 1.5 s after the chapter's start (after the return of an authored silence over it) minus 0.2 to 1.5 s before it (before that silence)",
+        );
+    }
+    // every chord sounding here, at its full length (one held through a
+    // whole chapter is exactly what this gate exists to catch)
+    let longest = f.chords.iter().map(|c| c.end - c.start).fold(0.0, f64::max);
+    r.push(
+        "longest_chord_s",
+        longest,
+        "<= 16",
+        if f.chords.is_empty() {
+            None
+        } else {
+            Some(longest <= 16.0)
+        },
+        format!("{} chords sound in this chapter", f.chords.len()),
+    );
+    let all = onsets(&f.events);
+    let (in_speech, in_gaps): (Vec<f64>, Vec<f64>) = all.iter().partition(|&&t| inside(t, &speech));
+    let (bs, bg) = (max_per_second(&in_speech), max_per_second(&in_gaps));
+    r.push("onsets_per_s_speech", bs as f64, "<= 2", Some(bs <= 2), "");
+    r.push("onsets_per_s_gaps", bg as f64, "<= 6", Some(bg <= 6), "");
+    let (lo, hi) = f.no_fly;
+    let rule1 = f
+        .events
+        .iter()
+        .filter(|e| e.hold >= 1.0 && (lo..hi).contains(&midi_to_hz(e.pitch)))
+        .filter(|e| speech.iter().any(|&(a, b)| e.start < b && e.start + e.hold > a))
+        .count();
+    r.push(
+        "rule1_fundamentals_in_voice_band_in_speech",
+        rule1 as f64,
+        "= 0",
+        Some(rule1 == 0),
+        format!("sustained notes in the narrator's band, {lo:.0}-{hi:.0} Hz"),
+    );
+    let rule8 = f.phrases.iter().filter(|p| inside(p.0, &speech)).count();
+    r.push(
+        "rule8_phrases_start_in_speech",
+        rule8 as f64,
+        "= 0",
+        Some(rule8 == 0),
+        "",
+    );
+    // a note is judged against every chord it sounds over, not only the one
+    // it starts on
+    let rule7 = f
+        .events
+        .iter()
+        .filter(|e| matches!(e.track, Track::Melody | Track::Answer | Track::Cue))
+        .filter(|e| {
+            f.chords
+                .iter()
+                .filter(|c| c.start < e.start + e.hold && c.end > e.start)
+                .any(|c| crate::score::clashes(e.pitch.round() as i32, &c.chord))
+        })
+        .count();
+    r.push(
+        "rule7_minor_ninths",
+        rule7 as f64,
+        "= 0",
+        Some(rule7 == 0),
+        "melody notes a semitone from a tone of a chord they sound over",
+    );
+    let mut rule6 = 0;
+    for (i, a) in f.events.iter().enumerate() {
+        for b in &f.events[i + 1..] {
+            if (b.start - a.start).abs() < 10.0
+                && a.inst == b.inst
+                && a.pitch == b.pitch
+                && a.velocity == b.velocity
+                && a.seed == b.seed
+                && a.hold == b.hold
+            {
+                rule6 += 1;
+            }
+        }
+    }
+    r.push("rule6_identical_notes_10s", rule6 as f64, "= 0", Some(rule6 == 0), "");
+    // a declared authored/composed silence's fade out, zero span and fade back in are a level
+    // the score moves on purpose, not beating: skipped as a sonified window is
+    let mut busy = f.sonified.clone();
+    busy.extend(f.silences.iter().map(|&(s, e)| (s - SILENCE_FADE, e + RETURN_FADE)));
+    match exposed_beating_db(music, &onsets(&f.events), &speech, &busy) {
+        Some(d) => r.push(
+            "exposed_beating_db",
+            d,
+            "<= 6",
+            Some(d <= 6.0),
+            "deepest slow amplitude modulation over steady stretches",
+        ),
+        None => r.push(
+            "exposed_beating_db",
+            f64::NAN,
+            "<= 6",
+            None,
+            "no steady stretch to measure",
+        ),
+    }
+    let rough = f
+        .chords
+        .iter()
+        .map(|c| {
+            let mut hz: Vec<f64> = c.voicing.upper.iter().map(|&m| midi_to_hz(f64::from(m))).collect();
+            hz.sort_by(f64::total_cmp);
+            hz.windows(2).filter(|w| (15.0..=60.0).contains(&(w[1] - w[0]))).count()
+        })
+        .sum::<usize>();
+    r.push(
+        "rough_voice_pairs",
+        rough as f64,
+        "= 0",
+        Some(rough == 0),
+        "adjacent bed voices 15-60 Hz apart",
+    );
+    // a chord as voiced (the bed with its bass, a roll's notes sounding
+    // together) never puts a tone a minor ninth over another: rule 7 judges
+    // a melody against the chord's pitch classes; this judges the voicing
+    let m9 = |lo: f64, hi: f64| crate::score::minor_ninth(lo.round() as i32, hi.round() as i32);
+    let bed_m9 = f
+        .chords
+        .iter()
+        .filter(|c| {
+            let all: Vec<i32> = std::iter::once(c.voicing.bass)
+                .chain(c.voicing.upper.iter().copied())
+                .collect();
+            all.iter().enumerate().any(|(i, &lo)| {
+                all[i + 1..]
+                    .iter()
+                    .any(|&hi| crate::score::minor_ninth(lo.min(hi), lo.max(hi)))
+            })
+        })
+        .count();
+    let rolls: Vec<&Event> = f.events.iter().filter(|e| e.track == Track::Roll).collect();
+    let roll_m9 = rolls
+        .iter()
+        .enumerate()
+        .flat_map(|(i, a)| rolls[i + 1..].iter().map(move |b| (*a, *b)))
+        .filter(|(a, b)| a.start < b.start + b.hold && b.start < a.start + a.hold)
+        .filter(|(a, b)| m9(a.pitch.min(b.pitch), a.pitch.max(b.pitch)))
+        .count();
+    // an authored silence is silence: every sample exactly zero
+    if f.silences.is_empty() {
+        r.push(
+            "authored_silence_peak",
+            f64::NAN,
+            "= 0",
+            None,
+            "no authored silence here",
+        );
+    } else {
+        let peak = f
+            .silences
+            .iter()
+            .flat_map(|&(a, b)| {
+                let (i, j) = (
+                    ((a * FS).ceil() as usize).min(music.len()),
+                    ((b * FS) as usize).min(music.len()),
+                );
+                music.l[i..j].iter().chain(&music.r[i..j])
+            })
+            .fold(0.0_f64, |m, x| m.max(x.abs()));
+        r.push(
+            "authored_silence_peak",
+            peak,
+            "= 0",
+            Some(peak == 0.0),
+            format!("{} span(s) that must be exactly zero", f.silences.len()),
+        );
+    }
+    // a silence with no end mark returns where the voice next pauses for
+    // good: it may hold the one line it was written for and no more
+    let widest = f.open_silences.iter().max_by_key(|s| s.2);
+    r.push(
+        "open_silence_lines",
+        widest.map_or(0.0, |s| s.2 as f64),
+        &format!("<= {MAX_OPEN_SILENCE_LINES}"),
+        widest.map(|s| s.2 <= MAX_OPEN_SILENCE_LINES),
+        widest.map_or("no silence without an end mark here".to_owned(), |s| {
+            format!(
+                "silence:{} has no silence_end and is zero for {:.1} s over {} line(s)",
+                s.0, s.1, s.2
+            )
+        }),
+    );
+    r.push(
+        "voicing_minor_ninths",
+        (bed_m9 + roll_m9) as f64,
+        "= 0",
+        Some(bed_m9 + roll_m9 == 0),
+        format!("{bed_m9} bed voicings, {roll_m9} pairs of roll notes sounding together"),
+    );
+    r
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::rng::Rng;
+    use std::f64::consts::TAU;
+
+    /// Speech-like noise bursts at `spans` (seconds) over `total` seconds.
+    fn speech(spans: &[(f64, f64)], total: f64, level: f64) -> Stereo {
+        let mut rng = Rng::new(3);
+        let n = (total * FS) as usize;
+        let m: Vec<f64> = (0..n)
+            .map(|i| {
+                let t = i as f64 / FS;
+                if spans.iter().any(|&(a, b)| t >= a && t < b) {
+                    level * (0.6 + 0.4 * (TAU * 4.0 * t).sin()) * rng.normal()
+                } else {
+                    0.0
+                }
+            })
+            .collect();
+        Stereo::from_mono(&m)
+    }
+
+    fn tone(hz: f64, amp: f64, total: f64) -> Stereo {
+        let n = (total * FS) as usize;
+        let m: Vec<f64> = (0..n).map(|i| amp * (TAU * hz * i as f64 / FS).sin()).collect();
+        Stereo::from_mono(&m)
+    }
+
+    #[test]
+    fn json_is_well_formed_and_escaped() {
+        let mut r = Report {
+            chapter: "a\"b".into(),
+            ..Default::default()
+        };
+        r.push("x", f64::NAN, "<= 1", None, "line\nbreak");
+        r.push("y", 0.123456789, "= 0", Some(false), "");
+        let j = r.to_json();
+        assert!(j.contains("\"chapter\":\"a\\\"b\""), "{j}");
+        assert!(j.contains("\"value\":null") && j.contains("\"value\":0.1235"), "{j}");
+        assert!(j.contains("\"passed\":false") && j.contains("line\\nbreak"), "{j}");
+    }
+
+    #[test]
+    fn quiet_low_music_passes_and_a_loud_chime_under_speech_fails() {
+        let total = 20.0;
+        let v = speech(&[(1.0, 9.0), (11.0, 19.0)], total, 0.1);
+        // a quiet low pad-like tone, 30 dB under the voice
+        let quiet = tone(330.0, 0.1 * 10f64.powf(-30.0 / 20.0), total);
+        let r = evaluate("ok", &v, &quiet, v.len(), None);
+        for m in [
+            "voice_minus_music_median_lu",
+            "music_loudest_400ms_re_speech_lu",
+            "sii_loss_max",
+            "music_to_voice_1_4khz_db",
+        ] {
+            assert_eq!(r.get(m).unwrap().pass, Some(true), "{m}: {:?}", r.get(m));
+        }
+        // a planted negative: a loud 2.4 kHz "chime" under speech fails
+        // intelligibility, level and the speech-band ratio
+        let chime = tone(2_400.0, 0.1 * 10f64.powf(-8.0 / 20.0), total);
+        let r = evaluate("chime", &v, &chime, v.len(), None);
+        for m in [
+            "sii_loss_max",
+            "music_loudest_400ms_re_speech_lu",
+            "music_to_voice_1_4khz_db",
+        ] {
+            assert_eq!(r.get(m).unwrap().pass, Some(false), "{m}: {:?}", r.get(m));
+        }
+        assert!(!r.passed());
+    }
+
+    #[test]
+    fn the_v5_chime_under_speech_fails_and_a_static_90_s_chord_fails_monotony() {
+        // the v5 chime: free-free bar partials 1 : 2.76 : 5.4 at 880 Hz (2.4
+        // and 4.75 kHz, in the intelligibility band), struck under speech at
+        // the level v5 used against its −9.4 dB narration
+        let total = 30.0;
+        let v = speech(&[(1.0, 14.0), (15.0, 29.0)], total, 0.1 * 10f64.powf(-9.4 / 20.0));
+        let n = v.len();
+        let mut chime = vec![0.0; n];
+        for strike in [3.0, 9.0, 18.0, 24.0] {
+            let at = (strike * FS) as usize;
+            for i in 0..(2.0 * FS) as usize {
+                let t = i as f64 / FS;
+                let y: f64 = [(1.0, 1.0, 1.2), (2.76, 0.5, 0.5), (5.4, 0.3, 0.25)]
+                    .iter()
+                    .map(|&(r, a, tau)| a * (-t / tau).exp() * (TAU * 880.0 * r * t).sin())
+                    .sum();
+                chime[at + i] += 0.3 * 10f64.powf(-10.0 / 20.0) * y;
+            }
+        }
+        let r = evaluate("v5 chime", &v, &Stereo::from_mono(&chime), n, None);
+        for m in ["sii_loss_max", "music_loudest_400ms_re_speech_lu"] {
+            assert_eq!(r.get(m).unwrap().pass, Some(false), "{m}: {:?}", r.get(m));
+        }
+        // a 90 s static chord: one ChordSpan for the whole chapter
+        let v = speech(&[(1.0, 40.0), (45.0, 85.0)], 90.0, 0.1);
+        let chord = crate::theory::Chord::maj9(2);
+        let facts = ScoreFacts {
+            chords: vec![ChordSpan {
+                start: 0.0,
+                end: 90.0,
+                voicing: crate::theory::voice_lead(&chord, 4, None, &crate::theory::Register::ROBERT),
+                chord,
+            }],
+            events: vec![],
+            phrases: vec![],
+            no_fly: crate::theory::Register::ROBERT.no_fly,
+            silences: vec![],
+            open_silences: vec![],
+            sonified: vec![],
+            steady_bed: false,
+            join_step_db: None,
+        };
+        let r = evaluate("static", &v, &Stereo::silence(v.len()), v.len(), Some(&facts));
+        let m = r.get("longest_chord_s").unwrap();
+        assert_eq!(m.pass, Some(false), "{m:?}");
+    }
+
+    /// A stem whose level is `db` under a 0.1-peak tone for all of `total`
+    /// seconds, with `plants` ((start, end, extra dB)) raised over it.
+    fn bed(total: f64, db: f64, plants: &[(f64, f64, f64)]) -> Stereo {
+        let n = (total * FS) as usize;
+        let m: Vec<f64> = (0..n)
+            .map(|i| {
+                let t = i as f64 / FS;
+                let extra: f64 = plants.iter().filter(|p| t >= p.0 && t < p.1).map(|p| p.2).sum();
+                0.1 * 10f64.powf((db + extra) / 20.0) * (TAU * 330.0 * t).sin()
+            })
+            .collect();
+        Stereo::from_mono(&m)
+    }
+
+    fn steady_facts(steady: bool, join: Option<f64>, sonified: Vec<(f64, f64)>) -> ScoreFacts {
+        ScoreFacts {
+            events: vec![],
+            chords: vec![],
+            phrases: vec![],
+            no_fly: crate::theory::Register::ROBERT.no_fly,
+            silences: vec![],
+            open_silences: vec![],
+            sonified,
+            steady_bed: steady,
+            join_step_db: join,
+        }
+    }
+
+    #[test]
+    fn a_planted_swell_fails_a_steady_bed_and_is_only_reported_otherwise() {
+        let total = 30.0;
+        let v = speech(&[(1.0, 9.0), (16.0, 29.0)], total, 0.1);
+        let flat = bed(total, -30.0, &[]);
+        // the gap's music comes up 10 dB, as a released duck does
+        let swollen = bed(total, -30.0, &[(10.0, 14.5, 10.0)]);
+        let judged = |stem: &Stereo, steady: bool, sonified: Vec<(f64, f64)>| {
+            let r = evaluate("c", &v, stem, v.len(), Some(&steady_facts(steady, None, sonified)));
+            r.get("bed_swell_db").cloned().unwrap()
+        };
+        let m = judged(&flat, true, vec![]);
+        assert!(m.value.abs() < 0.5, "{m:?}");
+        assert_eq!(m.pass, Some(true), "{m:?}");
+        let m = judged(&swollen, true, vec![]);
+        assert!((m.value - 10.0).abs() < 1.0, "{m:?}");
+        assert_eq!(m.pass, Some(false), "a steady bed that swells fails: {m:?}");
+        // an open score swells by design: reported, never a failure
+        let m = judged(&swollen, false, vec![]);
+        assert!(m.value > 8.0 && m.pass.is_none(), "{m:?}");
+        let open = evaluate("c", &v, &swollen, v.len(), Some(&steady_facts(false, None, vec![])));
+        assert!(
+            open.failures().iter().all(|m| m.name != "bed_swell_db"),
+            "{:?}",
+            open.failures()
+        );
+        // the swell inside a listen window's sonification is the scene's sound,
+        // not the bed's: kept out
+        let m = judged(&swollen, true, vec![(10.0, 14.5)]);
+        assert!(m.value.abs() < 0.5 && m.pass == Some(true), "{m:?}");
+        // nothing to compare against: no speech, or no gap
+        assert!(bed_swell_db(&flat, &[], &[]).is_nan());
+        assert!(bed_swell_db(&flat, &[(0.0, total)], &[]).is_nan());
+    }
+
+    #[test]
+    fn the_step_across_a_chapter_join_is_measured_and_judged_only_for_a_steady_bed() {
+        let total = 40.0;
+        let v = speech(&[(1.0, 9.0), (21.0, 38.0)], total, 0.1);
+        let flat = bed(total, -30.0, &[]);
+        let step = |x: &Stereo| join_step_db(x, 20.0).unwrap();
+        assert!(step(&flat).abs() < 0.2, "a carried bed: {}", step(&flat));
+        // the 6.4 dB Video F stepped by at 12 of its 13 joins: open before the
+        // join, ducked after it
+        let stepped = bed(total, -30.0, &[(0.0, 20.0, 6.4)]);
+        assert!((step(&stepped) + 6.4).abs() < 0.3, "{}", step(&stepped));
+        // the facts carry the measured step into the chapter's QA
+        let eval = |steady: bool, s: f64| {
+            evaluate("c", &v, &flat, v.len(), Some(&steady_facts(steady, Some(s), vec![])))
+                .get("join_step_db")
+                .cloned()
+                .unwrap()
+        };
+        assert_eq!(eval(true, -6.4).pass, Some(false));
+        assert_eq!(eval(true, 1.0).pass, Some(true));
+        // a chapter that ends under its last line steps by the bed's own level
+        // from chapter to chapter: up to 3.3 LU over Videos E to K
+        assert_eq!(eval(true, -3.3).pass, Some(true));
+        assert_eq!(eval(true, 4.0).pass, Some(false));
+        assert_eq!(eval(false, -6.4).pass, None, "reported, not judged, for an open duck");
+        // a first chapter has no join to measure; a silent join is not a step
+        let r = evaluate("c", &v, &flat, v.len(), Some(&steady_facts(true, None, vec![])));
+        assert!(r.get("join_step_db").is_none());
+        assert_eq!(join_step_db(&Stereo::silence(40 * 48_000), 20.0), None);
+        assert_eq!(
+            join_step_db(&flat, 0.5),
+            None,
+            "a join too near the start has no before"
+        );
+    }
+
+    #[test]
+    fn a_steady_bed_does_not_count_a_sonifications_strikes_as_clicks() {
+        let total = 10.0;
+        let v = speech(&[(5.0, 8.0)], total, 0.1);
+        // a quiet low tone with two 10 ms strikes at 10 kHz: one inside a
+        // sonified window (0.8 to 2.5 s), one at 4 s
+        let n = (total * FS) as usize;
+        let strike = |t: f64, at: f64| {
+            let d = t - at;
+            if (0.0..0.01).contains(&d) {
+                0.02 * (std::f64::consts::PI * d / 0.01).sin() * (TAU * 10_000.0 * t).sin()
+            } else {
+                0.0
+            }
+        };
+        let m: Vec<f64> = (0..n)
+            .map(|i| {
+                let t = i as f64 / FS;
+                0.01 * (TAU * 330.0 * t).sin() + strike(t, 1.0) + strike(t, 4.0)
+            })
+            .collect();
+        let stem = Stereo::from_mono(&m);
+        assert_eq!(click_flags(&stem), 2);
+        assert_eq!(click_flags_outside(&stem, &[(0.8, 2.5)]), 1);
+        let clicks = |steady: bool| {
+            let facts = steady_facts(steady, None, vec![(0.8, 2.5)]);
+            evaluate("c", &v, &stem, v.len(), Some(&facts))
+                .get("clicks")
+                .cloned()
+                .unwrap()
+        };
+        // an open score is judged on all of it; a steady one, outside its windows
+        assert_eq!(clicks(false).value, 2.0);
+        let m = clicks(true);
+        assert_eq!(
+            (m.value, m.pass),
+            (1.0, Some(false)),
+            "the strike outside still fails: {m:?}"
+        );
+    }
+
+    #[test]
+    fn a_silence_without_an_end_mark_may_hold_one_line_and_no_more() {
+        let v = speech(&[(1.0, 9.0)], 12.0, 0.1);
+        let judged = |open: Vec<(String, f64, usize)>| {
+            let mut facts = steady_facts(false, None, vec![]);
+            facts.open_silences = open;
+            evaluate("c", &v, &Stereo::silence(v.len()), v.len(), Some(&facts))
+                .get("open_silence_lines")
+                .cloned()
+                .unwrap()
+        };
+        // nothing to judge
+        let m = judged(vec![]);
+        assert_eq!((m.value, m.pass), (0.0, None), "{m:?}");
+        // J's 09_6 as it is: its one line, 3.0 s
+        let m = judged(vec![("its_exponential".into(), 3.0, 1)]);
+        assert_eq!((m.value, m.pass), (1.0, Some(true)), "{m:?}");
+        // J's 14_4 as it was: three lines, 29.8 s
+        let m = judged(vec![
+            ("its_exponential".into(), 3.0, 1),
+            ("three_results".into(), 29.8, 3),
+        ]);
+        assert_eq!((m.value, m.pass), (3.0, Some(false)), "{m:?}");
+        assert!(m.detail.contains("three_results") && m.detail.contains("29.8"), "{m:?}");
+        // a silence nothing says is a silence over no line: not this rule's
+        let m = judged(vec![("rest".into(), 2.0, 0)]);
+        assert_eq!(m.pass, Some(true), "{m:?}");
+    }
+
+    #[test]
+    fn nothing_to_measure_is_informational_not_a_failure() {
+        // 2 s with speech: no 3 s short-term window fits, so the level metrics
+        // have nothing to measure
+        let v = speech(&[(0.2, 1.8)], 2.0, 0.1);
+        let r = evaluate("short", &v, &Stereo::silence(v.len()), v.len(), None);
+        let m = r.get("voice_minus_music_median_lu").unwrap();
+        assert_eq!(m.pass, None, "{m:?}");
+        assert!(r.passed(), "{:?}", r.failures());
+    }
+
+    #[test]
+    fn a_note_held_into_a_clashing_chord_breaks_rule_7() {
+        let v = speech(&[(1.0, 4.0)], 20.0, 0.1);
+        let mk = |start: f64, end: f64, chord: crate::theory::Chord| ChordSpan {
+            start,
+            end,
+            voicing: crate::theory::voice_lead(&chord, 4, None, &crate::theory::Register::ROBERT),
+            chord,
+        };
+        let facts = |hold: f64| ScoreFacts {
+            events: vec![Event {
+                start: 10.0,
+                hold,
+                track: Track::Melody,
+                inst: crate::instr::Instrument::FeltPiano,
+                pitch: 66.0, // F♯4: fine over Bm9, a minor ninth under Gmaj9♯11's G
+                velocity: 0.5,
+                seed: 1,
+                pan: 0.0,
+            }],
+            chords: vec![
+                mk(0.0, 11.0, crate::theory::Chord::min9(11)),
+                mk(11.0, 20.0, crate::theory::Chord::maj9_sharp11(7)),
+            ],
+            phrases: vec![],
+            no_fly: crate::theory::Register::ROBERT.no_fly,
+            silences: vec![],
+            open_silences: vec![],
+            sonified: vec![],
+            steady_bed: false,
+            join_step_db: None,
+        };
+        let rule7 = |hold: f64| {
+            evaluate("r7", &v, &Stereo::silence(v.len()), v.len(), Some(&facts(hold)))
+                .get("rule7_minor_ninths")
+                .unwrap()
+                .pass
+        };
+        assert_eq!(rule7(0.9), Some(true), "released before the change");
+        assert_eq!(rule7(2.0), Some(false), "held over the change");
+    }
+
+    #[test]
+    fn detuned_sines_beat_and_a_steady_tone_does_not() {
+        // v5's pad: sines detuned by 1.003 beat at 0.66 Hz; amplitudes 1 and 0.6
+        // swing the envelope 1.6 / 0.4, a 12 dB tremolo
+        let n = (30.0 * FS) as usize;
+        let beat: Vec<f64> = (0..n)
+            .map(|i| {
+                let t = i as f64 / FS;
+                0.1 * ((TAU * 220.0 * t).sin() + 0.6 * (TAU * 220.0 * 1.003 * t).sin())
+            })
+            .collect();
+        let d = exposed_beating_db(&Stereo::from_mono(&beat), &[], &[], &[]).unwrap();
+        assert!(d > 6.0, "{d:.1} dB");
+        // eight steady harmonics: no slow modulation at all
+        let steady: Vec<f64> = (0..n)
+            .map(|i| {
+                let t = i as f64 / FS;
+                (1..=8)
+                    .map(|k| 0.02 / k as f64 * (TAU * 220.0 * k as f64 * t + k as f64).sin())
+                    .sum()
+            })
+            .collect();
+        let d = exposed_beating_db(&Stereo::from_mono(&steady), &[], &[], &[]).unwrap();
+        assert!(d < 1.0, "{d:.2} dB");
+        // an onset 1 s before every window leaves nothing steady to measure
+        let onsets: Vec<f64> = (0..30).map(|k| k as f64).collect();
+        assert_eq!(exposed_beating_db(&Stereo::from_mono(&beat), &onsets, &[], &[]), None);
+        // a sonified window is the scene's sound: not measured, and the beat
+        // outside it still is
+        let busy = [(0.0, 30.0)];
+        assert_eq!(exposed_beating_db(&Stereo::from_mono(&beat), &[], &[], &busy), None);
+        let part = [(5.0, 12.0)];
+        let d = exposed_beating_db(&Stereo::from_mono(&beat), &[], &[], &part).unwrap();
+        assert!(d > 6.0, "{d:.1} dB outside the window");
+    }
+
+    #[test]
+    fn an_authored_silence_is_not_beating_and_a_beat_around_it_still_is() {
+        // J's 09 and 14 (silence:its_exponential, silence:three_results) read
+        // 184 dB: the zero span's edges put a zero in the envelope ratio
+        let total = 30.0;
+        let n = (total * FS) as usize;
+        // out over 1 s, exactly zero for 2 s, back over RETURN_FADE
+        let gain = |t: f64| match t {
+            t if t < 10.0 => 1.0,
+            t if t < 11.0 => 11.0 - t,
+            t if t < 13.0 => 0.0,
+            t => ((t - 13.0) / RETURN_FADE).min(1.0),
+        };
+        let stem = |y: &dyn Fn(f64) -> f64| {
+            Stereo::from_mono(
+                &(0..n)
+                    .map(|i| gain(i as f64 / FS) * y(i as f64 / FS))
+                    .collect::<Vec<f64>>(),
+            )
+        };
+        let steady = stem(&|t| {
+            (1..=8)
+                .map(|k| 0.02 / k as f64 * (TAU * 220.0 * k as f64 * t + k as f64).sin())
+                .sum()
+        });
+        let beat = stem(&|t| 0.1 * ((TAU * 220.0 * t).sin() + 0.6 * (TAU * 220.0 * 1.003 * t).sin()));
+        let v = speech(&[], total, 0.1);
+        let facts = |silences: Vec<(f64, f64)>| ScoreFacts {
+            events: vec![],
+            chords: vec![],
+            phrases: vec![],
+            no_fly: crate::theory::Register::ROBERT.no_fly,
+            silences,
+            open_silences: vec![],
+            sonified: vec![],
+            steady_bed: false,
+            join_step_db: None,
+        };
+        let beating = |music: &Stereo, f: &ScoreFacts| {
+            evaluate("silence", &v, music, v.len(), Some(f))
+                .get("exposed_beating_db")
+                .unwrap()
+                .clone()
+        };
+        let m = beating(&steady, &facts(vec![(11.0, 13.0)]));
+        assert_eq!(m.pass, Some(true), "{m:?}");
+        assert!(m.value < 1.0, "{m:?}");
+        // the planted negative: the same stem with the silence unannounced
+        let m = beating(&steady, &facts(vec![]));
+        assert_eq!(m.pass, Some(false), "{m:?}");
+        // a real beat before and after the skipped span is still measured
+        let m = beating(&beat, &facts(vec![(11.0, 13.0)]));
+        assert_eq!(m.pass, Some(false), "{m:?}");
+    }
+
+    #[test]
+    fn length_and_finiteness_are_checked_first() {
+        let v = speech(&[(1.0, 3.0)], 4.0, 0.1);
+        let short = Stereo::silence(v.len() - 1);
+        assert!(!evaluate("x", &v, &short, v.len(), None).passed());
+        let mut nan = Stereo::silence(v.len());
+        nan.l[5] = f64::NAN;
+        let r = evaluate("x", &v, &nan, v.len(), None);
+        assert_eq!(r.get("finite").unwrap().pass, Some(false));
+    }
+
+    #[test]
+    fn a_click_is_detected_and_a_soft_tone_is_not() {
+        let mut x = tone(440.0, 0.05, 2.0);
+        assert_eq!(click_flags(&x), 0);
+        x.l[48_000] += 0.5;
+        x.r[48_000] += 0.5;
+        assert!(click_flags(&x) >= 1);
+    }
+
+    #[test]
+    fn out_of_phase_music_fails_mono_compatibility() {
+        let mut x = tone(440.0, 0.1, 6.0);
+        assert!(min_mono_correlation(&x) > 0.99);
+        for v in &mut x.r {
+            *v = -*v;
+        }
+        assert!(min_mono_correlation(&x) < -0.99);
+    }
+
+    #[test]
+    fn a_loop_repeated_five_times_is_monotonous() {
+        let mut rng = Rng::new(9);
+        let w = (8.0 * FS) as usize;
+        let one: Vec<f64> = (0..w).map(|_| 0.1 * rng.normal()).collect();
+        let looped: Vec<f64> = one.iter().cycle().take(5 * w).copied().collect();
+        assert_eq!(max_repeats(&Stereo::from_mono(&looped)), 4);
+        let fresh: Vec<f64> = (0..5 * w).map(|_| 0.1 * rng.normal()).collect();
+        assert_eq!(max_repeats(&Stereo::from_mono(&fresh)), 0);
+    }
+
+    #[test]
+    fn score_rules_catch_planted_violations() {
+        let total = 20.0;
+        let v = speech(&[(1.0, 9.0), (11.0, 19.0)], total, 0.1);
+        let music = Stereo::silence(v.len());
+        let chord = crate::theory::Chord::maj9(2);
+        let voicing = crate::theory::voice_lead(&chord, 4, None, &crate::theory::Register::ROBERT);
+        let ev = |start: f64, hold: f64, track: Track, pitch: f64, seed: u64| Event {
+            start,
+            hold,
+            track,
+            inst: crate::instr::Instrument::FeltPiano,
+            pitch,
+            velocity: 0.5,
+            seed,
+            pan: 0.0,
+        };
+        let clean = ScoreFacts {
+            events: vec![
+                ev(9.5, 1.0, Track::Melody, 66.0, 1),
+                ev(10.2, 1.0, Track::Melody, 69.0, 2),
+            ],
+            chords: vec![ChordSpan {
+                start: 0.0,
+                end: 12.0,
+                chord: chord.clone(),
+                voicing: voicing.clone(),
+            }],
+            phrases: vec![(9.5, 10.2)],
+            no_fly: crate::theory::Register::ROBERT.no_fly,
+            silences: vec![],
+            open_silences: vec![],
+            sonified: vec![],
+            steady_bed: false,
+            join_step_db: None,
+        };
+        let r = evaluate("clean", &v, &music, v.len(), Some(&clean));
+        for m in [
+            "rule1_fundamentals_in_voice_band_in_speech",
+            "rule8_phrases_start_in_speech",
+            "rule7_minor_ninths",
+            "rule6_identical_notes_10s",
+            "longest_chord_s",
+        ] {
+            assert_eq!(r.get(m).unwrap().pass, Some(true), "{m}: {:?}", r.get(m));
+        }
+        let bad = ScoreFacts {
+            events: vec![
+                // a 150 Hz sustained note under speech (rule 1)
+                ev(2.0, 4.0, Track::Bed, 50.0, 3),
+                // G over Dmaj9's F♯: a minor ninth (rule 7), starting in speech
+                ev(3.0, 1.0, Track::Melody, 67.0, 4),
+                // the same note twice within 10 s (rule 6)
+                ev(9.5, 1.0, Track::Answer, 74.0, 5),
+                ev(10.4, 1.0, Track::Answer, 74.0, 5),
+            ],
+            chords: vec![ChordSpan {
+                start: 0.0,
+                end: 19.0,
+                chord,
+                voicing,
+            }],
+            phrases: vec![(3.0, 3.0)],
+            no_fly: crate::theory::Register::ROBERT.no_fly,
+            silences: vec![],
+            open_silences: vec![],
+            sonified: vec![],
+            steady_bed: false,
+            join_step_db: None,
+        };
+        let r = evaluate("bad", &v, &music, v.len(), Some(&bad));
+        for m in [
+            "rule1_fundamentals_in_voice_band_in_speech",
+            "rule8_phrases_start_in_speech",
+            "rule7_minor_ninths",
+            "rule6_identical_notes_10s",
+            "longest_chord_s",
+        ] {
+            assert_eq!(r.get(m).unwrap().pass, Some(false), "{m}: {:?}", r.get(m));
+        }
+    }
+
+    #[test]
+    fn rule_1_judges_each_narrator_s_own_band() {
+        // E♭2 (77.8 Hz), robert's top bass note, sustained under speech: clear
+        // of robert's 95–250 Hz, inside matt's 72–173 Hz (his voice sits
+        // lower); A3 (220 Hz) the other way round
+        let v = speech(&[(1.0, 9.0)], 10.0, 0.1);
+        let music = Stereo::silence(v.len());
+        let note = |pitch: f64| Event {
+            start: 2.0,
+            hold: 4.0,
+            track: Track::Bed,
+            inst: crate::instr::Instrument::Pad { brightness: 0.3 },
+            pitch,
+            velocity: 0.5,
+            seed: 1,
+            pan: 0.0,
+        };
+        let rule1 = |pitch: f64, reg: crate::theory::Register| {
+            let f = ScoreFacts {
+                events: vec![note(pitch)],
+                chords: vec![],
+                phrases: vec![],
+                no_fly: reg.no_fly,
+                silences: vec![],
+                open_silences: vec![],
+                sonified: vec![],
+                steady_bed: false,
+                join_step_db: None,
+            };
+            let r = evaluate("band", &v, &music, v.len(), Some(&f));
+            r.get("rule1_fundamentals_in_voice_band_in_speech").unwrap().pass
+        };
+        let matt = crate::theory::Register::from_f0(80.8, 145.5);
+        let robert = crate::theory::Register::ROBERT;
+        assert_eq!(rule1(39.0, robert), Some(true));
+        assert_eq!(rule1(39.0, matt), Some(false));
+        assert_eq!(rule1(57.0, robert), Some(false));
+        assert_eq!(rule1(57.0, matt), Some(true));
+    }
+    #[test]
+    fn a_minor_ninth_inside_a_voicing_is_caught_and_a_major_seventh_is_not() {
+        let v = speech(&[(1.0, 9.0)], 10.0, 0.1);
+        let music = Stereo::silence(v.len());
+        let reg = crate::theory::Register::ROBERT;
+        let fmaj7 = crate::theory::Chord::maj7(5);
+        let facts = |upper: Vec<i32>, rolls: Vec<f64>| ScoreFacts {
+            events: rolls
+                .iter()
+                .enumerate()
+                .map(|(i, &p)| Event {
+                    start: 2.0,
+                    hold: 3.0,
+                    track: Track::Roll,
+                    inst: crate::instr::Instrument::FeltPiano,
+                    pitch: p,
+                    velocity: 0.3,
+                    seed: i as u64,
+                    pan: 0.0,
+                })
+                .collect(),
+            chords: vec![ChordSpan {
+                start: 0.0,
+                end: 10.0,
+                chord: fmaj7.clone(),
+                voicing: crate::theory::Voicing { bass: 29, upper },
+            }],
+            phrases: vec![],
+            no_fly: reg.no_fly,
+            silences: vec![],
+            open_silences: vec![],
+            sonified: vec![],
+            steady_bed: false,
+            join_step_db: None,
+        };
+        let m9 = |f: &ScoreFacts| {
+            evaluate("v", &v, &music, v.len(), Some(f))
+                .get("voicing_minor_ninths")
+                .unwrap()
+                .pass
+        };
+        // F4 A4 C5 E5 over F1: the seventh above the root, fine
+        assert_eq!(m9(&facts(vec![65, 69, 72, 76], vec![])), Some(true));
+        // E4 A4 C5 F5: F5 a minor ninth over E4
+        assert_eq!(m9(&facts(vec![64, 69, 72, 77], vec![])), Some(false));
+        // a roll whose E4 and F5 sound together
+        assert_eq!(m9(&facts(vec![65, 69, 72, 76], vec![41.0, 64.0, 77.0])), Some(false));
+        assert_eq!(m9(&facts(vec![65, 69, 72, 76], vec![41.0, 65.0, 76.0])), Some(true));
+    }
+}

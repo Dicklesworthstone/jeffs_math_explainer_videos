@@ -1,0 +1,30 @@
+{
+  "files": [
+    {
+      "name": "03_two_planes.mp4",
+      "bytes": 4936786,
+      "sha256": "f1f1372377729c4dfd6e4d330459cdb621f6d20d92d01ec01110cdeec526bf83"
+    },
+    {
+      "name": "03_two_planes.timeline.tsv",
+      "bytes": 890,
+      "sha256": "13f8cd117082ec0b82427de1aca576670cb2492476db6bf08e75ef9fd47cae54"
+    },
+    {
+      "name": "03_two_planes.cues.tsv",
+      "bytes": 131,
+      "sha256": "dc3c4311e5914349fe832277c6eef4e531173621b3a962d2be4a46173e0c1322"
+    },
+    {
+      "name": "03_two_planes.cuelog.tsv",
+      "bytes": 1783,
+      "sha256": "2b498f8f447c0270ae154006d008ae707c77a0725ca77411cba056f61a202574"
+    },
+    {
+      "name": "03_two_planes.layout.tsv",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "scope": "Completed native03 preview files copied and hashes stable before/after transfer. Overall7chapter preview guard still active; no terminal job success, picture/motion or listening acceptance."
+}

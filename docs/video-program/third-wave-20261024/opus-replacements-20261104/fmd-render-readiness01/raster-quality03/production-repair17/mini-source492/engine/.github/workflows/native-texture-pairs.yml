@@ -1,0 +1,139 @@
+name: Native light-dark texture materials
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-texture-pairs.yml'
+      - 'scripts/patches/native-texture-pairs.patch'
+      - 'scripts/patches/portal-texture-pairs.patch'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: native-texture-pairs
+  cancel-in-progress: false
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+  CARGO_TARGET_DIR: target/portable
+  PYO3_PYTHON: python
+jobs:
+  native:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Apply native material implementation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          def boundary(match):
+              old, path = match[1], match[2]
+              mode = 'new file mode 100644\n' if old == '/dev/null' else ''
+              return f'diff --git a/{path} b/{path}\n' + mode + match[0]
+          for name in ('native-texture-pairs', 'portal-texture-pairs'):
+              path = Path('scripts/patches') / (name + '.patch')
+              if path.exists():
+                  text = path.read_text()
+                  if not text.startswith('diff --git '):
+                      path.write_text(re.sub(r'(?m)^--- ([^\n]+)\n\+\+\+ b/([^\n]+)\n', boundary, text))
+          PY
+          if ! grep -q 'pub fn with_dark_image' crates/fmn-mobject/src/mobject.rs; then
+            git apply --recount --check scripts/patches/native-texture-pairs.patch
+            git apply --recount scripts/patches/native-texture-pairs.patch
+          fi
+          if test -f scripts/patches/portal-texture-pairs.patch && ! grep -q 'dark_payload' crates/fmn-python/src/portal_texture.rs; then
+            git apply --recount --check scripts/patches/portal-texture-pairs.patch
+            git apply --recount scripts/patches/portal-texture-pairs.patch
+          fi
+          git diff --check
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Prepare compiler and host
+        run: |
+          rustup show active-toolchain
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        id: cache
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-texture-pairs-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}-${{ github.sha }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-texture-pairs-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}-
+            cargo-${{ runner.os }}-${{ runner.arch }}-svg-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}-
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Test real storage, replay, pixel and cache semantics
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-mobject/src/mobject.rs crates/fmn-mobject/src/persist.rs crates/fmn-mobject/tests/persist.rs crates/fmn-mobject/tests/texture_pairs.rs crates/fmn-render/src/retained.rs crates/fmn-render/src/revision.rs crates/fmn-render/tests/texture_pairs.rs
+          cargo test --locked -p fmn-mobject
+          cargo test --locked -p fmn-render --test texture_pairs
+          cargo test --locked -p fmn-render --lib retained::tests
+          cargo test --locked -p fmn-render --lib revision::tests
+          cargo test --locked -p fmn-render --lib three_d::tests::textured_surface_dark_shift
+          if test -f crates/fmn-python/tests/texture_pairs.py; then
+            rustfmt --edition 2024 --config skip_children=true crates/fmn-python/src/portal_texture.rs
+            cargo test --locked -p fmn-python portal_texture -- --nocapture
+            python -m maturin build --locked --profile dev --out /tmp/texture-pair-wheels
+            python -m pip install --no-deps --force-reinstall /tmp/texture-pair-wheels/*.whl
+            python crates/fmn-python/tests/texture_pairs.py
+            python crates/fmn-python/tests/textured_surfaces.py
+            python crates/fmn-python/tests/svg_output.py
+          fi
+          git diff --check
+      - name: Commit tested native implementation directly to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          native=(crates/fmn-mobject/src/mobject.rs crates/fmn-mobject/src/persist.rs crates/fmn-mobject/tests/persist.rs crates/fmn-mobject/tests/texture_pairs.rs crates/fmn-render/src/retained.rs crates/fmn-render/src/revision.rs crates/fmn-render/tests/texture_pairs.rs)
+          git add "${native[@]}"
+          git diff --cached -- "${native[@]}" > /tmp/native-texture-pairs.patch
+          if test -s /tmp/native-texture-pairs.patch; then
+            cp /tmp/native-texture-pairs.patch scripts/patches/native-texture-pairs.patch
+            git add scripts/patches/native-texture-pairs.patch
+          fi
+          if test -f crates/fmn-python/tests/texture_pairs.py; then
+            portal=(crates/fmn-python/src/portal_texture.rs crates/fmn-python/python/fmn_python/surface_textures.py crates/fmn-python/tests/texture_pairs.py crates/fmn-python/tests/textured_surfaces.py)
+            git add "${portal[@]}"
+            git diff --cached -- "${portal[@]}" > /tmp/portal-texture-pairs.patch
+            if test -s /tmp/portal-texture-pairs.patch; then
+              cp /tmp/portal-texture-pairs.patch scripts/patches/portal-texture-pairs.patch
+              git add scripts/patches/portal-texture-pairs.patch
+            fi
+          fi
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(render): persist and render native light-dark texture pairs'
+            git push origin HEAD:main
+          fi
+          git rev-parse HEAD
+      - name: Capture tested source
+        run: git archive --format=tar.gz HEAD > /tmp/native-texture-source.tar.gz
+      - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        if: always() && steps.cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: ${{ steps.cache.outputs.cache-primary-key }}
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-texture-source-${{ github.sha }}
+          path: |
+            /tmp/native-texture-source.tar.gz
+            /tmp/texture-pair-wheels/*.whl
+          if-no-files-found: ignore
+          retention-days: 1

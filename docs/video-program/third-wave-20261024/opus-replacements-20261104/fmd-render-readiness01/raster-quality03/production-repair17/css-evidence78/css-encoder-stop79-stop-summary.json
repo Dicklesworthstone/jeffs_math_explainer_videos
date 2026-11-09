@@ -1,0 +1,115 @@
+{
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "tests": [
+    {
+      "size": "960x540",
+      "command": [
+        "/data/projects/jmev-stroke-probe-20261106/work/bin/production19",
+        "render",
+        "01_the_bump",
+        "--silent",
+        "--res",
+        "960x540",
+        "--fps",
+        "60",
+        "--out",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-encoder-stop79/preview",
+        "--crf",
+        "18",
+        "--preset",
+        "veryfast"
+      ],
+      "before": {
+        "2925856": {
+          "pid": 2925856,
+          "ppid": 2925854,
+          "group": 2925856,
+          "state": "S",
+          "start": "131407043",
+          "command": "/data/projects/jmev-stroke-probe-20261106/work/bin/production19 render 01_the_bump --silent --res 960x540 --fps 60 --out /data/projects/jmev-css-render-worker-20261107/jobs/css-encoder-stop79/preview --crf 18 --preset veryfast "
+        },
+        "2925986": {
+          "pid": 2925986,
+          "ppid": 2925856,
+          "group": 2925986,
+          "state": "S",
+          "start": "131407079",
+          "command": "/data/projects/jmev-css-render-worker-20261107/work/tmp/fmn-ffmpeg-session-2925856-0/fmn-job-2925856-0/fmn-bound-ffmpeg -hide_banner -loglevel error -f rawvideo -pix_fmt nv12 -video_size 960x540 -framerate 60/1 -colorspace bt709 -color_range tv -i - -c:v libx264 -crf 18 -preset veryfast -tune animation -pix_fmt yuv420p -movflags +faststart -color_primaries bt709 -color_trc bt709 -colorspace bt709 -color_range tv -y /data/projects/jmev-css-render-worker-20261107/work/tmp/fmn-ffmpeg-session-2925856-0/fmn-job-2925856-0/out.mp4 "
+        }
+      },
+      "encoder_read_bytes": {
+        "2925986": 7165342
+      },
+      "native_exit": -15,
+      "elapsed": 0.665073832962662,
+      "survivors": {},
+      "pass": true,
+      "adapter_stop": {
+        "owner": 2925854,
+        "identities": {
+          "2925856": "131407043",
+          "2925986": "131407079"
+        },
+        "elapsed": 0.47087518917396665,
+        "child_exit": -15,
+        "live_descendants": []
+      }
+    },
+    {
+      "size": "3840x2160",
+      "command": [
+        "/data/projects/jmev-stroke-probe-20261106/work/bin/production19",
+        "render",
+        "01_the_bump",
+        "--silent",
+        "--res",
+        "3840x2160",
+        "--fps",
+        "60",
+        "--out",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-encoder-stop79/final",
+        "--crf",
+        "16",
+        "--preset",
+        "slow"
+      ],
+      "before": {
+        "2927072": {
+          "pid": 2927072,
+          "ppid": 2925854,
+          "group": 2927072,
+          "state": "S",
+          "start": "131407169",
+          "command": "/data/projects/jmev-stroke-probe-20261106/work/bin/production19 render 01_the_bump --silent --res 3840x2160 --fps 60 --out /data/projects/jmev-css-render-worker-20261107/jobs/css-encoder-stop79/final --crf 16 --preset slow "
+        },
+        "2927190": {
+          "pid": 2927190,
+          "ppid": 2927072,
+          "group": 2927190,
+          "state": "S",
+          "start": "131407203",
+          "command": "/data/projects/jmev-css-render-worker-20261107/work/tmp/fmn-ffmpeg-session-2927072-0/fmn-job-2927072-0/fmn-bound-ffmpeg -hide_banner -loglevel error -f rawvideo -pix_fmt nv12 -video_size 3840x2160 -framerate 60/1 -colorspace bt709 -color_range tv -i - -c:v libx264 -crf 16 -preset slow -tune animation -level 5.2 -pix_fmt yuv420p -movflags +faststart -color_primaries bt709 -color_trc bt709 -colorspace bt709 -color_range tv -y /data/projects/jmev-css-render-worker-20261107/work/tmp/fmn-ffmpeg-session-2927072-0/fmn-job-2927072-0/out.mp4 "
+        }
+      },
+      "encoder_read_bytes": {
+        "2927190": 37491741
+      },
+      "native_exit": -15,
+      "elapsed": 7.624338366091251,
+      "survivors": {},
+      "pass": true,
+      "adapter_stop": {
+        "owner": 2925854,
+        "identities": {
+          "2927072": "131407169",
+          "2927190": "131407203"
+        },
+        "elapsed": 7.424383719917387,
+        "child_exit": -15,
+        "live_descendants": []
+      }
+    }
+  ],
+  "pass": true,
+  "scope": "Actual silent native video encoders only; not audio mux, all load states, or audiovisual review."
+}

@@ -1,0 +1,15 @@
+[package]
+name = "fmn-geom"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Chisel"
+
+[dependencies]
+fmn-core.workspace = true
+fmn-dmath.workspace = true
+fsci-linalg.workspace = true
+
+[lints]
+workspace = true

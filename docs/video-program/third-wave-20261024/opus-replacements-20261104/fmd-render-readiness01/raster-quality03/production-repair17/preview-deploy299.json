@@ -1,0 +1,10 @@
+{
+  "files": {
+    "cc3-preview-fade274.py": "d80cf7b6ffba56968f7c6dfd7a2cca50e65769dce1c97deb5d34683ed3fc9669",
+    "launch-reviewed-preview296.py": "8f754ec7b743615cfc6fa27642936462f24a24237a9c83cea1864c8b78d9a2b0",
+    "cc2-preview-worker-review284.md": "6e9b312f6febb95f6eeacd53a6ef9bb72513113b8519cf12f101dcb065066365"
+  },
+  "host": "csd",
+  "output": "cc3-preview-fade274.py d80cf7b6ffba56968f7c6dfd7a2cca50e65769dce1c97deb5d34683ed3fc9669\nlaunch-reviewed-preview296.py 8f754ec7b743615cfc6fa27642936462f24a24237a9c83cea1864c8b78d9a2b0\ncc2-preview-worker-review284.md 6e9b312f6febb95f6eeacd53a6ef9bb72513113b8519cf12f101dcb065066365\n",
+  "launched": false
+}

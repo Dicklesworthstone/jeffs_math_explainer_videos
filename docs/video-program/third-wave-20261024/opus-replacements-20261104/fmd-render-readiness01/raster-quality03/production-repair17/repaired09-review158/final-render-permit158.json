@@ -1,0 +1,72 @@
+{
+  "chapter": "09_boundary",
+  "binary_sha256": "352aa5ffe8f66e5f2de80a99748e47aa490076e0f806e31748a3f7a8246b8355",
+  "timeline_sha256": "4cbb007a0fdc83eced7a7ffcd51284fd5a9dc351962e93dbc889354877447d38",
+  "frames": 16504,
+  "actually_reviewed_pictures": true,
+  "actually_reviewed_motion": true,
+  "unresolved_defects": [],
+  "reviewer": "root",
+  "observations": "383 actual selected pictures and sparse muted playback of repaired09 preview58 reviewed. All67 common files except chapter08 loop_sums and canonical metadata match candidate68; chapter09 and shared rendering source byte-identical. Exact full09 tables match. Reuse this preview review only to authorize final render; candidate68 final4K pictures remain mandatory. No continuous motion, listening, fine sync or independent AV acceptance.",
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/repaired09-review158/pictures-reviewed146.json",
+      "sha256": "0219daa63ecf3194c8ee10d0694aeef29a3470d002c3518b643b6a3200be6849"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/repaired09-review158/playback-samples147.json",
+      "sha256": "5d55eef7cabce9cd00db9864b642f4d94131b262719986f7d4856c0609ffd41c"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/repaired09-review158/resource-receipt.json",
+      "sha256": "a7e1d3ecfa6b773ee135412af8a2fa2c638e4f77d3f082490c76c97f6bf2e0c6"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/repaired09-review158/source-comparison158.json",
+      "sha256": "b9a19b1d517dfb90fc2b70707d67afcec2ca14751aeff23ada06de79d186b665"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/repaired09-review158/timeline69-comparison.json",
+      "sha256": "305cfd70e4a938d6f7e075624498270625646e03430d40ae76711152e801df3c"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/repaired09-review158/timeline69-resource-receipt.json",
+      "sha256": "f714d23a0d82598377b80826c18431e3776511b7636dc5a5c5b35086b82e6eff"
+    }
+  ],
+  "motion_intervals": [
+    [
+      613,
+      614
+    ],
+    [
+      1263,
+      1264
+    ],
+    [
+      2708,
+      2709
+    ],
+    [
+      2997,
+      2998
+    ],
+    [
+      4405,
+      4406
+    ],
+    [
+      6031,
+      6032
+    ],
+    [
+      7114,
+      7115
+    ],
+    [
+      8270,
+      8271
+    ]
+  ],
+  "at": "2026-11-08T01:33:04.614151+00:00"
+}

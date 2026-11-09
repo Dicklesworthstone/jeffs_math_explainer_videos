@@ -1,0 +1,21 @@
+{
+  "time": "2026-11-07T22:39:36.071238+00:00",
+  "movie_sha256": "8cc749f1da302700345fd11fbf0d4e9a67614510886db571519ab8b84222985f",
+  "muted": true,
+  "observed_seconds": [
+    0,
+    13.1945,
+    13.9707,
+    37.6432,
+    48.1212,
+    55.1066,
+    114.4819,
+    128.0646,
+    144.7518,
+    153.6775,
+    168.0362,
+    171.5289
+  ],
+  "observations": "Actual advancing QuickTime playback sampled: arctan area, arc-bound sequence, residue vector sum and numerical payoff, final improper-integral caveat. No persistent defect observed. Controls obscure parts of playback, complemented by all226 selected stills.",
+  "limits": "Sparse playback observations only, not continuous motion/listening/fine-sync/independent AV or final4K acceptance."
+}

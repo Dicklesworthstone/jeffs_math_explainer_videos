@@ -1,0 +1,116 @@
+name: Native authored subset reveals
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-subset-reveals.yml'
+      - 'scripts/activate_subset_reveal.py'
+      - 'crates/fmn-python/python/fmn_python/subset_reveal.py'
+      - 'crates/fmn-python/python/fmn_python/text_reveal.py'
+      - 'crates/fmn-python/tests/test_text_selector_protocol.py'
+      - 'crates/fmn-python/tests/test_subset_reveal_protocol.py'
+      - 'crates/fmn-python/tests/test_copy_graph_protocol.py'
+      - 'crates/fmn-python/tests/subset_reveal.py'
+      - 'crates/fmn-python/tests/text_reveal.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: native-subset-reveals
+  cancel-in-progress: false
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+  CARGO_TARGET_DIR: target/portable
+  PYO3_PYTHON: python
+jobs:
+  native:
+    if: github.repository == 'Dicklesworthstone/franken_manim' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 100
+          clean: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Install host test dependencies
+        run: python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+      - name: Integrate production initialization and test selection lifecycle
+        run: |
+          set -euo pipefail
+          python scripts/activate_subset_reveal.py
+          PYTHONPATH=crates/fmn-python/python:crates/fmn-python/tests python -m unittest test_copy_graph_protocol test_subset_reveal_protocol test_text_selector_protocol test_text_reveal_protocol test_text_reveal_lifecycle_protocol test_scene_execution_protocol 2>&1 | tee /tmp/subset-protocol.log
+          python -m py_compile crates/fmn-python/python/fmn_python/initialization.py crates/fmn-python/tests/bridge.py crates/fmn-python/tests/subset_reveal.py
+          git diff --check
+      - name: Commit exercised integration directly to main
+        run: |
+          set -euo pipefail
+          git add crates/fmn-python/python/manimlib_bootstrap.py crates/fmn-python/python/fmn_python/initialization.py crates/fmn-python/src/lib.rs crates/fmn-python/tests/bridge.py scripts/check_portal_runtime.sh
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'fix(python): preserve deepcopy family aliases in production reveal runtimes'
+            for attempt in 1 2 3; do
+              git fetch --no-tags origin main
+              if ! git merge-base --is-ancestor origin/main HEAD; then
+                git rebase origin/main
+                PYTHONPATH=crates/fmn-python/python:crates/fmn-python/tests python -m unittest test_subset_reveal_protocol -q
+              fi
+              if git push origin HEAD:main; then break; fi
+              test "$attempt" != 3
+            done
+          fi
+          git rev-parse HEAD > /tmp/subset-source-sha.txt
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        id: cache
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-subset-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}-${{ github.sha }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-subset-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}-
+            cargo-${{ runner.os }}-${{ runner.arch }}-recording-
+            cargo-${{ runner.os }}-${{ runner.arch }}-texture-pairs-
+      - name: Validate native playback and independently read rendered frames
+        env:
+          FMN_SUBSET_EVIDENCE_DIR: /tmp/subset-evidence
+        run: |
+          set -euo pipefail
+          mkdir -p "$FMN_SUBSET_EVIDENCE_DIR"
+          rustup show active-toolchain
+          PYTHONPATH="$PWD/crates/fmn-python/python" cargo test --locked -p fmn-python production_subset_reveal_acceptance -- --nocapture 2>&1 | tee /tmp/subset-native.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/subset-native.log
+          python -m maturin build --locked --profile dev --out /tmp/subset-wheels 2>&1 | tee /tmp/subset-build.log
+          python -m pip install --no-deps --force-reinstall /tmp/subset-wheels/*.whl
+          for suite in subset_reveal text_reveal creation_semantics composition_lifecycle scene_execution; do
+            python -I "crates/fmn-python/tests/$suite.py" 2>&1 | tee "/tmp/subset-wheel-$suite.log"
+          done
+      - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        if: always() && steps.cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: ${{ steps.cache.outputs.cache-primary-key }}
+      - name: Preserve tested source and pending diff
+        if: always()
+        run: |
+          git archive --format=tar.gz HEAD > /tmp/subset-source.tar.gz
+          git diff > /tmp/subset-working.patch
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: subset-reveals-${{ github.sha }}
+          path: |
+            /tmp/subset-*.log
+            /tmp/subset-source*
+            /tmp/subset-working.patch
+            /tmp/subset-evidence
+            /tmp/subset-wheels/*.whl
+          retention-days: 2

@@ -1,0 +1,7 @@
+{
+  "utc": "2026-11-08T04:32:24.678383+00:00",
+  "hold": true,
+  "reason": "Four exact CC sessions restarted after owner account swap; all four fresh processes and working transitions verified, recovery /tmp/video-cc-recovery-20261108-043014. Independent final06 review224 found unlabelled output 3/4 scale and missing nonzero-derivative qualifier; root chooses native picture correction231, CC0 assigned disjoint candidate. Independent final08 review219 recommends Q_n plain-text repair and predicts 171.7s crossing; guarded every-frame171-172s extraction230 currently live PID30585, do not duplicate. HZ2 final09 PID3116582 freshly live. Existing masters/controllers preserved, but publication held until these findings dispositioned and any changed chapters requalified. Listening/fine-sync/independent finalAV remain open.",
+  "existing_jobs_may_finish": true,
+  "no_upload_until_review_repairs_qualified": true
+}

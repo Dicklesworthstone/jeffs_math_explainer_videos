@@ -1,0 +1,56 @@
+{
+  "utc": "2026-11-07T19:39:24.603915+00:00",
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "chapter": "01_the_bump",
+  "frames": 6311,
+  "timeline_sha256": "d6ddcc1ffb9991be25d2f44d8bf554f2c56695e84acc3733d034961e0826d764",
+  "actually_reviewed_pictures": true,
+  "actually_reviewed_motion": true,
+  "reviewer": "root",
+  "unresolved_defects": [],
+  "motion_intervals": [
+    [
+      0,
+      4930
+    ]
+  ],
+  "observations": "Prior116 selected pictures on20 sheets actually viewed; all20 sheet hashes rechecked. Actual muted QuickTime playback0-82.1678s sampled with sparse screenshots: growing bump, Taylor expression, degree40 approximation failure at1.1, complex-pole reveal and unit circle. Title fully visible but near top; retain final4K margin review. Preview rendered byproduction16; production19 source/audio/dependency and full original/current chapter schedules checked equal under explicit narration-path mapping. This is a scoped authorization for a NEW production19 final render, not reuse/relabel of old video. No continuous watch-through, listening, fine-sync, independent finalAV or release acceptance.",
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/01_the_bump.mp4",
+      "sha256": "9f4307695c8af42a830756f4ca056c322a1ee70e45c76fc5deed5c5e318c8d01"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/01-playback-samples30.json",
+      "sha256": "b7585183a5e0cc6576a6bd21703f20448874748996c6a0460f6ce9351ce4dafa"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/01-prior-picture-evidence30.json",
+      "sha256": "8d338bc60d539179a6ef3c2ed53b92ef1b0dd26661ce6d7552fd52e3fcfaad97"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/transfer30.json",
+      "sha256": "788a34e783b78c672ed580b21303de64b1d975eed26fd2ba94d20f6da5a18ffd"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/timeline-equality31.json",
+      "sha256": "0b53f3f3c4373515ed2c68f1d253305d4ec3a48aae6499506dfbafc3850299e3"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/new-01_the_bump.timeline.tsv",
+      "sha256": "d6ddcc1ffb9991be25d2f44d8bf554f2c56695e84acc3733d034961e0826d764"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/unchanged-eight-source-audio01.json",
+      "sha256": "d99aa8e623da64f3b3c498a3ae2d496b97d5f7165a41d8507bda98b9c9378413"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/unchanged-dependency-union02.json",
+      "sha256": "be23cf9282d2a8f3249bdcf053a8edb3f5cef1d461b846418188cc413eae7ea6"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/unchanged-dependency-intersection01.json",
+      "sha256": "f382ad6202918a37dc8798174939b4a3434f442dc32c8a8578ea6d786de33899"
+    }
+  ]
+}

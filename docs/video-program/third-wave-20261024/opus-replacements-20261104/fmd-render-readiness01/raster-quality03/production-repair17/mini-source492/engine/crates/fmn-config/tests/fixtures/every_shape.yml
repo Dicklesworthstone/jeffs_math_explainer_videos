@@ -1,0 +1,71 @@
+# The kitchen sink: every scalar and shape the fmn-config YAML subset
+# supports, in one document. Parsing and typing this file is a permanent
+# fixture test (fm-3gl acceptance).
+
+# --- plain scalars, each resolution family ---
+plain:
+  string_word: UR
+  string_with_colon: https://example.com/path
+  string_tuple: (1920, 1080)
+  string_digit_prefixed: 4k_is_a_string_here
+  bool_python_true: True
+  bool_python_false: False
+  bool_lower: true
+  bool_word: yes
+  bool_off: OFF
+  int_plain: 144
+  int_negative: -7
+  int_positive_sign: +3
+  float_plain: 1.0
+  float_bare_dot: 2.
+  float_leading_dot: .5
+  float_negative: -0.25
+  float_exponent: 6.02e23
+  # PyYAML 1.1 quirk, kept deliberately: no dot means no float
+  not_a_float: 1e3
+  null_empty:
+  null_tilde: ~
+  null_word: null
+
+# --- quoted scalars ---
+quoted:
+  double: "hash # inside quotes is literal"
+  double_empty: ""
+  double_escapes: "line\nbreak and \"quotes\" and a tab\there"
+  double_unicode: "café"
+  single: 'single quoted'
+  single_escape: 'it''s escaped'
+  utf8_direct: "布局引擎"
+  trailing_comment: "value" # this comment is not part of the value
+
+# --- keys ---
+keys:
+  4k: (3840, 2160)
+  key_with_underscores: 1
+  "quoted key": 2
+
+# --- literal block scalars, all three chomping modes ---
+blocks:
+  strip: |-
+    first line
+    second line
+  clip: |
+    kept newline
+  keep: |+
+    trailing blanks kept
+
+  after_blocks: sentinel
+  preamble_shape: |-
+    \usepackage{amsmath}
+    %% percent lines are literal here
+    \DeclareMathSymbol{\minus}{\mathbin}{AMSa}{"39}
+
+      deeper indentation is preserved
+    back to base
+
+# --- nesting to the shipped depth and beyond ---
+nesting:
+  level2:
+    level3:
+      level4:
+        leaf: "deep"

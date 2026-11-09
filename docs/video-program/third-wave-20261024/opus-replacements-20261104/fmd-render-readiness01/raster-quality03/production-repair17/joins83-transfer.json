@@ -1,0 +1,12 @@
+[
+  {
+    "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/trj-final-joins83.py",
+    "remote": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-final-joins83.py",
+    "sha256": "1ef0d1052b9d536ac32144033ab999bc5cfc3b6f698b1ebbc13462160b585dbd"
+  },
+  {
+    "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/trj-joins-after-verify83.py",
+    "remote": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-joins-after-verify83.py",
+    "sha256": "1b183d22ea943b67be1b25feca3ef60b3a0f4636a3a596fa5945199a79108cd8"
+  }
+]

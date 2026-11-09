@@ -1,0 +1,14 @@
+{
+  "time": "2026-11-08T22:29:34.535470+00:00",
+  "files": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/retention-dependency-disposition283.json",
+      "sha256": "9fd8d9720cbf1b8fc811b5fca952b1d34b762bee3e0b77cdf7927fa76d4dd512"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-retention-dependencies273.md",
+      "sha256": "d957fb0c5fe36bbeb28de472e373f8a5103249a44e431be4185e4bab74db4956"
+    }
+  ],
+  "scope": "Root read disposition283 and full independent273. Existing conditional retention decision preserved, no claim of machine-code/pixel equivalence or final AV acceptance. Resolves draft384 missing retention file only."
+}

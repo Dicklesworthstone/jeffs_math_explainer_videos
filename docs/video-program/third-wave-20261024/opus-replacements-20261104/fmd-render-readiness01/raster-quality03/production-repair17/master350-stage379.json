@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-11-08T22:14:21.047580+00:00",
+  "scope": "Exact frozen helper and independent evidence staging only; no master/verifier launch or audiovisual acceptance",
+  "files": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc0-combined-master350.py",
+      "sha256": "60575944736159139b05733c299b984ab6627ada3d88a5aff65ecde1bbde28d6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc0-master350-notes.md",
+      "sha256": "e30db95759918745131e1b53a31e6bc033d20a1125ea835707ff095d6123b151"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-master350-review353.md",
+      "sha256": "4d4d66fc3a931084c722d51a63526e56547a1e602fc3d4c2487ece9ecde07662"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-combined-final-review355.md",
+      "sha256": "328f5121b9feb8685d981c76905e09e30bdd019774266bc2283484b1746bca53"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-master353-permit-hygiene369.json",
+      "sha256": "606b0c9fa8167c183539dd13906ed1876faa6504061ef33412205878ab9c889c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc0-verifier363-review367.md",
+      "sha256": "f577a1b36768ac3b59caaec6f96b0790398a683a2525c6d70a72427bc2b62314"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-verifier367-disposition377.json",
+      "sha256": "ecc64557495d90d7762291df7e22284a22f8b98969eb58ad5175a95bc48537ff"
+    }
+  ],
+  "remote_readback": "cc0-combined-master350.py 60575944736159139b05733c299b984ab6627ada3d88a5aff65ecde1bbde28d6\ncc0-master350-notes.md e30db95759918745131e1b53a31e6bc033d20a1125ea835707ff095d6123b151\ncc3-master350-review353.md 4d4d66fc3a931084c722d51a63526e56547a1e602fc3d4c2487ece9ecde07662\ncc1-combined-final-review355.md 328f5121b9feb8685d981c76905e09e30bdd019774266bc2283484b1746bca53\nroot-master353-permit-hygiene369.json 606b0c9fa8167c183539dd13906ed1876faa6504061ef33412205878ab9c889c\ncc0-verifier363-review367.md f577a1b36768ac3b59caaec6f96b0790398a683a2525c6d70a72427bc2b62314\nroot-verifier367-disposition377.json ecc64557495d90d7762291df7e22284a22f8b98969eb58ad5175a95bc48537ff\n"
+}

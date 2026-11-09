@@ -1,0 +1,6 @@
+{
+  "timestamp": "2026-11-08T22:22:37.998091+00:00",
+  "exit": 0,
+  "stdout": "{\"helper_sha256\": \"60575944736159139b05733c299b984ab6627ada3d88a5aff65ecde1bbde28d6\", \"chapters\": [\"01_the_bump\", \"02_turning_numbers\", \"03_two_planes\", \"04_reading_color\", \"05_gallery\", \"06_one_derivative\", \"07_one_point\", \"08_loop_sums\", \"09_boundary\", \"10_rigidity\", \"11_counting\", \"12_residues\", \"13_real_integral\", \"14_continuation\", \"15_closing\"], \"frames\": {\"01_the_bump\": 6311, \"02_turning_numbers\": 5372, \"03_two_planes\": 7249, \"04_reading_color\": 6774, \"05_gallery\": 9879, \"06_one_derivative\": 10030, \"07_one_point\": 6491, \"08_loop_sums\": 14959, \"09_boundary\": 16504, \"10_rigidity\": 7442, \"11_counting\": 11932, \"12_residues\": 3943, \"13_real_integral\": 10641, \"14_continuation\": 11756, \"15_closing\": 4379}, \"total_frames\": 133662, \"dependency_count\": 699, \"elapsed_seconds\": 7.733444704907015, \"scope\": \"Actual read-only film() and contract_reads() prerequisite gates; no chapter render completion/master/finalAV acceptance.\"}\n",
+  "stderr": ""
+}

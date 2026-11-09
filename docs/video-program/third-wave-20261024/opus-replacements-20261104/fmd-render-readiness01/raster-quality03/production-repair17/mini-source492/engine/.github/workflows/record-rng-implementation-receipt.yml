@@ -1,0 +1,139 @@
+name: Record RNG Implementation Receipt
+
+on:
+  workflow_run:
+    workflows: ["Add Keyed RNG Forks"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: record-rng-implementation-receipt
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    if: >-
+      github.repository == 'Dicklesworthstone/franken_manim' &&
+      (github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Install governed toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustup toolchain install nightly-2026-07-05 --profile minimal --component clippy,rustfmt --target wasm32-unknown-unknown
+          rustup override set nightly-2026-07-05
+          python3 -m pip install --user --break-system-packages numpy || python3 -m pip install --user numpy
+
+      - name: Reprove the completed implementation
+        shell: bash
+        run: |
+          set -euo pipefail
+          for transient in \
+            .github/workflows/complete-fm-ai1.yml \
+            .github/workflows/extend-rng-replay-api.yml \
+            .github/workflows/add-keyed-rng-forks.yml; do
+            test ! -e "$transient"
+          done
+          grep -F '"id":"fm-ai1"' .beads/issues.jsonl | grep -Fq '"status":"closed"'
+          grep -Fq 'inner: fnp_random_core::Pcg64Dxsm' crates/fmn-core/src/rng.rs
+          grep -Fq 'pub fn advance(&mut self, draws: u128)' crates/fmn-core/src/rng.rs
+          grep -Fq 'pub fn fill_u64(&mut self, output: &mut [u64])' crates/fmn-core/src/rng.rs
+          grep -Fq 'pub fn fork_keyed(&self, key: &[u32])' crates/fmn-core/src/rng.rs
+          grep -Fq 'pub fn fork_entity(&self, entity_id: u64)' crates/fmn-core/src/rng.rs
+          cargo test -p fmn-core --test rng_parity
+          cargo test -p fmn-conformance --test franken_numpy_pin
+          cargo check --target wasm32-unknown-unknown -p fmn-core
+          bash scripts/check.sh
+
+      - name: Verify canonical refs and write the exact receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main master
+          local_sha="$(git rev-parse HEAD)"
+          main_sha="$(git rev-parse origin/main)"
+          master_sha="$(git rev-parse origin/master)"
+          [[ "$local_sha" == "$main_sha" && "$main_sha" == "$master_sha" ]] || {
+            echo "canonical refs changed during final verification: local=$local_sha main=$main_sha master=$master_sha" >&2
+            exit 3
+          }
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import subprocess
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          def sha256(path: str) -> str:
+              return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+          head = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+          suite = Path("SUITE.lock").read_text(encoding="utf-8")
+          upstream = next(
+              line.split("\t")[1]
+              for line in suite.splitlines()
+              if line.startswith("franken_numpy\t")
+          )
+          receipt = {
+              "schema_version": 1,
+              "recorded_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+              "tested_source_sha": head,
+              "canonical_refs_before_receipt": {"main": head, "master": head},
+              "franken_numpy_pin": upstream,
+              "bead": {"id": "fm-ai1", "status": "closed"},
+              "implemented": [
+                  "fnp-random-core single SeedSequence/PCG64DXSM authority",
+                  "fmn-core delegated RNG wrapper with preserved NumPy vectors",
+                  "logarithmic replay seeking",
+                  "allocation-free u64/f64 bulk fills",
+                  "versioned domain-separated keyed forks",
+                  "64-bit entity forks",
+              ],
+              "verified_commands": [
+                  "cargo test -p fmn-core --test rng_parity",
+                  "cargo test -p fmn-conformance --test franken_numpy_pin",
+                  "cargo check --target wasm32-unknown-unknown -p fmn-core",
+                  "bash scripts/check.sh",
+              ],
+              "authority_sha256": {
+                  "Cargo.toml": sha256("Cargo.toml"),
+                  "Cargo.lock": sha256("Cargo.lock"),
+                  "SUITE.lock": sha256("SUITE.lock"),
+                  "SUITE_ALLOWLIST.tsv": sha256("SUITE_ALLOWLIST.tsv"),
+                  "crates/fmn-core/src/rng.rs": sha256("crates/fmn-core/src/rng.rs"),
+                  "crates/fmn-core/fixtures/rng_vectors.txt": sha256(
+                      "crates/fmn-core/fixtures/rng_vectors.txt"
+                  ),
+                  "crates/fmn-conformance/tests/franken_numpy_pin.rs": sha256(
+                      "crates/fmn-conformance/tests/franken_numpy_pin.rs"
+                  ),
+              },
+              "result": "pass",
+          }
+          output = Path("artifacts/implementation/fm-ai1-rng-authority-receipt.json")
+          output.parent.mkdir(parents=True, exist_ok=True)
+          output.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          PY
+          git diff --check
+
+      - name: Commit the verified receipt atomically to both canonical refs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/record-rng-implementation-receipt.yml
+          git add artifacts/implementation/fm-ai1-rng-authority-receipt.json
+          git config user.name "FrankenManim Verification Receipt"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "test(core): record the verified RNG implementation receipt" -m "Reprove fm-ai1, replay seeking, allocation-free fills, keyed/entity forks, source identity, wasm compilation, and the full mandatory Gauntlet; record the exact tested source, upstream pin, and authority hashes."
+          git push --atomic origin HEAD:main HEAD:master

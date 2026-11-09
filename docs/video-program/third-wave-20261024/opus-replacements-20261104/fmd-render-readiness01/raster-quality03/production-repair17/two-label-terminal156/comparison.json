@@ -1,0 +1,54 @@
+{
+  "tables": [
+    {
+      "chapter": "08_loop_sums",
+      "kind": "timeline",
+      "old_sha256": "fed5faea5359e1c149030b42a5b2d37a706618d1d868b6e4048a4767e1de58cc",
+      "new_sha256": "b1c84b986ca18a8c5e97049b7b0ca09207df5d0c3069684796a387b437edf8f6",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "08_loop_sums",
+      "kind": "cues",
+      "old_sha256": "1beae064b4b1a8115a70180d92740299195fd6cc55b68cebcdbd97ace8e127d3",
+      "new_sha256": "1beae064b4b1a8115a70180d92740299195fd6cc55b68cebcdbd97ace8e127d3",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "08_loop_sums",
+      "kind": "cuelog",
+      "old_sha256": "cadf1d0cfcd98fa388c893f8ba8ada1a1e8d966008bdc1b4314a99bdcfc2be08",
+      "new_sha256": "c150867fdcc94fcacf3a9c7842b4baae4676c3d51c1c45a52f7f331cf4d8523c",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "09_boundary",
+      "kind": "timeline",
+      "old_sha256": "ae7a13f413f431811f68c0141c14031195d64d1ba5b821b69f661bf75f5565e4",
+      "new_sha256": "4cbb007a0fdc83eced7a7ffcd51284fd5a9dc351962e93dbc889354877447d38",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "09_boundary",
+      "kind": "cues",
+      "old_sha256": "eed5a50ad5797fa258ee3fcf9319e29946f403a86b3909090e73a3a15dc74249",
+      "new_sha256": "eed5a50ad5797fa258ee3fcf9319e29946f403a86b3909090e73a3a15dc74249",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "09_boundary",
+      "kind": "cuelog",
+      "old_sha256": "cb69ba38311e72bae2f3b9566c0f84689183c18192fb638626d3d79ae966be61",
+      "new_sha256": "435e163c66c636d90fe6d935bc7ff73577d0ddaeb1f4a0ed9c2c485da4449e24",
+      "equal_after_named_narration_path_mapping": true
+    }
+  ],
+  "frames": {
+    "08_loop_sums": 14959,
+    "09_boundary": 16504
+  },
+  "named_path_mapping": {
+    "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-rebind69/narration"
+  },
+  "scope": "Exact complete chapter08/09 tables only; repaired pictures and final4K remain unreviewed."
+}

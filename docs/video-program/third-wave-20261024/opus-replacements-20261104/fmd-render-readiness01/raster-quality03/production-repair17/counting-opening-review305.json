@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-08T19:02:01.645910+00:00",
+  "reviewer": "root",
+  "manifest_sha256": "9b889e043ce97bfbb2ce8b72f8306c3dbd3718a29c52b97f4adefa2b702bea8a",
+  "source_sha256": "0b6244a005f64ff9b9b381a8ec8a58ffb7c174d085aceb452871d7f5dd0f811e",
+  "frames_viewed": 54,
+  "sheets_viewed": [
+    "sheet-001.jpg",
+    "sheet-002.jpg",
+    "sheet-003.jpg",
+    "sheet-004.jpg",
+    "sheet-005.jpg"
+  ],
+  "observation": "Frames34-87 progressive colour-field opening, no observed single-frame flash.",
+  "limits": "Encoded-frame still sequence only; real-time motion/listening/fine-sync/final4K acceptance not claimed."
+}

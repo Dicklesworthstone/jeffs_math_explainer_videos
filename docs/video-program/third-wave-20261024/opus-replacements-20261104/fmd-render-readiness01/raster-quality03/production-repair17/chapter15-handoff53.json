@@ -1,0 +1,78 @@
+{
+  "time": "2026-11-07T20:48:45.483700+00:00",
+  "chapter": "15_closing",
+  "prior_controller_pid": 2799801,
+  "prior_controller_stopped": true,
+  "prior_job_absent": true,
+  "prior_host": "trj",
+  "new_host": "hz2",
+  "new_job": "hz2-production19-final-15-closing53",
+  "source_permit": "review15-38/final-render-permit38.json",
+  "transferred_files": [
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-final-chapter53.py",
+      "sha256": "20f5c3a94ddada0afd5150c2ac81a028c789bf3dcd33a7f3608a5a8d4f618fac"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-launch-final15-53.py",
+      "sha256": "24cf8d2c5981e5d1b75dd8d694f508904c2be7acac2dbdaadf75cee410408bf8"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/final-render-permit38.json",
+      "sha256": "331203ac0355306fe4135d74803ad5533ea9214c5b227f70d4f5038012b94637"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/15-playback-samples38.json",
+      "sha256": "fb818538a184454d27997c3ee83ab8be32e6e8f17cb4f81059f12441a1ecd6eb"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/closing-production19-review38.rs",
+      "sha256": "0c217b6b5daee2681a61049b0918ceda7cc211d377ecd0c5f70b8562dd36568b"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/script-production19-review34.tsv",
+      "sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/15-context-derivation38.json",
+      "sha256": "e2beb6babd71a65911b153fb52ad48b2bbbccbb6d7d551bf693f1cd6b1648c2e"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/unchanged-dependency-intersection01.json",
+      "sha256": "f382ad6202918a37dc8798174939b4a3434f442dc32c8a8578ea6d786de33899"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/unchanged-eight-source-audio01.json",
+      "sha256": "d99aa8e623da64f3b3c498a3ae2d496b97d5f7165a41d8507bda98b9c9378413"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/final-render-permit53.json",
+      "sha256": "ec74b68375331470ac18c2c7e5db4fc60bb82a247e2eeead844233c453fecd20"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/transfer30.json",
+      "sha256": "788a34e783b78c672ed580b21303de64b1d975eed26fd2ba94d20f6da5a18ffd"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/new-15_closing.timeline.tsv",
+      "sha256": "ea0338b79a8db9adcb64a9426dd31e4703383ada44ea609aa5c92ca234c828d6"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/15-prior-picture-evidence38.json",
+      "sha256": "14bba79f086afe8969aed34828c7971724211c8939f84f018cb25ef7837fa153"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/unchanged-dependency-union02.json",
+      "sha256": "be23cf9282d2a8f3249bdcf053a8edb3f5cef1d461b846418188cc413eae7ea6"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/15_closing.mp4",
+      "sha256": "3b109069a4d76accb82b5a77f6e474916b6010e2eeff70b9f865c458089a5593"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/timeline-equality31.json",
+      "sha256": "0b53f3f3c4373515ed2c68f1d253305d4ec3a48aae6499506dfbafc3850299e3"
+    }
+  ],
+  "scope": "Single-producer migration only. Exact tables verified by worker. Cross-host master import and final review remain pending."
+}

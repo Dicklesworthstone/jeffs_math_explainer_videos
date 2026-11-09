@@ -1,0 +1,6 @@
+{
+  "exit": 0,
+  "stage": "{\"path\": \"/Users/jemanuel/scratch/jmev-complex-native-20261109/qualification/cc2-mini-max-guard508.py\", \"sha256\": \"135e4b2fe68f644d0d6b5b10494570b37d246b56e3fd2fd83748d545fa0a3e32\"}",
+  "guard_sha256": "135e4b2fe68f644d0d6b5b10494570b37d246b56e3fd2fd83748d545fa0a3e32",
+  "scope": "guard staged only, no build or render launched"
+}

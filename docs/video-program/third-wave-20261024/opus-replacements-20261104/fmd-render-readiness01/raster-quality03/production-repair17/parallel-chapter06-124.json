@@ -1,0 +1,11 @@
+{
+  "chapter": "06_one_derivative",
+  "host": "ts2",
+  "job": "ts2-production19-final-06-one-derivative123",
+  "worker": "/data/projects/jmev-ts2-render-worker-20261107/qualification01/ts2-final-chapter121.py",
+  "permit": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review06-34/final-render-permit34.json",
+  "inputs": "/data/projects/jmev-ts2-render-worker-20261107/qualification01/final06-123-inputs.json",
+  "import_receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-import-ts2-final06-124/resource-receipt.json",
+  "import_inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/import-ts2-final06-124-inputs.json",
+  "scope": "Future assembly row; final render and import still running/waiting, not acceptance."
+}

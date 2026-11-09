@@ -1,0 +1,77 @@
+{
+  "utc": "2026-11-07T20:07:39.656025+00:00",
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "chapter": "12_residues",
+  "frames": 3943,
+  "timeline_sha256": "d19560b5c9a1fab46a4250b5b9fc1aa9bb0f3eff1847fa0111a5c8bed8964485",
+  "actually_reviewed_pictures": true,
+  "actually_reviewed_motion": true,
+  "reviewer": "root",
+  "unresolved_defects": [],
+  "motion_intervals": [
+    [
+      0,
+      3942
+    ]
+  ],
+  "observations": "Actual muted QuickTime samples during0-65.717s playback and replay9.059-23.008s: three Laurent term head-to-tail sums close0/column2pi i/close0; a_-1 highlighted; positive outer and three inner circles joined with corridors, Cauchy explanation, simple denominator formula, logarithmic derivative residues1/2/-1, bump residue at i=-0.5i with readable +/-i labels. Prior58pictures/10sheets rehashed. Source/script11 explicitly provide contour/domain assumptions carried into12; own general Laurent integral proof and quotient hypotheses documented. No settled defect observed in samples. Final4K/captions, listening/fine-sync/independentAV remain open; sparse observations not exhaustive motion or listening.",
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/12_residues.mp4",
+      "sha256": "09bdeda8b4dbf831df6e06b9452d001e8c5e1eb4886e800bc6ac54ed59bd7b30"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/12-playback-samples37.json",
+      "sha256": "b5ee2bc0bbf36828a200417c96d2425e1ffae7bba8756ad0bdd58e46406fd088"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/12-prior-picture-evidence37.json",
+      "sha256": "440fcdbfd3ca82521bc1832346a7d093778419ed785b4bc29bd38e078c345ece"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/12-source-followups37.json",
+      "sha256": "4be73237c3c88aa634ee61e7d2032939989cd2f4be6d9fb7276343d4144edde8"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/12-context-derivation37.json",
+      "sha256": "f216a583b4af8abc32db59ab085adc1e34290c3f99a15706fcb396bc9a01d99c"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/residues-production19-review37.rs",
+      "sha256": "7d06f69b2aff86ac1bee103c7aaefc58891d0b335312e98df3610769f45af7c1"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/counting-production19-review37.rs",
+      "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/script-production19-review34.tsv",
+      "sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/transfer30.json",
+      "sha256": "788a34e783b78c672ed580b21303de64b1d975eed26fd2ba94d20f6da5a18ffd"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/timeline-equality31.json",
+      "sha256": "0b53f3f3c4373515ed2c68f1d253305d4ec3a48aae6499506dfbafc3850299e3"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/new-12_residues.timeline.tsv",
+      "sha256": "d19560b5c9a1fab46a4250b5b9fc1aa9bb0f3eff1847fa0111a5c8bed8964485"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/unchanged-eight-source-audio01.json",
+      "sha256": "d99aa8e623da64f3b3c498a3ae2d496b97d5f7165a41d8507bda98b9c9378413"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/unchanged-dependency-union02.json",
+      "sha256": "be23cf9282d2a8f3249bdcf053a8edb3f5cef1d461b846418188cc413eae7ea6"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/unchanged-dependency-intersection01.json",
+      "sha256": "f382ad6202918a37dc8798174939b4a3434f442dc32c8a8578ea6d786de33899"
+    }
+  ],
+  "host_transfer_note": "Original review37 retained byte-exact; only evidence paths rebound to HZ2 for disjoint native production, no new review claim."
+}

@@ -1,0 +1,78 @@
+name: Native camera readback
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-camera-readback.yml'
+      - 'crates/fmn-python/src/portal_readback.rs'
+      - 'crates/fmn-python/python/fmn_python/camera_capture.py'
+      - 'crates/fmn-python/python/fmn_python/terminal_preview.py'
+      - 'crates/fmn-python/tests/camera_readback.py'
+      - 'crates/fmn-python/tests/terminal_preview.py'
+      - 'crates/fmn-python/tests/terminal_editor.py'
+      - 'crates/fmn-python/tests/test_camera_capture_protocol.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-camera-readback
+  cancel-in-progress: false
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+  CARGO_TARGET_DIR: target/portable
+  PYO3_PYTHON: python
+  RUST_BACKTRACE: '1'
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Install pinned toolchain and host dependencies
+        run: |
+          rustup show active-toolchain
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1' 'IPython==9.14.0'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Exercise exact-source native captures and terminal transports
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-python --lib portal_readback::tests -- --nocapture 2>&1 | tee /tmp/camera-native.log
+          cargo test --locked -p fmn-studio tui 2>&1 | tee /tmp/camera-terminal-codecs.log
+          cargo clippy --locked -p fmn-python --lib -- -D warnings 2>&1 | tee /tmp/camera-clippy.log
+      - name: Build and exercise the installed native wheel
+        run: |
+          set -euo pipefail
+          python -m maturin build --locked --interpreter python --profile dev --out target/camera-wheel 2>&1 | tee /tmp/camera-build.log
+          python -m venv target/camera-venv
+          target/camera-venv/bin/python -m pip install 'numpy==2.5.2' 'IPython==9.14.0' target/camera-wheel/*.whl
+          for suite in camera_readback camera_snapshot terminal_preview terminal_editor; do
+            target/camera-venv/bin/python -I "crates/fmn-python/tests/$suite.py" 2>&1 | tee "/tmp/camera-$suite.log"
+          done
+      - name: Preserve exact native validation and source
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/camera-source-sha.txt
+          git archive --format=tar.gz HEAD > /tmp/camera-source.tar.gz
+          rustfmt --edition 2024 --emit stdout crates/fmn-python/src/portal_readback.rs > /tmp/camera-formatted-readback.rs
+          git diff --exit-code
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-camera-readback-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            /tmp/camera-*
+            target/camera-wheel/*.whl
+          retention-days: 3

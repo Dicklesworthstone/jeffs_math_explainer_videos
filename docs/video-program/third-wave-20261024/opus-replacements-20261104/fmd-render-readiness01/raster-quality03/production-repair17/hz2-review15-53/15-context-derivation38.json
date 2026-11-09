@@ -1,0 +1,22 @@
+{
+  "current_script": "15_2 explicitly says on an open region, away from critical points; at most one extension to a given connected region, may be none, paths can branch. Displayed derivative is genuine complex h-to0 limit, not merely straight-path agreement.",
+  "source": "Current first recap panel explicitly says nonzero derivative. Prior source change retained in frozen production19; no use of older local source.",
+  "radius_check": {
+    "center": 3,
+    "poles": [
+      "i",
+      "-i"
+    ],
+    "distance_to_each": 3.1622776601683795,
+    "real_interior_interval": [
+      -0.16227766016837952,
+      6.16227766016838
+    ],
+    "scope": "Convergence in open disk |z-3|<sqrt10; radius alone does not settle boundary convergence. Rounded endpoints approximate."
+  },
+  "gaps": [
+    "Actual final4K text and captions",
+    "Continuous listening and fine sync",
+    "Independent final audiovisual review"
+  ]
+}

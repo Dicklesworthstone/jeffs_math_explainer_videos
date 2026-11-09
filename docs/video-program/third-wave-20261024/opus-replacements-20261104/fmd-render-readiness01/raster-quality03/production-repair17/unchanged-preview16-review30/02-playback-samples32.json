@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-07T19:44:41.574013+00:00",
+  "observations": "Muted QuickTime playback sampled: tip-to-tail addition, i squared half turn, 1+i rotation and scaling, prediction hold; bounded replay69.7464-82.2851s visibly showed second rotation ending at2i, total turn90 degrees and stretch2. Sparse screenshots, not continuous listening or fine-sync acceptance. Final4K captions/margins still require review.",
+  "bounded_seconds": [
+    [
+      69.74639824945297,
+      82.28507658643326
+    ]
+  ],
+  "listened": false,
+  "independent_review": false
+}

@@ -1,0 +1,83 @@
+{
+  "utc": "2026-11-07T19:12:48.322308+00:00",
+  "movie_sha256": "d89b253dd032e31c03ee8314afdca2cce4ad0f3cd7c816bc1d685e52160f3e3d",
+  "sampling_sha256": "31370a21799e233655f026c732f9f27acff1fc04500dd2c336e71b3f6fde5fc8",
+  "receipt": {
+    "started": "2026-11-07T19:09:01.701216+00:00",
+    "phase": "native",
+    "command": [
+      "python3",
+      "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview05-pictures26.py"
+    ],
+    "preflight_only": false,
+    "samples": [
+      {
+        "utc": "2026-11-07T19:09:17.726363+00:00",
+        "free_bytes": 122568364032,
+        "work_bytes": 66699386880,
+        "target_bytes": 13977448448
+      }
+    ],
+    "sbh": {
+      "exit": 0,
+      "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":122319687680,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":122319687680,\"free_excludes_purgeable\":true,\"free_pct\":3.060841146540605,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":122319687680,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24909267137,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":122319659008,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":122319659008,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+      "stderr": ""
+    },
+    "admission": {
+      "utc": "2026-11-07T19:09:02.489105+00:00",
+      "free_bytes": 122319581184,
+      "work_bytes": 66679197696,
+      "target_bytes": 13977448448
+    },
+    "policy": {
+      "admission_gib": 10,
+      "stop_free_gib": 8,
+      "phase_growth_gib": 4,
+      "work_cap_gib": 80,
+      "target_growth_cap_gib": 20,
+      "sample_seconds": 10
+    },
+    "admitted": true,
+    "inputs_sha256": "a8313b957a33a47cbe6e6b083393673647ab0aa3aa31f189770a4cef727d1b78",
+    "pid": 40402,
+    "exit": 0,
+    "final_inputs_sha256": "a8313b957a33a47cbe6e6b083393673647ab0aa3aa31f189770a4cef727d1b78",
+    "finished": "2026-11-07T19:09:23.924869+00:00"
+  },
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26
+  ],
+  "selected_pictures_viewed": 201,
+  "observations": [
+    "Polynomial roots and rational zero/double pole are clear; smooth continuous fields, not flat pixel tiles.",
+    "Exponential strip, sine growth and tangent asymptotes are legible.",
+    "Gamma integral half-plane and poles shown clearly; zeta convergence half-plane, pole, trivial zeros and magnified strip with four labelled nontrivial zeros are separated. Riemann hypothesis explicitly open.",
+    "Six-function recap and exact tile zoom retain clear margins; no persistent concrete clipping or overlap found in selected images."
+  ],
+  "scope": "540p selected still review only. Overall preview21 still active; no continuous motion, listening, final4K detail, independent AV acceptance or final-render permit."
+}

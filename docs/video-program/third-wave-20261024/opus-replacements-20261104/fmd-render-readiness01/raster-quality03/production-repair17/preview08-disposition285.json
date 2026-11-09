@@ -1,0 +1,21 @@
+{
+  "time": "2026-11-08T05:52:21.421486+00:00",
+  "review": "cc2-preview08-review271.md",
+  "sha256": "d70fb0deec2bfc562c0815e57678019769cc84544c940bbfe192f5ac5b242478",
+  "scope": "Root disposition of selected-still findings; not final4K/motion/audio acceptance",
+  "dispositions": {
+    "M1": "Fixed plain caption, root and reviewer actual pictures agree.",
+    "L3": "Fixed label collision; every181 frames170-173s inspected; no frame flash/collision in preview.",
+    "R1": "Retain true middle-walk statement as recap while highlighted middle triangle fill remains. It does not assert that its arrows remain visible; no mathematical error or overlap.",
+    "L1": "Accept readable heavier inequality/minus/partial glyph weight; no symbol substitution or ambiguity shown.",
+    "L2": "Accept unambiguous nested c label with no competing point label.",
+    "L4": "Accept still-readable midpoint under intended diagonal overlay.",
+    "O1": "Retain intentional cancellation strokes; final timing with voice remains to check.",
+    "N1": "Preview compression changes to tiny glyphs do not qualify final4K; inspect final encode."
+  },
+  "remaining": [
+    "Final4K pictures and transitions",
+    "Motion and timing against narration",
+    "Continuous listening and independent finalAV acceptance"
+  ]
+}

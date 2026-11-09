@@ -1,0 +1,20 @@
+{
+  "time": "2026-11-08T18:38:16.085067+00:00",
+  "manifest_sha256": "9e74486edaaac78d1a4a868f83507a69378f1be9d64ab0456ddd453a34fc64d6",
+  "actually_viewed_all_81_frames_on_11_sheets": true,
+  "intervals_inclusive": [
+    [
+      7464,
+      7493
+    ],
+    [
+      8294,
+      8344
+    ]
+  ],
+  "observations": [
+    "7464-7493: retained colour field, loop and mapped curve remain visible without a blank or bright single-frame flash; heading starts appearing7492.",
+    "8294-8344: field, loop, mapped curve and theorem text dim progressively; old field gone by8313; next circle grows in brightness from8314 onward. Right axes persist intentionally. No reappearance of old plate or one-frame flash observed."
+  ],
+  "scope": "Exhaustive encoded-frame still sequence for these two intervals only, at640x360 displayed tiles from960x540 preview. Not real-time playback, listening, full-chapter motion acceptance or final4K acceptance."
+}

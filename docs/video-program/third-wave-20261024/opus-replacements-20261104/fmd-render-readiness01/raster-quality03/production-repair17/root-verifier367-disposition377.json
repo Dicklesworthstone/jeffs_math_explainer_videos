@@ -1,0 +1,54 @@
+{
+  "timestamp": "2026-11-08T22:13:30.342353+00:00",
+  "review": {
+    "path": "cc0-verifier363-review367.md",
+    "sha256": "f577a1b36768ac3b59caaec6f96b0790398a683a2525c6d70a72427bc2b62314"
+  },
+  "decision": "Accept M1 and L1/L2 coverage repairs before final verification. Preserve frozen363; CC2 owns377 and CC0 independently reviews378.",
+  "required_native_frames": {
+    "11_counting": [
+      2010,
+      2280,
+      4050,
+      4348,
+      4408,
+      7448,
+      8121,
+      8303,
+      9731,
+      11880
+    ],
+    "12_residues": [
+      2532,
+      2766,
+      3002
+    ],
+    "14_continuation": [
+      1140,
+      10260,
+      10278,
+      10301
+    ]
+  },
+  "additional_overview_endpoints": {
+    "11_counting": [
+      1860,
+      2160,
+      3840,
+      4260
+    ],
+    "14_continuation": [
+      1080,
+      1200
+    ]
+  },
+  "requirements": [
+    "Carry actual permit playback_seconds into sampling, centers rounded to60fps plus/minus2 and native centers.",
+    "Bind359 and assert06 windows9630-9730 and9970-10029; retain08 run10200-10380.",
+    "Keep all earlier anchors, caption equality, resource and integrity checks."
+  ],
+  "picture_acceptance": false,
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "independent_final_av_acceptance": false
+}

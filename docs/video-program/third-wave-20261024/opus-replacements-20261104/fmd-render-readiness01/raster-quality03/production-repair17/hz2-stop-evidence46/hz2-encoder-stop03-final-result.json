@@ -1,0 +1,54 @@
+{
+  "size": "3840x2160",
+  "command": [
+    "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/production19",
+    "render",
+    "01_the_bump",
+    "--silent",
+    "--res",
+    "3840x2160",
+    "--fps",
+    "60",
+    "--out",
+    "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-encoder-stop03/final",
+    "--crf",
+    "16",
+    "--preset",
+    "slow"
+  ],
+  "before": {
+    "579966": {
+      "pid": 579966,
+      "ppid": 579870,
+      "group": 579966,
+      "state": "S",
+      "start": "602953445",
+      "command": "/data/projects/jmev-hz2-render-worker-20261107/work/tmp/fmn-ffmpeg-session-579870-0/fmn-job-579870-0/fmn-bound-ffmpeg -hide_banner -loglevel error -f rawvideo -pix_fmt nv12 -video_size 3840x2160 -framerate 60/1 -colorspace bt709 -color_range tv -i - -c:v libx264 -crf 16 -preset slow -tune animation -level 5.2 -pix_fmt yuv420p -movflags +faststart -color_primaries bt709 -color_trc bt709 -colorspace bt709 -color_range tv -y /data/projects/jmev-hz2-render-worker-20261107/work/tmp/fmn-ffmpeg-session-579870-0/fmn-job-579870-0/out.mp4 "
+    },
+    "579870": {
+      "pid": 579870,
+      "ppid": 579221,
+      "group": 579870,
+      "state": "S",
+      "start": "602953408",
+      "command": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/production19 render 01_the_bump --silent --res 3840x2160 --fps 60 --out /data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-encoder-stop03/final --crf 16 --preset slow "
+    }
+  },
+  "encoder_read_bytes": {
+    "579966": 49929978
+  },
+  "native_exit": -15,
+  "elapsed": 2.00817287620157,
+  "survivors": {},
+  "pass": true,
+  "adapter_stop": {
+    "owner": 579221,
+    "identities": {
+      "579966": "602953445",
+      "579870": "602953408"
+    },
+    "elapsed": 1.9661597898229957,
+    "child_exit": -15,
+    "live_descendants": []
+  }
+}

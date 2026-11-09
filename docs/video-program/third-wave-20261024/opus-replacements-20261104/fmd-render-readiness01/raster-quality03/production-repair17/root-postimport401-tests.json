@@ -1,0 +1,13 @@
+{
+  "source_sha256": "8fb9a8c1cf524b55da68cdf52a27b43159f64caa1377fa52332bde9720ecd05b",
+  "tests": [
+    "valid post-import report accepted",
+    "corrupt imported file refused",
+    "nonterminal check refused",
+    "wrong master row refused",
+    "changed manifest refused"
+  ],
+  "scratch": "/var/folders/vt/n2xyn_s51b97_j3yh2qbqcnc0000gn/T/master-import401-h9oiz0ie",
+  "scope": "Root synthetic gate tests only; not independent review or actual remote import/master evidence.",
+  "deployed": false
+}

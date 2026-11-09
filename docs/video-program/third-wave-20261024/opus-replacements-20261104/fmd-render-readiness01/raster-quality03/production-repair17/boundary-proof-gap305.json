@@ -1,0 +1,20 @@
+{
+  "time": "2026-11-08T18:04:04.583189+00:00",
+  "movie": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview274-review305/preview/09_boundary.mp4",
+  "sha256": "dba964d2b0730b0e327eb32b9b9bb81496ddb4ec3422f043d356a390f1de3fb4",
+  "method": "Native QuickTime paused seek, exact timestamps from accessibility timeline, actual screenshots inspected.",
+  "samples_seconds": [
+    33.47854934210527,
+    69.67157565789473,
+    90.28457330415756
+  ],
+  "findings": [
+    "Upper gray magnification guide crosses green |g| <= M at69.6716 and90.2846 seconds.",
+    "Lower gray magnification guide crosses cancellation text walked both ways at69.6716 seconds."
+  ],
+  "disposition": "HOLD chapter09 pending narrow source-aware correction; independent308 reviewer notified.",
+  "continuous_motion_reviewed": false,
+  "listened": false,
+  "fine_sync_accepted": false,
+  "final_av_accepted": false
+}

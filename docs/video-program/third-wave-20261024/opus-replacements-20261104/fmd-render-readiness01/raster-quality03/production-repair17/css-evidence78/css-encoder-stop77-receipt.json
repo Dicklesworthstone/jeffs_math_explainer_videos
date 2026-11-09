@@ -1,0 +1,51 @@
+{
+  "started": "2026-11-07T21:53:00.127754+00:00",
+  "phase": "native",
+  "command": [
+    "python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-css-render-worker-20261107/qualification01/css-encoder-stop77.py",
+    "--run"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-07T21:53:00.170910+00:00",
+      "free_bytes": 20563152896,
+      "work_bytes": 96768000,
+      "target_bytes": 1370611712
+    },
+    {
+      "utc": "2026-11-07T21:53:00.952092+00:00",
+      "free_bytes": 20563132416,
+      "work_bytes": 96776192,
+      "target_bytes": 1370611712
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":20563161088,\"free_excludes_purgeable\":true,\"free_pct\":2.1138520283158737,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-css-render-worker-20261107\",\"platform\":{\"linux\":{\"device_id\":66308,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":972781481984,\"unprotected\":null,\"volume_available_bytes\":20563161088,\"volume_role\":null,\"volume_total_bytes\":972781481984}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-07T21:53:00.136797+00:00",
+    "free_bytes": 20563156992,
+    "work_bytes": 96763904,
+    "target_bytes": 1370611712
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "d02bfc5b861dfaeb23f5a217f08464621d4f94bee47e3ab6bd7f0101fe4cf2e3",
+  "pid": 2921693,
+  "exit": 1,
+  "final_inputs_sha256": "d02bfc5b861dfaeb23f5a217f08464621d4f94bee47e3ab6bd7f0101fe4cf2e3",
+  "finished": "2026-11-07T21:53:00.984525+00:00"
+}

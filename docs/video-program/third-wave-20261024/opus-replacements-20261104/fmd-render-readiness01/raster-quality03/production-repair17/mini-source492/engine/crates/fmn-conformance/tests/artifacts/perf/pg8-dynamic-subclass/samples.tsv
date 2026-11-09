@@ -1,0 +1,48 @@
+schema	fmn-perf-samples/1
+profile_id	pg8-shared-dev-host
+build_profile	release-perf
+host_fingerprint	8ad3c86f390b3017b30dc42b6cc3306ff4216fba8548ddfbd4afd1dbe0c3a6eb
+toolchain_fingerprint	e6dd1dab91d98758daed370278aecfb367cf7d477e2f727bede0fad152fb182b
+suite_lock_digest	c666cf5f950e881b6ae1d8fdc22fa8e841f14cbcd641fc2baebe3cdffb2ac74e
+benchmark_definition	fcb6460079379c4dd9c0354875972452d983696cbaa345bdd699bc6e56720365
+gate	pg-8
+scenario	dynamic-subclass
+unit	nanoseconds
+engine	fmn-python-bridge
+tier	portable
+thread_profile	single-thread
+execution_plan_digest	2bbd3998e83ac22a9427edea89a62f3e1ca695f7a79712ef30d5ea73de3b62c4
+config_digest	8324e9d7c1b7698573e2600340675d522abbc9cfa7269878add647f689fdf468
+cache_state	none
+output_mode	record-buffer-state
+external_tool_fingerprint	-
+bare_metal	false
+isolated	false
+producer_commit	9f6823d185cb83601dd90e9297e49c2e936f24f5
+sample_count	24
+evidence_count	1
+sample	0	106172020	valid	-
+sample	1	106308674	valid	-
+sample	2	104711065	valid	-
+sample	3	107133162	valid	-
+sample	4	107598359	valid	-
+sample	5	105754431	valid	-
+sample	6	105914720	valid	-
+sample	7	106085920	valid	-
+sample	8	105744212	valid	-
+sample	9	104777490	valid	-
+sample	10	105879134	valid	-
+sample	11	105590185	valid	-
+sample	12	105261733	valid	-
+sample	13	106139960	valid	-
+sample	14	108682121	valid	-
+sample	15	105908028	valid	-
+sample	16	105435426	valid	-
+sample	17	106142896	valid	-
+sample	18	105856301	valid	-
+sample	19	106135411	valid	-
+sample	20	105864125	valid	-
+sample	21	106260775	valid	-
+sample	22	106985136	valid	-
+sample	23	106835377	valid	-
+evidence	0	phase-trace	tests/artifacts/perf/pg8-dynamic-subclass/trace.tsv	4c9dded8682595262230fd20737f27cf8be88eeb136a3256a6f4071989031cd4

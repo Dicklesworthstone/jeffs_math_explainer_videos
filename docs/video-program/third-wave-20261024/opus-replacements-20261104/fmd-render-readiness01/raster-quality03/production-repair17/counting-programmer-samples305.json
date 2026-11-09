@@ -1,0 +1,17 @@
+{
+  "time": "2026-11-08T18:08:21.885523+00:00",
+  "movie": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview274-review305/preview/11_counting.mp4",
+  "sha256": "0b6244a005f64ff9b9b381a8ec8a58ffb7c174d085aceb452871d7f5dd0f811e",
+  "seconds": [
+    169.7565345394737,
+    184.5068008752735,
+    194.2878256578947
+  ],
+  "method": "Paused QuickTime frames, exact AX timestamps, screenshots actually viewed",
+  "findings": [
+    "Programmer pseudocode stays within card and is legible at observed samples.",
+    "z^8 undersampling example then64-step bound0.79<1 and8-turn conclusion clear.",
+    "No concrete clipping/overlap at these three samples."
+  ],
+  "limits": "Sparse supplement only; not continuous motion, hearing, fine-sync or finalAV acceptance."
+}

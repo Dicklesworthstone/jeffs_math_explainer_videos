@@ -1,0 +1,84 @@
+{
+  "manifest_sha256": "b1a78930a93b24234ca7c77e8664aeb91764779b258710536d342cced572145f",
+  "checked": 15,
+  "rows": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build68/resource-receipt.json",
+      "in_manifest": true,
+      "hash_matches": true
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build68/qualification.json",
+      "in_manifest": true,
+      "hash_matches": true
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-rebind69/resource-receipt.json",
+      "in_manifest": true,
+      "hash_matches": true
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-timeline69/resource-receipt.json",
+      "in_manifest": true,
+      "hash_matches": true
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-timeline69/timeline-output/08_loop_sums.timeline.tsv",
+      "in_manifest": true,
+      "hash_matches": true
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-timeline69/timeline-output/08_loop_sums.cues.tsv",
+      "in_manifest": true,
+      "hash_matches": true
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-timeline69/timeline-output/08_loop_sums.cuelog.tsv",
+      "in_manifest": true,
+      "hash_matches": true
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-repair-runtime-transfer156/resource-receipt.json",
+      "in_manifest": true,
+      "hash_matches": true
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-repair-delivery157/resource-receipt.json",
+      "in_manifest": true,
+      "hash_matches": true
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/repaired09-review158/pictures-reviewed146.json",
+      "in_manifest": true,
+      "hash_matches": true
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/repaired09-review158/playback-samples147.json",
+      "in_manifest": true,
+      "hash_matches": true
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/repaired09-review158/resource-receipt.json",
+      "in_manifest": true,
+      "hash_matches": true
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/repaired09-review158/source-comparison158.json",
+      "in_manifest": true,
+      "hash_matches": true
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/repaired09-review158/timeline69-comparison.json",
+      "in_manifest": true,
+      "hash_matches": true
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/repaired09-review158/timeline69-resource-receipt.json",
+      "in_manifest": true,
+      "hash_matches": true
+    }
+  ],
+  "all_pass": true,
+  "utc": "2026-11-08T03:36:04.523961+00:00",
+  "scope": "Live source manifest and dependency hashes, not completed transfer or final AV acceptance."
+}

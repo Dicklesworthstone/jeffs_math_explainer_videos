@@ -1,0 +1,13 @@
+# explainer timeline v1
+chapter	10_rigidity
+fps	60
+frames	7442
+line	10_1	36	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration/10_1.wav
+line	10_2	1004	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration/10_2.wav
+line	10_3	2466	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration/10_3.wav
+line	10_4	3707	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration/10_4.wav
+line	10_5	4793	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration/10_5.wav
+line	10_6	6218	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration/10_6.wav
+mark	predict	4478
+breath	7262	2
+listen	4478	5	10_rigidity:10_4

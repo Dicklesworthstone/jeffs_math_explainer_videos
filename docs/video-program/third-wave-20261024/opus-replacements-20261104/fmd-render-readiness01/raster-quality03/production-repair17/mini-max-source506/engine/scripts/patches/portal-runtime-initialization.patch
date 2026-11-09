@@ -1,0 +1,182 @@
+diff --git a/crates/fmn-python/python/fmn_python/fading.py b/crates/fmn-python/python/fmn_python/fading.py
+index 2b181f3..ed45deb 100644
+--- a/crates/fmn-python/python/fmn_python/fading.py
++++ b/crates/fmn-python/python/fmn_python/fading.py
+@@ -46,4 +46,14 @@ def install_fading(native: Any) -> None:
+         self._fade_source = mobject
+         self._fade_saved_source = mobject.saved_state
++        # Piece alignment inserts invisible siblings between existing children,
++        # so restoring by aligned index can both leak padding and restore a
++        # Circle into the wrong original Square. Retain the original graph,
++        # not just its size, while the native record snapshot owns appearance.
++        self._fade_source_topology = []
++        seen = set()
++        for member in mobject.get_family():
++            if id(member) not in seen:
++                seen.add(id(member))
++                self._fade_source_topology.append((member, tuple(member.submobjects)))
+         self.to_add_on_completion = target_mobject
+         self.stretch, self.dim_to_match = bool(stretch), dimension
+@@ -157,4 +167,9 @@ def install_fading(native: Any) -> None:
+             return
+         scene.remove(self.mobject, self._fade_source)
++        # Remove only the temporary alignment topology before assigning the
++        # saved records. Preserve original proxy identities and shared-child
++        # edges; trimming the padded list by length would select wrong pieces.
++        for member, children in reversed(self._fade_source_topology):
++            member.set_submobjects(children)
+         self._fade_source.become(self._fade_saved_source)
+         if not self.is_remover():
+diff --git a/crates/fmn-python/python/manimlib/__init__.py b/crates/fmn-python/python/manimlib/__init__.py
+index 003e4d2..ca2fce3 100644
+--- a/crates/fmn-python/python/manimlib/__init__.py
++++ b/crates/fmn-python/python/manimlib/__init__.py
+@@ -16,19 +16,5 @@ from fmn_python.library_constructor_authority import (
+     REFERENCE_MODULE_BY_RUST_HELPER as _CONTRACT_REFERENCE_MODULE_BY_RUST_HELPER,
+ )
+-from fmn_python.schema_provenance import (
+-    SchemaProvenanceError as _SchemaProvenanceError,
+-    apply_schema_placeholder_provenance as _apply_schema_placeholder_provenance,
+-)
+-from fmn_python.rendering import install_scene_rendering as _install_scene_rendering
+-from fmn_python.fading import install_fading as _install_fading
+-from fmn_python.playback import install_scene_playback as _install_scene_playback
+-from fmn_python.scene_state import install_scene_state as _install_scene_state
+-from fmn_python.streamline_animation import install_streamline_animation as _install_streamline_animation
+-from fmn_python.traced_path import install_traced_path as _install_traced_path
+-from fmn_python.interaction import install_interaction as _install_interaction
+-from fmn_python.interactive_editing import install_interactive_editing as _install_interactive_editing
+-from fmn_python.control_events import install_control_events as _install_control_events
+-from fmn_python.color_sliders import install_color_sliders as _install_color_sliders
+-from fmn_python.scene_execution import install_scene_execution as _install_scene_execution
++from fmn_python.initialization import initialize as _initialize_portal
+ 
+ _ensure_exclusive_manimlib_namespace()
+@@ -36,26 +22,8 @@ _ensure_exclusive_manimlib_namespace()
+ from . import manimlib as _native
+ 
+-try:
+-    _apply_schema_placeholder_provenance(_native)
+-except _SchemaProvenanceError as error:
+-    raise ImportError(f"invalid manimlib schema provenance: {error}") from error
+-del _SchemaProvenanceError, _apply_schema_placeholder_provenance
+-
+-_install_scene_rendering(_native)
+-_install_fading(_native)
+-_install_scene_playback(_native)
+-_install_scene_state(_native)
+-_install_streamline_animation(_native)
+-_install_traced_path(_native)
+-_install_interactive_editing(_native)
+-_install_interaction(_native)
+-_install_control_events(_native)
+-_install_color_sliders(_native)
+-_install_scene_execution(_native)
+-del _install_scene_rendering, _install_fading, _install_scene_playback, _install_scene_state
+-del _install_streamline_animation, _install_traced_path
+-del _install_interaction, _install_control_events, _install_color_sliders
+-del _install_interactive_editing
+-del _install_scene_execution
++# The extension initializes itself too. This idempotent call also makes the
++# packaging boundary explicitly reject incomplete/failed native initialization.
++_initialize_portal(_native)
++del _initialize_portal
+ 
+ 
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+index 9dd4d84..d28a614 100644
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -10785,4 +10785,10 @@ fn populate_manimlib(py: Python<'_>, module: &Bound<'_, PyModule>) -> PyResult<(
+     module.setattr("__franken_manim__", true)?;
+     module.setattr("__abi_policy__", "cpython-3.13-full-abi")?;
++    // The accompanying pure-Python package is part of the portal. Direct
++    // ExtensionFileLoader and embedded users must see the same playback,
++    // recovery, output and interaction semantics as the installed wheel.
++    py.import("fmn_python.initialization")?
++        .getattr("initialize")?
++        .call1((module,))?;
+     Ok(())
+ }
+@@ -10846,4 +10852,7 @@ pub(crate) fn with_python_test_module<T>(
+ 
+         let hook_globals = PyDict::new(py);
++        hook_globals
++            .set_item("_fmn_source_package", concat!(env!("CARGO_MANIFEST_DIR"), "/python"))
++            .expect("embedding source package path");
+         hook_globals
+             .set_item("_fmn_unraisable", PyList::empty(py))
+@@ -10851,4 +10860,6 @@ pub(crate) fn with_python_test_module<T>(
+         let hook_source = CString::new(
+             r#"import sys as _fmn_sys
++_fmn_previous_path = _fmn_sys.path[:]
++_fmn_sys.path.insert(0, _fmn_source_package)
+ _fmn_old_unraisablehook = _fmn_sys.unraisablehook
+ def _fmn_capture_unraisable(event):
+@@ -10884,4 +10895,10 @@ _fmn_sys.unraisablehook = _fmn_capture_unraisable
+             body(py, &module, &suite_globals)
+         }));
++        py.run(
++            c"_fmn_sys.path[:] = _fmn_previous_path",
++            Some(&hook_globals),
++            None,
++        )
++        .expect("restore embedding host module search path");
+         let lifetime_globals = PyDict::new(py);
+         lifetime_globals.set_item("gc", &gc).expect("GC observer");
+@@ -11660,4 +11677,44 @@ mod tests {
+     }
+ 
++    #[test]
++    fn production_camera_runtime_acceptance_suite() {
++        crate::with_python_test_module("camera runtime acceptance", |py, module, globals| {
++            assert_eq!(
++                module.getattr("_FMN_PORTAL_RUNTIME_STATE")
++                    .and_then(|state| state.extract::<String>())
++                    .expect("complete production initialization"),
++                "ready"
++            );
++            for (name, text) in [
++                ("camera_motion.py", include_str!("../tests/camera_motion.py")),
++                ("camera_execution.py", include_str!("../tests/camera_execution.py")),
++                ("updater_family.py", include_str!("../tests/updater_family.py")),
++            ] {
++                globals.set_item("__file__", name).expect("suite filename");
++                let source = CString::new(text).expect("camera suite contains no NUL");
++                py.run(source.as_c_str(), Some(globals), Some(globals))
++                    .inspect_err(|error| error.print(py))
++                    .expect("native camera and updater family acceptance");
++            }
++        });
++    }
++
++    #[test]
++    fn production_portal_runtime_acceptance_suite() {
++        crate::with_python_test_module("complete portal runtime", |py, _module, globals| {
++            for (name, text) in [
++                ("portal_initialization.py", include_str!("../tests/portal_initialization.py")),
++                ("fading_semantics.py", include_str!("../tests/fading_semantics.py")),
++                ("fading_family.py", include_str!("../tests/fading_family.py")),
++            ] {
++                globals.set_item("__file__", name).expect("suite filename");
++                let source = CString::new(text).expect("portal suite contains no NUL");
++                py.run(source.as_c_str(), Some(globals), Some(globals))
++                    .inspect_err(|error| error.print(py))
++                    .expect("identical production initialization and exact fade restoration");
++            }
++        });
++    }
++
+     #[test]
+     fn production_animation_semantics_acceptance_suite() {
+diff --git a/scripts/check_portal_runtime.sh b/scripts/check_portal_runtime.sh
+index 9a710d3..84a4720 100755
+--- a/scripts/check_portal_runtime.sh
++++ b/scripts/check_portal_runtime.sh
+@@ -12,5 +12,5 @@ print(f"auditing imported manimlib: {path}")
+ PY
+ 
+-for suite in bridge animation_semantics matching_transform_semantics composition_lifecycle camera_animation_semantics camera_motion camera_execution updater_family creation_semantics native_outputs programmatic_rendering batch_rendering builder_playback restore_playback cyclic_replace deferred_transform_playback fading_semantics movement_semantics rotation_semantics indication_semantics composite_effects tracker_interpolation live_rates animation_updaters native_animation_updaters deferred_animation_updaters console_rendering scene_state temporal_visualization control_interaction color_sliders scene_execution; do
++for suite in portal_initialization fading_family bridge animation_semantics matching_transform_semantics composition_lifecycle camera_animation_semantics camera_motion camera_execution updater_family creation_semantics native_outputs programmatic_rendering batch_rendering builder_playback restore_playback cyclic_replace deferred_transform_playback fading_semantics movement_semantics rotation_semantics indication_semantics composite_effects tracker_interpolation live_rates animation_updaters native_animation_updaters deferred_animation_updaters console_rendering scene_state temporal_visualization control_interaction color_sliders scene_execution; do
+     python3 - "$suite" <<'PY'
+ import pathlib

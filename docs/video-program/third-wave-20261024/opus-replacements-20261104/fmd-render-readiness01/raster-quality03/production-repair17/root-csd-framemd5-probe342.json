@@ -1,0 +1,32 @@
+{
+  "time_utc": "2026-11-08T20:33:02.674442+00:00",
+  "host": "csd",
+  "review": "332 L1",
+  "input": "/data/projects/jmev-stroke-probe-20261106/work/imported-trj-root311/jobs/trj-production19-final-02-turning-numbers32/render/02_turning_numbers.mp4",
+  "command": "/usr/bin/ffmpeg -nostdin -hide_banner -v error -xerror -threads 16 -i INPUT -map 0:v:0 -an -frames:v 3 -f framemd5 pipe:1",
+  "exit": 0,
+  "software": "Lavf62.3.100",
+  "dimensions": "3840x2160",
+  "timebase": "1/60",
+  "pts": [
+    0,
+    1,
+    2
+  ],
+  "durations": [
+    1,
+    1,
+    1
+  ],
+  "frame_bytes": [
+    12441600,
+    12441600,
+    12441600
+  ],
+  "frame_md5": [
+    "219a8a494d9766aef340c76ec574519b",
+    "219a8a494d9766aef340c76ec574519b",
+    "219a8a494d9766aef340c76ec574519b"
+  ],
+  "scope": "Read-only three-frame runtime compatibility probe on existing retained chapter. Resolves332 L1 actual CSD timebase concern only; not full decode, join, picture, audio or final acceptance."
+}

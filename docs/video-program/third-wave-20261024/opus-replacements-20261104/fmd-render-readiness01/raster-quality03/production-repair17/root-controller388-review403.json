@@ -1,0 +1,80 @@
+{
+  "source_sha256": "5599e007e6b1debf37fe98a22ad1db322896e446a07d3f837fcddcd9e33fb59e",
+  "cases": [
+    {
+      "case": "valid",
+      "expected_refusal": false,
+      "observed_refusal": null,
+      "calls": [
+        "check",
+        "launch-verify",
+        "launch-pictures",
+        "launch-pictures"
+      ]
+    },
+    {
+      "case": "verify_fail",
+      "expected_refusal": true,
+      "observed_refusal": "failed verify",
+      "calls": [
+        "check",
+        "launch-verify"
+      ]
+    },
+    {
+      "case": "overview_hash",
+      "expected_refusal": true,
+      "observed_refusal": "overview sampling.json is not the one its job printed",
+      "calls": [
+        "check",
+        "launch-verify",
+        "launch-pictures"
+      ]
+    },
+    {
+      "case": "overview_extra_line",
+      "expected_refusal": true,
+      "observed_refusal": "the overview job did not print its sampling.json sha256 last",
+      "calls": [
+        "check",
+        "launch-verify",
+        "launch-pictures"
+      ]
+    },
+    {
+      "case": "native_binding",
+      "expected_refusal": true,
+      "observed_refusal": "the native job bound another overview sampling.json",
+      "calls": [
+        "check",
+        "launch-verify",
+        "launch-pictures",
+        "launch-pictures"
+      ]
+    },
+    {
+      "case": "native_union",
+      "expected_refusal": true,
+      "observed_refusal": "native union differs from the ledger",
+      "calls": [
+        "check",
+        "launch-verify",
+        "launch-pictures",
+        "launch-pictures"
+      ]
+    },
+    {
+      "case": "final_file",
+      "expected_refusal": true,
+      "observed_refusal": "changed picture",
+      "calls": [
+        "check",
+        "launch-verify",
+        "launch-pictures",
+        "launch-pictures"
+      ]
+    }
+  ],
+  "scratch": "/var/folders/vt/n2xyn_s51b97_j3yh2qbqcnc0000gn/T/controller388-root403-6o0jt2e5",
+  "scope": "Root replay of unmodified388 main with stub verifier and jobs. Source review and controller sequencing only; no real remote jobs, no render or audiovisual acceptance. CC1 independent391 remains unfinished."
+}

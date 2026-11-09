@@ -1,0 +1,85 @@
+name: Native live clock
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/live-clock.yml'
+      - 'scripts/patches/native-live-clock.patch'
+      - 'crates/fmn-scene/src/runtime/idle.rs'
+      - 'crates/fmn-studio/src/advance.rs'
+      - 'crates/fmn-studio/src/recorded/advance.rs'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: native-live-clock
+  cancel-in-progress: false
+jobs:
+  clock:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/portable
+      CARGO_TERM_COLOR: never
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+      - name: Connect native nominal stepping
+        run: |
+          set -euo pipefail
+          if ! grep -qx 'mod idle;' crates/fmn-scene/src/runtime.rs; then
+            git apply --check scripts/patches/native-live-clock.patch
+            git apply scripts/patches/native-live-clock.patch
+          fi
+          rustup show active-toolchain
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-clock-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-live-studio-
+            cargo-${{ runner.os }}-${{ runner.arch }}-portal-studio-
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-
+      - name: Test native runtime, clock protocol and bounded live view
+        run: |
+          set -euo pipefail
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-scene/src/runtime.rs crates/fmn-scene/src/runtime/idle.rs crates/fmn-studio/src/lib.rs crates/fmn-studio/src/advance.rs crates/fmn-studio/src/recorded.rs crates/fmn-studio/src/recorded/advance.rs crates/fmn-studio/src/recorded/live.rs crates/fmn-studio/src/inspect.rs
+          cargo test --locked -p fmn-scene --lib runtime::idle -- --nocapture 2>&1 | tee /tmp/clock-runtime.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/clock-runtime.log
+          cargo test --locked -p fmn-scene --test runtime
+          cargo test --locked -p fmn-studio --lib advance -- --nocapture 2>&1 | tee /tmp/clock-protocol.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/clock-protocol.log
+          cargo test --locked -p fmn-studio --lib recorded::
+          cargo clippy --locked -p fmn-scene -p fmn-studio --lib -- -D warnings
+          git diff --check
+      - name: Commit verified clock integration directly to main
+        run: |
+          set -euo pipefail
+          git add crates/fmn-scene/src/runtime.rs crates/fmn-scene/src/runtime/idle.rs crates/fmn-studio/src/lib.rs crates/fmn-studio/src/advance.rs crates/fmn-studio/src/recorded.rs crates/fmn-studio/src/recorded/advance.rs crates/fmn-studio/src/recorded/live.rs crates/fmn-studio/src/inspect.rs
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(studio): activate verified rational live-frame stepping (fm-ffj.70)'
+            git push origin HEAD:main
+          fi
+      - name: Preserve source and evidence
+        if: always()
+        run: |
+          git archive --format=tar.gz HEAD > /tmp/clock-source.tar.gz
+          git rev-parse HEAD > /tmp/clock-source-sha.txt
+          git diff > /tmp/clock-working.patch
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-live-clock-${{ github.sha }}
+          path: |
+            /tmp/clock-*.log
+            /tmp/clock-source.tar.gz
+            /tmp/clock-source-sha.txt
+            /tmp/clock-working.patch
+          retention-days: 1

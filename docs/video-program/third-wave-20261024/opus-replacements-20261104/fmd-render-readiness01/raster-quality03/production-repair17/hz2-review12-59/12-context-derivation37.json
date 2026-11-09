@@ -1,0 +1,17 @@
+{
+  "source_bindings": [
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/work/production-repair19/workspace/explainer_corpus/complex_analysis_visual/src/chapters/residues.rs",
+      "local": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/unchanged-preview16-review30/residues-production19-review37.rs",
+      "sha256": "7d06f69b2aff86ac1bee103c7aaefc58891d0b335312e98df3610769f45af7c1"
+    },
+    {
+      "source": "/data/projects/jmev-stroke-probe-20261106/work/production-repair19/workspace/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "local": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/unchanged-preview16-review30/counting-production19-review37.rs",
+      "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+    }
+  ],
+  "observed_context": "Immediately preceding current narration11_2 explicitly states once counterclockwise loop avoiding zeros/poles and function holomorphic inside except poles;11_4 repeats boundary exclusion.12_1 states a few negative powers, then concrete displayed order2 example.12_2 carries those contour/function assumptions. H_NOTE makes the regular term holomorphic. Formula g/h assumes holomorphic g,h near p; the worked g=1,h=1+z^2 meets that. The residue formula also holds if numerator zero and singularity removable, though then not a simple pole.",
+  "own_derivation": "On z=p+r exp(it), integral of (z-p)^k dz = i*r^(k+1)*integral exp(i*(k+1)*t)dt, equal0 for integer k!= -1 and2pi i for k=-1. Hence higher pole terms, not just displayed double-pole term, integrate to0. On punctured interior, Cauchy gives outer integral=sum of counterclockwise little-loop integrals. For h=(z-p)H with H(p)=hprime(p)!=0, residue of g/h=g(p)/H(p). For f=(z-a)^m q with q holomorphic nonzero, fprime/f=m/(z-a)+qprime/q; pole ordern changesm to-n.",
+  "qualification": "Source and mathematical context closes unconditional-interpretation concern for this sequential chapter; isolated clip would require assumptions repeated. Actual motion still being reviewed; final4K, caption placement, listening/fine-sync and independentAV not accepted."
+}

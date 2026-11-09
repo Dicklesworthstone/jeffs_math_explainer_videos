@@ -1,0 +1,880 @@
+{
+  "movie": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview243-review265/preview/06_one_derivative.mp4",
+  "movie_sha256": "5e45d72da91701c9c7c346b98ded8491c13ba1befed6be1b6301c1c6d33ed62d",
+  "intervals": [
+    [
+      9630,
+      9730
+    ],
+    [
+      9970,
+      10029
+    ]
+  ],
+  "pictures": [
+    {
+      "frame": 9630,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0001.jpg",
+      "sha256": "72d4938e1f4f70d2584d2da0be2d0e70dd53d9bbcabb4b24181155ed57a603fd"
+    },
+    {
+      "frame": 9631,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0002.jpg",
+      "sha256": "b7e98d761a8b71caccdb642e4a11f549a2f0be2140d489673dcdf0e9d957f2ed"
+    },
+    {
+      "frame": 9632,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0003.jpg",
+      "sha256": "cc8080909e84d7d62cee6fe2df681f8b4d06236d9427534ea9ffb7827903d1b7"
+    },
+    {
+      "frame": 9633,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0004.jpg",
+      "sha256": "c1b5152626e6874e5d702a2de134bbccd00f597c8594ca29027fcd4c617eb4ed"
+    },
+    {
+      "frame": 9634,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0005.jpg",
+      "sha256": "69d1b5168465da8e8d2ca063997884cc1940819913d0605bc0f9828f23231358"
+    },
+    {
+      "frame": 9635,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0006.jpg",
+      "sha256": "ece56decfa85e4e334644cc35a06be72eccd7d605451bb4efb63a5f05d0f27a9"
+    },
+    {
+      "frame": 9636,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0007.jpg",
+      "sha256": "c47ce57b44d576d617375aadaaf5304d9e8c566bc56904d5b61d5658d0cc1e5d"
+    },
+    {
+      "frame": 9637,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0008.jpg",
+      "sha256": "7305f9762c5982478289494599908a37e2566c215fafc823db1268b06d4d9698"
+    },
+    {
+      "frame": 9638,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0009.jpg",
+      "sha256": "2eca6876bc0a8aeeeb1c3b420d926a39116b0fe72807ffa8460ac83af9263494"
+    },
+    {
+      "frame": 9639,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0010.jpg",
+      "sha256": "e96c6604b910d4e916bfcdba8bf440280f2f896e11bfb5a5625994ed3ba644fb"
+    },
+    {
+      "frame": 9640,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0011.jpg",
+      "sha256": "7964b6886be0281db46a7f62e020fe26c1f91df4c4f8a587cb845d27a56e2042"
+    },
+    {
+      "frame": 9641,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0012.jpg",
+      "sha256": "aeb7fb8dd29a1dda5616efa33307c0320d09c15436063ddcbff048c71806e9fd"
+    },
+    {
+      "frame": 9642,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0013.jpg",
+      "sha256": "61b0ce6277046888e033851614cffc653ee75b4a375262f2b66668f2538964ac"
+    },
+    {
+      "frame": 9643,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0014.jpg",
+      "sha256": "b14f70f99919515b00b6f89ad4ce444f9d836c4c7a7c46873128e3ae79885b1c"
+    },
+    {
+      "frame": 9644,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0015.jpg",
+      "sha256": "07b777d7b1dec013b948e6bb40ce05b1a324fe871135d58469d611e2cc7bd40c"
+    },
+    {
+      "frame": 9645,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0016.jpg",
+      "sha256": "37f2bccdd985c3685cc7926b37f645e1f3395571943a5776804afbfc898d8b31"
+    },
+    {
+      "frame": 9646,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0017.jpg",
+      "sha256": "f9652429b49ccf2e117826188dc1a08436d3a7ced5d501e77a7fb2a8f226cecb"
+    },
+    {
+      "frame": 9647,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0018.jpg",
+      "sha256": "8cf038a7f32bdef01df013767aeed4e70d4a172027a1661bd2aa6639cd972346"
+    },
+    {
+      "frame": 9648,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0019.jpg",
+      "sha256": "e299b0a89e8c920e902c1412501199ad1d189961cba7ab02b276f33d78290bc4"
+    },
+    {
+      "frame": 9649,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0020.jpg",
+      "sha256": "2db712ef02b36c8a72e217079914e433cb683f95970f67cea6314fbc1f769dce"
+    },
+    {
+      "frame": 9650,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0021.jpg",
+      "sha256": "51035e00cf6b4bca417b12361692229088c16c5c89bbe4bed678e948147b01a1"
+    },
+    {
+      "frame": 9651,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0022.jpg",
+      "sha256": "6643d542f16553ca02b64cf6de3c1751a0dab37d2dfc66bbeae3e74f4f774dbf"
+    },
+    {
+      "frame": 9652,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0023.jpg",
+      "sha256": "518fd1c5dd22ac2933be876066adbf76122b70bbb906d065bd3f2dc650cab26c"
+    },
+    {
+      "frame": 9653,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0024.jpg",
+      "sha256": "aecbf6229ea3278b9724dc6cfaf105fcfaa30e5876f5c7ebc779f5ec707efc87"
+    },
+    {
+      "frame": 9654,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0025.jpg",
+      "sha256": "629accd75a11bcb23311381e9f53e32cb6ad8e4efdf64e84c6678157904f7b8f"
+    },
+    {
+      "frame": 9655,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0026.jpg",
+      "sha256": "cdd9028dc5afbf5e377d0a1e229d483d9beaeec83fa1bb6ee9dec750e2087c41"
+    },
+    {
+      "frame": 9656,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0027.jpg",
+      "sha256": "6da9b00e157847adf151ca70c1875bf35568d5c49747cc709ff6de8b66c339de"
+    },
+    {
+      "frame": 9657,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0028.jpg",
+      "sha256": "6f38b07d1f1cdeaaab97f7250e4659c962e2a81325cf3db82052b1abed2256fa"
+    },
+    {
+      "frame": 9658,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0029.jpg",
+      "sha256": "9ea3b335cbf52f6c592f3fcf7a9e623ff6a5b9867f80df3193ee104ba9a0661b"
+    },
+    {
+      "frame": 9659,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0030.jpg",
+      "sha256": "846af37dc5750d58e92f7cd37a5bddc6425b1d8c2017322b322c17ac68408952"
+    },
+    {
+      "frame": 9660,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0031.jpg",
+      "sha256": "867f081e519f55891fab0934f937432b71b93f786c01ff83fc2120ffadfab310"
+    },
+    {
+      "frame": 9661,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0032.jpg",
+      "sha256": "a2a0db723e0dc5353c6b572040af9e10000503fd5b1e16c42b3422d222d23c2f"
+    },
+    {
+      "frame": 9662,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0033.jpg",
+      "sha256": "80e73458ff6166d2c0756ebbf81b31fbd54515bec169b3e84f458f5e745f8cfb"
+    },
+    {
+      "frame": 9663,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0034.jpg",
+      "sha256": "2749fb26ac5495e09ca23e3ccb5816c5498999e778ac7e4612a737ef140001d7"
+    },
+    {
+      "frame": 9664,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0035.jpg",
+      "sha256": "7fe4c74987d640120bf074920559e80d9a1f3367ec859d4d3a951ce946f5d83f"
+    },
+    {
+      "frame": 9665,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0036.jpg",
+      "sha256": "812ed19ea11c811c6e615d7d9d373633c8e81ad7cedf6cccf7e491ccfa3eac4d"
+    },
+    {
+      "frame": 9666,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0037.jpg",
+      "sha256": "3501117dd99be19ec97af5f36b59bb689d234977fb5e099f89ba9bb44b534c5e"
+    },
+    {
+      "frame": 9667,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0038.jpg",
+      "sha256": "469694fcc26e45820e43736eb7314248d9ffef1e18ee36928474569a983a4286"
+    },
+    {
+      "frame": 9668,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0039.jpg",
+      "sha256": "2d130a12aca8318c78a8f9abde8f0e74c2e55b7e2b85a2293f2cc240dababfb2"
+    },
+    {
+      "frame": 9669,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0040.jpg",
+      "sha256": "1882ad25a2378a7683a57955e9245f0f51fa1762dc87cd51783ab10d2d5c17ec"
+    },
+    {
+      "frame": 9670,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0041.jpg",
+      "sha256": "ae1ad9eb6fe89561e2018c3e38bfdabb25c41e0fa2b447e83d855d6dd9d5c86c"
+    },
+    {
+      "frame": 9671,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0042.jpg",
+      "sha256": "4b09a63603a654485f3d961fb305c5f48fc5759f4d22852c7fa20f6e686ce36b"
+    },
+    {
+      "frame": 9672,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0043.jpg",
+      "sha256": "6ad40a6242d26c5b083389cf618c93a7decc7071be79ba760fdcf1e781934077"
+    },
+    {
+      "frame": 9673,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0044.jpg",
+      "sha256": "84eecc7427190c2d4d69104aeddf26861db9dd96d8a9d714bb074597a1d67754"
+    },
+    {
+      "frame": 9674,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0045.jpg",
+      "sha256": "5b806f5da9a8f97a3c5749735cac815f447cf2961ee556f5dddfbbc2bd264241"
+    },
+    {
+      "frame": 9675,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0046.jpg",
+      "sha256": "82cdd95d72a382ad96b4501d4e741cc1e00552de088b310245bc3a6a130b4dbe"
+    },
+    {
+      "frame": 9676,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0047.jpg",
+      "sha256": "3243b43257c0ef6d2a5bf0dd05998153b02e859ad191b207b4efc79c218ac16f"
+    },
+    {
+      "frame": 9677,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0048.jpg",
+      "sha256": "936102bd10d9ca3c2c66dfc2457b25721980c6d7be00edb97d668a84347909af"
+    },
+    {
+      "frame": 9678,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0049.jpg",
+      "sha256": "a1441daf961b3a35f6f930edc3a578755ff5e3311aab9f173558f7bd94e2f8ed"
+    },
+    {
+      "frame": 9679,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0050.jpg",
+      "sha256": "ef0c0510c7813fa0b8d456fc90630c48dd158e89c1a20d831290bf2e51b0c9ce"
+    },
+    {
+      "frame": 9680,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0051.jpg",
+      "sha256": "f3375eb0e4150a6c4a60d5a3ba3d1a3bfdcff22f53f9386979bf1ac058c01d23"
+    },
+    {
+      "frame": 9681,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0052.jpg",
+      "sha256": "f22bfc3d40212562499c04cc3ec4e6045c4d11e4ed6ff0feb855d1f68440cf01"
+    },
+    {
+      "frame": 9682,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0053.jpg",
+      "sha256": "27b4300b266cbcbcac44ab609e5e3830da39bd7d39e48c20d06bf7776ff54185"
+    },
+    {
+      "frame": 9683,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0054.jpg",
+      "sha256": "03160ce335198e1a068bbd11026003f2cf5edef32d609ac4df64a80d9be390df"
+    },
+    {
+      "frame": 9684,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0055.jpg",
+      "sha256": "f22bd93cae9b6a66880667c96b62dd2eeb438f04b6a1dd2009e536e2e7b38351"
+    },
+    {
+      "frame": 9685,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0056.jpg",
+      "sha256": "7623ace5a74180bec2ae0f4e97cfea76b91e5edff4367a8b984654f1cb930351"
+    },
+    {
+      "frame": 9686,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0057.jpg",
+      "sha256": "1dc83b4cf06fa6b13500d80c3071795b6478987a080f4a48753bc3245020701d"
+    },
+    {
+      "frame": 9687,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0058.jpg",
+      "sha256": "4b9dd6e0c85232e7957185e74f7e0d5dd9323a9de76c986cd858d446e98e5197"
+    },
+    {
+      "frame": 9688,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0059.jpg",
+      "sha256": "e03899a0cdcdcfa98b560a234e8349b518acb10acd9eb61ecbad766891646f67"
+    },
+    {
+      "frame": 9689,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0060.jpg",
+      "sha256": "4298fc5d0cefb873d74cf0c2174047f71126f6bd137ac8611f2e47d86a7c2366"
+    },
+    {
+      "frame": 9690,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0061.jpg",
+      "sha256": "0116a7b2dd0f96923dbea366dfc6a8edf258ba8664a42b5803f6b02376531ae3"
+    },
+    {
+      "frame": 9691,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0062.jpg",
+      "sha256": "8eab3bac2dccbaf3c73211cd6a38aba0fa4344091c56f08d4b42883556492691"
+    },
+    {
+      "frame": 9692,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0063.jpg",
+      "sha256": "81ca0ec458e470818b2c04d602af3f689770b82dde5070b795cadf7ef2882f83"
+    },
+    {
+      "frame": 9693,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0064.jpg",
+      "sha256": "75a4c180950198b5e47d561cc0719d1b16db8a60f46ad3486183178a28902002"
+    },
+    {
+      "frame": 9694,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0065.jpg",
+      "sha256": "ff3fc81d476c78ef4548828cb8570dbc2dbedd2804d5e533b826a3df052991f4"
+    },
+    {
+      "frame": 9695,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0066.jpg",
+      "sha256": "310dd24c2d31f2fb558e49468f4143c0e4783ef4fde3baff1cf7458869acb8e8"
+    },
+    {
+      "frame": 9696,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0067.jpg",
+      "sha256": "f7c3d0f57e43033b79759ca80d75a10ce1fcddf63f89697c635ec8ec0f8b9a73"
+    },
+    {
+      "frame": 9697,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0068.jpg",
+      "sha256": "610619624213d1ea72fb6a34d504590c62f680a658095dfdb9e142f2dc63738b"
+    },
+    {
+      "frame": 9698,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0069.jpg",
+      "sha256": "09eadb18b507ecb4c97d28cbaa69b853c2648a59c5648de4b4ed7faefb530cc4"
+    },
+    {
+      "frame": 9699,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0070.jpg",
+      "sha256": "6792c533cfadce33f2910d589d42a4c855618d4949497cb6f0d4a7b7e64c3990"
+    },
+    {
+      "frame": 9700,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0071.jpg",
+      "sha256": "cc9ac85d3ad39a973c1d295385271e6ce5913b1b36b50aa0029d21dd44259a38"
+    },
+    {
+      "frame": 9701,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0072.jpg",
+      "sha256": "c21d33c4f564ddb808253f02fe059f637c0864ff2c38e4f179d0713c650936e8"
+    },
+    {
+      "frame": 9702,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0073.jpg",
+      "sha256": "224eb8729e8f2efd14fd82dce929b5afa6b7a9f6d52253cf9e1ed97440571c64"
+    },
+    {
+      "frame": 9703,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0074.jpg",
+      "sha256": "a4aa96da740612e069e0befcab060cd7bc086609a8c42c8ed0dcfa5a502e759e"
+    },
+    {
+      "frame": 9704,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0075.jpg",
+      "sha256": "5b36e05df594d926a9963fd2a624464c73c18413c5eed03d65b21ea077f82aa2"
+    },
+    {
+      "frame": 9705,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0076.jpg",
+      "sha256": "1b78093d84875eedec77e79d72eb08215dac97f4c1d129aa191d530ff83833c3"
+    },
+    {
+      "frame": 9706,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0077.jpg",
+      "sha256": "663c6ab1622fdb9f554159869b4c791c48cf9cee18614f196cfe82e8087fa482"
+    },
+    {
+      "frame": 9707,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0078.jpg",
+      "sha256": "e305e70d337f44f6a13e4819638099364b4a93f93d2a207cf87f359d77856153"
+    },
+    {
+      "frame": 9708,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0079.jpg",
+      "sha256": "ca045166333b9df74945508240a636f645c8769263085c502a305b4b8c2ce6d1"
+    },
+    {
+      "frame": 9709,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0080.jpg",
+      "sha256": "f33e656e2e34179966aade5741d9f4d402bfbeead206c5db9518ebf6e16c2ac9"
+    },
+    {
+      "frame": 9710,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0081.jpg",
+      "sha256": "5b07ab507976e6f3da947da58ec55674bfa3c692a169d90e36db534218ba9f24"
+    },
+    {
+      "frame": 9711,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0082.jpg",
+      "sha256": "e8370bf13b5a0290d62a41cddc41ad77e69d263f0ce424e3bd688fabe1214c04"
+    },
+    {
+      "frame": 9712,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0083.jpg",
+      "sha256": "f019bc81bedf7dcac964174f81a8320ae40322e510f6ebb84ba243628ac1debc"
+    },
+    {
+      "frame": 9713,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0084.jpg",
+      "sha256": "6e386bdd08ff2f0ba72914d1eb185e3374fcc6b0a0e18cbe6df7bf729d76f82a"
+    },
+    {
+      "frame": 9714,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0085.jpg",
+      "sha256": "e20d677f781c49a822bf77cdd0daa209d56ccc5c805dc5c124f0b97ce9027225"
+    },
+    {
+      "frame": 9715,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0086.jpg",
+      "sha256": "648c23a1d9a24de50e9b7b104845d187b014893b28e54d127cf31af062987b9f"
+    },
+    {
+      "frame": 9716,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0087.jpg",
+      "sha256": "9dbce2b4bd0bb712a766dde4b9f90c8d7ccc34974f0ddca1873d4ac0c3a9e183"
+    },
+    {
+      "frame": 9717,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0088.jpg",
+      "sha256": "d12567c09355e8d1832723820dae8fb5a6bdb25ab05e30e60c7369b856139549"
+    },
+    {
+      "frame": 9718,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0089.jpg",
+      "sha256": "74f33fd1c8551b9c03324763924c4b076c80fc82e9cce4cf0f37a41b8135b72f"
+    },
+    {
+      "frame": 9719,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0090.jpg",
+      "sha256": "44116f7c8a458a9a8b9d6742c25f2b9583dbb968d8c5bb00c77c204c5a4c80ee"
+    },
+    {
+      "frame": 9720,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0091.jpg",
+      "sha256": "53172be7d42b6ce7f1438f54a46b4b57dd688d0c94a523ae27473ad0a2e203d9"
+    },
+    {
+      "frame": 9721,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0092.jpg",
+      "sha256": "5dbcf1dae3b4d6eef4779783778fd841d7a8f457b6413b667565cfbccbe8c19e"
+    },
+    {
+      "frame": 9722,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0093.jpg",
+      "sha256": "24dc36fd65748610420e90c1ef3056868150c349959eb074daaf84b78bba77fc"
+    },
+    {
+      "frame": 9723,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0094.jpg",
+      "sha256": "4274251a32f7144531665d71a3a679c4a71c78988cbbf8a760dd17cbecfc5a07"
+    },
+    {
+      "frame": 9724,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0095.jpg",
+      "sha256": "f27f68f9ada2080a3ed9ce559c23e5fe17f0da888d583f3f12d60f3e65173591"
+    },
+    {
+      "frame": 9725,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0096.jpg",
+      "sha256": "c4d2810f7cef39d51a8a27a877aa66dc95fdebc210b70b6c1d0e9fdd2afab603"
+    },
+    {
+      "frame": 9726,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0097.jpg",
+      "sha256": "7b5d978020fd081286ce4f8222d2cc99ea9525e6e16848ae82673564d2a6ab19"
+    },
+    {
+      "frame": 9727,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0098.jpg",
+      "sha256": "cd531873432c8b9d4fc993d812c85c2fe4c24a3216271a292482952421525655"
+    },
+    {
+      "frame": 9728,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0099.jpg",
+      "sha256": "0429ef58143840e266978e0bb12a858e59467372899270005d3275e08036dc28"
+    },
+    {
+      "frame": 9729,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0100.jpg",
+      "sha256": "5b548beb6a0e0191e0efe1fb723a72ffc8f54e845f1a9981eec4c358f523f386"
+    },
+    {
+      "frame": 9730,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0101.jpg",
+      "sha256": "e1927af0883b8c7d736fe2fbcad22b52dddb8cd226931af06b20f76115791477"
+    },
+    {
+      "frame": 9970,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0102.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9971,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0103.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9972,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0104.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9973,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0105.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9974,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0106.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9975,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0107.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9976,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0108.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9977,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0109.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9978,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0110.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9979,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0111.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9980,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0112.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9981,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0113.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9982,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0114.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9983,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0115.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9984,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0116.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9985,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0117.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9986,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0118.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9987,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0119.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9988,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0120.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9989,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0121.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9990,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0122.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9991,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0123.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9992,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0124.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9993,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0125.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9994,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0126.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9995,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0127.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9996,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0128.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9997,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0129.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9998,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0130.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 9999,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0131.jpg",
+      "sha256": "51c859575218cd4fb26e1628bd04394621ee7409909dd77108ba4195cfef50a1"
+    },
+    {
+      "frame": 10000,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0132.jpg",
+      "sha256": "375cda4a83dbd63b7a453788dc5a2f57b08cee0ad49c31193a362b7882561710"
+    },
+    {
+      "frame": 10001,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0133.jpg",
+      "sha256": "db27fd0319fc930570c955fa93ac860f4fc66560d932df8a1110b2e7af2fd4c6"
+    },
+    {
+      "frame": 10002,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0134.jpg",
+      "sha256": "0462c40086d29f248d463e5bc7522f3e9eee49c89988a8c900a79a0186ee5f73"
+    },
+    {
+      "frame": 10003,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0135.jpg",
+      "sha256": "dcb88cf617b4ea9e7e8170aa6e53e3fd81357428ea0d519f5e874c2295791283"
+    },
+    {
+      "frame": 10004,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0136.jpg",
+      "sha256": "0757d0b12157acff084f58002b9668afcfa966eb3eaf2018edecab57acdf59a8"
+    },
+    {
+      "frame": 10005,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0137.jpg",
+      "sha256": "fe1ecf829ed462ff0e78d90d406c20836c878999444f4d8bc0c9d23f87a74121"
+    },
+    {
+      "frame": 10006,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0138.jpg",
+      "sha256": "12ad1586e4db899c5a579bb1d25a5df3a9fb6712662b2af02c54f70ba9119a61"
+    },
+    {
+      "frame": 10007,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0139.jpg",
+      "sha256": "673cc4554f20aab7a1630909890e77e0a792a6c06e2e627760f60cd6e5edbd7f"
+    },
+    {
+      "frame": 10008,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0140.jpg",
+      "sha256": "46a31ad84986d0d616f7546c6148ac16cc04fac157f0bad9080e5ea18b19412e"
+    },
+    {
+      "frame": 10009,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0141.jpg",
+      "sha256": "41613ac6cc12669cfb7464a09c77f67e18a949375fcdbe1b017c3499f37a4469"
+    },
+    {
+      "frame": 10010,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0142.jpg",
+      "sha256": "48e3197effa4b0ebff7b50c457dfc519dcd30bfcb07daba27bbf780e929181b0"
+    },
+    {
+      "frame": 10011,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0143.jpg",
+      "sha256": "fb9e55c92898257e9ab1ea3413945906346960a6b2a37dd89247c3cf1ca3f0b6"
+    },
+    {
+      "frame": 10012,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0144.jpg",
+      "sha256": "6890b07c629e579ee27e2ff47b8d9cf402c322fd419bf15052c0419c7aa0dc6d"
+    },
+    {
+      "frame": 10013,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0145.jpg",
+      "sha256": "510233270f6785aa52412a2143f87f00c2fc28f05cc94cf1a1c60dabcc81eb2f"
+    },
+    {
+      "frame": 10014,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0146.jpg",
+      "sha256": "38fd3cc3a0e730d55227c73cbced066805fedec19d6810934f680525a8919a99"
+    },
+    {
+      "frame": 10015,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0147.jpg",
+      "sha256": "b0fc5f3d5a601626741af75ff40ec46f533a5343c16184639e56cc7a17da31cc"
+    },
+    {
+      "frame": 10016,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0148.jpg",
+      "sha256": "24690c6dbefd092b918f6db8b536de8b94da7aadc7f9bda4b82faf6f905ab656"
+    },
+    {
+      "frame": 10017,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0149.jpg",
+      "sha256": "a1e44dc6c42a3245da7f23102c23282ade8adaa635ba13908b2a1f69eb6766dc"
+    },
+    {
+      "frame": 10018,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0150.jpg",
+      "sha256": "13d08b1a9f69e1ffb943dc1651d1271b1c116e604b32b8eed2792b21dcfa34c3"
+    },
+    {
+      "frame": 10019,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0151.jpg",
+      "sha256": "eb86954fdffbe025a53df547bb327231bf0f5a6825fedeccdb80d672b9dca59b"
+    },
+    {
+      "frame": 10020,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0152.jpg",
+      "sha256": "a0e2903a513772f8dd70b4a12cbe539ae3dcf27dfc77079072bb16adfd6ca4f1"
+    },
+    {
+      "frame": 10021,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0153.jpg",
+      "sha256": "fe7b6b28495f2353c9553dcd021216dc5ffb9e282d308534bea4ffcab6616b5f"
+    },
+    {
+      "frame": 10022,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0154.jpg",
+      "sha256": "37829366b01b9548f933a3a30d9121a3283c2acb5503455c965faa5c8ddb0af3"
+    },
+    {
+      "frame": 10023,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0155.jpg",
+      "sha256": "9f7f79be83cff42623b4e071a08febe951cbfa216f9c06217299ba5ac85ba00d"
+    },
+    {
+      "frame": 10024,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0156.jpg",
+      "sha256": "35602db7b88907b5371ee3b12bc1e6874eef543e40fd3b3ff637eefaeede2aeb"
+    },
+    {
+      "frame": 10025,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0157.jpg",
+      "sha256": "5f46bdcb7ac703261926fd56bc1d5fc5d4de0c4189512e40c31f2f8d131fe567"
+    },
+    {
+      "frame": 10026,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0158.jpg",
+      "sha256": "c6d10b26d40ae8ef1875f7627b5146658b7b555ff75454774006ad8b05b1a37b"
+    },
+    {
+      "frame": 10027,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0159.jpg",
+      "sha256": "d1812e42c1f8c23ab5dba8a1d0023631ed7a9fc9e2c22446876bd8a9b19f107e"
+    },
+    {
+      "frame": 10028,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0160.jpg",
+      "sha256": "bb263e340f541e6f128baa2f09f122f144c54b80cc0f7d8653d4012c25343d85"
+    },
+    {
+      "frame": 10029,
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/frame-0161.jpg",
+      "sha256": "437458ecaf54656815adc6963e6be1a48a8c11b5bcda712743dbca773f7a10d8"
+    }
+  ],
+  "sheets": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/sheet-001.jpg",
+      "sha256": "f06272132bd2c09365dc12b2bffba128e204b11295c701896673c57171786fb5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/sheet-002.jpg",
+      "sha256": "e19d94b31d7e2d93cb12e189c7e25cc66c862266729b2ecef95f5603e2f4f952"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/sheet-003.jpg",
+      "sha256": "7ce8e0fd1c8ea261fe4d4fcecfe865e096c741954066a51f1667eb800c97db88"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/sheet-004.jpg",
+      "sha256": "99d2a8fcddb58bb8632d702b8d49a2451a7fdef12b2985d85be769d54ef02abc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/sheet-005.jpg",
+      "sha256": "6d41436c6418f27c107a267551acb48357292f45f99273404011afe71baa1e94"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/sheet-006.jpg",
+      "sha256": "000b1290e168f16eeb06fdc6e9a3a6523f5fc7fd1be031a1d08711ad751da84c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/sheet-007.jpg",
+      "sha256": "a0e5c03a9a4a3813c979f112ec3b3d7244ca7d412231b1589f9fa141f0c3c076"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/sheet-008.jpg",
+      "sha256": "d5116b7934cbf3a0e71ffc8c7e9a2b376d4b0ff182ebeff59113a1f2fe96a21f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/sheet-009.jpg",
+      "sha256": "28d807e340f0860d6edc51d076d8d9b2d28b4d670b274206aba03a8391982647"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/sheet-010.jpg",
+      "sha256": "c6d954ed0ee52758cec8d1b14f357175c0fdf90e1575543e54356ab27c830b53"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/sheet-011.jpg",
+      "sha256": "54331f4cf24d2722f41a8e55ba8456de1ed9aeff7cc105a33b0d46c4a4e1c2fe"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/sheet-012.jpg",
+      "sha256": "479c2903847c5e4d6b51b8ff0a6a3623a3e44bca2b34b52be437b91cc21c56ee"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/sheet-013.jpg",
+      "sha256": "d2b15f970b54be580132d75f674c40399cfff824b161d00f05a6bac54fd65232"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/derivative-detail358/sheet-014.jpg",
+      "sha256": "dba2074199b4d8356177c756e8e823ec420aa80a694d4cfc5074835adad0b34e"
+    }
+  ],
+  "scope": "unreviewed consecutive encoded preview frames; not final4K or listening"
+}

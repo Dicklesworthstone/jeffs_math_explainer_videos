@@ -1,0 +1,155 @@
+{
+  "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+  "sources": {
+    "01_the_bump": {
+      "sites": 2,
+      "plays": 2,
+      "checked_lines": 15
+    },
+    "04_reading_color": {
+      "sites": 2,
+      "plays": 2,
+      "checked_lines": 5
+    },
+    "05_gallery": {
+      "sites": 17,
+      "plays": 22,
+      "checked_lines": 40
+    },
+    "07_one_point": {
+      "sites": 2,
+      "plays": 2,
+      "checked_lines": 9
+    },
+    "09_boundary": {
+      "sites": 2,
+      "plays": 2,
+      "checked_lines": 3
+    },
+    "10_rigidity": {
+      "sites": 4,
+      "plays": 4,
+      "checked_lines": 7
+    },
+    "11_counting": {
+      "sites": 3,
+      "plays": 3,
+      "checked_lines": 11
+    },
+    "12_residues": {
+      "sites": 6,
+      "plays": 8,
+      "checked_lines": 17
+    },
+    "14_continuation": {
+      "sites": 6,
+      "plays": 6,
+      "checked_lines": 11
+    }
+  },
+  "chapters": {
+    "01_the_bump": {
+      "frames": 6311,
+      "samples": 74,
+      "sheets": 10,
+      "plate_plays": 2,
+      "exact": 1,
+      "fitted": 1,
+      "after_fitted": 0,
+      "not_localized": 0,
+      "flags": []
+    },
+    "04_reading_color": {
+      "frames": 6774,
+      "samples": 54,
+      "sheets": 7,
+      "plate_plays": 2,
+      "exact": 1,
+      "fitted": 1,
+      "after_fitted": 0,
+      "not_localized": 0,
+      "flags": []
+    },
+    "05_gallery": {
+      "frames": 9879,
+      "samples": 222,
+      "sheets": 28,
+      "plate_plays": 22,
+      "exact": 19,
+      "fitted": 2,
+      "after_fitted": 1,
+      "not_localized": 0,
+      "flags": []
+    },
+    "07_one_point": {
+      "frames": 6491,
+      "samples": 59,
+      "sheets": 8,
+      "plate_plays": 2,
+      "exact": 0,
+      "fitted": 2,
+      "after_fitted": 0,
+      "not_localized": 0,
+      "flags": []
+    },
+    "09_boundary": {
+      "frames": 16504,
+      "samples": 100,
+      "sheets": 13,
+      "plate_plays": 2,
+      "exact": 2,
+      "fitted": 0,
+      "after_fitted": 0,
+      "not_localized": 0,
+      "flags": []
+    },
+    "10_rigidity": {
+      "frames": 7442,
+      "samples": 113,
+      "sheets": 15,
+      "plate_plays": 4,
+      "exact": 4,
+      "fitted": 0,
+      "after_fitted": 0,
+      "not_localized": 0,
+      "flags": []
+    },
+    "11_counting": {
+      "frames": 11932,
+      "samples": 193,
+      "sheets": 25,
+      "plate_plays": 3,
+      "exact": 2,
+      "fitted": 0,
+      "after_fitted": 0,
+      "not_localized": 1,
+      "flags": [
+        "G3"
+      ]
+    },
+    "12_residues": {
+      "frames": 3943,
+      "samples": 101,
+      "sheets": 13,
+      "plate_plays": 8,
+      "exact": 5,
+      "fitted": 2,
+      "after_fitted": 1,
+      "not_localized": 0,
+      "flags": []
+    },
+    "14_continuation": {
+      "frames": 11756,
+      "samples": 80,
+      "sheets": 10,
+      "plate_plays": 6,
+      "exact": 6,
+      "fitted": 0,
+      "after_fitted": 0,
+      "not_localized": 0,
+      "flags": [
+        "I5"
+      ]
+    }
+  }
+}

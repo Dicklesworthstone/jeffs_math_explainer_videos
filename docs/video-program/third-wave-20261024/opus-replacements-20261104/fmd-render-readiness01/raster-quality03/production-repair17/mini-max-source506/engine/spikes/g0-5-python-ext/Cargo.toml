@@ -1,0 +1,33 @@
+# G0-5: the Python extensibility spike (fm-87q). The prototype PyO3 bridge
+# proving fmn-python's hardest promise — real dynamic subclassing against
+# the Rust engine — before the §15.2 contract freezes (risk R10).
+#
+# NOT a workspace member, deliberately: per ADR-0003's non-shipped tier
+# (the fuzz-crate pattern), this crate never enters the workspace build
+# graph or any shipped artifact. It carries its own committed Cargo.lock;
+# its packages carry class=dev rows in SUITE_ALLOWLIST.tsv. The *shipped*
+# PyO3 consumption happens once, with fmn-python (W10), against the
+# pre-authorized ffi row — this spike only proves the contract.
+#
+# No `#![forbid(unsafe_code)]`: PyO3's macro expansion is the sanctioned
+# D3 exception this crate prototypes (fmn-python is the one non-forbid
+# authoritative crate; this spike is not an authoritative crate at all).
+[package]
+name = "fmn-spike-python-ext"
+version = "0.0.0"
+edition = "2024"
+license = "MIT"
+publish = false
+description = "G0-5 spike: real Python subclassing against the prototype bridge"
+
+[lib]
+name = "fmn_spike_bridge"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "=0.29.2", default-features = false, features = ["macros"] }
+fmn-spike-object-model = { path = "../g0-1-object-model" }
+fmn-core = { path = "../../crates/fmn-core" }
+
+# Opt out of the franken_manim workspace: this crate resolves alone.
+[workspace]

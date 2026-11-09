@@ -1,0 +1,141 @@
+{
+  "started": "2026-11-08T04:00:52.525036+00:00",
+  "phase": "native",
+  "command": [
+    "python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-render-worker-20261107/qualification01/production19/ts1-final14-relay112.py",
+    "receive"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-08T04:01:13.804399+00:00",
+      "free_bytes": 141200744448,
+      "work_bytes": 501800960,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T04:01:25.571961+00:00",
+      "free_bytes": 141190848512,
+      "work_bytes": 501800960,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T04:01:37.249021+00:00",
+      "free_bytes": 141190848512,
+      "work_bytes": 501800960,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T04:01:49.816261+00:00",
+      "free_bytes": 141276659712,
+      "work_bytes": 501800960,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T04:02:01.613424+00:00",
+      "free_bytes": 141276659712,
+      "work_bytes": 501800960,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T04:02:13.119874+00:00",
+      "free_bytes": 141276659712,
+      "work_bytes": 501800960,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T04:02:24.609981+00:00",
+      "free_bytes": 141276659712,
+      "work_bytes": 501800960,
+      "target_bytes": 9328156672
+    },
+    {
+      "utc": "2026-11-08T04:02:36.569996+00:00",
+      "free_bytes": 141276659712,
+      "work_bytes": 501800960,
+      "target_bytes": 9328156672
+    },
+    {
+      "utc": "2026-11-08T04:02:47.794796+00:00",
+      "free_bytes": 141276659712,
+      "work_bytes": 501800960,
+      "target_bytes": 9328156672
+    },
+    {
+      "utc": "2026-11-08T04:02:59.106429+00:00",
+      "free_bytes": 141276659712,
+      "work_bytes": 501800960,
+      "target_bytes": 9328156672
+    },
+    {
+      "utc": "2026-11-08T04:03:11.125123+00:00",
+      "free_bytes": 141276659712,
+      "work_bytes": 501800960,
+      "target_bytes": 9328156672
+    },
+    {
+      "utc": "2026-11-08T04:03:22.664919+00:00",
+      "free_bytes": 141730983936,
+      "work_bytes": 501800960,
+      "target_bytes": 9328156672
+    },
+    {
+      "utc": "2026-11-08T04:03:34.387353+00:00",
+      "free_bytes": 141730983936,
+      "work_bytes": 501800960,
+      "target_bytes": 9328156672
+    },
+    {
+      "utc": "2026-11-08T04:03:46.271534+00:00",
+      "free_bytes": 141730983936,
+      "work_bytes": 501800960,
+      "target_bytes": 9328156672
+    },
+    {
+      "utc": "2026-11-08T04:03:57.765066+00:00",
+      "free_bytes": 141730983936,
+      "work_bytes": 501800960,
+      "target_bytes": 9328156672
+    },
+    {
+      "utc": "2026-11-08T04:04:11.786397+00:00",
+      "free_bytes": 141730983936,
+      "work_bytes": 501805056,
+      "target_bytes": 9328156672
+    },
+    {
+      "utc": "2026-11-08T04:04:22.075111+00:00",
+      "free_bytes": 141730983936,
+      "work_bytes": 502120448,
+      "target_bytes": 9328156672
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":5,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":141200744448,\"free_excludes_purgeable\":true,\"free_pct\":2.3528827934543552,\"mount_point\":\"/data\",\"path\":\"/data/projects/jmev-render-worker-20261107\",\"platform\":{\"linux\":{\"device_id\":52,\"fs_type\":\"btrfs\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":6001180545024,\"unprotected\":null,\"volume_available_bytes\":141200744448,\"volume_role\":null,\"volume_total_bytes\":6001180545024}\n",
+    "stderr": "[SBH-CONFIG] Using system config at /etc/sbh/config.toml\n"
+  },
+  "admission": {
+    "utc": "2026-11-08T04:00:52.611520+00:00",
+    "free_bytes": 141200744448,
+    "work_bytes": 501796864,
+    "target_bytes": 9273470976
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "db4a36bbcb08711eddcc64fd0c6e864b6c232a08f877db50726f5537d5ea0ea7",
+  "pid": 3061212,
+  "exit": 0,
+  "final_inputs_sha256": "db4a36bbcb08711eddcc64fd0c6e864b6c232a08f877db50726f5537d5ea0ea7",
+  "finished": "2026-11-08T04:04:47.081924+00:00"
+}

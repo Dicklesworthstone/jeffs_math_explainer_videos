@@ -1,0 +1,249 @@
+{
+  "prior_review": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/native-stage08-root01/complex-full-preview16-review-progress01.json",
+  "chapter": "06_one_derivative",
+  "review": {
+    "status": "selected_picture_review_complete",
+    "sheets": 20,
+    "pictures": 119,
+    "sheet_indices_viewed": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "sample_indices_viewed": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118
+    ],
+    "observations": [
+      "Opening input/output planes and z0=1+i mapping to2i readable. Shrinking h and output-change arrows remain distinct through21.8 seconds; quotient-to-derivative formula readable.",
+      "All119 selected pictures on20 sheets viewed. Right/above/spiral approaches show quotient converging to2+2i.",
+      "Actual curved image of square is distinguished from exact stretch-and-turn comparison; zoom about2i explicitly disclosed, relative gap shown decreasing0.088 to0.0088.",
+      "Cauchy-Riemann derivation has correct displayed division by i and signs; example Jacobian [[2,-2],[2,2]] matches multiplication by2+2i, stretch2.83 and turn45 degrees.",
+      "Conjugation question remains unanswered through selected hold frames, then directional quotients1/-1 reveal no complex derivative. Anisotropic stretch later shows1/2, and image translation down by i is explicitly disclosed.",
+      "No concrete settled label overlap found in these samples; no continuous AV acceptance."
+    ],
+    "followups": [
+      "Review long equation-only sequence approximately75.9-128.15s for explanatory pacing against actual narration; stills cannot establish effectiveness.",
+      "Check nonzero-derivative qualification for general stretch-and-turn/no-reflection claim against exact script; zero derivative collapses the linear map.",
+      "Check small ratio inset, panel-edge label, low gap metric, search-term footer and translation disclaimer at final4K and against uploaded captions.",
+      "Continuous transition/arrow synchronization, full listening and independent final AV review remain open."
+    ]
+  },
+  "sheets_rehashed": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-000.png",
+      "sha256": "c1733b83085c21ece4c85651efbe95ea69892605f72ec1b729a5aeee10710ac8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-001.png",
+      "sha256": "bd8cde55177bd16bbadb005580704cf45f886d316d8c544902f6ecb1b527d389"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-002.png",
+      "sha256": "2c83f8bafb07b9c4195ee16dbba467d25d6fab07d2d84f5176fc692159394f21"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-003.png",
+      "sha256": "73887a5149835f358a1fe47547e7e011a079574387eb7e71c4d8864777c8a75c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-004.png",
+      "sha256": "a8d70ad4f148801d7896af6ac35d0f0b2faa4799aaff6834839aa44f6cc8d73b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-005.png",
+      "sha256": "36ec79ca1b7f12f56814ffe408f92e1316b8cf4c898b4c6cc1247a72d4cd9825"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-006.png",
+      "sha256": "526bab6e85192a9d45b2c66b27e4a9b59a283805fa49304a51fb4d6387e9965a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-007.png",
+      "sha256": "be98410b8f4fde91723627c371eab6dc26e6c1975c29a997051162bb5ddc46da"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-008.png",
+      "sha256": "c049edaa9010c6acebabf72560b27c48285fd1e635ab4f8b63be5553080e2743"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-009.png",
+      "sha256": "b6b87cc4f2898dc9ac3eae744363701b08eeb5d2b368f422a332c82ba1c9a463"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-010.png",
+      "sha256": "4f3f6c81ab7773509fd8075d09d595f6a7ca253b7a9265fdd74110eba2a47732"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-011.png",
+      "sha256": "9657553cbbdecc6b04086f8f660e79610cd2f0e41ed3fa7c932ef4bc4857b59c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-012.png",
+      "sha256": "6713599b2dd8b76fe1b52fbc8b61d72d9ca00341c423ef5d1a7ee148755ccfe8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-013.png",
+      "sha256": "5db136f79621f58bef19baea443d6e8e1afaab406e4efeee09787c0a7b6af3eb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-014.png",
+      "sha256": "2545325dff0d2cdbdb19fb2a25c2641ade90531c70bd5a9ce7fb33b3b6cff292"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-015.png",
+      "sha256": "1da940e5669f8ae42d59bac911bf72677a71b0e49fcd9d13b8abae7efbd17b9a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-016.png",
+      "sha256": "f0a1cc6ca31b9cc0df4ee93620ce83397d19cb4f5544dd53f4f763690c43d592"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-017.png",
+      "sha256": "0f2277edcf221b5fe765ca9a433268041647913c65e2064dda9db046fe0378b8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-018.png",
+      "sha256": "48b451e91f12926a761fd26851a8b6105b4098a74a7efc01801164de9575ea08"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/06_one_derivative/sheet-019.png",
+      "sha256": "677edad48baad63d23636324f6d82727b96d6b3af4d15296da9ff93b4389eae7"
+    }
+  ],
+  "scope": "Prior actual picture review; hashes checked; not listening or continuous motion acceptance"
+}

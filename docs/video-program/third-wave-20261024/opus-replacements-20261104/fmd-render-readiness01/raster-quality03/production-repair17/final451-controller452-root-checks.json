@@ -1,0 +1,23 @@
+{
+  "verifier_sha256": "c876caf664124e9becc1d8698608ae456978badbfca114316f93459a18186d03",
+  "changed_existing_functions": [
+    "master350"
+  ],
+  "unchanged_existing_functions": 34,
+  "checks": [
+    "exact gallery mapping",
+    "refused wrong kind",
+    "refused wrong host",
+    "refused wrong worker",
+    "refused wrong worker_sha256",
+    "refused wrong job",
+    "refused gallery worker on another chapter",
+    "unchanged source /data/projects/jmev-css-render-worker-20261107",
+    "unchanged source /data/projects/jmev-stroke-probe-20261106"
+  ],
+  "scope": "Root source and mapping checks only. No full final gates, remote launch, independent review, pictures or listening acceptance.",
+  "initial_controller_sha256": "23601f6de72388cbfe041f89467f7e0b3d7807984b750a6ef88163bfb247483e",
+  "controller_sha256": "beb4ea0650f577d3da70731bb5a01417c2d3550b7c84eb66aa77c3335d1fceae",
+  "controller_load_check": "passed against actual successor bytes and fixed remote constants; no remote IO",
+  "independent_review": "Predecessor377 review378 does not independently qualify successor451/452."
+}

@@ -1,0 +1,1697 @@
+{
+ "started": "2026-11-09T04:11:27.283387+00:00",
+ "real452": "beb4ea0650f577d3da70731bb5a01417c2d3550b7c84eb66aa77c3335d1fceae",
+ "runner": "819746fb33110d6c133e184812c80a00562d848816f623078ad86f0fb1a316da",
+ "fake451": "a1f67abfa8e7cde6686b68c11efe576f8cc806df688d4616ea68b020c3ca80f4",
+ "fakeguard": "0952bcffef22344dc034d168d02904f37f7ff73d4825040115d052e618e8ac21",
+ "run452": "466cd6ee4c672e1a57211a4502b3342957b7c9792b21d8f6d6116cc16549f373",
+ "python": "3.15.0",
+ "scenarios": {
+  "S01_happy": {
+   "exit": 0,
+   "result": "RESULT rc 0",
+   "runs": [
+    "check",
+    "launch-verify",
+    "launch-pictures",
+    "launch-pictures"
+   ],
+   "json_lines": [
+    [
+     "captions",
+     "chapters",
+     "check",
+     "cues",
+     "frames",
+     "free_gib_now",
+     "launch_verify_free_needed_gib",
+     "native_4k",
+     "picture_job_budget_gib",
+     "picture_jobs",
+     "picture_samples",
+     "plan_sha256",
+     "sheets"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "pillow",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "part",
+     "pillow",
+     "plan_sha256",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "overview_sampling_sha256",
+     "part",
+     "pillow",
+     "plan_sha256",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ],
+    [
+     "controller",
+     "ledger",
+     "ledger_sha256",
+     "parts",
+     "plan_sha256",
+     "scope"
+    ]
+   ],
+   "ledger_line": true,
+   "hook": [],
+   "log_lines": 14,
+   "state": {
+    "verify_job": true,
+    "verify_inputs": true,
+    "overview_job": true,
+    "overview_inputs": true,
+    "native_job": true,
+    "native_inputs": true,
+    "ledger": true,
+    "jobs": {
+     "csd-final-pictures451-native": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:28.173086+00:00",
+      "finished_utc": "2026-11-09T04:11:28.253289+00:00",
+      "command_log_last": "3 native 4K frames await root's viewing; with the overview job, the plan's 19 samples and 3 natives are all extracted.",
+      "command_log_lines": 1
+     },
+     "csd-final-pictures451-overview": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:27.955188+00:00",
+      "finished_utc": "2026-11-09T04:11:28.027772+00:00",
+      "command_log_last": "19 pictures in 3 sheets await root's viewing; the native job is next. sampling.json sha256 49c772c16b636d636e9bb39d2c14fa77e5513cf3031b08d56a965792c2e9d241",
+      "command_log_lines": 1
+     },
+     "csd-final-verify451": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:27.752397+00:00",
+      "finished_utc": "2026-11-09T04:11:27.816710+00:00",
+      "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+      "command_log_lines": 1
+     }
+    },
+    "ledger_keys": [
+     "controller",
+     "master_receipt_sha256",
+     "overview_job",
+     "overview_last_line",
+     "overview_receipt_sha256",
+     "overview_sampling_sha256",
+     "plan_sha256",
+     "sampling_json",
+     "verifier_sha256",
+     "verify_receipt_sha256",
+     "written_utc"
+    ],
+    "ledger_value_types": [
+     "str"
+    ],
+    "ledger_written_utc": "2026-11-09T04:11:28.044652+00:00",
+    "ledger_sha256": "e8cd8132f6bbd4f4a994a09a71348fd0304637894f9cdfd0a83f7e51bb8bb536",
+    "ledger_overview_sampling_sha256": "49c772c16b636d636e9bb39d2c14fa77e5513cf3031b08d56a965792c2e9d241",
+    "ledger_equals_sampling_now": true,
+    "native_inputs_row_equals_ledger": true,
+    "native_union_equals_ledger": true
+   },
+   "tree_unchanged": false
+  },
+  "S02_rerun_after_happy": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S01_happy/jobs/csd-final-verify451",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "tree_unchanged": true
+  },
+  "S03_master_absent_timeout": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: master447 not finished; no 451 job launched",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": true
+  },
+  "S04_master_partial_then_success": {
+   "exit": 0,
+   "result": "RESULT rc 0",
+   "runs": [
+    "check",
+    "launch-verify",
+    "launch-pictures",
+    "launch-pictures"
+   ],
+   "json_lines": [
+    [
+     "captions",
+     "chapters",
+     "check",
+     "cues",
+     "frames",
+     "free_gib_now",
+     "launch_verify_free_needed_gib",
+     "native_4k",
+     "picture_job_budget_gib",
+     "picture_jobs",
+     "picture_samples",
+     "plan_sha256",
+     "sheets"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "pillow",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "part",
+     "pillow",
+     "plan_sha256",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "overview_sampling_sha256",
+     "part",
+     "pillow",
+     "plan_sha256",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ],
+    [
+     "controller",
+     "ledger",
+     "ledger_sha256",
+     "parts",
+     "plan_sha256",
+     "scope"
+    ]
+   ],
+   "ledger_line": true,
+   "hook": [],
+   "log_lines": 14,
+   "state": {
+    "verify_job": true,
+    "verify_inputs": true,
+    "overview_job": true,
+    "overview_inputs": true,
+    "native_job": true,
+    "native_inputs": true,
+    "ledger": true,
+    "jobs": {
+     "csd-final-pictures451-native": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:32.688462+00:00",
+      "finished_utc": "2026-11-09T04:11:32.795238+00:00",
+      "command_log_last": "3 native 4K frames await root's viewing; with the overview job, the plan's 19 samples and 3 natives are all extracted.",
+      "command_log_lines": 1
+     },
+     "csd-final-pictures451-overview": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:32.421402+00:00",
+      "finished_utc": "2026-11-09T04:11:32.518985+00:00",
+      "command_log_last": "19 pictures in 3 sheets await root's viewing; the native job is next. sampling.json sha256 bf8dc2e97b3bc65ecf66d9ce6a76ebd5b11965ed4efa60745f4df2fb706053cc",
+      "command_log_lines": 1
+     },
+     "csd-final-verify451": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:32.176727+00:00",
+      "finished_utc": "2026-11-09T04:11:32.260697+00:00",
+      "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+      "command_log_lines": 1
+     }
+    },
+    "ledger_keys": [
+     "controller",
+     "master_receipt_sha256",
+     "overview_job",
+     "overview_last_line",
+     "overview_receipt_sha256",
+     "overview_sampling_sha256",
+     "plan_sha256",
+     "sampling_json",
+     "verifier_sha256",
+     "verify_receipt_sha256",
+     "written_utc"
+    ],
+    "ledger_value_types": [
+     "str"
+    ],
+    "ledger_written_utc": "2026-11-09T04:11:32.539747+00:00",
+    "ledger_sha256": "88e855a657a0eb3c505b57110b931ce45a5d46f533cbeb312c2d3c63fb807669",
+    "ledger_overview_sampling_sha256": "bf8dc2e97b3bc65ecf66d9ce6a76ebd5b11965ed4efa60745f4df2fb706053cc",
+    "ledger_equals_sampling_now": true,
+    "native_inputs_row_equals_ledger": true,
+    "native_union_equals_ledger": true
+   },
+   "tree_unchanged": false
+  },
+  "S05_master_exit1": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: T/runs/S05_master_exit1/jobs/csd-combined-master447/resource-receipt.json",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": true
+  },
+  "S06_master_refused_admission": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: T/runs/S06_master_refused_admission/jobs/csd-combined-master447/resource-receipt.json",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": true
+  },
+  "S07_master_resource_stop": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: T/runs/S07_master_resource_stop/jobs/csd-combined-master447/resource-receipt.json",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": true
+  },
+  "S08_master_receipt_rewritten_after_finished": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: master447 receipt changed after it finished; no 451 job launched",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": false
+  },
+  "S09_pin_451_changes_during_wait": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: changed: T/runs/S09_pin_451_changes_during_wait/qualification01/production-repair17/csd-final-verify451.py",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": false
+  },
+  "S09b_master_running_timeout": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: master447 not finished; no 451 job launched",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": true
+  },
+  "S10_preexisting_verify_job": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S10_preexisting_verify_job/jobs/csd-final-verify451",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": true,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {
+     "csd-final-verify451": {
+      "receipt": false
+     }
+    }
+   },
+   "tree_unchanged": true
+  },
+  "S10_preexisting_verify_inputs": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S10_preexisting_verify_inputs/qualification01/production-repair17/final-verify451-inputs.json",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": true,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": true
+  },
+  "S10_preexisting_overview_job": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S10_preexisting_overview_job/jobs/csd-final-pictures451-overview",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": true,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {
+     "csd-final-pictures451-overview": {
+      "receipt": false
+     }
+    }
+   },
+   "tree_unchanged": true
+  },
+  "S10_preexisting_overview_inputs": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S10_preexisting_overview_inputs/qualification01/production-repair17/final-pictures451-overview-inputs.json",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": true,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": true
+  },
+  "S10_preexisting_native_job": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S10_preexisting_native_job/jobs/csd-final-pictures451-native",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": true,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {
+     "csd-final-pictures451-native": {
+      "receipt": false
+     }
+    }
+   },
+   "tree_unchanged": true
+  },
+  "S10_preexisting_native_inputs": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S10_preexisting_native_inputs/qualification01/production-repair17/final-pictures451-native-inputs.json",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": true,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": true
+  },
+  "S10_preexisting_ledger": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: already exists; nothing launched: T/runs/S10_preexisting_ledger/qualification01/production-repair17/final-pictures451-overview-ledger452.json",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": true,
+    "jobs": {},
+    "ledger_keys": [],
+    "ledger_value_types": [],
+    "ledger_written_utc": null,
+    "ledger_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "ledger_overview_sampling_sha256": null,
+    "ledger_equals_sampling_now": false
+   },
+   "tree_unchanged": true
+  },
+  "S11_check_refuses": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: 451 check exited 1; nothing further launched",
+   "runs": [
+    "check"
+   ],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 15,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": true
+  },
+  "S12_verify_job_exit1": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: 451 launch-verify exited 1; nothing further launched",
+   "runs": [
+    "check",
+    "launch-verify"
+   ],
+   "json_lines": [
+    [
+     "captions",
+     "chapters",
+     "check",
+     "cues",
+     "frames",
+     "free_gib_now",
+     "launch_verify_free_needed_gib",
+     "native_4k",
+     "picture_job_budget_gib",
+     "picture_jobs",
+     "picture_samples",
+     "plan_sha256",
+     "sheets"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "pillow",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ]
+   ],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 24,
+   "state": {
+    "verify_job": true,
+    "verify_inputs": true,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {
+     "csd-final-verify451": {
+      "admitted": true,
+      "exit": 1,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:39.781948+00:00",
+      "finished_utc": "2026-11-09T04:11:39.878256+00:00",
+      "command_log_last": "stub: verify refuses",
+      "command_log_lines": 1
+     }
+    }
+   },
+   "tree_unchanged": false
+  },
+  "S13_verify_guard_refused_admission": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: 451 launch-verify exited 1; nothing further launched",
+   "runs": [
+    "check",
+    "launch-verify"
+   ],
+   "json_lines": [
+    [
+     "captions",
+     "chapters",
+     "check",
+     "cues",
+     "frames",
+     "free_gib_now",
+     "launch_verify_free_needed_gib",
+     "native_4k",
+     "picture_job_budget_gib",
+     "picture_jobs",
+     "picture_samples",
+     "plan_sha256",
+     "sheets"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "pillow",
+     "runtime"
+    ],
+    [
+     "admitted",
+     "launched",
+     "receipt"
+    ]
+   ],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 24,
+   "state": {
+    "verify_job": true,
+    "verify_inputs": true,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {
+     "csd-final-verify451": {
+      "admitted": false,
+      "exit": null,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:40.350400+00:00",
+      "finished_utc": "2026-11-09T04:11:40.351133+00:00"
+     }
+    }
+   },
+   "tree_unchanged": false
+  },
+  "S14_451_free_space_refusal": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: 451 launch-verify exited 1; nothing further launched",
+   "runs": [
+    "check",
+    "launch-verify"
+   ],
+   "json_lines": [
+    [
+     "captions",
+     "chapters",
+     "check",
+     "cues",
+     "frames",
+     "free_gib_now",
+     "launch_verify_free_needed_gib",
+     "native_4k",
+     "picture_job_budget_gib",
+     "picture_jobs",
+     "picture_samples",
+     "plan_sha256",
+     "sheets"
+    ]
+   ],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 14,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": true
+  },
+  "S14b_rerun_after_free_space_refusal": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: 451 launch-verify exited 1; nothing further launched",
+   "runs": [
+    "check",
+    "launch-verify"
+   ],
+   "json_lines": [
+    [
+     "captions",
+     "chapters",
+     "check",
+     "cues",
+     "frames",
+     "free_gib_now",
+     "launch_verify_free_needed_gib",
+     "native_4k",
+     "picture_job_budget_gib",
+     "picture_jobs",
+     "picture_samples",
+     "plan_sha256",
+     "sheets"
+    ]
+   ],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 14,
+   "tree_unchanged": true,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   }
+  },
+  "S15_overview_resource_stop": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: 451 launch-pictures exited 1; nothing further launched",
+   "runs": [
+    "check",
+    "launch-verify",
+    "launch-pictures"
+   ],
+   "json_lines": [
+    [
+     "captions",
+     "chapters",
+     "check",
+     "cues",
+     "frames",
+     "free_gib_now",
+     "launch_verify_free_needed_gib",
+     "native_4k",
+     "picture_job_budget_gib",
+     "picture_jobs",
+     "picture_samples",
+     "plan_sha256",
+     "sheets"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "pillow",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "part",
+     "pillow",
+     "plan_sha256",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ]
+   ],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 28,
+   "state": {
+    "verify_job": true,
+    "verify_inputs": true,
+    "overview_job": true,
+    "overview_inputs": true,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {
+     "csd-final-pictures451-overview": {
+      "admitted": true,
+      "exit": -15,
+      "finished": true,
+      "stopped": true,
+      "error": false,
+      "started": "2026-11-09T04:11:41.839154+00:00",
+      "finished_utc": "2026-11-09T04:11:41.852713+00:00",
+      "command_log_last": null,
+      "command_log_lines": 0
+     },
+     "csd-final-verify451": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:41.651279+00:00",
+      "finished_utc": "2026-11-09T04:11:41.717131+00:00",
+      "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+      "command_log_lines": 1
+     }
+    }
+   },
+   "tree_unchanged": false
+  },
+  "S16_overview_extra_last_line": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: the overview job did not print its sampling.json sha256 last",
+   "runs": [
+    "check",
+    "launch-verify",
+    "launch-pictures"
+   ],
+   "json_lines": [
+    [
+     "captions",
+     "chapters",
+     "check",
+     "cues",
+     "frames",
+     "free_gib_now",
+     "launch_verify_free_needed_gib",
+     "native_4k",
+     "picture_job_budget_gib",
+     "picture_jobs",
+     "picture_samples",
+     "plan_sha256",
+     "sheets"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "pillow",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "part",
+     "pillow",
+     "plan_sha256",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ]
+   ],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 9,
+   "state": {
+    "verify_job": true,
+    "verify_inputs": true,
+    "overview_job": true,
+    "overview_inputs": true,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {
+     "csd-final-pictures451-overview": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:43.059406+00:00",
+      "finished_utc": "2026-11-09T04:11:43.157503+00:00",
+      "command_log_last": "stub: one more line after the 451 line",
+      "command_log_lines": 2
+     },
+     "csd-final-verify451": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:42.426753+00:00",
+      "finished_utc": "2026-11-09T04:11:42.754005+00:00",
+      "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+      "command_log_lines": 1
+     }
+    }
+   },
+   "tree_unchanged": false
+  },
+  "S17_overview_sampling_changed_after_print": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: overview sampling.json is not the one its job printed",
+   "runs": [
+    "check",
+    "launch-verify",
+    "launch-pictures"
+   ],
+   "json_lines": [
+    [
+     "captions",
+     "chapters",
+     "check",
+     "cues",
+     "frames",
+     "free_gib_now",
+     "launch_verify_free_needed_gib",
+     "native_4k",
+     "picture_job_budget_gib",
+     "picture_jobs",
+     "picture_samples",
+     "plan_sha256",
+     "sheets"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "pillow",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "part",
+     "pillow",
+     "plan_sha256",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ]
+   ],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 9,
+   "state": {
+    "verify_job": true,
+    "verify_inputs": true,
+    "overview_job": true,
+    "overview_inputs": true,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {
+     "csd-final-pictures451-overview": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:43.904063+00:00",
+      "finished_utc": "2026-11-09T04:11:43.992730+00:00",
+      "command_log_last": "19 pictures in 3 sheets await root's viewing; the native job is next. sampling.json sha256 9bf37ce8afab6180d26ba0ac4d7ffbbbbaf08c5e8b96686bf296e3f50fc87393",
+      "command_log_lines": 1
+     },
+     "csd-final-verify451": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:43.653213+00:00",
+      "finished_utc": "2026-11-09T04:11:43.733624+00:00",
+      "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+      "command_log_lines": 1
+     }
+    }
+   },
+   "tree_unchanged": false
+  },
+  "S18_sampling_changed_after_ledger": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: overview sampling.json or the ledger changed; no native job",
+   "runs": [
+    "check",
+    "launch-verify",
+    "launch-pictures"
+   ],
+   "json_lines": [
+    [
+     "captions",
+     "chapters",
+     "check",
+     "cues",
+     "frames",
+     "free_gib_now",
+     "launch_verify_free_needed_gib",
+     "native_4k",
+     "picture_job_budget_gib",
+     "picture_jobs",
+     "picture_samples",
+     "plan_sha256",
+     "sheets"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "pillow",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "part",
+     "pillow",
+     "plan_sha256",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ]
+   ],
+   "ledger_line": true,
+   "hook": [
+    "HOOK: appended a newline to the overview sampling.json"
+   ],
+   "log_lines": 11,
+   "state": {
+    "verify_job": true,
+    "verify_inputs": true,
+    "overview_job": true,
+    "overview_inputs": true,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": true,
+    "jobs": {
+     "csd-final-pictures451-overview": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:44.741636+00:00",
+      "finished_utc": "2026-11-09T04:11:44.815813+00:00",
+      "command_log_last": "19 pictures in 3 sheets await root's viewing; the native job is next. sampling.json sha256 778e1ff825f1857a70414ada231919f4d568fa90bff799781da4df47608d2d95",
+      "command_log_lines": 1
+     },
+     "csd-final-verify451": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:44.536599+00:00",
+      "finished_utc": "2026-11-09T04:11:44.616924+00:00",
+      "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+      "command_log_lines": 1
+     }
+    },
+    "ledger_keys": [
+     "controller",
+     "master_receipt_sha256",
+     "overview_job",
+     "overview_last_line",
+     "overview_receipt_sha256",
+     "overview_sampling_sha256",
+     "plan_sha256",
+     "sampling_json",
+     "verifier_sha256",
+     "verify_receipt_sha256",
+     "written_utc"
+    ],
+    "ledger_value_types": [
+     "str"
+    ],
+    "ledger_written_utc": "2026-11-09T04:11:44.831577+00:00",
+    "ledger_sha256": "7bc43987a0694f9e422b3e8bf766a9878d9d090898cffa92b50e8ccffb120abd",
+    "ledger_overview_sampling_sha256": "778e1ff825f1857a70414ada231919f4d568fa90bff799781da4df47608d2d95",
+    "ledger_equals_sampling_now": false
+   },
+   "tree_unchanged": false
+  },
+  "S19_native_job_exit1": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: 451 launch-pictures exited 1; nothing further launched",
+   "runs": [
+    "check",
+    "launch-verify",
+    "launch-pictures",
+    "launch-pictures"
+   ],
+   "json_lines": [
+    [
+     "captions",
+     "chapters",
+     "check",
+     "cues",
+     "frames",
+     "free_gib_now",
+     "launch_verify_free_needed_gib",
+     "native_4k",
+     "picture_job_budget_gib",
+     "picture_jobs",
+     "picture_samples",
+     "plan_sha256",
+     "sheets"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "pillow",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "part",
+     "pillow",
+     "plan_sha256",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ],
+    [
+     "files",
+     "free_bytes",
+     "free_needed_bytes",
+     "inputs",
+     "inputs_sha256",
+     "job",
+     "master_helper_sha256",
+     "master_inputs_sha256",
+     "overview_sampling_sha256",
+     "part",
+     "pillow",
+     "plan_sha256",
+     "runtime"
+    ],
+    [
+     "exit",
+     "receipt",
+     "resource_stop"
+    ]
+   ],
+   "ledger_line": true,
+   "hook": [],
+   "log_lines": 32,
+   "state": {
+    "verify_job": true,
+    "verify_inputs": true,
+    "overview_job": true,
+    "overview_inputs": true,
+    "native_job": true,
+    "native_inputs": true,
+    "ledger": true,
+    "jobs": {
+     "csd-final-pictures451-native": {
+      "admitted": true,
+      "exit": 1,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:45.596881+00:00",
+      "finished_utc": "2026-11-09T04:11:45.660007+00:00",
+      "command_log_last": "stub: native refuses",
+      "command_log_lines": 1
+     },
+     "csd-final-pictures451-overview": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:45.414086+00:00",
+      "finished_utc": "2026-11-09T04:11:45.476295+00:00",
+      "command_log_last": "19 pictures in 3 sheets await root's viewing; the native job is next. sampling.json sha256 3f28e5f28e86ae05587aca1e8e71af762cde747ce98c4ed8d986e699a220aa05",
+      "command_log_lines": 1
+     },
+     "csd-final-verify451": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:45.241386+00:00",
+      "finished_utc": "2026-11-09T04:11:45.299211+00:00",
+      "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+      "command_log_lines": 1
+     }
+    },
+    "ledger_keys": [
+     "controller",
+     "master_receipt_sha256",
+     "overview_job",
+     "overview_last_line",
+     "overview_receipt_sha256",
+     "overview_sampling_sha256",
+     "plan_sha256",
+     "sampling_json",
+     "verifier_sha256",
+     "verify_receipt_sha256",
+     "written_utc"
+    ],
+    "ledger_value_types": [
+     "str"
+    ],
+    "ledger_written_utc": "2026-11-09T04:11:45.491186+00:00",
+    "ledger_sha256": "47030eeab25ef664bac3c0f799cb76e7a67dc17045bf9a265832394785e4db59",
+    "ledger_overview_sampling_sha256": "3f28e5f28e86ae05587aca1e8e71af762cde747ce98c4ed8d986e699a220aa05",
+    "ledger_equals_sampling_now": true,
+    "native_inputs_row_equals_ledger": true,
+    "native_union_equals_ledger": true
+   },
+   "tree_unchanged": false
+  },
+  "S20_two_controllers": {
+   "A": {
+    "exit": 0,
+    "result": "RESULT rc 0",
+    "runs": [
+     "check",
+     "launch-verify",
+     "launch-pictures",
+     "launch-pictures"
+    ],
+    "json_lines": [
+     [
+      "captions",
+      "chapters",
+      "check",
+      "cues",
+      "frames",
+      "free_gib_now",
+      "launch_verify_free_needed_gib",
+      "native_4k",
+      "picture_job_budget_gib",
+      "picture_jobs",
+      "picture_samples",
+      "plan_sha256",
+      "sheets"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "pillow",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "part",
+      "pillow",
+      "plan_sha256",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "files",
+      "free_bytes",
+      "free_needed_bytes",
+      "inputs",
+      "inputs_sha256",
+      "job",
+      "master_helper_sha256",
+      "master_inputs_sha256",
+      "overview_sampling_sha256",
+      "part",
+      "pillow",
+      "plan_sha256",
+      "runtime"
+     ],
+     [
+      "exit",
+      "receipt",
+      "resource_stop"
+     ],
+     [
+      "controller",
+      "ledger",
+      "ledger_sha256",
+      "parts",
+      "plan_sha256",
+      "scope"
+     ]
+    ],
+    "ledger_line": true,
+    "hook": [],
+    "log_lines": 14
+   },
+   "B": {
+    "exit": 4,
+    "result": "RESULT exc AssertionError: 451 launch-verify exited 1; nothing further launched",
+    "runs": [
+     "check",
+     "launch-verify"
+    ],
+    "json_lines": [
+     [
+      "captions",
+      "chapters",
+      "check",
+      "cues",
+      "frames",
+      "free_gib_now",
+      "launch_verify_free_needed_gib",
+      "native_4k",
+      "picture_job_budget_gib",
+      "picture_jobs",
+      "picture_samples",
+      "plan_sha256",
+      "sheets"
+     ]
+    ],
+    "ledger_line": false,
+    "hook": [],
+    "log_lines": 14
+   },
+   "state": {
+    "verify_job": true,
+    "verify_inputs": true,
+    "overview_job": true,
+    "overview_inputs": true,
+    "native_job": true,
+    "native_inputs": true,
+    "ledger": true,
+    "jobs": {
+     "csd-final-pictures451-native": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:46.460744+00:00",
+      "finished_utc": "2026-11-09T04:11:46.522533+00:00",
+      "command_log_last": "3 native 4K frames await root's viewing; with the overview job, the plan's 19 samples and 3 natives are all extracted.",
+      "command_log_lines": 1
+     },
+     "csd-final-pictures451-overview": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:46.270141+00:00",
+      "finished_utc": "2026-11-09T04:11:46.342856+00:00",
+      "command_log_last": "19 pictures in 3 sheets await root's viewing; the native job is next. sampling.json sha256 6332e7fa9505c66a0a17ba139765d9424b61ccb6e4b0c9c5aeefe63eef25a3a7",
+      "command_log_lines": 1
+     },
+     "csd-final-verify451": {
+      "admitted": true,
+      "exit": 0,
+      "finished": true,
+      "stopped": false,
+      "error": false,
+      "started": "2026-11-09T04:11:46.102579+00:00",
+      "finished_utc": "2026-11-09T04:11:46.157365+00:00",
+      "command_log_last": "FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native captions equal the script and native327, and the 347 de",
+      "command_log_lines": 1
+     }
+    },
+    "ledger_keys": [
+     "controller",
+     "master_receipt_sha256",
+     "overview_job",
+     "overview_last_line",
+     "overview_receipt_sha256",
+     "overview_sampling_sha256",
+     "plan_sha256",
+     "sampling_json",
+     "verifier_sha256",
+     "verify_receipt_sha256",
+     "written_utc"
+    ],
+    "ledger_value_types": [
+     "str"
+    ],
+    "ledger_written_utc": "2026-11-09T04:11:46.355314+00:00",
+    "ledger_sha256": "53482a1fefc77110859d223b556e72c6542ea947141734aebff4a62738950b79",
+    "ledger_overview_sampling_sha256": "6332e7fa9505c66a0a17ba139765d9424b61ccb6e4b0c9c5aeefe63eef25a3a7",
+    "ledger_equals_sampling_now": true,
+    "native_inputs_row_equals_ledger": true,
+    "native_union_equals_ledger": true
+   }
+  },
+  "S21_wait_hours_49": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: ",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": true
+  },
+  "S21_wait_hours_minus1": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: ",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": true
+  },
+  "S21_wait_hours_nan": {
+   "exit": 4,
+   "result": "RESULT exc AssertionError: ",
+   "runs": [],
+   "json_lines": [],
+   "ledger_line": false,
+   "hook": [],
+   "log_lines": 1,
+   "state": {
+    "verify_job": false,
+    "verify_inputs": false,
+    "overview_job": false,
+    "overview_inputs": false,
+    "native_job": false,
+    "native_inputs": false,
+    "ledger": false,
+    "jobs": {}
+   },
+   "tree_unchanged": true
+  }
+ },
+ "finished": "2026-11-09T04:11:46.723441+00:00"
+}

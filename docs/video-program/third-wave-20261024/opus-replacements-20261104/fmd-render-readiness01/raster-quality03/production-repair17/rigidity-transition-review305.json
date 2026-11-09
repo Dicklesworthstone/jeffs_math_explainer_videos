@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-08T19:00:36.487232+00:00",
+  "reviewer": "root",
+  "manifest": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/rigidity-transition-frames305/manifest.json",
+  "manifest_sha256": "ba0eb53d847dd803015545c924b3a951f85be8257736a747772bc9ae39122c26",
+  "source_sha256": "78eb267faa780b2a4d38804deede56088852fed606ac544b7d05f02300672562",
+  "frames_viewed": 192,
+  "sheets_viewed": [
+    "sheet-001.jpg",
+    "sheet-002.jpg",
+    "sheet-003.jpg",
+    "sheet-004.jpg",
+    "sheet-005.jpg",
+    "sheet-006.jpg",
+    "sheet-007.jpg",
+    "sheet-008.jpg",
+    "sheet-009.jpg",
+    "sheet-010.jpg",
+    "sheet-011.jpg",
+    "sheet-012.jpg",
+    "sheet-013.jpg",
+    "sheet-014.jpg",
+    "sheet-015.jpg",
+    "sheet-016.jpg"
+  ],
+  "observations": [
+    "3735-3799: colour field progressively appears; label begins after field settles.",
+    "6241-6335: old field fades out, brief dark transition, different field progressively appears; no old-field reappearance or single-frame flash observed.",
+    "7410-7441: ending progressively dims without last-frame flash."
+  ],
+  "limits": [
+    "Exhaustive encoded-frame still sequence in named windows only.",
+    "Not real-time motion, listening, fine sync, independent final audiovisual or final4K acceptance."
+  ]
+}

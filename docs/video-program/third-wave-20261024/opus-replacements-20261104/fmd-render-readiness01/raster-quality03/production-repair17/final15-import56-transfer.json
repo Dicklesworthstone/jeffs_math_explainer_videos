@@ -1,0 +1,22 @@
+[
+  {
+    "host": "hz2",
+    "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-final15-export56.py",
+    "sha256": "a2e2e20aabca4ba5011e01c1aab76c6838f9847cc039eb392ccfb4f3f0d802fb"
+  },
+  {
+    "host": "hz2",
+    "path": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-final15-send56.py",
+    "sha256": "d7e722bfea6ff4f4e1a79871e02cc3395159131c719d94f23617cee8c8458e75"
+  },
+  {
+    "host": "trj",
+    "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-import-hz2-final15-56.py",
+    "sha256": "cef600dde27aeb79061bf7afc8047d638f9d7d8ca58ef9cf706e118cd5c2e80d"
+  },
+  {
+    "host": "trj",
+    "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-prepare-import56.py",
+    "sha256": "2369ea1964ef04deaebdd95ddae6d350b2c8f565ffbd4af0c617f508fd5dcc9f"
+  }
+]

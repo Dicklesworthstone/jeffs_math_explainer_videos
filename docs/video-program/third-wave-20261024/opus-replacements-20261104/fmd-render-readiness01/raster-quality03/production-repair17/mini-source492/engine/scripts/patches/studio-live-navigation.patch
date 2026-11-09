@@ -1,0 +1,117 @@
+diff --git a/crates/fmn-python/python/fmn_python/studio.py b/crates/fmn-python/python/fmn_python/studio.py
+--- a/crates/fmn-python/python/fmn_python/studio.py
++++ b/crates/fmn-python/python/fmn_python/studio.py
+@@ -331,7 +331,14 @@
+                 # Retain both the source/import context and the actual scene
+                 # on this worker thread for event callbacks. Never reconstruct
+                 # their behavior from snapshots or execute them in the host.
+-                scene._serve_studio_live()
++                # Enable only the existing scene-scoped dispatcher's key
++                # state while this worker owns live input. No fake Window is
++                # installed and ordinary offline Scene input stays unchanged.
++                scene.__dict__["_fmn_studio_live_input"] = True
++                try:
++                    scene._serve_studio_live()
++                finally:
++                    scene.__dict__.pop("_fmn_studio_live_input", None)
+                 return None
+             return scene._finish_studio_capture()
+         except BaseException:
+diff --git a/crates/fmn-python/python/manimlib_bootstrap.py b/crates/fmn-python/python/manimlib_bootstrap.py
+--- a/crates/fmn-python/python/manimlib_bootstrap.py
++++ b/crates/fmn-python/python/manimlib_bootstrap.py
+@@ -15027,9 +15027,8 @@
+         return getattr(self, "window", None)
+ 
+     def on_mouse_motion(self, point, d_point):
+-        # Host-free hover: the live Point moves even without a pyglet window.
+-        # pan_3d / pan need a host key-state adapter and are skipped until
+-        # Studio binds one (the Reference asserts window is not None).
++        # Studio reuses the scene-scoped native dispatcher for held keys;
++        # offline hover still needs no window and changes no camera pose.
+         self.mouse_point.move_to(point)
+         if _scene_event_stopped(
+             EventType.MouseMotionEvent, point=point, d_point=d_point
+@@ -15037,7 +15036,11 @@
+             return
+         window = self.get_window()
+         if window is None:
+-            return
++            if not self.__dict__.get("_fmn_studio_live_input", False):
++                return
++            # This method runs inside the owning Scene input gateway, so
++            # dispatcher key state is scoped to this scene, not process-global.
++            window = _event_dispatcher()
+         keys = _pinned_manim_config().key_bindings
+         frame = self.frame
+         if window.is_key_pressed(ord(keys.pan_3d)):
+diff --git a/crates/fmn-python/tests/studio_live.py b/crates/fmn-python/tests/studio_live.py
+--- a/crates/fmn-python/tests/studio_live.py
++++ b/crates/fmn-python/tests/studio_live.py
+@@ -243,6 +243,42 @@
+             self.assertNotEqual(rgba_png(selected)[2], rgba_png(nudged)[2])
+             self.assertTrue(self.inspect(api)[0]["view"]["input_events"])
+ 
++    def test_held_keys_pan_and_orbit_the_native_camera_without_a_window(self):
++        self.source.write_text("from manimlib import *\nimport json\n" + f'''
++class Live(Scene):
++    def construct(self):
++        self.add(Square(fill_color=BLUE, fill_opacity=1, stroke_width=0))
++        self.wait(0.25)
++    def on_mouse_motion(self, point, d_point):
++        super().on_mouse_motion(point, d_point)
++        assert self.window is None
++        with open({str(self.events)!r}, 'a') as stream:
++            stream.write(json.dumps(dict(kind='camera', center=self.frame.get_center().tolist(),
++                                         angles=self.frame.get_euler_angles().tolist())) + '\\n')
++''')
++        with self.host() as host:
++            api = Preview(host)
++            api.json("/api/scrub", {"frame": 1})
++            scene_time = self.inspect(api)[0]["scene_time"]
++            self.event(api, "key_press", key="f")
++            self.event(api, "mouse_motion", x=1, y=0, dx=1, dy=0)
++            panned = self.facts()[-1]
++            self.assertEqual(panned["center"], [-1.0, 0.0, 0.0])
++            self.event(api, "key_release", key="f")
++            self.event(api, "mouse_motion", x=2, y=0, dx=1, dy=0)
++            self.assertEqual(self.facts()[-1], panned, "released pan key remained active")
++            before = api.frame()
++            self.event(api, "key_press", key="d")
++            self.event(api, "mouse_motion", x=3, y=-1, dx=1, dy=-1)
++            orbited = self.facts()[-1]
++            self.assertEqual(orbited["center"], panned["center"])
++            self.assertNotEqual(orbited["angles"], panned["angles"])
++            self.assertNotEqual(rgba_png(api.frame())[2], rgba_png(before)[2])
++            self.event(api, "key_release", key="d")
++            self.event(api, "mouse_motion", x=4, y=-1, dx=1, dy=0)
++            self.assertEqual(self.facts()[-1], orbited, "released orbit key remained active")
++            self.assertEqual(self.inspect(api)[0]["scene_time"], scene_time)
++
+     def test_hung_callback_is_killed_without_reexecution_and_host_can_reload(self):
+         with self.host(timeout=3) as host:
+             api = Preview(host)
+diff --git a/docs/dist/python_studio.md b/docs/dist/python_studio.md
+--- a/docs/dist/python_studio.md
++++ b/docs/dist/python_studio.md
+@@ -143,7 +143,10 @@
+ 
+ The native camera maps the browser's coordinates into the live world frame,
+ including translation, scale and rotation. The existing dispatcher handles
+-fixed-frame controls, hit tests, drag capture and listener order. Events carry
++fixed-frame controls, hit tests, drag capture and listener order. Holding the
++configured pan key (default `f`) or 3D-orbit key (default `d`) while moving the
++pointer applies the existing native camera operations. Key release ends the
++mode; no synthetic Window is installed and offline hover is unchanged. Events carry
+ the selected frame, an increasing input revision and the worker generation.
+ Stale events, foreign scenes and edits against historical frames are rejected
+ before any Python callback runs. Reload starts a fresh input revision and a new
+@@ -158,7 +161,7 @@
+ opaque journal barriers, never serialized callback replay or certified state.
+ 
+ This mode does not yet provide continuous idle updater ticks, animated playback
+-of the frames inside an input callback, a native-window key-state adapter,
++of the frames inside an input callback, constrained windowed grab/resize modes,
+ IPython `embed`, audio playback, or the complete `InteractiveScene` windowed
+ resize/sweep lifecycle. Read-only captured Studio and offline output remain
+ separate modes with their existing behavior.

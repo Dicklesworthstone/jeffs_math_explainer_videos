@@ -1,0 +1,34 @@
+{
+  "chapter": "08_loop_sums",
+  "frames": 14959,
+  "binary_sha256": "5a66979ea658ceea8e613a25b8a66535e18519fe999d5a859ec97b70e4e3bdc8",
+  "permit_sha256": "dae3e84f2150aac7d1b76c69f13cd7369424ff82adec9919fa3327e7015184b8",
+  "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+  "files": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-repaired-final-08-loop-sums170/render/08_loop_sums.cuelog.tsv",
+      "sha256": "a04d514083f8aae142e6d3beacb4578250d55f32f4cf7f04b868b68ed43822e1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-repaired-final-08-loop-sums170/render/08_loop_sums.cues.tsv",
+      "sha256": "1beae064b4b1a8115a70180d92740299195fd6cc55b68cebcdbd97ace8e127d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-repaired-final-08-loop-sums170/render/08_loop_sums.layout.tsv",
+      "sha256": "7be1c4b12ad55f624040c3217f98587c89c3f94f07807c0f8e7f211d309aa951"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-repaired-final-08-loop-sums170/render/08_loop_sums.mp4",
+      "sha256": "5278d2daf0543c5bee035e346477b1772a6774bdd4f173a60e6c7c86572412ed"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-repaired-final-08-loop-sums170/render/08_loop_sums.timeline.tsv",
+      "sha256": "338f16a83cc1a9fbf16a1568e787fefb148eba50e7385d5bc8dedde278131295"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-repaired-final-08-loop-sums170/render/soundtrack/08_loop_sums/soundtrack_0.wav",
+      "sha256": "d713402c0c7fba3c17705fd624d38598b9aabebe2ef6220db9dc8cfeecbb328b"
+    }
+  ],
+  "scope": "Technical scored4K60 chapter only; full decode, master replay, final pictures/motion/audio/captions and publication remain."
+}

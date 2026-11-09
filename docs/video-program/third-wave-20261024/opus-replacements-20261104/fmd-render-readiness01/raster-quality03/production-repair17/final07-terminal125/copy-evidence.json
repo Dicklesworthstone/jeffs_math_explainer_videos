@@ -1,0 +1,37 @@
+[
+  {
+    "remote": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-07-one-point84/resource-receipt.json",
+    "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final07-terminal125/resource-receipt.json",
+    "sha256": "58287889794d128b788bccb9d9ca45e2f088c8afb2895a0db76f5bdde8a17991"
+  },
+  {
+    "remote": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-07-one-point84/render-summary.json",
+    "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final07-terminal125/render-summary.json",
+    "sha256": "841346b01915e63c42a314c823bb005f1256bf6d9348f4927e158a12548774d7"
+  },
+  {
+    "remote": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-07-one-point84/render/07_one_point.mp4",
+    "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final07-terminal125/07_one_point.mp4",
+    "sha256": "a42d77f8dcd38bcba009a1f29e4ee482a7db610376675ba9d783f6a0b1f36767"
+  },
+  {
+    "remote": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-07-one-point84/render/07_one_point.timeline.tsv",
+    "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final07-terminal125/07_one_point.timeline.tsv",
+    "sha256": "9b1ab5b31f03a640c2ab1b95912376d746ad35d95dd28d26e867b2879d1fb7b1"
+  },
+  {
+    "remote": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-07-one-point84/render/07_one_point.cues.tsv",
+    "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final07-terminal125/07_one_point.cues.tsv",
+    "sha256": "ea5cf40807968d38f9e6d0faa8395afaa72aba292ae1589dbc6379ddff54a68a"
+  },
+  {
+    "remote": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-07-one-point84/render/07_one_point.cuelog.tsv",
+    "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final07-terminal125/07_one_point.cuelog.tsv",
+    "sha256": "05d1635ba7d1a946345327d5e31c1f69bd4cb6b8bb307cb4195a8944bfdede4d"
+  },
+  {
+    "remote": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-07-one-point84/render/07_one_point.layout.tsv",
+    "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final07-terminal125/07_one_point.layout.tsv",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+]

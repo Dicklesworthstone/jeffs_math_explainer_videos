@@ -1,0 +1,8 @@
+{
+  "exit": 0,
+  "sha256": {
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/engine-secondary-validation01/guard_owner56g_target20g.py": "1c19a9b8f817c3bca06e18fd0785ac21c3cb935be715d67ecc41e4e39d1f5097",
+    "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/run_bounded_phase_oliver_owner48g_target14g_20261102.py": "819746fb33110d6c133e184812c80a00562d848816f623078ad86f0fb1a316da"
+  },
+  "scope": "Staged pinned sources only, no guard execution"
+}

@@ -1,0 +1,31 @@
+A smooth curve can hide a surprise: its Taylor series stops working even though the curve itself has no visible trouble. To find the obstruction, we leave the real line and explore the complex plane.
+
+Follow grids, circles and colors through polynomials, reciprocals, exponentials and trigonometric functions. See why a complex derivative has to agree from every direction, and why being holomorphic throughout a region is such a strong condition.
+
+Shared edges cancel, nested squares shrink, and loop integrals lead to Cauchy's integral formula. We then count zeros and poles, use residues to evaluate two real integrals, and follow analytic continuation beyond a power series' original disk. The identity theorem, Liouville's theorem and the argument principle are stated and illustrated rather than proved. This film assumes familiarity with derivatives, integrals and power series.
+
+Mathematical reference and further reading
+NIST Digital Library of Mathematical Functions, Calculus of a Complex Variable: https://dlmf.nist.gov/1.9
+NIST Digital Library of Mathematical Functions, Functions of a Complex Variable: https://dlmf.nist.gov/1.10
+
+The complex logarithm has its own film:
+https://www.youtube.com/watch?v=lgpTDROHgQY
+
+Animations made with FrankenManim. Narration: ElevenLabs Frederick Surrey, a synthetic voice. Music: procedural score generated in code.
+
+Chapters
+0:00 The smooth curve with a hidden obstruction
+1:45 Multiplication as turning and stretching
+3:14 Watching a function move the plane
+5:15 How to read the colors
+7:08 A gallery of complex functions
+9:53 A derivative from every direction
+12:40 Critical points and the meaning of holomorphic
+14:28 Loop integrals and Cauchy's theorem
+18:37 How the boundary determines the inside
+23:12 The rigidity of holomorphic functions
+25:16 Counting zeros and poles
+28:35 What a residue measures
+29:41 Two real integrals through the complex plane
+32:38 Continuation and its limits
+35:54 Returning to the real line

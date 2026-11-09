@@ -1,0 +1,25 @@
+{
+  "utc": "2026-11-07T16:59:15.048133+00:00",
+  "chapter": "12_residues",
+  "checks": [
+    {
+      "kind": "timeline.tsv",
+      "equal": true,
+      "old_sha256": "3d6cf503e94e198ed16c8bfc5c86b0be080fe8c1f4943fd8e5e3fa75abdfb81a",
+      "new_sha256": "d19560b5c9a1fab46a4250b5b9fc1aa9bb0f3eff1847fa0111a5c8bed8964485"
+    },
+    {
+      "kind": "cues.tsv",
+      "equal": true,
+      "old_sha256": "be53a37b59431c46e3bbc5a3be5ea6380c9816aeb2966d3285264b555aafb101",
+      "new_sha256": "be53a37b59431c46e3bbc5a3be5ea6380c9816aeb2966d3285264b555aafb101"
+    },
+    {
+      "kind": "cuelog.tsv",
+      "equal": true,
+      "old_sha256": "d6e61aae52b4d099a8e255023c8012dacb1f8e442eece31d52381790643f7054",
+      "new_sha256": "d302fef1a4b02d3c3a14ae43d14e9b50f73f93b1755932d713d9d402cacd8de4"
+    }
+  ],
+  "scope": "All three full tables equal after explicit old16-to-new19 narration directory mapping; wholejob active, no visual or motion acceptance."
+}

@@ -1,0 +1,6 @@
+{
+  "at": "2026-11-08T19:05:38.274025+00:00",
+  "review_sha256": "7cc987d4af127ecbd2e5c871838759db921efc2ff7304ed0e60de27436ed8523",
+  "root_read_full": true,
+  "disposition": "No High or Medium; accepted for guarded exact import. L1: a missing unfinished receipt requires process investigation and root recovery, never automatically increment attempt; preserve receipt and all files. A new attempt alone cannot resolve unrecorded prior job. Shared takes and evidence remain frozen through master. Source review is not runtime import or final AV acceptance."
+}

@@ -1,0 +1,20 @@
+{
+  "files": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final08-terminal64/08_loop_sums.mp4",
+      "sha256": "ea2673439b1c663e94ac19a963b4e8fec1ed037c1fce790a7a8a438256af8ef1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final08-terminal64/resource-receipt.json",
+      "sha256": "a9bfb8f39179c2a6cdbe5f86aafbc9a1039f803fd052a4d260ed95f8e5c35e69"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final08-terminal64/render-summary.json",
+      "sha256": "163608264aee7acafb05f71abe429257d0b7bb31405cd446973b9f8b5a2001a7"
+    },
+    {
+      "path": "/opt/homebrew/bin/ffmpeg",
+      "sha256": "1332dc2de372bade9a8a63da0d6cdfab9de97fcefbae707bcc0b0506e1203327"
+    }
+  ]
+}

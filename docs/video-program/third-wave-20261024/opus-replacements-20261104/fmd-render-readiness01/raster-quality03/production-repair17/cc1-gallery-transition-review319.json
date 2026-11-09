@@ -1,0 +1,7237 @@
+{
+ "schema": "cc1-gallery-transition-review319",
+ "reviewer": "CC1 (independent of root and CC0)",
+ "date": "2026-11-08",
+ "task": "view every one of the 60 sheets (715 frames) in gallery-transition-frames305, all C1-C17 transition windows; record exact viewed sheets and frame counts and actual defects",
+ "verdict": {
+  "high": 0,
+  "medium": 0,
+  "low": 0,
+  "summary": "No transition defect in the 715 frames. Every C1-C17 transition shows the authored object entering or leaving alone, with the preceding vector fades complete and the following labels starting after the plate. All 22 measured opacity curves (C13 counted per panel) move only inside their authored windows, with no reversal above 0.01."
+ },
+ "coverage": {
+  "sheets_viewed": 60,
+  "frames_viewed": 715,
+  "windows": [
+   {
+    "window": [
+     34,
+     98
+    ],
+    "frames": 65
+   },
+   {
+    "window": [
+     1989,
+     2072
+    ],
+    "frames": 84
+   },
+   {
+    "window": [
+     2894,
+     2977
+    ],
+    "frames": 84
+   },
+   {
+    "window": [
+     4772,
+     4855
+    ],
+    "frames": 84
+   },
+   {
+    "window": [
+     6181,
+     6264
+    ],
+    "frames": 84
+   },
+   {
+    "window": [
+     7312,
+     7365
+    ],
+    "frames": 54
+   },
+   {
+    "window": [
+     8715,
+     8859
+    ],
+    "frames": 145
+   },
+   {
+    "window": [
+     9168,
+     9220
+    ],
+    "frames": 53
+   },
+   {
+    "window": [
+     9817,
+     9878
+    ],
+    "frames": 62
+   }
+  ],
+  "sites": 17,
+  "site_frames_in_authored_windows": 673
+ },
+ "inputs": {
+  "manifest": {
+   "path": "gallery-transition-frames305/manifest.json",
+   "sha256": "5a98dd205a39f9b596f61e9c3dcc048b75c3aa9f1aac286f1872ab26acfe7d49",
+   "bytes": 108367,
+   "keys": [
+    "frames",
+    "sheets",
+    "source",
+    "source_sha256",
+    "windows"
+   ],
+   "note": "its source field names an absolute local path and is not repeated here"
+  },
+  "source_video": {
+   "path": "preview274-review305/preview/05_gallery.mp4",
+   "sha256": "f5123300084eba264276377f36518d263324bb9e28dd5df0f77ecf5f20cf5e48",
+   "equals_manifest_source_sha256": true,
+   "stream": "960x540, 60 fps, 9879 frames (ffprobe)"
+  },
+  "frame_pngs": {
+   "count": 715,
+   "size": "640x360",
+   "all_sha256_match_manifest": true
+  },
+  "sheets": {
+   "count": 60,
+   "layout": "3 x 4 tiles of 640x360 plus frame labels, 1920x1536 JPEG; sheet 060 holds 7 frames",
+   "note": "the manifest lists sheet names without hashes; the hashes below are of the files viewed"
+  },
+  "context_read": {
+   "gallery-review-repair249.rs": "d57e003a4067f3e67abb654e98c19ca0274c9b7edae5ac26da756757e33230b5",
+   "cc3-preview-fade274.py": "d80cf7b6ffba56968f7c6dfd7a2cca50e65769dce1c97deb5d34683ed3fc9669",
+   "preview274-review305/05_gallery/sampling.json": "b8011d9025f5128b3582990cff2cfc59337f3d939ec94c226accd7fccf23c1b9",
+   "cc3-preview-results308.md": "4b73ecfd652005fdbe0afe56c189f377b295c16f6baf72622d0600b9f5fc0027"
+  }
+ },
+ "sheets": [
+  {
+   "sheet": "sheet-001.jpg",
+   "sha256": "ef8d2a720abdee496ce47ab29daa9fd70f385b8c9cdd380a80de03bbae14249b",
+   "bytes": 73346,
+   "frames": [
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-002.jpg",
+   "sha256": "1408fdac9c0698bba37b2ff627938591b19c2d5f5e2ed0c60321bf47c1ab19f6",
+   "bytes": 156980,
+   "frames": [
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-003.jpg",
+   "sha256": "7c6d30e160c6a09b350321a924f30bcf33cfd6ebabd1ffabf4184f6df6abba14",
+   "bytes": 200937,
+   "frames": [
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-004.jpg",
+   "sha256": "e120d3bbbf0d93028abf7743ae09cda33c6a14d94f0ecce949a73cbed4683b83",
+   "bytes": 221796,
+   "frames": [
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-005.jpg",
+   "sha256": "bf81b046819bb98592b1361037619046cba94a40ea731dc3384151c40a77882a",
+   "bytes": 228776,
+   "frames": [
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-006.jpg",
+   "sha256": "48f987716661fb7addef899d9b6ff294c7fbe14dc4dfe53d0bcdae256a32dec8",
+   "bytes": 218383,
+   "frames": [
+    94,
+    95,
+    96,
+    97,
+    98,
+    1989,
+    1990,
+    1991,
+    1992,
+    1993,
+    1994,
+    1995
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-007.jpg",
+   "sha256": "e21f49b556db220e453e2243c7e70bd7d9dee328a66686049486b19f1de96a4a",
+   "bytes": 196111,
+   "frames": [
+    1996,
+    1997,
+    1998,
+    1999,
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-008.jpg",
+   "sha256": "de25102d1754ab51a8b5d5c45d3e80bdf36a1d63008cffa1608e17b1f328568a",
+   "bytes": 121523,
+   "frames": [
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-009.jpg",
+   "sha256": "8c0a46ebfd0a2c058e7bf1d2e8a0f7376dd6c49db8a6c025a1b19963a983d20a",
+   "bytes": 79705,
+   "frames": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026,
+    2027,
+    2028,
+    2029,
+    2030,
+    2031
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-010.jpg",
+   "sha256": "d3eefefc6f1cf4828daa192da4ac724f725c7dc88533fc12b0b0a8aa1eca0d37",
+   "bytes": 140188,
+   "frames": [
+    2032,
+    2033,
+    2034,
+    2035,
+    2036,
+    2037,
+    2038,
+    2039,
+    2040,
+    2041,
+    2042,
+    2043
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-011.jpg",
+   "sha256": "5dd843575b8e9fd9d47f8115ce23b2f83295c5950c78e8152b3b88b3d1fdd4ef",
+   "bytes": 167231,
+   "frames": [
+    2044,
+    2045,
+    2046,
+    2047,
+    2048,
+    2049,
+    2050,
+    2051,
+    2052,
+    2053,
+    2054,
+    2055
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-012.jpg",
+   "sha256": "2ecb447f6731514e07e4375286c0ab4230df70d9d18c090ba96be502997cb879",
+   "bytes": 176725,
+   "frames": [
+    2056,
+    2057,
+    2058,
+    2059,
+    2060,
+    2061,
+    2062,
+    2063,
+    2064,
+    2065,
+    2066,
+    2067
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-013.jpg",
+   "sha256": "a8e9c4c366c3891839d019285c61cf33097ba8fe7fc23abefd0fdc218f0ae773",
+   "bytes": 177010,
+   "frames": [
+    2068,
+    2069,
+    2070,
+    2071,
+    2072,
+    2894,
+    2895,
+    2896,
+    2897,
+    2898,
+    2899,
+    2900
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-014.jpg",
+   "sha256": "2479d57bc1a4ff96b4429fb276bab07d05d4479d04b70dc61571f6b7c61fc9b6",
+   "bytes": 164420,
+   "frames": [
+    2901,
+    2902,
+    2903,
+    2904,
+    2905,
+    2906,
+    2907,
+    2908,
+    2909,
+    2910,
+    2911,
+    2912
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-015.jpg",
+   "sha256": "2d1916c264ce5a5f2d12d51825700ac0552e887fa65f01eb2a68210050468d5b",
+   "bytes": 104396,
+   "frames": [
+    2913,
+    2914,
+    2915,
+    2916,
+    2917,
+    2918,
+    2919,
+    2920,
+    2921,
+    2922,
+    2923,
+    2924
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-016.jpg",
+   "sha256": "5398c4a77fb5713017ee81565c31acb33f73136a1b912a5f0b87d22e0051d2f3",
+   "bytes": 98848,
+   "frames": [
+    2925,
+    2926,
+    2927,
+    2928,
+    2929,
+    2930,
+    2931,
+    2932,
+    2933,
+    2934,
+    2935,
+    2936
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-017.jpg",
+   "sha256": "5cf7787eee250d01d9072f7bdca20d6e6d98832a72e3d70c99a734cf49d41ba8",
+   "bytes": 199081,
+   "frames": [
+    2937,
+    2938,
+    2939,
+    2940,
+    2941,
+    2942,
+    2943,
+    2944,
+    2945,
+    2946,
+    2947,
+    2948
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-018.jpg",
+   "sha256": "d3e466d8c848d01db3a242077f5d851f540e8ad3ec41dd97a6047e4daaa896fb",
+   "bytes": 244467,
+   "frames": [
+    2949,
+    2950,
+    2951,
+    2952,
+    2953,
+    2954,
+    2955,
+    2956,
+    2957,
+    2958,
+    2959,
+    2960
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-019.jpg",
+   "sha256": "1eea553f38ae2098ee44e589320db61990f29298ff8caac3f800c032e1fddec3",
+   "bytes": 259334,
+   "frames": [
+    2961,
+    2962,
+    2963,
+    2964,
+    2965,
+    2966,
+    2967,
+    2968,
+    2969,
+    2970,
+    2971,
+    2972
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-020.jpg",
+   "sha256": "1bdf1c0b236f2b8a2298ccf5a5eaa14bc9cdd4bbf29a48a04a3a6bd5b2fe3767",
+   "bytes": 219212,
+   "frames": [
+    2973,
+    2974,
+    2975,
+    2976,
+    2977,
+    4772,
+    4773,
+    4774,
+    4775,
+    4776,
+    4777,
+    4778
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-021.jpg",
+   "sha256": "dea7fe6a311c83a0afbf8f37962b59fa9a059f6dd06ea81cc4501fe1545c20a4",
+   "bytes": 177293,
+   "frames": [
+    4779,
+    4780,
+    4781,
+    4782,
+    4783,
+    4784,
+    4785,
+    4786,
+    4787,
+    4788,
+    4789,
+    4790
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-022.jpg",
+   "sha256": "9adff338bd998e3a33c5fd42be29ac1da739e0c4c1a953ea97d22785c00a8e13",
+   "bytes": 112389,
+   "frames": [
+    4791,
+    4792,
+    4793,
+    4794,
+    4795,
+    4796,
+    4797,
+    4798,
+    4799,
+    4800,
+    4801,
+    4802
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-023.jpg",
+   "sha256": "3f0ace94fd598d36cc974b0b9b7bbfe2ece1cb0a9e1f6563a2af1d9a263daef3",
+   "bytes": 112140,
+   "frames": [
+    4803,
+    4804,
+    4805,
+    4806,
+    4807,
+    4808,
+    4809,
+    4810,
+    4811,
+    4812,
+    4813,
+    4814
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-024.jpg",
+   "sha256": "1fa5877b0ef98e3e7dc84f0f901573c8e169ef184a2c79819f930817eb6c3f30",
+   "bytes": 244484,
+   "frames": [
+    4815,
+    4816,
+    4817,
+    4818,
+    4819,
+    4820,
+    4821,
+    4822,
+    4823,
+    4824,
+    4825,
+    4826
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-025.jpg",
+   "sha256": "6e763eb966359e03b871b6dc493c6080fb058f7df932e99258922ebf88be71e2",
+   "bytes": 305124,
+   "frames": [
+    4827,
+    4828,
+    4829,
+    4830,
+    4831,
+    4832,
+    4833,
+    4834,
+    4835,
+    4836,
+    4837,
+    4838
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-026.jpg",
+   "sha256": "717ed2f1868f69504a8bea0b6b60df028e79c3b9bebeeb80b82a1a683bdfeec0",
+   "bytes": 325904,
+   "frames": [
+    4839,
+    4840,
+    4841,
+    4842,
+    4843,
+    4844,
+    4845,
+    4846,
+    4847,
+    4848,
+    4849,
+    4850
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-027.jpg",
+   "sha256": "b651f0e65e7b82a80e40a63b114bb75d24c8cce413cfaee70e224351ba0572fc",
+   "bytes": 326093,
+   "frames": [
+    4851,
+    4852,
+    4853,
+    4854,
+    4855,
+    6181,
+    6182,
+    6183,
+    6184,
+    6185,
+    6186,
+    6187
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-028.jpg",
+   "sha256": "9ccd1787b61220369fcd204eebe3f309f5888ebd0ae261b0dbf91c01a7fbb6fa",
+   "bytes": 297683,
+   "frames": [
+    6188,
+    6189,
+    6190,
+    6191,
+    6192,
+    6193,
+    6194,
+    6195,
+    6196,
+    6197,
+    6198,
+    6199
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-029.jpg",
+   "sha256": "cb639facf5ef75dcda1858af5e98c0a7b93677218082b5c2f7db1ee26d6a4f4b",
+   "bytes": 165925,
+   "frames": [
+    6200,
+    6201,
+    6202,
+    6203,
+    6204,
+    6205,
+    6206,
+    6207,
+    6208,
+    6209,
+    6210,
+    6211
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-030.jpg",
+   "sha256": "3672202e4e77caba4328d8f80c11f913ddc2b923f5b74d67aea91b38465982da",
+   "bytes": 86340,
+   "frames": [
+    6212,
+    6213,
+    6214,
+    6215,
+    6216,
+    6217,
+    6218,
+    6219,
+    6220,
+    6221,
+    6222,
+    6223
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-031.jpg",
+   "sha256": "76c29a83b42633fb3e7c0ef23d8feba79e9745d1bdc58d0116fa438b2a6b3785",
+   "bytes": 165546,
+   "frames": [
+    6224,
+    6225,
+    6226,
+    6227,
+    6228,
+    6229,
+    6230,
+    6231,
+    6232,
+    6233,
+    6234,
+    6235
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-032.jpg",
+   "sha256": "b8d65dd4a6a14b58da4bb726cd0a528889d034bc6ad31cb411780b27671748a8",
+   "bytes": 198669,
+   "frames": [
+    6236,
+    6237,
+    6238,
+    6239,
+    6240,
+    6241,
+    6242,
+    6243,
+    6244,
+    6245,
+    6246,
+    6247
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-033.jpg",
+   "sha256": "025cac505a5e7caffd84d6198e41d976501fb3d4611bed469f82c5276135f9fd",
+   "bytes": 209088,
+   "frames": [
+    6248,
+    6249,
+    6250,
+    6251,
+    6252,
+    6253,
+    6254,
+    6255,
+    6256,
+    6257,
+    6258,
+    6259
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-034.jpg",
+   "sha256": "9661170c7cd40b10ffdf00157eb137f2d5bd067babb311bd2f21643c658f5123",
+   "bytes": 226438,
+   "frames": [
+    6260,
+    6261,
+    6262,
+    6263,
+    6264,
+    7312,
+    7313,
+    7314,
+    7315,
+    7316,
+    7317,
+    7318
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-035.jpg",
+   "sha256": "3bc570a7f2a701f2595a651102fe905f0112fec42e3f41539eb8f6a3d25d0f20",
+   "bytes": 274805,
+   "frames": [
+    7319,
+    7320,
+    7321,
+    7322,
+    7323,
+    7324,
+    7325,
+    7326,
+    7327,
+    7328,
+    7329,
+    7330
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-036.jpg",
+   "sha256": "4889b1133e16cdbc49f1d110b88679333205bf0c7f2aafc2759cc5f62ccd2e51",
+   "bytes": 303007,
+   "frames": [
+    7331,
+    7332,
+    7333,
+    7334,
+    7335,
+    7336,
+    7337,
+    7338,
+    7339,
+    7340,
+    7341,
+    7342
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-037.jpg",
+   "sha256": "3b30ae030db94e56cea63d5d44fcaa61f84bdaef13303aaed131d4087459af8f",
+   "bytes": 314333,
+   "frames": [
+    7343,
+    7344,
+    7345,
+    7346,
+    7347,
+    7348,
+    7349,
+    7350,
+    7351,
+    7352,
+    7353,
+    7354
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-038.jpg",
+   "sha256": "6d618b1d6e35e6483290f406e4206d309ea663a13179129c955912432892b9ac",
+   "bytes": 315634,
+   "frames": [
+    7355,
+    7356,
+    7357,
+    7358,
+    7359,
+    7360,
+    7361,
+    7362,
+    7363,
+    7364,
+    7365,
+    8715
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-039.jpg",
+   "sha256": "4677a509f1d7b3e40bd95284513e42f74dd4f876716b1345788f90c7d62ac4a8",
+   "bytes": 288712,
+   "frames": [
+    8716,
+    8717,
+    8718,
+    8719,
+    8720,
+    8721,
+    8722,
+    8723,
+    8724,
+    8725,
+    8726,
+    8727
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-040.jpg",
+   "sha256": "e249880f44d62eca13703342f39e23be1cc96bb15036acc808f0e7f1818e4f76",
+   "bytes": 214461,
+   "frames": [
+    8728,
+    8729,
+    8730,
+    8731,
+    8732,
+    8733,
+    8734,
+    8735,
+    8736,
+    8737,
+    8738,
+    8739
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-041.jpg",
+   "sha256": "47276575e76812a3f8e09a93e30ca4116d6e0a819365039740d22f9b00366b4c",
+   "bytes": 135771,
+   "frames": [
+    8740,
+    8741,
+    8742,
+    8743,
+    8744,
+    8745,
+    8746,
+    8747,
+    8748,
+    8749,
+    8750,
+    8751
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-042.jpg",
+   "sha256": "6f2f75c8bc149d3b8458a4e7266822d77abceb7264b02a003881c97e81e8e62c",
+   "bytes": 102140,
+   "frames": [
+    8752,
+    8753,
+    8754,
+    8755,
+    8756,
+    8757,
+    8758,
+    8759,
+    8760,
+    8761,
+    8762,
+    8763
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-043.jpg",
+   "sha256": "b568ac8682d10a2b12183ea0439e5f841fe7b38d674a6facd07a62269a4b0a57",
+   "bytes": 89969,
+   "frames": [
+    8764,
+    8765,
+    8766,
+    8767,
+    8768,
+    8769,
+    8770,
+    8771,
+    8772,
+    8773,
+    8774,
+    8775
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-044.jpg",
+   "sha256": "0ab8f0df298562ee4b4f9a81bd777bf00da78fc8dd1b882be900df567cd2dfbd",
+   "bytes": 152924,
+   "frames": [
+    8776,
+    8777,
+    8778,
+    8779,
+    8780,
+    8781,
+    8782,
+    8783,
+    8784,
+    8785,
+    8786,
+    8787
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-045.jpg",
+   "sha256": "fdd89cc3649193eb6cd03a96918b71304072b25f96e570235f618313195f3b52",
+   "bytes": 211620,
+   "frames": [
+    8788,
+    8789,
+    8790,
+    8791,
+    8792,
+    8793,
+    8794,
+    8795,
+    8796,
+    8797,
+    8798,
+    8799
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-046.jpg",
+   "sha256": "ba0972730711909d598e1ceee58d1dbf1d19135cee8c2be2de52f805d29d9b57",
+   "bytes": 270028,
+   "frames": [
+    8800,
+    8801,
+    8802,
+    8803,
+    8804,
+    8805,
+    8806,
+    8807,
+    8808,
+    8809,
+    8810,
+    8811
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-047.jpg",
+   "sha256": "ebc192ff088ac5ea169104ccda034cdd6742dcbd88efe4dd0813c02d30b8300b",
+   "bytes": 340002,
+   "frames": [
+    8812,
+    8813,
+    8814,
+    8815,
+    8816,
+    8817,
+    8818,
+    8819,
+    8820,
+    8821,
+    8822,
+    8823
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-048.jpg",
+   "sha256": "c338f3346f51d3c40f377127fc08075e68fcfe051edfc20e9a5ad709ffa4a95a",
+   "bytes": 411761,
+   "frames": [
+    8824,
+    8825,
+    8826,
+    8827,
+    8828,
+    8829,
+    8830,
+    8831,
+    8832,
+    8833,
+    8834,
+    8835
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-049.jpg",
+   "sha256": "a5a570b3361a463d11772aa6f68d33aa25a88c72e381cb3361f697f8cd6ef189",
+   "bytes": 485180,
+   "frames": [
+    8836,
+    8837,
+    8838,
+    8839,
+    8840,
+    8841,
+    8842,
+    8843,
+    8844,
+    8845,
+    8846,
+    8847
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-050.jpg",
+   "sha256": "d637d6fcec902068cd0283a3df87bc7e9b1af2aa9492d60595f56b14986cb90a",
+   "bytes": 548713,
+   "frames": [
+    8848,
+    8849,
+    8850,
+    8851,
+    8852,
+    8853,
+    8854,
+    8855,
+    8856,
+    8857,
+    8858,
+    8859
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-051.jpg",
+   "sha256": "3396e286104ca30d259671d88c0fa720facbf6213b05d6e6bd7a33967f0cafc8",
+   "bytes": 554696,
+   "frames": [
+    9168,
+    9169,
+    9170,
+    9171,
+    9172,
+    9173,
+    9174,
+    9175,
+    9176,
+    9177,
+    9178,
+    9179
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-052.jpg",
+   "sha256": "0f80e5865f814f00501c7a8604c4c7779ec483085056f7382253fdd5ec589574",
+   "bytes": 253372,
+   "frames": [
+    9180,
+    9181,
+    9182,
+    9183,
+    9184,
+    9185,
+    9186,
+    9187,
+    9188,
+    9189,
+    9190,
+    9191
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-053.jpg",
+   "sha256": "90f5fbbb430038444c51d745c868449d1d717bb20aaea78701d857bb7c2174f8",
+   "bytes": 202205,
+   "frames": [
+    9192,
+    9193,
+    9194,
+    9195,
+    9196,
+    9197,
+    9198,
+    9199,
+    9200,
+    9201,
+    9202,
+    9203
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-054.jpg",
+   "sha256": "58dd36d475f9dc05d815b9bd6271ddd720ac90a048a227d17746225178fcb9e3",
+   "bytes": 226750,
+   "frames": [
+    9204,
+    9205,
+    9206,
+    9207,
+    9208,
+    9209,
+    9210,
+    9211,
+    9212,
+    9213,
+    9214,
+    9215
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-055.jpg",
+   "sha256": "9d8106dda9dc0a3a480b5166a143e2cfd0eec3309419223f6761828e4f7078c2",
+   "bytes": 229111,
+   "frames": [
+    9216,
+    9217,
+    9218,
+    9219,
+    9220,
+    9817,
+    9818,
+    9819,
+    9820,
+    9821,
+    9822,
+    9823
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-056.jpg",
+   "sha256": "0eba7e46f4b9be6ae85ae90fa91f8b56c860a45bfc3fa0ffebf5ed93ca8273f4",
+   "bytes": 217314,
+   "frames": [
+    9824,
+    9825,
+    9826,
+    9827,
+    9828,
+    9829,
+    9830,
+    9831,
+    9832,
+    9833,
+    9834,
+    9835
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-057.jpg",
+   "sha256": "f8c1a44dc83abfa80cfcb3d6672e5040b0c1e8ba3c080e48c95c718583a140b6",
+   "bytes": 174860,
+   "frames": [
+    9836,
+    9837,
+    9838,
+    9839,
+    9840,
+    9841,
+    9842,
+    9843,
+    9844,
+    9845,
+    9846,
+    9847
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-058.jpg",
+   "sha256": "a6999348cdbc1fa72e2c88b76abc61a5f05d8c0cc05ae8b9e0068520a6bcf306",
+   "bytes": 138808,
+   "frames": [
+    9848,
+    9849,
+    9850,
+    9851,
+    9852,
+    9853,
+    9854,
+    9855,
+    9856,
+    9857,
+    9858,
+    9859
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-059.jpg",
+   "sha256": "811fa161720f1def4be03957d51a7f99001ca3b0be4bbee89ef8c79128c992f2",
+   "bytes": 119044,
+   "frames": [
+    9860,
+    9861,
+    9862,
+    9863,
+    9864,
+    9865,
+    9866,
+    9867,
+    9868,
+    9869,
+    9870,
+    9871
+   ],
+   "frame_count": 12,
+   "viewed": true
+  },
+  {
+   "sheet": "sheet-060.jpg",
+   "sha256": "a14050bbaae8a8d0401094baca547f3bc032705d9875419410b7bd6bf6045137",
+   "bytes": 60471,
+   "frames": [
+    9872,
+    9873,
+    9874,
+    9875,
+    9876,
+    9877,
+    9878
+   ],
+   "frame_count": 7,
+   "viewed": true
+  }
+ ],
+ "sites": [
+  {
+   "site": "C1",
+   "event": "z^3-1 plate in, painter.show(1.0)",
+   "authored_window": [
+    36,
+    95
+   ],
+   "frames_viewed_in_authored_window": 60,
+   "sheets": [
+    "sheet-001.jpg",
+    "sheet-002.jpg",
+    "sheet-003.jpg",
+    "sheet-004.jpg",
+    "sheet-005.jpg",
+    "sheet-006.jpg"
+   ],
+   "observation": "34-36 background only; 37-39 first faint frames carry coarse blocky low-level texture; plate brightens monotonically, nothing else drawn; 96-98 the title begins faintly after the plate is full.",
+   "measured": [
+    {
+     "curve": "C1",
+     "authored_window": [
+      36,
+      95
+     ],
+     "first_moving": 39,
+     "last_moving": 85,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 63700,
+     "full_frame": 95,
+     "blank_frame": 34,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C2",
+   "event": "zdp plate out, 0.5 s, after the vector fade_out_all(gone, 0.4)",
+   "authored_window": [
+    1991,
+    2020
+   ],
+   "frames_viewed_in_authored_window": 30,
+   "sheets": [
+    "sheet-006.jpg",
+    "sheet-007.jpg",
+    "sheet-008.jpg",
+    "sheet-009.jpg"
+   ],
+   "observation": "1989-1995 plate at full with no marks, labels or output box (vector fade already complete); monotone fade; 2016-2019 faint blocky remnants; 2020-2021 background only.",
+   "measured": [
+    {
+     "curve": "C2",
+     "authored_window": [
+      1991,
+      2020
+     ],
+     "first_moving": 1996,
+     "last_moving": 2018,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 63756,
+     "full_frame": 1989,
+     "blank_frame": 2021,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C3",
+   "event": "e^z plate in, 0.8 s, then title and \"no zeros, no poles\"",
+   "authored_window": [
+    2021,
+    2069
+   ],
+   "frames_viewed_in_authored_window": 49,
+   "sheets": [
+    "sheet-009.jpg",
+    "sheet-010.jpg",
+    "sheet-011.jpg",
+    "sheet-012.jpg",
+    "sheet-013.jpg"
+   ],
+   "observation": "2022 first blocky faint frame; horizontal colour bands fade in monotonically; title signal measurable from 2066 at <=0.25 code levels (invisible), 0.58 at 2069, 5.85 at 2072 (column excess), while the plate already measures >=0.98 from 2061: no visible overlap.",
+   "measured": [
+    {
+     "curve": "C3",
+     "authored_window": [
+      2021,
+      2069
+     ],
+     "first_moving": 2023,
+     "last_moving": 2060,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 41667,
+     "full_frame": 2065,
+     "blank_frame": 2021,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C4",
+   "event": "e^z plate out, after a 0.4 s vector fade",
+   "authored_window": [
+    2896,
+    2925
+   ],
+   "frames_viewed_in_authored_window": 30,
+   "sheets": [
+    "sheet-013.jpg",
+    "sheet-014.jpg",
+    "sheet-015.jpg",
+    "sheet-016.jpg"
+   ],
+   "observation": "2894-2900 plate at full with no text; monotone fade; blocky faint remnant near 2923-2924; 2925-2926 background only.",
+   "measured": [
+    {
+     "curve": "C4",
+     "authored_window": [
+      2896,
+      2925
+     ],
+     "first_moving": 2900,
+     "last_moving": 2923,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 41643,
+     "full_frame": 2894,
+     "blank_frame": 2926,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C5",
+   "event": "sine plate in (wide plate, zeros on the real axis), then tborder and title 0.4 s",
+   "authored_window": [
+    2926,
+    2974
+   ],
+   "frames_viewed_in_authored_window": 49,
+   "sheets": [
+    "sheet-016.jpg",
+    "sheet-017.jpg",
+    "sheet-018.jpg",
+    "sheet-019.jpg",
+    "sheet-020.jpg"
+   ],
+   "observation": "2927 faint blocky start; smooth fade-in with no border or title during it; title \"f(z) = sin z\" first measurable at 2975 (excess 0.81), 3.50 at 2976, 6.00 at 2977.",
+   "measured": [
+    {
+     "curve": "C5",
+     "authored_window": [
+      2926,
+      2974
+     ],
+     "first_moving": 2928,
+     "last_moving": 2964,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 71757,
+     "full_frame": 2974,
+     "blank_frame": 2926,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C6",
+   "event": "trig plate (tan by then) out",
+   "authored_window": [
+    4774,
+    4803
+   ],
+   "frames_viewed_in_authored_window": 30,
+   "sheets": [
+    "sheet-020.jpg",
+    "sheet-021.jpg",
+    "sheet-022.jpg",
+    "sheet-023.jpg"
+   ],
+   "observation": "4772-4778 tan plate at full, no text (prior vector fade complete); monotone fade; 4802 near-empty; 4803-4804 background only.",
+   "measured": [
+    {
+     "curve": "C6",
+     "authored_window": [
+      4774,
+      4803
+     ],
+     "first_moving": 4779,
+     "last_moving": 4801,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 71550,
+     "full_frame": 4772,
+     "blank_frame": 4804,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C7",
+   "event": "Gamma plate in, then gborder and title",
+   "authored_window": [
+    4804,
+    4852
+   ],
+   "frames_viewed_in_authored_window": 49,
+   "sheets": [
+    "sheet-023.jpg",
+    "sheet-024.jpg",
+    "sheet-025.jpg",
+    "sheet-026.jpg",
+    "sheet-027.jpg"
+   ],
+   "observation": "4805 faint blocky start; smooth fade-in, poles along the negative real axis; title \"f(z) = Gamma(z)\" first measurable at 4853 (excess 0.69), 4.04 at 4854, 7.23 at 4855.",
+   "measured": [
+    {
+     "curve": "C7",
+     "authored_window": [
+      4804,
+      4852
+     ],
+     "first_moving": 4807,
+     "last_moving": 4843,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 79882,
+     "full_frame": 4852,
+     "blank_frame": 4804,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C8",
+   "event": "Gamma plate out",
+   "authored_window": [
+    6183,
+    6212
+   ],
+   "frames_viewed_in_authored_window": 30,
+   "sheets": [
+    "sheet-027.jpg",
+    "sheet-028.jpg",
+    "sheet-029.jpg",
+    "sheet-030.jpg"
+   ],
+   "observation": "6181-6187 Gamma at full with no title, border or marks; monotone fade; 6211 faint blocky remnant; 6212-6213 background only.",
+   "measured": [
+    {
+     "curve": "C8",
+     "authored_window": [
+      6183,
+      6212
+     ],
+     "first_moving": 6187,
+     "last_moving": 6210,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 79871,
+     "full_frame": 6181,
+     "blank_frame": 6213,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C9",
+   "event": "zeta plate in",
+   "authored_window": [
+    6213,
+    6261
+   ],
+   "frames_viewed_in_authored_window": 49,
+   "sheets": [
+    "sheet-030.jpg",
+    "sheet-031.jpg",
+    "sheet-032.jpg",
+    "sheet-033.jpg",
+    "sheet-034.jpg"
+   ],
+   "observation": "6214 faint blocky start; smooth fade-in; title first measurable at 6262 (excess 1.35), 3.39 at 6263, 5.09 at 6264.",
+   "measured": [
+    {
+     "curve": "C9",
+     "authored_window": [
+      6213,
+      6261
+     ],
+     "first_moving": 6215,
+     "last_moving": 6252,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 50286,
+     "full_frame": 6261,
+     "blank_frame": 6213,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C10",
+   "event": "critical strip in, strip.show(0.8); pre fade_out_all([converges, pole_says, zedge], 0.3); post fade_in_all([start_box, sborder, band, half, squashed, critical], 0.4)",
+   "authored_window": [
+    7314,
+    7362
+   ],
+   "frames_viewed_in_authored_window": 49,
+   "sheets": [
+    "sheet-034.jpg",
+    "sheet-035.jpg",
+    "sheet-036.jpg",
+    "sheet-037.jpg",
+    "sheet-038.jpg"
+   ],
+   "observation": "7312 faint remnants of the 0.3 s label fade at the right; title, plate, zero/pole marks and \"zeros at -2, -4, -6, ...\" stay static through the window; strip region empty at 7312-7314, first faint blocky frame 7315, monotone fade-in, full by 7362; 7364-7365 the post fade-in texts begin faintly. The 274 chroma fit at 6875 was a different event (cc3 308); this window holds the actual strip show.",
+   "measured": [
+    {
+     "curve": "C10",
+     "authored_window": [
+      7314,
+      7362
+     ],
+     "first_moving": 7316,
+     "last_moving": 7352,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 22100,
+     "full_frame": 7362,
+     "blank_frame": 7313,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C11",
+   "event": "zeta.leave(0.4)",
+   "authored_window": [
+    8717,
+    8741
+   ],
+   "frames_viewed_in_authored_window": 25,
+   "sheets": [
+    "sheet-039.jpg",
+    "sheet-040.jpg",
+    "sheet-041.jpg"
+   ],
+   "observation": "8715 zeta plate and strip at full, title/marks/labels gone (fade_out_all(gone, 0.4) complete); plate fades monotonically while the strip stays at full; plate gone by 8740.",
+   "measured": [
+    {
+     "curve": "C11",
+     "authored_window": [
+      8717,
+      8741
+     ],
+     "first_moving": 8721,
+     "last_moving": 8738,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 47261,
+     "full_frame": 8715,
+     "blank_frame": 8741,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C12",
+   "event": "strip.leave(0.4), sequential after zeta.leave",
+   "authored_window": [
+    8742,
+    8766
+   ],
+   "frames_viewed_in_authored_window": 25,
+   "sheets": [
+    "sheet-041.jpg",
+    "sheet-042.jpg",
+    "sheet-043.jpg"
+   ],
+   "observation": "strip alone on screen 8740-8766; the sheet impression that it stays full to about 8751 is the eased start: measured 0.80 at 8751; C11 and C12 curves agree within 0.03 at every offset; 8764 faint blocky remnant; 8765-8766 background only.",
+   "measured": [
+    {
+     "curve": "C12",
+     "authored_window": [
+      8742,
+      8766
+     ],
+     "first_moving": 8746,
+     "last_moving": 8763,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 22100,
+     "full_frame": 8741,
+     "blank_frame": 8766,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C13",
+   "event": "six mosaic panels in, Painter.show(0.25) each, borders built per panel and faded later",
+   "authored_window": [
+    8767,
+    8856
+   ],
+   "frames_viewed_in_authored_window": 90,
+   "sheets": [
+    "sheet-043.jpg",
+    "sheet-044.jpg",
+    "sheet-045.jpg",
+    "sheet-046.jpg",
+    "sheet-047.jpg",
+    "sheet-048.jpg",
+    "sheet-049.jpg",
+    "sheet-050.jpg"
+   ],
+   "observation": "panels appear one at a time, row-major (z^3-1, zdp, e^z, sin z, Gamma, zeta), each in its own 15-frame slot with no overlap; first frame of each slot faint and blocky; 8857-8859 all six at full, no borders or names yet (they follow outside the window).",
+   "measured": [
+    {
+     "curve": "C13.1",
+     "authored_window": [
+      8767,
+      8781
+     ],
+     "first_moving": 8767,
+     "last_moving": 8778,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 20424,
+     "full_frame": 8859,
+     "blank_frame": 8766,
+     "inside_authored_window": true
+    },
+    {
+     "curve": "C13.2",
+     "authored_window": [
+      8782,
+      8796
+     ],
+     "first_moving": 8782,
+     "last_moving": 8793,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 20424,
+     "full_frame": 8859,
+     "blank_frame": 8766,
+     "inside_authored_window": true
+    },
+    {
+     "curve": "C13.3",
+     "authored_window": [
+      8797,
+      8811
+     ],
+     "first_moving": 8797,
+     "last_moving": 8808,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 20424,
+     "full_frame": 8859,
+     "blank_frame": 8766,
+     "inside_authored_window": true
+    },
+    {
+     "curve": "C13.4",
+     "authored_window": [
+      8812,
+      8826
+     ],
+     "first_moving": 8812,
+     "last_moving": 8823,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 20424,
+     "full_frame": 8859,
+     "blank_frame": 8766,
+     "inside_authored_window": true
+    },
+    {
+     "curve": "C13.5",
+     "authored_window": [
+      8827,
+      8841
+     ],
+     "first_moving": 8827,
+     "last_moving": 8838,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 20424,
+     "full_frame": 8859,
+     "blank_frame": 8766,
+     "inside_authored_window": true
+    },
+    {
+     "curve": "C13.6",
+     "authored_window": [
+      8842,
+      8856
+     ],
+     "first_moving": 8842,
+     "last_moving": 8853,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 20424,
+     "full_frame": 8859,
+     "blank_frame": 8766,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C14",
+   "event": "five panels out together, fade_out_all(leaving, TILE_BEATS[1] = 0.3)",
+   "authored_window": [
+    9170,
+    9187
+   ],
+   "frames_viewed_in_authored_window": 18,
+   "sheets": [
+    "sheet-051.jpg",
+    "sheet-052.jpg"
+   ],
+   "observation": "9168-9169 six panels with names, marks, borders and the gold box on the cubic panel; the five others fade together with their names and marks, monotone; cubic panel, its name, marks and gold box unchanged throughout; 9187 only the cubic group remains.",
+   "measured": [
+    {
+     "curve": "C14",
+     "authored_window": [
+      9170,
+      9187
+     ],
+     "first_moving": 9173,
+     "last_moving": 9185,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 113694,
+     "full_frame": 9169,
+     "blank_frame": 9187,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C15",
+   "event": "zoom plate in, 0.5 s, then fade_in_all(framing = links + zborder9, 0.2)",
+   "authored_window": [
+    9188,
+    9217
+   ],
+   "frames_viewed_in_authored_window": 30,
+   "sheets": [
+    "sheet-052.jpg",
+    "sheet-053.jpg",
+    "sheet-054.jpg",
+    "sheet-055.jpg"
+   ],
+   "observation": "zoom plate fades in monotonically at the right; 9218-9220 the two gold links and the zoom border begin; at that low opacity the links cannot be seen over the bright cubic picture between the gold box and the panel edge (see refuted candidate R2).",
+   "measured": [
+    {
+     "curve": "C15",
+     "authored_window": [
+      9188,
+      9217
+     ],
+     "first_moving": 9189,
+     "last_moving": 9212,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 47961,
+     "full_frame": 9217,
+     "blank_frame": 9187,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C16",
+   "event": "cubic panel out after fade_out_all(all, 0.5)",
+   "authored_window": [
+    9819,
+    9848
+   ],
+   "frames_viewed_in_authored_window": 30,
+   "sheets": [
+    "sheet-055.jpg",
+    "sheet-056.jpg",
+    "sheet-057.jpg",
+    "sheet-058.jpg"
+   ],
+   "observation": "9817 last faint remnants of the 0.5 s fade (texts under the panel), 9818 clean: cubic picture without box, marks or name; zoom at full; cubic picture fades monotonically, gone by 9847.",
+   "measured": [
+    {
+     "curve": "C16",
+     "authored_window": [
+      9819,
+      9848
+     ],
+     "first_moving": 9824,
+     "last_moving": 9846,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 20424,
+     "full_frame": 9818,
+     "blank_frame": 9848,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  },
+  {
+   "site": "C17",
+   "event": "zoom.leave(0.5)",
+   "authored_window": [
+    9849,
+    9878
+   ],
+   "frames_viewed_in_authored_window": 30,
+   "sheets": [
+    "sheet-058.jpg",
+    "sheet-059.jpg",
+    "sheet-060.jpg"
+   ],
+   "observation": "zoom alone, fades monotonically; 9876 faint blocky remnant; 9877-9878 background only; 9878 is the file's last frame (9879 frames, 960x540, 60 fps).",
+   "measured": [
+    {
+     "curve": "C17",
+     "authored_window": [
+      9849,
+      9878
+     ],
+     "first_moving": 9854,
+     "last_moving": 9876,
+     "monotone_breaks_over_0.01": [],
+     "mask_pixels": 47961,
+     "full_frame": 9848,
+     "blank_frame": 9878,
+     "inside_authored_window": true
+    }
+   ],
+   "defect": null
+  }
+ ],
+ "refuted_candidates": [
+  {
+   "id": "R1",
+   "site": "C12",
+   "candidate": "strip still at full brightness at 8740-8751 on sheets 039-041, as if its leave were late",
+   "finding": "not a defect: measured opacity 1.00 at 8742, 0.97 at 8746, 0.80 at 8751, 0.51 at 8756, 0.00 at 8765; same eased curve as C11 shifted by 25 frames, as zeta.leave(0.4) then strip.leave(0.4) is written"
+  },
+  {
+   "id": "R2",
+   "site": "C15",
+   "candidate": "gold links invisible inside the cubic panel at 9218-9220, appearing to start at the panel edge",
+   "finding": "not a defect: two later frames decoded from the same hash-checked preview (decode only; controls 9168 and 9220 decoded equal to the manifest PNGs, max abs difference 0) show both links drawn from the gold box corners across the picture at 9240 and 9300; at 9218-9220 they are too faint to see over the bright picture",
+   "extra_frames": {
+    "9240": "4eb1a36846b887455f26e4364ecee790828432f69d7e434991a7ffdf56094658",
+    "9300": "38439a24915d7a37e2834b8498f713b1ef3b264de7a788a384271d8a67f975b7"
+   },
+   "extra_frames_note": "outside the 715; kept in reviewer scratch, not delivered; a third frame, 9500, was decoded but not viewed or used"
+  },
+  {
+   "id": "R3",
+   "site": "C3",
+   "candidate": "title brightness looked non-monotone between 2070 and 2071 on the sheet",
+   "finding": "measured column excess rises 0.58, 1.38, 2.00, 5.85 over 2069-2072: monotone"
+  }
+ ],
+ "notes": [
+  {
+   "id": "N1",
+   "what": "the first and last one to three frames of almost every fade show coarse blocky low-amplitude texture rather than a scaled copy of the picture",
+   "reading": "consistent with lossy encoding of the 960x540 preview at very low signal; not attributable to authored content; whether a final master shows it cannot be judged from these stills"
+  },
+  {
+   "id": "N2",
+   "what": "a constant column about 0.76 code levels above background at x = 396, y 110-210 (640x360) in 1989-2000",
+   "reading": "invisible at normal gain and unchanged across frames, so not animation; noted only"
+  },
+  {
+   "id": "N3",
+   "what": "in the mosaic, the sin z panel spans x from -6.6 to 6.6, so the marks at +-2 pi sit 0.32 units (about 4.5 px at 640 wide) inside the panel and their discs reach its left and right edges",
+   "reading": "not clipped; a static composition point outside transition timing, recorded for the owner, not a defect"
+  }
+ ],
+ "method": [
+  "all 60 sheet JPEGs read as images in order, every tile identified by its frame label",
+  "suspicious frames cropped, enlarged and gain-lifted from the hash-checked PNGs (local helpers)",
+  "per-site opacity curves: mask of pixels differing between a full and a blank frame of the site (boxed where other objects share the frame), least-squares opacity per frame; every PNG hash asserted while reading",
+  "gallery source read for the expected content of each window: 05_1-05_3, 05_4, 05_6, 05_7-05_9 (critical strip, mosaic, zoom, closing fades)"
+ ],
+ "measured_curves": [
+  {
+   "site": "C1",
+   "authored": [
+    36,
+    95
+   ],
+   "full_frame": 95,
+   "blank_frame": 34,
+   "mask_pixels": 63700,
+   "direction": "in",
+   "first_moving": 39,
+   "last_moving": 85,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     34,
+     0.0
+    ],
+    [
+     35,
+     0.0
+    ],
+    [
+     36,
+     0.0
+    ],
+    [
+     37,
+     0.0023
+    ],
+    [
+     38,
+     0.0156
+    ],
+    [
+     39,
+     0.0222
+    ],
+    [
+     40,
+     0.0363
+    ],
+    [
+     41,
+     0.0483
+    ],
+    [
+     42,
+     0.0667
+    ],
+    [
+     43,
+     0.088
+    ],
+    [
+     44,
+     0.1114
+    ],
+    [
+     45,
+     0.1385
+    ],
+    [
+     46,
+     0.1687
+    ],
+    [
+     47,
+     0.1985
+    ],
+    [
+     48,
+     0.2292
+    ],
+    [
+     49,
+     0.2568
+    ],
+    [
+     50,
+     0.2843
+    ],
+    [
+     51,
+     0.3123
+    ],
+    [
+     52,
+     0.3435
+    ],
+    [
+     53,
+     0.375
+    ],
+    [
+     54,
+     0.4063
+    ],
+    [
+     55,
+     0.4348
+    ],
+    [
+     56,
+     0.463
+    ],
+    [
+     57,
+     0.4913
+    ],
+    [
+     58,
+     0.5195
+    ],
+    [
+     59,
+     0.5474
+    ],
+    [
+     60,
+     0.5756
+    ],
+    [
+     61,
+     0.601
+    ],
+    [
+     62,
+     0.6261
+    ],
+    [
+     63,
+     0.6514
+    ],
+    [
+     64,
+     0.6752
+    ],
+    [
+     65,
+     0.7008
+    ],
+    [
+     66,
+     0.7185
+    ],
+    [
+     67,
+     0.7405
+    ],
+    [
+     68,
+     0.7628
+    ],
+    [
+     69,
+     0.7847
+    ],
+    [
+     70,
+     0.8035
+    ],
+    [
+     71,
+     0.8226
+    ],
+    [
+     72,
+     0.8436
+    ],
+    [
+     73,
+     0.8558
+    ],
+    [
+     74,
+     0.8694
+    ],
+    [
+     75,
+     0.8859
+    ],
+    [
+     76,
+     0.8994
+    ],
+    [
+     77,
+     0.9096
+    ],
+    [
+     78,
+     0.9248
+    ],
+    [
+     79,
+     0.935
+    ],
+    [
+     80,
+     0.9471
+    ],
+    [
+     81,
+     0.955
+    ],
+    [
+     82,
+     0.9635
+    ],
+    [
+     83,
+     0.9753
+    ],
+    [
+     84,
+     0.9765
+    ],
+    [
+     85,
+     0.9788
+    ],
+    [
+     86,
+     0.988
+    ],
+    [
+     87,
+     0.9903
+    ],
+    [
+     88,
+     0.9908
+    ],
+    [
+     89,
+     0.9979
+    ],
+    [
+     90,
+     0.9984
+    ],
+    [
+     91,
+     0.9997
+    ],
+    [
+     92,
+     1.0003
+    ],
+    [
+     93,
+     1.0
+    ],
+    [
+     94,
+     1.0
+    ],
+    [
+     95,
+     1.0
+    ],
+    [
+     96,
+     1.0
+    ],
+    [
+     97,
+     1.0
+    ],
+    [
+     98,
+     1.0
+    ]
+   ]
+  },
+  {
+   "site": "C2",
+   "authored": [
+    1991,
+    2020
+   ],
+   "full_frame": 1989,
+   "blank_frame": 2021,
+   "mask_pixels": 63756,
+   "direction": "out",
+   "first_moving": 1996,
+   "last_moving": 2018,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     1989,
+     1.0
+    ],
+    [
+     1990,
+     1.0
+    ],
+    [
+     1991,
+     1.0
+    ],
+    [
+     1992,
+     0.9999
+    ],
+    [
+     1993,
+     0.9993
+    ],
+    [
+     1994,
+     0.9907
+    ],
+    [
+     1995,
+     0.9849
+    ],
+    [
+     1996,
+     0.9714
+    ],
+    [
+     1997,
+     0.9493
+    ],
+    [
+     1998,
+     0.9291
+    ],
+    [
+     1999,
+     0.9069
+    ],
+    [
+     2000,
+     0.8809
+    ],
+    [
+     2001,
+     0.8541
+    ],
+    [
+     2002,
+     0.8278
+    ],
+    [
+     2003,
+     0.7835
+    ],
+    [
+     2004,
+     0.7394
+    ],
+    [
+     2005,
+     0.6941
+    ],
+    [
+     2006,
+     0.6478
+    ],
+    [
+     2007,
+     0.6001
+    ],
+    [
+     2008,
+     0.5521
+    ],
+    [
+     2009,
+     0.4955
+    ],
+    [
+     2010,
+     0.4405
+    ],
+    [
+     2011,
+     0.3816
+    ],
+    [
+     2012,
+     0.322
+    ],
+    [
+     2013,
+     0.2638
+    ],
+    [
+     2014,
+     0.2034
+    ],
+    [
+     2015,
+     0.1516
+    ],
+    [
+     2016,
+     0.0971
+    ],
+    [
+     2017,
+     0.0545
+    ],
+    [
+     2018,
+     0.0258
+    ],
+    [
+     2019,
+     0.0046
+    ],
+    [
+     2020,
+     0.0
+    ],
+    [
+     2021,
+     0.0
+    ]
+   ]
+  },
+  {
+   "site": "C3",
+   "authored": [
+    2021,
+    2069
+   ],
+   "full_frame": 2065,
+   "blank_frame": 2021,
+   "mask_pixels": 41667,
+   "direction": "in",
+   "first_moving": 2023,
+   "last_moving": 2060,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     2020,
+     0.0
+    ],
+    [
+     2021,
+     0.0
+    ],
+    [
+     2022,
+     0.0115
+    ],
+    [
+     2023,
+     0.0234
+    ],
+    [
+     2024,
+     0.0335
+    ],
+    [
+     2025,
+     0.0625
+    ],
+    [
+     2026,
+     0.0864
+    ],
+    [
+     2027,
+     0.1157
+    ],
+    [
+     2028,
+     0.1461
+    ],
+    [
+     2029,
+     0.1753
+    ],
+    [
+     2030,
+     0.2139
+    ],
+    [
+     2031,
+     0.253
+    ],
+    [
+     2032,
+     0.2912
+    ],
+    [
+     2033,
+     0.3271
+    ],
+    [
+     2034,
+     0.3634
+    ],
+    [
+     2035,
+     0.3995
+    ],
+    [
+     2036,
+     0.4363
+    ],
+    [
+     2037,
+     0.4727
+    ],
+    [
+     2038,
+     0.5095
+    ],
+    [
+     2039,
+     0.5434
+    ],
+    [
+     2040,
+     0.5769
+    ],
+    [
+     2041,
+     0.6109
+    ],
+    [
+     2042,
+     0.6473
+    ],
+    [
+     2043,
+     0.6755
+    ],
+    [
+     2044,
+     0.7078
+    ],
+    [
+     2045,
+     0.7318
+    ],
+    [
+     2046,
+     0.7564
+    ],
+    [
+     2047,
+     0.781
+    ],
+    [
+     2048,
+     0.8056
+    ],
+    [
+     2049,
+     0.8276
+    ],
+    [
+     2050,
+     0.849
+    ],
+    [
+     2051,
+     0.871
+    ],
+    [
+     2052,
+     0.893
+    ],
+    [
+     2053,
+     0.9059
+    ],
+    [
+     2054,
+     0.9174
+    ],
+    [
+     2055,
+     0.9344
+    ],
+    [
+     2056,
+     0.9459
+    ],
+    [
+     2057,
+     0.9552
+    ],
+    [
+     2058,
+     0.9689
+    ],
+    [
+     2059,
+     0.9781
+    ],
+    [
+     2060,
+     0.98
+    ],
+    [
+     2061,
+     0.9902
+    ],
+    [
+     2062,
+     0.992
+    ],
+    [
+     2063,
+     0.9924
+    ],
+    [
+     2064,
+     0.9996
+    ],
+    [
+     2065,
+     1.0
+    ],
+    [
+     2066,
+     1.0
+    ],
+    [
+     2067,
+     1.0006
+    ],
+    [
+     2068,
+     1.0007
+    ],
+    [
+     2069,
+     1.0007
+    ],
+    [
+     2070,
+     1.0005
+    ],
+    [
+     2071,
+     1.0005
+    ],
+    [
+     2072,
+     1.0007
+    ]
+   ]
+  },
+  {
+   "site": "C4",
+   "authored": [
+    2896,
+    2925
+   ],
+   "full_frame": 2894,
+   "blank_frame": 2926,
+   "mask_pixels": 41643,
+   "direction": "out",
+   "first_moving": 2900,
+   "last_moving": 2923,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     2894,
+     1.0
+    ],
+    [
+     2895,
+     1.0
+    ],
+    [
+     2896,
+     0.9999
+    ],
+    [
+     2897,
+     0.9943
+    ],
+    [
+     2898,
+     0.992
+    ],
+    [
+     2899,
+     0.9864
+    ],
+    [
+     2900,
+     0.9751
+    ],
+    [
+     2901,
+     0.9622
+    ],
+    [
+     2902,
+     0.9509
+    ],
+    [
+     2903,
+     0.9336
+    ],
+    [
+     2904,
+     0.9079
+    ],
+    [
+     2905,
+     0.8854
+    ],
+    [
+     2906,
+     0.8559
+    ],
+    [
+     2907,
+     0.8158
+    ],
+    [
+     2908,
+     0.7757
+    ],
+    [
+     2909,
+     0.7352
+    ],
+    [
+     2910,
+     0.6913
+    ],
+    [
+     2911,
+     0.6468
+    ],
+    [
+     2912,
+     0.602
+    ],
+    [
+     2913,
+     0.5456
+    ],
+    [
+     2914,
+     0.4919
+    ],
+    [
+     2915,
+     0.4332
+    ],
+    [
+     2916,
+     0.3742
+    ],
+    [
+     2917,
+     0.3169
+    ],
+    [
+     2918,
+     0.2556
+    ],
+    [
+     2919,
+     0.1997
+    ],
+    [
+     2920,
+     0.1471
+    ],
+    [
+     2921,
+     0.0879
+    ],
+    [
+     2922,
+     0.0496
+    ],
+    [
+     2923,
+     0.0207
+    ],
+    [
+     2924,
+     0.004
+    ],
+    [
+     2925,
+     0.0
+    ],
+    [
+     2926,
+     0.0
+    ]
+   ]
+  },
+  {
+   "site": "C5",
+   "authored": [
+    2926,
+    2974
+   ],
+   "full_frame": 2974,
+   "blank_frame": 2926,
+   "mask_pixels": 71757,
+   "direction": "in",
+   "first_moving": 2928,
+   "last_moving": 2964,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     2925,
+     0.0
+    ],
+    [
+     2926,
+     0.0
+    ],
+    [
+     2927,
+     0.0115
+    ],
+    [
+     2928,
+     0.0242
+    ],
+    [
+     2929,
+     0.0336
+    ],
+    [
+     2930,
+     0.0594
+    ],
+    [
+     2931,
+     0.0842
+    ],
+    [
+     2932,
+     0.1106
+    ],
+    [
+     2933,
+     0.1436
+    ],
+    [
+     2934,
+     0.177
+    ],
+    [
+     2935,
+     0.2105
+    ],
+    [
+     2936,
+     0.2493
+    ],
+    [
+     2937,
+     0.2877
+    ],
+    [
+     2938,
+     0.3262
+    ],
+    [
+     2939,
+     0.3623
+    ],
+    [
+     2940,
+     0.3983
+    ],
+    [
+     2941,
+     0.4342
+    ],
+    [
+     2942,
+     0.4698
+    ],
+    [
+     2943,
+     0.5051
+    ],
+    [
+     2944,
+     0.5406
+    ],
+    [
+     2945,
+     0.5734
+    ],
+    [
+     2946,
+     0.6058
+    ],
+    [
+     2947,
+     0.6388
+    ],
+    [
+     2948,
+     0.6677
+    ],
+    [
+     2949,
+     0.6972
+    ],
+    [
+     2950,
+     0.7261
+    ],
+    [
+     2951,
+     0.7524
+    ],
+    [
+     2952,
+     0.7788
+    ],
+    [
+     2953,
+     0.805
+    ],
+    [
+     2954,
+     0.8319
+    ],
+    [
+     2955,
+     0.8507
+    ],
+    [
+     2956,
+     0.8738
+    ],
+    [
+     2957,
+     0.8881
+    ],
+    [
+     2958,
+     0.9096
+    ],
+    [
+     2959,
+     0.9209
+    ],
+    [
+     2960,
+     0.9375
+    ],
+    [
+     2961,
+     0.9453
+    ],
+    [
+     2962,
+     0.9598
+    ],
+    [
+     2963,
+     0.967
+    ],
+    [
+     2964,
+     0.977
+    ],
+    [
+     2965,
+     0.9798
+    ],
+    [
+     2966,
+     0.9808
+    ],
+    [
+     2967,
+     0.9912
+    ],
+    [
+     2968,
+     0.9922
+    ],
+    [
+     2969,
+     0.9923
+    ],
+    [
+     2970,
+     0.9996
+    ],
+    [
+     2971,
+     0.9997
+    ],
+    [
+     2972,
+     0.9997
+    ],
+    [
+     2973,
+     1.0
+    ],
+    [
+     2974,
+     1.0
+    ],
+    [
+     2975,
+     1.0
+    ],
+    [
+     2976,
+     0.9998
+    ],
+    [
+     2977,
+     0.9997
+    ]
+   ]
+  },
+  {
+   "site": "C6",
+   "authored": [
+    4774,
+    4803
+   ],
+   "full_frame": 4772,
+   "blank_frame": 4804,
+   "mask_pixels": 71550,
+   "direction": "out",
+   "first_moving": 4779,
+   "last_moving": 4801,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     4772,
+     1.0
+    ],
+    [
+     4773,
+     1.0
+    ],
+    [
+     4774,
+     1.0
+    ],
+    [
+     4775,
+     0.9994
+    ],
+    [
+     4776,
+     0.9986
+    ],
+    [
+     4777,
+     0.9932
+    ],
+    [
+     4778,
+     0.9832
+    ],
+    [
+     4779,
+     0.974
+    ],
+    [
+     4780,
+     0.959
+    ],
+    [
+     4781,
+     0.94
+    ],
+    [
+     4782,
+     0.9151
+    ],
+    [
+     4783,
+     0.8905
+    ],
+    [
+     4784,
+     0.8605
+    ],
+    [
+     4785,
+     0.8251
+    ],
+    [
+     4786,
+     0.7832
+    ],
+    [
+     4787,
+     0.7411
+    ],
+    [
+     4788,
+     0.6972
+    ],
+    [
+     4789,
+     0.6522
+    ],
+    [
+     4790,
+     0.604
+    ],
+    [
+     4791,
+     0.5472
+    ],
+    [
+     4792,
+     0.4943
+    ],
+    [
+     4793,
+     0.4344
+    ],
+    [
+     4794,
+     0.3792
+    ],
+    [
+     4795,
+     0.3172
+    ],
+    [
+     4796,
+     0.2593
+    ],
+    [
+     4797,
+     0.1966
+    ],
+    [
+     4798,
+     0.1456
+    ],
+    [
+     4799,
+     0.0888
+    ],
+    [
+     4800,
+     0.0528
+    ],
+    [
+     4801,
+     0.0206
+    ],
+    [
+     4802,
+     0.0004
+    ],
+    [
+     4803,
+     0.0001
+    ],
+    [
+     4804,
+     0.0
+    ]
+   ]
+  },
+  {
+   "site": "C7",
+   "authored": [
+    4804,
+    4852
+   ],
+   "full_frame": 4852,
+   "blank_frame": 4804,
+   "mask_pixels": 79882,
+   "direction": "in",
+   "first_moving": 4807,
+   "last_moving": 4843,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     4803,
+     0.0001
+    ],
+    [
+     4804,
+     0.0
+    ],
+    [
+     4805,
+     0.0086
+    ],
+    [
+     4806,
+     0.0177
+    ],
+    [
+     4807,
+     0.0345
+    ],
+    [
+     4808,
+     0.0565
+    ],
+    [
+     4809,
+     0.0812
+    ],
+    [
+     4810,
+     0.116
+    ],
+    [
+     4811,
+     0.1517
+    ],
+    [
+     4812,
+     0.1867
+    ],
+    [
+     4813,
+     0.22
+    ],
+    [
+     4814,
+     0.2534
+    ],
+    [
+     4815,
+     0.2864
+    ],
+    [
+     4816,
+     0.3248
+    ],
+    [
+     4817,
+     0.3636
+    ],
+    [
+     4818,
+     0.4022
+    ],
+    [
+     4819,
+     0.4383
+    ],
+    [
+     4820,
+     0.4737
+    ],
+    [
+     4821,
+     0.5096
+    ],
+    [
+     4822,
+     0.5431
+    ],
+    [
+     4823,
+     0.5761
+    ],
+    [
+     4824,
+     0.6097
+    ],
+    [
+     4825,
+     0.6404
+    ],
+    [
+     4826,
+     0.671
+    ],
+    [
+     4827,
+     0.7018
+    ],
+    [
+     4828,
+     0.7285
+    ],
+    [
+     4829,
+     0.7597
+    ],
+    [
+     4830,
+     0.7824
+    ],
+    [
+     4831,
+     0.81
+    ],
+    [
+     4832,
+     0.8302
+    ],
+    [
+     4833,
+     0.8542
+    ],
+    [
+     4834,
+     0.8697
+    ],
+    [
+     4835,
+     0.8926
+    ],
+    [
+     4836,
+     0.9058
+    ],
+    [
+     4837,
+     0.9175
+    ],
+    [
+     4838,
+     0.934
+    ],
+    [
+     4839,
+     0.9457
+    ],
+    [
+     4840,
+     0.9549
+    ],
+    [
+     4841,
+     0.9682
+    ],
+    [
+     4842,
+     0.9773
+    ],
+    [
+     4843,
+     0.9784
+    ],
+    [
+     4844,
+     0.9897
+    ],
+    [
+     4845,
+     0.9908
+    ],
+    [
+     4846,
+     0.9911
+    ],
+    [
+     4847,
+     0.9985
+    ],
+    [
+     4848,
+     0.9987
+    ],
+    [
+     4849,
+     0.9999
+    ],
+    [
+     4850,
+     0.9999
+    ],
+    [
+     4851,
+     1.0
+    ],
+    [
+     4852,
+     1.0
+    ],
+    [
+     4853,
+     1.0
+    ],
+    [
+     4854,
+     1.0
+    ],
+    [
+     4855,
+     1.0
+    ]
+   ]
+  },
+  {
+   "site": "C8",
+   "authored": [
+    6183,
+    6212
+   ],
+   "full_frame": 6181,
+   "blank_frame": 6213,
+   "mask_pixels": 79871,
+   "direction": "out",
+   "first_moving": 6187,
+   "last_moving": 6210,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     6181,
+     1.0
+    ],
+    [
+     6182,
+     1.0
+    ],
+    [
+     6183,
+     1.0
+    ],
+    [
+     6184,
+     0.9947
+    ],
+    [
+     6185,
+     0.9924
+    ],
+    [
+     6186,
+     0.9871
+    ],
+    [
+     6187,
+     0.9756
+    ],
+    [
+     6188,
+     0.9629
+    ],
+    [
+     6189,
+     0.9512
+    ],
+    [
+     6190,
+     0.9339
+    ],
+    [
+     6191,
+     0.9085
+    ],
+    [
+     6192,
+     0.8862
+    ],
+    [
+     6193,
+     0.8569
+    ],
+    [
+     6194,
+     0.8171
+    ],
+    [
+     6195,
+     0.7774
+    ],
+    [
+     6196,
+     0.7373
+    ],
+    [
+     6197,
+     0.6927
+    ],
+    [
+     6198,
+     0.6483
+    ],
+    [
+     6199,
+     0.6027
+    ],
+    [
+     6200,
+     0.5466
+    ],
+    [
+     6201,
+     0.4932
+    ],
+    [
+     6202,
+     0.435
+    ],
+    [
+     6203,
+     0.3762
+    ],
+    [
+     6204,
+     0.3194
+    ],
+    [
+     6205,
+     0.2584
+    ],
+    [
+     6206,
+     0.2078
+    ],
+    [
+     6207,
+     0.1487
+    ],
+    [
+     6208,
+     0.1023
+    ],
+    [
+     6209,
+     0.0531
+    ],
+    [
+     6210,
+     0.0236
+    ],
+    [
+     6211,
+     0.0048
+    ],
+    [
+     6212,
+     0.0
+    ],
+    [
+     6213,
+     0.0
+    ]
+   ]
+  },
+  {
+   "site": "C9",
+   "authored": [
+    6213,
+    6261
+   ],
+   "full_frame": 6261,
+   "blank_frame": 6213,
+   "mask_pixels": 50286,
+   "direction": "in",
+   "first_moving": 6215,
+   "last_moving": 6252,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     6212,
+     0.0
+    ],
+    [
+     6213,
+     0.0
+    ],
+    [
+     6214,
+     0.0136
+    ],
+    [
+     6215,
+     0.0225
+    ],
+    [
+     6216,
+     0.0352
+    ],
+    [
+     6217,
+     0.0577
+    ],
+    [
+     6218,
+     0.0815
+    ],
+    [
+     6219,
+     0.1109
+    ],
+    [
+     6220,
+     0.1431
+    ],
+    [
+     6221,
+     0.1783
+    ],
+    [
+     6222,
+     0.2166
+    ],
+    [
+     6223,
+     0.2553
+    ],
+    [
+     6224,
+     0.2932
+    ],
+    [
+     6225,
+     0.3286
+    ],
+    [
+     6226,
+     0.3642
+    ],
+    [
+     6227,
+     0.4002
+    ],
+    [
+     6228,
+     0.4364
+    ],
+    [
+     6229,
+     0.4721
+    ],
+    [
+     6230,
+     0.5074
+    ],
+    [
+     6231,
+     0.5428
+    ],
+    [
+     6232,
+     0.5756
+    ],
+    [
+     6233,
+     0.6081
+    ],
+    [
+     6234,
+     0.6408
+    ],
+    [
+     6235,
+     0.6694
+    ],
+    [
+     6236,
+     0.6989
+    ],
+    [
+     6237,
+     0.7274
+    ],
+    [
+     6238,
+     0.7533
+    ],
+    [
+     6239,
+     0.7795
+    ],
+    [
+     6240,
+     0.8053
+    ],
+    [
+     6241,
+     0.8316
+    ],
+    [
+     6242,
+     0.85
+    ],
+    [
+     6243,
+     0.8726
+    ],
+    [
+     6244,
+     0.8862
+    ],
+    [
+     6245,
+     0.9079
+    ],
+    [
+     6246,
+     0.9197
+    ],
+    [
+     6247,
+     0.9367
+    ],
+    [
+     6248,
+     0.9449
+    ],
+    [
+     6249,
+     0.9598
+    ],
+    [
+     6250,
+     0.9669
+    ],
+    [
+     6251,
+     0.9771
+    ],
+    [
+     6252,
+     0.9798
+    ],
+    [
+     6253,
+     0.9808
+    ],
+    [
+     6254,
+     0.9915
+    ],
+    [
+     6255,
+     0.9926
+    ],
+    [
+     6256,
+     0.9926
+    ],
+    [
+     6257,
+     0.9998
+    ],
+    [
+     6258,
+     0.9999
+    ],
+    [
+     6259,
+     0.9998
+    ],
+    [
+     6260,
+     1.0
+    ],
+    [
+     6261,
+     1.0
+    ],
+    [
+     6262,
+     1.0
+    ],
+    [
+     6263,
+     0.9999
+    ],
+    [
+     6264,
+     0.9999
+    ]
+   ]
+  },
+  {
+   "site": "C10",
+   "authored": [
+    7314,
+    7362
+   ],
+   "full_frame": 7362,
+   "blank_frame": 7313,
+   "mask_pixels": 22100,
+   "direction": "in",
+   "first_moving": 7316,
+   "last_moving": 7352,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     7312,
+     0.0
+    ],
+    [
+     7313,
+     0.0
+    ],
+    [
+     7314,
+     0.0
+    ],
+    [
+     7315,
+     0.0129
+    ],
+    [
+     7316,
+     0.0244
+    ],
+    [
+     7317,
+     0.0367
+    ],
+    [
+     7318,
+     0.0669
+    ],
+    [
+     7319,
+     0.0934
+    ],
+    [
+     7320,
+     0.1243
+    ],
+    [
+     7321,
+     0.1545
+    ],
+    [
+     7322,
+     0.188
+    ],
+    [
+     7323,
+     0.2202
+    ],
+    [
+     7324,
+     0.2589
+    ],
+    [
+     7325,
+     0.2975
+    ],
+    [
+     7326,
+     0.3361
+    ],
+    [
+     7327,
+     0.3722
+    ],
+    [
+     7328,
+     0.4078
+    ],
+    [
+     7329,
+     0.4442
+    ],
+    [
+     7330,
+     0.4799
+    ],
+    [
+     7331,
+     0.5151
+    ],
+    [
+     7332,
+     0.5507
+    ],
+    [
+     7333,
+     0.5832
+    ],
+    [
+     7334,
+     0.6159
+    ],
+    [
+     7335,
+     0.6485
+    ],
+    [
+     7336,
+     0.6722
+    ],
+    [
+     7337,
+     0.7033
+    ],
+    [
+     7338,
+     0.7309
+    ],
+    [
+     7339,
+     0.7585
+    ],
+    [
+     7340,
+     0.7834
+    ],
+    [
+     7341,
+     0.8076
+    ],
+    [
+     7342,
+     0.8301
+    ],
+    [
+     7343,
+     0.8513
+    ],
+    [
+     7344,
+     0.8705
+    ],
+    [
+     7345,
+     0.8893
+    ],
+    [
+     7346,
+     0.9062
+    ],
+    [
+     7347,
+     0.9221
+    ],
+    [
+     7348,
+     0.9352
+    ],
+    [
+     7349,
+     0.9523
+    ],
+    [
+     7350,
+     0.9606
+    ],
+    [
+     7351,
+     0.9683
+    ],
+    [
+     7352,
+     0.9758
+    ],
+    [
+     7353,
+     0.9834
+    ],
+    [
+     7354,
+     0.9876
+    ],
+    [
+     7355,
+     0.993
+    ],
+    [
+     7356,
+     0.9972
+    ],
+    [
+     7357,
+     0.9973
+    ],
+    [
+     7358,
+     1.0
+    ],
+    [
+     7359,
+     1.0001
+    ],
+    [
+     7360,
+     1.0001
+    ],
+    [
+     7361,
+     1.0
+    ],
+    [
+     7362,
+     1.0
+    ],
+    [
+     7363,
+     1.0004
+    ],
+    [
+     7364,
+     1.0025
+    ],
+    [
+     7365,
+     1.0017
+    ]
+   ]
+  },
+  {
+   "site": "C11",
+   "authored": [
+    8717,
+    8741
+   ],
+   "full_frame": 8715,
+   "blank_frame": 8741,
+   "mask_pixels": 47261,
+   "direction": "out",
+   "first_moving": 8721,
+   "last_moving": 8738,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     8715,
+     1.0
+    ],
+    [
+     8716,
+     1.0
+    ],
+    [
+     8717,
+     1.0
+    ],
+    [
+     8718,
+     0.9993
+    ],
+    [
+     8719,
+     0.9993
+    ],
+    [
+     8720,
+     0.998
+    ],
+    [
+     8721,
+     0.9672
+    ],
+    [
+     8722,
+     0.9484
+    ],
+    [
+     8723,
+     0.9266
+    ],
+    [
+     8724,
+     0.8961
+    ],
+    [
+     8725,
+     0.8578
+    ],
+    [
+     8726,
+     0.811
+    ],
+    [
+     8727,
+     0.7514
+    ],
+    [
+     8728,
+     0.6942
+    ],
+    [
+     8729,
+     0.632
+    ],
+    [
+     8730,
+     0.567
+    ],
+    [
+     8731,
+     0.5048
+    ],
+    [
+     8732,
+     0.4369
+    ],
+    [
+     8733,
+     0.3706
+    ],
+    [
+     8734,
+     0.2962
+    ],
+    [
+     8735,
+     0.2241
+    ],
+    [
+     8736,
+     0.1507
+    ],
+    [
+     8737,
+     0.0822
+    ],
+    [
+     8738,
+     0.0356
+    ],
+    [
+     8739,
+     0.0115
+    ],
+    [
+     8740,
+     0.0
+    ],
+    [
+     8741,
+     0.0
+    ],
+    [
+     8742,
+     0.0
+    ]
+   ]
+  },
+  {
+   "site": "C12",
+   "authored": [
+    8742,
+    8766
+   ],
+   "full_frame": 8741,
+   "blank_frame": 8766,
+   "mask_pixels": 22100,
+   "direction": "out",
+   "first_moving": 8746,
+   "last_moving": 8763,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     8740,
+     1.0062
+    ],
+    [
+     8741,
+     1.0
+    ],
+    [
+     8742,
+     1.0
+    ],
+    [
+     8743,
+     0.9984
+    ],
+    [
+     8744,
+     0.9899
+    ],
+    [
+     8745,
+     0.9883
+    ],
+    [
+     8746,
+     0.9717
+    ],
+    [
+     8747,
+     0.9476
+    ],
+    [
+     8748,
+     0.9202
+    ],
+    [
+     8749,
+     0.8855
+    ],
+    [
+     8750,
+     0.8551
+    ],
+    [
+     8751,
+     0.8031
+    ],
+    [
+     8752,
+     0.7524
+    ],
+    [
+     8753,
+     0.6993
+    ],
+    [
+     8754,
+     0.6374
+    ],
+    [
+     8755,
+     0.5778
+    ],
+    [
+     8756,
+     0.5139
+    ],
+    [
+     8757,
+     0.447
+    ],
+    [
+     8758,
+     0.3708
+    ],
+    [
+     8759,
+     0.2994
+    ],
+    [
+     8760,
+     0.2202
+    ],
+    [
+     8761,
+     0.1575
+    ],
+    [
+     8762,
+     0.0957
+    ],
+    [
+     8763,
+     0.037
+    ],
+    [
+     8764,
+     0.0135
+    ],
+    [
+     8765,
+     0.0
+    ],
+    [
+     8766,
+     0.0
+    ],
+    [
+     8767,
+     0.0
+    ]
+   ]
+  },
+  {
+   "site": "C13.1",
+   "authored": [
+    8767,
+    8781
+   ],
+   "full_frame": 8859,
+   "blank_frame": 8766,
+   "mask_pixels": 20424,
+   "direction": "in",
+   "first_moving": 8767,
+   "last_moving": 8778,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     8766,
+     0.0
+    ],
+    [
+     8767,
+     0.022
+    ],
+    [
+     8768,
+     0.0895
+    ],
+    [
+     8769,
+     0.1932
+    ],
+    [
+     8770,
+     0.3085
+    ],
+    [
+     8771,
+     0.4317
+    ],
+    [
+     8772,
+     0.5451
+    ],
+    [
+     8773,
+     0.6433
+    ],
+    [
+     8774,
+     0.7336
+    ],
+    [
+     8775,
+     0.8142
+    ],
+    [
+     8776,
+     0.8865
+    ],
+    [
+     8777,
+     0.937
+    ],
+    [
+     8778,
+     0.9792
+    ],
+    [
+     8779,
+     0.9855
+    ],
+    [
+     8780,
+     0.9921
+    ],
+    [
+     8781,
+     0.9984
+    ],
+    [
+     8782,
+     0.9993
+    ],
+    [
+     8783,
+     0.9993
+    ],
+    [
+     8784,
+     0.9993
+    ],
+    [
+     8785,
+     0.9993
+    ],
+    [
+     8786,
+     0.9993
+    ],
+    [
+     8787,
+     0.9993
+    ],
+    [
+     8788,
+     0.9993
+    ],
+    [
+     8789,
+     0.9994
+    ],
+    [
+     8790,
+     0.9994
+    ],
+    [
+     8791,
+     0.9994
+    ],
+    [
+     8792,
+     0.9993
+    ],
+    [
+     8793,
+     0.9995
+    ],
+    [
+     8794,
+     0.9996
+    ],
+    [
+     8795,
+     0.9996
+    ],
+    [
+     8796,
+     0.9997
+    ],
+    [
+     8797,
+     0.9997
+    ],
+    [
+     8798,
+     0.9998
+    ],
+    [
+     8799,
+     0.9999
+    ],
+    [
+     8800,
+     0.9999
+    ],
+    [
+     8801,
+     0.9999
+    ],
+    [
+     8802,
+     0.9999
+    ],
+    [
+     8803,
+     0.9999
+    ],
+    [
+     8804,
+     0.9999
+    ],
+    [
+     8805,
+     1.0
+    ],
+    [
+     8806,
+     1.0
+    ],
+    [
+     8807,
+     1.0
+    ],
+    [
+     8808,
+     0.9999
+    ],
+    [
+     8809,
+     1.0
+    ],
+    [
+     8810,
+     1.0
+    ],
+    [
+     8811,
+     1.0
+    ],
+    [
+     8812,
+     1.0
+    ],
+    [
+     8813,
+     1.0
+    ],
+    [
+     8814,
+     1.0
+    ],
+    [
+     8815,
+     1.0
+    ],
+    [
+     8816,
+     1.0
+    ],
+    [
+     8817,
+     1.0
+    ],
+    [
+     8818,
+     1.0
+    ],
+    [
+     8819,
+     1.0
+    ],
+    [
+     8820,
+     1.0
+    ],
+    [
+     8821,
+     1.0
+    ],
+    [
+     8822,
+     1.0
+    ],
+    [
+     8823,
+     1.0
+    ],
+    [
+     8824,
+     1.0
+    ],
+    [
+     8825,
+     1.0
+    ],
+    [
+     8826,
+     1.0
+    ],
+    [
+     8827,
+     1.0
+    ],
+    [
+     8828,
+     1.0
+    ],
+    [
+     8829,
+     1.0
+    ],
+    [
+     8830,
+     1.0
+    ],
+    [
+     8831,
+     1.0
+    ],
+    [
+     8832,
+     1.0
+    ],
+    [
+     8833,
+     1.0
+    ],
+    [
+     8834,
+     1.0
+    ],
+    [
+     8835,
+     1.0
+    ],
+    [
+     8836,
+     1.0
+    ],
+    [
+     8837,
+     1.0
+    ],
+    [
+     8838,
+     1.0
+    ],
+    [
+     8839,
+     1.0
+    ],
+    [
+     8840,
+     1.0
+    ],
+    [
+     8841,
+     1.0
+    ],
+    [
+     8842,
+     1.0
+    ],
+    [
+     8843,
+     1.0
+    ],
+    [
+     8844,
+     1.0
+    ],
+    [
+     8845,
+     1.0
+    ],
+    [
+     8846,
+     1.0
+    ],
+    [
+     8847,
+     1.0
+    ],
+    [
+     8848,
+     1.0
+    ],
+    [
+     8849,
+     1.0
+    ],
+    [
+     8850,
+     1.0
+    ],
+    [
+     8851,
+     1.0
+    ],
+    [
+     8852,
+     1.0
+    ],
+    [
+     8853,
+     1.0
+    ],
+    [
+     8854,
+     1.0
+    ],
+    [
+     8855,
+     1.0
+    ],
+    [
+     8856,
+     1.0
+    ],
+    [
+     8857,
+     1.0
+    ],
+    [
+     8858,
+     1.0
+    ],
+    [
+     8859,
+     1.0
+    ]
+   ]
+  },
+  {
+   "site": "C13.2",
+   "authored": [
+    8782,
+    8796
+   ],
+   "full_frame": 8859,
+   "blank_frame": 8766,
+   "mask_pixels": 20424,
+   "direction": "in",
+   "first_moving": 8782,
+   "last_moving": 8793,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     8766,
+     0.0
+    ],
+    [
+     8767,
+     0.0
+    ],
+    [
+     8768,
+     0.0
+    ],
+    [
+     8769,
+     0.0
+    ],
+    [
+     8770,
+     0.0
+    ],
+    [
+     8771,
+     0.0
+    ],
+    [
+     8772,
+     0.0
+    ],
+    [
+     8773,
+     0.0
+    ],
+    [
+     8774,
+     0.0
+    ],
+    [
+     8775,
+     0.0
+    ],
+    [
+     8776,
+     0.0
+    ],
+    [
+     8777,
+     0.0
+    ],
+    [
+     8778,
+     0.0
+    ],
+    [
+     8779,
+     0.0
+    ],
+    [
+     8780,
+     0.0
+    ],
+    [
+     8781,
+     0.0
+    ],
+    [
+     8782,
+     0.0255
+    ],
+    [
+     8783,
+     0.0943
+    ],
+    [
+     8784,
+     0.208
+    ],
+    [
+     8785,
+     0.3224
+    ],
+    [
+     8786,
+     0.434
+    ],
+    [
+     8787,
+     0.5431
+    ],
+    [
+     8788,
+     0.6574
+    ],
+    [
+     8789,
+     0.7422
+    ],
+    [
+     8790,
+     0.8187
+    ],
+    [
+     8791,
+     0.8843
+    ],
+    [
+     8792,
+     0.941
+    ],
+    [
+     8793,
+     0.9711
+    ],
+    [
+     8794,
+     0.9898
+    ],
+    [
+     8795,
+     0.9924
+    ],
+    [
+     8796,
+     0.9994
+    ],
+    [
+     8797,
+     0.9989
+    ],
+    [
+     8798,
+     0.9998
+    ],
+    [
+     8799,
+     0.9998
+    ],
+    [
+     8800,
+     0.9998
+    ],
+    [
+     8801,
+     0.9998
+    ],
+    [
+     8802,
+     0.9998
+    ],
+    [
+     8803,
+     0.9997
+    ],
+    [
+     8804,
+     0.9997
+    ],
+    [
+     8805,
+     0.9998
+    ],
+    [
+     8806,
+     0.9998
+    ],
+    [
+     8807,
+     0.9998
+    ],
+    [
+     8808,
+     0.9998
+    ],
+    [
+     8809,
+     1.0001
+    ],
+    [
+     8810,
+     1.0001
+    ],
+    [
+     8811,
+     1.0001
+    ],
+    [
+     8812,
+     1.0
+    ],
+    [
+     8813,
+     1.0
+    ],
+    [
+     8814,
+     1.0
+    ],
+    [
+     8815,
+     1.0
+    ],
+    [
+     8816,
+     1.0
+    ],
+    [
+     8817,
+     1.0
+    ],
+    [
+     8818,
+     1.0
+    ],
+    [
+     8819,
+     1.0
+    ],
+    [
+     8820,
+     1.0
+    ],
+    [
+     8821,
+     1.0
+    ],
+    [
+     8822,
+     1.0
+    ],
+    [
+     8823,
+     1.0
+    ],
+    [
+     8824,
+     1.0
+    ],
+    [
+     8825,
+     1.0001
+    ],
+    [
+     8826,
+     1.0001
+    ],
+    [
+     8827,
+     1.0
+    ],
+    [
+     8828,
+     1.0
+    ],
+    [
+     8829,
+     1.0
+    ],
+    [
+     8830,
+     1.0
+    ],
+    [
+     8831,
+     1.0
+    ],
+    [
+     8832,
+     1.0
+    ],
+    [
+     8833,
+     1.0
+    ],
+    [
+     8834,
+     1.0
+    ],
+    [
+     8835,
+     1.0
+    ],
+    [
+     8836,
+     1.0
+    ],
+    [
+     8837,
+     1.0
+    ],
+    [
+     8838,
+     1.0
+    ],
+    [
+     8839,
+     1.0
+    ],
+    [
+     8840,
+     1.0001
+    ],
+    [
+     8841,
+     1.0
+    ],
+    [
+     8842,
+     0.9999
+    ],
+    [
+     8843,
+     1.0
+    ],
+    [
+     8844,
+     1.0
+    ],
+    [
+     8845,
+     1.0
+    ],
+    [
+     8846,
+     1.0
+    ],
+    [
+     8847,
+     1.0
+    ],
+    [
+     8848,
+     1.0
+    ],
+    [
+     8849,
+     1.0
+    ],
+    [
+     8850,
+     1.0
+    ],
+    [
+     8851,
+     1.0
+    ],
+    [
+     8852,
+     1.0
+    ],
+    [
+     8853,
+     1.0
+    ],
+    [
+     8854,
+     1.0
+    ],
+    [
+     8855,
+     1.0001
+    ],
+    [
+     8856,
+     1.0001
+    ],
+    [
+     8857,
+     1.0001
+    ],
+    [
+     8858,
+     1.0
+    ],
+    [
+     8859,
+     1.0
+    ]
+   ]
+  },
+  {
+   "site": "C13.3",
+   "authored": [
+    8797,
+    8811
+   ],
+   "full_frame": 8859,
+   "blank_frame": 8766,
+   "mask_pixels": 20424,
+   "direction": "in",
+   "first_moving": 8797,
+   "last_moving": 8808,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     8766,
+     0.0
+    ],
+    [
+     8767,
+     0.0
+    ],
+    [
+     8768,
+     0.0
+    ],
+    [
+     8769,
+     0.0
+    ],
+    [
+     8770,
+     0.0
+    ],
+    [
+     8771,
+     0.0
+    ],
+    [
+     8772,
+     0.0
+    ],
+    [
+     8773,
+     0.0
+    ],
+    [
+     8774,
+     0.0
+    ],
+    [
+     8775,
+     0.0
+    ],
+    [
+     8776,
+     0.0
+    ],
+    [
+     8777,
+     0.0
+    ],
+    [
+     8778,
+     0.0
+    ],
+    [
+     8779,
+     0.0
+    ],
+    [
+     8780,
+     0.0
+    ],
+    [
+     8781,
+     0.0
+    ],
+    [
+     8782,
+     0.0
+    ],
+    [
+     8783,
+     0.0
+    ],
+    [
+     8784,
+     0.0
+    ],
+    [
+     8785,
+     0.0
+    ],
+    [
+     8786,
+     0.0
+    ],
+    [
+     8787,
+     0.0
+    ],
+    [
+     8788,
+     0.0
+    ],
+    [
+     8789,
+     0.0
+    ],
+    [
+     8790,
+     0.0
+    ],
+    [
+     8791,
+     0.0
+    ],
+    [
+     8792,
+     0.0
+    ],
+    [
+     8793,
+     0.0
+    ],
+    [
+     8794,
+     0.0
+    ],
+    [
+     8795,
+     0.0
+    ],
+    [
+     8796,
+     0.0
+    ],
+    [
+     8797,
+     0.0241
+    ],
+    [
+     8798,
+     0.0919
+    ],
+    [
+     8799,
+     0.2028
+    ],
+    [
+     8800,
+     0.3147
+    ],
+    [
+     8801,
+     0.4307
+    ],
+    [
+     8802,
+     0.5385
+    ],
+    [
+     8803,
+     0.6404
+    ],
+    [
+     8804,
+     0.7481
+    ],
+    [
+     8805,
+     0.8196
+    ],
+    [
+     8806,
+     0.8836
+    ],
+    [
+     8807,
+     0.9323
+    ],
+    [
+     8808,
+     0.9731
+    ],
+    [
+     8809,
+     0.9902
+    ],
+    [
+     8810,
+     0.9925
+    ],
+    [
+     8811,
+     0.9998
+    ],
+    [
+     8812,
+     0.9991
+    ],
+    [
+     8813,
+     0.9991
+    ],
+    [
+     8814,
+     0.9993
+    ],
+    [
+     8815,
+     0.9993
+    ],
+    [
+     8816,
+     0.9993
+    ],
+    [
+     8817,
+     0.9993
+    ],
+    [
+     8818,
+     0.9993
+    ],
+    [
+     8819,
+     0.9993
+    ],
+    [
+     8820,
+     0.9993
+    ],
+    [
+     8821,
+     0.9993
+    ],
+    [
+     8822,
+     0.9993
+    ],
+    [
+     8823,
+     0.9994
+    ],
+    [
+     8824,
+     0.9998
+    ],
+    [
+     8825,
+     0.9998
+    ],
+    [
+     8826,
+     0.9999
+    ],
+    [
+     8827,
+     0.9999
+    ],
+    [
+     8828,
+     0.9999
+    ],
+    [
+     8829,
+     0.9999
+    ],
+    [
+     8830,
+     0.9999
+    ],
+    [
+     8831,
+     0.9999
+    ],
+    [
+     8832,
+     0.9999
+    ],
+    [
+     8833,
+     0.9999
+    ],
+    [
+     8834,
+     0.9999
+    ],
+    [
+     8835,
+     0.9999
+    ],
+    [
+     8836,
+     0.9999
+    ],
+    [
+     8837,
+     0.9999
+    ],
+    [
+     8838,
+     0.9999
+    ],
+    [
+     8839,
+     0.9999
+    ],
+    [
+     8840,
+     0.9999
+    ],
+    [
+     8841,
+     0.9999
+    ],
+    [
+     8842,
+     0.9999
+    ],
+    [
+     8843,
+     0.9999
+    ],
+    [
+     8844,
+     0.9999
+    ],
+    [
+     8845,
+     0.9999
+    ],
+    [
+     8846,
+     0.9999
+    ],
+    [
+     8847,
+     0.9999
+    ],
+    [
+     8848,
+     0.9999
+    ],
+    [
+     8849,
+     0.9999
+    ],
+    [
+     8850,
+     0.9999
+    ],
+    [
+     8851,
+     0.9999
+    ],
+    [
+     8852,
+     0.9999
+    ],
+    [
+     8853,
+     0.9999
+    ],
+    [
+     8854,
+     0.9999
+    ],
+    [
+     8855,
+     1.0
+    ],
+    [
+     8856,
+     1.0
+    ],
+    [
+     8857,
+     1.0
+    ],
+    [
+     8858,
+     1.0
+    ],
+    [
+     8859,
+     1.0
+    ]
+   ]
+  },
+  {
+   "site": "C13.4",
+   "authored": [
+    8812,
+    8826
+   ],
+   "full_frame": 8859,
+   "blank_frame": 8766,
+   "mask_pixels": 20424,
+   "direction": "in",
+   "first_moving": 8812,
+   "last_moving": 8823,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     8766,
+     0.0
+    ],
+    [
+     8767,
+     0.0
+    ],
+    [
+     8768,
+     0.0
+    ],
+    [
+     8769,
+     0.0
+    ],
+    [
+     8770,
+     0.0
+    ],
+    [
+     8771,
+     0.0
+    ],
+    [
+     8772,
+     0.0
+    ],
+    [
+     8773,
+     0.0
+    ],
+    [
+     8774,
+     0.0
+    ],
+    [
+     8775,
+     0.0
+    ],
+    [
+     8776,
+     0.0
+    ],
+    [
+     8777,
+     0.0
+    ],
+    [
+     8778,
+     0.0
+    ],
+    [
+     8779,
+     0.0
+    ],
+    [
+     8780,
+     0.0
+    ],
+    [
+     8781,
+     0.0
+    ],
+    [
+     8782,
+     0.0
+    ],
+    [
+     8783,
+     0.0
+    ],
+    [
+     8784,
+     0.0
+    ],
+    [
+     8785,
+     0.0
+    ],
+    [
+     8786,
+     0.0
+    ],
+    [
+     8787,
+     0.0
+    ],
+    [
+     8788,
+     0.0
+    ],
+    [
+     8789,
+     0.0
+    ],
+    [
+     8790,
+     0.0
+    ],
+    [
+     8791,
+     0.0
+    ],
+    [
+     8792,
+     0.0
+    ],
+    [
+     8793,
+     0.0
+    ],
+    [
+     8794,
+     0.0
+    ],
+    [
+     8795,
+     0.0
+    ],
+    [
+     8796,
+     0.0
+    ],
+    [
+     8797,
+     0.0
+    ],
+    [
+     8798,
+     0.0
+    ],
+    [
+     8799,
+     0.0
+    ],
+    [
+     8800,
+     0.0
+    ],
+    [
+     8801,
+     0.0
+    ],
+    [
+     8802,
+     0.0
+    ],
+    [
+     8803,
+     0.0
+    ],
+    [
+     8804,
+     0.0
+    ],
+    [
+     8805,
+     0.0
+    ],
+    [
+     8806,
+     0.0
+    ],
+    [
+     8807,
+     0.0
+    ],
+    [
+     8808,
+     0.0
+    ],
+    [
+     8809,
+     0.0
+    ],
+    [
+     8810,
+     0.0
+    ],
+    [
+     8811,
+     0.0
+    ],
+    [
+     8812,
+     0.0238
+    ],
+    [
+     8813,
+     0.0901
+    ],
+    [
+     8814,
+     0.2049
+    ],
+    [
+     8815,
+     0.318
+    ],
+    [
+     8816,
+     0.4296
+    ],
+    [
+     8817,
+     0.5404
+    ],
+    [
+     8818,
+     0.6548
+    ],
+    [
+     8819,
+     0.7427
+    ],
+    [
+     8820,
+     0.8221
+    ],
+    [
+     8821,
+     0.8728
+    ],
+    [
+     8822,
+     0.9231
+    ],
+    [
+     8823,
+     0.9738
+    ],
+    [
+     8824,
+     0.9903
+    ],
+    [
+     8825,
+     0.9922
+    ],
+    [
+     8826,
+     0.9977
+    ],
+    [
+     8827,
+     0.9972
+    ],
+    [
+     8828,
+     0.9972
+    ],
+    [
+     8829,
+     0.9976
+    ],
+    [
+     8830,
+     0.9977
+    ],
+    [
+     8831,
+     0.9977
+    ],
+    [
+     8832,
+     0.9976
+    ],
+    [
+     8833,
+     0.9976
+    ],
+    [
+     8834,
+     0.9981
+    ],
+    [
+     8835,
+     0.9981
+    ],
+    [
+     8836,
+     0.9983
+    ],
+    [
+     8837,
+     0.9981
+    ],
+    [
+     8838,
+     0.9991
+    ],
+    [
+     8839,
+     0.9993
+    ],
+    [
+     8840,
+     0.9993
+    ],
+    [
+     8841,
+     0.9996
+    ],
+    [
+     8842,
+     0.9995
+    ],
+    [
+     8843,
+     0.9995
+    ],
+    [
+     8844,
+     0.9995
+    ],
+    [
+     8845,
+     0.9995
+    ],
+    [
+     8846,
+     0.9995
+    ],
+    [
+     8847,
+     0.9995
+    ],
+    [
+     8848,
+     0.9995
+    ],
+    [
+     8849,
+     0.9995
+    ],
+    [
+     8850,
+     0.9995
+    ],
+    [
+     8851,
+     0.9995
+    ],
+    [
+     8852,
+     0.9995
+    ],
+    [
+     8853,
+     0.9998
+    ],
+    [
+     8854,
+     1.0
+    ],
+    [
+     8855,
+     1.0
+    ],
+    [
+     8856,
+     1.0
+    ],
+    [
+     8857,
+     1.0
+    ],
+    [
+     8858,
+     1.0
+    ],
+    [
+     8859,
+     1.0
+    ]
+   ]
+  },
+  {
+   "site": "C13.5",
+   "authored": [
+    8827,
+    8841
+   ],
+   "full_frame": 8859,
+   "blank_frame": 8766,
+   "mask_pixels": 20424,
+   "direction": "in",
+   "first_moving": 8827,
+   "last_moving": 8838,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     8766,
+     0.0
+    ],
+    [
+     8767,
+     0.0
+    ],
+    [
+     8768,
+     0.0
+    ],
+    [
+     8769,
+     0.0
+    ],
+    [
+     8770,
+     0.0
+    ],
+    [
+     8771,
+     0.0
+    ],
+    [
+     8772,
+     0.0
+    ],
+    [
+     8773,
+     0.0
+    ],
+    [
+     8774,
+     0.0
+    ],
+    [
+     8775,
+     0.0
+    ],
+    [
+     8776,
+     0.0
+    ],
+    [
+     8777,
+     0.0
+    ],
+    [
+     8778,
+     0.0
+    ],
+    [
+     8779,
+     0.0
+    ],
+    [
+     8780,
+     0.0
+    ],
+    [
+     8781,
+     0.0
+    ],
+    [
+     8782,
+     0.0
+    ],
+    [
+     8783,
+     0.0
+    ],
+    [
+     8784,
+     0.0
+    ],
+    [
+     8785,
+     0.0
+    ],
+    [
+     8786,
+     0.0
+    ],
+    [
+     8787,
+     0.0
+    ],
+    [
+     8788,
+     0.0
+    ],
+    [
+     8789,
+     0.0
+    ],
+    [
+     8790,
+     0.0
+    ],
+    [
+     8791,
+     0.0
+    ],
+    [
+     8792,
+     0.0
+    ],
+    [
+     8793,
+     0.0
+    ],
+    [
+     8794,
+     0.0
+    ],
+    [
+     8795,
+     0.0
+    ],
+    [
+     8796,
+     0.0
+    ],
+    [
+     8797,
+     0.0
+    ],
+    [
+     8798,
+     0.0
+    ],
+    [
+     8799,
+     0.0
+    ],
+    [
+     8800,
+     0.0
+    ],
+    [
+     8801,
+     0.0
+    ],
+    [
+     8802,
+     0.0
+    ],
+    [
+     8803,
+     0.0
+    ],
+    [
+     8804,
+     0.0
+    ],
+    [
+     8805,
+     0.0
+    ],
+    [
+     8806,
+     0.0
+    ],
+    [
+     8807,
+     0.0
+    ],
+    [
+     8808,
+     0.0
+    ],
+    [
+     8809,
+     0.0
+    ],
+    [
+     8810,
+     0.0
+    ],
+    [
+     8811,
+     0.0
+    ],
+    [
+     8812,
+     0.0
+    ],
+    [
+     8813,
+     0.0
+    ],
+    [
+     8814,
+     0.0
+    ],
+    [
+     8815,
+     0.0
+    ],
+    [
+     8816,
+     0.0
+    ],
+    [
+     8817,
+     0.0
+    ],
+    [
+     8818,
+     0.0
+    ],
+    [
+     8819,
+     0.0
+    ],
+    [
+     8820,
+     0.0
+    ],
+    [
+     8821,
+     0.0
+    ],
+    [
+     8822,
+     0.0
+    ],
+    [
+     8823,
+     0.0
+    ],
+    [
+     8824,
+     0.0
+    ],
+    [
+     8825,
+     0.0
+    ],
+    [
+     8826,
+     0.0
+    ],
+    [
+     8827,
+     0.0249
+    ],
+    [
+     8828,
+     0.0916
+    ],
+    [
+     8829,
+     0.2107
+    ],
+    [
+     8830,
+     0.3214
+    ],
+    [
+     8831,
+     0.4326
+    ],
+    [
+     8832,
+     0.5424
+    ],
+    [
+     8833,
+     0.6564
+    ],
+    [
+     8834,
+     0.7405
+    ],
+    [
+     8835,
+     0.8161
+    ],
+    [
+     8836,
+     0.8827
+    ],
+    [
+     8837,
+     0.9411
+    ],
+    [
+     8838,
+     0.9713
+    ],
+    [
+     8839,
+     0.9912
+    ],
+    [
+     8840,
+     0.993
+    ],
+    [
+     8841,
+     0.9976
+    ],
+    [
+     8842,
+     0.9971
+    ],
+    [
+     8843,
+     0.9971
+    ],
+    [
+     8844,
+     0.9973
+    ],
+    [
+     8845,
+     0.9974
+    ],
+    [
+     8846,
+     0.9973
+    ],
+    [
+     8847,
+     0.9974
+    ],
+    [
+     8848,
+     0.9974
+    ],
+    [
+     8849,
+     0.998
+    ],
+    [
+     8850,
+     0.998
+    ],
+    [
+     8851,
+     0.9984
+    ],
+    [
+     8852,
+     0.9982
+    ],
+    [
+     8853,
+     0.9994
+    ],
+    [
+     8854,
+     1.0
+    ],
+    [
+     8855,
+     1.0
+    ],
+    [
+     8856,
+     1.0
+    ],
+    [
+     8857,
+     1.0
+    ],
+    [
+     8858,
+     1.0
+    ],
+    [
+     8859,
+     1.0
+    ]
+   ]
+  },
+  {
+   "site": "C13.6",
+   "authored": [
+    8842,
+    8856
+   ],
+   "full_frame": 8859,
+   "blank_frame": 8766,
+   "mask_pixels": 20424,
+   "direction": "in",
+   "first_moving": 8842,
+   "last_moving": 8853,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     8766,
+     0.0
+    ],
+    [
+     8767,
+     0.0
+    ],
+    [
+     8768,
+     0.0
+    ],
+    [
+     8769,
+     0.0
+    ],
+    [
+     8770,
+     0.0
+    ],
+    [
+     8771,
+     0.0
+    ],
+    [
+     8772,
+     0.0
+    ],
+    [
+     8773,
+     0.0
+    ],
+    [
+     8774,
+     0.0
+    ],
+    [
+     8775,
+     0.0
+    ],
+    [
+     8776,
+     0.0
+    ],
+    [
+     8777,
+     0.0
+    ],
+    [
+     8778,
+     0.0
+    ],
+    [
+     8779,
+     0.0
+    ],
+    [
+     8780,
+     0.0
+    ],
+    [
+     8781,
+     0.0
+    ],
+    [
+     8782,
+     0.0
+    ],
+    [
+     8783,
+     0.0
+    ],
+    [
+     8784,
+     0.0
+    ],
+    [
+     8785,
+     0.0
+    ],
+    [
+     8786,
+     0.0
+    ],
+    [
+     8787,
+     0.0
+    ],
+    [
+     8788,
+     0.0
+    ],
+    [
+     8789,
+     0.0
+    ],
+    [
+     8790,
+     0.0
+    ],
+    [
+     8791,
+     0.0
+    ],
+    [
+     8792,
+     0.0
+    ],
+    [
+     8793,
+     0.0
+    ],
+    [
+     8794,
+     0.0
+    ],
+    [
+     8795,
+     0.0
+    ],
+    [
+     8796,
+     0.0
+    ],
+    [
+     8797,
+     0.0
+    ],
+    [
+     8798,
+     0.0
+    ],
+    [
+     8799,
+     0.0
+    ],
+    [
+     8800,
+     0.0
+    ],
+    [
+     8801,
+     0.0
+    ],
+    [
+     8802,
+     0.0
+    ],
+    [
+     8803,
+     0.0
+    ],
+    [
+     8804,
+     0.0
+    ],
+    [
+     8805,
+     0.0
+    ],
+    [
+     8806,
+     0.0
+    ],
+    [
+     8807,
+     0.0
+    ],
+    [
+     8808,
+     0.0
+    ],
+    [
+     8809,
+     0.0
+    ],
+    [
+     8810,
+     0.0
+    ],
+    [
+     8811,
+     0.0
+    ],
+    [
+     8812,
+     0.0
+    ],
+    [
+     8813,
+     0.0
+    ],
+    [
+     8814,
+     0.0
+    ],
+    [
+     8815,
+     0.0
+    ],
+    [
+     8816,
+     0.0
+    ],
+    [
+     8817,
+     0.0
+    ],
+    [
+     8818,
+     0.0
+    ],
+    [
+     8819,
+     0.0
+    ],
+    [
+     8820,
+     0.0
+    ],
+    [
+     8821,
+     0.0
+    ],
+    [
+     8822,
+     0.0
+    ],
+    [
+     8823,
+     0.0
+    ],
+    [
+     8824,
+     0.0
+    ],
+    [
+     8825,
+     0.0
+    ],
+    [
+     8826,
+     0.0
+    ],
+    [
+     8827,
+     0.0
+    ],
+    [
+     8828,
+     0.0
+    ],
+    [
+     8829,
+     0.0
+    ],
+    [
+     8830,
+     0.0
+    ],
+    [
+     8831,
+     0.0
+    ],
+    [
+     8832,
+     0.0
+    ],
+    [
+     8833,
+     0.0
+    ],
+    [
+     8834,
+     0.0
+    ],
+    [
+     8835,
+     0.0
+    ],
+    [
+     8836,
+     0.0
+    ],
+    [
+     8837,
+     0.0
+    ],
+    [
+     8838,
+     0.0
+    ],
+    [
+     8839,
+     0.0
+    ],
+    [
+     8840,
+     0.0
+    ],
+    [
+     8841,
+     -0.0
+    ],
+    [
+     8842,
+     0.0254
+    ],
+    [
+     8843,
+     0.0925
+    ],
+    [
+     8844,
+     0.2106
+    ],
+    [
+     8845,
+     0.3218
+    ],
+    [
+     8846,
+     0.4337
+    ],
+    [
+     8847,
+     0.5437
+    ],
+    [
+     8848,
+     0.6579
+    ],
+    [
+     8849,
+     0.7434
+    ],
+    [
+     8850,
+     0.8197
+    ],
+    [
+     8851,
+     0.8863
+    ],
+    [
+     8852,
+     0.9439
+    ],
+    [
+     8853,
+     0.9732
+    ],
+    [
+     8854,
+     0.9928
+    ],
+    [
+     8855,
+     0.9984
+    ],
+    [
+     8856,
+     0.9986
+    ],
+    [
+     8857,
+     1.0004
+    ],
+    [
+     8858,
+     0.9996
+    ],
+    [
+     8859,
+     1.0
+    ]
+   ]
+  },
+  {
+   "site": "C14",
+   "authored": [
+    9170,
+    9187
+   ],
+   "full_frame": 9169,
+   "blank_frame": 9187,
+   "mask_pixels": 113694,
+   "direction": "out",
+   "first_moving": 9173,
+   "last_moving": 9185,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     9168,
+     1.0
+    ],
+    [
+     9169,
+     1.0
+    ],
+    [
+     9170,
+     0.9918
+    ],
+    [
+     9171,
+     0.9918
+    ],
+    [
+     9172,
+     0.9814
+    ],
+    [
+     9173,
+     0.9526
+    ],
+    [
+     9174,
+     0.9296
+    ],
+    [
+     9175,
+     0.8947
+    ],
+    [
+     9176,
+     0.8477
+    ],
+    [
+     9177,
+     0.7859
+    ],
+    [
+     9178,
+     0.7147
+    ],
+    [
+     9179,
+     0.6226
+    ],
+    [
+     9180,
+     0.5319
+    ],
+    [
+     9181,
+     0.4362
+    ],
+    [
+     9182,
+     0.3394
+    ],
+    [
+     9183,
+     0.2445
+    ],
+    [
+     9184,
+     0.1434
+    ],
+    [
+     9185,
+     0.0658
+    ],
+    [
+     9186,
+     0.0156
+    ],
+    [
+     9187,
+     0.0
+    ],
+    [
+     9188,
+     -0.0
+    ]
+   ]
+  },
+  {
+   "site": "C15",
+   "authored": [
+    9188,
+    9217
+   ],
+   "full_frame": 9217,
+   "blank_frame": 9187,
+   "mask_pixels": 47961,
+   "direction": "in",
+   "first_moving": 9189,
+   "last_moving": 9212,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     9187,
+     0.0
+    ],
+    [
+     9188,
+     -0.0
+    ],
+    [
+     9189,
+     0.0228
+    ],
+    [
+     9190,
+     0.0447
+    ],
+    [
+     9191,
+     0.0899
+    ],
+    [
+     9192,
+     0.1396
+    ],
+    [
+     9193,
+     0.1903
+    ],
+    [
+     9194,
+     0.2498
+    ],
+    [
+     9195,
+     0.3082
+    ],
+    [
+     9196,
+     0.3704
+    ],
+    [
+     9197,
+     0.4267
+    ],
+    [
+     9198,
+     0.482
+    ],
+    [
+     9199,
+     0.539
+    ],
+    [
+     9200,
+     0.5928
+    ],
+    [
+     9201,
+     0.6452
+    ],
+    [
+     9202,
+     0.6995
+    ],
+    [
+     9203,
+     0.7384
+    ],
+    [
+     9204,
+     0.7781
+    ],
+    [
+     9205,
+     0.8166
+    ],
+    [
+     9206,
+     0.8504
+    ],
+    [
+     9207,
+     0.8828
+    ],
+    [
+     9208,
+     0.9159
+    ],
+    [
+     9209,
+     0.9322
+    ],
+    [
+     9210,
+     0.9509
+    ],
+    [
+     9211,
+     0.9667
+    ],
+    [
+     9212,
+     0.9772
+    ],
+    [
+     9213,
+     0.9874
+    ],
+    [
+     9214,
+     0.9964
+    ],
+    [
+     9215,
+     0.9969
+    ],
+    [
+     9216,
+     1.0011
+    ],
+    [
+     9217,
+     1.0
+    ],
+    [
+     9218,
+     1.0004
+    ],
+    [
+     9219,
+     1.0008
+    ],
+    [
+     9220,
+     1.0008
+    ]
+   ]
+  },
+  {
+   "site": "C16",
+   "authored": [
+    9819,
+    9848
+   ],
+   "full_frame": 9818,
+   "blank_frame": 9848,
+   "mask_pixels": 20424,
+   "direction": "out",
+   "first_moving": 9824,
+   "last_moving": 9846,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     9817,
+     1.0
+    ],
+    [
+     9818,
+     1.0
+    ],
+    [
+     9819,
+     1.0
+    ],
+    [
+     9820,
+     0.9996
+    ],
+    [
+     9821,
+     0.9996
+    ],
+    [
+     9822,
+     0.9967
+    ],
+    [
+     9823,
+     0.9892
+    ],
+    [
+     9824,
+     0.9778
+    ],
+    [
+     9825,
+     0.9626
+    ],
+    [
+     9826,
+     0.943
+    ],
+    [
+     9827,
+     0.9203
+    ],
+    [
+     9828,
+     0.8935
+    ],
+    [
+     9829,
+     0.8631
+    ],
+    [
+     9830,
+     0.8207
+    ],
+    [
+     9831,
+     0.779
+    ],
+    [
+     9832,
+     0.7359
+    ],
+    [
+     9833,
+     0.6905
+    ],
+    [
+     9834,
+     0.6462
+    ],
+    [
+     9835,
+     0.5996
+    ],
+    [
+     9836,
+     0.543
+    ],
+    [
+     9837,
+     0.489
+    ],
+    [
+     9838,
+     0.4297
+    ],
+    [
+     9839,
+     0.3702
+    ],
+    [
+     9840,
+     0.3129
+    ],
+    [
+     9841,
+     0.2513
+    ],
+    [
+     9842,
+     0.2022
+    ],
+    [
+     9843,
+     0.1458
+    ],
+    [
+     9844,
+     0.0988
+    ],
+    [
+     9845,
+     0.0489
+    ],
+    [
+     9846,
+     0.0219
+    ],
+    [
+     9847,
+     0.0024
+    ],
+    [
+     9848,
+     0.0
+    ],
+    [
+     9849,
+     0.0
+    ]
+   ]
+  },
+  {
+   "site": "C17",
+   "authored": [
+    9849,
+    9878
+   ],
+   "full_frame": 9848,
+   "blank_frame": 9878,
+   "mask_pixels": 47961,
+   "direction": "out",
+   "first_moving": 9854,
+   "last_moving": 9876,
+   "monotone_breaks_over_0.01": [],
+   "curve": [
+    [
+     9848,
+     1.0
+    ],
+    [
+     9849,
+     1.0
+    ],
+    [
+     9850,
+     1.0
+    ],
+    [
+     9851,
+     0.9987
+    ],
+    [
+     9852,
+     0.9897
+    ],
+    [
+     9853,
+     0.9816
+    ],
+    [
+     9854,
+     0.9695
+    ],
+    [
+     9855,
+     0.9495
+    ],
+    [
+     9856,
+     0.9292
+    ],
+    [
+     9857,
+     0.9091
+    ],
+    [
+     9858,
+     0.8799
+    ],
+    [
+     9859,
+     0.851
+    ],
+    [
+     9860,
+     0.821
+    ],
+    [
+     9861,
+     0.7782
+    ],
+    [
+     9862,
+     0.7352
+    ],
+    [
+     9863,
+     0.6909
+    ],
+    [
+     9864,
+     0.6425
+    ],
+    [
+     9865,
+     0.5944
+    ],
+    [
+     9866,
+     0.5438
+    ],
+    [
+     9867,
+     0.4888
+    ],
+    [
+     9868,
+     0.4275
+    ],
+    [
+     9869,
+     0.3672
+    ],
+    [
+     9870,
+     0.3083
+    ],
+    [
+     9871,
+     0.2463
+    ],
+    [
+     9872,
+     0.1852
+    ],
+    [
+     9873,
+     0.133
+    ],
+    [
+     9874,
+     0.0832
+    ],
+    [
+     9875,
+     0.0475
+    ],
+    [
+     9876,
+     0.0209
+    ],
+    [
+     9877,
+     0.0
+    ],
+    [
+     9878,
+     0.0
+    ]
+   ]
+  }
+ ],
+ "limits": [
+  "stills only: no real-time playback, no motion, cadence or smoothness judgement beyond the sampled frames",
+  "no listening, no narration timing, no fine A/V sync, no final AV acceptance",
+  "no 4K or master claim and no pixel equivalence with any other build; frames are a 960x540 preview downscaled to 640x360, sheets are JPEG",
+  "authored windows come from the 274 sampling and cc3 site list, which are estimates; measured curves are reported beside them"
+ ],
+ "not_done": [
+  "no render, synthesis, build, launch or master",
+  "no edit to 314 or any source, helper, TODO or Beads",
+  "no writes besides this JSON and its MD"
+ ]
+}

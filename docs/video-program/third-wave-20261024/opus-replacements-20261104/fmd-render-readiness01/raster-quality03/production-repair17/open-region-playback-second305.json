@@ -1,0 +1,22 @@
+{
+  "utc": "2026-11-08T19:16:14.986153+00:00",
+  "movie": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview274-review305/preview/07_one_point.mp4",
+  "sha256": "2517772cb632db4eafe5be1ed266e6e8aa596778d7f3742ecdab8fa5d204b7b0",
+  "player": "QuickTime Player via CUA",
+  "observed_seconds": [
+    80.96045514223195,
+    81.19718161925601,
+    84.98480525164113,
+    89.2458818380744,
+    94.690590809628
+  ],
+  "paused_seconds": 99.18839387308533,
+  "observations": [
+    "Colour disk and ratio plot present at80.96 and81.20",
+    "Radius and corresponding scatter visibly smaller at84.98",
+    "Blank transition visible at89.25",
+    "Open region and three interior neighborhoods visible at94.69"
+  ],
+  "limits": "Discrete screenshots during real-time playback only. Does not establish continuous motion, hearing, fine-sync or final4K acceptance. Existing authored blank pacing remains an editorial review item.",
+  "failed_seek": "Go To Frame setValue4740 returned time0; coordinate timeline seek then worked."
+}

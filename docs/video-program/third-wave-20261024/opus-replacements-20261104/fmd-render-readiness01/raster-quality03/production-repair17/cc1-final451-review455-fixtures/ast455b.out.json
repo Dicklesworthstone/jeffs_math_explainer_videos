@@ -1,0 +1,120 @@
+{
+ "main_blocks": {
+  "n377": 1,
+  "n451": 1,
+  "equal": [
+   true
+  ],
+  "text": "if __name__ == '__main__':\n    raise SystemExit(main())"
+ },
+ "docstrings": {
+  "old_docstring_kept_as_second_expression": true,
+  "new_first_docstring": "451 successor: exact master447 and SSD442 gallery bindings; original377 checks retained.\nPrepared only, not staged or run. Historical lineage below remains unchanged.\n"
+ },
+ "451_body_ops": [
+  {
+   "tag": "insert",
+   "n377": [],
+   "n451": [
+    "'451 successor: exact master447 and SSD442 gallery bindings; original377 checks retained.\\"
+   ]
+  },
+  {
+   "tag": "replace",
+   "n377": [
+    "VERSION = '377'"
+   ],
+   "n451": [
+    "VERSION = '451'"
+   ]
+  },
+  {
+   "tag": "replace",
+   "n377": [
+    "MASTER_HELPER = Q / 'cc0-combined-master350.py'",
+    "MASTER_HELPER_SHA = '60575944736159139b05733c299b984ab6627ada3d88a5aff65ecde1bbde28d6'",
+    "MASTER = D / 'jobs/csd-combined-master350'",
+    "MASTER_INPUTS = Q / 'combined-master350-inputs.json'"
+   ],
+   "n451": [
+    "MASTER_HELPER = Q / 'combined-master447.py'",
+    "MASTER_HELPER_SHA = '2b01ecaab2b409268d86fe13b83e97a7e374dd61f1c657680a32444fdb6aa524'",
+    "MASTER = D / 'jobs/csd-combined-master447'",
+    "MASTER_INPUTS = Q / 'combined-master447-inputs.json'"
+   ]
+  },
+  {
+   "tag": "replace",
+   "n377": [
+    "VERIFY = D / 'jobs/csd-final-verify377'",
+    "VERIFY_INPUTS = Q / 'final-verify377-inputs.json'",
+    "PICTURES = D / 'jobs/csd-final-pictures377-%s'",
+    "PICTURES_INPUTS = Q / 'final-pictures377-%s-inputs.json'"
+   ],
+   "n451": [
+    "VERIFY = D / 'jobs/csd-final-verify451'",
+    "VERIFY_INPUTS = Q / 'final-verify451-inputs.json'",
+    "PICTURES = D / 'jobs/csd-final-pictures451-%s'",
+    "PICTURES_INPUTS = Q / 'final-pictures451-%s-inputs.json'"
+   ]
+  },
+  {
+   "tag": "replace",
+   "n377": [
+    "def master350():"
+   ],
+   "n451": [
+    "SSD442 = Path('/data/ssd/work/jmev-gallery-recovery440')",
+    "WORKER442 = SSD442 / 'css-gallery-ssd442.py'",
+    "WORKER442_SHA = 'ce9baf6a922682ea5792ccbdb3758b68383e7e8e23e2e968a83d9136f9448429'",
+    "GALLERY442_JOB = 'css-reviewed-final-05-gallery352-ssd442'",
+    "def expected_worker451(key, row):",
+    "def source_job451(key, row):",
+    "def master350():"
+   ]
+  }
+ ],
+ "451_equal_nodes": 115,
+ "n377_nodes": 125,
+ "n451_nodes": 132,
+ "452_mapped": {
+  "renames": [
+   [
+    "c876caf664124e9becc1",
+    "827be351861d0fd4ebc0",
+    1
+   ],
+   [
+    "final-pictures451-ov",
+    "final-pictures377-ov",
+    2
+   ],
+   [
+    "cc0-combined-master4",
+    "cc0-combined-master3",
+    1
+   ],
+   [
+    "452",
+    "388",
+    7
+   ],
+   [
+    "451",
+    "377",
+    29
+   ],
+   [
+    "447",
+    "350",
+    8
+   ]
+  ],
+  "module_ast_equal_388": true,
+  "text_equal_388": false,
+  "remaining_text_diff": [
+   "-VERIFIER_SHA = '827be351861d0fd4ebc083aa24d594111b059dd9f78c7ca43072b0b6f12f22fe'   # 377 as frozen for CC0 review 378",
+   "+VERIFIER_SHA = '827be351861d0fd4ebc083aa24d594111b059dd9f78c7ca43072b0b6f12f22fe'   # 377 root-bound successor; review378 covers predecessor377 only"
+  ]
+ }
+}

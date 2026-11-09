@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-09T02:52:07.544131+00:00",
+  "test_sha256": "deba0c24696af101e2ca1ae112028ba8caa0e432d9f85db8568e4f7cc14c0e94",
+  "controller_sha256": "8fb9a8c1cf524b55da68cdf52a27b43159f64caa1377fa52332bde9720ecd05b",
+  "passed": 29,
+  "failed": 0,
+  "error": null,
+  "fixture_change": "Path.resolve preserves synthetic /data paths during this local in-memory replay only; no production source edits",
+  "scope": "Root replay of unfinished CC reviewer harness; not completed independent review or remote master execution"
+}

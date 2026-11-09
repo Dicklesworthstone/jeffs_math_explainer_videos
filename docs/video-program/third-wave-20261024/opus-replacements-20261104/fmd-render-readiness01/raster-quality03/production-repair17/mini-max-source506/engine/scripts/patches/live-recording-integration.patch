@@ -1,0 +1,186 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index bb54607..3522ab9 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -922,6 +922,7 @@ dependencies = [
+  "fmn-config",
+  "fmn-core",
+  "fmn-frame",
++ "fmn-hash",
+  "fmn-library",
+  "fmn-mobject",
+  "fmn-output",
+diff --git a/crates/fmn-python/src/portal_audio.rs b/crates/fmn-python/src/portal_audio.rs
+index 614aeb5..eed9d8f 100644
+--- a/crates/fmn-python/src/portal_audio.rs
++++ b/crates/fmn-python/src/portal_audio.rs
+@@ -17,6 +17,7 @@ pub(crate) struct PortalAudioInput {
+ 
+ pub(crate) struct PortalAudio {
+     decoder: AudioDecoder,
++    first_request: usize,
+     pub(crate) inputs: Vec<PortalAudioInput>,
+ }
+ 
+@@ -51,17 +52,25 @@ impl PortalAudio {
+                 .map_err(decode_error)?;
+         Ok(Box::new(Self {
+             decoder,
++            first_request: 0,
+             inputs: Vec::new(),
+         }))
+     }
+ 
++    /// A live recording includes only cues authored after it acquired output.
++    pub(crate) fn begin_at_request(&mut self, first_request: usize) {
++        self.first_request = first_request;
++    }
++
+     pub(crate) fn mix(
+         &mut self,
+         scene: &Scene,
+         threads: usize,
+         timeline: &OutputTimeline,
+     ) -> PyResult<Option<fmn_output::MixReport>> {
+-        let requests = scene.sound_requests();
++        let requests = scene.sound_requests().get(self.first_request..).ok_or_else(|| {
++            PyRuntimeError::new_err("recording sound history was truncated; cancel before restoring scene state")
++        })?;
+         if requests.is_empty() {
+             return Ok(None);
+         }
+diff --git a/crates/fmn-python/src/portal_playback.rs b/crates/fmn-python/src/portal_playback.rs
+index 9b35379..f9829f9 100644
+--- a/crates/fmn-python/src/portal_playback.rs
++++ b/crates/fmn-python/src/portal_playback.rs
+@@ -9,12 +9,23 @@ use super::*;
+ #[derive(Default)]
+ pub(super) struct OutputTimeline {
+     pub(super) final_state_only: bool,
++    origin_frame: i64,
+     last_frame: i64,
+     skipping: bool,
+     omitted: Vec<(i64, i64)>,
+ }
+ 
+ impl OutputTimeline {
++    /// Start an insert at the live clock, without including pre-recording time.
++    pub(super) fn start_at(&mut self, frame: i64) -> PyResult<()> {
++        if frame < 0 || self.last_frame != 0 || !self.omitted.is_empty() {
++            return Err(PyRuntimeError::new_err("recording timeline requires an unused timeline and a nonnegative frame"));
++        }
++        self.origin_frame = frame;
++        self.last_frame = frame;
++        Ok(())
++    }
++
+     pub(super) fn new(final_state_only: bool) -> Self {
+         Self {
+             final_state_only,
+@@ -48,7 +59,7 @@ impl OutputTimeline {
+     }
+ 
+     pub(super) fn output_frame(&self, frame: i64) -> PyResult<i64> {
+-        if frame < 0 || frame > self.last_frame {
++        if frame < self.origin_frame || frame > self.last_frame {
+             return Err(PyRuntimeError::new_err(
+                 "portal-render: audio timestamp is outside the observed scene timeline",
+             ));
+@@ -58,7 +69,7 @@ impl OutputTimeline {
+             .iter()
+             .map(|&(start, end)| (frame.min(end) - start).max(0))
+             .sum();
+-        Ok(frame - removed)
++        Ok(frame - self.origin_frame - removed)
+     }
+ }
+ 
+@@ -72,7 +83,7 @@ impl PortalRenderSession {
+         }
+     }
+ 
+-    fn output_timeline_mut(&mut self) -> &mut OutputTimeline {
++    pub(super) fn output_timeline_mut(&mut self) -> &mut OutputTimeline {
+         match self {
+             Self::Frames(session) => &mut session.timeline,
+             Self::Preview(session) => &mut session.timeline,
+@@ -122,6 +133,23 @@ pub(super) fn synchronize(scene: &Bound<'_, PyScene>) -> PyResult<()> {
+ mod tests {
+     use super::*;
+ 
++    #[test]
++    fn insert_timeline_rebases_live_time_and_skipped_intervals() {
++        let mut timeline = OutputTimeline::default();
++        timeline.start_at(90).unwrap();
++        timeline.observe(90, false).unwrap();
++        timeline.observe(96, true).unwrap();
++        timeline.observe(102, false).unwrap();
++        timeline.observe(108, false).unwrap();
++        for (scene, output) in [(90, 0), (96, 6), (99, 6), (102, 6), (108, 12)] {
++            assert_eq!(timeline.output_frame(scene).unwrap(), output);
++        }
++        assert!(timeline.output_frame(89).is_err());
++        assert!(timeline.output_frame(109).is_err());
++        assert!(timeline.observe(107, false).is_err());
++        assert!(timeline.start_at(0).is_err());
++    }
++
+     #[test]
+     fn omitted_intervals_rebase_cues_and_duration_on_integer_frames() {
+         let mut timeline = OutputTimeline::default();
+diff --git a/crates/fmn-python/src/portal_video.rs b/crates/fmn-python/src/portal_video.rs
+index 64d0657..81cc8ae 100644
+--- a/crates/fmn-python/src/portal_video.rs
++++ b/crates/fmn-python/src/portal_video.rs
+@@ -25,6 +25,31 @@ impl PortalVideoConfig {
+         fps: u32,
+     ) -> PyResult<Self> {
+         check_scene_ownership(scene)?;
++        let config = Self::parse_scene(scene, format, width, height, fps)?;
++        check_scene_ownership(scene)?;
++        Ok(config)
++    }
++
++    pub(crate) fn from_recording_scene(
++        scene: &Bound<'_, PyScene>,
++        format: PortalFrameFormat,
++        width: u32,
++        height: u32,
++        fps: u32,
++    ) -> PyResult<Self> {
++        crate::portal_recording::check_available(scene)?;
++        let config = Self::parse_scene(scene, format, width, height, fps)?;
++        crate::portal_recording::check_available(scene)?;
++        Ok(config)
++    }
++
++    fn parse_scene(
++        scene: &Bound<'_, PyScene>,
++        format: PortalFrameFormat,
++        width: u32,
++        height: u32,
++        fps: u32,
++    ) -> PyResult<Self> {
+         // No engine borrow may cross a Python descriptor/callback.
+         let writer = scene.getattr("file_writer")?;
+         let ffmpeg_bin: String = writer.getattr("ffmpeg_bin")?.extract()?;
+@@ -65,7 +90,6 @@ impl PortalVideoConfig {
+         // Python getters may adopt mobjects, advance time, or recursively
+         // acquire a generation. Never replace that state or probe an encoder
+         // against the now-stale preflight in begin_portal_render.
+-        check_scene_ownership(scene)?;
+         Ok(Self { ffmpeg_bin, job })
+     }
+ }
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+index 3ad6052..a6c4f85 100644
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -24,2 +24,3 @@ mod portal_audio;
+ mod portal_playback;
++mod portal_recording;
+ mod portal_studio;
+@@ -10805,2 +10806,3 @@ fn populate_manimlib(py: Python<'_>, module: &Bound<'_, PyModule>) -> PyResult<(
+     execute_bootstrap(py, module)?;
++    portal_recording::install(module)?;
+     // Packaging identity is owned by Cargo, not a second hand-maintained

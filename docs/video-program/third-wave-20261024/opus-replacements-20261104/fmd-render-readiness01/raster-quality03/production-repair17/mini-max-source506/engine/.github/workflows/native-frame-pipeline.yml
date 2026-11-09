@@ -1,0 +1,76 @@
+name: Native frame pipeline
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-frame-pipeline.yml'
+      - 'crates/fmn-cli/**'
+      - 'crates/fmn-runtime/**'
+      - 'crates/fmn-render/**'
+      - 'crates/fmn-scene/**'
+      - 'crates/fmn-mobject/**'
+      - 'crates/fmn/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  pipeline:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/portable
+      CARGO_BUILD_JOBS: '2'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Preserve the exact source being verified
+        run: |
+          git archive --format=tar.gz HEAD > "$RUNNER_TEMP/pipeline-source.tar.gz"
+          git rev-parse HEAD > "$RUNNER_TEMP/pipeline-source-sha.txt"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: pipeline-source-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/pipeline-source.tar.gz
+            ${{ runner.temp }}/pipeline-source-sha.txt
+          retention-days: 1
+          if-no-files-found: error
+      - name: Install pinned compiler
+        run: rustup show active-toolchain
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-
+      - name: CLI unit and shipping binary camera and compiled-playback regressions
+        run: cargo test --locked -p fmn-cli --features cli,batch --tests
+      - name: Native camera motion, compiled replay and atomic publication
+        if: ${{ !cancelled() }}
+        run: cargo test --locked -p fmn --tests
+      - name: Snapshot draw metadata and painter order
+        if: ${{ !cancelled() }}
+        run: cargo test --locked -p fmn-mobject --test render_order
+      - name: Compiled ownership and reconstruction
+        if: ${{ !cancelled() }}
+        run: |
+          cargo test --locked -p fmn-scene --lib timeline_bundle
+          cargo test --locked -p fmn-scene --test shared_bundle
+          cargo test --locked -p fmn-scene --test shared_rate_catalog
+      - name: Runtime bounds, ordering, cancellation and barriers
+        if: ${{ !cancelled() }}
+        run: cargo test --locked -p fmn-runtime --lib
+      - name: Owned frames, cache reuse and certified bit identity
+        if: ${{ !cancelled() }}
+        run: |
+          cargo test --locked -p fmn-render --lib vector_frame
+          cargo test --locked -p fmn-render --lib retained
+      - name: Native executable examples
+        if: ${{ !cancelled() }}
+        run: cargo check --locked -p fmn --examples

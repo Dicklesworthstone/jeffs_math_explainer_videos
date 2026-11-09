@@ -1,0 +1,19 @@
+{
+  "time": "2026-11-08T05:51:39.560853+00:00",
+  "review": {
+    "path": "cc1-retention-dependencies273.md",
+    "sha256": "d957fb0c5fe36bbeb28de472e373f8a5103249a44e431be4185e4bab74db4956"
+  },
+  "decision": "Do not repeat a build solely to establish reproducible machine-code bytes. Retention of02/03/13/15 remains conditional on complete269 schedule equality and exact whole-film score21/narration bindings; existing pixel review state carries forward without claiming pixel identity to268.",
+  "basis": [
+    "Actual4057 engine source files and39 kit/23score files equal production19 input hashes.",
+    "Eight changed workspace sources independently confirmed; retained four chapter source files unchanged.",
+    "Same locked dependencies and toolchain request; rebuilt113 dependency artifacts leave byte equality unproven, not demonstrated behavioural difference."
+  ],
+  "limits": [
+    "No binary or decoded-frame equivalence claim",
+    "Config equality relies partly on timestamps; registry extracted-source bytes not fully hashed",
+    "No new listening/fine-sync/motion/independent finalAV acceptance"
+  ],
+  "next": "CC1 assigned exact238-to268 preview binding282; no jobs launched by reviewer."
+}

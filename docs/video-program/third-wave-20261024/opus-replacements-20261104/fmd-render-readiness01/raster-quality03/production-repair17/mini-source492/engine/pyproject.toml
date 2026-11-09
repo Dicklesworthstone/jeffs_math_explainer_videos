@@ -1,0 +1,43 @@
+[build-system]
+requires = ["maturin==1.14.1"]
+build-backend = "maturin"
+
+[project]
+name = "franken-manim"
+dynamic = ["version"]
+description = "The optional CPython portal for the sovereign FrankenManim engine"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+license = { file = "LICENSE" }
+dependencies = ["numpy==2.5.2"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Rust",
+]
+
+[project.urls]
+Homepage = "https://github.com/Dicklesworthstone/franken_manim"
+Repository = "https://github.com/Dicklesworthstone/franken_manim"
+Issues = "https://github.com/Dicklesworthstone/franken_manim/issues"
+
+[project.scripts]
+fmn-python = "fmn_python.__main__:main"
+
+[tool.maturin]
+bindings = "pyo3"
+manifest-path = "crates/fmn-python/Cargo.toml"
+module-name = "manimlib.manimlib"
+python-source = "crates/fmn-python/python"
+python-packages = ["manimlib", "fmn_python"]
+locked = true
+strip = true
+include = [
+    { path = "LICENSE", format = ["sdist", "wheel"] },
+    { path = "dist/licenses/LICENSE", format = ["sdist", "wheel"] },
+    { path = "dist/licenses/fonts/*.txt", format = ["sdist", "wheel"] },
+    { path = "API_SCHEMA.tsv", format = "sdist" },
+    { path = "API_OVERLAY.tsv", format = "sdist" },
+]

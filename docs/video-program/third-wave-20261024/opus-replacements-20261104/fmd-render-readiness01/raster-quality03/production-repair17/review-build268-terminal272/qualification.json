@@ -1,0 +1,25 @@
+{
+  "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+  "tests_passed": 233,
+  "explicit_native_plate_fade_probe_passed": true,
+  "clippy_passed": true,
+  "facts_sha256": "7d528509752e532c07edb3fda7c12cd8251ac4ba77022355ae42ad725add4417",
+  "chapters": [
+    "01_the_bump",
+    "02_turning_numbers",
+    "03_two_planes",
+    "04_reading_color",
+    "05_gallery",
+    "06_one_derivative",
+    "07_one_point",
+    "08_loop_sums",
+    "09_boundary",
+    "10_rigidity",
+    "11_counting",
+    "12_residues",
+    "13_real_integral",
+    "14_continuation",
+    "15_closing"
+  ],
+  "scope": "Native build and focused automated fade regression only; no complete picture/motion/listening or release acceptance"
+}

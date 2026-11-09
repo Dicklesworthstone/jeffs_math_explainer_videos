@@ -1,0 +1,14 @@
+{
+  "utc": "2026-11-07T21:03:35.589161+00:00",
+  "chapter": "12_residues",
+  "prior_controller_pid": 2707753,
+  "prior_command": [
+    "python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-launch-final12-37.py"
+  ],
+  "prior_controller_stopped": true,
+  "prior_job_absent": true,
+  "scope": "Only unstarted final12 waiting controller stopped for disjoint HZ2 migration; all other queues and files retained."
+}

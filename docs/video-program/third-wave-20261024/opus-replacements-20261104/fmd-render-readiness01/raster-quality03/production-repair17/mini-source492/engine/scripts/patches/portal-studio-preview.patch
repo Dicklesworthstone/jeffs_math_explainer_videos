@@ -1,0 +1,562 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 4a9e928..bb54607 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -929,6 +929,7 @@ dependencies = [
+  "fmn-render",
+  "fmn-runtime",
+  "fmn-scene",
++ "fmn-studio",
+  "pyo3",
+ ]
+ 
+diff --git a/crates/fmn-conformance/tests/e2e_scenarios.rs b/crates/fmn-conformance/tests/e2e_scenarios.rs
+index 8a956e6..39825cd 100644
+--- a/crates/fmn-conformance/tests/e2e_scenarios.rs
++++ b/crates/fmn-conformance/tests/e2e_scenarios.rs
+@@ -2021,6 +2021,27 @@ fn python_portal_png_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError>
+     python_portal_sequence_run(ctx, false)
+ }
+ 
++fn python_studio_capture_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError> {
++    let report = manimlib::run_portal_gauntlet_studio_capture()
++        .map_err(|error| fail(format!("Python Studio capture: {error}")))?;
++    let first = fmn_codec::decode_png(&report.first_png, &fmn_codec::PngLimits::default())
++        .map_err(|error| fail(format!("decode first Studio frame: {error}")))?;
++    let last = fmn_codec::decode_png(&report.last_png, &fmn_codec::PngLimits::default())
++        .map_err(|error| fail(format!("decode last Studio frame: {error}")))?;
++    if report.frames != 6 || (first.width, first.height) != (96, 54)
++        || (last.width, last.height) != (96, 54) || first.rgba == last.rgba
++    {
++        return Err(fail("Studio capture did not render six moving native frames"));
++    }
++    ctx.event(LogEvent::new("e2e.python.studio_capture")
++        .field("frames", report.frames).field("read_only", true)
++        .field("native_inspector", true));
++    Ok(RunOutcome::ok().with_counter("python_studio_frames", report.frames)
++        .with_artifact("studio_first.png", report.first_png)
++        .with_artifact("studio_last.png", report.last_png)
++        .with_artifact("studio_inspector.json", report.last_inspector))
++}
++
+ fn python_portal_animation_lifecycle_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError> {
+     python_portal_sequence_run(ctx, true)
+ }
+@@ -4434,6 +4455,22 @@ pub fn catalog() -> Vec<ScenarioSpec> {
+             ],
+         )],
+     ));
++    specs.push(spec(
++        "lifecycle.python_studio_capture.v1",
++        ScenarioClass::LifecycleDrill,
++        Surface::PythonInProcess,
++        Invocation::new(python_studio_capture_run),
++        vec![
++            Assertion::ExitCode(0),
++            Assertion::FileInventory(vec!["studio_first.png".to_owned(), "studio_last.png".to_owned(), "studio_inspector.json".to_owned()]),
++            counter_eq("python_studio_frames", 6),
++        ],
++        vec![LogExpect::span_present("e2e.python.studio_capture", vec![
++            FieldPred::u64_eq("frames", 6),
++            FieldPred::bool_eq("read_only", true),
++            FieldPred::bool_eq("native_inspector", true),
++        ])],
++    ));
+     let mut portal_output_inventory = vec![
+         "native_scene.py".to_owned(),
+         "motion.gif".to_owned(),
+@@ -5210,6 +5247,16 @@ fn python_portal_png_scenario_passes() {
+     assert!(report.is_pass(), "{}", report.summary());
+ }
+ 
++/// The production Python capture and native read-only worker in the fast tier.
++#[test]
++fn python_studio_capture_scenario_passes() {
++    let scenario = catalog().into_iter()
++        .find(|scenario| scenario.name == "lifecycle.python_studio_capture.v1")
++        .expect("Python Studio capture is registered");
++    let report = Runner::from_env().run(scenario);
++    assert!(report.is_pass(), "{}", report.summary());
++}
++
+ /// Decoded native GIF/y4m/WAV, ordering, cue placement, and failure atomicity.
+ #[test]
+ fn python_native_outputs_scenario_passes() {
+diff --git a/crates/fmn-python/Cargo.toml b/crates/fmn-python/Cargo.toml
+index c0df8fb..f936b4b 100644
+--- a/crates/fmn-python/Cargo.toml
++++ b/crates/fmn-python/Cargo.toml
+@@ -27,6 +27,8 @@ fmn-library.workspace = true
+ fmn-scene.workspace = true
+ fmn-output = { workspace = true, features = ["exact-process"] }
+ fmn-runtime.workspace = true
++# Host-CPython preview composition only; the standalone CLI has no Python edge.
++fmn-studio.workspace = true
+ pyo3.workspace = true
+ 
+ [lints]
+diff --git a/crates/fmn-python/python/fmn_python/__main__.py b/crates/fmn-python/python/fmn_python/__main__.py
+index 3e6d61b..e395683 100644
+--- a/crates/fmn-python/python/fmn_python/__main__.py
++++ b/crates/fmn-python/python/fmn_python/__main__.py
+@@ -79,10 +79,14 @@ def main():
+     from manimlib import _native
+     from .console_rendering import _tokens, try_render_cli
+     from .scene_controls import try_scene_cli
++    from .studio import try_studio_cli
+ 
+     arguments = list(sys.argv[1:])
+     if "--audit-parity" in _tokens(arguments)[2]:
+         return _emit_parity_audit(_native)
++    result = try_studio_cli(_native, arguments)
++    if result is not None:
++        return result
+     result = try_render_cli(_native, arguments)
+     if result is None:
+         result = try_scene_cli(_native, arguments)
+diff --git a/crates/fmn-python/python/fmn_python/console_rendering.py b/crates/fmn-python/python/fmn_python/console_rendering.py
+index e75eed9..3a98ba7 100644
+--- a/crates/fmn-python/python/fmn_python/console_rendering.py
++++ b/crates/fmn-python/python/fmn_python/console_rendering.py
+@@ -127,7 +127,9 @@ def try_render_cli(native: Any, arguments: list[str]) -> int | None:
+         text = native._portal_cli_help().replace(
+             "Certified output, opener flags, write-all, and Studio",
+             "Certified output, opener flags, and Studio",
+-        ) + "\n\n" + _BATCH_HELP + "\n" + _SELECTION_HELP + "\n" + PLAYBACK_HELP + "\n" + _OUTPUT_HELP
++        ).replace("Certified output, opener flags, and Studio", "Certified output and opener flags")
++        from .studio import _HELP as _STUDIO_HELP
++        text += "\n\n" + _BATCH_HELP + "\n" + _SELECTION_HELP + "\n" + PLAYBACK_HELP + "\n" + _OUTPUT_HELP + "\n" + _STUDIO_HELP
+         if robot:
+             return native._portal_cli_emit(0, "success", "help", "fmn-python usage", True, help=text)
+         print(text)
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+index 7e76f05..f919a31 100644
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -20,6 +20,7 @@ mod method_cache;
+ pub mod perf_harness;
+ mod portal_audio;
+ mod portal_playback;
++mod portal_studio;
+ mod portal_video;
+ mod report;
+ 
+@@ -150,6 +151,7 @@ enum PortalOutputFormat {
+ }
+ 
+ enum PortalRenderSession {
++    Preview(Box<portal_studio::Capture>),
+     Frames(Box<PortalFrameSession>),
+     Soundtrack {
+@@ -217,6 +219,7 @@ impl PortalRenderSession {
+     ) -> Result<(), fmn_scene::IntegrationError> {
+         match self {
+             Self::Frames(session) => session.capture(packet),
++            Self::Preview(session) => session.capture(packet),
+             Self::Soundtrack { .. } => Ok(()),
+         }
+     }
+@@ -229,6 +232,7 @@ impl PortalRenderSession {
+         light_mob: Option<Mob>,
+     ) -> PyResult<()> {
+         match self {
++            Self::Preview(session) => session.bind_camera(frame, light_position, background, light_mob),
+             Self::Frames(session) => {
+                 session.bind_camera(frame, light_position, background, light_mob)
+             }
+@@ -238,6 +242,7 @@ impl PortalRenderSession {
+ 
+     fn needs_final_capture(&self) -> bool {
+         matches!(self, Self::Frames(session) if session.frame_count() == 0)
++            || matches!(self, Self::Preview(session) if session.is_empty())
+     }
+ 
+     fn abort(self) {
+@@ -248,6 +253,7 @@ impl PortalRenderSession {
+ 
+     fn finish(self, scene: &Scene) -> PyResult<(PortalArtifactReport, String, usize)> {
+         match self {
++            Self::Preview(_) => Err(PyRuntimeError::new_err("Studio capture must finish through _finish_studio_capture, not file publication")),
+             // ubs:ignore — finalizes frame publication; no security token or randomness is generated.
+             Self::Frames(session) => session.finish(scene),
+             Self::Soundtrack {
+@@ -7524,7 +7530,7 @@ fn portal_has_frame_render(scene: &Bound<'_, PyScene>) -> PyResult<bool> {
+         .map_err(|_| PyRuntimeError::new_err("portal render session lock was poisoned"))?;
+     Ok(matches!(
+         render.as_ref(),
+-        Some(PortalRenderSession::Frames(_))
++        Some(PortalRenderSession::Frames(_) | PortalRenderSession::Preview(_))
+     ))
+ }
+ 
+@@ -7777,6 +7783,18 @@ impl PyScene {
+         )
+     }
+ 
++    #[allow(clippy::too_many_arguments)]
++    fn _begin_studio_capture(slf: &Bound<'_, Self>, name: String, build: &str, source: &str,
++        width: u32, height: u32, fps: u32, threads: usize, seed: u64,
++        max_frames: usize, max_bytes: usize,
++    ) -> PyResult<()> {
++        portal_studio::begin(slf, name, build, source, width, height, fps, threads, seed, max_frames, max_bytes)
++    }
++
++    fn _finish_studio_capture(slf: &Bound<'_, Self>) -> PyResult<portal_studio::Recording> {
++        portal_studio::finish(slf)
++    }
++
+     /// Cancel an active generation and join its ordered output worker.
+     fn _abort_render(slf: &Bound<'_, Self>) -> PyResult<()> {
+         let render = Arc::clone(&slf.borrow().render);
+@@ -7798,6 +7816,11 @@ impl PyScene {
+         camera: Option<PyRef<'_, PyCameraFrameCore>>,
+         light_position: Option<[f64; 3]>,
+     ) -> PyResult<(String, u64, u64, String, String, usize)> {
++        if matches!(slf.borrow().render.lock()
++            .map_err(|_| PyRuntimeError::new_err("render generation lock poisoned"))?.as_ref(),
++            Some(PortalRenderSession::Preview(_))) {
++            return Err(PyRuntimeError::new_err("Studio capture is not a file render; use _finish_studio_capture"));
++        }
+         portal_playback::synchronize(slf)?;
+         synchronize_portal_camera(slf)?;
+         let engine = Rc::clone(&slf.borrow().engine);
+@@ -10687,6 +10710,8 @@ fn _composition_intervals(run_times: Vec<f64>, lag_ratio: f64) -> Vec<(f64, f64)
+ fn populate_manimlib(py: Python<'_>, module: &Bound<'_, PyModule>) -> PyResult<()> {
+     module.add_class::<BridgeMobject>()?;
+     module.add_class::<PyScene>()?;
++    module.add_class::<portal_studio::Recording>()?;
++    module.add_class::<portal_studio::Host>()?;
+     module.add_class::<PyRecordView>()?;
+     module.add_class::<PyGilProbe>()?;
+     module.add_class::<PyCameraFrameCore>()?;
+@@ -10962,6 +10987,10 @@ _fmn_sys.unraisablehook = _fmn_capture_unraisable
+     })
+ }
+ 
++/// Production captured-preview seam, available only to the Gauntlet.
++#[cfg(feature = "gauntlet")]
++pub use portal_studio::{PortalStudioGauntletReport, run_portal_gauntlet_studio_capture};
++
+ /// Structured result from the feature-gated in-process Gauntlet portal row.
+ #[cfg(feature = "gauntlet")]
+ #[derive(Debug, Clone, PartialEq, Eq)]
+diff --git a/crates/fmn-python/src/portal_playback.rs b/crates/fmn-python/src/portal_playback.rs
+index 921e0d4..0cb267e 100644
+--- a/crates/fmn-python/src/portal_playback.rs
++++ b/crates/fmn-python/src/portal_playback.rs
+@@ -66,6 +66,7 @@ impl PortalRenderSession {
+     fn output_timeline(&self) -> &OutputTimeline {
+         match self {
+             Self::Frames(session) => &session.timeline,
++            Self::Preview(session) => &session.timeline,
+             Self::Soundtrack { timeline, .. } => timeline,
+         }
+     }
+@@ -73,6 +74,7 @@ impl PortalRenderSession {
+     fn output_timeline_mut(&mut self) -> &mut OutputTimeline {
+         match self {
+             Self::Frames(session) => &mut session.timeline,
++            Self::Preview(session) => &mut session.timeline,
+             Self::Soundtrack { timeline, .. } => timeline,
+         }
+     }
+diff --git a/crates/fmn-studio/src/host.rs b/crates/fmn-studio/src/host.rs
+index d1a1357..b63d340 100644
+--- a/crates/fmn-studio/src/host.rs
++++ b/crates/fmn-studio/src/host.rs
+@@ -507,6 +507,7 @@ pub struct StudioWorkerSession {
+     operations: Mutex<()>,
+     guarded_input: bool,
+     session_context: Option<Digest>,
++    fresh_capture_reload: bool,
+ }
+ 
+ impl fmt::Debug for StudioWorkerSession {
+@@ -551,9 +552,19 @@ impl StudioWorkerSession {
+             operations: Mutex::new(()),
+             guarded_input: false,
+             session_context: None,
++            fresh_capture_reload: false,
+         })
+     }
+ 
++    /// Reload an imperative, read-only capture from frame zero. A new source
++    /// may have a shorter timeline; old preview positions are not authored
++    /// commands and must not be replayed against the new Python execution.
++    #[must_use]
++    pub fn with_fresh_capture_reload(mut self) -> Self {
++        self.fresh_capture_reload = true;
++        self
++    }
++
+     /// Active scene identity.
+     #[must_use]
+     pub fn scene(&self) -> &str {
+@@ -601,7 +612,12 @@ impl StudioWorkerSession {
+     fn restart(&self) -> Result<StudioRestart, HostError> {
+         let mut builder = lock(&self.builder);
+         let mut supervisor = lock(&self.supervisor);
+-        let incoming = supervisor.current_commands()?;
++        let incoming = if self.fresh_capture_reload { Vec::new() } else { supervisor.current_commands()? };
+         let recovery =
+             supervisor.rebuild_and_restart(&mut **builder, &incoming, &*self.asset_ok)?;
++        if self.fresh_capture_reload {
++            // The replacement captured a new opaque execution. Do not carry
++            // old preview commands or renderer observations into its journal.
++            supervisor.install_session(self.try_owned_scene()?, Journal::new())?;
++        }
+         let invalidated_at = recovery.plan.reuse;
+@@ -627,13 +638,14 @@ impl StudioWorkerSession {
+         let frame = worker_response(supervisor.request(
+             SupervisorRequest::Scrub {
+                 scene: self.try_owned_scene()?,
+-                frame: self.committed_frame.load(Ordering::Acquire),
++                frame: if self.fresh_capture_reload { 0 } else { self.committed_frame.load(Ordering::Acquire) },
+             },
+             &*self.asset_ok,
+         )?)?;
+         let WorkerResponse::Frame(frame) = frame else {
+             return Err(HostError::UnexpectedWorkerResponse);
+         };
++        if self.fresh_capture_reload { self.committed_frame.store(0, Ordering::Release); }
+         Ok(StudioRestart {
+             recovery,
+             reexecuted_entries,
+diff --git a/crates/fmn-studio/src/native.rs b/crates/fmn-studio/src/native.rs
+index 9ebc297..0502904 100644
+--- a/crates/fmn-studio/src/native.rs
++++ b/crates/fmn-studio/src/native.rs
+@@ -13,5 +13,6 @@ mod raster;
+ mod service;
+ 
+ pub use build::{NativeBuild, NativeBuildContext};
++pub use camera::camera_capture_backend;
+ pub use program::{MAX_NATIVE_SEGMENTS, NativeSceneProgram, NativeSegment};
+ pub use service::{NativeReplayPolicy, NativeSceneWorker, NativeWorkerConfig};
+diff --git a/crates/fmn-studio/src/native/camera.rs b/crates/fmn-studio/src/native/camera.rs
+index c193a57..f1977e8 100644
+--- a/crates/fmn-studio/src/native/camera.rs
++++ b/crates/fmn-studio/src/native/camera.rs
+@@ -39,6 +39,22 @@ impl CameraCapture {
+             ));
+         }
+         let camera = Camera::new(config).map_err(execution_error)?;
++        let backend = camera_capture_backend(&camera, renderer)?;
++        Ok(Self { camera, backend })
++    }
++}
++
++/// Identity of the actual retained-camera CPU route. Imperative front doors
++/// call this at capture time so background, lighting and authored camera pose
++/// are represented without claiming an affine/annex FrameJob executed instead.
++pub fn camera_capture_backend(
++    camera: &Camera, renderer: RetainedFrameRendererConfig,
++) -> Result<RenderBackendRecord, ServiceError> {
++        if renderer.engine != EngineIdentity::certified()
++            || camera.pixel_shape() != (renderer.frame.viewport.width, renderer.frame.viewport.height)
++        {
++            return Err(invalid("camera capture requires the matching certified CPU viewport"));
++        }
+         let mut identity = Writer::new(CAMERA_CAPTURE_SCHEMA);
+         identity
+             .put_str("lumen-retained-camera-cpu-v1")
+@@ -70,11 +86,9 @@ impl CameraCapture {
+         }
+         // This is the normalized base policy. With a rig, per-capture pose is
+         // native SceneState and the factory binding has its own identity.
+-        let backend = RenderBackendRecord::new(
++        RenderBackendRecord::new(
+             RenderBackendRole::FrameStream,
+             identity.finish().map_err(execution_error)?,
+         )
+-        .map_err(execution_error)?;
+-        Ok(Self { camera, backend })
+-    }
++        .map_err(execution_error)
+ }
+diff --git a/docs/dist/python_wheel.md b/docs/dist/python_wheel.md
+index 406fe83..9572761 100644
+--- a/docs/dist/python_wheel.md
++++ b/docs/dist/python_wheel.md
+@@ -98,8 +98,9 @@ width. `--video_dir` names the output directory for a PNG sequence and the
+ destination file for the other formats.
+ 
+ WAV output runs the sampled scene lifecycle without rasterization and mixes
+-`Scene.add_sound` cues through Reel. Cue inputs currently must be PCM WAV;
+-missing, malformed or over-budget audio fails before atomic publication. At
++`Scene.add_sound` cues through Reel. PCM/float WAV inputs remain native-only;
++compressed audio uses the optional governed decoder described in
++[Python audio](python_audio.md). Missing, malformed or over-budget audio fails before atomic publication. At
+ least one cue is required. Output is 48 kHz, stereo, signed 16-bit PCM, with
+ frame-clock cue placement, `time_offset`, `gain`, and `gain_to_background`.
+ Robot output identifies `native-sound-mixer` and reports `sample_frames`,
+@@ -141,8 +142,20 @@ the corresponding `file_writer_config` on a Scene, then call
+ contain spaces and is resolved without shell tokenization. Invalid profiles,
+ missing encoders and failed frames do not replace existing destinations.
+ 
+-Certified output (`--reproducible`), opener flags, and Python `studio`
+-remain fail-closed capability errors. In particular, the portal
++Python `studio` now captures existing scenes in disposable host-CPython workers:
++
++```bash
++fmn-python studio scene.py Example --resolution 640x360 --fps 30
++```
++
++The authenticated native browser UI supports playback, reverse scrubbing,
++per-frame native inspection and explicit source reload. Preview is bounded,
++silent and read-only; it does not expose arbitrary callback checkpoints or
++live `InteractiveScene` editing. See [Python Studio](python_studio.md) for the
++programmatic context manager, resource controls and worker-failure semantics.
++
++Certified output (`--reproducible`) and opener flags remain fail-closed
++capability errors. In particular, the portal
+ does not expose a partial certified path before the Python input closure and
+ provenance sidecar are complete, and it does not label lifecycle-only work as
+ a render. Python scenes execute with the host interpreter's full user
+diff --git a/scripts/check_crate_dag.py b/scripts/check_crate_dag.py
+index 2a21066..1dc78cd 100755
+--- a/scripts/check_crate_dag.py
++++ b/scripts/check_crate_dag.py
+@@ -25,12 +25,12 @@ EXPECTED: dict[str, set[str]] = {
+     # layering puts it above the funnel. fmn-dmath consumes nothing from
+     # fmn-core, so the edge it used to declare was vestigial.
+     "fmn-dmath": set(),
+     "fmn-core": {"fmn-dmath"},  # dmath: color transfer + rate functions (ADR-0014)
+-    "fmn-hash": {"fmn-core"},
++    "fmn-hash": set(),  # Canonical bytes/digests are independent of scene math.
+     "fmn-config": {"fmn-core", "fmn-hash"},
+     "fmn-platform": {"fmn-core"},
+     "fmn-frame": {"fmn-core", "fmn-dmath"},  # dmath: deterministic transfer functions (D-17, fm-a25)
+     "fmn-codec": {"fmn-core", "fmn-frame", "fmn-hash"},
+-    "fmn-cache": {"fmn-core", "fmn-hash", "fmn-platform"},
++    "fmn-cache": {"fmn-hash", "fmn-platform"},
+     "fmn-geom": {"fmn-core", "fmn-dmath"},
+     "fmn-mobject": {"fmn-core", "fmn-dmath", "fmn-geom", "fmn-hash"},  # dmath: tracker exp/ln (ADR-0014)
+@@ -147,6 +147,8 @@ EXPECTED: dict[str, set[str]] = {
+         "fmn-scene",
+         "fmn-output",
+         "fmn-runtime",
++        # Host-CPython Studio front door; no Python enters the native CLI.
++        "fmn-studio",
+     },
+     # W5 tier-1 wasm surface (fm-l97, §10.7): the browser leaf. dmath is a
+     # direct dependency because scene construction evaluates parametric
+diff --git a/crates/fmn-studio/src/recorded.rs b/crates/fmn-studio/src/recorded.rs
+--- a/crates/fmn-studio/src/recorded.rs
++++ b/crates/fmn-studio/src/recorded.rs
+@@ -236,4 +236,5 @@
+     frames.publish(&first, supervisor.protocol_limits())?;
+-    let session = Arc::new(StudioWorkerSession::new(scene, supervisor, builder, Arc::new(|_| false))?);
++    let session = Arc::new(StudioWorkerSession::new(scene, supervisor, builder, Arc::new(|_| false))?
++        .with_fresh_capture_reload());
+     let host = StudioHost::bind(Arc::clone(&session), frames.clone(), token, clock, config)?;
+     Ok((host, session, frames))
+diff --git a/crates/fmn-python/src/portal_studio.rs b/crates/fmn-python/src/portal_studio.rs
+index d324565..ed01753 100644
+--- a/crates/fmn-python/src/portal_studio.rs
++++ b/crates/fmn-python/src/portal_studio.rs
+@@ -209,7 +209,7 @@ impl fmn_studio::RebuildDriver for PythonBuilder {
+         Python::attach(|py| {
+             let result = self.callback.call0(py).map_err(|e| fmn_studio::BuildError::new(e.to_string()))?;
+             type Launch = (String, Vec<String>, Vec<(String, String)>, String, String);
+-            let (executable, argv, env, cwd, build): Launch = result.extract(py)
++            let (executable, argv, env, cwd, build) = result.extract::<Launch>(py)
+                 .map_err(|e| fmn_studio::BuildError::new(e.to_string()))?;
+             let build_id = ProtocolDigest::from_hex(&build).map_err(|e| fmn_studio::BuildError::new(e.to_string()))?;
+             Ok(fmn_studio::WorkerArtifact { executable: executable.into(), argv, env, cwd: Some(cwd.into()), build_id })
+@@ -246,8 +246,9 @@ impl Host {
+         let token = fmn_studio::CapabilityToken::from_hex(token).map_err(native_error)?;
+         let config = fmn_studio::StudioHostConfig {
+             bind_addr: std::net::SocketAddr::from(([127, 0, 0, 1], port)),
+-            // Close is responsive even when a browser leaves its stream open.
+-            stream_idle_timeout: Duration::from_secs(1),
++            // FrameHub::close wakes idle streams on shutdown. Retain the
++            // native idle interval so a paused preview does not reconnect
++            // continuously while the author is inspecting it.
+             ..fmn_studio::StudioHostConfig::default()
+         };
+         let (host, session, frames) = py.detach(move || fmn_studio::recorded::start_host(
+@@ -283,10 +284,19 @@ impl Host {
+     }
+ }
+ 
+-#[cfg(test)]
+-mod tests {
+-    #[test]
+-    fn portal_studio_capture_uses_stepped_scene_and_native_inspector() {
++/// Real captured artifacts for the mandatory Gauntlet lifecycle row.
++#[cfg(any(test, feature = "gauntlet"))]
++pub struct PortalStudioGauntletReport {
++    pub first_png: Vec<u8>,
++    pub last_png: Vec<u8>,
++    pub last_inspector: Vec<u8>,
++    pub frames: u64,
++}
++
++/// Exercise the production capture and worker protocol without publishing an
++/// offline render or claiming that Python callbacks are replayable.
++#[cfg(any(test, feature = "gauntlet"))]
++pub fn run_portal_gauntlet_studio_capture() -> Result<PortalStudioGauntletReport, String> {
+         crate::with_python_test_module("Studio native capture", |py, _module, globals| {
+             let source = std::ffi::CString::new(r#"
+ import json
+@@ -315,7 +325,44 @@ static.camera.fps = 8
+ static.add(m.Circle())
+ assert static._finish_studio_capture().frame_count == 1
+ "#).unwrap();
+-            py.run(source.as_c_str(), Some(globals), Some(globals)).inspect_err(|e| e.print(py)).unwrap();
+-        });
++            py.run(source.as_c_str(), Some(globals), Some(globals))
++                .inspect_err(|e| e.print(py)).map_err(|e| e.to_string())?;
++            let object = globals.get_item("r").map_err(|e| e.to_string())?
++                .ok_or_else(|| "Studio capture produced no recording".to_owned())?;
++            let mut recording = object.extract::<PyRefMut<'_, Recording>>().map_err(|e| e.to_string())?;
++            let timeline = recording.timeline.as_mut().ok_or_else(|| "Studio recording was already consumed".to_owned())?;
++            let scene = timeline.active_scene().unwrap_or_default().to_owned();
++            let frames = timeline.frame_count() as u64;
++            let png = |timeline: &mut fmn_studio::recorded::RecordedTimeline, index| {
++                let response = timeline.handle(fmn_studio::SupervisorRequest::Scrub {
++                    scene: scene.clone(), frame: index,
++                }).map_err(|e| e.to_string())?;
++                match response {
++                    fmn_studio::WorkerResponse::Frame(FrameStream { payload: FramePayload::Pipe { bytes, .. }, .. }) => Ok(bytes),
++                    _ => Err("Studio did not return an owned PNG".to_owned()),
++                }
++            };
++            let first_png = png(timeline, 0)?;
++            let last_png = png(timeline, 5)?;
++            let fmn_studio::WorkerResponse::StudioData { bytes: last_inspector, .. } = timeline.handle(
++                fmn_studio::SupervisorRequest::Inspect { scene: scene.clone() },
++            ).map_err(|e| e.to_string())? else {
++                return Err("Studio did not return its native inspector".to_owned());
++            };
++            Ok(PortalStudioGauntletReport { first_png, last_png, last_inspector, frames })
++        })
++}
++
++#[cfg(test)]
++mod tests {
++    #[test]
++    fn portal_studio_capture_uses_stepped_scene_and_native_inspector() {
++        let report = super::run_portal_gauntlet_studio_capture().unwrap();
++        let first = fmn_codec::decode_png(&report.first_png, &fmn_codec::PngLimits::default()).unwrap();
++        let last = fmn_codec::decode_png(&report.last_png, &fmn_codec::PngLimits::default()).unwrap();
++        assert_eq!(report.frames, 6);
++        assert_eq!((first.width, first.height), (96, 54));
++        assert_ne!(first.rgba, last.rgba, "animation must reach the captured native pixels");
++        assert!(!report.last_inspector.is_empty());
+     }
+ }
+diff --git a/crates/fmn-python/tests/studio_preview.py b/crates/fmn-python/tests/studio_preview.py
+index 3eae3cf..4c7a85b 100644
+--- a/crates/fmn-python/tests/studio_preview.py
++++ b/crates/fmn-python/tests/studio_preview.py
+@@ -258,7 +258,7 @@ class StudioWheelTests(unittest.TestCase):
+                 process.stdout.close()
+         help = subprocess.run([sys.executable, "-I", "-m", "fmn_python", "--robot", "studio", "--help"],
+                               capture_output=True, text=True, timeout=15, check=True)
+-        self.assertIn("read-only", json.loads(help.stdout)["help"])
++        self.assertIn("read-only", json.loads(help.stdout)["help"].lower())
+ 
+ 
+ if __name__ == "__main__":

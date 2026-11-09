@@ -1,0 +1,3 @@
+{"chapter_scope": null, "consumer": "render", "directed_caption_segments": [], "listening_acceptance": false, "plan_mode": "external-ui", "prediction_holds": [], "promotion": false, "selected_cues": 9, "topic": "complex_analysis_visual", "verified_cues": 105}
+09_boundary    16504 frames  15061.4s     1.1 fps  -> /data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-repaired-final-09-boundary158/render/09_boundary.mp4
+total          16504 frames  15061.4s     1.1 fps

@@ -1,0 +1,133 @@
+{
+ "status": "PROVISIONAL",
+ "basis": "Frame starts are cumulative timeline444 chapter frame counts at 60 fps, assuming the final master is the 15 chapters joined in order with nothing before, between or after them. A timestamp is the start rounded down to the whole second, as in the logarithm chapter-times03.json. These times are not checked against any master: none exists. Before upload root re-derives every start from the final master and keeps these only if all 15 starts and counts match exactly; otherwise every timestamp in the description is replaced.",
+ "fps": 60,
+ "total_frames": 100886,
+ "duration_seconds": 1681.4333333333334,
+ "duration": "28:01.433",
+ "timeline444_summary_sha256": "686bf77dd9e392de1ee563e7bd691ad9cb71e783c05b7da2346d1f366f726277",
+ "script_sha256": "b9344e1123170e7e3898d8aea2123e0b659bcd571085008fc97894e7d69da624",
+ "description_md_sha256": "16c44c2c890d019a5b53d574970ede3dceaf87a8ea4e94e13a789cb5660056a9",
+ "chapters": [
+  {
+   "key": "01_one_more_seat",
+   "title": "One more seat",
+   "frame_start": 0,
+   "frames": 4806,
+   "seconds": 0.0,
+   "timestamp": "0:00"
+  },
+  {
+   "key": "02_shares",
+   "title": "Seats do not come in fractions",
+   "frame_start": 4806,
+   "frames": 6647,
+   "seconds": 80.1,
+   "timestamp": "1:20"
+  },
+  {
+   "key": "03_largest_tails",
+   "title": "Whole parts first, then the largest tails",
+   "frame_start": 11453,
+   "frames": 5527,
+   "seconds": 190.88333333333333,
+   "timestamp": "3:10"
+  },
+  {
+   "key": "04_sixteenth",
+   "title": "The sixteenth seat",
+   "frame_start": 16980,
+   "frames": 4238,
+   "seconds": 283.0,
+   "timestamp": "4:43"
+  },
+  {
+   "key": "05_dials",
+   "title": "Tails move at different speeds",
+   "frame_start": 21218,
+   "frames": 6316,
+   "seconds": 353.6333333333333,
+   "timestamp": "5:53"
+  },
+  {
+   "key": "06_not_every_time",
+   "title": "It comes and goes",
+   "frame_start": 27534,
+   "frames": 4947,
+   "seconds": 458.9,
+   "timestamp": "7:38"
+  },
+  {
+   "key": "07_yardstick",
+   "title": "Change the yardstick, not the rounding",
+   "frame_start": 32481,
+   "frames": 5049,
+   "seconds": 541.35,
+   "timestamp": "9:01"
+  },
+  {
+   "key": "08_signposts",
+   "title": "One list for every house size",
+   "frame_start": 37530,
+   "frames": 6448,
+   "seconds": 625.5,
+   "timestamp": "10:25"
+  },
+  {
+   "key": "09_cost",
+   "title": "The cost of never taking back",
+   "frame_start": 43978,
+   "frames": 4907,
+   "seconds": 732.9666666666667,
+   "timestamp": "12:12"
+  },
+  {
+   "key": "10_rounding_rules",
+   "title": "Round up, round to the nearest",
+   "frame_start": 48885,
+   "frames": 8471,
+   "seconds": 814.75,
+   "timestamp": "13:34"
+  },
+  {
+   "key": "11_webster_quota",
+   "title": "Can Webster break quota?",
+   "frame_start": 57356,
+   "frames": 6480,
+   "seconds": 955.9333333333333,
+   "timestamp": "15:55"
+  },
+  {
+   "key": "12_both_promises",
+   "title": "Both promises at once",
+   "frame_start": 63836,
+   "frames": 13460,
+   "seconds": 1063.9333333333334,
+   "timestamp": "17:43"
+  },
+  {
+   "key": "13_population",
+   "title": "When populations change",
+   "frame_start": 77296,
+   "frames": 7459,
+   "seconds": 1288.2666666666667,
+   "timestamp": "21:28"
+  },
+  {
+   "key": "14_no_rule",
+   "title": "No rule keeps both",
+   "frame_start": 84755,
+   "frames": 10390,
+   "seconds": 1412.5833333333333,
+   "timestamp": "23:32"
+  },
+  {
+   "key": "15_recap",
+   "title": "The whole map",
+   "frame_start": 95145,
+   "frames": 5741,
+   "seconds": 1585.75,
+   "timestamp": "26:25"
+  }
+ ]
+}

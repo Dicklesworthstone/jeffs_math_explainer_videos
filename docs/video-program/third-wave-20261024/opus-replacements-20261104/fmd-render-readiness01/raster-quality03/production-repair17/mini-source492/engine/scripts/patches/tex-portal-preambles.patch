@@ -1,0 +1,483 @@
+diff --git a/crates/fmn-conformance/tests/e2e_scenarios.rs b/crates/fmn-conformance/tests/e2e_scenarios.rs
+--- a/crates/fmn-conformance/tests/e2e_scenarios.rs
++++ b/crates/fmn-conformance/tests/e2e_scenarios.rs
+@@ -2019,6 +2019,32 @@
+ /// retained Lumen rasterizes it, and Reel publishes an atomic PNG generation.
+ fn python_portal_png_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError> {
+     python_portal_sequence_run(ctx, false)
++}
++
++fn python_tex_preambles_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError> {
++    let root = scenario_dir("python_tex_preambles")?;
++    let (png, checks) = manimlib::run_portal_gauntlet_tex_preambles(&root, ctx.seed)
++        .map_err(|error| fail(format!("Python Tex preambles: {error}")))?;
++    let image = fmn_codec::decode_png(&png, &fmn_codec::PngLimits::default())
++        .map_err(|error| fail(format!("decode Tex preambles: {error}")))?;
++    let visible = image
++        .rgba
++        .chunks_exact(4)
++        .filter(|pixel| pixel[0] > pixel[1] && pixel[0] > pixel[2])
++        .count() as u64;
++    if (image.width, image.height) != (192, 128) || visible == 0 {
++        return Err(fail("Tex preambles did not render visible 192x128 geometry"));
++    }
++    ctx.event(
++        LogEvent::new("e2e.python.tex_preambles")
++            .field("checks", checks)
++            .field("expanded_formula_oracle", true)
++            .field("thread_replay", true),
++    );
++    Ok(RunOutcome::ok()
++        .with_counter("tex_preambles_checks", checks)
++        .with_counter("tex_preambles_visible_pixels", visible)
++        .with_artifact("tex_preambles.png", png))
+ }
+ 
+ fn python_surface_mesh_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError> {
+@@ -4563,6 +4589,22 @@
+         )],
+     ));
+     specs.push(spec(
++        "render_matrix.python_tex_preambles.v1",
++        ScenarioClass::RenderMatrix,
++        Surface::PythonInProcess,
++        Invocation::new(python_tex_preambles_run),
++        vec![
++            Assertion::ExitCode(0),
++            Assertion::FileInventory(vec!["tex_preambles.png".to_owned()]),
++            counter_eq("tex_preambles_checks", 10),
++            counter_ge("tex_preambles_visible_pixels", 1),
++        ],
++        vec![LogExpect::span_present(
++            "e2e.python.tex_preambles",
++            vec![FieldPred::u64_eq("checks", 10)],
++        )],
++    ));
++    specs.push(spec(
+         "render_matrix.python_surface_mesh.v1",
+         ScenarioClass::RenderMatrix,
+         Surface::PythonInProcess,
+@@ -5328,6 +5370,16 @@
+ 
+ /// Sampled wireframes through the native portal, renderer and PNG publisher.
+ #[test]
++fn python_tex_preambles_scenario_passes() {
++    let scenario = catalog()
++        .into_iter()
++        .find(|scenario| scenario.name == "render_matrix.python_tex_preambles.v1")
++        .expect("Python Tex preamble scenario is registered");
++    let report = Runner::from_env().run(scenario);
++    assert!(report.is_pass(), "{}", report.summary());
++}
++
++#[test]
+ fn python_surface_mesh_scenario_passes() {
+     let scenario = catalog()
+         .into_iter()
+diff --git a/crates/fmn-python/python/manimlib_bootstrap.py b/crates/fmn-python/python/manimlib_bootstrap.py
+--- a/crates/fmn-python/python/manimlib_bootstrap.py
++++ b/crates/fmn-python/python/manimlib_bootstrap.py
+@@ -8056,10 +8056,10 @@
+             type(self).__name__ + "()",
+             [
+                 ("alignment", alignment != "\\centering"),
+-                ("template", template != ""),
+-                ("additional_preamble", additional_preamble != ""),
+             ],
+         )
++        if not isinstance(template, str) or not isinstance(additional_preamble, str):
++            raise TypeError("template and additional_preamble must be strings")
+         color_map = dict(t2c or {})
+         color_map.update(tex_to_color_map or {})
+         isolate = [] if isolate is None else isolate
+@@ -8102,6 +8102,8 @@
+             self.font_size,
+             native_t2c or None,
+             bool(self._native_group_single_part),
++            self.template,
++            self.additional_preamble,
+         )
+         _hang_native_children(self, specs)
+         self._validate_isolate_spans()
+@@ -10133,10 +10135,10 @@
+             "SingleStringTex()",
+             [
+                 ("alignment", alignment != r"\centering"),
+-                ("template", template != ""),
+-                ("additional_preamble", additional_preamble != ""),
+             ],
+         )
++        if not isinstance(template, str) or not isinstance(additional_preamble, str):
++            raise TypeError("template and additional_preamble must be strings")
+         style = dict(kwargs)
+         style.update(
+             fill_color=fill_color,
+@@ -10163,6 +10165,8 @@
+             float(font_size),
+             None,
+             False,
++            self.template,
++            self.additional_preamble,
+         )
+         _hang_native_children(self, specs)
+         _apply_vmobject_style_kwargs(self, style)
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -21,6 +21,7 @@
+ mod portal_audio;
+ mod portal_playback;
+ mod portal_studio;
++mod portal_tex;
+ mod portal_video;
+ mod report;
+ 
+@@ -6756,6 +6757,7 @@
+     /// span map, no heuristic splitting), matching the Reference's
+     /// per-`SingleStringTex` submobject structure.
+     #[allow(clippy::too_many_arguments)]
++    #[pyo3(signature = (factory, parts, separator, text_mode, font_size, t2c, group_single_part, template="", additional_preamble=""))]
+     fn _build_tex<'py>(
+         slf: &Bound<'py, Self>,
+         factory: &Bound<'py, PyAny>,
+@@ -6765,6 +6767,8 @@
+         font_size: f64,
+         t2c: Option<&Bound<'py, PyDict>>,
+         group_single_part: bool,
++        template: &str,
++        additional_preamble: &str,
+     ) -> PyResult<Bound<'py, PyList>> {
+         let source = parts.join(separator);
+         let pairs = t2c_pairs(t2c)?;
+@@ -6772,14 +6776,16 @@
+             .iter()
+             .map(|(needle, color)| (needle.as_str(), *color))
+             .collect();
+-        let built = with_tex_engine(|engine| {
++        let built = portal_tex::with_template(template, |engine| {
+             if text_mode {
+                 fmn_library::TexText::new(&source)
++                    .additional_preamble(additional_preamble)
+                     .font_size(font_size)
+                     .t2c(&refs)
+                     .build(engine)
+             } else {
+                 fmn_library::Tex::new(&source)
++                    .additional_preamble(additional_preamble)
+                     .font_size(font_size)
+                     .t2c(&refs)
+                     .build(engine)
+@@ -11137,6 +11143,32 @@
+ }
+ 
+ /// Exercise live sampled wireframes and an independently authored PNG oracle.
++/// Native macro preambles with independent expanded-formula pixel oracles.
++#[cfg(feature = "gauntlet")]
++pub fn run_portal_gauntlet_tex_preambles(
++    destination: &std::path::Path,
++    seed: u64,
++) -> Result<(Vec<u8>, u64), String> {
++    let destination = destination
++        .to_str()
++        .ok_or_else(|| "Tex preamble destination is not UTF-8".to_owned())?;
++    with_python_test_module("Tex preamble Gauntlet", |py, _module, globals| {
++        let source = CString::new(include_str!("../tests/tex_preambles.py"))
++            .expect("Tex preamble suite contains no NUL");
++        py.run(source.as_c_str(), Some(globals), Some(globals))
++            .inspect_err(|error| error.print(py))
++            .map_err(|error| error.to_string())?;
++        globals
++            .get_item("render_tex_preambles")
++            .map_err(|error| error.to_string())?
++            .ok_or_else(|| "Tex preamble renderer is absent".to_owned())?
++            .call1((destination, seed))
++            .inspect_err(|error| error.print(py))
++            .and_then(|value| value.extract::<(Vec<u8>, u64)>())
++            .map_err(|error| error.to_string())
++    })
++}
++
+ #[cfg(feature = "gauntlet")]
+ pub fn run_portal_gauntlet_surface_mesh(
+     destination: &std::path::Path,
+@@ -11738,6 +11770,26 @@
+     }
+ 
+     #[test]
++    fn production_tex_preambles_acceptance_suite() {
++        crate::with_python_test_module("Tex preamble acceptance", |py, _module, globals| {
++            let source = CString::new(include_str!("../tests/tex_preambles.py"))
++                .expect("Tex preamble suite contains no NUL");
++            py.run(source.as_c_str(), Some(globals), Some(globals))
++                .inspect_err(|error| error.print(py))
++                .expect("load native Tex preamble acceptance");
++            let checks = globals
++                .get_item("verify_tex_preambles")
++                .expect("find Tex preamble acceptance")
++                .expect("Tex preamble acceptance is defined")
++                .call0()
++                .inspect_err(|error| error.print(py))
++                .and_then(|value| value.extract::<u64>())
++                .expect("native Tex preamble acceptance");
++            assert_eq!(checks, 10);
++        });
++    }
++
++    #[test]
+     fn production_surface_mesh_acceptance_suite() {
+         crate::with_python_test_module("surface mesh acceptance", |py, _module, globals| {
+             let source = CString::new(include_str!("../tests/surface_mesh.py"))
+diff --git a/crates/fmn-python/src/portal_tex.rs b/crates/fmn-python/src/portal_tex.rs
+new file mode 100644
+--- /dev/null
++++ b/crates/fmn-python/src/portal_tex.rs
+@@ -0,0 +1,41 @@
++//! Named native Tex templates. The registry admits only its finite built-in
++//! pack set; each engine (including bundled-face parsing) is created once
++//! per thread. Per-document preambles never mutate these shared engines.
++
++use std::cell::RefCell;
++use std::collections::BTreeMap;
++
++use fmn_library::TexEngine;
++use pyo3::PyResult;
++use pyo3::exceptions::PyRuntimeError;
++
++thread_local! {
++    static ENGINES: RefCell<BTreeMap<&'static str, TexEngine>> = const {
++        RefCell::new(BTreeMap::new())
++    };
++}
++
++pub(super) fn with_template<T>(
++    template: &str,
++    operation: impl FnOnce(&TexEngine) -> PyResult<T>,
++) -> PyResult<T> {
++    let name = if template.is_empty() { "default" } else { template };
++    let pack = fmn_config::PackRegistry::builtin()
++        .resolve_template(name)
++        .map_err(super::tex_error)?;
++    if pack.name == "default" {
++        return super::with_tex_engine(operation);
++    }
++    ENGINES.with(|cell| {
++        let mut engines = cell.try_borrow_mut().map_err(|_| {
++            PyRuntimeError::new_err("native Tex template engine is already borrowed")
++        })?;
++        if let std::collections::btree_map::Entry::Vacant(entry) = engines.entry(pack.content_id) {
++            entry.insert(TexEngine::new(pack.content_id, None).map_err(super::tex_error)?);
++        }
++        let engine = engines.get(pack.content_id).ok_or_else(|| {
++            PyRuntimeError::new_err("native Tex template engine was not installed")
++        })?;
++        operation(engine)
++    })
++}
+diff --git a/crates/fmn-python/tests/tex_preambles.py b/crates/fmn-python/tests/tex_preambles.py
+new file mode 100644
+--- /dev/null
++++ b/crates/fmn-python/tests/tex_preambles.py
+@@ -0,0 +1,156 @@
++"""Native per-document preambles: original source spans and independent pixels.
++
++Run against an installed wheel with ``python -I tex_preambles.py``.
++"""
++from pathlib import Path
++import tempfile
++
++import numpy as np
++import manimlib as m
++from manimlib.mobject.svg.old_tex_mobject import OldTex, OldTexText, SingleStringTex
++
++HALF = r"\newcommand{\half}[1]{\frac{#1}{2}}"
++PAIR = r"\newcommand{\pair}[2]{\left(\frac{#1}{#2}\right)}"
++
++
++def _same_geometry(actual, expected):
++    a, b = actual.get_all_points(), expected.get_all_points()
++    assert a.shape == b.shape, (a.shape, b.shape)
++    assert np.array_equal(a, b), "native macro expansion changed the independent geometry"
++
++
++def _refuses(make, contains=None, exception=Exception):
++    try:
++        make()
++    except exception as error:
++        if contains is not None:
++            assert contains.lower() in str(error).lower(), str(error)
++        return
++    raise AssertionError("invalid preamble/template was accepted")
++
++
++def verify_tex_preambles():
++    # The same native builder serves all five modern/legacy constructors.
++    for cls in (m.Tex, OldTex, SingleStringTex):
++        for template in ("", "default", "basic", "empty"):
++            actual = cls(r"\half{x}", template=template, additional_preamble=HALF)
++            _same_geometry(actual, cls(r"\frac{x}{2}", template=template))
++            assert actual.additional_preamble == HALF and actual.template == template
++    for cls in (m.TexText, OldTexText):
++        for source, expanded in ((r"half: $\half{x}$", r"half: $\frac{x}{2}$"),
++                                 (r"$\half{x}$", r"$\frac{x}{2}$"),
++                                 (r"$$\half{x}$$", r"$$\frac{x}{2}$$")):
++            prefix = "\n% λ UTF-8 comment\n" + HALF + "\n% no final newline"
++            _same_geometry(cls(source, additional_preamble=prefix), cls(expanded))
++    _same_geometry(SingleStringTex(r"half: $\half{x}$", math_mode=False,
++        additional_preamble=HALF), SingleStringTex(r"half: $\frac{x}{2}$", math_mode=False))
++
++    # Nested macros, multiple arguments and drawn delimiters use upstream
++    # expansion rather than a second Python implementation.
++    prefix = HALF + "\n" + PAIR
++    _same_geometry(m.Tex(r"\pair{\half{x}}{\sqrt{y}}", additional_preamble=prefix),
++                   m.Tex(r"\left(\frac{\frac{x}{2}}{\sqrt{y}}\right)"))
++    _same_geometry(m.Tex(r"a\minus b", additional_preamble=r"\renewcommand{\minus}{+}"),
++                   m.Tex("a+b"))
++    _same_geometry(m.Tex(r"\renewcommand{\half}[1]{\sqrt{#1}}\half{x}",
++                        additional_preamble=HALF), m.Tex(r"\sqrt{x}"))
++
++    # Selection coordinates exclude the preamble even after UTF-8 text.
++    source = r"λ+\half{x}+\half{y}"
++    actual = m.Tex(source, additional_preamble=HALF,
++                   isolate=[r"\half{x}", r"\half{y}"],
++                   t2c={r"\half{x}": m.RED, r"\half{y}": m.BLUE})
++    assert actual.get_tex() == source and actual.string == source
++    for start, end in actual._string_sub_spans:
++        assert 0 <= start <= end <= len(source.encode())
++        source.encode()[:start].decode()
++        source.encode()[:end].decode()
++    red = actual.get_part_by_tex(r"\half{x}")
++    blue = actual.get_part_by_tex(r"\half{y}")
++    assert red is not blue
++    assert all(part.get_fill_color() == m.RED for part in red.family_members_with_points())
++    assert all(part.get_fill_color() == m.BLUE for part in blue.family_members_with_points())
++    assert len(actual.get_parts_by_tex("x")) == 1
++    multi = m.Tex(r"\half{x}", "+", r"\half{y}", additional_preamble=HALF)
++    _same_geometry(multi, m.Tex(r"\frac{x}{2}", "+", r"\frac{y}{2}"))
++    assert len(multi) == 3
++    clone = multi.copy()
++    _same_geometry(clone, multi)
++    assert clone.additional_preamble == HALF
++    before = multi.get_all_points().copy()
++    clone.shift(m.RIGHT)
++    assert np.array_equal(multi.get_all_points(), before)
++
++    # A cached engine must never retain a previous document's macro table.
++    for symbol in ("x", "y", "x", "z"):
++        _same_geometry(m.Tex(r"\value", additional_preamble=r"\newcommand{\value}{" + symbol + "}"),
++                       m.Tex(symbol))
++    _refuses(lambda: m.Tex(r"\value"), "value")
++    _refuses(lambda: m.Tex(r"\minus", template="empty"), "minus")
++    _refuses(lambda: m.Tex("x", template="basic", additional_preamble=r"\renewcommand{\minus}{+}"), "minus")
++    _refuses(lambda: m.Tex("x", template="does-not-exist"), "available packs")
++    _refuses(lambda: m.Tex("x", template="ctex"), "CJK")
++    _refuses(lambda: m.Tex("x", template="comic_sans"), "bundled")
++    for invalid in (None, {}, 12):
++        _refuses(lambda invalid=invalid: m.Tex("x", template=invalid), exception=TypeError)
++        _refuses(lambda invalid=invalid: SingleStringTex("x", additional_preamble=invalid), exception=TypeError)
++    for bad in ("visible", r"\quad", r"\displaystyle", r"\usepackage{amsmath}",
++                r"\input{secret}", r"\newcommand{\bad}[1]{#2}",
++                r"\newcommand{\bad}{unclosed", r"\newcommand{\bad}{a}\newcommand{\bad}{b}"):
++        _refuses(lambda bad=bad: m.Tex("x", additional_preamble=bad))
++    _refuses(lambda: m.Tex("x", additional_preamble=" " * 65537), "limit")
++    _refuses(lambda: m.Tex(r"\loop", additional_preamble=r"\newcommand{\loop}{\loop}"), "recurs")
++    _refuses(lambda: m.Tex(r"\outer{x}", additional_preamble=HALF +
++        r"\newcommand{\outer}[1]{\half{#1}}"), "definition-site span")
++    _same_geometry(m.Tex(r"\half{x}", additional_preamble=HALF), m.Tex(r"\frac{x}{2}"))
++    for cls in (m.Tex, m.TexText):
++        _same_geometry(cls("x", additional_preamble="\n% only a comment"), cls("x"))
++        _same_geometry(cls("x", additional_preamble=""), cls("x"))
++    return 10
++
++
++def render_tex_preambles(destination, seed=0):
++    checks = verify_tex_preambles()
++
++    class PreambleScene(m.Scene):
++        reference = False
++        random_seed = seed & 0xFFFF_FFFF
++
++        def construct(self):
++            if self.reference:
++                formula = m.Tex(r"\left(\frac{x}{\sqrt{y}}\right)", color=m.RED)
++                caption = m.TexText(r"half: $\frac{x}{2}$", color=m.BLUE)
++            else:
++                formula = m.Tex(r"\pair{x}{\sqrt{y}}", additional_preamble=PAIR, color=m.RED)
++                caption = m.TexText(r"half: $\half{x}$", additional_preamble=HALF, color=m.BLUE)
++            formula.scale(2).shift(m.UP)
++            caption.scale(2).shift(m.DOWN)
++            self.add(formula, caption)
++
++    destination = Path(destination)
++    destination.mkdir(parents=True, exist_ok=True)
++    images = []
++    for name, reference, threads in (("preamble-1.png", False, 1),
++                                     ("preamble-4.png", False, 4),
++                                     ("expanded.png", True, 1)):
++        scene = PreambleScene()
++        scene.reference = reference
++        path = destination / name
++        scene._begin_png(str(path), 192, 128, 30, threads, seed)
++        try:
++            scene.run()
++            scene._finish_render(scene.frame._core, scene.camera.light_source.get_center())
++        except BaseException:
++            scene._abort_render()
++            raise
++        images.append(path.read_bytes())
++    assert images[0] == images[1], "thread count changed native macro output"
++    assert images[0] == images[2], "native preambles differ from independently expanded formulas"
++    assert images[0][:8] == b"\x89PNG\r\n\x1a\n"
++    return images[0], checks
++
++
++if __name__ == "__main__":
++    with tempfile.TemporaryDirectory(prefix="fmn-tex-preambles-") as directory:
++        png, checks = render_tex_preambles(directory)
++    print(f"Tex preambles: {checks} acceptance groups; identical native 1/4-thread and independent PNGs ({len(png)} bytes)")
+diff --git a/docs/behavior_notes/BN-05-native-text-typesetting.md b/docs/behavior_notes/BN-05-native-text-typesetting.md
+--- a/docs/behavior_notes/BN-05-native-text-typesetting.md
++++ b/docs/behavior_notes/BN-05-native-text-typesetting.md
+@@ -51,3 +51,43 @@
+ - Pango-only markup (arbitrary attributes, `<gravity>`, etc.) is out of
+   the compatibility claim; the supported set is documented in
+   `fmn_text::markup`.
++
++
++## Document-local TeX preambles and named native templates
++
++`Tex`, `TexText`, `OldTex`, `OldTexText`, and `SingleStringTex` accept
++`template="default"`, `"basic"`, or `"empty"`; `""` selects `default`.
++The names resolve through the same native preamble-pack registry as Rust
++configuration. Host-font and CJK templates retain their named capability
++refusals; they do not invoke LaTeX or silently substitute a different pack.
++
++`additional_preamble` accepts native `\newcommand` and `\renewcommand`
++definitions, comments and whitespace. Expansion is performed by fmd-math,
++with its existing recursion/depth/token budgets. A preamble is limited to
++65,536 UTF-8 bytes. Package loading, external-file directives and visible
++material are refused rather than ignored. These are native macro definitions,
++not an arbitrary LaTeX document preamble.
++
++```python
++formula = Tex(r"\half{x}", additional_preamble=r"\newcommand{\half}[1]{\frac{#1}{2}}")
++caption = TexText(r"Half: $\half{x}$", additional_preamble=formula.additional_preamble)
++```
++
++Definitions are local to the constructed document. They cannot leak into
++another object through a reused engine or cache. Cache identity includes
++the entire preamble and selected pack; changing a macro re-typesets.
++`get_tex()`, `isolate`, color maps and matching continue to use the original
++formula's source spans, including UTF-8 byte coordinates. Preamble comments
++and newlines add no visible whitespace to `TexText`.
++
++Rust consumers use `Tex::additional_preamble`,
++`TexText::additional_preamble`, or `TexEngine::typeset_with_preamble` with
++the same semantics and the same native parser.
++
++The pinned fmd-math expander has a known defect for macro calls nested in
++another macro's **definition body**: it may keep definition-site spans and
++fail to substitute the enclosing parameters. This route detects those
++invalid spans and returns a named error rather than publishing wrong
++geometry. Nested calls in **arguments** (for example,
++`\pair{\half{x}}{y}`) are supported. Until the upstream defect is corrected,
++write native primitives directly in definition bodies.

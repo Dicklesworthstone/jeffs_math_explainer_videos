@@ -1,0 +1,34 @@
+{
+  "recorded_at": "2026-11-07T19:22:55.135614+00:00",
+  "video_id": "abstract_algebra_visual",
+  "youtube_id": "TLIrVzLkQro",
+  "url": "https://youtu.be/TLIrVzLkQro",
+  "title": "Abstract Algebra, Built from a Square",
+  "visibility": "public",
+  "original_id": "XNxUIk1UsIQ",
+  "original_visibility": "unlisted",
+  "order": "Existing private draft: Studio SD/HD/4K complete and Notices dash; selected Public and saved. Public watch showed Auto2160p60 4K and English selected with visible exact manual caption text, no automatic track listed at that time. Only then set original Unlisted and Studio confirmed Changes saved.",
+  "master_path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-final-master14/final/abstract_algebra_expanded_master.mp4",
+  "master_sha256": "69dba6d493bfa510a371015ba4383d1f6b1930d38202a2a123fdf97e3008333f",
+  "frames": 251862,
+  "fps": 60,
+  "duration_seconds": 4197.7,
+  "narration_cues": 186,
+  "caption_blocks": 1112,
+  "voice": "ElevenLabs Frederick Surrey",
+  "uploaded_once": true,
+  "reviewed_selected_pictures": 5670,
+  "reviewed_contact_sheets": 709,
+  "uploaded_english_selected": true,
+  "review_limits": [
+    "No continuous listening or whole-film watch-through claimed.",
+    "Fine sync and full independent final audiovisual acceptance remain unestablished.",
+    "ASR, technical decode, sampled pictures and sparse muted playback observations have their recorded limits."
+  ],
+  "screenshots": [
+    {
+      "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/algebra-fixes/public-watch14-01.jpg",
+      "sha256": "e5f4d4ca256cdc665ecadb2178058316eff66e7a9d3ee496c9aaeb2cb83d246f"
+    }
+  ]
+}

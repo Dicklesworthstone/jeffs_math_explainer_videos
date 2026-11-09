@@ -1,0 +1,123 @@
+{
+  "started": "2026-11-08T01:38:56.801810+00:00",
+  "phase": "native",
+  "command": [
+    "python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-render-worker-20261107/qualification01/production19/ts1-final05-relay105.py",
+    "receive"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-08T01:38:58.375699+00:00",
+      "free_bytes": 149225447424,
+      "work_bytes": 464265216,
+      "target_bytes": 6116687872
+    },
+    {
+      "utc": "2026-11-08T01:39:08.739432+00:00",
+      "free_bytes": 149225447424,
+      "work_bytes": 464265216,
+      "target_bytes": 6116687872
+    },
+    {
+      "utc": "2026-11-08T01:39:19.073587+00:00",
+      "free_bytes": 149225447424,
+      "work_bytes": 464265216,
+      "target_bytes": 6116687872
+    },
+    {
+      "utc": "2026-11-08T01:39:29.424626+00:00",
+      "free_bytes": 149225447424,
+      "work_bytes": 464265216,
+      "target_bytes": 6116687872
+    },
+    {
+      "utc": "2026-11-08T01:39:39.791662+00:00",
+      "free_bytes": 149225447424,
+      "work_bytes": 464265216,
+      "target_bytes": 6116687872
+    },
+    {
+      "utc": "2026-11-08T01:39:50.165488+00:00",
+      "free_bytes": 149225447424,
+      "work_bytes": 464265216,
+      "target_bytes": 6146400256
+    },
+    {
+      "utc": "2026-11-08T01:40:00.572013+00:00",
+      "free_bytes": 149225447424,
+      "work_bytes": 464265216,
+      "target_bytes": 6362484736
+    },
+    {
+      "utc": "2026-11-08T01:40:10.977026+00:00",
+      "free_bytes": 149225447424,
+      "work_bytes": 464265216,
+      "target_bytes": 6499586048
+    },
+    {
+      "utc": "2026-11-08T01:40:21.418080+00:00",
+      "free_bytes": 149225447424,
+      "work_bytes": 464265216,
+      "target_bytes": 6727335936
+    },
+    {
+      "utc": "2026-11-08T01:40:31.971967+00:00",
+      "free_bytes": 149225447424,
+      "work_bytes": 464265216,
+      "target_bytes": 6954991616
+    },
+    {
+      "utc": "2026-11-08T01:40:42.428356+00:00",
+      "free_bytes": 149259001856,
+      "work_bytes": 464265216,
+      "target_bytes": 7193149440
+    },
+    {
+      "utc": "2026-11-08T01:40:52.819838+00:00",
+      "free_bytes": 147921141760,
+      "work_bytes": 464265216,
+      "target_bytes": 7459209216
+    },
+    {
+      "utc": "2026-11-08T01:41:03.277591+00:00",
+      "free_bytes": 147921141760,
+      "work_bytes": 464265216,
+      "target_bytes": 7635922944
+    },
+    {
+      "utc": "2026-11-08T01:41:10.901408+00:00",
+      "free_bytes": 147921141760,
+      "work_bytes": 464609280,
+      "target_bytes": 7635922944
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":5,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":149225447424,\"free_excludes_purgeable\":true,\"free_pct\":2.486601532888946,\"mount_point\":\"/data\",\"path\":\"/data/projects/jmev-render-worker-20261107\",\"platform\":{\"linux\":{\"device_id\":52,\"fs_type\":\"btrfs\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":6001180545024,\"unprotected\":null,\"volume_available_bytes\":149225447424,\"volume_role\":null,\"volume_total_bytes\":6001180545024}\n",
+    "stderr": "[SBH-CONFIG] Using system config at /etc/sbh/config.toml\n"
+  },
+  "admission": {
+    "utc": "2026-11-08T01:38:56.811641+00:00",
+    "free_bytes": 149225447424,
+    "work_bytes": 464261120,
+    "target_bytes": 6116687872
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "b41d756dd9cb834c82f15d039f0591e7c27148df8cf207c537ef6da104be3912",
+  "pid": 342335,
+  "exit": 0,
+  "final_inputs_sha256": "b41d756dd9cb834c82f15d039f0591e7c27148df8cf207c537ef6da104be3912",
+  "finished": "2026-11-08T01:41:13.749549+00:00"
+}

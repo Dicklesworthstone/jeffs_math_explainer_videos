@@ -1,0 +1,36 @@
+{
+  "files": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final15-pictures82.py",
+      "sha256": "3442a97a80d01845a134c3d9cf431f85c73e24cfe2937541a00ac302b59b58ce"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/guard_owner80g_target20g.py",
+      "sha256": "4f34e0d1e9a8f9d164860828f87a734e99b697d2d3048c7b65508e5d84b8b4ad"
+    },
+    {
+      "path": "/opt/homebrew/Cellar/ffmpeg/8.1.2_1/bin/ffmpeg",
+      "sha256": "1332dc2de372bade9a8a63da0d6cdfab9de97fcefbae707bcc0b0506e1203327"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final15-terminal81/15_closing.mp4",
+      "sha256": "3e2440a8785319cf9477e73303e6391c8a4165c7fbfd3fa6f4ad97e81f874fd4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final15-terminal81/15_closing.timeline.tsv",
+      "sha256": "68d61237abc06fed1b1f9b98928fa8245b0fe2f49c0f6ae80eb8863c79b1b9dd"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final15-terminal81/15_closing.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final15-terminal81/resource-receipt.json",
+      "sha256": "41ce29dbca82b739389b38b6fa1e7d1be3930bcc40d7dc6c7e12a0e9d0b3c6cb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final15-terminal81/render-summary.json",
+      "sha256": "c767d8ed446e77aa99a5c34d03ab68384eda38771075338cbab022bc32c0ac82"
+    }
+  ]
+}

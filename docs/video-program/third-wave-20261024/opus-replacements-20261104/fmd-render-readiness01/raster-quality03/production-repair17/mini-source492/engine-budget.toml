@@ -1,0 +1,21 @@
+# Every package of the lab's lock from franken_manim, as path copies of one patched export.
+[patch."https://github.com/Dicklesworthstone/franken_manim"]
+fmn = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn" }
+fmn-anim = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-anim" }
+fmn-cache = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-cache" }
+fmn-codec = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-codec" }
+fmn-config = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-config" }
+fmn-core = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-core" }
+fmn-dmath = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-dmath" }
+fmn-frame = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-frame" }
+fmn-geom = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-geom" }
+fmn-hash = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-hash" }
+fmn-library = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-library" }
+fmn-mobject = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-mobject" }
+fmn-output = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-output" }
+fmn-platform = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-platform" }
+fmn-render = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-render" }
+fmn-runtime = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-runtime" }
+fmn-scene = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-scene" }
+fmn-tex = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-tex" }
+fmn-text = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/engine/crates/fmn-text" }

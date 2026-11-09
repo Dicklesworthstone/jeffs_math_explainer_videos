@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-07T20:23:20.138591+00:00",
+  "host": "hz2",
+  "logical_cpus": 16,
+  "load1": 2.04,
+  "available_disk_KiB": 46359732,
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "loader_exit": 0,
+  "facts_exit": 0,
+  "facts_equal_trj": true,
+  "facts_sha256": "7d528509752e532c07edb3fda7c12cd8251ac4ba77022355ae42ad725add4417",
+  "chapters": [
+    "01_the_bump",
+    "02_turning_numbers",
+    "03_two_planes",
+    "04_reading_color",
+    "05_gallery",
+    "06_one_derivative",
+    "07_one_point",
+    "08_loop_sums",
+    "09_boundary",
+    "10_rigidity",
+    "11_counting",
+    "12_residues",
+    "13_real_integral",
+    "14_continuation",
+    "15_closing"
+  ],
+  "render_launched": false,
+  "remaining": [
+    "Qualify guarded lane and stop behavior",
+    "Transfer exact current inputs",
+    "Assign only reviewed chapters not already rendering; preserve existing queue",
+    "Require matching frame/cue schedules and final picture review"
+  ],
+  "attempt_note": "Initial dynamic inline shell was rejected by DCG static verification before execution. Used explicit static SSH/scp commands into new isolated directory instead; no allowlist or guard bypass."
+}

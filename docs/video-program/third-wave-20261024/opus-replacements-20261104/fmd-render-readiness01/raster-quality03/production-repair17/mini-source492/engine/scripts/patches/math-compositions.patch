@@ -1,0 +1,690 @@
+diff --git a/crates/fmn-library/src/special_tex.rs b/crates/fmn-library/src/special_tex.rs
+--- a/crates/fmn-library/src/special_tex.rs
++++ b/crates/fmn-library/src/special_tex.rs
+@@ -5,10 +5,11 @@
+ //! The Reference routes both through LaTeX for want of anything better:
+ //! a `BulletedList` is one `TexText` of an `itemize`/`enumerate`
+ //! environment with each `\item` isolated, and a `Title` is a `TexText`
+-//! with a `Line` under it. Neither needs an typesetting engine — the
+-//! bullets and digits are ordinary text glyphs — so both are composed
+-//! here on the Scribe bridge ([`crate::text::Text`]) and the positional
+-//! layer ([`VMobject::arranged`], [`VMobject::next_to`]).
++//! with a `Line` under it. Labels remain ordinary bundled text glyphs;
++//! item and title content can use native [`TexText`] for text with math
++//! islands. The explicit `build` routes retain literal-text construction,
++//! while `build_tex` supplies the Reference-facing mathematical surface.
++//! Both share the positional layer and never invoke an external typesetter.
+ //!
+ //! Behaviour notes:
+ //!
+@@ -40,7 +41,45 @@
+ use crate::line::Line;
+ use crate::style::Style;
+ use crate::text::{DEFAULT_FONT_SIZE, Text, TextMobjectError};
++use crate::tex::{TexMobjectError, TexText};
++use fmn_tex::TexEngine;
+ use crate::vmobject::{VMobject, v_group};
++
++/// A native mathematical list can fail in its plain-text label or its
++/// TexText content. Both preserve the underlying named error.
++#[derive(Debug)]
++pub enum SpecialTexError {
++    /// Bundled bullet/number label layout failed.
++    Label(TextMobjectError),
++    /// Native text/math content failed.
++    Content(TexMobjectError),
++}
++
++impl core::fmt::Display for SpecialTexError {
++    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
++        match self {
++            Self::Label(error) => error.fmt(f),
++            Self::Content(error) => error.fmt(f),
++        }
++    }
++}
++
++impl std::error::Error for SpecialTexError {
++    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
++        match self {
++            Self::Label(error) => Some(error),
++            Self::Content(error) => Some(error),
++        }
++    }
++}
++
++impl From<TextMobjectError> for SpecialTexError {
++    fn from(error: TextMobjectError) -> Self { Self::Label(error) }
++}
++
++impl From<TexMobjectError> for SpecialTexError {
++    fn from(error: TexMobjectError) -> Self { Self::Content(error) }
++}
+ 
+ /// The bullet glyph: U+2022, set as ordinary text (see the module's
+ /// behaviour notes).
+@@ -154,6 +193,39 @@
+     /// (unmapped characters, font policy) surfaces at construction
+     /// time, never as a blank render.
+     pub fn build(&self, book: &FontBook) -> Result<BulletedListMobject, TextMobjectError> {
++        self.build_with(book, |item| {
++            Text::new(item).font_size(self.font_size).build(book).map(|text| text.vmob)
++        })
++    }
++
++    /// Build text/math items through native TexText, retaining plain-text
++    /// bullets and numbers. The preamble is local to each item; definitions
++    /// inside one item cannot leak into the next.
++    ///
++    /// # Errors
++    ///
++    /// Label errors and precise native math errors pass through unchanged.
++    pub fn build_tex(
++        &self,
++        book: &FontBook,
++        engine: &TexEngine,
++        additional_preamble: &str,
++    ) -> Result<BulletedListMobject, SpecialTexError> {
++        // Validate even an empty list's requested preamble.
++        engine.typeset_with_preamble(fmn_tex::Mode::Text, "", additional_preamble)
++            .map_err(TexMobjectError::from)?;
++        self.build_with(book, |item| {
++            TexText::new(item).additional_preamble(additional_preamble)
++                .font_size(self.font_size).build(engine)
++                .map(|text| text.vmob).map_err(SpecialTexError::from)
++        })
++    }
++
++    fn build_with<E: From<TextMobjectError>>(
++        &self,
++        book: &FontBook,
++        mut content: impl FnMut(&str) -> Result<VMobject, E>,
++    ) -> Result<BulletedListMobject, E> {
+         let mut lines = Vec::with_capacity(self.items.len());
+         for (i, item) in self.items.iter().enumerate() {
+             let label;
+@@ -167,11 +239,7 @@
+                 .font_size(self.font_size)
+                 .build(book)?
+                 .vmob;
+-            let text = Text::new(item)
+-                .font_size(self.font_size)
+-                .build(book)?
+-                .vmob
+-                .next_to(&bullet, RIGHT, BULLET_BUFF, ORIGIN);
++            let text = content(item)?.next_to(&bullet, RIGHT, BULLET_BUFF, ORIGIN);
+             lines.push(v_group([bullet, text]));
+         }
+         let mut group = VMobject::arranged(lines, DOWN, self.buff, self.aligned_edge);
+@@ -357,7 +425,53 @@
+             }
+         }
+         let text_block = v_group(part_groups).with_style(text.vmob.style());
+-
++        Ok(self.finish(text_block))
++    }
++
++    /// Build a mathematical title through native TexText. Every primitive
++    /// belongs to exactly one source part, including drawn rules and spans
++    /// crossing part boundaries. Selection paths exclude the underline.
++    ///
++    /// # Errors
++    ///
++    /// Native parser/layout errors are returned before publishing a title.
++    pub fn build_tex(
++        &self,
++        engine: &TexEngine,
++        additional_preamble: &str,
++    ) -> Result<TitleMobject, TexMobjectError> {
++        let source = self.parts.join(" ");
++        let text = TexText::new(&source).additional_preamble(additional_preamble)
++            .font_size(self.font_size).build(engine)?;
++        let mut ends = Vec::with_capacity(self.parts.len());
++        let mut cursor = 0;
++        for (i, part) in self.parts.iter().enumerate() {
++            cursor += part.len() + usize::from(i + 1 < self.parts.len());
++            ends.push(cursor);
++        }
++        let mut buckets = vec![Vec::new(); self.parts.len()];
++        let mut spans = Vec::with_capacity(text.len());
++        let mut paths = Vec::with_capacity(text.len());
++        for (child, sub) in text.vmob.children().iter().zip(&text.typeset.subs) {
++            let owner = ends.iter().position(|&end| sub.span.start < end)
++                .unwrap_or(self.parts.len().saturating_sub(1));
++            let bucket = buckets.get_mut(owner).ok_or_else(|| TexMobjectError::Geometry {
++                what: "a title without source parts produced a primitive".to_owned(),
++            })?;
++            spans.push((sub.span.start, sub.span.end));
++            paths.push(vec![owner, bucket.len()]);
++            bucket.push(child.clone());
++        }
++        let group = v_group(buckets.into_iter().map(|children| {
++            v_group(children).with_style(text.vmob.style())
++        })).with_style(text.vmob.style());
++        let mut title = self.finish(group);
++        title.tex_spans = spans;
++        title.tex_paths = paths;
++        Ok(title)
++    }
++
++    fn finish(&self, text_block: VMobject) -> TitleMobject {
+         // to_edge(UP, buff=MED_SMALL_BUFF), applied to the text alone
+         // before the underline exists, as in the Reference.
+         let text_block = match text_block.bbox_point(UP) {
+@@ -366,10 +480,12 @@
+         };
+ 
+         if !self.include_underline {
+-            return Ok(TitleMobject {
++            return TitleMobject {
+                 vmob: text_block,
+                 include_underline: false,
+-            });
++                tex_spans: Vec::new(),
++                tex_paths: Vec::new(),
++            };
+         }
+         let underline = Line::new(LEFT, RIGHT)
+             .style(self.underline_style)
+@@ -381,10 +497,12 @@
+         } else {
+             underline.with_width(self.underline_width, false)
+         };
+-        Ok(TitleMobject {
++        TitleMobject {
+             vmob: text_block.with_child(underline),
+             include_underline: true,
+-        })
++            tex_spans: Vec::new(),
++            tex_paths: Vec::new(),
++        }
+     }
+ }
+ 
+@@ -396,9 +514,21 @@
+     /// `include_underline`.
+     pub vmob: VMobject,
+     include_underline: bool,
++    tex_spans: Vec<(usize, usize)>,
++    tex_paths: Vec<Vec<usize>>,
+ }
+ 
+ impl TitleMobject {
++    /// Original-source byte spans from `build_tex`, one per primitive.
++    /// The literal-text `build` route leaves this mathematical map empty.
++    #[must_use]
++    pub fn tex_spans(&self) -> &[(usize, usize)] { &self.tex_spans }
++
++    /// Paths into the part-group family corresponding to [`Self::tex_spans`].
++    /// No path includes the decorative underline.
++    #[must_use]
++    pub fn tex_paths(&self) -> &[Vec<usize>] { &self.tex_paths }
++
+     /// The underline child, when the title was built with one.
+     #[must_use]
+     pub fn underline(&self) -> Option<&VMobject> {
+diff --git a/crates/fmn-library/tests/math_compositions.rs b/crates/fmn-library/tests/math_compositions.rs
+new file mode 100644
+--- /dev/null
++++ b/crates/fmn-library/tests/math_compositions.rs
+@@ -0,0 +1,109 @@
++//! Native mathematical titles and lists retain their composition semantics.
++use fmn_core::constants::{FRAME_Y_RADIUS, MED_SMALL_BUFF, RED};
++use fmn_library::{BulletedList, Title, TexText, TexEngine, VMobject};
++use fmn_text::FontBook;
++
++const HALF: &str = r"\newcommand{\half}[1]{\frac{#1}{2}}";
++
++fn engine() -> TexEngine {
++    TexEngine::new("fmd-math/pack/default", None).unwrap()
++}
++
++fn primitive_count(value: &VMobject) -> usize {
++    usize::from(!value.path().unwrap().is_empty()) + value.children().iter().map(primitive_count).sum::<usize>()
++}
++
++#[test]
++fn math_title_content_is_real_textext_not_literal_source() {
++    let e = engine();
++    let actual = Title::new(&[r"Half: $\half{x}$"]).build_tex(&e, HALF).unwrap();
++    let expected = TexText::new(r"Half: $\frac{x}{2}$").font_size(72.0).build(&e).unwrap();
++    let content = &actual.vmob.children()[0];
++    assert_eq!(primitive_count(content), primitive_count(&expected.vmob));
++    assert!((content.length_over_dim(0) - expected.vmob.length_over_dim(0)).abs() < 1e-9);
++    assert!((content.extent().unwrap().1[1] - (FRAME_Y_RADIUS - MED_SMALL_BUFF)).abs() < 1e-9);
++    assert!(actual.underline().is_some());
++}
++
++#[test]
++fn math_title_part_provenance_preserves_every_primitive_once() {
++    let e = engine();
++    // The fraction spans a part boundary. Its rule belongs to the part
++    // containing the command, while the denominator belongs to the next.
++    let parts = [r"λ $\frac{x}", r"{y}$ end"];
++    let title = Title::new(&parts).build_tex(&e, "").unwrap();
++    let source = parts.join(" ");
++    let expected = TexText::new(&source).font_size(72.0).build(&e).unwrap();
++    assert_eq!(title.tex_paths().len(), expected.len());
++    assert_eq!(title.tex_spans().len(), expected.len());
++    let unique: std::collections::BTreeSet<_> = title.tex_paths().iter().collect();
++    assert_eq!(unique.len(), expected.len());
++    for (path, &(start, end)) in title.tex_paths().iter().zip(title.tex_spans()) {
++        assert_eq!(path.len(), 2);
++        assert!(path[0] < parts.len());
++        assert!(source.is_char_boundary(start) && source.is_char_boundary(end));
++        assert!(end <= source.len());
++        assert!(!title.vmob.children()[path[0]].children()[path[1]].path().unwrap().is_empty());
++    }
++    assert_eq!(primitive_count(&title.vmob), primitive_count(&expected.vmob) + 1);
++}
++
++#[test]
++fn math_title_underline_configuration_and_empty_titles_remain_valid() {
++    let e = engine();
++    let title = Title::new(&[r"$x^2$"]).match_underline_width_to_text(true)
++        .underline_style(fmn_library::special_tex::default_underline_style().stroke(RED, 3.0, 1.0))
++        .build_tex(&e, "").unwrap();
++    let line = title.underline().unwrap();
++    assert!((line.length_over_dim(0) - title.vmob.children()[0].length_over_dim(0)).abs() < 1e-9);
++    assert_eq!(line.style().stroke_color, RED);
++    for parts in [vec![], vec![""], vec!["", ""]] {
++        let title = Title::new(&parts).include_underline(false).build_tex(&e, HALF).unwrap();
++        assert!(title.underline().is_none());
++        assert_eq!(title.vmob.children().len(), parts.len());
++        assert!(title.tex_paths().is_empty());
++    }
++}
++
++#[test]
++fn math_list_content_uses_textext_and_plain_labels_keep_their_identity() {
++    let e = engine();
++    let book = FontBook::bundled().unwrap();
++    let items = [r"Half: $\half{x}$", r"Root: $\sqrt{y}$"];
++    for numbered in [false, true] {
++        let actual = BulletedList::new(&items).numbered(numbered).build_tex(&book, &e, HALF).unwrap();
++        let literal = BulletedList::new(&items).numbered(numbered).build(&book).unwrap();
++        assert_eq!(actual.vmob.children().len(), 2);
++        for (index, item) in items.iter().enumerate() {
++            let row = &actual.vmob.children()[index];
++            let expected = TexText::new(item).additional_preamble(HALF).build(&e).unwrap();
++            assert_eq!(row.children().len(), 2);
++            assert_eq!(primitive_count(&row.children()[1]), primitive_count(&expected.vmob));
++            assert_eq!(primitive_count(&row.children()[0]), primitive_count(&literal.vmob.children()[index].children()[0]));
++            assert!(row.children()[0].extent().unwrap().1[0] < row.children()[1].extent().unwrap().0[0]);
++        }
++        assert!(actual.vmob.children()[0].extent().unwrap().0[1] > actual.vmob.children()[1].extent().unwrap().1[1]);
++    }
++}
++
++#[test]
++fn mathematical_lists_preserve_fade_and_empty_list_behavior() {
++    let e = engine();
++    let book = FontBook::bundled().unwrap();
++    let items = [r"$\half{x}$", r"$\half{y}$"];
++    let list = BulletedList::new(&items).fade_all_but(1).build_tex(&book, &e, HALF).unwrap();
++    assert_eq!(list.vmob.children()[0].style().fill_opacity, 0.25);
++    assert_eq!(list.vmob.children()[1].style().fill_opacity, 1.0);
++    assert!(BulletedList::new(&[]).build_tex(&book, &e, HALF).unwrap().vmob.children().is_empty());
++}
++
++#[test]
++fn mathematical_composition_errors_do_not_leak_definitions() {
++    let e = engine();
++    let book = FontBook::bundled().unwrap();
++    assert!(Title::new(&[r"$\unknown{x}$"]).build_tex(&e, "").is_err());
++    assert!(BulletedList::new(&[]).build_tex(&book, &e, "visible preamble").is_err());
++    let items = [r"$\newcommand{\local}{x}\local$", r"$\local$"];
++    assert!(BulletedList::new(&items).build_tex(&book, &e, "").is_err());
++    assert!(Title::new(&[r"$\half{x}$"]).build_tex(&e, HALF).is_ok());
++}
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -6430,6 +6430,8 @@
+     /// `BulletedList(*items, ...)` over Atlas's de-TeX'd native list
+     /// composition. Bundled text glyphs, list labels, arrangement, and the
+     /// initial family topology all come from the one fmn-library builder.
++    #[allow(clippy::too_many_arguments)]
++    #[pyo3(signature = (factory, items, buff, aligned_edge, numbered, font_size, template="", additional_preamble=""))]
+     fn _build_bulleted_list<'py>(
+         slf: &Bound<'py, Self>,
+         factory: &Bound<'py, PyAny>,
+@@ -6438,18 +6440,20 @@
+         aligned_edge: [f64; 3],
+         numbered: bool,
+         font_size: f64,
++        template: &str,
++        additional_preamble: &str,
+     ) -> PyResult<Bound<'py, PyList>> {
+         let item_refs: Vec<&str> = items.iter().map(String::as_str).collect();
+-        let built = with_font_book(|book| {
++        let built = portal_tex::with_template(template, |engine| with_font_book(|book| {
+             fmn_library::BulletedList::new(&item_refs)
+                 .buff(buff)
+                 .aligned_edge(aligned_edge)
+                 .numbered(numbered)
+                 .font_size(font_size)
+-                .build(book)
+-                .map_err(native_error)
+-        })?;
++                .build_tex(book, engine, additional_preamble)
++                .map_err(tex_error)
++        }))?;
+         install_native_tree(slf, factory, built.vmob)
+     }
+ 
+@@ -6457,6 +6461,7 @@
+     /// The native builder owns bundled-font layout, source-part grouping,
+     /// frame-top placement, and optional underline geometry.
+     #[allow(clippy::too_many_arguments)]
++    #[pyo3(signature = (factory, text_parts, font_size, include_underline, underline_width, match_underline_width_to_text, underline_buff, template="", additional_preamble=""))]
+     fn _build_title<'py>(
+         slf: &Bound<'py, Self>,
+         factory: &Bound<'py, PyAny>,
+@@ -6466,19 +6471,23 @@
+         underline_width: f64,
+         match_underline_width_to_text: bool,
+         underline_buff: f64,
++        template: &str,
++        additional_preamble: &str,
+     ) -> PyResult<Bound<'py, PyList>> {
+         let part_refs: Vec<&str> = text_parts.iter().map(String::as_str).collect();
+-        let built = with_font_book(|book| {
++        let built = portal_tex::with_template(template, |engine| {
+             fmn_library::Title::new(&part_refs)
+                 .font_size(font_size)
+                 .include_underline(include_underline)
+                 .underline_width(underline_width)
+                 .match_underline_width_to_text(match_underline_width_to_text)
+                 .underline_buff(underline_buff)
+-                .build(book)
+-                .map_err(native_error)
++                .build_tex(engine, additional_preamble)
++                .map_err(tex_error)
+         })?;
++        slf.as_any().setattr("_string_sub_spans", built.tex_spans().to_vec())?;
++        slf.as_any().setattr("_string_sub_paths", built.tex_paths().to_vec())?;
+         install_native_tree(slf, factory, built.vmob)
+     }
+ 
+@@ -11769,6 +11778,25 @@
+     }
+ 
+     #[test]
++    fn production_math_compositions_acceptance_suite() {
++        crate::with_python_test_module("mathematical compositions", |py, _module, globals| {
++            let source = CString::new(include_str!("../tests/math_compositions.py"))
++                .expect("math composition suite contains no NUL");
++            py.run(source.as_c_str(), Some(globals), Some(globals))
++                .inspect_err(|error| error.print(py))
++                .expect("load mathematical compositions");
++            let checks = globals.get_item("verify_math_compositions")
++                .expect("find mathematical compositions")
++                .expect("mathematical compositions are defined")
++                .call0().inspect_err(|error| error.print(py))
++                .and_then(|result| result.extract::<u64>())
++                .expect("native mathematical compositions");
++            assert_eq!(checks, 8);
++        });
++    }
++
++    #[test]
+     fn production_tex_preambles_acceptance_suite() {
+         crate::with_python_test_module("Tex preamble acceptance", |py, _module, globals| {
+             let source = CString::new(include_str!("../tests/tex_preambles.py"))
+diff --git a/crates/fmn-python/python/manimlib_bootstrap.py b/crates/fmn-python/python/manimlib_bootstrap.py
+--- a/crates/fmn-python/python/manimlib_bootstrap.py
++++ b/crates/fmn-python/python/manimlib_bootstrap.py
+@@ -8306,6 +8306,10 @@
+         **kwargs,
+     ):
+         font_size = float(kwargs.pop("font_size", 48))
++        template = kwargs.pop("template", "")
++        additional_preamble = kwargs.pop("additional_preamble", "")
++        if not isinstance(template, str) or not isinstance(additional_preamble, str):
++            raise TypeError("template and additional_preamble must be strings")
+         style_kwargs = dict(kwargs)
+         _preflight_vmobject_style_kwargs(style_kwargs)
+         if not all(isinstance(item, str) for item in items):
+@@ -8319,6 +8323,8 @@
+         self.aligned_edge = _np.array(aligned_edge)
+         self.numbered = bool(numbered)
+         self.font_size = font_size
++        self.template = template
++        self.additional_preamble = additional_preamble
+         specs = self._build_bulleted_list(
+             _native_shell_factory,
+             list(items),
+@@ -8326,6 +8332,8 @@
+             aligned_edge,
+             self.numbered,
+             font_size,
++            template,
++            additional_preamble,
+         )
+         _hang_native_children(self, specs)
+         _apply_vmobject_style_kwargs(self, style_kwargs)
+@@ -8369,6 +8377,10 @@
+         if parts:
+             parts[0] = parts[0].lstrip()
+             parts[-1] = parts[-1].rstrip()
++        template = kwargs.pop("template", "")
++        additional_preamble = kwargs.pop("additional_preamble", "")
++        if not isinstance(template, str) or not isinstance(additional_preamble, str):
++            raise TypeError("template and additional_preamble must be strings")
+         style_kwargs = dict(kwargs)
+         underline_style = dict(underline_style)
+         _preflight_vmobject_style_kwargs(style_kwargs)
+@@ -8382,20 +8394,10 @@
+         self.tex_string = " ".join(parts)
+         self.string = self.tex_string
+         self.font_size = font_size
++        self.template = template
++        self.additional_preamble = additional_preamble
+         self.use_labelled_svg = False
+         self.isolate = list(parts)
+-        spans = []
+-        paths = []
+-        byte_offset = 0
+-        for index, part in enumerate(parts):
+-            end = byte_offset + len(part.encode("utf-8"))
+-            spans.append((byte_offset, end))
+-            paths.append([index])
+-            byte_offset = end + 1
+-        self._string_sub_spans = spans
+-        self._string_sub_paths = paths
+-
+         specs = self._build_title(
+             _native_shell_factory,
+             parts,
+@@ -8404,6 +8407,8 @@
+             underline_width,
+             bool(match_underline_width_to_text),
+             underline_buff,
++            template,
++            additional_preamble,
+         )
+         _hang_native_children(self, specs)
+         expected_children = len(parts) + int(bool(include_underline))
+diff --git a/crates/fmn-python/tests/math_compositions.py b/crates/fmn-python/tests/math_compositions.py
+new file mode 100644
+--- /dev/null
++++ b/crates/fmn-python/tests/math_compositions.py
+@@ -0,0 +1,140 @@
++"""Real mathematics in composed titles and bullet lists, not literal TeX."""
++from pathlib import Path
++import tempfile
++import numpy as np
++import manimlib as m
++
++HALF = r"\newcommand{\half}[1]{\frac{#1}{2}}"
++
++
++def same_shape(actual, expected):
++    a = actual.get_all_points().astype(float)
++    b = expected.get_all_points().astype(float)
++    assert a.shape == b.shape, (a.shape, b.shape)
++    if len(a):
++        # Placement happens in native f64 before record storage rounds to
++        # f32. Compare translation-independent shapes at that precision.
++        a -= (a.min(axis=0) + a.max(axis=0)) / 2
++        b -= (b.min(axis=0) + b.max(axis=0)) / 2
++        assert np.allclose(a, b, atol=2e-6, rtol=0)
++
++
++def refuses(call, contains):
++    try:
++        call()
++    except Exception as error:
++        assert contains.lower() in str(error).lower(), str(error)
++        return
++    raise AssertionError("invalid mathematical content was silently accepted")
++
++
++def verify_math_compositions():
++    for template in ("", "default", "basic", "empty"):
++        title = m.Title(r"Half: $\half{x}$", template=template, additional_preamble=HALF)
++        same_shape(title[0], m.TexText(r"Half: $\frac{x}{2}$", font_size=72))
++        assert title.template == template and title.additional_preamble == HALF
++        assert title.get_tex() == r"Half: $\half{x}$"
++        assert np.isclose(title[0].get_top()[1], m.FRAME_Y_RADIUS - m.MED_SMALL_BUFF)
++        assert title.underline is title[-1]
++    title = m.Title(r"λ $\frac{x}", r"{y}$ end", color=m.BLUE,
++                    match_underline_width_to_text=True,
++                    underline_style=dict(stroke_color=m.RED, stroke_width=3))
++    reference = m.TexText(r"λ $\frac{x} {y}$ end", font_size=72)
++    same_shape(m.VGroup(*title[:-1]), reference)
++    assert len(title) == 3
++    assert len(title._string_sub_spans) == len(reference._string_sub_spans)
++    assert all(path[0] < 2 for path in title._string_sub_paths)
++    assert len({tuple(path) for path in title._string_sub_paths}) == len(title._string_sub_paths)
++    numerator = title.get_part_by_tex("x")
++    assert len(numerator.family_members_with_points()) == 1
++    numerator.set_fill(m.GREEN)
++    assert title.underline.get_stroke_color() == m.RED
++    assert title.underline.get_stroke_width() == 3
++    assert np.isclose(title.underline.get_width(), m.VGroup(*title[:-1]).get_width())
++    copy = title.copy()
++    before = title.get_all_points().copy()
++    copy.shift(m.RIGHT)
++    assert np.array_equal(title.get_all_points(), before)
++    assert len(copy.get_part_by_tex("y").family_members_with_points()) == 1
++    for parts in ((), ("",), ("", "")):
++        title = m.Title(*parts, include_underline=False, additional_preamble=HALF)
++        assert len(title) == len(parts) and not hasattr(title, "underline")
++        assert title._string_sub_paths == []
++    items = (r"Half: $\half{x}$", r"Root: $\sqrt{y}$", r"Area: $\pi r^2$")
++    for numbered in (False, True):
++        listing = m.BulletedList(*items, numbered=numbered, buff=0.4,
++                                 template="basic", additional_preamble=HALF, color=m.BLUE)
++        assert len(listing) == len(items)
++        lefts = []
++        for i, (row, source) in enumerate(zip(listing, items)):
++            assert len(row) == 2
++            same_shape(row[1], m.TexText(source, additional_preamble=HALF))
++            same_shape(row[0], m.Text(str(i + 1) + "." if numbered else "•"))
++            assert row[0].get_right()[0] < row[1].get_left()[0]
++            lefts.append(row.get_left()[0])
++        assert np.allclose(lefts, lefts[0], atol=2e-6)
++        identities = list(listing)
++        listing.fade_all_but(1)
++        assert all(a is b for a, b in zip(identities, listing))
++        assert listing[0][1].get_fill_opacity() == 0.25
++        assert listing[1][1].get_fill_opacity() == 1.0
++    assert len(m.BulletedList(additional_preamble=HALF)) == 0
++    for cls in (m.Title, m.BulletedList):
++        refuses(lambda cls=cls: cls(r"$\unknown{x}$"), "unknown")
++        refuses(lambda cls=cls: cls("x", template="no-such-pack"), "available packs")
++        refuses(lambda cls=cls: cls("x", additional_preamble="visible"), "preamble")
++        refuses(lambda cls=cls: cls("x", additional_preamble=None), "strings")
++        refuses(lambda cls=cls: cls("x", additional_preamble=" " * 65537), "limit")
++    refuses(lambda: m.BulletedList(r"$\newcommand{\local}{x}\local$", r"$\local$"), "local")
++    # Native source spans also survive the animation lifecycle.
++    source = m.Tex(r"\half{x}", additional_preamble=HALF, isolate=["x"])
++    target = m.Tex(r"\half{y}", additional_preamble=HALF, isolate=["y"])
++    scene = m.Scene()
++    scene.add(source)
++    scene.play(m.TransformMatchingTex(source, target, run_time=2 / 30))
++    assert target in scene.mobjects and source not in scene.mobjects
++    same_shape(target, m.Tex(r"\frac{y}{2}"))
++    return 8
++
++
++def render_math_compositions(destination, seed=0):
++    checks = verify_math_compositions()
++
++    class MathScene(m.Scene):
++        reference = False
++        random_seed = seed & 0xFFFF_FFFF
++
++        def construct(self):
++            source = r"Half: $\frac{x}{2}$" if self.reference else r"Half: $\half{x}$"
++            preamble = "" if self.reference else HALF
++            self.add(m.Title(source, color=m.RED, additional_preamble=preamble))
++            listing = m.BulletedList(source, r"Root: $\sqrt{y}$", numbered=True,
++                                     color=m.BLUE, additional_preamble=preamble)
++            self.add(listing)
++
++    destination = Path(destination)
++    destination.mkdir(parents=True, exist_ok=True)
++    images = []
++    for name, reference, threads in (("math-composed-1.png", False, 1),
++                                     ("math-composed-4.png", False, 4),
++                                     ("math-expanded.png", True, 1)):
++        scene = MathScene()
++        scene.reference = reference
++        path = destination / name
++        scene._begin_png(str(path), 192, 128, 30, threads, seed)
++        try:
++            scene.run()
++            scene._finish_render(scene.frame._core, scene.camera.light_source.get_center())
++        except BaseException:
++            scene._abort_render()
++            raise
++        images.append(path.read_bytes())
++    assert images[0] == images[1], "thread count changed native compositions"
++    assert images[0] == images[2], "macro compositions differ from expanded mathematics"
++    return images[0], checks
++
++
++if __name__ == "__main__":
++    with tempfile.TemporaryDirectory(prefix="fmn-math-compositions-") as directory:
++        png, checks = render_math_compositions(directory)
++    print(f"Mathematical compositions: {checks} acceptance groups and identical 1/4-thread and expanded PNGs ({len(png)} bytes)")
+diff --git a/docs/behavior_notes/BN-05-native-text-typesetting.md b/docs/behavior_notes/BN-05-native-text-typesetting.md
+--- a/docs/behavior_notes/BN-05-native-text-typesetting.md
++++ b/docs/behavior_notes/BN-05-native-text-typesetting.md
+@@ -91,3 +91,33 @@
+ geometry. Nested calls in **arguments** (for example,
+ `\pair{\half{x}}{y}`) are supported. Until the upstream defect is corrected,
+ write native primitives directly in definition bodies.
++
++
++## Mathematical titles and list items
++
++`Title` and `BulletedList` now interpret their content as native `TexText`:
++prose can contain `$...$` or `$$...$$` mathematics, TeX text styling, and
++native commands. Previously these portal constructors used literal `Text`
++layout, so a fraction displayed backslashes and braces rather than a
++fraction. Their content now agrees with an independently constructed
++`TexText` at the same font size.
++
++Bullets and numbered labels remain bundled native text, and underlines
++remain native `Line` geometry. No `itemize` document, LaTeX invocation, or
++second layout engine is introduced. The existing arrangement, fade and
++underline configuration contracts remain intact. Mathematical titles
++publish per-primitive source spans through their part groups, excluding
++underlines, so source selection and recoloring can address an individual
++symbol rather than only a whole title part.
++
++Both constructors accept the same `template` and `additional_preamble`
++options as `TexText`. A list's preamble is shared by configuration, not by
++mutable expansion state: an inline definition in one item never leaks to
++another. Invalid native mathematics produces a precise construction error,
++not literal text or blank output. Literal backslashes and dollar signs
++must be escaped using the native TexText grammar; use `Text` when the
++content is intended to display source code verbatim.
++
++Rust callers can explicitly use `Title::build_tex` and
++`BulletedList::build_tex`. Their existing `build(&FontBook)` APIs retain
++literal-text semantics for callers deliberately composing plain text.

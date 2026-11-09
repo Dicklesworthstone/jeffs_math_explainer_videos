@@ -1,0 +1,130 @@
+name: Python live Studio
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/python-live-studio.yml'
+      - 'scripts/patches/studio-live-tail.patch'
+      - 'scripts/patches/python-live-studio.patch'
+      - 'scripts/patches/studio-live-navigation.patch'
+      - 'crates/fmn-python/tests/test_studio_navigation_protocol.py'
+      - 'crates/fmn-studio/src/recorded/live.rs'
+      - 'crates/fmn-python/src/portal_studio/live.rs'
+      - 'crates/fmn-python/tests/studio_live.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: python-live-studio
+  cancel-in-progress: false
+jobs:
+  live:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/portable
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Connect live capture and callback ownership
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! grep -qx 'mod live;' crates/fmn-studio/src/recorded.rs; then
+            git apply --check scripts/patches/studio-live-tail.patch
+            git apply scripts/patches/studio-live-tail.patch
+          fi
+          if test -f scripts/patches/python-live-studio.patch && ! grep -q 'fn _serve_studio_live' crates/fmn-python/src/lib.rs; then
+            git apply --check scripts/patches/python-live-studio.patch
+            git apply scripts/patches/python-live-studio.patch
+          fi
+          if ! grep -q '_fmn_studio_live_input' crates/fmn-python/python/manimlib_bootstrap.py; then
+            git apply --check scripts/patches/studio-live-navigation.patch
+            git apply scripts/patches/studio-live-navigation.patch
+          fi
+      - name: Install compiler and wheel tools
+        run: |
+          rustup show active-toolchain
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        id: cache
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-live-studio-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-portal-studio-
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-
+      - name: Verify bounded native live view and journal
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-studio/src/recorded.rs crates/fmn-studio/src/recorded/live.rs
+          cargo test --locked -p fmn-studio --lib recorded:: -- --nocapture 2>&1 | tee /tmp/live-native.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/live-native.log
+          cargo clippy --locked -p fmn-studio --lib -- -D warnings
+      - name: Verify actual Python callbacks and installed worker
+        shell: bash
+        run: |
+          set -euo pipefail
+          if test -f crates/fmn-python/src/portal_studio/live.rs; then
+            rustfmt --edition 2024 --config skip_children=true crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_studio.rs crates/fmn-python/src/portal_studio/live.rs
+            PYTHONPATH=crates/fmn-python/python:crates/fmn-python/tests python -m unittest test_studio_protocol test_studio_navigation_protocol test_interaction_protocol test_control_events_protocol
+            cargo test --locked -p fmn-python portal_studio -- --nocapture 2>&1 | tee /tmp/live-portal.log
+            cargo clippy --locked -p fmn-python --lib -- -D warnings
+            python -m maturin build --locked --interpreter python --profile dev --out target/live-wheel
+            python -m venv target/live-venv
+            target/live-venv/bin/python -m pip install 'numpy==2.5.2' target/live-wheel/*.whl
+            target/live-venv/bin/python -I crates/fmn-python/tests/studio_live.py 2>&1 | tee /tmp/live-wheel.log
+            target/live-venv/bin/python -I crates/fmn-python/tests/studio_preview.py 2>&1 | tee /tmp/live-preview.log
+          fi
+          git diff --check
+      - name: Commit tested integration directly to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add crates/fmn-studio/src/recorded.rs crates/fmn-studio/src/recorded/live.rs
+          if test -f crates/fmn-python/src/portal_studio/live.rs; then
+            git add crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_studio.rs crates/fmn-python/src/portal_studio/live.rs crates/fmn-python/python/fmn_python/studio.py crates/fmn-python/python/manimlib_bootstrap.py crates/fmn-python/tests/test_studio_protocol.py crates/fmn-python/tests/studio_live.py docs/dist/python_studio.md
+          fi
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(studio): activate verified live Python input and bounded frame updates (fm-ffj.70)'
+            git push origin HEAD:main
+          fi
+      - name: Preserve tested source and evidence
+        if: always()
+        run: |
+          git archive --format=tar.gz HEAD > /tmp/live-source.tar.gz
+          git rev-parse HEAD > /tmp/live-source-sha.txt
+          git diff > /tmp/live-working.patch
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: python-live-studio-${{ github.sha }}
+          path: |
+            /tmp/live-*.log
+            /tmp/live-source.tar.gz
+            /tmp/live-source-sha.txt
+            /tmp/live-working.patch
+          retention-days: 1
+      - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        if: always() && steps.cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: ${{ steps.cache.outputs.cache-primary-key }}

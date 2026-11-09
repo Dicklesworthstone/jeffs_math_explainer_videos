@@ -1,0 +1,12 @@
+[toolchain]
+# Exact pinned nightly (no "or later") — required for std::simd and the exact
+# build-tier behavior ADR-0016 records; the date is mirrored in SUITE.lock.
+# Matches asupersync's deliberate pin so the FrankenSuite resolves one
+# nightly. Bump deliberately, together with any std-API migration the new
+# nightly requires and a SUITE.lock update.
+channel = "nightly-2026-08-31"
+components = ["rustfmt", "clippy", "rust-src"]
+# check.sh's wasm axis (and the W5 demo) build for wasm32 on every profile;
+# listing the target here makes rustup install it with the toolchain, so CI
+# runners and fresh clones never hit E0463 "can't find crate for std".
+targets = ["wasm32-unknown-unknown"]

@@ -1,0 +1,14 @@
+[package]
+name = "fmn-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Types, units, constants, color, the RNG stream, and contract knobs"
+
+[dependencies]
+fmn-dmath.workspace = true
+fnp-random-core.workspace = true
+
+[lints]
+workspace = true

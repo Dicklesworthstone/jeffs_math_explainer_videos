@@ -1,0 +1,33 @@
+{
+  "time": "2026-11-08T18:41:57.794295+00:00",
+  "manifest_sha256": "c6cca51f4290b32b7e4f2587900cdf1adefde66bf48d032b32f322edd684eea2",
+  "actually_viewed_all_288_frames_on_24_sheets": true,
+  "intervals_inclusive": [
+    [
+      2475,
+      2516
+    ],
+    [
+      2536,
+      2577
+    ],
+    [
+      2763,
+      2804
+    ],
+    [
+      3025,
+      3154
+    ],
+    [
+      3911,
+      3942
+    ]
+  ],
+  "observations": [
+    "Three example colour fields enter individually and progressively while prior fields and text remain stable.",
+    "The three small fields leave sequentially; each disappears before the next completes. No old-field reappearance or one-frame flash.",
+    "Large two-pole field then progressively enters, remains clear, and dims through final3942 without final-frame reappearance."
+  ],
+  "scope": "Every encoded frame in these preview windows viewed as480x270 tiles. Not real-time motion, listening or final4K acceptance."
+}

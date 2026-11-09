@@ -1,0 +1,118 @@
+# Reference Tex boxes (fm-tex-display-style-nclg, fm-tex-layout-oracle-bkbc).
+# Formulas are authored for this oracle (no 3b1b/videos corpus text). Each row is the
+# pinned Reference's Tex(source) get_width()/get_height() in scene units at the default
+# font_size 48: 3b1b/manim 6199a00d, align* display math, TeX Live 2025 + dvisvgm 3.6
+# on the dev host, measured 2026-10-04. Rows the Reference could not typeset are omitted.
+# Re-measure only by rerunning the same capture against the Reference; never edit by hand.
+# width	height	source
+0.242472	0.220562	x
+0.436269	0.432697	x^2
+0.383442	0.291648	x_i
+0.436269	0.551118	x_i^2
+2.318018	0.467413	e^{i\pi} + 1 = 0
+2.510795	0.467754	a^2 + b^2 = c^2
+1.828488	0.432697	E = mc^2
+2.866926	0.549065	f(x) = x^2 + 1
+2.394166	0.437716	y = mx + b
+2.103056	0.448428	\alpha + \beta = \gamma
+0.201086	0.348615	\theta
+0.687172	0.432697	\pi r^2
+0.243447	0.987640	\frac{1}{2}
+0.257366	0.883932	\frac{a}{b}
+1.116806	0.992996	\frac{x+1}{x-1}
+0.531693	1.006629	\frac{d}{dx}
+0.531693	1.006629	\frac{dy}{dx}
+0.576327	1.022697	\frac{\partial f}{\partial x}
+1.176180	1.182750	\frac{1}{1 + \frac{1}{x}}
+0.243447	0.987640	\dfrac{1}{2}
+0.194082	0.585912	\tfrac{1}{2}
+0.613648	0.486892	\sqrt{2}
+1.999729	0.584271	\sqrt{x^2 + y^2}
+0.648473	0.486892	\sqrt[3]{x}
+1.487726	1.085614	\frac{\sqrt{5} - 1}{2}
+2.647374	1.330914	\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}
+1.011122	1.351363	\sum_{k=0}^{n} k
+1.133826	1.040426	\sum_{i} a_i
+2.330372	1.279706	\prod_{p} \frac{1}{1 - p^{-s}}
+1.628633	1.219093	\int_0^1 x\,dx
+3.970156	1.139681	\int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}
+2.079687	1.081875	\int f(x)\,dx
+1.824447	1.113155	\oint_C \mathbf{F} \cdot d\mathbf{r}
+1.652912	1.125539	\iint_D f\,dA
+2.795086	0.994457	\lim_{x \to 0} \frac{\sin x}{x} = 1
+4.170174	1.197988	\lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e
+0.805977	1.168055	\binom{n}{k}
+3.689545	1.168055	\binom{n}{k} = \frac{n!}{k!(n-k)!}
+0.371613	0.353971	n!
+1.190425	0.456921	\log_2 n
+0.727417	0.343259	\ln x
+3.765239	0.471526	\sin^2\theta + \cos^2\theta = 1
+2.772386	0.994457	\tan x = \frac{\sin x}{\cos x}
+1.870848	0.660713	\max_{x} f(x)
+1.808689	0.486892	\min(a, b)
+1.354917	0.486892	\det(A)
+0.779910	0.899271	\left( \frac{a}{b} \right)
+0.433484	0.486892	\left[ x \right]
+2.271209	0.486892	\left\{ x \mid x > 0 \right\}
+0.432997	0.486892	\left| x \right|
+1.019744	0.486892	\left\langle u, v \right\rangle
+1.564021	0.549065	(a + b)^2
+0.858500	0.486892	[0, 1]
+1.579425	0.486892	\{1, 2, 3\}
+1.487514	1.168055	\begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}
+1.267798	1.168055	\begin{bmatrix} a & b \\ c & d \end{bmatrix}
+1.180913	1.189000	\begin{vmatrix} a & b \\ c & d \end{vmatrix}
+1.087487	0.804833	\begin{matrix} x & y \\ z & w \end{matrix}
+4.258522	1.460190	f(x) = \begin{cases} x & x \ge 0 \\ -x & x < 0 \end{cases}
+0.242472	0.343259	\hat{x}
+0.271281	0.352997	\vec{v}
+0.217676	0.292622	\bar{z}
+0.242472	0.331087	\dot{x}
+0.242472	0.331087	\ddot{x}
+0.263896	0.330600	\tilde{n}
+0.758911	0.410607	\overline{AB}
+0.278272	0.293105	\underline{x}
+3.155811	0.952429	\overbrace{1 + 2 + \cdots + n}^{n}
+1.084778	1.024582	\underbrace{a + b}_{c}
+1.089136	0.404608	a \le b
+1.089136	0.404608	a \ge b
+1.089136	0.453784	a \ne b
+1.089136	0.343259	a \approx b
+3.300731	0.486892	a \equiv b \pmod{n}
+1.210288	0.368091	x \in A
+1.365404	0.368091	A \subset B
+1.257207	0.359327	A \cup B
+1.257207	0.359327	A \cap B
+0.197191	0.413859	\emptyset
+1.057844	0.437716	\forall x \exists y
+1.238008	0.350076	p \Rightarrow q
+1.481163	0.254158	x \to \infty
+0.555924	0.324270	\pm 1
+1.035038	0.343259	a \times b
+0.791591	0.343259	a \cdot b
+0.651626	0.443072	\nabla f
+2.008483	0.425056	\partial_t u = \Delta u
+0.568118	0.351338	\mathbb{R}^n
+0.296031	0.333521	\mathbb{Z}
+0.303821	0.353971	\mathcal{L}
+0.510534	0.343259	\mathrm{d}x
+0.269738	0.218128	\mathbf{v}
+1.580109	0.363975	\text{if } x > 0
+0.989504	0.315019	x \quad y
+1.476277	0.315019	x \qquad y
+0.583877	0.315019	x\,y
+0.502730	0.315019	x\;y
+0.502730	0.315019	x\!y
+0.484401	0.051611	\cdots
+0.484401	0.051611	\ldots
+2.019947	0.418241	1, 2, \ldots, n
+0.432847	0.220562	\infty
+0.446633	0.417266	\aleph_0
+1.647910	0.446330	z = re^{i\theta}
+1.814466	0.549065	|z|^2 = z \bar{z}
+3.054216	1.330914	\zeta(s) = \sum_{n=1}^{\infty} n^{-s}
+3.211334	0.486892	\Gamma(n) = (n-1)!
+2.461586	1.085614	\phi = \frac{1 + \sqrt{5}}{2}
+3.910634	0.407528	F_n = F_{n-1} + F_{n-2}
+1.970466	0.486892	\cos(2\pi f t)
+5.171936	1.081875	\hat{f}(\xi) = \int f(x) e^{-2\pi i x \xi}\,dx

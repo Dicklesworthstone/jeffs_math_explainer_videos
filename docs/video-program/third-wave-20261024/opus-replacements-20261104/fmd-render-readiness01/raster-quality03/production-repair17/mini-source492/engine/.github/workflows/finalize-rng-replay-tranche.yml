@@ -1,0 +1,230 @@
+name: Finalize RNG Replay Tranche
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/finalize-rng-replay-tranche.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: finalize-rng-replay-tranche
+  cancel-in-progress: true
+
+jobs:
+  finalize:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Require completed implementation receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          cursor_receipt="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/artifacts/implementation/rng-cursor-sampling-receipt.json"
+          reservation_receipt="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/main/artifacts/implementation/rng-reservation-receipt.json"
+          missing=()
+
+          if ! curl --fail --silent "$cursor_receipt" | grep -Fq '"result": "pass"'; then
+            missing+=("rng-cursor-sampling-receipt.json")
+            if gh api "repos/${GITHUB_REPOSITORY}/contents/.github/workflows/implement-rng-cursor-and-sampling.yml?ref=main" >/dev/null 2>&1; then
+              gh api --method POST \
+                "repos/${GITHUB_REPOSITORY}/actions/workflows/implement-rng-cursor-and-sampling.yml/dispatches" \
+                -f ref=main || true
+            fi
+          fi
+
+          if ! curl --fail --silent "$reservation_receipt" | grep -Fq '"result": "pass"'; then
+            missing+=("rng-reservation-receipt.json")
+            if gh api "repos/${GITHUB_REPOSITORY}/contents/.github/workflows/implement-rng-reservations.yml?ref=main" >/dev/null 2>&1; then
+              gh api --method POST \
+                "repos/${GITHUB_REPOSITORY}/actions/workflows/implement-rng-reservations.yml/dispatches" \
+                -f ref=main || true
+            fi
+          fi
+
+          if (( ${#missing[@]} > 0 )); then
+            printf 'RNG replay finalization is not ready; dispatched available producers for:\n' >&2
+            printf '  - %s\n' "${missing[@]}" >&2
+            echo "Re-run this finalizer after every listed receipt records result=pass." >&2
+            exit 2
+          fi
+
+      - name: Refresh to the exact latest canonical source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main master
+          git reset --hard origin/main
+          main_sha="$(git rev-parse origin/main)"
+          master_sha="$(git rev-parse origin/master)"
+          [[ "$main_sha" == "$master_sha" ]] || {
+            echo "main/master diverged before final verification: $main_sha $master_sha" >&2
+            exit 3
+          }
+          mapfile -t branches < <(
+            git ls-remote --heads origin |
+              awk '{name=$2; sub("^refs/heads/", "", name); print name}' |
+              sort
+          )
+          [[ "${branches[*]}" == "main master" ]] || {
+            printf 'unexpected live branches before final verification:\n' >&2
+            printf '  %s\n' "${branches[@]}" >&2
+            exit 4
+          }
+
+      - name: Install governed toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustup toolchain install nightly-2026-07-05 --profile minimal --component clippy,rustfmt --target wasm32-unknown-unknown
+          rustup override set nightly-2026-07-05
+          python3 -m pip install --user --break-system-packages numpy || python3 -m pip install --user numpy
+
+      - name: Verify landed production surfaces and documentation
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f artifacts/implementation/fm-ai1-rng-authority-receipt.json
+          test -f artifacts/implementation/rng-cursor-sampling-receipt.json
+          test -f artifacts/implementation/rng-reservation-receipt.json
+          grep -Fq 'pub struct RngCheckpoint' crates/fmn-core/src/rng_cursor.rs
+          grep -Fq 'pub struct RngCursor' crates/fmn-core/src/rng_cursor.rs
+          grep -Fq 'pub fn seek(&mut self, position: u128)' crates/fmn-core/src/rng_cursor.rs
+          grep -Fq 'pub fn uniform_below(&mut self, upper: u64)' crates/fmn-core/src/rng_sampling.rs
+          grep -Fq 'pub fn shuffle<T>' crates/fmn-core/src/rng_sampling.rs
+          grep -Fq 'pub fn sample_prefix' crates/fmn-core/src/rng_sampling.rs
+          grep -Fq 'pub struct RngReservation' crates/fmn-core/src/rng_reservation.rs
+          grep -Fq 'pub fn reserve_many' crates/fmn-core/src/rng_reservation.rs
+          grep -Fq 'Replayable RNG cursors and unbiased sampling' CHANGELOG.md
+          grep -Fq 'Fixed-consumption RNG reservations' CHANGELOG.md
+          grep -Fq 'Replay checkpoints and sampling' README.md
+          grep -Fq 'Completion-order-independent RNG reservations' README.md
+          grep -R -Fq 'replayable RNG cursors and sampling' \
+            IMPLEMENTATION_STATUS.md docs/IMPLEMENTATION_STATUS.md docs/implementation_status.md 2>/dev/null
+
+      - name: Run the full mandatory gate on an unmoving source parent
+        id: tested
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3; do
+            cargo test -p fmn-core
+            cargo test -p fmn-core --test rng_parity
+            cargo test -p fmn-conformance --test franken_numpy_pin
+            cargo check --target wasm32-unknown-unknown -p fmn-core
+            bash scripts/check.sh
+            git diff --check
+
+            tested_sha="$(git rev-parse HEAD)"
+            git fetch origin main master
+            if [[ "$(git rev-parse origin/main)" == "$tested_sha" \
+              && "$(git rev-parse origin/master)" == "$tested_sha" ]]; then
+              echo "sha=$tested_sha" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            echo "canonical source advanced during final verification; retrying on latest main"
+            git reset --hard origin/main
+          done
+          echo "canonical source continued moving across three complete Gauntlet runs" >&2
+          exit 5
+
+      - name: Record the final tested source and retire all transient machinery
+        env:
+          TESTED_SHA: ${{ steps.tested.outputs.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          tested_sha = os.environ["TESTED_SHA"]
+          receipts = [
+              Path("artifacts/implementation/fm-ai1-rng-authority-receipt.json"),
+              Path("artifacts/implementation/rng-cursor-sampling-receipt.json"),
+              Path("artifacts/implementation/rng-reservation-receipt.json"),
+          ]
+          for path in receipts:
+              payload = json.loads(path.read_text(encoding="utf-8"))
+              if payload.get("result") != "pass":
+                  raise SystemExit(f"non-passing implementation receipt: {path}")
+
+          source_paths = [
+              "crates/fmn-core/src/rng.rs",
+              "crates/fmn-core/src/rng_cursor.rs",
+              "crates/fmn-core/src/rng_sampling.rs",
+              "crates/fmn-core/src/rng_reservation.rs",
+              "crates/fmn-core/fixtures/rng_vectors.txt",
+              "Cargo.lock",
+              "SUITE.lock",
+              "SUITE_ALLOWLIST.tsv",
+          ]
+          final = {
+              "schema_version": 1,
+              "recorded_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+              "tested_source_parent_sha": tested_sha,
+              "canonical_refs_at_test": {"main": tested_sha, "master": tested_sha},
+              "capabilities": [
+                  "single governed PCG64DXSM authority",
+                  "named, frame, keyed, and entity forks",
+                  "logarithmic seek and rewind",
+                  "fixed-width self-validating checkpoints",
+                  "exact raw-draw accounting",
+                  "unbiased bounded and ranged sampling",
+                  "deterministic Fisher-Yates shuffle",
+                  "in-place sampling without replacement",
+                  "fixed-consumption completion-order-independent reservations",
+                  "transactional reservation sampling and hard budget refusal",
+              ],
+              "verified_commands": [
+                  "cargo test -p fmn-core",
+                  "cargo test -p fmn-core --test rng_parity",
+                  "cargo test -p fmn-conformance --test franken_numpy_pin",
+                  "cargo check --target wasm32-unknown-unknown -p fmn-core",
+                  "bash scripts/check.sh",
+              ],
+              "source_sha256": {
+                  path: hashlib.sha256(Path(path).read_bytes()).hexdigest()
+                  for path in source_paths
+              },
+              "component_receipts": [str(path) for path in receipts],
+              "result": "pass",
+          }
+          output = Path("artifacts/implementation/rng-replay-tranche-final.json")
+          output.write_text(json.dumps(final, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          PY
+
+          git rm .github/workflows/finalize-rng-replay-tranche.yml
+          for transient in \
+            .github/workflows/implement-rng-cursor-and-sampling.yml \
+            .github/workflows/repair-rng-cursor-sampling.yml \
+            .github/workflows/repair-rng-cursor-import.yml \
+            .github/workflows/stabilize-rng-receipts.yml \
+            .github/workflows/implement-rng-reservations.yml \
+            .github/workflows/repair-rng-reservations.yml \
+            .github/workflows/dispatch-fm-ai1-chain.yml \
+            .github/workflows/record-rng-implementation-receipt.yml \
+            .github/workflows/repair-final-rng-receipt-cleanup.yml \
+            .github/workflows/optimize-rng-chain-gates.yml; do
+            [[ -e "$transient" ]] && git rm "$transient" || true
+          done
+          git add artifacts/implementation/rng-replay-tranche-final.json
+          git config user.name "FrankenManim RNG Tranche Verification"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "test(core): finalize the deterministic RNG replay tranche" -m "Record the exact unmoving parent that passed the full mandatory Gauntlet with governed authority, checkpoint cursors, unbiased sampling, permutations, and completion-order-independent reservations; remove all completed one-shot machinery."
+          git push --atomic origin HEAD:main HEAD:master

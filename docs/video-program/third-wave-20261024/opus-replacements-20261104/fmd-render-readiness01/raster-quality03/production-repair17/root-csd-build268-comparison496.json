@@ -1,0 +1,8 @@
+{
+  "utc": "2026-11-09T05:40:41.574059+00:00",
+  "source": "root-csd-build268-inputs496.json",
+  "source_sha256": "53f1360e1102252a59a82e088f51152601d356562d152270f989bf1e86251663",
+  "compared_rows": 4127,
+  "equal": true,
+  "scope": "Actual frozen268 input manifest compared to build19 engine/shared/config bindings used by source-parity489. Not runtime or AV acceptance."
+}

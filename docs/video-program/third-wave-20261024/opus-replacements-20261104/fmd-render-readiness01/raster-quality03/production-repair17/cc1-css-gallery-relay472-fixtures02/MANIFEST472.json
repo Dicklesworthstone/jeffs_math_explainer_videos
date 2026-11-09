@@ -1,0 +1,96 @@
+{
+ "work": "cc1-css-gallery-relay472 fixtures02 (supersedes fixtures/, whose compare472.py held a scratch-path literal)",
+ "author": "CC1 (BronzeJaguar)",
+ "python": "3.15.0 (macOS)",
+ "relay472": "32f36d16e3cb3402e4c632b44a77c9852546fd8e96a90ff5127e8a1a66ecd5f1",
+ "inputs": {
+  "relay463": "d1822a5157895ae19c7128a1de374dbafa7de204aeba8c99b3895fabe4d5b892",
+  "import448": "b6653757c5c114029a94832a0dd4cb9597c42808614fbb959ef6448a5d994f6e",
+  "fixtures466_manifest": "088bae1f10962bbc3b3918a3999c4f8077f51a0333ba01b4a05504ca23008e98"
+ },
+ "note": "fixtures only: no host contact, no actual import, not final AV acceptance",
+ "files": {
+  "README472b.md": {
+   "bytes": 2388,
+   "sha256": "0d37f8170dd42680c07b1d7cc6aebfebfe8c9adc8d73587c660bf330eab310ad",
+   "source": "README472b.md",
+   "cleaned": false
+  },
+  "sim472.py": {
+   "bytes": 749,
+   "sha256": "908e55c78b3cfdb760a803be14a593a613c113cd38fbcf55d08d81f91cbf64c6",
+   "source": "sim472.py",
+   "cleaned": false
+  },
+  "run472.py": {
+   "bytes": 1924,
+   "sha256": "daae4411ee2283540f36a5672e702d54636c3665288b903fff573f7cf83ec8a6",
+   "source": "run472.py",
+   "cleaned": false
+  },
+  "test472x.py": {
+   "bytes": 4625,
+   "sha256": "1864a60a78e63574cfbd0b2ebb348311230a8e92585973200d9f87e12aeb95c2",
+   "source": "test472x.py",
+   "cleaned": false
+  },
+  "compare472b.py": {
+   "bytes": 1889,
+   "sha256": "361c15f5a780f24c024d94cb5fafd86bcabb067d3675191610d00ec21cbd3c8d",
+   "source": "compare472b.py",
+   "cleaned": false
+  },
+  "delta472.py": {
+   "bytes": 1709,
+   "sha256": "09ebd7f00ff63f537bca1d65fecd4015fbc3d5417b17ffcd9c9d5b087a25b491",
+   "source": "delta472.py",
+   "cleaned": false
+  },
+  "rerun472-test466b.out.json": {
+   "bytes": 6489,
+   "sha256": "666053991b2160e1e5360e20a43fb61b7ce8a2689fea2b5779d6aaacdb15bcb1",
+   "source": "rerun01/runs-b/test466b.out.json",
+   "cleaned": false
+  },
+  "rerun472-test466c.out.json": {
+   "bytes": 1411,
+   "sha256": "9b807bd3e4599396ca30298720dada689ed254cda299c7a483ff40f51b1e7816",
+   "source": "rerun01/runs-c/test466c.out.json",
+   "cleaned": false
+  },
+  "test472x.out.json": {
+   "bytes": 1718,
+   "sha256": "72a540f7ca91cc51a4d03df07cdb69ab2978723841db4b17225bab962a897ad8",
+   "source": "x01/test472x.out.json",
+   "cleaned": false
+  },
+  "compare472b.out.txt": {
+   "bytes": 2308,
+   "sha256": "56b284496dd3170da38e036f971af967896309cb58bbc87a2daf496843039c7b",
+   "source": "compare472b.out.txt",
+   "cleaned": false
+  },
+  "delta472.out.json": {
+   "bytes": 368,
+   "sha256": "7bba96845a88ca2f1ed59216db8a65bd0367cd67be45388e3d18b1316eb822ae",
+   "source": "delta472.out.json",
+   "cleaned": false
+  },
+  "rerun472-test466.out.json": {
+   "bytes": 19955,
+   "sha256": "a0c93c4190658e5f1111d10dd3e499067d20056fab1aeddf0eb4c8482b08ba1f",
+   "source": "rerun01/runs-a/test466.out.json",
+   "cleaned": true,
+   "raw_sha256": "0d2f3fc30aafadb74725208a5a85a59393cab262a373302523c335b2f3564a9e",
+   "raw_bytes": 20141,
+   "rule": "each scratch path fragment -> W/[path truncated before cleaning; full text in test466b.out.json F1r]",
+   "replacements": 3
+  },
+  "cc1-css-gallery-relay472.diff": {
+   "bytes": 10355,
+   "sha256": "a41d2ec5c2af5fa5f5ec77ae98ea8ff85a60553a0b7911a36f15fb9e0f2ee913",
+   "source": "difflib.unified_diff 463 -> 472",
+   "cleaned": false
+  }
+ }
+}

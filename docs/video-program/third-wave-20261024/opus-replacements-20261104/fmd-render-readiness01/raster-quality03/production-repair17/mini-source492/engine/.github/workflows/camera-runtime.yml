@@ -1,0 +1,133 @@
+name: Camera motion and runtime recovery
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/camera-runtime.yml'
+      - 'scripts/patches/camera-runtime.patch'
+      - 'scripts/patches/portal-runtime-initialization.patch'
+      - 'scripts/patches/persistent-runtime-recovery.patch'
+      - 'crates/fmn-python/python/fmn_python/initialization.py'
+      - 'crates/fmn-python/tests/camera_motion.py'
+      - 'crates/fmn-python/tests/camera_execution.py'
+      - 'crates/fmn-python/tests/updater_family.py'
+      - 'crates/fmn-python/tests/portal_initialization.py'
+      - 'crates/fmn-python/tests/fading_family.py'
+      - 'crates/fmn-python/tests/persistent_recovery.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: camera-runtime
+  cancel-in-progress: false
+jobs:
+  native-acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Apply reviewed camera and unified runtime source changes
+        run: |
+          set -euo pipefail
+          if ! grep -q '^def _install_camera_motion' crates/fmn-python/python/manimlib/_animation_semantics.py; then
+            git apply --check scripts/patches/camera-runtime.patch
+            git apply scripts/patches/camera-runtime.patch
+          fi
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('scripts/check_portal_runtime.sh')
+          text = path.read_text()
+          if 'camera_motion camera_execution updater_family' not in text:
+              old = 'camera_animation_semantics creation_semantics'
+              assert text.count(old) == 1
+              path.write_text(text.replace(old, 'camera_animation_semantics camera_motion camera_execution updater_family creation_semantics'))
+          PY
+          if ! grep -q 'py.import("fmn_python.initialization")' crates/fmn-python/src/lib.rs; then
+            git apply --check scripts/patches/portal-runtime-initialization.patch
+            git apply scripts/patches/portal-runtime-initialization.patch
+          fi
+          if ! grep -q 'self.execution = _Execution(g)' crates/fmn-python/python/fmn_python/animation_updaters.py; then
+            git apply --check scripts/patches/persistent-runtime-recovery.patch
+            git apply scripts/patches/persistent-runtime-recovery.patch
+          fi
+          git diff --check
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        id: cargo-cache
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Build the exact source with pinned tools
+        run: |
+          set -euo pipefail
+          rustup show active-toolchain
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-python/src/lib.rs
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          python -m maturin build --locked --interpreter python --profile dev --out target/camera-wheel 2>&1 | tee /tmp/camera-build.log
+          python -m venv target/camera-venv
+          target/camera-venv/bin/python -m pip install 'numpy==2.5.2' target/camera-wheel/*.whl
+      - name: Exercise installed wheel, complete initialization and native pixels
+        run: |
+          set -euo pipefail
+          for suite in portal_initialization persistent_recovery animation_updaters fading_semantics fading_family camera_motion camera_execution updater_family camera_animation_semantics rotation_semantics movement_semantics composition_lifecycle matching_transform_semantics callback_cleanup scene_execution; do
+            target/camera-venv/bin/python -I crates/fmn-python/tests/$suite.py 2>&1 | tee /tmp/camera-$suite.log
+          done
+          python crates/fmn-python/tests/test_scene_execution_protocol.py 2>&1 | tee /tmp/camera-protocol.log
+      - name: Exercise real embedded initialization and owner-thread teardown
+        run: |
+          set -euo pipefail
+          for suite in production_camera_runtime_acceptance_suite production_portal_runtime_acceptance_suite production_persistent_runtime_acceptance_suite python_suite_cycles_are_collected_before_the_owner_thread_changes; do
+            cargo test --locked -p fmn-python "$suite" -- --nocapture 2>&1 | tee /tmp/camera-$suite.log
+            grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/camera-$suite.log
+          done
+          cargo test --locked -p fmn-anim --lib 2>&1 | tee /tmp/camera-choreo.log
+          cargo clippy --locked -p fmn-python --lib -- -D warnings 2>&1 | tee /tmp/camera-clippy.log
+      - name: Commit verified production code directly to main
+        run: |
+          set -euo pipefail
+          git add crates/fmn-python/python/fmn_python/scene_execution.py crates/fmn-python/python/fmn_python/update_animations.py crates/fmn-python/python/fmn_python/animation_updaters.py crates/fmn-python/python/fmn_python/fading.py crates/fmn-python/python/manimlib/__init__.py crates/fmn-python/python/manimlib/_animation_semantics.py crates/fmn-python/python/manimlib_bootstrap.py crates/fmn-python/src/lib.rs crates/fmn-python/tests/test_scene_execution_protocol.py scripts/check_portal_runtime.sh
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(runtime): unify portal initialization, camera motion and foreground/background state recovery'
+            git push origin HEAD:main
+          fi
+      - name: Run the complete native portal library regression
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-python --lib 2>&1 | tee /tmp/camera-full-portal.log
+      - name: Preserve exact source and validation
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/camera-source-sha.txt
+          git archive --format=tar.gz HEAD > /tmp/camera-source.tar.gz
+          git diff > /tmp/camera-working.patch
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: camera-runtime-${{ github.sha }}
+          path: |
+            /tmp/camera-*
+            target/camera-wheel/*.whl
+          retention-days: 2
+      - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        if: always() && steps.cargo-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}

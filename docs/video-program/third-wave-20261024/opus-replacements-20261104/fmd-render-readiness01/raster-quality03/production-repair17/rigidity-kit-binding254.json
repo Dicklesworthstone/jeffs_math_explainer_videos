@@ -1,0 +1,20 @@
+[
+  {
+    "path": "crates/explainer_kit/src/props.rs",
+    "production_manifest_dependency_sha256": "73606e8921ec18c8492ec3a7355a755e269acabd174cafed1fabfca14379d436",
+    "local_sha256": "73606e8921ec18c8492ec3a7355a755e269acabd174cafed1fabfca14379d436",
+    "equal": true
+  },
+  {
+    "path": "crates/explainer_kit/src/plot.rs",
+    "production_manifest_dependency_sha256": "15e8c470ece7844da1f86562e214ad5185454abb079bc5ceb5f6615cf792246d",
+    "local_sha256": "15e8c470ece7844da1f86562e214ad5185454abb079bc5ceb5f6615cf792246d",
+    "equal": true
+  },
+  {
+    "path": "crates/explainer_kit/src/animatic.rs",
+    "production_manifest_dependency_sha256": "631fbdfde3cd42234d00906d4273f598ee4db8c51a319dff0bddb98f8045eb9e",
+    "local_sha256": "631fbdfde3cd42234d00906d4273f598ee4db8c51a319dff0bddb98f8045eb9e",
+    "equal": true
+  }
+]

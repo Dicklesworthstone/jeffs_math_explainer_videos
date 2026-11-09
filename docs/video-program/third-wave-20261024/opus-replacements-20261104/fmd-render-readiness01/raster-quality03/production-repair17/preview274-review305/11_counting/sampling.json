@@ -1,0 +1,2136 @@
+{
+  "movie_sha256": "0b6244a005f64ff9b9b381a8ec8a58ffb7c174d085aceb452871d7f5dd0f811e",
+  "schedule": [
+    {
+      "kind": "timeline",
+      "sha256": "29a3afd345fa3a376e5c163d5bf5e01267a866e2305bdd27c6413a5bab46807d",
+      "equals_timeline269": true,
+      "equals_production_timeline21_after_path_mapping": true
+    },
+    {
+      "kind": "cues",
+      "sha256": "8659b78f9ff443163d4e37270c62532fa4b90d0ee34bab51231eb915aac3ff41",
+      "equals_timeline269": true,
+      "equals_production_timeline21_after_path_mapping": true
+    },
+    {
+      "kind": "cuelog",
+      "sha256": "96620b403d788ee439d66e09294a5a43c9ba8df55ced67a5ad3bf46231b479cb",
+      "equals_timeline269": true,
+      "equals_production_timeline21_after_path_mapping": true
+    }
+  ],
+  "frames": 11932,
+  "fades": [
+    {
+      "id": "G1",
+      "why": "identity input plate in at the cue start",
+      "frames": 49,
+      "repeat": 1,
+      "source": "counting.rs:196",
+      "start": 36,
+      "how": "exact line",
+      "exact": true,
+      "check": {
+        "score_at_anchor": 195.9258553958297,
+        "amplitude_at_anchor": 11.12035999760761,
+        "best_shift": 3,
+        "best_score": 217.6674540415529
+      },
+      "flag": false
+    },
+    {
+      "id": "G2",
+      "why": "identity plate out; the quintic strips field was added without a fade (add_to_scene) just before this play, so it shows from the play's first frame",
+      "frames": 25,
+      "repeat": 1,
+      "source": "counting.rs:519",
+      "start": 7466,
+      "how": "exact line",
+      "exact": true,
+      "check": {
+        "score_at_anchor": 2.077194196895547,
+        "amplitude_at_anchor": 0.02677612540917501,
+        "best_shift": -6,
+        "best_score": 3.8161913916601127
+      },
+      "flag": false
+    },
+    {
+      "id": "G3",
+      "why": "the strips field out with the acted picture, after sentence 3",
+      "frames": 18,
+      "repeat": 1,
+      "source": "counting.rs:567",
+      "start": null,
+      "how": "NOT LOCALIZED",
+      "exact": false,
+      "search": [
+        7491,
+        9563
+      ],
+      "fit": {
+        "start": 8296,
+        "score": 221.80753409865943,
+        "runner_up": 218.07508227948256,
+        "amplitude": 11.456291901267235,
+        "slopes": [
+          {
+            "play": "G3#1",
+            "slope": 11.456291901267235,
+            "t": 221.80753409865943
+          },
+          {
+            "play": "post:568",
+            "slope": 0.47092313760170385,
+            "t": 9.364703076316301
+          }
+        ]
+      }
+    }
+  ],
+  "fade_flags": [
+    "G3"
+  ],
+  "samples": [
+    {
+      "frame": 0,
+      "seconds": 0.0,
+      "chroma": 2.0,
+      "reasons": [
+        "First frame"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000001.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 35,
+      "seconds": 0.5833333333333334,
+      "chroma": 2.0,
+      "reasons": [
+        "Plate fade, frame before start: G1 painter.show(stage, 0.8)?; (counting.rs:196, in 0.80 s = 49 frames, cue 11_1, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000002.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 36,
+      "seconds": 0.6,
+      "chroma": 2.0,
+      "reasons": [
+        "line:11_1",
+        "Plate fade start, ramp frame 1 of 49: G1 painter.show(stage, 0.8)?; (counting.rs:196, in 0.80 s = 49 frames, cue 11_1, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000003.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 60,
+      "seconds": 1.0,
+      "chroma": 10.1448,
+      "reasons": [
+        "Plate fade middle, ramp frame 25 of 49: G1 painter.show(stage, 0.8)?; (counting.rs:196, in 0.80 s = 49 frames, cue 11_1, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000004.jpg",
+      "sha256": "9cd3ea7e23234be7cdf1519fee221b559fbe12710ad4668d6dd17768c849c16c"
+    },
+    {
+      "frame": 66,
+      "seconds": 1.1,
+      "chroma": 11.6613,
+      "reasons": [
+        "line:11_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000005.jpg",
+      "sha256": "da64f360ffbaf0ae943504f692df41bb0f05192761f64f42468642acb0863f37"
+    },
+    {
+      "frame": 84,
+      "seconds": 1.4,
+      "chroma": 12.9659,
+      "reasons": [
+        "Plate fade last frame, ramp frame 49 of 49: G1 painter.show(stage, 0.8)?; (counting.rs:196, in 0.80 s = 49 frames, cue 11_1, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000006.jpg",
+      "sha256": "19d782be8f6b9db1ba70406ea4c8adddbac6a2b2f7edc097e05eaf0e03132324"
+    },
+    {
+      "frame": 85,
+      "seconds": 1.4166666666666667,
+      "chroma": 12.9662,
+      "reasons": [
+        "First hold frame after plate fade: G1 painter.show(stage, 0.8)?; (counting.rs:196, in 0.80 s = 49 frames, cue 11_1, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000007.jpg",
+      "sha256": "cfa2474d64107c86c98575c35a41682be05f1805582f22ebaa0720ecc0680d0f"
+    },
+    {
+      "frame": 96,
+      "seconds": 1.6,
+      "chroma": 12.9708,
+      "reasons": [
+        "line:11_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000008.jpg",
+      "sha256": "4d2914ff80255b3f296f26b808626dab2efb68f97f6cd761392d64738ccdd5d8"
+    },
+    {
+      "frame": 115,
+      "seconds": 1.9166666666666667,
+      "chroma": 12.9706,
+      "reasons": [
+        "Hold +0.5 s after plate fade (persistence): G1 painter.show(stage, 0.8)?; (counting.rs:196, in 0.80 s = 49 frames, cue 11_1, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000009.jpg",
+      "sha256": "2c07c67d2155efe9c9a9f3f381d9938ebfb69fe1b1268fc6999ef1a913b58d55"
+    },
+    {
+      "frame": 156,
+      "seconds": 2.6,
+      "chroma": 12.97,
+      "reasons": [
+        "line:11_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000010.jpg",
+      "sha256": "a4e0faef5e46988972602e285af4de4b3b62fd916fb26d406acfdf4ff12abe0a"
+    },
+    {
+      "frame": 1177,
+      "seconds": 19.616666666666667,
+      "chroma": 12.7438,
+      "reasons": [
+        "line:11_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000011.jpg",
+      "sha256": "d242788b221e8257a77cf93b023cf3464f9e7c40512df92e0195f61a2cb44058"
+    },
+    {
+      "frame": 1207,
+      "seconds": 20.116666666666667,
+      "chroma": 10.8326,
+      "reasons": [
+        "line:11_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000012.jpg",
+      "sha256": "24010888ecebcbbbb3556bf4afd979cb9160e44163c9d6aabb4ed1a285d1e86a"
+    },
+    {
+      "frame": 1237,
+      "seconds": 20.616666666666667,
+      "chroma": 13.7987,
+      "reasons": [
+        "line:11_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000013.jpg",
+      "sha256": "1fa16f8dc013450a9c4647edde02f05b514e2b1e8252d1598a87ae183df95fd5"
+    },
+    {
+      "frame": 1297,
+      "seconds": 21.616666666666667,
+      "chroma": 13.8894,
+      "reasons": [
+        "line:11_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000014.jpg",
+      "sha256": "b14f798a62e653cc845b3415026c1914d01a627c1a20eb303355d370b0aab11a"
+    },
+    {
+      "frame": 2538,
+      "seconds": 42.3,
+      "chroma": 14.721,
+      "reasons": [
+        "line:11_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000015.jpg",
+      "sha256": "e417dea050315b8a3460d0fcbcce24fca6268882588a2d5b55255b000ac2a1f9"
+    },
+    {
+      "frame": 2568,
+      "seconds": 42.8,
+      "chroma": 13.8221,
+      "reasons": [
+        "line:11_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000016.jpg",
+      "sha256": "536578ceb2cb63c0213d032939c708ddbc897d34ec1f634d592b9fa17e503376"
+    },
+    {
+      "frame": 2598,
+      "seconds": 43.3,
+      "chroma": 12.8255,
+      "reasons": [
+        "line:11_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000017.jpg",
+      "sha256": "273246b7be6e2ee885a635843291ff5dbf9b479e6f74e93f2c1c16343b0e3088"
+    },
+    {
+      "frame": 2658,
+      "seconds": 44.3,
+      "chroma": 14.8435,
+      "reasons": [
+        "line:11_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000018.jpg",
+      "sha256": "d4c4e144c47d313b3d47c3a1ffae21ec69ab6bc255092540868707aa8562b689"
+    },
+    {
+      "frame": 4288,
+      "seconds": 71.46666666666667,
+      "chroma": 15.2752,
+      "reasons": [
+        "line:11_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000019.jpg",
+      "sha256": "3ce6a5609823576fde5229f8410126de89b6b82ea5da652d11e72d947f071b0f"
+    },
+    {
+      "frame": 4318,
+      "seconds": 71.96666666666667,
+      "chroma": 14.9254,
+      "reasons": [
+        "line:11_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000020.jpg",
+      "sha256": "61699437af918d78a616f38a5e4924bcf28258c88994a445fd81c99fdab777d1"
+    },
+    {
+      "frame": 4348,
+      "seconds": 72.46666666666667,
+      "chroma": 14.987,
+      "reasons": [
+        "line:11_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000021.jpg",
+      "sha256": "737c0cb9ce55e8f00a9d12c22dd51b6830aef2b3ead9ffb4ba1a2f93b8be7690"
+    },
+    {
+      "frame": 4408,
+      "seconds": 73.46666666666667,
+      "chroma": 15.0133,
+      "reasons": [
+        "line:11_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000022.jpg",
+      "sha256": "30f9d8b39ec57dffd4e5fb788d388918379c17dfb7a8601cf2d73d8d36d4d5f8"
+    },
+    {
+      "frame": 5078,
+      "seconds": 84.63333333333334,
+      "chroma": 15.1739,
+      "reasons": [
+        "line:11_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000023.jpg",
+      "sha256": "9b415487197ea88dd2776ca5352e173f683b9ea6253ef8db6f7983255d81848d"
+    },
+    {
+      "frame": 5108,
+      "seconds": 85.13333333333334,
+      "chroma": 14.2265,
+      "reasons": [
+        "line:11_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000024.jpg",
+      "sha256": "80d0f4da668723b614b2aec6edbbbd403cb59db7cdd164e4f649c1b3b37d8203"
+    },
+    {
+      "frame": 5138,
+      "seconds": 85.63333333333334,
+      "chroma": 5.41316,
+      "reasons": [
+        "line:11_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000025.jpg",
+      "sha256": "5c0985ae3b53c7ef06ed08e499fb444ff7a254f6ce6f6607774fa41e955a331f"
+    },
+    {
+      "frame": 5198,
+      "seconds": 86.63333333333334,
+      "chroma": 2.19022,
+      "reasons": [
+        "line:11_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000026.jpg",
+      "sha256": "5047f7ed19f8c0c83b4789fbd9b3f58acc9164ea0589185349bcc2211d49850a"
+    },
+    {
+      "frame": 5671,
+      "seconds": 94.51666666666667,
+      "chroma": 2.62583,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000027.jpg",
+      "sha256": "6cfb6efbde376ca400136ceea8391ef7a0c73c97a6523a73539ce87f4cbbfce8"
+    },
+    {
+      "frame": 5701,
+      "seconds": 95.01666666666667,
+      "chroma": 2.62492,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000028.jpg",
+      "sha256": "27dd81d62565e393e0ab477e9e49b7f4efa8e80a2bce064fa62c95ee97e74757"
+    },
+    {
+      "frame": 5731,
+      "seconds": 95.51666666666667,
+      "chroma": 2.62291,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000029.jpg",
+      "sha256": "3c8f491216c57d4dc3eb399fa52b86038809fe010109ca70b7c25dc78d78d263"
+    },
+    {
+      "frame": 5791,
+      "seconds": 96.51666666666667,
+      "chroma": 2.61747,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000030.jpg",
+      "sha256": "549cb948030b77269efbefe42e6682eed97ce05a65cd8df24580f362a1aae7a3"
+    },
+    {
+      "frame": 6046,
+      "seconds": 100.76666666666667,
+      "chroma": 2.5896,
+      "reasons": [
+        "line:11_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000031.jpg",
+      "sha256": "ae1caa4491d330f6b57b226a333ed4c6eefae87599f2b5b8929f180deed75ab3"
+    },
+    {
+      "frame": 6076,
+      "seconds": 101.26666666666667,
+      "chroma": 2.25569,
+      "reasons": [
+        "line:11_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000032.jpg",
+      "sha256": "76053490e125f6464db5c6f03860429dba3871c4b5528727af5ea67aaf7c76e9"
+    },
+    {
+      "frame": 6106,
+      "seconds": 101.76666666666667,
+      "chroma": 12.6923,
+      "reasons": [
+        "line:11_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000033.jpg",
+      "sha256": "3381937d5aaec47157b4ae0e1b89f1fa45c9aa083776119c6427b69f37e8e826"
+    },
+    {
+      "frame": 6166,
+      "seconds": 102.76666666666667,
+      "chroma": 13.1972,
+      "reasons": [
+        "line:11_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000034.jpg",
+      "sha256": "a605d05866a73398073575f4aafca8a0853cf3a879e5c71300be566697dc3d96"
+    },
+    {
+      "frame": 7448,
+      "seconds": 124.13333333333334,
+      "chroma": 13.111,
+      "reasons": [
+        "line:11_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000035.jpg",
+      "sha256": "050d194494433afae4bd4dbd60d8ada8320b9d3c4305f5b113a10d4b86f1c0ac"
+    },
+    {
+      "frame": 7465,
+      "seconds": 124.41666666666667,
+      "chroma": 13.2768,
+      "reasons": [
+        "Plate fade, frame before start: G2 painter.leave(stage, 0.4)?; (counting.rs:519, out 0.40 s = 25 frames, cue 11_7, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000036.jpg",
+      "sha256": "2011a836d30b7154a4c09c0ceb6515a2d5c39df5bc6457ece35826f460cee626"
+    },
+    {
+      "frame": 7466,
+      "seconds": 124.43333333333334,
+      "chroma": 13.2765,
+      "reasons": [
+        "Plate fade start, ramp frame 1 of 25: G2 painter.leave(stage, 0.4)?; (counting.rs:519, out 0.40 s = 25 frames, cue 11_7, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000037.jpg",
+      "sha256": "240de3990ebd3d81102d40047d4bd1f3eba6c590d2df757d17db6e62577ba5a3"
+    },
+    {
+      "frame": 7478,
+      "seconds": 124.63333333333334,
+      "chroma": 13.2769,
+      "reasons": [
+        "line:11_7",
+        "Plate fade middle, ramp frame 13 of 25: G2 painter.leave(stage, 0.4)?; (counting.rs:519, out 0.40 s = 25 frames, cue 11_7, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000038.jpg",
+      "sha256": "97d3440eaab8c509230b1df2d297143ac2f3be7c5f1f67af469a1ee218465682"
+    },
+    {
+      "frame": 7488,
+      "seconds": 124.8,
+      "chroma": 13.277,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): G2 painter.leave(stage, 0.4)?; (counting.rs:519, out 0.40 s = 25 frames, cue 11_7, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000039.jpg",
+      "sha256": "51d157d3b57ee6e1c293535b6b8806d05130f1a86ee6f5c649353c9a1dfdaac8"
+    },
+    {
+      "frame": 7489,
+      "seconds": 124.81666666666666,
+      "chroma": 13.2762,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): G2 painter.leave(stage, 0.4)?; (counting.rs:519, out 0.40 s = 25 frames, cue 11_7, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000040.jpg",
+      "sha256": "b1b70e1e3b18202391e55037d2fce54fe94323271e5e6f970041f5006cc8183a"
+    },
+    {
+      "frame": 7490,
+      "seconds": 124.83333333333333,
+      "chroma": 13.2755,
+      "reasons": [
+        "Plate fade last frame, ramp frame 25 of 25: G2 painter.leave(stage, 0.4)?; (counting.rs:519, out 0.40 s = 25 frames, cue 11_7, exact line)",
+        "Fade-out end bracket, every frame (no reappearance): G2 painter.leave(stage, 0.4)?; (counting.rs:519, out 0.40 s = 25 frames, cue 11_7, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000041.jpg",
+      "sha256": "24317df52a10ad301eb0128eab09b2af959a11740cb59ec38048e19b49e07e96"
+    },
+    {
+      "frame": 7491,
+      "seconds": 124.85,
+      "chroma": 13.2764,
+      "reasons": [
+        "First hold frame after plate fade: G2 painter.leave(stage, 0.4)?; (counting.rs:519, out 0.40 s = 25 frames, cue 11_7, exact line)",
+        "Fade-out end bracket, every frame (no reappearance): G2 painter.leave(stage, 0.4)?; (counting.rs:519, out 0.40 s = 25 frames, cue 11_7, exact line)",
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000042.jpg",
+      "sha256": "b6eb7f43948546c2ff731a156f831826b933fada0e44e612952bb009d8f67a30"
+    },
+    {
+      "frame": 7492,
+      "seconds": 124.86666666666666,
+      "chroma": 13.2728,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): G2 painter.leave(stage, 0.4)?; (counting.rs:519, out 0.40 s = 25 frames, cue 11_7, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000043.jpg",
+      "sha256": "25abbd69ce717e9a3d216042db46e0ef918745603a40c649a53ea699c2c96f27"
+    },
+    {
+      "frame": 7493,
+      "seconds": 124.88333333333334,
+      "chroma": 13.2753,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): G2 painter.leave(stage, 0.4)?; (counting.rs:519, out 0.40 s = 25 frames, cue 11_7, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000044.jpg",
+      "sha256": "6c62e18ff0abb611d55619868c9a85306395f80c2ec7921811bc1cdf855023f6"
+    },
+    {
+      "frame": 7494,
+      "seconds": 124.9,
+      "chroma": 13.2789,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): G2 painter.leave(stage, 0.4)?; (counting.rs:519, out 0.40 s = 25 frames, cue 11_7, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000045.jpg",
+      "sha256": "bcf0d2471aa4ed07801dcab97d20df4aeb159ffc6e19a50235e59c1654b7aee2"
+    },
+    {
+      "frame": 7506,
+      "seconds": 125.1,
+      "chroma": 13.3517,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000046.jpg",
+      "sha256": "2bbc82c2ae6858f370d573c13407710cfbe0e1a82360a63112d4098e2322373f"
+    },
+    {
+      "frame": 7508,
+      "seconds": 125.13333333333334,
+      "chroma": 13.3634,
+      "reasons": [
+        "line:11_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000047.jpg",
+      "sha256": "393e3f468a1e583d197c2cf0cc21f858ad86d013ff0147322ce4b40c6175bb95"
+    },
+    {
+      "frame": 7521,
+      "seconds": 125.35,
+      "chroma": 13.3696,
+      "reasons": [
+        "Hold +0.5 s after plate fade (persistence): G2 painter.leave(stage, 0.4)?; (counting.rs:519, out 0.40 s = 25 frames, cue 11_7, exact line)",
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000048.jpg",
+      "sha256": "945852db89be5a9a02f2fe6859d84ff84d58612d8bceeb344f9b2df6f33a27e4"
+    },
+    {
+      "frame": 7536,
+      "seconds": 125.6,
+      "chroma": 13.3693,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000049.jpg",
+      "sha256": "e12d1024ed637e29fadbb917ecf52062fb6a4404f7103a28c5953f1dd680b6be"
+    },
+    {
+      "frame": 7551,
+      "seconds": 125.85,
+      "chroma": 13.3694,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000050.jpg",
+      "sha256": "d1065ce19ac54a428e8525b34b92d8f6067dcdc3d769c77aa8e44628ac9352da"
+    },
+    {
+      "frame": 7566,
+      "seconds": 126.1,
+      "chroma": 13.3694,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000051.jpg",
+      "sha256": "fa38c2216e14d23197f11cbac41dd3c2b520ceaac55610f0b872ef860484e308"
+    },
+    {
+      "frame": 7568,
+      "seconds": 126.13333333333334,
+      "chroma": 13.3697,
+      "reasons": [
+        "line:11_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000052.jpg",
+      "sha256": "0fc2b631d4b0438abad3b3c4952580d441d512e6fd65c5f01c5291c400e5f235"
+    },
+    {
+      "frame": 7581,
+      "seconds": 126.35,
+      "chroma": 13.3693,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000053.jpg",
+      "sha256": "40c8e8b9ec1a9cd52e4aceef7a08d688f24d96607f6d4782e75e43e18eacd8a7"
+    },
+    {
+      "frame": 7596,
+      "seconds": 126.6,
+      "chroma": 13.3694,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000054.jpg",
+      "sha256": "d3a2e286b6ce4e9719fde44d6085467287d4f0d67d8fde6645a0e9ca9f91b855"
+    },
+    {
+      "frame": 7611,
+      "seconds": 126.85,
+      "chroma": 13.3695,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000055.jpg",
+      "sha256": "439c2b5a0cf4ab8254da2cafe6427a08bc8d64f4aa179fdcbdb907ed25198af8"
+    },
+    {
+      "frame": 7626,
+      "seconds": 127.1,
+      "chroma": 13.3786,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000056.jpg",
+      "sha256": "7eab68a11aec421d4013c4cd2aa5ff7e0d9cea01d2e525da415a4e434205a7a2"
+    },
+    {
+      "frame": 7641,
+      "seconds": 127.35,
+      "chroma": 13.3659,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000057.jpg",
+      "sha256": "4591d7f66a6080f3ca7dfd79c0d234d3aaa05d771d439cfebbfd811a3435da82"
+    },
+    {
+      "frame": 7656,
+      "seconds": 127.6,
+      "chroma": 13.366,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000058.jpg",
+      "sha256": "5479fdc7cb4a647c7f76ce420a5737545f5d0f9cc04d4fa78a8a912998dc945f"
+    },
+    {
+      "frame": 7671,
+      "seconds": 127.85,
+      "chroma": 13.3504,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000059.jpg",
+      "sha256": "41a8eabd17296d8949ebc66a14cca33766e58a1fac46428223a9ff49d5ca4f2d"
+    },
+    {
+      "frame": 7686,
+      "seconds": 128.1,
+      "chroma": 13.303,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000060.jpg",
+      "sha256": "d711845c52e7c57f94333824407ffd5c392f270a2e067f0dff7926dde61c5eef"
+    },
+    {
+      "frame": 7701,
+      "seconds": 128.35,
+      "chroma": 13.2736,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000061.jpg",
+      "sha256": "4a7a7fc8965d74e819c073c49899f269e2cd8df389cea15dce555c243f923ac8"
+    },
+    {
+      "frame": 7716,
+      "seconds": 128.6,
+      "chroma": 13.2777,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000062.jpg",
+      "sha256": "566d5ff7dc9c789498c429613444756f1b0de1b887e523b231210370e0746f51"
+    },
+    {
+      "frame": 7731,
+      "seconds": 128.85,
+      "chroma": 13.2793,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000063.jpg",
+      "sha256": "15218a491a00442049d965761dbe58a76d03b9d1a39711a08f345bc6de0d3c06"
+    },
+    {
+      "frame": 7746,
+      "seconds": 129.1,
+      "chroma": 13.2793,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000064.jpg",
+      "sha256": "99564d4a636ddc90356c8914710ec14dfd4147e8334f9c40be656322f65bcaa9"
+    },
+    {
+      "frame": 7761,
+      "seconds": 129.35,
+      "chroma": 13.2837,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000065.jpg",
+      "sha256": "da2d0a13be42a216e6a8322ae95a080715c8ea006c8be7405d7834112a9a346e"
+    },
+    {
+      "frame": 7776,
+      "seconds": 129.6,
+      "chroma": 13.2833,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000066.jpg",
+      "sha256": "c2864fda962aeb2add3fc72645394afe4b16ca876f6e151b0d12c8fcec997dac"
+    },
+    {
+      "frame": 7791,
+      "seconds": 129.85,
+      "chroma": 13.289,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000067.jpg",
+      "sha256": "ec9be96d27d184769e6617130bbe9eafa8bb89a218a75e5530b55ccc73fa8195"
+    },
+    {
+      "frame": 7806,
+      "seconds": 130.1,
+      "chroma": 13.2719,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000068.jpg",
+      "sha256": "ef85e1df6d7550ae271872d8a8f03d2deef5d8316a3b5658e77e13900dfba4e7"
+    },
+    {
+      "frame": 7821,
+      "seconds": 130.35,
+      "chroma": 13.3709,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000069.jpg",
+      "sha256": "4475a686ddaeb22f9c5c2058eddf573917ba4d45c863fd39fc18024f00fb28dc"
+    },
+    {
+      "frame": 7836,
+      "seconds": 130.6,
+      "chroma": 13.3838,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000070.jpg",
+      "sha256": "c467ff05a791669be6f0cc02a6737dd906c69f6e38eadf3c13380c6877a8af20"
+    },
+    {
+      "frame": 7851,
+      "seconds": 130.85,
+      "chroma": 13.4161,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000071.jpg",
+      "sha256": "6f0f27138c76c9dd0ad5b64b9c4aa5f20bd32658839e4260e1ad65c16d3038ea"
+    },
+    {
+      "frame": 7866,
+      "seconds": 131.1,
+      "chroma": 13.4006,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000072.jpg",
+      "sha256": "704eda1d845ffa031e03669b60ddb714e8b564e0becbc56cd1e313124402d2c2"
+    },
+    {
+      "frame": 7881,
+      "seconds": 131.35,
+      "chroma": 13.4088,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000073.jpg",
+      "sha256": "626d17f11e71ac5834c4614b3b6640a153f130cbbb013b12c3c26a37d611e68c"
+    },
+    {
+      "frame": 7896,
+      "seconds": 131.6,
+      "chroma": 13.3352,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000074.jpg",
+      "sha256": "1cba61653602ce0202ca66535dc4573fa91b61467b0a89ede4f3ef5ca23459e1"
+    },
+    {
+      "frame": 7911,
+      "seconds": 131.85,
+      "chroma": 13.0601,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000075.jpg",
+      "sha256": "8d1258e1f63fd7f1ff9fa7527a40f9040035db3ee3e3f621b0e6d212f5c71e3c"
+    },
+    {
+      "frame": 7926,
+      "seconds": 132.1,
+      "chroma": 13.0604,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000076.jpg",
+      "sha256": "35c6e0e0b70f1d0ec8dc7492eac3f08279a8fe2f4019037ad1ac65219fa0e1dc"
+    },
+    {
+      "frame": 7941,
+      "seconds": 132.35,
+      "chroma": 13.0603,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000077.jpg",
+      "sha256": "78609a251d30d2f7e4afcd07a4e8bd4ad4ef67f6970eb5289ad36aee876f7a33"
+    },
+    {
+      "frame": 7956,
+      "seconds": 132.6,
+      "chroma": 13.0603,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000078.jpg",
+      "sha256": "ada28f86d0c4544532c75a8c51926bd5c49c1fd1328f09474ef5381eb3ad9959"
+    },
+    {
+      "frame": 7971,
+      "seconds": 132.85,
+      "chroma": 13.0603,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000079.jpg",
+      "sha256": "4af7d0de6472c8f9ce061e0fc58ea1afbf57df77b1f2b3833eca9d70faa6227f"
+    },
+    {
+      "frame": 7986,
+      "seconds": 133.1,
+      "chroma": 13.0603,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000080.jpg",
+      "sha256": "ada28f86d0c4544532c75a8c51926bd5c49c1fd1328f09474ef5381eb3ad9959"
+    },
+    {
+      "frame": 8001,
+      "seconds": 133.35,
+      "chroma": 13.0386,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000081.jpg",
+      "sha256": "80b90c31d2ea15adec0b6f7b60b2cda0a2ae65dc0c71f9e080babd7e85c6e9e6"
+    },
+    {
+      "frame": 8016,
+      "seconds": 133.6,
+      "chroma": 13.0392,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000082.jpg",
+      "sha256": "703c136908f7d0f437bcc366ed6a5a41fb5bc543689bc99466bcf21710770b4b"
+    },
+    {
+      "frame": 8031,
+      "seconds": 133.85,
+      "chroma": 13.0399,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000083.jpg",
+      "sha256": "f6d14c99996ffa26aea97be89a365b2a684348ddad0b97c0bdf5e29fe8e43607"
+    },
+    {
+      "frame": 8046,
+      "seconds": 134.1,
+      "chroma": 13.0398,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000084.jpg",
+      "sha256": "b08d1eb5258b959355cd25f4ec84c48e4ec9477fe65f57d90040b9cd3b77eb86"
+    },
+    {
+      "frame": 8061,
+      "seconds": 134.35,
+      "chroma": 13.0399,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000085.jpg",
+      "sha256": "8b1e4b4d1f3fb8a21f5a8743a0d0ece98f27b445b14c77473bf130ed326e4ffd"
+    },
+    {
+      "frame": 8076,
+      "seconds": 134.6,
+      "chroma": 13.2191,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000086.jpg",
+      "sha256": "2f08f07600e0d5464103c4406fc65c8e4f56429592c9dbf33bb62816b5f14f51"
+    },
+    {
+      "frame": 8091,
+      "seconds": 134.85,
+      "chroma": 13.381,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000087.jpg",
+      "sha256": "421710caa676ff8757b7e6f09f465082f3d8c2cab7de390bbe37f5deee5ddb70"
+    },
+    {
+      "frame": 8106,
+      "seconds": 135.1,
+      "chroma": 13.3805,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000088.jpg",
+      "sha256": "b32013d481c0c02249e5bc15b6286360f0dac59dcccd7fee216d48c02699204a"
+    },
+    {
+      "frame": 8121,
+      "seconds": 135.35,
+      "chroma": 13.3813,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000089.jpg",
+      "sha256": "bee55e8607f28273e99a7ebd8ff007e179ec807a0a9414ff4d462a0d3ae8f076"
+    },
+    {
+      "frame": 8136,
+      "seconds": 135.6,
+      "chroma": 13.3805,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000090.jpg",
+      "sha256": "023126f2a843942f3c7ec949b53972e2319292317e5b17446af11f94f37cddf5"
+    },
+    {
+      "frame": 8151,
+      "seconds": 135.85,
+      "chroma": 13.3814,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000091.jpg",
+      "sha256": "db1eb69ac4fbb15fc25f0b692831639d96f8bfdd68cc7348b02b6cb0b9c17241"
+    },
+    {
+      "frame": 8166,
+      "seconds": 136.1,
+      "chroma": 13.3805,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000092.jpg",
+      "sha256": "df9b247d258e0dfe282172368de24c89f1a5659305af3b7152a3e2d4750da66a"
+    },
+    {
+      "frame": 8181,
+      "seconds": 136.35,
+      "chroma": 13.3813,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000093.jpg",
+      "sha256": "2fd6450f5e1aa248fd359aef37b0d64b32e510557dc0060a04b4db0d125f1492"
+    },
+    {
+      "frame": 8196,
+      "seconds": 136.6,
+      "chroma": 13.3805,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000094.jpg",
+      "sha256": "df9b247d258e0dfe282172368de24c89f1a5659305af3b7152a3e2d4750da66a"
+    },
+    {
+      "frame": 8211,
+      "seconds": 136.85,
+      "chroma": 13.3814,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000095.jpg",
+      "sha256": "db1eb69ac4fbb15fc25f0b692831639d96f8bfdd68cc7348b02b6cb0b9c17241"
+    },
+    {
+      "frame": 8226,
+      "seconds": 137.1,
+      "chroma": 13.3805,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000096.jpg",
+      "sha256": "df9b247d258e0dfe282172368de24c89f1a5659305af3b7152a3e2d4750da66a"
+    },
+    {
+      "frame": 8241,
+      "seconds": 137.35,
+      "chroma": 13.3813,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000097.jpg",
+      "sha256": "2fd6450f5e1aa248fd359aef37b0d64b32e510557dc0060a04b4db0d125f1492"
+    },
+    {
+      "frame": 8256,
+      "seconds": 137.6,
+      "chroma": 13.3845,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000098.jpg",
+      "sha256": "340cffa58f36a28e8733bf4c910f207bde836e3b2cb309981e5ee249e1d13ad5"
+    },
+    {
+      "frame": 8271,
+      "seconds": 137.85,
+      "chroma": 13.3843,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000099.jpg",
+      "sha256": "075761753c9244c7e612d512919cfcc3f8238e24441b83b7688bd3f6d6eb9228"
+    },
+    {
+      "frame": 8286,
+      "seconds": 138.1,
+      "chroma": 13.3848,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000100.jpg",
+      "sha256": "874eab650b10b8c4d7973232d37332af9a7464f8003f2c57ee6c99ce2edbb4c3"
+    },
+    {
+      "frame": 8301,
+      "seconds": 138.35,
+      "chroma": 12.1545,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000101.jpg",
+      "sha256": "7c306bd88763eb32593156bc770765b074d61caf08467d1710e6ef48e909cdb2"
+    },
+    {
+      "frame": 8316,
+      "seconds": 138.6,
+      "chroma": 2.04444,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000102.jpg",
+      "sha256": "b9fb8327ba602b4d163ddb85766bdfbd8827742dfb9b830a4ef4e18ce60e650f"
+    },
+    {
+      "frame": 8331,
+      "seconds": 138.85,
+      "chroma": 2.38927,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000103.jpg",
+      "sha256": "22994596dbb11887138a16621eb47b5a6ed1ba3bcffed9d5aa0c5804ee7128ef"
+    },
+    {
+      "frame": 8346,
+      "seconds": 139.1,
+      "chroma": 2.48167,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000104.jpg",
+      "sha256": "38ebb2503b56bb81be1155ed1195526cb8c9393b3545fd7c1bc39376367dc79b"
+    },
+    {
+      "frame": 8361,
+      "seconds": 139.35,
+      "chroma": 2.48182,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000105.jpg",
+      "sha256": "f0a782a8363a18c706ff3047fc4a6c856374e704247d24c7614f72d08d5cf044"
+    },
+    {
+      "frame": 8376,
+      "seconds": 139.6,
+      "chroma": 2.48182,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000106.jpg",
+      "sha256": "7dcd54ff149fbaca6ef220f250720160bbf41cd9ded036f6cf12b2bcf68f2fc4"
+    },
+    {
+      "frame": 8391,
+      "seconds": 139.85,
+      "chroma": 2.48182,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000107.jpg",
+      "sha256": "7dcd54ff149fbaca6ef220f250720160bbf41cd9ded036f6cf12b2bcf68f2fc4"
+    },
+    {
+      "frame": 8406,
+      "seconds": 140.1,
+      "chroma": 2.48182,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000108.jpg",
+      "sha256": "7dcd54ff149fbaca6ef220f250720160bbf41cd9ded036f6cf12b2bcf68f2fc4"
+    },
+    {
+      "frame": 8421,
+      "seconds": 140.35,
+      "chroma": 2.48182,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000109.jpg",
+      "sha256": "7dcd54ff149fbaca6ef220f250720160bbf41cd9ded036f6cf12b2bcf68f2fc4"
+    },
+    {
+      "frame": 8436,
+      "seconds": 140.6,
+      "chroma": 2.48182,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000110.jpg",
+      "sha256": "7dcd54ff149fbaca6ef220f250720160bbf41cd9ded036f6cf12b2bcf68f2fc4"
+    },
+    {
+      "frame": 8451,
+      "seconds": 140.85,
+      "chroma": 2.48182,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000111.jpg",
+      "sha256": "7dcd54ff149fbaca6ef220f250720160bbf41cd9ded036f6cf12b2bcf68f2fc4"
+    },
+    {
+      "frame": 8466,
+      "seconds": 141.1,
+      "chroma": 2.48182,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000112.jpg",
+      "sha256": "7dcd54ff149fbaca6ef220f250720160bbf41cd9ded036f6cf12b2bcf68f2fc4"
+    },
+    {
+      "frame": 8481,
+      "seconds": 141.35,
+      "chroma": 2.48182,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000113.jpg",
+      "sha256": "7dcd54ff149fbaca6ef220f250720160bbf41cd9ded036f6cf12b2bcf68f2fc4"
+    },
+    {
+      "frame": 8496,
+      "seconds": 141.6,
+      "chroma": 2.48182,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000114.jpg",
+      "sha256": "7dcd54ff149fbaca6ef220f250720160bbf41cd9ded036f6cf12b2bcf68f2fc4"
+    },
+    {
+      "frame": 8511,
+      "seconds": 141.85,
+      "chroma": 2.49756,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000115.jpg",
+      "sha256": "40ef5235bc0736c1521ccc88ca8f7d32c4dd99668c1ef9f4273648a8fe30862b"
+    },
+    {
+      "frame": 8526,
+      "seconds": 142.1,
+      "chroma": 2.49756,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000116.jpg",
+      "sha256": "40ef5235bc0736c1521ccc88ca8f7d32c4dd99668c1ef9f4273648a8fe30862b"
+    },
+    {
+      "frame": 8541,
+      "seconds": 142.35,
+      "chroma": 2.49756,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000117.jpg",
+      "sha256": "40ef5235bc0736c1521ccc88ca8f7d32c4dd99668c1ef9f4273648a8fe30862b"
+    },
+    {
+      "frame": 8556,
+      "seconds": 142.6,
+      "chroma": 2.49756,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000118.jpg",
+      "sha256": "40ef5235bc0736c1521ccc88ca8f7d32c4dd99668c1ef9f4273648a8fe30862b"
+    },
+    {
+      "frame": 8571,
+      "seconds": 142.85,
+      "chroma": 2.53296,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000119.jpg",
+      "sha256": "0f39ee3c038ce905bcb6f37864ca9469b9e72303bd77fe8998c5d0a8bd202486"
+    },
+    {
+      "frame": 8586,
+      "seconds": 143.1,
+      "chroma": 2.75289,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000120.jpg",
+      "sha256": "7bfca473a4d9779bb3b8bd5d22547c6d8005f726649f15fa05e174e59e10abe8"
+    },
+    {
+      "frame": 8601,
+      "seconds": 143.35,
+      "chroma": 2.76704,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000121.jpg",
+      "sha256": "1e7fc0dbb4d9b7d86c185f5ef47980457eadda8fb7fed5efe24a97d87f32b520"
+    },
+    {
+      "frame": 8616,
+      "seconds": 143.6,
+      "chroma": 2.77951,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000122.jpg",
+      "sha256": "94364ee4041e9a4ebab0b4c11f4f9d1f53ea4794180e692ef2aebf7216740234"
+    },
+    {
+      "frame": 8631,
+      "seconds": 143.85,
+      "chroma": 2.79402,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000123.jpg",
+      "sha256": "43a0e4a47fc6b8baeed06077c0f574c3f7142b949a981f5762ca7bb67836211f"
+    },
+    {
+      "frame": 8646,
+      "seconds": 144.1,
+      "chroma": 2.79982,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000124.jpg",
+      "sha256": "4786b428094ca4bed6300696489d3cf02a9a44a9b97a9955eacde067fab70f01"
+    },
+    {
+      "frame": 8661,
+      "seconds": 144.35,
+      "chroma": 2.80922,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000125.jpg",
+      "sha256": "a141ae53f94436588fa82a9a9c2f1a42a42a840b3c8b0be4147eac290a08a197"
+    },
+    {
+      "frame": 8676,
+      "seconds": 144.6,
+      "chroma": 2.8189,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000126.jpg",
+      "sha256": "0dd4420e64141b5c806c35ae43a59cb2269828d7c78871b82571bf47f00b1265"
+    },
+    {
+      "frame": 8691,
+      "seconds": 144.85,
+      "chroma": 2.82803,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000127.jpg",
+      "sha256": "7125ff1778e994488b5e72e6523cbf18634c7e61104a68e5a43e4eb7c3dcaeed"
+    },
+    {
+      "frame": 8706,
+      "seconds": 145.1,
+      "chroma": 2.83762,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000128.jpg",
+      "sha256": "3e4b57a3b0a3dd4535a2640f7c7789891917b0466758248755f5cff8188782fb"
+    },
+    {
+      "frame": 8721,
+      "seconds": 145.35,
+      "chroma": 2.85156,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000129.jpg",
+      "sha256": "1f5abf6ba8384901bf51c940601788859d6ddae4a1310b62356fae3afb7d909b"
+    },
+    {
+      "frame": 8736,
+      "seconds": 145.6,
+      "chroma": 2.85746,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000130.jpg",
+      "sha256": "f9eb34e4bae8352af7a51cd5d6736c89fde0f06a74cf6f141fe1f514672a8cc4"
+    },
+    {
+      "frame": 8751,
+      "seconds": 145.85,
+      "chroma": 2.85133,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000131.jpg",
+      "sha256": "a618f6a6fcf169e78a779a4edddf8552c333f2e799fc2ab08b14dd687f09ed37"
+    },
+    {
+      "frame": 8766,
+      "seconds": 146.1,
+      "chroma": 2.85232,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000132.jpg",
+      "sha256": "4ab95d088327383613f6e9e4a7591b4f80ed730c3de33452471667b37f55d387"
+    },
+    {
+      "frame": 8781,
+      "seconds": 146.35,
+      "chroma": 2.8553,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000133.jpg",
+      "sha256": "d161efa08e95b35fe0908c63fc5e28c56bce5e45a2fffefda26a478267afaa10"
+    },
+    {
+      "frame": 8796,
+      "seconds": 146.6,
+      "chroma": 2.86155,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000134.jpg",
+      "sha256": "726a88275ffab2a67855ba48537058bc9fea13c06cd60c50519ee6e604c6615f"
+    },
+    {
+      "frame": 8811,
+      "seconds": 146.85,
+      "chroma": 2.86859,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000135.jpg",
+      "sha256": "9d432d3cf2d7365a279f2fd7ad27e14c5d0df2509d943d3ea34cc4ee89d4a1ff"
+    },
+    {
+      "frame": 8826,
+      "seconds": 147.1,
+      "chroma": 2.87735,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000136.jpg",
+      "sha256": "d1d7484030554a2a17a4135ba68038a5bd877951e5d29dabee780e59b114a1ba"
+    },
+    {
+      "frame": 8841,
+      "seconds": 147.35,
+      "chroma": 2.87758,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000137.jpg",
+      "sha256": "186d68c6aa6eccbf0dfd2f55c3b2f717e36851769dd7b530d9be2dea4ff1f7dd"
+    },
+    {
+      "frame": 8856,
+      "seconds": 147.6,
+      "chroma": 2.87846,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000138.jpg",
+      "sha256": "ccdd696c24d4bcddd1554f78ebac7397cfcae10fef02563f1d2fce872c2cb040"
+    },
+    {
+      "frame": 8871,
+      "seconds": 147.85,
+      "chroma": 2.882,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000139.jpg",
+      "sha256": "b4cfaaf502a7b1d6c906a6a2c15344f019ab0a12c50a2a0c20d2a3ae79fd9179"
+    },
+    {
+      "frame": 8886,
+      "seconds": 148.1,
+      "chroma": 2.8888,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000140.jpg",
+      "sha256": "7a95276192ca11924283569f19ea13a444dd3e0a83cdcd3c4e68a750734c16ba"
+    },
+    {
+      "frame": 8901,
+      "seconds": 148.35,
+      "chroma": 2.8971,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000141.jpg",
+      "sha256": "43f5195dd702c8112cb28e5ee2d0583df5de2702eb0fd7e11f54e92aa1bb4c28"
+    },
+    {
+      "frame": 8916,
+      "seconds": 148.6,
+      "chroma": 2.90185,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000142.jpg",
+      "sha256": "40324494224fbb5ce09bdad4098addc9d332d551b3657e7f3499d50f649b215b"
+    },
+    {
+      "frame": 8931,
+      "seconds": 148.85,
+      "chroma": 2.90262,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000143.jpg",
+      "sha256": "b8d4715b41d22211af7dcb3b1fc940501b3918ba8128b2602ea9b80c17a41f3d"
+    },
+    {
+      "frame": 8946,
+      "seconds": 149.1,
+      "chroma": 2.90157,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000144.jpg",
+      "sha256": "6e67feca99b42947b879b1e76a5dae3839b0172abab1df5d7043818698666364"
+    },
+    {
+      "frame": 8961,
+      "seconds": 149.35,
+      "chroma": 2.90556,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000145.jpg",
+      "sha256": "c388c7eac37847a7abfee6e20e67f449fa486c96bef66cde7e0cc3b6d569d023"
+    },
+    {
+      "frame": 8976,
+      "seconds": 149.6,
+      "chroma": 2.91163,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000146.jpg",
+      "sha256": "36e2d102deaffbc6a55b0ba863717c85f60eb8fee8ad25f81fc61dbdc561b94e"
+    },
+    {
+      "frame": 8991,
+      "seconds": 149.85,
+      "chroma": 2.91463,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000147.jpg",
+      "sha256": "be1f867d385c82f7ad9b038e9723872d7ecde51356c34ab30dbeb20a6a414b1b"
+    },
+    {
+      "frame": 9006,
+      "seconds": 150.1,
+      "chroma": 2.91256,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000148.jpg",
+      "sha256": "dd423a2614837a9f168cd76b4f46bea673e0ef843ec638f2ab2cd59acd17da5a"
+    },
+    {
+      "frame": 9021,
+      "seconds": 150.35,
+      "chroma": 2.91107,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000149.jpg",
+      "sha256": "de5ed1e8998cf6f84c22ed2e1417a79591355bbfe2c491af661725d771ffcfa4"
+    },
+    {
+      "frame": 9036,
+      "seconds": 150.6,
+      "chroma": 2.9111,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000150.jpg",
+      "sha256": "254c58cce9208bea20af117f5cd1aa998723245a3425ad62ad86d9cd033a5bc1"
+    },
+    {
+      "frame": 9051,
+      "seconds": 150.85,
+      "chroma": 2.9146,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000151.jpg",
+      "sha256": "cc9c8d0cb29a148bdbba1bea385414e8c76b338903da6e2cdcbea5def0688173"
+    },
+    {
+      "frame": 9066,
+      "seconds": 151.1,
+      "chroma": 2.92058,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000152.jpg",
+      "sha256": "8c5560e89bf9627e8c38e2990ce9a8b2903ef3a4baf5593d97d0561b733f58dc"
+    },
+    {
+      "frame": 9081,
+      "seconds": 151.35,
+      "chroma": 2.92824,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000153.jpg",
+      "sha256": "c35f7d71b8412b8010272e1076f04ab6e8ddf10947d61d2b10df35fd70466d73"
+    },
+    {
+      "frame": 9096,
+      "seconds": 151.6,
+      "chroma": 2.92559,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000154.jpg",
+      "sha256": "3ebf1d16c304aee4ba82f9fbe532bcc86b3a2605caa5b69b76529d7bcee3d581"
+    },
+    {
+      "frame": 9111,
+      "seconds": 151.85,
+      "chroma": 2.92998,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000155.jpg",
+      "sha256": "359be93084c884327ade5512b46ce5410e62adc97db913c616b2d8117efb3c6d"
+    },
+    {
+      "frame": 9126,
+      "seconds": 152.1,
+      "chroma": 2.92786,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000156.jpg",
+      "sha256": "9580380d6afb1df3a90291aea077a34614cbc1dbbf876eb4eb362f8b52188e1e"
+    },
+    {
+      "frame": 9141,
+      "seconds": 152.35,
+      "chroma": 2.93377,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000157.jpg",
+      "sha256": "5b6de809bf062d9bae9a29e7199c1fb2effee1221453f88cdd5ef68874002eea"
+    },
+    {
+      "frame": 9156,
+      "seconds": 152.6,
+      "chroma": 2.93718,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000158.jpg",
+      "sha256": "6f6f1478693208fa67910cb9e810089be5bf90144572411ec02ad518e6995187"
+    },
+    {
+      "frame": 9171,
+      "seconds": 152.85,
+      "chroma": 2.94111,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000159.jpg",
+      "sha256": "758af159c9f252fa57212a8acca6acb033e60098aeae37df776cf80dd7106ce4"
+    },
+    {
+      "frame": 9186,
+      "seconds": 153.1,
+      "chroma": 2.9385,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000160.jpg",
+      "sha256": "40aed12a120110a1bfab6a56d0cc4a2d281aedb5f5bdaadf09dff6bf3a58955a"
+    },
+    {
+      "frame": 9201,
+      "seconds": 153.35,
+      "chroma": 2.94277,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000161.jpg",
+      "sha256": "3875e5639cdefe78b5c4822331ab21f4dfbb86217e4db478f4a074a1ee190508"
+    },
+    {
+      "frame": 9216,
+      "seconds": 153.6,
+      "chroma": 2.94203,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000162.jpg",
+      "sha256": "8d54b277de33585adca2b43b2e647ddf94474d197dd4198ffc88e1de3fe6bc2b"
+    },
+    {
+      "frame": 9231,
+      "seconds": 153.85,
+      "chroma": 2.94254,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000163.jpg",
+      "sha256": "778560bba03f4a8dbc422e758b9236ba471341d2de12b79a7436515a4bf1a206"
+    },
+    {
+      "frame": 9246,
+      "seconds": 154.1,
+      "chroma": 2.94302,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000164.jpg",
+      "sha256": "832a38df8a86bbd99ec3c4c3fcff984cc5400089c4c06e08c35f2d36855746fb"
+    },
+    {
+      "frame": 9261,
+      "seconds": 154.35,
+      "chroma": 2.93934,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000165.jpg",
+      "sha256": "be95316ae382754a2fb371b5dc483b317d0e6d04d7e046cb39e70bd1ea9237ab"
+    },
+    {
+      "frame": 9276,
+      "seconds": 154.6,
+      "chroma": 2.938,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000166.jpg",
+      "sha256": "482c41668d7a4f88d3e2e5f029f25e1a504c2e08d6cc21d671f6a137ee73e9d0"
+    },
+    {
+      "frame": 9291,
+      "seconds": 154.85,
+      "chroma": 2.93848,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000167.jpg",
+      "sha256": "71aaf6086cc413940f13bddb2ebe9ee57dfdaba8d8012f6a5376d0c61f1746b6"
+    },
+    {
+      "frame": 9306,
+      "seconds": 155.1,
+      "chroma": 2.94115,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000168.jpg",
+      "sha256": "6e9bf37c984d9234e3074541560bdabd61549f85eba69c98bfca2d42b9715b0f"
+    },
+    {
+      "frame": 9321,
+      "seconds": 155.35,
+      "chroma": 2.942,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000169.jpg",
+      "sha256": "a42182ed35b9df7e60e59fa509974dfcb305fc2b0e2a3300ed3abf8b32da31fc"
+    },
+    {
+      "frame": 9336,
+      "seconds": 155.6,
+      "chroma": 3.26326,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000170.jpg",
+      "sha256": "5db749f41907899a4ea67ae2ba54a6e098c8783722543db693e45fd4207e9f00"
+    },
+    {
+      "frame": 9351,
+      "seconds": 155.85,
+      "chroma": 3.43113,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000171.jpg",
+      "sha256": "4282998879bb5cf7cd4e4681fcc974b5c53b9bd53267b70385e084d32a8353b5"
+    },
+    {
+      "frame": 9366,
+      "seconds": 156.1,
+      "chroma": 3.43113,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000172.jpg",
+      "sha256": "4282998879bb5cf7cd4e4681fcc974b5c53b9bd53267b70385e084d32a8353b5"
+    },
+    {
+      "frame": 9381,
+      "seconds": 156.35,
+      "chroma": 3.43113,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000173.jpg",
+      "sha256": "4282998879bb5cf7cd4e4681fcc974b5c53b9bd53267b70385e084d32a8353b5"
+    },
+    {
+      "frame": 9396,
+      "seconds": 156.6,
+      "chroma": 3.43113,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000174.jpg",
+      "sha256": "4282998879bb5cf7cd4e4681fcc974b5c53b9bd53267b70385e084d32a8353b5"
+    },
+    {
+      "frame": 9411,
+      "seconds": 156.85,
+      "chroma": 3.43113,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000175.jpg",
+      "sha256": "4282998879bb5cf7cd4e4681fcc974b5c53b9bd53267b70385e084d32a8353b5"
+    },
+    {
+      "frame": 9426,
+      "seconds": 157.1,
+      "chroma": 3.43113,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000176.jpg",
+      "sha256": "4282998879bb5cf7cd4e4681fcc974b5c53b9bd53267b70385e084d32a8353b5"
+    },
+    {
+      "frame": 9441,
+      "seconds": 157.35,
+      "chroma": 3.43113,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000177.jpg",
+      "sha256": "4282998879bb5cf7cd4e4681fcc974b5c53b9bd53267b70385e084d32a8353b5"
+    },
+    {
+      "frame": 9456,
+      "seconds": 157.6,
+      "chroma": 3.43113,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000178.jpg",
+      "sha256": "4282998879bb5cf7cd4e4681fcc974b5c53b9bd53267b70385e084d32a8353b5"
+    },
+    {
+      "frame": 9471,
+      "seconds": 157.85,
+      "chroma": 3.43113,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000179.jpg",
+      "sha256": "4282998879bb5cf7cd4e4681fcc974b5c53b9bd53267b70385e084d32a8353b5"
+    },
+    {
+      "frame": 9486,
+      "seconds": 158.1,
+      "chroma": 3.43113,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000180.jpg",
+      "sha256": "4282998879bb5cf7cd4e4681fcc974b5c53b9bd53267b70385e084d32a8353b5"
+    },
+    {
+      "frame": 9501,
+      "seconds": 158.35,
+      "chroma": 3.42748,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000181.jpg",
+      "sha256": "d711dec86e76dce0605ff19284673fb71924419144945299ba8590b1bb680726"
+    },
+    {
+      "frame": 9516,
+      "seconds": 158.6,
+      "chroma": 3.42741,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000182.jpg",
+      "sha256": "f39421a84d7532c0ee4262d9ea6b7b01c8b50b41671c9e916042eaaa269cac44"
+    },
+    {
+      "frame": 9531,
+      "seconds": 158.85,
+      "chroma": 3.42741,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000183.jpg",
+      "sha256": "f39421a84d7532c0ee4262d9ea6b7b01c8b50b41671c9e916042eaaa269cac44"
+    },
+    {
+      "frame": 9546,
+      "seconds": 159.1,
+      "chroma": 3.42741,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000184.jpg",
+      "sha256": "f39421a84d7532c0ee4262d9ea6b7b01c8b50b41671c9e916042eaaa269cac44"
+    },
+    {
+      "frame": 9561,
+      "seconds": 159.35,
+      "chroma": 3.42741,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000185.jpg",
+      "sha256": "f39421a84d7532c0ee4262d9ea6b7b01c8b50b41671c9e916042eaaa269cac44"
+    },
+    {
+      "frame": 9576,
+      "seconds": 159.6,
+      "chroma": 3.42741,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000186.jpg",
+      "sha256": "f39421a84d7532c0ee4262d9ea6b7b01c8b50b41671c9e916042eaaa269cac44"
+    },
+    {
+      "frame": 9591,
+      "seconds": 159.85,
+      "chroma": 3.42741,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000187.jpg",
+      "sha256": "f39421a84d7532c0ee4262d9ea6b7b01c8b50b41671c9e916042eaaa269cac44"
+    },
+    {
+      "frame": 9606,
+      "seconds": 160.1,
+      "chroma": 3.42741,
+      "reasons": [
+        "Plate fade NOT LOCALIZED by the chroma fit; search-window sample: G3 fade_out_all(stage, &acted, 0.3)?; (counting.rs:567, out 0.30 s = 18 frames, cue 11_7, NOT LOCALIZED)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000188.jpg",
+      "sha256": "f39421a84d7532c0ee4262d9ea6b7b01c8b50b41671c9e916042eaaa269cac44"
+    },
+    {
+      "frame": 9611,
+      "seconds": 160.18333333333334,
+      "chroma": 3.41974,
+      "reasons": [
+        "line:11_8"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000189.jpg",
+      "sha256": "431e136841cc80ae04073cff6644cbea5246746568b56fc13138fbd197b20a75"
+    },
+    {
+      "frame": 9641,
+      "seconds": 160.68333333333334,
+      "chroma": 2.00061,
+      "reasons": [
+        "line:11_8"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000190.jpg",
+      "sha256": "c799f96e8c4fda4c65e35de825e0775e2dada9c5c6592df3059f149067f6fbff"
+    },
+    {
+      "frame": 9671,
+      "seconds": 161.18333333333334,
+      "chroma": 2.74167,
+      "reasons": [
+        "line:11_8"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000191.jpg",
+      "sha256": "c120f81812b9709add7ab98f4bc3c395de395924e59d5e9fd2bb5c944d8ab186"
+    },
+    {
+      "frame": 9731,
+      "seconds": 162.18333333333334,
+      "chroma": 2.78981,
+      "reasons": [
+        "line:11_8"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000192.jpg",
+      "sha256": "2e038fdadd3c22850bfad60e497bf00f69276f99f2a7c2d273f57f7e45fa5db6"
+    },
+    {
+      "frame": 11931,
+      "seconds": 198.85,
+      "chroma": 2.0,
+      "reasons": [
+        "Last frame"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/pictures/frame-000193.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    }
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0001.jpg",
+      "sha256": "ab03d33b4d46633dd85dea3c3c471d6f8d494b906ccddc3a048896ca37a500db"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0002.jpg",
+      "sha256": "781c1267347aca9cdd313677b8615d55ecc988ee97b3cb323f29f1904aceaa9c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0003.jpg",
+      "sha256": "f17b263e8bfafecaab5eaca3e0c1539a15decea5f98c9c5ac95326092c605ca0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0004.jpg",
+      "sha256": "52dc741209355865936ae0d40828caab8133f280793dc41c9dff5ca519f17bf3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0005.jpg",
+      "sha256": "3a9e7d51d7c88b5e65973b63d86e0657bbbff29923002d00405e4038fa6947aa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0006.jpg",
+      "sha256": "5f125e944d13ea49c1690a6bc2bc4908a3e803d04066e02530bb91fa6ff6eb9a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0007.jpg",
+      "sha256": "a6a48d02dcb4caf9e24c56b01cb5fc256b9b25aa5bfd767a7e2d0b82615fe5c8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0008.jpg",
+      "sha256": "344a737f18d21661fe690e54f3f508bc1a63422120b9abeda97db4e77f64248b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0009.jpg",
+      "sha256": "42b470245fe9a203b6bf881f0c9ad020220a740adf3e8ca123dff8985600a116"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0010.jpg",
+      "sha256": "f7eacb089ffbf4c0a1d62b7cbe885928b17f9e992df7a7666dfa0f5c319d2292"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0011.jpg",
+      "sha256": "283c3ce83dc173f64550f798b07575cf926ab4a5fa41d1b75d9cb3841f442aa9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0012.jpg",
+      "sha256": "e4d7f92df693cf478737bc746abc6fae19dd7d62fdeb3192172b972c52be3c8c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0013.jpg",
+      "sha256": "2e8bd9cc54fc4b786a270a0afb092b0c9a191b5e26601488ebac7eb578703448"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0014.jpg",
+      "sha256": "b5c6b17ba38e5d94e25aab1712ca0276e830127d891fb482103f1823bcdcd66d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0015.jpg",
+      "sha256": "0acd25439d9952025b2572e61a045ac718f7250792e6fe3d72eed90b6d665423"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0016.jpg",
+      "sha256": "1ed6e5cd263d50143eb255310cf8389a3cc29c4c458428af70000db969796854"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0017.jpg",
+      "sha256": "3145f9a2883289bac1bd8293e5f47d1feee04d651bf7accd3f977f99e9d5c04b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0018.jpg",
+      "sha256": "7b18aa6f572994648ad50ff7250e4e0ef629d1267d7c851278e99957789d3003"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0019.jpg",
+      "sha256": "3595a41342a649b36beff612636cc528b40e8fc49312bb3b91ef24d444b9cf11"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0020.jpg",
+      "sha256": "b60abb0dd5e34ed7196f714d99e4f09a9bbf958229bff68dd1ffcafe8170707e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0021.jpg",
+      "sha256": "76ebecbc83f788fc507daa17861b6dcc3a24034491336c113ff93b746503c099"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0022.jpg",
+      "sha256": "ef19f195ae4897a8a768e4acd393cf56e875ae841dfd0812f78f6cb296856ad1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0023.jpg",
+      "sha256": "9645fb307877e713af4224e99d62ae47d49f94aff8b23b9ef8b4d576a8e0aa9e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0024.jpg",
+      "sha256": "e187c0fd942e36c6de709c26bd33780a1e8c0b725ef57bc35a6b09029c32b8b0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sheet-0025.jpg",
+      "sha256": "b54ce6a0e2486764fdc564ab08ded8dae2e7806cc7db25825d9f7ff1f1cffa00"
+    }
+  ],
+  "scope": "Native 540p60 plate-fade preview extraction of build268; picks only. Actual viewing of every sheet, motion, 4K, listening, fine-sync and independent AV review still required; no picture or AV acceptance."
+}

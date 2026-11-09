@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FrankenManim — FMTL timeline player</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; gap: 12px; padding: 24px;
+    background: #101014; color: #e8e8ee;
+    font: 14px/1.5 system-ui, sans-serif;
+  }
+  h1 { font-size: 18px; font-weight: 600; margin: 0; }
+  .controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; }
+  button {
+    background: #1c1c24; color: inherit; border: 1px solid #3a3a48;
+    border-radius: 6px; padding: 6px 10px; font: inherit; cursor: pointer;
+  }
+  button:disabled { opacity: 0.5; cursor: default; }
+  input[type="range"] { width: 280px; }
+  canvas {
+    background: #000; border: 1px solid #2a2a36; border-radius: 8px;
+    max-width: 100%; image-rendering: pixelated;
+  }
+  #status { color: #9a9ab0; min-height: 1.5em; max-width: 900px; overflow-wrap: anywhere; }
+  #status.err { color: #ff7a7a; }
+  .hint { color: #9a9ab0; margin: 0; }
+</style>
+</head>
+<body>
+  <h1>FrankenManim — FMTL timeline player</h1>
+  <div class="controls">
+    <label>Open recording <input id="bundleFile" type="file" accept=".fmtl" disabled></label>
+    <button id="loadDemo" disabled>Load demo</button>
+  </div>
+  <p class="hint">Local files stay in your browser. Camera-bearing recordings are supported; input limit: 256 MiB.</p>
+  <div class="controls">
+    <label>Frame <input id="scrub" type="range" min="0" max="0" value="0" disabled></label>
+    <button id="play" disabled>Play</button>
+    <span id="frameLabel">0 / 0</span>
+  </div>
+  <div class="controls" id="labels"></div>
+  <canvas id="canvas" width="640" height="360"></canvas>
+  <div id="status" role="status" aria-live="polite">loading wasm…</div>
+
+<script type="module">
+  import { FramePlaybackClock } from "./playback.mjs";
+  import { TimelineSession, readLocalBundle } from "./player-session.mjs";
+
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+  const status = document.getElementById("status");
+  const scrub = document.getElementById("scrub");
+  const frameLabel = document.getElementById("frameLabel");
+  const playBtn = document.getElementById("play");
+  const labels = document.getElementById("labels");
+  const fileInput = document.getElementById("bundleFile");
+  const demoBtn = document.getElementById("loadDemo");
+  let session = null;
+  let clock = null;
+  let rafId = 0;
+
+  function message(text, error = false) {
+    status.classList.toggle("err", error);
+    status.textContent = text; // filenames and decoder errors are never markup
+  }
+
+  function stop() {
+    clock?.pause();
+    playBtn.textContent = "Play";
+    cancelAnimationFrame(rafId);
+    rafId = 0;
+  }
+
+  function show(index, alreadyRendered = false) {
+    const current = session?.current;
+    if (!current) return;
+    const { player, scratch } = current;
+    if (!alreadyRendered) player.render_into(index, scratch);
+    player.seek_frame(index);
+    ctx.putImageData(new ImageData(
+      new Uint8ClampedArray(scratch.buffer, scratch.byteOffset, scratch.byteLength),
+      player.width, player.height), 0, 0);
+    frameLabel.textContent = `${index} / ${player.frame_count - 1}`;
+    scrub.value = String(index);
+  }
+
+  function seek(index) {
+    stop();
+    try {
+      show(index);
+      clock?.seek(index);
+    } catch (error) {
+      message(`Frame refused: ${error}`, true);
+    }
+  }
+
+  function tick(now) {
+    rafId = 0;
+    if (!clock?.playing || !session?.current) return;
+    try {
+      const index = clock.frameAt(now);
+      if (index !== session.current.player.current_frame) show(index);
+      rafId = requestAnimationFrame(tick);
+    } catch (error) {
+      stop();
+      message(`Playback stopped: ${error}`, true);
+    }
+  }
+
+  async function loadBundle(readBytes, name) {
+    stop();
+    playBtn.disabled = true;
+    scrub.disabled = true;
+    message(`Loading ${name}…`);
+    try {
+      if (!await session.load(readBytes)) return; // superseded by another load
+      stop();
+      const { metadata } = session.current;
+      clock = new FramePlaybackClock(metadata.fps, metadata.frameCount);
+      scrub.max = String(metadata.frameCount - 1);
+      labels.replaceChildren();
+      for (const { name: label, index } of metadata.labels) {
+        const button = document.createElement("button");
+        button.textContent = label;
+        button.disabled = index === null;
+        button.addEventListener("click", () => seek(index));
+        labels.appendChild(button);
+      }
+      show(0, true); // session admission already rendered this frame
+      message(`${name}: ${metadata.frameCount} frames @ ${metadata.fps} fps ` +
+        `(${metadata.durationSeconds.toFixed(2)}s), ` +
+        `${metadata.hasCameraTrack ? "recorded camera" : "planar viewport"}; ` +
+        `engine ${metadata.engineVersion}`);
+    } catch (error) {
+      message(`${name}: ${error}. ` + (session.current
+        ? "The previous recording is still loaded."
+        : "Open a matching .fmtl recording, or export the demo bundle; see README.md."), true);
+    }
+    playBtn.disabled = !session.current;
+    scrub.disabled = !session.current;
+  }
+
+  async function demoBytes() {
+    const response = await fetch("./bundle.fmtl");
+    if (!response.ok) throw new Error(`bundle.fmtl: HTTP ${response.status}`);
+    return new Uint8Array(await response.arrayBuffer());
+  }
+
+  scrub.addEventListener("input", () => seek(Number(scrub.value)));
+  playBtn.addEventListener("click", () => {
+    if (!clock || !session?.current) return;
+    if (clock.playing) { stop(); return; }
+    clock.seek(session.current.player.current_frame);
+    clock.play(performance.now());
+    playBtn.textContent = "Pause";
+    rafId = requestAnimationFrame(tick);
+  });
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files?.[0];
+    fileInput.value = ""; // allow retrying the same file after a failure
+    if (file) void loadBundle(() => readLocalBundle(file), file.name);
+  });
+  demoBtn.addEventListener("click", () => { void loadBundle(demoBytes, "bundle.fmtl"); });
+  window.addEventListener("pagehide", (event) => {
+    stop();
+    if (!event.persisted) session?.dispose();
+  });
+
+  try {
+    if (!ctx) throw new Error("a Canvas 2D context is required");
+    const { default: init, FmnPlayer } = await import("./pkg/fmn_wasm.js");
+    await init();
+    session = new TimelineSession(
+      (bytes) => FmnPlayer.from_bundle(bytes), canvas.width, canvas.height);
+    fileInput.disabled = false;
+    demoBtn.disabled = false;
+    await loadBundle(demoBytes, "bundle.fmtl");
+  } catch (error) {
+    message(`Player initialization failed: ${error}. Build demo/wasm/pkg; see README.md.`, true);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "utc": "2026-11-08T17:59:14.336163+00:00",
+  "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview243-review265/preview/08_loop_sums.mp4",
+  "sha256": "1ac1ee716f6aa383a9154d6305ffa571bd555df818565d28a07084eb4b5364d6",
+  "method": "QuickTime native UI through cua_repl; coordinate timeline click succeeded after AX setValue had no effect",
+  "observed_start_seconds": 173.4557417763158,
+  "observed_pause_seconds": 192.0341006564551,
+  "scope": "Sequential screenshots during actual playback, not continuous video perception. Frames show remainder bound, square halving, diagonal/perimeter scaling and lower integral bound followed by I0 <= 4^n In. No concrete label overlap in observed states. Player controls obscured lower center in first two observations; later hidden.",
+  "continuous_motion_acceptance": false,
+  "listening": false,
+  "fine_sync": false,
+  "final_av_acceptance": false,
+  "next": "Use coordinate seek to reach targeted repaired intervals; do not claim every intervening frame was observed."
+}

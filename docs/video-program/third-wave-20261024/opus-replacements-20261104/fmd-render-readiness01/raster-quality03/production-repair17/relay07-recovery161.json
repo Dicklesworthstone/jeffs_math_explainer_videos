@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-08T01:36:50.792379+00:00",
+  "old_pid": 98119,
+  "old_command": "/opt/homebrew/Cellar/python@3.15/3.15.0/Frameworks/Python.framework/Versions/3.15/Resources/Python.app/Contents/MacOS/Python -I -B /Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final07-relay-after-render86.py",
+  "no_children_before_stop": true,
+  "no_import_job_before_stop": true,
+  "reason": "Controller, preparation and receiver mistakenly required their own future terminal receipt. Corrected prerequisite to completed import12-60.",
+  "old_files_preserved": true
+}

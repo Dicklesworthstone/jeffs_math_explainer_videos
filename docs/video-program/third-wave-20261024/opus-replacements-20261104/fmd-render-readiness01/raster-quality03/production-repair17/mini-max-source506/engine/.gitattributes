@@ -1,0 +1,7 @@
+# Byte-exact checkouts everywhere. This repository's regression surface is
+# bit-locked: self-goldens, .npy fixtures, TSV schemas, canonical manifests,
+# and content-hash provenance all promise exact bytes. Git EOL normalization
+# (autocrlf defaults to true on Windows runners and dev boxes) silently
+# rewrites text files at checkout and breaks every byte-locked comparison, so
+# conversion is disabled for the whole tree.
+* -text

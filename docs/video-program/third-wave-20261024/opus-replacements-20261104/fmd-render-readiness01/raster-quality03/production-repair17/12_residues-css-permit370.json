@@ -1,0 +1,108 @@
+{
+  "chapter": "12_residues",
+  "host": "css",
+  "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+  "preview_job": "csd-review-repair-preview274",
+  "frames": 3943,
+  "timeline_sha256": "d25e8b958cd32f2a233b38c293183f3d39b2d1502137c389c69ba49ff0d0dca7",
+  "actually_reviewed_pictures": true,
+  "unresolved_defects": [],
+  "reviewer": "root",
+  "observations": "Root305 pictures and transition sequences plus independent357 support technical rendering only. Small labels, caption overlay and continuation Gamma outline retain final-native checks; no motion, listening or fine-sync acceptance.",
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/12_residues/sampling.json",
+      "sha256": "df4ac4872fe729b2cb11b91b44041f143f9cfca707a4872c3056503cda59272e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json",
+      "sha256": "d4547c553a9c6dddabbc5d07448a86f447b0ddc9cac9a70930b2cec63fe9abb2",
+      "views": [
+        "df4ac4872fe729b2cb11b91b44041f143f9cfca707a4872c3056503cda59272e"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/residue-transition-frames305/manifest.json",
+      "sha256": "c6cca51f4290b32b7e4f2587900cdf1adefde66bf48d032b32f322edd684eea2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/residue-transition-review305.json",
+      "sha256": "b3a90d158b6df6453908c95a755a0cb26257673ccbda61e715efdacf4dee397d",
+      "views": [
+        "c6cca51f4290b32b7e4f2587900cdf1adefde66bf48d032b32f322edd684eea2"
+      ]
+    }
+  ],
+  "source_binding_evidence": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build268/qualification.json",
+      "sha256": "2f3430a82dc1561eecbc1485aa00c18070606c4d8728fc6811b62b1f141dc857"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build268/source-copy.json",
+      "sha256": "81d28272a7a23b63199e79e6aa1086f01f131f0ddd685d4ae859d04b1de1934c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-timeline269/comparison.json",
+      "sha256": "d2bf8e9b9ede33b429e61f8e87e238d1a64a11ebd970d34851e12e11c6e5d0ea"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/rebind-summary.json",
+      "sha256": "fa263d8a6c14c21ef037525fd316e2d64019c0f506e934a4e2d38886b5167da6"
+    }
+  ],
+  "independent_reviewer": "cc1",
+  "independent_review": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json",
+      "sha256": "47d51709ed54205c053f9789d5aea194e282a27a8d63305b11d995aa00e71490",
+      "views": [
+        "df4ac4872fe729b2cb11b91b44041f143f9cfca707a4872c3056503cda59272e",
+        "c6cca51f4290b32b7e4f2587900cdf1adefde66bf48d032b32f322edd684eea2"
+      ]
+    }
+  ],
+  "review_scope": {
+    "basis": "sampled_preview",
+    "purpose": "technical_4k_render",
+    "preview_movie_sha256": "a78c20024c257eaa4783db80f9b99c23442fe67ac8f646e354e633074f842199",
+    "sampled_intervals": [
+      [
+        2471,
+        2516
+      ],
+      [
+        2532,
+        2577
+      ],
+      [
+        2763,
+        2806
+      ],
+      [
+        3025,
+        3154
+      ],
+      [
+        3911,
+        3942
+      ]
+    ],
+    "playback_seconds": [],
+    "open_reviews": [
+      "final_picture",
+      "motion",
+      "audio",
+      "fine_sync",
+      "captions",
+      "independent_final_av",
+      "publication"
+    ]
+  },
+  "continuous_motion_acceptance": false,
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "final_4k_acceptance": false,
+  "release_acceptance": false,
+  "publication_acceptance": false
+}

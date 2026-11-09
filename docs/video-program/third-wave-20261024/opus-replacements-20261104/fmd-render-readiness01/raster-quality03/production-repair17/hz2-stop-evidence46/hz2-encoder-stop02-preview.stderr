@@ -1,0 +1,1 @@
+complex_analysis_visual: ffmpeg boundary: boundary workdir: workdir ancestor /data/projects/jmev-hz2-render-worker-20261107/work/tmp is group/other-writable without the sticky bit

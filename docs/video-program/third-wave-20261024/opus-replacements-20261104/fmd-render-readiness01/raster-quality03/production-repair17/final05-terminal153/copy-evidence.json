@@ -1,0 +1,15 @@
+{
+  "host": "ts1",
+  "source": "/data/projects/jmev-ts1-render-worker-20261107/jobs/ts1-production19-final-05-gallery103",
+  "files_copied": [
+    "resource-receipt.json",
+    "render-summary.json",
+    "render/05_gallery.mp4",
+    "render/05_gallery.timeline.tsv",
+    "render/05_gallery.cues.tsv",
+    "render/05_gallery.cuelog.tsv",
+    "render/05_gallery.layout.tsv"
+  ],
+  "output_hashes_verified": 5,
+  "movie_sha256": "0c7400e2703b1688d770dad77af97bebae9c1c897ec7b20177a5cd516e29e67b"
+}

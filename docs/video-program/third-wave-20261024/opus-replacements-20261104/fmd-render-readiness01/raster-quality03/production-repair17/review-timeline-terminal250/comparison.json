@@ -1,0 +1,54 @@
+{
+  "tables": [
+    {
+      "chapter": "06_one_derivative",
+      "kind": "timeline",
+      "old_sha256": "dbc82d8481d8f511ae404c5f3eeff517c2540c9b8330ca2cfb5b8d7c83e6412d",
+      "new_sha256": "b7cfd82fe14f1c4122a4f4e584679530c81428c6170e31a4427097d31c30cd2b",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "06_one_derivative",
+      "kind": "cues",
+      "old_sha256": "ee8eb35a2d8621e5cb0ba6d3c6d3cbe6e844c5cce9b8199113388fa20da2d853",
+      "new_sha256": "ee8eb35a2d8621e5cb0ba6d3c6d3cbe6e844c5cce9b8199113388fa20da2d853",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "06_one_derivative",
+      "kind": "cuelog",
+      "old_sha256": "91f5695913803d174038e749b85bb607a378622132c4b36566fbd91418982810",
+      "new_sha256": "49291e9bc414d6f845167bad627662004fdce4576f549057572c7bcbe89f7d41",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "08_loop_sums",
+      "kind": "timeline",
+      "old_sha256": "fed5faea5359e1c149030b42a5b2d37a706618d1d868b6e4048a4767e1de58cc",
+      "new_sha256": "9d6425d62c5e454329888cd449ebf453a8400680c16a01217a232b84e0cbdfe2",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "08_loop_sums",
+      "kind": "cues",
+      "old_sha256": "1beae064b4b1a8115a70180d92740299195fd6cc55b68cebcdbd97ace8e127d3",
+      "new_sha256": "1beae064b4b1a8115a70180d92740299195fd6cc55b68cebcdbd97ace8e127d3",
+      "equal_after_named_narration_path_mapping": true
+    },
+    {
+      "chapter": "08_loop_sums",
+      "kind": "cuelog",
+      "old_sha256": "cadf1d0cfcd98fa388c893f8ba8ada1a1e8d966008bdc1b4314a99bdcfc2be08",
+      "new_sha256": "6f0c12086c96387a5639f723a35c7948771a64f7457611a59bd2da2bfd9c5984",
+      "equal_after_named_narration_path_mapping": true
+    }
+  ],
+  "frames": {
+    "06_one_derivative": 10030,
+    "08_loop_sums": 14959
+  },
+  "named_path_mapping": {
+    "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind242/narration"
+  },
+  "scope": "Exact complete chapter06/08 tables only; repaired pictures and final4K remain unreviewed."
+}

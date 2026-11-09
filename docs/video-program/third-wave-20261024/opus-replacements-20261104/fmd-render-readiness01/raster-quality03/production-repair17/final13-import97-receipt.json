@@ -1,0 +1,122 @@
+{
+  "started": "2026-11-08T03:21:18.172613+00:00",
+  "phase": "native",
+  "command": [
+    "python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-import-css-final13-97.py"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-08T03:21:32.364183+00:00",
+      "free_bytes": 143317458944,
+      "work_bytes": 501465088,
+      "target_bytes": 9225408512
+    },
+    {
+      "utc": "2026-11-08T03:21:43.264101+00:00",
+      "free_bytes": 143317458944,
+      "work_bytes": 501465088,
+      "target_bytes": 9241042944
+    },
+    {
+      "utc": "2026-11-08T03:21:53.942884+00:00",
+      "free_bytes": 143267598336,
+      "work_bytes": 501465088,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T03:22:04.915111+00:00",
+      "free_bytes": 143116423168,
+      "work_bytes": 501465088,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T03:22:15.711064+00:00",
+      "free_bytes": 143106113536,
+      "work_bytes": 501465088,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T03:22:26.941648+00:00",
+      "free_bytes": 143100444672,
+      "work_bytes": 501465088,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T03:22:38.755616+00:00",
+      "free_bytes": 143108448256,
+      "work_bytes": 501465088,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T03:22:51.046954+00:00",
+      "free_bytes": 143108448256,
+      "work_bytes": 501465088,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T03:23:02.522150+00:00",
+      "free_bytes": 143108448256,
+      "work_bytes": 501465088,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T03:23:14.562315+00:00",
+      "free_bytes": 143038754816,
+      "work_bytes": 501465088,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T03:23:25.409990+00:00",
+      "free_bytes": 143021133824,
+      "work_bytes": 501465088,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T03:23:36.149400+00:00",
+      "free_bytes": 143021133824,
+      "work_bytes": 501465088,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T03:23:46.783574+00:00",
+      "free_bytes": 143021133824,
+      "work_bytes": 501465088,
+      "target_bytes": 9273470976
+    },
+    {
+      "utc": "2026-11-08T03:23:57.503184+00:00",
+      "free_bytes": 143021133824,
+      "work_bytes": 501465088,
+      "target_bytes": 9273470976
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":5,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":143478923264,\"free_excludes_purgeable\":true,\"free_pct\":2.3908449710443795,\"mount_point\":\"/data\",\"path\":\"/data/projects/jmev-render-worker-20261107\",\"platform\":{\"linux\":{\"device_id\":52,\"fs_type\":\"btrfs\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":6001180545024,\"unprotected\":null,\"volume_available_bytes\":143478923264,\"volume_role\":null,\"volume_total_bytes\":6001180545024}\n",
+    "stderr": "[SBH-CONFIG] Using system config at /etc/sbh/config.toml\n"
+  },
+  "admission": {
+    "utc": "2026-11-08T03:21:18.203663+00:00",
+    "free_bytes": 143478923264,
+    "work_bytes": 501460992,
+    "target_bytes": 9225408512
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "0adc7b8a459aee3181fd3e00cd9c45f1a335ded048e4ee1b4dbc5661a2359c2e",
+  "pid": 2053974,
+  "exit": 0,
+  "final_inputs_sha256": "0adc7b8a459aee3181fd3e00cd9c45f1a335ded048e4ee1b4dbc5661a2359c2e",
+  "finished": "2026-11-08T03:24:11.395689+00:00"
+}

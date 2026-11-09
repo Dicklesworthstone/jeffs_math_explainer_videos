@@ -1,0 +1,34 @@
+{
+  "chapter": "09_boundary",
+  "frames": 16504,
+  "binary_sha256": "352aa5ffe8f66e5f2de80a99748e47aa490076e0f806e31748a3f7a8246b8355",
+  "permit_sha256": "5e2c0ab2a5665999a1f8a79ceb8f4b5a18f0fcea699926b2c7aecb86ff28f8b2",
+  "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+  "files": [
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-repaired-final-09-boundary158/render/09_boundary.cuelog.tsv",
+      "sha256": "fc03b9d72b3e8b3120b5833db54ec868a42391fe67bc958ec336ec35ea19bd0d"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-repaired-final-09-boundary158/render/09_boundary.cues.tsv",
+      "sha256": "eed5a50ad5797fa258ee3fcf9319e29946f403a86b3909090e73a3a15dc74249"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-repaired-final-09-boundary158/render/09_boundary.layout.tsv",
+      "sha256": "f91bb8a1bb6b7ea895414e739250922aa86eb02f9ecab57f851e95ee06b59a7e"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-repaired-final-09-boundary158/render/09_boundary.mp4",
+      "sha256": "c2cf76039adc8750492f86079351d32114396d486aa8e76330759b0d6272d09e"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-repaired-final-09-boundary158/render/09_boundary.timeline.tsv",
+      "sha256": "04fd6c015d5077520fa4963934dfb15e5f8bf95bd155c53ec84a146c541558e9"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-repaired-final-09-boundary158/render/soundtrack/09_boundary/soundtrack_0.wav",
+      "sha256": "29899f9e42721331e2abe9088c399bca3eb63ea3b50de45dc731cbb8c4404c6c"
+    }
+  ],
+  "scope": "Technical scored4K60 chapter only; full decode, master replay, final pictures/motion/audio/captions and publication remain."
+}

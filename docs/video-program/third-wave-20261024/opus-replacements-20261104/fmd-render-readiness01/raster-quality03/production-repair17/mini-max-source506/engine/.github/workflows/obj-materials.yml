@@ -1,0 +1,80 @@
+name: Native OBJ material import
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/obj-materials.yml'
+      - 'crates/fmn-library/src/obj_materials.rs'
+      - 'crates/fmn-library/tests/obj_materials.rs'
+      - 'crates/fmn-python/src/portal_obj.rs'
+      - 'crates/fmn-python/python/fmn_python/obj_models.py'
+      - 'crates/fmn-python/tests/obj_materials.py'
+      - 'crates/fmn-python/tests/test_obj_inputs.py'
+      - 'crates/fmn-python/python/fmn_python/surface_alignment.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-obj-materials
+  cancel-in-progress: false
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/portable
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Install pinned toolchain and host inputs
+        run: |
+          rustup show active-toolchain
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Native material and geometry acceptance
+        run: |
+          set -euo pipefail
+          python crates/fmn-python/tests/test_obj_inputs.py -v 2>&1 | tee /tmp/obj-materials-inputs.log
+          cargo test --locked -p fmn-library --test obj_materials 2>&1 | tee /tmp/obj-materials-native.log
+          cargo test --locked -p fmn-library --lib obj_model::tests 2>&1 | tee /tmp/obj-materials-geometry.log
+          cargo clippy --locked -p fmn-library --all-targets -- -D warnings 2>&1 | tee /tmp/obj-materials-clippy.log
+      - name: Native portal and installed model acceptance
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-python --lib production_obj_material_acceptance -- --nocapture 2>&1 | tee /tmp/obj-materials-portal.log
+          cargo clippy --locked -p fmn-python --lib -- -D warnings 2>&1 | tee /tmp/obj-materials-portal-clippy.log
+          python -m maturin build --locked --interpreter python --profile dev --out target/obj-wheel 2>&1 | tee /tmp/obj-materials-build.log
+          python -m venv target/obj-venv
+          target/obj-venv/bin/python -m pip install 'numpy==2.5.2' target/obj-wheel/*.whl
+          for suite in obj_materials surface_alignment; do
+            target/obj-venv/bin/python -I "crates/fmn-python/tests/$suite.py" 2>&1 | tee "/tmp/obj-materials-$suite.log"
+          done
+      - name: Preserve exact source and results
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/obj-materials-source-sha.txt
+          git archive --format=tar.gz HEAD > /tmp/obj-materials-source.tar.gz
+          rustfmt --edition 2024 --emit stdout crates/fmn-library/src/obj_materials.rs > /tmp/obj-materials-formatted-library.rs
+          rustfmt --edition 2024 --emit stdout crates/fmn-library/tests/obj_materials.rs > /tmp/obj-materials-formatted-tests.rs
+          git diff --exit-code
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-obj-materials-${{ github.sha }}-${{ github.run_attempt }}
+          path: |
+            /tmp/obj-materials-*
+            target/obj-wheel/*.whl
+          retention-days: 3

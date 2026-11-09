@@ -1,0 +1,47 @@
+{
+  "time": "2026-11-08T18:50:24.083616+00:00",
+  "helper_sha256": "862968830a076c2030599b65e1f48b776501f87d99045cb662570045e613d5ea",
+  "review": "Corrected311 helper and exact3 source manifests staged without overwrite onTRJ/CSS/HZ2/CSD, hashes reread equal. Actual CSD importer check mode passed3/3 with zero problems,158/858/854 files ready; no import job started. Root complete source read finds no further concrete blocker, independent316 pending. CC2 acknowledged next final09-only317 worker adaptation from303;313 author preparing frozen handoff,CC1 independently checks closure correction. No new render/permit/publication or listening/fine-sync/finalAV acceptance.",
+  "checks": {
+    "trj": {
+      "helper": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-retained-import311.py",
+      "helper_sha256": "862968830a076c2030599b65e1f48b776501f87d99045cb662570045e613d5ea",
+      "job": "csd-retained-import311-trj-a1",
+      "job_exists": false,
+      "manifest_sha256": "3c6b52e27c3b97b928d8a1bca93b4056a3ee67caa1f6d5e3c74291fd3f1755b2",
+      "problems": [],
+      "new_files": 158,
+      "new_bytes": 165726504,
+      "existing_identical": 0,
+      "alias": "/data/projects/jmev-render-worker-20261107",
+      "alias_state": "absent"
+    },
+    "css": {
+      "helper": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-retained-import311.py",
+      "helper_sha256": "862968830a076c2030599b65e1f48b776501f87d99045cb662570045e613d5ea",
+      "job": "csd-retained-import311-css-a1",
+      "job_exists": false,
+      "manifest_sha256": "589a03b6097fbe5e70e3a1157816bf1b42a495d270cc54913986d30ecf79e2c8",
+      "problems": [],
+      "new_files": 858,
+      "new_bytes": 1512774545,
+      "existing_identical": 0,
+      "alias": "/data/projects/jmev-css-render-worker-20261107",
+      "alias_state": "absent"
+    },
+    "hz2": {
+      "helper": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-retained-import311.py",
+      "helper_sha256": "862968830a076c2030599b65e1f48b776501f87d99045cb662570045e613d5ea",
+      "job": "csd-retained-import311-hz2-a1",
+      "job_exists": false,
+      "manifest_sha256": "dd354d223b2e8c96ac00addb71f4b727f5d26d904b9f1f501164b2916f448820",
+      "problems": [],
+      "new_files": 854,
+      "new_bytes": 1492418495,
+      "existing_identical": 0,
+      "alias": "/data/projects/jmev-hz2-render-worker-20261107",
+      "alias_state": "absent"
+    }
+  },
+  "independent_review_pending": true
+}

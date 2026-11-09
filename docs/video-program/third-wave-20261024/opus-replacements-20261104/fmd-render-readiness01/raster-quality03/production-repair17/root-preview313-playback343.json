@@ -1,0 +1,26 @@
+{
+  "time_utc": "2026-11-08T20:35:14.218175+00:00",
+  "movie": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview313-review333/preview/09_boundary.mp4",
+  "movie_sha256": "5e50811b77c075ae638c3d539775ccb29134504152a60f5e327ca28940cb3a1c",
+  "app": "QuickTime Player",
+  "seek_verified_seconds": 27.14476973684211,
+  "playback_observed_seconds": [
+    27.68726914660832,
+    31.90054923413567,
+    35.51193216630197,
+    39.12331509846828
+  ],
+  "paused_verified_seconds": 47.54987527352298,
+  "observations": [
+    "At27.687 formula and circle before inset guides.",
+    "At31.901 guides connect inset with hole-name annotation; text clear.",
+    "At35.512 guides gone, green limit text and moving point shown.",
+    "At39.123 guides absent and bound |g| <= M appears without crossing."
+  ],
+  "scope": "Actual native playback with sequential AX+screenshots at listed instants; not a continuous video observation or listening. GUI playback spans27.145-47.550 but unobserved intervals are not claimed viewed.",
+  "continuous_motion_acceptance": false,
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "final4k_acceptance": false,
+  "publication_acceptance": false
+}

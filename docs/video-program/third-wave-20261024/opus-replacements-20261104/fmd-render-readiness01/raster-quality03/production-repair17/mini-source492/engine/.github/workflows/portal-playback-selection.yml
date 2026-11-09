@@ -1,0 +1,67 @@
+name: Portal playback selection
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/portal-playback-selection.yml"
+      - "crates/fmn-python/src/portal_playback.rs"
+      - "crates/fmn-python/src/lib.rs"
+      - "crates/fmn-python/tests/playback_selection.py"
+      - "crates/fmn-python/tests/test_render_selection_protocol.py"
+      - "crates/fmn-python/python/fmn_python/render_selection.py"
+      - "crates/fmn-python/python/fmn_python/rendering.py"
+      - "crates/fmn-python/python/fmn_python/console_rendering.py"
+      - "crates/fmn-python/python/fmn_python/batch_rendering.py"
+      - "crates/fmn-python/python/fmn_python/batch_cli.py"
+      - "crates/fmn-scene/src/runtime.rs"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portal-playback-selection
+  cancel-in-progress: true
+
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: "true"
+  CARGO_TARGET_DIR: target/portable
+  CARGO_TERM_COLOR: always
+  PYO3_PYTHON: python
+
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: "3.13"
+      - name: Install the governed toolchain and host NumPy
+        run: |
+          rustup show active-toolchain
+          python -m pip install numpy
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Exercise selection and native generation ownership
+        env:
+          PYTHONPATH: crates/fmn-python/tests
+        run: |
+          python -m unittest test_console_rendering_protocol test_render_session_protocol test_batch_rendering_protocol test_batch_failure_notes_protocol test_render_selection_protocol
+      - name: Exercise actual native playback and decoded outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-python portal_playback -- --nocapture
+          cargo test --locked -p fmn-python production_native_output_acceptance_suite -- --nocapture
+          cargo test --locked -p fmn-scene --test runtime

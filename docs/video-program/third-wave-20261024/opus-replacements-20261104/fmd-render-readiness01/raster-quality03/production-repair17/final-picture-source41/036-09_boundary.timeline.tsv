@@ -1,0 +1,18 @@
+# explainer timeline v1
+chapter	09_boundary
+fps	60
+frames	9587
+line	09_1	36	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/09_1.wav
+line	09_2	1416	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/09_2.wav
+line	09_3	2081	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/09_3.wav
+line	09_4	3001	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/09_4.wav
+line	09_5	3856	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/09_5.wav
+line	09_6	5152	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/09_6.wav
+line	09_7	6446	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/09_7.wav
+line	09_8	7898	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/09_8.wav
+line	09_9	8660	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/09_9.wav
+mark	predict	3541
+mark	predict	8285
+breath	9407	2
+listen	3541	5	09_boundary:09_4
+listen	8285	6	09_boundary:09_8

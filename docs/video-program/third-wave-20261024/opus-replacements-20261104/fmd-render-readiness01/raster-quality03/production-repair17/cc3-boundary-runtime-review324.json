@@ -1,0 +1,457 @@
+{
+ "review": "cc3-boundary-runtime-review324",
+ "reviewer": "cc3",
+ "utc": "2026-11-08T19:40:00Z (approximate; records read 19:23-19:39)",
+ "scope": "Independent read-only runtime audit of the actual 313 chain records (build, rebind, timeline) on the build host; preview313 state only. Records and bytes only: no picture, motion, 4K, listening, fine-sync, pronunciation or AV acceptance; no audio heard or checked. No job, controller, permit, source, TODO or Beads change; nothing written on the build host.",
+ "method": "ssh with python3 -I -B scripts on stdin: list, read and hash only.",
+ "findings": {
+  "high": 0,
+  "medium": 0,
+  "low": 0
+ },
+ "observations": [
+  {
+   "id": "O1",
+   "what": "build.stderr and clippy.stderr contain \"error: unclosed table\" from Cargo scanning a dependency checkout's malformed test fixture; build268 has the same line (diff: workspace name and build time only). No 313 gate reads it.",
+   "defect": false
+  },
+  {
+   "id": "O2",
+   "what": "timeline-only runs also write a 64x36 by-product movie timeline-output/timeline/09_boundary.mp4, not compared or hashed by the helper. Video differs from 269 and 21 (expected; not used for any picture judgement); AAC packet MD5 and decoded PCM MD5 equal across all three.",
+   "defect": false,
+   "movie_sha256": {
+    "313": "964d1e1b1ae8026437a74bd61dfa1f90ebd8cf590976a11db5bf9d9c19b66833",
+    "269": "e63fbbd8cc5ea5720bac94dcccfefa8db1b21e5161144b619880e0b5208056d2",
+    "21": "f16b1219e52aa4dbdc36c2a8843e15d4acfe05cfe0cfa206e5d051341d80ed75"
+   },
+   "audio_packet_md5": "0f174b592d43f65f7c36ae1927493a6c",
+   "audio_pcm_md5": "dd3b2e82f73462924c1c5bf885e8248a"
+  },
+  {
+   "id": "O3",
+   "what": "timeline313 took 15 min 54 s (render 947.5 s, 17.4 fps) against the notes' estimate of about 12 min; timeout 172900 s.",
+   "defect": false
+  }
+ ],
+ "build313": {
+  "receipt": {
+   "path": "D/jobs/csd-review-repair-build313/resource-receipt.json",
+   "sha256": "44cdc80b22402ffd606c5c97a6d488ec70c2c0153068badb974e5b614ba91304",
+   "started": "2026-11-08T19:05:23.958770+00:00",
+   "finished": "2026-11-08T19:17:52.849733+00:00",
+   "admitted": true,
+   "exit": 0,
+   "inputs_sha256": "e96410ba29c5e1e96692ff159355ee2fd428ed62846281ffa9c19b3499404399",
+   "final_inputs_sha256": "e96410ba29c5e1e96692ff159355ee2fd428ed62846281ffa9c19b3499404399",
+   "policy_is_current": true,
+   "samples": 72,
+   "max_growth_gib": 0.046,
+   "min_free_gib": 103.52,
+   "terminal_success": true,
+   "error_or_resource_stop": false
+  },
+  "manifest": {
+   "path": "Q/review-repair-build313-inputs.json",
+   "sha256": "e96410ba29c5e1e96692ff159355ee2fd428ed62846281ffa9c19b3499404399",
+   "equals_receipt_inputs": true,
+   "rows": 12422,
+   "bytes": 1210984301,
+   "rows_missing": 0,
+   "rows_changed": 0
+  },
+  "qualification": {
+   "sha256": "1e0116f7ea850eab0afb959c6ad9faf3bcd7806ca48408200aad82bdb954afc6",
+   "binary_sha256": "1a82f72c53dba2d5db8a3478bac252e46bf711afd59ec9d425ee6639708611db",
+   "tests_passed": 233,
+   "explicit_native_plate_fade_probe_passed": true,
+   "clippy_passed": true,
+   "fmt_check_passed": true,
+   "facts_sha256": "7d528509752e532c07edb3fda7c12cd8251ac4ba77022355ae42ad725add4417",
+   "chapters": [
+    "01_the_bump",
+    "02_turning_numbers",
+    "03_two_planes",
+    "04_reading_color",
+    "05_gallery",
+    "06_one_derivative",
+    "07_one_point",
+    "08_loop_sums",
+    "09_boundary",
+    "10_rigidity",
+    "11_counting",
+    "12_residues",
+    "13_real_integral",
+    "14_continuation",
+    "15_closing"
+   ],
+   "base_binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+   "changed": [
+    "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs"
+   ]
+  },
+  "checks": {
+   "binary_bytes": 18466496,
+   "binary_equals_qualification": true,
+   "base_binary_equals_review_repair268": true,
+   "tests_result_lines": [
+    "test result: ok. 233 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.12s"
+   ],
+   "plate_fade_probe_lines": [
+    "test chapters::draw::plate_fade_probe::plates_fade_in_pixels_on_the_films_own_frames ... ok",
+    "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 233 filtered out; finished in 1.41s"
+   ],
+   "fmt_check_log_bytes": [
+    0,
+    0
+   ],
+   "facts_stdout_equals_qualification": true,
+   "facts_equal_build268": true,
+   "chapters_stdout_equals_qualification": true
+  },
+  "source_copy": {
+   "sha256": "cb4d402ef6086aebd10dcf18e95df5f5bc69b89a2e613bbbc2cd7420a9d6d5b8",
+   "keys": 70,
+   "base_source_copy_sha256": "81d28272a7a23b63199e79e6aa1086f01f131f0ddd685d4ae859d04b1de1934c",
+   "build268_source_copy_sha256": "81d28272a7a23b63199e79e6aa1086f01f131f0ddd685d4ae859d04b1de1934c",
+   "same_keys_as_build268": true,
+   "differs_from_build268": [
+    "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs"
+   ],
+   "boundary_build268_to_313": [
+    "dc80c541799209f10d02701d18c7fab5a14327000719929e5e2fad0c6fd62f9f",
+    "bda7d931498b23bd3203cd0c6106de69dc0a8c5e160e738d698376322ff39e53"
+   ],
+   "candidate_boundary_guide_repair310_sha256": "bda7d931498b23bd3203cd0c6106de69dc0a8c5e160e738d698376322ff39e53",
+   "substituted": {
+    "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs": "boundary-guide-repair310.rs"
+   }
+  },
+  "workspace": {
+   "files": 72,
+   "differs_from_source_copy": [
+    "explainer_corpus/complex_analysis_visual/narration_units.json"
+   ],
+   "extra_files": [
+    "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-review313.json",
+    "explainer_corpus/complex_analysis_visual/narration_units.before-review313.json"
+   ],
+   "note": "narration_units.json is rewritten by rebind313 by design; the extras are its backup and map"
+  }
+ },
+ "rebind313": {
+  "receipt": {
+   "path": "D/jobs/csd-review-repair-rebind313/resource-receipt.json",
+   "sha256": "35a2dbdb302ae1fcccf03d2ca181233db02c96d8ff9f2958713d951ae608741b",
+   "started": "2026-11-08T19:21:14.202570+00:00",
+   "finished": "2026-11-08T19:21:22.947076+00:00",
+   "admitted": true,
+   "exit": 0,
+   "inputs_sha256": "28ab671cab755c9c4c1e3a4ccad008738c47d1b1b027ebb62cecfd4d51f622bf",
+   "final_inputs_sha256": "28ab671cab755c9c4c1e3a4ccad008738c47d1b1b027ebb62cecfd4d51f622bf",
+   "policy_is_current": true,
+   "samples": 2,
+   "max_growth_gib": 0.09,
+   "min_free_gib": 100.41,
+   "terminal_success": true,
+   "error_or_resource_stop": false
+  },
+  "manifest": {
+   "path": "Q/review-repair-rebind313-inputs.json",
+   "sha256": "28ab671cab755c9c4c1e3a4ccad008738c47d1b1b027ebb62cecfd4d51f622bf",
+   "equals_receipt_inputs": true,
+   "rows": 12628,
+   "bytes": 1330132588,
+   "rows_missing": 0,
+   "rows_changed": 0
+  },
+  "summary": {
+   "sha256": "359052a7f1d01b5811b1817bccd3164cffa9f97e40cb56a48faf8c54caed6bd3",
+   "holds": 23,
+   "helpers": 5,
+   "boundary_holds_moved": {
+    "09_4": [
+     938,
+     942
+    ],
+    "09_5": [
+     1003,
+     1007
+    ],
+    "09_8": [
+     1282,
+     1286
+    ]
+   },
+   "other_holds_and_helpers_equal_review269": true,
+   "wav_files_byte_identical": 105,
+   "wav_files_equal_rebind269": 105,
+   "unchanged_files": 106,
+   "report_sentence_rows_unchanged": true,
+   "generation_records_unchanged": true,
+   "map_sha256": "c3ccd2f23f4cc99b1941e931d2971738111126884288457f563dc4903300ed79",
+   "canonical_sha256": "9308c2b230a7cafd933dc826511bc8111748e9355ab9e445d3f7f89c81511c39"
+  },
+  "delivery": {
+   "verified_cues": 105,
+   "selected_cues": 105,
+   "plan_mode": "external-ui"
+  },
+  "checks": {
+   "narration_file_names_equal_rebind269_and_assembly19": true,
+   "files": 109,
+   "wavs": 105,
+   "wavs_hashed_by_cc3_not_equal_across_three": [],
+   "differ_from_rebind269": [
+    "assembly.json",
+    "external-units.json",
+    "report.json"
+   ],
+   "differ_from_assembly19": [
+    "assembly.json",
+    "external-units.json",
+    "report.json"
+   ],
+   "metadata_differences_vs_rebind269_after_path_mapping": [
+    "direction map sha256 7eb0e40d... -> c3ccd2f2...",
+    "units sha256 -> 9308c2b2...",
+    "three boundary holds: evidence sha256 dc80c541... -> bda7d931..., reason line +4",
+    "all 23 hold reasons end \"no audio heard or checked.\" instead of \"listening unreviewed.\"",
+    "assembly.json report_sha256 (follows from report.json)"
+   ],
+   "units_equals_canonical": true,
+   "backup_equals_build313_copy": true,
+   "map_equals_summary": true,
+   "holds_changed_vs_rebind269_map": [
+    [
+     "09_4",
+     938,
+     942,
+     "dc80c5417992",
+     "bda7d931498b"
+    ],
+    [
+     "09_5",
+     1003,
+     1007,
+     "dc80c5417992",
+     "bda7d931498b"
+    ],
+    [
+     "09_8",
+     1282,
+     1286,
+     "dc80c5417992",
+     "bda7d931498b"
+    ]
+   ],
+   "holds_total": [
+    23,
+    23
+   ],
+   "helpers_equal": true,
+   "rewritten_units_vs_rebind269_after_mapping": [
+    "/direction_contract/map/sha256 only"
+   ]
+  }
+ },
+ "timeline313": {
+  "receipt": {
+   "path": "D/jobs/csd-review-repair-timeline313/resource-receipt.json",
+   "sha256": "420b422137996fb2d440392ec6cfc242e33f33efad2409b5eff8b788aa940301",
+   "started": "2026-11-08T19:21:28.061595+00:00",
+   "finished": "2026-11-08T19:37:22.628613+00:00",
+   "admitted": true,
+   "exit": 0,
+   "inputs_sha256": "ebdf8c137c2e323219733f40ef719c5c7334f493652edf927d4793e8fc8c67b1",
+   "final_inputs_sha256": "ebdf8c137c2e323219733f40ef719c5c7334f493652edf927d4793e8fc8c67b1",
+   "policy_is_current": true,
+   "samples": 91,
+   "max_growth_gib": 0.054,
+   "min_free_gib": 100.15,
+   "terminal_success": true,
+   "error_or_resource_stop": false
+  },
+  "manifest": {
+   "path": "Q/review-repair-timeline313-inputs.json",
+   "sha256": "ebdf8c137c2e323219733f40ef719c5c7334f493652edf927d4793e8fc8c67b1",
+   "equals_receipt_inputs": true,
+   "rows": 12885,
+   "bytes": 1507020667,
+   "rows_missing": 0,
+   "rows_changed": 0
+  },
+  "comparison": {
+   "sha256": "e63cbc5e97bc2037e62153f9f48d37e2ef935a112f0103132f13aa7d081ae033",
+   "frames": {
+    "09_boundary": 16504
+   },
+   "tables": [
+    {
+     "chapter": "09_boundary",
+     "kind": "timeline",
+     "timeline269_sha256": "e05a6679f8105d7bec1647088c276d52871753770a3af4fbc99c3e3af5bffb76",
+     "production21_sha256": "ae7a13f413f431811f68c0141c14031195d64d1ba5b821b69f661bf75f5565e4",
+     "new_sha256": "5a91b8f9e2e5b5d6223a49285c06039b1b43bd16c11cecdd163a8e2e545baa9e",
+     "equal_to_timeline269_after_named_narration_path_mapping": true,
+     "equal_to_production21_after_named_narration_path_mapping": true
+    },
+    {
+     "chapter": "09_boundary",
+     "kind": "cues",
+     "timeline269_sha256": "eed5a50ad5797fa258ee3fcf9319e29946f403a86b3909090e73a3a15dc74249",
+     "production21_sha256": "eed5a50ad5797fa258ee3fcf9319e29946f403a86b3909090e73a3a15dc74249",
+     "new_sha256": "eed5a50ad5797fa258ee3fcf9319e29946f403a86b3909090e73a3a15dc74249",
+     "equal_to_timeline269_after_named_narration_path_mapping": true,
+     "equal_to_production21_after_named_narration_path_mapping": true
+    },
+    {
+     "chapter": "09_boundary",
+     "kind": "cuelog",
+     "timeline269_sha256": "a36389b792ee7c9e0d9efde38c4efa581660622bf4dc1cf11e9fa5f0363d07a0",
+     "production21_sha256": "cb69ba38311e72bae2f3b9566c0f84689183c18192fb638626d3d79ae966be61",
+     "new_sha256": "7ed46c80cede7e49daeaf729337b24c66c8e7ccc125bb18ca6ce2c411d201bbf",
+     "equal_to_timeline269_after_named_narration_path_mapping": true,
+     "equal_to_production21_after_named_narration_path_mapping": true
+    }
+   ],
+   "outputs": [
+    "09_boundary.cuelog.tsv",
+    "09_boundary.cues.tsv",
+    "09_boundary.timeline.tsv",
+    "timeline"
+   ],
+   "named_path_mapping": "rebind269 narration -> rebind313 narration",
+   "production_path_mapping": "assembly19 narration -> rebind313 narration"
+  },
+  "cc3_byte_comparison": [
+   {
+    "kind": "timeline",
+    "sha256": "5a91b8f9e2e5b5d6223a49285c06039b1b43bd16c11cecdd163a8e2e545baa9e",
+    "bytes": 1183,
+    "equals_269_mapped": true,
+    "equals_21_mapped": true,
+    "sha256_269": "e05a6679f8105d7bec1647088c276d52871753770a3af4fbc99c3e3af5bffb76",
+    "sha256_21": "ae7a13f413f431811f68c0141c14031195d64d1ba5b821b69f661bf75f5565e4"
+   },
+   {
+    "kind": "cues",
+    "sha256": "eed5a50ad5797fa258ee3fcf9319e29946f403a86b3909090e73a3a15dc74249",
+    "bytes": 177,
+    "equals_269_mapped": true,
+    "equals_21_mapped": true,
+    "sha256_269": "eed5a50ad5797fa258ee3fcf9319e29946f403a86b3909090e73a3a15dc74249",
+    "sha256_21": "eed5a50ad5797fa258ee3fcf9319e29946f403a86b3909090e73a3a15dc74249"
+   },
+   {
+    "kind": "cuelog",
+    "sha256": "7ed46c80cede7e49daeaf729337b24c66c8e7ccc125bb18ca6ce2c411d201bbf",
+    "bytes": 2296,
+    "equals_269_mapped": true,
+    "equals_21_mapped": true,
+    "sha256_269": "a36389b792ee7c9e0d9efde38c4efa581660622bf4dc1cf11e9fa5f0363d07a0",
+    "sha256_21": "cb69ba38311e72bae2f3b9566c0f84689183c18192fb638626d3d79ae966be61"
+   }
+  ],
+  "header": {
+   "chapter": "09_boundary",
+   "fps": "60",
+   "frames": "16504"
+  },
+  "line_rows": 9,
+  "line_wavs_in_rebind313": true,
+  "line_wavs_equal_rebind269": true,
+  "native_stderr_bytes": 0
+ },
+ "imports": {
+  "trj": {
+   "path": "D/jobs/csd-retained-import311-trj-a1/resource-receipt.json",
+   "sha256": "c262a7aa7adfb1bd86e8605869001d9776ceb3238f8e83ad759079db534fa0d2",
+   "started": "2026-11-08T19:17:52.852714+00:00",
+   "finished": "2026-11-08T19:18:03.087592+00:00",
+   "admitted": true,
+   "exit": 0,
+   "inputs_sha256": "1666f58e156a1c56a7579f636883dacc250082034a38843fa29d038de753a7fb",
+   "final_inputs_sha256": "1666f58e156a1c56a7579f636883dacc250082034a38843fa29d038de753a7fb",
+   "policy_is_current": true,
+   "samples": 2,
+   "max_growth_gib": 0.309,
+   "min_free_gib": 103.36,
+   "terminal_success": true,
+   "error_or_resource_stop": false
+  },
+  "css": {
+   "path": "D/jobs/csd-retained-import311-css-a1/resource-receipt.json",
+   "sha256": "246633e296fa1abb5a50e8042c3582fe5818dded1e7c0f9321b150eb5dd7b065",
+   "started": "2026-11-08T19:18:09.588146+00:00",
+   "finished": "2026-11-08T19:18:59.739310+00:00",
+   "admitted": true,
+   "exit": 0,
+   "inputs_sha256": "f94ed318151b939a746f95fad147c29263b1f27c782260cf9476b04e04264498",
+   "final_inputs_sha256": "f94ed318151b939a746f95fad147c29263b1f27c782260cf9476b04e04264498",
+   "policy_is_current": true,
+   "samples": 6,
+   "max_growth_gib": 2.822,
+   "min_free_gib": 101.93,
+   "terminal_success": true,
+   "error_or_resource_stop": false
+  },
+  "hz2": {
+   "path": "D/jobs/csd-retained-import311-hz2-a1/resource-receipt.json",
+   "sha256": "c54af76ad5cbc48d8863fb3298feadd548116db6368dbcc35294536980869449",
+   "started": "2026-11-08T19:19:00.741164+00:00",
+   "finished": "2026-11-08T19:21:08.029621+00:00",
+   "admitted": true,
+   "exit": 0,
+   "inputs_sha256": "37d3b6f8bfebc5ca5f166d3159689f10925bb9a83a1f6392f07d8ae22f84a5f3",
+   "final_inputs_sha256": "37d3b6f8bfebc5ca5f166d3159689f10925bb9a83a1f6392f07d8ae22f84a5f3",
+   "policy_is_current": true,
+   "samples": 13,
+   "max_growth_gib": 2.784,
+   "min_free_gib": 100.5,
+   "terminal_success": true,
+   "error_or_resource_stop": false
+  }
+ },
+ "preview313_state_at_1939": {
+  "receipt_sha256_at_read": "8b9ac8216b79a2f2ad67734bb59fa83022c423d9d282220e12b619b304157511",
+  "started": "2026-11-08T19:37:37.074122+00:00",
+  "finished": null,
+  "admitted": true,
+  "inputs_sha256": "3ca1a2949bd48389204cb1a8eae4f93519ad7e9ac3ebbb40aa87b71103ef6f19",
+  "manifest": {
+   "path": "Q/review-repair-preview313-inputs.json",
+   "equals_receipt_inputs": true,
+   "rows": 12903,
+   "rows_missing": 0,
+   "rows_changed": 0
+  },
+  "control_movie_sha256": "dba964d2b0730b0e327eb32b9b9bb81496ddb4ec3422f043d356a390f1de3fb4",
+  "pictures_viewed": 0
+ },
+ "picture_review_plan": {
+  "records": [
+   "receipt terminal success and manifest rows",
+   "summary.json zoom_probe_fails, zoom_probe_exit_frame, flags, not_localized",
+   "zoom-probe.json control window, exit against 2086-2100 inclusive, absent anchors 2326/4180/5417/6240/6900/6960/7020, flagged frames",
+   "sampling.json every reason, schedule, fades, fade_flags, sheets"
+  ],
+  "view_every_sheet_and_picture": true,
+  "windows": [
+   "28-40 s every 0.25 s",
+   "every frame 2080-2106",
+   "every frame 2316-2336",
+   "33.48, 69.67, 90.28, 104 s at -0.2/0/+0.2/+1/+2 s",
+   "115, 116, 117 s at the same offsets",
+   "39-133 s every second (persistence)",
+   "133 s (7980) inside the base proof_gone fade: no reappearance",
+   "standard picks: line and mark starts, plate sites, lint lines, first and last frames"
+  ],
+  "rule": "The probe is pixel arithmetic on 21 points outside the column; it is not picture acceptance. Never infer viewed from hashes."
+ },
+ "not_established": [
+  "no repaired picture seen",
+  "no audio heard or checked",
+  "other 14 chapters not re-run under binary 313 (by design)",
+  "imports: receipts only"
+ ]
+}

@@ -1,0 +1,41 @@
+schema	fmn-perf-pg8-trace/1
+gate	pg-8
+scenario	point-transform-callback
+benchmark_definition	8d7334a546e8c44b29a2e6040cb39b7a71cd0e091ef6f263db3e0a0876dd7e75
+config_digest	785992d095a56814dbdf1e19a73dea68f675888cf14aafa15e2532a4a7c3d19a
+fixture_input_digest	f4f3a516f5ab368f62ee6c8ff949ff8bdfbf428d9c0a1fe82a2b53d3b9c90a49
+engine	fmn-python-bridge
+tier	portable
+thread_profile	single-thread
+cache_state	none
+output_mode	record-buffer-state
+warmup_iterations	3
+sample_count	24
+frames_per_repetition	60
+mobjects	64
+dt_denominator	30
+result_digest	49967d61ab60664927d05dc9b32eb0440b1d83a53f56f00b0914f17f9c35cb76
+sample	0	149853479	-	149853479	valid	-
+sample	1	142896838	-	142896838	valid	-
+sample	2	143968236	-	143968236	valid	-
+sample	3	142433283	-	142433283	valid	-
+sample	4	144561211	-	144561211	valid	-
+sample	5	143449508	-	143449508	valid	-
+sample	6	143405095	-	143405095	valid	-
+sample	7	143322902	-	143322902	valid	-
+sample	8	143181137	-	143181137	valid	-
+sample	9	144373731	-	144373731	valid	-
+sample	10	146607477	-	146607477	valid	-
+sample	11	145106979	-	145106979	valid	-
+sample	12	143313815	-	143313815	valid	-
+sample	13	143678516	-	143678516	valid	-
+sample	14	143622921	-	143622921	valid	-
+sample	15	143082724	-	143082724	valid	-
+sample	16	143519118	-	143519118	valid	-
+sample	17	145820128	-	145820128	valid	-
+sample	18	145317211	-	145317211	valid	-
+sample	19	147137145	-	147137145	valid	-
+sample	20	146223010	-	146223010	valid	-
+sample	21	145395316	-	145395316	valid	-
+sample	22	144585075	-	144585075	valid	-
+sample	23	143909105	-	143909105	valid	-

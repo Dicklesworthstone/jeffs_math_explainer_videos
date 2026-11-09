@@ -1,0 +1,41 @@
+{
+  "utc": "2026-11-07T23:48:24.770898+00:00",
+  "movie_sha256": "a42d77f8dcd38bcba009a1f29e4ee482a7db610376675ba9d783f6a0b1f36767",
+  "sampling": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final07-pictures125/sampling.json",
+  "sampling_sha256": "daa03221e6f84f3a96ceb287f2e5e03a24a56f19ae69b0b20f903e9850748f88",
+  "selected_pictures_viewed": 138,
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "source_details_viewed_seconds": [
+    5,
+    81
+  ],
+  "observations": [
+    "No persistent concrete clipping or overlap observed in all selected pictures.",
+    "Native-source details show formula and bounding explanation intact; sheet-scale appearance did not establish clipping.",
+    "Smooth modulus-squared field and intentionally jagged bounded-function example visually distinguish their roles."
+  ],
+  "limits": [
+    "Selected-picture review only, not exhaustive frame proof.",
+    "Continuous motion, listening, fine synchronization and independent final audiovisual acceptance not established.",
+    "Full master and public platform checks remain."
+  ]
+}

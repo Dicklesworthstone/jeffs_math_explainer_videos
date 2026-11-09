@@ -1,0 +1,98 @@
+name: Native drawing and owned runtime
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-drawing-runtime.yml'
+      - 'scripts/patches/native-drawing-runtime.patch'
+      - 'scripts/patches/worker-class-roots.patch'
+      - 'crates/fmn-python/tests/drawing_runtime.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: native-drawing-runtime
+  cancel-in-progress: false
+jobs:
+  drawing-and-ownership:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Apply reviewed native drawing and class-root release
+        run: |
+          set -euo pipefail
+          if ! grep -q 'production_drawing_runtime_acceptance_suite' crates/fmn-python/src/lib.rs; then
+            git apply --check scripts/patches/native-drawing-runtime.patch
+            git apply scripts/patches/native-drawing-runtime.patch
+          fi
+          if ! grep -q 'release owned class roots' crates/fmn-python/src/perf_harness.rs; then
+            git apply --check scripts/patches/worker-class-roots.patch
+            git apply scripts/patches/worker-class-roots.patch
+          fi
+          git diff --check
+          rustup show active-toolchain
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-python/src/lib.rs crates/fmn-python/src/perf_harness.rs
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Validate embedded drawing and repeated native worker lifetimes
+        run: |
+          set -euo pipefail
+          for suite in production_drawing_runtime_acceptance_suite production_camera_runtime_acceptance_suite production_persistent_runtime_acceptance_suite perf_harness::tests::; do
+            cargo test --locked -p fmn-python "$suite" -- --nocapture 2>&1 | tee /tmp/native-drawing-$suite.log
+            grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/native-drawing-$suite.log
+          done
+          cargo clippy --locked -p fmn-python --lib -- -D warnings 2>&1 | tee /tmp/native-drawing-clippy.log
+      - name: Rebuild and test the installed wheel and independent rendered pixels
+        run: |
+          set -euo pipefail
+          python -m maturin build --locked --interpreter python --profile dev --out target/drawing-wheel 2>&1 | tee /tmp/native-drawing-build.log
+          python -m venv target/drawing-venv
+          target/drawing-venv/bin/python -m pip install 'numpy==2.5.2' target/drawing-wheel/*.whl
+          for suite in creation_semantics drawing_runtime camera_motion camera_execution persistent_recovery fading_family updater_family portal_initialization; do
+            target/drawing-venv/bin/python -I crates/fmn-python/tests/$suite.py 2>&1 | tee /tmp/native-drawing-wheel-$suite.log
+          done
+      - name: Commit verified production implementations directly to main
+        run: |
+          set -euo pipefail
+          git add crates/fmn-python/python/manimlib_bootstrap.py crates/fmn-python/python/manimlib/_animation_semantics.py crates/fmn-python/src/lib.rs crates/fmn-python/src/perf_harness.rs scripts/check_portal_runtime.sh
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'fix(runtime): enable authored drawing phases and release owned native class cycles'
+            git push origin HEAD:main
+          fi
+      - name: Preserve full unfiltered native portal regression
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-python --lib 2>&1 | tee /tmp/native-drawing-full-portal.log
+      - name: Preserve exact source and validation evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/native-drawing-source-sha.txt
+          git diff > /tmp/native-drawing-working.patch
+          git archive --format=tar.gz HEAD > /tmp/native-drawing-source.tar.gz
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-drawing-${{ github.sha }}
+          path: |
+            /tmp/native-drawing-*
+            target/drawing-wheel/*.whl
+          retention-days: 2

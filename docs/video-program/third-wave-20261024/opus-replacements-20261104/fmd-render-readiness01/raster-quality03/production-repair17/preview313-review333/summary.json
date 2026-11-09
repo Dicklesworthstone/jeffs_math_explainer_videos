@@ -1,0 +1,25 @@
+{
+  "binary_sha256": "1a82f72c53dba2d5db8a3478bac252e46bf711afd59ec9d425ee6639708611db",
+  "sources": {
+    "09_boundary": {
+      "sites": 2,
+      "plays": 2,
+      "checked_lines": 3
+    }
+  },
+  "chapters": {
+    "09_boundary": {
+      "frames": 16504,
+      "samples": 313,
+      "sheets": 40,
+      "plate_plays": 2,
+      "exact": 2,
+      "fitted": 0,
+      "after_fitted": 0,
+      "not_localized": 0,
+      "flags": [],
+      "zoom_probe_exit_frame": 2094,
+      "zoom_probe_fails": []
+    }
+  }
+}

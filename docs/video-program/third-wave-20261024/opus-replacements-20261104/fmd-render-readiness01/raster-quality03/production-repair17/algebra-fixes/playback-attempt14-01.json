@@ -1,0 +1,13 @@
+{
+  "utc": "2026-11-07T17:01:17.380618+00:00",
+  "app": "QuickTime Player",
+  "file": "algebra-fixes-preview08/preview/11_permutations.mp4",
+  "actions": [
+    "View > Time Display > Go To Frame; entered14160",
+    "Space; inspected AX and screenshot"
+  ],
+  "observed": "Screenshot remained dark with no visible content advancement; seek not verified.",
+  "motion_accepted": false,
+  "listening_accepted": false,
+  "scope": "Failed UI review attempt, not evidence that encoded file is black or defective."
+}

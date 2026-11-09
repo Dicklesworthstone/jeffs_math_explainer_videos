@@ -1,0 +1,36 @@
+{
+  "reviewed_at": "2026-11-08T00:44:01.654493+00:00",
+  "movie_sha256": "0cea4f760b7063edd7eb23db05581d2df0f6055309abd59a2ae977acae8597ea",
+  "selected_pictures": 158,
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "additional_source_frames": [
+    48,
+    6000
+  ],
+  "finding": "No concrete persistent overlap or clipping observed in selected pictures. Top formula stays readable and inside image at title-safe anchor and later samples; reported 0.22 versus 0.25 margin is retained as a layout warning.",
+  "continuous_listening": false,
+  "fine_sync_acceptance": false,
+  "independent_final_av_acceptance": false,
+  "scope": "Selected final chapter pictures only, not full-film acceptance."
+}

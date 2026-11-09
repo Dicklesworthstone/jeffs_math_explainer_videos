@@ -1,0 +1,161 @@
+{
+  "path_mapping": {
+    "/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration"
+  },
+  "chapters": [
+    {
+      "chapter": "01_the_bump",
+      "status": "equal",
+      "checks": [
+        {
+          "kind": "timeline.tsv",
+          "equal": true,
+          "old_sha256": "b459936a47e9c473c92ace3ad9900487cd3797f2fc1b0f1c15adf8973dd6adb1",
+          "new_sha256": "d6ddcc1ffb9991be25d2f44d8bf554f2c56695e84acc3733d034961e0826d764"
+        },
+        {
+          "kind": "cues.tsv",
+          "equal": true,
+          "old_sha256": "e7fea540de13ec0b72077e8d43e9d3dfecdf0ad92ab8c628f19845e7fe41561b",
+          "new_sha256": "e7fea540de13ec0b72077e8d43e9d3dfecdf0ad92ab8c628f19845e7fe41561b"
+        },
+        {
+          "kind": "cuelog.tsv",
+          "equal": true,
+          "old_sha256": "2e8113eeaa067230b6a8436e400a6cf706d6c0c37dddc4d46d03d3a31471ebc3",
+          "new_sha256": "45c44d9db6cebfaf0f9a424c73b6350d4b0a9537647f92f07923dea4ce4c4673"
+        }
+      ]
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "status": "equal",
+      "checks": [
+        {
+          "kind": "timeline.tsv",
+          "equal": true,
+          "old_sha256": "10370cb3aa86a06f7cf22beb2a1caa3479fb2fa493bf77a898111812079e322b",
+          "new_sha256": "cf6531fcb050fa1b43c3f8334ac0aa9c8169eac50dc18176ab0225cf99ae4c3f"
+        },
+        {
+          "kind": "cues.tsv",
+          "equal": true,
+          "old_sha256": "97102b8f71bd574d3ed6d96698edc3efeadc5c4fb0b1bdbef14c623386e299fc",
+          "new_sha256": "97102b8f71bd574d3ed6d96698edc3efeadc5c4fb0b1bdbef14c623386e299fc"
+        },
+        {
+          "kind": "cuelog.tsv",
+          "equal": true,
+          "old_sha256": "309c9f1821ea1ee88c7e5229a5bf671ec409e026b469d2d94206fa1c7b4aec03",
+          "new_sha256": "737362e7f8212ce33b29468f0ace51cf4dce27ce34d38450e6bb0998db24d487"
+        }
+      ]
+    },
+    {
+      "chapter": "04_reading_color",
+      "status": "equal",
+      "checks": [
+        {
+          "kind": "timeline.tsv",
+          "equal": true,
+          "old_sha256": "24e52e645a62d92e8ba8ebf9e86439bf995de04d054647385047e842f2f50b99",
+          "new_sha256": "2bb6d0fcb0cc9a90dd1435fb3a97b34385e1108cff7db7c42ba4a8c9606df280"
+        },
+        {
+          "kind": "cues.tsv",
+          "equal": true,
+          "old_sha256": "7581709f8c6972f6bf3c099cf05e25fc37d28dcccfd327e7bd6e24580b360a4c",
+          "new_sha256": "7581709f8c6972f6bf3c099cf05e25fc37d28dcccfd327e7bd6e24580b360a4c"
+        },
+        {
+          "kind": "cuelog.tsv",
+          "equal": true,
+          "old_sha256": "93ba3af506b2aaf7066fe8be263c3c9581e37bb2697a4ae326b3a07a3fe21e84",
+          "new_sha256": "b181facad7a72f9f400009d1613b94f52250810741917d1846acf0a09297582f"
+        }
+      ]
+    },
+    {
+      "chapter": "06_one_derivative",
+      "status": "equal",
+      "checks": [
+        {
+          "kind": "timeline.tsv",
+          "equal": true,
+          "old_sha256": "6126ae251ca1d492eec45ca759e93fe64c4f594555345d0702112e1573dc9d67",
+          "new_sha256": "dbc82d8481d8f511ae404c5f3eeff517c2540c9b8330ca2cfb5b8d7c83e6412d"
+        },
+        {
+          "kind": "cues.tsv",
+          "equal": true,
+          "old_sha256": "ee8eb35a2d8621e5cb0ba6d3c6d3cbe6e844c5cce9b8199113388fa20da2d853",
+          "new_sha256": "ee8eb35a2d8621e5cb0ba6d3c6d3cbe6e844c5cce9b8199113388fa20da2d853"
+        },
+        {
+          "kind": "cuelog.tsv",
+          "equal": true,
+          "old_sha256": "5ff95a5c79eec7a34869e057aba4faf94feb0e71c9c05cc12c361452962f0c20",
+          "new_sha256": "91f5695913803d174038e749b85bb607a378622132c4b36566fbd91418982810"
+        }
+      ]
+    },
+    {
+      "chapter": "07_one_point",
+      "status": "equal",
+      "checks": [
+        {
+          "kind": "timeline.tsv",
+          "equal": true,
+          "old_sha256": "b41ee718afa76a2b8a5952bc59a20915bd88259575bb7ede82ee9ca60ec10285",
+          "new_sha256": "c2e3c183019525c01aca2dc376c61d4eaab72c10f4b23f44ea184c1d44bd3f3c"
+        },
+        {
+          "kind": "cues.tsv",
+          "equal": true,
+          "old_sha256": "ea5cf40807968d38f9e6d0faa8395afaa72aba292ae1589dbc6379ddff54a68a",
+          "new_sha256": "ea5cf40807968d38f9e6d0faa8395afaa72aba292ae1589dbc6379ddff54a68a"
+        },
+        {
+          "kind": "cuelog.tsv",
+          "equal": true,
+          "old_sha256": "e08f48e2756df55e0bb107f11d26c541016aba89429cd51f4ca0cc5a26ca7050",
+          "new_sha256": "42eb81c3601f4df75a993e334bf936a8812d1ada8bd921743cd295f942526eab"
+        }
+      ]
+    },
+    {
+      "chapter": "10_rigidity",
+      "status": "equal",
+      "checks": [
+        {
+          "kind": "timeline.tsv",
+          "equal": true,
+          "old_sha256": "5b31b6dd5514404ea0bf9e7e2c009aaaca4989d145dbd306b6267e6bc143d9b8",
+          "new_sha256": "340167657b8420e4056a07e85ea258b16b797d031c98057d4510f19a2be00970"
+        },
+        {
+          "kind": "cues.tsv",
+          "equal": true,
+          "old_sha256": "a58e14f5f22089df8902439f751b0a05cfe52b29502f7c530054745d6f7a6ca3",
+          "new_sha256": "a58e14f5f22089df8902439f751b0a05cfe52b29502f7c530054745d6f7a6ca3"
+        },
+        {
+          "kind": "cuelog.tsv",
+          "equal": true,
+          "old_sha256": "a556fe2243f9e2ecb5e7c2507d1801ff5a4d7992d892b22c161160fa54948b36",
+          "new_sha256": "b7e1e115d4fa2687c64c3bc5bedd66a179ec92160bc9b7bdeedc8b91ee7e0751"
+        }
+      ]
+    },
+    {
+      "chapter": "12_residues",
+      "status": "pending"
+    },
+    {
+      "chapter": "15_closing",
+      "status": "pending"
+    }
+  ],
+  "scope": "Complete available timeline/cues/cuelog comparison; current whole job still active. Not terminal success, dependency closure, pictures, motion or listening acceptance.",
+  "utc": "2026-11-07T16:57:33.049564+00:00"
+}

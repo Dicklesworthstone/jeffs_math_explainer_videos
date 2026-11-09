@@ -1,0 +1,10 @@
+{
+  "host": "trj",
+  "exit": 0,
+  "helper_sha256": "862968830a076c2030599b65e1f48b776501f87d99045cb662570045e613d5ea",
+  "time": "2026-11-08T18:47:34.391802+00:00",
+  "foreign_files": 158,
+  "foreign_bytes": 165726504,
+  "shared_files": 589,
+  "shared_bytes": 1266896765
+}

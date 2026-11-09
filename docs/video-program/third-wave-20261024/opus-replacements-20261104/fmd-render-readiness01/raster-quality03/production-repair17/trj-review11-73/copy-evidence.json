@@ -1,0 +1,25 @@
+{
+  "files": [
+    {
+      "name": "11_counting.mp4",
+      "sha256": "42cf1003ffbb18e20b19ebfd32a59a1236bbdb0b9531f7de39466252fea0a630"
+    },
+    {
+      "name": "11_counting.timeline.tsv",
+      "sha256": "13f593bc19082ddacd7d3adbd5f739110fec02c1ab43958cff748f1154641242"
+    },
+    {
+      "name": "11_counting.cues.tsv",
+      "sha256": "8659b78f9ff443163d4e37270c62532fa4b90d0ee34bab51231eb915aac3ff41"
+    },
+    {
+      "name": "11_counting.cuelog.tsv",
+      "sha256": "c00984bb9bb8d9cc9b964fcd97e0675fa1a4a711827fd4c62ab121594fdad27e"
+    },
+    {
+      "name": "11_counting.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "scope": "Completed chapter only; overall preview21 still running."
+}

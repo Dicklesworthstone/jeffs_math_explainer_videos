@@ -1,0 +1,43 @@
+{
+  "time": "2026-11-08T18:36:09.057948+00:00",
+  "review": "root disposition of independent315",
+  "review_sha256": "e9a881ffd9a0a2cd813eecdcb4e94a3824f55c4e51743ec69feae389d943d866",
+  "all_five_manifest_and_movie_bindings_rechecked": true,
+  "coverage": {
+    "root_pictures": 623,
+    "independent_cc3_pictures": 488,
+    "total": 1111,
+    "sheets": 142
+  },
+  "actual_root_pictures": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/coverage-grid305b/04_reading_color/frame-0055.jpg",
+      "sha256": "a507b96e5253fea35168fee0697cd3326b9dc7ac6f713fd9737e9da359abe19e",
+      "actually_viewed": true
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/coverage-grid305b/04_reading_color/frame-0089.jpg",
+      "sha256": "15734e48626ffaac64bbaa5ee171330e99077db7bc46ebf7ab0524f289c5b191",
+      "actually_viewed": true
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/coverage-grid305b/05_gallery/frame-0129.jpg",
+      "sha256": "f308753e2eaa20d547987e02ebadf7f47ad6c7d687bbdcfac09466fbc1355cd0",
+      "actually_viewed": true
+    }
+  ],
+  "decisions": {
+    "D1": "Accept intentional lower-third overlay for preview qualification: inspected current frame3900. It masks only peripheral colour field, with zero, order label, loop, wheel and explanatory text fully clear. No mathematical object or required readout concealed. Recheck final platform caption placement.",
+    "D2": "Accept search-term lower-third overlay for preview qualification: inspected current frame6420. Both poles, gold loop and segment clear. Field continues behind translucent footnote as authored. Recheck final platform captions.",
+    "D3": "Accept preview composition: inspected current9120. Both outer sine zeros remain identifiable at panel edge, separated from neighbouring panels; no clipped text or incorrect count. Recheck native final resolution.",
+    "D4": "Authored 2.30s blank remains pacing/motion review item; sampled QuickTime playback and stills do not close continuous-motion or listening gates.",
+    "O1": "No repair: bottom-row titles are clearly separated and legible in actual9120."
+  },
+  "remaining": [
+    "09 guide repair313 build and independent314",
+    "continuous motion and listening/fine-sync review",
+    "native final renders/master/full AV verification",
+    "public 4K and uploaded-caption checks before original unlisting"
+  ],
+  "no_master_or_release_acceptance": true
+}

@@ -1,0 +1,43 @@
+[package]
+name = "fmn-python"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "The PyO3 `manimlib` bridge"
+
+[lib]
+name = "manimlib"
+crate-type = ["cdylib", "rlib"]
+
+[features]
+# In-process Gauntlet adapter. Never enabled in the shipped wheel.
+gauntlet = []
+
+[dependencies]
+fmn-core.workspace = true
+fmn-hash.workspace = true
+fmn-config.workspace = true
+fmn-platform = { workspace = true, features = ["exact-process"] }
+fmn-frame.workspace = true
+fmn-codec.workspace = true
+fmn-mobject.workspace = true
+fmn-anim.workspace = true
+fmn-render.workspace = true
+fmn-library.workspace = true
+fmn-scene.workspace = true
+fmn-output = { workspace = true, features = ["exact-process"] }
+fmn-runtime.workspace = true
+# Host-CPython preview composition only; the standalone CLI has no Python edge.
+fmn-studio.workspace = true
+pyo3.workspace = true
+# manimlib's re-exported scipy `linear_sum_assignment` (plan D4: assignment is
+# frankenscipy's); already in the lock as fsci-integrate's dependency.
+fsci-opt.workspace = true
+
+# The build identity's uncommitted-state digest (ADR-0025).
+[build-dependencies]
+fmn-hash.workspace = true
+
+[lints]
+workspace = true

@@ -1,0 +1,29 @@
+[package]
+name = "fmn-library"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Menagerie + Atlas"
+
+[dependencies]
+fmn-dmath.workspace = true
+fmn-core.workspace = true
+fmn-codec.workspace = true
+fmn-geom.workspace = true
+fmn-mobject.workspace = true
+fmn-anim.workspace = true
+fmn-text.workspace = true
+fmn-tex.workspace = true
+fsci-integrate.workspace = true
+franken_markdown.workspace = true
+fnx-classes.workspace = true
+fp-frame.workspace = true
+fp-types.workspace = true
+
+
+[dev-dependencies]
+fmn-hash.workspace = true
+
+[lints]
+workspace = true

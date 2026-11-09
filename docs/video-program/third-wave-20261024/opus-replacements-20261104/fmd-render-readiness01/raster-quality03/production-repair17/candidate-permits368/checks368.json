@@ -1,0 +1,567 @@
+{
+ "task": "cc1 368 candidate technical-render permits",
+ "status": "CANDIDATE: requires root review; not staged, not launched, not approved",
+ "prepared_by": "cc1 (BronzeJaguar)",
+ "workers": {
+  "csd-reviewed-final352.py": "23d55c286aba2fc58b77a5af8dbd539293592daa3a4e0e8584f18f324d868760",
+  "css-final-repair352.py": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a"
+ },
+ "candidates": {
+  "05_gallery-css-candidate368.json": "f3ef9aeabeb5220ad0cdd42e10868845719e67feac2680fbbad469dfae126b10",
+  "06_one_derivative-csd-candidate368.json": "c43801cc7fce42e3ff44cbd2dfd8ed353e14b14b2a62dff7aabcbc4e6542eab2",
+  "08_loop_sums-csd-candidate368.json": "c2d0b172933e2cb2505ec87b91f3bb343b5591e8a5818a8f6ee2e5b240f2a79c"
+ },
+ "chapters": {
+  "05_gallery": {
+   "host": "css",
+   "worker": "css-final-repair352.py",
+   "frames": 9879,
+   "timeline_sha256": "df3cdeae1dab98a6b28cfde7ac2e30ae0a7242de9bda6ad9b0659fb10e52a260",
+   "runs": [
+    [
+     34,
+     98
+    ],
+    [
+     1989,
+     2072
+    ],
+    [
+     2894,
+     2977
+    ],
+    [
+     4772,
+     4855
+    ],
+    [
+     6181,
+     6264
+    ],
+    [
+     6872,
+     6877
+    ],
+    [
+     6921,
+     6927
+    ],
+    [
+     7312,
+     7365
+    ],
+    [
+     8715,
+     8859
+    ],
+    [
+     9167,
+     9221
+    ],
+    [
+     9247,
+     9248
+    ],
+    [
+     9817,
+     9878
+    ]
+   ],
+   "sampled_frames": 922,
+   "sheets_rehashed": 28,
+   "frame_records": [
+    {
+     "record": "D/jobs/csd-review-repair-preview274/05_gallery/sampling.json",
+     "sha256": "b8011d9025f5128b3582990cff2cfc59337f3d939ec94c226accd7fccf23c1b9",
+     "frames": 222,
+     "viewed_by": [
+      "picture-review-progress305.json"
+     ]
+    },
+    {
+     "record": "gallery-transition-frames305/manifest.json",
+     "sha256": "5a98dd205a39f9b596f61e9c3dcc048b75c3aa9f1aac286f1872ab26acfe7d49",
+     "frames": 715,
+     "viewed_by": [
+      "cc1-gallery-transition-review319.json"
+     ]
+    },
+    {
+     "record": "coverage-grid305b/05_gallery/sampling.json",
+     "sha256": "f67f171bd2d126c92ed98b1c3c99c759cd4df8cee0dd70bb5ac8c853d05c85f1",
+     "frames": 129,
+     "viewed_by": [
+      "cc3-current-grid-review315.json"
+     ]
+    }
+   ],
+   "unviewed": [],
+   "independent": [
+    "cc1-gallery-transition-review319.json",
+    "cc3-current-grid-review315.json"
+   ]
+  },
+  "06_one_derivative": {
+   "host": "csd",
+   "worker": "csd-reviewed-final352.py",
+   "frames": 10030,
+   "timeline_sha256": "8abb0519b2945269f5def975e1adde7968905fab45f72b85b242dc4a11d0ca71",
+   "runs": [
+    [
+     9630,
+     9730
+    ],
+    [
+     9970,
+     10029
+    ]
+   ],
+   "sampled_frames": 530,
+   "sheets_rehashed": 47,
+   "frame_records": [
+    {
+     "record": "D/jobs/csd-review-repair-preview243/06_one_derivative/sampling.json",
+     "sha256": "34ee8c6ae24ccd33e234ac2b1b27cf5441fae1087af8f53f4b4436942efd22ba",
+     "frames": 376,
+     "viewed_by": [
+      "cc0-preview06-review270.md",
+      "preview243-root-review-complete277.json"
+     ]
+    },
+    {
+     "record": "derivative-sheets359/manifest.json",
+     "sha256": "ca470cb023df865af986c44601dc64c0c0c80f3a56d04c2f393aad936b6c78b1",
+     "frames": 161,
+     "viewed_by": [
+      "derivative-sheets359-review.json"
+     ]
+    }
+   ],
+   "unviewed": [
+    "root-preview06-disposition362.json"
+   ],
+   "independent": [
+    "cc0-preview06-review270.md"
+   ]
+  },
+  "08_loop_sums": {
+   "host": "csd",
+   "worker": "csd-reviewed-final352.py",
+   "frames": 14959,
+   "timeline_sha256": "e2276be4d8b190bddf5c944e82c00c4b4febc6d65886142b890b99594ef64945",
+   "runs": [
+    [
+     3059,
+     3060
+    ],
+    [
+     3119,
+     3120
+    ],
+    [
+     3179,
+     3180
+    ],
+    [
+     10200,
+     10380
+    ]
+   ],
+   "sampled_frames": 552,
+   "sheets_rehashed": 69,
+   "frame_records": [
+    {
+     "record": "D/jobs/csd-review-repair-preview243/08_loop_sums/sampling.json",
+     "sha256": "951eab4a4c64517a5cff9b8ff824f79c83cca4d5b1f614a6157498383d48a7da",
+     "frames": 552,
+     "viewed_by": [
+      "cc2-preview08-review271.md",
+      "preview243-root-review-complete277.json"
+     ]
+    }
+   ],
+   "unviewed": [],
+   "independent": [
+    "cc2-preview08-review271.md"
+   ]
+  }
+ },
+ "not_bound": {
+  "05_gallery": [
+   {
+    "file": "grid315-disposition305.json",
+    "why": "root's D3 decision; named in observations as root's 04 permit366 does; its no_master_or_release_acceptance key is flagged by master350 claimed() (cc2 352 notes \u00a77.8)"
+   }
+  ],
+  "06_one_derivative": [
+   {
+    "file": "derivative-detail358/manifest.json",
+    "why": "root: not a complete review (cc2 352 notes \u00a75); never give it views"
+   }
+  ],
+  "08_loop_sums": []
+ },
+ "checks": [
+  {
+   "ok": true,
+   "check": "worker csd-reviewed-final352.py at its frozen hash",
+   "detail": "23d55c286aba"
+  },
+  {
+   "ok": true,
+   "check": "worker css-final-repair352.py at its frozen hash",
+   "detail": "1074051b6063"
+  },
+  {
+   "ok": true,
+   "check": "MOVIES and PERMIT_KEYS equal in both",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "CSD DELTA_EVIDENCE is DQ/cc1-preview-to-final-binding282.md",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "binding282 local copy at DELTA_EVIDENCE_SHA",
+   "detail": "1fbcedef34f6"
+  },
+  {
+   "ok": true,
+   "check": "preview job csd-review-repair-preview274 in both",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "preview job csd-review-repair-preview243 in both",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "preview243 narration mapping read from CSD352",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "root 07_one_point-csd-permit366.json: same 4 source_binding items, binary and key order",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "root 10_rigidity-csd-permit366.json: same 4 source_binding items, binary and key order",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "root 04_reading_color-css-permit366.json: same 4 source_binding items, binary and key order",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "root 01_the_bump-css-permit364.json: same 4 source_binding items, binary and key order",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "root permit key order covers exactly PERMIT_KEYS",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "comparison305 timeline sha = root permit for 07_one_point",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "comparison305 timeline sha = root permit for 10_rigidity",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "comparison305 timeline sha = root permit for 04_reading_color",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "comparison305 timeline sha = root permit for 01_the_bump",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "local preview274 table, mapped, = root permit timeline and frames: 07_one_point",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "local preview274 table, mapped, = root permit timeline and frames: 10_rigidity",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "local preview274 table, mapped, = root permit timeline and frames: 04_reading_color",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "local preview274 table, mapped, = root permit timeline and frames: 01_the_bump",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "05_gallery timeline sha: comparison305 = local preview table (mapped)",
+   "detail": "df3cdeae1dab"
+  },
+  {
+   "ok": true,
+   "check": "05_gallery frames from timeline header = cc2 notes",
+   "detail": "9879"
+  },
+  {
+   "ok": true,
+   "check": "05_gallery preview sampling at expected sha",
+   "detail": "b8011d9025f5"
+  },
+  {
+   "ok": true,
+   "check": "05_gallery picture-review-progress305.json at expected sha",
+   "detail": "d4547c553a9c"
+  },
+  {
+   "ok": true,
+   "check": "05_gallery gallery-transition-frames305/manifest.json at expected sha",
+   "detail": "5a98dd205a39"
+  },
+  {
+   "ok": true,
+   "check": "05_gallery gallery319-disposition305.json at expected sha",
+   "detail": "de33e72ed1f3"
+  },
+  {
+   "ok": true,
+   "check": "05_gallery coverage-grid305b/05_gallery/sampling.json at expected sha",
+   "detail": "f67f171bd2d1"
+  },
+  {
+   "ok": true,
+   "check": "05_gallery cc1-gallery-transition-review319.json at expected sha",
+   "detail": "58a7381dd850"
+  },
+  {
+   "ok": true,
+   "check": "05_gallery cc3-current-grid-review315.json at expected sha",
+   "detail": "e9a881ffd9a0"
+  },
+  {
+   "ok": true,
+   "check": "05_gallery review_basis CSD = CSS",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "05_gallery maximal runs = cc2 notes intervals",
+   "detail": "[[34, 98], [1989, 2072], [2894, 2977], [4772, 4855], [6181, 6264], [6872, 6877], [6921, 6927], [7312, 7365], [8715, 8859], [9167, 9221], [9247, 9248], [9817, 9878]]"
+  },
+  {
+   "ok": true,
+   "check": "05_gallery key set = PERMIT_KEYS",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "05_gallery css352 352 tail passes (sampling viewed by root evidence, independent, runs, scope, playback [])",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "05_gallery independent confirmed",
+   "detail": "cc1-gallery-transition-review319.json, cc3-current-grid-review315.json"
+  },
+  {
+   "ok": true,
+   "check": "05_gallery no frame record carries views (no self-view)",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "05_gallery no item lists its own sha256",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "05_gallery candidate holds no local paths",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative timeline sha: comparison305 = local preview table (mapped)",
+   "detail": "8abb0519b294"
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative frames from timeline header = cc2 notes",
+   "detail": "10030"
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative preview sampling at expected sha",
+   "detail": "34ee8c6ae24c"
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative preview243-root-review-complete277.json at expected sha",
+   "detail": "0c8299120c29"
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative derivative-sheets359/manifest.json at expected sha",
+   "detail": "ca470cb023df"
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative derivative-sheets359-review.json at expected sha",
+   "detail": "40e2fca805e0"
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative root-preview06-disposition362.json at expected sha",
+   "detail": "1822a5908199"
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative cc0-preview06-review270.md at expected sha",
+   "detail": "d4ad3533de6a"
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative review_basis CSD = CSS",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative maximal runs = cc2 notes intervals",
+   "detail": "[[9630, 9730], [9970, 10029]]"
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative key set = PERMIT_KEYS",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative CSD independent() passes",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative one named binding282 item (303 gate lines)",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative csd352 352 tail passes (sampling viewed by root evidence, independent, runs, scope, playback [])",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative independent confirmed",
+   "detail": "cc0-preview06-review270.md"
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative no frame record carries views (no self-view)",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative no item lists its own sha256",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "06_one_derivative candidate holds no local paths",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums timeline sha: comparison305 = local preview table (mapped)",
+   "detail": "e2276be4d8b1"
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums frames from timeline header = cc2 notes",
+   "detail": "14959"
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums preview sampling at expected sha",
+   "detail": "951eab4a4c64"
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums preview243-root-review-complete277.json at expected sha",
+   "detail": "0c8299120c29"
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums preview08-disposition285.json at expected sha",
+   "detail": "40ad7b1250ad"
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums cc2-preview08-review271.md at expected sha",
+   "detail": "d70fb0deec2b"
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums review_basis CSD = CSS",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums maximal runs = cc2 notes intervals",
+   "detail": "[[3059, 3060], [3119, 3120], [3179, 3180], [10200, 10380]]"
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums key set = PERMIT_KEYS",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums CSD independent() passes",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums one named binding282 item (303 gate lines)",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums csd352 352 tail passes (sampling viewed by root evidence, independent, runs, scope, playback [])",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums independent confirmed",
+   "detail": "cc2-preview08-review271.md"
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums no frame record carries views (no self-view)",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums no item lists its own sha256",
+   "detail": ""
+  },
+  {
+   "ok": true,
+   "check": "08_loop_sums candidate holds no local paths",
+   "detail": ""
+  }
+ ],
+ "harness": "352 worker code exec'd unchanged on local reviewed copies: D/jobs/csd-review-repair-preview274 = Q/preview274-review305, D/jobs/csd-review-repair-preview243 = Q/preview243-review265, D/qualification01/production-repair17 = Q. Not run: 303/309 host gates, CSS alias/independent(), launch."
+}

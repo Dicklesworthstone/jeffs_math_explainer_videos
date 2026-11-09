@@ -1,0 +1,17 @@
+{
+  "time": "2026-11-08T18:29:54.903365+00:00",
+  "manifest_sha256": "9d92d3308ef44f75cdb0db40abee7cc9f73bd4cbb2a55ba688c31c588495c2af",
+  "pictures_viewed": 30,
+  "sheets_viewed": 6,
+  "all_selected_sheets_actually_viewed": true,
+  "observations": {
+    "11_counting": "8311/8312 progressively faint old plate;8315/8317 next circle emerges with old plate absent. No concrete reappearance or overlap in selected brackets.",
+    "09_boundary": "All eight prior anchors viewed; upper/lower guide crossings confirmed through7971, guides and proof gone at7997. HOLD until repair310 pixels checked.",
+    "07_one_point": "5377/5378 blank;5396 partially visible open-region blob;5414 full blob;5566 circles inside region;5930 definition panel;6145/6340/6460 populated legible scene. Earlier alleged20s blank is contradicted by these pictures; known source-defined2.30s empty interval remains a motion/editorial review item.",
+    "14_continuation": "10279/10298 rightmost strip visible;10986 initial half-plane;11041 through11353 progressive left extensions with newly revealed poles;11402 full field with distinct pole labels. No concrete overlap in these samples."
+  },
+  "limits": [
+    "Existing preview274 selected stills only.",
+    "Continuous motion, listening, fine-sync, corrected09 and final4K AV acceptance remain open."
+  ]
+}

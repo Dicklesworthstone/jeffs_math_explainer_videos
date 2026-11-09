@@ -1,0 +1,69 @@
+{
+  "at": "2026-11-07T22:00:41.419349+00:00",
+  "movie_sha256": "3e2440a8785319cf9477e73303e6391c8a4165c7fbfd3fa6f4ad97e81f874fd4",
+  "frames_reviewed": 92,
+  "sheets_reviewed": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final15-pictures82/sheet-0001.jpg",
+      "sha256": "eca60aed81488d706cef19fcafe49c32ff5d0fab73b18c6b2d51499ea6e8db2b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final15-pictures82/sheet-0002.jpg",
+      "sha256": "6d774c6660fb08650910a0be64c9ecb034961b15c72e41725ec0f3735b8b3e8a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final15-pictures82/sheet-0003.jpg",
+      "sha256": "54ff705d03f640ea026968fa12f43582fd08c4e15087752c12a8e84b955d0441"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final15-pictures82/sheet-0004.jpg",
+      "sha256": "b70a7e7a144179e3457a436a5e1d157d1b43d011e0dbe211792976292309ec86"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final15-pictures82/sheet-0005.jpg",
+      "sha256": "f44c144bc5a73b960c54b1bfaaf7b6dd318352b73af0e35e84bb3ebffa1dbe9a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final15-pictures82/sheet-0006.jpg",
+      "sha256": "9eaf999903a1aa25a9551bab730e648eb4bd2ee1afd604d5b8d4c4f7413aea83"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final15-pictures82/sheet-0007.jpg",
+      "sha256": "2bbec57a06406f01bfee470742c9cb6779ac90bfa3a122b257ed3a4e6b37afc4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final15-pictures82/sheet-0008.jpg",
+      "sha256": "0b186bc6840fccd60211f710870f722326bd026177b13f61e708c3f22f47573a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final15-pictures82/sheet-0009.jpg",
+      "sha256": "74c2bcea20095f7517652a2732e9d9aadadfb3660448e54f86873c0a85a43ada"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final15-pictures82/sheet-0010.jpg",
+      "sha256": "1a67060ee5ddc9573148101ac1828bc53685377876a5e241e3d7a579e001b8a9"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final15-pictures82/sheet-0011.jpg",
+      "sha256": "d00b78f3868126083bece491d6553fc91bd0a5bc1165a819e7ef4ca0a613dfc0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final15-pictures82/sheet-0012.jpg",
+      "sha256": "0ffc001cc52f7113214831c3e8ff0a411a450553207b2a1b883ca2a8a09306e9"
+    }
+  ],
+  "additional_full_frame_views_seconds": [
+    35,
+    65
+  ],
+  "observations": [
+    "All12 sheets actually viewed. Recap strip and final radius payoff readable; no persistent concrete clipping or overlap found.",
+    "Separately viewed full native-source frames at35s and65s; allfive recap panels fully inside frame, radius and singularity labels clear.",
+    "Contact-sheet presentation briefly suggested left-edge clipping; full-frame35s inspection disproved that impression. No source repair justified."
+  ],
+  "limits": [
+    "Selected stills only; not exhaustive frame or continuous motion proof.",
+    "No continuous listening, fine sync or independent AV acceptance.",
+    "Full master replay/decode/captions and public verification remain pending."
+  ]
+}

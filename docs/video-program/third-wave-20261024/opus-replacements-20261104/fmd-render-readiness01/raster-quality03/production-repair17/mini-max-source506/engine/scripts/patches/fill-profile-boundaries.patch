@@ -1,0 +1,167 @@
+diff --git a/crates/fmn-render/src/fill.rs b/crates/fmn-render/src/fill.rs
+index 2b3628d..f615844 100644
+--- a/crates/fmn-render/src/fill.rs
++++ b/crates/fmn-render/src/fill.rs
+@@ -2718,6 +2718,17 @@ pub fn nearest_boundary(
+     translate: [f64; 2],
+     p: [f64; 2],
+ ) -> Option<(f64, f64)> {
++    nearest_boundary_location(segments, map, translate, p).map(|(d, s, _)| (d, s))
++}
++
++// Preserve the side of a coincident arc station at a disconnected contour.
++// A bare scalar station cannot distinguish its outgoing and incoming colors.
++fn nearest_boundary_location(
++    segments: &[crate::table::Segment],
++    map: ScreenMap,
++    translate: [f64; 2],
++    p: [f64; 2],
++) -> Option<(f64, f64, bool)> {
+     let scale = map.scale;
+     if scale == 0.0 || segments.is_empty() {
+         return None;
+@@ -2729,6 +2740,7 @@ pub fn nearest_boundary(
+     ];
+     let mut best_d = f64::INFINITY;
+     let mut best_s = 0.0;
++    let mut at_end = false;
+     for g in segments {
+         let near = fmn_geom::distance::nearest_on_quadratic(g.p0, g.p1, g.p2, obj);
+         if near.distance >= best_d {
+@@ -2747,9 +2759,10 @@ pub fn nearest_boundary(
+             0.0
+         };
+         best_s = g.s0 + (g.s1 - g.s0) * frac;
++        at_end = near.t == 1.0;
+     }
+     if best_d.is_finite() {
+-        Some((best_d * scale.abs(), best_s.clamp(0.0, 1.0)))
++        Some((best_d * scale.abs(), best_s.clamp(0.0, 1.0), at_end))
+     } else {
+         None
+     }
+@@ -2833,14 +2846,14 @@ pub fn fill_rgba_with_border(
+         return interior;
+     }
+     let width = border_width_px(style.fill_border_width, map);
+-    let Some((distance, s)) = nearest_boundary(segments, map, translate, p) else {
++    let Some((distance, s, at_end)) = nearest_boundary_location(segments, map, translate, p) else {
+         return interior;
+     };
+     let coverage = border_coverage(distance, width, f64::from(style.anti_alias_width));
+     if coverage <= 0.0 {
+         return interior;
+     }
+-    let edge = fill_rgba_at(style, s);
++    let edge = fill_rgba_at(style, style.fill_endpoint_parameter(s, at_end));
+     let k = coverage as f32;
+     let mut out = [0.0f32; 4];
+     for (o, (a, b)) in out.iter_mut().zip(interior.iter().zip(edge.iter())) {
+diff --git a/crates/fmn-render/src/fill/color_field.rs b/crates/fmn-render/src/fill/color_field.rs
+index 3c03cac..48120ab 100644
+--- a/crates/fmn-render/src/fill/color_field.rs
++++ b/crates/fmn-render/src/fill/color_field.rs
+@@ -176,4 +176,54 @@ mod tests {
+         let field=GradientField::from_contours(&points,&params,&next,&edges);
+         assert_eq!(field.rgba_at(&p,[0.50001,0.],[0.;2]),[1.;4]);
+     }
++    #[test]
++    fn disconnected_contour_end_uses_its_own_border_color() {
++        // Two open outlines whose implicit fill closures are separate triangles.
++        // At the first triangle's last point, the shared normalized station is
++        // 0.5; its right-hand color belongs to the second triangle, not this one.
++        let segments = [
++            Segment {p0:[-3.,-1.,0.],p1:[-2.,-1.,0.],p2:[-1.,-1.,0.],s0:0.,s1:0.25},
++            Segment {p0:[-1.,-1.,0.],p1:[-1.,0.,0.],p2:[-1.,1.,0.],s0:0.25,s1:0.5},
++            Segment {p0:[1.,-1.,0.],p1:[2.,-1.,0.],p2:[3.,-1.,0.],s0:0.5,s1:0.75},
++            Segment {p0:[3.,-1.,0.],p1:[3.,0.,0.],p2:[3.,1.,0.],s0:0.75,s1:1.},
++        ];
++        let red=[1.,0.,0.,1.]; let blue=[0.,0.,1.,1.];
++        let p=FillProfile::new(vec![FillKnot{s:0.,rgba:red},FillKnot{s:0.5,rgba:red},
++            FillKnot{s:0.5,rgba:blue},FillKnot{s:1.,rgba:blue}]).unwrap();
++        let (mut points,mut params,mut next,mut edges)=(vec![],vec![],vec![],vec![]);
++        let map=ScreenMap{origin:[0.;2],scale:1.};
++        GradientField::build_profile_into(&mut points,&mut params,&mut next,&mut edges,
++            &segments,&[0,2],map,&p);
++        let field=GradientField::from_contours(&points,&params,&next,&edges);
++        let style=crate::Style{fill_border_width:400.,..Default::default()}.with_fill_profile(p);
++        assert_eq!(super::super::fill_rgba_with_border(&style,&field,&segments,map,[0.;2],[-1.,1.]),red);
++        assert_eq!(super::super::fill_rgba_with_border(&style,&field,&segments,map,[0.;2],[1.,-1.]),blue);
++        // Explicit station links must close each contour in place.
++        for (i,&j) in next.iter().enumerate() {
++            assert_eq!(points[i][0] < 0.,points[j][0] < 0.);
++        }
++    }
++
++    #[test]
++    fn a_counterwound_hole_interpolates_its_boundary_without_a_bridge() {
++        let points=[[-2.,-2.],[2.,-2.],[2.,2.],[-2.,2.],
++                    [-1.,-1.],[-1.,1.],[1.,1.],[1.,-1.]];
++        let params=[0.,0.125,0.25,0.375,0.5,0.625,0.75,0.875];
++        let next=[1,2,3,0,5,6,7,4];
++        let edges=[0.125,0.25,0.375,0.,0.625,0.75,0.875,0.5];
++        let field=GradientField::from_contours(&points,&params,&next,&edges);
++        // Use affine boundary data: signed coordinates must preserve it in the
++        // annulus, not collapse every interior point to a single scalar color.
++        let mut knots:Vec<_>=points.iter().zip(params).map(|(q,s)| FillKnot{
++            s,rgba:[(q[0]+2.) as f32/4.,(q[1]+2.) as f32/4.,0.,1.]}).collect();
++        knots.push(FillKnot{s:1.,rgba:knots[4].rgba});
++        let profile=FillProfile::new(knots).unwrap();
++        for q in [[1.5,0.],[-1.5,0.],[0.,1.5],[0.,-1.5],[-1.,0.],[0.,2.]] {
++            let c=field.rgba_at(&profile,q,[0.;2]);
++            assert!((c[0]-(q[0]+2.) as f32/4.).abs()<1e-6,"{q:?}: {c:?}");
++            assert!((c[1]-(q[1]+2.) as f32/4.).abs()<1e-6,"{q:?}: {c:?}");
++            assert_eq!(c[3],1.);
++        }
++    }
++
+ }
+diff --git a/crates/fmn-render/src/fill_profile.rs b/crates/fmn-render/src/fill_profile.rs
+index 5ab6ac1..fa2a3fd 100644
+--- a/crates/fmn-render/src/fill_profile.rs
++++ b/crates/fmn-render/src/fill_profile.rs
+@@ -134,6 +134,11 @@ impl crate::Style {
+             || self.fill_rgba[3] == 1.0 && self.fill_rgba_end[3] == 1.0,
+             |p| p.is_opaque())
+     }
++    /// Select the outgoing color at a disconnected contour endpoint.
++    #[must_use]
++    pub fn fill_endpoint_parameter(&self, s: f64, at_end: bool) -> f64 {
++        self.fill_profile.as_ref().map_or(s, |profile| profile.endpoint_parameter(s, at_end))
++    }
+     /// Total retained knots in both independent paint columns.
+     #[must_use]
+     pub fn profile_knots(&self) -> usize {
+diff --git a/crates/fmn-render/src/three_d.rs b/crates/fmn-render/src/three_d.rs
+index c8bd3e7..0604d20 100644
+--- a/crates/fmn-render/src/three_d.rs
++++ b/crates/fmn-render/src/three_d.rs
+@@ -3243,7 +3243,7 @@ fn shade_vector(
+                 f64::from(vector.style.anti_alias_width),
+             );
+             if border > 0.0 {
+-                let edge = rgba_from_array(fill::fill_rgba_at(&vector.style, nearest.s));
++                let edge = rgba_from_array(fill::fill_rgba_at(&vector.style, vector.style.fill_endpoint_parameter(nearest.s, nearest.t == 1.0)));
+                 color = mix_color(color, edge, border);
+             }
+         }
+@@ -4038,11 +4038,14 @@ mod tests {
+                 "point",
+                 &[point[0] as f32, point[1] as f32, point[2] as f32],
+             );
+-            let fill = if index + 1 == points.len() {
+-                fill_end
+-            } else {
+-                fill_start
+-            };
++            // Author the complete record ramp. Changing only the last row
++            // describes an endpoint color peak, not a ramp once all records
++            // reach the renderer. Keep the clipping test's interior-color
++            // threshold and exact clipped/unclipped pixel comparison intact.
++            let alpha = index as f32 / points.len().saturating_sub(1).max(1) as f32;
++            let fill: [f32; 4] = std::array::from_fn(|lane| {
++                fill_start[lane] + (fill_end[lane] - fill_start[lane]) * alpha
++            });
+             buffer.write(index, "fill_rgba", &fill);
+             buffer.write(index, "stroke_rgba", &[0.0; 4]);
+             buffer.write(index, "stroke_width", &[0.0]);

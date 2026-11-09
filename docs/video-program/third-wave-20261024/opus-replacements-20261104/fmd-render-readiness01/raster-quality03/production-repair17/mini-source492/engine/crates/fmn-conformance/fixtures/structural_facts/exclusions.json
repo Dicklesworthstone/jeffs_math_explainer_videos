@@ -1,0 +1,338 @@
+{
+  "schema": "fmn.structural-exclusions",
+  "version": 1,
+  "rules": "First matching row wins. `class` names the Reference-side member class; `under` requires an ancestor of that class; `mro_missing` admits an mro difference only when the Reference chain is the portal chain plus exactly those names; `scope` (constructions, scenes, or any by default) limits where a row applies and is checked for staleness. A behavior-note row is a deliberate, documented divergence. An open-bead row is a known bug: an open-bead row that matches nothing in its scope fails the diff, so a fixed bug forces its row out. A Behavior Note justifies a different outline, not an unbounded size or position, so every behavior-note or ADR row that covers bbox carries an `envelope`: {size_rel, center_abs} bounds each axis's extent to size_rel of the Reference's and its centre to center_abs scene units, or {bounded_by: ancestor} defers to the envelope of the `under` ancestor whose bbox contains it. A bbox outside a row's envelope falls through to later rows; an open-bead row may state its bug's measured magnitude as an envelope. A bbox no row admits is a difference that names the first envelope it broke (fm-5wq.45).",
+  "exclusions": [
+    {
+      "id": "bn07-c19-text-color-keyword",
+      "kind": "behavior-note",
+      "ref": "BN-07",
+      "scope": ["classes", "scenes"],
+      "class": ["VMobjectFromSVGPath", "Text", "MarkupText", "Tex", "TexText", "OldTex", "OldTexText", "SingleStringTex"],
+      "fact": ["style.fill_color", "style.stroke_color"],
+      "reference_values": ["#FFFFFF"],
+      "reason": "C-19: at the pin StringMobject.__init__ re-applies its white fill_color after color= reached SVGMobject, so Text(..., color=X) renders white. FrankenManim applies the requested color (BN-07). The row applies only where the Reference shows that default white."
+    },
+    {
+      "id": "bn07-c19-dot-color-keyword",
+      "kind": "behavior-note",
+      "ref": "BN-07",
+      "scope": ["classes", "scenes"],
+      "class": ["Dot", "SmallDot"],
+      "fact": ["style.fill_color", "style.stroke_color"],
+      "reference_values": ["#FFFFFF", "#000000"],
+      "reason": "C-19: at the pin Dot passes fill_color=DEFAULT_MOBJECT_COLOR and stroke_color=BLACK to Circle, masking the caller's color=; Dot(color=RED) is white with a black stroke. FrankenManim ranks color= above constructor defaults and an explicit channel above color= (fm-qead), so Dot(color=RED, fill_color=BLUE) keeps the blue fill the Reference also keeps and a red stroke where the Reference shows black. The row applies only where the Reference shows those defaults."
+    },
+    {
+      "id": "bn07-c30-background-rectangle-fill-getter",
+      "kind": "behavior-note",
+      "ref": "BN-07",
+      "scope": ["classes", "scenes"],
+      "class": "BackgroundRectangle",
+      "fact": "style.fill_color",
+      "reference_values": ["<Color white>"],
+      "reason": "C-30: at the pin BackgroundRectangle.get_fill_color() returns Color(self.color), Mobject's default white, whatever the fill is. FrankenManim reports the rectangle's color, the constructor's color= (BN-07)."
+    },
+    {
+      "id": "bn07-c31-point-less-match-style",
+      "kind": "behavior-note",
+      "ref": "BN-07",
+      "scope": ["classes", "scenes"],
+      "class": ["DashedVMobject", "VCube"],
+      "fact": ["style.fill_color", "style.fill_opacity", "style.stroke_color", "style.stroke_width", "style.stroke_opacity"],
+      "reference_values": ["#888888", "#DDDDDD", "#29ABCA", 0, 4000, 1000],
+      "reason": "C-31: at the pin set_style writes rgba arrays into data only, so match_style is dropped on a point-less mobject. DashedVMobject's root keeps VMobject's defaults, and a VCube root keeps its own BLUE_D fill (SumOfTwoSquares: cube.match_style(square)). FrankenManim's root takes the source's style (BN-07). The classes name point-less roots only (dashes and faces are VMobject or Square), and the row applies only where the Reference shows those defaults."
+    },
+    {
+      "id": "bn05-svg-path-geometry",
+      "kind": "behavior-note",
+      "ref": "BN-05",
+      "scope": ["classes", "scenes"],
+      "class": "VMobjectFromSVGPath",
+      "fact": ["n_points", "points", "points_sha256", "bbox"],
+      "envelope": {"size_rel": 0.25, "center_abs": 0.1},
+      "reason": "Glyph outlines come from the bundled faces (BN-05), and SVG and CFF cubics go through the one error-bounded converter (BN-13), so point counts and positions of SVG-derived paths differ wherever scenes regroup them. Envelope: a regrouped glyph's box may differ by a quarter of its extent and move by a tenth of a unit (BN-05's sub-em shifts); a glyph inside a text ancestor falls through to that ancestor's bound."
+    },
+    {
+      "id": "fm-aia1-tex-submobject-structure",
+      "kind": "open-bead",
+      "ref": "fm-aia1",
+      "scope": "scenes",
+      "under": ["Tex", "TexText", "OldTex", "OldTexText", "SingleStringTex"],
+      "fact": ["member", "class", "mro", "string", "n_points", "style.*"],
+      "reason": "The portal's Tex submobjects are every glyph, then every rule, then every drawn path, where the Reference keeps TeX's emission order (39 corpus scenes: equal glyph counts, a t2c color on a different index). It also emits multi-piece TeX constructions (long arrows, \\mapsto, quotes, extensible brackets, brace fills) as one submobject (20 scenes). Measured on a clean Reference after fm-0v8k fixed its TeX cache race (Appendix C-22)."
+    },
+    {
+      "id": "bn05-text-geometry",
+      "kind": "behavior-note",
+      "ref": "BN-05",
+      "class": ["Tex", "TexText", "SingleStringTex", "OldTex", "OldTexText", "Title", "BulletedList"],
+      "fact": ["bbox", "points", "points_sha256", "n_points"],
+      "envelope": {"size_rel": 0.1, "center_abs": 0.05},
+      "reason": "Native typesetting over bundled Computer Modern and fmd-math: glyph metrics and outlines differ from LaTeX by design. BN-05 keeps glyph order and count, and class/structure stays compared. Both engines set these in Computer Modern, so the box keeps the Reference's extent within 10% and its centre within 0.05 units."
+    },
+    {
+      "id": "bn05-text-face-geometry",
+      "kind": "behavior-note",
+      "ref": "BN-05",
+      "class": ["Text", "MarkupText", "Code"],
+      "fact": ["bbox", "points", "points_sha256", "n_points"],
+      "envelope": {"size_rel": 0.25, "center_abs": 0.05},
+      "reason": "Text, MarkupText and Code set bundled faces; the Reference sets whatever family its host maps through Pango (BN-05), so the Reference's own extent is a function of the host: Text('Hello') is 1.28 wide in the checked-in class-sweep facts and 1.049 on the differential host, where the portal's is 1.059. Envelope: extent within a quarter of the Reference's, centre within 0.05 units."
+    },
+    {
+      "id": "bn05-glyph-geometry",
+      "kind": "behavior-note",
+      "ref": "BN-05",
+      "under": ["Text", "MarkupText", "Tex", "TexText", "SingleStringTex", "OldTex", "OldTexText", "Title", "BulletedList", "Code"],
+      "fact": ["bbox", "points", "points_sha256", "n_points", "getters.get_vertices"],
+      "envelope": {"bounded_by": "ancestor"},
+      "reason": "Glyph outlines inside text are BN-05 native typesetting. Glyph members align by index only, so their boxes are bounded through the text root's envelope."
+    },
+    {
+      "id": "bn08-brace-path-family",
+      "kind": "behavior-note",
+      "ref": "BN-08",
+      "class": ["Brace", "BraceLabel", "BraceText", "LineBrace"],
+      "fact": ["bbox", "points", "points_sha256", "n_points", "style.fill_opacity"],
+      "envelope": {"size_rel": 0.1, "center_abs": 0.05},
+      "reason": "Brace is a parametric path family, not a stretched \\underbrace glyph render (BN-08 table). Its root is the drawn path, not a container of glyph children. A different outline, not a different size: the box stays within 10% of the Reference's extent and 0.05 units of its centre."
+    },
+    {
+      "id": "bn08-brace-glyph-children",
+      "kind": "behavior-note",
+      "ref": "BN-08",
+      "under": ["Brace", "BraceLabel", "BraceText", "LineBrace"],
+      "fact": ["member", "class", "mro", "bbox", "points", "points_sha256", "n_points", "style.*", "getters", "getters.*"],
+      "envelope": {"bounded_by": "ancestor"},
+      "reason": "The Reference's brace glyph children do not exist in the parametric path family (BN-08)."
+    },
+    {
+      "id": "bn08-decimal-native-text",
+      "kind": "behavior-note",
+      "ref": "BN-08",
+      "class": ["DecimalNumber", "Integer"],
+      "fact": ["bbox", "points", "points_sha256", "n_points"],
+      "envelope": {"size_rel": 0.1, "center_abs": 0.05},
+      "reason": "DecimalNumber is native text through Scribe with a per-character glyph cache (BN-08, 'Why DecimalNumber is a cache'). Its digits are Computer Modern in both engines: extent within 10%, centre within 0.05 units."
+    },
+    {
+      "id": "bn08-decimal-digit-children",
+      "kind": "behavior-note",
+      "ref": "BN-08",
+      "under": ["DecimalNumber", "Integer"],
+      "fact": ["member", "class", "mro", "string", "bbox", "points", "points_sha256", "n_points", "style.*"],
+      "envelope": {"bounded_by": "ancestor"},
+      "reason": "Each digit is one glyph submobject, not a Text wrapping a glyph path, so the family is one level shallower (BN-08)."
+    },
+    {
+      "id": "bn09-annulus-density",
+      "kind": "behavior-note",
+      "ref": "BN-09",
+      "class": "Annulus",
+      "fact": ["n_points", "points", "points_sha256"],
+      "reason": "The Reference builds each Annulus circle with quadratic_bezier_points_for_arc(TAU), whose default is 8 components (35 points). FrankenManim applies BN-09's one arc-density rule, 16 components for a full circle (67 points). bbox stays compared."
+    },
+    {
+      "id": "fm-b97z-padding-class",
+      "kind": "open-bead",
+      "ref": "fm-b97z",
+      "scope": ["scenes"],
+      "class": "VMobjectFromSVGPath",
+      "fact": ["class", "mro"],
+      "reason": "Glyphs are VMobjectFromSVGPath since fm-15k9, but padding members that native family alignment creates during Scene.play are published as plain VMobject, while the Reference's invisible_copy keeps the source's class (one corpus scene: a Transform between Tex selections of different glyph counts)."
+    },
+    {
+      "id": "fm-6l2i-camera-frame-root",
+      "kind": "open-bead",
+      "ref": "fm-6l2i",
+      "scope": "scenes",
+      "fact": "camera_frame_roots",
+      "reason": "The Reference's scene.mobjects starts with the CameraFrame; the portal's does not."
+    },
+    {
+      "id": "bn02-frame-count",
+      "kind": "behavior-note",
+      "ref": "BN-02",
+      "scope": "scenes",
+      "fact": "time.bn02",
+      "reason": "The portal's clock equals the Reference's segments counted by BN-02's rule, ceil(run_time * fps) on the exact f64 duration; the Reference's arange counts one frame fewer just above a frame boundary (wait(0.1) at 30 fps: 3 frames, BN-02 4)."
+    },
+    {
+      "id": "bn08-drawn-natives",
+      "kind": "behavior-note",
+      "ref": "BN-08",
+      "scope": ["classes", "scenes"],
+      "class": ["Checkmark", "Exmark", "Matrix", "DecimalMatrix", "IntegerMatrix", "TexMatrix", "MobjectMatrix", "BulletedList", "Title"],
+      "fact": ["bbox", "points", "points_sha256", "n_points", "style.*"],
+      "envelope": {"size_rel": 0.1, "center_abs": 0.05},
+      "reason": "De-TeX'd natives (BN-08 table): Checkmark/Exmark are drawn paths, Matrix brackets are drawn, BulletedList/Title set native text. The root is the drawn or native object, not a Tex glyph container. Drawn in place of a glyph, at the glyph's size: extent within 10%, centre within 0.05 units."
+    },
+    {
+      "id": "bn08-drawn-native-children",
+      "kind": "behavior-note",
+      "ref": "BN-08",
+      "scope": ["classes", "scenes"],
+      "under": ["Checkmark", "Exmark", "Matrix", "DecimalMatrix", "IntegerMatrix", "TexMatrix", "MobjectMatrix", "BulletedList", "Title"],
+      "fact": ["member", "class", "mro", "string", "bbox", "points", "points_sha256", "n_points", "style.*", "getters", "getters.*"],
+      "envelope": {"bounded_by": "ancestor"},
+      "reason": "The Reference's Tex glyph children of these natives do not exist, or are native glyphs (BN-08)."
+    },
+    {
+      "id": "bn07-c15-functiongraph-color",
+      "kind": "behavior-note",
+      "ref": "BN-07",
+      "scope": ["classes", "scenes"],
+      "class": "FunctionGraph",
+      "fact": ["style.fill_color", "style.stroke_color"],
+      "reason": "C-15: the Reference's FunctionGraph declares color=YELLOW but never forwards it, so its graphs keep the default stroke. FrankenManim forwards it (BN-07)."
+    },
+    {
+      "id": "bn13-cubic-bezier",
+      "kind": "behavior-note",
+      "ref": "BN-13",
+      "scope": ["classes", "scenes"],
+      "class": "CubicBezier",
+      "fact": ["n_points", "points", "points_sha256"],
+      "reason": "One error-bounded cubic-to-quadratic converter for API cubics (BN-13). The Reference splits a cubic into two quadratics with no bound (5 points against 33)."
+    },
+    {
+      "id": "bn09-curved-arrow-stem-density",
+      "kind": "behavior-note",
+      "ref": "BN-09",
+      "scope": ["classes", "scenes"],
+      "class": "Arrow",
+      "fact": ["n_points", "points", "points_sha256", "bbox"],
+      "envelope": {"size_rel": 0.1, "center_abs": 0.05},
+      "reason": "A curved Arrow's stem edges use quadratic_bezier_points_for_arc(path_arc) at its default of 8 components in the Reference, and BN-09's one arc-density rule in FrankenManim. Fewer components move the quadratic handles, and so the bbox (6% of the height of Arrow(LEFT, RIGHT, path_arc=PI / 2) in the class sweep). Straight arrows are equal. Envelope: extent within 10%, centre within 0.05 units."
+    },
+    {
+      "id": "fm-tex-metrics-glyphs-ru72-extent",
+      "kind": "open-bead",
+      "ref": "fm-tex-metrics-glyphs-ru72",
+      "scope": ["classes", "scenes"],
+      "class": ["Tex", "TexText", "SingleStringTex", "OldTex", "OldTexText"],
+      "fact": ["bbox"],
+      "envelope": {"size_rel": 0.4, "center_abs": 0.05},
+      "reason": "Known metric bug past bn05-text-geometry's 10%: formulas run 2-18% narrow and fallback glyphs run wide (display integrals up to +35%, Tex('a + b') +23% from the '+'). The envelope states that magnitude, so a 2x Tex still fails. Since franken_markdown e4e8e2e (TeX's null delimiters around fractions) the construction set's Tex matches the Reference without this row, so it no longer covers constructions."
+    },
+    {
+      "id": "adr0020-drawings-shelf",
+      "kind": "adr",
+      "ref": "ADR-0020",
+      "scope": "classes",
+      "subject": ["Lightbulb", "VideoIcon", "VideoSeries", "Bubble", "OldSpeechBubble", "DoubleSpeechBubble", "OldThoughtBubble", "VectorizedEarth"],
+      "fact": "error",
+      "reason": "Reference-derived drawings SVGs stay unbundled (ADR-0020). Both engines refuse without the file: the Reference raises OSError 'not Found', the portal a named NotImplementedError pointing at the drawings shelf."
+    },
+    {
+      "id": "bn05-empty-text",
+      "kind": "behavior-note",
+      "ref": "BN-05",
+      "scope": "classes",
+      "subject": ["TexText", "Title", "BulletedList", "TexTextFromPresetString"],
+      "fact": "error",
+      "reason": "Empty input constructs an empty mobject natively. The Reference's LaTeX raises on an empty body (BN-05)."
+    },
+    {
+      "id": "fm-c1up-composite-children",
+      "kind": "open-bead",
+      "ref": "fm-c1up",
+      "scope": ["classes", "scenes"],
+      "class": ["Checkbox", "EnableDisableButton", "LinearNumberSlider", "ColorSliders", "Textbox", "ControlPanel", "Dodecahedron", "Piano", "Piano3D", "TracingTail", "Code", "Dartboard", "Speedometer", "ThoughtBubble"],
+      "fact": ["bbox", "points", "points_sha256", "n_points", "string", "style.*", "class", "mro", "data_fields", "style"],
+      "reason": "Composite roots built differently from the Reference (class sweep)."
+    },
+    {
+      "id": "fm-c1up-composite-children-members",
+      "kind": "open-bead",
+      "ref": "fm-c1up",
+      "scope": ["classes", "scenes"],
+      "under": ["Checkbox", "EnableDisableButton", "LinearNumberSlider", "ColorSliders", "Textbox", "ControlPanel", "Dodecahedron", "Piano", "Piano3D", "Dartboard", "Speedometer", "ThoughtBubble", "Code"],
+      "fact": ["member", "class", "mro", "string", "bbox", "points", "points_sha256", "n_points", "style.*", "getters", "getters.*", "data_fields", "style"],
+      "reason": "Composite children are plain VMobject or differently structured (class sweep)."
+    },
+    {
+      "id": "fm-ui0c-boolean-structure",
+      "kind": "open-bead",
+      "ref": "fm-ui0c",
+      "scope": ["classes", "scenes"],
+      "class": ["Union", "Difference", "Intersection", "Exclusion"],
+      "fact": ["n_points", "points", "points_sha256", "bbox", "style.stroke_color", "style.fill_color"],
+      "reason": "Flatten-first boolean results: point counts, start point, orientation and inherited style differ, with no Behavior Note."
+    },
+    {
+      "id": "fm-ym2i-glow-factor-field",
+      "kind": "open-bead",
+      "ref": "fm-ym2i",
+      "scope": ["classes", "scenes"],
+      "class": ["DotCloud", "TrueDot", "GlowDot", "GlowDots"],
+      "fact": "data_fields",
+      "reason": "The portal's point-cloud records carry glow_factor; the Reference's is a uniform."
+    },
+    {
+      "id": "bn07-c29-become-point-less-style",
+      "kind": "behavior-note",
+      "ref": "BN-07",
+      "scope": ["scenes"],
+      "subject": ["RepeatedConvolution", "RepeatedConvolutionDoubleLump", "RepeatedConvolutionExp", "RepeatedConvolutionGaussian"],
+      "class": "VGroup",
+      "fact": ["style.fill_color", "style.fill_opacity", "style.stroke_color", "style.stroke_width"],
+      "reference_values": ["#888888", "#DDDDDD", 0, 4000],
+      "reason": "C-29: prod_rhs = fg_label[6:] then prod_rhs.become(new_prod_rhs). At the pin become() copies data only, so the sliced VGroup's point-less root keeps VMobject's defaults. FrankenManim's become() carries the source root's style (BN-07)."
+    },
+    {
+      "id": "bn20-riemann-sign",
+      "kind": "behavior-note",
+      "ref": "BN-20",
+      "scope": ["scenes"],
+      "subject": ["Graph15Case"],
+      "class": "Rectangle",
+      "fact": "style.fill_color",
+      "reference_values": ["#FC6255"],
+      "reason": "BN-20: the Reference's get_riemann_rectangles takes a rectangle's sign from i2gp(sample, graph), a curve-proportion lookup in world space. FrankenManim samples in data coordinates, so near a zero crossing two of Graph15Case's rectangles take the positive color where the Reference shows negative_color."
+    },
+    {
+      "id": "fm-v4lv-write-point-less-root",
+      "kind": "open-bead",
+      "ref": "fm-v4lv",
+      "scope": ["scenes"],
+      "subject": ["AnalyzeStepAlongDiagonalLine"],
+      "class": "VGroup",
+      "fact": "style.fill_opacity",
+      "reason": "Write's DrawBorderThenFill leaves a point-less root at the outline's fill opacity (0); the Reference keeps 0.5."
+    },
+    {
+      "id": "bn07-c31-axes-ticks-match-style",
+      "kind": "behavior-note",
+      "ref": "BN-07",
+      "scope": ["scenes"],
+      "subject": ["VisualizeMaxOfPairCDF"],
+      "class": "VGroup",
+      "fact": "style.stroke_color",
+      "reference_values": ["#DDDDDD"],
+      "reason": "C-31: a match_style inside a play reaches a ThreeDAxes tick group's point-less root. The Reference drops it (set_style writes data only) and the root keeps VGroup's grey; FrankenManim's root takes the matched axis color (BN-07)."
+    },
+    {
+      "id": "bn03-chord-length-threshold",
+      "kind": "behavior-note",
+      "ref": "BN-03",
+      "scope": ["scenes"],
+      "subject": ["CompareFirstTwoMethods"],
+      "class": "Line",
+      "fact": ["style.fill_color", "style.stroke_color"],
+      "reference_values": ["#FFFFFF", "#58C4DD"],
+      "reason": "BN-03: the scene colors a random chord BLUE when it is longer than the inscribed triangle's side, and builds chords from circle.pfp(random()). True-arclength point_from_proportion moves the endpoints slightly, so one chord at the threshold flips color."
+    },
+    {
+      "id": "fm-c1up-rounded-rectangle-corners",
+      "kind": "open-bead",
+      "ref": "fm-c1up",
+      "scope": "classes",
+      "subject": ["RoundedRectangle#1", "RoundedRectangle#2"],
+      "class": "RoundedRectangle",
+      "fact": ["n_points", "points", "points_sha256", "getters", "getters.*"],
+      "reason": "An explicit-radius RoundedRectangle has 21 points against the Reference's 25 (corner arc construction). BN-16 covers only the default radius."
+    }
+  ]
+}

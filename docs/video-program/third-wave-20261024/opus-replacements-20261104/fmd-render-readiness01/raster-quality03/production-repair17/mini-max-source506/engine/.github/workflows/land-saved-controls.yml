@@ -1,0 +1,27 @@
+name: Publish saved native control features
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/land-saved-controls.yml'
+      - 'scripts/patches/saved-controls/**'
+  workflow_dispatch:
+concurrency:
+  group: saved-native-control-publication
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  publish:
+    if: github.repository == 'Dicklesworthstone/franken_manim' && github.ref == 'refs/heads/main'
+    runs-on: macos-14
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Verify and publish the two saved feature commits without force
+        run: python3 scripts/patches/saved-controls/publish.py

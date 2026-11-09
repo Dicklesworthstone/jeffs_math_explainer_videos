@@ -1,0 +1,64 @@
+[package]
+name = "fmn-conformance"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "The Gauntlet"
+
+[features]
+metal = ["fmn-render/metal", "fmn-cli/metal"]
+
+[dependencies]
+fmn-core.workspace = true
+fmn-hash.workspace = true
+fmn-geom.workspace = true
+fmn-mobject.workspace = true
+fmn-anim.workspace = true
+fmn-render.workspace = true
+fmn-frame.workspace = true
+# The Look Gallery consumes the certified frame conversion and the owned,
+# deterministic PNG encoder to turn raw-frame goldens into reviewable panels
+# without a throwaway external decoder (fm-qtd).
+fmn-codec.workspace = true
+fmn-library.workspace = true
+fmn-scene.workspace = true
+fmn-output = { workspace = true, features = ["exact-process"] }
+fmn-runtime.workspace = true
+fmn-cache.workspace = true
+fmn-platform.workspace = true
+fmn-text.workspace = true
+fmn-tex.workspace = true
+# §15.1 public-front-door e2e: the primitive scenario compiles and runs
+# through the shipped facade rather than reconstructing its imports here.
+fmn.workspace = true
+# Certified-path transcendentals route through fmn-dmath (ADR-0010; the
+# edge is ADR-0014's precedent) — the scene corpus's graph closures.
+fmn-dmath.workspace = true
+# The Gauntlet consumes the pinned math engine to compute the public
+# coverage ratchet (§11.5, fm-mol).
+fmd-math.workspace = true
+# The font+license bundle manifest (fm-aef) is generated and drift-checked
+# against the pinned parser's actual bundled faces — the same bytes the
+# engine ships, so the manifest's hashes are the input closure's identity.
+fmd-font.workspace = true
+fnp-io.workspace = true
+
+[dev-dependencies]
+# W10 drives both the library surface and Cargo's exact shipping CLI artifact.
+# This remains dev-only; the shipped edge set and crate DAG are unaffected.
+fmn-cli = { path = "../fmn-cli", features = ["batch"], artifact = "bin:fmn", lib = true }
+fmn-studio.workspace = true
+# The §16.5 fuzz campaign's targets (tests/fuzz_campaign.rs): the pinned font
+# parser and the config YAML subset. Same posture as above — the campaign is a
+# Gauntlet consumer, not a shipped edge.
+fmn-config.workspace = true
+# PG-8 (fm-zoi): the binding-tax producer drives the real bridge. pyo3 stays
+# out of the shipped closure (D3) — this is a Gauntlet-only test edge.
+fmn-python = { workspace = true, features = ["gauntlet"] }
+# The browser player's frame path for the semantic sanity oracles
+# (tests/semantic_oracles.rs, fm-5wq.46), run natively.
+fmn-wasm = { path = "../fmn-wasm" }
+
+[lints]
+workspace = true

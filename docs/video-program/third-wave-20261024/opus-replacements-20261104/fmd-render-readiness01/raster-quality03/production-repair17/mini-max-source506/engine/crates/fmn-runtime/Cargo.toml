@@ -1,0 +1,19 @@
+[package]
+name = "fmn-runtime"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Dual-mode runtime shims (house pattern); derives the ExecutionPlan from HardwareTopology (§17.4)."
+
+[dependencies]
+fmn-core.workspace = true
+fmn-platform.workspace = true
+
+[dev-dependencies]
+# §2.7 / fm-3df: deterministic scheduler exploration only. Production keeps
+# using std scoped threads; asupersync never enters the frame loop.
+asupersync.workspace = true
+
+[lints]
+workspace = true

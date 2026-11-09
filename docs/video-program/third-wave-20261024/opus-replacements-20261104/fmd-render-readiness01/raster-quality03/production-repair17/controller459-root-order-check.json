@@ -1,0 +1,7 @@
+{
+  "source449_sha256": "3e8d5fa215399b590a27ce95591c6df7ff3d05f8667c419b5b5ac8247ecfb38b",
+  "controller459_sha256": "bc53e8e5bd7808a117c8e1d49d84907cf964bb22b1a4e9c4f3184a642ecb1c37",
+  "postimport_check_line": 329,
+  "manifest_open_line": 338,
+  "scope": "Root AST order check only. Independent replay requested; no staging or launch."
+}

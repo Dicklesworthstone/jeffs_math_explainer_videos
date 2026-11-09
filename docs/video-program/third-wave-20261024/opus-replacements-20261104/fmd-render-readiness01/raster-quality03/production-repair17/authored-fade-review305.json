@@ -1,0 +1,18 @@
+{
+  "time": "2026-11-08T18:16:57.609467+00:00",
+  "reviewer": "root",
+  "pictures_actually_viewed": 18,
+  "sampling": [
+    "authored-fade-samples305/sampling.json",
+    "authored-fade-samples305b/sampling.json"
+  ],
+  "observations": {
+    "05_C10": "Authored7314-7362 fade: strip absent before/start, partial at7337/7338, full at7362/7363, later gold correspondence box and annotations clear7392/7393. Earlier chroma fit6875 is wrong event. No clipping or overlap observed.",
+    "11_G3": "Authored8296-8313 fade: field/text/curve visible before/start, partially dim at8304, removed by8313, subsequent circle begins faint8314 then full8331 onward. This demonstrates progressive raster removal with vectors in sampled frames. No persistent field or visible overlap."
+  },
+  "limitations": [
+    "18 selected still frames only, not continuous motion or listening acceptance.",
+    "No final4K or fine-sync acceptance.",
+    "Other308 missing-frame requirements remain."
+  ]
+}

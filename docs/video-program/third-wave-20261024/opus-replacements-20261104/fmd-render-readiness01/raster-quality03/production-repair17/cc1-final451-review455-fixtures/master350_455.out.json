@@ -1,0 +1,67 @@
+{
+ "positive": {
+  "outcome": "accepted",
+  "gallery_source": "SSD/jobs/css-reviewed-final-05-gallery352-ssd442/render/05_gallery.mp4",
+  "gallery_source_is_ssd_lexical": true,
+  "gallery_source_resolves_into_D": true,
+  "ssd_job_records_bound": true,
+  "intervals": [
+   "01_the_bump",
+   "04_reading_color",
+   "05_gallery",
+   "06_one_derivative",
+   "07_one_point",
+   "08_loop_sums",
+   "09_boundary",
+   "10_rigidity",
+   "11_counting",
+   "12_residues",
+   "14_continuation"
+  ],
+  "playback": {
+   "09_boundary": [
+    0.1
+   ]
+  },
+  "sources_by_root": {
+   "D": 36,
+   "CSS": 30,
+   "SSD": 6,
+   "TRJ": 12,
+   "HZ2": 6
+  },
+  "files": 242
+ },
+ "gallery_host_D": {
+  "outcome": "refused",
+  "error": "AssertionError: "
+ },
+ "gallery_old_css_job": {
+  "outcome": "refused",
+  "error": "AssertionError: "
+ },
+ "gallery_job_ssd440": {
+  "outcome": "refused",
+  "error": "AssertionError: "
+ },
+ "ssd_worker_on_04": {
+  "outcome": "refused",
+  "error": "AssertionError: SSD442 worker belongs only to gallery"
+ },
+ "gallery_summary_lists_css_paths": {
+  "outcome": "refused",
+  "error": "AssertionError: T/05_gallery_summary_lists_css_paths/SSD/jobs/css-reviewed-final-05-gallery352-ssd442/render/05_gallery.mp4"
+ },
+ "gallery_render_frames_mismatch": {
+  "outcome": "refused",
+  "error": "AssertionError: 05_gallery"
+ },
+ "gallery_staged_from_css_copy": {
+  "outcome": "refused",
+  "error": "AssertionError: 05_gallery"
+ },
+ "summary_version_350": {
+  "outcome": "refused",
+  "error": "AssertionError: "
+ }
+}

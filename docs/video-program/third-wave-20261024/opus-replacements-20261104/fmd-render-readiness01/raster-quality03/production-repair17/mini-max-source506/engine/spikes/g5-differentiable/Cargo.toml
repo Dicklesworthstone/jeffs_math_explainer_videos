@@ -1,0 +1,17 @@
+[package]
+name = "fmn-spike-differentiable"
+version = "0.0.0"
+edition = "2024"
+publish = false
+description = "G5 exploratory spike: Differentiable analytic coverage and parameter derivatives"
+
+[dependencies]
+fmn-core = { path = "../../crates/fmn-core" }
+fmn-dmath = { path = "../../crates/fmn-dmath" }
+fmn-geom = { path = "../../crates/fmn-geom" }
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }
+
+# Standalone spike workspace
+[workspace]

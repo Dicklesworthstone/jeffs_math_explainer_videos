@@ -1,0 +1,380 @@
+diff --git a/crates/fmn-conformance/tests/e2e_scenarios.rs b/crates/fmn-conformance/tests/e2e_scenarios.rs
+index 2d41d65..346c989 100644
+--- a/crates/fmn-conformance/tests/e2e_scenarios.rs
++++ b/crates/fmn-conformance/tests/e2e_scenarios.rs
+@@ -1812,8 +1812,8 @@ fn studio_interactive_lifecycle_run(ctx: &mut RunCtx) -> Result<RunOutcome, Scen
+     studio_contains(&committed, "\"input_revision\":8")?;
+     let restart = endpoint.request("POST", "/api/restart", b"", 200)?;
+     for field in [
+-        "\"worker_generation\":2", "\"reused_entries\":1",
+-        "\"reexecuted_entries\":7", "\"frame_index\":2",
++        "\"worker_generation\":2", "\"reused_entries\":8",
++        "\"reexecuted_entries\":0", "\"frame_index\":2",
+     ] {
+         studio_contains(&restart, field)?;
+     }
+diff --git a/crates/fmn-scene/src/journal.rs b/crates/fmn-scene/src/journal.rs
+index d9a4e8d..db9c1c1 100644
+--- a/crates/fmn-scene/src/journal.rs
++++ b/crates/fmn-scene/src/journal.rs
+@@ -31,8 +31,9 @@
+ //! schema minor 1.1, the same container carries the exact typed input stream
+ //! (sequence + rational-clock timestamp + payload). Minor 1.2 adds the
+ //! renderer/backend identities actually used by the session, separate from
+-//! replay-command identity. Minors 1.0 and 1.1 remain readable with absent
+-//! newer streams represented as empty.
++//! replay-command identity. Minor 1.3 distinguishes typed scene input from
++//! opaque custom callbacks. Older minors remain readable with absent newer
++//! streams represented as empty; they cannot claim the new input vocabulary.
+ 
+ use fmn_anim::RationalTime;
+ use fmn_anim::purity::{ImpureEffect, Purity};
+@@ -43,7 +44,7 @@ use std::collections::TryReserveError;
+ use crate::events::{EventError, EventPayload, EventType, InputEvent, Key, Modifiers, MouseButton};
+ 
+ /// The journal's versioned container schema (FMNA/3).
+-pub const JOURNAL_SCHEMA: Schema = Schema::new(*b"FMNA", 3, 1, 2);
++pub const JOURNAL_SCHEMA: Schema = Schema::new(*b"FMNA", 3, 1, 3);
+ /// The repro bundle's versioned container schema (FMNA/4).
+ pub const BUNDLE_SCHEMA: Schema = Schema::new(*b"FMNA", 4, 1, 0);
+ 
+@@ -295,6 +296,9 @@ pub enum CommandKind {
+     Sound,
+     /// Anything the vocabulary does not recognize.
+     Custom,
++    /// Typed, recorded scene input. Its effect and input closure must still be
++    /// classified and verified; this is not a purity claim or arbitrary code.
++    Input,
+ }
+ 
+ impl CommandKind {
+@@ -307,6 +311,7 @@ impl CommandKind {
+             Self::CameraChange => 4,
+             Self::Sound => 5,
+             Self::Custom => 6,
++            Self::Input => 7,
+         }
+     }
+ 
+@@ -319,6 +324,7 @@ impl CommandKind {
+             4 => Self::CameraChange,
+             5 => Self::Sound,
+             6 => Self::Custom,
++            7 => Self::Input,
+             _ => return Err(JournalError::Malformed("command kind")),
+         })
+     }
+@@ -824,6 +830,9 @@ impl Journal {
+         let mut entries = Vec::with_capacity(count.min(65_536));
+         for _ in 0..count {
+             let command = get_command(&mut r)?;
++            if command.kind == CommandKind::Input && r.version().1 < 3 {
++                return Err(JournalError::Malformed("input command requires journal minor 1.3"));
++            }
+             let effect = get_effect(&mut r)?;
+             if command.kind == CommandKind::Custom && effect != EffectClass::Opaque {
+                 return Err(JournalError::Malformed("custom command effect"));
+diff --git a/crates/fmn-scene/tests/journal.rs b/crates/fmn-scene/tests/journal.rs
+index 2f0aee3..89bc5ed 100644
+--- a/crates/fmn-scene/tests/journal.rs
++++ b/crates/fmn-scene/tests/journal.rs
+@@ -103,7 +103,7 @@ fn scripted_session(stage: &mut Stage, rng: &Pcg64Dxsm) -> (Journal, Vec<Command
+ }
+ 
+ #[test]
+-fn journal_minor_two_reads_legacy_journals_without_newer_streams() {
++fn journal_reads_legacy_journals_without_newer_streams() {
+     let mut writer = Writer::new(Schema::new(*b"FMNA", 3, 1, 0));
+     writer.put_u32(0);
+     let minor_zero = writer.finish().expect("minor-zero fixture encodes");
+@@ -113,7 +113,11 @@ fn journal_minor_two_reads_legacy_journals_without_newer_streams() {
+     writer.put_u32(0);
+     let minor_one = writer.finish().expect("minor-one fixture encodes");
+ 
+-    for legacy in [&minor_zero, &minor_one] {
++    let mut writer = Writer::new(Schema::new(*b"FMNA", 3, 1, 2));
++    writer.put_u32(0).put_u32(0).put_u32(0);
++    let minor_two = writer.finish().expect("minor-two fixture encodes");
++
++    for legacy in [&minor_zero, &minor_one, &minor_two] {
+         let decoded = Journal::from_bytes(legacy).expect("legacy journal remains readable");
+         assert!(decoded.entries().is_empty());
+         assert!(decoded.events().is_empty());
+@@ -360,6 +364,34 @@ fn custom_commands_are_opaque_by_decree() {
+     );
+ }
+ 
++#[test]
++fn typed_input_remains_stateful_replayable_and_bound_to_its_input_closure() {
++    let mut journal = Journal::new();
++    let mut input = entry_for(CommandKind::Input, "typed edit", b"edited state");
++    input.effect = EffectClass::Stateful(vec![ImpureEffectTag::UnclassifiedAnimation]);
++    input.reads.push(AssetRead { path: "native/source".into(), digest: sha256(b"source") });
++    let incoming = vec![input.command.clone()];
++    journal.record(input).unwrap();
++    let bytes = journal.to_bytes().unwrap();
++    let decoded = Journal::from_bytes(&bytes).unwrap();
++    assert_eq!(decoded.to_bytes().unwrap(), bytes);
++    assert_eq!(decoded.entries()[0].command.kind, CommandKind::Input);
++    assert!(matches!(decoded.entries()[0].effect, EffectClass::Stateful(_)));
++    assert!(!decoded.entries()[0].is_replay_barrier());
++    assert_eq!(plan_replay(&decoded, &incoming, &|_| true).reuse, 1);
++    assert_eq!(plan_replay(&decoded, &incoming, &|_| false).reuse, 0);
++}
++
++#[test]
++fn input_discriminant_cannot_be_smuggled_into_an_older_journal_minor() {
++    let mut writer = Writer::new(Schema::new(*b"FMNA", 3, 1, 2));
++    writer.put_u32(1).put_u8(7).put_digest(&sha256(b"input")).put_str("typed input")
++        .put_u8(0).put_u32(0).put_u32(0).put_bool(false).put_digest(&sha256(b"state"))
++        .put_u32(0).put_u32(0);
++    let error = Journal::from_bytes(&writer.finish().unwrap()).unwrap_err();
++    assert!(error.to_string().contains("requires journal minor 1.3"), "{error}");
++}
++
+ #[test]
+ fn changed_assets_invalidate_by_name() {
+     let mut journal = Journal::new();
+diff --git a/crates/fmn-studio/src/native/edits.rs b/crates/fmn-studio/src/native/edits.rs
+index b6d9e58..9873b66 100644
+--- a/crates/fmn-studio/src/native/edits.rs
++++ b/crates/fmn-studio/src/native/edits.rs
+@@ -10,7 +10,7 @@ use crate::protocol::{StudioInput, studio_input_payload};
+ use super::NativeSceneProgram;
+ use super::program::{execution_error, invalid};
+ 
+-const EDIT_STATE_SCHEMA: Schema = Schema::new(*b"FMEI", 1, 1, 0);
++const EDIT_STATE_SCHEMA: Schema = Schema::new(*b"FMEI", 1, 2, 0);
+ /// Hard ceiling independent of caller policy; each label is separately bounded.
+ pub(super) const MAX_RECORDED_INPUTS: usize = 65_536;
+ 
+@@ -248,7 +248,7 @@ pub(super) fn decode_state<'a>(
+             .map_err(execution_error)?;
+         owned.push_str(label);
+         let command = CommandRecord {
+-            kind: CommandKind::Custom,
++            kind: CommandKind::Input,
+             identity: Digest::from_bytes(digest),
+             label: owned,
+         };
+diff --git a/crates/fmn-studio/src/native/service.rs b/crates/fmn-studio/src/native/service.rs
+index b5e67d1..28ab286 100644
+--- a/crates/fmn-studio/src/native/service.rs
++++ b/crates/fmn-studio/src/native/service.rs
+@@ -127,7 +127,7 @@ impl NativeWorkerConfig {
+             },
+             AssetRead {
+                 path: "native/input-track-semantics".into(),
+-                digest: protocol_digest(b"frame-stamped-native-input-track-v1"),
++                digest: protocol_digest(b"frame-stamped-native-input-track-v2"),
+             },
+         ]
+     }
+@@ -393,7 +393,7 @@ impl NativeSceneWorker {
+         position: u64,
+         edits: &mut EditTrack,
+     ) -> Result<u64, ServiceError> {
+-        let frame = if command.kind == CommandKind::Custom {
++        let frame = if command.kind == CommandKind::Input {
+             if !self.input_enabled() {
+                 return Err(invalid(
+                     "native committed input is not enabled for this worker",
+@@ -498,13 +498,13 @@ impl NativeSceneWorker {
+         let mut program = self.fresh_at(frame, &edits)?;
+         let state = self.state_bytes(&mut program, &edits, next)?;
+         let mut raster = self.new_raster()?;
+-        if command.kind == CommandKind::Custom {
++        if command.kind == CommandKind::Input {
+             // Do not record an input which cannot produce a valid native frame.
+             let frame_response = raster.frame(&self.config.scene, &program)?;
+             self.checked(frame_response)?;
+         }
+         let state_hash = protocol_digest(&state);
+-        let checkpoint = command.kind == CommandKind::Custom
++        let checkpoint = command.kind == CommandKind::Input
+             || self
+                 .last_checkpoint
+                 .is_none_or(|last| last.abs_diff(frame) >= self.config.checkpoint_frames);
+diff --git a/crates/fmn-studio/src/native/service/pending.rs b/crates/fmn-studio/src/native/service/pending.rs
+index b6215df..d2bb06a 100644
+--- a/crates/fmn-studio/src/native/service/pending.rs
++++ b/crates/fmn-studio/src/native/service/pending.rs
+@@ -26,7 +26,7 @@ impl NativeSceneWorker {
+     }
+ 
+     pub(super) fn saves_pending(&self, command: &CommandRecord) -> Result<bool, ServiceError> {
+-        if self.pending_inputs.is_empty() || command.kind == CommandKind::Custom { return Ok(false); }
++        if self.pending_inputs.is_empty() || command.kind == CommandKind::Input { return Ok(false); }
+         let frame = self.target(studio_seek_frame(&self.config.scene, command).map_err(|error| invalid(error.to_string()))?)?;
+         Ok(self.program.as_ref().is_some_and(|program| program.frame_index() == frame))
+     }
+diff --git a/crates/fmn-studio/src/native/service/recovery.rs b/crates/fmn-studio/src/native/service/recovery.rs
+index 115d380..1d8db70 100644
+--- a/crates/fmn-studio/src/native/service/recovery.rs
++++ b/crates/fmn-studio/src/native/service/recovery.rs
+@@ -1,7 +1,7 @@
+ //! Transactional native command replay and cold checkpoint reconstruction.
+ 
+ use fmn_scene::studio_bridge::{SceneState, Stage};
+-use fmn_scene::{CommandKind, EffectClass, Journal};
++use fmn_scene::Journal;
+ 
+ use super::super::edits::decode_state;
+ use super::{NativeSceneWorker, execution_error, refuse_owned};
+@@ -52,12 +52,7 @@ impl NativeSceneWorker {
+         let mut total_frames = 0_u64;
+         let mut total_inputs = 0_u64;
+         for (offset, entry) in entries.iter().enumerate() {
+-            let effect = if entry.command.kind == CommandKind::Custom {
+-                EffectClass::Opaque
+-            } else {
+-                self.effect()
+-            };
+-            if entry.reads != self.reads || entry.effect != effect || !entry.subprocesses.is_empty()
++            if entry.reads != self.reads || entry.effect != self.effect() || !entry.subprocesses.is_empty()
+             {
+                 return Err(refuse(
+                     "native replay closure or effect differs from this factory",
+diff --git a/crates/fmn-studio/src/protocol.rs b/crates/fmn-studio/src/protocol.rs
+index 5e3b635..86becde 100644
+--- a/crates/fmn-studio/src/protocol.rs
++++ b/crates/fmn-studio/src/protocol.rs
+@@ -18,13 +18,13 @@ use fmn_scene::{
+ };
+ 
+ /// Canonical request envelope schema.
+-pub const REQUEST_SCHEMA: Schema = Schema::new(*b"FMNI", 1, 1, 0);
++pub const REQUEST_SCHEMA: Schema = Schema::new(*b"FMNI", 1, 1, 1);
+ /// Canonical response envelope schema.
+-pub const RESPONSE_SCHEMA: Schema = Schema::new(*b"FMNI", 2, 1, 1);
++pub const RESPONSE_SCHEMA: Schema = Schema::new(*b"FMNI", 2, 1, 2);
+ const STUDIO_SEEK_COMMAND_SCHEMA: Schema = Schema::new(*b"FMNI", 3, 1, 0);
+ 
+ /// The live protocol version advertised during the mandatory handshake.
+-pub const CURRENT_VERSION: ProtocolVersion = ProtocolVersion { major: 1, minor: 2 };
++pub const CURRENT_VERSION: ProtocolVersion = ProtocolVersion { major: 1, minor: 3 };
+ 
+ /// Maximum distinct renderer/backend identities attached to one frame.
+ ///
+@@ -147,7 +147,7 @@ pub fn studio_input_command(
+         MAX_STUDIO_INPUT_LABEL_BYTES,
+     )?;
+     Ok(CommandRecord {
+-        kind: CommandKind::Custom,
++        kind: CommandKind::Input,
+         identity,
+         label,
+     })
+@@ -157,7 +157,7 @@ pub fn studio_input_payload(
+     scene: &str,
+     command: &CommandRecord,
+ ) -> Result<StudioInput, ProtocolError> {
+-    if command.kind != CommandKind::Custom {
++    if command.kind != CommandKind::Input {
+         return Err(ProtocolError::Malformed("Studio input command kind"));
+     }
+     let hex = command
+@@ -1599,6 +1599,7 @@ const fn command_kind_code(kind: CommandKind) -> u8 {
+         CommandKind::CameraChange => 4,
+         CommandKind::Sound => 5,
+         CommandKind::Custom => 6,
++        CommandKind::Input => 7,
+     }
+ }
+ 
+@@ -1611,6 +1612,7 @@ fn command_kind_from_code(code: u8) -> Result<CommandKind, ProtocolError> {
+         4 => Ok(CommandKind::CameraChange),
+         5 => Ok(CommandKind::Sound),
+         6 => Ok(CommandKind::Custom),
++        7 => Ok(CommandKind::Input),
+         _ => Err(ProtocolError::Malformed("command kind")),
+     }
+ }
+@@ -2320,7 +2322,7 @@ mod studio_command_tests {
+             },
+         };
+         let command = studio_input_command("interactive.v1", &input).expect("valid input");
+-        assert_eq!(command.kind, CommandKind::Custom);
++        assert_eq!(command.kind, CommandKind::Input);
+         assert!(command.label.starts_with("studio input "));
+         assert!(command.label.len() <= MAX_STUDIO_INPUT_LABEL_BYTES);
+         assert_eq!(
+@@ -2363,6 +2365,8 @@ mod studio_command_tests {
+         let mut wrong_kind = command.clone();
+         wrong_kind.kind = CommandKind::Wait;
+         assert!(studio_input_payload("interactive.v1", &wrong_kind).is_err());
++        wrong_kind.kind = CommandKind::Custom;
++        assert!(studio_input_payload("interactive.v1", &wrong_kind).is_err());
+ 
+         let mut wrong_identity = command.clone();
+         wrong_identity.identity = sha256(b"tampered");
+diff --git a/crates/fmn-studio/tests/browser.mjs b/crates/fmn-studio/tests/browser.mjs
+index 9cf3f54..e9e04f0 100644
+--- a/crates/fmn-studio/tests/browser.mjs
++++ b/crates/fmn-studio/tests/browser.mjs
+@@ -316,7 +316,9 @@ try {
+   await screenshot("interactive.v1.edited.desktop.png");
+   await click("#restart"); await synchronized(interactiveInitial.view.frame_count - 1);
+   await until(() => evaluate("/Restart restored/.test(document.getElementById('replay').textContent)"), "native edit replay completes");
+-  assert.match(await evaluate("document.getElementById('replay').textContent"), /1 reused/);
++  const replayStatus = await evaluate("document.getElementById('replay').textContent");
++  assert.ok(replayStatus.includes(`${finalState.view.input_revision} reused`), "typed input has no opaque replay barrier");
++  assert.match(replayStatus, /0 re-executed/);
+   const restoredState = await inspect();
+   assert.deepEqual(restoredState.nodes, finalState.nodes, "checkpoint plus input reexecution restores native scene state");
+   assert.equal(await pixelHash(), finalPixels, "checkpoint plus input reexecution restores decoded pixels");
+diff --git a/crates/fmn-studio/tests/native_committed_input.rs b/crates/fmn-studio/tests/native_committed_input.rs
+index ea8b04f..c3daa28 100644
+--- a/crates/fmn-studio/tests/native_committed_input.rs
++++ b/crates/fmn-studio/tests/native_committed_input.rs
+@@ -52,6 +52,38 @@ fn config() -> NativeWorkerConfig {
+ }
+ 
+ fn worker() -> NativeSceneWorker { NativeSceneWorker::new(config(), program).unwrap() }
++
++#[test]
++fn actual_editor_journal_reuses_typed_input_without_bypassing_effect_or_asset_checks() {
++    let mut worker = worker();
++    let mut journal = Journal::new();
++    journal.record(commit_seek(&mut worker, 0)).unwrap();
++    journal.record(select(&mut worker)).unwrap();
++    journal.record(input(&mut worker, nudge())).unwrap();
++    journal.record(commit_seek(&mut worker, 3)).unwrap();
++    let journal = Journal::from_bytes(&journal.to_bytes().unwrap()).unwrap();
++    let commands = journal.entries().iter().map(|entry| entry.command.clone()).collect::<Vec<_>>();
++    let plan = fmn_scene::plan_replay(&journal, &commands, &|_| true);
++    assert_eq!(plan.reuse, 4);
++    assert!(plan.reason.is_none());
++    assert!(journal.entries().iter().all(|entry| matches!(entry.effect, fmn_scene::EffectClass::Stateful(_))));
++    assert_eq!(journal.entries()[1].command.kind, fmn_scene::CommandKind::Input);
++    assert_eq!(fmn_scene::plan_replay(&journal, &commands, &|_| false).reuse, 0);
++}
++
++#[test]
++fn custom_command_with_a_valid_input_label_cannot_execute_or_be_promoted() {
++    let mut worker = worker();
++    let before = seek(&mut worker, 0);
++    let mut command = studio_input_command(NAME, &StudioInput {
++        frame: 0, revision: 0, target: None, event: nudge(),
++    }).unwrap();
++    command.kind = fmn_scene::CommandKind::Custom;
++    assert!(worker.handle(SupervisorRequest::Play { scene: NAME.into(), command }).is_err());
++    assert_eq!(worker.journal_position(), 0);
++    assert_eq!(worker.committed_input_count(), 0);
++    assert_eq!(seek(&mut worker, 0), before);
++}
+ fn seek(worker: &mut NativeSceneWorker, frame: i64) -> FrameStream {
+     let WorkerResponse::Frame(frame) = worker.handle(SupervisorRequest::Scrub { scene: NAME.into(), frame }).unwrap()
+         else { panic!("native frame") };
+@@ -350,7 +382,10 @@ fn preview_save_publishes_one_complete_batch_and_only_its_final_checkpoint() {
+     let entries = save(&mut worker);
+     assert_eq!(entries.len(), 3);
+     assert!(entries[..2].iter().all(|entry| entry.checkpoint.is_none()));
+-    assert!(entries[..2].iter().all(|entry| entry.effect == fmn_scene::EffectClass::Opaque));
++    assert!(entries[..2].iter().all(|entry|
++        entry.command.kind == fmn_scene::CommandKind::Input
++            && matches!(entry.effect, fmn_scene::EffectClass::Stateful(_))
++            && !entry.is_replay_barrier()));
+     assert!(entries[2].checkpoint.is_some());
+     assert_eq!(worker.journal_position(), 3);
+     assert_eq!(worker.pending_input_count(), 0);

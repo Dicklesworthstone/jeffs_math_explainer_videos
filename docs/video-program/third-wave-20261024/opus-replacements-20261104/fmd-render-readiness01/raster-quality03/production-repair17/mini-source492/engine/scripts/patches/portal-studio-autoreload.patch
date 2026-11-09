@@ -1,0 +1,712 @@
+diff --git a/crates/fmn-python/python/fmn_python/studio.py b/crates/fmn-python/python/fmn_python/studio.py
+index ed7b8c0..b578c63 100644
+--- a/crates/fmn-python/python/fmn_python/studio.py
++++ b/crates/fmn-python/python/fmn_python/studio.py
+@@ -11,4 +11,5 @@ from __future__ import annotations
+ import argparse
+ import contextlib
++import copy
+ import hashlib
+ import json
+@@ -17,6 +18,8 @@ from pathlib import Path
+ import secrets
+ import sys
++import threading
+ import time
+ from typing import Any
++import weakref
+ 
+ from . import _ensure_exclusive_manimlib_namespace
+@@ -26,4 +29,5 @@ _MAX_SOURCE_BYTES = 16 * 1024 * 1024
+ _DEFAULT_FRAMES = 7200
+ _DEFAULT_BYTES = 256 * 1024 * 1024
++_MAX_RELOAD_RESPONSE = 65536
+ 
+ 
+@@ -84,4 +88,8 @@ class Studio:
+     ``url`` contains a bearer capability: do not share it with untrusted users.
+     Preview is silent/read-only; ordinary offline rendering remains separate.
++    ``autoreload=True`` explicitly authorizes rerunning source on stabilized
++    edits. It watches local Python sources and any additional ``watch_paths``;
++    files named explicitly may be non-Python assets. Worker failures leave the
++    previous healthy capture available and are exposed through ``reload_status``.
+     """
+     def __init__(
+@@ -90,4 +98,6 @@ class Studio:
+         max_frames: int = _DEFAULT_FRAMES, max_bytes: int = _DEFAULT_BYTES,
+         timeout: int = 120, port: int = 0,
++        autoreload: bool = False, watch_paths: tuple[os.PathLike[str] | str, ...] | list = (),
++        debounce_ms: int = 200,
+     ) -> None:
+         _ensure_exclusive_manimlib_namespace()
+@@ -96,6 +106,15 @@ class Studio:
+         if not isinstance(scene, str) or not scene.isidentifier() or len(scene) > 512:
+             raise ValueError("Studio requires one explicit Scene class name")
++        if not isinstance(autoreload, bool):
++            raise ValueError("autoreload must be a bool")
++        if not isinstance(watch_paths, (tuple, list)) or len(watch_paths) > 62:
++            raise ValueError("watch_paths must be a list or tuple of at most 62 paths")
++        if watch_paths and not autoreload:
++            raise ValueError("watch_paths requires autoreload=True")
++        debounce_ms = _integer(debounce_ms, "debounce_ms", 0, 10000)
+         path = Path(source).resolve()
+         _source(path)
++        roots = list(dict.fromkeys([str(path), str(path.parent),
++                                   *(str(Path(value).resolve()) for value in watch_paths)]))
+         try:
+             width, height = resolution
+@@ -134,16 +153,82 @@ class Studio:
+                     environment, str(path.parent), request["build_id"])
+ 
++        self._operation = threading.RLock()
++        self._status_lock = threading.Lock()
++        self._stop = threading.Event()
++        self._watch_thread = None
++        # Snapshot before executing the initial generation. An edit made while
++        # that worker is rendering must be noticed on the first later poll.
++        self._watch = _native._StudioHost.watch_sources(roots, debounce_ms) if autoreload else None
++        self._timeout = timeout + 5
++        self._autoreload = autoreload
++        self._reload_status = {"revision": 0, "completed": 0, "error": None, "result": None}
+         self._host = _native._StudioHost(rebuild, scene, secrets.token_hex(32), port, timeout)
++        try:
++            if autoreload:
++                self._watch_thread = threading.Thread(
++                    target=_watch_loop, args=(weakref.ref(self), self._stop, self._watch),
++                    name="fmn-python-source-watch", daemon=True,
++                )
++                self._watch_thread.start()
++        except BaseException:
++            self._stop.set()
++            self._host.close()
++            raise
+ 
+     @property
+     def url(self) -> str:
+-        return self._host.url
++        with self._operation:
++            return self._host.url
+ 
+     @property
+     def alive(self) -> bool:
+-        return self._host.alive
++        with self._operation:
++            return self._host.alive
++
++    @property
++    def autoreload(self) -> bool:
++        return self._autoreload
++
++    @property
++    def reload_status(self) -> dict[str, Any]:
++        """Detached status; a failed edit is not a terminal host failure."""
++        with self._status_lock:
++            return copy.deepcopy(self._reload_status)
++
++    def _record_reload(self, result=None, error=None) -> None:
++        with self._status_lock:
++            if error is not None and error == self._reload_status["error"]:
++                return  # A refused scan must not flood robot output every poll.
++            self._reload_status = {
++                "revision": self._reload_status["revision"] + 1,
++                "completed": self._reload_status["completed"] + int(error is None),
++                "error": error, "result": result,
++            }
++
++    def reload(self) -> dict[str, Any]:
++        """Reexecute in a fresh worker through the same authenticated native
++        route as the browser's Reload button, including its operation lock,
++        rate limits, opaque-effect handling and frame publication.
++        """
++        with self._operation:
++            if self._stop.is_set() or not self._host.alive:
++                raise RuntimeError("Studio is closed")
++            try:
++                result = _reload_request(self._host.url, self._timeout)
++            except Exception as error:
++                self._record_reload(error=str(error)[:4096])
++                raise
++            self._record_reload(result=result)
++            return copy.deepcopy(result)
+ 
+     def close(self) -> None:
+-        self._host.close()
++        self._stop.set()
++        thread = self._watch_thread
++        # Never hold the operation lock while joining a thread which may need
++        # it to finish. Native worker requests retain their configured deadline.
++        if thread is not None and thread is not threading.current_thread() and thread.ident is not None:
++            thread.join()
++        with self._operation:
++            self._host.close()
+ 
+     def __enter__(self) -> Studio:
+@@ -156,4 +241,57 @@ class Studio:
+ 
+ 
++def _reload_request(url: str, timeout: int) -> dict[str, Any]:
++    import urllib.error
++    import urllib.parse
++    import urllib.request
++
++    parsed = urllib.parse.urlsplit(url)
++    if parsed.scheme != "http" or parsed.hostname != "127.0.0.1" or parsed.username or parsed.password:
++        raise RuntimeError("Studio reload requires its native loopback host")
++    authority = "http://" + parsed.netloc
++    request = urllib.request.Request(authority + "/api/restart?" + parsed.query, data=b"",
++        headers={"Origin": authority, "Content-Type": "application/x-www-form-urlencoded"})
++
++    class NoRedirect(urllib.request.HTTPRedirectHandler):
++        def redirect_request(self, *_args, **_kwargs):
++            return None  # Never forward the bearer capability to another host.
++
++    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect())
++    try:
++        with opener.open(request, timeout=timeout) as response:
++            data = response.read(_MAX_RELOAD_RESPONSE + 1)
++        if len(data) > _MAX_RELOAD_RESPONSE:
++            raise RuntimeError("Studio reload response exceeds its 64 KiB budget")
++        result = json.loads(data)
++        if not isinstance(result, dict) or not isinstance(result.get("sha256"), str):
++            raise RuntimeError("Studio reload returned no native frame receipt")
++        return result
++    except urllib.error.HTTPError as error:
++        with error:
++            detail = error.read(4096).decode("utf-8", "replace")
++        raise RuntimeError(f"Studio reload refused ({error.code}): {detail}") from None
++    except (urllib.error.URLError, TimeoutError, OSError, ValueError) as error:
++        raise RuntimeError(f"Studio reload failed: {error}") from error
++
++
++def _watch_loop(owner_ref, stop, watch) -> None:
++    # A weak owner lets a forgotten Python Studio object release its native
++    # host/worker rather than being kept alive forever by its polling thread.
++    while not stop.wait(0.1):
++        owner = owner_ref()
++        if owner is None:
++            return
++        try:
++            if not owner.alive:
++                return
++            if watch.poll() and not stop.is_set():
++                owner.reload()
++        except Exception as error:
++            if not stop.is_set():
++                owner._record_reload(error=str(error)[:4096])
++        finally:
++            del owner
++
++
+ def _capture(request: dict[str, Any], native: Any):
+     from .scene_loading import SceneSource
+@@ -215,8 +353,13 @@ _HELP = """Read-only native Studio for Python scenes:
+   fmn-python studio SOURCE.py SCENE [--resolution WxH] [--fps N] [--threads N]
+                     [--max_frames N] [--max_bytes N] [--timeout SECONDS] [--port N]
++                    [--autoreload] [--watch PATH ...] [--debounce_ms N]
+ 
+ Executes once in a disposable host-CPython worker; scrub and inspect the captured
+ frames in the authenticated native Studio UI. Reload explicitly executes fresh
+ source and imports. Ctrl-C closes the host and worker. This is not a sandbox.
++--autoreload explicitly reruns source on content changes to local .py/.pyw
++files; --watch adds directories or explicit asset files. Native bounded scans
++ignore caches/virtualenvs and debounce edits. A failed edit retains the healthy
++preview and is retried only after another edit, not in an execution loop.
+ No live Python event editing, sound playback, callback checkpoints, or certified
+ render claim. Default: 640x360, 30 FPS, 7200 frames, 256 MiB encoded capture budget.
+@@ -241,4 +384,7 @@ def try_studio_cli(native: Any, arguments: list[str]) -> int | None:
+     parser.add_argument("scene")
+     parser.add_argument("--resolution", default="640x360")
++    parser.add_argument("--autoreload", action="store_true")
++    parser.add_argument("--watch", dest="watch_paths", action="append", default=[])
++    parser.add_argument("--debounce_ms", type=int, default=200)
+     for flag, default in (("fps", 30), ("threads", 1), ("max_frames", _DEFAULT_FRAMES),
+                           ("max_bytes", _DEFAULT_BYTES), ("timeout", 120), ("port", 0)):
+@@ -257,5 +403,5 @@ def try_studio_cli(native: Any, arguments: list[str]) -> int | None:
+                 native._portal_cli_emit(0, "success", "studio", "Python Studio is ready", True,
+                                        url=host.url, scene=options.scene, preview_mode="captured-read-only",
+-                                       certified=False)
++                                       certified=False, autoreload=host.autoreload)
+             else:
+                 print("Python Studio (read-only): " + host.url)
+@@ -263,5 +409,14 @@ def try_studio_cli(native: Any, arguments: list[str]) -> int | None:
+             sys.stdout.flush()
+             phase = "serve"
++            revision = 0
+             while host.alive:
++                status = host.reload_status
++                if status["revision"] != revision:
++                    revision = status["revision"]
++                    failed = status["error"] is not None
++                    native._portal_cli_emit(6 if failed else 0, "execution" if failed else "success",
++                        "studio-reload", status["error"] or "Python Studio reloaded", robot,
++                        reload_status=status, terminal=False)
++                    sys.stdout.flush()
+                 time.sleep(0.05)
+         return 0
+ diff --git a/crates/fmn-python/src/portal_studio.rs b/crates/fmn-python/src/portal_studio.rs
+index ed01753..e219c39 100644
+--- a/crates/fmn-python/src/portal_studio.rs
++++ b/crates/fmn-python/src/portal_studio.rs
+@@ -223,4 +223,20 @@ struct RunningHost {
+     thread: Option<std::thread::JoinHandle<Result<(), String>>>,
+ }
++
++/// The existing bounded, content-based native watcher, owned by one portal
++/// polling thread. No Python import or authored callback runs while scanning.
++#[pyclass(name = "_StudioSourceWatch", module = "manimlib")]
++pub(super) struct SourceWatcher {
++    watch: fmn_studio::project_watch::SourceWatch,
++    started: std::time::Instant,
++}
++
++#[pymethods]
++impl SourceWatcher {
++    fn poll(&mut self, py: Python<'_>) -> PyResult<bool> {
++        py.detach(|| self.watch.poll(self.started.elapsed()).map_err(|e| e.to_string()))
++            .map_err(PyRuntimeError::new_err)
++    }
++}
+ impl Drop for RunningHost {
+     fn drop(&mut self) {
+@@ -271,4 +287,25 @@ impl Host {
+     #[getter]
+     fn alive(&self) -> bool { self.running.as_ref().and_then(|r| r.thread.as_ref()).is_some_and(|t| !t.is_finished()) }
++
++    /// Directory inputs watch Python sources only; explicitly named files can
++    /// also watch assets. Generated output, pyc caches and virtualenv trees are
++    /// excluded so rendering itself does not cause an automatic reload loop.
++    #[staticmethod]
++    fn watch_sources(py: Python<'_>, paths: Vec<String>, debounce_ms: u64) -> PyResult<SourceWatcher> {
++        if debounce_ms > 10_000 || paths.is_empty() || paths.len() > 64 {
++            return Err(PyValueError::new_err("watch requires 1..64 paths and debounce <= 10000 ms"));
++        }
++        let watch = py.detach(move || {
++            use fmn_studio::project_watch::{SourceWatch, WatchFilter, WatchLimits};
++            SourceWatch::new_filtered(paths.into_iter().map(PathBuf::from).collect(), Vec::new(),
++                Duration::from_millis(debounce_ms), WatchLimits::default(), WatchFilter {
++                    extensions: vec!["py".into(), "pyw".into()],
++                    ignored_directories: ["__pycache__", ".venv", "venv", ".tox", ".mypy_cache", ".pytest_cache"]
++                        .into_iter().map(str::to_owned).collect(),
++                }).map_err(|e| e.to_string())
++        }).map_err(PyRuntimeError::new_err)?;
++        Ok(SourceWatcher { watch, started: std::time::Instant::now() })
++    }
++
+     fn close(&mut self, py: Python<'_>) -> PyResult<()> {
+         if let Some(mut running) = self.running.take() {
+diff --git a/crates/fmn-python/tests/studio_preview.py b/crates/fmn-python/tests/studio_preview.py
+index 3f5daea..507604b 100644
+--- a/crates/fmn-python/tests/studio_preview.py
++++ b/crates/fmn-python/tests/studio_preview.py
+@@ -248,4 +248,71 @@ class StudioWheelTests(unittest.TestCase):
+         self.assertLess(time.monotonic() - started, 12)
+ 
++    def test_autoreload_uses_native_content_watch_and_recovers_failed_edits(self):
++        asset = self.root / "values.csv"
++        asset.write_text("1")
++        self.source.write_text(self.original.replace("helper.OFFSET * RIGHT",
++            f"helper.OFFSET * float(Path({str(asset)!r}).read_text()) * RIGHT"))
++
++        def wait_for(host, predicate):
++            deadline = time.monotonic() + 20
++            while time.monotonic() < deadline:
++                status = host.reload_status
++                if predicate(status):
++                    return status
++                self.assertTrue(host.alive, status)
++                time.sleep(0.1)
++            self.fail("autoreload did not settle: " + repr(host.reload_status))
++
++        with self.host(autoreload=True, watch_paths=[asset], debounce_ms=50) as host:
++            api = Preview(host)
++            api.json("/api/scrub", {"frame": 5})
++            initial = api.frame()
++            # A same-size edit with unchanged mtime must still restart.
++            stamp = self.helper.stat()
++            self.helper.write_text("OFFSET = 3\n")
++            os.utime(self.helper, ns=(stamp.st_atime_ns, stamp.st_mtime_ns))
++            first = wait_for(host, lambda status: status["completed"] == 1)
++            self.assertIsNone(first["error"])
++            self.assertEqual(first["result"]["frame_index"], 0)
++            api.json("/api/scrub", {"frame": 5})
++            changed = api.frame()
++            self.assertNotEqual(initial, changed)
++            # Generated files, empty output directories and identical saves
++            # cannot continually re-execute the scene's authored side effects.
++            (self.root / "media").mkdir()
++            (self.root / "media/preview.png").write_bytes(changed)
++            self.helper.write_text("OFFSET = 3\n")
++            time.sleep(0.7)
++            self.assertEqual(host.reload_status["completed"], 1)
++            self.assertEqual(len(self.marker.read_text().splitlines()), 2)
++
++            asset.write_text("2")
++            wait_for(host, lambda status: status["completed"] == 2)
++            api.json("/api/scrub", {"frame": 5})
++            asset_changed = api.frame()
++            self.assertNotEqual(changed, asset_changed)
++
++            # A bad helper is discovered inside the candidate worker, not by
++            # executing Python in the stable host. The old worker stays usable.
++            self.helper.write_text("OFFSET = (\n")
++            failed = wait_for(host, lambda status: status["error"] is not None)
++            self.assertEqual(failed["completed"], 2)
++            self.assertEqual(api.json("/api/inspect")["view"]["frame_index"], 5)
++            self.assertEqual(api.frame(), asset_changed)
++            time.sleep(0.5)
++            self.assertEqual(host.reload_status, failed, "failed source must not execute on every poll")
++            self.assertEqual(len(self.marker.read_text().splitlines()), 3)
++
++            self.helper.write_text("OFFSET = 1\n")
++            self.source.write_text("from manimlib import *\nclass Moving(Scene):\n    def construct(self):\n        self.add(Circle())\n")
++            recovered = wait_for(host, lambda status: status["completed"] == 3)
++            self.assertIsNone(recovered["error"])
++            self.assertEqual(api.json("/api/inspect")["view"]["frame_count"], 1)
++            self.assertEqual(recovered["result"]["replayed_entries"], 0)
++            watch_thread = host._watch_thread
++        self.assertFalse(watch_thread.is_alive())
++        with self.assertRaisesRegex(RuntimeError, "closed"):
++            host.reload()
++
+     def test_cli_selects_native_studio_and_stops_on_interrupt(self):
+         command = [sys.executable, "-I", "-m", "fmn_python", "--robot", "studio", str(self.source), "Moving",
+diff --git a/crates/fmn-python/tests/test_studio_protocol.py b/crates/fmn-python/tests/test_studio_protocol.py
+index c82ab7e..86e8144 100644
+--- a/crates/fmn-python/tests/test_studio_protocol.py
++++ b/crates/fmn-python/tests/test_studio_protocol.py
+@@ -25,4 +25,8 @@ class NativeHost:
+         self.alive = False
+ 
++    @staticmethod
++    def watch_sources(roots, debounce_ms):
++        return SimpleNamespace(poll=lambda: False, watched=(roots, debounce_ms))
++
+ 
+ class StudioPolicyTests(unittest.TestCase):
+@@ -86,4 +90,74 @@ class StudioPolicyTests(unittest.TestCase):
+             _source(self.source)
+ 
++    def test_programmatic_reload_receipt_and_failure_status_are_detached(self):
++        with Studio(self.source, "Lesson") as host:
++            with patch("fmn_python.studio._reload_request", return_value={"sha256": "a" * 64, "frame_index": 0}) as reload:
++                receipt = host.reload()
++                reload.assert_called_once_with(host.url, 125)
++                receipt["sha256"] = "mutated"
++                status = host.reload_status
++                self.assertEqual(status["completed"], 1)
++                self.assertEqual(status["result"]["sha256"], "a" * 64)
++                status["result"]["sha256"] = "mutated again"
++                self.assertEqual(host.reload_status["result"]["sha256"], "a" * 64)
++            with patch("fmn_python.studio._reload_request", side_effect=RuntimeError("broken edit")):
++                with self.assertRaisesRegex(RuntimeError, "broken edit"):
++                    host.reload()
++            self.assertEqual(host.reload_status["completed"], 1)
++            self.assertEqual(host.reload_status["error"], "broken edit")
++            self.assertTrue(host.alive)
++        with self.assertRaisesRegex(RuntimeError, "closed"):
++            host.reload()
++
++    def test_autoreload_owns_one_native_watcher_and_joins_on_close(self):
++        asset = self.root / "values.csv"
++        with Studio(self.source, "Lesson", autoreload=True, watch_paths=[asset], debounce_ms=50) as host:
++            self.assertTrue(host.autoreload)
++            self.assertEqual(host._watch.watched, ([str(self.source), str(self.root), str(asset)], 50))
++            thread = host._watch_thread
++            self.assertTrue(thread.is_alive())
++        self.assertFalse(thread.is_alive())
++        self.assertFalse(host.alive)
++        host.close()
++
++    def test_autoreload_retries_changed_inputs_not_the_same_failed_edit(self):
++        from fmn_python.studio import _watch_loop
++        import weakref
++        with Studio(self.source, "Lesson") as host:
++            # Native SourceWatch owns stabilization/one-shot behavior. Verify
++            # this caller records a failed attempt without manufacturing retries.
++            polls = iter([True, False])
++            def poll():
++                result = next(polls)
++                if not result:
++                    host._stop.set()
++                return result
++            with patch("fmn_python.studio._reload_request", side_effect=RuntimeError("failed")) as reload:
++                _watch_loop(weakref.ref(host), host._stop, SimpleNamespace(poll=poll))
++                self.assertEqual(reload.call_count, 1)
++            self.assertEqual(host.reload_status["revision"], 1)
++            self.assertEqual(host.reload_status["error"], "failed")
++
++    def test_invalid_watch_options_fail_before_launch(self):
++        for options in ({"autoreload": 1}, {"watch_paths": [self.source]},
++                        {"autoreload": True, "watch_paths": str(self.source)},
++                        {"debounce_ms": -1}, {"debounce_ms": True}):
++            with self.subTest(options=options), self.assertRaises(ValueError):
++                Studio(self.source, "Lesson", **options)
++
++    def test_watch_snapshot_precedes_initial_worker_execution(self):
++        events = []
++        class OrderedHost(NativeHost):
++            @staticmethod
++            def watch_sources(roots, debounce_ms):
++                events.append("snapshot")
++                return NativeHost.watch_sources(roots, debounce_ms)
++            def __init__(self, *args):
++                events.append("worker")
++                super().__init__(*args)
++        self.native._StudioHost = OrderedHost
++        with Studio(self.source, "Lesson", autoreload=True):
++            self.assertEqual(events, ["snapshot", "worker"])
++
+     def test_cli_studio_usage_refuses_extra_or_missing_options(self):
+         receipts = []
+diff --git a/crates/fmn-studio/src/host.rs b/crates/fmn-studio/src/host.rs
+index 77f9768..1009c37 100644
+--- a/crates/fmn-studio/src/host.rs
++++ b/crates/fmn-studio/src/host.rs
+@@ -619,5 +619,5 @@ impl StudioWorkerSession {
+             // The replacement captured a new opaque execution. Do not carry
+             // old preview commands or renderer observations into its journal.
+-            supervisor.install_session(self.try_owned_scene()?, Journal::new())?;
++            supervisor.install_session(self.try_owned_scene()?, fmn_scene::Journal::new())?;
+         }
+         let invalidated_at = recovery.plan.reuse;
+diff --git a/crates/fmn-studio/src/project_watch.rs b/crates/fmn-studio/src/project_watch.rs
+index f6dfbb7..fc7b3dd 100644
+--- a/crates/fmn-studio/src/project_watch.rs
++++ b/crates/fmn-studio/src/project_watch.rs
+@@ -13,4 +13,35 @@ use std::time::Duration;
+ use crate::{BuildError, ProtocolDigest, protocol_digest};
+ 
++/// Optional filtering for directory roots. Explicitly named input files are
++/// always watched, including assets with a different extension. Filtering does
++/// not relax traversal/read budgets or the refusal of followed symlinks.
++#[derive(Clone, Debug, Default)]
++pub struct WatchFilter {
++    /// Empty means all files; otherwise these are extension names without dots.
++    pub extensions: Vec<String>,
++    /// Directory entry names to omit at every depth, in addition to .git/target.
++    pub ignored_directories: Vec<String>,
++}
++
++impl WatchFilter {
++    fn validate(&self) -> Result<(), BuildError> {
++        if self.extensions.len() > 32 || self.ignored_directories.len() > 32
++            || self.extensions.iter().any(|ext| ext.is_empty() || ext.len() > 32
++                || !ext.bytes().all(|b| b.is_ascii_alphanumeric()))
++            || self.ignored_directories.iter().any(|name| name.is_empty()
++                || name.len() > 128 || matches!(name.as_str(), "." | "..")
++                || name.contains(['/', '\\', '\0']))
++        {
++            return Err(error("invalid source-watch filter"));
++        }
++        Ok(())
++    }
++
++    fn includes(&self, path: &std::path::Path) -> bool {
++        self.extensions.is_empty() || path.extension().and_then(|e| e.to_str())
++            .is_some_and(|ext| self.extensions.iter().any(|wanted| ext.eq_ignore_ascii_case(wanted)))
++    }
++}
++
+ #[derive(Clone, Debug, PartialEq, Eq)]
+ enum Input {
+@@ -53,4 +84,5 @@ pub struct SourceWatch {
+     excludes: Vec<PathBuf>,
+     limits: WatchLimits,
++    filter: WatchFilter,
+     debounce: Duration,
+     observed: Snapshot,
+@@ -70,4 +102,19 @@ impl SourceWatch {
+         limits: WatchLimits,
+     ) -> Result<Self, BuildError> {
++        Self::new_filtered(inputs, excludes, debounce, limits, WatchFilter::default())
++    }
++
++    /// Watch selected directory contents without treating unrelated generated
++    /// outputs or cache directories as source edits. A file passed explicitly
++    /// bypasses the extension filter. Changes in empty filtered directories do
++    /// not trigger reloads, but adding/deleting an included file does.
++    pub fn new_filtered(
++        inputs: Vec<PathBuf>,
++        excludes: Vec<PathBuf>,
++        debounce: Duration,
++        limits: WatchLimits,
++        filter: WatchFilter,
++    ) -> Result<Self, BuildError> {
++        filter.validate()?;
+         if inputs.is_empty()
+             || inputs.len() > limits.max_entries
+@@ -86,9 +133,10 @@ impl SourceWatch {
+             return Err(error("invalid source-watch paths or work limits"));
+         }
+-        let observed = scan(&inputs, &excludes, limits)?;
++        let observed = scan(&inputs, &excludes, limits, &filter)?;
+         Ok(Self {
+             inputs,
+             excludes,
+             limits,
++            filter,
+             debounce,
+             attempted: observed.clone(),
+@@ -105,5 +153,5 @@ impl SourceWatch {
+             return Err(error("source-watch clock moved backwards"));
+         }
+-        let current = scan(&self.inputs, &self.excludes, self.limits)?;
++        let current = scan(&self.inputs, &self.excludes, self.limits, &self.filter)?;
+         self.last_poll = Some(now);
+         if current != self.observed {
+@@ -131,4 +179,5 @@ fn scan(
+     excludes: &[PathBuf],
+     limits: WatchLimits,
++    filter: &WatchFilter,
+ ) -> Result<Snapshot, BuildError> {
+     let mut work: Vec<_> = inputs.iter().cloned().map(|path| (path, 0)).collect();
+@@ -144,9 +193,12 @@ fn scan(
+         }
+         seen.insert(path.clone());
++        let explicit = depth == 0 || inputs.contains(&path);
+         snapshot.try_reserve(1).map_err(error)?;
+         let metadata = match fs::symlink_metadata(&path) {
+             Ok(metadata) => metadata,
+             Err(error) if error.kind() == std::io::ErrorKind::NotFound => {
+-                snapshot.push((path, Input::Missing));
++                if explicit || filter.includes(&path) {
++                    snapshot.push((path, Input::Missing));
++                }
+                 continue;
+             }
+@@ -154,9 +206,12 @@ fn scan(
+         };
+         if metadata.is_dir() {
+-            snapshot.push((path.clone(), Input::Directory));
++            if explicit || filter.extensions.is_empty() {
++                snapshot.push((path.clone(), Input::Directory));
++            }
+             for child in fs::read_dir(&path).map_err(error)? {
+                 let child = child.map_err(error)?;
+                 let child_path = child.path();
+-                if matches!(child.file_name().to_str(), Some("target" | ".git"))
++                if (matches!(child.file_name().to_str(), Some("target" | ".git"))
++                    || filter.ignored_directories.iter().any(|name| child.file_name() == name.as_str()))
+                     && child.file_type().map_err(error)?.is_dir()
+                 {
+@@ -170,4 +225,7 @@ fn scan(
+             }
+         } else if metadata.is_file() {
++            if !explicit && !filter.includes(&path) {
++                continue;
++            }
+             if metadata.len() > remaining {
+                 return Err(error("source-watch byte budget exceeded"));
+@@ -354,3 +412,54 @@ mod tests {
+         );
+     }
++
++    #[test]
++    fn filtered_sources_ignore_generated_outputs_but_observe_helpers_and_explicit_assets() {
++        let temp = Temp::new();
++        fs::write(temp.0.join("scene.py"), "one").unwrap();
++        let asset = temp.0.join("data.csv");
++        fs::write(&asset, "one").unwrap();
++        // The explicit asset comes first and is therefore traversed last: the
++        // directory walk must not hide it behind an already-seen filtered path.
++        let mut watch = SourceWatch::new_filtered(
++            vec![asset.clone(), temp.0.clone()], Vec::new(), ms(100), WatchLimits::default(),
++            WatchFilter { extensions: vec!["py".into(), "pyw".into()],
++                ignored_directories: vec!["__pycache__".into(), ".venv".into()] },
++        ).unwrap();
++        fs::create_dir(temp.0.join("__pycache__")).unwrap();
++        fs::create_dir(temp.0.join("media")).unwrap();
++        fs::create_dir(temp.0.join(".venv")).unwrap();
++        fs::write(temp.0.join("__pycache__/source.pyc"), "cache").unwrap();
++        fs::write(temp.0.join(".venv/irrelevant.py"), "venv").unwrap();
++        fs::write(temp.0.join("media/preview.png"), "render").unwrap();
++        assert!(!watch.poll(ms(0)).unwrap());
++        assert!(!watch.poll(ms(1000)).unwrap());
++        fs::write(temp.0.join("helper.PY"), "new").unwrap();
++        assert!(!watch.poll(ms(1100)).unwrap());
++        assert!(watch.poll(ms(1200)).unwrap());
++        fs::write(&asset, "two").unwrap();
++        assert!(!watch.poll(ms(1300)).unwrap());
++        assert!(watch.poll(ms(1400)).unwrap());
++        fs::remove_file(temp.0.join("helper.PY")).unwrap();
++        assert!(!watch.poll(ms(1500)).unwrap());
++        assert!(watch.poll(ms(1600)).unwrap());
++        assert!(!watch.poll(ms(1700)).unwrap());
++    }
++
++    #[test]
++    fn filtered_watch_still_bounds_directory_work_and_selected_source_bytes() {
++        let temp = Temp::new();
++        let filter = WatchFilter { extensions: vec!["py".into()], ..WatchFilter::default() };
++        fs::write(temp.0.join("large.png"), [0; 100]).unwrap();
++        let mut watch = SourceWatch::new_filtered(vec![temp.0.clone()], Vec::new(), Duration::ZERO,
++            WatchLimits { max_bytes: 4, ..WatchLimits::default() }, filter.clone()).unwrap();
++        fs::write(temp.0.join("large.py"), "over budget").unwrap();
++        assert!(watch.poll(ms(0)).is_err());
++        fs::write(temp.0.join("large.py"), "okay").unwrap();
++        assert!(watch.poll(ms(1)).unwrap());
++        assert!(SourceWatch::new_filtered(vec![temp.0.clone()], Vec::new(), Duration::ZERO,
++            WatchLimits { max_entries: 1, ..WatchLimits::default() }, filter).is_err());
++        assert!(SourceWatch::new_filtered(vec![temp.0.clone()], Vec::new(), Duration::ZERO,
++            WatchLimits::default(), WatchFilter { extensions: vec!["../py".into()],
++                ..WatchFilter::default() }).is_err());
++    }
+ }
+diff --git a/docs/dist/python_studio.md b/docs/dist/python_studio.md
+index f616792..910c0f0 100644
+--- a/docs/dist/python_studio.md
++++ b/docs/dist/python_studio.md
+@@ -7,4 +7,5 @@ frames in the same authenticated Studio UI used by native scene workers:
+ fmn-python studio lesson.py Example
+ fmn-python --robot studio lesson.py Example --resolution 960x540 --fps 24
++fmn-python studio lesson.py Example --autoreload --watch assets/values.csv
+ ```
+ 
+@@ -50,4 +51,47 @@ published as a successful truncated timeline, even if scene code catches its
+ exception. Automatic crash re-execution is disabled.
+ 
++### Automatic source reload
++
++`--autoreload` explicitly authorizes re-executing authored source after stable
++edits. It uses Studio's native content-based watcher, not modification times:
++the entry file and local `.py`/`.pyw` helpers are watched by default, including
++new and deleted modules. Repeated `--watch PATH` arguments add source directories
++or explicit files of any type, such as CSV inputs or image assets. Directory
++scans ignore non-Python output files, `__pycache__`, virtual environments, Git
++metadata and Cargo's `target`. This avoids reload loops caused by generated
++PNGs, bytecode, or logs. Explicit asset files remain watched regardless of
++their extension. The snapshot is taken before the initial worker executes, so
++an edit made during a slow initial capture is not missed.
++
++Changes are debounced (`--debounce_ms`, default 200). A failed edit produces one
++failure status and leaves the old worker/preview usable. That same unchanged
++source is not continually retried; fixing it schedules a fresh attempt.
++Scanning itself is bounded to 4,096 entries, 64 MiB of selected file bytes and
++64 directory levels. Symlinks/non-regular watched inputs and exceeded budgets
++are reported rather than silently watching an incomplete project. Additional
++dependencies outside the local directory must be declared with `--watch`.
++
++The programmatic interface exposes the same functionality:
++
++```python
++with Studio("lesson.py", "Example", autoreload=True,
++            watch_paths=["assets/values.csv"]) as preview:
++    print(preview.url)
++    # Explicit reload is also available, even when autoreload is disabled.
++    receipt = preview.reload()
++    print(receipt["frame_index"], receipt["sha256"])
++    print(preview.reload_status)
++    input("Press Enter to close Studio")
++```
++
++`reload_status` is a detached dictionary containing a monotonically increasing
++revision, completed-reload count, last error, and last native frame receipt.
++Robot mode emits separate, nonterminal `studio-reload` success/failure events.
++Manual and automatic reloads use the same authenticated native HTTP route as
++the browser, including its operation serialization and rate limits. No proxy
++or redirect receives the capability URL. Closing Studio stops and joins the
++watcher before releasing the host; an in-flight worker operation remains bounded
++by the configured request timeout.
++
+ Committed preview positions are explicitly opaque journal barriers, not a
+ serialization of arbitrary Python callbacks. This implementation does not

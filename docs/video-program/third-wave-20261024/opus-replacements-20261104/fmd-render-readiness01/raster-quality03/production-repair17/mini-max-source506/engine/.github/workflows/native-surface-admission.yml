@@ -1,0 +1,74 @@
+name: Native surface admission
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-surface-admission.yml'
+      - 'crates/fmn-library/src/solids.rs'
+      - 'crates/fmn-library/tests/surface_sampling.rs'
+      - 'crates/fmn-python/src/lib.rs'
+      - 'crates/fmn-python/src/portal_surface.rs'
+      - 'crates/fmn-python/tests/native_surface_sampling.py'
+      - 'crates/fmn-python/python/fmn_python/surface_admission.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-surface-admission
+  cancel-in-progress: false
+jobs:
+  native:
+    if: github.repository == 'Dicklesworthstone/franken_manim'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Native constructors and dependent geometry
+        run: |
+          set -euo pipefail
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          cargo test --locked -p fmn-library -p fmn-mobject -p fmn-anim 2>&1 | tee /tmp/admission-native.log
+          cargo clippy --locked -p fmn-library -p fmn-mobject -p fmn-anim --all-targets -- -D warnings 2>&1 | tee /tmp/admission-clippy.log
+      - name: Embedded native callback and fresh wheel acceptance
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-python --lib portal_texture::surface::tests -- --nocapture 2>&1 | tee /tmp/admission-embedded.log
+          cargo clippy --locked -p fmn-python --lib -- -D warnings 2>&1 | tee /tmp/admission-portal-clippy.log
+          python -m maturin build --locked --interpreter python --profile dev --out target/admission-wheel 2>&1 | tee /tmp/admission-build.log
+          python -m venv target/admission-venv
+          target/admission-venv/bin/python -m pip install 'numpy==2.5.2' target/admission-wheel/*.whl
+          for suite in native_surface_sampling surface_admission graph_admission surface_plotting surface_alignment surface_geometry live_surface_mesh surface_pointlikes coordinate_mapping; do
+            target/admission-venv/bin/python -I "crates/fmn-python/tests/$suite.py" 2>&1 | tee "/tmp/admission-$suite.log"
+          done
+      - name: Preserve exact source and evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/admission-source-sha.txt
+          git diff --exit-code
+          git archive --format=tar.gz HEAD > /tmp/admission-source.tar.gz
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-admission-${{ github.run_id }}
+          path: |
+            /tmp/admission*
+            target/admission-wheel/*.whl
+          retention-days: 3

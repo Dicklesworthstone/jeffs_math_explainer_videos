@@ -1,0 +1,225 @@
+--- cc2-master-controller464.py
++++ cc1-master-controller476.py
+@@ -1,30 +1,29 @@
+-"""Controller 464: master 447 from draft 460, with every CSS import pinned to root's named export.
++"""Controller 476: master 447 from draft 476, which moves only 08_loop_sums to the CSS352 + 371 route.
+ 
+-Derived from csd-master-controller461.py (6f5fa078), which stays preserved, as do 393, 449, 459 and draft 460.
+-Every 461 gate is kept, in 461's order: stable receipts read twice, pin rechecks, master_absent, no_duplicates,
++Derived from cc2-master-controller464.py (89ff9659), which stays preserved, as do 393, 449, 459, 461 and draft 460.
++Every 464 gate is kept, in 464's order: stable receipts read twice, pin rechecks, master_absent, no_duplicates,
+ the post-import recheck before the launch manifest is written, then one 447 launch with --wait-hours 0.
+ 
+-Added for CC3 review 457, gap 1 (named-export pins):
+-  - The four 371 exports are pinned here by file name and full sha256 (EXPORTS371: root's 392, 396, 397, 424).
+-  - The gallery export has no pin in this file: it does not exist yet. run requires
+-        --gallery-manifest NAME --gallery-sha SHA
+-    which root gives only after a successful 448 export. NAME is a plain .json file name directly in Q (no folder,
+-    no leading dot); SHA is its full lowercase sha256. Missing, malformed or non-Q values are refused.
+-  - Before waiting, each of the five manifests must be a regular, symlink-free file in Q at its sha, carry its
+-    importer's version, name its row's chapter, pass that importer's manifest_problems(), and bind its draft row's
+-    job, worker, worker sha, inputs and permit.
+-  - The five manifests join the pins rechecked while waiting, before the post-import check and after it.
+-  - The post-import check requires each import result to name exactly its pinned file, at its pinned sha.
+-  - The launch manifest is master447-launch-manifest464.json. It records the five pins and the gallery arguments,
+-    so a run with other arguments refuses an existing launch manifest rather than adopting it.
+-  - no_duplicates also refuses a running 464 (and 393/449/459/461) run.
+-
+-Modes (python3 -I -B cc2-master-controller464.py MODE), on CSD, from Q:
+-  check [--gallery-manifest NAME --gallery-sha SHA]
+-        read-only: the pins (the gallery's only when both are given), then one pass over the receipts.
+-        Exit 0 all successful, 3 pending, 1 a failed receipt or a refused pin or gate.
+-  run --wait-hours N --gallery-manifest NAME --gallery-sha SHA
+-        root only: as 461, launching 447 once. Exit 1 refused or failed, 3 deadline; nothing launched in either.
++Changed for task 476 (08 on CSS):
++  - DRAFT is cc1-master447-manifest-draft476.json: draft 460 with only row 08 replaced by a CSS352 row
++    (css-final-repair352.py, job css-reviewed-final-08-loop-sums352, root's permit 08_loop_sums-css-permit474.json)
++    and the names frozen 371 gives its attempt-1 import. The other 14 rows are byte-identical to draft 460's.
++  - 08's 371 export has no pin in this file: it does not exist yet. run requires
++        --loop-sums-manifest NAME --loop-sums-sha SHA
++    which root gives only after the CSS 08 job is terminal and its 371 export succeeds. The rules are the gallery
++    arguments' (a plain .json name directly in Q, the full lowercase sha256), and neither pair may reuse a pinned
++    371 export's, the other pair's, the draft's or the launch manifest's name or sha.
++  - The CSS-imported rows are 01/04/08/12/14 (371) and 05 (448). 08's export is checked as the four pinned 371
++    exports are: before waiting, in every recheck, and as the file its import result must name, at its sha.
++  - The launch manifest is master447-launch-manifest476.json. Its launch476 block records the six export pins and
++    both argument pairs. no_duplicates also refuses a running 464 run.
++
++Modes (python3 -I -B cc1-master-controller476.py MODE), on CSD, from Q:
++  check [--gallery-manifest NAME --gallery-sha SHA] [--loop-sums-manifest NAME --loop-sums-sha SHA]
++        read-only: the pins (each root-given export's only when both of its arguments are given), then one pass over
++        the receipts. Exit 0 all successful, 3 pending, 1 a failed receipt or a refused pin or gate.
++  run --wait-hours N --gallery-manifest NAME --gallery-sha SHA --loop-sums-manifest NAME --loop-sums-sha SHA
++        root only: as 464, launching 447 once. Exit 1 refused or failed, 3 deadline; nothing launched in either.
+ Prepared only; nothing here has run on any host. It claims no master result and no picture, motion, audio, sync
+ or release acceptance, and authorises no publication.
+ """
+@@ -43,18 +42,18 @@
+ from pathlib import Path
+ from types import SimpleNamespace
+ 
+-VERSION = '464'
++VERSION = '476'
+ HERE = Path(__file__).resolve().parent
+-SELF_NAME = 'cc2-master-controller464.py'
++SELF_NAME = 'cc1-master-controller476.py'
+ MASTER350 = HERE/'combined-master447.py'
+ MASTER350_SHA = '2b01ecaab2b409268d86fe13b83e97a7e374dd61f1c657680a32444fdb6aa524'
+-DRAFT = HERE/'master447-manifest-draft460.json'
+-DRAFT_SHA = 'fcf0e7d738c5bbe142f3a938a7526f7847cdb16fe006eed2ba53596f5a6525b3'
++DRAFT = HERE/'cc1-master447-manifest-draft476.json'
++DRAFT_SHA = '3e7b59d0cfb843cd3cd9741f72746139ee39359975d6bd99bb1c69e50cd3b457'
+ IMPORT371 = HERE/'csd-css352-import371.py'
+ IMPORT371_SHA = 'ba337aca143316748561c4300d5774386387690b49052e72d29a04b103dd244f'
+ IMPORT448 = HERE/'csd-gallery-import448.py'
+ IMPORT448_SHA = 'b6653757c5c114029a94832a0dd4cb9597c42808614fbb959ef6448a5d994f6e'
+-LAUNCH_MANIFEST = 'master447-launch-manifest464.json'
++LAUNCH_MANIFEST = 'master447-launch-manifest476.json'
+ # Root's named 371 exports, by file name in Q and full sha256 (CC3 457 gap 1).
+ EXPORTS371 = {
+     '01_the_bump': ('css352-import371-01-the-bump-manifest392.json',
+@@ -66,11 +65,12 @@
+     '14_continuation': ('css352-import371-14-continuation-manifest424.json',
+                         '79fc3bf9e5c9ffa86f5f30df19a22431acb2b51d0ac620ac259706344caa5206')}
+ GALLERY = '05_gallery'                                     # pinned only by root's --gallery-manifest/--gallery-sha
+-GALLERY_NAME = re.compile(r'[A-Za-z0-9][A-Za-z0-9._-]{0,199}\.json')
++LOOP08 = '08_loop_sums'                                    # pinned only by root's --loop-sums-manifest/--loop-sums-sha
++GALLERY_NAME = re.compile(r'[A-Za-z0-9][A-Za-z0-9._-]{0,199}\.json')     # also the rule for the 08 export's name
+ HEX64 = re.compile(r'[0-9a-f]{64}')
+ ROW_PIN = ('job', 'worker', 'worker_sha256', 'inputs', 'permit')
+ CONTROLLERS = ('csd-master-controller393.py', 'csd-master-controller449.py', 'csd-master-controller459.py',
+-               'csd-master-controller461.py', SELF_NAME)
++               'csd-master-controller461.py', 'cc2-master-controller464.py', SELF_NAME)
+ # root preflight385 (a5b019ae): the registry, in order
+ REGISTRY = ('01_the_bump', '02_turning_numbers', '03_two_planes', '04_reading_color', '05_gallery', '06_one_derivative',
+             '07_one_point', '08_loop_sums', '09_boundary', '10_rigidity', '11_counting', '12_residues',
+@@ -103,7 +103,7 @@
+ 
+ 
+ def rows_and_receipts(m, i):
+-    """Draft 460's rows, checked against 447's row shapes and the 371/448 a1 names, and the receipts each rests on,
++    """Draft 476's rows, checked against 447's row shapes and the 371/448 a1 names, and the receipts each rests on,
+     in the order a row needs them (an import before the render receipt it places)."""
+     rows = json.loads(DRAFT.read_text())['chapters']
+     assert tuple(r['chapter'] for r in rows) == REGISTRY, 'draft rows are not the registry, in order'
+@@ -165,17 +165,39 @@
+     return name, digest
+ 
+ 
+-def pinned_exports(m, i, rows, gallery):
+-    """{chapter: (path in Q, sha256)} for every CSS-imported draft row (the gallery's only when given), each read and
+-    checked now: a symlink-free file in Q at its pinned sha, its importer's version, chapter and manifest_problems(),
+-    and the job, worker, worker sha, inputs and permit of its draft row."""
++def loop_sums_arguments(args, required, gallery):
++    """Root's (name, sha) for the 08 371 export, or None when check is given neither; the gallery arguments' rules,
++    and neither the gallery's name nor its sha."""
++    name, digest = getattr(args, 'loop_sums_manifest', None), getattr(args, 'loop_sums_sha', None)
++    if name is None and digest is None and not required:
++        return None
++    assert name is not None and digest is not None, \
++        'give both --loop-sums-manifest and --loop-sums-sha (root, after the CSS 08 job is terminal and its 371 export succeeds)'
++    assert isinstance(name, str) and GALLERY_NAME.fullmatch(name) and Path(name).name == name, \
++        'the 08 manifest must be a plain .json file name directly in Q: %r' % (name,)
++    assert isinstance(digest, str) and HEX64.fullmatch(digest), \
++        'the 08 sha must be the full sha256, 64 lowercase hex digits: %r' % (digest,)
++    assert name not in {n for n, _ in EXPORTS371.values()} | {DRAFT.name, LAUNCH_MANIFEST}, \
++        'the 08 manifest name is a pinned 371 export, the draft or the launch manifest: '+name
++    assert digest not in {d for _, d in EXPORTS371.values()}, 'the 08 sha is a pinned 371 export sha'
++    if gallery is not None:
++        assert name != gallery[0] and digest != gallery[1], "the 08 manifest name or sha is the gallery export's"
++    return name, digest
++
++
++def pinned_exports(m, i, rows, gallery, loop08):
++    """{chapter: (path in Q, sha256)} for every CSS-imported draft row (the gallery's and 08's only when given), each
++    read and checked now: a symlink-free file in Q at its pinned sha, its importer's version, chapter and
++    manifest_problems(), and the job, worker, worker sha, inputs and permit of its draft row."""
+     importer448 = load(IMPORT448, IMPORT448_SHA, 'import448_pins')
+     css = [r for r in rows if r['worker'] in (str(m.WORKER352_CSS), str(m.WORKER442))]
+-    assert sorted(r['chapter'] for r in css) == sorted(set(EXPORTS371) | {GALLERY}), \
+-        'the CSS-imported rows are not 01/04/12/14 (371) and 05 (448)'
++    assert sorted(r['chapter'] for r in css) == sorted(set(EXPORTS371) | {GALLERY, LOOP08}), \
++        'the CSS-imported rows are not 01/04/08/12/14 (371) and 05 (448)'
+     want = dict(EXPORTS371)
+     if gallery is not None:
+         want[GALLERY] = gallery
++    if loop08 is not None:
++        want[LOOP08] = loop08
+     out = {}
+     for r in css:
+         key = r['chapter']
+@@ -336,11 +358,12 @@
+     assert not found, 'already running: '+', '.join(found)
+ 
+ 
+-def manifest_bytes(m, rows, exports, gallery):
+-    body = dict(chapters=rows, launch464=dict(
++def manifest_bytes(m, rows, exports, gallery, loop08):
++    body = dict(chapters=rows, launch476=dict(
+         source=dict(path=str(m.Q/DRAFT.name), sha256=DRAFT_SHA),
+         imports={key: dict(manifest=str(path), sha256=digest) for key, (path, digest) in sorted(exports.items())},
+         gallery_arguments={'--gallery-manifest': gallery[0], '--gallery-sha': gallery[1]},
++        loop_sums_arguments={'--loop-sums-manifest': loop08[0], '--loop-sums-sha': loop08[1]},
+         rows='The 15 chapter rows of the source, unchanged. Frozen 447 reads only "chapters".',
+         gate=SELF_NAME+' writes this file only after stable receipts, the named-export pins above and actual '
+              'post-import rechecks; 447 launch then runs its own gates before it spends anything.',
+@@ -350,12 +373,14 @@
+ 
+ def check(args, m, i):
+     gallery = gallery_arguments(args, required=False)
++    loop08 = loop_sums_arguments(args, required=False, gallery=gallery)
+     rows, receipts = rows_and_receipts(m, i)
+     refused = None
+     try:
+-        exports = pinned_exports(m, i, rows, gallery)
++        exports = pinned_exports(m, i, rows, gallery, loop08)
+         say(pinned_exports={k: dict(manifest=str(p), sha256=d) for k, (p, d) in sorted(exports.items())},
+-            gallery='given' if gallery else 'not given; run refuses without --gallery-manifest and --gallery-sha')
++            gallery='given' if gallery else 'not given; run refuses without --gallery-manifest and --gallery-sha',
++            loop_sums='given' if loop08 else 'not given; run refuses without --loop-sums-manifest and --loop-sums-sha')
+     except AssertionError as error:
+         refused = str(error)
+         say(pinned_exports_refused=refused)
+@@ -371,8 +396,9 @@
+     assert 0 < args.wait_hours <= MAX_WAIT_HOURS, 'wait hours must be in (0, %d]' % MAX_WAIT_HOURS
+     assert HERE == m.Q and Path(__file__).resolve() == m.Q/SELF_NAME, 'run only from CSD Q'
+     gallery = gallery_arguments(args, required=True)
++    loop08 = loop_sums_arguments(args, required=True, gallery=gallery)
+     rows, receipts = rows_and_receipts(m, i)
+-    exports = pinned_exports(m, i, rows, gallery)
++    exports = pinned_exports(m, i, rows, gallery, loop08)
+     pins = {p: sha(p) for p in (Path(__file__).resolve(), MASTER350, DRAFT, IMPORT371, IMPORT448, m.GUARD)}
+     assert pins[IMPORT448] == IMPORT448_SHA
+     assert (pins[MASTER350], pins[DRAFT], pins[IMPORT371]) == (MASTER350_SHA, DRAFT_SHA, IMPORT371_SHA)
+@@ -382,6 +408,7 @@
+     no_duplicates()
+     say(start=True, version=VERSION, receipts=len(receipts), wait_hours=args.wait_hours,
+         gallery_arguments={'--gallery-manifest': gallery[0], '--gallery-sha': gallery[1]},
++        loop_sums_arguments={'--loop-sums-manifest': loop08[0], '--loop-sums-sha': loop08[1]},
+         pins={str(p): d for p, d in pins.items()})
+     deadline, last = time.monotonic() + args.wait_hours*3600, None
+     while True:
+@@ -419,7 +446,7 @@
+         assert sha(path) == digest, 'changed during post-import checks: '+str(path)
+     master_absent(m)
+     no_duplicates()
+-    manifest, body = m.Q/LAUNCH_MANIFEST, manifest_bytes(m, rows, exports, gallery)
++    manifest, body = m.Q/LAUNCH_MANIFEST, manifest_bytes(m, rows, exports, gallery, loop08)
+     if manifest.exists():
+         assert manifest.read_bytes() == body, 'a different launch manifest already exists: '+str(manifest)
+     else:
+@@ -451,11 +478,13 @@
+             one.add_argument('--wait-hours', type=float, required=True)
+         one.add_argument('--gallery-manifest', default=None)
+         one.add_argument('--gallery-sha', default=None)
++        one.add_argument('--loop-sums-manifest', default=None)
++        one.add_argument('--loop-sums-sha', default=None)
+     args = parser.parse_args()
+     try:
+         m = load(MASTER350, MASTER350_SHA, 'master447')
+         i = load(IMPORT371, IMPORT371_SHA, 'import371')
+-        assert sha(DRAFT) == DRAFT_SHA, 'not draft 460'
++        assert sha(DRAFT) == DRAFT_SHA, 'not draft 476'
+         return {'check': check, 'run': run}[args.mode](args, m, i)
+     except AssertionError as error:
+         say(refused=str(error), launched=False)

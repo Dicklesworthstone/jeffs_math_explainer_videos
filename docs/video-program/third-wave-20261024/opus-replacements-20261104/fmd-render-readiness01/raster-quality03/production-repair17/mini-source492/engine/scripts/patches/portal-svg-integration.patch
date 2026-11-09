@@ -1,0 +1,376 @@
+diff --git a/crates/fmn-conformance/tests/e2e_scenarios.rs b/crates/fmn-conformance/tests/e2e_scenarios.rs
+--- a/crates/fmn-conformance/tests/e2e_scenarios.rs
++++ b/crates/fmn-conformance/tests/e2e_scenarios.rs
+@@ -2052,2 +2052,19 @@
+ 
++fn python_svg_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError> {
++    let report = manimlib::run_portal_gauntlet_svg()
++        .map_err(|error| fail(format!("Python native SVG: {error}")))?;
++    let document = fmn_library::svg::SvgDocument::parse(&report.document)
++        .map_err(|error| fail(format!("parse native SVG: {error}")))?;
++    if document.width != 160.0 || document.height != 90.0 || document.shapes.len() < 6 {
++        return Err(fail("SVG lost its viewport or native text/math outlines"));
++    }
++    ctx.event(LogEvent::new("e2e.python.svg")
++        .field("thread_counts", report.thread_counts)
++        .field("failure_paths", report.failure_paths));
++    Ok(RunOutcome::ok()
++        .with_counter("svg_thread_counts", report.thread_counts)
++        .with_counter("svg_failure_paths", report.failure_paths)
++        .with_artifact("diagram.svg", report.document))
++}
++
+ fn python_surface_mesh_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError> {
+@@ -4617,2 +4634,18 @@
+     ));
++    specs.push(spec(
++        "render_matrix.python_svg.v1",
++        ScenarioClass::RenderMatrix,
++        Surface::PythonInProcess,
++        Invocation::new(python_svg_run),
++        vec![
++            Assertion::ExitCode(0),
++            Assertion::FileInventory(vec!["diagram.svg".to_owned()]),
++            counter_eq("svg_thread_counts", 3),
++            counter_eq("svg_failure_paths", 3),
++        ],
++        vec![LogExpect::span_present("e2e.python.svg", vec![
++            FieldPred::u64_eq("thread_counts", 3),
++            FieldPred::u64_eq("failure_paths", 3),
++        ])],
++    ));
+     specs.push(spec(
+@@ -5393,2 +5426,11 @@
+ /// Sampled wireframes through the native portal, renderer and PNG publisher.
++#[test]
++fn python_svg_scenario_passes() {
++    let scenario = catalog().into_iter()
++        .find(|scenario| scenario.name == "render_matrix.python_svg.v1")
++        .expect("Python SVG scenario is registered");
++    let report = Runner::from_env().run(scenario);
++    assert!(report.is_pass(), "{}", report.summary());
++}
++
+ #[test]
+diff --git a/crates/fmn-library/src/svg_export.rs b/crates/fmn-library/src/svg_export.rs
+--- a/crates/fmn-library/src/svg_export.rs
++++ b/crates/fmn-library/src/svg_export.rs
+@@ -48,3 +48,24 @@
+ ) -> Result<String, GeomError> {
+-    let shapes = stage_svg_shapes(stage, pixel_width, frame_width)?;
++    stage_svg_document_with_background(
++        stage, pixel_width, pixel_height, frame_width, frame_height, None,
++    )
++}
++
++/// Export the same vector document with an optional native camera background.
++///
++/// The background is an ordinary vector rectangle below the painter sequence;
++/// transparent backgrounds add no geometry. Text remains outlined paths and
++/// does not depend on fonts installed in the SVG viewer.
++///
++/// # Errors
++/// The same path-invariant refusals as [`stage_svg_document`].
++pub fn stage_svg_document_with_background(
++    stage: &Stage,
++    pixel_width: f64,
++    pixel_height: f64,
++    frame_width: f64,
++    frame_height: f64,
++    background: Option<fmn_core::color::LinearRgba>,
++) -> Result<String, GeomError> {
++    let mut shapes = stage_svg_shapes(stage, pixel_width, frame_width)?;
+     let view_box = [
+@@ -55,2 +76,28 @@
+     ];
++    if let Some(background) = background.filter(|color| color.a > 0.0) {
++        let x = frame_width / 2.0;
++        let y = frame_height / 2.0;
++        let path = QuadPath::from_points(vec![
++            [-x, -y, 0.0], [0.0, -y, 0.0], [x, -y, 0.0],
++            [x, 0.0, 0.0], [x, y, 0.0], [0.0, y, 0.0],
++            [-x, y, 0.0], [-x, 0.0, 0.0], [-x, -y, 0.0],
++        ])?;
++        shapes.insert(0, SvgShape {
++            path,
++            style: SvgStyle {
++                fill: Some(Paint::Color(background.to_srgb())),
++                fill_opacity: background.a,
++                stroke: None,
++                fill_rule: FillRule::NonZero,
++                stroke_width: 0.0,
++                stroke_opacity: 0.0,
++                line_cap: LineCap::Butt,
++                line_join: LineJoin::Round,
++                miter_limit: 4.0,
++                stroke_dasharray: Vec::new(),
++                stroke_dashoffset: 0.0,
++                opacity: 1.0,
++            },
++        });
++    }
+     Ok(emit_svg(&shapes, pixel_width, pixel_height, Some(view_box)))
+@@ -116,3 +163,3 @@
+     };
+-    shapes.push(SvgShape {
++    let mut shape = SvgShape {
+         path,
+@@ -134,3 +181,15 @@
+         },
+-    });
++    };
++    if stage.uniforms(mob).is_some_and(|u| u.stroke_behind)
++        && shape.style.fill.is_some() && shape.style.stroke.is_some()
++    {
++        // SVG normally paints fill then stroke. Two adjacent native shapes
++        // preserve the opposite pass order without relying on viewer-specific
++        // paint-order support, and keep translucent strokes below their fill.
++        let mut stroke = shape.clone();
++        stroke.style.fill = None;
++        shapes.push(stroke);
++        shape.style.stroke = None;
++    }
++    shapes.push(shape);
+     Ok(())
+@@ -287,2 +346,37 @@
+     }
++
++    #[test]
++    fn native_background_is_below_vectors_and_can_be_transparent() {
++        let mut stage = Stage::new();
++        let mob = stage.add(styled_circle());
++        stage.add_to_scene(mob).unwrap();
++        let black = Srgb::from_rgb8(0, 0, 0).to_linear(0.5);
++        let document = stage_svg_document_with_background(&stage, 160.0, 90.0,
++            16.0, 9.0, Some(black)).unwrap();
++        let parsed = SvgDocument::parse(document.as_bytes()).unwrap();
++        assert_eq!(parsed.shapes.len(), 2);
++        assert_eq!(parsed.shapes[0].style.fill, Some(Paint::Color(Srgb::from_rgb8(0, 0, 0))));
++        assert_eq!(parsed.shapes[0].style.fill_opacity, 0.5);
++        assert!(parsed.shapes[0].style.stroke.is_none());
++        let transparent = stage_svg_document_with_background(&stage, 160.0, 90.0,
++            16.0, 9.0, Some(Srgb::from_rgb8(0, 0, 0).to_linear(0.0))).unwrap();
++        assert_eq!(transparent, stage_svg_document(&stage, 160.0, 90.0, 16.0, 9.0).unwrap());
++    }
++
++    #[test]
++    fn native_svg_preserves_stroke_behind_with_two_adjacent_passes() {
++        let mut stage = Stage::new();
++        let mob = stage.add(styled_circle());
++        stage.add_to_scene(mob).unwrap();
++        stage.uniforms_mut(mob).unwrap().stroke_behind = true;
++        let shapes = stage_svg_shapes(&stage, 160.0, 16.0).unwrap();
++        assert_eq!(shapes.len(), 2);
++        assert!(shapes[0].style.fill.is_none());
++        assert!(shapes[0].style.stroke.is_some());
++        assert!(shapes[1].style.fill.is_some());
++        assert!(shapes[1].style.stroke.is_none());
++        assert_eq!(shapes[0].path.points(), shapes[1].path.points());
++        stage.uniforms_mut(mob).unwrap().stroke_behind = false;
++        assert_eq!(stage_svg_shapes(&stage, 160.0, 16.0).unwrap().len(), 1);
++    }
+ }
+diff --git a/crates/fmn-output/src/lib.rs b/crates/fmn-output/src/lib.rs
+--- a/crates/fmn-output/src/lib.rs
++++ b/crates/fmn-output/src/lib.rs
+@@ -81,2 +81,3 @@
+     SvgPublicationReport, WavPublicationConfig, WavPublicationReport, Y4mSink, Y4mSinkConfig,
++    publish_svg_new,
+     publish_svg, publish_wav,
+diff --git a/crates/fmn-output/src/sinks.rs b/crates/fmn-output/src/sinks.rs
+--- a/crates/fmn-output/src/sinks.rs
++++ b/crates/fmn-output/src/sinks.rs
+@@ -1835,2 +1835,31 @@
+ 
++/// Publish a complete SVG only if no destination exists, including a symlink.
++///
++/// Like [`publish_svg`], this is bounded and atomic, but the filesystem's
++/// create-new capability arbitrates competing publishers at the final commit.
++/// An existence precheck alone cannot establish this no-clobber contract.
++///
++/// # Errors
++/// An existing destination, invalid budget, oversized document or filesystem
++/// publication error. Existing bytes remain untouched on every failure.
++pub fn publish_svg_new(
++    fs: &dyn FileSystem,
++    config: &SvgPublicationConfig,
++    document: &[u8],
++) -> Result<SvgPublicationReport, SinkAdapterError> {
++    validate_destination(&config.destination)?;
++    if config.max_artifact_bytes == 0 {
++        return Err(SinkAdapterError::InvalidConfig("SVG max_artifact_bytes must be nonzero"));
++    }
++    let bytes = byte_len(document)?;
++    enforce_artifact_limit(bytes, config.max_artifact_bytes)?;
++    let _span = config.profile.as_ref().and_then(|profile| profile.span(None, ProfilePhase::Encode));
++    if !fs.create_new(&config.destination, document).map_err(|error| publish_error(&config.destination, error))? {
++        return Err(publish_error(&config.destination, "SVG destination already exists"));
++    }
++    Ok(SvgPublicationReport {
++        path: config.destination.clone(), bytes, digest: sha256(document),
++    })
++}
++
+ struct FrameState {
+diff --git a/crates/fmn-output/tests/sinks.rs b/crates/fmn-output/tests/sinks.rs
+--- a/crates/fmn-output/tests/sinks.rs
++++ b/crates/fmn-output/tests/sinks.rs
+@@ -2177 +2177,22 @@
+ }
++
++#[test]
++fn svg_create_new_keeps_existing_bytes_and_arbitrates_competing_publishers() {
++    let fs = VirtualFs::new();
++    let destination = PathBuf::from("/render/new.svg");
++    let config = SvgPublicationConfig {
++        destination: destination.clone(), max_artifact_bytes: 128, profile: None,
++    };
++    let document = b"<svg xmlns=\"http://www.w3.org/2000/svg\"/>";
++    let report = fmn_output::publish_svg_new(&fs, &config, document).unwrap();
++    assert_eq!(report.bytes, document.len() as u64);
++    assert_eq!(report.digest, fmn_hash::sha256(document));
++    assert!(fmn_output::publish_svg_new(&fs, &config, b"replacement").is_err());
++    assert_eq!(fs.read(&destination).unwrap(), document);
++    let bounded = SvgPublicationConfig {
++        destination: PathBuf::from("/render/oversized.svg"),
++        max_artifact_bytes: 1, profile: None,
++    };
++    assert!(fmn_output::publish_svg_new(&fs, &bounded, document).is_err());
++    assert!(fs.read(&bounded.destination).is_err());
++}
+diff --git a/crates/fmn-python/python/fmn_python/batch_cli.py b/crates/fmn-python/python/fmn_python/batch_cli.py
+--- a/crates/fmn-python/python/fmn_python/batch_cli.py
++++ b/crates/fmn-python/python/fmn_python/batch_cli.py
+@@ -18,3 +18,3 @@
+   fmn-python [--robot] SOURCE.py --write_all [--keep-going]
+-             [--format png|png_sequence|gif|y4m|wav|mp4|mov]
++             [--format png|png_sequence|gif|y4m|wav|svg|mp4|mov]
+              [--resolution WIDTHxHEIGHT] [--fps FPS] [--threads N]
+diff --git a/crates/fmn-python/python/fmn_python/console_rendering.py b/crates/fmn-python/python/fmn_python/console_rendering.py
+--- a/crates/fmn-python/python/fmn_python/console_rendering.py
++++ b/crates/fmn-python/python/fmn_python/console_rendering.py
+@@ -36,3 +36,3 @@
+ _OUTPUT_HELP = """Native output profiles:
+-  --transparent, -t       Preserve alpha in PNG/PNG sequences or qtrle MOV.
++  --transparent, -t       Preserve alpha in PNG, SVG or qtrle MOV.
+   --vcodec ENCODER        Installed ffmpeg encoder name, or auto (video only).
+@@ -45,2 +45,6 @@
+ Video remains uncertified. P010 is a 10-bit transport, not an HDR claim.
++--format svg exports one final-state vector document, including native text
++and math outlines, camera pan/zoom, flat paints, background and stroke order.
++It does not rasterize or embed fonts. Depth, lighting, user clip planes,
++per-vertex gradients and perspective-varying curves require PNG instead.
+ """
+@@ -58,4 +62,4 @@
+     if result.get("transparent"):
+-        if format not in {"png", "png_sequence", "mov"}:
+-            raise ValueError("--transparent requires png, png_sequence, or mov output")
++        if format not in {"png", "png_sequence", "svg", "mov"}:
++            raise ValueError("--transparent requires png, png_sequence, svg, or mov output")
+         if format == "mov":
+diff --git a/crates/fmn-python/python/fmn_python/rendering.py b/crates/fmn-python/python/fmn_python/rendering.py
+--- a/crates/fmn-python/python/fmn_python/rendering.py
++++ b/crates/fmn-python/python/fmn_python/rendering.py
+@@ -21,3 +21,3 @@
+ 
+-_FORMATS = frozenset({"png", "png_sequence", "gif", "y4m", "wav", "mp4", "mov"})
++_FORMATS = frozenset({"png", "png_sequence", "gif", "y4m", "wav", "svg", "mp4", "mov"})
+ _VIDEO_FORMATS = frozenset({"mp4", "mov"})
+@@ -118,3 +118,3 @@
+         if not isinstance(format, str) or format not in _FORMATS:
+-            raise ValueError("render format must be png, png_sequence, gif, y4m, wav, mp4, or mov")
++            raise ValueError("render format must be png, png_sequence, gif, y4m, wav, svg, mp4, or mov")
+         _validate_writer_options(scene, format, native)
+@@ -343,3 +343,3 @@
+     if not isinstance(format, str) or format not in _FORMATS:
+-        raise ValueError("render format must be png, png_sequence, gif, y4m, wav, mp4, or mov")
++        raise ValueError("render format must be png, png_sequence, gif, y4m, wav, svg, mp4, or mov")
+     if format == "png":
+diff --git a/crates/fmn-python/python/manimlib_bootstrap.py b/crates/fmn-python/python/manimlib_bootstrap.py
+--- a/crates/fmn-python/python/manimlib_bootstrap.py
++++ b/crates/fmn-python/python/manimlib_bootstrap.py
+@@ -22742,3 +22742,3 @@
+        fmn-python [--robot] --construct-only SOURCE.py [SCENE]
+-       fmn-python [--robot] SOURCE.py [SCENE] [--format png|png_sequence|gif|y4m|wav|mp4|mov]
++       fmn-python [--robot] SOURCE.py [SCENE] [--format png|png_sequence|gif|y4m|wav|svg|mp4|mov]
+                   [--resolution WIDTHxHEIGHT] [--fps FPS] [--threads N]
+@@ -22838,6 +22838,6 @@
+ 
+-    if values["format"] not in ("png", "png_sequence", "gif", "y4m", "wav", "mp4", "mov"):
++    if values["format"] not in ("png", "png_sequence", "gif", "y4m", "wav", "svg", "mp4", "mov"):
+         raise RuntimeError(
+             f"CAPABILITY: portal output format {values['format']!r} is not connected; "
+-            "use --format png, png_sequence, gif, y4m, wav, mp4, or mov"
++            "use --format png, png_sequence, gif, y4m, wav, svg, mp4, or mov"
+         )
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -25,2 +25,3 @@
+ mod portal_studio;
++mod portal_svg;
+ mod portal_texture;
+@@ -31,2 +32,5 @@
+ 
++#[cfg(feature = "gauntlet")]
++pub use portal_svg::{PortalSvgReport, run_portal_gauntlet_svg};
++
+ use std::cell::{Cell, Ref, RefCell, RefMut};
+@@ -154,2 +158,3 @@
+     Frames(PortalFrameFormat),
++    Svg,
+     Wav,
+@@ -159,2 +164,3 @@
+     Preview(Box<portal_studio::Capture>),
++    Vector(Box<portal_svg::SvgSession>),
+     Frames(Box<PortalFrameSession>),
+@@ -181,2 +187,8 @@
+         match format {
++            PortalOutputFormat::Svg => {
++                let (session, runtime) = portal_svg::SvgSession::new(
++                    destination, width, height, fps, threads,
++                )?;
++                Ok((Self::Vector(Box::new(session)), runtime))
++            }
+             PortalOutputFormat::Frames(format) => {
+@@ -228,2 +240,3 @@
+             Self::Soundtrack { .. } => Ok(()),
++            Self::Vector(_) => Ok(()),
+         }
+@@ -246,2 +259,3 @@
+             Self::Soundtrack { .. } => Ok(()),
++            Self::Vector(session) => session.bind_camera(frame, background),
+         }
+@@ -252,2 +266,3 @@
+             || matches!(self, Self::Preview(session) if session.is_empty())
++            || matches!(self, Self::Vector(_))
+     }
+@@ -265,2 +280,3 @@
+             )),
++            Self::Vector(session) => session.finish(scene),
+             // ubs:ignore — finalizes frame publication; no security token or randomness is generated.
+@@ -7548,3 +7564,3 @@
+         render.as_ref(),
+-        Some(PortalRenderSession::Frames(_) | PortalRenderSession::Preview(_))
++        Some(PortalRenderSession::Frames(_) | PortalRenderSession::Preview(_) | PortalRenderSession::Vector(_))
+     ))
+@@ -7779,2 +7795,3 @@
+             "wav" => PortalOutputFormat::Wav,
++            "svg" => PortalOutputFormat::Svg,
+             "mp4" => PortalOutputFormat::Frames(PortalFrameFormat::Mp4),
+@@ -7783,3 +7800,3 @@
+                 return Err(CapabilityError::new_err(
+-                    "portal output requires png, png_sequence, gif, y4m, wav, mp4, or mov",
++                    "portal output requires png, png_sequence, gif, y4m, wav, svg, mp4, or mov",
+                 ));
+diff --git a/crates/fmn-python/src/portal_playback.rs b/crates/fmn-python/src/portal_playback.rs
+--- a/crates/fmn-python/src/portal_playback.rs
++++ b/crates/fmn-python/src/portal_playback.rs
+@@ -69,2 +69,3 @@
+             Self::Preview(session) => &session.timeline,
++            Self::Vector(session) => &session.timeline,
+             Self::Soundtrack { timeline, .. } => timeline,
+@@ -77,2 +78,3 @@
+             Self::Preview(session) => &mut session.timeline,
++            Self::Vector(session) => &mut session.timeline,
+             Self::Soundtrack { timeline, .. } => timeline,

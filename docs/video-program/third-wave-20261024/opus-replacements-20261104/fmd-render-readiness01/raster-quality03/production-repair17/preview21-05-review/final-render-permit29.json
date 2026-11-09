@@ -1,0 +1,44 @@
+{
+  "utc": "2026-11-07T19:33:12.299259+00:00",
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "chapter": "05_gallery",
+  "frames": 9879,
+  "timeline_sha256": "be2691b3ed37664dcd66f7fef7778718bff89a18064b22d8fca51919433d525d",
+  "actually_reviewed_pictures": true,
+  "actually_reviewed_motion": true,
+  "reviewer": "root",
+  "unresolved_defects": [],
+  "motion_intervals": [
+    [
+      0,
+      1275
+    ],
+    [
+      5426,
+      9144
+    ]
+  ],
+  "observations": "All201 selected pictures on26 sheets reviewed previously. Actual muted QuickTime playback sampled0-21.25s and90.43-152.40s: polynomial input trace and output winding evolve to3; gamma half-plane shading lifts and poles appear; zeta half-plane boundary, pole and trivial zeros appear, critical-strip inset and four marked numerical zeros build, Riemann hypothesis explicitly remains open, six-function recap follows. Smooth filtered fields; no persistent concrete clipping or overlap in sampled observations. Sparse screenshots during playback, not continuous frame-by-frame review, listening, fine-sync or independent AV acceptance. Authorize technical4K render only; finalmaster/picture/decode/caption/loudness/release checks remain.",
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review05-29/05_gallery.mp4",
+      "sha256": "d89b253dd032e31c03ee8314afdca2cce4ad0f3cd7c816bc1d685e52160f3e3d"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review05-29/05_gallery.timeline.tsv",
+      "sha256": "be2691b3ed37664dcd66f7fef7778718bff89a18064b22d8fca51919433d525d"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review05-29/copy-evidence.json",
+      "sha256": "10d689e1dbc2af8c2410fc06c96307e94883e585d253dd29e0b995f81ae53a99"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review05-29/pictures-reviewed26.json",
+      "sha256": "2bb2658e94f0a849d2a8ce937c9056649132546b571b056e71f7be65ab2339ce"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review05-29/playback-samples01.json",
+      "sha256": "e33d648e210d09e6841a5c05b1f2654f0d4dca28b556b0ebc70f00598afede7e"
+    }
+  ]
+}

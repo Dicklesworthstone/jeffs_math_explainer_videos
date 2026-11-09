@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-08T01:21:19.949684+00:00",
+  "movie_sha256": "0c7400e2703b1688d770dad77af97bebae9c1c897ec7b20177a5cd516e29e67b",
+  "pictures": 202,
+  "sheets": 26,
+  "all_sheets_viewed": true,
+  "review_continuity": "Sheets1-3 viewed in preceding context; sheets4-7 re-viewed after truncated display; sheets4-26 actually viewed in current continuation.",
+  "detail_seconds": [
+    83,
+    126,
+    155
+  ],
+  "observation": "Smooth detailed color fields, readable Gamma and zeta panels and labels, zero/pole turns, explicit open Riemann hypothesis and four-zero numerical scope, and final local zoom. No concrete persistent overlap or clipping observed in selected pictures.",
+  "listening_accepted": false,
+  "fine_sync_accepted": false,
+  "independent_av_accepted": false,
+  "sampling_sha256": "d69e6b13cbf2da9954f37ae32b032573d3274f62984d7bf9101df6c4d6d07fff"
+}

@@ -1,0 +1,147 @@
+{
+  "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/native-stage08-root01/complex-full-preview16-review-progress01.json",
+  "source_sha256": "54670338fb1e3b0386d3efcc29e317867ca852f1df90a611a8b68e9c8292d422",
+  "chapter": {
+    "status": "selected_picture_review_complete",
+    "sheets": 11,
+    "pictures": 65,
+    "sheet_indices_viewed": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "sample_indices_viewed": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64
+    ],
+    "observations": [
+      "All65 selected pictures on11 sheets actually viewed. Opening returns real bump/Taylor failure to complex poles+-i and unit convergence circle.",
+      "Five-card recap builds through42.467s: nonzero derivative stretch/turn; boundary determines inside; output turns zeros minus poles; real integrals via residues; at-most-one extension with path branching.",
+      "Radius-at3 prediction remains unanswered at49.833-57.55s; distances to+-i begin58.25s; sqrt10 approximately3.162 shown61s and expanding disk settles62.817s. Rounded real interval endpoints-.16 and6.16 from65.333s through67.433s.",
+      "Closing title readable69.167-72.067s then fades. No concrete persistent label obstruction in selected pictures."
+    ],
+    "followups": [
+      "Recap requires holomorphicity on an open neighborhood, not derivative at a single point; all-path limit, not merely agreement along straight directions. Verify narration retains conditions from earlier chapters.",
+      "At-most-one extension is for fixed connected region/initial data; path continuation can depend on path. Preserve this distinction in recap.",
+      "Label rounded endpoints as approximations and clarify open convergence disk/interval; endpoint behavior not established by radius alone.",
+      "Continuous motion/listening, fine sync, final4K captions/readability and independent mathematical/AV review remain open."
+    ]
+  },
+  "rehashed_sheets": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/15_closing/sheet-000.png",
+      "sha256": "948556cbbce9eb537e479cc969b6e04b55deabb701c74d3f2b7edaaedbbf737b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/15_closing/sheet-001.png",
+      "sha256": "755dcfa3a4efab118619e7e6c576c828086f9e0c4cde9efd0cc0898a0aed625b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/15_closing/sheet-002.png",
+      "sha256": "06ea418b5ea2afd1ab83ca45f358cbb50cf647a46441b6c748e982cab0cea260"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/15_closing/sheet-003.png",
+      "sha256": "b58e4e8de7f5a961539c026db4a75bca7314dbb6c803d515ec35c68006a8e959"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/15_closing/sheet-004.png",
+      "sha256": "3f39efed60f01ab9c820e1c9d1a1e12055488ad9c04cb6f019eb77e18e3297b1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/15_closing/sheet-005.png",
+      "sha256": "535bf345d3869f465b6353001c34312be6882b6e1cf721716b767cb94c8974b5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/15_closing/sheet-006.png",
+      "sha256": "2d1ed29fc338a0ea304c825146ce2b8fdd0502a083885f55127d1edfbc22052f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/15_closing/sheet-007.png",
+      "sha256": "0aa8334204b0abe828cee40dcf7e1bee01ee11d53ee33ace7dc95d98fc148137"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/15_closing/sheet-008.png",
+      "sha256": "139b7477796e3ba9e69d196474854a3aa2a82960a7a73948a2d2f15ab78809b6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/15_closing/sheet-009.png",
+      "sha256": "0baf8f203230fec68cc7b214439b913ef7d56413a37e367cdc0ec7aa0442e2a3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-full-pictures16-transfer01/pictures/15_closing/sheet-010.png",
+      "sha256": "4a43a5344e20023e4326a1979649d9c27d7e2e03d85f425f9764a1caa649e784"
+    }
+  ]
+}

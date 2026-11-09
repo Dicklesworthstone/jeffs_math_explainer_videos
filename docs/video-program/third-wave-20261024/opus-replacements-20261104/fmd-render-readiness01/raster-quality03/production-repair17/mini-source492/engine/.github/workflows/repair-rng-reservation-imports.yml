@@ -1,0 +1,16 @@
+# Archived after a zero-job workflow-parser failure.
+# The complete historical body remains available in Git history before the quarantine commit.
+name: "Archived: Repair Rng Reservation Imports"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  archived:
+    if: ${{ false }}
+    runs-on: ubuntu-24.04
+    steps:
+      - run: echo "This superseded one-shot is intentionally inert."

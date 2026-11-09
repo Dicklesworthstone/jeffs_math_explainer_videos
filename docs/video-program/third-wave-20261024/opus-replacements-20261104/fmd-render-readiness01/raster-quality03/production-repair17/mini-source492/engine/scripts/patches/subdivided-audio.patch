@@ -1,0 +1,170 @@
+--- a/crates/fmn-python/src/portal_audio.rs
++++ b/crates/fmn-python/src/portal_audio.rs
+@@ -18,6 +18,8 @@
+ pub(crate) struct PortalAudio {
+     decoder: AudioDecoder,
+     first_request: usize,
++    scene_window: bool,
++    minimum_window_frames: i64,
+     pub(crate) inputs: Vec<PortalAudioInput>,
+ }
+ 
+@@ -53,6 +55,8 @@
+         Ok(Box::new(Self {
+             decoder,
+             first_request: 0,
++            scene_window: false,
++            minimum_window_frames: i64::from(video.is_some()),
+             inputs: Vec::new(),
+         }))
+     }
+@@ -60,6 +64,14 @@
+     /// A live recording includes only cues authored after it acquired output.
+     pub(crate) fn begin_at_request(&mut self, first_request: usize) {
+         self.first_request = first_request;
++    }
++
++    /// Subdivided clips hear all currently authored cues, cropped on the
++    /// absolute scene-sample timeline. This is distinct from live inserts,
++    /// which intentionally include only cues added after recording starts.
++    pub(crate) fn use_scene_window(&mut self) {
++        self.first_request = 0;
++        self.scene_window = true;
+     }
+ 
+     pub(crate) fn mix(
+@@ -76,11 +88,26 @@
+                     "recording sound history was truncated; cancel before restoring scene state",
+                 )
+             })?;
+-        if requests.is_empty() {
++        if requests.is_empty() && !self.scene_window {
+             return Ok(None);
+         }
+         let config = fmn_output::MixerConfig::default();
+         let time = scene.time();
++        let window = if self.scene_window {
++            let (start, end) = timeline.scene_window()?;
++            let end = end.max(start.checked_add(self.minimum_window_frames)
++                .ok_or_else(|| PyOverflowError::new_err("audio window overflow"))?);
++            let start = fmn_output::frames_to_samples(start, time.fps(), config.sample_rate)
++                .map_err(native_error)?;
++            let end = fmn_output::frames_to_samples(end, time.fps(), config.sample_rate)
++                .map_err(native_error)?;
++            if end < start || end as u64 > config.max_output_frames {
++                return Err(PyValueError::new_err("audio window exceeds the native timeline budget"));
++            }
++            Some((start as u64, (end - start) as u64))
++        } else {
++            None
++        };
+         let timeline_frames = fmn_output::frames_to_samples(
+             timeline.output_frame(time.frames())?,
+             time.fps(),
+@@ -119,7 +146,11 @@
+             mixer
+                 .add(fmn_output::SoundCue {
+                     audio: decoded.audio,
+-                    frame: timeline.output_frame(request.time.frames())?,
++                    frame: if window.is_some() {
++                        request.time.frames()
++                    } else {
++                        timeline.output_frame(request.time.frames())?
++                    },
+                     fps: request.time.fps(),
+                     time_offset: request.time_offset,
+                     gain: request.gain,
+@@ -128,7 +159,10 @@
+                 .map_err(native_error)?;
+             self.inputs.push(input);
+         }
+-        mixer.mix(threads).map(Some).map_err(native_error)
++        match window {
++            Some((start, frames)) => mixer.mix_window(start, frames, threads),
++            None => mixer.mix(threads),
++        }.map(Some).map_err(native_error)
+     }
+ 
+     pub(crate) fn invocations(&self) -> Vec<fmn_output::InvocationReport> {
+--- a/crates/fmn-python/src/portal_playback.rs
++++ b/crates/fmn-python/src/portal_playback.rs
+@@ -58,6 +58,18 @@
+         self.last_frame = frame;
+         self.skipping = skipping;
+         Ok(())
++    }
++
++    /// Absolute scene interval for one selected per-call audio clip. A
++    /// mid-call cut is not a contiguous interval and must never be flattened
++    /// silently into different audio. Ordinary subdivision selects at pre_play.
++    pub(super) fn scene_window(&self) -> PyResult<(i64, i64)> {
++        if !self.omitted.is_empty() {
++            return Err(PyRuntimeError::new_err(
++                "audio subdivision cannot contain skipped intervals inside one clip",
++            ));
++        }
++        Ok((self.origin_frame, self.last_frame))
+     }
+ 
+     pub(super) fn output_frame(&self, frame: i64) -> PyResult<i64> {
+--- a/crates/fmn-python/src/portal_recording.rs
++++ b/crates/fmn-python/src/portal_recording.rs
+@@ -12,6 +12,10 @@
+     module.setattr(
+         "_portal_begin_recording",
+         wrap_pyfunction!(_portal_begin_recording, module)?,
++    )?;
++    module.setattr(
++        "_portal_begin_audio_clip",
++        wrap_pyfunction!(_portal_begin_audio_clip, module)?,
+     )?;
+     module.setattr(
+         "_portal_scene_clock",
+@@ -123,6 +127,26 @@
+ #[pyfunction]
+ #[allow(clippy::too_many_arguments)]
+ fn _portal_begin_recording(
++    scene: &Bound<'_, PyScene>, destination: String, format: &str,
++    width: u32, height: u32, fps: u32, threads: usize,
++) -> PyResult<i64> {
++    begin_recording(scene, destination, format, width, height, fps, threads, false)
++}
++
++#[pyfunction]
++#[allow(clippy::too_many_arguments)]
++fn _portal_begin_audio_clip(
++    scene: &Bound<'_, PyScene>, destination: String, format: &str,
++    width: u32, height: u32, fps: u32, threads: usize,
++) -> PyResult<i64> {
++    if !matches!(format, "wav" | "mp4" | "mov") {
++        return Err(PyValueError::new_err("audio clips require wav, mp4, or mov"));
++    }
++    begin_recording(scene, destination, format, width, height, fps, threads, true)
++}
++
++#[allow(clippy::too_many_arguments)]
++fn begin_recording(
+     scene: &Bound<'_, PyScene>,
+     destination: String,
+     format: &str,
+@@ -130,6 +154,7 @@
+     height: u32,
+     fps: u32,
+     threads: usize,
++    scene_audio: bool,
+ ) -> PyResult<i64> {
+     if destination.is_empty() || destination.contains('\0') {
+         return Err(PyValueError::new_err(
+@@ -192,7 +217,11 @@
+             "recording cannot start at a negative scene frame",
+         ));
+     }
+-    audio.begin_at_request(first_cue);
++    if scene_audio {
++        audio.use_scene_window();
++    } else {
++        audio.begin_at_request(first_cue);
++    }
+     let (mut session, _unused_runtime_config) = PortalRenderSession::new(
+         destination,
+         width,

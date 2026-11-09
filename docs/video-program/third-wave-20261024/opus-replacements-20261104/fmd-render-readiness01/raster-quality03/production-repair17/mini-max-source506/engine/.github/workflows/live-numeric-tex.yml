@@ -1,0 +1,75 @@
+name: Wire live numeric TeX acceptance
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/live-numeric-tex.yml
+      - scripts/patches/live_numeric_tex_integration.patch
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: live-numeric-tex-main-activation
+  cancel-in-progress: false
+
+jobs:
+  integrate:
+    if: github.repository == 'Dicklesworthstone/franken_manim' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 1
+          clean: false
+      - name: Apply the exact native acceptance wiring without replacing large source files
+        shell: bash
+        run: |
+          set -euo pipefail
+          patch=scripts/patches/live_numeric_tex_integration.patch
+          if git apply --reverse --check "$patch" 2>/dev/null; then
+            echo 'Native live-TeX integration is already present.'
+          else
+            git apply --check --whitespace=error-all "$patch"
+            git apply --whitespace=error-all "$patch"
+          fi
+          python3 - <<'PY'
+          import ast
+          import hashlib
+          from pathlib import Path
+          expected = {
+              'crates/fmn-python/python/fmn_python/live_tex.py': '1f9f96f968124845b1ca0cabcf1c0e054f3a6c09c5e547ada21a12da865da85c',
+              'crates/fmn-python/tests/live_tex.py': '33cdae9830ca0c0c1394d8d2951f4bf57f046750eb6b9e9646c30f0a846250d3',
+              'crates/fmn-python/tests/live_tex_render.py': '32d72cce174356c1fe7d1c7f037b67c650384e348c00c34aa483151807df9f78',
+              'crates/fmn-python/src/live_tex.rs': 'eeb0ef38667087a5d3b70cbc1e85cc09de85527cf50d0a8fc53cf2500b7b82fc',
+          }
+          for name, digest in expected.items():
+              content = Path(name).read_bytes()
+              if hashlib.sha256(content).hexdigest() != digest:
+                  raise SystemExit('Prepared implementation changed: ' + name)
+              if name.endswith('.py'):
+                  ast.parse(content, filename=name)
+          PY
+          bash -n scripts/check_portal_runtime.sh
+          git diff --check
+          git add -- crates/fmn-python/src/lib.rs crates/fmn-conformance/tests/e2e_scenarios.rs
+          if git diff --cached --quiet; then
+            git rev-parse HEAD
+            exit 0
+          fi
+          python3 - <<'PY'
+          import subprocess
+          paths = set(subprocess.check_output(['git', 'diff', '--cached', '--name-only', '-z']).split(b'\0')) - {b''}
+          if paths != {b'crates/fmn-python/src/lib.rs', b'crates/fmn-conformance/tests/e2e_scenarios.rs'}:
+              raise SystemExit('Refusing unexpected staged paths')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git diff --cached --stat
+          git commit -m 'test(python): wire live numeric TeX native and Gauntlet acceptance'
+          git push origin HEAD:main
+          git rev-parse HEAD

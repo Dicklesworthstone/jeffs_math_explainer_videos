@@ -1,0 +1,121 @@
+{
+  "format": "fmn-font-bundle/1",
+  "generated_by": "cargo run -p fmn-conformance --bin gen_font_manifest",
+  "hash_convention": "sha256 (fmn-hash, FIPS 180-4; lowercase hex via Digest::to_hex) over the exact bundled TTF bytes of fmd-font's ALL_FACES at the SUITE.lock pin — the same identity the §16.7 input closure and the typeset cache fingerprint key against",
+  "suite_lock": {
+    "repo": "franken_markdown",
+    "rev": "126a5304e8d94eaea62b1b8e13bbe9c40918ac72"
+  },
+  "faces": [
+    {
+      "name": "cm-regular",
+      "family": "Computer Modern",
+      "version": "Version 0.7.0",
+      "byte_len": 235656,
+      "sha256": "3deb3c529a46d391eaad2e2b896824013d4e1922419c91ab6cb75c40db97c3f2",
+      "license": "licenses/fonts/computer-modern-OFL.txt"
+    },
+    {
+      "name": "cm-bold",
+      "family": "Computer Modern",
+      "version": "Version 0.7.0",
+      "byte_len": 221904,
+      "sha256": "643afcc8fc9a526cd060f37459f050f03156f0a593779d87b8ad21f937757a31",
+      "license": "licenses/fonts/computer-modern-OFL.txt"
+    },
+    {
+      "name": "cm-italic",
+      "family": "Computer Modern",
+      "version": "Version 0.7.0",
+      "byte_len": 289276,
+      "sha256": "acd86b2806441b277361e1dfe2d64c26038ba727c6e69fbdfff6ddb8f6446478",
+      "license": "licenses/fonts/computer-modern-OFL.txt"
+    },
+    {
+      "name": "cm-bold-italic",
+      "family": "Computer Modern",
+      "version": "Version 0.7.0",
+      "byte_len": 285096,
+      "sha256": "570dbbba9377d7d2fbdf544ae0dfd751614d90446a6229e7cf4b6a4cf97349ab",
+      "license": "licenses/fonts/computer-modern-OFL.txt"
+    },
+    {
+      "name": "cm-typewriter",
+      "family": "CM Typewriter",
+      "version": "Version 0.7.0",
+      "byte_len": 214528,
+      "sha256": "75b653ab15c2a678a303a1293db1692cbe6c3dfdd5d90f5fce97690aa9991948",
+      "license": "licenses/fonts/computer-modern-OFL.txt"
+    },
+    {
+      "name": "plex-regular",
+      "family": "IBM Plex Sans",
+      "version": "Version 3.005",
+      "byte_len": 200500,
+      "sha256": "975dcda37d80f038dcd143c22e33ca2d97a0cc5a929aace1c749153b0fe1afa5",
+      "license": "licenses/fonts/ibm-plex-sans-OFL.txt"
+    },
+    {
+      "name": "plex-bold",
+      "family": "IBM Plex Sans",
+      "version": "Version 3.005",
+      "byte_len": 200872,
+      "sha256": "9e6c74a889a700d707613d24548fe4ffa6bc59559a0689d2cf9e133bdcdafb2f",
+      "license": "licenses/fonts/ibm-plex-sans-OFL.txt"
+    },
+    {
+      "name": "plex-italic",
+      "family": "IBM Plex Sans",
+      "version": "Version 3.005",
+      "byte_len": 207920,
+      "sha256": "a9c6ef9942c49e49d11e11a6dacc0b3a087978757e9b22a06b8ac22a6400fb15",
+      "license": "licenses/fonts/ibm-plex-sans-OFL.txt"
+    },
+    {
+      "name": "plex-bold-italic",
+      "family": "IBM Plex Sans",
+      "version": "Version 3.005",
+      "byte_len": 208588,
+      "sha256": "0e3142ba2ef31fe5c02f0c6c36424f251609cd6b73880076e21c2e81931ba2b9",
+      "license": "licenses/fonts/ibm-plex-sans-OFL.txt"
+    },
+    {
+      "name": "noto-sans-math-symbols",
+      "family": "Noto Sans Math",
+      "version": null,
+      "byte_len": 72908,
+      "sha256": "634b9964bd8af7e88520e82efe0967cf8cc280720e04158e05246144571b9e4d",
+      "license": "licenses/fonts/noto-sans-math-OFL.txt"
+    }
+  ],
+  "licenses": [
+    {
+      "path": "licenses/fonts/computer-modern-OFL.txt",
+      "license_id": "OFL-1.1",
+      "covers": ["cm-regular", "cm-bold", "cm-italic", "cm-bold-italic", "cm-typewriter"],
+      "byte_len": 4820,
+      "sha256": "73273dffdefe2e5f1e138084d4a4b65b1c50df2ab0179f78484f31beefe30d84"
+    },
+    {
+      "path": "licenses/fonts/ibm-plex-sans-OFL.txt",
+      "license_id": "OFL-1.1",
+      "covers": ["plex-regular", "plex-bold", "plex-italic", "plex-bold-italic"],
+      "byte_len": 4456,
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+    },
+    {
+      "path": "licenses/fonts/noto-sans-math-OFL.txt",
+      "license_id": "OFL-1.1",
+      "covers": ["noto-sans-math-symbols"],
+      "byte_len": 4380,
+      "sha256": "403a95275b469061b7d4371c328e0ada3bc7d63328abe2e88aad5cd243b2fe21"
+    },
+    {
+      "path": "licenses/LICENSE",
+      "license_id": "MIT WITH Engine-Rider",
+      "covers": ["engine"],
+      "byte_len": 3939,
+      "sha256": "32a82e0a5754e72e51fae44b65a936c831c07376f21c90f5fb9e76897fcc3509"
+    }
+  ]
+}

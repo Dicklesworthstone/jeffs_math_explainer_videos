@@ -1,0 +1,51 @@
+{
+  "chapter": "13_real_integral",
+  "frames": 10641,
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "timeline_sha256": "208d07a7e8a38ff01cb8ae8061f05eecc30d5fd941682d426329e404a562c072",
+  "actually_reviewed_pictures": true,
+  "actually_reviewed_motion": true,
+  "reviewer": "root",
+  "observations": "All226 selected pictures and sparse muted advancing playback reviewed. No persistent concrete defect identified. Technical final-render permit only; final4K/master/audio/captions and independentAV remain open.",
+  "unresolved_defects": [],
+  "motion_intervals": [
+    [
+      0,
+      791
+    ],
+    [
+      2259,
+      3306
+    ],
+    [
+      6869,
+      10291
+    ]
+  ],
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/qualification01/review13-96/pictures-reviewed95.json",
+      "sha256": "5cbef57d1ed308bc6e56b2d6835181ddc9dd738166643e09364913c67294d45f"
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/qualification01/review13-96/copy-evidence.json",
+      "sha256": "30312458084463620fa51738dddec8c0a39fd68a448e75ddeae271626e750e55"
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/qualification01/review13-96/13_real_integral.timeline.tsv",
+      "sha256": "208d07a7e8a38ff01cb8ae8061f05eecc30d5fd941682d426329e404a562c072"
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/qualification01/review13-96/13_real_integral.cues.tsv",
+      "sha256": "c19f91943c0a206cf0a0b0adfd31c3d1f8b0214af69106d8df566d91d4940255"
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/qualification01/review13-96/13_real_integral.cuelog.tsv",
+      "sha256": "ca53864c89f85729990438b564015269112e51e5ba9ec34eb32bd31663d92418"
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/qualification01/review13-96/playback-samples96.json",
+      "sha256": "cf076a8807a50c4e59ac4cf6ae206c47314f7f67cc6e273d505aeca7dff3f897"
+    }
+  ]
+}

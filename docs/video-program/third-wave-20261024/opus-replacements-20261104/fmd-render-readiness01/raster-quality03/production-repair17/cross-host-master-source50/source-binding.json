@@ -1,0 +1,26 @@
+{
+  "build_receipt": "2026-11-07T15:34:51.582112+00:00",
+  "manifest_sha256": "290dd1e4b0ae129e22c6157953a5583ee213793023aae8c79863fcbcaed4aec6",
+  "sources": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/inputs/frozen/repo-view/crates/explainer_kit/src/cli.rs",
+      "sha256": "3c5221febc3e3d92d37aa97e2f8d38c319121215a67a1dc68d24534d41d862c9",
+      "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cross-host-master-source50/0-cli.rs"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/inputs/frozen/repo-view/crates/explainer_kit/src/master.rs",
+      "sha256": "7d1952dbea0be5220aee9c768cd57937f99c168de23b89751c9d94da5f40270d",
+      "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cross-host-master-source50/1-master.rs"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/work/tree/repo-view/crates/explainer_kit/src/cli.rs",
+      "sha256": "3c5221febc3e3d92d37aa97e2f8d38c319121215a67a1dc68d24534d41d862c9",
+      "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cross-host-master-source50/2-cli.rs"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/work/tree/repo-view/crates/explainer_kit/src/master.rs",
+      "sha256": "7d1952dbea0be5220aee9c768cd57937f99c168de23b89751c9d94da5f40270d",
+      "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cross-host-master-source50/3-master.rs"
+    }
+  ]
+}

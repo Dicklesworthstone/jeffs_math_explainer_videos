@@ -1,0 +1,35 @@
+{
+  "utc": "2026-11-08T04:59:50.076204+00:00",
+  "movie_sha256": "ce9855429a89440c77b82681ac322b8a4f45388b5083c7fdf0cee4cedf59c8f7",
+  "viewed_samples": [
+    {
+      "frame": 3737,
+      "seconds": 62.28333333333333,
+      "reasons": [
+        "line:10_4"
+      ],
+      "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final10-pictures155/pictures/frame-000077.jpg",
+      "sha256": "ec1efc525d1e406d83177e66a923f78cedae3720ce5dd2bf7ae44f4c2e942927"
+    },
+    {
+      "frame": 3767,
+      "seconds": 62.78333333333333,
+      "reasons": [
+        "line:10_4"
+      ],
+      "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final10-pictures155/pictures/frame-000078.jpg",
+      "sha256": "79404ddb7e025d90ba71cd636393b8495309862ec326b87e6ef67e6efe6c2f15"
+    },
+    {
+      "frame": 7441,
+      "seconds": 124.01666666666667,
+      "reasons": [
+        "last frame"
+      ],
+      "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final10-pictures155/pictures/frame-000154.jpg",
+      "sha256": "2bba58692b83bac873714f2600e7d04ef3b4d615e85ab54ba09b107009d15d33"
+    }
+  ],
+  "observations": "All three selected frames actually viewed. At3737 and3767 the colour field appears full-strength despite show interval; last frame7441 still shows full-strength sine field with overlays gone. Supports review241 medium defect. Still comparison only, no motion or listening claim.",
+  "decision": "Repair shared plate fade semantics and verify native partial-opacity pixels before affected final chapters can be released. Do not infer all chapters affected until source inventory246."
+}

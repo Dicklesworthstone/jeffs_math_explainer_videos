@@ -1,0 +1,11 @@
+{"chapter_scope": null, "consumer": "render", "directed_caption_segments": [], "listening_acceptance": false, "plan_mode": "external-ui", "prediction_holds": [], "promotion": false, "selected_cues": 63, "topic": "complex_analysis_visual", "verified_cues": 105}
+01_the_bump     6311 frames   520.2s    12.1 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/01_the_bump.mp4
+04_reading_color  6774 frames  1144.3s     5.9 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/04_reading_color.mp4
+05_gallery      9879 frames   889.3s    11.1 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/05_gallery.mp4
+07_one_point    6491 frames   575.1s    11.3 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/07_one_point.mp4
+09_boundary    16504 frames  4153.1s     4.0 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/09_boundary.mp4
+10_rigidity     7442 frames  2512.5s     3.0 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/10_rigidity.mp4
+11_counting    11932 frames  1891.0s     6.3 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/11_counting.mp4
+12_residues     3943 frames   331.1s    11.9 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/12_residues.mp4
+14_continuation 11756 frames   910.7s    12.9 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/14_continuation.mp4
+total          81032 frames  12927.4s     6.3 fps

@@ -1,0 +1,121 @@
+error: unclosed table, expected `]`
+ --> ../../../../../../../../home/ubuntu/.cargo/git/checkouts/asupersync-b12181f74b36652e/c48399f/tests/fixtures/migration_readiness_planner/malformed/Cargo.toml:1:9
+  |
+1 | [package
+  |         ^
+   Compiling libc v0.2.190
+   Compiling serde_core v1.0.229
+   Compiling serde v1.0.229
+   Compiling getrandom v0.4.3
+   Compiling rand_core v0.10.1
+   Compiling cpufeatures v0.3.1
+   Compiling num-traits v0.2.19
+   Compiling crypto-common v0.2.2
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.151
+   Compiling block-buffer v0.12.1
+   Compiling generic-array v0.14.7
+   Compiling crossbeam-utils v0.8.23
+   Compiling zerocopy v0.8.62
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling digest v0.10.7
+   Compiling thiserror v2.0.21
+   Compiling cipher v0.5.2
+   Compiling blake3 v1.8.7
+   Compiling crossbeam-epoch v0.9.21
+   Compiling const-oid v0.10.2
+   Compiling crossbeam-deque v0.8.8
+   Compiling digest v0.11.3
+   Compiling universal-hash v0.6.1
+   Compiling getrandom v0.2.17
+   Compiling matrixmultiply v0.3.11
+   Compiling rayon-core v1.13.0
+   Compiling rustix v1.1.5
+   Compiling rand_core v0.6.4
+   Compiling curve25519-dalek v4.1.3
+   Compiling fsci-runtime v0.2.0 (https://github.com/Dicklesworthstone/frankenscipy?rev=85edd7a99f2a6487ef35135e135b9959cc0010c1#85edd7a9)
+   Compiling sha2 v0.10.9
+   Compiling chacha20 v0.10.2
+   Compiling signature v2.2.0
+   Compiling num-integer v0.1.47
+   Compiling approx v0.5.1
+   Compiling num-complex v0.4.6
+   Compiling simba v0.10.2
+   Compiling num-rational v0.4.2
+   Compiling ppv-lite86 v0.2.21
+   Compiling memoffset v0.9.1
+   Compiling parking_lot_core v0.9.12
+   Compiling rayon v1.12.0
+   Compiling nix v0.31.3
+   Compiling nalgebra v0.35.0
+   Compiling rand_chacha v0.3.1
+   Compiling polyval v0.7.3
+   Compiling ed25519 v2.2.3
+   Compiling fsci-fft v0.2.0 (https://github.com/Dicklesworthstone/frankenscipy?rev=85edd7a99f2a6487ef35135e135b9959cc0010c1#85edd7a9)
+   Compiling sha2 v0.11.0
+   Compiling aead v0.6.1
+   Compiling errno v0.3.14
+   Compiling bincode-next v3.1.1
+   Compiling signal-hook v0.4.5
+   Compiling crc32fast v1.5.2
+   Compiling signal-hook-registry v1.4.8
+   Compiling fsci-linalg v0.2.0 (https://github.com/Dicklesworthstone/frankenscipy?rev=85edd7a99f2a6487ef35135e135b9959cc0010c1#85edd7a9)
+   Compiling ed25519-dalek v2.2.0
+   Compiling ghash v0.6.0
+   Compiling signatory v0.27.1
+   Compiling rand v0.8.8
+   Compiling aes v0.9.3
+   Compiling poly1305 v0.9.1
+   Compiling ctr v0.10.1
+   Compiling franken-evidence v0.3.10 (https://github.com/Dicklesworthstone/asupersync?rev=c48399f20a9780ef420de64fe504ff922e5afe5e#c48399f2)
+   Compiling rmp v0.8.15
+   Compiling franken-kernel v0.3.10 (https://github.com/Dicklesworthstone/asupersync?rev=c48399f20a9780ef420de64fe504ff922e5afe5e#c48399f2)
+   Compiling nkeys v0.4.5
+   Compiling tempfile v3.27.0
+   Compiling franken-decision v0.3.10 (https://github.com/Dicklesworthstone/asupersync?rev=c48399f20a9780ef420de64fe504ff922e5afe5e#c48399f2)
+   Compiling rmp-serde v1.3.1
+   Compiling aes-gcm v0.11.1
+   Compiling chacha20poly1305 v0.11.0
+   Compiling parking_lot v0.12.5
+   Compiling xattr v1.6.1
+   Compiling polling v3.11.0
+   Compiling sha1 v0.11.0
+   Compiling hmac v0.13.0
+   Compiling crossbeam-queue v0.3.14
+   Compiling sysinfo v0.39.6
+   Compiling semver v1.0.28
+   Compiling socket2 v0.6.5
+   Compiling asupersync v0.3.10 (https://github.com/Dicklesworthstone/asupersync?rev=c48399f20a9780ef420de64fe504ff922e5afe5e#c48399f2)
+   Compiling half v2.7.1
+   Compiling fnp-dtype v0.2.0 (https://github.com/Dicklesworthstone/franken_numpy?rev=a15d5c32e9330b555b0a653058bcfcff22fcb4ec#a15d5c32)
+   Compiling fmn-geom v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-geom)
+   Compiling fmn-mobject v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-mobject)
+   Compiling fp-types v0.1.2 (https://github.com/Dicklesworthstone/frankenpandas?rev=da85cf65df48965e027b2f5aa21b7d0ce6a7e29c#da85cf65)
+   Compiling chrono v0.4.45
+   Compiling chrono-tz v0.10.4
+   Compiling rand v0.10.3
+   Compiling fsci-opt v0.2.0 (https://github.com/Dicklesworthstone/frankenscipy?rev=85edd7a99f2a6487ef35135e135b9959cc0010c1#85edd7a9)
+   Compiling fp-index v0.1.2 (https://github.com/Dicklesworthstone/frankenpandas?rev=da85cf65df48965e027b2f5aa21b7d0ce6a7e29c#da85cf65)
+   Compiling fp-columnar v0.1.2 (https://github.com/Dicklesworthstone/frankenpandas?rev=da85cf65df48965e027b2f5aa21b7d0ce6a7e29c#da85cf65)
+   Compiling fmn-text v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-text)
+   Compiling fmn-anim v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-anim)
+   Compiling fsci-sparse v0.2.0 (https://github.com/Dicklesworthstone/frankenscipy?rev=85edd7a99f2a6487ef35135e135b9959cc0010c1#85edd7a9)
+   Compiling fmn-platform v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-platform)
+   Compiling fmn-cache v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-cache)
+   Compiling fp-runtime v0.1.2 (https://github.com/Dicklesworthstone/frankenpandas?rev=da85cf65df48965e027b2f5aa21b7d0ce6a7e29c#da85cf65)
+   Compiling fnx-runtime v0.2.0 (https://github.com/Dicklesworthstone/franken_networkx?rev=9d710b1c33e99412c94de7fa4de2f7ce4954110f#9d710b1c)
+   Compiling fp-frame v0.1.2 (https://github.com/Dicklesworthstone/frankenpandas?rev=da85cf65df48965e027b2f5aa21b7d0ce6a7e29c#da85cf65)
+   Compiling fnx-classes v0.2.0 (https://github.com/Dicklesworthstone/franken_networkx?rev=9d710b1c33e99412c94de7fa4de2f7ce4954110f#9d710b1c)
+   Compiling fmn-render v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-render)
+   Compiling fmn-tex v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-tex)
+   Compiling fsci-integrate v0.2.0 (https://github.com/Dicklesworthstone/frankenscipy?rev=85edd7a99f2a6487ef35135e135b9959cc0010c1#85edd7a9)
+   Compiling fmn-library v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-library)
+   Compiling fmn-scene v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-scene)
+   Compiling fmn-output v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-output)
+   Compiling fmn-runtime v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-runtime)
+   Compiling fmn v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn)
+   Compiling explainer_kit v0.1.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/repo-view/crates/explainer_kit)
+   Compiling complex_analysis_visual v0.1.0 (/data/projects/jmev-stroke-probe-20261106/work/two-label68/workspace/explainer_corpus/complex_analysis_visual)
+    Finished `release` profile [optimized] target(s) in 9m 23s
+     Running unittests src/main.rs (/data/projects/jmev-stroke-probe-20261106/work/target/release/build/complex_analysis_visual/e12e7bc346c6de0e/out/complex_analysis_visual-e12e7bc346c6de0e)

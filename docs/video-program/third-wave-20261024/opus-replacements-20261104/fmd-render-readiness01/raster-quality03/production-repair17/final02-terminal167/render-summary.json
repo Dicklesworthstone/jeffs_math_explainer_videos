@@ -1,0 +1,34 @@
+{
+  "chapter": "02_turning_numbers",
+  "frames": 5372,
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "permit_sha256": "ccdff19cd315f5e4893b59fdc11e84486e8db15ab6f9fd63ae73535bd7dc5ac2",
+  "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+  "files": [
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32/render/02_turning_numbers.cuelog.tsv",
+      "sha256": "254c50a31e867368e16691f9853ba77973061107882686024bbdd189eb3b7ddf"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32/render/02_turning_numbers.cues.tsv",
+      "sha256": "97102b8f71bd574d3ed6d96698edc3efeadc5c4fb0b1bdbef14c623386e299fc"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32/render/02_turning_numbers.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32/render/02_turning_numbers.mp4",
+      "sha256": "bf0891a409f589bd4fc125c038e03dd027ec334436e25cdc129463c659984f07"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32/render/02_turning_numbers.timeline.tsv",
+      "sha256": "06b60e54827aa8ae7f947a2a55ec7f172493e0602d9ad42cd2640985ba485978"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32/render/soundtrack/02_turning_numbers/soundtrack_0.wav",
+      "sha256": "200323c9da7c2ab7120bff5239fcdf938a8639234d60fb609c2a6296e2a70df7"
+    }
+  ],
+  "scope": "Technical scored4K60 chapter only; full decode, master replay, final pictures/motion/audio/captions and publication remain."
+}

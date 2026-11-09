@@ -1,0 +1,40 @@
+{
+  "time": "2026-11-08T05:28:02.665563+00:00",
+  "reviewed_by_root": true,
+  "scope": "complex visual repairs",
+  "qualification_limits": "Root reviewed final260 test-only correction and confirmed runtime identical246. Independent235/253/255 complete;257 validates fade semantics and found old gate defect. Final260 independent correction review pending. Guarded compile/test/probe only, no final render/publication acceptance.",
+  "files": {
+    "boundary.rs": {
+      "candidate": "boundary-label-repair52.rs",
+      "sha256": "dc80c541799209f10d02701d18c7fab5a14327000719929e5e2fad0c6fd62f9f"
+    },
+    "loop_sums.rs": {
+      "candidate": "loop-sums-review-repair238.rs",
+      "sha256": "8a13e8a190cd502e7b58efbcb7c40872cdb0e6e702feb69e1b789e451a7a42b5"
+    },
+    "one_derivative.rs": {
+      "candidate": "one-derivative-review-repair238.rs",
+      "sha256": "7a4cc01acb497ad881c0d8478c696ab74db025494ab9381d0b414355fe3fd30d"
+    },
+    "mod.rs": {
+      "candidate": "mod-review-repair256.rs",
+      "sha256": "e1f4d1b87f4b36f979e7800f7b2048117b9a4809b2372f385350698f5c3e7cbd"
+    },
+    "rigidity.rs": {
+      "candidate": "rigidity-review-repair247.rs",
+      "sha256": "0bcfbc7d7962b2ab8fa2d27895fce104ab6cb71ce5aac26fdd0b97dca04a3df0"
+    },
+    "gallery.rs": {
+      "candidate": "gallery-review-repair249.rs",
+      "sha256": "d57e003a4067f3e67abb654e98c19ca0274c9b7edae5ac26da756757e33230b5"
+    },
+    "draw.rs": {
+      "candidate": "cc2-plate-fade-candidate260-draw.rs",
+      "sha256": "923ad2efb5f8524e6324f0e14a4946e10026cde902b99c1c7974524255be1064"
+    },
+    "plate_fade_probe.rs": {
+      "candidate": "cc2-plate-fade-probe246.rs",
+      "sha256": "c0c56084be04c9ff3605e0cb1d05fe989510c35d043ce6215688e72be909155f"
+    }
+  }
+}

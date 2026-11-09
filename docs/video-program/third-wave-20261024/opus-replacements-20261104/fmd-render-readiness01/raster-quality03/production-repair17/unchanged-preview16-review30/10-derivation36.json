@@ -1,0 +1,6 @@
+{
+  "identity_mechanism": "For h=f-g analytic, if first nonzero Taylor coefficient at an interior accumulation point has degree m, h(z)=(z-a)^m q(z) with q continuous and q(a) nonzero, contradicting distinct zeros approaching a. Thus every coefficient is zero and h vanishes on a disk. The set of locally zero points is nonempty, open and relatively closed in connected U, so it is all U. This supplies the reasoning behind the drawn disk chain rather than assuming arbitrary smooth curves have Taylor expansions.",
+  "curve_context": "Actual drawn curve parameter has strictly increasing x, hence is nonconstant with distinct accumulating points inside U.",
+  "liouville": "Cauchy estimate |fprime(a)| <= M/R for every R>0 on entire bounded f gives fprime(a)=0 and constancy.",
+  "scope": "Own mathematical check; not independent review or listening."
+}

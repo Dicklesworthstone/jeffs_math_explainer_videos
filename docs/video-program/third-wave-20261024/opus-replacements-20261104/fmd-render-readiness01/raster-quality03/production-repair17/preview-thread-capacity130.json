@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-08T00:06:11.751951+00:00",
+  "host": "csd",
+  "cores_available": 64,
+  "observed_load": "13.39 13.01 29.29",
+  "available_ram_mib": 139483,
+  "pending_only": true,
+  "job": "csd-loop-label-preview70",
+  "previous_threads": 4,
+  "threads": 16,
+  "previous_sha256": "715ce8cc4405648c52d03142e909694e3ff4f7bb03cb284a443c6bb5bf9801de",
+  "sha256": "82dbc50db6bc0c60bd4462bc4f2afad5e8e069bbbaee0022929f9e40974822e6",
+  "guards_unchanged": true,
+  "existing_controller_preserved": true,
+  "running_jobs_unchanged": true
+}

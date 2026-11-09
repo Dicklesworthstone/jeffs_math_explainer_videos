@@ -1,0 +1,42 @@
+{
+  "at": "2026-11-08T20:41:06.199273+00:00",
+  "reviewer": "root",
+  "scope": "Technical 4K render disposition only; not release acceptance",
+  "independent_review_read_completely": true,
+  "root_images_actually_viewed_this_turn": [
+    5400,
+    6240
+  ],
+  "low_findings": {
+    "L1": "Inside the dashes caption is very close to card border but remains readable in viewed 540p frame5400. Accept for technical render; verify native4K at5280,5400,5537,6240.",
+    "L2": "Long bound formula wholly visible at6240, with narrow right margin. Accept for technical render; verify native4K6228-6360."
+  },
+  "repair_disposition": "Independent340 and root341/343 establish no observed zoom-guide crossing after repaired fade. Proceed toward technical4K with honest sampled-review scope.",
+  "continuous_motion_acceptance": false,
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "final_4k_acceptance": false,
+  "publication_acceptance": false,
+  "evidence": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cc3-preview313-pictures340.md",
+      "sha256": "7a0c1f9fd38a62c437b66cf1d356ef3d479008070c9ff9af06a51e1d3b6b9c14"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-preview313-pictures341.json",
+      "sha256": "7350b30a4bcc595a1fffd31c7670c18c97ef4dac00045f46ec916c225132dca9"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-preview313-playback343.json",
+      "sha256": "d9f250ec00007fe0687c7bf2a3155652b30df45956c5dfe53e9922dd0ec67e81"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview313-review333/09_boundary/pictures/frame-000166.jpg",
+      "sha256": "b7f0250ff14f689fe0131ecb2cbbb4c7f1f928620f2937914ae888c971c7b529"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview313-review333/09_boundary/pictures/frame-000186.jpg",
+      "sha256": "330def8ccc893a5cc0f2499288ab57b10937797686aebf412dd1213161747092"
+    }
+  ]
+}

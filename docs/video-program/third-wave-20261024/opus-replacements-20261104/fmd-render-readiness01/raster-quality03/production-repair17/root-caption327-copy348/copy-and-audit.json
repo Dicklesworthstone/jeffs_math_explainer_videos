@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-08T20:44:31.877907+00:00",
+  "source_job": "csd-caption-preflight327",
+  "files": {
+    "complex_analysis_visual.en.srt": "5d06423248f088a34774f361721bf05e1c4950ac834086e3666661e1adfe5e1b",
+    "complex_analysis_visual.en.vtt": "26e0d7e0eec26eb6f9136bb56f795a6ff8ab9cead26f29fc76a75e9abc4bb2e3",
+    "resource-receipt.json": "47277c23dad18e2c911da53c3d563dde271015a6af3abb8b855c1b51ab5ae06e"
+  },
+  "caption_count": 571,
+  "native_export_terminal_stable": true,
+  "inspected_caption_numbers": [
+    45,
+    137,
+    216,
+    326,
+    335,
+    350,
+    406,
+    470,
+    478,
+    479
+  ],
+  "finding": "Root confirms expressions split between screens; original words retained. Caption-only repair347 assigned, not yet accepted.",
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false
+}

@@ -1,0 +1,15 @@
+{
+  "helper_sha256": "b6653757c5c114029a94832a0dd4cb9597c42808614fbb959ef6448a5d994f6e",
+  "relay_sha256": "c8f5539d2290416543e4a9bee50d7ef5bc2af82b61cf687ea73f30198881ec0d",
+  "changed_existing_functions": [
+    "gather",
+    "start"
+  ],
+  "unchanged_existing_functions": 15,
+  "checks": [
+    "actual pinned448 import load",
+    "exact448 a1 master receipt mapping",
+    "all4 remote probes compile"
+  ],
+  "scope": "Root source/routing checks only; no actual transfer, remote execution, independent review or release acceptance."
+}

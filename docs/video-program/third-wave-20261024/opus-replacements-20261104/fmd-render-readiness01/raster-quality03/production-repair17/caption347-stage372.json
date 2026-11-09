@@ -1,0 +1,41 @@
+{
+  "utc": "2026-11-08T21:58:27.047970+00:00",
+  "files": [
+    {
+      "file": "cc1-caption-repair347.py",
+      "sha256": "61fee2e97b1febf23927926a5e9886032d6d004414e938e014ba8f97c258cdb8",
+      "bytes": 23973
+    },
+    {
+      "file": "cc1-caption-repair347-overrides.json",
+      "sha256": "4b8330c430f1392192a965db6bdcd6c534f04addecd8a8d9ec56bbf7b29b20cf",
+      "bytes": 52729
+    },
+    {
+      "file": "cc1-caption-repair347-candidate.en.srt",
+      "sha256": "0ea9277e6d598540e5e9057a84ee84daf7f88420b076434659fc3d3ad0ff3230",
+      "bytes": 48567
+    },
+    {
+      "file": "cc1-caption-repair347-candidate.en.vtt",
+      "sha256": "6a383cb7f207be81254e9a820ecb701ca77d00a26557194c675dc1717ef6979b",
+      "bytes": 46367
+    },
+    {
+      "file": "cc1-caption-repair347-checks.json",
+      "sha256": "8b3ef4f40eaf35adfbea2df8f8faa3cf4711c897b5cfb70027bb9265bd9ed458",
+      "bytes": 5585
+    },
+    {
+      "file": "cc1-caption-repair347.md",
+      "sha256": "054cbb4be32a582cd4a6183cab21e60d576d376b34ff0c0a2bbff3848c858241",
+      "bytes": 10712
+    },
+    {
+      "file": "root-caption347-review354.json",
+      "sha256": "749aeba8350d46e339a517af971086bd2d6e2fe039e6501f16e480edd3ad3cb4",
+      "bytes": 4009
+    }
+  ],
+  "scope": "Frozen caption347 candidate and review354 staged only. No execution, final master binding, caption playback, listening, fine sync or publication acceptance."
+}

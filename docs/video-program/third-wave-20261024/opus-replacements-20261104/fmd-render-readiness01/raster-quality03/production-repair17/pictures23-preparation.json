@@ -1,0 +1,8 @@
+{
+  "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview21.py",
+  "source_sha256": "a161bf614556f84125af83affc7071bf0e04e3e7cb6161cfcfc9a8ad61895191",
+  "candidate_sha256": "4a5056b0bd92e14c279c1b3a4af243ac4256be084c71dee43c1dd7ce07fd01d1",
+  "syntax_checked": true,
+  "launched": false,
+  "purpose": "Recovery only after actual preview21 extraction failure with all completed native outputs frozen; no rerender; balanced expression preserves every selected frame."
+}

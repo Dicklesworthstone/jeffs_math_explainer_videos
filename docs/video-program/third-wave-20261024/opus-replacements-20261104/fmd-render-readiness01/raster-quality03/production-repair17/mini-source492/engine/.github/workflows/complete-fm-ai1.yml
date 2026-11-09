@@ -1,0 +1,189 @@
+name: Complete fm-ai1 RNG Cutover
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/complete-fm-ai1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: complete-fm-ai1-rng-cutover
+  cancel-in-progress: false
+
+jobs:
+  complete:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Install the governed toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustup toolchain install nightly-2026-07-05 --profile minimal --component clippy,rustfmt --target wasm32-unknown-unknown
+          rustup override set nightly-2026-07-05
+
+      - name: Mark fm-ai1 in progress
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          path = Path(".beads/issues.jsonl")
+          lines = path.read_text(encoding="utf-8").splitlines()
+          now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+          found = False
+          changed = False
+          for index, line in enumerate(lines):
+              issue = json.loads(line)
+              if issue.get("id") != "fm-ai1":
+                  continue
+              found = True
+              if issue.get("status") == "open":
+                  issue["status"] = "in_progress"
+                  issue["updated_at"] = now
+                  lines[index] = json.dumps(issue, separators=(",", ":"), ensure_ascii=False)
+                  changed = True
+              break
+          if not found:
+              raise SystemExit("fm-ai1 is absent from the bead ledger")
+          if changed:
+              path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+          PY
+          if ! git diff --quiet -- .beads/issues.jsonl; then
+            git config user.name "FrankenManim fm-ai1"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add .beads/issues.jsonl
+            git commit -m "chore(beads): resume fm-ai1 RNG authority cutover"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Regenerate only the governed FrankenNumPy lock slice
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp Cargo.lock "$RUNNER_TEMP/Cargo.lock.before"
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          cargo = Path("Cargo.toml").read_text(encoding="utf-8")
+          suite = Path("SUITE.lock").read_text(encoding="utf-8")
+          pin_match = re.search(r"^franken_numpy\t([0-9a-f]{40})\t", suite, re.MULTILINE)
+          if pin_match is None:
+              raise SystemExit("SUITE.lock has no exact FrankenNumPy pin")
+          pin = pin_match.group(1)
+          expected = "a15d5c32e9330b555b0a653058bcfcff22fcb4ec"
+          if pin != expected:
+              raise SystemExit(f"unexpected FrankenNumPy authority pin: {pin}")
+          for package in ("fnp-dtype", "fnp-ndarray", "fnp-io", "fnp-random-core"):
+              needle = f'{package} = {{ git = "https://github.com/Dicklesworthstone/franken_numpy", rev = "{pin}" }}'
+              if needle not in cargo:
+                  raise SystemExit(f"workspace dependency is not pinned exactly: {needle}")
+
+          allowlist_path = Path("SUITE_ALLOWLIST.tsv")
+          allowlist = allowlist_path.read_text(encoding="utf-8")
+          row = (
+              "fnp-random-core\t0.2.0\tgit+franken_numpy@SUITE.lock\t-\t-\t"
+              "MIT+rider\tno\tno\tno\tno\tforbid\truntime\t"
+              "fm-ai1: dependency-free SeedSequence and PCG64DXSM authority; no OS entropy, ndarray, rayon, or distribution surface; rev must equal the SUITE.lock franken_numpy pin\t"
+              "fm\tsuite-lock-ritual\n"
+          )
+          rows = [line for line in allowlist.splitlines() if line.startswith("fnp-random-core\t")]
+          if len(rows) > 1:
+              raise SystemExit("duplicate fnp-random-core allowlist rows")
+          if not rows:
+              anchor = next(
+                  line
+                  for line in allowlist.splitlines(keepends=True)
+                  if line.startswith("fnp-ndarray\t0.2.0\tgit+franken_numpy@SUITE.lock\t")
+              )
+              allowlist = allowlist.replace(anchor, anchor + row, 1)
+              allowlist_path.write_text(allowlist, encoding="utf-8")
+          PY
+          cargo check -p fmn-core --all-targets
+
+      - name: Reject unrelated lockfile churn
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os
+          import tomllib
+          from pathlib import Path
+
+          def packages(path):
+              with open(path, "rb") as handle:
+                  document = tomllib.load(handle)
+              grouped = {}
+              for package in document.get("package", []):
+                  grouped.setdefault(package["name"], []).append(package)
+              for values in grouped.values():
+                  values.sort(key=lambda value: (value.get("version", ""), value.get("source", "")))
+              return grouped
+
+          before = packages(os.environ["RUNNER_TEMP"] + "/Cargo.lock.before")
+          after = packages("Cargo.lock")
+          mutable = {"fmn-core", "fnp-dtype", "fnp-io", "fnp-ndarray", "fnp-random-core"}
+          for name in sorted((set(before) | set(after)) - mutable):
+              if before.get(name) != after.get(name):
+                  raise SystemExit(f"unrelated Cargo.lock package changed: {name}")
+
+          pin = "a15d5c32e9330b555b0a653058bcfcff22fcb4ec"
+          source = f"git+https://github.com/Dicklesworthstone/franken_numpy?rev={pin}#{pin}"
+          for name in ("fnp-dtype", "fnp-io", "fnp-ndarray", "fnp-random-core"):
+              rows = after.get(name, [])
+              if len(rows) != 1 or rows[0].get("source") != source:
+                  raise SystemExit(f"{name} did not resolve to the governed pin: {rows}")
+          random_core = after["fnp-random-core"][0]
+          if random_core.get("dependencies"):
+              raise SystemExit(f"fnp-random-core is not dependency-free: {random_core['dependencies']}")
+          if "fnp-random" in after:
+              raise SystemExit("the full fnp-random package entered Cargo.lock")
+          core = after.get("fmn-core", [])
+          if len(core) != 1 or "fnp-random-core" not in core[0].get("dependencies", []):
+              raise SystemExit("fmn-core does not resolve fnp-random-core")
+          PY
+          git diff --check
+
+      - name: Prove native, wasm, source identity, and governed closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-core
+          cargo test --locked -p fmn-core --test rng_parity
+          cargo check --locked --target wasm32-unknown-unknown -p fmn-core
+          cargo test --locked -p fmn-conformance --test franken_numpy_pin
+          cargo test --locked -p fmn-conformance --test governed_closure workspace_closure_is_exactly_the_governed_universe -- --exact
+          cargo test --locked -p fmn-conformance --test governed_closure suite_lock_parses_and_matches_the_pinned_toolchain -- --exact
+          cargo clippy --locked -p fmn-core --all-targets -- -D warnings
+
+      - name: Commit the proven lock and allowlist repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "FrankenManim fm-ai1"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Cargo.lock SUITE_ALLOWLIST.tsv
+          git diff --cached --check
+          git diff --cached --quiet && {
+            echo "fm-ai1 lock state was already current"
+            exit 0
+          }
+          git commit -m "fix(core): lock the fnp-random-core RNG authority" \
+            -m "Resolve every consumed FrankenNumPy package to the exact SUITE.lock pin, admit only dependency-free fnp-random-core, and prove native, wasm32, NumPy-vector, source-identity, and governed-closure gates before publication."
+          git pull --rebase origin main
+          git push origin HEAD:main

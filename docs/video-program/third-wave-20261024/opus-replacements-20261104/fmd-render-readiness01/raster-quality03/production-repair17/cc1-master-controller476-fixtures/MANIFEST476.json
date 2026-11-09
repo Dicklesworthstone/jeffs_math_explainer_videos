@@ -1,0 +1,53 @@
+{
+ "controller476": "77cd7be786d87b847f31a31a281ef2d0d76f789276e9666af2667a45f691107e",
+ "draft476": "3e7b59d0cfb843cd3cd9741f72746139ee39359975d6bd99bb1c69e50cd3b457",
+ "controller464": "89ff965940c3ed8146f9f849f2cd8736856fb547b0646a85ecb54f113047bfff",
+ "draft460": "fcf0e7d738c5bbe142f3a938a7526f7847cdb16fe006eed2ba53596f5a6525b3",
+ "note": "Fixtures for the 464 to 476 route delta. Not an actual import and not final AV acceptance.",
+ "files": {
+  "README476.md": {
+   "sha256": "2195973f69204e8a4ae1f044735add09afb49961fb46d97c0254857839373ac5",
+   "bytes": 4522
+  },
+  "build476.py": {
+   "sha256": "e8b25913a501dd06872680bee6abc5ffe2f995719051a8169960184ff2a2848b",
+   "bytes": 4687
+  },
+  "cc1-master-controller476.diff": {
+   "sha256": "07516277bbf9f91e7ffb0005000956b134ae9ae7271a44b99ce52f71d221cf50",
+   "bytes": 14841
+  },
+  "delta476.out.json": {
+   "sha256": "bea2abfecc1d0de1fb0b45e8edb40bc9aaa195592a4420b20e984d00159d269b",
+   "bytes": 1733
+  },
+  "delta476.py": {
+   "sha256": "ce9d03ca57f8c5ee16bc9137d2078b2c9ce9ed44bfec52e7deaec575fc7259bf",
+   "bytes": 1709
+  },
+  "fixture476-08-manifest.json": {
+   "sha256": "5daba78851121d3ee2220538aa5de4a43570930343580805c72048ce4af705fe",
+   "bytes": 1692
+  },
+  "test476-K1.stdout": {
+   "sha256": "e945691e358bd3e925549d6e0f1448549799e56263409d3b7a458fc0410a6afd",
+   "bytes": 7888
+  },
+  "test476-K2.stdout": {
+   "sha256": "789bbbf5081ff35e269de659eb3b87a837d977af59022460a5631f96cbc425fc",
+   "bytes": 7970
+  },
+  "test476-K3.stdout": {
+   "sha256": "d3bb00552950ab067ab942d60cebcad8567b5dda997e6ea5c62ef674c2cdd365",
+   "bytes": 7144
+  },
+  "test476.out.json": {
+   "sha256": "8c0df7fd8807b53f9a81a790aff337034e0a5b91b8cf7c61e0d3d46a7f94fa4b",
+   "bytes": 6661
+  },
+  "test476.py": {
+   "sha256": "d400307f3bfe3b66da09b2165aa9d9c68ac06b627c8af13064e37684fb652e2e",
+   "bytes": 13819
+  }
+ }
+}

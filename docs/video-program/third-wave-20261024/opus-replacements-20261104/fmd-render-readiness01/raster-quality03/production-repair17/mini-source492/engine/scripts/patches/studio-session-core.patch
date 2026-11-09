@@ -1,0 +1,13 @@
+diff --git a/crates/fmn-studio/src/supervisor.rs b/crates/fmn-studio/src/supervisor.rs
+index 7f22fd8..a016386 100644
+--- a/crates/fmn-studio/src/supervisor.rs
++++ b/crates/fmn-studio/src/supervisor.rs
+@@ -13,6 +13,8 @@
+ //! It is not exposed to scene code and cannot be used as an external-tool
+ //! escape hatch.
+ 
++pub mod session;
++
+ use std::collections::{BTreeSet, TryReserveError, VecDeque};
+ use std::fmt;
+ use std::io::Read as _;

@@ -1,0 +1,40 @@
+{
+  "utc": "2026-11-08T06:25:30.631465+00:00",
+  "copy": {
+    "chapter-times.json": {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/publication-draft292/chapter-times.json",
+      "sha256": "10ee70317c58255e9ebb52c6801cc9e4315743eab0c1ab844ebe95fb85734ff5"
+    },
+    "title.txt": {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/publication-draft292/title.txt",
+      "sha256": "48a242e3e4209b446850be61f1868d8f6280881d00d34d2bc387e529c0edc920"
+    },
+    "script-reviewed.tsv": {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/publication-draft292/script-reviewed.tsv",
+      "sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c"
+    },
+    "description.txt": {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/publication-draft292/description.txt",
+      "sha256": "2bccf7a19c042987dc62a1d33037f68878ed5234789f48c786dbea0e6092dee1"
+    },
+    "tags.txt": {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/publication-draft292/tags.txt",
+      "sha256": "8fab018e2221b8d64646310553b5f58af5496d1df01052b23073c16ee5e497f5"
+    }
+  },
+  "thumbnail": {
+    "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/publication19-thumbnail208/thumbnail.png",
+    "sha256": "e5dfc2bd04aa3af148ee66ca8107594acf3015a237f5f36a08f1c3c72c4c2eab",
+    "provenance": "production19 source plus native thumbnail24.rs, distinct thumbnail24 binary; unchanged selected thumbnail208",
+    "actually_viewed_now": true,
+    "observations": "Smooth two-turn domain color field; title and subtitle clearly separated; no clipping/overlap at displayed2048x1152. Secondary legend remains small at phone size as reviewer205 recorded."
+  },
+  "upload_ready": false,
+  "remaining": [
+    "successful combined268 final master and technical verification",
+    "actual final picture and motion review",
+    "continuous listening and fine-sync review",
+    "independent final AV review",
+    "final master chapter times and uploaded SRT binding"
+  ]
+}

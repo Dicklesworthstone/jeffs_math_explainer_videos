@@ -1,0 +1,34 @@
+{
+  "chapter": "01_the_bump",
+  "frames": 6311,
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "permit_sha256": "1b9c017f31a7d12f2d185a8cafdd79d5db32b8636002097a61a8720c4e3637f6",
+  "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+  "files": [
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-01-the-bump30/render/01_the_bump.cuelog.tsv",
+      "sha256": "2a52e1efd64dcff6658191c056b331f51eeeb323d16ca2702d6e8307c94d3adf"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-01-the-bump30/render/01_the_bump.cues.tsv",
+      "sha256": "e7fea540de13ec0b72077e8d43e9d3dfecdf0ad92ab8c628f19845e7fe41561b"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-01-the-bump30/render/01_the_bump.layout.tsv",
+      "sha256": "f47a0de94926bf43544e85891272a3329a2bc6fdb5ae325b66c03e0098d3d9d1"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-01-the-bump30/render/01_the_bump.mp4",
+      "sha256": "0cea4f760b7063edd7eb23db05581d2df0f6055309abd59a2ae977acae8597ea"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-01-the-bump30/render/01_the_bump.timeline.tsv",
+      "sha256": "667a625e175c41fe0a56297e6ea5d1174ad904310e6c41e8ac069dd07a669c9c"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-01-the-bump30/render/soundtrack/01_the_bump/soundtrack_0.wav",
+      "sha256": "4d77c2d66720d67160cea0feec6d86a5e5ab54720641d4586050104a2d592e07"
+    }
+  ],
+  "scope": "Technical scored4K60 chapter only; full decode, master replay, final pictures/motion/audio/captions and publication remain."
+}

@@ -1,0 +1,45 @@
+{
+ "files": [
+  {
+   "file": "csd_state391.py",
+   "sha256": "0ab3b6df134ab9bf7affe0ba06fbc7bc3f09e1ea0bd859d8e8e8d275f856de3d",
+   "bytes": 4010
+  },
+  {
+   "file": "fake377-391c.py",
+   "sha256": "c78885c5e619f88620b2a400fd5fd6c2c8f27e7ee2c6deec703f452a8e6cb13f",
+   "bytes": 15875
+  },
+  {
+   "file": "fake377_gen391c.py",
+   "sha256": "4151e371193123721aff984f0dcec2060807096bea4204070d99e30168e2bd69",
+   "bytes": 8613
+  },
+  {
+   "file": "fakeguard391.py",
+   "sha256": "32704bf9fd64ccdade72730d67590ebd1ada8d8f967aa85b585f1c8fec4fc7cb",
+   "bytes": 2651
+  },
+  {
+   "file": "results391-summary.json",
+   "sha256": "cfdc3b9d535126224c30f6c7497bd4461084d6f363aeb0ce1ca4429577c00441",
+   "bytes": 54244
+  },
+  {
+   "file": "run388_391.py",
+   "sha256": "f6a24b55b786fe8a35501a9f14b8ba9915f50bd436a4669cb8efc38e548227a6",
+   "bytes": 2315
+  },
+  {
+   "file": "static391.py",
+   "sha256": "99fd4499508d871ae59062b25cf2e746a88306598d02d3abb54fd51e435744c8",
+   "bytes": 3731
+  },
+  {
+   "file": "test391.py",
+   "sha256": "d2976a68e10bd75a9073ea7685679ebc5318ce0e70745269e6df6cd1e9992b29",
+   "bytes": 11523
+  }
+ ],
+ "note": "CC1 review391 fixtures: stand-ins and runners, not 377/388/guard. results391-summary.json: harness, static and CSD read-only outputs with local paths replaced by T."
+}

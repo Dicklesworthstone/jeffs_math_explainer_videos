@@ -1,0 +1,18 @@
+{
+  "utc": "2026-11-08T03:37:34.789960+00:00",
+  "review_sha256": "3e7742c2612020a989a8b55a78e289349ac7693ace78d3f15ea46d6b01178e13",
+  "root_followup_frames": [
+    2220,
+    9466,
+    10140
+  ],
+  "decision": "Accept selected still-picture review; L1 moving radius and axis/pole label contacts remain readable; L2 transparent fade resolves to opaque legible panel; L4 type style differences do not change meaning. No re-render justified by these observations. L3 actual uploaded-caption/player overlay remains to be checked during private/public platform review.",
+  "independent_selected_stills": {
+    "pictures": 227,
+    "sheets": 29
+  },
+  "continuous_listening_accepted": false,
+  "fine_sync_accepted": false,
+  "independent_final_av_accepted": false,
+  "publication_accepted": false
+}

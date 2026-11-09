@@ -1,0 +1,82 @@
+{
+ "version": "352",
+ "derived_from_helper290_sha256": "720e63a66d9e67d04c1cd99d2131d76401e42a5e2d60240fb1afc9d3a93ac8f2",
+ "derived_from_worker287_sha256": "f01f4c29049acc86d486d4b083273182febd4cfdf0e7f4b755c9c2fb81247510",
+ "utc": "2026-11-09T04:55:01.677643+00:00",
+ "bytes": 321371,
+ "files": [
+  {
+   "source": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/08_loop_sums-css-permit474.json",
+   "dest": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/08_loop_sums-css-permit474.json",
+   "sha256": "92119d3a65fd5b3637f839ca83fb60eb455661d296337a1e1dc02cf777d0e59a",
+   "bytes": 3894,
+   "mode": 420
+  },
+  {
+   "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/08_loop_sums/sampling.json",
+   "dest": "/data/projects/jmev-css-render-worker-20261107/work/frozen-runtime75/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/08_loop_sums/sampling.json",
+   "sha256": "951eab4a4c64517a5cff9b8ff824f79c83cca4d5b1f614a6157498383d48a7da",
+   "bytes": 221547,
+   "mode": 436
+  },
+  {
+   "source": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/preview243-root-review-complete277.json",
+   "dest": "/data/projects/jmev-css-render-worker-20261107/work/frozen-runtime75/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/preview243-root-review-complete277.json",
+   "sha256": "0c8299120c29cf1f6aebd2e76891dc9cfe5467c3654bb6f8ef8617effd00f9cc",
+   "bytes": 17191,
+   "mode": 436
+  },
+  {
+   "source": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/preview08-disposition285.json",
+   "dest": "/data/projects/jmev-css-render-worker-20261107/work/frozen-runtime75/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/preview08-disposition285.json",
+   "sha256": "40ad7b1250ad016aa98535440abe6a48b451d0f4e67d585eba4b2b98091aaaa5",
+   "bytes": 1301,
+   "mode": 436
+  },
+  {
+   "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build268/qualification.json",
+   "dest": "/data/projects/jmev-css-render-worker-20261107/work/frozen-runtime75/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build268/qualification.json",
+   "sha256": "2f3430a82dc1561eecbc1485aa00c18070606c4d8728fc6811b62b1f141dc857",
+   "bytes": 738,
+   "mode": 436
+  },
+  {
+   "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build268/source-copy.json",
+   "dest": "/data/projects/jmev-css-render-worker-20261107/work/frozen-runtime75/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build268/source-copy.json",
+   "sha256": "81d28272a7a23b63199e79e6aa1086f01f131f0ddd685d4ae859d04b1de1934c",
+   "bytes": 10797,
+   "mode": 436
+  },
+  {
+   "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-timeline269/comparison.json",
+   "dest": "/data/projects/jmev-css-render-worker-20261107/work/frozen-runtime75/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-timeline269/comparison.json",
+   "sha256": "d2bf8e9b9ede33b429e61f8e87e238d1a64a11ebd970d34851e12e11c6e5d0ea",
+   "bytes": 14353,
+   "mode": 436
+  },
+  {
+   "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/rebind-summary.json",
+   "dest": "/data/projects/jmev-css-render-worker-20261107/work/frozen-runtime75/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/rebind-summary.json",
+   "sha256": "fa263d8a6c14c21ef037525fd316e2d64019c0f506e934a4e2d38886b5167da6",
+   "bytes": 14508,
+   "mode": 436
+  },
+  {
+   "source": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-preview-to-final-binding282.md",
+   "dest": "/data/projects/jmev-css-render-worker-20261107/work/frozen-runtime75/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-preview-to-final-binding282.md",
+   "sha256": "1fbcedef34f65933ff3d818740d124cb2492a39e276916eb600f6753d5c62066",
+   "bytes": 22755,
+   "mode": 436
+  },
+  {
+   "source": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc2-preview08-review271.md",
+   "dest": "/data/projects/jmev-css-render-worker-20261107/work/frozen-runtime75/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc2-preview08-review271.md",
+   "sha256": "d70fb0deec2bfc562c0815e57678019769cc84544c940bbfe192f5ac5b242478",
+   "bytes": 14287,
+   "mode": 436
+  }
+ ],
+ "kind": "permit",
+ "chapter": "08_loop_sums",
+ "permit": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/08_loop_sums-css-permit474.json"
+}

@@ -1,0 +1,99 @@
+{
+  "chapter": "04_reading_color",
+  "host": "css",
+  "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+  "preview_job": "csd-review-repair-preview274",
+  "frames": 6774,
+  "timeline_sha256": "438587cb208d2bdf5fee9510ea2c7c57af7a1247d8a140e023f4edd9ce48edb4",
+  "actually_reviewed_pictures": true,
+  "unresolved_defects": [],
+  "reviewer": "root",
+  "observations": "Root305 sampled pass and framewise transition records plus independent315 grid review support technical rendering only. Intentional peripheral lower-third field overlays were disposed in root grid315 review; poles, loop, readouts and text remain clear in reviewed samples. Recheck platform caption placement.",
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/sampling.json",
+      "sha256": "bbd19ad68735188e86d51732427a1f5faa33a39122cc126c39caae9ca7a33b21"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json",
+      "sha256": "d4547c553a9c6dddabbc5d07448a86f447b0ddc9cac9a70930b2cec63fe9abb2",
+      "views": [
+        "bbd19ad68735188e86d51732427a1f5faa33a39122cc126c39caae9ca7a33b21"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/color-transition-frames305/manifest.json",
+      "sha256": "a58e25460f12f09ed228a1ddd7b5df097048c7d2b27cb746c428a78c9b75e192"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/color-transition-review305.json",
+      "sha256": "fdd04eab7439fb3a82b230992c67d6b8534b467126b82f059dc9e7ac1ba6f181",
+      "views": [
+        "a58e25460f12f09ed228a1ddd7b5df097048c7d2b27cb746c428a78c9b75e192"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/coverage-grid305b/04_reading_color/sampling.json",
+      "sha256": "073e69f845e69817e720fa14584403a672236494451c3537c5b42281e4c8fd75"
+    }
+  ],
+  "source_binding_evidence": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build268/qualification.json",
+      "sha256": "2f3430a82dc1561eecbc1485aa00c18070606c4d8728fc6811b62b1f141dc857"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build268/source-copy.json",
+      "sha256": "81d28272a7a23b63199e79e6aa1086f01f131f0ddd685d4ae859d04b1de1934c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-timeline269/comparison.json",
+      "sha256": "d2bf8e9b9ede33b429e61f8e87e238d1a64a11ebd970d34851e12e11c6e5d0ea"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/rebind-summary.json",
+      "sha256": "fa263d8a6c14c21ef037525fd316e2d64019c0f506e934a4e2d38886b5167da6"
+    }
+  ],
+  "independent_reviewer": "cc3",
+  "independent_review": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json",
+      "sha256": "e9a881ffd9a0a2cd813eecdcb4e94a3824f55c4e51743ec69feae389d943d866",
+      "views": [
+        "073e69f845e69817e720fa14584403a672236494451c3537c5b42281e4c8fd75"
+      ]
+    }
+  ],
+  "review_scope": {
+    "basis": "sampled_preview",
+    "purpose": "technical_4k_render",
+    "preview_movie_sha256": "8836b7e6d87b170d9cb7327fd51fd3e93fb7b5bfd2b2a89605d7cc1ed2d7e890",
+    "sampled_intervals": [
+      [
+        235,
+        315
+      ],
+      [
+        6742,
+        6773
+      ]
+    ],
+    "playback_seconds": [],
+    "open_reviews": [
+      "final_picture",
+      "motion",
+      "audio",
+      "fine_sync",
+      "captions",
+      "independent_final_av",
+      "publication"
+    ]
+  },
+  "continuous_motion_acceptance": false,
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "final_4k_acceptance": false,
+  "release_acceptance": false,
+  "publication_acceptance": false
+}

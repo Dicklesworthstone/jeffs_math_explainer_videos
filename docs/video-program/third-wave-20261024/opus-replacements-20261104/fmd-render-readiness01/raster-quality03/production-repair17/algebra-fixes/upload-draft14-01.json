@@ -1,0 +1,24 @@
+{
+  "video_id": "TLIrVzLkQro",
+  "url": "https://youtu.be/TLIrVzLkQro",
+  "studio_tab": "1054669796",
+  "uploaded_once": true,
+  "master_sha256": "69dba6d493bfa510a371015ba4383d1f6b1930d38202a2a123fdf97e3008333f",
+  "observed": "Private selected and saved; private-video processing dialog confirmed. Reopened detail page Pending during SD processing, checks starting soon; thumbnail and full description saved. Never upload again.",
+  "created_at": "2026-11-07T19:06:32.454205+00:00",
+  "limitations": "No continuous listening, fine sync or independent AV acceptance. No public publication or original-unlisting.",
+  "updated_at": "2026-11-07T19:08:01.005402+00:00",
+  "metadata_installed": true,
+  "caption_import": "Exact final14 timed SRT imported; Studio English subtitles published; first timed entries read",
+  "settings": {
+    "title": "Abstract Algebra, Built from a Square",
+    "chapters": 16,
+    "tags": 13,
+    "language": "English",
+    "category": "Education",
+    "kids": false,
+    "paid_promotion": false,
+    "ai_disclosure": true,
+    "auto_chapters": false
+  }
+}

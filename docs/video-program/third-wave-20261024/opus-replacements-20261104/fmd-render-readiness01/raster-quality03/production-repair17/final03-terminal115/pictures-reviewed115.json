@@ -1,0 +1,36 @@
+{
+  "reviewed_at": "2026-11-07T23:28:28.342754+00:00",
+  "movie_sha256": "20353d01ee564ef101ecad80bdfa8ec1db87ac2188b2e4642969b371f2e82cf3",
+  "selected_frames": 154,
+  "sheets_actually_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "detail_seconds": [
+    60,
+    100
+  ],
+  "observations": "No persistent concrete clipping or unintended label overlap in selected pictures. Reciprocal inversion, exponential circles and squared grid readable. Sheets13-14 re-viewed after prior truncated display.",
+  "limitations": [
+    "Selected stills only, not exhaustive frames or continuous motion",
+    "No continuous listening, fine-sync or independent final audiovisual acceptance"
+  ]
+}

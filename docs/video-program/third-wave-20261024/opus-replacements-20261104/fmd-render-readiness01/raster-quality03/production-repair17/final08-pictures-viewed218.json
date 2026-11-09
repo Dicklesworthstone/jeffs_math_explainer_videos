@@ -1,0 +1,58 @@
+{
+  "utc": "2026-11-08T04:13:47.239962+00:00",
+  "movie_sha256": "5278d2daf0543c5bee035e346477b1772a6774bdd4f173a60e6c7c86572412ed",
+  "selected_frames_viewed": 283,
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36
+  ],
+  "native_details_seconds": [
+    168,
+    172,
+    205.6
+  ],
+  "observations": [
+    "Repaired c label clears diagonal and moving distance segment at168/172s and later sampled holds.",
+    "Both205.6s lint strokes intentionally cancel numerator and denominator4^n; following result remains legible.",
+    "No blocking persistent clipping or unintended overlap observed. Plain-text Q_n notation in magnified-square title is readable but typographically literal."
+  ],
+  "limits": [
+    "Selected stills only; not every frame or continuous motion review.",
+    "Continuous listening, fine-sync, independent finalAV and public player/caption checks remain open."
+  ],
+  "independent_review": "CC1 assigned cc1-final08-picture-review219.md; pending"
+}

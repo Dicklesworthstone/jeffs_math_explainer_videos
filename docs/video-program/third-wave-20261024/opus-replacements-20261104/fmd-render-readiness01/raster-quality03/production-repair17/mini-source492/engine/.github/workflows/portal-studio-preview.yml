@@ -1,0 +1,139 @@
+name: Python Studio preview
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/portal-studio-preview.yml'
+      - 'crates/fmn-studio/src/recorded.rs'
+      - 'crates/fmn-studio/src/project_watch.rs'
+      - 'crates/fmn-python/src/portal_studio.rs'
+      - 'crates/fmn-python/python/fmn_python/studio.py'
+      - 'crates/fmn-python/python/fmn_python/interaction.py'
+      - 'crates/fmn-python/tests/test_dispatcher_binding_protocol.py'
+      - 'crates/fmn-python/tests/studio_preview.py'
+      - 'crates/fmn-python/tests/test_studio_protocol.py'
+      - 'scripts/patches/portal-studio-preview.patch'
+      - 'scripts/patches/portal-studio-autoreload.patch'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: portal-studio-preview
+  cancel-in-progress: true
+jobs:
+  preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/portable
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Connect reviewed portal integration when present
+        shell: bash
+        run: |
+          set -euo pipefail
+          if test -f scripts/patches/portal-studio-preview.patch && ! grep -qx 'mod portal_studio;' crates/fmn-python/src/lib.rs; then
+            git apply --recount --check scripts/patches/portal-studio-preview.patch
+            git apply --recount scripts/patches/portal-studio-preview.patch
+          fi
+          grep -qx 'mod portal_studio;' crates/fmn-python/src/lib.rs
+          if ! grep -q 'fn watch_sources' crates/fmn-python/src/portal_studio.rs; then
+            git apply --recount --check scripts/patches/portal-studio-autoreload.patch
+            git apply --recount scripts/patches/portal-studio-autoreload.patch
+          fi
+      - name: Install pinned compiler and Python build tools
+        run: |
+          rustup show active-toolchain
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        id: cargo-cache
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-portal-studio-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-portal-studio-
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-
+      - name: Verify console and host policies
+        shell: bash
+        run: |
+          set -euo pipefail
+          export PYTHONPATH=crates/fmn-python/python:crates/fmn-python/tests
+          python -m unittest test_render_session_protocol test_console_rendering_protocol test_batch_rendering_protocol test_render_selection_protocol test_video_console_protocol test_studio_protocol test_interaction_protocol test_dispatcher_binding_protocol test_control_events_protocol test_color_sliders_protocol 2>&1 | tee /tmp/studio-protocol.log
+      - name: Verify native captured timeline and preview boundaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-studio/src/recorded.rs crates/fmn-studio/src/native/camera.rs crates/fmn-studio/src/host.rs crates/fmn-studio/src/project_watch.rs
+          cargo test --locked -p fmn-studio --lib -- --nocapture 2>&1 | tee /tmp/studio-native.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/studio-native.log
+          cargo clippy --locked -p fmn-studio --lib -- -D warnings
+          cargo test --locked -p fmn-studio --test native_camera --test native_camera_motion --test native_camera_transition
+      - name: Verify portal and clean installed wheel
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-python/src/portal_studio.rs crates/fmn-python/src/lib.rs
+          cargo test --locked -p fmn-python portal_studio -- --nocapture 2>&1 | tee /tmp/studio-portal.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/studio-portal.log
+          cargo clippy --locked -p fmn-python --lib -- -D warnings
+          python scripts/check_crate_dag.py
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-conformance/tests/e2e_scenarios.rs
+          cargo test --locked -p fmn-conformance --test e2e_scenarios python_studio_capture_scenario_passes -- --nocapture 2>&1 | tee /tmp/studio-e2e.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/studio-e2e.log
+          python -m maturin build --locked --interpreter python --profile dev --out target/studio-wheel
+          python -m venv target/studio-venv
+          target/studio-venv/bin/python -m pip install 'numpy==2.5.2' target/studio-wheel/*.whl
+          target/studio-venv/bin/python -I crates/fmn-python/tests/studio_preview.py 2>&1 | tee /tmp/studio-wheel.log
+          git diff --check
+      - name: Commit verified integration and formatting directly to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add crates/fmn-studio/src/recorded.rs crates/fmn-studio/src/project_watch.rs
+          git add crates/fmn-python/python/fmn_python/studio.py crates/fmn-python/tests/studio_preview.py crates/fmn-python/tests/test_studio_protocol.py docs/dist/python_studio.md
+          if test -f scripts/patches/portal-studio-preview.patch; then
+            git add Cargo.lock crates/fmn-python/Cargo.toml crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_studio.rs crates/fmn-python/src/portal_playback.rs scripts/check_crate_dag.py crates/fmn-studio/src/native.rs crates/fmn-studio/src/native/camera.rs crates/fmn-studio/src/host.rs crates/fmn-python/python/fmn_python/__main__.py crates/fmn-python/python/fmn_python/console_rendering.py crates/fmn-conformance/tests/e2e_scenarios.rs docs/dist/python_wheel.md
+          fi
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(studio): activate verified Python preview, native source watching and reload recovery'
+            git push origin HEAD:main
+          fi
+      - name: Preserve source and verification evidence
+        if: always()
+        run: |
+          git archive --format=tar.gz HEAD > /tmp/studio-source.tar.gz
+          git rev-parse HEAD > /tmp/studio-source-sha.txt
+          git diff > /tmp/studio-working.patch
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: studio-preview-${{ github.sha }}
+          path: |
+            /tmp/studio-*.log
+            /tmp/studio-source.tar.gz
+            /tmp/studio-source-sha.txt
+            /tmp/studio-working.patch
+          retention-days: 1
+      - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        if: always() && steps.cargo-cache.outputs.cache-hit != 'true'
+        continue-on-error: true
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: ${{ steps.cargo-cache.outputs.cache-primary-key }}

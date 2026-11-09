@@ -1,0 +1,8 @@
+error: unclosed table, expected `]`
+ --> ../../../../../../../../home/ubuntu/.cargo/git/checkouts/asupersync-b12181f74b36652e/c48399f/tests/fixtures/migration_readiness_planner/malformed/Cargo.toml:1:9
+  |
+1 | [package
+  |         ^
+   Compiling complex_analysis_visual v0.1.0 (/data/projects/jmev-stroke-probe-20261106/work/production-repair19/workspace/explainer_corpus/complex_analysis_visual)
+    Finished `release` profile [optimized] target(s) in 23.39s
+     Running unittests src/main.rs (/data/projects/jmev-stroke-probe-20261106/work/target/release/build/complex_analysis_visual/e12e7bc346c6de0e/out/complex_analysis_visual-e12e7bc346c6de0e)

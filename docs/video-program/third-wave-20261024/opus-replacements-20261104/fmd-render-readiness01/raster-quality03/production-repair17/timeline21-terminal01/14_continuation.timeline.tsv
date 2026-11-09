@@ -1,0 +1,15 @@
+# explainer timeline v1
+chapter	14_continuation
+fps	60
+frames	11756
+line	14_1	36	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/14_1.wav
+line	14_2	1200	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/14_2.wav
+line	14_3	2523	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/14_3.wav
+line	14_4	4997	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/14_4.wav
+line	14_5	5704	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/14_5.wav
+line	14_6	7641	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/14_6.wav
+line	14_7	8853	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/14_7.wav
+line	14_8	10181	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/14_8.wav
+mark	predict	5389
+breath	11576	2
+listen	5389	5	14_continuation:14_4

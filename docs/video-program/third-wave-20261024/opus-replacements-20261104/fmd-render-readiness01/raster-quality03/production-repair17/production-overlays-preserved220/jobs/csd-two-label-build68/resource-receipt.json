@@ -1,0 +1,442 @@
+{
+  "started": "2026-11-08T00:49:59.754573+00:00",
+  "phase": "native",
+  "command": [
+    "/usr/bin/timeout",
+    "22000",
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/two-label-build68.py"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-08T00:50:01.525738+00:00",
+      "free_bytes": 111129829376,
+      "work_bytes": 5546696704,
+      "target_bytes": 2183393280
+    },
+    {
+      "utc": "2026-11-08T00:50:11.955631+00:00",
+      "free_bytes": 111114092544,
+      "work_bytes": 5546713088,
+      "target_bytes": 2193502208
+    },
+    {
+      "utc": "2026-11-08T00:50:22.392324+00:00",
+      "free_bytes": 111109603328,
+      "work_bytes": 5546713088,
+      "target_bytes": 2196787200
+    },
+    {
+      "utc": "2026-11-08T00:50:32.898299+00:00",
+      "free_bytes": 111107371008,
+      "work_bytes": 5546713088,
+      "target_bytes": 2198310912
+    },
+    {
+      "utc": "2026-11-08T00:50:43.338490+00:00",
+      "free_bytes": 111109447680,
+      "work_bytes": 5546713088,
+      "target_bytes": 2195296256
+    },
+    {
+      "utc": "2026-11-08T00:50:53.782061+00:00",
+      "free_bytes": 111105540096,
+      "work_bytes": 5546713088,
+      "target_bytes": 2195169280
+    },
+    {
+      "utc": "2026-11-08T00:51:04.251799+00:00",
+      "free_bytes": 111107678208,
+      "work_bytes": 5546713088,
+      "target_bytes": 2195775488
+    },
+    {
+      "utc": "2026-11-08T00:51:14.707703+00:00",
+      "free_bytes": 111176167424,
+      "work_bytes": 5546713088,
+      "target_bytes": 2127495168
+    },
+    {
+      "utc": "2026-11-08T00:51:25.172750+00:00",
+      "free_bytes": 111175069696,
+      "work_bytes": 5546713088,
+      "target_bytes": 2128113664
+    },
+    {
+      "utc": "2026-11-08T00:51:35.667471+00:00",
+      "free_bytes": 111174995968,
+      "work_bytes": 5546713088,
+      "target_bytes": 2128080896
+    },
+    {
+      "utc": "2026-11-08T00:51:46.129046+00:00",
+      "free_bytes": 111172911104,
+      "work_bytes": 5546717184,
+      "target_bytes": 2129866752
+    },
+    {
+      "utc": "2026-11-08T00:51:56.559375+00:00",
+      "free_bytes": 111174217728,
+      "work_bytes": 5546717184,
+      "target_bytes": 2128748544
+    },
+    {
+      "utc": "2026-11-08T00:52:06.997388+00:00",
+      "free_bytes": 111176974336,
+      "work_bytes": 5546717184,
+      "target_bytes": 2125946880
+    },
+    {
+      "utc": "2026-11-08T00:52:17.432751+00:00",
+      "free_bytes": 111176941568,
+      "work_bytes": 5546717184,
+      "target_bytes": 2125946880
+    },
+    {
+      "utc": "2026-11-08T00:52:27.859805+00:00",
+      "free_bytes": 111173988352,
+      "work_bytes": 5546717184,
+      "target_bytes": 2129047552
+    },
+    {
+      "utc": "2026-11-08T00:52:38.327150+00:00",
+      "free_bytes": 111178452992,
+      "work_bytes": 5546721280,
+      "target_bytes": 2124304384
+    },
+    {
+      "utc": "2026-11-08T00:52:48.758509+00:00",
+      "free_bytes": 111178428416,
+      "work_bytes": 5546721280,
+      "target_bytes": 2124304384
+    },
+    {
+      "utc": "2026-11-08T00:52:59.203028+00:00",
+      "free_bytes": 111174897664,
+      "work_bytes": 5546721280,
+      "target_bytes": 2128068608
+    },
+    {
+      "utc": "2026-11-08T00:53:09.641171+00:00",
+      "free_bytes": 111173173248,
+      "work_bytes": 5546721280,
+      "target_bytes": 2129489920
+    },
+    {
+      "utc": "2026-11-08T00:53:20.081181+00:00",
+      "free_bytes": 111176880128,
+      "work_bytes": 5546721280,
+      "target_bytes": 2125344768
+    },
+    {
+      "utc": "2026-11-08T00:53:30.518015+00:00",
+      "free_bytes": 111055790080,
+      "work_bytes": 5546721280,
+      "target_bytes": 2256691200
+    },
+    {
+      "utc": "2026-11-08T00:53:40.966697+00:00",
+      "free_bytes": 111172829184,
+      "work_bytes": 5546721280,
+      "target_bytes": 2129338368
+    },
+    {
+      "utc": "2026-11-08T00:53:51.406177+00:00",
+      "free_bytes": 111172345856,
+      "work_bytes": 5546721280,
+      "target_bytes": 2129555456
+    },
+    {
+      "utc": "2026-11-08T00:54:01.872419+00:00",
+      "free_bytes": 111201140736,
+      "work_bytes": 5546721280,
+      "target_bytes": 2100424704
+    },
+    {
+      "utc": "2026-11-08T00:54:12.329766+00:00",
+      "free_bytes": 111201103872,
+      "work_bytes": 5546721280,
+      "target_bytes": 2100428800
+    },
+    {
+      "utc": "2026-11-08T00:54:22.766590+00:00",
+      "free_bytes": 111201095680,
+      "work_bytes": 5546721280,
+      "target_bytes": 2100432896
+    },
+    {
+      "utc": "2026-11-08T00:54:33.208133+00:00",
+      "free_bytes": 111201075200,
+      "work_bytes": 5546721280,
+      "target_bytes": 2100432896
+    },
+    {
+      "utc": "2026-11-08T00:54:43.644786+00:00",
+      "free_bytes": 111195316224,
+      "work_bytes": 5546721280,
+      "target_bytes": 2100432896
+    },
+    {
+      "utc": "2026-11-08T00:54:54.096843+00:00",
+      "free_bytes": 111195299840,
+      "work_bytes": 5546721280,
+      "target_bytes": 2100436992
+    },
+    {
+      "utc": "2026-11-08T00:55:04.558581+00:00",
+      "free_bytes": 111195279360,
+      "work_bytes": 5546721280,
+      "target_bytes": 2100436992
+    },
+    {
+      "utc": "2026-11-08T00:55:15.001939+00:00",
+      "free_bytes": 111195275264,
+      "work_bytes": 5546721280,
+      "target_bytes": 2100436992
+    },
+    {
+      "utc": "2026-11-08T00:55:25.454976+00:00",
+      "free_bytes": 111195250688,
+      "work_bytes": 5546721280,
+      "target_bytes": 2100436992
+    },
+    {
+      "utc": "2026-11-08T00:55:35.904073+00:00",
+      "free_bytes": 111195172864,
+      "work_bytes": 5546721280,
+      "target_bytes": 2100436992
+    },
+    {
+      "utc": "2026-11-08T00:55:46.357288+00:00",
+      "free_bytes": 111194112000,
+      "work_bytes": 5546721280,
+      "target_bytes": 2100436992
+    },
+    {
+      "utc": "2026-11-08T00:55:56.799218+00:00",
+      "free_bytes": 111194062848,
+      "work_bytes": 5546721280,
+      "target_bytes": 2100436992
+    },
+    {
+      "utc": "2026-11-08T00:56:07.253478+00:00",
+      "free_bytes": 111184031744,
+      "work_bytes": 5546721280,
+      "target_bytes": 2110464000
+    },
+    {
+      "utc": "2026-11-08T00:56:17.713364+00:00",
+      "free_bytes": 111173951488,
+      "work_bytes": 5546721280,
+      "target_bytes": 2120515584
+    },
+    {
+      "utc": "2026-11-08T00:56:28.146349+00:00",
+      "free_bytes": 111164891136,
+      "work_bytes": 5546721280,
+      "target_bytes": 2129244160
+    },
+    {
+      "utc": "2026-11-08T00:56:38.594364+00:00",
+      "free_bytes": 111162949632,
+      "work_bytes": 5546721280,
+      "target_bytes": 2131140608
+    },
+    {
+      "utc": "2026-11-08T00:56:49.030966+00:00",
+      "free_bytes": 111155580928,
+      "work_bytes": 5546721280,
+      "target_bytes": 2138791936
+    },
+    {
+      "utc": "2026-11-08T00:56:59.494715+00:00",
+      "free_bytes": 111147573248,
+      "work_bytes": 5546721280,
+      "target_bytes": 2144821248
+    },
+    {
+      "utc": "2026-11-08T00:57:09.936970+00:00",
+      "free_bytes": 111143804928,
+      "work_bytes": 5546725376,
+      "target_bytes": 2150146048
+    },
+    {
+      "utc": "2026-11-08T00:57:20.373902+00:00",
+      "free_bytes": 111130939392,
+      "work_bytes": 5546725376,
+      "target_bytes": 2154860544
+    },
+    {
+      "utc": "2026-11-08T00:57:30.829461+00:00",
+      "free_bytes": 111135977472,
+      "work_bytes": 5546725376,
+      "target_bytes": 2149646336
+    },
+    {
+      "utc": "2026-11-08T00:57:41.294217+00:00",
+      "free_bytes": 111128653824,
+      "work_bytes": 5546725376,
+      "target_bytes": 2156953600
+    },
+    {
+      "utc": "2026-11-08T00:57:51.730881+00:00",
+      "free_bytes": 111122092032,
+      "work_bytes": 5546725376,
+      "target_bytes": 2163355648
+    },
+    {
+      "utc": "2026-11-08T00:58:02.191256+00:00",
+      "free_bytes": 111116951552,
+      "work_bytes": 5546725376,
+      "target_bytes": 2168324096
+    },
+    {
+      "utc": "2026-11-08T00:58:12.632423+00:00",
+      "free_bytes": 111117082624,
+      "work_bytes": 5546725376,
+      "target_bytes": 2168160256
+    },
+    {
+      "utc": "2026-11-08T00:58:23.076000+00:00",
+      "free_bytes": 111116214272,
+      "work_bytes": 5546725376,
+      "target_bytes": 2168868864
+    },
+    {
+      "utc": "2026-11-08T00:58:33.556411+00:00",
+      "free_bytes": 111107547136,
+      "work_bytes": 5546725376,
+      "target_bytes": 2177269760
+    },
+    {
+      "utc": "2026-11-08T00:58:44.009538+00:00",
+      "free_bytes": 111102738432,
+      "work_bytes": 5546725376,
+      "target_bytes": 2182053888
+    },
+    {
+      "utc": "2026-11-08T00:58:54.447494+00:00",
+      "free_bytes": 111095824384,
+      "work_bytes": 5546725376,
+      "target_bytes": 2188931072
+    },
+    {
+      "utc": "2026-11-08T00:59:04.918084+00:00",
+      "free_bytes": 111091568640,
+      "work_bytes": 5546725376,
+      "target_bytes": 2192089088
+    },
+    {
+      "utc": "2026-11-08T00:59:15.361320+00:00",
+      "free_bytes": 111080144896,
+      "work_bytes": 5546725376,
+      "target_bytes": 2203435008
+    },
+    {
+      "utc": "2026-11-08T00:59:25.798814+00:00",
+      "free_bytes": 111080009728,
+      "work_bytes": 5546749952,
+      "target_bytes": 2202984448
+    },
+    {
+      "utc": "2026-11-08T00:59:36.243527+00:00",
+      "free_bytes": 111078805504,
+      "work_bytes": 5546749952,
+      "target_bytes": 2203136000
+    },
+    {
+      "utc": "2026-11-08T00:59:46.711003+00:00",
+      "free_bytes": 111065894912,
+      "work_bytes": 5546749952,
+      "target_bytes": 2203287552
+    },
+    {
+      "utc": "2026-11-08T00:59:57.163983+00:00",
+      "free_bytes": 111071363072,
+      "work_bytes": 5546754048,
+      "target_bytes": 2203348992
+    },
+    {
+      "utc": "2026-11-08T01:00:07.601313+00:00",
+      "free_bytes": 111071227904,
+      "work_bytes": 5546754048,
+      "target_bytes": 2203369472
+    },
+    {
+      "utc": "2026-11-08T01:00:18.036419+00:00",
+      "free_bytes": 111054712832,
+      "work_bytes": 5546754048,
+      "target_bytes": 2203381760
+    },
+    {
+      "utc": "2026-11-08T01:00:28.474698+00:00",
+      "free_bytes": 111037706240,
+      "work_bytes": 5546754048,
+      "target_bytes": 2203389952
+    },
+    {
+      "utc": "2026-11-08T01:00:38.908282+00:00",
+      "free_bytes": 111025500160,
+      "work_bytes": 5546754048,
+      "target_bytes": 2203398144
+    },
+    {
+      "utc": "2026-11-08T01:00:49.373818+00:00",
+      "free_bytes": 111025451008,
+      "work_bytes": 5546754048,
+      "target_bytes": 2203398144
+    },
+    {
+      "utc": "2026-11-08T01:00:59.827481+00:00",
+      "free_bytes": 111019798528,
+      "work_bytes": 5546754048,
+      "target_bytes": 2209034240
+    },
+    {
+      "utc": "2026-11-08T01:01:10.273338+00:00",
+      "free_bytes": 111025303552,
+      "work_bytes": 5546754048,
+      "target_bytes": 2203414528
+    },
+    {
+      "utc": "2026-11-08T01:01:20.720397+00:00",
+      "free_bytes": 111024549888,
+      "work_bytes": 5546758144,
+      "target_bytes": 2203459584
+    },
+    {
+      "utc": "2026-11-08T01:01:29.314123+00:00",
+      "free_bytes": 110987513856,
+      "work_bytes": 5546778624,
+      "target_bytes": 2240356352
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":111083675648,\"free_excludes_purgeable\":true,\"free_pct\":11.419180741541611,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-stroke-probe-20261106\",\"platform\":{\"linux\":{\"device_id\":66308,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":972781481984,\"unprotected\":null,\"volume_available_bytes\":111083675648,\"volume_role\":null,\"volume_total_bytes\":972781481984}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-08T00:49:59.774340+00:00",
+    "free_bytes": 111083675648,
+    "work_bytes": 5546692608,
+    "target_bytes": 2181341184
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "f5013e8c700d80cc2080e1b3df0981d615458810729e7c037face2e6df879357",
+  "pid": 466465,
+  "exit": 0,
+  "final_inputs_sha256": "f5013e8c700d80cc2080e1b3df0981d615458810729e7c037face2e6df879357",
+  "finished": "2026-11-08T01:01:32.311471+00:00"
+}

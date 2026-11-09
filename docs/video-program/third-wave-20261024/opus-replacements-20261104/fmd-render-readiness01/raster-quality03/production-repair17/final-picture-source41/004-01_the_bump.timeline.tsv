@@ -1,0 +1,13 @@
+# explainer timeline v1
+chapter	01_the_bump
+fps	60
+frames	6311
+line	01_1	36	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/01_1.wav
+line	01_2	1066	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/01_2.wav
+line	01_3	1822	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/01_3.wav
+line	01_4	2900	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/01_4.wav
+line	01_5	3755	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/01_5.wav
+line	01_6	5063	0	/data/projects/jmev-stroke-probe-20261106/jobs/csd-continuous-rebind16/narration/01_6.wav
+mark	predict	3440
+breath	6155	2
+listen	3440	5	01_the_bump:01_4

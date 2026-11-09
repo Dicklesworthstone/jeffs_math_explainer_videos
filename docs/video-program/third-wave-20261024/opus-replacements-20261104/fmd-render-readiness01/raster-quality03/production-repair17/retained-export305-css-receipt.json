@@ -1,0 +1,10 @@
+{
+  "host": "css",
+  "exit": 0,
+  "helper_sha256": "862968830a076c2030599b65e1f48b776501f87d99045cb662570045e613d5ea",
+  "time": "2026-11-08T18:47:39.741520+00:00",
+  "foreign_files": 858,
+  "foreign_bytes": 1512774545,
+  "shared_files": 52,
+  "shared_bytes": 874042513
+}

@@ -1,0 +1,71 @@
+diff --git a/crates/fmn-python/src/perf_harness.rs b/crates/fmn-python/src/perf_harness.rs
+--- a/crates/fmn-python/src/perf_harness.rs
++++ b/crates/fmn-python/src/perf_harness.rs
+@@ -295,6 +295,26 @@
+             body(py, &module, &globals)
+         }));
+ 
++        let lifetime_globals = PyDict::new(py);
++        lifetime_globals.set_item("gc", &gc).map_err(|error| error.to_string())?;
++        lifetime_globals.set_item("weakref", &weakref).map_err(|error| error.to_string())?;
++        lifetime_globals.set_item("Bridge", py.get_type::<crate::BridgeMobject>())
++            .map_err(|error| error.to_string())?;
++        lifetime_globals.set_item("worker_namespace", "__fmn_pg8_harness__")
++            .map_err(|error| error.to_string())?;
++        let mut cleanup_errors = Vec::new();
++        // CPython cannot see every native instance -> Python type ownership
++        // edge. A worker-authored class attribute holding its own instance
++        // therefore survives both clearing globals and draining the cache.
++        // Release only data roots on classes authored in this owned workload;
++        // imported classes, methods, descriptors and finalizers stay intact.
++        if let Err(error) = py.run(
++            c"import types\nproxies = [(weakref.ref(obj), type(obj).__name__) for obj in gc.get_objects() if isinstance(obj, Bridge)]\nowned_classes = [obj for obj in gc.get_objects() if isinstance(obj, type) and type.__getattribute__(obj, '__module__') == worker_namespace]\nprotected = {'__dict__', '__weakref__', '__slots__', '__module__', '__doc__', '__qualname__', '__name__', '__del__'}\ndescriptors = (types.FunctionType, types.BuiltinFunctionType, types.MemberDescriptorType, types.GetSetDescriptorType, classmethod, staticmethod, property)\nfor cls in owned_classes:\n    for name, value in tuple(type.__getattribute__(cls, '__dict__').items()):\n        if name not in protected and not isinstance(value, descriptors):\n            type.__delattr__(cls, name)\nowned_classes.clear()\nfor name in ('cls', 'name', 'value'):\n    globals().pop(name, None)\n",
++            Some(&lifetime_globals),
++            None,
++        ) {
++            cleanup_errors.push(format!("release owned class roots: {error}"));
++        }
+         // Python callbacks retain their globals and the globals retain the
+         // scene graph. Cache entries strongly own those Python classes. A
+         // class can retain module globals or even an unsendable native proxy;
+@@ -304,7 +324,6 @@
+         // OS thread. This is required for production measurements too.
+         crate::method_cache::clear_for_worker_teardown(py);
+         globals.clear();
+-        let mut cleanup_errors = Vec::new();
+         if let Err(error) = py.run(
+             c"_fmn_sys.path[:] = _fmn_previous_path",
+             Some(&hook_globals),
+@@ -341,6 +360,23 @@
+         }
+         if crate::method_cache::stats().entries != 0 {
+             cleanup_errors.push("method cache retained entries after worker teardown".to_owned());
++        }
++
++        if let Err(error) = py.run(
++            c"survivors = [name for ref, name in proxies if ref() is not None]",
++            Some(&lifetime_globals),
++            None,
++        ) {
++            cleanup_errors.push(format!("observe native worker lifetimes: {error}"));
++        }
++        match lifetime_globals.get_item("survivors") {
++            Ok(Some(value)) => match value.extract::<Vec<String>>() {
++                Ok(names) if names.is_empty() => {}
++                Ok(names) => cleanup_errors.push(format!("native proxies survived worker teardown: {names:?}")),
++                Err(error) => cleanup_errors.push(format!("read native worker lifetimes: {error}")),
++            },
++            Ok(None) => cleanup_errors.push("native worker lifetime observations missing".to_owned()),
++            Err(error) => cleanup_errors.push(format!("read native worker lifetimes: {error}")),
+         }
+ 
+         match hook_globals.get_item("_fmn_old_unraisablehook") {
+@@ -634,7 +670,7 @@
+             std::thread::spawn(|| {
+                 let error = with_owned_python_module(|py, _module, globals| {
+                     py.run(
+-                        c"from manimlib import Mobject\nclass Owned(Mobject):\n    pass\nOwned.retained = Owned()\n",
++                        c"from manimlib import Mobject\nclass Owned(Mobject):\n    pass\nOwned.retained = Owned()\nOwned.nested = {'objects': [Owned()]}\n",
+                         Some(globals),
+                         Some(globals),
+                     )

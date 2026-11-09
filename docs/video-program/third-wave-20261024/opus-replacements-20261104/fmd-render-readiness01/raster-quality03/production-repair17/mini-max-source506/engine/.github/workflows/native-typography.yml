@@ -1,0 +1,99 @@
+name: Native rich typography
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-typography.yml'
+      - 'scripts/patches/native-typography.patch'
+      - 'scripts/patches/native-code-authoring.patch'
+      - 'crates/fmn-python/src/portal_typography.rs'
+      - 'crates/fmn-python/python/fmn_python/text_authoring.py'
+      - 'crates/fmn-python/tests/text_authoring.py'
+      - 'crates/fmn-library/tests/text_authoring.rs'
+      - 'crates/fmn-python/tests/code_authoring.py'
+      - 'crates/fmn-python/python/fmn_python/matrix.py'
+permissions:
+  contents: write
+concurrency:
+  group: native-rich-typography
+  cancel-in-progress: false
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Wire reviewed native typography and initializer together
+        run: |
+          set -euo pipefail
+          if ! grep -q '^mod portal_typography;' crates/fmn-python/src/lib.rs; then
+            git apply --check scripts/patches/native-typography.patch
+            git apply scripts/patches/native-typography.patch
+          fi
+          if ! grep -q 'pub fn character_overrides' crates/fmn-library/src/code.rs; then
+            git apply --check scripts/patches/native-code-authoring.patch
+            git apply scripts/patches/native-code-authoring.patch
+          fi
+          rustup show active-toolchain
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-text/src/markup.rs crates/fmn-text/src/layout.rs crates/fmn-library/src/text.rs crates/fmn-library/src/code.rs crates/fmn-library/tests/text_authoring.rs crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_typography.rs
+          git diff --check
+      - name: Native typography contracts and core regression
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-text 2>&1 | tee /tmp/typography-text.log
+          cargo test --locked -p fmn-library --test text_authoring 2>&1 | tee /tmp/typography-library.log
+          cargo test --locked -p fmn-library --lib code::tests 2>&1 | tee /tmp/typography-code-core.log
+      - name: Build and exercise the clean installed wheel
+        run: |
+          set -euo pipefail
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          python -m maturin build --locked --interpreter python --profile dev --out target/typography-wheel 2>&1 | tee /tmp/typography-build.log
+          python -m venv target/typography-venv
+          target/typography-venv/bin/python -m pip install 'numpy==2.5.2' target/typography-wheel/*.whl
+          for suite in text_authoring code_authoring text_reveal matching_authoring live_tex_render matrix_authoring; do
+            target/typography-venv/bin/python -I crates/fmn-python/tests/$suite.py 2>&1 | tee /tmp/typography-$suite.log
+          done
+      - name: Publish verified source directly on main
+        run: |
+          set -euo pipefail
+          git add crates/fmn-text/src/markup.rs crates/fmn-text/src/layout.rs crates/fmn-library/src/text.rs crates/fmn-library/src/code.rs crates/fmn-library/tests/text_authoring.rs crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_typography.rs crates/fmn-python/python/fmn_python/initialization.py crates/fmn-python/python/fmn_python/matrix.py crates/fmn-python/tests/bridge.py scripts/check_portal_runtime.sh
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(text): activate rich native typography and syntax-highlighted Code'
+            git fetch origin main
+            git rebase origin/main
+            git push origin HEAD:main
+          fi
+      - name: Preserve exact source and evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/typography-source-sha.txt
+          git archive --format=tar.gz HEAD > /tmp/typography-source.tar.gz
+          git diff > /tmp/typography-working.patch
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-typography-${{ github.sha }}
+          path: |
+            /tmp/typography-*
+            target/typography-wheel/*.whl
+          retention-days: 3

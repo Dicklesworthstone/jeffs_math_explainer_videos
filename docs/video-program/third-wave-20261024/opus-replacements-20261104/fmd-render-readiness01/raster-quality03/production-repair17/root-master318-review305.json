@@ -1,0 +1,23 @@
+{
+  "utc": "2026-11-08T19:26:20.003241+00:00",
+  "reviewer": "root",
+  "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cc0-combined-master318.py",
+  "sha256": "478b44a5787e12fd495ed6312624a66783f90863cb88774775d1bf0c31a55f57",
+  "scope": "Complete source read, lines 1-950; no runtime execution or independent acceptance.",
+  "observations": [
+    "Mixed chapter routing restricts chapter09 to boundary313/final317 and retains four pinned existing chapters.",
+    "Before launch, checks full normalized schedules, exact audio identity, current source and receipt bindings, and actual delivery-contract preflight.",
+    "Master requires all15 native soundtrack replays to be bit-identical and records final AV, listening, pictures and publication as unaccepted."
+  ],
+  "findings": [],
+  "independent_review_pending": "cc1-master-review322.md",
+  "runtime_verified": false,
+  "launch_authorized_by_this_review": false,
+  "remaining": [
+    "Independent322 review and disposition",
+    "Actual repaired313 preview and independent picture/motion review",
+    "Final changed-chapter renders and manifest",
+    "Final master, decode, captions, loudness, final picture and audiovisual review",
+    "Public 4K and uploaded-caption verification before original unlisting"
+  ]
+}

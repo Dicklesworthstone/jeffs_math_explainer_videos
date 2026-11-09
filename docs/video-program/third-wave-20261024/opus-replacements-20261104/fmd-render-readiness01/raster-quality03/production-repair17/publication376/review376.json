@@ -1,0 +1,91 @@
+{
+  "task": "376",
+  "author": "cc2",
+  "utc": "2026-11-08",
+  "status": "Draft copy only. Not uploaded, not published, no publication acceptance. Chapter times computed from the timeline tables; the final master must still be rechecked.",
+  "originals_preserved": {
+    "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/publication-stage07-draft01": {
+      "title.txt": "48a242e3e4209b446850be61f1868d8f6280881d00d34d2bc387e529c0edc920",
+      "tags.txt": "8fab018e2221b8d64646310553b5f58af5496d1df01052b23073c16ee5e497f5",
+      "description-draft.txt": "8e562e4067769bc9a7f7a4b701ec2142beee132d62e37cfa74a9946b289f7e6c",
+      "review.json": "552d458b8f5e33a82a3d129c1671f2c4c8dbfe2a74cbc9edd0517837942d7bf7"
+    },
+    "publication-draft306 (in this folder's parent)": {
+      "SHA256SUMS": "9d35205fdfa22a2dc1e1c3e7d937f87627abd3fc40d63219398da901ef0f63e0",
+      "chapter-times.json": "217abdaae5e945816371ffd6f50d51c91fb519b58f224b6ca92e7399c115e3e9",
+      "description.txt": "c3443cd5023f0e4bf2be2de2930ed0db0520d2f929ac089a1ac2f56a66fa2afb",
+      "script-reviewed.tsv": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c",
+      "tags.txt": "8fab018e2221b8d64646310553b5f58af5496d1df01052b23073c16ee5e497f5",
+      "thumbnail.json": "7d1e911d4fb70e956ae144a8dfc2041ebd08df8fb65bf217f5e87735dfa7ef54",
+      "title.txt": "48a242e3e4209b446850be61f1868d8f6280881d00d34d2bc387e529c0edc920"
+    }
+  },
+  "script": {
+    "path": "script.tsv (this folder's parent)",
+    "sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c",
+    "cues": 105,
+    "read_in_full": true
+  },
+  "timeline": {
+    "basis": "The 15 timeline269 tables at the pins in cc1-caption-repair347.py TIMELINES, read from fetched copies of the CSD job csd-review-repair-timeline269. Chapter 09 is also checked against the 313 table that permit351 binds (timeline_sha256 5a91b8f9e2e5b5d6223a49285c06039b1b43bd16c11cecdd163a8e2e545baa9e): 16504 frames, the same as 269's, so the offsets are the same.",
+    "fps": 60,
+    "frames": 133662,
+    "seconds": 2227.7,
+    "duration": "37:07.7",
+    "timestamp_rule": "floor(start_frame / 60) seconds, as M:SS or MM:SS. This is the rule draft01 and draft306 use. A seek to a mark lands at most 59 frames (0.98 s) before the chapter's first frame.",
+    "replaces": "draft01's timeline16 basis: 117697 frames, 32:41.6"
+  },
+  "chapters": [
+    {"chapter": "01_the_bump", "start_frame": 0, "frames": 6311, "start_seconds": 0.0, "timestamp": "0:00", "draft01": "0:00", "label": "Why a smooth curve defeats its power series"},
+    {"chapter": "02_turning_numbers", "start_frame": 6311, "frames": 5372, "start_seconds": 105.183, "timestamp": "1:45", "draft01": "1:45", "label": "Complex multiplication: stretch and turn"},
+    {"chapter": "03_two_planes", "start_frame": 11683, "frames": 7249, "start_seconds": 194.717, "timestamp": "3:14", "draft01": "3:14", "label": "Watching functions move the plane"},
+    {"chapter": "04_reading_color", "start_frame": 18932, "frames": 6774, "start_seconds": 315.533, "timestamp": "5:15", "draft01": "5:15", "label": "Reading a function in colour"},
+    {"chapter": "05_gallery", "start_frame": 25706, "frames": 9879, "start_seconds": 428.433, "timestamp": "7:08", "draft01": "7:08", "label": "Polynomials, exponential, sine, gamma and zeta"},
+    {"chapter": "06_one_derivative", "start_frame": 35585, "frames": 10030, "start_seconds": 593.083, "timestamp": "9:53", "draft01": "9:53", "label": "What a complex derivative demands"},
+    {"chapter": "07_one_point", "start_frame": 45615, "frames": 6491, "start_seconds": 760.25, "timestamp": "12:40", "draft01": "12:40", "label": "Critical points, and a derivative at one point"},
+    {"chapter": "08_loop_sums", "start_frame": 52106, "frames": 14959, "start_seconds": 868.433, "timestamp": "14:28", "draft01": "14:28", "label": "Contour integrals and Cauchy's theorem for squares and triangles"},
+    {"chapter": "09_boundary", "start_frame": 67065, "frames": 16504, "start_seconds": 1117.75, "timestamp": "18:37", "draft01": "16:06", "label": "Proving Cauchy's formula: the boundary decides the inside"},
+    {"chapter": "10_rigidity", "start_frame": 83569, "frames": 7442, "start_seconds": 1392.817, "timestamp": "23:12", "draft01": "18:46", "label": "Why holomorphic functions are rigid"},
+    {"chapter": "11_counting", "start_frame": 91011, "frames": 11932, "start_seconds": 1516.85, "timestamp": "25:16", "draft01": "20:50", "label": "Counting roots without finding them"},
+    {"chapter": "12_residues", "start_frame": 102943, "frames": 3943, "start_seconds": 1715.717, "timestamp": "28:35", "draft01": "24:09", "label": "Residues: the term that survives"},
+    {"chapter": "13_real_integral", "start_frame": 106886, "frames": 10641, "start_seconds": 1781.433, "timestamp": "29:41", "draft01": "25:15", "label": "Real integrals from complex poles"},
+    {"chapter": "14_continuation", "start_frame": 117527, "frames": 11756, "start_seconds": 1958.783, "timestamp": "32:38", "draft01": "28:12", "label": "Analytic continuation and its limits"},
+    {"chapter": "15_closing", "start_frame": 129283, "frames": 4379, "start_seconds": 2154.717, "timestamp": "35:54", "draft01": "31:28", "label": "Back to the opening puzzle"}
+  ],
+  "findings": [
+    "draft01 is stale from chapter 09 on. Chapter 08 grew from 5911 to 14959 frames (the square and triangle proof) and 09 from 9587 to 16504, so the 09 mark moves by 2:31 and the marks for 10 to 15 by 4:26. Its labels for 07, 08 and 09 also predate the current script.",
+    "draft306 (the later copy in this folder's parent) already has all 15 offsets, matching this independent computation frame for frame, and the current labels. Its own scope says the final master was not checked: final_master_matched false.",
+    "YouTube chapter rules hold: the first mark is 0:00, marks ascend, and the shortest chapter, 12_residues, runs 65.7 s."
+  ],
+  "changes_from_draft306": {
+    "title.txt": "unchanged: no dash of any kind",
+    "chapter marks and labels": "unchanged: all 15 recomputed and equal",
+    "description.txt": [
+      "Paragraph 2: 'two complex poles solve a real integral' is now 'residues at complex poles give real integrals'. The bump's area uses one pole inside the loop (13_2), and only the x to the fourth example uses two (13_6).",
+      "Paragraph 2: 'Moving grids explain multiplication and differentiation' is now 'show multiplication and the complex derivative as a stretch and a turn' (02_4, 06_3).",
+      "Topic list: adds rational functions (05_2), the radius of a power series (09_7), Liouville's theorem (10_6) and the fundamental theorem of algebra (11_7), all stated in the script. 'Cauchy–Riemann' now uses an ASCII hyphen, so the copy has no en or em dashes.",
+      "Caveats, all from the script: one-point derivative (07_5, 07_6), now stated with its open-region condition; the loop condition (11_4); the three continuation limits (14_5 to 14_7), now with the 1 + 2 + 3 + ... example (14_5); added 'A picture of zeta cannot settle the Riemann hypothesis' (05_8).",
+      "Closing paragraph: 'Some calculus is helpful' is now 'Some calculus helps', and 'a stretch and a rotation' is now the script's 'a stretch and a turn', with 'from scratch, starting with'.",
+      "Sister link: now the full published title from the catalog's publication record for lgpTDROHgQY, 'Logarithms Made Visual: From Slide Rules to Matrices'.",
+      "Credits kept as they were: the four NIST DLMF references, FrankenManim, ElevenLabs Frederick Surrey as a synthetic voice, and the procedural score."
+    ],
+    "tags.txt": "Adds four topics the script states: contour integral, Cauchy's theorem, Liouville's theorem, fundamental theorem of algebra. 18 tags; 385 characters by YouTube's count (multi-word tags quoted), under its 500 limit."
+  },
+  "thumbnail": {
+    "path": "publication19-thumbnail208/thumbnail.png (this folder's parent)",
+    "sha256": "e5dfc2bd04aa3af148ee66ca8107594acf3015a237f5f36a08f1c3c72c4c2eab",
+    "same_bytes_as": "thumbnail24-reviewed/complex_analysis_visual_thumbnail.png",
+    "size": "3840x2160",
+    "timeline_dependent": false,
+    "note": "A separate native scene (thumbnail24), not a movie frame, so the timeline change does not affect it. Its text, read from thumbnail24.rs and not from pixels: 'THE BEAUTY OF', 'COMPLEX', 'ANALYSIS', 'A PLANE IN COLOR', 'z²: HUE = OUTPUT ANGLE'. I did not view its pixels; root's 208 review records the viewing."
+  },
+  "for_root": [
+    "Three names are in use: title 'The Hidden Geometry of Complex Functions', catalog working title 'The Beautiful Geometry of Complex Functions', and thumbnail 'THE BEAUTY OF COMPLEX ANALYSIS'. No change made; root's choice.",
+    "Spelling: the narration and description use British 'colour' and 'centre'. The thumbnail says 'COLOR', and the tag 'domain coloring' is the usual search spelling. No change made."
+  ],
+  "remaining": [
+    "Recheck every mark against the final master's chapter start frames, i.e. csd-combined-master350 master-summary rows[].start_frame, and inspect the seeks on the actual file.",
+    "Upload, captions, public watch checks, listening, fine sync, final pictures and independent AV acceptance remain open."
+  ],
+  "not_claimed": "No upload, publication or acceptance. No picture viewing. No listening."
+}

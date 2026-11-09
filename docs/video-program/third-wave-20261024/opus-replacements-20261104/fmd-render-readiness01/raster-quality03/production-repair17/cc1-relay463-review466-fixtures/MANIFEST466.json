@@ -1,0 +1,78 @@
+{
+ "review": "cc1-relay463-review466",
+ "author": "CC1 (BronzeJaguar)",
+ "python": "3.15.0 (macOS)",
+ "inputs": {
+  "relay463": "d1822a5157895ae19c7128a1de374dbafa7de204aeba8c99b3895fabe4d5b892",
+  "tests463": "9ba910a37f3dbfa48ef5e912610e259cd8214cb3dd98c329930fab5b7a6fd2ac",
+  "receipt463": "e00f8ae50739a65f88969b06fd97934c8b02a00c08be1b363635acbb7c49efdb",
+  "import448": "b6653757c5c114029a94832a0dd4cb9597c42808614fbb959ef6448a5d994f6e"
+ },
+ "note": "fixtures only: no host contact, no actual import, not final AV acceptance",
+ "files": {
+  "README466.md": {
+   "bytes": 3462,
+   "sha256": "403edbb12396b8d558ac75d1ef0c9c020be3e7ab2d74cbc0c3be0399950087b3",
+   "source": "README466.md",
+   "cleaned": false
+  },
+  "sim466.py": {
+   "bytes": 14531,
+   "sha256": "bcb03ad26d2c85c2b8ad444a000a89370b46bff17bab62c2da10fb45fd0949f5",
+   "source": "sim466.py",
+   "cleaned": false
+  },
+  "launch448_466.py": {
+   "bytes": 627,
+   "sha256": "8a7e673c246aadbe6e56a19034861c290d0619cb917dd38f8ccf1867074f5f31",
+   "source": "launch448_466.py",
+   "cleaned": false
+  },
+  "receiver466.py": {
+   "bytes": 1370,
+   "sha256": "f687556fdc64041a9e8aa4decdc2b9d54e38aca135b0334bd627c629c4c1ed6f",
+   "source": "receiver466.py",
+   "cleaned": false
+  },
+  "test466.py": {
+   "bytes": 10230,
+   "sha256": "372d26aefa80a8dd8d9d41fbb39058f32a5fe6b35d312ff10aaadc164fc6e4a1",
+   "source": "test466.py",
+   "cleaned": false
+  },
+  "test466b.py": {
+   "bytes": 7664,
+   "sha256": "4381f502c40ccd4b7f1d3edaba097e052dae9a2712b15c1a5a47bdc68010813e",
+   "source": "test466b.py",
+   "cleaned": false
+  },
+  "test466c.py": {
+   "bytes": 4049,
+   "sha256": "935c346ea1a9c3c06b0c5751e913927514287e5275cd71a62ae2d40eb0d7806c",
+   "source": "test466c.py",
+   "cleaned": false
+  },
+  "test466b.out.json": {
+   "bytes": 6489,
+   "sha256": "666053991b2160e1e5360e20a43fb61b7ce8a2689fea2b5779d6aaacdb15bcb1",
+   "source": "runs-b/test466b.out.json",
+   "cleaned": false
+  },
+  "test466c.out.json": {
+   "bytes": 1129,
+   "sha256": "e3a2d5fbd86f4bdae55e29ef5a66322214ce29c971c31d3196c9de4b84c8ea3e",
+   "source": "runs-c/test466c.out.json",
+   "cleaned": false
+  },
+  "test466.out.json": {
+   "bytes": 19029,
+   "sha256": "43ed7bb9ec2d0afb47a33ddb625d0d8eab86516ff9081b9296a55cb188ef96ab",
+   "source": "runs-a/test466.out.json",
+   "cleaned": true,
+   "raw_sha256": "947dc72fa70573e8ab0b6375355016eda44cd4c1c9e3cec32b91745972e8b250",
+   "raw_bytes": 19215,
+   "rule": "each scratch path fragment -> W/[path truncated before cleaning; full text in test466b.out.json F1r]",
+   "replacements": 3
+  }
+ }
+}

@@ -1,0 +1,18 @@
+{
+  "original_sha256": "60575944736159139b05733c299b984ab6627ada3d88a5aff65ecde1bbde28d6",
+  "candidate_sha256": "2b01ecaab2b409268d86fe13b83e97a7e374dd61f1c657680a32444fdb6aa524",
+  "source_mapping_checks_passed": 7,
+  "unchanged_verification_functions": [
+    "success",
+    "imported",
+    "combined_scope",
+    "schedule",
+    "capture_check09",
+    "preflight",
+    "master"
+  ],
+  "actual_full_gates_run": false,
+  "independent_review_complete": false,
+  "staged": false,
+  "launched": false
+}

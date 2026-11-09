@@ -1,0 +1,23 @@
+{
+  "time": "2026-11-08T05:50:18.721303+00:00",
+  "source_summary_sha256": "c767d8ed446e77aa99a5c34d03ab68384eda38771075338cbab022bc32c0ac82",
+  "files": [
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/15_closing.cuelog.tsv",
+      "sha256": "68dd9e7f367e6960cc860e8bfa77cbc9b9d7e46349594cc0b8d54e4dfe5fa562"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/15_closing.cues.tsv",
+      "sha256": "9e0801e22fa155f51129c48709286de603b499e6307fcd7db51ac3f4a964d880"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/15_closing.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/15_closing.timeline.tsv",
+      "sha256": "68d61237abc06fed1b1f9b98928fa8245b0fe2f49c0f6ae80eb8863c79b1b9dd"
+    }
+  ],
+  "scope": "Exact terminal-bound table recovery, not retention acceptance or pixel equality."
+}

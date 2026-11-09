@@ -1,0 +1,1299 @@
+{
+  "movie_sha256": "78eb267faa780b2a4d38804deede56088852fed606ac544b7d05f02300672562",
+  "schedule": [
+    {
+      "kind": "timeline",
+      "sha256": "99fd22e62d5c6e53104ec3c622135d0748c3dc68e375141d3da4a38114d5860b",
+      "equals_timeline269": true,
+      "equals_production_timeline21_after_path_mapping": true
+    },
+    {
+      "kind": "cues",
+      "sha256": "a58e14f5f22089df8902439f751b0a05cfe52b29502f7c530054745d6f7a6ca3",
+      "equals_timeline269": true,
+      "equals_production_timeline21_after_path_mapping": true
+    },
+    {
+      "kind": "cuelog",
+      "sha256": "11bc0949b31f6483f0a5df01d2c3c71485185384c5cc41c9ba8a6cd6df14bdde",
+      "equals_timeline269": true,
+      "equals_production_timeline21_after_path_mapping": true
+    }
+  ],
+  "frames": 7442,
+  "fades": [
+    {
+      "id": "F1",
+      "why": "sin(1/z) plate in (the plate rigidity247 moved up 0.1)",
+      "frames": 60,
+      "repeat": 1,
+      "source": "rigidity.rs:457",
+      "start": 3737,
+      "how": "exact line",
+      "exact": true,
+      "check": {
+        "score_at_anchor": 204.25158245692168,
+        "amplitude_at_anchor": 11.41839405426391,
+        "best_shift": 3,
+        "best_score": 244.6715142569709
+      },
+      "flag": false
+    },
+    {
+      "id": "F2",
+      "why": "sin(1/z) plate out",
+      "frames": 30,
+      "repeat": 1,
+      "source": "rigidity.rs:536",
+      "start": 6243,
+      "how": "exact line",
+      "exact": true,
+      "check": {
+        "score_at_anchor": 171.39161637845265,
+        "amplitude_at_anchor": 11.509007097560655,
+        "best_shift": 1,
+        "best_score": 211.0877424892679
+      },
+      "flag": false
+    },
+    {
+      "id": "F3",
+      "why": "sin z plate in, straight after F2",
+      "frames": 60,
+      "repeat": 1,
+      "source": "rigidity.rs:562",
+      "start": 6273,
+      "exact": true,
+      "how": "exact after",
+      "check": {
+        "score_at_anchor": 147.91384245570438,
+        "amplitude_at_anchor": 11.254170511116875,
+        "best_shift": -2,
+        "best_score": 230.28358864143368
+      },
+      "flag": false
+    },
+    {
+      "id": "F4",
+      "why": "closing plate leave, after the vector closing fade",
+      "frames": 30,
+      "repeat": 1,
+      "source": "rigidity.rs:648",
+      "start": 7412,
+      "how": "exact breath",
+      "exact": true,
+      "check": {
+        "score_at_anchor": 171.55071305388532,
+        "amplitude_at_anchor": 11.240033500751673,
+        "best_shift": -2,
+        "best_score": 211.13415562805866
+      },
+      "flag": false,
+      "end_check": "site end equals the timeline frame total 7442"
+    }
+  ],
+  "fade_flags": [],
+  "samples": [
+    {
+      "frame": 0,
+      "seconds": 0.0,
+      "chroma": 2.0,
+      "reasons": [
+        "First frame"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000001.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 36,
+      "seconds": 0.6,
+      "chroma": 2.0,
+      "reasons": [
+        "line:10_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000002.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 66,
+      "seconds": 1.1,
+      "chroma": 3.3915,
+      "reasons": [
+        "line:10_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000003.jpg",
+      "sha256": "ca83873ac47906920cf899b84841b48c81ff177c73e569ab5e21c8258eac2a81"
+    },
+    {
+      "frame": 96,
+      "seconds": 1.6,
+      "chroma": 3.3923,
+      "reasons": [
+        "line:10_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000004.jpg",
+      "sha256": "1fe04b1f175029002c4a2853e718fa42a5f59a2948fabfe43d85a19fafaf6a01"
+    },
+    {
+      "frame": 156,
+      "seconds": 2.6,
+      "chroma": 3.3923,
+      "reasons": [
+        "line:10_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000005.jpg",
+      "sha256": "1fe04b1f175029002c4a2853e718fa42a5f59a2948fabfe43d85a19fafaf6a01"
+    },
+    {
+      "frame": 720,
+      "seconds": 12.0,
+      "chroma": 6.46489,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000006.jpg",
+      "sha256": "fcdb5ae84132104d6b0885c562ed690432d84172e96c5089abe89acd6c27cced"
+    },
+    {
+      "frame": 735,
+      "seconds": 12.25,
+      "chroma": 6.4666,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000007.jpg",
+      "sha256": "f841c4fb90caea0d03221c5bd9ce72f6ed29ba0286786bcd90e7d48ebca2cd20"
+    },
+    {
+      "frame": 750,
+      "seconds": 12.5,
+      "chroma": 6.47968,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000008.jpg",
+      "sha256": "ead8ae967be10cf3e5d167ed08c686fca397d54b905e95c58dd983de72988bb4"
+    },
+    {
+      "frame": 765,
+      "seconds": 12.75,
+      "chroma": 6.47938,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000009.jpg",
+      "sha256": "28d0d77a7fad89936ed8302a569b7552d37e8229425ca879e6b330af035fae4f"
+    },
+    {
+      "frame": 780,
+      "seconds": 13.0,
+      "chroma": 6.90908,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000010.jpg",
+      "sha256": "c7f389138e16c64f4c52a5cc91bfdbd3d2ae88b464c58d2945d16d6a68a1013d"
+    },
+    {
+      "frame": 795,
+      "seconds": 13.25,
+      "chroma": 6.98152,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000011.jpg",
+      "sha256": "7d1b2bf9eb9bf066808f641834136d052e0585b14d899954e97a1cde0e16e95c"
+    },
+    {
+      "frame": 810,
+      "seconds": 13.5,
+      "chroma": 6.98152,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000012.jpg",
+      "sha256": "7d1b2bf9eb9bf066808f641834136d052e0585b14d899954e97a1cde0e16e95c"
+    },
+    {
+      "frame": 825,
+      "seconds": 13.75,
+      "chroma": 6.98152,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000013.jpg",
+      "sha256": "7d1b2bf9eb9bf066808f641834136d052e0585b14d899954e97a1cde0e16e95c"
+    },
+    {
+      "frame": 840,
+      "seconds": 14.0,
+      "chroma": 6.98152,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000014.jpg",
+      "sha256": "7d1b2bf9eb9bf066808f641834136d052e0585b14d899954e97a1cde0e16e95c"
+    },
+    {
+      "frame": 855,
+      "seconds": 14.25,
+      "chroma": 6.98152,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000015.jpg",
+      "sha256": "7d1b2bf9eb9bf066808f641834136d052e0585b14d899954e97a1cde0e16e95c"
+    },
+    {
+      "frame": 870,
+      "seconds": 14.5,
+      "chroma": 6.98152,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000016.jpg",
+      "sha256": "7d1b2bf9eb9bf066808f641834136d052e0585b14d899954e97a1cde0e16e95c"
+    },
+    {
+      "frame": 885,
+      "seconds": 14.75,
+      "chroma": 6.98152,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000017.jpg",
+      "sha256": "7d1b2bf9eb9bf066808f641834136d052e0585b14d899954e97a1cde0e16e95c"
+    },
+    {
+      "frame": 900,
+      "seconds": 15.0,
+      "chroma": 6.98152,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000018.jpg",
+      "sha256": "7d1b2bf9eb9bf066808f641834136d052e0585b14d899954e97a1cde0e16e95c"
+    },
+    {
+      "frame": 915,
+      "seconds": 15.25,
+      "chroma": 6.98152,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000019.jpg",
+      "sha256": "7d1b2bf9eb9bf066808f641834136d052e0585b14d899954e97a1cde0e16e95c"
+    },
+    {
+      "frame": 930,
+      "seconds": 15.5,
+      "chroma": 6.98152,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000020.jpg",
+      "sha256": "7d1b2bf9eb9bf066808f641834136d052e0585b14d899954e97a1cde0e16e95c"
+    },
+    {
+      "frame": 945,
+      "seconds": 15.75,
+      "chroma": 6.98152,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000021.jpg",
+      "sha256": "7d1b2bf9eb9bf066808f641834136d052e0585b14d899954e97a1cde0e16e95c"
+    },
+    {
+      "frame": 960,
+      "seconds": 16.0,
+      "chroma": 6.98152,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000022.jpg",
+      "sha256": "7d1b2bf9eb9bf066808f641834136d052e0585b14d899954e97a1cde0e16e95c"
+    },
+    {
+      "frame": 975,
+      "seconds": 16.25,
+      "chroma": 6.98152,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000023.jpg",
+      "sha256": "7d1b2bf9eb9bf066808f641834136d052e0585b14d899954e97a1cde0e16e95c"
+    },
+    {
+      "frame": 990,
+      "seconds": 16.5,
+      "chroma": 6.98152,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000024.jpg",
+      "sha256": "7d1b2bf9eb9bf066808f641834136d052e0585b14d899954e97a1cde0e16e95c"
+    },
+    {
+      "frame": 1002,
+      "seconds": 16.7,
+      "chroma": 6.97299,
+      "reasons": [
+        "rigidity247 L3, review253 R1/R2: q, its backing ring and the pile-up (old anchor 12.0-16.7 s), quarter-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000025.jpg",
+      "sha256": "8a47e8bc735fb0caaa66d6fc964ffa6ce6175ab98cfdbfbf064e3f5791e95b95"
+    },
+    {
+      "frame": 1004,
+      "seconds": 16.733333333333334,
+      "chroma": 6.97301,
+      "reasons": [
+        "line:10_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000026.jpg",
+      "sha256": "f024d97071186012bc10c767b4642c90f1658623aef6cf724f602e7e5831dd1e"
+    },
+    {
+      "frame": 1034,
+      "seconds": 17.233333333333334,
+      "chroma": 2.0,
+      "reasons": [
+        "line:10_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000027.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 1064,
+      "seconds": 17.733333333333334,
+      "chroma": 2.01037,
+      "reasons": [
+        "line:10_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000028.jpg",
+      "sha256": "5c9c41c2e6ec82db9a0ab8dcab9d2f171dfc8337434c721474391fae6ac911b3"
+    },
+    {
+      "frame": 1124,
+      "seconds": 18.733333333333334,
+      "chroma": 2.02062,
+      "reasons": [
+        "line:10_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000029.jpg",
+      "sha256": "985fbd8dd309f7148399bf81f94d7e24c66d64ed50ac9e8f42b4d14a987324a8"
+    },
+    {
+      "frame": 2466,
+      "seconds": 41.1,
+      "chroma": 7.88755,
+      "reasons": [
+        "line:10_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000030.jpg",
+      "sha256": "90a2681d0ac8987b4f3a12284ad6d59a0ec0a410790914c0b3557f6caa1f43a9"
+    },
+    {
+      "frame": 2496,
+      "seconds": 41.6,
+      "chroma": 2.0,
+      "reasons": [
+        "line:10_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000031.jpg",
+      "sha256": "820b4fc42cc983075d0c2f388ba4e2bb24b741e2f3cf5178a95aa8743b794124"
+    },
+    {
+      "frame": 2526,
+      "seconds": 42.1,
+      "chroma": 2.00111,
+      "reasons": [
+        "line:10_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000032.jpg",
+      "sha256": "745856ad6a384564c2630b8521eb3a3b7fd1fd8b673021df206d03c82cbe2471"
+    },
+    {
+      "frame": 2586,
+      "seconds": 43.1,
+      "chroma": 2.00111,
+      "reasons": [
+        "line:10_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000033.jpg",
+      "sha256": "745856ad6a384564c2630b8521eb3a3b7fd1fd8b673021df206d03c82cbe2471"
+    },
+    {
+      "frame": 3707,
+      "seconds": 61.78333333333333,
+      "chroma": 2.62829,
+      "reasons": [
+        "line:10_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000034.jpg",
+      "sha256": "9c24e6a70fcc4318fff72c565b2c8257c72ce04c13d96b9a3646325a458b133e"
+    },
+    {
+      "frame": 3736,
+      "seconds": 62.266666666666666,
+      "chroma": 2.0,
+      "reasons": [
+        "Plate fade, frame before start: F1 painter.show(stage, 1.0)?; (rigidity.rs:457, in 1.00 s = 60 frames, cue 10_4, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000035.jpg",
+      "sha256": "911d5e8142caa977c3f51b3a5938c7ccb40d8a1b8b77110d06fc3e99f6b0d69f"
+    },
+    {
+      "frame": 3737,
+      "seconds": 62.28333333333333,
+      "chroma": 2.0,
+      "reasons": [
+        "line:10_4",
+        "Plate fade start, ramp frame 1 of 60: F1 painter.show(stage, 1.0)?; (rigidity.rs:457, in 1.00 s = 60 frames, cue 10_4, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000036.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 3738,
+      "seconds": 62.3,
+      "chroma": 2.0,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000037.jpg",
+      "sha256": "a1898f1ef64341102ea2c5b64393d43ae8dadd9b0b8f880696da0237577bec64"
+    },
+    {
+      "frame": 3766,
+      "seconds": 62.766666666666666,
+      "chroma": 10.0751,
+      "reasons": [
+        "Plate fade middle, ramp frame 30 of 60: F1 painter.show(stage, 1.0)?; (rigidity.rs:457, in 1.00 s = 60 frames, cue 10_4, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000038.jpg",
+      "sha256": "fd90368ed5633c9ec242c1d63dd8a9d34f2c2a23a634cdb46a07b9a340df8ea8"
+    },
+    {
+      "frame": 3767,
+      "seconds": 62.78333333333333,
+      "chroma": 10.3534,
+      "reasons": [
+        "line:10_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000039.jpg",
+      "sha256": "1c61ebc86a3dbbe6a588a4990ab5ea2476c496b875156be9a4fdf70aabb3eeef"
+    },
+    {
+      "frame": 3796,
+      "seconds": 63.266666666666666,
+      "chroma": 13.2338,
+      "reasons": [
+        "Plate fade last frame, ramp frame 60 of 60: F1 painter.show(stage, 1.0)?; (rigidity.rs:457, in 1.00 s = 60 frames, cue 10_4, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000040.jpg",
+      "sha256": "542e7bff19eb10bf91c2acfc3ba98bd2418fb4eb3dfb2fccf57ce0941662152a"
+    },
+    {
+      "frame": 3797,
+      "seconds": 63.28333333333333,
+      "chroma": 13.2338,
+      "reasons": [
+        "First hold frame after plate fade: F1 painter.show(stage, 1.0)?; (rigidity.rs:457, in 1.00 s = 60 frames, cue 10_4, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000041.jpg",
+      "sha256": "745e7c009373ef52fd54910ec2789eb8f2a5c0fb327fc968322a3b5dc8108917"
+    },
+    {
+      "frame": 3827,
+      "seconds": 63.78333333333333,
+      "chroma": 13.1429,
+      "reasons": [
+        "line:10_4",
+        "Hold +0.5 s after plate fade (persistence): F1 painter.show(stage, 1.0)?; (rigidity.rs:457, in 1.00 s = 60 frames, cue 10_4, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000042.jpg",
+      "sha256": "1ec77931bfd3d130e81f004d11207ccd867b4b4ef7e52695251e01c6c12c8685"
+    },
+    {
+      "frame": 3858,
+      "seconds": 64.3,
+      "chroma": 13.1427,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000043.jpg",
+      "sha256": "2ccc0310c5bcb07efbe032fbbf1553e7730aa1b61c44d8ecbb0eb97e95eec55a"
+    },
+    {
+      "frame": 3978,
+      "seconds": 66.3,
+      "chroma": 13.0064,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000044.jpg",
+      "sha256": "50e0caa6bb66ad79cc3fe9bcba8c13ffca017a420a603d0abd62549a23e14406"
+    },
+    {
+      "frame": 4098,
+      "seconds": 68.3,
+      "chroma": 12.9663,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000045.jpg",
+      "sha256": "33e35a0eb04033e792dc6434621c21787a561a550b6f2d9005db7b307cf7e62f"
+    },
+    {
+      "frame": 4218,
+      "seconds": 70.3,
+      "chroma": 12.9639,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000046.jpg",
+      "sha256": "09055158046a828fae86475753dd4283a1a6d03b4bc778761d806f39724bc40e"
+    },
+    {
+      "frame": 4338,
+      "seconds": 72.3,
+      "chroma": 13.0828,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000047.jpg",
+      "sha256": "db89cdc86cc074a638b6beae696660b7ee55810f4a0d6afbc33de8f5344c907e"
+    },
+    {
+      "frame": 4458,
+      "seconds": 74.3,
+      "chroma": 13.0828,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000048.jpg",
+      "sha256": "db89cdc86cc074a638b6beae696660b7ee55810f4a0d6afbc33de8f5344c907e"
+    },
+    {
+      "frame": 4478,
+      "seconds": 74.63333333333334,
+      "chroma": 13.1194,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000049.jpg",
+      "sha256": "a208e7ac4a8b41155041328f4b27b6b27fdc1527b302b462e075eac797efd138"
+    },
+    {
+      "frame": 4508,
+      "seconds": 75.13333333333334,
+      "chroma": 13.1256,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000050.jpg",
+      "sha256": "9c03754a3a97e5f4e833a3b8d23fbf065eaa2b94b6c23ddbc6e0d843d2294e29"
+    },
+    {
+      "frame": 4538,
+      "seconds": 75.63333333333334,
+      "chroma": 13.1233,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000051.jpg",
+      "sha256": "eaab410419dc3b4238d05ea9744a08806298bf4124368e14d0b04fc68ee7b756"
+    },
+    {
+      "frame": 4578,
+      "seconds": 76.3,
+      "chroma": 13.1199,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000052.jpg",
+      "sha256": "bca2cb7911c3402498d3f2ac27faac81afd0c7f16aa830216b84b028afaabe08"
+    },
+    {
+      "frame": 4598,
+      "seconds": 76.63333333333334,
+      "chroma": 13.1182,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000053.jpg",
+      "sha256": "2ffc5530366fcbbaa941e41006c5a5e24cd5577ca96fa95f252956c5784c74e4"
+    },
+    {
+      "frame": 4698,
+      "seconds": 78.3,
+      "chroma": 13.1096,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000054.jpg",
+      "sha256": "32df89d5cc50854914a941a2335ff0f9e0dc9bcfeafac25f022385d0e4afdb66"
+    },
+    {
+      "frame": 4793,
+      "seconds": 79.88333333333334,
+      "chroma": 13.0889,
+      "reasons": [
+        "line:10_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000055.jpg",
+      "sha256": "db5d18fff1720e8bef5429fce18d7a20c07d73203894e8841591ab6d602cdb50"
+    },
+    {
+      "frame": 4818,
+      "seconds": 80.3,
+      "chroma": 12.9591,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000056.jpg",
+      "sha256": "f953a69d3b4df6201108148c51b9c7705dcc864389397d3c9ef09a6390d0b0fb"
+    },
+    {
+      "frame": 4823,
+      "seconds": 80.38333333333334,
+      "chroma": 12.9591,
+      "reasons": [
+        "line:10_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000057.jpg",
+      "sha256": "f953a69d3b4df6201108148c51b9c7705dcc864389397d3c9ef09a6390d0b0fb"
+    },
+    {
+      "frame": 4853,
+      "seconds": 80.88333333333334,
+      "chroma": 12.9239,
+      "reasons": [
+        "line:10_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000058.jpg",
+      "sha256": "dd1a14a1da92f3e0aa2274eba1a9bff175ce77f6ff64047c44fc491500a822b1"
+    },
+    {
+      "frame": 4913,
+      "seconds": 81.88333333333334,
+      "chroma": 12.988,
+      "reasons": [
+        "line:10_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000059.jpg",
+      "sha256": "c664cf149ea2a43556f685421d9e0cabe4af8b606b207b52c336ab256679161e"
+    },
+    {
+      "frame": 4938,
+      "seconds": 82.3,
+      "chroma": 12.988,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000060.jpg",
+      "sha256": "c664cf149ea2a43556f685421d9e0cabe4af8b606b207b52c336ab256679161e"
+    },
+    {
+      "frame": 5058,
+      "seconds": 84.3,
+      "chroma": 13.0003,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000061.jpg",
+      "sha256": "c9263e36864c00c1740460c751888ec7edb36913bfdcae513b2ff59f57c780ea"
+    },
+    {
+      "frame": 5178,
+      "seconds": 86.3,
+      "chroma": 13.0003,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000062.jpg",
+      "sha256": "c9263e36864c00c1740460c751888ec7edb36913bfdcae513b2ff59f57c780ea"
+    },
+    {
+      "frame": 5280,
+      "seconds": 88.0,
+      "chroma": 14.1004,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000063.jpg",
+      "sha256": "41d220aabdbd906f96b1f72ee41a5a4c69f135d5620cb572618fff1f44dbdc1e"
+    },
+    {
+      "frame": 5298,
+      "seconds": 88.3,
+      "chroma": 14.1141,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000064.jpg",
+      "sha256": "a15c8bc7670bdba3f197e73129ab044b5a27adc26cbfc2f7554cd1ccdba715ea"
+    },
+    {
+      "frame": 5340,
+      "seconds": 89.0,
+      "chroma": 14.1141,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000065.jpg",
+      "sha256": "d8818b9b4c661fd16706458b04b925674f5cf96e307ac7628da22e8b0666bb6e"
+    },
+    {
+      "frame": 5400,
+      "seconds": 90.0,
+      "chroma": 14.1141,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000066.jpg",
+      "sha256": "d8818b9b4c661fd16706458b04b925674f5cf96e307ac7628da22e8b0666bb6e"
+    },
+    {
+      "frame": 5418,
+      "seconds": 90.3,
+      "chroma": 14.1141,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000067.jpg",
+      "sha256": "d8818b9b4c661fd16706458b04b925674f5cf96e307ac7628da22e8b0666bb6e"
+    },
+    {
+      "frame": 5460,
+      "seconds": 91.0,
+      "chroma": 14.1141,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000068.jpg",
+      "sha256": "d8818b9b4c661fd16706458b04b925674f5cf96e307ac7628da22e8b0666bb6e"
+    },
+    {
+      "frame": 5520,
+      "seconds": 92.0,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000069.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 5538,
+      "seconds": 92.3,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000070.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 5580,
+      "seconds": 93.0,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000071.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 5640,
+      "seconds": 94.0,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000072.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 5658,
+      "seconds": 94.3,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000073.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 5700,
+      "seconds": 95.0,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000074.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 5760,
+      "seconds": 96.0,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000075.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 5778,
+      "seconds": 96.3,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000076.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 5820,
+      "seconds": 97.0,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000077.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 5880,
+      "seconds": 98.0,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000078.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 5898,
+      "seconds": 98.3,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000079.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 5940,
+      "seconds": 99.0,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000080.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 6000,
+      "seconds": 100.0,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000081.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 6018,
+      "seconds": 100.3,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000082.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 6060,
+      "seconds": 101.0,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000083.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 6120,
+      "seconds": 102.0,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000084.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 6138,
+      "seconds": 102.3,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000085.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 6180,
+      "seconds": 103.0,
+      "chroma": 14.2155,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000086.jpg",
+      "sha256": "9af04c0f4463290926af190b4829c2980db45f1a253c39cf07218732eb9282cd"
+    },
+    {
+      "frame": 6216,
+      "seconds": 103.6,
+      "chroma": 14.2156,
+      "reasons": [
+        "rigidity247 L1: plate foot against the \"precisely\" card (old anchor 88.0-103.6 s), one-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000087.jpg",
+      "sha256": "2929879465c52104f6e00564a7e3965ed1ad0e326041696567d6befeba04f4ba"
+    },
+    {
+      "frame": 6218,
+      "seconds": 103.63333333333334,
+      "chroma": 14.2155,
+      "reasons": [
+        "line:10_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000088.jpg",
+      "sha256": "deeda73c0c744fab088fbb0bf4492b069498fcb31df25b36f606d054ffacd807"
+    },
+    {
+      "frame": 6240,
+      "seconds": 104.0,
+      "chroma": 13.2655,
+      "reasons": [
+        "rigidity247 L1, review253 R3: plate top, title and \"Im\" name (old anchor 62.3-104 s), two-second"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000089.jpg",
+      "sha256": "ec540149e75158278a6b6f1b946dd7a8c22f2d6d43ac0873fabbe923ffb521a0"
+    },
+    {
+      "frame": 6242,
+      "seconds": 104.03333333333333,
+      "chroma": 13.2652,
+      "reasons": [
+        "Plate fade, frame before start: F2 painter.leave(stage, 0.5)?; (rigidity.rs:536, out 0.50 s = 30 frames, cue 10_6, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000090.jpg",
+      "sha256": "7f841d6228164c32abb0d702df8dac00248868aa852c4be4da59c1a42e70af9c"
+    },
+    {
+      "frame": 6243,
+      "seconds": 104.05,
+      "chroma": 13.2745,
+      "reasons": [
+        "Plate fade start, ramp frame 1 of 30: F2 painter.leave(stage, 0.5)?; (rigidity.rs:536, out 0.50 s = 30 frames, cue 10_6, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000091.jpg",
+      "sha256": "8804012fb219e0fda32bb3e8fd9e7fde3bc305ad1ffd4d33da61f7d0ac726735"
+    },
+    {
+      "frame": 6248,
+      "seconds": 104.13333333333334,
+      "chroma": 12.8622,
+      "reasons": [
+        "line:10_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000092.jpg",
+      "sha256": "249bdc5bd03870774bacbbb20c476d94b2ec83f4087476cf54a4316d006c7540"
+    },
+    {
+      "frame": 6257,
+      "seconds": 104.28333333333333,
+      "chroma": 10.0286,
+      "reasons": [
+        "Plate fade middle, ramp frame 15 of 30: F2 painter.leave(stage, 0.5)?; (rigidity.rs:536, out 0.50 s = 30 frames, cue 10_6, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000093.jpg",
+      "sha256": "bdfcde1ffaed4b9c9bbec2a7e038edf9066ca5640bb94a957a3d7898e0721995"
+    },
+    {
+      "frame": 6270,
+      "seconds": 104.5,
+      "chroma": 2.13563,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): F2 painter.leave(stage, 0.5)?; (rigidity.rs:536, out 0.50 s = 30 frames, cue 10_6, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000094.jpg",
+      "sha256": "f620176876696010816d5307ad294e4e74d01aa85880be839dc4c3f823b25bad"
+    },
+    {
+      "frame": 6271,
+      "seconds": 104.51666666666667,
+      "chroma": 2.0,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): F2 painter.leave(stage, 0.5)?; (rigidity.rs:536, out 0.50 s = 30 frames, cue 10_6, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000095.jpg",
+      "sha256": "005d93534e344d61c2db70fda8040c2a706e1e7c60a57350b0efb4358c4f1e5b"
+    },
+    {
+      "frame": 6272,
+      "seconds": 104.53333333333333,
+      "chroma": 2.0,
+      "reasons": [
+        "Plate fade last frame, ramp frame 30 of 30: F2 painter.leave(stage, 0.5)?; (rigidity.rs:536, out 0.50 s = 30 frames, cue 10_6, exact line)",
+        "Fade-out end bracket, every frame (no reappearance): F2 painter.leave(stage, 0.5)?; (rigidity.rs:536, out 0.50 s = 30 frames, cue 10_6, exact line)",
+        "Plate fade, frame before start: F3 sine.show(stage, 1.0)?; (rigidity.rs:562, in 1.00 s = 60 frames, cue 10_6, exact after)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000096.jpg",
+      "sha256": "b4d59f0f72c23b5311061aaedbdf6d45c51ab675fe6ba76365e248627e82ee52"
+    },
+    {
+      "frame": 6273,
+      "seconds": 104.55,
+      "chroma": 2.0,
+      "reasons": [
+        "First hold frame after plate fade: F2 painter.leave(stage, 0.5)?; (rigidity.rs:536, out 0.50 s = 30 frames, cue 10_6, exact line)",
+        "Fade-out end bracket, every frame (no reappearance): F2 painter.leave(stage, 0.5)?; (rigidity.rs:536, out 0.50 s = 30 frames, cue 10_6, exact line)",
+        "Plate fade start, ramp frame 1 of 60: F3 sine.show(stage, 1.0)?; (rigidity.rs:562, in 1.00 s = 60 frames, cue 10_6, exact after)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000097.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 6274,
+      "seconds": 104.56666666666666,
+      "chroma": 2.0,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): F2 painter.leave(stage, 0.5)?; (rigidity.rs:536, out 0.50 s = 30 frames, cue 10_6, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000098.jpg",
+      "sha256": "0b4630c1dbc06cdda48c9b475d43283a0427f2c178640d779d56c13eda1c58f1"
+    },
+    {
+      "frame": 6275,
+      "seconds": 104.58333333333333,
+      "chroma": 2.12062,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): F2 painter.leave(stage, 0.5)?; (rigidity.rs:536, out 0.50 s = 30 frames, cue 10_6, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000099.jpg",
+      "sha256": "f571faedb00a747c860b49004d3190733fa57494c0eb2b7f778ba19eb36b2dad"
+    },
+    {
+      "frame": 6276,
+      "seconds": 104.6,
+      "chroma": 2.10852,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): F2 painter.leave(stage, 0.5)?; (rigidity.rs:536, out 0.50 s = 30 frames, cue 10_6, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000100.jpg",
+      "sha256": "3e2b784349f154656c1fdba53eb616038e61b4040747e0468e09475a8261923a"
+    },
+    {
+      "frame": 6278,
+      "seconds": 104.63333333333334,
+      "chroma": 2.31698,
+      "reasons": [
+        "line:10_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000101.jpg",
+      "sha256": "2c2f853c251acd5fdc94d7a0e5f8fea6562c68052beb94d15f38eb818e53bf03"
+    },
+    {
+      "frame": 6302,
+      "seconds": 105.03333333333333,
+      "chroma": 9.95281,
+      "reasons": [
+        "Plate fade middle, ramp frame 30 of 60: F3 sine.show(stage, 1.0)?; (rigidity.rs:562, in 1.00 s = 60 frames, cue 10_6, exact after)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000102.jpg",
+      "sha256": "ef054d58294dae7731cbd59c3ad4754111670d702af04d310225604fbc94f3e7"
+    },
+    {
+      "frame": 6303,
+      "seconds": 105.05,
+      "chroma": 10.2156,
+      "reasons": [
+        "Hold +0.5 s after plate fade (persistence): F2 painter.leave(stage, 0.5)?; (rigidity.rs:536, out 0.50 s = 30 frames, cue 10_6, exact line)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000103.jpg",
+      "sha256": "f05317f0c0c39b737d3be4b50548df180f1178ae2587feec7d6bdbab94b3bcf3"
+    },
+    {
+      "frame": 6332,
+      "seconds": 105.53333333333333,
+      "chroma": 13.0308,
+      "reasons": [
+        "Plate fade last frame, ramp frame 60 of 60: F3 sine.show(stage, 1.0)?; (rigidity.rs:562, in 1.00 s = 60 frames, cue 10_6, exact after)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000104.jpg",
+      "sha256": "43ecd21abcfe2f28b69389cd351d0776d1e0eddcf83f85a65c7eca2878c8a258"
+    },
+    {
+      "frame": 6333,
+      "seconds": 105.55,
+      "chroma": 13.0303,
+      "reasons": [
+        "First hold frame after plate fade: F3 sine.show(stage, 1.0)?; (rigidity.rs:562, in 1.00 s = 60 frames, cue 10_6, exact after)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000105.jpg",
+      "sha256": "42d3c7fb646fdc635cc8f8af0add6097ec205f90a02478511578e666126a1741"
+    },
+    {
+      "frame": 6338,
+      "seconds": 105.63333333333334,
+      "chroma": 13.0035,
+      "reasons": [
+        "line:10_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000106.jpg",
+      "sha256": "ffc3886f8bc1f60387137b24091cbb9f37b5f36443e02fd2f63eda4e4c71c338"
+    },
+    {
+      "frame": 6363,
+      "seconds": 106.05,
+      "chroma": 12.6611,
+      "reasons": [
+        "Hold +0.5 s after plate fade (persistence): F3 sine.show(stage, 1.0)?; (rigidity.rs:562, in 1.00 s = 60 frames, cue 10_6, exact after)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000107.jpg",
+      "sha256": "8a1d34ae7be8394bc86866efe8700a26f58f286eb5c2b3e4320aca3998cb420e"
+    },
+    {
+      "frame": 7411,
+      "seconds": 123.51666666666667,
+      "chroma": 13.0412,
+      "reasons": [
+        "Plate fade, frame before start: F4 sine.leave(stage, 0.5)?; (rigidity.rs:648, out 0.50 s = 30 frames, cue 10_6, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000108.jpg",
+      "sha256": "3edbe80d75a337a4a221c8c9dce194d492ae4e5b68828a3b5bfcc11dc202afed"
+    },
+    {
+      "frame": 7412,
+      "seconds": 123.53333333333333,
+      "chroma": 13.0406,
+      "reasons": [
+        "Plate fade start, ramp frame 1 of 30: F4 sine.leave(stage, 0.5)?; (rigidity.rs:648, out 0.50 s = 30 frames, cue 10_6, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000109.jpg",
+      "sha256": "fdf83b6a2995e6fa3b14fee434ec01721e9045857937f7927ab9c74534da2ad4"
+    },
+    {
+      "frame": 7426,
+      "seconds": 123.76666666666667,
+      "chroma": 9.79556,
+      "reasons": [
+        "Plate fade middle, ramp frame 15 of 30: F4 sine.leave(stage, 0.5)?; (rigidity.rs:648, out 0.50 s = 30 frames, cue 10_6, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000110.jpg",
+      "sha256": "3ea202ed4dc4904bddf97fb3d91d58cf77452c8a24c64bd9bb683b6cf4c0c776"
+    },
+    {
+      "frame": 7439,
+      "seconds": 123.98333333333333,
+      "chroma": 2.08208,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): F4 sine.leave(stage, 0.5)?; (rigidity.rs:648, out 0.50 s = 30 frames, cue 10_6, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000111.jpg",
+      "sha256": "829a29628ab01b1c7d44f34b11671dadd7040605a820c092cf89d25c77ccbf5b"
+    },
+    {
+      "frame": 7440,
+      "seconds": 124.0,
+      "chroma": 2.00079,
+      "reasons": [
+        "Fade-out end bracket, every frame (no reappearance): F4 sine.leave(stage, 0.5)?; (rigidity.rs:648, out 0.50 s = 30 frames, cue 10_6, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000112.jpg",
+      "sha256": "bfa487b53016da1a617f2422af08aaadd95317c272359e0de93826ed42c4441c"
+    },
+    {
+      "frame": 7441,
+      "seconds": 124.01666666666667,
+      "chroma": 2.0,
+      "reasons": [
+        "Last frame",
+        "Plate fade last frame, ramp frame 30 of 30: F4 sine.leave(stage, 0.5)?; (rigidity.rs:648, out 0.50 s = 30 frames, cue 10_6, exact breath)",
+        "Fade-out end bracket, every frame (no reappearance): F4 sine.leave(stage, 0.5)?; (rigidity.rs:648, out 0.50 s = 30 frames, cue 10_6, exact breath)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/pictures/frame-000113.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    }
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0001.jpg",
+      "sha256": "857ce7558df4d998cfd449dffe809b72099fdb5151cfa965207ea3393d89f55f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0002.jpg",
+      "sha256": "56b97049bb13cb459cfa8dfd59b95ca991f119e8d8de3a70aa983a278bef95af"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0003.jpg",
+      "sha256": "0823b04478978cccf186952fd9db8c82f37f3d330f418fcc35573d22913a12fb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0004.jpg",
+      "sha256": "13e27fee3ff56a36f2d65b0e7f34d20dec0f7574a8b8abc255bdfa41173d53a0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0005.jpg",
+      "sha256": "f03ab2862e9e8b0759df2d3c570a99c0850812c342ad31b6a34bbfab65c945fa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0006.jpg",
+      "sha256": "0ac57a04891d02e8e578e37b9ec7708829cbbdc472afcc688092af2166effda3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0007.jpg",
+      "sha256": "f2ddcf7d890adc4a78a08b49e5377149e5dd7396fb1a828c0070c6059c54765f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0008.jpg",
+      "sha256": "0034bb09ad7bb54d5ab539105d2c51e7a3375f3e386557d8c296d6234a78160b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0009.jpg",
+      "sha256": "155a644359f9addf075101279ddb876dbfac5c62c366901a002dfb336b6d82d0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0010.jpg",
+      "sha256": "e336e7ea08414f513039f638f63a218d51312bd7ee7064e53da9a803ca6bb150"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0011.jpg",
+      "sha256": "b32548b65d45a0e0ffd707b471d69354d0aaa7ef0aaa4544230bc035a0c2536e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0012.jpg",
+      "sha256": "eba9d9550564632797d66cb4dc1d0289acd85e319d06edf16ffcd7e7055911df"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0013.jpg",
+      "sha256": "752ba09b1faa0d8b3bb3890352bf4e6a7c126946f00bc03abf471e73178a59eb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0014.jpg",
+      "sha256": "37f4ef8c4d5a2cf30c6c113aaace87bab6c963556334ab40bdf799877eff5b03"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sheet-0015.jpg",
+      "sha256": "ffd7fee94973f2c6a8fdb4506245e68c9de232a338b2b3daab6013973d2eecc1"
+    }
+  ],
+  "scope": "Native 540p60 plate-fade preview extraction of build268; picks only. Actual viewing of every sheet, motion, 4K, listening, fine-sync and independent AV review still required; no picture or AV acceptance."
+}

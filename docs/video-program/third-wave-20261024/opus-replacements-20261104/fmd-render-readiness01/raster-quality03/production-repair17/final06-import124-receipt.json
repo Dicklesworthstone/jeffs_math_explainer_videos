@@ -1,0 +1,129 @@
+{
+  "started": "2026-11-08T03:18:38.557150+00:00",
+  "phase": "native",
+  "command": [
+    "python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-render-worker-20261107/qualification01/production19/ts2-final06-relay124.py",
+    "receive"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-08T03:18:47.959037+00:00",
+      "free_bytes": 146719182848,
+      "work_bytes": 501108736,
+      "target_bytes": 7714852864
+    },
+    {
+      "utc": "2026-11-08T03:18:59.389026+00:00",
+      "free_bytes": 146719182848,
+      "work_bytes": 501108736,
+      "target_bytes": 7714852864
+    },
+    {
+      "utc": "2026-11-08T03:19:10.906039+00:00",
+      "free_bytes": 146719182848,
+      "work_bytes": 501108736,
+      "target_bytes": 7714852864
+    },
+    {
+      "utc": "2026-11-08T03:19:21.963960+00:00",
+      "free_bytes": 146593947648,
+      "work_bytes": 501108736,
+      "target_bytes": 7714852864
+    },
+    {
+      "utc": "2026-11-08T03:19:32.839948+00:00",
+      "free_bytes": 146593947648,
+      "work_bytes": 501108736,
+      "target_bytes": 7714852864
+    },
+    {
+      "utc": "2026-11-08T03:19:44.163568+00:00",
+      "free_bytes": 146593947648,
+      "work_bytes": 501108736,
+      "target_bytes": 7724806144
+    },
+    {
+      "utc": "2026-11-08T03:19:55.025002+00:00",
+      "free_bytes": 146593947648,
+      "work_bytes": 501108736,
+      "target_bytes": 7994220544
+    },
+    {
+      "utc": "2026-11-08T03:20:05.772294+00:00",
+      "free_bytes": 146593947648,
+      "work_bytes": 501108736,
+      "target_bytes": 8292704256
+    },
+    {
+      "utc": "2026-11-08T03:20:16.659427+00:00",
+      "free_bytes": 146593947648,
+      "work_bytes": 501108736,
+      "target_bytes": 8490004480
+    },
+    {
+      "utc": "2026-11-08T03:20:27.645087+00:00",
+      "free_bytes": 146593947648,
+      "work_bytes": 501108736,
+      "target_bytes": 8641179648
+    },
+    {
+      "utc": "2026-11-08T03:20:38.592498+00:00",
+      "free_bytes": 146593947648,
+      "work_bytes": 501108736,
+      "target_bytes": 8811950080
+    },
+    {
+      "utc": "2026-11-08T03:20:50.756388+00:00",
+      "free_bytes": 146593947648,
+      "work_bytes": 501108736,
+      "target_bytes": 9033334784
+    },
+    {
+      "utc": "2026-11-08T03:21:01.535713+00:00",
+      "free_bytes": 146593947648,
+      "work_bytes": 501108736,
+      "target_bytes": 9225408512
+    },
+    {
+      "utc": "2026-11-08T03:21:12.195407+00:00",
+      "free_bytes": 146589945856,
+      "work_bytes": 501108736,
+      "target_bytes": 9225408512
+    },
+    {
+      "utc": "2026-11-08T03:21:13.330113+00:00",
+      "free_bytes": 143537438720,
+      "work_bytes": 501456896,
+      "target_bytes": 9225408512
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":5,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":146719182848,\"free_excludes_purgeable\":true,\"free_pct\":2.444838673778198,\"mount_point\":\"/data\",\"path\":\"/data/projects/jmev-render-worker-20261107\",\"platform\":{\"linux\":{\"device_id\":52,\"fs_type\":\"btrfs\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":6001180545024,\"unprotected\":null,\"volume_available_bytes\":146719182848,\"volume_role\":null,\"volume_total_bytes\":6001180545024}\n",
+    "stderr": "[SBH-CONFIG] Using system config at /etc/sbh/config.toml\n"
+  },
+  "admission": {
+    "utc": "2026-11-08T03:18:38.623394+00:00",
+    "free_bytes": 146719182848,
+    "work_bytes": 501104640,
+    "target_bytes": 7714852864
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "90561ad92e1071aab515a8ef21e32407b3b9bdb0f6350ac555075a2dd0cf9ab5",
+  "pid": 1993763,
+  "exit": 0,
+  "final_inputs_sha256": "90561ad92e1071aab515a8ef21e32407b3b9bdb0f6350ac555075a2dd0cf9ab5",
+  "finished": "2026-11-08T03:21:18.161256+00:00"
+}

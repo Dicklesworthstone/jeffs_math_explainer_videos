@@ -1,0 +1,42 @@
+{
+  "time": "2026-11-08T05:54:58.937616+00:00",
+  "observations": [
+    {
+      "host": "csd",
+      "cpus": 64,
+      "load1": 35.86,
+      "available_memory_mib": 98406,
+      "free_bytes": 103815512064
+    },
+    {
+      "host": "trj",
+      "cpus": 128,
+      "load1": 93.02,
+      "available_memory_mib": 308452,
+      "free_bytes": 145347919872
+    },
+    {
+      "host": "css",
+      "cpus": 64,
+      "load1": 16.32,
+      "available_memory_mib": 177519,
+      "free_bytes": 26729418752
+    },
+    {
+      "host": "hz1",
+      "cpus": 8,
+      "load1": 1.26,
+      "available_memory_mib": 16794,
+      "free_bytes": 10540462080
+    },
+    {
+      "host": "hz2",
+      "cpus": 16,
+      "load1": 8.71,
+      "available_memory_mib": 11294,
+      "free_bytes": 35900383232
+    }
+  ],
+  "decision": "Prefer existing qualified CSS and CSD workers, use TRJ with current load rechecked for additional parallel render. HZ1 below10GiB admission (10540462080 <10737418240), do not admit. HZ2 possible but previous boundary render1.1fps is slow. No jobs launched, admission always rechecked by original guard.",
+  "limitations": "Load/free-space snapshot only; no guaranteed reservations or future admission. Existing delivery helpers need versioned268/269 payload and actual review evidence before use."
+}

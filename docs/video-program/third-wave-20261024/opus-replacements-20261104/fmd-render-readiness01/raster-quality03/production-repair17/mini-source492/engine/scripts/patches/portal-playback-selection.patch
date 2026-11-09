@@ -1,0 +1,176 @@
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -17,6 +17,7 @@
+ mod crossing;
+ mod ladder;
+ mod method_cache;
++mod portal_playback;
+ pub mod perf_harness;
+ mod report;
+ 
+@@ -31,6 +32,7 @@
+ use std::time::Instant;
+ 
+ use crossing::CrossingClass;
++use portal_playback::OutputTimeline;
+ 
+ use fmn_frame::convert::{rgba_to_nv12, rgba16f_to_rgba8};
+ use fmn_frame::{ChromaSiting, ColorRange, FrameBuffer, FrameLayout, PixelFormat};
+@@ -149,6 +151,7 @@
+     Soundtrack {
+         destination: PathBuf,
+         threads: usize,
++        timeline: OutputTimeline,
+     },
+ }
+ 
+@@ -184,6 +187,7 @@
+                     Self::Soundtrack {
+                         destination,
+                         threads,
++                        timeline: OutputTimeline::default(),
+                     },
+                     RuntimeConfig::from_config(&config),
+                 ))
+@@ -233,8 +237,9 @@
+             Self::Soundtrack {
+                 destination,
+                 threads,
++                timeline,
+             } => {
+-                let mix = mix_portal_soundtrack(scene, threads)?.ok_or_else(|| {
++                let mix = mix_portal_soundtrack(scene, threads, &timeline)?.ok_or_else(|| {
+                     PyRuntimeError::new_err("WAV output requires at least one Scene.add_sound cue")
+                 })?;
+                 let config = fmn_output::MixerConfig::default();
+@@ -274,7 +279,11 @@
+     }
+ }
+ 
+-fn mix_portal_soundtrack(scene: &Scene, threads: usize) -> PyResult<Option<fmn_output::MixReport>> {
++fn mix_portal_soundtrack(
++    scene: &Scene,
++    threads: usize,
++    timeline: &OutputTimeline,
++) -> PyResult<Option<fmn_output::MixReport>> {
+     let requests = scene.sound_requests();
+     if requests.is_empty() {
+         return Ok(None);
+@@ -282,7 +291,7 @@
+     let config = fmn_output::MixerConfig::default();
+     let time = scene.time();
+     let timeline_frames =
+-        fmn_output::frames_to_samples(time.frames(), time.fps(), config.sample_rate)
++        fmn_output::frames_to_samples(timeline.output_frame(time.frames())?, time.fps(), config.sample_rate)
+             .map_err(native_error)?;
+     let mut mixer = fmn_output::SoundMixer::new(config)
+         .map_err(native_error)?
+@@ -307,7 +316,7 @@
+         mixer
+             .add(fmn_output::SoundCue {
+                 audio,
+-                frame: request.time.frames(),
++                frame: timeline.output_frame(request.time.frames())?,
+                 fps: request.time.fps(),
+                 time_offset: request.time_offset,
+                 gain: request.gain,
+@@ -331,6 +340,7 @@
+     light_mob: Option<Mob>,
+     rgba8_scratch: Option<FrameBuffer>,
+     next_sequence: u64,
++    timeline: OutputTimeline,
+ }
+ 
+ impl PortalFrameSession {
+@@ -630,6 +640,7 @@
+                 light_mob: None,
+                 rgba8_scratch,
+                 next_sequence: 0,
++                timeline: OutputTimeline::new(single_frame),
+             },
+             runtime_config,
+         ))
+@@ -726,7 +737,7 @@
+         let renderer = self.renderer.config();
+         if let Some(soundtrack) = self.soundtrack.take() {
+             soundtrack
+-                .finish(mix_portal_soundtrack(scene, renderer.threads)?)
++                .finish(mix_portal_soundtrack(scene, renderer.threads, &self.timeline)?)
+                 .map_err(native_error)?;
+         }
+         self.emitter
+@@ -7801,6 +7812,7 @@
+         camera: Option<PyRef<'_, PyCameraFrameCore>>,
+         light_position: Option<[f64; 3]>,
+     ) -> PyResult<(String, u64, u64, String, String, usize)> {
++        portal_playback::synchronize(slf)?;
+         synchronize_portal_camera(slf)?;
+         let engine = Rc::clone(&slf.borrow().engine);
+         let render = Arc::clone(&slf.borrow().render);
+@@ -8023,18 +8035,29 @@
+ 
+     #[pyo3(signature = (sound_file, time_offset=0.0, gain=None, gain_to_background=None))]
+     fn _add_sound(
+-        &self,
++        slf: &Bound<'_, Self>,
+         sound_file: String,
+         time_offset: f64,
+         gain: Option<f64>,
+         gain_to_background: Option<f64>,
+     ) -> PyResult<()> {
+         crossing::record(CrossingClass::Other);
+-        self.engine
+-            .borrow_mut()
++        if portal_playback::requested_skip(slf)? {
++            return Ok(());
++        }
++        let engine = Rc::clone(&slf.borrow().engine);
++        let mut scene = engine.borrow_mut();
++        // A cue may follow stop_skipping before the next play/wait. Record it
++        // without changing the capture policy of an in-flight segment (a
++        // Python updater can call this same method inside its release window).
++        let skipping = scene.is_skipping();
++        scene.set_skipping(false);
++        let result = scene
+             .add_sound(sound_file, time_offset, gain, gain_to_background)
+             .map(|_| ())
+-            .map_err(native_error)
++            .map_err(native_error);
++        scene.set_skipping(skipping);
++        result
+     }
+ 
+     /// Engine-truth diagnostics for the permanent bridge acceptance suite.
+@@ -8266,6 +8289,7 @@
+         rate_func: Option<Bound<'_, PyAny>>,
+         lag_ratio: Option<f64>,
+     ) -> PyResult<Vec<f64>> {
++        portal_playback::synchronize(slf)?;
+         let engine = Rc::clone(&slf.borrow().engine);
+         if callbacks.len() != specs.len() {
+             return Err(PyValueError::new_err(
+@@ -8622,6 +8646,7 @@
+         ignore_presenter_mode: bool,
+     ) -> PyResult<()> {
+         let engine = Rc::clone(&slf.borrow().engine);
++        portal_playback::synchronize(slf)?;
+         let has_python_updaters = has_python_updaters(slf)?;
+         if !has_python_updaters && stop_condition.is_none() && !portal_has_frame_render(slf)? {
+             let mut sink = PortalSceneSink {
+--- a/crates/fmn-scene/src/runtime.rs
++++ b/crates/fmn-scene/src/runtime.rs
+@@ -1656,6 +1656,14 @@
+         Ok(())
+     }
+ 
++    /// Set effective playback skipping without changing the saved revert state.
++    /// Host-language front doors call this only between segments, after their
++    /// range/skip hooks and before Choreo opens the next sampled segment.
++    pub fn set_skipping(&mut self, skipping: bool) -> &mut Self {
++        self.skipping = skipping;
++        self
++    }
++
+     /// Force skip mode while remembering the status to which revert returns.
+     pub fn force_skipping(&mut self) -> &mut Self {
+         self.original_skipping = self.skipping;

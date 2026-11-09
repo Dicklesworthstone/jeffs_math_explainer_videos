@@ -1,0 +1,247 @@
+{
+ "F1r": {
+  "shared row": {
+   "rows": 8,
+   "exit": 1,
+   "refusal": "AssertionError: shared and system rows are not frozen at their hashes",
+   "incoming": false,
+   "import_result": false
+  },
+  "system row": {
+   "rows": 8,
+   "exit": 1,
+   "refusal": "AssertionError: shared and system rows are not frozen at their hashes",
+   "incoming": false,
+   "import_result": false
+  },
+  "Q permit copy": {
+   "rows": 8,
+   "exit": 1,
+   "refusal": "AssertionError: root's Q copy of the permit is not frozen at the permit's hash",
+   "incoming": false,
+   "import_result": false
+  },
+  "helper": {
+   "rows": 8,
+   "exit": 1,
+   "refusal": "AssertionError: not frozen: W/csd/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-gallery-import448.py",
+   "incoming": false,
+   "import_result": false
+  },
+  "guard": {
+   "rows": 8,
+   "exit": 1,
+   "refusal": "AssertionError: not frozen: W/csd/data/projects/jmev-stroke-probe-20261106/guard_csd02.py",
+   "incoming": false,
+   "import_result": false
+  },
+  "manifest": {
+   "rows": 8,
+   "exit": 1,
+   "refusal": "AssertionError: not frozen: W/csd/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/gallery-manifest466.json",
+   "incoming": false,
+   "import_result": false
+  },
+  "none (exact rows)": {
+   "rows": 8,
+   "exit": 1,
+   "refusal": "AssertionError: stream does not start with a header line",
+   "incoming": false,
+   "import_result": false
+  }
+ },
+ "F3": {
+  "control (no change)": {
+   "code": 0,
+   "failures": [],
+   "stop": null,
+   "check_problems": [],
+   "inputs_changed_count": 0
+  },
+  "a+e: a placed SSD file changed after import": {
+   "code": 3,
+   "failures": [
+    "a.",
+    "e."
+   ],
+   "stop": null,
+   "check_problems": [
+    "not at its hash on CSD: W/csd/data/ssd/work/jmev-gallery-recovery440/jobs/css-reviewed-final-05-gallery352-ssd442/render/05_gallery.mp4"
+   ],
+   "inputs_changed_count": 0
+  },
+  "a+e: RECOVERY alias on CSD removed": {
+   "code": 3,
+   "failures": [
+    "a.",
+    "e."
+   ],
+   "stop": null,
+   "check_problems": [
+    "not at its hash on CSD: W/csd/data/ssd/work/jmev-gallery-recovery440/gallery-inputs442.json",
+    "not at its hash on CSD: W/csd/data/ssd/work/jmev-gallery-recovery440/jobs/css-reviewed-final-05-gallery352-ssd442/render-summary.json",
+    "not at its hash on CSD: W/csd/data/ssd/work/jmev-gallery-recovery440/jobs/css-reviewed-final-05-gallery352-ssd442/render/05_gallery.mp4",
+    "not at its hash on CSD: W/csd/data/ssd/work/jmev-gallery-recovery440/jobs/css-reviewed-final-05-gallery352-ssd442/resource-receipt.json"
+   ],
+   "inputs_changed_count": 0
+  },
+  "a+e: RECOVERY alias points at another folder": {
+   "code": 3,
+   "failures": [
+    "a.",
+    "e."
+   ],
+   "stop": null,
+   "check_problems": [
+    "not at its hash on CSD: W/csd/data/ssd/work/jmev-gallery-recovery440/jobs/css-reviewed-final-05-gallery352-ssd442/render/05_gallery.mp4"
+   ],
+   "inputs_changed_count": 0
+  },
+  "d: import-result names another manifest": {
+   "code": 3,
+   "failures": [
+    "a.",
+    "d.",
+    "e."
+   ],
+   "stop": null,
+   "check_problems": [
+    "import-result names another manifest"
+   ],
+   "inputs_changed_count": 0
+  },
+  "f: inputs file rewritten after admission (same rows)": {
+   "code": 3,
+   "failures": [
+    "f."
+   ],
+   "stop": null,
+   "check_problems": [],
+   "inputs_changed_count": 0
+  },
+  "g+e: a shared row changed after import": {
+   "code": 3,
+   "failures": [
+    "a.",
+    "e.",
+    "g."
+   ],
+   "stop": null,
+   "check_problems": [
+    "not at its hash on CSD: W/csd/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems/stem-a466.wav"
+   ],
+   "inputs_changed_count": 1
+  },
+  "c: receipt rewritten with exit 1": {
+   "code": 3,
+   "failures": [
+    "c.",
+    "h."
+   ],
+   "stop": null,
+   "check_problems": [],
+   "inputs_changed_count": 0
+  },
+  "h: import-result rows350 names attempt 2": {
+   "code": 3,
+   "failures": [
+    "h."
+   ],
+   "stop": null,
+   "check_problems": [],
+   "inputs_changed_count": 0
+  },
+  "b: verify --attempt 2 (no such job)": {
+   "code": 3,
+   "failures": [
+    "a.",
+    "b.",
+    "c.",
+    "d.",
+    "e.",
+    "f.",
+    "g.",
+    "h."
+   ],
+   "stop": null,
+   "check_problems": [
+    "already imported by W/csd/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import448-05-gallery-a1"
+   ],
+   "inputs_changed_count": 0
+  }
+ },
+ "F4": {
+  "css_helper_copy_differs": {
+   "code": 1,
+   "stop": "STOP 1: CSS RECOVERY copy of csd-gallery-import448.py is not b6653757: 4b55198e8a55a879e42b49477f16008cd9e1672d8e8d3ca5449468c6d60d5394",
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE"
+   ],
+   "csd_inputs": [],
+   "csd_job": false
+  },
+  "css_manifest_copy_missing": {
+   "code": 1,
+   "stop": "STOP 1: CSS RECOVERY manifest copy is missing or differs: None",
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE"
+   ],
+   "csd_inputs": [],
+   "csd_job": false
+  },
+  "css_442_receipt_not_terminal": {
+   "code": 1,
+   "stop": "STOP 1: CSS render receipt is not a terminal success: css-reviewed-final-05-gallery352-ssd442; the manifest is not the export of the finished job (receipt or summary bytes differ)",
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE"
+   ],
+   "csd_inputs": [],
+   "csd_job": false
+  },
+  "css_442_job_only_under_css_root": {
+   "code": 1,
+   "stop": "STOP 1: CSS render receipt is not a terminal success: css-reviewed-final-05-gallery352-ssd442; the manifest is not the export of the finished job (receipt or summary bytes differ)",
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE"
+   ],
+   "csd_inputs": [],
+   "csd_job": false
+  },
+  "csd_helper_copy_differs": {
+   "code": 1,
+   "stop": "STOP 1: CSD Q copy of csd-gallery-import448.py is not b6653757: 4b55198e8a55a879e42b49477f16008cd9e1672d8e8d3ca5449468c6d60d5394",
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE"
+   ],
+   "csd_inputs": [],
+   "csd_job": false
+  },
+  "csd_recovery_alias_missing": {
+   "code": 1,
+   "stop": "STOP 1: import448 check refused: ['missing/different exact alias: W/csd/data/ssd/work/jmev-gallery-recovery440']",
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE",
+    "CSD_PROBE",
+    "helper check"
+   ],
+   "csd_inputs": [],
+   "csd_job": false
+  },
+  "serial_gate_14_under_448_prefix": {
+   "code": 1,
+   "stop": "STOP 1: serial order: 14_continuation has no completed 371 import yet",
+   "transport": [
+    "CSS_PROBE",
+    "CSD_PROBE"
+   ],
+   "csd_inputs": [],
+   "csd_job": false
+  }
+ }
+}

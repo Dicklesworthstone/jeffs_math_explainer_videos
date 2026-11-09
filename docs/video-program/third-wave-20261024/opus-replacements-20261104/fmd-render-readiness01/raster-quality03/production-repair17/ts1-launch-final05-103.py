@@ -1,0 +1,19 @@
+from pathlib import Path
+import json,subprocess,importlib.util
+R=Path('/data/projects/jmev-ts1-render-worker-20261107');Q=R/'qualification01';D=Path('/data/projects/jmev-stroke-probe-20261106')
+helper=Q/'ts1-final-chapter103.py'
+permit=Path('/data/projects/jmev-render-worker-20261107/qualification01/production19/review05-29/final-render-permit29.json')
+spec=importlib.util.spec_from_file_location('worker',helper);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+h=m.read(Q/'chapter05-handoff103.json');assert h['prior_controller_stopped'] and h['prior_job_absent'] and h['chapter']=='05_gallery'
+review,_=m.check('05_gallery',permit)
+files={helper,permit,Path(__file__).resolve(),Q/'chapter05-handoff103.json',R/'guard_ts1100.py',R/'jobs/ts1-production19-delivery101/resource-receipt.json',R/'jobs/ts1-runtime-transfer100/resource-receipt.json',R/'jobs/ts1-encoder-stop102/resource-receipt.json',D/'jobs/csd-production-timeline21/resource-receipt.json',D/'jobs/csd-production-score21/resource-receipt.json',D/'jobs/csd-production-repair-build19/qualification.json',D/'jobs/csd-production-score21/score21-summary.json'}
+inherited=Q/'delivery101-inputs.json';files.add(inherited)
+files.update(Path(x['path']) for x in m.read(inherited)['files'])
+files.update(p for p in m.NARRATION.rglob('*') if p.is_file())
+files.update(D/'jobs/csd-production-score21/score'/p for p in m.read(D/'jobs/csd-production-score21/score21-summary.json')['files'])
+files.update(Path(x['path']) for x in review['evidence']);files.add(m.BIN)
+for suffix in ['timeline.tsv','cues.tsv','cuelog.tsv']:files.add(m.TIMELINES/('05_gallery.'+suffix))
+inputs=Q/'final05-103-inputs.json'
+with inputs.open('x') as f:json.dump({'files':[dict(path=str(p),sha256=m.sha(p)) for p in sorted(files)]},f,indent=2)
+job='ts1-production19-final-05-gallery103';assert not (R/'jobs'/job).exists()
+subprocess.run(['python3','-I','-B',str(R/'guard_ts1100.py'),'--phase','native','--job',job,'--inputs',str(inputs),'--','python3','-I','-B',str(helper),'--chapter','05_gallery','--job',job,'--inputs',str(inputs),'--permit',str(permit),'--threads','16'],check=True)

@@ -1,0 +1,36 @@
+{
+  "version": "371",
+  "host": "css",
+  "root": "/data/projects/jmev-css-render-worker-20261107",
+  "fixture476": "Synthetic test file, not a 371 export. Only the names and permit_sha256 are real; the other digests and the one row are dummies.",
+  "chapters": {
+    "08_loop_sums": {
+      "job": "css-reviewed-final-08-loop-sums352",
+      "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+      "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+      "inputs": "/data/projects/jmev-css-render-worker-20261107/qualification01/final-08_loop_sums-inputs352.json",
+      "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/08_loop_sums-css-permit474.json",
+      "inputs_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "permit_sha256": "92119d3a65fd5b3637f839ca83fb60eb455661d296337a1e1dc02cf777d0e59a",
+      "receipt_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "summary_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "movie_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+      "frames": 14959
+    }
+  },
+  "files": [
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-08-loop-sums352/fixture476-row",
+      "sha256": "5555555555555555555555555555555555555555555555555555555555555555",
+      "bytes": 1,
+      "mode": 420,
+      "kind": "foreign"
+    }
+  ],
+  "foreign_files": 1,
+  "foreign_bytes": 1,
+  "shared_files": 0,
+  "shared_bytes": 0,
+  "system_files": 0,
+  "system_bytes": 0
+}

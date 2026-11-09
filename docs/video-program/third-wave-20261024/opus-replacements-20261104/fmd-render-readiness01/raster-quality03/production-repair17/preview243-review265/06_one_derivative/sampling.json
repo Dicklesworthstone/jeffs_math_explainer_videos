@@ -1,0 +1,3748 @@
+{
+  "movie_sha256": "5e45d72da91701c9c7c346b98ded8491c13ba1befed6be1b6301c1c6d33ed62d",
+  "samples": [
+    {
+      "frame": 0,
+      "seconds": 0.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000001.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 30,
+      "seconds": 0.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000002.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 36,
+      "seconds": 0.6,
+      "reasons": [
+        "line:06_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000003.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "frame": 60,
+      "seconds": 1.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000004.jpg",
+      "sha256": "88ddfa7d614d1da0044c0c2e4434c1019720ab083e3c23f8b7170c56898c3134"
+    },
+    {
+      "frame": 66,
+      "seconds": 1.1,
+      "reasons": [
+        "line:06_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000005.jpg",
+      "sha256": "e32ee72eb5e496b1ace2eba0b90a82d934a6a096dd0e51e8b8347bac9a8ee296"
+    },
+    {
+      "frame": 90,
+      "seconds": 1.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000006.jpg",
+      "sha256": "27df0fba6efe5827bec78f6ee262fda6a2e03bed562e2883b0bb769c699119f2"
+    },
+    {
+      "frame": 96,
+      "seconds": 1.6,
+      "reasons": [
+        "line:06_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000007.jpg",
+      "sha256": "5fc6dfd62ad43f54515ef01624e27c9096e56fae3f16e85e4fa74617f3956610"
+    },
+    {
+      "frame": 120,
+      "seconds": 2.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000008.jpg",
+      "sha256": "1d609ea8566c73feb5e3570723b4691c7bd05ede323f7d8c9b456da49640b348"
+    },
+    {
+      "frame": 150,
+      "seconds": 2.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000009.jpg",
+      "sha256": "1d609ea8566c73feb5e3570723b4691c7bd05ede323f7d8c9b456da49640b348"
+    },
+    {
+      "frame": 156,
+      "seconds": 2.6,
+      "reasons": [
+        "line:06_1"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000010.jpg",
+      "sha256": "1d609ea8566c73feb5e3570723b4691c7bd05ede323f7d8c9b456da49640b348"
+    },
+    {
+      "frame": 180,
+      "seconds": 3.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000011.jpg",
+      "sha256": "1d609ea8566c73feb5e3570723b4691c7bd05ede323f7d8c9b456da49640b348"
+    },
+    {
+      "frame": 210,
+      "seconds": 3.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000012.jpg",
+      "sha256": "1d609ea8566c73feb5e3570723b4691c7bd05ede323f7d8c9b456da49640b348"
+    },
+    {
+      "frame": 240,
+      "seconds": 4.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000013.jpg",
+      "sha256": "1d609ea8566c73feb5e3570723b4691c7bd05ede323f7d8c9b456da49640b348"
+    },
+    {
+      "frame": 270,
+      "seconds": 4.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000014.jpg",
+      "sha256": "7fd4afb0088783311691e9a1a494393942a6aa38e3dc790a82dc5d603f765891"
+    },
+    {
+      "frame": 300,
+      "seconds": 5.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000015.jpg",
+      "sha256": "7fd4afb0088783311691e9a1a494393942a6aa38e3dc790a82dc5d603f765891"
+    },
+    {
+      "frame": 330,
+      "seconds": 5.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000016.jpg",
+      "sha256": "7fd4afb0088783311691e9a1a494393942a6aa38e3dc790a82dc5d603f765891"
+    },
+    {
+      "frame": 360,
+      "seconds": 6.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000017.jpg",
+      "sha256": "7fd4afb0088783311691e9a1a494393942a6aa38e3dc790a82dc5d603f765891"
+    },
+    {
+      "frame": 390,
+      "seconds": 6.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000018.jpg",
+      "sha256": "7fd4afb0088783311691e9a1a494393942a6aa38e3dc790a82dc5d603f765891"
+    },
+    {
+      "frame": 420,
+      "seconds": 7.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000019.jpg",
+      "sha256": "7fd4afb0088783311691e9a1a494393942a6aa38e3dc790a82dc5d603f765891"
+    },
+    {
+      "frame": 450,
+      "seconds": 7.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000020.jpg",
+      "sha256": "7fd4afb0088783311691e9a1a494393942a6aa38e3dc790a82dc5d603f765891"
+    },
+    {
+      "frame": 480,
+      "seconds": 8.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000021.jpg",
+      "sha256": "7fd4afb0088783311691e9a1a494393942a6aa38e3dc790a82dc5d603f765891"
+    },
+    {
+      "frame": 510,
+      "seconds": 8.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000022.jpg",
+      "sha256": "2f279f75b607de0ecac5c7350d0c5fce3597b4629f6916ab6da92db0df717439"
+    },
+    {
+      "frame": 540,
+      "seconds": 9.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000023.jpg",
+      "sha256": "6ef4d1e45302741f73d4d391c2e824d535effcb693ad4deab4f260901ab28470"
+    },
+    {
+      "frame": 570,
+      "seconds": 9.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000024.jpg",
+      "sha256": "333a07827ca61bdb54531d55bb667bc744a24d536bef62d8e67d02933ee3c33c"
+    },
+    {
+      "frame": 600,
+      "seconds": 10.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000025.jpg",
+      "sha256": "b1c9179c552bab3638d2aecd5a357b32aee101cc2183d675c193b038fa648470"
+    },
+    {
+      "frame": 630,
+      "seconds": 10.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000026.jpg",
+      "sha256": "46b9d0dcc445aadc460ffc4e14834cdcf4af987792a548c1b65588d63e302a10"
+    },
+    {
+      "frame": 660,
+      "seconds": 11.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000027.jpg",
+      "sha256": "46b9d0dcc445aadc460ffc4e14834cdcf4af987792a548c1b65588d63e302a10"
+    },
+    {
+      "frame": 690,
+      "seconds": 11.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000028.jpg",
+      "sha256": "46b9d0dcc445aadc460ffc4e14834cdcf4af987792a548c1b65588d63e302a10"
+    },
+    {
+      "frame": 720,
+      "seconds": 12.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000029.jpg",
+      "sha256": "46b9d0dcc445aadc460ffc4e14834cdcf4af987792a548c1b65588d63e302a10"
+    },
+    {
+      "frame": 750,
+      "seconds": 12.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000030.jpg",
+      "sha256": "00c838ffc905da87cd7d0a1d1d94055320aacb5c07a32f707dc773a39096627a"
+    },
+    {
+      "frame": 780,
+      "seconds": 13.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000031.jpg",
+      "sha256": "059bf1238f1b875309561f2fa1d38866aef2b1c58b5de4ec1564491c55b19b1c"
+    },
+    {
+      "frame": 810,
+      "seconds": 13.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000032.jpg",
+      "sha256": "059bf1238f1b875309561f2fa1d38866aef2b1c58b5de4ec1564491c55b19b1c"
+    },
+    {
+      "frame": 840,
+      "seconds": 14.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000033.jpg",
+      "sha256": "059bf1238f1b875309561f2fa1d38866aef2b1c58b5de4ec1564491c55b19b1c"
+    },
+    {
+      "frame": 870,
+      "seconds": 14.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000034.jpg",
+      "sha256": "059bf1238f1b875309561f2fa1d38866aef2b1c58b5de4ec1564491c55b19b1c"
+    },
+    {
+      "frame": 900,
+      "seconds": 15.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000035.jpg",
+      "sha256": "059bf1238f1b875309561f2fa1d38866aef2b1c58b5de4ec1564491c55b19b1c"
+    },
+    {
+      "frame": 930,
+      "seconds": 15.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000036.jpg",
+      "sha256": "1b2c17e7b3cfe058b01687023d18275a526d465ce9f8dee711367ea265e4bca8"
+    },
+    {
+      "frame": 960,
+      "seconds": 16.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000037.jpg",
+      "sha256": "cc7d7f8d9a5c5a216b98f96967661cc520b618f898d0101e9e3b4adfafa53a34"
+    },
+    {
+      "frame": 990,
+      "seconds": 16.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000038.jpg",
+      "sha256": "c38262cb79aa8833ce0aeeddcb1bffa06d343155eaedd04d25d595c27e6b3cdb"
+    },
+    {
+      "frame": 1020,
+      "seconds": 17.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000039.jpg",
+      "sha256": "4ff71cb374f41ed31df7e3f976d4a8379c6523cf53f377f69d744f40a5ae0c05"
+    },
+    {
+      "frame": 1050,
+      "seconds": 17.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000040.jpg",
+      "sha256": "92bdd9efd1e1e565b4d78e86df6f82e32f491d2242c0edbf93529be7537f3107"
+    },
+    {
+      "frame": 1080,
+      "seconds": 18.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000041.jpg",
+      "sha256": "10dedbf4ceb185a47d76985a7f80042775a7bc21892d5464e6fa1daa1c26a0e7"
+    },
+    {
+      "frame": 1110,
+      "seconds": 18.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000042.jpg",
+      "sha256": "10dedbf4ceb185a47d76985a7f80042775a7bc21892d5464e6fa1daa1c26a0e7"
+    },
+    {
+      "frame": 1140,
+      "seconds": 19.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000043.jpg",
+      "sha256": "10dedbf4ceb185a47d76985a7f80042775a7bc21892d5464e6fa1daa1c26a0e7"
+    },
+    {
+      "frame": 1170,
+      "seconds": 19.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000044.jpg",
+      "sha256": "10dedbf4ceb185a47d76985a7f80042775a7bc21892d5464e6fa1daa1c26a0e7"
+    },
+    {
+      "frame": 1200,
+      "seconds": 20.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000045.jpg",
+      "sha256": "10dedbf4ceb185a47d76985a7f80042775a7bc21892d5464e6fa1daa1c26a0e7"
+    },
+    {
+      "frame": 1230,
+      "seconds": 20.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000046.jpg",
+      "sha256": "10dedbf4ceb185a47d76985a7f80042775a7bc21892d5464e6fa1daa1c26a0e7"
+    },
+    {
+      "frame": 1260,
+      "seconds": 21.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000047.jpg",
+      "sha256": "098129cd04f01b8473e6a6e39dd7667cb550a197d915471c69480a93552bd37a"
+    },
+    {
+      "frame": 1290,
+      "seconds": 21.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000048.jpg",
+      "sha256": "368f85d353928ce44efc4710a6edd2819a1240d489230b42c8acb3e255523ed0"
+    },
+    {
+      "frame": 1296,
+      "seconds": 21.6,
+      "reasons": [
+        "line:06_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000049.jpg",
+      "sha256": "368f85d353928ce44efc4710a6edd2819a1240d489230b42c8acb3e255523ed0"
+    },
+    {
+      "frame": 1320,
+      "seconds": 22.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000050.jpg",
+      "sha256": "6bcd420d067895d14b81f0898c2204e65456574bbbb950e4202b4ee2ac882e86"
+    },
+    {
+      "frame": 1326,
+      "seconds": 22.1,
+      "reasons": [
+        "line:06_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000051.jpg",
+      "sha256": "5395d4b938b9147bab6346b4ae1df5cc342f293f0f79c10fec637946cc5e54dd"
+    },
+    {
+      "frame": 1350,
+      "seconds": 22.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000052.jpg",
+      "sha256": "97df9915761bce8732a9926643d04fc07d3f44437d3d212422f64c5bdeb17f76"
+    },
+    {
+      "frame": 1356,
+      "seconds": 22.6,
+      "reasons": [
+        "line:06_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000053.jpg",
+      "sha256": "4ac2893ccd2b7ee1ed91641baebf5cbfa6c54cf29e02c0928843d54e6f75536d"
+    },
+    {
+      "frame": 1380,
+      "seconds": 23.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000054.jpg",
+      "sha256": "4ac2893ccd2b7ee1ed91641baebf5cbfa6c54cf29e02c0928843d54e6f75536d"
+    },
+    {
+      "frame": 1410,
+      "seconds": 23.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000055.jpg",
+      "sha256": "4ac2893ccd2b7ee1ed91641baebf5cbfa6c54cf29e02c0928843d54e6f75536d"
+    },
+    {
+      "frame": 1416,
+      "seconds": 23.6,
+      "reasons": [
+        "line:06_2"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000056.jpg",
+      "sha256": "4ac2893ccd2b7ee1ed91641baebf5cbfa6c54cf29e02c0928843d54e6f75536d"
+    },
+    {
+      "frame": 1440,
+      "seconds": 24.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000057.jpg",
+      "sha256": "4ac2893ccd2b7ee1ed91641baebf5cbfa6c54cf29e02c0928843d54e6f75536d"
+    },
+    {
+      "frame": 1470,
+      "seconds": 24.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000058.jpg",
+      "sha256": "4ac2893ccd2b7ee1ed91641baebf5cbfa6c54cf29e02c0928843d54e6f75536d"
+    },
+    {
+      "frame": 1500,
+      "seconds": 25.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000059.jpg",
+      "sha256": "ae0316f63b9babc8d84c9576977a2231c8abeefaf075ee41c2e4888d826b0b92"
+    },
+    {
+      "frame": 1530,
+      "seconds": 25.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000060.jpg",
+      "sha256": "dafe1048831ebad7bb535a75c2934a5a1f75a1101c370b3e03332c36516e51a9"
+    },
+    {
+      "frame": 1560,
+      "seconds": 26.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000061.jpg",
+      "sha256": "799bb14ab4f8ed044accb2eb48cbaca3d3939bc8ec430f5671c56b8e6a0ee9cc"
+    },
+    {
+      "frame": 1590,
+      "seconds": 26.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000062.jpg",
+      "sha256": "7e6491dd93a0074d1daaa058421a6d5e41af87bec9494f8179fad30d9db7c399"
+    },
+    {
+      "frame": 1620,
+      "seconds": 27.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000063.jpg",
+      "sha256": "a689d4fcaf83da2868bf542a7eaba3ef6fa665f2578d17b686cc0f2efdd86fd0"
+    },
+    {
+      "frame": 1650,
+      "seconds": 27.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000064.jpg",
+      "sha256": "b58174dc2a2972bff1abfd76a36a7239161d586b1a0334f77014a15745743970"
+    },
+    {
+      "frame": 1680,
+      "seconds": 28.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000065.jpg",
+      "sha256": "7b52f3bf1d307035140b3a70e923fd60e7109b8cc606cbee26906b44bfb20d1a"
+    },
+    {
+      "frame": 1710,
+      "seconds": 28.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000066.jpg",
+      "sha256": "7f3af1450deac628e987cf55e76d1d4cb59960246ec803d9cf80a70942073b6f"
+    },
+    {
+      "frame": 1740,
+      "seconds": 29.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000067.jpg",
+      "sha256": "e9b5f9cc37734ca3fda2725fae70104fd24d1619c19603dd0dcd94725ba3ef6a"
+    },
+    {
+      "frame": 1770,
+      "seconds": 29.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000068.jpg",
+      "sha256": "fe6c4713b22f287a6bb987a6900cf365cd63fbab10487b36c34553e690c24b7b"
+    },
+    {
+      "frame": 1800,
+      "seconds": 30.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000069.jpg",
+      "sha256": "8bb843a5ea46fd7b9834c449a1739a2b2a9654ace62eac6eeb5402689d7349e0"
+    },
+    {
+      "frame": 1830,
+      "seconds": 30.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000070.jpg",
+      "sha256": "3ec3eb45e7f29684b7cc34e14a7d7b1dae64a612e9b00c1c9a4f61cce086fa2b"
+    },
+    {
+      "frame": 1860,
+      "seconds": 31.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000071.jpg",
+      "sha256": "1b7e939811dd75d661ae4e19fc9ddb55dda8da482be7171454b7c24207983e5c"
+    },
+    {
+      "frame": 1890,
+      "seconds": 31.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000072.jpg",
+      "sha256": "13360f59e6b58fceaa2045e328eea654f58fc8c2c83db9bf503bec73bbb21888"
+    },
+    {
+      "frame": 1920,
+      "seconds": 32.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000073.jpg",
+      "sha256": "34cb1689c5d93ad3fb510134723e3ad2fa09c52e2848a5c4b223161a907f62cf"
+    },
+    {
+      "frame": 1950,
+      "seconds": 32.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000074.jpg",
+      "sha256": "8f08936c8df8dfd1e841a9e791bda2627f40e5a5619a2daa93177a364b57fad9"
+    },
+    {
+      "frame": 1980,
+      "seconds": 33.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000075.jpg",
+      "sha256": "f304e462fced31c3db11cd7a105b0c881ec8c6b005dfc5da6d8fd05f384426c3"
+    },
+    {
+      "frame": 2010,
+      "seconds": 33.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000076.jpg",
+      "sha256": "31a62177f787a51f03a311ac000298cbd0517309fc70205ebd04610c0e1f739f"
+    },
+    {
+      "frame": 2040,
+      "seconds": 34.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000077.jpg",
+      "sha256": "f1b2c77dac68b8d37ddfa9dd8c6d984398d4c4461e96036c461de57e94e24e73"
+    },
+    {
+      "frame": 2070,
+      "seconds": 34.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000078.jpg",
+      "sha256": "f1b2c77dac68b8d37ddfa9dd8c6d984398d4c4461e96036c461de57e94e24e73"
+    },
+    {
+      "frame": 2100,
+      "seconds": 35.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000079.jpg",
+      "sha256": "f1b2c77dac68b8d37ddfa9dd8c6d984398d4c4461e96036c461de57e94e24e73"
+    },
+    {
+      "frame": 2130,
+      "seconds": 35.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000080.jpg",
+      "sha256": "f1b2c77dac68b8d37ddfa9dd8c6d984398d4c4461e96036c461de57e94e24e73"
+    },
+    {
+      "frame": 2160,
+      "seconds": 36.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000081.jpg",
+      "sha256": "f1b2c77dac68b8d37ddfa9dd8c6d984398d4c4461e96036c461de57e94e24e73"
+    },
+    {
+      "frame": 2190,
+      "seconds": 36.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000082.jpg",
+      "sha256": "f1b2c77dac68b8d37ddfa9dd8c6d984398d4c4461e96036c461de57e94e24e73"
+    },
+    {
+      "frame": 2216,
+      "seconds": 36.93333333333333,
+      "reasons": [
+        "line:06_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000083.jpg",
+      "sha256": "2d3a69a0976c104eae15c6a9815ee3e0c564421f4f913eafa7218730fcb6d359"
+    },
+    {
+      "frame": 2220,
+      "seconds": 37.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000084.jpg",
+      "sha256": "f1b2c77dac68b8d37ddfa9dd8c6d984398d4c4461e96036c461de57e94e24e73"
+    },
+    {
+      "frame": 2246,
+      "seconds": 37.43333333333333,
+      "reasons": [
+        "line:06_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000085.jpg",
+      "sha256": "2d3a69a0976c104eae15c6a9815ee3e0c564421f4f913eafa7218730fcb6d359"
+    },
+    {
+      "frame": 2250,
+      "seconds": 37.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000086.jpg",
+      "sha256": "cc3e86a79f7d5538f0bd4571e0c6d5934f610781eb5b65b9b8be4aa30dcc3145"
+    },
+    {
+      "frame": 2276,
+      "seconds": 37.93333333333333,
+      "reasons": [
+        "line:06_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000087.jpg",
+      "sha256": "09c697e533654cbf01e2da7934cc8741e5b76fc0a84f28b363d8fd97be23aba5"
+    },
+    {
+      "frame": 2280,
+      "seconds": 38.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000088.jpg",
+      "sha256": "2de4df0d35821cb32a9eb296e0aab4854293b3d431ba5bfa2feb47f2c88203b6"
+    },
+    {
+      "frame": 2310,
+      "seconds": 38.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000089.jpg",
+      "sha256": "2de4df0d35821cb32a9eb296e0aab4854293b3d431ba5bfa2feb47f2c88203b6"
+    },
+    {
+      "frame": 2336,
+      "seconds": 38.93333333333333,
+      "reasons": [
+        "line:06_3"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000090.jpg",
+      "sha256": "09c697e533654cbf01e2da7934cc8741e5b76fc0a84f28b363d8fd97be23aba5"
+    },
+    {
+      "frame": 2340,
+      "seconds": 39.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000091.jpg",
+      "sha256": "2de4df0d35821cb32a9eb296e0aab4854293b3d431ba5bfa2feb47f2c88203b6"
+    },
+    {
+      "frame": 2370,
+      "seconds": 39.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000092.jpg",
+      "sha256": "2de4df0d35821cb32a9eb296e0aab4854293b3d431ba5bfa2feb47f2c88203b6"
+    },
+    {
+      "frame": 2400,
+      "seconds": 40.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000093.jpg",
+      "sha256": "2de4df0d35821cb32a9eb296e0aab4854293b3d431ba5bfa2feb47f2c88203b6"
+    },
+    {
+      "frame": 2430,
+      "seconds": 40.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000094.jpg",
+      "sha256": "2de4df0d35821cb32a9eb296e0aab4854293b3d431ba5bfa2feb47f2c88203b6"
+    },
+    {
+      "frame": 2460,
+      "seconds": 41.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000095.jpg",
+      "sha256": "2de4df0d35821cb32a9eb296e0aab4854293b3d431ba5bfa2feb47f2c88203b6"
+    },
+    {
+      "frame": 2490,
+      "seconds": 41.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000096.jpg",
+      "sha256": "2de4df0d35821cb32a9eb296e0aab4854293b3d431ba5bfa2feb47f2c88203b6"
+    },
+    {
+      "frame": 2520,
+      "seconds": 42.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000097.jpg",
+      "sha256": "09c697e533654cbf01e2da7934cc8741e5b76fc0a84f28b363d8fd97be23aba5"
+    },
+    {
+      "frame": 2550,
+      "seconds": 42.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000098.jpg",
+      "sha256": "a96a25f5dd27724701510576f26bace4a4bd6712efda1c8caf6703baf454d14d"
+    },
+    {
+      "frame": 2580,
+      "seconds": 43.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000099.jpg",
+      "sha256": "c80be442ac9a5beca2d5789cd6a2848ba0119c550f6754975bc367beb2958ad3"
+    },
+    {
+      "frame": 2610,
+      "seconds": 43.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000100.jpg",
+      "sha256": "3d2fa5fbac63f9d06dfa036239f86493872eea0c75ee92d16d419092da7cad66"
+    },
+    {
+      "frame": 2640,
+      "seconds": 44.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000101.jpg",
+      "sha256": "3d2fa5fbac63f9d06dfa036239f86493872eea0c75ee92d16d419092da7cad66"
+    },
+    {
+      "frame": 2670,
+      "seconds": 44.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000102.jpg",
+      "sha256": "3d2fa5fbac63f9d06dfa036239f86493872eea0c75ee92d16d419092da7cad66"
+    },
+    {
+      "frame": 2700,
+      "seconds": 45.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000103.jpg",
+      "sha256": "3d2fa5fbac63f9d06dfa036239f86493872eea0c75ee92d16d419092da7cad66"
+    },
+    {
+      "frame": 2730,
+      "seconds": 45.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000104.jpg",
+      "sha256": "3d2fa5fbac63f9d06dfa036239f86493872eea0c75ee92d16d419092da7cad66"
+    },
+    {
+      "frame": 2760,
+      "seconds": 46.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000105.jpg",
+      "sha256": "845ec77f3cea9a07a6090c16cbe2884bd1964c8c7c3cce9093657af00cd1ddad"
+    },
+    {
+      "frame": 2790,
+      "seconds": 46.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000106.jpg",
+      "sha256": "f9e856756e376a413d262a8d2a6cca3fe47c63fbad2996b22cb740144356b5fb"
+    },
+    {
+      "frame": 2820,
+      "seconds": 47.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000107.jpg",
+      "sha256": "f9e856756e376a413d262a8d2a6cca3fe47c63fbad2996b22cb740144356b5fb"
+    },
+    {
+      "frame": 2850,
+      "seconds": 47.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000108.jpg",
+      "sha256": "f9e856756e376a413d262a8d2a6cca3fe47c63fbad2996b22cb740144356b5fb"
+    },
+    {
+      "frame": 2880,
+      "seconds": 48.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000109.jpg",
+      "sha256": "f9e856756e376a413d262a8d2a6cca3fe47c63fbad2996b22cb740144356b5fb"
+    },
+    {
+      "frame": 2910,
+      "seconds": 48.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000110.jpg",
+      "sha256": "306cf512399c91faa9eeae5eda43642c18b48e68034038ecd305405da7e9de46"
+    },
+    {
+      "frame": 2940,
+      "seconds": 49.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000111.jpg",
+      "sha256": "53da6d305f52c690858b2be034a31c2a96e3b1b80d4b358ad0eb6f6d9672acca"
+    },
+    {
+      "frame": 2970,
+      "seconds": 49.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000112.jpg",
+      "sha256": "bcd36d7f7f0bcf09c43661bfe093e1de9d5337e40636a1bfb6a9ddc793fb179e"
+    },
+    {
+      "frame": 3000,
+      "seconds": 50.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000113.jpg",
+      "sha256": "ccb8e94c338c1375207ff8f5a2348e69a00a0fe868f9d7a2041db9a7c93f13b4"
+    },
+    {
+      "frame": 3030,
+      "seconds": 50.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000114.jpg",
+      "sha256": "b90e9bf03fc30e1f6eb39796ab1efeff2fa7283abe4e90ec8f9f3741712eac27"
+    },
+    {
+      "frame": 3060,
+      "seconds": 51.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000115.jpg",
+      "sha256": "b90e9bf03fc30e1f6eb39796ab1efeff2fa7283abe4e90ec8f9f3741712eac27"
+    },
+    {
+      "frame": 3090,
+      "seconds": 51.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000116.jpg",
+      "sha256": "b90e9bf03fc30e1f6eb39796ab1efeff2fa7283abe4e90ec8f9f3741712eac27"
+    },
+    {
+      "frame": 3120,
+      "seconds": 52.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000117.jpg",
+      "sha256": "b90e9bf03fc30e1f6eb39796ab1efeff2fa7283abe4e90ec8f9f3741712eac27"
+    },
+    {
+      "frame": 3150,
+      "seconds": 52.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000118.jpg",
+      "sha256": "f085b66e3418fb3ba0980325c76e19dbc81b66455a22b0bf6bd6fb8e1a5d4097"
+    },
+    {
+      "frame": 3180,
+      "seconds": 53.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000119.jpg",
+      "sha256": "b65f0da379b22775e38cf440ecf4b4237a872ca3dcbe20bb9ddcf9ac121222de"
+    },
+    {
+      "frame": 3210,
+      "seconds": 53.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000120.jpg",
+      "sha256": "4e33c04f52f281b210f79bf310a88f0ed76a5674f0f280f61cc19e25b2eae278"
+    },
+    {
+      "frame": 3240,
+      "seconds": 54.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000121.jpg",
+      "sha256": "4e33c04f52f281b210f79bf310a88f0ed76a5674f0f280f61cc19e25b2eae278"
+    },
+    {
+      "frame": 3270,
+      "seconds": 54.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000122.jpg",
+      "sha256": "cbd26f807a805d5600fa2a6f0d2fe4619af15a9e2c13bd1a23b6f2325bc74124"
+    },
+    {
+      "frame": 3300,
+      "seconds": 55.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000123.jpg",
+      "sha256": "cbd26f807a805d5600fa2a6f0d2fe4619af15a9e2c13bd1a23b6f2325bc74124"
+    },
+    {
+      "frame": 3330,
+      "seconds": 55.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000124.jpg",
+      "sha256": "cbd26f807a805d5600fa2a6f0d2fe4619af15a9e2c13bd1a23b6f2325bc74124"
+    },
+    {
+      "frame": 3360,
+      "seconds": 56.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000125.jpg",
+      "sha256": "cbd26f807a805d5600fa2a6f0d2fe4619af15a9e2c13bd1a23b6f2325bc74124"
+    },
+    {
+      "frame": 3390,
+      "seconds": 56.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000126.jpg",
+      "sha256": "cbd26f807a805d5600fa2a6f0d2fe4619af15a9e2c13bd1a23b6f2325bc74124"
+    },
+    {
+      "frame": 3420,
+      "seconds": 57.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000127.jpg",
+      "sha256": "cbd26f807a805d5600fa2a6f0d2fe4619af15a9e2c13bd1a23b6f2325bc74124"
+    },
+    {
+      "frame": 3450,
+      "seconds": 57.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000128.jpg",
+      "sha256": "cbd26f807a805d5600fa2a6f0d2fe4619af15a9e2c13bd1a23b6f2325bc74124"
+    },
+    {
+      "frame": 3480,
+      "seconds": 58.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000129.jpg",
+      "sha256": "cbd26f807a805d5600fa2a6f0d2fe4619af15a9e2c13bd1a23b6f2325bc74124"
+    },
+    {
+      "frame": 3510,
+      "seconds": 58.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000130.jpg",
+      "sha256": "e60c696477b57a96149a0d45c1dd63b89e28f9eba18e9af7dffddadd3998f461"
+    },
+    {
+      "frame": 3540,
+      "seconds": 59.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000131.jpg",
+      "sha256": "cbd26f807a805d5600fa2a6f0d2fe4619af15a9e2c13bd1a23b6f2325bc74124"
+    },
+    {
+      "frame": 3570,
+      "seconds": 59.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000132.jpg",
+      "sha256": "cbd26f807a805d5600fa2a6f0d2fe4619af15a9e2c13bd1a23b6f2325bc74124"
+    },
+    {
+      "frame": 3582,
+      "seconds": 59.7,
+      "reasons": [
+        "line:06_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000133.jpg",
+      "sha256": "53bde3cbb385b46bf29d800dd125009f4f8a624338793666f610ff14335adc90"
+    },
+    {
+      "frame": 3600,
+      "seconds": 60.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000134.jpg",
+      "sha256": "713a5c805368490d7c1f0e700299d363cbf1bdbfcec4abc5a4f4998640ced214"
+    },
+    {
+      "frame": 3612,
+      "seconds": 60.2,
+      "reasons": [
+        "line:06_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000135.jpg",
+      "sha256": "e398db06873f46d1226d27b00f96791c7dfa51b96fb667177554c7a67f3c92e8"
+    },
+    {
+      "frame": 3630,
+      "seconds": 60.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000136.jpg",
+      "sha256": "9989264ac7ceb864aa90bc7dbf58da1f4f3de81565b30d72ddb26fb314c0efc2"
+    },
+    {
+      "frame": 3642,
+      "seconds": 60.7,
+      "reasons": [
+        "line:06_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000137.jpg",
+      "sha256": "9989264ac7ceb864aa90bc7dbf58da1f4f3de81565b30d72ddb26fb314c0efc2"
+    },
+    {
+      "frame": 3660,
+      "seconds": 61.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000138.jpg",
+      "sha256": "9989264ac7ceb864aa90bc7dbf58da1f4f3de81565b30d72ddb26fb314c0efc2"
+    },
+    {
+      "frame": 3690,
+      "seconds": 61.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000139.jpg",
+      "sha256": "9989264ac7ceb864aa90bc7dbf58da1f4f3de81565b30d72ddb26fb314c0efc2"
+    },
+    {
+      "frame": 3702,
+      "seconds": 61.7,
+      "reasons": [
+        "line:06_4"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000140.jpg",
+      "sha256": "9989264ac7ceb864aa90bc7dbf58da1f4f3de81565b30d72ddb26fb314c0efc2"
+    },
+    {
+      "frame": 3720,
+      "seconds": 62.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000141.jpg",
+      "sha256": "9989264ac7ceb864aa90bc7dbf58da1f4f3de81565b30d72ddb26fb314c0efc2"
+    },
+    {
+      "frame": 3750,
+      "seconds": 62.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000142.jpg",
+      "sha256": "9a58f8369ce43edfbc4c0424c8428718c57bb882c7710bf05a2d070719b23459"
+    },
+    {
+      "frame": 3780,
+      "seconds": 63.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000143.jpg",
+      "sha256": "7d7710485150da353f852ddbd316e95b788f08e82020afb1eb812e50a8b71329"
+    },
+    {
+      "frame": 3810,
+      "seconds": 63.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000144.jpg",
+      "sha256": "7d7710485150da353f852ddbd316e95b788f08e82020afb1eb812e50a8b71329"
+    },
+    {
+      "frame": 3840,
+      "seconds": 64.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000145.jpg",
+      "sha256": "7d7710485150da353f852ddbd316e95b788f08e82020afb1eb812e50a8b71329"
+    },
+    {
+      "frame": 3870,
+      "seconds": 64.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000146.jpg",
+      "sha256": "7d7710485150da353f852ddbd316e95b788f08e82020afb1eb812e50a8b71329"
+    },
+    {
+      "frame": 3900,
+      "seconds": 65.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000147.jpg",
+      "sha256": "7d7710485150da353f852ddbd316e95b788f08e82020afb1eb812e50a8b71329"
+    },
+    {
+      "frame": 3930,
+      "seconds": 65.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000148.jpg",
+      "sha256": "7d7710485150da353f852ddbd316e95b788f08e82020afb1eb812e50a8b71329"
+    },
+    {
+      "frame": 3960,
+      "seconds": 66.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000149.jpg",
+      "sha256": "7d7710485150da353f852ddbd316e95b788f08e82020afb1eb812e50a8b71329"
+    },
+    {
+      "frame": 3990,
+      "seconds": 66.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000150.jpg",
+      "sha256": "7d7710485150da353f852ddbd316e95b788f08e82020afb1eb812e50a8b71329"
+    },
+    {
+      "frame": 4020,
+      "seconds": 67.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000151.jpg",
+      "sha256": "02a28dbf2175dceeed92dab208aa619179ca7d0fad7527cba74946442a881089"
+    },
+    {
+      "frame": 4050,
+      "seconds": 67.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000152.jpg",
+      "sha256": "02a28dbf2175dceeed92dab208aa619179ca7d0fad7527cba74946442a881089"
+    },
+    {
+      "frame": 4080,
+      "seconds": 68.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000153.jpg",
+      "sha256": "02a28dbf2175dceeed92dab208aa619179ca7d0fad7527cba74946442a881089"
+    },
+    {
+      "frame": 4110,
+      "seconds": 68.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000154.jpg",
+      "sha256": "02a28dbf2175dceeed92dab208aa619179ca7d0fad7527cba74946442a881089"
+    },
+    {
+      "frame": 4140,
+      "seconds": 69.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000155.jpg",
+      "sha256": "02a28dbf2175dceeed92dab208aa619179ca7d0fad7527cba74946442a881089"
+    },
+    {
+      "frame": 4170,
+      "seconds": 69.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000156.jpg",
+      "sha256": "02a28dbf2175dceeed92dab208aa619179ca7d0fad7527cba74946442a881089"
+    },
+    {
+      "frame": 4200,
+      "seconds": 70.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000157.jpg",
+      "sha256": "02a28dbf2175dceeed92dab208aa619179ca7d0fad7527cba74946442a881089"
+    },
+    {
+      "frame": 4230,
+      "seconds": 70.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000158.jpg",
+      "sha256": "c67f5e5063f70b97e9d3a132c8cfb757a779d47b2503d9ae03a648c18e376545"
+    },
+    {
+      "frame": 4260,
+      "seconds": 71.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000159.jpg",
+      "sha256": "cc22af7b364c1f1e0e3cabc6c2f39214f35a7119479bb7f77b39faa220614af3"
+    },
+    {
+      "frame": 4290,
+      "seconds": 71.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000160.jpg",
+      "sha256": "4098b3de48f2afebd3ec38b8ec09614f7a12211ebfedc4b2a0bb584c6610fff3"
+    },
+    {
+      "frame": 4320,
+      "seconds": 72.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000161.jpg",
+      "sha256": "2570daabc8244c4f0110eb5ccc0e66546931d5f06933331e9110f3a6da69998f"
+    },
+    {
+      "frame": 4350,
+      "seconds": 72.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000162.jpg",
+      "sha256": "6bd7bdfb880f29e875e93d434700022bfc4e9dfccd954933e5a3e3c7aef8d858"
+    },
+    {
+      "frame": 4380,
+      "seconds": 73.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000163.jpg",
+      "sha256": "7eb40529d37f31c5f7f80f974c463a250cfe732b611ecaf440404fa1ae70074c"
+    },
+    {
+      "frame": 4410,
+      "seconds": 73.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000164.jpg",
+      "sha256": "19b06f29a4b2f4ae3bd7577043e033e2022b102d85754747dbf1ad7bdacc2378"
+    },
+    {
+      "frame": 4440,
+      "seconds": 74.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000165.jpg",
+      "sha256": "1c3d9c3cfff0422e34a6f7f4c2beb25a3dd788b802bb61a9be85ce3a4d3ff7fb"
+    },
+    {
+      "frame": 4470,
+      "seconds": 74.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000166.jpg",
+      "sha256": "4a7ae88a8e2c0f2a916b35177c49382c39caa217079fbeb1d84c472b2bee5ac2"
+    },
+    {
+      "frame": 4500,
+      "seconds": 75.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000167.jpg",
+      "sha256": "3b1ce40ddb58f97b7f4a7867804366b11bbb5eff5e0fb499356c3c4bba504198"
+    },
+    {
+      "frame": 4526,
+      "seconds": 75.43333333333334,
+      "reasons": [
+        "line:06_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000168.jpg",
+      "sha256": "14916f0709bb2509378d1e5c56deb7969a4ecabfa883711b69fa42cf051863a4"
+    },
+    {
+      "frame": 4530,
+      "seconds": 75.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000169.jpg",
+      "sha256": "165441cb795e08771ed81eb32a17e7500eed66fe320ece49572dba83f3ca6be3"
+    },
+    {
+      "frame": 4556,
+      "seconds": 75.93333333333334,
+      "reasons": [
+        "line:06_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000170.jpg",
+      "sha256": "e80b1d5e97bba75437e196fe4812c373dacabfbc7a27e6f723199e4654ffa4b2"
+    },
+    {
+      "frame": 4560,
+      "seconds": 76.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000171.jpg",
+      "sha256": "85f52e83ee183cd5db4690860bb87aeb5298c3964148fd66528080a55ef67ef7"
+    },
+    {
+      "frame": 4586,
+      "seconds": 76.43333333333334,
+      "reasons": [
+        "line:06_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000172.jpg",
+      "sha256": "0354372320e48487aeb05e6cab9099b45a07fd2104124bef6c733a5a3ea1018c"
+    },
+    {
+      "frame": 4590,
+      "seconds": 76.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000173.jpg",
+      "sha256": "0354372320e48487aeb05e6cab9099b45a07fd2104124bef6c733a5a3ea1018c"
+    },
+    {
+      "frame": 4620,
+      "seconds": 77.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000174.jpg",
+      "sha256": "0354372320e48487aeb05e6cab9099b45a07fd2104124bef6c733a5a3ea1018c"
+    },
+    {
+      "frame": 4646,
+      "seconds": 77.43333333333334,
+      "reasons": [
+        "line:06_5"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000175.jpg",
+      "sha256": "0354372320e48487aeb05e6cab9099b45a07fd2104124bef6c733a5a3ea1018c"
+    },
+    {
+      "frame": 4650,
+      "seconds": 77.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000176.jpg",
+      "sha256": "0354372320e48487aeb05e6cab9099b45a07fd2104124bef6c733a5a3ea1018c"
+    },
+    {
+      "frame": 4680,
+      "seconds": 78.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000177.jpg",
+      "sha256": "c57503c1d7fc42a3bed507d21c1b491348db3ffc1c0ad146f269a8ea365592c4"
+    },
+    {
+      "frame": 4710,
+      "seconds": 78.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000178.jpg",
+      "sha256": "627e921a4760ea98856c9cb97ff5f8f2a80d74ebdef372c2324debd9420716f0"
+    },
+    {
+      "frame": 4740,
+      "seconds": 79.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000179.jpg",
+      "sha256": "627e921a4760ea98856c9cb97ff5f8f2a80d74ebdef372c2324debd9420716f0"
+    },
+    {
+      "frame": 4770,
+      "seconds": 79.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000180.jpg",
+      "sha256": "1492ee1679a147814bc050a74d6ee22e06d74dcf3c74e3317a72bd8cc259d345"
+    },
+    {
+      "frame": 4800,
+      "seconds": 80.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000181.jpg",
+      "sha256": "1492ee1679a147814bc050a74d6ee22e06d74dcf3c74e3317a72bd8cc259d345"
+    },
+    {
+      "frame": 4830,
+      "seconds": 80.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000182.jpg",
+      "sha256": "1492ee1679a147814bc050a74d6ee22e06d74dcf3c74e3317a72bd8cc259d345"
+    },
+    {
+      "frame": 4860,
+      "seconds": 81.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000183.jpg",
+      "sha256": "edb955d4d123556e3b336394a728a81ca9aeb59858e355c4dd86cefa605428c9"
+    },
+    {
+      "frame": 4890,
+      "seconds": 81.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000184.jpg",
+      "sha256": "0c04e8886cac521660c4e4d7535c671a1a241c54be1ea3e47631b19bfa980776"
+    },
+    {
+      "frame": 4920,
+      "seconds": 82.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000185.jpg",
+      "sha256": "0c04e8886cac521660c4e4d7535c671a1a241c54be1ea3e47631b19bfa980776"
+    },
+    {
+      "frame": 4950,
+      "seconds": 82.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000186.jpg",
+      "sha256": "0c04e8886cac521660c4e4d7535c671a1a241c54be1ea3e47631b19bfa980776"
+    },
+    {
+      "frame": 4980,
+      "seconds": 83.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000187.jpg",
+      "sha256": "0c04e8886cac521660c4e4d7535c671a1a241c54be1ea3e47631b19bfa980776"
+    },
+    {
+      "frame": 5010,
+      "seconds": 83.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000188.jpg",
+      "sha256": "705fccb2cbdea261fd07fda3999bbef9722ff096e76e3e480a03c26a38e59dcb"
+    },
+    {
+      "frame": 5040,
+      "seconds": 84.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000189.jpg",
+      "sha256": "705fccb2cbdea261fd07fda3999bbef9722ff096e76e3e480a03c26a38e59dcb"
+    },
+    {
+      "frame": 5070,
+      "seconds": 84.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000190.jpg",
+      "sha256": "705fccb2cbdea261fd07fda3999bbef9722ff096e76e3e480a03c26a38e59dcb"
+    },
+    {
+      "frame": 5100,
+      "seconds": 85.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000191.jpg",
+      "sha256": "705fccb2cbdea261fd07fda3999bbef9722ff096e76e3e480a03c26a38e59dcb"
+    },
+    {
+      "frame": 5130,
+      "seconds": 85.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000192.jpg",
+      "sha256": "705fccb2cbdea261fd07fda3999bbef9722ff096e76e3e480a03c26a38e59dcb"
+    },
+    {
+      "frame": 5160,
+      "seconds": 86.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000193.jpg",
+      "sha256": "705fccb2cbdea261fd07fda3999bbef9722ff096e76e3e480a03c26a38e59dcb"
+    },
+    {
+      "frame": 5190,
+      "seconds": 86.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000194.jpg",
+      "sha256": "b20f015517234547ca41d644e43d53d3c5a2e21c59d518049b725f78dee8a073"
+    },
+    {
+      "frame": 5220,
+      "seconds": 87.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000195.jpg",
+      "sha256": "90b420898b2ee34ba0033105a748f58be7443d08231902c99b09eb2410090976"
+    },
+    {
+      "frame": 5250,
+      "seconds": 87.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000196.jpg",
+      "sha256": "8000ebd2eecbcbc44a26062ce2a36413ea961af10a0c4ccf203df8ae0127ba85"
+    },
+    {
+      "frame": 5280,
+      "seconds": 88.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000197.jpg",
+      "sha256": "3405f84eeec4b525860e289873b05f7b4af99b878ae682d033d36d3a2b9569b1"
+    },
+    {
+      "frame": 5310,
+      "seconds": 88.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000198.jpg",
+      "sha256": "3405f84eeec4b525860e289873b05f7b4af99b878ae682d033d36d3a2b9569b1"
+    },
+    {
+      "frame": 5340,
+      "seconds": 89.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000199.jpg",
+      "sha256": "3405f84eeec4b525860e289873b05f7b4af99b878ae682d033d36d3a2b9569b1"
+    },
+    {
+      "frame": 5370,
+      "seconds": 89.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000200.jpg",
+      "sha256": "3405f84eeec4b525860e289873b05f7b4af99b878ae682d033d36d3a2b9569b1"
+    },
+    {
+      "frame": 5400,
+      "seconds": 90.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000201.jpg",
+      "sha256": "3405f84eeec4b525860e289873b05f7b4af99b878ae682d033d36d3a2b9569b1"
+    },
+    {
+      "frame": 5430,
+      "seconds": 90.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000202.jpg",
+      "sha256": "3405f84eeec4b525860e289873b05f7b4af99b878ae682d033d36d3a2b9569b1"
+    },
+    {
+      "frame": 5460,
+      "seconds": 91.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000203.jpg",
+      "sha256": "3405f84eeec4b525860e289873b05f7b4af99b878ae682d033d36d3a2b9569b1"
+    },
+    {
+      "frame": 5490,
+      "seconds": 91.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000204.jpg",
+      "sha256": "3405f84eeec4b525860e289873b05f7b4af99b878ae682d033d36d3a2b9569b1"
+    },
+    {
+      "frame": 5520,
+      "seconds": 92.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000205.jpg",
+      "sha256": "3405f84eeec4b525860e289873b05f7b4af99b878ae682d033d36d3a2b9569b1"
+    },
+    {
+      "frame": 5550,
+      "seconds": 92.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000206.jpg",
+      "sha256": "3405f84eeec4b525860e289873b05f7b4af99b878ae682d033d36d3a2b9569b1"
+    },
+    {
+      "frame": 5580,
+      "seconds": 93.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000207.jpg",
+      "sha256": "3405f84eeec4b525860e289873b05f7b4af99b878ae682d033d36d3a2b9569b1"
+    },
+    {
+      "frame": 5610,
+      "seconds": 93.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000208.jpg",
+      "sha256": "3405f84eeec4b525860e289873b05f7b4af99b878ae682d033d36d3a2b9569b1"
+    },
+    {
+      "frame": 5640,
+      "seconds": 94.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000209.jpg",
+      "sha256": "3405f84eeec4b525860e289873b05f7b4af99b878ae682d033d36d3a2b9569b1"
+    },
+    {
+      "frame": 5670,
+      "seconds": 94.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000210.jpg",
+      "sha256": "405afdd0f67fa5535057da6599914fddc83608cc4adbd316b1a9bfa9ece58656"
+    },
+    {
+      "frame": 5700,
+      "seconds": 95.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000211.jpg",
+      "sha256": "ce9f7ae925817a75007dc3ff9e9beecbfb27befe76c2b899aab7b8287f6b31b6"
+    },
+    {
+      "frame": 5730,
+      "seconds": 95.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000212.jpg",
+      "sha256": "ce9f7ae925817a75007dc3ff9e9beecbfb27befe76c2b899aab7b8287f6b31b6"
+    },
+    {
+      "frame": 5760,
+      "seconds": 96.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000213.jpg",
+      "sha256": "f4a95e3663e7a687ac2d1b2a0f30520ba6bd9a82f18d4a8be84c09cb98aa78e8"
+    },
+    {
+      "frame": 5790,
+      "seconds": 96.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000214.jpg",
+      "sha256": "f4a95e3663e7a687ac2d1b2a0f30520ba6bd9a82f18d4a8be84c09cb98aa78e8"
+    },
+    {
+      "frame": 5815,
+      "seconds": 96.91666666666667,
+      "reasons": [
+        "line:06_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000215.jpg",
+      "sha256": "f4a95e3663e7a687ac2d1b2a0f30520ba6bd9a82f18d4a8be84c09cb98aa78e8"
+    },
+    {
+      "frame": 5820,
+      "seconds": 97.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000216.jpg",
+      "sha256": "f4a95e3663e7a687ac2d1b2a0f30520ba6bd9a82f18d4a8be84c09cb98aa78e8"
+    },
+    {
+      "frame": 5845,
+      "seconds": 97.41666666666667,
+      "reasons": [
+        "line:06_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000217.jpg",
+      "sha256": "f4a95e3663e7a687ac2d1b2a0f30520ba6bd9a82f18d4a8be84c09cb98aa78e8"
+    },
+    {
+      "frame": 5850,
+      "seconds": 97.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000218.jpg",
+      "sha256": "f4a95e3663e7a687ac2d1b2a0f30520ba6bd9a82f18d4a8be84c09cb98aa78e8"
+    },
+    {
+      "frame": 5875,
+      "seconds": 97.91666666666667,
+      "reasons": [
+        "line:06_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000219.jpg",
+      "sha256": "f4a95e3663e7a687ac2d1b2a0f30520ba6bd9a82f18d4a8be84c09cb98aa78e8"
+    },
+    {
+      "frame": 5880,
+      "seconds": 98.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000220.jpg",
+      "sha256": "f4a95e3663e7a687ac2d1b2a0f30520ba6bd9a82f18d4a8be84c09cb98aa78e8"
+    },
+    {
+      "frame": 5910,
+      "seconds": 98.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000221.jpg",
+      "sha256": "f4a95e3663e7a687ac2d1b2a0f30520ba6bd9a82f18d4a8be84c09cb98aa78e8"
+    },
+    {
+      "frame": 5935,
+      "seconds": 98.91666666666667,
+      "reasons": [
+        "line:06_6"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000222.jpg",
+      "sha256": "c3f3cf24a5c10323efb984e589c1a528a74ab5f4082b4c717325f589f2730e6e"
+    },
+    {
+      "frame": 5940,
+      "seconds": 99.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000223.jpg",
+      "sha256": "ad198b37d2b137a7308ea4c7ed42a7794251b9957c82f8fbe423b34ea1652bbf"
+    },
+    {
+      "frame": 5970,
+      "seconds": 99.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000224.jpg",
+      "sha256": "c2bd96d49e7a11ef5ad764fe3957d9d705fa1c286a7e2d7441883c30dff6c3b5"
+    },
+    {
+      "frame": 6000,
+      "seconds": 100.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000225.jpg",
+      "sha256": "7bff7913c9dd51dbbc7cbdf54b698249b7e98864b45bc00147660f7b8c03de97"
+    },
+    {
+      "frame": 6030,
+      "seconds": 100.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000226.jpg",
+      "sha256": "82d2d2760c86b227415a32ecb7e9ce0a658a02d5c0de7e0e0c7b1ab688a6bfbc"
+    },
+    {
+      "frame": 6060,
+      "seconds": 101.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000227.jpg",
+      "sha256": "82d2d2760c86b227415a32ecb7e9ce0a658a02d5c0de7e0e0c7b1ab688a6bfbc"
+    },
+    {
+      "frame": 6090,
+      "seconds": 101.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000228.jpg",
+      "sha256": "82d2d2760c86b227415a32ecb7e9ce0a658a02d5c0de7e0e0c7b1ab688a6bfbc"
+    },
+    {
+      "frame": 6120,
+      "seconds": 102.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000229.jpg",
+      "sha256": "82d2d2760c86b227415a32ecb7e9ce0a658a02d5c0de7e0e0c7b1ab688a6bfbc"
+    },
+    {
+      "frame": 6150,
+      "seconds": 102.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000230.jpg",
+      "sha256": "82d2d2760c86b227415a32ecb7e9ce0a658a02d5c0de7e0e0c7b1ab688a6bfbc"
+    },
+    {
+      "frame": 6180,
+      "seconds": 103.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000231.jpg",
+      "sha256": "82d2d2760c86b227415a32ecb7e9ce0a658a02d5c0de7e0e0c7b1ab688a6bfbc"
+    },
+    {
+      "frame": 6210,
+      "seconds": 103.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000232.jpg",
+      "sha256": "411232347402967ca772552b29764ad7dd663605cb6288d91c8f41c1b792f510"
+    },
+    {
+      "frame": 6240,
+      "seconds": 104.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000233.jpg",
+      "sha256": "24c85ec420762c99ced00a4c95fd85a38a73a3de8dfde47e1d9f192ab1c9ab57"
+    },
+    {
+      "frame": 6270,
+      "seconds": 104.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000234.jpg",
+      "sha256": "54eb08c59758f8ee9398dafc49a22fcaf8aa453f14546895ef13b2cbaa2d5e35"
+    },
+    {
+      "frame": 6300,
+      "seconds": 105.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000235.jpg",
+      "sha256": "54eb08c59758f8ee9398dafc49a22fcaf8aa453f14546895ef13b2cbaa2d5e35"
+    },
+    {
+      "frame": 6330,
+      "seconds": 105.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000236.jpg",
+      "sha256": "54eb08c59758f8ee9398dafc49a22fcaf8aa453f14546895ef13b2cbaa2d5e35"
+    },
+    {
+      "frame": 6360,
+      "seconds": 106.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000237.jpg",
+      "sha256": "54eb08c59758f8ee9398dafc49a22fcaf8aa453f14546895ef13b2cbaa2d5e35"
+    },
+    {
+      "frame": 6390,
+      "seconds": 106.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000238.jpg",
+      "sha256": "54eb08c59758f8ee9398dafc49a22fcaf8aa453f14546895ef13b2cbaa2d5e35"
+    },
+    {
+      "frame": 6420,
+      "seconds": 107.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000239.jpg",
+      "sha256": "54eb08c59758f8ee9398dafc49a22fcaf8aa453f14546895ef13b2cbaa2d5e35"
+    },
+    {
+      "frame": 6450,
+      "seconds": 107.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000240.jpg",
+      "sha256": "54eb08c59758f8ee9398dafc49a22fcaf8aa453f14546895ef13b2cbaa2d5e35"
+    },
+    {
+      "frame": 6480,
+      "seconds": 108.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000241.jpg",
+      "sha256": "ecf7bbbad32ea37bc60d79b322e9823c78016a0c431c044fc83844bdbbbc972f"
+    },
+    {
+      "frame": 6510,
+      "seconds": 108.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000242.jpg",
+      "sha256": "cb7e2508478fdc007f8a6464b33828b2b7d909169e08bafbb44eda2635ebbe3b"
+    },
+    {
+      "frame": 6540,
+      "seconds": 109.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000243.jpg",
+      "sha256": "cb7e2508478fdc007f8a6464b33828b2b7d909169e08bafbb44eda2635ebbe3b"
+    },
+    {
+      "frame": 6570,
+      "seconds": 109.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000244.jpg",
+      "sha256": "cb7e2508478fdc007f8a6464b33828b2b7d909169e08bafbb44eda2635ebbe3b"
+    },
+    {
+      "frame": 6600,
+      "seconds": 110.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000245.jpg",
+      "sha256": "cb7e2508478fdc007f8a6464b33828b2b7d909169e08bafbb44eda2635ebbe3b"
+    },
+    {
+      "frame": 6630,
+      "seconds": 110.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000246.jpg",
+      "sha256": "cb7e2508478fdc007f8a6464b33828b2b7d909169e08bafbb44eda2635ebbe3b"
+    },
+    {
+      "frame": 6653,
+      "seconds": 110.88333333333334,
+      "reasons": [
+        "line:06_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000247.jpg",
+      "sha256": "ab1a0ffd5c7699890d0086ced2c7704b00eb042d646b711bf086d2951f61e0d8"
+    },
+    {
+      "frame": 6660,
+      "seconds": 111.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000248.jpg",
+      "sha256": "6af962a3ec8fa8bf83e65f83932923ee911c2b036ac8c8947ebb68c4626ea5a9"
+    },
+    {
+      "frame": 6683,
+      "seconds": 111.38333333333334,
+      "reasons": [
+        "line:06_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000249.jpg",
+      "sha256": "dac01ce2495d182b9e42d229bbda8192ddfda34a65fbfae58574a3766ad3afb0"
+    },
+    {
+      "frame": 6690,
+      "seconds": 111.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000250.jpg",
+      "sha256": "2f8d4223171a9f96c3d731d390b25d7ec6e851fb8e6894e17d57dd6fe79f485c"
+    },
+    {
+      "frame": 6713,
+      "seconds": 111.88333333333334,
+      "reasons": [
+        "line:06_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000251.jpg",
+      "sha256": "11b2a655972c7bd89acfbf97e29ca225f5d527e2ca1c4d6519458ef797d4ec5d"
+    },
+    {
+      "frame": 6720,
+      "seconds": 112.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000252.jpg",
+      "sha256": "be612e02bccb762f81bb8fce29b597b10cfd0187bb5344e14052c6763960d152"
+    },
+    {
+      "frame": 6750,
+      "seconds": 112.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000253.jpg",
+      "sha256": "6ffc08ed09851502dbc574fab5b50076ca70e663514cae5763bbef259b556e30"
+    },
+    {
+      "frame": 6773,
+      "seconds": 112.88333333333334,
+      "reasons": [
+        "line:06_7"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000254.jpg",
+      "sha256": "f03d4ae4d32d2ab4d0a637a0cefd8b9093fbee4da7ea552668b206697631fe72"
+    },
+    {
+      "frame": 6780,
+      "seconds": 113.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000255.jpg",
+      "sha256": "f03d4ae4d32d2ab4d0a637a0cefd8b9093fbee4da7ea552668b206697631fe72"
+    },
+    {
+      "frame": 6810,
+      "seconds": 113.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000256.jpg",
+      "sha256": "f03d4ae4d32d2ab4d0a637a0cefd8b9093fbee4da7ea552668b206697631fe72"
+    },
+    {
+      "frame": 6840,
+      "seconds": 114.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000257.jpg",
+      "sha256": "f03d4ae4d32d2ab4d0a637a0cefd8b9093fbee4da7ea552668b206697631fe72"
+    },
+    {
+      "frame": 6870,
+      "seconds": 114.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000258.jpg",
+      "sha256": "f03d4ae4d32d2ab4d0a637a0cefd8b9093fbee4da7ea552668b206697631fe72"
+    },
+    {
+      "frame": 6900,
+      "seconds": 115.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000259.jpg",
+      "sha256": "f03d4ae4d32d2ab4d0a637a0cefd8b9093fbee4da7ea552668b206697631fe72"
+    },
+    {
+      "frame": 6930,
+      "seconds": 115.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000260.jpg",
+      "sha256": "f03d4ae4d32d2ab4d0a637a0cefd8b9093fbee4da7ea552668b206697631fe72"
+    },
+    {
+      "frame": 6960,
+      "seconds": 116.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000261.jpg",
+      "sha256": "f03d4ae4d32d2ab4d0a637a0cefd8b9093fbee4da7ea552668b206697631fe72"
+    },
+    {
+      "frame": 6990,
+      "seconds": 116.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000262.jpg",
+      "sha256": "f03d4ae4d32d2ab4d0a637a0cefd8b9093fbee4da7ea552668b206697631fe72"
+    },
+    {
+      "frame": 7020,
+      "seconds": 117.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000263.jpg",
+      "sha256": "f03d4ae4d32d2ab4d0a637a0cefd8b9093fbee4da7ea552668b206697631fe72"
+    },
+    {
+      "frame": 7050,
+      "seconds": 117.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000264.jpg",
+      "sha256": "f03d4ae4d32d2ab4d0a637a0cefd8b9093fbee4da7ea552668b206697631fe72"
+    },
+    {
+      "frame": 7080,
+      "seconds": 118.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000265.jpg",
+      "sha256": "cbfdfb279026132023592761488cc111462186da12f9151a71d1e2a1a91fb925"
+    },
+    {
+      "frame": 7110,
+      "seconds": 118.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000266.jpg",
+      "sha256": "60bdb2ed92649d1905f43d9bc96f9b4fc6b98183ab2f31356aa522e598cdd8cb"
+    },
+    {
+      "frame": 7140,
+      "seconds": 119.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000267.jpg",
+      "sha256": "60bdb2ed92649d1905f43d9bc96f9b4fc6b98183ab2f31356aa522e598cdd8cb"
+    },
+    {
+      "frame": 7170,
+      "seconds": 119.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000268.jpg",
+      "sha256": "60bdb2ed92649d1905f43d9bc96f9b4fc6b98183ab2f31356aa522e598cdd8cb"
+    },
+    {
+      "frame": 7200,
+      "seconds": 120.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000269.jpg",
+      "sha256": "60bdb2ed92649d1905f43d9bc96f9b4fc6b98183ab2f31356aa522e598cdd8cb"
+    },
+    {
+      "frame": 7230,
+      "seconds": 120.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000270.jpg",
+      "sha256": "60bdb2ed92649d1905f43d9bc96f9b4fc6b98183ab2f31356aa522e598cdd8cb"
+    },
+    {
+      "frame": 7260,
+      "seconds": 121.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000271.jpg",
+      "sha256": "5a4b1f7527f55b2bf941b379974e3c8821ad48775a82dede2289fb49e8764720"
+    },
+    {
+      "frame": 7290,
+      "seconds": 121.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000272.jpg",
+      "sha256": "5a4b1f7527f55b2bf941b379974e3c8821ad48775a82dede2289fb49e8764720"
+    },
+    {
+      "frame": 7320,
+      "seconds": 122.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000273.jpg",
+      "sha256": "5a4b1f7527f55b2bf941b379974e3c8821ad48775a82dede2289fb49e8764720"
+    },
+    {
+      "frame": 7350,
+      "seconds": 122.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000274.jpg",
+      "sha256": "5a4b1f7527f55b2bf941b379974e3c8821ad48775a82dede2289fb49e8764720"
+    },
+    {
+      "frame": 7380,
+      "seconds": 123.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000275.jpg",
+      "sha256": "5a4b1f7527f55b2bf941b379974e3c8821ad48775a82dede2289fb49e8764720"
+    },
+    {
+      "frame": 7410,
+      "seconds": 123.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000276.jpg",
+      "sha256": "5a4b1f7527f55b2bf941b379974e3c8821ad48775a82dede2289fb49e8764720"
+    },
+    {
+      "frame": 7440,
+      "seconds": 124.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000277.jpg",
+      "sha256": "5a4b1f7527f55b2bf941b379974e3c8821ad48775a82dede2289fb49e8764720"
+    },
+    {
+      "frame": 7470,
+      "seconds": 124.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000278.jpg",
+      "sha256": "2ea18c15e343837989f343a267ceaaa36b07d573446a3a09a423231607990520"
+    },
+    {
+      "frame": 7500,
+      "seconds": 125.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000279.jpg",
+      "sha256": "ba3a1a64cbc4592950e497cbf7e966d8e90370a8c6e529f81eb2c67760408bfc"
+    },
+    {
+      "frame": 7530,
+      "seconds": 125.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000280.jpg",
+      "sha256": "0b056ce8505a8b1104ffb925cabb499d086f80302660a0ef27456d0753f2e02b"
+    },
+    {
+      "frame": 7560,
+      "seconds": 126.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000281.jpg",
+      "sha256": "0b056ce8505a8b1104ffb925cabb499d086f80302660a0ef27456d0753f2e02b"
+    },
+    {
+      "frame": 7590,
+      "seconds": 126.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000282.jpg",
+      "sha256": "0b056ce8505a8b1104ffb925cabb499d086f80302660a0ef27456d0753f2e02b"
+    },
+    {
+      "frame": 7620,
+      "seconds": 127.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000283.jpg",
+      "sha256": "0b056ce8505a8b1104ffb925cabb499d086f80302660a0ef27456d0753f2e02b"
+    },
+    {
+      "frame": 7650,
+      "seconds": 127.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000284.jpg",
+      "sha256": "0b056ce8505a8b1104ffb925cabb499d086f80302660a0ef27456d0753f2e02b"
+    },
+    {
+      "frame": 7680,
+      "seconds": 128.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000285.jpg",
+      "sha256": "0b056ce8505a8b1104ffb925cabb499d086f80302660a0ef27456d0753f2e02b"
+    },
+    {
+      "frame": 7710,
+      "seconds": 128.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000286.jpg",
+      "sha256": "0b056ce8505a8b1104ffb925cabb499d086f80302660a0ef27456d0753f2e02b"
+    },
+    {
+      "frame": 7731,
+      "seconds": 128.85,
+      "reasons": [
+        "line:06_8"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000287.jpg",
+      "sha256": "eafeb888d4d62e6c0e52a09959930e92d1ce8557585bc3705e1c0b9c8144b0d8"
+    },
+    {
+      "frame": 7740,
+      "seconds": 129.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000288.jpg",
+      "sha256": "88800f9f1149a42c5e64f1060cf722a418b92afc20162913168f9c8a41f4f1bc"
+    },
+    {
+      "frame": 7761,
+      "seconds": 129.35,
+      "reasons": [
+        "line:06_8"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000289.jpg",
+      "sha256": "1e3378e87d56f4e8c34201089d3203e459fcbb333fd0a880493ce786604cccbf"
+    },
+    {
+      "frame": 7770,
+      "seconds": 129.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000290.jpg",
+      "sha256": "cc3dec97d9ef7b01a33f7f0e61f29adcec5243e9fd4e45f9736a3aea70f1447d"
+    },
+    {
+      "frame": 7791,
+      "seconds": 129.85,
+      "reasons": [
+        "line:06_8"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000291.jpg",
+      "sha256": "b3c04acbac2e5bd14ad9516a3c0fa118bc1e77dd8ccb3167a8a65b8038735aca"
+    },
+    {
+      "frame": 7800,
+      "seconds": 130.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000292.jpg",
+      "sha256": "2650e967084ac3485d84b7bd233815d9ea028eed27a79973f88d59def56a741f"
+    },
+    {
+      "frame": 7830,
+      "seconds": 130.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000293.jpg",
+      "sha256": "b2ea2b2e40fe76b5f42a6a7d395d1ecf2d3dad90ecbd5ef562000bffc0b69c70"
+    },
+    {
+      "frame": 7851,
+      "seconds": 130.85,
+      "reasons": [
+        "line:06_8"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000294.jpg",
+      "sha256": "77e017a99ebfbe6f470e310b6ba41286dad90f947aa0d12d4377198a07ff4a1a"
+    },
+    {
+      "frame": 7860,
+      "seconds": 131.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000295.jpg",
+      "sha256": "b3b89d472b8ce0098a591b5f649997966b33ece06451dfb6c09a1a3520eb9830"
+    },
+    {
+      "frame": 7890,
+      "seconds": 131.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000296.jpg",
+      "sha256": "d18fbf7abde58011b4fe7a01845d775606c27bfaf6ab2c799fcf97e194fafc30"
+    },
+    {
+      "frame": 7920,
+      "seconds": 132.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000297.jpg",
+      "sha256": "bb1018d0a35eae1236827df6c7484e1a5726aa77357d198b40d9a6661ba3c910"
+    },
+    {
+      "frame": 7950,
+      "seconds": 132.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000298.jpg",
+      "sha256": "68ad2d2c82dc9db287320f3d43e732cc7b2c2a9b383dedacb2af8736a8670dc5"
+    },
+    {
+      "frame": 7980,
+      "seconds": 133.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000299.jpg",
+      "sha256": "5d65627bb53902b32f249a91effcd0086b29a4d3784ad581fe05d6a59f801b34"
+    },
+    {
+      "frame": 8010,
+      "seconds": 133.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000300.jpg",
+      "sha256": "7fe6c51a7fe8ac3b7a4876589eb4bc70e845a486acb1f08a1a807a8255694863"
+    },
+    {
+      "frame": 8040,
+      "seconds": 134.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000301.jpg",
+      "sha256": "7fe6c51a7fe8ac3b7a4876589eb4bc70e845a486acb1f08a1a807a8255694863"
+    },
+    {
+      "frame": 8070,
+      "seconds": 134.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000302.jpg",
+      "sha256": "3e2557751f5c6f1809f731878358b643fd0da4300281e067d74b0d947e103d66"
+    },
+    {
+      "frame": 8100,
+      "seconds": 135.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000303.jpg",
+      "sha256": "3b5700ddc249b29e1019ff89d399aecc65545504782a7eacd71e80d447325de2"
+    },
+    {
+      "frame": 8130,
+      "seconds": 135.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000304.jpg",
+      "sha256": "3b5700ddc249b29e1019ff89d399aecc65545504782a7eacd71e80d447325de2"
+    },
+    {
+      "frame": 8160,
+      "seconds": 136.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000305.jpg",
+      "sha256": "3b5700ddc249b29e1019ff89d399aecc65545504782a7eacd71e80d447325de2"
+    },
+    {
+      "frame": 8190,
+      "seconds": 136.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000306.jpg",
+      "sha256": "3b5700ddc249b29e1019ff89d399aecc65545504782a7eacd71e80d447325de2"
+    },
+    {
+      "frame": 8220,
+      "seconds": 137.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000307.jpg",
+      "sha256": "3b5700ddc249b29e1019ff89d399aecc65545504782a7eacd71e80d447325de2"
+    },
+    {
+      "frame": 8250,
+      "seconds": 137.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000308.jpg",
+      "sha256": "846e1d389dc3ff1b0b97b8aeb64f2aa9e08ef05dfdeb28ffda3cd1f931ab3677"
+    },
+    {
+      "frame": 8280,
+      "seconds": 138.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000309.jpg",
+      "sha256": "854b70418a586964189e18386b396f058016aca5b091fdf8f250404a733530f0"
+    },
+    {
+      "frame": 8310,
+      "seconds": 138.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000310.jpg",
+      "sha256": "9eef2751ec5301655142163be3512f2e3554d7b79b3b955385894760e278b073"
+    },
+    {
+      "frame": 8340,
+      "seconds": 139.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000311.jpg",
+      "sha256": "e5f4ae5f102cb703074f0d23307738dea91c90889039bede8f1c3a4046c4086d"
+    },
+    {
+      "frame": 8370,
+      "seconds": 139.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000312.jpg",
+      "sha256": "e5f4ae5f102cb703074f0d23307738dea91c90889039bede8f1c3a4046c4086d"
+    },
+    {
+      "frame": 8400,
+      "seconds": 140.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000313.jpg",
+      "sha256": "e5f4ae5f102cb703074f0d23307738dea91c90889039bede8f1c3a4046c4086d"
+    },
+    {
+      "frame": 8430,
+      "seconds": 140.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000314.jpg",
+      "sha256": "e5f4ae5f102cb703074f0d23307738dea91c90889039bede8f1c3a4046c4086d"
+    },
+    {
+      "frame": 8460,
+      "seconds": 141.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000315.jpg",
+      "sha256": "d90078a145094219f0b14386d67071b113ddd42e94ebb2a2662d5d2be62766b5"
+    },
+    {
+      "frame": 8463,
+      "seconds": 141.05,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000316.jpg",
+      "sha256": "fda383a10fc1139b505bb6f6694b361c8df020f4f52abca156468843c1c7c2d4"
+    },
+    {
+      "frame": 8490,
+      "seconds": 141.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000317.jpg",
+      "sha256": "9c657fdab1008abd6b752c9dae68e9fa3070d4b8963de244ff9e73ccd05ac6eb"
+    },
+    {
+      "frame": 8493,
+      "seconds": 141.55,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000318.jpg",
+      "sha256": "13830c18a36cf989d7042966451a21bf16ef12c3c8d028739a60e623de956cc0"
+    },
+    {
+      "frame": 8520,
+      "seconds": 142.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000319.jpg",
+      "sha256": "b7d96d48d9d999f7ba28840562796930905e794ddcbe19a4b569cc5b54267fe4"
+    },
+    {
+      "frame": 8523,
+      "seconds": 142.05,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000320.jpg",
+      "sha256": "862b067dd7c822c1797a453f35eb53543de6182e7ba9e4de876110cf5878adf8"
+    },
+    {
+      "frame": 8550,
+      "seconds": 142.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000321.jpg",
+      "sha256": "3c28e0abb84e3bec10eff495eecf6606359df592de8fae744ff83578f5f85e63"
+    },
+    {
+      "frame": 8580,
+      "seconds": 143.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000322.jpg",
+      "sha256": "55f0988385e0b31a24bd75d4cbe5fed0284a6fad02b4f92bacac453d70fb0eaa"
+    },
+    {
+      "frame": 8583,
+      "seconds": 143.05,
+      "reasons": [
+        "mark:predict"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000323.jpg",
+      "sha256": "a88a08e754368752f31194755d1c215038b505b4b3a53d66dfce86f34612c12b"
+    },
+    {
+      "frame": 8610,
+      "seconds": 143.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000324.jpg",
+      "sha256": "196a25bdad5fb1af259715c44d0990707c36727674f728a6c0ca07c60ec74ec5"
+    },
+    {
+      "frame": 8640,
+      "seconds": 144.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000325.jpg",
+      "sha256": "a57a9b39b27556a35ce6b58fe656bbed5b7c5dddd2c22f97b55492289131321a"
+    },
+    {
+      "frame": 8670,
+      "seconds": 144.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000326.jpg",
+      "sha256": "95d4d57ad60a04106989c3afa1122ddfba111eba0d18b2bdd5e5b6a7af855750"
+    },
+    {
+      "frame": 8700,
+      "seconds": 145.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000327.jpg",
+      "sha256": "6b743a16bebdc1fd3fc76d9a0491bb8054b641365db6e1dc804e6f650a37cf0c"
+    },
+    {
+      "frame": 8730,
+      "seconds": 145.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000328.jpg",
+      "sha256": "52fdafb84d8e5188c888ec8f77b1295670bf025a772b27e2b530f6d8ff61d274"
+    },
+    {
+      "frame": 8760,
+      "seconds": 146.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000329.jpg",
+      "sha256": "d8d93da0d1b1cc8ecdb9fbf565cecd7d4cc96edb99ead83127ee00c8cc4b9459"
+    },
+    {
+      "frame": 8778,
+      "seconds": 146.3,
+      "reasons": [
+        "line:06_9"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000330.jpg",
+      "sha256": "aea906a8b9d0ace897d52604db08f8f2ad2d7948e0f5d61ceae0f192b1537376"
+    },
+    {
+      "frame": 8790,
+      "seconds": 146.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000331.jpg",
+      "sha256": "9133d4722c74963cd58b9c81a2e3ffa6f564d0b3719e235cb84d6da6906e4b0b"
+    },
+    {
+      "frame": 8808,
+      "seconds": 146.8,
+      "reasons": [
+        "line:06_9"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000332.jpg",
+      "sha256": "f52092d21c34c6aadd9ff8df60317c4b0b2387b40ef4505a184d53ce63813ea3"
+    },
+    {
+      "frame": 8820,
+      "seconds": 147.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000333.jpg",
+      "sha256": "f52092d21c34c6aadd9ff8df60317c4b0b2387b40ef4505a184d53ce63813ea3"
+    },
+    {
+      "frame": 8838,
+      "seconds": 147.3,
+      "reasons": [
+        "line:06_9"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000334.jpg",
+      "sha256": "f52092d21c34c6aadd9ff8df60317c4b0b2387b40ef4505a184d53ce63813ea3"
+    },
+    {
+      "frame": 8850,
+      "seconds": 147.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000335.jpg",
+      "sha256": "e4dc8500a15e44f5eb14f0c9f7c67c847682a3d49bd0ff8333c827b38ec29ea3"
+    },
+    {
+      "frame": 8880,
+      "seconds": 148.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000336.jpg",
+      "sha256": "f9cdd88f64dd17feb236f5abfa97af97f65df321e79b4eae0d63c82d810fc76f"
+    },
+    {
+      "frame": 8898,
+      "seconds": 148.3,
+      "reasons": [
+        "line:06_9"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000337.jpg",
+      "sha256": "f9cdd88f64dd17feb236f5abfa97af97f65df321e79b4eae0d63c82d810fc76f"
+    },
+    {
+      "frame": 8910,
+      "seconds": 148.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000338.jpg",
+      "sha256": "f9cdd88f64dd17feb236f5abfa97af97f65df321e79b4eae0d63c82d810fc76f"
+    },
+    {
+      "frame": 8940,
+      "seconds": 149.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000339.jpg",
+      "sha256": "f9cdd88f64dd17feb236f5abfa97af97f65df321e79b4eae0d63c82d810fc76f"
+    },
+    {
+      "frame": 8970,
+      "seconds": 149.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000340.jpg",
+      "sha256": "f9cdd88f64dd17feb236f5abfa97af97f65df321e79b4eae0d63c82d810fc76f"
+    },
+    {
+      "frame": 9000,
+      "seconds": 150.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000341.jpg",
+      "sha256": "012cd680698cd37ebd36de5058ebd180af0e8ef747c8be6bdd5d6e9fbdd326d9"
+    },
+    {
+      "frame": 9030,
+      "seconds": 150.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000342.jpg",
+      "sha256": "8183e927a913f365bc65878d12cc0bc1bd922f7e6c773370f3fac98300497df8"
+    },
+    {
+      "frame": 9060,
+      "seconds": 151.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000343.jpg",
+      "sha256": "3d447b47399b4815bb96e32c38153f390577f8c09c8465b02c763101814415c1"
+    },
+    {
+      "frame": 9090,
+      "seconds": 151.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000344.jpg",
+      "sha256": "3d447b47399b4815bb96e32c38153f390577f8c09c8465b02c763101814415c1"
+    },
+    {
+      "frame": 9120,
+      "seconds": 152.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000345.jpg",
+      "sha256": "3d447b47399b4815bb96e32c38153f390577f8c09c8465b02c763101814415c1"
+    },
+    {
+      "frame": 9150,
+      "seconds": 152.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000346.jpg",
+      "sha256": "3d447b47399b4815bb96e32c38153f390577f8c09c8465b02c763101814415c1"
+    },
+    {
+      "frame": 9180,
+      "seconds": 153.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000347.jpg",
+      "sha256": "3d447b47399b4815bb96e32c38153f390577f8c09c8465b02c763101814415c1"
+    },
+    {
+      "frame": 9210,
+      "seconds": 153.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000348.jpg",
+      "sha256": "8898f5a0ff6e29174e5159da028f0f7a914903af0b978f2cda309b0876dbf32b"
+    },
+    {
+      "frame": 9240,
+      "seconds": 154.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000349.jpg",
+      "sha256": "e74b69810784069e969aa746c03ce9bb45311e87be2b1575e2474afb8f241773"
+    },
+    {
+      "frame": 9270,
+      "seconds": 154.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000350.jpg",
+      "sha256": "8d9f6fe5d439f7e5e72afc20ef13276e152b8fa3969f2b0d675bdb5ad8554851"
+    },
+    {
+      "frame": 9300,
+      "seconds": 155.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000351.jpg",
+      "sha256": "8d9f6fe5d439f7e5e72afc20ef13276e152b8fa3969f2b0d675bdb5ad8554851"
+    },
+    {
+      "frame": 9330,
+      "seconds": 155.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000352.jpg",
+      "sha256": "8d9f6fe5d439f7e5e72afc20ef13276e152b8fa3969f2b0d675bdb5ad8554851"
+    },
+    {
+      "frame": 9360,
+      "seconds": 156.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000353.jpg",
+      "sha256": "8d9f6fe5d439f7e5e72afc20ef13276e152b8fa3969f2b0d675bdb5ad8554851"
+    },
+    {
+      "frame": 9390,
+      "seconds": 156.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000354.jpg",
+      "sha256": "8d9f6fe5d439f7e5e72afc20ef13276e152b8fa3969f2b0d675bdb5ad8554851"
+    },
+    {
+      "frame": 9420,
+      "seconds": 157.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000355.jpg",
+      "sha256": "8d9f6fe5d439f7e5e72afc20ef13276e152b8fa3969f2b0d675bdb5ad8554851"
+    },
+    {
+      "frame": 9450,
+      "seconds": 157.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000356.jpg",
+      "sha256": "8d9f6fe5d439f7e5e72afc20ef13276e152b8fa3969f2b0d675bdb5ad8554851"
+    },
+    {
+      "frame": 9480,
+      "seconds": 158.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000357.jpg",
+      "sha256": "8d9f6fe5d439f7e5e72afc20ef13276e152b8fa3969f2b0d675bdb5ad8554851"
+    },
+    {
+      "frame": 9510,
+      "seconds": 158.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000358.jpg",
+      "sha256": "8d9f6fe5d439f7e5e72afc20ef13276e152b8fa3969f2b0d675bdb5ad8554851"
+    },
+    {
+      "frame": 9540,
+      "seconds": 159.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000359.jpg",
+      "sha256": "ccdaa9a808202d270b5b337b7ab146e8a2980512933ae5545f80262da9257ead"
+    },
+    {
+      "frame": 9570,
+      "seconds": 159.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000360.jpg",
+      "sha256": "7658127b48adf8d93be1e62ef9f50fab1b3940e73a2c1854eb33bac40eef1357"
+    },
+    {
+      "frame": 9600,
+      "seconds": 160.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000361.jpg",
+      "sha256": "7658127b48adf8d93be1e62ef9f50fab1b3940e73a2c1854eb33bac40eef1357"
+    },
+    {
+      "frame": 9630,
+      "seconds": 160.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000362.jpg",
+      "sha256": "bf0b48c6e4f13e2bafbedfe5990407583bdd7147b8b4c7ab02b0f075e8b0e586"
+    },
+    {
+      "frame": 9660,
+      "seconds": 161.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000363.jpg",
+      "sha256": "2ca9fa656362c0fa4ae6874571fe4f1ba7746cba88ad71574045bd608ebf0bba"
+    },
+    {
+      "frame": 9690,
+      "seconds": 161.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000364.jpg",
+      "sha256": "9910927a519c83f2b34e9011184cbf75570adcf1f3c219d62b20bb6a5048d08b"
+    },
+    {
+      "frame": 9720,
+      "seconds": 162.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000365.jpg",
+      "sha256": "6cfbeb77cb5c67dded7fd20eba6eedc842b32618e332177f68c50223c3ff1b49"
+    },
+    {
+      "frame": 9750,
+      "seconds": 162.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000366.jpg",
+      "sha256": "ec98af7a07b77aa552d8d1318d654b72146a12989abad0a037a9c1aaae75e7fc"
+    },
+    {
+      "frame": 9780,
+      "seconds": 163.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000367.jpg",
+      "sha256": "c69c3ff376e0dc23a7e32aba53634a4e92608f10c870e6dd2d9c8f66d0b626fc"
+    },
+    {
+      "frame": 9810,
+      "seconds": 163.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000368.jpg",
+      "sha256": "c69c3ff376e0dc23a7e32aba53634a4e92608f10c870e6dd2d9c8f66d0b626fc"
+    },
+    {
+      "frame": 9840,
+      "seconds": 164.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000369.jpg",
+      "sha256": "c69c3ff376e0dc23a7e32aba53634a4e92608f10c870e6dd2d9c8f66d0b626fc"
+    },
+    {
+      "frame": 9870,
+      "seconds": 164.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000370.jpg",
+      "sha256": "c69c3ff376e0dc23a7e32aba53634a4e92608f10c870e6dd2d9c8f66d0b626fc"
+    },
+    {
+      "frame": 9900,
+      "seconds": 165.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000371.jpg",
+      "sha256": "c69c3ff376e0dc23a7e32aba53634a4e92608f10c870e6dd2d9c8f66d0b626fc"
+    },
+    {
+      "frame": 9930,
+      "seconds": 165.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000372.jpg",
+      "sha256": "c69c3ff376e0dc23a7e32aba53634a4e92608f10c870e6dd2d9c8f66d0b626fc"
+    },
+    {
+      "frame": 9960,
+      "seconds": 166.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000373.jpg",
+      "sha256": "c69c3ff376e0dc23a7e32aba53634a4e92608f10c870e6dd2d9c8f66d0b626fc"
+    },
+    {
+      "frame": 9990,
+      "seconds": 166.5,
+      "reasons": [
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000374.jpg",
+      "sha256": "c69c3ff376e0dc23a7e32aba53634a4e92608f10c870e6dd2d9c8f66d0b626fc"
+    },
+    {
+      "frame": 10020,
+      "seconds": 167.0,
+      "reasons": [
+        "one-second sample",
+        "Repaired shared-scale notes, fan, qualifiers and zoom: half-second sample"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000375.jpg",
+      "sha256": "30083a28816250600f6eec2a6457d5ccf9a8b4c5be95244625bdd4892db97f41"
+    },
+    {
+      "frame": 10029,
+      "seconds": 167.15,
+      "reasons": [
+        "Last frame"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/pictures/frame-000376.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    }
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0001.jpg",
+      "sha256": "01f295b5de8026b607d838a92b62062145a3a7ed2b65e10c3a3cf1b6139dab80"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0002.jpg",
+      "sha256": "2d24332b1c44bf44cb07063a37cb4e45307ddb9a4ce53b0b5003bdeaaeb10e34"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0003.jpg",
+      "sha256": "f0c1f3c86770bb79c6d2307928ad5b59473bb95074ccee8b8c0134521e75f6f0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0004.jpg",
+      "sha256": "4af60d7b7530a5c9498ea0c8069cd3084432c85956c8956d567ae2788100841c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0005.jpg",
+      "sha256": "0c0d05f98372d76201d10e1e2cd026d8bbd05020473f4aa4f56fdff21b667288"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0006.jpg",
+      "sha256": "b90a78c764f50657c2520c819fb4e6a1199f8546192d91393ccce5b1780725c4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0007.jpg",
+      "sha256": "a1849ec573ddb5430dbdc30f37f70fcfee38e2ddf23bff0f56f7f62745635943"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0008.jpg",
+      "sha256": "35d4489f8ba7514f7b0e7ab0a6bc3e2397db548e35974ded9dac1c6cd2e0e75b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0009.jpg",
+      "sha256": "b802e644d9917223de6a81a3140d9c818b521644af16d3d52b00365bb03b3d28"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0010.jpg",
+      "sha256": "896cd59f861ecec2d602f17a213848441322e7816868907b35f5a277afd7d9cd"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0011.jpg",
+      "sha256": "475f91fb8d2a42003f541618f601c7986dd5e397580d3bb34f4066c33f83a1b6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0012.jpg",
+      "sha256": "fbb77b39e3479c4ba4c1c6fb5ed2260f6e0872b4cf6618520ceb14ea44e8e237"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0013.jpg",
+      "sha256": "a27f21238407c8ee8f86e658718637b93c851310076993d79722612a8bbc08ab"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0014.jpg",
+      "sha256": "52c1b5a2bcdc30fd100c31d64df696aec9febfc1224497d17346b8c6b56f6626"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0015.jpg",
+      "sha256": "4f0d036af215c53c9ca6527c8fd2b6dd9fbfaa9cd5fb5f75328b1f3a67478b30"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0016.jpg",
+      "sha256": "917cf3602a36fcd55b138616af2ea3eade38f482abeb662473f127db0d8f37aa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0017.jpg",
+      "sha256": "512d5dabbce8a7248f78ea05ada56c36aa03d89f256790ff3fc3f51aaefcc9e5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0018.jpg",
+      "sha256": "90d401f2fe166b893d3748b035183495709f62f9225dc6978dc8f097036da1b7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0019.jpg",
+      "sha256": "ddd303c829a8b186ad0e3e1f30cb2ca5a58f5388fbea715ed47dc267a88fda57"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0020.jpg",
+      "sha256": "21def9fb0f4ba580115eea4232b84405e3290a1610f679f0e9d08df52dccecd6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0021.jpg",
+      "sha256": "672a31070bda92c9e61ad1733bb4797de289db94fa67a752d2a85eb01f19a540"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0022.jpg",
+      "sha256": "89b3fd25494cbafbd117f76017edd393516070eaa938bd20c9b1a80cb9129746"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0023.jpg",
+      "sha256": "1758a605cbb6bbb4a861d4bdeefe23d54e4469f2a97d56e7b5a84d755d791b1e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0024.jpg",
+      "sha256": "4603f17d11b08d2a4bcf6825843cc02de2a82fe213129b35dc95b8814e0258d7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0025.jpg",
+      "sha256": "e22f7afd26a98cecfa9633c9ce06c059f2a8f74e7fe0539feca4f15f27863d69"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0026.jpg",
+      "sha256": "6642406fab59afe1b4d733db131d2575c1aaa343f217ec418239ed58339993eb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0027.jpg",
+      "sha256": "e35e8920a3aa0dcc15b5a84b5ce747735d0964a054d338b1b99850d2074d3539"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0028.jpg",
+      "sha256": "6b020a990ece386bdbafd76d84b031d9d3634f3023fa499f308a023c65ea38bc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0029.jpg",
+      "sha256": "0749abace77974c8a4b55222289385012e68dc88fb928ff303d0b4d6815af1c9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0030.jpg",
+      "sha256": "01ceefa313cac3af059f67ad900149e7c8a2c5a2e8d30a0c24f5a7e53b71cd38"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0031.jpg",
+      "sha256": "b94849f6b332fb6e8ebde709b78eae38525b846e6174744a38945607c03e5f5c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0032.jpg",
+      "sha256": "5c130395dcc44e91e581e5334d9a387f4526c6e54cf95d181557441296c7976d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0033.jpg",
+      "sha256": "f108b8f8fb707fb274cc3065494679bad9c19fdeff469e21b1e867da414187d0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0034.jpg",
+      "sha256": "200666736e17b0b2800642dabbbf6eb7c239910dfe5c80e8acd24b1c0d36a7c6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0035.jpg",
+      "sha256": "91003574c65aeea8c118fbb550084fdec363b2530ad79b2e1a0fec48b4c90087"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0036.jpg",
+      "sha256": "3eed05c1c2e83ea203ae8726f44eb8094d1e672accf4484f2a5013e24bfc7a9d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0037.jpg",
+      "sha256": "e9eb5ea55f9b8061aaa8172d13e4a2eb25351f0e64da84331d8cbc23ac11d510"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0038.jpg",
+      "sha256": "1e48da5c9326a9ce1bb6a3507ba9bae6f4102557d18974e3a6080ba4296ffa23"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0039.jpg",
+      "sha256": "62467cdd7dc3d63a254049e81acac32f24f7f85b602cd1e034f565f9a8a7b4a8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0040.jpg",
+      "sha256": "62534cd18f81edeca993d00465170b9c614acf0b4f2c7fd71d7a17f14b34ce70"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0041.jpg",
+      "sha256": "941423ccc90434317e52a110a6f2c1f50cbaee4c9616403158d0ca0279f496b4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0042.jpg",
+      "sha256": "edc471cd604142914583f771fd1e41095cc75e32f49c45d1ec9a8e36efc2817b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0043.jpg",
+      "sha256": "b291e010976c224fec65b281c3ea8892b4464ed4b45d94170eabd2bf8c707493"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0044.jpg",
+      "sha256": "43cdb8ddfaa29b3b01b002b3e8807b7f0259eb7f6fdda8071679647af9bf301a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0045.jpg",
+      "sha256": "0977d72cde748f361ebdd68e536628adc2a7afe44cd1302dc817f17289c93295"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0046.jpg",
+      "sha256": "34963a0d7ea6804c12df6260308ea385daf7c2f369afddbcf5e522a15b91d376"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sheet-0047.jpg",
+      "sha256": "c860428253d74bc2f057c8d790d50c968a7e35f1b737c1097d35438f12b6cf2f"
+    }
+  ],
+  "scope": "Label-repaired native540p preview extraction; actual viewing/motion,4K, listening/fine-sync and independent AV still required."
+}

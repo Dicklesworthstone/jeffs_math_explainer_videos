@@ -1,0 +1,20 @@
+{
+  "time": "2026-11-08T18:40:07.994297+00:00",
+  "manifest_sha256": "e2341ee728c464a4220aada1459a064d29f48efac7c6cc851c64b9c5753f7f9a",
+  "actually_viewed_all_74_frames_on_7_sheets": true,
+  "intervals_inclusive": [
+    [
+      5496,
+      5531
+    ],
+    [
+      6273,
+      6310
+    ]
+  ],
+  "observations": [
+    "Coming-up colour field and circle gradually appear while main bump and convergence radius remain stable. No premature full-strength field or one-frame flash.",
+    "Closing field and vector scene dim together to last frame6310 without a bright reappearance."
+  ],
+  "scope": "Every encoded frame in these two preview windows viewed as480x270 tiles. Not real-time motion, listening or final4K acceptance."
+}

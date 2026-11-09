@@ -1,0 +1,15 @@
+{
+  "timestamp": "2026-11-08T22:19:52.257298+00:00",
+  "files": [
+    {
+      "name": "cc1-gallery-transition-review319.md",
+      "sha256": "d0df748083405de1b91924f90db894aaa6b6456493f09c89c12c98e3a9a3e679"
+    },
+    {
+      "name": "open-region-playback-second305.json",
+      "sha256": "8ede28c42e0117485681c056fedb4b3e66c18a95827bb1026d1d0d3895e1a22c"
+    }
+  ],
+  "remote_readback": "cc1-gallery-transition-review319.md d0df748083405de1b91924f90db894aaa6b6456493f09c89c12c98e3a9a3e679\nopen-region-playback-second305.json 8ede28c42e0117485681c056fedb4b3e66c18a95827bb1026d1d0d3895e1a22c\n",
+  "scope": "Missing existing verifier dependencies staged, no verifier launch."
+}

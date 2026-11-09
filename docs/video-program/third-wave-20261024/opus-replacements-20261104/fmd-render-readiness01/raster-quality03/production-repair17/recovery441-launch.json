@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-09T03:26:30.971402+00:00",
+  "full_actual_check": {
+    "frames": 9879,
+    "frozen_files": 8936,
+    "original_inputs_sha256": "8c45915acbe9f50e127d36cb2d64395cd2cfb407e9c9323b966238894fb5b9ab"
+  },
+  "guard_observed": {
+    "original_lock": "/data/projects/jmev-css-render-worker-20261107/expanded-native-lane.lock",
+    "free_bytes": 96330186752,
+    "combined_work_bytes": 1179361792,
+    "combined_target_bytes": 2111275008,
+    "admission_gib": 10,
+    "stop_gib": 8,
+    "phase_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_gib": 20,
+    "original_baseline_bytes_equal": true
+  },
+  "host": "css",
+  "tmux": "jmev-gallery-ssd441",
+  "controller_pid": 3296278,
+  "controller_observed_live": true,
+  "admission_observed": false,
+  "terminal_success": false,
+  "release_acceptance": false,
+  "independent_review": "not complete; root actual checks only",
+  "new_root": "/data/ssd/work/jmev-gallery-recovery440"
+}

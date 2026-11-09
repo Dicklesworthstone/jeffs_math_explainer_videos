@@ -1,0 +1,23 @@
+{
+  "time": "2026-11-08T04:17:04.477351+00:00",
+  "review": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cc2-final04-picture-review207.md",
+  "review_sha256": "591fdecc6150bb955b9842e9998e33e1831e77367597f5c2351f13f5983cf675",
+  "root_images_viewed_frames": [
+    3018,
+    3900,
+    6420
+  ],
+  "dispositions": {
+    "L1": "Accept explanatory footnote overlay: outer color field obscured, principal loop/zero and formula remain clear at65s.",
+    "L2": "Accept names-to-search overlay: readable; poles and unit circle clear at107s.",
+    "L3": "Accept transient dot-arrowhead coincidence at50.3s: numerical counter and wheel needle supply redundant progress.",
+    "L4": "Accept upright typography and heavier symbols as cosmetic based on reviewer detail and visible stills."
+  },
+  "remaining": [
+    "Actual uploaded caption and player overlay at04 local65s/107s, and13 bottom note",
+    "Full joined-master technical checks",
+    "Motion/fine-sync and continuous listening not accepted",
+    "Independent final audiovisual acceptance not claimed"
+  ],
+  "decision": "No chapter04 rerender for these four low findings."
+}

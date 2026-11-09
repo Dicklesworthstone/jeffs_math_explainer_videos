@@ -1,0 +1,145 @@
+{
+  "chapters": [
+    {
+      "chapter": "01_the_bump",
+      "frames": 6311,
+      "fps": 60,
+      "timeline_sha256": "d6ddcc1ffb9991be25d2f44d8bf554f2c56695e84acc3733d034961e0826d764",
+      "start_frame": 0,
+      "timestamp": "0:00",
+      "label": "Why a smooth curve defeats its power series"
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "frames": 5372,
+      "fps": 60,
+      "timeline_sha256": "cf6531fcb050fa1b43c3f8334ac0aa9c8169eac50dc18176ab0225cf99ae4c3f",
+      "start_frame": 6311,
+      "timestamp": "1:45",
+      "label": "Complex multiplication: stretch and turn"
+    },
+    {
+      "chapter": "03_two_planes",
+      "frames": 7249,
+      "fps": 60,
+      "timeline_sha256": "13f8cd117082ec0b82427de1aca576670cb2492476db6bf08e75ef9fd47cae54",
+      "start_frame": 11683,
+      "timestamp": "3:14",
+      "label": "Watching functions move the plane"
+    },
+    {
+      "chapter": "04_reading_color",
+      "frames": 6774,
+      "fps": 60,
+      "timeline_sha256": "2bb6d0fcb0cc9a90dd1435fb3a97b34385e1108cff7db7c42ba4a8c9606df280",
+      "start_frame": 18932,
+      "timestamp": "5:15",
+      "label": "Reading a function in colour"
+    },
+    {
+      "chapter": "05_gallery",
+      "frames": 9879,
+      "fps": 60,
+      "timeline_sha256": "be2691b3ed37664dcd66f7fef7778718bff89a18064b22d8fca51919433d525d",
+      "start_frame": 25706,
+      "timestamp": "7:08",
+      "label": "Polynomials, exponential, sine, gamma and zeta"
+    },
+    {
+      "chapter": "06_one_derivative",
+      "frames": 10030,
+      "fps": 60,
+      "timeline_sha256": "dbc82d8481d8f511ae404c5f3eeff517c2540c9b8330ca2cfb5b8d7c83e6412d",
+      "start_frame": 35585,
+      "timestamp": "9:53",
+      "label": "What a complex derivative demands"
+    },
+    {
+      "chapter": "07_one_point",
+      "frames": 6491,
+      "fps": 60,
+      "timeline_sha256": "c2e3c183019525c01aca2dc376c61d4eaab72c10f4b23f44ea184c1d44bd3f3c",
+      "start_frame": 45615,
+      "timestamp": "12:40",
+      "label": "One derivative is not enough"
+    },
+    {
+      "chapter": "08_loop_sums",
+      "frames": 14959,
+      "fps": 60,
+      "timeline_sha256": "fed5faea5359e1c149030b42a5b2d37a706618d1d868b6e4048a4767e1de58cc",
+      "start_frame": 52106,
+      "timestamp": "14:28",
+      "label": "Contour integrals and a proof of Cauchy's theorem"
+    },
+    {
+      "chapter": "09_boundary",
+      "frames": 16504,
+      "fps": 60,
+      "timeline_sha256": "ae7a13f413f431811f68c0141c14031195d64d1ba5b821b69f661bf75f5565e4",
+      "start_frame": 67065,
+      "timestamp": "18:37",
+      "label": "Proving Cauchy's formula: the boundary decides the inside"
+    },
+    {
+      "chapter": "10_rigidity",
+      "frames": 7442,
+      "fps": 60,
+      "timeline_sha256": "340167657b8420e4056a07e85ea258b16b797d031c98057d4510f19a2be00970",
+      "start_frame": 83569,
+      "timestamp": "23:12",
+      "label": "Why holomorphic functions are rigid"
+    },
+    {
+      "chapter": "11_counting",
+      "frames": 11932,
+      "fps": 60,
+      "timeline_sha256": "13f593bc19082ddacd7d3adbd5f739110fec02c1ab43958cff748f1154641242",
+      "start_frame": 91011,
+      "timestamp": "25:16",
+      "label": "Counting roots without finding them"
+    },
+    {
+      "chapter": "12_residues",
+      "frames": 3943,
+      "fps": 60,
+      "timeline_sha256": "d19560b5c9a1fab46a4250b5b9fc1aa9bb0f3eff1847fa0111a5c8bed8964485",
+      "start_frame": 102943,
+      "timestamp": "28:35",
+      "label": "Residues: the term that survives"
+    },
+    {
+      "chapter": "13_real_integral",
+      "frames": 10641,
+      "fps": 60,
+      "timeline_sha256": "208d07a7e8a38ff01cb8ae8061f05eecc30d5fd941682d426329e404a562c072",
+      "start_frame": 106886,
+      "timestamp": "29:41",
+      "label": "Real integrals from complex poles"
+    },
+    {
+      "chapter": "14_continuation",
+      "frames": 11756,
+      "fps": 60,
+      "timeline_sha256": "e9da7ef1030b88041dd134833282e72442dce42cbc3fcfac8dfa74870d57d30b",
+      "start_frame": 117527,
+      "timestamp": "32:38",
+      "label": "Analytic continuation and its limits"
+    },
+    {
+      "chapter": "15_closing",
+      "frames": 4379,
+      "fps": 60,
+      "timeline_sha256": "ea0338b79a8db9adcb64a9426dd31e4703383ada44ea609aa5c92ca234c828d6",
+      "start_frame": 129283,
+      "timestamp": "35:54",
+      "label": "Back to the opening puzzle"
+    }
+  ],
+  "script_sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c",
+  "source": "/data/projects/jmev-stroke-probe-20261106/work/review-repair268/workspace/explainer_corpus/complex_analysis_visual/script.tsv",
+  "frames": 133662,
+  "scope": "Draft chapter offsets from successful baseline21; combined timeline269 and final assembled master offsets must be checked before publication.",
+  "script_read_in_full": true,
+  "uploaded": false
+}

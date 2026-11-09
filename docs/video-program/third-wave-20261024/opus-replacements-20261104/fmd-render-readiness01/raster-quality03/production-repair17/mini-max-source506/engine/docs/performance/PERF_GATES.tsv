@@ -1,0 +1,27 @@
+# Machine-readable §17.2 policy catalog. These are targets and enforcement
+# policy, not observed baselines. A row becomes pass-capable only after a
+# content-addressed pinned-host observation is committed through
+# fmn_conformance::perf::Baseline.
+schema	fmn-perf-policy/1
+# gate	scenario	unit	direction	target	min_valid_samples	max_invalid_samples	max_mad_bps	alert_regression_bps	block_regression_bps	enforcement	scope	require_regression_profile
+pg-1	opening-class-g2	ratio-ppm	at-most	500000	9	2	1000	500	1000	blocking	core	true
+pg-1	opening-class-g4	ratio-ppm	at-most	350000	9	2	1000	500	1000	blocking	core	true
+pg-2	fill-canonical	mpx-per-second-milli	at-least	300000	21	3	1000	500	1000	blocking	core	true
+pg-2	stroke-canonical	mpx-per-second-milli	at-least	120000	21	3	1000	500	1000	blocking	core	true
+pg-3	export-4k-2d	fps-milli	at-least	30000	21	3	1000	500	1000	blocking	core	true
+pg-3	preview-1080p	fps-milli	at-least	60000	21	3	1000	500	1000	blocking	core	true
+pg-4	cold-cli-first-frame	nanoseconds	at-most	149999999	21	3	1000	500	1000	blocking	core	true
+pg-4	trailing-edit-to-frame	nanoseconds	at-most	999999999	21	3	1000	500	1000	blocking	core	true
+pg-5	certified-thread-matrix	mismatches	exactly	0	3	0	0	0	0	blocking	core	false
+pg-6	gallery-4k-3d-peak	bytes	at-most	1500000000	9	2	1000	500	1000	blocking	core	true
+pg-6	one-hour-soak-leak	leaked-bytes	exactly	0	3	0	0	0	0	blocking	core	true
+pg-6	primitive-steady-allocations	allocations	exactly	0	21	0	0	0	0	blocking	core	false
+pg-7	formula-cached	nanoseconds	at-most	99999	21	3	1000	500	1000	blocking	core	true
+pg-7	formula-cold	nanoseconds	at-most	2999999	21	3	1000	500	1000	blocking	core	true
+pg-7	text-10k-glyph	nanoseconds	at-most	19999999	21	3	1000	500	1000	blocking	core	true
+pg-8	dynamic-subclass	nanoseconds	at-most	160999999	21	3	1000	500	1000	blocking	python-only	true
+pg-8	native-builtins	ratio-ppm	at-most	1100000	21	3	1000	500	1000	blocking	python-only	true
+pg-8	per-frame-callback	nanoseconds	at-most	108999999	21	3	1000	500	1000	blocking	python-only	true
+pg-8	point-transform-callback	nanoseconds	at-most	210999999	21	3	1000	500	1000	blocking	python-only	true
+pg-a	apple-metal-scene-class	fps-milli	at-least	-	33	5	1000	500	1000	blocking	annex-only	true
+pg-a	rtx4090-cuda-scene-class	fps-milli	at-least	-	33	5	1000	500	1000	blocking	annex-only	true

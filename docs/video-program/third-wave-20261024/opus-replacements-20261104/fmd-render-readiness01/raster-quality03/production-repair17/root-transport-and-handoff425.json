@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-09T02:49:01.203449+00:00",
+  "csd_probe": {
+    "exit": 255,
+    "seconds": 15.21,
+    "tcp_connected": true,
+    "ssh_protocol_received": true,
+    "public_key_authenticated": true,
+    "command_session_open_confirmed": false,
+    "scope": "Observation transport failure after authentication; no render outcome inferred and no job restarted"
+  },
+  "css_live": {
+    "controller": 2588189,
+    "renderer": 4018098,
+    "encoder": 4018238,
+    "chapter": "05_gallery",
+    "observed_renderer_cpu_percent": 1386,
+    "format": "3840x2160 60fps CRF16"
+  },
+  "source_review": {
+    "relay394_sha256": "93f677ff33976beaa4ac8468f258b7ac0911fa8362cbe6947b4f1a8e9de43beb",
+    "master393_sha256": "8fb9a8c1cf524b55da68cdf52a27b43159f64caa1377fa52332bde9720ecd05b",
+    "finding": "Root read full current relay394 and master393; checked post-import finish contract against frozen371 check(). Preflight lacks rows350 so existing relay rejects preflight-only output. No speculative code change made.",
+    "independent_review_completed": false
+  },
+  "master_launched": false,
+  "listening_accepted": false,
+  "fine_sync_accepted": false
+}

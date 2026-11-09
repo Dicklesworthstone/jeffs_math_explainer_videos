@@ -1,0 +1,24 @@
+{
+ "sha472": "32f36d16e3cb3402e4c632b44a77c9852546fd8e96a90ff5127e8a1a66ecd5f1",
+ "lines": [
+  509,
+  535
+ ],
+ "docstring_changed": true,
+ "order_kept": true,
+ "removed": [],
+ "added": [
+  "frozen_rows",
+  "is_frozen_set",
+  "pinned_receive"
+ ],
+ "changed": [
+  "VERSION",
+  "POST_PROBE",
+  "validate",
+  "check_prepared",
+  "start",
+  "finish"
+ ],
+ "unchanged": 40
+}

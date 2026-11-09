@@ -1,0 +1,309 @@
+{
+  "time": "2026-11-07T21:40:02.299699+00:00",
+  "movie_sha256": "ea2673439b1c663e94ac19a963b4e8fec1ed037c1fce790a7a8a438256af8ef1",
+  "actually_viewed_sheets": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48
+  ],
+  "prior_context_sheets": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "current_turn_sheets": [
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48
+  ],
+  "picture_count": 384,
+  "sheets": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0001.jpg",
+      "sha256": "42967186c23ad77873f76e8eae3650d056aa008cde8c496fac213be78592e7a5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0002.jpg",
+      "sha256": "25226d07e49539a03bd460b1401e626ab06a33b6ffd53e8d0ffa9c973bccdffc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0003.jpg",
+      "sha256": "c23a85676d9c98d92195308febe07e30d1796103f8e94a9662add92b3ca9668c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0004.jpg",
+      "sha256": "32239cb30600a4b47ff710949d9352416350e3bb69adb94c8bf36ef8d01d2502"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0005.jpg",
+      "sha256": "be145c5f8f43d9a0a2ec85393c85665163ae1952bdbd80b317c0b03814f2a337"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0006.jpg",
+      "sha256": "0e9b379f5bc2d6a2df66655b477791c0b70614c5c40997434fc1c1dd5bea3cd0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0007.jpg",
+      "sha256": "e68dd38e5fcd3ef875e465b915f440f2fe9c8db996f3b54716a8bd65d3bc1f11"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0008.jpg",
+      "sha256": "913816af01837c92c4397a0f1d8b4fbfc4211c532f2dd7ea96e81099a7f13e5e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0009.jpg",
+      "sha256": "24bd9c7e66f4123508b344860161471317fd1f01d56739033e9e0acdbd8b42b2"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0010.jpg",
+      "sha256": "1354f1cb892d9c80fcd6a35a3bf0adc4af96bbfbac9fb031f3c09679c0942f65"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0011.jpg",
+      "sha256": "0c295db9b00888d4928031f6b9c6269afaf005ceb1a03f096f44ac95dc2be3b6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0012.jpg",
+      "sha256": "d8d1c3d89a935556c349bbc9ef9173e8e23c1cb38d43638a40abf3ad0d95e557"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0013.jpg",
+      "sha256": "9975468dce5a6056e9aaad0a365426a5f84ceb5a49bc77797e0893798ddedc2b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0014.jpg",
+      "sha256": "d8f7f7ea49eb5c22209a89ededea7014b4983c7ea04b0d35e5dda7ae2b95b25f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0015.jpg",
+      "sha256": "aa74db9bc47112a8c92539dc2b31b283d0f8ea92e9e12dd38213b052494839d0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0016.jpg",
+      "sha256": "0a2de8459f57c2abf170bd507d0db05a6236e6fc0e9f463f295952377ad28179"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0017.jpg",
+      "sha256": "c376deffbf1a1cccd8c0ab66716d3f2d161ce044faa2f7d418eee2c62ec9eeb3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0018.jpg",
+      "sha256": "64389459d98d1a7812d75aad6d0db78e171953b786b6a4c9d355b0e78d71558e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0019.jpg",
+      "sha256": "8182c8c1e5ecc36a440ef725bdc928abd08e3a4b260f022c8c16031aa73c447f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0020.jpg",
+      "sha256": "053a001e59690418e984642d409816d8cae3241dab4930118c6b8263a4a1361e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0021.jpg",
+      "sha256": "3a995db053fc4dd8f8f9885af74bc0d6e2fe2b647139d828cd48d5aa9a6795b7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0022.jpg",
+      "sha256": "04135b5fb69ecb99e89069f50d248a25a09c1d561db4beade6fbfe296855eb51"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0023.jpg",
+      "sha256": "167cfc7db6e4176d5e83f67787da2cbf7af16462dde120f6299ecee157d67deb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0024.jpg",
+      "sha256": "bf15af413f190c4df4fe316b96e064e2b4a96706b5b96d55e94423074d8cb947"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0025.jpg",
+      "sha256": "3faa43217c1e2685ddb01efc00864e81e6d2882a03d7be4d9a55bb2c27fd1a14"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0026.jpg",
+      "sha256": "e4ce3874cef466200a5e8f800d00d40cfe82f2f03f95803335f4755b46fa2863"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0027.jpg",
+      "sha256": "a3c5fd7f3531ae1ddc3a1398ca47a5928634a165b55bc974b86698c7098fe3e8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0028.jpg",
+      "sha256": "624b08d7da539b982674bf62ec499e2d320e755692e42386b870942aa3fa6e5b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0029.jpg",
+      "sha256": "a49ad83dea4ee4a29c7bccfdf670fb1db0af854481b4450e33107f2c99080793"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0030.jpg",
+      "sha256": "b34c972afdcef6cd5d0b8bab35a16d1306d8998a43b3a0e7cc480b89843e4f8a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0031.jpg",
+      "sha256": "ed47137ef0a6ce6483dd6ce702b6f96384b280f27c09a411d9588bbd7d275d3d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0032.jpg",
+      "sha256": "4d7e25f59059467582e9fc053281635bfda85d8ba0b0bd726efc00082d00d15e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0033.jpg",
+      "sha256": "fa6cfe1f0998ee16b80011f90feb5b05631a8e0830c4b35737c7e4e9429260e5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0034.jpg",
+      "sha256": "f143acb47a0f010fb25b4de24405071dbf3e4de414cfba64eebc06f78663854e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0035.jpg",
+      "sha256": "0917f3f2a6ad9bbe7451cfdb7be6f4c04fbd1ea13865bcdd723b0669657132c0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0036.jpg",
+      "sha256": "cdf141afbbba1b3450e66a8824fd5662f890d2ee2999820dc9ff81f5eac5d469"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0037.jpg",
+      "sha256": "c76bfcc26b5bd9b091882fe5d2b90819b627d9e54fafe0d2b798afaf78987cb4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0038.jpg",
+      "sha256": "f4c883000716fd9fa363e33ebdb8dc9751572531bb8a70734734c98a8aa9132e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0039.jpg",
+      "sha256": "60857fd514b3bb055e6987764963eaac8d2e92110bd68fb1f6b2e305b0b9b679"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0040.jpg",
+      "sha256": "aa1f4eb4cef33ce5a73a8d758015852f400b3f97964a115f4fe280dfbd760a16"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0041.jpg",
+      "sha256": "8f78e27644cfd11b592ed61b66a87fc9ee9f7653f4a2ddd7f774887528673bea"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0042.jpg",
+      "sha256": "79b5172e1cf67aa03c43633d12d14057eff509dbecbaf9c245f2ecece22eede1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0043.jpg",
+      "sha256": "e9b109e920bee93f9e9b5418d5d1335dfe161696429072aa709abe7d102ffee4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0044.jpg",
+      "sha256": "091d3bedb044db611350ca4be99eba550ae28ff370dcc37694afd4159a003669"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0045.jpg",
+      "sha256": "cabb7ba4e7c98f441e7d1323a1c3aefb1588860c054bf3a0128a040c0f768847"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0046.jpg",
+      "sha256": "b6179d5bd3aca3c704d0ed046b8a199cfd0baac9daba8c47e0b7794cc5d7d9c0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0047.jpg",
+      "sha256": "8827a5ee672cc9903e1f63d1e879b37174156f99aa0b6d531eb22849148f4a29"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-final08-pictures71/sheet-0048.jpg",
+      "sha256": "928972cbc4e826ae39199a6a55d91b731a4777c39531b0dc8988dbe40a49dbde"
+    }
+  ],
+  "disposition": "HOLD",
+  "observations": [
+    "The c label touches the gold nested-square edge during the sampled 116.6-162.5s sequence. Existing candidate68 targets this collision.",
+    "The two 4^n crossing strokes at205.6-207s are intentional cancellation and clear in subsequent samples.",
+    "No additional concrete collision found in the selected square subdivision, constant/linear cancellation, remainder bound, or triangle extension pictures."
+  ],
+  "candidate_visually_validated": false,
+  "scope": "Selected still pictures only. Not exhaustive frames, continuous motion/listening, fine sync, or independent AV acceptance."
+}

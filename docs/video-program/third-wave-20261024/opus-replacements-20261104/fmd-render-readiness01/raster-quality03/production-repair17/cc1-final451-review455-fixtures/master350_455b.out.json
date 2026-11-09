@@ -1,0 +1,91 @@
+{
+ "positive": {
+  "outcome": "accepted",
+  "gallery_source": "SSD/jobs/css-reviewed-final-05-gallery352-ssd442/render/05_gallery.mp4",
+  "gallery_source_is_ssd_lexical": true,
+  "gallery_source_resolves_into_D": true,
+  "ssd_job_records_bound": true,
+  "intervals": [
+   "01_the_bump",
+   "04_reading_color",
+   "05_gallery",
+   "06_one_derivative",
+   "07_one_point",
+   "08_loop_sums",
+   "09_boundary",
+   "10_rigidity",
+   "11_counting",
+   "12_residues",
+   "14_continuation"
+  ],
+  "playback": {
+   "09_boundary": [
+    0.1
+   ]
+  },
+  "sources_by_root": {
+   "D": 36,
+   "CSS": 30,
+   "SSD": 6,
+   "TRJ": 12,
+   "HZ2": 6
+  },
+  "files": 242
+ },
+ "gallery_host_D": {
+  "outcome": "refused",
+  "error": "AssertionError: ",
+  "v451_line": 402,
+  "v451_function": "expected_worker451",
+  "v451_text": "assert row['kind'] == 'combined' and Path(row['host']) == CSS"
+ },
+ "gallery_old_css_job": {
+  "outcome": "refused",
+  "error": "AssertionError: ",
+  "v451_line": 403,
+  "v451_function": "expected_worker451",
+  "v451_text": "assert (row['worker'], row['worker_sha256'], row['job']) == (str(WORKER442), WORKER442_SHA, GALLERY442_JOB)"
+ },
+ "gallery_job_ssd440": {
+  "outcome": "refused",
+  "error": "AssertionError: ",
+  "v451_line": 403,
+  "v451_function": "expected_worker451",
+  "v451_text": "assert (row['worker'], row['worker_sha256'], row['job']) == (str(WORKER442), WORKER442_SHA, GALLERY442_JOB)"
+ },
+ "ssd_worker_on_04": {
+  "outcome": "refused",
+  "error": "AssertionError: SSD442 worker belongs only to gallery",
+  "v451_line": 405,
+  "v451_function": "expected_worker451",
+  "v451_text": "assert row.get('worker') != str(WORKER442), 'SSD442 worker belongs only to gallery'"
+ },
+ "gallery_summary_lists_css_paths": {
+  "outcome": "refused",
+  "error": "AssertionError: T/05_gallery_summary_lists_css_paths/SSD/jobs/css-reviewed-final-05-gallery352-ssd442/render/05_gallery.mp4",
+  "v451_line": 505,
+  "v451_function": "master350",
+  "v451_text": "assert listed.get(str(sources[staged])) == digest[staged], str(sources[staged])"
+ },
+ "gallery_render_frames_mismatch": {
+  "outcome": "refused",
+  "error": "AssertionError: 05_gallery",
+  "v451_line": 484,
+  "v451_function": "master350",
+  "v451_text": "assert (render['chapter'], render['frames'], render['binary_sha256']) == (key, row['frames'], row['binary_sha256']), key"
+ },
+ "gallery_staged_from_css_copy": {
+  "outcome": "refused",
+  "error": "AssertionError: 05_gallery",
+  "v451_line": 482,
+  "v451_function": "master350",
+  "v451_text": "assert movie == job/'render'/(key+'.mp4') and digest[OUT/(key+'.mp4')] == row['movie_sha256'], key"
+ },
+ "summary_version_350": {
+  "outcome": "refused",
+  "error": "AssertionError: ",
+  "v451_line": 432,
+  "v451_function": "master350",
+  "v451_text": "assert (summary['version'], summary['host'], summary['frames'], summary['chapters']) == ('447', 'csd', TOTAL_FRAMES, registry)"
+ }
+}

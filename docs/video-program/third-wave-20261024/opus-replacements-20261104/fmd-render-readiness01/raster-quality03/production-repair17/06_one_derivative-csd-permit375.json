@@ -1,0 +1,104 @@
+{
+  "chapter": "06_one_derivative",
+  "host": "csd",
+  "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+  "preview_job": "csd-review-repair-preview243",
+  "frames": 10030,
+  "timeline_sha256": "8abb0519b2945269f5def975e1adde7968905fab45f72b85b242dc4a11d0ca71",
+  "actually_reviewed_pictures": true,
+  "unresolved_defects": [],
+  "reviewer": "root",
+  "observations": "Root277 selected-still review (all 47 sheets) and root359 consecutive-frame review of 9630-9730 and 9970-10029, with independent cc0 270 (all 47 sheets), support technical rendering only. cc0 270 R1 and R2 (Low cosmetic) were retained by root disposition 362; recheck label-edge and label-axis separation at frames 600, 900, 1200, 1290, 1320, 1680 and 1890 in native final output. No continuous playback or listening judgment is claimed.",
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sampling.json",
+      "sha256": "34ee8c6ae24ccd33e234ac2b1b27cf5441fae1087af8f53f4b4436942efd22ba"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/preview243-root-review-complete277.json",
+      "sha256": "0c8299120c29cf1f6aebd2e76891dc9cfe5467c3654bb6f8ef8617effd00f9cc",
+      "views": [
+        "34ee8c6ae24ccd33e234ac2b1b27cf5441fae1087af8f53f4b4436942efd22ba"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/derivative-sheets359/manifest.json",
+      "sha256": "ca470cb023df865af986c44601dc64c0c0c80f3a56d04c2f393aad936b6c78b1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/derivative-sheets359-review.json",
+      "sha256": "40e2fca805e0dfb7b138b2ef68c2770b947bd7ae5e435e3d712bf2ea476d34de",
+      "views": [
+        "ca470cb023df865af986c44601dc64c0c0c80f3a56d04c2f393aad936b6c78b1"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-preview06-disposition362.json",
+      "sha256": "1822a5908199c1cf8ae935e50c803e6a419c0109487c4051bef31d0ef0bf0b86"
+    }
+  ],
+  "source_binding_evidence": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build268/qualification.json",
+      "sha256": "2f3430a82dc1561eecbc1485aa00c18070606c4d8728fc6811b62b1f141dc857"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-build268/source-copy.json",
+      "sha256": "81d28272a7a23b63199e79e6aa1086f01f131f0ddd685d4ae859d04b1de1934c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-timeline269/comparison.json",
+      "sha256": "d2bf8e9b9ede33b429e61f8e87e238d1a64a11ebd970d34851e12e11c6e5d0ea"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/rebind-summary.json",
+      "sha256": "fa263d8a6c14c21ef037525fd316e2d64019c0f506e934a4e2d38886b5167da6"
+    },
+    {
+      "name": "build238-to-build268-delta",
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-preview-to-final-binding282.md",
+      "sha256": "1fbcedef34f65933ff3d818740d124cb2492a39e276916eb600f6753d5c62066"
+    }
+  ],
+  "independent_reviewer": "cc0",
+  "independent_review": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc0-preview06-review270.md",
+      "sha256": "d4ad3533de6a6034285973a2a921a235d319fc569073d36c1b41e999c4d6b531",
+      "views": [
+        "34ee8c6ae24ccd33e234ac2b1b27cf5441fae1087af8f53f4b4436942efd22ba"
+      ]
+    }
+  ],
+  "review_scope": {
+    "basis": "sampled_preview",
+    "purpose": "technical_4k_render",
+    "preview_movie_sha256": "5e45d72da91701c9c7c346b98ded8491c13ba1befed6be1b6301c1c6d33ed62d",
+    "sampled_intervals": [
+      [
+        9630,
+        9730
+      ],
+      [
+        9970,
+        10029
+      ]
+    ],
+    "playback_seconds": [],
+    "open_reviews": [
+      "final_picture",
+      "motion",
+      "audio",
+      "fine_sync",
+      "captions",
+      "independent_final_av",
+      "publication"
+    ]
+  },
+  "continuous_motion_acceptance": false,
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "final_4k_acceptance": false,
+  "release_acceptance": false,
+  "publication_acceptance": false
+}

@@ -1,0 +1,49 @@
+{
+  "transcripts_read": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "spectrograms_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "guard_exit": 0,
+  "stable_inputs": true,
+  "observations": "Speech-band energy present on both sides of all joins; low-level tonal bed persists through gaps. Spectrograms do not establish words, naturalness or listening acceptance.",
+  "recognition_questions": {
+    "1": "Ending outline looks unchanged absent/garbled",
+    "3": "Where will the marker land incomplete",
+    "6": "Compare and What do you predict absent",
+    "9": "Ending results back without changing how combination works replaced with ellipses",
+    "10": "four-clock rendered foreclock; is an example rendered as an example"
+  },
+  "next": "Investigate disputed actual-master windows against retained cue recognition and alternative model without regenerating or inventing hearing.",
+  "listening_accepted": false,
+  "independent_av_accepted": false
+}

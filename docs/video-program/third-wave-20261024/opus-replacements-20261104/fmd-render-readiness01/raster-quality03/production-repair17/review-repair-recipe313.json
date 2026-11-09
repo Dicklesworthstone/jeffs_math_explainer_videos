@@ -1,0 +1,15 @@
+{
+  "reviewed_by_root": true,
+  "scope": "chapter 09 zoom-line repair",
+  "files": {
+    "boundary.rs": {
+      "candidate": "boundary-guide-repair310.rs",
+      "sha256": "bda7d931498b23bd3203cd0c6106de69dc0a8c5e160e738d698376322ff39e53"
+    }
+  },
+  "source_review": "cc1-boundary-review312.md",
+  "source_review_sha256": "15ae2d9a331e0a638806ff3c819d6511de9c7c6e59923e57221149d21d5a0fe4",
+  "helper_review": "cc1-pipeline-review314.md",
+  "helper_review_sha256": "56a3ad5d59c27a21b4c21eff6bf746fff6e7a96fc35527ddae2788625eb21705",
+  "root_disposition": "314 read in full; no High/Medium; L1 flattened closure confirmed complete, L2 legacy symlinks bind target bytes, L3 only09 binary313 with other chapters268, L4 actual repaired picture review remains required. No repaired image or audio acceptance."
+}

@@ -1,0 +1,546 @@
+{
+  "utc": "2026-11-08T05:03:35.746118+00:00",
+  "review": "235 L4",
+  "cue_start_frame": 3748,
+  "cue_start_seconds": 62.46666666666667,
+  "phrase_timings_sha256": "b025eaa7989c40281e6edc72a65f7677275051c36ad67add8114819a45fccabc",
+  "timeline_sha256": "9d6425d62c5e454329888cd449ebf453a8400680c16a01217a232b84e0cbdfe2",
+  "cue": {
+    "text_sha256": "97c45ba76f4abf7e48a387e2c88b7ed9d597c275f10cf37e1efda2a472ea07dc",
+    "wav_sha256": "fb88052b87ca09b853e1e4ed630ed1163e0966e8b6128ba44f0469c12bfbfb0f"
+  },
+  "marks": [
+    {
+      "byte": 1586,
+      "seconds": 104.22,
+      "sample_24k": 2501280,
+      "phrase": "There,",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        104.220001,
+        104.620003
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 166.68666666666667,
+      "chapter_window": [
+        166.68666766666666,
+        167.08666966666667
+      ]
+    },
+    {
+      "byte": 1593,
+      "seconds": 104.62,
+      "sample_24k": 2510880,
+      "phrase": "the",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        104.620003,
+        104.940002
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 167.08666666666667,
+      "chapter_window": [
+        167.08666966666667,
+        167.4066686666667
+      ]
+    },
+    {
+      "byte": 1597,
+      "seconds": 104.94,
+      "sample_24k": 2518560,
+      "phrase": "distance",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        104.940002,
+        105.159996
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 167.40666666666667,
+      "chapter_window": [
+        167.4066686666667,
+        167.62666266666668
+      ]
+    },
+    {
+      "byte": 1606,
+      "seconds": 105.16,
+      "sample_24k": 2523840,
+      "phrase": "to",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        105.159996,
+        105.379997
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 167.62666666666667,
+      "chapter_window": [
+        167.62666266666668,
+        167.84666366666667
+      ]
+    },
+    {
+      "byte": 1609,
+      "seconds": 105.38,
+      "sample_24k": 2529120,
+      "phrase": "c",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        105.379997,
+        105.639999
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 167.84666666666666,
+      "chapter_window": [
+        167.84666366666667,
+        168.1066656666667
+      ]
+    },
+    {
+      "byte": 1611,
+      "seconds": 105.64,
+      "sample_24k": 2535360,
+      "phrase": "is",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        105.639999,
+        105.760002
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 168.10666666666668,
+      "chapter_window": [
+        168.1066656666667,
+        168.22666866666668
+      ]
+    },
+    {
+      "byte": 1614,
+      "seconds": 105.76,
+      "sample_24k": 2538240,
+      "phrase": "at",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        105.760002,
+        106.099998
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 168.2266666666667,
+      "chapter_window": [
+        168.22666866666668,
+        168.56666466666667
+      ]
+    },
+    {
+      "byte": 1617,
+      "seconds": 106.1,
+      "sample_24k": 2546400,
+      "phrase": "most",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        106.099998,
+        106.32
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 168.56666666666666,
+      "chapter_window": [
+        168.56666466666667,
+        168.78666666666666
+      ]
+    },
+    {
+      "byte": 1622,
+      "seconds": 106.32,
+      "sample_24k": 2551680,
+      "phrase": "the",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        106.32,
+        106.639999
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 168.78666666666666,
+      "chapter_window": [
+        168.78666666666666,
+        169.1066656666667
+      ]
+    },
+    {
+      "byte": 1626,
+      "seconds": 106.64,
+      "sample_24k": 2559360,
+      "phrase": "square's",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        106.639999,
+        107.159996
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 169.10666666666668,
+      "chapter_window": [
+        169.1066656666667,
+        169.62666266666668
+      ]
+    },
+    {
+      "byte": 1635,
+      "seconds": 107.16,
+      "sample_24k": 2571840,
+      "phrase": "diagonal,",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        107.159996,
+        107.699997
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 169.62666666666667,
+      "chapter_window": [
+        169.62666266666668,
+        170.16666366666666
+      ]
+    },
+    {
+      "byte": 1645,
+      "seconds": 107.7,
+      "sample_24k": 2584800,
+      "phrase": "and",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        107.699997,
+        107.82
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 170.16666666666669,
+      "chapter_window": [
+        170.16666366666666,
+        170.28666666666666
+      ]
+    },
+    {
+      "byte": 1649,
+      "seconds": 107.82,
+      "sample_24k": 2587680,
+      "phrase": "the",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        107.82,
+        108.18
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 170.28666666666666,
+      "chapter_window": [
+        170.28666666666666,
+        170.64666666666668
+      ]
+    },
+    {
+      "byte": 1653,
+      "seconds": 108.18,
+      "sample_24k": 2596320,
+      "phrase": "steps",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        108.18,
+        108.459999
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 170.64666666666668,
+      "chapter_window": [
+        170.64666666666668,
+        170.92666566666668
+      ]
+    },
+    {
+      "byte": 1659,
+      "seconds": 108.46,
+      "sample_24k": 2603040,
+      "phrase": "add",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        108.459999,
+        108.580002
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 170.92666666666668,
+      "chapter_window": [
+        170.92666566666668,
+        171.04666866666668
+      ]
+    },
+    {
+      "byte": 1663,
+      "seconds": 108.58,
+      "sample_24k": 2605920,
+      "phrase": "up",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        108.580002,
+        108.699997
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 171.04666666666668,
+      "chapter_window": [
+        171.04666866666668,
+        171.16666366666666
+      ]
+    },
+    {
+      "byte": 1666,
+      "seconds": 108.7,
+      "sample_24k": 2608800,
+      "phrase": "to",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        108.699997,
+        108.82
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 171.16666666666669,
+      "chapter_window": [
+        171.16666366666666,
+        171.28666666666666
+      ]
+    },
+    {
+      "byte": 1669,
+      "seconds": 108.82,
+      "sample_24k": 2611680,
+      "phrase": "the",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        108.82,
+        109.239998
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 171.28666666666666,
+      "chapter_window": [
+        171.28666666666666,
+        171.70666466666665
+      ]
+    },
+    {
+      "byte": 1673,
+      "seconds": 109.24,
+      "sample_24k": 2621760,
+      "phrase": "perimeter.",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        109.239998,
+        110.059998
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 171.70666666666665,
+      "chapter_window": [
+        171.70666466666665,
+        172.52666466666665
+      ]
+    },
+    {
+      "byte": 1684,
+      "seconds": 110.06,
+      "sample_24k": 2641440,
+      "phrase": "So",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        110.059998,
+        110.220001
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 172.52666666666667,
+      "chapter_window": [
+        172.52666466666665,
+        172.68666766666666
+      ]
+    },
+    {
+      "byte": 1687,
+      "seconds": 110.22,
+      "sample_24k": 2645280,
+      "phrase": "the",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        110.220001,
+        110.559998
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 172.68666666666667,
+      "chapter_window": [
+        172.68666766666666,
+        173.02666466666665
+      ]
+    },
+    {
+      "byte": 1691,
+      "seconds": 110.56,
+      "sample_24k": 2653440,
+      "phrase": "integral",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        110.559998,
+        110.879997
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 173.02666666666667,
+      "chapter_window": [
+        173.02666466666665,
+        173.34666366666667
+      ]
+    },
+    {
+      "byte": 1700,
+      "seconds": 110.88,
+      "sample_24k": 2661120,
+      "phrase": "around",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        110.879997,
+        111.159996
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 173.34666666666666,
+      "chapter_window": [
+        173.34666366666667,
+        173.62666266666668
+      ]
+    },
+    {
+      "byte": 1707,
+      "seconds": 111.16,
+      "sample_24k": 2667840,
+      "phrase": "that",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        111.159996,
+        111.519997
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 173.62666666666667,
+      "chapter_window": [
+        173.62666266666668,
+        173.9866636666667
+      ]
+    },
+    {
+      "byte": 1712,
+      "seconds": 111.52,
+      "sample_24k": 2676480,
+      "phrase": "square",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        111.519997,
+        111.919998
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 173.98666666666668,
+      "chapter_window": [
+        173.9866636666667,
+        174.38666466666666
+      ]
+    },
+    {
+      "byte": 1719,
+      "seconds": 111.92,
+      "sample_24k": 2686080,
+      "phrase": "has",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        111.919998,
+        112.260002
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 174.38666666666666,
+      "chapter_window": [
+        174.38666466666666,
+        174.72666866666668
+      ]
+    },
+    {
+      "byte": 1723,
+      "seconds": 112.26,
+      "sample_24k": 2694240,
+      "phrase": "size",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        112.260002,
+        112.419998
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 174.7266666666667,
+      "chapter_window": [
+        174.72666866666668,
+        174.88666466666666
+      ]
+    },
+    {
+      "byte": 1728,
+      "seconds": 112.42,
+      "sample_24k": 2698080,
+      "phrase": "at",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        112.419998,
+        112.800003
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 174.88666666666666,
+      "chapter_window": [
+        174.88666466666666,
+        175.26666966666667
+      ]
+    },
+    {
+      "byte": 1731,
+      "seconds": 112.8,
+      "sample_24k": 2707200,
+      "phrase": "most",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        112.800003,
+        113.419998
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 175.26666666666665,
+      "chapter_window": [
+        175.26666966666667,
+        175.88666466666666
+      ]
+    },
+    {
+      "byte": 1736,
+      "seconds": 113.42,
+      "sample_24k": 2722080,
+      "phrase": "epsilon,",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        113.419998,
+        113.879997
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 175.88666666666666,
+      "chapter_window": [
+        175.88666466666666,
+        176.34666366666667
+      ]
+    },
+    {
+      "byte": 1745,
+      "seconds": 113.88,
+      "sample_24k": 2733120,
+      "phrase": "times",
+      "basis": "provisional recognized word-segment start, not heard onset",
+      "window_s": [
+        113.879997,
+        114.059998
+      ],
+      "abuts_previous_word": true,
+      "chapter_seconds": 176.34666666666666,
+      "chapter_window": [
+        176.34666366666667,
+        176.52666466666665
+      ]
+    }
+  ],
+  "source_predicted_hidden_interval": [
+    170.5833333333,
+    172.2833333333
+  ],
+  "assessment": "Provisional recognition places c at167.847\u2013168.107 and diagonal at169.627\u2013170.167, before predicted hidden interval; steps/perimeter occupy hidden interval. Supports intended source timing, does not establish actual heard words/onsets, fine sync or picture acceptance. Check actual preview every-frame sequence and eventual AV."
+}

@@ -1,0 +1,44 @@
+--- a/crates/fmn-python/python/manimlib_bootstrap.py
++++ b/crates/fmn-python/python/manimlib_bootstrap.py
+@@ -14810,7 +14810,11 @@
+                     )
+                 if not mobject._is_bound():
+                     self.add(mobject)
+-                params = {"remover": bool(getattr(proto, "remover", False))}
++                # The Python lifecycle owns cleanup, including authored
++                # overrides and publishing replacement families. A native
++                # placeholder remover would run after that cleanup and
++                # remove shared target children a second time.
++                params = {"remover": False}
+                 if getattr(proto, "time_span", None) is not None:
+                     params["time_span"] = proto.time_span
+                 return (
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -11718,6 +11718,26 @@
+     }
+ 
+     #[test]
++    fn production_callback_cleanup_acceptance_suite() {
++        crate::with_python_test_module("callback cleanup acceptance", |py, _module, globals| {
++            let source = CString::new(include_str!("../tests/callback_cleanup.py"))
++                .expect("callback cleanup suite contains no NUL");
++            py.run(source.as_c_str(), Some(globals), Some(globals))
++                .inspect_err(|error| error.print(py))
++                .expect("load native callback cleanup acceptance");
++            let checks = globals
++                .get_item("verify_callback_cleanup")
++                .expect("find callback cleanup acceptance")
++                .expect("callback cleanup acceptance is defined")
++                .call0()
++                .inspect_err(|error| error.print(py))
++                .and_then(|value| value.extract::<u64>())
++                .expect("native callback cleanup acceptance");
++            assert_eq!(checks, 4);
++        });
++    }
++
++    #[test]
+     fn production_surface_mesh_acceptance_suite() {
+         crate::with_python_test_module("surface mesh acceptance", |py, _module, globals| {
+             let source = CString::new(include_str!("../tests/surface_mesh.py"))

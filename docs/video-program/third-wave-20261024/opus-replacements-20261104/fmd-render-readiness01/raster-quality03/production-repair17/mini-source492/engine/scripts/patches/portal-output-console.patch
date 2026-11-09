@@ -1,0 +1,393 @@
+diff --git a/crates/fmn-conformance/tests/e2e_scenarios.rs b/crates/fmn-conformance/tests/e2e_scenarios.rs
+index 2d41d65..94240dd 100644
+--- a/crates/fmn-conformance/tests/e2e_scenarios.rs
++++ b/crates/fmn-conformance/tests/e2e_scenarios.rs
+@@ -2006,6 +2006,8 @@ fn python_portal_native_outputs_run(ctx: &mut RunCtx) -> Result<RunOutcome, Scen
+         video_capability_refusals: video_refusals,
+     } = manimlib::run_portal_gauntlet_native_outputs(&root)
+         .map_err(|error| fail(format!("decoded Python native outputs: {error}")))?;
++    manimlib::run_portal_gauntlet_video_options()
++        .map_err(|error| fail(format!("negotiated Python output profiles: {error}")))?;
+     ctx.event(
+         LogEvent::new("e2e.python.native_outputs")
+             .field("frames", frames)
+@@ -2018,6 +2020,7 @@ fn python_portal_native_outputs_run(ctx: &mut RunCtx) -> Result<RunOutcome, Scen
+             .field("video_capability_refusals", video_refusals),
+     );
+     let mut outcome = RunOutcome::ok()
++        .with_counter("portal_output_options_suite", 1)
+         .with_counter("native_output_frames", frames)
+         .with_counter("native_output_formats", formats)
+         .with_counter("native_output_publication_failures", refusals)
+@@ -4422,6 +4425,7 @@ pub fn catalog() -> Vec<ScenarioSpec> {
+         vec![
+             Assertion::ExitCode(0),
+             Assertion::FileInventory(portal_output_inventory),
++            counter_eq("portal_output_options_suite", 1),
+             counter_eq("video_output_capability_refusals", 1),
+             counter_eq("native_output_frames", 4),
+             counter_eq("native_output_formats", 3),
+diff --git a/crates/fmn-python/python/fmn_python/batch_cli.py b/crates/fmn-python/python/fmn_python/batch_cli.py
+index 9536474..5555ff2 100644
+--- a/crates/fmn-python/python/fmn_python/batch_cli.py
++++ b/crates/fmn-python/python/fmn_python/batch_cli.py
+@@ -12,6 +12,7 @@ from .scene_loading import SceneSource
+ from .render_selection import PLAYBACK_HELP, take_playback_options, select_still_format
+ 
+ _VALUE_FLAGS = frozenset({"--format", "--resolution", "--fps", "--threads", "--video_dir",
++                          "--vcodec", "--pix_fmt", "--ffmpeg_bin",
+                           "-n", "--start_at_animation_number"})
+ _BATCH_HELP = """Multi-scene output:
+   fmn-python [--robot] SOURCE.py --write_all [--keep-going]
+diff --git a/crates/fmn-python/python/fmn_python/batch_rendering.py b/crates/fmn-python/python/fmn_python/batch_rendering.py
+index 116f065..704b74e 100644
+--- a/crates/fmn-python/python/fmn_python/batch_rendering.py
++++ b/crates/fmn-python/python/fmn_python/batch_rendering.py
+@@ -190,6 +190,7 @@ def render_scenes(
+     on_result: Callable[[SceneRenderOutcome], Any] | None = None,
+     max_jobs: int = 1024,
+     animation_range: tuple[int, int | None] | None = None,
++    _output_options: dict[str, Any] | None = None,
+ ) -> BatchRenderResult:
+     """Render named scenes in input order using independent native sessions.
+ 
+@@ -229,6 +230,7 @@ def render_scenes(
+         try:
+             receipt = render_scene(job.scene, path, format=format, resolution=resolution,
+                                    fps=fps, threads=threads, scene_kwargs=job.scene_kwargs,
++                                   **({} if not _output_options else {"_output_options": _output_options}),
+                                    **({} if selection is None else {"animation_range": selection}))
+         except Exception as error:
+             failure = error
+diff --git a/crates/fmn-python/python/fmn_python/console_rendering.py b/crates/fmn-python/python/fmn_python/console_rendering.py
+index f8fdeeb..16041bd 100644
+--- a/crates/fmn-python/python/fmn_python/console_rendering.py
++++ b/crates/fmn-python/python/fmn_python/console_rendering.py
+@@ -16,7 +16,7 @@ from .batch_rendering import (
+     BatchRenderError, BatchRenderResult, _error_fields, _error_notes,
+     _name_key, render_scenes,
+ )
+-from .rendering import RenderSession, _positive_integer
++from .rendering import RenderSession, _positive_integer, _apply_output_options
+ from .scene_loading import SceneSource
+ from .render_selection import PLAYBACK_HELP, take_playback_options, select_still_format
+ 
+@@ -33,6 +33,41 @@ With one scene, --video_dir retains its existing single-output destination meani
+ --keep-going requires multiple names or --write_all. It never ignores Ctrl-C.
+ """
+ 
++_OUTPUT_HELP = """Native output profiles:
++  --transparent, -t       Preserve alpha in PNG/PNG sequences or qtrle MOV.
++  --vcodec ENCODER        Installed ffmpeg encoder name, or auto (video only).
++  --pix_fmt FORMAT        Native wire: rgba, bgra, nv12/yuv420p, p010le.
++  --ffmpeg_bin PATH       Explicit ffmpeg executable; paths with spaces work.
++
++Transparent MOV defaults to RGBA/qtrle. Explicit transparent video profiles
++require rgba/bgra and qtrle/auto. MP4, GIF, y4m and WAV do not accept -t.
++Output options apply to every selected scene without constructor changes.
++Video remains uncertified. P010 is a 10-bit transport, not an HDR claim.
++"""
++
++
++def _output_overrides(options):
++    """Validate output combinations after the existing parser/still selector."""
++    result = {name: options[name] for name in ("vcodec", "pix_fmt", "ffmpeg_bin", "transparent")
++              if options.get(name) is not None and options.get(name) is not False}
++    format = options["format"]
++    if any(name in result for name in ("vcodec", "pix_fmt", "ffmpeg_bin")) and format not in {"mp4", "mov"}:
++        raise ValueError("--vcodec/--pix_fmt/--ffmpeg_bin require mp4 or mov output")
++    if result.get("transparent"):
++        if format not in {"png", "png_sequence", "mov"}:
++            raise ValueError("--transparent requires png, png_sequence, or mov output")
++        if format == "mov":
++            if result.get("pix_fmt", "rgba").lower() not in {"rgba", "rgba8", "bgra", "bgra8"}:
++                raise ValueError("transparent video requires an rgba or bgra wire pixel format")
++            if result.get("vcodec", "auto").lower() not in {"auto", "qtrle"}:
++                raise ValueError("transparent video requires --vcodec qtrle or auto")
++    executable = result.get("ffmpeg_bin")
++    if executable is not None and Path(executable).name != executable:
++        # Freeze explicit paths before authored imports/constructors can chdir.
++        # Bare executable names remain the native governed locator's job.
++        result["ffmpeg_bin"] = str(Path(executable).resolve())
++    return result
++
+ 
+ def _tokens(arguments, omit=()):
+     """Separate positional selectors without interpreting native option values."""
+@@ -90,7 +125,7 @@ def try_render_cli(native: Any, arguments: list[str]) -> int | None:
+         text = native._portal_cli_help().replace(
+             "Certified output, opener flags, write-all, and Studio",
+             "Certified output, opener flags, and Studio",
+-        ) + "\n\n" + _BATCH_HELP + "\n" + _SELECTION_HELP + "\n" + PLAYBACK_HELP
++        ) + "\n\n" + _BATCH_HELP + "\n" + _SELECTION_HELP + "\n" + PLAYBACK_HELP + "\n" + _OUTPUT_HELP
+         if robot:
+             return native._portal_cli_emit(0, "success", "help", "fmn-python usage", True, help=text)
+         print(text)
+@@ -104,6 +139,7 @@ def try_render_cli(native: Any, arguments: list[str]) -> int | None:
+         parser_args = raw_positionals[:1] + native_options
+         positionals, options, width, height, fps, threads = native._portal_cli_render_arguments(parser_args)
+         options = select_still_format(options, native_options, still)
++        output_options = _output_overrides(options)
+         for name, value in (("width", width), ("height", height), ("fps", fps), ("threads", threads)):
+             _positive_integer(value, name)
+         source = positionals[0]
+@@ -155,6 +191,7 @@ def try_render_cli(native: Any, arguments: list[str]) -> int | None:
+                     format=options["format"], resolution=(width, height), fps=fps, threads=threads,
+                     continue_on_error=bool(keep_going), max_jobs=_MAX_SELECTED_SCENES,
+                     **({} if selection is None else {"animation_range": selection}),
++                    **({} if not output_options else {"_output_options": output_options}),
+                     on_result=lambda outcome: print(
+                         f"fmn-python: {outcome.name}: {outcome.status}: {outcome.destination}",
+                         file=sys.stderr,
+@@ -174,6 +211,7 @@ def try_render_cli(native: Any, arguments: list[str]) -> int | None:
+                 phase = "construct"
+                 scene = scenes[selected]()
+                 phase = "start"
++                _apply_output_options(scene, output_options)
+                 session = RenderSession(scene, destination, format=options["format"],
+                                         resolution=(width, height), fps=fps, threads=threads,
+                                         animation_range=selection, _native=native)
+diff --git a/crates/fmn-python/python/fmn_python/rendering.py b/crates/fmn-python/python/fmn_python/rendering.py
+index 50c08b3..fe530c3 100644
+--- a/crates/fmn-python/python/fmn_python/rendering.py
++++ b/crates/fmn-python/python/fmn_python/rendering.py
+@@ -248,6 +248,7 @@ def render_scene(
+     resolution: tuple[int, int] | None = None, fps: int | None = None,
+     threads: int | None = None, scene_kwargs: dict[str, Any] | None = None,
+     animation_range: tuple[int, int | None] | None = None,
++    _output_options: dict[str, Any] | None = None,
+ ) -> RenderResult:
+     """Render a Scene instance or class and return its native artifact receipt.
+ 
+@@ -263,6 +264,8 @@ def render_scene(
+         scene = scene(**({} if scene_kwargs is None else dict(scene_kwargs)))
+     elif scene_kwargs is not None:
+         raise TypeError("scene_kwargs is valid only when rendering a Scene class")
++    if _output_options:
++        _apply_output_options(scene, _output_options)
+     session = RenderSession(scene, destination, format=format, resolution=resolution,
+                             fps=fps, threads=threads, animation_range=animation_range, _native=native)
+     with session:
+@@ -275,6 +278,19 @@ def render_scene(
+     return session.result
+ 
+ 
++def _apply_output_options(scene: Any, options: dict[str, Any]) -> None:
++    """Apply parsed console overrides after construction, without replacing
++    the scene's camera, pose, RGB background, or unrelated writer settings.
++    """
++    for option, attribute in (("vcodec", "video_codec"), ("pix_fmt", "pixel_format"),
++                              ("ffmpeg_bin", "ffmpeg_bin")):
++        value = options.get(option)
++        if value is not None:
++            setattr(scene.file_writer, attribute, value)
++    if options.get("transparent", False):
++        scene.camera.background_rgba[3] = 0.0
++
++
+ def _validate_writer_options(scene: Any, format: str, native: Any) -> None:
+     writer = getattr(scene, "file_writer", None)
+     if writer is None:
+diff --git a/crates/fmn-python/python/manimlib_bootstrap.py b/crates/fmn-python/python/manimlib_bootstrap.py
+index d3906b0..775981e 100644
+--- a/crates/fmn-python/python/manimlib_bootstrap.py
++++ b/crates/fmn-python/python/manimlib_bootstrap.py
+@@ -22751,11 +22751,23 @@ def _portal_cli_render_arguments(arguments):
+         "fps": "60",
+         "threads": str(max(1, min(_os.cpu_count() or 1, 96))),
+         "video_dir": None,
++        "vcodec": None,
++        "pix_fmt": None,
++        "ffmpeg_bin": None,
++        "transparent": False,
+     }
+     positionals = []
++    value_flags = ("--format", "--resolution", "--fps", "--threads", "--video_dir",
++                   "--vcodec", "--pix_fmt", "--ffmpeg_bin")
+     index = 0
+     while index < len(arguments):
+         argument = arguments[index]
++        if argument in ("--transparent", "-t"):
++            if values["transparent"]:
++                raise ValueError("--transparent/-t must not be repeated")
++            values["transparent"] = True
++            index += 1
++            continue
+         if argument == "--reproducible":
+             raise RuntimeError(
+                 "CAPABILITY: certified portal rendering awaits the complete "
+@@ -22765,7 +22777,7 @@ def _portal_cli_render_arguments(arguments):
+             raise RuntimeError(
+                 f"CAPABILITY: {argument} is not connected in the Python portal"
+             )
+-        if argument in ("--format", "--resolution", "--fps", "--threads", "--video_dir"):
++        if argument in value_flags:
+             if index + 1 >= len(arguments):
+                 raise ValueError(f"{argument} requires a value")
+             values[argument[2:]] = arguments[index + 1]
+@@ -22773,7 +22785,7 @@ def _portal_cli_render_arguments(arguments):
+             continue
+         if argument.startswith("--") and "=" in argument:
+             name, value = argument.split("=", 1)
+-            if name in ("--format", "--resolution", "--fps", "--threads", "--video_dir"):
++            if name in value_flags:
+                 if not value:
+                     raise ValueError(f"{name} requires a value")
+                 values[name[2:]] = value
+@@ -22803,6 +22815,12 @@ def _portal_cli_render_arguments(arguments):
+         ) from error
+     if width <= 0 or height <= 0 or fps <= 0 or threads <= 0:
+         raise ValueError("resolution, fps, and threads must all be positive")
++    # Final format checks follow -s/--skip_animations selection in the console
++    # owner. Do not validate against the pre-selection default here.
++    for name in ("vcodec", "pix_fmt", "ffmpeg_bin"):
++        value = values[name]
++        if value is not None and (not value or "\0" in value):
++            raise ValueError(f"--{name} requires a nonempty value without NUL")
+     return positionals, values, width, height, fps, threads
+ 
+ 
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+index 27fef33..7cc9ecf 100644
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -11034,6 +11034,20 @@ pub fn run_portal_gauntlet_native_outputs(
+     })
+ }
+ 
++/// Exercise negotiated output through both programmatic and console owners.
++/// The shared acceptance source independently decodes real encoder output;
++/// `FMN_REQUIRE_FFMPEG=1` makes encoder availability a hard prerequisite.
++#[cfg(feature = "gauntlet")]
++pub fn run_portal_gauntlet_video_options() -> Result<(), String> {
++    with_python_test_module("video options Gauntlet", |py, _module, globals| {
++        let source = CString::new(include_str!("../tests/video_options.py"))
++            .expect("video options suite contains no NUL");
++        py.run(source.as_c_str(), Some(globals), Some(globals))
++            .inspect_err(|error| error.print(py))
++            .map_err(|error| error.to_string())
++    })
++}
++
+ /// Observations from independently decoded portal artifacts and planted failures.
+ #[cfg(feature = "gauntlet")]
+ #[derive(Debug)]
+diff --git a/crates/fmn-python/tests/video_options.py b/crates/fmn-python/tests/video_options.py
+index fc8cc00..733f323 100644
+--- a/crates/fmn-python/tests/video_options.py
++++ b/crates/fmn-python/tests/video_options.py
+@@ -135,3 +135,53 @@ with tempfile.TemporaryDirectory(prefix="fmn-video-options-") as directory:
+         assert not target.exists(), "failed generation published a partial video"
+ 
+ print("portal-video: profile refusals verified; decoded alpha/channel/wire tests=" + str(bool(ffmpeg)))
++
++# The installed console owner, with the real extension, must propagate the
++# same profile through single and batch generations without rewriting source.
++from fmn_python.console_rendering import try_render_cli
++import contextlib
++import io
++import json
++
++with tempfile.TemporaryDirectory(prefix="fmn-video-console-") as directory:
++    root = pathlib.Path(directory)
++    source = root / "scene.py"
++    source.write_text("from manimlib import *\n"
++                      "class First(Scene):\n"
++                      "    def __init__(self):\n        super().__init__()\n"
++                      "    def construct(self):\n"
++                      "        self.add(Square(side_length=2, fill_color=RED, fill_opacity=1, stroke_width=0).shift(UP))\n"
++                      "        self.wait(2 / 8)\n"
++                      "class Second(First):\n    pass\n")
++
++    def console_output(*arguments):
++        stdout, stderr = io.StringIO(), io.StringIO()
++        with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
++            code = try_render_cli(m, ["--robot", str(source), "--resolution", "96x54",
++                                      "--fps", "8", "--threads", "1", *arguments])
++        report = json.loads(stdout.getvalue())
++        assert report["exit"]["code"] == code
++        return code, report
++
++    target = root / "still.png"
++    code, report = console_output("First", "-s", "--transparent", "--video_dir", str(target))
++    assert code == 0 and report["frame_count"] == 1, report
++    if ffmpeg:
++        png = decode(target)
++        assert len(png) == 1 and png[0, 0, 0, 3] == 0
++        target = root / "single.mov"
++        code, report = console_output("First", "--format", "mov", "-t", "--pix_fmt", "bgra",
++                                      "--vcodec", "qtrle", "--ffmpeg_bin", ffmpeg,
++                                      "--video_dir", str(target))
++        assert code == 0 and report["frame_count"] == 2, report
++        assert report["ffmpeg_invocations"][0]["encoder"] == "qtrle"
++        assert np.all(decode(target)[:, 0, 0, 3] == 0)
++        batch = root / "batch"
++        code, report = console_output("Second", "First", "--format", "mov", "-t",
++                                      "--vcodec", "qtrle", "--pix_fmt", "rgba",
++                                      "--video_dir", str(batch))
++        assert code == 0, report
++        for name in ("First", "Second"):
++            frames = decode(batch / (name + ".mov"))
++            assert len(frames) == 2 and np.all(frames[:, 0, 0, 3] == 0)
++    print("portal-video-console: transparent PNG and native single/batch MOV accepted")
+diff --git a/docs/dist/python_wheel.md b/docs/dist/python_wheel.md
+index 36fe3cf..406fe83 100644
+--- a/docs/dist/python_wheel.md
++++ b/docs/dist/python_wheel.md
+@@ -77,9 +77,10 @@ operations:
+ fmn-python [--robot] --version
+ fmn-python [--robot] --list-scenes SOURCE.py
+ fmn-python [--robot] --construct-only SOURCE.py [SCENE]
+-fmn-python [--robot] SOURCE.py [SCENE] [--format png_sequence|png|gif|y4m|wav]
++fmn-python [--robot] SOURCE.py [SCENE ...] [--format png_sequence|png|gif|y4m|wav|mp4|mov]
+            [--resolution WIDTHxHEIGHT] [--fps FPS] [--threads N]
+-           [--video_dir PATH]
++           [--video_dir PATH] [--transparent]
++           [--vcodec ENCODER] [--pix_fmt FORMAT] [--ffmpeg_bin PATH]
+ ```
+ 
+ `--construct-only` is an explicit engine-lifecycle diagnostic and reports
+@@ -107,8 +108,41 @@ The permanent native, installed-wheel and registered E2E suites independently
+ decode GIF/y4m/WAV bytes and check motion, primary colors, cue placement,
+ thread-count replay and preservation of destinations after failures.
+ 
+-Certified output (`--reproducible`), ffmpeg video containers, opener/write-all flags,
+-and `studio` remain fail-closed capability errors. In particular, the portal
++MP4 and MOV use Reel's content-hashed, governed ffmpeg process boundary, not a
++Python subprocess encoder. `SceneFileWriter.ffmpeg_bin`, `video_codec`, and
++`pixel_format` are negotiated before acquiring an output generation. The
++default is libx264 with NV12 transport; `auto` selects the container's software
++encoder. `--pix_fmt` selects the native **input wire**, not arbitrary ffmpeg
++filters: `rgba`/`rgba8`, `bgra`/`bgra8`, `nv12`/`yuv420p`, or
++`p010`/`p010le`/`yuv420p10le`. P010 retains 10-bit transport/output planes; it
++does not assert an HDR pipeline or additional source color precision.
++
++`--transparent` (`-t`) preserves the scene's RGB background and camera pose,
++changing only background alpha. PNG and PNG sequences carry alpha natively.
++MOV automatically promotes the ordinary writer defaults to RGBA/qtrle; an
++explicit transparent video profile must use RGBA/BGRA and qtrle/auto. MP4,
++GIF, y4m and WAV reject this switch rather than silently flattening it.
++Ordinary video requires even dimensions. Alpha cannot be introduced midway
++through an already-negotiated opaque video generation.
++
++```bash
++fmn-python scene.py Example -s --transparent --video_dir still.png
++fmn-python scene.py Example --format mov -t --pix_fmt bgra --video_dir alpha.mov
++fmn-python scene.py Example --format mp4 --vcodec libx264 --pix_fmt p010le --video_dir tenbit.mp4
++fmn-python scene.py First Second --format mov -t --video_dir batch
++```
++
++All selected scenes receive these overrides **after** their normal constructors
++run, including constructors that accept no keyword arguments. `--write_all`
++and named batches retain independent atomic destinations and ordered receipts.
++For programmatic rendering, set `camera_config={"background_opacity": 0}` and
++the corresponding `file_writer_config` on a Scene, then call
++`fmn_python.render_scene(scene, "alpha.mov")`. An explicit `ffmpeg_bin` can
++contain spaces and is resolved without shell tokenization. Invalid profiles,
++missing encoders and failed frames do not replace existing destinations.
++
++Certified output (`--reproducible`), opener flags, and Python `studio`
++remain fail-closed capability errors. In particular, the portal
+ does not expose a partial certified path before the Python input closure and
+ provenance sidecar are complete, and it does not label lifecycle-only work as
+ a render. Python scenes execute with the host interpreter's full user

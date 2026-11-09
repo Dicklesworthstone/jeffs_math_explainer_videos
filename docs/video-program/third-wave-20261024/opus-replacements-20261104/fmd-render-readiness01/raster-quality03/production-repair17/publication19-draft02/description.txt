@@ -1,0 +1,27 @@
+A smooth curve can hide a surprise: its Taylor series stops working even though the curve itself has no visible trouble. To find the obstruction, we leave the real line and explore the complex plane.
+
+Follow grids, circles and colors through polynomials, reciprocals, exponentials and trigonometric functions. See why a complex derivative has to agree from every direction, and why being holomorphic throughout a region is such a strong condition.
+
+We build the proofs as pictures: shared edges cancel, nested squares shrink, and a tiny loop reveals Cauchy's integral formula. From there we count zeros and poles, use a residue to find a real area, and follow analytic continuation beyond a power series' original disk. We also examine where these tools stop working.
+
+Mathematical reference and further reading
+NIST Digital Library of Mathematical Functions, Functions of a Complex Variable: https://dlmf.nist.gov/1.10
+
+Animations made with FrankenManim. Narration: ElevenLabs, Frederick Surrey.
+
+Chapters
+0:00 The smooth curve with a hidden obstruction
+1:45 Multiplication as turning and stretching
+3:14 Watching a function move the plane
+5:15 How to read the colors
+7:08 A gallery of complex functions
+9:53 A derivative from every direction
+12:40 What happens when the derivative is zero
+14:28 Why closed-loop integrals cancel
+18:37 How the boundary determines the inside
+23:12 The rigidity of holomorphic functions
+25:16 Counting zeros and poles
+28:35 What a residue measures
+29:41 A real integral through the complex plane
+32:38 Continuation and its limits
+35:54 Returning to the real line

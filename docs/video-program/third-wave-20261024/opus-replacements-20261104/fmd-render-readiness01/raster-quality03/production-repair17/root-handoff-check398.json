@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-09T01:06:23.248471+00:00",
+  "relay_sha256": "93f677ff33976beaa4ac8468f258b7ac0911fa8362cbe6947b4f1a8e9de43beb",
+  "replay394": {
+    "exit": 1,
+    "passed": 30,
+    "total": 31,
+    "failure": "substring scan found kill in diagnostic text: nothing killed here; no destructive AST calls",
+    "scratch": "/private/tmp/relay394-test-6l2rpf5y",
+    "scope": "stubbed transports only, no actual import or independent final review"
+  },
+  "replay395": "partial pass then local path resolves through /Volumes symlink and run-only-CSD assertion; not complete test pass",
+  "csd_probe7211": "exit255 server not responding, render outcome unknown",
+  "local_free": "df reports139GiB; prior3GiB admission block may have cleared, recheck before heavy work",
+  "workers": "all four weekly limited, sessions preserved; owner account-switch status requested"
+}

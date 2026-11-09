@@ -1,0 +1,15 @@
+test466.out.json/F1/validate_fabricated_completion/substituted Q permit copy (same count)/failures: [] -> ["g"]
+test466.out.json/F1/validate_fabricated_completion/substituted Q permit copy (same count)/passed: 8 -> 7
+test466.out.json/F1/validate_fabricated_completion/substituted shared row (same count)/failures: [] -> ["g"]
+test466.out.json/F1/validate_fabricated_completion/substituted shared row (same count)/passed: 8 -> 7
+test466.out.json/F2/S02_stream_lost_after_remote_completed/record_status/message: "transport failure during the stream (send 0, receive 255); attempt 1 is root's to investigate; run status when both hosts answer" -> "transport failure during the stream (send 0, receive 255); attempt 1 is root's to investigate; run verify --attempt 1 when both hosts answer"
+test466.out.json/F2/S02_stream_lost_after_remote_completed/stop: "STOP 2: transport failure during the stream (send 0, receive 255); attempt 1 is root's to investigate; run status when both hosts answer" -> "STOP 2: transport failure during the stream (send 0, receive 255); attempt 1 is root's to investigate; run verify --attempt 1 when both hosts answer"
+test466.out.json/F2/S03_stream_lost_remote_failed/record_status/message: "transport failure during the stream (send 0, receive 255); attempt 1 is root's to investigate; run status when both hosts answer" -> "transport failure during the stream (send 0, receive 255); attempt 1 is root's to investigate; run verify --attempt 1 when both hosts answer"
+test466.out.json/F2/S03_stream_lost_remote_failed/stop: "STOP 2: transport failure during the stream (send 0, receive 255); attempt 1 is root's to investigate; run status when both hosts answer" -> "STOP 2: transport failure during the stream (send 0, receive 255); attempt 1 is root's to investigate; run verify --attempt 1 when both hosts answer"
+test466c.out.json/F5/receipt command names another helper path/code: 0 -> 3
+test466c.out.json/F5/receipt command names another helper path/failures: [] -> ["c"]
+test466c.out.json/F5/receipt command names another helper path/passed: 8 -> 7
+test466c.out.json/F5/receipt command names attempt 7/code: 0 -> 3
+test466c.out.json/F5/receipt command names attempt 7/failures: [] -> ["c"]
+test466c.out.json/F5/receipt command names attempt 7/passed: 8 -> 7
+differences: 14

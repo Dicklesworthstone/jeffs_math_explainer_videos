@@ -1,0 +1,34 @@
+{
+  "chapter": "15_closing",
+  "frames": 4379,
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "permit_sha256": "ec74b68375331470ac18c2c7e5db4fc60bb82a247e2eeead844233c453fecd20",
+  "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=18 lookahead_threads=6 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+  "files": [
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/15_closing.cuelog.tsv",
+      "sha256": "68dd9e7f367e6960cc860e8bfa77cbc9b9d7e46349594cc0b8d54e4dfe5fa562"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/15_closing.cues.tsv",
+      "sha256": "9e0801e22fa155f51129c48709286de603b499e6307fcd7db51ac3f4a964d880"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/15_closing.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/15_closing.mp4",
+      "sha256": "3e2440a8785319cf9477e73303e6391c8a4165c7fbfd3fa6f4ad97e81f874fd4"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/15_closing.timeline.tsv",
+      "sha256": "68d61237abc06fed1b1f9b98928fa8245b0fe2f49c0f6ae80eb8863c79b1b9dd"
+    },
+    {
+      "path": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/render/soundtrack/15_closing/soundtrack_0.wav",
+      "sha256": "b4ceed363b8cac3fb2459738b156070b055e59abfee51588e44f297025040cb6"
+    }
+  ],
+  "scope": "Technical scored4K60 chapter only; full decode, master replay, final pictures/motion/audio/captions and publication remain."
+}

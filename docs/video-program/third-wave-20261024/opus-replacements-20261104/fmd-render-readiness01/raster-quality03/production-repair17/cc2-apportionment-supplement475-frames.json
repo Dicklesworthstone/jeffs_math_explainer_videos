@@ -1,0 +1,1814 @@
+{
+ "version": "475",
+ "helper462_sha256": "235755141df29ee093daf0af2a91a2ed6a6d0dfc5db74586c13193e78128bf37",
+ "method": "held picture: >= 60 frames of timeline444's 64x36 render with no pixel step > 2/255 between frames, and no frame of 462's plan inside; its middle frame is listed",
+ "timeline444": {
+  "01_one_more_seat": {
+   "frames": 4806,
+   "plan462_samples": 48,
+   "timeline_sha256": "35d6ba169078dd24069ba6c133c1d6a00f74fec74c930fbae3a1260e20f6badb",
+   "cues_sha256": "ad408c17122d51115c33f117b63a5f44e35c979554026131c36d05fb5d1ee393",
+   "layout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "movie_sha256": "ce604515047ce19888068285421bc9e52319d0285b7f453df21ac2950ec24f2b"
+  },
+  "02_shares": {
+   "frames": 6647,
+   "plan462_samples": 55,
+   "timeline_sha256": "80c1a230687c251d1673b1ff94b7020b1905b77d8961ddfb12e2d0e38f15722f",
+   "cues_sha256": "22f502d908f3a70f66e53f5c0a18d2aa7159af0e955c74cbbf21c17eec672c98",
+   "layout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "movie_sha256": "c9f43b0ac5e494e57539ea3c60758cb5485fbee74061de1cda8ba857e6de5dcd"
+  },
+  "03_largest_tails": {
+   "frames": 5527,
+   "plan462_samples": 48,
+   "timeline_sha256": "193092fcdeb06ffca58e91fecadcca57a89e07173ada7842f7565c8a1734f63e",
+   "cues_sha256": "4b10ad40d284d73ce32d9abc11fe3d3895e0d8354213828b3662a8110c49b5e5",
+   "layout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "movie_sha256": "0ae9c0ea5d9b92ab5f17282da937bb21714f1d2763ab7d580632056ad0b30002"
+  },
+  "04_sixteenth": {
+   "frames": 4238,
+   "plan462_samples": 41,
+   "timeline_sha256": "9dbfbe64448f31355340e44004fce8dfee4c6df49c009f53b0b6dd8b45e979cd",
+   "cues_sha256": "a4a7d3ee3ee360c34c135f39da9b24c6f6764ab880e39db6a91e4e8c089b9869",
+   "layout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "movie_sha256": "dbaed760a4b52bfe8369bc13161f132442c13c553d566803379e25b836ac61f6"
+  },
+  "05_dials": {
+   "frames": 6316,
+   "plan462_samples": 41,
+   "timeline_sha256": "53e2c4ea7510b9151d507345f82fe813934da41f7f2a8467b5dafccf6166b634",
+   "cues_sha256": "a0ec2201b3e4b4c56bf444e2a539775a35c24633bc4323a0de730474fd373329",
+   "layout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "movie_sha256": "7aa41a7ea275016d7c2816162778ca83bd94415f202bfb53ff4d6f2c54940a47"
+  },
+  "06_not_every_time": {
+   "frames": 4947,
+   "plan462_samples": 48,
+   "timeline_sha256": "fd46bfbc8baa35df1d46bd4c7c8fa5267d636ec1724fb26a09f4f8c5e1abad8b",
+   "cues_sha256": "520f69ea626a793268488b2b48bfa385ed6b5ef34f7f84270fa042c616bac663",
+   "layout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "movie_sha256": "b049bc3c9a33ee37fde0ff7dfad0ac912eac0c8c5a31e0635c21da0e1d5658b4"
+  },
+  "07_yardstick": {
+   "frames": 5049,
+   "plan462_samples": 41,
+   "timeline_sha256": "bd119ea30bdf633d6b37069b998b8bfbfd139dcb56600c69393bdbd927dc7618",
+   "cues_sha256": "1de67bfcb5c0445c7aa9a7092eedc08f11e0d6dfc9b0254d15cdc90f95ab8996",
+   "layout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "movie_sha256": "6b877edbd740ea472014cb00139a31819ef146c656ab7233818bd0948d2eea48"
+  },
+  "08_signposts": {
+   "frames": 6448,
+   "plan462_samples": 115,
+   "timeline_sha256": "329f1c491972dce7963f9e5b825a0c1e284fcd01cbced91b250a000e794b2fd2",
+   "cues_sha256": "72a3b521def55e5b3fd38f7f24589bac2c5f28345b906c82146f8f6fd291a399",
+   "layout_sha256": "692e00029de305b8e8605fb14b0ae538fbdaaf656d0e6b7f5da7f752d54d74fd",
+   "movie_sha256": "9193befd93902a0fb3b1fc3e9ba065313342390258ffe764ef83bdcddde49482"
+  },
+  "09_cost": {
+   "frames": 4907,
+   "plan462_samples": 41,
+   "timeline_sha256": "f2d180cfbd990ced3accef990d4b6e57e29177279c3e438de4f0a2d5e9cecf71",
+   "cues_sha256": "6407fe9131b799d0c4e349cb449dcdfff39fdbb9e0fd98e465cf9e0fd10c6bdb",
+   "layout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "movie_sha256": "ce30292dac9dbc71a93ff83f5f515767fbfad6202555f1cad5d9861e8a497568"
+  },
+  "10_rounding_rules": {
+   "frames": 8471,
+   "plan462_samples": 55,
+   "timeline_sha256": "f85572b6a9be4479cc323548585d0782bc67900ee56a8c47c92831b1a1ba8f46",
+   "cues_sha256": "1769f199409f9f679723c01238248b3abc68166c9a7ed56aab5b1af0c689e354",
+   "layout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "movie_sha256": "ca1ad140d7a9e557a0823d00112b7c835f23efa51866ba53c0b852bd35041358"
+  },
+  "11_webster_quota": {
+   "frames": 6480,
+   "plan462_samples": 93,
+   "timeline_sha256": "dc44dfc260db996872a732d0d74e2ccbd4956f29f9853035bab1c70eebfb99d5",
+   "cues_sha256": "f74aaec29715bf3d9032f8411ebdffefdc51550ccb0cfa0962cf87594bcb0ffd",
+   "layout_sha256": "46cf8f06ba3ef7852a4af651cb0dc9d60929cd8681866425ff23d7829936eec4",
+   "movie_sha256": "fc7992cdbb73d5ac4c37765f1793f5c54bed8ba997ef1900dafacc9df022e84b"
+  },
+  "12_both_promises": {
+   "frames": 13460,
+   "plan462_samples": 195,
+   "timeline_sha256": "8340f8a403ea61a1e3ed42919047f6c31a581f3be9aa340c75b31e438492b9e6",
+   "cues_sha256": "f4a22a155e8853faca9dfb620b0023e08d29ce96cd1e2f5a2acb76e0f13b0683",
+   "layout_sha256": "fd5bcaac35fcc882ddcf762228d6ecb1c930847607c5c1e1a80ccf358ec65212",
+   "movie_sha256": "07e45fe225e70d545f2e733085bc7b27161c8c1057a8d485f91522f1a59e61cb"
+  },
+  "13_population": {
+   "frames": 7459,
+   "plan462_samples": 113,
+   "timeline_sha256": "1f0131cebfa2530c00451081ea1a27d00441d0f61b1487ce80fab969ef0ccaf5",
+   "cues_sha256": "f1454e8f2922291f67d6d1fa35ffb722f67c6d6f101fd32a18a00e0c76650f78",
+   "layout_sha256": "a6747c33f263f629d534fbdc8252e95ffbd18b27c3b737dc600acb7a89f17945",
+   "movie_sha256": "cdea25d6286022fb9f6bd509cff1e64bde1e4c0858ae2803edcfcddd1028ae43"
+  },
+  "14_no_rule": {
+   "frames": 10390,
+   "plan462_samples": 62,
+   "timeline_sha256": "39694c62965cd58c1835d0c6570e393672bf904ce12ad7bae8d60c692eb4b9e1",
+   "cues_sha256": "4d2830224dc723eecca8f0fa61de661d5265f67945420be7156df765c4d2eb22",
+   "layout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "movie_sha256": "c1e70c29e6a8cfdd53c522e74aaf4a48bf410b3c30a44a8580e79631a528a691"
+  },
+  "15_recap": {
+   "frames": 5741,
+   "plan462_samples": 82,
+   "timeline_sha256": "aaddf9080eca164575d242085c89d7ec67665078e097a6d7c395bff50bcaccf0",
+   "cues_sha256": "b309267db78a66ded56c38d11c91cc97b048db5f099bc48c613811344a41aa17",
+   "layout_sha256": "732cb89434b9ca482dd836c52e7f44b86657669b8905ef4e3b84ab22c0fa9c84",
+   "movie_sha256": "aab45936e3321df2afe24236f6a60c08a1c7d8a09694360103e29c1e1fee7f04"
+  }
+ },
+ "chapters": {
+  "01_one_more_seat": [
+   {
+    "frame": 441,
+    "kind": "held",
+    "first": 383,
+    "last": 499,
+    "seconds": 1.95,
+    "during": [
+     "01_1"
+    ],
+    "nearest_462_level": 12,
+    "reason": "held 383-499 (1.95 s) during 01_1; no 462 frame inside; nearest 462 picture 12/255 away at 64x36"
+   },
+   {
+    "frame": 1450,
+    "kind": "held",
+    "first": 1401,
+    "last": 1499,
+    "seconds": 1.65,
+    "during": [
+     "01_3"
+    ],
+    "nearest_462_level": 7,
+    "reason": "held 1401-1499 (1.65 s) during 01_3; no 462 frame inside; nearest 462 picture 7/255 away at 64x36"
+   },
+   {
+    "frame": 3243,
+    "kind": "held",
+    "first": 3163,
+    "last": 3324,
+    "seconds": 2.7,
+    "during": [
+     "01_5"
+    ],
+    "nearest_462_level": 12,
+    "reason": "held 3163-3324 (2.70 s) during 01_5; no 462 frame inside; nearest 462 picture 12/255 away at 64x36"
+   },
+   {
+    "frame": 4366,
+    "kind": "held",
+    "first": 4325,
+    "last": 4407,
+    "seconds": 1.38,
+    "during": [
+     "01_6"
+    ],
+    "nearest_462_level": 111,
+    "reason": "held 4325-4407 (1.38 s) during 01_6; no 462 frame inside; nearest 462 picture 111/255 away at 64x36"
+   },
+   {
+    "frame": 4508,
+    "kind": "held",
+    "first": 4449,
+    "last": 4568,
+    "seconds": 2.0,
+    "during": [
+     "01_6"
+    ],
+    "nearest_462_level": 58,
+    "reason": "held 4449-4568 (2.00 s) during 01_6; no 462 frame inside; nearest 462 picture 58/255 away at 64x36"
+   }
+  ],
+  "02_shares": [
+   {
+    "frame": 176,
+    "kind": "held",
+    "first": 104,
+    "last": 249,
+    "seconds": 2.43,
+    "during": [
+     "02_1"
+    ],
+    "nearest_462_level": 150,
+    "reason": "held 104-249 (2.43 s) during 02_1; no 462 frame inside; nearest 462 picture 150/255 away at 64x36"
+   },
+   {
+    "frame": 281,
+    "kind": "held",
+    "first": 250,
+    "last": 313,
+    "seconds": 1.07,
+    "during": [
+     "02_1"
+    ],
+    "nearest_462_level": 150,
+    "reason": "held 250-313 (1.07 s) during 02_1; no 462 frame inside; nearest 462 picture 150/255 away at 64x36"
+   },
+   {
+    "frame": 800,
+    "kind": "held",
+    "first": 735,
+    "last": 866,
+    "seconds": 2.2,
+    "during": [
+     "02_1"
+    ],
+    "nearest_462_level": 16,
+    "reason": "held 735-866 (2.20 s) during 02_1; no 462 frame inside; nearest 462 picture 16/255 away at 64x36"
+   },
+   {
+    "frame": 1219,
+    "kind": "held",
+    "first": 1173,
+    "last": 1265,
+    "seconds": 1.55,
+    "during": [
+     "02_2"
+    ],
+    "nearest_462_level": 117,
+    "reason": "held 1173-1265 (1.55 s) during 02_2; no 462 frame inside; nearest 462 picture 117/255 away at 64x36"
+   },
+   {
+    "frame": 1441,
+    "kind": "held",
+    "first": 1362,
+    "last": 1521,
+    "seconds": 2.67,
+    "during": [
+     "02_2"
+    ],
+    "nearest_462_level": 175,
+    "reason": "held 1362-1521 (2.67 s) during 02_2; no 462 frame inside; nearest 462 picture 175/255 away at 64x36"
+   },
+   {
+    "frame": 1799,
+    "kind": "held",
+    "first": 1722,
+    "last": 1876,
+    "seconds": 2.58,
+    "during": [
+     "02_2"
+    ],
+    "nearest_462_level": 52,
+    "reason": "held 1722-1876 (2.58 s) during 02_2; no 462 frame inside; nearest 462 picture 52/255 away at 64x36"
+   },
+   {
+    "frame": 2412,
+    "kind": "held",
+    "first": 2381,
+    "last": 2444,
+    "seconds": 1.07,
+    "during": [
+     "02_3"
+    ],
+    "nearest_462_level": 4,
+    "reason": "held 2381-2444 (1.07 s) during 02_3; no 462 frame inside; nearest 462 picture 4/255 away at 64x36"
+   },
+   {
+    "frame": 2623,
+    "kind": "held",
+    "first": 2552,
+    "last": 2694,
+    "seconds": 2.38,
+    "during": [
+     "02_3"
+    ],
+    "nearest_462_level": 45,
+    "reason": "held 2552-2694 (2.38 s) during 02_3; no 462 frame inside; nearest 462 picture 45/255 away at 64x36"
+   },
+   {
+    "frame": 2727,
+    "kind": "held",
+    "first": 2695,
+    "last": 2759,
+    "seconds": 1.08,
+    "during": [
+     "02_3"
+    ],
+    "nearest_462_level": 48,
+    "reason": "held 2695-2759 (1.08 s) during 02_3; no 462 frame inside; nearest 462 picture 48/255 away at 64x36"
+   },
+   {
+    "frame": 2978,
+    "kind": "held",
+    "first": 2945,
+    "last": 3011,
+    "seconds": 1.12,
+    "during": [
+     "02_4"
+    ],
+    "nearest_462_level": 6,
+    "reason": "held 2945-3011 (1.12 s) during 02_4; no 462 frame inside; nearest 462 picture 6/255 away at 64x36"
+   },
+   {
+    "frame": 3111,
+    "kind": "held",
+    "first": 3029,
+    "last": 3194,
+    "seconds": 2.77,
+    "during": [
+     "02_4"
+    ],
+    "nearest_462_level": 11,
+    "reason": "held 3029-3194 (2.77 s) during 02_4; no 462 frame inside; nearest 462 picture 11/255 away at 64x36"
+   },
+   {
+    "frame": 3387,
+    "kind": "held",
+    "first": 3330,
+    "last": 3444,
+    "seconds": 1.92,
+    "during": [
+     "02_4"
+    ],
+    "nearest_462_level": 6,
+    "reason": "held 3330-3444 (1.92 s) during 02_4; no 462 frame inside; nearest 462 picture 6/255 away at 64x36"
+   },
+   {
+    "frame": 4294,
+    "kind": "held",
+    "first": 4249,
+    "last": 4339,
+    "seconds": 1.52,
+    "during": [
+     "02_5"
+    ],
+    "nearest_462_level": 81,
+    "reason": "held 4249-4339 (1.52 s) during 02_5; no 462 frame inside; nearest 462 picture 81/255 away at 64x36"
+   },
+   {
+    "frame": 4406,
+    "kind": "held",
+    "first": 4368,
+    "last": 4444,
+    "seconds": 1.28,
+    "during": [
+     "02_5"
+    ],
+    "nearest_462_level": 10,
+    "reason": "held 4368-4444 (1.28 s) during 02_5; no 462 frame inside; nearest 462 picture 10/255 away at 64x36"
+   },
+   {
+    "frame": 4549,
+    "kind": "held",
+    "first": 4492,
+    "last": 4607,
+    "seconds": 1.93,
+    "during": [
+     "02_5"
+    ],
+    "nearest_462_level": 67,
+    "reason": "held 4492-4607 (1.93 s) during 02_5; no 462 frame inside; nearest 462 picture 67/255 away at 64x36"
+   },
+   {
+    "frame": 4844,
+    "kind": "held",
+    "first": 4805,
+    "last": 4884,
+    "seconds": 1.33,
+    "during": [
+     "02_5"
+    ],
+    "nearest_462_level": 69,
+    "reason": "held 4805-4884 (1.33 s) during 02_5; no 462 frame inside; nearest 462 picture 69/255 away at 64x36"
+   },
+   {
+    "frame": 5241,
+    "kind": "held",
+    "first": 5195,
+    "last": 5287,
+    "seconds": 1.55,
+    "during": [
+     "02_6"
+    ],
+    "nearest_462_level": 7,
+    "reason": "held 5195-5287 (1.55 s) during 02_6; no 462 frame inside; nearest 462 picture 7/255 away at 64x36"
+   },
+   {
+    "frame": 5407,
+    "kind": "held",
+    "first": 5371,
+    "last": 5444,
+    "seconds": 1.23,
+    "during": [
+     "02_6"
+    ],
+    "nearest_462_level": 57,
+    "reason": "held 5371-5444 (1.23 s) during 02_6; no 462 frame inside; nearest 462 picture 57/255 away at 64x36"
+   },
+   {
+    "frame": 5484,
+    "kind": "held",
+    "first": 5445,
+    "last": 5523,
+    "seconds": 1.32,
+    "during": [
+     "02_6"
+    ],
+    "nearest_462_level": 58,
+    "reason": "held 5445-5523 (1.32 s) during 02_6; no 462 frame inside; nearest 462 picture 58/255 away at 64x36"
+   },
+   {
+    "frame": 6078,
+    "kind": "held",
+    "first": 6011,
+    "last": 6145,
+    "seconds": 2.25,
+    "during": [
+     "02_7"
+    ],
+    "nearest_462_level": 94,
+    "reason": "held 6011-6145 (2.25 s) during 02_7; no 462 frame inside; nearest 462 picture 94/255 away at 64x36"
+   },
+   {
+    "frame": 6367,
+    "kind": "held",
+    "first": 6261,
+    "last": 6473,
+    "seconds": 3.55,
+    "during": [
+     "02_7"
+    ],
+    "nearest_462_level": 13,
+    "reason": "held 6261-6473 (3.55 s) during 02_7; no 462 frame inside; nearest 462 picture 13/255 away at 64x36"
+   }
+  ],
+  "03_largest_tails": [
+   {
+    "frame": 216,
+    "kind": "held",
+    "first": 143,
+    "last": 290,
+    "seconds": 2.47,
+    "during": [
+     "03_1"
+    ],
+    "nearest_462_level": 13,
+    "reason": "held 143-290 (2.47 s) during 03_1; no 462 frame inside; nearest 462 picture 13/255 away at 64x36"
+   },
+   {
+    "frame": 743,
+    "kind": "held",
+    "first": 696,
+    "last": 790,
+    "seconds": 1.58,
+    "during": [
+     "03_1"
+    ],
+    "nearest_462_level": 11,
+    "reason": "held 696-790 (1.58 s) during 03_1; no 462 frame inside; nearest 462 picture 11/255 away at 64x36"
+   },
+   {
+    "frame": 938,
+    "kind": "held",
+    "first": 791,
+    "last": 1086,
+    "seconds": 4.93,
+    "during": [
+     "03_1"
+    ],
+    "nearest_462_level": 0,
+    "reason": "held 791-1086 (4.93 s) during 03_1; no 462 frame inside; nearest 462 picture 0/255 away at 64x36"
+   },
+   {
+    "frame": 1402,
+    "kind": "held",
+    "first": 1291,
+    "last": 1513,
+    "seconds": 3.72,
+    "during": [
+     "03_2"
+    ],
+    "nearest_462_level": 0,
+    "reason": "held 1291-1513 (3.72 s) during 03_2; no 462 frame inside; nearest 462 picture 0/255 away at 64x36"
+   },
+   {
+    "frame": 3637,
+    "kind": "held",
+    "first": 3541,
+    "last": 3733,
+    "seconds": 3.22,
+    "during": [
+     "03_5"
+    ],
+    "nearest_462_level": 9,
+    "reason": "held 3541-3733 (3.22 s) during 03_5; no 462 frame inside; nearest 462 picture 9/255 away at 64x36"
+   },
+   {
+    "frame": 4220,
+    "kind": "held",
+    "first": 4150,
+    "last": 4290,
+    "seconds": 2.35,
+    "during": [
+     "03_5"
+    ],
+    "nearest_462_level": 15,
+    "reason": "held 4150-4290 (2.35 s) during 03_5; no 462 frame inside; nearest 462 picture 15/255 away at 64x36"
+   },
+   {
+    "frame": 4753,
+    "kind": "held",
+    "first": 4716,
+    "last": 4790,
+    "seconds": 1.25,
+    "during": [
+     "03_6"
+    ],
+    "nearest_462_level": 102,
+    "reason": "held 4716-4790 (1.25 s) during 03_6; no 462 frame inside; nearest 462 picture 102/255 away at 64x36"
+   },
+   {
+    "frame": 4872,
+    "kind": "held",
+    "first": 4791,
+    "last": 4953,
+    "seconds": 2.72,
+    "during": [
+     "03_6"
+    ],
+    "nearest_462_level": 106,
+    "reason": "held 4791-4953 (2.72 s) during 03_6; no 462 frame inside; nearest 462 picture 106/255 away at 64x36"
+   }
+  ],
+  "04_sixteenth": [
+   {
+    "frame": 151,
+    "kind": "held",
+    "first": 100,
+    "last": 202,
+    "seconds": 1.72,
+    "during": [
+     "04_1"
+    ],
+    "nearest_462_level": 99,
+    "reason": "held 100-202 (1.72 s) during 04_1; no 462 frame inside; nearest 462 picture 99/255 away at 64x36"
+   },
+   {
+    "frame": 3437,
+    "kind": "held",
+    "first": 3375,
+    "last": 3499,
+    "seconds": 2.08,
+    "during": [
+     "04_5"
+    ],
+    "nearest_462_level": 40,
+    "reason": "held 3375-3499 (2.08 s) during 04_5; no 462 frame inside; nearest 462 picture 40/255 away at 64x36"
+   },
+   {
+    "frame": 3580,
+    "kind": "held",
+    "first": 3511,
+    "last": 3650,
+    "seconds": 2.33,
+    "during": [
+     "04_5"
+    ],
+    "nearest_462_level": 44,
+    "reason": "held 3511-3650 (2.33 s) during 04_5; no 462 frame inside; nearest 462 picture 44/255 away at 64x36"
+   },
+   {
+    "frame": 3880,
+    "kind": "held",
+    "first": 3761,
+    "last": 3999,
+    "seconds": 3.98,
+    "during": [
+     "04_5"
+    ],
+    "nearest_462_level": 12,
+    "reason": "held 3761-3999 (3.98 s) during 04_5; no 462 frame inside; nearest 462 picture 12/255 away at 64x36"
+   }
+  ],
+  "05_dials": [
+   {
+    "frame": 161,
+    "kind": "held",
+    "first": 73,
+    "last": 249,
+    "seconds": 2.95,
+    "during": [
+     "05_1"
+    ],
+    "nearest_462_level": 16,
+    "reason": "held 73-249 (2.95 s) during 05_1; no 462 frame inside; nearest 462 picture 16/255 away at 64x36"
+   },
+   {
+    "frame": 346,
+    "kind": "held",
+    "first": 250,
+    "last": 442,
+    "seconds": 3.22,
+    "during": [
+     "05_1"
+    ],
+    "nearest_462_level": 27,
+    "reason": "held 250-442 (3.22 s) during 05_1; no 462 frame inside; nearest 462 picture 27/255 away at 64x36"
+   },
+   {
+    "frame": 892,
+    "kind": "held",
+    "first": 820,
+    "last": 965,
+    "seconds": 2.43,
+    "during": [
+     "05_1"
+    ],
+    "nearest_462_level": 126,
+    "reason": "held 820-965 (2.43 s) during 05_1; no 462 frame inside; nearest 462 picture 126/255 away at 64x36"
+   },
+   {
+    "frame": 1218,
+    "kind": "held",
+    "first": 1187,
+    "last": 1249,
+    "seconds": 1.05,
+    "during": [
+     "05_1"
+    ],
+    "nearest_462_level": 19,
+    "reason": "held 1187-1249 (1.05 s) during 05_1; no 462 frame inside; nearest 462 picture 19/255 away at 64x36"
+   },
+   {
+    "frame": 2304,
+    "kind": "held",
+    "first": 2252,
+    "last": 2356,
+    "seconds": 1.75,
+    "during": [
+     "05_2"
+    ],
+    "nearest_462_level": 116,
+    "reason": "held 2252-2356 (1.75 s) during 05_2; no 462 frame inside; nearest 462 picture 116/255 away at 64x36"
+   },
+   {
+    "frame": 2440,
+    "kind": "held",
+    "first": 2382,
+    "last": 2499,
+    "seconds": 1.97,
+    "during": [
+     "05_2"
+    ],
+    "nearest_462_level": 121,
+    "reason": "held 2382-2499 (1.97 s) during 05_2; no 462 frame inside; nearest 462 picture 121/255 away at 64x36"
+   },
+   {
+    "frame": 2653,
+    "kind": "held",
+    "first": 2558,
+    "last": 2749,
+    "seconds": 3.2,
+    "during": [
+     "05_2"
+    ],
+    "nearest_462_level": 11,
+    "reason": "held 2558-2749 (3.20 s) during 05_2; no 462 frame inside; nearest 462 picture 11/255 away at 64x36"
+   },
+   {
+    "frame": 4173,
+    "kind": "held",
+    "first": 4121,
+    "last": 4226,
+    "seconds": 1.77,
+    "during": [
+     "05_4"
+    ],
+    "nearest_462_level": 76,
+    "reason": "held 4121-4226 (1.77 s) during 05_4; no 462 frame inside; nearest 462 picture 76/255 away at 64x36"
+   }
+  ],
+  "06_not_every_time": [
+   {
+    "frame": 1135,
+    "kind": "held",
+    "first": 1036,
+    "last": 1234,
+    "seconds": 3.32,
+    "during": [
+     "06_2"
+    ],
+    "nearest_462_level": 13,
+    "reason": "held 1036-1234 (3.32 s) during 06_2; no 462 frame inside; nearest 462 picture 13/255 away at 64x36"
+   },
+   {
+    "frame": 1618,
+    "kind": "held",
+    "first": 1536,
+    "last": 1700,
+    "seconds": 2.75,
+    "during": [
+     "06_3"
+    ],
+    "nearest_462_level": 11,
+    "reason": "held 1536-1700 (2.75 s) during 06_3; no 462 frame inside; nearest 462 picture 11/255 away at 64x36"
+   },
+   {
+    "frame": 2065,
+    "kind": "held",
+    "first": 1980,
+    "last": 2150,
+    "seconds": 2.85,
+    "during": [
+     "06_3"
+    ],
+    "nearest_462_level": 43,
+    "reason": "held 1980-2150 (2.85 s) during 06_3; no 462 frame inside; nearest 462 picture 43/255 away at 64x36"
+   },
+   {
+    "frame": 3272,
+    "kind": "held",
+    "first": 3212,
+    "last": 3332,
+    "seconds": 2.02,
+    "during": [
+     "06_4"
+    ],
+    "nearest_462_level": 6,
+    "reason": "held 3212-3332 (2.02 s) during 06_4; no 462 frame inside; nearest 462 picture 6/255 away at 64x36"
+   },
+   {
+    "frame": 3872,
+    "kind": "held",
+    "first": 3785,
+    "last": 3959,
+    "seconds": 2.92,
+    "during": [
+     "06_5"
+    ],
+    "nearest_462_level": 41,
+    "reason": "held 3785-3959 (2.92 s) during 06_5; no 462 frame inside; nearest 462 picture 41/255 away at 64x36"
+   }
+  ],
+  "07_yardstick": [
+   {
+    "frame": 208,
+    "kind": "held",
+    "first": 96,
+    "last": 321,
+    "seconds": 3.77,
+    "during": [
+     "07_1"
+    ],
+    "nearest_462_level": 8,
+    "reason": "held 96-321 (3.77 s) during 07_1; no 462 frame inside; nearest 462 picture 8/255 away at 64x36"
+   },
+   {
+    "frame": 3428,
+    "kind": "held",
+    "first": 3340,
+    "last": 3516,
+    "seconds": 2.95,
+    "during": [
+     "07_3"
+    ],
+    "nearest_462_level": 6,
+    "reason": "held 3340-3516 (2.95 s) during 07_3; no 462 frame inside; nearest 462 picture 6/255 away at 64x36"
+   },
+   {
+    "frame": 4247,
+    "kind": "held",
+    "first": 4174,
+    "last": 4321,
+    "seconds": 2.47,
+    "during": [
+     "07_4"
+    ],
+    "nearest_462_level": 12,
+    "reason": "held 4174-4321 (2.47 s) during 07_4; no 462 frame inside; nearest 462 picture 12/255 away at 64x36"
+   }
+  ],
+  "08_signposts": [
+   {
+    "frame": 894,
+    "kind": "held",
+    "first": 847,
+    "last": 942,
+    "seconds": 1.6,
+    "during": [
+     "08_1"
+    ],
+    "nearest_462_level": 4,
+    "reason": "held 847-942 (1.60 s) during 08_1; no 462 frame inside; nearest 462 picture 4/255 away at 64x36"
+   },
+   {
+    "frame": 3450,
+    "kind": "467",
+    "reason": "review 467: the last drain frame, the shortest think-ring arc (08-L2)"
+   },
+   {
+    "frame": 5738,
+    "kind": "467",
+    "reason": "review 467: the \"=\" flash peak, nearest the right edge (08-L4)"
+   }
+  ],
+  "09_cost": [
+   {
+    "frame": 188,
+    "kind": "held",
+    "first": 127,
+    "last": 249,
+    "seconds": 2.05,
+    "during": [
+     "09_1"
+    ],
+    "nearest_462_level": 11,
+    "reason": "held 127-249 (2.05 s) during 09_1; no 462 frame inside; nearest 462 picture 11/255 away at 64x36"
+   },
+   {
+    "frame": 1657,
+    "kind": "held",
+    "first": 1565,
+    "last": 1749,
+    "seconds": 3.08,
+    "during": [
+     "09_2"
+    ],
+    "nearest_462_level": 10,
+    "reason": "held 1565-1749 (3.08 s) during 09_2; no 462 frame inside; nearest 462 picture 10/255 away at 64x36"
+   },
+   {
+    "frame": 2278,
+    "kind": "held",
+    "first": 2108,
+    "last": 2449,
+    "seconds": 5.7,
+    "during": [
+     "09_3"
+    ],
+    "nearest_462_level": 7,
+    "reason": "held 2108-2449 (5.70 s) during 09_3; no 462 frame inside; nearest 462 picture 7/255 away at 64x36"
+   },
+   {
+    "frame": 2766,
+    "kind": "held",
+    "first": 2683,
+    "last": 2849,
+    "seconds": 2.78,
+    "during": [
+     "09_3"
+    ],
+    "nearest_462_level": 71,
+    "reason": "held 2683-2849 (2.78 s) during 09_3; no 462 frame inside; nearest 462 picture 71/255 away at 64x36"
+   },
+   {
+    "frame": 2990,
+    "kind": "held",
+    "first": 2902,
+    "last": 3079,
+    "seconds": 2.97,
+    "during": [
+     "09_3"
+    ],
+    "nearest_462_level": 15,
+    "reason": "held 2902-3079 (2.97 s) during 09_3; no 462 frame inside; nearest 462 picture 15/255 away at 64x36"
+   },
+   {
+    "frame": 3515,
+    "kind": "held",
+    "first": 3358,
+    "last": 3672,
+    "seconds": 5.25,
+    "during": [
+     "09_4"
+    ],
+    "nearest_462_level": 6,
+    "reason": "held 3358-3672 (5.25 s) during 09_4; no 462 frame inside; nearest 462 picture 6/255 away at 64x36"
+   },
+   {
+    "frame": 3778,
+    "kind": "held",
+    "first": 3699,
+    "last": 3857,
+    "seconds": 2.65,
+    "during": [
+     "09_4"
+    ],
+    "nearest_462_level": 6,
+    "reason": "held 3699-3857 (2.65 s) during 09_4; no 462 frame inside; nearest 462 picture 6/255 away at 64x36"
+   },
+   {
+    "frame": 3956,
+    "kind": "held",
+    "first": 3858,
+    "last": 4055,
+    "seconds": 3.3,
+    "during": [
+     "09_4"
+    ],
+    "nearest_462_level": 16,
+    "reason": "held 3858-4055 (3.30 s) during 09_4; no 462 frame inside; nearest 462 picture 16/255 away at 64x36"
+   }
+  ],
+  "10_rounding_rules": [
+   {
+    "frame": 961,
+    "kind": "held",
+    "first": 924,
+    "last": 999,
+    "seconds": 1.27,
+    "during": [
+     "10_2"
+    ],
+    "nearest_462_level": 11,
+    "reason": "held 924-999 (1.27 s) during 10_2; no 462 frame inside; nearest 462 picture 11/255 away at 64x36"
+   },
+   {
+    "frame": 1099,
+    "kind": "held",
+    "first": 1000,
+    "last": 1198,
+    "seconds": 3.32,
+    "during": [
+     "10_2"
+    ],
+    "nearest_462_level": 0,
+    "reason": "held 1000-1198 (3.32 s) during 10_2; no 462 frame inside; nearest 462 picture 0/255 away at 64x36"
+   },
+   {
+    "frame": 1442,
+    "kind": "held",
+    "first": 1386,
+    "last": 1499,
+    "seconds": 1.9,
+    "during": [
+     "10_2"
+    ],
+    "nearest_462_level": 101,
+    "reason": "held 1386-1499 (1.90 s) during 10_2; no 462 frame inside; nearest 462 picture 101/255 away at 64x36"
+   },
+   {
+    "frame": 1548,
+    "kind": "held",
+    "first": 1500,
+    "last": 1596,
+    "seconds": 1.62,
+    "during": [
+     "10_2"
+    ],
+    "nearest_462_level": 101,
+    "reason": "held 1500-1596 (1.62 s) during 10_2; no 462 frame inside; nearest 462 picture 101/255 away at 64x36"
+   },
+   {
+    "frame": 1713,
+    "kind": "held",
+    "first": 1677,
+    "last": 1749,
+    "seconds": 1.22,
+    "during": [
+     "10_2"
+    ],
+    "nearest_462_level": 11,
+    "reason": "held 1677-1749 (1.22 s) during 10_2; no 462 frame inside; nearest 462 picture 11/255 away at 64x36"
+   },
+   {
+    "frame": 1942,
+    "kind": "held",
+    "first": 1886,
+    "last": 1999,
+    "seconds": 1.9,
+    "during": [
+     "10_3"
+    ],
+    "nearest_462_level": 12,
+    "reason": "held 1886-1999 (1.90 s) during 10_3; no 462 frame inside; nearest 462 picture 12/255 away at 64x36"
+   },
+   {
+    "frame": 2710,
+    "kind": "held",
+    "first": 2671,
+    "last": 2749,
+    "seconds": 1.32,
+    "during": [
+     "10_4"
+    ],
+    "nearest_462_level": 150,
+    "reason": "held 2671-2749 (1.32 s) during 10_4; no 462 frame inside; nearest 462 picture 150/255 away at 64x36"
+   },
+   {
+    "frame": 2820,
+    "kind": "held",
+    "first": 2772,
+    "last": 2869,
+    "seconds": 1.63,
+    "during": [
+     "10_4"
+    ],
+    "nearest_462_level": 151,
+    "reason": "held 2772-2869 (1.63 s) during 10_4; no 462 frame inside; nearest 462 picture 151/255 away at 64x36"
+   },
+   {
+    "frame": 3342,
+    "kind": "held",
+    "first": 3276,
+    "last": 3409,
+    "seconds": 2.23,
+    "during": [
+     "10_4"
+    ],
+    "nearest_462_level": 0,
+    "reason": "held 3276-3409 (2.23 s) during 10_4; no 462 frame inside; nearest 462 picture 0/255 away at 64x36"
+   },
+   {
+    "frame": 3593,
+    "kind": "held",
+    "first": 3526,
+    "last": 3660,
+    "seconds": 2.25,
+    "during": [
+     "10_4"
+    ],
+    "nearest_462_level": 0,
+    "reason": "held 3526-3660 (2.25 s) during 10_4; no 462 frame inside; nearest 462 picture 0/255 away at 64x36"
+   },
+   {
+    "frame": 3993,
+    "kind": "held",
+    "first": 3962,
+    "last": 4025,
+    "seconds": 1.07,
+    "during": [
+     "10_5"
+    ],
+    "nearest_462_level": 31,
+    "reason": "held 3962-4025 (1.07 s) during 10_5; no 462 frame inside; nearest 462 picture 31/255 away at 64x36"
+   },
+   {
+    "frame": 4107,
+    "kind": "held",
+    "first": 4026,
+    "last": 4188,
+    "seconds": 2.72,
+    "during": [
+     "10_5"
+    ],
+    "nearest_462_level": 31,
+    "reason": "held 4026-4188 (2.72 s) during 10_5; no 462 frame inside; nearest 462 picture 31/255 away at 64x36"
+   },
+   {
+    "frame": 4234,
+    "kind": "held",
+    "first": 4194,
+    "last": 4275,
+    "seconds": 1.37,
+    "during": [
+     "10_5"
+    ],
+    "nearest_462_level": 18,
+    "reason": "held 4194-4275 (1.37 s) during 10_5; no 462 frame inside; nearest 462 picture 18/255 away at 64x36"
+   },
+   {
+    "frame": 4363,
+    "kind": "held",
+    "first": 4276,
+    "last": 4450,
+    "seconds": 2.92,
+    "during": [
+     "10_5"
+    ],
+    "nearest_462_level": 16,
+    "reason": "held 4276-4450 (2.92 s) during 10_5; no 462 frame inside; nearest 462 picture 16/255 away at 64x36"
+   },
+   {
+    "frame": 4705,
+    "kind": "held",
+    "first": 4526,
+    "last": 4884,
+    "seconds": 5.98,
+    "during": [
+     "10_5"
+    ],
+    "nearest_462_level": 71,
+    "reason": "held 4526-4884 (5.98 s) during 10_5; no 462 frame inside; nearest 462 picture 71/255 away at 64x36"
+   },
+   {
+    "frame": 5371,
+    "kind": "held",
+    "first": 5309,
+    "last": 5434,
+    "seconds": 2.1,
+    "during": [
+     "10_6"
+    ],
+    "nearest_462_level": 108,
+    "reason": "held 5309-5434 (2.10 s) during 10_6; no 462 frame inside; nearest 462 picture 108/255 away at 64x36"
+   },
+   {
+    "frame": 5522,
+    "kind": "held",
+    "first": 5435,
+    "last": 5609,
+    "seconds": 2.92,
+    "during": [
+     "10_6"
+    ],
+    "nearest_462_level": 112,
+    "reason": "held 5435-5609 (2.92 s) during 10_6; no 462 frame inside; nearest 462 picture 112/255 away at 64x36"
+   },
+   {
+    "frame": 5805,
+    "kind": "held",
+    "first": 5698,
+    "last": 5912,
+    "seconds": 3.58,
+    "during": [
+     "10_6"
+    ],
+    "nearest_462_level": 110,
+    "reason": "held 5698-5912 (3.58 s) during 10_6; no 462 frame inside; nearest 462 picture 110/255 away at 64x36"
+   },
+   {
+    "frame": 6352,
+    "kind": "held",
+    "first": 6270,
+    "last": 6434,
+    "seconds": 2.75,
+    "during": [
+     "10_6"
+    ],
+    "nearest_462_level": 94,
+    "reason": "held 6270-6434 (2.75 s) during 10_6; no 462 frame inside; nearest 462 picture 94/255 away at 64x36"
+   },
+   {
+    "frame": 6486,
+    "kind": "held",
+    "first": 6435,
+    "last": 6537,
+    "seconds": 1.72,
+    "during": [
+     "10_6"
+    ],
+    "nearest_462_level": 94,
+    "reason": "held 6435-6537 (1.72 s) during 10_6; no 462 frame inside; nearest 462 picture 94/255 away at 64x36"
+   },
+   {
+    "frame": 7334,
+    "kind": "held",
+    "first": 7166,
+    "last": 7503,
+    "seconds": 5.63,
+    "during": [
+     "10_7"
+    ],
+    "nearest_462_level": 11,
+    "reason": "held 7166-7503 (5.63 s) during 10_7; no 462 frame inside; nearest 462 picture 11/255 away at 64x36"
+   },
+   {
+    "frame": 7597,
+    "kind": "held",
+    "first": 7529,
+    "last": 7665,
+    "seconds": 2.28,
+    "during": [
+     "10_7"
+    ],
+    "nearest_462_level": 12,
+    "reason": "held 7529-7665 (2.28 s) during 10_7; no 462 frame inside; nearest 462 picture 12/255 away at 64x36"
+   },
+   {
+    "frame": 7832,
+    "kind": "held",
+    "first": 7790,
+    "last": 7874,
+    "seconds": 1.42,
+    "during": [
+     "10_7"
+    ],
+    "nearest_462_level": 76,
+    "reason": "held 7790-7874 (1.42 s) during 10_7; no 462 frame inside; nearest 462 picture 76/255 away at 64x36"
+   },
+   {
+    "frame": 8072,
+    "kind": "held",
+    "first": 7916,
+    "last": 8229,
+    "seconds": 5.23,
+    "during": [
+     "10_7"
+    ],
+    "nearest_462_level": 76,
+    "reason": "held 7916-8229 (5.23 s) during 10_7; no 462 frame inside; nearest 462 picture 76/255 away at 64x36"
+   },
+   {
+    "frame": 8333,
+    "kind": "held",
+    "first": 8251,
+    "last": 8415,
+    "seconds": 2.75,
+    "during": [
+     "10_7"
+    ],
+    "nearest_462_level": 8,
+    "reason": "held 8251-8415 (2.75 s) during 10_7; no 462 frame inside; nearest 462 picture 8/255 away at 64x36"
+   }
+  ],
+  "11_webster_quota": [
+   {
+    "frame": 741,
+    "kind": "held",
+    "first": 696,
+    "last": 786,
+    "seconds": 1.52,
+    "during": [
+     "11_2"
+    ],
+    "nearest_462_level": 5,
+    "reason": "held 696-786 (1.52 s) during 11_2; no 462 frame inside; nearest 462 picture 5/255 away at 64x36"
+   }
+  ],
+  "12_both_promises": [
+   {
+    "frame": 5820,
+    "kind": "held",
+    "first": 5782,
+    "last": 5858,
+    "seconds": 1.28,
+    "during": [
+     "12_5"
+    ],
+    "nearest_462_level": 13,
+    "reason": "held 5782-5858 (1.28 s) during 12_5; no 462 frame inside; nearest 462 picture 13/255 away at 64x36"
+   },
+   {
+    "frame": 5930,
+    "kind": "held",
+    "first": 5895,
+    "last": 5966,
+    "seconds": 1.2,
+    "during": [
+     "12_5"
+    ],
+    "nearest_462_level": 14,
+    "reason": "held 5895-5966 (1.20 s) during 12_5; no 462 frame inside; nearest 462 picture 14/255 away at 64x36"
+   },
+   {
+    "frame": 6563,
+    "kind": "held",
+    "first": 6532,
+    "last": 6595,
+    "seconds": 1.07,
+    "during": [
+     "12_5"
+    ],
+    "nearest_462_level": 28,
+    "reason": "held 6532-6595 (1.07 s) during 12_5; no 462 frame inside; nearest 462 picture 28/255 away at 64x36"
+   },
+   {
+    "frame": 9565,
+    "kind": "held",
+    "first": 9532,
+    "last": 9599,
+    "seconds": 1.13,
+    "during": [
+     "12_8"
+    ],
+    "nearest_462_level": 6,
+    "reason": "held 9532-9599 (1.13 s) during 12_8; no 462 frame inside; nearest 462 picture 6/255 away at 64x36"
+   },
+   {
+    "frame": 10238,
+    "kind": "held",
+    "first": 10206,
+    "last": 10270,
+    "seconds": 1.08,
+    "during": [
+     "12_8"
+    ],
+    "nearest_462_level": 26,
+    "reason": "held 10206-10270 (1.08 s) during 12_8; no 462 frame inside; nearest 462 picture 26/255 away at 64x36"
+   },
+   {
+    "frame": 10492,
+    "kind": "held",
+    "first": 10454,
+    "last": 10531,
+    "seconds": 1.3,
+    "during": [
+     "12_8"
+    ],
+    "nearest_462_level": 36,
+    "reason": "held 10454-10531 (1.30 s) during 12_8; no 462 frame inside; nearest 462 picture 36/255 away at 64x36"
+   },
+   {
+    "frame": 12071,
+    "kind": "held",
+    "first": 12032,
+    "last": 12111,
+    "seconds": 1.33,
+    "during": [
+     "12_9"
+    ],
+    "nearest_462_level": 14,
+    "reason": "held 12032-12111 (1.33 s) during 12_9; no 462 frame inside; nearest 462 picture 14/255 away at 64x36"
+   }
+  ],
+  "13_population": [
+   {
+    "frame": 175,
+    "kind": "held",
+    "first": 101,
+    "last": 249,
+    "seconds": 2.48,
+    "during": [
+     "13_1"
+    ],
+    "nearest_462_level": 88,
+    "reason": "held 101-249 (2.48 s) during 13_1; no 462 frame inside; nearest 462 picture 88/255 away at 64x36"
+   },
+   {
+    "frame": 304,
+    "kind": "held",
+    "first": 250,
+    "last": 358,
+    "seconds": 1.82,
+    "during": [
+     "13_1"
+    ],
+    "nearest_462_level": 88,
+    "reason": "held 250-358 (1.82 s) during 13_1; no 462 frame inside; nearest 462 picture 88/255 away at 64x36"
+   },
+   {
+    "frame": 636,
+    "kind": "held",
+    "first": 523,
+    "last": 749,
+    "seconds": 3.78,
+    "during": [
+     "13_1"
+    ],
+    "nearest_462_level": 9,
+    "reason": "held 523-749 (3.78 s) during 13_1; no 462 frame inside; nearest 462 picture 9/255 away at 64x36"
+   },
+   {
+    "frame": 897,
+    "kind": "held",
+    "first": 852,
+    "last": 943,
+    "seconds": 1.53,
+    "during": [
+     "13_2"
+    ],
+    "nearest_462_level": 45,
+    "reason": "held 852-943 (1.53 s) during 13_2; no 462 frame inside; nearest 462 picture 45/255 away at 64x36"
+   },
+   {
+    "frame": 1078,
+    "kind": "held",
+    "first": 1036,
+    "last": 1120,
+    "seconds": 1.42,
+    "during": [
+     "13_2"
+    ],
+    "nearest_462_level": 40,
+    "reason": "held 1036-1120 (1.42 s) during 13_2; no 462 frame inside; nearest 462 picture 40/255 away at 64x36"
+   },
+   {
+    "frame": 1280,
+    "kind": "held",
+    "first": 1250,
+    "last": 1311,
+    "seconds": 1.03,
+    "during": [
+     "13_2"
+    ],
+    "nearest_462_level": 15,
+    "reason": "held 1250-1311 (1.03 s) during 13_2; no 462 frame inside; nearest 462 picture 15/255 away at 64x36"
+   },
+   {
+    "frame": 1446,
+    "kind": "held",
+    "first": 1394,
+    "last": 1499,
+    "seconds": 1.77,
+    "during": [
+     "13_2"
+    ],
+    "nearest_462_level": 49,
+    "reason": "held 1394-1499 (1.77 s) during 13_2; no 462 frame inside; nearest 462 picture 49/255 away at 64x36"
+   },
+   {
+    "frame": 2945,
+    "kind": "held",
+    "first": 2900,
+    "last": 2990,
+    "seconds": 1.52,
+    "during": [
+     "13_4"
+    ],
+    "nearest_462_level": 11,
+    "reason": "held 2900-2990 (1.52 s) during 13_4; no 462 frame inside; nearest 462 picture 11/255 away at 64x36"
+   },
+   {
+    "frame": 6283,
+    "kind": "held",
+    "first": 6250,
+    "last": 6317,
+    "seconds": 1.13,
+    "during": [
+     "13_6"
+    ],
+    "nearest_462_level": 0,
+    "reason": "held 6250-6317 (1.13 s) during 13_6; no 462 frame inside; nearest 462 picture 0/255 away at 64x36"
+   }
+  ],
+  "14_no_rule": [
+   {
+    "frame": 289,
+    "kind": "held",
+    "first": 250,
+    "last": 329,
+    "seconds": 1.33,
+    "during": [
+     "14_1"
+    ],
+    "nearest_462_level": 5,
+    "reason": "held 250-329 (1.33 s) during 14_1; no 462 frame inside; nearest 462 picture 5/255 away at 64x36"
+   },
+   {
+    "frame": 443,
+    "kind": "held",
+    "first": 387,
+    "last": 499,
+    "seconds": 1.88,
+    "during": [
+     "14_1"
+    ],
+    "nearest_462_level": 13,
+    "reason": "held 387-499 (1.88 s) during 14_1; no 462 frame inside; nearest 462 picture 13/255 away at 64x36"
+   },
+   {
+    "frame": 920,
+    "kind": "held",
+    "first": 842,
+    "last": 999,
+    "seconds": 2.63,
+    "during": [
+     "14_1"
+    ],
+    "nearest_462_level": 10,
+    "reason": "held 842-999 (2.63 s) during 14_1; no 462 frame inside; nearest 462 picture 10/255 away at 64x36"
+   },
+   {
+    "frame": 2661,
+    "kind": "held",
+    "first": 2569,
+    "last": 2753,
+    "seconds": 3.08,
+    "during": [
+     "14_3"
+    ],
+    "nearest_462_level": 75,
+    "reason": "held 2569-2753 (3.08 s) during 14_3; no 462 frame inside; nearest 462 picture 75/255 away at 64x36"
+   },
+   {
+    "frame": 3010,
+    "kind": "held",
+    "first": 2966,
+    "last": 3054,
+    "seconds": 1.48,
+    "during": [
+     "14_3"
+    ],
+    "nearest_462_level": 125,
+    "reason": "held 2966-3054 (1.48 s) during 14_3; no 462 frame inside; nearest 462 picture 125/255 away at 64x36"
+   },
+   {
+    "frame": 3126,
+    "kind": "held",
+    "first": 3055,
+    "last": 3197,
+    "seconds": 2.38,
+    "during": [
+     "14_3"
+    ],
+    "nearest_462_level": 129,
+    "reason": "held 3055-3197 (2.38 s) during 14_3; no 462 frame inside; nearest 462 picture 129/255 away at 64x36"
+   },
+   {
+    "frame": 3988,
+    "kind": "held",
+    "first": 3922,
+    "last": 4054,
+    "seconds": 2.22,
+    "during": [
+     "14_4"
+    ],
+    "nearest_462_level": 164,
+    "reason": "held 3922-4054 (2.22 s) during 14_4; no 462 frame inside; nearest 462 picture 164/255 away at 64x36"
+   },
+   {
+    "frame": 4259,
+    "kind": "held",
+    "first": 4214,
+    "last": 4304,
+    "seconds": 1.52,
+    "during": [
+     "14_4"
+    ],
+    "nearest_462_level": 129,
+    "reason": "held 4214-4304 (1.52 s) during 14_4; no 462 frame inside; nearest 462 picture 129/255 away at 64x36"
+   },
+   {
+    "frame": 4365,
+    "kind": "held",
+    "first": 4305,
+    "last": 4426,
+    "seconds": 2.03,
+    "during": [
+     "14_4"
+    ],
+    "nearest_462_level": 129,
+    "reason": "held 4305-4426 (2.03 s) during 14_4; no 462 frame inside; nearest 462 picture 129/255 away at 64x36"
+   },
+   {
+    "frame": 4716,
+    "kind": "held",
+    "first": 4661,
+    "last": 4772,
+    "seconds": 1.87,
+    "during": [
+     "14_4"
+    ],
+    "nearest_462_level": 154,
+    "reason": "held 4661-4772 (1.87 s) during 14_4; no 462 frame inside; nearest 462 picture 154/255 away at 64x36"
+   },
+   {
+    "frame": 4939,
+    "kind": "held",
+    "first": 4805,
+    "last": 5074,
+    "seconds": 4.5,
+    "during": [
+     "14_4"
+    ],
+    "nearest_462_level": 155,
+    "reason": "held 4805-5074 (4.50 s) during 14_4; no 462 frame inside; nearest 462 picture 155/255 away at 64x36"
+   },
+   {
+    "frame": 5520,
+    "kind": "held",
+    "first": 5487,
+    "last": 5554,
+    "seconds": 1.13,
+    "during": [
+     "14_5"
+    ],
+    "nearest_462_level": 64,
+    "reason": "held 5487-5554 (1.13 s) during 14_5; no 462 frame inside; nearest 462 picture 64/255 away at 64x36"
+   },
+   {
+    "frame": 5657,
+    "kind": "held",
+    "first": 5555,
+    "last": 5759,
+    "seconds": 3.42,
+    "during": [
+     "14_5"
+    ],
+    "nearest_462_level": 71,
+    "reason": "held 5555-5759 (3.42 s) during 14_5; no 462 frame inside; nearest 462 picture 71/255 away at 64x36"
+   },
+   {
+    "frame": 6007,
+    "kind": "held",
+    "first": 5960,
+    "last": 6054,
+    "seconds": 1.58,
+    "during": [
+     "14_5"
+    ],
+    "nearest_462_level": 157,
+    "reason": "held 5960-6054 (1.58 s) during 14_5; no 462 frame inside; nearest 462 picture 157/255 away at 64x36"
+   },
+   {
+    "frame": 6142,
+    "kind": "held",
+    "first": 6055,
+    "last": 6229,
+    "seconds": 2.92,
+    "during": [
+     "14_5"
+    ],
+    "nearest_462_level": 164,
+    "reason": "held 6055-6229 (2.92 s) during 14_5; no 462 frame inside; nearest 462 picture 164/255 away at 64x36"
+   },
+   {
+    "frame": 6585,
+    "kind": "held",
+    "first": 6555,
+    "last": 6616,
+    "seconds": 1.03,
+    "during": [
+     "14_6"
+    ],
+    "nearest_462_level": 164,
+    "reason": "held 6555-6616 (1.03 s) during 14_6; no 462 frame inside; nearest 462 picture 164/255 away at 64x36"
+   },
+   {
+    "frame": 6709,
+    "kind": "held",
+    "first": 6641,
+    "last": 6778,
+    "seconds": 2.3,
+    "during": [
+     "14_6"
+    ],
+    "nearest_462_level": 126,
+    "reason": "held 6641-6778 (2.30 s) during 14_6; no 462 frame inside; nearest 462 picture 126/255 away at 64x36"
+   },
+   {
+    "frame": 6903,
+    "kind": "held",
+    "first": 6828,
+    "last": 6979,
+    "seconds": 2.53,
+    "during": [
+     "14_6"
+    ],
+    "nearest_462_level": 128,
+    "reason": "held 6828-6979 (2.53 s) during 14_6; no 462 frame inside; nearest 462 picture 128/255 away at 64x36"
+   },
+   {
+    "frame": 7109,
+    "kind": "held",
+    "first": 7055,
+    "last": 7163,
+    "seconds": 1.82,
+    "during": [
+     "14_6"
+    ],
+    "nearest_462_level": 51,
+    "reason": "held 7055-7163 (1.82 s) during 14_6; no 462 frame inside; nearest 462 picture 51/255 away at 64x36"
+   },
+   {
+    "frame": 7464,
+    "kind": "held",
+    "first": 7413,
+    "last": 7515,
+    "seconds": 1.72,
+    "during": [
+     "14_6"
+    ],
+    "nearest_462_level": 144,
+    "reason": "held 7413-7515 (1.72 s) during 14_6; no 462 frame inside; nearest 462 picture 144/255 away at 64x36"
+   },
+   {
+    "frame": 7633,
+    "kind": "held",
+    "first": 7555,
+    "last": 7711,
+    "seconds": 2.62,
+    "during": [
+     "14_6"
+    ],
+    "nearest_462_level": 159,
+    "reason": "held 7555-7711 (2.62 s) during 14_6; no 462 frame inside; nearest 462 picture 159/255 away at 64x36"
+   },
+   {
+    "frame": 7959,
+    "kind": "held",
+    "first": 7864,
+    "last": 8054,
+    "seconds": 3.18,
+    "during": [
+     "14_6"
+    ],
+    "nearest_462_level": 11,
+    "reason": "held 7864-8054 (3.18 s) during 14_6; no 462 frame inside; nearest 462 picture 11/255 away at 64x36"
+   },
+   {
+    "frame": 8399,
+    "kind": "held",
+    "first": 8358,
+    "last": 8441,
+    "seconds": 1.4,
+    "during": [
+     "14_7"
+    ],
+    "nearest_462_level": 8,
+    "reason": "held 8358-8441 (1.40 s) during 14_7; no 462 frame inside; nearest 462 picture 8/255 away at 64x36"
+   },
+   {
+    "frame": 8956,
+    "kind": "held",
+    "first": 8879,
+    "last": 9034,
+    "seconds": 2.6,
+    "during": [
+     "14_7"
+    ],
+    "nearest_462_level": 95,
+    "reason": "held 8879-9034 (2.60 s) during 14_7; no 462 frame inside; nearest 462 picture 95/255 away at 64x36"
+   },
+   {
+    "frame": 9620,
+    "kind": "held",
+    "first": 9590,
+    "last": 9650,
+    "seconds": 1.02,
+    "during": [
+     "14_8"
+    ],
+    "nearest_462_level": 10,
+    "reason": "held 9590-9650 (1.02 s) during 14_8; no 462 frame inside; nearest 462 picture 10/255 away at 64x36"
+   },
+   {
+    "frame": 9776,
+    "kind": "held",
+    "first": 9713,
+    "last": 9839,
+    "seconds": 2.12,
+    "during": [
+     "14_8"
+    ],
+    "nearest_462_level": 9,
+    "reason": "held 9713-9839 (2.12 s) during 14_8; no 462 frame inside; nearest 462 picture 9/255 away at 64x36"
+   },
+   {
+    "frame": 10047,
+    "kind": "held",
+    "first": 10005,
+    "last": 10089,
+    "seconds": 1.42,
+    "during": [
+     "14_8"
+    ],
+    "nearest_462_level": 10,
+    "reason": "held 10005-10089 (1.42 s) during 14_8; no 462 frame inside; nearest 462 picture 10/255 away at 64x36"
+   }
+  ],
+  "15_recap": [
+   {
+    "frame": 281,
+    "kind": "held",
+    "first": 250,
+    "last": 313,
+    "seconds": 1.07,
+    "during": [
+     "15_1"
+    ],
+    "nearest_462_level": 109,
+    "reason": "held 250-313 (1.07 s) during 15_1; no 462 frame inside; nearest 462 picture 109/255 away at 64x36"
+   },
+   {
+    "frame": 416,
+    "kind": "held",
+    "first": 334,
+    "last": 499,
+    "seconds": 2.77,
+    "during": [
+     "15_1"
+    ],
+    "nearest_462_level": 11,
+    "reason": "held 334-499 (2.77 s) during 15_1; no 462 frame inside; nearest 462 picture 11/255 away at 64x36"
+   },
+   {
+    "frame": 874,
+    "kind": "held",
+    "first": 750,
+    "last": 999,
+    "seconds": 4.17,
+    "during": [
+     "15_2"
+    ],
+    "nearest_462_level": 58,
+    "reason": "held 750-999 (4.17 s) during 15_2; no 462 frame inside; nearest 462 picture 58/255 away at 64x36"
+   },
+   {
+    "frame": 1136,
+    "kind": "held",
+    "first": 1083,
+    "last": 1190,
+    "seconds": 1.8,
+    "during": [
+     "15_2"
+    ],
+    "nearest_462_level": 58,
+    "reason": "held 1083-1190 (1.80 s) during 15_2; no 462 frame inside; nearest 462 picture 58/255 away at 64x36"
+   },
+   {
+    "frame": 1378,
+    "kind": "held",
+    "first": 1250,
+    "last": 1507,
+    "seconds": 4.3,
+    "during": [
+     "15_2"
+    ],
+    "nearest_462_level": 66,
+    "reason": "held 1250-1507 (4.30 s) during 15_2; no 462 frame inside; nearest 462 picture 66/255 away at 64x36"
+   }
+  ]
+ },
+ "total": 139
+}

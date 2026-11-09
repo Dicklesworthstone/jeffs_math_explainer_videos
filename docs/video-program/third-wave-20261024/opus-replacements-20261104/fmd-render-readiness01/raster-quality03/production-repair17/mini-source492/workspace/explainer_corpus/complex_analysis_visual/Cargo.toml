@@ -1,0 +1,13 @@
+[package]
+name = "complex_analysis_visual"
+version = "0.1.0"
+edition = "2024"
+publish = false
+description = "A native visual introduction to complex analysis"
+
+[workspace]
+
+[dependencies]
+fmn = { git = "https://github.com/Dicklesworthstone/franken_manim", rev = "a399d626c43ecc852a5c795288979f52b446bc5c", features = ["ffmpeg"] }
+explainer_kit = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/repo-view/crates/explainer_kit" }
+explainer_score = { path = "/Volumes/EERCHExport/jmev-complex-native-20261109/source/repo-view/crates/explainer_score" }

@@ -1,0 +1,117 @@
+name: Native parameter motion
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/activate_spatial_paths.py'
+      - 'scripts/activate_tracker_builders.py'
+      - '.github/workflows/native-parameter-motion.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: native-parameter-motion
+  cancel-in-progress: false
+jobs:
+  native-parameter-motion:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/scribe
+      CARGO_TERM_COLOR: never
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 64
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/scribe
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-native-motion-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-methods-
+            cargo-${{ runner.os }}-${{ runner.arch }}-scribe-
+      - name: Integrate and validate spatial motion
+        run: |
+          set -euo pipefail
+          if ! grep -Fq 'mod motion_path;' crates/fmn-anim/src/transform.rs; then
+            python3 scripts/activate_spatial_paths.py
+            python3 scripts/activate_spatial_paths.py
+          fi
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-anim/src/animation.rs \
+            crates/fmn-anim/src/transform.rs crates/fmn-anim/src/motion_path.rs crates/fmn-anim/tests/arc_motion.rs
+          cargo test --locked -p fmn-anim --test arc_motion 2>&1 | tee /tmp/parameter-motion-arcs.log
+          cargo test --locked -p fmn-mobject -p fmn-anim -p fmn-scene --all-targets 2>&1 | tee /tmp/parameter-motion-spatial-tests.log
+          cargo clippy --locked -p fmn-mobject -p fmn-anim -p fmn-scene --all-targets -- -D warnings 2>&1 | tee /tmp/parameter-motion-spatial-clippy.log
+          git diff --check
+      - name: Publish verified spatial functionality directly to main
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add crates/fmn-anim/src/animation.rs crates/fmn-anim/src/transform.rs \
+            crates/fmn-anim/src/motion_path.rs crates/fmn-anim/tests/arc_motion.rs \
+            docs/behavior_notes/BN-12-animation-contract.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'fix(anim): preserve axial arc motion and affine shape at large world coordinates'
+          fi
+          git fetch origin main
+          git rebase origin/main
+          cargo test --locked -p fmn-anim -p fmn-scene --all-targets 2>&1 | tee /tmp/parameter-motion-spatial-rebase.log
+          git push origin HEAD:main
+          git rev-parse HEAD | tee /tmp/parameter-motion-spatial-head.txt
+      - name: Integrate fluent trackers and exact timeline payload replay
+        run: |
+          set -euo pipefail
+          if ! grep -Fq 'pub fn increment_complex_value' crates/fmn-mobject/src/animate.rs; then
+            python3 scripts/activate_tracker_builders.py
+            python3 scripts/activate_tracker_builders.py
+          fi
+          rustfmt --edition 2024 --config skip_children=true \
+            crates/fmn-mobject/src/animate.rs crates/fmn-mobject/src/dynamics.rs \
+            crates/fmn-mobject/tests/tracker_builders.rs crates/fmn-anim/src/bundle.rs \
+            crates/fmn-anim/tests/tracker_animation.rs crates/fmn-scene/src/timeline_bundle.rs \
+            crates/fmn-scene/tests/tracker_bundle.rs
+          cargo test --locked -p fmn-mobject --test tracker_builders 2>&1 | tee /tmp/parameter-motion-tracker-builders.log
+          cargo test --locked -p fmn-anim --test tracker_animation 2>&1 | tee /tmp/parameter-motion-tracker-animation.log
+          cargo test --locked -p fmn-scene --test tracker_bundle 2>&1 | tee /tmp/parameter-motion-tracker-bundle.log
+          cargo test --locked -p fmn-mobject -p fmn-anim -p fmn-scene --all-targets 2>&1 | tee /tmp/parameter-motion-final-tests.log
+          cargo clippy --locked -p fmn-mobject -p fmn-anim -p fmn-scene --all-targets -- -D warnings 2>&1 | tee /tmp/parameter-motion-final-clippy.log
+          git diff --check
+      - name: Publish verified parameter scenes directly to main
+        run: |
+          set -euo pipefail
+          git add crates/fmn-mobject/src/animate.rs crates/fmn-mobject/src/dynamics.rs \
+            crates/fmn-mobject/tests/tracker_builders.rs crates/fmn-anim/src/bundle.rs \
+            crates/fmn-anim/tests/tracker_animation.rs crates/fmn-scene/src/timeline_bundle.rs \
+            crates/fmn-scene/tests/tracker_bundle.rs
+          if ! git diff --cached --quiet; then
+            git commit -m 'feat(anim): animate native scalar and complex trackers with lossless timeline replay'
+          fi
+          git fetch origin main
+          git rebase origin/main
+          cargo test --locked -p fmn-mobject -p fmn-anim -p fmn-scene --all-targets 2>&1 | tee /tmp/parameter-motion-final-rebase.log
+          git push origin HEAD:main
+          git rev-parse HEAD | tee /tmp/parameter-motion-final-head.txt
+      - name: Render regression coverage
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-render --lib --tests 2>&1 | tee /tmp/parameter-motion-render-tests.log
+      - name: Preserve validated source and test evidence
+        if: always()
+        run: |
+          git diff > /tmp/parameter-motion-working.patch
+          git archive --format=tar.gz HEAD > /tmp/parameter-motion-source.tar.gz
+          git rev-parse 'HEAD^{tree}' > /tmp/parameter-motion-tree.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-parameter-motion-${{ github.sha }}-${{ github.run_attempt }}
+          path: /tmp/parameter-motion-*
+          retention-days: 1

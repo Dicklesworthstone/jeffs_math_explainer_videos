@@ -1,0 +1,15 @@
+{
+  "at": "2026-11-08T00:53:19.127975+00:00",
+  "movie_sha256": "06901e97c8e02ace24e0228e96ecddf83d3d6e889d07b448cad453e57ff83b8e",
+  "pictures": 236,
+  "sheets": 30,
+  "all_sheets_viewed": true,
+  "detail_seconds": [
+    185
+  ],
+  "observation": "No concrete persistent clipping or overlap observed in selected pictures. Code panel entrance clipping transient; settled panel readable. Fine domain coloring, pole warning and prediction reveal inspected.",
+  "listening_accepted": false,
+  "fine_sync_accepted": false,
+  "independent_av_accepted": false,
+  "sampling_sha256": "238be96a77428d8fdef55c399bb46627f51bcfaf4bb0c3c9e47497e252d83f23"
+}

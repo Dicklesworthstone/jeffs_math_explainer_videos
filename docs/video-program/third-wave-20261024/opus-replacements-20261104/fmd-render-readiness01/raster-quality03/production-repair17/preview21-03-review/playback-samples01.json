@@ -1,0 +1,11 @@
+{
+  "utc": "2026-11-07T19:29:53.084328+00:00",
+  "movie_sha256": "f1f1372377729c4dfd6e4d330459cdb621f6d20d92d01ec01110cdeec526bf83",
+  "reviewer": "root",
+  "muted": true,
+  "bounded_replay_seconds": [
+    99.93,
+    116.06
+  ],
+  "observations": "Actual muted QuickTime playback sampled while chapter ran: z-squared maps circle radius0.5 to0.25 and doubles angular position; straight input grid warps; reciprocal maps inside/outside unit circle; exponential real points map to0.368,1,2.718. Replayed99.93-116.06s with sparse screenshots: vertical input lines produce concentric circles, horizontal lines produce rays. No persistent concrete overlap found in these observations. Sparse temporal observations, not continuous frame-by-frame viewing, listening, fine synchronization or independent AV acceptance."
+}

@@ -1,0 +1,18 @@
+error: unclosed table, expected `]`
+ --> ../../../../../../../../home/ubuntu/.cargo/git/checkouts/asupersync-b12181f74b36652e/c48399f/tests/fixtures/migration_readiness_planner/malformed/Cargo.toml:1:9
+  |
+1 | [package
+  |         ^
+    Finished `release` profile [optimized] target(s) in 1.11s
+     Running unittests src/main.rs (/data/projects/jmev-stroke-probe-20261106/work/target/release/build/complex_analysis_visual/e12e7bc346c6de0e/out/complex_analysis_visual-e12e7bc346c6de0e)
+      A picture in: [0.021, 0.148, 0.324, 0.507, 0.669, 0.810, 0.908, 0.972, 1.000, 1.000]
+       A square in: [0.021, 0.141, 0.323, 0.506, 0.669, 0.809, 0.908, 0.965, 1.000, 1.000]
+     A picture out: [1.000, 0.972, 0.908, 0.810, 0.669, 0.507, 0.324, 0.148, 0.021, 0.000]
+      A square out: [1.000, 0.965, 0.908, 0.809, 0.669, 0.506, 0.323, 0.141, 0.021, 0.000]
+A picture − square at k = 5: in +0.000, out +0.000 (diagnostic)
+      B painter in: [0.016, 0.112, 0.274, 0.457, 0.632, 0.781, 0.892, 0.963, 0.995, 1.000]
+     B painter out: [0.995, 0.963, 0.892, 0.781, 0.632, 0.457, 0.274, 0.112, 0.016, 0.000]
+a: last fade-out frame 0.0000, first frame after 0.0000
+b: last fade-out frame 0.0000, first frame after 0.0000
+       C legacy in: [1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000]
+      C legacy out: [1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000]

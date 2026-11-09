@@ -1,0 +1,48 @@
+Three towns share a council of fifteen seats. Ash has 4,000 people, Birch 9,000 and Cedar 26,000. Hamilton's rule gives them 2, 3 and 10 seats. Add a sixteenth seat, change no population, and the same rule gives 1, 4 and 11. Ash's share grew from 1.54 seats to 1.64, and it lost a seat. This is the Alabama paradox.
+
+In 1880 C. W. Seaton of the Census Office worked out Hamilton apportionments for every House size from 275 to 350. Alabama got 8 seats in a House of 299 and 7 in a House of 300, and he told Congress this was "conclusive proof that the process employed in obtaining it is defective." These were alternative calculations, not an enacted House that shrank Alabama's delegation.
+
+Each added seat moves a town's tail, the fraction after its whole part, by that town's fraction of the people: 4/39, 9/39 and 26/39 of a seat. Tails wrap around at different speeds, so a small town can be overtaken while its share grows. From 1 to 100 seats, 5 of the 99 one-seat additions take a seat from somebody, and each time it is Ash.
+
+Divisor rules change the number of people per seat until ordinary rounding adds up. Jefferson rounds down, Adams up and Webster to the nearest. Huntington–Hill, the law for the House since 1941, rounds a quotient between n and n + 1 up once it passes √(n(n + 1)). Each reads its seats off one ranked list, so with a fixed order for ties a bigger house never takes a seat back. Each can break the quota promise, that every town gets its share rounded down or up, on some map. At fifteen seats Jefferson gives Cedar 11 for a share of exactly 10, and after the 1830 census Jefferson's rule gave New York 40 seats for a share of 38.593. At three seats Hill gives 1, 1, 1, though Cedar's share is exactly 2.
+
+With three towns Webster always keeps the quota promise (Balinski and Young, 1982), and the film shows why. With four it can fail: towns of 2,000, 5,000, 8,000 and 27,000 people sharing 14 seats get 1, 2, 3 and 8, so the town whose share is exactly 9 gets 8.
+
+Balinski and Young's quota method (1974) hands out seats one at a time down Jefferson's list, and skips any seat that would lift its town above its share rounded up at the new house size. It never takes a seat back, and it keeps the quota promise at every house size. The film proves the second part with tiles laid along the house sizes.
+
+A third promise covers changing populations: a town that did not shrink should never lose a seat to a town that did not grow. In a later census (Ash 3,900, Birch 9,500, Cedar 26,100, still 16 seats) Hamilton's rule moves a seat from Cedar, which grew, to Ash, which shrank. Divisor rules never do this.
+
+Balinski and Young proved in 1982 that no rule keeps both the quota promise and the population promise on every map, with one extra assumption: a town with strictly more people than another must never get fewer seats. Gölz, Peters and Procaccia proved the same without that assumption for any rule that does not draw lots. The film follows their proof, which uses a city of 824 people and four villages of 44 sharing 10 seats. With three towns Webster's rule keeps both promises. With four, and without the extra assumption, the question was open as of their paper. The same paper gives a lottery that keeps the quota promise in every draw, never takes a seat back and gives each town exactly its share on average, and shows that no lottery keeps the quota promise and the population promise together.
+
+Every chapter pauses on a question before answering it.
+
+Chapters:
+0:00 One more seat
+1:20 Seats do not come in fractions
+3:10 Whole parts first, then the largest tails
+4:43 The sixteenth seat
+5:53 Tails move at different speeds
+7:38 It comes and goes
+9:01 Change the yardstick, not the rounding
+10:25 One list for every house size
+12:12 The cost of never taking back
+13:34 Round up, round to the nearest
+15:55 Can Webster break quota?
+17:43 Both promises at once
+21:28 When populations change
+23:32 No rule keeps both
+26:25 The whole map
+
+Sources and further reading:
+M. L. Balinski and H. P. Young, "A new method for congressional apportionment," PNAS 71(11): 4602–4606, 1974:
+https://doi.org/10.1073/pnas.71.11.4602
+P. Gölz, D. Peters and A. D. Procaccia, "In This Apportionment Lottery, the House Always Wins," accepted by Operations Research in 2024:
+https://arxiv.org/abs/2202.11061v2
+H. P. Young, "Fairness in Apportionment," U.S. Census Bureau:
+https://www2.census.gov/about/history/historical-censuses-surveys/survey-census-history/decennial/fairness-in-apportionment-young.pdf
+M. L. Balinski and H. P. Young, Fair Representation, 1982, as cited by Gölz, Peters and Procaccia.
+M. L. Balinski and H. P. Young, "The Quota Method of Apportionment," American Mathematical Monthly 82, 1975.
+
+Visuals: native FrankenManim scenes.
+Narration: ElevenLabs Frederick Surrey, a synthetic voice.
+Music: procedural score generated in code.

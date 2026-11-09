@@ -1,0 +1,80 @@
+{
+  "utc": "2026-11-07T18:34:07.721847+00:00",
+  "movie_sha256": "f1f1372377729c4dfd6e4d330459cdb621f6d20d92d01ec01110cdeec526bf83",
+  "sampling_sha256": "ecc4ff8853758c0383beb21a28307ada8d945e35699dfe7f312187bb92d1aeaa",
+  "receipt": {
+    "started": "2026-11-07T18:32:32.718996+00:00",
+    "phase": "native",
+    "command": [
+      "python3",
+      "-I",
+      "-B",
+      "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview03-pictures25.py"
+    ],
+    "preflight_only": false,
+    "samples": [
+      {
+        "utc": "2026-11-07T18:32:50.329343+00:00",
+        "free_bytes": 130872180736,
+        "work_bytes": 66679197696,
+        "target_bytes": 14024273920
+      }
+    ],
+    "sbh": {
+      "exit": 0,
+      "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":130994728960,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"exit_code\":0,\"forecast\":null,\"free_bytes\":130994728960,\"free_excludes_purgeable\":true,\"free_pct\":3.277919229401863,\"mount_point\":\"/System/Volumes/Data\",\"path\":\"/Users/jemanuel/projects/jeffs_math_explainer_videos\",\"platform\":{\"darwin\":{\"apfs\":{\"container_available_bytes\":130994728960,\"container_id\":\"/dev/disk3\",\"container_total_bytes\":3996276899840,\"estimated_reclaimable_by_snapshot_thinning\":{\"bytes\":24914940097,\"method\":\"foundation\"},\"free_excludes_purgeable\":true,\"is_primary\":true,\"shared_volumes\":[\"Macintosh HD\",\"Preboot\",\"Recovery\",\"Update\",\"VM\"],\"volume_available_bytes\":131000414208,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":3996276899840,\"unprotected\":null,\"volume_available_bytes\":131000414208,\"volume_role\":\"Data\",\"volume_total_bytes\":3996276899840}\n",
+      "stderr": ""
+    },
+    "admission": {
+      "utc": "2026-11-07T18:32:33.623693+00:00",
+      "free_bytes": 131000295424,
+      "work_bytes": 66667851776,
+      "target_bytes": 14024273920
+    },
+    "policy": {
+      "admission_gib": 10,
+      "stop_free_gib": 8,
+      "phase_growth_gib": 4,
+      "work_cap_gib": 80,
+      "target_growth_cap_gib": 20,
+      "sample_seconds": 10
+    },
+    "admitted": true,
+    "inputs_sha256": "23211b679c5feb18a51000010bd8fa775b2bab52ede09b71b6cbd9870a82a855",
+    "pid": 26038,
+    "exit": 0,
+    "final_inputs_sha256": "23211b679c5feb18a51000010bd8fa775b2bab52ede09b71b6cbd9870a82a855",
+    "finished": "2026-11-07T18:32:59.023429+00:00"
+  },
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "selected_pictures_viewed": 153,
+  "observations": [
+    "Separate input/output planes, squared radius and doubled turn count clearly illustrated.",
+    "Straight grid bends into parabolas under z squared. Right-angle marks remain clear away from zero; zero exception explicitly highlighted.",
+    "Reciprocal maps inside/outside of unit circle with conjugated angles; 1/0 explicitly undefined.",
+    "Exponential uses taller imaginary input window, unit ticks, real-axis 0.368/1/2.718 examples, vertical lines into circles and horizontal lines into rays. Full 2pi turn returns to1; zero excluded.",
+    "No persistent clipping or illegible overlap found in these selected540p images."
+  ],
+  "scope": "First completed preview chapter only; overall preview21 still running. Not continuous motion, listening, final4K detail, independent AV acceptance or final-render permit."
+}

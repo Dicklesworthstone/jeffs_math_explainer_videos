@@ -1,0 +1,433 @@
+diff --git a/crates/fmn-python/python/fmn_python/studio.py b/crates/fmn-python/python/fmn_python/studio.py
+index 80bc739..21b0760 100644
+--- a/crates/fmn-python/python/fmn_python/studio.py
++++ b/crates/fmn-python/python/fmn_python/studio.py
+@@ -231,2 +231,17 @@ class Studio:
+ 
++    def advance(self, frames: int = 1) -> dict[str, Any]:
++        """Execute nominal live frames and return the native final-frame receipt.
++
++        Select the final timeline frame first. This runs real authored updaters
++        and does not add an authored wait. One command is bounded to one second
++        and one optimistic revision; conflicts and timeouts are never retried.
++        """
++        from .studio_clock import advance
++        with self._operation:
++            if self._stop.is_set() or not self._host.alive:
++                raise RuntimeError("Studio is closed")
++            if not self._interactive:
++                raise RuntimeError("Live stepping requires interactive=True")
++            return advance(self._host.url, self._timeout, frames)
++
+     def close(self) -> None:
+@@ -389,2 +404,4 @@ through existing scene callbacks. Prior frames remain read-only. Failed callback
+ freeze input until reload; they are not rolled back or automatically retried.
++Select the final frame to Step live frame or Run live nominal updater ticks.
++Run is bounded and pauses on input, navigation, focus loss or worker changes.
+ No sound playback, callback checkpoints, or certified render claim.
+diff --git a/crates/fmn-python/src/portal_studio/live.rs b/crates/fmn-python/src/portal_studio/live.rs
+index b374ba5..03c6814 100644
+--- a/crates/fmn-python/src/portal_studio/live.rs
++++ b/crates/fmn-python/src/portal_studio/live.rs
+@@ -7,2 +7,3 @@ use fmn_scene::{CommandKind, EventPayload, Key, Modifiers, MouseButton};
+ use fmn_studio::{ServiceError, SupervisorRequest, WorkerErrorCode, WorkerResponse};
++use fmn_studio::advance::is_advance_command;
+ 
+@@ -61,2 +62,32 @@ fn refresh(scene: &Bound<'_, PyScene>) -> PyResult<()> {
+ 
++/// Use the ordinary native clock and updater ordering, without manufacturing
++/// authored waits or consuming play indices. No borrow spans host callbacks.
++/// Intermediate steps are deliberately not published: a command either yields
++/// its completed final view or freezes input with the last good view retained.
++fn advance(scene: &Bound<'_, PyScene>, frames: u32) -> PyResult<()> {
++    let engine = Rc::clone(&scene.try_borrow()?.engine);
++    let render = Arc::clone(&scene.try_borrow()?.render);
++    let mut sink = PortalSceneSink { render, ..PortalSceneSink::default() };
++    for index in 0..frames {
++        portal_playback::synchronize(scene)?;
++        if !Rc::ptr_eq(&engine, &scene.try_borrow()?.engine) {
++            return Err(PyRuntimeError::new_err("live Studio engine changed before clock stepping"));
++        }
++        let frame = engine.borrow_mut().prepare_idle_frame(&mut sink).map_err(native_error)?;
++        run_python_updaters(scene, frame.dt())?;
++        synchronize_portal_camera(scene)?;
++        if !Rc::ptr_eq(&engine, &scene.try_borrow()?.engine) {
++            return Err(PyRuntimeError::new_err("live Studio engine changed during clock stepping"));
++        }
++        // Complete the normal updater pass, capturing only the final step.
++        // Do not call refresh/show afterwards: its zero-dt updater pass would
++        // execute unconditional user callbacks twice for every live frame.
++        with_capture(scene, |c| { c.live_refresh = index + 1 == frames; Ok(()) }).map_err(native_error)?;
++        let result = engine.borrow_mut().complete_idle_frame(frame, &mut sink).map_err(native_error);
++        with_capture(scene, |c| { c.live_refresh = false; Ok(()) }).map_err(native_error)?;
++        result?;
++    }
++    Ok(())
++}
++
+ struct LiveWorker {
+@@ -83,2 +114,3 @@ impl LiveWorker {
+             capture.recorded.enable_live_input()?;
++            capture.recorded.enable_live_advance()?;
+             capture.live = true;
+@@ -106,2 +138,20 @@ impl LiveWorker {
+         let result = match request {
++            SupervisorRequest::Play { scene: name, command } if is_advance_command(&command) => {
++                if let Some(error) = &self.failed {
++                    return Err(failure(format!("live input is frozen after callback failure; reload: {error}")));
++                }
++                let request = with_capture(scene, |c| c.recorded.prepare_live_advance(&name, &command))?;
++                if let Err(error) = advance(scene, request.frames) {
++                    let message = error.to_string();
++                    self.failed = Some(message.clone());
++                    let _ = with_capture(scene, |c| { c.recorded.disable_live_input(); Ok(()) });
++                    return Err(failure(format!("live updater failed; input frozen until reload: {message}")));
++                }
++                let committed = with_capture(scene, |c| c.recorded.commit_live_advance(command));
++                if let Err(error) = &committed {
++                    self.failed = Some(error.to_string());
++                    let _ = with_capture(scene, |c| { c.recorded.disable_live_input(); Ok(()) });
++                }
++                committed
++            }
+             SupervisorRequest::Play {
+diff --git a/crates/fmn-studio/src/host.rs b/crates/fmn-studio/src/host.rs
+index 8081668..39821b6 100644
+--- a/crates/fmn-studio/src/host.rs
++++ b/crates/fmn-studio/src/host.rs
+@@ -1085,2 +1085,3 @@ impl HostHandler {
+             (Method::Post, "/api/event") => self.event(stream, &request),
++            (Method::Post, "/api/advance") => self.advance(stream, &request),
+             (Method::Get, "/api/inspect") => self.inspect(stream),
+diff --git a/crates/fmn-studio/src/host/input.rs b/crates/fmn-studio/src/host/input.rs
+index d1f5fd4..3be45ee 100644
+--- a/crates/fmn-studio/src/host/input.rs
++++ b/crates/fmn-studio/src/host/input.rs
+@@ -3,2 +3,13 @@ use super::*;
+ use crate::protocol::{StudioInput, studio_input_command};
++use crate::advance::{MAX_ADVANCE_FRAMES, StudioAdvance, studio_advance_command};
++
++impl HostHandler {
++    pub(super) fn advance(&self, stream: &mut TcpStream, request: &HttpRequest) -> Result<(), HostError> {
++        let _operation = lock(&self.session.operations);
++        require_form_content_type(request)?;
++        let form = parse_form(&request.body)?;
++        let response = self.session.guarded_advance(&form)?;
++        self.write_worker_response(stream, response, None)
++    }
++}
+ 
+@@ -36,2 +47,37 @@ fn bounded_event(event: &EventPayload) -> bool {
+ impl StudioWorkerSession {
++    fn guarded_advance(&self, form: &HashMap<String, String>) -> Result<WorkerResponse, HostError> {
++        const FIELDS: [&str; 4] = ["worker_generation", "frame", "revision", "frames"];
++        if form.len() != FIELDS.len() || FIELDS.iter().any(|key| !form.contains_key(*key)) {
++            return Err(HostError::BadRequest("live advance requires exactly worker_generation, frame, revision and frames"));
++        }
++        let generation = parse_required::<u64>(form, "worker_generation")?;
++        let advance = StudioAdvance {
++            frame: parse_required::<i64>(form, "frame")?,
++            revision: parse_required::<u64>(form, "revision")?,
++            frames: parse_required::<u32>(form, "frames")?,
++        };
++        if advance.frame < 0 || !(1..=MAX_ADVANCE_FRAMES).contains(&advance.frames) {
++            return Err(HostError::BadRequest("live advance frame/count is outside its budget"));
++        }
++        let scene = self.try_owned_scene()?;
++        let command = studio_advance_command(&scene, advance)?;
++        // Admission and execution share the same generation lock as input.
++        // A stale request is never retried against replacement authored code.
++        let mut supervisor = lock(&self.supervisor);
++        if generation != supervisor.generation() {
++            return Err(HostError::BadRequest("stale native worker generation"));
++        }
++        let response = worker_response(supervisor.request(
++            SupervisorRequest::Play { scene: self.try_owned_scene()?, command }, &*self.asset_ok,
++        )?)?;
++        if matches!(response, WorkerResponse::Error { .. }) { return Ok(response); }
++        if !matches!(response, WorkerResponse::JournalSegment { .. }) {
++            return Err(HostError::UnexpectedWorkerResponse);
++        }
++        self.committed_frame.store(advance.frame, Ordering::Release);
++        worker_response(supervisor.request(
++            SupervisorRequest::Scrub { scene, frame: advance.frame }, &*self.asset_ok,
++        )?)
++    }
++
+     /// Require generation, frame and optimistic revision on every HTTP event.
+diff --git a/crates/fmn-studio/src/studio.js b/crates/fmn-studio/src/studio.js
+index 46911e3..95501f4 100644
+--- a/crates/fmn-studio/src/studio.js
++++ b/crates/fmn-studio/src/studio.js
+@@ -15,3 +15,3 @@
+     shown: null, expected: null, busy: false, busyKind: null, pending: null, refreshNeeded: false, playing: false, connected: false,
+-    generation: null, inputs: [], restartPending: false, savePending: false, canSave: false};
++    generation: null, inputs: [], restartPending: false, savePending: false, canSave: false, liveRunning: false};
+   const safeText = value => String(value).split(capability).join("[session]").slice(0, 600);
+@@ -71,2 +71,3 @@
+       state.generation = generation;
++      if (replaced) stopLive();
+       if (replaced && (state.inputs.length || heldKeys.size || heldPointer)) {
+@@ -98,2 +99,3 @@
+   function displayState() {
++    liveControls();
+     $("save-session").disabled = !state.canSave || state.savePending || state.busyKind === "save";
+@@ -262,5 +264,6 @@
+     try { clearError(); await operation(); }
+-    catch (error) { state.playing = false; state.savePending = false; report(error); }
++    catch (error) { stopLive(); state.playing = false; state.savePending = false; report(error); }
+     finally {
+       state.busy = false; state.busyKind = null; $("restart").disabled = false; $("inspect").disabled = false; $("play").textContent = state.playing ? "Pause" : "Play";
++      liveControls();
+       if (state.inputs.length) void drainInputs();
+@@ -272,2 +275,42 @@
+   }
++  function supportsAdvance(v = state.snapshot?.view) {
++    return Boolean(v?.live_advance === true && supportsInput(v) && v.frame_index === v.frame_count - 1);
++  }
++  function liveControls() {
++    const supported = supportsAdvance();
++    if (!supported) state.liveRunning = false;
++    const ready = supported && matchesFrame() && !state.busy && !state.pending && !state.inputs.length &&
++      !state.restartPending && !state.savePending && !document.hidden;
++    $("live-step").disabled = !ready || state.liveRunning;
++    $("live-run").disabled = !state.liveRunning && !ready;
++    $("live-run").textContent = state.liveRunning ? "Pause live" : "Run live";
++    $("live-clock").textContent = !supported ? "Select the final frame of a live worker to advance updaters." :
++      state.liveRunning ? "Executing nominal live frames; no wall-time catch-up." : "Paused. Step advances one frame without adding an authored wait.";
++  }
++  function stopLive() { state.liveRunning = false; liveControls(); }
++  async function advanceLive() {
++    if (!supportsAdvance() || !matchesFrame() || state.busy || state.pending || state.inputs.length ||
++        state.restartPending || state.savePending || document.hidden) return;
++    const generation = state.generation, frame = state.snapshot.view.frame_index, revision = state.snapshot.view.input_revision;
++    await run(async () => {
++      state.expected = await api("/api/advance", {worker_generation:String(generation), frame:String(frame),
++        revision:String(revision), frames:"1"});
++      await refresh();
++      if (state.generation !== generation || state.snapshot.view.input_revision !== revision + 1) {
++        throw new Error("Live clock ownership changed; the command was not retried.");
++      }
++      $("replay").textContent = `Advanced one live frame · revision ${revision + 1}. Authored effects are not replayed on reload.`;
++    }, "advance");
++  }
++  $("live-step").addEventListener("click", () => {
++    if (state.liveRunning) return;
++    state.playing = false; void advanceLive();
++  });
++  $("live-run").addEventListener("click", () => {
++    if (state.liveRunning) { stopLive(); return; }
++    liveControls();
++    if ($("live-run").disabled) return;
++    releaseInputs(); state.playing = false; state.liveRunning = true;
++    liveControls();
++  });
+   async function drain() {
+@@ -284,2 +327,3 @@
+   function seek(frame, commit = true) {
++    stopLive();
+     if (state.savePending || state.busyKind === "save") return;
+@@ -298,3 +342,3 @@
+   }
+-  $("play").addEventListener("click", () => { if (state.savePending || state.busyKind === "save") return; const playing = !state.playing; releaseInputs(); state.playing = playing; $("play").textContent = state.playing ? "Pause" : "Play"; });
++  $("play").addEventListener("click", () => { if (state.savePending || state.busyKind === "save") return; stopLive(); const playing = !state.playing; releaseInputs(); state.playing = playing; $("play").textContent = state.playing ? "Pause" : "Play"; });
+   // Preview playback advances nominal frames; it never invents variable sampling
+@@ -304,2 +348,8 @@
+     const v = state.snapshot?.view;
++    if (state.liveRunning && v && !state.busy && !state.inputs.length && !state.pending &&
++        !state.restartPending && !state.savePending && !document.hidden && now - lastTick >= 1000 / v.fps) {
++      // One in-flight nominal step. Slow rendering drops pacing opportunities,
++      // never skips scene samples and never accumulates a catch-up queue.
++      lastTick = now; void advanceLive();
++    }
+     if (state.playing && v && !state.busy && !state.inputs.length && !state.restartPending && now - lastTick >= 1000 / v.fps) {
+@@ -315,2 +365,3 @@
+   async function restartWorker() {
++    stopLive();
+     await run(async () => {
+@@ -327,2 +378,3 @@
+   $("restart").addEventListener("click", () => {
++    stopLive();
+     if (state.savePending || state.busyKind === "save") return;
+@@ -344,2 +396,3 @@
+   $("save-session").addEventListener("click", () => {
++    stopLive();
+     if (!state.canSave || state.savePending || state.busyKind === "save") return;
+@@ -376,2 +429,3 @@
+   function enqueueInput(fields, owner = null, release = false) {
++    stopLive();
+     if (!supportsInput() || (!$("input-events").checked && !release)) return false;
+@@ -416,2 +470,3 @@
+   function releaseInputs() {
++    stopLive();
+     releasePointer();
+@@ -564,3 +619,3 @@
+       catch (error) { failures++; report(error); }
+-      state.connected = false; displayState();
++      state.connected = false; stopLive(); displayState();
+       await new Promise(resolve => setTimeout(resolve, Math.min(1000 * 2 ** failures, 16000)));
+diff --git a/crates/fmn-studio/src/ui.rs b/crates/fmn-studio/src/ui.rs
+index 1c490dd..5112f4a 100644
+--- a/crates/fmn-studio/src/ui.rs
++++ b/crates/fmn-studio/src/ui.rs
+@@ -76,2 +76,6 @@ const STUDIO_INDEX_HTML_PREFIX: &str = concat!(
+ <p id="replay">Release the timeline to commit a replay position.</p>
++<div class="transport" aria-label="Live scene clock">
++<button type="button" id="live-step" disabled>Step live frame</button>
++<button type="button" id="live-run" disabled>Run live</button>
++<span id="live-clock" role="status">Live clock unavailable on this capture.</span></div>
+ <fieldset id="layers"><legend>Debug overlays</legend>
+diff --git a/crates/fmn-studio/tests/input_queue.mjs b/crates/fmn-studio/tests/input_queue.mjs
+index 41510e6..a5234e8 100644
+--- a/crates/fmn-studio/tests/input_queue.mjs
++++ b/crates/fmn-studio/tests/input_queue.mjs
+@@ -37,3 +37,3 @@ function fixture() {
+   const window = new Element(), document = new Element();
+-  let frame = 5, revision = 0, generation = 3, release, first = true;
++  let frame = 5, revision = 0, generation = 3, release, first = true, animationFrame;
+   const gate = new Promise(resolve => { release = resolve; });
+@@ -42,7 +42,7 @@ function fixture() {
+     inputs:[], restartPending:false, busy:false, pending:null, playing:false,
+-    collapsed:new Set(), refreshNeeded:false, canSave:true, savePending:false};
++    collapsed:new Set(), refreshNeeded:false, canSave:true, savePending:false, liveRunning:false};
+   const refresh = async () => {
+     state.generation = generation;
+-    state.snapshot = {view:{frame_index:frame, frame_count:61, width:96, height:54,
+-      scale:6, origin:[48,27], fps:30, input_events:true, input_revision:revision}};
++    state.snapshot = {view:{frame_index:frame, frame_count:control.live ? 6 : 61, width:96, height:54,
++      scale:6, origin:[48,27], fps:30, input_events:true, input_revision:revision, live_advance:Boolean(control.live)}};
+   };
+@@ -52,3 +52,3 @@ function fixture() {
+     if (first) { first = false; await gate; }
+-    if (path === '/api/event') {
++    if (path === '/api/event' || path === '/api/advance') {
+       if (control.fail) throw new Error('native refusal');
+@@ -65,5 +65,6 @@ function fixture() {
+     clearError() {}, report(error) { errors.push(error.message); }, displayState() {},
+-    matchesFrame() { return true; }, requestAnimationFrame() {}});
++    matchesFrame() { return control.matched !== false; }, requestAnimationFrame(callback) { animationFrame = callback; }});
+   vm.runInContext(controller + '\n globalThis.queue = {enqueueInput,seek,heldKeys};', context);
+-  return {$,window,document,state,calls,errors,control,release,queue:context.queue,
++  return {$,window,document,state,calls,errors,control,release,queue:context.queue, refresh,
++    tick(now) { animationFrame(now); },
+     async settled() {
+@@ -233 +234,80 @@ test('focus loss releases multiple physical keys using their admitted native val
+ });
++
++async function liveFixture() {
++  const f = fixture(); f.control.live = true; await f.refresh(); return f;
++}
++
++test('live clock is opt-in, single-flight, nominally paced, and does not catch up', async () => {
++  const f = await liveFixture();
++  f.tick(1000); assert.equal(f.calls.length, 0, 'paused must execute nothing');
++  f.$('live-run').emit('click');
++  f.tick(2000); f.tick(5000); f.tick(9000);
++  assert.equal(f.calls.length, 1, 'slow worker must not accumulate clock requests');
++  assert.equal(f.calls[0].path, '/api/advance');
++  assert.equal(f.calls[0].frames, '1');
++  assert.equal(f.calls[0].frame, '5');
++  assert.equal(f.calls[0].worker_generation, '3');
++  assert.equal(f.calls[0].revision, '0');
++  await f.settled();
++  f.tick(10000); await f.settled();
++  assert.equal(f.calls.length, 2, 'only one step even after a long scheduling gap');
++  assert.equal(f.calls[1].revision, '1');
++  f.tick(10001); assert.equal(f.calls.length, 2, 'nominal pacing bound');
++  f.$('live-run').emit('click'); f.tick(20000);
++  assert.equal(f.calls.length, 2, 'Pause must not restart clock execution');
++});
++
++test('pause during an accepted live frame completes only that frame', async () => {
++  const f = await liveFixture();
++  f.$('live-run').emit('click'); f.tick(1000);
++  f.$('live-run').emit('click');
++  await f.settled(); f.tick(2000);
++  assert.equal(f.calls.length, 1);
++  assert.equal(f.state.liveRunning, false);
++});
++
++test('single live step cannot execute captures or queue a second step', async () => {
++  const captured = fixture();
++  captured.$('live-step').emit('click');
++  assert.equal(captured.calls.length, 0, 'missing capability cannot run updaters');
++  const f = await liveFixture();
++  f.$('live-step').emit('click'); f.$('live-step').emit('click');
++  await f.settled(); f.tick(1000);
++  assert.equal(f.calls.length, 1);
++  assert.equal(f.state.liveRunning, false, 'single step must not enable automatic execution');
++});
++
++test('clock conflicts and updater failures stop execution without retry', async () => {
++  for (const error of ['conflict', 'fail']) {
++    const f = await liveFixture(); f.control[error] = true;
++    f.$('live-run').emit('click'); f.tick(1000); await f.settled(); f.tick(2000);
++    assert.equal(f.calls.length, 1);
++    assert.equal(f.state.liveRunning, false);
++    assert.equal(f.errors.length, 1);
++  }
++});
++
++test('input, history navigation, and reload stop the clock behind an accepted frame', async () => {
++  for (const action of ['input', 'seek', 'restart']) {
++    const f = await liveFixture();
++    f.$('live-run').emit('click'); f.tick(1000);
++    if (action === 'input') f.$('preview').emit('keydown', {key:'k'});
++    else if (action === 'seek') f.queue.seek(0);
++    else f.$('restart').emit('click');
++    await f.settled(); f.tick(2000);
++    assert.equal(f.calls[0].path, '/api/advance');
++    assert.equal(f.calls.length, 2);
++    assert.equal(f.state.liveRunning, false);
++    if (action === 'input') assert.equal(f.calls[1].revision, '1');
++  }
++});
++
++test('hidden documents and unsynchronized previews never execute live clock requests', async () => {
++  const f = await liveFixture();
++  f.$('live-run').emit('click'); f.document.hidden = true; f.tick(1000);
++  assert.equal(f.calls.length, 0);
++  f.document.emit('visibilitychange'); f.document.hidden = false; f.tick(2000);
++  assert.equal(f.state.liveRunning, false, 'returning to a tab does not authorize execution');
++  f.control.matched = false; f.$('live-run').emit('click'); f.tick(3000);
++  assert.equal(f.calls.length, 0);
++});
+diff --git a/docs/dist/python_studio.md b/docs/dist/python_studio.md
+index 168f8d4..f000293 100644
+--- a/docs/dist/python_studio.md
++++ b/docs/dist/python_studio.md
+@@ -162,4 +162,32 @@ opaque journal barriers, never serialized callback replay or certified state.
+ 
+-This mode does not yet provide continuous idle updater ticks, animated playback
+-of the frames inside an input callback, constrained windowed grab/resize modes,
++Select the final frame to enable **Step live frame** and **Run live**. A step
++advances the existing rational scene clock by exactly `1/fps`, then runs the
++ordinary Python and native updater passes once. It does not manufacture a
++`Scene.wait`, consume an authored play index, or grow the captured timeline.
++The final capture is replaced atomically; historical frames remain unchanged.
++
++**Run live** paces one nominal frame at a time with at most one outstanding
++request. Slow rendering runs slower than wall time rather than skipping scene
++samples or accumulating catch-up work. Pause stops admission immediately; an
++already accepted frame may finish. Scene input, history navigation, reload,
++loss of focus, a hidden tab, or a disconnected stream stops the live clock.
++Returning to a tab never restarts authored execution automatically.
++
++Programmatic hosts can call `host.advance(frames=1)` after selecting the final
++timeline frame. A call accepts at most one nominal second (and at most 240
++frames), publishes its completed final frame, and returns its native PNG
++receipt. This is a bounded update batch, not playback of its intermediate
++frames. Browser and programmatic requests share `/api/advance` and the same
++worker-generation, selected-frame and input-revision guards as live input.
++Conflicts and timeouts are never automatically retried.
++
++If an updater fails partway through a batch, the last good PNG and inspector
++remain available and both live time and live input freeze until reload. The
++underlying authored effects are **not rolled back**. Live advances are opaque
++journal entries; they do not enable callback replay or certification. The
++existing 4,096-command generation budget applies to clock steps, edits and
++committed seeks together. On exhaustion, reload creates a fresh generation.
++
++This mode does not yet provide animated playback of the frames inside an
++input callback, constrained windowed grab/resize modes,
+ IPython `embed`, audio playback, or the complete `InteractiveScene` windowed

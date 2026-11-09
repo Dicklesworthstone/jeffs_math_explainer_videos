@@ -1,0 +1,69 @@
+name: Native surface lifecycle acceptance
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'crates/fmn-python/src/portal_surface*.rs'
+      - 'crates/fmn-python/python/fmn_python/initialization.py'
+      - 'crates/fmn-python/python/fmn_python/surface_*.py'
+      - 'crates/fmn-python/tests/native_surface_lifecycle.py'
+      - '.github/workflows/native-surface-lifecycle.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-surface-lifecycle-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  native_validation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Compile the exact committed native source
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rev-parse HEAD | tee /tmp/surface-source.txt
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          python -m maturin build --locked --interpreter python --profile dev --out target/surface-wheel 2>&1 | tee /tmp/surface-build.log
+          rustfmt --edition 2024 --emit stdout crates/fmn-python/src/portal_surface_init.rs > /tmp/surface-formatted.rs
+          python -m venv target/surface-venv
+          target/surface-venv/bin/python -m pip install 'numpy==2.5.2' target/surface-wheel/*.whl
+      - name: Run native surface and live-clock acceptance
+        shell: bash
+        run: |
+          set -euo pipefail
+          status=0
+          for suite in native_surface_lifecycle surface_admission native_surface_sampling surface_geometry surface_regridding surface_alignment surface_plotting live_surface_mesh textured_surfaces live_rates; do
+            target/surface-venv/bin/python -I "crates/fmn-python/tests/$suite.py" > "/tmp/surface-$suite.log" 2>&1 || status=1
+            cat "/tmp/surface-$suite.log"
+          done
+          git diff --exit-code
+          exit "$status"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-surface-validation-${{ github.run_id }}
+          path: |
+            /tmp/surface-*
+            target/surface-wheel/*.whl
+          retention-days: 3

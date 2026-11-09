@@ -1,0 +1,26 @@
+{
+  "utc": "2026-11-08T02:01:29.228063+00:00",
+  "files": [
+    {
+      "host": "csd",
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-repaired-final170.py",
+      "sha256": "63cc953da52990ff65ad2980f86219280f5164a2b85dc8c9d94a2d02733bfdce"
+    },
+    {
+      "host": "csd",
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-launch-final170.py",
+      "sha256": "7a050fb3d9b467a0bbb2093b8f78d6a221b4f196ed070a460316ab3ad2d235cb"
+    },
+    {
+      "host": "csd",
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/repaired08-return171.py",
+      "sha256": "e69d5a7902666087f346336057af7741af70df8c59de687d8c689c14bf6e3aa9"
+    },
+    {
+      "host": "trj",
+      "path": "/data/projects/jmev-render-worker-20261107/qualification01/production19/repaired08-return171.py",
+      "sha256": "e69d5a7902666087f346336057af7741af70df8c59de687d8c689c14bf6e3aa9"
+    }
+  ],
+  "scope": "Helpers transferred exactly; no final render or acceptance."
+}

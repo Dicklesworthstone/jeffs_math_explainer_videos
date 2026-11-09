@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-08T19:03:04.317750+00:00",
+  "reviewer": "root",
+  "manifest_sha256": "e6fa64dd79ec4f2e2478c65e2ea8b4cec6a1bf12bb82504c31fe7e8bace874a9",
+  "source_sha256": "2517772cb632db4eafe5be1ed266e6e8aa596778d7f3742ecdab8fa5d204b7b0",
+  "frames_viewed": 100,
+  "sheets_viewed": [
+    "sheet-001.jpg",
+    "sheet-002.jpg",
+    "sheet-003.jpg",
+    "sheet-004.jpg",
+    "sheet-005.jpg",
+    "sheet-006.jpg",
+    "sheet-007.jpg",
+    "sheet-008.jpg",
+    "sheet-009.jpg"
+  ],
+  "observations": [
+    "2216-2280: radial field progressively appears, settles, formula begins afterwards.",
+    "4744-4778: radial field dims, axes/frame remain, new disk begins appearing after old field disappears. No single-frame flash or stale-field reappearance observed."
+  ],
+  "limits": "Encoded-frame still sequence only; real-time motion/listening/fine-sync/final4K acceptance not claimed; later2.30s blank remains authored pacing item."
+}

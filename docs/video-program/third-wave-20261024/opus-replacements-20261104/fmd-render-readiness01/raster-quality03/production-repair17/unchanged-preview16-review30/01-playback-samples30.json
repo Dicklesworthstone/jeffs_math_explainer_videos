@@ -1,0 +1,16 @@
+{
+  "utc": "2026-11-07T19:38:31.641713+00:00",
+  "chapter": "01_the_bump",
+  "movie_sha256": "9f4307695c8af42a830756f4ca056c322a1ee70e45c76fc5deed5c5e318c8d01",
+  "sampled_playback_interval_seconds": [
+    0,
+    82.1678
+  ],
+  "muted": true,
+  "observations": [
+    "Growing bump curve, Taylor expression and approximation curve observed during actual playback. Degree40 result atx1.1 contrasts25.2 with0.452.",
+    "Real graph shifts into complex-plane explanation, poles+i/-i appear with radius-one circle. Labels remain distinct in sampled frames.",
+    "Opening numerator is near top but fully visible; keep final4K title-margin check."
+  ],
+  "limits": "Sparse screenshot observations during actual playback, not continuous frame-by-frame review, listening, fine synchronization or independent AV acceptance."
+}

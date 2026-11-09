@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-08T01:28:27.131377+00:00",
+  "movie_sha256": "ce9855429a89440c77b82681ac322b8a4f45388b5083c7fdf0cee4cedf59c8f7",
+  "pictures": 154,
+  "sheets": 20,
+  "all_sheets_viewed": true,
+  "review_continuity": "All20 sheets actually viewed before context compaction; native source details69/88s viewed afterward. Tool displayed details at2048x1152 from3840x2160.",
+  "detail_seconds": [
+    69,
+    88
+  ],
+  "observation": "Connected-region propagation, flat real counterexample, excluded-zero accumulation and identity-theorem qualification are readable. Smooth detailed field; dense zero markers intentionally accumulate. No concrete persistent clipping or overlap observed in selected pictures.",
+  "listening_accepted": false,
+  "fine_sync_accepted": false,
+  "independent_av_accepted": false,
+  "sampling_sha256": "c0580f880e4ec0bd4032f4d71cd68c68d35d5b0b8d5695646855d7728caa5c41"
+}

@@ -1,0 +1,343 @@
+{
+  "utc": "2026-11-07T16:25:52.993572+00:00",
+  "summary_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/preview08-summary.json",
+  "summary_sha256": "cdf395e65f49fa8cbfc70e4954e6ff2f0cab890e978775809fe4d63ac78800e1",
+  "viewed_sheets": [
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0001.jpg",
+      "sha256": "3b1dba0c943a7f22927ae8e02c00ffeee731e3ec2b6d6b1eac6a7a02d082edbe"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0002.jpg",
+      "sha256": "be37040876ac4aab679d7f13b25c29586bfcceaf94a742aa0cfa4e77437d021c"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0003.jpg",
+      "sha256": "cdb6d4c50fb6437744af96a62d70f2cedda87fc987e8d804ead28850e83e17ef"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0004.jpg",
+      "sha256": "55c61f9b011d9d6edec9bc60cede01b4e6e873147a283681a2738df1d3aa6758"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0005.jpg",
+      "sha256": "60107fbb42a8b54fa67773492d4fd25ced5d0ce58da911aa64b77d36343890f3"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0006.jpg",
+      "sha256": "be76eb5fcf4bdec53fae6b257e1b1a372fa9e3ea9bc08b82759a891486ded468"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0007.jpg",
+      "sha256": "4988df232c466926abe7584705652c7803621cc67f312bb630233dbf2f3a8157"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0008.jpg",
+      "sha256": "e92b5695bcecd3960fb7c3570587f0f97d8b01318fc504f4f9bca803bdb08474"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0009.jpg",
+      "sha256": "1761662137fa1abd31ca781b802834b39ad15cea428224680e8a5bfbdc4c82ac"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0010.jpg",
+      "sha256": "700fae547a905a2aefca02d27e9e719ab0fd8aa72eaed43b020c4d65de92e5f8"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0011.jpg",
+      "sha256": "f8f01cc6c87671db06e33eed645dff1a3b7a46f00d04e6435b15b2ee3273280b"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0012.jpg",
+      "sha256": "bf6f0c71ff583bcba15ee5938ac0ca40aa001f781bd2608d78103a8df29997f9"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0013.jpg",
+      "sha256": "6645a2056cdc98fb0227379fa37a1ff13c8d64d86da82c5226fd6e067031c850"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0014.jpg",
+      "sha256": "1e162b66e4190bf1b094da6c7523f73b5311f1bc3ca053ea8ec1c8d097c9c233"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0015.jpg",
+      "sha256": "53e2aa594a5f4987c4fe862fd3a4c4c9c6c0a2c592713b87a639731e5c856083"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0016.jpg",
+      "sha256": "273592db2b72bf48556cc4b313a6d53c35f73d5226e85b18fa68f57f0b1766fe"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0017.jpg",
+      "sha256": "47d212f47255f23c15cfb6dbbf5e1b6b4ab2e9a852f6055ddb72e950c6f75cff"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0018.jpg",
+      "sha256": "0e4846081df71abfc857115ef3be41985da7cd486569ba89f6fc6d2789f89316"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0019.jpg",
+      "sha256": "0ed47f653bfee49a5a5d7db2ce33c1cab3c1d177c620635153f7e0db46f4896c"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0020.jpg",
+      "sha256": "2c42b1e0b6cff67b6ff1f8abea99652d99288cf7a0a5c1059d19da478c6fc0c6"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0021.jpg",
+      "sha256": "762c938dd34530da32dacd81c83ceb55c0bdbbeba83b7266b36082de53cd376b"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0022.jpg",
+      "sha256": "ed15e30ecdeea88bfbad97011544f98edc3cc888d9e2510150017ab12964df05"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0023.jpg",
+      "sha256": "8ac70b8aa8b16f2b2c4f06c47ea8547bc73b5c58663981a12ee6160b70dbe78e"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0024.jpg",
+      "sha256": "76f7f775e235849bf4c039c4c367cba74b6889382fa3356fbdee762df1980715"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0025.jpg",
+      "sha256": "e1759c7ee896e99d53d06e03311bfe807f2a47beff4545bce742882689a56ad4"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0026.jpg",
+      "sha256": "6ad16f8d95d1eab8e9480e6de2c3132a2ae7309dac2a00bd93148521bedb30de"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0027.jpg",
+      "sha256": "f5ba1240b06cb56fdf122b8fc1e15befdfe0ccf9dadd09e646af85384e38115e"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0028.jpg",
+      "sha256": "ff8b9b729b96327437b1859b3f6dbe50cbde2e5806591baf40ed1661cdea6b3a"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0029.jpg",
+      "sha256": "f821b1cea06db71aece922b06b3103b796a5e49d85fe6a00a4189c7cf5b7d34c"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0030.jpg",
+      "sha256": "744146638449acfff118f816c1fd423da14e607da5587e39b29306e8537a12b8"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0031.jpg",
+      "sha256": "901c44df41081882d8e5a5d10cec6ad080ed53815845cf1e9aec03cd493a2f99"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0032.jpg",
+      "sha256": "badf72ac567610eec3eb4f17f7e358662357d331caac90f204b2dcc5a6111867"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0033.jpg",
+      "sha256": "1077cc65d658070bc9ff16d45e3bc1010327ebbc45734aa960b4f49d6a0b134e"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0034.jpg",
+      "sha256": "ed7e562a5dea636f79e23c077d49493b154aae27917463fa5bb65a8add3c1df1"
+    },
+    {
+      "chapter": "11_permutations",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/11_permutations/sheet-0035.jpg",
+      "sha256": "863ff238c635ba49521c93bfbe7298a0b9d1c5449b8a63acdd65b34f7ac86677"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0001.jpg",
+      "sha256": "4c376051b6237870c12c13e8b30029a6943fd87003ea68d84d978a5d80a24172"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0002.jpg",
+      "sha256": "5695785251638ad0ccaecd0c1a9558007f933c5e35549f72373b83822fc199d1"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0003.jpg",
+      "sha256": "04392f7931f4f19040afbf9d4557796bafc0d942ded3713631b9f60410b53c65"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0004.jpg",
+      "sha256": "74056f26fc60e6dbbcdccfce7e7ba89e46cf89c6fcf6d57e58b83f39dc4e62fb"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0005.jpg",
+      "sha256": "49d90e26f2917b93a2b05c0e609eda8bb4b581d90f389e2f125d8e02e7488549"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0006.jpg",
+      "sha256": "fcfd51e0a27e44fce3a6070e2e69b1c35c8956c141335a176988432facefa5a8"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0007.jpg",
+      "sha256": "277c861297f6f3414f5bb1f21db4380e76a60125bd3298f1133bed088f95022d"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0008.jpg",
+      "sha256": "9d6dca7e9cbc93721e0f77adfff1c3fcbc40dd538512443401ed7e3ee944f0d4"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0009.jpg",
+      "sha256": "5015b737b7a49f4de41fedc30e842911795406251740b03f4574ddbbe942d12c"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0010.jpg",
+      "sha256": "7fca0d2b175e5eead7c470fba91e4362f04ac7c689e0b22e5c47def32ac7f885"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0011.jpg",
+      "sha256": "47e95104f94e123131bbd4edc7cc4a30598ed1d61376ee750204c4321dd748ac"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0012.jpg",
+      "sha256": "d98dd4d27014ba5203eb46e81a1e93f35b21c66ab988af7e65827035eacf93c6"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0013.jpg",
+      "sha256": "3c6640dbda5e1863937f4130fbbf749dcc69d29c9cc1123b804342ae085370e1"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0014.jpg",
+      "sha256": "f28a1643b58260d00fc3395b62ea0c5e5b76816a8c5021a0dae34fd447b8483d"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0015.jpg",
+      "sha256": "cd16fa21ad40840f045bb2b01b0f55c43e04a3c36f16cfcf74ed5c5f4dc1551e"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0016.jpg",
+      "sha256": "18e8c52c179faaeafcafb78cb2345e4c60700bcb16a70459ae1fb427c84d3612"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0017.jpg",
+      "sha256": "42048244c48a203bb512414dc98d113ee2c38f7457ea4e03d1e267ab9e66aac3"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0018.jpg",
+      "sha256": "54eaf9dc49dd105d4564b93cf2fa40d90c0e3489914b7aa0762d2f480e7fe6a8"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0019.jpg",
+      "sha256": "cdc96e287bde232ec58ec98c9d08fdd33fcc62fec8de95f03964b73e89c77071"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0020.jpg",
+      "sha256": "e753011b498db5b054f626678b44b0eb7c37e0efb458f9bb80ff57afee8e158f"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0021.jpg",
+      "sha256": "e7c7f7e19ffd93339c06348fe0aa3c7d1e983d742d37b58384a992735b585d28"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0022.jpg",
+      "sha256": "361fa1c9d4717b32890d590a15a18c883994499fa6aa2363a4cf66e897c1af1c"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0023.jpg",
+      "sha256": "a68e410f064c30d585f8df56d49eff99117716f0a28e21d5dc901f3eb9bc4867"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0024.jpg",
+      "sha256": "126198947e1d2c32b423764f039d7e51f193747c9849fee52f7a3c837bea9742"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0025.jpg",
+      "sha256": "f7c12f2d9bfa18ecad24bb0fa38270fd4d6e3340def7cf0d8700f055b1c5b009"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0026.jpg",
+      "sha256": "b5184c53bd07c6e2ae074658f6f5e7e1020796f88a8e96f41f58cd1c2ed0789b"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0027.jpg",
+      "sha256": "f627e7973274e29b8e3e543597c0c3b1bd6c0d3b75be453060ec3b795ddd9bec"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0028.jpg",
+      "sha256": "8b940eae71fd64746fce44a7ecf0ef6277325dfa520977e8f12c32da28e6b544"
+    },
+    {
+      "chapter": "14_cosets",
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/algebra-fixes-pictures09/pictures/14_cosets/sheet-0029.jpg",
+      "sha256": "2360c762ff7f399357f1677f2e3ecbed19201a30b73cf9b057731a0939170b42"
+    }
+  ],
+  "selected_frames": 502,
+  "actually_reviewed_pictures": true,
+  "actually_reviewed_motion": false,
+  "listening_accepted": false,
+  "independent_review_complete": false,
+  "resolution": "960x540 60fps preview",
+  "findings": [
+    "11_17 first return two and return at six both explicit; overlapping cycles contrasted with disjoint-cycle lcm rule.",
+    "14_14 links clear stationary names at original crossing anchors and later samples; heading identifies left and right cosets.",
+    "Four 14_cosets lint strikes at 252.7s intentionally eliminate nondivisors 3,5,6,7.",
+    "Transition morphs settle clearly in selected samples. No persistent concrete picture defect observed."
+  ],
+  "limitations": [
+    "502 sampled frames on 64 sheets, not exhaustive frames or continuous motion.",
+    "Final 4K pictures, full master AV, captions, listening and independent acceptance remain pending."
+  ]
+}

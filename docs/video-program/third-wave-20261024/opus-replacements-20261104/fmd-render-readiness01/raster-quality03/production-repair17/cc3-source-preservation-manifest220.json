@@ -1,0 +1,2336 @@
+{
+ "schema": "cc3-source-preservation-manifest220",
+ "created_utc": "2026-11-08T04:22:19+00:00",
+ "author": "cc3 (dispatch-3)",
+ "follows": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cc3-source-preservation205.md",
+ "scope": "Exact list of remote-only files for root to copy so the complex analysis cut's source, overlays and binding receipts survive off the source host. Inspection was read-only (ls, stat, sha256, cat of small JSON); nothing was copied into the repository and no remote file was changed. Not a render, build, listening, picture or AV acceptance.",
+ "source_host": "csd",
+ "source_root": "/data/projects/jmev-stroke-probe-20261106",
+ "destination_root": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220",
+ "destination_rule": "destination = destination_root + '/' + source_relative; mirrors the remote layout so job names stay recognisable",
+ "copy_procedure": [
+  "Refuse if destination_root already exists; never overwrite.",
+  "For every row in copy_required (then copy_recommended, copy_optional if root chooses): hash the source on the host and refuse unless it equals sha256 and bytes.",
+  "Copy, then hash the source again (unchanged) and the local destination (equal).",
+  "Write destination_root/receipt.json in the receipt214 form: utc, source_host, source_root, files {source_relative: sha256}, source_unchanged_before_after_copy, scope.",
+  "Do not git add: rows with destination_gitignored true would be dropped silently, and several files carry absolute host paths."
+ ],
+ "totals": {
+  "copy_required": {
+   "files": 23,
+   "bytes": 1256934
+  },
+  "copy_recommended": {
+   "files": 12,
+   "bytes": 31903516
+  },
+  "copy_optional": {
+   "files": 22,
+   "bytes": 179067
+  },
+  "all_copy_rows": {
+   "files": 57,
+   "bytes": 33339517
+  }
+ },
+ "copy_required": [
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/work/tree/repo-view/Cargo.toml",
+   "source_relative": "work/tree/repo-view/Cargo.toml",
+   "sha256": "2fa23046569fa50378540c709509e12943a73733682564acdaa394541c7e2d05",
+   "bytes": 2544,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/work/tree/repo-view/Cargo.toml",
+   "tier": "required-source",
+   "why": "Kit view workspace root. explainer_kit inherits edition, publish, fmn, fmn-output, fmn-codec and explainer_score from it. Not in git history (HEAD has 269714e2).",
+   "destination_gitignored": false,
+   "sha256_at_589ab3df_and_HEAD": "269714e2695567f3062c05c150cae6bc6e3e438297176d31bf218df553decce7",
+   "independent_hash_records": [
+    "build19-inputs.json",
+    "inventory220",
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/work/tree/repo-view/Cargo.lock",
+   "source_relative": "work/tree/repo-view/Cargo.lock",
+   "sha256": "472710f8a7de0d2e0c2b477ffc457f81687f17cb120c6ae6b21bfebbc1f618f1",
+   "bytes": 63419,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/work/tree/repo-view/Cargo.lock",
+   "tier": "required-source",
+   "why": "Kit view lock. Not used by the film build (the film crate has its own lock) but needed for kit-level checks. Not in git history.",
+   "destination_gitignored": false,
+   "sha256_at_589ab3df_and_HEAD": "1c7e02438e0a6aaedf0fd360f0316dd6132309d23f51aeef88c2250bfa63e5a1",
+   "independent_hash_records": [
+    "build19-inputs.json",
+    "inventory220",
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn/tests/native_render.rs",
+   "source_relative": "work/tree/engine/crates/fmn/tests/native_render.rs",
+   "sha256": "d64416e4536cde9a0fbfa7e3e87ac488a36b0b9723c789bb304a68a818ac70cd",
+   "bytes": 19895,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/work/tree/engine/crates/fmn/tests/native_render.rs",
+   "tier": "required-source",
+   "why": "Root's unpatched frame-clock repair (engine-secondary-budget01/BUILD.md). Engine integration test, not linked into the film binary; the tracked patch stack gives ce3ef48e… instead.",
+   "destination_gitignored": false,
+   "sha256_at_a399d626": "fde5078f4abd2675945e968f23e4f4380668b312d9d635e24eae2976bbf03547",
+   "sha256_after_tracked_patch_stack": "ce3ef48e (scratch replay)",
+   "independent_hash_records": [
+    "build19-inputs.json",
+    "inventory220",
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/work/two-label68/workspace/explainer_corpus/complex_analysis_visual/narration_units.json",
+   "source_relative": "work/two-label68/workspace/explainer_corpus/complex_analysis_visual/narration_units.json",
+   "sha256": "662eafca457bd09c6cce19f2e82159a7c5a67d6903802a3f6bb181d605151db8",
+   "bytes": 39637,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/work/two-label68/workspace/explainer_corpus/complex_analysis_visual/narration_units.json",
+   "tier": "required-source",
+   "why": "Rebind69 output: chapter 09 binary's narration plan (= rebind-summary canonical_sha256).",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/work/two-label68/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-label69.json",
+   "source_relative": "work/two-label68/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-label69.json",
+   "sha256": "846ee418691ee856ce337d75d4e34af5e50c40b206e4b2230539e8abba62fec0",
+   "bytes": 32104,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/work/two-label68/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-label69.json",
+   "tier": "required-source",
+   "why": "Rebind69 output: direction map for build68 (= rebind-summary map_sha256).",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/work/two-label164/workspace/explainer_corpus/complex_analysis_visual/narration_units.json",
+   "source_relative": "work/two-label164/workspace/explainer_corpus/complex_analysis_visual/narration_units.json",
+   "sha256": "c711c40ca5a78924aed20e4cfa4bd0e7fecec49d26b56e4fc402b47beaa28c7d",
+   "bytes": 39638,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/work/two-label164/workspace/explainer_corpus/complex_analysis_visual/narration_units.json",
+   "tier": "required-source",
+   "why": "Rebind165 output: chapter 08 binary's narration plan (= rebind-summary canonical_sha256).",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/work/two-label164/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-label165.json",
+   "source_relative": "work/two-label164/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-label165.json",
+   "sha256": "864ad3a80f012fa4aea676c895cf8d10c5ec2f9f06bf5b5476b944a5cc692ed1",
+   "bytes": 32104,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/work/two-label164/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-label165.json",
+   "tier": "required-source",
+   "why": "Rebind165 output: direction map for build164 (= rebind-summary map_sha256).",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-repair-build19/source-copy.json",
+   "source_relative": "jobs/csd-production-repair-build19/source-copy.json",
+   "sha256": "b6799c42cefad68f1f0545ad39108e1ea5743351d9cae7c3c44c87c5237edaa7",
+   "bytes": 10242,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-repair-build19/source-copy.json",
+   "tier": "required-receipt",
+   "why": "Build19 source state at build time (66 files); binds the 13-chapter binary f4836eee… to source. Listed in the transfer manifest; no local copy.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-repair-build19/resource-receipt.json",
+   "source_relative": "jobs/csd-production-repair-build19/resource-receipt.json",
+   "sha256": "1e25502fa2e7ca459fa125e26f696840fb9e67f91be2e0bb5847559970f9fadf",
+   "bytes": 2818,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-repair-build19/resource-receipt.json",
+   "tier": "required-receipt",
+   "why": "Guard receipt: exit 0, inputs_sha256 = final_inputs_sha256 = build19-inputs.json.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build68/source-copy.json",
+   "source_relative": "jobs/csd-two-label-build68/source-copy.json",
+   "sha256": "25acda128de6e5f1aa35be3f9564450261566da31261a50274aa0e8799709253",
+   "bytes": 10206,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build68/source-copy.json",
+   "tier": "required-receipt",
+   "why": "Source state at build time (69 files; changed = boundary.rs, loop_sums.rs); binds the chapter 09 binary 352aa5ff….",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build68/qualification.json",
+   "source_relative": "jobs/csd-two-label-build68/qualification.json",
+   "sha256": "8ba49d69effb7a986a7be96f19c3ee6df97ee7fac45dcaaf2c6e509efb1835b3",
+   "bytes": 638,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build68/qualification.json",
+   "tier": "required-receipt",
+   "why": "Binary hash, 223 tests, Clippy, facts 7d528509…, 15 chapters for the chapter 09 binary 352aa5ff….",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build68/resource-receipt.json",
+   "source_relative": "jobs/csd-two-label-build68/resource-receipt.json",
+   "sha256": "9e55421ea417e05ac18c2e96384197bc72b7d3f8010d5d2554787988897b391f",
+   "bytes": 12649,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build68/resource-receipt.json",
+   "tier": "required-receipt",
+   "why": "Guard receipt: exit 0, inputs_sha256 = final_inputs_sha256.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build164/source-copy.json",
+   "source_relative": "jobs/csd-two-label-build164/source-copy.json",
+   "sha256": "da5884289e4d0fe15c12dfd82f5a3d44daaee5524e198f2727896d2aa3adfd56",
+   "bytes": 10206,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build164/source-copy.json",
+   "tier": "required-receipt",
+   "why": "Source state at build time (69 files; changed = boundary.rs, loop_sums.rs); binds the chapter 08 binary 5a66979e….",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind165-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build164/qualification.json",
+   "source_relative": "jobs/csd-two-label-build164/qualification.json",
+   "sha256": "d2a4b76040d8f5c8159828b682f7351b1a97e8af8ae6cc9df11bae915b0f0e51",
+   "bytes": 638,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build164/qualification.json",
+   "tier": "required-receipt",
+   "why": "Binary hash, 223 tests, Clippy, facts 7d528509…, 15 chapters for the chapter 08 binary 5a66979e….",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind165-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build164/resource-receipt.json",
+   "source_relative": "jobs/csd-two-label-build164/resource-receipt.json",
+   "sha256": "162d46d875dc400538d41fef6fb975314621ab0508840542fa5a286b68ca78a7",
+   "bytes": 2668,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build164/resource-receipt.json",
+   "tier": "required-receipt",
+   "why": "Guard receipt: exit 0, inputs_sha256 = final_inputs_sha256.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind165-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-rebind69/rebind-summary.json",
+   "source_relative": "jobs/csd-two-label-rebind69/rebind-summary.json",
+   "sha256": "c5017b9a30fc22a7cfeaabd294fcb8ad038560da2c563ceb320c159550a07d98",
+   "bytes": 14508,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-rebind69/rebind-summary.json",
+   "tier": "required-receipt",
+   "why": "Rebind result: 23 holds, 5 helper markers, 105 WAVs byte-identical, map and canonical hashes.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-rebind69/resource-receipt.json",
+   "source_relative": "jobs/csd-two-label-rebind69/resource-receipt.json",
+   "sha256": "20514c08ecdae8fe0285ddc58f58f1aaa510a591330c11912e374447134d178c",
+   "bytes": 2199,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-rebind69/resource-receipt.json",
+   "tier": "required-receipt",
+   "why": "Guard receipt: exit 0, inputs unchanged.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-rebind69/narration/assembly.json",
+   "source_relative": "jobs/csd-two-label-rebind69/narration/assembly.json",
+   "sha256": "37cda29fc0e1fc2bed46d6da7d56b5d36c3c613eac2dc1779bd2d82bdec1c090",
+   "bytes": 106557,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-rebind69/narration/assembly.json",
+   "tier": "required-receipt",
+   "why": "Rebound assembly record (one of the three files the rebind changes).",
+   "destination_gitignored": true,
+   "independent_hash_records": [
+    "inventory220"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-rebind69/narration/report.json",
+   "source_relative": "jobs/csd-two-label-rebind69/narration/report.json",
+   "sha256": "4679dfeccaa0b213e2f16b4257a0d6925079009181b0bba87e35c984ee092602",
+   "bytes": 365476,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-rebind69/narration/report.json",
+   "tier": "required-receipt",
+   "why": "Rebound narration report (one of the three files the rebind changes).",
+   "destination_gitignored": true,
+   "independent_hash_records": [
+    "inventory220"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-rebind165/rebind-summary.json",
+   "source_relative": "jobs/csd-two-label-rebind165/rebind-summary.json",
+   "sha256": "395603860ad4810b085a34c07fc3c4da0167beda467e4362ae75920a8e79218a",
+   "bytes": 14508,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-rebind165/rebind-summary.json",
+   "tier": "required-receipt",
+   "why": "Rebind result: 23 holds, 5 helper markers, 105 WAVs byte-identical, map and canonical hashes.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-rebind165/resource-receipt.json",
+   "source_relative": "jobs/csd-two-label-rebind165/resource-receipt.json",
+   "sha256": "9e29a35a3f0befd308ffd7c451a5931bc1fdd5033c37be21a4c0e54b083997c4",
+   "bytes": 2200,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-rebind165/resource-receipt.json",
+   "tier": "required-receipt",
+   "why": "Guard receipt: exit 0, inputs unchanged.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-rebind165/narration/assembly.json",
+   "source_relative": "jobs/csd-two-label-rebind165/narration/assembly.json",
+   "sha256": "98eb77245daa140bb8df187d6cdda0d0a98cb832cd8ac4faf99908386619765b",
+   "bytes": 106580,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-rebind165/narration/assembly.json",
+   "tier": "required-receipt",
+   "why": "Rebound assembly record (one of the three files the rebind changes).",
+   "destination_gitignored": true,
+   "independent_hash_records": [
+    "inventory220"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-rebind165/narration/report.json",
+   "source_relative": "jobs/csd-two-label-rebind165/narration/report.json",
+   "sha256": "a47f8d0b394fc0dad54acf6afa315f05352191da62b01719394deed5f258ba0d",
+   "bytes": 365500,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-rebind165/narration/report.json",
+   "tier": "required-receipt",
+   "why": "Rebound narration report (one of the three files the rebind changes).",
+   "destination_gitignored": true,
+   "independent_hash_records": [
+    "inventory220"
+   ]
+  }
+ ],
+ "copy_recommended": [
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/build19-inputs.json",
+   "source_relative": "qualification01/production-repair17/build19-inputs.json",
+   "sha256": "290dd1e4b0ae129e22c6157953a5583ee213793023aae8c79863fcbcaed4aec6",
+   "bytes": 2620897,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/qualification01/production-repair17/build19-inputs.json",
+   "tier": "recommended-closure",
+   "why": "Guard frozen-input list for build19 (11,770 rows with sha256): the full hashed closure of work/tree, workspaces and scripts. Contains absolute host paths.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/two-label-build68-inputs.json",
+   "source_relative": "qualification01/production-repair17/two-label-build68-inputs.json",
+   "sha256": "f5013e8c700d80cc2080e1b3df0981d615458810729e7c037face2e6df879357",
+   "bytes": 2736542,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/qualification01/production-repair17/two-label-build68-inputs.json",
+   "tier": "recommended-closure",
+   "why": "Frozen-input list for build68 (12,311 rows).",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/two-label-build164-inputs.json",
+   "source_relative": "qualification01/production-repair17/two-label-build164-inputs.json",
+   "sha256": "a7fcc02c5141c32f7dd364dab246926097c2bef3923b1ae64a86bd81aa055b5f",
+   "bytes": 2736541,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/qualification01/production-repair17/two-label-build164-inputs.json",
+   "tier": "recommended-closure",
+   "why": "Frozen-input list for build164 (12,311 rows). Its 4,184 work/tree rows equal today's inventory of work/tree exactly.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "two-label-rebind165-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/two-label-rebind69-inputs.json",
+   "source_relative": "qualification01/production-repair17/two-label-rebind69-inputs.json",
+   "sha256": "77c466ff9d77beb7f953343a16cbab24ae21cb71353d99ba3d85a46cad2d9a51",
+   "bytes": 2757672,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/qualification01/production-repair17/two-label-rebind69-inputs.json",
+   "tier": "recommended-closure",
+   "why": "Frozen-input list for rebind69 (12,399 rows).",
+   "destination_gitignored": false,
+   "independent_hash_records": []
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/two-label-rebind165-inputs.json",
+   "source_relative": "qualification01/production-repair17/two-label-rebind165-inputs.json",
+   "sha256": "0cdc1f1a75af13f179a6c389c58366bf7da0b46c9ee6d385758abe13e85e055d",
+   "bytes": 2757759,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/qualification01/production-repair17/two-label-rebind165-inputs.json",
+   "tier": "recommended-closure",
+   "why": "Frozen-input list for rebind165 (12,399 rows).",
+   "destination_gitignored": false,
+   "independent_hash_records": []
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/08_5.wav",
+   "source_relative": "jobs/csd-production-assembly19/narration/08_5.wav",
+   "sha256": "fb88052b87ca09b853e1e4ed630ed1163e0966e8b6128ba44f0469c12bfbfb0f",
+   "bytes": 8574764,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-assembly19/narration/08_5.wav",
+   "tier": "recommended-cut-narration",
+   "why": "Assembled 08_5 unit used by every cut timeline. Not local: audio17/08_5.wav is the mapped take, 34 bytes larger (f1c8eccc…).",
+   "destination_gitignored": true,
+   "independent_hash_records": [
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/09_1.wav",
+   "source_relative": "jobs/csd-production-assembly19/narration/09_1.wav",
+   "sha256": "cf37ead1c5bb398864c4090cb925c6002e1a9e4443f6d24a326b6b4f488e22ef",
+   "bytes": 6608684,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-assembly19/narration/09_1.wav",
+   "tier": "recommended-cut-narration",
+   "why": "Assembled 09_1 unit used by every cut timeline. Not local: audio17/09_1.wav is the mapped take, 34 bytes larger (16f34846…).",
+   "destination_gitignored": true,
+   "independent_hash_records": [
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/assembly.json",
+   "source_relative": "jobs/csd-production-assembly19/narration/assembly.json",
+   "sha256": "98ca5465426dd348c5944617357ade3c9fff411009f651c136d2c6073d90d839",
+   "bytes": 78284,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-assembly19/narration/assembly.json",
+   "tier": "recommended-cut-narration",
+   "why": "Assembly19 record that rebind69/165 rewrite; needed to re-check their 'only these files changed' assertion.",
+   "destination_gitignored": true,
+   "independent_hash_records": [
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration/report.json",
+   "source_relative": "jobs/csd-production-assembly19/narration/report.json",
+   "sha256": "2f899d2fb0c9580e9ddea690d263bd24f0508b37184cbf0cc39a8d9aa3372495",
+   "bytes": 295705,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-assembly19/narration/report.json",
+   "tier": "recommended-cut-narration",
+   "why": "Assembly19 report that rebind69/165 rewrite.",
+   "destination_gitignored": true,
+   "independent_hash_records": [
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/assembly19-summary.json",
+   "source_relative": "jobs/csd-production-assembly19/assembly19-summary.json",
+   "sha256": "17e5766ff9c93341cf2aef5478641212f8ea586c116265550f8870c33f9babc6",
+   "bytes": 42646,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-assembly19/assembly19-summary.json",
+   "tier": "recommended-cut-narration",
+   "why": "Assembly19 summary.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/resource-receipt.json",
+   "source_relative": "jobs/csd-production-assembly19/resource-receipt.json",
+   "sha256": "1791a42f8cfc3f42d480a51f3a42d2fa4495d2d20f93263a167b1a1bbf8a4725",
+   "bytes": 2187,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-assembly19/resource-receipt.json",
+   "tier": "recommended-cut-narration",
+   "why": "Assembly19 guard receipt.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/assembly19-inputs.json",
+   "source_relative": "qualification01/production-repair17/assembly19-inputs.json",
+   "sha256": "d6a498e44126647c8a98d04a2e7abb6b8c7e79e423199459c267f8aa0c7bec48",
+   "bytes": 2691835,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/qualification01/production-repair17/assembly19-inputs.json",
+   "tier": "recommended-cut-narration",
+   "why": "Assembly19 frozen-input list (hash bound by its resource receipt).",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  }
+ ],
+ "copy_optional": [
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-repair-build19/command.log",
+   "source_relative": "jobs/csd-production-repair-build19/command.log",
+   "sha256": "2c354988951adab91c09a668f8d4585f13b824ed4e27bf1b90bd7adce90f1758",
+   "bytes": 85,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-repair-build19/command.log",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": true,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-repair-build19/build.stderr",
+   "source_relative": "jobs/csd-production-repair-build19/build.stderr",
+   "sha256": "5c8e7fa5ed95859decd04ee9f2c354844c22ecbac4eb69e70e5fbdba431ccd4e",
+   "bytes": 460,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-repair-build19/build.stderr",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-repair-build19/clippy.stderr",
+   "source_relative": "jobs/csd-production-repair-build19/clippy.stderr",
+   "sha256": "6310747c97d10e0ded6600fa305b674466476f3ac730aa0d415083020c948166",
+   "bytes": 459,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-repair-build19/clippy.stderr",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-repair-build19/tests.stderr",
+   "source_relative": "jobs/csd-production-repair-build19/tests.stderr",
+   "sha256": "bd94df8e0763936cadcff2a1e85099778d88b16dc48d7e16344b122700e2bcd0",
+   "bytes": 651,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-repair-build19/tests.stderr",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-repair-build19/tests.stdout",
+   "source_relative": "jobs/csd-production-repair-build19/tests.stdout",
+   "sha256": "67c662355cb0b96e0f52d1516e939428dff9c73739cfd3a0476626ddd60efefd",
+   "bytes": 19022,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-repair-build19/tests.stdout",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build68/command.log",
+   "source_relative": "jobs/csd-two-label-build68/command.log",
+   "sha256": "b05e3240f7d0479186bc53c593b9da3c6e9a066f5c16b377eef8078ed0a1a259",
+   "bytes": 98,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build68/command.log",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": true,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build68/build.stderr",
+   "source_relative": "jobs/csd-two-label-build68/build.stderr",
+   "sha256": "3957aff4f235e9a2105fe232e812dda95c384bff8c5b6f59583d812aff0d389b",
+   "bytes": 452,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build68/build.stderr",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build68/clippy.stderr",
+   "source_relative": "jobs/csd-two-label-build68/clippy.stderr",
+   "sha256": "7e54792cea61703d34ae231161cca44cae1f5d0ce1c19c72002d5dbe880f0206",
+   "bytes": 6788,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build68/clippy.stderr",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build68/tests.stderr",
+   "source_relative": "jobs/csd-two-label-build68/tests.stderr",
+   "sha256": "f8bc086da1ba71729b6204d3c7bff8d390ca9e76cd5beab989140d802d31eadc",
+   "bytes": 7107,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build68/tests.stderr",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build68/tests.stdout",
+   "source_relative": "jobs/csd-two-label-build68/tests.stdout",
+   "sha256": "c53f789514995a282901390cb1e7e7637862529a7f7c61594def5df821eb2ce0",
+   "bytes": 19022,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build68/tests.stdout",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build164/command.log",
+   "source_relative": "jobs/csd-two-label-build164/command.log",
+   "sha256": "b05e3240f7d0479186bc53c593b9da3c6e9a066f5c16b377eef8078ed0a1a259",
+   "bytes": 98,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build164/command.log",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": true,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind165-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build164/build.stderr",
+   "source_relative": "jobs/csd-two-label-build164/build.stderr",
+   "sha256": "4e8c1b2c48f6211433623867d5c58160cdc16dfb81bbbc7aff421a63d6d5749a",
+   "bytes": 453,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build164/build.stderr",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind165-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build164/clippy.stderr",
+   "source_relative": "jobs/csd-two-label-build164/clippy.stderr",
+   "sha256": "61f8d61c7318df4912e0063287f5c71f45c737269c7f15169a62c66a9316abf6",
+   "bytes": 452,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build164/clippy.stderr",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind165-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build164/tests.stderr",
+   "source_relative": "jobs/csd-two-label-build164/tests.stderr",
+   "sha256": "4c701579f1457d16a76f16c84fabb66f20d2ebfc9188ba39ba72fd0f603e018a",
+   "bytes": 644,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build164/tests.stderr",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind165-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-build164/tests.stdout",
+   "source_relative": "jobs/csd-two-label-build164/tests.stdout",
+   "sha256": "5abf71f63f8e4e9129809a9f00ee8b517036e4e0745ba9b931db93feb20539a2",
+   "bytes": 19022,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-build164/tests.stdout",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "inventory220",
+    "two-label-rebind165-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-rebind69/command.log",
+   "source_relative": "jobs/csd-two-label-rebind69/command.log",
+   "sha256": "9c12c67393169a0e5b3d5288cae2d2506994ce3c86099fbdc8e5c84a6a2c6f6f",
+   "bytes": 101,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-rebind69/command.log",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": true,
+   "independent_hash_records": [
+    "inventory220"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-two-label-rebind165/command.log",
+   "source_relative": "jobs/csd-two-label-rebind165/command.log",
+   "sha256": "9c12c67393169a0e5b3d5288cae2d2506994ce3c86099fbdc8e5c84a6a2c6f6f",
+   "bytes": 101,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-two-label-rebind165/command.log",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": true,
+   "independent_hash_records": [
+    "inventory220"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/command.log",
+   "source_relative": "jobs/csd-production-assembly19/command.log",
+   "sha256": "ed074547f10b788be0df8b56b5db1ffbb55be65bb36ddbfb7d69899084fdf259",
+   "bytes": 97,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-assembly19/command.log",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": true,
+   "independent_hash_records": [
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/assemble.stdout",
+   "source_relative": "jobs/csd-production-assembly19/assemble.stdout",
+   "sha256": "e4f690c7e0ca0fa80f6b511ce7d337e322200e06016eee59fd6c6b4648e9bc42",
+   "bytes": 134,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-assembly19/assemble.stdout",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/spans.json",
+   "source_relative": "jobs/csd-production-assembly19/spans.json",
+   "sha256": "6c788fa43d1b1d2194058a9ee6c060c515c7e38ddb70bcead96b939b8cde6f42",
+   "bytes": 78378,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-assembly19/spans.json",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/phrase-hook-audit.json",
+   "source_relative": "jobs/csd-production-assembly19/phrase-hook-audit.json",
+   "sha256": "1862ad765b247402b480282222b50e62d7d7156f7a62586c2155161a676f9e6c",
+   "bytes": 15004,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-assembly19/phrase-hook-audit.json",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  },
+  {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/workspace-after.json",
+   "source_relative": "jobs/csd-production-assembly19/workspace-after.json",
+   "sha256": "e2971eb1fab657464dcdce950858e9501e6a7f6346fd3a21ffe8a7faba3857b7",
+   "bytes": 10439,
+   "destination": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-overlays-preserved220/jobs/csd-production-assembly19/workspace-after.json",
+   "tier": "optional-log",
+   "why": "Job log; qualification.json already records the result.",
+   "destination_gitignored": false,
+   "independent_hash_records": [
+    "two-label-build164-inputs.json",
+    "two-label-build68-inputs.json",
+    "two-label-rebind165-inputs.json",
+    "two-label-rebind69-inputs.json"
+   ]
+  }
+ ],
+ "not_copied": [
+  {
+   "source_host": "csd",
+   "source_relative": "jobs/csd-production-repair-build19/qualification.json",
+   "sha256": "2731a5293324ecc9cbb7bfbd61954272a94c34707e7b0f37dc880ef4e3b8235d",
+   "bytes": 638,
+   "reason": "Exact local copy exists (pairs with the build19 source-copy.json row).",
+   "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-picture-source41/000-qualification.json",
+   "local_tracked": false
+  },
+  {
+   "source_host": "csd",
+   "source_relative": "jobs/csd-two-label-rebind69/narration/external-units.json",
+   "sha256": "662eafca457bd09c6cce19f2e82159a7c5a67d6903802a3f6bb181d605151db8",
+   "bytes": 39637,
+   "reason": "Same bytes as the two-label68 workspace narration_units.json row (copied)."
+  },
+  {
+   "source_host": "csd",
+   "source_relative": "jobs/csd-two-label-rebind165/narration/external-units.json",
+   "sha256": "c711c40ca5a78924aed20e4cfa4bd0e7fecec49d26b56e4fc402b47beaa28c7d",
+   "bytes": 39638,
+   "reason": "Same bytes as the two-label164 workspace narration_units.json row (copied)."
+  },
+  {
+   "source_host": "csd",
+   "source_relative": "work/tree/engine-budget.toml",
+   "sha256": "7277a6c07463d2b827907dfe692fc80c68b89ae0b8612adf59e089715d602f5b",
+   "bytes": 2070,
+   "reason": "Reproduced exactly from the tracked engine-geometry-validation02/engine-budget.config.toml.in with the remote export path; contains absolute host paths."
+  },
+  {
+   "source_host": "csd",
+   "source_relative": "work/bin/production19",
+   "sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+   "bytes": 18441840,
+   "reason": "Build output, not source; hash equals its qualification.json binary_sha256. production19 is also in the transfer manifest."
+  },
+  {
+   "source_host": "csd",
+   "source_relative": "work/bin/two-label68",
+   "sha256": "352aa5ffe8f66e5f2de80a99748e47aa490076e0f806e31748a3f7a8246b8355",
+   "bytes": 18442024,
+   "reason": "Build output, not source; hash equals its qualification.json binary_sha256. production19 is also in the transfer manifest."
+  },
+  {
+   "source_host": "csd",
+   "source_relative": "work/bin/two-label164",
+   "sha256": "5a66979ea658ceea8e613a25b8a66535e18519fe999d5a859ec97b70e4e3bdc8",
+   "bytes": 18441848,
+   "reason": "Build output, not source; hash equals its qualification.json binary_sha256. production19 is also in the transfer manifest."
+  },
+  {
+   "source_host": "csd",
+   "source_relative": "work/.cargo/config.toml",
+   "sha256": "79fb8766d1f41365d64066e5b2e68b0fb89c50015425d109b155ccaf8eff2716",
+   "bytes": 402,
+   "reason": "Picked up by cargo from the build cwd; byte-identical to the tracked .cargo/config.toml at HEAD and 589ab3df (and to work/tree/repo-view/.cargo/config.toml)."
+  },
+  {
+   "source_host": "csd",
+   "source_relative": "$CARGO_HOME/config.toml (build user's default cargo home, outside the project)",
+   "sha256": "14ae6b73244bde60c647383e9c4f6321fa575e7bb8ad75d6916a7adfefe0b4e6",
+   "bytes": 743,
+   "reason": "Host config: [profile.dev]/[profile.test] debug settings and build.target-dir, which CARGO_TARGET_DIR overrides. Does not change the --release film binary; record only."
+  },
+  {
+   "source_host": "csd",
+   "source_relative": "jobs/csd-two-label-rebind{69,165}/narration/*.wav (105 each, 95,021,580 bytes each)",
+   "reason": "rebind-summary records all 105 byte-identical to assembly19 narration; names and sizes equal the transfer manifest's assembly19 rows; 103 have exact local copies (production-audio-stage07-01/native-narration01); 08_5/09_1 are the two recommended-cut-narration rows."
+  },
+  {
+   "source_host": "csd",
+   "source_relative": "inputs/frozen/ (4,126 files)",
+   "reason": "A separate frozen copy that the build does not read: engine-budget.toml points the patch to work/tree/engine."
+  },
+  {
+   "source_host": "csd",
+   "source_relative": "/usr/lib/python3/dist-packages, /usr/bin tools, other jobs' receipts in the frozen-input lists",
+   "reason": "Guard anti-mutation coverage of host and historical files, not inputs of the film build or rebinds."
+  }
+ ],
+ "inventories": {
+  "two_label164_workspace (chapter 08 binary 5a66979e…)": {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/work/two-label164/workspace",
+   "label": "build164 source state after rebind165",
+   "files": 71,
+   "bytes": 1989275,
+   "rows": [
+    {
+     "path": "explainer_corpus/complex_analysis_visual/Cargo.lock",
+     "sha256": "6a080058520a17788a934bc9eea7e7794e091651f46a1b89827f8c4ff105d9f1",
+     "bytes": 63348,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/Cargo.lock",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/Cargo.toml",
+     "sha256": "7644838ed75251307e2863c9a0b63c02b090f433fb00ae8c1a8745ebbca374c7",
+     "bytes": 558,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/Cargo.toml",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/narration_units.before-label165.json",
+     "sha256": "995e25c7788943deff65c4d84050d8a17edc3c2c3498be0d665d7ac5b661357a",
+     "bytes": 39643,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/narration_units.before-picture-stage08.json",
+     "sha256": "c937fca1f0d7507117462600f0f478472bd2b8dab93075aba6494bd99ce81141",
+     "bytes": 35577,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.before-picture-stage08.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/narration_units.before-production19.json",
+     "sha256": "22492be980800ece5be0e947a3e0d50cbc1bc21903ab6dd8411f2520a47392f0",
+     "bytes": 35578,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.before-production19.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/narration_units.before-quality16.json",
+     "sha256": "64ef10aa47eb76c50c1e3efba269adf9d0dbb9b774374ec362add6e1ba13cc37",
+     "bytes": 35576,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.before-quality16.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/narration_units.before-raster-stage09.json",
+     "sha256": "395b985a1c77b8647ce40674a4cf8f94efe6bd66952270320f55c8513fb5cc09",
+     "bytes": 35576,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.before-raster-stage09.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/narration_units.json",
+     "sha256": "c711c40ca5a78924aed20e4cfa4bd0e7fecec49d26b56e4fc402b47beaa28c7d",
+     "bytes": 39638,
+     "status": "copy (required-source row)"
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/oracle.py",
+     "sha256": "2a596b38c0b3ffcea797c39b801926451d892cb2a44e938f262b37b2ecf6e82d",
+     "bytes": 19728,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/oracle.py",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/script.tsv",
+     "sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c",
+     "bytes": 29103,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/script.tsv",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-label165.json",
+     "sha256": "864ad3a80f012fa4aea676c895cf8d10c5ec2f9f06bf5b5476b944a5cc692ed1",
+     "bytes": 32104,
+     "status": "copy (required-source row)"
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-production19.json",
+     "sha256": "0d5bec55f58d40ad9b8ef5d81163606f9a48408786d4f82804ee403b327bdc29",
+     "bytes": 32189,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-production19.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-quality16.json",
+     "sha256": "7867f5891b0a5bd6112f4c2b3d5b75df7d35c18d958f0c863738070a799d50b8",
+     "bytes": 29782,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-quality16.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage06.json",
+     "sha256": "fa2b976b6e916c3a45652f55753744eb802e1bc95edbad4d29c912ce3722c967",
+     "bytes": 29803,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage06.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage07.json",
+     "sha256": "4db4c4d5a433f3212e6af739d71625dd0931ac86bc68c4cfc859212925faff77",
+     "bytes": 29817,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage07.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage08.json",
+     "sha256": "6a6e2c6b5bb0fb504ff058c1337b2d1e0e943f6b6d51b6a65dfc5eaed1827ab8",
+     "bytes": 29781,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage08.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage09.json",
+     "sha256": "f4a0874e68578277b74e16907102f27304c86a466ac5a62016a595f882837052",
+     "bytes": 29781,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage09.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver01.json",
+     "sha256": "1a0c0d13255bd165207be0cbd54c5780465aaa5972472a25a7b98ba5fb74f86d",
+     "bytes": 5581,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver01.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver02.json",
+     "sha256": "483eaf6d7037fb4d797e536b4d7cf451f1201cdd7d0d1a041a2824e6ec3aaa0d",
+     "bytes": 7477,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver02.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver03.json",
+     "sha256": "0f60a0bce9e3ac6af8849d45b8cf092f112d74011cebe231b481631f6da3b19a",
+     "bytes": 7512,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver03.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver04.json",
+     "sha256": "ea29b4a9c9929248197022bac7cc29e52a23dbc2547070a93052c5abe07b215a",
+     "bytes": 7550,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver04.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver05.json",
+     "sha256": "668ec55713e8b1fe98ebdbc5403cc4395b451f213ee6cc609f5041ea438fd3f4",
+     "bytes": 8413,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver05.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver06.json",
+     "sha256": "77d8bc2b1232d8137a68027f1e7aee532f31101a004b7d2fb63860e3c14e84d6",
+     "bytes": 8413,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver06.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver09.json",
+     "sha256": "3750de4927eb964b5505761703a2fb980c85c912b3385110ae11fbfb5237d961",
+     "bytes": 30092,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver09.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver10.json",
+     "sha256": "341356cda34ac129fbca1988699f9f20f1cb583d63a5463f780226a13ab3c5b4",
+     "bytes": 30101,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver10.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver12.json",
+     "sha256": "70888624edd6e930b383b277b50f8da5e39ac94f1a661c71b7f0e9575362f20c",
+     "bytes": 30094,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver12.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v5.json",
+     "sha256": "090301f8352995adfeee59304a2050c85678e434fbcc6af3bc8373681b28d34e",
+     "bytes": 6651,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v5.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v6.json",
+     "sha256": "c8bc37e19d4c1112310ff155183add1d2375bde113aded60c7517ee78215fcbe",
+     "bytes": 7607,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v6.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v7.json",
+     "sha256": "ab5a01d4013bf721fc02bcc85b32655a2169d6a8b7320dc6e35b77390c262c63",
+     "bytes": 7609,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v7.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver02.json",
+     "sha256": "a8000a8669a6866dc2d4be26a3c45befa1694d7ad1e55821b7f5f65ec7fe76cc",
+     "bytes": 7148,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver02.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver03.json",
+     "sha256": "18cf247a8ce72ca2e99235e567130714eb418c13927a2453820f99e0be6cfc4c",
+     "bytes": 7148,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver03.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver04.json",
+     "sha256": "a7b05cab7fd3cecfa3db03b0ec9ecb0cafbcf7324a5bf455de97cf0c1191ca7d",
+     "bytes": 7148,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver04.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/script-as-reviewed-mail622.tsv",
+     "sha256": "860a73d26d7a5f122e7e8c7ff64590b3b1e4f70e155032aa01b11126a933448a",
+     "bytes": 24105,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/script-as-reviewed-mail622.tsv",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/storyboard.md",
+     "sha256": "e45d2bb52e74557aa95d40c22dded1eebc6211812b87acd0d7a870538768b153",
+     "bytes": 66525,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/storyboard.md",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/facts.rs",
+     "sha256": "12f2fef0d6807540d3642972a1125c89e683d5f9615689f4100e6aea522530bc",
+     "bytes": 25317,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/facts.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/main.rs",
+     "sha256": "19a9e1051360caacba25a9276d1f32a4b7b94700bb25a4c72ca663805619f798",
+     "bytes": 6242,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/main.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/model.rs",
+     "sha256": "118172af9d69006c370fddf67a8c9d97431485cd36aea42e92f04f65a80a58b2",
+     "bytes": 44317,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/model.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/plate_layout.rs",
+     "sha256": "f450c3206bbf4d2ccea7bfc0a6e3092398f8081839b0dd370cd7f860a5bef9c3",
+     "bytes": 10758,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/plate_layout.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/score.rs",
+     "sha256": "0563256da1cd670e7e453a4e840b93d4be9bbd1202941843bdbc77ca46062680",
+     "bytes": 1279,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/score.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/argument.rs",
+     "sha256": "cc5a8d963de7a3a583c332875cb88337b97b2bc00b27d1b9e6420cbddf17920a",
+     "bytes": 6207,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/argument.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/bookends.rs",
+     "sha256": "9a44d4cea2cecdb51368619c62e29bff6fae565c58ff37b63701b5d17594092b",
+     "bytes": 8110,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/bookends.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+     "sha256": "dc80c541799209f10d02701d18c7fab5a14327000719929e5e2fad0c6fd62f9f",
+     "bytes": 69706,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/boundary-label-repair52.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/cauchy.rs",
+     "sha256": "5993b8bda652d951f7946813f2b81da88b7f232f791c564964bf5d5254f80c66",
+     "bytes": 4667,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/cauchy.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+     "sha256": "0c217b6b5daee2681a61049b0918ceda7cc211d377ecd0c5f70b8562dd36568b",
+     "bytes": 27922,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuation.rs",
+     "sha256": "3fa49900014690913ec0a987f42c7fe615424719414e762a1b31bab16aaca23e",
+     "bytes": 5500,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/continuation.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+     "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96",
+     "bytes": 42012,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+     "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1",
+     "bytes": 88862,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs.orig",
+     "sha256": "cdc154ec074aa446b96cae783fa7e26b0fec3b9cf18e9c16ed19284aab22e32c",
+     "bytes": 87412,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs.orig",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/derivative.rs",
+     "sha256": "6e5176b980bfea4ab7d9291c0138fe345be21ad0e9c2f9adab83a898b13bfdbc",
+     "bytes": 5355,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/derivative.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/domain_color.rs",
+     "sha256": "9b3f2728ec74e2886155429a16e4efa06e9eb2642c9629d71bf7f9d2c1f03496",
+     "bytes": 9040,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/domain_color.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+     "sha256": "cd394e5a451bf1114bead7a086660d8f22cc282e8bb66de4b17b833a98bd9af1",
+     "bytes": 70189,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+     "sha256": "7d1cf20fd25c8d9233f3c14426b0196fd4fd6673e4b25becba47b50f2635b282",
+     "bytes": 56009,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/integral.rs",
+     "sha256": "1ce4ea7ef3d6f80e97bc5a585d25f9dfdc155c10365c970a866a6b577234eb41",
+     "bytes": 5704,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/integral.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs",
+     "sha256": "1cf259683b29606e51f0fd25ffb35e26247f7adff1f5d5aee8334b57aa6dedec",
+     "bytes": 64512,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/loop-sums-label-repair164.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+     "sha256": "4f4b17c35bf01aaa587d8d3c97b6e79059baef6925f68c1748a121776d841ce6",
+     "bytes": 32760,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs.orig",
+     "sha256": "a13535445ddaf4756dbc985a656259d909a44466a4947e5f92f6820c95854ec4",
+     "bytes": 30498,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs.orig",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs",
+     "sha256": "4f0154ec82bb787cdbee4d11d308eea25ca6cc1164f7f4bdb1d908f8d54df29c",
+     "bytes": 41958,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs.orig",
+     "sha256": "84ed107492e65b39add7b7a3e7fd6e17348b7c5a8fc80b7c2768bac27b0e4115",
+     "bytes": 41823,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs.orig",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+     "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00",
+     "bytes": 38254,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+     "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d",
+     "bytes": 27807,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+     "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae",
+     "bytes": 50795,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/residues.rs",
+     "sha256": "7d06f69b2aff86ac1bee103c7aaefc58891d0b335312e98df3610769f45af7c1",
+     "bytes": 18370,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/residues.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+     "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e",
+     "bytes": 29556,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+     "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3",
+     "bytes": 15812,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/thumbnail.rs",
+     "sha256": "5d90834bba4b0d6acf8f3c437ca66dab046f1c4823e3b773616f4d4d665c2c65",
+     "bytes": 3399,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/thumbnail.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+     "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec",
+     "bytes": 31612,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+     "sha256": "0f22d63febc18e05dc4123bedf84eeadf967938bcbc4260cfb0d9e8925ff4cb9",
+     "bytes": 61298,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "tools/coherent_narration.before-production19.py",
+     "sha256": "95615cfadb42fbfdddf828340b74ec66d89c975a1f399593e212bdd9840e65d5",
+     "bytes": 35066,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/tools/coherent_narration.before-production19.py",
+     "local_tracked": false
+    },
+    {
+     "path": "tools/coherent_narration.py",
+     "sha256": "a7fc6705aead7999134d8619458c8b2973ef771be069d4ce98462ac5f97fc42f",
+     "bytes": 36013,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/tools/coherent_narration.py",
+     "local_tracked": false
+    },
+    {
+     "path": "tools/narration_cache.py",
+     "sha256": "47331efd3952af6d0e66971a1c8fddd08929f881d1f9b470bde223db7a01b0c0",
+     "bytes": 20279,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/tools/narration_cache.py",
+     "local_tracked": false
+    },
+    {
+     "path": "tools/narration_delivery.py",
+     "sha256": "961f17cc85dd30eadca73f950ec0bab6e52eb47ad43a7384c3710c97962b1878",
+     "bytes": 18099,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/tools/narration_delivery.py",
+     "local_tracked": false
+    }
+   ]
+  },
+  "two_label68_workspace (chapter 09 binary 352aa5ff…)": {
+   "source_host": "csd",
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/work/two-label68/workspace",
+   "label": "build68 source state after rebind69",
+   "files": 71,
+   "bytes": 1989274,
+   "rows": [
+    {
+     "path": "explainer_corpus/complex_analysis_visual/Cargo.lock",
+     "sha256": "6a080058520a17788a934bc9eea7e7794e091651f46a1b89827f8c4ff105d9f1",
+     "bytes": 63348,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/Cargo.lock",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/Cargo.toml",
+     "sha256": "7644838ed75251307e2863c9a0b63c02b090f433fb00ae8c1a8745ebbca374c7",
+     "bytes": 558,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/Cargo.toml",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/narration_units.before-label69.json",
+     "sha256": "995e25c7788943deff65c4d84050d8a17edc3c2c3498be0d665d7ac5b661357a",
+     "bytes": 39643,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/narration_units.before-picture-stage08.json",
+     "sha256": "c937fca1f0d7507117462600f0f478472bd2b8dab93075aba6494bd99ce81141",
+     "bytes": 35577,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.before-picture-stage08.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/narration_units.before-production19.json",
+     "sha256": "22492be980800ece5be0e947a3e0d50cbc1bc21903ab6dd8411f2520a47392f0",
+     "bytes": 35578,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.before-production19.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/narration_units.before-quality16.json",
+     "sha256": "64ef10aa47eb76c50c1e3efba269adf9d0dbb9b774374ec362add6e1ba13cc37",
+     "bytes": 35576,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.before-quality16.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/narration_units.before-raster-stage09.json",
+     "sha256": "395b985a1c77b8647ce40674a4cf8f94efe6bd66952270320f55c8513fb5cc09",
+     "bytes": 35576,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/narration_units.before-raster-stage09.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/narration_units.json",
+     "sha256": "662eafca457bd09c6cce19f2e82159a7c5a67d6903802a3f6bb181d605151db8",
+     "bytes": 39637,
+     "status": "copy (required-source row)"
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/oracle.py",
+     "sha256": "2a596b38c0b3ffcea797c39b801926451d892cb2a44e938f262b37b2ecf6e82d",
+     "bytes": 19728,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/oracle.py",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/script.tsv",
+     "sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c",
+     "bytes": 29103,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/script.tsv",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-label69.json",
+     "sha256": "846ee418691ee856ce337d75d4e34af5e50c40b206e4b2230539e8abba62fec0",
+     "bytes": 32104,
+     "status": "copy (required-source row)"
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-production19.json",
+     "sha256": "0d5bec55f58d40ad9b8ef5d81163606f9a48408786d4f82804ee403b327bdc29",
+     "bytes": 32189,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-production19.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-quality16.json",
+     "sha256": "7867f5891b0a5bd6112f4c2b3d5b75df7d35c18d958f0c863738070a799d50b8",
+     "bytes": 29782,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-quality16.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage06.json",
+     "sha256": "fa2b976b6e916c3a45652f55753744eb802e1bc95edbad4d29c912ce3722c967",
+     "bytes": 29803,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage06.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage07.json",
+     "sha256": "4db4c4d5a433f3212e6af739d71625dd0931ac86bc68c4cfc859212925faff77",
+     "bytes": 29817,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage07.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage08.json",
+     "sha256": "6a6e2c6b5bb0fb504ff058c1337b2d1e0e943f6b6d51b6a65dfc5eaed1827ab8",
+     "bytes": 29781,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage08.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage09.json",
+     "sha256": "f4a0874e68578277b74e16907102f27304c86a466ac5a62016a595f882837052",
+     "bytes": 29781,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-stage09.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver01.json",
+     "sha256": "1a0c0d13255bd165207be0cbd54c5780465aaa5972472a25a7b98ba5fb74f86d",
+     "bytes": 5581,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver01.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver02.json",
+     "sha256": "483eaf6d7037fb4d797e536b4d7cf451f1201cdd7d0d1a041a2824e6ec3aaa0d",
+     "bytes": 7477,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver02.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver03.json",
+     "sha256": "0f60a0bce9e3ac6af8849d45b8cf092f112d74011cebe231b481631f6da3b19a",
+     "bytes": 7512,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver03.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver04.json",
+     "sha256": "ea29b4a9c9929248197022bac7cc29e52a23dbc2547070a93052c5abe07b215a",
+     "bytes": 7550,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver04.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver05.json",
+     "sha256": "668ec55713e8b1fe98ebdbc5403cc4395b451f213ee6cc609f5041ea438fd3f4",
+     "bytes": 8413,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver05.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver06.json",
+     "sha256": "77d8bc2b1232d8137a68027f1e7aee532f31101a004b7d2fb63860e3c14e84d6",
+     "bytes": 8413,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver06.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver09.json",
+     "sha256": "3750de4927eb964b5505761703a2fb980c85c912b3385110ae11fbfb5237d961",
+     "bytes": 30092,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver09.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver10.json",
+     "sha256": "341356cda34ac129fbca1988699f9f20f1cb583d63a5463f780226a13ab3c5b4",
+     "bytes": 30101,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver10.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver12.json",
+     "sha256": "70888624edd6e930b383b277b50f8da5e39ac94f1a661c71b7f0e9575362f20c",
+     "bytes": 30094,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver12.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v5.json",
+     "sha256": "090301f8352995adfeee59304a2050c85678e434fbcc6af3bc8373681b28d34e",
+     "bytes": 6651,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v5.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v6.json",
+     "sha256": "c8bc37e19d4c1112310ff155183add1d2375bde113aded60c7517ee78215fcbe",
+     "bytes": 7607,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v6.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v7.json",
+     "sha256": "ab5a01d4013bf721fc02bcc85b32655a2169d6a8b7320dc6e35b77390c262c63",
+     "bytes": 7609,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-research-v7.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver02.json",
+     "sha256": "a8000a8669a6866dc2d4be26a3c45befa1694d7ad1e55821b7f5f65ec7fe76cc",
+     "bytes": 7148,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver02.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver03.json",
+     "sha256": "18cf247a8ce72ca2e99235e567130714eb418c13927a2453820f99e0be6cfc4c",
+     "bytes": 7148,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver03.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver04.json",
+     "sha256": "a7b05cab7fd3cecfa3db03b0ec9ecb0cafbcf7324a5bf455de97cf0c1191ca7d",
+     "bytes": 7148,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/native-review-units-oliver04.json",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/script-as-reviewed-mail622.tsv",
+     "sha256": "860a73d26d7a5f122e7e8c7ff64590b3b1e4f70e155032aa01b11126a933448a",
+     "bytes": 24105,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/script-as-reviewed-mail622.tsv",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/docs/storyboard.md",
+     "sha256": "e45d2bb52e74557aa95d40c22dded1eebc6211812b87acd0d7a870538768b153",
+     "bytes": 66525,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/docs/storyboard.md",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/facts.rs",
+     "sha256": "12f2fef0d6807540d3642972a1125c89e683d5f9615689f4100e6aea522530bc",
+     "bytes": 25317,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/facts.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/main.rs",
+     "sha256": "19a9e1051360caacba25a9276d1f32a4b7b94700bb25a4c72ca663805619f798",
+     "bytes": 6242,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/main.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/model.rs",
+     "sha256": "118172af9d69006c370fddf67a8c9d97431485cd36aea42e92f04f65a80a58b2",
+     "bytes": 44317,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/model.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/plate_layout.rs",
+     "sha256": "f450c3206bbf4d2ccea7bfc0a6e3092398f8081839b0dd370cd7f860a5bef9c3",
+     "bytes": 10758,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/plate_layout.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/score.rs",
+     "sha256": "0563256da1cd670e7e453a4e840b93d4be9bbd1202941843bdbc77ca46062680",
+     "bytes": 1279,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/score.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/argument.rs",
+     "sha256": "cc5a8d963de7a3a583c332875cb88337b97b2bc00b27d1b9e6420cbddf17920a",
+     "bytes": 6207,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/argument.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/bookends.rs",
+     "sha256": "9a44d4cea2cecdb51368619c62e29bff6fae565c58ff37b63701b5d17594092b",
+     "bytes": 8110,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/bookends.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+     "sha256": "dc80c541799209f10d02701d18c7fab5a14327000719929e5e2fad0c6fd62f9f",
+     "bytes": 69706,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/boundary-label-repair52.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/cauchy.rs",
+     "sha256": "5993b8bda652d951f7946813f2b81da88b7f232f791c564964bf5d5254f80c66",
+     "bytes": 4667,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/cauchy.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+     "sha256": "0c217b6b5daee2681a61049b0918ceda7cc211d377ecd0c5f70b8562dd36568b",
+     "bytes": 27922,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuation.rs",
+     "sha256": "3fa49900014690913ec0a987f42c7fe615424719414e762a1b31bab16aaca23e",
+     "bytes": 5500,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/continuation.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+     "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96",
+     "bytes": 42012,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+     "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1",
+     "bytes": 88862,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs.orig",
+     "sha256": "cdc154ec074aa446b96cae783fa7e26b0fec3b9cf18e9c16ed19284aab22e32c",
+     "bytes": 87412,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs.orig",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/derivative.rs",
+     "sha256": "6e5176b980bfea4ab7d9291c0138fe345be21ad0e9c2f9adab83a898b13bfdbc",
+     "bytes": 5355,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/derivative.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/domain_color.rs",
+     "sha256": "9b3f2728ec74e2886155429a16e4efa06e9eb2642c9629d71bf7f9d2c1f03496",
+     "bytes": 9040,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/domain_color.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+     "sha256": "cd394e5a451bf1114bead7a086660d8f22cc282e8bb66de4b17b833a98bd9af1",
+     "bytes": 70189,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+     "sha256": "7d1cf20fd25c8d9233f3c14426b0196fd4fd6673e4b25becba47b50f2635b282",
+     "bytes": 56009,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/integral.rs",
+     "sha256": "1ce4ea7ef3d6f80e97bc5a585d25f9dfdc155c10365c970a866a6b577234eb41",
+     "bytes": 5704,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/integral.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs",
+     "sha256": "a13f176c3cd9654d92eef7471c609c7c5367da89a2bf55d40db665ebdc309ac9",
+     "bytes": 64512,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/loop-sums-label-repair68.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+     "sha256": "4f4b17c35bf01aaa587d8d3c97b6e79059baef6925f68c1748a121776d841ce6",
+     "bytes": 32760,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs.orig",
+     "sha256": "a13535445ddaf4756dbc985a656259d909a44466a4947e5f92f6820c95854ec4",
+     "bytes": 30498,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs.orig",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs",
+     "sha256": "4f0154ec82bb787cdbee4d11d308eea25ca6cc1164f7f4bdb1d908f8d54df29c",
+     "bytes": 41958,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs.orig",
+     "sha256": "84ed107492e65b39add7b7a3e7fd6e17348b7c5a8fc80b7c2768bac27b0e4115",
+     "bytes": 41823,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs.orig",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+     "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00",
+     "bytes": 38254,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+     "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d",
+     "bytes": 27807,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+     "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae",
+     "bytes": 50795,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/residues.rs",
+     "sha256": "7d06f69b2aff86ac1bee103c7aaefc58891d0b335312e98df3610769f45af7c1",
+     "bytes": 18370,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/residues.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+     "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e",
+     "bytes": 29556,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+     "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3",
+     "bytes": 15812,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/thumbnail.rs",
+     "sha256": "5d90834bba4b0d6acf8f3c437ca66dab046f1c4823e3b773616f4d4d665c2c65",
+     "bytes": 3399,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/thumbnail.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+     "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec",
+     "bytes": 31612,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+     "sha256": "0f22d63febc18e05dc4123bedf84eeadf967938bcbc4260cfb0d9e8925ff4cb9",
+     "bytes": 61298,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+     "local_tracked": false
+    },
+    {
+     "path": "tools/coherent_narration.before-production19.py",
+     "sha256": "95615cfadb42fbfdddf828340b74ec66d89c975a1f399593e212bdd9840e65d5",
+     "bytes": 35066,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/tools/coherent_narration.before-production19.py",
+     "local_tracked": false
+    },
+    {
+     "path": "tools/coherent_narration.py",
+     "sha256": "a7fc6705aead7999134d8619458c8b2973ef771be069d4ce98462ac5f97fc42f",
+     "bytes": 36013,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/tools/coherent_narration.py",
+     "local_tracked": false
+    },
+    {
+     "path": "tools/narration_cache.py",
+     "sha256": "47331efd3952af6d0e66971a1c8fddd08929f881d1f9b470bde223db7a01b0c0",
+     "bytes": 20279,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/tools/narration_cache.py",
+     "local_tracked": false
+    },
+    {
+     "path": "tools/narration_delivery.py",
+     "sha256": "961f17cc85dd30eadca73f950ec0bab6e52eb47ad43a7384c3710c97962b1878",
+     "bytes": 18099,
+     "status": "local",
+     "local_exact_copy": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/production-source-preserved214/workspace/tools/narration_delivery.py",
+     "local_tracked": false
+    }
+   ]
+  },
+  "work_tree (engine export + kit view + unused crate copy)": {
+   "source_path": "/data/projects/jmev-stroke-probe-20261106/work/tree",
+   "files": 4184,
+   "bytes": 48498900,
+   "equals_build164_frozen_inputs": true,
+   "classes": {
+    "engine-a399d626 (git blob of franken_manim a399d626 at the same path)": 4047,
+    "engine-patch-replay (a399d626 + the four tracked patches, scratch replay)": 9,
+    "kit-589ab3df (git blob at the same path)": 62,
+    "kit-patch-replay (589ab3df + two tracked kit patches; expected-kit.sha256 OK)": 4,
+    "local-copy (work/tree/crate, unused by these builds)": 58,
+    "missing (3 copied above + engine-budget.toml reproduced)": 4
+   },
+   "patch_replay_rows": [
+    {
+     "path": "engine/crates/fmn/src/rendering.rs",
+     "sha256": "543fb1f5d1b90cc3ae95d0139bbab94702b8722f9ce816d7fb090a3f7e6efdc1"
+    },
+    {
+     "path": "engine/crates/fmn/src/rendering/pipeline.rs",
+     "sha256": "634c22b57bd59d225e793a2201330729136ba162e42bdc9a146863c2d758573a"
+    },
+    {
+     "path": "engine/crates/fmn/tests/native_bundle_pipeline.rs",
+     "sha256": "187a5883bf04d6185e95f3d7f11299ae4285668decacdca90d29203d9b925f60"
+    },
+    {
+     "path": "engine/crates/fmn-render/src/engine.rs",
+     "sha256": "de6551fc9f697b4a529e60d4ef502ca99abce0b4b3c243c2e017658836f1f519"
+    },
+    {
+     "path": "engine/crates/fmn-render/src/plan.rs",
+     "sha256": "d49efa17889c871db5f621302f622d192ff38188d6227b8cba3be5f1ee4db6a6"
+    },
+    {
+     "path": "engine/crates/fmn-render/src/retained.rs",
+     "sha256": "c2124bcc4514303dfd38a748a7bc0b0c93f68a559b21a447c9ec803d5725ffae"
+    },
+    {
+     "path": "engine/crates/fmn-render/src/stroke.rs",
+     "sha256": "668867dffefe1378f1e5f6631cc31c297103d6b197f724c7fdd210db685a0431"
+    },
+    {
+     "path": "engine/crates/fmn-render/src/vector_frame.rs",
+     "sha256": "81fbf8c03a0d93bd8e7476a5f5f441be45eabdac7f05ddf2d3138b5f004a5181"
+    },
+    {
+     "path": "engine/crates/fmn-render/tests/stroke_profiles.rs",
+     "sha256": "23e1075636cefdaf76b50a74d1a56c3dd2e6518f2071e2140717cbf126aa31ef"
+    },
+    {
+     "path": "repo-view/crates/explainer_kit/src/cli.rs",
+     "sha256": "3c5221febc3e3d92d37aa97e2f8d38c319121215a67a1dc68d24534d41d862c9"
+    },
+    {
+     "path": "repo-view/crates/explainer_kit/src/glyphs.rs",
+     "sha256": "225504a6ecbcd771b22dcf6d489b9980df2756d75205ea66316f83836d0071da"
+    },
+    {
+     "path": "repo-view/crates/explainer_kit/tests/cli_pipeline.rs",
+     "sha256": "8da9d8761672b67fd2185c26bae34375015e99b091e11a389afd0b6a23c224a4"
+    },
+    {
+     "path": "repo-view/crates/explainer_kit/tests/options_hook_routes.rs",
+     "sha256": "75a7cffa7e2ff689bdcb9e9f41289270f0246bc916fbf959bbb3b0ccc7e0fa36"
+    }
+   ]
+  }
+ },
+ "binding_checks": [
+  {
+   "check": "csd-production-repair-build19 qualification binary_sha256 == work/bin/production19",
+   "result": true,
+   "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22"
+  },
+  {
+   "check": "csd-two-label-build68 qualification binary_sha256 == work/bin/two-label68",
+   "result": true,
+   "binary_sha256": "352aa5ffe8f66e5f2de80a99748e47aa490076e0f806e31748a3f7a8246b8355"
+  },
+  {
+   "check": "csd-two-label-build164 qualification binary_sha256 == work/bin/two-label164",
+   "result": true,
+   "binary_sha256": "5a66979ea658ceea8e613a25b8a66535e18519fe999d5a859ec97b70e4e3bdc8"
+  },
+  {
+   "check": "csd-production-repair-build19 resource-receipt inputs_sha256 == final_inputs_sha256 == sha256(build19-inputs.json)",
+   "result": true
+  },
+  {
+   "check": "csd-two-label-build68 resource-receipt inputs_sha256 == final_inputs_sha256 == sha256(two-label-build68-inputs.json)",
+   "result": true
+  },
+  {
+   "check": "csd-two-label-build164 resource-receipt inputs_sha256 == final_inputs_sha256 == sha256(two-label-build164-inputs.json)",
+   "result": true
+  },
+  {
+   "check": "csd-two-label-rebind69 resource-receipt inputs_sha256 == final_inputs_sha256 == sha256(two-label-rebind69-inputs.json)",
+   "result": true
+  },
+  {
+   "check": "csd-two-label-rebind165 resource-receipt inputs_sha256 == final_inputs_sha256 == sha256(two-label-rebind165-inputs.json)",
+   "result": true
+  },
+  {
+   "check": "csd-two-label-rebind69 rebind-summary map_sha256 and canonical_sha256 == work/two-label68/workspace files",
+   "result": true
+  },
+  {
+   "check": "csd-two-label-rebind165 rebind-summary map_sha256 and canonical_sha256 == work/two-label164/workspace files",
+   "result": true
+  },
+  {
+   "check": "today's work/tree inventory == work/tree rows of two-label-build164-inputs.json",
+   "result": true,
+   "rows": 4184
+  },
+  {
+   "check": "csd-two-label-build68 source-copy.json files == work/two-label68/workspace now, except rebind outputs",
+   "result": true,
+   "differs": [
+    "explainer_corpus/complex_analysis_visual/narration_units.json"
+   ],
+   "added_after_build": [
+    "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-label69.json",
+    "explainer_corpus/complex_analysis_visual/narration_units.before-label69.json"
+   ]
+  },
+  {
+   "check": "csd-two-label-build164 source-copy.json files == work/two-label164/workspace now, except rebind outputs",
+   "result": true,
+   "differs": [
+    "explainer_corpus/complex_analysis_visual/narration_units.json"
+   ],
+   "added_after_build": [
+    "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-label165.json",
+    "explainer_corpus/complex_analysis_visual/narration_units.before-label165.json"
+   ]
+  },
+  {
+   "check": "build19 source-copy.json files == snapshot214, with the two later-changed files equal to snapshot214's .before-production19 backups",
+   "result": true,
+   "differs": [
+    "explainer_corpus/complex_analysis_visual/narration_units.json",
+    "tools/coherent_narration.py"
+   ],
+   "added_after_build": [
+    "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-frederick-production19.json",
+    "explainer_corpus/complex_analysis_visual/narration_units.before-production19.json",
+    "tools/coherent_narration.before-production19.py"
+   ]
+  },
+  {
+   "check": "copy-list hash == every other hash recorded for that path (today's tree/job inventory, or a frozen-input list written before the later jobs)",
+   "result": true,
+   "rows_with_an_independent_record": 55,
+   "rows_hashed_once_only": [
+    "qualification01/production-repair17/two-label-rebind69-inputs.json",
+    "qualification01/production-repair17/two-label-rebind165-inputs.json"
+   ]
+  }
+ ],
+ "open": [
+  "No listening by anyone; no independent final audiovisual review; final master not built.",
+  "Byte-identical binary rebuilds not attempted (host, absolute paths and toolchain enter the binary).",
+  "crates.io and git dependencies stay pinned by the lock and cargo cache, not copied.",
+  "Narration is ElevenLabs Frederick Surrey as every request and receipt records; that is a recorded setting, not a judgment from listening."
+ ]
+}

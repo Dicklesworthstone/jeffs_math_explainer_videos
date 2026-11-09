@@ -1,0 +1,132 @@
+{
+  "chapters": [
+    {
+      "worker": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-final-chapter19-02.py",
+      "chapter": "01_the_bump",
+      "job": "trj-production19-final-01-the-bump30",
+      "inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/final01-30-inputs.json",
+      "permit": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review01-30/final-render-permit30.json"
+    },
+    {
+      "worker": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-final-chapter19-02.py",
+      "chapter": "02_turning_numbers",
+      "job": "trj-production19-final-02-turning-numbers32",
+      "inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/final02-32-inputs.json",
+      "permit": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review02-32/final-render-permit32.json"
+    },
+    {
+      "worker": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-final-chapter19-02.py",
+      "chapter": "03_two_planes",
+      "job": "trj-production19-final-03-two-planes28",
+      "inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/final03-28-inputs.json",
+      "permit": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review03-28/final-render-permit28.json"
+    },
+    {
+      "worker": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-final-chapter19-02.py",
+      "chapter": "04_reading_color",
+      "job": "trj-production19-final-04-reading-color33",
+      "inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/final04-33-inputs.json",
+      "permit": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review04-33/final-render-permit33.json"
+    },
+    {
+      "worker": "/data/projects/jmev-ts1-render-worker-20261107/qualification01/ts1-final-chapter103.py",
+      "chapter": "05_gallery",
+      "job": "ts1-production19-final-05-gallery103",
+      "inputs": "/data/projects/jmev-ts1-render-worker-20261107/qualification01/final05-103-inputs.json",
+      "permit": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review05-29/final-render-permit29.json",
+      "import_receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-import-ts1-final05-105/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/import-ts1-final05-105-inputs.json"
+    },
+    {
+      "worker": "/data/projects/jmev-ts2-render-worker-20261107/qualification01/ts2-final-chapter121.py",
+      "chapter": "06_one_derivative",
+      "job": "ts2-production19-final-06-one-derivative123",
+      "inputs": "/data/projects/jmev-ts2-render-worker-20261107/qualification01/final06-123-inputs.json",
+      "permit": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review06-34/final-render-permit34.json",
+      "import_receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-import-ts2-final06-124/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/import-ts2-final06-124-inputs.json"
+    },
+    {
+      "worker": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-final-chapter53.py",
+      "chapter": "07_one_point",
+      "job": "hz2-production19-final-07-one-point84",
+      "inputs": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/final07-84-inputs.json",
+      "permit": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review07-84/final-render-permit84.json",
+      "import_receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-import-hz2-final07-86/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/import-hz2-final07-86-inputs.json"
+    },
+    {
+      "worker": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-repaired-final170.py",
+      "chapter": "08_loop_sums",
+      "job": "csd-repaired-final-08-loop-sums170",
+      "inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/final08-inputs170.json",
+      "permit": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/repaired08-review181/final-render-permit181.json",
+      "import_receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-import-csd-final08-171/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/repaired08-import-inputs171.json"
+    },
+    {
+      "worker": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-repaired-final158.py",
+      "chapter": "09_boundary",
+      "job": "hz2-repaired-final-09-boundary158",
+      "inputs": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/repaired-final09-inputs158.json",
+      "permit": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/repaired09-review158/final-render-permit158.json",
+      "import_receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-import-hz2-final09-162/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/repaired09-import-inputs162.json"
+    },
+    {
+      "worker": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-final-chapter53.py",
+      "chapter": "10_rigidity",
+      "job": "hz2-production19-final-10-rigidity85",
+      "inputs": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/final10-85-inputs.json",
+      "permit": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review10-85/final-render-permit85.json",
+      "import_receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-import-hz2-final10-87/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/import-hz2-final10-87-inputs.json"
+    },
+    {
+      "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-chapter78.py",
+      "chapter": "11_counting",
+      "job": "css-production19-final-11-counting78",
+      "inputs": "/data/projects/jmev-css-render-worker-20261107/qualification01/final11-78-inputs.json",
+      "permit": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review11-73/final-render-permit73.json",
+      "import_receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-import-css-final11-80/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/import-css-final11-80-inputs.json"
+    },
+    {
+      "worker": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-final-chapter53.py",
+      "chapter": "12_residues",
+      "job": "hz2-production19-final-12-residues59",
+      "inputs": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/final12-59-inputs.json",
+      "permit": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review12-59/final-render-permit59.json",
+      "import_receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-import-hz2-final12-60/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/import-hz2-final12-60-inputs.json"
+    },
+    {
+      "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-chapter78.py",
+      "chapter": "13_real_integral",
+      "job": "css-production19-final-13-real-integral96",
+      "inputs": "/data/projects/jmev-css-render-worker-20261107/qualification01/final13-96-inputs.json",
+      "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/review13-96/final-render-permit96.json",
+      "import_receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-import-css-final13-97/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/import-css-final13-97-inputs.json"
+    },
+    {
+      "worker": "/data/projects/jmev-ts1-render-worker-20261107/qualification01/ts1-final-chapter103.py",
+      "chapter": "14_continuation",
+      "job": "ts1-production19-final-14-continuation111",
+      "inputs": "/data/projects/jmev-ts1-render-worker-20261107/qualification01/final14-111-inputs.json",
+      "permit": "/data/projects/jmev-ts1-render-worker-20261107/qualification01/review14-111/final-render-permit111.json",
+      "import_receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-import-ts1-final14-112/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/import-ts1-final14-112-inputs.json"
+    },
+    {
+      "worker": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-final-chapter53.py",
+      "chapter": "15_closing",
+      "job": "hz2-production19-final-15-closing53",
+      "inputs": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/final15-53-inputs.json",
+      "permit": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/final-render-permit53.json",
+      "import_receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-import-hz2-final15-56/resource-receipt.json",
+      "import_inputs": "/data/projects/jmev-render-worker-20261107/qualification01/production19/import-hz2-final15-56-inputs.json"
+    }
+  ],
+  "scope": "Exact selected 15 chapter command routes, derived from actual receipts. Not completion evidence; controller must require all successful imports/finals and revalidate hashes before assembly."
+}

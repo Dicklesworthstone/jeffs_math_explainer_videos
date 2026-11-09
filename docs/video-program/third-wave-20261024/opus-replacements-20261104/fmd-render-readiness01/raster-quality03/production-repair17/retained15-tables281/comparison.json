@@ -1,0 +1,21 @@
+{
+  "time": "2026-11-08T05:50:53.257617+00:00",
+  "timeline_and_cues_exact_after_single_path_mapping": true,
+  "all_narration_cuelog_rows_exact": true,
+  "score_row": [
+    "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems/15_closing.music.f32.wav",
+    "ec9d9a4f0292b56aad2698066aa0afdefbe0536943f8190de0318f29962d720e",
+    "28025680",
+    "4379",
+    "60",
+    "-72.98333333333333",
+    "0xc0523eeeeeeeeeef",
+    "0.0",
+    "0x0000000000000000",
+    "48000",
+    "2",
+    "3503200",
+    "0"
+  ],
+  "limits": "Not pixel equivalence, combined269 schedule acceptance, listening or fine sync."
+}

@@ -1,0 +1,54 @@
+# VIDEO_CORPUS.lock — the corpus gate's pinned scene allowlist (fm-rqc, §15.3-15.4)
+#
+# The G4a criterion this lock serves: every allowlisted scene runs
+# SOURCE-UNEDITED through the fmn-python portal under the [shims]
+# documented below, and passes structural assertions (object counts,
+# timings, bounding envelopes) plus Look-Gallery review. Pixel diffs
+# are deleted by design (§4).
+#
+# Fixture policy (CC BY-NC-SA): the 3b1b/videos tree is © Grant
+# Sanderson, CC BY-NC-SA; gallery fixtures derived from it stay
+# private; the public corpus is the permissive primitive set. Every
+# scene row carries its in-tree provenance as attribution.
+#
+# Absence from this lock is NO claim. Exclusion rows are deliberate,
+# reasoned rejections (R13). Regenerate only via:
+#   VIDEO_CORPUS_UPDATE=1 python3 scripts/video_corpus.py emit
+# Verify against the pinned checkout via:
+#   python3 scripts/video_corpus.py verify
+
+[pins]
+# Mirrors SUITE.lock [reference]; verify asserts the equality.
+3b1b/videos	e317d6c5eaa8370a2deb4d148c246b0d0e9fbe6f
+3b1b/manim	6199a00d4c1b1127ebe45cb629c3f22538b10e13
+
+[shims]
+# name	mechanism	pinned-entry-blob (sha256 at the tree pin, or -)
+import-virtualization	manimlib import surface served by fmn-python; the era shim manim_imports_ext plus its in-tree custom/** closure import-resolve inside the pinned tree	53aba76e8ce3a31ec9527accd6c3060b1c8e2d1c95e57bddb3a6a42879b10987
+asset-path-virtualization	corpus asset references resolve through the AssetFetcher/cache capability, never the host filesystem; the seed allowlist requires no assets	-
+fonts	bundled OFL faces substitute for the era's system fonts (documented divergence; Look-Gallery reviewed)	-
+kwarg-vintage	era renames between a scene's vintage and the Reference pin are aliased narrowly and per-kwarg, never wholesale: set_stroke/set_backstroke background= (pre-2023 manimgl) aliases to the pin's behind= (R13 ruling 2026-08-10, fm-d3gt tranche 19: Cubic)	-
+
+[scenes]
+# scene	module	module-sha256	era	status	attribution	note
+BeamSplitter	_2025/grover/polarization.py	e55ac4a1f3007e09e28e50eb0214bf45b639e41db57cfd45d2533caea76e7855	2025	allowlisted	3b1b/videos@e317d6c5eaa8 _2025/grover/polarization.py	optics diagram; light TeX
+Cubic	_2022/quintic/roots_and_coefs.py	19aabfca9d865ca0339c3b0da4dcb48b62c6054f545a49745e9a1add4d996e95	2022	allowlisted	3b1b/videos@e317d6c5eaa8 _2022/quintic/roots_and_coefs.py	root/coef planes via RootCoefScene.setup; TeX-bearing module
+FlattenCone	_2025/guest_videos/euclid.py	88a7187a2bfd976ebdc15c3bae2c1b7fa1127b9a59f52a7b335063f419eed789	2025	allowlisted	3b1b/videos@e317d6c5eaa8 _2025/guest_videos/euclid.py	surface development; no TeX
+FlowerSymmetries	_2022/galois/groups.py	86457329a4be5f75c4ba83fdf73cc19b15a392b5f154f0042e7e081e621e0f99	2022	excluded	3b1b/videos@e317d6c5eaa8 _2022/galois/groups.py	loads an ImageMobject from an out-of-tree Dropbox path; unobtainable asset — the harness proved it, the extension heuristic had missed it
+GroverPreview	_2025/colliding_blocks_v2/grover.py	6c71d9c735ffd56735a2a32a1f706be5b54945d81e122ece9abffcd8329bb2fe	2025	allowlisted	3b1b/videos@e317d6c5eaa8 _2025/colliding_blocks_v2/grover.py	state-space preview; light TeX
+MaxProcess	_2024/puzzles/max_rand.py	2525486925eb8a1d8b9acced589a95329ba919fb8f3ef92f2c5b6b0146983f6c	2024	allowlisted	3b1b/videos@e317d6c5eaa8 _2024/puzzles/max_rand.py	probability process; TeX-bearing (19 call sites in module)
+PoolTableReflections	_2023/standup_maths/pool.py	bb2a829ff9a38e238eb3dce149900acafd41dc8ba3ee9cfbf591f9b08fce9f42	2023	excluded	3b1b/videos@e317d6c5eaa8 _2023/standup_maths/pool.py	loads ImageMobject('pool_table'), an extensionless asset-dir reference outside the tree; caught by the harness, now flagged by scan's constructor signal
+QuadraticFormula	_2022/quintic/roots_and_coefs.py	19aabfca9d865ca0339c3b0da4dcb48b62c6054f545a49745e9a1add4d996e95	2022	allowlisted	3b1b/videos@e317d6c5eaa8 _2022/quintic/roots_and_coefs.py	root/coef planes, custom plane configs; TeX-bearing module
+SquareOnASphere	_2025/guest_videos/euclid.py	88a7187a2bfd976ebdc15c3bae2c1b7fa1127b9a59f52a7b335063f419eed789	2025	allowlisted	3b1b/videos@e317d6c5eaa8 _2025/guest_videos/euclid.py	spherical geometry; no TeX
+WaveMachineDemo	_2023/optics_puzzles/wave_machine.py	e819820fa7020fea04935b6ea8ee58ee793994fd1eaaa7e323459bffc5c2b4d0	2023	allowlisted	3b1b/videos@e317d6c5eaa8 _2023/optics_puzzles/wave_machine.py	3D wave kinematics; no TeX
+
+[assets]
+# path	sha256	required-by — the seed allowlist requires none.
+
+[exclusions]
+# module-or-era-set	reason
+_2022/borwein/main.py	not seed-tier: 16 scenes, 73 TeX call sites; revisit for the full gallery once the structural harness is proven on the seed
+_2022/some2/announcement.py	meta/announcement content; no mathematical-rendering value for the gallery
+_2025/colliding_blocks_v2/supplements.py	38 supplement scenes of channel meta-content; not gallery material
+_2015 _2016 _2017 _2018 _2019	out-of-era: pre-Reference manimlib API surface; revisit per-scene with documented era shims
+_2020 _2021	transition-era API; unreviewed for the seed; revisit per-scene before the full gallery

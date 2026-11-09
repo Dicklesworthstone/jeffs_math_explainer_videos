@@ -1,0 +1,34 @@
+{
+  "chapter": "03_two_planes",
+  "frames": 7249,
+  "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+  "permit_sha256": "107aebb15239c67d66569c5e1217c1343c7490901431ef935ce044962e7c64ca",
+  "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+  "files": [
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28/render/03_two_planes.cuelog.tsv",
+      "sha256": "b28f854a341214d4a18acb87fc9d0f204189bb5989dbce508540ddf9bae4a094"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28/render/03_two_planes.cues.tsv",
+      "sha256": "dc3c4311e5914349fe832277c6eef4e531173621b3a962d2be4a46173e0c1322"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28/render/03_two_planes.layout.tsv",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28/render/03_two_planes.mp4",
+      "sha256": "20353d01ee564ef101ecad80bdfa8ec1db87ac2188b2e4642969b371f2e82cf3"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28/render/03_two_planes.timeline.tsv",
+      "sha256": "2e46c6eb6deb4943f72dc24e6434e667f35d761cf5ab2539ac4b6547d3032ebc"
+    },
+    {
+      "path": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28/render/soundtrack/03_two_planes/soundtrack_0.wav",
+      "sha256": "1a9ab9ac48a30ccf8164d3c51f25aa0b41c6322ad3aa4847aa2b7543bd3833ab"
+    }
+  ],
+  "scope": "Technical scored4K60 chapter only; full decode, master replay, final pictures/motion/audio/captions and publication remain."
+}

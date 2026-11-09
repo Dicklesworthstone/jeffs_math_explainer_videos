@@ -1,0 +1,15 @@
+{
+  "time": "2026-11-08T05:48:41.643093+00:00",
+  "status": "prepared_not_deployed_or_run",
+  "files": {
+    "csd-reviewed-final278.py": "7d1dc9b203660f294353cff221c2db3822c54dc669464eeb5882431fb0f1f2ee",
+    "csd-launch-final278.py": "67372165b8166e537addc62fe33ad35cb50aafe10c18662374ad55fb070e3f62"
+  },
+  "pending": [
+    "independent helper audit",
+    "actual completed timeline269",
+    "actual review permits, never synthesize motion acceptance",
+    "reconcile preview274 manifest name",
+    "fleet distribution"
+  ]
+}

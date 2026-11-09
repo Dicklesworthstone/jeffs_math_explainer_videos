@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-07T21:47:57.155933+00:00",
+  "scope": "Sampled muted QuickTime playback observations, not continuous motion or listening acceptance.",
+  "samples_seconds": [
+    4.35,
+    13.49,
+    46.13,
+    58.31,
+    63.53,
+    158.83,
+    167.54,
+    192.34,
+    195.82
+  ],
+  "observations": "Observed advancing input/output winding examples and radius boundary examples. Sampled late playback showed sampling panel settled, sparse points and certified dense result readable. All235 selected stills separately reviewed; no persistent concrete defect found.",
+  "paused_seconds": 195.82,
+  "volume": 0
+}

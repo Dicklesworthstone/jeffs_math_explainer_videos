@@ -1,0 +1,14 @@
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -8251,6 +8251,11 @@
+         crossing::record(CrossingClass::MethodDispatch);
+         let teardown = method_cache::call_cached0(slf.as_any(), "tear_down");
+         match (construct, teardown) {
++            // EndScene is normal early completion, not a primary failure.
++            // A teardown error must still abort the owned output generation.
++            (Err(error), Err(teardown)) if error.is_instance_of::<EndScene>(slf.py()) => {
++                Err(teardown)
++            }
+             (Err(error), _) => Err(error),
+             (Ok(_), Err(error)) => Err(error),
+             (Ok(_), Ok(_)) => Ok(()),

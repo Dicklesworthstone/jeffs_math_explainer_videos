@@ -1,0 +1,112 @@
+name: Portal negotiated video output
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/portal-video-options.yml"
+      - "scripts/patches/portal-video-integration.patch"
+      - "scripts/patches/portal-output-console.patch"
+      - "crates/fmn-python/src/portal_video.rs"
+      - "crates/fmn-python/tests/video_options.py"
+      - "crates/fmn-python/tests/test_video_console_protocol.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: portal-video-options
+  cancel-in-progress: false
+
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: "true"
+  CARGO_TARGET_DIR: target/portable
+  CARGO_TERM_COLOR: always
+  PYO3_PYTHON: python
+  PYTHONPATH: ${{ github.workspace }}/crates/fmn-python/python:${{ github.workspace }}/crates/fmn-python/tests
+  FMN_REQUIRE_FFMPEG: "1"
+
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Integrate native output negotiation
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! grep -qx 'mod portal_video;' crates/fmn-python/src/lib.rs; then
+            git apply --check scripts/patches/portal-video-integration.patch
+            git apply scripts/patches/portal-video-integration.patch
+          fi
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: "3.13"
+      - name: Install pinned toolchain and test-only host capabilities
+        run: |
+          rustup show active-toolchain
+          python -m pip install numpy
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Check native negotiation and decoded video
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_video.rs
+          python -m unittest test_render_session_protocol test_console_rendering_protocol test_scene_render_protocol.SceneRenderTests.test_negotiated_writer_options_reach_native_generation test_scene_render_protocol.SceneRenderTests.test_public_render_scene_also_validates_writer_configuration
+          cargo test --locked -p fmn-python portal_video -- --nocapture
+          cargo test --locked -p fmn-python production_native_output_acceptance_suite -- --nocapture
+          git diff --check
+      - name: Commit verified native implementation directly to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add crates/fmn-python/src/lib.rs crates/fmn-python/src/portal_video.rs crates/fmn-python/python/fmn_python/rendering.py crates/fmn-python/tests/test_scene_render_protocol.py
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(python): connect negotiated video formats and alpha-preserving MOV'
+            git push origin HEAD:main
+          fi
+          git rev-parse HEAD
+      - name: Integrate console and batch output profiles
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! grep -q '^def _output_overrides' crates/fmn-python/python/fmn_python/console_rendering.py; then
+            git apply --check scripts/patches/portal-output-console.patch
+            git apply scripts/patches/portal-output-console.patch
+          fi
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-python/src/lib.rs crates/fmn-conformance/tests/e2e_scenarios.rs
+      - name: Exercise console profiles and registered native E2E
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m unittest test_video_console_protocol test_render_session_protocol test_console_rendering_protocol test_batch_rendering_protocol test_render_selection_protocol test_scene_render_protocol.SceneRenderTests.test_negotiated_writer_options_reach_native_generation test_scene_render_protocol.SceneRenderTests.test_public_render_scene_also_validates_writer_configuration
+          cargo test --locked -p fmn-python portal_video -- --nocapture
+          cargo test --locked -p fmn-conformance --test e2e_scenarios python_native_outputs_scenario_passes -- --nocapture
+          git diff --check
+      - name: Commit verified console and batch functionality directly to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add crates/fmn-python/python/fmn_python/batch_cli.py crates/fmn-python/python/fmn_python/batch_rendering.py crates/fmn-python/python/fmn_python/console_rendering.py crates/fmn-python/python/fmn_python/rendering.py crates/fmn-python/python/manimlib_bootstrap.py crates/fmn-python/src/lib.rs crates/fmn-python/tests/video_options.py crates/fmn-conformance/tests/e2e_scenarios.rs docs/dist/python_wheel.md
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(python): expose transparent and codec output profiles in single and batch renders'
+            git push origin HEAD:main
+          fi
+          git rev-parse HEAD

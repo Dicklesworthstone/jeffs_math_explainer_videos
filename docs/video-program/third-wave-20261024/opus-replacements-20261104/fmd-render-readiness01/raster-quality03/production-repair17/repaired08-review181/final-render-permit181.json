@@ -1,0 +1,56 @@
+{
+  "chapter": "08_loop_sums",
+  "binary_sha256": "5a66979ea658ceea8e613a25b8a66535e18519fe999d5a859ec97b70e4e3bdc8",
+  "timeline_sha256": "338f16a83cc1a9fbf16a1568e787fefb148eba50e7385d5bc8dedde278131295",
+  "frames": 14959,
+  "actually_reviewed_pictures": true,
+  "actually_reviewed_motion": true,
+  "unresolved_defects": [],
+  "reviewer": "root",
+  "observations": "All 47 sheets actually viewed. The c label clears the gold subdivision edge and green delta circle at old collision anchors and all selected persistence frames. Formula cancellation strokes are intentional; no concrete new clipping or overlap observed. QuickTime playback was running and sampled at these observed positions. c remains clear while green circle appears and through magnified-square transition. These are sparse playback observations, not continuous motion or listening proof. Authorizes final rendering only, not publication.",
+  "evidence": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/repaired08-review181/pictures-reviewed181.json",
+      "sha256": "b29558652642dc7fda45161fd37593bea1880f0527eac2aad223ddb63fc6f3ba"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/repaired08-review181/playback-samples181.json",
+      "sha256": "19be1ebecc1249619f68e3c2fd336f3971e3bf5fe614df39fbddc61ce259eb68"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-loop-label-preview166/sampling.json",
+      "sha256": "41e23e054de684c4c705e686c8f9cd3b4bbf5f2fd0d260495bbeba259467ba9d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-loop-label-preview166/resource-receipt.json",
+      "sha256": "37ab414cfe1e44fa163d9841c6892aa190ed9d243242c471cfcb2589b8996b6b"
+    }
+  ],
+  "motion_intervals": [
+    [
+      7135,
+      7136
+    ],
+    [
+      7397,
+      7398
+    ],
+    [
+      9132,
+      9133
+    ],
+    [
+      9525,
+      9526
+    ],
+    [
+      9721,
+      9722
+    ],
+    [
+      10016,
+      10017
+    ]
+  ],
+  "at": "2026-11-08T02:31:58.278377+00:00"
+}

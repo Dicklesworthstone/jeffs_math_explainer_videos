@@ -1,0 +1,17 @@
+{
+  "time": "2026-11-07T20:45:02.877755+00:00",
+  "files": [
+    {
+      "name": "boundary-label-repair52.rs",
+      "sha256": "dc80c541799209f10d02701d18c7fab5a14327000719929e5e2fad0c6fd62f9f"
+    },
+    {
+      "name": "boundary-label-build52.py",
+      "sha256": "a56da213531fc6b1a176174c45be35d6c401c18589733244f0d8b863874bb9aa"
+    },
+    {
+      "name": "boundary-label-after-preview52.py",
+      "sha256": "7f7b9a0ad5eac78e03059c69e0efbcf265b563f6046f5a94333a50aa73c9970b"
+    }
+  ]
+}

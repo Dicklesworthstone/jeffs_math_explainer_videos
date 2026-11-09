@@ -1,0 +1,84 @@
+name: Native live raster authoring
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/live-raster.yml'
+      - 'crates/fmn-library/src/image.rs'
+      - 'crates/fmn-python/src/portal_raster.rs'
+      - 'crates/fmn-python/src/portal_raster_transition.rs'
+      - 'crates/fmn-python/python/fmn_python/raster_animation.py'
+      - 'crates/fmn-python/python/fmn_python/raster_transform.py'
+      - 'crates/fmn-python/src/portal_texture.rs'
+      - 'crates/fmn-python/python/fmn_python/surface_textures.py'
+      - 'crates/fmn-python/python/fmn_python/scene_state.py'
+      - 'crates/fmn-python/python/fmn_python/image_authoring.py'
+      - 'crates/fmn-python/tests/raster*.py'
+      - 'crates/fmn-python/tests/test_image_authoring_inputs.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-live-raster
+  cancel-in-progress: false
+jobs:
+  raster:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/portable
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Install pinned host inputs
+        run: |
+          rustup show active-toolchain
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Native resource and portal acceptance
+        run: |
+          set -euo pipefail
+          python crates/fmn-python/tests/test_image_authoring_inputs.py 2>&1 | tee /tmp/raster-inputs.log
+          cargo test --locked -p fmn-library --lib image::tests 2>&1 | tee /tmp/raster-library.log
+          cargo test --locked -p fmn-python --lib portal_texture:: -- --nocapture 2>&1 | tee /tmp/raster-native.log
+          cargo clippy --locked -p fmn-library -p fmn-python --lib -- -D warnings 2>&1 | tee /tmp/raster-clippy.log
+      - name: Fresh installed wheel acceptance
+        run: |
+          set -euo pipefail
+          python -m maturin build --locked --interpreter python --profile dev --out target/raster-wheel 2>&1 | tee /tmp/raster-build.log
+          python -m venv target/raster-venv
+          target/raster-venv/bin/python -m pip install 'numpy==2.5.2' target/raster-wheel/*.whl
+          for suite in raster_authoring raster_path_protocol raster_textures raster_frames raster_transition_kernel raster_transform_kernel raster_transform raster_animation camera_readback camera_snapshot; do
+            target/raster-venv/bin/python -I "crates/fmn-python/tests/$suite.py" 2>&1 | tee "/tmp/raster-$suite.log"
+          done
+      - name: Preserve source and evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/raster-source-sha.txt
+          git archive --format=tar.gz HEAD > /tmp/raster-source.tar.gz
+          rustfmt --edition 2024 --emit stdout crates/fmn-python/src/portal_raster.rs > /tmp/raster-formatted-portal.rs
+          rustfmt --edition 2024 --emit stdout crates/fmn-library/src/image.rs > /tmp/raster-formatted-library.rs
+          rustfmt --edition 2024 --config skip_children=true --emit stdout crates/fmn-python/src/portal_texture.rs > /tmp/raster-formatted-texture.rs
+          rustfmt --edition 2024 --emit stdout crates/fmn-python/src/portal_raster_transition.rs > /tmp/raster-formatted-transition.rs
+          git diff --exit-code
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-live-raster-${{ github.sha }}-${{ github.run_attempt }}
+          path: |
+            /tmp/raster-*
+            target/raster-wheel/*.whl
+          retention-days: 3

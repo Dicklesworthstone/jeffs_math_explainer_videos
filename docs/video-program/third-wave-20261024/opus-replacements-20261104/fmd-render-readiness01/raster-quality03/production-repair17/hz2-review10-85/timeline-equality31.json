@@ -1,0 +1,175 @@
+{
+  "utc": "2026-11-07T19:38:58.178354+00:00",
+  "tables": [
+    {
+      "chapter": "01_the_bump",
+      "table": "timeline.tsv",
+      "old_sha256": "b459936a47e9c473c92ace3ad9900487cd3797f2fc1b0f1c15adf8973dd6adb1",
+      "new_sha256": "d6ddcc1ffb9991be25d2f44d8bf554f2c56695e84acc3733d034961e0826d764",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "01_the_bump",
+      "table": "cues.tsv",
+      "old_sha256": "e7fea540de13ec0b72077e8d43e9d3dfecdf0ad92ab8c628f19845e7fe41561b",
+      "new_sha256": "e7fea540de13ec0b72077e8d43e9d3dfecdf0ad92ab8c628f19845e7fe41561b",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "01_the_bump",
+      "table": "cuelog.tsv",
+      "old_sha256": "2e8113eeaa067230b6a8436e400a6cf706d6c0c37dddc4d46d03d3a31471ebc3",
+      "new_sha256": "45c44d9db6cebfaf0f9a424c73b6350d4b0a9537647f92f07923dea4ce4c4673",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "table": "timeline.tsv",
+      "old_sha256": "10370cb3aa86a06f7cf22beb2a1caa3479fb2fa493bf77a898111812079e322b",
+      "new_sha256": "cf6531fcb050fa1b43c3f8334ac0aa9c8169eac50dc18176ab0225cf99ae4c3f",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "table": "cues.tsv",
+      "old_sha256": "97102b8f71bd574d3ed6d96698edc3efeadc5c4fb0b1bdbef14c623386e299fc",
+      "new_sha256": "97102b8f71bd574d3ed6d96698edc3efeadc5c4fb0b1bdbef14c623386e299fc",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "table": "cuelog.tsv",
+      "old_sha256": "309c9f1821ea1ee88c7e5229a5bf671ec409e026b469d2d94206fa1c7b4aec03",
+      "new_sha256": "737362e7f8212ce33b29468f0ace51cf4dce27ce34d38450e6bb0998db24d487",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "04_reading_color",
+      "table": "timeline.tsv",
+      "old_sha256": "24e52e645a62d92e8ba8ebf9e86439bf995de04d054647385047e842f2f50b99",
+      "new_sha256": "2bb6d0fcb0cc9a90dd1435fb3a97b34385e1108cff7db7c42ba4a8c9606df280",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "04_reading_color",
+      "table": "cues.tsv",
+      "old_sha256": "7581709f8c6972f6bf3c099cf05e25fc37d28dcccfd327e7bd6e24580b360a4c",
+      "new_sha256": "7581709f8c6972f6bf3c099cf05e25fc37d28dcccfd327e7bd6e24580b360a4c",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "04_reading_color",
+      "table": "cuelog.tsv",
+      "old_sha256": "93ba3af506b2aaf7066fe8be263c3c9581e37bb2697a4ae326b3a07a3fe21e84",
+      "new_sha256": "b181facad7a72f9f400009d1613b94f52250810741917d1846acf0a09297582f",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "06_one_derivative",
+      "table": "timeline.tsv",
+      "old_sha256": "6126ae251ca1d492eec45ca759e93fe64c4f594555345d0702112e1573dc9d67",
+      "new_sha256": "dbc82d8481d8f511ae404c5f3eeff517c2540c9b8330ca2cfb5b8d7c83e6412d",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "06_one_derivative",
+      "table": "cues.tsv",
+      "old_sha256": "ee8eb35a2d8621e5cb0ba6d3c6d3cbe6e844c5cce9b8199113388fa20da2d853",
+      "new_sha256": "ee8eb35a2d8621e5cb0ba6d3c6d3cbe6e844c5cce9b8199113388fa20da2d853",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "06_one_derivative",
+      "table": "cuelog.tsv",
+      "old_sha256": "5ff95a5c79eec7a34869e057aba4faf94feb0e71c9c05cc12c361452962f0c20",
+      "new_sha256": "91f5695913803d174038e749b85bb607a378622132c4b36566fbd91418982810",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "07_one_point",
+      "table": "timeline.tsv",
+      "old_sha256": "b41ee718afa76a2b8a5952bc59a20915bd88259575bb7ede82ee9ca60ec10285",
+      "new_sha256": "c2e3c183019525c01aca2dc376c61d4eaab72c10f4b23f44ea184c1d44bd3f3c",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "07_one_point",
+      "table": "cues.tsv",
+      "old_sha256": "ea5cf40807968d38f9e6d0faa8395afaa72aba292ae1589dbc6379ddff54a68a",
+      "new_sha256": "ea5cf40807968d38f9e6d0faa8395afaa72aba292ae1589dbc6379ddff54a68a",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "07_one_point",
+      "table": "cuelog.tsv",
+      "old_sha256": "e08f48e2756df55e0bb107f11d26c541016aba89429cd51f4ca0cc5a26ca7050",
+      "new_sha256": "42eb81c3601f4df75a993e334bf936a8812d1ada8bd921743cd295f942526eab",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "10_rigidity",
+      "table": "timeline.tsv",
+      "old_sha256": "5b31b6dd5514404ea0bf9e7e2c009aaaca4989d145dbd306b6267e6bc143d9b8",
+      "new_sha256": "340167657b8420e4056a07e85ea258b16b797d031c98057d4510f19a2be00970",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "10_rigidity",
+      "table": "cues.tsv",
+      "old_sha256": "a58e14f5f22089df8902439f751b0a05cfe52b29502f7c530054745d6f7a6ca3",
+      "new_sha256": "a58e14f5f22089df8902439f751b0a05cfe52b29502f7c530054745d6f7a6ca3",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "10_rigidity",
+      "table": "cuelog.tsv",
+      "old_sha256": "a556fe2243f9e2ecb5e7c2507d1801ff5a4d7992d892b22c161160fa54948b36",
+      "new_sha256": "b7e1e115d4fa2687c64c3bc5bedd66a179ec92160bc9b7bdeedc8b91ee7e0751",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "12_residues",
+      "table": "timeline.tsv",
+      "old_sha256": "3d6cf503e94e198ed16c8bfc5c86b0be080fe8c1f4943fd8e5e3fa75abdfb81a",
+      "new_sha256": "d19560b5c9a1fab46a4250b5b9fc1aa9bb0f3eff1847fa0111a5c8bed8964485",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "12_residues",
+      "table": "cues.tsv",
+      "old_sha256": "be53a37b59431c46e3bbc5a3be5ea6380c9816aeb2966d3285264b555aafb101",
+      "new_sha256": "be53a37b59431c46e3bbc5a3be5ea6380c9816aeb2966d3285264b555aafb101",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "12_residues",
+      "table": "cuelog.tsv",
+      "old_sha256": "d6e61aae52b4d099a8e255023c8012dacb1f8e442eece31d52381790643f7054",
+      "new_sha256": "d302fef1a4b02d3c3a14ae43d14e9b50f73f93b1755932d713d9d402cacd8de4",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "15_closing",
+      "table": "timeline.tsv",
+      "old_sha256": "ac0e26a2b54eaba4379f487521c1106db2a04a5cbf823a35296099b3ceacc1ad",
+      "new_sha256": "ea0338b79a8db9adcb64a9426dd31e4703383ada44ea609aa5c92ca234c828d6",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "15_closing",
+      "table": "cues.tsv",
+      "old_sha256": "9e0801e22fa155f51129c48709286de603b499e6307fcd7db51ac3f4a964d880",
+      "new_sha256": "9e0801e22fa155f51129c48709286de603b499e6307fcd7db51ac3f4a964d880",
+      "equal_after_named_narration_mapping": true
+    },
+    {
+      "chapter": "15_closing",
+      "table": "cuelog.tsv",
+      "old_sha256": "cf19e6cfd26934674966150978e4cbf1ad3b465dbda2b4b17437efc193e9ce5c",
+      "new_sha256": "230a81ce8b6bf8778884ef3d13077f4e2fc105eb2bba71bffd4b319ee3e8aab3",
+      "equal_after_named_narration_mapping": true
+    }
+  ],
+  "all_24_equal": true,
+  "scope": "Complete original native timeline tables versus current native timeline tables. Preview score append is not silently discarded or claimed equal."
+}

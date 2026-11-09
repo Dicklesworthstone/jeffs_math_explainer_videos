@@ -1,0 +1,44 @@
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -301,7 +301,7 @@
+                     .checked_mul(u64::from(config.channels) * 2)
+                     .and_then(|bytes| bytes.checked_add(1024))
+                     .ok_or_else(|| PyOverflowError::new_err("WAV artifact budget overflow"))?;
+-                let report = fmn_output::publish_wav(
++                let report = fmn_output::publish_wav_new(
+                     &fmn_platform::fs::StdFs,
+                     &fmn_output::WavPublicationConfig {
+                         destination,
+@@ -516,6 +516,7 @@
+                     },
+                 )
+                 .map_err(|error| PyValueError::new_err(error.to_string()))?
++                .with_no_clobber()
+                 .into_binding(if single_frame {
+                     "python-png"
+                 } else {
+@@ -538,6 +539,7 @@
+                     },
+                 )
+                 .map_err(|error| PyValueError::new_err(error.to_string()))?
++                .with_no_clobber()
+                 .into_binding("python-gif");
+                 (binding, PortalReceipt::Native(receipt))
+             }
+@@ -556,6 +558,7 @@
+                     },
+                 )
+                 .map_err(|error| PyValueError::new_err(error.to_string()))?
++                .with_no_clobber()
+                 .into_binding("python-y4m");
+                 (binding, PortalReceipt::Native(receipt))
+             }
+@@ -613,6 +616,7 @@
+                     },
+                 )
+                 .map_err(native_error)?;
++                let sink = sink.with_no_clobber();
+                 let (sink, completion) = sink.with_deferred_soundtrack().map_err(native_error)?;
+                 soundtrack = Some(completion);
+                 let (binding, receipt) = sink.into_binding("python-ffmpeg-video");

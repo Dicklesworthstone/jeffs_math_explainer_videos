@@ -1,0 +1,36 @@
+{
+  "old_relevant": 846,
+  "new_relevant": 846,
+  "only_old": [],
+  "only_new": [],
+  "shared_manifest_hashes_equal": true,
+  "same_core": [
+    {
+      "relative": "Cargo.toml",
+      "sha256": "7644838ed75251307e2863c9a0b63c02b090f433fb00ae8c1a8745ebbca374c7"
+    },
+    {
+      "relative": "Cargo.lock",
+      "sha256": "6a080058520a17788a934bc9eea7e7794e091651f46a1b89827f8c4ff105d9f1"
+    },
+    {
+      "relative": "src/main.rs",
+      "sha256": "19a9e1051360caacba25a9276d1f32a4b7b94700bb25a4c72ca663805619f798"
+    },
+    {
+      "relative": "src/model.rs",
+      "sha256": "118172af9d69006c370fddf67a8c9d97431485cd36aea42e92f04f65a80a58b2"
+    },
+    {
+      "relative": "src/chapters/draw.rs",
+      "sha256": "cd394e5a451bf1114bead7a086660d8f22cc282e8bb66de4b17b833a98bd9af1"
+    },
+    {
+      "relative": "src/chapters/thumbnail.rs",
+      "sha256": "5d90834bba4b0d6acf8f3c437ca66dab046f1c4823e3b773616f4d4d665c2c65"
+    }
+  ],
+  "utc": "2026-11-07T17:11:40.920705+00:00",
+  "mod_rs_review": "Only TEXT/TEX glyph-probe supplements for repaired08/09 and chapter11 unspoken code comment changed; no registry dispatch or shared rendering algorithm changed.",
+  "scope": "Scoped dependency union and core source check; not rendered-pixel or motion equivalence."
+}
