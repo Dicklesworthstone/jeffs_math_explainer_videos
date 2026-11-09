@@ -467,7 +467,7 @@ impl SceneConstruct for NoRule {
         let four_q = kit.text(stage, "?", 36.0, Palette::hero(), v(-5.6, -0.8))?;
         fade_in_all(stage, &[four, four_q], 0.6)?;
 
-        // 14_8 the way out: draw lots
+        // 14_8 what drawing lots adds; it still cannot keep the population promise
         wipe(&kit, stage)?;
         let s = say(&kit, stage, "14_8")?;
         let title = kit.text(stage, "a lottery rule (same paper)", 30.0, Palette::hero(), v(0.0, 2.9))?;

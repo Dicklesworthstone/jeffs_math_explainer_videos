@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "scripts": {
-    "apportionment": "29aa2993426bb323e5723162e446f1cf70d00836b8bc91ebb6503ad3ca48cf07"
+    "apportionment": "b9344e1123170e7e3898d8aea2123e0b659bcd571085008fc97894e7d69da624"
   },
   "overrides": [
     {
@@ -216,7 +216,7 @@
       "next_cue": "10_4",
       "kind": "prediction",
       "path": "explainer_corpus/apportionment/src/chapters/rounding_rules.rs",
-      "sha256": "d5baaecdde2dd7d50b1cc8cbef60b177f6bf2e647709c181c3b9022aa04163f5",
+      "sha256": "7b82c0f0514fd1e65d613532e64b76ff0566e372b37c6743681a0ceae485c835",
       "line": 189,
       "marker": "let q = think_here(&kit, stage)?;",
       "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
@@ -260,7 +260,7 @@
       "next_cue": "14_4",
       "kind": "prediction",
       "path": "explainer_corpus/apportionment/src/chapters/no_rule.rs",
-      "sha256": "aceba2952c63fd44692d5015958eb76e1ce96c87f63ac17cf7212c62815cbd5e",
+      "sha256": "7c88a18d610884876403498fa5b1f6f208c633c55d122beced7a7bc6b2bc805d",
       "line": 289,
       "marker": "let q = think(&kit, stage, v(5.6, -0.4))?;",
       "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."

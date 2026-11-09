@@ -169,7 +169,7 @@ impl SceneConstruct for RoundingRules {
         s.wait_for(stage, "Change where the rounding happens")?;
         flash_all(stage, &ruler.parts[2..4], 0.9)?;
 
-        // 10_2 Adams rounds up: any piece of a share earns a seat
+        // 10_2 Adams rounds up: any piece of a quotient earns a seat
         let s = say(&kit, stage, "10_2")?;
         s.wait_for(stage, "proposed rounding up")?;
         reruler(&kit, stage, &ruler, 1.0, "just above 1", "Adams: round up", 1.2)?;

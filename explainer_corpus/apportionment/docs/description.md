@@ -162,10 +162,12 @@ the three maps of their Table 1 at 10 seats: a city of 824 people and four
 villages of 44 (shares 8.24 and 0.44); the same map with the fifth village
 grown to 222 (shares 6.99 and 1.88); and the first map with villages two and
 three shrunk to one person each (city share 9.02). With three towns Webster
-keeps both promises, and four towns were open as of that paper. The paper's
+keeps both promises, and four towns, without the extra assumption, were open
+as of that paper. The paper's
 lottery rule keeps the quota promise in every draw, never takes a seat back,
 and gives every town exactly its share on average: Ash at fifteen seats gets 2
-seats in 54% of draws and 1 in 46%.
+seats in 54% of draws and 1 in 46%. It does not escape their impossibility
+theorem: no lottery keeps the quota promise and the population promise together.
 
 ## Sources
 

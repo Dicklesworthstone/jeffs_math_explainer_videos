@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
-  "script_sha256": "29aa2993426bb323e5723162e446f1cf70d00836b8bc91ebb6503ad3ca48cf07",
+  "script_sha256": "b9344e1123170e7e3898d8aea2123e0b659bcd571085008fc97894e7d69da624",
   "direction_contract": {
     "schema_version": 1,
     "topic": "apportionment",
-    "script_sha256": "29aa2993426bb323e5723162e446f1cf70d00836b8bc91ebb6503ad3ca48cf07",
+    "script_sha256": "b9344e1123170e7e3898d8aea2123e0b659bcd571085008fc97894e7d69da624",
     "map": {
       "path": "explainer_corpus/apportionment/docs/narration-direction-map-frederick01.json",
-      "sha256": "8ae86ed5e848a94c3a9f33a592d01495ee5c0eace068aa592e4fd80f97762c53"
+      "sha256": "212ae493dfa80d0f700b736303e32505f86ba9cb73265c46b44726ac4b8d94f7"
     }
   },
-  "scope": "Frederick source plan140. Cue05_2 clarifies town-specific increments;08_6 specifies fixed tie order and scopes the no-tie examples to fifteen through seventeen seats. All prior takes retained; native build and final timing review pending.",
+  "scope": "Frederick source plan202. Cue10_2 names quotients, not shares, as what Adams rounds up; 14_7 scopes the open four-town case to the question without the extra assumption; 14_8 says what a lottery adds and that it still cannot keep the quota and population promises together. All prior takes retained; native build and final timing review pending.",
   "units": [
     {
       "id": "oliver_01_1",
@@ -381,7 +381,7 @@
       "line_ids": [
         "10_2"
       ],
-      "text": "John Quincy Adams proposed rounding up instead. Now any piece of a share earns a whole seat, so the lean flips toward small towns. At fifteen seats Adams gives two, four and nine. Cedar falls below its share of exactly ten."
+      "text": "John Quincy Adams proposed rounding up instead. Now any piece of a quotient earns a whole seat, so the lean flips toward small towns. At fifteen seats Adams gives two, four and nine. Cedar falls below its share of exactly ten."
     },
     {
       "id": "oliver_10_3",
@@ -619,14 +619,14 @@
       "line_ids": [
         "14_7"
       ],
-      "text": "Both choices fail. So no rule that keeps the quota promise can keep the population promise for every map of five towns, and the same trick works with more. With three towns, Webster's rule keeps both. With four, as of that paper, nobody knew."
+      "text": "Both choices fail. So no rule that keeps the quota promise can keep the population promise for every map of five towns, and the same trick works with more. With three towns, Webster's rule keeps both. With four, without the extra assumption, nobody knew as of that paper."
     },
     {
       "id": "oliver_14_8",
       "line_ids": [
         "14_8"
       ],
-      "text": "The same paper shows a way out. If the rule may draw lots, it can keep the quota promise, never take a seat back, and give every town exactly its share on average."
+      "text": "The same paper shows what a lottery can add. If the rule may draw lots, it can keep the quota promise, never take a seat back, and give every town exactly its share on average. But even a lottery cannot keep the quota promise and the population promise together."
     },
     {
       "id": "oliver_15_1",
