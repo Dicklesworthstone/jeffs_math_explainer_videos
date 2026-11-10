@@ -1,3 +1,23 @@
+## Audio diagnostic fixes under review, 2026-11-10 19:36 UTC
+
+- [x] Preserved seams01 and02candidates plus02handoff in release-selection1003. Root read bounded stream fix and ran02selftest:exit0, synthetic arrays plus benign local children only. Read loop uses monotonic deadline/select; finally kills/reaps; ffprobe timeout and exactguardpin/receiptcommand added. No actualaudio decoded.
+- [ ] CC0 independently re-reviewing D1/D2 fixes and unchanged arithmetic. Not yet adopted/launched; no listening or release acceptance. Existing995overview actualffmpeg2874821 extracting selectedframes; no duplicate. Nativepart still follows existingcontroller.
+- [ ] Exponential1007 B1repair in progress; active1005 unchanged. Finalpicture/motion/listening/fine-sync/independentwholefilmAV/captionplayback/platform gates remain open.
+
+## Complex overview extraction admitted, 2026-11-10 19:31 UTC
+
+- [x] Existing995controller launched exactly one overview job, admitted19:30:01UTC,input24105714bd0217803bbe702a5413093823f68cebdc21190ac95bcdd36f5d5873,helper2856371. No terminal/picture acceptance yet. Native part follows existing controller; neverduplicate.
+- [x] Audio seams01 independent review retained in release-selection1003/audio-seams01-independent-review.md: arithmetic/WAV provenance okay; D1 stalled read has ineffective timeout/cleanup, D2 guard unbound. CC2 assigned preserved02fix plus benignsyntheticstall test; no actualaudiojob launched or listening claim.
+- [ ] Exponential1007 fixes1006B1 final selection/plan/helper validation; not yetsealed/reviewed/run. Active1005continues.
+- [ ] Finalpictures/native/motion/listening/fine-sync/independentwholefilmAV/captionplayback/platform gates stay open; no upload.
+
+## Complex delivery package assembled, 2026-11-10 19:31 UTC
+
+- [x] complex-delivery1008 contains seven exact-hash files: verified993 master80244e88, selected579caption SRT0ea9277e/VTT6a383cb7, reviewed965title/description/tags and thumbnail208. All source/destination hashes checked,220439093bytes; delivery-manifest1008.json binds995technical receipt,993chapter times and1002independent provenance addendum. No upload; publication_readyfalse.
+- [x] Existing995controller actual launch-pictures process2792118 live checking inputs; no duplicate jobs. Finaloverview/native review and motion/audio/captionplayback/platform checks remain.
+- [x] Independent1006 review retained: B1 final recheck only counted/hashchecked files, missing exactframe/reason/sheet/plan/helper-command validation. CC1 assigned preserved successor1007 with those checks and explicitguarddependencies plus mutant tests. No1006/1007productionrun or active1005changes.
+- [ ] Complete actualfinalpictures and release; listening/fine-sync/independentwhole-filmAV remain explicit. Exponential1005 technical still live.
+
 ## Complex final technical verification passed, 2026-11-10 19:28 UTC
 
 - [x] Guarded995 terminal19:27:27.887475UTC exit0, admitted, initial/finalinputfa2367ada9e1ce7fa8778cdb6c1938dc3acf68379dc6f9db1107ffd30e2ec6cb equal, no resource stop. Actual verification and terminal receipt retained as completed-verification995*.json in production-repair17.
