@@ -1,3 +1,58 @@
+## Exponential chapter04 picture extraction launched, 2026-11-10 15:21 UTC
+
+- [x] pictures985-04 make-inputs session49639 exited0. Exactly one guarded extraction launched in tmux exponential-pictures985-04. Admission/terminal not yet claimed; NEVER duplicate. This supersedes previous active-inputs note.
+- [ ] Inspect actual stable terminal and all final04pictures with existing independent reviewer787; then launch already-prepared05 final once. Four finals rendered, first three both sampled reviews complete; whole-master/audio/fine-sync/independent finalAV/publication remain open. Complex968 remains running,969waiting.
+
+## Exponential fourth final render complete, 2026-11-10 15:20 UTC
+
+- [x] final983-04_tiny_multipliers terminal15:19:26.665702UTC exit0, stable8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc/no stop. 9106frames3840x2160/60,6cues,zero layout rows. Local receipt1b96844f1e9337836ec92be8f869fa2fa46a49b05b8a306c228ba86b321f4317 and summaryb739a6b25be8e1c4b623c56a50dbc2ecf73756fcdfdf0a24f3b2658017114311 preserved.
+- [ ] pictures985-04 make-inputs session49639 ACTIVE; never duplicate. After success launch one guarded css-exponential-pictures985-04_tiny_multipliers, inspect terminal and view all actual sheets. Existing independent reviewer787 assigned04 after stable extraction. Complex969 retains priority.
+- [x] Four final chapters rendered, first three have both sampled actual picture reviews. Chapter05/06 inputs already prepared, no renders. Continue05 only after04picture technical receipt succeeds; no automatic controller installed.
+- [x] Complex968 native1316090/encoder1316187 and969controller1315990 confirmed live last2h38m. No duplicate/restart/upload. All final master, listening/fine-sync, independent whole-filmAV and publication gates remain open.
+
+## Exponential chapter03 both reviews complete, 2026-11-10 15:19 UTC
+
+- [x] Independent reviewer actually viewed all150 selected final03 frames/19sheets; root verified movie/frame-index/sheet bindings exact to extraction. independent-final985-03-review.json SHA4a43b64e3ca2b39ac9169937ff2f550e54cd501bfc58f082a326345de8531c62; root SHA5033ab69582aa1bc922794981f5946b0ede46f945177d4dda61d6802fd876b58. Neither found persistent concrete visual defect; chapter-only sampled review, not whole-film acceptance.
+- [x] Chapter06_only_solution make-inputs session87087 exited0;05 and06 manifests prepared, NO05/06renders launched. final983-04 native2596044 confirmedlive2m23 at15:17, receipt still active15:18 with no resource stop; never duplicate. Native reports94 verified delivery cues,6selected04cues.
+- [ ] Inspect04actual terminal, then guarded04pictures and actual reviews; continue05-15. Complex968 remains existing active job,969waits. Final master/listening/fine-sync/independent whole-filmAV/publication remain open. FourCC weekly quota remains unresolved; no account/credit changes.
+
+## Exponential chapter03 root final-picture review complete, 2026-11-10 15:16 UTC
+
+- [x] Root actually viewed all150selected final03 frames19sheets and verified cached sheet hashes. No persistent concrete defect; temporary diagonal guide crosses grid cells then clears; degree-two prediction hidden through48.717s, reveal49.45s. Binomial sum, absolute-convergence qualification and reciprocal/positive/rational-to-real bridge clear. Evidence expanded-production808/root-final985-03-review.json binds extraction93745da295199841ff32ecb30f3efb7afa25245cd8a71c82c4b8dcf7d7803dc5. Independent03 remains assigned787.
+- [x] final983-04 guard2590821/helper2592611 admitted with original policy/inputSHA8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc. Actual native2596044 live15:16 elapsed44s; never duplicate. Chapter05 inputs already ready, no05render.
+- [ ] Inspect04terminal then04pictures and both actual reviews; continue05-15. Complex968 still active at last2h34m check;969waiting. Master/listening/fine-sync/independent whole-filmAV/publication remain open. Prior turn was progress.
+
+## Exponential fourth final launched, 2026-11-10 15:14 UTC
+
+- [x] pictures985-03 terminal15:13:55.671677UTC exit0, input/finalSHA54b48d51e12ce299bd4dce819633eabac9adde3135e0e8a6366d0bb12fba706f/no stop. Full AV decode and150 selected pictures19sheets complete. Report fetched SHA93745da295199841ff32ecb30f3efb7afa25245cd8a71c82c4b8dcf7d7803dc5; receipt539e250bdce553db9aaa6c197a8d0231a069f2f2f2f41da673ff63f575fd1644. All19sheets fetched/hashchecked, NOT YET root-viewed. Existing reviewer787 notified to perform independent03 actual review.
+- [x] Launched exactly one final983-04_tiny_multipliers in persistent tmux exponential-final983-04 after03pictures terminal; admission and completion not yet claimed. Never duplicate. Chapter05_whole_sum make-inputs session38129 exited0; prepared only, no05render.
+- [ ] Review03all150frames19sheets; inspect04actual terminal then04pictures; continue05-15 serial guarded finals. Three final chapters rendered; first two chapter sampled reviews complete. Master/listening/fine-sync/independent whole-filmAV/publication still open.
+- [x] Complex968 native1316090/encoder1316187 confirmedlive2h32m,969controllerwaiting; no duplicates. CC0-2 dialogs freshly show weekly limitNov13 03:00;CC3 previouslysame, blankcapturedtaildidnotprove recovery. Sessions preserved, no credits/accountchanges. Prior goalturn was progress.
+
+## Exponential third final chapter complete, 2026-11-10 15:10 UTC
+
+- [x] final983-03_product_grid terminal15:08:00.033783UTC exit0 stable8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc/no stop,10306frames3840x2160/60,7cues,zero layout rows. Receipts fetched exclusively; completed-final983-03-resource-receipt.json SHA7cb67da1f8b1a6592e934c7a0c1df6f572490f122ce3e9d7b64546ab2ca19a19 and summary SHAb4f057dee77323ae8c3ee9714cebde987d36843fc29b8bc7e0701cb590dc8715.
+- [x] pictures985-03 make-inputs session91977 exited0. Exactly one extraction launched tmux exponential-pictures985-03; admission/completion not yet claimed. Existing independent reviewer787 assigned03 after stable terminal; complex969 retains priority. NEVER duplicate.
+- [x] Root02 final review SHAfea538aec50b340d358b1e49176e6b9e017b0c8c37cb6ae9153ad5947d832635 binds extraction bd98d208ee6f7d7a24ab92d530f349dfa58f8bfe506e0b5392be58f6d3bed00f; all172frames22sheets actually viewed.
+- [ ] On03picture terminal success launch prepared04 final once, then05-15. Three final renders complete; first two chapters both sampled reviews complete. Master, listening/fine-sync, independent whole-filmAV and publication open.
+- [x] Complex968 native1316090/encoder1316187 rechecked live2h28m;969controller waiting. FourCC panes retained; weekly-limit dialog still observed, no credits/account action. Prior scoped status estimates are judgment, not measured release completion.
+
+## Exponential final chapter02 picture review complete, 2026-11-10 15:08 UTC
+
+- [x] pictures985-02 terminal15:01:40.976987UTC exit0, stable51123e37a5d951614be1a66495f6b326ca0a619b6f5c3c75d64622212640dee2/no stop. Root and independent reviewer each actually viewed all172 selected frames/22sheets; cached hashes checked, no persistent concrete visual defect. Root root-final985-02-review.json; independent-final985-02-review.json SHA1f157a65a500474ac50d0a183d3e33079303d3956abd08f82b32588ec6e48a75. Chapter-only sampled review.
+- [x] final983-03_product_grid launched once in tmux exponential-final983-03, admitted15:02:13.874390UTC, guard2210893, inputSHA8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc. Receipt still active at15:07; never duplicate. Chapter04_tiny_multipliers inputs prepared session57803 exit0; NO04render launched.
+- [ ] Inspect03terminal then run03pictures985 and actual reviews; continue04-15 serial guarded finals. No controller installed. Two final chapters complete and both sampled picture reviews complete; whole-master remains unbuilt.
+- [x] Complex968 native1316090/encoder1316187 confirmed live15:05UTC elapsed2h25m;969controller1315990 waits. No duplicate/upload. Prior status-only turn was a verified wait.
+- [ ] Listening/fine-sync, independent whole-film AV, final master checks and publication remain open. FourCC weekly-limit state unchanged at last actual14:38 check; preserve sessions.
+
+## Exponential second final chapter complete, 2026-11-10T14:58:44.262320+00:00
+
+- [x] css-exponential-final983-02_factorials terminal14:56:29.355802UTC exit0, identical input/finalSHA8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc, no resource stop.8964frames3840x2160/60; native223.3s40.1fps for this chapter, not whole-film ETA. Local completed-final983-02-resource-receipt.json SHAe881965f2d01c44cd48a68de9205f0e224cbee9c36ce9a38a5960c03fc146d9e and summary SHA1d6abab61a46ca10a8e1552d64223fe080816426ad21594a8b7eb913c84704c8 preserved.
+- [x] pictures985-02 make-inputs session80510 exited0; exactly one guarded css-exponential-pictures985-02_factorials admitted, tmux exponential-pictures985-02, guard2126392, inputSHA51123e37a5d951614be1a66495f6b326ca0a619b6f5c3c75d64622212640dee2. NEVER duplicate. Existing reviewer787 assigned actual independent02 pictures after terminal; root review also required.
+- [ ] On actual02pictures terminal success, launch already-prepared03_product_grid final983 once, then explicit serial remaining chapters. No controller installed. Two finalchapters complete, only01 finalpictures reviewed by both;13final renders remain.
+- [x] Complex968 renderer/encoder confirmed live at2h16m,969controllerwaiting. No duplicates or new uploads. Original guards remain; CSS25GiB free at last poll.
+- [ ] Final/master pictures, listening/fine-sync, independent whole-filmAV and publication gates remain open. FourCC workers still quota-limited; no paidcredits or account changes.
+
 ## Exponential first final chapter independently reviewed, 2026-11-10T14:54:40.498942+00:00
 
 - [x] Existing independent reviewer actually viewed all64 selected final01 frames/8sheets, no concrete visual defect. Root verified report movie/frame/sheet bindings against actual985 extraction; independent-final985-01-review.json SHA2aad156f59893a9456a58048e3d252cfaa0534ff459b4857b13efda11b011a6e. Both reviews cover chapter01 sampled visuals only; no whole-film/audio acceptance.
