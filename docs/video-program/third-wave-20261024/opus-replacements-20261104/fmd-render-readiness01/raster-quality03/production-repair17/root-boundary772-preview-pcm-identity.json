@@ -1,0 +1,17 @@
+{
+  "observed_at_utc": "2026-11-10T03:31:33.423929+00:00",
+  "host": "mac-mini-max",
+  "prior": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-boundary-preview571/preview/soundtrack/09_boundary/soundtrack_0.wav",
+  "repaired": "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/mini-boundary-preview766/preview/soundtrack/09_boundary/soundtrack_0.wav",
+  "both_sha256": "f7f8aa6042a9f05d1b25db4c789f7f6b44cb393445015c057f1e87d9b0c8df51",
+  "both_pcm_format": {
+    "rate": 48000,
+    "channels": 2,
+    "sample_bytes": 2,
+    "frames": 13203200
+  },
+  "byte_identical": true,
+  "listening_acceptance": false,
+  "independent_review": false,
+  "final_render_started": false
+}

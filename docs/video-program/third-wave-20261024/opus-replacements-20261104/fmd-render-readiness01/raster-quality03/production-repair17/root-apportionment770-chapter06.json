@@ -1,0 +1,8 @@
+{
+  "chapter": "06_not_every_time",
+  "inputs": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-apportionment-ch06-final757-inputs.json",
+  "job": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-final757",
+  "layout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "script": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/apportionment-ch06-final757.py",
+  "summary": "final757-summary.json"
+}

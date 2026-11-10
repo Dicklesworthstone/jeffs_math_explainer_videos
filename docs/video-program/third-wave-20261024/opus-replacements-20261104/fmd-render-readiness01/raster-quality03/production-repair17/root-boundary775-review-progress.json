@@ -1,0 +1,32 @@
+{
+  "extraction_manifest_sha256": "2a1864771d82f9edb436823e100a3c6b97f8421e272a87bd7c2a8c95c1b4cf99",
+  "movie_sha256": "3594b897ca03ce6c8c542ff7bd2fa83da63262cba7d4cacebb5e91111d65debb",
+  "sheets_viewed": [
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41
+  ],
+  "selected_pictures_viewed": 104,
+  "total_sheets": 102,
+  "total_selected_pictures": 814,
+  "detail_pictures_viewed": [
+    241,
+    273
+  ],
+  "observations": [
+    "Viewed sheets29-41, selected pictures225-328, including all dense71-86s B1 samples.",
+    "At actual960x540 detail pictures241/273, yellow inner clockwise/counterclockwise arrowheads are visible against green circle; p label left of ring is separate from arrows; outer P and rho remain distinct.",
+    "No concrete overlap/clipping seen in this subset. Remaining89 sheets NOT viewed. This is preview selected-still review, not final4K, continuous motion, listening, fine-sync or independentAV acceptance."
+  ],
+  "complete": false
+}

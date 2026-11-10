@@ -1,0 +1,71 @@
+{
+  "utc": "2026-11-10T02:56:35.065296+00:00",
+  "sampling_sha256": "987ad94f0c49db82b7af8d2d49ad06273ae3f0ad0fa49cbfafc61ae4f7b919de",
+  "movie": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-final757/render/06_not_every_time.mp4",
+    "sha256": "2469a4481d96cdc1ebec21748cb3b8dbc9074864e985da93698a611d2ec2b168"
+  },
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39
+  ],
+  "sample_count": 310,
+  "detail_frames_viewed": [
+    2907,
+    3651
+  ],
+  "scope": "Sheets 1-23 reviewed in preceding continuation; sheets 24-39 and two detail frames actually viewed in this turn. Sheets displayed at 1439x1757 from 1920x2344; detail frames displayed at 2048x1152 from 3840x2160. Sampled stills only, not continuous playback or exhaustive frame review.",
+  "findings": [
+    "Staggered five loss labels remain separated from each other and from seat strip.",
+    "Cedar heading and floor labels separated in earlier reviewed samples.",
+    "1880 census source line remains above House comparisons and separate from later quotation through end.",
+    "Red loss labels were small in contact sheets; larger frame2907 is readable without overlap.",
+    "No concrete new clipping or overlap found in selected samples."
+  ],
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "independent_final_av_acceptance": false,
+  "publication_acceptance": false,
+  "remaining": [
+    "Bind repaired06 into full master after remaining prerequisite review.",
+    "Full master technical/caption/loudness verification and final review.",
+    "Independent review and listening/fine synchronization remain open."
+  ]
+}

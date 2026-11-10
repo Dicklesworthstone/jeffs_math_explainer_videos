@@ -1,3 +1,190 @@
+## Exponential full-script independent review789 passed within source scope, 2026-11-10 04:19 UTC
+
+- [x] Read full independent789 report: all94 cues/7008 words, focused native models/scenes, independent arithmetic. No concrete source-level math/pedagogy/content blocker; four evaluation/multiplication clarifications sound. Report cb979cc8 and structured86c65267 bound into requests786. Audit is Codex with inherited context, not blind/CC or native audiovisual acceptance.
+- [x] Actual ElevenLabs UI shows Frederick Surrey/v4,0.5 stability/0.75 similarity/0 clone/WAV48k. Scoped history searches for01_1 opening and01_2 returned no matches throughOct28 after Continue searching. Earlier dates not exhausted; no synthesis/download or credits spent this step. Existing14_6 takes retained and untouched. Tab1054676574 handoff retained.
+- [ ] Full batch still awaits successful native774 qualification; inspect glyph/runtime and concrete pronunciation/sync evidence. Package as introductory to exponential structure with elementary-calculus prerequisites, not a zero-calculus film. Listening, full scene review and independent finalAV remain open.
+- [ ] Complex772 continues guarded4K rendering,776 controller waits; CSD771 verification/774 dependent build remain live. No duplicate jobs/publication.
+
+## Exponential independent full-script editorial review789 active, 2026-11-10 04:17 UTC
+
+- [x] Assigned independent Codex reviewer (completed complex787) full current exponential stage11 script and relevant native sources,94 cues/7008 words exact script aa0e9cf9. Audit prioritizes concrete math/pedagogy/pronunciation issues and owner-requested intuitive properties/definitions/slide-rule/applications before expensive narration; especially12_5/13_2/13_4/15_3 wording. Read-only frozen source, output only independent-editorial789; no heavy work or Beads edits.
+- [ ] Read findings before full Frederick synthesis; any material issue requires preserving current build/source and a versioned repair, not modifying active774 inputs. No editorial conclusion yet; source-only audit does not establish native visuals or listening/fine-sync.
+- [x] Final772 renderer37529 still live6m25s,25m18s accumulated CPU;776 waiting43730. No terminal receipt/resource stop. CSD771 decoder last live62m23s and72565 framehash lines including headers;774 waiting. No duplicate jobs.
+
+## Complex guarded final-picture controller waiting, 2026-11-10 04:12 UTC
+
+- [x] Prepared/read/AST-checked root-boundary788-after-final.py SHA2da134ee3a2d3cbda1711c6d3fb9613d1d37f5ffc33f298efe0223c7269c1739. It waits for actual admitted terminal0/stable772 receipt, aborts on any failure/resource stop, rechecks every original input and freezes actual render outputs before invoking unchanged guarded776. Preserves original guard508, exclusive lane and all limits. No visual acceptance granted by extraction.
+- [x] Exact two helpers transferred without overwriting mismatches; one persistent tmux complex-boundary-pictures776 controller PID43730 observed live waiting. NEVER duplicate776/controller. Existing final772 renderer37529 remains active; no terminal render success yet.
+- [ ] On actual776 success, retrieve/hash-check all final sheets and view every selected picture including repaired09_1 heads/p-label, mean-value panel, title-safe x and persistence. Only then export777/transport778/materialize779/master781/verify782. No upload, listening/fine-sync or full-film independent acceptance.
+
+## Complex repaired chapter final4K772 admitted and running, 2026-11-10 04:10 UTC
+
+- [x] Read full independent Codex787 report and structured evidence:39 sheets/310 actually viewed selected pictures, detailed241/273; no concrete blocker to bounded final4K advancement. Exact repair752/preview766/extraction775 bound. Reviewer is separate Codex, not CC759, and did not author repair; inherited context explicit. CC759 remains unfinished. Report SHA8d240ca3, narrative c1aedbbd; no publication/listening/fine-sync/full-film acceptance.
+- [x] Transferred four new helper/review files to mini-max with exact hashes and exclusive creation. One persistent tmux complex-boundary-final772 launched; actual native renderer PID37529 observed live. Guard admitted04:09:36UTC with inputs aa240e99b53f7261d39dff956b80e753d63b73c3ddf77c74df6bbfcdeca5a655, ~23GiB available, unchanged20GiB admission/8GiB stop/4GiB phase/80GiB work/20GiB target/exclusive lane. 3840x2160/60fps/CRF16/veryfast/4threads. NEVER duplicate772.
+- [ ] Await actual successful stable terminal772 receipt, then run prepared guarded pictures776 and actually inspect every final sheet, especially repaired arrowheads/labels and original lint/persistence. Prepared777-782 export/materialization/master/verifier remain unrun. All other14 chapter finals retained; no complete new master or upload yet.
+- [ ] Existing CSD771/774 chain remains active; no duplicate. FinalAV/captions/loudness, listening/fine-sync and publication checks remain open.
+
+## Exponential retained narration checked before new requests, 2026-11-10 04:08 UTC
+
+- [x] Read all23 top-level historical take receipts in exponential work folder and verified46 distinct retained WAV hashes. None of the full submitted texts exactly matches a current stage11 cue; these are historical Oliver recordings, not Frederick candidates. Preserved every take and prior request manifest. Added scoped inventory to expanded-requests786/requests.json SHA79a4c4363caa514c9f17fd73682f951fe9e6a54977577c6f0bf2bb7f84608ee5.
+- [ ] This scoped local check does not establish absence from other folders/provider history. Remaining93 exact current cues still need provider-history checks and native774 qualification before full synthesis. Existing14_6 Frederick candidate remains retained, not regenerated. Listening/fine-sync/independentAV remain open.
+- [ ] Independent complex787 continues; existing771 decoder and774 controller freshly live54min, no terminal receipt or duplicate launch.
+
+## Complex final render now requires bound independent review, 2026-11-10 04:06 UTC
+
+- [x] Preserved unrun772 as root-boundary772-before-independent787.py; final helper now requires explicit independent-review path/hash, actual752 source hash, matching766 movie/775 extraction hashes, identified non-author reviewer, actual picture indices and explicit no-blocker/final4K recommendation. Review artifact becomes a frozen render input. Full diff inspected and AST parses; helper SHAa7f739f97e7a82db009ea12c6d3662705044315a28b4ba451f347dd72b25ceb8. No runtime or review acceptance inferred.
+- [ ] Independent787 actively reviewing; no final772 launch yet. All previous source/audio/schedule/score/guard and root814-picture checks remain. Actual report must be read and any findings addressed before proceeding; final4K and fullAV/publication remain later gates.
+- [x] Existing771 decoder freshly live52m38s at129%CPU,60862 framehash lines including headers;774 controller3364507 remains live waiting. No duplicate jobs.
+
+## Complex independent repair review787 active, 2026-11-10 04:05 UTC
+
+- [x] Assigned separate Codex reviewer complex_repair_review787 to exact sealed repair752, actual761/766/775 evidence and repaired chapter pictures. Reviewer did not author the repair. Work limited to independent-repair787 outputs; no source edits, heavy jobs, Beads or publication. Existing four CC sessions retained and quota-limited; old759 remains incomplete, not relabeled as complete.
+- [ ] Read actual787 report and verify evidence before deciding whether to advance guarded4K772. Review must inspect actual repaired heads/p-label and persistence, mathematical sequences and timing preservation. Any blocker requires repair; no automatic acceptance. Codex review identity remains explicit, not claimed as CC Opus review.
+- [x] mini-max freshly reachable04:03UTC, about23GiB available and load3.09/3.65/4.21; no final772 receipt exists. This is a resource snapshot, not guard admission or launch. Existing4K guard retains20GiB admission/8GiB stop and other limits.
+- [ ] Complete final4K pictures, full master verification/captions and release checks; listening/fine-sync/independent finalAV remain open.
+
+## Exponential full narration requests prepared, 2026-11-10 04:03 UTC
+
+- [x] Created expanded-requests786/requests.json from exact stage11 script aa0e9cf9. Round-trip verified all94 ordered cue texts,15 chapters and7008 whitespace-delimited words. Each cue carries exact text hash; retained783 request/receipt and both recognition reviews are hash-bound. No source wording changed.
+- [x] Linked14_6 provider generation2 as provisional retained candidate, preserving both full takes. Explicit do-not-regenerate status prevents treating the audition as missing. Remaining93 cues require retained-take/provider-history checks before any new generation; no batch synthesis started.
+- [ ] Existing native774 remains queued behind live771. At04:02UTC actual771 parent3373246/decoder3373438 were live49m22s/49m18s, decoder129%CPU and56181 framehash lines including headers; not a terminal acceptance. Existing774 controller3364507 live; never duplicate.
+- [ ] Complex independent759 remains quota-limited and repaired4K772 unrun. Narration phonetics/listening/fine-sync and independent finalAV remain open; manifests and ASR do not close them.
+
+## Exponential audition recognition complete; candidate retained, 2026-11-10 03:55 UTC
+
+- [x] Guarded784 and785 both terminal0 with stable10bindings/no stop. Actually read all four complete transcripts: large-v3-turbo word-split omits One in generation1; independent small.en unsplit recognizes One but truncates its ending. Both models match generation2 exact script words after case/punctuation normalization. Different-model agreement is ASR evidence, not hearing.
+- [x] Retain provider generation2 (take-01.wav,29.20s,SHAb526e4c1) as provisional exact-stage11 14_6 production candidate; preserve generation1 and every report. Evidence recognition784-review.json and recognition785-review.json. Do not regenerate either take; no further blind recognition loop.
+- [ ] Phonetic letter-a judgment, continuous listening, fine-sync and independentAV remain unaccepted. Full94-cue narration/native774 qualification still pending. This is one retained candidate, not a completed film. Complex759/final772 still pending; active master771 must finish normally.
+
+## Exponential pronunciation recognition784 started, 2026-11-10 03:53 UTC
+
+- [x] Preserved recognize-retained400.py; adapted exact source-bound pair check to783 request and two retained takes. Helper recognize784.py SHAddd7eab4f759f664f234c83faeceb20df8ee9638a9f2d4875640ffb32d11d910;10 frozen bindings include actual script/request/takes/receipt/model/helper/guard/binary. Rechecked actual chosen /opt/homebrew/bin/fw0.9.2 and transcribe help (default ~/.local/bin/fw is0.11.0 and is NOT used here).
+- [x] ONE persistent tmux exponential-probe784 launched original guard_owner80g_target20g; actual PID86067 observed live in admission/preflight. Keeps10GiB admission/8GiB stop/4GiB phase/80GiB work/20GiB target/exclusive lane. No terminal or admitted recognition success claimed; never duplicate.
+- [ ] Inspect actual admission/terminal receipt and read both complete transcripts, especially a/w and multiplication grouping. ASR is diagnostic, not listening/fine-sync/independentAV acceptance. No regeneration of either783 take.
+- [ ] Existing CSD771 parent3373246/decoder3373438 live40m27s/40m22s,46819 framehash lines including headers.774 waits. Complex759 quota-limited and772 final unrun; publication still gated.
+
+## Exponential targeted Frederick audition generated once, 2026-11-10 03:51 UTC
+
+- [x] After actual provider history search had no matches throughOct28, submitted exact stage11 14_6 ONCE with Frederick Surrey/v4, stability0.5/similarity0.75/clone0, WAV48kHz. Both complete provider takes retained: generation1=take-02.wav29.76s SHA9ebc3752; generation2=take-01.wav29.20s SHAb526e4c1. Local names reflect sorted downloads, mapping explicit in generated-receipt.json. Original downloads and request/settings/screenshot retained in expanded-pronunciation783. No reroll, trimming or time/pitch processing.
+- [ ] Recognition/pronunciation review PENDING, especially variable a and w. This is one bounded audition, not completion of full94-cue narration. Do not regenerate these takes. Native774 and later full visual/narration/synchronization qualification remain open.
+- [ ] First browser download-event wait timed out but actual WAV was verified; recovered page and downloaded second once. Chrome1054676574 retained. No listening/fine-sync/independentAV acceptance. Complex independent759/final772 remain pending; no publication.
+
+## Exponential pronunciation prerequisite checked, 2026-11-10 03:49 UTC
+
+- [x] Read exact stage11 cue14_6: real coefficient a and imaginary coefficient w in the growth/rotation split. Reopened actual ElevenLabs Chrome tab1054676574; current selected voice visibly Frederick Surrey - Smooth and Velvety. History search for "Now let the rate have both parts" showed "No results found". This is scoped provider-search evidence, not proof about every retained/local take.
+- [ ] No synthesis requested or credits spent. Exact14_6 letter-a pronunciation still requires bounded audition and fallible recognition/listening distinction; expanded94-cue production remains pending native774 qualification. Tab retained at the search for continuation.
+- [ ] Independent complex759 quota blocker unchanged; final772 not launched. Existing apportionment771/exponential774 chain remains authoritative; no duplicate jobs.
+
+## Complex full-master verifier connected to repaired successor, 2026-11-10 03:44 UTC
+
+- [x] Preserved647; prepared csd-final-verify782.py SHA486b0999ad9fec7d388d776709fcb815d378cd07a8a56ca6b22402fb610d53a3 for actual master781 helper hash, native761 binary and779 materializer attempt1. All decoding, frame-identity, caption, soundtrack, loudness and picture-planning function bodies remain byte-equivalent at AST level; only master350 provenance bindings changed. Full diff reviewed; historical held native553 row rejected by exact worker-routing function.
+- [ ] Prepared only, NOT RUN: actual772/776/778/779/781 outputs and independent759 remain prerequisites. If stage779 needs another numbered attempt, rebind to its actual successful receipt before freezing782. No invented outputs or runtime/AV acceptance. New master picture plan still requires full actual review.
+- [ ] Existing771 verification remains live;774 queued. Listening, fine-sync and independent finalAV remain open. No new publication.
+
+## Live verification and independent-review recovery, 2026-11-10 03:41 UTC
+
+- [x] Re-read actual CC2 pane and its retained measure759.py. Reviewer checked sealed repair files and engine Style/Srgb/ground facts, then measured the OLD final picture before weekly quota interrupted it. No completed repair759 verdict exists; these partial observations do not accept the repaired geometry or final pictures. Exact session remains preserved, credits disabled.
+- [x] Fresh CSD process observation: verifier771 parent3373246 and decoder3373438 live at28m56s/28m51s; decoder130%CPU. Frame-hash file32776 lines including headers (not32776 accepted frames). Exponential774 controller pane PID3364507/python3 remains present. No duplicate launch or restart.
+- [ ] Continue existing771 to terminal receipt; existing774 must launch only after stable successful prerequisites. Complex772 still awaits independent759, then actual4K repair/final-picture inspection and full master verification. Listening/fine-sync/independent finalAV remain open. No publication claimed.
+
+## Complex repaired chapter wired into master successor781, 2026-11-10 03:37 UTC
+
+- [x] Preserved606 and created separate combined-master781.py SHAfc100637898998f58e2b6b38c7250b8895fc99a3963d7348457f09d3a2a1936e. Exact780 gate/hash wired into chapter selection, registry checks, terminal materialization wait and soundtrack replay record. 09 must be native761; old boundary313/native553 cannot enter this successor.
+- [x] AST confirms only chapter_gate/gates/launch/master function bodies differ; full diff reviewed. All other functions unchanged, preserving other14 chapter qualifications and full native master/caption behavior. Actual historical534 boundary row refused by781 before action.
+- [ ]781 is prepared only, NOT RUN. Need real final772, verification776 and actual picture review, guarded778/779 outputs and manifest before full read-only781 check/launch. Current759 independent repair review remains unfinished/quota-limited; source wiring is not runtime or release acceptance. Final master checks/listening/fine-sync/publication remain open.
+
+## Complex repaired materialization and master-gate successors prepared, 2026-11-10 03:36 UTC
+
+- [x] Read full595 materializer and607 master gate. Prepared779 canonical-path materializer and780 gate for actual761 binary/764 narration/772 final/776 pictures/778 transport. Old helpers untouched; AST/diffs reviewed.779 SHA9e3e335852edc0d55a72c9061790a7d894e04f7cb7ec10d198a533d70c54506e;780 SHA586e652fa658b0a07697208b2300b452d42518e7dd436cc63bb6ec8f8a7e9f70.
+- [x] Fresh mini-max hash confirms761 qualification b225700d230f5880663e786d83b3dc9a43d0776dc9c07fa3d669de6ab6198ba8. Gate retains original313 independent-preview/source evidence, full PCM identity, exact schedules, score mapping, encoder checks and every actual final sample review. Current repair759 independence remains a separate unfinished prerequisite; original313 evidence does not replace it.
+- [ ] All779/780 remain UNRUN, not yet connected to a new combined-master consumer. Next integration must explicitly route kind native761 at row selection, launch waits and boundary replay; preserve606 and all other14 chapters. Positive runtime proof awaits actual772/776 and guarded import/materialization. No acceptance/publication claim.
+
+## Complex repaired export/transport successors prepared, 2026-11-10 03:35 UTC
+
+- [x] Read full original593 exporter and594 transport; prepared separate777/778 for final772 and verification776. Original helpers untouched. Exporter SHA fbd899195a3ab41f9481fbd706ae3d38ac0060acd4d56c76b776cc79a0c86ce3; transport SHA b79802a51686869fdbe4e682595793ef6f9deaccaa6746e9d28ae459e1de2243. AST and transport diff reviewed.
+- [x] Receiver still requires exact original guarded command/policy, terminal stable prerequisite receipts, every frozen source/output hash, fresh numbered destination files and total-size limit. Adds all814 prior sample coverage and new final sample checks. Actual retained old593/held586 export was tested and refused by778.
+- [ ] Neither exporter nor transfer executed. Positive end-to-end qualification awaits real772/776 outputs and guarded frozen inputs; size admission must pass without bypass. Materializer595/master607 need corresponding repaired successors. Independent759, final4K, actual final-picture review, listening/fine-sync and release gates remain open.
+- [ ] Existing apportionment verifier3373438 freshly live21m41s/130%CPU, produced23402 complete frame-hash rows of100886. Exponential774 remains queued. No duplicate jobs.
+
+## Complex final-picture verification successor776 prepared, 2026-11-10 03:33 UTC
+
+- [x] Read full old587 final extractor and775 preview extractor. Prepared separate root-boundary776-pictures.py for repaired772, preserving old587. Retains all three scored-stem hashes/offsets, full normalized narration/cue/timeline checks, source manifest rehash,4K60/16504-frame probe and full AV decode.
+- [x] Sampling retains every814 actually reviewed775 frame (including all old313), adds every final-layout anchor and persistence, and uses successful balanced filter expression. Actual775 anchor calculation preserves814 exact ordered frames. AST/diff reviewed; helper SHA9ba6a9b5e4941a2428487d6778a1796364cf81d6e3118c682a803e004efbfd39.
+- [ ]776 is prepared only, NOT RUN or bound to a guard. Native4K772 awaits independent759; once completed, freeze776 with actual final inputs, run guarded and actually inspect all final pictures. Transport/master successors must use772/776, never held586/587. Listening/fine-sync/independentAV/publication remain open.
+
+## Complex repaired preview full PCM identity verified, 2026-11-10 03:32 UTC
+
+- [x] Read actual571 and766 native soundtrack files on mini-max: both SHA f7f8aa6042a9f05d1b25db4c789f7f6b44cb393445015c057f1e87d9b0c8df51,48000Hz/stereo/16bit/13203200 samples. Entire preview soundtrack byte-identical, not just cue metadata. Evidence root-boundary772-preview-pcm-identity.json.
+- [x] Preserved prior772 helper and added exact whole-PCM identity prerequisite to final preparation; helper SHA29ce72d0de5d6e91e050d39d28448a93447372ede8d3c9daa81af31fe8e3f307, AST passes. Still UNRUN pending independent759; no listening or final-render acceptance.
+- [ ] Apportionment771 ffmpeg3373438 freshly live18m44s at130%CPU; output reached about21063 of100886 frames. Keep existing verification and dependent exponential774, never duplicate. Complete render/master/release and independent review gaps remain open.
+
+## Complex final helper rebound to completed775 review, 2026-11-10 03:30 UTC
+
+- [x] Preserved unrun772 helper as root-boundary772-before775-final.py; updated only extraction paths from failed767 to successful775 and actual review schema. Added explicit complete=true and exact1..814 picture-index coverage checks. AST passes; helper SHA2802173dba96783e396d1ead468a1901b44e0c4bd507c8772ab0e784b367d91a. Full source binding, successful prerequisites, all picture hashes, exact schedules, retained score, original guard and4K60CRF16 retained.
+- [ ] Helper remains UNRUN pending independent759 review. Four existing CC pane processes still present; fresh CC0 capture confirms weekly limit, no credits/account change. Independent review is not replaced by root picture inspection.
+- [ ] Apportionment verifier771 freshly live17m26s with child3373438 decoding actual master to full frame hashes. Existing exponential774 controller/session waits. No duplicate jobs or publication.
+
+## Complex repaired preview picture review complete, 2026-11-10 03:28 UTC
+
+- [x] Actually viewed all102 sheets /814 selected preview pictures; re-viewed previously truncated66-69. All102 local sheet hashes match extraction775 manifest. Full960x540 details241/273 previously viewed. Evidence root-boundary775-pictures-reviewed.json; original partial progress retained.
+- [x] Repaired yellow arrowheads and p label clear in sampled pictures; mean-value panel, coefficient sequence and shifted-center radius explanation remain readable. No concrete sampled overlap/clipping defect found.
+- [ ] Independent759, final4K repaired09, complete master/AV, continuous listening/fine-sync and publication gates remain open. Update prepared772 bindings from failed767 to successful775 before use; do not reuse held586.
+- [ ] Apportionment verifier771 freshly live PID3373246 at15m52s; exponential774 remains dependent. No duplicate jobs.
+
+## Corrected complex picture extraction775 passed; review partial, 2026-11-10 03:22 UTC
+
+- [x] Actual775 finished03:20:57UTC exit0 with13628 stable bindings b0e42946/no stop. Balanced filter extracted all814 selected pictures on102 sheets, with exact failed767 frame list retained. All102 downloaded sheet hashes match actual extraction manifest.
+- [x] Actually viewed sheets29-41 (104 pictures225-328), including dense71-86s B1 repair window, plus full960x540 detail pictures241/273. Yellow inner arrowheads now visible against green ring and p label separate in these sampled previews. No concrete sampled overlap/clipping in this subset. Evidence root-boundary775-review-progress.json.
+- [ ] Remaining89 sheets NOT yet viewed; do not treat partial review as accepted whole preview. Independent759, final4K repaired09, complete master/AV, listening/fine-sync and release gates remain open. No upload or final render started.
+
+## Complex preview766 passed; extraction767 failed; corrected775 launched, 2026-11-10 03:21 UTC
+
+- [x] Actual preview766 finished03:19:22UTC exit0, stable bindings a918897b, no resource stop.16504frames rendered1725.1s/9.6fps, two layout findings retained. No picture acceptance yet.
+- [x] Extraction767 exited1 stable at03:19:31UTC. Full decode/table checks preceded failure in ffmpeg parsing the long left-associated select sum; error reports cannot allocate memory. Failed helper/filter/output/receipt preserved; no rerender needed.
+- [x] Prepared775 narrow repair: balanced sum expression, exact selected-frame list asserted equal to failed767 filter, all313 retained seeds/current lint/persistence and whole-chapter coverage unchanged. AST passes; helper37c33249. Original guard/runtime/prerequisite bindings retained.
+- [ ] ONE extraction controller ALREADY STARTED in mini-max tmux complex-boundary-pictures775; never duplicate. Inspect actual receipt and view every resulting sheet before native4K successor. Independent759 remains open;772 must bind successful775 rather than failed767 before use. No listening/fine-sync/independentAV or publication acceptance.
+- [ ] Existing apportionment verifier771 process3373246 freshly live at8m25s; exponential774 waits on successful verification. No duplicate jobs.
+
+## Apportionment master770 terminal success; verifier771 live, 2026-11-10 03:17 UTC
+
+- [x] Actual master770 receipt finished03:11:40UTC exit0 with unchanged10136 bindings24ecd3c8 and no resource stop. Master SHA e61269f23176a5c299f104df11ced4d69b84476584b8b91ff1fc5876fe604116;100886frames/28:01.433,15 bit-identical soundtrack replays,443 exported captions and reviewed caption168 repair. This supersedes pending caption/master states below.
+- [x] All15 actual chapter starts match reviewed publication627 description:0:00,1:20,3:10,4:43,5:53,7:38,9:01,10:25,12:12,13:34,15:55,17:43,21:28,23:32,26:25.
+- [ ] Existing verifier771 launched03:12:15UTC with10256 bindings4f9d04c9; process3373246 freshly live at4m35s. Full decoded-frame identity, captions and encoded loudness remain pending. Existing exponential774 controller waits; never duplicate.
+- [ ] Complex preview766 process50891 freshly live at26m21s/100m15s accumulatedCPU; extraction767 still waiting. Actual repaired pictures, independent759, final4K09 and full master remain open. Listening/fine-sync and independent finalAV acceptance remain open for both films. No upload.
+
+## Apportionment native master command passed; caption export live, 2026-11-10 03:11 UTC
+
+- [x] Actual770 log reports all15 soundtrack replays bit-identical and native master command completed:100886frames,1681.433s audio and picture, fixed gain-1.07dB, PCM-18.72LUFS/-1.50dBTP (nominal ceiling exception). This is not the terminal guard receipt or encoded-file verification.
+- [ ] Caption export child3367405 freshly observed live at2m49s/99.3%CPU; parent3352556 live. Existing771 controller waits on terminal stable successful770. Never duplicate.
+- [ ] Complex766 renderer50891 freshly observed live at20m19s with77m33s accumulatedCPU; encoder50949 live and temporary output2097200bytes updated03:10UTC.767 extraction still waits; no terminal/visual acceptance. Exponential774 controller remains queued behind771.
+- [ ] All final listening/fine-sync, independentAV and publication gates remain open.
+
+## Full exponential stage11 build774 queued, 2026-11-10 03:07 UTC
+
+- [x] Root read all378 lines of754d and actually ran it:75passed/0failed, oracle1771rows unchanged,94cues/7008words. Lint0errors/101warnings; four inherited thumbnail rustfmt diffs remain, so no clean whole-crate format claim. Root handoff773 bf3e86c4 binds exact55file stage11 tree72e54021; check log preserved. Native tests still unrun.
+- [x] Read full716 build helper; preserved it and adapted774 stage pins,15chapter registry,217 expected tests/1771facts/94cues/7008words and sealed773 handoff binding. Original95 historical passing-test inclusion, strictClippy, native toolchain/engine, process/resource, cue-probe and glyph checks retained. Source copied to new CSD root-exponential774-source; actual inputs mode passed4165bindings71fb12b3.
+- [ ] ONE controller ALREADY WAITING CSD tmux exponential-build774. Requires successful stable master770 and verify771, then rechecks all774bindings before guarded native build. Never duplicate. No build/narration/listening/glyph/final acceptance claimed.
+- [x] Master770 log now contains all15 native soundtrack bit-identical replay lines. Actual terminal master receipt still pending; verify771 waits. Complex766 remains existing live preview,767 waits; no duplicates.
+
+## Master verifier771 queued; complex final successor772 prepared, 2026-11-10 03:04 UTC
+
+- [x] Read full verifier742 and adapted only master/manifest/helper/job bindings in preserved771. Exact pinned770 helper220f9cf1; all original full AV decode, decoded-frame identity for100886frames/15chapters,93placement checks, exact443caption pair and20cps limits, caption168 display-dwell audit and encoded loudness checks retained. AST parses; not yet executed.
+- [ ] ONE controller ALREADY WAITING in CSD tmux apportionment-verify771, controller8e07ddfa and verifier44a7297b. Requires actual finished stable successful770, freezes full closure, then guarded verify771; aborts on failed master. Never duplicate.770 has checked both imported chapters and is replaying native soundtracks (01-04 observed bit-identical); terminal success still pending.
+- [x] Prepared root-boundary772-final.py from preserved586 with761binary/764delivery/765timeline/766preview/767pictures and retained exact score586. Requires actual complete matching picture review and all bound files; keeps4K60CRF16/veryfast and original guard. AST only, NOT RUN or uploaded. Independent759 and repaired picture review remain open.
+- [ ] Complex preview766 remains live; existing767 extraction controller waits. No new final or publication claimed; audio/listening/fine-sync and independent finalAV gaps remain explicit.
+
+## Apportionment repaired master integration770 launched, 2026-11-10 03:01 UTC
+
+- [x] Preserved735 and adapted770 to actual757 command plus path-only narration rebinding. Actual six full WAV hashes match retained audio; complete timeline/cue/cuelog checks pass, exact score stem rows retained; invalid audio path refused. Initial missing caption727 helper preflight failed before manifest/launch; copied exact pinned helper, then preflight passed10136bindings24ecd3c8. Evidence root-apportionment770-integration.json.
+- [ ] ONE guarded master770 launched in CSD tmux apportionment-master770. Inspect actual receipt, all15 bit-identical soundtrack replays and captions before verifier successor. Never duplicate. Full AV/listening/fine-sync and independent acceptance remain open.
+- [ ] Complex766 remains existing live preview;767 extraction waits. No duplicate complex render or upload.
+
+## Repaired apportionment pictures reviewed; complex preview live, 2026-11-10 02:56 UTC
+
+- [x] Actual pictures757 exit0 with identical initial/final631-binding manifest fe4bda8f and no error/resource stop. All310 selected pictures across39 sheets now actually viewed; frames2907/3651 additionally inspected at larger displayed size. All39 sheet and both detail hashes match sampling987ad94f. Repaired staggered loss labels and historical year line remain separated; no concrete new overlap/clipping found in sampled stills. Evidence root-apportionment769-pictures-reviewed.json records display scaling and scope.
+- [ ] Full apportionment master remains unassembled/unverified; listening, fine synchronization and independent final audiovisual acceptance remain open. Sample review does not authorize publication by itself.
+- [x] Complex timeline765 terminal exit0 at02:50:23UTC, initial/final ef938bdd equal. Preview766 process50891 freshly confirmed live at5m30s; existing extraction767 controller waits, never duplicate. New preview pictures, native4K repair, independent759 and complete master checks still required.
+
 ## Exponential stage11 wording recovered and checked, 2026-11-10 02:50 UTC
 
 - [x] Root independently compared actual55-file stage11 against frozenstage10. Only Cargo binary name, script and test-only applications_checks differ; all native scene bytes unchanged. Exactly12_5/13_2/13_4/15_3 have the requested explicit evaluated-at/product wording; all other90 cue texts unchanged.94 cues,7008 words; oracle11 bytes equal oracle10. Evidence root-exponential768-source-audit.json includes every stage11 file hash.

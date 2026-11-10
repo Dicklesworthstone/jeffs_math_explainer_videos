@@ -1,0 +1,16 @@
+{
+  "utc": "2026-11-10T03:01:05.593683+00:00",
+  "source": "apportionment-csd-master735.py preserved",
+  "successor": "root-apportionment770-master.py",
+  "sha256": "220f9cf18bc146cea4333f3f53886436cccdc4450b27e72772ccd733213227b3",
+  "remote_helper": "root-apportionment770-master-bound.py",
+  "checks": [
+    "actual six repaired WAV hashes equal retained narration",
+    "actual full normalized timeline equal; cues byte equal; cue log equals reference plus exact validated stems",
+    "invalid WAV path refused",
+    "inputs mode passed10136 frozen bindings24ecd3c8eced5a94de066b5e8de9b3acacd837cf4b442ee1eb3e6b688e4a2b04"
+  ],
+  "preserved_failed_preflight": "First inputs mode exited1 because pinned caption727 helper was not yet copied to CSD. No manifest or master launched. Copied exact d94aab21 helper, then inputs mode passed.",
+  "state": "guard launched in tmux apportionment-master770; terminal outcome not yet known",
+  "acceptance": "No final AV, listening, fine sync, independent review or publication accepted."
+}
