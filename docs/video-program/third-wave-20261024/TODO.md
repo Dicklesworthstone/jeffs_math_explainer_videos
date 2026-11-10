@@ -1,3 +1,205 @@
+## Preserve existing review scope; freeze extra gate work, 2026-11-10T23:00UTC
+
+- [ ] Park the unrun combined-final01-prepared/combined-final-review-gate01.py. Its new requirement that the independent reviewer duplicate every root-selected frame was stricter than the proven native968 route and is not a newly authorized release condition. Preserve the file; do not wire it. Retain actual root image review, independent repair review, exact bindings and original final qualification. No claim of listening or independent whole-film acceptance.
+- [ ] Continue already-running repair preview and queued chapter11 qualification; no more speculative gate development while actual pixels are pending. No release Bead closed.
+
+## Final-render review gate prepared, 2026-11-10T22:59:00.221059+00:00
+
+- [x] Reviewed proven native968 admission/score/render route and prepared final-review995/combined-final01-prepared/combined-final-review-gate01.py (0571c2c62f0d9a95025c8f1ae506c76cd63813dccb239b7f75d736ce8204c2ff), UNRUN and not staged. It creates no acceptance: requires actual root and non-author independent review of every selected repaired-preview frame/sheet, exact source/movie/extraction hashes, no concrete defects, and stable original score21 plus QA. Final4K/render helper remains to wire after actual review; no speculative approval artifact.
+- [x] Confirmed the existing guard uses blocking exclusive flock and rechecks frozen inputs after lane acquisition, so queued build/extraction jobs remain serial. Existing combined preview helper502969 rendering01_the_bump; no terminal receipt yet.
+- [ ] Current repaired previews,chapter11 qualification,independent source/visual review,final4K and whole-film AV/listening/fine sync remain open. No new upload.
+
+## Three repaired schedules pass; native previews active, 2026-11-10T22:57:04.473455+00:00
+
+- [x] Guarded csd-native-combined-timeline01 exited0 at22:56:28UTC, stable5e133e42 input binding,no resource stop. All three complete normalized tables equal references:01=6311frames/150147fe,08=14959/43c8bab2,09=16504/5a91b8f9. Root copied terminal receipt/comparison and all three actual tables to final-review995/combined-timeline-terminal01 and independently checked actual table hashes.
+- [x] Existing preview controller launched guarded csd-native-combined-preview01,guard502967/helper502969 live. No duplicate. Picture extraction and counting build/delivery/timeline/preview/picture controllers already waiting on successful prerequisites.
+- [x] Exponential verifier573582 confirmed active at3h50,now decoding chapter10_changing_rates for full-frame identity. No terminal success or duplicate.
+- [ ] Actual repaired previews and final4K review,chapter11 qualification,independent review,motion/listening/fine sync and publication remain open.
+
+## Chapter11 preview and visual sampling continuation wired, 2026-11-10T22:53:10.344950+00:00
+
+- [x] One controller ALREADY WAITING in CSD tmux jmev-complex-counting-preview02 for stable exact chapter11 timeline; native960x540/60fps/CRF18 preview under original guards, full rendered schedule equality required. Helpers8bee5a77/1755a557; no duplicate.
+- [x] Prepared831 exact chapter11 frames: full chapter at1s, input-loop/Moebius interval at0.2s, early compression interval at0.1s, ±6frames at cue/prediction/listen-end/breath boundaries. Plan bound to five exact source hashes and timeline29a3afd3. Current render lint/persistence joins selection. Sampling only, not continuous motion proof.
+- [x] One controller ALREADY WAITING in CSD tmux jmev-complex-counting-pictures02,PID476199, for stable preview then guarded decode/extraction. Every resulting sheet must actually be viewed. No output or acceptance yet.
+- [x] Existing combined timeline renderer422462 confirmed live at10m49s,142%CPU; no terminal guard receipt. Existing jobs and guards preserved.
+- [ ] Independent chapter11 review and actual previews/final4K/whole-film motion/listening/fine sync/publication remain open. CC provider limit still prevents four-worker continuation.
+
+## Chapter11 schedule gate wired, 2026-11-10T22:50:28.184723+00:00
+
+- [x] Read actual master993 consumer and its timeline269 chapter11 reference:11932 frames,8 exact cue placements,prediction mark5671/listen6s and closing breath11782/2s. Bound full reference SHA29a3afd3 rather than only chapter duration.
+- [x] Prepared/staged counting timeline helpera7b733d3 and controller46867039. One controller ALREADY WAITING in CSD tmux jmev-complex-counting-timeline02 after stable counting build/delivery, freezes full input closure/reference and compares whole normalized chapter11 table. NEVER duplicate. This gate refuses a timing change; no timeline success claimed.
+- [x] Read full exponential pictures1007 candidate and existing pins/packaging tripwire. It remains unrun and unpinned until actual stable verification1005 terminal evidence. Existing verifier still active, chapter09 identity check last observed; no duplicate.
+- [ ] Repaired actual previews/pictures,chapter11 tests/source review,final4K/whole-film motion/listening/fine sync and publication remain open. Four CC workers remain weekly-limited after exact resume; root continues.
+
+## Chapter11 retained narration continuation prepared, 2026-11-10T22:48:33.623852+00:00
+
+- [x] Root checked all28 source markers against the exact five-file candidate; only counting11_5/11_6/11_8 line bindings change to513/584/684. Cue intervals and unchanged prediction/reading calls inspected. Prepared source-only delivery helperf9c70ac3 and controllerc3943950, preserving all105 WAVs, phrase timings and assembly sentence rows; four repaired chapters total28 cues.
+- [x] One controller ALREADY WAITING in CSD tmux jmev-complex-counting-delivery02 for successful stable counting-build02 (250 expected tests plus plate-fade/clippy/facts). It then freezes inputs and runs guarded delivery once. NEVER duplicate. Build still waits on existing repaired previews; no build/delivery completion claimed.
+- [x] CC account diagnosis found no inherited ANTHROPIC/CLAUDE auth/config override in the four parent shells; fresh CLI reports logged-in first-party Max. Fresh requests from the resumed sessions still hit weekly limit, so account usability is not established. No credentials exposed or changed.
+- [ ] Chapter11 native build/delivery/timeline/pictures and independent review remain open, along with final motion/listening/fine-sync. Existing complex timeline and exponential verifier still live; no duplicate jobs or publication.
+
+## Repaired-preview picture extraction wired, 2026-11-10T22:46:22.190470+00:00
+
+- [x] Prepared/staged extraction helper43508444 and controller77163ab9; all1231 plan02 sample frames copied exactly, plus prior814 boundary samples and current render lint/persistence retained as a union. Native preview dimensions/frame counts,full decode and full schedule equality are checked before extraction. Timeline-only outputs have no layout TSV; current render lint is the live lint source, prior anchors remain in plan02.
+- [x] One controller ALREADY WAITING in CSD tmux jmev-complex-combined-pictures01,PID443922, for successful stable preview01; freezes prior input closure,preview files,Pillow and plan before guarded extraction. No duplicate. Timeline331837,preview422438 and counting437545 controllers confirmed live.
+- [ ] Every resulting sheet still requires actual viewing; no repaired-picture acceptance or new publication. Independent chapter11 review,continuous motion,listening,fine-sync and final AV remain open; CC account limit persists.
+
+## Chapter11 guarded qualification queued, 2026-11-10T22:44:19.959240+00:00
+
+- [x] Prepared/staged chapter11 counting-build02 package, preserving all four qualified01/08/09 fixes and adding candidate21c5043a only. Exact patch reapplication matches candidate; expected250 regular tests plus explicit plate-fade probe. Helper45d2ab26, launcherfc34004a; precheck passed4227 bound inputs,18.9GiB free. No native result yet.
+- [x] One CSD controller ALREADY WAITING in tmux jmev-complex-counting-build02, helper91661d22. It requires successful stable repaired-preview01 and all3 exact schedules, then launches guarded counting-build02 once with original resource policy. NEVER duplicate. Existing timeline331837 and preview-controller422438 remain active.
+- [ ] Independent chapter11 source review remains open because all four resumed CC sessions still reject fresh requests with weekly limit. Tests/build do not close that review or picture/motion/listening gates. Preview actual-image review precedes final4K, and final whole-film qualification/publication remain open.
+
+## Guarded repair preview continuation ready, 2026-11-10T22:42:13.994940+00:00
+
+- [x] Restarted all four CC workers in their exact saved sessions after owner account swap; fresh continuation requests still returned weekly-limit errors. No paid credits enabled. Evidence /private/tmp/video-cc-account-resume-20261110T223953Z. Workers are not currently productive; root continues integration.
+- [x] Prepared and staged combined preview helper76c2d2ad and controller8a84e945, preserving original resource guards and complete input bindings. One controller ALREADY WAITING in CSD tmux jmev-complex-combined-preview01 for successful stable combined-timeline01 and all three normalized schedules. It renders repaired01/08/09 serially at960x540/60fps/CRF18, then checks full exact schedules. NEVER duplicate.
+- [x] CSD combined timeline331837 and CSS exponential verifier573582 confirmed live; exponential has reached chapter08 identity checks. No terminal completion inferred.
+- [ ] Inspect actual preview terminal receipt and every required repair picture before4K. Root chapter11 candidate remains independently unreviewed/unbuilt. Exponential final pictures await verifier success. Continuous motion, listening, fine sync and independent whole-film AV acceptance remain open; no new publication.
+
+## Build and retained narration qualified; native timelines active, 2026-11-10T22:36:24.445436+00:00
+
+- [x] Actual combined-build01 exited0 stable inputs7c9da17c,no resource stop.247 tests plus1 explicit plate-fade test,clippy,facts7d528509,15-chapter registry pass; exact expected72-file listingada599ee. New binaryaed99576b7a9cc42353c43963e1828acf3465426e028fc424eaf6712133725ce. Terminal receipts copied to final-review995/combined-build-delivery-terminal01.
+- [x] Guarded combined-delivery01 exited0 stable inputs a1a6a003,no resource stop;105WAVs byte-identical,phrase timings/assembly units/sentence rows unchanged;105full and20selected cues verified. Existing timeline controller launched guarded combined-timeline01,PID331837,inputs5e133e42. NEVER duplicate.
+- [x] Root implemented scratch chapter11 candidate21c5043a:explicit input-loop referent,actual Moebius image circles via uniform scale,and early quintic compression disclosure. Numerical circle residuals below9e-16 and winding1/0 verified;root candidate in final-review995/counting-root-repair02. No native build/independent acceptance for this candidate.
+- [ ] Complete native timeline equality,guarded repaired rendering and actual pixels. Independently review/qualify chapter11 candidate when CC resumed; account-swap response still pending. Listening,motion,fine sync,whole-film acceptance and publication remain open.
+
+## Native tests pass; timeline continuation wired, 2026-11-10T22:33:15.136715+00:00
+
+- [x] Actual combined01 build output:247 regular tests passed,0failed,1ignored; explicitly run ignored plate-fade test passed1/1. Clippy running; terminal qualification/facts/source stability still pending.
+- [x] Root prepared/staged guarded three-chapter timeline helper41cd4ccd and controller9c09de81; one controller ALREADY WAITING in CSD tmux jmev-complex-combined-timeline01,PID329775. It requires stable successful build/delivery, freezes full input closure, renders timeline01/08/09 serially and checks full normalized hashes and6311/14959/16504frames. NEVER duplicate. Delivery controller324936 still waits on build.
+- [x] Exponential1005 guard563272/helper573582 alive at3h27,active ffmpeg child2818395. No terminal receipt yet,no duplicate.
+- [ ] Four CC sessions weekly-limited,owner swap response pending. Root continues; native repaired output,chapter11 fixes,listening/fine sync/independent whole-film acceptance and publication remain open.
+
+## Guarded delivery continuation wired, 2026-11-10T22:30:53.161428+00:00
+
+- [x] Root adapted previously successful849 delivery helper/controller to combined01 and the seven source-map changes; parsed both helpers,checked staged hashes. Prepared under final-review995/combined-delivery-root01. Existing105 full WAVs,phrase timing,assembly units and sentence rows are preserved/verified by the helper; only source dispositions/plan binding change.
+- [x] One controller ALREADY WAITING in CSD tmux jmev-complex-combined-delivery01; starts guarded csd-native-combined-delivery01 only after successful stable combined build and unchanged prerequisite inputs. NEVER duplicate. It verifies105-cue full delivery and20 cues for01/08/09 under original guards. No delivery result yet.
+- [ ] All four CC workers hit weekly limit around22:26–22:28; exact sessions/takes/work preserved, no paid credits enabled. Owner notified; waiting for account-swap confirmation. Root continues integration; existing build and exponential verifier unaffected. Do not claim workers active until resumed.
+- [ ] Native timeline/render/actual pictures,chapter11 repairs,continuous motion/listening/fine-sync and independent whole-film AV acceptance remain open. No new upload.
+
+## Chapter11 teaching corrections, 2026-11-10T22:28:36.321669+00:00
+
+- [x] Root reconciled remaining residue/counting findings with exact source and script; root-counting-residue-disposition01.json. Reuse of h occurs after prior setup cleared and new g/h definition introduced.11_8 tail has explicit reading_window,2s music and fade; hearing/pacing still unaccepted.
+- [ ] CC3 to include timing-neutral early compression disclosure for11_6 leash inequality, alongside explicit input-loop referent and11_3 true-circle geometry; independent CC0 review and native validation required.
+
+## Repaired-scene extraction ready, 2026-11-10T22:25:07.409038+00:00
+
+- [x] Root read sampling-plan02 rationale and checker; preserved13 plan/helper/frame-list files in final-review995/native-sampling02-root-checked01. All derivation input hashes match; required/all frame lists are unique,in range and exactly match plan. Timeline self-test matches all three actual reference schedules and rejects one-frame09_9 mutation.750 required stills,1231 with full transition samples; this is extraction readiness, NOT viewed repaired output.
+- [x] Root checked all28 exact source hashes and marker lines (23 visual holds,5 helpers),including all7 changed rows; preserved map report and root-map-check01.json in combined-build01-root-frozen01. Marker binding only; full native direction/assembly verification remains required.
+- [ ] Existing combined native build remains live under guard; all four format-check outputs present,test compilation active. Inspect actual test/clippy/facts/terminal receipt before dependent work. No duplicate.
+- [ ] CC0 independent chapter11 review; CC1 exponential final-extraction preparation; CC2 delivery/re-render executable helpers; CC3 sampling cross-check then true-circle11_3 fix. Root retains publication and TODO/Beads ownership.
+- [ ] Actual repaired native pictures,motion,listening,fine sync and independent whole-film acceptance remain open; no new upload.
+
+## Combined native repair build launched, 2026-11-10T22:22:58.335150+00:00
+
+- [x] Root reran corrected nested phrase comparison: all 11 cues,498 phrase marks and six fields match across CSS309 and four CSD deliveries;12 score stems identical; all six corruption controls refused. Exact evidence: final-review995/root-narration-comparison02.
+- [x] Root read both executable helpers and complete independent CC0 review (no blocker), froze inputs/review, staged exact four-source bundle02. CSD check passed4226 bindings,18.9GiB free. Started guarded csd-native-combined-build01 ONCE in tmux jmev-complex-combined-build01; live guard308026/helper308031 observed. NEVER duplicate. Existing resource guards retained.
+- [ ] Inspect terminal build receipt,247 scoped tests plus ignored plate-fade probe,clippy,facts,source stability. CC2 preparing source-bound delivery rebind and native chapter01/08/09 outputs. No native outcome yet.
+- [ ] Chapter11 explicit input-loop referent candidate read; CC3 assigned true-circle11_3 repair rather than retaining undocumented radial distortion. CC0 independent review. Source changes must preserve narration and schedule, then actual native pictures/motion.
+- [ ] Exponential1005 guard563272/helper573582 confirmed live at3h16; no terminal receipt or duplicate. Final pictures/AV remain pending.
+- [ ] Continuous motion/listening,fine-sync and independent whole-film AV acceptance remain open. No complex or exponential upload.
+
+## Phrase-timing comparison corrected, 2026-11-10T22:14:36.624675+00:00
+
+- [x] Root caught vacuous phrase-timing equality in worker comparison: top-level filtering returned empty maps; actual data is under cues. Independently checked nested data with exact11cue coverage in six CSS/CSD folders: all agree. Evidence root-phrase-binding-audit02.json binds probe hashes. Worker asked to preserve failed comparator, correct nested selection and add real timing mutation control. WAV/stem checks unaffected; no hearing/sync acceptance. Native build helper preparation continues.
+- [ ] Finish guarded build and repaired native review; audiovisual/publication gates remain open.
+
+## Opening-review evidence reconciled, 2026-11-10T22:11:29.347848+00:00
+
+- [x] Root read CC0 opening-chapters report narrative/corrections and froze report, index, progress and83 batch files; validated261 distinct sheet hashes and complete nonduplicated batch coverage. Historical manual timestamp caveat preserved. Arrow repair pending native; degree-counter morph remains motion review; independently rounded live values retained rather than deriving output from rounded input. All selected overview sheets reviewed; no continuous/listening/fine-sync acceptance. Build preparation and chapter11 semantic repair continue.
+- [ ] Complete guarded repairs and actual audiovisual verification before publication.
+
+## Combined repair sources frozen, 2026-11-10T22:09:56.239112+00:00
+
+- [x] Root froze combined repair bundle02 (four staged sources and four bases plus manifest) after exact hash checks. Independently verified square gatefix is identifier-only: five substitutions, three runtime references and two test literals; no geometry/timing/audio delta. Native088 root-viewed: prerequisite card means input loop but sits over output under turns -1; CC3 assigned explicit referent and source-bound fit test, plus compression audit. CC2 preparing executable guarded successor build from live844 receipt. Root overview remains1044/1044; native build/render and AV acceptance still open.
+- [ ] Run guarded build after helper review; inspect repaired native output and complete remaining audiovisual gates.
+
+## Complete selected-still overview, 2026-11-10T22:08:39.755947+00:00
+
+- [x] Complex final995 root overview complete:1044/1044 sheets,8351 selected images, root-progress61.json. Full independent128-native-still report read/frozen; eight Low findings retained, native088 caption/turn-sign and N3 output compression referred for semantic source check. CC0 combined repair bundle, CC1 exact sampling plan, CC2 executable guarded build preparation, CC3 semantic checks active. Native repair validation, continuous motion/listening/fine-sync and independent whole-film AV acceptance remain open; no upload.
+- [ ] Build and visually validate repairs; resolve semantic findings; complete audiovisual and publication gates.
+
+## Analytic continuation picture review, 2026-11-10T22:02:36.039120+00:00
+
+- [x] Complex final995 root review1001/1044 sheets,8008 selected images, root-progress60.json. Analytic continuation overlap disks, divergent series versus continued function and zeta example reviewed; known footer contacts/margins retained. Exponential1005 guard563272/helper573582 verified live at2h57; no duplicate or completion claimed. Remaining43 root sheets, guarded repaired native output, continuous motion/listening/fine-sync and independent whole-film acceptance remain open; no upload.
+- [ ] Finish final pictures and native repairs, then final audiovisual and publication checks.
+
+## Independent boundary repair review, 2026-11-10T22:01:40.478695+00:00
+
+- [x] Complex root review985/1044 sheets,7880 selected images, root-progress59.json. Full independent CC0 boundary candidate03 report read and32 receipt-bound files frozen plus receipts. No source blocker:228 chapter09 timing events unchanged and17 geometry checks; native leader semantics/gaps, glyph bounds and card remain mandatory. CC0 preparing combined four-file source bundle; CC2 binding audit, CC1 sampling plan, CC3 final native report continue. Corrected sampling assignment to exact arrow03 hash. Remaining59 sheets, guarded native repair and continuous motion/listening/fine-sync/whole-film AV acceptance; no upload.
+- [ ] Build and inspect repaired native output, finish final review and release checks.
+
+## Real-integral picture review, 2026-11-10T22:00:25.508375+00:00
+
+- [x] Complex final995 root review977/1044 sheets,7816 selected images; root-progress58.json. Integral examples, arc bounds, numerical comparison and precision footer reviewed; existing margin/footer findings retained, no new overview defect. Four exact resumed CC sessions verified actively working. Remaining67 root sheets, independently checked native repairs, continuous motion/listening/fine-sync and whole-film AV acceptance remain open. No upload.
+- [ ] Complete repaired native output and remaining final review before publication.
+
+## Residue transition review, 2026-11-10T21:55:32.613401+00:00
+
+- [x] Complex final995 root review949/1044 sheets,7592 selected images; root-progress57.json. Residue plate fade-out and two-pole plate fade-in inspected in consecutive selected frames; no new overview defect, known right-margin finding retained. CC0 boundary review and CC3 native review compacting their existing sessions; CC2 source-binding audit and CC1 sampling specification active.
+- [ ] Remaining95 root sheets; guarded repaired native output, continuous motion/listening/fine-sync and independent whole-film AV acceptance remain open. No upload.
+
+## Residue examples and colour-plate review, 2026-11-10T21:54:36.743220+00:00
+
+- [x] Root final995 review933/1044 sheets,7464 selected images; root-progress56.json. Viewed residue theorem/simple-pole/logarithmic-derivative examples and consecutive plate fades. Existing h notation concern retained; no new overview defect. Exponential1005 guard563272/helper573582 confirmed live at2h49, chapter04 identity artifacts present; no terminal success or duplicate. CC0 boundary review compacting, CC2 binding audit active, CC3 native review at126, CC1 repair sampling assignment active.
+- [ ] Remaining111 root sheets, independently checked native repairs and motion/listening/fine-sync/whole-film AV acceptance. No complex upload.
+
+## Square repair independent review and residue opening, 2026-11-10T21:53:27.316527+00:00
+
+- [x] Complex root review913/1044 sheets,7304 selected images; root-progress55.json. Read full CC1 independent square candidate02 delta review and froze eight evidence files plus receipt. No source blocker in delta; exact 268 lineage mandatory,184 chapter timing events unchanged; thin leader junction, doubled glyph fade and P_n baseline still require native inspection. Earlier candidate01 authored by this reviewer, so independence is delta-only.
+- [ ] Remaining131 sheets; guarded repair build/native review, continuous motion/listening/fine-sync and independent whole-film AV acceptance. No upload.
+
+## Boundary candidate03 and polynomial comparison, 2026-11-10T21:48:37.468533+00:00
+
+- [x] Complex root review897/1044 sheets,7176 selected images, root-progress54.json. Read full CC2 boundary candidate03 handoff and froze six source/evidence files plus root-copy receipt in boundary-candidate03-frozen01. Candidate4b689791 adds fixed-foot leader, stop radius0.06, source-bound growth/card tests; uncompiled/unrendered, independent CC0 review active. Correction: 214 and228 timing counts both cover chapter09 construction, NOT entire video; difference is14 updater/music/names events. Remaining147 sheets, independent repair/native validation and continuous motion/listening/fine-sync/whole-film acceptance. No upload.
+- [ ] Complete independent repair checks and guarded native validation, remaining final review.
+
+## Polynomial root-count picture review, 2026-11-10T21:47:21.401982+00:00
+
+- [x] Complex final995 root review881/1044 sheets,7048 selected images; root-progress53.json. Additional862-881 pole exclusion, polynomial root-count prediction/reveal and transition viewed; known inset/card/footer findings retained, no new overview defect. Four CC workers verified active: square independent review, boundary candidate03 author and independent review, native detail review. Exponential1005 guard563272/helper573582 confirmed live at2h42, receipt nonterminal; no duplicate. Remaining163 sheets, guarded repaired outputs, motion/listening/fine-sync and independent whole-film AV acceptance. No upload.
+- [ ] Finish independently checked repairs and native verification, then remaining final audiovisual gates.
+
+## Winding-number review and repair convergence, 2026-11-10T21:46:10.212091+00:00
+
+- [x] Complex final995 root review861/1044 sheets,6888 selected images; root-progress52.json. Read complete CC0 square candidate02 author report: rim-start leader and label redraw; uncompiled, independent CC1 delta review active. CC0 assigned independent recommended boundary candidate03 review after author handoff; CC2 finishing candidate, CC3 native review. Remaining183 sheets, guarded repair integration/native review, motion/listening/fine-sync and independent whole-film AV acceptance. No upload.
+- [ ] Complete independently checked repairs, native verification and remaining final review before publication.
+
+## Boundary review disposition and counting opening, 2026-11-10T21:41:54.149219+00:00
+
+- [x] Complex root review845/1044 sheets,6760 images; root-progress51.json. Additional834-845 chapter seam and counting opening viewed. Read complete CC1 boundary review and froze six evidence files in boundary-independent-cc1-frozen01. Source checks support geometry/timing but medium semantic concern: riding a may imply moving center. Relayed to CC2 candidate02; CC1 now actively independently reviewing CC0 square candidate02 delta, preserving prior base authorship limit. Remaining199 sheets and guarded native repair outputs, motion/listening/fine-sync and independent whole-film acceptance; no upload.
+- [ ] Resolve center association, finish independent delta reviews, integrate and validate repaired native outputs.
+
+## Zero accumulation and Liouville picture review, 2026-11-10T21:40:36.600016+00:00
+
+- [x] Complex final995 root review833/1044 sheets,6664 images; root-progress50.json. Additional814-833 viewed: zero accumulation, excluded origin, identity theorem footer, plate transition and Liouville example. Known dim red caveat retained. Remaining211 sheets, independently checked repairs/native outputs and continuous motion/listening/fine-sync/whole-film acceptance. Exponential1005 guard563272 and helper573582 confirmed live on css, no duplicate or terminal success claimed. No upload.
+- [ ] Finish remaining pictures, repair integration and final verification.
+
+## Identity theorem and transition picture review, 2026-11-10T21:39:40.644600+00:00
+
+- [x] Complex final995 root review813/1044 sheets,6504 selected images; root-progress49.json. Persisted796-803 previously viewed and newly viewed804-813: identity theorem, real smooth counterexample and sampled color-plate fade inspected. Known tinted agree-here card retained; no new overview defect. Remaining231 root sheets, targeted repaired native outputs, continuous motion/listening/fine-sync and independent whole-film AV acceptance. Four CC workers active; no upload.
+- [ ] Finish remaining review and independently checked repairs under existing production guards.
+
+## Shifted radius and prediction review, 2026-11-10T21:35:45.675819+00:00
+
+- [x] Complex final995 root review795/1044 sheets,6360 selected images; root-progress48.json. Additional784-795 viewed, prediction countdown/reveal and shifted sqrt2 radius/interval/readouts inspected. Existing circle crossing1 card on789 reconfirmed, boundary repair already assigned. Four workers remain active, CC1/CC3 compacting current conversations. Remaining249 root sheets and independently verified native repairs, motion/listening/fine-sync and whole-film AV acceptance. No upload.
+- [ ] Finish remaining review, guarded repair integration and final production verification.
+
+## Shifted expansion center picture review, 2026-11-10T21:34:59.409818+00:00
+
+- [x] Complex final995 root review783/1044 sheets,6264 selected images; root-progress47.json, additional768-783 actually viewed. Radius1/pole limit, interval highlight, shift of expansion center to1 and unanswered prediction card readable. Known i-card/ring contact retained. Remaining261 sheets, targeted repair integration and native verification; motion/listening/fine-sync and independent whole-film AV acceptance open. No upload.
+- [ ] Finish remaining pictures and independently checked repairs under existing guards.
+
+## Convergence radius picture review, 2026-11-10T21:34:13.275896+00:00
+
+- [x] Complex final995 root review767/1044 sheets,6136 selected images; root-progress46.json. Additional756-767 viewed,766 already counted. Reconfirmed known circle/a contact; coefficient and recipe comparisons readable. All four CC workers active on candidate02 repairs/independent review/native details. Exponential1005 progressed from master frame hashing to chapter01 identity comparison: original ffmpeg577430 finished, current ffmpeg2409064 and verifier573582 alive; guard receipt has no terminal result. No duplicate. Remaining277 root sheets plus guarded repairs, motion/listening/fine-sync and independent whole-film AV acceptance; no upload.
+- [ ] Complete remaining review and independently checked repairs before publication.
+
+## Coefficient averaging picture review, 2026-11-10T21:33:21.020019+00:00
+
+- [x] Complex final995 root review now756/1044 sheets,6048 selected images; root-progress45.json records740-755. Coefficient averaging/phase rotation and c1=0,c2=-1 transition readable; existing footer/plate contact retained. Four resumed CC workers verified active on square/boundary repairs and independent/native review. Remaining288 sheets plus repaired native outputs. Continuous motion/listening/fine-sync and independent whole-film AV acceptance remain open; no upload.
+- [ ] Finish remaining pictures, integrate independently checked repairs under guards, then validate final production and publication.
+
 ## Mean-value counterexample picture review, 2026-11-10T21:29:19.876417+00:00
 
 - [x] Root reviewed716-739, now 740/1044 sheets and 5920 selected images; root-progress44.json. Sample averages, radius2 counterexample and pole highlights inspected. Existing inset-card/near-circle-label findings retained; no new concrete overview defect.
