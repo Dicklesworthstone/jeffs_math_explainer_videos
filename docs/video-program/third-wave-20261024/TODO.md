@@ -10320,3 +10320,20 @@ Timestamp correction: the preceding dependency204 check and tracker update occur
 
 - [x] 2026-11-10 00:21 UTC: Actual700 log confirms all15 soundtrack replays bit-identical; master still active, no fullAV/terminal success. Root verified exact frozen06 source matches715 canonical SHA; supplied evidence to719 worker.
 - [ ] Candidate719 requires independent root diff review,06_1 source rebind, guarded build/reassembly with all93 WAVs and marks identical, full schedule comparison and actual repaired pictures. Original artifacts retained.
+
+- [x] 2026-11-10 00:24 UTC: Native700 master command completed,100886frames/1681.433s matchingAV,PCM-18.72LUFS/-1.50dBTP; all15 soundtrack replays exact.
+- [ ] Captions and terminal700 guard checks still running;701/full-picture review/719 repair and release gates remain open. No terminal success claimed.
+
+## Production continuation, 2026-11-10 00:32 UTC
+
+- [x] Complex586 confirmed live on mac-mini-max, PID39339, elapsed4h31 at00:27; no terminal receipt, no duplicate launch. Existing dependent review/import/master gates remain.
+- [x] Exponential stage08 delivered67 cues/4128 words across9 chapters; ending706 delivered27 cues/2534 words across6 chapters. These are source artifacts, not narrated renders.
+- [x] CC1 acknowledged720 integration into preserved expanded-stage09 after stage08 seal; CC2 acknowledged721 independent ending review; CC3 received722 refinement after root read full719 and exact diff. CC0 sent stage08-seal notification to finish716 pins; verify acknowledgment.
+- [ ] Build integrated source, inspect real pictures/motion, generate Frederick Surrey narration, verify sync/captions and independent final AV. Prior95 tests passed but697 strict Clippy failed; no broader native pass claimed.
+- [x] Apportionment700 terminal exit0 with identical input hashes, finished00:25:51. Existing701 terminal exit1 stable/no resource stop at00:27:39: caption168 exceeds20 characters/sec, text “Choose the number of people per seat that makes the whole parts add up to the house.” at612.110–616.290s. Full decode/frameidentity/loudness steps were not reached. Preserve both receipts and all outputs.
+- [ ] Repair caption timing using actual surrounding boundaries without changing narration or weakening threshold; incorporate into successor verification after chapter06 picture repair. Master700 remains comparison baseline, not release-approved.
+- [ ] Continuous listening, fine sync and independent final audiovisual acceptance remain explicit for unreleased cuts.
+
+- [x] 2026-11-10 00:35 UTC: all121 final08 signpost pictures on16 hash-checked sheets actually viewed; prediction answer stays hidden, prior timer overlap absent, title-safe warnings retained but glyphs visible. Evidence root-apportionment-pictures723.json. Remaining09-15 picture review open.
+- [x] Caption168 diagnosis:84 characters/4.18s =20.0957chars/sec. Next caption begins616.900s, so a20ms end extension to616.310 would reach20chars/sec without overlap; proposed display dwell only, not a spoken-boundary claim. Not yet applied to successor captions.
+- [x] All four CC task transitions acknowledged:716 pinning,720 integration,721 independent ending review,722 facts-bound picture repair.

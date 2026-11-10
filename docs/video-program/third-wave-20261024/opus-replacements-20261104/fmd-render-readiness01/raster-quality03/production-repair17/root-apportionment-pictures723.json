@@ -1,0 +1,102 @@
+{
+  "reviewed_utc": "2026-11-10T00:35:01.421403+00:00",
+  "chapter": "08_signposts",
+  "sampling_sha256": "9d8efac941cafac2de58987f55802c7d86f98e45dede11f54f3ea3e0f4013061",
+  "movie": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-08_signposts/render/08_signposts.mp4",
+    "sha256": "c69b4068028357f888196243faa80287b759f741b512fa2da1764f86456cd88e"
+  },
+  "selected_pictures_viewed": 121,
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0001.jpg",
+      "sha256": "7ccb4bf91a5f7bbcf8fc8335889428c61c86c8eb1bf25955ba864634274c4890"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0002.jpg",
+      "sha256": "6fcee9d32747fca0c40e8160a258ade8d200f8f3d5b930d73edfa007751b9e93"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0003.jpg",
+      "sha256": "7efe8a55ca59bebd06c8423f2b81506b3971b7eebfa52b2c3c338298592d1c25"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0004.jpg",
+      "sha256": "59c5c631641d55979149d377db66b5578ecbd9dfa90351f57da46804298f11e6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0005.jpg",
+      "sha256": "3f2ec5eedb42693c12fe9c8def09c7472262d17dba73168c6927fdbb9aa9db8e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0006.jpg",
+      "sha256": "bada3e7bd302ab57ecd01ae0e6195842ba18827c1b7b3837c720da1c1a9cc828"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0007.jpg",
+      "sha256": "fa70a719ac8a23c11aaccaf9813dbe357a44b2555c55b93062fa9c19f78f27d2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0008.jpg",
+      "sha256": "08434875616a866aa18cb956ad4c1851f9915b88205644051b06829f78cda1d4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0009.jpg",
+      "sha256": "71e9101ff6498ec76ac5c057e9d150f38f37451a87deba027635075fd9fc1877"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0010.jpg",
+      "sha256": "02e8544f429f846ae884923d5bf173e7e58f22b05c617e22c8063470b6b0f34d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0011.jpg",
+      "sha256": "2e5a2f2a2d5b6243eb9bd78ac56de12ff09dcf1ffe0cc7fb4b2ac7c65df1d9b3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0012.jpg",
+      "sha256": "863c031b31c021c9638689cfe166ce822aec330962364fe84e784c4f86efe18b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0013.jpg",
+      "sha256": "57a73f519298fb7e4e18ec5c1b6ed7735fe7a6008fc51b66321de310a10447a6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0014.jpg",
+      "sha256": "210667bdd533bbf50ac091b2dc85388fae8c17b611c70b3853721d7f4a75cc0f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0015.jpg",
+      "sha256": "9985538241d626017fb65f1f9e05c7cad69aad424c2961eef0c79e703e8fafaf"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0016.jpg",
+      "sha256": "2737ed8f09d98d2df4bbf9ae6b5dd123977529cfe9ce0f157b414abd78250e3c"
+    }
+  ],
+  "observations": [
+    "All121 selected pictures on16 sheets actually viewed in eight two-sheet calls; sheet hashes match sampling manifest.",
+    "Sixteenth signpost stays blank during prediction and appears after08_4 starts; timer is separate from the signpost table.",
+    "Signpost heading remains visible near top edge; equality symbol remains visible near right edge. Native title-safe warnings retained, no clipped glyph observed at contact-sheet scale.",
+    "Yellow cutoff lines,15/16 brackets and red tied-row highlight do not obscure the row labels in selected persistence pictures."
+  ],
+  "concrete_picture_defects_observed": [],
+  "scope": "Selected final stills at contact-sheet resolution only. Not continuous motion, listening, fine sync or independent audiovisual acceptance."
+}

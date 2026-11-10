@@ -4,11 +4,12 @@ Prepared only: it has not run on any host. Successor to build 697, which stays a
 csd-exponential-build697 ended exit 1 with stable inputs, that its 95 tests passed, and that a constant assertion was its
 only Clippy finding.
 
-The stage is expanded-stage08/native-crate, chapters 01 to 09. CC2 integrates and seals it. UNTIL THAT HANDOFF EVERY SOURCE
-PIN IN STAGE IS None AND BOTH MODES REFUSE BEFORE READING ANYTHING. The pins are copied from the sealed handoff and
-recomputed; nothing here guesses them. No stage08 Rust has been compiled, so a compile, test or Clippy stop is a plausible
-first result. A stop is a finding for the source owner, who stages a successor. The successor's pins replace the STAGE
-block in a new file with new job names; this file and the frozen crate stay as they are.
+The stage is expanded-stage08/native-crate, chapters 01 to 09, sealed by CC2's handoff712. The pins below were copied from
+that handoff and recomputed from the sealed files. check_pins() still refuses both modes if any pin is None. This file is
+bound to stage08 only: a later stage, such as one with the ending chapters, needs its own helper file and job names.
+No stage08 Rust has been compiled, so a compile, test or Clippy stop is a plausible first result. A stop is a finding for
+the source owner, who stages a successor. The successor's pins replace the STAGE block in a new file with new job names;
+this file and the frozen crate stay as they are.
 
 Steps, in order. Any failure stops the job and there is no retry:
   tests      cargo test --bin: exactly one result line, the pinned count passed, 0 failed, 0 ignored. Every name in
@@ -60,14 +61,14 @@ import sys
 import time
 import tomllib
 
-# CC2's sealed handoff supplies every None; check_pins() refuses both modes while one is unset. The tree hash is sha256 of
-# the sorted "<sha256>  <path>\n" lines over the crate's files. handoff717 lists the unsealed values seen so far, as expectations.
-STAGE = dict(tree_sha256=None, files=None,
-             handoff_sha256=None,
-             lock_sha256=None,
-             oracle_sha256=None,
+# CC2's sealed handoff712, each value recomputed from the sealed files; check_pins() refuses both modes if one is None.
+# The tree hash is sha256 of the sorted "<sha256>  <path>\n" lines over the crate's files.
+STAGE = dict(tree_sha256='5d6294a3a4634292c5a9cef568a4b896b8b44abe5f5a4c8575383db1a5398baf', files=47,
+             handoff_sha256='f93be1cd3e353440ed301cd89b71582a5eca231356458330791c2c9dcff67e76',
+             lock_sha256='60338289fe9224d5b8321557cce27d075326fa8d467bf4ed2b12dcb23aa9139c',
+             oracle_sha256='5143c1445e283d072c9557cd7cfb2d7f4c0e34fb40ef3d7a7fa18e7d67ed4254',
              package='exponential_magic', binary='exponential_magic_expanded_stage08',
-             tests=None, facts=None, cues=None, words=None,
+             tests=155, facts=1558, cues=67, words=4128,
              chapters=['01_rate_law', '02_factorials', '03_product_grid', '04_tiny_multipliers', '05_whole_sum',
                        '06_only_solution', '07_calculating_ruler', '08_decay_law', '09_charging_gap'])
 
