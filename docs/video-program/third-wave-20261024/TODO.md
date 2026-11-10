@@ -12840,3 +12840,46 @@ Timestamp correction: the preceding dependency204 check and tracker update occur
 - [x] 2026-11-10 00:35 UTC: all121 final08 signpost pictures on16 hash-checked sheets actually viewed; prediction answer stays hidden, prior timer overlap absent, title-safe warnings retained but glyphs visible. Evidence root-apportionment-pictures723.json. Remaining09-15 picture review open.
 - [x] Caption168 diagnosis:84 characters/4.18s =20.0957chars/sec. Next caption begins616.900s, so a20ms end extension to616.310 would reach20chars/sec without overlap; proposed display dwell only, not a spoken-boundary claim. Not yet applied to successor captions.
 - [x] All four CC task transitions acknowledged:716 pinning,720 integration,721 independent ending review,722 facts-bound picture repair.
+
+
+### 2026-11-10 23:09 UTC — four CC sessions resumed after fresh owner account swap
+
+- Restarted only the four exact CC session IDs in existing panes %9/%10/%11/%12, retaining Opus 5.5 xhigh and NTM/RCH hooks. Initial reconstructed shell settings argument failed before startup; corrected the JSON argument, preserved evidence, then resumed successfully. Evidence: `/private/tmp/video-cc-account-resume-20261110T230722Z`.
+- Fresh post-swap requests now execute: CC0 independent counting repair02 source review; CC1 exponential1007 readiness; CC2 counting02 frame-sampling review; CC3 combined plan02 independent review. Root already owns queued controllers; workers told not to duplicate launches or edit Beads.
+- Complex combined preview renderer and exponential verify1005 remain live. No final picture acceptance, listening, fine-sync, independent whole-film AV acceptance, or publication newly claimed.
+
+
+### 2026-11-10 23:14 UTC — repair preview and sampling follow-up
+
+- Combined preview01 completed chapter01: 6311 frames, native log906.9s (7.0fps); chapter08 now renders in the same existing guarded job. Whole-job terminal receipt still pending.
+- Independent CC3 review flagged chapter09 fade6488–6505 absent from a plan02 window. Root checked actual staged union of plan02 and preserved boundary775: only6480/6487/6510 within6470–6520. This is a concrete sampling gap, not a proven picture defect.
+- [ ] Resolve CC3 final transition review and include in-transition/end samples as appropriate in a preserved supplementary extraction; do not mutate frozen inputs or duplicate running jobs. Actual new picture viewing remains required.
+- All four CC sessions continue executing after account recovery. No new listening or independent whole-film acceptance.
+
+
+### 2026-11-10 23:16 UTC — sampling concern resolved at source scope
+
+- [x] Resolve preceding 09 fade6488–6505 sampling follow-up: CC3 supplement reports zero required additions. Optional6496 is a uniform-alpha fade of a single proof_tex Mob; root read actual staged proof_tex and fade call confirming single-object behavior. Existing6487/6510 bracket the change; prior775 also covers chapter09 closing and join.
+- Preserved independent supplement at `docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/combined-sampling-review-cc3-01/supplement-cc3.json`, SHA256 1b1621a2648de4fd740be9ea0ba3ee64e8cab7c56e2c457c8b5e380ac8cb463e. No frozen plan/controller changed; no supplementary job needed for this source-only finding.
+- [ ] Actually view resulting preview/final pictures, including existing before/after samples. This resolves sample-plan coverage only, not image or motion/listening acceptance.
+
+
+### 2026-11-10 23:18 UTC — apply concrete review findings and reduce redundant decode
+
+- [x] CC2 source/frame model found17 missing chapter11 transition samples. Added all17 to848 total in local/remote unbound counting-pictures02 plan; original831-frame list/plan preserved as before-cc2-supplement files. Asserted picture inputs/job absent before edits. Existing waiting controller unchanged, will freeze expanded plan. No rendering restarted; no picture acceptance claimed.
+- [ ] CC1 prepares scratch-only pictures1008 successor: decode each exponential final chapter once, only after verify1005 proves every decoded chapter frame equals its master slice. Maintain3163 samples,402 sheets, exact global metadata/reasons and guarded resource/input checks. CC2 independent review assigned. Current1007 would decode7.79 master lengths, estimated18.6h at measured19.16fps;1008 targets one total length, estimated2.4h, not a measured extraction benchmark.
+- Both existing production jobs continue. Full picture, listening/fine-sync and independent whole-film AV qualification remain open.
+
+
+### 2026-11-10 23:20 UTC — independent counting source review received
+
+- [x] CC0 independently reviewed counting21c5043a: no blocking source defect; patch lineage, circle formula, uniform gains, true winding, note placement, timing-neutral source,250test expectation checked. Preserved full report/numeric prototype/receipt in `docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/counting-independent-cc0-review01`. This is bounded source acceptance, not native test or pixels/listening approval.
+- [ ] Carry CC0 L1 (different display gains across11_3 examples) and L2 (instant note removal11_6) into actual preview review. No code change requested before pictures.
+- Preserved full CC3 plan02 report beside prior supplement. CC0 now checks current publication965 copy against master993 chaptertimes/voice; CC3 prepares minimal integration proposal from proven native968 route, no new gate framework or launches. CC1/CC2 prepare/review exponential1008 optimization.
+
+
+### 2026-11-10 23:23 UTC — current publication copy independently checked
+
+- [x] CC0 independently re-derived all15 publication965 chapter times against master993,37:07.700; no title/description/tag/voice-credit corrections required. Preserved `final-review995/publication-independent-cc0-review01`.
+- [ ] Rebind copy to actual repaired successor summary before upload. Current repaired01/08/09 normalized schedules exact; counting02 still pending.
+- [ ] CC0 checks intended uploaded579 delivery-caption artifact vs571 native captions using actual995 verifier evidence; no copying stale native-caption approval. Later995 technical success supersedes corresponding old993 summary flags, without granting visual/listening/whole-film acceptance.
