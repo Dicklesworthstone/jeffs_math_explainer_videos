@@ -1,0 +1,37 @@
+{
+  "checked_at": "2026-11-09T22:59:19.618120+00:00",
+  "review": "cc3-complex-release-review676.md",
+  "R1": {
+    "result": "pass",
+    "exactly_one_qualification_binding": true,
+    "physical_sha256": "aee4c6fe288ad2842b19f2b88a8f5b322c0b7bdd0246322872f4e89c02c3ac1c"
+  },
+  "R2": {
+    "initial_result": "failed: draft534 absent on CSD",
+    "repair": "exclusive-create byte-identical preserved draft534; no frozen helper changed",
+    "manifest_sha256": "5a73491f64b81ee48519a01882b4c5197253827d68547489078108d85f6efe31",
+    "rerun_result": "pass",
+    "source_files": 12918,
+    "checks": [
+      "provenance313",
+      "sampled_permit_gate",
+      "independent344",
+      "preview_binding",
+      "independent",
+      "worker344.check",
+      "source_binding_evidence",
+      "capture_check09"
+    ],
+    "capture_sha256": "f7f8aa6042a9f05d1b25db4c789f7f6b44cb393445015c057f1e87d9b0c8df51",
+    "cue_rows": 9
+  },
+  "remaining": [
+    "terminal586 render-command binding and imported555 command comparison",
+    "native571 versus313 PCM after import",
+    "final313 pictures and40 sheets actual viewing with sheet hashes",
+    "native independent pixel review scope",
+    "master joins/frame identity/captions/loudness/playback",
+    "continuous listening and fine sync"
+  ],
+  "release_acceptance": false
+}

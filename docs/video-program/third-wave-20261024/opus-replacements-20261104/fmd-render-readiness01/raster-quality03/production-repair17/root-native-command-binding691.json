@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-11-09T23:02:34.272854+00:00",
+  "review": "cc3-complex-release-review676.md",
+  "checks": [
+    {
+      "job": "mini-final555",
+      "exact_command_matches_sealed_helper": true,
+      "actual_binary_sha256": "5b77a1c8a33a41bab3c3987c9d4f40797bb6a6f1a76bbb57f1ab562ae9960312",
+      "finished": "2026-11-09T19:14:32.649881+00:00",
+      "exit": 0
+    },
+    {
+      "job": "mini-boundary-final586",
+      "exact_command_matches_sealed_helper": true,
+      "actual_binary_sha256": "119ebe43fbde39e90cb1352656be280b71d52aa736751f0e6f819af6ceb9613d",
+      "finished": null,
+      "terminal_recheck_required": true
+    }
+  ],
+  "scope": "Actual native Mac receipts and physical binary hashes; repeat imported receipt binding before master. No picture, audio, fine-sync or AV acceptance."
+}

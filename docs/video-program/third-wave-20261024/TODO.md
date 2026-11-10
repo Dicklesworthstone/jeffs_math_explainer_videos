@@ -1,3 +1,203 @@
+## Correction to native586 timeout report, 2026-11-09 23:51 UTC
+
+- [x] Earlier four-hour deadline claim was wrong. Actual remote frozen encode/cli/guard/helper hashes checked: production Quality::delivery uses24h encoder timeout;4h entries are test fixtures. Base guard wait10s is polling,not a total deadline. No limit or active job changed. Evidence root-native-timeout-correction709.json.
+- [ ] Native586 remains active; remaining runtime unmeasured. Final313-picture review,master/full verification and release gates remain open.
+
+## Independent native preview review completed, final4K decisions pending, 2026-11-09 23:33UTC
+
+- [x] Root read full694: all313 selected pictures/40 sheets,0 high/medium and6 low findings. Opaque09_3 backing and unclipped09_7 x confirmed at thumbnail scale. F1 persistent caption/card contact disagrees with prior root no-defect record; preserved explicitly.
+- [x] Root re-viewed sheets021/024/027, sees readable caption near border and small-a/circle contact. All six findings plus dense arrows/focus anchors mapped to existing587 sampling in root-boundary-review-followup705.json. Original586 unchanged; actual4K detail disposition required, no release acceptance.
+- [x] CC3 assigned bounded independent700/701/702 source review704 after completing694. Other three workers remain exponential696/697 and applications693. TODO and Beads retain listening/fine-sync/independent finalAV gaps.
+
+## Concrete master preflight failure repaired before launch, 2026-11-09 23:30UTC
+
+- [x] Actual read-only686 preflight failed:2625 pinned Cargo/engine support paths lie outside repository. Stopped only waiting689 PID1934989 before any master job; all renders/extraction untouched, old helpers/logs preserved.
+- [x] Fresh700 validates repository root for chapter receipt/summary/input paths, keeps complete4005 physical hash closure.701 unchanged function AST after version names;702 pins fresh hashes. Actual01/02 terminal receipts/output hashes/path-only timeline/cue-log rebasing pass against real666. Evidence root-master-preflight703.json.
+- [x] Started ONE replacement tmux apportionment-master702 after proving689 gone and no old/new master jobs/manifests. It waits all finals then guarded700 and701, all original guards. NEVER duplicate; no technical/AV/publication success yet.
+
+## Final chapter03 pictures reviewed and exponential build preparation assigned, 2026-11-09 23:26UTC
+
+- [x] Actual extraction678-03 terminal0 with stable input hashes; all48 seed frames/reasons retained. Root viewed all6 sheets and separate frame2612 detail; no concrete visual defect. Timer fits full frame. Evidence root-apportionment-pictures699.json. Selected stills only; no continuous motion/listening/fine-sync/independentAV acceptance.
+- [x] Existing679 proceeds serially to04; existing673 progressed through11 according to controller,12 active. Actual09-11 terminal receipt audits remain due; do not duplicate.
+- [x] Read CC0 handoff688 for mixed-host master686/verify687/controller689. Found omission of --score in older636; successor includes it. Successor not launched: root source review and cross-host soundtrack/table prerequisites remain.
+- [x] CC1 stage05 source repairs completed,3129words/51cues,94 authored unrun tests. Assigned696 preserved stage06 repair for invisible05_6 gaps; CC0 assigned697/698 guarded native build helper preparation after696. Actual targeted NTM sends succeeded and fresh panes show work. CC2 applications693 and CC3 native-preview694 continue. Frederick Surrey unchanged.
+- [ ] Complete complex09 original586 (live39339 at3h28m,392%CPU), inspect587 and independent694 findings, then final review/master/verify/publication. Never promote preview/source review to final acceptance.
+
+## Guarded final picture extraction launched after independent review, 2026-11-09 23:18UTC
+
+- [x] Root read full independent685: no concrete blocker. Requested CSD F1 lavfi filter-file/MJPEG null-output probe passed0 with no stderr; no4K decode claim. Guard_csd02 exact hash and transitive frozen binding checked.
+- [x] Started ONE CSD tmux apportionment-pictures679 PID1866883, observed IMPORT683_READY. It uses unchanged sealed678/679 and original guards, queues exclusive lane, extracts only successful final03-15, no retry/duplicate. Evidence root-apportionment-extraction695.json.
+- [ ] Inspect each terminal receipt and actual sampling retention/coverage; view EVERY sheet. New lint captions may truncate, so use fullJSON anchor/frame reasons. No picture/AV acceptance from source review.
+- [x] Cached native complex572 preview manifest SHA3ad07ddc85e4d1d3d9ff714bcdd3b9129586e339639ce42172bfd27e18f7ab9a and all40 local sheet hashes rechecked; CC3 now assigned actual independent native preview review694 after685. Preview-only, not final4K/motion/listening/fine-sync. Complex09 render remains original586.
+- [x] Localfree recovered23GiB without root deletion; Agent Mail reservation recovered. Existing four CC workers continue source/integration/picture review, no extra agents.
+
+## Actual extraction-plan test and imported native10 binding, 2026-11-09 23:04UTC
+
+- [x] Read-only678 build against completed CSD03 passes stable prerequisites/5977 dependencies, exact5527 frames/tables and48 retained samples; actual final layout has zero rows. No output extraction or picture acceptance. Independent685 source review pending. Evidence root-live-check692.json.
+- [x] Actual CSD576-a2 imported555 receipt SHA6c2c38bcb03f8cb7c670c7f4544ab15ac916765523526aad64c53fc42d29c839 verified physical hash, stable terminal0 and exact sealed555 command. Native10 command binding checked on destination as requested by676 R3. Native09 remains live39339 at3h07m47s388%CPU and must pass terminal/import review later.
+- [ ] Final-picture extraction/review, mixed-host assembly/verification, listening/fine-sync/independentAV and publication remain open. No duplicate jobs.
+
+## Exponential review repairs assigned and native command binding checked, 2026-11-09 23:03UTC
+
+- [x] Root read full independent674. D/E math sound; concrete slide-rule high issue: cursor crosses reading labels; horizontal-distance teaching missing. Other fixes include explicit dy/dt fixed-rate notation, integer labels7/9, spoken/on-screen vocabulary, prediction marker and cue timing. CC1 assigned preserved successor expanded-stage05; original stage03 and applications-stage04 unchanged. Native build/pictures/narration still unqualified.
+- [x] Review676 R3: actual native555 and active586 commands exactly match sealed helper argv; physical binaries match521/553 pins.555 terminal exit0;586 still active and must be rechecked after terminal/import. Evidence root-native-command-binding691.json.
+- [x] Root inspected actual remote672 receipts03-07: all exit0, identical initial/final input hashes, no resource stop;08 pending, not stable/complete. Final pictures still pending.
+- [ ] All four workers continue assigned concrete work; do not infer independent AV or listening/fine-sync acceptance. Complex remains first for publication.
+
+## Remote picture extraction preflight and next worker tasks, 2026-11-09 23:01UTC
+
+- [x] Root read full678/679/handoff681, copied exact sealed helpers to CSD using exclusive creation, verified SHA7a2942b6bd33765e40076294d88473505b531b900a2f097aacd3d95cf0ffa061 and60ee390f6a34e531855e884ed7e224d3fdf6b5ad42823c0f248bc52259cd0a64. Actual read-only678 preflight passes62 seed bindings/import683 and Python3.14.4, FFmpeg8.0.1, Pillow12.1.1. No extraction launched yet; independent685 source review pending.
+- [x] CC3 finished676 and now reviewing678/679 independently to685; CC0 finished678/679 and now preparing mixed-host master686/verify687/handoff688 source only. Exact NTM sends target0/3 success, fresh pane3 tool work observed. CC1 exponential674 and CC2 remote675 still assigned. No extra agents or duplicate jobs.
+- [x] Same complex39339 live3h04m45s CPU342%; existing apportionment673 reports07 finished and08 launched. Actual per-job receipts06/07 still require root inspection.
+- [ ] Run guarded picture extraction only after concrete review findings addressed; view all resulting final sheets. Mixed-host master and final-frame identity/audio/caption/loudness checks, independentAV/listening/fine-sync and publication remain open.
+
+## Complex assembly review676 preflight repaired, 2026-11-09 23:00UTC
+
+- [x] R1 checked actual frozen586 inputs: exactly one553 qualification binding and physical SHA match. R2 found missing draft534 on CSD; exclusive-created exact preserved file SHA5a73491f64b81ee48519a01882b4c5197253827d68547489078108d85f6efe31, then exercised provenance313, sampled permit, independent344, worker preview/check/source and capture checks successfully:12918 source files,9 cue rows,313/268 capture PCM identical. Evidence root-complex-preflight684.json. No frozen helper or active job changed.
+- [ ] After actual586/587 success, bind exact native render commands, compare native capture, view313 final pictures/40 sheets with hashes and state independent review scope honestly; then corrected09 manifest, master606/verify647 and publication checks. Listening/fine-sync/independentAV still open.
+
+## Exponential derived applications authored, 2026-11-09 22:53UTC
+
+- [x] Added disjoint applications-stage04 under elevenlabs-exponential-20261101:16 new spoken cues970words for08 first-order decay/half-life/model limits and09 ideal RC charging via shrinking voltage gap. Preserves stage03 under independent CC1 review. No short schematic substitute: same axes, persistent amount/gap objects, predictions08_4→08_5 and09_6→09_7, changing R vs C distinguished, chosen values and physical assumptions explicit.
+- [x] Authored Rust model for first/second-order decay and RC state plus4 unrun Rust tests; Decimal80-digit oracle423 rows passes, spoken7.59V/36.8%/63.2% rounding checked. Scoped rustfmt passes. Evidence applications-stage04/source-check01.json; modelSHAa8656956161676ab2f4ed2f8c0baa90c6aeb54b16eaa48c99ba6be357306382a. Earlier414-row oracle output retained. Primary OpenStax chemistry/RC pages read and linked inREADME; no experimental measurements claimed.
+- [ ] Integrate as native scenes/facts/glyphs and source-bound prediction holds; perform actual guarded Rust tests/native build/picture/motion checks, Frederick narration and listening/fine-sync/independentAV review. This adds authored content, not two finished native chapters. Full opening, changing rates/economics/finance limitations, complex rotation/log bridge still open.
+- [x] Existing complex09 same39339 verifiedlive2h56m52s; no duplicate. Four CC source reviews/extraction tasks continue; no new independent review acceptance.
+
+## Completed chapter transfer683 verified, 2026-11-09 22:49UTC
+
+- [x] Actual guarded import683-a1 finished22:48:29UTC exit0 stable3982bindings/no resource stop, sender/receiver both0. Independently rehashed all38 imported plus3967 reused remote physical files:4005/4005 match. Existing01/02 final movies/PCM/tables and prior review/sampling evidence now available remotely, originals retained; no rerender or master acceptance.
+- [x] Actual final672-04 finished22:42:21UTC and05 finished22:48:11UTC, both exit0 stable/no resource stop. Existing673 launched06. Final03-05 technical checks are complete; actual final picture/motion/listening/fine-sync/independentAV still pending.
+- [ ] CC0 extraction678/679/680 must consume successful683 physical mapping and seed677, include actual final lint/persistence, freeze all dependencies and launch only through root/guard. CC1 review674,CC2 review675,CC3 review676 continue; no independent audiovisual acceptance claimed.
+
+## Exact completed-chapter transport683 queued, 2026-11-09 22:47UTC
+
+- [x] Rehashed4005 required local bindings for completed final01/02 and picture seed677:3967 exactly match prior652/655 imports,38 new files total53,191,032bytes. New export682 SHA1c7c690b603ed0a3571ba27e033dc2c1af581cacf74b171e01996e702e2285c8 includes both final movies/PCM/tables/receipts/inputs, reviewed01/02 records, support616 and all prior sampling inputs. No rerender.
+- [x] New transport683 SHA823b819e66f5c9aec4d28075d31dc524bd5fce47306ce8eb3e310936b10b9c9e preserves numbered-only fresh destination, exact hash/size stream and existing guard. Receiver rechecks actual successful stable652/655 and every reused physical file;3982 frozen bindings SHA652949f084b2bafa66136c4ec08e0bc77035ef3650123007ca7f5044d40be640. Started ONE local tmux apportionment-transfer683; it queues receiver in existing exclusive lane and only sends after actual admission. Never duplicate.
+- [ ] Inspect actual terminal683 receipt/import hashes; transport is not mixed-host master qualification or visual acceptance. CC0 extraction678/679/680 pending; all final-frame identity/captions/loudness/listening/fine-sync/independentAV gates remain.
+- [x] Complex09 same39339 verifiedlive2h49m14s. Apportionment04 finished0 stable according to existing673,05 launched; actual per-job receipt review still needed for04. No duplicate jobs.
+
+## Completed independent cleanup review and next extraction work, 2026-11-09 22:43UTC
+
+- [x] Root read full CC0 review530 (completed after historical528 run). No High/Medium/blocking finding; source/stand-in evidence supports identity-scoped cleanup. Actual completed528 had2039 polls/zero missed/14 escaped descendants seen and no stop path exercised; no real ffmpeg stop proof or audiovisual acceptance.
+- [ ] LowL1: failed ps during settle returns empty targets, so unknown can be reported as none; nonzero-exit tracker omission. LowL2: old notes incorrectly say guard always kills group after helper-onlySIGKILL; actual guard does not once child already exited. Preserve sealed528 and active671/672; CC2 reviewing currentremote adaptation675. Future changes must report uncertainty honestly without signalling unverified processes. No claim these rare paths passed.
+- [x] CC0 assigned concrete remote picture extractor678/controller679/support680(if needed), handoff681 only, preserving prior677 sample plan plus actual final lint/persistence, exact hashes/provenance and same guards. Prepare source only; root launches after review. No new renders or duplicate jobs assigned.
+- [x] Complex09 same39339 live2h45m52s; apportionment03 passed and04 running in existing673. Four exact CC sessions retained and working. Remaining final pictures, motion/listening/fine-sync/independentAV and publication gates unchanged.
+
+## Remote final03 success and retained picture plan677, 2026-11-09 22:41UTC
+
+- [x] Actual CSD final672-03_largest_tails finished22:38:18UTC exit0, stable inputs/no resource stop;5527frames rendered243.6s, technical checks passed. Existing673 launched04; do not duplicate. No picture or listening acceptance.
+- [x] Remote assembly664 lacks original545/584 sampling files and support616. Prepared local picture-plan677 seed bound to62 exact inputs, all15 chapters/100886frames/1147 selected frames, retaining every prior sample and reason. SHA8c15820840d9e99bc56e012705439ae19089099439af84ca6c2ee3448920211b.01/02 frame sets exactly match actually reviewed final634 extractions48/55. Prior files unchanged.
+- [ ] Wire guarded remote extraction to this seed plus actual final layout flags and success/hash checks; transfer exact required provenance. Seed is not extraction or picture acceptance. View every resulting sheet and preserve cross-host master/frame-identity, caption, loudness, motion/listening/fine-sync/independentAV gates.
+- [ ] Four resumed CC reviewers active; source reviews674/675/676 pending, not acceptance. Complex09 existing render continues; unchanged master/picture/publication gates.
+
+## Four exact Claude sessions resumed and working, 2026-11-09 22:38UTC
+
+- [x] Owner-authorized restart completed through NTM for exact panes%0-%3, same saved sessions6d8d91ab-386b-435d-91e3-ad665c8e7f76,b0a72b9b-6c8d-4794-942e-44d50a9d8626,d7bac370-73e2-4cb6-88cf-606d6a161b39,7aa7239f-abc0-4b43-9af5-40020bd20c82. Verified new actual Claude PIDs81655/29902/34763/40239, Opus5.5/xhigh retained. No account switch or paid credits enabled. Fresh pane0 actual tool results and pane1/2 source reads demonstrate resumed work; pane3 received scoped review and is thinking. Provider headroom duration is not guaranteed.
+- [x] Scoped assignments: CC0 finishes independent528 delta review; CC1 seven-chapter exponential source/editorial review674; CC2 remote671/672/673 source review675 (original528 author, independence limitation stated); CC3 complex606/607/647 and stale625 route review676. Only named review outputs, no renders/builds/synthesis/SSH/frozen production edits/Beads/commits. All reminded ElevenLabs Frederick Surrey, logarithm retained Oliver. NTM send receipts /tmp/video-resume-20261109-2237/send1.json throughsend3.json each show exact one target and no failures.
+- [x] Complex09 existing39339 verifiedlive2h41m51s, no restart. Apportionment672 chapter03 actual native PID1473279 rendering4K60CRF16slow4threads; existing673 owns remaining chapters. No duplicate jobs.
+- [ ] Review findings must be read and repaired with evidence. No independentAV/listening/fine-sync or final publication acceptance is implied by resumed workers or source reviews.
+
+## CSD import-time path repair and fresh final673, 2026-11-09 22:34UTC
+
+- [x] Actual timeline666 finished22:30:43UTC exit0 stable; all15 chapters/45 normalized tables,15 scoreQA and100886frames pass.
+- [x] Final669 failed before native renderer: inherited support668 import used parents[7] on shallower remote path. Failed job/helper/controller retained. Fresh671 sets explicit CSD root; all26 support function bodies AST-identical, local and remote import checks passed. Fresh672/673 keep every existing quality/process/resource gate and fresh output names.
+- [x] Started ONE CSD tmux apportionment-final673 for remaining03-15 only; never duplicate or rerender completed01/02. Inspect actual receipts, not controller launch as success.
+- [ ] All final pictures, cross-host master compatibility, listening, fine sync, independentAV and publication remain open. Complex09 existing39339 still owns its render; no restart.
+
+## Exponential source review fixes, 2026-11-09T22:27:11.452871+00:00
+
+- [x] Root found and repaired new ruler Kit.tex call missing the color-map argument (checked kit.rs480 API), and D-E cue06_8 incorrectly describing positive k as growth for arbitrary signed initial y. Growth/decay now explicitly refers to positive starting amounts; six sentence boundaries and existing phrase hook retained. Previous script/scene/README bytes preserved in stage03. Source-check04 binds current51cues/3112words. Scoped rustfmt check passes; no native compilation claim. Root did not author D-E, but authored F, so F review is self-review.
+- [ ] Native build/facts/glyph/actual picture/listening/fine-sync/independentAV remain open. Existing complex39339 live2h28m56; apportionment666 through12 exact schedules,13 active;670waiting, no duplicate.
+
+## Native exponential slide-rule teaching added, 2026-11-09T22:24:36.394223+00:00
+
+- [x] Fresh preserved expanded-stage03 adds native `07_calculating_ruler`, computed slide_model, facts registration, distinct binary name and ten authored cues. Shows curve samples becoming logarithmic positions, full C/D scales,2×3, prediction2.5×4, genuinely off-scale4×3, right-index1.2→12 correction, equal-ratio distances and6÷3; finite reading precision explained. No HTML/JS substitute.
+- [x] Seven source chapters now51 unique cues/3107 spoken words; combined Python oracle1098 unique rows and8281 Decimal alignment cases pass, exact cue order checked, scoped rustfmt passed. Three Rust tests authored but not run. These are source/arithmetic checks, not native compile or picture acceptance. Evidence expanded-stage03/source-check03.json andREADME; prior stages untouched.
+- [ ] Independent D-E/F source/editorial review; guarded build/native facts/glyph/pictures; bind all six prediction holds including07_5→07_6; finish G-I applications/model limits/rotation/log bridge and full opening before new Frederick synthesis. Listening/fine-sync/independentAV remain open.
+- [x] Latest live polls: complex09 same39339 at2h27m36s; apportionment666 through11 exact schedules and12 active,670waiting. No duplicate or restart.
+
+## Exponential retained expanded work integrated, 2026-11-09T22:19:26.837100+00:00
+
+- [x] Corrected the canonical-script-only inventory: historical staging contains real expanded A-C scenes already built on Nov4 (46tests/883facts as recorded), plus unintegrated D-E scenes. Reused this work, not a fresh short treatment. Under lease7296 created `elevenlabs-exponential-20261101/expanded-stage02/native-crate`; exact nine-file D-E patch1be8145f applied with zero fuzz/offset to preserved A-C copy. Original candidate byte hashes unchanged.
+- [x] Candidate now six registered chapters/41unique spoken cues/2513 whitespace-delimited words. Combined Python oracle reproduces exact1079-row output SHA38df7e3cf40dd73fcba6e2929c52fd9faa8107379c95c775967fe9159e09e32f. This is source/oracle integration, not a native build or full-film runtime. Evidence expanded-stage02/integration02.json and retained patch logs.
+- [ ] Independently review D-E proof/teaching, resolve source/layout issues, bind five prediction holds and current Frederick Surrey narration, qualify build/glyphs/actual pictures. Finish F-I slide rule, derived applications, changing-rate limitations, complex rotation and logarithm bridge before full-film synthesis/final production. Preserve old Oliver takes; no new synthesis or render launched.
+- [x] Fresh captures of allfour existing CC panes show weekly-limit dialogs resetting Nov13 5amET; same processes present. No paid usage/account switch or fabricated worker progress. Root continues; independent review remains pending.
+- [ ] Complex existing09 render and remote apportionment666/670 remain sole active owners; do not duplicate. All final-picture/motion/listening/fine-sync/independentAV/publication gaps retained.
+
+## CSD remaining-final controller connected, 2026-11-09T22:17:02.833899+00:00
+
+- [x] Timeline666 actually completed exact comparisons for chapters01-07; chapter08 active. No terminal success claimed. New controller670 is running in CSD tmux `apportionment-final670`, waiting on actual stable successful666 before any final render. Never duplicate.
+- [x] Prepared and hash-verified remote669 final helper and668 support. All inherited process ownership/cleanup functions unchanged; technical checks preserve exact frame/cue/layout tables, score hashes/start samples, 4K60 High Level5.2 BT.709, CRF16 and all x264 quality options, AAC48k stereo/A-V bounds, full decode and soundtrack samples. Only x264 build banner and derived host FFmpeg library tags vary as recorded provenance; cross-host master compatibility remains unqualified.
+- [x] Controller670 SHA0c5306bb67bbe839e3ae6ac6a428bad9811ce79efa5142b191d412b1a9280331 freezes sources/receipts/inputs and serializes fresh669 jobs for chapters03-15 only. Completed local01/02 and failed03 remain preserved. No blind retry, guard bypass, or local01/02 rerender. Existing10GiB admission/8GiBstop/4GiBjob/56GiBwork/20GiBtarget guards and4CPU affinity retained.
+- [ ] Require666 all45 exact normalized tables/15 scoreQA/100886frames. Then inspect each669 terminal receipt, all final pictures, cross-host joining, full master/caption/loudness verification. Motion/listening/fine-sync/independent AV and release gaps remain. Complex09 existing39339 confirmedlive2h18m; existing588/629 still own downstream work, no duplicate.
+
+## CSD narration verified and timeline666 active, 2026-11-09 22:09UTC
+
+- [x] Actual664 finished22:09:06UTC exit0 stable inputSHA30055030cf0afc6ad7e128f2a3e8a46e0213b5cd3e6643de3168fc2757682766/no stop; full93-recording source/direction/sample verification passed, WAVs and phrase timings unchanged.
+- [x] Existing667 launched ONE guarded timeline666, admitted inputSHA69ef8727a03263c0d98c15ab4c5f9e6bfed303230e4841bfba2dbfe99d2ca48d, started01. NEVER duplicate. Require all45 exact normalized tables,15scoreQA100886frames before finalrender. No whole-film/listening/fine-sync/independentAV/release qualification.
+
+## CSD build passed; outside-repo narration path repaired, 2026-11-09T22:09:10.682102+00:00
+
+- [x] Actual656 finished22:07:36UTC exit0 stable8043bindings/no resource stop.30tests, scopedClippy, nativebuild,443facts/oracle and15registrychapters passed; not picture/render/release qualification.
+- [x] Actual660 assembly failed22:07:56UTC exit1 stable/no stop: fullcoherent verify correctly refused retained Downloads source WAV with unrelocated absolute path. Source file exists in exact652 import; no lost recording. Failed660/661 and aborted663 retained; no662 timeline launched.
+- [x] New664 adds only exact-manifest mapping for outside-repo source paths; in-repo rebasing/audio/timing/fullverify gates unchanged. Started ONE665 assembly controller and ONE667 timeline controller onCSD; fresh jobs664/666. Prior662/663 unused/failed preserved. No success yet; never duplicate.
+- [ ] Require actual664 full93-cue source/direction/reconstruction success, then666 all45 full normalized schedule tables/all15QA100886frames before remotefinals. All finalpicture/motion/listening/fine-sync/independentAV/publication gaps remain.
+
+## CSD exact schedule comparison connected, 2026-11-09T22:08:10.366174+00:00
+
+- [x] Actual656 Linux tests finished30 passed/0failed; build remains in progress throughClippy, not terminal qualification.
+- [x] Started ONE CSD tmux apportionment-timeline663 waiting actual stable656 and660. Timeline662 SHAa57e9013eaf1f669372371535bdf3230d371499fa13cea78b87d178959aa490c; controller663 SHA9c112c83b21c0ba8a54022858e929d7d2f9600e5eda0005d62e578a44e0ee8c5. It installs identical retained runtime verification tools beside embedded native build topic (new files only), freezes sources/narration/ffmpeg/receipts, then launches guarded662.
+- [ ]662 must compare all45 full timeline/cue/cuelog tables with567 after only narration-root normalization; all15 scoreQA and100886frames required. Any mismatch stops before finalrender. No timeline started or passed yet; no picture/motion/listening/fine-sync/independentAV/release claim. Existing complex09/588/629 remain sole owners.
+
+## Guarded path-only narration relocation connected, 2026-11-09T22:06:03.412118+00:00
+
+- [x] Prepared assembly660 SHA9c5d8e2d3cfeebb6060a64cbd96b31cc89d9f0d35e74124d4cfcbe5064ecccb2 and after-build661 SHA7d0d9e82d98b7d03fb2c2c60463660f8025e8e365c916d1744d143d28299ba94. Started ONE CSD tmux apportionment-assembly661 waiting for actual stable successful656 build; failure aborts, no retry. No assembly success yet.
+- [ ] On build success controller freezes actual qualification/source/imports and launches guarded660. Helper creates fresh repo copies, relocates only absolute provenance paths, preserves original JSON beside derived files,93 WAV hashes and phrase timing exact, and requires full existing coherent_narration verify with canonical script/units/directions/sample reconstruction. No narration regeneration or timing change.
+- [ ] Then compare all15 native timelines against567 before rendering remaining chapters. Existing complex09 same39339 stilllive2h06m56s lastcheck; no duplicate. IndependentAV/listening/fine-sync/motion/publication remain open.
+
+## Chapter02 extraction terminal success, 2026-11-09 22:01UTC
+
+- [x] Actual634-02 finished22:00:12UTC exit0, identical initial/final inputs, no resource stop. All7 actuallyviewed sheet hashes and sampling remain unchanged; final02-pictures-terminal659.json binds terminal receipt to658 actual55-picture review. Earlier pending flag in658 is preserved as at-review history.
+- [ ] Master/remaining final chapters, motion/listening/fine-sync/independentAV/publication still open. CSD656 compilation and complexMac09 remain existing active jobs.
+
+## Apportionment02 selected final pictures viewed, 2026-11-09T22:00:07.146191+00:00
+
+- [x] Actually viewed all55 selected final pictures on7 sheets from634-02_shares. Population subdivisions, quotas, rounding counterexamples, prediction timer and final choices clear at sampled points; no concrete persistent overlap/clipping found. All55 source-frame hashes match sampling;7 sheet hashes recorded in final02-pictures-viewed658.json.
+- [ ] Extraction helper produced summary but guard terminal receipt still pending; do not claim technical completion until actual exit0/stable inputs. Motion/listening/fine-sync/independentAV/release remain open.
+- [x] CSD build656 actually admitted and compiling pristine engine/dependencies; no failure or terminal receipt at latestcheck. Existing complex09 native render remains live; do not duplicate.
+
+## CSD apportionment build656 launched after exact transfers, 2026-11-09T21:56:58.918580+00:00
+
+- [x] Transfer652 finished21:53:25UTC exit0; transfer655 finished21:55:21UTC exit0. All3967 original inputs plus4063 supplemental tracked engine/root files transferred and rehashed. Engine gitHEADa399d626, tracked diff clean (only untracked.cargo-ok excluded). Failed654 preparation preserved: pathlib component order differed from string order;655 fixes ordering only before launch.
+- [x] Started ONE CSD tmux apportionment-build656, guardjobcsd-apportionment-build656 with8043 frozen bindings, inputSHA2e62e74862deee70edee7cd13e9ce656a8430f8bbcd92d713cb9e59c66ebc6e6. HelperSHAb5990c28d25b4daeb7e1247151acc390ccdaae81ee31f74ac911f0ee9670f040. Fresh isolated workspace/engine copies, no changes to retained inputs or existing complex engine. Only root workspace member scope and19 engine lock source locations change; package versions/dependencies verified identical.
+- [ ] Build requires30 tests, scopedClippy,443 Rust/oracle facts,15 chapters, unchanged copied sources, retained10GiB/8GiB/4GiB/56GiB/20GiB guards and4-core affinity. Inspect actual terminal receipt; no success yet. Then exact narration path binding and all15 timelines before remaining finals. No remote render/master/release or listening/fine-sync/independentAV acceptance.
+- [x] Complex09 sameMacPID39339 remainslive2h00m20s,478m47sCPU; no restart. Existing588/629 own downstream work.
+
+## CSD engine qualification distinction, 2026-11-09T21:52:55.954581+00:00
+
+- [x] Read actual CSD engine-budget.toml: complex Linux build patches19 engine packages to work/tree/engine, not the untouched git dependency. Matching Cargo revision alone therefore does NOT qualify apportionment; do not reuse that patch blindly. Existing transfer652 remains live (3713 of3967 numbered destinations seen), preserves every imported hash and is not a build.
+- [x] Inspected export652 engine bindings:251 dependency files, but engine root Cargo.toml/Cargo.lock/toolchain are absent from original final-input closure. Remote build needs additional source-complete pinned engine export or verified pristine git dependency cache before compilation; no fabricated complete-build-input claim.
+- [ ] Preserve active652; inspect terminal success, then supply exact build prerequisites with fresh manifests/output names and guarded build. Alternatively existing arm64 binary can run on qualified Mac lane after complex09/587 complete, avoiding Linux-engine drift; do not duplicate or interrupt existing09. Actual master/picture/listening/fine-sync/independentAV gates remain open.
+
+## Guarded apportionment recovery transfer652 launched, 2026-11-09T21:50:21.913514+00:00
+
+- [x] Prepared exact3967-file/1.237GB manifest652 and receiver adapted from pinned594/371 transport. Receiver writes fresh numbered files only, checks every SHA/size, preserves original paths as metadata, and retains CSD10GiB admission/8GiBstop/4GiBjob/56GiBwork/20GiBtarget/exclusive lane. Input manifest hash2c283f79b4ce8ef4c8899a50bc6d434d0e1478842d841d31787185dd3a836f28.
+- [x] Started ONE persistent tmux apportionment-transfer652 with /tmp/apportion-transfer652-controller.py; receiver jobcsd-apportionment-import652-a1. Sender waits actual guard admission before transmitting; no automatic retry. Inspect actual terminal receipt and import-result; NEVER duplicate.
+- [ ] Remote build/materialization/timeline/render still not started. Preserve local01/02 and failed03. Guard-visible AgentMail archive publication for652 returned fence-busy twice after DB lease commit; owner earlier authorized proceeding through AgentMail integrity failures; no conflicting holder reported. New files only, no prior source/helper overwritten. Final picture/motion/listening/fine-sync/independentAV/release gaps remain.
+
+## Apportionment recovery source closure verified, 2026-11-09T21:46:35.009057+00:00
+
+- [x] Checked all3967 final632-03 input hashes against actual current files, all match;1,237,029,399bytes includes93 retained assembly566 WAVs. All90 source/shared-crate bindings also match successful564. Evidence apportionment-csd-recovery651.json. Existing CSD complex crate uses same pinned enginea399d626; this establishes a compatible starting dependency, not Linux apportionment qualification.
+- [ ] Stage isolated remote recovery under guard, preserving completed01/02 and failed03. Require Linux tests/build/clippy/oracle, path-only narration binding and full schedule comparison before remote finals. No apportionment remote job started; all final review gaps remain.
+
+## Apportionment physical-disk stop and recovery host audit, 2026-11-09T21:44:39.275207+00:00
+
+- [x] Actual632-03 receipt finished21:37:37UTC exit-9 with stopped_for_resource_limit=true. Final sampled free space8,283,013,120bytes (7.71GiB) breached8GiB stop; work69,992,570,880bytes remained under80GiB cap. This was physical disk exhaustion, not work-cap exhaustion. Preserve failed output and completed632 chapters01/02; no blind retry.
+- [x] Existing633 render controller and637 master controller stopped on03 failure; no master636 produced. Pictures635/634-02 guard still live; verifier639 still waiting. Do not duplicate existing jobs.
+- [x] Fresh host checks21:43UTC: local13GiBfree/load145; mac-mini-old5.6GiBfree/load27.5 (inadmissible); mac-mini-max57GiBfree/load7.16 and SAME complex09 PID39339 live1h47m31s/427m41sCPU; CSD101GiBfree/load3.27; CSS22GiBfree/load9.21. Observation timeout did not imply native09 failure.
+- [ ] CSD strongest capacity candidate for remaining apportionment, but inspected existing complex scratch tree has no apportionment artifact within4 levels. Must stage exact repaired source/audio and qualify Linux build/timelines/encoder before rendering there; do not present host capacity as render qualification. Existing complex09 continues on Mini-max without interruption.
+- [ ] Finish02 picture extraction and actual review; recover03 and remaining chapters with fresh names and retained guards. Then master/full technical/final picture/motion/listening/fine-sync/independentAV and publication gates. No new release or listening acceptance claimed.
+
 ## Apportionment chapter01 enlarged-frame follow-up, 2026-11-09T21:23:05.887119+00:00
 
 - [x] Viewed individual final frame000625 and002320 from pictures634-01 (3840x2160 source, tool displayed2048x1152). Apparent top-edge concern in contact-sheet display is not in source frame:15-seat title has visible upper margin. Prediction timer and pause text remain within frame, separate from seat grid. This supplements648 selected-picture review; no source change needed.
@@ -9999,3 +10199,91 @@ Timestamp correction: the preceding dependency204 check and tracker update occur
 - [x] 2026-11-09T19:47:24.215130+00:00: Complex publication-draft03 preserves02 copy/title/tags and fills15 chapter timestamps from actual successful stable timeline269 (133662frames,37:07.7) plus published logarithm link from actual local publication receipt. Description4767UTF8bytes; timeline receipt/table hashes retained. Final-master timestamp comparison and seeking each start remain open; no upload or independent copy/release review claimed. Mini571 sampled live: active camera/3D vector rasterization,93CPUmin at24m36 wall, temporary output grew2.09MB to2.62MB. Diagnostic /tmp/complex-boundary571-sample601.txt SHA2c66eac0 retained locally andmini; no evidence justifying restart. Listening/fine-sync/independentAV remain open.
 
 - [x] 2026-11-09T19:48:21.079224+00:00: CORRECTION to prior publication-draft03 progress claim: it was generated from stale draft02; publication376 was already the adopted newer reviewed copy (review380), including15times/logarithm link and corrected theorem/pole wording. Marked draft03 SUPERSEDED, preserved all files. Rehashed all4 publication376 files against380, all exact;15timestamps independently match fresh269 receipt/table readback. Use376, NEVER draft03, for eventual upload. No external metadata changed; final master/picture/listening/fine-sync/independentAV checks remain open.
+
+## Host pressure interruption, 2026-11-09 23:06UTC
+
+- [x] Local free space fell to306MiB, later881MiB; Agent Mail reservation failed ENOSPC. No files deleted, no guards changed. Hold local large copies/build/render admission; primary remote jobs remain intact. Native09 PID39339 live3h08m46; mac-mini-max50GiB free, CSD97GiB.
+- [x] Actual CSD672-08 receipt finished23:03:39 exit0 stable inputs/no stop; existing673 advanced09. Final pictures/master/audio/publication remain pending.
+- [ ] Root decay_scene.rs was NOT created: reservation failed before edit. Applications04 remains prior authored model/script only. CC1 small source repair continues, disk-pressure warning sent through NTM; no large source copy/build authorized. Beads host-pressure note pending until local DB headroom safe; this appended TODO note preserves the event without new media or replacing prior files.
+
+## Review675 findings checked on actual files, 2026-11-09 23:09UTC
+
+- [x] Root read full675; no reason to interrupt active673. Independently ran header probes on actual local01/02 and completed CSD03-08: all8 extradata50 bytes SHA256f8e7fad1d2b8641f47fcfe4408e16ffbf31ab099a289cab4a4273dea68e49f2e, HighLevel52,2Bframes,timebase1/15360. CSD6 summaries have identical encoder settings/version. Remaining09-15 and final master/hardware/frame identity still open.
+- [x] Actual tracker03-08 polls222/190/274/218/223/270,zero misses each,2 escaped descendants each; Linux tracking not blind in these runs. Not proof of stop paths. Actual08 nonempty4K layout SHA matches666/567; all5 nonempty666 layouts match675 listed567 hashes.
+- [x] CC2 finished675 and assigned native applications04 decay_scene.rs/circuit_scene.rs/native-handoff693.md source only; exact NTM target2 successful, no root edit to those named paths. No large copies/build/render/SSH; local ENOSPC remains, named disjoint fallback. Native code, figures/listening/sync not accepted yet.
+- [ ] Preserve active671/672/673. Final extraction awaits685, final films and publication remain incomplete. Beads pressure note still pending DB headroom.
+
+## Native preview PCM and nonempty-layout extraction checks, 2026-11-09 23:10UTC
+
+- [x] Actual native571 latest09 capture on mac-mini-max SHA f7f8aa6042a9f05d1b25db4c789f7f6b44cb393445015c057f1e87d9b0c8df51 equals Linux313/268 captures. This clears the prospective607 native preview PCM comparison before import; destination check still runs after transfer. Technical equality, not listening.
+- [x] Actual read-only678 build on completed08 passes6448frames,5977 bindings and121/121 retained samples,2 final layout rows/2 anchors,zero new unbound flags. No extraction or pictures viewed.685 source review still active.
+- [x] Native09 same39339 remains active, no stop; guard20admit8stop4job80work20target unchanged; last free51.84GB, partialMP4 13,107,248bytes. No completion inferred from partial output.
+- [ ] Local free1.5GiB still below heavy-work admission; no large local writes or deletes. Final render/picture/master/audio/fine-sync/independentAV/publication open; deferred Beads pressure notes remain to sync.
+
+### 2026-11-09 23:13UTC tracker catchup
+- [x] Local free space recovered to3.4GiB without root deletion. Small Beads updates for complex39 and apportion30 succeeded and both remain in_progress; host-pressure and checks above are now in tracker. Heavy local admission remains withheld. Native09 same39339 live3h16m25, existing673 through09/10active per controller;685 review active, no duplicate jobs.
+
+## Guarded mixed-host master controller launched, 2026-11-09 23:28UTC
+
+- [x] Root read complete686/687/689 source and handoff688. Preserved helper SHA pins, copied exact bytes exclusively to CSD. Actual08 captured PCM hash matches Mac preview569; actual66601/02 layouts empty as required. Actual09/10/11 final672 receipts exit0 with stable inputs. Remaining13/15 PCM comparison and all master replay/decoded-frame checks remain required.
+- [x] Started ONE persistent tmux apportionment-master689, PID1934989; fresh log verifies prerequisites through11 and waits remaining chapters. It launches guarded686 then687 only after successful stable prerequisites, unchanged10/8/4/56/20 guards, no retries. NEVER duplicate. Actual technical terminal receipts still pending; no publication or AV acceptance.
+- [ ] CC3 has read40 native complex572 preview sheets and is resolving possible label collisions at enlarged details; review694 not yet accepted. Original586 continues, final587 review mandatory even if preview passes.
+
+## Exponential visible-gap successor checked and ending work assigned, 2026-11-09 23:35UTC
+
+- [x] Read full handoff696 and source diff. Stage06 explicitly distinguishes16-cell drawing from1024-cell numerical bound; voice/hook/model/facts updated consistently. Root independently rehashed43 files:af10728022b856385ceb22055abb7c38dd3acbd0284470d37cb499753edf2d89; reran exact1104-row Python oracle, byte-equal oracle06.51cues3153words. These are source/oracle checks,95 authored Rust tests still unrun; no rendered legibility acceptance.
+- [x] CC0 build697 preparation receives sealed06; CC1 assigned disjoint ending-stage07/task706 using preserved rotation/application assets first, then missing changing-rate/economic-model limits, imaginary rotation and logarithm bridge. CC2 applications693 remains separate08/09. No new synthesis/build/render launched; Frederick Surrey retained.
+- [ ] Actual native compile/facts/glyphs/layout/motion, independent revised-source review, complete-script coverage, narration/listening/fine-sync/AV remain required. No short-film substitution or source-only completion claim.
+
+## Final chapter04 picture review, 2026-11-09 23:41 UTC
+
+- [x] Extraction678-04 exited0 with stable input hashes,41 pictures/6 sheets. Root viewed every sheet and verified copied sheet hashes against sampling manifest; no concrete defect at this review scale. Evidence root-apportionment-pictures707.json.
+- [ ] Continuous motion, listening/fine-sync, independent final AV and full master verification remain open. Existing complex586 and apportionment673/679/702 remain in place; no duplicate jobs.
+
+## Live production check, 2026-11-09 23:43 UTC
+
+- [x] Actual CSD chapter12 final672 terminal receipt: finished23:36:39 UTC,exit0,identical input hashes,no resource stop. Chapter13 receipt exists but remains nonterminal; no completion inferred.
+- [x] Original complex586 renderer39339 confirmed live at3h46m46,389%CPU after a transient SSH timeout; same job preserved, no restart. Four existing CC workers continue build697/applications693/ending706/independent704.
+- [ ] Local free space7.4GiB below8GiB stop threshold for heavy local work; no large local build/render/copy launched. Remote guards remain unchanged. Final review,master verification and publication still pending.
+
+## Exponential build preparation review, 2026-11-09 23:45 UTC
+
+- [x] Root read full current697 helper: source-bound95 tests,1104 facts,51 cues,7 chapters, scratch cue coverage and glyph probe. Worker is still editing; this is not a sealed helper or executed build.
+- [x] Chose CSD for first build because local free7.4GiB is below guard thresholds. Exact NTM send to existingCC0 succeeded; fresh pane shows message queued. Requested specific verification of ffmpeg descendant session cleanup for scratch/glyph probes before asserting whole-group cleanup. No duplicate job or new worker.
+- [ ] Inspect sealed698/hashes and concrete cleanup findings, then guarded CSD build only after source and host prerequisites. All native visual,narration,listening/fine-sync and finalAV gates remain open.
+
+## Apportionment chapter13 and join compatibility checked, 2026-11-09 23:46 UTC
+
+- [x] Actual final672-13 finished23:44:54 UTC exit0,stable input hashes,no resource stop. Physical soundtrack SHA72eb33a9323f4b68a95431523035fda936f450d752af27b5bad02cbec0d6b509 matches retained Mac preview569 exactly. Chapter15 comparison remains due.
+- [x] Actual ffprobe video parameters and extradata for09/10/11/12/13 exactly equal completed03: H264 High,3840x2160,yuv420p,level52,2 B frames,60/1,timebase1/15360. Earlier01-08 comparison preserved. This supports join compatibility but is not full-master decoded-frame identity proof;701 still required.
+- [ ] Existing679 extracts05;702 waits remaining finals; no duplicate. Final-picture reviews05 onward and fullAV/listening/fine-sync/independentAV remain open.
+
+## Final chapter05 pictures viewed, 2026-11-09 23:48 UTC
+
+- [x] Successful stable678-05 produced41 selected pictures/6 sheets,all actually viewed and sheet hashes verified. Three dials,increment arcs,counters/rank labels distinct; no concrete defect at sheet scale. Evidence root-apportionment-pictures708.json.
+- [ ] Remaining final pictures,continuous motion/listening/fine-sync,independent finalAV,master verification and publication still pending. Original complex586 active at3h51m; no duplicate.
+
+## Independent assembly review704 and bounded probe710, 2026-11-09 23:53 UTC
+
+- [x] Read full704: no defect in700/701/702 changes. Runtime questions: cross-host mixer equality,codec parameter sets,actual701 framehash format/throughput.08/13 actual PCM comparisons passed;01-13 codec parameters/extradata agree in recorded checks.15 audio and14/15 parameters remain due.
+- [x] Started ONE guarded csd-apportionment-framehash710 in tmux apportionment-framehash710, queued in existing exclusive lane. Two actual chapter01 frames only, parses using exact701 function,120s subprocess cap; no full decode/throughput claim. HelperSHAaec564e8530a1c312d960d8aaaa02267b27c2db15c1430c1fe0c51c34c4d82d9. Inspect actual terminal; never duplicate.
+- [x] F4 record correction:2625 outside-repository inputs comprise2565 Cargo checkout files,59 downloads including retained Frederick takes,and1 other,not all engine/code support. Complete hash checks preserved.
+- [x] CC3 assigned bounded independent stage05/06 repair review711 after sealing704; exact targeted send succeeded. Guard source path supplied for earlier local-copy gap. FinalAV/listening/fine-sync still open.
+
+## Real exponential build queued and applications integration underway, 2026-11-09 23:55 UTC
+
+- [x] Read full sealed698 and693. Exact43 stage06 files plus697 helper installed immutably on CSD; all hashes match.697 inputs preflight succeeded4150 physical bindings,SHA897fefa6373a9ed9c72e6d174384fbadf1b919cf541409fed9a245d4a950d9a2. ONE guarded csd-exponential-build697 queued in tmux exponential-build697,live guardPID2184408. No compile result yet; NEVER duplicate.
+- [x] Worker confirmed helper-only stop may leave detached FFmpeg during cue probe; resource-stop guard descendant handling remains unchanged. No stop/timeout cleanup success inferred. If cue-probe cleanup occurs, inspect exact remaining descendants before admitting another job.697 helperSHA025d107beb1541c162bac0dbc4efffbc1cfb6066e9b0c2d652abf877d42dacb1.
+- [x] CC2 applications693 delivered16 source cues,not built. Assigned disjoint expanded-stage08 integration712 with stage06,454 independent oracle keys and Rescale wording in09_7. Original sources preserved. Fresh pane confirms actual integration work.
+- [x] ExistingCC0 assigned independent applications review713;CC3 reviews stage05/06 fixes711;CC1 continues ending706. Four existing workers only.
+- [ ] Real compile/tests/clippy/facts/cue/glyph checks,actual visual review,Frederick narration/listening/fine-sync/independentAV all remain open. Complex586 still priority; no unqualified publication.
+
+## Final picture review progress, 2026-11-10 00:03 UTC
+
+- [x] Viewed all 48 selected chapter06 final pictures on six hash-checked sheets; no concrete defect at contact-sheet resolution. Evidence root-apportionment-pictures714.json. Prior truncated display was not counted.
+- [x] Existing exponential build697 admitted on CSD and is compiling dependencies for tests; no test pass yet. Four CC panes verified actively reviewing/integrating exponential source.
+- [ ] Complex native586 remains live; final chapter review, master and verification pending. Continuous listening, fine sync and independent final audiovisual acceptance remain open.
+
+- [x] Actual guarded framehash710 exited0: two real final01 frames accepted by actual701 parser. Format compatibility only; full decode, frame identity and throughput still pending.
+
+- [x] 2026-11-10 00:05 UTC: final14 stable terminal0 and actual codec parameters/full extradata equal final03. Final15 and full701 frame identity still pending. Existing697 is progressing through native engine compilation; no duplicate jobs.

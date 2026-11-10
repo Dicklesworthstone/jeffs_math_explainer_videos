@@ -1,0 +1,20 @@
+{
+  "time": "2026-11-09T23:28:32.288810+00:00",
+  "failure": "686 imported() incorrectly required all4005 support paths within repository;2625 external pinned support paths are legitimate",
+  "old_controller_stopped": 1934989,
+  "old_master_never_launched": true,
+  "preserved": [
+    "apportionment-csd-master686.py",
+    "apportionment-csd-verify687.py",
+    "controller689.py"
+  ],
+  "new_helpers": {
+    "apportionment-csd-master700.py": "e589f7f3302f9d97a9ad5b6b6f244ea3fccac71ffb91f5364f83fe555575743d",
+    "apportionment-csd-verify701.py": "02ef7a5f4aae336b4a3795b066352a85c9a536d953c8920fab4755a2f174417f",
+    "controller702.py": "01ebfee47d86a5bba5df26956da7e7519eddc453aad0ee1c4329370d237ab446"
+  },
+  "delta": "only imported function changes beyond version renames; verify functions AST identical",
+  "actual_preflight": "01/02 imported receipts, every output hash and path-only timeline/cue-log rebasing match real timeline666",
+  "new_controller": "apportionment-master702",
+  "scope": "No master or AV success claimed; frozen source and guard unchanged"
+}

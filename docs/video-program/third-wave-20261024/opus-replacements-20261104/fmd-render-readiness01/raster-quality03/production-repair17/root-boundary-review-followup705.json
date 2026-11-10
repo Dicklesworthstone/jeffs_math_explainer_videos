@@ -1,0 +1,205 @@
+{
+  "time": "2026-11-09T23:33:15.684428+00:00",
+  "independent_review": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/cc3-native-boundary-preview-review694.md",
+  "review_sha256": "00e6f5c08fa516ddd2306de6e3670637d54b87d326df91ace8d6da3328d40726",
+  "independent_scope": "313 selected native preview frames viewed as640x360 thumbnails; no high/medium and6 low findings; no final4K/motion/audio acceptance",
+  "root_followup_sheets_actually_viewed": [
+    "021",
+    "024",
+    "027"
+  ],
+  "root_observation": "Caption remains readable at thumbnail scale despite close card border; small a/circle contact is visible. Retain all findings for full4K detail decisions; do not erase prior disagreement.",
+  "select_sha256": "af3bf5a06eb73f44f7a7c83a0889e92849bfa5d9b02ac48658b4c49964a90d9c",
+  "findings": [
+    {
+      "id": "F1",
+      "description": "inside the dashes caption close to card border",
+      "final4k_disposition": "pending actual final587 pictures",
+      "anchors": [
+        {
+          "requested_seconds": 90,
+          "selected_frame": 5400,
+          "selected_seconds": 90.0,
+          "delta_seconds": 0.0
+        },
+        {
+          "requested_seconds": 104,
+          "selected_frame": 6240,
+          "selected_seconds": 104.0,
+          "delta_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "id": "F2",
+      "description": "inner-curve radius and polygon labels displaced",
+      "final4k_disposition": "pending actual final587 pictures",
+      "anchors": [
+        {
+          "requested_seconds": 72,
+          "selected_frame": 4320,
+          "selected_seconds": 72.0,
+          "delta_seconds": 0.0
+        },
+        {
+          "requested_seconds": 110,
+          "selected_frame": 6600,
+          "selected_seconds": 110.0,
+          "delta_seconds": 0.0
+        },
+        {
+          "requested_seconds": 120,
+          "selected_frame": 7200,
+          "selected_seconds": 120.0,
+          "delta_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "id": "F3",
+      "description": "long bound near right edge",
+      "final4k_disposition": "pending actual final587 pictures",
+      "anchors": [
+        {
+          "requested_seconds": 104,
+          "selected_frame": 6240,
+          "selected_seconds": 104.0,
+          "delta_seconds": 0.0
+        },
+        {
+          "requested_seconds": 108,
+          "selected_frame": 6480,
+          "selected_seconds": 108.0,
+          "delta_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "id": "F4",
+      "description": "r=1/2 pill contacts circle",
+      "final4k_disposition": "pending actual final587 pictures",
+      "anchors": [
+        {
+          "requested_seconds": 157,
+          "selected_frame": 9420,
+          "selected_seconds": 157.0,
+          "delta_seconds": 0.0
+        },
+        {
+          "requested_seconds": 203.15,
+          "selected_frame": 12189,
+          "selected_seconds": 203.15,
+          "delta_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "id": "F5",
+      "description": "small a contacts shrinking circle",
+      "final4k_disposition": "pending actual final587 pictures",
+      "anchors": [
+        {
+          "requested_seconds": 124,
+          "selected_frame": 7440,
+          "selected_seconds": 124.0,
+          "delta_seconds": 0.0
+        },
+        {
+          "requested_seconds": 125,
+          "selected_frame": 7500,
+          "selected_seconds": 125.0,
+          "delta_seconds": 0.0
+        },
+        {
+          "requested_seconds": 126,
+          "selected_frame": 7560,
+          "selected_seconds": 126.0,
+          "delta_seconds": 0.0
+        },
+        {
+          "requested_seconds": 127,
+          "selected_frame": 7620,
+          "selected_seconds": 127.0,
+          "delta_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "id": "F6",
+      "description": "zoom leaders end at absent frame",
+      "final4k_disposition": "pending actual final587 pictures",
+      "anchors": [
+        {
+          "requested_seconds": 28.5,
+          "selected_frame": 1710,
+          "selected_seconds": 28.5,
+          "delta_seconds": 0.0
+        },
+        {
+          "requested_seconds": 34.9,
+          "selected_frame": 2094,
+          "selected_seconds": 34.9,
+          "delta_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "id": "O3",
+      "description": "triangle arrow direction detail",
+      "final4k_disposition": "pending actual final587 pictures",
+      "anchors": [
+        {
+          "requested_seconds": 58,
+          "selected_frame": 3480,
+          "selected_seconds": 58.0,
+          "delta_seconds": 0.0
+        },
+        {
+          "requested_seconds": 66,
+          "selected_frame": 3960,
+          "selected_seconds": 66.0,
+          "delta_seconds": 0.0
+        },
+        {
+          "requested_seconds": 68,
+          "selected_frame": 4080,
+          "selected_seconds": 68.0,
+          "delta_seconds": 0.0
+        }
+      ]
+    },
+    {
+      "id": "focus",
+      "description": "opaque panel and right-edge x",
+      "final4k_disposition": "pending actual final587 pictures",
+      "anchors": [
+        {
+          "requested_seconds": 157,
+          "selected_frame": 9420,
+          "selected_seconds": 157.0,
+          "delta_seconds": 0.0
+        },
+        {
+          "requested_seconds": 201.15,
+          "selected_frame": 12069,
+          "selected_seconds": 201.15,
+          "delta_seconds": 0.0
+        },
+        {
+          "requested_seconds": 223.4,
+          "selected_frame": 13404,
+          "selected_seconds": 223.4,
+          "delta_seconds": 0.0
+        },
+        {
+          "requested_seconds": 273.2,
+          "selected_frame": 16392,
+          "selected_seconds": 273.2,
+          "delta_seconds": 0.0
+        }
+      ]
+    }
+  ],
+  "changed_active_jobs": false,
+  "release_accepted": false
+}

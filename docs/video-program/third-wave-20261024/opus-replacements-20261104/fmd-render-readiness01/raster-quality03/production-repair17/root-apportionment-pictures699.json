@@ -1,0 +1,45 @@
+{
+  "time": "2026-11-09T23:25:22.562271+00:00",
+  "chapter": "03_largest_tails",
+  "job": "csd-apportionment-pictures678-03_largest_tails",
+  "sampling_sha256": "a609355f2d8c3e218cccbd5e9328ffc865a9aae63209246ca06c4b4244d76d5a",
+  "samples_viewed": 48,
+  "sheets_viewed": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-03_largest_tails/03_largest_tails/sheet-0001.jpg",
+      "sha256": "55a1f6edd730bfa587c077be68421b8f1c2b89c2dd7484380b45b8e96d3b621f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-03_largest_tails/03_largest_tails/sheet-0002.jpg",
+      "sha256": "8eb00c71abc871343ca650bea3e55841b133efebbc227f8513ebcbc7da8971d7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-03_largest_tails/03_largest_tails/sheet-0003.jpg",
+      "sha256": "8919905751949bfaa6f137e624db787f87e0558220b1df881ca6d4124a1a19e5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-03_largest_tails/03_largest_tails/sheet-0004.jpg",
+      "sha256": "92ca2ffccee7110577b6364c1ff544b60614b1b7cf28afd1e0e15277806a9db0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-03_largest_tails/03_largest_tails/sheet-0005.jpg",
+      "sha256": "08389d4c861652abc65f8c278f1e2d42641b3480c30afcdca5825118c8ec4d18"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-03_largest_tails/03_largest_tails/sheet-0006.jpg",
+      "sha256": "caea9a46f6e16d902a6fb5f9eca2f5f25e41fe4bc8f5b05e376da520cdd63abb"
+    }
+  ],
+  "seed_frames_and_reasons_preserved": true,
+  "detail_frames_viewed": [
+    2612
+  ],
+  "observations": [
+    "Three population rows, seat tiles and remainder bars remain separated and readable in sampled frames.",
+    "Extra seat remains unassigned through prediction hold and moves to Ash after answer begins.",
+    "Timer at frame2612 examined separately from full-frame JPEG: ring and pause instruction fit within frame.",
+    "Remainder sum comparison and quota outlines remain clear at later sampled holds."
+  ],
+  "defects": [],
+  "scope": "Selected still frames on contact sheets, plus frame2612 detail; not continuous motion, listening, fine-sync, independent AV or release acceptance."
+}

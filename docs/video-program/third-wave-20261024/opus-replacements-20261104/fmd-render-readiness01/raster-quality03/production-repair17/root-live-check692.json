@@ -1,0 +1,31 @@
+{
+  "time": "2026-11-09T23:04:20.038332+00:00",
+  "extractor678_readonly_build": {
+    "chapter": "03_largest_tails",
+    "frames": 5527,
+    "samples": 48,
+    "seed_samples": 48,
+    "merged_samples": 48,
+    "final_layout_rows": 0,
+    "bound_files": 5977,
+    "result": "pass",
+    "pictures_extracted": false
+  },
+  "imported_native10": {
+    "import_job": "csd-mini-import576-10-a2",
+    "receipt_sha256": "6c2c38bcb03f8cb7c670c7f4544ab15ac916765523526aad64c53fc42d29c839",
+    "terminal_stable": true,
+    "exact_command_matches_555": true
+  },
+  "native09_live": {
+    "pid": 39339,
+    "elapsed": "03:07:47",
+    "cpu_percent": 388.1,
+    "terminal": false
+  },
+  "limits": [
+    "Extractor merge tested only actual chapter03 with zero layout rows; independent685 source review pending",
+    "09 command must be rechecked after successful terminal/import",
+    "No actual picture, audio, fine-sync or AV acceptance"
+  ]
+}

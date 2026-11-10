@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-09T23:18:34.527026+00:00",
+  "review685_sha256": "5e66f2c3e1ad6f6aab0ef97c533ad181872444ec1b41ba8fef209d762a1173c5",
+  "review_result": "no concrete source blocker; root read all findings",
+  "probe": {
+    "host": "csd",
+    "input": "testsrc2 320x180 60fps0.2s yuv420p",
+    "select_frames": [
+      1,
+      3
+    ],
+    "filter_option": "-/filter:v",
+    "encoder": "mjpeg",
+    "sink": "null",
+    "exit": 0,
+    "stdout": "",
+    "stderr": "",
+    "scope": "Option and JPEG negotiation only, no 4K decode proof"
+  },
+  "controller": {
+    "host": "csd",
+    "tmux": "apportionment-pictures679",
+    "pid": 1866883,
+    "observed_log": "IMPORT683_READY",
+    "helper_sha256": "7a2942b6bd33765e40076294d88473505b531b900a2f097aacd3d95cf0ffa061",
+    "controller_sha256": "60ee390f6a34e531855e884ed7e224d3fdf6b5ad42823c0f248bc52259cd0a64",
+    "guard_sha256": "f1cae1dbc80075311b0e1a2abf8637439d2d8d0edbc643e771e2eefe2b3bdfb6"
+  },
+  "required_after_each": [
+    "stable successful receipt",
+    "every seed frame/reason preserved in actual sampling",
+    "sheet coverage/hash checks",
+    "new-anchor frame numbers from full JSON if captions truncate",
+    "actual viewing all sheets and necessary full-resolution details"
+  ],
+  "picture_acceptance": false
+}

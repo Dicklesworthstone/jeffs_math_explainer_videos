@@ -1,0 +1,46 @@
+{
+  "utc": "2026-11-09T23:47:47.838912+00:00",
+  "chapter": "05_dials",
+  "sampling_sha256": "89f8b8f697e71ce5ac3e42f1be6396694e26185ae2b3a9b1e0c6c4fd05911a33",
+  "movie_sha256": "dc78c7b988cc59480dde15cb810af7d6dc411197c8c8a92d58bc25909a6b9457",
+  "selected_pictures_viewed": 41,
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-05_dials/05_dials/sheet-0001.jpg",
+      "sha256": "8518c9c2326fa00452511d32c5af5cba1c7dc7b229ac77b191a4198628c72eb8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-05_dials/05_dials/sheet-0002.jpg",
+      "sha256": "6cffc145ac2d63dd39987e09fbe0a33e53aa1985392180c385d0f9b8f5300004"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-05_dials/05_dials/sheet-0003.jpg",
+      "sha256": "8a8c731140843dbb0eec203609a46757a3b15a7de3fbfac73c514bbf475fe200"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-05_dials/05_dials/sheet-0004.jpg",
+      "sha256": "7cba01fc89221f0bc46488c86d118decb33d224b613abb11c36dd655ab447f37"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-05_dials/05_dials/sheet-0005.jpg",
+      "sha256": "f0b76e19a61ac0b3df085e3773d2351dbeea57eed170b624ad6a69b7d918350a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-05_dials/05_dials/sheet-0006.jpg",
+      "sha256": "0ad59fe35a317f976837342762272e0234b8a0458c746709aa7b8cf0d52555b7"
+    }
+  ],
+  "concrete_picture_defects_observed": [],
+  "observations": [
+    "All six sheets viewed. Three colored dials and whole-number counters remain separate; gray increment arcs sit outside the gold remainder arcs. Rank line changes from Ash/Birch/Cedar to Birch/Cedar/Ash and is legible. Prediction timer remains within the image in selected samples."
+  ],
+  "scope": "Selected stills at contact-sheet resolution only. No continuous motion, listening, fine-sync, independent AV or release acceptance."
+}

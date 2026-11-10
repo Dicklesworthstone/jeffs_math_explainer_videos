@@ -1,0 +1,52 @@
+{
+  "reviewed_utc": "2026-11-10T00:02:35.502398+00:00",
+  "chapter": "06_not_every_time",
+  "sampling_sha256": "76548560976e741863de2a49552db89b6d840f92cd4cfcda14b0b03a0bb29ed8",
+  "movie": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-06_not_every_time/render/06_not_every_time.mp4",
+    "sha256": "4ec4c3a6dfd43aae2e3ebdede89bda2354e5be3d8f9d25affa5fd06a46a83795"
+  },
+  "selected_pictures_viewed": 48,
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-06_not_every_time/06_not_every_time/sheet-0001.jpg",
+      "sha256": "b4cc68cc0a54f5d678aa5de672191852973311f400349e400633cb841e8fbc8c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-06_not_every_time/06_not_every_time/sheet-0002.jpg",
+      "sha256": "b8685712bd8a3b0e9ae853d74d547781cad79ee76ef07c38d82f1ff929c36682"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-06_not_every_time/06_not_every_time/sheet-0003.jpg",
+      "sha256": "ab734e5be4dc0b1a21ff14f7ca10d808a9b9da9a2116f8bad22ad69b42a685f9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-06_not_every_time/06_not_every_time/sheet-0004.jpg",
+      "sha256": "11160a76f135f87dc173485ed63d50c5a00dbef3107293a72a8f44fd50d7371f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-06_not_every_time/06_not_every_time/sheet-0005.jpg",
+      "sha256": "92804e5f34436df55db1e07b7a6447c98e9d6cbc1262b13da566a5ce6be2c16e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-06_not_every_time/06_not_every_time/sheet-0006.jpg",
+      "sha256": "2415adc3fb83bed72eafecb909099cbddbd717f7e4919a0da139e89d7dfc3a8d"
+    }
+  ],
+  "observations": [
+    "Three remainder clocks and rankings remain spatially distinct.",
+    "Prediction timer appears before the next cue; selected later pictures show updated allocations.",
+    "Five marked loss transitions are separated along the house-size strip.",
+    "Alabama 299/300 comparison, quotation and alternative-calculation caveat are readable and separated at contact-sheet resolution."
+  ],
+  "concrete_picture_defects_observed": [],
+  "scope": "All six sheets actually viewed in pairs after prior truncated display. Selected stills at contact-sheet resolution only; not continuous motion, listening, fine sync or independent audiovisual acceptance."
+}

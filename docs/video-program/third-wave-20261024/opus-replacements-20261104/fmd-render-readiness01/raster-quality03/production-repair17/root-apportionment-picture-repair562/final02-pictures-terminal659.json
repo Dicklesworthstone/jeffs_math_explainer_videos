@@ -1,0 +1,10 @@
+{
+  "utc": "2026-11-09T22:02:33.225590+00:00",
+  "review_sha256": "c799514c058b15692e74729b370232e0341affed4e4af0f9eae2d1a87e8af029",
+  "receipt_sha256": "1509227e8d89f579d8650966ad9e2d1e6a3b8733ab813fc371e994a6988f5e40",
+  "finished": "2026-11-09T22:00:12.019513+00:00",
+  "exit": 0,
+  "stable_inputs": "99b331ba7cc855b4d95a09f37d58b46a68da38d16f0ae51c674d662bb2365cc4",
+  "all_viewed_sheet_hashes_unchanged": true,
+  "scope": "Successful extraction receipt bound to actual55-frame7-sheet review. No continuous motion/listening/fine-sync or independentAV acceptance."
+}

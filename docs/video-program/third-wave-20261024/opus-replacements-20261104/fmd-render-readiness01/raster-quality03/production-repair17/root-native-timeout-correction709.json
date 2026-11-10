@@ -1,0 +1,19 @@
+{
+  "utc": "2026-11-09T23:51:04.423802+00:00",
+  "correction": "Earlier four-hour-deadline claim for native586 was wrong. Active frozen kit delivery encoder config is24h; no limit changed.",
+  "evidence": {
+    "encode_sha256": "43ebf2a3fed953bfd271aec828d70bd83088f0600bf3407f142835b95d356e86",
+    "cli_sha256": "3c5221febc3e3d92d37aa97e2f8d38c319121215a67a1dc68d24534d41d862c9",
+    "guard508_sha256": "135e4b2fe68f644d0d6b5b10494570b37d246b56e3fd2fd83748d545fa0a3e32",
+    "base_guard_sha256": "819746fb33110d6c133e184812c80a00562d848816f623078ad86f0fb1a316da",
+    "helper586_sha256": "07c61f751fdbab0c740d5ed4805ddc57011302ad2cb56590a73e5c6eaf10da68"
+  },
+  "checks": [
+    "Remote physical hashes match actual586 input manifest.",
+    "Kit cli --crf branch uses Quality::delivery defaults, no timeout override.",
+    "encode Quality::delivery timeout24*3600; QualityRunner adjusts timeout to max of supplied/default.",
+    "Four-hour lines in frozen encode.rs are inside cfg(test), not the delivery default.",
+    "586 helper subprocess.call has no outer timeout. Original base guard watches resource usage and child completion; wait(timeout=10) is polling, not total deadline."
+  ],
+  "scope": "Source-bound configured timeout; not a claim of completion, measured remaining time or output quality."
+}

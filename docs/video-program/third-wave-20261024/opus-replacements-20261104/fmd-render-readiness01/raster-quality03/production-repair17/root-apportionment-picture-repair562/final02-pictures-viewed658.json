@@ -1,0 +1,54 @@
+{
+  "utc": "2026-11-09T22:00:07.146191+00:00",
+  "chapter": "02_shares",
+  "sampling_sha256": "05f9b4954a27e72c03b58047688c2658abf8752b2173df40784b6272f5c9d3ca",
+  "total_selected_pictures_viewed": 55,
+  "total_sheets_viewed": 7,
+  "sheets": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0001.jpg",
+      "sha256": "d9a948a2e867de57d945c966878d7703d493fb52bb13aa97272ffbff3116eaf7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0002.jpg",
+      "sha256": "eedb223d007fa7a48f45caff8d3170772676de051aefb39c845c82cd82bce065"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0003.jpg",
+      "sha256": "9e8633ee3eee1060194c7c27457fc507dc2840b17145e6a02b61545ec687ad42"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0004.jpg",
+      "sha256": "43a210f2dcffdd7e27f9557091b2670fda87ba78cae79fafcd82292f0d89f204"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0005.jpg",
+      "sha256": "54c2b4fb819746bbec5b73ef1a8801b664f8082ed0f81f6da065e52647978a13"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0006.jpg",
+      "sha256": "7b6134f5bcb18881a900a9e01dca95359b11230a4720a847a219a1a046ae783e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0007.jpg",
+      "sha256": "387175259b1ddb5f4a156e76303f40504e22454de81706e050e423a2d8de4ce5"
+    }
+  ],
+  "movie": {
+    "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final632-02_shares/render/02_shares.mp4",
+    "sha256": "cdc9067532923b2ef466473a5442ec2f30f6687ae29a23ff87e2e8d3680bcbd9"
+  },
+  "concrete_sampled_layout_defects_found": [],
+  "observations": [
+    "Population bar subdivides into 2600-person seat units.",
+    "Town quotas and rounding choices clear at sampled points.",
+    "Prediction timer remains separate from table and diagram.",
+    "14/15/16-seat rounding counterexamples and closing choices legible."
+  ],
+  "extraction_terminal_success_at_review": false,
+  "continuous_motion_review": false,
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "independent_AV_acceptance": false,
+  "scope": "All selected extracted pictures actually viewed; extraction terminal receipt pending, not release qualification."
+}

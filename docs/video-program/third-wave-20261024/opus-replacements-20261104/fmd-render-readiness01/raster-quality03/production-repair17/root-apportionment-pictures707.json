@@ -1,0 +1,46 @@
+{
+  "utc": "2026-11-09T23:41:21.524232+00:00",
+  "chapter": "04_sixteenth",
+  "sampling_sha256": "e74b927cf7108b78da37b644fce896aeaafc317f1f16fafbb5f87c2420a4e8e1",
+  "movie_sha256": "c0961d9d2bd3ec6e60c8722a9d987cc5962f1b01ed77e68c7df2a862f95228b4",
+  "selected_pictures_viewed": 41,
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-04_sixteenth/04_sixteenth/sheet-0001.jpg",
+      "sha256": "edd654db34c193d0750666e15d5597823d4a59fb5be56a7af3292d07060be810"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-04_sixteenth/04_sixteenth/sheet-0002.jpg",
+      "sha256": "213585970c5dcce062e829b48ee3d455c0e4578ad4517e474d9553f81a27ecb5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-04_sixteenth/04_sixteenth/sheet-0003.jpg",
+      "sha256": "67a218b86b7ba43286c7fa8187692bce057adb7059b18d33fa60364356ea2280"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-04_sixteenth/04_sixteenth/sheet-0004.jpg",
+      "sha256": "bd9e933e61547b0c0c6eaaad01e521b326cf3c9f7c8451310e7f5a50b2324785"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-04_sixteenth/04_sixteenth/sheet-0005.jpg",
+      "sha256": "7f7aa0b4be0ae6b6b80b240748c99dc6b33908be183c7934aa1eaf152820fc51"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-04_sixteenth/04_sixteenth/sheet-0006.jpg",
+      "sha256": "5cb88c1aaf0095d3eb1a0dac3cdb895ab4a445fa5b47e5d8ec7196e86d94374d"
+    }
+  ],
+  "concrete_picture_defects_observed": [],
+  "observations": [
+    "All six sheets viewed. Seat counts and remainder bars remain distinct; 15 to 16 seat allocation changes from 2,3,10 to 1,4,11. Prediction ring remains in frame at selected samples. Number-line markers 25,26,27 are close but separated."
+  ],
+  "scope": "Selected stills at contact-sheet resolution only. No continuous motion, listening, fine-sync, independent AV or release acceptance."
+}

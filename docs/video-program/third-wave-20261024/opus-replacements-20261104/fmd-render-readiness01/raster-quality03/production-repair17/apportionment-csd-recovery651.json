@@ -1,0 +1,28 @@
+{
+  "utc": "2026-11-09T21:46:35.009057+00:00",
+  "status": "source closure verified; remote build not started",
+  "original_manifest": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-picture-repair562/final632-03_largest_tails-inputs.json",
+  "original_manifest_sha256": "790554c9ba2574410c19769e6201e30ca3ff362e487292ed95aadf45f19ce397",
+  "bindings": 3967,
+  "total_input_bytes": 1237029399,
+  "retained_assembly566_wavs": 93,
+  "all_current_hashes_match": true,
+  "source_and_shared_crate_bindings_checked": 90,
+  "engine_git_revision": "a399d626c43ecc852a5c795288979f52b446bc5c",
+  "remote_existing_complex_crate_same_engine_revision": true,
+  "remote_host": "csd",
+  "remote_available_gib_snapshot": 101,
+  "completed_local_chapters_to_preserve": [
+    "01_one_more_seat",
+    "02_shares"
+  ],
+  "failed_attempt_to_preserve": "apportionment-final632-03_largest_tails",
+  "next_required": [
+    "isolated remote source staging under guard with path-only transformations recorded",
+    "Linux test/build/clippy and443-fact oracle agreement",
+    "15 chapter native schedule equivalence and93 retained WAV hashes",
+    "fresh remaining-chapter final renders with current explicit encoder settings",
+    "actual final pictures, master, full verification and release review"
+  ],
+  "scope": "Input preservation and recovery feasibility only. No remote apportionment build, render, picture, listening, fine-sync or independent AV acceptance."
+}
