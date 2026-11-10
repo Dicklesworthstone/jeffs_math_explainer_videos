@@ -1,0 +1,79 @@
+{
+  "reviewer": "Independent Codex BlackThrush",
+  "scope": "Read-only reference and helper audit; no new timeline/render or pixel acceptance",
+  "tables": {
+    "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-timeline313/timeline-output/09_boundary.timeline.tsv": "5a91b8f9e2e5b5d6223a49285c06039b1b43bd16c11cecdd163a8e2e545baa9e",
+    "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-timeline313/timeline-output/09_boundary.cues.tsv": "eed5a50ad5797fa258ee3fcf9319e29946f403a86b3909090e73a3a15dc74249",
+    "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-timeline313/timeline-output/09_boundary.cuelog.tsv": "7ed46c80cede7e49daeaf729337b24c66c8e7ccc125bb18ca6ce2c411d201bbf"
+  },
+  "layout_reference": {
+    "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview313/preview/09_boundary.layout.tsv": "f91bb8a1bb6b7ea895414e739250922aa86eb02f9ecab57f851e95ee06b59a7e"
+  },
+  "reference_frame_count": 16504,
+  "fps": 60,
+  "score_files": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems/09_boundary.music.f32.parts.tsv",
+      "sha256": "db31e88404eb9af836c6575cf5b4178a292eaeceea283d717bf2a4a7166ffe2e",
+      "bytes": 387
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems/09_boundary.music.f32.wav.part0000.wav",
+      "sha256": "ea2207e2a92ea9751fc688878b0a781aeb2a44c79a5e0a3de78197005d508483",
+      "bytes": 46080080
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems/09_boundary.music.f32.wav.part0001.wav",
+      "sha256": "492613e4cefe62bf730532c375a17fd8815e497e570d81f07b76c052989b0758",
+      "bytes": 46080080
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems/09_boundary.music.f32.wav.part0002.wav",
+      "sha256": "a57f58d245399bdbc8a615b9c3d85cefd1891449de2bccfa9a541dc506efb3de",
+      "bytes": 13465680
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems/qa/09_boundary.json",
+      "sha256": "445daec7a3652361923c34c2a0e6e3e50b23a2b596d89f4744ccf3f350e6b58e",
+      "bytes": 3198
+    }
+  ],
+  "freshly_hashed_score_files": 5,
+  "score_qa_passed": true,
+  "score_samples": 13203200,
+  "score_rate": 48000,
+  "receipt_hashes": {
+    "csd-production-score21": "959b32fa0c6b5479833d82878159ee0bfed48b136c4a2442306ee5fb3a7f1a02",
+    "csd-review-repair-timeline313": "420b422137996fb2d440392ec6cfc242e33f33efad2409b5eff8b788aa940301",
+    "csd-review-repair-preview313": "8c88c62aba2e934a98ed4df19733eedf44942955fded9b7c81ebcc9883a2bb45"
+  },
+  "all_three_receipts_exit0_stable_no_stop": true,
+  "helper_hashes": {
+    "root-boundary558-reference.json": "70a08fdef88a2b22c79ef2685523a791307bc76a70a08ba7de324156f869b25c",
+    "root-boundary558-after-delivery.py": "f86b0cefbd8621dea52a9ab8b62268982b534fbcc9e9c07da0fa6948d8611ade",
+    "root-boundary765-after-delivery.py": "4d05b9fabdeb5524c4d6fb8943f08675df43eb123ed2378f51adac7faced50d0",
+    "root-boundary766-after-timeline.py": "5ea36bcbb3ab3b25271c3b8c3461e5723d8162c9b7ae3bffaf848ede98c8a52c",
+    "root-boundary772-final.py": "a7f739f97e7a82db009ea12c6d3662705044315a28b4ba451f347dd72b25ceb8",
+    "root-boundary586-score-transfer.json": "41781ea44d39a72db5da647e5b74334d851e5539a3dd96bfc1a806fb1a86101d",
+    "review-repair-timeline313.py": "1034931710af7c46c79b09c391122bd22a38471d1d1f73fd501f09ec672d474f",
+    "review-repair-preview313.py": "67d780d83bf05fbcd0285f0599197649f8ce8813ef6599a5da932301dc354e50"
+  },
+  "requirements": [
+    "New successor timeline uses actual844 Linux binary,849 narration and production-repo07 cwd,guarded serial lane,60fps4threads",
+    "Require byte equality of all three full new tables to these pinned313 references after ONLY exact old313narration\u2192new849narration path substitution",
+    "Require chapter09_boundary/fps60/frames16504 headers; do not demand old layout equality after repaired visuals",
+    "Preview source blueprint766 uses render09_boundary,res960x540,fps60,threads4,lint,crf18,presetveryfast; replace Mac guard/env/binary/receipt paths and use correct Linuxcwd",
+    "Carry immutable844 source/build closure plus849 source_after and actual849outputs; freeze original references and successful receipts",
+    "Score reuse only after schedule equality: pass --score D/jobs/csd-production-score21/score/stems,check3 contiguous chunks48kHz,total16504*800 samples,all chunkhashes andQApassed",
+    "No --score on old766 preview: its retained PCM identityf7f8\u2026 is no-score soundtrack evidence; distinguish from score-inclusive finalPCM",
+    "Freeze exact native command stdout/stderr,ffmpeg/ffprobe executables,own process cleanup and fresh runtime source/narration/score closure; retain all preview output tables/soundtrack/layout for later extraction",
+    "Old preview313 includes hardcoded old source lines/233tests/zoom-control probe; adapt source hooks to752 before any reuse,not automatic acceptance"
+  ],
+  "capture_inventory_observation": "Old313 preview/timeline input manifests contain no standalone non-engine path named capture. Source draw/boundary scans show test include_str hooks, no external include_bytes captures. This is bounded observation, not proof of zero runtime dependencies; inherit complete verified immutable dependency closure and bind generated preview outputs in extraction successor.",
+  "limitations": [
+    "No new timeline or preview invoked",
+    "No frames viewed in this task",
+    "No new Linux PCM equivalence or decoded movie proof",
+    "No listening/fine-sync/fullAV/publication acceptance"
+  ]
+}

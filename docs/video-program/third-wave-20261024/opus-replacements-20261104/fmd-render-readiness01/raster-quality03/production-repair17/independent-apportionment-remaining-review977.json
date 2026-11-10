@@ -1,0 +1,1936 @@
+{
+  "reviewed_utc": "2026-11-10T12:51:34.233792+00:00",
+  "reviewer_identity": "Independent Codex BlackThrush / complex_repair_review787",
+  "authored_apportionment_scenes_or_repairs": false,
+  "author_involvement": "Authored/reviewed unrelated production-chain helpers; did not author these apportionment scenes or repairs.",
+  "binding_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/apportionment-review-binding967.json",
+  "binding_sha256": "b114c19ae084e0726438e7a0283f235abe8682ff40216ec720cce021dc3de5df",
+  "master770_sha256": "e61269f23176a5c299f104df11ced4d69b84476584b8b91ff1fc5876fe604116",
+  "master_binding_scope": "967 identifies current770 chapter rows and recorded771 frame identity; this reviewer did not rerun full master identity or decode.",
+  "chapter_count": 13,
+  "selected_picture_count": 904,
+  "sheet_count": 119,
+  "chapters": [
+    {
+      "chapter": "01_one_more_seat",
+      "review_binding": {
+        "chapter": "01_one_more_seat",
+        "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-picture-repair562/final01-pictures-viewed648.json",
+        "review_sha256": "7f6b5e6bb6b81f0b3fd661b2bbf833f242fa338fd51dd349602ed0a4a70f0e95",
+        "movie_sha256": "bc3725c2722d6cd31d2918cf94ab7a87395ad98cac83ab2bbbbb39546708a174",
+        "selected_pictures": 48,
+        "sheets": 6,
+        "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/01_one_more_seat.mp4"
+      },
+      "sampling_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sampling.json",
+      "sampling_sha256": "4b95e3602a1d56f904253aa923da0e978fce0bb295a3b6384146b22e61ea4779",
+      "movie": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final632-01_one_more_seat/render/01_one_more_seat.mp4",
+        "sha256": "bc3725c2722d6cd31d2918cf94ab7a87395ad98cac83ab2bbbbb39546708a174"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0001.jpg",
+          "sha256": "6313dc9e038259b1385da20293c9a0659b672027b9de8a977b9b7414b6d0898d",
+          "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0001.jpg"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0002.jpg",
+          "sha256": "c88780a9fdbb8af93fba41092e2fbe61e85dc5cedfd345bc2f5b49e69c3a5bab",
+          "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0002.jpg"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0003.jpg",
+          "sha256": "30d4ea29d777c4a4c8e3ce788ffa2afd8f3a5ad3193b898585c85a0060b68243",
+          "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0003.jpg"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0004.jpg",
+          "sha256": "c6ae454285eb1737ef26db4c4f907126ea92cd024a5df2e9131ead659a241f70",
+          "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0004.jpg"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0005.jpg",
+          "sha256": "18cfd9b7c2af2213775d21ade24d26f3a8b7d80332aebce676bd5f4680701b55",
+          "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0005.jpg"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0006.jpg",
+          "sha256": "38f2653abb4e11ad0e4e7757f55ba5552c5e6b450f70c755bcd0da3400c83094",
+          "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-01_one_more_seat/01_one_more_seat/sheet-0006.jpg"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        18,
+        35,
+        36,
+        66,
+        321,
+        606,
+        607,
+        625,
+        643,
+        644,
+        674,
+        941,
+        1238,
+        1239,
+        1289,
+        1338,
+        1339,
+        1369,
+        1754,
+        2168,
+        2169,
+        2206,
+        2224,
+        2320,
+        2326,
+        2471,
+        2472,
+        2502,
+        2738,
+        3004,
+        3005,
+        3041,
+        3076,
+        3077,
+        3107,
+        3571,
+        4065,
+        4066,
+        4084,
+        4101,
+        4102,
+        4132,
+        4435,
+        4768,
+        4769,
+        4787,
+        4805
+      ],
+      "selected_picture_count": 48,
+      "chapter_first_and_last_sample_viewed": true,
+      "observations": "15 to 16 seat reveal remains separate from population bars; prediction state has no premature allocation reveal."
+    },
+    {
+      "chapter": "02_shares",
+      "review_binding": {
+        "chapter": "02_shares",
+        "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-picture-repair562/final02-pictures-viewed658.json",
+        "review_sha256": "c799514c058b15692e74729b370232e0341affed4e4af0f9eae2d1a87e8af029",
+        "movie_sha256": "cdc9067532923b2ef466473a5442ec2f30f6687ae29a23ff87e2e8d3680bcbd9",
+        "selected_pictures": 55,
+        "sheets": 7,
+        "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/02_shares.mp4"
+      },
+      "sampling_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sampling.json",
+      "sampling_sha256": "05f9b4954a27e72c03b58047688c2658abf8752b2173df40784b6272f5c9d3ca",
+      "movie": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final632-02_shares/render/02_shares.mp4",
+        "sha256": "cdc9067532923b2ef466473a5442ec2f30f6687ae29a23ff87e2e8d3680bcbd9"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0001.jpg",
+          "sha256": "d9a948a2e867de57d945c966878d7703d493fb52bb13aa97272ffbff3116eaf7",
+          "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0001.jpg"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0002.jpg",
+          "sha256": "eedb223d007fa7a48f45caff8d3170772676de051aefb39c845c82cd82bce065",
+          "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0002.jpg"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0003.jpg",
+          "sha256": "9e8633ee3eee1060194c7c27457fc507dc2840b17145e6a02b61545ec687ad42",
+          "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0003.jpg"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0004.jpg",
+          "sha256": "43a210f2dcffdd7e27f9557091b2670fda87ba78cae79fafcd82292f0d89f204",
+          "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0004.jpg"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0005.jpg",
+          "sha256": "54c2b4fb819746bbec5b73ef1a8801b664f8082ed0f81f6da065e52647978a13",
+          "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0005.jpg"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0006.jpg",
+          "sha256": "7b6134f5bcb18881a900a9e01dca95359b11230a4720a847a219a1a046ae783e",
+          "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0006.jpg"
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0007.jpg",
+          "sha256": "387175259b1ddb5f4a156e76303f40504e22454de81706e050e423a2d8de4ce5",
+          "local_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-pictures634-02_shares/02_shares/sheet-0007.jpg"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        18,
+        35,
+        36,
+        66,
+        461,
+        885,
+        886,
+        922,
+        957,
+        958,
+        988,
+        1551,
+        2143,
+        2144,
+        2162,
+        2179,
+        2180,
+        2210,
+        2523,
+        2865,
+        2866,
+        2884,
+        2902,
+        2903,
+        2933,
+        3287,
+        3670,
+        3671,
+        3707,
+        3725,
+        3822,
+        3827,
+        3972,
+        3973,
+        4003,
+        4465,
+        4956,
+        4957,
+        4975,
+        4992,
+        4993,
+        5023,
+        5343,
+        5693,
+        5694,
+        5730,
+        5765,
+        5766,
+        5796,
+        6188,
+        6610,
+        6611,
+        6629,
+        6646
+      ],
+      "selected_picture_count": 55,
+      "chapter_first_and_last_sample_viewed": true,
+      "observations": "Quota/floor/ceiling and alternative allocations are distinct."
+    },
+    {
+      "chapter": "03_largest_tails",
+      "review_binding": {
+        "chapter": "03_largest_tails",
+        "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures699.json",
+        "review_sha256": "3cd764aae7e1e6694701d9ed431f7c1bec7636b8c3e61825090a5373bdb4d4fb",
+        "movie_sha256": "194c725c71b5f3a0e21ba7d82720a9667aa4715ff9037792efa9d8a2b00b8b9e",
+        "selected_pictures": 48,
+        "sheets": 6,
+        "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/03_largest_tails.mp4"
+      },
+      "sampling_path": "/tmp/apportionment-final699-03/sampling.json",
+      "sampling_sha256": "a609355f2d8c3e218cccbd5e9328ffc865a9aae63209246ca06c4b4244d76d5a",
+      "movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-03_largest_tails/render/03_largest_tails.mp4",
+        "sha256": "194c725c71b5f3a0e21ba7d82720a9667aa4715ff9037792efa9d8a2b00b8b9e"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-03_largest_tails/03_largest_tails/sheet-0001.jpg",
+          "sha256": "55a1f6edd730bfa587c077be68421b8f1c2b89c2dd7484380b45b8e96d3b621f",
+          "local_path": "/tmp/apportionment-final699-03/sheet-0001.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-03_largest_tails/03_largest_tails/sheet-0002.jpg",
+          "sha256": "8eb00c71abc871343ca650bea3e55841b133efebbc227f8513ebcbc7da8971d7",
+          "local_path": "/tmp/apportionment-final699-03/sheet-0002.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-03_largest_tails/03_largest_tails/sheet-0003.jpg",
+          "sha256": "8919905751949bfaa6f137e624db787f87e0558220b1df881ca6d4124a1a19e5",
+          "local_path": "/tmp/apportionment-final699-03/sheet-0003.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-03_largest_tails/03_largest_tails/sheet-0004.jpg",
+          "sha256": "92ca2ffccee7110577b6364c1ff544b60614b1b7cf28afd1e0e15277806a9db0",
+          "local_path": "/tmp/apportionment-final699-03/sheet-0004.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-03_largest_tails/03_largest_tails/sheet-0005.jpg",
+          "sha256": "08389d4c861652abc65f8c278f1e2d42641b3480c30afcdca5825118c8ec4d18",
+          "local_path": "/tmp/apportionment-final699-03/sheet-0005.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-03_largest_tails/03_largest_tails/sheet-0006.jpg",
+          "sha256": "caea9a46f6e16d902a6fb5f9eca2f5f25e41fe4bc8f5b05e376da520cdd63abb",
+          "local_path": "/tmp/apportionment-final699-03/sheet-0006.jpg"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        18,
+        35,
+        36,
+        66,
+        602,
+        1168,
+        1169,
+        1187,
+        1204,
+        1205,
+        1235,
+        1550,
+        1895,
+        1896,
+        1914,
+        1932,
+        1933,
+        1963,
+        2197,
+        2460,
+        2461,
+        2497,
+        2515,
+        2612,
+        2617,
+        2762,
+        2763,
+        2793,
+        3024,
+        3285,
+        3286,
+        3304,
+        3322,
+        3323,
+        3353,
+        3896,
+        4469,
+        4470,
+        4488,
+        4506,
+        4507,
+        4537,
+        4999,
+        5490,
+        5491,
+        5509,
+        5526
+      ],
+      "selected_picture_count": 48,
+      "chapter_first_and_last_sample_viewed": true,
+      "observations": "Remainders and leftover seat remain separately readable."
+    },
+    {
+      "chapter": "04_sixteenth",
+      "review_binding": {
+        "chapter": "04_sixteenth",
+        "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures707.json",
+        "review_sha256": "268b82a87d7682ef2673d845a08a8efd0db731e3743b88b32d5b832456fabf2a",
+        "movie_sha256": "c0961d9d2bd3ec6e60c8722a9d987cc5962f1b01ed77e68c7df2a862f95228b4",
+        "selected_pictures": 41,
+        "sheets": 6,
+        "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/04_sixteenth.mp4"
+      },
+      "sampling_path": "/tmp/apportionment-final707-04/sampling.json",
+      "sampling_sha256": "e74b927cf7108b78da37b644fce896aeaafc317f1f16fafbb5f87c2420a4e8e1",
+      "movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-04_sixteenth/render/04_sixteenth.mp4",
+        "sha256": "c0961d9d2bd3ec6e60c8722a9d987cc5962f1b01ed77e68c7df2a862f95228b4"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-04_sixteenth/04_sixteenth/sheet-0001.jpg",
+          "sha256": "edd654db34c193d0750666e15d5597823d4a59fb5be56a7af3292d07060be810",
+          "local_path": "/tmp/apportionment-final707-04/sheet-0001.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-04_sixteenth/04_sixteenth/sheet-0002.jpg",
+          "sha256": "213585970c5dcce062e829b48ee3d455c0e4578ad4517e474d9553f81a27ecb5",
+          "local_path": "/tmp/apportionment-final707-04/sheet-0002.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-04_sixteenth/04_sixteenth/sheet-0003.jpg",
+          "sha256": "67a218b86b7ba43286c7fa8187692bce057adb7059b18d33fa60364356ea2280",
+          "local_path": "/tmp/apportionment-final707-04/sheet-0003.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-04_sixteenth/04_sixteenth/sheet-0004.jpg",
+          "sha256": "bd9e933e61547b0c0c6eaaad01e521b326cf3c9f7c8451310e7f5a50b2324785",
+          "local_path": "/tmp/apportionment-final707-04/sheet-0004.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-04_sixteenth/04_sixteenth/sheet-0005.jpg",
+          "sha256": "7f7aa0b4be0ae6b6b80b240748c99dc6b33908be183c7934aa1eaf152820fc51",
+          "local_path": "/tmp/apportionment-final707-04/sheet-0005.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-04_sixteenth/04_sixteenth/sheet-0006.jpg",
+          "sha256": "5cb88c1aaf0095d3eb1a0dac3cdb895ab4a445fa5b47e5d8ec7196e86d94374d",
+          "local_path": "/tmp/apportionment-final707-04/sheet-0006.jpg"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        20,
+        39,
+        40,
+        70,
+        455,
+        869,
+        870,
+        888,
+        906,
+        907,
+        937,
+        1130,
+        1352,
+        1353,
+        1371,
+        1389,
+        1390,
+        1420,
+        1699,
+        2008,
+        2009,
+        2046,
+        2064,
+        2160,
+        2166,
+        2311,
+        2312,
+        2342,
+        2703,
+        3093,
+        3094,
+        3112,
+        3130,
+        3131,
+        3161,
+        3666,
+        4200,
+        4201,
+        4219,
+        4237
+      ],
+      "selected_picture_count": 41,
+      "chapter_first_and_last_sample_viewed": true,
+      "observations": "Sixteenth-seat rank change and resulting 1/4/11 allocation visible."
+    },
+    {
+      "chapter": "05_dials",
+      "review_binding": {
+        "chapter": "05_dials",
+        "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures708.json",
+        "review_sha256": "dbdde966f680a42a21f0273885f39745f5b11f6446e11fe508f9f7c885100cd9",
+        "movie_sha256": "dc78c7b988cc59480dde15cb810af7d6dc411197c8c8a92d58bc25909a6b9457",
+        "selected_pictures": 41,
+        "sheets": 6,
+        "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/05_dials.mp4"
+      },
+      "sampling_path": "/tmp/apportionment-final708-05/sampling.json",
+      "sampling_sha256": "89f8b8f697e71ce5ac3e42f1be6396694e26185ae2b3a9b1e0c6c4fd05911a33",
+      "movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-05_dials/render/05_dials.mp4",
+        "sha256": "dc78c7b988cc59480dde15cb810af7d6dc411197c8c8a92d58bc25909a6b9457"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-05_dials/05_dials/sheet-0001.jpg",
+          "sha256": "8518c9c2326fa00452511d32c5af5cba1c7dc7b229ac77b191a4198628c72eb8",
+          "local_path": "/tmp/apportionment-final708-05/sheet-0001.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-05_dials/05_dials/sheet-0002.jpg",
+          "sha256": "6cffc145ac2d63dd39987e09fbe0a33e53aa1985392180c385d0f9b8f5300004",
+          "local_path": "/tmp/apportionment-final708-05/sheet-0002.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-05_dials/05_dials/sheet-0003.jpg",
+          "sha256": "8a8c731140843dbb0eec203609a46757a3b15a7de3fbfac73c514bbf475fe200",
+          "local_path": "/tmp/apportionment-final708-05/sheet-0003.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-05_dials/05_dials/sheet-0004.jpg",
+          "sha256": "7cba01fc89221f0bc46488c86d118decb33d224b613abb11c36dd655ab447f37",
+          "local_path": "/tmp/apportionment-final708-05/sheet-0004.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-05_dials/05_dials/sheet-0005.jpg",
+          "sha256": "f0b76e19a61ac0b3df085e3773d2351dbeea57eed170b624ad6a69b7d918350a",
+          "local_path": "/tmp/apportionment-final708-05/sheet-0005.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-05_dials/05_dials/sheet-0006.jpg",
+          "sha256": "0ad59fe35a317f976837342762272e0234b8a0458c746709aa7b8cf0d52555b7",
+          "local_path": "/tmp/apportionment-final708-05/sheet-0006.jpg"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        18,
+        35,
+        36,
+        66,
+        713,
+        1389,
+        1390,
+        1408,
+        1425,
+        1426,
+        1456,
+        2107,
+        2788,
+        2789,
+        2807,
+        2825,
+        2826,
+        2856,
+        3152,
+        3478,
+        3479,
+        3515,
+        3533,
+        3630,
+        3635,
+        3780,
+        3781,
+        3811,
+        4239,
+        4697,
+        4698,
+        4716,
+        4733,
+        4734,
+        4764,
+        5507,
+        6279,
+        6280,
+        6298,
+        6315
+      ],
+      "selected_picture_count": 41,
+      "chapter_first_and_last_sample_viewed": true,
+      "observations": "Dials, remainder ranks and town labels remain separated."
+    },
+    {
+      "chapter": "07_yardstick",
+      "review_binding": {
+        "chapter": "07_yardstick",
+        "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures718.json",
+        "review_sha256": "0ccc017dcdf6ace2e486a42bd64f00447ec8039d9aba6c6f1a1fad5185678280",
+        "movie_sha256": "fee69086207963b5176c235dfba62bf3d298ac90ad59901c2999968324219862",
+        "selected_pictures": 41,
+        "sheets": 6,
+        "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/07_yardstick.mp4"
+      },
+      "sampling_path": "/tmp/apportionment-final718-07/sampling.json",
+      "sampling_sha256": "7184246fc34619c91acd23c766aafa6add75c49ae752beda200811ad85c1ac32",
+      "movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-07_yardstick/render/07_yardstick.mp4",
+        "sha256": "fee69086207963b5176c235dfba62bf3d298ac90ad59901c2999968324219862"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-07_yardstick/07_yardstick/sheet-0001.jpg",
+          "sha256": "d2b37ad19821f28b7b7fead31cbd4983609cdbc26a2949c8ed15329053a938ca",
+          "local_path": "/tmp/apportionment-final718-07/sheet-0001.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-07_yardstick/07_yardstick/sheet-0002.jpg",
+          "sha256": "2b28bab3b50222b63ea8a701ea111abf8b2b08b1dbe703ebf919b8d052215ac1",
+          "local_path": "/tmp/apportionment-final718-07/sheet-0002.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-07_yardstick/07_yardstick/sheet-0003.jpg",
+          "sha256": "970791215d4ac0c4a2cb8498d1bff2a45ac5a74a1ac01f91bf010c20d67714db",
+          "local_path": "/tmp/apportionment-final718-07/sheet-0003.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-07_yardstick/07_yardstick/sheet-0004.jpg",
+          "sha256": "7ae3f68e2f80c519ad7d879fceef0e15cab7b7026d927491ebd6c388e7813e83",
+          "local_path": "/tmp/apportionment-final718-07/sheet-0004.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-07_yardstick/07_yardstick/sheet-0005.jpg",
+          "sha256": "a8c54aefedd17b2f322f6af99180ac46a92b74bcf04d528f5552dc118f58953c",
+          "local_path": "/tmp/apportionment-final718-07/sheet-0005.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-07_yardstick/07_yardstick/sheet-0006.jpg",
+          "sha256": "07891b7296d58b43db7c5cf11aeb67c7888386e86bddc9bbd66632523273f4a1",
+          "local_path": "/tmp/apportionment-final718-07/sheet-0006.jpg"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        18,
+        35,
+        36,
+        66,
+        521,
+        1005,
+        1006,
+        1024,
+        1041,
+        1042,
+        1072,
+        1459,
+        1876,
+        1877,
+        1914,
+        1932,
+        2028,
+        2034,
+        2179,
+        2180,
+        2210,
+        2893,
+        3605,
+        3606,
+        3624,
+        3641,
+        3642,
+        3672,
+        4069,
+        4495,
+        4496,
+        4514,
+        4532,
+        4533,
+        4563,
+        4773,
+        5012,
+        5013,
+        5031,
+        5048
+      ],
+      "selected_picture_count": 41,
+      "chapter_first_and_last_sample_viewed": true,
+      "observations": "Divisor interval and prediction answer state remain distinct."
+    },
+    {
+      "chapter": "08_signposts",
+      "review_binding": {
+        "chapter": "08_signposts",
+        "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures723.json",
+        "review_sha256": "a676a00adf4e2e2cf9434a3e856a14816a231191e5b3782b7bff4997dc4c2eb6",
+        "movie_sha256": "c69b4068028357f888196243faa80287b759f741b512fa2da1764f86456cd88e",
+        "selected_pictures": 121,
+        "sheets": 16,
+        "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/08_signposts.mp4"
+      },
+      "sampling_path": "/tmp/apportionment-final723-08/sampling.json",
+      "sampling_sha256": "9d8efac941cafac2de58987f55802c7d86f98e45dede11f54f3ea3e0f4013061",
+      "movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-08_signposts/render/08_signposts.mp4",
+        "sha256": "c69b4068028357f888196243faa80287b759f741b512fa2da1764f86456cd88e"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0001.jpg",
+          "sha256": "7ccb4bf91a5f7bbcf8fc8335889428c61c86c8eb1bf25955ba864634274c4890",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0001.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0002.jpg",
+          "sha256": "6fcee9d32747fca0c40e8160a258ade8d200f8f3d5b930d73edfa007751b9e93",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0002.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0003.jpg",
+          "sha256": "7efe8a55ca59bebd06c8423f2b81506b3971b7eebfa52b2c3c338298592d1c25",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0003.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0004.jpg",
+          "sha256": "59c5c631641d55979149d377db66b5578ecbd9dfa90351f57da46804298f11e6",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0004.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0005.jpg",
+          "sha256": "3f2ec5eedb42693c12fe9c8def09c7472262d17dba73168c6927fdbb9aa9db8e",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0005.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0006.jpg",
+          "sha256": "bada3e7bd302ab57ecd01ae0e6195842ba18827c1b7b3837c720da1c1a9cc828",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0006.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0007.jpg",
+          "sha256": "fa70a719ac8a23c11aaccaf9813dbe357a44b2555c55b93062fa9c19f78f27d2",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0007.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0008.jpg",
+          "sha256": "08434875616a866aa18cb956ad4c1851f9915b88205644051b06829f78cda1d4",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0008.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0009.jpg",
+          "sha256": "71e9101ff6498ec76ac5c057e9d150f38f37451a87deba027635075fd9fc1877",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0009.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0010.jpg",
+          "sha256": "02e8544f429f846ae884923d5bf173e7e58f22b05c617e22c8063470b6b0f34d",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0010.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0011.jpg",
+          "sha256": "2e5a2f2a2d5b6243eb9bd78ac56de12ff09dcf1ffe0cc7fb4b2ac7c65df1d9b3",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0011.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0012.jpg",
+          "sha256": "863c031b31c021c9638689cfe166ce822aec330962364fe84e784c4f86efe18b",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0012.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0013.jpg",
+          "sha256": "57a73f519298fb7e4e18ec5c1b6ed7735fe7a6008fc51b66321de310a10447a6",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0013.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0014.jpg",
+          "sha256": "210667bdd533bbf50ac091b2dc85388fae8c17b611c70b3853721d7f4a75cc0f",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0014.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0015.jpg",
+          "sha256": "9985538241d626017fb65f1f9e05c7cad69aad424c2961eef0c79e703e8fafaf",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0015.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/sheet-0016.jpg",
+          "sha256": "2737ed8f09d98d2df4bbf9ae6b5dd123977529cfe9ce0f157b414abd78250e3c",
+          "local_path": "/tmp/apportionment-final723-08/sheet-0016.jpg"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        18,
+        35,
+        36,
+        48,
+        60,
+        66,
+        108,
+        120,
+        168,
+        240,
+        360,
+        480,
+        600,
+        710,
+        720,
+        840,
+        960,
+        1080,
+        1200,
+        1320,
+        1384,
+        1385,
+        1403,
+        1420,
+        1421,
+        1440,
+        1451,
+        1560,
+        1680,
+        1800,
+        1920,
+        2040,
+        2078,
+        2160,
+        2280,
+        2400,
+        2520,
+        2640,
+        2735,
+        2736,
+        2754,
+        2760,
+        2772,
+        2773,
+        2803,
+        2880,
+        2967,
+        3000,
+        3120,
+        3161,
+        3162,
+        3198,
+        3204,
+        3216,
+        3234,
+        3240,
+        3264,
+        3294,
+        3313,
+        3318,
+        3324,
+        3354,
+        3360,
+        3384,
+        3414,
+        3444,
+        3463,
+        3464,
+        3480,
+        3492,
+        3494,
+        3540,
+        3552,
+        3600,
+        3720,
+        3838,
+        3840,
+        3960,
+        4080,
+        4200,
+        4212,
+        4213,
+        4231,
+        4248,
+        4249,
+        4279,
+        4320,
+        4440,
+        4560,
+        4616,
+        4680,
+        4800,
+        4920,
+        4982,
+        4983,
+        5001,
+        5019,
+        5020,
+        5040,
+        5050,
+        5160,
+        5280,
+        5400,
+        5520,
+        5592,
+        5604,
+        5640,
+        5652,
+        5712,
+        5716,
+        5760,
+        5880,
+        6000,
+        6120,
+        6240,
+        6360,
+        6411,
+        6412,
+        6430,
+        6447
+      ],
+      "selected_picture_count": 121,
+      "chapter_first_and_last_sample_viewed": true,
+      "observations": "Dense priority table and tie highlights readable; brackets and equal-value tie do not obscure row labels. Individual frame6447 checked."
+    },
+    {
+      "chapter": "09_cost",
+      "review_binding": {
+        "chapter": "09_cost",
+        "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures724.json",
+        "review_sha256": "54fec5caf641d956391e22535f210fc8e0682bc0425250d315c24757fc070095",
+        "movie_sha256": "360740684c3557cb5cc17cb636539b7d46d409c4bd7af4c7c589ec759283dddb",
+        "selected_pictures": 41,
+        "sheets": 6,
+        "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/09_cost.mp4"
+      },
+      "sampling_path": "/tmp/apportionment-final724-09/sampling.json",
+      "sampling_sha256": "7752cb46290248c8c21a9988bfb485ba58411838633f5097dc2b3881e312598f",
+      "movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-09_cost/render/09_cost.mp4",
+        "sha256": "360740684c3557cb5cc17cb636539b7d46d409c4bd7af4c7c589ec759283dddb"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-09_cost/09_cost/sheet-0001.jpg",
+          "sha256": "7e34949015a0e5cf293957b73ae16016258bc1971aacdf5ad65115102f92c492",
+          "local_path": "/tmp/apportionment-final724-09/sheet-0001.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-09_cost/09_cost/sheet-0002.jpg",
+          "sha256": "7a9fe2649ff723573a782728717475b40eb70d41eb09bee993740288d6880876",
+          "local_path": "/tmp/apportionment-final724-09/sheet-0002.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-09_cost/09_cost/sheet-0003.jpg",
+          "sha256": "13e65507499218d08ef6af3e2ac2bc21bfb9b788dcf97570a51e9ea558205771",
+          "local_path": "/tmp/apportionment-final724-09/sheet-0003.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-09_cost/09_cost/sheet-0004.jpg",
+          "sha256": "2f46bb5e490bfc8cf2090e96604daaa82e48793f7ce7118ef299a24f080e184c",
+          "local_path": "/tmp/apportionment-final724-09/sheet-0004.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-09_cost/09_cost/sheet-0005.jpg",
+          "sha256": "da571cfefebb719019c5a8dabd17d45872c97c586e68ad87f22ad0a795ab5792",
+          "local_path": "/tmp/apportionment-final724-09/sheet-0005.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-09_cost/09_cost/sheet-0006.jpg",
+          "sha256": "ea0068036440b18475532f3a03df76ecf452864ff38d7c30022c496c33579fe4",
+          "local_path": "/tmp/apportionment-final724-09/sheet-0006.jpg"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        18,
+        35,
+        36,
+        66,
+        305,
+        573,
+        574,
+        610,
+        628,
+        725,
+        730,
+        875,
+        876,
+        906,
+        1332,
+        1787,
+        1788,
+        1824,
+        1859,
+        1860,
+        1890,
+        2520,
+        3179,
+        3180,
+        3216,
+        3251,
+        3252,
+        3282,
+        3691,
+        4129,
+        4130,
+        4166,
+        4202,
+        4203,
+        4233,
+        4536,
+        4869,
+        4870,
+        4888,
+        4906
+      ],
+      "selected_picture_count": 41,
+      "chapter_first_and_last_sample_viewed": true,
+      "observations": "Relative representation costs and historical example remain separated."
+    },
+    {
+      "chapter": "10_rounding_rules",
+      "review_binding": {
+        "chapter": "10_rounding_rules",
+        "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures730.json",
+        "review_sha256": "a4bc5f883e4dea02295548e554ca8d73c943f5e1451496120d293fa16662cc9e",
+        "movie_sha256": "836d3db51efd86a9419bf386703a237add98795e6d3a7f10fbe0ebdc8db80cb3",
+        "selected_pictures": 55,
+        "sheets": 7,
+        "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/10_rounding_rules.mp4"
+      },
+      "sampling_path": "/tmp/apportionment-final730-10/sampling.json",
+      "sampling_sha256": "e6bfec3aa82a57753e4dbb2df40319d2e8e6100bb55bd2b020b0d3305ddd4bbe",
+      "movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-10_rounding_rules/render/10_rounding_rules.mp4",
+        "sha256": "836d3db51efd86a9419bf386703a237add98795e6d3a7f10fbe0ebdc8db80cb3"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-10_rounding_rules/10_rounding_rules/sheet-0001.jpg",
+          "sha256": "e848f2f9d63f212e0ddde67bf9671b09d505dd122e899f7f0314c13741721e83",
+          "local_path": "/tmp/apportionment-final730-10/sheet-0001.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-10_rounding_rules/10_rounding_rules/sheet-0002.jpg",
+          "sha256": "1af4656dfd23d9e725aa6597e164ff0344718056b47757e27acf5a2c34e295d2",
+          "local_path": "/tmp/apportionment-final730-10/sheet-0002.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-10_rounding_rules/10_rounding_rules/sheet-0003.jpg",
+          "sha256": "add2b107b4e95186f30218f472af073b3a81541c988178b6801efd336b7625a3",
+          "local_path": "/tmp/apportionment-final730-10/sheet-0003.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-10_rounding_rules/10_rounding_rules/sheet-0004.jpg",
+          "sha256": "0af9b0b9ecfaf48220998e24169e4c3a0d9bb9b906de63be727308cf01372cd2",
+          "local_path": "/tmp/apportionment-final730-10/sheet-0004.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-10_rounding_rules/10_rounding_rules/sheet-0005.jpg",
+          "sha256": "9f942d8f6679c7265ce82fe1453c19a6d33794393a7533744328500addf4bffc",
+          "local_path": "/tmp/apportionment-final730-10/sheet-0005.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-10_rounding_rules/10_rounding_rules/sheet-0006.jpg",
+          "sha256": "fa472dfd98a276347ebd50a2cca38c0b0853e5639cab363525f0d12b2a4754bc",
+          "local_path": "/tmp/apportionment-final730-10/sheet-0006.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-10_rounding_rules/10_rounding_rules/sheet-0007.jpg",
+          "sha256": "aaca423b3ea074d30240a13973fbee7fdfb0764d550bc0990e2c410424268a9d",
+          "local_path": "/tmp/apportionment-final730-10/sheet-0007.jpg"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        18,
+        35,
+        36,
+        66,
+        377,
+        717,
+        718,
+        736,
+        753,
+        754,
+        784,
+        1258,
+        1761,
+        1762,
+        1780,
+        1797,
+        1798,
+        1828,
+        2055,
+        2311,
+        2312,
+        2348,
+        2366,
+        2463,
+        2468,
+        2613,
+        2614,
+        2644,
+        3183,
+        3751,
+        3752,
+        3770,
+        3787,
+        3788,
+        3818,
+        4453,
+        5117,
+        5118,
+        5154,
+        5189,
+        5190,
+        5220,
+        6018,
+        6845,
+        6846,
+        6882,
+        6917,
+        6918,
+        6948,
+        7676,
+        8434,
+        8435,
+        8453,
+        8470
+      ],
+      "selected_picture_count": 55,
+      "chapter_first_and_last_sample_viewed": true,
+      "observations": "Threshold diagrams and minimum-seat example readable."
+    },
+    {
+      "chapter": "11_webster_quota",
+      "review_binding": {
+        "chapter": "11_webster_quota",
+        "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures733.json",
+        "review_sha256": "bae81854b37a4131ac232d41e07e3e268106c7527614b98a2beb6a5deaa58293",
+        "movie_sha256": "02fa30d53e3aa9ae5d411655cac6bc0055e8d6127668c7e026981f1a86bedc6a",
+        "selected_pictures": 93,
+        "sheets": 12,
+        "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/11_webster_quota.mp4"
+      },
+      "sampling_path": "/tmp/apportionment-final733-11/sampling.json",
+      "sampling_sha256": "bf78de86011751726370bbde80a9e46e030b381c051651a85aa0c0747120e465",
+      "movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-11_webster_quota/render/11_webster_quota.mp4",
+        "sha256": "02fa30d53e3aa9ae5d411655cac6bc0055e8d6127668c7e026981f1a86bedc6a"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0001.jpg",
+          "sha256": "8195c9ef22fa38fff070249d08284544b0c8cbe98687d6bdebe2c28e55e41e2c",
+          "local_path": "/tmp/apportionment-final733-11/sheet-0001.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0002.jpg",
+          "sha256": "490e79aaf94fc0bc836243d85bc0ba059c536c153b06ec0b6ac23f0644c4a6ef",
+          "local_path": "/tmp/apportionment-final733-11/sheet-0002.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0003.jpg",
+          "sha256": "d62c101b8ee45c97ecb1ccd907ed75f4d90e56e104ac07262dabc4134d4a64d1",
+          "local_path": "/tmp/apportionment-final733-11/sheet-0003.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0004.jpg",
+          "sha256": "775224e043516e0c1e2075f992ba5a9432c97e02370ac3aea4b9bc3b2897347d",
+          "local_path": "/tmp/apportionment-final733-11/sheet-0004.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0005.jpg",
+          "sha256": "8415c08d34a4b82c91db96bdba2c34ad2a04169d019d8481da63048fefde73a4",
+          "local_path": "/tmp/apportionment-final733-11/sheet-0005.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0006.jpg",
+          "sha256": "8fd547342c88c42e411ccede9e6987bdd8317bcd28faedcd6f902da4f3bb423c",
+          "local_path": "/tmp/apportionment-final733-11/sheet-0006.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0007.jpg",
+          "sha256": "23a4a13fc12298a0e2bde9fa2fa50bbe016ed6b1327cc680f34b26253093220e",
+          "local_path": "/tmp/apportionment-final733-11/sheet-0007.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0008.jpg",
+          "sha256": "9db24bba2997fcad656d4f60e0b49d044f9ca620260b650d5762acd047bbc26d",
+          "local_path": "/tmp/apportionment-final733-11/sheet-0008.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0009.jpg",
+          "sha256": "35f52df367ef97854f7cc12ddd6592f305e02fbced83406ee2761a476f068fe5",
+          "local_path": "/tmp/apportionment-final733-11/sheet-0009.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0010.jpg",
+          "sha256": "f01415eac5389a6a2229fe57b1810c76337abe539d930d90bf5d07d06f359862",
+          "local_path": "/tmp/apportionment-final733-11/sheet-0010.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0011.jpg",
+          "sha256": "55ee706649a16bf7b5102a323385890099e3439abe6c7bd77ba6fd28399de2bf",
+          "local_path": "/tmp/apportionment-final733-11/sheet-0011.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0012.jpg",
+          "sha256": "9eec17f901bbc3fffbeeb416891792e8b7d3e985f478bf0af6a3d40bc6abf900",
+          "local_path": "/tmp/apportionment-final733-11/sheet-0012.jpg"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        18,
+        35,
+        36,
+        66,
+        199,
+        361,
+        362,
+        399,
+        417,
+        513,
+        519,
+        664,
+        665,
+        695,
+        804,
+        816,
+        864,
+        924,
+        960,
+        1080,
+        1200,
+        1320,
+        1440,
+        1560,
+        1675,
+        1680,
+        1800,
+        1920,
+        2040,
+        2160,
+        2280,
+        2400,
+        2520,
+        2640,
+        2685,
+        2686,
+        2722,
+        2724,
+        2757,
+        2758,
+        2760,
+        2784,
+        2788,
+        2880,
+        3000,
+        3120,
+        3240,
+        3360,
+        3480,
+        3600,
+        3675,
+        3720,
+        3840,
+        3960,
+        4080,
+        4200,
+        4320,
+        4440,
+        4560,
+        4591,
+        4592,
+        4610,
+        4627,
+        4628,
+        4658,
+        4680,
+        4800,
+        4920,
+        5040,
+        5160,
+        5261,
+        5280,
+        5400,
+        5520,
+        5640,
+        5760,
+        5880,
+        5894,
+        5895,
+        5931,
+        5967,
+        5968,
+        5998,
+        6000,
+        6120,
+        6205,
+        6240,
+        6360,
+        6442,
+        6443,
+        6461,
+        6479
+      ],
+      "selected_picture_count": 93,
+      "chapter_first_and_last_sample_viewed": true,
+      "observations": "Three-town guarantee and four-town counterexample separate; small never-with-three-towns qualifier readable in individual6442."
+    },
+    {
+      "chapter": "13_population",
+      "review_binding": {
+        "chapter": "13_population",
+        "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures740.json",
+        "review_sha256": "ff0101915e746c2fd5813600d3f2f9fb4118abf6cc4797d43bec977b91d50305",
+        "movie_sha256": "6ca7e4c928d217dec83c48414d761c6b5e8eca459b7106a2262738a232a065cb",
+        "selected_pictures": 168,
+        "sheets": 21,
+        "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/13_population.mp4"
+      },
+      "sampling_path": "/tmp/apportionment-final740-13/sampling.json",
+      "sampling_sha256": "e0f0faffb78e876984494ca6cd0b5d3786a2f87d9e3081a07bb43c4fd4c54716",
+      "movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-13_population/render/13_population.mp4",
+        "sha256": "6ca7e4c928d217dec83c48414d761c6b5e8eca459b7106a2262738a232a065cb"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0001.jpg",
+          "sha256": "3721838af2e03725328a2c50f5ba1fafb0502076c8bbadb7c140d8cbea632914",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0001.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0002.jpg",
+          "sha256": "e23eacd2e8700689e4e4274cea83a938f55419ff8ef4441f99988d089bc874d0",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0002.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0003.jpg",
+          "sha256": "66c25ea0845d1343ded62ae4220e36bded749cfde12a9f60b72f7419868fd999",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0003.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0004.jpg",
+          "sha256": "5d55e1c370f335e7d715171ee05660d648d4940be6dd9e6528334d3febb9f0f5",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0004.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0005.jpg",
+          "sha256": "3695c976caa89d382b3278f33dbdcb87977a60df49978276deba860b26584b4f",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0005.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0006.jpg",
+          "sha256": "9fbbe242328671098dbb987381020428dc7c857ca1046c11ce058a4cea60d286",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0006.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0007.jpg",
+          "sha256": "6c6ffecd190b4b26b682ff35557a12dedba76c36f295cec79590a81c9c6daaa1",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0007.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0008.jpg",
+          "sha256": "99fa1eec3a5976deee9d12eb417ac9fa9b4b2e805aab00721cc64f1deecd17dd",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0008.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0009.jpg",
+          "sha256": "9409f099a27b851d084532f33c5a61bdce3c0a65a2420fd525c388cd44507999",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0009.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0010.jpg",
+          "sha256": "03ebff8c704cedd4a988be63dec61caecb128c3dce4859106671b3ff1f8e9a9f",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0010.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0011.jpg",
+          "sha256": "3840be537f5058d12b9c70e9e2b052002f08a77ef595f0cf75d50babeac7c035",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0011.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0012.jpg",
+          "sha256": "d26efc52c073c8075f53fe6a43b4a0265e2332789880b7d0320b29c3f523b044",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0012.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0013.jpg",
+          "sha256": "7c9b95e61f22e0ec4d05d134cbb18f06417943d07cca1076bb937770ae2f5a63",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0013.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0014.jpg",
+          "sha256": "a36451e89fb3f3cf7fab5a9179f52b1f918ae0f00e48e54568d594007b931581",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0014.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0015.jpg",
+          "sha256": "8108d2b96c92fc94447d03bb63f395409a0018574d41ac79593bf6c01c624549",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0015.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0016.jpg",
+          "sha256": "dc9a4cfdccd34f5f7aa3061290cb65c3324563bc6cc06ef1e2bafde34c6a733b",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0016.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0017.jpg",
+          "sha256": "94b0ec67211a91222692c72c2ed66edcfb76a388042302f3ed3e2a594f385d48",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0017.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0018.jpg",
+          "sha256": "f05f2f5a819438cea63b4941c9be6719a2140045ec43b8bfabf9165764994852",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0018.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0019.jpg",
+          "sha256": "cec1ebef8e377df47ea1e8eeffda7f3a2eb95c4e7433958353e891eb08e6437d",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0019.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0020.jpg",
+          "sha256": "f8a1c573b2afb8c97e570619fb20e956ebdb32ff6ff74a88427ce53210e4a6be",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0020.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0021.jpg",
+          "sha256": "c3a10b4f2176af14fd1a0402a2def4725e75a07425c68d7c123524252f11ec43",
+          "local_path": "/tmp/apportionment-final740-13/sheet-0021.jpg"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        18,
+        35,
+        36,
+        66,
+        403,
+        769,
+        770,
+        788,
+        806,
+        807,
+        837,
+        1232,
+        1536,
+        1548,
+        1566,
+        1596,
+        1626,
+        1656,
+        1657,
+        1675,
+        1680,
+        1686,
+        1692,
+        1693,
+        1716,
+        1723,
+        1746,
+        1776,
+        1800,
+        1806,
+        1836,
+        1861,
+        1866,
+        1896,
+        1920,
+        1926,
+        1956,
+        1986,
+        2016,
+        2028,
+        2029,
+        2040,
+        2046,
+        2065,
+        2076,
+        2083,
+        2106,
+        2136,
+        2160,
+        2166,
+        2180,
+        2185,
+        2196,
+        2226,
+        2256,
+        2280,
+        2286,
+        2316,
+        2330,
+        2331,
+        2346,
+        2361,
+        2376,
+        2400,
+        2406,
+        2436,
+        2466,
+        2496,
+        2520,
+        2526,
+        2556,
+        2586,
+        2616,
+        2640,
+        2646,
+        2676,
+        2706,
+        2736,
+        2760,
+        2766,
+        2780,
+        2796,
+        2826,
+        2856,
+        2880,
+        2886,
+        2916,
+        2946,
+        2976,
+        3000,
+        3006,
+        3036,
+        3066,
+        3096,
+        3120,
+        3126,
+        3156,
+        3186,
+        3216,
+        3228,
+        3229,
+        3240,
+        3246,
+        3265,
+        3300,
+        3301,
+        3331,
+        3360,
+        3372,
+        3384,
+        3420,
+        3432,
+        3480,
+        3492,
+        3600,
+        3720,
+        3840,
+        3960,
+        4014,
+        4080,
+        4200,
+        4320,
+        4440,
+        4560,
+        4680,
+        4726,
+        4727,
+        4745,
+        4762,
+        4763,
+        4793,
+        4800,
+        4920,
+        5040,
+        5160,
+        5280,
+        5400,
+        5520,
+        5640,
+        5725,
+        5760,
+        5880,
+        6000,
+        6120,
+        6240,
+        6360,
+        6480,
+        6600,
+        6687,
+        6688,
+        6720,
+        6724,
+        6744,
+        6759,
+        6760,
+        6790,
+        6804,
+        6840,
+        6960,
+        7080,
+        7091,
+        7200,
+        7320,
+        7421,
+        7422,
+        7440,
+        7458
+      ],
+      "selected_picture_count": 168,
+      "chapter_first_and_last_sample_viewed": true,
+      "observations": "Population changes, allocation reversal and Jefferson priority explanation remain distinct. Individual6687 checked."
+    },
+    {
+      "chapter": "14_no_rule",
+      "review_binding": {
+        "chapter": "14_no_rule",
+        "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures738.json",
+        "review_sha256": "5b5027ae4ac4c820ca7c07e7a63fcdc2aa821aa92f94090bbea5c565b4cccb92",
+        "movie_sha256": "89f973b29ea7d41a980cdc977543aa26fee57f4c15bbe1a1795d13f8ff7abda6",
+        "selected_pictures": 62,
+        "sheets": 8,
+        "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/14_no_rule.mp4"
+      },
+      "sampling_path": "/tmp/apportionment-final738-14/sampling.json",
+      "sampling_sha256": "78da0db36d91a54f9c4911b817a565924857ef83c187576edeb73ec70634ae57",
+      "movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-14_no_rule/render/14_no_rule.mp4",
+        "sha256": "89f973b29ea7d41a980cdc977543aa26fee57f4c15bbe1a1795d13f8ff7abda6"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0001.jpg",
+          "sha256": "d62da747f6b9be6ec17a406d6b71c072a82f6cae68baac89b69f0ef79c0261c6",
+          "local_path": "/tmp/apportionment-final738-14/sheet-0001.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0002.jpg",
+          "sha256": "35c74ed5b7feae37410fedb6ba2b4d8a5fa34c9bb2a073585e6a902e9abedbd0",
+          "local_path": "/tmp/apportionment-final738-14/sheet-0002.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0003.jpg",
+          "sha256": "b57600e4dce1d60de4a5c084ab080618e5402938804c44cf2da1b276c5b9190b",
+          "local_path": "/tmp/apportionment-final738-14/sheet-0003.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0004.jpg",
+          "sha256": "c0d78b4cdd9ecd0e286cd438ca9d56262bb416e78084f7b1fadde8f631c32670",
+          "local_path": "/tmp/apportionment-final738-14/sheet-0004.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0005.jpg",
+          "sha256": "10658f19fa0fafdee7cd770c37600d6776d70f55e0c64dae049164749edf396e",
+          "local_path": "/tmp/apportionment-final738-14/sheet-0005.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0006.jpg",
+          "sha256": "ed8e2bc3c74ac531281bc892ac28ce9042730aaf3e117fd3ec24787c068909a2",
+          "local_path": "/tmp/apportionment-final738-14/sheet-0006.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0007.jpg",
+          "sha256": "ff9f20d11fdbdbf0662c46947854ec61f79b21d043c861d306330ae8c038f8c4",
+          "local_path": "/tmp/apportionment-final738-14/sheet-0007.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0008.jpg",
+          "sha256": "368c35faed77128ba6d191288e9177d3f97334647292068e2e35e85cb6be2234",
+          "local_path": "/tmp/apportionment-final738-14/sheet-0008.jpg"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        18,
+        35,
+        36,
+        66,
+        768,
+        1499,
+        1500,
+        1518,
+        1535,
+        1536,
+        1566,
+        1886,
+        2236,
+        2237,
+        2273,
+        2308,
+        2309,
+        2339,
+        2858,
+        3407,
+        3408,
+        3445,
+        3463,
+        3559,
+        3565,
+        3710,
+        3711,
+        3741,
+        4484,
+        5256,
+        5257,
+        5275,
+        5292,
+        5293,
+        5323,
+        5826,
+        6358,
+        6359,
+        6395,
+        6430,
+        6431,
+        6461,
+        7278,
+        8124,
+        8125,
+        8161,
+        8197,
+        8198,
+        8228,
+        8738,
+        9277,
+        9278,
+        9314,
+        9349,
+        9350,
+        9380,
+        9851,
+        10352,
+        10353,
+        10371,
+        10389
+      ],
+      "selected_picture_count": 62,
+      "chapter_first_and_last_sample_viewed": true,
+      "observations": "Historical assumption and newer theorem statement separated and readable in individual1500. This review does not independently reprove/certify cited research."
+    },
+    {
+      "chapter": "15_recap",
+      "review_binding": {
+        "chapter": "15_recap",
+        "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures739.json",
+        "review_sha256": "7e79be9b4b1e3a7f933414d55a259cf7a57bdc20356c8748f4dbaa83eb383777",
+        "movie_sha256": "e7b27a40f2fc54c6c742c0582f4ed325fda1bb12200b90727fa6a7372c007ec4",
+        "selected_pictures": 90,
+        "sheets": 12,
+        "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/15_recap.mp4"
+      },
+      "sampling_path": "/tmp/apportionment-final739-15/sampling.json",
+      "sampling_sha256": "3d8c3485fdd09473183ee95dabc7c4a8ff6a0fec14b1ef2aea6e84408e83fe5b",
+      "movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-15_recap/render/15_recap.mp4",
+        "sha256": "e7b27a40f2fc54c6c742c0582f4ed325fda1bb12200b90727fa6a7372c007ec4"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0001.jpg",
+          "sha256": "cb498ecbefc03949e826ce5fdea9564a12cff2ad9bb0cb32ebb49a8a89e5cf27",
+          "local_path": "/tmp/apportionment-final739-15/sheet-0001.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0002.jpg",
+          "sha256": "ee34f8d53f458df6e2c8ee03740ab0f76277827de68eb68e5f1499c8dee2cc6c",
+          "local_path": "/tmp/apportionment-final739-15/sheet-0002.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0003.jpg",
+          "sha256": "c963e262e01de0c3f23ab43ad81fa9bcdb603a4f1e8e3fa6312a4a270746d8c5",
+          "local_path": "/tmp/apportionment-final739-15/sheet-0003.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0004.jpg",
+          "sha256": "fc0a7cf1216cf90faae2e355a2411ebd9e246b18fafce1e005df6fdc7057bb46",
+          "local_path": "/tmp/apportionment-final739-15/sheet-0004.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0005.jpg",
+          "sha256": "fc963d4b78f2ebf489df2e0f9739e1be504588514e4886d3319b9c9d502081da",
+          "local_path": "/tmp/apportionment-final739-15/sheet-0005.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0006.jpg",
+          "sha256": "f07f35a07eaab3c7f97f6bb816cbdc5018855c0b105f7cce429cee1876ace13e",
+          "local_path": "/tmp/apportionment-final739-15/sheet-0006.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0007.jpg",
+          "sha256": "f105775d698bca838ad288846a6669f919c772f12b799aaff5c06146312b1e21",
+          "local_path": "/tmp/apportionment-final739-15/sheet-0007.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0008.jpg",
+          "sha256": "4d3b99cbe6daa8ee40fbb39106dcd2588b310bfe97bf170847679bf3ed8755b8",
+          "local_path": "/tmp/apportionment-final739-15/sheet-0008.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0009.jpg",
+          "sha256": "162e6efd8f931aa9cc6879b4e062ff2ac296c652941453d1ccee924bb7f8a4b5",
+          "local_path": "/tmp/apportionment-final739-15/sheet-0009.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0010.jpg",
+          "sha256": "4f4f7b49df255296ab77262f0059178f529c899509771b38d20d8e0199afb31b",
+          "local_path": "/tmp/apportionment-final739-15/sheet-0010.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0011.jpg",
+          "sha256": "355b473b489024d21e3389d42783fbe93f7eb89351127bf14f0e6695bacebb19",
+          "local_path": "/tmp/apportionment-final739-15/sheet-0011.jpg"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0012.jpg",
+          "sha256": "12e2d9e1ee4c7a775d98851fd0479c6ad28c468cb109979ae82f49759a94ed88",
+          "local_path": "/tmp/apportionment-final739-15/sheet-0012.jpg"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        18,
+        35,
+        36,
+        66,
+        331,
+        625,
+        626,
+        644,
+        662,
+        663,
+        693,
+        1198,
+        1732,
+        1733,
+        1769,
+        1805,
+        1806,
+        1836,
+        2016,
+        2028,
+        2076,
+        2136,
+        2160,
+        2185,
+        2280,
+        2400,
+        2520,
+        2563,
+        2564,
+        2601,
+        2619,
+        2640,
+        2649,
+        2679,
+        2709,
+        2715,
+        2721,
+        2739,
+        2760,
+        2769,
+        2799,
+        2829,
+        2859,
+        2866,
+        2867,
+        2880,
+        2897,
+        3000,
+        3120,
+        3192,
+        3204,
+        3240,
+        3252,
+        3264,
+        3312,
+        3360,
+        3480,
+        3596,
+        3600,
+        3720,
+        3840,
+        3960,
+        4080,
+        4200,
+        4320,
+        4325,
+        4326,
+        4362,
+        4368,
+        4398,
+        4399,
+        4428,
+        4429,
+        4440,
+        4560,
+        4680,
+        4800,
+        4920,
+        5040,
+        5052,
+        5160,
+        5280,
+        5400,
+        5520,
+        5640,
+        5704,
+        5705,
+        5723,
+        5740
+      ],
+      "selected_picture_count": 90,
+      "chapter_first_and_last_sample_viewed": true,
+      "observations": "Prediction timer clears the priority cutoff; Cedar growth reorders table, followed by updated allocation and clear final sentence. Individual2136 checked."
+    }
+  ],
+  "individual_4k_source_images_viewed": [
+    {
+      "frame": 6447,
+      "seconds": 107.45,
+      "reasons": [
+        "chapter last frame",
+        "hold after 08_6: last frame",
+        "08-L1 edge @0.8s: chapter last frame",
+        "08-L2 tight @93.2s: chapter last frame",
+        "retained-preview: chapter last frame",
+        "retained-preview: hold after 08_6: last frame",
+        "retained-preview: 08-L1 edge @0.8s: chapter last frame",
+        "retained-preview: 08-L2 tight @93.2s: chapter last frame",
+        "retained-preview: prior545: chapter last frame",
+        "retained-preview: prior545: hold after 08_6: last frame",
+        "retained-preview: prior545: 08-L1 edge @0.8s: chapter last frame",
+        "retained-preview: prior545: 08-L2 crossed @53.4s: chapter last frame",
+        "retained-preview: prior545: 08-L3 overlap @53.4s: chapter last frame",
+        "retained-preview: prior545: 08-L4 tight @93.2s: chapter last frame"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-08_signposts/08_signposts/frame-006447.jpg",
+      "sha256": "e15f0085f12cee8d7af6e0934ce0261e86c86b90407e2d82070f1c6772f30dc6",
+      "local_path": "/tmp/independent-apportionment977/08-6447.jpg"
+    },
+    {
+      "frame": 6442,
+      "seconds": 107.3667,
+      "reasons": [
+        "cue 11_5 last spoken frame",
+        "retained-preview: cue 11_5 last spoken frame"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/frame-006442.jpg",
+      "sha256": "9e50073d2385b73391a2a71533e56246af478fe1cbbed5b972f97c3c7ba5f6c0",
+      "local_path": "/tmp/independent-apportionment977/11-6442.jpg"
+    },
+    {
+      "frame": 6687,
+      "seconds": 111.45,
+      "reasons": [
+        "cue 13_6 last spoken frame",
+        "retained-preview: cue 13_6 last spoken frame",
+        "retained-preview: prior545: cue 13_6 last spoken frame"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/frame-006687.jpg",
+      "sha256": "8dbd6bc71d5605f144fd36bfe4352d1f71552b45fe61eea13024f7baa43c5aac",
+      "local_path": "/tmp/independent-apportionment977/13-6687.jpg"
+    },
+    {
+      "frame": 1500,
+      "seconds": 25.0,
+      "reasons": [
+        "hold after 14_1: first frame",
+        "retained-preview: hold after 14_1: first frame"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/frame-001500.jpg",
+      "sha256": "834b039d66729303d65b8cb800880593c9eaa2ebb6e2e2783f6330542336e16a",
+      "local_path": "/tmp/independent-apportionment977/14-1500.jpg"
+    },
+    {
+      "frame": 2136,
+      "seconds": 35.6,
+      "reasons": [
+        "15-L1 edge @33.6s: +2.0 s",
+        "retained-preview: 15-L1 edge @33.6s: +2.0 s",
+        "retained-preview: prior545: 15-L1 edge @33.6s: +2.0 s"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/frame-002136.jpg",
+      "sha256": "d6a7c90c60cd4c501188a9b2d4eec5eeacc671e33013f480808cec7b66a393b4",
+      "local_path": "/tmp/independent-apportionment977/15-2136.jpg"
+    }
+  ],
+  "display_scope": "Contact sheets displayed resized1439x1757; individual3840x2160source images displayed2048x1152.",
+  "concrete_defects": [],
+  "bounded_conclusion": "No concrete blocking picture defect observed in these exact sampled pictures.",
+  "prior_disjoint_review975": {
+    "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/independent-apportionment-final-review975.json",
+    "sha256": "bea744fdf3a9a95cb1a2cdcf6c2de6562d58d7bc4ec50708efb7a8b523ac8762",
+    "chapters": [
+      "06_not_every_time",
+      "12_both_promises"
+    ],
+    "selected_picture_count": 505,
+    "sheet_count": 64
+  },
+  "combined_independent_selected_picture_count": 1409,
+  "combined_independent_sheet_count": 183,
+  "continuous_motion_acceptance": false,
+  "listening_acceptance": false,
+  "fine_sync_acceptance": false,
+  "publication_acceptance": false,
+  "limitations": [
+    "Sampled pictures only, not every movie frame.",
+    "Chapter first/last pictures inspected; joined-master transition playback not performed.",
+    "No continuous listening, perceptual voice quality or fine synchronization review.",
+    "No new full AV decode, caption verification or YouTube playback verification.",
+    "Source citations visible in images are not independently validated by this picture-only review."
+  ]
+}

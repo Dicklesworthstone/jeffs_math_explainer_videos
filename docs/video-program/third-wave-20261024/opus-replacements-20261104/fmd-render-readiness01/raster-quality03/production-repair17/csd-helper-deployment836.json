@@ -1,0 +1,7 @@
+{
+  "utc": "2026-11-10T06:45:34.449602+00:00",
+  "exit_code": 0,
+  "stdout": "{\"written\": [{\"name\": \"root-boundary827-export.py\", \"sha256\": \"215ee61dc518cf0ba35749b5c022bc521602cac1da9b7de97a745a1b84863e1e\"}, {\"name\": \"root-boundary828-transport.py\", \"sha256\": \"42665086de4112b7593d3a96e5077e2febc97742e80fe1c3510c471f6ee020b6\"}, {\"name\": \"root-boundary829-materialize.py\", \"sha256\": \"7a3b9ecf0b7209ff4fab7ad01574a610b2b7b1a7fef482db9808e2143cd081d1\"}, {\"name\": \"root-boundary830-gate.py\", \"sha256\": \"47b09ad2bfc62c32396bb5bb52360d9284c9109313ed3a362f22b0524d59e55f\"}, {\"name\": \"combined-master831.py\", \"sha256\": \"c040d975e2cba47b7521ccf6ea7ef1b8f395030fec241a5f13630819423ccdc5\"}, {\"name\": \"csd-final-verify832.py\", \"sha256\": \"b744ed20c775acefc37738e22bc85fec0fbce50e3ddd7bc62ed58f2cf84cbfa7\"}], \"syntax_parses\": 6, \"production_jobs_launched\": false}\n",
+  "stderr": "",
+  "scope": "Fresh helper deployment only; not final transport, runtime gates, master or AV acceptance."
+}

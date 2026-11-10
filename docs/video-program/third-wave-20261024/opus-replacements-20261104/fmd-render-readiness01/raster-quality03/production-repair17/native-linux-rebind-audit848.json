@@ -1,0 +1,360 @@
+{
+  "reviewer": "Independent Codex BlackThrush",
+  "scope": "Read-only Linux successor narration rebind audit, not implementation or runtime acceptance",
+  "source_helper_sha256": "2a4aff949e7fae18e0c41ee33ffbda4db3a3c4782fa6bc102d02d3c294b11ec8",
+  "map764_sha256": "ff852ebcff626a1dcef5bee91613eba324bba317cacbc7b0f2dd129897bc1681",
+  "paths": {
+    "source": "/data/projects/jmev-stroke-probe-20261106/work/native-boundary844",
+    "workspace": "/data/projects/jmev-stroke-probe-20261106/work/native-boundary844/workspace",
+    "topic": "/data/projects/jmev-stroke-probe-20261106/work/native-boundary844/workspace/explainer_corpus/complex_analysis_visual",
+    "old_narration": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind313/narration",
+    "subprocess_cwd": "/data/projects/jmev-stroke-probe-20261106/work/production-repo07",
+    "build_job": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-build844",
+    "binary": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-build844/complex_analysis_visual-844"
+  },
+  "old_metadata_sha256": {
+    "external-units.json": "9308c2b230a7cafd933dc826511bc8111748e9355ab9e445d3f7f89c81511c39",
+    "report.json": "69cb32ee3eb9cf83c5d8b18da8bda7682f4a55d1b91e21ad0b543ca73e25af85",
+    "assembly.json": "7a9dcf43f1581bcb7888c396839e33781d1ef56f515c44b30a1551f9e4eb50b6"
+  },
+  "canonical_build_plan_sha256": "995e25c7788943deff65c4d84050d8a17edc3c2c3498be0d665d7ac5b661357a",
+  "script_sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c",
+  "retained_receipt_sha256": "35a2dbdb302ae1fcccf03d2ca181233db02c96d8ff9f2958713d951ae608741b",
+  "retained_summary_sha256": "359052a7f1d01b5811b1817bccd3164cffa9f97e40cb56a48faf8c54caed6bd3",
+  "retained_receipt_success": true,
+  "retained_receipt_initial_final_inputs_sha256": "28ab671cab755c9c4c1e3a4ccad008738c47d1b1b027ebb62cecfd4d51f622bf",
+  "marker_checks": [
+    {
+      "video": "complex_analysis_visual",
+      "cue": "01_4",
+      "next_cue": "01_5",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+      "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3",
+      "line": 245,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(4.9, 3.0))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "02_5",
+      "next_cue": "02_6",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+      "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec",
+      "line": 435,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(COLUMN, -1.0))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "03_3",
+      "next_cue": "03_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+      "sha256": "0f22d63febc18e05dc4123bedf84eeadf967938bcbc4260cfb0d9e8925ff4cb9",
+      "line": 607,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, out.p(ASK_AT))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 4 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "04_4",
+      "next_cue": "04_5",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+      "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d",
+      "line": 341,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 7.5 s that chapters::READING_WINDOWS authors, with exact on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "04_6",
+      "next_cue": "04_7",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+      "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d",
+      "line": 389,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right - 0.15, 0.75))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "05_8",
+      "next_cue": "05_9",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+      "sha256": "d57e003a4067f3e67abb654e98c19ca0274c9b7edae5ac26da756757e33230b5",
+      "line": 876,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 3.5 s that chapters::READING_WINDOWS authors, with four on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "06_8",
+      "next_cue": "06_9",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs",
+      "sha256": "7a4cc01acb497ad881c0d8478c696ab74db025494ab9381d0b414355fe3fd30d",
+      "line": 734,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(4.2, 2.4))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "07_2",
+      "next_cue": "07_3",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+      "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00",
+      "line": 400,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 4.5 s that chapters::READING_WINDOWS authors, with exact on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "07_3",
+      "next_cue": "07_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+      "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00",
+      "line": 434,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 0.6))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "08_5",
+      "next_cue": "09_1",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs",
+      "sha256": "8a13e8a190cd502e7b58efbcb7c40872cdb0e6e702feb69e1b789e451a7a42b5",
+      "line": 1186,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 5 s that chapters::READING_WINDOWS authors, with exact on screen and nothing drawn or cleared, before the chapter's closing music breath of 2 s and its closing fade. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "09_4",
+      "next_cue": "09_5",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e",
+      "line": 985,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, -2.0))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "09_5",
+      "next_cue": "09_6",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e",
+      "line": 1050,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 3 s that chapters::READING_WINDOWS authors, with needs on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "09_8",
+      "next_cue": "09_9",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e",
+      "line": 1329,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK_RECENTRE, v(3.9, 2.2))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 6 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "10_4",
+      "next_cue": "10_5",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+      "sha256": "0bcfbc7d7962b2ab8fa2d27895fce104ab6cb71ce5aac26fdd0b97dca04a3df0",
+      "line": 502,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 0.9))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "10_5",
+      "next_cue": "10_6",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+      "sha256": "0bcfbc7d7962b2ab8fa2d27895fce104ab6cb71ce5aac26fdd0b97dca04a3df0",
+      "line": 528,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 8.5 s that chapters::READING_WINDOWS authors, with exact on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "11_5",
+      "next_cue": "11_6",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1",
+      "line": 440,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(ASK_AT.0, ASK_AT.1))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 6 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "11_6",
+      "next_cue": "11_7",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1",
+      "line": 503,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 7 s that chapters::READING_WINDOWS authors, with squashed on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "11_8",
+      "next_cue": "12_1",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1",
+      "line": 603,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 7.5 s that chapters::READING_WINDOWS authors, with panel on screen and nothing drawn or cleared, before the chapter's closing music breath of 2 s and its closing fade. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "13_5",
+      "next_cue": "13_6",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+      "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae",
+      "line": 631,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 1.2))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "13_11",
+      "next_cue": "14_1",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+      "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae",
+      "line": 813,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 5 s that chapters::READING_WINDOWS authors, with note on screen and nothing drawn or cleared, before the chapter's closing music breath of 2.5 s and its closing fade. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "14_3",
+      "next_cue": "14_4",
+      "kind": "reading",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+      "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96",
+      "line": 522,
+      "marker": "reading_window(&kit, stage, &line)?;",
+      "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 5.5 s that chapters::READING_WINDOWS authors, with exact on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "14_4",
+      "next_cue": "14_5",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+      "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96",
+      "line": 531,
+      "marker": "let asked = predict(&kit, stage, &line, &ASK, v(0.0, 1.4))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 5 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "video": "complex_analysis_visual",
+      "cue": "15_3",
+      "next_cue": "15_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+      "sha256": "0c217b6b5daee2681a61049b0918ceda7cc211d377ecd0c5f70b8562dd36568b",
+      "line": 402,
+      "marker": "let asked = predict(&kit, stage, &line, &[ask.as_str()], v(ASK_AT.0, ASK_AT.1))?;",
+      "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 6 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "sha256": "9bb07b3ff030d1ac0885d1382097bde596e8cae419d86b51933e12e7eeed8218",
+      "line": 1251,
+      "marker": "pub fn predict(kit: &Kit, stage: &mut Stage<'_>, line: &Spoken, lines: &[&str], at: Vec3) -> fmn::Result<Vec<Mob>> {"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "sha256": "9bb07b3ff030d1ac0885d1382097bde596e8cae419d86b51933e12e7eeed8218",
+      "line": 1305,
+      "marker": "pub fn reading_window(kit: &Kit, stage: &mut Stage<'_>, line: &Spoken) -> fmn::Result<()> {"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+      "sha256": "e1f4d1b87f4b36f979e7800f7b2048117b9a4809b2372f385350698f5c3e7cbd",
+      "line": 31,
+      "marker": "pub const PREDICTS: &[(&str, f64)] = &["
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "sha256": "9bb07b3ff030d1ac0885d1382097bde596e8cae419d86b51933e12e7eeed8218",
+      "line": 1352,
+      "marker": "pub fn precisely_over(stage: &mut Stage<'_>, said: Mob, whole: Mob) -> fmn::Result<()> {"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+      "sha256": "e1f4d1b87f4b36f979e7800f7b2048117b9a4809b2372f385350698f5c3e7cbd",
+      "line": 58,
+      "marker": "pub const READING_WINDOWS: &[(&str, f64)] = &["
+    }
+  ],
+  "all_28_current_source_hashes_and_literal_markers_match": true,
+  "only_hold_changes_from313": {
+    "09_4": [
+      942,
+      985
+    ],
+    "09_5": [
+      1007,
+      1050
+    ],
+    "09_8": [
+      1286,
+      1329
+    ]
+  },
+  "source_report_paths_exist": 105,
+  "manifest_wav_paths_resolve": 105,
+  "generation_receipts": {
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/audio17/mapped-receipt.json": "8a4b1d2aa0576dc422474b9441d8f0d805f9715e0bfaeb1532b2da66474eaa94",
+    "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/production-audio-stage07-01/decoded01/decode-receipt.json": "c0af1e2fa7d8d8c42b0d38846ef72c220c795881e435a9297a8da639df28223b"
+  },
+  "tool_hashes": {
+    "coherent_narration.py": "a7fc6705aead7999134d8619458c8b2973ef771be069d4ce98462ac5f97fc42f",
+    "narration_delivery.py": "961f17cc85dd30eadca73f950ec0bab6e52eb47ad43a7384c3710c97962b1878"
+  },
+  "blockers_to_blind764_reuse": [
+    "Mac receipt and binary qualification pins are wrong for844",
+    "Mac OLD report and assembly hashes differ from actual Linux313 metadata",
+    "Old evidence prefix is Linux work/review-repair313/workspace, not Mac source552/workspace",
+    "Full source760 snapshot cannot equal freshLinux844 snapshot because normalized Cargo paths and deliberately excluded extras differ",
+    "Mac root-mini-delivery540.guard_binding is not a qualified Linux guard adapter"
+  ],
+  "requirements": [
+    "Wait successful stable844 terminal receipt before changing canonical source; derive and pin actual qualification and binary hashes",
+    "Use fresh unique Linux successor job/map names and explicitly adapt Linux guard policy/binding",
+    "Use current844 qualification source_listing as pre-rebind baseline; verify expected source delta exactly canonical plan plus preserved backup plus new map",
+    "Copy all retained narration files unchanged except external-units/report/assembly metadata; require105 exact WAV hashes and unchanged timing sidecars, report.lines, outputs and manifest.units",
+    "New plan differs only direction_contract map; canonical original995 is preserved and plan payload equals old313 aside from contract",
+    "All23 disposition evidence paths change from old313 workspace to fresh844 workspace; preserve kind,cue,override indexes and resolved directions",
+    "Update report units hash, assembly units hash, report contract binding/dispositions and assembly report hash consistently",
+    "Run complete coherent verify require-directions, then delivery all15chapters105 selected and boundary09selected9, verified105 each, external-ui, listening_acceptance false, cwd production-repo07",
+    "Freeze actual105 WAVs, source WAVs/generation receipts, timings, tools, map, source dependencies and successful build/old narration receipts into successor input closure; verify source and original narration snapshots remain expected"
+  ],
+  "limitations": [
+    "No WAV content hashing or sample reconstruction performed in this read-only audit; future guarded verifier must do that",
+    "No successful844 result assumed",
+    "No new narration produced or metadata changed",
+    "No listening, pronunciation, fine sync, preview, final4K, full AV or publication acceptance"
+  ]
+}

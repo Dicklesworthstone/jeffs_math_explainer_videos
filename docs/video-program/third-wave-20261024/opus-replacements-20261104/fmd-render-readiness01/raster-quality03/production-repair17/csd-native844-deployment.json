@@ -1,0 +1,39 @@
+{
+  "utc": "2026-11-10T07:17:25.088996+00:00",
+  "exit": 0,
+  "files": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native844-build.py",
+      "sha256": "20953c4dcac5c890442ad5b1144f6c331f4274931200614111867a1a4e53dd12"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native844-base761.py",
+      "sha256": "32bf6d9e08c1f21f2445debfd46ba090e0374007e4da5516310cb122774099e5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native844-source760.json",
+      "sha256": "5afe200ee13dec271e924fb60386554ebc28af4cbacfeb0dea99e4418bf741c0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native844-boundary.rs",
+      "sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native844-narration_units.json",
+      "sha256": "995e25c7788943deff65c4d84050d8a17edc3c2c3498be0d665d7ac5b661357a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native844-Cargo.toml",
+      "sha256": "be1426d32dad7d61bafa84b5811bf0192a31943f70735e589a714b5db2070c10"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native844-config.toml",
+      "sha256": "79fb8766d1f41365d64066e5b2e68b0fb89c50015425d109b155ccaf8eff2716"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native844-engine-budget.toml",
+      "sha256": "116b317b92b8da9eb7584812626d1988045eb03ee7b7aaed0f35deb49cb297c0"
+    }
+  ],
+  "scope": "Exclusive helper/source staging only; no build or render launched"
+}

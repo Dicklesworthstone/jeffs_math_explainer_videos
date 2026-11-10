@@ -1,0 +1,883 @@
+{
+  "reviewer_identity": "Independent Codex / BlackThrush / complex_repair_review787",
+  "authored_reviewed_scene_or_repair": false,
+  "prior_work_disclosure": "Authored or reviewed production helper scripts for other video work; did not author the reviewed apportionment scene code or visual repairs. This is independent of the prior root picture verdicts.",
+  "master_binding_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/apportionment-review-binding967.json",
+  "master_binding_sha256": "b114c19ae084e0726438e7a0283f235abe8682ff40216ec720cce021dc3de5df",
+  "master_sha256": "e61269f23176a5c299f104df11ced4d69b84476584b8b91ff1fc5876fe604116",
+  "chapters": [
+    {
+      "chapter": "06_not_every_time",
+      "sampling_path": "/tmp/independent-apportionment975/ch06/sampling.json",
+      "sampling_sha256": "987ad94f0c49db82b7af8d2d49ad06273ae3f0ad0fa49cbfafc61ae4f7b919de",
+      "movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-final757/render/06_not_every_time.mp4",
+        "sha256": "2469a4481d96cdc1ebec21748cb3b8dbc9074864e985da93698a611d2ec2b168"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0001.jpg",
+          "sha256": "06d1bf3dc698648f35f2ed68af2ac94ed821e9a0e855eb9d107516bc585c74c5"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0002.jpg",
+          "sha256": "74a516a68474b21098b4577d0c3abdcc4375f196418634154d6ccd6c3ad471a3"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0003.jpg",
+          "sha256": "cc8e705eb07cd28d77f5f7766668f3fe2cd0f2d3189cc7089f0a2d04341413f8"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0004.jpg",
+          "sha256": "c1d4ff980064a04cc9d20762ed898ee2b55b714a73d3cbedacb79c9ab73a8f55"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0005.jpg",
+          "sha256": "750b183fbc8f0259bc252d12206b73232194589a552a9f29aef8afd19401c65d"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0006.jpg",
+          "sha256": "0c0f1679d2f8b3b334bd413dc2df5b535203f2c25d5b7a4abfb21cd83ff4ac9c"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0007.jpg",
+          "sha256": "f270eff0e68f8b307cd1a44074e9575634a65e30d582370566229b8dec85fa60"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0008.jpg",
+          "sha256": "c2172d20e3d181b055cc4d41f7cb69c7f47865adbbc3bcd361557947e0a3c67f"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0009.jpg",
+          "sha256": "afee73855a59b5bf20f550f6f9e41c8afcc40311f6a8476bdeb36292dee478b0"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0010.jpg",
+          "sha256": "64d87a42cf48d4feacf8c10fb1dfde659fe3f83c1efb79f62e205380a0055727"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0011.jpg",
+          "sha256": "d31b0f81527325afdd9c91936f5b49d4a17bf2f9a0858f8794b2a6d4e4510281"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0012.jpg",
+          "sha256": "374edc041b8b0802cb1204263514a0a9ce53d049282469e0cc6ab9bf571d61bd"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0013.jpg",
+          "sha256": "b4ba982d437ad73b4366314f0d147fe771f8875ab70e6433cce57c2bbce05526"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0014.jpg",
+          "sha256": "bd8a3a63988cfd882e4ed6ddea4bd14a4112661d987f38aa93449093ce052eeb"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0015.jpg",
+          "sha256": "10e288ae4ce5f08d8814762a944663ba566e53de74d921ca246cfdd3a51f8ac2"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0016.jpg",
+          "sha256": "4423b7eef390186fb3fa376382cac035ede622137cd0c3f14b2eb233f1bc9666"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0017.jpg",
+          "sha256": "1b3dbfe7cfa62ce4050d4177839967ae324c4b89aa3f5ffd08d7e829753709b5"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0018.jpg",
+          "sha256": "a4214da86138b5f74b454dbd123a0d658e3a746834d5c543d036e17f102bdbfb"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0019.jpg",
+          "sha256": "64a0e10fa125c00ff4b0084045292978d738d43260c3c16aa9cc2129031273df"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0020.jpg",
+          "sha256": "e97e27e5c77b1e2c5d86cbec3fe07791d57bafda282573cefce8e1631e45e16d"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0021.jpg",
+          "sha256": "4062eb5b745fd24387636197ded16e10326bb67eeb8d8abeeaa1e767097a74f9"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0022.jpg",
+          "sha256": "54300f6895211d6333b4927216192a0835630f395b3976a11ba34f7d93cd3e9d"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0023.jpg",
+          "sha256": "c2f374e83346b46d258e5c93ad184abc4e172db505540358466260df399a0956"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0024.jpg",
+          "sha256": "082823a65a983e79134ea231529f3bbe9e5ccd166be2b1cb85596907e9f4bd84"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0025.jpg",
+          "sha256": "6a9def8064ccbda610584343c67ce378b9d1144d704833f3c6054a8f5d4f3920"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0026.jpg",
+          "sha256": "968167ba6080796513222f15bc452dd37e00fc7b9fba87d00676aeb5f922f87e"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0027.jpg",
+          "sha256": "b119566b08662eb524ec2c01a4bdd15627b2ab9296e61cf4c3b6a6e4ce618b80"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0028.jpg",
+          "sha256": "2a937cfbbd07157143bd47540c1226b0b0b7c7575611511876881021318bcfc1"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0029.jpg",
+          "sha256": "8d750df4500cecfb72d9c692e9d873cb4bf685b1f3b136a735994cb8f098e3ef"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0030.jpg",
+          "sha256": "bdbf755294dabe5c111c56de0a636783ebd04dbf9e81f3a5e4e441d379b4eac1"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0031.jpg",
+          "sha256": "241a0e7485333b280bb9ca32f2b61fe664a54f797bd3d683fcb8062689b565b6"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0032.jpg",
+          "sha256": "ce30b08105399d0cb6acd2448cfeab7b793a0ec26dd5d61c71e15e9ce3a0fc7f"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0033.jpg",
+          "sha256": "4791d55f3b1bdcb187b39b2d20a4a5bca503e6aee911e465cd46018a1ac37b62"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0034.jpg",
+          "sha256": "a9fa94115b488133d67a75aaf5b0f028e530a1e7397f1fd7d97c40d03f3a9d53"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0035.jpg",
+          "sha256": "c9f6f2b64a615f650ad7814108e9f9d772b50154b58f33b0a8851039bb39f7ff"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0036.jpg",
+          "sha256": "d3d3bceb5d7597ea92abf2d7ba50cd6d24d9e8ef489aee4da2fff24e26a5ae1f"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0037.jpg",
+          "sha256": "322a157ad354afa65fd2addf4c1da2578a58a26201ecf2dfe16e22692081ab68"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0038.jpg",
+          "sha256": "32885306d4fb3920e65ea7c78ad9646834114c3c848ad7da8579096a79ce27e3"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/sheet-0039.jpg",
+          "sha256": "20360db3988562daa13cae2e6abd23c3cfc55a599eb887ba95770d946c5d368b"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        18,
+        35,
+        36,
+        42,
+        48,
+        54,
+        60,
+        66,
+        72,
+        102,
+        132,
+        162,
+        182,
+        192,
+        222,
+        252,
+        282,
+        312,
+        328,
+        329,
+        342,
+        365,
+        372,
+        383,
+        402,
+        432,
+        462,
+        480,
+        485,
+        492,
+        522,
+        552,
+        582,
+        612,
+        630,
+        631,
+        633,
+        635,
+        637,
+        639,
+        641,
+        643,
+        661,
+        984,
+        1336,
+        1337,
+        1355,
+        1372,
+        1373,
+        1385,
+        1397,
+        1403,
+        1409,
+        1421,
+        1433,
+        1445,
+        1457,
+        1469,
+        1481,
+        1493,
+        1505,
+        1517,
+        1529,
+        1541,
+        1553,
+        1565,
+        1577,
+        1589,
+        1601,
+        1613,
+        1625,
+        1637,
+        1649,
+        1661,
+        1673,
+        1685,
+        1697,
+        1709,
+        1721,
+        1733,
+        1745,
+        1757,
+        1769,
+        1781,
+        1793,
+        1805,
+        1817,
+        1829,
+        1841,
+        1853,
+        1865,
+        1877,
+        1889,
+        1894,
+        1901,
+        1913,
+        1925,
+        1937,
+        1949,
+        1961,
+        1973,
+        1985,
+        1997,
+        2009,
+        2021,
+        2033,
+        2045,
+        2057,
+        2069,
+        2081,
+        2093,
+        2105,
+        2117,
+        2129,
+        2141,
+        2153,
+        2165,
+        2177,
+        2189,
+        2201,
+        2213,
+        2225,
+        2237,
+        2249,
+        2261,
+        2273,
+        2285,
+        2297,
+        2309,
+        2321,
+        2333,
+        2345,
+        2357,
+        2369,
+        2381,
+        2393,
+        2405,
+        2414,
+        2415,
+        2417,
+        2429,
+        2433,
+        2441,
+        2450,
+        2451,
+        2463,
+        2475,
+        2481,
+        2487,
+        2499,
+        2511,
+        2523,
+        2535,
+        2547,
+        2559,
+        2571,
+        2583,
+        2595,
+        2607,
+        2619,
+        2631,
+        2643,
+        2655,
+        2667,
+        2679,
+        2691,
+        2703,
+        2715,
+        2727,
+        2739,
+        2751,
+        2763,
+        2775,
+        2787,
+        2799,
+        2811,
+        2823,
+        2835,
+        2847,
+        2859,
+        2871,
+        2883,
+        2895,
+        2907,
+        2919,
+        2931,
+        2943,
+        2955,
+        2967,
+        2979,
+        2991,
+        3003,
+        3015,
+        3027,
+        3039,
+        3051,
+        3060,
+        3063,
+        3075,
+        3087,
+        3099,
+        3111,
+        3123,
+        3135,
+        3147,
+        3159,
+        3171,
+        3183,
+        3195,
+        3207,
+        3219,
+        3231,
+        3243,
+        3255,
+        3267,
+        3279,
+        3291,
+        3303,
+        3315,
+        3327,
+        3339,
+        3351,
+        3363,
+        3375,
+        3387,
+        3399,
+        3411,
+        3423,
+        3435,
+        3447,
+        3459,
+        3471,
+        3483,
+        3495,
+        3507,
+        3519,
+        3531,
+        3543,
+        3555,
+        3567,
+        3579,
+        3591,
+        3603,
+        3615,
+        3627,
+        3639,
+        3651,
+        3663,
+        3669,
+        3670,
+        3675,
+        3687,
+        3688,
+        3699,
+        3706,
+        3707,
+        3737,
+        3767,
+        3797,
+        3827,
+        3857,
+        3887,
+        3917,
+        3947,
+        3977,
+        4007,
+        4037,
+        4040,
+        4067,
+        4097,
+        4127,
+        4157,
+        4187,
+        4217,
+        4247,
+        4277,
+        4307,
+        4337,
+        4367,
+        4373,
+        4374,
+        4392,
+        4397,
+        4410,
+        4411,
+        4427,
+        4441,
+        4457,
+        4487,
+        4517,
+        4547,
+        4577,
+        4607,
+        4637,
+        4660,
+        4667,
+        4697,
+        4727,
+        4757,
+        4787,
+        4817,
+        4847,
+        4877,
+        4907,
+        4909,
+        4910,
+        4928,
+        4937,
+        4946
+      ],
+      "selected_frames_count": 310,
+      "full_size_details_viewed": [
+        {
+          "frame": 2907,
+          "seconds": 48.45,
+          "reasons": [
+            "722 06_4 year line: every 0.2 s"
+          ],
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/frame-002907.jpg",
+          "sha256": "17dc3cb5332a2dd8aaf4bf7cf7d0b67e05893319b0f02e3accdf875ac599f417"
+        },
+        {
+          "frame": 3651,
+          "seconds": 60.85,
+          "reasons": [
+            "722 06_4 year line: every 0.2 s"
+          ],
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-pictures757/06_not_every_time/frame-003651.jpg",
+          "sha256": "babb9910eb647c91ea9bd192f39208b3b04e082005961272f482fb51e1862f6c"
+        }
+      ]
+    },
+    {
+      "chapter": "12_both_promises",
+      "sampling_path": "/tmp/apportionment-final737-12/sampling.json",
+      "sampling_sha256": "f9a50013d3f87f7fa9b0ec9ac84e8a29bd5b7f959d48d991b7c4f5b4d357a5a8",
+      "movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-12_both_promises/render/12_both_promises.mp4",
+        "sha256": "60ed45b0f040eda320f35826bbe0e21c4ec51e486d6aa4859456065fd6108ac3"
+      },
+      "viewed_sheets": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0001.jpg",
+          "sha256": "d8ecd3d1bbe8219067e79aa48bf70b24a262b78450eb8e11090e6574cbefc27c"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0002.jpg",
+          "sha256": "fe9418d26fb5dab4204501fddc0b164166e5ccd269368d3228212a74f5a0696e"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0003.jpg",
+          "sha256": "e2c15516a0e8de182f9565e5fc10111e411a8aca6de1eecffbd639ad05715211"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0004.jpg",
+          "sha256": "afddd06e55e57f055589b5a2e0b54491492be50eec6e9983d8f6fa554ad85244"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0005.jpg",
+          "sha256": "933c9a05199386b072951b923569466fdf424ca0b5670835400c5dea9b6b5532"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0006.jpg",
+          "sha256": "1194b5f7636a17f6d9bb3164e65a5c16998797fa1e8161dd58a9c2579c35078e"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0007.jpg",
+          "sha256": "dfc9065e63797f967d7c81466a6d7886a1e0e0ad216604910d8f19930b127bbf"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0008.jpg",
+          "sha256": "28d27ad6e4c891dd2ebd57c8fab5bb2615407998173a490abc80a6ba8495c34e"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0009.jpg",
+          "sha256": "6ff6c7e88cef5ccf63fc1612697d4cc27fffe723d0a28fb9f648477d4ebbf4d9"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0010.jpg",
+          "sha256": "cf9ed9a0c7fc741d8d3e92a6666d55003be85bcece7fa520cece600dbc0fa4e6"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0011.jpg",
+          "sha256": "83d93f61dc774abfa145d56cf4a4374d2d312a4ca916edae9d1755e367f7519d"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0012.jpg",
+          "sha256": "1e9a43e0ac483540bf1c60253fb7724e9078fde207850beb9477e88e95bab513"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0013.jpg",
+          "sha256": "b18f7b9e1a93c6403528d6407e06c103a324c78e2b2da7a1ae2432601bd8c73a"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0014.jpg",
+          "sha256": "71522fdbac0d64f816493f65a7cf8a9f5c050352d8bf33c75e2d2edf9abce40d"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0015.jpg",
+          "sha256": "6b8a193d5818e689726a22ce7871a5f549ea41c967f318b30cd1b80db0d6288b"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0016.jpg",
+          "sha256": "4325e650387549fbcaa73c177cd33c4ca2d6102e72ec704a09e9a7a2c8c68331"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0017.jpg",
+          "sha256": "840f1908280db6191bbaaa4f5546653965912e966d278730cec64eaa7a40ac98"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0018.jpg",
+          "sha256": "1a48bda8c9f2fa6b2c853aeabd9c5bccc44d5c59b69e96c99e5256678739ec41"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0019.jpg",
+          "sha256": "edec937eb9cd85f670471136eea6015111e9bf3c563cdd6b25435ab87416b451"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0020.jpg",
+          "sha256": "b803591ce619b61d78ef052fde810a2b554763e0c610d34b252d7af27b9080bc"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0021.jpg",
+          "sha256": "80812d00d4508789e910d5104a94bae9b4404faa9a5248d5d4134b19ccdc9b3f"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0022.jpg",
+          "sha256": "3b864c09c69d4859ca8dac9278426d016aeab9cbb23465ac2546cbbfe2482ab4"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0023.jpg",
+          "sha256": "1b1a1cdb49554f0ae239a9f05aa84ed76cc69218a976837268905a4fbdda94a0"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0024.jpg",
+          "sha256": "c40a076026c3b5d87207032be7d5f2a816c185ae2cbd2b79f875866c3fb52f20"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/sheet-0025.jpg",
+          "sha256": "ced3ad1ea5aca0dc57e5a634816af0c1798e9ab295c61b0868e88c08a83662ab"
+        }
+      ],
+      "viewed_frame_indices": [
+        0,
+        18,
+        35,
+        36,
+        66,
+        108,
+        120,
+        168,
+        228,
+        240,
+        360,
+        432,
+        480,
+        600,
+        720,
+        827,
+        828,
+        840,
+        864,
+        882,
+        960,
+        979,
+        984,
+        1080,
+        1129,
+        1130,
+        1160,
+        1200,
+        1320,
+        1440,
+        1560,
+        1680,
+        1800,
+        1919,
+        1920,
+        2040,
+        2160,
+        2280,
+        2400,
+        2520,
+        2640,
+        2708,
+        2709,
+        2760,
+        2798,
+        2880,
+        2887,
+        2888,
+        2918,
+        3000,
+        3120,
+        3240,
+        3252,
+        3300,
+        3360,
+        3480,
+        3545,
+        3600,
+        3720,
+        3840,
+        3960,
+        4080,
+        4140,
+        4200,
+        4202,
+        4203,
+        4277,
+        4320,
+        4351,
+        4352,
+        4356,
+        4382,
+        4416,
+        4440,
+        4560,
+        4680,
+        4800,
+        4856,
+        4920,
+        5040,
+        5160,
+        5280,
+        5359,
+        5360,
+        5396,
+        5400,
+        5431,
+        5432,
+        5462,
+        5520,
+        5640,
+        5760,
+        5880,
+        6000,
+        6058,
+        6120,
+        6240,
+        6360,
+        6480,
+        6600,
+        6684,
+        6685,
+        6703,
+        6720,
+        6721,
+        6751,
+        6840,
+        6960,
+        7080,
+        7200,
+        7318,
+        7320,
+        7440,
+        7560,
+        7680,
+        7800,
+        7915,
+        7916,
+        7920,
+        7934,
+        7952,
+        7953,
+        7983,
+        8040,
+        8160,
+        8280,
+        8400,
+        8520,
+        8534,
+        8640,
+        8760,
+        8880,
+        9000,
+        9114,
+        9115,
+        9120,
+        9218,
+        9240,
+        9321,
+        9322,
+        9352,
+        9360,
+        9480,
+        9600,
+        9720,
+        9840,
+        9960,
+        9999,
+        10080,
+        10200,
+        10320,
+        10440,
+        10560,
+        10675,
+        10676,
+        10680,
+        10694,
+        10711,
+        10712,
+        10742,
+        10800,
+        10920,
+        11040,
+        11160,
+        11280,
+        11400,
+        11520,
+        11588,
+        11640,
+        11760,
+        11880,
+        12000,
+        12120,
+        12240,
+        12360,
+        12463,
+        12464,
+        12480,
+        12500,
+        12535,
+        12536,
+        12566,
+        12600,
+        12720,
+        12840,
+        12960,
+        12980,
+        13080,
+        13200,
+        13320,
+        13423,
+        13424,
+        13440,
+        13442,
+        13459
+      ],
+      "selected_frames_count": 195,
+      "full_size_details_viewed": [
+        {
+          "frame": 2760,
+          "seconds": 46.0,
+          "reasons": [
+            "12-L1 edge @1.8s: 2 s grid through chapter end",
+            "retained-preview: 12-L1 edge @1.8s: 2 s grid through chapter end"
+          ],
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/frame-002760.jpg",
+          "sha256": "8d8a8b90f4ebcaba912943c96833f6d8d784cac759e2e3aa6f98e2759acf6050"
+        },
+        {
+          "frame": 9999,
+          "seconds": 166.65,
+          "reasons": [
+            "cue 12_8 middle",
+            "retained-preview: cue 12_8 middle"
+          ],
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/frame-009999.jpg",
+          "sha256": "1771df022e78bfc465f3c3c9237f185b89103735ccbfe0cb8c0bff3c807fe313"
+        },
+        {
+          "frame": 11588,
+          "seconds": 193.1333,
+          "reasons": [
+            "cue 12_9 middle",
+            "retained-preview: cue 12_9 middle"
+          ],
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/frame-011588.jpg",
+          "sha256": "f219d9026bad96375aab447cb36124e99b0f08b0d625ed5997981146d5518157"
+        },
+        {
+          "frame": 11880,
+          "seconds": 198.0,
+          "reasons": [
+            "12-L1 edge @1.8s: 2 s grid through chapter end",
+            "12-L2 crossed @54.0s: 2 s grid through chapter end",
+            "12-L3 crossed @54.0s: 2 s grid through chapter end",
+            "12-L4 crossed @54.0s: 2 s grid through chapter end",
+            "retained-preview: 12-L1 edge @1.8s: 2 s grid through chapter end",
+            "retained-preview: 12-L2 crossed @54.0s: 2 s grid through chapter end",
+            "retained-preview: 12-L3 crossed @54.0s: 2 s grid through chapter end",
+            "retained-preview: 12-L4 crossed @54.0s: 2 s grid through chapter end"
+          ],
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-12_both_promises/12_both_promises/frame-011880.jpg",
+          "sha256": "35f2128ca8593bb622a1cdfc94ab4ca1b653d4ea0931b854a8b70fa8260c1fda"
+        }
+      ]
+    }
+  ],
+  "actual_sheets_viewed": 64,
+  "actual_selected_frames_viewed": 505,
+  "concrete_defects": [],
+  "conclusion": "No concrete visual blocker found in the inspected chapter06 and chapter12 selected images. This is bounded visual review, not whole-film release acceptance.",
+  "observations": [
+    "Chapter06 repaired five-event labels are separated and aligned with their highlighted bars; full-size frame2907 readable. Historical header and House299/300 comparison are separated at frame3651 and remain separate through sampled persistence.",
+    "Chapter12 tile proof preserves then/now markers, hypothetical missing tile, ruled-out tiles, capacity comparisons and 8-tiles-cannot-fit conclusion. Full-size frames9999/11588/11880 have legible labels and non-overlapping explanation regions.",
+    "An initial apparent chapter12 title defect in reduced sheets was not confirmed at full-size frame2760 and is withdrawn; it is not a blocker."
+  ],
+  "limitations": [
+    "All64 contact sheets actually viewed; originals1920x2344 displayed1439x1757. Six3840x2160 individual pictures displayed2048x1152.",
+    "Sampling is not exhaustive motion review; no playback, listening, pronunciation, fine synchronization or complete audiovisual acceptance.",
+    "Only chapters06 and12 independently reviewed here, not all15 chapters or chapter joins/overview.",
+    "Movie-to-master identity relies on supplied967/771 provenance; reviewer rehashed sampling, all64 sheet files and six detailed frames, not the full master.",
+    "No publication authorization or claim of YouTube4K/caption verification."
+  ]
+}

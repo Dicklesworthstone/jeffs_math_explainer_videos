@@ -1,0 +1,32 @@
+{
+  "reviewer": "Independent Codex BlackThrush",
+  "authored_helpers": false,
+  "helper_hashes": {
+    "csd-native855-pictures.py": "c40be3818c8fcdd8b163ee046af74704b197aec8d66ecb78c7ac12be1e29e258",
+    "csd-native855-after-preview.py": "04635060235e361b2c3e92f3914ca6e0015f8d694b64a60c7628666bb70d9d02",
+    "csd-native855-prior775.json": "2a1864771d82f9edb436823e100a3c6b97f8421e272a87bd7c2a8c95c1b4cf99"
+  },
+  "blockers": [],
+  "conclusion": "No concrete source-level migration/extraction failure found; guarded extraction may follow actual stable853 and comparison853",
+  "checks": [
+    "Prior775 artifact hash matches original root775 review binding;814unique sampleframes,814picture records102sheets",
+    "Controller requires stable853receipt/comparison then revalidates inheritedclosure and freezes853outputs,PILnonpycfiles,helper,prior,interpreter",
+    "Directguardchild uses ownedgroupbase cleanup and correct Linuxcwd;exactpolicychecked",
+    "Three actualpreviewtables normalize only849narration\u2192313path and require original pinnedhashes;pathoccurrencecounts checked",
+    "ffprobe requires960x540,60fps,16504frames;fullffmpegdecode requires exit0 before extraction",
+    "All814 oldframes retained unchanged; newlint frames plus0.2sec samples through2sec and5sec persistence toend added",
+    "Chosenframes sorted/deduplicated and emitted through balancedfilter;actualJPEG count equals selected count;everyJPEGdimension checked",
+    "Individual960x540JPEG retained;640x360sheetviews are summaries and must not substitute for details when ambiguous",
+    "All outputpictures/sheets/movie/layout/tables hashed in finalreport; extraction explicitly disclaims viewing/audioacceptance"
+  ],
+  "nonblocking_notes": [
+    "1500-frame ceiling safely aborts if unusually numerous newlint findings; do not remove samples merely to fit it",
+    "Controller freezes PIL package tree but not every dynamic system library; consistent with reviewed existing extraction approach and not a claim of hermetic OS reproduction",
+    "Full decode here is native preview decode, not final4K/fullfilm verification"
+  ],
+  "limitations": [
+    "AST/source/provenance only; no extraction run or new frames viewed",
+    "No Linux corrected-picture acceptance until actual sheets and relevant detail images inspected",
+    "No listening,fine-sync,final4K orpublicationacceptance"
+  ]
+}

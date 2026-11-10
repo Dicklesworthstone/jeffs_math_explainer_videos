@@ -1,3 +1,989 @@
+## Exponential first final chapter independently reviewed, 2026-11-10T14:54:40.498942+00:00
+
+- [x] Existing independent reviewer actually viewed all64 selected final01 frames/8sheets, no concrete visual defect. Root verified report movie/frame/sheet bindings against actual985 extraction; independent-final985-01-review.json SHA2aad156f59893a9456a58048e3d252cfaa0534ff459b4857b13efda11b011a6e. Both reviews cover chapter01 sampled visuals only; no whole-film/audio acceptance.
+- [x] Chapter03_product_grid make-inputs session46704 exited0; inputs ready, NO chapter03 render launched. Chapter02 native1780046 confirmed live1m50s; existing guarded job unchanged. On actual02terminal success run02pictures985, then chapter03 once.
+- [x] Complex968 native1316090/encoder1316187 and969controller1315990 confirmed live2h13m; preserve jobs. Existing reviewer available for969 priority when complete.
+- [ ] Remaining finalchapters/pictures, joined master, listening/fine-sync, independent finalAV and publication remain open. FourCC quota limitation unchanged; no duplicate workers/jobs.
+
+## Exponential first final pictures reviewed; chapter02 admitted, 2026-11-10 14:52 UTC
+
+- [x] pictures985-01 terminal14:50:36.142426UTC exit0, input/finalSHAdaa1e930855d15ca29f84d64a5d25bca58f22feda08cb1fd9e753bddd072bd74 equal/no resource stop. Full AVdecode and all64selectedpictures/8sheets completed. Root fetched, hash-checked and actually viewed all8sheets, no persistent concrete defect; prediction stays hidden through20.75s and rate/refinement/ODE bridge clear. Evidence expanded-production808/root-final985-01-review.json and completed-pictures985-01.json SHA816aceebac6de6b7a5e3b909538a9f0586a0dfc7b6eec5f06c101ee594b9208f. Scoped chapter review, not whole-master or listening acceptance. Existing reviewer787 assigned independent final01 review.
+- [x] Chapter02 make-inputs session2567 exited0; after actual pictures01 terminal success launched exactly one guarded css-exponential-final983-02_factorials in tmux exponential-final983-02. Admitted inputSHA8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc, guard1777101/helper1778045. NEVER duplicate. Same full asset closure as01; distinct chapter command/output.
+- [ ] Inspect actual02 terminal, then guarded02pictures985 and actual review; remaining03-15finals not launched. No serial controller installed. Final/master/listening/finesync/independent finalAV and publication remain open.
+- [x] Complex968 native1316090/encoder1316187 still live at last2h08m poll;969waiting. No duplicate or upload. FourCC workers weekly-limited; preserved.
+
+## Exponential first final-picture job launched, 2026-11-10 14:48 UTC
+
+- [x] pictures985 chapter01 make-inputs session56070 exited0. Started exactly one guard in persistent tmux exponential-pictures985-01, PID1763531, jobcss-exponential-pictures985-01_rate_law. At first poll guard live but receipt not yet written during preflight; admission and completion NOT claimed. Never duplicate. This supersedes the previous make-inputs-running note.
+- [ ] Inspect terminal receipt/fullAVdecode and actually review resulting4K selected pictures. Then continue remaining14final983/pictures985 jobs serially; no dynamic controller installed. Complex968 remains existing active render with969waiting. Master/listening/fine-sync/independent finalAV/publication gaps remain.
+
+## Exponential first final4K chapter complete, 2026-11-10 14:47 UTC
+
+- [x] css-exponential-final983-01_rate_law terminal14:43:18.832523UTC exit0, input/finalSHA8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc equal, no resource stop. Native5920frames3840x2160/60,147.8s render40.1fps for this chapter only, not whole-film forecast. All16 physical-core pairs distinct. Full normalized timeline, cue and score schedules verified by helper. Local completed-final983-01-resource-receipt.json and completed-final983-01-summary.json preserved.
+- [ ] pictures985 chapter01 make-inputs active session56070/PID1748014; do not duplicate. After success launch guarded css-exponential-pictures985-01_rate_law, inspect receipt and actual final pictures. Remaining14final chapters not launched.
+- [x] Attempt to write dynamic serial controller990 rejected by dcg before file creation because subprocess argv could not be statically verified. Confirmed no final-and-pictures990.py file exists; no controller installed or bypass. Continue explicit per-chapter commands under existing guards.
+- [x] Complex968 native1316090/encoder1316187 confirmed live at2h06m,969controller1315990 waiting. No duplicate or new upload.
+- [ ] Actual final picture reviews, master, audio/listening/fine-sync and independent finalAV/publication remain open. FourCC workers remain at previously reverified weekly limit; sessions preserved.
+
+## Exponential first final4K chapter admitted, 2026-11-10 14:39 UTC
+
+- [x] First final983 make-inputs exited0 after checking actual preview reviews, stable receipts and bound assets. Guarded css-exponential-final983-01_rate_law admitted14:39:04.980367UTC, inputSHA8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc, guardPID1503043/helper1504478 in persistent tmux exponential-final983-01. NEVER duplicate. Initial free27017691136 bytes; original10GiB admission/8GiB stop/4GiB growth/56GiB work/20GiB target and exclusive lane retained.
+- [ ] Helper is rechecking bindings before native4K render; no terminal/render completion claimed. Inspect actual receipt and chapter schedule before next14 serial final jobs. No automatic serial controller is installed. Both root and independent981 reviews are complete; final985/master987/verification988 and actual final picture/audio reviews remain.
+- [ ] Complex968 remains existing live priority render with969 waiting. Listening/fine-sync/independent finalAV acceptance and publication remain open. Four CC weekly-limit dialogs unchanged.
+
+## Exponential full preview picture review complete, 2026-11-10T14:38:38.142328+00:00
+
+- [x] Root actually viewed all402 sheets/3163 selected pictures across15chapters, completing14 sheets037-070 and re-viewing truncated045-046. All402 cached sheet hashes match terminal981. No persistent concrete visual defect found. Evidence expanded-production808/root-preview981-review.json SHA1fa153a144d079bb696e3ef9607a46fe74399b0cfbc3dc46f04366fbb939b7e6; independent981 also complete. Sampled-preview clearance only.
+- [x] Staged both actual root and independent review JSON files exclusively on CSS, remote byte hashes match. Existing final983 helper hash matches reviewed959332344c73b93a1bd401ebef4fc33730478555dfbe4f8dc55054727abc24cb. CSS has26GiB free.
+- [ ] First chapter01_rate_law final983 make-inputs is active PID1497626/session35716, checking immutable prerequisites. NO final render launched yet; never duplicate. On success launch guarded final983 chapter01 once, then serial remaining14 with actual terminal success between jobs. Final985 pictures,987 master,988verification and actual final review remain.
+- [x] Complex968 native1316090 and encoder1316187 live at14:37UTC, elapsed1h57m;969controller1315990 waits. No duplicate jobs or uploads. Four CC panes re-read at14:38UTC: all still weekly-limited untilNov13 03:00America/New_York; sessions preserved, no paid credits.
+- [ ] Listening, fine-sync, independent final audiovisual acceptance and publication remain open for both films. Existing logarithm publication remains recorded complete.
+
+## Exponential Euler construction review, 2026-11-10T14:30:35.596922+00:00
+
+- [x] Root actually viewed chapter14 sheets001-036/288 selected frames through108.167s; every cached sheet hash matches terminal981. Tiny-multiplier prediction/refinement and power-series tip-to-tail construction clear; no persistent concrete visual defect in reviewed portion. Root total368/402 sheets,2892/3163 frames. Evidence expanded-production808/root-preview981-progress12.json.
+- [ ] Root chapter14 sheets037-070 remain before final983. Independent981 complete. Final4K/master review, listening, fine-sync and publication remain open. Complex968 renderer and encoder confirmed live;969controller waits. No duplicate or upload.
+
+## Exponential turning-rate chapter reviewed, 2026-11-10T14:27:02.551680+00:00
+
+- [x] Root actually viewed all69 chapter13 sheets/546 selected frames, including full half-second sequence and disputed cue anchors. Cached sheet hashes match terminal981. Root total332/402 sheets,2604/3163 frames; no persistent concrete defect. Evidence expanded-production808/root-preview981-progress11.json.
+- [ ] Root chapter14 all70 sheets remains before final983. Independent981 complete; final4K/master pictures, listening, fine-sync and publication remain open. Complex968 remains the existing active render; no duplicate or upload.
+
+## Exponential probability and closing bridge reviewed, 2026-11-10T14:19:10.972611+00:00
+
+- [x] Root actually viewed chapter12 all12 sheets/94 frames and chapter15 all5 sheets/37 frames; every cached sheet hash matches terminal981. Root total263/402 sheets,2058/3163 frames (01-12 and15). Multiplicative chance, typical versus mean outcomes, capacity/model limits and inverse-logarithm bridge clear; transient morphs settle, no persistent concrete visual defect. Evidence expanded-production808/root-preview981-progress10.json.
+- [ ] Root13-14 remain before final983; independent981 complete. Final4K/master pictures, listening, fine-sync and publication remain open. Complex968/encoder and969controller confirmed live; no duplicate job or upload.
+
+## Exponential changing-rate and compounding review, 2026-11-10T14:17:35.604507+00:00
+
+- [x] Root actually viewed chapter10 all20 sheets/154 frames and chapter11 all15 sheets/120 frames; every cached sheet hash matches terminal981. Root total246/402 sheets,1927/3163 frames through11. Rate/integrating-factor examples and compounding/cashflow prediction and reveal clear; no persistent concrete visual defect. Evidence expanded-production808/root-preview981-progress09.json. Earlier records preserved.
+- [ ] Root12-15 remain before final983; independent981 complete. Final4K/master pictures, listening, fine-sync and publication remain open. No duplicate render or new upload.
+
+## Exponential charging circuit reviewed, 2026-11-10T14:11:35.034103+00:00
+
+- [x] Root actually viewed all60 chapter09 sheets/473 selected frames; every sheet hash matches981. Root total211/402 sheets/1653/3163 frames through09. Voltage-gap derivation, prediction hold/reveal, R/C comparison, rescaled slower curve and finite-resolution zoom clear; no persistent concrete defect. Evidence expanded-production808/root-preview981-progress08.json.
+- [x] Complex968 renderer1316090 and encoder1316187 confirmed live, elapsed1h30m at latest poll;969controller1315990 waiting. No duplicate job.
+- [ ] Root10-15 remain before983 final4K; independent981 review complete. Final/master review, listening and fine-sync open; no new upload.
+
+## Exponential independent preview review complete, 2026-11-10T14:09:08.955834+00:00
+
+- [x] Independent reviewer actually viewed all402 sheets/3163 selected frames across15chapters; no persistent concrete defect. Evidence expanded-production808/independent-preview981-review.json; sampled-preview clearance only.
+- [x] Root actually viewed09 sheets001-018 through64.0s and verified each sheet hash; total169/402 sheets/1324/3163 frames. Circuit labels, current arrow, voltage-gap bar and rate equations clear. Evidence root-preview981-progress07.json; prior records retained.
+- [ ] Root09 sheets019-060 and10-15 remain before983 final4K. Final/master pictures, listening and fine-sync remain open; no new upload.
+
+## Exponential slide-rule and decay review, 2026-11-10T14:04:25.369433+00:00
+
+- [x] Root actually viewed07 all17sheets/130frames and08 all15sheets/114frames. Total151/402sheets1180/3163frames through08; every sheet hash matches terminal981. Prediction answers hidden until reveal, slide-rule overflow/decimal handling and decay-model caveats clear; no persistent concrete defect. Evidence expanded-production808/root-preview981-progress06.json.
+- [ ] Root09-15 and complete independent preview report remain before9834K; final/master review, listening and fine-sync remain open. No new upload or duplicate job.
+
+## Exponential uniqueness chapter reviewed, 2026-11-10T14:02:05.751335+00:00
+
+- [x] Root actually viewed all30 sheets/236 selected frames of06_only_solution; hashes match terminal981. Root total119/402 sheets,936/3163 selected frames through06. Prediction/reveal, cancellation proof, interval caveat and constant-rate cases clear; no persistent concrete defect found. Evidence expanded-production808/root-preview981-progress05.json; earlier records preserved.
+- [ ] Root07-15 and complete independent review remain before final983. Independent reviewer reports258/402 through12; final report pending. Final4K/master reviews, listening and fine-sync remain open.
+
+## Worker availability rechecked, 2026-11-10 13:56 UTC
+
+- [x] Read actual NTM panes0-3 in jeffs_math_explainer_videos--opus-replacements-20261104: all four remain at weekly-limit dialog resettingNov13 03:00 America/New_York. Sessions preserved; no paid credits enabled or duplicate sessions. Root and existing independent reviewer continue picture reviews.
+- [x] Complex968 renderer1316090/encoder1316187 alive13:55UTC,969controller1315990 waiting. Root981 review through05 saved as progress04; further chapters remain.
+
+## Exponential flagged chapter actual review, 2026-11-10 13:55 UTC
+
+- [x] Root viewed all31 sheets/246 selected frames in05_whole_sum, including9.2s native flag and all later persistence samples. Identical column100:0.000 crossfade settles; no persistent concrete visual obstruction. Head/tail bound, moving-mass counterexample and negative-input caveats remain readable. Root total89/402 sheets,700/3163 selected frames through05, terminal report hashes verified; evidence expanded-production808/root-preview981-progress04.json.
+- [ ] Root06-15 and complete independent981 review remain before final983. Final4K/master pictures, listening, fine-sync and publication remain open. No new upload or duplicate job.
+
+## Exponential first four chapters reviewed, 2026-11-10 13:54 UTC
+
+- [x] Root actually viewed chapters03 all19 sheets/150 frames and04 all9 sheets/68 frames. Total root58/402 sheets and454/3163 selected frames through04; every cached sheet hash matches terminal981. Evidence expanded-production808/root-preview981-progress03.json; prior progress retained. No concrete persistent unintended overlap or clipping found in these samples. Product-grid prediction answer withheld until reveal; coefficient/counting/limit caveats readable.
+- [ ] Root05-15 and complete independent preview review remain before983 final4K. Final4K, joined-master pictures, listening/fine-sync and publication remain open. No duplicate render or fabricated acceptance.
+
+## Exponential review continuation, 2026-11-10 13:54 UTC
+
+- [x] Extraction981 terminal exit0 with identical input/final hashes; root review reconciled to terminal report. Root chapters01-02 all30 sheets/236 selected frames actually viewed and cached hashes match. Evidence expanded-production808/root-preview981-progress02.json; earlier progress retained. No concrete persistent visual defect in these samples.
+- [ ] Root chapters03-15 remain. Independent reviewer reports119/402 sheets viewed through06; full independent report remains pending. No final4K promotion or listening/fine-sync acceptance.
+- [ ] Complex968 renderer1316090 and encoder1316187 confirmed live13:51UTC;969 awaits successful completion. No duplicate jobs or new upload.
+
+## Exponential actual picture review started, 2026-11-10 13:44 UTC
+
+- [x] Root actually viewed chapter01 all8sheets/64selectedframes, fetched with SHA checks. No concrete clipping or unintended overlap; prediction remains hidden until reveal and approximation-to-ODE bridge is readable. Evidence expanded-production808/root-preview981-progress01.json. No motion/listening/fine-sync acceptance.
+- [ ] Extraction981 remains active; root progress must be reconciled to actual terminal pictures981.json hashes before acceptance. Other14chapters remain for root; independent reviewer787 waits stable981. Selection plan3163frames, allreasons retained; no dropped samples.
+- [ ] Complex968 remains active with969 waiting; no duplicate jobs. No new upload or final4K acceptance.
+
+## Exponential narrated preview complete, 2026-11-10 13:42 UTC
+
+- [x] Actual980 terminal finished13:40:36.773688UTC exit0; input/finalSHA383a425c8073cdfb39de3ebfe2e60d84b3bad7061a28ac182d8b68bc54d51802 equal, no resource stop. All15chapters164420frames and94cues; full normalized schedules/score bindings passed helper. Fetched and hash-verified completed-preview980-resource-receipt.json(ac7adc62508c06524f233eafbd810c450f4d23ad29c57b79816dec29783037cb) and preview-summary(4585d39dbfb00c070ce031eb28b92330f44d00230ae1c7bfedbc3d5b071f8bc6).
+- [x] Only native layout finding across15chapters:05_1 local9.2s identical column100:0.000 labels overlap100percent,3laterlooks. Frozen source fill_step swaps readings during0.6s transitions; plausible crossfade only, no visual verdict. Actual981 includes anchor/persistence and whole09/13/14 sequences.
+- [x] Existing981controller4149400 launched guardPID1245293; inspect actual admission/terminal, neverduplicate. Reviewer787 assigned actual complete independent picture review only after stable981. Root will independently view allselectedsheets.
+- [ ] Actual pictures/listening/fine-sync remain unaccepted. No9834Klaunch until realroot/independent previewreviews. Complex968stillnative/encoderlive atlastpoll and969waiting; no newcomplex/exponentialupload.
+
+## Exponential final helpers reviewed and staged, 2026-11-10 13:26 UTC
+
+- [x] Root read all exact989 amendment diffs and AST-parsed the resulting helpers. Prior helpers/handoffs preserved. Staged four new remote helper files exclusively with byte hashes rechecked; no final/master/verifier job launched and no fabricated review inputs.
+- [x] final983 SHA959332344c73b93a1bd401ebef4fc33730478555dfbe4f8dc55054727abc24cb uses16distinct physicalcores verified at runtime from allowed-affinity/sysfs topology, same native959 quality/memory/guard constraints. No actual speedup claim. pictures985 SHAffc7442270664961ba2251d688a92c8e84be23439deed977b4e08c737eeee00a unchanged.
+- [x] master987 SHAf0bea109ac357d9fdc3816d2da06c58fe23219a8cddb98985bf0f06fab3ce1df corrects additional-allocation forecast with sameWORK/device/inode proofs; guard still4GiB and forecast3.5GiB. verify988 SHAe06e334d5be0d0c06615b6222333fee578306765e49db084e000344a5a841b57 binds corrected987 and checks codecs/color plus decoded video identity and encoded audio measurements.
+- [ ] Actual980/981 successful receipts and complete root/independent picture reviews are mandatory before983. Actualfinal985reviews mandatory before987; actualmaster mandatory before988. No source/take changes, guard bypass or duplicate live job. Complex968remains priority and active;969alreadywaiting. Listening/fine-sync/independent finalAV and publication remain open.
+
+## Final production bottlenecks addressed before launch, 2026-11-10 13:22 UTC
+
+- [x] Root reviewed corrected988diff and AST/hash f969be7a3bcf13201397493fe34ac2f9b49f966b3e2dd2e55b40f97fcf25c70a. Explicit H264/yuv420p/all3BT709/AAC checks; one joined decode provides video frame hashes plus audio loudness, compared with15chapter decoded sequences. Actual runtime remains pending; earlierhelper preserved.
+- [x] Root inspected actual CSS guard allocation code: deduplicates hardlinks by(device,inode) acrossD/jobs and measures deltaWORK+deltaTARGET. Prepared987 incorrectly charged all existing linked capture/video bytes again. Narrow correction assigned with explicit source-underWORK/samedevice/inode proofs,128MiB reserve and unchanged3.5GiB forecast/4GiB actualguard. No hidden output, no guard/baseline change.
+- [ ] Prepared983 will use16 distinct physical CSS cores instead of4 after source/topology review, preserving512MiB native budget and all quality/disk limits. Existing980 remains untouched. Exact frozenengine deterministic-band test is source evidence only; no measured speedup or fullscene runtime identity claimed. Root must inspect finaldiff/hashes before staging.
+- [x] Actual exponential980 now has6completed chapters and native1530 is live. Complex968 remains active;969/981 extractors already wait. No duplicate or new upload.
+- [ ] Fullactual pictures, joined AV checks, listening/finesync and independent acceptance remain open.
+
+## Joined exponential verification review, 2026-11-10 13:19 UTC
+
+- [x] Root read full prepared verify988.py and master987/pictures985. 988 separates technical verification from15 bounded picture jobs, maps every985 frame/reason into the joined master without copying the master, and rejects over-budget extraction instead of trimming samples. Not staged or launched.
+- [ ] Root found missing explicit H.264/yuv420p/BT.709 delivery assertions and absence of decoded chapter-to-master frame identity proof. Reviewer787 is correcting the unbound helper with original preserved, using actual native output metadata and bounded framehash evidence. Hash changes must be consumed before staging; no fake review or release acceptance.
+- [x] CSS980 completed first4 chapters, native1530 still live at8minutes. CSD968 native1316090/encoder1316187 live at37minutes;969 remains waiting. These are verified active waits, not terminal success. No duplicate jobs.
+- [ ] All narrated-preview/final-master pictures, continuous listening, fine synchronization and independent final audiovisual acceptance remain open. New complex/exponential publication remains pending.
+
+## Live production continuation, 2026-11-10 13:16 UTC
+
+- [x] Actual CSS preview980 admitted and native PID1530 is rendering all15 chapters with verified94 cues, narration961 and score979. First3 completed chapter outputs:5920,8964,10306frames; log reports86.3/86.0/101.5fps for these chapters only. No extrapolated whole-film ETA or terminal acceptance. Existing981 extraction controller remains the dependent path; no duplicate.
+- [x] Actual CSD968 native1316090 and encoder1316187 remain live at34minutes elapsed, native about1456percentCPU, with969controller1315990 waiting. Guard receipt admitted under10GiB admission/8GiB stop/4GiB job/56GiB work/20GiB target growth; no terminal result claimed. Preserve14 retained chapters and all failed864outputs.
+- [ ] Existing reviewer787 assigned minimal final joined-master verification helper after987: exact164420frames/94cues/captions, full decode, encoded loudness and all985picture selections mapped to master clock. Preparation only; no actual master or reviews invented.
+- [ ] Actual complex969 and exponential981 pictures must be viewed before dependent final/master steps. Continuous listening, fine synchronization and independent final audiovisual acceptance remain open. No new upload; goal active.
+
+## Exponential score979 completed; preview980 advancing, 2026-11-10 13:09 UTC
+
+- [x] Actual979receipt finished2026-11-10T13:08:28.468881Z exit0stable, input/finalSHAf28d8212a50c19eb67d6b623670f35d7eb444a015524bf8c8edc8df19e5210b6, no resource stop. All15registrymatchedQA passed and eachsamplecount equals962frames*800. Metadata fetched and SHAverified in completed-score979-*; originalfailed963 retained.
+- [x] Existing980controller4145888 advanced to guarded preview launch PID4193736; receipt/admission/native launch still to reread, neverduplicate.981controller alreadywaits. No listening/musicbalance or pictureacceptance implied byscoreQA.
+- [x] Root read complete preparedmaster987 helper (b3f066fdc5333687e00607eb3e6703dd2fce19515d2ef1a1d07047f6b3d55f20). Native15PCM replay/94cue/164420frame/captionword checks retained, actual983/985reviews required, conservative3.5GiBlogicalforecast under4GiBguard. Not staged/launched; measuredfinalsizes and admission remain prerequisite.
+- [ ] Actual980preview/981extraction and allpictures before9834K. Complex968/969 remain live/waiting; finalreview/master/publication stillrequired. No new uploads.
+
+## Exponential score979 partial QA and final verifier preparation, 2026-11-10 13:07 UTC
+
+- [x] Root read full prepared985helper and verified SHAffc7442270664961ba2251d688a92c8e84be23439deed977b4e08c737eeee00a. Each serial chapter consumes actual983success and981seed, retains every preview frame/reason, adds final lint/persistence, verifies exact962timeline/980cue logs,4K metadata andfullAVdecode. No stage/launch; images remainunvieweduntilactualoutput. Conservative perchapterstorage forecast fails ratherthandropping samples; allguardsunchanged.
+- [x] Actual score979 produced nine QA reports passed (01–09) while native4147751stillrunning; no terminal success or all15QA claim. CSS free~29GiB and availableRAM~172GiB at prior check, no resource stop. Complex968native/encoderconfirmedlive, no terminalsuccess.
+- [ ] Complete979terminal/all15QA then existing980preview/981extractioncontrollers. Essential native master987 preparation delegated only; no launch, no fabricated picture acceptance. Final4K/audio/master/publication gates remain.
+
+## Exponential native thumbnail reuse reviewed986, 2026-11-10 13:04 UTC
+
+- [x] Root actually viewed preserved native exponential thumbnail1280x720 and320x180mobile preview; title/e^x, growth-and-slide-rules subtitle, curve/tangent/point clear with no clipping or unintended overlap. Both original guarded preview/mobile receipts exited0stable/no stop. Reuse986 binds actual image hashes and current947script scope; no unnecessary new render.
+- [x] Prior thumbnail is editorially suitable for expanded current film's growth/rate-law/slide-rule content; it is not represented as a new959 output. Real-mobile-device test and fullfilm release acceptance remain open.
+- [x] Read independent audioaudit984:93selected recognition files rehashed,all93placements/14scheduled joins accounted for; selected11_3take2 ending complete, stale concern belongedunusedtake1.06_3 near-homophone and names remain uncertain, not proven errors. No listening-capable audio tool found in current tool inventory; no hearing claim.
+- [ ] Existing968complex and979score remain active; all actualpreview/finalpicture/master/platform gates still required.985final-picture helper preparation delegated only, no launch.
+
+## Exponential final983 root source audit, 2026-11-10 13:02 UTC
+
+- [x] Root read complete prepared final983.py and handoff, confirmed actual959 shared CLI selects full exact registry chapter keys. HelperSHA df1d82e2c3797a071afad3baf935c10ee4389162a878cb8b689461149c0cd7f5; not staged/launched. Requires actual980/981 stable receipts and real complete root/independent picture reviews. No fabricated review evidence.
+- [x] Fifteen separate serial guarded chapter jobs preserve4K60CRF16veryfast/fourthreads,94 narration961,score979,full962timeline/cue/score-log equality. Fullfilm PCM alone0.98GiB makes4GiB one-job encoded growth unproven. Per-chapter sizes/time and cumulative space still require actual observation; all guard74 limits unchanged.
+- [x] Score979 actualnative4147751 remainedlive at7:29elapsed,112percentCPU,about5.45GiBRSS; no QA files or terminalreceipt yet. No duplicate or restart. Existing980/981controllers wait. Complex968native/encoder remain active as last checked.
+- [ ] Independent984 apportionment audio release audit underway:06_3 additions/editions remains ASR uncertainty, not hearing proof; canonical context is99 one-seat additions. Actual selected-take/join evidence being inspected. No new synthesis or release claim.
+
+## Fresh Studio state corrects old visibility assumption, 2026-11-10 12:59 UTC
+
+- [x] Read-only Chrome Studio visit confirmed original apportionment lXODB3infLI is Public,7:09,4Kcomplete,Noticesdash. Title-filter seat returns exactly1row, this original,56views. No replacement draft under reviewed seat title found; no upload or visibility mutation performed. Recheck full inventory at actual upload if title differs.
+- [x] Loaded unfiltered Studio list1–28of28 showed logarithm lgpTDROHgQY Public32:25/304views and algebra TLIrVzLkQro Public1:09:58/357views. This is current Studio list evidence, not fresh public watch playback/caption verification.
+- [x] CORRECTION: old complex K9r71UhRr4g is listed Public6:30/26views now, contrary to older handoff's Private assumption. Preserve this observation; no visibility change made. Replacement968stillrendering, no new complex upload. Only unlist old after verified replacement4K/manualEnglish per owner workflow.
+- [ ] Apportionment still needs remaining release checks/transfer/admission and single-upload packaging. Native final983 exponential preparation delegated only; no launch before actual980/981review. Existing render/score jobs unchanged.
+
+## Successor979–981 independent delta review consumed, 2026-11-10 12:57 UTC
+
+- [x] Independent reviewer found no concrete blocker in all six successor diffs, actual staged hashes, native959 score delivery requirement and inherited962 input closure. All98 narration subtree files already bound. JSONSHA47bb5a374c672d3a2339d89ca56442d613d3957d1801d9b643f77bf3c3bea7d6; root read report and verified hash.
+- [x] Reviewer authored predecessors963/964/966, not root successors979/980/981: independent delta review only, not independent validation of inherited implementation. No runtime or actual picture/audio acceptance. Score979 native live at last check, preview980/pictures981 wait. Complex968/969 remain live/waiting; no duplicate jobs.
+- [ ] Inspect actual terminal receipts and QA, then view all outputs; final4K/master/platform checks remain.
+
+## Independent apportionment report977 consumed; CC limit rechecked, 2026-11-10 12:56 UTC
+
+- [x] Root read report977 conclusions and all13 chapter observations, verified report hash0f3abe30027ba2a2d1b005389eadd35bf0036a21b81e97da46837b3b702c6127 and rehashed all119 locally available sheet files against reviewer record. No concrete blocking picture defect reported. Preserved975 covers other2chapters; combined independent sampled review1409pictures/183sheets. No newly claimed root viewing.
+- [ ] Continuous joined motion, listening and fine-sync remain unaccepted;771 technical decode/captions/frameidentity evidence is separate. Check existing Studio inventory before any single new upload; original removal only after verified replacement4K/manualEnglish. Complex still first priority.
+- [x] Fresh tmux pane captures%0/%1/%2/%3 and live panePIDs78138/27676/33350/38764 still show weekly limit resetsNov13at03:00America/New_York and rate-limit-options. No restart, account change or usage-credit selection made; not claimed productive. Root and independent reviewer continue actionable work.
+
+## Exponential corrected verification chain and actual chapter copy, 2026-11-10 12:55 UTC
+
+- [x] Actual score979 admitted with inputSHA f28d8212a50c19eb67d6b623670f35d7eb444a015524bf8c8edc8df19e5210b6; native4147751 observed executing corrected score command with narration961. No terminal success yet; original failed963 preserved.
+- [x] Read full966 verifier, created narrow981 successor bound to preview980/score979 while retaining original reference966 hash and every hold/phrase/ASR/lint/persistence sample, full15AV decode and storage safeguards. HelperSHA7a2ed967d1ac2d175b6eda0413ad3df7da1c637f3cc3ecd1ae6caa34ccb8db99; controllerfefdf5623f82489baa69b9154d56a81bd06bff2454b781be8dc62d781749f2a7. One tmux exponential-pictures981 launched waiting on actual successful980. Do not duplicate. Existing reviewer787 assigned independent narrow979–981 source audit.
+- [x] publication976/description-timeline982.txt and chapter-times982.json bind all15 actual stable962 timeline starts and164420frames/45:40.333. Caption/publication text is still provisional against final master, not uploaded. Original draft/status retained unchanged.
+- [x] Complex native1316090/encoder1316187/controller1315990 observed alive at about12:54; final968 remains active, no terminal receipt yet.
+- [ ] Actual score979terminal/all15QA, preview980terminal and981all-picture extraction/viewing; all final4K/master/audio/platform gates remain. Independent review of newly rebound helpers pending. No continuous listening or fine-sync acceptance.
+
+## Exponential score recovery979 launched, 2026-11-10 12:54 UTC
+
+- [x] Actual timeline962 finished exit0 stable/no resource stop: all15 chapters,164420frames at60fps,45:40.333.94 ordered cue schedules are checked by the score helper; narration remains preserved.
+- [x] Score963 failed exit1 stable/no resource stop because native consumer requires --narration. Original helper, receipt and outputs retained. No musical QA success claimed.
+- [x] Created/staged score979 with the sole functional CLI repair: bind existing verified narration961 using --narration. All original input closure,15 score QA, sample counts, exclusive lane and resource guards retained. HelperSHA e9ca8e209dedb714187e932b6265d6acdebf4ee87183ee350afcfb2963884510; controller b9b52a7d618f82b5436d31f4e00d85df277c4aca6cb12490f3ed7ce087aec301. One tmux exponential-score979 started; actual controller4144407 and make-inputs4144411 observed live. No duplicate.
+- [x] Versioned preview980 points to979 and preserves all15 exact timeline/cue/score checks. HelperSHA373a30c070b9b46834989501746de11efd22b35cd475da89f20750cd0a463daf; controller028b39a2daddfabc1b5091f4c3594a49c16d3ba3a32c8a657f229b7b66aa6f71. One waiting tmux exponential-preview980 PID4145888 observed. Old964 aborted before preview launch; old966 still waits for nonexistent964, not a current extraction path.
+- [ ] Inspect979 actual terminal and15 musical QA;980 narrated preview must complete successfully. Create versioned picture verifier successor to966 bound to980 before actual all-sheet review. No final4K, listening/fine-sync or release acceptance.
+- [x] Complex968 native1316090 and encoder1316187 actually alive at12:51;16-core recovery actively rendering,969controller1315990waiting. No completed final chapter claimed.
+- [x] Independent apportionment977 reports all904remaining sampled pictures/119sheets viewed with matched hashes, no concrete blocker; preserved975+977 cover1409selected pictures/183sheets. Report977SHA0f3abe30027ba2a2d1b005389eadd35bf0036a21b81e97da46837b3b702c6127. Root still must inspect completed report; continuous motion/listening/fine-sync and publication remain separate.
+
+## Final preparation and independent apportionment review, 2026-11-10 12:46 UTC
+
+- [x] Complex968 is admitted/live: native1316090, affinity0-15,25threads, observed1181–1373percentCPU and329–361MiBRSS. Ten-second raw-input sample about1.5fps nearframe390; approximate input-byte proxy, not controlled speedup or completion forecast.969controller1315990 waits. Root staged exact970–974helper hashes; no stage/master/verifier launched before actualfinalpictures.
+- [x] Independent975 actually viewed apportionment06/12:505frames64sheets plus6full-size details, no concrete visual blocker. Initial12title concern withdrawn after full-size inspection. Remaining13chapters/joins assigned independent977review; no fabricated whole-film/motion/listening acceptance.
+- [x] Root actually viewed existing native apportionment thumbnail at1280x720 and320x180; hashes match prior receipt.978records truthful reuse: genericRegionA teaser depicts same2-to-1loss as rebuiltAsh example; exactfraction recomputation gives15:[2,3,10],16:[1,4,11]. No newthumbnailrender claimed, no concreteclipping. Smallsecondarytext remains a real-device limitation.
+- [ ] Exponential962 remainsrunning with12completedchapters;963/964/966wait. All actualfinalpicture/audio/master/publication gates remain. No newupload or goalcompletion.
+
+## Complex968 recovery launched once;969 waiting, 2026-11-10 12:41 UTC
+
+- [x] Independent787 source-reviewed exact controlled-stop change, no concrete blocker. Root staged exact968runner2634c842/launcher47b8f22b and969extractor64045fcd/controller e8876c7f. ONE persistent tmux complex-final968 launcherPID1315969 started; ONE complex-pictures969 controllerPID1315990 waits successful stable968. Never duplicate.
+- [x] Original864 terminal exit-9/stable/no resource stop and cleanup signal15 preserved; old native/helper/encoder gone before successor. Newjob preserves identical binary/source/audio/score and4K60quality, uses16distinctphysicalcores/24h bounded step under unchanged native-memory and disk/lane guards. No measured speedup or final output yet.
+- [x] Downstream hash pins rebound with prior consumers preserved: gate971 a6be029f97f64fc58a73423f318c94c56d341d126315a4213f4e7e4bad835e41; master972 c225ee441326f0262ef805e94dc5a6b37351525861df69188a3616f582bef998; verify974 7b3a17e3e350d1dc1b8b00eed69f56a24f65333a3c44a679760efce753ff1a4a; after974 9c84fa122e2c8806db04d4c4dbf6cf0f47875558dbc13b35db7b99b78c422d57.970/973 unchanged; not launched.
+- [ ] Inspect actual968admission/terminal and969allpictures beforestage/master. Exponential962 has12chapter outputs and remainsrunning, original963/964/966waiters intact. Independent apportionment06/12image review underway. All listening/finesync/finalAV/publication gaps remain.
+
+## Complex864 controlled stop recorded;968 recovery pending, 2026-11-10 12:40 UTC
+
+- [x] Root stopped only verified owned864helper782328 via SIGTERM after measured four-core camera raster saturation made waiting for the four-hour timeout wasteful. Exact cmdline/PGID/SID verified first; guard remained alive to record terminal result. This supersedes prior plan to wait for timeout.
+- [x] Actual864receipt finished2026-11-10T12:39:07.543924Z exit-9, initial/final inputSHA685f490743004a9fa3f7d845be3b120b60ed23b2a9473edd88d42819e2a9a7cc equal, no resource stop. native.cleanup.json: reason signal15, group782328, nativechild_exit-15. Helper/native/ffmpeg and875controller PIDs all gone. Failed files preserved; no completed render claimed.
+- [x] Preserved earlier timeout-only968helpers before narrow change: recovery now requires this exact controlled-stop outcome/group rather than falsely claiming timeout. NewrunSHA2634c842bacc9b5894511c47ca22c16d1d952e40ea126fd1844d69914e0e48dc; launcher47b8f22b8f07d0770465e696d5c8094218a2f613fc5dc79b710701e759142236.16physicalcores/24h, original native-memory and disk/work/lane guards unchanged.
+- [ ] Independent tinydiff audit and downstream hash rebinding pending.968notyetstaged/launched. No activecomplexrender as of this record. Preserve priority and resume recovery promptly after checks; finalpicture/master/publication gates unchanged.
+
+## Exponential publication draft976 prepared, 2026-11-10 12:37 UTC
+
+- [x] Added title, description and tags under expanded-production808/publication976, bound to current947script. Title: Why the Exponential Appears Everywhere.15 proposed chapter labels recorded without invented times. Description links the published logarithm companion and checked NIST/Smithsonian reference pages, credits native FrankenManim and Frederick Surrey ElevenLabs.
+- [x] Source check caught initial radioactive-decay wording: actual08 is first-order chemical concentration. Corrected to chemical reaction; initial draft/status preserved.12 described as invented random multipliers. CurrentdescriptionSHA5e8c9da32867984e8c5490906110079022336472e42a9becee3b296794349dce.
+- [ ] Full final-cut copy review, actual15 chapter times/finalmaster match, thumbnail, captions and release checks remain. No upload. Independent787 currently inspecting actual apportionment06/12 images; complex recovery968–974 remains prepared only while864runs.
+
+## Complex recovery downstream chain source-audited, 2026-11-10 12:35 UTC
+
+- [x] Independent787 found no concrete blocker in968 at its exact hashes. Root read969 extraction/controller diffs and all970–974 successor diffs. Actual969final samples remain carried into assembled-master review; all15 chapter schedules/PCM replays and14 unchanged chapter gates retained. Literal hash dependencies updated bottom-up; AST checks pass. Original875/868/873/874/876/878 files preserved.
+- [x] Prepared files only: materialize970, gate971, master972, stage973, verifier/controller974. No staging, launch or invented review evidence. Handoff `native-linux-chain970-974-handoff.md` records exact hashes/invocations. Master controller starts only with actual master, avoiding its12hour wait expiring during a24hour render.
+- [ ] Actual864 terminal still required before any968 recovery. Actual968/969 outputs and root/independent pictures precede970stage/972master. Full974decode/captions/loudness/frameidentity and actualassembled pictures remain before any upload, then public4K/manualEnglish checks. Listening/finesync/independentfinalAV gaps explicit.
+
+## Complex968 recovery prepared, not launched, 2026-11-10 12:32 UTC
+
+- [x] Independent slowdown report confirms09 uses actual smooth ImageMobject backdrop, requiring camera path. Removing camera is not equivalent. Source worker tests compare1/4/16 raw output but were not rerun and do not prove whole-film identity. Native512MiB admission remains unchanged.
+- [x] Root prepared only968runner/launcher from preserved864: same844binary/source/849audio/score21,4K60CRF16veryfast;16 distinct physical cores checked via sysfs and24hour bounded native step. All disk/work/target/free/exclusive-lane guards retained. No benchmark or speed claim.
+- [x] Recovery refuses running or successful864, resource-stop failure or unstable inputs. Requires actual terminal native.cleanup.json TimeoutExpired evidence; root inspected owned cleanup implementation and corrected initial command-log assumption before launch. Scans for surviving864native process. Files not staged or run.
+- [ ] Existing reviewer787 independently auditing968diff and preparing969final picture extraction only. Actual864 remainslive;875stillwaits. No duplicate job or mutation to current frozen inputs. Any968success still needs complete final picture, schedule/PCM, master and publication verification.
+
+## Complex bounded-profile CLI caveat, 2026-11-10 12:28 UTC
+
+- [x] Reviewer found --max-frames is advertised for profiling but frozen rendering.rs returns scene-exceeded-max-frames error on next capture, propagated by CLI. No completed decodable sample is established. The preceding benchmark proposal is therefore NOT runnable/qualified as stated.
+- [x] Root instructed no benchmark artifact workaround or engine edit merely for profiling. Check supported completed-sample path and thread determinism/memory constraints; otherwise stop benchmark preparation. A future production successor may use the identical binary with more workers and a longer bounded runtime, subject to all final output/picture checks; no speed or byte-identity claim without actual evidence.
+- [ ] Current864 remains unchanged/live. No successor launch, benchmark or source mutation; all prior gates retained.
+
+## Complex864 bottleneck localized; recovery benchmark preparation, 2026-11-10 12:28 UTC
+
+- [x] Actual process/thread evidence: four native frame workers saturate CPU affinity0-3; x264 encoder consumes only1.8percentCPU and waits for input. Build844 used release mode. Host has32physical/64logical cores, observed load about8; no host-wide saturation established. Current position about3570frames remains within09_1, nextcue09_2 starts8333.
+- [x] Independent reviewer inspected frozen CLI: --max-frames exists for profiling; no frame start/end/resume option. Root requested a preserved, guard-owned serial4-versus16-thread4K benchmark using identical844/source/849/score inputs and decoded-frame equality. Preparation only, no launch before864terminal, no affinity or frozen-helper mutation, no duplicate production job.
+- [ ] Qualify any proposed higher worker count with actual output identity and bounded runtime evidence before a successor final. Do not lower resolution, antialiasing/detail or encoder quality to speed delivery. Longer timeout alone is not a throughput fix.
+- [x] Exponential962 has eight completed chapter timelines,86526frames so far; actualnative process remains live.963score/964preview/966decode-picture controllers already waiting, neverduplicate. No fulltimeline or picture acceptance yet.
+
+## Apportionment retained picture reviews bound to current master, 2026-11-10 12:25 UTC
+
+- [x] `apportionment-review-binding967.json` binds all15 latest chapter reviews,1409 selected pictures on183 sheets, to the actual770 chapter files. Rehashed every current chapter and its source, checked stable770/771 terminal receipts, current masterSHA and existing771 full decoded-frame equality. Chapter03 review is linked through its exact sampling manifest; repaired06 uses769 review, never superseded714.
+- [x] Read the observations for review records without explicit defects arrays; no missing field was treated as acceptance. BindingSHA b114c19ae084e0726438e7a0283f235abe8682ff40216ec720cce021dc3de5df. This avoids repeating already completed still-frame work without claiming new viewing.
+- [ ] No release acceptance: independent final audiovisual review, continuous listening/fine sync and full-size motion review of dense chapter12 proof remain open. No upload. Complex remains first priority;864 slow but live,875 waiting. Exponential962 has eight completed timeline chapters; existing963/964/966 controllers wait.
+
+## Complex864 measured throughput concern, 2026-11-10 12:22 UTC
+
+- [x] Confirmed native782368 and bound ffmpeg782421 alive; no terminal receipt or resource stop. Encoder /proc IO rchar indicates approximately3552/16504 raw NV12 frames consumed (includes small ancillary reads, not exact encoded-frame proof). Ten-second measurement consumed24883200bytes, approximately0.2fps. Temporary MP4 exists4456496bytes. CPU393percent, elapsed about2h55m.
+- [x] Re-read frozen864runner: native subprocess timeout14400seconds. At observed throughput timeout risk is material; earlier same-day publication estimate was too optimistic and corrected to owner. No frozen helper/guard changes, duplicate render or cancellation made.
+- [ ] Investigate throughput/cpu allocation and preserve actual terminal outcome; prepare a justified recovery only if required. Existing875controller still waits successful864. No final4K or release acceptance.
+
+## Exponential preview picture verification966 queued, 2026-11-10 12:21 UTC
+
+- [x] Root read the complete966 extraction helper/controller and handoff; staged all three exact files on CSS and verified SHA256. One persistent `exponential-pictures966` controller PID3727156 is live, waiting for successful stable preview964; no extraction job launched yet. Never duplicate.
+- [x] Prepared checks cover full AV decode of all15 narrated previews, all94 cues,14 source-bound prediction holds,24 phrase anchors,six provisional sentence boundaries,18 disputed cues, entire repaired09/13/14 chapters and all lint/persistence samples. Deduplication retains every reason. Existing resource guards and conservative storage preflight retained; no samples silently dropped to fit.
+- [ ] Inspect actual962/963/964/966 terminal receipts, all score QA and every resulting picture. Extraction is not picture acceptance, listening, fine sync or final4K qualification. Complex864 remains live with875 waiting; final4K review and full master checks precede publication.
+
+## Exponential actual prediction-window audit begun, 2026-11-10 12:12 UTC
+
+- [x] Read actual962timelines for first4completedchapters. Three mappedpredictionholds have exactlyone matchingpredict/breath, authored4seconds, begin afterentireWAV ends and finishbeforenextcue.01_1end967.2/predict1004/next1262frames;02_1end1384.8/predict1421/next1679;03_2end2645.2/predict2682/next2937.04has no mappedpredictionhold. This is3/14time-arithmeticchecks, notactualhidden-answer picture acceptance.
+- [x] Sent exactactualfield interpretation/required full14checks to reviewerpreparing966. Nativeconsumerreport prediction_holds[] mustnotbeconfusedwithmissingauthoredtimelineholds; actualmark/breathrows exist.
+- [ ]962continues;963and964controllersalreadywait, neverduplicate.966unlaunchedpreparation.864complex4Krendererand875picturecontrollerconfirmedlive; no terminalorvisualacceptanceyet. Listening/finesync/finalAV remainopen.
+
+## Exponential preview964 controller waiting, 2026-11-10 12:10 UTC
+
+- [x] Root reviewed964helper/controller and currentkit score/cuelog behavior; exacthelpers staged. ONE tmux exponential-preview964 PID3409044 waitsactualstable963 plus all15QA before guardedfull960x540fps60CRF18veryfast4thread scorednarratedpreview with--lint. Requires complete normalized15timelines/cues equality to962 and only exactscore additions to cuelog; probesframecount/audio/layout/capture. No964jobyet, neverduplicate.
+- [x]962native completed01_rate_law5920frames and02_factorials8964frames; remainsrunning, notterminalsuccess.963score waits.
+- [ ] Existing reviewer787 preparing966fullAVdecode/actualpicture extraction plan/helper fromrealholds/cues/phraseanchors/disputedwindows/priorrepairs/alllint+persistence, notlaunched. Dedupframesretainreasons; allpicturesmustbeactuallyreviewed.
+- [ ] Complex864stillactive,875waits. Publication965copy correction readyforfinalmasterbinding; no upload/listening/finesync/independentfinalAV claims.
+
+## Complex publication clause corrected in preserved successor965, 2026-11-10 12:09 UTC
+
+- [x] Read full750independent copy review and publication376description. Adopted C1 only: triangles/squares are cut into smaller copies and shared edges cancel. Verified actualfrozen844script08_5 includes triangle midpoint proof; localcanonicalscript is older, not authoritative for this currentcut. New publication965 preserves376 and title/tags/chaptermarks/credits byteidentically; descriptionSHAc78723f3dffe6476cf68afa56edb1b4d0cae372f44fc7d9596bd607a87f2fd0b. review965.json records narrow scope.
+- [ ] Use965copy only after successful874master and finalchapterstart checks, captions/thumbnail/actualpicture proof. No upload started.864 remainsactive/875waits; no duplicate.
+- [x] Exponential962native produced firstchapter5920frames/60fps and remainslive;963waiting. Reviewerpreparing964narratedpreview, notlaunched. All listening/finesync/finalAV gaps remain.
+
+## Exponential962 native timing active;963 score controller waiting, 2026-11-10 12:07 UTC
+
+- [x] Actual962guard admitted, runner3296054/native3296771 live. Native render-consumer explicitlyverified94/selected94 externalUI cues; timeline-only64x36fps60threads4, no terminalreceipt yet. Neverduplicate.
+- [x] Root read full963score helper/controller, exact hashes staged; launched ONE waiting tmux exponential-score963 PID3323536. Requires successfulstable962/full15chapter94orderedcue schedules before guardedscore; all15QA and native float32stereo48k stem samplecounts/segmentedhashes checked. No scorejobsuccess claimed.
+- [ ] Existing reviewer787 assigned964narratedpreview helper/controller preparation only,960x540fps60CRF18withscoreand--lint afterstable962/963/allQA. Actualallpreviewpictures/sync review must precede final4K. No964launch yet.
+- [ ] Complex864 remainslive,875waiting; no duplicate. Allfinalpicture/master/watch4K/manualcaption checks remain beforepublication; no continuouslistening/finesync/independentfinalAV acceptance claimed.
+
+## Exponential glyph review passed; timeline962 controller launched, 2026-11-10 12:05 UTC
+
+- [x] Independent reviewer787 actually viewed ALL81PNG pages000000–000080 of959glyphs; hashes bind exact959qualification/binary/registry. No concrete glyph defect. Correction: prior82page count included pages/FMN_COMPLETE marker, not82images. Scope glyphs only, not actual scene or audio acceptance. Root independently matched all81reviewhashes toqualification.
+- [x] Reviewer source-checked962 against actualfrozen959CLI: rootlevel timelinefiles/fps/frames/line schema,64x36timeline mode valid, lint intentionallyexcluded. Root staged exacthelper SHAd516c5c663c675e3a669f3f88300abcea1f819ad24f77e5c30ce565b7db31de7 and launched ONE persistent tmux exponential-timeline962, freezinginputs then guardedtimeline. Requires actualstable961, checks15chapters94orderedunique cues and retains allguards. No timeline success yet; neverduplicate.
+- [ ] Existing reviewer preparing963score helper/controller, no launch. After actualtimeline success inspect all15schedules, runscoreQA and narrateddraftwithlint+allactualpictures beforefinal4K. Continuouslistening/finesync/independentfinalAV remainopen.
+- [ ] Complex864 remainslive;875waits, no newcomplexjobs. Final4Kpictures/master/fullverification/publication remainsfirstpriority.
+
+## Exponential961 full narration migration passed, 2026-11-10 12:03 UTC
+
+- [x] Transfer960 finished11:59:34UTC exit0 stable SHAce0a568c10841629aa814ace4c1313f58b7684682e832d81bfa5e5082c688fa2/no stop,489files997216903bytes copied with hashes. Root staged94original providerreceipts unchanged plus exact961helper/manifest.
+- [x] Guardedrebind961 finished12:02:02UTC exit0 stable SHAa158c6624dab1f55a51fb55721f987ceec04537509b226f4e5040ca728d069c4/no stop.94fullWAVbyteidentity,all sentence sample rows preserved,6596phrase marks,14directions; native render-consumer accepted94verified/selected externalUI cues. Current narration CSS/jobs/css-narration-rebind961/narration. No listening/finesync accepted.
+- [x] Local completed-build959/completed-transfer960/completed-rebind961 receipts+qualification copied and compared to remoteSHA.959glyph pages actualindependent review in progress,82total.
+- [ ] Root prepared timeline962.py, ASTpassed, notlaunched; reviewer787 checking. Actual959CLI confirms --timeline-only64x36fps60 skipslayoutlint, so next narrateddraft must include lint/actualpicture review. Require stable961 before timeline, then15chapter/94orderedcue checks and scoreQA.
+- [ ] Complex864 live2h36m/393percentCPU;875waiting. No duplicate jobs. Final4Kreview/master/fullverification/publication remains firstpriority; explicit listening/independentfinalAV gaps remain.
+
+## Exponential959 qualified; narration960 transfer active, 2026-11-10 11:59 UTC
+
+- [x] Actual CSSbuild959 finished11:57:56UTC exit0, initial/final SHAa8dd55d7a26343d11711827c33b09bfabe0914165f6c362b64a3fb6e4aefda41 identical/no resource stop.218tests, strictClippy, nativebuild,1771oracle facts,15registry chapters94cues, allscratchcue probes passed;868glyphsources0reportedfailures,82pages. Independent reviewer787 assigned actualhash-bound all82page inspection; not visually accepted yet.
+- [x] Root audited960 streaming helper and actual489-file997216903-byte manifest, stagedexacthelper/manifest, froze inputs and launched ONE guarded css-narration-transfer960 in tmux exponential-narration960. Actualreceipt admitted/livePID3271977 inputSHAce0a568c10841629aa814ace4c1313f58b7684682e832d81bfa5e5082c688fa2. No transfer success yet, neverduplicate. Preserves alltakes and copiesfullprovenance.
+- [ ] Review961 rebind helper and stage94original providerreceipts before guardedrebind, require actualstable959+960; preserve94WAVbytes/all sentence samples/6596provisionalmarks. Native narratedtimelines/score/render/master and finalreview/publication remain.
+- [x] Root checked preparedcomplex876/868/874/878 helpers onCSDmatch expectedhashes; no launch before actual875finalpicture acceptance.864stilllive/875waits. Listening,fine-sync and independent finalAV gaps remain explicit.
+
+## Exponential959 preparation passed, 2026-11-10 11:53 UTC
+
+- [x] Actual CSSprepare959 receipt finished11:52:56UTC exit0; initial/final input SHAba6d26ce10d6c2a5f80a209e1c1f775e3413539cd9250572d4952348a169711a identical, no resource stop. Existing controller3056340 now runs make-inputs --for-mode build (PID3062513); build not yet admitted on last observation. Never duplicate.
+- [x] Assigned existing independent reviewer787 concrete next helper: guarded transfer/rebind of TS1phrase958 narration into successfully qualified959 source, preserving94WAVs/report.lines/sentence samples/6596marks and binding all provenance dependencies. Preparation only, no remote mutation or inferred qualification.
+- [x] Rechecked four CC pane tails: weekly limit throughNov13 3amET; preserved sessions, no credits/account changes. Complex864 PID782368 live2h25m/393percentCPU, stderr0, no terminal receipt;875waiting.
+- [ ] Actual build959 fulltests/probes and glyph review, narrated delivery/timelines/render/master remain pending. Complexfinal4K review/master/publication remains priority. Listening/fine-sync/independent finalAV acceptance remains open.
+
+## Exponential959 recovery controller launched, 2026-11-10 11:51 UTC
+
+- [x] Root reviewed full build959 helper, transfer manifest and independent one-line test-count review. Seven exact files staged to CSS using exclusive creation and source hash checks. One persistent tmux exponential-build959 controller launched; pane PID3056340 observed python3. It freezes inputs, runs guarded prepare959, requires terminal stable success, then guarded build959. No build success claimed yet. Previous948 failure and all files preserved; private0700 temporary directories and all218 tests retained.
+- [ ] Inspect actual959 receipts and glyph pages; do not duplicate controller or jobs. Then bind completed TS1 phrase958 narration to qualified native source and continue narrated timelines/render/master.
+- [ ] Complex864 final4K render last observed live at2h23m/393percentCPU;875 waits. All final4K picture, independent review, master and publication checks remain. Continuous listening/fine-sync acceptance remains open.
+
+## Exponential narration954–958 complete;959 count-test recovery pending, 2026-11-10 11:40 UTC
+
+- [x] TS1assemble954 exited0/stable416inputs/no stop at11:36:15UTC:94 full cue PCM reconstructions,14 source-bound native visual direction dispositions, exact947 external unit plan. All six952 provisional sentence starts applied without added silence; spans remain recognition estimates, not heard boundaries.
+- [x] phrase955 exited0/stable516inputs/no stop at11:37:44UTC:6594 provisional matched word marks, full source reconstruction passed. Source inventory956 found21 literal phrase calls plus3 DEBTS dynamic expansions.22/24 already marked; actual14_2 numeric segments64 at23.72s and1024 at25.92s recorded957.
+- [x] Guardedphrase958 exited0/stable618inputs/no stop at11:39:21UTC:two provisional numeric marks added,6596 total, fullPCM reconstruction again passed. All24 audited scene phrase hooks now have exact byte-offset marks. Local completed-assemble954/completed-phrase955/completed-phrase958 hold receipts/metadata; audio remains onTS1. No listening/fine-sync/native runtime acceptance.
+- [x] CSSprepare948 succeeded stable/no stop, butbuild948 FAILED at11:37:05UTC:217/218tests passed; solefailure expects7008words while revised947script correctlyhas7013. Root preserved before-word-count959-applications_checks.rs and changed ONLY test assertion7008→7013. No geometry/script/map/audio edits. Reviewer787 preparing fresh959 recovery preserving948source/receipt/cache; no959 launch yet.
+- [x] Four CC panes rechecked: all still show weekly limit Nov13 3amET; sessions preserved, usage credits untouched. Codex continues production/review. Complex864 live~134minutes/393percentCPU, empty stderr;875waiting. Neverduplicate.
+- [ ] After959 qualification and glyph review, bind TS1assembly to exact newCSSnative map/paths with94PCM identity; run narrated timeline, scoreQA, render/master/full actualpicture review, then publish. Complex864/875/master/full verification remains first priority. Keep all listening, fine-sync and independentAV gaps explicit.
+
+## Exponential953 full-duration derived audio complete;948 recovery launched, 2026-11-10 11:33 UTC
+
+- [x] Guarded TS1 decode953 finished11:32:22UTC exit0,196 stable inputs/no resource stop,94 full-duration mono24kHz16-bit working WAVs. Each derived sample count is exactly half its48k original, originals unchanged; no speed/pitch edits, cuts or inserted silence. Full source/request/voice/sample checks passed. Local completed-decode953 holds terminal/input/decode receipts; WAVs currently remain onTS1.
+- [x] Root reviewed948 recovery helper and staged exactthree947bindings+helper underCSS exclusive newpaths. Launched ONE exponential-build948 controller: guardedprepare948 then only after terminal stable success guardedbuild948. New0700WORK/tmp/cache, original engine boundary checks unchanged, old933/941 paths preserved. Requires full218tests/clippy/facts/script/cue/glyph qualification with7013-word current script, no successful941 claim.
+- [ ] Inspect actual948prepare/build terminal receipts and all newglyphpictures. Never duplicate948 or953. Apply952provisional boundaries only with actual full-source assembly/reconstruction and matching current direction map/native consumer; phrase coverage and narrated timeline still pending.
+- [ ] Complex864 remains live at~124minutes/393percentCPU onlastcheck;875waits. Final4Kpicture/independent review,master/full verification/publication still pending. Listening/fine-sync/independentAV remain unaccepted.
+
+## CSS941 terminal failure isolated;948 recovery assigned, 2026-11-10 11:30 UTC
+
+- [x] Root read actual941 terminal receipt:11:28:14UTC exit1, initial/final SHA f52e98f3edeac9e01a3aa2b8e3b1b13f74b8de689884572b5b6de535ca7c4815 stable, no resource stop.218tests/Clippy/build/facts/script passed, but cue-probe rendered no frames: ffmpeg boundary rejected group/other-writable non-sticky exponential933/tmp ancestor.941 is FAILED, not qualified.
+- [ ] Reviewer787 assigned948 recovery plus947 script successor: fresh private0700 temp directory and actual path-boundary audit, preserve failed941 and all existing files, no security relaxation. Reuse cache only with source binding and repeat full current947 qualification. Helper/input/launch preparation only; root reviews then guarded launch. Never repeat941.
+- [x]950–952 narration candidates/source/request/report integrity and six provisional sentence starts prepared; no decode/assembly/listening acceptance yet. Complex864/875 chain remains priority and must not be duplicated.
+
+## Exponential full-take assembly preparation950–952, 2026-11-10 11:29 UTC
+
+- [x] candidate-takes950.json binds94 current947 exact cue texts/requests to retained full WAV hashes, origin receipts and complete ASR reports. Candidate audio totals43:37.6 before native holds/animation. This is a provisional assembly selection, not listening/fine-sync acceptance.14_3 uses repaired947;14_6 prior generation2. All alternatives remain intact.
+- [x] sentence-readiness951.json produced source-bound provisional sentence starts for94cues, with six numeric/joined-word questions across07_6,10_5(two),11_3,13_1,14_2. Actual recognition segments inspected; timing-boundary-review952.json records six provisional starts, not yet applied. No audio transformed, cropped or silence inserted; no production spans emitted.
+- [ ] Next: guarded24kHz derived WAV preparation preserving duration/full original samples, external-v2 request/receipt binding and full reconstruction; apply reviewed provisional sentence candidates and audit phrase anchors before narrated native timeline. Preserve 69 raw-token discrepancy records, which include symbols/numeric formatting and already documented model disagreements; do not treat token stripping as speech omission.
+- [ ]941 still requires terminal qualification;948 successor must bind947.864 final4K and875 actual pictures/independent review remain critical path. No new publication or listening acceptance.
+
+## Euler narration repair949 recognition passed, 2026-11-10 11:27 UTC
+
+- [x] Guarded targeted949 finished11:26:08UTC exit0, initial/final input SHA07a8e83133aec0f421c5d13f104537f2872bad8466038edbf7399810edc6f25a identical, no resource stop. Both complete947 takes checked by both recognizers; all four explicitly recognize imaginary unit times pi and match requested words after punctuation/case and 1/one normalization. All full reports copied and hash-verified locally in completed-recognition949; euler-repair949-recognition-review.json records scope.
+- [ ] No take selection, continuous listening or fine-sync acceptance yet. Continue current947 full-sample narration assembly, successor native binding after941 qualification, and complex864/875 existing final-render chain. Do not regenerate947 or repeat949.
+
+## Exponential repaired Euler takes retained; diagnostic949 running, 2026-11-10 11:26 UTC
+
+- [x] Source repair947 independently checked: only cue14_3 wording changed to explicit imaginary unit times pi; 94 cues/7013 words, all14 holds/helpers and direction-aware consumer checks pass. Remote941 frozen source remains unchanged; successor build must bind947.
+- [x] Generated947 ONCE with Frederick Surrey/Eleven v4. Both complete 48kHz mono16-bit WAVs retained with request and SHA/sample receipts: generation1 1543680 samples/32.16s; generation2 1512960 samples/31.52s. Original188 takes and all historical requests preserved. Recovered first already-completed download after browser timeout; downloaded only remaining second take, no regeneration.
+- [x] Started guarded TS1 targeted949 ONCE in tmux exponential-targeted949, two full repaired takes across small.en and large-v3-turbo (four serial recognitions). Original admission/free-stop/growth/work/lane guards retained. Inspect actual terminal receipt/transcripts before any take selection; no listening proof.
+- [x] Actual CSS941 tests now pass218/218; strict clippy ongoing, no terminal qualification yet. Complex864 remains live final4K render,875 waits. Never duplicate jobs/controllers.
+- [ ] After949 success: inspect all four reports; retain explicit disagreement if any, prepare full-sample-preserving24k narration and current947 external plan. After941 qualification: successor native binding947 and required glyph review, narrated timelines/score/full renders.
+- [ ] Complex: actual875 final4K picture review and independent review,868 materialization,874 full master,878 full verification/pictures, then single upload/public4K/manual-caption verification. No publication or continuous listening/fine-sync acceptance claimed.
+
+## Exponential diagnostic944 complete;14_3 pronunciation ambiguity held, 2026-11-10 11:14 UTC
+
+- [x] Targeted944 exited0/stable/no stop at11:12:46UTC; all26 complete reports copied and hashverified locally. Small.en supplies function arguments omitted bylarge model across affectedcues. Mathematical-recognition-review946.json records exactevidence, not listening/speechproof.
+- [ ] HOLD14_3take selection: bothmodels/bothtakes transcribe e pi against script i pi. Material ambiguity notaccepted; reviewer787 assigned independent-euler-14-3-review945.md with exactfullcue/source/plan/map change inventory and minimal explicit imaginary-unit wording proposal. No source edits/synthesis/rerolls while941closurefrozen. Preserveall188takes.
+- [x] CSS941controller checked live; currentgitclosure child2658858 active, no buildreceipt yet. Complex864stilllive~106min at392percentCPU and875waiting; do notduplicate. FourCClimits unchanged.
+- [ ] Final4Kpictures/master/fullfilm/publication plus exponential narratedassembly/nativebuild/finalrenders remain. No continuouslistening/finesync/independentAV acceptance.
+
+## CSS941 transfers succeeded; native build controller admitted to next checks, 2026-11-10 11:12 UTC
+
+- [x] All three actual guarded Git941 transfers exited0 with stable inputs/no resource stop; controller confirms each. Files staged under measuredD/work/git941 and hardlinked into absent cache paths; existing metadata preserved. Full missing dependency closure now present.
+- [x] Root reviewed941 vs933diff: adds six exact HEAD/source/GitDB closures, retains218tests/1771facts/94cues/15chapters/glyph/scratch and isolatedtarget, reusesprepare933, no repeatpreparation. Launched ONCE CSS tmux exponential-build941 controller, requires allthree stabletransferreceipts/manifests/proofs before actual build manifest; then guardedbuild941. Currently validating/freezing; no buildsuccess claimed. NEVER duplicate.
+- [ ] TS1targeted944latest20/26, no terminal receipt; no listening/take acceptance. Complex864still awaiting finalrender/875pictures. All source and failedattempts retained, finalAV and publication gates open.
+
+## Exponential ASR925/932/939 complete; Git transfer941 and diagnostic944 active, 2026-11-10 11:11 UTC
+
+- [x] Actual925 terminal exit0/stable/no stop at11:07:48UTC; all175 reports copied locally and SHA-verified in completed-recognition925. Earlier924 supplies remaining probe record.932small.en five reports and939unsplitlarge five reports both exit0/stable/no stop, all copied/hash-verified locally.
+- [x] Small.en recognizes02_6Eofx/Eofzero and03_1Eofx/Eofy in both takes; large model still omits them with word-splitting disabled. This supports model-specific disagreement, not established speech omission or correctness.02_3axes/axis remains model disagreement. No listening/fine-sync/take acceptance.
+- [x] Guarded targeted944 launched ONCE in TS1 tmux exponential-targeted944 after rehashing successful925/932/939 closures.26 unchanged full takes across13 other mathematical cues use retainedsmall.en; no prompt or audio manipulation. Inspect actual receipt/results before selection.
+- [x]941producer review caught actualhardlink inode duplicates(4part1/10part3); priorhelperpreserved and dereference=True correction deployed SHA488fd128b8e2bccfd86b524d6ed0412ac6c760e90207f4fea0837d62577f214b. Six helper/manifests hash-verified by transfer943. Initial shell quoting command failed before writing/launch; corrected direct subprocess/shlex launch succeeded.
+- [x] One CSS tmux exponential-git941 controller now serially runs guarded css-git941-part1/2/3 only after stable successful precedingreceipt. Part1 actually admitted/running; parts2/3notstarted. Staged allocations underD/work/git941 then exclusivehardlinks, originalguards/baseline unchanged. NEVER duplicate. Nativebuild941NOTlaunched; inspect sourceclosure/helper first after transfers.
+- [ ] Complex864 final4K render/875waiting remain; actual finalpicture review/master/fullfilm/publication and exponential assemblednarration/finalrender stillopen. FourCCremainweeklylimited. All listening/fine-sync/independentAV gaps explicit.
+
+## Exponential Git cache transfer bounded; raw transcript diagnosis942, 2026-11-10 11:06 UTC
+
+- [x] Four missing pinned checkouts identified:frankenscipy85edd7a/frankenpandasda85cf6/asupersyncc48399f/franken_markdown126a530. Existingnetworkx/numpy source bytes match. Full candidate transfer included redundant history; reduced missing closure7,985,074,939bytes, three immutable parts<=3GiB. Large pandas test artifacts are actually tracked, not disposable scratch. NO Git transfer yet; reviewer preparing streaming guard-bound staging under D/work/git941 then absent-only hardlinks, so growth is measured without overwriting existingcache.
+- [x] raw-notation-review942.json checks actual transcripts:11_2take2 contains-0.105 and10_4R-prime uses apostrophe. These are notation differences, not omitted-speech evidence.10_4Earguments remain absent from both raw reports;10_3take2 includesEofzero whiletake1doesnot. No take selection/listening verdict.
+- [ ] ASR925latest163/175;932small-model and939unsplit-large diagnostic controllers wait serially. Complex864stilllive/875waiting. Nativebuild941notlaunched. All finalAV/listening/fine-sync/independent review/publication gates remain open.
+
+## Exponential notation diagnostic939 queued, 2026-11-10 11:03 UTC
+
+- [x] Created and launched ONCE TS1 tmux exponential-targeted939 controller. Requires successful stable932, rehashes its frozen bindings and five reports, then guarded unsplit large-v3-turbo recognition of the same five full takes. This isolates word-split versus segment-level recognition after small.en; no duplicate925/932, no prompt, no modified audio, no speech/listening verdict. Initial939preparation assertion left only empty directory, corrected helper now AST-parses and is bound at launch.
+- [x] Four actualCCpanes%0-%3 re-read: all still show weekly limit resetNov13 3amET. Sessions/work preserved, no paidusage enabled. Existing Codex reviewer787 continues exact pinned Git dependency audit941; four missing checkouts identified, no transfer yet.
+- [ ] Complex864 process782368 live~95min/392percentCPU;875process784766 waits. TS1batch925latest150/175reports, no terminal receipt;932and939wait. Next actual875pictures/review/master remains priority. Full goal and listening/fine-sync/independentAV gates remain open.
+
+## CSS build933 stopped before compilation, 2026-11-10 11:02 UTC
+
+- [x] Actual terminal receipt supersedes launch note: css-exponential-build933 exited1, tests subprocess101, no resource stop. Cargo offline cannot check out pinned frankenscipy85edd7a99f2a6487ef35135e135b9959cc0010c1 for fsci-linalg. Failed receipts/logs/helper/outputs preserved; no tests/native build passed.
+- [ ] Reviewer787 assigned exact missing Git dependency closure against successful CSD656 and successor941 preparation. No online fallback, overwrite, duplicate933 or guard weakening. Existing source and registry closure remain preserved.
+- [ ] Complex864 render and875waiting plus TS1ASR925/932 continue independently. Final audiovisual and publication gates remain open.
+
+## Exponential native CSS build933 launched, 2026-11-10 11:01 UTC
+
+- [x] Independent cache937 audit compared all15,923 extracted files across231 packages with exact lock-checksummed archives: zero missing/mismatched/extra source files. All231 checksum metadata files were absent. Derived metadata explicitly labeled, staged with exclusive creation and hash checks; root-transfer940-receipt.json. Frozen933helper unchanged.
+- [x] Build manifest now freezes25,185 actual inputs. Launched ONCE guarded css-exponential-build933 in persistentCSS tmux exponential-build933. Requires218tests/strictclippy/nativebuild/1771facts/15chapters/94cues/glyph and scratch probes. NEVER duplicate; inspect actual terminal receipt and glyph images. Existing guard/baseline/exclusive lane and isolated target unchanged.
+- [x] Partial-recognition-review938.json retains139 completed hash-verified ASR reports with raw text and lexical differences. Later chapters mostly numeric spelling;10_3take1 and10_4both have function-argument discrepancies requiring diagnosis, not a speech verdict. Current925count143/175;932waits. No take selection or narration assembly accepted.
+- [ ] Complex864/875 remain rendering/waiting; actual4Kreview/fullmaster/publication pending. Exponential native build/narration alignment/final renders and independentAV/listening/fine-sync remain open. Unlauncheddiagnostic939 directory preserved after preparation assertion, no remote job or helper written.
+
+## CSS exponential source preparation933 passed; cache closure gap found, 2026-11-10 11:00 UTC
+
+- [x] Exact4,166 source files and427 missing cache files staged onCSS with source/destination SHA verification and exclusive creation; existing files preserved. root-transfer936-receipt.json records4,595 files including helper/manifest. Attempt935 failed local argv-size before CSS transfer and is preserved.
+- [x] Guarded css-exponential-prepare933 exited0/no resource stop after4,181 frozen bindings; canonical topic layout and94-cue direction-plan preparation passed. No narration or native build acceptance implied.
+- [ ] Build manifest creation stopped before compilation: existingCSS aead0.6.1 extracted source lacks .cargo-checksum.json. Reviewer787 assigned complete231-package cache-closure audit and absent-only donor transfer inventory937. No helper edits, overwrites, online Cargo fallback or duplicate jobs.
+- [ ] Complex864 render remains active,875 waits; TS1batch925 latest131/175 reports with932waiting. Actual4K picture review/master verification and exponential ASR disposition/narrated assembly/render remain open. No listening/fine-sync/independentAV acceptance. FourCCweekly-limit sessions preserved.
+
+## Exponential external request adapters934 ready, 2026-11-10 10:50 UTC
+
+- [x] All94 original retained UI request records independently resolve exact current930script text and Frederick voice, including nested cue schemas and historical14_6 voice_requested form. Created normalized-requests934 plus request-normalization934.json binding every original request and retention receipt hash. No original changed, provider request sent, take selected, audio decoded or assembly claimed.
+- [x] This resolves a concrete next-step schema mismatch: coherent external-v2 expects top-level cue/text/voice; retained UI requests use differing authored schemas. Normalized records explicitly identify their derived metadata scope, not signed provider evidence.
+- [ ] After925/932actual completion and mismatch disposition, selected fulltakes require24k PCM derived copies for existing assembler, versioned external-v2 receipts bound to934/original48kWAV, source-bound sentence/phrase timing and14native hold dispositions; no added silence blindly/double counted. Keep all188original WAVs intact.
+- [ ] CSS933 native build preparation ongoing: reviewer found exact qualified donor4103files/46.6MB and five missing cache archives totaling1.63MB available CSD; no copying/build yet. Complex864/875priority retained. TS1batch925 and waiting932 unchanged; final listening/fine-sync/independentAV gates open.
+
+## Exponential recognizer diagnosis931 and native build preparation, 2026-11-10 10:48 UTC
+
+- [x] Independent931 inspected actual fw report and exactv0.11.0 processing: omissions already in transcript/timed segments, no evidence of parenthetical stripping in inspected projection/join stages. No raw token text available to distinguish decoding vs earlier word assembly; no speech verdict. Report independent-asr-function-notation931.md. Segment-level unsplit same-model check is next cheap diagnostic if independent model remains uncertain.
+- [x] CSS read-only qualification found pinnednightly2026-08-31/908501772 and existing guardedvideo lane,~38GiBfree, but no pinned a399d62 engine checkout. No build launched. Existing reviewer787 assigned bounded css-native-build933 preparation using exact qualified source/guard, no downloads/build/peer changes. CSD complex864 retained priority.
+- [ ] TS1 recognition925 remains active;932controller waits its successful stable receipt. Do not duplicate. Inspect all176remaining-recognition records (924one+925175), targeted932, then select fulltakes provisionally and assemble against930. Native consumer must be freshly compiled at coherent canonical topic path; oldstage14 binary manifestdir is not sufficient.
+- [ ] Complex864 final4K rendering and875waiting continue; actual final4Kpictures/master/fullfilm verification/publication remain. FourCCweekly limits unresolved, sessions preserved. No listening/fine-sync/independent AV acceptance.
+
+## Exponential930 independent static review passed; diagnostic932 queued, 2026-11-10 10:45 UTC
+
+- [x] Independent-canonical-integration930-review.md finds no concrete static blocker: all39 exact promoted files/17preserved files/14holds/sixhelpers match. Must use units930 in actual assembly and external-units, not old825. Fresh native build/runtime remains unqualified.
+- [x] One targeted-after-batch932.py controller launched ONCE in TS1 tmux exponential-targeted932. It waits successful stable925receipt, rehashes184original bindings and requires175completed reports, then freezes and runs guarded small.en diagnostic on five existing fulltakes:02_3take2,02_6both,03_1both. Same original guard20/8/4/20/7 and exclusive lane. NO diagnostic ASR launched yet; NEVER duplicate controller/job. Helpers retained locally remote-diagnostic932.
+- [ ] Existing independent reviewer787 also checks whether actual fw report/source normalization strips mathematical parentheticals; no speech omission inferred. Batch925 remains live throughchapter04. Actual all-result review/selected source assembly/timing and native qualification still required.
+- [x] Complex864 live78m03s/392percentCPU;875waits. Final4Kreview/master/fullfilm/publication gates remain. FourCCweekly limits persist, no fresh account change. No listening/fine-sync/independent AV acceptance claimed.
+
+## Exponential canonical integration930 completed at source level, 2026-11-10 10:44 UTC
+
+- [x] Independent readiness928 found old canonical16-unit binding blocked new94-cue film. Under source/script/plan/map/oracle leases through12:42UTC, preserved17 prior source/config/plan files with hashes in expanded-production808/before-canonical-promotion930. Copied39 exact reviewed stage14 source/script/oracle files into canonical exponential topic; no Rust text edits, unchanged canonical Cargo manifest and byte-identical stage14/Cargo.lock.
+- [x] New map930 binds14 exact canonical hold paths/marker lines and six matching helper hashes; new94-cue Frederick plan differs from825 only mapbinding. Oldstage14/map825/units825/takes remain intact. Evidence canonical-integration930.json and frederick-units930.json.
+- [x] Actual coherent.read_units(require_directions=True) and direction_contract resolve94cues/7008words. Canonical independent Python oracle emits1771 unique rows.40 coherent narration tests pass. These are source/Python checks, NOT native build/runtime or assembled AV acceptance.
+- [ ] Reviewer787 checking concrete930integration, named independent-canonical-integration930-review.md. Fresh native build/consumer and narrated assembly remain. Need qualified remote build slot; do not mutate frozen complex CSD source or use old compiled manifest path.
+- [ ] TS1batch925 processing175remaining takes; small.en diagnostic model verified for uncertain02_3/02_6/03_1, not yet run. Complex864 final4Krender and875waiting unchanged; no duplicate jobs. Full listening/fine-sync/independent audiovisual/publication gates remain open; CCweekly-limit sessions preserved.
+
+## Exponential diagnosis and independent integration review, 2026-11-10 10:41 UTC
+
+- [x] Batch925 remains live; first completed chapter02/03 comparisons inspected.02_5 minus appears as-r, so no omission claim.02_6 both takes omit function arguments in ASR;03_1 both likewise;02_3take2 axes/axis uncertain. These need second-model diagnosis, not blind rerolls.
+- [x] Copied retained small.en model to isolated TS1 diagnostic-model; local and remote SHA c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d matches prior receipt. targeted-recognition-plan929.json prepared; NO diagnostic ASR launched, serial925 owns lane.
+- [x] Existing independent reviewer787 assigned bounded source/assembly readiness928. Preliminary concrete finding:94-cue stage14/825 script differs from old16-unit canonical consumer binding, so must integrate coherent new topic/workspace before actual assembly/native qualification.14 map markers and six helpers currently match. Await named review; no source changes or listening acceptance.
+- [ ] After925 terminal success inspect every mismatch, targeted recognition and source-bound timing; repair actual integration gap preserving old cut. Complex864 still rendering/875waiting; final4K review and downstream master/publication gates remain. FourCC subscription limits remain; no restart without changed account state.
+
+## Exponential early recognition and duration audit, 2026-11-10 10:38 UTC
+
+- [x] Previous turn launched batch925; actual helper3093134 remains live, no terminal/error/resource stop. Reviewed first8 completed report hashes/text comparisons, recorded remote-recognition925/early-recognition-review926.json. Two lexical matches; other differences include numeric rendering.02_3take2 axes/axis is uncertain;take1 lacks that mismatch. No speech defect inferred, no take selected or regenerated.
+- [x] duration-inventory927.json computes exact sample-based whole-take sums for94cues/7008words:43:20.32–43:51.60 across min/max take choices. This is retained narration including recorded quiet, NOT final runtime or chosen takes; native picture holds/animations are additional and must not be double counted. Prior48:08.5 silent draft remains only provisional.
+- [ ] Wait for actual175-take batch925 terminal stable receipt; inspect every mismatch before source-bound assembly/phrase timing. Word timings and cadence arithmetic remain provisional; no listening/fine-sync acceptance.
+- [x] Complex864 native782368 rechecked live70m31s/391percentCPU,875waiting. No duplicate jobs. Final4K pictures, independent review, complete master/fullfilm verification/publication remain; CC weekly-limit sessions preserved.
+
+## Exponential remote recognition925 RUNNING, 2026-11-10 10:36 UTC
+
+- [x] Probe924 exited0 with stable inputs/no resource stop. Real02_1take1 transcript matches script except numeric one→1; word segments produced. Actual backend whisper.cpp-native/native-pilot-v1/0.11.0. Evidence expanded-production808/remote-recognition925/probe924-*; ASR is not listening.
+- [x] Transferred175 remaining full takes to TS1, independently rehashed ALL175 against retained source hashes.184 frozen inputs bind audio/runtime/model/original guard/helper/inventory/probe. Excludes completed924take and earlier809/811/785 work; no duplicate recognition.
+- [x] Launched ONCE tmux exponential-recognition925, guarded batch925. Actual helper3093134 and fw3093146 live, first02_1take2. Serial175takes, per-take1900s timeout with owned process-group cleanup, all output/failed attempts retained. Guard20GiB admission/8stop/4job/20work/7target/exclusive lane/original baseline unchanged. NEVER duplicate; inspect receipt/controller and per-take reports.
+- [ ] Diagnose actual mismatches; all word timing provisional. Narrated assembly, timelines, final renders/pictures, listening/fine-sync and independent AV review remain. Complex864 final4K still active;875 waits, no publication acceptance yet. CC weekly-limit sessions preserved.
+
+## Exponential guarded remote real-audio probe924 RUNNING, 2026-11-10 10:34 UTC
+
+- [x] Previous turn installed qualified release/runtime/model paths. Probe923 launcher failed BEFORE guard/ASR due original guard ROOT.parents[4] depth assumption; preserved controller923.log and all inputs. Placed byte-identical original guard at sufficient nested depth, new wrapper924/input manifest; no original overwritten.
+- [x] TS1 tmux exponential-probe924 launched ONCE. Actual admitted receipt:20GiB admission/8GiB stop/4GiB per-job/20GiB work/7GiB target-growth, original baseline and exclusive lock retained; exact model/binary/guard/full cue WAV hashes bound. Live fw PID3054319 at355percentCPU; timeout3054317. Full02_1 take1, no prompt, English/no diarize/no persist,4threads,word split,1800s pipeline/1900s owned timeout. NEVER duplicate. Root /data/projects/jmev-exponential-asr922.
+- [ ] Inspect terminal receipt/final input stability and real transcript/segments/provenance; only then batch remaining recordings. No runtime transcription success or listening/fine-sync accepted yet.
+- [x] Complex864 native782368 still live66m36s/391percentCPU;875waiting. Final4K picture/independent review/master/fullfilm qualification/publication remain. FourCC weekly limits remain, sessions preserved.
+
+## Exponential remote recognizer installed, 2026-11-10 10:32 UTC
+
+- [x] Previous turn verified complex864 live. TS1 has117868132KiB available and exact prior large-v3-turbo model hash. Installed official fw0.11.0 Linux release into isolated /data/projects/jmev-exponential-asr922/runtime; published archive checksum passed, exact binary version and transcribe help passed. Evidence expanded-production808/remote-runtime922.json. No existing runtime overwritten.
+- [ ] Guarded real-audio qualification, then remaining88cues/176takes recognition and mismatch audit. Static runtime discovery is not ASR or listening proof; retain admission/stop/growth/exclusive guards.
+- [ ] Complex864 final4K render last confirmed live10:30:55UTC at64m29s/391percentCPU;875 waits. Final pictures, independent review, master and publication verification still open. No duplicate jobs. FourCC weekly limits remain; preserve sessions.
+
+## Exponential recognition queue921 bound; local admission constrained, 2026-11-10 10:28 UTC
+
+- [x] Previous turn completed94/94 narration retention and188-take integrity inventory. Prepared remaining-recognition921.json:88 remaining cues/176 exact retained takes, script text/SHA/sample/receipt bindings; preserves05_7/07_1 history positions without inventing generation ordinals. Existing01_1-5 and14_6 recognitions excluded from repeat work. Queue NOT launched.
+- [x] Complex864 native782368 confirmed live59m35s/391percentCPU,875controller784766 waiting. No duplicate jobs or failed terminal assumption.
+- [x] Local df reported11276860KiB available (~10.75GiB), below existing20GiB ASR admission. No guard lowered and no deletion. Read-only host checks: mini-old~11.47GiB,mini-max~7.88GiB,FMD~7.22GiB; ts1~112.44GiB,CSS~38.33GiB. No fw on checked Linux PATHs; CSD hasfranken_whisper source but no discovered built runtime. Remote runtime/model qualification still needed; no remote ASR started.
+- [ ] Qualify existing remote recognizer or wait for legitimate local capacity; retain all guards. Run remaining recognition serially under guard, inspect mismatches, then source-bound narration assembly/timelines/narrated review/render. No listening/fine-sync/independent AV acceptance.
+- [ ] Complex actual final4K picture/independent review/master/fullfilm verification/public4K and captions remain. FourCC weekly limits unresolved; sessions preserved. Full goal remains active.
+
+## Exponential ALL94 cues retained, 2026-11-10 10:26 UTC
+
+- [x] Previous turn progressed15_2. Generated15_3 once and retained both full Frederick/v4/48k WAVs with request/hash/sample receipts;stamp2026-11-10T10_24_25,proof919.94/94 cues now saved including historical14_6; no more missing synthesis cues.
+- [x] complete-retained-inventory920.json rechecked ALL94 exact current script texts,7008words and188 full takes, including both historical14_6 files: SHA256,48k mono16bit and exact samples pass. All prior takes/attempts retained. This is inventory/integrity, not speech/listening/fine-sync acceptance.
+- [x] Complex864 native782368 live57m36s/391percentCPU;875controller784766 waiting; no duplicates. FourCC weekly limits remain, sessions preserved.
+- [ ] Next: guarded recognition of remaining cues, diagnose mismatches, preserve source holds/phrase anchors, assemble all94 full cues, narrated timelines/drafts/score/final renders/full technical and actual visual review. Failed834controller retained, never use its failed819prerequisite unchanged.
+- [ ] Complex actual final4K pictures/independent review/master/fullfilm verification/public4K and uploaded captions remain. Continuous listening/fine-sync/independent fullfilm audiovisual acceptance open for both films. Preserve all guards/files.
+
+## Exponential93/94 retained, 2026-11-10 10:24 UTC
+
+- [x] Previous turn progressed15_1. Generated15_2 once, retained both full Frederick/v4/48k WAVs with request/hash/sample receipts;stamp2026-11-10T10_22_52,proof918,credits226827.93/94 including historical14_6 saved;one remains,next15_3. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live55m57s/391percentCPU;875controller784766 waiting. No duplicates. FourCC subscription limits remain unresolved; sessions preserved.
+- [ ] Finish15_3, full narration inventory and recognition, narrated assembly/render and review. Complex actual final4K pictures/independent review/master/fullfilm verification and public4K/uploaded captions remain. Continuous listening/fine-sync/independent fullfilm audiovisual acceptance remain open; all files/guards retained.
+
+## Exponential92/94 retained, 2026-11-10 10:23 UTC
+
+- [x] Previous turn progressed14_5. Generated15_1 once and retained both full Frederick/v4/48k WAVs with request/hash/sample receipts;stamp2026-11-10T10_20_53,proof917.92/94 including historical14_6 saved;2remain,next15_2. No listening/fine-sync acceptance; final credit balance not asserted.
+- [x] Complex864 native782368 live54m10s/391percentCPU;875controller784766 waiting. Never duplicate. FourCC subscription-limit state remains unresolved; sessions preserved.
+- [ ] Finish2 exponentialcues, recognition, narrated assembly/render and review. Complex final4K pictures/independent review/master/fullfilm verification/public4K+uploaded captions remain. Continuous listening/fine-sync/independent fullfilm audiovisual acceptance open; all files/guards retained.
+
+## Exponential91/94 retained, 2026-11-10 10:21 UTC
+
+- [x] Previous turn progressed14_4. Generated14_5 once and retained both full Frederick/v4/48k WAVs with request/hash/sample receipts;stamp2026-11-10T10_19_22,proof916,credits227700.91/94 including historical14_6 saved;3remain,next15_1. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live52m34s/391percentCPU;875controller784766 waiting. Never duplicate. FourCC subscription-limit state unchanged.
+- [ ] Finish3 exponentialcues, recognition, narrated assembly/render and review. Complex actual final4K pictures/independent review/master/fullfilm verification/public4K+uploaded captions remain. Continuous listening/fine-sync/independent fullfilm audiovisual acceptance open; all files/guards preserved.
+
+## Exponential90/94 retained, 2026-11-10 10:19 UTC
+
+- [x] Previous turn progressed14_3. Generated14_4 once and retained both full Frederick/v4/48k WAVs with request/hash/sample receipts;stamp2026-11-10T10_17_19,proof915,credits228122.90/94 including historical14_6 saved;4remain,next14_5. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live50m27s/391percentCPU;875controller784766 waiting. Never duplicate. CC subscription limits unchanged from previous fresh check.
+- [ ] Finish4 exponentialcues, recognition, narrated assembly/render and review. Complex actual final4K pictures/independent review/master/fullfilm verification and public4K/uploaded captions remain. Continuous listening/fine-sync/independent fullfilm audiovisual acceptance remain open; all files/guards retained.
+
+## Exponential89/94 retained, 2026-11-10 10:17 UTC
+
+- [x] Previous turn progressed14_2. Generated14_3 once, retained both full Frederick/v4/48k WAVs with request/hash/sample receipts;stamp2026-11-10T10_15_20,proof914,credits228702. Second download initially absent, clicked only that Download again, both distinct hashes retained; no regeneration.89/94 including historical14_6 saved;5remain,next14_4.
+- [x] Complex864 native782368 live48m31s/391percentCPU;875controller784766 waiting. FourCC panes freshly inspected: all weekly-limited untilNov13 3amET; sessions retained, no paid credits enabled.
+- [ ] Finish5 exponentialcues, recognition, narrated assembly/render and review. Complex final4K pictures/independent review/master/fullfilm verification/platform4K+captions remain. Continuous listening/fine-sync/independent fullfilm AV acceptance open; all files/guards preserved.
+
+## Exponential88/94 retained, 2026-11-10 10:15 UTC
+
+- [x] Previous turn progressed14_1. Generated14_2 once and retained both full Frederick/v4/48k WAVs with request/hash/sample receipts;stamp2026-11-10T10_13_33,proof913.88/94 including historical14_6 retained;6remain,next14_3. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live46m45s/390percentCPU;875controller784766 waiting. Never duplicate.
+- [ ] Finish six exponentialcues, recognition, narrated assembly/render and review. Complex actual final4K pictures/independent review/master/fullfilm verification and public4K/uploaded captions remain. Continuous listening/fine-sync/independent fullfilm audiovisual acceptance open; preserve all files/guards.
+
+## Exponential87/94 retained, 2026-11-10 10:13 UTC
+
+- [x] Previous turn progressed13_5. Generated14_1 once, retained both full Frederick/v4/48k WAVs with request/hash/sample receipts;stamp2026-11-10T10_11_41,proof912.87/94 including historical14_6 saved;7remain,next14_2. Final credit balance not asserted.
+- [x] Before14_1 retention all170 WAVs from85 current receipts rehashed and exact text/48k mono16bit/sample counts checked; passed, historical14_6 excluded. This is integrity evidence, not hearing.
+- [x] Complex864 native782368 live44m51s/390percentCPU;875controller784766 waiting, native stderr empty. No duplicate jobs.
+- [ ] Finish7 exponentialcues, recognition, narrated assembly/render and actual review. Complex final4K pictures/independent review/master/fullfilm verification and public playback/captions remain. Fullfilm listening/fine-sync/independent audiovisual acceptance remain open; all files/guards retained.
+
+## Exponential chapter13 complete, 2026-11-10 10:11 UTC
+
+- [x] Previous goal turn made progress retaining13_4. Generated13_5 once and retained both full Frederick/v4/48k WAVs with request/hash/sample receipts;stamp2026-11-10T10_10_14,proof911,credits230161.86/94 including historical14_6 saved;8remain,next14_1. Chapter13 all5 cues retained. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live43m19s/390percentCPU;875controller784766 waiting; no duplicates. FourCC subscription-limit state remains unresolved, sessions preserved.
+- [ ] Finish8 exponentialcues, recognition, narrated assembly/render and review. Complex final4K pictures/independent review/master/fullfilm verification and public playback/captions remain. Continuous listening/fine-sync/independent fullfilm audiovisual acceptance remain open; files/guards retained.
+
+## Exponential 85/94 retained, 2026-11-10 10:10 UTC
+
+- [x] Previous goal turn was a verified wait: complex native782368 and picture controller784766 were live. Resumed narration after closed Chrome tab; saved editor and history confirmed 13_4 not yet generated. Generated once, retained both full Frederick/v4/48k WAVs with hashes/sample receipts; stamp2026-11-10T10_08_31, proof910, credits230651. 85/94 including historical14_6 saved; nine remain, next13_5.
+- [x] Complex864 native782368 live42m20s/390percentCPU;875controller784766 waiting. No duplicate jobs. TODO and narration leases renewed through11:48UTC.
+- [ ] Finish nine exponential cues, recognition, narrated assembly/render and actual review. Complex final4K picture/independent review/master/full-film verification and public playback/caption checks remain. Full-film listening, fine-sync and independent audiovisual acceptance remain open; all files and guards preserved.
+
+## Exponential 84/94 retained, 2026-11-10 10:03 UTC
+
+- [x] Previous goal turn progressed13_2. This turn generated13_3 once and retained both full Frederick/v4/48k WAVs with request/hash/sample receipts;stamp2026-11-10T10_02_04,proof909,credits231230.84/94 including historical14_6 retained;10remain,next13_4. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live35m14s/390percentCPU;875controller784766 waiting. Never duplicate. FourCC weekly-limit state unchanged; sessions preserved.
+- [ ] Complete exponential10cues, recognition, narrated assembly/render and review. Complex actual final4K pictures/independent review/master/fullfilm verification and public4K/uploaded captions remain open. Continuous listening/fine-sync/independent full-film audiovisual acceptance not claimed; all files/guards retained.
+
+## Exponential 83/94 retained, 2026-11-10 10:01 UTC
+
+- [x] Previous goal turn progressed13_1. This turn generated13_2 once and retained both full Frederick/v4/48k WAVs with exact request/hash/sample receipts;stamp2026-11-10T10_00_25,proof908,credits231686.83/94 including historical14_6 retained;11remain,next13_3. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live33m35s/390percentCPU;875controller784766 waiting. Never duplicate. FourCC subscription-limit state unchanged; sessions retained.
+- [ ] Complete exponential11cues, recognition, assembly, narrated render and actual review. Complex final4K pictures/independent review/master/fullfilm verification and public4K/uploaded captions remain. Continuous listening/fine-sync/independent full-film audiovisual acceptance remain open; preserve all files/guards.
+
+## Exponential 82/94 retained, 2026-11-10 10:00 UTC
+
+- [x] Previous goal turn progressed12_5. This turn generated13_1 once and retained both full Frederick/v4/48k WAVs with exact request/hash/sample receipts;stamp2026-11-10T09_58_34,proof907,credits232249.82/94 including historical14_6 retained;12remain,next13_2. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live31m36s/391percentCPU;875controller784766 waiting. Never duplicate. FourCC weekly-limit state unchanged; sessions preserved.
+- [ ] Complete exponential12cues, recognition, narrated assembly/render and review. Complex actual final4K pictures/independent review/master verification/public4K and uploaded captions remain open. Continuous listening/fine-sync/independent full-film audiovisual acceptance not claimed; all files/guards retained.
+
+## Exponential chapter12 narration saved; 81/94 cues, 2026-11-10 09:58 UTC
+
+- [x] Previous goal turn progressed12_4. This turn generated12_5 once and retained both full Frederick/v4/48k WAVs with request/hash/sample receipts;stamp2026-11-10T09_56_43,proof906. Chapter12 all5 cues retained;81/94 including historical14_6 saved;13remain,next13_1. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live29m47s/391percentCPU;875controller784766 waiting. Never duplicate. FourCC weekly-limit state unchanged; sessions preserved.
+- [ ] Complete exponential13cues, recognition, narrated assembly/render and review. Complex actual final4K pictures/independent review/master verification/public4K and captions remain. Continuous listening/fine-sync/independent full-film audiovisual acceptance open. Preserve all files and guards.
+
+## Exponential 80/94 retained, 2026-11-10 09:56 UTC
+
+- [x] Previous goal turn progressed12_3. This turn generated12_4 once and retained both full Frederick/v4/48k takes with request/hash/sample receipts;stamp2026-11-10T09_54_57,proof905.80/94 including historical14_6 retained;14remain,next12_5. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live28m08s/391percentCPU;875controller784766 waiting. Never duplicate. FourCC weekly-limit state unchanged; sessions retained.
+- [ ] Finish exponential14cues, recognition, narrated assembly/render and actual review. Complex final4K pictures/independent review/full master verification and public4K/caption checks remain open. Continuous listening/fine-sync/independent full-film audiovisual acceptance not claimed. All files and guards preserved.
+
+## Exponential 79/94 retained, 2026-11-10 09:54 UTC
+
+- [x] Previous goal turn progressed12_2. This turn generated12_3 once and retained both full Frederick/v4/48k takes with request/hash/sample receipts;stamp2026-11-10T09_53_21,proof904,credits234502.79/94 including historical14_6 retained;15remain,next12_4. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live26m31s/391percentCPU;875controller784766 waiting. Never duplicate. FourCC subscription limits unchanged; sessions retained.
+- [ ] Finish exponential15cues, recognition, assembly, narrated render and actual review. Complex actual final4K picture review, independent review, master/fullfilm verification and public4K/caption checks remain. Continuous listening/fine-sync/independent full-film audiovisual acceptance remain open. All files and guards preserved.
+
+## Exponential 78/94 retained; complex guard healthy, 2026-11-10 09:53 UTC
+
+- [x] Previous goal turn progressed12_1. This turn generated12_2 once and retained both full Frederick/v4/48k WAVs with request/hash/sample receipts;stamp2026-11-10T09_51_34,proof903.78/94 including historical14_6 retained;16remain,next12_3. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live24m29s/391percentCPU;875controller784766 waiting. Guard sample09:52:04 free140155006976bytes; admittedtrue, no finished/exit/resource stop. No duplicate jobs. FourCC subscription limits unchanged.
+- [ ] Finish exponential16cues, recognition, assembly, narrated renders and review. Complex final4K pictures/independent review/master verification and public4K/caption checks remain. Continuous listening/fine-sync/independent full-film audiovisual acceptance open; preserve all files and guards.
+
+## Exponential 77/94 cues retained, 2026-11-10 09:50 UTC
+
+- [x] Previous goal turn progressed11_3. This turn generated12_1 once and retained both full Frederick/v4/48k WAVs with request/hash/sample receipts;stamp2026-11-10T09_49_40,proof902.77/94 including historical14_6 retained;17remain,next12_2. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live22m50s/390percentCPU;875controller784766 waiting. No duplicate jobs. Four CC weekly-limit state unchanged; sessions preserved.
+- [ ] Finish exponential17cues, recognition, narrated assembly/render and actual review. Complex actual final4K pictures, independent review, full master verification and public4K/uploaded-caption checks remain open. Continuous listening/fine-sync/independent full-film audiovisual acceptance not claimed; all files and guards preserved.
+
+## Exponential finance narration saved; 76/94 cues, 2026-11-10 09:49 UTC
+
+- [x] Previous goal turn progressed11_2. This turn generated11_3 once and retained both full Frederick/v4/48k WAVs, request/hash/sample receipts,stamp2026-11-10T09_47_55,proof901,credits236407. Chapter11 all3 cues saved;76/94 including historical14_6 retained;18remain,next12_1. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live21m01s/390percentCPU;875controller784766 waiting. No duplicate jobs. Four CC subscription limits unchanged; sessions preserved.
+- [ ] Complete exponential18cues, recognition, assembly, narrated renders and actual review. Complex final4K pictures/independent review/master verification/platform4K and uploaded captions remain open. Continuous listening, fine-sync and independent full-film audiovisual acceptance not claimed. All files and guards preserved.
+
+## Exponential 75/94 retained; complex render active, 2026-11-10 09:47 UTC
+
+- [x] Previous goal turn made progress retaining11_1. This turn generated11_2 once and retained both full Frederick/v4/48k WAVs with request/hash/sample receipts;stamp2026-11-10T09_46_11,proof900,creditsafter237032.75/94including historical14_6 retained;19remain,next11_3. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 confirmed live19m11s/390percentCPU;875controller784766 waiting. No duplicate jobs. CC subscription-limit state unchanged from fresh preceding inspection.
+- [ ] Finish remaining exponential19cues, recognition, narrated assembly/render and review. Complex actual final4K pictures/independent review/full master verification and public4K/uploaded-caption checks remain. Full-film listening, fine-sync and independent audiovisual acceptance remain open. Preserve files, failed attempts and all resource guards.
+
+## Exponential 74/94 retained; complex final remains live, 2026-11-10 09:45 UTC
+
+- [x] Previous goal turn progressed10_5. This turn generated11_1 once, retained both full Frederick/v4/48k takes with exact request/hash/sample receipts;stamp2026-11-10T09_44_16,proof899.74/94 including historical14_6 retained;20remain,next11_2. Request credits_before239089 was stale; UI before submission actually238510, noted here rather than overwriting receipt. No final credit balance asserted.
+- [x] Complex864 native782368 live17m24s/390percentCPU and875controller784766 waiting. No duplicate jobs. Current production words before11_1 plus historical14_6 were4734/7008; cue percentage differs from word percentage.
+- [ ] Finish remaining exponential20cues and recognition/assembly/narrated review. Complex final4K pictures/independent review/full master verification/platform4K and captions remain. Full-film listening, fine-sync and independent audiovisual acceptance remain open; guards and files preserved. Four CC subscription-limit state unchanged.
+
+## Exponential chapter10 narration retained; 73/94 cues, 2026-11-10 09:44 UTC
+
+- [x] Previous goal turn made progress retaining10_4. This turn generated10_5 once, retained both full Frederick/v4/48k WAVs with exact request/hash/sample receipts; stamp2026-11-10T09_42_40,proof898. Chapter10 all5 cues now saved;73/94 including historical14_6 retained,21remain,next11_1. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live15m52s/390percentCPU,875controller784766 waiting. Guard sample09:42:53 free140140990464bytes, no terminal exit or resource stop. Never duplicate. Four CC panes remain weekly-limited as freshly verified preceding turn.
+- [ ] Complex actual final4K picture review, independent review, full master verification and public playback/captions remain open. Finish exponential21cues, recognition, assembly, narrated render and review. Continuous listening/fine-sync/independent full-film audiovisual acceptance remain open; all files and resource guards retained.
+
+## Exponential 72/94 retained; production continues, 2026-11-10 09:42 UTC
+
+- [x] Previous goal turn made progress retaining10_3. This turn generated10_4 once and retained both full Frederick/v4/48k WAVs with request/hash/sample receipts; stamp2026-11-10T09_40_58,proof897.72/94 including historical14_6 saved;22remain,next10_5.
+- [x] Before10_4 retention, all140 current retained WAVs rehashed and checked against sample counts,48k mono16bit format and exact current cue text; passed. Historical14_6 excluded from that integrity pass. No listening/fine-sync acceptance.
+- [x] Complex864 native782368 live14m04s/389percentCPU and875controller784766 waiting; stderr empty. Four CC panes freshly show weekly subscription limit resetting Nov13 3amET; sessions preserved, paid credits not activated. No duplicate jobs.
+- [ ] Complex final-picture review, independent review, assembled-master verification and public4K/caption checks remain; exponential22cues, recognition, assembly, narrated final render/review remain. Continuous listening, fine-sync and independent full-film audiovisual acceptance are open. Preserve files and guards.
+
+## Exponential 71/94 retained; complex final render active, 2026-11-10 09:40 UTC
+
+- [x] Previous goal turn was a verified wait: actual complex native and extraction-controller PIDs were live. This turn generated 10_3 once and retained both complete Frederick/v4 WAVs with exact request, hash and sample receipts; stamp 2026-11-10T09_39_17, screenshot narration-proof896.png. 71/94 cues including historical 14_6 saved; 23 remain, next 10_4. No listening or fine-sync acceptance.
+- [x] Complex final864 native PID782368 confirmed live at 12m59s, 389percent CPU; pictures875 controller PID784766 waiting. Native stderr empty. Do not duplicate either job.
+- [ ] Finish remaining exponential cues, recognition, assembly and narrated review. Complex final pictures, independent review, full master verification and platform 4K/caption checks remain open. Full-film listening, fine-sync and independent audiovisual acceptance remain explicit gaps. Existing files and guards preserved.
+
+## Exponential70/94 retained; complex864 continues, 2026-11-10 09:35 UTC
+
+- [x] Previous goal turn saved09_8 and audited134existing WAVs. Current10_2 generatedonce, both full Frederick/v4/48k takes retained with request/hash/sample receipts,stamp2026-11-10T09_34_06,proof895.70/94including14_6 retained;24remain,next10_3. No hearing/fine-sync acceptance; stale credit value not asserted.
+- [x] Complex864 nativePID782368 live7m02s/385percentCPU and875waitingPID784766 live.09:34:17guard sample140156276736bytesfree,20566564864work,7908777984target; no terminal receipt or stop. Never duplicate.
+- [ ] Finish remaining24 exponentialcues and recognition/assembly/narratedreview. Complex final875pictures actualreview,868/874/878master/fullfilm and platform4K/caption checks still open. Listening/fine-sync/independentfullfilmAV gaps explicit; files/guards retained; CC subscription limits unchanged.
+
+## Exponential69/94 retained; circuit chapter complete, 2026-11-10 09:33 UTC
+
+- [x] Previous goal turn saved10_1. This turn generated previously missing09_8 once and saved both full Frederick/v4/48k takes with request/hash/sample receipts,stamp2026-11-10T09_31_51,proof894. Circuit chapter09 all8 cues now retained.69/94 including historical14_6 retained;25remain,next10_2 after fresh manifest check. No listening/fine-sync acceptance.
+- [x] Before09_8 retention, independently rehashed134 WAVs from67 current receipts, checked exact request text against current manifest plus48k mono16bit/sample counts; all passed. First audit assumed every older receipt contained request path and failed before changes; corrected to actual sibling request.json. Historical14_6 excluded from this pass; no hearing inference.
+- [x] Complex864 nativePID782368 live4m59s/382percentCPU,875controllerPID784766 livewaiting. No stderr output. Never duplicate; final-picture/master/fullfilm/platform gates remain open. FourCC subscription-limit state unchanged. Preserve every guard/file and explicit listening/finesync/independentfullfilmAV gaps.
+
+## Exponential68/94 retained; complex864 healthy, 2026-11-10 09:31 UTC
+
+- [x] Previous goal turn saved09_7 and queued875. Current10_1 generated once, both full Frederick/v4/48k WAVs saved with request/hash/sample receipts, stamp2026-11-10T09_30_07,proof893.68/94 including historical14_6 retained;26remain. UI credits stale, no new balance asserted. No listening/fine-sync acceptance.
+- [x] Manifest inspection corrects previous next-cue note:09_8 still missing and must be generated next;10_1 was already prepared and then completed without duplicate. Its circuit-model limitations text is retained in the manifest. Confirm every missing cue from manifest before continuing10_2.
+- [x] Complex864 native PID782368 live3m05s/376percentCPU;875controller PID784766 live waiting. Actual guard admitted with original10/8/4/56/20 policy,no finished/exit/resource stop. Never duplicate.
+- [ ] Finish864/875 actual final-picture review,868stage/874master/878fullfilm verification and publication gates. Exponential26remaining cues, recognition, narrated assembly/render and review remain. Full-film listening/fine-sync/independentAV open; fourCC weekly limits preserved, no paid-credit bypass.
+
+## Complex864 live and875 waiting; exponential67/94 saved, 2026-11-10 09:29 UTC
+
+- [x] Previous goal turn completed actual855 review and launched864. Current turn confirmed native PID782368 live at1m42s/362%CPU. Existing guarded4K render continues; no terminal acceptance yet.
+- [x] Reviewed875 controller, verified deployed helper/controller hashes, and started exactly one persistent complex-pictures875 controller (PID784766 confirmed live). It waits successful stable864, rechecks all frozen inputs, then runs guarded full4K extraction; no duplicate jobs. All resulting sheets still require actual review.
+- [x] Generated exponential09_7 once; both complete Frederick/v4/48k WAV takes retained with request/hash/sample receipts,1244160/1259520samples, proof892. Initial retention command omitted date from filename stamp and failed before copying; corrected actual full stamp2026-11-10T09_27_50 succeeded without regeneration.67/94 cues retained including14_6;27remain,next10_1 (confirm manifest before submission).
+- [ ] Four CC panes remain preserved at weekly-limit prompt; no paid-credit activation or unauthorized restart. Full-film listening, fine-sync and independentAV remain open. Finish864/875actualreview→868/874/878fullfilm pipeline and publication checks; continue exponential narration/recognition/assembly during rendering. Every file and guard retained.
+
+## Complex preview review complete; guarded final864 launched, 2026-11-10 09:27 UTC
+
+- [x] Root actually viewed all814 selected pictures on102 sheets of preview853/extraction855. Sheets1-56 were viewed in the preceding production turn;57-102 now viewed, including re-viewing previously truncated57-60. No concrete clipping or unintended overlap found. Exact source/movie/extraction and all frame/sheet bindings saved in root-preview855-review.json.
+- [x] Independent reviewer inspected192 frames on24 sheets, all repaired arrow/label reversal and persistence sheets29-41, plus two full-size anchors. No concrete blocker; report independent-preview855-review.json. Sampled still review only, not hearing, continuous motion or full-film acceptance.
+- [x] Actual review evidence staged without overwrite; guarded csd-native-final864 launched once in persistent tmux complex-final864. Do not duplicate. Runner rechecks prerequisites, exact PCM, source and score bindings,4K60 CRF16 and original resource guards.
+- [ ] Inspect actual864 admission/terminal receipt; start existing prepared875 extraction controller once, then review actual final4K pictures.868stage/874master/878full verification, full-film review and platform4K/uploaded-caption verification remain before publication. Exponential66/94 cues retained;28 remain. Listening/fine-sync/independent full-film AV gaps remain explicit. Existing files preserved.
+
+## Complex853/855 passed; actual review ready, exponential66/94, 2026-11-10 09:18 UTC
+
+- [x] Previous turn progressed09_4. Current09_5/09_6 each generated once; both full Frederick/v4/48k takes retained with request/hash/sample receipts, stamps09_14_30/09_15_30,proof891.66/94 including14_6 saved;28remain,next09_7. No listening/fine-sync acceptance.
+- [x] CSD preview853 terminal09:15:14 exit0, inputs/final hash80b4c874 identical,no resource stop; all3 full schedule tables equal852,16504frames. Captured no-score WAV SHA f7f8aa6042a9f05d1b25db4c789f7f6b44cb393445015c057f1e87d9b0c8df51 exactly prior313/766.
+- [x] Existing855 extractor terminal09:15:59 exit0, initial/final inputsa11ab574 identical,no stop.814selectedpictures/102sheets. Copied sheets plus record/receipt to Q/linux-preview855-local, all102sheet SHA256 verified. Movie6f84a427a48bd3e094623e3eaa44495dde806ddba5c64dc08e95fb32895d23fa; extraction9ddc6d4ac1e8e193c81a0536819938566698c64c11adc64516ce9084eb1db7fa. Root has not yet viewed these sheets.
+- [x] Existing independent reviewer complex_repair_review787 assigned actual new855 pictures, repair anchors/persistence and evidence-bound report; pending. No new agents or duplicate jobs.
+- [ ] Root actually view all102sheets/ambiguous originals, inspect independent report, then actual864admission and4K.875finalpictures/independent review,868stage/874master/878full verification and publication checks remain. Exponential28remainingcues/ASR/assembly/narratedreview open. Full-film listening/fine-sync/independentAV notclaimed. Guards/files preserved.
+
+## Exponential64/94 retained; retained-take integrity checked, 2026-11-10 09:14 UTC
+
+- [x] Previous turn progressed09_3/06_9. Current09_4 generatedonce, both complete Frederick/v4/48k WAV takes retained with request/hash/sample receipts; stamp09_12_41,proof890.64/94 including historical14_6 saved;30remain,next09_5.
+- [x] Before09_4 retention, all62 current generated receipts and124 full WAVs independently checked against current request text, SHA256, sample counts and48k mono16bit format; all passed. Historical14_6 was not rechecked by this pass. Integrity only, no hearing or fine-sync acceptance.
+- [x] CSD853native155179/encoder157500 live09:12,elapsed1h18m43/40,371percentCPU native; temporary MP4 grew to2883632bytes.855alreadyqueued; no duplicate job.
+- [ ] Actual853/855PCM/allpictures and independent repair review before8644K; final875review,868stage/874master/878verification and publication remain. Exponential remaining30cues, recognition, assembly and narrated visual review remain. Full-film listening, fine-sync and independentAV acceptance open. Guards and allfiles retained.
+
+## Exponential63/94 retained; missing transition filled, 2026-11-10 09:12 UTC
+
+- [x] Previous goal turn made progress retaining09_2. This turn generated09_3 and06_9 once each, retaining both complete Frederick/v4/48k WAV takes with exact request/hash/sample receipts, stamps09_09_59 and09_11_08. Manifest audit found skipped06_9 (folder absent, prior history search recorded); filled without changing script.63/94 including historical14_6 retained,31remain; next09_4. Proof889. No listening/fine-sync acceptance.
+- [x] All four existing CC panes freshly show weekly limit resettingNov13at3amET; sessions preserved, paid credits not enabled. CSD853 native155179/encoder157500 live at09:09,elapsed1h16m01/1h15m59,371percentCPU native. No duplicate render;855alreadyqueued.
+- [ ] Actual853/855 PCM and all-picture review before8644K, final875pictures/independent review,868stage/874master/878full verification and publication remain. Exponential31remaining cues, ASR, assembly and narrated motion review remain. Full-film listening, fine synchronization and independent audiovisual acceptance are open. All files/guards preserved.
+
+## Exponential61/94 retained; complex preview live, 2026-11-10 09:09 UTC
+
+- [x] Previous goal turn was a verified wait: live CSD preview853 native and encoder inspected during status report. Current turn generated09_2 once and retained both complete Frederick/v4/48k WAV takes with request/hash/sample receipt; stamp09_08_09, screenshot narration-proof888.png. Prior09_1 also saved. Total61/94 including historical14_6;33 cues remain. No listening or fine-sync acceptance.
+- [x] Preview853 native155179 and encoder157500 confirmed live09:08, elapsed1h14m55/53,371percentCPU native, stderr empty. No terminal success yet;855 already queued. No duplicate render.
+- [ ] Finish853/855 actual PCM/picture review before8644K, then final pictures/independent review,868stage/874master/878full verification and publication checks. Continue09_3 onward exponential narration, recognition, assembly and narrated visual review. Full-film listening, fine synchronization and independent audiovisual review remain open. Existing files and guards preserved.
+
+## Exponential59/94 retained; laboratory chapter saved, 2026-11-10 09:01 UTC
+
+- [x] Previous turn saved08_5/08_6. Current08_7/08_8 eachgeneratedonce,bothfull Frederick/v4/48k takes retained withrequest/hash/sample receipts,stamps08_59_33/09_00_41,proof887. Chapter08narration saved;59/94including14_6 retained,35remain. No listening/fine-sync acceptance.
+- [x]853native155179/encoder157500 freshlive08:59,1h06m09/07,372percentCPU.09:00:48guard sample140619620352bytesfree,work20430692352,target7910879232;no finished/exit/resource_stop yet.855alreadyqueued,no duplicate.
+- [ ] Actual853/855terminal/PCM/pictures before8644K;875finalpictures/independentreview,868stage/874master/878fullverification andactualfullfilmreview/publication stillopen. Continue09_1/remaining35exponentialcues,ASR/assembly/motion. Continuouslistening/fine-sync/independentfullfilmAV remainopen. Allguards/files/takespreserved.
+
+## Exponential57/94 retained; full-film verifier staged, 2026-11-10 08:58 UTC
+
+- [x] Previous turn saved08_4. Current08_5/08_6 generatedonceeach,bothfull Frederick/v4/48k takes saved withrequest/hash/sample receipts,stamps08_56_05/08_57_40,credits245285,proof885/886.57/94 including14_6 retained;37remain. No listening/fine-sync acceptance.
+- [x] Read bounded878worker audit: m.files Path/local_proofs interfaces match;875maximum1499frames adds atmost1075overviewframes above mandatory182overlap,~0.196GiB conservativegrowth,nativePNGcountunchanged. Actual855/875absent so exactunion/runtimebudget remainsunqualified. Staged878verifier442ff175/controller5ecc9dcc exclusivelytoCSD with exacthash/AST;notlaunched,guards/samplesunchanged.
+- [x]853native155179/encoder157500 verifiedlive08:57,1h04m18/1h04m15,372percentCPU;855alreadyqueued,no duplicates.
+- [ ] Actual853/855PCM/pictures before864;875finalpictures/independentcheck/868stage/874master/878fullverify andactualfullfilmreview/publicationopen. Continue37exponentialcues thenrecognition/assembly/motionreview. Continuouslistening/fine-sync/independentfullfilmAV notclaimed.
+
+## Exponential55/94 retained; full-film verifier reviewed in diff, 2026-11-10 08:55 UTC
+
+- [x] Prior turn saved08_2/08_3. Current08_4generatedonce,bothfull Frederick/v4/48k takes saved withrequest/hash/sample receipts,stamp08_53_48,credits246337,proof884.55/94including14_6 retained;39remain. No listening/fine-sync acceptance.
+- [x] Existingworkerprepared878fullfilmverifier/controller,rootread878diff/addedpictureplan/controller. Master874/native844bindings andall875selectedframescarriedintoassembledmaster; old15chapter/105placement/133662frame/caption/fullAV/framemd5/loudnesschecks preserved. VerifierSHA442ff175/controller5ecc9dcc;notdeployed/launched. Assigned bounded actualsampleunion/budget/typeaudit, no droppingframes or guardchange.
+- [x]853native155179/encoder157500 live08:54,1h00m38/1h00m36,372percentCPU;temporarymp4grewto2097200bytes,notterminalsuccess.855queued;no duplicates.
+- [ ] Actual853/855pictures/PCM,8644K/875finalpictures/independentreview,868stage/874master/878verification/fullfilmactualreview/publication remainopen. Continue39remaining exponentialcues/recognition/assembly/motion. Continuouslistening/fine-sync/independentfullfilmAV notclaimed.
+
+## Exponential54/94 retained; complex render live, 2026-11-10 08:53 UTC
+
+- [x] Previous turn saved07_10/08_1. Current08_2/08_3 eachgeneratedonce,bothfull Frederick/v4/48k takes retained with exactrequest/hash/sample receipts,stamps08_50_48/08_51_58,proof883.54/94 including14_6 retained;40remain. No listening/fine-sync acceptance. Currentrequest wordcount before08_3 was3229 plus historical14_6; cuecount is not wordpercentage.
+- [x]853native155179/encoder157500 verifiedlive08:52,59m02/59m00,373percentCPU.855alreadyqueued,no duplicate. Existingworker adapting full-filmverifier to874; no completed runtime/final acceptance claimed.
+- [ ] Inspect853/855actualterminal/PCM/allpictures before8644K;875actualfinalpicture/independentreview,868stage/874master/freshfullfilmverifier/fullAV/captions/loudness/publication remain. Continue40remaining narrationcues and ASR/assembly/motionreview. Continuouslistening/fine-sync/independentfullfilmAV open;files/guards retained.
+
+## Exponential52/94 retained; chain audit read, 2026-11-10 08:50 UTC
+
+- [x] Previous turn saved07_9. Current07_10/08_1 eachgeneratedonce,both full Frederick/v4/48k takes saved withrequest/hash/sample receipts,stamps08_47_48/08_49_01,credits247405,proof882. Chapter07 narrationcomplete;52/94 retained including14_6,42remain. No listening/fine-sync acceptance.
+- [x] Read876a concretechain auditSHA670a1d83: allnine CSDhelperhashesmatch; filenames/commands/frozenclosures/schema trace consistent. Author explicitlycallsit integration self-audit,notindependentreview. Existingworkerassigned freshfullfilmverifier/controller successor to832for874,unrun/unqualified. Rootreviewrequired.
+- [x]853native155179/encoder157500 live08:49,55m46/55m44,374percentCPU;855queued,no duplicate. BlueSalmonTODO/808leases renewedwithoutconflict to10:48UTC.
+- [ ] Actual853/855PCM/pictures,864final4K/875actualpictures/independentcheck,868stage/874master/freshverifier/fullAV/captions/loudness/publication stillopen. Continue42exponentialcues thenrecognition/realassembly/motionreview. Continuouslistening/fine-sync/independentfullfilmAV remainopen. Preserveallfiles/guards/takes.
+
+## Exponential50/94 retained; guarded stage launcher staged, 2026-11-10 08:47 UTC
+
+- [x] Previous turn saved07_7/07_8. Current07_9 submittedonce,both full Frederick/v4/48k takes retained with exactrequest/hash/sample receipts,stamp08_45_56,proof881.50/94 retained including14_6;44remain. No listening/fine-sync acceptance.
+- [x] Exclusively staged reviewed876stage-launch SHA0c25e7dd40dbe30723fab4544ee3ea3b475c90875dbd3a38b4da832c5c26a240 toCSD;remoteSHA/AST confirmed. NOT executed; actual875/root/independentreviews stillrequired. Existingreviewer assigned concrete864→875→876/868→873/874runtimeclosure audit tocatchmissingbindings/interfaceerrors,notnewceremony.
+- [x]853native155179/encoder157500 freshlylive08:46,53m15/53m13,374percentCPU;855alreadyqueued,no duplicates.
+- [ ] Actual853/855pictures/PCM,864final4K/875finalpictures/independentreview,868stage/874master/fullAV/captions/loudness/publication remain. Continue44remaining exponentialcues thenrecognition/assembly/narratedmotion. Fullcontinuouslistening/fine-sync/independentAV remainopen; allfilesandguards retained.
+
+## Exponential49/94 retained; stage-launch source read, 2026-11-10 08:45 UTC
+
+- [x] Previous turn saved07_5/07_6. Current07_7/07_8 submittedonceeach andbothfull Frederick/v4/48k takes saved withrequest/hash/sample receipts,stamps08_43_06/08_44_01,proof880.49/94 retained including14_6;45remain. Credits UI was stale so no new balance asserted. Listening/fine-sync notaccepted.
+- [x] Root read all prepared876stage-launch source SHA0c25e7dd40dbe30723fab4544ee3ea3b475c90875dbd3a38b4da832c5c26a240; actual447 NARRATION313/film/claimed interfaces present. Requires actual875success and root/independentfinalreports, freezesdependencies and onlythenbuildsrealproofbundle/guard868/exactmanifestcopy. Notdeployed/launched; runtimequalification stillpending.
+- [x]853native155179/encoder157500 verifiedlive08:43,49m43/49m41,374percentCPU;stderr empty.855queued;no duplicates.
+- [ ] Finish853/855actualpictureandPCM review,8644K/875finalpictures/independentreview,868stage/874master/fullAV/captions/loudness/publication. Continue07_9 ornextactualrequest manifestcue,remaining45takes andrecognition/assembly/motion. Fullcontinuouslistening,fine-sync andindependentAV remainopen.
+
+## Exponential47/94 retained; final picture extractor staged, 2026-11-10 08:42 UTC
+
+- [x] Previous turn saved07_4. Current07_5/07_6 each submittedonce,both full Frederick/v4/48k takes saved with exactrequest/hash/sample receipts,stamps08_39_51/08_41_26,credits248969,proof878/879.47/94 cues retained including14_6;47remain. Listening/fine-sync not accepted.
+- [x] Root read full875extractor/controller and staged exactSHA pictures82adb9e1/controller7a3f0eab/reference8730f875 toCSD,exclusive newfiles/hashconfirmed. No875launch. Preserves814original+all855samples+newfinalflags/persistence;full4K60decode and scoredcuelog with onlynamedpath mapping toactual586 schedule reference (heldoldvisuals are NOT accepted). Existingreviewer prepares guarded868stage launcher/proofbundle builder; realfinalreviews stillrequired.
+- [x]853native155179/encoder157500 verifiedlive08:41,48m12/48m09,374percentCPU;comparison853absent.855alreadyqueued;no duplicates.
+- [ ] Actual853/855picture/PCM acceptance,864final4K,875extraction/actualallpictures/independentreview,868stage/874master/fullAV/captions/loudness/publication remain open. Continue47remaining exponentialcues,recognition and narratedmotion assembly. Continuouslistening/fine-sync andindependentfullfilmAV notclaimed.
+
+## Exponential45/94 retained; master helpers staged, 2026-11-10 08:39 UTC
+
+- [x] Previous turn saved07_2/07_3 and reviewed874diff. Current07_4 generated once,both full Frederick/v4/48k takes retained with exactrequest/hash/sample receipts,stamp08_38_24,credits249448,proof877.45/94 retained including14_6;49remain. No listening/fine-sync acceptance.
+- [x] Exclusively staged reviewed873gate SHA22164e13 and874master SHAe0a25449 to CSD; exactremoteSHA/ASTparse confirmed. Neither executed. Existing875extractor preparation continues; actual864final and all final-picture reviews still prerequisites.14otherchapter gates/all15PCMreplays retained.
+- [x]853native155179 andencoder157500 live08:39,45m32/45m30,374percentCPU.855 alreadyqueued;neverduplicate.
+- [ ] Actual853/855picture/PCM acceptance before8644K; final875extractor source review and realfinalpicture/independentreview,868materialization/874master/fullAV/captions/loudness/publication remain. Remaining49exponential cues,recognition,assembly,motion/listening/fine-sync and independentfullfilmAV open. All takes/files/guards preserved.
+
+## Exponential44/94 retained; fresh master successor reviewed, 2026-11-10 08:38 UTC
+
+- [x] Prior turn recovered07_1. Current07_2/07_3 submitted once each, both full Frederick/v4/48k takes saved with exacttext/hash/sample receipts, stamps08_35_15 and08_36_40; credits249890,proof876.44/94 retained including14_6;50remain. Listening/fine-sync not accepted.
+- [x] Existing reviewer prepared combined-master874.py SHAe0a2544975072743ba7cba1061c363a21d91a7bb663106f513cf22a2c23877d4. Root read exact831→874diff: onlyversion/paths/native844boundarydispatch/wait/replayfilters and explicit14otherrow equality against625. All15PCMreplays retained. Not deployed or launched; actualfinal/review/stage evidence absent. Reviewer now preparing fresh875finalextractor with scored-cuelog validation, all814prior samples plus new lint/persistence; source review pending.
+- [x]853native155179/encoder157500 freshly live08:36,43m25/43m23,376percentCPU.855queued. No duplicate jobs. Original guards and files preserved.
+- [ ] Finish actual853/855picture review and PCM,864final4K,finalextract/review,868stage/874master/fullAV/captions/loudness/publication. Remaining50exponential cues and narration verification/synchronization still needed. Independent full-film audiovisual review,continuous listening andfine-sync remain open.
+
+## Exponential42/94 retained; complex853 still rendering, 2026-11-10 08:34 UTC
+
+- [x] Previous status turn was a verified wait: actual853 native/encoder processes live. Current turn recovered both original07_1 history takes after the prior browser tab disappeared, without regeneration. Exact text/Frederick/v4/50/75 observed; second provider ID vn5C2UXzCY0vQdWwd9BJ. Full48k mono16bit WAVs retained in07_1/history-first-875.wav and history-second-875.wav,967680/944640samples,SHAs854fec13/f0c53200. Original generation ordinal not asserted. Receipt and proof875 saved. Together with06_8 and historical14_6,42/94 cues retained;52remain. Browser1054676644 marked handoff,paused.
+- [x] Root read all of prepared873mastergate source; no runtime qualification or launch claimed. Existing independent worker assigned fresh831successor integration for native844 only, preserving14otherrow gates/all15PCM replays. Actual preview/final pictures and evidence still absent; cannot admit864yet.
+- [x]853nativePID155179 andencoder157500 freshly live08:34,elapsed40m35/40m32,376percentCPU native; stderr empty.855extractor remains dependent; no duplicate jobs.
+- [ ] Finish853/exact PCM/855 actual all-sheet and independent repair review, then8644K and final extraction/review,868materialization/fresh master/technical verification/publication. Continue07_2 onward narration, recognition and synchronization. Continuous listening,fine-sync and independent full-filmAV acceptance remain open. No new publication claimed.
+
+## Reviewed helpers staged; exponential40/94 saved, 2026-11-10 08:24 UTC
+
+- [x] Prior turn repaired868/saved06_6. Current06_7 submitted once,both full Frederick/v4 WAV48k takes retained with exactrequest/hash/sample receipts,stamp08_22_01,credits251332,proof874.40/94 retained including14_6;54remain. Listening/fine-sync not accepted.
+- [x] Exclusively staged reviewed864runner149d7d59,864launcherbf9be15a and amended868materializer623253e8 toCSDQ. All three remote hashes match/localASTparse; none launched. No admission/review evidence fabricated. Existing agent preparing fresh873native844mastergate compatiblewith831,rootreviewrequired; preserve14otherrowgates/all15PCMreplays.
+- [ ]853preview live,855alreadyqueued;actualterminalreceipt/PCM/allpictures before8644K. New873gate,finalextraction/reviews/proofbundle/runtime master andfullAV/listening/fine-sync/publication remain open. Existing guards/files/takes retained;no duplicates.
+
+## Exponential39/94 saved; master mapper closure repaired, 2026-11-10 08:21 UTC
+
+- [x] Previous turn prepared launcher/saved06_5. Current06_6 submitted once,both complete Frederick/v4 WAV48k takes retained with request/hash/sample receipts,stamp08_19_36,credits251620,proof872.39/94 saved including14_6;55remain. No new listening/fine-sync acceptance.
+- [x] Root read full868 source and actual447schedule/574mapper. Found schedule helper reads three canonical timeline tables plus score21-summary without explicit binding; agent preserved predecessor and repaired these four require checks plus ffprobe/PATH. Amended868SHA623253e84bafef9f8ecb48ca406d01a59b34598b2413ceb69e0494c6522e6997 read at changed lines. Mapper imports only stdlib. All844originalinput hashes freshly rechecked:zero mismatches. No868runtime qualification,deploy or job launch.
+- [x]853nativePID155179 confirmed live08:20,elapsed26m32,375percentCPU; no terminal receipt,855waits. No duplicates.
+- [ ] Finish853/855 exact PCM and actualnewLinuxpictures before864admission/final. Fresh868proofbundle and mastergate need actualfinal/extraction/review evidence. FullfilmAV/listening/fine-sync/publication remain open.
+
+## Exponential38/94 saved; final launcher prepared, 2026-11-10 08:18 UTC
+
+- [x] Previous turn completed06_3/06_4. Current06_5 submitted exactly once and both full48k Frederick/v4 takes retained with request/hash/sample receipts,stamp08_16_04,credits252021,proof871.38/94 retained including14_6;56remain. No listening/fine-sync acceptance.
+- [x] Prepared csd-native864-launch.py SHAbf9be15a3194cd6c59569c6bec07f96f9b8657304d49eb3105e92d3a82ca302c,AST parses,NOTdeployed/launched. Revalidates inherited855bindings,three complete853tables,actualreviewhashes,score receipts/files and guards; does not create review evidence. Independent review870 requested. Actual review/admission absent,so no4K launch yet.
+- [x] Agent prepared native-linux-materialize868.py SHA475ea9ee5de2bcd8012e00c36f97ab234d13aabd7c21c08884aabf106e38cb71,unlaunched. Root full code review still pending; not qualified by author AST alone. Must bind actualfinal864/extraction/reviews and preserve14other rows.
+- [ ]853preview still active,855alreadyqueued; neverduplicate. ActualpreviewPCM/picture review,final4K/master/runtime/listening/fine-sync/fullAV/publication remain open.
+
+## Exponential37/94 saved; master materialization work underway, 2026-11-10 08:15 UTC
+
+- [x] Previous turn saved06_2. Current06_3 and06_4 each submitted exactly once; both complete Frederick/v4 WAV48k takes per cue retained with hash/sample receipts. Stamps08_13_00 and08_14_07,credits252309,proof869.37/94 cues saved including14_6;57remain. No ASR/listening/fine-sync acceptance for these new takes.
+- [x]853nativePID155179 confirmed live08:14,20m44,375percentCPU; no terminal receipt.855 already waits,neverduplicate. Existing Codex agent assigned concrete same-host materialization868 implementation,unlaunched,strict path-column mapping/all105WAVs/14unchangedrows/fresh final provenance. Root review remains required before use.
+- [ ] Actual preview/extraction pictures,864admission/launcher,final4K/full master technical and audiovisual checks remain open. All existing outputs,guards,voice settings and publication prerequisites retained.
+
+## Exponential35/94 saved; final runner review resolved, 2026-11-10 08:12 UTC
+
+- [x] Prior turn made runner/narration progress. Read865 amended independent review: exact855/853 evidence binding defect resolved in149d7d59 runner; no remaining concrete runner source blocker. Actual review reports/admission and guarded launcher still pending,not launch approval.
+- [x]06_2 submitted once; both full Frederick/v4 WAV48k takes saved with hash/sample receipts,stamp08_10_26,proof867.35/94 retained including14_6;59remain. No listening/fine-sync acceptance.
+- [x] All4 originalCC panes%0–%3 freshly captured: weekly limit,resetNov13at3amET; preserved sessions and credits disabled. IndependentCodexreview completed865.853nativePID155179 live16m25 at08:10,855 waits. Never duplicate.
+- [ ] Finish853/855 actual runtime/pictures and PCM before864admission/4K. Master canonical-path materialization and14retainedrow integrity remain required. Remaining narration/ASR/full-film listening,fine-sync/independentAV/publication remain open.
+
+## Linux final runner prepared; exponential34/94 saved, 2026-11-10 08:09 UTC
+
+- [x] Previous turn completed05_8. Current06_1 submitted once, both full Frederick/v4 WAV48k takes retained with exact request/hash/sample receipts, stamp08_08_05,credits253319,proof866.34/94 retained including14_6;60remain. No listening/fine-sync acceptance.
+- [x] Read independent862 readiness report: preserve raw849 timing tables and derive separately hash-proven path-column-only mapping to canonical313 for master;14other625rows unchanged. No unnecessary network export/import on same host. New Linux844/849 producer requires fresh provenance gate,not removal of old checks.
+- [x] Prepared csd-native864-run.py, NOT deployed or launched. Exact844binary/849audio/score21,4K60CRF16,owned cleanup and originalCSDguards. Independent865 found review-admission binding gap; amended runner SHA149d7d59cd00427426198f1b1e223b0034b871cc5c92ef14890ce8a9461ad9ac requires exact855record/853movie,all picture hashes,root complete indices/sheets and independent source/movie/extraction binding. Rereview pending; actual review/admission files do not yet exist and must not be fabricated.
+- [x]853 nativePID155179 confirmed live08:09,elapsed15m32,376percentCPU.855 waits;never duplicate.
+- [ ] Await actual853/855 terminal success, exact no-scorePCM and root all-sheet plus independent newLinux pictures before creating864admission/launcher. Final4K extraction/review and fresh same-host master materialization/gate remain required. Listening,fine-sync,fullAV and publication remain open.
+
+## Exponential chapter05 complete;33/94 retained, 2026-11-10 08:05 UTC
+
+- [x] Prior turn recovered05_7 pair; current05_8 submitted exactly once with unchanged Frederick/v4 settings, both full48k WAV takes retained through retain835 with sample/hash receipts. Stamp08_04_01, credits253572, proof863.33/94 cues including historical14_6 retained;61remain. Actual hearing/fine-sync not accepted.
+- [x] Complex853 process155179 live at08:04,elapsed10m35,373percentCPU.855 controller remains queued. Independent existing reviewer assigned862 audit of exact Linux844/849 final/master adaptation, preserving14other rows and all final gates; no extra render launched.
+- [ ] Inspect853 success/full tables/PCM and855 every actual sheet before4K. Finish remaining exponential narration, recognition, real assembly and narrated-motion/final review. No new publication or independent full-film AV acceptance claimed.
+
+## Exponential05_7 recovered;32/94 retained, 2026-11-10 08:03 UTC
+
+- [x] Prior turn made progress preserving one history WAV; current turn recovered second original05_7 take through visible history details, Generation ID ACorJ8cSkVNRPAqL51aR, exact404-character text,Frederick/v4/50/75. Both distinct full48k mono16bit WAVs saved with SHA/sample receipts in05_7/generated-receipt.json; download timestamps07_53_53 and07_53_47. History ordering retained; original Generation1/2 ordinal not asserted. No regeneration.32/94 retained including14_6;62remain. Proof861,Chrome1054676640 handoff,paused.
+- [x] Complex853 nativePID155179 confirmed live08:02,elapsed8m54,371percentCPU.855 controller already waiting; never duplicate.
+- [ ] Continue05_8 then06; new recognition and listening remain pending. Inspect853 terminal result/PCM and855 actual pictures before4K/master. Fine-sync and independent full-film AV acceptance remain open.
+
+## Complex852 passed; preview853 live; narration history recovery, 2026-11-10 08:01 UTC
+
+- [x] Prior goal turn yielded new terminal evidence:852 finished07:53:24 exit0, identical initial/final inputs ec9744d6, all three complete tables equal after named narration-path mapping,16504frames. Preview853 nativePID155179 confirmed live at07:59, elapsed5m30,369percentCPU;855 extractor controller waits. Never duplicate.
+- [x] Exponential05_6 full pair saved,31/94 cues retained including14_6.05_7 generated once earlier, not regenerated. Prior browser tab disappeared; reopened1054676640 and exact05_7 text plus two matching Frederick history rows recovered. One WAV downloaded and preserved as05_7/history-recovered-first860.wav with hash/PCM receipt history-recovery860.json. Original generation ordinal not established. Second history-row WAV download attempted but no second local file observed; pair remains incomplete. Screenshot narration-proof860.png, tab marked handoff.
+- [ ] Recover remaining05_7 history take without regeneration, establish pair provenance, then continue05_8. Inspect853/855 terminal receipts, exact PCM and all actual pictures before4K/master. Listening,fine-sync and independent full-film audiovisual acceptance remain open.
+
+## Exponential30/94 retained; complex852 verified live, 2026-11-10 07:51 UTC
+
+- [x] Prior goal turn made concrete progress:844/849 success verified,852/853/855 chains launched once. Current852 native process4053484 freshly live12m33s/146percentCPU;853controller4053384 and855controller4162571 wait. No terminal timing/preview result; never duplicate.
+- [x] Exponential04_6 and05_1–05_5 each submitted exactly once with Frederick Surrey/v4,unchanged0.5/0.75/0/WAV48k. Both full provider takes saved per cue with exact request/script/hash/sample receipts; total30/94 including historical14_6,64remain.05_6 not prepared/generated. New stamps07_43_15,07_44_44,07_46_01,07_47_29,07_48_36,07_49_40. Screenshot narration-proof859.png; originaldownloads preserved. Autoplay paused via visible control whereAX action restarted playback; no listening claimed. ASR for these new cues remains pending.
+- [x] Read independent858 PCM audit: originalCSD313 and transferredMac766 no-score captures freshly exactly equal WAVf7f8aa6042a9f05d1b25db4c789f7f6b44cb393445015c057f1e87d9b0c8df51,48kHz/stereo16bit/13203200samples. Native853 must match before advancing; score-inclusive final uses its own replay,not this no-score baseline. Read source semantics: capture copied beforeAAC, missingcapture onlywarns and thereforemustexplicitlycheckpresence.
+- [ ] Inspect stable852/853/855 actual terminal receipts,three fullnormalizedschedules,newPCM and every extractedpicture. Then guarded4K/master/publicwatch. Source/ASR/picturechecks do not close continuouslistening,finesync orindependentfullAV acceptance. Finish remaining64exponential cues,recognition,assembly,narratedmotion andfinal4K. Browser1054676630 markedhandoff,editor05_5,paused; no duplicate generation.
+
+## Linux picture extraction855 queued, 2026-11-10 07:43 UTC
+
+- [x] Read independent856 exact extraction/helper review MD4f86da34eda5d228f13fbe829304753c8c9a3b52956481baaf134d297501e02b; no concrete source blocker.855 helpers and prior775 sample manifest exclusively staged with matching hashes. One persistent controller complex-native-pictures855 PID4162571 now waits on successful stable853 plus exact comparison artifact. No855 extraction or new picture viewing yet. Never duplicate.
+- [ ]852timeline remains active,853preview waits. Inspect actual terminal receipts and complete comparisons; then view all855 sheets and ambiguous details at original size. Preview excludes score as before; compare narration PCM separately before score-inclusive final. Full4K/master/listening/fine-sync/independentAV/publication remain open.
+
+## Linux844 and849 passed;852 timing and853 preview chain active, 2026-11-10 07:41 UTC
+
+- [x] Actual844 terminal07:36:04 exit0,4216 frozen inputs stable3b54974b/no resource stop;235tests plus explicit1test platefade,strictClippy,build,facts7d528509 and15registrychapters pass. Linux binary e75258731b1786ae3182ef9eb21a7903a9e6c0bed6242413335f7dd233955384. No final picture acceptance from tests.
+- [x] Actual849 terminal07:36:23 exit0,12851 frozen inputs stablef92e8ee2/no stop.105 full WAVs/timings retained byte-identical; coherent source/direction/sample verifier and all105/selected9 native delivery pass. Original canonical preserved; only runtime source map metadata rebound. No listening acceptance.
+- [x] Read851 exact original313 table/score dependency audit and854 independent852/853 code review (MDebf847f52721be4ec5f1fd55ae14f763d63933e2e8c328b2cb741d0593a3e5f8). One852 timeline controller4053349 tmux complex-native-timeline852 active; one853preview controller4053384 tmux complex-native-preview853 waits. Exact three full normalized tables/16504frames must match before preview. Never duplicate.
+- [x] Prepared855 extraction/controller and retained775 sample record2a186477: all814 prior selections plus current lint/persistence, full decode, owned process cleanup. Source review856 pending;855 NOT launched. A dynamic code-generation shell command was rejected before execution; used explicit additive source patch instead, without executing a render or weakening guard.
+- [ ] Inspect actual852/853 receipts and all resulting855 sheets before4K; adapt stale819-bound master helpers to successful Linux producer. Full final master technical/actual picture/motion/listening/fine-sync/independentAV/platform checks remain open. Exponential24/94 takes retained;70 remain.
+
+## Linux844 tests passed, Clippy active, 2026-11-10 07:34 UTC
+
+- [x] Actual844 tests.stdout:235 passed,0 failed,1 ignored. Explicit plate-fade-probe separately passed1 test,0 failed. Initial release compilation10m52s. These are native runtime test results, not completed overall build qualification or final visual acceptance.
+- [ ] StrictClippy currently checking dependencies; final binary build,facts/chapters,stable source closure and terminal guard receipt remain required.849 controller4033863 waiting,neverduplicate. Independent reviewer auditing concrete Linux timeline/preview references851. Preserve actual final picture/listening/fine-sync/independent fullAV/publication gaps.
+
+## Linux delivery849 controller waiting, 2026-11-10 07:34 UTC
+
+- [x] Read independent850 controller addendum (MDc1f2a9c4dfcd84d205be3446c5b21416e23b7fa30a21c097e94b998cd61f62fd); no concrete source blocker. Started ONE persistent tmux complex-native-delivery849 controller, PID4033863, waiting for actual successful stable844. It aborts on failed844 and does not mutate active build source. Do not duplicate controller or job.
+- [ ]844 build remains live;849 has not been admitted or run. Inspect actual terminal receipts, preserve failure attempts and keep later timeline/preview/final-picture/master/audio/publication gates open. No listening or fine-sync acceptance.
+
+## Linux narration successor prepared, 2026-11-10 07:33 UTC
+
+- [x] Previous goal turn was a verified wait: CSD844 helper4007248 live; latest compile reaches fmn-runtime, no terminal qualification yet. Never duplicate or mutate its source while active.
+- [x] Read independent848 source audit and850 helper review (850 MD03efa5a142fe24ff34e49cce38bbef1456eb5e6ba5c7a10732f4549fb31987d6). All28 map markers/hashes match844; only three boundary hold positions change.105 Linux source paths already resolve, so retain them and production-repo07 verifier cwd. No audio or timing changes.
+- [x] Prepared and exclusively staged csd-native849-delivery.py SHA d7efa10602188a30ea14a3a1165ff7e919403775e6c485479a3083dd61dc3b64, map ff852ebc and after-build controller54a4cbec. AST parses; all12628 retained313 guard-input hashes independently rechecked unchanged. Controller source review pending; NOT launched at this entry. It waits stable844, freezes full immutable closure and excludes only intentionally rebound canonical plan, whose original listing and exact source delta are checked by849.
+- [ ] Inspect actual844 tests235/probe/Clippy/build/facts and stable terminal receipt. Review controller before launch; inspect849 delivery/reconstruction105 WAV results, then new Linux timeline/preview and actual pictures before4K. Failed819 and its dependents remain preserved; no stale successor launch.
+- [ ] Exponential remains24/94 retained cues;70 remaining. Actual listening, fine synchronization, narrated full-motion review and independent full-filmAV acceptance remain open. No new publication or final picture acceptance claimed.
+
+## CSD native recovery qualification844 admitted, 2026-11-10 07:23 UTC
+
+- [x]Read843/845/846 independent reports.845 hashed all4125 engine/repo-view files (47038054bytes) exact against760; actual workspace has only Cargo-path,boundary and runtime-plan differences. Frozen760 plan995e25c7 restored in new source; old313 files preserved. Mac Studio is this local host (hostname verified), not a separate fallback. USB_NVME path currently shares local Data filesystem; no extra disk claimed.
+- [x]Prepared/staged844 Linux helper, preserving initial helpers before config/copy fixes. Exact70 manifest workspace files copied exclusively; two historical313 extras excluded and left intact. Configuration whitelist binds actual inactive dev/test profiles and target override; all235 tests, explicit plate-fade probe, strictClippy, facts hash and15chapters plus owned process-group cleanup remain required. Independent846 current helper7932fe78 reviewed, MDf0bfa22b29a2fe8a97b68474a33b98faf631f8b1d3fa0663e2f5aa130d7851bf read/hashverified.
+- [x]ONE guarded csd-native-build844 actually admitted07:22:37 on CSD with141730107392bytes free,4216 frozen inputs SHA3b54974babc3d17763d89040719c014a4999fb0542af3fa43d83636538e9979f. tmux complex-native-build844, helperPID4007248 live. Existing CSD policy10GiB admission/8stop/4growth/56work/20target and original baseline/exclusive lane intact. Never duplicate; inspect actual terminal tests/receipt before source-bound runtime rebind, preview/schedule/PCM and4K review.
+- [x]Exponential04_5 one submission, both full Frederickv4 takes retained (1013760/1021440samples), exact request/hash receipt and narration-proof847.png.24/94 cues retained including14_6;70 remain. No listening/fine-sync/fullAV acceptance.
+- [ ]819 remains failed and preserved;820/834 aborted prerequisites must not be resumed blindly.827–832 remain bound to failed819 and need explicit successors after successful Linux qualification and actual new preview/final pictures. Publication remains unaccepted.
+
+## Complex819 stopped for storage; no final accepted, 2026-11-10 07:12 UTC
+
+- [x]Actual819 terminal receipt07:10:57.831934Z: exit-15, stopped_for_resource_limit=true; initial/final input hashes identical d75141734f05647046d58c11bbf7ca5db018284ad4015b2fd3f5a41bfd9f68ae. Renderer10144,guard85456 and recognition834 controller13209 absent. No successful final render; preserve all partial output. Last guard stop sample6.76GiB free; later local4.85GiB. Work/target allocations stable; other disk pressure not attributed conclusively.
+- [x]Fresh host probes: mini-old3562136KiB available, mini-max6554660KiB, both below20GiB admission. mac-studio SSH failed host-key verification; no bypass. Do not restart819/820/834 blindly. Independent843 assigned read-only Linux/native recovery assessment on CSD with prior133GiB free; no new production job launched.
+- [x]Read independent840 report and verified hashes MD7dbe9394f590379fbdded8f82265ff874ddc85decd766e5ccd37bb7106b59a68, JSONebb5c92ba1c01eb87f16431f94f1008a372c2b4a49652aa713ee2d528a3f4752.14 retained rows metadata ready; runtime/master gates still required.
+- [x]04_4 submitted once and both full Frederickv4 WAV takes retained (1332480/1313280 samples), exact request/hash receipt and narration-proof842.png.23/94 cues retained including14_6,71 remain. No listening/fine-sync acceptance.
+- [ ]Resolve storage/qualified host and use new guarded job names only after concrete recovery evidence. Existing827–832 bind819/820 and cannot accept failed819; new successful producer requires explicit successor binding and independent check. Full final pictures/master/platform and listening/fine-sync/independent fullAV remain open.
+
+## Retained complex master metadata checked; narration continues, 2026-11-10 07:08 UTC
+
+- [x]Existing independent reviewer840 reports all14 retained non09 rows in manifest625 have matching worker hashes, successful stable source receipts and bound input-manifest hashes; applicable imports likewise successful.06 uses corrected577/611 binding;10 uses native521 stage581-a2 and589 review. Full written840 report pending root read; this is metadata inspection, not whole-corpus rehash or actual master gates.
+- [x]04_3 submitted once and both full Frederickv4 WAV takes retained,779520/791040 samples, exact request/SHA receipt.22/94 cues retained including14_6;72 remain. Proof expanded-production808/narration-proof841.png. No speech/listening/fine-sync acceptance inferred.
+- [ ]Complex819 renderer10144 still live07:08,49m28s elapsed, receipt nonterminal. Local free space9.69GiB, close to preserved8GiB stop; do not restart or weaken guard.820/834 remain dependent and may refuse20GiB admission. Inspect actual terminal result before any recovery. All final picture/master/platform and fullAV gaps remain open.
+
+## Exponential compound-growth narration started, 2026-11-10 07:05 UTC
+
+- [x]04_1 and04_2 each submitted once in Frederick Surrey/v4 with unchanged settings; both full48kHz WAV takes per cue retained with exact request/SHA/sample receipts.21/94 cues retained including14_6;73 remain. Credits257902 observed, proof expanded-production808/narration-proof839.png. Player paused using visible screenshot control after AX pause actions restarted playback; no listening acceptance claimed.
+- [x]Located existing CSD root-master-manifest625.json (15 rows, SHA6fde63a4029af7765491d0f38f5371feb701f954277d2cf3728d9f0ae4220942). Its09 row still names historical344; do not launch unchanged with831. Actual new829 materialization and830 final-picture gate must supply replacement row and verify other14 retained rows before master.
+- [ ]Complex819 still active; no terminal receipt observed.820 and834 remain waiting; no duplicate. Final motion/audio/fine-sync/independent full-film acceptance and publication remain open. Prior turn made concrete narration progress.
+
+## Exponential chapter03 recordings complete, 2026-11-10 07:00 UTC
+
+- [x]03_6 and03_7 submitted once each with unchanged Frederick Surrey/v4 settings; both full48kHz WAV takes saved per cue with request/hash/sample receipts. Chapters01–03 now have retained recordings, plus prior14_6:19/94 cues,75 remaining. Screenshot expanded-production808/narration-proof838.png; credits258693 observed. No rerecording, trimming or pitch/time processing. Recognition of these new cues is still pending; existing834 only covers02_1–02_3.
+- [x]Complex819 process10144 confirmed live during this turn; terminal receipt still absent, free space most recently13.84GiB. Preserve current render,820 extraction and834 recognition controllers. Prior turn made progress by saving03_5 and updating records.
+- [ ]Actual listening, fine synchronization, full narrated-motion/4K review and independent full-film audiovisual acceptance remain open. Complex final chapter/master/platform verification remains the publication priority.
+
+## Exponential multiplication narration continued, 2026-11-10 06:57 UTC
+
+- [x] Confirmed03_4 retained receipt after interrupted tool display. Submitted03_5 exactly once after restoring the ElevenLabs tab; both full Frederick Surrey/v4 WAV48kHz takes retained with exact request binding, SHA256 and sample counts1282560/1236480. Settings stability0.5/similarity0.75/clone0 unchanged; credits259290 observed. Proof expanded-production808/narration-proof837.png.17/94 cues retained including historical14_6;77 remain.03_6 not submitted.
+- [x] Live complex819 renderer10144 confirmed running at06:57,38m47s elapsed; receipt has no terminal result. Local free space fluctuated11.75–14.83GiB;8GiB stop retained.820 extraction and834 recognition remain dependent; never duplicate. Prior goal turn classified verified wait from live process observation.
+- [ ] Complete complex final rendering, actual final pictures, master assembly/verification and platform checks. Finish remaining exponential narration and recognition before real assembly/narrated review. Listening, fine synchronization and independent full-film audiovisual acceptance remain open; no publication or new acceptance claimed.
+
+## Reviewed complex helpers staged; three multiplication cues saved, 2026-11-10 06:50 UTC
+
+- [x]Fresh CSD deployment836 exclusively created6 reviewed827–832 helpers; every byte hash matches local and all6 AST-parse. csd-helper-deployment836.json records exit0. No production job launched; actual819/820 results, final viewing and closure/resource checks still prerequisite. CSD filesystem133GiB available at check.
+- [x]03_1–03_3 submitted once each and both full Frederickv4 takes saved with exact per-cue requests/hashes/sample counts.03_1 initial click tool failed before dispatch; freshUI still Generate, one retry enteredLoading, failure note retained.15/94 cues now retained,79 remain; last credits260024 observed. Proof narration-proof835-03.png. No blind rerolls/audio processing/listening/fine-sync acceptance.
+- [ ]Local free space fell to~17GiB while819 still active; guarded-work/target sizes unchanged.8GiB stop preserved.20GiB admission for later820/834 may wait/refuse if space does not recover. Other processes preserved; no deletion or peer cancellation. Inspect live receipts before any recovery decision; never duplicate.
+- [ ]Complex819 full final still in progress;820 and834 wait. Actual picture, narration/motion/fine-sync, master/replay/technical and public4K/caption gates remain.
+
+## Exponential series chapter narration retained, 2026-11-10 06:44 UTC
+
+- [x]Submitted02_4,02_5,02_6 once each with unchanged Frederick Surrey/v4,stability0.5/similarity0.75/clone0/WAV48kHz; both complete provider takes downloaded and preserved per cue. New helper retain835 writes fresh per-cue request/receipt bindings, checks script/text hashes and actual PCM format/sample counts, never generates. Proof narration-proof835.png. Last observed credits261300 after02_5;02_6 post-credit count not observed.
+- [x]All chapter01 and02 cues now retained, plus previous14_6:12/94 total,82 ungenerated. No rerolls/cropping/time processing.02_4–02_6 recognition still pending; existing834 remains solely responsible for02_1–02_3 after complex819/820. Do not duplicate.
+- [x]Complex819 renderer10144 freshly live06:43,25m elapsed,371percentCPU; no terminal receipt. Latest guard06:41 free20.3GiB above8GiB stop;820waits. CSD filesystem133GiB available for eventual master transport, no828/831 process. Source-reviewed827–832 still unlaunched.
+- [ ]Actual narration listening, fine synchronization, narrated-motion/full4K review, independent fullAV and publication remain open. Native/source/synthetic checks do not close them.
+
+## Master migration independently checked; recognition834 queued, 2026-11-10 06:40 UTC
+
+- [x]Root read independent833 and verified MD ef31a84f. No concrete migration defect; reviewer checked resolved keys against actual819 manifest and six-helper hash chain. Runtime closure/size/receipts and actual final-picture review still mandatory;827–832 NOT launched.
+- [x]ONE recognition-after-complex834 controller running PID13209/tmux exponential-recognition834. It waits for successful stable819 AND820, aborts on failure, checks24 frozen input bindings, then launches guarded recognition of both full retained02_1/02_2/02_3 takes. Same20GiB admission/8stop/4growth/80cap/exclusive lane. No synthesis or audio edits. Never duplicate.
+- [x]All4 originalCC panes freshly inspected; each still weekly-limit blocked, resetNov13 3amET. Sessions preserved; no paid credits/account changes. Root and authorized independent Codex reviewer continue useful work.
+- [ ]819 renderer10144 live06:39 at~21m;820waiting. Finish actual final chapter review, then transfer/master/verify/publication. Exponential85 cues still ungenerated. Listening/fine-sync/independent full-filmAV remain explicit.
+
+## Local complex master successors prepared, 2026-11-10 06:38 UTC
+
+- [x]Read independent migration826 and verified MDba257cba. Actual819 inherited bindings use resolved transferred-tree paths; old master gates used aliasM. Prepared827 export,828 transport,829 materializer,830 chapter gate,831 master and832 final verifier with exact local819/820/818 locations, explicit lexicalM→verified812tree mapping on receiver, new jobs and recomputed helper hash chain. Preserved777–782 and before-alias-fix828/829.
+- [x]All6 new Python helpers AST-parse;2 explicit path mapping examples checked. Evidence local-migration831-prepared.json. This is preparation only, no new export/import/master/verify job run. Independent source review833 assigned before use.
+- [ ]819 renderer10144 freshly live06:37,19m elapsed, no terminal receipt.820 waits. Must inspect stable terminal render/extraction, view ALL final sheets and anchors, then actual closure/resource checks before CSD transfer, schedule/replay/master/full verification. No final AV/listening/fine-sync acceptance.
+- [ ]New transport retains3.5GiB payload bound and CSD10/8/4/56/20 policy; actual completed closure size not yet known. Preserve every file and guard; no duplicate jobs.
+
+## Frederick production plan825 bound, ninth cue retained, 2026-11-10 06:34 UTC
+
+- [x]Root read final independent824 follow-up MD533ece40; native-receipt and external-consumer test gap closed, no source-review blocker.121 synthetic tests passed; no real-audio/listening acceptance.
+- [x]Installed new source-bound topic map narration-direction-map-frederick825.json and frederick-units825.json for94 exact stage14 cues/7008words. All14 prediction markers/source hashes and helper/audit hashes rechecked;14 direction dispositions resolve,51.5s authored native windows. Receipt integration825.json. Prior maps/plans/takes unchanged. Native compiled consumer binding and real assembly still pending.
+- [x]Submitted02_3 once with unchanged Frederick/v4 settings. Both complete48kHz takes retained,1109760samples each, hashesd27fb081/7efc708b. Receipt request binding corrected immediately; earlier metadata copy preserved. Nine of94 cues now retained including14_6;85 remain. Actual generation screenshot narration-proof825.png. Recognition02_1–02_3 waits serial heavy lane; no listening/fine-sync acceptance.
+- [ ]Complex819 renderer10144 live06:32 at14m elapsed, no terminal receipt; latest sample23.75GiB free above8GiB stop.820 waits; no duplicate. All final picture/master/platform and independent fullAV gates remain open.
+
+## External full-cue integration823 implemented and tested, 2026-11-10 06:30 UTC
+
+- [x]Read independent822 proposal and verified report SHA5d2d997d. Preserved prior coherent_narration.py and tests in expanded-production808/before-external823-*.py. Explicit known external_ui_provider now permits exact single full cues beyond100 words; native unmarked units retain100-word maximum. Native generate rejects declared external plans before environment/provider capture. Actual receipt source/voice must match declaration; existing full text/request/source/PCM/direction checks remain.
+- [x]Cheap synthetic Python suite passed121 tests in14.949s, exit0; test-external823-b.json/log bind actual source hashes.205-word Frederick fixture assembled and strict-verified byte-identical PCM through native external-plan selection; altered canonical direction rejected. Malformed declarations, multi-cue groups, native/different voice receipts and cropped samples refused. Existing native/legacy/mixed-voice tests retained. This is synthetic integration evidence, not real narration or listening acceptance.
+- [ ]Independent implementation review824 assigned; current exponential production map/unit/spans still need integration and real retained-take verification.8/94 cues retained,86 remain. No audio regenerated or changed by823.
+- [ ]Complex819 renderer10144 confirmed active at06:29, approximately11 minutes elapsed.820 picture extraction waits on actual successful stable render; no duplicate. Final picture/master/technical/platform checks, continuous listening/fine-sync/independent fullAV remain open.
+
+## Exponential02_2 retained; final extraction review821 read, 2026-11-10 06:24 UTC
+
+- [x]Submitted02_2 exactly once to Frederick Surrey/v4 unchanged settings; both48kHz full takes saved with hashes and1009920samples each. Credits262269 observed. Eight of94 cues retained including14_6;86 remain.02_1/02_2 recognition pending behind active local final819 lane; never regenerate retained cues.
+- [x]Root read independent821 full helper review and verified md da94f80c / JSON66bf4296. No concrete820 extraction migration blocker; actual819/820 runtime/picture acceptance remains open.
+- [ ]Independent822 source audit found15 cues over legacy100word native limit,max205. Proposed explicit external-provider singlecue validation, native-generate rejection before provider access, and actual receipt/declaration matching; report pending under exact two-file handoff. Do not merely lift global limit or truncate script.
+- [ ]Complex819 rendering,820 controller waiting. Listening/fine-sync/independent fullAV and publication gates remain open.
+
+## Local complex819 admitted; picture820 controller waiting, 2026-11-10 06:21 UTC
+
+- [x]819 actually admitted, rendererPID10144; original full delivery check reports105 verified cues/9 selected. No terminal render success yet. Same4K60/CRF16/veryfast,20GiB admission/8stop/4growth/80work/exclusive lane. Never duplicate.
+- [x]Root read independent817 and verified md9974be86/JSON92e6dc0d; no additional integration blocker, no runtime/AV/listening acceptance.
+- [x]Prepared local820 extraction successor and started ONE persistent controller waiting on successful stable819. It retains all814 prior selected frames plus every new final lint anchor/persistence, exact scored cue/timeline checks and full4Kdecode. Current Pillow/ffmpeg/ffprobe/runtime will be frozen at launch. HelperSHA90266000ee97698460893d2a1fcdca51842d51d042265c90323c3ecbde34704b. Independent source review821 requested.
+- [ ]Read terminal819/820, actually view every final sheet and detailed anchors, then adapt master/verification chain to local output and publish only after all final checks. Listening/fine-sync/independent fullAV remain explicit.
+
 ## Local delivery818 passed; final819 guard started, 2026-11-10 06:17 UTC
 
 - [x]818 actual terminal exit0 at06:17:00. Full source/direction/sample reconstruction verified105 cues;105 full WAVs remain byte-identical. Metadata correction only resolves source paths under transferred repo. No timing/audio processing or listening acceptance.

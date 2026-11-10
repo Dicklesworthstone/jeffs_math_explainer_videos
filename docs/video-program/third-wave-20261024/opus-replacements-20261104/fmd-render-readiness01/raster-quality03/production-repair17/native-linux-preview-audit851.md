@@ -1,0 +1,11 @@
+# Native Linux preview reference audit851
+
+Independent Codex BlackThrush. Read-only inventory; no render or review acceptance.
+
+All three pinned558 timing tables exist unchanged on CSD at `jobs/csd-review-repair-timeline313/timeline-output/09_boundary.{timeline,cues,cuelog}.tsv`. Fresh hashes match5a91b8… / eed5a5… /7ed46c… exactly. Preview313/preview contains byte-identical copies and the historical layout f91bb8…. The JSON records full paths and hashes. New849 narration can be compared by a single explicit313→849 narration directory substitution; no other normalization. Require09_boundary,60fps and16,504frames. Layout changes are expected from the repair and require fresh lint/picture review.
+
+Retained score lives in `jobs/csd-production-score21/score/stems`, which is the directory to pass to --score. I freshly hashed the parts table, all three bounded stems and QA JSON against score-transfer586: all five match. QA passed; length13,203,200samples equals16,504×800 at48kHz. Original score21/timeline313/preview313 receipts all report exit0, stable inputs and no resource stop. Full hashes are in JSON. Recheck chunk offsets/hash/rate and QA at actual reuse after timing equality.
+
+For the successor, adapt765/766 schedule-gated flow to actual844 binary and849 delivery, Linux guard and production-repo07 cwd. Preview recipe is960×540,60fps,4threads,lint,CRF18,veryfast. Preserve owned-process cleanup and capture native stdout/stderr. Old313 helper is evidence, not directly reusable: it pins233tests, old boundary source lines and old zoom probes. Original766 preview has no --score; its f7f8… soundtrack identity is not a score-inclusive final soundtrack claim.
+
+Freeze844 immutable closure and849 post-rebind source snapshot/narration outputs, successful receipts, all three reference tables and tools. No standalone non-engine capture-named inputs appeared in old313 manifests; bounded draw/boundary source inspection found no external include_bytes capture. Do not infer this is a complete dependency proof: retain complete verified immutable closure and freeze generated preview tables, soundtrack, movie and lint when preparing extraction. Fresh picture/motion/4K/audio checks remain separate.

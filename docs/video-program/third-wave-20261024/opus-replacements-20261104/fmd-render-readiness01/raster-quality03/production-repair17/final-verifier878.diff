@@ -1,0 +1,135 @@
+--- csd-final-verify832.py
++++ csd-final-verify878.py
+@@ -1,4 +1,4 @@
+-"""782: bind full verification to repaired master781 and native761/stage779 attempt1.
++"""878: full-film verification of master874 and Linux native844/stage868.
+ Prepared only: actual master/stage success and all chapter gates are required at runtime.
+ All decoding, caption, soundtrack, frame identity and picture-planning functions retained.
+ 647 and all old artifacts remain untouched. No release or independent acceptance.
+@@ -115,7 +115,7 @@
+ import sys
+ import wave
+ 
+-VERSION = '832'
++VERSION = '878'
+ FPS = 60
+ TOTAL_FRAMES = 133662
+ D = Path('/data/projects/jmev-stroke-probe-20261106')            # CSD
+@@ -126,15 +126,15 @@
+ # The master, as cc0-combined-master350.py names it (JOB, INPUTS, out = job/'final', master-summary.json,
+ # staged-inputs.json; 318's names with 350's). 363: its frozen hash (CC0, cc0-master350-notes.md) is pinned, and it
+ # must also be the hash its completed job bound.
+-MASTER_HELPER = Q/'combined-master831.py'
+-MASTER_HELPER_SHA = 'c040d975e2cba47b7521ccf6ea7ef1b8f395030fec241a5f13630819423ccdc5'
+-MASTER = D/'jobs/csd-combined-master831'
+-MASTER_INPUTS = Q/'combined-master831-inputs.json'
++MASTER_HELPER = Q/'combined-master874.py'
++MASTER_HELPER_SHA = 'e0a2544975072743ba7cba1061c363a21d91a7bb663106f513cf22a2c23877d4'
++MASTER = D/'jobs/csd-combined-master874'
++MASTER_INPUTS = Q/'combined-master874-inputs.json'
+ OUT = MASTER/'final'
+-VERIFY = D/'jobs/csd-final-verify832'
+-VERIFY_INPUTS = Q/'final-verify832-inputs.json'
+-PICTURES = D/'jobs/csd-final-pictures832-%s'                    # M1: one guarded picture job per part, in this order
+-PICTURES_INPUTS = Q/'final-pictures832-%s-inputs.json'
++VERIFY = D/'jobs/csd-final-verify878'
++VERIFY_INPUTS = Q/'final-verify878-inputs.json'
++PICTURES = D/'jobs/csd-final-pictures878-%s'                    # M1: one guarded picture job per part, in this order
++PICTURES_INPUTS = Q/'final-pictures878-%s-inputs.json'
+ PICTURE_PARTS = ('overview', 'native')                            # every sample and sheet; every native 4K frame
+ # L2: the guard admits a native job at 10 GiB free and stops it at 8 GiB; its native phase cap is 4 GiB
+ # (guard_csd02.py asserts ADMISSION_GIB native 10, STOP_FREE_GIB 8, CAPS native 4). 318 refuses below 12 GiB
+@@ -408,16 +408,21 @@
+ 
+ 
+ NATIVE608 = {
+-    '09_boundary': ('native761', 'root-boundary829-materialize.py', '7a3b9ecf0b7209ff4fab7ad01574a610b2b7b1a7fef482db9808e2143cd081d1', 'csd-native-stage829-09-a1', '71736c26d9953f08af8f4ce4f6fc0f13aeb98e7135b3dd415fb3ebf00e161c26'),
++    '09_boundary': ('native844', 'native-linux-materialize868.py', '623253e84bafef9f8ecb48ca406d01a59b34598b2413ceb69e0494c6522e6997', None, 'e75258731b1786ae3182ef9eb21a7903a9e6c0bed6242413335f7dd233955384'),
+     '10_rigidity': ('native521', 'root-native581-materialize.py', '822047a7f57877378140bb7c81ffd5d89ebd99d47310d17f7d341db6a3b59806', 'csd-native-stage581-10-a2', '5b77a1c8a33a41bab3c3987c9d4f40797bb6a6f1a76bbb57f1ab562ae9960312'),
+ }
+ KINDS.update({k: v[0] for k, v in NATIVE608.items()})
+-REVIEW_BASES.update(native761='sampled_preview', native521='sampled_preview')
++REVIEW_BASES.update(native844='sampled_preview', native521='sampled_preview')
+ 
+ 
+ def expected_worker451(key, row):
+     if key in NATIVE608:
+         kind, name, digest, job, binary = NATIVE608[key]
++        if key == BOUNDARY:
++            # Actual stage attempt comes from the fully revalidated 873/874 manifest.
++            job = row['job']
++            prefix = 'csd-native-stage868-09-a'
++            assert job.startswith(prefix) and job[len(prefix):].isdigit()
+         assert row['kind'] == kind and row['job'] == job and row['binary_sha256'] == binary
+         return Q/name, digest, job
+     if key == '05_gallery':
+@@ -454,14 +459,14 @@
+     registry = read(BUILD268/'qualification.json')['chapters']
+     assert len(registry) == len(set(registry)) == 15 and set(registry) == set(KINDS)
+     summary = read(MASTER/'master-summary.json')
+-    assert (summary['version'], summary['host'], summary['frames'], summary['chapters']) == ('831', 'csd', TOTAL_FRAMES, registry)
++    assert (summary['version'], summary['host'], summary['frames'], summary['chapters']) == ('874', 'csd', TOTAL_FRAMES, registry)
+     assert summary['consumer_binary_sha256'] == BINARY_268 and summary['narration'] == str(NARRATION)
+     assert summary['native_bit_identical_replays'] == 15 and list(summary['replays']) == registry
+     manifest = summary['manifest']
+     assert manifest['path'] == command[10] and rows.get(manifest['path']) == manifest['sha256'], 'not the manifest 350 bound'
+     binary313 = build313()
+     # Re-run the pinned master's full provenance gates against its frozen manifest.
+-    spec = importlib.util.spec_from_file_location('qualified_master831', helper)
++    spec = importlib.util.spec_from_file_location('qualified_master874', helper)
+     master_module = importlib.util.module_from_spec(spec)
+     sys.modules[spec.name] = master_module
+     spec.loader.exec_module(master_module)
+@@ -488,7 +493,7 @@
+             assert rows.get(str(worker)) == digest, key+': the master did not bind the frozen worker\'s bytes'
+     assert summary['review_bases'] == {k: by[k]['review_basis'] for k in registry}
+     assert summary['chapter_binaries'] == {k: by[k]['binary_sha256'] for k in registry}
+-    assert by[BOUNDARY]['job'] == NATIVE608[BOUNDARY][3] and by[BOUNDARY]['narration'] == str(NARRATION313)
++    assert by[BOUNDARY]['job'] == expected_worker451(BOUNDARY, by[BOUNDARY])[2] and by[BOUNDARY]['narration'] == str(NARRATION313)
+     b = summary['boundary_replay']
+     assert (b['chapter'], b['bit_identical'], b['captured_by_binary_sha256'], b['replayed_by_binary_sha256']) == \
+         (BOUNDARY, True, NATIVE608[BOUNDARY][4], BINARY_268)
+@@ -699,6 +704,18 @@
+             reason = clean(reason)
+             if reason not in x['reasons']:
+                 x['reasons'].append(reason)
++
++    # Carry every actual repaired final875 sample into the assembled master's clock.
++    final875 = D/'jobs/csd-native-pictures875/pictures875.json'
++    proof = read(Path(f['m']['by'][BOUNDARY]['local_proofs']['path']))
++    assert Path(proof['extraction']) == final875
++    assert final875 in f['m']['files'], '873 must bind actual final extraction'
++    repaired = read(final875)
++    assert repaired['full_decode'] is True and repaired['frames'] == by[BOUNDARY]['frames'] == 16504
++    assert repaired['movie_sha256'] == f['m']['by'][BOUNDARY]['movie_sha256']
++    for local in repaired['selected_frames']:
++        assert type(local) is int and 0 <= local < 16504
++        add(samples, BOUNDARY, local, 'actual final875 repaired boundary sample; retained in assembled master')
+ 
+     # M1 first, so a window frame's sheet label names its window: every frame of the 31 windows, one native per
+     # window (its middle frame; for 05 the 319 sites' full-plate frames, at least one in each window), and the
+@@ -1032,13 +1049,13 @@
+                   review_bases=f['m']['summary']['review_bases'],
+                   delivery_captions_347=dict(delivery, caption_screen=dict(caption_count=screen347['caption_count'],
+                                              over_20_characters_per_second=0, lines_over_42_characters=0)),
+-                  **FLAGS, scope='Technical verification of the 350 master only: decode, frame identity, schedule, '
++                  **FLAGS, scope='Technical verification of the 874 master only: decode, frame identity, schedule, '
+                   'retained takes, exact native captions, the 347 delivery captions\' exact text and screen, and '
+                   'loudness. Pictures, motion, listening, fine sync, caption playback and 4K caption legibility, and '
+                   'independent AV acceptance remain root\'s.')
+     with (job/'verification.json').open('x') as stream:
+         json.dump(result, stream, indent=2)
+-    print('FINAL VERIFY PASS: 350 master decodes cleanly, equals its 15 staged chapters frame for frame, its native '
++    print('FINAL VERIFY PASS: 874 master decodes cleanly, equals its 15 staged chapters frame for frame, its native '
+           'captions equal the script and native327, and the 347 delivery captions pass the same exact check; every '
+           'picture still needs root\'s viewing.', flush=True)
+     return 0
+@@ -1213,7 +1230,7 @@
+                        final_frame_sources=FINAL_FRAME_SOURCES, final_frame_checks=FINAL_FRAME_CHECKS,
+                        final_endpoint_checks=FINAL_ENDPOINT_CHECKS, required_windows=REQUIRED_WINDOWS,
+                        playback_seconds=f['m']['playback'],
+-                       pillow=pillow_record, **FLAGS, scope='Pictures of the actual 350 master at 960x540 (sheets) and native 4K PNGs; '
++                       pillow=pillow_record, **FLAGS, scope='Pictures of the actual 874 master at 960x540 (sheets) and native 4K PNGs; '
+                        'root must view every sheet and native frame. No acceptance is recorded here.'), stream, indent=2)
+     if part == 'overview':
+         # 339 (CC0 332 C7): this line is written into this job's own folder (review 339 L1), so it is not an anchor by

@@ -1,0 +1,8 @@
+{
+  "scope": "Prepared source adapters only, NOT run or qualified. Frozen local819/820 closure and raw bytes preserved; actual final picture viewing required before master.",
+  "helpers": {
+    "root-boundary827-export.py": "215ee61dc518cf0ba35749b5c022bc521602cac1da9b7de97a745a1b84863e1e",
+    "root-boundary828-transport.py": "3690b63db0f93fbe8ef9c8ecce4fb0dba5dda02a93d894b78cdc1b7dced05235",
+    "root-boundary829-materialize.py": "410face5dce380dffdc1a0b01d0c1091100e3314539ef760ebcae1598f8e7493"
+  }
+}

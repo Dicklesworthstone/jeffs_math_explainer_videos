@@ -1,0 +1,48 @@
+{
+  "utc": "2026-11-10T12:45:44.271099+00:00",
+  "thumbnail": {
+    "file": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-thumbnail-preview02/render/apportionment_thumbnail.png",
+    "sha256": "5e043c0bcb59b50aecaaf00d8bfab1954622bad5135dd671fd2eb82adddc141a"
+  },
+  "mobile": {
+    "file": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-thumbnail-mobile02/thumbnail-320.png",
+    "sha256": "24200e686c24e4e735c6c2e2480a1d290565424da3bed73b5b1048aefc14ee57"
+  },
+  "prior_review": {
+    "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-apportionment-20261103/thumbnail-viewed01.json",
+    "sha256": "b0b9e01bb9d89a7b352cce124c1ba1ac0b280e95da122109ddcdbb14b690d87d"
+  },
+  "current_model": {
+    "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/apportionment/src/model.rs",
+    "sha256": "d7bb080faba88e63bf1261f81b49b54bf5c5b9b36191caf9fe321e1d140d6f6b",
+    "populations": [
+      4000,
+      9000,
+      26000
+    ],
+    "exact_fraction_hamilton_allocations": {
+      "15": [
+        2,
+        3,
+        10
+      ],
+      "16": [
+        1,
+        4,
+        11
+      ]
+    }
+  },
+  "actually_viewed": [
+    "1280x720 original",
+    "320x180 mobile"
+  ],
+  "observations": [
+    "Both title lines and seat-count comparison remain visible inside image, no clipping observed.",
+    "Existing generic Region A represents the two-to-one seat loss; rebuilt film names this town Ash. This is an editorial alias, not a claim that current thumbnail source was rendered.",
+    "At mobile size main message and two-versus-one blocks remain clear; small subtitle/Region A text is secondary."
+  ],
+  "decision": "Retain existing native thumbnail as a truthful teaser; no regeneration necessary solely to change generic region label.",
+  "scope": "Two static images actually viewed and exact toy allocation recomputed; no real-device, motion, listening or whole-film acceptance.",
+  "publication_acceptance": false
+}

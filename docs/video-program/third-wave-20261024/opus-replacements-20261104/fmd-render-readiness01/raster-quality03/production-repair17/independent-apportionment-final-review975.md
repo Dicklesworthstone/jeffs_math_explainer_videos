@@ -1,0 +1,11 @@
+# Independent apportionment final picture review975
+
+No concrete visual blocker found in the bounded review of chapters06 and12. Independent Codex / BlackThrush did not author these scene repairs. Prior work concerned production helpers for other videos, not the reviewed apportionment geometry.
+
+Actually inspected all39 chapter06 sheets (310 selected frames) and all25 chapter12 sheets (195 selected frames): 64 sheets,505 selected frames total. All sheet bytes and sampling manifests were checked against their recorded SHA256 values. Six individual full-size pictures were additionally viewed and hash checked: chapter06 frames2907/3651; chapter12 frames2760/9999/11588/11880. Exact paths, hashes and frame lists are in the companion JSON.
+
+Chapter06: the five loss-event labels remain separated above the highlighted bars; the count summary stays below. The historical header, House299/Alabama8 and House300/Alabama7 comparison, quotation and caveat occupy separate regions. The repaired year/header line is readable at full-size3651 and sampled persistence. No clipping or conflicting label overlap observed.
+
+Chapter12: the selected sequence distinguishes actual filled tiles from hypothetical hollow tiles, then/now markers, exclusion and the capacity bound. The dense proof remains readable in the full-size9999/11588/11880 samples: the seven-seat interval, missing tile, eight required tiles and at-most-seven capacity comparison occupy separate regions. Cedar11 cancellation is an intentional readable strike, not an accidental obstruction. An initial apparent title problem in reduced contact sheets was not confirmed in full-size2760; that concern is withdrawn rather than promoted to a finding.
+
+This is not independent whole-film acceptance. Contact sheets were displayed at1439x1757 from1920x2344, individual4K pictures at2048x1152. No continuous motion, listening, pronunciation, fine-sync or complete AV review occurred. Other13 chapters and chapter joins/overview were not inspected in this pass. The supplied967/771 provenance binds these chapter movies to master770; this reviewer checked image/manifests, not the whole master bytes or decoded identity again. Platform4K/caption checks and publication remain separate.

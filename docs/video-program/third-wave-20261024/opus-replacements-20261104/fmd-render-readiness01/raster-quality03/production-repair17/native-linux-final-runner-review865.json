@@ -1,0 +1,74 @@
+{
+  "reviewer": "Independent Codex BlackThrush",
+  "authored_helper": false,
+  "runner_sha256": "b37da79b2b0c5d5c57990891b18a1658fb771ee2faf85396c77e563326ac0819",
+  "ready_to_launch_from_this_runner_alone": false,
+  "findings": [
+    {
+      "severity": "prelaunch gate gap",
+      "location": "csd-native864-run.py picture admission block",
+      "finding": "Admission hashes arbitrary referenced review/extraction files without validating their internal binding to actual855/853,full viewed indices or independent authorship. Correct preview_job/extraction_job strings do not establish that referenced artifacts belong to those jobs. Old775/787 evidence could satisfy current structure.",
+      "minimal_fix": "Before admission creation or inrunner, require expected855extraction path/hash and actual853moviehash; root complete/indices/count/sheets/no defects boundtoextraction; independent source/movie/extraction hashes,authored_repair false,actualviewedindices/blockers/safe_to_advance. Freeze these actualartifacts and admission in guardedinputs. Do not fabricate future acceptance."
+    }
+  ],
+  "checks": [
+    "Pinnedownedbase and ownprocessgroup with signal/timeoutcleanup retained",
+    "Exact guardpolicy/accountingroot/freshjob checks retained",
+    "Allfive requiredjobs must have successfulstable terminalreceipts",
+    "Pinned844ELFbinary and no-scorePCM hash",
+    "Allfive canonicalscorefiles exactly pinned to audited851existingbytes",
+    "Command3840x2160/60fps4threads849narrationcanonicalscore21CRF16veryfastlint correct",
+    "Production-repo07cwd preserves originalrelativegenerationevidence",
+    "AST parses"
+  ],
+  "launcher_requirements": [
+    "Freshunique job/inputmanifest and actualreviewadmission onlyafteractual855viewing",
+    "Revalidate855inheritedimmutableclosure and freeze updatedsource_after,all105narrationfiles/sourceWAVs/receipts,actualbinaryqualification,scorefiles+successfulscore21receipt,helpers/base/interpreter/ffmpeg/ffprobe,actual853capture and actualreviewartifacts",
+    "Require comparison852/853 and855exacttables/framecounts; do not rely only exit0 ofcontroller-wrappedrender",
+    "Require final own terminalreceipt then final4Kdecode/extraction/actualpicture review and score-inclusivecapture null-test beforemaster/publication"
+  ],
+  "limitations": [
+    "Launcher not authored/reviewed at time ofaudit",
+    "No job or render launched",
+    "No new pictures viewed/listening/fine-sync/fullAVacceptance"
+  ],
+  "amended_runner_addendum": {
+    "runner_sha256": "149d7d59cd00427426198f1b1e223b0034b871cc5c92ef14890ce8a9461ad9ac",
+    "original_finding_status": "Resolved in amended runner",
+    "remaining_source_blockers": [],
+    "checks": [
+      "Exact855extraction path and its frozenhash required",
+      "Extraction actual853movie path and SHA verified,full_decode true,16504frames",
+      "All actualpicture/sheet files rehashed",
+      "Both root and independent reports bind sameactualsource/movie/extraction and no concrete defects/safe-to-advance",
+      "Root must list allselectedframeindices andallsheets exactly",
+      "Independent must declare notauthor and nonemptyactualviewedframe subset"
+    ],
+    "limits": [
+      "Independent review coverage is a declared nonempty subset,not allframes; actual report must substantively cover repairedanchors/persistence and report real findings",
+      "No future reports or admission exist/accepted by this source review",
+      "Final guarded launcher and actual input closure remain to be reviewed; no launch or audiovisual acceptance"
+    ]
+  },
+  "launcher_addendum": {
+    "launcher_sha256": "bf9be15a3194cd6c59569c6bec07f96f9b8657304d49eb3105e92d3a82ca302c",
+    "runner_sha256": "149d7d59cd00427426198f1b1e223b0034b871cc5c92ef14890ce8a9461ad9ac",
+    "blockers": [],
+    "source_result": "No concrete remaining source integration blocker found in launcher plus amendedrunner",
+    "checks": [
+      "Refuses existingjob/inputmanifest;exclusive inputcreation before guard",
+      "Requires stable855 and validates complete inheritedinputclosure against successfulreceipthash",
+      "Requires already-authoredadmission and exactreferencedreport/extractionhashes;never fabricatesreviewevidence",
+      "Loads pinned853tablechecker and repeats allthree exactnormalizedpreviewtables plus16504comparisons",
+      "Requires successfulstablescore21receipt and freezes currentstemtree;runner independently enforces five historical scorehashes",
+      "Adds855outputs including actualpictures,sheets,extraction to guardedclosure;addsactualreports/admission,helper,runner,interpreter and scorereceipt",
+      "Inheritedclosure carries844binary/source,849narration/generationevidence,852/853scheduleproofs,ffmpeg/ffprobe/base/guard",
+      "Directrunner invocation preserves ownedprocessgroup;runner rejects stale855/853reportbindings before launchingrender"
+    ],
+    "limitations": [
+      "Noactualadmission/reviewaccepted orjoblaunched",
+      "Sourcehashes reviewed only; stagingmustretaintheseexactbytes",
+      "Future guarded864success/finalextraction/actualpictures/masterreplays/listening/fine-sync remain open"
+    ]
+  }
+}

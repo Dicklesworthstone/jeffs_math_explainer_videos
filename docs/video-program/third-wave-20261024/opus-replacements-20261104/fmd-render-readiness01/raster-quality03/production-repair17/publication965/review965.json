@@ -1,0 +1,23 @@
+{
+  "utc": "2026-11-10T12:09:15.152018+00:00",
+  "change": "Adopt independent750 C1: triangles are subdivided into triangles, not shrinking squares. One clause only; title/tags/chapter marks/credits unchanged.",
+  "files": {
+    "title.txt": {
+      "before_sha256": "48a242e3e4209b446850be61f1868d8f6280881d00d34d2bc387e529c0edc920",
+      "sha256": "48a242e3e4209b446850be61f1868d8f6280881d00d34d2bc387e529c0edc920"
+    },
+    "description.txt": {
+      "before_sha256": "868c83d3528fc71a6412040045ad01d031b4d0e70c18978874083b92d2b323aa",
+      "sha256": "c78723f3dffe6476cf68afa56edb1b4d0cae372f44fc7d9596bd607a87f2fd0b"
+    },
+    "tags.txt": {
+      "before_sha256": "40e49939e363bb750de3884b2c8b0ed3664303887829417622e5ac79d52594a8",
+      "sha256": "40e49939e363bb750de3884b2c8b0ed3664303887829417622e5ac79d52594a8"
+    }
+  },
+  "source_evidence": "CSD work/native-boundary844/workspace/explainer_corpus/complex_analysis_visual/script.tsv cue08_5 actually read; includes triangle midpoint subdivision and cancellation. Local canonical script is older and was not used to qualify current published-copy scope.",
+  "reviewed_copy": "Full publication376 description and independent750 review read manually before this sole clause correction.",
+  "final_master_times_verified": false,
+  "upload_started": false,
+  "scope": "Public-copy correction only. Must bind actual successful874 master, captions, thumbnail and final chapter starts before upload."
+}

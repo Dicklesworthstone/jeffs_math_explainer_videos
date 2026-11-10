@@ -1,0 +1,54 @@
+{
+  "reviewer_identity": "independent Codex BlackThrush",
+  "authored_migration": false,
+  "timestamp_utc": "2026-11-10T06:36:42.896090+00:00",
+  "scope": "Source migration requirements; complete777-780 bodies and relevant781/782 configuration/native gate/verification paths examined; not a new exhaustive audit of inherited master implementation",
+  "evidence_sha256": {
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-boundary777-export.py": "fbd899195a3ab41f9481fbd706ae3d38ac0060acd4d56c76b776cc79a0c86ce3",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-boundary778-transport.py": "b79802a51686869fdbe4e682595793ef6f9deaccaa6746e9d28ae459e1de2243",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-boundary779-materialize.py": "9e3e335852edc0d55a72c9061790a7d894e04f7cb7ec10d198a533d70c54506e",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-boundary780-gate.py": "586e652fa658b0a07697208b2300b452d42518e7dd436cc63bb6ec8f8a7e9f70",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/combined-master781.py": "fc100637898998f58e2b6b38c7250b8895fc99a3963d7348457f09d3a2a1936e",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/csd-final-verify782.py": "486b0999ad9fec7d388d776709fcb815d378cd07a8a56ca6b22402fb610d53a3",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/local-final819-inputs.json": "d75141734f05647046d58c11bbf7ca5db018284ad4015b2fd3f5a41bfd9f68ae"
+  },
+  "findings": [
+    {
+      "priority": 1,
+      "topic": "Logical path keys versus resolved alias",
+      "detail": "Actual819 manifest contains resolved W/complex-mini-transfer812/tree keys for native761 qualification/binary, prior775 and preview766. Original778 closure and780 gate index these with M alias strings. A copied export manifest will fail those lookups. Preserve original input-manifest keys and introduce explicit receiver-side lookup mapping for retained M paths to recorded resolved-tree keys, or export explicit checked alias entries too. Never resolve sender logical paths using receiver filesystem."
+    },
+    {
+      "priority": 1,
+      "topic": "Final/extraction/narration locations",
+      "detail": "777 FINAL/PICTURES and two manifest paths,778 validate+closure receipt/report/table/movie locations,779 origin and narration parent,780 extraction/layout locations must use local819/local820/local818. M score586 and source/binary remain retained.779 strict cuelog parent comparison otherwise rejects every local818 cue."
+    },
+    {
+      "priority": 1,
+      "topic": "Export helper path and chained pins",
+      "detail": "777 exports Path(__file__).resolve(); new helper lives canonical localQ, not M/qualification.778 bound-export-helper lookup and EXPORT_SHA must match that exact new path.779 PINS transport name/hash;780 STAGER_SHA+transport pin+worker names;781 gate name/hash;782 MASTER_HELPER_SHA and native worker tuple must be recomputed after final files, never weaken pins."
+    },
+    {
+      "priority": 1,
+      "topic": "Job and manifest names throughout CSD chain",
+      "detail": "Fresh numbered import/stage/master/verify/picture jobs require consistent regexes, expected guard commands, input filenames, master VERSION/JOB/INPUTS and782 exact summary version, MASTER paths, VERIFY and PICTURES names, NATIVE608 boundary worker/job tuple. Change only boundary manifest row; retain native761kind,761binary and all other chapter gates."
+    },
+    {
+      "priority": 2,
+      "topic": "Transport closure and resource policy",
+      "detail": "Keep every logical frozen input plus actual819/820 outputs and final picture-view record in downstream closure; do not trim inherited inputs to meet budget.819 current14541 bindings sum1294626197 bytes before final outputs.778 caps total transfer at3.5GiB,30000 rows; actual total must be checked after820, before transfer. Remote receiver POLICY10/8/4/56/20 belongs to CSD guard; local20/8/4/80/20 is not a reason to silently replace remote policy. Preserve job guards."
+    },
+    {
+      "priority": 1,
+      "topic": "Actual final pictures and replay invariants",
+      "detail": "780 picture_review must bind actual820 report and819 movie and cover every actual selected index/sheet with no concrete defects. Original775 only supplies retained sampling. Preserve preview766 capture equality, canonical CSD target audio hash equality for all narration/stems, full schedule validation, crf16 and master15 exact soundtrack replays. No acceptance inferred from transport."
+    }
+  ],
+  "migration_ready_without_changes": false,
+  "source_only": true,
+  "limitations": [
+    "No helper changes, transfer, render, master, or verification jobs launched.",
+    "819 active; actual820 extraction and picture viewing not accepted.",
+    "No listening/fine-sync/fullAV/publication acceptance."
+  ]
+}

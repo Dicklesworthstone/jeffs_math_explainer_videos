@@ -1,0 +1,15 @@
+{
+  "helpers": {
+    "root-boundary827-export.py": "215ee61dc518cf0ba35749b5c022bc521602cac1da9b7de97a745a1b84863e1e",
+    "root-boundary828-transport.py": "42665086de4112b7593d3a96e5077e2febc97742e80fe1c3510c471f6ee020b6",
+    "root-boundary829-materialize.py": "7a3b9ecf0b7209ff4fab7ad01574a610b2b7b1a7fef482db9808e2143cd081d1",
+    "root-boundary830-gate.py": "47b09ad2bfc62c32396bb5bb52360d9284c9109313ed3a362f22b0524d59e55f",
+    "combined-master831.py": "c040d975e2cba47b7521ccf6ea7ef1b8f395030fec241a5f13630819423ccdc5",
+    "csd-final-verify832.py": "b744ed20c775acefc37738e22bc85fec0fbce50e3ddd7bc62ed58f2cf84cbfa7"
+  },
+  "ast_parses": 6,
+  "lexical_mapping_examples_checked": 2,
+  "executed_jobs": [],
+  "review_pending": "independent-local-chain-review833",
+  "scope": "Prepared adapters, not full runtime verification or AV acceptance."
+}

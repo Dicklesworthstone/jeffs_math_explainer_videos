@@ -1,0 +1,48 @@
+{
+  "reviewer": "Independent Codex BlackThrush",
+  "scope": "Read-only adaptation audit; source outline, not review of unimplemented successors",
+  "helper_hashes": {
+    "local-final819-after-delivery.py": "10e7b5d258a3b01c54008c083702be56b75834e1d84f5501d38e3a30e8c6c37c",
+    "local-render819-exec.py": "1a4b9deb5e368b1810578fad7deb568065e056182fb98784c92ccd67ab201445",
+    "root-boundary829-materialize.py": "7a3b9ecf0b7209ff4fab7ad01574a610b2b7b1a7fef482db9808e2143cd081d1",
+    "root-boundary830-gate.py": "47b09ad2bfc62c32396bb5bb52360d9284c9109313ed3a362f22b0524d59e55f",
+    "combined-master831.py": "c040d975e2cba47b7521ccf6ea7ef1b8f395030fec241a5f13630819423ccdc5",
+    "csd-final-verify832.py": "b744ed20c775acefc37738e22bc85fec0fbce50e3ddd7bc62ed58f2cf84cbfa7"
+  },
+  "blockers_to_running_old_chain": [
+    "819 failed resource stop and has Mac paths/binary/ffmpeg/alias; cannot satisfy newfinal prerequisite",
+    "830 requires native761/Macqualification,import829/transport828,local820pictures and819render; all are stale for Linux844",
+    "831 hardcodes native761kind,830helperhash,831job/outputpaths andboundaryfilters",
+    "Master uses retained269/313 narration and canonicalscore paths; raw849cuelogs require separately preserved path-only normalization"
+  ],
+  "minimal_final_successor": [
+    "Use freshguardedLinuxjob,actual844binaryqualification,849narration,production-repo07cwd,ownedgroupcleanup,exactcurrentguardpolicy",
+    "Command render09_boundary --res3840x2160 --fps60 --threads4 --narration jobs/csd-native-delivery849/narration --score jobs/csd-production-score21/score/stems --out NEWJOB/render --lint --crf16 --presetveryfast",
+    "Beforeadmission require stable844/849/852/853/855,three-tableequality16504frames,actualcomplete855picture-reviewboundtospecificmovie/extractionandallindices,no unresolveddefect,independentLinuxpictureacceptance and no-scorePCM f7f8aa\u2026 equality",
+    "Freeze complete current source_after,narration,scorefivefiles/QA/receipts,all helpers/tools and both actualpicture review artifacts;do not reuse Mac787 as Linuxpictureproof",
+    "Afterfinalsuccess require exacttableswithnamednarrationmappingandcanonicalscore rows,3840x2160/60/16504,CRF16encoder,fullfinaldecode;fresh extraction retainsall814prioranchorsplusnewlint/persistence and actualall-sheetreview"
+  ],
+  "minimal_master_successor": [
+    "Keep root-master-manifest625 non09rows exactly unchanged; preserve originalmanifest SHA6fde63a4029af7765491d0f38f5371feb701f954277d2cf3728d9f0ae4220942",
+    "Freshguardedlocalstage replaces cross-host import: preserve rawfinalmovie/tables/capture/layout,bind successfullocalprovenance;separately normalize only849narrationpathcolumns tocanonicalNARRATION313 after105takehashproof",
+    "Reuse existing strict tablemapper logic from829;scorepaths alreadycanonicalSTEMS so assert equalratherthaninventreplacement",
+    "Keep exacttableheaders/schedule,scoreQA/stemhashes,source/mixer/capture checks,old313 independent/historical evidence,latest853PCMcomparison,newLinuxindependentpreview andactualfinalpicture gates",
+    "Newgatekindnative844,newgatehash,worker/stage/output pins;rebaseall831native761branches,waitfilters,oneboundarycount,andboundaryreplayrecordlabel consistently",
+    "All14othergates remain unchanged including10native521 and06corrected577/611 lineage;retainall15registryorder,uniquejobs,totalframecount",
+    "Retainpreflightmaster/captions usingexistingstrictdeliveryverifier,all15nativecapturedPCMreplaynulltests,exactSRT/VTT,fullfinalAVdecode/loudness/sourceinvariance checks;version832 verifiertoactualnewmasterjobandhash",
+    "Samehost hardlinks allowedonly aftersamedevice/sourcehash checks;do not weakenimmutable inputclosure or infer importedprovenance when noimport occurred"
+  ],
+  "specific_source_locations": {
+    "master_schedule": "combined-master831.py:723-745",
+    "master_boundary_dispatch": "combined-master831.py:922-928",
+    "master_registry_gates": "combined-master831.py:1134-1156",
+    "master_delivery_preflight": "combined-master831.py:1187-1213",
+    "master_replay_and_output_checks": "combined-master831.py:1310-1375",
+    "existing_materializer": "root-boundary829-materialize.py:91-136"
+  },
+  "limitations": [
+    "Not ready to schedule final until actual855picture acceptance and853PCM proof exist",
+    "No new successor implemented or tested by reviewer",
+    "No visual/audio/listening/fine-sync/fullAV/publicationacceptance"
+  ]
+}

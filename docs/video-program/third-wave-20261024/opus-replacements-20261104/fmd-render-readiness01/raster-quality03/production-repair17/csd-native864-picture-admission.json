@@ -1,0 +1,20 @@
+{
+  "preview_job": "csd-native-preview853",
+  "extraction_job": "csd-native-pictures855",
+  "all_selected_pictures_viewed": true,
+  "concrete_defects": [],
+  "independent_blockers": [],
+  "safe_to_advance_to_final4k": true,
+  "root_review": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-preview855-review.json",
+    "sha256": "aabd62460c952f61f8da0aceba7f4bce811f1e1ed71f40787f6f1a9c41a7c4b0"
+  },
+  "independent_review": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/independent-preview855-review.json",
+    "sha256": "2416ddbb301198e36290e6d5a704dfddbf90aa07903bc7f25be7becc9379f3c3"
+  },
+  "extraction_record": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-pictures855/pictures855.json",
+    "sha256": "9ddc6d4ac1e8e193c81a0536819938566698c64c11adc64516ce9084eb1db7fa"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "reviewer": "Independent Codex BlackThrush",
+  "scope": "Read-only retained PCM format/hash comparison and capture source semantics",
+  "freshly_hashed_files": [
+    "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview313/preview/soundtrack/09_boundary/soundtrack_0.wav",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-mini-transfer812/tree/jobs/mini-boundary-preview766/preview/soundtrack/09_boundary/soundtrack_0.wav"
+  ],
+  "both_wav_sha256": "f7f8aa6042a9f05d1b25db4c789f7f6b44cb393445015c057f1e87d9b0c8df51",
+  "both_pcm_payload_sha256": "b919e1629234e9c6e83e1d8bc5b1ccbae727c4cc5e2bb4e466106a582e7e0b16",
+  "wav_bytes": 52812844,
+  "format": {
+    "sample_rate": 48000,
+    "channels": 2,
+    "sample_bytes": 2,
+    "sample_frames": 13203200,
+    "compression": "NONE",
+    "duration_seconds": 275.06666666666666
+  },
+  "expected853capture": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-preview853/preview/soundtrack/09_boundary/soundtrack_0.wav",
+  "source_hashes": {
+    "cli.rs": "3c5221febc3e3d92d37aa97e2f8d38c319121215a67a1dc68d24534d41d862c9",
+    "encode.rs": "43ebf2a3fed953bfd271aec828d70bd83088f0600bf3407f142835b95d356e86",
+    "master.rs": "7d1952dbea0be5220aee9c768cd57937f99c168de23b89751c9d94da5f40270d"
+  },
+  "semantics": [
+    "cli.rs651-653 installs external score stem only when --score provided;853 and original766 omit --score",
+    "cli.rs666-680 sets capture output directory for CRF render and replaces retained previous attempt via preservation mechanism",
+    "encode.rs187-203 finds soundtrack.wav mux input and copies it before subprocess runs as soundtrack_<n>.wav",
+    "Capture is original PCM mixer output, not AAC decoded fromMP4; AAC/container bytes can differ without PCM capture changing",
+    "Capture copy error only emits stderr warning; render success alone does not prove capture exists or matches",
+    "cli.rs987-1007 master replays and null-tests captured soundtrack then requires frame-derived samplecount"
+  ],
+  "required_checks": [
+    "Require actual stable853 input receipt and exact three normalized timing tables",
+    "Require single expected capture (or explicitly account for every mux capture/retry),same48kHz/stereo16bit/samplecount13203200 and exact WAVhash",
+    "If whole WAVhash differs but PCMpayload/format equal, inspect RIFF metadata only; do not call it sample drift or silently accept under old wholefilepin",
+    "Any PCMpayload difference is concrete deterministic-audio regression needing diagnosis against retained105WAVs/cuegains/placement/mixer before final render; do not assume inaudibility",
+    "Samplecount mismatch versus16504*800 is concrete schedule/audio-length failure",
+    "Final score-inclusive capture must be checked against its own score-inclusive replay,not no-scoref7f8reference",
+    "AACbytes,MP4hash or lossydecodedAAC need not bitmatch pre-AACPCM; verify streamformat/decode/timing separately"
+  ],
+  "limitations": [
+    "No853capture available/checked by this audit",
+    "No listening,pronunciation,fine-sync,subjective audioquality orfinalAVacceptance",
+    "RetainedMac766 evidence freshly verified through transfer812resolvedpath; original remoteMac file not independently contacted"
+  ]
+}

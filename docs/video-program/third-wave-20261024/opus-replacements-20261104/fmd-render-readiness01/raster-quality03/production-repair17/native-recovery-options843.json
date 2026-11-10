@@ -1,0 +1,62 @@
+{
+  "reviewer_identity": "independent Codex BlackThrush",
+  "timestamp_utc": "2026-11-10T07:15:02.750821+00:00",
+  "scope": "Read-only source/receipt metadata and selected small source hashes; no builds, renders, deployment or corpus rehash",
+  "local_evidence_sha256": {
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-boundary761-build.py": "32bf6d9e08c1f21f2445debfd46ba090e0374007e4da5516310cb122774099e5",
+    "/Users/jemanuel/scratch/jmev-complex-native-20261109/qualification/root-boundary760-source-manifest.json": "5afe200ee13dec271e924fb60386554ebc28af4cbacfeb0dea99e4418bf741c0",
+    "/Users/jemanuel/scratch/jmev-complex-native-20261109/jobs/native-boundary761/qualification.json": "b225700d230f5880663e786d83b3dc9a43d0776dc9c07fa3d669de6ab6198ba8",
+    "/Users/jemanuel/scratch/jmev-complex-native-20261109/source760/engine-budget.toml": "116b317b92b8da9eb7584812626d1988045eb03ee7b7aaed0f35deb49cb297c0",
+    "/Users/jemanuel/scratch/jmev-complex-native-20261109/source760/.cargo/config.toml": "79fb8766d1f41365d64066e5b2e68b0fb89c50015425d109b155ccaf8eff2716"
+  },
+  "csd_observations": {
+    "free_gib": 131.9985008239746,
+    "pinned_toolchain_installed": "nightly-2026-08-31-x86_64-unknown-linux-gnu",
+    "rustc_commit": "90850177249efe0321573c569aec5d12b257f8d6",
+    "rustc_release": "1.100.0-nightly",
+    "clang": "/usr/bin/clang",
+    "ffmpeg": "/usr/bin/ffmpeg",
+    "existing_linux268": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+    "existing_linux313": "1a82f72c53dba2d5db8a3478bac252e46bf711afd59ec9d425ee6639708611db"
+  },
+  "workspace_manifest_comparison": {
+    "reference": "CSD jobs/csd-review-repair-build313/source-copy.json files versus760 manifest workspace entries",
+    "files": 70,
+    "matching_entries": 68,
+    "differences": [
+      {
+        "path": "explainer_corpus/complex_analysis_visual/Cargo.toml",
+        "linux313": "7644838ed75251307e2863c9a0b63c02b090f433fb00ae8c1a8745ebbca374c7",
+        "mac760": "be1426d32dad7d61bafa84b5811bf0192a31943f70735e589a714b5db2070c10",
+        "reason": "absolute dependency paths; text inspected"
+      },
+      {
+        "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+        "linux313": "bda7d931498b23bd3203cd0c6106de69dc0a8c5e160e738d698376322ff39e53",
+        "required752": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e"
+      }
+    ]
+  },
+  "targeted_actual_csd_hashes_matching760": {
+    "work/review-repair313/workspace/explainer_corpus/complex_analysis_visual/src/main.rs": "19a9e1051360caacba25a9276d1f32a4b7b94700bb25a4c72ca663805619f798",
+    "work/tree/engine/crates/fmn-render/src/lib.rs": "2d41dce6d1ca15daabcd04e8f39b36e563e58f342411b7903c0d98602bc5d014",
+    "work/tree/repo-view/crates/explainer_kit/src/cli.rs": "3c5221febc3e3d92d37aa97e2f8d38c319121215a67a1dc68d24534d41d862c9"
+  },
+  "recommendation": "Fresh CSD successor of313 workspace with exact752 boundary, retained Linux Cargo paths and complete source/dependency reconciliation to760 before guarded build. Do not use old268/313 binary or held586movie.",
+  "required_qualification": [
+    "Complete actual source/dependency equality check against760 with only documented platform/path changes; patched engine not merely gitrev a399d626.",
+    "Preserve native image camera route and1<<22 profile-knot budget in main.rs.",
+    "Pinned Linux2026-08-31 toolchain,locked/offline dependencies,guard-counted Cargo target,exclusive lane and actual free/work/growth admission.",
+    "235 tests,explicit ignored plate_fade_probe,strict Clippy,build,factsSHA7d528509752e532c07edb3fda7c12cd8251ac4ba77022355ae42ad725add4417,15chapter registry; new ELF hash and fullreceipt.",
+    "Fresh source-bound narration contract for new CARGO_MANIFEST_DIR;105 retained WAVs unchanged,all09 schedules equal16504frames and originalscore.",
+    "Platform-native preview and repaired-anchor actual pictures,PCM capture/replay equality before full4K; then full finaldecode/extraction/picture review.",
+    "Fresh Linux source gate/materialization and master/verifier bindings;827\u2013832 currently pin Mach-O761 and local819/820 and are not directly reusable unchanged."
+  ],
+  "known_limits": [
+    "Mac761 binary is architecture/OS-specific and cannot runLinux.",
+    "CSD full engine/dependency equality and offline-cache completeness not proven by selected hashes or previous builds.",
+    "Existing586 technically succeeded then was held for visual defect; it is not a valid fallback for repair752.",
+    "Local/mini disk availability insufficient as reported; mac-studio is same localhost per parent,not a separate recovery host.",
+    "No listening,fine-sync,AV or publication acceptance."
+  ]
+}

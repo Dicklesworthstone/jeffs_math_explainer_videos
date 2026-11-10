@@ -1,0 +1,424 @@
+{
+  "manifest_sha256": "6fde63a4029af7765491d0f38f5371feb701f954277d2cf3728d9f0ae4220942",
+  "rows": [
+    {
+      "chapter": "01_the_bump",
+      "kind": "combined",
+      "job": "css-reviewed-final-01-the-bump352",
+      "metadata_sha256": {
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/final-01_the_bump-inputs352.json": "b95913176d1e6f402a58894b2266cc118bc1a20428db3d1fcfb0363138b7d282",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/01_the_bump-css-permit364.json": "299b8fe0db20ca2559ea97845df8a3300c078e92b7d05ab2483f205e43dbff40",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-01-the-bump-a1/resource-receipt.json": "347892e067c8ba35b35ed58b71c55eb72c3ae09269cbc52c636882a46e9e9dd2",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-01-the-bump-a1-inputs.json": "fa1872e6452e499632f47b805ddb548c2a7ef412b95bf20bd53eac08ac43c19d",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-01-the-bump352/resource-receipt.json": "c09f7d31294bb6d74d255cb619e881766c7e71187b1e00129ac7f4027586a640"
+      },
+      "checks": [
+        {
+          "receipt": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-01-the-bump352/resource-receipt.json",
+          "finished": "2026-11-08T22:52:43.625361+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        },
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-01-the-bump-a1/resource-receipt.json",
+          "finished": "2026-11-09T20:29:29.297178+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        }
+      ]
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "kind": "retained",
+      "job": "trj-production19-final-02-turning-numbers32",
+      "metadata_sha256": {
+        "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-final-chapter19-02.py": "788f75666d687140c6ab67e8f517b6e713f0e885508c258f055c44e8dc09c1c8",
+        "/data/projects/jmev-render-worker-20261107/qualification01/production19/final02-32-inputs.json": "668f9ed7b8dfb6eb5d861ea8c88d66efe108406c236d03304fb6919b69056e25",
+        "/data/projects/jmev-render-worker-20261107/qualification01/production19/review02-32/final-render-permit32.json": "ccdff19cd315f5e4893b59fdc11e84486e8db15ab6f9fd63ae73535bd7dc5ac2",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-trj-a1/resource-receipt.json": "c262a7aa7adfb1bd86e8605869001d9776ceb3238f8e83ad759079db534fa0d2",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-retained-import311-trj-a1-inputs.json": "1666f58e156a1c56a7579f636883dacc250082034a38843fa29d038de753a7fb",
+        "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32/resource-receipt.json": "fc60ac86e58581a9aec368659436f625ccefdd3080e63d7ae22fb59566898f5d"
+      },
+      "checks": [
+        {
+          "receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-02-turning-numbers32/resource-receipt.json",
+          "finished": "2026-11-08T01:38:04.355271+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        },
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-trj-a1/resource-receipt.json",
+          "finished": "2026-11-08T19:18:03.087592+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        }
+      ]
+    },
+    {
+      "chapter": "03_two_planes",
+      "kind": "retained",
+      "job": "trj-production19-final-03-two-planes28",
+      "metadata_sha256": {
+        "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-final-chapter19-02.py": "788f75666d687140c6ab67e8f517b6e713f0e885508c258f055c44e8dc09c1c8",
+        "/data/projects/jmev-render-worker-20261107/qualification01/production19/final03-28-inputs.json": "f89c95b127b0724facc9ec0c64e67aa28afa578c4c34f5c4bc42b0142b71d487",
+        "/data/projects/jmev-render-worker-20261107/qualification01/production19/review03-28/final-render-permit28.json": "107aebb15239c67d66569c5e1217c1343c7490901431ef935ce044962e7c64ca",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-trj-a1/resource-receipt.json": "c262a7aa7adfb1bd86e8605869001d9776ceb3238f8e83ad759079db534fa0d2",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-retained-import311-trj-a1-inputs.json": "1666f58e156a1c56a7579f636883dacc250082034a38843fa29d038de753a7fb",
+        "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28/resource-receipt.json": "6f79313524606f33c71467263594cbf15bb4a8192e88369d09c6ed07d03b6e60"
+      },
+      "checks": [
+        {
+          "receipt": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-final-03-two-planes28/resource-receipt.json",
+          "finished": "2026-11-07T23:21:20.381142+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        },
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-trj-a1/resource-receipt.json",
+          "finished": "2026-11-08T19:18:03.087592+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        }
+      ]
+    },
+    {
+      "chapter": "04_reading_color",
+      "kind": "combined",
+      "job": "css-reviewed-final-04-reading-color352",
+      "metadata_sha256": {
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/final-04_reading_color-inputs352.json": "596c2624e1b87907e2aff3d7a4510f6f61db5fefb5c8e9d1598981461382e9a8",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/04_reading_color-css-permit366.json": "110168feb09d299c17a5ee63d4364898edf92b9d1af87d6137a5d3caf2980a8f",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-04-reading-color-a1/resource-receipt.json": "b6abd8a00b5752a4b933069647e136eb81df9ab41af1857418fdc661e73a425b",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-04-reading-color-a1-inputs.json": "085f216bdb53a730444805af52878bf688db4df990f57187e9d493632a475ec8",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-04-reading-color352/resource-receipt.json": "b5d4800b72b38112b3684eb1b97200d72a05a9cd8abbb87da6ad2a4d9db06829"
+      },
+      "checks": [
+        {
+          "receipt": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-04-reading-color352/resource-receipt.json",
+          "finished": "2026-11-09T00:19:15.990277+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        },
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-04-reading-color-a1/resource-receipt.json",
+          "finished": "2026-11-09T20:37:32.268224+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        }
+      ]
+    },
+    {
+      "chapter": "05_gallery",
+      "kind": "combined",
+      "job": "css-reviewed-final-05-gallery352-ssd442",
+      "metadata_sha256": {
+        "/data/ssd/work/jmev-gallery-recovery440/css-gallery-ssd442.py": "ce9baf6a922682ea5792ccbdb3758b68383e7e8e23e2e968a83d9136f9448429",
+        "/data/ssd/work/jmev-gallery-recovery440/gallery-inputs442.json": "542ce2313a2e35666f19800fc1a740ea94e50a4602235aa9cefa20d94a44b9da",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/05_gallery-css-permit375.json": "f3ef9aeabeb5220ad0cdd42e10868845719e67feac2680fbbad469dfae126b10",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import448-05-gallery-a1/resource-receipt.json": "b09cda26803364a364d23e9fbee4129bd547de340cdb5734562abde008826ae1",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import448-05-gallery-a1-inputs.json": "f1ceb9d99eeaeb88fe5367c262a7f37e4c5b34db56dfcc50ca2f6cf4c462d865",
+        "/data/ssd/work/jmev-gallery-recovery440/jobs/css-reviewed-final-05-gallery352-ssd442/resource-receipt.json": "b6a87a195c44a061ed945530623ea9ef2394f3193bb892b58dcf5d3ae421ef2f"
+      },
+      "checks": [
+        {
+          "receipt": "/data/ssd/work/jmev-gallery-recovery440/jobs/css-reviewed-final-05-gallery352-ssd442/resource-receipt.json",
+          "finished": "2026-11-09T04:55:58.157056+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        },
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import448-05-gallery-a1/resource-receipt.json",
+          "finished": "2026-11-09T21:00:25.873323+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        }
+      ]
+    },
+    {
+      "chapter": "06_one_derivative",
+      "kind": "combined",
+      "job": "css-reviewed-final-06-one-derivative352",
+      "metadata_sha256": {
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/final-06_one_derivative-inputs352.json": "e07a053c65b5e21e1ebb3913500bc657dbc91d7c0a56c8fef38bf7a61d995ba1",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/06_one_derivative-css-permit577.json": "acd8b1744fdce09f1c3eda93fcac49621b932b42e1b0ac46cdeddcfc21f42f9a",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-06-one-derivative-a1/resource-receipt.json": "65cb7c076b8e6da2cf9bda64d8ad2e336987620a490d6fb614a77a03471885a6",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-06-one-derivative-a1-inputs.json": "f79bcdae0579ff8bb4d0911aeb998c6d80acfb83b9b8a006c302e40642b71802",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-06-one-derivative352/resource-receipt.json": "0efd5a4d7ccfd91045ee52e820eed29910009b40f3f9301703800e97cf28d05d"
+      },
+      "checks": [
+        {
+          "receipt": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-06-one-derivative352/resource-receipt.json",
+          "finished": "2026-11-09T20:07:49.673403+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        },
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-06-one-derivative-a1/resource-receipt.json",
+          "finished": "2026-11-09T21:06:58.490073+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        }
+      ]
+    },
+    {
+      "chapter": "07_one_point",
+      "kind": "combined",
+      "job": "css-reviewed-final-07-one-point352",
+      "metadata_sha256": {
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/final-07_one_point-inputs352.json": "d77f6deffb6844c190b6dcc91844d161df7c540fc3e174c5ebf9fb74a7d43ca2",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/07_one_point-css-permit504.json": "f03572c6bfac1035efd422599d41bad81a28d1d8564663dc01313bfcc8ba57ce",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-07-one-point-a1/resource-receipt.json": "1dc190d68e41abf4f0a2ee81267e8240ac07e36ac2b52548390ae4392f5ab081",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-07-one-point-a1-inputs.json": "a3f5b395e9bc30913b6363f4d70ed90aef8c24909c85122c55ba697ee799739a",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-07-one-point352/resource-receipt.json": "b170bd04311bfecfe0a16ff85cf1e2f3ed274b762d99bd42d2db9c131f67a997"
+      },
+      "checks": [
+        {
+          "receipt": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-07-one-point352/resource-receipt.json",
+          "finished": "2026-11-09T07:48:16.680303+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        },
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-07-one-point-a1/resource-receipt.json",
+          "finished": "2026-11-09T20:55:05.239083+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        }
+      ]
+    },
+    {
+      "chapter": "08_loop_sums",
+      "kind": "combined",
+      "job": "css-reviewed-final-08-loop-sums352",
+      "metadata_sha256": {
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/final-08_loop_sums-inputs352.json": "bcd85f7f43203c059b268b0f39f4a5225411b172c853f65b92ad44d1f675f32e",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/08_loop_sums-css-permit474.json": "92119d3a65fd5b3637f839ca83fb60eb455661d296337a1e1dc02cf777d0e59a",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-08-loop-sums-a1/resource-receipt.json": "1794bf35e8cd497f58e58076e116c4efb7a7759f44cf21a8ee049e7db367f44c",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-08-loop-sums-a1-inputs.json": "601a92672bc18d554a3a5980a80f9c29ae719a3501a5df696d2ceb49ecf6ab41",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-08-loop-sums352/resource-receipt.json": "e057bc28594f8026536aa06c7b12a9d73a25592bab1c9aa7abd3af06429d3935"
+      },
+      "checks": [
+        {
+          "receipt": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-08-loop-sums352/resource-receipt.json",
+          "finished": "2026-11-09T06:34:40.290031+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        },
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-08-loop-sums-a1/resource-receipt.json",
+          "finished": "2026-11-09T20:50:55.983474+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        }
+      ]
+    },
+    {
+      "chapter": "10_rigidity",
+      "kind": "native521",
+      "job": "csd-native-stage581-10-a2",
+      "metadata_sha256": {
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-native581-materialize.py": "822047a7f57877378140bb7c81ffd5d89ebd99d47310d17f7d341db6a3b59806",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native-stage581-10-a2-inputs.json": "d5379c624b9d91944218d3cc84d570c2988bbda3451429922fe1cc3dad4bfc5b",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-mini-import576-10-a2/resource-receipt.json": "5bf377fdde3502edf5bcafb4ac21a18055005250a5f307fa947e76c4fbe47e21",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-mini-import576-10-a2-inputs.json": "036fdc7fea3f9ce459fd8e5ffd8ea2a8fba96304b55a9a034ec647f7ac406f93",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-stage581-10-a2/resource-receipt.json": "715252096d40fdca8f20fd2f9680b191f6e0305292870f5232075a7a115573cc"
+      },
+      "checks": [
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-stage581-10-a2/resource-receipt.json",
+          "finished": "2026-11-09T20:31:57.255281+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        },
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-mini-import576-10-a2/resource-receipt.json",
+          "finished": "2026-11-09T20:31:19.487335+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        }
+      ]
+    },
+    {
+      "chapter": "11_counting",
+      "kind": "combined",
+      "job": "csd-reviewed-final-11-counting352",
+      "metadata_sha256": {
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-reviewed-final352.py": "23d55c286aba2fc58b77a5af8dbd539293592daa3a4e0e8584f18f324d868760",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/final-11_counting-inputs352.json": "5e3dd603d4f5d2c7774ae5a31f160036a0075a328d2ffd402ee037b30f4e4ad5",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/11_counting-csd-permit370.json": "f6222de09bf29d27f446a1f6056ec5c602f6c7cd9f774b281e3b1d1caf232054",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-11-counting352/resource-receipt.json": "ec1d6adbda12b60f0f909cee59c7ccb85f8e05679bd62a7601854c74bb112e77"
+      },
+      "checks": [
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-reviewed-final-11-counting352/resource-receipt.json",
+          "finished": "2026-11-09T20:23:59.755889+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        }
+      ]
+    },
+    {
+      "chapter": "12_residues",
+      "kind": "combined",
+      "job": "css-reviewed-final-12-residues352",
+      "metadata_sha256": {
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/final-12_residues-inputs352.json": "b6f9a042c6b20997da13bd93e9e20c7b86522c360265cec7af8147e68c5a4a70",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/12_residues-css-permit370.json": "689164d64ba6e16a123dd9cfc68d84612af3bb698eb0b757f70f4dbbdd74c62a",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-12-residues-a1/resource-receipt.json": "f0393722d8ddfc2f3eb2f1059dab7c31e79c0749b58566b3389c3d8ee49db7b8",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-12-residues-a1-inputs.json": "7d361e12b8fa82abc8bb75e6ccda83f3a8fd39b9e0ca02bf9f66a89d3c2adf26",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-12-residues352/resource-receipt.json": "6ba9bf0fa8a1407f17c257d36b64fa2236d589368d07f71093ffb42f0ad96fdf"
+      },
+      "checks": [
+        {
+          "receipt": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-12-residues352/resource-receipt.json",
+          "finished": "2026-11-09T00:56:56.285100+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        },
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-12-residues-a1/resource-receipt.json",
+          "finished": "2026-11-09T20:41:22.692350+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        }
+      ]
+    },
+    {
+      "chapter": "13_real_integral",
+      "kind": "retained",
+      "job": "css-production19-final-13-real-integral96",
+      "metadata_sha256": {
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-chapter78.py": "8edccab96593344242386d4ae08399d9cff96da588b00bd3c7f63b0fd1b4accb",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/final13-96-inputs.json": "4681e535235a2648af57be80829f54f7057f090c3d91fe1288b32e83e9e143fe",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/review13-96/final-render-permit96.json": "e86b5d886b6adf15ff2e682308b19b2284f0c00a6229e4dced6994b70290f8e2",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-css-a1/resource-receipt.json": "246633e296fa1abb5a50e8042c3582fe5818dded1e7c0f9321b150eb5dd7b065",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-retained-import311-css-a1-inputs.json": "f94ed318151b939a746f95fad147c29263b1f27c782260cf9476b04e04264498",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96/resource-receipt.json": "d67279d1de3599af8f2471d104991d987a04c9e24ed5f8bc017ed3278ce942bc"
+      },
+      "checks": [
+        {
+          "receipt": "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-final-13-real-integral96/resource-receipt.json",
+          "finished": "2026-11-08T03:19:11.788895+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        },
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-css-a1/resource-receipt.json",
+          "finished": "2026-11-08T19:18:59.739310+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        }
+      ]
+    },
+    {
+      "chapter": "14_continuation",
+      "kind": "combined",
+      "job": "css-reviewed-final-14-continuation352",
+      "metadata_sha256": {
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/final-14_continuation-inputs352.json": "8c0c5a58bd737da954ede1128df5c27ef03a3fd00013932a7d428a7c43ac04d5",
+        "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/14_continuation-css-permit370.json": "778ca1114a4ae70dea3f03cf1af44d5aad5310bb293acbcefb191d9d3c40c661",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-14-continuation-a1/resource-receipt.json": "7009eaa79704b2e1ea23b0939192db83f64c6ee66ffb6bb0abc7a88addcfd327",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-css352-import371-14-continuation-a1-inputs.json": "cc4cea48e96ea12194040290b9000484dceda7d4e4221de9e10803d5e4ab5c52",
+        "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-14-continuation352/resource-receipt.json": "a3f237e9595fa997f2ffdd80d064520654e9b67712de6cf5e34bee306ce202b5"
+      },
+      "checks": [
+        {
+          "receipt": "/data/projects/jmev-css-render-worker-20261107/jobs/css-reviewed-final-14-continuation352/resource-receipt.json",
+          "finished": "2026-11-09T02:43:39.352994+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        },
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-14-continuation-a1/resource-receipt.json",
+          "finished": "2026-11-09T20:45:41.424893+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        }
+      ]
+    },
+    {
+      "chapter": "15_closing",
+      "kind": "retained",
+      "job": "hz2-production19-final-15-closing53",
+      "metadata_sha256": {
+        "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-final-chapter53.py": "20f5c3a94ddada0afd5150c2ac81a028c789bf3dcd33a7f3608a5a8d4f618fac",
+        "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/final15-53-inputs.json": "416a2c8e11f1b6b2560a27740cde9d04e0d3f1e7d53de2a26b3704e1059449d3",
+        "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/final-render-permit53.json": "ec74b68375331470ac18c2c7e5db4fc60bb82a247e2eeead844233c453fecd20",
+        "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-hz2-a1/resource-receipt.json": "c54af76ad5cbc48d8863fb3298feadd548116db6368dbcc35294536980869449",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-retained-import311-hz2-a1-inputs.json": "37d3b6f8bfebc5ca5f166d3159689f10925bb9a83a1f6392f07d8ae22f84a5f3",
+        "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/resource-receipt.json": "41ce29dbca82b739389b38b6fa1e7d1be3930bcc40d7dc6c7e12a0e9d0b3c6cb"
+      },
+      "checks": [
+        {
+          "receipt": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-final-15-closing53/resource-receipt.json",
+          "finished": "2026-11-07T21:49:17.154091+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        },
+        {
+          "receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-hz2-a1/resource-receipt.json",
+          "finished": "2026-11-08T19:21:08.029621+00:00",
+          "exit": 0,
+          "stable": true,
+          "inputs_bound": true
+        }
+      ]
+    }
+  ],
+  "reviewer_identity": "independent Codex BlackThrush",
+  "scope": "CSD read-only small metadata/receipt preflight; no whole-corpus rehash or actual master gates rerun",
+  "blockers_in_retained_14": [],
+  "chapter09": "Obsolete344 row must be replaced by successful819/820/import828/stage829 and actual830 picture review before831",
+  "chapter06": {
+    "permit577_sha256": "acd8b1744fdce09f1c3eda93fcac49621b932b42e1b0ac46cdeddcfc21f42f9a",
+    "manifest611_sha256": "6b12cc889dbc15a39b0d88d068d5d819ab5699e10c644a2eff2a225554d5da0c",
+    "import_result_binds611": true,
+    "frames_recorded": 10030
+  },
+  "chapter10": {
+    "job": "csd-native-stage581-10-a2",
+    "frames_recorded": 7442,
+    "picture_review589_sha256": "3cc6544d8f06d94942c952eb82d0b886cbfae5b2a232d1c8762edc182d0040e7",
+    "pictures_recorded": 113,
+    "sheets_recorded": 15
+  },
+  "limitations": [
+    "No movie/WAV/support-corpus rehash, full current831 gate execution or fresh picture review.",
+    "Historical625 draft metadata contains obsolete pending statements; executable chapter rows and actual receipts control.",
+    "No listening/fine-sync/fullAV/publication acceptance.",
+    "No missing latest-intended route found in bounded TODO and metadata review; not a global filesystem search for every abandoned candidate."
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "before_sha256": "475ea9ee5de2bcd8012e00c36f97ab234d13aabd7c21c08884aabf106e38cb71",
+  "after_sha256": "623253e84bafef9f8ecb48ca406d01a59b34598b2413ceb69e0494c6522e6997",
+  "preserved_before": "native-linux-materialize868-before-closure.py",
+  "changes": [
+    "Require three canonical master.TIMELINES09tables and SCORE/score21-summary.json before schedule reads them",
+    "Returned canonical269/313audio references still required against frozenmanifest",
+    "Pin /usr/bin/ffprobe and set PATH/usr/bin:/bin before x264_settings subprocess lookup"
+  ],
+  "mapper_import_audit": "root-native574-table-rebind.py imports only stdlibhashlib/pathlib; no project helper imports to add",
+  "validation": "AST parse only; no materialization/job/deployment launched"
+}

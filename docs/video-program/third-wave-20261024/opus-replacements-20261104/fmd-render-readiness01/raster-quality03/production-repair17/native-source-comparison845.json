@@ -1,0 +1,61 @@
+{
+  "reviewer_identity": "independent Codex BlackThrush",
+  "timestamp_utc": "2026-11-10T07:17:32.965219+00:00",
+  "reference_manifest_sha256": "5afe200ee13dec271e924fb60386554ebc28af4cbacfeb0dea99e4418bf741c0",
+  "method": "Sent only expected relativepath/hash dictionary through SSH stdin to read-only Python; remote hashed every named source file, no remote writes or media hashing.",
+  "engine_repo_view": {
+    "root": "/data/projects/jmev-stroke-probe-20261106/work/tree",
+    "expected_files": 4125,
+    "hashed_files": 4125,
+    "hashed_bytes": 47038054,
+    "missing": [],
+    "mismatches": []
+  },
+  "workspace": {
+    "root": "/data/projects/jmev-stroke-probe-20261106/work/review-repair313",
+    "expected_files": 70,
+    "hashed_files": 70,
+    "hashed_bytes": 1964518,
+    "missing": [],
+    "matches": 67,
+    "mismatches": [
+      {
+        "path": "workspace/explainer_corpus/complex_analysis_visual/Cargo.toml",
+        "expected": "be1426d32dad7d61bafa84b5811bf0192a31943f70735e589a714b5db2070c10",
+        "actual": "7644838ed75251307e2863c9a0b63c02b090f433fb00ae8c1a8745ebbca374c7",
+        "disposition": "Linux absolute dependency paths; retain documented path-only adaptation."
+      },
+      {
+        "path": "workspace/explainer_corpus/complex_analysis_visual/narration_units.json",
+        "expected": "995e25c7788943deff65c4d84050d8a17edc3c2c3498be0d665d7ac5b661357a",
+        "actual": "9308c2b230a7cafd933dc826511bc8111748e9355ab9e445d3f7f89c81511c39",
+        "disposition": "Live313 plan points review313; frozen760 plan points production19. Restore exact preserved760 plan into fresh build copy only, then separately rebind runtime source map."
+      },
+      {
+        "path": "workspace/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+        "expected": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e",
+        "actual": "bda7d931498b23bd3203cd0c6106de69dc0a8c5e160e738d698376322ff39e53",
+        "disposition": "Copy exact reviewed752 repair into fresh candidate."
+      }
+    ]
+  },
+  "configuration": {
+    "cargo_lock_exact_both": "6a080058520a17788a934bc9eea7e7794e091651f46a1b89827f8c4ff105d9f1",
+    "engine_budget_normalized_equal": true,
+    "engine_budget_normalization": "Replace only M/source/engine prefix with CSD/work/tree/engine",
+    "csd_tree_dotcargo_config_exists": false,
+    "required_frozen_config_sha256": "79fb8766d1f41365d64066e5b2e68b0fb89c50015425d109b155ccaf8eff2716",
+    "required_config": "rustflags[-Z,threads=4];build.fingerprint=content;unstable.checksum-freshness=true"
+  },
+  "live_plan_caveat": {
+    "transferred_source760_current": "0885eeb6ab68f341842952d9330fbb584faa6188c19e898279f7f6df1cf7b03e",
+    "current_map": "review764",
+    "preserved_frozen_plan": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-boundary760-source/workspace/explainer_corpus/complex_analysis_visual/narration_units.json",
+    "preserved_hash": "995e25c7788943deff65c4d84050d8a17edc3c2c3498be0d665d7ac5b661357a"
+  },
+  "limitations": [
+    "Named frozen source files allhashed; no claim that unrelated extra directories are absent.",
+    "No Cargo resolution/build/test/runtime qualification.",
+    "No listening/fine-sync/picture/fullAV acceptance."
+  ]
+}

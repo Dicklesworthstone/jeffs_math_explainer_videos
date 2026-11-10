@@ -1,0 +1,1074 @@
+{
+  "utc": "2026-11-10T12:24:02.847370+00:00",
+  "chapters": [
+    {
+      "chapter": "01_one_more_seat",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-picture-repair562/final01-pictures-viewed648.json",
+      "review_sha256": "7f6b5e6bb6b81f0b3fd661b2bbf833f242fa338fd51dd349602ed0a4a70f0e95",
+      "movie_sha256": "bc3725c2722d6cd31d2918cf94ab7a87395ad98cac83ab2bbbbb39546708a174",
+      "selected_pictures": 48,
+      "sheets": 6,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/01_one_more_seat.mp4"
+    },
+    {
+      "chapter": "02_shares",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-picture-repair562/final02-pictures-viewed658.json",
+      "review_sha256": "c799514c058b15692e74729b370232e0341affed4e4af0f9eae2d1a87e8af029",
+      "movie_sha256": "cdc9067532923b2ef466473a5442ec2f30f6687ae29a23ff87e2e8d3680bcbd9",
+      "selected_pictures": 55,
+      "sheets": 7,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/02_shares.mp4"
+    },
+    {
+      "chapter": "03_largest_tails",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures699.json",
+      "review_sha256": "3cd764aae7e1e6694701d9ed431f7c1bec7636b8c3e61825090a5373bdb4d4fb",
+      "movie_sha256": "194c725c71b5f3a0e21ba7d82720a9667aa4715ff9037792efa9d8a2b00b8b9e",
+      "selected_pictures": 48,
+      "sheets": 6,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/03_largest_tails.mp4"
+    },
+    {
+      "chapter": "04_sixteenth",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures707.json",
+      "review_sha256": "268b82a87d7682ef2673d845a08a8efd0db731e3743b88b32d5b832456fabf2a",
+      "movie_sha256": "c0961d9d2bd3ec6e60c8722a9d987cc5962f1b01ed77e68c7df2a862f95228b4",
+      "selected_pictures": 41,
+      "sheets": 6,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/04_sixteenth.mp4"
+    },
+    {
+      "chapter": "05_dials",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures708.json",
+      "review_sha256": "dbdde966f680a42a21f0273885f39745f5b11f6446e11fe508f9f7c885100cd9",
+      "movie_sha256": "dc78c7b988cc59480dde15cb810af7d6dc411197c8c8a92d58bc25909a6b9457",
+      "selected_pictures": 41,
+      "sheets": 6,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/05_dials.mp4"
+    },
+    {
+      "chapter": "06_not_every_time",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment769-pictures-reviewed.json",
+      "review_sha256": "f76a104bb8dc90824042122647884fae0cbb3f1181a4a6d387cc97d0c3f2d4cf",
+      "movie_sha256": "2469a4481d96cdc1ebec21748cb3b8dbc9074864e985da93698a611d2ec2b168",
+      "selected_pictures": 310,
+      "sheets": 39,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/06_not_every_time.mp4"
+    },
+    {
+      "chapter": "07_yardstick",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures718.json",
+      "review_sha256": "0ccc017dcdf6ace2e486a42bd64f00447ec8039d9aba6c6f1a1fad5185678280",
+      "movie_sha256": "fee69086207963b5176c235dfba62bf3d298ac90ad59901c2999968324219862",
+      "selected_pictures": 41,
+      "sheets": 6,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/07_yardstick.mp4"
+    },
+    {
+      "chapter": "08_signposts",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures723.json",
+      "review_sha256": "a676a00adf4e2e2cf9434a3e856a14816a231191e5b3782b7bff4997dc4c2eb6",
+      "movie_sha256": "c69b4068028357f888196243faa80287b759f741b512fa2da1764f86456cd88e",
+      "selected_pictures": 121,
+      "sheets": 16,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/08_signposts.mp4"
+    },
+    {
+      "chapter": "09_cost",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures724.json",
+      "review_sha256": "54fec5caf641d956391e22535f210fc8e0682bc0425250d315c24757fc070095",
+      "movie_sha256": "360740684c3557cb5cc17cb636539b7d46d409c4bd7af4c7c589ec759283dddb",
+      "selected_pictures": 41,
+      "sheets": 6,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/09_cost.mp4"
+    },
+    {
+      "chapter": "10_rounding_rules",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures730.json",
+      "review_sha256": "a4bc5f883e4dea02295548e554ca8d73c943f5e1451496120d293fa16662cc9e",
+      "movie_sha256": "836d3db51efd86a9419bf386703a237add98795e6d3a7f10fbe0ebdc8db80cb3",
+      "selected_pictures": 55,
+      "sheets": 7,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/10_rounding_rules.mp4"
+    },
+    {
+      "chapter": "11_webster_quota",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures733.json",
+      "review_sha256": "bae81854b37a4131ac232d41e07e3e268106c7527614b98a2beb6a5deaa58293",
+      "movie_sha256": "02fa30d53e3aa9ae5d411655cac6bc0055e8d6127668c7e026981f1a86bedc6a",
+      "selected_pictures": 93,
+      "sheets": 12,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/11_webster_quota.mp4"
+    },
+    {
+      "chapter": "12_both_promises",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures737.json",
+      "review_sha256": "89f7c453ad14fdfb584ca3419a516e783e46b3ea5fa3d5f2d86852dc9a7ce547",
+      "movie_sha256": "60ed45b0f040eda320f35826bbe0e21c4ec51e486d6aa4859456065fd6108ac3",
+      "selected_pictures": 195,
+      "sheets": 25,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/12_both_promises.mp4"
+    },
+    {
+      "chapter": "13_population",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures740.json",
+      "review_sha256": "ff0101915e746c2fd5813600d3f2f9fb4118abf6cc4797d43bec977b91d50305",
+      "movie_sha256": "6ca7e4c928d217dec83c48414d761c6b5e8eca459b7106a2262738a232a065cb",
+      "selected_pictures": 168,
+      "sheets": 21,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/13_population.mp4"
+    },
+    {
+      "chapter": "14_no_rule",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures738.json",
+      "review_sha256": "5b5027ae4ac4c820ca7c07e7a63fcdc2aa821aa92f94090bbea5c565b4cccb92",
+      "movie_sha256": "89f973b29ea7d41a980cdc977543aa26fee57f4c15bbe1a1795d13f8ff7abda6",
+      "selected_pictures": 62,
+      "sheets": 8,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/14_no_rule.mp4"
+    },
+    {
+      "chapter": "15_recap",
+      "review_path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-apportionment-pictures739.json",
+      "review_sha256": "7e79be9b4b1e3a7f933414d55a259cf7a57bdc20356c8748f4dbaa83eb383777",
+      "movie_sha256": "e7b27a40f2fc54c6c742c0582f4ed325fda1bb12200b90727fa6a7372c007ec4",
+      "selected_pictures": 90,
+      "sheets": 12,
+      "master_chapter": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/15_recap.mp4"
+    }
+  ],
+  "selected_picture_count": 1409,
+  "sheet_count": 183,
+  "current_remote_evidence": {
+    "links": [
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-import683-a1/incoming/00011",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/01_one_more_seat.mp4",
+        "sha256": "bc3725c2722d6cd31d2918cf94ab7a87395ad98cac83ab2bbbbb39546708a174",
+        "rebased_path_column_only": false
+      },
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-import683-a1/incoming/00019",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/02_shares.mp4",
+        "sha256": "cdc9067532923b2ef466473a5442ec2f30f6687ae29a23ff87e2e8d3680bcbd9",
+        "rebased_path_column_only": false
+      },
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-03_largest_tails/render/03_largest_tails.mp4",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/03_largest_tails.mp4",
+        "sha256": "194c725c71b5f3a0e21ba7d82720a9667aa4715ff9037792efa9d8a2b00b8b9e",
+        "rebased_path_column_only": false
+      },
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-04_sixteenth/render/04_sixteenth.mp4",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/04_sixteenth.mp4",
+        "sha256": "c0961d9d2bd3ec6e60c8722a9d987cc5962f1b01ed77e68c7df2a862f95228b4",
+        "rebased_path_column_only": false
+      },
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-05_dials/render/05_dials.mp4",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/05_dials.mp4",
+        "sha256": "dc78c7b988cc59480dde15cb810af7d6dc411197c8c8a92d58bc25909a6b9457",
+        "rebased_path_column_only": false
+      },
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-final757/render/06_not_every_time.mp4",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/06_not_every_time.mp4",
+        "sha256": "2469a4481d96cdc1ebec21748cb3b8dbc9074864e985da93698a611d2ec2b168",
+        "rebased_path_column_only": false
+      },
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-07_yardstick/render/07_yardstick.mp4",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/07_yardstick.mp4",
+        "sha256": "fee69086207963b5176c235dfba62bf3d298ac90ad59901c2999968324219862",
+        "rebased_path_column_only": false
+      },
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-08_signposts/render/08_signposts.mp4",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/08_signposts.mp4",
+        "sha256": "c69b4068028357f888196243faa80287b759f741b512fa2da1764f86456cd88e",
+        "rebased_path_column_only": false
+      },
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-09_cost/render/09_cost.mp4",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/09_cost.mp4",
+        "sha256": "360740684c3557cb5cc17cb636539b7d46d409c4bd7af4c7c589ec759283dddb",
+        "rebased_path_column_only": false
+      },
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-10_rounding_rules/render/10_rounding_rules.mp4",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/10_rounding_rules.mp4",
+        "sha256": "836d3db51efd86a9419bf386703a237add98795e6d3a7f10fbe0ebdc8db80cb3",
+        "rebased_path_column_only": false
+      },
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-11_webster_quota/render/11_webster_quota.mp4",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/11_webster_quota.mp4",
+        "sha256": "02fa30d53e3aa9ae5d411655cac6bc0055e8d6127668c7e026981f1a86bedc6a",
+        "rebased_path_column_only": false
+      },
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-12_both_promises/render/12_both_promises.mp4",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/12_both_promises.mp4",
+        "sha256": "60ed45b0f040eda320f35826bbe0e21c4ec51e486d6aa4859456065fd6108ac3",
+        "rebased_path_column_only": false
+      },
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-13_population/render/13_population.mp4",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/13_population.mp4",
+        "sha256": "6ca7e4c928d217dec83c48414d761c6b5e8eca459b7106a2262738a232a065cb",
+        "rebased_path_column_only": false
+      },
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-14_no_rule/render/14_no_rule.mp4",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/14_no_rule.mp4",
+        "sha256": "89f973b29ea7d41a980cdc977543aa26fee57f4c15bbe1a1795d13f8ff7abda6",
+        "rebased_path_column_only": false
+      },
+      {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-15_recap/render/15_recap.mp4",
+        "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/15_recap.mp4",
+        "sha256": "e7b27a40f2fc54c6c742c0582f4ed325fda1bb12200b90727fa6a7372c007ec4",
+        "rebased_path_column_only": false
+      }
+    ],
+    "materialized_sha256": "45dba4f8523709d406ae12fe7025c2911350ed852c4563e513688857708d2e9d",
+    "receipts": [
+      {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/resource-receipt.json",
+        "sha256": "747f18fe6f23047390577eb95a3d8b3d2a8e11e5e2298663776f6a1c778b2bd1",
+        "finished": "2026-11-10T03:11:40.003615+00:00"
+      },
+      {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-verify771/resource-receipt.json",
+        "sha256": "6a4a446361cbe45022411ef0c42f85c820fe16ac9606e5217c8a7522616cbd1c",
+        "finished": "2026-11-10T06:06:10.831418+00:00"
+      }
+    ],
+    "verification": {
+      "frames": 100886,
+      "seconds": 1681.4333333333334,
+      "placements": [
+        {
+          "cue": "01_1",
+          "chapter": "01_one_more_seat",
+          "frame": 36,
+          "samples": 228480,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/01_1.wav"
+        },
+        {
+          "cue": "01_2",
+          "chapter": "01_one_more_seat",
+          "frame": 644,
+          "samples": 238080,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/01_2.wav"
+        },
+        {
+          "cue": "01_3",
+          "chapter": "01_one_more_seat",
+          "frame": 1339,
+          "samples": 332160,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/01_3.wav"
+        },
+        {
+          "cue": "01_4",
+          "chapter": "01_one_more_seat",
+          "frame": 2472,
+          "samples": 213120,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/01_4.wav"
+        },
+        {
+          "cue": "01_5",
+          "chapter": "01_one_more_seat",
+          "frame": 3077,
+          "samples": 395520,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/01_5.wav"
+        },
+        {
+          "cue": "01_6",
+          "chapter": "01_one_more_seat",
+          "frame": 4102,
+          "samples": 266880,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/01_6.wav"
+        },
+        {
+          "cue": "02_1",
+          "chapter": "02_shares",
+          "frame": 4842,
+          "samples": 339840,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/02_1.wav"
+        },
+        {
+          "cue": "02_2",
+          "chapter": "02_shares",
+          "frame": 5764,
+          "samples": 474240,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/02_2.wav"
+        },
+        {
+          "cue": "02_3",
+          "chapter": "02_shares",
+          "frame": 6986,
+          "samples": 274560,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/02_3.wav"
+        },
+        {
+          "cue": "02_4",
+          "chapter": "02_shares",
+          "frame": 7709,
+          "samples": 307200,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/02_4.wav"
+        },
+        {
+          "cue": "02_5",
+          "chapter": "02_shares",
+          "frame": 8779,
+          "samples": 393600,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/02_5.wav"
+        },
+        {
+          "cue": "02_6",
+          "chapter": "02_shares",
+          "frame": 9799,
+          "samples": 280320,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/02_6.wav"
+        },
+        {
+          "cue": "02_7",
+          "chapter": "02_shares",
+          "frame": 10572,
+          "samples": 337920,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/02_7.wav"
+        },
+        {
+          "cue": "03_1",
+          "chapter": "03_largest_tails",
+          "frame": 11489,
+          "samples": 453120,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/03_1.wav"
+        },
+        {
+          "cue": "03_2",
+          "chapter": "03_largest_tails",
+          "frame": 12658,
+          "samples": 276480,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/03_2.wav"
+        },
+        {
+          "cue": "03_3",
+          "chapter": "03_largest_tails",
+          "frame": 13386,
+          "samples": 211200,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/03_3.wav"
+        },
+        {
+          "cue": "03_4",
+          "chapter": "03_largest_tails",
+          "frame": 14216,
+          "samples": 209280,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/03_4.wav"
+        },
+        {
+          "cue": "03_5",
+          "chapter": "03_largest_tails",
+          "frame": 14776,
+          "samples": 458880,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/03_5.wav"
+        },
+        {
+          "cue": "03_6",
+          "chapter": "03_largest_tails",
+          "frame": 15960,
+          "samples": 393600,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/03_6.wav"
+        },
+        {
+          "cue": "04_1",
+          "chapter": "04_sixteenth",
+          "frame": 17020,
+          "samples": 332160,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/04_1.wav"
+        },
+        {
+          "cue": "04_2",
+          "chapter": "04_sixteenth",
+          "frame": 17887,
+          "samples": 178560,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/04_2.wav"
+        },
+        {
+          "cue": "04_3",
+          "chapter": "04_sixteenth",
+          "frame": 18370,
+          "samples": 247680,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/04_3.wav"
+        },
+        {
+          "cue": "04_4",
+          "chapter": "04_sixteenth",
+          "frame": 19292,
+          "samples": 312960,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/04_4.wav"
+        },
+        {
+          "cue": "04_5",
+          "chapter": "04_sixteenth",
+          "frame": 20111,
+          "samples": 428160,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/04_5.wav"
+        },
+        {
+          "cue": "05_1",
+          "chapter": "05_dials",
+          "frame": 21254,
+          "samples": 541440,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/05_1.wav"
+        },
+        {
+          "cue": "05_2",
+          "chapter": "05_dials",
+          "frame": 22644,
+          "samples": 545280,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/05_2.wav"
+        },
+        {
+          "cue": "05_3",
+          "chapter": "05_dials",
+          "frame": 24044,
+          "samples": 261120,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/05_3.wav"
+        },
+        {
+          "cue": "05_4",
+          "chapter": "05_dials",
+          "frame": 24999,
+          "samples": 366720,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/05_4.wav"
+        },
+        {
+          "cue": "05_5",
+          "chapter": "05_dials",
+          "frame": 25952,
+          "samples": 618240,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/05_5.wav"
+        },
+        {
+          "cue": "06_1",
+          "chapter": "06_not_every_time",
+          "frame": 27570,
+          "samples": 117120,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/06_1.wav"
+        },
+        {
+          "cue": "06_2",
+          "chapter": "06_not_every_time",
+          "frame": 28165,
+          "samples": 282240,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/06_2.wav"
+        },
+        {
+          "cue": "06_3",
+          "chapter": "06_not_every_time",
+          "frame": 28907,
+          "samples": 416640,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/06_3.wav"
+        },
+        {
+          "cue": "06_4",
+          "chapter": "06_not_every_time",
+          "frame": 29985,
+          "samples": 487680,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/06_4.wav"
+        },
+        {
+          "cue": "06_5",
+          "chapter": "06_not_every_time",
+          "frame": 31241,
+          "samples": 266880,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/06_5.wav"
+        },
+        {
+          "cue": "06_6",
+          "chapter": "06_not_every_time",
+          "frame": 31945,
+          "samples": 199680,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/06_6.wav"
+        },
+        {
+          "cue": "07_1",
+          "chapter": "07_yardstick",
+          "frame": 32517,
+          "samples": 387840,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/07_1.wav"
+        },
+        {
+          "cue": "07_2",
+          "chapter": "07_yardstick",
+          "frame": 33523,
+          "samples": 334080,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/07_2.wav"
+        },
+        {
+          "cue": "07_3",
+          "chapter": "07_yardstick",
+          "frame": 34661,
+          "samples": 570240,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/07_3.wav"
+        },
+        {
+          "cue": "07_4",
+          "chapter": "07_yardstick",
+          "frame": 36123,
+          "samples": 341760,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/07_4.wav"
+        },
+        {
+          "cue": "07_5",
+          "chapter": "07_yardstick",
+          "frame": 37014,
+          "samples": 192000,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/07_5.wav"
+        },
+        {
+          "cue": "08_1",
+          "chapter": "08_signposts",
+          "frame": 37566,
+          "samples": 539520,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/08_1.wav"
+        },
+        {
+          "cue": "08_2",
+          "chapter": "08_signposts",
+          "frame": 38951,
+          "samples": 526080,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/08_2.wav"
+        },
+        {
+          "cue": "08_3",
+          "chapter": "08_signposts",
+          "frame": 40303,
+          "samples": 155520,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/08_3.wav"
+        },
+        {
+          "cue": "08_4",
+          "chapter": "08_signposts",
+          "frame": 40994,
+          "samples": 299520,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/08_4.wav"
+        },
+        {
+          "cue": "08_5",
+          "chapter": "08_signposts",
+          "frame": 41779,
+          "samples": 293760,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/08_5.wav"
+        },
+        {
+          "cue": "08_6",
+          "chapter": "08_signposts",
+          "frame": 42550,
+          "samples": 556800,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/08_6.wav"
+        },
+        {
+          "cue": "09_1",
+          "chapter": "09_cost",
+          "frame": 44014,
+          "samples": 215040,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/09_1.wav"
+        },
+        {
+          "cue": "09_2",
+          "chapter": "09_cost",
+          "frame": 44854,
+          "samples": 364800,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/09_2.wav"
+        },
+        {
+          "cue": "09_3",
+          "chapter": "09_cost",
+          "frame": 45838,
+          "samples": 528000,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/09_3.wav"
+        },
+        {
+          "cue": "09_4",
+          "chapter": "09_cost",
+          "frame": 47230,
+          "samples": 351360,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/09_4.wav"
+        },
+        {
+          "cue": "09_5",
+          "chapter": "09_cost",
+          "frame": 48181,
+          "samples": 266880,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/09_5.wav"
+        },
+        {
+          "cue": "10_1",
+          "chapter": "10_rounding_rules",
+          "frame": 48921,
+          "samples": 272640,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/10_1.wav"
+        },
+        {
+          "cue": "10_2",
+          "chapter": "10_rounding_rules",
+          "frame": 49639,
+          "samples": 403200,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/10_2.wav"
+        },
+        {
+          "cue": "10_3",
+          "chapter": "10_rounding_rules",
+          "frame": 50683,
+          "samples": 205440,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/10_3.wav"
+        },
+        {
+          "cue": "10_4",
+          "chapter": "10_rounding_rules",
+          "frame": 51499,
+          "samples": 455040,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/10_4.wav"
+        },
+        {
+          "cue": "10_5",
+          "chapter": "10_rounding_rules",
+          "frame": 52673,
+          "samples": 531840,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/10_5.wav"
+        },
+        {
+          "cue": "10_6",
+          "chapter": "10_rounding_rules",
+          "frame": 54075,
+          "samples": 662400,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/10_6.wav"
+        },
+        {
+          "cue": "10_7",
+          "chapter": "10_rounding_rules",
+          "frame": 55803,
+          "samples": 606720,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/10_7.wav"
+        },
+        {
+          "cue": "11_1",
+          "chapter": "11_webster_quota",
+          "frame": 57392,
+          "samples": 130560,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/11_1.wav"
+        },
+        {
+          "cue": "11_2",
+          "chapter": "11_webster_quota",
+          "frame": 58021,
+          "samples": 808320,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/11_2.wav"
+        },
+        {
+          "cue": "11_3",
+          "chapter": "11_webster_quota",
+          "frame": 60114,
+          "samples": 733440,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/11_3.wav"
+        },
+        {
+          "cue": "11_4",
+          "chapter": "11_webster_quota",
+          "frame": 61984,
+          "samples": 506880,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/11_4.wav"
+        },
+        {
+          "cue": "11_5",
+          "chapter": "11_webster_quota",
+          "frame": 63324,
+          "samples": 190080,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/11_5.wav"
+        },
+        {
+          "cue": "12_1",
+          "chapter": "12_both_promises",
+          "frame": 63872,
+          "samples": 316800,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/12_1.wav"
+        },
+        {
+          "cue": "12_2",
+          "chapter": "12_both_promises",
+          "frame": 64966,
+          "samples": 631680,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/12_2.wav"
+        },
+        {
+          "cue": "12_3",
+          "chapter": "12_both_promises",
+          "frame": 66724,
+          "samples": 526080,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/12_3.wav"
+        },
+        {
+          "cue": "12_4",
+          "chapter": "12_both_promises",
+          "frame": 68188,
+          "samples": 403200,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/12_4.wav"
+        },
+        {
+          "cue": "12_5",
+          "chapter": "12_both_promises",
+          "frame": 69268,
+          "samples": 501120,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/12_5.wav"
+        },
+        {
+          "cue": "12_6",
+          "chapter": "12_both_promises",
+          "frame": 70557,
+          "samples": 478080,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/12_6.wav"
+        },
+        {
+          "cue": "12_7",
+          "chapter": "12_both_promises",
+          "frame": 71789,
+          "samples": 464640,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/12_7.wav"
+        },
+        {
+          "cue": "12_8",
+          "chapter": "12_both_promises",
+          "frame": 73158,
+          "samples": 541440,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/12_8.wav"
+        },
+        {
+          "cue": "12_9",
+          "chapter": "12_both_promises",
+          "frame": 74548,
+          "samples": 700800,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/12_9.wav"
+        },
+        {
+          "cue": "12_10",
+          "chapter": "12_both_promises",
+          "frame": 76372,
+          "samples": 355200,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/12_10.wav"
+        },
+        {
+          "cue": "13_1",
+          "chapter": "13_population",
+          "frame": 77332,
+          "samples": 293760,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/13_1.wav"
+        },
+        {
+          "cue": "13_2",
+          "chapter": "13_population",
+          "frame": 78103,
+          "samples": 339840,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/13_2.wav"
+        },
+        {
+          "cue": "13_3",
+          "chapter": "13_population",
+          "frame": 78989,
+          "samples": 134400,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/13_3.wav"
+        },
+        {
+          "cue": "13_4",
+          "chapter": "13_population",
+          "frame": 79627,
+          "samples": 359040,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/13_4.wav"
+        },
+        {
+          "cue": "13_5",
+          "chapter": "13_population",
+          "frame": 80597,
+          "samples": 570240,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/13_5.wav"
+        },
+        {
+          "cue": "13_6",
+          "chapter": "13_population",
+          "frame": 82059,
+          "samples": 769920,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/13_6.wav"
+        },
+        {
+          "cue": "13_7",
+          "chapter": "13_population",
+          "frame": 84056,
+          "samples": 264960,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/13_7.wav"
+        },
+        {
+          "cue": "14_1",
+          "chapter": "14_no_rule",
+          "frame": 84791,
+          "samples": 585600,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/14_1.wav"
+        },
+        {
+          "cue": "14_2",
+          "chapter": "14_no_rule",
+          "frame": 86291,
+          "samples": 280320,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/14_2.wav"
+        },
+        {
+          "cue": "14_3",
+          "chapter": "14_no_rule",
+          "frame": 87064,
+          "samples": 439680,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/14_3.wav"
+        },
+        {
+          "cue": "14_4",
+          "chapter": "14_no_rule",
+          "frame": 88466,
+          "samples": 618240,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/14_4.wav"
+        },
+        {
+          "cue": "14_5",
+          "chapter": "14_no_rule",
+          "frame": 90048,
+          "samples": 426240,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/14_5.wav"
+        },
+        {
+          "cue": "14_6",
+          "chapter": "14_no_rule",
+          "frame": 91186,
+          "samples": 677760,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/14_6.wav"
+        },
+        {
+          "cue": "14_7",
+          "chapter": "14_no_rule",
+          "frame": 92953,
+          "samples": 432000,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/14_7.wav"
+        },
+        {
+          "cue": "14_8",
+          "chapter": "14_no_rule",
+          "frame": 94105,
+          "samples": 401280,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/14_8.wav"
+        },
+        {
+          "cue": "15_1",
+          "chapter": "15_recap",
+          "frame": 95181,
+          "samples": 236160,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/15_1.wav"
+        },
+        {
+          "cue": "15_2",
+          "chapter": "15_recap",
+          "frame": 95808,
+          "samples": 428160,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/15_2.wav"
+        },
+        {
+          "cue": "15_3",
+          "chapter": "15_recap",
+          "frame": 96951,
+          "samples": 303360,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/15_3.wav"
+        },
+        {
+          "cue": "15_4",
+          "chapter": "15_recap",
+          "frame": 98012,
+          "samples": 583680,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/15_4.wav"
+        },
+        {
+          "cue": "15_5",
+          "chapter": "15_recap",
+          "frame": 99544,
+          "samples": 522240,
+          "gain_db": 0.0,
+          "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-assembly664/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-picture-assembly566/narration/15_5.wav"
+        }
+      ],
+      "captions": 443,
+      "srt_vtt_equal": true,
+      "caption_words_exact": true,
+      "fast_captions": [],
+      "full_av_decode": true,
+      "all_decoded_video_frames_match_chapters": true,
+      "lufs": -18.7,
+      "true_peak_dbfs": -1.6,
+      "nominal_loudness_exception": true,
+      "movie_sha256": "e61269f23176a5c299f104df11ced4d69b84476584b8b91ff1fc5876fe604116",
+      "imported_chapters": [
+        "01_one_more_seat",
+        "02_shares"
+      ],
+      "hosts": {
+        "mac_encoder_settings": "x264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=54 lookahead_threads=9 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+        "csd_encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+        "mac_encoder_tags": [
+          "Lavc62.28.102 libx264",
+          "Lavf62.12.102"
+        ],
+        "csd_encoder_tags": [
+          "Lavc62.11.100 libx264",
+          "Lavf62.3.100"
+        ],
+        "csd_ffmpeg_version": "ffmpeg version 8.0.1-3ubuntu2 Copyright (c) 2000-2025 the FFmpeg developers"
+      },
+      "inputs_sha256": "4f9d04c99b038fdc2c55b27a7e6c663fc30c717c6e17bc173ad7b91500f737ad",
+      "helper_sha256": "44a7297bc53a652364b2f7d882b105875e1ba9b99937cdab42bada87ef1524ad",
+      "pictures_viewed": false,
+      "audio_heard": false,
+      "fine_sync": false,
+      "independent_av_acceptance": false,
+      "scope": "Technical checks only on the mixed-host master735: chapters 01-02 encoded on the Mac, 03-15 on the CSD, chapter 06 by its reviewed successor job. The caption 168 repair is checked as bytes and parse only: display dwell, not evidence of speech timing. No picture, motion, audio, fine-sync, independent AV or release acceptance.",
+      "caption_repair": {
+        "generated": {
+          "folder": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/captions-generated735",
+          "srt_sha256": "0568f2dd0f59cb2a207ba94426bb712f48a693a6bf2705d0dfb4c47a2b4aee9b",
+          "vtt_sha256": "482c5817d52926f937e805cc3411904833a00878010559d216b507af85143690"
+        },
+        "repaired": {
+          "folder": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/captions-repaired735",
+          "srt_sha256": "61e636aea49ac7b8c0ab97f4a201a11932aa41e5c71d0bf66974bd7c236d96df",
+          "vtt_sha256": "214e15cb76ad795adbd067ea89da52a3a344881d872bb058e7d8950268b5ef28"
+        },
+        "helper": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/apportionment-caption-repair727/repair_caption168.py",
+        "helper_sha256": "d94aab217a6ee6639328414b774a7a374fb610c0716f3213222ca421a3762b9f",
+        "cues": 443,
+        "changed_cues": [
+          168
+        ],
+        "generated_fast_captions": [
+          168
+        ],
+        "helper_reproduces_repaired_pair": true,
+        "final_is_repaired_pair": true,
+        "display_dwell_only": true,
+        "speech_timing_evidence": false
+      },
+      "master_helper_sha256": "220f9cf18bc146cea4333f3f53886436cccdc4450b27e72772ccd733213227b3",
+      "chapter06_manifest_sha256": "0c839a9670f3c991753c5ca9b5e441eecc564b043cfea25522bfd41ec7a588e5"
+    },
+    "verification_sha256": "de34f20f83d8d6028090aaeefe8a560c1cddb7067a5a95a6a77229521b8083dc",
+    "chapter03_sampling_sha256": "a609355f2d8c3e218cccbd5e9328ffc865a9aae63209246ca06c4b4244d76d5a",
+    "chapter03_movie": {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-03_largest_tails/render/03_largest_tails.mp4",
+      "sha256": "194c725c71b5f3a0e21ba7d82720a9667aa4715ff9037792efa9d8a2b00b8b9e"
+    }
+  },
+  "scope": "Current file hashes bind all15 prior sampled chapter picture reviews to retained770 chapters. Existing771 full decoded-frame equality links those pictures to the assembled master. This audit did not newly view pictures, watch motion, listen, establish fine sync or provide independent final AV acceptance.",
+  "publication_acceptance": false,
+  "remaining": [
+    "Independent final audiovisual review",
+    "Continuous listening and fine-sync acceptance",
+    "Full-size motion review of dense chapter12 proof",
+    "Upload and public4K/manual-caption verification only after release gates"
+  ]
+}
