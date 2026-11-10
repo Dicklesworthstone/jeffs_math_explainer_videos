@@ -1,0 +1,95 @@
+diff --git a/crates/fmn-python/python/fmn_python/initialization.py b/crates/fmn-python/python/fmn_python/initialization.py
+index 1741a40..e8249e3 100644
+--- a/crates/fmn-python/python/fmn_python/initialization.py
++++ b/crates/fmn-python/python/fmn_python/initialization.py
+@@ -20,6 +20,7 @@ _STEPS = (
+     ("camera_capture", "install_camera_capture"),
+     ("surface_textures", "install_surface_textures"),
+     ("text_authoring", "install_text_authoring"),
++    ("decimal_authoring", "install_decimal_authoring"),
+     ("live_tex", "install_live_tex"),
+     ("matrix", "install_matrix"),
+     ("graphing", "install_graphing"),
+diff --git a/crates/fmn-python/tests/bridge.py b/crates/fmn-python/tests/bridge.py
+index a30c980..7d9d3ab 100644
+--- a/crates/fmn-python/tests/bridge.py
++++ b/crates/fmn-python/tests/bridge.py
+@@ -13668,14 +13668,12 @@ assert all(
+     member.get_fill_color() == manimlib.BLUE
+     for member in mapped_complex_entry.family_members_with_points()
+ )
+-# A general complex entry inherits BN-08's named refusal from
+-# DecimalNumber itself — no silent rendering.
+-try:
+-    integer_tex_matrix.element_to_mobject(1 + 2j)
+-except NotImplementedError as error:
+-    assert "BN-08" in str(error), error
+-else:
+-    raise AssertionError("a general complex entry was rendered silently")
++# General complex entries compose native numeric components, not Tex(str(...)).
++general_complex_entry = integer_tex_matrix.element_to_mobject(1 + 2j)
++assert isinstance(general_complex_entry, manimlib.DecimalNumber)
++assert general_complex_entry.get_value() == 1 + 2j
++assert general_complex_entry.get_tex() == "1.00+2.00i"
++assert general_complex_entry.family_members_with_points()
+ try:
+     matrix_module.Matrix.element_to_mobject(object(), 0)
+ except TypeError as error:
+@@ -16860,9 +16858,8 @@ else:
+ 
+ 
+ # ------------------------------------------ DecimalNumber complex values
+-# fm-5wq.4.80: the Reference's hide_zero_components_on_complex reductions
+-# ride the native f64 formatter exactly; the general complex formatter is
+-# BN-08's deliberate native exclusion and refuses by that name.
++# Real and imaginary components use the native f64 number shelf. The portal
++# composes both components and allows live transitions between display modes.
+ 
+ # A zero-real complex renders natively as the imaginary component + "i".
+ imag_number = manimlib.DecimalNumber(complex(0, 2))
+@@ -16882,21 +16879,17 @@ assert any(child.has_points() for child in real_ish.submobjects)
+ real_ish.set_value(4.0)
+ assert real_ish.get_value() == 4.0
+ 
+-# The general complex formatter is the named BN-08 refusal.
+-try:
+-    manimlib.DecimalNumber(complex(1, 2))
+-except NotImplementedError as error:
+-    assert "BN-08" in str(error)
+-else:
+-    raise AssertionError("DecimalNumber accepted a general complex value")
+-
+-# Mode switches refuse by name rather than rendering a wrong display.
+-try:
+-    imag_number.set_value(1.0)
+-except NotImplementedError as error:
+-    assert "imaginary display" in str(error)
+-else:
+-    raise AssertionError("an imaginary DecimalNumber switched to real")
++general_complex_number = manimlib.DecimalNumber(complex(1, 2))
++assert general_complex_number.get_value() == 1 + 2j
++assert general_complex_number.get_tex() == "1.00+2.00i"
++assert len(general_complex_number) == len(general_complex_number.num_string)
++
++imag_number.set_value(1.0)
++assert imag_number.get_value() == 1.0
++assert imag_number.get_tex() == "1.00"
++imag_number.set_value(2j)
++assert imag_number.get_value() == 2j
++assert imag_number.get_tex() == "2.00i"
+ 
+ # Named errors for non-finite and non-numeric values.
+ try:
+diff --git a/scripts/check_portal_runtime.sh b/scripts/check_portal_runtime.sh
+index 8f338a7..2a4ed37 100755
+--- a/scripts/check_portal_runtime.sh
++++ b/scripts/check_portal_runtime.sh
+@@ -11,7 +11,7 @@ if not path:
+ print(f"auditing imported manimlib: {path}")
+ PY
+ 
+-for suite in fill_profile_pixels fill_profile_animation functional_color pointwise_color pointwise_paint_integration textured_surfaces portal_initialization point_editing text_authoring code_authoring persistent_recovery fading_family bridge animation_semantics matching_transform_semantics matching_authoring composition_lifecycle camera_animation_semantics camera_motion camera_execution updater_family drawing_runtime creation_semantics subset_reveal text_reveal native_outputs programmatic_rendering runtime_provenance batch_rendering reproducible_batch builder_playback restore_playback cyclic_replace deferred_transform_playback fading_semantics movement_semantics rotation_semantics indication_semantics composite_effects tracker_interpolation live_tex live_tex_render live_rates animation_updaters native_animation_updaters deferred_animation_updaters console_rendering scene_state temporal_visualization detached_tracing_tail streamline_authoring streamline_rebuild control_interaction color_sliders scene_execution matrix_authoring source_autoreload scene_project scene_project_editor live_graphing live_vector_fields; do
++for suite in decimal_authoring fill_profile_pixels fill_profile_animation functional_color pointwise_color pointwise_paint_integration textured_surfaces portal_initialization point_editing text_authoring code_authoring persistent_recovery fading_family bridge animation_semantics matching_transform_semantics matching_authoring composition_lifecycle camera_animation_semantics camera_motion camera_execution updater_family drawing_runtime creation_semantics subset_reveal text_reveal native_outputs programmatic_rendering runtime_provenance batch_rendering reproducible_batch builder_playback restore_playback cyclic_replace deferred_transform_playback fading_semantics movement_semantics rotation_semantics indication_semantics composite_effects tracker_interpolation live_tex live_tex_render live_rates animation_updaters native_animation_updaters deferred_animation_updaters console_rendering scene_state temporal_visualization detached_tracing_tail streamline_authoring streamline_rebuild control_interaction color_sliders scene_execution matrix_authoring source_autoreload scene_project scene_project_editor live_graphing live_vector_fields; do
+     python3 - "$suite" <<'PY'
+ import pathlib
+ import runpy

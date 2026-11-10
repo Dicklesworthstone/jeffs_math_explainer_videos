@@ -1,0 +1,55 @@
+# fmn-geom parity fixture
+# generated from 3b1b/manim @ 6199a00d4c1b1127ebe45cb629c3f22538b10e13
+# by scripts/gen_geom_fixtures.py — regenerate, never hand-edit
+case s_curve_inflection
+cubic 4
+0.0	0.0	0.0
+1.0	2.0	0.0
+2.0	-2.0	0.0
+3.0	0.0	0.0
+quads 5
+0.0	0.0	0.0
+0.5	1.0	0.0
+1.5	0.0	0.0
+2.5	-1.0	0.0
+3.0	0.0	0.0
+end
+case c_curve
+cubic 4
+0.0	0.0	0.0
+0.0	1.0	0.0
+1.0	2.0	0.0
+2.0	2.0	0.0
+quads 5
+0.0	0.0	0.0
+0.0	0.75	0.0
+0.625	1.375	0.0
+1.25	2.0	0.0
+2.0	2.0	0.0
+end
+case collinear
+cubic 4
+0.0	0.0	0.0
+1.0	0.0	0.0
+2.0	0.0	0.0
+3.0	0.0	0.0
+quads 5
+0.0	0.0	0.0
+0.0	0.0	0.0
+1.5	0.0	0.0
+3.0	0.0	0.0
+3.0	0.0	0.0
+end
+case cusp_like
+cubic 4
+0.0	0.0	0.0
+2.0	2.0	0.0
+-1.0	2.0	0.0
+1.0	0.0	0.0
+quads 5
+0.0	0.0	0.0
+1.5	1.5	0.0
+0.5	1.5	0.0
+-0.5	1.5	0.0
+1.0	0.0	0.0
+end

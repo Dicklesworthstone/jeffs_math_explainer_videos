@@ -1,0 +1,69 @@
+name: Native graph lifecycle acceptance
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-graph-lifecycles.yml'
+      - 'crates/fmn-python/python/fmn_python/graph_admission.py'
+      - 'crates/fmn-python/python/fmn_python/curve_regeneration.py'
+      - 'crates/fmn-python/python/fmn_python/graphing.py'
+      - 'crates/fmn-python/python/manimlib_bootstrap.py'
+      - 'crates/fmn-python/tests/native_curve_lifecycle.py'
+      - 'crates/fmn-python/tests/native_implicit_lifecycle.py'
+      - 'Cargo.lock'
+      - 'SUITE.lock'
+      - 'rust-toolchain.toml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-graph-lifecycles
+  cancel-in-progress: false
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Build and test the exact committed sources without mutation
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rev-parse HEAD | tee /tmp/graph-lifecycle-source-sha.txt
+          rustup show active-toolchain
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          python -m maturin build --locked --interpreter python --profile dev --out target/graph-lifecycle-wheel 2>&1 | tee /tmp/graph-lifecycle-build.log
+          python -m venv target/graph-lifecycle-venv
+          target/graph-lifecycle-venv/bin/python -m pip install 'numpy==2.5.2' target/graph-lifecycle-wheel/*.whl
+          for suite in native_curve_lifecycle native_implicit_lifecycle live_curves graph_admission native_graph_sampling graph_callback_snapshots live_graphing live_implicit native_geometry_lifecycle native_polygon_lifecycle copying_semantics creation_semantics movement_semantics; do
+            target/graph-lifecycle-venv/bin/python -I "crates/fmn-python/tests/$suite.py" 2>&1 | tee "/tmp/graph-lifecycle-$suite.log"
+          done
+          python scripts/test_python_helper_aliases.py
+          bash -n scripts/check_portal_runtime.sh
+          git diff --exit-code
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: graph-lifecycle-${{ github.sha }}
+          path: |
+            /tmp/graph-lifecycle-*
+            target/graph-lifecycle-wheel/*.whl
+          retention-days: 3

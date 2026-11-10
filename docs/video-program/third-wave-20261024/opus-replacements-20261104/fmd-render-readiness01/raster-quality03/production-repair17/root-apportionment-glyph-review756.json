@@ -1,0 +1,213 @@
+{
+  "reviewed_at": "2026-11-10T02:07:17.990578+00:00",
+  "reviewer": "BlueSalmon/root",
+  "qualification_sha256": "d5efaea20ed2db69a10e2b662dde6dfe1e34f7ee0d68108dab07bb23ce9819e4",
+  "binary_sha256": "b3c8c12617f92f8326fec11bc4bd052f276340c83a933db2c893a502fa038d5f",
+  "glyph_sources": 470,
+  "picture_pages_actually_viewed": 38,
+  "all_page_and_marker_hashes_match": true,
+  "pages": [
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/FMN_COMPLETE",
+      "sha256": "6fbca0bce9464e9133af83bc012364db44d8584eb7fee797f737405c03a68f47",
+      "actually_viewed": false
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000000.png",
+      "sha256": "643f813b94d34226b4c314a1ea61c92032ee7a74bfbe8d63ca65254c6a0a3242",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000001.png",
+      "sha256": "fa9811db74ad7d6bbcd08f977cf8c3bf94f957bd9f6eed5e3392b8c6f4fba55a",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000002.png",
+      "sha256": "4d4d835fee053deae42cce601197fa273466819338a650b83cc32265f9cc51a5",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000003.png",
+      "sha256": "bc23981a7c98a6225f50bc48f3da4edaadf3d7bcd105c6e9766c5e9df49093e8",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000004.png",
+      "sha256": "90c5cb270baeefcf9fe8e3738c9a726de508814d3122901a6fe4240638498de5",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000005.png",
+      "sha256": "48313bec62cd76bd9e8757e8930659d63a5152ed0d64fe5a8f6baed4d5f52034",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000006.png",
+      "sha256": "75f6d23890294705638a6fef1b348ac8536d0ba94e9ae3f8dc259da4a312be86",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000007.png",
+      "sha256": "b8b33e70dc911291820e4b3599775dd50c3ed258b64ea2a6c18d0e2a559ab412",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000008.png",
+      "sha256": "c6c384c00af23d158585687e17f75f2a4de415dc1a9519298c0cc1579e89a86b",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000009.png",
+      "sha256": "6ffc1c9c48d3c10699528e5008b9c0f18ed70be27d4c9230d0f589c41827b6ee",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000010.png",
+      "sha256": "1544f7365e2e7f3eabe876b6b2e9cbbb9ad231263d51bb98b28b9d54866a478a",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000011.png",
+      "sha256": "de0f6ccbfed6f26637f80e043f8be685ffdac12ec6fca50ee239d86e680203ea",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000012.png",
+      "sha256": "3ccee35d32c9ab2366b910a267e71ba69c97325976e5938abd1eceabd450894f",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000013.png",
+      "sha256": "2b03aa492901061a50ac22bbaf36c3bc7b945b1d1d7553ab3e11f6101991674d",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000014.png",
+      "sha256": "265fa567028cb3b32198342ce922ebb590ac9039ebca999c16d4dddb14be079a",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000015.png",
+      "sha256": "cca9083d4b314c5500ea4294cb19c2046a6015297af5b12d3d605662a813e0f0",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000016.png",
+      "sha256": "9ab8a8376f7b35743d81878819b6573a7677f7b5e12d9c6399247818f71f114c",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000017.png",
+      "sha256": "d1b0aa4db488d6f51337c1a7a7eb1c1c8a9649c60f8fca66cef9ca86806ab350",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000018.png",
+      "sha256": "211eb767dac96603c3efb9d676c678857c563baa0a8af1ecfceb724490978c88",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000019.png",
+      "sha256": "05997b00ff2ab764b67bbf4c38657c7b3791614312b00541e1cc4fbb66fc7f3f",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000020.png",
+      "sha256": "739344855f7eaab542e7c703ea4c04d75cc069bef26c22c9e68bf579092c3dab",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000021.png",
+      "sha256": "a8308adb500b45b2024475f32efcc3c79a21cf884246d1a268bb3e084d2507f7",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000022.png",
+      "sha256": "d843ed4c85398ae766655bab760a193d250df47976ecbb5acc7b05754fd27376",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000023.png",
+      "sha256": "01c6ce99dd3cedba5f8b8eb51a3b920a2b1b44cedb1e2fef5fae2b0ff06627ec",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000024.png",
+      "sha256": "4a76fba346a622ce3212df0c81f4b776c8d0a59abaee6ce00303d1f541044c52",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000025.png",
+      "sha256": "f313e99437e7e2dbe375b2465728e191449b39888dd0301800b65c32b51a7588",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000026.png",
+      "sha256": "914326b4383810dde2d15c8efb12fe3bfa3215e48ec30aa110c6cb37f5b4f98f",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000027.png",
+      "sha256": "412b723788d4e6fe86038adda1dfd61cb34efcc11b42b4f94da39db7239dae53",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000028.png",
+      "sha256": "c0de8e9f299984a7e6fa9338ae5f4505090736a6891f2b1183a7b321bb0a0502",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000029.png",
+      "sha256": "2bdd09bab9ab4ab817f62ae102bd6e9323aca98ddf44b03685176e1050db2008",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000030.png",
+      "sha256": "63bc5da2d18aa986d91e04a5cf8392a8eeb142371e65b55fc8599dcfcb122310",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000031.png",
+      "sha256": "f5f4f6a0cc4ca6b82462b2039b9ce50827b05c513acdfb80d4befdaf7e068b02",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000032.png",
+      "sha256": "f4c25926cc8f496478b4e89f9480ae52973b52fbe639e1be130ec7b2791ee1e7",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000033.png",
+      "sha256": "7a4361d9bd243d594be1b3f4ff8e4c4210a8920fb528bc5c070f5b2e48189f4d",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000034.png",
+      "sha256": "4e1ea9d2bc6634b565bc5d1cfb7b8462ab096c7d92425cc28258bf87784bc4ec",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000035.png",
+      "sha256": "c88b675376a5943db7152917b1e8dca809a6e0cc4e3fc60e4fc1315dbe8bf089",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000036.png",
+      "sha256": "c3bc669cc90a48c296c180ec4247438abd5ca4e0c0a37e6a0bb2bbbe7967f02a",
+      "actually_viewed": true
+    },
+    {
+      "file": "/tmp/apportionment-glyph748-review/selected-pages/frame_000037.png",
+      "sha256": "3df64576971f2db0c508f65f5bbc816cae0e8cc2b55e3fe8a9f2c19ec9c06bd2",
+      "actually_viewed": true
+    }
+  ],
+  "observations": [
+    "All pages 000 through 037 actually viewed, including re-view of 001-004 whose earlier display was truncated.",
+    "No missing or malformed glyph observed in digits, fractions, arithmetic operators, arrows, quotations, umlaut, square root or section sign.",
+    "Probe pages 008,023,026,029,031,032,034 wrap long strings, sometimes mid-word. This does not qualify final scene wrapping or layout.",
+    "Page020 62-to-63 Ash has tight spacing but distinguishable characters; final scene legibility remains a separate check."
+  ],
+  "scope": "Glyph images only. Not final chapter picture, continuous motion, listening, fine-sync, independent AV or release acceptance."
+}

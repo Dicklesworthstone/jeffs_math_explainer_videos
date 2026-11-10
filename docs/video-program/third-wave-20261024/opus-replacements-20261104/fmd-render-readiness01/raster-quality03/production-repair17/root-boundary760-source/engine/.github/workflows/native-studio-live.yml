@@ -1,0 +1,109 @@
+name: Shipped native Studio interaction
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-studio-live.yml'
+      - 'crates/fmn-cli/src/**'
+      - 'crates/fmn-cli/tests/camera_studio.rs'
+      - 'crates/fmn-studio/src/**'
+      - 'crates/fmn-studio/tests/**'
+      - 'crates/fmn-conformance/tests/e2e_scenarios.rs'
+      - 'crates/fmn-scene/src/**'
+      - 'crates/fmn/src/lib.rs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-studio-live
+  cancel-in-progress: true
+
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+  CARGO_TARGET_DIR: target/portable
+  PYO3_PYTHON: python
+  RUST_BACKTRACE: '1'
+
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Install governed toolchain and host NumPy
+        run: |
+          rustup show active-toolchain
+          python -m pip install numpy
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Retain pinned-formatter output for the camera playback sources
+        run: |
+          python - <<'PYFORMAT'
+          import os
+          from pathlib import Path
+          import shutil
+          import subprocess
+          destination = Path(os.environ["RUNNER_TEMP"]) / "camera-studio-checked-sources"
+          destination.mkdir()
+          files = (
+              "crates/fmn-studio/src/camera_bundle.rs",
+              "crates/fmn-studio/tests/camera_bundle_worker.rs",
+              "crates/fmn-cli/src/studio_live.rs",
+              "crates/fmn-cli/tests/camera_studio.rs",
+          )
+          for name in files:
+              copy = destination / name
+              copy.parent.mkdir(parents=True, exist_ok=True)
+              shutil.copyfile(name, copy)
+              subprocess.run(["rustfmt", "--edition", "2024", "--config", "skip_children=true", str(copy)], check=True)
+          (destination / "source-sha.txt").write_text(os.environ["GITHUB_SHA"] + "\n")
+          PYFORMAT
+          git diff --exit-code
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: camera-studio-checked-sources-${{ github.sha }}
+          path: ${{ runner.temp }}/camera-studio-checked-sources
+          retention-days: 3
+          if-no-files-found: error
+      - name: Test the native editor, protocol, host and CLI registration
+        run: |
+          cargo test --locked -p fmn-studio --test camera_bundle_worker
+          cargo test --locked -p fmn-cli --features cli,batch --test camera_studio
+          cargo test --locked -p fmn-studio --lib
+          cargo test --locked -p fmn-studio --test native_committed_input --test native_worker --test native_deferred_worker --test studio
+          cargo test --locked -p fmn-cli --features cli,batch --lib studio_live
+          cargo test --locked -p fmn-scene --test runtime
+      - name: Exercise authenticated HTTP and worker restart through the shipping executable
+        run: cargo test --locked -p fmn-conformance --test e2e_scenarios studio_native_ -- --nocapture
+      - name: Exercise real Chrome editing and exact streamed pixels
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --version
+          google-chrome --version
+          node --test crates/fmn-studio/tests/input_queue.mjs
+          cargo build --locked -p fmn-cli --features cli,batch --bin fmn
+          node crates/fmn-studio/tests/browser.mjs "$PWD/target/portable/debug/fmn" "$RUNNER_TEMP/native-studio-browser"
+      - name: Retain native browser receipts and rendered evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: native-studio-browser-${{ github.sha }}
+          path: ${{ runner.temp }}/native-studio-browser
+          if-no-files-found: warn
+          retention-days: 3

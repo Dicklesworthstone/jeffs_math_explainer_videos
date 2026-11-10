@@ -1,0 +1,61 @@
+[package]
+name = "fmn-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "The `fmn` binary"
+
+[[bin]]
+name = "fmn"
+path = "src/main.rs"
+# The standalone product is one binary containing both the interactive CLI
+# and the Asupersync-backed batch front door.  Keep the axes default-off for
+# library builds, but never emit a partially featured shipping executable.
+required-features = ["cli", "batch"]
+
+# The smoke target always compiles so the parser contract remains exercised by
+# default-feature library builds. Its real-process cases are cfg(batch), which
+# is exactly the feature set that makes the complete shipping binary exist.
+[[test]]
+name = "cli_smoke"
+path = "tests/cli_smoke.rs"
+
+[[test]]
+name = "doctor_smoke"
+path = "tests/doctor_smoke.rs"
+
+[[test]]
+name = "runtime_boundary"
+path = "tests/runtime_boundary.rs"
+required-features = ["cli", "batch"]
+
+[dependencies]
+fmn-core.workspace = true
+fmn-config.workspace = true
+# Sound cue asset digests in the export provenance (d0324236).
+fmn-hash.workspace = true
+fmn-cache.workspace = true
+fmn-frame.workspace = true
+fmn-codec.workspace = true
+fmn-platform = { workspace = true, features = ["exact-process"] }
+fmn-runtime.workspace = true
+fmn-render.workspace = true
+fmn-scene.workspace = true
+fmn-studio.workspace = true
+fmn-output = { workspace = true, features = ["exact-process"] }
+fmn-library.workspace = true
+fmn.workspace = true
+asupersync = { workspace = true, optional = true }
+
+# The build identity's uncommitted-state digest (ADR-0025).
+[build-dependencies]
+fmn-hash.workspace = true
+
+[features]
+batch = ["cli", "dep:asupersync"]
+cli = []
+metal = ["cli", "fmn-render/metal", "fmn-studio/metal"]
+
+[lints]
+workspace = true

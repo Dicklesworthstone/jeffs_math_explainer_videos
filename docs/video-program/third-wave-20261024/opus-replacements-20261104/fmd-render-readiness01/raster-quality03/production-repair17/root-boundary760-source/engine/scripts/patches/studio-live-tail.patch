@@ -1,0 +1,185 @@
+diff --git a/crates/fmn-studio/src/recorded.rs b/crates/fmn-studio/src/recorded.rs
+--- a/crates/fmn-studio/src/recorded.rs
++++ b/crates/fmn-studio/src/recorded.rs
+@@ -10,6 +10,8 @@
+ use std::sync::Arc;
+ use std::time::Duration;
+ 
++mod live;
++
+ use fmn_codec::{PngLimits, decode_png};
+ use fmn_hash::{Digest, Schema, Writer, sha256};
+ use fmn_scene::{AssetRead, EffectClass, Entry, Journal};
+@@ -34,6 +36,7 @@ struct RecordedFrame {
+     stream: FrameStream,
+     inspection: InspectorSnapshot,
+     state_hash: Digest,
++    encoded_bytes: usize,
+ }
+ 
+ /// One bounded capture generation. The byte ceiling counts encoded PNG and
+@@ -49,6 +52,7 @@ pub struct RecordedTimeline {
+     max_frames: usize,
+     max_bytes: usize,
+     commands: u64,
++    input_revision: Option<u64>,
+     limits: ProtocolLimits,
+ }
+ 
+@@ -81,6 +85,7 @@ impl RecordedTimeline {
+             max_frames,
+             max_bytes,
+             commands: 0,
++            input_revision: None,
+             limits,
+         })
+     }
+@@ -90,12 +95,29 @@ impl RecordedTimeline {
+     /// the exact captured time remains in the native inspector snapshot.
+     pub fn push(
+         &mut self,
+-        mut stream: FrameStream,
+-        mut inspection: InspectorSnapshot,
++        stream: FrameStream,
++        inspection: InspectorSnapshot,
+     ) -> Result<(), ServiceError> {
+         if self.frames.len() == self.max_frames {
+             return Err(invalid("recorded timeline frame budget exceeded"));
+         }
++        if self.input_revision.is_some() {
++            return Err(invalid("live capture must replace its final frame, not extend history"));
++        }
++        let frame = self.admit_frame(stream, inspection, self.frames.len() as u64, self.encoded_bytes)?;
++        self.frames.try_reserve(1).map_err(failed)?;
++        self.encoded_bytes += frame.encoded_bytes;
++        self.frames.push(frame);
++        Ok(())
++    }
++
++    fn admit_frame(
++        &self,
++        mut stream: FrameStream,
++        mut inspection: InspectorSnapshot,
++        index: u64,
++        occupied_bytes: usize,
++    ) -> Result<RecordedFrame, ServiceError> {
+         if stream.scene != self.scene || stream.encoding != FrameEncoding::Png {
+             return Err(invalid(
+                 "recorded timeline requires same-scene PNG captures",
+@@ -107,7 +129,7 @@ impl RecordedTimeline {
+                 "recorded timelines cannot retain shared-memory tokens",
+             ));
+         };
+-        if bytes.len() > self.max_bytes.saturating_sub(self.encoded_bytes) {
++        if bytes.len() > self.max_bytes.saturating_sub(occupied_bytes) {
+             return Err(invalid("recorded timeline byte budget exceeded"));
+         }
+         let png = decode_png(
+@@ -121,7 +143,6 @@ impl RecordedTimeline {
+         if png.width != stream.width || png.height != stream.height {
+             return Err(invalid("recorded PNG dimensions do not match the frame"));
+         }
+-        let index = self.frames.len() as u64;
+         let view = inspection
+             .view
+             .as_mut()
+@@ -156,8 +177,7 @@ impl RecordedTimeline {
+             .len()
+             .checked_add(document.len())
+             .and_then(|n| n.checked_add(4096))
+-            .and_then(|n| n.checked_add(self.encoded_bytes))
+-            .filter(|n| *n <= self.max_bytes)
++            .filter(|n| *n <= self.max_bytes.saturating_sub(occupied_bytes))
+             .ok_or_else(|| invalid("recorded timeline byte budget exceeded"))?;
+         let mut identity = Writer::new(Schema::new(*b"FMRP", 1, 1, 0));
+         identity
+@@ -166,14 +186,12 @@ impl RecordedTimeline {
+             .put_bytes(sha256(bytes).as_bytes())
+             .put_bytes(sha256(&document).as_bytes());
+         let state_hash = sha256(&identity.finish().map_err(failed)?);
+-        self.frames.try_reserve(1).map_err(failed)?;
+-        self.frames.push(RecordedFrame {
++        Ok(RecordedFrame {
+             stream,
+             inspection,
+             state_hash,
+-        });
+-        self.encoded_bytes = cost;
+-        Ok(())
++            encoded_bytes: cost,
++        })
+     }
+ 
+     #[must_use]
+@@ -270,12 +288,15 @@ impl WorkerService for RecordedTimeline {
+             SupervisorRequest::Inspect { scene } => {
+                 self.check_scene(&scene)?;
+                 let count = self.frames.len() as u64;
++                let revision = self.input_revision.filter(|_| self.position + 1 == self.frames.len());
+                 let snapshot = &mut self.frames[self.position].inspection;
+-                snapshot
++                let view = snapshot
+                     .view
+                     .as_mut()
+-                    .expect("admitted capture has a view")
+-                    .frame_count = count;
++                    .expect("admitted capture has a view");
++                view.frame_count = count;
++                view.input_events = revision.is_some();
++                view.input_revision = revision;
+                 let bytes = snapshot
+                     .to_json(InspectorLimits {
+                         max_json_bytes: self.limits.max_studio_data_bytes,
+@@ -297,31 +318,8 @@ impl WorkerService for RecordedTimeline {
+                 let frame = studio_seek_frame(&scene, &command).map_err(failed)?;
+                 let previous = self.position;
+                 self.select(&scene, frame)?;
+-                let mut journal = Journal::new();
+-                let result = (|| {
+-                    journal
+-                        .record(Entry {
+-                            command,
+-                            effect: EffectClass::Opaque,
+-                            reads: vec![AssetRead {
+-                                path: "portal/capture-generation".into(),
+-                                digest: self.source_digest,
+-                            }],
+-                            subprocesses: Vec::new(),
+-                            checkpoint: None,
+-                            state_hash: self.frames[self.position].state_hash,
+-                        })
+-                        .map_err(failed)?;
+-                    let journal = journal.to_bytes().map_err(failed)?;
+-                    Ok(WorkerResponse::JournalSegment {
+-                        scene,
+-                        start_entry: self.commands,
+-                        journal,
+-                    })
+-                })();
+-                if result.is_ok() {
+-                    self.commands += 1;
+-                } else {
++                let result = self.record_opaque(command);
++                if result.is_err() {
+                     self.position = previous;
+                 }
+                 result
+@@ -403,7 +401,8 @@ pub fn start_host(
+     frames.publish(&first, supervisor.protocol_limits())?;
+     let session = Arc::new(
+         StudioWorkerSession::new(scene, supervisor, builder, Arc::new(|_| false))?
+-            .with_fresh_capture_reload(),
++            .with_fresh_capture_reload()
++            .require_guarded_input(),
+     );
+     let host = StudioHost::bind(Arc::clone(&session), frames.clone(), token, clock, config)?;
+     Ok((host, session, frames))
+@@ -416,7 +415,7 @@ mod tests {
+     use fmn_render::{EngineIdentity, FrameConfig, ScreenMap, Tiling, Viewport};
+     use fmn_scene::{RenderBackendRecord, RenderBackendRole};
+ 
+-    fn capture(scene: &str, value: u8) -> (FrameStream, InspectorSnapshot) {
++    pub(super) fn capture(scene: &str, value: u8) -> (FrameStream, InspectorSnapshot) {
+         let stage = fmn_scene::studio_bridge::Stage::new();
+         let viewport = Viewport {
+             width: 2,

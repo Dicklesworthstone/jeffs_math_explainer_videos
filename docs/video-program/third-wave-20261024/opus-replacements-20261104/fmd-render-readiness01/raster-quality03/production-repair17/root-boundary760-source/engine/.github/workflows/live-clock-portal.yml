@@ -1,0 +1,117 @@
+name: Python Studio live clock
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/live-clock-portal.yml'
+      - 'scripts/patches/python-live-clock.patch'
+      - 'scripts/patches/live-clock-diagnostics.patch'
+      - 'scripts/patches/live-clock-ownership.patch'
+      - 'crates/fmn-studio/src/supervisor/diagnostic.rs'
+      - 'crates/fmn-python/python/fmn_python/studio_clock.py'
+      - 'crates/fmn-python/tests/studio_clock.py'
+      - 'crates/fmn-python/tests/test_studio_clock_protocol.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: python-live-clock
+  cancel-in-progress: false
+jobs:
+  live-clock:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/portable
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Connect reviewed live clock integration
+        run: |
+          set -euo pipefail
+          if ! grep -q '"/api/advance"' crates/fmn-studio/src/host.rs; then
+            git apply --check scripts/patches/python-live-clock.patch
+            git apply scripts/patches/python-live-clock.patch
+          fi
+          if ! grep -qx 'mod diagnostic;' crates/fmn-studio/src/supervisor.rs; then
+            git apply --check scripts/patches/live-clock-diagnostics.patch
+            git apply scripts/patches/live-clock-diagnostics.patch
+          fi
+          if ! grep -q 'A discontinuous seek supersedes' crates/fmn-scene/src/runtime.rs; then
+            git apply --check scripts/patches/live-clock-ownership.patch
+            git apply scripts/patches/live-clock-ownership.patch
+          fi
+          rustup show active-toolchain
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-live-clock-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-clock-
+            cargo-${{ runner.os }}-${{ runner.arch }}-live-studio-
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-
+      - name: Verify controller admission and native worker contracts
+        run: |
+          set -euo pipefail
+          node --check crates/fmn-studio/src/studio.js
+          node --test crates/fmn-studio/tests/input_queue.mjs 2>&1 | tee /tmp/step-browser.log
+          PYTHONPATH=crates/fmn-python/python:crates/fmn-python/tests python -m unittest test_studio_clock_protocol test_studio_navigation_protocol test_dispatcher_binding_protocol test_render_session_protocol test_console_rendering_protocol test_batch_rendering_protocol test_render_selection_protocol test_video_console_protocol 2>&1 | tee /tmp/step-python.log
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-studio/src/host.rs crates/fmn-studio/src/host/input.rs crates/fmn-studio/src/ui.rs crates/fmn-python/src/portal_studio/live.rs
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-studio/src/supervisor.rs crates/fmn-studio/src/supervisor/diagnostic.rs
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-scene/src/runtime.rs crates/fmn-scene/src/runtime/idle.rs
+          cargo test --locked -p fmn-scene --lib runtime::idle -- --nocapture 2>&1 | tee /tmp/step-runtime.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/step-runtime.log
+          cargo test --locked -p fmn-scene --test runtime
+          cargo test --locked -p fmn-studio --lib 2>&1 | tee /tmp/step-native.log
+          cargo test --locked -p fmn-python portal_studio -- --nocapture 2>&1 | tee /tmp/step-portal.log
+          grep -E 'test result: ok\. [1-9][0-9]* passed' /tmp/step-portal.log
+          cargo clippy --locked -p fmn-studio -p fmn-python --lib -- -D warnings
+      - name: Verify real live clock and callback isolation from a fresh wheel
+        run: |
+          set -euo pipefail
+          python -m maturin build --locked --interpreter python --profile dev --out target/clock-wheel
+          python -m venv target/clock-venv
+          target/clock-venv/bin/python -m pip install 'numpy==2.5.2' target/clock-wheel/*.whl
+          target/clock-venv/bin/python -I crates/fmn-python/tests/studio_clock.py 2>&1 | tee /tmp/step-wheel.log
+          target/clock-venv/bin/python -I crates/fmn-python/tests/studio_live.py 2>&1 | tee /tmp/step-live.log
+          target/clock-venv/bin/python -I crates/fmn-python/tests/studio_preview.py 2>&1 | tee /tmp/step-preview.log
+          git diff --check
+      - name: Commit verified live clock directly to main
+        run: |
+          set -euo pipefail
+          git add crates/fmn-python/python/fmn_python/studio.py crates/fmn-python/src/portal_studio/live.rs crates/fmn-studio/src/host.rs crates/fmn-studio/src/host/input.rs crates/fmn-studio/src/studio.js crates/fmn-studio/src/ui.rs crates/fmn-studio/tests/input_queue.mjs docs/dist/python_studio.md
+          git add crates/fmn-studio/src/supervisor.rs crates/fmn-studio/src/supervisor/diagnostic.rs
+          git add crates/fmn-scene/src/runtime.rs crates/fmn-scene/src/runtime/idle.rs
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'feat(studio): activate verified live Run/Pause, nominal updaters and bounded advance (fm-ffj.70)'
+            git push origin HEAD:main
+          fi
+      - name: Preserve exact tested source and evidence
+        if: always()
+        run: |
+          git archive --format=tar.gz HEAD > /tmp/step-source.tar.gz
+          git rev-parse HEAD > /tmp/step-source-sha.txt
+          git diff > /tmp/step-working.patch
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: python-live-clock-${{ github.sha }}
+          path: |
+            /tmp/step-*.log
+            /tmp/step-source.tar.gz
+            /tmp/step-source-sha.txt
+            /tmp/step-working.patch
+          retention-days: 1

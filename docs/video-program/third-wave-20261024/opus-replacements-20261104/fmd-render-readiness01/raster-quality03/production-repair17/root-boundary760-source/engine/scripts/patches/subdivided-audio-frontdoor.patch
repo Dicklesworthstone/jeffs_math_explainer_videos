@@ -1,0 +1,191 @@
+--- a/crates/fmn-python/python/fmn_python/recording.py
++++ b/crates/fmn-python/python/fmn_python/recording.py
+@@ -36,6 +36,7 @@
+         format: str | None = None, resolution: tuple[int, int] | None = None,
+         fps: int | None = None, threads: int | None = None, _native: Any = None,
+         _allow_subdivide: bool = False,
++        _scene_audio: bool = False,
+     ) -> None:
+         native = importlib.import_module("manimlib") if _native is None else _native
+         if not isinstance(scene, native.Scene):
+@@ -61,6 +62,10 @@
+                          _allow_subdivide=_allow_subdivide)
+         if self.fps != clock_fps:
+             raise ValueError("recording FPS must equal the live Scene clock; recording cannot resample it")
++        self._scene_audio = _scene_audio
++        if _scene_audio and not callable(getattr(native, "_portal_begin_audio_clip", None)):
++            error_type = getattr(native, "_CapabilityError", RuntimeError)
++            raise error_type("audio subdivision requires a matching native wheel")
+         self.start_frame: int | None = None
+         self.end_frame: int | None = None
+ 
+@@ -76,7 +81,9 @@
+         self._check_output_owner()
+         # A refusal must not abort someone else's live generation. Native code
+         # rechecks ownership after getters and enforces the live FPS again.
+-        start = self._native._portal_begin_recording(
++        begin = (self._native._portal_begin_audio_clip if self._scene_audio else
++                 self._native._portal_begin_recording)
++        start = begin(
+             self.scene, str(self.destination), self.format, *self.resolution,
+             self.fps, self.threads,
+         )
+--- a/crates/fmn-python/python/fmn_python/subdivision.py
++++ b/crates/fmn-python/python/fmn_python/subdivision.py
+@@ -20,7 +20,8 @@
+ from .render_selection import apply_animation_range
+ 
+ _OWNER = "_fmn_subdivision_session"
+-_FORMATS = frozenset({"png_sequence", "gif", "y4m"})
++_AUDIO_FORMATS = frozenset({"wav", "mp4", "mov"})
++_FORMATS = frozenset({"png_sequence", "gif", "y4m"}) | _AUDIO_FORMATS
+ 
+ 
+ @dataclass(frozen=True)
+@@ -53,13 +54,19 @@
+         return sum(segment.render.frame_count or 0 for segment in self.segments)
+ 
+     @property
++    def sample_frames(self) -> int | None:
++        counts = [segment.render.sample_frames for segment in self.segments
++                  if segment.render.sample_frames is not None]
++        return sum(counts) if counts else None
++
++    @property
+     def bytes(self) -> int:
+         return sum(segment.render.bytes for segment in self.segments)
+ 
+     def as_dict(self) -> dict[str, Any]:
+         return {"schema": "fmn.subdivided-render", "version": 1,
+                 "destination": str(self.destination), "completed": self.completed,
+-                "frame_count": self.frame_count, "bytes": self.bytes,
++                "frame_count": self.frame_count, "sample_frames": self.sample_frames, "bytes": self.bytes,
+                 "segments": [segment.as_dict() for segment in self.segments],
+                 "unreceipted_artifacts": [str(path) for path in self.unreceipted_artifacts]}
+ 
+@@ -85,8 +92,11 @@
+ 
+     Existing mobjects, live array views, updaters, RNG and rational time retain
+     their native owners. Resolution may differ from the scene camera; FPS must
+-    equal the existing native clock. PNG sequences, GIF and y4m are supported;
+-    these are silent formats. Video/WAV soundtrack subdivision is not implied.
++    equal the existing native clock. PNG sequences, GIF and y4m are silent.
++    WAV, MP4 and MOV use native sample-exact scene-audio windows: overlapping
++    cues retain their original phase, gain and ducking without extending clips.
++    Cues are those authored by clip completion; already published clips are
++    immutable, not retroactively rewritten by later cues or source-file edits.
+ 
+     Names retain the zero-based Scene.num_plays index: ``segment-000003.gif``
+     or ``segment-000003/`` for a PNG sequence. Skipped segments and empty
+@@ -112,15 +122,20 @@
+         if not text or "\0" in text:
+             raise ValueError("subdivision destination must be nonempty and contain no NUL")
+         if not isinstance(format, str) or format not in _FORMATS:
+-            raise ValueError("subdivision requires png_sequence, gif, or y4m")
++            raise ValueError("subdivision requires png_sequence, gif, y4m, wav, mp4, or mov")
+         self.destination = Path(os.path.abspath(text))
+         self.max_segments = _positive_integer(max_segments, "max_segments", 100_000)
+         # Reuse all camera/writer/native clock validation, without acquiring a
+         # sink or touching the filesystem. This is not an entered recording.
++        audio_clip = format in _AUDIO_FORMATS
++        if audio_clip and not callable(getattr(native, "_portal_begin_audio_clip", None)):
++            error_type = getattr(native, "_CapabilityError", RuntimeError)
++            raise error_type("audio subdivision requires a matching native wheel")
+         configuration = RenderSession if _prepare else RecordingSession
+         self._configuration = configuration(
+             scene, self.destination, format=format, resolution=resolution,
+             fps=fps, threads=threads, _native=native, _allow_subdivide=True,
++            **({} if _prepare else {"_scene_audio": audio_clip}),
+         )
+         width, height = self._configuration.resolution
+         if width * height > 16_777_216 or self._configuration.threads > 96:
+@@ -221,7 +236,7 @@
+         recording = RecordingSession(
+             self.scene, path, format=config.format, resolution=config.resolution,
+             fps=config.fps, threads=config.threads, _native=self._native,
+-            _allow_subdivide=True,
++            _allow_subdivide=True, _scene_audio=config.format in _AUDIO_FORMATS,
+         )
+         self._current = recording
+         try:
+--- a/crates/fmn-python/tests/subdivided_recording.py
++++ b/crates/fmn-python/tests/subdivided_recording.py
+@@ -268,7 +268,7 @@
+ 
+     def test_resource_and_format_admission_precedes_filesystem(self):
+         scene = m.Scene()
+-        for options in ({"fps": 12}, {"format": "mp4"}, {"format": "wav"},
++        for options in ({"fps": 12}, {"format": "png"}, {"format": "svg"},
+                         {"max_segments": 0}, {"max_segments": True}, {"threads": 0}):
+             with self.subTest(options=options):
+                 with self.assertRaises((ValueError, TypeError)):
+--- a/docs/python/subdivided-recording.md
++++ b/docs/python/subdivided-recording.md
+@@ -32,9 +32,10 @@
+ clip. A selected zero-duration call uses the existing recording contract of
+ capturing one final frame without advancing time.
+ 
+-Supported formats are **GIF, y4m, and PNG sequences**. These are silent outputs.
+-WAV and MP4/MOV soundtrack subdivision and automatic prerun are not provided.
+-CLI subdivision supports one scene or named/write-all batches, but not checkpoint recovery.
++Supported formats are **GIF, y4m, PNG sequences, WAV, MP4, and MOV**. GIF, y4m,
++and PNG sequences are silent. WAV uses the native mixer/codec; MP4 and MOV
++use the existing governed ffmpeg encoder and audio muxer. Automatic prerun is
++not provided. CLI subdivision supports one scene or named/write-all batches, but not checkpoint recovery.
+ Ordinary whole-scene and
+ live single-clip recording remain available through the existing APIs. FPS
+ must match the live rational clock; changing `camera.fps` is not resampling.
+@@ -101,3 +102,53 @@
+ pristine-scene clock configuration boundary. It never opens and cancels a
+ dummy output just to configure FPS. `subdivided_rendering.py` adds real native
+ acceptance for that boundary and the public console entrypoint.
++
++## Audio-bearing clips
++
++```python
++from fmn_python import render_subdivided_scene
++
++result = render_subdivided_scene(Motion, "clips", format="mp4", fps=30)
++```
++
++The live `record_subdivided_scene` API and console `--subdivide` accept the same
++formats. Existing `--vcodec`, `--pix_fmt`, `--ffmpeg_bin`, and transparent MOV
++options use the native negotiation and sandboxed publication path unchanged.
++A missing encoder is a capability refusal, not a silent format substitution.
++
++Each audio clip uses all cues authored by that clip's completion, including
++background cues added before the collection or in an earlier segment. Mixing
++keeps absolute scene placement, resampling phase, channel conversion, gain and
++ducking. The half-open interval is bounded by independently rounded rational
++scene-to-sample endpoints, so adjacent WAV windows neither lose nor repeat a
++sample, even at frame rates such as 29 FPS. Long cue tails cannot extend a
++clip; absent cues produce exact-duration silence. Skipped calls publish
++nothing; the next selected clip samples the background at its later scene
++position instead of restarting it. A discontinuous skip inside a single
++audio-bearing call is refused rather than flattened into different audio.
++
++A zero-duration WAV clip has zero sample frames. A zero-duration MP4/MOV call
++uses the established one-final-video-frame rule and the corresponding bounded
++audio interval. AAC encoding may pad decoded output; encoded video is not a
++bit-certified artifact. Native WAV samples are the exact mixing boundary.
++
++Streaming publication is deliberate: a later cue with a negative offset cannot
++rewrite an already published earlier clip. Sound source bytes are re-read at
++clip completion, and each receipt records the actual input content hashes.
++Changing an input file affects later publications, not earlier ones. Whole-mix
++versus concatenated-WAV equivalence requires the same cue set and source bytes
++to be available for every compared interval. Automatic offline prerun that
++discovers future authored effects is not implied.
++
++Ordinary `record_scene` is unchanged: a single live insert includes only cues
++added during that recording and retains its existing extend-to-cue-end rule.
++Subdivision explicitly selects a separate bounded scene-audio mode instead of
++silently changing the established recording contract.
++
++`SubdividedRenderResult.sample_frames` and the robot receipt's `sample_frames`
++report WAV sample-frame totals separately from video frame counts. Per-clip
++receipts include input/PCM hashes and governed encoder/decoder/mux invocation
++facts. Failed mixing or muxing cancels that clip without deleting previous
++publications. Tests in `subdivided_audio.py` compare real native WAV samples
++against the ordinary whole-scene mixer and independently decode motion, alpha
++and audio from the MP4/MOV clips.

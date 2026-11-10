@@ -1,0 +1,103 @@
+name: Native surface geometry
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/surface-geometry.yml'
+      - 'crates/fmn-mobject/src/positional.rs'
+      - 'crates/fmn-mobject/src/surface_grid.rs'
+      - 'crates/fmn-mobject/tests/pointlike_transforms.rs'
+      - 'crates/fmn-mobject/tests/surface_grid.rs'
+      - 'crates/fmn-mobject/tests/surface_regridding.rs'
+      - 'crates/fmn-anim/src/transform.rs'
+      - 'crates/fmn-anim/tests/surface_transforms.rs'
+      - 'crates/fmn-anim/tests/surface_grid_alignment.rs'
+      - 'crates/fmn-python/src/portal_surface.rs'
+      - 'crates/fmn-python/src/portal_texture.rs'
+      - 'crates/fmn-python/python/fmn_python/coordinate_mapping.py'
+      - 'crates/fmn-python/tests/coordinate_mapping.py'
+      - 'crates/fmn-python/python/fmn_python/sampling_callbacks.py'
+      - 'crates/fmn-python/python/fmn_python/graph_admission.py'
+      - 'crates/fmn-python/tests/graph_admission.py'
+      - 'crates/fmn-python/python/fmn_python/surface_admission.py'
+      - 'crates/fmn-python/tests/surface_admission.py'
+      - 'crates/fmn-python/python/fmn_python/surface_geometry.py'
+      - 'crates/fmn-python/python/fmn_python/surface_plotting.py'
+      - 'crates/fmn-python/tests/surface_plotting.py'
+      - 'crates/fmn-python/python/fmn_python/surface_mesh.py'
+      - 'crates/fmn-python/python/fmn_python/surface_alignment.py'
+      - 'crates/fmn-python/python/fmn_python/initialization.py'
+      - 'crates/fmn-python/tests/surface_pointlikes.py'
+      - 'crates/fmn-python/tests/surface_geometry.py'
+      - 'crates/fmn-python/tests/surface_regridding.py'
+      - 'crates/fmn-python/tests/live_surface_mesh.py'
+      - 'crates/fmn-python/tests/surface_alignment.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-surface-geometry
+  cancel-in-progress: false
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Exact-source native geometry and animation tests
+        run: |
+          set -euo pipefail
+          rustup show active-toolchain
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          cargo test --locked -p fmn-mobject -p fmn-anim 2>&1 | tee /tmp/surface-native-tests.log
+          cargo clippy --locked -p fmn-mobject -p fmn-anim --all-targets -- -D warnings 2>&1 | tee /tmp/surface-clippy.log
+      - name: Source-built native wheel and real surface rendering
+        run: |
+          set -euo pipefail
+          python -m maturin build --locked --interpreter python --profile dev --out target/surface-wheel 2>&1 | tee /tmp/surface-build.log
+          python -m venv target/surface-venv
+          target/surface-venv/bin/python -m pip install 'numpy==2.5.2' target/surface-wheel/*.whl
+          cargo test --locked -p fmn-python --lib portal_texture::surface::tests -- --nocapture 2>&1 | tee /tmp/surface-embedded.log
+          cargo clippy --locked -p fmn-python --lib -- -D warnings 2>&1 | tee /tmp/surface-portal-clippy.log
+          for suite in surface_regridding coordinate_mapping graph_admission surface_admission surface_plotting live_surface_mesh surface_mesh surface_alignment surface_pointlikes surface_geometry camera_readback textured_surfaces texture_pairs animation_semantics bridge; do
+            target/surface-venv/bin/python -I - "$suite" <<'PY' 2>&1 | tee /tmp/surface-$suite.log
+          import pathlib, runpy, sys
+          tests = pathlib.Path("crates/fmn-python/tests").resolve()
+          sys.path.insert(0, str(tests))
+          suite = tests / (sys.argv[1] + ".py")
+          sys.argv = [str(suite)]
+          runpy.run_path(str(suite), run_name="__main__")
+          PY
+          done
+      - name: Preserve source-bound validation artifacts
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/surface-source-sha.txt
+          git diff --exit-code
+          git archive --format=tar.gz HEAD > /tmp/surface-source.tar.gz
+          for source in crates/fmn-mobject/src/surface_grid.rs crates/fmn-mobject/tests/surface_regridding.rs crates/fmn-mobject/src/positional.rs crates/fmn-mobject/tests/pointlike_transforms.rs crates/fmn-anim/src/transform.rs crates/fmn-anim/tests/surface_transforms.rs crates/fmn-python/src/portal_surface.rs crates/fmn-python/src/portal_texture.rs; do
+            rustfmt --edition 2024 --emit stdout "$source" > "/tmp/surface-formatted-$(basename "$source")"
+          done
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-surface-${{ github.sha }}
+          path: |
+            /tmp/surface-*
+            target/surface-wheel/*.whl
+          retention-days: 3

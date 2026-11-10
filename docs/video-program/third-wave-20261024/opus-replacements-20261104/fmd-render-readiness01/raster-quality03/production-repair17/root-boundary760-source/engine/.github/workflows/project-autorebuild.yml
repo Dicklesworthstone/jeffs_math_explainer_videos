@@ -1,0 +1,47 @@
+name: Project editor reconstruction
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'crates/fmn-python/python/fmn_python/project*.py'
+      - 'crates/fmn-python/python/fmn_python/scene_project.py'
+      - 'crates/fmn-python/python/fmn_python/source*.py'
+      - 'crates/fmn-python/python/fmn_python/embedded_shell.py'
+      - 'crates/fmn-python/tests/test_project*.py'
+      - 'crates/fmn-python/tests/test_scene_project.py'
+      - '.github/workflows/project-autorebuild.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  host-editor:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Install optional host IPython for real shell activation tests
+        run: |
+          python3 -m venv /tmp/fmn-editor-tests
+          /tmp/fmn-editor-tests/bin/python -m pip install 'IPython==9.14.0'
+      - name: Exercise production import and editor transactions
+        env:
+          PYTHONPATH: crates/fmn-python/python:crates/fmn-python/tests
+        run: |
+          set -euo pipefail
+          /tmp/fmn-editor-tests/bin/python -m unittest discover -s crates/fmn-python/tests -p 'test_project*.py' -v 2>&1 | tee /tmp/project-autorebuild-tests.log
+          /tmp/fmn-editor-tests/bin/python -m unittest discover -s crates/fmn-python/tests -p 'test_scene_project.py' -v 2>&1 | tee /tmp/project-autorebuild-scenes.log
+          /tmp/fmn-editor-tests/bin/python -m unittest discover -s crates/fmn-python/tests -p 'test_source*reload*.py' -v 2>&1 | tee /tmp/project-autorebuild-sources.log
+          git diff --check
+      - name: Preserve exact tested source and results
+        if: always()
+        run: |
+          git archive --format=tar.gz HEAD > /tmp/project-autorebuild-source.tar.gz
+          git rev-parse HEAD > /tmp/project-autorebuild-head.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: project-autorebuild-${{ github.sha }}-${{ github.run_attempt }}
+          path: /tmp/project-autorebuild-*
+          retention-days: 1

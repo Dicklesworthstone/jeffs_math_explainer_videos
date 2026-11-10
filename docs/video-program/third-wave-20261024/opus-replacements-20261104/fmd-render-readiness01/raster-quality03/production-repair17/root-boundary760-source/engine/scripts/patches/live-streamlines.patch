@@ -1,0 +1,165 @@
+--- a/crates/fmn-library/src/fields.rs
++++ b/crates/fmn-library/src/fields.rs
+@@ -199,6 +199,13 @@
+     for [min, max, step] in ranges {
+         let step = step / density;
+         axes.push(arange("sample grid axis", min, max + step, step, budget)?);
++    }
++    // An empty axis has an empty Cartesian product, not an index-zero row.
++    if axes.is_empty() || axes.len() > 3 {
++        return Err(FieldError::NonFiniteControl { context: "sample grid dimension" });
++    }
++    if axes.iter().any(Vec::is_empty) {
++        return Ok(Vec::new());
+     }
+     let total = axes
+         .iter()
+@@ -1278,6 +1285,7 @@
+     func: Box<FieldFn>,
+     cs: Box<dyn CoordinateSystem>,
+     substream: Substream,
++    sample_coords: Option<Vec<[f64; 3]>>,
+     density: f64,
+     n_repeats: usize,
+     noise_factor: Option<f64>,
+@@ -1316,6 +1324,7 @@
+             func: Box::new(func),
+             cs: Box::new(coordinate_system),
+             substream: rng.substream(STREAM_LINES_SUBSTREAM),
++            sample_coords: None,
+             density: STREAM_DENSITY,
+             n_repeats: 1,
+             noise_factor: None,
+@@ -1331,6 +1340,14 @@
+         }
+     }
+ 
++    /// Explicit coordinate seeds, in caller order. No jitter draws are consumed.
++    /// Input is validated against the builder's budget before any field call.
++    #[must_use]
++    pub fn with_sample_coords(mut self, coords: Vec<[f64; 3]>) -> Self {
++        self.sample_coords = Some(coords);
++        self
++    }
++
+     /// `density` (Reference default 1.0).
+     #[must_use]
+     pub fn with_density(mut self, density: f64) -> Self {
+@@ -1437,7 +1454,19 @@
+     /// on the class): the density grid, `n_repeats` copies (repeats
+     /// outermost), each jittered by `noise_factor · U[0,1)` per component
+     /// from the named substream. Also returns the draw count consumed.
+-    fn seed_coords(&self) -> Result<(Vec<[f64; 3]>, u64), FieldError> {
++    ///
++    /// # Errors
++    /// Refuses nonfinite seeds, invalid grid controls, and exceeded budgets.
++    pub fn sample_coords(&self) -> Result<(Vec<[f64; 3]>, u64), FieldError> {
++        if let Some(seeds) = &self.sample_coords {
++            self.budget.ensure_total("stream seeds", seeds.len())?;
++            for seed in seeds {
++                for &value in seed {
++                    ensure_finite("stream seed", value)?;
++                }
++            }
++            return Ok((seeds.clone(), 0));
++        }
+         ensure_positive("stream density", self.density)?;
+         let grid = get_sample_coords(&*self.cs, self.density, self.budget)?;
+         let dim = self.cs.dimension().clamp(1, 3);
+@@ -1448,6 +1477,7 @@
+             }
+             None => (x_unit_size(&*self.cs) / self.density) * 0.5,
+         };
++        ensure_finite("noise_factor", noise_factor)?;
+         let total = grid
+             .len()
+             .checked_mul(self.n_repeats)
+@@ -1463,6 +1493,7 @@
+                 let mut seed = *coords;
+                 for c in seed.iter_mut().take(dim) {
+                     *c += noise_factor * rng_gen.next_f64();
++                    ensure_finite("jittered stream seed", *c)?;
+                     draws += 1;
+                 }
+                 seeds.push(seed);
+@@ -1483,7 +1514,7 @@
+             return Err(FieldError::NonFiniteControl { context: "arc_len" });
+         }
+         ensure_positive("cutoff_norm", self.cutoff_norm)?;
+-        let (seeds, draws) = self.seed_coords()?;
++        let (seeds, draws) = self.sample_coords()?;
+         let dim = self.cs.dimension().clamp(1, 3);
+ 
+         let mut children = Vec::with_capacity(seeds.len());
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -30,6 +30,7 @@
+ mod portal_recording;
+ mod portal_studio;
+ mod portal_svg;
++mod portal_streamlines;
+ mod portal_texture;
+ mod portal_video;
+ #[cfg(feature = "gauntlet")]
+@@ -5652,6 +5653,10 @@
+     /// Returns `(shell_specs, virtual_times)` — one virtual time per line,
+     /// which `AnimatedStreamLines` paces its flash windows by.
+     #[allow(clippy::too_many_arguments)]
++    #[pyo3(signature = (factory, func, c2p, p2c, ranges, dimension, seed, density,
++        n_repeats, noise_factor, solution_time, dt, arc_len, max_time_steps,
++        n_samples_per_line, cutoff_norm, stroke_width, stroke_color, stroke_opacity,
++        color_by_magnitude, magnitude_range, taper_stroke_width, sample_coords=None))]
+     fn _build_stream_lines<'py>(
+         slf: &Bound<'py, Self>,
+         factory: &Bound<'py, PyAny>,
+@@ -5676,6 +5681,7 @@
+         color_by_magnitude: bool,
+         magnitude_range: (f64, f64),
+         taper_stroke_width: bool,
++        sample_coords: Option<Vec<[f64; 3]>>,
+     ) -> PyResult<(Bound<'py, PyList>, Vec<f64>, u64)> {
+         let py = slf.py();
+         let callback_error: Arc<Mutex<Option<PyErr>>> = Arc::new(Mutex::new(None));
+@@ -5689,6 +5695,7 @@
+         }
+         impl fmn_library::coords::CoordinateSystem for PyCoordinateSystem {
+             fn c2p(&self, coords: &[f64]) -> fmn_core::types::Vec3 {
++                if self.error.lock().unwrap().is_some() { return [0.0; 3]; }
+                 Python::attach(|py| {
+                     match self
+                         .c2p
+@@ -5705,6 +5712,7 @@
+                 })
+             }
+             fn p2c(&self, point: fmn_core::types::Vec3) -> [f64; 3] {
++                if self.error.lock().unwrap().is_some() { return [0.0; 3]; }
+                 Python::attach(|py| {
+                     match self
+                         .p2c
+@@ -5737,6 +5745,7 @@
+         };
+         let field_error = Arc::clone(&callback_error);
+         let field = move |rows: &[[f64; 3]]| -> Vec<[f64; 3]> {
++            if field_error.lock().unwrap().is_some() { return vec![[0.0; 3]; rows.len()]; }
+             Python::attach(|py| {
+                 match func
+                     .bind(py)
+@@ -5789,6 +5798,9 @@
+             .with_style_config(style);
+         if let Some(noise) = noise_factor {
+             builder = builder.with_noise_factor(noise);
++        }
++        if let Some(coords) = sample_coords {
++            builder = builder.with_sample_coords(coords);
+         }
+         // VERBATIM refusal doctrine: the field error, if any, outranks the
+         // build result — a poisoned integration must never look successful.
+@@ -10828,6 +10840,8 @@
+     module.add_function(wrap_pyfunction!(method_cache::_method_cache_reset, module)?)?;
+     module.add_function(wrap_pyfunction!(report::_crossing_report, module)?)?;
+     module.add_function(wrap_pyfunction!(_composition_intervals, module)?)?;
++    module.add_function(wrap_pyfunction!(portal_streamlines::_stream_line_samples, module)?)?;
++    module.add_function(wrap_pyfunction!(portal_streamlines::_stream_line_widths, module)?)?;
+     module.add_function(wrap_pyfunction!(
+         portal_provenance::_portal_publish_manifest,
+         module

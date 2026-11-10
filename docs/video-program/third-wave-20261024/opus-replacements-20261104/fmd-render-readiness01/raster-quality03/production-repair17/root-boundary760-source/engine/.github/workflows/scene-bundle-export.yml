@@ -1,0 +1,51 @@
+name: Scene bundle export
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'crates/fmn-scene/**'
+      - 'crates/fmn/**'
+      - '.github/workflows/scene-bundle-export.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: '1'
+
+jobs:
+  export:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Install the pinned toolchain
+        run: rustup show active-toolchain
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: scene-export-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Test real Scene capture and the production bundle player
+        run: cargo test --locked -p fmn-scene --test recorded_bundle
+      - name: Test the public native render and export paths
+        run: cargo test --locked -p fmn --tests
+      - name: Check the native export crates
+        run: cargo clippy --locked -p fmn-scene -p fmn --all-targets -- -D warnings
+      - name: Check export source formatting
+        if: always()
+        run: |
+          rustfmt --check --edition 2024 \
+            crates/fmn-scene/src/recording.rs \
+            crates/fmn-scene/tests/recorded_bundle.rs \
+            crates/fmn/src/exporting.rs \
+            crates/fmn/tests/native_bundle_export.rs \
+            crates/fmn/examples/export_scene.rs

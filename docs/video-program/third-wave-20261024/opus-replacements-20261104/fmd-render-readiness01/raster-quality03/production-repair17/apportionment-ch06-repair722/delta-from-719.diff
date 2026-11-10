@@ -1,0 +1,153 @@
+--- a/apportionment-ch06-repair719/not_every_time.rs
++++ b/apportionment-ch06-repair722/not_every_time.rs
+@@ -30,6 +30,37 @@
+ const SOURCE: &str = "C. W. Seaton, letter to Congress, quoted by H. P. Young";
+ /// Reading speed for words on screen, characters a second.
+ const READ_CPS: f64 = 15.0;
++/// The council the 06_1 prediction starts from and the one it asks about: the
++/// dials, the ranking, the seats, the steps and the question all read these.
++const HOUSE_NOW: u64 = 16;
++const HOUSE_NEXT: u64 = HOUSE_NOW + 1;
++
++fn gcd(a: u64, b: u64) -> u64 {
++    if b == 0 { a } else { gcd(b, a % b) }
++}
++
++/// Town `i`'s step for one more seat: its exact share of the population as a
++/// fraction of a turn, over the towns' smallest common denominator, the form
++/// 05_2 says and shows.
++fn step_fraction(i: usize) -> (u64, u64) {
++    let total = model::total(&POP);
++    let common = POP.iter().fold(total, |d, &p| gcd(d, p));
++    (POP[i] / common, total / common)
++}
++
++/// The label under a dial during the 06_1 prediction.
++fn step_label(i: usize) -> String {
++    let (num, den) = step_fraction(i);
++    format!("+{num}/{den} turn")
++}
++
++/// The line on screen during the 06_1 prediction.
++fn question() -> String {
++    format!(
++        "{HOUSE_NOW} seats → {HOUSE_NEXT}: does {} get its seat back?",
++        model::NAMES[model::ASH]
++    )
++}
+ 
+ impl SceneConstruct for NotEveryTime {
+     fn name(&self) -> &str {
+@@ -45,39 +76,25 @@
+                 .map(str::to_owned)
+                 .ok_or_else(|| fail(format!("no fact {key}")))
+         };
+-        let t = house_trackers(stage, 16.0);
++        let t = house_trackers(stage, HOUSE_NOW as f64);
+ 
+         // 06_1 seventeen seats: does Ash get its seat back?
+         say(&kit, stage, "06_1")?;
+-        let dials = three_dials(&kit, stage, t, 16.0)?;
+-        let (rank16, _) = ranking(16);
++        let dials = three_dials(&kit, stage, t, HOUSE_NOW as f64)?;
++        let (rank16, _) = ranking(HOUSE_NOW);
+         let rank_t = kit.text(stage, &rank16, 24.0, Palette::ink(), v(0.0, -2.75))?;
+         // What the prediction needs, as in 05_3: each hand's step for one more
+         // seat, and the question. They join the dials' fade and leave with the
+         // "?", so neither adds any time.
+-        let total = model::total(&POP);
+         let mut inputs = Vec::new();
+-        for i in 0..3 {
+-            let at = v(CENTRES[i][0], CENTRES[i][1]);
+-            let from = share(&POP, i, 16).tail().to_f64();
+-            let step = POP[i] as f64 / total as f64;
+-            inputs.push(step_arc(stage, at, from, step, Palette::ink()));
+-            let num = POP[i] * 39 / total;
+-            inputs.push(kit.text(
+-                stage,
+-                &format!("+{num}/39 turn"),
+-                22.0,
+-                Palette::ink(),
+-                v(at[0], at[1] - 1.75),
+-            )?);
++        for (i, centre) in CENTRES.iter().enumerate() {
++            let at = v(centre[0], centre[1]);
++            let from = share(&POP, i, HOUSE_NOW).tail().to_f64();
++            let (num, den) = step_fraction(i);
++            inputs.push(step_arc(stage, at, from, num as f64 / den as f64, Palette::ink()));
++            inputs.push(kit.text(stage, &step_label(i), 22.0, Palette::ink(), v(at[0], at[1] - 1.75))?);
+         }
+-        inputs.push(kit.text(
+-            stage,
+-            "16 seats → 17: does Ash get its seat back?",
+-            30.0,
+-            Palette::ink(),
+-            v(0.0, 3.3),
+-        )?);
++        inputs.push(kit.text(stage, &question(), 30.0, Palette::ink(), v(0.0, 3.3))?);
+         let mut first = dials.clone();
+         first.push(rank_t);
+         first.extend_from_slice(&inputs);
+@@ -90,11 +107,11 @@
+         cleared.push(q);
+         super::draw::fade_out_all(stage, &cleared, 0.2)?;
+         s.wait_for(stage, "The whole parts become")?;
+-        run_trackers(stage, &t.map(|m| (m, 17.0)), 3.0, true)?;
+-        let (rank17, order17) = ranking(17);
++        run_trackers(stage, &t.map(|m| (m, HOUSE_NEXT as f64)), 3.0, true)?;
++        let (rank17, order17) = ranking(HOUSE_NEXT);
+         let rank_t17 = kit.text(stage, &rank17, 24.0, Palette::ink(), v(0.0, -2.75))?;
+         morph_all(stage, &[(rank_t, rank_t17)], 0.7)?;
+-        let seats = model::hamilton(&POP, 17).map_err(fail)?;
++        let seats = model::hamilton(&POP, HOUSE_NEXT).map_err(fail)?;
+         s.wait_for(stage, "Two, four, eleven")?;
+         let named: Vec<String> = model::NAMES
+             .iter()
+@@ -175,7 +192,8 @@
+         kit.hold(stage)?;
+         let s = say(&kit, stage, "06_4")?;
+         let range = format!(
+-            "1880 census, C. W. Seaton: Hamilton apportionments for every House size from {} to {}",
++            "{} census, C. W. Seaton: Hamilton apportionments for every House size from {} to {}",
++            crate::facts::seaton_census_year().map_err(fail)?,
+             fact("history.seaton.range_low")?,
+             fact("history.seaton.range_high")?
+         );
+@@ -252,3 +270,37 @@
+         kit.finish(stage)
+     }
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    /// The steps printed in 06_1 are each town's exact share, over the towns'
++    /// smallest common denominator, with the oracle's numerators.
++    #[test]
++    fn the_printed_steps_are_the_exact_shares() {
++        let labels: Vec<String> = (0..POP.len()).map(step_label).collect();
++        assert_eq!(labels, ["+4/39 turn", "+9/39 turn", "+26/39 turn"]);
++        let facts = crate::facts::facts().expect("facts build");
++        let total = model::total(&POP);
++        let mut common = 0;
++        for (i, &pop) in POP.iter().enumerate() {
++            let (num, den) = step_fraction(i);
++            assert_eq!(num * total, pop * den, "{i}");
++            assert_eq!(
++                facts.get(&format!("speed39.{}", KEYS[i])),
++                Some(num.to_string().as_str())
++            );
++            common = gcd(common, num);
++        }
++        assert_eq!(gcd(common, step_fraction(0).1), 1);
++    }
++
++    /// The question names the councils the ranking and the seats are read at.
++    #[test]
++    fn the_question_reads_the_house_constants() {
++        assert_eq!(question(), "16 seats → 17: does Ash get its seat back?");
++        assert_eq!(ranking(HOUSE_NOW).1.last(), Some(&model::ASH));
++        assert_eq!(model::hamilton(&POP, HOUSE_NEXT).expect("hamilton"), vec![2, 4, 11]);
++    }
++}

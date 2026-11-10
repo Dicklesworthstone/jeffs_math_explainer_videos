@@ -1,0 +1,50 @@
+{
+  "utc": "2026-11-10T01:09:07.294496+00:00",
+  "chapter": "14_no_rule",
+  "sampling_sha256": "78da0db36d91a54f9c4911b817a565924857ef83c187576edeb73ec70634ae57",
+  "movie": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-14_no_rule/render/14_no_rule.mp4",
+    "sha256": "89f973b29ea7d41a980cdc977543aa26fee57f4c15bbe1a1795d13f8ff7abda6"
+  },
+  "sample_count": 62,
+  "sheets_viewed": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0001.jpg",
+      "sha256": "d62da747f6b9be6ec17a406d6b71c072a82f6cae68baac89b69f0ef79c0261c6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0002.jpg",
+      "sha256": "35c74ed5b7feae37410fedb6ba2b4d8a5fa34c9bb2a073585e6a902e9abedbd0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0003.jpg",
+      "sha256": "b57600e4dce1d60de4a5c084ab080618e5402938804c44cf2da1b276c5b9190b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0004.jpg",
+      "sha256": "c0d78b4cdd9ecd0e286cd438ca9d56262bb416e78084f7b1fadde8f631c32670"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0005.jpg",
+      "sha256": "10658f19fa0fafdee7cd770c37600d6776d70f55e0c64dae049164749edf396e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0006.jpg",
+      "sha256": "ed8e2bc3c74ac531281bc892ac28ce9042730aaf3e117fd3ec24787c068909a2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0007.jpg",
+      "sha256": "ff9f20d11fdbdbf0662c46947854ec61f79b21d043c861d306330ae8c038f8c4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-14_no_rule/14_no_rule/sheet-0008.jpg",
+      "sha256": "368c35faed77128ba6d191288e9177d3f97334647292068e2e35e85cb6be2234"
+    }
+  ],
+  "observations": [
+    "All62 selected final pictures on8 sheets actually viewed.",
+    "No concrete clipping or unintended overlap found. The theorem qualifications, five-town counterexample, bracketed contradictions, and randomized-method summary are readable.",
+    "Prediction hold remains unanswered until cue14_4 in sampled frames; quoted assumptions and source references remain separated."
+  ],
+  "scope": "Selected final stills only. Not continuous motion, listening, fine-sync, independent mathematical or final audiovisual acceptance."
+}

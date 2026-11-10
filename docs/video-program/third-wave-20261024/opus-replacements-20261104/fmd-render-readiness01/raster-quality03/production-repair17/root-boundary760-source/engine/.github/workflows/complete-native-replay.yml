@@ -1,0 +1,119 @@
+name: Complete native replay
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/version_timeline_law.py'
+      - '.github/workflows/complete-native-replay.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: native-parameter-motion
+  cancel-in-progress: false
+jobs:
+  native-replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/scribe
+      CARGO_TERM_COLOR: never
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 64
+      - name: Install pinned toolchain
+        run: rustup show active-toolchain
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/scribe
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-native-replay-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-native-motion-
+            cargo-${{ runner.os }}-${{ runner.arch }}-scribe-
+      - name: Complete tracker source integration and validate
+        run: |
+          set -euo pipefail
+          test -f crates/fmn-anim/src/motion_path.rs
+          if ! grep -Fq 'pub fn increment_complex_value' crates/fmn-mobject/src/animate.rs; then
+            python3 scripts/activate_tracker_builders.py
+            python3 scripts/activate_tracker_builders.py
+          fi
+          rustfmt --edition 2024 --config skip_children=true \
+            crates/fmn-mobject/src/animate.rs crates/fmn-mobject/src/dynamics.rs \
+            crates/fmn-mobject/tests/tracker_builders.rs crates/fmn-anim/src/bundle.rs \
+            crates/fmn-anim/tests/tracker_animation.rs crates/fmn-scene/src/timeline_bundle.rs \
+            crates/fmn-scene/tests/tracker_bundle.rs
+          cargo test --locked -p fmn-mobject -p fmn-anim -p fmn-scene --all-targets 2>&1 | tee /tmp/native-replay-trackers.log
+          cargo clippy --locked -p fmn-mobject -p fmn-anim -p fmn-scene --all-targets -- -D warnings 2>&1 | tee /tmp/native-replay-tracker-clippy.log
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add crates/fmn-mobject/src/animate.rs crates/fmn-mobject/src/dynamics.rs \
+            crates/fmn-mobject/tests/tracker_builders.rs crates/fmn-anim/src/bundle.rs \
+            crates/fmn-anim/tests/tracker_animation.rs crates/fmn-scene/src/timeline_bundle.rs \
+            crates/fmn-scene/tests/tracker_bundle.rs
+          if ! git diff --cached --quiet; then
+            git commit -m 'feat(anim): animate native scalar and complex trackers with lossless timeline replay'
+          fi
+          published=0
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            cargo test --locked -p fmn-mobject -p fmn-anim -p fmn-scene --all-targets 2>&1 | tee "/tmp/native-replay-tracker-rebase-${attempt}.log"
+            if git push origin HEAD:main; then published=1; break; fi
+          done
+          test "${published}" = 1
+          git rev-parse HEAD | tee /tmp/native-replay-tracker-head.txt
+      - name: Bind replay compatibility and regenerate the browser demo
+        run: |
+          set -euo pipefail
+          if ! grep -Fq 'RECONSTRUCTION_LAW_VERSION' crates/fmn-anim/src/bundle.rs; then
+            python3 scripts/version_timeline_law.py
+            python3 scripts/version_timeline_law.py
+          fi
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-anim/src/bundle.rs \
+            crates/fmn-scene/src/timeline_bundle.rs crates/fmn-scene/tests/reconstruction_identity.rs \
+            crates/fmn-render/src/engine.rs
+          cargo run --locked -p fmn-wasm --example export_bundle 2>&1 | tee /tmp/native-replay-demo.log
+          cargo test --locked -p fmn-mobject -p fmn-anim -p fmn-scene -p fmn-wasm --all-targets 2>&1 | tee /tmp/native-replay-final-tests.log
+          cargo clippy --locked -p fmn-mobject -p fmn-anim -p fmn-scene -p fmn-wasm --all-targets -- -D warnings 2>&1 | tee /tmp/native-replay-final-clippy.log
+          git diff --check
+          git add crates/fmn-anim/src/bundle.rs crates/fmn-scene/src/timeline_bundle.rs \
+            crates/fmn-scene/tests/reconstruction_identity.rs crates/fmn-render/src/engine.rs \
+            docs/FMNT1_TIMELINE_BUNDLE.md demo/wasm/bundle.fmtl
+          if ! git diff --cached --quiet; then
+            git commit -m 'fix(scene): bind timeline compatibility to the animation reconstruction law'
+          fi
+          published=0
+          for attempt in 1 2 3 4; do
+            git fetch origin main
+            git rebase origin/main
+            cargo test --locked -p fmn-mobject -p fmn-anim -p fmn-scene -p fmn-wasm --all-targets 2>&1 | tee "/tmp/native-replay-final-rebase-${attempt}.log"
+            if git push origin HEAD:main; then published=1; break; fi
+          done
+          test "${published}" = 1
+          git rev-parse HEAD | tee /tmp/native-replay-final-head.txt
+      - name: Renderer and public Rust API regression suites
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-render --lib --tests 2>&1 | tee /tmp/native-replay-render-tests.log
+          cargo test --locked -p fmn --test public_api 2>&1 | tee /tmp/native-replay-facade-tests.log
+          cargo fmt --all -- --check
+      - name: Preserve source and validation evidence
+        if: always()
+        run: |
+          git diff > /tmp/native-replay-working.patch
+          git archive --format=tar.gz HEAD > /tmp/native-replay-source.tar.gz
+          git rev-parse 'HEAD^{tree}' > /tmp/native-replay-tree.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: complete-native-replay-${{ github.sha }}-${{ github.run_attempt }}
+          path: /tmp/native-replay-*
+          retention-days: 1

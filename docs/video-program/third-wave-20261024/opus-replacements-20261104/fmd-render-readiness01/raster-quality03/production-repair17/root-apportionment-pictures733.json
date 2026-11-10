@@ -1,0 +1,66 @@
+{
+  "utc": "2026-11-10T01:00:23.800456+00:00",
+  "chapter": "11_webster_quota",
+  "sampling_sha256": "bf78de86011751726370bbde80a9e46e030b381c051651a85aa0c0747120e465",
+  "movie": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-11_webster_quota/render/11_webster_quota.mp4",
+    "sha256": "02fa30d53e3aa9ae5d411655cac6bc0055e8d6127668c7e026981f1a86bedc6a"
+  },
+  "sample_count": 93,
+  "sheets_viewed": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0001.jpg",
+      "sha256": "8195c9ef22fa38fff070249d08284544b0c8cbe98687d6bdebe2c28e55e41e2c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0002.jpg",
+      "sha256": "490e79aaf94fc0bc836243d85bc0ba059c536c153b06ec0b6ac23f0644c4a6ef"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0003.jpg",
+      "sha256": "d62c101b8ee45c97ecb1ccd907ed75f4d90e56e104ac07262dabc4134d4a64d1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0004.jpg",
+      "sha256": "775224e043516e0c1e2075f992ba5a9432c97e02370ac3aea4b9bc3b2897347d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0005.jpg",
+      "sha256": "8415c08d34a4b82c91db96bdba2c34ad2a04169d019d8481da63048fefde73a4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0006.jpg",
+      "sha256": "8fd547342c88c42e411ccede9e6987bdd8317bcd28faedcd6f902da4f3bb423c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0007.jpg",
+      "sha256": "23a4a13fc12298a0e2bde9fa2fa50bbe016ed6b1327cc680f34b26253093220e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0008.jpg",
+      "sha256": "9db24bba2997fcad656d4f60e0b49d044f9ca620260b650d5762acd047bbc26d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0009.jpg",
+      "sha256": "35f52df367ef97854f7cc12ddd6592f305e02fbced83406ee2761a476f068fe5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0010.jpg",
+      "sha256": "f01415eac5389a6a2229fe57b1810c76337abe539d930d90bf5d07d06f359862"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0011.jpg",
+      "sha256": "55ee706649a16bf7b5102a323385890099e3439abe6c7bd77ba6fd28399de2bf"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-11_webster_quota/11_webster_quota/sheet-0012.jpg",
+      "sha256": "9eec17f901bbc3fffbeeb416891792e8b7d3e985f478bf0af6a3d40bc6abf900"
+    }
+  ],
+  "observations": [
+    "All93 selected pictures on12 sheets actually viewed, including native tight-layout anchor at13.4s and persistence through chapter end.",
+    "Three-town quota argument and four-town counterexample are legible; source-credit line small but separated. No concrete clipping or unintended overlap found.",
+    "Prediction checkmark and explanatory text appear after think hold in sampled frames."
+  ],
+  "scope": "Selected final chapter stills only. No continuous motion, listening, fine-sync, independent final AV or release acceptance."
+}

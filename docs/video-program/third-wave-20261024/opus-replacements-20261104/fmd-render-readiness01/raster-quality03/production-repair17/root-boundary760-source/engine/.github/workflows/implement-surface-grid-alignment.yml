@@ -1,0 +1,83 @@
+name: Implement native UV grid alignment
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/implement-surface-grid-alignment.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: implement-native-surface-grid
+  cancel-in-progress: false
+jobs:
+  implement:
+    if: github.repository == 'Dicklesworthstone/franken_manim'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Apply exact reviewed implementation
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import base64, gzip, hashlib, pathlib
+          patch = gzip.decompress(base64.b64decode('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'))
+          assert hashlib.sha256(patch).hexdigest() == '88a52e5abffd4304b48099fa494a98f9a30a2592d50089733c7f227bfa2b339a'
+          pathlib.Path('/tmp/native-surface-grid.patch').write_bytes(patch)
+          PY
+          git apply --check /tmp/native-surface-grid.patch
+          git apply /tmp/native-surface-grid.patch
+          rustfmt --edition 2024 crates/fmn-mobject/src/surface_grid.rs crates/fmn-mobject/tests/surface_grid.rs crates/fmn-anim/tests/surface_grid_alignment.rs
+          git diff --check
+      - name: Test native alignment and its downstream portal build
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-mobject -p fmn-anim 2>&1 | tee /tmp/native-surface-grid-tests.log
+          cargo clippy --locked -p fmn-mobject -p fmn-anim --all-targets -- -D warnings 2>&1 | tee /tmp/native-surface-grid-clippy.log
+          cargo check --locked -p fmn-python 2>&1 | tee /tmp/native-surface-grid-portal-check.log
+      - name: Commit tested native implementation directly to main
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .github/workflows/surface-geometry.yml crates/fmn-mobject/src/align.rs crates/fmn-mobject/src/lib.rs crates/fmn-mobject/src/stage.rs crates/fmn-mobject/src/surface_grid.rs crates/fmn-mobject/tests/surface_grid.rs crates/fmn-anim/tests/surface_grid_alignment.rs
+          git commit -m 'feat(surface): align native UV topology and complete records before morphs (fm-5wq.4.143)' -m 'Use bounded two-dimensional record interpolation rather than flat resizing. Preserve normal control points, UVs, custom fields, materials, placement, live-view generations, snapshots and target identity. Thirteen new native cases cover topology, temporal interpolation, ownership and refusals. Native mobject/animation tests, Clippy and the portal compilation passed before publication.'
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            git rebase origin/main
+            cargo test --locked -p fmn-mobject -p fmn-anim
+            cargo clippy --locked -p fmn-mobject -p fmn-anim --all-targets -- -D warnings
+            cargo check --locked -p fmn-python
+          done
+          exit 1
+      - name: Preserve exact source and evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/native-surface-grid-source-sha.txt
+          git diff > /tmp/native-surface-grid-working.patch
+          git archive --format=tar.gz HEAD > /tmp/native-surface-grid-source.tar.gz
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-surface-grid-${{ github.run_id }}
+          path: /tmp/native-surface-grid-*
+          retention-days: 3

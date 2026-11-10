@@ -1,0 +1,85 @@
+diff --git a/crates/fmn-python/python/manimlib_bootstrap.py b/crates/fmn-python/python/manimlib_bootstrap.py
+index d74df6e..afa78cc 100644
+--- a/crates/fmn-python/python/manimlib_bootstrap.py
++++ b/crates/fmn-python/python/manimlib_bootstrap.py
+@@ -3983,6 +3983,11 @@ def _apply_vmobject_style_kwargs(mob, kwargs, recurse=True):
+     flat_stroke = kwargs.pop("flat_stroke", None)
+     fill_border_width = kwargs.pop("fill_border_width", None)
+     shading = kwargs.pop("shading", None)
++    joint_type = kwargs.pop("joint_type", None)
++    anti_alias_width = kwargs.pop("anti_alias_width", None)
++    scale_stroke_with_zoom = kwargs.pop("scale_stroke_with_zoom", None)
++    depth_test = kwargs.pop("depth_test", None)
++    fixed_in_frame = kwargs.pop("is_fixed_in_frame", None)
+     if kwargs:
+         raise TypeError(
+             "unexpected keyword arguments: " + ", ".join(sorted(kwargs))
+@@ -4018,6 +4023,21 @@ def _apply_vmobject_style_kwargs(mob, kwargs, recurse=True):
+         )
+     if shading is not None:
+         mob.set_shading(*shading, recurse=recurse)
++    # Native builders do not call VMobject.__init__. Apply inherited
++    # rendering options through the same live setters rather than keeping
++    # Python-only attributes that the renderer never sees.
++    if joint_type is not None:
++        mob.set_joint_type(joint_type, recurse=recurse)
++    if anti_alias_width is not None:
++        mob.set_anti_alias_width(anti_alias_width, recurse=recurse)
++    if scale_stroke_with_zoom is not None:
++        mob.set_scale_stroke_with_zoom(scale_stroke_with_zoom, recurse=recurse)
++    if depth_test is not None:
++        method = mob.apply_depth_test if depth_test else mob.deactivate_depth_test
++        method(recurse=recurse)
++    if fixed_in_frame is not None:
++        method = mob.fix_in_frame if fixed_in_frame else mob.unfix_from_frame
++        method(recurse=recurse)
+     return mob
+ 
+ 
+@@ -4033,6 +4053,11 @@ _NATIVE_VMOBJECT_STYLE_KEYS = frozenset(
+         "stroke_behind",
+         "flat_stroke",
+         "fill_border_width",
++        "joint_type",
++        "anti_alias_width",
++        "scale_stroke_with_zoom",
++        "depth_test",
++        "is_fixed_in_frame",
+     }
+ )
+ 
+@@ -4043,6 +4068,12 @@ def _preflight_vmobject_style_kwargs(kwargs):
+         raise TypeError(
+             "unexpected keyword arguments: " + ", ".join(sorted(unknown))
+         )
++    if "joint_type" in kwargs and kwargs["joint_type"] not in VMobject.joint_type_map:
++        raise ValueError(f"unknown VMobject joint type: {kwargs['joint_type']}")
++    if "anti_alias_width" in kwargs:
++        width = float(kwargs["anti_alias_width"])
++        if not _math.isfinite(width) or width < 0:
++            raise ValueError("anti_alias_width must be finite and non-negative")
+ 
+ 
+ def _split_native_vgroup3d_kwargs(class_name, kwargs, default_shading):
+diff --git a/docs/behavior_notes/BN-07-stroke-uniform-fixes.md b/docs/behavior_notes/BN-07-stroke-uniform-fixes.md
+index d6917c6..d2d00e3 100644
+--- a/docs/behavior_notes/BN-07-stroke-uniform-fixes.md
++++ b/docs/behavior_notes/BN-07-stroke-uniform-fixes.md
+@@ -42,6 +42,17 @@ no point moves and the bounding box is untouched.
+ 
+ ## Migration guidance
+ 
++### Native-built shapes accept inherited rendering options
++
++The shared native-constructor style route now accepts `joint_type`,
++`anti_alias_width`, `scale_stroke_with_zoom`, `depth_test`, and
++`is_fixed_in_frame`. These options use the existing live setters and reach
++the generated family, including dashed paths and number glyphs. They are
++no longer rejected merely because a class bypasses `VMobject.__init__`
++while constructing its geometry in Rust. Omitted options retain the
++constructor's native defaults. Unknown joints and negative or non-finite
++anti-alias widths are refused before this style pass mutates the family.
++
+ ### SurfaceMesh styles apply to the visible wireframe
+ 
+ `SurfaceMesh(..., stroke_width=..., stroke_color=..., depth_test=...,

@@ -1,0 +1,200 @@
+# FrankenManim's built-in defaults — the first precedence layer
+# (defaults → user config file → CLI flags), mirroring the Reference's
+# default_config.yml key surface exactly so existing custom_config.yml
+# files overlay onto familiar shapes. Native FrankenManim sections
+# (determinism, render) extend the surface at the end.
+#
+# This file is also the living fixture for the fmn-config YAML subset:
+# nested mappings, plain/quoted scalars, tuple-strings, comments, and
+# every scalar type the shipped shapes use appear here, and the typed
+# extraction of this exact document is a permanent test.
+
+directories:
+  # Set this to true if you want the path to video files
+  # to match the directory structure of the path to the
+  # source code generating that video
+  mirror_module_path: False
+  # Asset and output roots, with a base directory and named
+  # subdirectories within it
+  base: ""
+  subdirs:
+    # Where renders land
+    output: "videos"
+    # Where raster/vector/model assets are looked up
+    raster_images: "raster_images"
+    vector_images: "vector_images"
+    three_d_models: "three_d_models"
+    # Where sounds are looked up
+    sounds: "sounds"
+    # Other project data (csv's and the like)
+    data: "data"
+    # Where downloaded assets land (through the AssetFetcher capability)
+    downloads: "downloads"
+    # Kept for config-shape compatibility with the Reference; FrankenManim's
+    # typeset cache lives in fmn-cache's content-addressed store
+    latex_cache: "latex_cache"
+  # Where the persistent cache lives; empty means the platform default
+  cache: ""
+window:
+  # UR -> Upper Right, DL -> Down Left, UO -> upper middle, etc.
+  position_string: UR
+  # With multiple monitors, which one shows the window
+  monitor_index: 0
+  # If not full screen, the window defaults to half the screen width
+  full_screen: False
+  # Optional overrides (tuple-strings, typed by the config layer):
+  # position: (500, 500)
+  # size: (1920, 1080)
+camera:
+  resolution: (1920, 1080)
+  background_color: "#333333"
+  fps: 30
+  background_opacity: 1.0
+file_writer:
+  # The one external tool (D2)
+  ffmpeg_bin: "ffmpeg"
+  video_codec: "libx264"
+  pixel_format: "yuv420p"
+  saturation: 1.0
+  gamma: 1.0
+scene:
+  show_animation_progress: False
+  leave_progress_bars: False
+  # When skipping animations, render a single frame per play call?
+  preview_while_skipping: True
+  # How long Scene.wait pauses by default
+  default_wait_time: 1.0
+vmobject:
+  default_stroke_width: 4.0
+  default_stroke_color: "#DDDDDD"     # GREY_A
+  default_fill_color: "#888888"       # GREY_C
+mobject:
+  default_mobject_color: "#FFFFFF"    # WHITE
+  default_light_color: "#BBBBBB"      # GREY_B
+tex:
+  # A preamble-pack name (the tex_templates.yml concept reborn); resolved
+  # through the pack registry, with a compatibility mapping for the common
+  # Reference template names
+  template: "default"
+  # The font size at which Tex("0") has a height of 1 manim unit
+  font_size_for_unit_height: 144
+text:
+  # A bundled face (the Reference defaults to a host font; FrankenManim
+  # renders identically on every machine, so the default is sovereign)
+  font: "Computer Modern"
+  alignment: "LEFT"
+  # The font size at which Text("0") has a height of 1 manim unit
+  font_size_for_unit_height: 144
+embed:
+  exception_mode: "Verbose"
+  autoreload: False
+resolution_options:
+  # What -l, -m, --hd and --uhd select
+  low: (854, 480)
+  med: (1280, 720)
+  high: (1920, 1080)
+  4k: (3840, 2160)
+sizes:
+  # The scale of the manim coordinate system w.r.t. the viewing frame
+  frame_height: 8.0
+  # SMALL_BUFF, MED_SMALL_BUFF, etc.
+  small_buff: 0.1
+  med_small_buff: 0.25
+  med_large_buff: 0.5
+  large_buff: 1.0
+  # Default buffers for Mobject.next_to / Mobject.to_edge
+  default_mobject_to_edge_buff: 0.5
+  default_mobject_to_mobject_buff: 0.25
+key_bindings:
+  pan_3d: "d"
+  pan: "f"
+  reset: "r"
+  quit: "q" # Together with command
+  select: "s"
+  unselect: "u"
+  grab: "g"
+  x_grab: "h"
+  y_grab: "v"
+  z_grab: "z"
+  resize: "t"
+  color: "c"
+  information: "i"
+  cursor: "k"
+colors:
+  blue_e: "#1C758A"
+  blue_d: "#29ABCA"
+  blue_c: "#58C4DD"
+  blue_b: "#9CDCEB"
+  blue_a: "#C7E9F1"
+  teal_e: "#49A88F"
+  teal_d: "#55C1A7"
+  teal_c: "#5CD0B3"
+  teal_b: "#76DDC0"
+  teal_a: "#ACEAD7"
+  green_e: "#699C52"
+  green_d: "#77B05D"
+  green_c: "#83C167"
+  green_b: "#A6CF8C"
+  green_a: "#C9E2AE"
+  yellow_e: "#E8C11C"
+  yellow_d: "#F4D345"
+  yellow_c: "#FFFF00"
+  yellow_b: "#FFEA94"
+  yellow_a: "#FFF1B6"
+  gold_e: "#C78D46"
+  gold_d: "#E1A158"
+  gold_c: "#F0AC5F"
+  gold_b: "#F9B775"
+  gold_a: "#F7C797"
+  red_e: "#CF5044"
+  red_d: "#E65A4C"
+  red_c: "#FC6255"
+  red_b: "#FF8080"
+  red_a: "#F7A1A3"
+  maroon_e: "#94424F"
+  maroon_d: "#A24D61"
+  maroon_c: "#C55F73"
+  maroon_b: "#EC92AB"
+  maroon_a: "#ECABC1"
+  purple_e: "#644172"
+  purple_d: "#715582"
+  purple_c: "#9A72AC"
+  purple_b: "#B189C6"
+  purple_a: "#CAA3E8"
+  grey_e: "#222222"
+  grey_d: "#444444"
+  grey_c: "#888888"
+  grey_b: "#BBBBBB"
+  grey_a: "#DDDDDD"
+  white: "#FFFFFF"
+  black: "#000000"
+  grey_brown: "#736357"
+  dark_brown: "#8B4513"
+  light_brown: "#CD853F"
+  pink: "#D147BD"
+  light_pink: "#DC75CD"
+  green_screen: "#00FF00"
+  orange: "#FF862F"
+  pure_red: "#FF0000"
+  pure_green: "#00FF00"
+  pure_blue: "#0000FF"
+# DEBUG / INFO / WARNING / ERROR / CRITICAL
+log_level: "INFO"
+universal_import_line: "from manimlib import *"
+ignore_manimlib_modules_on_reload: True
+
+# ---- FrankenManim-native sections (quality knobs select engines and
+# ---- schedules; they are never scene-visible data — §4)
+
+determinism:
+  # standard | certified   (the CLI's --reproducible selects certified)
+  mode: "standard"
+  # The one PCG64DXSM stream's seed; named substreams derive from it
+  seed: 0
+render:
+  # cpu | metal | cuda   (annex engines are standard-mode only, §10.7)
+  engine: "cpu"
+  # adaptive | ssaa2x | ssaa4x   (forced supersampling exists for A/B)
+  aa: "adaptive"
+  # auto, or a fixed thread count
+  threads: "auto"

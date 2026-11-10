@@ -1,0 +1,106 @@
+diff --git a/crates/fmn-output/src/sound.rs b/crates/fmn-output/src/sound.rs
+index 42f0178..7680be2 100644
+--- a/crates/fmn-output/src/sound.rs
++++ b/crates/fmn-output/src/sound.rs
+@@ -607,15 +607,6 @@ impl SoundMixer {
+         threads: usize,
+         kernel: MixKernel,
+     ) -> Result<MixReport, SoundError> {
+-        if threads == 0 {
+-            return Err(SoundError::ZeroThreads);
+-        }
+-        if threads > MAX_MIX_THREADS {
+-            return Err(SoundError::TooManyThreads {
+-                requested: threads,
+-                max: MAX_MIX_THREADS,
+-            });
+-        }
+         let cue_end_frames = self
+             .cues
+             .iter()
+@@ -634,8 +625,65 @@ impl SoundMixer {
+                 max_frames: self.config.max_output_frames,
+             });
+         }
+-        let total_frames =
+-            usize::try_from(timeline_frames).map_err(|_| SoundError::SampleCountOverflow)?;
++        self.mix_window_with_kernel(
++            0,
++            u64::try_from(timeline_frames).map_err(|_| SoundError::SampleCountOverflow)?,
++            threads,
++            kernel,
++        )
++    }
++
++    /// Mix exactly a half-open window of the absolute output-sample timeline.
++    ///
++    /// `start` and `frames` count sample frames, not interleaved samples or
++    /// scene frames. Cues retain their original placement and resampling phase;
++    /// samples are identical to that interval of a complete mix, with silence
++    /// beyond the last cue. No elapsed prefix or future tail is allocated.
++    /// The timeline floor from [`Self::with_timeline_frames`] does not expand
++    /// an explicitly requested window. Both its end and its length remain
++    /// subject to the configured timeline budget.
++    ///
++    /// # Errors
++    /// An overflowing or oversized window, invalid worker count, worker panic,
++    /// or indeterminate accumulated sample.
++    pub fn mix_window(
++        &self,
++        start: u64,
++        frames: u64,
++        threads: usize,
++    ) -> Result<MixReport, SoundError> {
++        self.mix_window_with_kernel(start, frames, threads, MixKernel::Compiled)
++    }
++
++    /// Explicit-kernel window mixing for scalar/build-tier equivalence tests.
++    ///
++    /// # Errors
++    /// The same range, resource and arithmetic refusals as [`Self::mix_window`].
++    pub fn mix_window_with_kernel(
++        &self,
++        start: u64,
++        frames: u64,
++        threads: usize,
++        kernel: MixKernel,
++    ) -> Result<MixReport, SoundError> {
++        if threads == 0 {
++            return Err(SoundError::ZeroThreads);
++        }
++        if threads > MAX_MIX_THREADS {
++            return Err(SoundError::TooManyThreads {
++                requested: threads,
++                max: MAX_MIX_THREADS,
++            });
++        }
++        let end = start.checked_add(frames).ok_or(SoundError::SampleCountOverflow)?;
++        if end > self.config.max_output_frames {
++            return Err(SoundError::OutputTooLong {
++                frames: end,
++                max_frames: self.config.max_output_frames,
++            });
++        }
++        let start = usize::try_from(start).map_err(|_| SoundError::SampleCountOverflow)?;
++        let total_frames = usize::try_from(frames).map_err(|_| SoundError::SampleCountOverflow)?;
+         let channels = usize::from(self.config.channels);
+         let sample_count = total_frames
+             .checked_mul(channels)
+@@ -644,7 +692,7 @@ impl SoundMixer {
+ 
+         let worker_target = threads.min(total_frames);
+         let workers_used = if worker_target == 1 {
+-            mix_chunk(&mut mixed, 0, channels, &self.cues, kernel)?;
++            mix_chunk(&mut mixed, start, channels, &self.cues, kernel)?;
+             1
+         } else if worker_target > 1 {
+             let chunk_frames = total_frames.div_ceil(worker_target);
+@@ -655,7 +703,7 @@ impl SoundMixer {
+             std::thread::scope(|scope| {
+                 let mut handles = Vec::with_capacity(actual_workers);
+                 for (chunk_index, chunk) in mixed.chunks_mut(chunk_samples).enumerate() {
+-                    let start_frame = chunk_index * chunk_frames;
++                    let start_frame = start + chunk_index * chunk_frames;
+                     let cues = &self.cues;
+                     handles.push(
+                         scope.spawn(move || mix_chunk(chunk, start_frame, channels, cues, kernel)),

@@ -1,0 +1,14 @@
+[package]
+name = "fmn-spike-object-model"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "G0-1 spike: Stage arena + view protocol + fluent-API prototype (fm-dzv)"
+publish = false
+
+[dependencies]
+fmn-core.workspace = true
+
+[lints]
+workspace = true

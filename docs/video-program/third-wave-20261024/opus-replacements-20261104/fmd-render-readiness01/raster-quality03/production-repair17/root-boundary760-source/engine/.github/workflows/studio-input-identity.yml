@@ -1,0 +1,76 @@
+name: Studio declared input generations
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/studio-input-identity.yml'
+      - 'crates/fmn-studio/src/project_watch.rs'
+      - 'crates/fmn-studio/tests/source_identity.rs'
+      - 'crates/fmn-python/src/portal_studio.rs'
+      - 'crates/fmn-python/src/portal_studio/**'
+      - 'crates/fmn-python/python/fmn_python/studio.py'
+      - 'crates/fmn-python/python/fmn_python/studio_inputs.py'
+      - 'crates/fmn-python/python/fmn_python/scene_loading.py'
+      - 'crates/fmn-python/tests/studio_input_identity.py'
+      - 'crates/fmn-python/tests/test_declared_scene_sources.py'
+      - 'crates/fmn-python/tests/test_studio_inputs_protocol.py'
+      - 'crates/fmn-python/tests/test_studio_protocol.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: studio-input-identity-arm
+  cancel-in-progress: false
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+  CARGO_TARGET_DIR: target/portable
+  PYO3_PYTHON: python
+jobs:
+  native:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - name: Install pinned host and compiler components
+        run: |
+          rustup show active-toolchain
+          python -m pip install 'maturin==1.14.1' 'numpy==2.5.2'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Actual source loading and host protocol tests
+        run: |
+          set -euo pipefail
+          PYTHONPATH=crates/fmn-python/python:crates/fmn-python/tests python -m unittest -v test_declared_scene_sources test_scene_loading test_studio_inputs_protocol test_studio_protocol
+      - name: Native scanner, live worker and capture acceptance
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-studio --test source_identity
+          cargo test --locked -p fmn-studio project_watch::tests
+          cargo test --locked -p fmn-python portal_studio_capture_uses_stepped_scene_and_native_inspector
+          cargo test --locked -p fmn-python portal_studio_live_
+      - name: Installed native wheel acceptance
+        run: |
+          set -euo pipefail
+          python -m maturin build --locked --profile dev --out /tmp/studio-wheels
+          python -m pip install --no-deps --force-reinstall /tmp/studio-wheels/*.whl
+          python crates/fmn-python/tests/studio_input_identity.py
+          git diff --exit-code
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: studio-input-wheel-${{ github.sha }}
+          path: /tmp/studio-wheels/*.whl
+          if-no-files-found: ignore
+          retention-days: 1

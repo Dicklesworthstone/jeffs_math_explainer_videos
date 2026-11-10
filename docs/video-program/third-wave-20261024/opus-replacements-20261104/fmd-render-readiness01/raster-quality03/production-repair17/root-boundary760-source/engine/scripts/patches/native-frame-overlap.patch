@@ -1,0 +1,295 @@
+diff --git a/crates/fmn-render/src/lib.rs b/crates/fmn-render/src/lib.rs
+index 7aa8c10..5f9125b 100644
+--- a/crates/fmn-render/src/lib.rs
++++ b/crates/fmn-render/src/lib.rs
+@@ -73,7 +73,7 @@ pub use plan::{
+     SyncStats,
+ };
+ pub use retained::{
+-    RetainedFrameRenderer, RetainedFrameRendererConfig, RetainedFrameRendererError,
++    PreparedCameraFrame, RetainedFrameRenderer, RetainedFrameRendererConfig, RetainedFrameRendererError,
+ };
+ pub use revision::{Axis, Dependency, Revisions};
+ pub use stroke::{JoinWedge, MITER_LIMIT};
+diff --git a/crates/fmn-render/src/retained.rs b/crates/fmn-render/src/retained.rs
+index f317db3..1c9f3a3 100644
+--- a/crates/fmn-render/src/retained.rs
++++ b/crates/fmn-render/src/retained.rs
+@@ -259,9 +259,118 @@ impl RetainedFrameRenderer {
+         stage: &Stage,
+         camera: &Camera,
+     ) -> Result<(), RetainedFrameRendererError> {
+-        self.plan.sync(stage, camera.revision())?;
++        let scene = prepare_camera_scene(&mut self.plan, stage, camera)?;
++        render_camera_scene(&self.plan, &scene, camera, self.config.tiling,
++                            self.config.threads, &mut self.frame)?;
++        self.plan.commit_image_frame(scene.images);
++        Ok(())
++    }
++
++    /// Freeze a camera-bound frame for worker-owned rasterization.
++    ///
++    /// Call this only on the live Stage's owner, after its capture barrier.
++    /// Geometry, painter order, uniforms, image resources, and camera state are
++    /// captured now; subsequent edits, exported-view writes, and scene teardown
++    /// cannot affect the returned job. No arena, callback, or Python proxy is
++    /// transferred. Rasterization uses the same implementation as
++    /// [`Self::render_with_camera`], not a second renderer.
++    ///
++    /// Acquire the runtime pipeline's source permit BEFORE calling this method
++    /// so frozen geometry is included in its bounded frame count.
++    ///
++    /// # Errors
++    /// The same record/topology validation errors as the synchronous route.
++    pub fn prepare_with_camera(
++        &mut self,
++        stage: &Stage,
++        camera: &Camera,
++    ) -> Result<PreparedCameraFrame, RetainedFrameRendererError> {
++        let scene = prepare_camera_scene(&mut self.plan, stage, camera)?;
++        self.plan.commit_image_frame(scene.images.clone());
++        Ok(PreparedCameraFrame {
++            plan: self.plan.clone(), scene, camera: camera.clone(),
++            tiling: self.config.tiling,
++        })
++    }
++
++    /// Current raw linear-light RGBA16F frame.
++    #[must_use]
++    pub const fn frame(&self) -> &FrameBuffer {
++        &self.frame
++    }
++
++    /// Declared renderer policy, including the journaled engine identity.
++    #[must_use]
++    pub const fn config(&self) -> RetainedFrameRendererConfig {
++        self.config
++    }
++
++    /// Retained compiled plan for diagnostics and overlays.
++    #[must_use]
++    pub const fn plan(&self) -> &RenderPlan {
++        &self.plan
++    }
++
++    /// Retained pixel cache for diagnostics and profiling.
++    #[must_use]
++    pub const fn cache(&self) -> &PixelTileCache {
++        &self.cache
++    }
++}
++
++/// Owned immutable Lumen input suitable for native frame-stage overlap.
++///
++/// Contains no `Stage`, record views, or frame-clock callbacks. It can be moved
++/// to a worker or replayed with different worker counts; both routes use the
++/// identical camera projection, texture sampler, lighting, and painter order.
++#[derive(Debug)]
++pub struct PreparedCameraFrame {
++    plan: RenderPlan,
++    scene: PreparedCameraScene,
++    camera: Camera,
++    tiling: Tiling,
++}
++
++impl PreparedCameraFrame {
++    /// Frozen raw linear-light RGBA16F layout.
++    pub fn layout(&self) -> Result<fmn_frame::FrameLayout, fmn_frame::FrameError> {
++        fmn_frame::FrameLayout::tight(fmn_frame::PixelFormat::Rgba16F,
++                                     self.camera.pixel_width(), self.camera.pixel_height())
++    }
++
++    /// Rasterize on the receiving worker into an existing raw frame.
++    ///
++    /// # Errors
++    /// Refuses invalid destination geometry, empty teams, and native renderer
++    /// preparation errors. This function does not publish an output artifact.
++    pub fn render_into(&self, threads: usize, frame: &mut FrameBuffer)
++        -> Result<(), RetainedFrameRendererError>
++    {
++        render_camera_scene(&self.plan, &self.scene, &self.camera,
++                            self.tiling, threads, frame)
++    }
++
++    /// Rasterize into a new worker-owned raw frame.
++    pub fn render(&self, threads: usize) -> Result<FrameBuffer, RetainedFrameRendererError> {
++        let mut frame = FrameBuffer::new(self.layout()?);
++        self.render_into(threads, &mut frame)?;
++        Ok(frame)
++    }
++}
++
++#[derive(Debug)]
++struct PreparedCameraScene {
++    images: crate::ImageTable,
++    meshes: Vec<SurfaceMesh>,
++    commands: Vec<PreparedCommand>,
++}
++
++fn prepare_camera_scene(
++    plan: &mut RenderPlan, stage: &Stage, camera: &Camera,
++) -> Result<PreparedCameraScene, RetainedFrameRendererError> {
++        plan.sync(stage, camera.revision())?;
+         let draw_plan = stage.draw_plan();
+-        let mut image_frame = self.plan.prepare_image_frame()?;
++        let mut image_frame = plan.prepare_image_frame()?;
+         let mut meshes = Vec::new();
+         let mut commands = Vec::new();
+         let mut command_count = 0usize;
+@@ -390,10 +499,18 @@ impl RetainedFrameRenderer {
+             }
+         }
+ 
+-        if usize::try_from(vector_instance).ok() != Some(self.plan.shapes().instances().len()) {
++        if usize::try_from(vector_instance).ok() != Some(plan.shapes().instances().len()) {
+             return Err(RetainedFrameRendererError::VectorPlanMismatch);
+         }
+ 
++        Ok(PreparedCameraScene { images: image_frame, meshes, commands })
++}
++
++fn render_camera_scene(
++    plan: &RenderPlan, scene: &PreparedCameraScene, camera: &Camera,
++    tiling: Tiling, threads: usize, frame: &mut FrameBuffer,
++) -> Result<(), RetainedFrameRendererError> {
++    let PreparedCameraScene { images: image_frame, meshes, commands } = scene;
+         let mut draws = Vec::new();
+         draws.try_reserve_exact(commands.len()).map_err(|_| {
+             RetainedFrameRendererError::AllocationFailed {
+@@ -401,10 +518,10 @@ impl RetainedFrameRenderer {
+                 requested: commands.len(),
+             }
+         })?;
+-        for command in &commands {
++        for command in commands {
+             draws.push(match *command {
+                 PreparedCommand::Vector(instance) => {
+-                    ThreeDDraw::Vector(VectorDraw::new(&self.plan, instance))
++                    ThreeDDraw::Vector(VectorDraw::new(plan, instance))
+                 }
+                 PreparedCommand::Surface {
+                     mesh,
+@@ -463,38 +580,11 @@ impl RetainedFrameRenderer {
+                 }
+             });
+         }
+-        ThreeDJob::new(camera, &draws, self.config.tiling)
++        ThreeDJob::new(camera, &draws, tiling)
+             .map_err(RetainedFrameRendererError::ThreeD)?
+-            .render_into(self.config.threads, &mut self.frame)
++            .render_into(threads, frame)
+             .map_err(RetainedFrameRendererError::ThreeDFrame)?;
+-        drop(draws);
+-        self.plan.commit_image_frame(image_frame);
+-        Ok(())
+-    }
+-
+-    /// Current raw linear-light RGBA16F frame.
+-    #[must_use]
+-    pub const fn frame(&self) -> &FrameBuffer {
+-        &self.frame
+-    }
+-
+-    /// Declared renderer policy, including the journaled engine identity.
+-    #[must_use]
+-    pub const fn config(&self) -> RetainedFrameRendererConfig {
+-        self.config
+-    }
+-
+-    /// Retained compiled plan for diagnostics and overlays.
+-    #[must_use]
+-    pub const fn plan(&self) -> &RenderPlan {
+-        &self.plan
+-    }
+-
+-    /// Retained pixel cache for diagnostics and profiling.
+-    #[must_use]
+-    pub const fn cache(&self) -> &PixelTileCache {
+-        &self.cache
+-    }
++    Ok(())
+ }
+ 
+ #[derive(Debug, Clone, Copy)]
+@@ -981,6 +1071,63 @@ mod tests {
+         })
+     }
+ 
++    #[test]
++    fn frozen_camera_frames_are_send_and_retain_mixed_scene_bits_after_edits() {
++        fn send_sync<T: Send + Sync + 'static>() {}
++        send_sync::<PreparedCameraFrame>();
++        let mut camera = camera();
++        let mut stage = Stage::new();
++        let mut roots = Vec::new();
++        for mobject in [vector(), surface((2, 2)), dot_cloud(), triangle_mesh(),
++                        image_quad(&camera, [230, 40, 90, 255].repeat(4))] {
++            let mob = stage.add(mobject);
++            stage.add_to_scene(mob).unwrap();
++            roots.push(mob);
++        }
++        let mut renderer = RetainedFrameRenderer::new(config(1)).unwrap();
++        renderer.render_with_camera(&stage, &camera).unwrap();
++        let expected = renderer.frame().as_bytes().to_vec();
++        let frozen = renderer.prepare_with_camera(&stage, &camera).unwrap();
++        // Reusing the retained compiler, replacing resources and mutating the
++        // native camera must not revise work already handed to the scheduler.
++        for root in roots { stage.shift(root, [3.0, 1.0, 0.0]); }
++        camera.frame_mut().set_center([1.0, -2.0, 0.0]).unwrap();
++        camera.set_background(LinearRgba { r: 0.4, g: 0.1, b: 0.2, a: 1.0 }).unwrap();
++        renderer.render_with_camera(&stage, &camera).unwrap();
++        assert_ne!(expected, renderer.frame().as_bytes());
++        drop(renderer);
++        drop(stage);
++        drop(camera);
++        std::thread::spawn(move || {
++            for threads in [1, 2, 4] {
++                assert_eq!(frozen.render(threads).unwrap().as_bytes(), expected);
++            }
++            assert!(frozen.render(0).is_err());
++        }).join().unwrap();
++    }
++
++    #[test]
++    fn frozen_camera_frames_keep_successive_camera_and_texture_revisions_separate() {
++        let mut camera = camera();
++        let mut stage = Stage::new();
++        let mob = stage.add(image_quad(&camera, [250, 0, 0, 255].repeat(4)));
++        stage.add_to_scene(mob).unwrap();
++        let mut renderer = RetainedFrameRenderer::new(config(1)).unwrap();
++        let first = renderer.prepare_with_camera(&stage, &camera).unwrap();
++        let first_bits = first.render(1).unwrap().as_bytes().to_vec();
++        let resource = ImageResource::rgba8(2, 2, [0, 250, 0, 255].repeat(4),
++            ImageColorSpace::Linear, ImageSampler::default()).unwrap();
++        stage.set_image_resource(mob, Some(resource)).unwrap();
++        camera.frame_mut().set_center([1.0, 0.0, 0.0]).unwrap();
++        let second = renderer.prepare_with_camera(&stage, &camera).unwrap();
++        renderer.render_with_camera(&stage, &camera).unwrap();
++        let second_bits = renderer.frame().as_bytes().to_vec();
++        assert_ne!(first_bits, second_bits);
++        // Complete in reverse order, as independent render teams may do.
++        assert_eq!(second.render(4).unwrap().as_bytes(), second_bits);
++        assert_eq!(first.render(4).unwrap().as_bytes(), first_bits);
++    }
++
+     #[test]
+     fn zero_threads_fail_before_frame_allocation() {
+         assert!(matches!(
+diff --git a/crates/fmn-runtime/src/lib.rs b/crates/fmn-runtime/src/lib.rs
+index d959602..a7d72ea 100644
+--- a/crates/fmn-runtime/src/lib.rs
++++ b/crates/fmn-runtime/src/lib.rs
+@@ -16,6 +16,7 @@
+ 
+ mod pipeline;
+ mod plan;
++mod stream;
+ 
+ pub use fmn_platform::profile::{
+     PROFILE_SCHEMA, ProfileCounter, ProfileCounterRecord, ProfileLane, ProfileLaneRole,
+@@ -31,3 +32,5 @@ pub use plan::{
+     OutputPixelFormat, PlanError, PlanRequest, RenderIntent, SurfaceSpec, TeamPlan, TeamRole,
+     TopologyFingerprint, TuningSource,
+ };
++
++pub use stream::{FramePermit, FrameStream, FrameStreamError};

@@ -1,0 +1,86 @@
+name: Geometry and paint-profile regressions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "crates/fmn-geom/**"
+      - "crates/fmn-render/**"
+      - ".github/workflows/geometry-profile-regressions.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geometry-profile-regressions-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  CARGO_NET_GIT_FETCH_WITH_CLI: "true"
+  CARGO_TERM_COLOR: never
+  CARGO_TARGET_DIR: target/geometry-profiles
+  CARGO_BUILD_JOBS: "2"
+  RUST_BACKTRACE: "1"
+
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Install repository-pinned Rust toolchain
+        run: rustup show active-toolchain
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/geometry-profiles
+          key: geometry-profiles-${{ runner.os }}-${{ hashFiles('rust-toolchain.toml', 'Cargo.lock') }}
+      - name: Record source identity
+        run: |
+          mkdir -p /tmp/geometry-profile-evidence
+          git rev-parse HEAD | tee /tmp/geometry-profile-evidence/source-sha.txt
+      - name: Native geometry tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-geom 2>&1 | tee /tmp/geometry-profile-evidence/geometry.log
+      - name: Native retained-profile and collapse tests
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-render --test fill_profiles --test stroke_profiles --test degenerate_profiles \
+            2>&1 | tee /tmp/geometry-profile-evidence/profiles.log
+      - name: Warning-denied geometry and renderer lint
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo clippy --locked -p fmn-geom -p fmn-render --all-targets -- -D warnings \
+            2>&1 | tee /tmp/geometry-profile-evidence/clippy.log
+      - name: Check exact regression-source formatting
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustfmt --edition 2024 --emit stdout crates/fmn-geom/src/arclength.rs \
+            > /tmp/geometry-profile-evidence/arclength.formatted.rs
+          rustfmt --edition 2024 --emit stdout crates/fmn-render/tests/degenerate_profiles.rs \
+            > /tmp/geometry-profile-evidence/degenerate_profiles.formatted.rs
+          rustfmt --edition 2024 --check \
+            crates/fmn-geom/src/arclength.rs crates/fmn-render/tests/degenerate_profiles.rs \
+            2>&1 | tee /tmp/geometry-profile-evidence/format.log
+      - name: Retain attributable terminal evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: geometry-profile-evidence-${{ github.sha }}
+          path: /tmp/geometry-profile-evidence/
+          if-no-files-found: error
+          retention-days: 7

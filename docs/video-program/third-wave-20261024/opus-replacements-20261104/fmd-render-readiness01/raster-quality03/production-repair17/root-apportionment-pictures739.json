@@ -1,0 +1,66 @@
+{
+  "utc": "2026-11-10T01:10:38.472087+00:00",
+  "chapter": "15_recap",
+  "sampling_sha256": "3d8c3485fdd09473183ee95dabc7c4a8ff6a0fec14b1ef2aea6e84408e83fe5b",
+  "movie": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-15_recap/render/15_recap.mp4",
+    "sha256": "e7b27a40f2fc54c6c742c0582f4ed325fda1bb12200b90727fa6a7372c007ec4"
+  },
+  "sample_count": 90,
+  "sheets_viewed": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0001.jpg",
+      "sha256": "cb498ecbefc03949e826ce5fdea9564a12cff2ad9bb0cb32ebb49a8a89e5cf27"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0002.jpg",
+      "sha256": "ee34f8d53f458df6e2c8ee03740ab0f76277827de68eb68e5f1499c8dee2cc6c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0003.jpg",
+      "sha256": "c963e262e01de0c3f23ab43ad81fa9bcdb603a4f1e8e3fa6312a4a270746d8c5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0004.jpg",
+      "sha256": "fc0a7cf1216cf90faae2e355a2411ebd9e246b18fafce1e005df6fdc7057bb46"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0005.jpg",
+      "sha256": "fc963d4b78f2ebf489df2e0f9739e1be504588514e4886d3319b9c9d502081da"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0006.jpg",
+      "sha256": "f07f35a07eaab3c7f97f6bb816cbdc5018855c0b105f7cce429cee1876ace13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0007.jpg",
+      "sha256": "f105775d698bca838ad288846a6669f919c772f12b799aaff5c06146312b1e21"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0008.jpg",
+      "sha256": "4d3b99cbe6daa8ee40fbb39106dcd2588b310bfe97bf170847679bf3ed8755b8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0009.jpg",
+      "sha256": "162e6efd8f931aa9cc6879b4e062ff2ac296c652941453d1ccee924bb7f8a4b5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0010.jpg",
+      "sha256": "4f4f7b49df255296ab77262f0059178f529c899509771b38d20d8e0199afb31b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0011.jpg",
+      "sha256": "355b473b489024d21e3389d42783fbe93f7eb89351127bf14f0e6695bacebb19"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-15_recap/15_recap/sheet-0012.jpg",
+      "sha256": "12e2d9e1ee4c7a775d98851fd0479c6ad28c468cb109979ae82f49759a94ed88"
+    }
+  ],
+  "observations": [
+    "All90 selected final pictures on12 sheets actually viewed, including33.6s/53.2s edge flags and persistence, and old prediction-defect interval.",
+    "Right list remains visible with small margin, no clipping. Prediction question is separated from list and cutoff caption, remains unanswered through47.767s, next cue starts47.783s.",
+    "Animated list reordering, counts, cutoff and concluding fractional dials are legible in samples; no concrete unintended overlap found."
+  ],
+  "scope": "Selected final stills only, not continuous motion/listening/fine-sync/independent final audiovisual acceptance."
+}

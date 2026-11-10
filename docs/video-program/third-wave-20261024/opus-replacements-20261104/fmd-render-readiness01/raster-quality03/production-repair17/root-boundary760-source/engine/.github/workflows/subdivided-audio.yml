@@ -1,0 +1,130 @@
+name: Native audio-bearing subdivision
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/subdivided-audio.yml'
+      - 'scripts/patches/subdivided-audio.patch'
+      - 'scripts/patches/subdivided-audio-frontdoor.patch'
+      - 'crates/fmn-python/tests/subdivided_audio.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: native-subdivided-audio-arm64
+  cancel-in-progress: false
+jobs:
+  native:
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 35
+    env:
+      CARGO_TARGET_DIR: target/portable
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+      FMN_REQUIRE_FFMPEG: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: main
+          fetch-depth: 64
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: audio-clips-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-recording-
+            camera-runtime-${{ runner.os }}-${{ runner.arch }}-
+            cargo-${{ runner.os }}-${{ runner.arch }}-
+      - name: Build the native mixer and audio clip integration
+        run: |
+          set -euo pipefail
+          rustup show active-toolchain
+          if ! command -v ffmpeg >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends ffmpeg
+          fi
+          ffmpeg -version
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          if ! grep -q 'pub fn mix_window(' crates/fmn-output/src/sound.rs; then
+            git apply --check scripts/patches/audio-mix-windows.patch
+            git apply scripts/patches/audio-mix-windows.patch
+          fi
+          if ! grep -q 'fn _portal_begin_audio_clip(' crates/fmn-python/src/portal_recording.rs; then
+            git apply --check scripts/patches/subdivided-audio.patch
+            git apply scripts/patches/subdivided-audio.patch
+          fi
+          if ! grep -q '_AUDIO_FORMATS = ' crates/fmn-python/python/fmn_python/subdivision.py; then
+            git apply --check scripts/patches/subdivided-audio-frontdoor.patch
+            git apply scripts/patches/subdivided-audio-frontdoor.patch
+          fi
+          rustfmt --edition 2024 crates/fmn-output/src/sound.rs crates/fmn-output/tests/audio_windows.rs \
+            crates/fmn-python/src/portal_audio.rs crates/fmn-python/src/portal_playback.rs \
+            crates/fmn-python/src/portal_recording.rs
+          cargo test --locked -p fmn-output --lib --test audio_windows 2>&1 | tee /tmp/audio-clips-mixer.log
+          python -m maturin build --locked --interpreter python --profile dev --out target/audio-clip-wheel 2>&1 | tee /tmp/audio-clips-build.log
+          python -m venv target/audio-clip-venv
+          target/audio-clip-venv/bin/python -m pip install 'numpy==2.5.2' target/audio-clip-wheel/*.whl
+      - name: Compare exact native PCM and independently decode MP4 and alpha MOV
+        run: |
+          set -euo pipefail
+          for suite in subdivided_audio subdivided_recording subdivided_rendering subdivided_batch subdivided_batch_cli configured_subdivision batch_rendering callback_cleanup persistent_recovery composition_lifecycle recording_sessions programmatic_rendering; do
+            target/audio-clip-venv/bin/python -I crates/fmn-python/tests/$suite.py 2>&1 | tee /tmp/audio-clips-$suite.log
+          done
+          for suite in test_console_rendering_protocol test_named_scene_cli_protocol test_runtime_provenance_protocol; do
+            target/audio-clip-venv/bin/python crates/fmn-python/tests/$suite.py 2>&1 | tee /tmp/audio-clips-$suite.log
+          done
+          git diff --check
+      - name: Commit tested source directly to main without overwriting concurrent work
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add crates/fmn-output/src/sound.rs crates/fmn-output/tests/audio_windows.rs \
+            crates/fmn-python/src/portal_audio.rs crates/fmn-python/src/portal_playback.rs \
+            crates/fmn-python/src/portal_recording.rs \
+            crates/fmn-python/python/fmn_python/recording.py \
+            crates/fmn-python/python/fmn_python/subdivision.py \
+            crates/fmn-python/python/fmn_python/console_rendering.py \
+            crates/fmn-python/python/fmn_python/subdivision_rendering.py \
+            crates/fmn-python/tests/subdivided_recording.py crates/fmn-python/tests/subdivided_rendering.py \
+            docs/python/subdivided-recording.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'feat(python): publish native WAV MP4 and MOV scene clips with sample-exact overlapping audio'
+          fi
+          published=0
+          for attempt in 1 2 3 4; do
+            before=$(git rev-parse HEAD)
+            git fetch origin main
+            git rebase origin/main
+            if [ "$before" != "$(git rev-parse HEAD)" ]; then
+              python -m maturin build --locked --interpreter python --profile dev --out target/audio-clip-wheel 2>&1 | tee /tmp/audio-clips-rebase-build.log
+              target/audio-clip-venv/bin/python -m pip install --force-reinstall --no-deps target/audio-clip-wheel/*.whl
+              for suite in subdivided_audio subdivided_recording subdivided_rendering subdivided_batch subdivided_batch_cli configured_subdivision; do
+                target/audio-clip-venv/bin/python -I crates/fmn-python/tests/$suite.py 2>&1 | tee /tmp/audio-clips-rebase-$suite.log
+              done
+              cargo test --locked -p fmn-output --test audio_windows
+            fi
+            if git push origin HEAD:main; then published=1; break; fi
+          done
+          test "$published" = 1
+      - name: Preserve source identity and native runtime evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/audio-clips-source-sha.txt
+          git diff > /tmp/audio-clips-working.patch
+          git archive --format=tar.gz HEAD > /tmp/audio-clips-source.tar.gz
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: audio-clips-${{ github.sha }}
+          path: |
+            /tmp/audio-clips-*
+            target/audio-clip-wheel/*.whl
+          retention-days: 3

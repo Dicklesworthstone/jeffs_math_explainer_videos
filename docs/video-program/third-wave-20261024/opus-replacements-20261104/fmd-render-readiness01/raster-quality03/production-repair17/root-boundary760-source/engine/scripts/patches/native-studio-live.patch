@@ -1,0 +1,378 @@
+diff --git a/crates/fmn-cli/src/lib.rs b/crates/fmn-cli/src/lib.rs
+index 8bc2a46..4acd9ad 100644
+--- a/crates/fmn-cli/src/lib.rs
++++ b/crates/fmn-cli/src/lib.rs
+@@ -7,6 +7,7 @@
+ #![forbid(unsafe_code)]
+ 
+ mod generated;
++mod studio_live;
+ 
+ pub use generated::{
+     CommandScope, EXIT_CODE_SPECS, ExitCodeSpec, FLAG_SPECS, FlagAction, FlagArity, FlagSource,
+@@ -3343,12 +3344,10 @@ pub fn compose_studio_preview_frame(
+     command: &StudioCommand,
+     frame: i64,
+ ) -> Result<fmn_studio::FrameStream, CliError> {
+-    let mut worker = NativeStudioWorker::from_command(fs, command)?;
+-    let frame = worker
+-        .resolve_frame(frame)
+-        .map_err(|error| CliError::new("scene", error.to_string()))?;
++    let scene = studio_scene_name(fs, &command.render)?;
++    let mut worker = studio_live::worker(fs, command)?;
+     match worker
+-        .render_frame(frame)
++        .handle(fmn_studio::SupervisorRequest::Scrub { scene, frame })
+         .map_err(|error| CliError::new("render", error.to_string()))?
+     {
+         fmn_studio::WorkerResponse::Frame(stream) => Ok(stream),
+@@ -7159,14 +7158,14 @@ pub fn run_internal_studio_worker_os(args: &[OsString]) -> RunOutput {
+     if command.render.scene_source_kind() == Some(SceneSourceKind::Python) {
+         return internal_worker_failure(PYTHON_SOURCE_PORTAL_MESSAGE);
+     }
+-    let mut service = match NativeStudioWorker::from_command(&fmn_platform::fs::StdFs, &command) {
++    let mut service = match studio_live::worker(&fmn_platform::fs::StdFs, &command) {
+         Ok(service) => service,
+         Err(error) => return internal_worker_failure(error),
+     };
+     let stdin = std::io::stdin();
+     let stdout = std::io::stdout();
+     let outcome = fmn_studio::serve_worker(
+-        &mut service,
++        service.as_mut(),
+         &mut stdin.lock(),
+         &mut stdout.lock(),
+         fmn_studio::ProtocolLimits::default(),
+@@ -7185,6 +7184,10 @@ pub fn run_internal_studio_worker_os(args: &[OsString]) -> RunOutput {
+ }
+ 
+ fn studio_scene_name(fs: &dyn FileSystem, command: &RenderCommand) -> Result<String, CliError> {
++    if studio_live::selected(command) {
++        studio_live::validate_selection(command)?;
++        return Ok(fmn::builtins::INTERACTIVE_SCENE_NAME.to_owned());
++    }
+     match resolve_native_render_input(fs, command)? {
+         NativeRenderInput::Builtin { mut names } => {
+             if names.len() != 1 {
+@@ -7446,14 +7449,19 @@ fn execute_studio(
+         .publish(&initial, protocol_limits)
+         .map_err(|error| CliError::new("render", format!("Studio first frame: {error}")))?;
+     let tui_frames = command.tui.then(|| frames.clone());
++    let live_reads = studio_live::source_reads(&*fs, &command)?;
+     let asset_fs = Arc::clone(&fs);
+     let asset_ok: Arc<dyn Fn(&AssetRead) -> bool + Send + Sync> = Arc::new(move |read| {
++        if read.path.starts_with("native/") {
++            return live_reads.iter().any(|expected| expected == read);
++        }
+         asset_fs
+             .read_bounded(Path::new(&read.path), DEFAULT_MAX_BUNDLE_BYTES)
+             .is_ok_and(|bytes| fmn_studio::protocol_digest(&bytes) == read.digest)
+     });
+     let session = Arc::new(
+         fmn_studio::StudioWorkerSession::new(&scene, supervisor, Box::new(builder), asset_ok)
++            .map(fmn_studio::StudioWorkerSession::require_guarded_input)
+             .map_err(|error| internal(format!("Studio session: {error}")))?,
+     );
+     let host = match fmn_studio::StudioHost::bind(
+diff --git a/crates/fmn-scene/src/runtime.rs b/crates/fmn-scene/src/runtime.rs
+index c8e1c0e..b229faa 100644
+--- a/crates/fmn-scene/src/runtime.rs
++++ b/crates/fmn-scene/src/runtime.rs
+@@ -106,7 +106,9 @@ impl RuntimeConfig {
+         }
+     }
+ 
+-    fn effective_fps(&self) -> u32 {
++    /// Frame rate selected by the native runtime, including the windowed override.
++    #[must_use]
++    pub fn effective_fps(&self) -> u32 {
+         if self.windowed { 30 } else { self.fps }
+     }
+ 
+diff --git a/crates/fmn-studio/src/host.rs b/crates/fmn-studio/src/host.rs
+index 4ba8e0e..59b586c 100644
+--- a/crates/fmn-studio/src/host.rs
++++ b/crates/fmn-studio/src/host.rs
+@@ -34,6 +34,8 @@ use crate::supervisor::{
+ };
+ use crate::ui;
+ 
++mod input;
++
+ /// Multipart boundary used by the permanent browser preview floor.
+ pub const MULTIPART_BOUNDARY: &str = "fmn-frame";
+ 
+@@ -501,6 +503,8 @@ pub struct StudioWorkerSession {
+     builder: Mutex<Box<dyn RebuildDriver + Send>>,
+     asset_ok: Arc<dyn Fn(&AssetRead) -> bool + Send + Sync>,
+     committed_frame: AtomicI64,
++    operations: Mutex<()>,
++    guarded_input: bool,
+ }
+ 
+ impl fmt::Debug for StudioWorkerSession {
+@@ -542,6 +546,8 @@ impl StudioWorkerSession {
+             builder: Mutex::new(builder),
+             asset_ok,
+             committed_frame: AtomicI64::new(0),
++            operations: Mutex::new(()),
++            guarded_input: false,
+         })
+     }
+ 
+@@ -577,6 +583,7 @@ impl StudioWorkerSession {
+             },
+             &*self.asset_ok,
+         )?)?;
++        if matches!(response, WorkerResponse::Error { .. }) { return Ok(response); }
+         if !matches!(response, WorkerResponse::JournalSegment { .. }) {
+             return Err(HostError::UnexpectedWorkerResponse);
+         }
+@@ -587,9 +594,9 @@ impl StudioWorkerSession {
+     }
+ 
+     fn restart(&self) -> Result<StudioRestart, HostError> {
+-        let incoming = lock(&self.supervisor).current_commands()?;
+         let mut builder = lock(&self.builder);
+         let mut supervisor = lock(&self.supervisor);
++        let incoming = supervisor.current_commands()?;
+         let recovery =
+             supervisor.rebuild_and_restart(&mut **builder, &incoming, &*self.asset_ok)?;
+         let invalidated_at = recovery.plan.reuse;
+@@ -1093,6 +1100,7 @@ impl HostHandler {
+     }
+ 
+     fn scrub(&self, stream: &mut TcpStream, request: &HttpRequest) -> Result<(), HostError> {
++        let _operation = lock(&self.session.operations);
+         require_form_content_type(request)?;
+         let form = parse_form(&request.body)?;
+         let frame = required_form(&form, "frame")?
+@@ -1117,6 +1125,7 @@ impl HostHandler {
+     }
+ 
+     fn restart(&self, stream: &mut TcpStream) -> Result<(), HostError> {
++        let _operation = lock(&self.session.operations);
+         let restarted = self.session.restart()?;
+         let published = self
+             .frames
+@@ -1131,24 +1140,33 @@ impl HostHandler {
+     }
+ 
+     fn event(&self, stream: &mut TcpStream, request: &HttpRequest) -> Result<(), HostError> {
++        let _operation = lock(&self.session.operations);
+         require_form_content_type(request)?;
+         let form = parse_form(&request.body)?;
+         let event = event_from_form(&form)?;
+-        let response = self.session.request(SupervisorRequest::Event {
+-            scene: self.session.try_owned_scene()?,
+-            event,
+-        })?;
++        let response = if self.session.guarded_input || input::has_guard(&form) {
++            self.session.guarded_event(&form, event)?
++        } else {
++            self.session.request(SupervisorRequest::Event {
++                scene: self.session.try_owned_scene()?, event,
++            })?
++        };
+         self.write_worker_response(stream, response, None)
+     }
+ 
+     fn inspect(&self, stream: &mut TcpStream) -> Result<(), HostError> {
+-        let response = self.session.request(SupervisorRequest::Inspect {
+-            scene: self.session.try_owned_scene()?,
+-        })?;
+-        self.write_worker_response(stream, response, Some(StudioDataKind::Inspection))
++        let _operation = lock(&self.session.operations);
++        let (response, generation) = self.session.inspect_generation()?;
++        if let WorkerResponse::StudioData { kind: StudioDataKind::Inspection, bytes, .. } = response {
++            write_response_with_headers(stream, 200, "OK", "application/json; charset=utf-8", &bytes,
++                &[("X-FMN-Worker-Generation", &generation.to_string())])
++        } else {
++            self.write_worker_response(stream, response, Some(StudioDataKind::Inspection))
++        }
+     }
+ 
+     fn overlays(&self, stream: &mut TcpStream, request: &HttpRequest) -> Result<(), HostError> {
++        let _operation = lock(&self.session.operations);
+         let layers = match request.query_one("layers")? {
+             Some(raw) => DebugLayerSet::from_bits(
+                 raw.parse::<u8>()
+diff --git a/crates/fmn-studio/src/native/edits.rs b/crates/fmn-studio/src/native/edits.rs
+index bffbd18..db6536d 100644
+--- a/crates/fmn-studio/src/native/edits.rs
++++ b/crates/fmn-studio/src/native/edits.rs
+@@ -54,8 +54,11 @@ impl EditTrack {
+         limit: usize,
+     ) -> Result<u64, ServiceError> {
+         let input = studio_input_payload(scene, command).map_err(execution_error)?;
+-        if input.revision != position || input.target.is_some() {
+-            return Err(invalid("stale native input revision or unsupported explicit target"));
++        if input.revision != position {
++            return Err(invalid("stale native input revision"));
++        }
++        if input.target.is_some() {
++            return Err(invalid("stale native input object or unsupported explicit target"));
+         }
+         let keep = self.rows.partition_point(|row| row.input.frame <= input.frame);
+         if keep >= limit {
+diff --git a/crates/fmn-studio/src/native/raster.rs b/crates/fmn-studio/src/native/raster.rs
+index cc19bee..7fcbe26 100644
+--- a/crates/fmn-studio/src/native/raster.rs
++++ b/crates/fmn-studio/src/native/raster.rs
+@@ -96,7 +96,7 @@ impl NativeRaster {
+             render_engine_journal(config.engine, &config.frame, config.tiling)).map_err(execution_error)
+     }
+ 
+-    pub(super) fn inspect(&self, program: &NativeSceneProgram, frame_count: u64, max_bytes: usize) -> Result<Vec<u8>, ServiceError> {
++    pub(super) fn inspect(&self, program: &NativeSceneProgram, frame_count: u64, max_bytes: usize, input_revision: Option<u64>) -> Result<Vec<u8>, ServiceError> {
+         let limits = InspectorLimits { max_json_bytes: max_bytes, ..InspectorLimits::default() };
+         let mut snapshot = InspectorSnapshot::capture(program.preview().stage(), program.spans(), limits).map_err(execution_error)?;
+         let config = self.renderer.config();
+@@ -106,6 +106,7 @@ impl NativeRaster {
+         });
+         snapshot.view = Some(InspectorView::new(program.frame_index(), frame_count,
+             program.preview().scene().fps(), config.frame.viewport, map, self.camera.is_none()).map_err(execution_error)?);
++        if let Some(view) = &mut snapshot.view { view.input_revision = input_revision; }
+         snapshot.to_json(limits).map_err(execution_error)
+     }
+ 
+diff --git a/crates/fmn-studio/src/native/service.rs b/crates/fmn-studio/src/native/service.rs
+index 7b41850..c79e7ca 100644
+--- a/crates/fmn-studio/src/native/service.rs
++++ b/crates/fmn-studio/src/native/service.rs
+@@ -84,6 +84,24 @@ impl NativeWorkerConfig {
+             max_pixels: 16_777_216, max_recorded_inputs: 4096, max_replay_inputs: 65_536, stage_input_events: false,
+         }
+     }
++
++    /// Base content identities shared by worker execution and host validation.
++    /// This does not execute the scene factory. Camera capture/rig identities,
++    /// when applicable, are additional reads bound by the worker at construction.
++    #[must_use]
++    pub fn base_input_reads(&self) -> Vec<AssetRead> {
++        let mut contract = b"fmn-native-studio-v1\0".to_vec();
++        contract.extend_from_slice(&self.fps.to_le_bytes());
++        contract.extend_from_slice(&self.frame_count.to_le_bytes());
++        contract.extend_from_slice(self.scene.as_bytes());
++        vec![
++            AssetRead { path: "native/source-closure".into(), digest: self.source_digest },
++            AssetRead { path: "native/worker-build".into(), digest: self.build_id },
++            AssetRead { path: "native/capture-contract".into(), digest: protocol_digest(&contract) },
++            AssetRead { path: "native/input-track-semantics".into(), digest: protocol_digest(b"frame-stamped-native-input-track-v1") },
++        ]
++    }
++
+ }
+ 
+ /// Native protocol service over one actual scene, editor and renderer.
+@@ -131,16 +149,7 @@ impl NativeSceneWorker {
+         if config.camera.as_ref().is_some_and(|camera| camera.fps != config.fps) {
+             return Err(invalid("native camera FPS must match the scene clock"));
+         }
+-        let mut contract = b"fmn-native-studio-v1\0".to_vec();
+-        contract.extend_from_slice(&config.fps.to_le_bytes());
+-        contract.extend_from_slice(&config.frame_count.to_le_bytes());
+-        contract.extend_from_slice(config.scene.as_bytes());
+-        let mut reads = vec![
+-            AssetRead { path: "native/source-closure".into(), digest: config.source_digest },
+-            AssetRead { path: "native/worker-build".into(), digest: config.build_id },
+-            AssetRead { path: "native/capture-contract".into(), digest: protocol_digest(&contract) },
+-            AssetRead { path: "native/input-track-semantics".into(), digest: protocol_digest(b"frame-stamped-native-input-track-v1") },
+-        ];
++        let mut reads = config.base_input_reads();
+         crate::InspectorView::new(0, config.frame_count, config.fps, viewport,
+             config.renderer.frame.map, config.camera.is_none()).map_err(execution_error)?;
+         let mut raster = NativeRaster::new(config.renderer, config.camera.clone())?;
+@@ -370,7 +379,7 @@ impl NativeSceneWorker {
+             self.input_enabled() && self.config.stage_input_events, self.pending_inputs.len());
+         // The existing inspector remains the authority for the whole object tree.
+         // Only additive, bounded native command metadata is appended here.
+-        let mut bytes = self.raster.inspect(program, self.config.frame_count, max)?;
++        let mut bytes = self.raster.inspect(program, self.config.frame_count, max, self.input_enabled().then_some(self.position))?;
+         if bytes.last() != Some(&b'}') { return Err(execution_error("native inspector omitted its root object")); }
+         if bytes.len().checked_add(suffix.len()).is_none_or(|length| length - 1 > max) {
+             return Err(execution_error("native inspection exceeds its JSON budget"));
+diff --git a/crates/fmn-studio/src/protocol.rs b/crates/fmn-studio/src/protocol.rs
+index da84558..dabff1b 100644
+--- a/crates/fmn-studio/src/protocol.rs
++++ b/crates/fmn-studio/src/protocol.rs
+@@ -99,7 +99,15 @@ pub fn studio_input_command(
+         .event
+         .validate()
+         .map_err(|_| ProtocolError::Malformed("invalid Studio input event"))?;
+-    let mut document = Writer::new(STUDIO_INPUT_COMMAND_SCHEMA);
++    // Bound every writer append before allocation, including the hex label's
++    // tighter effective document ceiling. A huge scene name cannot allocate an
++    // unbounded intermediate document only to be rejected afterward.
++    let document_limit = STUDIO_INPUT_DOCUMENT_LIMIT
++        .min((MAX_STUDIO_INPUT_LABEL_BYTES - STUDIO_INPUT_LABEL_PREFIX.len()) / 2);
++    limit_payload("Studio input scene name", scene.len(), document_limit)?;
++    let mut document = Writer::with_limits(STUDIO_INPUT_COMMAND_SCHEMA, Limits {
++        max_total: document_limit, max_field: document_limit,
++    });
+     document
+         .put_str(scene)
+         .put_i64(input.frame)
+@@ -121,7 +129,8 @@ pub fn studio_input_command(
+         STUDIO_INPUT_DOCUMENT_LIMIT,
+     )?;
+     let identity = sha256(&document);
+-    let mut label = string_with_capacity(256, "Studio input command label")?;
++    let label_bytes = STUDIO_INPUT_LABEL_PREFIX.len() + document.len() * 2;
++    let mut label = string_with_capacity(label_bytes, "Studio input command label")?;
+     label.push_str(STUDIO_INPUT_LABEL_PREFIX);
+     const HEX: &[u8; 16] = b"0123456789abcdef";
+     for byte in document {
+diff --git a/crates/fmn/src/lib.rs b/crates/fmn/src/lib.rs
+index 6fb55ef..da0464c 100644
+--- a/crates/fmn/src/lib.rs
++++ b/crates/fmn/src/lib.rs
+@@ -315,25 +315,34 @@ pub mod builtins {
+         }
+ 
+         fn construct(&mut self, stage: &mut Stage<'_>) -> crate::Result<()> {
+-            let child = stage.arena_mut().add(
+-                Circle::new()
+-                    .radius(0.6)
+-                    .arc_center([-1.5, 0.0, 0.0])
+-                    .color(BLUE),
+-            );
+-            let group = stage.add(Mobject::new())?;
+-            stage.arena_mut().attach(group, child)?;
+-            stage.set_fill(child, Some(BLUE), Some(1.0), Some(0.0), true);
+-            stage.set_stroke(child, None, Some(0.0), Some(0.0), None, true);
+-            let swatch = stage.add(Square::new().side_length(1.0).color(RED))?;
+-            stage.shift(swatch, [1.5, 0.0, 0.0]);
+-            stage.set_fill(swatch, Some(RED), Some(1.0), Some(0.0), true);
+-            stage.set_stroke(swatch, None, Some(0.0), Some(0.0), None, true);
++            populate_interactive_canvas(stage.arena_mut())?;
+             stage.wait(2.0)?;
+             Ok(())
+         }
+     }
+ 
++    /// Populate the live canvas without advancing its native scene clock.
++    /// Both the eager SceneConstruct and Studio's stepped program use this owner.
++    pub fn populate_interactive_canvas(stage: &mut crate::mobject::Stage) -> crate::Result<()> {
++        let child = stage.add(
++            Circle::new()
++                .radius(0.6)
++                .arc_center([-1.5, 0.0, 0.0])
++                .color(BLUE),
++        );
++        let group = stage.add(Mobject::new());
++        stage.add_to_scene(group)?;
++        stage.attach(group, child)?;
++        stage.set_fill(child, Some(BLUE), Some(1.0), Some(0.0), true);
++        stage.set_stroke(child, None, Some(0.0), Some(0.0), None, true);
++        let swatch = stage.add(Square::new().side_length(1.0).color(RED));
++        stage.add_to_scene(swatch)?;
++        stage.shift(swatch, [1.5, 0.0, 0.0]);
++        stage.set_fill(swatch, Some(RED), Some(1.0), Some(0.0), true);
++        stage.set_stroke(swatch, None, Some(0.0), Some(0.0), None, true);
++        Ok(())
++    }
++
+     #[must_use]
+     pub fn interactive_scene(name: &str) -> Option<InteractiveCanvas> {
+         (name == INTERACTIVE_SCENE_NAME).then_some(InteractiveCanvas)

@@ -1,0 +1,170 @@
+diff --git a/crates/fmn-python/python/fmn_python/control_events.py b/crates/fmn-python/python/fmn_python/control_events.py
+index e817e61263fd20c6a1377a56d382bccb7db30786..84140fafd1a548ee6f05bbb748b5fbc6d7ddec85 100644
+--- a/crates/fmn-python/python/fmn_python/control_events.py
++++ b/crates/fmn-python/python/fmn_python/control_events.py
+@@ -1,7 +1,8 @@
+-"""Connect Atlas-built controls to the existing public event-listener API.
++"""Compose native-backed controls and connect their public event listeners.
+ 
+-Constructors still delegate geometry and scalar state to their native owners.
+-Only input registration and live-control transitions are assembled here.
++Public primitive constructors own the geometry; the tracker lifecycle owns
++scalar state and record schemas. This adapter assembles those objects and
++input transitions without introducing a renderer or a second frame loop.
+ """
+ from __future__ import annotations
+ 
+@@ -74,6 +75,33 @@ def _bind_constructor(g, name, specifications, constructor=None):
+     _method(cls, "__init__", initialize)
+ 
+ 
++def _shape(g, name, config, option_name, *args):
++    """Keep nested option diagnostics while admitting the public shape API.
++
++    Recognized constructor keys come from the current class signatures; style
++    keys come from the existing native adapter. Do not maintain another subset
++    of Rectangle/Line/Circle options or rewrite exceptions from authored hooks.
++    """
++    cls = g[name]
++    accepted = set(g["_NATIVE_VMOBJECT_STYLE_KEYS"]) | {"shading"}
++    for base in cls.__mro__:
++        constructor = vars(base).get("__init__")
++        if constructor is None:
++            continue
++        try:
++            parameters = inspect.signature(constructor).parameters.values()
++        except (TypeError, ValueError):
++            continue  # Builtin slot wrappers need no extra constructor keys.
++        accepted.update(p.name for p in parameters if p.kind in (
++            inspect.Parameter.POSITIONAL_OR_KEYWORD, inspect.Parameter.KEYWORD_ONLY,
++        ) and p.name != "self")
++    unknown = set(config) - accepted
++    if unknown:
++        raise TypeError("unexpected keyword arguments: " + ", ".join(
++            option_name + "." + key for key in sorted(unknown)))
++    return cls(*args, **config)
++
++
+ def _typed_scalar_constructors(g):
+     """Compose actual public primitive classes before the tracker hook pass.
+ 
+@@ -82,7 +110,8 @@ def _typed_scalar_constructors(g):
+     and authorable constructors of their own. Reduced event-only embedding
+     tables supply their own constructors and do not include this geometry.
+     """
+-    names = ("ControlMobject", "Rectangle", "RoundedRectangle", "Circle", "Line")
++    names = ("ControlMobject", "Rectangle", "RoundedRectangle", "Circle", "Line",
++             "VGroup", "VMobject", "_NATIVE_VMOBJECT_STYLE_KEYS")
+     if not all(name in g for name in names):
+         return {}
+     root_keys = {"color", "opacity", "shading", "texture_paths",
+@@ -116,7 +145,25 @@ def _typed_scalar_constructors(g):
+                 raise TypeError("unexpected keyword arguments: " + ", ".join(sorted(extra)))
+             root = {key: value for key, value in root.items() if key in root_keys}
+             value_type = g["_np"].dtype(p["value_type"]).type
+-            if name == "EnableDisableButton":
++            if name == "Checkbox":
++                if not isinstance(p["value"], bool):
++                    raise AssertionError("Checkbox value must be bool")
++                rect = options(p["rect_kwargs"], "rect_kwargs")
++                check = options(p["checkmark_kwargs"], "checkmark_kwargs")
++                cross = options(p["cross_kwargs"], "cross_kwargs")
++                buff = finite(p["box_content_buff"], "box_content_buff")
++                box = _shape(g, "Rectangle", rect, "rect_kwargs")
++                self.value_type, self.rect_kwargs = value_type, rect
++                self.checkmark_kwargs, self.cross_kwargs = check, cross
++                self.box_content_buff, self.box = buff, box
++                # These are public factories: subclasses may return their own
++                # native-backed mark, which is attached without recasting it.
++                mark = self.get_checkmark() if p["value"] else self.get_cross()
++                if not isinstance(mark, g["VMobject"]):
++                    raise TypeError("Checkbox mark factories must return VMobjects")
++                self.box_content = mark
++                super(cls, self).__init__(p["value"], box, mark, **root)
++            elif name == "EnableDisableButton":
+                 if not isinstance(p["value"], bool):
+                     raise AssertionError("EnableDisableButton value must be bool")
+                 rect = options(p["rect_kwargs"], "rect_kwargs")
+@@ -129,7 +176,7 @@ def _typed_scalar_constructors(g):
+                 # genuine caller paints and custom state colors still win.
+                 if style.get("fill_color") is None and style.get("color") is None:
+                     style["fill_color"] = g["WHITE"]
+-                box = g["Rectangle"](**style)
++                box = _shape(g, "Rectangle", style, "rect_kwargs")
+                 if any(not g["_np"].array_equal(actual, g["_color_to_rgb"](default))
+                        for actual, default in zip(rgb, (g["GREEN"], g["RED"]))):
+                     box.set_fill(enable if p["value"] else disable)
+@@ -148,7 +195,8 @@ def _typed_scalar_constructors(g):
+                     raise ValueError("slider value must lie within its bounds")
+                 rect = options(p["rounded_rect_kwargs"], "rounded_rect_kwargs")
+                 circle = options(p["circle_kwargs"], "circle_kwargs")
+-                bar, handle = g["RoundedRectangle"](**rect), g["Circle"](**circle)
++                bar = _shape(g, "RoundedRectangle", rect, "rounded_rect_kwargs")
++                handle = _shape(g, "Circle", circle, "circle_kwargs")
+                 axis = g["Line"](bar.get_bounding_box_point(g["LEFT"]),
+                                  bar.get_bounding_box_point(g["RIGHT"]))
+                 if not math.isfinite(axis.get_length()) or axis.get_length() == 0:
+@@ -165,10 +213,10 @@ def _typed_scalar_constructors(g):
+         return initialize
+ 
+     return {name: make_constructor(name, g[name])
+-            for name in ("EnableDisableButton", "LinearNumberSlider") if name in g}
++            for name in ("EnableDisableButton", "LinearNumberSlider", "Checkbox") if name in g}
+ 
+ 
+-def _install_transitions(g):
++def _install_transitions(g, *, typed_checkbox=False):
+     Checkbox = g.get("Checkbox")
+     if Checkbox is not None:
+         def place_factory(original):
+@@ -179,10 +227,39 @@ def _install_transitions(g):
+                 result.stretch_to_fit_height(self.box.get_height())
+                 result.scale(0.5)
+                 result.move_to(self.box)
++                if typed_checkbox:
++                    # A fresh mark otherwise resets the fixed-frame uniform
++                    # when become replaces it, letting it drift off its box.
++                    if self.box.is_fixed_in_frame():
++                        result.fix_in_frame()
++                    else:
++                        result.unfix_from_frame()
+                 return result
+             return mark
+-        for name in ("get_checkmark", "get_cross"):
+-            _method(Checkbox, name, place_factory(getattr(Checkbox, name)))
++        if typed_checkbox:
++            # Same two-Line compositions as the Reference interactive.py,
++            # using public native-backed constructors, not traced glyph paths.
++            def checkmark(self):
++                return g["VGroup"](
++                    _shape(g, "Line", self.checkmark_kwargs, "checkmark_kwargs",
++                           g["UP"] / 2 + 2 * g["LEFT"], g["DOWN"] + g["LEFT"]),
++                    _shape(g, "Line", self.checkmark_kwargs, "checkmark_kwargs",
++                           g["DOWN"] + g["LEFT"], g["UP"] + g["RIGHT"]),
++                )
++
++            def cross(self):
++                return g["VGroup"](
++                    _shape(g, "Line", self.cross_kwargs, "cross_kwargs",
++                           g["UP"] + g["LEFT"], g["DOWN"] + g["RIGHT"]),
++                    _shape(g, "Line", self.cross_kwargs, "cross_kwargs",
++                           g["UP"] + g["RIGHT"], g["DOWN"] + g["LEFT"]),
++                )
++            factories = (("get_checkmark", checkmark), ("get_cross", cross))
++        else:
++            factories = tuple((name, getattr(Checkbox, name))
++                              for name in ("get_checkmark", "get_cross"))
++        for name, factory in factories:
++            _method(Checkbox, name, place_factory(factory))
+ 
+     Toggle = g.get("EnableDisableButton")
+     if Toggle is not None:
+@@ -244,7 +321,7 @@ def install_control_events(native: Any) -> None:
+     if g.get("_FMN_CONTROL_EVENTS_INSTALLED", False):
+         return
+     constructors = _typed_scalar_constructors(g)
+-    _install_transitions(g)
++    _install_transitions(g, typed_checkbox="Checkbox" in constructors)
+     bindings = {
+         "MotionMobject": (("mobject", "MouseDragEvent", "add_mouse_drag_listner", "mob_on_mouse_drag"),),
+         "Button": (("mobject", "MousePressEvent", "add_mouse_press_listner", "mob_on_mouse_press"),),

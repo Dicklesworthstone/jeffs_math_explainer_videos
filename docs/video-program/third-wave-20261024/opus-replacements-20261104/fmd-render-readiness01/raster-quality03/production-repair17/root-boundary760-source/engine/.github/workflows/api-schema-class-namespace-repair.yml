@@ -1,0 +1,91 @@
+name: API schema class namespace repair
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/api-schema-class-namespace-repair.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: api-schema-class-namespace-repair
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    if: github.repository == 'Dicklesworthstone/franken_manim'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      CARGO_TARGET_DIR: target/api-schema-repair
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Apply final-class-namespace repair
+        env:
+          PATCH_GZ_B64: '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'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git pull --ff-only origin main
+          printf '%s' "$PATCH_GZ_B64" | base64 --decode | gzip --decompress > "$RUNNER_TEMP/api-schema-repair.patch"
+          git apply --check "$RUNNER_TEMP/api-schema-repair.patch"
+          git apply "$RUNNER_TEMP/api-schema-repair.patch"
+          python3 -m py_compile scripts/gen_api_schema.py scripts/test_gen_api_schema.py
+          PYTHONPATH=scripts python3 scripts/test_gen_api_schema.py
+          python3 scripts/check_python_helper_aliases.py
+          python3 scripts/test_python_helper_aliases.py
+          python3 scripts/check_library_constructor_authority.py
+          python3 scripts/test_library_constructor_authority.py
+
+      - name: Regenerate schema-derived artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          UPDATE_API_ARTIFACTS=1 cargo test --locked -p fmn-conformance --test api_schema
+          cargo test --locked -p fmn-conformance --test api_schema
+          cargo fmt --all -- --check
+          git diff --check
+          test -z "$(git diff --name-only --diff-filter=D)"
+
+      - name: Install Ultimate Bug Scanner
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL -A "OpenAI File Downloader, XaiImageApiFetch/1.0" \
+            https://raw.githubusercontent.com/Dicklesworthstone/ultimate_bug_scanner/main/install.sh \
+            -o "$RUNNER_TEMP/install-ubs.sh"
+          bash "$RUNNER_TEMP/install-ubs.sh" \
+            --non-interactive \
+            --no-path-modify \
+            --skip-hooks \
+            --install-dir "$RUNNER_TEMP/ubs-bin"
+          "$RUNNER_TEMP/ubs-bin/ubs" --version
+
+      - name: Commit and push semantic repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Jeff Emanuel"
+          git config user.email "35050222+Dicklesworthstone@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          mapfile -t changed_files < <(git diff --cached --name-only --diff-filter=ACMR)
+          test "${#changed_files[@]}" -gt 0
+          "$RUNNER_TEMP/ubs-bin/ubs" "${changed_files[@]}"
+          git commit \
+            -m "fix(schema): model final Python class namespaces" \
+            -m "Collapse transient class-body definitions under Python's last-binding-wins semantics, preserve property setter identity, remove the duplicate VMobject.rotate symbol and parameter rows, advance the reviewed-ledger ratchet, and regenerate every dependent artifact. The mandatory gate now locks the extractor regression before helper-policy validation." \
+            -m "Relates-to: fm-5wq.4.141"
+          git pull --rebase origin main
+          PYTHONPATH=scripts python3 scripts/test_gen_api_schema.py
+          python3 scripts/check_python_helper_aliases.py
+          cargo test --locked -p fmn-conformance --test api_schema
+          git push origin HEAD:main

@@ -1,0 +1,98 @@
+name: Codex exact source snapshot
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/codex-source-snapshot.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    runs-on: macos-14
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Materialize the two exact reviewed CLI source blobs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_HEAD: ${{ github.sha }}
+        shell: python
+        run: |
+          import base64, hashlib, json, os, pathlib, subprocess, urllib.request, zlib
+
+          repository = 'Dicklesworthstone/franken_manim'
+          endpoint = 'https://api.github.com/repos/' + repository + '/git/blobs'
+          headers = {
+              'Authorization': 'Bearer ' + os.environ['GH_TOKEN'],
+              'Accept': 'application/vnd.github+json',
+              'User-Agent': 'OpenAI File Downloader, XaiImageApiFetch/1.0',
+              'Content-Type': 'application/json',
+          }
+
+          def git_blob(data):
+              return hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest()
+
+          request = urllib.request.Request(endpoint + '/796e3519753d4bad12a970f605ad3702675ac9ba', headers=headers)
+          with urllib.request.urlopen(request, timeout=60) as response:
+              stored = json.load(response)
+          payload = base64.b64decode(stored['content'])
+          assert git_blob(payload) == '796e3519753d4bad12a970f605ad3702675ac9ba'
+          # Repair one duplicated transport character; neither source nor patch
+          # semantics are inferred. Both the restored transport and decoded
+          # patch bundle must match the locally retained exact identities.
+          assert payload.count(b'Dig2oxVVdKOWjsGDM') == 1
+          payload = payload.replace(b'Dig2oxVVdKOWjsGDM', b'Dig2oxVdKOWjsGDM')
+          assert git_blob(payload) == '59b71f32eaea9b80f32b650496c48534f2bda230'
+          decoded = zlib.decompress(base64.b64decode(payload, validate=True))
+          assert hashlib.sha256(decoded).hexdigest() == '08667e46c7c9db82d678a12fc1025598da8823bcb37bec8a73f3de92ba60ed07'
+          patches = json.loads(decoded)
+          assert len(patches) == 2
+          path = pathlib.Path('crates/fmn-cli/src/lib.rs')
+          assert git_blob(path.read_bytes()) == '6fb5c2e814729c5dea4d9ff8ef6df4102e4f8acc', 'CLI source changed; refusing stale patches'
+          expected = ['95582943f12bfc128ed2fb034e8e6d9298559be0', '5a3afbb7fd1afae0baa00698c81f4a6e67069caf']
+          receipt = {'source_head': os.environ['SOURCE_HEAD'], 'path': str(path), 'blobs': []}
+          for phase, (patch, sha) in enumerate(zip(patches, expected), 1):
+              patch = patch.encode()
+              subprocess.run(['git', 'apply', '--check', '-'], input=patch, check=True)
+              subprocess.run(['git', 'apply', '-'], input=patch, check=True)
+              changed = subprocess.check_output(['git', 'diff', '--name-only'], text=True).splitlines()
+              assert changed == [str(path)], 'unexpected candidate path'
+              subprocess.run(['git', 'diff', '--check'], check=True)
+              source = path.read_bytes()
+              assert git_blob(source) == sha, 'candidate bytes disagree with the reviewed source'
+              body = json.dumps({'content': base64.b64encode(source).decode(), 'encoding': 'base64'}).encode()
+              request = urllib.request.Request(endpoint, data=body, headers=headers, method='POST')
+              with urllib.request.urlopen(request, timeout=60) as response:
+                  result = json.load(response)
+              assert result['sha'] == sha
+              receipt['blobs'].append({'phase': phase, 'sha': sha, 'bytes': len(source)})
+              print('VERIFIED_SOURCE_BLOB', phase, sha, len(source), flush=True)
+          text = json.dumps(receipt, indent=2) + '\n'
+          pathlib.Path('/tmp/franken-manim-typesetting-blobs.json').write_text(text)
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+              summary.write('```json\n' + text + '```\n')
+      - name: Package the exact source tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rev-parse HEAD > /tmp/franken-manim-source-sha.txt
+          git archive --format=tar.gz HEAD > /tmp/franken-manim-source.tar.gz
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: codex-franken-manim-source-${{ github.sha }}
+          path: |
+            /tmp/franken-manim-source.tar.gz
+            /tmp/franken-manim-source-sha.txt
+            /tmp/franken-manim-typesetting-blobs.json
+          if-no-files-found: error
+          retention-days: 1

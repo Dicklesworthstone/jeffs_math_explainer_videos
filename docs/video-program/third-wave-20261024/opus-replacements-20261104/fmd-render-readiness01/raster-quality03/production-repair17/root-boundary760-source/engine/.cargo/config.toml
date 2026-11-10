@@ -1,0 +1,13 @@
+# Parallel rustc front-end (nightly). Added by build-settings sweep.
+[build]
+rustflags = ["-Z", "threads=4"]
+fingerprint = "content"
+
+# RCH preserves source mtimes. An edit made while an older remote snapshot
+# builds can therefore predate its artifact and appear fresh to mtime checks.
+# The pinned nightly must compare contents before reusing compiled output.
+[unstable]
+checksum-freshness = true
+# The Gauntlet executes Cargo's exact fmn artifact through its existing CLI
+# dev-dependency; no guessed target-directory path or external build is used.
+bindeps = true

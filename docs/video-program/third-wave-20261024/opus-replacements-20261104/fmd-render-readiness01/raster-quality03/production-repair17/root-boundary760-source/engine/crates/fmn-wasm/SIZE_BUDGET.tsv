@@ -1,0 +1,14 @@
+# fmn-wasm artifact-size budget (R19, fm-l97, §10.7)
+# budget_bytes = measured_bytes + 10% headroom (ceil), enforced by the
+# size_budget_within_headroom test in crates/fmn-wasm/src/lib.rs.
+# Rebuild and re-measure deliberately; never raise the budget silently.
+artifact	measured_bytes	budget_bytes	measured_on	notes
+cargo-release-wasm	639722	703695	2026-08-16	target/wasm32-unknown-unknown/release/fmn_wasm.wasm (cargo build --target wasm32-unknown-unknown --release -p fmn-wasm; thin LTO). fm-oqxs A/B on current source: wasm-bindgen 0.2.126 = 639566 bytes, 0.2.127 = 639722 bytes (+156, 0.024%); the larger rebaseline reflects post-2026-07-31 Lumen/scene/WASM capability growth.
+wasm-bindgen-web-pkg	454043	499448	2026-08-16	demo/wasm/pkg/fmn_wasm_bg.wasm (wasm-pack 0.15.0 build --target web; matching wasm-bindgen 0.2.127 + wasm-opt). fm-oqxs A/B on current source produced the identical optimized size under 0.2.126 and 0.2.127; wasm-pack 0.15.0 also reproduced 454043 bytes. The larger rebaseline reflects post-2026-07-31 Lumen/scene/WASM capability growth.
+wasm-bindgen-bundler-pkg	467746	514521	2026-08-18	Publishable serial npm artifact built by wasm-pack 0.15.0 with wasm-bindgen 0.2.127 and wasm-opt -O; enforced by scripts/check_wasm_package.sh.
+wasm-bindgen-bundler-pkg-gzip	187650	206415	2026-08-18	Deterministic gzip -n -9 size of the same publishable serial wasm; enforced by scripts/check_wasm_package.sh.
+npm-package-tarball	195809	215390	2026-08-17	Historical single-artifact fmn-wasm 0.3.0 tarball baseline, superseded by npm-package-tarball-threaded once the separate threads subpath landed.
+wasm-bindgen-threads-pkg	466626	513289	2026-08-18	Shared-memory/atomics web target after wasm-bindgen 0.2.127 and wasm-opt 117 -Oz with the threads feature set; enforced by scripts/check_wasm_package.sh.
+wasm-bindgen-threads-pkg-gzip	187791	206571	2026-08-18	Deterministic gzip -n -9 size of the same shared-memory artifact; enforced by scripts/check_wasm_package.sh.
+npm-package-tarball-threaded	395034	434538	2026-08-18	Package containing the explicit serial artifact, shared-memory frame-pool artifact, JS coordinator/worker, typings, README, and governed licenses; enforced by scripts/check_wasm_package.sh.
+demo-timeline-bundle	302485	332681	2026-08-17	demo/wasm/bundle.fmtl (cargo run -p fmn-wasm --example export_bundle; FMTL/1, fm-oee; enforced by demo_bundle_size_within_budget)

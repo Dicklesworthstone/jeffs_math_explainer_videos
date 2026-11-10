@@ -1,0 +1,191 @@
+{
+  "source_map_sha256": "c3ccd2f23f4cc99b1941e931d2971738111126884288457f563dc4903300ed79",
+  "new_map_sha256": "ff852ebcff626a1dcef5bee91613eba324bba317cacbc7b0f2dd129897bc1681",
+  "checked": [
+    {
+      "cue": "01_4",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+      "line": 245,
+      "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3"
+    },
+    {
+      "cue": "02_5",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+      "line": 435,
+      "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec"
+    },
+    {
+      "cue": "03_3",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+      "line": 607,
+      "sha256": "0f22d63febc18e05dc4123bedf84eeadf967938bcbc4260cfb0d9e8925ff4cb9"
+    },
+    {
+      "cue": "04_4",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+      "line": 341,
+      "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+    },
+    {
+      "cue": "04_6",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+      "line": 389,
+      "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+    },
+    {
+      "cue": "05_8",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+      "line": 876,
+      "sha256": "d57e003a4067f3e67abb654e98c19ca0274c9b7edae5ac26da756757e33230b5"
+    },
+    {
+      "cue": "06_8",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs",
+      "line": 734,
+      "sha256": "7a4cc01acb497ad881c0d8478c696ab74db025494ab9381d0b414355fe3fd30d"
+    },
+    {
+      "cue": "07_2",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+      "line": 400,
+      "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+    },
+    {
+      "cue": "07_3",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+      "line": 434,
+      "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+    },
+    {
+      "cue": "08_5",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs",
+      "line": 1186,
+      "sha256": "8a13e8a190cd502e7b58efbcb7c40872cdb0e6e702feb69e1b789e451a7a42b5"
+    },
+    {
+      "cue": "09_4",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "line": 985,
+      "sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e"
+    },
+    {
+      "cue": "09_5",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "line": 1050,
+      "sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e"
+    },
+    {
+      "cue": "09_8",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "line": 1329,
+      "sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e"
+    },
+    {
+      "cue": "10_4",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+      "line": 502,
+      "sha256": "0bcfbc7d7962b2ab8fa2d27895fce104ab6cb71ce5aac26fdd0b97dca04a3df0"
+    },
+    {
+      "cue": "10_5",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+      "line": 528,
+      "sha256": "0bcfbc7d7962b2ab8fa2d27895fce104ab6cb71ce5aac26fdd0b97dca04a3df0"
+    },
+    {
+      "cue": "11_5",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "line": 440,
+      "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+    },
+    {
+      "cue": "11_6",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "line": 503,
+      "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+    },
+    {
+      "cue": "11_8",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "line": 603,
+      "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1"
+    },
+    {
+      "cue": "13_5",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+      "line": 631,
+      "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae"
+    },
+    {
+      "cue": "13_11",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+      "line": 813,
+      "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae"
+    },
+    {
+      "cue": "14_3",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+      "line": 522,
+      "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96"
+    },
+    {
+      "cue": "14_4",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+      "line": 531,
+      "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96"
+    },
+    {
+      "cue": "15_3",
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+      "line": 402,
+      "sha256": "0c217b6b5daee2681a61049b0918ceda7cc211d377ecd0c5f70b8562dd36568b"
+    },
+    {
+      "cue": null,
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "line": 1251,
+      "sha256": "9bb07b3ff030d1ac0885d1382097bde596e8cae419d86b51933e12e7eeed8218"
+    },
+    {
+      "cue": null,
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "line": 1305,
+      "sha256": "9bb07b3ff030d1ac0885d1382097bde596e8cae419d86b51933e12e7eeed8218"
+    },
+    {
+      "cue": null,
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+      "line": 31,
+      "sha256": "e1f4d1b87f4b36f979e7800f7b2048117b9a4809b2372f385350698f5c3e7cbd"
+    },
+    {
+      "cue": null,
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "line": 1352,
+      "sha256": "9bb07b3ff030d1ac0885d1382097bde596e8cae419d86b51933e12e7eeed8218"
+    },
+    {
+      "cue": null,
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+      "line": 58,
+      "sha256": "e1f4d1b87f4b36f979e7800f7b2048117b9a4809b2372f385350698f5c3e7cbd"
+    }
+  ],
+  "moves": {
+    "09_4": [
+      942,
+      985
+    ],
+    "09_5": [
+      1007,
+      1050
+    ],
+    "09_8": [
+      1286,
+      1329
+    ]
+  },
+  "visual_holds": 23,
+  "helpers": 5,
+  "scope": "Prepared metadata only, not installed. Guarded narration copy/reconstruction, schedule comparison and repaired picture review still required."
+}

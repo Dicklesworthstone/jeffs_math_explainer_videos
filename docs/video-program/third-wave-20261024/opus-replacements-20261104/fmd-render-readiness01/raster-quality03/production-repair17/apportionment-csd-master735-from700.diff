@@ -1,0 +1,287 @@
+--- apportionment-csd-master700.py
++++ apportionment-csd-master735.py
+@@ -1,29 +1,31 @@
+-"""Guarded CSD native master for apportionment: chapters 01-02 as transported by import683, 03-15 from final672.
++"""Guarded CSD native master for apportionment: master700 with the repaired chapter 06 and the caption 168 repair.
+ 
+-Successor of root's master636 for the mixed-host case. Prepared for root; its author never executed it. On the CSD only,
+-with /usr/bin/python3 -I -B:
+-  inputs   no job: requires stable successful import683 and all 13 final672 runs, repeats every check that writes nothing,
+-           and writes one new guard manifest.
+-  run      only as the child of guard_csd02: rechecks everything, builds final/ inside the new job folder, then runs the
+-           native master and captions commands once.
+-
+-What differs from master636, and why:
+-  1. Chapters 01-02 resolve through import683's path -> physical records; nothing is guessed from a path name.
+-  2. Their timeline and cue-log tables name Mac paths, and the kit opens those paths (master.rs replay,
+-     narration_delivery.py timeline and cue_log). final/ therefore holds a copy with the path column alone rebased, and
+-     the copy must equal timeline666's own table byte for byte (the cue log: timeline666's rows plus the exact stem rows).
+-     The imported files are kept and never edited.
+-  3. master gets --score. master636 omitted it, and narration_delivery.cue_log refuses a stem row without it (lines 153-180).
+-  4. Encoder settings: raw equality within each host's chapters, as master636 required of all 15, and across hosts the
+-     options must match x264's reference with only support671's two exemptions (build banner, auto thread counts). Each
+-     group's encoder tags are bound to the ffmpeg that made it.
+-  5. Chapters 01-02 go through support671's whole chapter() on this host, so they meet this ffprobe and this decoder. 03-15
+-     passed the same function here in their own final672 runs and are re-bound by hash, as master636 did.
++Successor of master700. Prepared for root; its author never executed it. On the CSD only, with /usr/bin/python3 -I -B:
++  inputs   no job: requires everything master700 required, with chapter 06 taken from root's reviewed manifest, repeats
++           every check that writes nothing, and writes one new guard manifest.
++  run      only as the child of guard_csd02: rechecks everything, builds final/ inside the new job folder, runs the
++           native master and captions commands once, then repairs caption 168 before any summary hash.
++
++What differs from master700, and why:
++  1. Chapter 06 comes from the successor final job that CHAPTER06_MANIFEST names. That manifest is root's actual reviewed
++     record after 731 and the full timing comparison; while it is unset both modes refuse, and this file names no
++     chapter 06 job, script or receipt of its own. The job gets every check final672 jobs get here. Its timeline and cue
++     tables must still equal timeline666's byte for byte (same timing); only its layout table, which the new picture
++     changes, is held to the manifest's hash instead of timeline666's.
++  2. After `captions all`, the reviewed 727 helper (pinned) moves caption 168's end from 616290 ms to 616310 ms. The
++     kit's pair must equal master700's actual pair and the result must equal root's reviewed candidate (record 734). The
++     kit's pair moves unchanged to captions-generated735/, the helper writes captions-repaired735/, and final/ then holds
++     hard links to the repaired pair under the names the verifier reads. The summary keeps both pairs' hashes.
++     This is a display dwell adjustment only: no speech, timing table, narration or verifier threshold changes.
++
++Everything else is master700's code and guards, unchanged: chapters 01-02 through import683, the other twelve from
++final672, build656's native binary for the chapters, master and captions commands, the resource policy, the four-CPU
++affinity and four Rayon threads, and the bit-for-bit replay requirement.
+ 
+ Every recording stays the exact source file. No check is relaxed for the host: the kit's replay must still equal each
+ captured soundtrack bit for bit, so if Mac and CSD mixers differ this job stops, and that is the correct result.
+ 
+-This accepts no picture, motion, audio, fine-sync, AV or release result. verify701 is a separate later job.
++This accepts no picture, motion, audio, fine-sync, AV or release result. A verify701 successor is a separate later job.
+ """
+ import hashlib
+ import importlib.util
+@@ -41,8 +43,8 @@
+ JOBS = D/'jobs'
+ A, BUILD, T = JOBS/'csd-apportionment-assembly664', JOBS/'csd-apportionment-build656', JOBS/'csd-apportionment-timeline666'
+ IMPORT = JOBS/'csd-apportionment-import683-a1'
+-JOB = JOBS/'csd-apportionment-master700'
+-INPUTS = Q/'csd-apportionment-master700-inputs.json'
++JOB = JOBS/'csd-apportionment-master735'
++INPUTS = Q/'csd-apportionment-master735-inputs.json'
+ HELPER = Path(__file__).resolve()
+ CONTROLLER = Q/'controller702.py'
+ SUPPORT = Q/'apportionment-csd-support671.py'
+@@ -60,9 +62,26 @@
+ TOTAL_FRAMES = 100886
+ ROWS_683 = 4005
+ TIMELINE_KINDS = ('chapter', 'fps', 'frames', 'mark', 'breath')
+-SCOPE = ('Native master replay, frame grid and caption commands passed. Chapters 01-02 were encoded on the Mac and 03-15 on '
+-         'the CSD. Separate final decode, caption, loudness, picture, motion, audio, fine-sync and independent AV checks '
+-         'remain; nothing here accepts any of them.')
++SCOPE = ('Native master replay, frame grid and caption commands passed, and caption 168 was repaired for display dwell '
++         'only. Chapters 01-02 were encoded on the Mac and 03-15 on the CSD, chapter 06 by its reviewed successor job. '
++         'Separate final decode, caption, loudness, picture, motion, audio, fine-sync and independent AV checks remain; '
++         'nothing here accepts any of them.')
++# Root sets both from the actual reviewed chapter 06 manifest (a JSON in Q) after 731 and the full timing comparison.
++CHAPTER06_MANIFEST = None
++CHAPTER06_MANIFEST_SHA256 = None
++CHAPTER06_KEYS = ['chapter', 'inputs', 'job', 'layout_sha256', 'script', 'summary']
++CAPTION_HELPER = Q/'apportionment-caption-repair727'/'repair_caption168.py'
++CAPTION_HELPER_SHA = 'd94aab217a6ee6639328414b774a7a374fb610c0716f3213222ca421a3762b9f'
++CAPTION_NAMES = ('apportionment.en.srt', 'apportionment.en.vtt')
++# Root's record 734 (root-caption-actual734.json, sha256 3659f8fa12f535e5adbbe37d69f23110e27f9df6aeff66ec7a8bd395aee83324):
++# this helper on master700's actual pair, before and after.
++GENERATED_CAPTIONS = ('0568f2dd0f59cb2a207ba94426bb712f48a693a6bf2705d0dfb4c47a2b4aee9b',
++                      '482c5817d52926f937e805cc3411904833a00878010559d216b507af85143690')
++REPAIRED_CAPTIONS = ('61e636aea49ac7b8c0ab97f4a201a11932aa41e5c71d0bf66974bd7c236d96df',
++                     '214e15cb76ad795adbd067ea89da52a3a344881d872bb058e7d8950268b5ef28')
++CAPTION_SCOPE = ('Caption 168 ends at 616310 ms instead of 616290 ms: 84 characters over 4200 ms, at the unchanged limit of 20 '
++                 'per second. Display dwell only, not evidence of speech timing; no speech, timing table or narration changed. '
++                 "The kit's generated pair is kept unchanged in captions-generated735/.")
+ 
+ 
+ def sha(path):
+@@ -228,6 +247,49 @@
+                 files=files, records=[job/'resource-receipt.json', job/'final672-summary.json', inputs])
+ 
+ 
++def require_chapter06():
++    assert CHAPTER06_MANIFEST is not None and CHAPTER06_MANIFEST_SHA256 is not None, \
++        'chapter 06 is not bound: root sets CHAPTER06_MANIFEST and its sha256 from the actual reviewed manifest'
++
++
++def chapter06_binding(registry):
++    """Root's reviewed manifest for the repaired chapter 06: its final job, guarded script, inputs, summary and layout."""
++    require_chapter06()
++    path = Path(CHAPTER06_MANIFEST)
++    assert path.parent == Q and sha(path) == CHAPTER06_MANIFEST_SHA256, 'the chapter 06 manifest changed'
++    b = read(path)
++    assert sorted(b) == CHAPTER06_KEYS, sorted(b)
++    ch = registry[5]
++    assert ch.startswith('06_') and b['chapter'] == ch, (ch, b['chapter'])
++    job, script, inputs = Path(b['job']), Path(b['script']), Path(b['inputs'])
++    assert job.parent == JOBS and job.name != 'csd-apportionment-final672-'+ch, ('not a successor job', job)
++    assert script.parent == Q and inputs.parent == Q, (script, inputs)
++    assert re.fullmatch(r'[A-Za-z0-9_.-]+\.json', b['summary']) and re.fullmatch('[0-9a-f]{64}', b['layout_sha256']), b
++    return dict(manifest=path, chapter=ch, job=job, script=script, inputs=inputs, summary=b['summary'],
++                layout_sha256=b['layout_sha256'])
++
++
++def successor_chapter(b, comp, version, tags, o):
++    """The repaired chapter 06: csd_chapter's checks, with the names taken from the reviewed manifest."""
++    ch, job, inputs = b['chapter'], b['job'], b['inputs']
++    o.success(job/'resource-receipt.json')
++    receipt = read(job/'resource-receipt.json')
++    assert receipt['command'] == [PYTHON, '-I', '-B', str(b['script']), ch], ch
++    assert receipt['policy'] == POLICY and receipt['inputs_sha256'] == sha(inputs), ch
++    summary = read(job/b['summary'])
++    assert summary['chapter'] == ch and summary['ffmpeg_version'] == version and summary['encoder_tags'] == list(tags), ch
++    row = summary['result']
++    assert row['folder'] == str((job/'render').relative_to(D)) and row['frames'] == comp['chapters'][ch]['frames'], ch
++    files = {}
++    for rel in row['files']:
++        assert not Path(rel).is_absolute() and '..' not in Path(rel).parts, rel
++        files[rel] = job/'render'/rel
++        assert files[rel].is_file() and not files[rel].is_symlink(), rel
++    return dict(chapter=ch, imported=False, frames=row['frames'], settings=row['encoder_settings'], digests=row['files'],
++                files=files, records=[job/'resource-receipt.json', job/b['summary'], inputs, b['manifest']],
++                layout_sha256=b['layout_sha256'])
++
++
+ def check_tables(rec, comp, local, o):
+     """Timeline666's tables are the reference for all 15 chapters. Nothing is written here."""
+     ch, files, ref = rec['chapter'], rec['files'], T/'timeline'
+@@ -235,6 +297,9 @@
+     for ext in ('timeline.tsv', 'cues.tsv', 'cuelog.tsv'):
+         assert sha(ref/(ch+'.'+ext)) == comp['chapters'][ch]['tables'][ext], (ch, ext)
+     same = ('cues.tsv', 'layout.tsv') if rec['imported'] else ('timeline.tsv', 'cues.tsv', 'layout.tsv')
++    if 'layout_sha256' in rec:                   # the repaired chapter 06: same timing, new picture
++        same = ('timeline.tsv', 'cues.tsv')
++        assert sha(files[ch+'.layout.tsv']) == rec['layout_sha256'], (ch, 'layout differs from the reviewed manifest')
+     for ext in same:
+         assert files[ch+'.'+ext].read_bytes() == (ref/(ch+'.'+ext)).read_bytes(), (ch, ext, 'differs from timeline666')
+     if rec['imported']:
+@@ -264,8 +329,10 @@
+     script = 'explainer_corpus/apportionment/script.tsv'
+     assert sha(A/'repo'/script) == state['mapping'][state['local']+script]['sha256'], 'the script differs from the exported one'
+     version, tags = csd_encoder()
++    binding = chapter06_binding(registry)
+     records = [local_chapter(c, state, comp, o) for c in registry[:2]]
+-    records += [csd_chapter(c, comp, version, tags, o) for c in registry[2:]]
++    records += [successor_chapter(binding, comp, version, tags, o) if c == binding['chapter'] else
++                csd_chapter(c, comp, version, tags, o) for c in registry[2:]]
+     assert sum(r['frames'] for r in records) == TOTAL_FRAMES
+     for rec in records:
+         check_tables(rec, comp, state['local'], o)
+@@ -280,6 +347,8 @@
+ def freeze():
+     assert not JOB.exists() and not INPUTS.exists(), 'no duplicate job or manifest'
+     assert HELPER.parent == Q, HELPER
++    require_chapter06()
++    caption_helper()
+     o = load()
+     state = imported(o)
+     registry, comp, records, hosts = survey(o, state)
+@@ -304,7 +373,7 @@
+         add(row['path'], row['sha256'])
+     for row in state['mapping'].values():
+         add(row['physical'], row['sha256'])
+-    for path in (HELPER, SUPPORT, D/'guard_csd02.py', Q/'apportionment-csd-final672.py', state['manifest'], state['result'],
++    for path in (HELPER, SUPPORT, CAPTION_HELPER, D/'guard_csd02.py', Q/'apportionment-csd-final672.py', state['manifest'], state['result'],
+                  state['receipt'], A/'resource-receipt.json', A/'relocation664.json', BUILD/'resource-receipt.json',
+                  BUILD/'qualification.json', BINARY, T/'resource-receipt.json', T/'comparison666.json'):
+         add(path)
+@@ -334,7 +403,7 @@
+     assert not JOB.exists() and not INPUTS.exists(), 'no duplicate job or manifest'
+     with INPUTS.open('x') as f:
+         json.dump(dict(files=[dict(path=k, sha256=v) for k, v in sorted(rows.items())]), f, indent=2)
+-    print('INPUTS700', len(rows), 'rows', sha(INPUTS), flush=True)
++    print('INPUTS735', len(rows), 'rows', sha(INPUTS), flush=True)
+ 
+ 
+ def guarded():
+@@ -398,8 +467,56 @@
+     return results
+ 
+ 
++def caption_helper():
++    """The reviewed 727 helper by its pin, loaded the way support671 is."""
++    assert sha(CAPTION_HELPER) == CAPTION_HELPER_SHA, 'caption helper 727 changed'
++    spec = importlib.util.spec_from_file_location('repair727', CAPTION_HELPER)
++    h = importlib.util.module_from_spec(spec)
++    spec.loader.exec_module(h)
++    values = (h.CUE, h.START_MS, h.OLD_END_MS, h.NEW_END_MS, h.NEXT_START_MS, h.LIMIT, h.SRT_NAME, h.VTT_NAME)
++    assert values == (168, 612110, 616290, 616310, 616900, 20, *CAPTION_NAMES), ('caption helper 727 values changed', values)
++    return h
++
++
++def repair_captions(out, job):
++    """727 on the pair `captions all` just wrote, before any summary hash. Nothing is rewritten in place: the kit's pair
++    moves unchanged to captions-generated735/, the helper writes captions-repaired735/, and final/ gets hard links to it."""
++    h = caption_helper()
++    generated, repaired = job/'captions-generated735', job/'captions-repaired735'
++    assert not generated.exists() and not repaired.exists(), 'caption folders already exist'
++    assert tuple(sha(out/n) for n in CAPTION_NAMES) == GENERATED_CAPTIONS, 'the kit wrote another caption pair than master700'
++    report = h.run(out/CAPTION_NAMES[0], out/CAPTION_NAMES[1], *GENERATED_CAPTIONS, repaired)
++    assert (report['output_srt_sha256'], report['output_vtt_sha256']) == REPAIRED_CAPTIONS, report
++    assert tuple(sha(repaired/n) for n in CAPTION_NAMES) == REPAIRED_CAPTIONS
++    generated.mkdir()
++    for name in CAPTION_NAMES:
++        assert not (generated/name).exists() and not (out/name).is_symlink(), name
++        os.rename(out/name, generated/name)
++        os.link(repaired/name, out/name)
++    assert tuple(sha(generated/n) for n in CAPTION_NAMES) == GENERATED_CAPTIONS
++    assert tuple(sha(out/n) for n in CAPTION_NAMES) == REPAIRED_CAPTIONS
++    print('CAPTION168_REPAIRED display dwell only', flush=True)
++    return dict(helper=str(CAPTION_HELPER), helper_sha256=CAPTION_HELPER_SHA, reviewed_record='root-caption-actual734.json',
++                generated=dict(folder=str(generated), srt_sha256=GENERATED_CAPTIONS[0], vtt_sha256=GENERATED_CAPTIONS[1]),
++                repaired=dict(folder=str(repaired), srt_sha256=REPAIRED_CAPTIONS[0], vtt_sha256=REPAIRED_CAPTIONS[1]),
++                final_hard_links=[str(out/n) for n in CAPTION_NAMES], report=report, scope=CAPTION_SCOPE)
++
++
++def finish(registry, hosts, tracked, out):
++    """The tail of run: the caption repair, then the summary, whose hashes are of what final/ now holds."""
++    captions = repair_captions(out, JOB)
++    movie, srt, vtt = out/'apportionment_master.mp4', out/'apportionment.en.srt', out/'apportionment.en.vtt'
++    with (JOB/'master735-summary.json').open('x') as f:
++        json.dump(dict(frames=TOTAL_FRAMES, chapters=registry, imported_chapters=registry[:2], movie=str(movie),
++                       movie_sha256=sha(movie), srt_sha256=sha(srt), vtt_sha256=sha(vtt), caption_repair=captions,
++                       chapter06_manifest=str(CHAPTER06_MANIFEST), chapter06_manifest_sha256=CHAPTER06_MANIFEST_SHA256,
++                       hosts=hosts, tracking=tracked, inputs_sha256=sha(INPUTS), helper_sha256=sha(HELPER), scope=SCOPE),
++                  f, indent=2)
++
++
+ def run():
+     assert HELPER.parent == Q, HELPER
++    require_chapter06()
+     o = load()
+     o.own_group()
+     o.STATE['job'] = JOB
+@@ -407,6 +524,7 @@
+         signal.signal(sig, o.on_stop)
+     bound = guarded()
+     recheck(bound)
++    caption_helper()
+     os.sched_setaffinity(0, {0, 1, 2, 3})
+     os.environ.update(PATH='/usr/bin:/bin', RAYON_NUM_THREADS='4')
+     state = imported(o)
+@@ -420,7 +538,7 @@
+     out.mkdir()
+     links = materialize(records, state['local'], out)
+     checked = recheck_imported_here(o, records, comp, out)
+-    with (JOB/'materialized700.json').open('x') as f:
++    with (JOB/'materialized735.json').open('x') as f:
+         json.dump(dict(links=links, frames=TOTAL_FRAMES, hosts=hosts, imported_chapter_checks=checked,
+                        chapters={r['chapter']: dict(frames=r['frames'], imported=r['imported'], encoder_settings=r['settings'])
+                                  for r in records}), f, indent=2)
+@@ -434,14 +552,10 @@
+                if "replay = fmn's soundtrack, bit for bit" in line]
+     assert replays == registry, ('the bit-for-bit replay lines do not name all chapters in order', replays)
+     recheck(bound)
+-    movie, srt, vtt = out/'apportionment_master.mp4', out/'apportionment.en.srt', out/'apportionment.en.vtt'
+-    with (JOB/'master700-summary.json').open('x') as f:
+-        json.dump(dict(frames=TOTAL_FRAMES, chapters=registry, imported_chapters=registry[:2], movie=str(movie),
+-                       movie_sha256=sha(movie), srt_sha256=sha(srt), vtt_sha256=sha(vtt), hosts=hosts, tracking=tracked,
+-                       inputs_sha256=sha(INPUTS), helper_sha256=sha(HELPER), scope=SCOPE), f, indent=2)
+-    print('MASTER700_COMPLETED; verify701 and actual review pending', flush=True)
++    finish(registry, hosts, tracked, out)
++    print('MASTER735_COMPLETED; a verify701 successor and actual review pending', flush=True)
+ 
+ 
+ if __name__ == '__main__':
+-    assert len(sys.argv) == 2 and sys.argv[1] in ('inputs', 'run'), 'usage: apportionment-csd-master700.py inputs|run'
++    assert len(sys.argv) == 2 and sys.argv[1] in ('inputs', 'run'), 'usage: apportionment-csd-master735.py inputs|run'
+     (freeze if sys.argv[1] == 'inputs' else run)()

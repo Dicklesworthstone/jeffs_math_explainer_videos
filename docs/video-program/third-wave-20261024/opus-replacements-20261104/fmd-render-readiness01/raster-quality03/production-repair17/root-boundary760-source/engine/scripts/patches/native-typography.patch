@@ -1,0 +1,201 @@
+diff --git a/crates/fmn-library/src/text.rs b/crates/fmn-library/src/text.rs
+index 7cc2555..e33410f 100644
+--- a/crates/fmn-library/src/text.rs
++++ b/crates/fmn-library/src/text.rs
+@@ -28,10 +28,13 @@ use fmn_geom::QuadPath;
+ use fmn_mobject::Mobject;
+ use fmn_text::maps::CharOverrides;
+ use fmn_text::{
+-    Align, Decoration, FontBook, LineBreaker, PlacedTextGlyph, StyleMaps, TextError, TextLayout,
++    Decoration, FontBook, LineBreaker, PlacedTextGlyph, StyleMaps, TextError, TextLayout,
+     TextRequest, glyph_quadpath, layout_text,
+ };
+ 
++pub use fmn_text::Align;
++use fmn_text::markup::CharStyle;
++
+ use crate::spans::{SpanKindU8, SpanMapData, SpanMapEntry};
+ use crate::style::Style;
+ use crate::vmobject::VMobject;
+@@ -237,6 +240,7 @@ pub struct Text<'a> {
+     line_spacing: f64,
+     maps: StyleMaps<'a>,
+     overrides: CharOverrides<'a>,
++    base_style: CharStyle,
+     font_size: f64,
+     font_size_for_unit_height: f64,
+     style: Style,
+@@ -260,6 +264,7 @@ impl<'a> Text<'a> {
+             line_spacing: 1.0,
+             maps: StyleMaps::default(),
+             overrides: &[],
++            base_style: CharStyle::base(),
+             font_size: DEFAULT_FONT_SIZE,
+             font_size_for_unit_height: DEFAULT_FONT_SIZE_FOR_UNIT_HEIGHT,
+             style: text_style(),
+@@ -275,6 +280,27 @@ impl<'a> Text<'a> {
+         }
+     }
+ 
++    /// Inherited font family; markup and substring maps may override it.
++    #[must_use]
++    pub fn font(mut self, family: &str) -> Self {
++        self.base_style.family = if family.is_empty() { None } else { Some(family.to_owned()) };
++        self
++    }
++
++    /// Inherited bold face selection, retaining inner markup overrides.
++    #[must_use]
++    pub fn bold(mut self, bold: bool) -> Self {
++        self.base_style.bold = bold;
++        self
++    }
++
++    /// Inherited italic face selection, retaining inner markup overrides.
++    #[must_use]
++    pub fn italic(mut self, italic: bool) -> Self {
++        self.base_style.italic = italic;
++        self
++    }
++
+     /// The `font_size=` surface.
+     #[must_use]
+     pub fn font_size(mut self, font_size: f64) -> Self {
+@@ -423,7 +449,10 @@ impl<'a> Text<'a> {
+             maps: self.maps.clone(),
+             overrides: self.overrides,
+         };
+-        let layout = layout_text(book, &req)?;
++        if let Some(family) = &self.base_style.family {
++            book.family(family)?;
++        }
++        let layout = fmn_text::layout::layout_text_with_style(book, &req, &self.base_style)?;
+         let scale = calibrate(book, self.font_size, self.font_size_for_unit_height)?;
+         let mut children = Vec::with_capacity(layout.glyphs.len() + layout.decorations.len());
+         for glyph in &layout.glyphs {
+diff --git a/crates/fmn-python/python/fmn_python/initialization.py b/crates/fmn-python/python/fmn_python/initialization.py
+index 2f11df7..84630f0 100644
+--- a/crates/fmn-python/python/fmn_python/initialization.py
++++ b/crates/fmn-python/python/fmn_python/initialization.py
+@@ -18,6 +18,7 @@ _STEPS = (
+     ("rendering", "install_scene_rendering"),
+     ("camera_capture", "install_camera_capture"),
+     ("surface_textures", "install_surface_textures"),
++    ("text_authoring", "install_text_authoring"),
+     ("live_tex", "install_live_tex"),
+     ("matrix", "install_matrix"),
+     ("graphing", "install_graphing"),
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+index 231d299..c0ccb9e 100644
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -32,6 +32,7 @@ mod portal_streamlines;
+ mod portal_studio;
+ mod portal_svg;
+ mod portal_texture;
++mod portal_typography;
+ mod portal_video;
+ #[cfg(feature = "gauntlet")]
+ pub use portal_texture::run_portal_gauntlet_textures;
+@@ -10869,6 +10870,7 @@ fn populate_manimlib(py: Python<'_>, module: &Bound<'_, PyModule>) -> PyResult<(
+         "__thread_policy__",
+         "scene and mobject proxies are confined to their creating scene-worker thread",
+     )?;
++    portal_typography::install(module)?;
+     portal_texture::install(module)?;
+     execute_bootstrap(py, module)?;
+     portal_recording::install(module)?;
+diff --git a/crates/fmn-text/src/layout.rs b/crates/fmn-text/src/layout.rs
+index ce3015f..a104f69 100644
+--- a/crates/fmn-text/src/layout.rs
++++ b/crates/fmn-text/src/layout.rs
+@@ -211,10 +211,21 @@ impl TextLayout {
+ /// Markup diagnostics, font-policy errors, and unmapped characters — all
+ /// named ([`TextError`]).
+ pub fn layout_text(book: &FontBook, req: &TextRequest<'_>) -> Result<TextLayout, TextError> {
++    layout_text_with_style(book, req, &crate::markup::CharStyle::base())
++}
++
++/// Lay out text with a base style inherited by markup and overridden by maps.
++/// Source bytes, glyph ordinals and the existing shaping/layout kernel are unchanged.
++///
++/// # Errors
++/// Propagates the same font, markup and shaping errors as [`layout_text`].
++pub fn layout_text_with_style(
++    book: &FontBook, req: &TextRequest<'_>, base: &crate::markup::CharStyle,
++) -> Result<TextLayout, TextError> {
+     let mut chars = if req.markup {
+-        crate::markup::parse_markup(req.text)?
++        crate::markup::parse_markup_with_style(req.text, base)?
+     } else {
+-        crate::markup::plain_chars(req.text)
++        crate::markup::plain_chars_with_style(req.text, base)
+     };
+     crate::maps::apply_maps(&mut chars, req.text, &req.maps);
+     crate::maps::apply_overrides(&mut chars, req.overrides);
+diff --git a/crates/fmn-text/src/markup.rs b/crates/fmn-text/src/markup.rs
+index 89609ef..8fcbb8d 100644
+--- a/crates/fmn-text/src/markup.rs
++++ b/crates/fmn-text/src/markup.rs
+@@ -56,7 +56,9 @@ pub struct CharStyle {
+ }
+ 
+ impl CharStyle {
+-    fn base() -> Self {
++    /// An unstyled character at the base font size.
++    #[must_use]
++    pub fn base() -> Self {
+         Self {
+             size_factor: 1.0,
+             ..Self::default()
+@@ -81,6 +83,12 @@ pub struct StyledChar {
+ /// No tags, no entities — what manim's `Text` does.
+ #[must_use]
+ pub fn plain_chars(source: &str) -> Vec<StyledChar> {
++    plain_chars_with_style(source, &CharStyle::base())
++}
++
++/// Decode plain text with an explicit inherited base style, preserving source spans.
++#[must_use]
++pub fn plain_chars_with_style(source: &str, base: &CharStyle) -> Vec<StyledChar> {
+     source
+         .char_indices()
+         .enumerate()
+@@ -88,7 +96,7 @@ pub fn plain_chars(source: &str) -> Vec<StyledChar> {
+             ch,
+             span: (start, start + ch.len_utf8()),
+             char_index,
+-            style: CharStyle::base(),
++            style: base.clone(),
+         })
+         .collect()
+ }
+@@ -103,9 +111,18 @@ pub fn plain_chars(source: &str) -> Vec<StyledChar> {
+ /// tags, oversized attributes, bad entities, depth beyond
+ /// [`MAX_TAG_DEPTH`].
+ pub fn parse_markup(source: &str) -> Result<Vec<StyledChar>, TextError> {
++    parse_markup_with_style(source, &CharStyle::base())
++}
++
++/// Parse markup over an inherited style without inserting synthetic source bytes.
++/// Inner tags override the inherited style and closing tags restore it.
++///
++/// # Errors
++/// The same bounded markup diagnostics as [`parse_markup`].
++pub fn parse_markup_with_style(source: &str, base: &CharStyle) -> Result<Vec<StyledChar>, TextError> {
+     let mut out = Vec::new();
+     let mut stack: Vec<(String, CharStyle)> = Vec::new();
+-    let mut style = CharStyle::base();
++    let mut style = base.clone();
+     let bytes = source.as_bytes();
+     let mut i = 0;
+     let mut char_index = 0;
+@@ -190,7 +207,7 @@ fn apply_tag(
+         "i" => style.italic = true,
+         "u" => style.underline = true,
+         "s" => style.strike = true,
+-        "tt" => style.mono = true,
++        "tt" => { style.mono = true; style.family = None; },
+         "big" => style.size_factor *= 1.2,
+         "small" => style.size_factor *= 5.0 / 6.0,
+         "sub" => {

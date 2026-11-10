@@ -1,0 +1,46 @@
+{
+  "utc": "2026-11-10T00:58:54.818022+00:00",
+  "chapter": "10_rounding_rules",
+  "sampling_sha256": "e6bfec3aa82a57753e4dbb2df40319d2e8e6100bb55bd2b020b0d3305ddd4bbe",
+  "movie": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-10_rounding_rules/render/10_rounding_rules.mp4",
+    "sha256": "836d3db51efd86a9419bf386703a237add98795e6d3a7f10fbe0ebdc8db80cb3"
+  },
+  "sample_count": 55,
+  "sheets_viewed": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-10_rounding_rules/10_rounding_rules/sheet-0001.jpg",
+      "sha256": "e848f2f9d63f212e0ddde67bf9671b09d505dd122e899f7f0314c13741721e83"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-10_rounding_rules/10_rounding_rules/sheet-0002.jpg",
+      "sha256": "1af4656dfd23d9e725aa6597e164ff0344718056b47757e27acf5a2c34e295d2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-10_rounding_rules/10_rounding_rules/sheet-0003.jpg",
+      "sha256": "add2b107b4e95186f30218f472af073b3a81541c988178b6801efd336b7625a3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-10_rounding_rules/10_rounding_rules/sheet-0004.jpg",
+      "sha256": "0af9b0b9ecfaf48220998e24169e4c3a0d9bb9b906de63be727308cf01372cd2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-10_rounding_rules/10_rounding_rules/sheet-0005.jpg",
+      "sha256": "9f942d8f6679c7265ce82fe1453c19a6d33794393a7533744328500addf4bffc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-10_rounding_rules/10_rounding_rules/sheet-0006.jpg",
+      "sha256": "fa472dfd98a276347ebd50a2cca38c0b0853e5639cab363525f0d12b2a4754bc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-10_rounding_rules/10_rounding_rules/sheet-0007.jpg",
+      "sha256": "aaca423b3ea074d30240a13973fbee7fdfb0764d550bc0990e2c410424268a9d"
+    }
+  ],
+  "observations": [
+    "All55 selected pictures on7 sheets actually viewed. Rounding thresholds, allocation bars and comparison table legible, no concrete clipping or unintended overlap identified.",
+    "Prediction hold retains rounding example, with Webster/Hamilton answer table appearing afterward in sampled frames.",
+    "Hill square-root thresholds and quota counterexample remain legible."
+  ],
+  "scope": "Selected final chapter stills only. No continuous motion, listening, fine-sync, independent final AV or release acceptance."
+}

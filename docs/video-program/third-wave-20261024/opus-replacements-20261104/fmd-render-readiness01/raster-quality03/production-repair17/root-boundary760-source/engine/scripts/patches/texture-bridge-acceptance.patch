@@ -1,0 +1,122 @@
+--- a/crates/fmn-python/tests/bridge.py
++++ b/crates/fmn-python/tests/bridge.py
+@@ -5543,8 +5543,7 @@
+ assert native_three_d_model._is_bound()
+ assert native_model_mesh._is_bound()
+ 
+-# TexturedSurface/TexturedGeometry name the Marionette light/dark texture-pair
+-# gap instead of inheriting Surface's incompatible defaults.
++# Textured surfaces and meshes preserve the Reference's class and signature surface.
+ surface_types = importlib.import_module("manimlib.mobject.types.surface")
+ assert surface_types.TexturedSurface.__bases__ == (surface_types.Surface,)
+ assert surface_types.TexturedGeometry.__bases__ == (surface_types.TexturedSurface,)
+@@ -5559,41 +5558,64 @@
+     "texture_file",
+     "kwargs",
+ ]
+-_textured_error = (
+-    "TexturedSurface is unavailable until Marionette can retain a "
+-    "light/dark texture pair without changing the surface grid into "
+-    "an ImageQuad"
+-)
+-textured_uv = manimlib.Sphere()
+-try:
+-    surface_types.TexturedSurface(textured_uv, "light.png")
++# Original in-test raster bytes exercise real texture construction, not a
++# blanket refusal. Only the still-unrepresented light/dark pair is refused.
++_texture_root = pathlib.Path(tempfile.mkdtemp(prefix="fmn-bridge-texture-"))
++_texture_path = _texture_root / "light.png"
++
++def _texture_chunk(kind, body):
++    return struct.pack(">I", len(body)) + kind + body + struct.pack(">I", zlib.crc32(kind + body))
++
++_texture_bytes = (b"\x89PNG\r\n\x1a\n"
++    + _texture_chunk(b"IHDR", struct.pack(">IIBBBBB", 1, 1, 8, 6, 0, 0, 0))
++    + _texture_chunk(b"IDAT", zlib.compress(b"\0\xff\x40\x20\xff"))
++    + _texture_chunk(b"IEND", b""))
++_texture_path.write_bytes(_texture_bytes)
++_texture_dark = _texture_root / "dark.png"
++_texture_dark.write_bytes(_texture_bytes)
++textured_uv = manimlib.Sphere(resolution=(5, 7))
++_textured_live = surface_types.TexturedSurface(textured_uv, _texture_path, opacity=.75)
++assert _textured_live.resolution == (5, 7)
++assert _textured_live.num_textures == 1
++assert _textured_live._image_dimensions() == (1, 1)
++assert np.array_equal(_textured_live.get_points(), textured_uv.get_points())
++assert np.allclose(_textured_live.get_opacities(), .75)
++assert np.allclose(_textured_live.data["im_coords"][[0, -1]], [[0, 1], [1, 0]])
++assert _textured_live.copy()._image_dimensions() == (1, 1)
++try:
++    surface_types.TexturedSurface(textured_uv, _texture_path, _texture_dark)
+ except bridge_errors.CapabilityError as error:
+-    assert str(error) == _textured_error
+-else:
+-    raise AssertionError("TexturedSurface constructed a texture pair")
+-try:
+-    surface_types.TexturedSurface(manimlib.Square(), "light.png")
++    assert "distinct light/dark images require a durable texture-pair resource" in str(error)
++else:
++    raise AssertionError("TexturedSurface silently substituted a dark texture")
++try:
++    surface_types.TexturedSurface(manimlib.Square(), _texture_path)
+ except TypeError as error:
+     assert str(error) == "TexturedSurface uv_surface must be a Surface"
+ else:
+     raise AssertionError("TexturedSurface accepted a non-Surface")
+-failed_textured = surface_types.TexturedSurface.__new__(
+-    surface_types.TexturedSurface
+-)
+-try:
+-    surface_types.TexturedSurface.__init__(
+-        failed_textured, textured_uv, "light.png", unsupported=True
+-    )
++failed_textured = surface_types.TexturedSurface.__new__(surface_types.TexturedSurface)
++try:
++    surface_types.TexturedSurface.__init__(failed_textured, textured_uv, _texture_path, unsupported=True)
+ except TypeError as error:
+-    assert str(error) == "unexpected keyword arguments: unsupported"
++    assert str(error) == "textured object got unexpected keyword arguments: unsupported"
+ else:
+     raise AssertionError("TexturedSurface silently discarded an unknown option")
+ try:
+-    surface_types.TexturedGeometry(object(), "tex.png")
+-except bridge_errors.CapabilityError as error:
+-    assert "light/dark texture pair" in str(error)
+-else:
+-    raise AssertionError("TexturedGeometry constructed a texture pair")
++    surface_types.TexturedGeometry(object(), _texture_path)
++except TypeError as error:
++    assert "vertices, triangle faces and visual.uv" in str(error)
++else:
++    raise AssertionError("TexturedGeometry accepted an object without geometry")
++_texture_geometry = types.SimpleNamespace(
++    vertices=np.array([[0., 0., 0.], [1., 0., 0.], [0., 1., 0.]]),
++    faces=np.array([[2, 0, 1]], dtype=np.uint32),
++    visual=types.SimpleNamespace(uv=np.array([[0., 0.], [1., 0.], [0., 1.]])),
++)
++_textured_mesh = surface_types.TexturedGeometry(_texture_geometry, _texture_path)
++assert np.array_equal(_textured_mesh.get_points(), _texture_geometry.vertices[[2, 0, 1]])
++assert np.array_equal(_textured_mesh.get_triangle_indices(), [0, 1, 2])
++assert _textured_mesh._image_dimensions() == (1, 1)
+ 
+ extract_scene = importlib.import_module("manimlib.extract_scene")
+ assert extract_scene.BlankScene.__bases__ == (InteractiveScene,)
+@@ -20685,12 +20707,12 @@
+ assert _partial.shape == (121, 3)
+ _surf.always_sort_to_camera(manimlib.Camera())
+ 
+-try:
+-    manimlib.TexturedSurface(_surf, "unused.png")
+-    raise AssertionError("TexturedSurface must refuse while the texture-pair gap stands")
+-except bridge_errors.CapabilityError:
+-    pass
+-assert callable(manimlib.TexturedSurface.set_image_coords_by_uv_func)
++_late_texture = manimlib.TexturedSurface(_surf, _texture_path, opacity=.5)
++assert _late_texture.resolution == _surf.resolution
++assert np.array_equal(_late_texture.get_points(), _surf.get_points())
++assert np.allclose(_late_texture.get_opacities(), .5)
++_late_texture.set_image_coords_by_uv_func(lambda u, v: (u / 2, v))
++assert np.allclose(_late_texture.data["im_coords"][-1], [.5, 0])
+ 
+ _mtl_dir = tempfile.mkdtemp()
+ _mtl_path = pathlib.Path(_mtl_dir)

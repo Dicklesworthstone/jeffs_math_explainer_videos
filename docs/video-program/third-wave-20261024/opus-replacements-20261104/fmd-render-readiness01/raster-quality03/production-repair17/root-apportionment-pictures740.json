@@ -1,0 +1,102 @@
+{
+  "utc": "2026-11-10T01:15:20.784748+00:00",
+  "chapter": "13_population",
+  "sampling_sha256": "e0f0faffb78e876984494ca6cd0b5d3786a2f87d9e3081a07bb43c4fd4c54716",
+  "movie": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-13_population/render/13_population.mp4",
+    "sha256": "6ca7e4c928d217dec83c48414d761c6b5e8eca459b7106a2262738a232a065cb"
+  },
+  "sample_count": 168,
+  "sheets_viewed": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0001.jpg",
+      "sha256": "3721838af2e03725328a2c50f5ba1fafb0502076c8bbadb7c140d8cbea632914"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0002.jpg",
+      "sha256": "e23eacd2e8700689e4e4274cea83a938f55419ff8ef4441f99988d089bc874d0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0003.jpg",
+      "sha256": "66c25ea0845d1343ded62ae4220e36bded749cfde12a9f60b72f7419868fd999"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0004.jpg",
+      "sha256": "5d55e1c370f335e7d715171ee05660d648d4940be6dd9e6528334d3febb9f0f5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0005.jpg",
+      "sha256": "3695c976caa89d382b3278f33dbdcb87977a60df49978276deba860b26584b4f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0006.jpg",
+      "sha256": "9fbbe242328671098dbb987381020428dc7c857ca1046c11ce058a4cea60d286"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0007.jpg",
+      "sha256": "6c6ffecd190b4b26b682ff35557a12dedba76c36f295cec79590a81c9c6daaa1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0008.jpg",
+      "sha256": "99fa1eec3a5976deee9d12eb417ac9fa9b4b2e805aab00721cc64f1deecd17dd"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0009.jpg",
+      "sha256": "9409f099a27b851d084532f33c5a61bdce3c0a65a2420fd525c388cd44507999"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0010.jpg",
+      "sha256": "03ebff8c704cedd4a988be63dec61caecb128c3dce4859106671b3ff1f8e9a9f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0011.jpg",
+      "sha256": "3840be537f5058d12b9c70e9e2b052002f08a77ef595f0cf75d50babeac7c035"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0012.jpg",
+      "sha256": "d26efc52c073c8075f53fe6a43b4a0265e2332789880b7d0320b29c3f523b044"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0013.jpg",
+      "sha256": "7c9b95e61f22e0ec4d05d134cbb18f06417943d07cca1076bb937770ae2f5a63"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0014.jpg",
+      "sha256": "a36451e89fb3f3cf7fab5a9179f52b1f918ae0f00e48e54568d594007b931581"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0015.jpg",
+      "sha256": "8108d2b96c92fc94447d03bb63f395409a0018574d41ac79593bf6c01c624549"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0016.jpg",
+      "sha256": "dc9a4cfdccd34f5f7aa3061290cb65c3324563bc6cc06ef1e2bafde34c6a733b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0017.jpg",
+      "sha256": "94b0ec67211a91222692c72c2ed66edcfb76a388042302f3ed3e2a594f385d48"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0018.jpg",
+      "sha256": "f05f2f5a819438cea63b4941c9be6719a2140045ec43b8bfabf9165764994852"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0019.jpg",
+      "sha256": "cec1ebef8e377df47ea1e8eeffda7f3a2eb95c4e7433958353e891eb08e6437d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0020.jpg",
+      "sha256": "f8a1c573b2afb8c97e570619fb20e956ebdb32ff6ff74a88427ce53210e4a6be"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-13_population/13_population/sheet-0021.jpg",
+      "sha256": "c3a10b4f2176af14fd1a0402a2def4725e75a07425c68d7c123524252f11ec43"
+    }
+  ],
+  "observations": [
+    "Sheets1-18 viewed before context continuation; sheets19-21 viewed now. All21 hashes verified against sampling.",
+    "Population-promise labels and 16-seat labels remain separated at prior overlap anchor25.6s and persistence. Jefferson ranked list remains visible at56.2s edge anchor and later samples.",
+    "Final population updates, seat cutoff and promise comparison table are legible. No concrete unintended overlap or clipping found in selected pictures."
+  ],
+  "scope": "Selected final stills only. Not continuous motion, listening, fine-sync or independent final audiovisual acceptance. Chapter06 repair and successor master/full verification remain open."
+}

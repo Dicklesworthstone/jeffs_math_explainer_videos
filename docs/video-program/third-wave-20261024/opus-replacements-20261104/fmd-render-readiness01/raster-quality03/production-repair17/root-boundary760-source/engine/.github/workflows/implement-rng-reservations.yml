@@ -1,0 +1,624 @@
+name: Implement RNG Reservations
+
+on:
+  workflow_run:
+    workflows: ["Implement RNG Cursor and Sampling"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: implement-rng-reservations
+  cancel-in-progress: false
+
+jobs:
+  implement:
+    if: >-
+      github.repository == 'Dicklesworthstone/franken_manim' &&
+      (github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Install governed toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustup toolchain install nightly-2026-07-05 --profile minimal --component clippy,rustfmt --target wasm32-unknown-unknown
+          rustup override set nightly-2026-07-05
+          python3 -m pip install --user --break-system-packages numpy || python3 -m pip install --user numpy
+
+      - name: Require the cursor and sampling foundation
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f artifacts/implementation/rng-cursor-sampling-receipt.json
+          test -f crates/fmn-core/src/rng_cursor.rs
+          test -f crates/fmn-core/src/rng_sampling.rs
+          grep -Fq 'pub struct RngCursor' crates/fmn-core/src/rng_cursor.rs
+          grep -Fq 'pub fn uniform_below' crates/fmn-core/src/rng_sampling.rs
+
+      - name: Implement fixed-consumption reservations
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > crates/fmn-core/src/rng_reservation.rs <<'RS'
+          //! Fixed-consumption deterministic RNG reservations.
+          //!
+          //! A parent cursor advances past each reserved interval immediately.
+          //! Reserved generators can therefore run on different threads and
+          //! complete in any order without overlapping or shifting later work.
+
+          use core::fmt;
+
+          use crate::{
+              Pcg64Dxsm, RngCursor, RngCursorError, RngRangeError,
+              rng_sampling::sample_below_with,
+          };
+
+          /// A disjoint fixed-size interval of one PCG64DXSM stream.
+          #[derive(Debug, Clone, PartialEq, Eq)]
+          pub struct RngReservation {
+              generator: Pcg64Dxsm,
+              start_position: u128,
+              budget: u128,
+              consumed: u128,
+          }
+
+          impl RngReservation {
+              fn new(generator: Pcg64Dxsm, start_position: u128, budget: u128) -> Self {
+                  Self {
+                      generator,
+                      start_position,
+                      budget,
+                      consumed: 0,
+                  }
+              }
+
+              /// Absolute parent-stream position at which this interval begins.
+              #[must_use]
+              pub const fn start_position(&self) -> u128 {
+                  self.start_position
+              }
+
+              /// Absolute exclusive parent-stream endpoint.
+              #[must_use]
+              pub const fn end_position(&self) -> u128 {
+                  self.start_position + self.budget
+              }
+
+              /// Total raw-draw budget.
+              #[must_use]
+              pub const fn budget(&self) -> u128 {
+                  self.budget
+              }
+
+              /// Raw draws already consumed or explicitly discarded.
+              #[must_use]
+              pub const fn consumed(&self) -> u128 {
+                  self.consumed
+              }
+
+              /// Raw draws still available.
+              #[must_use]
+              pub const fn remaining(&self) -> u128 {
+                  self.budget - self.consumed
+              }
+
+              /// Current split PCG state inside the reservation.
+              #[must_use]
+              pub fn state(&self) -> ([u64; 2], [u64; 2]) {
+                  self.generator.state()
+              }
+
+              /// Draw one raw word, refusing before mutation at the boundary.
+              pub fn next_u64(&mut self) -> Result<u64, RngReservationError> {
+                  self.require(1)?;
+                  let value = self.generator.next_u64();
+                  self.consumed += 1;
+                  Ok(value)
+              }
+
+              /// Draw one NumPy-compatible `[0, 1)` double.
+              pub fn next_f64(&mut self) -> Result<f64, RngReservationError> {
+                  self.require(1)?;
+                  let value = self.generator.next_f64();
+                  self.consumed += 1;
+                  Ok(value)
+              }
+
+              /// Fill caller-owned raw-word storage without exceeding the interval.
+              pub fn fill_u64(
+                  &mut self,
+                  output: &mut [u64],
+              ) -> Result<(), RngReservationError> {
+                  let draws = output.len() as u128;
+                  self.require(draws)?;
+                  self.generator.fill_u64(output);
+                  self.consumed += draws;
+                  Ok(())
+              }
+
+              /// Fill caller-owned double storage without exceeding the interval.
+              pub fn fill_f64(
+                  &mut self,
+                  output: &mut [f64],
+              ) -> Result<(), RngReservationError> {
+                  let draws = output.len() as u128;
+                  self.require(draws)?;
+                  self.generator.fill_f64(output);
+                  self.consumed += draws;
+                  Ok(())
+              }
+
+              /// Skip within the interval in logarithmic time.
+              pub fn advance(&mut self, draws: u128) -> Result<(), RngReservationError> {
+                  self.require(draws)?;
+                  self.generator.advance(draws);
+                  self.consumed += draws;
+                  Ok(())
+              }
+
+              /// Consume the unused tail explicitly.
+              pub fn discard_remaining(&mut self) {
+                  let remaining = self.remaining();
+                  self.generator.advance(remaining);
+                  self.consumed = self.budget;
+              }
+
+              /// Uniform integer in `[0, upper)` with transactional exhaustion.
+              pub fn uniform_below(
+                  &mut self,
+                  upper: u64,
+              ) -> Result<u64, RngReservationSamplingError> {
+                  if upper == 0 {
+                      return Err(RngRangeError::ZeroUpperBound.into());
+                  }
+                  let mut trial = self.clone();
+                  let threshold = upper.wrapping_neg() % upper;
+                  loop {
+                      let word = trial.next_u64()?;
+                      let product = u128::from(word) * u128::from(upper);
+                      if product as u64 >= threshold {
+                          *self = trial;
+                          return Ok((product >> 64) as u64);
+                      }
+                  }
+              }
+
+              /// Uniform integer in a nonempty half-open range.
+              pub fn uniform_range(
+                  &mut self,
+                  range: core::ops::Range<u64>,
+              ) -> Result<u64, RngReservationSamplingError> {
+                  if range.start >= range.end {
+                      return Err(RngRangeError::EmptyRange.into());
+                  }
+                  let width = range.end - range.start;
+                  self.uniform_below(width)
+                      .map(|offset| range.start + offset)
+              }
+
+              /// Require exact use; under-consumption is an explicit error.
+              pub fn finish_exact(self) -> Result<Pcg64Dxsm, RngReservationError> {
+                  let remaining = self.remaining();
+                  if remaining != 0 {
+                      return Err(RngReservationError::UnderConsumed { remaining });
+                  }
+                  Ok(self.generator)
+              }
+
+              fn require(&self, requested: u128) -> Result<(), RngReservationError> {
+                  let remaining = self.remaining();
+                  if requested > remaining {
+                      return Err(RngReservationError::BudgetExceeded {
+                          requested,
+                          remaining,
+                      });
+                  }
+                  Ok(())
+              }
+          }
+
+          impl RngCursor {
+              /// Reserve a disjoint fixed-consumption interval and advance the
+              /// parent immediately past it.
+              pub fn reserve(
+                  &mut self,
+                  draws: u128,
+              ) -> Result<RngReservation, RngCursorError> {
+                  let start_position = self.position();
+                  let generator = self.generator().clone();
+                  self.advance(draws)?;
+                  Ok(RngReservation::new(generator, start_position, draws))
+              }
+
+              /// Atomically reserve several consecutive intervals.
+              ///
+              /// On total-position overflow, neither the cursor nor any caller
+              /// state is changed and no partial reservation set is returned.
+              pub fn reserve_many(
+                  &mut self,
+                  budgets: &[u128],
+              ) -> Result<Vec<RngReservation>, RngCursorError> {
+                  let mut trial = self.clone();
+                  let mut reservations = Vec::with_capacity(budgets.len());
+                  for &budget in budgets {
+                      reservations.push(trial.reserve(budget)?);
+                  }
+                  *self = trial;
+                  Ok(reservations)
+              }
+          }
+
+          /// Reservation budget failure.
+          #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+          pub enum RngReservationError {
+              BudgetExceeded { requested: u128, remaining: u128 },
+              UnderConsumed { remaining: u128 },
+          }
+
+          impl fmt::Display for RngReservationError {
+              fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                  match self {
+                      Self::BudgetExceeded {
+                          requested,
+                          remaining,
+                      } => write!(
+                          formatter,
+                          "RNG reservation requested {requested} draws with {remaining} remaining"
+                      ),
+                      Self::UnderConsumed { remaining } => write!(
+                          formatter,
+                          "RNG reservation finished with {remaining} unused draws"
+                      ),
+                  }
+              }
+          }
+
+          impl std::error::Error for RngReservationError {}
+
+          /// Range validation or budget exhaustion during bounded sampling.
+          #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+          pub enum RngReservationSamplingError {
+              Reservation(RngReservationError),
+              Range(RngRangeError),
+          }
+
+          impl fmt::Display for RngReservationSamplingError {
+              fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                  match self {
+                      Self::Reservation(error) => fmt::Display::fmt(error, formatter),
+                      Self::Range(error) => fmt::Display::fmt(error, formatter),
+                  }
+              }
+          }
+
+          impl std::error::Error for RngReservationSamplingError {}
+
+          impl From<RngReservationError> for RngReservationSamplingError {
+              fn from(error: RngReservationError) -> Self {
+                  Self::Reservation(error)
+              }
+          }
+
+          impl From<RngRangeError> for RngReservationSamplingError {
+              fn from(error: RngRangeError) -> Self {
+                  Self::Range(error)
+              }
+          }
+
+          #[cfg(test)]
+          mod tests {
+              use super::*;
+
+              #[test]
+              fn consecutive_reservations_partition_the_scalar_stream_exactly() {
+                  let budgets = [3_u128, 17, 257, 1_025];
+                  let mut cursor = RngCursor::from_seed(42);
+                  let mut reservations = cursor.reserve_many(&budgets).expect("reserve many");
+                  assert_eq!(cursor.position(), budgets.iter().sum());
+
+                  let mut expected = Pcg64Dxsm::from_seed(42);
+                  for (reservation, &budget) in reservations.iter_mut().zip(&budgets) {
+                      let mut actual = vec![0_u64; budget as usize];
+                      reservation.fill_u64(&mut actual).expect("reservation fill");
+                      let scalar: Vec<u64> =
+                          (0..budget).map(|_| expected.next_u64()).collect();
+                      assert_eq!(actual, scalar);
+                      assert_eq!(reservation.finish_exact().is_ok(), true);
+                  }
+                  assert_eq!(cursor.state(), expected.state());
+              }
+
+              #[test]
+              fn reverse_completion_order_does_not_change_any_interval() {
+                  let budgets = [5_u128, 9, 13, 21];
+                  let mut forward_cursor = RngCursor::from_seed(77);
+                  let mut forward = forward_cursor.reserve_many(&budgets).expect("forward");
+                  let forward_outputs: Vec<Vec<u64>> = forward
+                      .iter_mut()
+                      .map(|reservation| {
+                          let mut output = vec![0_u64; reservation.budget() as usize];
+                          reservation.fill_u64(&mut output).expect("fill");
+                          output
+                      })
+                      .collect();
+
+                  let mut reverse_cursor = RngCursor::from_seed(77);
+                  let mut reverse = reverse_cursor.reserve_many(&budgets).expect("reverse");
+                  let mut reverse_outputs = vec![Vec::new(); reverse.len()];
+                  for index in (0..reverse.len()).rev() {
+                      let mut output = vec![0_u64; reverse[index].budget() as usize];
+                      reverse[index].fill_u64(&mut output).expect("fill");
+                      reverse_outputs[index] = output;
+                  }
+                  assert_eq!(forward_outputs, reverse_outputs);
+                  assert_eq!(forward_cursor.state(), reverse_cursor.state());
+              }
+
+              #[test]
+              fn parent_continues_after_the_reserved_tail_immediately() {
+                  let mut cursor = RngCursor::from_seed(123);
+                  let reservations = cursor.reserve_many(&[10, 20, 30]).expect("reserve");
+                  assert_eq!(reservations[0].start_position(), 0);
+                  assert_eq!(reservations[0].end_position(), 10);
+                  assert_eq!(reservations[1].start_position(), 10);
+                  assert_eq!(reservations[2].end_position(), 60);
+                  let actual = cursor.next_u64().expect("parent draw");
+
+                  let mut expected = Pcg64Dxsm::from_seed(123);
+                  expected.advance(60);
+                  assert_eq!(actual, expected.next_u64());
+              }
+
+              #[test]
+              fn overrun_refuses_without_mutating_reservation_or_output() {
+                  let mut cursor = RngCursor::from_seed(5);
+                  let mut reservation = cursor.reserve(2).expect("reserve");
+                  let first = reservation.next_u64().expect("first");
+                  assert_ne!(first, 0);
+                  let before = reservation.clone();
+                  let mut output = [0xfeed_face_u64; 2];
+                  assert_eq!(
+                      reservation.fill_u64(&mut output),
+                      Err(RngReservationError::BudgetExceeded {
+                          requested: 2,
+                          remaining: 1
+                      })
+                  );
+                  assert_eq!(reservation, before);
+                  assert_eq!(output, [0xfeed_face; 2]);
+              }
+
+              #[test]
+              fn batch_reservation_overflow_is_atomic() {
+                  let mut cursor = RngCursor::from_seed(6);
+                  cursor.seek(u128::MAX - 3);
+                  let before = cursor.clone();
+                  assert_eq!(
+                      cursor.reserve_many(&[2, 2]),
+                      Err(RngCursorError::PositionOverflow)
+                  );
+                  assert_eq!(cursor, before);
+              }
+
+              #[test]
+              fn exact_finish_detects_underuse_and_explicit_discard_resolves_it() {
+                  let mut cursor = RngCursor::from_seed(8);
+                  let mut underused = cursor.reserve(7).expect("reserve");
+                  underused.advance(3).expect("advance");
+                  assert_eq!(
+                      underused.clone().finish_exact(),
+                      Err(RngReservationError::UnderConsumed { remaining: 4 })
+                  );
+                  underused.discard_remaining();
+                  assert_eq!(underused.remaining(), 0);
+                  assert!(underused.finish_exact().is_ok());
+              }
+
+              #[test]
+              fn bounded_sampling_is_transactional_at_budget_exhaustion() {
+                  let mut cursor = RngCursor::from_seed(10);
+                  let mut empty = cursor.reserve(0).expect("empty reserve");
+                  let before = empty.clone();
+                  assert_eq!(
+                      empty.uniform_below(1),
+                      Err(RngReservationSamplingError::Reservation(
+                          RngReservationError::BudgetExceeded {
+                              requested: 1,
+                              remaining: 0
+                          }
+                      ))
+                  );
+                  assert_eq!(empty, before);
+
+                  let mut one = cursor.reserve(1).expect("one reserve");
+                  assert_eq!(
+                      one.uniform_below(0),
+                      Err(RngReservationSamplingError::Range(
+                          RngRangeError::ZeroUpperBound
+                      ))
+                  );
+                  assert_eq!(one.consumed(), 0);
+                  assert_eq!(one.uniform_below(1), Ok(0));
+                  assert_eq!(one.consumed(), 1);
+              }
+
+              #[test]
+              fn reservation_uniforms_match_the_shared_lemire_helper() {
+                  let mut cursor = RngCursor::from_seed(321);
+                  let mut reservation = cursor.reserve(10_000).expect("reserve");
+                  let mut expected = Pcg64Dxsm::from_seed(321);
+                  for &upper in &[3_u64, 10, 257, 65_537, u64::MAX] {
+                      for _ in 0..100 {
+                          let (value, _) =
+                              sample_below_with(|| expected.next_u64(), upper).expect("helper");
+                          assert_eq!(reservation.uniform_below(upper), Ok(value));
+                          assert_eq!(reservation.state(), expected.state());
+                      }
+                  }
+              }
+          }
+          RS
+
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path("crates/fmn-core/src/lib.rs")
+          source = path.read_text(encoding="utf-8")
+          declaration = "pub mod rng_reservation;\n"
+          reexport = (
+              "pub use rng_reservation::{\n"
+              "    RngReservation, RngReservationError, RngReservationSamplingError,\n"
+              "};\n"
+          )
+          if declaration not in source:
+              source += declaration
+          if reexport not in source:
+              source += reexport
+          path.write_text(source, encoding="utf-8")
+          PY
+
+          cargo fmt --all
+          cargo check -p fmn-core --all-targets
+          cargo test -p fmn-core rng_reservation
+          cargo test -p fmn-core --test rng_parity
+          cargo check --target wasm32-unknown-unknown -p fmn-core
+          cargo clippy -p fmn-core --all-targets -- -D warnings
+          git diff --check
+
+          git add crates/fmn-core/src/lib.rs crates/fmn-core/src/rng_reservation.rs
+          git config user.name "FrankenManim RNG Reservations"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "feat(core): add fixed-consumption RNG reservations" -m "Partition cursor streams into disjoint budgeted intervals for completion-order-independent parallel tasks. Refuse overruns before mutation, make batch reservation atomic, support explicit tail discard/exact finish, and keep bounded sampling transactional."
+
+      - name: Document and fully verify the reservation contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import subprocess
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          changelog_path = Path("CHANGELOG.md")
+          changelog = changelog_path.read_text(encoding="utf-8")
+          marker = "### Fixed-consumption RNG reservations (2026-09-03)"
+          if marker not in changelog:
+              entry = (
+                  "\n" + marker + "\n\n"
+                  "- Added disjoint fixed-consumption reservations carved from `RngCursor`; the parent advances past each interval immediately, so tasks may execute or finish in any order without stream overlap.\n"
+                  "- Added hard pre-mutation budget refusal, atomic multi-reservation, exact-finish/explicit-discard semantics, caller-buffer fills, logarithmic skipping, and transactional bounded sampling inside a reservation.\n"
+                  "- Proved scalar-stream partition identity, reverse-completion invariance, parent-tail continuity, overflow atomicity, output nonmutation on overrun, native/wasm compilation, NumPy-vector stability, and the full mandatory Gauntlet.\n"
+              )
+              first_break = changelog.find("\n", changelog.find("#"))
+              changelog = changelog[: first_break + 1] + entry + changelog[first_break + 1 :]
+              changelog_path.write_text(changelog, encoding="utf-8")
+
+          readme_path = Path("README.md")
+          readme = readme_path.read_text(encoding="utf-8")
+          heading = "### Completion-order-independent RNG reservations"
+          if heading not in readme:
+              section = (
+                  "\n" + heading + "\n\n"
+                  "`RngCursor::reserve` and `reserve_many` carve the stream into disjoint fixed-consumption intervals and move the parent past them immediately. Each `RngReservation` can be handed to a parallel task: task completion order cannot overlap streams or perturb later work, over-consumption refuses before state or output mutation, and callers must either consume exactly or explicitly discard the unused tail. Variable-consumption bounded sampling remains transactional when a reservation runs out.\n"
+              )
+              insertion = readme.find("\n## Architecture")
+              if insertion < 0:
+                  insertion = readme.find("\n## ")
+              if insertion < 0:
+                  insertion = len(readme)
+              readme = readme[:insertion] + section + readme[insertion:]
+              readme_path.write_text(readme, encoding="utf-8")
+
+          status_candidates = [
+              Path("IMPLEMENTATION_STATUS.md"),
+              Path("docs/IMPLEMENTATION_STATUS.md"),
+              Path("docs/implementation_status.md"),
+          ]
+          status_path = next((path for path in status_candidates if path.exists()), status_candidates[-1])
+          status = status_path.read_text(encoding="utf-8") if status_path.exists() else "# Implementation Status\n"
+          status_marker = "## 2026-09-03: fixed-consumption RNG reservations"
+          if status_marker not in status:
+              status += (
+                  "\n" + status_marker + "\n\n"
+                  "**Implemented and fully gated:** fixed-budget stream reservations for parallel tasks. Reservations are consecutive and non-overlapping, parent continuation is independent of task completion, batch allocation is atomic, overruns cannot mutate state or output, underuse is explicit, and rejection-based bounded sampling either commits a complete accepted draw or leaves the reservation unchanged.\n"
+              )
+              status_path.parent.mkdir(parents=True, exist_ok=True)
+              status_path.write_text(status, encoding="utf-8")
+
+          head = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+          receipt = {
+              "schema_version": 1,
+              "recorded_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+              "tested_code_sha": head,
+              "features": [
+                  "disjoint fixed-consumption stream reservations",
+                  "completion-order independence",
+                  "atomic batch reservation",
+                  "pre-mutation budget refusal",
+                  "exact finish and explicit tail discard",
+                  "transactional bounded sampling",
+              ],
+              "source_sha256": hashlib.sha256(
+                  Path("crates/fmn-core/src/rng_reservation.rs").read_bytes()
+              ).hexdigest(),
+              "result": "pending-full-gate",
+          }
+          receipt_path = Path("artifacts/implementation/rng-reservation-receipt.json")
+          receipt_path.parent.mkdir(parents=True, exist_ok=True)
+          receipt_path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          PY
+
+          cargo fmt --all
+          git diff --check
+          cargo test -p fmn-core
+          cargo test -p fmn-core --test rng_parity
+          cargo check --target wasm32-unknown-unknown -p fmn-core
+          bash scripts/check.sh
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("artifacts/implementation/rng-reservation-receipt.json")
+          receipt = json.loads(path.read_text(encoding="utf-8"))
+          receipt["result"] = "pass"
+          receipt["verified"] = [
+              "cargo test -p fmn-core",
+              "cargo test -p fmn-core --test rng_parity",
+              "cargo check --target wasm32-unknown-unknown -p fmn-core",
+              "bash scripts/check.sh",
+          ]
+          path.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+          PY
+
+          git add README.md CHANGELOG.md artifacts/implementation/rng-reservation-receipt.json
+          for status in IMPLEMENTATION_STATUS.md docs/IMPLEMENTATION_STATUS.md docs/implementation_status.md; do
+            [[ -e "$status" ]] && git add "$status"
+          done
+          git commit -m "docs(core): record deterministic RNG reservations" -m "Document the fixed-consumption parallel-task contract after native, wasm, NumPy parity, adversarial budget, completion-order, and full mandatory-Gauntlet checks passed; record a machine-readable implementation receipt."
+
+      - name: Retire the one-shot and publish tested commits to both canonical refs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/implement-rng-reservations.yml
+          git commit -m "chore(ci): retire completed RNG reservation migration" -m "The production implementation, documentation, permanent tests, and verification receipt now carry the contract."
+          git fetch origin main master
+          if ! git merge-base --is-ancestor origin/main HEAD; then
+            git rebase origin/main
+            cargo test -p fmn-core
+            cargo test -p fmn-core --test rng_parity
+            bash scripts/check.sh
+          fi
+          git push --atomic origin HEAD:main HEAD:master

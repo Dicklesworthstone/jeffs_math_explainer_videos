@@ -1,0 +1,10 @@
+{
+  "failure_counts": {
+    "finalizer": 17,
+    "pin_alignment": 0,
+    "wasm_audit": 1
+  },
+  "reason": "temporary cutover workflows crossed the bounded terminal-failure threshold; retries were stopped without closing fm-ai1",
+  "recorded_at": "2026-09-04T07:35:26.494293Z",
+  "schema": "franken-manim.fm-ai1-blocked.v1"
+}

@@ -1,0 +1,719 @@
+diff --git a/crates/fmn-mobject/src/mobject.rs b/crates/fmn-mobject/src/mobject.rs
+index 9991fa3..edca90d 100644
+--- a/crates/fmn-mobject/src/mobject.rs
++++ b/crates/fmn-mobject/src/mobject.rs
+@@ -98,6 +98,10 @@ impl Default for ImageSampler {
+ pub enum ImageResourceError {
+     /// Width and height must both be non-zero and their RGBA8 product must fit.
+     InvalidDimensions,
++    /// A dark-side resource cannot itself contain another texture pair.
++    NestedTexturePair,
++    /// A material has one addressing policy shared by its light/dark images.
++    SamplerMismatch,
+     /// The byte count was not exactly `width * height * 4`.
+     InvalidByteLength {
+         /// Exact byte count implied by the dimensions.
+@@ -113,6 +117,8 @@ impl std::fmt::Display for ImageResourceError {
+             Self::InvalidDimensions => {
+                 f.write_str("image dimensions must be non-zero and fit the RGBA8 layout")
+             }
++            Self::NestedTexturePair => f.write_str("a dark image cannot contain a texture pair"),
++            Self::SamplerMismatch => f.write_str("light and dark images must use the same sampler"),
+             Self::InvalidByteLength { expected, actual } => write!(
+                 f,
+                 "RGBA8 image needs exactly {expected} bytes, received {actual}"
+@@ -137,6 +143,10 @@ pub struct ImageResource {
+     color_space: ImageColorSpace,
+     sampler: ImageSampler,
+     content_digest: Digest,
++    // A single-level pair keeps both immutable resources in the same Stage
++    // revision/snapshot axis. The primary pixel digest remains a pixel address;
++    // the canonical snapshot commits to both complete descriptors and payloads.
++    dark_image: Option<Arc<ImageResource>>,
+ }
+ 
+ impl ImageResource {
+@@ -168,9 +178,43 @@ impl ImageResource {
+             color_space,
+             sampler,
+             content_digest,
++            dark_image: None,
+         })
+     }
+ 
++    /// Attach or replace the dark-side texture for a sampled surface or mesh.
++    ///
++    /// Dimensions and transfer encodings may differ. Each image is decoded and
++    /// filtered independently by Lumen, then the existing light-facing shader
++    /// crossfades the samples. Copies and snapshots share both pixel buffers.
++    ///
++    /// # Errors
++    /// Rejects nested pairs and conflicting sampler policies rather than
++    /// silently discarding a third image or an authored addressing policy.
++    pub fn with_dark_image(mut self, dark: Self) -> Result<Self, ImageResourceError> {
++        if dark.dark_image.is_some() {
++            return Err(ImageResourceError::NestedTexturePair);
++        }
++        if self.sampler != dark.sampler {
++            return Err(ImageResourceError::SamplerMismatch);
++        }
++        self.dark_image = Some(Arc::new(dark));
++        Ok(self)
++    }
++
++    /// Optional dark-side image. This resource never contains another pair.
++    #[must_use]
++    pub fn dark_image(&self) -> Option<&Self> {
++        self.dark_image.as_deref()
++    }
++
++    /// Return the primary image alone, preserving its original pixel storage.
++    #[must_use]
++    pub fn without_dark_image(mut self) -> Self {
++        self.dark_image = None;
++        self
++    }
++
+     /// Width in texels.
+     #[must_use]
+     pub const fn width(&self) -> u32 {
+diff --git a/crates/fmn-mobject/src/persist.rs b/crates/fmn-mobject/src/persist.rs
+index 33bbc40..ac7c3c8 100644
+--- a/crates/fmn-mobject/src/persist.rs
++++ b/crates/fmn-mobject/src/persist.rs
+@@ -5,7 +5,7 @@
+ //! self-goldens (§16.3).
+ //!
+ //! Format guarantees, exactly the §6.7 policy:
+-//! - **Versioned schema ids** ([`SNAPSHOT_SCHEMA`] `FMNA/1` v1.6,
++//! - **Versioned schema ids** ([`SNAPSHOT_SCHEMA`] `FMNA/1` v1.8,
+ //!   [`SCENE_STATE_SCHEMA`] `FMNA/2` v2.0; the self-golden suites hold `FMNS`):
+ //!   additive-minor / breaking-major from day one — snapshots persist in
+ //!   caches and repro bundles.
+@@ -51,7 +51,7 @@ use crate::stage::{Mob, Snapshot, SnapshotEntry, Stage, UpdaterFn, UpdaterId};
+ use crate::uniforms::{JointType, Uniforms};
+ use crate::{ImageColorSpace, ImageResource, ImageSampler, ImageWrap, Placement, RenderPrimitive};
+ 
+-/// The arena-snapshot document: magic `FMNA`, schema id 1, version 1.7.
++/// The arena-snapshot document: magic `FMNA`, schema id 1, version 1.8.
+ ///
+ /// Minor history: 1.1 appended the shape tag; 1.2 appended `z_index`; 1.3
+ /// preserves the monotonic updater-id cursor, including identities removed
+@@ -59,8 +59,9 @@ use crate::{ImageColorSpace, ImageResource, ImageSampler, ImageWrap, Placement,
+ /// (fm-7if); 1.5 appended durable renderer primitive/topology identity;
+ /// 1.6 appended immutable image descriptors and RGBA8 bytes; **1.7 appends
+ /// the per-buffer `_data_defaults` phantom record** (fm-laky): one
+-/// presence bool and, when set, exactly one stride of f32 lanes.
+-pub const SNAPSHOT_SCHEMA: Schema = Schema::new(*b"FMNA", 1, 1, 7);
++/// presence bool and, when set, exactly one stride of f32 lanes. **1.8 appends
++/// durable dark-side image resources**, retaining the full 1.7 payload prefix.
++pub const SNAPSHOT_SCHEMA: Schema = Schema::new(*b"FMNA", 1, 1, 8);
+ 
+ /// The scene-state envelope: magic `FMNA`, schema id 2, version 2.0.
+ ///
+@@ -1017,6 +1018,24 @@ impl Snapshot {
+                 }
+             }
+         }
++        // Minor 1.8: a dark texture is part of the same immutable material,
++        // not an ambient file path or a renderer-only cache. Preserve the old
++        // primary-image table verbatim and append a liveness-parallel table.
++        for (_, entry) in &self.slots {
++            match entry {
++                Some(entry) => {
++                    w.put_bool(true);
++                    let dark = entry.image.as_ref().and_then(ImageResource::dark_image);
++                    w.put_bool(dark.is_some());
++                    if let Some(dark) = dark {
++                        put_image_resource(&mut w, dark);
++                    }
++                }
++                None => {
++                    w.put_bool(false);
++                }
++            }
++        }
+         w.finish()
+     }
+ 
+@@ -1449,6 +1468,34 @@ impl Snapshot {
+                 }
+             }
+         }
++        if r.version().1 >= 8 {
++            for (_, entry) in &mut slots {
++                let present = r.get_bool()?;
++                match (present, entry) {
++                    (false, None) => {}
++                    (true, Some(entry)) => {
++                        if r.get_bool()? {
++                            budget.charge(
++                                std::mem::size_of::<ImageResource>(),
++                                "dark image descriptor",
++                            )?;
++                            let dark = get_image_resource(&mut r, &mut budget)?;
++                            let light = entry.image.take().ok_or(PersistError::Malformed(
++                                "dark image requires a primary image resource",
++                            ))?;
++                            entry.image = Some(light.with_dark_image(dark).map_err(|_| {
++                                PersistError::Malformed("invalid light/dark image pair")
++                            })?);
++                        }
++                    }
++                    _ => {
++                        return Err(PersistError::Malformed(
++                            "dark-image table does not match arena liveness",
++                        ));
++                    }
++                }
++            }
++        }
+         r.finish()?;
+         let snapshot = Snapshot {
+             stage_id,
+diff --git a/crates/fmn-mobject/tests/persist.rs b/crates/fmn-mobject/tests/persist.rs
+index 15ce1a1..5a7744e 100644
+--- a/crates/fmn-mobject/tests/persist.rs
++++ b/crates/fmn-mobject/tests/persist.rs
+@@ -283,10 +283,10 @@ fn unknown_durable_render_primitive_is_a_typed_corruption_refusal() {
+     stage.add(Mobject::new());
+     let mut bytes = stage.snapshot_bytes().unwrap();
+     let body_len = bytes.len() - 32;
+-    // The v1.6 image table trails the primitive table with one liveness bit
+-    // and one absent-resource bit for this entry.
+-    assert_eq!(&bytes[body_len - 3..body_len], &[0, 1, 0]);
+-    bytes[body_len - 3] = u8::MAX;
++    // The v1.6 primary and v1.8 dark-image tables each trail the primitive
++    // table with one liveness bit and one absent-resource bit for this entry.
++    assert_eq!(&bytes[body_len - 5..body_len], &[0, 1, 0, 1, 0]);
++    bytes[body_len - 5] = u8::MAX;
+     let digest = sha256(&bytes[..body_len]);
+     bytes[body_len..].copy_from_slice(digest.as_bytes());
+ 
+diff --git a/crates/fmn-mobject/tests/texture_pairs.rs b/crates/fmn-mobject/tests/texture_pairs.rs
+new file mode 100644
+index 0000000..0959ef8
+--- /dev/null
++++ b/crates/fmn-mobject/tests/texture_pairs.rs
+@@ -0,0 +1,206 @@
++//! Durable two-image materials: storage, revisions, replay and hostile bytes.
++use fmn_hash::sha256;
++use fmn_mobject::{
++    ImageColorSpace, ImageResource, ImageResourceError, ImageSampler, ImageWrap, Mobject,
++    PersistError, Snapshot, SnapshotLimits, Stage,
++};
++
++fn image(rgb: [u8; 3]) -> ImageResource {
++    ImageResource::rgba8(
++        1,
++        1,
++        vec![rgb[0], rgb[1], rgb[2], 255],
++        ImageColorSpace::Linear,
++        ImageSampler::default(),
++    )
++    .unwrap()
++}
++
++#[test]
++fn immutable_pair_shares_both_buffers_and_can_replace_or_remove_dark() {
++    let light = image([255, 0, 0]);
++    let dark = image([0, 0, 255]);
++    let pair = light.clone().with_dark_image(dark.clone()).unwrap();
++    assert_eq!(pair.content_digest(), light.content_digest());
++    assert_eq!(pair.pixels().as_ptr(), light.pixels().as_ptr());
++    assert_eq!(
++        pair.dark_image().unwrap().pixels().as_ptr(),
++        dark.pixels().as_ptr()
++    );
++    assert_eq!(pair.clone().without_dark_image(), light);
++    assert_eq!(
++        pair.with_dark_image(image([0, 255, 0]))
++            .unwrap()
++            .dark_image()
++            .unwrap()
++            .pixels(),
++        &[0, 255, 0, 255]
++    );
++}
++
++#[test]
++fn pairs_refuse_nesting_and_conflicting_sampler_policies() {
++    let pair = image([1, 2, 3]).with_dark_image(image([4, 5, 6])).unwrap();
++    assert_eq!(
++        image([7, 8, 9]).with_dark_image(pair).unwrap_err(),
++        ImageResourceError::NestedTexturePair
++    );
++    let dark = ImageResource::rgba8(
++        1,
++        1,
++        vec![0; 4],
++        ImageColorSpace::Srgb,
++        ImageSampler {
++            wrap_u: ImageWrap::ClampToEdge,
++            ..ImageSampler::default()
++        },
++    )
++    .unwrap();
++    assert_eq!(
++        image([1, 2, 3]).with_dark_image(dark).unwrap_err(),
++        ImageResourceError::SamplerMismatch
++    );
++}
++
++#[test]
++fn pair_preserves_independent_dimensions_and_transfer_functions() {
++    let dark = ImageResource::rgba8(
++        2,
++        1,
++        vec![128; 8],
++        ImageColorSpace::Srgb,
++        ImageSampler::default(),
++    )
++    .unwrap();
++    let pair = image([255, 0, 0]).with_dark_image(dark.clone()).unwrap();
++    assert_eq!(pair.width(), 1);
++    assert_eq!(pair.dark_image(), Some(&dark));
++    let mut stage = Stage::new();
++    let mob = stage.add(Mobject::new().with_image_resource(pair.clone()));
++    let bytes = stage.snapshot_bytes().unwrap();
++    let decoded = Snapshot::from_bytes(&bytes, &stage).unwrap();
++    stage.restore(&decoded.snapshot);
++    assert_eq!(stage.get(mob).unwrap().image_resource(), Some(&pair));
++    assert_eq!(stage.snapshot_bytes().unwrap(), bytes);
++}
++
++#[test]
++fn copies_become_and_memory_restore_keep_both_resources() {
++    let pair = image([255, 0, 0])
++        .with_dark_image(image([0, 0, 255]))
++        .unwrap();
++    let mut stage = Stage::new();
++    let source = stage.add(Mobject::new().with_image_resource(pair.clone()));
++    let copied = stage.copy_family(source).unwrap();
++    let target = stage.add(Mobject::new());
++    stage.become_mobject(target, source, false).unwrap();
++    for mob in [source, copied, target] {
++        let actual = stage.get(mob).unwrap().image_resource().unwrap();
++        assert_eq!(actual, &pair);
++        assert_eq!(
++            actual.dark_image().unwrap().pixels().as_ptr(),
++            pair.dark_image().unwrap().pixels().as_ptr()
++        );
++    }
++    let snapshot = stage.snapshot();
++    stage.set_image_resource(target, None).unwrap();
++    stage.restore(&snapshot);
++    assert_eq!(stage.get(target).unwrap().image_resource(), Some(&pair));
++}
++
++#[test]
++fn dark_only_replacement_changes_revision_and_snapshot_identity() {
++    let pair = image([255, 0, 0])
++        .with_dark_image(image([0, 0, 255]))
++        .unwrap();
++    let mut stage = Stage::new();
++    let mob = stage.add(Mobject::new().with_image_resource(pair.clone()));
++    let revision = stage.get(mob).unwrap().image_revision();
++    let first = stage.snapshot_bytes().unwrap();
++    assert!(!stage.set_image_resource(mob, Some(pair.clone())).unwrap());
++    assert_eq!(stage.get(mob).unwrap().image_revision(), revision);
++    let changed = pair.with_dark_image(image([0, 255, 0])).unwrap();
++    assert!(stage.set_image_resource(mob, Some(changed)).unwrap());
++    assert_eq!(
++        stage.get(mob).unwrap().image_revision(),
++        revision.wrapping_add(1)
++    );
++    assert_ne!(first, stage.snapshot_bytes().unwrap());
++    let mut fresh = Stage::new();
++    let decoded = Snapshot::from_bytes(&first, &fresh).unwrap();
++    fresh.restore(&decoded.snapshot);
++    assert_eq!(fresh.snapshot_bytes().unwrap(), first);
++}
++
++#[test]
++fn dark_digest_corruption_is_refused_even_with_a_valid_outer_checksum() {
++    let dark = image([19, 37, 91]);
++    let digest = dark.content_digest();
++    let mut stage = Stage::new();
++    stage
++        .add(Mobject::new().with_image_resource(image([255, 0, 0]).with_dark_image(dark).unwrap()));
++    let mut bytes = stage.snapshot_bytes().unwrap();
++    let end = bytes.len() - 32;
++    let at = bytes[..end]
++        .windows(32)
++        .position(|window| window == digest.as_bytes())
++        .unwrap();
++    bytes[at] ^= 1;
++    let checksum = sha256(&bytes[..end]);
++    bytes[end..].copy_from_slice(checksum.as_bytes());
++    assert!(matches!(
++        Snapshot::from_bytes(&bytes, &stage),
++        Err(PersistError::Malformed("image content digest mismatch"))
++    ));
++}
++
++#[test]
++fn previous_minor_single_image_snapshots_remain_readable() {
++    let mut stage = Stage::new();
++    let resource = image([47, 83, 109]);
++    let mob = stage.add(Mobject::new().with_image_resource(resource.clone()));
++    let current = stage.snapshot_bytes().unwrap();
++    let mut old = current[..current.len() - 32 - 2].to_vec();
++    assert_eq!(&current[current.len() - 34..current.len() - 32], &[1, 0]);
++    old[10..12].copy_from_slice(&7u16.to_le_bytes());
++    let payload = u64::try_from(old.len() - 24).unwrap();
++    old[16..24].copy_from_slice(&payload.to_le_bytes());
++    old.extend_from_slice(sha256(&old).as_bytes());
++    let decoded = Snapshot::from_bytes(&old, &stage).unwrap();
++    stage.restore(&decoded.snapshot);
++    assert_eq!(stage.get(mob).unwrap().image_resource(), Some(&resource));
++    assert_eq!(stage.snapshot_bytes().unwrap(), current);
++}
++
++#[test]
++fn pair_decode_charges_both_images_to_the_aggregate_budget() {
++    let mut stage = Stage::new();
++    stage.add(
++        Mobject::new().with_image_resource(
++            image([255, 0, 0])
++                .with_dark_image(
++                    ImageResource::rgba8(
++                        128,
++                        128,
++                        vec![31; 128 * 128 * 4],
++                        ImageColorSpace::Linear,
++                        ImageSampler::default(),
++                    )
++                    .unwrap(),
++                )
++                .unwrap(),
++        ),
++    );
++    let bytes = stage.snapshot_bytes().unwrap();
++    assert!(Snapshot::from_bytes(&bytes, &stage).is_ok());
++    assert!(matches!(
++        Snapshot::from_bytes_with_limits(
++            &bytes,
++            &stage,
++            SnapshotLimits {
++                max_total_decoded_bytes: 65536
++            }
++        ),
++        Err(PersistError::AllocationLimit { .. })
++    ));
++}
+diff --git a/crates/fmn-render/src/retained.rs b/crates/fmn-render/src/retained.rs
+index d58c529..f317db3 100644
+--- a/crates/fmn-render/src/retained.rs
++++ b/crates/fmn-render/src/retained.rs
+@@ -342,12 +342,18 @@ impl RetainedFrameRenderer {
+                         .image_resource()
+                         .map(|resource| image_frame.intern(resource).map_err(SyncError::from))
+                         .transpose()?;
++                    let dark_image = entry
++                        .image_resource()
++                        .and_then(fmn_mobject::ImageResource::dark_image)
++                        .map(|resource| image_frame.intern(resource).map_err(SyncError::from))
++                        .transpose()?;
+                     let mesh = surface_mesh(stage, item.mob, resolution)?;
+                     let mesh_index = meshes.len();
+                     meshes.push(mesh);
+                     commands.push(PreparedCommand::Surface {
+                         mesh: mesh_index,
+                         image,
++                        dark_image,
+                         uniforms: *entry.uniforms(),
+                     });
+                 }
+@@ -365,6 +371,12 @@ impl RetainedFrameRenderer {
+                             reason: "image primitive has no image resource",
+                         },
+                     )?;
++                    if resource.dark_image().is_some() {
++                        return Err(RetainedFrameRendererError::InvalidPrimitive {
++                            mob: item.mob,
++                            reason: "light/dark textures require a surface or triangle mesh",
++                        });
++                    }
+                     let image = image_frame.intern(resource).map_err(SyncError::from)?;
+                     let mesh = image_mesh(stage, item.mob)?;
+                     let mesh_index = meshes.len();
+@@ -397,6 +409,7 @@ impl RetainedFrameRenderer {
+                 PreparedCommand::Surface {
+                     mesh,
+                     image,
++                    dark_image,
+                     uniforms,
+                 } => {
+                     let mesh = meshes
+@@ -407,7 +420,17 @@ impl RetainedFrameRenderer {
+                         let image = image_frame
+                             .get(image)
+                             .ok_or(RetainedFrameRendererError::VectorPlanMismatch)?;
+-                        let mut material = crate::TextureMaterial::surface(image.texture(), None);
++                        let dark = dark_image
++                            .map(|index| {
++                                image_frame
++                                    .get(index)
++                                    .ok_or(RetainedFrameRendererError::VectorPlanMismatch)
++                            })
++                            .transpose()?;
++                        let mut material = crate::TextureMaterial::surface(
++                            image.texture(),
++                            dark.map(|image| image.texture()),
++                        );
+                         material.sampler = image.sampler();
+                         draw.material = SurfaceMaterial::Texture(material);
+                     }
+@@ -480,6 +503,7 @@ enum PreparedCommand {
+     Surface {
+         mesh: usize,
+         image: Option<u32>,
++        dark_image: Option<u32>,
+         uniforms: fmn_mobject::Uniforms,
+     },
+     Dot(TrueDotDraw),
+diff --git a/crates/fmn-render/src/revision.rs b/crates/fmn-render/src/revision.rs
+index 6d51f7f..4c384c6 100644
+--- a/crates/fmn-render/src/revision.rs
++++ b/crates/fmn-render/src/revision.rs
+@@ -408,6 +408,17 @@ fn image_key(entry: &Entry) -> u64 {
+     };
+     let mut mixer = Mixer::new();
+     mixer.write_u64(entry.image_revision());
++    mix_image_descriptor(&mut mixer, image);
++    // A restore can legitimately reuse an edit counter. Include the dark
++    // descriptor as well, not just the primary digest or that counter.
++    if let Some(dark) = image.dark_image() {
++        mixer.write_u64(1);
++        mix_image_descriptor(&mut mixer, dark);
++    }
++    mixer.finish()
++}
++
++fn mix_image_descriptor(mixer: &mut Mixer, image: &fmn_mobject::ImageResource) {
+     mixer.write_u64(u64::from(image.width()));
+     mixer.write_u64(u64::from(image.height()));
+     match image.color_space() {
+@@ -428,7 +439,6 @@ fn image_key(entry: &Entry) -> u64 {
+     for chunk in image.content_digest().as_bytes().as_chunks::<8>().0 {
+         mixer.write_u64(u64::from_le_bytes(*chunk));
+     }
+-    mixer.finish()
+ }
+ 
+ #[cfg(test)]
+diff --git a/crates/fmn-render/tests/texture_pairs.rs b/crates/fmn-render/tests/texture_pairs.rs
+new file mode 100644
+index 0000000..25a8b42
+--- /dev/null
++++ b/crates/fmn-render/tests/texture_pairs.rs
+@@ -0,0 +1,208 @@
++//! Real retained-raster witnesses, not a second implementation of the shader.
++use fmn_core::color::LinearRgba;
++use fmn_frame::FrameBuffer;
++use fmn_mobject::{
++    ImageColorSpace, ImageResource, ImageSampler, Mobject, RecordBuffer, RecordSchema,
++    RenderPrimitive, Snapshot, Stage,
++};
++use fmn_render::revision::Revisions;
++use fmn_render::{
++    Camera, CameraConfig, EngineIdentity, FrameConfig, RetainedFrameRenderer,
++    RetainedFrameRendererConfig, ScreenMap, Tiling, Viewport,
++};
++
++fn image(rgb: [u8; 3]) -> ImageResource {
++    ImageResource::rgba8(
++        1,
++        1,
++        vec![rgb[0], rgb[1], rgb[2], 255],
++        ImageColorSpace::Linear,
++        ImageSampler::default(),
++    )
++    .unwrap()
++}
++fn pair(dark: [u8; 3]) -> ImageResource {
++    image([255, 0, 0]).with_dark_image(image(dark)).unwrap()
++}
++fn surface(resource: ImageResource, normal: f32, triangles: bool) -> Mobject {
++    let schema = RecordSchema::new(
++        &[
++            ("point", 3),
++            ("d_normal_point", 3),
++            ("im_coords", 2),
++            ("opacity", 1),
++        ],
++        &["point"],
++        &["point", "d_normal_point"],
++    )
++    .unwrap();
++    let corners = [
++        [-2.0, -2.0, 0.0],
++        [-2.0, 2.0, 0.0],
++        [2.0, -2.0, 0.0],
++        [2.0, 2.0, 0.0],
++    ];
++    let indices: &[usize] = if triangles {
++        &[0, 1, 2, 2, 1, 3]
++    } else {
++        &[0, 1, 2, 3]
++    };
++    let mut buffer = RecordBuffer::new(schema, indices.len()).unwrap();
++    for (row, &index) in indices.iter().enumerate() {
++        let point = corners[index];
++        buffer.write(row, "point", &point);
++        buffer.write(row, "d_normal_point", &[point[0], point[1], normal]);
++        buffer.write(row, "im_coords", &[0.5, 0.5]);
++        buffer.write(row, "opacity", &[1.0]);
++    }
++    let mut mob = Mobject::from_buffer(buffer)
++        .with_image_resource(resource)
++        .with_render_primitive(if triangles {
++            RenderPrimitive::TriangleMesh
++        } else {
++            RenderPrimitive::SurfaceGrid { resolution: (2, 2) }
++        });
++    mob.uniforms.shading = [0.0; 3];
++    mob
++}
++fn renderer(threads: usize) -> (RetainedFrameRenderer, Camera) {
++    let black = LinearRgba {
++        r: 0.0,
++        g: 0.0,
++        b: 0.0,
++        a: 1.0,
++    };
++    let config = RetainedFrameRendererConfig {
++        frame: FrameConfig::new(
++            Viewport {
++                width: 32,
++                height: 18,
++            },
++            ScreenMap {
++                scale: 2.25,
++                origin: [16.0, 9.0],
++            },
++            black,
++        ),
++        tiling: Tiling {
++            macro_tile: 16,
++            fine_tile: 8,
++        },
++        engine: EngineIdentity::certified(),
++        threads,
++    };
++    (
++        RetainedFrameRenderer::new(config).unwrap(),
++        Camera::new(CameraConfig {
++            resolution: (32, 18),
++            background: black,
++            ..CameraConfig::default()
++        })
++        .unwrap(),
++    )
++}
++fn center(frame: &FrameBuffer) -> [f64; 4] {
++    let at = 9 * frame.layout().stride(0) + 16 * 8;
++    let bytes = &frame.plane(0)[at..at + 8];
++    std::array::from_fn(|i| {
++        fmn_frame::half::f16_to_f64(u16::from_le_bytes([bytes[2 * i], bytes[2 * i + 1]]))
++    })
++}
++#[test]
++fn native_pair_selects_light_and_dark_for_grids_and_triangle_meshes() {
++    for triangles in [false, true] {
++        for normal in [1.0, -1.0] {
++            let mut stage = Stage::new();
++            let mob = stage.add(surface(pair([0, 0, 255]), normal, triangles));
++            stage.add_to_scene(mob).unwrap();
++            let (mut render, camera) = renderer(1);
++            render.render_with_camera(&stage, &camera).unwrap();
++            let pixel = center(render.frame());
++            if normal > 0.0 {
++                assert!(pixel[0] > 0.9 && pixel[2] < 0.1, "light {pixel:?}");
++            } else {
++                assert!(pixel[2] > 0.9 && pixel[0] < 0.1, "dark {pixel:?}");
++            }
++            assert_eq!(render.plan().images().len(), 2);
++            let expected = render.frame().as_bytes().to_vec();
++            for threads in [4, 16] {
++                let (mut replay, camera) = renderer(threads);
++                replay.render_with_camera(&stage, &camera).unwrap();
++                assert_eq!(replay.frame().as_bytes(), expected);
++            }
++        }
++    }
++}
++#[test]
++fn dark_replacement_invalidates_material_and_releases_unused_image_rows() {
++    let mut stage = Stage::new();
++    let mob = stage.add(surface(pair([0, 0, 255]), -1.0, false));
++    stage.add_to_scene(mob).unwrap();
++    let (mut render, camera) = renderer(1);
++    render.render_with_camera(&stage, &camera).unwrap();
++    let before = Revisions::read(&stage, mob).unwrap();
++    stage
++        .set_image_resource(mob, Some(pair([0, 255, 0])))
++        .unwrap();
++    assert_ne!(Revisions::read(&stage, mob).unwrap().image, before.image);
++    render.render_with_camera(&stage, &camera).unwrap();
++    let pixel = center(render.frame());
++    assert!(pixel[1] > 0.9 && pixel[2] < 0.1, "{pixel:?}");
++    assert_eq!(render.plan().images().len(), 2);
++    stage
++        .set_image_resource(
++            mob,
++            Some(
++                image([255, 0, 0])
++                    .with_dark_image(image([255, 0, 0]))
++                    .unwrap(),
++            ),
++        )
++        .unwrap();
++    render.render_with_camera(&stage, &camera).unwrap();
++    assert_eq!(
++        render.plan().images().len(),
++        1,
++        "equal descriptors must share one decode"
++    );
++}
++#[test]
++fn durable_restore_preserves_pixels_and_dark_identity_at_equal_revision_counters() {
++    let mut stage = Stage::new();
++    let mob = stage.add(surface(pair([0, 0, 255]), -1.0, false));
++    stage.add_to_scene(mob).unwrap();
++    let saved = stage.snapshot_bytes().unwrap();
++    let mut other = Stage::new();
++    let other_mob = other.add(surface(pair([0, 255, 0]), -1.0, false));
++    other.add_to_scene(other_mob).unwrap();
++    let changed = other.snapshot_bytes().unwrap();
++    let counter = stage.get(mob).unwrap().image_revision();
++    let key = Revisions::read(&stage, mob).unwrap().image;
++    let (mut render, camera) = renderer(1);
++    render.render_with_camera(&stage, &camera).unwrap();
++    let original = render.frame().as_bytes().to_vec();
++    stage.restore(&Snapshot::from_bytes(&changed, &stage).unwrap().snapshot);
++    assert_eq!(stage.get(mob).unwrap().image_revision(), counter);
++    assert_ne!(Revisions::read(&stage, mob).unwrap().image, key);
++    render.render_with_camera(&stage, &camera).unwrap();
++    assert!(center(render.frame())[1] > 0.9);
++    stage.restore(&Snapshot::from_bytes(&saved, &stage).unwrap().snapshot);
++    render.render_with_camera(&stage, &camera).unwrap();
++    assert_eq!(render.frame().as_bytes(), original);
++}
++#[test]
++fn image_quad_pair_refusal_does_not_replace_last_good_frame() {
++    let mut stage = Stage::new();
++    let mob = stage.add(surface(pair([0, 0, 255]), -1.0, false));
++    stage.add_to_scene(mob).unwrap();
++    let (mut render, camera) = renderer(1);
++    render.render_with_camera(&stage, &camera).unwrap();
++    let original = render.frame().as_bytes().to_vec();
++    let invalid = stage.add(
++        surface(pair([0, 255, 0]), -1.0, true).with_render_primitive(RenderPrimitive::ImageQuad),
++    );
++    stage.add_to_scene(invalid).unwrap();
++    let error = render.render_with_camera(&stage, &camera).unwrap_err();
++    assert!(error.to_string().contains("light/dark textures require"));
++    assert_eq!(render.frame().as_bytes(), original);
++}

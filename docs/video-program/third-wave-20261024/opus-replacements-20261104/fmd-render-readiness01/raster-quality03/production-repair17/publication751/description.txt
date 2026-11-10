@@ -1,0 +1,39 @@
+Why does a power series fail where the curve it describes is perfectly smooth? The answer lies above and below the real number line.
+
+We follow one function, 1/(1+x²), into the complex plane. Moving grids show multiplication and the complex derivative as a stretch and a turn. Colour shows zeros and poles. We prove Cauchy's theorem for squares and triangles by cutting them into smaller and smaller copies and cancelling shared edges, then use it to show how values on the boundary determine the inside. Loops count roots without finding them, and residues at complex poles give real integrals.
+
+Also covered: polynomials, rational functions, the exponential, sine, tangent, gamma and zeta; the Cauchy-Riemann equations; critical points and holomorphic functions; Cauchy's integral formula and the radius of a power series; the identity theorem and Liouville's theorem; the argument principle and the fundamental theorem of algebra; residues; and analytic continuation.
+
+The limits matter too. A complex derivative at a single point is not enough: the strong results need it at every point of an open region. A loop that counts zeros and poles must not pass through one. Continuation can depend on the path, can meet a natural boundary, and never makes a divergent series converge, so 1 + 2 + 3 + ... still diverges. A picture of zeta cannot settle the Riemann hypothesis.
+
+Some calculus helps. We build the complex-number geometry from scratch, starting with multiplication as a stretch and a turn.
+
+Chapters:
+0:00 Why a smooth curve defeats its power series
+1:45 Complex multiplication: stretch and turn
+3:14 Watching functions move the plane
+5:15 Reading a function in colour
+7:08 Polynomials, exponential, sine, gamma and zeta
+9:53 What a complex derivative demands
+12:40 Critical points, and a derivative at one point
+14:28 Contour integrals and Cauchy's theorem for squares and triangles
+18:37 Proving Cauchy's formula: the boundary decides the inside
+23:12 Why holomorphic functions are rigid
+25:16 Counting roots without finding them
+28:35 Residues: the term that survives
+29:41 Real integrals from complex poles
+32:38 Analytic continuation and its limits
+35:54 Back to the opening puzzle
+
+Sister video, Logarithms Made Visual: From Slide Rules to Matrices
+https://youtu.be/lgpTDROHgQY
+
+Further reading:
+NIST DLMF, Calculus of a Complex Variable: https://dlmf.nist.gov/1.9
+NIST DLMF, Functions of a Complex Variable: https://dlmf.nist.gov/1.10
+NIST DLMF, Gamma Function: https://dlmf.nist.gov/5.2
+NIST DLMF, Riemann Zeta Function: https://dlmf.nist.gov/25.2
+
+Animation: FrankenManim.
+Narration: ElevenLabs Frederick Surrey, a synthetic voice.
+Music: procedural score generated in code.

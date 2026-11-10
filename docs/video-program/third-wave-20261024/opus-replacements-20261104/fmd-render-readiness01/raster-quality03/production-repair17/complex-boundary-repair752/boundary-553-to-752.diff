@@ -1,0 +1,288 @@
+diff --git a/root-boundary552-source/workspace/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs b/complex-boundary-repair752/boundary.rs
+index 34c0d23..ae01aae 100644
+--- a/root-boundary552-source/workspace/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs
++++ b/complex-boundary-repair752/boundary.rs
+@@ -32,8 +32,8 @@ use fmn::prelude::*;
+ 
+ use super::draw::{
+     Painter, Plane, arrow_head_points, axis_names, card, carded, dot, fact, fact_f64, fade_in_all, fade_out_all,
+-    faded_line, flat, group, hero, input, line_style, marks, names_now, output, pause, pole, precisely_now, predict,
+-    reading_window, say, tween_linear, value, wait_until, warn,
++    faded_line, flat, ground, group, hero, input, line_style, marks, names_now, output, pause, pole, precisely_now,
++    predict, reading_window, say, tween_linear, value, wait_until, warn,
+ };
+ // the opening chapter's words for the same things
+ use super::the_bump::{POLE_I, POLE_MINUS_I, RADIUS, TITLE};
+@@ -157,10 +157,19 @@ pub const PIECE: usize = 24;
+ pub const LIT_SPOKE: usize = 2;
+ /// How far each triangle's walk is drawn inside it: its corners pulled toward its centre.
+ pub const INSET: f64 = 0.7;
+-/// Labels in the close-up: a, ρ, the polygons P and p.
++/// Labels in the close-up: a, ρ, the polygons P and p. P stands outside the outer polygon's
++/// corner at 45°; p just outside the inner polygon's corner at 180°, between the small circle and
++/// the dashes (beyond the outer polygon's corner at 225°, where it stood before, it read as a
++/// second name for the outer polygon).
+ pub const A_AT: C = C::new(0.0, 0.09);
+ pub const RHO_AT: C = C::new(0.62, -0.25);
+-pub const POLYGON_NAMES_AT: [C; 2] = [C::new(0.445, 0.445), C::new(-0.445, -0.445)];
++pub const POLYGON_NAMES_AT: [C; 2] = [C::new(0.445, 0.445), C::new(-0.245, 0.0)];
++/// The heads on the polygons' sides (scene units). The inner ones are larger and drawn in
++/// `inner_head_style`: green heads on the green polygon and circle read as notches.
++pub const OUTER_HEAD: f64 = 0.12;
++pub const INNER_HEAD: f64 = 0.16;
++/// The width of the background rim round each inner head.
++pub const INNER_HEAD_RIM: f64 = 2.5;
+ 
+ /// Where 09_1's statements stand above the close-up: the main one, then its support.
+ pub const ROW_A: (f64, f64) = (4.3, 2.3);
+@@ -328,20 +337,40 @@ fn outline(stage: &mut Stage<'_>, plane: &Plane, corners: &[C], color: Srgb, wid
+         .add(polyline(pts).style(line_style(color, width)).build())
+ }
+ 
+-/// A head on the middle of every side of the polygon `corners`, pointing the way it is walked.
+-fn side_heads(stage: &mut Stage<'_>, plane: &Plane, corners: &[C], counterclockwise: bool, color: Srgb) -> Vec<Mob> {
++/// A head `size` long on the middle of every side of the polygon `corners`, pointing the way it
++/// is walked, as scene points.
++pub fn side_head_points(plane: &Plane, corners: &[C], counterclockwise: bool, size: f64) -> Vec<Vec<Vec3>> {
+     let n = corners.len();
+     (0..n)
+         .map(|k| {
+             let (a, b) = (plane.p(corners[k]), plane.p(corners[(k + 1) % n]));
+             let (a, b) = if counterclockwise { (a, b) } else { (b, a) };
+-            stage
+-                .arena_mut()
+-                .add(Polygon::new(mid_head(a, b, 0.12)).style(flat(color, 1.0)).build())
++            mid_head(a, b, size)
+         })
+         .collect()
+ }
+ 
++/// The inner polygon's heads: the yellow of the walks they stand for, each rimmed with the
++/// background so that it is cut out of the green line it sits on.
++pub fn inner_head_style() -> Style {
++    Style::default().fill(hero(), 1.0).stroke(ground(), INNER_HEAD_RIM, 1.0)
++}
++
++/// Those heads in `style`, detached.
++fn side_heads(
++    stage: &mut Stage<'_>,
++    plane: &Plane,
++    corners: &[C],
++    counterclockwise: bool,
++    size: f64,
++    style: Style,
++) -> Vec<Mob> {
++    side_head_points(plane, corners, counterclockwise, size)
++        .into_iter()
++        .map(|head| stage.arena_mut().add(Polygon::new(head).style(style).build()))
++        .collect()
++}
++
+ /// Four heads on the circle |z| = r, pointing counterclockwise.
+ fn circle_heads(stage: &mut Stage<'_>, plane: &Plane, r: f64, color: Srgb, size: f64) -> Vec<Mob> {
+     let d = size / (2.0 * r * plane.unit());
+@@ -679,8 +708,15 @@ impl SceneConstruct for Boundary {
+         fade_out_all(stage, &boundary_walks, 0.2)?;
+         fade_out_all(stage, &[triangle_rule], 0.2)?;
+         let survived = proof_tex(&kit, stage, SURVIVE_TEX, 25.0, Palette::ink(), ROW_B)?;
+-        let outer_arrows = side_heads(stage, &cp, &polygon(LOOP_R, SIDES), true, hero());
+-        let inner_cw = side_heads(stage, &cp, &polygon(SMALL_R, SIDES), false, output());
++        let outer_arrows = side_heads(stage, &cp, &polygon(LOOP_R, SIDES), true, OUTER_HEAD, flat(hero(), 1.0));
++        let inner_cw = side_heads(
++            stage,
++            &cp,
++            &polygon(SMALL_R, SIDES),
++            false,
++            INNER_HEAD,
++            inner_head_style(),
++        );
+         let mut polygon_names = Vec::new();
+         for (name, position) in POLYGON_NAMES.into_iter().zip(POLYGON_NAMES_AT) {
+             polygon_names.push(kit.tex(stage, name, 20.0, Palette::ink(), &[], cp.p(position))?);
+@@ -691,7 +727,14 @@ impl SceneConstruct for Boundary {
+         fade_in_all(stage, &polygon_names, 0.3)?;
+         line.wait_for(stage, "So the two polygons, both walked counterclockwise")?;
+         let polygons_equal = proof_tex(&kit, stage, POLYGONS_TEX, 28.0, Palette::ink(), ROW_B)?;
+-        let inner_ccw = side_heads(stage, &cp, &polygon(SMALL_R, SIDES), true, output());
++        let inner_ccw = side_heads(
++            stage,
++            &cp,
++            &polygon(SMALL_R, SIDES),
++            true,
++            INNER_HEAD,
++            inner_head_style(),
++        );
+         fade_out_all(stage, &[survived], 0.2)?;
+         fade_out_all(stage, &inner_cw, 0.2)?;
+         fade_out_all(stage, &cancellation, 0.2)?;
+@@ -1647,4 +1690,170 @@ mod tests {
+         let result = body.find("let result =").unwrap();
+         assert!(fixed < equality && equality < shrink && shrink < result);
+     }
++
++    /// Native 4K pixels per scene unit; the ink boxes' half sizes of a and p (size 20) at that
++    /// scale, measured in the final 09 review frame at 72 s; the least gap the repaired heads and
++    /// name keep from their neighbours (about 9.5 native pixels). A line of width w is w/100
++    /// scene units wide (the width 3 dashes measure 8 native pixels).
++    const PX: f64 = 270.0;
++    const A_HALF: (f64, f64) = (12.0 / PX, 12.5 / PX);
++    const P_HALF: (f64, f64) = (13.5 / PX, 17.5 / PX);
++    const CLEAR: f64 = 0.035;
++
++    fn luminance(c: Srgb) -> f64 {
++        let linear = |u: f64| {
++            if u <= 0.04045 {
++                u / 12.92
++            } else {
++                ((u + 0.055) / 1.055).powf(2.4)
++            }
++        };
++        0.2126 * linear(c.r) + 0.7152 * linear(c.g) + 0.0722 * linear(c.b)
++    }
++
++    /// The contrast ratio of two colours, 1 to 21.
++    fn contrast(a: Srgb, b: Srgb) -> f64 {
++        let (x, y) = (luminance(a), luminance(b));
++        (x.max(y) + 0.05) / (x.min(y) + 0.05)
++    }
++
++    fn cross(o: Vec3, p: Vec3, q: Vec3) -> f64 {
++        (p[0] - o[0]) * (q[1] - o[1]) - (p[1] - o[1]) * (q[0] - o[0])
++    }
++
++    fn apart(p: Vec3, q: Vec3) -> f64 {
++        (p[0] - q[0]).hypot(p[1] - q[1])
++    }
++
++    fn to_segment(q: Vec3, a: Vec3, b: Vec3) -> f64 {
++        let (dx, dy) = (b[0] - a[0], b[1] - a[1]);
++        let t = (((q[0] - a[0]) * dx + (q[1] - a[1]) * dy) / (dx * dx + dy * dy)).clamp(0.0, 1.0);
++        (q[0] - a[0] - t * dx).hypot(q[1] - a[1] - t * dy)
++    }
++
++    fn edges(p: &[Vec3]) -> Vec<(Vec3, Vec3)> {
++        (0..p.len()).map(|k| (p[k], p[(k + 1) % p.len()])).collect()
++    }
++
++    fn holds(edges: &[(Vec3, Vec3)], q: Vec3) -> bool {
++        edges.iter().all(|&(u, w)| cross(u, w, q) >= 0.0) || edges.iter().all(|&(u, w)| cross(u, w, q) <= 0.0)
++    }
++
++    fn nearest(points: &[Vec3], edges: &[(Vec3, Vec3)]) -> f64 {
++        let mut best = f64::INFINITY;
++        for &q in points {
++            for &(u, w) in edges {
++                best = best.min(to_segment(q, u, w));
++            }
++        }
++        best
++    }
++
++    /// The gap between two convex outlines: 0 if they touch, cross or one holds the other.
++    fn gap(a: &[Vec3], b: &[Vec3]) -> f64 {
++        let (ea, eb) = (edges(a), edges(b));
++        let crossing = ea.iter().any(|&(p, q)| {
++            eb.iter()
++                .any(|&(r, s)| cross(p, q, r) * cross(p, q, s) < 0.0 && cross(r, s, p) * cross(r, s, q) < 0.0)
++        });
++        if crossing || a.iter().any(|&q| holds(&eb, q)) || b.iter().any(|&q| holds(&ea, q)) {
++            return 0.0;
++        }
++        nearest(a, &eb).min(nearest(b, &ea))
++    }
++
++    fn label_box(at: Vec3, (w, h): (f64, f64)) -> Vec<Vec3> {
++        vec![
++            v(at[0] - w, at[1] - h),
++            v(at[0] + w, at[1] - h),
++            v(at[0] + w, at[1] + h),
++            v(at[0] - w, at[1] + h),
++        ]
++    }
++
++    /// Picture review 747, B1: the inner polygon's heads were green on its green line and read as
++    /// notches, so neither its clockwise walk nor its turn to counterclockwise could be seen. The
++    /// heads drawn now: the walks' yellow inside a rim of the background, larger than the outer
++    /// heads, one on the middle of each side, pointing the way that side is walked, and clear of
++    /// a's name, the hole's ring and the dashes.
++    #[test]
++    fn the_inner_heads_stand_out_and_point_the_way_each_side_is_walked() {
++        let style = inner_head_style();
++        assert_eq!(style.fill_color, hero());
++        assert_eq!(style.stroke_color, ground());
++        assert!(style.fill_opacity >= 1.0 && style.stroke_opacity >= 1.0);
++        assert!((style.stroke_width - INNER_HEAD_RIM).abs() < 1e-12);
++        assert!(
++            contrast(style.stroke_color, output()) > 4.5,
++            "rim against the green line"
++        );
++        assert!(
++            contrast(style.fill_color, style.stroke_color) > 4.5,
++            "fill against its rim"
++        );
++        // over 40 native pixels long and wide; the rim's outer half over 3
++        assert!(INNER_HEAD > OUTER_HEAD && INNER_HEAD * PX > 40.0);
++        let rim = INNER_HEAD_RIM / 100.0 / 2.0;
++        assert!(rim * PX > 3.0);
++
++        let cp = close_up();
++        let (centre, unit) = (cp.p(ZERO), cp.unit());
++        let corners = polygon(SMALL_R, SIDES);
++        let name_a = label_box(cp.p(A_AT), A_HALF);
++        for counterclockwise in [false, true] {
++            let heads = side_head_points(&cp, &corners, counterclockwise, INNER_HEAD);
++            assert_eq!(heads.len(), SIDES);
++            for (k, head) in heads.iter().enumerate() {
++                let (a, b) = (cp.p(corners[k]), cp.p(corners[(k + 1) % SIDES]));
++                let middle = v((a[0] + b[0]) / 2.0, (a[1] + b[1]) / 2.0);
++                let base = v((head[1][0] + head[2][0]) / 2.0, (head[1][1] + head[2][1]) / 2.0);
++                let half_way = v((head[0][0] + base[0]) / 2.0, (head[0][1] + base[1]) / 2.0);
++                assert!(apart(half_way, middle) < 1e-9, "side {k} off its middle");
++                assert!((apart(head[0], base) - INNER_HEAD).abs() < 1e-9);
++                assert!((apart(head[1], head[2]) - INNER_HEAD).abs() < 1e-9);
++                // counterclockwise about a: the tip lies to the left of a's line to the middle
++                assert_eq!(cross(centre, middle, head[0]) > 0.0, counterclockwise, "side {k}");
++                assert!(gap(head, &name_a) - rim > CLEAR, "side {k}: a's name");
++                let inmost = (0..3)
++                    .map(|j| to_segment(centre, head[j], head[(j + 1) % 3]))
++                    .fold(f64::INFINITY, f64::min);
++                let outmost = head.iter().map(|&q| apart(q, centre)).fold(0.0, f64::max);
++                assert!(inmost - rim > HOLE + 0.015 + CLEAR, "side {k}: the hole");
++                assert!(outmost + rim < BOUND_R * unit - 0.015 - CLEAR, "side {k}: the dashes");
++            }
++        }
++    }
++
++    /// Picture review 747, B1: p, the inner polygon's name, stood beyond the outer polygon's
++    /// corner, about 0.45 from the inner polygon. It now stands by the inner polygon, in the ring
++    /// between the small circle's line and the dashes, clear of the inner heads both ways round;
++    /// each name is far nearer its own polygon than the other one.
++    #[test]
++    fn each_polygon_name_stands_by_its_own_polygon() {
++        let cp = close_up();
++        let (centre, unit) = (cp.p(ZERO), cp.unit());
++        let rim = INNER_HEAD_RIM / 100.0 / 2.0;
++        let name = label_box(cp.p(POLYGON_NAMES_AT[1]), P_HALF);
++        let inmost = (0..4)
++            .map(|j| to_segment(centre, name[j], name[(j + 1) % 4]))
++            .fold(f64::INFINITY, f64::min);
++        let outmost = name.iter().map(|&q| apart(q, centre)).fold(0.0, f64::max);
++        // the small circle's line is width 4, the dashes width 3
++        assert!(inmost > SMALL_R * unit + 0.02 + CLEAR, "{inmost}");
++        assert!(outmost < BOUND_R * unit - 0.015 - CLEAR, "{outmost}");
++        for counterclockwise in [false, true] {
++            for head in side_head_points(&cp, &polygon(SMALL_R, SIDES), counterclockwise, INNER_HEAD) {
++                assert!(gap(&head, &name) - rim > CLEAR);
++            }
++        }
++        let to_polygon = |at: Vec3, r: f64| {
++            let corners: Vec<Vec3> = polygon(r, SIDES).into_iter().map(|z| cp.p(z)).collect();
++            (0..SIDES)
++                .map(|k| to_segment(at, corners[k], corners[(k + 1) % SIDES]))
++                .fold(f64::INFINITY, f64::min)
++        };
++        let (outer_name, inner_name) = (cp.p(POLYGON_NAMES_AT[0]), cp.p(POLYGON_NAMES_AT[1]));
++        assert!(3.0 * to_polygon(inner_name, SMALL_R) < to_polygon(inner_name, LOOP_R));
++        assert!(3.0 * to_polygon(outer_name, LOOP_R) < to_polygon(outer_name, SMALL_R));
++    }
+ }

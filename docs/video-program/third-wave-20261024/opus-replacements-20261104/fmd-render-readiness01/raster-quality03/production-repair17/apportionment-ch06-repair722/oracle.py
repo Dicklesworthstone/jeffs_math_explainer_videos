@@ -22,11 +22,17 @@ Ties at a cutoff raise an error in both: the film's examples have none.
 Historical and published numbers cannot be computed; they are printed as
 pinned literals with their source in a comment, and the Rust side pins the
 same literals (Facts::pin) so a typo on either side fails the comparison.
+The census year of chapter 6 is the one exception: both sides read its sourced
+row in docs/description_numbers.tsv, and seaton_census_year() checks that row
+and the narration on every run without printing the year.
 """
 
 import sys
 from fractions import Fraction as F
 from math import floor, ceil
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
 
 TOWNS = ["ash", "birch", "cedar"]
 POP = {"ash": 4000, "birch": 9000, "cedar": 26000}
@@ -225,6 +231,31 @@ def quota_method(pop, names, house):
 def within_quota(seats, pop, names, h):
     q = shares(pop, names, h)
     return all(floor(q[t]) <= seats[t] <= ceil(q[t]) for t in names)
+
+
+def seaton_census_year():
+    """The census Seaton worked from, from the description's sourced row.
+
+    Checked on every run and never printed: a printed key with this value
+    would leave that row "used by nothing" in tools/description_numbers.py, and
+    the row is the year's evidence. src/facts.rs reads the same row.
+    """
+    rows = [
+        line.split("\t")
+        for line in (HERE / "docs" / "description_numbers.tsv").read_text(encoding="utf-8").splitlines()
+        if line and not line.startswith("#")
+    ]
+    hits = [r for r in rows if len(r) == 4 and r[2] == "year" and "Seaton" in r[3]]
+    if len(hits) != 1:
+        raise ValueError(f"expected one year row naming Seaton, found {len(hits)}")
+    year, context, _, reason = hits[0]
+    if year not in context or "census PDF p. 13" not in reason or f"after the {year} census" not in reason:
+        raise ValueError(f"the Seaton year row does not state its census: {hits[0]}")
+    spoken = {"18": "eighteen", "80": "eighty"}
+    said = f"After the {spoken[year[:2]]} {spoken[year[2:]]} census"
+    if said not in (HERE / "script.tsv").read_text(encoding="utf-8"):
+        raise ValueError(f"06_4 does not say: {said}")
+    return year
 
 
 # ------------------------------------------------------------------- facts
@@ -523,6 +554,7 @@ def main(check):
     emit("history.seaton.alabama_after", 7)
     emit("history.seaton.range_low", 275)
     emit("history.seaton.range_high", 350)
+    seaton_census_year()  # checked, not printed: see the function
     emit("history.ny1830.quota", "38.593")      # Young, census PDF p. 10, Table 4
     emit("history.ny1830.seats", 40)
     emit("history.hill_law_year", 1941)          # Young, census PDF p. 15
@@ -565,6 +597,7 @@ def cross_checks():
     s4, _ = divisor_method("webster", POP4, W4, 14)
     assert q4["d"] == 9 and s4["d"] == 8
     say("ok four-town map: share exactly 9, Webster gives 8")
+    say(f"ok census year {seaton_census_year()}: the sourced row and the narration agree")
 
 
 if __name__ == "__main__":

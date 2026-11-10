@@ -1,0 +1,341 @@
+--- a/explainer_corpus/apportionment/src/chapters/not_every_time.rs
++++ b/explainer_corpus/apportionment/src/chapters/not_every_time.rs
+@@ -7,12 +7,12 @@
+ use explainer_kit::{Kit, Palette, v};
+ use fmn::prelude::*;
+ 
+-use super::dials::{house_trackers, ranking, three_dials};
++use super::dials::{CENTRES, house_trackers, ranking, three_dials};
+ use super::draw::{
+-    fade_in_all, fade_in_lagged, fail, flash_all, flat, morph_all, pause, refill, run_trackers, say, think_here,
+-    wait_until,
++    fade_in_all, fade_in_lagged, fail, flash_all, flat, morph_all, pause, refill, run_trackers, say, step_arc,
++    think_here, wait_until,
+ };
+-use crate::model::{self, KEYS, POP};
++use crate::model::{self, KEYS, POP, share};
+ 
+ pub struct NotEveryTime {
+     pub kit: Kit,
+@@ -30,6 +30,37 @@
+ const SOURCE: &str = "C. W. Seaton, letter to Congress, quoted by H. P. Young";
+ /// Reading speed for words on screen, characters a second.
+ const READ_CPS: f64 = 15.0;
++/// The council the 06_1 prediction starts from and the one it asks about: the
++/// dials, the ranking, the seats, the steps and the question all read these.
++const HOUSE_NOW: u64 = 16;
++const HOUSE_NEXT: u64 = HOUSE_NOW + 1;
++
++fn gcd(a: u64, b: u64) -> u64 {
++    if b == 0 { a } else { gcd(b, a % b) }
++}
++
++/// Town `i`'s step for one more seat: its exact share of the population as a
++/// fraction of a turn, over the towns' smallest common denominator, the form
++/// 05_2 says and shows.
++fn step_fraction(i: usize) -> (u64, u64) {
++    let total = model::total(&POP);
++    let common = POP.iter().fold(total, |d, &p| gcd(d, p));
++    (POP[i] / common, total / common)
++}
++
++/// The label under a dial during the 06_1 prediction.
++fn step_label(i: usize) -> String {
++    let (num, den) = step_fraction(i);
++    format!("+{num}/{den} turn")
++}
++
++/// The line on screen during the 06_1 prediction.
++fn question() -> String {
++    format!(
++        "{HOUSE_NOW} seats → {HOUSE_NEXT}: does {} get its seat back?",
++        model::NAMES[model::ASH]
++    )
++}
+ 
+ impl SceneConstruct for NotEveryTime {
+     fn name(&self) -> &str {
+@@ -45,35 +76,49 @@
+                 .map(str::to_owned)
+                 .ok_or_else(|| fail(format!("no fact {key}")))
+         };
+-        let t = house_trackers(stage, 16.0);
++        let t = house_trackers(stage, HOUSE_NOW as f64);
+ 
+         // 06_1 seventeen seats: does Ash get its seat back?
+         say(&kit, stage, "06_1")?;
+-        let dials = three_dials(&kit, stage, t, 16.0)?;
+-        let (rank16, _) = ranking(16);
++        let dials = three_dials(&kit, stage, t, HOUSE_NOW as f64)?;
++        let (rank16, _) = ranking(HOUSE_NOW);
+         let rank_t = kit.text(stage, &rank16, 24.0, Palette::ink(), v(0.0, -2.75))?;
++        // What the prediction needs, as in 05_3: each hand's step for one more
++        // seat, and the question. They join the dials' fade and leave with the
++        // "?", so neither adds any time.
++        let mut inputs = Vec::new();
++        for (i, centre) in CENTRES.iter().enumerate() {
++            let at = v(centre[0], centre[1]);
++            let from = share(&POP, i, HOUSE_NOW).tail().to_f64();
++            let (num, den) = step_fraction(i);
++            inputs.push(step_arc(stage, at, from, num as f64 / den as f64, Palette::ink()));
++            inputs.push(kit.text(stage, &step_label(i), 22.0, Palette::ink(), v(at[0], at[1] - 1.75))?);
++        }
++        inputs.push(kit.text(stage, &question(), 30.0, Palette::ink(), v(0.0, 3.3))?);
+         let mut first = dials.clone();
+         first.push(rank_t);
++        first.extend_from_slice(&inputs);
+         fade_in_all(stage, &first, 0.6)?;
+         let q = think_here(&kit, stage)?;
+ 
+         // 06_2 it does: two, four, eleven
+         let s = say(&kit, stage, "06_2")?;
+-        super::draw::fade_out_all(stage, &[q], 0.2)?;
++        let mut cleared = inputs;
++        cleared.push(q);
++        super::draw::fade_out_all(stage, &cleared, 0.2)?;
+         s.wait_for(stage, "The whole parts become")?;
+-        run_trackers(stage, &t.map(|m| (m, 17.0)), 3.0, true)?;
+-        let (rank17, order17) = ranking(17);
++        run_trackers(stage, &t.map(|m| (m, HOUSE_NEXT as f64)), 3.0, true)?;
++        let (rank17, order17) = ranking(HOUSE_NEXT);
+         let rank_t17 = kit.text(stage, &rank17, 24.0, Palette::ink(), v(0.0, -2.75))?;
+         morph_all(stage, &[(rank_t, rank_t17)], 0.7)?;
+-        let seats = model::hamilton(&POP, 17).map_err(fail)?;
++        let seats = model::hamilton(&POP, HOUSE_NEXT).map_err(fail)?;
+         s.wait_for(stage, "Two, four, eleven")?;
+-        let result = kit.text(
+-            stage,
+-            &format!("{}, {}, {}", seats[0], seats[1], seats[2]),
+-            36.0,
+-            Palette::hero(),
+-            v(0.0, 3.3),
+-        )?;
++        let named: Vec<String> = model::NAMES
++            .iter()
++            .zip(&seats)
++            .map(|(name, seat)| format!("{name} {seat}"))
++            .collect();
++        let result = kit.text(stage, &named.join(", "), 36.0, Palette::hero(), v(0.0, 3.3))?;
+         fade_in_all(stage, &[result], 0.5)?;
+         let leaders: Vec<Mob> = order17.iter().take(2).map(|&i| dials[i * 6]).collect();
+         flash_all(stage, &leaders, 0.9)?;
+@@ -119,8 +164,24 @@
+             let ty = if k % 2 == 0 { y + 0.7 } else { y + 1.1 };
+             tags.push(kit.text(stage, &label, 18.0, Palette::red(), v(x0 + (*h as f64 - 0.5) * w, ty))?);
+         }
++        // Says what the tags mean. It arrives last in the tags' own group, whose
++        // total run time is fixed; the guard below covers "always from Ash".
++        let summary = kit.text(
++            stage,
++            &format!(
++                "{} of {} additions take a seat away, always from {}",
++                fact("alabama.count")?,
++                fact("alabama.additions")?,
++                model::NAMES[model::ASH]
++            ),
++            24.0,
++            Palette::red(),
++            v(0.0, y - 1.15),
++        )?;
+         refill(stage, &red, 0.8)?;
+-        fade_in_lagged(stage, &tags, 1.5, 0.3)?;
++        let mut arrivals = tags.clone();
++        arrivals.push(summary);
++        fade_in_lagged(stage, &arrivals, 1.5, 0.3)?;
+         s.wait_for(stage, "every time it is Ash")?;
+         flash_all(stage, &tags, 1.0)?;
+         if fact("alabama.loser")? != KEYS[model::ASH] {
+@@ -131,7 +192,8 @@
+         kit.hold(stage)?;
+         let s = say(&kit, stage, "06_4")?;
+         let range = format!(
+-            "Hamilton apportionments for every House size from {} to {}",
++            "{} census, C. W. Seaton: Hamilton apportionments for every House size from {} to {}",
++            crate::facts::seaton_census_year().map_err(fail)?,
+             fact("history.seaton.range_low")?,
+             fact("history.seaton.range_high")?
+         );
+@@ -208,3 +270,37 @@
+         kit.finish(stage)
+     }
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    /// The steps printed in 06_1 are each town's exact share, over the towns'
++    /// smallest common denominator, with the oracle's numerators.
++    #[test]
++    fn the_printed_steps_are_the_exact_shares() {
++        let labels: Vec<String> = (0..POP.len()).map(step_label).collect();
++        assert_eq!(labels, ["+4/39 turn", "+9/39 turn", "+26/39 turn"]);
++        let facts = crate::facts::facts().expect("facts build");
++        let total = model::total(&POP);
++        let mut common = 0;
++        for (i, &pop) in POP.iter().enumerate() {
++            let (num, den) = step_fraction(i);
++            assert_eq!(num * total, pop * den, "{i}");
++            assert_eq!(
++                facts.get(&format!("speed39.{}", KEYS[i])),
++                Some(num.to_string().as_str())
++            );
++            common = gcd(common, num);
++        }
++        assert_eq!(gcd(common, step_fraction(0).1), 1);
++    }
++
++    /// The question names the councils the ranking and the seats are read at.
++    #[test]
++    fn the_question_reads_the_house_constants() {
++        assert_eq!(question(), "16 seats → 17: does Ash get its seat back?");
++        assert_eq!(ranking(HOUSE_NOW).1.last(), Some(&model::ASH));
++        assert_eq!(model::hamilton(&POP, HOUSE_NEXT).expect("hamilton"), vec![2, 4, 11]);
++    }
++}
+--- a/explainer_corpus/apportionment/src/facts.rs
++++ b/explainer_corpus/apportionment/src/facts.rs
+@@ -20,6 +20,38 @@
+ const GPP_T1: &str = "Goelz, Peters and Procaccia 2024, arXiv 2202.11061v2, Table 1";
+ const GPP_P9: &str = "Goelz, Peters and Procaccia 2024, p. 9, on Balinski and Young 1982";
+ const GPP_P1: &str = "Goelz, Peters and Procaccia 2024, v2 accepted by Operations Research, June 2024";
++const DESCRIPTION_NUMBERS: &str = include_str!("../docs/description_numbers.tsv");
++
++/// The census year in a table of description numbers: exactly one `year` row
++/// may name Seaton, and it must cite Young p. 13 and state that census.
++fn census_year_in(rows: &str) -> Result<&str, String> {
++    let mut seaton = rows.lines().filter(|l| !l.starts_with('#')).filter_map(|l| {
++        let cells: Vec<&str> = l.split('\t').collect();
++        match cells[..] {
++            [year, context, "year", reason] if reason.contains("Seaton") => Some((year, context, reason)),
++            _ => None,
++        }
++    });
++    let (Some((year, context, reason)), None) = (seaton.next(), seaton.next()) else {
++        return Err("description_numbers.tsv needs exactly one year row naming Seaton".into());
++    };
++    if !context.contains(year)
++        || !reason.contains("census PDF p. 13")
++        || !reason.contains(&format!("after the {year} census"))
++    {
++        return Err(format!("the Seaton year row does not state its census: {reason}"));
++    }
++    Ok(year)
++}
++
++/// The census Seaton worked from, which 06_4 puts on screen, as the
++/// description's sourced row gives it. It is not a `Facts` key: the oracle
++/// would have to print it too, and a printed fact of that value leaves the row
++/// "used by nothing" in `tools/description_numbers.py`, while the row is the
++/// year's evidence. `oracle.py` checks the same row on every run.
++pub fn seaton_census_year() -> Result<&'static str, String> {
++    census_year_in(DESCRIPTION_NUMBERS)
++}
+ 
+ fn town_seats(f: &mut Facts, prefix: &str, seats: &[u64]) -> Result<(), String> {
+     for (i, s) in seats.iter().enumerate() {
+@@ -482,4 +514,19 @@
+             assert_eq!(f.get(key), Some(want), "{key}");
+         }
+     }
++
++    /// The year on screen in 06_4 is the one sourced row's, and the year the
++    /// narration says; a missing, repeated or inconsistent row is refused.
++    #[test]
++    fn the_census_year_is_the_sourced_row() {
++        assert_eq!(seaton_census_year(), Ok("1880"));
++        assert!(crate::SCRIPT.contains("After the eighteen eighty census"));
++        let row = "1880\tAfter the 1880 census\tyear\t\
++                   Young, census PDF p. 13: Seaton's apportionments after the 1880 census";
++        assert_eq!(census_year_in(row), Ok("1880"));
++        assert!(census_year_in("# no row").is_err());
++        assert!(census_year_in(&format!("{row}\n{row}")).is_err());
++        assert!(census_year_in(&row.replacen("1880", "1890", 1)).is_err());
++        assert!(census_year_in(&row.replace("p. 13", "p. 14")).is_err());
++    }
+ }
+--- a/explainer_corpus/apportionment/oracle.py
++++ b/explainer_corpus/apportionment/oracle.py
+@@ -22,11 +22,17 @@
+ Historical and published numbers cannot be computed; they are printed as
+ pinned literals with their source in a comment, and the Rust side pins the
+ same literals (Facts::pin) so a typo on either side fails the comparison.
++The census year of chapter 6 is the one exception: both sides read its sourced
++row in docs/description_numbers.tsv, and seaton_census_year() checks that row
++and the narration on every run without printing the year.
+ """
+ 
+ import sys
+ from fractions import Fraction as F
+ from math import floor, ceil
++from pathlib import Path
++
++HERE = Path(__file__).resolve().parent
+ 
+ TOWNS = ["ash", "birch", "cedar"]
+ POP = {"ash": 4000, "birch": 9000, "cedar": 26000}
+@@ -227,6 +233,31 @@
+     return all(floor(q[t]) <= seats[t] <= ceil(q[t]) for t in names)
+ 
+ 
++def seaton_census_year():
++    """The census Seaton worked from, from the description's sourced row.
++
++    Checked on every run and never printed: a printed key with this value
++    would leave that row "used by nothing" in tools/description_numbers.py, and
++    the row is the year's evidence. src/facts.rs reads the same row.
++    """
++    rows = [
++        line.split("\t")
++        for line in (HERE / "docs" / "description_numbers.tsv").read_text(encoding="utf-8").splitlines()
++        if line and not line.startswith("#")
++    ]
++    hits = [r for r in rows if len(r) == 4 and r[2] == "year" and "Seaton" in r[3]]
++    if len(hits) != 1:
++        raise ValueError(f"expected one year row naming Seaton, found {len(hits)}")
++    year, context, _, reason = hits[0]
++    if year not in context or "census PDF p. 13" not in reason or f"after the {year} census" not in reason:
++        raise ValueError(f"the Seaton year row does not state its census: {hits[0]}")
++    spoken = {"18": "eighteen", "80": "eighty"}
++    said = f"After the {spoken[year[:2]]} {spoken[year[2:]]} census"
++    if said not in (HERE / "script.tsv").read_text(encoding="utf-8"):
++        raise ValueError(f"06_4 does not say: {said}")
++    return year
++
++
+ # ------------------------------------------------------------------- facts
+ 
+ def main(check):
+@@ -523,6 +554,7 @@
+     emit("history.seaton.alabama_after", 7)
+     emit("history.seaton.range_low", 275)
+     emit("history.seaton.range_high", 350)
++    seaton_census_year()  # checked, not printed: see the function
+     emit("history.ny1830.quota", "38.593")      # Young, census PDF p. 10, Table 4
+     emit("history.ny1830.seats", 40)
+     emit("history.hill_law_year", 1941)          # Young, census PDF p. 15
+@@ -565,6 +597,7 @@
+     s4, _ = divisor_method("webster", POP4, W4, 14)
+     assert q4["d"] == 9 and s4["d"] == 8
+     say("ok four-town map: share exactly 9, Webster gives 8")
++    say(f"ok census year {seaton_census_year()}: the sourced row and the narration agree")
+ 
+ 
+ if __name__ == "__main__":
+--- a/explainer_corpus/apportionment/docs/storyboard.md
++++ b/explainer_corpus/apportionment/docs/storyboard.md
+@@ -115,10 +115,10 @@
+ 
+ | id | words | picture | features | hold/listen |
+ |---|---|---|---|---|
+-| 06_1 | ⟨predict⟩ Add one more seat, seventeen in all. Does Ash get its seat back? | Dials at 16 seats, one tracker per town; think ring. | quiz | listen 4 s |
+-| 06_2 | It does. The whole parts become one, three and eleven, two seats are left over, and the largest tails now belong to Birch and Ash. Two, four, eleven. | All three trackers 16 → 17 together; Cedar's hand passes the top and its whole part ticks to 11; the readout "2, 4, 11". | `whole.17.*`, `hamilton.17.*` | hold |
+-| 06_3 | So the paradox is not a slide. It comes and goes as the hands turn. Run Hamilton's rule for every council from one seat to a hundred. That is ninety nine additions of a single seat. Five of them take a seat away from somebody, and every time it is Ash. | A strip of 99 small cells fills left to right (each cell is one added seat); five cells light red, at 15→16, 23→24, 54→55, 62→63 and 93→94, each tagged "Ash". | `alabama.additions`, `alabama.count`, `alabama.houses`, `alabama.loser`; grid, lagged | hold |
+-| 06_4 | History found the same thing. After the eighteen eighty census, the chief clerk of the Census Office, a man named Seaton, worked out Hamilton apportionments for every House size from two hundred seventy five to three hundred fifty. Alabama received eight seats in a House of two hundred ninety nine, and seven in a House of three hundred. | Two compact columns, "House of 299: Alabama 8" and "House of 300: Alabama 7". | `history.seaton.*`; card | hold |
++| 06_1 | ⟨predict⟩ Add one more seat, seventeen in all. Does Ash get its seat back? | Dials at 16 seats, one tracker per town; think ring. With the dials, each hand's step for one more seat as an arc outside its ring, with "+4/39 turn", "+9/39 turn" or "+26/39 turn" under the dial, and the top line "16 seats → 17: does Ash get its seat back?". All of these clear with the "?" as 06_2 starts. | quiz | listen 4 s |
++| 06_2 | It does. The whole parts become one, three and eleven, two seats are left over, and the largest tails now belong to Birch and Ash. Two, four, eleven. | All three trackers 16 → 17 together; Cedar's hand passes the top and its whole part ticks to 11; the readout "Ash 2, Birch 4, Cedar 11". | `whole.17.*`, `hamilton.17.*` | hold |
++| 06_3 | So the paradox is not a slide. It comes and goes as the hands turn. Run Hamilton's rule for every council from one seat to a hundred. That is ninety nine additions of a single seat. Five of them take a seat away from somebody, and every time it is Ash. | A strip of 99 small cells fills left to right (each cell is one added seat); five cells light red, at 15→16, 23→24, 54→55, 62→63 and 93→94, each tagged "Ash". Under the strip, "5 of 99 additions take a seat away, always from Ash" arrives last with the tags. | `alabama.additions`, `alabama.count`, `alabama.houses`, `alabama.loser`; grid, lagged | hold |
++| 06_4 | History found the same thing. After the eighteen eighty census, the chief clerk of the Census Office, a man named Seaton, worked out Hamilton apportionments for every House size from two hundred seventy five to three hundred fifty. Alabama received eight seats in a House of two hundred ninety nine, and seven in a House of three hundred. | The strip holds until "worked out Hamilton"; then the dim line "1880 census, C. W. Seaton: Hamilton apportionments for every House size from 275 to 350" (the year from the sourced row of `description_numbers.tsv`). At "Alabama received", two compact columns, "House of 299: Alabama 8" and "House of 300: Alabama 7". | `history.seaton.*`; card | hold |
+ | 06_5 | Seaton reported it to Congress in a letter, which Peyton Young quotes. Such a result as this is to me conclusive proof that the process employed in obtaining it is defective. | Only the sentence the narration speaks, verbatim, in two italic lines (28 pt), with a short source line "C. W. Seaton, letter to Congress, quoted by H. P. Young" (20 pt); at "Such a result" the lines turn hero yellow. The full passage and its page citation are in `description.md` (Young, Fairness in Apportionment, census PDF p. 13, printed p. 12). | card (quote) | hold |
+ | 06_6 | Those were alternative calculations, not a real House that grew and took a seat away. But they showed that the danger was real. | At "alternative calculations" the quote and source stay at full strength until they have been on screen for their character count ÷ 15 seconds (`READ_CPS`), however fast the line runs; then they dim and "alternative calculations, not an enacted change" appears above. | card, reading hold | hold |
+ 

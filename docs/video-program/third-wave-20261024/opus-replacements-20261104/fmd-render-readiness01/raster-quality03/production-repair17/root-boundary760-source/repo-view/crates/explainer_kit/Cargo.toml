@@ -1,0 +1,16 @@
+[package]
+name = "explainer_kit"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "Shared scene kit for the explainer corpus: palette roles, text/Tex helpers, live readouts, data windows, layout lint, narration timeline, encoder wrapper, stats kit and CLI (extracted from the explainer skill's template)"
+
+[dependencies]
+fmn.workspace = true
+# the timeline format, WAV checks and SHA-256 the narrator records with
+explainer_score.workspace = true
+# the PCM master replays cues through fmn's own decoder and mixer
+fmn-output.workspace = true
+fmn-codec.workspace = true
+# the narration skill's report.json, for captions (already in the tree via fmn)
+serde_json = "1"

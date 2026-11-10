@@ -1,0 +1,340 @@
+diff --git a/crates/fmn-conformance/tests/e2e_scenarios.rs b/crates/fmn-conformance/tests/e2e_scenarios.rs
+index 48b062d..a069639 100644
+--- a/crates/fmn-conformance/tests/e2e_scenarios.rs
++++ b/crates/fmn-conformance/tests/e2e_scenarios.rs
+@@ -2021,6 +2021,28 @@ fn python_portal_png_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError>
+     python_portal_sequence_run(ctx, false)
+ }
+ 
++fn python_surface_mesh_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError> {
++    let root = scenario_dir("python_surface_mesh")?;
++    let (png, checks) = manimlib::run_portal_gauntlet_surface_mesh(&root, ctx.seed)
++        .map_err(|error| fail(format!("Python surface mesh: {error}")))?;
++    let image = fmn_codec::decode_png(&png, &fmn_codec::PngLimits::default())
++        .map_err(|error| fail(format!("decode surface mesh: {error}")))?;
++    let visible = image.rgba.chunks_exact(4)
++        .filter(|pixel| pixel[0] > pixel[1] && pixel[0] > pixel[2])
++        .count() as u64;
++    if (image.width, image.height) != (128, 128) || visible == 0 {
++        return Err(fail("surface mesh did not render visible 128x128 geometry"));
++    }
++    ctx.event(LogEvent::new("e2e.python.surface_mesh")
++        .field("checks", checks)
++        .field("analytic_oracle", true)
++        .field("thread_replay", true));
++    Ok(RunOutcome::ok()
++        .with_counter("surface_mesh_checks", checks)
++        .with_counter("surface_mesh_visible_pixels", visible)
++        .with_artifact("surface_mesh.png", png))
++}
++
+ fn python_studio_capture_run(ctx: &mut RunCtx) -> Result<RunOutcome, ScenarioError> {
+     let report = manimlib::run_portal_gauntlet_studio_capture()
+         .map_err(|error| fail(format!("Python Studio capture: {error}")))?;
+@@ -4536,6 +4558,22 @@ pub fn catalog() -> Vec<ScenarioSpec> {
+             ],
+         )],
+     ));
++    specs.push(spec(
++        "render_matrix.python_surface_mesh.v1",
++        ScenarioClass::RenderMatrix,
++        Surface::PythonInProcess,
++        Invocation::new(python_surface_mesh_run),
++        vec![
++            Assertion::ExitCode(0),
++            Assertion::FileInventory(vec!["surface_mesh.png".to_owned()]),
++            counter_eq("surface_mesh_checks", 12),
++            counter_ge("surface_mesh_visible_pixels", 1),
++        ],
++        vec![LogExpect::span_present(
++            "e2e.python.surface_mesh",
++            vec![FieldPred::u64_eq("checks", 12)],
++        )],
++    ));
+     specs.push(spec(
+         "lifecycle.python_animation_semantics.v1",
+         ScenarioClass::LifecycleDrill,
+@@ -5284,6 +5322,17 @@ fn python_native_outputs_scenario_passes() {
+     assert!(report.is_pass(), "{}", report.summary());
+ }
+ 
++/// Sampled wireframes through the native portal, renderer and PNG publisher.
++#[test]
++fn python_surface_mesh_scenario_passes() {
++    let scenario = catalog()
++        .into_iter()
++        .find(|scenario| scenario.name == "render_matrix.python_surface_mesh.v1")
++        .expect("Python surface mesh scenario is registered");
++    let report = Runner::from_env().run(scenario);
++    assert!(report.is_pass(), "{}", report.summary());
++}
++
+ /// Curved transforms, authored hooks and composition through real PNG output.
+ #[test]
+ fn python_animation_lifecycle_scenario_passes() {
+diff --git a/crates/fmn-python/python/manimlib_bootstrap.py b/crates/fmn-python/python/manimlib_bootstrap.py
+index a7c255c..d74df6e 100644
+--- a/crates/fmn-python/python/manimlib_bootstrap.py
++++ b/crates/fmn-python/python/manimlib_bootstrap.py
+@@ -12569,9 +12569,11 @@ class Prismify(VGroup3D):
+ 
+ 
+ class SurfaceMesh(VGroup):
+-    """The wireframe over a native surface — a VMobject family (Reference
+-    MRO SurfaceMesh(VGroup)), built by the native mesher through the
+-    rebuild oracle and re-seated onto the source's current geometry."""
++    """A native wireframe over a Surface's current sampled geometry.
++
++    Transforms, live record edits and authored unit-normal overrides are
++    captured as they stand; constructing a mesh never re-runs uv_func.
++    """
+ 
+     def __init__(
+         self,
+@@ -12590,33 +12592,13 @@ class SurfaceMesh(VGroup):
+             "SurfaceMesh()",
+             [(name, True) for name in sorted(kwargs)],
+         )
+-        params = getattr(uv_surface, "_solid_params", None)
+-        if params is None:
+-            raise NotImplementedError(
+-                "SurfaceMesh needs a native-rebuildable source surface "
+-                "(Sphere is native); "
+-                + type(uv_surface).__name__
+-                + " does not carry solid params yet"
+-            )
+-        source_kind = params[0]
+-        source_axis = (0.0, 0.0, 1.0)
+-        if source_kind == "torus":
+-            source_radius = float(params[1])
+-            source_minor_radius = float(params[2])
+-        elif source_kind in ("cylinder", "cone"):
+-            source_radius = float(params[2])
+-            source_minor_radius = float(params[1])
+-            source_axis = tuple(float(component) for component in params[3])
+-        else:
+-            source_radius = float(params[1])
+-            source_minor_radius = 0.0
++        if not isinstance(uv_surface, Surface):
++            raise TypeError("SurfaceMesh source must be a Surface")
+         _install_live_state(self)
++        self.uv_surface = uv_surface
+         specs = self._build_surface_mesh(
+             _native_shell_factory,
+-            source_kind,
+-            source_radius,
+-            source_minor_radius,
+-            source_axis,
++            uv_surface,
+             (int(resolution[0]), int(resolution[1])),
+             float(normal_nudge),
+             float(stroke_width),
+@@ -12625,15 +12607,6 @@ class SurfaceMesh(VGroup):
+             float(VMobject.joint_type_map[joint_type]),
+         )
+         _hang_native_children(self, specs)
+-        # Re-seat onto the source's CURRENT geometry (the rebuild is at
+-        # native scale/origin) — exact for uniform rescales and moves.
+-        native_height = getattr(
+-            uv_surface, "_solid_native_height", 2.0 * float(params[1])
+-        )
+-        current_height = uv_surface.get_height()
+-        if current_height > 0 and abs(current_height - native_height) > 1e-12:
+-            self.scale(current_height / native_height)
+-        self.move_to(uv_surface.get_center())
+         if depth_test:
+             self.apply_depth_test()
+         else:
+diff --git a/crates/fmn-python/src/lib.rs b/crates/fmn-python/src/lib.rs
+index 4e23df2..014cc44 100644
+--- a/crates/fmn-python/src/lib.rs
++++ b/crates/fmn-python/src/lib.rs
+@@ -5817,18 +5817,14 @@ impl BridgeMobject {
+         .collect()
+     }
+ 
+-    /// `SurfaceMesh(uv_surface, ...)` — the rebuild oracle: the source
+-    /// surface reconstructs from its stored solid params and the native
+-    /// wireframe samples it; the bootstrap re-seats the mesh onto the
+-    /// source's current center/scale afterwards.
++    /// `SurfaceMesh(uv_surface, ...)` over the source's live sampled grid.
++    /// Read authored accessors without an arena borrow, then give one owned
++    /// snapshot to Atlas. Never re-evaluate the source's original UV recipe.
+     #[allow(clippy::too_many_arguments)]
+     fn _build_surface_mesh<'py>(
+         slf: &Bound<'py, Self>,
+         factory: &Bound<'py, PyAny>,
+-        source_kind: &str,
+-        source_radius: f64,
+-        source_minor_radius: f64,
+-        source_axis: [f64; 3],
++        source: &Bound<'py, PyAny>,
+         resolution: (usize, usize),
+         normal_nudge: f64,
+         stroke_width: f64,
+@@ -5836,25 +5832,23 @@ impl BridgeMobject {
+         depth_test: bool,
+         joint_code: f64,
+     ) -> PyResult<Bound<'py, PyList>> {
+-        let surface = match source_kind {
+-            "sphere" => fmn_library::Sphere::new(source_radius).build(),
+-            "torus" => fmn_library::Torus::new(source_radius, source_minor_radius).build(),
+-            "cylinder" => fmn_library::Cylinder::new(source_minor_radius, source_radius)
+-                .axis(source_axis)
+-                .build(),
+-            "cone" => fmn_library::Cone::new(source_minor_radius, source_radius)
+-                .axis(source_axis)
+-                .build(),
+-            "disk" => fmn_library::Disk3D::new(source_radius).build(),
+-            "square" => fmn_library::Square3D::new(source_radius).build(),
+-            other => {
+-                return Err(PyValueError::new_err(format!(
+-                    "SurfaceMesh over `{other}` awaits its native rebuild \
+-                     path; spheres are native"
+-                )));
+-            }
+-        };
+-        let mut mesh = fmn_library::SurfaceMesh::new(surface)
++        let source_resolution = source.getattr("resolution")?.extract::<(usize, usize)>()?;
++        let budget = fmn_library::SamplingBudget::DEFAULT.max_samples();
++        let count = source_resolution.0.checked_mul(source_resolution.1)
++            .filter(|&count| count <= budget && source_resolution.0 <= budget && source_resolution.1 <= budget)
++            .ok_or_else(|| PyValueError::new_err("SurfaceMesh source exceeds the Atlas sampling budget"))?;
++        let points = source.call_method0("get_points")?;
++        if points.len()? != count {
++            return Err(PyValueError::new_err("SurfaceMesh source resolution does not match its point records"));
++        }
++        let points = points.extract::<Vec<[f64; 3]>>()?;
++        let normals = source.call_method0("get_unit_normals")?;
++        if normals.len()? != count {
++            return Err(PyValueError::new_err("SurfaceMesh source resolution does not match its normal records"));
++        }
++        let normals = normals.extract::<Vec<[f64; 3]>>()?;
++        let mut mesh = fmn_library::SurfaceMesh::from_samples(points, normals, source_resolution)
++            .map_err(|error| PyValueError::new_err(error.to_string()))?
+             .resolution(resolution.0, resolution.1)
+             .normal_nudge(normal_nudge)
+             .stroke_width(stroke_width)
+@@ -5863,7 +5857,8 @@ impl BridgeMobject {
+         if let Some(color) = stroke_color {
+             mesh = mesh.stroke_color(srgb_from_py(color)?);
+         }
+-        install_native_tree(slf, factory, mesh.build())
++        let mesh = mesh.try_build().map_err(|error| PyValueError::new_err(error.to_string()))?;
++        install_native_tree(slf, factory, mesh)
+     }
+ 
+     /// `DecimalNumber(number, ...)` over the numbers shelf (the de-TeX'd
+@@ -11129,6 +11124,32 @@ pub struct PortalOutputGauntletReport {
+     pub video_capability_refusals: u64,
+ }
+ 
++/// Exercise live sampled wireframes and an independently authored PNG oracle.
++#[cfg(feature = "gauntlet")]
++pub fn run_portal_gauntlet_surface_mesh(
++    destination: &std::path::Path,
++    seed: u64,
++) -> Result<(Vec<u8>, u64), String> {
++    let destination = destination
++        .to_str()
++        .ok_or_else(|| "surface mesh destination is not UTF-8".to_owned())?;
++    with_python_test_module("surface mesh Gauntlet", |py, _module, globals| {
++        let source = CString::new(include_str!("../tests/surface_mesh.py"))
++            .expect("surface mesh suite contains no NUL");
++        py.run(source.as_c_str(), Some(globals), Some(globals))
++            .inspect_err(|error| error.print(py))
++            .map_err(|error| error.to_string())?;
++        globals
++            .get_item("render_surface_mesh")
++            .map_err(|error| error.to_string())?
++            .ok_or_else(|| "surface mesh renderer is absent".to_owned())?
++            .call1((destination, seed))
++            .inspect_err(|error| error.print(py))
++            .and_then(|value| value.extract::<(Vec<u8>, u64)>())
++            .map_err(|error| error.to_string())
++    })
++}
++
+ /// Exercise the shared Animation/Transform lifecycle through native PNG output.
+ #[cfg(feature = "gauntlet")]
+ pub fn run_portal_gauntlet_animation_lifecycle(
+@@ -11684,6 +11705,26 @@ mod tests {
+         });
+     }
+ 
++    #[test]
++    fn production_surface_mesh_acceptance_suite() {
++        crate::with_python_test_module("surface mesh acceptance", |py, _module, globals| {
++            let source = CString::new(include_str!("../tests/surface_mesh.py"))
++                .expect("surface mesh suite contains no NUL");
++            py.run(source.as_c_str(), Some(globals), Some(globals))
++                .inspect_err(|error| error.print(py))
++                .expect("load native surface mesh acceptance");
++            let checks = globals
++                .get_item("verify_surface_mesh")
++                .expect("find surface mesh acceptance")
++                .expect("surface mesh acceptance is defined")
++                .call0()
++                .inspect_err(|error| error.print(py))
++                .and_then(|value| value.extract::<u64>())
++                .expect("native surface mesh acceptance");
++            assert_eq!(checks, 12);
++        });
++    }
++
+     #[test]
+     fn production_bridge_acceptance_suite() {
+         crate::with_python_test_module("bridge acceptance", |py, _module, globals| {
+diff --git a/crates/fmn-python/tests/bridge.py b/crates/fmn-python/tests/bridge.py
+index 272e622..c73fda5 100644
+--- a/crates/fmn-python/tests/bridge.py
++++ b/crates/fmn-python/tests/bridge.py
+@@ -12887,16 +12887,11 @@ assert all(isinstance(line, VMobject) and line.has_points() for line in cylinder
+ for unsupported_surface in (None, VMobject()):
+     try:
+         three_dimensions.SurfaceMesh(unsupported_surface)
+-    except NotImplementedError as error:
+-        assert str(error) == (
+-            "SurfaceMesh needs a native-rebuildable source surface "
+-            "(Sphere is native); "
+-            + type(unsupported_surface).__name__
+-            + " does not carry solid params yet"
+-        )
++    except TypeError as error:
++        assert str(error) == "SurfaceMesh source must be a Surface"
+     else:
+         raise AssertionError(
+-            "SurfaceMesh accepted a source without native solid params"
++            "SurfaceMesh accepted a non-surface source"
+         )
+ 
+ cone = three_dimensions.Cone(
+diff --git a/docs/behavior_notes/BN-07-stroke-uniform-fixes.md b/docs/behavior_notes/BN-07-stroke-uniform-fixes.md
+index adb66b7..d6917c6 100644
+--- a/docs/behavior_notes/BN-07-stroke-uniform-fixes.md
++++ b/docs/behavior_notes/BN-07-stroke-uniform-fixes.md
+@@ -42,6 +42,24 @@ no point moves and the bounding box is untouched.
+ 
+ ## Migration guidance
+ 
++### SurfaceMesh styles apply to the visible wireframe
++
++`SurfaceMesh(..., stroke_width=..., stroke_color=..., depth_test=...,
++joint_type=...)` applies those settings to every generated path, not just
++the point-free group. The Reference left constructor settings on that empty
++parent, so the visible paths used unrelated VMobject defaults. Native and
++Python wireframes now agree on the explicitly requested style. A default
++mesh uses width `1`, `GREY_A`, depth testing and `no_joint`; specify width
++`4`, `auto` joints and `depth_test=False` to request the old visible defaults.
++
++The Python constructor also consumes the source's **current sampled grid**,
++including rotations, nonuniform stretches, live point edits and authored
++`get_unit_normals` overrides. Any `Surface`/`ParametricSurface` can supply
++the grid. It never calls the original UV function again, rebuilds a solid
++at its original resolution, or recenters an asymmetric wireframe. A mesh
++is a snapshot; construct another mesh (or use `always_redraw`) to follow
++subsequent source changes.
++
+ - Code that called `get_scale_stroke_with_zoom()` and happened to rely on
+   it returning `flat_stroke` (almost certainly none — the coincidence was
+   never documented) now gets the honest answer. Read `get_flat_stroke()`

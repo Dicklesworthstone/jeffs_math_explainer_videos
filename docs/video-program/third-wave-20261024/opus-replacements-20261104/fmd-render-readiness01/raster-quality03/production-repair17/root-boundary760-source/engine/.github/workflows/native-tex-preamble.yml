@@ -1,0 +1,101 @@
+name: Native TeX preambles
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/native-tex-preamble.yml'
+      - 'crates/fmn-tex/**'
+      - 'crates/fmn-library/src/tex.rs'
+      - 'crates/fmn-library/tests/tex_preamble.rs'
+      - 'crates/fmn-python/src/tex_preamble.rs'
+      - 'crates/fmn-python/src/portal_typography.rs'
+      - 'crates/fmn-python/src/lib.rs'
+      - 'crates/fmn-python/python/manimlib_bootstrap.py'
+      - 'crates/fmn-python/python/fmn_python/live_tex.py'
+      - 'crates/fmn-python/tests/tex_preamble*.py'
+      - 'demo/python/native_numeric_authoring.py'
+      - 'Cargo.lock'
+      - 'rust-toolchain.toml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: native-tex-preamble
+  cancel-in-progress: false
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Check the published sources without mutation
+        run: |
+          set -euo pipefail
+          rustup show active-toolchain
+          rustfmt --check --edition 2024 crates/fmn-tex/src/preamble.rs crates/fmn-tex/tests/preamble.rs crates/fmn-library/tests/tex_preamble.rs crates/fmn-python/src/tex_preamble.rs
+          git diff --check
+      - name: Native cache, span, declaration and builder regression suites
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-tex --all-targets 2>&1 | tee /tmp/tex-preamble-core.log
+          cargo clippy --locked -p fmn-tex --all-targets -- -D warnings 2>&1 | tee /tmp/tex-preamble-clippy.log
+          cargo test --locked -p fmn-library --test tex_preamble --test scribe_cache 2>&1 | tee /tmp/tex-preamble-library.log
+      - name: Build and test the real installed native wheel
+        run: |
+          set -euo pipefail
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          python -m maturin build --locked --interpreter python --profile dev --out target/tex-preamble-wheel 2>&1 | tee /tmp/tex-preamble-build.log
+          python -m venv target/tex-preamble-venv
+          target/tex-preamble-venv/bin/python -m pip install 'numpy==2.5.2' target/tex-preamble-wheel/*.whl
+          for suite in tex_preamble tex_preamble_render portal_initialization live_tex live_tex_render matrix_authoring decimal_authoring complex_matrix; do
+            target/tex-preamble-venv/bin/python -I crates/fmn-python/tests/$suite.py 2>&1 | tee /tmp/tex-preamble-$suite.log
+          done
+      - name: Embedded production bridge and registered render scenario
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-python --lib tex_preamble::tests:: -- --nocapture 2>&1 | tee /tmp/tex-preamble-embedded.log
+          cargo test --locked -p fmn-python --lib tests::production_bridge_acceptance_suite -- --exact --nocapture 2>&1 | tee /tmp/tex-preamble-bridge.log
+          cargo test --locked -p fmn-conformance --test e2e_scenarios python_tex_preamble_scenario_passes -- --exact --nocapture 2>&1 | tee /tmp/tex-preamble-gauntlet.log
+      - name: Render a macro argument through the installed CLI
+        run: |
+          set -euo pipefail
+          target/tex-preamble-venv/bin/python -I -m fmn_python --robot demo/python/native_numeric_authoring.py NativeNumericAuthoring --format png_sequence --resolution 192x108 --fps 8 --threads 4 --video_dir /tmp/tex-preamble-demo > /tmp/tex-preamble-demo.json
+          python - <<'PYCODE'
+          import json
+          from pathlib import Path
+          result = json.loads(Path("/tmp/tex-preamble-demo.json").read_text())
+          assert result["rendered"] is True and result["frame_count"] == 12, result
+          assert result["certified"] is False, result
+          assert len(list(Path(result["destination"]).glob("*.png"))) == 12
+          PYCODE
+      - name: Preserve source and test evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/tex-preamble-source-sha.txt
+          git diff > /tmp/tex-preamble-working.patch
+          git archive --format=tar.gz HEAD > /tmp/tex-preamble-source.tar.gz
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: tex-preamble-${{ github.sha }}
+          path: |
+            /tmp/tex-preamble-*
+            target/tex-preamble-wheel/*.whl
+          retention-days: 3

@@ -1,0 +1,4040 @@
+{
+ "h1": [
+  {
+   "sentence": "Here are a hundred and fifty measurements of two quantities, X and Y.",
+   "tts": "Here are a hundred and fifty measurements of two quantities, X and Y.",
+   "read": "h1__s0__61493c1e",
+   "lufs_in": -30.9,
+   "pause_cut_s": 0.01,
+   "score": 0.9891,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.919,
+   "syl_rate": 4.44,
+   "pauses": [
+    {
+     "at": 2.67,
+     "len": 0.1,
+     "punct": ""
+    },
+    {
+     "at": 3.73,
+     "len": 0.37,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.82,
+   "final_st": -4.97,
+   "start": 0.34,
+   "end": 4.86,
+   "heard": "Here are 150 measurements of two quantities, X and Y.",
+   "others": []
+  }
+ ],
+ "h2": [
+  {
+   "sentence": "Are they related?",
+   "tts": "Are they related?",
+   "read": "h2__s0__cb0e3032",
+   "lufs_in": -29.2,
+   "pause_cut_s": 0.0,
+   "score": 0.8663,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.944,
+   "syl_rate": 5.75,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.55,
+   "final_st": 1.39,
+   "start": 0.33,
+   "end": 1.2,
+   "heard": "Are they related?",
+   "others": []
+  }
+ ],
+ "h3": [
+  {
+   "sentence": "Let's ask the usual suspects.",
+   "tts": "Let's ask the usual suspects.",
+   "read": "h3__s0__8629b835",
+   "lufs_in": -33.5,
+   "pause_cut_s": 0.0,
+   "score": 0.9464,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.988,
+   "syl_rate": 4.96,
+   "pauses": [
+    {
+     "at": 1.67,
+     "len": 0.11,
+     "punct": "."
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.47,
+   "final_st": -3.09,
+   "start": 0.38,
+   "end": 1.9,
+   "heard": "Let's ask the usual suspects",
+   "others": []
+  },
+  {
+   "sentence": "Pearson's correlation, Spearman's rank correlation, and Kendall's tau.",
+   "tts": "Peerson's correlation, Speerman's rank correlation, and Kendall's tau.",
+   "read": "h3__s1__ee2f64d7",
+   "lufs_in": -32.9,
+   "pause_cut_s": 0.0,
+   "score": 0.957,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.934,
+   "syl_rate": 4.86,
+   "pauses": [
+    {
+     "at": 1.31,
+     "len": 0.28,
+     "punct": ","
+    },
+    {
+     "at": 3.13,
+     "len": 0.23,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.64,
+   "final_st": -3.07,
+   "start": 0.3,
+   "end": 4.31,
+   "heard": "Pearson's correlation, Spearman's rank correlation, and Kendall's tau.",
+   "others": [
+    {
+     "tts": "Peer-son's correlation, Speerman's rank correlation, and Kendall's tau.",
+     "score": 0.8966,
+     "heard": "Pearson's correlation, Spearman's rank correlation, and Kendall's towel."
+    },
+    {
+     "tts": "Pearson's correlation, Speerman's rank correlation, and Kendall's tau.",
+     "score": 0.6378,
+     "heard": "Persons Correlation, Spearman's Rank Correlation, and Kendall's Tau."
+    }
+   ]
+  }
+ ],
+ "h4": [
+  {
+   "sentence": "All three come back at essentially zero.",
+   "tts": "All three come back at essentially zero.",
+   "read": "h4__s0__dcd22bc7",
+   "lufs_in": -31.9,
+   "pause_cut_s": 0.05,
+   "score": 0.9994,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.969,
+   "syl_rate": 4.35,
+   "pauses": [
+    {
+     "at": 1.42,
+     "len": 0.19,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.7,
+   "final_st": -5.44,
+   "start": 0.22,
+   "end": 2.94,
+   "heard": "All three come back at essentially zero.",
+   "others": []
+  },
+  {
+   "sentence": "As far as they can tell, there's no relationship here at all.",
+   "tts": "As far as they can tell, there's no relationship here at all.",
+   "read": "h4__s1__3a6bac24",
+   "lufs_in": -31.7,
+   "pause_cut_s": 0.81,
+   "score": 0.8805,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.975,
+   "syl_rate": 4.72,
+   "pauses": [
+    {
+     "at": 1.85,
+     "len": 1.17,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.34,
+   "final_st": 3.47,
+   "start": 0.38,
+   "end": 4.73,
+   "heard": "As far as they can tell, there's no relationship here at all.",
+   "others": []
+  }
+ ],
+ "h5": [
+  {
+   "sentence": "But your eye says otherwise.",
+   "tts": "But your eye says otherwise.",
+   "read": "h5__s0__bfb9c550",
+   "lufs_in": -31.8,
+   "pause_cut_s": 0.0,
+   "score": 0.9842,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.92,
+   "syl_rate": 4.4,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.13,
+   "final_st": -0.97,
+   "start": 0.31,
+   "end": 1.9,
+   "heard": "but your eye says otherwise.",
+   "others": []
+  },
+  {
+   "sentence": "These points lie on a circle.",
+   "tts": "These points lie on a circle.",
+   "read": "h5__s1__030f8f08",
+   "lufs_in": -33.3,
+   "pause_cut_s": 0.27,
+   "score": 0.9761,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.961,
+   "syl_rate": 4.05,
+   "pauses": [
+    {
+     "at": 0.16,
+     "len": 0.57,
+     "punct": "?"
+    },
+    {
+     "at": 0.92,
+     "len": 0.12,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.34,
+   "final_st": -1.46,
+   "start": 0.0,
+   "end": 2.42,
+   "heard": "These points lie on a circle.",
+   "others": []
+  },
+  {
+   "sentence": "Knowing X narrows Y down to just two possibilities.",
+   "tts": "Knowing X narrows Y down to just two possibilities.",
+   "read": "h5__s2__9f1e023e",
+   "lufs_in": -31.8,
+   "pause_cut_s": 0.0,
+   "score": 0.9929,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.947,
+   "syl_rate": 4.23,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.57,
+   "final_st": -1.91,
+   "start": 0.65,
+   "end": 3.96,
+   "heard": "Knowing X narrows Y down to just two possibilities.",
+   "others": []
+  }
+ ],
+ "h6": [
+  {
+   "sentence": "What we need is a measure of dependence, not a measure of slope.",
+   "tts": "What we need is a measure of dependence, not a measure of slope.",
+   "read": "h6__s0__76abc0fc",
+   "lufs_in": -31.8,
+   "pause_cut_s": 0.0,
+   "score": 0.8928,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.966,
+   "syl_rate": 5.7,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 3.08,
+   "final_st": -1.14,
+   "start": 0.29,
+   "end": 3.27,
+   "heard": "What we need is a measure of dependence, not a measure of slope.",
+   "others": []
+  }
+ ],
+ "h7": [
+  {
+   "sentence": "One of the most elegant is called Hoeffding's D.",
+   "tts": "One of the most elegant is called Hefding's D.",
+   "read": "h7__s0__117ece24",
+   "lufs_in": -34.2,
+   "pause_cut_s": 0.1,
+   "score": 0.8971,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.932,
+   "syl_rate": 4.76,
+   "pauses": [
+    {
+     "at": 0.13,
+     "len": 0.29,
+     "punct": "?"
+    },
+    {
+     "at": 0.92,
+     "len": 0.12,
+     "punct": ""
+    },
+    {
+     "at": 2.16,
+     "len": 0.24,
+     "punct": ""
+    },
+    {
+     "at": 2.55,
+     "len": 0.13,
+     "punct": ""
+    },
+    {
+     "at": 3.03,
+     "len": 0.1,
+     "punct": ""
+    }
+   ],
+   "hesitations": 1,
+   "pitch_std_st": 3.14,
+   "final_st": -3.36,
+   "start": 0.11,
+   "end": 3.51,
+   "heard": "One of the most elegant is called Hefting's D.",
+   "others": [
+    {
+     "tts": "One of the most elegant is called Heff-ding's D.",
+     "score": 0.8957,
+     "heard": "One of the most elegant is called Hefting's D."
+    },
+    {
+     "tts": "One of the most elegant is called Heffding's D.",
+     "score": 0.8932,
+     "heard": "One of the most elegant is called Heftings D."
+    }
+   ]
+  },
+  {
+   "sentence": "Wassily Hoeffding introduced it in nineteen forty-eight.",
+   "tts": "Vassily Heffding introduced it in nineteen forty-eight.",
+   "read": "h7__s1__68218848",
+   "lufs_in": -34.4,
+   "pause_cut_s": 0.0,
+   "score": 0.9036,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.944,
+   "syl_rate": 5.25,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.66,
+   "final_st": -3.07,
+   "start": 0.44,
+   "end": 3.49,
+   "heard": "Vasily Hefding introduced it in 1948.",
+   "others": [
+    {
+     "tts": "Vassily Heff-ding introduced it in nineteen forty-eight.",
+     "score": 0.8989,
+     "heard": "Vasily Hefding introduced it in 1948."
+    },
+    {
+     "tts": "Vassily Hefding introduced it in nineteen forty-eight.",
+     "score": 0.7423,
+     "heard": "Vasily Hefding introduced it in 1948."
+    }
+   ]
+  }
+ ],
+ "g1": [
+  {
+   "sentence": "Let's watch four measures side by side, as one cloud of points changes shape.",
+   "tts": "Let's watch four measures side by side, as one cloud of points changes shape.",
+   "read": "g1__s0__6f56b543",
+   "lufs_in": -32.9,
+   "pause_cut_s": 0.0,
+   "score": 0.9466,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.961,
+   "syl_rate": 3.84,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.81,
+   "final_st": -3.93,
+   "start": 0.45,
+   "end": 4.62,
+   "heard": "Let's watch four measures side by side as one cloud of points changes shape.",
+   "others": []
+  }
+ ],
+ "g2": [
+  {
+   "sentence": "Each bar shows how far a measure rises above pure chance.",
+   "tts": "Each bar shows how far a measure rises above pure chance.",
+   "read": "g2__s0__307ee7b1",
+   "lufs_in": -31.3,
+   "pause_cut_s": 0.11,
+   "score": 0.9221,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.981,
+   "syl_rate": 4.24,
+   "pauses": [
+    {
+     "at": 2.75,
+     "len": 0.25,
+     "punct": ""
+    }
+   ],
+   "hesitations": 1,
+   "pitch_std_st": 2.05,
+   "final_st": -4.25,
+   "start": 0.32,
+   "end": 3.87,
+   "heard": "Each bar shows how far a measure rises above pure chance.",
+   "others": []
+  },
+  {
+   "sentence": "To estimate chance, we shuffle Y three hundred times, and recompute.",
+   "tts": "To estimate chance, we shuffle Y three hundred times, and recompute.",
+   "read": "g2__s1__9c83908d",
+   "lufs_in": -34.0,
+   "pause_cut_s": 0.01,
+   "score": 0.8703,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.863,
+   "syl_rate": 4.46,
+   "pauses": [
+    {
+     "at": 1.5,
+     "len": 0.35,
+     "punct": ","
+    },
+    {
+     "at": 3.58,
+     "len": 0.37,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.03,
+   "final_st": 2.96,
+   "start": 0.41,
+   "end": 4.72,
+   "heard": "To estimate chance, we shuffle Y 300 times and recompute.",
+   "others": []
+  },
+  {
+   "sentence": "The dashed line marks that noise ceiling.",
+   "tts": "The dashed line marks that noise ceiling.",
+   "read": "g2__s2__6c6e68b9",
+   "lufs_in": -32.0,
+   "pause_cut_s": 0.0,
+   "score": 0.8117,
+   "asr_ratio": 0.857,
+   "misheard_names": 0,
+   "conf": 0.884,
+   "syl_rate": 3.43,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.38,
+   "final_st": -5.94,
+   "start": 0.29,
+   "end": 2.62,
+   "heard": "The dash line marks that noise ceiling.",
+   "others": []
+  }
+ ],
+ "g3": [
+  {
+   "sentence": "For a straight line, everyone agrees.",
+   "tts": "For a straight line, everyone agrees.",
+   "read": "g3__s0__ad72a0ab",
+   "lufs_in": -32.3,
+   "pause_cut_s": 1.36,
+   "score": 0.9701,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.919,
+   "syl_rate": 4.08,
+   "pauses": [
+    {
+     "at": 1.53,
+     "len": 1.72,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.82,
+   "final_st": -4.44,
+   "start": 0.53,
+   "end": 4.21,
+   "heard": "for a straight line. Everyone agrees.",
+   "others": []
+  },
+  {
+   "sentence": "All four measures are far above the noise.",
+   "tts": "All four measures are far above the noise.",
+   "read": "g3__s1__eca2a912",
+   "lufs_in": -33.0,
+   "pause_cut_s": 0.0,
+   "score": 0.9985,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.971,
+   "syl_rate": 4.48,
+   "pauses": [
+    {
+     "at": 1.66,
+     "len": 0.13,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.29,
+   "final_st": -5.13,
+   "start": 0.36,
+   "end": 2.72,
+   "heard": "All four measures are far above the noise.",
+   "others": []
+  }
+ ],
+ "g4": [
+  {
+   "sentence": "Now, bend it into a parabola.",
+   "tts": "Now, bend it into a parabola.",
+   "read": "g4__s0__361307f7",
+   "lufs_in": -32.7,
+   "pause_cut_s": 0.04,
+   "score": 0.9906,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.987,
+   "syl_rate": 4.18,
+   "pauses": [
+    {
+     "at": 1.31,
+     "len": 0.15,
+     "punct": ""
+    },
+    {
+     "at": 2.2,
+     "len": 0.17,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.79,
+   "final_st": -4.07,
+   "start": 0.3,
+   "end": 3.01,
+   "heard": "Now, bend it into a parabola.",
+   "others": []
+  },
+  {
+   "sentence": "The three correlations collapse into the noise.",
+   "tts": "The three correlations collapse into the noise.",
+   "read": "g4__s1__b5c48d23",
+   "lufs_in": -31.5,
+   "pause_cut_s": 0.0,
+   "score": 0.9276,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.938,
+   "syl_rate": 5.06,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.81,
+   "final_st": -1.99,
+   "start": 0.38,
+   "end": 2.75,
+   "heard": "The three correlations collapse into the noise.",
+   "others": [
+    {
+     "tts": "The three correlations collapse.",
+     "score": 0.278,
+     "heard": "The three correlations collapsed."
+    }
+   ]
+  },
+  {
+   "sentence": "The falling left half cancels out the rising right half.",
+   "tts": "The falling left half cancels out the rising right half.",
+   "read": "g4__s2__526a4390",
+   "lufs_in": -32.8,
+   "pause_cut_s": 0.0,
+   "score": 0.9947,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.962,
+   "syl_rate": 4.56,
+   "pauses": [
+    {
+     "at": 0.91,
+     "len": 0.1,
+     "punct": ""
+    },
+    {
+     "at": 2.16,
+     "len": 0.14,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.4,
+   "final_st": -3.72,
+   "start": 0.31,
+   "end": 3.4,
+   "heard": "The falling left half cancels out the rising right half.",
+   "others": []
+  },
+  {
+   "sentence": "But Hoeffding's D barely moves.",
+   "tts": "But Hefding's D barely moves.",
+   "read": "g4__s3__69461001",
+   "lufs_in": -32.7,
+   "pause_cut_s": 0.07,
+   "score": 0.9541,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.813,
+   "syl_rate": 4.42,
+   "pauses": [
+    {
+     "at": 1.26,
+     "len": 0.21,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.25,
+   "final_st": -4.38,
+   "start": 0.3,
+   "end": 2.32,
+   "heard": "But Hefting's D barely moves.",
+   "others": [
+    {
+     "tts": "But Heff-ding's D barely moves.",
+     "score": 0.9082,
+     "heard": "But Hefding's D barely moves."
+    },
+    {
+     "tts": "But Heffding's D barely moves.",
+     "score": 0.8643,
+     "heard": "But Hefting's D barely moves."
+    },
+    {
+     "tts": "But Heffding's D holds its ground.",
+     "score": 0.7931,
+     "heard": "But Hefting's D holds its ground."
+    },
+    {
+     "tts": "But Hefding's D holds its ground.",
+     "score": 0.7879,
+     "heard": "But Hefting's D holds its ground."
+    },
+    {
+     "tts": "But Heff-ding's D holds its ground.",
+     "score": 0.7473,
+     "heard": "But Hefting's D holds its ground."
+    }
+   ]
+  }
+ ],
+ "g5": [
+  {
+   "sentence": "Next, a ring.",
+   "tts": "Next, a ring.",
+   "read": "g5__s0__fd6cf3c4",
+   "lufs_in": -35.5,
+   "pause_cut_s": 0.2,
+   "score": 0.9616,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.946,
+   "syl_rate": 3.95,
+   "pauses": [
+    {
+     "at": 0.78,
+     "len": 0.56,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.93,
+   "final_st": -4.02,
+   "start": 0.4,
+   "end": 1.72,
+   "heard": "Next, a ring.",
+   "others": []
+  },
+  {
+   "sentence": "The correlations sit right inside the noise.",
+   "tts": "The correlations sit right inside the noise.",
+   "read": "g5__s1__60333df3",
+   "lufs_in": -32.6,
+   "pause_cut_s": 0.0,
+   "score": 0.9126,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.962,
+   "syl_rate": 3.97,
+   "pauses": [
+    {
+     "at": 2.31,
+     "len": 0.1,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.92,
+   "final_st": 1.34,
+   "start": 0.31,
+   "end": 3.18,
+   "heard": "The correlations sit right inside the noise.",
+   "others": []
+  }
+ ],
+ "g6": [
+  {
+   "sentence": "But D sits well above it.",
+   "tts": "But D sits well above it.",
+   "read": "g6__s0__c1d847a1",
+   "lufs_in": -29.5,
+   "pause_cut_s": 0.0,
+   "score": 0.962,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.923,
+   "syl_rate": 4.79,
+   "pauses": [
+    {
+     "at": 0.45,
+     "len": 0.12,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.85,
+   "final_st": -0.06,
+   "start": 0.34,
+   "end": 1.92,
+   "heard": "but D sits well above it.",
+   "others": []
+  },
+  {
+   "sentence": "It has found the dependence.",
+   "tts": "It has found the dependence.",
+   "read": "g6__s1__7eba4692",
+   "lufs_in": -32.4,
+   "pause_cut_s": 0.0,
+   "score": 0.9539,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.864,
+   "syl_rate": 4.7,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.2,
+   "final_st": -3.11,
+   "start": 0.29,
+   "end": 1.78,
+   "heard": "It has found the dependence.",
+   "others": []
+  }
+ ],
+ "g7": [
+  {
+   "sentence": "Now, an X shape, made of two lines with opposite slopes.",
+   "tts": "Now, an X shape, made of two lines with opposite slopes.",
+   "read": "g7__s0__80145869",
+   "lufs_in": -31.8,
+   "pause_cut_s": 0.0,
+   "score": 0.9774,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.926,
+   "syl_rate": 4.13,
+   "pauses": [
+    {
+     "at": 1.29,
+     "len": 0.15,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.92,
+   "final_st": -3.97,
+   "start": 0.31,
+   "end": 3.61,
+   "heard": "Now, an X shape made of two lines with opposite slopes.",
+   "others": []
+  },
+  {
+   "sentence": "Once again, the correlations see nothing.",
+   "tts": "Once again, the correlations see nothing.",
+   "read": "g7__s1__4fdbdba9",
+   "lufs_in": -32.7,
+   "pause_cut_s": 0.12,
+   "score": 0.9001,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.982,
+   "syl_rate": 4.03,
+   "pauses": [
+    {
+     "at": 0.98,
+     "len": 0.11,
+     "punct": ""
+    },
+    {
+     "at": 2.06,
+     "len": 0.26,
+     "punct": ""
+    }
+   ],
+   "hesitations": 1,
+   "pitch_std_st": 2.63,
+   "final_st": -3.88,
+   "start": 0.31,
+   "end": 3.41,
+   "heard": "Once again, the correlations see nothing.",
+   "others": []
+  },
+  {
+   "sentence": "D sees it clearly.",
+   "tts": "D sees it clearly.",
+   "read": "g7__s2__d3dec239",
+   "lufs_in": -32.7,
+   "pause_cut_s": 0.0,
+   "score": 0.9438,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.938,
+   "syl_rate": 3.85,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.48,
+   "final_st": -1.77,
+   "start": 0.46,
+   "end": 1.76,
+   "heard": "D sees it clearly.",
+   "others": []
+  }
+ ],
+ "g8": [
+  {
+   "sentence": "A wave, rising and falling twice.",
+   "tts": "A wave, rising and falling twice.",
+   "read": "g8__s0__244f7126",
+   "lufs_in": -31.5,
+   "pause_cut_s": 0.0,
+   "score": 0.8937,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.937,
+   "syl_rate": 3.49,
+   "pauses": [
+    {
+     "at": 0.99,
+     "len": 0.13,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.5,
+   "final_st": -3.77,
+   "start": 0.34,
+   "end": 2.76,
+   "heard": "a wave rising and falling twice.",
+   "others": []
+  },
+  {
+   "sentence": "Same story.",
+   "tts": "Same story.",
+   "read": "g8__s1__c7896f76",
+   "lufs_in": -31.1,
+   "pause_cut_s": 0.0,
+   "score": 0.8135,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.95,
+   "syl_rate": 3.61,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 3.15,
+   "final_st": 3.85,
+   "start": 0.42,
+   "end": 1.25,
+   "heard": "Same story.",
+   "others": []
+  }
+ ],
+ "g9": [
+  {
+   "sentence": "And finally, genuinely independent noise.",
+   "tts": "And finally, genuinely independent noise.",
+   "read": "g9__s0__526468bb",
+   "lufs_in": -31.5,
+   "pause_cut_s": 0.0,
+   "score": 0.9153,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.908,
+   "syl_rate": 5.08,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.71,
+   "final_st": -4.56,
+   "start": 0.23,
+   "end": 2.79,
+   "heard": "And finally, genuinely independent noise.",
+   "others": []
+  },
+  {
+   "sentence": "This time, every measure stays under its ceiling, D included.",
+   "tts": "This time, every measure stays under its ceiling, D included.",
+   "read": "g9__s1__1e13f610",
+   "lufs_in": -32.6,
+   "pause_cut_s": 0.15,
+   "score": 0.99,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.962,
+   "syl_rate": 4.18,
+   "pauses": [
+    {
+     "at": 1.16,
+     "len": 0.51,
+     "punct": ","
+    },
+    {
+     "at": 2.91,
+     "len": 0.13,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 3.58,
+   "final_st": -4.59,
+   "start": 0.49,
+   "end": 5.2,
+   "heard": "This time, every measure stays under its ceiling, D included.",
+   "others": []
+  },
+  {
+   "sentence": "So D isn't just eager to find patterns.",
+   "tts": "So D isn't just eager to find patterns.",
+   "read": "g9__s2__12c626d5",
+   "lufs_in": -32.0,
+   "pause_cut_s": 0.0,
+   "score": 0.9074,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.923,
+   "syl_rate": 4.26,
+   "pauses": [
+    {
+     "at": 1.48,
+     "len": 0.14,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.25,
+   "final_st": 1.98,
+   "start": 0.39,
+   "end": 2.88,
+   "heard": "So D isn't just eager to find patterns.",
+   "others": []
+  },
+  {
+   "sentence": "It finds them only when they're really there.",
+   "tts": "It finds them only when they're really there.",
+   "read": "g9__s3__638a764a",
+   "lufs_in": -31.4,
+   "pause_cut_s": 0.0,
+   "score": 0.8521,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.967,
+   "syl_rate": 4.93,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.63,
+   "final_st": 2.95,
+   "start": 0.22,
+   "end": 2.25,
+   "heard": "It finds them only when they're really there.",
+   "others": []
+  }
+ ],
+ "g10": [
+  {
+   "sentence": "Correlation asks whether X and Y move together.",
+   "tts": "Correlation asks whether X and Y move together.",
+   "read": "g10__s0__8de0f92e",
+   "lufs_in": -33.0,
+   "pause_cut_s": 0.0,
+   "score": 0.9369,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.928,
+   "syl_rate": 4.96,
+   "pauses": [
+    {
+     "at": 1.69,
+     "len": 0.11,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.39,
+   "final_st": 0.05,
+   "start": 0.38,
+   "end": 3.31,
+   "heard": "Correlation asks whether X and Y move together.",
+   "others": []
+  },
+  {
+   "sentence": "Hoeffding's D asks a deeper question.",
+   "tts": "Hefding's D asks a deeper question.",
+   "read": "g10__s1__d3d21b07",
+   "lufs_in": -34.2,
+   "pause_cut_s": 0.0,
+   "score": 0.9682,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.887,
+   "syl_rate": 4.17,
+   "pauses": [
+    {
+     "at": 2.01,
+     "len": 0.1,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.91,
+   "final_st": -5.76,
+   "start": 0.4,
+   "end": 2.66,
+   "heard": "Heftings D. asks a deeper question.",
+   "others": [
+    {
+     "tts": "Heff-ding's D asks something deeper.",
+     "score": 0.8816,
+     "heard": "Hefding's D asks something deeper."
+    },
+    {
+     "tts": "Heff-ding's D asks a deeper question.",
+     "score": 0.8759,
+     "heard": "Hefting's D asks a deeper question."
+    },
+    {
+     "tts": "Hefding's D asks something deeper.",
+     "score": 0.8589,
+     "heard": "Hefting's D asks something deeper."
+    },
+    {
+     "tts": "Heffding's D asks a deeper question.",
+     "score": 0.074,
+     "heard": "Hiftings D. asks a deeper question."
+    },
+    {
+     "tts": "Heffding's D asks something deeper.",
+     "score": -0.1539,
+     "heard": "HipThingsD asks something deeper."
+    }
+   ]
+  },
+  {
+   "sentence": "Could X and Y be independent at all?",
+   "tts": "Could X and Y be independent at all?",
+   "read": "g10__s2__72e8c9d3",
+   "lufs_in": -32.2,
+   "pause_cut_s": 0.0,
+   "score": 0.8897,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.941,
+   "syl_rate": 5.67,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.82,
+   "final_st": 2.72,
+   "start": 0.4,
+   "end": 2.34,
+   "heard": "Could X and Y be independent at all?",
+   "others": []
+  }
+ ],
+ "q1": [
+  {
+   "sentence": "So why can D see shapes that correlations miss?",
+   "tts": "So why can D see shapes that correlations miss?",
+   "read": "q1__s0__903fb616",
+   "lufs_in": -33.7,
+   "pause_cut_s": 0.0,
+   "score": 0.9954,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.942,
+   "syl_rate": 4.49,
+   "pauses": [
+    {
+     "at": 1.99,
+     "len": 0.12,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.91,
+   "final_st": -3.58,
+   "start": 0.37,
+   "end": 3.16,
+   "heard": "So why can D see shapes that correlations miss?",
+   "others": []
+  },
+  {
+   "sentence": "It comes down to how many points you look at, at once.",
+   "tts": "It comes down to how many points you look at, at once.",
+   "read": "q1__s1__2b0d6d29",
+   "lufs_in": -34.2,
+   "pause_cut_s": 0.32,
+   "score": 0.8764,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.914,
+   "syl_rate": 4.81,
+   "pauses": [
+    {
+     "at": 2.41,
+     "len": 0.68,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 3.02,
+   "final_st": 1.99,
+   "start": 0.29,
+   "end": 3.67,
+   "heard": "It comes down to how many points you look at at once.",
+   "others": []
+  }
+ ],
+ "q2": [
+  {
+   "sentence": "Two points define a direction.",
+   "tts": "Two points define a direction.",
+   "read": "q2__s0__27d0e7d8",
+   "lufs_in": -33.4,
+   "pause_cut_s": 0.0,
+   "score": 0.992,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.93,
+   "syl_rate": 4.32,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.7,
+   "final_st": -3.28,
+   "start": 0.34,
+   "end": 2.19,
+   "heard": "Two points define a direction.",
+   "others": []
+  },
+  {
+   "sentence": "Pearson's correlation is built from pairs of points, so straight lines are what it sees.",
+   "tts": "Peerson's correlation is built from pairs of points, so straight lines are what it sees.",
+   "read": "q2__s1__1116cf10",
+   "lufs_in": -31.8,
+   "pause_cut_s": 0.0,
+   "score": 0.9784,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.934,
+   "syl_rate": 4.11,
+   "pauses": [
+    {
+     "at": 2.81,
+     "len": 0.3,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.81,
+   "final_st": -5.48,
+   "start": 0.3,
+   "end": 5.22,
+   "heard": "Pearson's correlation is built from pairs of points so straight lines are what it sees.",
+   "others": [
+    {
+     "tts": "Peer-son's correlation is built from pairs of points, so straight lines are what it sees.",
+     "score": 0.9671,
+     "heard": "Pearson's correlation is built from pairs of points, so straight lines are what it sees."
+    },
+    {
+     "tts": "Pearson's correlation is built from pairs of points, so straight lines are what it sees.",
+     "score": 0.7233,
+     "heard": "Person's correlation is built from pairs of points, so straight lines are what it sees."
+    }
+   ]
+  }
+ ],
+ "q3": [
+  {
+   "sentence": "Three points can reveal a bend.",
+   "tts": "Three points can reveal a bend.",
+   "read": "q3__s0__4d41907a",
+   "lufs_in": -31.6,
+   "pause_cut_s": 0.37,
+   "score": 0.8578,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.903,
+   "syl_rate": 3.95,
+   "pauses": [
+    {
+     "at": 1.01,
+     "len": 0.51,
+     "punct": ""
+    }
+   ],
+   "hesitations": 1,
+   "pitch_std_st": 2.07,
+   "final_st": -4.35,
+   "start": 0.38,
+   "end": 2.66,
+   "heard": "Three points can reveal a bend.",
+   "others": []
+  },
+  {
+   "sentence": "Rank correlations, like Spearman's and Kendall's, capture any curve that keeps heading the same way.",
+   "tts": "Rank correlations, like Speerman's and Kendall's, capture any curve that keeps heading the same way.",
+   "read": "q3__s1__6cf5f8c1",
+   "lufs_in": -32.3,
+   "pause_cut_s": 0.0,
+   "score": 0.9994,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.964,
+   "syl_rate": 4.35,
+   "pauses": [
+    {
+     "at": 0.18,
+     "len": 0.13,
+     "punct": "?"
+    },
+    {
+     "at": 1.54,
+     "len": 0.33,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.32,
+   "final_st": -4.75,
+   "start": 0.0,
+   "end": 5.75,
+   "heard": "Rank correlations like Spearman's and Kendall's capture any curve that keeps heading the same way.",
+   "others": []
+  }
+ ],
+ "q4": [
+  {
+   "sentence": "But to see a turn, where a curve rises and then falls back down, you need at least four points.",
+   "tts": "But to see a turn, where a curve rises and then falls back down, you need at least four points.",
+   "read": "q4__s0__b48c4162",
+   "lufs_in": -32.5,
+   "pause_cut_s": 0.0,
+   "score": 0.9996,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.965,
+   "syl_rate": 4.36,
+   "pauses": [
+    {
+     "at": 3.9,
+     "len": 0.35,
+     "punct": ","
+    },
+    {
+     "at": 4.97,
+     "len": 0.1,
+     "punct": ""
+    },
+    {
+     "at": 5.22,
+     "len": 0.1,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.61,
+   "final_st": -5.45,
+   "start": 0.3,
+   "end": 5.67,
+   "heard": "But to see a turn where a curve rises and then falls back down, you need at least four points.",
+   "others": []
+  }
+ ],
+ "q5": [
+  {
+   "sentence": "Rings, crosses, and waves all turn.",
+   "tts": "Rings, crosses, and waves all turn.",
+   "read": "q5__s0__939195b2",
+   "lufs_in": -31.8,
+   "pause_cut_s": 0.14,
+   "score": 0.8506,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.942,
+   "syl_rate": 2.75,
+   "pauses": [
+    {
+     "at": 0.15,
+     "len": 0.2,
+     "punct": "?"
+    },
+    {
+     "at": 0.9,
+     "len": 0.5,
+     "punct": ","
+    },
+    {
+     "at": 1.96,
+     "len": 0.3,
+     "punct": ","
+    },
+    {
+     "at": 2.91,
+     "len": 0.14,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 3.1,
+   "final_st": -4.86,
+   "start": 0.0,
+   "end": 3.69,
+   "heard": "Rings, crosses, and waves all turn.",
+   "others": []
+  },
+  {
+   "sentence": "So detecting them means reasoning about groups of four.",
+   "tts": "So detecting them means reasoning about groups of four.",
+   "read": "q5__s1__eaf7b6db",
+   "lufs_in": -32.4,
+   "pause_cut_s": 0.24,
+   "score": 0.8167,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.964,
+   "syl_rate": 4.46,
+   "pauses": [
+    {
+     "at": 1.87,
+     "len": 0.37,
+     "punct": ""
+    },
+    {
+     "at": 3.72,
+     "len": 0.15,
+     "punct": ""
+    }
+   ],
+   "hesitations": 1,
+   "pitch_std_st": 2.02,
+   "final_st": 4.09,
+   "start": 0.52,
+   "end": 4.18,
+   "heard": "So, detecting them means reasoning about groups of four.",
+   "others": []
+  }
+ ],
+ "q6": [
+  {
+   "sentence": "The trouble is, the number of groups of four grows ferociously fast.",
+   "tts": "The trouble is, the number of groups of four grows ferociously fast.",
+   "read": "q6__s0__ef66597f",
+   "lufs_in": -32.7,
+   "pause_cut_s": 0.02,
+   "score": 0.9107,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.94,
+   "syl_rate": 5.18,
+   "pauses": [
+    {
+     "at": 1.51,
+     "len": 0.12,
+     "punct": ""
+    },
+    {
+     "at": 1.98,
+     "len": 0.16,
+     "punct": ""
+    },
+    {
+     "at": 2.88,
+     "len": 0.1,
+     "punct": ""
+    },
+    {
+     "at": 3.73,
+     "len": 0.1,
+     "punct": "."
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.73,
+   "final_st": -5.18,
+   "start": 0.3,
+   "end": 4.06,
+   "heard": "The trouble is the number of groups of four grows ferociously fast.",
+   "others": []
+  }
+ ],
+ "q7": [
+  {
+   "sentence": "With five thousand points, there are more than twenty-six trillion of them.",
+   "tts": "With five thousand points, there are more than twenty-six trillion of them.",
+   "read": "q7__s0__aaa43feb",
+   "lufs_in": -32.4,
+   "pause_cut_s": 0.11,
+   "score": 0.9874,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.962,
+   "syl_rate": 4.65,
+   "pauses": [
+    {
+     "at": 1.54,
+     "len": 0.47,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.59,
+   "final_st": -5.05,
+   "start": 0.26,
+   "end": 4.17,
+   "heard": "With 5,000 points, there are more than 26 trillion of them.",
+   "others": []
+  }
+ ],
+ "q8": [
+  {
+   "sentence": "Hoeffding's trick is to never list them at all.",
+   "tts": "Heff-ding's trick is to never list them at all.",
+   "read": "q8__s0__d4bbd0b2",
+   "lufs_in": -31.5,
+   "pause_cut_s": 0.0,
+   "score": 0.9901,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.973,
+   "syl_rate": 4.62,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.12,
+   "final_st": -4.39,
+   "start": 0.29,
+   "end": 2.67,
+   "heard": "Hefting's trick is to never list them at all.",
+   "others": [
+    {
+     "tts": "Hefding's trick is never to list them at all.",
+     "score": 0.9776,
+     "heard": "Hefting's trick is never to list them at all."
+    },
+    {
+     "tts": "Hefding's trick is to never list them at all.",
+     "score": 0.934,
+     "heard": "Hefting's trick is to never list them at all."
+    },
+    {
+     "tts": "Heff-ding's trick is never to list them at all.",
+     "score": 0.8959,
+     "heard": "Hefting's trick is never to list them at all."
+    },
+    {
+     "tts": "Heffding's trick is never to list them at all.",
+     "score": 0.5007,
+     "heard": "Hifting's trick is never to list them at all."
+    },
+    {
+     "tts": "Heffding's trick is to never list them at all.",
+     "score": 0.4238,
+     "heard": "Hifting's trick is to never list them at all."
+    }
+   ]
+  },
+  {
+   "sentence": "By working with ranks, he folds every quadruple into a single count for each point.",
+   "tts": "By working with ranks, he folds every quadruple into a single count for each point.",
+   "read": "q8__s1__4c3c94f5",
+   "lufs_in": -31.9,
+   "pause_cut_s": 0.0,
+   "score": 0.8906,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.943,
+   "syl_rate": 5.64,
+   "pauses": [
+    {
+     "at": 3.84,
+     "len": 0.13,
+     "punct": ""
+    },
+    {
+     "at": 4.23,
+     "len": 0.1,
+     "punct": "."
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.42,
+   "final_st": -5.36,
+   "start": 0.42,
+   "end": 4.55,
+   "heard": "By working with ranks he folds every quadruple into a single count for each point",
+   "others": []
+  },
+  {
+   "sentence": "We'll call that count Q.",
+   "tts": "We'll call that count Q.",
+   "read": "q8__s2__b3b40d2a",
+   "lufs_in": -32.5,
+   "pause_cut_s": 0.04,
+   "score": 0.9326,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.85,
+   "syl_rate": 3.97,
+   "pauses": [
+    {
+     "at": 1.03,
+     "len": 0.13,
+     "punct": ""
+    },
+    {
+     "at": 1.42,
+     "len": 0.18,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.57,
+   "final_st": -3.08,
+   "start": 0.38,
+   "end": 1.95,
+   "heard": "We'll call that count Q.",
+   "others": []
+  }
+ ],
+ "r1": [
+  {
+   "sentence": "Let's work through a small example, using the heights and weights of ten people.",
+   "tts": "Let's work through a small example, using the heights and weights of ten people.",
+   "read": "r1__s0__954db638",
+   "lufs_in": -33.1,
+   "pause_cut_s": 0.11,
+   "score": 0.9303,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.959,
+   "syl_rate": 5.07,
+   "pauses": [
+    {
+     "at": 1.88,
+     "len": 0.47,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 3.08,
+   "final_st": -3.16,
+   "start": 0.45,
+   "end": 4.47,
+   "heard": "Let's work through a small example, using the heights and weights of 10 people.",
+   "others": []
+  }
+ ],
+ "r2": [
+  {
+   "sentence": "Here they are as a scatter plot.",
+   "tts": "Here they are as a scatter plot.",
+   "read": "r2__s0__b721e285",
+   "lufs_in": -31.6,
+   "pause_cut_s": 0.0,
+   "score": 0.9988,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.947,
+   "syl_rate": 4.37,
+   "pauses": [
+    {
+     "at": 2.03,
+     "len": 0.1,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.52,
+   "final_st": -4.9,
+   "start": 0.37,
+   "end": 2.3,
+   "heard": "Here they are as a scatterplot.",
+   "others": []
+  }
+ ],
+ "r3": [
+  {
+   "sentence": "Step one.",
+   "tts": "Step one.",
+   "read": "r3__s0__ae2f60f1",
+   "lufs_in": -33.6,
+   "pause_cut_s": 0.0,
+   "score": 0.829,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.882,
+   "syl_rate": 2.6,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.18,
+   "final_st": -1.93,
+   "start": 0.37,
+   "end": 1.14,
+   "heard": "Step one.",
+   "others": []
+  },
+  {
+   "sentence": "Forget the raw values, and keep only their order.",
+   "tts": "Forget the raw values, and keep only their order.",
+   "read": "r3__s1__e9f13f1e",
+   "lufs_in": -33.6,
+   "pause_cut_s": 0.56,
+   "score": 0.8573,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.942,
+   "syl_rate": 3.91,
+   "pauses": [
+    {
+     "at": 1.65,
+     "len": 0.16,
+     "punct": ","
+    },
+    {
+     "at": 2.35,
+     "len": 0.69,
+     "punct": ""
+    },
+    {
+     "at": 3.22,
+     "len": 0.15,
+     "punct": ""
+    }
+   ],
+   "hesitations": 1,
+   "pitch_std_st": 1.55,
+   "final_st": -1.4,
+   "start": 0.38,
+   "end": 4.45,
+   "heard": "Forget the raw values and keep only their order.",
+   "others": []
+  },
+  {
+   "sentence": "The shortest person gets rank one.",
+   "tts": "The shortest person gets rank one.",
+   "read": "r3__s2__7576a459",
+   "lufs_in": -32.1,
+   "pause_cut_s": 0.0,
+   "score": 0.8911,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.88,
+   "syl_rate": 3.62,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.3,
+   "final_st": -3.36,
+   "start": 0.37,
+   "end": 2.58,
+   "heard": "The shortest person gets rank one.",
+   "others": []
+  },
+  {
+   "sentence": "The next shortest gets rank two, and so on.",
+   "tts": "The next shortest gets rank two, and so on.",
+   "read": "r3__s3__4b319fd1",
+   "lufs_in": -32.1,
+   "pause_cut_s": 0.0,
+   "score": 0.9033,
+   "asr_ratio": 0.889,
+   "misheard_names": 0,
+   "conf": 0.909,
+   "syl_rate": 3.94,
+   "pauses": [
+    {
+     "at": 2.23,
+     "len": 0.17,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.93,
+   "final_st": -6.42,
+   "start": 0.31,
+   "end": 3.02,
+   "heard": "The next shortest gets ranked two, and so on.",
+   "others": []
+  },
+  {
+   "sentence": "Then we do the same for weight.",
+   "tts": "Then we do the same for weight.",
+   "read": "r3__s4__f9fdc540",
+   "lufs_in": -32.0,
+   "pause_cut_s": 0.0,
+   "score": 0.9526,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.895,
+   "syl_rate": 4.79,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.31,
+   "final_st": -2.44,
+   "start": 0.74,
+   "end": 2.2,
+   "heard": "then we do the same for weight.",
+   "others": [
+    {
+     "tts": "Then we do the same thing for weight.",
+     "score": 0.8651,
+     "heard": "then we do the same thing for weight."
+    }
+   ]
+  }
+ ],
+ "r4": [
+  {
+   "sentence": "Three people are tied at seventy-eight.",
+   "tts": "Three people are tied at seventy-eight.",
+   "read": "r4__s0__df897d14",
+   "lufs_in": -33.7,
+   "pause_cut_s": 0.3,
+   "score": 0.9076,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.938,
+   "syl_rate": 4.31,
+   "pauses": [
+    {
+     "at": 1.42,
+     "len": 0.44,
+     "punct": ""
+    }
+   ],
+   "hesitations": 1,
+   "pitch_std_st": 2.9,
+   "final_st": -4.98,
+   "start": 0.58,
+   "end": 3.34,
+   "heard": "Three people are tied at 78.",
+   "others": []
+  },
+  {
+   "sentence": "They share places eight, nine, and ten, so each of them gets the average.",
+   "tts": "They share places eight, nine, and ten, so each of them gets the average.",
+   "read": "r4__s1__9158d8c5",
+   "lufs_in": -32.6,
+   "pause_cut_s": 0.03,
+   "score": 0.9734,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.951,
+   "syl_rate": 4.78,
+   "pauses": [
+    {
+     "at": 1.4,
+     "len": 0.1,
+     "punct": ""
+    },
+    {
+     "at": 3.49,
+     "len": 0.17,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.12,
+   "final_st": -4.97,
+   "start": 0.42,
+   "end": 4.25,
+   "heard": "They share places 8, 9, and 10, so each of them gets the average.",
+   "others": []
+  },
+  {
+   "sentence": "That's nine.",
+   "tts": "That's nine.",
+   "read": "r4__s2__3309bf85",
+   "lufs_in": -30.8,
+   "pause_cut_s": 0.0,
+   "score": 0.8479,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.857,
+   "syl_rate": 3.33,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.18,
+   "final_st": -2.72,
+   "start": 0.39,
+   "end": 0.99,
+   "heard": "That's nine.",
+   "others": []
+  }
+ ],
+ "r5": [
+  {
+   "sentence": "Plotting rank against rank gives us the same people, in new coordinates.",
+   "tts": "Plotting rank against rank gives us the same people, in new coordinates.",
+   "read": "r5__s0__9b73e4bc",
+   "lufs_in": -32.8,
+   "pause_cut_s": 0.24,
+   "score": 0.9168,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.978,
+   "syl_rate": 4.27,
+   "pauses": [
+    {
+     "at": 0.84,
+     "len": 0.33,
+     "punct": ""
+    },
+    {
+     "at": 1.6,
+     "len": 0.1,
+     "punct": ""
+    },
+    {
+     "at": 2.4,
+     "len": 0.19,
+     "punct": ""
+    },
+    {
+     "at": 3.93,
+     "len": 0.34,
+     "punct": ","
+    }
+   ],
+   "hesitations": 1,
+   "pitch_std_st": 1.95,
+   "final_st": -4.62,
+   "start": 0.41,
+   "end": 5.35,
+   "heard": "Plotting rank against rank gives us the same people in new coordinates.",
+   "others": []
+  }
+ ],
+ "r6": [
+  {
+   "sentence": "Ranks make the method robust.",
+   "tts": "Ranks make the method robust.",
+   "read": "r6__s0__df4c71eb",
+   "lufs_in": -31.8,
+   "pause_cut_s": 0.01,
+   "score": 0.9009,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.963,
+   "syl_rate": 3.52,
+   "pauses": [
+    {
+     "at": 0.16,
+     "len": 0.19,
+     "punct": "?"
+    },
+    {
+     "at": 0.95,
+     "len": 0.1,
+     "punct": ""
+    },
+    {
+     "at": 1.66,
+     "len": 0.15,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.01,
+   "final_st": -3.94,
+   "start": 0.0,
+   "end": 2.43,
+   "heard": "Ranks make the method robust.",
+   "others": []
+  },
+  {
+   "sentence": "Push one person's weight way up, and their raw point jumps.",
+   "tts": "Push one person's weight way up, and their raw point jumps.",
+   "read": "r6__s1__a4ea2753",
+   "lufs_in": -33.0,
+   "pause_cut_s": 0.01,
+   "score": 0.9821,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.946,
+   "syl_rate": 4.11,
+   "pauses": [
+    {
+     "at": 2.15,
+     "len": 0.34,
+     "punct": ","
+    },
+    {
+     "at": 3.02,
+     "len": 0.14,
+     "punct": ""
+    },
+    {
+     "at": 3.38,
+     "len": 0.15,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.45,
+   "final_st": -4.74,
+   "start": 0.48,
+   "end": 4.03,
+   "heard": "push one person's weight way up, and their raw point jumps.",
+   "others": []
+  },
+  {
+   "sentence": "But their rank stays at seven.",
+   "tts": "But their rank stays at seven.",
+   "read": "r6__s2__71cfc999",
+   "lufs_in": -29.8,
+   "pause_cut_s": 0.0,
+   "score": 0.9716,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.872,
+   "syl_rate": 4.29,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.44,
+   "final_st": -1.49,
+   "start": 0.31,
+   "end": 1.94,
+   "heard": "But their rank stays at seven.",
+   "others": []
+  }
+ ],
+ "r7": [
+  {
+   "sentence": "Only the order matters, so no single extreme value can dominate.",
+   "tts": "Only the order matters, so no single extreme value can dominate.",
+   "read": "r7__s0__4205753d",
+   "lufs_in": -31.5,
+   "pause_cut_s": 0.16,
+   "score": 0.8071,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.989,
+   "syl_rate": 4.01,
+   "pauses": [
+    {
+     "at": 1.85,
+     "len": 0.2,
+     "punct": ","
+    },
+    {
+     "at": 2.82,
+     "len": 0.3,
+     "punct": ""
+    }
+   ],
+   "hesitations": 1,
+   "pitch_std_st": 3.86,
+   "final_st": 2.17,
+   "start": 0.6,
+   "end": 5.59,
+   "heard": "Only the order matters, so no single extreme value can dominate.",
+   "others": []
+  }
+ ],
+ "c1": [
+  {
+   "sentence": "Step two is the heart of the method.",
+   "tts": "Step two is the heart of the method.",
+   "read": "c1__s0__ef4df611",
+   "lufs_in": -33.6,
+   "pause_cut_s": 0.0,
+   "score": 0.8928,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.952,
+   "syl_rate": 5.84,
+   "pauses": [
+    {
+     "at": 0.68,
+     "len": 0.11,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.42,
+   "final_st": -2.64,
+   "start": 0.46,
+   "end": 2.11,
+   "heard": "Step two is the heart of the method.",
+   "others": []
+  },
+  {
+   "sentence": "For each point, count how many other points sit strictly below it, and to its left.",
+   "tts": "For each point, count how many other points sit strictly below it, and to its left.",
+   "read": "c1__s1__afd342eb",
+   "lufs_in": -33.6,
+   "pause_cut_s": 0.19,
+   "score": 0.7928,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.954,
+   "syl_rate": 5.48,
+   "pauses": [
+    {
+     "at": 0.88,
+     "len": 0.11,
+     "punct": ""
+    },
+    {
+     "at": 1.26,
+     "len": 0.11,
+     "punct": ","
+    },
+    {
+     "at": 2.27,
+     "len": 0.1,
+     "punct": ""
+    },
+    {
+     "at": 3.84,
+     "len": 0.55,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.68,
+   "final_st": 3.58,
+   "start": 0.58,
+   "end": 5.1,
+   "heard": "For each point, count how many other points sit strictly below it and to its left.",
+   "others": []
+  }
+ ],
+ "c2": [
+  {
+   "sentence": "That count, plus one, is called Q.",
+   "tts": "That count, plus one, is called Q.",
+   "read": "c2__s0__d3738490",
+   "lufs_in": -34.7,
+   "pause_cut_s": 0.22,
+   "score": 0.9123,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.852,
+   "syl_rate": 3.83,
+   "pauses": [
+    {
+     "at": 0.99,
+     "len": 0.15,
+     "punct": ""
+    },
+    {
+     "at": 1.41,
+     "len": 0.27,
+     "punct": ","
+    },
+    {
+     "at": 2.3,
+     "len": 0.57,
+     "punct": ","
+    },
+    {
+     "at": 2.91,
+     "len": 0.19,
+     "punct": ","
+    },
+    {
+     "at": 3.5,
+     "len": 0.11,
+     "punct": "."
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.15,
+   "final_st": -5.19,
+   "start": 0.77,
+   "end": 3.89,
+   "heard": "That count plus one is called Q.",
+   "others": []
+  },
+  {
+   "sentence": "A point tied in one coordinate earns half credit.",
+   "tts": "A point tied in one coordinate earns half credit.",
+   "read": "c2__s1__e8efb928",
+   "lufs_in": -33.1,
+   "pause_cut_s": 0.02,
+   "score": 0.8933,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.892,
+   "syl_rate": 5.15,
+   "pauses": [
+    {
+     "at": 1.93,
+     "len": 0.16,
+     "punct": ""
+    },
+    {
+     "at": 2.56,
+     "len": 0.11,
+     "punct": "."
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.13,
+   "final_st": -0.9,
+   "start": 0.28,
+   "end": 2.88,
+   "heard": "a point tied in one coordinate earns half credit.",
+   "others": [
+    {
+     "tts": "A point that ties in one coordinate earns half credit.",
+     "score": 0.8644,
+     "heard": "A point that ties in, one coordinate earns half credit."
+    }
+   ]
+  },
+  {
+   "sentence": "An exact twin counts for just a quarter.",
+   "tts": "An exact twin counts for just a quarter.",
+   "read": "c2__s2__2856720f",
+   "lufs_in": -33.1,
+   "pause_cut_s": 0.0,
+   "score": 0.8591,
+   "asr_ratio": 0.875,
+   "misheard_names": 0,
+   "conf": 0.935,
+   "syl_rate": 5.18,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.45,
+   "final_st": -0.23,
+   "start": 0.42,
+   "end": 2.35,
+   "heard": "and exact twin counts for just a quarter.",
+   "others": [
+    {
+     "tts": "And an exact twin counts for a quarter.",
+     "score": 0.7849,
+     "heard": "And an exact twin counts for a quarter."
+    }
+   ]
+  }
+ ],
+ "c3": [
+  {
+   "sentence": "Take the person ranked seventh in both height and weight.",
+   "tts": "Take the person ranked seventh in both height and weight.",
+   "read": "c3__s0__a1ab4623",
+   "lufs_in": -31.4,
+   "pause_cut_s": 0.0,
+   "score": 0.882,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.904,
+   "syl_rate": 4.29,
+   "pauses": [
+    {
+     "at": 2.46,
+     "len": 0.1,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.31,
+   "final_st": 3.99,
+   "start": 0.32,
+   "end": 3.22,
+   "heard": "Take the person ranked seventh in both height and weight.",
+   "others": []
+  },
+  {
+   "sentence": "Six people sit below and to the left, so Q is seven.",
+   "tts": "Six people sit below and to the left, so Q is seven.",
+   "read": "c3__s1__8a7111d3",
+   "lufs_in": -34.1,
+   "pause_cut_s": 0.62,
+   "score": 0.9045,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.937,
+   "syl_rate": 4.67,
+   "pauses": [
+    {
+     "at": 1.87,
+     "len": 0.29,
+     "punct": ""
+    },
+    {
+     "at": 3.01,
+     "len": 0.83,
+     "punct": ","
+    }
+   ],
+   "hesitations": 1,
+   "pitch_std_st": 2.45,
+   "final_st": -2.9,
+   "start": 0.48,
+   "end": 4.81,
+   "heard": "Six people sit below and to the left, so cue is seven.",
+   "others": []
+  }
+ ],
+ "c4": [
+  {
+   "sentence": "If height and weight were unrelated, we'd expect only about five.",
+   "tts": "If height and weight were unrelated, we'd expect only about five.",
+   "read": "c4__s0__e846d0f8",
+   "lufs_in": -32.9,
+   "pause_cut_s": 0.04,
+   "score": 0.932,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.957,
+   "syl_rate": 5.06,
+   "pauses": [
+    {
+     "at": 3.45,
+     "len": 0.18,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.87,
+   "final_st": -2.73,
+   "start": 0.47,
+   "end": 4.01,
+   "heard": "If height and weight were unrelated, we'd expect only about five.",
+   "others": []
+  },
+  {
+   "sentence": "Seeing seven tells us these points cluster together, more than chance allows.",
+   "tts": "Seeing seven tells us these points cluster together, more than chance allows.",
+   "read": "c4__s1__8508875c",
+   "lufs_in": -32.9,
+   "pause_cut_s": 0.2,
+   "score": 0.8547,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.908,
+   "syl_rate": 3.99,
+   "pauses": [
+    {
+     "at": 2.06,
+     "len": 0.1,
+     "punct": ""
+    },
+    {
+     "at": 3.47,
+     "len": 0.56,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.64,
+   "final_st": 4.82,
+   "start": 0.47,
+   "end": 5.39,
+   "heard": "Seeing seven tells us these points cluster together more than chance allows.",
+   "others": []
+  }
+ ],
+ "c5": [
+  {
+   "sentence": "For the person ranked sixth in height and fourth in weight, three points qualify.",
+   "tts": "For the person ranked sixth in height and fourth in weight, three points qualify.",
+   "read": "c5__s0__d7817d60",
+   "lufs_in": -33.4,
+   "pause_cut_s": 0.18,
+   "score": 0.9994,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.949,
+   "syl_rate": 4.38,
+   "pauses": [
+    {
+     "at": 2.19,
+     "len": 0.1,
+     "punct": ""
+    },
+    {
+     "at": 3.21,
+     "len": 0.54,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.78,
+   "final_st": -5.79,
+   "start": 0.37,
+   "end": 4.89,
+   "heard": "For the person ranked sixth in height and fourth in weight, three points qualify.",
+   "others": []
+  },
+  {
+   "sentence": "So Q is four.",
+   "tts": "So Q is four.",
+   "read": "c5__s1__13f0ee4b",
+   "lufs_in": -33.2,
+   "pause_cut_s": 0.0,
+   "score": 0.9132,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.703,
+   "syl_rate": 4.55,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.99,
+   "final_st": -4.04,
+   "start": 0.4,
+   "end": 1.28,
+   "heard": "So Q is 4.",
+   "others": []
+  }
+ ],
+ "c6": [
+  {
+   "sentence": "Now take one of the tied people, ranked ninth in both.",
+   "tts": "Now take one of the tied people, ranked ninth in both.",
+   "read": "c6__s0__8a4214f6",
+   "lufs_in": -32.2,
+   "pause_cut_s": 0.18,
+   "score": 0.993,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.929,
+   "syl_rate": 4.38,
+   "pauses": [
+    {
+     "at": 0.59,
+     "len": 0.17,
+     "punct": ""
+    },
+    {
+     "at": 2.15,
+     "len": 0.46,
+     "punct": ","
+    },
+    {
+     "at": 3.31,
+     "len": 0.19,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.51,
+   "final_st": -5.56,
+   "start": 0.31,
+   "end": 3.87,
+   "heard": "Now, take one of the tied people, ranked ninth in both.",
+   "others": [
+    {
+     "tts": "Now take one of our tied people, ranked ninth in both.",
+     "score": 0.8605,
+     "heard": "Now, take one of our tied people, ranked ninth in both."
+    }
+   ]
+  },
+  {
+   "sentence": "Seven points sit strictly below and to the left.",
+   "tts": "Seven points sit strictly below and to the left.",
+   "read": "c6__s1__6c780e83",
+   "lufs_in": -30.5,
+   "pause_cut_s": 0.0,
+   "score": 0.9239,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.889,
+   "syl_rate": 3.82,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 3.48,
+   "final_st": -2.57,
+   "start": 0.44,
+   "end": 3.58,
+   "heard": "Seven points sit strictly below and to the left.",
+   "others": []
+  },
+  {
+   "sentence": "Its two twins add a quarter each.",
+   "tts": "Its two twins add a quarter each.",
+   "read": "c6__s2__4b1d13f9",
+   "lufs_in": -32.0,
+   "pause_cut_s": 0.0,
+   "score": 0.9122,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.964,
+   "syl_rate": 3.6,
+   "pauses": [
+    {
+     "at": 1.24,
+     "len": 0.1,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.69,
+   "final_st": -4.32,
+   "start": 0.28,
+   "end": 2.6,
+   "heard": "It's two twins, add a quarter each.",
+   "others": []
+  },
+  {
+   "sentence": "So Q is one plus seven plus a half.",
+   "tts": "So Q is one plus seven plus a half.",
+   "read": "c6__s3__574337c1",
+   "lufs_in": -32.7,
+   "pause_cut_s": 0.0,
+   "score": 0.9508,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.804,
+   "syl_rate": 4.35,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.5,
+   "final_st": -5.21,
+   "start": 0.53,
+   "end": 2.83,
+   "heard": "So Q is 1 plus 7 plus a half.",
+   "others": []
+  },
+  {
+   "sentence": "That's eight and a half.",
+   "tts": "That's eight and a half.",
+   "read": "c6__s4__93dcc355",
+   "lufs_in": -31.7,
+   "pause_cut_s": 0.0,
+   "score": 0.9059,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.936,
+   "syl_rate": 5.21,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.45,
+   "final_st": -4.11,
+   "start": 0.34,
+   "end": 1.3,
+   "heard": "That's eight and a half.",
+   "others": []
+  }
+ ],
+ "c7": [
+  {
+   "sentence": "Repeat this for everyone, and we get the full list of Q values.",
+   "tts": "Repeat this for everyone, and we get the full list of Q values.",
+   "read": "c7__s0__2c76e4e8",
+   "lufs_in": -32.9,
+   "pause_cut_s": 0.43,
+   "score": 0.9781,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.949,
+   "syl_rate": 4.61,
+   "pauses": [
+    {
+     "at": 1.86,
+     "len": 0.75,
+     "punct": ","
+    },
+    {
+     "at": 3.08,
+     "len": 0.18,
+     "punct": ""
+    },
+    {
+     "at": 3.87,
+     "len": 0.11,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.87,
+   "final_st": 0.32,
+   "start": 0.36,
+   "end": 4.87,
+   "heard": "Repeat this for everyone, and we get the full list of Q values.",
+   "others": []
+  }
+ ],
+ "c8": [
+  {
+   "sentence": "Hoeffding's D adds up how much these counts differ from what independence would predict.",
+   "tts": "Hefding's D adds up how much these counts differ from what independence would predict.",
+   "read": "c8__s0__4f548a95",
+   "lufs_in": -33.7,
+   "pause_cut_s": 0.0,
+   "score": 0.995,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.935,
+   "syl_rate": 4.42,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.58,
+   "final_st": -4.77,
+   "start": 0.39,
+   "end": 4.92,
+   "heard": "Hefting's D adds up how much these counts differ from what independence would predict.",
+   "others": [
+    {
+     "tts": "Heff-ding's D adds up how far these counts land from what independence would predict.",
+     "score": 0.9514,
+     "heard": "Hefding's D adds up how far these counts land from what independence would predict."
+    },
+    {
+     "tts": "Hefding's D adds up how far these counts land from what independence would predict.",
+     "score": 0.9305,
+     "heard": "Hefting's D adds up how far these counts land from what independence would predict."
+    },
+    {
+     "tts": "Heff-ding's D adds up how much these counts differ from what independence would predict.",
+     "score": 0.9176,
+     "heard": "Hefding's D adds up how much these counts differ from what independence would predict."
+    },
+    {
+     "tts": "Heffding's D adds up how far these counts land from what independence would predict.",
+     "score": 0.7084,
+     "heard": "Hifting's D adds up how far these counts land from what independence would predict."
+    },
+    {
+     "tts": "Heffding's D adds up how much these counts differ from what independence would predict.",
+     "score": 0.5997,
+     "heard": "Hifting's D adds up how much these counts differ from what independence would predict."
+    }
+   ]
+  }
+ ],
+ "f1": [
+  {
+   "sentence": "Step three folds everything into three separate sums.",
+   "tts": "Step three folds everything into three separate sums.",
+   "read": "f1__s0__a3f66212",
+   "lufs_in": -32.1,
+   "pause_cut_s": 0.0,
+   "score": 0.9623,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.941,
+   "syl_rate": 3.97,
+   "pauses": [
+    {
+     "at": 1.47,
+     "len": 0.14,
+     "punct": ""
+    },
+    {
+     "at": 3.37,
+     "len": 0.14,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.93,
+   "final_st": -1.18,
+   "start": 0.45,
+   "end": 4.26,
+   "heard": "Step three folds everything into three separate sums.",
+   "others": [
+    {
+     "tts": "In step three, everything folds into three separate sums.",
+     "score": 0.9289,
+     "heard": "In step three, everything folds into three separate sums."
+    }
+   ]
+  },
+  {
+   "sentence": "The first one, D one, runs over the Q values.",
+   "tts": "The first one, D one, runs over the Q values.",
+   "read": "f1__s1__ede6ab38",
+   "lufs_in": -32.4,
+   "pause_cut_s": 0.0,
+   "score": 0.9225,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.949,
+   "syl_rate": 3.68,
+   "pauses": [
+    {
+     "at": 1.15,
+     "len": 0.1,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.77,
+   "final_st": -2.44,
+   "start": 0.31,
+   "end": 3.4,
+   "heard": "The first one, D1, runs over the Q values.",
+   "others": []
+  },
+  {
+   "sentence": "It measures how tightly the points pile up, below and to the left of one another.",
+   "tts": "It measures how tightly the points pile up, below and to the left of one another.",
+   "read": "f1__s2__e4161ffd",
+   "lufs_in": -33.0,
+   "pause_cut_s": 0.18,
+   "score": 0.8928,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.964,
+   "syl_rate": 5.43,
+   "pauses": [
+    {
+     "at": 1.87,
+     "len": 0.1,
+     "punct": ""
+    },
+    {
+     "at": 2.71,
+     "len": 0.54,
+     "punct": ","
+    },
+    {
+     "at": 3.83,
+     "len": 0.12,
+     "punct": ""
+    },
+    {
+     "at": 4.56,
+     "len": 0.1,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.06,
+   "final_st": -3.88,
+   "start": 0.37,
+   "end": 5.28,
+   "heard": "It measures how tightly the points pile up below and to the left of one another.",
+   "others": []
+  }
+ ],
+ "f2": [
+  {
+   "sentence": "D two uses only the ranks.",
+   "tts": "D two uses only the ranks.",
+   "read": "f2__s0__c2faf338",
+   "lufs_in": -30.8,
+   "pause_cut_s": 0.0,
+   "score": 0.9817,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.973,
+   "syl_rate": 4.71,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.38,
+   "final_st": -2.26,
+   "start": 0.43,
+   "end": 2.13,
+   "heard": "D2 uses only the ranks.",
+   "others": []
+  },
+  {
+   "sentence": "These are the marginals, describing each variable on its own.",
+   "tts": "These are the marginals, describing each variable on its own.",
+   "read": "f2__s1__006f69ae",
+   "lufs_in": -32.1,
+   "pause_cut_s": 0.25,
+   "score": 0.9871,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.977,
+   "syl_rate": 4.15,
+   "pauses": [
+    {
+     "at": 0.2,
+     "len": 0.51,
+     "punct": "?"
+    },
+    {
+     "at": 2.73,
+     "len": 0.13,
+     "punct": ""
+    },
+    {
+     "at": 3.86,
+     "len": 0.18,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 3.23,
+   "final_st": -5.54,
+   "start": 0.0,
+   "end": 4.68,
+   "heard": "These are the marginals describing each variable on its own.",
+   "others": []
+  }
+ ],
+ "f3": [
+  {
+   "sentence": "And D three is the cross term that ties the joint counts to the marginals.",
+   "tts": "And D three is the cross term that ties the joint counts to the marginals.",
+   "read": "f3__s0__052b228d",
+   "lufs_in": -34.0,
+   "pause_cut_s": 0.14,
+   "score": 0.8981,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.942,
+   "syl_rate": 4.05,
+   "pauses": [
+    {
+     "at": 3.73,
+     "len": 0.28,
+     "punct": ""
+    }
+   ],
+   "hesitations": 1,
+   "pitch_std_st": 2.96,
+   "final_st": -5.7,
+   "start": 0.32,
+   "end": 4.8,
+   "heard": "And D3 is the cross term that ties the joint counts to the marginals.",
+   "others": []
+  }
+ ],
+ "f4": [
+  {
+   "sentence": "Hoeffding's formula weighs these three against each other, and normalizes by the sample size.",
+   "tts": "Heffding's formula weighs these three against each other, and normalizes by the sample size.",
+   "read": "f4__s0__fd037bd0",
+   "lufs_in": -31.5,
+   "pause_cut_s": 0.03,
+   "score": 0.9988,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.97,
+   "syl_rate": 4.32,
+   "pauses": [
+    {
+     "at": 3.25,
+     "len": 0.39,
+     "punct": ","
+    },
+    {
+     "at": 5.87,
+     "len": 0.11,
+     "punct": "."
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.34,
+   "final_st": -3.4,
+   "start": 0.28,
+   "end": 6.1,
+   "heard": "Hefting's formula weighs these three against each other and normalizes by the sample size.",
+   "others": [
+    {
+     "tts": "Hefding's formula weighs these three against each other, and normalizes by the sample size.",
+     "score": 0.9951,
+     "heard": "Hefting's formula weighs these three against each other and normalizes by the sample size."
+    },
+    {
+     "tts": "Heff-ding's formula weighs these three against each other, and normalizes by the sample size.",
+     "score": 0.8263,
+     "heard": "Hefding's formula weighs these three against each other and normalizes by the sample size."
+    }
+   ]
+  }
+ ],
+ "f5": [
+  {
+   "sentence": "Now, let's plug in our ten people.",
+   "tts": "Now, let's plug in our ten people.",
+   "read": "f5__s0__18e8fbd2",
+   "lufs_in": -31.4,
+   "pause_cut_s": 0.0,
+   "score": 0.9747,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.949,
+   "syl_rate": 4.76,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.63,
+   "final_st": -3.65,
+   "start": 0.32,
+   "end": 2.0,
+   "heard": "Now, let's plug in our 10 people.",
+   "others": [
+    {
+     "tts": "Now let's plug in our ten people.",
+     "score": 0.9033,
+     "heard": "Now, let's plug in our 10 people."
+    }
+   ]
+  }
+ ],
+ "f6": [
+  {
+   "sentence": "The numerator works out to four hundred and fourteen.",
+   "tts": "The numerator works out to four hundred and fourteen.",
+   "read": "f6__s0__1ccd13d1",
+   "lufs_in": -31.3,
+   "pause_cut_s": 0.0,
+   "score": 0.9999,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.971,
+   "syl_rate": 4.42,
+   "pauses": [
+    {
+     "at": 1.7,
+     "len": 0.14,
+     "punct": ""
+    },
+    {
+     "at": 2.79,
+     "len": 0.15,
+     "punct": "."
+    },
+    {
+     "at": 3.11,
+     "len": 0.11,
+     "punct": "."
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 3.46,
+   "final_st": -5.6,
+   "start": 0.31,
+   "end": 3.65,
+   "heard": "The numerator works out to 414.",
+   "others": []
+  },
+  {
+   "sentence": "And D comes out to about zero point four one.",
+   "tts": "And D comes out to about zero point four one.",
+   "read": "f6__s1__a5210b16",
+   "lufs_in": -32.2,
+   "pause_cut_s": 0.0,
+   "score": 0.924,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.937,
+   "syl_rate": 3.72,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.4,
+   "final_st": -1.05,
+   "start": 0.29,
+   "end": 3.52,
+   "heard": "And D comes out to about 0.41.",
+   "others": []
+  }
+ ],
+ "f7": [
+  {
+   "sentence": "For comparison, Pearson's correlation here is zero point nine three, and Kendall's tau is zero point eight six.",
+   "tts": "For comparison, Peer-son's correlation here is zero point nine three, and Kendall's tau is zero point eight six.",
+   "read": "f7__s0__78a852de",
+   "lufs_in": -33.0,
+   "pause_cut_s": 0.02,
+   "score": 0.9802,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.945,
+   "syl_rate": 4.71,
+   "pauses": [
+    {
+     "at": 1.91,
+     "len": 0.12,
+     "punct": ""
+    },
+    {
+     "at": 4.23,
+     "len": 0.38,
+     "punct": ","
+    },
+    {
+     "at": 6.85,
+     "len": 0.1,
+     "punct": "."
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.93,
+   "final_st": -3.63,
+   "start": 0.55,
+   "end": 7.1,
+   "heard": "For comparison, Pearson's correlation here is 0.93 and Kendall's tau is 0.86.",
+   "others": [
+    {
+     "tts": "For comparison, Peerson's correlation here is zero point nine three, and Kendall's tau is zero point eight six.",
+     "score": 0.9662,
+     "heard": "For comparison, Pearson's correlation here is 0.93 and Kendall's tau is 0.86."
+    },
+    {
+     "tts": "For comparison, Pearson's correlation here is zero point nine three, and Kendall's tau is zero point eight six.",
+     "score": 0.8741,
+     "heard": "For comparison, Pearson's correlation here is 0.93. And Kendall's tau is 0.86."
+    }
+   ]
+  }
+ ],
+ "f8": [
+  {
+   "sentence": "Keep in mind that D lives on its own scale.",
+   "tts": "Keep in mind that D lives on its own scale.",
+   "read": "f8__s0__c1f7c03f",
+   "lufs_in": -31.1,
+   "pause_cut_s": 0.0,
+   "score": 0.9638,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.978,
+   "syl_rate": 4.85,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.97,
+   "final_st": -4.08,
+   "start": 0.3,
+   "end": 2.57,
+   "heard": "Keep in mind that D lives on its own scale.",
+   "others": []
+  },
+  {
+   "sentence": "It's about zero under independence, and one for a perfectly monotone relationship.",
+   "tts": "It's about zero under independence, and one for a perfectly monotone relationship.",
+   "read": "f8__s1__8f9cf06a",
+   "lufs_in": -33.1,
+   "pause_cut_s": 0.12,
+   "score": 0.8761,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.964,
+   "syl_rate": 4.94,
+   "pauses": [
+    {
+     "at": 2.42,
+     "len": 0.15,
+     "punct": ","
+    },
+    {
+     "at": 3.32,
+     "len": 0.13,
+     "punct": ""
+    },
+    {
+     "at": 3.66,
+     "len": 0.26,
+     "punct": ""
+    }
+   ],
+   "hesitations": 1,
+   "pitch_std_st": 2.24,
+   "final_st": -2.32,
+   "start": 0.29,
+   "end": 5.89,
+   "heard": "It's about zero under independence and one for a perfectly monotone relationship.",
+   "others": []
+  },
+  {
+   "sentence": "And it never drops below minus one half.",
+   "tts": "And it never drops below minus one half.",
+   "read": "f8__s2__1279bfab",
+   "lufs_in": -31.4,
+   "pause_cut_s": 0.0,
+   "score": 0.975,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.875,
+   "syl_rate": 4.38,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.1,
+   "final_st": -3.22,
+   "start": 0.34,
+   "end": 2.85,
+   "heard": "and it never drops below minus one half.",
+   "others": []
+  }
+ ],
+ "s1": [
+  {
+   "sentence": "So what is D really measuring?",
+   "tts": "So what is D really measuring?",
+   "read": "s1__s0__68be8ced",
+   "lufs_in": -33.2,
+   "pause_cut_s": 0.0,
+   "score": 0.9703,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.863,
+   "syl_rate": 4.35,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.77,
+   "final_st": -4.94,
+   "start": 0.47,
+   "end": 2.54,
+   "heard": "So what is D really measuring?",
+   "others": []
+  },
+  {
+   "sentence": "Here are forty-eight points along a parabola, in rank coordinates.",
+   "tts": "Here are forty-eight points along a parabola, in rank coordinates.",
+   "read": "s1__s1__9c0d5a12",
+   "lufs_in": -33.7,
+   "pause_cut_s": 0.67,
+   "score": 0.8548,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.961,
+   "syl_rate": 5.03,
+   "pauses": [
+    {
+     "at": 0.9,
+     "len": 0.12,
+     "punct": ""
+    },
+    {
+     "at": 1.44,
+     "len": 0.12,
+     "punct": ""
+    },
+    {
+     "at": 3.14,
+     "len": 0.81,
+     "punct": ","
+    },
+    {
+     "at": 4.43,
+     "len": 0.36,
+     "punct": ""
+    },
+    {
+     "at": 5.18,
+     "len": 0.14,
+     "punct": "."
+    }
+   ],
+   "hesitations": 1,
+   "pitch_std_st": 2.94,
+   "final_st": -3.39,
+   "start": 0.36,
+   "end": 5.49,
+   "heard": "Here are 48 points along a parabola in rank coordinates.",
+   "others": []
+  }
+ ],
+ "s2": [
+  {
+   "sentence": "These tick marks along the edges are called the marginals.",
+   "tts": "These tick marks along the edges are called the marginals.",
+   "read": "s2__s0__a8fc5777",
+   "lufs_in": -31.3,
+   "pause_cut_s": 0.0,
+   "score": 0.8724,
+   "asr_ratio": 0.9,
+   "misheard_names": 0,
+   "conf": 0.938,
+   "syl_rate": 5.17,
+   "pauses": [
+    {
+     "at": 0.16,
+     "len": 0.26,
+     "punct": "?"
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.83,
+   "final_st": -2.4,
+   "start": 0.0,
+   "end": 2.97,
+   "heard": "These tick marks along the edges are called the marginal.",
+   "others": [
+    {
+     "tts": "The tick marks along the edges are the marginals.",
+     "score": 0.8484,
+     "heard": "The tick marks along the edges are the marginal."
+    }
+   ]
+  },
+  {
+   "sentence": "They show where the X values fall, and where the Y values fall, each on its own.",
+   "tts": "They show where the X values fall, and where the Y values fall, each on its own.",
+   "read": "s2__s1__a53d1ca7",
+   "lufs_in": -33.7,
+   "pause_cut_s": 0.01,
+   "score": 0.9668,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.936,
+   "syl_rate": 4.01,
+   "pauses": [
+    {
+     "at": 1.36,
+     "len": 0.1,
+     "punct": ""
+    },
+    {
+     "at": 4.01,
+     "len": 0.37,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.91,
+   "final_st": -3.68,
+   "start": 0.51,
+   "end": 5.22,
+   "heard": "They show where the X values fall and where the Y values fall, each on its own.",
+   "others": []
+  }
+ ],
+ "s3": [
+  {
+   "sentence": "On the right, we count the points in each cell of a four by four grid.",
+   "tts": "On the right, we count the points in each cell of a four by four grid.",
+   "read": "s3__s0__be24d694",
+   "lufs_in": -36.3,
+   "pause_cut_s": 0.05,
+   "score": 0.9655,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.976,
+   "syl_rate": 4.83,
+   "pauses": [
+    {
+     "at": 1.0,
+     "len": 0.18,
+     "punct": ","
+    },
+    {
+     "at": 1.68,
+     "len": 0.17,
+     "punct": ""
+    },
+    {
+     "at": 3.11,
+     "len": 0.16,
+     "punct": ""
+    },
+    {
+     "at": 3.61,
+     "len": 0.12,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.96,
+   "final_st": -3.93,
+   "start": 0.39,
+   "end": 4.33,
+   "heard": "On the right, we count the points in each cell of a 4x4 grid.",
+   "others": []
+  },
+  {
+   "sentence": "If X and Y were independent, every cell would hold about three.",
+   "tts": "If X and Y were independent, every cell would hold about three.",
+   "read": "s3__s1__3333a738",
+   "lufs_in": -31.6,
+   "pause_cut_s": 0.0,
+   "score": 0.7956,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.944,
+   "syl_rate": 6.04,
+   "pauses": [
+    {
+     "at": 2.13,
+     "len": 0.29,
+     "punct": ","
+    },
+    {
+     "at": 3.59,
+     "len": 0.1,
+     "punct": "."
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.43,
+   "final_st": 2.38,
+   "start": 0.51,
+   "end": 3.88,
+   "heard": "If X and Y were independent, every cell would hold about three.",
+   "others": []
+  }
+ ],
+ "s4": [
+  {
+   "sentence": "And this is Hoeffding's D, recomputed live from the dots on every single frame.",
+   "tts": "And this is Heff-ding's D, recomputed live from the dots on every single frame.",
+   "read": "s4__s0__432276a5",
+   "lufs_in": -32.2,
+   "pause_cut_s": 0.04,
+   "score": 0.9913,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.935,
+   "syl_rate": 4.54,
+   "pauses": [
+    {
+     "at": 1.0,
+     "len": 0.18,
+     "punct": ""
+    },
+    {
+     "at": 1.34,
+     "len": 0.12,
+     "punct": ""
+    },
+    {
+     "at": 2.12,
+     "len": 0.31,
+     "punct": ","
+    },
+    {
+     "at": 4.39,
+     "len": 0.12,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.71,
+   "final_st": -4.94,
+   "start": 0.34,
+   "end": 5.7,
+   "heard": "And this is Hefting's D, recomputed live from the dots on every single frame.",
+   "others": [
+    {
+     "tts": "And this is Hefding's D, recomputed live from the dots on every single frame.",
+     "score": 0.9874,
+     "heard": "And this is Heftings D, recomputed live from the dots on every single frame."
+    },
+    {
+     "tts": "And this is Heffding's D, recomputed live from the dots on every single frame.",
+     "score": 0.9803,
+     "heard": "And this is Hefting's D recomputed live from the dots on every single frame."
+    }
+   ]
+  }
+ ],
+ "s5": [
+  {
+   "sentence": "Now watch what happens when we shuffle the Y values among the points.",
+   "tts": "Now watch what happens when we shuffle the Y values among the points.",
+   "read": "s5__s0__458526c7",
+   "lufs_in": -31.5,
+   "pause_cut_s": 0.0,
+   "score": 0.8869,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.943,
+   "syl_rate": 4.72,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.94,
+   "final_st": 2.27,
+   "start": 0.28,
+   "end": 3.67,
+   "heard": "Now watch what happens when we shuffle the Y values among the points.",
+   "others": []
+  }
+ ],
+ "s6": [
+  {
+   "sentence": "Look at the tick marks.",
+   "tts": "Look at the tick marks.",
+   "read": "s6__s0__1a6cbfe2",
+   "lufs_in": -34.7,
+   "pause_cut_s": 0.0,
+   "score": 0.918,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.965,
+   "syl_rate": 5.15,
+   "pauses": [
+    {
+     "at": 1.05,
+     "len": 0.12,
+     "punct": ""
+    },
+    {
+     "at": 1.38,
+     "len": 0.11,
+     "punct": "."
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 3.32,
+   "final_st": -5.44,
+   "start": 0.53,
+   "end": 1.73,
+   "heard": "Look at the tick marks.",
+   "others": []
+  },
+  {
+   "sentence": "They haven't changed at all.",
+   "tts": "They haven't changed at all.",
+   "read": "s6__s1__60cebcad",
+   "lufs_in": -33.4,
+   "pause_cut_s": 0.0,
+   "score": 0.9368,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.937,
+   "syl_rate": 5.0,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 3.13,
+   "final_st": -4.86,
+   "start": 0.43,
+   "end": 1.63,
+   "heard": "They haven't changed at all.",
+   "others": []
+  },
+  {
+   "sentence": "Both marginals are exactly the same.",
+   "tts": "Both marginals are exactly the same.",
+   "read": "s6__s2__2ca4e84c",
+   "lufs_in": -33.5,
+   "pause_cut_s": 0.0,
+   "score": 1.0,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.982,
+   "syl_rate": 4.41,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.93,
+   "final_st": -5.58,
+   "start": 0.62,
+   "end": 2.89,
+   "heard": "Both marginals are exactly the same.",
+   "others": []
+  },
+  {
+   "sentence": "Only the pairing is gone.",
+   "tts": "Only the pairing is gone.",
+   "read": "s6__s3__e24cc371",
+   "lufs_in": -32.3,
+   "pause_cut_s": 0.0,
+   "score": 0.8874,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.934,
+   "syl_rate": 5.56,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 1.94,
+   "final_st": -4.2,
+   "start": 0.5,
+   "end": 1.76,
+   "heard": "Only the pairing is gone.",
+   "others": []
+  },
+  {
+   "sentence": "The grid flattens out, and D drops to essentially zero.",
+   "tts": "The grid flattens out, and D drops to essentially zero.",
+   "read": "s6__s4__7912afd6",
+   "lufs_in": -32.3,
+   "pause_cut_s": 0.03,
+   "score": 0.9755,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.926,
+   "syl_rate": 4.11,
+   "pauses": [
+    {
+     "at": 2.15,
+     "len": 0.17,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.29,
+   "final_st": -4.05,
+   "start": 0.31,
+   "end": 4.13,
+   "heard": "The grid flattens out and D drops to essentially zero.",
+   "others": []
+  }
+ ],
+ "s7": [
+  {
+   "sentence": "Put the pairs back together, and D comes right back.",
+   "tts": "Put the pairs back together, and D comes right back.",
+   "read": "s7__s0__41520c01",
+   "lufs_in": -33.4,
+   "pause_cut_s": 0.02,
+   "score": 0.9638,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.916,
+   "syl_rate": 4.76,
+   "pauses": [
+    {
+     "at": 1.74,
+     "len": 0.38,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.45,
+   "final_st": -3.02,
+   "start": 0.43,
+   "end": 3.33,
+   "heard": "Put the pairs back together, and D comes right back.",
+   "others": [
+    {
+     "tts": "Put the pairs back, and D comes right back too.",
+     "score": 0.8424,
+     "heard": "Put the pears back, and D comes right back, too."
+    }
+   ]
+  }
+ ],
+ "s8": [
+  {
+   "sentence": "That gives us a test.",
+   "tts": "That gives us a test.",
+   "read": "s8__s0__f70a0f4d",
+   "lufs_in": -34.9,
+   "pause_cut_s": 0.0,
+   "score": 0.9991,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.983,
+   "syl_rate": 4.46,
+   "pauses": [
+    {
+     "at": 0.57,
+     "len": 0.1,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.83,
+   "final_st": -3.18,
+   "start": 0.41,
+   "end": 1.63,
+   "heard": "That gives us a test.",
+   "others": []
+  },
+  {
+   "sentence": "We shuffle two thousand times, and record D each time.",
+   "tts": "We shuffle two thousand times, and record D each time.",
+   "read": "s8__s1__16c914cc",
+   "lufs_in": -33.1,
+   "pause_cut_s": 0.37,
+   "score": 0.9598,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.87,
+   "syl_rate": 4.14,
+   "pauses": [
+    {
+     "at": 2.13,
+     "len": 0.73,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.56,
+   "final_st": -1.79,
+   "start": 0.37,
+   "end": 4.24,
+   "heard": "We shuffle 2,000 times and record D each time.",
+   "others": [
+    {
+     "tts": "Shuffle two thousand times, and record D each time.",
+     "score": 0.8897,
+     "heard": "shuffle 2,000 times, and record D each time."
+    },
+    {
+     "tts": "Shuffle two thousand times, recording D each time.",
+     "score": 0.8646,
+     "heard": "Shuffle 2,000 times, recording D each time."
+    }
+   ]
+  },
+  {
+   "sentence": "Chance alone produces this narrow pile near zero.",
+   "tts": "Chance alone produces this narrow pile near zero.",
+   "read": "s8__s2__cb3e4a3e",
+   "lufs_in": -32.6,
+   "pause_cut_s": 0.13,
+   "score": 0.7901,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.902,
+   "syl_rate": 4.71,
+   "pauses": [
+    {
+     "at": 2.52,
+     "len": 0.27,
+     "punct": ""
+    }
+   ],
+   "hesitations": 1,
+   "pitch_std_st": 2.91,
+   "final_st": 3.94,
+   "start": 0.34,
+   "end": 3.58,
+   "heard": "chance alone produces this narrow pile near zero.",
+   "others": []
+  }
+ ],
+ "s9": [
+  {
+   "sentence": "Our observed value is far beyond anything shuffling ever produced.",
+   "tts": "Our observed value is far beyond anything shuffling ever produced.",
+   "read": "s9__s0__17042a3a",
+   "lufs_in": -31.3,
+   "pause_cut_s": 0.45,
+   "score": 0.7943,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.959,
+   "syl_rate": 3.46,
+   "pauses": [
+    {
+     "at": 0.16,
+     "len": 0.75,
+     "punct": "?"
+    },
+    {
+     "at": 3.0,
+     "len": 0.14,
+     "punct": ""
+    },
+    {
+     "at": 4.66,
+     "len": 0.11,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.4,
+   "final_st": 3.83,
+   "start": 0.0,
+   "end": 5.62,
+   "heard": "Our observed value is far beyond anything shuffling ever produced.",
+   "others": []
+  },
+  {
+   "sentence": "So X and Y are dependent.",
+   "tts": "So X and Y are dependent.",
+   "read": "s9__s1__27f269d2",
+   "lufs_in": -31.4,
+   "pause_cut_s": 0.0,
+   "score": 0.9709,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.927,
+   "syl_rate": 4.73,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.6,
+   "final_st": -4.06,
+   "start": 0.48,
+   "end": 2.17,
+   "heard": "So X and Y are dependent.",
+   "others": []
+  },
+  {
+   "sentence": "In the end, D measures exactly what shuffling destroys.",
+   "tts": "In the end, D measures exactly what shuffling destroys.",
+   "read": "s9__s2__a2258f0a",
+   "lufs_in": -33.4,
+   "pause_cut_s": 0.07,
+   "score": 0.8583,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.931,
+   "syl_rate": 3.17,
+   "pauses": [
+    {
+     "at": 1.04,
+     "len": 0.37,
+     "punct": ","
+    },
+    {
+     "at": 2.43,
+     "len": 0.17,
+     "punct": ""
+    },
+    {
+     "at": 3.11,
+     "len": 0.11,
+     "punct": ""
+    },
+    {
+     "at": 3.6,
+     "len": 0.17,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.15,
+   "final_st": -2.34,
+   "start": 0.39,
+   "end": 5.62,
+   "heard": "In the end, D measures exactly what shuffling destroys.",
+   "others": []
+  },
+  {
+   "sentence": "It's the gap between the real pattern, and independence.",
+   "tts": "It's the gap between the real pattern, and independence.",
+   "read": "s9__s3__94b5e8d0",
+   "lufs_in": -31.9,
+   "pause_cut_s": 0.0,
+   "score": 0.9246,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.984,
+   "syl_rate": 5.11,
+   "pauses": [
+    {
+     "at": 0.93,
+     "len": 0.13,
+     "punct": ""
+    },
+    {
+     "at": 2.24,
+     "len": 0.26,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.02,
+   "final_st": -3.35,
+   "start": 0.28,
+   "end": 3.41,
+   "heard": "It's the gap between the real pattern and independence.",
+   "others": []
+  }
+ ],
+ "o1": [
+  {
+   "sentence": "So, to recap.",
+   "tts": "So, to recap.",
+   "read": "o1__s0__ba2b4047",
+   "lufs_in": -31.6,
+   "pause_cut_s": 0.0,
+   "score": 0.952,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.896,
+   "syl_rate": 4.0,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.22,
+   "final_st": 0.0,
+   "start": 0.45,
+   "end": 1.45,
+   "heard": "So to recap",
+   "others": []
+  },
+  {
+   "sentence": "Pearson's correlation sees straight lines.",
+   "tts": "Peerson's correlation sees straight lines.",
+   "read": "o1__s1__46564534",
+   "lufs_in": -33.8,
+   "pause_cut_s": 0.0,
+   "score": 0.9938,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.974,
+   "syl_rate": 4.23,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.29,
+   "final_st": -5.1,
+   "start": 0.3,
+   "end": 2.43,
+   "heard": "Pearson's correlation sees straight lines.",
+   "others": [
+    {
+     "tts": "Peer-son's correlation sees straight lines.",
+     "score": 0.8016,
+     "heard": "Pearson's correlation sees straight lines."
+    },
+    {
+     "tts": "Pearson's correlation sees straight lines.",
+     "score": 0.0278,
+     "heard": "A person's correlation sees straight lines."
+    }
+   ]
+  },
+  {
+   "sentence": "Spearman and Kendall see any monotone curve.",
+   "tts": "Speerman and Kendall see any monotone curve.",
+   "read": "o1__s2__38f3a7d0",
+   "lufs_in": -32.8,
+   "pause_cut_s": 0.0,
+   "score": 0.9897,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.927,
+   "syl_rate": 4.29,
+   "pauses": [
+    {
+     "at": 0.54,
+     "len": 0.1,
+     "punct": "?"
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 1.51,
+   "final_st": -5.48,
+   "start": 0.42,
+   "end": 3.32,
+   "heard": "Spearman and Kendall see any monotone curve.",
+   "others": []
+  }
+ ],
+ "o2": [
+  {
+   "sentence": "And Hoeffding's D sees dependence of any shape.",
+   "tts": "And Heffding's D sees dependence of any shape.",
+   "read": "o2__s0__4c4da1c2",
+   "lufs_in": -31.3,
+   "pause_cut_s": 0.0,
+   "score": 0.9555,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.861,
+   "syl_rate": 4.14,
+   "pauses": [
+    {
+     "at": 2.58,
+     "len": 0.11,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.33,
+   "final_st": 0.03,
+   "start": 0.31,
+   "end": 3.32,
+   "heard": "and Hefting's D sees dependence of any shape.",
+   "others": [
+    {
+     "tts": "And Heff-ding's D sees dependence of any shape.",
+     "score": 0.9513,
+     "heard": "and Hefding's D sees dependence of any shape."
+    },
+    {
+     "tts": "And Hefding's D sees dependence of any shape.",
+     "score": 0.926,
+     "heard": "and Hefting's D sees dependence of any shape."
+    }
+   ]
+  },
+  {
+   "sentence": "Rings, crosses, and waves.",
+   "tts": "Rings, crosses, and waves.",
+   "read": "o2__s1__0a15ca2d",
+   "lufs_in": -32.2,
+   "pause_cut_s": 0.0,
+   "score": 0.81,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.829,
+   "syl_rate": 2.36,
+   "pauses": [
+    {
+     "at": 0.15,
+     "len": 0.2,
+     "punct": "?"
+    },
+    {
+     "at": 0.92,
+     "len": 0.27,
+     "punct": ","
+    },
+    {
+     "at": 1.76,
+     "len": 0.22,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 3.3,
+   "final_st": -4.87,
+   "start": 0.0,
+   "end": 2.81,
+   "heard": "rings, crosses, and waves.",
+   "others": []
+  }
+ ],
+ "o3": [
+  {
+   "sentence": "It's symmetric.",
+   "tts": "It's symmetric.",
+   "read": "o3__s0__b642868f",
+   "lufs_in": -31.0,
+   "pause_cut_s": 0.0,
+   "score": 0.9842,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.926,
+   "syl_rate": 4.6,
+   "pauses": [],
+   "hesitations": 0,
+   "pitch_std_st": 2.31,
+   "final_st": -3.78,
+   "start": 0.28,
+   "end": 1.15,
+   "heard": "It's symmetric.",
+   "others": []
+  },
+  {
+   "sentence": "It's built on ranks, so it shrugs off outliers.",
+   "tts": "It's built on ranks, so it shrugs off outliers.",
+   "read": "o3__s1__c2a481bd",
+   "lufs_in": -33.5,
+   "pause_cut_s": 0.04,
+   "score": 0.8652,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.986,
+   "syl_rate": 3.12,
+   "pauses": [
+    {
+     "at": 1.72,
+     "len": 0.12,
+     "punct": ","
+    },
+    {
+     "at": 2.93,
+     "len": 0.18,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.45,
+   "final_st": -5.42,
+   "start": 0.29,
+   "end": 3.8,
+   "heard": "It's built on ranks, so it shrugs off outliers.",
+   "others": []
+  },
+  {
+   "sentence": "The trade-off is that it looks at groups of points, rather than pairs.",
+   "tts": "The trade-off is that it looks at groups of points, rather than pairs.",
+   "read": "o3__s2__1cf905eb",
+   "lufs_in": -32.1,
+   "pause_cut_s": 0.0,
+   "score": 0.9994,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.958,
+   "syl_rate": 4.35,
+   "pauses": [
+    {
+     "at": 1.17,
+     "len": 0.12,
+     "punct": ""
+    },
+    {
+     "at": 2.53,
+     "len": 0.12,
+     "punct": ""
+    },
+    {
+     "at": 3.02,
+     "len": 0.13,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.38,
+   "final_st": -1.73,
+   "start": 0.33,
+   "end": 4.15,
+   "heard": "The trade-off is that it looks at groups of points rather than pairs.",
+   "others": [
+    {
+     "tts": "The trade-off is that it reasons about groups of points, rather than pairs.",
+     "score": 0.9749,
+     "heard": "The trade-off is that it reasons about groups of points rather than pairs."
+    }
+   ]
+  },
+  {
+   "sentence": "And that's a trade well worth making, whenever the shape of a relationship matters.",
+   "tts": "And that's a trade well worth making, whenever the shape of a relationship matters.",
+   "read": "o3__s3__50163384",
+   "lufs_in": -30.7,
+   "pause_cut_s": 0.0,
+   "score": 0.9319,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.961,
+   "syl_rate": 5.06,
+   "pauses": [
+    {
+     "at": 2.16,
+     "len": 0.32,
+     "punct": ","
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.62,
+   "final_st": -4.12,
+   "start": 0.22,
+   "end": 4.69,
+   "heard": "And that's a trade well worth making whenever the shape of a relationship matters.",
+   "others": []
+  }
+ ],
+ "o4": [
+  {
+   "sentence": "Every frame, every formula, and every number in this video was rendered by franken manim, a pure Rust rebuild of manim.",
+   "tts": "Every frame, every formula, and every number in this video was rendered by franken man-im, a pure Rust rebuild of man-im.",
+   "read": "o4__s0__0286d5ea",
+   "lufs_in": -31.3,
+   "pause_cut_s": 0.01,
+   "score": 0.886,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.929,
+   "syl_rate": 5.49,
+   "pauses": [
+    {
+     "at": 0.79,
+     "len": 0.13,
+     "punct": ""
+    },
+    {
+     "at": 1.63,
+     "len": 0.1,
+     "punct": ""
+    },
+    {
+     "at": 4.35,
+     "len": 0.15,
+     "punct": ""
+    },
+    {
+     "at": 5.4,
+     "len": 0.32,
+     "punct": ","
+    },
+    {
+     "at": 6.47,
+     "len": 0.1,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.59,
+   "final_st": -5.09,
+   "start": 0.45,
+   "end": 7.81,
+   "heard": "Every frame, every formula, and every number in this video was rendered by Franken-Man-Im, a pure rust rebuild of Man-Im.",
+   "others": [
+    {
+     "tts": "Every frame, every formula, and every number in this video was rendered by franken mannim, a pure Rust rebuild of mannim.",
+     "score": 0.3422,
+     "heard": "Every frame, every formula, and every number in this video was rendered by Franken-Manam, a pure rust rebuild of Manam."
+    },
+    {
+     "tts": "Every frame, every formula, and every number in this video was rendered by franken manim, a pure Rust rebuild of manim.",
+     "score": 0.3169,
+     "heard": "Every frame, every formula, and every number in this video was rendered by Franken Mannheim, a pure rust rebuild of Mannheim."
+    }
+   ]
+  },
+  {
+   "sentence": "And the narration you're hearing was spoken by franken T T S.",
+   "tts": "And the narration you're hearing was spoken by franken T T S.",
+   "read": "o4__s1__246fd3e0",
+   "lufs_in": -30.9,
+   "pause_cut_s": 0.0,
+   "score": 0.9851,
+   "asr_ratio": 1.0,
+   "misheard_names": 0,
+   "conf": 0.926,
+   "syl_rate": 4.58,
+   "pauses": [
+    {
+     "at": 0.67,
+     "len": 0.1,
+     "punct": ""
+    }
+   ],
+   "hesitations": 0,
+   "pitch_std_st": 2.7,
+   "final_st": -0.71,
+   "start": 0.39,
+   "end": 4.2,
+   "heard": "And the narration you're hearing was spoken by Frank and TTS.",
+   "others": [
+    {
+     "tts": "And franken T T S spoke this narration.",
+     "score": 0.9507,
+     "heard": "and Frank and TTS spoke this narration."
+    },
+    {
+     "tts": "And this narration was spoken by franken T T S.",
+     "score": 0.8649,
+     "heard": "And this narration was spoken by Frank and TTS."
+    },
+    {
+     "tts": "And this narration was spoken by franken T T S, from start to finish.",
+     "score": 0.8003,
+     "heard": "And this narration was spoken by Frank and TTS from start to finish."
+    }
+   ]
+  }
+ ]
+}

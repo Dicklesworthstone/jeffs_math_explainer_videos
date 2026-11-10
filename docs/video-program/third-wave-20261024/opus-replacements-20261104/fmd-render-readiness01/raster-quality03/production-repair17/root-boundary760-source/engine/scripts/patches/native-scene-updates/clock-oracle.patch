@@ -1,0 +1,142 @@
+--- a/crates/fmn-python/tests/native_scene_update_dispatch.py
++++ b/crates/fmn-python/tests/native_scene_update_dispatch.py
+@@ -1,10 +1,18 @@
+ """Native play/wait must dispatch public scene and drawable update protocols."""
++from fractions import Fraction
++import math
+ from pathlib import Path
+ import tempfile
+ import unittest
+ 
+ import numpy as np
+ import manimlib as m
++
++
++# BN-02: count the exact binary64 duration, not its rounded product with fps.
++# In particular .1 is strictly above 3/30, while nextafter(.1, 0) is below.
++def frame_count(duration, fps=30):
++    return max(0, math.ceil(Fraction.from_float(duration) * fps))
+ 
+ 
+ class Moving(m.Square):
+@@ -24,30 +32,30 @@
+         leaf = Leaf(); scene = m.Scene().add(leaf)
+         self.assertEqual(list(leaf.updaters), [])
+         scene.wait(.1)
+-        self.assertEqual([who for who, _, _ in seen], [leaf] * 4)
+-        np.testing.assert_allclose([dt for _, dt, _ in seen], [0, 1/30, 1/30, 1/30])
+-        np.testing.assert_allclose([time for _, _, time in seen], [0, 1/30, 2/30, 3/30])
++        self.assertEqual([who for who, _, _ in seen], [leaf] * 5)
++        np.testing.assert_allclose([dt for _, dt, _ in seen], [0, 1/30, 1/30, 1/30, 1/30])
++        np.testing.assert_allclose([time for _, _, time in seen], [0, 1/30, 2/30, 3/30, 4/30])
+ 
+     def test_wait_reaches_nested_dt_only_children(self):
+         leaf = Moving(); scene = m.Scene().add(m.Group(m.Group(leaf)))
+         scene.wait(.1)
+-        np.testing.assert_allclose(leaf.get_center(), [.1, 0, 0], atol=1e-6)
++        np.testing.assert_allclose(leaf.get_center(), [4/30, 0, 0], atol=1e-6)
+ 
+     def test_play_updates_unanimated_override_and_runs_native_slots_once(self):
+         leaf = Moving(); animated = m.Square().shift(m.UP)
+         scene = m.Scene().add(leaf, animated)
+         probe = scene._record_field_probe(leaf, 'point', 0)
+         scene.play(animated.animate.shift(m.UP), run_time=.1, rate_func=m.linear)
+-        np.testing.assert_allclose(leaf.get_center(), [.1, 0, 0], atol=1e-6)
++        np.testing.assert_allclose(leaf.get_center(), [4/30, 0, 0], atol=1e-6)
+         np.testing.assert_allclose(animated.get_center(), [0, 2, 0], atol=1e-6)
+-        self.assertEqual(len(probe.values()), 4)  # three frames and final zero-dt
++        self.assertEqual(len(probe.values()), 5)  # four frames and final zero-dt
+ 
+     def test_wait_initial_zero_and_per_frame_slots_are_not_duplicated(self):
+         leaf = Moving(); scene = m.Scene().add(leaf)
+         probe = scene._record_field_probe(leaf, 'point', 0)
+         scene.wait(.1)
+-        self.assertEqual(len(probe.values()), 4)
+-        np.testing.assert_allclose(leaf.get_center(), [.1, 0, 0], atol=1e-6)
++        self.assertEqual(len(probe.values()), 5)
++        np.testing.assert_allclose(leaf.get_center(), [4/30, 0, 0], atol=1e-6)
+ 
+     def test_root_omitting_super_suppresses_default_native_work(self):
+         class Root(m.Group):
+@@ -58,7 +66,7 @@
+         probe = scene._record_field_probe(leaf, 'point', 0)
+         scene.wait(.1)
+         self.assertEqual(probe.values(), [])
+-        np.testing.assert_allclose(leaf.get_center(), [.1, 0, 0], atol=1e-6)
++        np.testing.assert_allclose(leaf.get_center(), [4/30, 0, 0], atol=1e-6)
+ 
+     def test_root_recursion_choice_and_dt_are_respected(self):
+         seen = []
+@@ -168,16 +176,16 @@
+             outputs.append((leaf.get_points().copy(), scene.time))
+         np.testing.assert_array_equal(outputs[0][0], outputs[1][0])
+         self.assertEqual(outputs[0][1], outputs[1][1])
+-        np.testing.assert_allclose(outputs[0][0].mean(axis=0)[0] - m.Square().get_points().mean(axis=0)[0], .1, atol=1e-6)
++        np.testing.assert_allclose(outputs[0][0].mean(axis=0)[0] - m.Square().get_points().mean(axis=0)[0], 4/30, atol=1e-6)
+ 
+     def test_camera_only_play_uses_the_same_complete_phase(self):
+         leaf = Moving(); scene = m.Scene().add(leaf)
+         before = scene.frame.get_center().copy()
+         probe = scene._record_field_probe(leaf, 'point', 0)
+         scene.play(scene.frame.animate.shift(m.UP), run_time=.1, rate_func=m.linear)
+-        np.testing.assert_allclose(leaf.get_center(), [.1,0,0], atol=1e-6)
++        np.testing.assert_allclose(leaf.get_center(), [4/30,0,0], atol=1e-6)
+         np.testing.assert_allclose(scene.frame.get_center(), before+m.UP, atol=1e-6)
+-        self.assertEqual(len(probe.values()), 5)  # wait prologue, 3 frames, play epilogue
++        self.assertEqual(len(probe.values()), 5)  # public camera play: 4 frames, final zero-dt
+ 
+     def test_stop_callback_can_install_an_override_for_the_next_frame(self):
+         leaf = m.Square(); scene = m.Scene().add(leaf); calls = []
+@@ -188,8 +196,50 @@
+             leaf.update = update
+             return False
+         scene.wait(.1, stop_condition=condition)
+-        np.testing.assert_allclose(calls, [1/30,1/30])
+-        np.testing.assert_allclose(leaf.get_center(), [2/30,0,0], atol=1e-6)
++        np.testing.assert_allclose(calls, [1/30,1/30,1/30])
++        np.testing.assert_allclose(leaf.get_center(), [3/30,0,0], atol=1e-6)
++
++    def test_binary_duration_edges_preserve_stock_clock_and_exact_phase_counts(self):
++        self.assertEqual(frame_count(.1), 4)
++        self.assertEqual(frame_count(math.nextafter(.1, 0.)), 3)
++        self.assertEqual(frame_count(.125), 4)
++        for duration in (.1, math.nextafter(.1, 0.), .125, 1/30):
++            n = frame_count(duration)
++            for mode in ('wait', 'play', 'camera'):
++                expected_dt = ([0.] if mode == 'wait' else []) + [1/30] * n
++                if mode != 'wait':
++                    expected_dt.append(0.)
++                outcomes = []
++                for authored in (False, True):
++                    with self.subTest(duration=duration, mode=mode, authored=authored):
++                        seen = []
++                        class Leaf(m.Square):
++                            def update(self, dt):
++                                seen.append(dt)
++                                self.shift(dt * m.RIGHT)
++                                return super().update(dt)
++                        leaf = Leaf() if authored else m.Square()
++                        if not authored:
++                            def update(obj, dt):
++                                seen.append(dt)
++                                obj.shift(dt * m.RIGHT)
++                            leaf.add_updater(update, call=False)
++                        scene = m.Scene().add(leaf)
++                        if mode == 'wait':
++                            scene.wait(duration)
++                        elif mode == 'camera':
++                            scene.play(scene.frame.animate.shift(m.UP), run_time=duration,
++                                       rate_func=m.linear)
++                        else:
++                            animated = m.Square().shift(m.UP)
++                            scene.add(animated)
++                            scene.play(animated.animate.shift(m.UP), run_time=duration,
++                                       rate_func=m.linear)
++                        outcomes.append(leaf.get_points().copy())
++                        self.assertEqual(seen, expected_dt)
++                        self.assertEqual(scene.time, n/30)
++                        np.testing.assert_allclose(leaf.get_center(), [n/30,0,0], atol=1e-6)
++                np.testing.assert_array_equal(outcomes[0], outcomes[1])
+ 
+     def test_failed_play_releases_animation_state_for_reuse(self):
+         error = LookupError('observer failed during play')

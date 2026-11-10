@@ -1,0 +1,210 @@
+# fmn hardware-topology snapshot v1
+logical_cores	128
+physical_cores	64
+packages	1
+smt	true
+simd_tier	x86-64-v3
+memory_bytes	536069890048
+cpu	0	package	0	core	0	class	P	capacity	1024	max_freq_khz	4575164
+cpu	1	package	0	core	1	class	P	capacity	1024	max_freq_khz	4575164
+cpu	2	package	0	core	2	class	P	capacity	1024	max_freq_khz	4575164
+cpu	3	package	0	core	3	class	P	capacity	1024	max_freq_khz	4575164
+cpu	4	package	0	core	4	class	P	capacity	1024	max_freq_khz	4575164
+cpu	5	package	0	core	5	class	P	capacity	1024	max_freq_khz	4575164
+cpu	6	package	0	core	6	class	P	capacity	1024	max_freq_khz	4575164
+cpu	7	package	0	core	7	class	P	capacity	1024	max_freq_khz	4575164
+cpu	8	package	0	core	8	class	P	capacity	1024	max_freq_khz	4575164
+cpu	9	package	0	core	9	class	P	capacity	1024	max_freq_khz	4575164
+cpu	10	package	0	core	10	class	P	capacity	1024	max_freq_khz	4575164
+cpu	11	package	0	core	11	class	P	capacity	1024	max_freq_khz	4575164
+cpu	12	package	0	core	12	class	P	capacity	1024	max_freq_khz	4575164
+cpu	13	package	0	core	13	class	P	capacity	1024	max_freq_khz	4575164
+cpu	14	package	0	core	14	class	P	capacity	1024	max_freq_khz	4575164
+cpu	15	package	0	core	15	class	P	capacity	1024	max_freq_khz	4575164
+cpu	16	package	0	core	16	class	P	capacity	1024	max_freq_khz	4575164
+cpu	17	package	0	core	17	class	P	capacity	1024	max_freq_khz	4575164
+cpu	18	package	0	core	18	class	P	capacity	1024	max_freq_khz	4575164
+cpu	19	package	0	core	19	class	P	capacity	1024	max_freq_khz	4575164
+cpu	20	package	0	core	20	class	P	capacity	1024	max_freq_khz	4575164
+cpu	21	package	0	core	21	class	P	capacity	1024	max_freq_khz	4575164
+cpu	22	package	0	core	22	class	P	capacity	1024	max_freq_khz	4575164
+cpu	23	package	0	core	23	class	P	capacity	1024	max_freq_khz	4575164
+cpu	24	package	0	core	24	class	P	capacity	1024	max_freq_khz	4575164
+cpu	25	package	0	core	25	class	P	capacity	1024	max_freq_khz	4575164
+cpu	26	package	0	core	26	class	P	capacity	1024	max_freq_khz	4575164
+cpu	27	package	0	core	27	class	P	capacity	1024	max_freq_khz	4575164
+cpu	28	package	0	core	28	class	P	capacity	1024	max_freq_khz	4575164
+cpu	29	package	0	core	29	class	P	capacity	1024	max_freq_khz	4575164
+cpu	30	package	0	core	30	class	P	capacity	1024	max_freq_khz	4575164
+cpu	31	package	0	core	31	class	P	capacity	1024	max_freq_khz	4575164
+cpu	32	package	0	core	32	class	P	capacity	1024	max_freq_khz	4575164
+cpu	33	package	0	core	33	class	P	capacity	1024	max_freq_khz	4575164
+cpu	34	package	0	core	34	class	P	capacity	1024	max_freq_khz	4575164
+cpu	35	package	0	core	35	class	P	capacity	1024	max_freq_khz	4575164
+cpu	36	package	0	core	36	class	P	capacity	1024	max_freq_khz	4575164
+cpu	37	package	0	core	37	class	P	capacity	1024	max_freq_khz	4575164
+cpu	38	package	0	core	38	class	P	capacity	1024	max_freq_khz	4575164
+cpu	39	package	0	core	39	class	P	capacity	1024	max_freq_khz	4575164
+cpu	40	package	0	core	40	class	P	capacity	1024	max_freq_khz	4575164
+cpu	41	package	0	core	41	class	P	capacity	1024	max_freq_khz	4575164
+cpu	42	package	0	core	42	class	P	capacity	1024	max_freq_khz	4575164
+cpu	43	package	0	core	43	class	P	capacity	1024	max_freq_khz	4575164
+cpu	44	package	0	core	44	class	P	capacity	1024	max_freq_khz	4575164
+cpu	45	package	0	core	45	class	P	capacity	1024	max_freq_khz	4575164
+cpu	46	package	0	core	46	class	P	capacity	1024	max_freq_khz	4575164
+cpu	47	package	0	core	47	class	P	capacity	1024	max_freq_khz	4575164
+cpu	48	package	0	core	48	class	P	capacity	1024	max_freq_khz	4575164
+cpu	49	package	0	core	49	class	P	capacity	1024	max_freq_khz	4575164
+cpu	50	package	0	core	50	class	P	capacity	1024	max_freq_khz	4575164
+cpu	51	package	0	core	51	class	P	capacity	1024	max_freq_khz	4575164
+cpu	52	package	0	core	52	class	P	capacity	1024	max_freq_khz	4575164
+cpu	53	package	0	core	53	class	P	capacity	1024	max_freq_khz	4575164
+cpu	54	package	0	core	54	class	P	capacity	1024	max_freq_khz	4575164
+cpu	55	package	0	core	55	class	P	capacity	1024	max_freq_khz	4575164
+cpu	56	package	0	core	56	class	P	capacity	1024	max_freq_khz	4575164
+cpu	57	package	0	core	57	class	P	capacity	1024	max_freq_khz	4575164
+cpu	58	package	0	core	58	class	P	capacity	1024	max_freq_khz	4575164
+cpu	59	package	0	core	59	class	P	capacity	1024	max_freq_khz	4575164
+cpu	60	package	0	core	60	class	P	capacity	1024	max_freq_khz	4575164
+cpu	61	package	0	core	61	class	P	capacity	1024	max_freq_khz	4575164
+cpu	62	package	0	core	62	class	P	capacity	1024	max_freq_khz	4575164
+cpu	63	package	0	core	63	class	P	capacity	1024	max_freq_khz	4575164
+cpu	64	package	0	core	0	class	P	capacity	1024	max_freq_khz	4575164
+cpu	65	package	0	core	1	class	P	capacity	1024	max_freq_khz	4575164
+cpu	66	package	0	core	2	class	P	capacity	1024	max_freq_khz	4575164
+cpu	67	package	0	core	3	class	P	capacity	1024	max_freq_khz	4575164
+cpu	68	package	0	core	4	class	P	capacity	1024	max_freq_khz	4575164
+cpu	69	package	0	core	5	class	P	capacity	1024	max_freq_khz	4575164
+cpu	70	package	0	core	6	class	P	capacity	1024	max_freq_khz	4575164
+cpu	71	package	0	core	7	class	P	capacity	1024	max_freq_khz	4575164
+cpu	72	package	0	core	8	class	P	capacity	1024	max_freq_khz	4575164
+cpu	73	package	0	core	9	class	P	capacity	1024	max_freq_khz	4575164
+cpu	74	package	0	core	10	class	P	capacity	1024	max_freq_khz	4575164
+cpu	75	package	0	core	11	class	P	capacity	1024	max_freq_khz	4575164
+cpu	76	package	0	core	12	class	P	capacity	1024	max_freq_khz	4575164
+cpu	77	package	0	core	13	class	P	capacity	1024	max_freq_khz	4575164
+cpu	78	package	0	core	14	class	P	capacity	1024	max_freq_khz	4575164
+cpu	79	package	0	core	15	class	P	capacity	1024	max_freq_khz	4575164
+cpu	80	package	0	core	16	class	P	capacity	1024	max_freq_khz	4575164
+cpu	81	package	0	core	17	class	P	capacity	1024	max_freq_khz	4575164
+cpu	82	package	0	core	18	class	P	capacity	1024	max_freq_khz	4575164
+cpu	83	package	0	core	19	class	P	capacity	1024	max_freq_khz	4575164
+cpu	84	package	0	core	20	class	P	capacity	1024	max_freq_khz	4575164
+cpu	85	package	0	core	21	class	P	capacity	1024	max_freq_khz	4575164
+cpu	86	package	0	core	22	class	P	capacity	1024	max_freq_khz	4575164
+cpu	87	package	0	core	23	class	P	capacity	1024	max_freq_khz	4575164
+cpu	88	package	0	core	24	class	P	capacity	1024	max_freq_khz	4575164
+cpu	89	package	0	core	25	class	P	capacity	1024	max_freq_khz	4575164
+cpu	90	package	0	core	26	class	P	capacity	1024	max_freq_khz	4575164
+cpu	91	package	0	core	27	class	P	capacity	1024	max_freq_khz	4575164
+cpu	92	package	0	core	28	class	P	capacity	1024	max_freq_khz	4575164
+cpu	93	package	0	core	29	class	P	capacity	1024	max_freq_khz	4575164
+cpu	94	package	0	core	30	class	P	capacity	1024	max_freq_khz	4575164
+cpu	95	package	0	core	31	class	P	capacity	1024	max_freq_khz	4575164
+cpu	96	package	0	core	32	class	P	capacity	1024	max_freq_khz	4575164
+cpu	97	package	0	core	33	class	P	capacity	1024	max_freq_khz	4575164
+cpu	98	package	0	core	34	class	P	capacity	1024	max_freq_khz	4575164
+cpu	99	package	0	core	35	class	P	capacity	1024	max_freq_khz	4575164
+cpu	100	package	0	core	36	class	P	capacity	1024	max_freq_khz	4575164
+cpu	101	package	0	core	37	class	P	capacity	1024	max_freq_khz	4575164
+cpu	102	package	0	core	38	class	P	capacity	1024	max_freq_khz	4575164
+cpu	103	package	0	core	39	class	P	capacity	1024	max_freq_khz	4575164
+cpu	104	package	0	core	40	class	P	capacity	1024	max_freq_khz	4575164
+cpu	105	package	0	core	41	class	P	capacity	1024	max_freq_khz	4575164
+cpu	106	package	0	core	42	class	P	capacity	1024	max_freq_khz	4575164
+cpu	107	package	0	core	43	class	P	capacity	1024	max_freq_khz	4575164
+cpu	108	package	0	core	44	class	P	capacity	1024	max_freq_khz	4575164
+cpu	109	package	0	core	45	class	P	capacity	1024	max_freq_khz	4575164
+cpu	110	package	0	core	46	class	P	capacity	1024	max_freq_khz	4575164
+cpu	111	package	0	core	47	class	P	capacity	1024	max_freq_khz	4575164
+cpu	112	package	0	core	48	class	P	capacity	1024	max_freq_khz	4575164
+cpu	113	package	0	core	49	class	P	capacity	1024	max_freq_khz	4575164
+cpu	114	package	0	core	50	class	P	capacity	1024	max_freq_khz	4575164
+cpu	115	package	0	core	51	class	P	capacity	1024	max_freq_khz	4575164
+cpu	116	package	0	core	52	class	P	capacity	1024	max_freq_khz	4575164
+cpu	117	package	0	core	53	class	P	capacity	1024	max_freq_khz	4575164
+cpu	118	package	0	core	54	class	P	capacity	1024	max_freq_khz	4575164
+cpu	119	package	0	core	55	class	P	capacity	1024	max_freq_khz	4575164
+cpu	120	package	0	core	56	class	P	capacity	1024	max_freq_khz	4575164
+cpu	121	package	0	core	57	class	P	capacity	1024	max_freq_khz	4575164
+cpu	122	package	0	core	58	class	P	capacity	1024	max_freq_khz	4575164
+cpu	123	package	0	core	59	class	P	capacity	1024	max_freq_khz	4575164
+cpu	124	package	0	core	60	class	P	capacity	1024	max_freq_khz	4575164
+cpu	125	package	0	core	61	class	P	capacity	1024	max_freq_khz	4575164
+cpu	126	package	0	core	62	class	P	capacity	1024	max_freq_khz	4575164
+cpu	127	package	0	core	63	class	P	capacity	1024	max_freq_khz	4575164
+l2	size	524288	cpus	0,64
+l2	size	524288	cpus	1,65
+l2	size	524288	cpus	2,66
+l2	size	524288	cpus	3,67
+l2	size	524288	cpus	4,68
+l2	size	524288	cpus	5,69
+l2	size	524288	cpus	6,70
+l2	size	524288	cpus	7,71
+l2	size	524288	cpus	8,72
+l2	size	524288	cpus	9,73
+l2	size	524288	cpus	10,74
+l2	size	524288	cpus	11,75
+l2	size	524288	cpus	12,76
+l2	size	524288	cpus	13,77
+l2	size	524288	cpus	14,78
+l2	size	524288	cpus	15,79
+l2	size	524288	cpus	16,80
+l2	size	524288	cpus	17,81
+l2	size	524288	cpus	18,82
+l2	size	524288	cpus	19,83
+l2	size	524288	cpus	20,84
+l2	size	524288	cpus	21,85
+l2	size	524288	cpus	22,86
+l2	size	524288	cpus	23,87
+l2	size	524288	cpus	24,88
+l2	size	524288	cpus	25,89
+l2	size	524288	cpus	26,90
+l2	size	524288	cpus	27,91
+l2	size	524288	cpus	28,92
+l2	size	524288	cpus	29,93
+l2	size	524288	cpus	30,94
+l2	size	524288	cpus	31,95
+l2	size	524288	cpus	32,96
+l2	size	524288	cpus	33,97
+l2	size	524288	cpus	34,98
+l2	size	524288	cpus	35,99
+l2	size	524288	cpus	36,100
+l2	size	524288	cpus	37,101
+l2	size	524288	cpus	38,102
+l2	size	524288	cpus	39,103
+l2	size	524288	cpus	40,104
+l2	size	524288	cpus	41,105
+l2	size	524288	cpus	42,106
+l2	size	524288	cpus	43,107
+l2	size	524288	cpus	44,108
+l2	size	524288	cpus	45,109
+l2	size	524288	cpus	46,110
+l2	size	524288	cpus	47,111
+l2	size	524288	cpus	48,112
+l2	size	524288	cpus	49,113
+l2	size	524288	cpus	50,114
+l2	size	524288	cpus	51,115
+l2	size	524288	cpus	52,116
+l2	size	524288	cpus	53,117
+l2	size	524288	cpus	54,118
+l2	size	524288	cpus	55,119
+l2	size	524288	cpus	56,120
+l2	size	524288	cpus	57,121
+l2	size	524288	cpus	58,122
+l2	size	524288	cpus	59,123
+l2	size	524288	cpus	60,124
+l2	size	524288	cpus	61,125
+l2	size	524288	cpus	62,126
+l2	size	524288	cpus	63,127
+l3	size	33554432	cpus	0-7,64-71
+l3	size	33554432	cpus	8-15,72-79
+l3	size	33554432	cpus	16-23,80-87
+l3	size	33554432	cpus	24-31,88-95
+l3	size	33554432	cpus	32-39,96-103
+l3	size	33554432	cpus	40-47,104-111
+l3	size	33554432	cpus	48-55,112-119
+l3	size	33554432	cpus	56-63,120-127
+numa	0	cpus	0-127
+group	0	cpus	0-63
+group	1	cpus	64-127

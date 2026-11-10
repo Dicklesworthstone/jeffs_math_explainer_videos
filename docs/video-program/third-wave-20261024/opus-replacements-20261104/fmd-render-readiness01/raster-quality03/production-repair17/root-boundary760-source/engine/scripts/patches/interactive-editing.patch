@@ -1,0 +1,223 @@
+diff --git a/crates/fmn-python/python/fmn_python/interaction.py b/crates/fmn-python/python/fmn_python/interaction.py
+index cc042b3..7411f9c 100644
+--- a/crates/fmn-python/python/fmn_python/interaction.py
++++ b/crates/fmn-python/python/fmn_python/interaction.py
+@@ -16,6 +16,52 @@ import weakref
+ 
+ 
+ _INPUT = ContextVar("fmn_scene_input", default=None)
++_LIVE_EVENT = ContextVar("fmn_live_event", default=None)
++
++
++def dispatch_live_input(scene, method, arguments, modifiers):
++    """Deliver one admitted native event without changing Reference signatures.
++
++    Motion and scroll methods do not take modifier bits in manimlib. Keep the
++    wire's authoritative snapshot in a scoped context rather than guessing from
++    modifier-key presses (browsers do not always deliver those). Nested delivery
++    and exceptions restore the previous context; no state crosses scenes.
++    """
++    if method not in {"on_mouse_motion", "on_mouse_drag", "on_mouse_press",
++                      "on_mouse_release", "on_mouse_scroll", "on_key_press",
++                      "on_key_release"}:
++        raise ValueError("unsupported live Scene input method")
++    if type(modifiers) is not int or modifiers < 0 or modifiers & ~0x47:
++        raise ValueError("invalid live input modifier bits")
++    token = _LIVE_EVENT.set((scene, modifiers))
++    try:
++        return getattr(scene, method)(*arguments)
++    finally:
++        _LIVE_EVENT.reset(token)
++
++
++def input_modifiers(scene):
++    """Current scene modifier snapshot, with a real host window taking precedence."""
++    window = scene.get_window()
++    if window is not None:
++        return sum(bit for bit, keys in ((1, (0xffe1, 0xffe2)),
++                   (2, (0xffe3, 0xffe4)), (4, (0xffe9, 0xffea)),
++                   (64, (0xffeb, 0xffec)))
++                   if any(window.is_key_pressed(key) for key in keys))
++    live = _LIVE_EVENT.get()
++    if live is not None and live[0] is scene:
++        return live[1]
++    entry = scene.__dict__.get("_fmn_input_state")
++    return getattr(entry[1], "modifiers", 0) if entry is not None else 0
++
++
++def input_key_pressed(scene, symbol):
++    """Use existing window or scene-scoped dispatcher state, never global keys."""
++    window = scene.get_window()
++    if window is not None:
++        return bool(window.is_key_pressed(symbol))
++    entry = scene.__dict__.get("_fmn_input_state")
++    return entry is not None and symbol in entry[1].pressed_keys
+ 
+ 
+ def _method(cls, name, function):
+@@ -35,7 +81,7 @@ def _state(dispatcher):
+         state = SimpleNamespace(
+             mouse_point=dispatcher.mouse_point.copy(),
+             mouse_drag_point=dispatcher.mouse_drag_point.copy(),
+-            pressed_keys=set(), draggable_object_listners=[],
++            pressed_keys=set(), draggable_object_listners=[], modifiers=0,
+         )
+         scene.__dict__["_fmn_input_state"] = (weakref.ref(dispatcher), state)
+         return state
+@@ -88,6 +134,11 @@ def _install_dispatcher(g):
+         if not isinstance(event_type, Event):
+             raise TypeError("dispatch requires an EventType")
+         state = _state(self)
++        live = _LIVE_EVENT.get()
++        if live is not None and live[0] is _INPUT.get().scene:
++            state.modifiers = live[1]
++        elif "modifiers" in event_data or "mods" in event_data:
++            state.modifiers = int(event_data.get("modifiers", event_data.get("mods", 0)))
+         mouse = event_type.value.startswith("mouse")
+         if mouse:
+             point = np.asarray(event_data["point"], dtype=float)
+@@ -216,9 +267,10 @@ def _install_scene_input(g):
+                 point = g["_np"].asarray(data["point"], dtype=float)
+                 if point.shape != (3,) or not g["_np"].isfinite(point).all():
+                     raise ValueError("mouse input requires a finite 3D point")
+-                if event_type == Event.MouseMotionEvent:
+-                    self.mouse_point.move_to(point)
+-                elif event_type in (Event.MouseDragEvent, Event.MousePressEvent):
++                # A press/scroll may be the first event after focus. Both the
++                # Scene cursor and dispatcher must use that event's point.
++                self.mouse_point.move_to(point)
++                if event_type in (Event.MouseDragEvent, Event.MousePressEvent):
+                     self.mouse_drag_point.move_to(point)
+             context = SimpleNamespace(scene=self, event_type=event_type,
+                                       phase="dispatch", owner=cls)
+diff --git a/crates/fmn-python/python/manimlib/__init__.py b/crates/fmn-python/python/manimlib/__init__.py
+index 5c73613..003e4d2 100644
+--- a/crates/fmn-python/python/manimlib/__init__.py
++++ b/crates/fmn-python/python/manimlib/__init__.py
+@@ -26,6 +26,7 @@ from fmn_python.scene_state import install_scene_state as _install_scene_state
+ from fmn_python.streamline_animation import install_streamline_animation as _install_streamline_animation
+ from fmn_python.traced_path import install_traced_path as _install_traced_path
+ from fmn_python.interaction import install_interaction as _install_interaction
++from fmn_python.interactive_editing import install_interactive_editing as _install_interactive_editing
+ from fmn_python.control_events import install_control_events as _install_control_events
+ from fmn_python.color_sliders import install_color_sliders as _install_color_sliders
+ from fmn_python.scene_execution import install_scene_execution as _install_scene_execution
+@@ -46,6 +47,7 @@ _install_scene_playback(_native)
+ _install_scene_state(_native)
+ _install_streamline_animation(_native)
+ _install_traced_path(_native)
++_install_interactive_editing(_native)
+ _install_interaction(_native)
+ _install_control_events(_native)
+ _install_color_sliders(_native)
+@@ -53,6 +55,7 @@ _install_scene_execution(_native)
+ del _install_scene_rendering, _install_fading, _install_scene_playback, _install_scene_state
+ del _install_streamline_animation, _install_traced_path
+ del _install_interaction, _install_control_events, _install_color_sliders
++del _install_interactive_editing
+ del _install_scene_execution
+ 
+ 
+diff --git a/crates/fmn-python/src/portal_studio/live.rs b/crates/fmn-python/src/portal_studio/live.rs
+index 6357821..08ff124 100644
+--- a/crates/fmn-python/src/portal_studio/live.rs
++++ b/crates/fmn-python/src/portal_studio/live.rs
+@@ -318,35 +318,41 @@ fn dispatch(scene: &Bound<'_, PyScene>, event: EventPayload) -> PyResult<()> {
+     let core: Bound<'_, PyCameraFrameCore> = frame.getattr("_core")?.cast_into()?;
+     let camera = core.borrow().frame.clone();
+     let np = scene.py().import("numpy")?;
++    let deliver = scene
++        .py()
++        .import("fmn_python.interaction")?
++        .getattr("dispatch_live_input")?;
+     let point = |p: [f64; 3], relative| {
+         let p = camera.from_fixed_frame_point([p[0], -p[1], p[2]], relative);
+         np.call_method1("array", (p,))
+     };
+     match event {
+         EventPayload::MouseMotion {
+-            point: p, delta, ..
++            point: p, delta, modifiers: m,
+         } => {
+-            scene.call_method1("on_mouse_motion", (point(p, false)?, point(delta, true)?))?;
++            deliver.call1((scene, "on_mouse_motion", (point(p, false)?, point(delta, true)?), modifiers(m)))?;
+         }
+         EventPayload::MousePress {
+             point: p,
+             button: b,
+             modifiers: m,
+         } => {
+-            scene.call_method1(
++            deliver.call1((scene,
+                 "on_mouse_press",
+                 (point(p, false)?, button(b), modifiers(m)),
+-            )?;
++                modifiers(m),
++            ))?;
+         }
+         EventPayload::MouseRelease {
+             point: p,
+             button: b,
+             modifiers: m,
+         } => {
+-            scene.call_method1(
++            deliver.call1((scene,
+                 "on_mouse_release",
+                 (point(p, false)?, button(b), modifiers(m)),
+-            )?;
++                modifiers(m),
++            ))?;
+         }
+         EventPayload::MouseDrag {
+             point: p,
+@@ -354,7 +360,7 @@ fn dispatch(scene: &Bound<'_, PyScene>, event: EventPayload) -> PyResult<()> {
+             button: b,
+             modifiers: m,
+         } => {
+-            scene.call_method1(
++            deliver.call1((scene,
+                 "on_mouse_drag",
+                 (
+                     point(p, false)?,
+@@ -362,10 +368,11 @@ fn dispatch(scene: &Bound<'_, PyScene>, event: EventPayload) -> PyResult<()> {
+                     button(b),
+                     modifiers(m),
+                 ),
+-            )?;
++                modifiers(m),
++            ))?;
+         }
+         EventPayload::MouseScroll {
+-            point: p, offset, ..
++            point: p, offset, modifiers: m,
+         } => {
+             // Wheel units are pixels on the browser wire. Existing Scene zoom
+             // expects an up-positive y pixel offset and a scene-space vector.
+@@ -381,22 +388,23 @@ fn dispatch(scene: &Bound<'_, PyScene>, event: EventPayload) -> PyResult<()> {
+                 "array",
+                 ([offset[0] * pixel_size, -offset[1] * pixel_size, 0.0],),
+             )?;
+-            scene.call_method1(
++            deliver.call1((scene,
+                 "on_mouse_scroll",
+                 (point(p, false)?, vector, offset[0], -offset[1]),
+-            )?;
++                modifiers(m),
++            ))?;
+         }
+         EventPayload::KeyPress {
+             key: k,
+             modifiers: m,
+         } => {
+-            scene.call_method1("on_key_press", (key(k), modifiers(m)))?;
++            deliver.call1((scene, "on_key_press", (key(k), modifiers(m)), modifiers(m)))?;
+         }
+         EventPayload::KeyRelease {
+             key: k,
+             modifiers: m,
+         } => {
+-            scene.call_method1("on_key_release", (key(k), modifiers(m)))?;
++            deliver.call1((scene, "on_key_release", (key(k), modifiers(m)), modifiers(m)))?;
+         }
+     }
+     Ok(())

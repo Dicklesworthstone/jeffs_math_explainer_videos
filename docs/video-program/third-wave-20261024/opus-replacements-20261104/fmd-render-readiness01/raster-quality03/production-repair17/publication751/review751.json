@@ -1,0 +1,19 @@
+{
+  "time": "2026-11-10T01:54:47.232416+00:00",
+  "basis": "cc3-complex-publication-check750.md",
+  "basis_sha256": "fb7366ed7078117439fa854a6f44517cc80b975c0d41f70e3bd3b044533c5992",
+  "change": "C1: name subdivision of squares and triangles accurately; all 15 times unchanged",
+  "before": "by shrinking squares and cancelling edges",
+  "after": "by cutting them into smaller and smaller copies and cancelling shared edges",
+  "files": {
+    "title.txt": "48a242e3e4209b446850be61f1868d8f6280881d00d34d2bc387e529c0edc920",
+    "description.txt": "c78723f3dffe6476cf68afa56edb1b4d0cae372f44fc7d9596bd607a87f2fd0b",
+    "tags.txt": "40e49939e363bb750de3884b2c8b0ed3664303887829417622e5ac79d52594a8"
+  },
+  "thumbnail": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/publication19-thumbnail208/thumbnail.png",
+  "thumbnail_sha256": "e5dfc2bd04aa3af148ee66ca8107594acf3015a237f5f36a08f1c3c72c4c2eab",
+  "master_verified": false,
+  "uploaded": false,
+  "listening_accepted": false,
+  "independent_final_av_accepted": false
+}

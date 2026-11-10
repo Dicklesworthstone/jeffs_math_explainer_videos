@@ -1,0 +1,133 @@
+name: Mixed-camera Wasm player
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/mixed-camera-wasm.yml']
+  workflow_dispatch:
+# Candidate validation writes immutable blobs, never commits or refs.
+permissions:
+  contents: write
+jobs:
+  player:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TARGET_DIR: target/portable
+      CARGO_BUILD_JOBS: '2'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Prepare reviewed player and shared camera-capability query
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64,gzip,hashlib,json,os,subprocess,urllib.request
+          def blob(data):
+              return hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()
+          def fetch(sha):
+              request=urllib.request.Request(
+                  f'https://api.github.com/repos/{os.environ["GITHUB_REPOSITORY"]}/git/blobs/{sha}',
+                  headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'},
+              )
+              with urllib.request.urlopen(request,timeout=60) as response:
+                  data=base64.b64decode(json.load(response)['content'])
+              assert blob(data)==sha
+              return data
+          player=Path('crates/fmn-wasm/src/player.rs')
+          assert blob(player.read_bytes())=='e254ca1cd22cdee51d5286e3cddb18fcb9f968d4'
+          assert not Path('crates/fmn-wasm/src/player/camera.rs').exists()
+          packed=b''.join(fetch(sha) for sha in [
+              'b166eea7ef46cefce51836a94049d41e08cac3c9',
+              '10136ce4ec82394cd5488a66c9c21a382b7d6ed6',
+              '54da7252ddab1a505ba2a5008ad2151e93ed8f66',
+          ])
+          patch=gzip.decompress(packed)
+          assert hashlib.sha256(patch).hexdigest()=='731e882f0ac44b5bb680f24bf32cf11f18402856da5a031710f195abdfb3742a'
+          subprocess.run(['git','apply','--check','-'],input=patch,check=True)
+          subprocess.run(['git','apply','-'],input=patch,check=True)
+          assert blob(player.read_bytes())=='4d4359a6de7dace4686faeade2cd2c59a8d8dbba'
+          assert blob(Path('crates/fmn-wasm/src/player/camera.rs').read_bytes())=='61554dcab53dccba2aafe56a4a607c8169c3001e'
+          timeline=Path('crates/fmn-scene/src/timeline_bundle.rs')
+          assert blob(timeline.read_bytes())=='e2d6d8e36b8971fd20ae4d2fdf5cd3a95eaa4940'
+          anchor='    /// Reconstruct a 0-based frame as an independent Stage.\n'
+          text=timeline.read_text()
+          assert text.count(anchor)==1
+          addition=fetch('dfb1f51cd445e468d84485928062909f1932366d').decode()
+          timeline.write_text(text.replace(anchor,addition+anchor))
+          assert blob(timeline.read_bytes())=='54568633e0ba63ff3af9408cec79dda0875e04d6'
+          PY
+      - name: Pinned compiler and candidate formatting
+        run: |
+          rustup show active-toolchain
+          rustfmt --edition 2024 --config skip_children=true crates/fmn-wasm/src/player.rs crates/fmn-wasm/src/player/camera.rs crates/fmn-scene/src/timeline_bundle.rs
+          rustup target add wasm32-unknown-unknown
+      - uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        id: cache
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: cargo-${{ runner.os }}-${{ runner.arch }}-portable-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}-${{ github.sha }}-wasm-camera
+          restore-keys: |
+            cargo-${{ runner.os }}-${{ runner.arch }}-portable-
+      - name: Native camera pixel oracle and browser-player input boundaries
+        run: cargo test --locked -p fmn-wasm --lib player::camera
+      - name: Existing host player, allocation, malformed input and scrub regressions
+        if: ${{ !cancelled() }}
+        run: cargo test --locked -p fmn-wasm --lib
+      - name: Build the actual single-threaded browser target
+        if: ${{ !cancelled() }}
+        run: cargo build --locked -p fmn-wasm --target wasm32-unknown-unknown --release
+      - name: Preserve exact compiler-formatted sources without changing refs
+        if: ${{ !cancelled() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VALIDATION_STATUS: ${{ job.status }}
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64,hashlib,json,os,subprocess,urllib.request
+          paths=['crates/fmn-wasm/src/player.rs','crates/fmn-wasm/src/player/camera.rs','crates/fmn-scene/src/timeline_bundle.rs']
+          changed=set(subprocess.check_output(['git','diff','--name-only']).decode().splitlines())
+          assert changed<=set(paths),changed
+          result={'base_commit':os.environ['GITHUB_SHA'],'validation_status':os.environ['VALIDATION_STATUS'],'files':[]}
+          for path in paths:
+              data=Path(path).read_bytes()
+              sha=hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()
+              request=urllib.request.Request(
+                  f'https://api.github.com/repos/{os.environ["GITHUB_REPOSITORY"]}/git/blobs',method='POST',
+                  data=json.dumps({'content':base64.b64encode(data).decode(),'encoding':'base64'}).encode(),
+                  headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Content-Type':'application/json'},
+              )
+              with urllib.request.urlopen(request,timeout=60) as response:
+                  assert json.load(response)['sha']==sha
+              result['files'].append({'path':path,'sha':sha})
+          Path(os.environ['RUNNER_TEMP'],'wasm-camera-candidate.json').write_text(json.dumps(result,indent=2))
+          print(json.dumps(result,indent=2))
+          PY
+      - name: Archive exact candidate sources
+        if: always()
+        run: tar -czf "$RUNNER_TEMP/wasm-camera-candidate.tar.gz" crates/fmn-wasm/src/player.rs crates/fmn-wasm/src/player/camera.rs crates/fmn-scene/src/timeline_bundle.rs
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: wasm-camera-candidate-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/wasm-camera-candidate.tar.gz
+            ${{ runner.temp }}/wasm-camera-candidate.json
+          retention-days: 1
+          if-no-files-found: error
+      - uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        if: ${{ !cancelled() && steps.cache.outputs.cache-hit != 'true' }}
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/portable
+          key: ${{ steps.cache.outputs.cache-primary-key }}

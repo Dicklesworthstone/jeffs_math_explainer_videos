@@ -1,0 +1,79 @@
+name: Complex decimal authoring
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/complex-decimal-authoring.yml'
+      - 'crates/fmn-python/python/fmn_python/decimal_authoring.py'
+      - 'crates/fmn-python/tests/decimal_authoring.py'
+      - 'crates/fmn-python/python/fmn_python/matrix.py'
+      - 'crates/fmn-python/tests/complex_matrix.py'
+      - 'crates/fmn-python/tests/complex_readouts_render.py'
+      - 'crates/fmn-python/src/complex_readouts.rs'
+      - 'crates/fmn-python/src/lib.rs'
+      - 'crates/fmn-python/python/fmn_python/initialization.py'
+      - 'crates/fmn-python/python/fmn_python/text_authoring.py'
+      - 'crates/fmn-python/tests/portal_initialization.py'
+      - 'crates/fmn-conformance/tests/e2e_scenarios.rs'
+      - 'Cargo.lock'
+      - 'rust-toolchain.toml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: complex-decimal-authoring
+  cancel-in-progress: false
+jobs:
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      CARGO_TARGET_DIR: target/camera-runtime
+      CARGO_NET_GIT_FETCH_WITH_CLI: 'true'
+      CARGO_TERM_COLOR: never
+      PYO3_PYTHON: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38
+        with:
+          python-version: '3.13'
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/camera-runtime
+          key: camera-runtime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('Cargo.lock', 'rust-toolchain.toml', 'SUITE.lock') }}
+      - name: Build the current native wheel and run readout regressions
+        run: |
+          set -euo pipefail
+          git diff --check
+          rustup show active-toolchain
+          python -m pip install 'numpy==2.5.2' 'maturin==1.14.1'
+          python -m maturin build --locked --interpreter python --profile dev --out target/complex-decimal-wheel 2>&1 | tee /tmp/complex-decimal-build.log
+          python -m venv target/complex-decimal-venv
+          target/complex-decimal-venv/bin/python -m pip install 'numpy==2.5.2' target/complex-decimal-wheel/*.whl
+          for suite in portal_initialization decimal_authoring complex_matrix matrix_authoring live_tex live_tex_render complex_readouts_render; do
+            target/complex-decimal-venv/bin/python -I crates/fmn-python/tests/$suite.py 2>&1 | tee /tmp/complex-decimal-$suite.log
+          done
+      - name: Exercise the embedded native front door and registered Gauntlet scenario
+        run: |
+          set -euo pipefail
+          cargo test --locked -p fmn-python --lib complex_readouts::tests:: -- --nocapture 2>&1 | tee /tmp/complex-decimal-embedded.log
+          cargo test --locked -p fmn-conformance --test e2e_scenarios python_complex_readouts_scenario_passes -- --exact --nocapture 2>&1 | tee /tmp/complex-decimal-gauntlet.log
+      - name: Preserve exact source and validation evidence
+        if: always()
+        run: |
+          git rev-parse HEAD > /tmp/complex-decimal-source-sha.txt
+          git diff > /tmp/complex-decimal-working.patch
+          git archive --format=tar.gz HEAD > /tmp/complex-decimal-source.tar.gz
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: complex-decimal-${{ github.sha }}
+          path: |
+            /tmp/complex-decimal-*
+            target/complex-decimal-wheel/*.whl
+          retention-days: 3

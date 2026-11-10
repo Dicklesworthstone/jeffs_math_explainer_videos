@@ -1,0 +1,43 @@
+[package]
+name = "fmn"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "The first-class Rust API for FrankenManim"
+
+[dependencies]
+fmn-core.workspace = true
+fmn-config.workspace = true
+fmn-platform.workspace = true
+fmn-geom.workspace = true
+fmn-mobject.workspace = true
+fmn-anim.workspace = true
+fmn-text.workspace = true
+fmn-tex.workspace = true
+fmn-library.workspace = true
+fmn-scene.workspace = true
+fmn-render.workspace = true
+fmn-output.workspace = true
+fmn-frame.workspace = true
+fmn-codec.workspace = true
+fmn-runtime.workspace = true
+
+[dev-dependencies]
+# Tests inject the host process mechanism as an explicit FfmpegCapability.
+fmn-platform = { workspace = true, features = ["exact-process"] }
+
+[features]
+# The host ffmpeg capability for MP4/MOV output (D2: the one external tool).
+# Off by default so the native-codec facade keeps no process substrate;
+# callers may instead inject their own `FfmpegCapability`.
+ffmpeg = ["fmn-platform/exact-process", "fmn-output/exact-process"]
+
+# `cargo test` runs the explainer's own unit tests (its argument parser);
+# examples are otherwise only compiled, never tested.
+[[example]]
+name = "hoeffding_d"
+test = true
+
+[lints]
+workspace = true

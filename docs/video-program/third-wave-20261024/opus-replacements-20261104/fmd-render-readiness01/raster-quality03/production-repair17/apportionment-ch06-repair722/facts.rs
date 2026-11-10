@@ -20,6 +20,38 @@ const BY_PNAS: &str = "Balinski and Young, A New Method for Congressional Apport
 const GPP_T1: &str = "Goelz, Peters and Procaccia 2024, arXiv 2202.11061v2, Table 1";
 const GPP_P9: &str = "Goelz, Peters and Procaccia 2024, p. 9, on Balinski and Young 1982";
 const GPP_P1: &str = "Goelz, Peters and Procaccia 2024, v2 accepted by Operations Research, June 2024";
+const DESCRIPTION_NUMBERS: &str = include_str!("../docs/description_numbers.tsv");
+
+/// The census year in a table of description numbers: exactly one `year` row
+/// may name Seaton, and it must cite Young p. 13 and state that census.
+fn census_year_in(rows: &str) -> Result<&str, String> {
+    let mut seaton = rows.lines().filter(|l| !l.starts_with('#')).filter_map(|l| {
+        let cells: Vec<&str> = l.split('\t').collect();
+        match cells[..] {
+            [year, context, "year", reason] if reason.contains("Seaton") => Some((year, context, reason)),
+            _ => None,
+        }
+    });
+    let (Some((year, context, reason)), None) = (seaton.next(), seaton.next()) else {
+        return Err("description_numbers.tsv needs exactly one year row naming Seaton".into());
+    };
+    if !context.contains(year)
+        || !reason.contains("census PDF p. 13")
+        || !reason.contains(&format!("after the {year} census"))
+    {
+        return Err(format!("the Seaton year row does not state its census: {reason}"));
+    }
+    Ok(year)
+}
+
+/// The census Seaton worked from, which 06_4 puts on screen, as the
+/// description's sourced row gives it. It is not a `Facts` key: the oracle
+/// would have to print it too, and a printed fact of that value leaves the row
+/// "used by nothing" in `tools/description_numbers.py`, while the row is the
+/// year's evidence. `oracle.py` checks the same row on every run.
+pub fn seaton_census_year() -> Result<&'static str, String> {
+    census_year_in(DESCRIPTION_NUMBERS)
+}
 
 fn town_seats(f: &mut Facts, prefix: &str, seats: &[u64]) -> Result<(), String> {
     for (i, s) in seats.iter().enumerate() {
@@ -481,5 +513,20 @@ mod tests {
         ] {
             assert_eq!(f.get(key), Some(want), "{key}");
         }
+    }
+
+    /// The year on screen in 06_4 is the one sourced row's, and the year the
+    /// narration says; a missing, repeated or inconsistent row is refused.
+    #[test]
+    fn the_census_year_is_the_sourced_row() {
+        assert_eq!(seaton_census_year(), Ok("1880"));
+        assert!(crate::SCRIPT.contains("After the eighteen eighty census"));
+        let row = "1880\tAfter the 1880 census\tyear\t\
+                   Young, census PDF p. 13: Seaton's apportionments after the 1880 census";
+        assert_eq!(census_year_in(row), Ok("1880"));
+        assert!(census_year_in("# no row").is_err());
+        assert!(census_year_in(&format!("{row}\n{row}")).is_err());
+        assert!(census_year_in(&row.replacen("1880", "1890", 1)).is_err());
+        assert!(census_year_in(&row.replace("p. 13", "p. 14")).is_err());
     }
 }

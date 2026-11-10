@@ -1,0 +1,15 @@
+[package]
+name = "fmn-codec"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "PNG/JPEG/GIF/WAV codec primitives, including deterministic parallel DEFLATE (§14.2)."
+
+[dependencies]
+fmn-core.workspace = true
+fmn-frame.workspace = true
+fmn-hash.workspace = true
+
+[lints]
+workspace = true

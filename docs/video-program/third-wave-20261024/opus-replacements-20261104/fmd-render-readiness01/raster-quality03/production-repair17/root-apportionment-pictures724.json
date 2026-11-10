@@ -1,0 +1,46 @@
+{
+  "utc": "2026-11-10T00:45:48.044213+00:00",
+  "chapter": "09_cost",
+  "sampling_sha256": "7752cb46290248c8c21a9988bfb485ba58411838633f5097dc2b3881e312598f",
+  "movie": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-09_cost/render/09_cost.mp4",
+    "sha256": "360740684c3557cb5cc17cb636539b7d46d409c4bd7af4c7c589ec759283dddb"
+  },
+  "samples_viewed": 41,
+  "sheets_viewed": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-09_cost/09_cost/sheet-0001.jpg",
+      "sha256": "7e34949015a0e5cf293957b73ae16016258bc1971aacdf5ad65115102f92c492"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-09_cost/09_cost/sheet-0002.jpg",
+      "sha256": "7a9fe2649ff723573a782728717475b40eb70d41eb09bee993740288d6880876"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-09_cost/09_cost/sheet-0003.jpg",
+      "sha256": "13e65507499218d08ef6af3e2ac2bc21bfb9b788dcf97570a51e9ea558205771"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-09_cost/09_cost/sheet-0004.jpg",
+      "sha256": "2f46bb5e490bfc8cf2090e96604daaa82e48793f7ce7118ef299a24f080e184c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-09_cost/09_cost/sheet-0005.jpg",
+      "sha256": "da571cfefebb719019c5a8dabd17d45872c97c586e68ad87f22ad0a795ab5792"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-09_cost/09_cost/sheet-0006.jpg",
+      "sha256": "ea0068036440b18475532f3a03df76ecf452864ff38d7c30022c496c33579fe4"
+    }
+  ],
+  "observations": [
+    "All six sheets actually viewed, 41 selected pictures. Sheets1-2 in preceding review and3-6 now.",
+    "Quota bars and excess Cedar seat marker remain distinct; red markers intentionally indicate excess or dropped fraction.",
+    "Ash42.5 percent versus Cedar2.7 percent dropped labels readable, separated from bars.",
+    "1830 New York example and final Hamilton/Jefferson tradeoff table readable; no concrete clipping or unintended overlap found in selected stills."
+  ],
+  "limitations": [
+    "Selected stills only; no continuous motion, listening, fine-sync or independent final AV acceptance.",
+    "Separate chapter06 repair and failed master caption168 still hold publication."
+  ]
+}
