@@ -1,7 +1,19 @@
 //! Native exponential video draft; not an accepted audiovisual production.
+#[cfg(test)]
+mod applications_checks;
+mod applications_model;
+mod changing_rate_model;
 mod chapters;
 mod facts;
+mod limit_model;
+mod phrase;
+mod product_model;
+mod rate_model;
 mod score;
+mod series_model;
+mod slide_model;
+mod solution_model;
+mod turning_model;
 
 use explainer_kit::Explainer;
 

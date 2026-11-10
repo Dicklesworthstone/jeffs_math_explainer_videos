@@ -1,0 +1,393 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "exponential_magic": "aa0e9cf9ca307806c96af80e2a83d34c8bd4706e2dd974693ae103933773f085"
+  },
+  "overrides": [
+    {
+      "video": "exponential_magic",
+      "cue": "01_1",
+      "after": "Start at height one. Here are two drawing rules. On the left, climb at a constant rate of one. On the right, let the rate equal the current height. At the beginning they agree. But will they keep drawing the same curve?",
+      "role": "visual",
+      "reason": "Preserve full recorded cue; native authored prediction window follows. No inserted audio silence or listening claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "02_1",
+      "after": "Our drawing rule asks for a function whose derivative equals itself, starting at one. Try a polynomial. Put its coefficients in boxes, one box for each power. Differentiation moves each term one column left and multiplies its coefficient by the power it came from. To make the two rows agree, what must the coefficient of x be?",
+      "role": "visual",
+      "reason": "Preserve full recorded cue; native authored prediction window follows. No inserted audio silence or listening claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "03_2",
+      "after": "Instead of collecting the products by rows, collect them by total degree. Degree zero has just one square, containing one. Degree one has two squares: x and y. Their sum is x plus y. Now inspect the three squares of degree two. Before we combine them, can you recognize their sum?",
+      "role": "visual",
+      "reason": "Preserve full recorded cue; native authored prediction window follows. No inserted audio silence or listening claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "05_1",
+      "after": "Hold k still, and let n grow. Here each bar shows how much of the series coefficient the product has reached. For any fixed k, every correction factor approaches one as n grows. The coefficient approaches exactly the coefficient in our series. The columns fill one at a time, but at every n, far columns are still nearly empty. If every column fills eventually, must the whole sum arrive?",
+      "role": "visual",
+      "reason": "Preserve full recorded cue; native authored prediction window follows. No inserted audio silence or listening claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "06_3",
+      "after": "Try it on functions that break the rule. Our degree-two polynomial starts at height one, but its derivative loses its top term. Its product with E of minus x tilts. On these axes, degree four breaks the rule less, and tilts less. E of minus x is never zero, so the product can only be level where y prime equals y. Suppose a function obeys the rule everywhere. What must its product do?",
+      "role": "visual",
+      "reason": "Preserve full recorded cue; native authored prediction window follows. No inserted audio silence or listening claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "07_5",
+      "after": "Try a new calculation before we move anything. If the upper one goes above two and a half, where will the upper four land? Follow the two distances, and make a prediction.",
+      "role": "visual",
+      "reason": "Preserve full recorded cue; native authored prediction window follows. No inserted audio silence or listening claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "08_4",
+      "after": "Here is a consequence we can see without solving the equation again. Suppose one fixed interval reduces our model amount from one hundred to fifty. Start a second sample at fifty, under the same conditions. Its removal rate is half as large at every corresponding point. Where should it finish after that same interval? Pause before we draw its endpoint.",
+      "role": "visual",
+      "reason": "Preserve full recorded cue; native authored prediction window follows. No inserted audio silence or listening claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "09_6",
+      "after": "Now keep the battery and capacitor fixed, but double the resistance. Before the second trace moves, predict two things. Does the starting current increase or decrease? And does reaching the same fraction of the battery voltage take more time or less?",
+      "role": "visual",
+      "reason": "Preserve full recorded cue; native authored prediction window follows. No inserted audio silence or listening claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "10_2",
+      "after": "Go back to our tiny multipliers. Cut time into cells. In each cell the rate is nearly steady, so the amount is multiplied by about one plus the rate times the cell's width. A positive rate gives a multiplier above one. A rate of zero gives exactly one. A negative rate gives a multiplier below one. The final amount is the product of all of them. Four cells finish near one point four. But these cells are crude. The rate spends one unit of time above zero and one unit of time below it, at matching sizes. So make a prediction. As the cells shrink, does the amount finish above its start, below its start, or exactly where it began?",
+      "role": "visual",
+      "reason": "Preserve full recorded cue; native authored prediction window follows. No inserted audio silence or listening claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "11_2",
+      "after": "A yearly percentage change is a way of describing that year's multiplier. A year that multiplies by one point two is a twenty percent gain. A year that multiplies by zero point nine is a ten percent loss. The percentages suggest ten percent overall. The money says one point two times zero point nine, which is one point zero eight, an eight percent gain. Ask which input of E gives one point two. It is about zero point one eight two. That input is the year's continuous rate. For zero point nine it is about minus zero point one zero five. Continuous rates are the ones that add, because adding inputs multiplies outputs. Either order gives the same one hundred eight. Multiplication does not care about order. Now change one thing. At the end of the first year, take out fifty. Does the order of the two years still not matter?",
+      "role": "visual",
+      "reason": "Preserve full recorded cue; native authored prediction window follows. No inserted audio silence or listening claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "12_1",
+      "after": "So far, every multiplier was known in advance. Now let chance choose them. Toss a fair coin. Heads multiplies the amount by one point five, and tails multiplies it by zero point six. These are invented numbers, chosen to separate two ideas. They describe no market and no investment. The average of the two multipliers is one point zero five, a gain of five percent per toss. Now toss a hundred times. Does a typical run grow by about five percent per toss?",
+      "role": "visual",
+      "reason": "Preserve full recorded cue; native authored prediction window follows. No inserted audio silence or listening claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "12_3",
+      "after": "One assumption is still hiding. The proportion was the same however large the amount became. Must growth continue exponentially forever? In a population, or a product spreading through a market, the proportional rate can depend on how much room is left. A simple model multiplies the rate by one minus the amount divided by a capacity. Here are both rules with the same start, eight percent of capacity, and the same rate. How long before you could tell them apart from the curves alone?",
+      "role": "visual",
+      "reason": "Preserve full recorded cue; native authored prediction window follows. No inserted audio silence or listening claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "13_2",
+      "after": "Feed our series an imaginary input, i times t. Each term is exactly as large as the term for t alone, so the same ceilings bound it, and the sum exists for every t. Differentiating term by term brings a factor of i out front. So the point z, equal to E evaluated at i times t, obeys a rate law with a rate of i. Now compare three rates. A rate of one pushes a point straight out along its own arrow. A rate of minus one pulls it straight in. A rate of i takes that arrow, turns it a quarter turn, and uses the result as the velocity. Where will the output travel?",
+      "role": "visual",
+      "reason": "Preserve full recorded cue; native authored prediction window follows. No inserted audio silence or listening claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "14_1",
+      "after": "We built our function in three ways, and the circle should show up in each of them. Start with tiny multipliers. To reach time pi, split the time into n cells. Each step takes the current arrow, turns a copy a quarter turn, shrinks that copy to pi over n of its length, and adds it on. With four cells the steps are big, and we clearly leave the circle. Every step runs at a right angle to its own arrow, so every step ends farther from zero than it began. The walk around the circle says one place. As the cells get smaller, do these paths agree?",
+      "role": "visual",
+      "reason": "Preserve full recorded cue; native authored prediction window follows. No inserted audio silence or listening claim."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "exponential_magic",
+      "cue": "01_1",
+      "next_cue": "01_2",
+      "kind": "prediction",
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/rate_law.rs",
+      "sha256": "0d472d7098fb1534b8ed4e9fd8c61b1b41f02f32cc2926b45d2c356fc2ab9402",
+      "line": 138,
+      "marker": "kit.music_breath(stage, 4.0)?;",
+      "authored_window_seconds": 4,
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+        "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+      },
+      "reason": "Source-audited native prediction window after cue completion; actual final timing remains unverified."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "02_1",
+      "next_cue": "02_2",
+      "kind": "prediction",
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/factorials.rs",
+      "sha256": "ca48d460151a418ab13ca8b9995ac22f068ea0b975021f81a2ed93e580cdc4b0",
+      "line": 291,
+      "marker": "k.music_breath(stage, 4.0)?;",
+      "authored_window_seconds": 4,
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+        "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+      },
+      "reason": "Source-audited native prediction window after cue completion; actual final timing remains unverified."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "03_2",
+      "next_cue": "03_3",
+      "kind": "prediction",
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/product_grid.rs",
+      "sha256": "d06c45e6a7d9387df4b378b74df1af2833e469e35dfbe94f70e205312d07e0b3",
+      "line": 242,
+      "marker": "k.music_breath(s, 4.0)?;",
+      "authored_window_seconds": 4,
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+        "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+      },
+      "reason": "Source-audited native prediction window after cue completion; actual final timing remains unverified."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "05_1",
+      "next_cue": "05_2",
+      "kind": "prediction",
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/tiny_multipliers.rs",
+      "sha256": "7a03ced1fa0a53e385f7afdad639d54ee948f33508fe1d257563ecea0ae036f6",
+      "line": 1086,
+      "marker": "k.music_breath(stage, 4.0)?;",
+      "authored_window_seconds": 4,
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+        "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+      },
+      "reason": "Source-audited native prediction window after cue completion; actual final timing remains unverified."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "06_3",
+      "next_cue": "06_4",
+      "kind": "prediction",
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/only_solution.rs",
+      "sha256": "139d12ba8baa46e6be3541975004525605c1b1297259217dbc0633de70cd0e9b",
+      "line": 407,
+      "marker": "k.music_breath(stage, 4.0)?;",
+      "authored_window_seconds": 4,
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+        "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+      },
+      "reason": "Source-audited native prediction window after cue completion; actual final timing remains unverified."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "07_5",
+      "next_cue": "07_6",
+      "kind": "prediction",
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/calculating_ruler.rs",
+      "sha256": "5f44c337db73f29cfef29413db9ae9703535a990d1dcf2ce45fbb273a6308dee",
+      "line": 358,
+      "marker": "k.music_breath(s, 4.0)?;",
+      "authored_window_seconds": 4,
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+        "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+      },
+      "reason": "Source-audited native prediction window after cue completion; actual final timing remains unverified."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "08_4",
+      "next_cue": "08_5",
+      "kind": "prediction",
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/decay_scene.rs",
+      "sha256": "d16e081cce3124185db03958fa6cb65b14e8c775297baa5d59ee85dd76f2e88e",
+      "line": 793,
+      "marker": "k.music_breath(s, 4.0)?;",
+      "authored_window_seconds": 4,
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+        "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+      },
+      "reason": "Source-audited native prediction window after cue completion; actual final timing remains unverified."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "09_6",
+      "next_cue": "09_7",
+      "kind": "prediction",
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/circuit_scene.rs",
+      "sha256": "cb60e5e8daab9bf17cc27d84f04be6f62dd6deab3971a00944a08ae8830eebfc",
+      "line": 1118,
+      "marker": "k.music_breath(s, 4.0)?;",
+      "authored_window_seconds": 4,
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+        "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+      },
+      "reason": "Source-audited native prediction window after cue completion; actual final timing remains unverified."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "10_2",
+      "next_cue": "10_3",
+      "kind": "prediction",
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/changing_rates.rs",
+      "sha256": "066df89e54aa779b817dba42b8d63ea2bdfffe4cb7adb38ba9d6d9a7710b591f",
+      "line": 355,
+      "marker": "k.music_breath(stage, THINK_10_2)?;",
+      "authored_window_seconds": 4,
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+        "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+      },
+      "reason": "Source-audited native prediction window after cue completion; actual final timing remains unverified."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "11_2",
+      "next_cue": "11_3",
+      "kind": "prediction",
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/money_limits.rs",
+      "sha256": "204772d3557f12c907e8505db2d22082bc4a850c3e98932d1f4f26482e33b0c4",
+      "line": 392,
+      "marker": "k.music_breath(stage, THINK_11_2)?;",
+      "authored_window_seconds": 4,
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+        "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+      },
+      "reason": "Source-audited native prediction window after cue completion; actual final timing remains unverified."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "12_1",
+      "next_cue": "12_2",
+      "kind": "prediction",
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/money_limits.rs",
+      "sha256": "204772d3557f12c907e8505db2d22082bc4a850c3e98932d1f4f26482e33b0c4",
+      "line": 613,
+      "marker": "k.music_breath(stage, THINK_12_1)?;",
+      "authored_window_seconds": 3.5,
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+        "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+      },
+      "reason": "Source-audited native prediction window after cue completion; actual final timing remains unverified."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "12_3",
+      "next_cue": "12_4",
+      "kind": "prediction",
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/money_limits.rs",
+      "sha256": "204772d3557f12c907e8505db2d22082bc4a850c3e98932d1f4f26482e33b0c4",
+      "line": 995,
+      "marker": "k.music_breath(stage, THINK_12_3)?;",
+      "authored_window_seconds": 2.5,
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+        "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+      },
+      "reason": "Source-audited native prediction window after cue completion; actual final timing remains unverified."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "13_2",
+      "next_cue": "13_3",
+      "kind": "prediction",
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/turning_rate.rs",
+      "sha256": "0a8e639136f8b8ec0a105a20cd41c8aa66956511b026af8e07ccfba0c35d0a39",
+      "line": 364,
+      "marker": "k.music_breath(stage, THINK_13_2)?;",
+      "authored_window_seconds": 3,
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+        "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+      },
+      "reason": "Source-audited native prediction window after cue completion; actual final timing remains unverified."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "14_1",
+      "next_cue": "14_2",
+      "kind": "prediction",
+      "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/euler_identity.rs",
+      "sha256": "91429596996c0bf8578eab6eafe77c41e05aad35fc0648666016ef500b4d37c7",
+      "line": 153,
+      "marker": "k.music_breath(stage, THINK_14_1)?;",
+      "authored_window_seconds": 2.5,
+      "evidence": {
+        "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+        "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+      },
+      "reason": "Source-audited native prediction window after cue completion; actual final timing remains unverified."
+    }
+  ],
+  "helper_bindings": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/crates/explainer_kit/src/kit.rs",
+      "sha256": "ef035faf236498e7485fb60a66d862b383e1a5040fa17962e1633596ed99e106",
+      "relevant_lines": [
+        201,
+        290,
+        304,
+        345
+      ]
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/crates/explainer_kit/src/narration.rs",
+      "sha256": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8",
+      "relevant_lines": [
+        41,
+        1148,
+        1156,
+        1164,
+        1182,
+        1268,
+        1302
+      ]
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/crates/explainer_kit/src/props.rs",
+      "sha256": "73606e8921ec18c8492ec3a7355a755e269acabd174cafed1fabfca14379d436",
+      "relevant_lines": [
+        26,
+        215
+      ]
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/rate_model.rs",
+      "sha256": "8d896cf9d23d6a6f87289d7cbe25c89ee54537161e77a93978c21b4ae91d2edc",
+      "relevant_lines": [
+        4,
+        7
+      ]
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/series_model.rs",
+      "sha256": "f5115801e279a5c6e2ed7fc6c3aea569f07ab6a85aae3bf1f36d4ba440e71203",
+      "relevant_lines": [
+        2
+      ]
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/native-crate/src/chapters/mod.rs",
+      "sha256": "499ab90283cf22e230d55e2def0a51a7fa4eb9c84aa8ac6dc3bff36bb6f8f9f5",
+      "relevant_lines": [
+        19
+      ]
+    }
+  ],
+  "audit": {
+    "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-stage14/independent-hold-audit807.json",
+    "sha256": "5becf25cbafb506320f3adc7c11ea1695b84c310d5289801047b1c55bb2a57e2"
+  },
+  "scope": "Candidate current-script source map, not installed in topic tree and not yet accepted by native assembly contract.63 ordinary holds and15 finish calls are preserved in source; do not insert duplicate silence. No listening, acoustic timing or fine-sync acceptance.",
+  "created_utc": "2026-11-10T05:57:44.925916+00:00"
+}

@@ -648,6 +648,96 @@ class CoherentTests(unittest.TestCase):
         path.write_text(json.dumps({'schema': self.UI_SCHEMA, 'source': label, 'provider': 'ElevenLabs',
                                     'voice': voice, 'records': [row]}))
 
+    def test_native_limit_and_explicit_external_declaration(self):
+        for count in (100, 101, 205):
+            text = ' '.join(['word'] * count)
+            self.script.write_text('01_1\t' + text + '\n')
+            self.plan['script_sha256'] = m.cache.digest(self.script)
+            unit = {'id': 'u01_1', 'line_ids': ['01_1'], 'text': text}
+            self.plan['units'] = [unit]
+            self.save_plan()
+            if count == 100:
+                m.read_units(self.script, self.units)
+            else:
+                with self.assertRaisesRegex(ValueError, 'at most 100'):
+                    m.read_units(self.script, self.units)
+            unit['external_ui_provider'] = self.UI['frederick'][0]
+            self.save_plan()
+            m.read_units(self.script, self.units)
+            for bad in (None, False, [], {}, '', 'ElevenLabs', 1):
+                unit['external_ui_provider'] = bad
+                self.save_plan()
+                with self.assertRaisesRegex(ValueError, 'known external UI provider'):
+                    m.read_units(self.script, self.units)
+            unit['external_ui_provider'] = self.UI['frederick'][0]
+            unit['text'] = text + ' changed'
+            self.save_plan()
+            with self.assertRaisesRegex(ValueError, 'exact nonempty'):
+                m.read_units(self.script, self.units)
+
+    def test_external_group_and_native_generation_refused(self):
+        self.plan['units'][0]['external_ui_provider'] = self.UI['frederick'][0]
+        self.save_plan()
+        with self.assertRaisesRegex(ValueError, 'one complete cue'):
+            m.read_units(self.script, self.units)
+        self.plan['units'] = [dict(id='u'+cue, line_ids=[cue], text=text,
+            external_ui_provider=self.UI['frederick'][0]) for cue, text in m.read_script(self.script).items()]
+        self.save_plan()
+        args = types.SimpleNamespace(script=self.script, units=self.units, out=self.root/'must-not-exist')
+        with patch.object(m.cache, 'child_environment') as env, patch.object(m.cache, 'make_context') as context:
+            with self.assertRaisesRegex(ValueError, 'cannot enter native synthesis'):
+                m.generate(args)
+            env.assert_not_called()
+            context.assert_not_called()
+        self.assertFalse(args.out.exists())
+
+    def test_long_external_cue_strict_assembly_and_receipt_binding(self):
+        # Preserve the two-sentence fixture and its source direction anchor.
+        text = 'Four pulses. ' + ' '.join(['word'] * 202) + ' return.'
+        self.assertEqual(len(text.split()), 205)
+        self.script.write_text('01_1\t' + text + '\n01_2\tDo not drop the negative.\n')
+        self.plan['script_sha256'] = m.cache.digest(self.script)
+        args = self.external_assembly(('frederick', 'frederick'), 'long')
+        for unit in self.plan['units']:
+            unit['external_ui_provider'] = self.UI['frederick'][0]
+        self.save_plan()
+        manifest = json.loads(args.spans.read_text())
+        manifest['units_sha256'] = m.cache.digest(self.units)
+        args.spans.write_text(json.dumps(manifest))
+        m.assemble(args)
+        self.assertTrue(m.verify(args.out, self.script, self.units, require_directions=True))
+        delivery_spec = importlib.util.spec_from_file_location('delivery823', Path(__file__).with_name('narration_delivery.py'))
+        delivery = importlib.util.module_from_spec(delivery_spec)
+        delivery_spec.loader.exec_module(delivery)
+        external = args.out/'external-units.json'
+        external.write_bytes(self.units.read_bytes())
+        chosen = delivery.external_plan(self.root, args.out, self.units)
+        self.assertEqual(chosen, external)
+        self.assertTrue(m.verify(args.out, self.script, chosen, require_directions=True))
+        changed = copy.deepcopy(self.plan)
+        changed['direction_contract']['map']['sha256'] = '0' * 64
+        external.write_text(json.dumps(changed))
+        with self.assertRaisesRegex(ValueError, 'changes the canonical direction contract'):
+            delivery.external_plan(self.root, args.out, self.units)
+        record = manifest['units'][0]
+        self.assertEqual(m.wav_pcm(args.out/'01_1.wav')[1], m.wav_pcm(Path(record['wav']))[1])
+        unit = self.plan['units'][0]
+        unit['external_ui_provider'] = self.UI['oliver'][0]
+        with self.assertRaisesRegex(ValueError, 'declaration does not match'):
+            m.unit_spans(unit, m.read_script(self.script), record)
+        unit['external_ui_provider'] = self.UI['frederick'][0]
+        bad = copy.deepcopy(record)
+        bad['sentence_ends'][-1] -= 1
+        with self.assertRaises(ValueError):
+            m.unit_spans(unit, m.read_script(self.script), bad)
+
+    def test_external_declaration_refuses_native_receipt(self):
+        record, _ = self.source()
+        unit = copy.deepcopy(self.plan['units'][0])
+        unit['external_ui_provider'] = self.UI['frederick'][0]
+        with self.assertRaisesRegex(ValueError, 'declaration does not match'):
+            m.unit_spans(unit, m.read_script(self.script), record)
+
     def test_frederick_ui_takes_assemble_and_verify_sample_for_sample(self):
         args = self.external_assembly(('frederick', 'frederick'))
         m.assemble(args)

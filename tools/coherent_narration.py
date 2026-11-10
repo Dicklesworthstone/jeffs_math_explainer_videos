@@ -240,7 +240,14 @@ def read_units(script_path, units_path, require_directions=False):
         if not cues or any(c not in script for c in cues) or len({c[:2] for c in cues}) != 1:
             raise ValueError(f"invalid or cross-chapter cue group {uid}")
         text = " ".join(script[c] for c in cues)
-        if unit["text"] != text or not 1 <= len(text.split()) <= 100:
+        external = 'external_ui_provider' in unit
+        if external:
+            provider = unit['external_ui_provider']
+            if not isinstance(provider, str) or provider not in EXTERNAL_UI_VOICES or len(cues) != 1:
+                raise ValueError(f"unit {uid} requires a known external UI provider and one complete cue")
+        if unit["text"] != text or not text.split():
+            raise ValueError(f"unit {uid} must contain exact nonempty script text")
+        if not external and len(text.split()) > 100:
             raise ValueError(f"unit {uid} must contain exact script text, at most 100 words")
         covered.extend(cues)
     if covered != list(script):
@@ -267,6 +274,8 @@ def request_text(unit, script, context_after=None):
 
 def generate(args):
     script, units = read_units(args.script, args.units, getattr(args, "require_directions", False))
+    if any('external_ui_provider' in unit for unit in units):
+        raise ValueError('external UI units cannot enter native synthesis; assemble retained provider takes')
     selected = [u for u in units if not args.chapter or u["line_ids"][0].startswith(args.chapter + "_")]
     if args.unit:
         if len(set(args.unit)) != len(args.unit) or set(args.unit) - {u["id"] for u in selected}:
@@ -340,6 +349,11 @@ def unit_spans(unit, script, record):
     info, pcm = wav_pcm(wav_path)
     context_after = record.get("context_after")
     voice = external_ui_voice(receipt)
+    if 'external_ui_provider' in unit:
+        provider = unit['external_ui_provider']
+        if (not isinstance(provider, str) or provider not in EXTERNAL_UI_VOICES
+                or receipt.get('source') != provider or voice != EXTERNAL_UI_VOICES[provider]):
+            raise ValueError('external UI declaration does not match the actual receipt provider and voice')
     if voice is not None:
         # UI exports are not native FrankenTTS receipts. Keep that distinction:
         # the record binds the downloaded MP3, decoded WAV and submitted cue,

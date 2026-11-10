@@ -1,33 +1,97 @@
+//! Chapters 01 to 15 of the development registry. The full film's opening is still the root's open item.
+mod calculating_ruler;
+mod changing_rates;
+pub mod circuit_scene;
+pub mod decay_scene;
+mod ending_draw;
+mod euler_identity;
+mod factorials;
+mod log_bridge;
+mod money_limits;
+mod only_solution;
+mod product_grid;
+mod rate_law;
 pub mod thumbnail;
-mod applications;
-mod closing;
-mod definitions;
-mod derivative;
-mod property;
-mod rotation;
-mod slide_rule;
-
+mod tiny_multipliers;
+mod turning_rate;
 use explainer_kit::Chapter;
-
-pub const TEXT: &[&str] = &[
-    "How can sliding multiply? D C What is beneath C's 3? 0123456789 × = Sliding adds distances log10(2) log10(3) log10(6) + Adding lengths multiplies the marked numbers",
-    "One function, many appearances", "Growth", "Decay", "Circuits", "Heat", "Rotation", "One underlying idea",
-    "Add inputs, multiply outputs f(x + y) f(x) f(y)",
-    "The natural slope f′(x) = f(x) exp(x)",
-    "A limit, a differential equation, a power series lim n→∞ (1 + x/n)^n; x = 1 k = 0, 1, 2, ...",
-    "Where exponentials appear growth decay heat circuits finance One possible limit: capacity constant proportional rate capacity-limited example amount time →",
-    "What happens when the exponent turns? e^(it) = cos t + i sin t",
-    "Exponential: add inputs, multiply outputs x exp → exp(x) > 0 ← log One point, many turns e⁰ = e^(2πi) = 1 The logarithm has more to reveal",
-];
-
+pub const TEXT: &[&str] = &[];
 pub fn registry() -> Vec<Chapter> {
     vec![
-        Chapter { key: "00_slide_rule", make: |kit| Box::new(slide_rule::SlideRule { kit }), intensity: 0.4 },
-        Chapter { key: "01_addition_to_multiplication", make: |kit| Box::new(property::AdditionToMultiplication { kit }), intensity: 0.4 },
-        Chapter { key: "02_natural_slope", make: |kit| Box::new(derivative::NaturalSlope { kit }), intensity: 0.4 },
-        Chapter { key: "03_three_definitions", make: |kit| Box::new(definitions::ThreeDefinitions { kit }), intensity: 0.4 },
-        Chapter { key: "04_applications", make: |kit| Box::new(applications::Applications { kit }), intensity: 0.4 },
-        Chapter { key: "05_imaginary_rotation", make: |kit| Box::new(rotation::ImaginaryRotation { kit }), intensity: 0.4 },
-        Chapter { key: "06_logarithm_bridge", make: |kit| Box::new(closing::Closing { kit }), intensity: 0.3 },
+        Chapter {
+            key: "01_rate_law",
+            make: |kit| Box::new(rate_law::RateLaw { kit }),
+            intensity: 0.4,
+        },
+        Chapter {
+            key: "02_factorials",
+            make: |kit| Box::new(factorials::Factorials { kit }),
+            intensity: 0.4,
+        },
+        Chapter {
+            key: "03_product_grid",
+            make: |kit| Box::new(product_grid::ProductGrid { kit }),
+            intensity: 0.4,
+        },
+        Chapter {
+            key: "04_tiny_multipliers",
+            make: |kit| Box::new(tiny_multipliers::TinyMultipliers { kit }),
+            intensity: 0.5,
+        },
+        Chapter {
+            key: "05_whole_sum",
+            make: |kit| Box::new(tiny_multipliers::WholeSum { kit }),
+            intensity: 0.5,
+        },
+        Chapter {
+            key: "06_only_solution",
+            make: |kit| Box::new(only_solution::OnlySolution { kit }),
+            intensity: 0.45,
+        },
+        Chapter {
+            key: "07_calculating_ruler",
+            make: |kit| Box::new(calculating_ruler::CalculatingRuler { kit }),
+            intensity: 0.4,
+        },
+        Chapter {
+            key: "08_decay_law",
+            make: |kit| Box::new(decay_scene::DecayLaw { kit }),
+            intensity: 0.4,
+        },
+        Chapter {
+            key: "09_charging_gap",
+            make: |kit| Box::new(circuit_scene::ChargingGap { kit }),
+            intensity: 0.4,
+        },
+        Chapter {
+            key: "10_changing_rates",
+            make: |kit| Box::new(changing_rates::ChangingRates { kit }),
+            intensity: 0.45,
+        },
+        Chapter {
+            key: "11_money_limits",
+            make: |kit| Box::new(money_limits::MoneyLimits { kit }),
+            intensity: 0.45,
+        },
+        Chapter {
+            key: "12_chance_and_limits",
+            make: |kit| Box::new(money_limits::ChanceAndLimits { kit }),
+            intensity: 0.45,
+        },
+        Chapter {
+            key: "13_turning_rate",
+            make: |kit| Box::new(turning_rate::TurningRate { kit }),
+            intensity: 0.5,
+        },
+        Chapter {
+            key: "14_euler_identity",
+            make: |kit| Box::new(euler_identity::EulerIdentity { kit }),
+            intensity: 0.55,
+        },
+        Chapter {
+            key: "15_logarithm_bridge",
+            make: |kit| Box::new(log_bridge::LogBridge { kit }),
+            intensity: 0.4,
+        },
     ]
 }
