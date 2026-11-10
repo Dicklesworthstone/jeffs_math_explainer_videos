@@ -1,3 +1,249 @@
+## Mean-value counterexample picture review, 2026-11-10T21:29:19.876417+00:00
+
+- [x] Root reviewed716-739, now 740/1044 sheets and 5920 selected images; root-progress44.json. Sample averages, radius2 counterexample and pole highlights inspected. Existing inset-card/near-circle-label findings retained; no new concrete overview defect.
+- [x] CC1 independently checking boundary timing/API; CC2 candidate02 request acknowledged and active. CC0 square candidate02 and CC3 native-detail review continue. Exponential1005 ffmpeg577430 confirmed live at2:22:36/131%CPU; no completion claimed or duplicate job. Previous turn made review/repair-assignment progress.
+- [ ] Remaining 304 root sheets plus native detail, independently reviewed repairs and guarded revised output. Motion/listening/fine-sync and independent whole-film AV acceptance remain open; no upload.
+
+## Independent square repair follow-up, 2026-11-10T21:28:08.608844+00:00
+
+- [x] Root reviewed700-715, now 716/1044 sheets and 5728 selected images; root-progress43.json. Cauchy/mean-value transition readable at overview scale.
+- [x] Read complete CC0 independent square repair review02 and preserved both reports plus geometry script/output in square-independent-cc0-frozen01. True quarter mathematics passes source review; leader association and guard are deficient. Assigned CC0 versioned candidate02 with rim-start leader, explicit intended crossing and c name above fill; candidate02 will need a different reviewer. Exact build268 lineage required.
+- [ ] Remaining 328 root sheets, native detail, candidate02 independent checks, guarded builds/renders and repaired pictures. Continuous motion/listening/fine-sync and independent whole-film AV acceptance open. No upload.
+
+## Boundary repair follow-up, 2026-11-10T21:26:34.471391+00:00
+
+- [x] Root overview review now 700/1044 sheets, 5600 selected images; root-progress42.json. Persisted prior680-695 and newly viewed696-699. Read complete CC2 boundary repair handoff; source/mirror checks are not native render acceptance.
+- [x] Requested versioned CC2 candidate02 for remaining green/red ring contact and exact09_9 radius/opacity audit; CC1 independent review of candidate01 continues. Existing four resumed CC conversations preserved.
+- [ ] Remaining 344 root sheets, native detail, independent repair verdicts, guarded build/render and repaired-picture review. Continuous motion/listening/fine-sync and independent whole-film AV acceptance remain open. No upload.
+
+## Boundary repair cross-review, 2026-11-10T21:22:09.041053+00:00
+
+- [x] Complex final995 root review 681/1044 sheets, 5448 images; root-progress41.json, additional672-679. Froze six-file interim CC2 boundary repair candidate511f4492/basecd1900aa/patch/test snapshot in boundary-repair-review-snapshot01 and assigned now-free CC1 independent review; prompt visible in pane10. CC0 square review, CC2 final author report, CC3 native review continue. Remaining363 overview sheets plus guarded revised outputs, motion/listening/fine-sync and independent whole-film AV acceptance. Candidate not compiled/installed/visually accepted; no upload.
+- [ ] Resolve independent findings and verify repaired native pictures.
+
+## Arrow repair review and circle equality, 2026-11-10T21:21:13.733972+00:00
+
+- [x] Complex final995 root review 673/1044 sheets, 5384 images; root-progress40.json. Additional664-671 viewed. Read complete independent CC1 arrow report and candidate03 regression-test patch, froze19 files with byte/hash receipt in arrow-review-cc1-frozen01. Source evidence supports buff(0) fixing collapsed backward preview arrow; candidate03 uncompiled and no rendered acceptance. Remaining371 overview sheets, other independent repairs and guarded native verification/revised pictures. Continuous motion/listening/fine-sync/whole-film independent acceptance still open; no upload.
+- [ ] Integrate independently checked repairs under guards and finish final review.
+
+## Arc and polygon bounds review, 2026-11-10T21:20:14.086849+00:00
+
+- [x] Complex final995 root review 665/1044 sheets, 5320 selected images; root-progress39.json. Additional652-663 arc/chord and summed circle/polygon bounds viewed. Existing closing-bar/dz and crowded right-edge findings persist, no new overview defect. Four resumed CC workers active on independent repair review/handoffs/native detail. Remaining379 overview sheets, guarded repairs and revised-picture/motion/listening/fine-sync/independent whole-film AV acceptance remain open. No publication or duplicated heavy job.
+- [ ] Finish review and repair validation before publication.
+
+## Account recovery and arc-bound review, 2026-11-10T21:19:33.611451+00:00
+
+- [x] Complex final995 root review 653/1044 sheets, 5224 selected images; root-progress38.json. Additional632-651 reviewed (650 already counted). Confirmed existing closing-bar/dz contact; boundary repair pending. Four exact CC conversations restarted for owner account swap at21:18 and active again; recovery receipt /private/tmp/video-cc-account-resume-20261110T211810Z/verified.json. Exponential1005 ffmpeg577430 live2:12:50/131%CPU. Remaining391 sheets, independently checked repairs, guarded revised rendering and actual repaired-picture/motion/listening/fine-sync/independent whole-film AV review remain open. No upload or duplicate heavy job.
+- [ ] Finish final review and repair validation before publication.
+
+## Contour reversal picture review, 2026-11-10T21:14:50.829224+00:00
+
+- [x] Complex final995 root review634/1044 sheets,5072 selected images; root-progress37.json. Reviewed616-631: inner contour reversal/equality and fixed small circle; no new overview text collision. All four CC workers continue repair/source/native review. Remaining410 sheets, guarded revised builds/renders, repaired pictures and motion/listening/fine-sync/independent whole-film AV acceptance remain open. No publication or duplicated job.
+- [ ] Complete remaining pictures and independently checked repairs, then final production gates.
+
+## Interior-edge cancellation review, 2026-11-10T21:13:54.484713+00:00
+
+- [x] Complex final995 root review618/1044 sheets,4944 images; root-progress36.json. Reviewed600-615 including paired interior-edge cancellation and surviving outer/inner contours; no new overview collision. Four CC workers remain active on independent square repair, preview arrows, boundary repair tests and native detail. Remaining426 sheets, repaired native outputs, continuous motion/listening/fine-sync and independent whole-film AV acceptance remain open. No publication or duplicate job.
+- [ ] Finish remaining pictures and reviewed repairs under existing resource guards.
+
+## Contour orientation and repair evidence, 2026-11-10T21:12:51.727079+00:00
+
+- [x] Root complex final995 review602/1044 sheets,4816 images; root-progress35.json. Annular triangulation/orientation samples592-599 reviewed. Supplied four omitted CC1 support files in hash-bound square-repair-cc1-support02 for CC0 independent review; frozen01 unchanged. Exponential1005 ffmpeg577430 live2:05:53/132%CPU. Remaining442 overview sheets, native details, independently checked repairs, guarded revised rendering and motion/listening/fine-sync/independent whole-film AV acceptance remain open. No upload or duplicate job.
+- [ ] Finish remaining review, revised native output and publication checks.
+
+## Annular triangulation picture review, 2026-11-10T21:11:53.361961+00:00
+
+- [x] Complex final995 root review594/1044 sheets,4752 selected images; root-progress34.json. Additional580-591 reviewed; annular polygon/triangulation samples legible with excluded center preserved; detached rho remains known repair concern. Remaining450 sheets plus native detail, independent repair verdicts, guarded revisions and repaired-picture review. Continuous motion/listening/fine-sync and independent whole-film AV acceptance remain open. Four exact resumed CC processes verified active; no duplicate render or upload.
+- [ ] Complete remaining picture review and integrate independently checked repairs before publication.
+
+## Removable-point and bound pictures, 2026-11-10T21:08:12.760785+00:00
+
+- [x] Root final995 review582/1044 overview sheets,4656 images; root-progress33.json. Sheets564-579 show point approach, derivative limit and boundedness dashes clearly; detached rho association remains an existing CC2 concern.
+- [x] Read guarded build268 launch prerequisites for repair integration. CC0 continues final opening sheets before assigned independent square repair; CC1 arrow-source review, CC2 shrink/growth clearance checks and CC3 native detail remain active in current captures. No new build/render launched.
+- [ ] Remaining462 overview sheets, native detail, independent repair verdicts and guarded revised renders. Continuous motion/listening/fine-sync and independent whole-film audiovisual acceptance remain open. No upload.
+
+## Boundary inset and limit review, 2026-11-10T21:07:11.578478+00:00
+
+- [x] Root reviewed24 displayed sheets (23 new), now566/1044 unique overview sheets and4528 selected images; root-progress32.json. Difference quotient, undefined-at-a inset and derivative-limit transition inspected; confirmed existing CC2 L1 disconnected zoom connectors, no new text collision.
+- [ ] Remaining478 overview sheets, native detail, independent repair verdicts, guarded build/render/rebinding and repaired pictures. Continuous motion/listening/fine-sync and independent whole-film audiovisual acceptance remain open. Frozen square repair is awaiting assigned independent review; no upload or duplicate job.
+
+## Frozen square repair and continued review, 2026-11-10T21:06:11.684371+00:00
+
+- [x] Root review now543/1044 overview sheets,4344 selected images; root-progress31.json. Additional532-539 inspected; reciprocal-integral and difference-quotient transitions readable at overview scale.
+- [x] Finished full CC1 source/test/proposal read and froze13 handoff files in final-review995/square-repair-cc1-frozen01 with hashes. Candidate restores actual corner-quarter geometry, diameter/perimeter distinction and c association; native compilation and rendered acceptance remain unproven. CC0 acknowledged independent patch review after its remaining opening sheets. CC1 assigned separate short-arrow candidate/source review and resumed; CC2 boundary repair and CC3 native-detail review continue.
+- [x] Exponential1005 ffmpeg577430 confirmed live at1:58:28/132%CPU; no completed verification receipt observed. Previous goal turn was a verified wait on exact live CC sessions; this turn adds frozen repair handoff and picture evidence.
+- [ ] Remaining501 root overview sheets, native detail, independent repair verdicts, guarded build/render/rebind and repaired-picture checks. Motion/listening/fine-sync and independent whole-film audiovisual acceptance remain open. No upload or duplicate jobs.
+
+## Growing-circle collision and repair audit, 2026-11-10T21:01:42.476941+00:00
+
+- [x] Root final995 review535/1044 sheets,4280 selected images, root-progress30.json. Sheets524-531 readable; additionally viewed766 and confirmed expanding ring crosses fixed a (CC2 M4). Complete CC2progress09 findings read.
+- [x] Queued explicit M4/09_9 radius-sweep coverage to existing CC2 repair worker; queue visible. Read first300 lines of CC1 patch: true corner-quarter construction, perimeter naming, shifted walker start and c leader. Candidate remains unbuilt and visually unqualified; full patch/tests review and independent check required.
+- [ ] Remaining509 overview sheets, native detail, guarded repairs and motion/listening/fine-sync/independent whole-film AV review remain open. No upload.
+
+## Triangle conclusion and boundary opening review, 2026-11-10T21:00:21.201601+00:00
+
+- [x] Root viewed28 further sheets:526/1044 unique sheets,4208 selected images, root-progress29.json; remaining518. Triangle cancellation, Goursat conclusion,08-to09 seam and domain-color boundary opening inspected; no new concrete overview collision.
+- [x] CC0 active through234 sheets; CC1 scratch candidate now includes corner-quarter/diameter/perimeter/c-label repairs and checks, not yet a reviewed handoff. CC2 boundary proposal and CC3 native-detail review continue.
+- [ ] Integrate reviewed fixes under resource guards, inspect repaired outputs and remaining pictures; motion/listening/fine-sync and independent whole-film AV acceptance remain open. No upload.
+
+## Triangle orientation review, 2026-11-10T20:59:05.398518+00:00
+
+- [x] Root reviewed8 further sheets, now498/1044 overview sheets and3984 selected images, root-progress28.json. Midpoint subdivision and counterclockwise central triangle inspected; no new concrete collision at overview scale.
+- [x] Exponential1005 ffmpeg577430 confirmed live at1:52:14 elapsed/132%CPU; no completed verification receipt, no duplicate.
+- [ ] Remaining546 root sheets, native detail, guarded geometry repairs, motion/listening/fine-sync and independent whole-film AV acceptance remain open. No upload.
+
+## Integral-bound and triangle review, 2026-11-10T20:58:32.759845+00:00
+
+- [x] Root final995 review now490 unique sheets/3920 selected images; root-progress27.json, continuous1-487 plus549,650,692. Remaining554 sheets. Bounds, intentional factor cancellations and triangle midpoint subdivision inspected; known square construction repair remains pending.
+- [ ] Complete remaining overview/native review, integrate and verify geometry repairs, motion/listening/fine-sync and independent whole-film AV acceptance. No upload or duplicated jobs.
+
+## Quarter-construction review and native-detail assignment, 2026-11-10T20:54:07.410896+00:00
+
+- [x] Root viewed24 further sheets (22 unique additions): now458 sheets/3664 selected images, root-progress26.json; sheets1-455 plus549,650,692, remaining586. Confirmed concentric-square construction defect through the product-bound sequence; existing CC1 L12 repair covers it. Formula transitions remain legible in selected images.
+- [x] CC3 acknowledged new independent review of128 retrieved native4K stills, including pixel-detail crops and text/domain-color quality. Prior261-sheet overview report preserved. CC0 continues remaining opening sheets; CC1/CC2 repair proposals active.
+- [ ] Integrate independently checked repairs under guards, review remaining overview/native pictures and repaired outputs. Motion/listening/fine-sync and independent whole-film AV acceptance remain open; no upload or duplicate jobs.
+
+## Perimeter review and worker recovery, 2026-11-10T20:53:03.948205+00:00
+
+- [x] Root review now436 sheets/3488 selected images, root-progress25.json; sheets1-431 plus434,445,549,650,692. Remaining608 overview sheets. Perimeter traversal samples inspected; existing diameter/perimeter ambiguity still requires CC1 repair.
+- [x] Owner account-swap restart: exact four UUIDs resumed in original panes9-12, Opus5.5/xhigh; fresh task activity verified, evidence /private/tmp/video-cc-account-resume-20261110T205140Z. CC3 completed261-sheet report preserved with matching SHA in independent-cc3-complete01; report is sampled-still review only.
+- [ ] CC1/CC2 geometry proposals, guarded repairs, remaining overview/native detail, motion/listening/fine-sync and independent whole-film AV acceptance remain open. Exponential1005 ffmpeg577430 confirmed live at1:46:02/132% CPU, no terminal verification receipt; no duplicate or upload.
+
+## Remainder-bound picture review, 2026-11-10T20:48:33.540052+00:00
+
+- [x] Root viewed28 more sheets/224 images, now416 sheets/3328 images; root-progress24.json, next412, remaining628. Remainder-integral and epsilon-delta bound inspected; magnified square restores close c association, but green half-segment covers part of diameter as already reported by CC1.
+- [ ] CC1/CC2 scratch repairs remain in progress; all four panes show fresh review/source activity. Native detail, repairs, motion/listening/fine-sync and independent whole-film AV acceptance remain open. No upload.
+
+## Nested-square and exact-change review, 2026-11-10T20:47:26.976675+00:00
+
+- [x] Root review now388 sheets/3104 selected images, root-progress23.json (1-383 plus434,445,549,650,692); remaining656 overview sheets. Confirmed detached c-label association and closely spaced green exact-change strokes; CC1 acknowledged c repair in existing scratch proposal.
+- [ ] Guarded repairs, remaining overview/native pictures, motion/listening/fine-sync and independent whole-film AV acceptance remain open. No upload or duplicate jobs.
+
+## Square proof review and independent report, 2026-11-10T20:43:18.985344+00:00
+
+- [x] Root viewed24 additional sheets/192 selected images, now348 sheets/2784 images; root-progress22.json, next344, remaining696 overview sheets. Quarter-selection and cancellation diagrams inspected; no new concrete collision.
+- [x] Read/preserved CC1 complete261-sheet report and hash-bound progress in final-review995/independent-cc1-complete01. Construction fidelity L12 and D_n/P_n clarity repairs remain pending. Written08_5 script explicitly supplies nonzero supposition and names diagonal/perimeter; this is source evidence, not listening/sync acceptance. Exact rendered source binding remains mandatory; preserved214 is a baseline, not a substitute for later repair source.
+- [ ] Native detail, repairs, motion/listening/fine-sync and independent whole-film AV acceptance remain open; no upload. Four restoredCC sessions continue review/proposals.
+
+## CC session recovery and continued review, 2026-11-10T20:41:31.753819+00:00
+
+- [x] Root viewed sheets316-319 (32 additional images); root-progress21.json now324 sheets/2592 selected images. No new concrete overlap in subdivision samples; remaining720 overview sheets plus native detail/repairs/motion/listening/fine-sync.
+- [x] At20:40 UTC prior tmux session and all four CC processes were absent. Restored exact four conversation UUIDs with original hooks and Opus5.5 xhigh; first reconstructed command failed, corrected structured settings launch retained in /private/tmp/video-cc-recover-20261110T204038Z. New panes9-12; all four acknowledged/resumed scratch inspection at20:41, live-captures.json records actual running tool activity. Prior scrollback/layout unavailable; saved transcripts and scratch progress retained.
+- [x] Exponential1005 ffmpeg577430 live at94m21s/132%CPU; receipt active, no duplicate. No publication or listening acceptance.
+
+## Reciprocal integral and proof introduction review, 2026-11-10T20:36:41.480852+00:00
+
+- [x] Root reviewed20 more sheets/160 images; final995 now320 sheets/2560 selected images, root-progress20.json, next316. Reciprocal contribution/radius invariance/powers grid readable; confirmed CC1 pacing observation: square heading precedes drawing by about10s. CC1 reports all261 assigned sheets viewed in progress016 and is writing final findings; CC2 through779 and CC3 through1031 actively reviewing. Remaining724 root overview sheets, native detail, confirmed repairs and motion/listening/fine-sync/full independent AV acceptance. No upload.
+
+## Open-region and loop-integral review, 2026-11-10T20:34:37.280324+00:00
+
+- [x] Root viewed24 more sheets/192 selected images; final995 now300 sheets/2400 images (1-295 plus434,445,549,650,692), root-progress19.json. No new concrete overlap in these samples. Remaining744 overview sheets plus native detail, confirmed repairs, motion/listening/fine-sync and independent full AV acceptance. CC1 finishing assigned range, CC2 inspecting exact boundary source, CC3 reviewing continuation examples; no interruption or duplicate jobs. No upload.
+
+## Final picture defects and review, 2026-11-10T20:33:31.878860+00:00
+
+- [x] Root final995 review now 276 sheets/2208 selected images (1-271 plus434,445,549,650,692), root-progress18.json. Confirmed bisection-quarter illustration defect, absolute-bar/dz spacing and shrinking-circle/centre-label crossing; CC1/CC2 repair proposals requested, no production edits yet. Remaining768 root overview sheets, native detail, repairs and motion/listening/fine-sync/full independent AV acceptance open. Exponential1005 ffmpeg577430 confirmed live at86m44s/132%CPU; no terminal receipt and no duplicate. Four resumed CC sessions actively reviewing. No upload.
+
+## Derivative final-picture review, 2026-11-10T20:28:09.853761+00:00
+
+- [x] Root final995 review now sheets1-243 plus549:244 sheets/1952 selected images, root-progress17.json; derivative and Cauchy-Riemann examples inspected, no new concrete overlap at overview scale. Remaining800 overview sheets plus native detail and preview-arrow repair. Rebind269 summary confirms23 holds,5 helpers,105 byte-identical WAVs and exact current map/canonical hashes; no new build launched. Exponential1005 ffmpeg577430 confirmed live at80m54s/132%CPU, no terminal receipt. Motion/listening/fine-sync and independent full AV acceptance remain open; no upload.
+
+## Gallery and derivative picture review, 2026-11-10T20:24:17.613954+00:00
+
+- [x] Root actually reviewed another32 sheets/256 selected images: final995 overview1-227 plus549 now228 sheets/1824 images. Six-panel gallery, magnified polynomial tile and derivative-zero qualification, fade and chapter06 derivative introduction inspected; no new concrete overlap at overview scale. Evidence root-progress16.json. Remaining816 root overview sheets, native detail, preview-arrow repair, motion/listening/fine-sync and independent full AV acceptance open; no upload.
+
+## Final picture review and CC recovery, 2026-11-10T20:23:03.556839+00:00
+
+- [x] Root final995 review now1-195 plus549,196 sheets/1568 selected images, root-progress15.json. Zeta qualification badge and transition inspected; no new concrete overlap at overview scale. Four exact CC sessions restarted at20:21 after owner account swap and verified actively reviewing. Exponential1005 ffmpeg577430 confirmed live at75m35s/132% CPU, receipt still active; never duplicate. Repair268 workspace discrepancy narrowed to direction_contract map binding production19 -> review269 only, script and units unchanged; current plan SHA fd90880fbe7c1737786a9695e3c627dad0e4bfbaad0efba706e052e901b71968. Preserve rebind, verify its receipt before new arrow repair build. Remaining848 root sheets, native details, repair test, motion/listening/fine-sync and independent whole-film acceptance open; no upload.
+
+## Native images retrieved and zeta reviewed, 2026-11-10T20:17:52.412831+00:00
+
+- [x] Native995 transfer completed:128/128 PNG hashes match sampling manifest; union confirms8351 overview/128 native exact planned frames and reasons. Root overview now1-183 plus549,184 sheets/1472 images; zeta critical-line inset and labels inspected, root-progress14.json. Native frame4 displayed but resized, explicitly not pixel-detail or later preview-arrow acceptance. Four CC reviewers continuing (CC0 persisted99, CC1 persisted144, CC2 reading657+, CC3 persistedthrough923). Remaining860 root overview sheets and native detail, preview-arrow repair, motion/listening/fine-sync/independent AV remain open. No upload.
+
+## Complex gallery review and seam diagnostics, 2026-11-10T20:16:23.265296+00:00
+
+- [x] Root final995 review now sheets1-171 plus549,172 sheets/1376 images, root-progress13.json. Gamma-to-zeta gallery transition and convergence-domain labels reviewed at overview scale; no new concrete overlap. Audio-seams result has14 joins/28 channels, all lowest RMS at zero lag among tested lags; raw measurements only, no listening/click acceptance. Native128-image retrieval already running session47383 into native-retrieved01; do not duplicate, verify hashes after completion. CSS exponential1005 ffmpeg577430 confirmed live68m33s at132%CPU. Remaining872 root overview sheets, native review, preview-arrow repair test, motion/listening/fine-sync and independent whole-film acceptance remain open.
+
+## Complex extraction complete; review continues, 2026-11-10T20:14:38.144320+00:00
+
+- [x] Complex995 native extraction exited0 stable input hashes at20:13:23 UTC; existing audio-seams02 diagnostic also exited0 stable at20:13:53. Receipts and diagnostic result preserved in final-review995. Root reviewed overview1-155 plus549 (156 sheets/1248 images), root-progress12.json; gamma labels/domain shading clear at overview scale. Pinned engine Arrow default buffer confirmed0.25 each end; isolated buff(0.0) candidate remains unbuilt/unvalidated. Four CC conversations restarted exactly after owner account swap and resumed assigned independent review. Native detail, remaining888 overview sheets, motion/listening/fine-sync and independent whole-film acceptance remain open; no upload.
+
+## Narrow preview-arrow candidate preserved, 2026-11-10T20:09:35.226367+00:00
+
+- [x] Remote review-repair268 the_bump.rs hash matches preserved214 source8e93012e. Read exact preview construction: default Arrow with no explicit endpoint buffer.
+- [x] Created isolated final-review995/preview-arrow-candidate01-the_bump.rs and patch: only adds buff(0.0). Production source, timings and narration untouched.
+- [ ] Candidate UNTESTED: verify pinned API, guarded compile/native picture, independent review before use. Existing master remains preserved and publication held pending final review.
+
+## Independent preview-arrow finding confirmed, 2026-11-10T20:08:17.580486+00:00
+
+- [x] Preserved CC0 progress-v015 findings with source/crop hashes in independent-interim-findings02.json and retained preview crop. Root actually viewed crop and confirms detached arrowhead with no visible shaft in opening coming-up loop preview.
+- [ ] Verify exact bound source/native detail and repair preview arrow if confirmed; reviewer suggests default Arrow endpoint buffer consumes short shaft. This cause is a hypothesis until inspected. Preserve master993 and all existing jobs.
+- [ ] Other low typography/counter findings retained; motion/native-detail adjudication and remaining full-picture/listening/fine-sync/independent acceptance remain open.
+
+## Complex final review continues, 2026-11-10T20:07:33.483685+00:00
+
+- [x] Root inspected sheets1-147 plus549:148 sheets/1184 selected images, root-progress11.json; gallery transition reviewed at overview scale.
+- [x] Four CC panes show continuing independent review: CC0 persisted57 sheets, CC1 persisted80, CC2 reports104 viewed, CC3 persisted through867. These are partial review counts, not whole-film acceptance.
+- [ ] Remaining896 root overview sheets plus native4K review. Collect/adjudicate new CC0 Low/Medium-low findings after preserving actual evidence; motion/listening/fine-sync/independent whole-film AV remain open.
+
+## Complex sine and tangent picture review, 2026-11-10T20:06:47.696294+00:00
+
+- [x] Root inspected sheets1-139 plus549:140 sheets/1120 selected images, hashes in root-progress10.json. Sine imaginary-axis callouts clear at prior lint anchors/persistence; tangent zero/pole and limiting-value labels readable in samples.
+- [ ] Remaining904 overview sheets plus native4K review; motion/listening/fine-sync/independent whole-film AV and publication checks remain open.
+
+## Complex exponential-gallery transition review, 2026-11-10T20:06:02.677093+00:00
+
+- [x] Root inspected sheets1-127 plus549:128 sheets/1024 selected images; exact hashes in root-progress09.json. Exponential periodicity bracket/arrows readable; dense transition to sine field inspected with no new concrete defect in samples.
+- [ ] Remaining916 overview sheets plus native4K review. Continuous motion, listening/fine-sync and independent whole-film AV remain open; no publication acceptance.
+
+## Complex gallery review and live verification, 2026-11-10T20:05:14.695514+00:00
+
+- [x] Root inspected sheets1-115 plus549:116 sheets/928 selected images, hashes in root-progress08.json. Rational pole and exponential gallery samples readable; no new concrete overlap in this batch.
+- [x] CSD native995 guard3229045 live10:49elapsed; CSS1005 guard563272/helper573582/ffmpeg577430 live, ffmpeg58:03elapsed132%CPU. No duplicate jobs. Native prerequisite sampling hash matches outside overview anchor.
+- [ ] Remaining928 overview sheets plus native review; listening/fine-sync/motion/independent whole-film AV and publication checks remain open.
+
+## Complex gallery review continued, 2026-11-10T20:04:09.598178+00:00
+
+- [x] Root inspected sheets1-103 plus549:104 sheets/832 selected images; exact hashes and observations in final-review995/root-progress07.json. Polynomial turns and rational zero/pole examples readable at overview scale.
+- [ ] Remaining940 overview sheets and native4K review; motion, listening/fine-sync and independent whole-film AV remain open. Four CC reviewers actively continue assigned ranges. No new upload or release acceptance.
+
+## Complex color/pole review and connector inspection, 2026-11-10 20:00 UTC
+
+- [x] Root inspected sheets1-83 plus549:84 sheets,672 selected images, exact hashes in root-progress06.json. Color cycles, zero-order and pole examples readable; settled bottom explanatory panel clears text.
+- [x] Root confirms CC2 cosmetic connector gap on549; equations/inset remain understandable. Retain Low finding pending motion/native-detail context, no broad acceptance.
+- [ ] Native995 guard3229045 confirmed live6:45elapsed. Remaining960 overview sheets plus128native images; listening/fine-sync/motion/independent whole-film AV and publication gates remain open.
+
+## Complex color review and interim independent findings, 2026-11-10 19:59 UTC
+
+- [x] Root reviewed sheets1-72,576 selected images; root-progress05.json records exact hashes. Color-field fade, direction legend and modulus bands inspected; no concrete clipping/overlap in these samples.
+- [x] Four CC panes confirmed actively reviewing/compacting. Interim low-severity observations retained in independent-interim-findings01.json: short minus glyph, degree counter changing before morph settles, and chapter09 magnifier connector endpoint. These are reviewer observations, not a completed acceptance.
+- [ ] Inspect chapter09 connector directly and degree transitions in motion. Remaining972 overview sheets plus128 native frames; listening/fine-sync/independent whole-film AV and platform checks remain open.
+
+## Complex actual review through sheet60, 2026-11-10 19:58 UTC
+
+- [x] Root inspected480 selected images on sheets1-60; exact hashes/observations in root-progress04.json. Square/reciprocal/exponential examples and color introduction reviewed; no concrete clipping/overlap in these samples.
+- [ ] Remaining984 overview sheets plus128 native images; independent CC ranges ongoing. Still-image inspection is not continuous motion, listening, fine-sync or independent whole-film AV acceptance. No new upload.
+
+## Complex picture review progress, 2026-11-10 19:57 UTC
+
+- [x] Root actually inspected sheets1-44,352 selected images; root-progress03.json binds exact sheet hashes. No concrete clipping/overlap found in these samples. Earlier truncated37-40 display repeated successfully.
+- [ ] Remaining1000 overview sheets and128 native4K images require actual root review. Four CC reviewers continue disjoint independent ranges; no whole-film acceptance inferred.
+- [ ] Native995 guard3229045 confirmed live; no duplicate. Continuous motion, listening/fine-sync, independent whole-film AV and public4K/manual-caption gates remain open.
+
+## Complex final overview complete; actual review underway, 2026-11-10 19:53 UTC
+
+- [x] Overview995 terminal19:50:51UTC exit0, stable24105714 input hash, no resource stop. All8351 samples/1044 sheets generated. Printed sampling hash independently reread c211e7d571a9ddd67f655c9b5070ff568555723b4e30f92891ee224b4b64626f; outside-job anchor retained final-review995/overview-terminal-anchor01.json.
+- [x] All1044 sheets copied to final-review995/overview and every sheet SHA verified against terminal sampling. Root actually viewed1-8 (64 selected frames), no concrete clipping/overlap found in those samples; root-progress02.json records exact hashes and limited scope. Remaining1036 sheets plus128 native frames still unreviewed by root.
+- [x] CC3 package1008 review retained: no packaging blocker. Selected579 captions equal preserved214 production script5395words/105cues, not stale repo-root4623word script. Preserve this provenance distinction for later caption edits. No commit authorized; local manifest paths remain local evidence.
+- [ ] Four CC independent picture-review ranges assigned1-261,262-522,523-783,784-1044; actual completion must be checked, not inferred from assignment. Existing995controller launch-pictures3120184 currently checks native prerequisites; NEVER duplicate. Audio seams02 controller remains queued. Exponential1005 continues unchanged.
+- [ ] Full visual/native review, continuous motion, listening/fine-sync, independentwhole-filmAV and public4K/uploaded-caption checks remain open. No new upload.
+
+## Account recovery and picture extractor review, 2026-11-10 19:48 UTC
+
+- [x] Owner-requested restart completed for four CC panes, preserving exact conversation IDs and Opus 5.5/xhigh. New PIDs31738/31755/31828/31843 verified; latest assignments restored explicitly. Remote render/verifier controllers untouched. Prior pane captures retained at /tmp/video-cc-resume-20261110T194633Z.
+- [x] Independent CC2 review of pictures1007 (cf3e9f16) finds B1/L1 fixed; 42 mutation checks rerun, extraction/selection unchanged. Root inspected implementation and preserved candidate, handoff, tests/log and independent review in expanded-production808. No real extraction or speedup claimed; terminal1005 verification hash still required before use.
+- [ ] Complex overview995 ffmpeg2874821 and helper2856371 confirmed live; native extraction and queued seam diagnostic remain serial. Final pictures not yet accepted. Exponential1005 helper573582 remains live; no duplicate jobs or changes to active helpers.
+- [ ] Finish actual final picture/native-detail review, motion and audio checks, caption playback and independent whole-film AV. Listening/fine-sync gaps remain explicit. No new upload or publication claim.
+
 ## Reviewed seam diagnostic queued after pictures, 2026-11-10 19:41 UTC
 
 - [x] CC0 independent02re-review reports no remaining D1/D2 blockers; root selftest alsoexit0. Staged exacthelper3d4ac2a3 onCSD; read-onlycheckexit0 confirms master80244e88, postgainWAVe4b1014f, all14boundary offsets and WAV layout/provenance. comparetrue; noactualaudio decode yet.
