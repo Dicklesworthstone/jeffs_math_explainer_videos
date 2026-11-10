@@ -1,3 +1,10 @@
+## Exponential moved to local qualification; concrete test defect isolated, 2026-11-10 04:56 UTC
+
+- [x] Local host now97GiB free. Existing774 Mac profile passed676 input pins, native toolchain/config checks and guarded795 resource preflight. Confirmed CSD774 controller3364507 had exact expected argv/no children/no build directory, stopped only that waiting controller; checked gone and no774 job. CSD771 remained live. Reroute receipt root-exponential796-reroute.json; old controller/inputs preserved. Do NOT restart queued774.
+- [x] Guarded local796 completed exit1,676 initial/final bindings identical, no resource stop. Native tests216/217 passed; sole failure topic test sees branch in module documentation explicitly saying the companion topic is excluded. Build/test executable ran; no successful full qualification claimed.
+- [x] Preserved stage11/796; created stage12 successor with only log_bridge.rs test-section change: exclude whole-line comments from topic scan and add regression proving all4 prohibited executable strings remain detectable. Production source/script/all other54 files byte-identical. Handoff797 treec5945a1a, helper798 prepared218 tests with unchanged remaining gates.
+- [ ] Independent Codex reviewer checking precise test/helper diff before guarded798. No new narration or final acceptance. Complex772/776 and CSD771 continue unchanged; no duplicate renders.
+
 ## Independent complex release-chain794 review read and verified, 2026-11-10 04:49 UTC
 
 - [x] Root read complete794 report/JSON and rehashed every listed helper and narrative report. No concrete integration blocker found in777-782; all direct pins match and781 rejects held old09. Independent Codex identity/inherited context explicit, not CC or runtime acceptance. Reportfd27a1aa; structured8bd32837. No source edits needed.
