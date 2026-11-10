@@ -1,3 +1,99 @@
+## Local delivery818 passed; final819 guard started, 2026-11-10 06:17 UTC
+
+- [x]818 actual terminal exit0 at06:17:00. Full source/direction/sample reconstruction verified105 cues;105 full WAVs remain byte-identical. Metadata correction only resolves source paths under transferred repo. No timing/audio processing or listening acceptance.
+- [x]819 controller40516 checked stable818, exact binary/score/reviews and frozen source/runtime, then started local guard85456. Guard admission still pending at06:17; do not duplicate. Same native761binary,3840x2160/60fps,4threads,CRF16/veryfast,20GiB admission/8stop/4growth/80cap and original local baseline.
+- [x]Independent817 reviewer confirmed actual cwd mismatch and successor exec preserves process-group supervision; full written review pending.
+- [ ]Inspect actual819 admission/renderer PID and eventual terminal receipt. Prepare local final-picture successor carrying every original anchor/persistence and exact cue/music checks; then review every sheet before master/publication. Old772/813/815 failures and814/816 aborted controllers preserved.
+
+## Local complex delivery path correction818, 2026-11-10 06:16 UTC
+
+- [x]813 failed exit1 stable, source span paths differed after migration;814 controller aborted before render.815 preserved failed attempt also exit1: assembly source records are repository-relative, so delivery must run with original M/repo working directory, not local canonical repository. First-unit diff isolated source path only. No gate relaxed or audio changed.816 also aborted prelaunch.
+- [x]New guarded818 started once: new narration copy normalizes only source paths, retains exact samples/text/gaps, runs original full delivery/reconstruction verifier with cwd=M/repo, requires105 byte-identical WAVs. M is documented alias to verified812 tree, not remote mount.
+- [x]One persistent819 controller waits stable successful818, freezes new narration and runtime, then invokes identical native761 binary via cwd-preserving wrapper.20GiB admission/8stop/4growth/80work/exclusive lane retained. Not yet render-admitted. Never duplicate818/819. Independent reviewer assigned helper audit817.
+- [x]CSD apportionment771 actual terminal exit0 at06:06:10; technical decode/frame identity/loudness completed. Remaining actual picture/motion/audio/fine-sync/independentAV and publication gates remain, not release acceptance.
+
+## Complex recovery transfer812 verified, 2026-11-10 06:11 UTC
+
+- [x] Transfer812 exited0 at06:09:18 with stable inputs.14416 manifest-listed source/artifact files,1197917477 bytes copied into fresh local job/tree and individually SHA256-verified; no failed render output promoted.
+- [x] Both native761 binaries use only system dylibs; mini-max and local ffmpeg binaries have identical SHA1332dc2de372bade9a8a63da0d6cdfab9de97fcefbae707bcc0b0506e1203327. Runtime verification still needed; no output identity claim.
+- [ ] Compiled native consumer embeds original CARGO_MANIFEST_DIR and invokes Python delivery verification. Preserve original source/assembly path bindings or explicitly rebind under new guarded successor before render; copied files alone are not launch readiness. Bind current runtime separately from historical remote build tools.
+- [ ] Launch new local final chapter job after this check;772 and waiting776 stopped, original failed files preserved.
+
+## Complex772 stopped for storage; guarded local recovery transfer812 launched, 2026-11-10 06:09 UTC
+
+- [x] Actual772 terminal receipt finished06:05:30 exit-15 stopped_for_resource_limit=true; initial/final bindings identical aa240e99. Renderer37529 and776 controller43730 absent. Preserve every failed output; NOT a successful render. mini772-terminal812.json and mini772-inputs812.json copied as evidence.
+- [x] Fresh hosts: mini-max7.5GiB free, mini-old3.4GiB free, local36GiB. Neither mini admits20GiB. No deletion, peer cancellation or guard weakening. Local is recovery candidate.
+- [x] Prepared ONE guarded complex-mini-transfer812 persistent tmux job to copy manifest-listed mini source/artifact closure into a fresh local job tree and rehash every file. Not a render; terminal/admission pending. Initial helper repository-depth error caught before launch, preserved before-path-fix.
+- [ ] Inspect812 receipt/transfer closure; qualify actual local native binary/encoder/path bindings and source reviews, then new guarded render attempt and successor extraction/master chain. Do not restart772/776 or use partial772 output as final.
+- [ ] Exponential current-script direction/unit integration and87 remaining cues continue; fifteen cues exceed legacy100word unit limit, requiring supported external-source integration without cutting explanation.
+
+## Opening recognition811 passed; next narration cue retained, 2026-11-10 06:06 UTC
+
+- [x] Guarded811 exited0 at06:05:23 with27 identical initial/final bindings a5196098. Read all8 transcripts01_2–01_5; each matches after explicit case/punctuation/digit1/grey-gray normalization. recognition811-review.json preserves exact transcripts/hashes. No listening/fine-sync acceptance.
+- [x] Submitted02_1 exactly once to Frederick Surrey/v4 with unchanged settings; both48kHz full WAV takes downloaded and retained with sample counts/hashes. Seven of94 cues now have retained audio including earlier14_6;87 remain ungenerated. Never regenerate these cues blindly.
+- [ ] Current14-prediction contract integration still pending. Existing coherent read_units imposes100-word unit maximum; inspect actual cue lengths and supported external-take route before integration, without truncating script or splitting retained takes arbitrarily.
+- [ ] Four originalCC panes still show weekly quota limit; preserve sessions and credits settings. Complex772/776 continue, final render/review/master/publication gates open.
+
+## Retained opening narration recognition811 started, 2026-11-10 06:04 UTC
+
+- [x] Prepared and launched ONE persistent guarded811 batch for eight full retained takes, cues01_2 through01_5.27 frozen inputs a51960985e31493399a12c58502d84ff4b6b9ccbf92a6c3b840feeaa46a0fe7e. Guard process86560 confirmed live; admission/terminal receipt not yet observed. No regeneration or audio processing.
+- [ ] Read actual admission and terminal receipt and all eight transcripts; preserve recognition uncertainty and listening/fine-sync/independent fullAV gaps.88 exponential cues still ungenerated; current hold contract integration remains open.
+- [x] Complex772 renderer37529 and776 controller43730 confirmed live06:03UTC,1h54m elapsed;8.4GiB free near preserved8GiB stop. Never duplicate.
+
+## Exponential opening chapter narration retained, 2026-11-10 05:58 UTC
+
+- [x]All five chapter01 cues submitted exactly once to Frederick Surrey/v4;10 full WAV takes retained in expanded-production808/01_1 through01_5 with exact text/settings/download hashes/sample counts. Credits262849; no rerolls. Earlier14_6 retained separately.88 cues remain ungenerated.
+- [x]Guarded809 exited0 stable11bindings/no resource stop. Both01_1 ASR transcripts read and match under punctuation/case/digit1-to-one normalization. recognition809-review.json records evidence; this is not listening or fine-sync acceptance.02-05 cue recognition remains pending.
+- [x]Root read independent807 hold audit and rechecked all source/helper hashes plus14 actual prediction call lines.63 holds,14 native windows totaling51.5s,15 finishes; no duplicate silence. New source-bound candidate810 map retained in808, NOT installed/assembly-qualified. Historical old-script map stays preserved and invalid for current production.
+- [ ]Integrate current map and narration plan into supported native contract, finish88 cues, recognition/timing/sample reconstruction and narrated full-motion review before final4K. Continuous listening/fine-sync/independent fullAV remain open.
+- [ ]Complex772 live05:58,1h48m elapsed,8.37GiB free,8GiB stop retained;776 waiting. Never duplicate.
+
+## Frederick production808 begun, 2026-11-10 05:51 UTC
+
+- [x]New808 request manifest binds actual reviewed stage14 script aa0e9cf9 and current picture evidence; prior786 preserved. Existing783 cue14_6 remains do-not-regenerate.
+- [x]Submitted01_1 exactly once with UI-verified Frederick Surrey/v4/stability0.5/similarity0.75/clone0/WAV48kHz. Both provider takes downloaded and preserved with sample counts/hashes in expanded-production808/01_1/generated-receipt.json. No recognition, listening or fine-sync acceptance yet.92 cues remain ungenerated.
+- [ ]Independent807 audit of current source holds active: historical six-hold map uses obsolete script and MUST NOT be mechanically rebound. Current audit finds14 explicit prediction windows; await full source-bound report before integration.
+- [ ]Complex772 live05:50 at1h40m, mini-max8.4GiB free near8GiB stop; do not bypass or duplicate. CSD771 live, chapter identity through12 passed, terminal pending.
+
+## Exponential repaired draft pictures complete, 2026-11-10 05:48 UTC
+
+- [x]806 exited0 with identical bindings4051efab and no resource stop. Root actually viewed all414 chapter09 frames on52 sheets and full-size81s/125s anchors; prior12 crossing clear through persistence. All52 sheet hashes rechecked; root-scene-review806-ch09.json records scope.
+- [x]Independent Codex reviewed all952 repaired13/14 frames on120 sheets. Root read full report and verified md6119e71d / JSONc326df78. sin t and -1 repairs clear, no new concrete blocker. All15 chapters now have actual complete silent2fps draft-picture review through unchanged802 chapters and repaired806 chapters.
+- [ ]Audit/rebind current source holds, produce93 remaining Frederick cues retaining14_6 candidate, then narrated timing/full-motion/final4K verification. Listening, fine-sync and independent full-filmAV remain open; draft-picture completion is not release acceptance.
+- [ ]Complex772 renderer37529 freshly live05:46,1h36m elapsed;776 controller43730 waits. Approximately10GiB free,8GiB stop retained. Never duplicate render/controllers.
+
+## Repaired preview805 completed, independent10–12 review read, 2026-11-10 05:42 UTC
+
+- [x]805 exited0 at05:41:21,848 stable inputs aa20b928/no resource stop. All3 repaired native drafts rendered;806 controller remains responsible for extraction, no duplicate.
+- [x]Independent Codex actually viewed all151 sheets/1196 frames10–12, no concrete blocker; root read report and verified structured SHA0f204349. All unaffected chapters01–08/10–12 and15 now have actual draft-picture reviews. Source and finalAV gates remain distinct.
+- [ ]Same independent reviewer now assigned ALL repaired806 chapters13–14 and prior collision anchors/persistence; root owns repaired09. Await actual stable806 and inspect every resulting frame before accepting repairs. No listening/fine-sync/fullmotion/final4K/publication acceptance.
+
+## Exponential closing chapter pictures reviewed, 2026-11-10 05:41 UTC
+
+- [x]Root actually viewed all183 frames on23 sheets of chapter15; no concrete blocking visual defect. Five-description reversal, inverse-multiplier sequence, log-series domain and full-circle inverse ambiguity remain clear. Exact hashes in expanded-stage14/root-scene-review802-ch15.json. Silent2fps only; no listening/fine-sync/final4K/fullAV acceptance.
+- [ ]Repaired09/13/14 full review awaits806 extraction; independent10–12 review finishing. Native source hold rebinding and full Frederick production remain. Never duplicate805/806 or complex772/776.
+
+## Repaired exponential extraction806 waiting, 2026-11-10 05:40 UTC
+
+- [x]805 admitted; actual09 and13 renders completed,14 pending terminal receipt. One persistent exponential-native-pictures806 controller launched; never duplicate. It requires stable805, freezes actual output files, checks exact original cue schedules/frame counts, then extracts every frame of all3 repaired chapters, retaining old lint. No visual acceptance inferred.
+- [x]Root viewed original13 sheets01–15 (frames0–119), exact hashes in expanded-stage14/root-scene-review802-ch13-progress01.json. No new defect in opening buildup; later known sin t collision remains held. Repaired806 full pictures can supersede remaining original view with old anchors retained.
+- [ ]Read actual805/806 receipts and all repaired09/13/14 pictures. Root15 remains; independent10–12 in progress. Source holds/narration/full-motion/final4K/listening/fine-sync/fullAV remain open.
+- [x]Complex772 renderer37529 and776 controller43730 live at05:39;1h29m elapsed,11GiB available,8GiB stop retained. No duplicate job or publication.
+
+## Exponential repair804 passed; repaired preview805 launched, 2026-11-10 05:38 UTC
+
+- [x]804 terminal exit0 at05:36:25,677 stable bindings/no resource stop.218 tests,95 original tests,strict Clippy,1771 facts,15 chapters/94 cues passed. Binarybc1feecf; stage14 tree165ef819. All82 actual glyph files byte-identical to799 independently reviewed pages; no glyph re-review claimed.
+- [x]ONE guarded preview805 launched for09/13/14 with848 frozen inputs aa20b928, unchanged resource guards. NEVER duplicate. Inspect terminal receipt, compare schedules and actually view repaired anchors/persistence before acceptance.
+- [x]Root completed all414 draft frames/52 sheets of09; known12 crossing is sole identified blocker. Evidence expanded-stage14/root-scene-review802-ch09.json. No repaired-scene acceptance.
+- [x]Independent Codex completed381 sheets/3032 frames01–08, no concrete blocking defect; root read report and verified report JSON hashb7261263. Bounded silent2fps only. Same reviewer now assigned all151 sheets10–12 under stage14 handoff; root13–15 remain.
+- [ ]Full Frederick narration, smooth-motion/final4K, listening/fine-sync and independent fullAV remain open. Complex772/776 remain first release priority; no duplicate render or upload.
+
+## Exponential actual circuit review continued, 2026-11-10 05:34 UTC
+
+- [x] Follow-up root review reached chapter09 sheets01–28 (frames0–223), exact hashes in root-scene-review802-progress02.json; known12 crossing persists, no additional defect. Earlier evidence preserved.
+- [x] Root viewed chapter09 sheets01–19 (frames0–151), including re-viewing previously truncated11–16. Exact sheet hashes and observations in expanded-stage14/root-scene-review802-progress01.json. No new defect in these samples; known later reference-line collision remains HOLD.
+- [ ] Root09 sheets29–52 and chapters10–15 remain; independent01–08 review remains separate. Repair804 admitted and active, no terminal qualification yet; no repaired-picture, listening, fine-sync or fullAV acceptance.
+
 ## Exponential actual preview HOLD; three narrow repairs803 building804, 2026-11-10 05:29 UTC
 
 - [x]800 and802 exited0 stable/no resource stop.15 chapters,5777 two-fps draft frames all extracted onto727 sheets. Source/glyph validation is not scene acceptance.

@@ -1,0 +1,49 @@
+{
+  "reviewer_identity": "independent Codex BlackThrush / complex_repair_review787",
+  "authored_recovery": false,
+  "reviewed_at_utc": "2026-11-10T06:17:48.209481+00:00",
+  "scope": "Source review of local recovery815/816 and corrected818/819 plus actual terminal818 evidence; not render or audiovisual acceptance",
+  "evidence_sha256": {
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/local-delivery815.py": "b8181eaefa54e8237db26cd24a4f7749cefc3007b5d9d0b4b005de96134a84cb",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/local-final816-after-delivery.py": "4657dd5e39b8010fef213ac95058f326c1b0209d40d7b11371ba9732f38b29d7",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/local-guard814.py": "a3de7e3e856f132b5a4ba5c5e0fc6b273d47c78916779e799d1d3897301f1947",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/guard_owner80g_target20g.py": "4f34e0d1e9a8f9d164860828f87a734e99b697d2d3048c7b65508e5d84b8b4ad",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/local-delivery818.py": "dc4768f955e4e01abd6de01afe2acd53f78b7f3a90902dd7b3c666fddfa9c7a8",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/local-final819-after-delivery.py": "10e7b5d258a3b01c54008c083702be56b75834e1d84f5501d38e3a30e8c6c37c",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/local-render819-exec.py": "1a4b9deb5e368b1810578fad7deb568065e056182fb98784c92ccd67ab201445",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/local-delivery818-inputs.json": "c021a0f9cd878cc251be15c4f3250be59aa1d12183e311ebec1eeaa85c2be9ff",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-local-delivery818/resource-receipt.json": "ded43cb9225762854a5c4917979881d1ba857b3a3f9874382b2cd2ae20b6ec4d",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-local-delivery818/rebind818.json": "d35723d02988039ee551c817ccb520ce916e08602a9f95ca3f212a7792c829a8",
+    "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-local-delivery815/command.log": "c39b1e7fabf7edc63cbc7ff0818ee35a35fd12f8ba69ef5462eaa9bfc54ae73e",
+    "/Users/jemanuel/scratch/jmev-complex-native-20261109/source760/workspace/tools/coherent_narration.py": "a7fc6705aead7999134d8619458c8b2973ef771be069d4ce98462ac5f97fc42f"
+  },
+  "findings": [
+    {
+      "severity": "blocking for superseded815/816",
+      "location": "local-delivery815.py:26; coherent_narration.py:348-349,541-542",
+      "finding": "Delivery inherited canonical repository cwd while relative manifest WAV and generation-receipt paths require transferred M/repo. Resolved reconstructed source paths differ, correctly rejected by exact report comparison.",
+      "resolution": "818 sets cwd=M/repo;819 changes cwd before exec of unchanged native binary.815 preserved failed; no relaxation of coherent verifier."
+    }
+  ],
+  "current_blockers": [],
+  "safe_to_advance_guarded819": true,
+  "delivery818": {
+    "exit": 0,
+    "stable_input_manifest_sha256": "c021a0f9cd878cc251be15c4f3250be59aa1d12183e311ebec1eeaa85c2be9ff",
+    "all_wavs_byte_identical": 105
+  },
+  "checks": [
+    "All five score586 files are in frozen818 input manifest.",
+    "Both actual775 picture-review and independent787 reports are in frozen818 input manifest.",
+    "819 requires successful stable818 receipt and rechecks every inherited file hash before guard admission.",
+    "Binary761 and local ffmpeg hashes pinned;819 adds new narration outputs, receipt, wrapper and controller into fresh exclusive input manifest.",
+    "Guard preserves shared lane, original baseline, 8GiB stop,4GiB job growth,80GiB workcap,20GiB target growth;814 wrapper raises native admission to20GiB.",
+    "exec wrapper preserves process identity for guard supervision and does not launch a detached child."
+  ],
+  "limitations": [
+    "No new picture inspection or listening in this task.",
+    "No final819 terminal success, full AV decode, final4K pictures or fine sync accepted.",
+    "No publication acceptance.",
+    "818 delivery used10GiB admission per its actual receipt; final819 source specifically uses20GiB admission wrapper."
+  ]
+}

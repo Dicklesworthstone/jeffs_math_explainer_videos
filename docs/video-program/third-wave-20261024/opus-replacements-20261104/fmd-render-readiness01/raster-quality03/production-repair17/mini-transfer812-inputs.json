@@ -1,0 +1,28 @@
+{
+  "files": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/mini-transfer812.py",
+      "sha256": "4ef9328bc18905dfcf6a25d1ae71a5d0dcfe3c7192f617cb3a99af4cc6dd5d22"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/mini-transfer812-files.txt",
+      "sha256": "3f94b136cb6f734524583fb05f3710929d80c78843871adbf70aff30e45de346"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/mini772-terminal812.json",
+      "sha256": "66ce51c4169b7faebe1d173ed0230a7bfa67f64aed1be416d9fa242c84c6fafe"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/mini772-inputs812.json",
+      "sha256": "aa240e99b53f7261d39dff956b80e753d63b73c3ddf77c74df6bbfcdeca5a655"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/guard_owner80g_target20g.py",
+      "sha256": "4f34e0d1e9a8f9d164860828f87a734e99b697d2d3048c7b65508e5d84b8b4ad"
+    },
+    {
+      "path": "/usr/bin/rsync",
+      "sha256": "2b13fd251c65c4691931fa112e163af277929216853537865affc47ab927a2bb"
+    }
+  ]
+}
