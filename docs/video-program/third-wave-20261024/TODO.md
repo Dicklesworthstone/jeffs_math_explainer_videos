@@ -1,3 +1,10 @@
+## Reviewed seam diagnostic queued after pictures, 2026-11-10 19:41 UTC
+
+- [x] CC0 independent02re-review reports no remaining D1/D2 blockers; root selftest alsoexit0. Staged exacthelper3d4ac2a3 onCSD; read-onlycheckexit0 confirms master80244e88, postgainWAVe4b1014f, all14boundary offsets and WAV layout/provenance. comparetrue; noactualaudio decode yet.
+- [x] One persistent controller complex-audio-seams02 ALREADY WAITING,PID2979413,after995-audio-seams02.py SHA3256fdac9d74f535b42d3b41b3cddbbec214a21040694a7fa9b70720e4dc0d56. Requires actualstableexit0verify995,overview995,native995 then invokes reviewedguarded02once. Abortsfailedprerequisite; neverduplicate. No guard/resource weakening.
+- [ ] Inspect actual controller/diagnostic receipt and raw14join measurements later. They are not listening/fine-sync/release acceptance. Overview extraction actualffmpeg2874821live,2343selectedfiles atlastcheck; nofinalpictureacceptance. Native follows existing995controller.
+- [ ] Exponential1007fix/test/review continues; actual1005stillrunning, no successorlaunch. Finalpicture/motion/audio/independentwholefilmAV/captionplayback/platform gates remain open.
+
 ## Audio diagnostic fixes under review, 2026-11-10 19:36 UTC
 
 - [x] Preserved seams01 and02candidates plus02handoff in release-selection1003. Root read bounded stream fix and ran02selftest:exit0, synthetic arrays plus benign local children only. Read loop uses monotonic deadline/select; finally kills/reaps; ffprobe timeout and exactguardpin/receiptcommand added. No actualaudio decoded.
