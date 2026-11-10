@@ -1,0 +1,1287 @@
+{
+  "utc": "2026-11-10T05:11:31.562564+00:00",
+  "master_sha256": "e61269f23176a5c299f104df11ced4d69b84476584b8b91ff1fc5876fe604116",
+  "master_evidence": {
+    "master735-summary.json": {
+      "data": {
+        "frames": 100886,
+        "chapters": [
+          "01_one_more_seat",
+          "02_shares",
+          "03_largest_tails",
+          "04_sixteenth",
+          "05_dials",
+          "06_not_every_time",
+          "07_yardstick",
+          "08_signposts",
+          "09_cost",
+          "10_rounding_rules",
+          "11_webster_quota",
+          "12_both_promises",
+          "13_population",
+          "14_no_rule",
+          "15_recap"
+        ],
+        "imported_chapters": [
+          "01_one_more_seat",
+          "02_shares"
+        ],
+        "movie": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/apportionment_master.mp4",
+        "movie_sha256": "e61269f23176a5c299f104df11ced4d69b84476584b8b91ff1fc5876fe604116",
+        "srt_sha256": "61e636aea49ac7b8c0ab97f4a201a11932aa41e5c71d0bf66974bd7c236d96df",
+        "vtt_sha256": "214e15cb76ad795adbd067ea89da52a3a344881d872bb058e7d8950268b5ef28",
+        "caption_repair": {
+          "helper": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/apportionment-caption-repair727/repair_caption168.py",
+          "helper_sha256": "d94aab217a6ee6639328414b774a7a374fb610c0716f3213222ca421a3762b9f",
+          "reviewed_record": "root-caption-actual734.json",
+          "generated": {
+            "folder": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/captions-generated735",
+            "srt_sha256": "0568f2dd0f59cb2a207ba94426bb712f48a693a6bf2705d0dfb4c47a2b4aee9b",
+            "vtt_sha256": "482c5817d52926f937e805cc3411904833a00878010559d216b507af85143690"
+          },
+          "repaired": {
+            "folder": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/captions-repaired735",
+            "srt_sha256": "61e636aea49ac7b8c0ab97f4a201a11932aa41e5c71d0bf66974bd7c236d96df",
+            "vtt_sha256": "214e15cb76ad795adbd067ea89da52a3a344881d872bb058e7d8950268b5ef28"
+          },
+          "final_hard_links": [
+            "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/apportionment.en.srt",
+            "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/apportionment.en.vtt"
+          ],
+          "report": {
+            "cue": 168,
+            "cues": 443,
+            "characters": 84,
+            "start_ms": 612110,
+            "end_ms_before": 616290,
+            "end_ms_after": 616310,
+            "next_start_ms": 616900,
+            "gap_after_ms": 590,
+            "chars_per_second_before": 20.095693779904305,
+            "chars_per_second_after": 20.0,
+            "limit": 20,
+            "input_srt_sha256": "0568f2dd0f59cb2a207ba94426bb712f48a693a6bf2705d0dfb4c47a2b4aee9b",
+            "input_vtt_sha256": "482c5817d52926f937e805cc3411904833a00878010559d216b507af85143690",
+            "output_srt_sha256": "61e636aea49ac7b8c0ab97f4a201a11932aa41e5c71d0bf66974bd7c236d96df",
+            "output_vtt_sha256": "214e15cb76ad795adbd067ea89da52a3a344881d872bb058e7d8950268b5ef28",
+            "scope": "display dwell adjustment only; not evidence of speech timing"
+          },
+          "scope": "Caption 168 ends at 616310 ms instead of 616290 ms: 84 characters over 4200 ms, at the unchanged limit of 20 per second. Display dwell only, not evidence of speech timing; no speech, timing table or narration changed. The kit's generated pair is kept unchanged in captions-generated735/."
+        },
+        "chapter06_manifest": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-apportionment770-chapter06.json",
+        "chapter06_manifest_sha256": "0c839a9670f3c991753c5ca9b5e441eecc564b043cfea25522bfd41ec7a588e5",
+        "hosts": {
+          "mac_encoder_settings": "x264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=54 lookahead_threads=9 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+          "csd_encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+          "mac_encoder_tags": [
+            "Lavc62.28.102 libx264",
+            "Lavf62.12.102"
+          ],
+          "csd_encoder_tags": [
+            "Lavc62.11.100 libx264",
+            "Lavf62.3.100"
+          ],
+          "csd_ffmpeg_version": "ffmpeg version 8.0.1-3ubuntu2 Copyright (c) 2000-2025 the FFmpeg developers"
+        },
+        "tracking": {
+          "master": {
+            "polls": 317,
+            "missed": 0,
+            "escaped_seen": 0
+          },
+          "captions": {
+            "polls": 187,
+            "missed": 0,
+            "escaped_seen": 0
+          }
+        },
+        "inputs_sha256": "24ecd3c8eced5a94de066b5e8de9b3acacd837cf4b442ee1eb3e6b688e4a2b04",
+        "helper_sha256": "220f9cf18bc146cea4333f3f53886436cccdc4450b27e72772ccd733213227b3",
+        "scope": "Native master replay, frame grid and caption commands passed, and caption 168 was repaired for display dwell only. Chapters 01-02 were encoded on the Mac and 03-15 on the CSD, chapter 06 by its reviewed successor job. Separate final decode, caption, loudness, picture, motion, audio, fine-sync and independent AV checks remain; nothing here accepts any of them."
+      },
+      "sha256": "37ff4fdb013965d2585803467360b91fd4fa42cd5ebc0df46220a626ab561716"
+    },
+    "materialized735.json": {
+      "data": {
+        "links": [
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-import683-a1/incoming/00011",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/01_one_more_seat.mp4",
+            "sha256": "bc3725c2722d6cd31d2918cf94ab7a87395ad98cac83ab2bbbbb39546708a174",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-import683-a1/incoming/00012",
+            "source_sha256": "28a41228dc55e9ce13202ae2af2adac208e9819ba1d395490f43fba6b11612a8",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/01_one_more_seat.timeline.tsv",
+            "sha256": "eab56139b5728c3a2a75426ad59a14fec3051aa440b156477fc17db6d27f5aac",
+            "rebased_path_column_only": true
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-import683-a1/incoming/00009",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/01_one_more_seat.cues.tsv",
+            "sha256": "ad408c17122d51115c33f117b63a5f44e35c979554026131c36d05fb5d1ee393",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-import683-a1/incoming/00008",
+            "source_sha256": "f993d82af405c3e2fcd5cf94d174b5edc6fe526a48f6d4941576e2e055caa67a",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/01_one_more_seat.cuelog.tsv",
+            "sha256": "15cfb08adf31c3b08e3e21e1604ca0dfe75f4d9ebe7f92b85475efd9e0031c23",
+            "rebased_path_column_only": true
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-import683-a1/incoming/00010",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/01_one_more_seat.layout.tsv",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-import683-a1/incoming/00013",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/01_one_more_seat/soundtrack_0.wav",
+            "sha256": "64bf575b2bce8ad26e27c599a6d2a4b39d08c4219a8251dd1fb30bdd306a3293",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-import683-a1/incoming/00019",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/02_shares.mp4",
+            "sha256": "cdc9067532923b2ef466473a5442ec2f30f6687ae29a23ff87e2e8d3680bcbd9",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-import683-a1/incoming/00020",
+            "source_sha256": "205d5e8c996afe80d048117a32824df90320f77fc8146926adb661d34aa92296",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/02_shares.timeline.tsv",
+            "sha256": "f043bc6abbaf3ef272d423ed104cde899078169dd3e5d5c8b50125fa203ad773",
+            "rebased_path_column_only": true
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-import683-a1/incoming/00017",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/02_shares.cues.tsv",
+            "sha256": "22f502d908f3a70f66e53f5c0a18d2aa7159af0e955c74cbbf21c17eec672c98",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-import683-a1/incoming/00016",
+            "source_sha256": "2e5cd23b0fe80a2e359e8e1fa2116cffff3f087053bd9ba0ab8438b61b384715",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/02_shares.cuelog.tsv",
+            "sha256": "211b64e5676d9517e3b0b6511a7876457d08cd65e415967f51e2e0337b4f7294",
+            "rebased_path_column_only": true
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-import683-a1/incoming/00018",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/02_shares.layout.tsv",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-import683-a1/incoming/00021",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/02_shares/soundtrack_0.wav",
+            "sha256": "ddeb1646247de8114c12f6bac0789e98b10319e7336c38a622804676b707031c",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-03_largest_tails/render/03_largest_tails.mp4",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/03_largest_tails.mp4",
+            "sha256": "194c725c71b5f3a0e21ba7d82720a9667aa4715ff9037792efa9d8a2b00b8b9e",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-03_largest_tails/render/03_largest_tails.timeline.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/03_largest_tails.timeline.tsv",
+            "sha256": "652395af3ba9b608f77df52f7d6b095a74e97c6f7a24305987010ffc23dfa496",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-03_largest_tails/render/03_largest_tails.cues.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/03_largest_tails.cues.tsv",
+            "sha256": "4b10ad40d284d73ce32d9abc11fe3d3895e0d8354213828b3662a8110c49b5e5",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-03_largest_tails/render/03_largest_tails.cuelog.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/03_largest_tails.cuelog.tsv",
+            "sha256": "cc9e0c84c080dc447124c7564f2bf0ed7c1b04e554a500dffd8b2606b48be5ad",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-03_largest_tails/render/03_largest_tails.layout.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/03_largest_tails.layout.tsv",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-03_largest_tails/render/soundtrack/03_largest_tails/soundtrack_0.wav",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/03_largest_tails/soundtrack_0.wav",
+            "sha256": "cda101c2768b47c8059cc9d1a3d9413065c15a4f36fab2648f4957e1596b4e13",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-04_sixteenth/render/04_sixteenth.mp4",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/04_sixteenth.mp4",
+            "sha256": "c0961d9d2bd3ec6e60c8722a9d987cc5962f1b01ed77e68c7df2a862f95228b4",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-04_sixteenth/render/04_sixteenth.timeline.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/04_sixteenth.timeline.tsv",
+            "sha256": "bdd027bd4e29e5f66d3fc96b3cf0cce3a8913ae4a39b210e00d8b60c50576ba8",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-04_sixteenth/render/04_sixteenth.cues.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/04_sixteenth.cues.tsv",
+            "sha256": "a4a7d3ee3ee360c34c135f39da9b24c6f6764ab880e39db6a91e4e8c089b9869",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-04_sixteenth/render/04_sixteenth.cuelog.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/04_sixteenth.cuelog.tsv",
+            "sha256": "4ee3ccbaf618ccdfadfd172e26b9a203b75e3cb10cf5ace1f519d2febc70b18c",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-04_sixteenth/render/04_sixteenth.layout.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/04_sixteenth.layout.tsv",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-04_sixteenth/render/soundtrack/04_sixteenth/soundtrack_0.wav",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/04_sixteenth/soundtrack_0.wav",
+            "sha256": "1ed89121a1fdfdfe3700393b31bac8fe81bb500f75fa65dc11bb20d59afb58b2",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-05_dials/render/05_dials.mp4",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/05_dials.mp4",
+            "sha256": "dc78c7b988cc59480dde15cb810af7d6dc411197c8c8a92d58bc25909a6b9457",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-05_dials/render/05_dials.timeline.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/05_dials.timeline.tsv",
+            "sha256": "a51f15bdc65452aeb03874e3fff5ed9a0d835c88bb13e0e3d86d6df1d0eb6738",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-05_dials/render/05_dials.cues.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/05_dials.cues.tsv",
+            "sha256": "a0ec2201b3e4b4c56bf444e2a539775a35c24633bc4323a0de730474fd373329",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-05_dials/render/05_dials.cuelog.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/05_dials.cuelog.tsv",
+            "sha256": "d09ecf53719477e8fa6b94cda535b2778dcdec89598994e8a09c9403e8647b8c",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-05_dials/render/05_dials.layout.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/05_dials.layout.tsv",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-05_dials/render/soundtrack/05_dials/soundtrack_0.wav",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/05_dials/soundtrack_0.wav",
+            "sha256": "d702caa51ebe12077c7880c7158ca619a071b7c5390c3ec6aacd9dd05beeef72",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-final757/render/06_not_every_time.mp4",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/06_not_every_time.mp4",
+            "sha256": "2469a4481d96cdc1ebec21748cb3b8dbc9074864e985da93698a611d2ec2b168",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-final757/render/06_not_every_time.timeline.tsv",
+            "source_sha256": "3f45e319a1788ab9bd07a10ee07682ea234622d5474c47cd32afb8d165dfdaf3",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/06_not_every_time.timeline.tsv",
+            "sha256": "7a27898d8e7f574a1e1a384d4264fa42e7a2baccc3f55ed0b6df1315f5331d4f",
+            "repaired_narration_path_column_only": true
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-final757/render/06_not_every_time.cues.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/06_not_every_time.cues.tsv",
+            "sha256": "520f69ea626a793268488b2b48bfa385ed6b5ef34f7f84270fa042c616bac663",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-final757/render/06_not_every_time.cuelog.tsv",
+            "source_sha256": "365d6a24e52b7e947488722d109b8a07e21471824c91d25bdb574a11d1c18a41",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/06_not_every_time.cuelog.tsv",
+            "sha256": "13bcf17fe058b00cff509e703cbb6083c6e606ecab0cec05d9c3002035b237fc",
+            "repaired_narration_path_column_only": true
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-final757/render/06_not_every_time.layout.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/06_not_every_time.layout.tsv",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-ch06-final757/render/soundtrack/06_not_every_time/soundtrack_0.wav",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/06_not_every_time/soundtrack_0.wav",
+            "sha256": "b455077f12ef5035f26cd6eb303380feeec9ad0eea647d42e264534b47ab3f97",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-07_yardstick/render/07_yardstick.mp4",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/07_yardstick.mp4",
+            "sha256": "fee69086207963b5176c235dfba62bf3d298ac90ad59901c2999968324219862",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-07_yardstick/render/07_yardstick.timeline.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/07_yardstick.timeline.tsv",
+            "sha256": "e45fe8fd54bfccb5b66409db4cd6a7b4b564e477140aedbb883d724e0656a866",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-07_yardstick/render/07_yardstick.cues.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/07_yardstick.cues.tsv",
+            "sha256": "1de67bfcb5c0445c7aa9a7092eedc08f11e0d6dfc9b0254d15cdc90f95ab8996",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-07_yardstick/render/07_yardstick.cuelog.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/07_yardstick.cuelog.tsv",
+            "sha256": "86d43ede5c4b51f4b37a3854276e8bf304a4f5fc4e90465bdee3c9177dbd0456",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-07_yardstick/render/07_yardstick.layout.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/07_yardstick.layout.tsv",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-07_yardstick/render/soundtrack/07_yardstick/soundtrack_0.wav",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/07_yardstick/soundtrack_0.wav",
+            "sha256": "bedf4d68d00a98d43f4bed341e8bd2fb2f755e06c4204bab0b5bde79d3674855",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-08_signposts/render/08_signposts.mp4",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/08_signposts.mp4",
+            "sha256": "c69b4068028357f888196243faa80287b759f741b512fa2da1764f86456cd88e",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-08_signposts/render/08_signposts.timeline.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/08_signposts.timeline.tsv",
+            "sha256": "f3d213df58e66cb958e5794e118694667574eedb4131d4317094d7cdc507ef6a",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-08_signposts/render/08_signposts.cues.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/08_signposts.cues.tsv",
+            "sha256": "72a3b521def55e5b3fd38f7f24589bac2c5f28345b906c82146f8f6fd291a399",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-08_signposts/render/08_signposts.cuelog.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/08_signposts.cuelog.tsv",
+            "sha256": "c199ad087cf44193b5fa38c0bc10bd1877cee4201da1668ed22bcf7a9d870b58",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-08_signposts/render/08_signposts.layout.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/08_signposts.layout.tsv",
+            "sha256": "a2367895d6db8949fac273e68ba119dd5fcacbccc4a67d3d27e9c77062cf5eb0",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-08_signposts/render/soundtrack/08_signposts/soundtrack_0.wav",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/08_signposts/soundtrack_0.wav",
+            "sha256": "4e7ad48ecf33171acc3423cb9344cb48254a28a57434f231ade8af68ee6b47b3",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-09_cost/render/09_cost.mp4",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/09_cost.mp4",
+            "sha256": "360740684c3557cb5cc17cb636539b7d46d409c4bd7af4c7c589ec759283dddb",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-09_cost/render/09_cost.timeline.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/09_cost.timeline.tsv",
+            "sha256": "5ac6f4881f4153ee3a0c750b2b2fa69f73aebe15edb23eaa8df281f7d77c4335",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-09_cost/render/09_cost.cues.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/09_cost.cues.tsv",
+            "sha256": "6407fe9131b799d0c4e349cb449dcdfff39fdbb9e0fd98e465cf9e0fd10c6bdb",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-09_cost/render/09_cost.cuelog.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/09_cost.cuelog.tsv",
+            "sha256": "1932f57f664f902437781cd2b2c0b020203611877b08b92889eb739ac1ae9f99",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-09_cost/render/09_cost.layout.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/09_cost.layout.tsv",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-09_cost/render/soundtrack/09_cost/soundtrack_0.wav",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/09_cost/soundtrack_0.wav",
+            "sha256": "b344aeef5d42c349fa8e61417a1ca1747c31017d34dc83e309db283dcf6b838e",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-10_rounding_rules/render/10_rounding_rules.mp4",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/10_rounding_rules.mp4",
+            "sha256": "836d3db51efd86a9419bf386703a237add98795e6d3a7f10fbe0ebdc8db80cb3",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-10_rounding_rules/render/10_rounding_rules.timeline.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/10_rounding_rules.timeline.tsv",
+            "sha256": "2e05ae916bf977b3d5f92ae7ddf38b130fa6601d7bf9b80e050626af960b0df6",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-10_rounding_rules/render/10_rounding_rules.cues.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/10_rounding_rules.cues.tsv",
+            "sha256": "1769f199409f9f679723c01238248b3abc68166c9a7ed56aab5b1af0c689e354",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-10_rounding_rules/render/10_rounding_rules.cuelog.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/10_rounding_rules.cuelog.tsv",
+            "sha256": "08bffbfa1c9548694c48c9e7ee2f852633b96b937e049e9a89ec3b6dd547f905",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-10_rounding_rules/render/10_rounding_rules.layout.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/10_rounding_rules.layout.tsv",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-10_rounding_rules/render/soundtrack/10_rounding_rules/soundtrack_0.wav",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/10_rounding_rules/soundtrack_0.wav",
+            "sha256": "203d24f6da1df6648270a00248fcd373f9b08a5863636ea6fca468b8a97291c0",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-11_webster_quota/render/11_webster_quota.mp4",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/11_webster_quota.mp4",
+            "sha256": "02fa30d53e3aa9ae5d411655cac6bc0055e8d6127668c7e026981f1a86bedc6a",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-11_webster_quota/render/11_webster_quota.timeline.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/11_webster_quota.timeline.tsv",
+            "sha256": "7b13c9e2df996b3e786dd87b6dd4daa8a4e2b56ed61b862c800d5ca028b3026b",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-11_webster_quota/render/11_webster_quota.cues.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/11_webster_quota.cues.tsv",
+            "sha256": "f74aaec29715bf3d9032f8411ebdffefdc51550ccb0cfa0962cf87594bcb0ffd",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-11_webster_quota/render/11_webster_quota.cuelog.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/11_webster_quota.cuelog.tsv",
+            "sha256": "524135c3f05751a06da71c016ab47b2309788ad8c5e4ebd24b0035074e0dbf91",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-11_webster_quota/render/11_webster_quota.layout.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/11_webster_quota.layout.tsv",
+            "sha256": "46cf8f06ba3ef7852a4af651cb0dc9d60929cd8681866425ff23d7829936eec4",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-11_webster_quota/render/soundtrack/11_webster_quota/soundtrack_0.wav",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/11_webster_quota/soundtrack_0.wav",
+            "sha256": "1971e3c7552fd84fceadd83ef5c63929c2f1fc6dd38af187cb30a51e037e4581",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-12_both_promises/render/12_both_promises.mp4",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/12_both_promises.mp4",
+            "sha256": "60ed45b0f040eda320f35826bbe0e21c4ec51e486d6aa4859456065fd6108ac3",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-12_both_promises/render/12_both_promises.timeline.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/12_both_promises.timeline.tsv",
+            "sha256": "fdb3b50572f83ae3f5a4a0887e1dd1dc4ec9eba54fe20525a0db642c81d8db71",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-12_both_promises/render/12_both_promises.cues.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/12_both_promises.cues.tsv",
+            "sha256": "f4a22a155e8853faca9dfb620b0023e08d29ce96cd1e2f5a2acb76e0f13b0683",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-12_both_promises/render/12_both_promises.cuelog.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/12_both_promises.cuelog.tsv",
+            "sha256": "8d221ead741387a1099f0223387d10242c8d1e09a1b7cb76a6135930aa79e1d8",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-12_both_promises/render/12_both_promises.layout.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/12_both_promises.layout.tsv",
+            "sha256": "fd5bcaac35fcc882ddcf762228d6ecb1c930847607c5c1e1a80ccf358ec65212",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-12_both_promises/render/soundtrack/12_both_promises/soundtrack_0.wav",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/12_both_promises/soundtrack_0.wav",
+            "sha256": "9ca20dad41de97e80fc8a280d5b73b990f44c5a7f292e1541d84cfaf7fea095d",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-13_population/render/13_population.mp4",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/13_population.mp4",
+            "sha256": "6ca7e4c928d217dec83c48414d761c6b5e8eca459b7106a2262738a232a065cb",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-13_population/render/13_population.timeline.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/13_population.timeline.tsv",
+            "sha256": "02ec94cad9e1a6d042a60e79f0851a2787c48c02bf2ace2d962cee99130aa7d8",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-13_population/render/13_population.cues.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/13_population.cues.tsv",
+            "sha256": "f1454e8f2922291f67d6d1fa35ffb722f67c6d6f101fd32a18a00e0c76650f78",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-13_population/render/13_population.cuelog.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/13_population.cuelog.tsv",
+            "sha256": "020a82e1dff7e1342c83dfca4bdee7cbf47a367f2e8e7a060c6a985c8128ffca",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-13_population/render/13_population.layout.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/13_population.layout.tsv",
+            "sha256": "2aff6cd54b7fafa388ba6a4d0513f7acdfbd5a6e62ef635de5ba1a8a342dff53",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-13_population/render/soundtrack/13_population/soundtrack_0.wav",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/13_population/soundtrack_0.wav",
+            "sha256": "72eb33a9323f4b68a95431523035fda936f450d752af27b5bad02cbec0d6b509",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-14_no_rule/render/14_no_rule.mp4",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/14_no_rule.mp4",
+            "sha256": "89f973b29ea7d41a980cdc977543aa26fee57f4c15bbe1a1795d13f8ff7abda6",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-14_no_rule/render/14_no_rule.timeline.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/14_no_rule.timeline.tsv",
+            "sha256": "f485043b535e3704f93412bb18d4cfb4c5fc0b6bf872a99a685cf0859e4f1157",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-14_no_rule/render/14_no_rule.cues.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/14_no_rule.cues.tsv",
+            "sha256": "4d2830224dc723eecca8f0fa61de661d5265f67945420be7156df765c4d2eb22",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-14_no_rule/render/14_no_rule.cuelog.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/14_no_rule.cuelog.tsv",
+            "sha256": "330458b6f1f859473616ffd5deb30aec20247bbcf4641fca6718df89c5e78057",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-14_no_rule/render/14_no_rule.layout.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/14_no_rule.layout.tsv",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-14_no_rule/render/soundtrack/14_no_rule/soundtrack_0.wav",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/14_no_rule/soundtrack_0.wav",
+            "sha256": "7c4082bc9d9e22b3ce9c02fb480c96a05cfe45aadc3b61d8ad8c22f158cdae15",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-15_recap/render/15_recap.mp4",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/15_recap.mp4",
+            "sha256": "e7b27a40f2fc54c6c742c0582f4ed325fda1bb12200b90727fa6a7372c007ec4",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-15_recap/render/15_recap.timeline.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/15_recap.timeline.tsv",
+            "sha256": "0d3268cc77150764e14a365a559cf881fd32721836a2d588d7256cfec22d5191",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-15_recap/render/15_recap.cues.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/15_recap.cues.tsv",
+            "sha256": "b309267db78a66ded56c38d11c91cc97b048db5f099bc48c613811344a41aa17",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-15_recap/render/15_recap.cuelog.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/15_recap.cuelog.tsv",
+            "sha256": "a46151e947e51c8b1aba371baae7c85346498b1f68bdb6f74f4a530875bb31f4",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-15_recap/render/15_recap.layout.tsv",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/15_recap.layout.tsv",
+            "sha256": "732cb89434b9ca482dd836c52e7f44b86657669b8905ef4e3b84ab22c0fa9c84",
+            "rebased_path_column_only": false
+          },
+          {
+            "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-15_recap/render/soundtrack/15_recap/soundtrack_0.wav",
+            "destination": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-master770/final/soundtrack/15_recap/soundtrack_0.wav",
+            "sha256": "ff9f83e4174c8d00e6ae593026bdda3b6609344b291682e71ed2991a14f58421",
+            "rebased_path_column_only": false
+          }
+        ],
+        "frames": 100886,
+        "hosts": {
+          "mac_encoder_settings": "x264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=54 lookahead_threads=9 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+          "csd_encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+          "mac_encoder_tags": [
+            "Lavc62.28.102 libx264",
+            "Lavf62.12.102"
+          ],
+          "csd_encoder_tags": [
+            "Lavc62.11.100 libx264",
+            "Lavf62.3.100"
+          ],
+          "csd_ffmpeg_version": "ffmpeg version 8.0.1-3ubuntu2 Copyright (c) 2000-2025 the FFmpeg developers"
+        },
+        "imported_chapter_checks": {
+          "01_one_more_seat": {
+            "folder": "jobs/csd-apportionment-master770/final",
+            "frames": 4806,
+            "encoder_settings": "x264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=54 lookahead_threads=9 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+            "files": {
+              "01_one_more_seat.mp4": "bc3725c2722d6cd31d2918cf94ab7a87395ad98cac83ab2bbbbb39546708a174",
+              "01_one_more_seat.timeline.tsv": "eab56139b5728c3a2a75426ad59a14fec3051aa440b156477fc17db6d27f5aac",
+              "01_one_more_seat.cues.tsv": "ad408c17122d51115c33f117b63a5f44e35c979554026131c36d05fb5d1ee393",
+              "01_one_more_seat.cuelog.tsv": "15cfb08adf31c3b08e3e21e1604ca0dfe75f4d9ebe7f92b85475efd9e0031c23",
+              "01_one_more_seat.layout.tsv": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "soundtrack/01_one_more_seat/soundtrack_0.wav": "64bf575b2bce8ad26e27c599a6d2a4b39d08c4219a8251dd1fb30bdd306a3293"
+            }
+          },
+          "02_shares": {
+            "folder": "jobs/csd-apportionment-master770/final",
+            "frames": 6647,
+            "encoder_settings": "x264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=54 lookahead_threads=9 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+            "files": {
+              "02_shares.mp4": "cdc9067532923b2ef466473a5442ec2f30f6687ae29a23ff87e2e8d3680bcbd9",
+              "02_shares.timeline.tsv": "f043bc6abbaf3ef272d423ed104cde899078169dd3e5d5c8b50125fa203ad773",
+              "02_shares.cues.tsv": "22f502d908f3a70f66e53f5c0a18d2aa7159af0e955c74cbbf21c17eec672c98",
+              "02_shares.cuelog.tsv": "211b64e5676d9517e3b0b6511a7876457d08cd65e415967f51e2e0337b4f7294",
+              "02_shares.layout.tsv": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "soundtrack/02_shares/soundtrack_0.wav": "ddeb1646247de8114c12f6bac0789e98b10319e7336c38a622804676b707031c"
+            }
+          }
+        },
+        "chapters": {
+          "01_one_more_seat": {
+            "frames": 4806,
+            "imported": true,
+            "encoder_settings": "x264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=54 lookahead_threads=9 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          },
+          "02_shares": {
+            "frames": 6647,
+            "imported": true,
+            "encoder_settings": "x264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=54 lookahead_threads=9 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          },
+          "03_largest_tails": {
+            "frames": 5527,
+            "imported": false,
+            "encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          },
+          "04_sixteenth": {
+            "frames": 4238,
+            "imported": false,
+            "encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          },
+          "05_dials": {
+            "frames": 6316,
+            "imported": false,
+            "encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          },
+          "06_not_every_time": {
+            "frames": 4947,
+            "imported": false,
+            "encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          },
+          "07_yardstick": {
+            "frames": 5049,
+            "imported": false,
+            "encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          },
+          "08_signposts": {
+            "frames": 6448,
+            "imported": false,
+            "encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          },
+          "09_cost": {
+            "frames": 4907,
+            "imported": false,
+            "encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          },
+          "10_rounding_rules": {
+            "frames": 8471,
+            "imported": false,
+            "encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          },
+          "11_webster_quota": {
+            "frames": 6480,
+            "imported": false,
+            "encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          },
+          "12_both_promises": {
+            "frames": 13460,
+            "imported": false,
+            "encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          },
+          "13_population": {
+            "frames": 7459,
+            "imported": false,
+            "encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          },
+          "14_no_rule": {
+            "frames": 10390,
+            "imported": false,
+            "encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          },
+          "15_recap": {
+            "frames": 5741,
+            "imported": false,
+            "encoder_settings": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=5 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=8 psy=1 psy_rd=0.40:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=2 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=6 lookahead_threads=1 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=3 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=50 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60"
+          }
+        }
+      },
+      "sha256": "45dba4f8523709d406ae12fe7025c2911350ed852c4563e513688857708d2e9d"
+    },
+    "resource-receipt.json": {
+      "data": {
+        "started": "2026-11-10T03:01:05.313122+00:00",
+        "phase": "native",
+        "command": [
+          "/usr/bin/python3",
+          "-I",
+          "-B",
+          "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-apportionment770-master-bound.py",
+          "run"
+        ],
+        "preflight_only": false,
+        "samples": [
+          {
+            "utc": "2026-11-10T03:01:09.534630+00:00",
+            "free_bytes": 102869700608,
+            "work_bytes": 19421609984,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:01:20.870182+00:00",
+            "free_bytes": 102869323776,
+            "work_bytes": 19421634560,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:01:32.213655+00:00",
+            "free_bytes": 102869311488,
+            "work_bytes": 19421634560,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:01:43.539660+00:00",
+            "free_bytes": 102869303296,
+            "work_bytes": 19421634560,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:01:54.882625+00:00",
+            "free_bytes": 102869295104,
+            "work_bytes": 19421638656,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:02:06.223424+00:00",
+            "free_bytes": 102869037056,
+            "work_bytes": 19421638656,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:02:17.578261+00:00",
+            "free_bytes": 102869020672,
+            "work_bytes": 19421638656,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:02:28.919945+00:00",
+            "free_bytes": 102869028864,
+            "work_bytes": 19421638656,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:02:40.245255+00:00",
+            "free_bytes": 102868930560,
+            "work_bytes": 19421691904,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:02:51.578069+00:00",
+            "free_bytes": 102868922368,
+            "work_bytes": 19421691904,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:03:02.915963+00:00",
+            "free_bytes": 102868918272,
+            "work_bytes": 19421691904,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:03:14.257675+00:00",
+            "free_bytes": 102868918272,
+            "work_bytes": 19421691904,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:03:25.597605+00:00",
+            "free_bytes": 102868905984,
+            "work_bytes": 19421691904,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:03:36.927876+00:00",
+            "free_bytes": 102868901888,
+            "work_bytes": 19421691904,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:03:48.265965+00:00",
+            "free_bytes": 102868901888,
+            "work_bytes": 19421691904,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:03:59.608384+00:00",
+            "free_bytes": 102868893696,
+            "work_bytes": 19421696000,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:04:10.951469+00:00",
+            "free_bytes": 102868885504,
+            "work_bytes": 19421696000,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:04:22.287424+00:00",
+            "free_bytes": 102868873216,
+            "work_bytes": 19421696000,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:04:33.634909+00:00",
+            "free_bytes": 102868877312,
+            "work_bytes": 19421696000,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:04:44.978945+00:00",
+            "free_bytes": 102868877312,
+            "work_bytes": 19421696000,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:04:56.319138+00:00",
+            "free_bytes": 102868865024,
+            "work_bytes": 19421696000,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:05:07.665672+00:00",
+            "free_bytes": 102868860928,
+            "work_bytes": 19421696000,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:05:19.002590+00:00",
+            "free_bytes": 102868860928,
+            "work_bytes": 19421696000,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:05:30.341565+00:00",
+            "free_bytes": 102868852736,
+            "work_bytes": 19421696000,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:05:41.679862+00:00",
+            "free_bytes": 102868856832,
+            "work_bytes": 19421696000,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:05:53.015340+00:00",
+            "free_bytes": 102868848640,
+            "work_bytes": 19421696000,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:06:04.347560+00:00",
+            "free_bytes": 102868836352,
+            "work_bytes": 19421696000,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:06:15.686249+00:00",
+            "free_bytes": 102868819968,
+            "work_bytes": 19421696000,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:06:27.033761+00:00",
+            "free_bytes": 102867791872,
+            "work_bytes": 19421696000,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:06:38.368999+00:00",
+            "free_bytes": 102218506240,
+            "work_bytes": 20074651648,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:06:49.710276+00:00",
+            "free_bytes": 102126780416,
+            "work_bytes": 20161445888,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:07:01.040331+00:00",
+            "free_bytes": 102112616448,
+            "work_bytes": 20175601664,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:07:12.388012+00:00",
+            "free_bytes": 102095024128,
+            "work_bytes": 20193165312,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:07:23.760434+00:00",
+            "free_bytes": 102078996480,
+            "work_bytes": 20209422336,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:07:35.090359+00:00",
+            "free_bytes": 102063001600,
+            "work_bytes": 20225413120,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:07:46.439429+00:00",
+            "free_bytes": 102044876800,
+            "work_bytes": 20243501056,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:07:57.774914+00:00",
+            "free_bytes": 102025723904,
+            "work_bytes": 20262637568,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:08:09.133855+00:00",
+            "free_bytes": 102006845440,
+            "work_bytes": 20281511936,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:08:20.468478+00:00",
+            "free_bytes": 102002900992,
+            "work_bytes": 20285190144,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:08:31.806992+00:00",
+            "free_bytes": 102002896896,
+            "work_bytes": 20285190144,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:08:43.155300+00:00",
+            "free_bytes": 102002896896,
+            "work_bytes": 20285190144,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:08:54.502109+00:00",
+            "free_bytes": 102002880512,
+            "work_bytes": 20285194240,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:09:05.851896+00:00",
+            "free_bytes": 102002868224,
+            "work_bytes": 20285194240,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:09:17.194138+00:00",
+            "free_bytes": 102002753536,
+            "work_bytes": 20285194240,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:09:28.536398+00:00",
+            "free_bytes": 102002847744,
+            "work_bytes": 20285194240,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:09:39.884098+00:00",
+            "free_bytes": 102002843648,
+            "work_bytes": 20285194240,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:09:51.220163+00:00",
+            "free_bytes": 102002839552,
+            "work_bytes": 20285194240,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:10:02.554146+00:00",
+            "free_bytes": 102002839552,
+            "work_bytes": 20285194240,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:10:13.890516+00:00",
+            "free_bytes": 102002835456,
+            "work_bytes": 20285194240,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:10:25.223814+00:00",
+            "free_bytes": 102002814976,
+            "work_bytes": 20285194240,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:10:36.568134+00:00",
+            "free_bytes": 102002819072,
+            "work_bytes": 20285194240,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:10:47.921145+00:00",
+            "free_bytes": 102002819072,
+            "work_bytes": 20285194240,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:10:59.252273+00:00",
+            "free_bytes": 102002810880,
+            "work_bytes": 20285194240,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:11:10.599659+00:00",
+            "free_bytes": 102002798592,
+            "work_bytes": 20285194240,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:11:21.937964+00:00",
+            "free_bytes": 102002794496,
+            "work_bytes": 20285194240,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:11:33.275086+00:00",
+            "free_bytes": 102002716672,
+            "work_bytes": 20285272064,
+            "target_bytes": 6783913984
+          },
+          {
+            "utc": "2026-11-10T03:11:35.828604+00:00",
+            "free_bytes": 102002606080,
+            "work_bytes": 20285358080,
+            "target_bytes": 6783913984
+          }
+        ],
+        "sbh": {
+          "exit": 0,
+          "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":102869721088,\"free_excludes_purgeable\":true,\"free_pct\":10.574802562873208,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-stroke-probe-20261106\",\"platform\":{\"linux\":{\"device_id\":66308,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":972781481984,\"unprotected\":null,\"volume_available_bytes\":102869721088,\"volume_role\":null,\"volume_total_bytes\":972781481984}\n",
+          "stderr": ""
+        },
+        "admission": {
+          "utc": "2026-11-10T03:01:05.325554+00:00",
+          "free_bytes": 102869721088,
+          "work_bytes": 19421605888,
+          "target_bytes": 6783913984
+        },
+        "policy": {
+          "admission_gib": 10,
+          "stop_free_gib": 8,
+          "phase_growth_gib": 4,
+          "work_cap_gib": 56,
+          "target_growth_cap_gib": 20,
+          "sample_seconds": 10
+        },
+        "admitted": true,
+        "inputs_sha256": "24ecd3c8eced5a94de066b5e8de9b3acacd837cf4b442ee1eb3e6b688e4a2b04",
+        "pid": 3352556,
+        "exit": 0,
+        "final_inputs_sha256": "24ecd3c8eced5a94de066b5e8de9b3acacd837cf4b442ee1eb3e6b688e4a2b04",
+        "finished": "2026-11-10T03:11:40.003615+00:00"
+      },
+      "sha256": "747f18fe6f23047390577eb95a3d8b3d2a8e11e5e2298663776f6a1c778b2bd1"
+    }
+  },
+  "description": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/apportionment-publication627/description.txt",
+  "description_sha256": "fb38b93c33ddd5e09d649a9db0a2934bdcbeac4d408116ea50dfb56bb69e9390",
+  "chapters": [
+    {
+      "chapter": "01_one_more_seat",
+      "start_frame": 0,
+      "start_seconds": 0.0,
+      "published_timestamp": "0:00",
+      "title": "One more seat",
+      "frames": 4806
+    },
+    {
+      "chapter": "02_shares",
+      "start_frame": 4806,
+      "start_seconds": 80.1,
+      "published_timestamp": "1:20",
+      "title": "Seats do not come in fractions",
+      "frames": 6647
+    },
+    {
+      "chapter": "03_largest_tails",
+      "start_frame": 11453,
+      "start_seconds": 190.88333333333333,
+      "published_timestamp": "3:10",
+      "title": "Whole parts first, then the largest tails",
+      "frames": 5527
+    },
+    {
+      "chapter": "04_sixteenth",
+      "start_frame": 16980,
+      "start_seconds": 283.0,
+      "published_timestamp": "4:43",
+      "title": "The sixteenth seat",
+      "frames": 4238
+    },
+    {
+      "chapter": "05_dials",
+      "start_frame": 21218,
+      "start_seconds": 353.6333333333333,
+      "published_timestamp": "5:53",
+      "title": "Tails move at different speeds",
+      "frames": 6316
+    },
+    {
+      "chapter": "06_not_every_time",
+      "start_frame": 27534,
+      "start_seconds": 458.9,
+      "published_timestamp": "7:38",
+      "title": "It comes and goes",
+      "frames": 4947
+    },
+    {
+      "chapter": "07_yardstick",
+      "start_frame": 32481,
+      "start_seconds": 541.35,
+      "published_timestamp": "9:01",
+      "title": "Change the yardstick, not the rounding",
+      "frames": 5049
+    },
+    {
+      "chapter": "08_signposts",
+      "start_frame": 37530,
+      "start_seconds": 625.5,
+      "published_timestamp": "10:25",
+      "title": "One list for every house size",
+      "frames": 6448
+    },
+    {
+      "chapter": "09_cost",
+      "start_frame": 43978,
+      "start_seconds": 732.9666666666667,
+      "published_timestamp": "12:12",
+      "title": "The cost of never taking back",
+      "frames": 4907
+    },
+    {
+      "chapter": "10_rounding_rules",
+      "start_frame": 48885,
+      "start_seconds": 814.75,
+      "published_timestamp": "13:34",
+      "title": "Round up, round to the nearest",
+      "frames": 8471
+    },
+    {
+      "chapter": "11_webster_quota",
+      "start_frame": 57356,
+      "start_seconds": 955.9333333333333,
+      "published_timestamp": "15:55",
+      "title": "Can Webster break quota?",
+      "frames": 6480
+    },
+    {
+      "chapter": "12_both_promises",
+      "start_frame": 63836,
+      "start_seconds": 1063.9333333333334,
+      "published_timestamp": "17:43",
+      "title": "Both promises at once",
+      "frames": 13460
+    },
+    {
+      "chapter": "13_population",
+      "start_frame": 77296,
+      "start_seconds": 1288.2666666666667,
+      "published_timestamp": "21:28",
+      "title": "When populations change",
+      "frames": 7459
+    },
+    {
+      "chapter": "14_no_rule",
+      "start_frame": 84755,
+      "start_seconds": 1412.5833333333333,
+      "published_timestamp": "23:32",
+      "title": "No rule keeps both",
+      "frames": 10390
+    },
+    {
+      "chapter": "15_recap",
+      "start_frame": 95145,
+      "start_seconds": 1585.75,
+      "published_timestamp": "26:25",
+      "title": "The whole map",
+      "frames": 5741
+    }
+  ],
+  "all_15_match": true,
+  "scope": "Completed770 materialized chapter frames against prepared publication627 copy. Verifier771 still running; no final audiovisual, listening, sync or publication acceptance."
+}

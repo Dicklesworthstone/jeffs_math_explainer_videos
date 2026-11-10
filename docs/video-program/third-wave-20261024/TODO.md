@@ -1,3 +1,51 @@
+## Exponential actual preview HOLD; three narrow repairs803 building804, 2026-11-10 05:29 UTC
+
+- [x]800 and802 exited0 stable/no resource stop.15 chapters,5777 two-fps draft frames all extracted onto727 sheets. Source/glyph validation is not scene acceptance.
+- [x]Root actually viewed6 full-size details:09 frames162/250 show gold reference line crossing12;13 frames383/412 circle crosses sin t;14 frames95/147 circle/paths cross -1. observed-defects803.json binds each hash. HOLD800; not harmless lint. Full root09–15 sequence review still incomplete; independent reviewer handling all381 sheets01–08.
+- [x]Preserved stage13; stage14 changes only circuit_scene.rs/turning_rate.rs/euler_identity.rs. Reference line now has a gap around12, sin t moves left, -1 moves below-left outside circle. Script/takes/math/timing unchanged. Candidate NOT visually validated. Handoff803 tree165ef819.
+- [x]ONE guarded local804 launched in persistent tmux exponential-local-build804,677 frozen inputs including observed pictures evidence, unchanged guards and218test/Clippy/1771oracle/94cue/glyph gates. NEVER duplicate. Inspect actual terminal receipt before previewing repairs; preserve all failed attempts.
+- [ ]Finish full sequence review, inspect repaired previews including old anchors/persistence, rebind source holds before narration assembly, then Frederick production/narrated review/final4K. Listening/fine-sync/independent fullAV remain open. Complex772/776 continue separately; no publication claimed.
+
+## All-frame exponential draft extraction802 queued, 2026-11-10 05:17 UTC
+
+- [x]800 admitted; actual renderer6448 confirmed live rendering native1080p2fps all15 chapters. No duplicate render. This is silent estimated timing, not final narration/motion.
+- [x] Prepared/read/AST-checked root-exponential802-pictures.py and root-exponential802-after-preview.py. One persistent tmux exponential-native-pictures802 controller57069 launched. It waits actual successful stable800, rechecks every800 binding, freezes actual outputs/helpers/ffmpeg, then invokes unchanged guarded802. Abort on failed prerequisite; NEVER duplicate.
+- [ ]802 will decode and preserve EVERY available2fps draft frame, exact per-chapter counts and8-image labeled sheets, retaining cue and layout evidence. Read all resulting pictures and concrete lint/persistence before scene acceptance; extraction itself grants none. Smooth-motion/narrated30fps/final4K and listening/fine-sync remain later gates.
+
+## Exponential independent glyph review passed; native preview800 launched, 2026-11-10 05:13 UTC
+
+- [x] Root read full independent Codex glyph799 report and structured verdict; all81 pages actually viewed by reviewer, no concrete glyph defects. Root rehashed all81 against actual qualification and review; report JSON25cfc45c, qualification63c0ea24. Source/scene/listening acceptance remains separate.
+- [x] Bound glyph review into800 helper, froze765 inputs including full799 source closure, binary, successful receipt/qualification, ffmpeg and all81 pages. Manifest93f99369. One persistent tmux exponential-native-preview800 launched with unchanged80/20 guard,10GiB admission/8stop/4phase/exclusive lane. NEVER duplicate. Actual admission/terminal result not yet claimed.
+- [ ] Inspect actual800 receipt and15 native1080p2fps scratch-timed chapter outputs, extract/read all scene and lint/persistence pictures, repair concrete issues. This is a sampled layout draft with no audio, not smooth-motion or narration/fine-sync acceptance. Full Frederick production and final renderedAV/publication remain.
+
+## Apportionment final chapter timestamps verified801, 2026-11-10 05:11 UTC
+
+- [x] Read actual completed770 summary/materialized chapter frames/stable terminal receipt from CSD; all15 publication627 chapter timestamps equal floor(cumulative frame count/60). Total100886frames,28:01.433. Exact metadata/source receipts retained in root-apportionment801-publication-times.json. Prior627 review left master_times_verified false; this new evidence closes only that gap without rewriting history.
+- [ ] Verifier771 remains active; chapter06 identity passed at05:10 check. Full technical terminal result, remaining release review, platform4K/caption checks remain. No listening/fine-sync/independent fullAV acceptance.
+- [x] All four originalCC panes freshly inspected05:11: each weekly quota blocked untilNov13 3amET; sessions preserved, no account/credit changes. Independent Codex glyph review799 remains active;45/81 pages viewed so far without concrete glyph defect, remaining pages not yet accepted.
+
+## Exponential native qualification799 passed, 2026-11-10 05:10 UTC
+
+- [x] Actual799 exited0; exact receipt finished2026-11-10T05:08:46.512675Z,676 initial/final bindings identical677d5fe0, no resource stop.218/218 tests, all95 original tests, strict Clippy/build,1771 native-oracle facts,15 registry chapters and94 exact ordered cues passed. Binary4acf1f1b.868 glyph sources reported zero automated failures.
+- [x] Root actually viewed glyph pages000000–000002; no concrete missing glyphs there. Reused independent Codex reviewer787 for ALL actual glyph pages and hash binding, outputs expanded-stage13/glyph-review799.md/json; not CC, not scene/listening acceptance.
+- [x] Prepared root-exponential800-preview.py only, NOT RUN: requires stable799 qualification and exact binary/source/ffmpeg pins, then native1080p2fps scratch-timed layout draft, no narration. Guarded launch remains after actual glyph review; not final motion or sync proof.
+- [ ] Read glyph review, fix actual defects, freeze preview inputs and run guarded native800; inspect all scenes/layout findings. Full Frederick batch and final narrated review/render still outstanding; listening/fine-sync/independent fullAV remain open.
+- [x] Complex772 renderer37529 alive57m40s at05:07UTC;776 waiting, mini-max18GiB free. CSD771 alive and five chapter identity checks passed. No duplicate launches or upload. OriginalCC pane0 still quota-blocked throughNov13; preserved without credits/account changes.
+
+## Exponential strict-Clippy repair799 started locally, 2026-11-10 05:01 UTC
+
+- [x] Actual798 exited1 with stable677 bindings/no resource stop. All218 tests passed; strict Clippy rejected the eight-element ENDING_HOLDS test-table type. Upstream malformed-fixture warning was incidental.
+- [x] Preserved798/stage12; stage13 changes only cfg(test) applications_checks.rs, naming the identical tuple EndingHold. No assertions, values, runtime scenes, script or narration changed; no lint suppression. Tree b82fcd2d; helper cfffccc7.
+- [x] One guarded local799 launched in persistent tmux exponential-local-build799,676 frozen inputs manifest677d5fe0. Same resource guards and qualification checks. NEVER duplicate. CSD774 remains stopped/unlaunched.
+- [ ] Inspect actual799 tests/Clippy/build/oracle1771/cue94/glyph outputs; actual glyph and native picture review then full Frederick narration remain. Listening/fine-sync/independent finalAV remain open.
+- [x] Complex772 renderer37529 freshly confirmed alive at05:00UTC,50min elapsed;776 waits. No terminal success or new upload. Mini-max14GiB free at that check,8GiB stop retained.
+
+## Reviewed exponential test repair798 launched locally, 2026-11-10 04:57 UTC
+
+- [x] Root read independent797 report and verified SHA330335d1: current false positive fixed without changing production source or narration; all4 executable marker checks retained and regression added. Filter is not a general Rust lexer; current scene has no omitted multiline-string topic content. Exact55-file stage12/tree and helper pins independently confirmed.
+- [x] ONE persistent tmux exponential-local-build798 launched with677 frozen bindings including independent report, manifest94964fe4. Existing guard80/20 unchanged,10GiB admission/8stop/4phase/exclusive local lane. Controller PID82291 observed; admission/terminal not yet claimed. NEVER duplicate798. Failed796 and queued-but-never-run CSD774 inputs/controller preserved;774 controller is stopped, do not restart it.
+- [ ] Inspect actual798 receipt/tests218/Clippy/build/oracle1771/cue94/glyph outputs, then actually view glyphs/native scenes before full Frederick narration. Script aa0e9cf9 unchanged,93 scoped history checks retained,14_6 full takes preserved. No listening/fine-sync/AV acceptance. Complex772/776 and CSD771 continue separately.
+
 ## Exponential moved to local qualification; concrete test defect isolated, 2026-11-10 04:56 UTC
 
 - [x] Local host now97GiB free. Existing774 Mac profile passed676 input pins, native toolchain/config checks and guarded795 resource preflight. Confirmed CSD774 controller3364507 had exact expected argv/no children/no build directory, stopped only that waiting controller; checked gone and no774 job. CSD771 remained live. Reroute receipt root-exponential796-reroute.json; old controller/inputs preserved. Do NOT restart queued774.
