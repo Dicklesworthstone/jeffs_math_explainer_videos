@@ -1,3 +1,155 @@
+## Exponential13 verification launched, 2026-11-10 17:30 UTC
+
+- [x] pictures985-13 input preparation63104 exited0. Exactly one guarded extraction launched tmux exponential-pictures985-13; admission/terminal pending. Existing independent787 assigned actual resulting all-sheet review; never duplicate.
+- [x] Complex993 actual receipt confirms admitted17:28:09.088337UTC, inputSHAa610afcdee1c948e397f250405546c636a9654a6cef94b31ce6ef8d3f541ca91, native2346209 live. Existing995controller waits. Full-master success not yet claimed.
+- [ ] Inspect terminal receipts and actual final pictures; remaining production/publication/audio gaps unchanged.
+
+## Complex master admitted to guarded lane; exponential13 final complete, 2026-11-10 17:29 UTC
+
+- [x] Existing993 launch passed chapter gates/preflight and started guard2345853 for csd-combined-master993. Actual native/master terminal pending; never duplicate. Existing master controller2337800 retained.
+- [x] New995 verifier binds exact993 master and991 materializer, preserving all974 decoding/frame identity/caption/loudness/picture checks. AST parsed; independent995 audit d3891c562d4489a7c14726dd9b4676214ad0b5132686aa1bd7e055ad1caab98c found no functional blocker. Existing974 files preserved. Hash-checked995 helpers copied and one waiting controller launched tmux complex-verify995 PID2345144; it launches serial verify/overview/native only after successful stable993. NEVER duplicate.
+- [x] Exponential12 root all94 pictures/12sheets actually viewed; report35b24b4fbf9ab760d9e1b06a5290649350dead42b2de0e175de67bde4ab7230c. Independent fd019b702344ed411afc18fbac7ff627dc648a433eb375200f4814b23a4b01a9 exact source/movie/extraction/frames/sheets verified. Both sampled reviews clear.
+- [x] Exponential13 final terminal17:28:15.320798UTC exit0 stable original8f214f58 hash/no resource stop. pictures985-13 make-inputs ALREADY RUNNING session63104; never duplicate.14-15 remain unstarted.
+- [ ] Inspect actual993/995 receipts and all master pictures. Finish13verification/reviews then14-15/master/full checks. Listening/fine-sync/continuous-motion/independent whole-film AV and publication remain open. This turn completed995 preparation/independent audit,12all pictures and13final advancement.
+
+## Complex staging succeeded; full master controller launched, 2026-11-10 17:26 UTC
+
+- [x] Versioned991/992/993/994 helpers preserve970/971/972/973. Exact106 historical aliases inventoried against original manifest hashes:105 WAVs and /usr/bin/timeout (not Python). Content hashes, exact readlink/target and resolved target hashes remain bound; unknown aliases rejected, new outputs remain regular. All106 actual aliases and changed-link/inventory/unlisted rejection tests passed for all three checkers. Independent991 review c431533f6060bd52afca513d7313b6ef36aa5e21201841db539bf58786661778 found no blocker; runtime acceptance separate.
+- [x] Guarded csd-native-stage970-09-a2 completed17:25:04.852655UTC exit0 stable b7e474b888a396d45343be9cdec92938da72c8a755f9e3191d4d8ffbf27b89d5/no resource stop;994controller exit0.16504 repaired frames; all14 other chapter manifest rows unchanged. Published local-on-CSD manifestSHA8da77ed79e9ccc8a06e703e570c85c44de5cd884a047eaed61355167e397e100.
+- [x] Started combined-master993 launch controller ONCE tmux complex-master993, durable master993-controller01.log. It checks all chapter gates/preflight before guarded csd-combined-master993. Admission/terminal pending; NEVER duplicate.972 was never launched. Adapt existing974 verifier to actual993 bindings after checks; do not run old972-dependent controller.
+- [x] Exponential11 root actually reviewed all120 pictures/15sheets; no persistent defect. Independent exact source/movie/extraction/frame/sheet bindings verified. root-final985-11-review.json saved. Existing13render confirmed guard2923722/helper2925805 live; no duplicate.
+- [ ] Finish993 master, full verification and actual master pictures; exponential12 root/independent review,13verification,14-15finals, full master and checks. No listening/fine-sync/continuous-motion/independent whole-film AV/publication acceptance. This turn repaired staging with bounded independent review, completed staging, advanced master and completed11root pictures.
+
+## Staging helper failure identified; exponential13 launched, 2026-11-10 17:21 UTC
+
+- [x] CORRECTION to immediately preceding staging status: complex-stage970 controller exited before creating any job/inputs/proofs. Direct diagnostic session70750 also exited1 at973line48: existing csd-raster-media15/narration/01_1.wav is a preserved symlink to stage08-picture-rebind01/narration/01_1.wav. Target exists, current contentSHA444c02c93d7368b744f64f1fdcdacaaf54d3f3fc1090c2e7982506d50fe90c37. No render/audio failure or stage completion. Preserve links and prior helper; source-bound alias/target handling needs correction consistently in staging and master gate, without weakening hashes or resource guards.
+- [x] After actual successful12picture receipt, launched exactly one guarded final983-13_turning_rate in tmux exponential-final983-13. Admission/terminal pending; never duplicate.14-15 remain unstarted.
+- [ ] Repair staging helper dependency binding with versioned preserved helpers and independent review; stage/master/full verification. Actual root969 all814 clear remains valid. Exponential root11/12 and independent12 remain pending. No listening/fine-sync/whole-filmAV/publication claim.
+
+## Complex final picture review complete; staging started, 2026-11-10 17:20 UTC
+
+- [x] Root finished actual969 sheets091-102, including redisplay of previously truncated091-093. All814 selected frames/all102 sheets now actually reviewed; no persistent concrete defect. Cache hashes rechecked. root-final969-review.json SHA61ecd664994388f5bfc97c3cceed65c1eff12f7e789ae59056409d3b7c6a3278. Independent all814 review already bound. Sampled chapter verdict only.
+- [x] Both actual review files copied to CSD with content/hash checks. Launched existing973 staging controller ONCE in tmux complex-stage970 for guarded csd-native-stage970-09-a1; actual admission/terminal still pending. Never duplicate. Other14 chapter manifest rows must remain unchanged.
+- [x] Exponential pictures985-12 terminal17:17:01.310370UTC exit0 stable36f65afa488507a06cda92d92dd45c816c68d567809de7a964c0228448811dea; actual receipt inspected. Final12 already terminal stable. Root11/12 review and independent12 pending;13-15 not launched.
+- [ ] Inspect stage970 and launch master972 only after successful stable staging; full974 verification and actual master pictures remain. Continue exponential13-15 and all remaining final reviews/master. Listening/fine-sync/continuous-motion/independent whole-filmAV and publication remain open. Prior turn verified status; this turn completed final chapter picture review and advanced staging.
+
+## Complex second picture pass and exponential12 progress, 2026-11-10 17:13 UTC
+
+- [x] Root complex969 actually inspected sheets031-060 this turn: cumulative480/814 selected frames on001-060; no persistent defect in subset. Preserved progress02.json. Independent969 exact movie/extraction/all814frame/all102sheet bindings verified, scoped pass only.
+- [x] Exponential final983-12 terminal17:10:49.054508UTC exit0 stable original8f214f58 input hash. pictures985-12 preparation89239 exited0; guarded extraction launched ONCE tmux exponential-pictures985-12. Admission/terminal pending; never duplicate.
+- [x] Independent exponential11 reports120/120frames15sheets clear; exact binding audit and root review pending. Existing reviewer only.
+- [ ] Complex root061-102, then stage/master/full verification. Exponential12pictures and13-15finals, all remaining root/independent reviews, master/full verification. Listening/fine-sync/continuous-motion/independent whole-film review and publication still open. Previous turn was progress; this turn inspected240 more frames and advanced12verification.
+
+## Complex final-picture review advancing, 2026-11-10 17:10 UTC
+
+- [x] Complex969 exited0 at17:03:13UTC with identical input hashes/no resource stop. All102 cached sheets hash-verified. Root actually viewed001-030 (240/814 selected frames); partial evidence root-final969-cache/progress01.json. No persistent defect in this subset;031-102 still require root review.
+- [x] Independent787 reports all814 frames/102 sheets inspected, no persistent concrete defect; independent-final969-review.json received, exact binding audit still pending. This is sampled chapter review, not whole-film audiovisual acceptance.
+- [x] Exponential12 existing guard admitted17:03:41UTC; receipt has live samples through17:08UTC, no terminal result at check. Never duplicate. Exponential11 independent picture review assigned to existing787; no new agent.
+- [ ] Finish root969 and binding audit, then guarded stage970/master972/974. Continue exponential12-15 and final review/master checks. Listening/fine-sync/continuous-motion/whole-film review and publication remain open. Prior status turn was verified wait; this turn completed144 additional selected-frame inspections and receipt/cache checks.
+
+## Exponential eleventh verification launched, 2026-11-10 16:59 UTC
+
+- [x] pictures985-11 input preparation54293 exited0. Guarded extraction launched ONCE tmux exponential-pictures985-11, admission/terminal pending. Never duplicate.
+- [ ] Complex969 actual full final-picture review remains priority. No listening/fine-sync/whole-film or publication acceptance.
+
+## Complex repaired final render complete; final-picture verification active, 2026-11-10 16:59 UTC
+
+- [x] Complex968 terminal16:57:43.274503UTC EXIT0, exact initial/final inputSHA79f859bd2435ad2773bd2ebe77c96b32fd202cb4a9708e66a4278373afac01f4, no resource stop. Actual receipt preserved Q/completed-native968-resource-receipt.json. This is render completion, not final picture/listening acceptance.
+- [x] Existing969controller launched guarded csd-native-pictures969 ONCE, admitted16:57:50.316211UTC, inputSHAd81fd9e094fc308745795ee8272579e042b32c25d37838e5b2e6d1cb7921c302. Helper2273929/guard2273711/controller1315990 confirmed live. NEVER duplicate. Root and independent787 must view resulting final sheets; independent assigned complex priority.
+- [x] Exponential final983-11_money_limits terminal16:57:49.269997UTC exit0 stable8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc/no resource stop. Actual receipt and summary fetched. pictures985-11 input preparation session54293 already running, NEVER duplicate.
+- [ ] Actual complex969 terminal/pictures review, stage970/master972/full974; exponential11pictures,12-15finals/full987/988. Listening/fine-sync/continuous-motion/independent whole-filmAV and publication remain open. No new uploads. This turn completed independent10 binding review, complex968 and exponential11 terminal verification, and advanced verification.
+
+## Exponential tenth independent review bound, 2026-11-10 16:55 UTC
+
+- [x] Independent787 inspected all154final10pictures/20sheets; exact movie/extraction/frame/sheet bindings verified by root. Report SHAca67f05d618f303b37a57d961c2a9b9d476c70763c792dd47823ed2f4f52f922. Both sampled picture reviews clear; no listening/fine-sync/whole-film verdict.
+- [x] final983-11 renderer2023078/guard2012698/helper2016034 confirmed live; never duplicate. Complex968 renderer1316090/encoder1316187/controller1315990 confirmedlive4h14m; raw encoder consumption203718925350bytes advancing. No terminal receipt yet.
+- [ ] Continue11-15 and final master/checks; complex969 actual review first when ready. Existing publication/audio gaps unchanged. This turn verified independent10review bindings and actual live jobs.
+
+## Exponential tenth root review complete; eleventh rendering, 2026-11-10 16:54 UTC
+
+- [x] pictures985-10 terminal16:51:59.008644UTC exit0 stable7542c5f27b352c001bf2aa1f72d671275f330752127f668e9cd0c4674907d968/no resource stop. Full AV decode;154 selected pictures/20sheets fetched with exact hashes and ALL actually viewed by root. No persistent concrete defect; report root-final985-10-review.json. ExtractionSHA3429df00596f94104bed1896110f2479db30659a1af9984a318f2c0d1ea5d602. Independent787 assigned, pending terminal report/binding check.
+- [x] final983-11_money_limits launched ONCE in tmux exponential-final983-11, admitted16:52:43.378543UTC with original frozen input hash8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc. Do not duplicate. Prior10render11810frames/five cues/zero layout flags; movieSHAac0265b789cbeff74d7ed12acd2a1e7e98409d99b054848138891a334bcb9a6e.
+- [x] Complex968 native/encoder/controller verified live at4h09m, raw consumption200484109350bytes advancing; receipt rechecked16:54still nonterminal. Existing969controller retained, review priority unchanged.
+- [ ] Complete independent10 review, finals11-15/picture reviews, masters and verification/publication. Listening/fine-sync/continuous-motion/independent whole-filmAV remain open. This turn completed10technical/root review and advanced11; not blocked or complete.
+
+## Exponential tenth verification launched, 2026-11-10 16:48 UTC
+
+- [x] pictures985-10 input preparation session47291 exited0; exactly one guarded extraction launched in tmux exponential-pictures985-10. Existing reviewer787 assigned all actual resulting sheets after stable successful terminal receipt, with complex969 priority. NEVER duplicate.
+- [ ] Inspect admission/terminal receipt, root and independent picture review; then continue11-15 and full-master verification. All listening/fine-sync/whole-film/publication gaps remain open. This turn completed09root review and10render evidence, then advanced10verification.
+
+## Exponential ninth picture review and tenth render complete, 2026-11-10 16:47 UTC
+
+- [x] Root and independent reviewer787 each actually viewed all473 selected chapter09 pictures across60 sheets. Local sheet hashes and independent movie/extraction/frame/sheet bindings verified. No persistent concrete defect. root-final985-09-review.json and independent-final985-09-review.json retained; sampled chapter review only.
+- [x] final983-10_changing_rates terminal16:45:40.183021UTC exit0, identical initial/final input hashes, no resource stop. Actual final-summary/resource-receipt saved locally. pictures985-10 input preparation already running session47291; do not duplicate.
+- [x] Complex968 renderer1316090/encoder1316187 and existing969controller1315990 confirmed live at4h06m. Existing render retained; no terminal or final picture acceptance yet.
+- [ ] Finish guarded pictures985-10 and actual reviews; finals11-15, masters and verification remain. No listening, fine-sync, continuous-motion, independent whole-filmAV or publication acceptance. Four CC sessions remain preserved at confirmed subscription limit; no paid credits/account changes.
+
+## Exponential ninth verification complete; tenth launched, 2026-11-10 16:39 UTC
+
+- [x] pictures985-09 terminal16:38:31.615679UTC exit0 stable d4b34796e2702899db5740bceda9798ea5821bdf657f7307b731f6513d14e047/no stop. Full AV decode complete,473 selected frames/60 sheets produced; actual root and independent reviews pending, not accepted. Existing reviewer787 assigned all sheets; complex969 priority.
+- [x] Exactly one final983-10_changing_rates launched in tmux exponential-final983-10 after09technical success. Admission/terminal not yet inspected; NEVER duplicate.09receipt/sheets fetch session58878 started.
+- [x] Complex968 native/encoder confirmed live3h55m at16:36UTC, raw encoder consumption189784333350bytes advancing. Existing969controller retained. TODO/P leases renewed to17:41UTC.
+- [ ] Actually inspect09all sheets, remaining finals10-15, both masters/final checks/publication. No listening/fine-sync/continuous-motion/whole-film AV acceptance. Prior turn completed09render; this turn completed09technical verification and advanced10.
+
+## Exponential ninth final complete, 2026-11-10 16:34 UTC
+
+- [x] final983-09_charging_gap terminal16:31:59.261971UTC exit0 stable8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc/no resource stop.12413frames4K60,eight cues,zero layout findings. MovieSHA1aadfed76a3ead476eca9feba0e7f2e009ac5c256854c3ff90d3f01fa28df0ca. Actual receipt/summary fetched into completed-final983-09 files.
+- [x] pictures985-09 make-inputs session49606 exited0. Exactly one guarded extraction launched tmux exponential-pictures985-09; admission and terminal still need inspection. NEVER duplicate. Independent787 assigned actual all-sheet review, complex969 priority.
+- [x] Complex968 native/encoder/controller confirmed live3h51m; raw encoder consumption186449984550bytes advancing, not frame acceptance. Four CC panes freshly reconfirmed weekly-limit dialogs, resetNov13 03:00 America/New_York; preserved without credits/account changes.
+- [ ] Inspect09verification receipt and all pictures; continue10-15, masters and final verification. Listening/fine-sync/continuous-motion/independent whole-film AV and publication remain open. Previous turn made08review progress; this turn completed09render and advanced verification.
+
+## Exponential eighth final picture review complete, 2026-11-10 16:30 UTC
+
+- [x] pictures985-08 terminal16:23:47.860780UTC exit0 stable dabe6855c92c113a94fd2bd4b0e6f62bf07c00e59e6444acfcc9b869a6a28eeb/no stop. Full AV decode and114selected frames/15sheets. Root and independent787 actually viewed all; cached hashes and independent exact bindings checked. No persistent concrete defect. root-final985-08-review.json and independent-final985-08-review.json retained.
+- [x] final983-09_charging_gap launched once; guard1035028/helper1036086/native1041194 confirmed live16:28UTC. NEVER duplicate. Complex968 renderer1316090/encoder1316187/controller1315990 live3h47m, encoder consumption183165402150bytes advancing; no terminal.
+- [ ] Finish09-15, final master and verification; complex969 review has priority when ready. Listening, fine sync, continuous-motion and independent whole-film AV remain open. No new upload. Previous goal turn was verified wait; this turn completed08root review and independent binding check.
+
+## Exponential eighth final complete and verification launched, 2026-11-10 16:19 UTC
+
+- [x] final983-08_decay_law terminal16:17:41.248646UTC exit0 stable8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc/no stop.11650frames4K60,eight cues,zero layout rows. MovieSHA5b5905a2d82f62080003460c0c60568386bd659f41980a42b9c7e2eb0acaa8e9; actual receipt/summary fetched into completed-final983-08 files.
+- [x] pictures985-08 input preparation13327 exited0; exactly one guarded extraction launched tmux exponential-pictures985-08. Admission/terminal not yet claimed, NEVER duplicate. Independent787 assigned actual08review after stable extraction, complex969 priority.
+- [x] Complex968 native1316090/encoder1316187/controller1315990 confirmedlive3h38m; encoder raw consumption176036365350bytes advancing, not final-frame proof. Existing jobs retained.
+- [ ] Inspect08picture terminal and all root/independent sheets, continue09once and10-15. Both whole masters, final AV checks, listening/fine-sync/independent whole-filmAV and publication remain open. Current turn completed08render and advanced verification.
+
+## Exponential seventh independent review bound, 2026-11-10 16:17 UTC
+
+- [x] Independent787 review actually covers all130final07frames17sheets; root verified exact movie/frame/sheet bindings against extraction. Report independent-final985-07-review.json SHA8cbcbef9c108ab7afccf9b51e387b14dd2bc4c7a033b4fbe29428b87cea73b8b. Both sampled reviews clear; no listening/fine-sync/whole-film acceptance.
+- [x] final983-08 native503137 confirmedlive5m45s, guard476077/helper478946 retained. Complex968 renderer1316090/encoder1316187/controller1315990 confirmedlive3h34m; encoder raw consumption173013056550bytes advances. No terminal or failure; never duplicate.
+- [ ] Await08terminal then guardedpictures985-08; continue09-15 and final masters/reviews/publication. Existing complex969 review remains priority. This turn completed independent07 binding verification, then verified waits.
+
+## Exponential seventh root picture review complete, 2026-11-10 16:11 UTC
+
+- [x] pictures985-07 terminal16:08:50.493822UTC exit0 stable8cdeb6ab9b12601cf097a4d2e46a3706da20bb2e8c5ee3c4d8c822e22224d6ee/no stop.130selectedframes17sheets/fullAVdecode. Root actually viewed all17 and checked cached hashes; no persistent concrete defect. Scoped root-final985-07-review.json saved; independent787 assigned, not yet accepted by root.
+- [x] Exactly one final983-08_decay_law launched after07technical success, tmux exponential-final983-08; admitted stable8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc, guard476077/helper478946 confirmedlive. NEVER duplicate.09-15 inputs ready only.
+- [x] Complex968 native1316090/encoder1316187/controller1315990 live3h30m at16:11UTC. Existing jobs retained;969actual review remains priority.
+- [ ] Inspect08terminal then pictures; finish09-15 and whole-master checks/publication. Listening, fine-sync, continuous-motion and independent whole-filmAV remain open. Current turn completed07root review and advanced08render.
+
+## Exponential seventh extraction admitted, 2026-11-10 16:08 UTC
+
+- [x] pictures985-07 admitted with inputSHA8cdeb6ab9b12601cf097a4d2e46a3706da20bb2e8c5ee3c4d8c822e22224d6ee; guard426372/helper431252 confirmedlive4m/3m35s. FullAVdecode completed, extraction active, no terminal/resource stop; actual sheet count still0 at poll. NEVER duplicate.
+- [x] Complex968 native1316090/encoder1316187/controller1315990 confirmedlive3h25m; raw encoder consumption164826483750bytes, advancing but not final frame proof. Existing969controller retained.
+- [ ] Await actual stable07terminal then root/independent all-sheet review; advance08once. Final masters, audio/fine-sync/whole-film independent AV/publication remain open. Current turn progressed07verification; latest polling is verified wait.
+
+## Exponential seventh picture verification launched, 2026-11-10 16:04 UTC
+
+- [x] pictures985-07 make-inputs session29414 exited0. Launched exactly one guarded extraction in tmux exponential-pictures985-07; admission/terminal not yet claimed. NEVER duplicate. Existing independent787 assigned all actual07sheets after stable receipt; complex969 priority.
+- [x] Complex968 native1316090/encoder1316187/controller1315990 confirmedlive3h23m. Existing jobs preserved.
+- [ ] Inspect07extraction terminal and view all sheets, then proceed08once. Whole-master/audio/fine-sync/independent whole-filmAV/publication remain open. Current turn advanced07verification; goal remains active.
+
+## Exponential seventh final complete, 2026-11-10 16:03 UTC
+
+- [x] final983-07_calculating_ruler terminal16:01:49.866905UTC exit0, initial/final8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc equal/no stop.14351frames4K60,10cues,zero layout rows. MovieSHA59108a2482b1a0d4fca7d84778a9a5aecccc3405cab4ce9c833a473112202783. Actual receipt and summary fetched locally under completed-final983-07 names.
+- [ ] pictures985-07 make-inputs session29414 already running; never duplicate. Launch one guarded extraction after success, inspect actual terminal and view every sheet. Existing independent reviewer787 assigned07, complex969 priority.08-15 final manifests ready only.
+- [x] Complex968 native1316090/encoder1316187/controller1315990 confirmedlive3h22m; existing render retained. Previous turn completed06review; this turn completed07render and advanced verification inputs.
+- [ ] Remaining finals, both masters, full verification, actual final pictures, listening/fine-sync/independent whole-filmAV and publication still open. No new upload or whole-film acceptance.
+
+## Exponential sixth final picture review complete, 2026-11-10 16:00 UTC
+
+- [x] pictures985-06 terminal15:54:08.429158UTC exit0 stable523ad29fca5260beb5fa232e96aa83081c9ec9eb58affd59700bb3abb85fbbb2/no stop. Actual report contains236selected frames/30sheets, superseding partial23sheet observation. Root and independent reviewer787 actually viewed all30; all cached sheet hashes and independent movie/frame/sheet bindings checked. No persistent concrete visual defect. Scoped root-final985-06-review.json and independent-final985-06-review.json retained; no whole-film/audio acceptance.
+- [x] final983-07_calculating_ruler launched once15:54:48, admitted15:54:49 stable8f214f58e7a6827d16f1d33b8f85a16f0681b5e3a635bbaf8417a41450c54bfc, existing tmux exponential-final983-07/guard4095603. Never duplicate. All08-15 input manifests ready; no08+renders.
+- [x] Complex968 native1316090/encoder1316187/controller1315990 confirmedlive15:58UTC at3h17m. Encoder raw consumption155744115750bytes indicates progress only, not terminal/frame acceptance. Existing969controller waits.
+- [ ] Inspect07terminal then guarded07pictures and actual reviews; continue08-15, final masters and verification. Complex969 actual review takes priority when ready. Listening, fine-sync, continuous-motion and independent whole-filmAV remain open; no upload. Previous turn verified wait; current turn completed06root review.
+
 ## Exponential sixth verification admitted, 2026-11-10 15:51 UTC
 
 - [x] pictures985-06 input preparation57576 exited0; exactly one extraction launched tmux exponential-pictures985-06, guard4064190/helper4066040 confirmedlive/admitted. InputSHA523ad29fca5260beb5fa232e96aa83081c9ec9eb58affd59700bb3abb85fbbb2. Full decode active; no terminal/actual picture acceptance. Existing independent reviewer787 assigned06 after stable receipt, complex969 priority. NEVER duplicate.
