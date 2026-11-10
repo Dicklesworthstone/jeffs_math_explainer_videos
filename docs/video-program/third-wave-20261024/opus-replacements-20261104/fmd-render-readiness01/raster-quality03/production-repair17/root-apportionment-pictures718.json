@@ -1,0 +1,51 @@
+{
+  "reviewed_utc": "2026-11-10T00:15:34.664227+00:00",
+  "chapter": "07_yardstick",
+  "sampling_sha256": "7184246fc34619c91acd23c766aafa6add75c49ae752beda200811ad85c1ac32",
+  "movie": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-final672-07_yardstick/render/07_yardstick.mp4",
+    "sha256": "fee69086207963b5176c235dfba62bf3d298ac90ad59901c2999968324219862"
+  },
+  "selected_pictures_viewed": 41,
+  "sheets_viewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-07_yardstick/07_yardstick/sheet-0001.jpg",
+      "sha256": "d2b37ad19821f28b7b7fead31cbd4983609cdbc26a2949c8ed15329053a938ca"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-07_yardstick/07_yardstick/sheet-0002.jpg",
+      "sha256": "2b28bab3b50222b63ea8a701ea111abf8b2b08b1dbe703ebf919b8d052215ac1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-07_yardstick/07_yardstick/sheet-0003.jpg",
+      "sha256": "970791215d4ac0c4a2cb8498d1bff2a45ac5a74a1ac01f91bf010c20d67714db"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-07_yardstick/07_yardstick/sheet-0004.jpg",
+      "sha256": "7ae3f68e2f80c519ad7d879fceef0e15cab7b7026d927491ebd6c388e7813e83"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-07_yardstick/07_yardstick/sheet-0005.jpg",
+      "sha256": "a8c54aefedd17b2f322f6af99180ac46a92b74bcf04d528f5552dc118f58953c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-apportionment-pictures678-07_yardstick/07_yardstick/sheet-0006.jpg",
+      "sha256": "07891b7296d58b43db7c5cf11aeb67c7888386e86bddc9bbd66632523273f4a1"
+    }
+  ],
+  "observations": [
+    "State names, population labels, quota bars and seat boxes stay separated.",
+    "Prediction samples preserve2600 people per seat and14 seats; later samples reveal2300 and15.",
+    "Open lower endpoint and closed upper endpoint on divisor interval are visible; labels and current divisor marker are separated."
+  ],
+  "concrete_picture_defects_observed": [],
+  "scope": "Selected final stills at contact-sheet resolution only. Not continuous motion, listening, fine sync or independent audiovisual acceptance."
+}

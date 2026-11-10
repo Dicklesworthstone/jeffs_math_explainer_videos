@@ -10287,3 +10287,36 @@ Timestamp correction: the preceding dependency204 check and tracker update occur
 - [x] Actual guarded framehash710 exited0: two real final01 frames accepted by actual701 parser. Format compatibility only; full decode, frame identity and throughput still pending.
 
 - [x] 2026-11-10 00:05 UTC: final14 stable terminal0 and actual codec parameters/full extradata equal final03. Final15 and full701 frame identity still pending. Existing697 is progressing through native engine compilation; no duplicate jobs.
+
+## Independent exponential findings assigned, 2026-11-10 00:07 UTC
+
+- [x] Read full711; CC2 explicitly accepted F1-F4 fixes in unsealed stage08. Original stage06 and running697 frozen inputs remain untouched.
+- [ ] Verify actual successor constant assertion, explicit1024-cell distance labels, translated distance-for-three and sentence/index/reading hooks, then guarded tests and real pictures.
+- [x] CC3 acknowledged715 independent actual final06 picture review. Four workers remain productive.
+- [ ] Existing697 reached real Rust unit tests; inspect eventual tests, Clippy and receipt, preserving any failed attempt. No listening/fine-sync or finalAV acceptance.
+
+## Actual exponential697 failure, 2026-11-10 00:07 UTC
+
+- [x] All95 Rust tests passed. Guarded697 exited1 stable inputs/no resource stop because strict Clippy rejects constant assertion at limit_model.rs:326, exactly711 F1. All files/failed receipt retained.
+- [ ] CC2 stage08 fixes already assigned/acknowledged; review successor and launch fresh named guarded build after pinning. Do not rerun697, edit frozen inputs or weaken Clippy. Release build/facts/glyph/cue-probe and audiovisual acceptance remain open.
+
+## Applications review713 repair queue, 2026-11-10 00:13 UTC
+
+- [x] Root read full713 source review. Wrong09_8 capacitor label and leaked08_4 half-life answer require repair, plus stale readouts, units, overlap, wording and two Clippy patterns.
+- [ ] CC2 targeted message queued during active stage08 integration; verify acknowledgment and all actual fixes before next native build/narration.
+- [ ] CC0 prepares successor716/717; no final pins until repaired stage seals, no launch or edits to697. Independent final06 review715 continues.
+
+## All apportionment final chapters rendered, 2026-11-10 00:16 UTC
+
+- [x] Final15 terminal0 stable inputs/no stop,5741frames; codec/extradata match03. Existing702 launched master700; NEVER duplicate.
+- [x] Root viewed all41 selected final07 pictures on6 hash-checked sheets, no concrete defect at contact-sheet scale, evidence root-apportionment-pictures718.json.
+- [ ] Remaining final sheets, full master verification and audiovisual/listening/fine-sync/publication gates remain open.
+
+## Independent final06 teaching repair, 2026-11-10 00:19 UTC
+
+- [x] Root read715:48 selected pictures independently viewed, no number/layout defect; medium prediction-input omission confirmed as useful repair.
+- [ ] CC3 prepares preserved source-only719: step sizes and16-to17 question, named allocations, loss-strip explanation and1880/Seaton anchor. Keep exact narration and timing; root must review/bind/build/compare schedules and actually view repaired final before release. Current700 retained as comparison baseline.
+- [ ] Do not claim continuous listening/fine-sync/independent finalAV; other715 lows and05-to06 join remain explicit review items.
+
+- [x] 2026-11-10 00:21 UTC: Actual700 log confirms all15 soundtrack replays bit-identical; master still active, no fullAV/terminal success. Root verified exact frozen06 source matches715 canonical SHA; supplied evidence to719 worker.
+- [ ] Candidate719 requires independent root diff review,06_1 source rebind, guarded build/reassembly with all93 WAVs and marks identical, full schedule comparison and actual repaired pictures. Original artifacts retained.
