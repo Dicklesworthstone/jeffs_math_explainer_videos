@@ -1,3 +1,192 @@
+## Complex final technical verification passed, 2026-11-10 19:28 UTC
+
+- [x] Guarded995 terminal19:27:27.887475UTC exit0, admitted, initial/finalinputfa2367ada9e1ce7fa8778cdb6c1938dc3acf68379dc6f9db1107ffd30e2ec6cb equal, no resource stop. Actual verification and terminal receipt retained as completed-verification995*.json in production-repair17.
+- [x] Master80244e88:133662frames/37:07.700, all15 decoded chapter identities exact including timing,105retained cues, fullAVdecode, AAC-19.0LUFS/-1.5dBTP fixed-gain ceiling exception. Both native571 and selecteddelivery579 exact-caption checks pass with zero fast/overlong lines; selected347pair remains uploadcandidate.
+- [ ] Existing995controller proceeding to serialoverview/native extraction; no duplicate. Actual finalpictures, native4Kdetails, continuousmotion, listening/fine-sync, captionplayback and independentwhole-filmAV remain open. No upload or publication acceptance.
+- [ ] Exponential1005 live;1006candidate awaiting independent review and actual terminaloutputpin. No successor extraction launched.
+
+## Picture extractor candidate awaiting independent review, 2026-11-10 19:26 UTC
+
+- [x] Preserved scratch pictures1006 candidate e423f88355d68e7076983b1564120b458000e439c435e7b7a7d0fabf54723a56 plus handoff/test/log as expanded-production808/candidate-*. Root read helper; CC2 assigned independent review. It refuses all modes until root pins successful terminal1005 output.
+- [x] Author tests report all15 seed selection equivalence,3163frames,402sheets plus refusal/recheck tests; these are local synthetic/source checks, NOT actual extraction or measured speedup. Minimal consumed inputs measured about232MB versus19.1GB fullclosure. Existing1005 remains unchanged.
+- [ ] Independent review and any fixes, root terminal1005 pin, guarded extraction and actual all-picture review still required. Complex995 whole-master decode live past127791/133662frames; controller retains serialoverview/native jobs. No publication acceptance or listening claim.
+
+## Actual extraction dependency inventory, 2026-11-10 19:20 UTC
+
+- [x] CC1 read-only CSS manifest inspection completed:151719 unique paths,19113505532bytes (17.801GiB), zero missing. Preserved inspection1005-extraction-dependencies.json. This measures repeated input-hash volume, not an achieved speedup.
+- [ ] Scratch1006 consumed-dependency extractor still being implemented; independent review/selection equality required before use. Active1005 unchanged.
+- [ ] CC0 independently reviewing scratch complex audio-seam helper; root flagged blocking pipe read before timeout and unbound guard/dependency chain for investigation. No audio measurement launched, no listening or release verdict.
+- [x] Actual complex995 decoder2481881 live39:37elapsed, partial frames past111407/133662. Exponential1005 remains active. Publication gates incomplete.
+
+## Picture extraction efficiency work, 2026-11-10 19:14 UTC
+
+- [x] CC3 read-only design identifies repeated full upstream closure hashing in each1005 picture mode; preserved picture-successor1006-design.md. Actual closure size not yet measured, no speed claim.
+- [ ] CC1 assigned scratch-only1006 extractor implementing identical selected frames/reasons/extraction/sheets with consumed dependency bindings, terminal1005 output pin and a final full upstream-manifest drift check. Must inspect actual manifest tool rows, prove selection equality and undergo independent review before any launch. No active1005 changes, no picture jobs launched.
+- [ ] Complex995 and exponential1005 technical checks remain live; final pictures/publication and explicit listening/fine-sync/whole-film AV gaps remain open.
+
+## Exponential publication times checked against completed master, 2026-11-10 19:12 UTC
+
+- [x] Root repeated CC1 comparison: all15 publication976/982 chapter starts and frame counts match completed987 summary and final983 records; exact local movie SHAfe33b9e4,164420frames,45:40.333. Saved publication987-compare976.py, probe and comparison.txt under expanded-production808. No timestamp mismatch. Container/record check only; actual decoded join identity remains in running1005.
+- [x] Revalidated live complex995 whole-master decoder2481881,32min elapsed and output past91746/133662frames. Exponential1005 actual helper573582/guard563272 live. Neither is terminal; no duplicate or interrupted job.
+- [ ] Finish technical checks and actual final-master picture reviews, then platform release checks. Continuous listening, fine sync, continuous motion and independent whole-film AV acceptance remain open. CC2 audio-join measurement preparation and CC3 extraction dependency audit continue; no new production jobs from either.
+
+## Both full-master checks running, 2026-11-10 19:08 UTC
+
+- [x] Exponential1005 admitted input5d45eac1c04c351ffdba66ca1ee97a88dc8536978a94e0a4928dc1c51189aa41; actual verifier573582 live. Probe completed and decode-loudness/master-video.framehash outputs now present. No terminal success yet; neverduplicate.
+- [x] Complex995 actual whole-masterframemd5 process2481881 remainslive; partial framehash output progressing through~78640 of133662. This is progress only, not completedidentity. Existing995controller retains serialpictures after success.
+- [x] CC2 encoded-audio-join lookup preserved in release-selection1003/recovery1000-audio-join-lookup.md: prior join tools target different unrun master, current993has no directjoinmeasurement. Assigned small scratch measurement-only helper for14joins, no invented codec threshold/listening acceptance, no execution yet.
+- [ ] CC1 checks publication976/982 against actual987. CC3 investigates whether later picture extraction can avoid redundant source/import hashing while retaining every actually consumed dependency, exactmaster/selection/technicalreceipt and resourceguards. No change to active1005, no extraction launched, no gate weakened.
+- [ ] Fulltechnical terminal, actualfinalpictures, captionplayback and public4K/platform verification remain before publication. Audio/listening/fine-sync/continuous-motion/independentwhole-filmAV gaps explicit.
+
+## Exponential1005 launched once, 2026-11-10 19:06 UTC
+
+- [x] verify1005 input preparation5342 exited0. Launched exactly one guarded css-exponential-verify1005 in persistent tmux exponential-verify1005. Actual guardPID563272 live during admission; resource receipt not yet created when checked. This is NOT terminal/admitted success yet. NEVER duplicate because admission is still preparing.
+- [x]1004repair and1005narrow-diff independent reviews accepted; original988 and pre-pin1005 retained. Exact repairedpair uses127f3d1a/0d2698d0, not native987pair. No video or audio regeneration.
+- [x] Complex995 entire-master framemd5 actualPID2481881 remains live at~25min elapsed; existing serial995picture controller retained. No terminal claim or duplicate.
+- [x] Four recoveredCC sessions given bounded next work: apportionment open-window handoff, exponential actual987publication-time check, complex existing audio-join evidence report, final-picture-review standby. Avoid repeating completed audits.
+- [ ] Inspect actual1005admission/terminal, fullAV/frameidentity/caption/loudness results, then guarded masterpicture extraction and actual review. Complex995 terminal/pictures/platform remain. Listening/fine-sync/continuous-motion/independentwhole-filmAV still open.
+
+## Guarded caption repair passed; successor preparation active, 2026-11-10 19:04 UTC
+
+- [x] caption-repair1004 terminal19:03:05.793662UTC exit0, input/finald7c37eab32292afcb126fce0e2d980c60bb964a66249b9a2a9df5ac0c61e1f3e equal/no stop. All751 captions now<=20cps, identical words/linebreaks, four timestamp-line edits only, no chapter crossing. Actual deliverySRT127f3d1ade016f125dfddff861b9614fd2850387be6e4cd9e05063e15c1d9f99,VTT0d2698d0c386263e9b946a5a395423b998c70b08c96cb69d21649810fa8114d2; original987pair/movie unchanged. Local exactpair/report/receipt preserved.
+- [x] Independent1004/1005 review found missing exact delivery pins in prepared1005. Root preserved previous5073818f version and added early reviewed-pair hashes, exact1004command/helper, strict successful-admitted receipt. New1005SHA d96795c42ac8826aa7a00e568f307e473cd05a529848f85a7b653ce75e7232c1. Independent narrow diff review confirms fix; actual1004command matches expected path.
+- [x] Exponential local master transfer15447 exited0; SHAfe33b9e4 matches remote, receipt local-master987-transfer-receipt.json. Transfer acceptance only.
+- [x] verify1005 make-inputs ALREADY RUNNING session5342 onCSS; never duplicate. It binds reviewed repaired captions plus originalmaster and unchanged technical/picture gates. Guarded1005verify NOT launched yet; wait successful preparation.
+- [ ] Finish1005 fullverification then actualmasterpictures. Complex995 entire-master frameidentity remains active actualPID2481881; preserve existingcontroller for serialpictures. Listening/fine-sync/continuous-motion/independentwhole-filmAV remain open; no publication acceptance.
+
+## Exponential master987 completed; caption defect confirmed, 2026-11-10 18:53 UTC
+
+- [x] Actual guarded987 terminal18:52:16.717842UTC exit0, unchanged inputfb2fbf65ee22ca97538fb7dc6c1f24d9d5ec0d427b725005a2cedf9068973969/no resource stop. MasterSHAfe33b9e48bcb456b3cad41f7651bd8e5f8e3bb1b7c6deba657e6b4d9e5fa2b80;164420frames/45:40.333,94cues,15exactPCMreplays,751captions.
+- [x] Actual native SRT confirms exactly four fast captions29/135/440/441 with times/text matching reviewed1002proposal. NativeSRTd91a5d08 andVTT00ef0c64 saved under P808/native-master987.en.*, hashes verified against completed-master987-summary.json; actual terminal receipt also preserved.
+- [x] Independent1002proposal review found no blocking timing issue; kit weights71:69 and pair headroom51/49ms clarified. Prepared1004repair helper remains in CC1scratch, review pending;1005successor unrun. Original987exports must remain immutable. No988job launched.
+- [x] DCG rejected a conditional Python subprocess transfer before execution; replaced it with four explicit source/destination scp commands guarded by nonexistence checks, all exit0. No bypass or overwrite.
+- [ ] Run reviewed guarded1004repair, bind successor1005, fullAV/loudness/frameidentity and actualmasterpictures, then platform release. Complex995 whole-master identity remains active; no duplicatejobs. Listening/fine-sync/continuous-motion/independent whole-film acceptance still not established.
+
+## Caption successor prepared; exponential mux complete, 2026-11-10 18:50 UTC
+
+- [x] Actual987 native master command completed mux:164420frames,2740.333s matching audio/picture, PCM-18.79LUFS/-1.50dBTP fixed-gain ceiling. All15soundtrackreplays exact. Caption command/export and terminal guard receipt still pending; no completed987 claim.
+- [x] CC1 source-bound1002 dwell proposal preserved as P808/caption-dwell-proposal1002.md. Four predicted fast captions29/135/440/441 can use existing unoccupied time,200–300ms extension,101ms proportional split adjustment within09_7; same words/linebreaks. Actual native SRT still required to confirm predictions.
+- [x] Prepared verify1005.py SHA5073818f8dba16396df48f703d546dd1c6f442f0fead2c194a260dbc462e1689, AST passes, UNRUN. Preserves988; successor binds stable separate1004caption repair and original987 hashes, retains full decode/frame identity/20cps/AV/loudness/picture gates. CC3 independent review assigned. CC1 preparing scratch1004helper; neither repair nor successor launched.
+- [ ] Finish actual987receipt/export; verify exact fast-caption issue, review guarded1004repair, run successor1005 technical/pictures. Complex995 still performing whole-master frame identity before pictures. No upload or listening/fine-sync/continuous-motion acceptance.
+
+## Independent provenance gap resolved, 2026-11-10 18:44 UTC
+
+- [x] Existing independent reviewer completed current exact-source review of launched968 runner2634c842 and launcher47b8f22b; addendum1002 SHAee64e20b binds actual864 cleanup/receipt and actual968 stable success. Root verified all eleven listed local file hashes. No source-delta blocker. Review is dated now, not retroactively certified at12:41.
+- [x] Repaired09 release provenance explicitly cites849 narration/sourcecd1900aa plus both969 sampled-picture reviews; frozen993 historical313 labels remain preserved. This closes record clarity only, not whole-film AV acceptance.
+- [x] Exponential987 all15 native soundtrack replays are bit-identical. Actual master completion/caption export still pending. CC1 timing proposal now has all751 predicted captions/94placements and exact failing indices29/135/440/441; proposal not yet sealed or applied. Actual SRT check required before repair.
+- [ ] Complex995 entire-master frame identity still live; master picture extraction/review and platform gates remain. No duplicate jobs and no listening/fine-sync/continuous-motion acceptance claimed.
+
+## Final assembly progressing, 2026-11-10 18:42 UTC
+
+- [x] Complex995 all15 chapter framemd5 outputs completed; actual whole-master framemd5 process2481881 live, not yet terminal verification. Existing serial picture controller remains in force; never duplicate.
+- [x] Exponential987 native soundtrack replay through13_turning_rate bit-identical; no captions/master terminal yet. Actual four-fast-caption confirmation awaits export. CC1 developing supported dwell proposal; CC3 assigned independent check after it is sealed.
+- [x] CC0 exact chapter12 motion-window proposal preserved in apportionment-delivery1001/recovery1002-apportionment-ch12-motion-plan.md: preferred96.9s proof window, plus separate signpost walk. This is source-derived planning only; no continuous playback or listening acceptance. Frozen source hash cross-check assigned to remove explicit assumption.
+- [ ] Complex995 final technical/pictures/platform checks, exponential987 then actual caption repair/verification/pictures, apportionment outstanding AV review. All remain incomplete; no release acceptance inferred.
+
+## Complex delivery-caption selection corrected, 2026-11-10 18:39 UTC
+
+- [x] CC2 release audit confirms actual993 native571 export plus reviewed347 delivery579 pair;995 checks both. Earlier17:46/17:47 claim571 as delivery count is superseded: retain already adopted347/354 as uploaded caption candidate. Native571 unchanged as proof export.
+- [x] Root independently parsed both delivery SRT/VTT,579 blocks identical, word stream equals native571, monotonic/no overlaps/within37:07.700, all<=20cps. Copied exact delivery pair to release-selection1003/complex-analysis-delivery.en.srt and.vtt; source hashes0ea9277e and6a383cb7 unchanged. selection1003.json binds masterSHA80244e88 and verified993chapter times; metadata text unchanged. Final caption playback still required.
+- [x] Preserved both CC2/CC3 audits in release-selection1003. Root actually viewed two800x800 native master crops at09local72/79s: inner yellow heads and p/a/P clear. Two stills only, not continuous-motion acceptance.
+- [ ] Independent controlled-stop968 helper addendum requested; final995 terminal and all master picture review remain.995 currently14 chapter frame identity; entire master comparison still follows, so chapter14 is not nearly-complete whole verifier evidence.
+- [x] Exponential987 now native soundtrack replay through05; pending actual export. Predicted four fast captions still require actual check and supported dwell repair before988. No duplicate jobs, no audio regeneration, no gate relaxation.
+
+## Release-audit findings being resolved, 2026-11-10 18:37 UTC
+
+- [x] CC1 source-bound caption mirror predicts four exported exponential captions above20cps:01_5 last44chars/2s,04_3 last26/1.2s,09_7 final two72/3.55s and70/3.45s. independent-caption-contract-review1000.md preserved. This is a prediction from frozen sentence spans, not yet actual987 SRT. Existing master987 remains running; native soundtrack replay has begun. Do not duplicate or alter it.
+- [ ] Before launching988, inspect actual exported SRT; if confirmed, preserve original pair and repair only supported caption dwell/gaps in new versioned outputs without changing spoken words/audio or weakening20cps. CC1 investigating available unoccupied intervals. No new audio or render authorized by this finding alone.
+- [x] CC3 bindings audit confirms chapter09 movie/capture/frame placement and969 reviews match993, but independent968 helper-review note references pre-controlled-stop hashes. Existing reviewer787 asked to verify and record exact launched-hash addendum; no retrospective fabrication or rerun. Frozen993 summary historical313 labels require a separate release provenance note referencing849 and both969 reviews.
+- [ ] Complex995 actual14_continuation frame-identity decode still active; final master pictures/technical terminal and platform release checks remain. Independent whole-film AV/listening/fine-sync/continuous motion not established.
+
+## Apportionment delivery gap closed, 2026-11-10 18:35 UTC
+
+- [x] Recovered CC0 release audit found no local master/caption delivery package. Checked actual master770/verify771 receipts: both exit0, initial/final bindings equal, no resource stop. Transferred master plus repaired English SRT/VTT once to five-film-release-20261027/apportionment-delivery1001; all three exact expected SHA256s match. Transfer31059 exited0.
+- [x] delivery-manifest1001.json binds3 media files, reviewed627 title/description/tags, reviewed978 thumbnail, and4 evidence references. Existing files preserved. This closes transfer/package preparation only, not release acceptance.
+- [ ] Dense chapter12 continuous motion, audio/name/join listening, fine sync and independent whole-film AV remain open. CC0 assigned exact motion-window planning, no duplicate rendering. Owner has authorized publication once complete; audit's suggestion of a new authorization gate is not applicable.
+- [x] Existing complex995 process still performing complete chapter frame identity; exponential master987 live, input closure validation underway. Never duplicate either. Four CC agents continue current bounded release audits.
+
+## Four CC sessions recovered; masters progressing, 2026-11-10 18:30 UTC
+
+- [x] Owner-switched account recovery: terminated only the four mapped Claude processes and resumed exact conversations 6d8d91ab-386b-435d-91e3-ad665c8e7f76, b0a72b9b-6c8d-4794-942e-44d50a9d8626, d7bac370-73e2-4cb6-88cf-606d6a161b39, 7aa7239f-abc0-4b43-9af5-40020bd20c82 in existing panes %0–%3. All four responded to current handoff and began read-only release audits. Old source tasks explicitly superseded; no account mutation or paid-credit activation. Production jobs preserved.
+- [x] master987 input preparation81283 exited0. Guarded css-exponential-master987 launched ONCE, admitted and actual helper PID272898 live at18:29. Prior unlaunched note superseded. No terminal master success yet; NEVER duplicate.
+- [x] Complex csd-final-verify995 actual helper2385943 live; chapter12_residues frame-identity child2463894 active at18:29. Full strict decode passed earlier; overall995 not terminal. Existing controller will extract final master pictures after success.
+- [ ] Finish exponential987, then guarded988 full AV/caption/loudness/frame-identity verification and actual master pictures. Finish complex995 technical checks and all actual final-master pictures; review findings before publication.
+- [ ] Publication remains incomplete for complex/exponential; verify Public 2160p60 and uploaded English before unlisting replaced original. Listening, fine sync, continuous-motion review and independent whole-film audiovisual acceptance remain explicit gaps. Chapter sampled-picture reviews are not those claims.
+
+## Complex master locally preserved, 2026-11-10 18:05 UTC
+
+- [x] Transfer19872 exited0; local complex-analysis-master993.mp4 SHA80244e88ca5970d0da07a5d96d6d825ae1851bae703d75bd200f8810b04e7b90 matches completed remote master. local-master993-transfer-receipt.json records exact file/size/hash. No upload yet;995 technical and actual master pictures remain required.
+
+## All exponential chapter pictures reviewed, 2026-11-10 18:05 UTC
+
+- [x] pictures98515 terminal18:02:16.203136 exit0 stable227c738f/no resource stop;37 selected pictures/five sheets. Root and independent actually reviewed all, no persistent concrete defect. root15 ae661c7b19734986ec1ff7e92b31b5c90dc1774c3b6c3b66d3d1630256940a34; independent15 173c1fffad7a23b5afae3c30f1e112dbaa5a5d9f10a64ccf39e6fcbb240cd2b7.
+- [x] All15 chapter report pairs audited against exact script/extraction/movie/all selected frames/all sheets. Compiled root all15 SHA80de8f5a0838015f9240a7e711c247889e8fb58723eb3f68ede091bbb1f6d945 and independent all15 SHA7023372fbbdf0c05927df6cf408fda8d56b67f69e4d10061198e463799cb067c.3163 selected frames total. Permits guarded master assembly only, not release.
+- [x] Both aggregate reports transferred toCSS and hashes verified; master987 helper matches f0bea109. master987 make-inputs ALREADY RUNNING session81283; NEVER duplicate. Actual master job NOT launched yet; await successful input preparation and guard admission.
+- [x] Complex995 still active, actual chapter05 framemd5 child2422914. Local complex master993 transfer ALREADY RUNNING session19872 for later upload; do not duplicate, hash-check completed copy. No upload authorized by partial verification alone.
+- [ ] After preparation, launch guarded exponential987 once; full988 checks/pictures after stable master. Complex995 terminal/actual master picture review and platform checks still required. Listening/fine-sync/continuous-motion/independent whole-film AV remain open.
+
+## Complex full decode passed; frame-identity checks continue, 2026-11-10 18:02 UTC
+
+- [x] Existing995 strict-video.log now reports VERIFY PASS:3840x2160@60,133662 frames, A/V delta0, full software video+audio decode151s with0errors/exit0, encoded -19.0LUFS/-1.5dBFS fixed-gain ceiling exception. This is the strict-video subcheck, NOT terminal995 success.
+- [x] Actual995 child2418446 decoding chapter04_reading_color to framemd5 at18:02; complete master/chapter frame-identity comparison still running. Keep existing controller; no duplicate.
+- [x] Exponential14 root report4b56d6604a6bfda5a0fe1aa8b58bad260ebaa3aa103e9bbced1f0b215b87df3c saved; all559/70 actually viewed. Existing independent787 assigned15 actual review after stable extraction; no new agent.
+- [ ] Complete995 terminal, overview/native actual pictures and publication gates; exponential15 reviews then987/988. Listening/fine-sync/continuous-motion/independent whole-film AV remain open.
+
+## Exponential14 picture review complete, 2026-11-10 18:00 UTC
+
+- [x] Root14 all559 selected pictures/70sheets actually viewed; cache hashes and independent source/movie/extraction/all frames/all sheets verified. No concrete persistent defect; root-final985-14-review.json saved. First14 chapters now have both sampled reviews,3126 selected frames total.
+- [x] pictures98515 preparation95654 exited0; launched exactly one guarded pictures98515 in tmux exponential-pictures985-15, admitted input227c738f99cfca02ae43aaf34054e7a41634648bfe85128094a4ab210f59dec8. Never duplicate.
+- [x] Complex995 processes2385942/2385943 confirmed live at18:00UTC; full verification still active, picture jobs not yet available.
+- [ ] Finish15 verification and both picture reviews, exponential987master and988checks. Finish complex995 technical and all master-picture reviews before publication. Listening/fine-sync/continuous-motion/independent whole-film AV remain open.
+
+## Exponential final rendering complete, 2026-11-10 17:58 UTC
+
+- [x] Last chapter15 final983 terminal17:56:45.934977UTC exit0, initial/final input hashes equal8f214f58; all15 final chapters now rendered. pictures98515 input preparation started once; do not duplicate.
+- [x] Root14 sheets001-015 actually viewed,120/559 selected frames;004-006 redisplayed after truncation. Progress01 preserved. Independent14 reports all559/70 clear; root binding check pending.
+- [x] Complex995 verifier actual processes2385942/2385943 live at17:57UTC; no terminal success yet. Prior status turn read receipts; this turn advances actual picture review and last-chapter verification preparation.
+- [ ] Root14 sheets016-070,15 pictures and both reviews, exponential master/full checks; complex995 terminal and all final-master pictures. Listening/fine-sync/continuous-motion/independent whole-film AV remain open.
+
+## Last exponential chapter launched, 2026-11-10 17:53 UTC
+
+- [x] Exponential pictures98514 terminal17:51:47.271703UTC exit0 stable726f4ab074ebd8ebd16997cac5629b957b3050c686d546e0483cba8531c257e1/no stop;559frames70sheets. Receipts preserved; actual root/independent review pending.
+- [x] Launched exactly one guarded final98315_logarithm_bridge in tmux exponential-final983-15 after14 technical success. Admission/terminal pending; NEVER duplicate.
+- [x] Complex995 admitted17:47:35UTC inputfa2367ada9e1ce7fa8778cdb6c1938dc3acf68379dc6f9db1107ffd30e2ec6cb; strict-video log3840x2160/60,133662frames,A/V delta0,-19.0LUFS/-1.5dBFS fixed-gain exception. Full verification remains active. Exact master SRT/VTT preserved locally.
+- [x] DCG rejected dynamic-argument tar transfer before execution. No bypass: reuse hash-verified existing independent-review local cache for root actual viewing instead; no additional remote transfer needed.
+- [ ] Finish14/15 pictures/exponentialmaster/fullchecks, complex995 full verification and actual master pictures. Listening/fine-sync/continuous-motion/independent whole-film AV remain open.
+
+## Publication times verified against completed complex master, 2026-11-10 17:47 UTC
+
+- [x] All15 reviewed publication965 description timestamps match exact completed master993 start frames. Evidence publication-chapters-checked993.json; completed-master993-summary.json preserved. MasterSHA80244e88ca5970d0da07a5d96d6d825ae1851bae703d75bd200f8810b04e7b90. No final technical/review/publication acceptance inferred.
+- [x] Exponential pictures98514 admitted, input726f4ab074ebd8ebd16997cac5629b957b3050c686d546e0483cba8531c257e1, helper3961596 confirmed live. Existing independent787 assigned actual14 pictures while995 pending, complex master review priority. No new agents or duplicate jobs.
+- [ ] Inspect995 and98514 terminal receipts, actually review all resulting pictures;15 rendering/master/full verification still to follow. Listening/fine-sync/continuous-motion/independent whole-film AV gaps remain open.
+
+## Final verification advancing, 2026-11-10 17:46 UTC
+
+- [x] Existing995 complex controller preflight passed15chapters/133662frames/105cues. Actual final caption export571blocks, SRT=VTT and whole/per-cue text equals script; previous historical327/347 caption counts are not the993 delivery count. Planned8351 selected pictures/1044sheets plus128 native4K detail selections; actual extraction/review pending. No verification completion claimed.
+- [x] Exponential14 picture input preparation90159 exited0; launched guarded pictures985-14 exactly once in tmux exponential-pictures985-14. Inspect actual admission and terminal;15 remains unstarted. Completed14summary/receipt and993receipt preserved locally.
+- [ ] Full verification and actual resulting master-picture review remain mandatory before upload. Listening, fine-sync, continuous-motion and independent whole-film AV gaps remain explicit.
+
+## Complex master complete; exponential13 pictures accepted, 2026-11-10 17:44 UTC
+
+- [x] Complex guarded master993 terminal17:42:48.106112UTC exit0 stable a610afcdee1c948e397f250405546c636a9654a6cef94b31ce6ef8d3f541ca91/no stop. Existing995 controller retained; inspect actual check/verification before publication. No duplicate.
+- [x] Root exponential13 all546 selected pictures/69sheets actually viewed. root-final985-13-review.json SHA2ef419f43a7a6c9150d0ee318fa4d279558ceb0f14f3e70a45e93f25768f6259. All cache hashes checked; independent406977c101d422f23e1e91900571706f75f29761805eecee7880030fd63ed2bb exact script/movie/extraction/all frame/all sheet bindings verified. Both sampled reviews clear; repaired sin label and later wave labels clear.
+- [x] Exponential final14 terminal17:43:42.043694UTC exit0 stable original8f214f58 input hash/no stop. pictures985-14 make-inputs ALREADY RUNNING session90159; never duplicate.15 unstarted.
+- [ ] Finish14verification/root/independent review,15final and review, full exponentialmaster. Complex995 technical/master-picture review required. Listening/fine-sync/continuous-motion/independent whole-film AV and publication remain open. Previous goal turn was progress; this turn completed all remaining13picture review and verified two terminal production jobs.
+
+## Final review progress, 2026-11-10 17:42 UTC
+
+- [x] Root exponential13 actually viewed sheets001-021:168/546 selected frames;007-009 redisplayed after prior truncation. No concrete defect in reviewed subset. Exact progress saved expanded-production808/root-final985-cache/13_turning_rate/progress01.json.022-069 still require root review.
+- [x] Independent787 reports all546 frames/69sheets clear; independent-final985-13-review.json SHA406977c101d422f23e1e91900571706f75f29761805eecee7880030fd63ed2bb. Root binding audit pending; not whole-film acceptance.
+- [x] Complex993 native log reports finished133662-frame master,37:07.7, PCM -18.98 LUFS/-1.50 dBTP and all15 bit-identical replays. Guard receipt remains nonterminal;995 has not started. Exponential14 guard admitted17:36:28, rendering; never duplicate either.
+- [ ] Finish root13 and final14/15; inspect993terminal/995technical and actual joined-master pictures. Listening/fine-sync/continuous-motion/independent whole-film AV and publication remain open. TODO/P leases renewed to18:41UTC.
+
+## Complex15 replays passed; exponential13 verified, 2026-11-10 17:36 UTC
+
+- [x] Existing native master993 log now shows all15 registry soundtrack replays bit-identical, including repaired09. Native2352263 still active at5m32s; terminal master receipt not yet present. Existing995controller waits; never duplicate.
+- [x] Exponential pictures985-13 terminal17:35:44.326095UTC exit0 stable932c44b4e35e5af67100602ed35cfb388ebdf9307c4e4f602222ebc0ad743e68/no stop.546 selected frames69sheets; actual root/independent review pending. Existing reviewer787 assigned. Local receipt/summary/sheet fetch17119 already running; never duplicate.
+- [x] After actual13technical success, launched exactly one guarded final983-14_euler_identity in tmux exponential-final983-14. Admission/terminal pending.15 remains unstarted.
+- [ ] Inspect993terminal then995technical/full-picture outputs; review every13sheet, finish14/15, exponentialmaster/fullverification. Listening/fine-sync/continuous-motion/independent whole-film AV/publication remain open. This turn verified active jobs to concrete15replay and13terminal milestones, then advanced14.
+
 ## Exponential13 verification launched, 2026-11-10 17:30 UTC
 
 - [x] pictures985-13 input preparation63104 exited0. Exactly one guarded extraction launched tmux exponential-pictures985-13; admission/terminal pending. Existing independent787 assigned actual resulting all-sheet review; never duplicate.
