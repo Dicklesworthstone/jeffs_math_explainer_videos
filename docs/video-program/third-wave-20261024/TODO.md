@@ -1,3 +1,50 @@
+## Independent complex release-chain794 review read and verified, 2026-11-10 04:49 UTC
+
+- [x] Root read complete794 report/JSON and rehashed every listed helper and narrative report. No concrete integration blocker found in777-782; all direct pins match and781 rejects held old09. Independent Codex identity/inherited context explicit, not CC or runtime acceptance. Reportfd27a1aa; structured8bd32837. No source edits needed.
+- [ ] Preserve two operational constraints:782 currently pins779 attempt1; rebind a successor if a later attempt succeeds.778 actual transfer closure must be below3.5GiB within4GiB job cap; measure actual export, do not assume.
+- [ ] Continue live772/776, then actually view every776 sheet before export/master; actual full782 decode/captions/loudness and final pictures remain. No continuous listening, fine-sync or independent full-filmAV acceptance.
+- [x] Exponential requests786 rechecked: exact current script SHA, all94 cue text hashes and7008 words unchanged after history records;93 scoped searches plus retained14_6, no synthesized full batch.
+
+## Independent complex release-chain review started, 2026-11-10 04:46 UTC
+
+- [x] Reused independent Codex reviewer787 for bounded source review794 of prepared export777/transport778/materialize779/gate780/master781/verifier782. Scope is concrete handoff bugs, stale bindings and accidental held09 use; only independent-release-chain794 outputs, no production edits/heavy jobs/Beads. Reviewer identity remains Codex, not quota-limited CC.
+- [ ] Read actual findings and repair concrete defects before the final772/776 handoff. Source review cannot accept runtime, final pictures, listening, synchronization or publication. Existing772 renderer37529 and776 controller43730 freshly live.
+
+## Exponential scoped provider-history pass complete, 2026-11-10 04:45 UTC
+
+- [x] Actual excerpt searches for all93 ungenerated stage11 cues now recorded in requests786, including42 checks across chapters08-15 this turn. All returned no matches throughOct28; older provider history is not exhausted. Existing14_6 full Frederick takes retained untouched. Preserved manifest predecessor. Credits remain264239; no synthesis/download.
+- [x] One08_4 wait timed out; fresh visible state showed Nov3 result, then Continue searching returned Oct28. No retry generation or inferred search result.
+- [ ] Next narration action remains successful native774 qualification and actual glyph/scene inspection, then source-bound full Frederick production. Source review789 is complete within editorial scope; continuous listening, phonetics, fine-sync and independent finalAV remain unaccepted.
+- [ ] Complex772 final render and776 picture controller remain authoritative; CSD771 chapter identity/loudness verification precedes queued774. Never duplicate active jobs.
+
+## Exponential four more chapters checked for retained takes, 2026-11-10 04:42 UTC
+
+- [x] Actual provider searches for all33 cues in chapters04-07 returned no matches throughOct28. Recorded exact query excerpts and scoped observations in requests786; preserved predecessor. Total51 ungenerated cues checked,42 remain unchecked; retained14_6 unchanged. No generation, download or credit spend. Older history not exhausted.
+- [x] Apportionment771 full-master decode/video-hash step reported verified; actual chapter01 framehash decoder3524715 observed live afterward. This is partial verification, not completed771.
+- [ ] Native774, actual visuals, remaining narration and full audio/synchronization/release checks remain. Complex772/776 remain authoritative; no duplicates.
+
+## Exponential product-law history checks, 2026-11-10 04:40 UTC
+
+- [x] Actually searched all seven chapter03 cue excerpts in ElevenLabs. No matches throughOct28; earlier dates not exhausted. Recorded scoped observations in requests786 with preserved predecessor. Eighteen ungenerated cues checked;75 remain unchecked; retained14_6 untouched. Credits unchanged264239, no generation/download.
+- [x] Fresh captures of all four original CC panes confirm weekly quota dialogs, resettingNov13; sessions/work preserved, no account change or usage credits enabled. Existing independent Codex reviews remain accurately labeled.
+- [ ] Native774 qualification, actual visuals, full Frederick narration, listening/fine-sync and independent finalAV remain open. Continue complex772/final picture776 and CSD771/774 without duplicate jobs.
+
+## Exponential series-chapter history evidence recorded, 2026-11-10 04:38 UTC
+
+- [x] Recorded the six actually observed provider-history searches for02_1 through02_6 from the preceding browser turn. All showed no matches throughOct28; older history was not exhausted. Preserved prior manifest as requests-before-chapter02-history790.json. Eleven ungenerated cues now have scoped history observations; existing14_6 candidate remains preserved. No synthesis, download or spending in these checks.
+- [ ] Remaining82 ungenerated cues need history checks; successful native774 and actual glyph/scene review still precede full narration. Listening, fine-sync and final independentAV acceptance remain open.
+- [x] Fresh04:37UTC live process check: complex772 renderer37529 active28min, pictures776 controller43730 waiting; CSD771 decoder3373438 active85min,774 controller3364507 waiting. No terminal success or duplicate launch. Previous goal turn classified verified wait, not completed production.
+
+## Exponential opening-chapter history checked, 2026-11-10 04:33 UTC
+
+- [x] Actual provider-history searches for01_3/01_4/01_5 returned no matches throughOct28. All five opening-chapter cues now have scoped observations in requests786; not exhaustive older-provider proof. No generation, downloads or credit spending; existing14_6 remains untouched. Chrome1054676574 retained for later narration.
+- [ ] Remaining88 ungenerated cues still lack provider-history observations; do not confuse preparation with synthesized narration. Native774, glyph/scene checks, pronunciation/listening/sync and finalAV remain open. Complex772 and CSD771 remain active, no duplicate.
+
+## Spare-host admission check, 2026-11-10 04:31 UTC
+
+- [x] Read-only SSH check of owner-suggested mac-mini-old: arm64, load8.51/5.33/4.04, only4.1GiB available. This is below existing8GiB stop and admission thresholds; do not route build/render there, raise a logical cap as a substitute for free space, delete files, or duplicate queued774. No files/processes changed on that host.
+- [ ] Existing mini-max772 remains the complex final render;776 waits. CSD771 still performs full-master decoded frame hashes before individual15 chapter identity comparisons and loudness;774 waits for actual successful stable terminal receipts. No completion inferred from partial framehash output. Source review789 done; native/visual/audio and publication gates remain.
+
 ## Exponential full-script independent review789 passed within source scope, 2026-11-10 04:19 UTC
 
 - [x] Read full independent789 report: all94 cues/7008 words, focused native models/scenes, independent arithmetic. No concrete source-level math/pedagogy/content blocker; four evaluation/multiplication clarifications sound. Report cb979cc8 and structured86c65267 bound into requests786. Audit is Codex with inherited context, not blind/CC or native audiovisual acceptance.
