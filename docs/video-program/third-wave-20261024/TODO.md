@@ -13758,3 +13758,275 @@ Timestamp correction: the preceding dependency204 check and tracker update occur
 - [x] Live CSD process check: final11 renderer1699276 and encoder1699359 active; existing final09 extraction controller1192962 has launched guarded extraction2133658, waiting exclusive lane. Final chain1594627 and stage08 guard1718984 alive. No duplicate jobs or final-picture acceptance. Four CC panes still weekly-limited; account-swap response remains pending.
 - [x] Guarded Monty recognition39 exited0; both01_7 transcripts read and exact script matches. root-transcript-review39.json. Generated01_8 once with unchanged Frederick/v4/settings; both19.76s/19.2s takes preserved/hash-bound, receipt01_8. Total11 expanded cues/22takes;108 cues remain.01_8 recognition pending; no take selection, listening, fine-sync or independent whole-film AV acceptance.
 - [ ] Complete final09/11 picture review and existing final master/verification/publication chain. Continue remaining expanded narration and narrated visual timing.
+
+
+### 2026-11-11T07:13:47.276073+00:00 — expanded Monty narration retained and checked
+
+- [x]01_9 and01_10 each generated once Frederick/v4 unchanged; both full alternatives copied/hash-bound, originals preserved.13/119 expanded cues retained26takes;106remain.01_9 lengths16.8/16.96s;01_10 lengths17.6/17.68s.
+- [x] Guarded recognition40 exited0 stable10inputs/no stop; all4reports for01_8/01_9 read. Numeric notation/punctuation variations;01_9 take1 contraction and take2 are/were ASR uncertainty retained in root-transcript-review40.json. No take selected or regenerated, no listening or speech verdict.01_10 ASR pending.
+- [ ] Complex11 renderer1699276 and encoder1699359 freshly confirmed live;09extraction2133658 waits exclusive lane. Existing final chain owns staging/master; final pictures and publication pending. Four CC workers weekly-limited; no independent wholefilm AV/fine-sync/listening acceptance.
+
+
+### 2026-11-11T07:17:03.119206+00:00 — hundred-door narration retained
+
+- [x] Expanded01_11/01_12 each submitted once with unchanged Frederick/v4/settings; both full48kHz alternatives retained and hash-bound.01_11 lengths13.68/13.6s;01_12 lengths11.44/11.36s.15/119 cues retained30takes;104remain. Intermediate credit display stale, combined223111→222738 observed; receipts preserve unknown intermediate balances.
+- [ ] Guarded paradoxes-monty-recognition42 ALREADY STARTED session90627 with13frozen inputs for01_10/11/12 six takes. Inspect actual terminal receipt and all reports, never duplicate. No take selected, listening/fine-sync/independent AV acceptance.
+- [x] Complex renderer1699276/encoder1699359 confirmed live at1h32m;09extraction2133658 queued behind existing exclusive lane. Existing final chain remains owner; no duplicate.
+
+
+### 2026-11-11T07:23:42.692158+00:00 — expanded Monty narration complete as retained takes
+
+- [x] Generated01_13–01_17 once each Frederick/v4 unchanged, both alternatives downloaded and retained with exact plan31 text/hash receipts. All17Monty cues plus3opening cues now have40fulltakes;20/119cues generated,99remain. Takes are unselected/unlistened, not accepted narration.
+- [x] Recognition42 exited0 stable13inputs/no stop; all6reports read, only numeric notation/hyphenation/apostrophe/punctuation differences observed. root-transcript-review42.json. Earlier01_9 are/were recognition uncertainty remains.
+- [ ] Guarded recognition43 ALREADY STARTED session58911,19frozen bindings for10takes01_13–17; inspect actual terminal and every transcript, never duplicate. Then resolve provisional timing and produce narrated pictures with honest acceptance scope.
+- [x] Complex11 exact renderer/encoder still live at1h38m; encoder rawbytes90537690150 show progress, not completion.09extraction2133658 queued exclusive lane. Finalchain owns remaining stage/master/review; no duplicate jobs. Independent wholefilm AV/listening/fine-sync remain open; CCaccountswap pending.
+
+
+### 2026-11-11T07:27:59.648955+00:00 — birthday narration begins; Monty transcript batch read
+
+- [x] Recognition43 exited0 stable19inputs/no stop; all10reports read for01_13–17. Only punctuation/numeric-notation differences observed; root-transcript-review43.json. Earlier01_9 lexical ASR uncertainty stays open; none of this is listening proof.
+- [x] Birthday02_1/02_2/02_3 each generated once Frederick/v4 unchanged; both full48kHz alternatives retained/hash-bound, exact plan31 receipts. Durations8.56/8.72,14.8/14.56,17.04/16.8seconds.23/119cues46takes retained;96cues remain.02_3 post-request credit balance not yet refreshed, recorded unknown rather than inferred.
+- [ ] Guarded paradoxes-birthday-recognition44 ALREADY STARTED session30342,13frozen inputs for6takes; inspect actual terminal and all transcripts, never duplicate.
+- [x] Complex11 renderer1699276/encoder1699359 still live1h44m,rawbytes94929574950/~148453171200(~64%,estimate only).09extraction2133658 waits exclusive lane, existingfinalchain1594627 alive. Final pictures/master/verify/publication remain priority; no new acceptance or duplicate jobs.
+
+
+### 2026-11-11T07:32:37.908585+00:00 — birthday pairs retained; disputed words cross-check started
+
+- [x] Birthday recognition44 exited0 stable13inputs/no stop; all6reports read.02_1 exact,02_2 numeric notation;02_3 both recognized guest vs script guess, take2 contraction variation, retained as uncertainty. root-transcript-review44.json.02_3 balance later observed220822, earlier receipt unknown retained.
+- [x]02_4/02_5/02_6 generated once each Frederick/v4/settings unchanged, both full48kHz takes retained/hash-bound:14.4/14.32,12.8/12.8,14.88/15.04s.26/119cues52takes retained;93remain.02_4–6 ASR still pending.
+- [ ] Guarded disputed-recognition45 ALREADY STARTED session17919,10frozeninputs, retained large-v3-turbo second model for both01_9 and02_3 takes. Inspect actual terminal/all4reports; never duplicate or infer listening from agreement.
+- [ ] Complex11 renderer/encoder remain active;09pictures queued behind exclusive lane. Existing finalchain owns staging/master/verification. Publication, final pictures, independent/listening/fine-sync gaps remain.
+
+
+### 2026-11-11T07:36:45.921815+00:00 — birthday calculation voiced; second-model findings retained
+
+- [x] Second-model disputed45 exited0 stable10inputs/no stop; all4reports read.01_9take2 large says are vs small were; both02_3takes both models say guest vs script guess. Recognition uncertainty retained, no audible-error verdict or reroll. root-transcript-review45.json.
+- [x]02_7/02_8/02_9 generated once each Frederick/v4 unchanged; two full48kHz alternatives retained/hash-bound:17.76/17.76,15.76/15.76,18.8/19.12s.29/119cues58takes retained;90remain. Combined02_7/8 credit balance recorded without inventing intermediate reading.
+- [ ] Guarded birthday-recognition46 ALREADY STARTED session50024 with22frozenbindings for12takes02_4–9. Inspect actual terminal and every report, never duplicate. No listening/fine-sync/independent AV acceptance.
+- [x] Complex11 exact renderer/encoder and09extraction/finalchain confirmed live at1h51m; no duplicate jobs. Final09/11pictures and master verification/publication remain first.
+
+
+### 2026-11-11T07:40:08.774667+00:00 — birthday threshold narration retained
+
+- [x] Recognition46 exited0 stable22inputs/no stop; all12reports02_4–9 read, numeric/ordinal notation, capitalization and punctuation differences only observed. root-transcript-review46.json. Prior lexical uncertainties retained.
+- [x]02_10/02_11/02_12 each generated once Frederick/v4 unchanged, both full48kHz alternatives preserved/hash-bound. Durations17.52/17.6,17.04/17.36,14.4/14.0seconds.32/119cues64takes retained;87remain.02_12 balance not refreshed, unknown recorded.
+- [ ] Guarded birthday-recognition47 ALREADY STARTED session51354 with13frozenbindings for6takes02_10–12; inspect terminal and allreports, never duplicate. No take selection, listening/fine-sync/independent AV acceptance.
+- [x] Complex11 native1699276/encoder1699359 live1h55m;rawinput104298099750bytes/~148453171200(~70%,estimate only).09extraction2133658 and existing finalchain1594627 alive. Final pictures/master/verification/publication remain open and priority.
+
+
+### 2026-11-11T07:44:41.198623+00:00 — all birthday narration cues retained
+
+- [x] Recognition47 exited0 stable13inputs/no stop;6reports read including decimal values, numeric/punctuation variation only. root-transcript-review47.json.
+- [x]02_13–16 each generated once Frederick/v4 unchanged, both full48kHz takes preserved/hash-bound. Durations20/20,20.96/21.12,22.16/21.52,23.44/23.84seconds. All16birthday and17Monty plus3opening cues now retained;36/119cues72takes,83remain. No take selected/listened/accepted.
+- [ ] Guarded birthday-recognition48 ALREADY STARTED session14726,16frozenbindings for8takes02_13–16; inspect actual terminal and allreports, never duplicate. Earlier01_9/02_3 uncertainties remain; listening/fine-sync/independent AV open.
+- [x] Complex11 renderer1699276/encoder1699359 live2h00m,rawbytes111029005350/~148453171200(~75%estimate);09extraction2133658 and finalchain1594627 alive. Final pictures/master/verification/publication remain priority.
+
+
+### 2026-11-11T07:48:26.324377+00:00 — Simpson factory narration underway
+
+- [x] Birthday recognition48 exited0 stable16inputs/no stop; all8reports read, numeric/percentage notation and punctuation differences. root-transcript-review48.json. Prior02_3 uncertainty remains; no listening acceptance.
+- [x] Simpson03_1–3 each generated once Frederick/v4 unchanged; both full48kHz alternatives retained/hash-bound:13.76/13.76,13.36/13.68,12.88/12.8s.39/119cues78takes retained;80remain.03_3 balance not refreshed, unknown recorded.
+- [ ] Guarded simpson-recognition50 ALREADY STARTED session9429,13frozenbindings for6takes03_1–3; inspect terminal and reports, never duplicate. No selection/listening/fine-sync/independent AV acceptance.
+- [x] Complex11 renderer1699276/encoder1699359 live2h05m,rawbytes115781696550/~148453171200(~78%,estimate only).09extraction2133658/finalchain1594627 alive. Final pictures/master/verification/publication remain first.
+
+
+### 2026-11-11T07:54:41.725203+00:00 — narration review and render continuation
+
+- [x] Recognition50 exited0 with identical initial/final input hashes; all six Simpson03_1-3 transcripts read, punctuation/numeric notation variations only observed; root-transcript-review50.json written. Simpson03_4 generated once with Frederick/v4 unchanged, both full48kHz alternatives retained (7.6/7.68s), exact plan text/hash bound. 40/119 cues,80 full takes retained;79 cues remain. No take selection, listening, fine-sync or independent whole-film AV acceptance. Prior lexical uncertainties remain. Complex11 native1699276/encoder1699359 confirmed live at2h10m;09 extraction2133658 and finalchain1594627 alive, no duplicates.
+- [ ] Continue remaining narration; inspect actual complex final receipts and every resulting picture before assembly/publication. Four CC workers remain subject to subscription availability; no paid credits enabled.
+
+
+### 2026-11-11T07:57:24.815144+00:00 — Simpson totals and explanation retained
+
+- [x] Simpson03_5/03_6 generated once each with Frederick/v4 unchanged and exact plan31 wording; both full48kHz alternatives preserved with hashes. Durations15.68/15.28 and12.64/12.64seconds.42/119cues84takes retained,77cues remain. Guarded paradoxes-simpson-recognition51 ALREADY STARTED session32547 with13frozeninputs for03_4-6 six takes; inspect terminal and all reports, never duplicate. No selection/listening/fine-sync/independent AV acceptance. Complex11 renderer1699276/encoder1699359 confirmed live2h13m,rawinput121728781350/~148453171200 (~82% estimate only);09extractor2133658 and finalchain1594627 remain alive.
+- [ ] Read recognition51 terminal/report evidence, finish remaining narration and narrated timing review. Complex final-picture/master/publication gates still open.
+
+
+### 2026-11-11T07:59:53.724663+00:00 — weighted-average narration retained
+
+- [x] Recognition51 exited0 stable13bindings; all6reports read.03_4 small.en says pull versus script pool in both takes, unresolved recognition difference; independent model check pending, no listening verdict.03_5 numerical formatting and03_6 punctuation only observed. root-transcript-review51.json. Generated03_7/03_8 once each Frederick/v4, both full48kHz alternatives preserved/hash-bound,13.2/13.44 and16.08/16.24s.44/119cues88takes retained,75remain. Guarded recognition52 launched with10bindings for03_7/8; never duplicate. Complex11 renderer/encoder live2h16m,rawinput124739648550/~148453171200 (~84% estimate); existing extraction/finalchain alive. No selection/listening/fine-sync/independent AV acceptance.
+- [ ] Inspect recognition52 terminal/reports; investigate03_4 using independent model. Continue remaining narration. Complex final pictures/master/publication remain priority.
+
+
+### 2026-11-11T08:01:53.623713+00:00 — independent recognition investigation
+
+- [x] Recognition52 exited0 stable10bindings; all4reports03_7/8 read, punctuation/capitalization/percentage notation/hyphenation variation only observed; root-transcript-review52.json.03_9 exact plan31 generated once Frederick/v4, both full48kHz alternatives retained15.36/15.68s.45/119cues90takes retained,74remain;03_9 recognition pending. Guarded independent large-v3-turbo disputed-recognition53 ALREADY RUNNING session37929,7frozenbindings, checking both03_4 pool/pull takes; never duplicate. No take selected/listened/accepted, no fine-sync or independent whole-film AV acceptance. Complex11 native1699276/encoder1699359 confirmed live2h18m;raw126344614950/~148453171200 (~85%estimate),09extraction2133658/finalchain1594627 alive.
+- [ ] Inspect53actualterminal and both transcripts; complete remaining narration and actual narrated review. Complex final-picture/master/publication first.
+
+
+### 2026-11-11T08:04:19.782509+00:00 — Simpson narration and model comparison
+
+- [x] Independent large-v3-turbo recognition53 exited0 stable7bindings; both03_4 transcripts exactly match pool and full script, disagreeing with small.en pull. root-transcript-review53.json; models do not prove listening, no reroll.03_10/11 generated once Frederick/v4, both full48kHz alternatives retained/hash-bound13.76/13.52 and14.56/15.04s.47/119cues94takes retained,72remain. Guarded recognition54 launched13bindings for03_9-11 six takes; inspect terminal and every report, never duplicate. Complex11 renderer/encoder live2h20m,raw128185971750/~148453171200 (~86%estimate);09extractor and finalchain alive. No take selection/listening/fine-sync/independent whole-film AV acceptance.
+- [ ] Inspect recognition54 receipt/reports; continue03_12 onward. Complex final-picture/master/publication remain priority.
+
+
+### 2026-11-11T08:05:57.598455+00:00 — reweighting explanation retained
+
+- [x] Recognition54 exited0 stable13bindings/no resource stop;6reports read.03_9/10 numeric/fraction formatting and punctuation;03_11 take2 land/lands uncertainty, take1 script words represented. root-transcript-review54.json.03_12 reweighting/counterfactual caveat generated once Frederick/v4 with exact plan31 text; both full48kHz alternatives retained/hash-bound.48/119cues96takes retained,71remain.03_12 recognition pending; no selection/listening/fine-sync/independent whole-film AV acceptance. Complex11 renderer1699276/encoder1699359 live2h22m,raw129579430950/~148453171200 (~87%estimate);09extraction2133658 and finalchain1594627 alive, no duplicate.
+- [ ] Continue03_13 onward and recognition for03_12; actual narrated review remains open. Complex final-picture/master/publication first.
+
+
+### 2026-11-11T08:08:26.338278+00:00 — reversal and causal limits retained
+
+- [x] 03_13/14 reversal threshold and causal limits generated once each Frederick/v4 with exact plan31 wording; both full48kHz alternatives retained/hash-bound23.76/23.68 and18.56/18.64s.50/119cues100takes retained,69remain. Guarded recognition55 launched13bindings for03_12-14 six takes; inspect actual terminal and all reports, never duplicate. No take selection/listening/fine-sync/independent AV acceptance. Complex11 native1699276/encoder1699359 live2h24m,raw130624525350/~148453171200 (~88%estimate);receipt admitted but nonterminal,noerror.09extraction2133658 and finalchain1594627 alive; no duplicate jobs.
+- [ ] Finish03_15/16; inspect55reports and retained uncertainties. Complex final-picture/master/publication remain priority.
+
+
+### 2026-11-11T08:10:47.052599+00:00 — Simpson chapter narration retained
+
+- [x] All16Simpson narration cues now retained.03_15/16 generated once each Frederick/v4 unchanged; both full48kHz alternatives preserved/hash-bound17.2/17.28 and13.04/13.12s.52/119cues104takes retained,67remain. Recognition55 exited0 stable13bindings;all6reports read;03_14 take2 With an/Within uncertainty, take1 exact;03_12 percent-symbol formatting caveat retained. root-transcript-review55.json. Guarded recognition56 launched10bindings for03_15/16 four takes; inspect actual terminal/reports,never duplicate. No selection/listening/fine-sync/independent AV acceptance. Complex11 renderer/encoder live2h27m,raw132366349350/~148453171200(~89%estimate);09extractor/finalchain alive.
+- [ ] Inspect56terminal/reports; continue race04 narration and later chapters. Complex final-picture/master/publication remain first.
+
+
+### 2026-11-11T08:13:25.790691+00:00 — race narration underway
+
+- [x] Recognition56 exited0 stable10bindings;4reports read03_15 exact and03_16 punctuation only;root-transcript-review56.json. Race04_1/2 generated once each Frederick/v4 exact plan31;full48kHz alternatives preserved/hash-bound13.44/13.2 and12.64/12.72s.54/119cues108takes retained,65remain. Guarded race-recognition57 launched10bindings for4takes; inspect actual terminal/reports,never duplicate. No take selection/listening/fine-sync/independent AV acceptance. Complex11 native1699276/encoder1699359 live2h29m,raw133548301350/~148453171200(~90%estimate);09extractor/finalchain alive.
+- [ ] Inspect57receipt/reports and continue04_3 onward. Complex final-picture/master/publication remain priority.
+
+
+### 2026-11-11T08:16:33.450653+00:00 — chase progression retained
+
+- [x] Recognition57 exited0 stable10bindings/no stop;all4reports read,04_1 numeric/punctuation variation,04_2 exact;root-transcript-review57.json.04_3/4 generated once each Frederick/v4 exact plan31,full48kHz alternatives preserved/hash-bound13.68/13.12 and13.36/13.44s.56/119cues112takes retained,63remain. Guarded race-recognition58 launched10bindings for4takes;inspect terminal/reports,never duplicate. No selection/listening/fine-sync/independent AV acceptance. Complex11 native1699276/encoder1699359 live2h31m,raw135227917350/~148453171200(~91%estimate);09extractor/finalchain alive.
+- [ ] Inspect58terminal/reports,continue04_5 onward. Complex final-picture/master/publication remain priority.
+
+
+### 2026-11-11T08:18:27.865073+00:00 — local admission refused, preserve and offload
+
+- [x] Guarded race-recognition58 REFUSED admission,exit75,no child launch: available10,232,762,368bytes below10GiB requirement;resource-receipt preserved,guards unchanged.04_5 had already been generated; both full48kHz Frederick/v4 takes saved/hash-bound16.24/16.72s,exactplan31.57/119cues114takes retained,62remain.04_3-5 ASR pending. Stop new local synthesis/ASR admission until capacity addressed;no deletion. Read-only fleet probe TRJ has208Gavailable andfw installed,CSS71Gavailable. Investigate guarded remote recognition without bypassing guards. Complex11 renderer1699276/encoder1699359 confirmedlive2h34m,raw137119040550/~148453171200(~92%estimate),09extractor/finalchain alive. No selection/listening/fine-sync/independent AV acceptance.
+- [ ] Inspect TRJfw/model/guard readiness and use new named guarded job for pending04_3-5;never repeat58 or lower free-space guard. Complex final review/publication priority.
+
+
+### 2026-11-11T08:20:32.507668+00:00 — remote recognition admitted
+
+- [x] Local recognition58 failed admission exit75 and remains preserved. Read-only TRJ check found208Gfree,fw0.10.0 and existing large-v3-turbo model. Prepared race-remote-recognition59 with13frozenbindings,remote-adapted receipt copies preserve local originals. Explicit copied inputs into new no-clobber directory. Existing guard_trj08 admitted paradoxes-race-recognition59 session47104:10GiBadmission/8stop/4job/56work/20target/exclusive lane unchanged. First04_3 take transcribed;job active, no terminal acceptance. Uses fw0.10.0/large-v3-turbo (different from local small.en), model/binary hashes frozen. Inspect actual terminal and all6reports04_3-5;copy back without overwrite. No further local synthesis after low-space refusal;57/119cues114takes retained. Complex11 renderer/encoder confirmedlive2h36m,raw138276109350/~148453171200(~93%estimate);existing09extractor/finalchain alive. No listening/fine-sync/independent AV acceptance.
+- [ ] Inspect59terminal/reports, retain remote evidence and continue within resource guards. Complex final-picture/master/publication first.
+
+
+### 2026-11-11T08:21:28.243658+00:00 — remote recognition complete
+
+- [x] TRJ guarded recognition59 exited0 stable13bindings/no resource stop at08:20:52;all6reports04_3-5 read.04_3numeric notation/punctuation,04_4punctuation/capitalization,04_5exact transcripts. Results copied to new race-remote-recognition59/results and all6 report hashes verified against remote summary;root-transcript-review59.json. Remote fw0.10.0/large-v3-turbo explicitly recorded;not listening acceptance. Local failed58 preserved.57/119cues114takes retained,62remain;further local synthesis awaits safe capacity. Complex11 renderer1699276/encoder1699359 live2h38m,raw139582477350/~148453171200(~94%estimate);09extraction2133658/finalchain1594627 alive. Final picture/master/publication still open;no duplicate jobs.
+- [ ] Continue04_6 onward within resource guards; inspect complex terminal receipts and every final picture before release.
+
+
+### 2026-11-11T08:22:33.849329+00:00 — final-chain readiness and narration coverage
+
+- [x] Read current complex final-chain1006 controller: existing chain owns08stage then remaining01/09/11,compose/master/verify/pictures; stops on failure, no reruns. Rehashed all3stage/master/verifier pins against running controller:match.01root+independent and08root+author review records present;09/11final review records correctly absent pending actual extraction/review. Renderer1699276/encoder1699359 live2h39m. No duplicate controllers. Built retained-recognition-inventory60.json by reading exactplan31 and57cue receipts,rehashing all114WAVs,indexing114/114recognition coverage.2400/4353scriptwords have retained alternatives (~55.1%);not selected/listened/accepted.62cues remain. Localfree still below10GiBadmission;TRJrecognition59completed stable and preserved. No fine-sync/independent whole-film AV acceptance.
+- [ ] View every09/11final sheet when existing extraction succeeds;bind honest review records,let existing finalchain proceed,verify finalmaster/publication. Continue narration when safely admitted.
+
+
+### 2026-11-11T08:23:48.300111+00:00 — targeted remote narration comparison
+
+- [x] Prepared and launched new TRJ guarded paradoxes-simpson-disputed61 session84751 with10frozenbindings,existing large-v3-turbo/fw0.10.0,for both03_11 and03_14 alternatives to investigate land/lands and With an/Within. Source receipts/WAVs preserved;remote-adapted copies in new qualification01/paradoxes-disputed61. No acceptance until actual terminal/reports. Localfree remains10,490,662,912bytes below10GiBadmission;no synthesis/guard bypass/deletion. Inspected existing09picture helper:all admitted preview/prior814samples plus final lint anchors,0.2s samples through2s and5s persistence to end,full decode and exact schedules. Existing11controller owns extraction after stable final. Complex11 renderer1699276/encoder1699359 live2h40m,raw140814195750/~148453171200 (~95%estimate);09extractor/finalchain alive. Final actual sheet review/master/publication still open.
+- [ ] Inspect61terminal and4reports;keep uncertainty honest. View every09/11final sheet after existing extraction;do not duplicate controllers.
+
+
+### 2026-11-11T08:24:31.887737+00:00 — disputed narration comparison complete
+
+- [x] TRJ disputed61 exited0 stable10bindings/no resource stop;all4reports read and copied hashes verified. Both03_11 large-model reports say lands;both03_14 say Within,matching script and disagreeing with small.en take2. root-transcript-review61.json records model disagreement,not listening or exact speech proof;no reroll. Complex11 renderer1699276/encoder1699359 live2h42m,raw141610458150/~148453171200(~95%estimate);09extractor/finalchain alive. Localdisk remains below10GiBadmission;57cues114takes retained,no new synthesis or guard bypass. Actual final-picture/master/publication review remains first.
+- [ ] Continue complex final review when existing jobs finish;resume narration within storage guards. Listening/fine-sync/independent AV acceptance remain open.
+
+
+### 2026-11-11T08:25:59.940507+00:00 — publication copy reread
+
+- [x] Re-read existing complex-delivery1008 title/description/tags for publication reuse only: The Hidden Geometry of Complex Functions,15chaptertimes,Frederick/FrankenManim credits,logarithm sister link and explicit theorem/domain/continuation caveats. No copy edits needed from this read. Old1008master remains HOLD;must use newly composed verified master and recheck all15times before upload. Existing finalchain owns composition and checks;do not upload oldpackage. Renderer1699276/encoder1699359 confirmed live2h42m;raw142045914150/~148453171200(~96%estimate),not completion.09extractor/finalchain live. Actual09/11pictures,finalmaster technical and visual review,platform4K/manualEnglish verification and original unlisting remain open.
+- [ ] Await existing render terminal;view resulting sheets and finish release. No listening/fine-sync/independent AV acceptance claimed.
+
+
+### 2026-11-11T08:33:19.076817+00:00 — retained reweighting timing candidates
+
+- [x] Derived six provisional03_12 phrase starts (three per full retained alternative) from existing small.en55 segments; exact plan byte offsets, receipt text, both WAV hashes and unique recognition matches verified; starts monotone/in bounds. Evidence combined-native30/simpson-reweight-candidates62.json binds plan/receipt/source/report/audio hashes. Current simpson_expanded.rs line49 still uses fixed loop timing: these candidates are NOT applied or accepted.
+- [x] Complex11 native1699276/encoder1699359 live2h50m; raw146848371750/~148453171200, estimate only.09extractor2133658/stage08guard1718984/finalchain1594627 live. No duplicate jobs. All four CC panes freshly show weekly limit Nov14; existing account-swap question remains pending, no paid credits enabled.
+- [ ] Wire selected phrase marks into reweighting loop before narrated rendering; inspect resulting pictures. Finish complex existing render, actual09/11final-picture review, master/verification and publication. No listening/fine-sync/independent whole-film acceptance claimed.
+
+
+### 2026-11-11T08:36:57.856476+00:00 — complex final chapter rendered successfully
+
+- [x] CSD csd-native-repair-final01-11-counting terminal08:35:57 UTC exit0; initial/final input hash16247966f6c9ab10a713a7e20bc748b1ab787113b66659faf0773a3a5a7ea558 equal; no error/resource stop. Native reports11932frames in10433.9s. Encoder/native processes ended normally. Existing finalchain1594627 resumed and admitted stage08-a1 with input c0aa80bd270075753fffef18da08eec5e45dbd5a667f22c9d0d38176c037f196. Existing09picture guard2133658 still live/queued;11picture controller remains responsible for extraction. NEVER duplicate.
+- [ ] Inspect stage08 terminal and09/11extraction receipts; actually view every final sheet, bind accurate reviews, continue existing composition/master/verifier chain. No new complex upload yet; old master remains held. Public4K/manual captions verification must precede original unlisting. Listening/fine-sync/independent whole-film acceptance remain open.
+
+
+### 2026-11-11T08:45:52.965167+00:00 — complex final picture review started
+
+- [x] Final09 extraction exited0 stable b674e582406ff23782bc2d7129c941fb38bf332e7c1807491647489efc223c3c at08:43:31; full decode,1506selected pictures/189sheets. All189copied sheet hashes verified. Root actually viewed sheets1-18,144pictures; no concrete defect in this partial review. Evidence final-review995/final09-root-review01/root-review-progress02.json; NOT whole-chapter acceptance.
+- [x] Existing11picture extraction admitted input7344656db019d8b9b00ba106c5cf2bf676d5dd95096d7a88ea5c3e99cc6876fe;01stage launched by existing chain08:40:04 after stability wait; no duplicate jobs.
+- [ ] Continue09sheets19-189 and all11sheets after terminal extraction; finish stage/master/verification/publication. Listening/fine-sync/independent whole-film gaps stay explicit.
+
+
+### 2026-11-11T08:47:34.089066+00:00 — complex09 actual review continued
+
+- [x] Actually viewed final09sheets19-42,192additional pictures; cumulative42/189sheets336/1506pictures. Bounded-g/annulus/triangulation/interior cancellation/orientation/equal-integral sequence and same-endpoints inset remain readable; no concrete defect observed in this partial review. Evidence final09-root-review01/root-review-progress03.json.
+- [ ] Continue43-189 and all11final sheets; no whole-chapter/master acceptance yet. Existing finalchain and11extractor remain responsible for jobs,never duplicate. Listening/fine-sync/independent whole-film gaps remain.
+
+
+### 2026-11-11T08:52:52.584205+00:00 — complex final-picture review continues
+
+- [x] Complex final09 actual review now66/189sheets,528/1506pictures; no concrete defect observed in reviewed subset. Evidence final09-root-review01/root-review-progress04.json;52-54 re-viewed after earlier truncated display. Final11 copy session38833 exited0, metadata present, hash verification and actual viewing remain. Existing finalchain1594627 confirmed live; stage01 exited0 and staged08:49, stage08 already complete. No duplicate jobs or whole-chapter acceptance. Listening/fine-sync/independent whole-film AV gaps remain.
+- [ ] Finish remaining09/11 actual sheets, bind truthful review records, then existing controller composes/verifies new master before publication.
+
+
+### 2026-11-11T08:56:41.888824+00:00 — complex boundary review advances
+
+- [x] Final09 actual review126/189sheets1008/1506pictures, no concrete defect in inspected subset. root-review-progress05.json binds exact coverage. Picture956 inspected separately at larger display; suspected thumbnail crowding is clear separation. Final11 all106copied sheet hashes verified against extraction,848pictures still unviewed, copy-verification01.json. Four CC panes freshly retain weekly-limit reset Nov14at8pm; no account-swap confirmation, no paid credits or duplicate workers.
+- [ ] View remaining09sheets127-189 and all11sheets1-106; bind truthful review records for existing finalchain, then final master verification/publication. Listening/fine-sync/independent whole-film AV gaps remain.
+
+
+### 2026-11-11T09:02:39.575843+00:00 — complex boundary final selected-picture review complete
+
+- [x] Actually viewed all1506 selected pictures on189 sheets for final09, including re-view of truncated136-138. No concrete defect observed; root-review-progress06.json binds exact extraction/movie and frame coverage. Radius-to-poles, recentering, prediction hold and numerical comparison remain readable.
+- [x] Existing CSD finalchain1594627 freshly confirmed live09:02UTC;01/08staged,09/11review records still needed. No duplicate jobs.
+- [ ] Bind truthful09review records, view all106final11 sheets, then existing chain produces/verifies master. Listening/fine-sync/independent whole-film AV remain unclaimed; no complex upload yet.
+
+
+### 2026-11-11T09:09:36.740980+00:00 — complex counting final-picture review advances
+
+- [x] Boundary09 complete review records installed locally and remotely after exact binding/contract checks; same reviewer performing complete review and root decision explicitly recorded, independent of WhiteSwan authorship only. Existing finalchain1594627 confirmed live; no duplicate launch.
+- [x] Counting11 actual selected-picture review now81/106 sheets,648/848 pictures; no concrete defect observed. root-review-progress01.json preserves exact coverage and movie/extraction hashes.31-33 re-viewed after prior truncated display.
+- [ ] Finish sheets82-106, bind truthful author/root reviews, allow existing chain to stage/compose/master/verify. No complex upload yet. Continuous listening, fine-sync and independent whole-film AV gaps remain explicit.
+
+
+### 2026-11-11T09:11:52.753231+00:00 — complex final counting selected-picture review complete
+
+- [x] All848 selected final11 pictures on106 sheets actually viewed; root-review-progress02.json records full coverage. No concrete persistent defect observed; code-panel entry at161s clears by162s.
+- [x] Installed source/movie/extraction-bound final11 author and root records locally and CSD after pinned stage03 pure review-contract validation. Author SHA247f3d7cbb0fdf7c7fcc0e3339fa897c1f449ec9dbf515e8e121ca30926313dd; root1cf0da19cba08d90f5a0605d47697c43edf78c5615eafa36c074056b60c6ffe6. Same person complete coauthor review and root targeted decision explicitly disclosed; not independent. Existing finalchain owns subsequent jobs, no duplicate.
+- [ ] Inspect actual09/11stage receipts, composed master/verify and resulting master pictures; publish once only after final checks, then public4K60/manual captions verification before original unlisting. Continuous listening/fine-sync/independent whole-film AV remain open.
+
+
+### 2026-11-11T09:16:17.792491+00:00 — final complex chapter staging
+
+- [x] Re-read actual boundary09 stage receipt: exit0, initial/final hash5c75842d23808d0482a457c2aeac8d9cf8dd7ae8db900f49aefbb3bb3ad09ec3 equal; no resource stop. Existing finalchain1594627 confirmed live and launched counting11 stage at09:15:50UTC after review stability checks. Never duplicated.
+- [x] Actually viewed existing complex-delivery1008 thumbnail: title and z-squared hue legend readable, smooth color plane, no concrete clipping. Reuse image only; old1008master remains HOLD. Four CC panes freshly show weekly limit; existing account-swap request remains pending, no paid credits enabled.
+- [ ] Await existing stage11/master1006/verify1007 terminal receipts, inspect final master pictures and chapter times, then publish once and verify public4K60/uploadedEnglish before original unlisting. Continuous listening, fine-sync and independent whole-film AV review remain unclaimed.
+
+
+### 2026-11-11T09:20:26.612759+00:00 — complex repaired composition ready
+
+- [x] Stage11 actual receipt exit0 at09:17:34; input/final hash e1a1384f21f18dad20f49f8de448f7d743c6c44805e64d0843e45ce1ab9059d4 equal, no error/stop. Existing controller composed allfour repairs into15chapter manifest SHA40301381d5aebd888f12a28e5cf08aed74d69c0f57d88ab421565fc71b3377fe and launched master binding check2863389, confirmed live CPU-active.
+- [x] Prepared complex-delivery1012 with exact hash-verified reviewed title/description/tags/thumbnail from1008; no oldmaster copied and no upload. package-preparation1012.json records pending checks.
+- [ ] Existing finalchain owns master1006/verify1007/picture extraction; inspect terminal receipts and actual final master pictures, recheck15times, package verified newmaster/captions, publish once, public4K60/manualEnglish before original unlisting. Listening/fine-sync/independent whole-film AV remain explicit gaps.
+
+
+### 2026-11-11T09:23:07.380244+00:00 — complex all chapter bindings pass
+
+- [x] Existing master check completed: all15 ordered chapter records ok=true; finalchain1594627 invoked launch at09:22:10. Launch process2868113 confirmed CPU-active; no master guard receipt yet at09:22:27, so no admitted/completed-master claim.
+- [x] Copied exact composed manifest40301381d5aebd888f12a28e5cf08aed74d69c0f57d88ab421565fc71b3377fe and all4stage resource receipts into complex-delivery1012; each exit0/finished/equal input hashes/no error or stop checked before save.
+- [x] Local sbh check --need10G still exits1 critical with16,314,114,048 actual free bytes; no new synthesis or heavy local job admitted, no files deleted.
+- [ ] Follow existing master launch/verify/picture jobs to terminal and review actual master before upload; no duplicate jobs, listening/fine-sync/independent whole-film AV claim.
+
+
+### 2026-11-11T09:27:47.278548+00:00 — complex repaired master admitted
+
+- [x] Existing controller launched guarded csd-combined-master1006; resource receipt admitted=true, frozen input hash9c7a9d2856950789b02fa816117eaa7026cb48930544cfe0c2b5be6452db4f92, child2872046 live. Existing 8GiB stop/4GiB job/56GiB work/20GiB target guards intact. No terminal master result yet.
+- [ ] Follow existing master1006 then verify1007 and both final picture extractions; view actual final master pictures, copy verified master/captions to complex-delivery1012, recheck15times, upload once and verify public4K60/manualEnglish before original unlisting. No listening/fine-sync/independent whole-film acceptance claimed.
+
+
+### 2026-11-11T09:34:28.493157+00:00 — complex master assembly and chapter times
+
+- [x] Guarded master progressed from frozen-input validation to actual native master process2875533. First7chapter soundtrack replays report bit-identical; worker2872046 remains live, no terminal acceptance yet.
+- [x] Checked all15 description timestamps against all15 actual staged final timelines, total133662frames/2227.7seconds. Evidence complex-delivery1012/publication-chapters-staged1012.json binds timeline and description hashes. Final master equality still requires verifier.
+- [ ] Await terminal master, existing verify1007 and actual final picture review; package and publish once afterward with public4K60/manualEnglish verification. Listening/fine-sync/independent whole-film AV gaps remain.
+
+
+### 2026-11-11T09:40:27.770515+00:00 — complex native MP4 assembled
+
+- [x] Native master log reports all15 soundtrack replays bit-identical; assembled133662frame/2227.700second MP4, audio and picture duration equal, gain-1.39dB, PCM-18.98LUFS/-1.50dBTP. Native master/ffmpeg children ended; wrapper2872046 remains live and caption consumer has verified105cues. No terminal guard result yet.
+- [ ] Await caption export, final input checks and master terminal receipt, then existing verifier/full decode/encoded loudness/exact captions/frame equality/picture extraction. Final master review/publication still open. No listening, fine-sync or independent whole-film AV acceptance.
