@@ -13684,3 +13684,77 @@ Timestamp correction: the preceding dependency204 check and tracker update occur
 
 - [x] Expanded birthday native chapter now connects all16 exact script cues: one-person vs all pairs,365-day conditional calendar, complement product,22/23 threshold, pair dependence, random labels and model limits. Guard24 failed wrong color type,25 stale inherited script binding; all preserved.26 passed; actual review found triangle label near diagonal.27 repair exited0 stable102bindings/no stop,15tests/Clippy206oracle rows;737 silent frames24.567s, all49 pictures/7sheets viewed,56 image hashes in birthday-native24/root-preview-review27.json. Silent author review only; in-place continuity, narration phrase timing, new Frederick takes, independent AV/listening still open. Native Simpson03 remains missing.
 - [ ] Continue missing Simpson03 and assembly; complex publication remains first.
+
+
+### 2026-11-11T06:17:51.888595+00:00 — Simpson draft reviewed; full native integration started
+
+- [x] Simpson expanded native03 now connects all16 cues: exact invented counts, tile workloads, weighted contributions, moving averages/shared mixes and causal caveat. Guard28 passed; reviewed34pictures/5sheets found row-vs-column script mismatch and stale motion labels.29 corrections exit0 stable103inputs/no stop;15tests/Clippy206oracle facts,507silentframes16.9s, all34pictures/5sheets re-viewed39hashes in root-preview-review29.json. New Frederick narration, phrase timing and independent/listening remain open. Integrated all9 chapters/119cues into preserved combined-native30 after byte-identical shared code/oracle/lock comparison; guarded combined-qualify30 started, inspect actual terminal receipt and registry/script output, never duplicate. Complex09/11 still active, publication first.
+- [ ] Qualify combined build, audit all source-bound holds and narration timing, then expanded Frederick takes and narrated production.
+
+
+### 2026-11-11T06:20:33.770254+00:00 — full expanded paradox registry qualified
+
+- [x] Combined native30 guarded qualification exited0 with113 stable input bindings/no resource stop.15tests and scoped Clippy passed;206 native oracle rows equal. Actual retained binary chapters command lists9 ordered chapters; script command is byte-identical to combined-script03.tsv, all119 cues, SHA92e73c81a68f50c8494dbf2fabcb002fba2bf2e5ea12fb8d153d2b7d37fc9a1a. Evidence combined-native30/combined-build-verified30.json. This closes missing native chapter integration, NOT narration/whole-film production: phrase-timed loops, source-bound direction map, Frederick takes, narrated rendering/master and independent/listening remain.
+- [ ] Continue narration binding and concrete timing/continuity repairs; complex final09/11 and publication remain first.
+
+
+### 2026-11-11T06:25:04.757680+00:00 — expanded narration plan bound
+
+- [x] Expanded paradox Frederick request plan31 created and actual coherent_narration resolver validated119 units/4353words/9chapters/12 native hold directions; map depth-frederick01 source/helper hashes current. No synthesis or listening claim. Existing 12 sentence anchor instances checked including two explicit dynamic loops; 18 unique source-text phrase candidates inventoried for multi-step birthday/Simpson and Monty reveal, with NO invented seconds. Evidence combined-native30/frederick-depth-plan-validation31.json and narration-anchor-audit32.json. Preserve31 while preparing actual retained audio/timings; independent and narrated review open.
+- [ ] Generate and retain Frederick takes; resolve phrase starts from actual audio, fix concrete continuity gaps, then narrated timelines/render/master/review. Complex09/11 publication remains first.
+
+
+### 2026-11-11T06:30:20.764042+00:00 — complex final render live check
+
+- [x] Re-polled exact CSS09 renderer46302/encoder46430 and CSD11 renderer1699276: both live, CPU1457%/1355%, elapsed3h48m/47m. CSS encoder rchar184446886914 (~89.8% of expected raw-frame bytes, estimate only). Actual guard receipts still admitted with no terminal result; original policies unchanged. Final-chain1594627 and queued08 stage1716697/guard1718984 live; no duplicate job.
+- [x] Four exact CC panes rechecked: {"%9": {"weekly_limit_visible": true, "rate_limit_menu_visible": true}, "%10": {"weekly_limit_visible": true, "rate_limit_menu_visible": true}, "%11": {"weekly_limit_visible": true, "rate_limit_menu_visible": true}, "%12": {"weekly_limit_visible": true, "rate_limit_menu_visible": true}}; no paid usage enabled or false restart claim.
+- [ ] Continue existing09/11 jobs to terminal receipts and extracted-picture review, then existing stage/master/verification chain and single publication. Whole-film independent AV/listening/fine-sync gaps remain explicit.
+
+
+### 2026-11-11T06:36:06.360109+00:00 — expanded paradox narration started
+
+- [x] ElevenLabs UI Frederick Surrey, Eleven v4, stability0.5/similarity0.75/clone0, WAV48k. Submitted exact plan31 cue00_1 once; UI produced two takes, both downloaded and preserved (18.32s/18.8s), original downloads retained. Credits226046→225770. First download-event timeout recovered from actual file without regeneration. Evidence combined-native30/elevenlabs-takes33/00_1-receipt.json and download-generation-map.json. Prior exponential editor text preserved session-start.json.
+- [ ] Neither take accepted/listened/ASR-checked yet.118 remaining expanded cues need generation; timing/reconstruction/narrated renders/review remain. Chrome1054677028 handoff retains generated cue, do not regenerate00_1.
+- [x] Complex09/11 exact render processes remain live at3h52m/51m; no duplicate jobs. Final technical/visual/publication work remains priority.
+
+- [x] 2026-11-11T06:40:39.102482+00:00 Expanded paradox00_2/00_3 generated once each with unchanged Frederick/v4/settings; both alternatives per cue downloaded/copied/hash-bound48kHz. All3 opening cues now have retained takes (6 total);116 cues remain. Receipts elevenlabs-takes33/00_2-receipt.json and00_3-receipt.json. Credits225770→225381. Speech recognition/listening/acceptance still open; no regeneration or time/pitch processing.
+
+
+### 2026-11-11T06:45:08.161729+00:00 — opening speech verification admitted through guarded lane
+
+- [x] Probed actual /opt/homebrew/bin/fw0.9.2 transcribe help; retained small.en model available. Prepared six-take source-bound recognition job with13 frozen bindings, original WAVs unchanged, fourthreads/no diarization/no persistence.
+- [x] Attempt34 exited1 stable/no resource stop before ASR because helper used wrong ancestor for job receipt; all files preserved. Corrected35 uses actual WORK ancestor and new output; guarded job paradoxes-opening-recognition35 ALREADY STARTED in session76884. Never duplicate.
+- [ ] Inspect35 terminal receipt and all six transcript reports, retain differences as recognition uncertainty, no listening or acceptance claim. Complex09/11 exact renders live;09 raw input~96%,11~63minutes. Existing final review/master chain waits.
+
+- [x] 2026-11-11T06:46:28.102079+00:00 Guarded opening-recognition35 terminal exit0,13 bindings stable/no resource stop. Root read all6 transcripts; exact word sequences match plan31 after punctuation/case normalization. Evidence opening-recognition35/root-transcript-review35.json. No audible quality/fine-sync/independent AV verdict; all6takes preserved. Prior34 failure retained.
+
+- [x] 2026-11-11T06:49:59.295893+00:00 Expanded Monty01_1/01_2/01_3 each submitted once, Frederick/v4 unchanged;6 alternatives downloaded/copied/hash-bound and originals preserved in elevenlabs-takes33 with exact plan31 receipts. Six expanded cues now retained total12takes;113 cues remain. New Monty takes not yet ASR-checked/listened/accepted; no timing verdict.
+
+- [x] 2026-11-11T06:51:19.545764+00:00 Guarded paradoxes-monty-recognition36 ALREADY STARTED session62897,13 frozen bindings for six01_1–01_3 takes; never duplicate. Actual guard admission/terminal and transcript triage still pending. ComplexCSS09 live4h09m with201006656514 input bytes (~98% estimate); CSD11 live68m. Existing extraction controllers confirmed live; no new final job.
+
+- [x] 2026-11-11T06:53:25.795719+00:00 Recognition36 terminal exit0,13 stable bindings/no resource stop; all6Monty transcripts read and word-equal after punctuation normalization. root-transcript-review36.json. Two01_1 door-reveal phrase starts provisionally source/audio/report-bound in monty-reveal-candidates37.json (9.42s/9.28s), NOT applied or heard. No take selection/fine-sync/independent AV acceptance.
+
+- [x] 2026-11-11T06:55:51.059414+00:00 Expanded01_4/01_5/01_6 generated once each Frederick/v4, both full alternatives copied/hash-bound at48kHz with originaldownloads preserved. exactplan31 receipts in elevenlabs-takes33. Total9expandedcues/18takes;110cues remain. Last3notASRchecked; no listening/fine-sync/independent acceptance. Complex09 stilllive4h14m; no duplicate job.
+
+- [x] 2026-11-11T06:56:28.120592+00:00 Exact live encoderIO check: CSS09 204490304514/~205337241600 rawbytes (~99.6% estimate). CSD11 encoder1699359 confirmed child ofrenderer1699276,76627981350/~148455014400 (~51.6% estimate). No terminalreceipts/resourceerrors yet. Existing extraction/stagechain remains owner; no duplicate render/extraction launched.
+
+
+### 2026-11-11T06:58:13.288709+00:00 — complex09 final render completed
+
+- [x] CSS csd-native-repair-final01-09-boundary terminal finished06:57:47UTC exit0, no error/resource stop. Initial/final input hash47c67080ca573499134a0c729354eb8bef60932b04d14ec7b070f8d5aef0dd47 equal; native/encoder exited. Existing CSDcopyback1428789 and extraction1192962 own next steps, no duplicate job.
+- [ ] Inspect actual copyback/extraction receipts and every selected final09 picture before binding review. CSD11native1699276 remains live; final11pictures, finalmaster and public release still pending. No independent wholefilm/listening/finesync acceptance.
+- [x] Correction to preceding approximate11 raw-byte denominator: exact11932frames×3840×2160×1.5=148453171200bytes;51.6% estimate unchanged.
+
+
+### 2026-11-11T07:02:42.467308+00:00 — final09 transfer complete; narration progresses
+
+- [x] Existing CSDcopyback03 exited0 at07:00:04:10jobfiles84333205bytes verified,15618inputrows equal; no-clobber placement verified. placed.json retained; extraction1192962 live preparing inputs,11renderer1699276 live. No duplicate jobs.
+- [x] Paradox recognition38 exited0 stable13inputs/no stop; all6transcripts reviewed, four exact word matches and two fifty-fifty/50/50 notation differences. root-transcript-review38.json.01_7 generated once after recovering editor timeout before submission; both takes retained, receipt01_7. Total10cues20takes,109cues remain.01_7notASRchecked; no listening/finesync/independent acceptance.
+- [ ] Review final09 extracted sheets when existing controller completes;11final and wholemaster remain pending. Continue remaining Frederick narration and actual narrated review.
+
+
+### 2026-11-11T07:09:53.263198+00:00 — final extraction queued; retained narration advanced
+
+- [x] Live CSD process check: final11 renderer1699276 and encoder1699359 active; existing final09 extraction controller1192962 has launched guarded extraction2133658, waiting exclusive lane. Final chain1594627 and stage08 guard1718984 alive. No duplicate jobs or final-picture acceptance. Four CC panes still weekly-limited; account-swap response remains pending.
+- [x] Guarded Monty recognition39 exited0; both01_7 transcripts read and exact script matches. root-transcript-review39.json. Generated01_8 once with unchanged Frederick/v4/settings; both19.76s/19.2s takes preserved/hash-bound, receipt01_8. Total11 expanded cues/22takes;108 cues remain.01_8 recognition pending; no take selection, listening, fine-sync or independent whole-film AV acceptance.
+- [ ] Complete final09/11 picture review and existing final master/verification/publication chain. Continue remaining expanded narration and narrated visual timing.
