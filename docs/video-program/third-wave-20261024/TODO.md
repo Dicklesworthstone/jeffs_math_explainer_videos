@@ -13438,3 +13438,249 @@ Timestamp correction: the preceding dependency204 check and tracker update occur
 - [x] Source inspection found16-sided and64-sided polygon reveals both waited on09_2 sentence1, so16 disappeared immediately. Preserved files under before-sentence-timing03, split the two spoken values into separate sentences, and assigned boundaries0/1/2 to8/16/64 sides,3 to polygon-area statement and4 to limit.
 - [x] Current complete candidate is stokes-depth-root-review1012/crate, bound by candidate-source-manifest03 and sentence-timing-correction03. Earlier top-level partials/manifests retained as history. Shared Kit until_sentence semantics inspected: elapsed waits do nothing, confirming the original source defect.
 - [ ] Native build and actual narration/motion review remain required; no listening or independent acceptance. CC3 notified; no existing recording modified or synthesis started.
+
+
+### 2026-11-11T03:51:23.157672+00:00 — full substantive five-paradoxes script assembled
+
+- [x] Combined corrected CC1 probability chapters and CC2 Zeno/Hilbert/bookends into one119-cue4353-word script across00–08: paradoxes-depth-root-review1012/combined-script03.tsv, SHA92e73c81a68f50c8494dbf2fabcb002fba2bf2e5ea12fb8d153d2b7d37fc9a1a. Exact unique contiguous cue IDs checked. Original drafts and intermediate corrections preserved.
+- [x] Tightened proper-subset bijection and countably infinite definitions; replaced unsupported historical dates with explanation; added actual Cantor diagonal construction. Independently enumerated bus2 seat3 as13th guest. Source hashes and counts in combined-script03-manifest.json.
+- [ ] Native chapter registry/scenes and new Frederick plan must match this substantive script; no runtime, listening, independent review or production acceptance inferred from word count. CC1/CC2 notified; complex final production remains first.
+
+
+### 2026-11-11T03:54:39.310725+00:00 — expanded paradoxes native integration gap located
+
+- [x] Compared actual worker source to combined119-cue script. CC2 crate still has old seven-chapter00–06 registry:05_hilbert_hotel/06_closing mismatch expanded05_Zeno/06_Hilbert, and07/08 have no entry. CC1 native01 contains expanded facts/helper only, not new chapter implementations. Evidence native-coverage04.json.
+- [ ] Implement expanded native01–03 (CC1) and04–08/bookends (CC2), then integrate shared registry/facts. Literal inventory21sayIDs/98missing is triage only and excludes dynamic calls; it is not native runtime coverage. Never combine the long script with the old schematic visuals or synthesize against the stale plan. Independent review, native qualification and listening remain open.
+
+
+### 2026-11-11T03:58:47.367486+00:00 — complex production verified wait
+
+- [x] Reconfirmed actual live TRJ08 native447792/encoder448167 at1h20m and CSS09 native46302/encoder46430 at1h17m; both using3840x2160/60fps/CRF16. Copyback538522 and1428789, extraction1192706/1192962, counting waiter1332293 and final-chain1594627 also live. No duplicate launches or changed guards.
+- [ ] CC0 andCC3 panes still explicitly show provider weekly limit; existing account-recovery request remains pending. No independent counting-picture acceptance fabricated; root authored part of the repair. Final11 admission,08/09 final picture review, repaired master and publication remain pending. Listening/fine-sync and whole-film independent AV remain open.
+
+
+### 2026-11-11T04:00:07.258969+00:00 — expanded paradoxes facts connected
+
+- [x] Preserved both worker trees; successor paradoxes-depth-root-review1012/native-facts-integration05/crate declares facts_expanded and calls it before facts.self_check. Combined exact oracles execute successfully with206 unique rows (121+85); full output equals concatenated original outputs. Expanded Rust module rustfmt check passes.
+- [ ] This is facts integration only: retained scenes/registry/script remain old and explicitly unqualified for expanded combined-script03. New scenes, registry, Frederick narration bindings, guarded native build/tests, independent review, actual pictures and listening remain open. CC1/CC2 notified.
+
+
+### 2026-11-11T04:07:00.179642+00:00 — expanded Stokes native qualification passed
+
+- [x] Staged preserved corrected23-chapter candidate in stokes-depth-root-review1012/build-stage04/crate, only absolute shared-crate paths for local build. Original inputs and lock retained. Test04 refused admission because preserved work67.7GiB exceeded56GiB; no compiler launched. Owner-authorized as-needed cap wrapper raises work cap to80GiB, retaining original baseline/exclusive lane,10GiB admission,8GiB stop,4GiB per-job and20GiB target growth.
+- [x] Guarded test05 passed17 tests. Qualify06 failed strict Clippy on constant geometry assertion; failure/source preserved. Moved only that assertion into const block in staged candidate. Guarded qualify07 exited0 with stable inputs/no resource stop:17 tests, strict scoped Clippy, native executable and33 exact native facts equal independent oracle. Incidental malformed upstream fixture message retained; actual Cargo commands exited0.
+- [ ] Current qualified source is build-stage04/crate, not earlier pre-Clippy candidate. This is native source qualification only: narration direction map/plan is still stale, new Frederick recordings, timed previews, actual pictures, independent review and listening remain required. Complex final render/review/publication remains first.
+
+
+### 2026-11-11T04:09:10.059179+00:00 — paradoxes combined native models qualified
+
+- [x] Staged native-facts-integration05 as build-stage06/crate with absolute shared dependency paths and preserved canonical lock. Guarded qualify06 passed tests but strict Clippy rejected three manual divisibility checks; source and failed receipt retained. Narrow is_multiple_of replacements only.
+- [x] Guarded paradoxes-depth-qualify07 exited0 stable inputs/no resource stop:9 library+6 expanded-facts tests, strict scoped Clippy, native executable facts exactly match all206 independent oracle rows. Original worker trees unchanged.
+- [ ] This qualifies combined models/facts, not expanded video scenes: old seven-chapter registry/script still retained,119-cue expanded native production remains incomplete. New scenes/narration bindings, Frederick takes, actual visual review, independent review and listening remain open. Complex08/09 live native and encoder processes freshly confirmed; no duplicate jobs.
+
+
+### 2026-11-11T04:11:20.423808+00:00 — Stokes first new native preview actually viewed
+
+- [x] Guarded preview08 and pictures09 exited0 stable/no stop. Native09_step_sums silent960x540/30fps165frames; root actually viewed22 samples on one sheet. Four polygon resolutions and numeric rows appear separately; no concrete collision identified at sheet resolution. Review root-picture-review09.json binds movie/sheet.
+- [ ] Silent5.5s preview omits narration waits and cannot qualify pacing/fine-sync. Polygon-area equality is stated rather than visually accumulated; assess this teaching gap before narrated production. New narration plan/takes, independent review and final pictures remain open.
+
+
+### 2026-11-11T04:15:15.452330+00:00 — Stokes area sum now shown geometrically
+
+- [x] Preserved prior stages; area-visual-stage10/crate now shades edge-to-axis strips that tile each polygon.09_1 explains midpoint width, signed height and left-side signs; timing indices shifted to match new sentences. New geometry test checks strip area=midpoint x times delta-y and total=polygon_sum at4/8/16/64.
+- [x] Guarded area11 compile failure preserved; removed ambiguous collect. Area12 exits0 stable/no stop:18 tests, strict Clippy,33 native/oracle facts, retained executable,240-frame silent preview. Root actually viewed all32 selected images on contact sheet, filled polygons converge to disk with clear text separation.
+- [ ] Actual review caught missing explicit vertical-axis line/label referenced by new narration; add before narrated review. Silent8s is not narration timing; updated plan/takes, independent source/picture review and listening remain open. Complex08/09 native/encoder PIDs still live at latest poll.
+
+
+### 2026-11-11T04:17:29.561615+00:00 — Stokes axis repair verified in actual preview
+
+- [x] Added explicit vertical x=0 axis and label to new area scene, preserving prior source. Guarded area13 exit0 stable/no stop:18 tests/Clippy/33 facts plus240-frame silent render. Root actually viewed32 selected pictures: axis remains visible through shaded accumulation/refinement, labels separated, no concrete collision at sheet resolution. Review root-picture-review13.json binds exact outputs.
+- [ ] Current expanded source area-visual-stage10/crate remains a candidate needing independent review, all other chapter pictures, new Frederick plan/takes and narrated timing. Complex TRJ08/CSS09 processes remain live; CC0/CC3 rate-limit screens rechecked unchanged.
+
+
+### 2026-11-11T04:19:43.015164+00:00 — seven new Stokes scenes rendered and sampled
+
+- [x] Guarded preview14 exited0 stable/no stop, seven native silent previews08/10/11/12/19/20/21. Root actually viewed100 selected pictures across7 sheets; review root-picture-review14.json binds movie/sheet hashes and actual layout logs. Fixed-point vectors, changing signed area, cube face cancellation and finite-volume8/8.25 totals visible; no concrete clipping/collision identified at sheet resolution.
+- [ ] Review covers selected silent pictures only, not all frames, narration timing or independent acceptance. The remaining original chapters, whole-story coherence, new narration plan/Frederick takes and final AV checks remain open. Complex critical-path render/review still first.
+
+
+### 2026-11-11T04:24:51.069069+00:00 — Stokes proof preview review and narrow correction
+
+- [x] Guarded preview15 exited0 with stable bindings; all66 selected pictures on six sheets13–18 viewed (last three individually after earlier truncated display). Evidence stokes-depth-preview15/root-picture-review15.json.
+- [x] Confirmed retained omit-y label in chapter14 source; preserved prior source before-missing-row-repair16.rs and added it to the transition fade, avoiding duplicate later fade.
+- [ ] New chapter14 change requires guarded build and actual revised preview; no visual acceptance yet. Silent samples do not establish listening, fine sync or independent review.
+- [x] Complex TRJ08 native447792/encoder448167 and CSS09 native46302/encoder46430 confirmed live, with copyback/extraction/final controllers live. No duplicate jobs launched.
+
+
+### 2026-11-11T04:26:31.480824+00:00 — chapter14 correction qualified
+
+- [x] Guarded stokes-depth-missing16 exited0 stable/no resource stop:18 tests, strict Clippy,33 exact native/oracle facts. All34 selected pictures of255-frame silent revised chapter14 viewed; redundant omit-y row clears before swap demonstration. root-picture-review16.json binds binary/movie/sheet.
+- [ ] Current depth draft still needs remaining scene reviews, matched Frederick narration plan and narrated review; no listening/fine-sync/independent acceptance.
+- [x] All four CC panes rechecked: explicit weekly-limit resetNov14, paid credits untouched. Existing recovery request pending; no false productive-worker claim.
+
+
+### 2026-11-11T04:28:59.772201+00:00 — remaining Stokes native draft pictures reviewed
+
+- [x] Guarded preview17 exited0 stable/no resource stop; all117 selected pictures across nine chapters01–07/22–23 actually viewed individually. root-picture-review17.json binds movies and sheets. No concrete sampled collision/clipping observed.
+- [x] All23 depth-draft chapters now have native silent preview and sampled picture evidence across area13, preview14, preview15, corrected missing16 and preview17. This is draft coverage, not narrated production qualification.
+- [ ] Next: freeze current source and align the expanded script, native holds and Frederick narration plan; independent proof/visual review and narrated timing/listening still open. Do not reuse stale15-chapter/34-cue Oliver plan.
+- [x] Complex08/09 render processes and encoders were live this turn with increasing IO; existing copyback and final controllers remain sole production route.
+
+
+### 2026-11-11 04:31 UTC — expanded Stokes Frederick plan connected
+
+- [x] New frederick-depth-units18.json binds57 exact cues/3191 words across23 chapters to Frederick Surrey;57 unique native say calls cover script exactly.35 source/hash/line-bound holds in additive narration-direction-map-depth-frederick01.json.
+- [x] Existing read_units(require_directions=True) and direction_contract resolve all35 directions. Validation frederick-depth-plan-validation18.json; script SHA b4158ff765ca82c117ee16da245db85a0daa3c2e103cd350075c862795ecbdde. Canonical source and old takes/plans preserved.
+- [ ] No synthesis or narrated duration claimed. Independent review, acoustic/ASR checks, assembly, narrated picture timing and listening remain. Initial combined shell command was rejected by guard; exclusive-create helper then succeeded with no overwrites.
+
+
+### 2026-11-11T04:32:46.545586+00:00 — complex critical path rechecked
+
+- [x] TRJ08 native447792/encoder448167 remain live at1h54m; encoder rchar advanced181597759046→181983448646. CSS09 native46302/encoder46430 live at1h50m with84963853314 rchar. These are progress observations, not terminal render success or guaranteed ETA.
+- [x] CSD extraction1192706/1192962, CSS copyback1428789, final11 waiter1332293 and final-chain1594627 confirmed live. Read exact waiter/launcher: chapter11 still awaits picture-admission record; no duplicate jobs started.
+- [ ] Chapter11 independent picture review remains blocked on limited CC sessions; root coauthored repair and cannot count own record as independent. Account-recovery request remains pending. Final08/09 pictures,11 final and master/publication are not complete.
+
+
+### 2026-11-11T04:34:06.570902+00:00 — expanded Stokes sentence cue precheck
+
+- [x] Checked every literal until_sentence call and manually expanded two finite loop sites against current script sentence segmentation: 114 valid references, no out-of-range index. Source/hash/line and target sentence retained in sentence-anchor-audit19.json.
+- [ ] Kit silently skips missing sentence moments, so this source check prevents one class of silent synchronization failure; it does not prove acoustic timing. Narrated timing/listening and independent review remain open.
+
+
+### 2026-11-11T04:41:52.093300+00:00 — complex loop-sums4K render completed
+
+- [x] TRJ guarded csd-native-repair-final01-08-loop-sums finished04:41:05UTC exit0, initial/final input hash62e916e1 match, no resource-stop/error. Native/encoder/guard exited. Exact receipt retained trj08-terminal-receipt1013.json SHA9f106b091abec684c02cd1de22756d3431eec0730e2481f33b1d6e55687a4eef.
+- [x] Existing copyback538522 detected terminal receipt at04:41:30 and confirmed route processes gone; its stability/hash/copy checks continue. Never duplicate.
+- [ ] Await verified copyback and existing CSD extraction, then view every final sheet. CSS09 and chapter11 independent-review/admission remain open; no master or upload acceptance.
+
+
+### 2026-11-11T04:45:19.402791+00:00 — complex08 copyback verified, final-picture extraction active
+
+- [x] Existing TRJ copyback538522 exited0;120s tree stability, every file size/SHA and directory matched, CSD receipt accepted and non-overwriting placement completed04:43:36UTC. Log preserved trj08-copyback-completed1013.log.
+- [x] Existing extraction controller1192706 launched guarded csd-native-repair-pictures01-08-loop-sums; admitted runner1647942 and actual full-decode ffmpeg1647944 live, stderr empty at observation. No duplicate job.
+- [ ] Wait terminal extraction receipt, fetch exact hash-bound sheets and actually review them. Copyback/decode-in-progress is not final-picture acceptance.
+
+
+### 2026-11-11T04:55:34.756006+00:00 — complex08 final selected-picture review completed
+
+- [x] Guarded final picture extraction exit0 stable/full decode. All484 selected pictures on61 sheets actually viewed;545 image hashes rechecked. Root record final08-root-review01/csd-native-final4k-review1006-08-loop-sums-root.json binds movie46008a40 and sourcea8d62f56.
+- [x] c overlap is readable at shared point through sampled persistence; two4^n strokes are algebraic cancellation, clear to final bound. No concrete sampled defect found.
+- [ ] Independent final subset review, continuous listening/fine sync remain open; this is root review only. CSS09 native46302/encoder46430 confirmed live04:52UTC. Chapter11 independent review/admission and final master remain pending. No duplicate render or upload.
+
+
+### 2026-11-11T05:02:03.680969+00:00 — expanded Zeno native chapter drafted and visually checked
+
+- [x] New isolated zeno-native08 stage connects all18 chapter05 cues in exact script order; original worker/canonical files preserved. Native diagrams cover geometric totals/shortfalls, tolerance, distance-time crossing/equal-speed counterexample, harmonic blocks, and model limitations.
+- [x] Guarded qualify08 compile failure preserved; narrow usize conversion fixed. Qualify09 exit0 stable:15 tests, scoped Clippy,206 oracle rows match. Preview10 exit0 stable,709 silent frames; all47 selected pictures on6 sheets actually viewed.
+- [ ] Draft is not final: replace05_8 gap-label ladder with actual magnification, label graph identities/scales, segment harmonic pieces, show post-catch runners, mark rounded decimals. New Frederick takes, narrated timing, independent review/listening remain open. See zeno-native08/root-preview-review10.json.
+- [x] Complex09 native46302/encoder46430 freshly live around05:00UTC; existing copyback/extraction/final waiters retained. No duplicate jobs or uploads.
+
+
+### 2026-11-11T05:09:05.219078+00:00 — Zeno revised native picture review
+
+- [x] All60 selected pictures on8 qualify12 sheets actually viewed, including re-view of previously truncated sheets3/4. Actual crossing magnification, graph labels, segmented harmonic blocks, approximate shortfalls and post-catch motion present. Author review only: zeno-native08/root-preview-review12.json.
+- [x] Preserved source as before-zoom-label13-zeno_sum.rs; clarified magnification label to relative zoom. Fresh guarded qualify13 admitted with97 frozen inputs, session17273; no duplicate job.
+- [ ] Inspect terminal qualify13 receipt and resulting pictures. New Frederick narration, narrated timing, independent review and listening remain open.
+- [x] Complex09 renderer46302 and encoder46430 confirmed live; encoder input advanced to121741222914 bytes. Existing copyback/controllers retained. Four CC panes remain at account-limit menu; exact sessions preserved, paid credits not enabled. Complex publication remains pending actual remaining final checks.
+
+
+### 2026-11-11T05:10:25.927294+00:00 — Zeno corrected preview qualified
+
+- [x] Guarded qualify13 exited0/no resource stop;15 native tests, scoped Clippy and206 oracle rows pass. Silent native904frames,30.133s; all60 selected pictures/8 sheets actually viewed and68 image hashes recorded in zeno-native08/root-preview-review13.json. Corrected relative-zoom wording is clear; no concrete sampled clipping.
+- [ ] This is a silent author-reviewed chapter draft, not a narrated final: Frederick takes, narrated timing, independent review and listening remain open. Other paradox chapters still require depth integration. Complex09 existing render remains priority and was freshly confirmed live; no duplicate render/upload.
+
+
+### 2026-11-11T05:15:20.756147+00:00 — Hilbert finite-to-infinite native scene expanded
+
+- [x] Isolated hotel-native14 implements all15 chapter06 cues in exact script order, preserving the old three-cue scene. Five-room failure, infinite shift, newcomer, injectivity, inverse-room lookup and proper-subset pairing are now native scenes.
+- [x] Guarded paradoxes-hotel-qualify14 exit0 stable98 input bindings/no stop;15 tests, Clippy,206 oracle rows. Silent428 frames; all29 selected pictures on4 sheets actually viewed and33 image hashes recorded in root-preview-review14.json.
+- [ ] Transient rightmost guest/continuation crossing requires narrated motion check; no persistent sampled clipping. New Frederick takes, narrated timing, independent review and listening remain open. This is an author-reviewed silent draft, not publication acceptance. Chapter07 infinite bus/diagonal enumeration still needs native expansion.
+- [x] Complex09 renderer/encoder and copyback/extraction/final waiters confirmed live; existing jobs retained. Four CC account-limited sessions unchanged.
+
+
+### 2026-11-11T05:20:45.437037+00:00 — native infinite-bus and counting chapter
+
+- [x] Isolated buses-native15 implements all15 chapter07 cues in exact script order: finite shifts, endless bus, even/odd assignment and inverse, grid diagonal traversal, worked bus2/seat3/room13, countability, Cantor diagonal flip and physical-model caveat. Original scene files preserved.
+- [x] Qualify15 failed missing native Line build error propagation; failed attempt/source preserved, fixed in16. Guarded qualify16 exit0 stable/no stop;15 tests, Clippy,206 oracle rows pass. All43 selected silent pictures on6 sheets actually viewed.
+- [x] Root review found clutter from long return links between diagonals and inconsistent zero/one-based diagonal notation. Narrow successor preserves within-diagonal links and uses D=b+s with D(D-1)/2+b+1, matching the narrated fifth diagonal.
+- [ ] Guarded qualify17 running session29093; inspect actual receipt and all pictures before retaining. Frederick narration, timing, independent review/listening remain open; no publication acceptance. Complex09 remains live in existing job, no duplicate.
+
+
+### 2026-11-11T05:21:52.667375+00:00 — corrected infinite-bus preview completed
+
+- [x] Guarded qualify17 exit0 stable99 inputs/no stop;15 tests, Clippy,206 oracle rows. Native silent606 frames/20.2s; all40 selected pictures on5 sheets actually viewed,45 hashes recorded in buses-native15/root-preview-review17.json. Within-diagonal connectors clear; one-based D formula matches fifth-diagonal narration.
+- [ ] Sampling is not exhaustive motion review; unchanged closing card was viewed in16, not selected in17. Frederick narration, timing, independent review and listening remain open. Complex09 live renderer/encoder confirmed05:20UTC with132776922114 input bytes; existing jobs retained.
+
+
+### 2026-11-11T05:26:37.220153+00:00 — native opening and fraction-transfer closing
+
+- [x] Isolated bookends-native18 connects all8 opening/closing script cues. Opening previews five puzzles with source-derived Simpson bars; closing demonstrates positive-fraction enumeration and repeated-value skipping, including2/4=1/2. Old sources preserved.
+- [x] Guarded qualify18 exit0 stable100 inputs/no stop;15 tests, Clippy,206 oracle rows. Silent opening86frames, closing464frames; all37 selected pictures on5 sheets actually viewed.42 image hashes/source binding recorded in root-preview-review18.json. No concrete sampled clipping.
+- [x] RubyRaven notified via Agent Mail25938 of root isolated05–08/bookend expansions to avoid duplication when account resumes; original worker files/takes untouched.
+- [ ] These are silent author-reviewed drafts. Expanded chapters01–04 still require native integration; new Frederick takes, narration timing, independent review and listening remain open. Complex09 still active, publication priority unchanged.
+
+
+### 2026-11-11T05:35:01.574867+00:00 — expanded race native draft checked
+
+- [x] Isolated race-native19 connects all14 chapter04 script cues; runners, positive stage gaps, clock limit views, post-catch positions and exact meeting values. Worker originals preserved.
+- [x] Guarded qualify19 failed unsupported native TeX hbox; retained. Successor20 replaces unsupported command and consistently centers10x clock windows. Exit0/no stop;15 tests, Clippy and206 oracle rows. Silent473frames; all32 selected pictures on4 sheets actually viewed,36 image hashes in root-preview-review20.json.
+- [ ] Author-reviewed silent draft only: continuous zoom improvement, approximate window-edge labels, Frederick narration, narrated timing and independent/listening review remain open. Chapters01–03 still need expanded integration.
+- [x] CSS complex09 renderer46302/encoder46430 live at05:33UTC,142605786114 encoder input bytes. CSD existing copyback/extraction/11/final controllers alive; no duplicates. Four CC sessions remain at weekly-limit menu; pending account swap not assumed. Complex publication remains priority.
+
+
+### 2026-11-11T05:37:14.521174+00:00 — corrected stale chapter11 render blocker; existing route qualified
+
+- [x] Read actual frozen run11/launch11/wait11: chapter11 ALREADY permits author-complete-root-targeted preview admission; independent preview review is not required by this render route. Earlier TODO statements that independent review blocked render admission were overly restrictive and are superseded. No runner/guard change.
+- [x] Rechecked complete04 author attribution,848 selected frame indices/106 sheets and all954 image hashes. Root freshly viewed sheets48/100 (16 pictures), including net-zero winding and five-turn/code-panel transition. Bound existing full author record separately from current targeted decision; same root reviewer, explicitly NOT independent.
+- [x] New counting-render-admission-root05 records preserve exact source21c5043a, preview5c8ddec0, extractiona7277db8. Actual remote run11.proofs passed978 file bindings before exclusive creation of picture admission SHA f9980f75e64101e74f3805e55344e6a87783526091a3ea94868b00226768aafd. Existing waiter1332293 owns launch after stable/idle checks; never duplicate.
+- [ ] Confirm actual guarded final11 launch/terminal, final extraction and actual final-picture review. Independent review, listening/fine sync and final master/publication remain open. CSS09 live at latest poll,143240307714 encoder input bytes; no duplicate jobs.
+
+
+### 2026-11-11T05:40:38.256960+00:00 — final08 completed author review connected to existing master stage route
+
+- [x] Read actual frozen stage03/final-chain1006: author-complete-root-targeted is already supported for final pictures. Reverified484 frame IDs/61 sheets and545 image hashes; freshly re-viewed16 pictures on sheets45/54. Root authored repair and complete review; current targeted decision explicitly same person, not independent. No fabricated second reviewer.
+- [x] Preserved old remote root record in final-stage-admissions-root05/before-root-review.json. Initial candidate had wrong extraction path and failed before installing anything; preserved. Corrected06 uses actual job-root pictures.json, passed existing final_review_checks, installed root SHA205949b81e7ea5f50d33058cc14443241af82f8a1ae0033d3ea4babd33fbb81a and bound author record. No runner/stage/guard change. Existing final-chain1594627 owns materialization after stability; never duplicate.
+- [x] Existing final11 waiter1332293 reported admission stable at05:39:49UTC and now enforces host idle interval. Existing final11 picture waiter1332276 remains waiting.
+- [ ] Inspect actual final08 stage receipt and final11 render launch/terminal. Remaining01/09/11 final checks, final master verification/pictures, publication and honest independent/listening limits remain open.
+
+
+### 2026-11-11 05:42 UTC — complex11 final actually launched
+
+- [x] Existing waiter completed120s stability and120s idle checks; launched11_counting at05:41:49. Actual guarded resource receipt admitted:true, frozen inputs16247966f6c9ab10a713a7e20bc748b1ab787113b66659faf0773a3a5a7ea558, runner1699274. All10GiB admission/8GiB stop/4GiB job/56GiB host cap remain. No duplicate render.
+- [ ] Final11 terminal receipt/extraction/pictures and master remain pending. This supersedes waiting-for-admission notes. Existing final08 staging controller still owns its job.
+
+
+### 2026-11-11T05:44:23.637678+00:00 — final01 complete non-author review connected
+
+- [x] Existing root final01 record authored_repair:false covers120 selected pictures/15 sheets; frame IDs, sheet paths and135 image hashes reverified. Root freshly re-viewed16 pictures on sheets1/15.
+- [x] Used existing stage03 independent-complete-root-targeted route: independent of scene-repair authorship ONLY. Complete reviewer and targeted decision-maker are explicitly the SAME root person, not a second reviewer or whole-film independent sign-off. Existing final_review_checks passed. Root SHA ffe2c132b157a2d84a5b031e67d2fe82b8eb1c025e12b665b22e774c810de4a4, old remote root preserved in final-stage-admissions-root05/before-root01-review.json. No renderer/stage/guard modified.
+- [ ] Existing final-chain1594627 owns stage01/08 after record stability and resource admission; no duplicate staging jobs. Chapters09/11 remain actively rendering, final extraction/review still needed. Independent whole-film AV, continuous listening and fine sync remain open.
+
+- [x] 05:44:50UTC existing final-chain actually invoked stage03 for08_loop_sums as csd-native-stage1006-08-a1 with bound author review; process1716697 live. This is staging in progress, not a terminal stage/master pass. Source/input validation and exclusive resource guard remain authoritative.
+
+
+### 2026-11-11T05:51:02.446382+00:00 — expanded Monty Hall native chapter connected
+
+- [x] New isolated monty-native21 connects all17 corrected chapter01 cues; three worlds, forced reveals, fair-coin conditioning, hundred doors, unknowing/trap/prefer-door3 hosts. Uses existing computed/oracle-checked game models. Original worker files preserved; BronzeJaguar notified25989.
+- [x] Guarded qualify21 failed unused final assignment; preserved and narrowly fixed. Qualify22 exit0 stable101inputs/no stop,15 tests/Clippy/206 oracle rows. Silent391frames; all26 selected pictures/4 sheets actually viewed,30 hashes recorded root-preview-review22.json. No concrete sampled clipping.
+- [ ] This is a silent author-reviewed draft. Improve continuity of population filtering/door reveals, label representative hundred-door example, then Frederick narration/narrated timing/motion and independent review/listening. Native02/03 remain missing.
+- [x] Complex09/11 render processes continue; final08 staging guard1718984 confirmed queued behind existing exclusive lane, not dead. No duplicate jobs or upload.
+
+
+### 2026-11-11T05:54:26.104434+00:00 — corrected Monty reveal before prediction
+
+- [x] Found concrete storytelling mismatch in22: prediction showed3 closed doors after narration described goat reveal. Preserved source and changed01_1 to open goat door before01_3 prediction using sentence2 anchor. Hundred-door scene now opens98 panels in place and labels representative example.
+- [x] Guarded qualify23 exit0 stable101inputs/no stop;15tests,Clippy206oracle rows. Silent479frames; all32 selected pictures on4 sheets actually viewed,36 hashes in root-preview-review23.json. Two closed doors remain during prediction; no concrete sampled clipping.
+- [ ] Exact reveal-word alignment, population-filter motion, Frederick narration/narrated timing, independent review/listening remain. Silent sample review is not final acceptance. Complex09/11 still live; final08 staging queued on exclusive lane.
+
+
+### 2026-11-11T05:59:50.056100+00:00 — release queue live revalidation
+
+- [x] Complex publication live revalidation: CSS native46302/encoder46430 active at 03:17:59 elapsed, encoder rchar158531034114 (~77% of 16504 expected 3840x2160 NV12 frames; progress estimate only, not decoded completion). CSD final11 native1699276 active at16:57 elapsed CPU1317%; final-chain1594627, copyback1428789 and queued stage08 guard1718984 live. No duplicate jobs or terminal success claimed. Four CC panes still show weekly-limit menu, independent work not resumed; account-swap answer pending. Existing review attribution and listening/fine-sync gaps remain explicit.
+- [ ] Finish final09/11, inspect actual terminal receipts and resulting pictures, let existing stage/master/verify chain complete, then publish once and verify public 4K/manual English before retiring original.
+
+
+### 2026-11-11T06:09:41.996919+00:00 — birthday chapter native draft reviewed
+
+- [x] Expanded birthday native chapter now connects all16 exact script cues: one-person vs all pairs,365-day conditional calendar, complement product,22/23 threshold, pair dependence, random labels and model limits. Guard24 failed wrong color type,25 stale inherited script binding; all preserved.26 passed; actual review found triangle label near diagonal.27 repair exited0 stable102bindings/no stop,15tests/Clippy206oracle rows;737 silent frames24.567s, all49 pictures/7sheets viewed,56 image hashes in birthday-native24/root-preview-review27.json. Silent author review only; in-place continuity, narration phrase timing, new Frederick takes, independent AV/listening still open. Native Simpson03 remains missing.
+- [ ] Continue missing Simpson03 and assembly; complex publication remains first.
