@@ -12883,3 +12883,248 @@ Timestamp correction: the preceding dependency204 check and tracker update occur
 - [x] CC0 independently re-derived all15 publication965 chapter times against master993,37:07.700; no title/description/tag/voice-credit corrections required. Preserved `final-review995/publication-independent-cc0-review01`.
 - [ ] Rebind copy to actual repaired successor summary before upload. Current repaired01/08/09 normalized schedules exact; counting02 still pending.
 - [ ] CC0 checks intended uploaded579 delivery-caption artifact vs571 native captions using actual995 verifier evidence; no copying stale native-caption approval. Later995 technical success supersedes corresponding old993 summary flags, without granting visual/listening/whole-film acceptance.
+
+
+### 2026-11-10 23:31 UTC — intended upload captions confirmed
+
+- [x] Independent CC0 caption audit preserved in `final-review995/caption-successor-independent-cc0-review01/handoff02.md`: intended English upload is579-caption cc1-caption-repair347 pair, SRT0ea9277e / VTT6a383cb7. Do not upload native571-caption master993 pair.
+- All105 cue endpoints identical between native/delivery; three sentence-crossing merges are exactly review354 accepted answers. All461 sentence/sample rows269 vs313 match; actual combined01/08/09 cue starts match. This adds no listening proof.
+- [ ] Actual counting02 timeline still pending; require11932frames/table29a3afd3 normalized equality. Successor verify must repeat347 exact check against its own actual schedule and rebind all15 publication times. In-sentence timing estimates and actual caption playback remain open.
+
+
+### 2026-11-10 23:33 UTC — exponential1008 actual extraction fixture
+
+- CC1 current helper70dfce04 passed local test1008-run3:81-frame4K three-chapter synthetic film,22sampled JPEGs byte-identical to master-path extraction at offsets0/23/64. All15 real seeds retain3163samples/402sheets. Wrong local/global indices and color-range/transfer mutation controls refuse. Failed test attempts retained. Root read actual log and helper; independent CC2 review still underway.
+- No production1008 staging/pin/job yet. Real verify1005 remains active on chapter13; actual terminal stable success remains prerequisite. Estimated speed benefit is not a production benchmark.
+
+
+### 2026-11-10 23:34 UTC — 04_6 caption context actually reviewed
+
+- [x] CC0 actually viewed existing995 overview sheets81/82, checked record hashes and source: full two-line question card visible in every sampled still during347 split captions106/107 and prediction hold. No caption rewrite required for missing-question context. Preserved `final-review995/caption-successor-independent-cc0-review01/q04_6-context01.md`.
+- Scope: selected-still context plus source continuity only; successor must reuse exact04row. Player-rendered captions/overlap remain unviewed; minimal relevant playback6:40.053–6:52.267 with579-caption347track. No listening/fine-sync or motion acceptance.
+
+### 2026-11-10T23:40:15.028650+00:00 — repair preview advances and extraction review completed
+
+- [x] Actual CSD helper502969 remains live, now rendering09_boundary (child724224); prior08 renderer has finished. No whole-job terminal receipt or picture acceptance yet.
+- [x] Actual CSS verification573582 remains live, now decoding14_euler_identity (child3365869). No terminal success or duplicate job.
+- [x] Preserved CC2 independent1008 review/fixture/candidate in final-review995/exponential1008-independent-review01. No blocking finding;3163 samples/402 sheets retained, local fixture JPEG/RGB identity checked, actual CSS ffmpeg-version equality still unmeasured. Candidate remains unpinned/unlaunched until successful terminal1005.
+- [x] Four resumed CC sessions working: CC0 integration review, CC1 extraction launcher preparation, CC2 independent helper review, CC3 implementing minimal native968 successor render helpers in scratch. Existing final-review-gate01 remains parked.
+- [ ] Actual repaired pixels, counting qualification, final4K, successor master/captions, motion/listening/fine sync and publication remain open.
+
+### 2026-11-10T23:41:34.810905+00:00 — reviewed extraction package staged
+
+- [x] Copied sealed pictures1008 candidate70dfce04, pin helperc615fdd5, serial scriptdedc8638 and handoff768ab14f into new local and CSS pictures1008-root-stage01 directories. Remote SHA256s match. No files replaced; candidate remains unpinned, no extraction launched.
+- [x] Static-command staging succeeded after dynamic inline SSH launcher was rejected by command guard; no guard override or allowlist used.
+- [ ] Wait for actual verify1005 terminal stable success, inspect receipt and outputs, pin actual verification JSON then launch original guarded serial extraction once. Current verifier573582/ffmpeg3365869 active chapter14.
+
+### 2026-11-10T23:44:16.921050+00:00 — chapter08 repaired render schedule checked
+
+- [x] Root compared actual preview08_loop_sums full timeline bytes with successful combinedtimeline01: exact equality SHA4b40ecc6119f2dd7311e2ffcac3d5bb9ca3c4dc5c6121170f8e5b820d185d3f6. Whole preview job still live rendering09, not terminal-qualified.
+- [ ] Actual08 lint anchors remain for picture review: c/c overlap179.8s185laterlooks, two4^n crossings205.6s4laterlooks. Sent concrete anchors to independent reviewer; source/lint alone supplies no visual verdict. Existing extraction already includes current flags/persistence.
+
+### 2026-11-10T23:46:33.111473+00:00 — independent integration finding applied to implementation direction
+
+- [x] Preserved independent CC0 item-level source-isolation/caption review in final-review995/integration-independent-cc0-review01. No blocker in retaining11 unchanged rows or existing995 caption binding; source comparison is760-to-bundle03, not proof of every historical tree.
+- [x] Accepted M1: do not copy old preview review intervals while substituting a new movie hash. New scope must describe actually extracted/viewed new frames; implementation author instructed. Existing995 consumes intervals without another picture-plan change. This is correcting evidence provenance, not adding a release framework.
+- [x] CC0 disclosed authorship of08c-name/leader; assigned CC2 independent actual08 anchor review when existing extraction completes. No picture verdict yet.
+- [ ] Verify M1 in delivered helpers and actual root admission; final images/listening/motion/fine-sync/publication remain open.
+
+### 2026-11-10T23:53:16.460111+00:00 — final-render helper implementation preserved
+
+- [x] Root read both generalized native968 run/launch helpers and preserved immutable candidate snapshot final-review995/final-render-root-candidate01. CC3 reports106 static checks; these are source/pin checks, not render qualification. Original16-core affinity,4K60CRF16veryfast and guard policy retained.
+- [x] Re-read actual combined build qualification:247tests/clippy/plate-fade and binaryaed99576; helper remains deliberately unpinned until independent review/admission. CC2 reviewing source now, CC0 adapting991/992 and CC3 adapting969; all scratch-only.
+- [ ] Actual new picture review/admission, counting02 qualification, final4K, master/caption rebinding and final AV/listening/fine-sync remain open.
+
+### 2026-11-10T23:56:28.117103+00:00 — exponential technical master passes; pictures1008 launched once
+
+- [x] Actual verify1005 finished23:54:46UTC exit0, unchanged5d45eac1 input manifest, no resource stop/error. Root copied/read terminal receipt and verification JSON into final-review995/exponential1005-terminal-root01.164420frames/94cues/751exactcaptions, zero fast, fullAVdecode, all15 complete decoded chapter sequences match master. AAC−18.8LUFS/−1.5dBFS nominal exception; no listening/fine-sync acceptance.
+- [x] Root pinned reviewed1008 line57 ONLY to actual verification SHA6c273f16974dd3ac0f0363722be9ef308ed4f58a3d5809837acb3aaaf47f7909. Pinned helperSHA0d9d48e13a1af4d8f8ec0f711972f91ca15cdc6b7aff1283790d882fd95aaf3d.
+- [x] One serial runner ALREADY RUNNING CSS tmux jmev-exponential-pictures1008; guarded01_rate_law job guard3455853/helper3455885 observed live. NEVER duplicate. Uses15chapterfiles proven identical to master slices, retains3163samples/402sheets/global labels and exact provenance. No1005/6/7picturejobs existed.
+- [ ] Inspect each terminal extraction receipt and actually view all sheets; run final1008 recheck after15successes (serial script only prints recheck commands). Public upload still not made; motion/listening/fine sync remain open.
+
+### 2026-11-10T23:58:06.149001+00:00 — exponential first final-equivalent picture batch viewed
+
+- [x] Guarded1008 chapter01 exited0 stable/no stop23:56:49; root copied/hash-checked and actually viewed all64selectedpictures/8sheets. No concrete defect in sampled views; evidence exponential1008-pictures-root01/01_rate_law/root-pictures-viewed01.json. Continuous motion/listening/fine sync not claimed.
+- [ ] Continue remaining14chapter batches and final1008recheck; no duplicate jobs, no upload.
+
+
+### 2026-11-11T00:04:34.523849+00:00 — final-render sequencing corrected; exponential second chapter viewed
+
+- [x] Root read independent969 successor review and accepted S1: qualify countingbuild02 first, fill BOTH binary pins, then stage immutable final runner once. Avoid changing a bound runner during/after combined finals. CC3 notified; no final launched.
+- [x] Root actually viewed all172 exponential chapter02 selected pictures/22sheets, including re-viewing truncated21/22. New root receipt records frame11020 text-crossfade question pending CC1 disposition; no whole-chapter acceptance asserted.
+- [x] CSS serial1008 completed01–05 and moved to06; CSD09preview renderer724224 confirmed live. No duplicate jobs. CC0 checking08 required-window coverage, CC2 independently reviewing991/992, CC3 implementing993/994, CC1 comparing completed1008 images and copy.
+- [ ] Actual repaired pixels, final4K/master, remaining exponential sheets/recheck, motion/listening/fine-sync and publication remain open.
+
+
+### 2026-11-11T00:06:38.440896+00:00 — exponential product-grid final-equivalent pictures reviewed
+
+- [x] Root copied/hash-checked completed03 extraction and actually viewed150selectedpictures/19sheets. Product grid, prediction hold/reveal, binomial regrouping and positivity/real-domain progression legible in sampled views; no persistent concrete defect found. Receipt final-review995/exponential1008-pictures-root01/03_product_grid/root-pictures-viewed01.json.
+- [ ] Chapter02 crossfade disposition, remaining12chapter root reviews, final1008recheck, motion/listening/fine-sync and publication remain open. CSD09preview still confirmed live; no duplicate jobs.
+
+
+### 2026-11-11T00:09:45.977453+00:00 — repaired08 extraction coverage fixed before launch
+
+- [x] CC2 reproduced missing37 frames in existing08 required10200:10380 window. Root stopped only childless waitingcontroller443922 before any pictures job/input existed. Original helper/controller preserved unchanged.
+- [x] Added minimal successor helper baab097a and controller e7ebe2bd; AST check proves only08 union and sampling description changed. Reproduced447→484 frames, every old frame and both lint anchors retained. Staged hashes match.
+- [x] New waitingcontroller831450 ALREADY RUNNING in CSD tmux jmev-complex-combined-pictures-scope02, same unstarted guarded job/input names. NEVER duplicate. Preview renderer724224 remains live and untouched. CC0 independent review in progress.
+- [ ] Actual extraction and all picture reviews still pending; no requirements weakened and no final4K launched.
+
+
+### 2026-11-11T00:10:47.208957+00:00 — exponential publication chapter label corrected
+
+- [x] Applied independent copy finding P1 in new description-reviewed1009.txt and chapter-times1009.json; old982 files preserved. Chapter05 now "Why the stepped approximations reach E"; root checked05_1/05_5/05_8 script and matching onscreen roadmap. All15 actual master987 offsets/counts match verification1005; timestamps unchanged.
+- [ ] Use1009description with exact751-caption1004 delivery pair when all final review gates pass. No upload, listening, motion or fine-sync acceptance.
+
+
+### 2026-11-11T00:15:20.047619+00:00 — exponential fourth chapter picture review recorded
+
+- [x] Root actually viewed all68 selected pictures/9 sheets for04_tiny_multipliers; receipt in exponential1008-pictures-root01/04_tiny_multipliers/root-pictures-viewed01.json. No concrete persistent defect in sampled steps, coefficient argument and limit comparison.
+- [x] CSS serial extraction completed11chapters;12 active. CSD09preview renderer724224 confirmed live at36m56s; scope02 waiter831450 live. No duplicate jobs.
+- [ ] Remaining11chapter root reviews,02crossfade disposition,1008final recheck,complex repaired pictures/final4K,continuous motion/listening/fine-sync and publication remain open.
+
+
+### 2026-11-11T00:17:07.008086+00:00 — exponential limit-proof pictures reviewed
+
+- [x] Root actually viewed all246 selected pictures/31sheets of05_whole_sum after stable terminal receipt and local sheet-hash checks. No persistent concrete defect in sampled coefficient ceilings, head/tail proof, negative-input and limit curves. First5chapters now700pictures/89sheets reviewed; receipt in exponential1008-pictures-root01/05_whole_sum.
+- [x] CC0 assigned independent993/994 successor review;CC3 preparing minimal995 successor;CC2 rechecking F1 materializer fix then08actual images;CC1 real1008/985 comparison and02crossfade disposition.
+- [ ] Remaining10chapters,final1008recheck,complex repaired pictures/final4K,continuous motion/listening/fine sync and publication remain open.
+
+
+### 2026-11-11T00:19:12.508007+00:00 — exponential uniqueness chapter reviewed; materializer fix independently checked
+
+- [x] All236pictures/30sheets of06_only_solution actually viewed after stable receipt/hash checks. Product-rule cancellation, interval restriction and constant-rate generalization clear in sampled views; no concrete persistent defect. First6chapters936pictures/119sheets.
+- [x] CC2 independently rechecked materializer e5abe22e against actual CSD score21 names and real01 scored cuelog: F1 fixed, no new defect. Report preserved in materializer-successor02-independent-root01. Bothbinarypins and full admissions still required before final runner freeze; no launch.
+- [ ] Remaining9 exponential chapter reviews/final recheck,02crossfade disposition,complex final production,continuous motion/listening/fine sync and publication remain open.
+
+
+### 2026-11-11T00:23:23.555512+00:00 — exponential slide-rule review and final extraction recheck
+
+- [x] Root actually viewed all130 selected pictures/17sheets of07_calculating_ruler; local sheet hashes match stable extraction receipt. No persistent concrete defect in sampled multiplication, overflow/decimal restoration, division and precision explanation. First7chapters1066pictures/136sheets reviewed.
+- [x] All15 CSS picture1008 extraction receipts finished exit0 with stable input hashes/no resource stop. Guarded final recheck launched once in tmux jmev-exponential-pictures1008-recheck after confirming absent job/inputs. Inspect terminal receipt; never duplicate.
+- [ ] Remaining8 root chapter reviews,02crossfade disposition, final recheck result, complex repaired final production, continuous motion/listening/fine-sync and publication remain open.
+
+
+### 2026-11-11T00:25:00.115927+00:00 — exponential decay chapter reviewed; final extraction recheck passed
+
+- [x] Root actually viewed114pictures/15sheets of08_decay_law, stable receipt and local sheet hashes verified. No persistent concrete clipping/overlap in sampled decay, half-life and counterexample explanations. First8chapters1180pictures/151sheets reviewed.
+- [x] CSS final1008 recheck exited0 at00:24:29 UTC; input hashes4fa1894b unchanged. Actual comparison and remaining7 root chapter reviews still required.
+- [x] Root read full preserved master993/stage994 successor diffs; changes generalize four repaired rows, preserve11 other rows, bind actual admission/extraction and retain original guards. Independent CC0 review still in progress, unresolved pins remain unset; no new final/master launch.
+- [ ] Complex repaired pixels/final production, remaining exponential pictures,02crossfade disposition, motion/listening/fine-sync and publication remain open.
+
+
+### 2026-11-11T00:27:19.484056+00:00 — complex integration independently reviewed; exponential closing pictures reviewed
+
+- [x] CC0 independent master/stage successor review25127 found no concrete integration fault;43/43 static/interface checks. Root preserved report2e909f22 and checks in master-stage-independent-cc0-root01. Actual native production still pending.
+- [x] Root verified CSD playback343 SHA d9f250ec and completed combined build contains no symlinks; countingbuild02 absent, must check after completion. CC0 now independently reviews preserved minimal995 successor5c30a62e; CC3 preparing actual09 picture review, no extra gates or jobs.
+- [x] Root actually viewed37pictures/5sheets of15_logarithm_bridge; stable receipt and local sheet hashes checked. First01–08 plus15 now1217pictures/156sheets reviewed;09–14 remain unviewed.09 sheets copied/hash-checked only, not reviewed.
+- [ ] Actual complex repaired preview/final pixels, counting qualification and bothbinarypins, final integration/master/verification, exponential09–14 and02crossfade disposition, continuous motion/listening/fine-sync and publication remain open.
+
+
+### 2026-11-11T00:31:35.664706+00:00 — exponential exact-picture comparison and partial charging review
+
+- [x] Root reran preserved CC1 comparison against actual1008 dump06 and verified1005 pin: exit0, all3163 individual picture hashes equal985, all402 sheet frame lists equal with master offsets. Evidence final-review995/exponential1008-comparison-root02. New sheet header bytes differ; this does not claim all1008 sheets newly viewed.
+- [x] Root actual charging09 review now120/473 pictures, sheets001–015 of60; explicit partial receipt root-partial-review01.json. No persistent concrete defect in these samples.
+- [x] Read CC1 chapter02 crossfade disposition: same previously reviewed picture, authored temporary transition, settled neighboring samples. Extra0.3s decoded change remains unexplained; no continuous-motion verdict.
+- [ ] CC0 found old995 sample intervals could be lost by the successor; requested exact finding directly to CC3 for narrow repair and independent recheck. Existing render untouched.
+- [ ] Remaining actual final production, motion/listening/fine-sync and publication remain open; prior985 review transfer requires exact provenance assessment, not fabricated new viewing.
+
+
+### 2026-11-11T00:33:10.301560+00:00 — exponential publication assets bound and editorial findings addressed
+
+- [x] Created publication976/*1010 successors, preserving1009: title The Magic of the Exponential aligns with thumbnail; description distinguishes addition law from proportional rate law and names logarithm/matrix companion; relevant tags expanded. All15 chapter timings unchanged.
+- [x] upload-preparation1010.json binds verified fe33b9e4 master, exact751-caption1004 SRT/VTT, thumbnail and copy hashes plus established Studio settings. No upload or acceptance claimed.
+- [ ] Smithsonian direct link still unverified: original fetch500, alternate404; indexed result is not live-page proof. Continuous audiovisual/listening/fine-sync and final release remain open.
+
+
+### 2026-11-11T00:35:19.553605+00:00 — exponential exact prior picture-review transfer
+
+- [x] Verified all30 prior root/independent985 review files against exact extraction/movie hashes, complete frame/sheet sets; independent selected-picture and sheet hashes equal every seed. All3163 unchanged1008 images retain prior sampled review via actual byte comparison.
+- [x] Actually viewed remaining first/last1008 sheets10–14 plus09last; first/last labels of all15 chapters now checked. Evidence exponential1008-label-check-root01/review-transfer01.json. No new concrete defect in displayed samples.
+- [x] Stop redundant viewing of unchanged image payloads for changed review-sheet headers; do not claim all402 new sheets viewed.
+- [ ] Continuous motion/listening/fine-sync and publication acceptance remain open. Complex final repair pipeline remains first priority.
+
+
+### 2026-11-11T00:36:31.503483+00:00 — complex final-verifier coverage finding preserved
+
+- [x] Root read and preserved CC0 independent review plus coverage witness in final-verifier-independent-finding-root01. New scopes can omit9 old995 overview and3 native4K samples; keep prior sampling explicit, without inventing preview viewing.
+- [x] Directed CC3 to independently review CC0 bounded fix. fix02 restores frame coverage but its output has2 failed reason-preservation assertions; draft NOT accepted or launched.
+- [x] CSD preview09 renderer724224 confirmed live at57m43s and scope02 waiter831450 live. No duplicate or interrupted job.
+- [ ] Corrected verifier, actual repaired preview pictures, counting qualification and final4K/master/review remain pending; no whole-film acceptance.
+
+
+### 2026-11-11T00:38:12.054031+00:00 — exponential release assets ready; audiovisual acceptance remains
+
+- [x] Preserved CC1 sealed55-file review after checking every checksum. Independent1010 copy check36PASS/0FAIL; no factual/binding mismatch. Root rehashed local exponential-master987.mp4 to verifiedfe33b9e4.
+- [x] New1011 description removes inaccessible optional Smithsonian link and clarifies ever-finer multiplication steps. Rebound chapter description hash and upload manifest; unchanged title/tags/751-caption pair/thumbnail. Old files preserved.
+- [ ] Remaining prepublication gap is continuous audiovisual/listening/fine-sync acceptance, not duplicate pictures or technical verification. No uploaded ID exists in preparation record; after upload require actual4K/checks and uploaded-English publicwatch.
+
+
+### 2026-11-11T00:40:30.147288+00:00 — verifier repair must preserve admitted-scope natives
+
+- [x] Root read CC3 independent R1 witness: adding old intervals first suppresses actual admitted native middles for wider scopes (08local3100/9700,09local2200). CC0fix03 merely relaxes earlier assertion and does not resolve this case; NOT accepted.
+- [x] Directed CC0/CC3 to converge on ALT0f31010e: preserve original native selection first, add historical intervals later against native snapshot. Require original frame and reason entries retained across four scope cases. Exact independent report/test/ALT preserved in final-verifier-fix-order-review-root01.
+- [x] CC1 now auditing existing exponential narration/recognition evidence for concrete unresolved cues and final-audio coverage, without pretending ASR is listening or launching duplicate jobs.
+- [ ] Native final verifier successor awaits independent check; preview continues, no active job altered.
+
+
+### 2026-11-11T00:42:52.965877+00:00 — audio-input capability tested honestly
+
+- [x] Tried receiving one existing unmodified15.52sWAV as audio through tool output. Tool returned: audio content omitted because you do not support audio input. Evidence final-review995/audio-input-capability-probe01.json. No listening occurred; no final selected-take claim.
+- [ ] Current model/tool surface cannot supply perceptual listening acceptance. Existing ASR can identify wording uncertainties but does not close this gap. CC1 auditing exact selected-cue/final-master recognition evidence; complex rendering continues.
+
+
+### 2026-11-11T00:47:52.627196+00:00 — corrected verifier adopted for future binding
+
+- [x] Preserved sealed successor02 1220fdb1 and CC0 exact-file independent recheck in final-verifier-successor02-root-preserved01. Seven scope cases retain original frame/reason entries and all8351 prior995 samples/123 natives. Three text-only assertions resolved by executable AST/token equivalence; failed attempts preserved.
+- [x] Preview09 renderer724224 and scope02 waiter831450 confirmed live; no job restarted.
+- [ ] Counting binary and final master/stage pins remain pending. Actual repaired picture review, final4K production and audiovisual acceptance remain open. CC3 authored prior09 repair, so its review must disclose authorship; CC0 assigned independent09 review.
+
+
+### 2026-11-11T00:49:42.210896+00:00 — exponential final-audio recognition gap identified
+
+- [x] Read CC1 retained-take audit:111 recognition reports cover94 selected takes; no ASR of finished master987 exists in that evidence. This is not listening or final-mix speech proof.
+- [x] Identified concrete13_3 uncertainty at39:14.883–39:17.283: large model says It turns versus script/small model Start at one. Directed correction of report heading that prematurely said no unresolved defects.
+- [x] Verified installed fw0.11.0 CLI and current local free78GiB; no local active recognition guard observed.
+- [ ] CC1 preparing guarded master-audio ASR with exact model/input bindings; no new job started. Preserve original baseline and all existing resource safeguards.
+
+
+### 2026-11-11T00:51:40.696813+00:00 — reject permissive ASR numeric equivalence
+
+- [x] Root executed comparator negative witnesses: one/2 and one hundred/999 return clean; five percent/90 classifiedNUM; x plus one/x+9 classifiedSYMBOL. Evidence final-review995/master-asr-comparator-root-counterexamples01.json.
+- [x] Directed CC1 to preserve draft and require exact numeric equivalence in successor, with negative and positive controls. Prior zero-unsupported conclusion is insufficient under permissive rules; no speech defect inferred.
+- [ ] Correct comparator before acceptance use; raw final-master ASR may proceed under guards independently.
+
+
+### 2026-11-11T00:59:23.223531+00:00 — complex repaired preview terminal success
+
+- [x] Combined preview01 exited0 at00:58:52UTC, stable511fe602 input hashes/no resource stop; three normalized schedules matched,6311/14959/16504frames. Actual terminal receipt/comparison preserved final-review995/combined-preview-terminal-root01.
+- [x] Existing scope02 controller launched guarded csd-native-combined-pictures01, helperPID1020571. No duplicate. Counting02 controller remains alive behind exclusive lane.
+- [ ] View actual extracted01/08/09 pictures, qualify counting02 and final production; no visual/motion/listening acceptance yet.
+
+
+### 2026-11-11T01:01:19.490095+00:00 — complex chapter01 repaired preview pictures read
+
+- [x] Root actually viewed all120 selected pictures on15 hash-checked sheets; fraction/title readable, radius label and upcoming thumbnails clear, ending fade samples show no persistent concrete defect. Evidence combined-pictures-root-review01/01_the_bump/root-picture-review01.json.
+- [ ] This is sampled540p picture review only; extraction whole-job receipt, independent review, remaining08/09/11 and final4K/motion/listening remain pending.
+
+
+### 2026-11-11T01:04:31.572217+00:00 — extraction complete, loop-sums review underway
+
+- [x] Scope02 extraction terminal0 at01:00:03, stable19eb221b/no stop; receipt preserved in combined-pictures-root-review01. Countingbuild02 activePID1021807 with original guarded controller.
+- [x] Root copied/hash-checked61 loop-sums sheets/484frames, including all181 required10200–10380 frames. Actually viewed sheets1–21/168pictures only; root-partial-review01.json records exact coverage.
+- [ ] Continue sheets22–61 before chapter verdict. No motion/listening/final acceptance.
+
+
+### 2026-11-11T01:24:36.633196+00:00 — loop-sums root picture review complete
+
+- [x] Viewed all484 selected pictures on61 hash-checked sheets, including all181 frames10200–10380 and later c/4^n persistence. Truncated46–48 re-viewed. No concrete sampled-picture defect. Evidence combined-pictures-root-review01/08_loop_sums/root-picture-review01.json.
+- [x] CC2 reports independent01/08 reviews complete; integrate exact evidence next.
+- [ ] Remaining09/11, final4K and audiovisual checks stay open; no listening/fine-sync acceptance.
+
+
+### 2026-11-11T01:26:01.249173+00:00 — counting build qualified and independent previews bound
+
+- [x] Counting-build02 terminal0 stable0d364a0d;250 tests passed/1ignored, native plate-fade probe and scoped clippy passed. Binary b1bc47b40711d4cfb295339459def8e8fac054d0118bc8896f33a4fd49369be1. Delivery02 terminal0 stable6b779b75; timeline02 PID1036553 confirmed live. Existing controllers continue; no duplicate.
+- [x] Preserved24 independent01/08 review files and verified exact extraction/movie hashes and full120/484frame coverage. No concrete defects.
+- [ ] CC0 preparing final runner pin integration without launching, after09 review; CC2 independently auditing exponential ASR comparator/readers.
+- [ ] Exponential ASR plan01 not launched: wrapper would create a new baseline and narrow work accounting. CC1 correcting to retain original baseline/scope; old package preserved. No listening or final acceptance claim.
