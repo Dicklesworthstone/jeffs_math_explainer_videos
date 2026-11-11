@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-11-06",
+  "updated_on": "2026-11-11",
   "work_tracker": ".beads",
   "consumer": "Channel owner and video producers",
   "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
@@ -4564,6 +4564,37 @@
             }
           ],
           "disposition": "Public and watch-verified 2160p60 with uploaded English; continuous listening, fine sync and independent human review remain open."
+        },
+        {
+          "revision_id": "frederick-surrey-expanded-4k60-20261111",
+          "label": "How Adding a Seat Can Cost You One",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-delivery1001/apportionment_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "e61269f23176a5c299f104df11ced4d69b84476584b8b91ff1fc5876fe604116"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim expanded15chapter 28:01.433 cut;93 retained ElevenLabs cues;443 timed manual English captions.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-delivery1001/upload-draft1011-saved01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-delivery1001/release-disposition1011.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-delivery1001/motion-review1011/ch12-motion-picture-review01.md",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-delivery1001/publication-receipt1011.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-11-11",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-delivery1001/upload-draft1011-saved01.json"
+              ]
+            }
+          ],
+          "disposition": "Public28:01 replacement; watch2160p60 and uploadedEnglish verified; prior7:09original unlisted afterward. No continuous listening, fine sync or independent whole-film AV acceptance."
         }
       ],
       "publications": [
@@ -4572,11 +4603,25 @@
           "external_id": "lXODB3infLI",
           "url": "https://youtu.be/lXODB3infLI",
           "revision_id": "oliver-4k60-20261103",
-          "visibility": "public",
-          "recorded_as_of": "2026-11-03",
+          "visibility": "unlisted",
+          "recorded_as_of": "2026-11-11",
           "evidence_state": "pass",
           "evidence_refs": [
-            "narration_lab/third-wave-20261024/root/elevenlabs-apportionment-20261103/publication-receipt01.json"
+            "narration_lab/third-wave-20261024/root/elevenlabs-apportionment-20261103/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-delivery1001/publication-receipt1011.json"
+          ]
+        },
+        {
+          "venue": "youtube",
+          "external_id": "Dobm_b223Vs",
+          "url": "https://youtu.be/Dobm_b223Vs",
+          "revision_id": "frederick-surrey-expanded-4k60-20261111",
+          "visibility": "public",
+          "recorded_as_of": "2026-11-11",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-delivery1001/upload-draft1011-saved01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-delivery1001/publication-receipt1011.json"
           ]
         }
       ]
@@ -4729,8 +4774,54 @@
         "logarithm_mysteries",
         "matrix_exponential"
       ],
-      "revisions": [],
-      "publications": []
+      "revisions": [
+        {
+          "revision_id": "frederick-surrey-expanded-4k60-20261111",
+          "label": "The Magic of the Exponential",
+          "voice": "frederick_surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/exponential-master987.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "fe33b9e48bcb456b3cad41f7651bd8e5f8e3bb1b7c6deba657e6b4d9e5fa2b80"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "94 retained ElevenLabs Frederick Surrey cues; native FrankenManim15-chapter film;164420frames;751 timed English captions. Existing takes preserved.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/publication976/upload-draft1011-saved01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/publication976/content-disposition1011.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/publication976/upload-preparation1011.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/publication976/publication-receipt1011.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-11-11T01:54:32.231742+00:00",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/publication976/upload-draft1011-saved01.json"
+              ]
+            }
+          ],
+          "disposition": "Published once; Studio Public/4K complete/checks clear. Public watch2160p60 and uploaded English caption text verified. Continuous listening, fine-sync and independent whole-film audiovisual acceptance not claimed."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "yslwyACDgkI",
+          "url": "https://youtu.be/yslwyACDgkI",
+          "revision_id": "frederick-surrey-expanded-4k60-20261111",
+          "visibility": "public",
+          "recorded_as_of": "2026-11-11T01:59:22.990949+00:00",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/publication976/upload-draft1011-saved01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/publication976/publication-receipt1011.json"
+          ]
+        }
+      ]
     },
     {
       "video_id": "logarithm_mysteries",

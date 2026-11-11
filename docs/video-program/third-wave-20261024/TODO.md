@@ -13325,3 +13325,81 @@ Timestamp correction: the preceding dependency204 check and tracker update occur
 - [x] Three actual render/encoder pairs revalidated live; CSD01 byte-consumption about2773/6311frames at02:45 is progress only, not completedfile acceptance. No restart or duplicate.
 - [x] CC1/CC2 finishedoffloadsetup and were idle; root dispatched disjoint substantive fiveparadoxes source work in their existing panes: CC1 Monty/Birthday/Simpson, CC2 Zeno/Hilbert/bookends. Finished spoken cues, exact worked examples and native scene drafts in scratch; no competing heavyjob/synthesis. Complex actualfinalreview takespriority on completion.
 - [ ] CC0 waits actualcountingK tofill/stage finalchain; CC3 Stokes native/narration expansion during queue and returns tocountingreview. No extraagents, no publication/readiness inferred from drafts.
+
+
+### 2026-11-11T02:53:42.950726+00:00 — independent math work during verified render wait
+
+- [x] CSD01 native/encoder freshly live at02:51, approx3458/6311 rawframes consumed; no terminalsuccess. Existing jobs untouched.
+- [x] CC0 moved from long blockingpoll to compact independent exact paradox checks (host protocols, birthday complement/dependence, race limits, hotel assignment/inverses, Simpson), without reading CC1/CC2 drafts. Root observed active checker work. Finalchain resumes immediately when actualcountingKexists.
+- [x] CC1/CC2 author expanded nativeparadox sections; CC3 creates scratchStokes scenes/facts/oracle. Four existingCC productive, no extraagents/heavyjobs or fabricated independentacceptance.
+- [ ] Actual checker/draft outputs, nativevalidation and final reviews stillpending. Logarithm alreadypublic; complex remains first release task.
+
+
+### 2026-11-11T02:59:34.847906+00:00 — paradox reference connected to author drafts
+
+- [x] Root read all CC0 independent paradox derivations and checker source plus actual check02 output. Sent CC1/CC2 precise host-protocol, birthday pairwise-vs-mutual independence and hotel inverse caveats for cross-check after preserving first drafts. Recalled historical kidney-stone data remains unverified; no medical attribution authorized from memory.
+- [x] Found concrete checker exit-status defect: accumulated failed checks still exit0. Directed preserved successor and injected-failure check; not yet corrected/verified. Different mixture weights do not by themselves establish causal confounding.
+- [x] Actual CSD01/TRJ08/CSS09 renderer+encoder processes revalidated live at02:58; existing counting extraction and final11 controllers wait. No duplicate jobs.
+- [ ] Complex final pictures/master/publication remain pending. Four existing workers continue source work during render; Stokes/paradox drafts are not final films. Continuous listening/fine sync/independent whole-film AV gaps remain explicit.
+
+
+### 2026-11-11T03:04:11.506113+00:00 — substantive draft review during render
+
+- [x] Root read all49 CC1 paradox cues (script-section03 SHA4311adda): requested precise Monty fair-coin conditioning, iid common-calendar assumption, and fixed-rate standardization language. Author repairs pending; source review only.
+- [x] Root read all57 current Stokes draft cues: identified false pointwise claims that radial field has no tangential component and rotating field no normal crossings on square edges. Their signed edge integrals cancel; requested explicit correction and matching signs in visuals. Also distinguish tangent-vector form evaluation from finite path integral, and scope diffusion stability bound.
+- [ ] Corrected sources, native validation, narrated picture review and listening remain outstanding; none of this substitutes for complex final-picture acceptance. CSD01 renderer/encoder live03:03, approximately4857/6311 rawframes consumed, not terminal output. Other existing render/copyback jobs remain untouched.
+
+
+### 2026-11-11T03:05:53.539501+00:00 — checker correction verified
+
+- [x] Root inspected complete ref01→ref02 checker diff, then directly ran corrected checker: normal exit0, deliberate-failure exit1. Actual outputs retained /tmp/paradox-root-normal-20261111-0306.txt and /tmp/paradox-root-injected-20261111-0306.txt. Original reference remains unchanged. Earlier Python wrapper was refused by command safety review because subprocess argv could not be statically verified; direct literal commands succeeded without bypass.
+- [ ] Mathematical reference tests do not qualify authored scripts, visuals or listening. Three complex final render pairs remain live; final picture admission/master/publication still pending.
+
+
+### 2026-11-11T03:08:11.240905+00:00 — Zeno and hotel script review
+
+- [x] Root read CC2 full scratch script, distinguishing retained01–03 placeholders from new00/04–08. Worked race limits, divergent-series contrast, hotel injections/inverses and diagonal assignment now supply substantive explanation. Requested precise proper-subset/bijection wording, actual diagonal order matching bus2/seat3→13, and historical-source evidence or removal of gratuitous dates.
+- [ ] Author corrections/native validation/visual review/ElevenLabs narration remain pending. Source reading is not film acceptance. CSD01/TRJ08/CSS09 actual renderer pairs revalidated03:07, untouched.
+
+
+### 2026-11-11T03:10:33.207601+00:00 — Claude limit; render jobs continue
+
+- [x] Fresh panes%10/%11/%12 explicitly report weekly limit resettingNov14 8pm America/New_York; exact sessions preserved, no paid usage credits. Owner asked to notify account swap. CC0%9 still in live polling turn, no limit observed yet.
+- [x] Root observed CSD01 native1320952/encoder1321052, counting-picture guard1320950, final11 waiter1332293, CSS copyback1428789 live03:10. Existing TRJ/CSS renders are independent of CC panes; do not restart them.
+- [ ] Root takes actual final production/review handoffs while workers limited. CC source corrections remain pending until verified; all drafts preserved. No completion, publication or listening acceptance inferred.
+
+
+### 2026-11-11T03:22:17.873916+00:00 — first final4K complete; actual counting review started
+
+- [x] CSD final01-the-bump terminal03:19:09 exit0, initial/final4d89409e unchanged. Existing counting-pictures02 then terminal03:19:38 exit0 stable7ab831ba, full decode11932frames, actual848 pictures/106sheets, no layout flags.
+- [x] Root copied extraction to final-review995/counting-review-root03, checked all954 picture/sheet hashes, actually viewed sheets1–20 (160frames). No concrete defect found in this partial view; remaining21–106 mandatory, no admission yet.
+- [x] All fourCC now weekly-limited; exact sessions preserved. Root filled existing stage/master/verifier successors with actualK848 in final-pins-root1006-03, staged hashes match. One final-chain1006 controller ALREADY RUNNING CSD tmux jmev-repaired-final-chain1006 PID1594627, waits actual final review records; NEVER duplicate. Master7443bd91/verifier78d8dda0/chain5d0c092e. No stage/master/verify launched by it yet.
+- [ ] Finish counting actual review/admission, final11, allfinalchapter reviews and master/release checks. TRJ08/CSS09 continue existing renders. Listening/fine-sync/independent wholefilm AV not claimed.
+
+
+### 2026-11-11T03:27:35.037281+00:00 — counting review continued; parallel finals live
+
+- [x] Root actually viewed counting preview sheets1–64,512/848 selected pictures; progress02 preserved alongside progress01. Möbius zero/pole loops, invalid pole crossing, hidden-answer hold and quintic compressed-output annotation clear in viewed frames.
+- [x] TRJ08 native447792/encoder448167 and CSS09 native46302/encoder46430 freshly live; final-chain1594627 and final11 waiter1332293 live. No duplicate jobs.
+- [ ] Remaining counting sheets65–106, actual final4K chapter reviews, master and publication remain. Preview review is not final acceptance, listening or independent whole-film AV review. Four CC sessions remain preserved pending account availability.
+
+
+### 2026-11-11T03:30:06.705453+00:00 — counting complete selected-picture review
+
+- [x] Root actually viewed all848 counting-preview pictures on106 sheets; root-preview-review-complete03.json binds extraction/source/movie and exact selected frames. No concrete visual defect found. No listening/fine-sync claim.
+- [x] First repaired4K chapter extraction terminal03:21:27 exit0 stablebceffc5d/full decode6311frames,120pictures/15sheets; movie40b42489. Actual final review next.
+- [ ] Existing launch11 expects author-complete/root-targeted records; actual evidence is root-complete non-author review while CC is limited. Resolve admission route honestly, never fabricate author/independent records. Final11 not launched. Other finals/controllers preserved.
+
+
+### 2026-11-11T03:31:25.301435+00:00 — first repaired final4K pictures viewed
+
+- [x] Root copied final01 extraction, verified135 picture/sheet hashes, and actually viewed120/120 selected final4K pictures on15 sheets. Root-final-picture-review01 binds movie40b42489 and actual extraction; top-edge lint text stays visible through persistence, coming-up glyphs separated and fade clear. No concrete defect identified.
+- [ ] Bind honest review routes into production admission/staging without claiming absent CC evidence. Counting full preview review complete, final11 still awaiting admission;08/09 existing renders continue. Full master/publication and audio/independent wholefilm gaps remain.
+
+
+### 2026-11-11T03:36:10.205878+00:00 — first repaired final review staged honestly
+
+- [x] Validated the existing actual root review of all120 selected final4K chapter01 pictures against the extraction SHA, exact frame list and15 sheet paths. Created/staged canonical root review ade63cd5c449a580641f2d2e3356e78396acbdb4c899ecb0fd409b2f16d29560; remote SHA matches. Original review remains intact.
+- [ ] Existing stage1006 controller still requires its separate independent subset record; none invented or substituted. Counting11 root preview review is complete848 pictures, but the configured author review remains absent; no admission fabricated or gate changed.
+- [x] Live processes confirmed TRJ08 native447792/encoder448167 and CSS09 native46302/encoder46430 running at56m56/53m54 respectively. CSD counting waiter1332293 and final-chain1594627 also live. No duplicate job.
+- [ ] Four CC workers remain provider-limited; CC3 pane directly confirmed weekly-limit message, no newer Agent Mail since03:12. Await already-requested account availability; paid credits remain disabled. Final master, full verification, final pictures, listening/fine-sync and publication remain open.
