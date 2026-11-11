@@ -13403,3 +13403,38 @@ Timestamp correction: the preceding dependency204 check and tracker update occur
 - [ ] Existing stage1006 controller still requires its separate independent subset record; none invented or substituted. Counting11 root preview review is complete848 pictures, but the configured author review remains absent; no admission fabricated or gate changed.
 - [x] Live processes confirmed TRJ08 native447792/encoder448167 and CSS09 native46302/encoder46430 running at56m56/53m54 respectively. CSD counting waiter1332293 and final-chain1594627 also live. No duplicate job.
 - [ ] Four CC workers remain provider-limited; CC3 pane directly confirmed weekly-limit message, no newer Agent Mail since03:12. Await already-requested account availability; paid credits remain disabled. Final master, full verification, final pictures, listening/fine-sync and publication remain open.
+
+
+### 2026-11-11T03:39:02.558320+00:00 — concrete Stokes draft corrections while complex renders
+
+- [x] Preserved CC3 draft unchanged; made disjoint script/steps/cells successor in five-film-release-20261027/stokes-depth-root-review1012. Six cues correct pointwise tangent-vector evaluation versus finite line integral, cancellation of half-edge integrals rather than pointwise zero, local divergence/curl limit, and the standard equal-grid four-neighbor diffusion stability scope. On-screen wording corrected alongside narration.
+- [x] Exact rational checks: half-edge contributions ±1/16 cancel; x dy at (2,1) on (1,1/2) equals1 but integration along that full segment equals5/4; diffusion checkerboard multiplier at r=.1,.25,.3 is1/5,-1,-7/5. All57 cue IDs and edited-cue sentence counts retained; corrected script a1bc064cfc5f8f1e52f3052dd7ae167ccfa59cc440df7870f0f59a19027af0c2.
+- [ ] Candidate is not yet integrated or independently reviewed; native compilation, glyph/layout/timing review, Frederick narration and actual listening remain open. CC3 notified for post-limit recovery; no speculative production or stale audio reused. Complex remains first priority.
+
+
+### 2026-11-11T03:40:51.124752+00:00 — five-paradoxes probability corrections
+
+- [x] Preserved CC1 original script4311adda; corrected four cues in five-film-release-20261027/paradoxes-depth-root-review1012/script-section03.tsv, SHA9a793e249659237d252cccb99950dd87d333ff9c9060cf0a81b54efd697deb1a. Conditional Monty probability now explicitly depends on fair-coin tie breaking; birthday unevenness claim requires independent draws from the same distribution; standardized Simpson rates no longer assert causal predictions. All49 cue IDs preserved.
+- [x] Author oracle03 exited0 with85 fact rows. Separate root exact enumeration verifies fair versus biased conditional stay probabilities1/3 versus1/2 and standardized rates55/45,83/73,27/17. Small birthday example verified7/9 versus13/16; this finite check is not a general proof.
+- [ ] CC1 notified for review after provider recovery; scene sentence targets need matching to the revised wording before integration. No new narration/render/listening or independent whole-film acceptance. Complex priority retained: TRJ08/CSS09 native and encoder processes confirmed live at61m25/58m23.
+
+
+### 2026-11-11T03:42:47.896648+00:00 — counting review attribution corrected
+
+- [x] CC3 targets11.md establishes root authored the fixed-gain Moebius walker and early compression note. Earlier root-preview-review-complete03 incorrectly said authored_repair:false. Preserved03 and issued complete04 with authored_repair:true, retaining exact848 actual-picture coverage. Root review is not independent; no second-review/admission manufactured. CC0 source acceptance remains bounded source review.
+- [x] Verified actual copyback processes: TRJ538522 awaits08 receipt; CSD1428789 awaits CSS09. CSD08/09 picture waiters1192706/1192962,11waiter1332293 and final-chain1594627 are live. No duplicate launched.
+- [ ] Remaining peer picture review,chapter11 final,08/09 terminal renders/copyback,master/full technical checks/final pictures/listening/fine-sync and publication still open.
+
+
+### 2026-11-11T03:47:05.795228+00:00 — Stokes native draft compile defect removed
+
+- [x] Fixed actual local-variable shadowing of shown() in SignedSteps: renamed the local object list first_step, preserving the formatter calls. Complete33-file corrected candidate assembled in stokes-depth-root-review1012/crate; candidate-source-manifest02 binds every file and the three replacements over the unchanged CC3 draft.
+- [x] Candidate Python oracle exited0 with33 fact rows. rustfmt parsed the full module tree but exited1 for formatting differences; not a format or compilation pass. No native build performed. Steps source now a91537f5f0562f0daa203e099b98e3c5e14cb234ce97bf7ca80233470eeee608, superseding the earlier arithmetic-check source hash.
+- [ ] Independent source review, native test/clippy/build, updated Frederick narration plan for57 cues/23 chapters, actual visuals and listening remain open. The copied Oliver-era plan is stale and must not be synthesized. CC3 notified.
+
+
+### 2026-11-11T03:48:44.647149+00:00 — Stokes polygon refinement now has distinct narration boundaries
+
+- [x] Source inspection found16-sided and64-sided polygon reveals both waited on09_2 sentence1, so16 disappeared immediately. Preserved files under before-sentence-timing03, split the two spoken values into separate sentences, and assigned boundaries0/1/2 to8/16/64 sides,3 to polygon-area statement and4 to limit.
+- [x] Current complete candidate is stokes-depth-root-review1012/crate, bound by candidate-source-manifest03 and sentence-timing-correction03. Earlier top-level partials/manifests retained as history. Shared Kit until_sentence semantics inspected: elapsed waits do nothing, confirming the original source defect.
+- [ ] Native build and actual narration/motion review remain required; no listening or independent acceptance. CC3 notified; no existing recording modified or synthesis started.
