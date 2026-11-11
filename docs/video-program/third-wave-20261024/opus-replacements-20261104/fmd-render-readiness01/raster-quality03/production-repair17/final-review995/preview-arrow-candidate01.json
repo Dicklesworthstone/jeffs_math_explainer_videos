@@ -1,0 +1,13 @@
+{
+  "time": "2026-11-10T20:09:35.226367+00:00",
+  "source_sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3",
+  "remote_source_verified": "/data/projects/jmev-stroke-probe-20261106/work/review-repair268/workspace/explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+  "candidate_sha256": "c52c0472196cbc68f3fca2b47fc2ad7d6cc9c3ba6e5ee8f356b882e4ffc27564",
+  "change": "Only preview Arrow adds buff(0.0); no timing, narration or source overwrite.",
+  "status": "UNTESTED candidate, not installed or rendered",
+  "next": [
+    "Verify pinned Arrow buff semantics",
+    "Guarded compile and narrow native visual check",
+    "Independent review before new chapter render and master"
+  ]
+}

@@ -1,0 +1,33 @@
+Draw a curve whose slope always equals its height. Why should that simple rule lead to factorials, compound interest, a calculating ruler, and a walk around a circle?
+
+We build the exponential function from the ground up. A power series, a limit of tiny multiplications, and a differential equation turn out to describe the same object. Its central rule, that adding inputs multiplies outputs, explains both how a slide rule works and why the exponential keeps appearing in models of change.
+
+The examples include a chemical reaction, a charging capacitor, changing growth rates, compound interest, and random multipliers. We examine where the models apply and where their assumptions fail. Then we turn the rate sideways into the complex plane and build toward Euler's identity through three pictures: a circular walk, shrinking multiplication steps, and a spiral of series terms.
+
+The companion video follows the inverse function, the logarithm, from the real number line into the complex plane:
+https://youtu.be/lgpTDROHgQY
+
+Chapters:
+0:00 A curve that follows its own height
+1:38 Where the factorials come from
+4:08 Why adding inputs multiplies outputs
+6:59 A product of tiny steps
+9:31 Why the stepped approximations reach E
+13:08 One rate law, one solution
+16:48 Multiplication by sliding a ruler
+20:47 Decay and half-life
+24:02 How a capacitor closes the gap
+27:28 When the rate changes
+30:45 Compound interest and its limits
+33:11 Chance and the limits of a model
+36:44 Turning growth into rotation
+40:39 Three paths to Euler's identity
+44:12 Running the exponential backward
+
+Further reading:
+NIST Digital Library of Mathematical Functions, exponential and logarithm definitions:
+https://dlmf.nist.gov/4.2
+Smithsonian National Museum of American History, slide rules:
+https://americanhistory.si.edu/collections/object-groups/slide-rules
+
+Visuals created with FrankenManim. Narration uses the Frederick Surrey voice from ElevenLabs.

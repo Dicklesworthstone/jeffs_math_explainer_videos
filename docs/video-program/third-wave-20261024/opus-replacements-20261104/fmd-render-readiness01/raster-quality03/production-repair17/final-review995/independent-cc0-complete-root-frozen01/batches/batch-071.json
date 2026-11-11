@@ -1,0 +1,7 @@
+{"batch": 71, "viewed_utc": "2026-11-10T20:53Z",
+ "sheets": {
+  "0223": "05_9 164.217-164.333 s (f35559-f35566, every frame of root window 9817-9878). The zoom panel alone at full, centred where it was; from about f35563 it starts to darken evenly. No defect.",
+  "0224": "05_9 164.35-164.467 s (f35567-f35574). The panel keeps darkening evenly, keeping its mesh and hue layout. No defect.",
+  "0225": "05_9 164.483-164.6 s (f35575-f35582). Even fade to faint; on f35582 the panel area is at most 8 levels above background with no darker pixels (regionstat). The end of chapter 05 is a clean fade-out. No defect."
+ },
+ "findings": []}

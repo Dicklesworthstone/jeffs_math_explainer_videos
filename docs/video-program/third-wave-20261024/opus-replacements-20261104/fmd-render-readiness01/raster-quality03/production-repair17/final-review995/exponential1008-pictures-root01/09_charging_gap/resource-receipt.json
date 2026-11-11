@@ -1,0 +1,127 @@
+{
+  "started": "2026-11-11T00:09:14.835863+00:00",
+  "phase": "native",
+  "command": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-css-render-worker-20261107/qualification01/exponential933/pictures1008.py",
+    "run",
+    "--phase",
+    "pictures",
+    "--chapter",
+    "09_charging_gap"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-11T00:09:16.309222+00:00",
+      "free_bytes": 75300900864,
+      "work_bytes": 6731440128,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:09:27.425710+00:00",
+      "free_bytes": 75274199040,
+      "work_bytes": 6737018880,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:09:38.589139+00:00",
+      "free_bytes": 75175682048,
+      "work_bytes": 6747398144,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:09:49.731885+00:00",
+      "free_bytes": 75162578944,
+      "work_bytes": 6759989248,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:10:00.860616+00:00",
+      "free_bytes": 75146940416,
+      "work_bytes": 6775599104,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:10:11.958075+00:00",
+      "free_bytes": 75128348672,
+      "work_bytes": 6795698176,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:10:23.093592+00:00",
+      "free_bytes": 75104894976,
+      "work_bytes": 6819725312,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:10:34.190692+00:00",
+      "free_bytes": 75085996032,
+      "work_bytes": 6838468608,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:10:45.298466+00:00",
+      "free_bytes": 75067072512,
+      "work_bytes": 6856695808,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:10:56.516970+00:00",
+      "free_bytes": 75058163712,
+      "work_bytes": 6865158144,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:11:07.664020+00:00",
+      "free_bytes": 75051810816,
+      "work_bytes": 6871470080,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:11:18.762175+00:00",
+      "free_bytes": 75043471360,
+      "work_bytes": 6879461376,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:11:29.909194+00:00",
+      "free_bytes": 74888155136,
+      "work_bytes": 6887624704,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:11:37.789658+00:00",
+      "free_bytes": 74880520192,
+      "work_bytes": 6893928448,
+      "target_bytes": 12419194880
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":75300904960,\"free_excludes_purgeable\":true,\"free_pct\":7.740783141391925,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-css-render-worker-20261107\",\"platform\":{\"linux\":{\"device_id\":66308,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":972781481984,\"unprotected\":null,\"volume_available_bytes\":75300904960,\"volume_role\":null,\"volume_total_bytes\":972781481984}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-11T00:09:14.845386+00:00",
+    "free_bytes": 75300904960,
+    "work_bytes": 6731436032,
+    "target_bytes": 12419194880
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "2cb8bb72ca698cccf898e42a2ece304e1b45301975b6797a385941f692130691",
+  "pid": 3539823,
+  "exit": 0,
+  "final_inputs_sha256": "2cb8bb72ca698cccf898e42a2ece304e1b45301975b6797a385941f692130691",
+  "finished": "2026-11-11T00:11:39.392443+00:00"
+}

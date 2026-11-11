@@ -1,0 +1,25 @@
+{
+  "files": [
+    {
+      "name": "geometry-check01.py",
+      "sha256": "a4e4f4fa5663ab49900b0a3b0f2266641f44bd2a44b5701b124d0cfc17780078",
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/l12-repair/geometry-check01.py"
+    },
+    {
+      "name": "geometry-check01.out",
+      "sha256": "7e8fb4e45f0a550a0450b61cb3175d1bc37e72979e81ff523fa3df5e0b526941",
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/l12-repair/geometry-check01.out"
+    },
+    {
+      "name": "test-mirror02-base-control.out",
+      "sha256": "a0ff56420015e2ded4f94ae15d098708efa9a204f2b29d3167bf84b1bf43d9c8",
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/l12-repair/test-mirror02-base-control.out"
+    },
+    {
+      "name": "control04-timing-variant.rs.txt",
+      "sha256": "541a5b7ede2fe73911044d9ed156373552bcb7e273d2a3a0090b7b7cb1277cdb",
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/l12-repair/control04-timing-variant.rs.txt"
+    }
+  ],
+  "scope": "Preserved missing supporting files for independent review; no new test execution or acceptance"
+}

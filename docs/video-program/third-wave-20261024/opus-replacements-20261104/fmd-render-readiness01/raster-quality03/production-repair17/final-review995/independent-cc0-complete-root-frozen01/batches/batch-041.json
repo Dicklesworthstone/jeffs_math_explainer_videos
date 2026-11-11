@@ -1,0 +1,7 @@
+{"batch": 41, "viewed_utc": "2026-11-10T20:25Z",
+ "sheets": {
+  "0133": "05_4 end and 05_5 cue transition 62.933-64.983 s. Full sin z state (dots, line, arrow, both value boxes, three notes) held to 64.65 s. 64.983 s: everything but the portrait fading together, evenly. No defect.",
+  "0134": "05_5 65.283-67.2 s. 65.283 and 65.4 s: bare sin z portrait. 65.8 s: an even cross-fade from sin z to a new portrait (both visible, ghosted). 66.0-66.4 s: the tan z portrait: a row of zeros and poles on the real axis, uniform yellow-green above and violet below. 66.6 s: the title 'tan z = sin z / cos z' fading in at the right, full by 66.65 s. No defect.",
+  "0135": "05_5 67.6-71.0 s. 67.983 s: white dots on the zeros (at the sin z zero places, k pi) and pink-ringed dots on the poles halfway between (pi/2 + k pi), and 'zeros and poles alternate' fading in; full by 68.6 s. Checks: tan z -> i (yellow-green) as y -> +inf and -> -i (violet) as y -> -inf, as shown; red just right of each zero (tan x > 0 on (0, pi/2)), teal just left. 71.0 s: the readout 'tan(0.4 + 12i) ~ 1.0000 i' starts fading in at the right, with a faint box outline near the top of the portrait; computed tan(0.4 + 12i) = 5.4e-11 + 0.99999999995 i, so the readout is right. No defect."
+ },
+ "findings": []}

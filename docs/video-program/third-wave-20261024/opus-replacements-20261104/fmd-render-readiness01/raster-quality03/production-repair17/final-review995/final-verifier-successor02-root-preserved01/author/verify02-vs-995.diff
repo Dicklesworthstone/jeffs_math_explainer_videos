@@ -1,0 +1,259 @@
+--- csd-final-verify995.py
++++ csd-final-verify-repaired02.py
+@@ -1,4 +1,25 @@
+-"""995: full-film verification of master972 and Linux native844/stage970.
++"""Successor of csd-final-verify995.py (69fa3ded) for the repaired master (CC3 scratch draft final-verify-cc3-02: the
++sealed final-verify-cc3 successor 5c30a62e with CC0 fix02, its block placed after the required windows).
++Prepared only, not reviewed; root and CC2 review it before any use. Changes from 995, and nothing else:
++  - VERSION, the master's version, name and sha256, the stage version, the materializer's name and sha256 and
++    both repaired binaries are unresolved (None); every mode refuses until root sets them;
++  - 01/08/09 are native-combined01 rows and 11 a native-counting02 row (REPAIRED), each from its stage job
++    csd-native-stage<STAGE_VERSION>-<nn>-a<k>, with review basis sampled_preview; 10 stays native521;
++  - each repaired row's sampled intervals are its admitted review_scope as the master records it (CC0's gate
++    builds it from the chapter's actual admission, extraction and viewing; M1). They are planned as 995 plans
++    every sampled_preview interval: every frame an overview sample, a native frame inside;
++  - 995's final969 carry-over now carries every actual final extraction sample of the four repaired rows. For
++    09 that holds 969's 814 frames, since the 09 extraction must retain prior775, which equals them;
++  - root 343's four 09 instants (preview313 playback observation) no longer reach the plan through 09's row,
++    whose admitted scope names no playback. They are planned here from root 343's record, as 07's instants:
++    round(s*60) +-2 overview samples and a native at the centre. They are final stills only: no playback,
++    motion or listening of the final is claimed;
++  - master993's sampled intervals of 01/08/09/11 (its summary at 38b52105) stay planned exactly as 995 planned
++    them, as stills of the new final only; M1 keeps them out of the new rows' review_scope (CC0 review01 F1);
++  - every other technical, caption, schedule, frame identity and picture check of 995 is unchanged, and
++    995:1102-1104 still requires the 08 run 10200-10380 inside 08's sampled intervals.
++
++995: full-film verification of master972 and Linux native844/stage970.
+ Prepared only: actual master/stage success and all chapter gates are required at runtime.
+ All decoding, caption, soundtrack, frame identity and picture-planning functions retained.
+ 647 and all old artifacts remain untouched. No release or independent acceptance.
+@@ -115,7 +136,28 @@
+ import sys
+ import wave
+ 
+-VERSION = '995'
++VERSION = None                 # UNRESOLVED: this verifier's version (digits)
++MASTER_VERSION = None          # UNRESOLVED: the repaired master's VERSION
++MASTER_HELPER_NAME = None      # UNRESOLVED: Q name of the adopted master successor (CC3 combined-master-repaired01.py)
++MASTER_HELPER_SHA = None
++STAGE_VERSION = None           # UNRESOLVED: the stage version the materializer and gate share
++WORKER_NAME = None             # UNRESOLVED: Q name of the adopted materializer (CC0 991 successor)
++WORKER_SHA = None
++REPAIRED = {'01_the_bump': 'native-combined01', '08_loop_sums': 'native-combined01',
++            '09_boundary': 'native-combined01', '11_counting': 'native-counting02'}
++REPAIRED_BINARY = {'native-combined01': None, 'native-counting02': None}   # UNRESOLVED: qualification.json binary_sha256
++# Root 343's four 09 instants (its playback_observed_seconds); planned as stills of the final only.
++PLAYBACK343 = ('root-preview313-playback343.json', 'd9f250ec00007fe0687c7bf2a3155652b30df45956c5dfe53e9922dd0ec67e81')
++BOUNDARY_INSTANTS = (27.68726914660832, 31.90054923413567, 35.51193216630197, 39.12331509846828)
++
++
++def unresolved():
++    names = [n for n, v in (('VERSION', VERSION), ('MASTER_VERSION', MASTER_VERSION), ('MASTER_HELPER_NAME', MASTER_HELPER_NAME),
++                            ('MASTER_HELPER_SHA', MASTER_HELPER_SHA), ('STAGE_VERSION', STAGE_VERSION),
++                            ('WORKER_NAME', WORKER_NAME), ('WORKER_SHA', WORKER_SHA)) if not v]
++    return names + ['REPAIRED_BINARY[%s]' % k for k, v in REPAIRED_BINARY.items() if not v]
++
++
+ FPS = 60
+ TOTAL_FRAMES = 133662
+ D = Path('/data/projects/jmev-stroke-probe-20261106')            # CSD
+@@ -126,15 +168,23 @@
+ # The master, as cc0-combined-master350.py names it (JOB, INPUTS, out = job/'final', master-summary.json,
+ # staged-inputs.json; 318's names with 350's). 363: its frozen hash (CC0, cc0-master350-notes.md) is pinned, and it
+ # must also be the hash its completed job bound.
+-MASTER_HELPER = Q/'combined-master993.py'
+-MASTER_HELPER_SHA = '1955ca3202c8a4f382fea1682ac754eadf19fd708b2ef983c3f91f12607b6edb'
+-MASTER = D/'jobs/csd-combined-master993'
+-MASTER_INPUTS = Q/'combined-master993-inputs.json'
++MASTER_HELPER = Q/str(MASTER_HELPER_NAME)                         # names hold only once the pins are set
++MASTER = D/'jobs'/('csd-combined-master%s' % MASTER_VERSION)
++MASTER_INPUTS = Q/('combined-master%s-inputs.json' % MASTER_VERSION)
+ OUT = MASTER/'final'
+-VERIFY = D/'jobs/csd-final-verify995'
+-VERIFY_INPUTS = Q/'final-verify995-inputs.json'
+-PICTURES = D/'jobs/csd-final-pictures995-%s'                    # M1: one guarded picture job per part, in this order
+-PICTURES_INPUTS = Q/'final-pictures995-%s-inputs.json'
++# CC0 review01 F1: master993's own summary (its master job's master-summary.json, at the hash root's master993
++# audio-seam helper pins) and the sampled intervals its rows 01/08/09/11 rested on. 995 planned every frame of them;
++# M1 keeps them out of the repaired rows' review_scope, so they are planned as stills of the new final only.
++MASTER993_SUMMARY = (D/'jobs/csd-combined-master993/master-summary.json',
++                     '38b52105520640e495ada17aa00da4ddbc16316a5a77c4568e102e1ca3adf185')
++PRIOR993_INTERVALS = {'01_the_bump': ((5493, 5531), (6273, 6310)),
++                      '08_loop_sums': ((3059, 3060), (3119, 3120), (3179, 3180), (10200, 10380)),
++                      '09_boundary': ((2080, 2109), (2316, 2336)),
++                      '11_counting': ((34, 87), (7464, 7494), (8294, 8344))}
++VERIFY = D/'jobs'/('csd-final-verify%s' % VERSION)
++VERIFY_INPUTS = Q/('final-verify%s-inputs.json' % VERSION)
++PICTURES = D/'jobs'/('csd-final-pictures%s-%%s' % VERSION)       # M1: one guarded picture job per part, in this order
++PICTURES_INPUTS = Q/('final-pictures%s-%%s-inputs.json' % VERSION)
+ PICTURE_PARTS = ('overview', 'native')                            # every sample and sheet; every native 4K frame
+ # L2: the guard admits a native job at 10 GiB free and stops it at 8 GiB; its native phase cap is 4 GiB
+ # (guard_csd02.py asserts ADMISSION_GIB native 10, STOP_FREE_GIB 8, CAPS native 4). 318 refuses below 12 GiB
+@@ -408,20 +458,21 @@
+ 
+ 
+ NATIVE608 = {
+-    '09_boundary': ('native844', 'native-linux-materialize991.py', '3402d437fd5284e47763a71c1fbe074768828826ad6dd22ae6c90d6c6c99bb16', None, 'e75258731b1786ae3182ef9eb21a7903a9e6c0bed6242413335f7dd233955384'),
+     '10_rigidity': ('native521', 'root-native581-materialize.py', '822047a7f57877378140bb7c81ffd5d89ebd99d47310d17f7d341db6a3b59806', 'csd-native-stage581-10-a2', '5b77a1c8a33a41bab3c3987c9d4f40797bb6a6f1a76bbb57f1ab562ae9960312'),
+ }
++NATIVE608.update({k: (kind, WORKER_NAME, WORKER_SHA, None, REPAIRED_BINARY[kind]) for k, kind in REPAIRED.items()})
+ KINDS.update({k: v[0] for k, v in NATIVE608.items()})
+ REVIEW_BASES.update(native844='sampled_preview', native521='sampled_preview')
++REVIEW_BASES.update({kind: 'sampled_preview' for kind in REPAIRED.values()})
+ 
+ 
+ def expected_worker451(key, row):
+     if key in NATIVE608:
+         kind, name, digest, job, binary = NATIVE608[key]
+-        if key == BOUNDARY:
+-            # Actual stage attempt comes from the fully revalidated 971/993 manifest.
++        if key in REPAIRED:
++            # Actual stage attempt comes from the fully revalidated repaired master manifest.
+             job = row['job']
+-            prefix = 'csd-native-stage970-09-a'
++            prefix = 'csd-native-stage%s-%s-a' % (STAGE_VERSION, key[:2])
+             assert job.startswith(prefix) and job[len(prefix):].isdigit()
+         assert row['kind'] == kind and row['job'] == job and row['binary_sha256'] == binary
+         return Q/name, digest, job
+@@ -459,7 +510,7 @@
+     registry = read(BUILD268/'qualification.json')['chapters']
+     assert len(registry) == len(set(registry)) == 15 and set(registry) == set(KINDS)
+     summary = read(MASTER/'master-summary.json')
+-    assert (summary['version'], summary['host'], summary['frames'], summary['chapters']) == ('993', 'csd', TOTAL_FRAMES, registry)
++    assert (summary['version'], summary['host'], summary['frames'], summary['chapters']) == (MASTER_VERSION, 'csd', TOTAL_FRAMES, registry)
+     assert summary['consumer_binary_sha256'] == BINARY_268 and summary['narration'] == str(NARRATION)
+     assert summary['native_bit_identical_replays'] == 15 and list(summary['replays']) == registry
+     manifest = summary['manifest']
+@@ -705,17 +756,17 @@
+             if reason not in x['reasons']:
+                 x['reasons'].append(reason)
+ 
+-    # Carry every actual repaired final969 sample into the assembled master's clock.
+-    final969 = D/'jobs/csd-native-pictures969/pictures969.json'
+-    proof = read(Path(f['m']['by'][BOUNDARY]['local_proofs']['path']))
+-    assert Path(proof['extraction']) == final969
+-    assert final969 in f['m']['files'], '971 must bind actual final extraction'
+-    repaired = read(final969)
+-    assert repaired['full_decode'] is True and repaired['frames'] == by[BOUNDARY]['frames'] == 16504
+-    assert repaired['movie_sha256'] == f['m']['by'][BOUNDARY]['movie_sha256']
+-    for local in repaired['selected_frames']:
+-        assert type(local) is int and 0 <= local < 16504
+-        add(samples, BOUNDARY, local, 'actual final969 repaired boundary sample; retained in assembled master')
++    # Carry every actual repaired final extraction sample (995: final969 for 09) into the assembled master's clock.
++    for key in REPAIRED:
++        row = f['m']['by'][key]
++        final = Path(read(Path(row['local_proofs']['path']))['extraction'])
++        assert final in f['m']['files'], 'the master must bind the actual final extraction of '+key
++        repaired = read(final)
++        assert repaired['full_decode'] is True and repaired['frames'] == by[key]['frames'] == row['frames']
++        assert repaired['movie_sha256'] == row['movie_sha256']
++        for local in repaired['selected_frames']:
++            assert type(local) is int and 0 <= local < row['frames']
++            add(samples, key, local, 'actual final repaired sample (%s); retained in assembled master' % final.parent.name)
+ 
+     # M1 first, so a window frame's sheet label names its window: every frame of the 31 windows, one native per
+     # window (its middle frame; for 05 the 319 sites' full-plate frames, at least one in each window), and the
+@@ -734,6 +785,7 @@
+     for local, seconds in ONE_POINT_INSTANTS.items():
+         for d in range(-2, 3):
+             add(samples, '07_one_point', local+d, 'root 07 playback instant %.2f s %+d (open-region-playback-second305.json)' % (seconds, d))
++    natives995 = set(natives)   # the natives 995's interval rule saw (CC0 fix02 block, below the required windows)
+     # 363: M1 on the new review basis: every frame of each sampled interval a sampled_preview final rests on (its
+     # render summary's review_scope, equal to 350's row), and a native 4K frame at the middle of each such interval
+     # that holds none yet
+@@ -759,6 +811,13 @@
+             for d in range(-2, 3):
+                 add(samples, key, centre+d, 'permit playback instant %.3f s %+d (%s review_scope)' % (s, d, job))
+             add(natives, key, centre, 'native 4K, permit playback instant %.3f s (%s review_scope)' % (s, job))
++    # Root 343's four 09 instants, as 07's: round(s*60) +-2, native at the centre. Stills of the final only; the
++    # repaired 09 row's admitted scope names no playback, and none of the final is claimed here.
++    for s in BOUNDARY_INSTANTS:
++        centre = round(s*FPS)
++        for d in range(-2, 3):
++            add(samples, BOUNDARY, centre+d, 'root 343 instant %.3f s %+d (%s); final still only' % (s, d, PLAYBACK343[0]))
++        add(natives, BOUNDARY, centre, 'native 4K, root 343 instant %.3f s (%s); final still only' % (s, PLAYBACK343[0]))
+     # 377 (367 L1): root 359's 06 windows and the 08 run, every frame, and a native inside each
+     for key, record, (a, b) in REQUIRED_WINDOWS:
+         assert 0 <= a <= b < by[key]['frames'], (key, a, b)
+@@ -767,6 +826,19 @@
+             add(samples, key, local, 'required window %d-%d, every frame (%s)' % (a, b, record))
+         if not any(start+a <= g <= start+b for g in natives):
+             add(natives, key, (a+b)//2, 'native 4K, required window %d-%d middle (%s)' % (a, b, record))
++    # CC0 review01 F1 (fix02): master993's sampled intervals of the four repaired rows, planned exactly as 995 planned
++    # them (995's native rule, on the natives that existed before the sampled intervals). Placed after every admitted
++    # and required entry, so it never displaces their natives or labels. Stills of the new final only: not the new
++    # rows' review_scope, no viewing claimed.
++    for key, pairs in PRIOR993_INTERVALS.items():
++        start = by[key]['start_frame']
++        for a, b in pairs:
++            for local in range(a, b+1):
++                add(samples, key, local, 'master993 sampled interval %d-%d, every frame (old render review scope); '
++                                         'final still only' % (a, b))
++            if not any(start+a <= g <= start+b for g in natives995):
++                add(natives, key, (a+b)//2, 'native 4K, master993 sampled interval %d-%d middle (old render review '
++                                            'scope); final still only' % (a, b))
+     # 377 (367 L2): both ends of each observation range root added, as overview samples
+     for key, record, frames, why in FINAL_ENDPOINT_CHECKS:
+         for local in frames:
+@@ -1049,13 +1121,13 @@
+                   review_bases=f['m']['summary']['review_bases'],
+                   delivery_captions_347=dict(delivery, caption_screen=dict(caption_count=screen347['caption_count'],
+                                              over_20_characters_per_second=0, lines_over_42_characters=0)),
+-                  **FLAGS, scope='Technical verification of the 993 master only: decode, frame identity, schedule, '
++                  **FLAGS, scope='Technical verification of the %s master only: decode, frame identity, schedule, ' % MASTER_VERSION +
+                   'retained takes, exact native captions, the 347 delivery captions\' exact text and screen, and '
+                   'loudness. Pictures, motion, listening, fine sync, caption playback and 4K caption legibility, and '
+                   'independent AV acceptance remain root\'s.')
+     with (job/'verification.json').open('x') as stream:
+         json.dump(result, stream, indent=2)
+-    print('FINAL VERIFY PASS: 993 master decodes cleanly, equals its 15 staged chapters frame for frame, its native '
++    print('FINAL VERIFY PASS: %s master decodes cleanly, equals its 15 staged chapters frame for frame, its native ' % MASTER_VERSION +
+           'captions equal the script and native327, and the 347 delivery captions pass the same exact check; every '
+           'picture still needs root\'s viewing.', flush=True)
+     return 0
+@@ -1102,11 +1174,22 @@
+     for key, record, (a, b) in REQUIRED_WINDOWS:
+         assert any(x <= a and b <= y for x, y in f['m']['intervals'][key]), \
+             '%s: required window %d-%d is not among the sampled intervals its final rests on' % (key, a, b)
+-    for record in (d362, r357, d377, r359):
++    # Root 343's record, at the hash 344 and master993 pin (DISPOSITION344), names exactly the four 09 instants
++    p343 = Q/PLAYBACK343[0]
++    assert sha(p343) == PLAYBACK343[1], 'root 343 changed or missing'
++    r343 = read(p343)
++    assert r343['playback_observed_seconds'] == list(BOUNDARY_INSTANTS), 'root 343 names other 09 instants'
++    # CC0 review01 F1: master993's own summary, at its pinned hash, names exactly PRIOR993_INTERVALS
++    p993 = MASTER993_SUMMARY[0]
++    assert sha(p993) == MASTER993_SUMMARY[1], 'master993 summary changed or missing'
++    rows993 = {r['chapter']: r for r in read(p993)['rows']}
++    assert {k: [list(x) for x in v] for k, v in PRIOR993_INTERVALS.items()} == \
++        {k: rows993[k]['sampled_intervals'] for k in REPAIRED}, 'master993 names other sampled intervals'
++    for record in (d362, r357, d377, r359, r343):
+         assert all(record[k] is False for k in record if k.endswith('_acceptance')), 'a final-frame record claims an acceptance'
+     samples, natives = picture_plan(f, layouts, read(PLAN182), preview)
+     assert samples and natives and all(0 <= x['frame'] < f['total'] for x in samples + natives)
+-    return samples, natives, preview['files'] | {Q/name for name in {**TRANSITION_SOURCES, **FINAL_FRAME_SOURCES}}
++    return samples, natives, preview['files'] | {Q/name for name in {**TRANSITION_SOURCES, **FINAL_FRAME_SOURCES}} | {p343, p993}
+ 
+ 
+ def balanced(xs):
+@@ -1229,8 +1312,9 @@
+                        gallery_sites=GALLERY_SITES, one_point_instants=ONE_POINT_INSTANTS, runtime=tool_record,
+                        final_frame_sources=FINAL_FRAME_SOURCES, final_frame_checks=FINAL_FRAME_CHECKS,
+                        final_endpoint_checks=FINAL_ENDPOINT_CHECKS, required_windows=REQUIRED_WINDOWS,
+-                       playback_seconds=f['m']['playback'],
+-                       pillow=pillow_record, **FLAGS, scope='Pictures of the actual 993 master at 960x540 (sheets) and native 4K PNGs; '
++                       playback_seconds=f['m']['playback'], boundary_instants343=BOUNDARY_INSTANTS,
++                       prior993_intervals=PRIOR993_INTERVALS,
++                       pillow=pillow_record, **FLAGS, scope='Pictures of the actual %s master at 960x540 (sheets) and native 4K PNGs; ' % MASTER_VERSION +
+                        'root must view every sheet and native frame. No acceptance is recorded here.'), stream, indent=2)
+     if part == 'overview':
+         # 339 (CC0 332 C7): this line is written into this job's own folder (review 339 L1), so it is not an anchor by
+@@ -1271,6 +1355,8 @@
+     parser.add_argument('mode', choices=['check', 'launch-verify', 'verify', 'launch-pictures', 'pictures'])
+     parser.add_argument('--part', choices=PICTURE_PARTS, help='pictures only: the part this guarded job extracts')
+     args = parser.parse_args()
++    assert not unresolved(), 'unresolved pins, refusing: '+', '.join(unresolved())
++    assert all(re.fullmatch(r'[0-9]+', x) for x in (VERSION, MASTER_VERSION, STAGE_VERSION))
+     mode = args.mode
+     assert (args.part is not None) == (mode == 'pictures'), '--part goes with pictures only'
+     if mode == 'verify':

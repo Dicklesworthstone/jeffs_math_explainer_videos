@@ -1,0 +1,267 @@
+{
+  "movie": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/exponential_magic_master.mp4",
+  "movie_sha256": "fe33b9e48bcb456b3cad41f7651bd8e5f8e3bb1b7c6deba657e6b4d9e5fa2b80",
+  "frames": 164420,
+  "chapters": [
+    {
+      "chapter": "01_rate_law",
+      "offset_frames": 0,
+      "frames": 5920,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-01_rate_law/pictures985.json",
+      "seed_sha256": "816aceebac6de6b7a5e3b909538a9f0586a0dfc7b6eec5f06c101ee594b9208f",
+      "samples": 64
+    },
+    {
+      "chapter": "02_factorials",
+      "offset_frames": 5920,
+      "frames": 8964,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-02_factorials/pictures985.json",
+      "seed_sha256": "bd98d208ee6f7d7a24ab92d530f349dfa58f8bfe506e0b5392be58f6d3bed00f",
+      "samples": 172
+    },
+    {
+      "chapter": "03_product_grid",
+      "offset_frames": 14884,
+      "frames": 10306,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-03_product_grid/pictures985.json",
+      "seed_sha256": "93745da295199841ff32ecb30f3efb7afa25245cd8a71c82c4b8dcf7d7803dc5",
+      "samples": 150
+    },
+    {
+      "chapter": "04_tiny_multipliers",
+      "offset_frames": 25190,
+      "frames": 9106,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-04_tiny_multipliers/pictures985.json",
+      "seed_sha256": "020e410018db559f129e7df219aeddb300804a1d7af5cc6d4f943b665c8dc716",
+      "samples": 68
+    },
+    {
+      "chapter": "05_whole_sum",
+      "offset_frames": 34296,
+      "frames": 12988,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-05_whole_sum/pictures985.json",
+      "seed_sha256": "07b8e66ef9c694b653b8e370fa8c89fd1fe179887646cb800d76be5c1fc12eca",
+      "samples": 246
+    },
+    {
+      "chapter": "06_only_solution",
+      "offset_frames": 47284,
+      "frames": 13241,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-06_only_solution/pictures985.json",
+      "seed_sha256": "171d48cdc966d876e2ad3b25310f4466150562fb03b33db5c800a08c486b9d6a",
+      "samples": 236
+    },
+    {
+      "chapter": "07_calculating_ruler",
+      "offset_frames": 60525,
+      "frames": 14351,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-07_calculating_ruler/pictures985.json",
+      "seed_sha256": "f1d5b153954349d37c2b4d723173d6c94b0a615a48f0fb99412afdb7fdac5047",
+      "samples": 130
+    },
+    {
+      "chapter": "08_decay_law",
+      "offset_frames": 74876,
+      "frames": 11650,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-08_decay_law/pictures985.json",
+      "seed_sha256": "4aa48b586a68a976bab6975070bc757a44881a103beb92f1968291d218429b29",
+      "samples": 114
+    },
+    {
+      "chapter": "09_charging_gap",
+      "offset_frames": 86526,
+      "frames": 12413,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-09_charging_gap/pictures985.json",
+      "seed_sha256": "7bf8c95bb8d22043edaa7895e6bf9cdc575671ec2a0bd528a713e09a14c8cc86",
+      "samples": 473
+    },
+    {
+      "chapter": "10_changing_rates",
+      "offset_frames": 98939,
+      "frames": 11810,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-10_changing_rates/pictures985.json",
+      "seed_sha256": "3429df00596f94104bed1896110f2479db30659a1af9984a318f2c0d1ea5d602",
+      "samples": 154
+    },
+    {
+      "chapter": "11_money_limits",
+      "offset_frames": 110749,
+      "frames": 8714,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-11_money_limits/pictures985.json",
+      "seed_sha256": "3f8e95fba070f956d69da1fd11e0f29d75d38dbec9ad8798e1738baf04e1dea6",
+      "samples": 120
+    },
+    {
+      "chapter": "12_chance_and_limits",
+      "offset_frames": 119463,
+      "frames": 12814,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-12_chance_and_limits/pictures985.json",
+      "seed_sha256": "d490d7de426c9738f3fd4ffa92ff435c094de0915aef284e3b5f244b5e85ed47",
+      "samples": 94
+    },
+    {
+      "chapter": "13_turning_rate",
+      "offset_frames": 132277,
+      "frames": 14079,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-13_turning_rate/pictures985.json",
+      "seed_sha256": "8c34dacf7d63039520d6182b6cbd4941e2801aec754fe9bd2bc772544b72cc59",
+      "samples": 546
+    },
+    {
+      "chapter": "14_euler_identity",
+      "offset_frames": 146356,
+      "frames": 12782,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-14_euler_identity/pictures985.json",
+      "seed_sha256": "2fcc0a0759ff4a0f9b398fefaa0fddb2e61bd3a91a99f1fc8c942869e4d64286",
+      "samples": 559
+    },
+    {
+      "chapter": "15_logarithm_bridge",
+      "offset_frames": 159138,
+      "frames": 5282,
+      "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-15_logarithm_bridge/pictures985.json",
+      "seed_sha256": "d78aec1746196bae28c52525b519eb652f624657f2918a803312193cc127eb1f",
+      "samples": 37
+    }
+  ],
+  "cues": 94,
+  "captions": 751,
+  "caption_words_exact": true,
+  "delivery_srt_sha256": "127f3d1ade016f125dfddff861b9614fd2850387be6e4cd9e05063e15c1d9f99",
+  "delivery_vtt_sha256": "0d2698d0c386263e9b946a5a395423b998c70b08c96cb69d21649810fa8114d2",
+  "caption_repair_report_sha256": "a76d1e7b4c2c3be575545be3fac907e55d6e1f3578eba90cd991825fb63e78dc",
+  "srt_vtt_equal": true,
+  "fast_captions": [],
+  "full_av_decode": true,
+  "all_decoded_video_frames_match_chapters": true,
+  "master_video_framehash_sha256": "13a0b6c7c907c360419cb1317b1b86fdcbe48013e43e9be2f110e36984b280f1",
+  "chapter_frame_identity": [
+    {
+      "chapter": "01_rate_law",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/01_rate_law.mp4",
+      "source_sha256": "95f696e888b4f0917a7bf431b687b6c8741f4caf8f012da45adf1ad009960c01",
+      "frames": 5920,
+      "offset_frames": 0,
+      "framehash_sha256": "1f8abbba75b284fdfc383471184d00ff85b53938be32f889ed0d0237a46d7b19"
+    },
+    {
+      "chapter": "02_factorials",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/02_factorials.mp4",
+      "source_sha256": "605751deeb15815d7a108614d106bff23767f25b313db65e3dbc2394457ac577",
+      "frames": 8964,
+      "offset_frames": 5920,
+      "framehash_sha256": "a26ca744bf4d41d29c0a7d13cda21141907baf5aa341cc2bc1ddf55ff63ac412"
+    },
+    {
+      "chapter": "03_product_grid",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/03_product_grid.mp4",
+      "source_sha256": "86f7371b53a5bb8895cee740b66564e3549b9fec06e3f6c23ceffd4e5fc5c6d8",
+      "frames": 10306,
+      "offset_frames": 14884,
+      "framehash_sha256": "a25eb7e8d3970c23580db94c091ec7f269f92a5191ff8040adc2de795e9008ad"
+    },
+    {
+      "chapter": "04_tiny_multipliers",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/04_tiny_multipliers.mp4",
+      "source_sha256": "24c9d2bbd4db39e6210cb2bfcfc4ff65cfeff84c1afd7a6d2acb0da76925d61f",
+      "frames": 9106,
+      "offset_frames": 25190,
+      "framehash_sha256": "1cbbb58bc4fa43f8116ad5dfcc6074dd4df22316fb14a36f2410c62d2d9e7fc8"
+    },
+    {
+      "chapter": "05_whole_sum",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/05_whole_sum.mp4",
+      "source_sha256": "bf735cb235b1805d064659ba729898da555cc4aca10d5900df104cc40842374c",
+      "frames": 12988,
+      "offset_frames": 34296,
+      "framehash_sha256": "745d3c6e86eede5c74af2aed9c0a6a5963b41f2873f2de733d68d8a36938c689"
+    },
+    {
+      "chapter": "06_only_solution",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/06_only_solution.mp4",
+      "source_sha256": "ecc5817840b116f677c3145ccf4014fe48ff6b39bb69395398d1b95dc190dfaa",
+      "frames": 13241,
+      "offset_frames": 47284,
+      "framehash_sha256": "a96ddbb25f3465ba5a187ff3e8dc157d8d1d955eac102ef2b183a5613980e79b"
+    },
+    {
+      "chapter": "07_calculating_ruler",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/07_calculating_ruler.mp4",
+      "source_sha256": "59108a2482b1a0d4fca7d84778a9a5aecccc3405cab4ce9c833a473112202783",
+      "frames": 14351,
+      "offset_frames": 60525,
+      "framehash_sha256": "5fc8f6e06f0a3547634db94c7fea51d4dba16b399fbfcaaed348f75f6c7e3b0e"
+    },
+    {
+      "chapter": "08_decay_law",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/08_decay_law.mp4",
+      "source_sha256": "5b5905a2d82f62080003460c0c60568386bd659f41980a42b9c7e2eb0acaa8e9",
+      "frames": 11650,
+      "offset_frames": 74876,
+      "framehash_sha256": "41f9626eb5fdc90075e70b13e16e1b74dfc5c03c2c1fad3f2d643147ab3d1da4"
+    },
+    {
+      "chapter": "09_charging_gap",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/09_charging_gap.mp4",
+      "source_sha256": "1aadfed76a3ead476eca9feba0e7f2e009ac5c256854c3ff90d3f01fa28df0ca",
+      "frames": 12413,
+      "offset_frames": 86526,
+      "framehash_sha256": "bdcbaabc686abffda7fcd58318e496af51c8fed9ea8dfedbe84366b47d702c8a"
+    },
+    {
+      "chapter": "10_changing_rates",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/10_changing_rates.mp4",
+      "source_sha256": "ac0265b789cbeff74d7ed12acd2a1e7e98409d99b054848138891a334bcb9a6e",
+      "frames": 11810,
+      "offset_frames": 98939,
+      "framehash_sha256": "aff6d68f2c12ad26c7cab219f54c8b34a01021adbcfbf0fd9ac3e5db77c24b73"
+    },
+    {
+      "chapter": "11_money_limits",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/11_money_limits.mp4",
+      "source_sha256": "5ae3f67784cffc3bcedc47a39d65daa1e0af6891d70fc91288f3c239e433040a",
+      "frames": 8714,
+      "offset_frames": 110749,
+      "framehash_sha256": "b39b051962ea33deb83582edfdd46f83b6742ff04c3f9b396f17d3762d12677b"
+    },
+    {
+      "chapter": "12_chance_and_limits",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/12_chance_and_limits.mp4",
+      "source_sha256": "1de9300057233a2b6925a4009abaedbac8f09c39c1229fb96f633371f997a84a",
+      "frames": 12814,
+      "offset_frames": 119463,
+      "framehash_sha256": "11d2d7adec80d5f5ea4ed8c9d0b7b926a5db482f45c07effff5dde44d798f005"
+    },
+    {
+      "chapter": "13_turning_rate",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/13_turning_rate.mp4",
+      "source_sha256": "32f5facfdb3f5fdb614b1391b4aa0a689f5d1b8d84fb4a0d2336c04773f30627",
+      "frames": 14079,
+      "offset_frames": 132277,
+      "framehash_sha256": "de3bc26baa0afd78eca15649f40adbfb18809535ff85ece241c2c8696286b36e"
+    },
+    {
+      "chapter": "14_euler_identity",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/14_euler_identity.mp4",
+      "source_sha256": "170366856ed8ca41350bdd1ebb509ff8da9fcbc9bd300d93d486e804346f1718",
+      "frames": 12782,
+      "offset_frames": 146356,
+      "framehash_sha256": "cd18674309e845230c5c6d1d6e7fc68dbc48e2bc4333e9252f64c63e136aadf3"
+    },
+    {
+      "chapter": "15_logarithm_bridge",
+      "source": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/15_logarithm_bridge.mp4",
+      "source_sha256": "e9d3025e03b57e77a1e02fda66305ac1c0d8f79336193d41b09f4d650f910139",
+      "frames": 5282,
+      "offset_frames": 159138,
+      "framehash_sha256": "8feeed961e75473407d08a71993013ff63a059cfde4a7cb9b479e16f5e0abc8e"
+    }
+  ],
+  "video_codec": "h264",
+  "pixel_format": "yuv420p",
+  "color_tags": "bt709/bt709/bt709",
+  "lufs": -18.8,
+  "true_peak_dbfs": -1.5,
+  "nominal_loudness_exception": true,
+  "scope": "Technical joined master only; no listening/fine-sync or publication acceptance."
+}

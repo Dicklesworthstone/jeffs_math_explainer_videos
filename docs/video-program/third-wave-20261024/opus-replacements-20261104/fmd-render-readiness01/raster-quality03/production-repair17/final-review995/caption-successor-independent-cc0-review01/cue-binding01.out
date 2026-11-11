@@ -1,0 +1,16 @@
+native  complex-analysis-master993.en.srt 5d06423248f088a34774f361721bf05e1c4950ac834086e3666661e1adfe5e1b
+delivery cc1-caption-repair347-candidate.en.srt 0ea9277e6d598540e5e9057a84ee84daf7f88420b076434659fc3d3ad0ff3230
+script 234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c
+cues 105; native captions 571, delivery captions 579
+cues whose first start or last end differ between 571 and 579: 0 []
+cues with more captions in 579: 12 (net +8) {'01_2': 1, '03_4': -1, '06_4': 1, '08_5': 3, '10_2': 1, '10_5': -1, '11_2': 1, '11_5': 1, '11_6': -1, '11_8': 1, '12_4': 1, '14_3': 1}
+== cue starts on the successor's schedule (combined01 timelines for 01/08/09; timeline269 for 11)
+01_the_bump   combined01: 6 cues, starts off by > 1 ms: 0
+08_loop_sums  combined01: 5 cues, starts off by > 1 ms: 0
+09_boundary   combined01: 9 cues, starts off by > 1 ms: 0
+11_counting   timeline269: 8 cues, starts off by > 1 ms: 0
+== combined01 timelines against the timeline269 tables pinned by the 347 tool
+01_the_bump   timeline269 copy = 347 pin: True; all rows equal but narration folder: True
+09_boundary   timeline269 copy = 347 pin: True; all rows equal but narration folder: True
+08_loop_sums: no local copy of the 347-pinned timeline269 table (e2276be4); bound by its 5 cue starts above
+RESULT: no mismatch

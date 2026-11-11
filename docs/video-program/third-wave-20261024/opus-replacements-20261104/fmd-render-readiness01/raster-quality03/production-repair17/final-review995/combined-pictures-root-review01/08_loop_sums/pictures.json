@@ -1,0 +1,2821 @@
+{
+  "movie": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-preview01/preview/08_loop_sums.mp4",
+  "movie_sha256": "63984b4473a1cb391546a9fa2c1157a9813fc0e37afb307cb0b64c6a5c65f147",
+  "frames": 14959,
+  "tables": {
+    "timeline.tsv": "4b40ecc6119f2dd7311e2ffcac3d5bb9ca3c4dc5c6121170f8e5b820d185d3f6",
+    "cues.tsv": "1beae064b4b1a8115a70180d92740299195fd6cc55b68cebcdbd97ace8e127d3",
+    "cuelog.tsv": "b2938ba2f001373851262804c5404490031288285bdb5e618d023b816a3af2e1"
+  },
+  "full_decode": true,
+  "selected_frames": [
+    3748,
+    6360,
+    6506,
+    6801,
+    6986,
+    6987,
+    6988,
+    6989,
+    6990,
+    6991,
+    6992,
+    6993,
+    6994,
+    6995,
+    6996,
+    6997,
+    6998,
+    6999,
+    7000,
+    7001,
+    7002,
+    7003,
+    7004,
+    7005,
+    7006,
+    7007,
+    7008,
+    7009,
+    7010,
+    7011,
+    7012,
+    7026,
+    7100,
+    7357,
+    7566,
+    8000,
+    8850,
+    8979,
+    9139,
+    9140,
+    9141,
+    9142,
+    9143,
+    9144,
+    9145,
+    9146,
+    9147,
+    9148,
+    9149,
+    9150,
+    9151,
+    9152,
+    9153,
+    9154,
+    9155,
+    9156,
+    9157,
+    9158,
+    9159,
+    9160,
+    9161,
+    9162,
+    9163,
+    9164,
+    9165,
+    9166,
+    9167,
+    9168,
+    9195,
+    9450,
+    9740,
+    9741,
+    9742,
+    9743,
+    9744,
+    9745,
+    9746,
+    9747,
+    9748,
+    9749,
+    9750,
+    9751,
+    9752,
+    9753,
+    9754,
+    9755,
+    9756,
+    9757,
+    9758,
+    9759,
+    9760,
+    9761,
+    9762,
+    9763,
+    9764,
+    9765,
+    9766,
+    9767,
+    9768,
+    9769,
+    9770,
+    9771,
+    9772,
+    9773,
+    9774,
+    9775,
+    9776,
+    9777,
+    9778,
+    9779,
+    9780,
+    9781,
+    9782,
+    9783,
+    9784,
+    9785,
+    9786,
+    9787,
+    9788,
+    9789,
+    9790,
+    9791,
+    9792,
+    9793,
+    9794,
+    9795,
+    9796,
+    9797,
+    9798,
+    9799,
+    9800,
+    9803,
+    9809,
+    9815,
+    9821,
+    9900,
+    10024,
+    10025,
+    10026,
+    10027,
+    10028,
+    10029,
+    10030,
+    10031,
+    10032,
+    10033,
+    10034,
+    10035,
+    10036,
+    10037,
+    10038,
+    10039,
+    10040,
+    10041,
+    10042,
+    10043,
+    10044,
+    10045,
+    10046,
+    10047,
+    10048,
+    10049,
+    10050,
+    10051,
+    10052,
+    10200,
+    10201,
+    10202,
+    10203,
+    10204,
+    10205,
+    10206,
+    10207,
+    10208,
+    10209,
+    10210,
+    10211,
+    10212,
+    10213,
+    10214,
+    10215,
+    10216,
+    10217,
+    10218,
+    10219,
+    10220,
+    10221,
+    10222,
+    10223,
+    10224,
+    10225,
+    10226,
+    10227,
+    10228,
+    10229,
+    10230,
+    10231,
+    10232,
+    10233,
+    10234,
+    10235,
+    10236,
+    10237,
+    10238,
+    10239,
+    10240,
+    10241,
+    10242,
+    10243,
+    10244,
+    10245,
+    10246,
+    10247,
+    10248,
+    10249,
+    10250,
+    10251,
+    10252,
+    10253,
+    10254,
+    10255,
+    10256,
+    10257,
+    10258,
+    10259,
+    10260,
+    10261,
+    10262,
+    10263,
+    10264,
+    10265,
+    10266,
+    10267,
+    10268,
+    10269,
+    10270,
+    10271,
+    10272,
+    10273,
+    10274,
+    10275,
+    10276,
+    10277,
+    10278,
+    10279,
+    10280,
+    10281,
+    10282,
+    10283,
+    10284,
+    10285,
+    10286,
+    10287,
+    10288,
+    10289,
+    10290,
+    10291,
+    10292,
+    10293,
+    10294,
+    10295,
+    10296,
+    10297,
+    10298,
+    10299,
+    10300,
+    10301,
+    10302,
+    10303,
+    10304,
+    10305,
+    10306,
+    10307,
+    10308,
+    10309,
+    10310,
+    10311,
+    10312,
+    10313,
+    10314,
+    10315,
+    10316,
+    10317,
+    10318,
+    10319,
+    10320,
+    10321,
+    10322,
+    10323,
+    10324,
+    10325,
+    10326,
+    10327,
+    10328,
+    10329,
+    10330,
+    10331,
+    10332,
+    10333,
+    10334,
+    10335,
+    10336,
+    10337,
+    10338,
+    10339,
+    10340,
+    10341,
+    10342,
+    10343,
+    10344,
+    10345,
+    10346,
+    10347,
+    10348,
+    10349,
+    10350,
+    10351,
+    10352,
+    10353,
+    10354,
+    10355,
+    10356,
+    10357,
+    10358,
+    10359,
+    10360,
+    10361,
+    10362,
+    10363,
+    10364,
+    10365,
+    10366,
+    10367,
+    10368,
+    10369,
+    10370,
+    10371,
+    10372,
+    10373,
+    10374,
+    10375,
+    10376,
+    10377,
+    10378,
+    10379,
+    10380,
+    10420,
+    10483,
+    10785,
+    10786,
+    10787,
+    10788,
+    10789,
+    10790,
+    10791,
+    10792,
+    10793,
+    10794,
+    10795,
+    10796,
+    10797,
+    10798,
+    10799,
+    10800,
+    10801,
+    10802,
+    10803,
+    10804,
+    10805,
+    10806,
+    10807,
+    10808,
+    10809,
+    10810,
+    10811,
+    10812,
+    10813,
+    10814,
+    10815,
+    10816,
+    10817,
+    10818,
+    10824,
+    10836,
+    10846,
+    10848,
+    10860,
+    10872,
+    10884,
+    10896,
+    10908,
+    10983,
+    11088,
+    11154,
+    11388,
+    11431,
+    11688,
+    11853,
+    11988,
+    12288,
+    12336,
+    12342,
+    12348,
+    12360,
+    12372,
+    12384,
+    12396,
+    12408,
+    12420,
+    12432,
+    12444,
+    12456,
+    12486,
+    12588,
+    12636,
+    12776,
+    12888,
+    12936,
+    13052,
+    13053,
+    13054,
+    13055,
+    13056,
+    13057,
+    13058,
+    13059,
+    13060,
+    13061,
+    13062,
+    13063,
+    13064,
+    13065,
+    13066,
+    13067,
+    13068,
+    13069,
+    13070,
+    13071,
+    13072,
+    13073,
+    13074,
+    13075,
+    13076,
+    13077,
+    13078,
+    13079,
+    13080,
+    13081,
+    13082,
+    13083,
+    13084,
+    13085,
+    13086,
+    13087,
+    13088,
+    13089,
+    13090,
+    13091,
+    13092,
+    13093,
+    13094,
+    13095,
+    13096,
+    13097,
+    13098,
+    13099,
+    13100,
+    13101,
+    13102,
+    13103,
+    13104,
+    13105,
+    13188,
+    13236,
+    13488,
+    13536,
+    13788,
+    13836,
+    14088,
+    14136,
+    14388,
+    14436,
+    14688,
+    14736
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-001.jpg",
+      "sha256": "5042fa57c5bf83b6aff043148787f7b596d664922367c10fe20a3a11db6836b5",
+      "first_picture": 1,
+      "last_picture": 8
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-002.jpg",
+      "sha256": "ffec2e1262db8fb7c95d21a24015154c384ee7f321f21489521ded9a43e11569",
+      "first_picture": 9,
+      "last_picture": 16
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-003.jpg",
+      "sha256": "bb0ea34f9f674a17b284ef32ffee9e56dec803129d6d7452366638cbe82fc195",
+      "first_picture": 17,
+      "last_picture": 24
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-004.jpg",
+      "sha256": "4cd4d49ca0dd4477ac456ffb4f347d4540d691e8541f8ccba4a688a998df05e9",
+      "first_picture": 25,
+      "last_picture": 32
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-005.jpg",
+      "sha256": "435b484da009c0e92685b5b307133a9e8c5c2e7e9bf68d178127c29b89a6760d",
+      "first_picture": 33,
+      "last_picture": 40
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-006.jpg",
+      "sha256": "d92044587795c5aacf2c8199137b22a5cc0d0826d07ceb51e7481844fdd0f4c3",
+      "first_picture": 41,
+      "last_picture": 48
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-007.jpg",
+      "sha256": "cd3921295b5cf67f7ebcb3bea7d31a73e8f69d4053fc51409fb444818762a1f2",
+      "first_picture": 49,
+      "last_picture": 56
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-008.jpg",
+      "sha256": "c8ffa536d7c2bc9bad81bca923a9b85f2174356ec4013ed59f37d6ddb21855ad",
+      "first_picture": 57,
+      "last_picture": 64
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-009.jpg",
+      "sha256": "1816c4e63a93c120df0e1ad5fcb86d22d4a13d61105f629465d8dd462764d77d",
+      "first_picture": 65,
+      "last_picture": 72
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-010.jpg",
+      "sha256": "513a00ce4c3d6ca2ca5cce524e76e0e0e718b8a30962da0a7180750e6fbadd84",
+      "first_picture": 73,
+      "last_picture": 80
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-011.jpg",
+      "sha256": "9e63c6121cfa67a92378698772f16ba0d660daa2183d8f99a08c6fd8d0b7e759",
+      "first_picture": 81,
+      "last_picture": 88
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-012.jpg",
+      "sha256": "760739af2f3e43162ac0bf54e386a4b2dac4043108f4e21186741a14e3757c33",
+      "first_picture": 89,
+      "last_picture": 96
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-013.jpg",
+      "sha256": "aba1d4df8d8686d6dddd7a37c4adf4d42726304cb01566fc19ea8b47824e3f76",
+      "first_picture": 97,
+      "last_picture": 104
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-014.jpg",
+      "sha256": "04166c327030b122502c96930baa05f1ead46ecce7ee8f9d55a51433a98d1f31",
+      "first_picture": 105,
+      "last_picture": 112
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-015.jpg",
+      "sha256": "6d2f29a603b73ae4b46cd6660e15e9bae3eef61f2a740cdf7fad88d713355adc",
+      "first_picture": 113,
+      "last_picture": 120
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-016.jpg",
+      "sha256": "1e5bbdee675cc89663468ade67bd432291c90e397fc3227f0474ef7d45039764",
+      "first_picture": 121,
+      "last_picture": 128
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-017.jpg",
+      "sha256": "61270044fd229ee5afa36ce428ce1a431d0212a50986547c73d0949bc04ba8ac",
+      "first_picture": 129,
+      "last_picture": 136
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-018.jpg",
+      "sha256": "b279a6af884e6ad9e30e3aa4c7a5f3b8f37eff1a599d9b85f4b86f99c996776c",
+      "first_picture": 137,
+      "last_picture": 144
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-019.jpg",
+      "sha256": "2f5ec0baa885b0193de14f336e113688e20f2be7d88c23d956851f9eda44b0c1",
+      "first_picture": 145,
+      "last_picture": 152
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-020.jpg",
+      "sha256": "8d37faa7d93430b646046e51dd8fb95d2d4c321e69fdd5c88c130351ce3921b8",
+      "first_picture": 153,
+      "last_picture": 160
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-021.jpg",
+      "sha256": "c880fbb689d56e6d8efdd3a408113dd84e4dd302f626f08031299929fd34f6ed",
+      "first_picture": 161,
+      "last_picture": 168
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-022.jpg",
+      "sha256": "a8a8f5a5cd8100245d509c6222ff3534149e163368c1ed1467ea2ea0da50552e",
+      "first_picture": 169,
+      "last_picture": 176
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-023.jpg",
+      "sha256": "2cd8285296690f71a71a18f1e0cd0ac699cb7973fdc25c6604009b92b0a6c10f",
+      "first_picture": 177,
+      "last_picture": 184
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-024.jpg",
+      "sha256": "5c2332363e70639e01e45c0c62e6470e12b680606abba995de22d859197fe9b6",
+      "first_picture": 185,
+      "last_picture": 192
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-025.jpg",
+      "sha256": "fe12eed3694fa9aeb5e2a4c9f0ca7956aa3e513d5e8fd9179dd2e4300984f4a8",
+      "first_picture": 193,
+      "last_picture": 200
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-026.jpg",
+      "sha256": "d815d39f7b6693e5d242a60a5f74952202e3490f73f30ec0c637bf0fbfea6659",
+      "first_picture": 201,
+      "last_picture": 208
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-027.jpg",
+      "sha256": "8664a70673261fade2ef05900bd32a307680a56b91405f1b1e6ac3022d1427c6",
+      "first_picture": 209,
+      "last_picture": 216
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-028.jpg",
+      "sha256": "a145e16be77a7511182f294083c984590eb7de940bca4240c42d709a059a503f",
+      "first_picture": 217,
+      "last_picture": 224
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-029.jpg",
+      "sha256": "f20fef4f08eda29b2482bb54c91a6dcbfe6f6ddddaf8f9e8a9e082e734a3e421",
+      "first_picture": 225,
+      "last_picture": 232
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-030.jpg",
+      "sha256": "3a3f9ef70c49b99d2ddb6dd03e912124b0c6b57ef21d6f91b4f96564dcf164f7",
+      "first_picture": 233,
+      "last_picture": 240
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-031.jpg",
+      "sha256": "56ae4e9be15b90dea36d8a45a4f6541909f9a9e851d7113bc0814c12f25fce02",
+      "first_picture": 241,
+      "last_picture": 248
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-032.jpg",
+      "sha256": "ae69cbebf0e52773e3a8eb280f6e94cfcc5e6d7f431c425d9ab7268f40e80c43",
+      "first_picture": 249,
+      "last_picture": 256
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-033.jpg",
+      "sha256": "ca8c8a741f1ca5e5f6f388ab5c015be70f20d49ae30a8afbb5279abb874d1e33",
+      "first_picture": 257,
+      "last_picture": 264
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-034.jpg",
+      "sha256": "8fb12c32baf2f66cfb125bd117080e6d08016bd26b900fa59fa44b85b59e3735",
+      "first_picture": 265,
+      "last_picture": 272
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-035.jpg",
+      "sha256": "c98459a392dcda70a412571df87424984a20e4b27e7bc19f4184ad6ee8bf85be",
+      "first_picture": 273,
+      "last_picture": 280
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-036.jpg",
+      "sha256": "b0121f1cdbb3aa76ddde2339cceeffde6245e2b37880b332314d395a6040afcb",
+      "first_picture": 281,
+      "last_picture": 288
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-037.jpg",
+      "sha256": "c4fdbe6992d0d0b0eb2880276ecca8c882e4fbadf0189c3c4fc0d16a4722c1aa",
+      "first_picture": 289,
+      "last_picture": 296
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-038.jpg",
+      "sha256": "0cdb878fe234d07797070b793d8d95fe1a68e1cb7b3698f330b26a720134ac40",
+      "first_picture": 297,
+      "last_picture": 304
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-039.jpg",
+      "sha256": "76df1b7fb650ff64786ffa6b49043ff8cbcbef943b657a37808b08a02a590164",
+      "first_picture": 305,
+      "last_picture": 312
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-040.jpg",
+      "sha256": "610b78d6399031c72a35bd9993bdfff4e491661eb62dc6781a517531111b69be",
+      "first_picture": 313,
+      "last_picture": 320
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-041.jpg",
+      "sha256": "92f53199bd2fc5afb3fb88472b2582cceb5397af15321b888e9bf8c040d178d6",
+      "first_picture": 321,
+      "last_picture": 328
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-042.jpg",
+      "sha256": "b604ffbaea6bd8510562306dc97f500848352f9c240b8ab8979f384920519459",
+      "first_picture": 329,
+      "last_picture": 336
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-043.jpg",
+      "sha256": "d90f7c8f9c882bc314b844897fa56930c3dffa29949d931150200322d94e88f5",
+      "first_picture": 337,
+      "last_picture": 344
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-044.jpg",
+      "sha256": "2f8ff3377e861a8b78320ab5b2e8f53f61d3d0ae3dbfcfbab20f47108823070f",
+      "first_picture": 345,
+      "last_picture": 352
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-045.jpg",
+      "sha256": "857243f28b9bae7d256fce9f3a777f08d7d7180e036e7d542d046d96c1578f9a",
+      "first_picture": 353,
+      "last_picture": 360
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-046.jpg",
+      "sha256": "c6a3d36e02b3e0f189f88472f8e42f88f15b4f7e4e5f5c54df276875d3c9b122",
+      "first_picture": 361,
+      "last_picture": 368
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-047.jpg",
+      "sha256": "d259e1b624e5470be0934ed1459a831812a8bf3c9d62798b6e18195332b58173",
+      "first_picture": 369,
+      "last_picture": 376
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-048.jpg",
+      "sha256": "c0eb875ffc8ebbe8fa434a12fb2d288b30e988c71addad178e2d3a9bd488ae07",
+      "first_picture": 377,
+      "last_picture": 384
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-049.jpg",
+      "sha256": "98c436d293ce47a26fa264876acc065b7cda5251e38214c96bca4d8ca5c40bcc",
+      "first_picture": 385,
+      "last_picture": 392
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-050.jpg",
+      "sha256": "951a2a6de89c2e27ad0f719e47e87aef26865a440a17492666b916b6efcd866b",
+      "first_picture": 393,
+      "last_picture": 400
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-051.jpg",
+      "sha256": "5ee5c17dab924d6b3a9beeba19acef52e11f69f20e4511637d5578a9f80cb13e",
+      "first_picture": 401,
+      "last_picture": 408
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-052.jpg",
+      "sha256": "7f78329f9e2dd3c65cc7a189e793abf94223c041b47589dcd549cf82491e1fb6",
+      "first_picture": 409,
+      "last_picture": 416
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-053.jpg",
+      "sha256": "9625a0208d726a5f0258c53951377b0abfe5655545aa302c3b75f03a431511be",
+      "first_picture": 417,
+      "last_picture": 424
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-054.jpg",
+      "sha256": "5c4443af9bdaa1cb1f5e8543584834e88d77f0cc3c70c2503ed81a4201d0df47",
+      "first_picture": 425,
+      "last_picture": 432
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-055.jpg",
+      "sha256": "0585d0acb0bea7ea4958f9a958abce6a8857e0b683ae4fd5a7188ce47167f29a",
+      "first_picture": 433,
+      "last_picture": 440
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-056.jpg",
+      "sha256": "ef3ef6cdd8078446a2cbf5f88f4245f29b5399a75673daac0395d89e6ba00788",
+      "first_picture": 441,
+      "last_picture": 448
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-057.jpg",
+      "sha256": "cee61eafb508606d688e2c2db0a048ba40acd4111b7c0d6584d2be524aa4713f",
+      "first_picture": 449,
+      "last_picture": 456
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-058.jpg",
+      "sha256": "7f63e18b7c1517c071e09b5f54cfeb45ca633876be45c49889a30fcbdf41027c",
+      "first_picture": 457,
+      "last_picture": 464
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-059.jpg",
+      "sha256": "d5b2faa744453c9c01cafe4300edd141ac40a4e16037d6e7048200c8401f7ab6",
+      "first_picture": 465,
+      "last_picture": 472
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-060.jpg",
+      "sha256": "ecf4ee917c60534591b38ff6a1ccdb4272f8cd5bf02746c3d26889291574f4e7",
+      "first_picture": 473,
+      "last_picture": 480
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/sheets/sheet-061.jpg",
+      "sha256": "e5e36d0eb76eb6c652d09b3c83a48ccc41c389f319d057317ded281b8060c8ee",
+      "first_picture": 481,
+      "last_picture": 484
+    }
+  ],
+  "layout_sha256": "c5347cb99eedccf88cd3df6857be55e76d18a541062ffa74e807a49c75dcfb41",
+  "layout_anchors": [
+    {
+      "frame": 10788,
+      "row": "08_5 +117.3s @179.8s\toverlap\t\"c\" and \"c\" overlap (100% of the smaller) (still there at 185 later looks)"
+    },
+    {
+      "frame": 12336,
+      "row": "08_5 +143.1s @205.6s\tcrossed\ta stroke of an unlabeled shape (x 2.08..2.81, y 0.73..1.26), painted over \"4^n\", passes through it near (2.38, 0.95) (still there at 4 later looks)"
+    },
+    {
+      "frame": 12336,
+      "row": "08_5 +143.1s @205.6s\tcrossed\ta stroke of an unlabeled shape (x 4.14..4.86, y 0.23..0.77), painted over \"4^n\", passes through it near (4.43, 0.45) (still there at 4 later looks)"
+    }
+  ],
+  "retained_samples": 407,
+  "pictures": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000001.jpg",
+      "sha256": "84789dd4f5af35b8124f6860670d4a3c05ea686bb55fd051f7cc4127793d912a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000002.jpg",
+      "sha256": "cfc0271ea7dc4d67e4fa3e9998c4fa25e6d76a913fe3ce71de1605b2f20d1132"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000003.jpg",
+      "sha256": "6b54be9aa8f1f4048a884a613e3bde196b6f7cb384c4d37e8d462b8d129279b5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000004.jpg",
+      "sha256": "46f91e5e64a04da80e500a5534d29ad3ea6d720eee077fd061aed6b703c2b59e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000005.jpg",
+      "sha256": "94365ed7d162dd303b2a75bad2230410fe0bf61c820933ea1c22fec8eba86c81"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000006.jpg",
+      "sha256": "5bd3bee694998ad709dcc9b911b7ad8ab72e3965961bc0d29ce78352a192b88f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000007.jpg",
+      "sha256": "f32af54e9f90ce3f7f2778dffb02f4e8dc3512b3c8a21ea271f9cef3c140355c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000008.jpg",
+      "sha256": "d95a6d57a83c8c5715be403ff23fc88e91befbdff78af36e0ea388097b4b05e6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000009.jpg",
+      "sha256": "f79c8ffa76ecb7f1ffdf0f02d9e9449035b8fe822057470804c8ced4283cb762"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000010.jpg",
+      "sha256": "d0572cff9985604fe5578d2e87bf356ded2f26cf61fc3518d43b8814ae0e381e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000011.jpg",
+      "sha256": "fc3345e90458a94054d11d7ee42c1c7a9da3d0505d6039820747ad5df51b946d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000012.jpg",
+      "sha256": "d73117a426de6b7554d571ee0ed21aa1848ec8a2755ad99da9b30a63bd967ae6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000013.jpg",
+      "sha256": "b52f0271cf1eb9878672b65ca2390cd5e91127d6fc853fa069f5d128382eea4e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000014.jpg",
+      "sha256": "6143a5db66e92c7079162953cace7166bd9b9a677b1552a6a182deeaee5ed655"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000015.jpg",
+      "sha256": "84d84dac1276af87b7f70a6bbb9dd7b79d7c2aec5165c5d0ac32440c5713ece4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000016.jpg",
+      "sha256": "695a3892ce91f29abca2fa81be0f2a5bb7315e08b349c87cb373d5dc9fc4e072"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000017.jpg",
+      "sha256": "b9d112c9d47a9d8839557f0259bf6494d7c6f3abde8ef8941661367de296aa37"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000018.jpg",
+      "sha256": "d1faaefcb46d009f5654677abe4ef729b3f3424809cb7339127eabde1183569b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000019.jpg",
+      "sha256": "7799038dd8d3ef8a151f13c2cb8fb344fbab0ee43d97d5ade0c61a93b2dffdc4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000020.jpg",
+      "sha256": "64cfe0a95ae35fd9e39be19b1c622f90e279cd27a49c02046291d75d5755013e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000021.jpg",
+      "sha256": "67aef7726e2052a1b0411a087c3978bb14b19cdcaff601e97b5590dfe5ed663d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000022.jpg",
+      "sha256": "383d1289bc90a4130628065b61ced544f0cb3146334762bdf144d336efd5a34a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000023.jpg",
+      "sha256": "49b5ac8ed556bcb6054090809249e7a326b0229be80c9ab5d35f025e02232428"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000024.jpg",
+      "sha256": "81eb91fdff26498946deff664292a4c40f7b2a163c0bff6046488e95241ed283"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000025.jpg",
+      "sha256": "c9d4ff8dec9f5601a7d3bbf4925db5673c494b0b85ebaae699672c33d78ecff7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000026.jpg",
+      "sha256": "c9df56a45294092396107b83657983332c1d28b93a444562018978cb26fecdd8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000027.jpg",
+      "sha256": "49a1e7c132946d124ff522e0cc05e7b1f4ab52982be7a129acaee854ab6d9d9d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000028.jpg",
+      "sha256": "ecad2f21d3a6f5dd656f8508adb56ed55901659c24a3830b3305fccee0e07529"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000029.jpg",
+      "sha256": "3d87f0eb4bb03202a8e2ab73fb55a5c36dccfcfe58d013dbd694b84cd2cc8910"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000030.jpg",
+      "sha256": "dd102ee2b20fb2cea56b7dd8fd42ab2f5608018bfe10f21baa5465f50851bcaa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000031.jpg",
+      "sha256": "b094ede3b45c9238e5f84cc2b39a4d5941e98bbff783698c5be89b82242cbddf"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000032.jpg",
+      "sha256": "7871ce96f732b8d8ac526fd9d2f24351e9ecfc74f0d30d9d5764e646bc5b5eb5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000033.jpg",
+      "sha256": "8aa78eab402cca6dc692e3688fcdbf48e2aeccb68eb4c60440c9151d7db6c970"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000034.jpg",
+      "sha256": "66a9ec072c05c8e8e6b63b81a697208260d3cdbeba9d19462b633d300c7b15d1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000035.jpg",
+      "sha256": "872939016d244855b1c285ec7aadefc3dd2093e1d38528970bb3efabddf8da78"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000036.jpg",
+      "sha256": "5802b41ae03f6ffc72d6f6eda36608c1845899ad05a7b8b31170ec2ffd4af9aa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000037.jpg",
+      "sha256": "18e031b4588917a2c3ed3c5f2d88a629f27b54e4f083784a00e5ad944ca6041c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000038.jpg",
+      "sha256": "48a02066b401fabbf33195ba5389e305eeab6171f76fa3ac9575d131922512d8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000039.jpg",
+      "sha256": "89c772980d3d577a9bc907a375b96423107c3cef9855364a99917eefa96eb7c9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000040.jpg",
+      "sha256": "8df5787fbf9edd17560156ad7643b1cf6906aa794ed35c1037252a553561d9c0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000041.jpg",
+      "sha256": "0c15c1e13e4f48b905a75f6d1e2f530af53c7f6adf57f98e82f7b32aebb2da1b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000042.jpg",
+      "sha256": "91c74144283859ef715c32ce434155a6d137eeaca2ba3c0cb4e5d56483777afe"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000043.jpg",
+      "sha256": "b3c37edd2961e50cb010601e7bb012b63d098113b9d793cbd6afb7c22edcd71d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000044.jpg",
+      "sha256": "ec59baea76039daf11228a5d45fe988b3188c297422ba72f0cbeb22e526d88ba"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000045.jpg",
+      "sha256": "0c91eb94495e54e49579176f34b488fa058cbe9a8f94ec8041a5f040a5e84703"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000046.jpg",
+      "sha256": "398080380ebfbc1ebdef6ec9864cf3b1f8e2f25ac75c9afb63f90b854769b16d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000047.jpg",
+      "sha256": "adcf934d2c82a230a899e94220674c58c0f30eec676a3e13e29ecbbb55949bbf"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000048.jpg",
+      "sha256": "e7217af61a316a8875556eb6e8dca1e72d3feae6c7b89774ce89a9d18d0fb748"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000049.jpg",
+      "sha256": "54b3056732d00f1df7bd88840f88a689bd697ad08e1764a1960268f60dd2ff48"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000050.jpg",
+      "sha256": "8613fa1b0a0cda6173dd6aa3c348cb8b52983268af5738aa1bda3e652a5f4a09"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000051.jpg",
+      "sha256": "2debaf4a2f7e1553f9c31f61bf582e41bb69b16001e40d11444ca4c0f28eeca6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000052.jpg",
+      "sha256": "6c9a0f9417e06244669cca31c670a16ddd4b0fbd580d6f1fe8d63e1c92835fc6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000053.jpg",
+      "sha256": "86145e87c0a23d464fbafb12f54129d7d26e00c0e2777d9b2d1fc05df0ab0ffd"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000054.jpg",
+      "sha256": "5e0ce2003a611a6d5c67e490f1d853e334a073fada6ae41c344786f38383c7fa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000055.jpg",
+      "sha256": "4056b0dc8124b69602718a9729d5d3d676027bb085d334236d5a8fd7a36ca2b0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000056.jpg",
+      "sha256": "5b0172d23c3e18b778fc897ac43384c014748ed6ce795b447c4d1f160f86daa2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000057.jpg",
+      "sha256": "346eaeef3d7f9b99502ea3aad5f6d38b027b95ed403bb804d8df6e77c151c6cf"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000058.jpg",
+      "sha256": "0f0ff8f42d818dc406f10ab2d4b0832cb07b674874add158fb35b8e2ceacac0a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000059.jpg",
+      "sha256": "c1754cbdf0b2b0f831d2f8cfafac85266e367b544fbbb2a21ca92a46d2417269"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000060.jpg",
+      "sha256": "c792690d2cffd4d489cc006b3534255a583533f256c73247eced42441006882a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000061.jpg",
+      "sha256": "d4fde9a1f3beb6fee7c6cd9bfe894e47f505ad32da2250b7c57fd7b4a5bd2b5b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000062.jpg",
+      "sha256": "4500b4839dc8d2f37a98f10f25f9c2c33b17026e3bf4357b8f462364556fd6e4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000063.jpg",
+      "sha256": "ef3b28851f37f27898614c4cb008d55ca6703f30711ec2308f6c95c657f154a7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000064.jpg",
+      "sha256": "ebdfb31d3b06bb7f7ae495eaf4fa30de0f2c8f9956287ea09aa799d764e07d89"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000065.jpg",
+      "sha256": "62a13616238458e82f2cadc17ebdfda951655340beca7c831d7b5b1efbb00525"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000066.jpg",
+      "sha256": "9349cc6a7f8ddce88eae2cf04091f0813cf04ac59d9f72fcfe5380258a5d1daf"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000067.jpg",
+      "sha256": "4c8731024742b926cbeed3fe22294fc3c44007346dac8b8bf50b114186b4eabc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000068.jpg",
+      "sha256": "94c92424245419221dc29e4c69e9389c56b4a0d1ae8a6ecfd38a3ab12a6472da"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000069.jpg",
+      "sha256": "94c92424245419221dc29e4c69e9389c56b4a0d1ae8a6ecfd38a3ab12a6472da"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000070.jpg",
+      "sha256": "c2bebf49c2b756f8f9c90ec2dbf0f09873904dfb0edc435056ff341440abf4d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000071.jpg",
+      "sha256": "c2bebf49c2b756f8f9c90ec2dbf0f09873904dfb0edc435056ff341440abf4d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000072.jpg",
+      "sha256": "c2bebf49c2b756f8f9c90ec2dbf0f09873904dfb0edc435056ff341440abf4d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000073.jpg",
+      "sha256": "c2bebf49c2b756f8f9c90ec2dbf0f09873904dfb0edc435056ff341440abf4d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000074.jpg",
+      "sha256": "c2bebf49c2b756f8f9c90ec2dbf0f09873904dfb0edc435056ff341440abf4d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000075.jpg",
+      "sha256": "c2bebf49c2b756f8f9c90ec2dbf0f09873904dfb0edc435056ff341440abf4d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000076.jpg",
+      "sha256": "c2bebf49c2b756f8f9c90ec2dbf0f09873904dfb0edc435056ff341440abf4d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000077.jpg",
+      "sha256": "c2bebf49c2b756f8f9c90ec2dbf0f09873904dfb0edc435056ff341440abf4d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000078.jpg",
+      "sha256": "c2bebf49c2b756f8f9c90ec2dbf0f09873904dfb0edc435056ff341440abf4d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000079.jpg",
+      "sha256": "c2bebf49c2b756f8f9c90ec2dbf0f09873904dfb0edc435056ff341440abf4d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000080.jpg",
+      "sha256": "c2bebf49c2b756f8f9c90ec2dbf0f09873904dfb0edc435056ff341440abf4d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000081.jpg",
+      "sha256": "51d0cd051ada64e80242773c99bf9381dbcdc371742208c9453905d85f660dc8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000082.jpg",
+      "sha256": "44d2aee77ea981eb519b4c77108788d22352ed9c8c3cfd594ecb0adbe7b23300"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000083.jpg",
+      "sha256": "9a0b7e919e18e02b99fccb71b7ac1d11ee9ee6fc7f3d8f41246b156775c32eae"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000084.jpg",
+      "sha256": "148987ad5890027565d32030ef35563e499ba330515ab3a7f305e28a73808147"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000085.jpg",
+      "sha256": "dd4fa84b7c0a46997206a2485fb1cea69a0ee2902a3049b78efa45dca4a3595f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000086.jpg",
+      "sha256": "2f2fd7281efbd27b519e264f1fa851daa8637402081f0ac05e7eea2c98f44ae4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000087.jpg",
+      "sha256": "4c19a10e2fd1b02ed53a2766f75545ec3439d5d22a392db0a097c37db21b7579"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000088.jpg",
+      "sha256": "20138472b697b12b2a2c3be6ace4b8c3fa408304186acadcba6b8e03595b4aa8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000089.jpg",
+      "sha256": "6895ed6322df648b79943c92ce605137a65b8fd38f08c4190aad1f7e5be79a43"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000090.jpg",
+      "sha256": "48f04ced2e86f6a699e2ce722a8d11da346486885d8a6b657b295f9834b9b906"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000091.jpg",
+      "sha256": "aa2ae35010cae1cdf0291c9912fbe2d21e86b09e81cc87d3bd4a60461c1a3a1e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000092.jpg",
+      "sha256": "1e2e52ae201521ee6f36da1babe4b4ac49061e935009ffb527660c64deea8280"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000093.jpg",
+      "sha256": "abd0cb49fdc8b34dacc03eb9fb6f5e36c56505751f23909d65399c800c0e596c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000094.jpg",
+      "sha256": "a8f7406854537ebe00fd15487ed47c12d4b136679d5f696cc8fcba6aa37fbe91"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000095.jpg",
+      "sha256": "a5730c0853fd8766f5c1f4245a394711871cff88cba5890ddf9ee7c8853c6dbd"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000096.jpg",
+      "sha256": "120fe32c62562e27e38e6133c8f6a4c31ca0e303b58fcb97a3e2c6f5d782b154"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000097.jpg",
+      "sha256": "97e3f98cd42c74db284b8adccbcb97dcfd5f7bad5a1e7a4b223db8472ee4ee9f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000098.jpg",
+      "sha256": "8d4109e69e47e84b924679885a7844f39471da08325678bd60281d5ac25aa848"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000099.jpg",
+      "sha256": "d58fbd3ddf91e6a16db90c62f9a632a48df5b6710083bea3d8e999d9685b3740"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000100.jpg",
+      "sha256": "02c30ef2882e5143902e2d175ea5ac32072655672542a004748b88c12e557ba8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000101.jpg",
+      "sha256": "f0be46f66f53bbb18aaffe447ddb81122e58e165c93e60dde2db9f45fa533961"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000102.jpg",
+      "sha256": "a54eb60a210d72069a5cb0b5030c28bdbba91aabe3052fe0307a86047811909a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000103.jpg",
+      "sha256": "bab8c6b1a8257015c45a250b863cbccea2eafe8fab355a9285670785a5e7a463"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000104.jpg",
+      "sha256": "6e8f316b0418aeccc0e16022db3cf9b4c8c10a6e78e81b5bbe5390dca17c8e38"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000105.jpg",
+      "sha256": "cc2cad0a2294335ea092aac8b42d66988f8ff8081a3ebc645b239ac56b745973"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000106.jpg",
+      "sha256": "2df8a508aeca591e395e550970dac199b5aa5a32699579f7f61e4beb6d9bd2af"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000107.jpg",
+      "sha256": "f4100d0cab204e9020d81df16cdca3b9fa71a282291724625219a56ea02590fb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000108.jpg",
+      "sha256": "46cd47e0c00f81b46168d39ef911bec1a28d028a072e6f1525b4b2f511f98790"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000109.jpg",
+      "sha256": "5e069cdbaff3869a7a7d88613935529b543105606b06debed6d0b2f2bc24513d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000110.jpg",
+      "sha256": "7171c5486bfc73f4c3c20de3527c4b1116ae627869b3c8f0f67b969145dba1db"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000111.jpg",
+      "sha256": "9374a72755e67445f984f5e1996c6166b1c55f0d83e8e8fb791a8be1a57cb0c3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000112.jpg",
+      "sha256": "5335667b8fab78521dc39ce558aea9ffba0da6995c3459571dd2e4fae0b9f9c0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000113.jpg",
+      "sha256": "cc98bcea07875f7f4a039e6f322fb0deb287339bef6b1f7ca80f4bb5f3e2b9fe"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000114.jpg",
+      "sha256": "5335667b8fab78521dc39ce558aea9ffba0da6995c3459571dd2e4fae0b9f9c0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000115.jpg",
+      "sha256": "16df677a730028f42916af89c82617710da6baaf564f12003e9129f812fa0dd9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000116.jpg",
+      "sha256": "9f9f7a74c1fcbb66bb5d7619f4678c77ff933f171601cedec9e5816d032d9d4c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000117.jpg",
+      "sha256": "483262784d02e0dcddf16368b2d3f315f12431bb715526046b35c7ed759acd9e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000118.jpg",
+      "sha256": "35e4287c433f97635828950512f6a4e38feb6790bb031c75a491e5d0c1b0c82b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000119.jpg",
+      "sha256": "974508ad5f4cb6af0edc4f56654a6b8bdf202ac61c43fd1cf77c6234371842be"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000120.jpg",
+      "sha256": "df7af8aa4494b58f3f81cd8ffd657aea6f620971356e228f146614e9427b7aaa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000121.jpg",
+      "sha256": "79e25d7c2c4c4f333872ac7d3a452ab18c87f55a6f26b72ddbf6ad449ad0b37f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000122.jpg",
+      "sha256": "b01df63eee5d842394b6c4060456c1d55bd3116bca90cab9660b53b470a4f132"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000123.jpg",
+      "sha256": "bc1e4874a047c6340e428071851701dbd6b09d8236810e352cc47e84748fb0a2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000124.jpg",
+      "sha256": "a814852ccb291f0cabc8aadaf8f1b3855138384013d180d667921aa207b8bc7b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000125.jpg",
+      "sha256": "bd005f8b93c9d2ed6fdbd2221e8b90983bb0259f4560f0457c4bea24c5d352d2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000126.jpg",
+      "sha256": "f6ce9df1b77bc3f505d1ac959d931d233c870852cea1402265d7ce059e94792b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000127.jpg",
+      "sha256": "0996a5c999bdf06a90289c7fb93bb7679469a1e5ae09993bb5cc887912ffe3bd"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000128.jpg",
+      "sha256": "a43ac94c145d7eb8dd2f08817f8e4653e16b6f0802d458b220167948b1200b95"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000129.jpg",
+      "sha256": "7fe5e20ec1d39f6546a00f4a134286ca14c5e1cd6af1b5c3019111728b347854"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000130.jpg",
+      "sha256": "0f8a725ac48430d0fc73c96a23a4041b71d3a03b580a9187bf20520e3ceedf18"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000131.jpg",
+      "sha256": "a628f6e5e75bcbe568b914712abffa6c678a86e241e47467cb057f64820a51d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000132.jpg",
+      "sha256": "72073a444d055872e2734c6a2c46602f3e3f2a843c5e330812776d902add1a80"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000133.jpg",
+      "sha256": "08f12407a796c955420b89ba34892062017d9f31004467af4ca6fdc6504353fa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000134.jpg",
+      "sha256": "f9c1e7cb67daf88f20ce5585018510187307f782cab7e9cb6e07a12955b7fad1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000135.jpg",
+      "sha256": "d5b4c76faefffa5470d2d55f5a7b96a7b8338b7bc507be961de2898b34fd4c8f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000136.jpg",
+      "sha256": "64bb4a5d307062fcc3f12472514c36d8519c47d4fde4ca3da09b27bfece9904a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000137.jpg",
+      "sha256": "2ee8a3ec5539d2bcededf458531c497f7bc8bdf3393be92ee847e9c931304fde"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000138.jpg",
+      "sha256": "c1bc8bd4f96c7c37d16d21c20b3985c6fffb1f15eb243424440851f22cbaeab5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000139.jpg",
+      "sha256": "0117077cfc99cc4ba961bb9d4557b94b94f96b4c1ac267978e7cde61bf8dbcf4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000140.jpg",
+      "sha256": "35b72d72df640287d8778600237cdedc787ca620aa0d12d452c757fd7e8bb713"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000141.jpg",
+      "sha256": "6bc257f117e63d749c5575fa3068ade88e94e21bd638fd980179fc32d22d6f6f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000142.jpg",
+      "sha256": "73af0ba400282959b6da7cb3619932768e63fc92db41ca1348ccf8259261a709"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000143.jpg",
+      "sha256": "39f751763be7fc8d7621152c5ed65d26b16a46a317af6aff9f16a74b0d64bd72"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000144.jpg",
+      "sha256": "c05f15aa20ed695e623c6f7bb7e9c3d2755767926b39d513522eb16b8902feb4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000145.jpg",
+      "sha256": "39f8da369e0af2157276dceea14bdd5857c9800c59ec3f657d17443157b80a1d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000146.jpg",
+      "sha256": "810312316b125c2a0e9a76f51a22933f87ade62999a549275660c87e14d0965f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000147.jpg",
+      "sha256": "3c1c66b91a4121aa8513a638975ba0f3a671b20c1e4ef061c538bbf453462161"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000148.jpg",
+      "sha256": "fb136ff23ad74dba6b1d81c69850178e9c7d2be4d3cf9a5b6eac842329c247a8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000149.jpg",
+      "sha256": "dff5f76d95b5495461fb6729572f998ef0950c368a5ce2d3bb7f591578d16fea"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000150.jpg",
+      "sha256": "4ca2cc2bc473cf108711edd64a0ac3627c9dee97617dfb8d91dc9f85b6696962"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000151.jpg",
+      "sha256": "b29be21d12311f1879ce2b236a088fdc92e1a700040e06d77a0f4105fb649a54"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000152.jpg",
+      "sha256": "f9dcf1d71544cd36e2cf2a506f7a66b00aae32d70377ecbd6157b0c83f8f707f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000153.jpg",
+      "sha256": "f5932b2fbb2fcdd7af70c81e2d571c228fb9c6057f7e043466b23845e758c5d6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000154.jpg",
+      "sha256": "5b164eba3a61e54c3b020955618f8988445afadeafdbbe916136ba68404ca383"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000155.jpg",
+      "sha256": "daf97e318c26cec120df888444885f009c39485d2f57b963aa02ba230531730c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000156.jpg",
+      "sha256": "7d979f864934f160e2b6e8ef31ae1673550ea95c1fb857d1bf7365b99bf6f7fd"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000157.jpg",
+      "sha256": "93cd1d7f825dfedeba08fff1edab085161132cc76139b1a9accbe270e7c7432a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000158.jpg",
+      "sha256": "86830f914bf4d1e9aed837c6209e2960bba8c54fabb243def0cfcc87f9fa3ac1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000159.jpg",
+      "sha256": "6c280d52999da33f626cf05d673f7d0621f4e1181edfa86a75834517b7824c9c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000160.jpg",
+      "sha256": "d19e17617c92a42caf41ce06607d074ea3806b33106dbbd660089066d036cc94"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000161.jpg",
+      "sha256": "867b07ff59a1410c624ed5795501186d5c02297251aa9de1e9572e50f95cddae"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000162.jpg",
+      "sha256": "717cdbb55bb90498372e9f9bfb379588bdb46fe51251ab1d57f27ca5a29502cf"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000163.jpg",
+      "sha256": "fc835e0e1196896ea9d628df72aba4e8e80d5dc79fb3ab138594805331e26e82"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000164.jpg",
+      "sha256": "bce78fc534328a27cd535fbc5c0533edaab08df7dd6edfd45015de0ce6f19f6e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000165.jpg",
+      "sha256": "bd774aeb2541311e5503d0cc329e10a6725fd8236711e2dfbab7bd72e21946fc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000166.jpg",
+      "sha256": "be63ee50fa32291b0226a56573b39e559302c452c29e206698eabd784492d95d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000167.jpg",
+      "sha256": "be63ee50fa32291b0226a56573b39e559302c452c29e206698eabd784492d95d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000168.jpg",
+      "sha256": "be63ee50fa32291b0226a56573b39e559302c452c29e206698eabd784492d95d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000169.jpg",
+      "sha256": "be63ee50fa32291b0226a56573b39e559302c452c29e206698eabd784492d95d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000170.jpg",
+      "sha256": "be63ee50fa32291b0226a56573b39e559302c452c29e206698eabd784492d95d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000171.jpg",
+      "sha256": "be63ee50fa32291b0226a56573b39e559302c452c29e206698eabd784492d95d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000172.jpg",
+      "sha256": "be63ee50fa32291b0226a56573b39e559302c452c29e206698eabd784492d95d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000173.jpg",
+      "sha256": "be63ee50fa32291b0226a56573b39e559302c452c29e206698eabd784492d95d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000174.jpg",
+      "sha256": "be63ee50fa32291b0226a56573b39e559302c452c29e206698eabd784492d95d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000175.jpg",
+      "sha256": "be63ee50fa32291b0226a56573b39e559302c452c29e206698eabd784492d95d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000176.jpg",
+      "sha256": "be63ee50fa32291b0226a56573b39e559302c452c29e206698eabd784492d95d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000177.jpg",
+      "sha256": "be63ee50fa32291b0226a56573b39e559302c452c29e206698eabd784492d95d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000178.jpg",
+      "sha256": "be63ee50fa32291b0226a56573b39e559302c452c29e206698eabd784492d95d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000179.jpg",
+      "sha256": "1e5bc4c1c2cc8f64bbdef6aa09a00e4497529e69eb29afd3c4dcba69bda2bbbc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000180.jpg",
+      "sha256": "1e5bc4c1c2cc8f64bbdef6aa09a00e4497529e69eb29afd3c4dcba69bda2bbbc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000181.jpg",
+      "sha256": "1e5bc4c1c2cc8f64bbdef6aa09a00e4497529e69eb29afd3c4dcba69bda2bbbc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000182.jpg",
+      "sha256": "047f384ea386c919d29498f0363d5fd3e6ae7f2477d6ac5bab912215507709ba"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000183.jpg",
+      "sha256": "047f384ea386c919d29498f0363d5fd3e6ae7f2477d6ac5bab912215507709ba"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000184.jpg",
+      "sha256": "692ef5697f06a84b9d2cf533720273d6f63db940953a4c5f5241f678f40de026"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000185.jpg",
+      "sha256": "bda5d3e9ce142e817f8d9047348525c205d06cf6531f8c570d9cf1a724ce48f5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000186.jpg",
+      "sha256": "29ed591876f813bdd35f714313c0f2ca212586303c4657cbbeb33ce74064219e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000187.jpg",
+      "sha256": "a88b94d15677688c742d3afce8a5f405f6d43da3f4854b9ed11229e677ae8242"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000188.jpg",
+      "sha256": "3f60da9923a967f399d94a4c8026b6cb227e228e73ea12792ef079db1c429cd1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000189.jpg",
+      "sha256": "a910056a40cd02b28d914dcd2bde43940becd825167480528cb87f1c93c59708"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000190.jpg",
+      "sha256": "4ba102acb594d3f57466d171f59520efb933c3d7b7ea6f465345e7ae3fc4881c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000191.jpg",
+      "sha256": "8136e145f9aedbcbf596622def89fcfb8c15a6b2872bceaeae834167b6999b0a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000192.jpg",
+      "sha256": "dde86a5414ca994f9a61c22b61098975c5530f624c952702ddd8762632ba4ff5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000193.jpg",
+      "sha256": "47e2382bc8f63ecc5446f6328a7348b7a1a6f0fcec57658b4c9de7fca9cecc7e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000194.jpg",
+      "sha256": "d244db8eaf3e418f134e7202020761ef2f3ab5b590eb445efa464b7f900c0acb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000195.jpg",
+      "sha256": "800fe1eaeda29c1b86f61d659d4ee3abf42c5559c91aea521d3f1b4e69c87bdf"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000196.jpg",
+      "sha256": "8ca4335ed7aabd9984be75c0ae2e6e034e3553d11148fd99ec123445444445ce"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000197.jpg",
+      "sha256": "675a36db209a7cec4391660abf860d07cad9b91f2f06649104bf777b521a9886"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000198.jpg",
+      "sha256": "fdd7e9e9e43571e2e48abfc2b50a3c509ed9b15655a3475be586355bf95ebf59"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000199.jpg",
+      "sha256": "f1478936cd50298bd2bbb48ba42c5882ff9c9aeca600ac5c5b84d2f969d8b2fa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000200.jpg",
+      "sha256": "1c2890b5520f4b9f067b7ec46223b2d44b8b22557e7b6c0caa3ec85c459532b2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000201.jpg",
+      "sha256": "1f809fafaa3e309c954939dbc3dda754701fd0b8d4cb58b7627cad026eca391c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000202.jpg",
+      "sha256": "155f491a4dcebd7209e9cef27e5b6fa49ac4024356664702007397732d2350eb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000203.jpg",
+      "sha256": "127cef3b2e0c7b52ac23aed00aed67a6bfe411acc90eb87aea456c96db463d99"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000204.jpg",
+      "sha256": "60e31903b55ca644a251fdd98830da9a7cc3b3a9a431b517a40cf9924c747e72"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000205.jpg",
+      "sha256": "6a85c0ded131bb7557fcc18f36823620f11428f42833fbb4b29795cfba1430d2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000206.jpg",
+      "sha256": "45e0ef504b18d29e7e5d80327efcbe24fa8b0839ec7a807ddf3d2726ee249efc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000207.jpg",
+      "sha256": "98b1925db58c387c00a54c5faa37a53bf22892ff2a2f98d238d30e6bbd895f03"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000208.jpg",
+      "sha256": "2b4f9b67f7eb62420bc32536ad214ae7d9aa9f0db7e1ec19d120a69bc61298bc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000209.jpg",
+      "sha256": "858136a486e447c2a87e9489dd785d5b1958057d3a0a8ae404ea7ddfea7864d2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000210.jpg",
+      "sha256": "7ea17cd40eacec7772d3b4963160e951e474b9455254c5b5e81c75ee910dc26e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000211.jpg",
+      "sha256": "3e14f6618ab7ff79496342a8c346486d8c5d347143019bb1300ef990c5158451"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000212.jpg",
+      "sha256": "692f69c6346b4074ef3b03a3d4614e9f81d2085d63a7bd74564a813f89fe0237"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000213.jpg",
+      "sha256": "892fe70109774283af4b92ff53d7a5073088a4bb3278621fdb84a521d9ce674f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000214.jpg",
+      "sha256": "42f74f4a0f90d49f849b617a77eef072e4bdcc2ac927c16a894abf8cf51b13dd"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000215.jpg",
+      "sha256": "975876718314d068a700cc8e7ff769ae863e08e36d12205246ce0c4a8bc2a6c9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000216.jpg",
+      "sha256": "9f1f879d7eae352733ee48be4aee79e3e3d3276015f0e75b2460361038e4884a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000217.jpg",
+      "sha256": "898ffc9bd30b4894d433398f8a6aeca2c5a37f4f1f0e876740111e71c4b12717"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000218.jpg",
+      "sha256": "b91f8a03a731284554ee7826b53e6a92b85e9b0ba6bcf4b1eb4d190b37708637"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000219.jpg",
+      "sha256": "c35dd8a8561eacf0f0f494a1174e84fc92ab1808312c78d392dca9838d0be15d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000220.jpg",
+      "sha256": "3f8cf84a76f44f8667ff72223524d013cae0f8565f792ad01346085a40bccc57"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000221.jpg",
+      "sha256": "c124228ed67d6fed4f3cb8f5df630f9e69845e1f5a6decf57c5fec1972fa30e3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000222.jpg",
+      "sha256": "2073131c45be67068fa513a665e32506c966f0d848c03104a01dcbb00cad4aa7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000223.jpg",
+      "sha256": "e63e04a1bf07a48854dcf3446a54902431f375caaa118c67486144e53f9f4e7b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000224.jpg",
+      "sha256": "fb88e14b95c6ec5d956daa1608a44b012dd146238e765f446e09836648d79f6a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000225.jpg",
+      "sha256": "21e49923400503601a78ca4019610f4092eb51dcb8fce54e3f62e5078a69a2ee"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000226.jpg",
+      "sha256": "f97e607f45dd7002262b6e5055765310cfd4147b80425a46993a560bcf83fdd7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000227.jpg",
+      "sha256": "41681de4c442f4c40fea0b82c74f0f34ae5fe8f673b306d277bab554f3f4f161"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000228.jpg",
+      "sha256": "ba5108963ef9b8c7e8a43fba07dda259475cd811f4bc58cb461aa4f265d07133"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000229.jpg",
+      "sha256": "c328c2d24b11d7c0a44969aadd4b3d98afd5121a617a685f8376a4bea914f99e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000230.jpg",
+      "sha256": "ac6c61e35ee89bef78acdd9859cb0bb030f40a0c30cbff6c21e8bcde84158db5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000231.jpg",
+      "sha256": "811497f9838ddfa3a0158e007e584e59fd641ca83611fef6a1ddb1c6993ef732"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000232.jpg",
+      "sha256": "10596ffaa8ce83a00d8d1c994a1fe1177147c497c67ad89d328dce82fc52b9be"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000233.jpg",
+      "sha256": "5f2771269a35bb3ff05f3c81cb0c7da6f162b5cc77809868a73b499702677a41"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000234.jpg",
+      "sha256": "901d7eaa2f7693359b7a7558328ab46443f85630338e2c4f1b70e4f355c082a6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000235.jpg",
+      "sha256": "04efd9fbd6a21664cc150a239f6a754ebb2d1c966b766847db424801ff582ab8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000236.jpg",
+      "sha256": "5a80eea79528105572359160f360b4d4d4ad7d6ed51ab931d92d6be0b3a5a91f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000237.jpg",
+      "sha256": "3ed1f002ca0d33c2ce2039eced39acb5e5f064ffaa45f2c29c52ec901d9f3b6b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000238.jpg",
+      "sha256": "e50cd1d4c83d7410862bf504fd03c71daf76c99041d8d1fa8ed642fba9690e83"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000239.jpg",
+      "sha256": "a1999fc9295e1435a494d5757fa6c1a369e93069a083f267d81da36b6097ab91"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000240.jpg",
+      "sha256": "ab7b2e1a616b04aeffc675d674c3c5fb3a216b36ab9b07993696e94d4e781ab7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000241.jpg",
+      "sha256": "258656af24a4c21d757a534ae8fde7b9a569a389eb94d064822abaf53581711b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000242.jpg",
+      "sha256": "2d45f7cd852c0aaf91fa3bfed685f0de4c23dbfab9caf66b07ac2cf4e79cdbf0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000243.jpg",
+      "sha256": "4beaa26268184be9285f6fb48f738481594efb1ceb4b10598ce3411b1f2d98fe"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000244.jpg",
+      "sha256": "93c308f92b6208ae9fe73c279a81ce7e9fd7e89072f9a12ed97f5a3ee44414c8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000245.jpg",
+      "sha256": "3d23b2346b0bba59e76d63c4ea4071e3620f3ff4f5a6fb4709bfa4c12925ed6b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000246.jpg",
+      "sha256": "52d2de6469516f94225169a7abd3531ce68ff65ef796956ada12e550f352b84e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000247.jpg",
+      "sha256": "492efd963164b8b8289729752d71dbe2d3268a3b02229cb31f8e620be6af23c4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000248.jpg",
+      "sha256": "cf1efd01c670e8ee268b7074e227e2db71c1b042715359acf556f6b7eeba5c6f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000249.jpg",
+      "sha256": "5a80de3f3358a3a59c4fee4ee256373daff664151b83459d285aa56fc8bccd6f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000250.jpg",
+      "sha256": "966b6e329406ea576fe0a3b7016022221bf4016e1a2d73ab733f0c767e1c084d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000251.jpg",
+      "sha256": "4dbe25129404a574429e627bc982fd9f905f9a759d38b982cd8443f613cd0520"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000252.jpg",
+      "sha256": "78ea99f725d4d9c59377ac9f36db0ad41534dcc278a12d002c6d0ca827bd4bf4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000253.jpg",
+      "sha256": "b0b56e05c08688d8c911c26be4e5958a0e6e06c475ec5a04e4f5c4f1d3e2b265"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000254.jpg",
+      "sha256": "219cf58de5ee28fdaa58aa5b1d0da587994f5a533c58053aefcff11ea946f627"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000255.jpg",
+      "sha256": "bef25a8b5bc56e6485ab1269c50e37e32e902d515ad96827bec75c3cd431b3b7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000256.jpg",
+      "sha256": "3cbbc45fb156fd6ac45d1b1133601e43ee9d825358a3e1ef23fd4c1031b4f8ca"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000257.jpg",
+      "sha256": "cbaaa3af1d5b4d1894187b515af6ed1d68ed60fabf8ab558a6a572116f604494"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000258.jpg",
+      "sha256": "7783f1071052313e881a62d5b6a78b1ce5e992707c0888f0d4adfdf76dcf8f18"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000259.jpg",
+      "sha256": "ace07f19503d10876b42104e42bd75f5439b92dc525da2051c2be5eb93d8ab77"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000260.jpg",
+      "sha256": "58fe9f32bb703a667411c77cd90254f8f6e91c5bedad733bd9c952b64b90a225"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000261.jpg",
+      "sha256": "8bb53dbb8c3731a7b30a7122f0b452117764dda5f693020286ba87dbe676644d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000262.jpg",
+      "sha256": "758c7f5e80dc80d5ad6d559e2d29ed75a9d36410816a94b3ec72ebca7ba324dd"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000263.jpg",
+      "sha256": "ccf51eec46479ef4ffec3d5ad7c9064a76a733a772f311d67550b86fb57a6308"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000264.jpg",
+      "sha256": "adef9b9f009235673ca2720f59d66dfd7051644d67feb61315285a4603f31937"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000265.jpg",
+      "sha256": "c240f4aa24c5a85c46025010d49d423adec2d5ade1b6a68aaf13249df45a1b61"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000266.jpg",
+      "sha256": "36c519791291754c3d7408ee570c3b9c4ab0c92e4bbc08188f50242aeba22aa2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000267.jpg",
+      "sha256": "f06a66e2c1f0277dcee53fc3f69f68609a107db80bf584693d7fc7ff981acda1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000268.jpg",
+      "sha256": "57e2d58777ad06c14e6d10deb45e3a60635aaba32cb598a0be1c92edd1511e08"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000269.jpg",
+      "sha256": "b2205077ffd0e7c237048ebd51171483fe7f33a192774932382b0d1e7e529b74"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000270.jpg",
+      "sha256": "af38bb8ded9023536d36c7cb2c8296aa74339621b126c59eaf6bdb6adcccc16c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000271.jpg",
+      "sha256": "1dd2d1ee688aa9135f5066a99998cbb0e335f805ace9d5016fd2cb4e0b11a899"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000272.jpg",
+      "sha256": "8e2b2554eb029c60fffcc000db6a47afab2174d84960dbdaebd1a8047a471285"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000273.jpg",
+      "sha256": "1d45f947977d254cda409548e6c8b60c04f2d632e5709463a891ccd99f794043"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000274.jpg",
+      "sha256": "0c1ba3888422a16414a39f1a332d738dcbf7feff3ec0bdc3b716db87bf183d8e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000275.jpg",
+      "sha256": "6e61cc307c55d133d6182fa3b603dcef1ece593c6ffa8bb8a9deb5a46dfe7260"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000276.jpg",
+      "sha256": "b97779a3c389e96564b23d49625dcd443411b667ee3fab1a8554654b972f0765"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000277.jpg",
+      "sha256": "2d4f4cbda241db9f760e00467a3600cf4ac131285a37c80a1f181ddc5d812424"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000278.jpg",
+      "sha256": "6d90fdafc2bd0d8a670aa0e00ec5ee1e6a05b1daf5f2ccef89331f3718a029ae"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000279.jpg",
+      "sha256": "f23b40de5eb71b001c1168ebe29e45ba2403eb42870797b267e898efc82441d7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000280.jpg",
+      "sha256": "b6fb26c6965186ef926b0471d554d29c4a3d2dbc517896823669e7270650d563"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000281.jpg",
+      "sha256": "99574674410043de17a3d5993bf4d4a1248a4c9d5c3d00c81d2523f2be71cbdb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000282.jpg",
+      "sha256": "8250716cb4cf8092c2a8ff1a1693df5f23433948f6170a8807455a913c86dd52"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000283.jpg",
+      "sha256": "a5a900e63e4a562842b5b2d7316c9851ac78b6296385d7610230d198c2f6b6c7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000284.jpg",
+      "sha256": "bd84c600ba77aad24cd25b41c1308c598a1ad08d06fac2b9318d8a28ce4b16b0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000285.jpg",
+      "sha256": "d48aa229c76a0a760b89623643b65c660604cbc148b1adb0a1b68cd6737c89c3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000286.jpg",
+      "sha256": "53eb643d3128bb5677fbbad9c2cbe54a05540b552b70b56be09b363db0be28db"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000287.jpg",
+      "sha256": "2c46e660b89c006c5680d0e5451265c3c29b23b196477897c76ed9d8f1c05c90"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000288.jpg",
+      "sha256": "f4b34d22aeb948e3362a5514fb9ca187dcccb647a2bb8b46f4ee8fddd5cc88ab"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000289.jpg",
+      "sha256": "bde5bba5d51fb4caa62dbdb75e412297f782e5191f86ce1e4f92550cf739b662"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000290.jpg",
+      "sha256": "f7d6b3acb2e59c894a84e134275406a8ce65478691d4fdef49c119b57fd8eba9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000291.jpg",
+      "sha256": "fc68e7a60c6f79dc0182b1eb666e74da5c803a4940d8f69dfee9b866411d84ab"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000292.jpg",
+      "sha256": "3136cd1446c0972804f36194e99b2ee60aa5398e70ff552830060c2665f87845"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000293.jpg",
+      "sha256": "06075ec6e598cab8667a22e3dc800f0b908768f9fff386c2bf30c9a7f12dfa36"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000294.jpg",
+      "sha256": "b965f12c6ed6d4a2f3f219787039b9c2b8b598fb4de34dc6a69301dca9cd4528"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000295.jpg",
+      "sha256": "d3dfe901de153dabfc7b736c40f0b11799208f44f03a7145ed66a193c3c30ba7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000296.jpg",
+      "sha256": "7f5232a3387ac7767a04f4c59fd3e36e827282377e3ab73a5ea7b53e4ba2dc3c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000297.jpg",
+      "sha256": "7ff5c96c892c46d39a063472df9c453f0f9936aa20413a42f670b4b4b8903e27"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000298.jpg",
+      "sha256": "1d8d3163746c6713b61f0ad82ef8c344617e891338b89e319bcdd8c603548be5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000299.jpg",
+      "sha256": "1677218378428c673fc23950e65eeaa0c852384afaa0cfb4670793c2c84a190f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000300.jpg",
+      "sha256": "d6fa418c608a871bbe5a07cb98ffffb52543d7f268fe3d2dd562ec3048b2138b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000301.jpg",
+      "sha256": "03491bf83d61911ad4a00b703708fdabd300c12b1d07da418bfa021bb2dee18b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000302.jpg",
+      "sha256": "dad70bbfad047c8b50b6cab27bb8a439beb8a8857159e8bf00d801e1d806b3f9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000303.jpg",
+      "sha256": "ca6403b14d1fb090570764f11e0634d9901103364b16fa1df503c26fcd769021"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000304.jpg",
+      "sha256": "c03b6e99e71311ffea64b7c7894bd334e28e12a565d19d1ec9607332cbd3a325"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000305.jpg",
+      "sha256": "a859e13f67fbf7f9de0f8cf74e4becdb9323fd480b5eeed2e65148111892d5a7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000306.jpg",
+      "sha256": "eb0de1832e5513e43d2cef99bbfed5337b12b88fe05cdd939a6160b4524c6c78"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000307.jpg",
+      "sha256": "0a70411633498f2545de6bc087141d37871619a97e7a1e6b0fb3d25d2e05dc21"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000308.jpg",
+      "sha256": "0edee9caad5888881670072b9ad9359c727b37c842c07be27f1a3399a5ad489c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000309.jpg",
+      "sha256": "c42915581ea626cf99f3d68632a8b84d253be5dd1718afff50d70e92679467bb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000310.jpg",
+      "sha256": "7b4c7817fa13046b77daf62e9fffca26cbff558b0df0650e94dcbea32fcd1345"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000311.jpg",
+      "sha256": "6b31b1d3a27ce55777b8e6476a1409a51e5e2771cc175bb4062855322fa441e7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000312.jpg",
+      "sha256": "9c961546643ef1bf91797691c480491d7eeb9dbef24049846f1b2f44e4d8b6ab"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000313.jpg",
+      "sha256": "0c2debe86194a5a3f989eabb8f2d23e1311f509d695382f880cdd4a76587893d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000314.jpg",
+      "sha256": "346ca4bb399ee310a032fa1c8462c53cf4ae657b3a57d40ef62154b73a75a215"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000315.jpg",
+      "sha256": "ad34332a96b3a38d50a88190806325865be1db872653a03ce53a6240807a8bd2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000316.jpg",
+      "sha256": "ea804c3d9c5fc2f7d068d8f7d5c1b799ac9c6adae2990b6ea96740b64081bf7c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000317.jpg",
+      "sha256": "97875376f3f50b19fd20cf5357bde4e1a73eacc6bae771677f57ab810c6a81fb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000318.jpg",
+      "sha256": "230a701d72469fd461d24d14a0b62f702566f91c125c4526ea8dd9cc838698c9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000319.jpg",
+      "sha256": "c938cb51d2353644dc690b96e88db81479b8d218c199147bbe392ca879fa8ee2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000320.jpg",
+      "sha256": "681da179e07c088101acfa1033d904729b70e4c3ea827be1fd7f298581322524"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000321.jpg",
+      "sha256": "dab05762f4e51989d666ed53fb9f6aa99264c828e86c8f7a99be5e493aa47b6a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000322.jpg",
+      "sha256": "f24df1ee1ba1e1d432178dfafa746263f262c38f31afa1fe00a43915d7870e27"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000323.jpg",
+      "sha256": "faa020eccd196f4bd8349399c90e5f0ebb43572be0cd54ef5d9b7efef6651dfe"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000324.jpg",
+      "sha256": "c19688c78ed9eba325c6b28759f70ed0d49d9ea84c44aea6fad9cb7da02b156d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000325.jpg",
+      "sha256": "c263a0e240f16f9c7d4b540a432dd9080bc0687b42e5077a8d7dddbfea5c527d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000326.jpg",
+      "sha256": "19b4fcae02de90a03c74bc393e3e4bddfb64b597b8e9ebba2702aa06e8fd632e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000327.jpg",
+      "sha256": "174e10627367e57900120afd775079fe351ef95b516621f82b1487acfdc4b837"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000328.jpg",
+      "sha256": "3f3c4dc3cbe44ec602450a5d0536b891862199f5dbddd9440297b36752e4f575"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000329.jpg",
+      "sha256": "bf745b7998c6706f6a3c294694161faf7db196cb4ec73aee2853a668eea78326"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000330.jpg",
+      "sha256": "86ee02a804c99894043d025bb1dcda5af6d7f98c4a11c053c9e7190b1634f151"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000331.jpg",
+      "sha256": "7fd9d27c91e4e9fc9d5f349c6affbd57db5ab24800ec32ca88a54b6050b4b194"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000332.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000333.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000334.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000335.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000336.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000337.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000338.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000339.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000340.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000341.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000342.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000343.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000344.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000345.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000346.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000347.jpg",
+      "sha256": "5bf8b243f695828ef0e80735003e6fdbbf8f02f4333ea21f25fbdc19afeac13e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000348.jpg",
+      "sha256": "e1bdb447107d7c592a8f941ebceab6c6a1cc1a079c0dda10c91804a19e313708"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000349.jpg",
+      "sha256": "8559baf6dc39b4d7d63b130815cd2e56b25bac5bcd3d6e3bd52efe847db1f65c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000350.jpg",
+      "sha256": "5f645907e45de83c8edc54b80ac708c2a9ac26f832eeda06efa2b2d8a90c257f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000351.jpg",
+      "sha256": "0e76ad3aad9cb154eec9a21a1e25ba48782b5543bca97275517b65f5771f48d1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000352.jpg",
+      "sha256": "8b22883cce85caf6813e8e8c62acc023646926b30479cb13a656ba5593ed31f1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000353.jpg",
+      "sha256": "f7f55c3eb129d4cce6aedef86dfb843690fa96d25e350d48e29ecc9e07d0419a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000354.jpg",
+      "sha256": "5afd486535c04bcc9f3fe1d3864e00ac44baf73a4589ce556a6131af1a631c1f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000355.jpg",
+      "sha256": "6e05470b999697b038d150a0ea2cf820a67f42423ac4cc79fb7d8194e2775334"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000356.jpg",
+      "sha256": "7821f05358614ffef2467815c9b8180a42be6cba3cc69c05e96c809f725271dd"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000357.jpg",
+      "sha256": "c5041d3520172fd8ab866fe61e691c662ac137fb1da03fba253d7282da9c003c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000358.jpg",
+      "sha256": "851de4a093e1d2b343adfe06b2e32135eea0e0664f52c4d53ab71e04a382f3a1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000359.jpg",
+      "sha256": "5395fcec90c70867091612b7336a385b1ea6d8ed84f2f1152caa626c5444a921"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000360.jpg",
+      "sha256": "66492001243ed41bb486672d9b029c577913db3600038d8eaaf63608f95a0c40"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000361.jpg",
+      "sha256": "6a75c92636181da965b91b8cf8b008bf39ed6812efe5c8a510b67dc2f150849c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000362.jpg",
+      "sha256": "e244d5efe6d9e0440cc5dedcfecbc61aba1d34c0c043b4656ef30a34e11311e0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000363.jpg",
+      "sha256": "b420f5ee9a082881d4d5d9e66d6913aa120af312b7dc8923408b9fae1d04b8d5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000364.jpg",
+      "sha256": "02343d3490ecae9b3efa5196059b6e983934cb5641977092e58e095e141c9e9b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000365.jpg",
+      "sha256": "d7da4f76b6da97d3cee686237561084688a8e0a2e9bcf173c0245a5901f3f171"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000366.jpg",
+      "sha256": "e632d2eeacfb9bb6b04c810806fd77d0dcc78292126f38709033479035eae9c2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000367.jpg",
+      "sha256": "615415de142f9aff3fa2dd81e8b81d14c51dbd8187b07a5be69ec7a7a7d06527"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000368.jpg",
+      "sha256": "fd032b02db85603a63410c428e1768fddc951b9940cd72014bacd5600debd647"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000369.jpg",
+      "sha256": "b3a525ac03dde2569a062a5ba64ee04c1916e8302b48f1bb79e099aff33a8c4c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000370.jpg",
+      "sha256": "614304e3f483ac57d28125212e3f76884991012a03fc6f7b6da7f115480447c0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000371.jpg",
+      "sha256": "121b2d0c26d7cb0379154a0b619f62b0463235bd55242e018be55cfb9d0c2b00"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000372.jpg",
+      "sha256": "bbf62b20260d262d7ed43fd7f415088789f820b2240589ea85f44705812bd869"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000373.jpg",
+      "sha256": "ac56d074bf25491dd827cbebcc26af89b7929225bf1559bd1624e78e75e7770c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000374.jpg",
+      "sha256": "7298fa766e7790ace0f00dbd1f93755a5959ca341e6066b85a62bbb233036b0a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000375.jpg",
+      "sha256": "5f26868acae0871d1ee977e562b9449737ac0da77a79eea4dcecca7bbee8d246"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000376.jpg",
+      "sha256": "059382b03b2b61a183c7b738d05c7c0550a05f35613ea40acaba07725ecc2cc9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000377.jpg",
+      "sha256": "5027e8c478daabc6cb79eaba70e4806c5175a18b58ea1c666ccc5a3f96e9bd26"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000378.jpg",
+      "sha256": "d3bfc8bdbe34125998b726caec7c13c63e77c9adc34be30d89cc91d9979f7aa1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000379.jpg",
+      "sha256": "89e52f50ec3e9d7736c947b827671dbc32cf7485fefab30479f44e96480b294c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000380.jpg",
+      "sha256": "9537fbdc314892754258679b85ac45b4a37507cfb0e4ecd03433c1f4d394c8f3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000381.jpg",
+      "sha256": "c30e7a549c057337efeda007461acaf1f8f76fd564fb952e253cf295f4ae9239"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000382.jpg",
+      "sha256": "bab7e9c6781377346fb6e8dd628b00f45da739745a5305173841ca70d4cf7cab"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000383.jpg",
+      "sha256": "7ef145704a18e6d94816c8675901b733c911ded18a794326dfb0c7a3db1f284d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000384.jpg",
+      "sha256": "3951e6ea399765fd6ab2c5b78ecc9fb461139f1a7a58cecb941883b59e8af357"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000385.jpg",
+      "sha256": "3951e6ea399765fd6ab2c5b78ecc9fb461139f1a7a58cecb941883b59e8af357"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000386.jpg",
+      "sha256": "3951e6ea399765fd6ab2c5b78ecc9fb461139f1a7a58cecb941883b59e8af357"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000387.jpg",
+      "sha256": "3951e6ea399765fd6ab2c5b78ecc9fb461139f1a7a58cecb941883b59e8af357"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000388.jpg",
+      "sha256": "3951e6ea399765fd6ab2c5b78ecc9fb461139f1a7a58cecb941883b59e8af357"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000389.jpg",
+      "sha256": "3951e6ea399765fd6ab2c5b78ecc9fb461139f1a7a58cecb941883b59e8af357"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000390.jpg",
+      "sha256": "3951e6ea399765fd6ab2c5b78ecc9fb461139f1a7a58cecb941883b59e8af357"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000391.jpg",
+      "sha256": "3951e6ea399765fd6ab2c5b78ecc9fb461139f1a7a58cecb941883b59e8af357"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000392.jpg",
+      "sha256": "277a207fe0d8dbebbfe679025552d5e99070e98282a25e4a1664bf6a46e974b2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000393.jpg",
+      "sha256": "a0644104619e63e948985eea3f85ea4b3bcd1d21aac940b12e498a1101fae6b8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000394.jpg",
+      "sha256": "be97b5a0750c28a807acb7e8f4fdd5ba0a03527a74dcbc0a8875a79e2dacd922"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000395.jpg",
+      "sha256": "3f4babb771289f218494f0c5c7ad1e6afe875ef085e97637537c6b8569c07ed7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000396.jpg",
+      "sha256": "e7b2622e88000493d78951626eb77d4356e1dd41dce4eff592e382b748134807"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000397.jpg",
+      "sha256": "d7efb2a162efadf0e16841f83de65aa42034762cb7593a914fa260862b19f053"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000398.jpg",
+      "sha256": "92c30772561a11ac400eac87bb6fa1427284b07dc07e7768e6e6aed072febdea"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000399.jpg",
+      "sha256": "276056eca71c43fb8a4ad2c9feafd96140f17bb7540297e673f4e1c7abce74cc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000400.jpg",
+      "sha256": "10443b1bc49124ca512bd59e8438209797c048845b916ca046c52251eaa07bfa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000401.jpg",
+      "sha256": "edbe564ba4096ad5e7267505581cb5337ad703481c21085b139571f409810fa9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000402.jpg",
+      "sha256": "9cfc2b9ec2523c253d022b21734200df3496eead23f190151eaad2781b5d51a8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000403.jpg",
+      "sha256": "c8afd70e24d2ca876aa2d0ad8d685a09a746ab8f9f989ab1ae1036f3804ade39"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000404.jpg",
+      "sha256": "30f5557ef30cbec68a955f2540a6d9b5cf710fe4ca7f278db0aa67296a5109ad"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000405.jpg",
+      "sha256": "30f5557ef30cbec68a955f2540a6d9b5cf710fe4ca7f278db0aa67296a5109ad"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000406.jpg",
+      "sha256": "30f5557ef30cbec68a955f2540a6d9b5cf710fe4ca7f278db0aa67296a5109ad"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000407.jpg",
+      "sha256": "30f5557ef30cbec68a955f2540a6d9b5cf710fe4ca7f278db0aa67296a5109ad"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000408.jpg",
+      "sha256": "30f5557ef30cbec68a955f2540a6d9b5cf710fe4ca7f278db0aa67296a5109ad"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000409.jpg",
+      "sha256": "30f5557ef30cbec68a955f2540a6d9b5cf710fe4ca7f278db0aa67296a5109ad"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000410.jpg",
+      "sha256": "30f5557ef30cbec68a955f2540a6d9b5cf710fe4ca7f278db0aa67296a5109ad"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000411.jpg",
+      "sha256": "924a9733a584010ff8dfb0396fed6070c846bc8d4d36d4e8f248f531cb456262"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000412.jpg",
+      "sha256": "115284c50f8f76efc97bc6ea9644417dc718d953431cd813c756f0cc986743f5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000413.jpg",
+      "sha256": "98dcb9a98524b09130ed84aae2ab16e3f2d2197f21f3c13450fd603df2708de9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000414.jpg",
+      "sha256": "1e87414d76e516c57915f3262b9486c931f00be51623b6134a33512eb6de716e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000415.jpg",
+      "sha256": "1e87414d76e516c57915f3262b9486c931f00be51623b6134a33512eb6de716e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000416.jpg",
+      "sha256": "e9c48d418b592b632a51c4277004399406d57aa97058420ca96ae82d89c62688"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000417.jpg",
+      "sha256": "3f9f654944d0a9cb22360b4346ea38b787f6c03b92b481e36d64efa9c2896091"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000418.jpg",
+      "sha256": "3f9f654944d0a9cb22360b4346ea38b787f6c03b92b481e36d64efa9c2896091"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000419.jpg",
+      "sha256": "95ed0d70e556c69be10b6537beaea59173ab217f8968285c8e9343d2e137630c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000420.jpg",
+      "sha256": "6a593773d37086d5259b5cf0f6f54380b56e5c4c5dc32b874d18af7721d5a28c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000421.jpg",
+      "sha256": "731fd49369e8270c8ee2fe393136a394986c3fde21acaf89be4404e3e543eeb8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000422.jpg",
+      "sha256": "d66fd7ededcf0dbe4f45c8fc340df0fbe232ad91a21b90fae9192d62c6a148a6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000423.jpg",
+      "sha256": "a6965557f35f3e23949abf1ba1ff0bd14d487f633ddec3ba6a76b7940c918412"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000424.jpg",
+      "sha256": "059cdeadd925863cb0504c984a79c316cb61a1284dc1757c4fa96e5c71ccc671"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000425.jpg",
+      "sha256": "2eb2c863955a659c402b73d2129f621185e283652234276e01e95e6db89f7bff"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000426.jpg",
+      "sha256": "db03bcc0a9514cfcfa02e4a2353fb963bd6d93db0d8c0a822a3a50c91e693964"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000427.jpg",
+      "sha256": "736b6a68613968360f34bdb33b433d3ec3051d4c55622e82da1d42f63e6e69f4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000428.jpg",
+      "sha256": "c5f4a092804ed9f5b434351154b4e7507e93a2ef603374ffa220272fdd82db89"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000429.jpg",
+      "sha256": "a1fcd7e63e9b85a65edc256fc0bda7c1dcd8e912ee3113758474f72f5b414007"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000430.jpg",
+      "sha256": "02bf5b5f522931a94a818836a7176ad8df68372c6bf7edcde720ae2777b54bd1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000431.jpg",
+      "sha256": "82a4ef33fc2407d3e6d601a16d78482e2c75de5017fe866dbb96b551a48f38b2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000432.jpg",
+      "sha256": "6faaf5ab92b803e8b70bd873ec6b931b83ebe64cc506de9c8ae6e00ffa2d2156"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000433.jpg",
+      "sha256": "9aa5295729478124e8535e1ec976ad59e46aeea7932559d382f752826b311ae7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000434.jpg",
+      "sha256": "17e3c404e2961b0ecf43e8e94bf0f8f7bbe2b3df759f50371c854370e9b9eba5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000435.jpg",
+      "sha256": "9e1e9e0329eed1d192e4b4495cd1a5428d71e82da84de17f76cb951b248753f2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000436.jpg",
+      "sha256": "2a98077653016734bffbb330324e95dc99e13a03e616cf8ac9bfe919a1780a8e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000437.jpg",
+      "sha256": "fc8312a80edf6c4d5a1afb46c6740200785772bc1b0057636a20b6f2a2f8b0b5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000438.jpg",
+      "sha256": "4db49fabab80fc997b93a353c21d7899ac05043a8ebcf166d23aa2659e958cc6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000439.jpg",
+      "sha256": "9251bb78a9b84a7a572651bfd4f06d1f2ac0822fe527064ac4c76115285870b5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000440.jpg",
+      "sha256": "215ff3993115376c72433faf6f97a5cfe74def6dcec5d2c5874b6999341f6f9e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000441.jpg",
+      "sha256": "a9ede7b416363454385e6e4a625f2bf7da391a759be85e5853840697835ed700"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000442.jpg",
+      "sha256": "ec872f1e5e34ea9aa5ab33a4f15df6331a1a556cdbc9653f44a2fb547e5d7131"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000443.jpg",
+      "sha256": "87478dfaffb20d9d64a39683b1c1504dac0332fa34d34c06d319e4107e4850fc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000444.jpg",
+      "sha256": "9351ddbd0bb77b53d3b5fa7c365609157c8442d291b85a336cc257075af9863f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000445.jpg",
+      "sha256": "29b2e71f31bae8a1e663a18a0a1bd80e53ba101ac0dc73ae79e41ecd1e8e8dfe"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000446.jpg",
+      "sha256": "80784f31093d1b842228fc61d4722d19188fc311c13c059bef5842f3ef05b98b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000447.jpg",
+      "sha256": "e14dd138c8c4113f3f26fcf4c6ab02885e442283a025386cdeb225ee16ca0524"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000448.jpg",
+      "sha256": "d96c43993ae2aa67a22050068fba4fc680ad33e97c306321775b52fff85a6fd0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000449.jpg",
+      "sha256": "dd8238926559a299d319b4135835d8a64881e98a9026a318375fcf7d96cf149a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000450.jpg",
+      "sha256": "db0d259c2d5ee9066348066bf4b9723a2b550aa337feee9c38e6883998743ca1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000451.jpg",
+      "sha256": "39fac98aaad94abef6f8c192491a01e1532a4e912a1c5e2d19066fe39959fb9e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000452.jpg",
+      "sha256": "82fa9e82a70585520d100ba268efaf8aa42adf97a98cdbcaefe6359c2ce43d6a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000453.jpg",
+      "sha256": "897bade57531f4badf88470e1a0d9750f8a5cb034101b6e2f85c2bd7186f159c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000454.jpg",
+      "sha256": "a5ca37bf930efd90b4f1e288c64e8303960409ff5d2558706c0af8b3c8037797"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000455.jpg",
+      "sha256": "078bd2913a263fb65abdf84115d89b3e3c1b8aea4697dc1cceab8601c06d48d0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000456.jpg",
+      "sha256": "63ff313307ac1e17c1aeb80944289047eba6aa02b701de5d50275deaf8cc20fc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000457.jpg",
+      "sha256": "1f594f0fad398de0ff1f0f9419f7bf5cba1b93b781a0da5dce8b2528c84eee05"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000458.jpg",
+      "sha256": "3402bd3b51f5522f782822f302d679f6ba0131430a758da651d9998e3dbf6ec4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000459.jpg",
+      "sha256": "c91e8dd0734dc7d69d5a6d7af3c3e8f633b6870f6e428e1bb81cc9cf1db9e234"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000460.jpg",
+      "sha256": "24d28a60b9c60fed140eec0312ba7cc9bfcdec67f1826655c08632a45886b9ad"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000461.jpg",
+      "sha256": "7a46de42538c82058157c7b4983ccbf71410689be683227433bc3eb5d9e217d1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000462.jpg",
+      "sha256": "9705bc73c88f29b87d08c6bab2c7c14f4df953bc7aeb5a3a5a464d90fd72f585"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000463.jpg",
+      "sha256": "4928a61fe3c17d63d37ae5d5f56d3b7b648f2fe039964aa21d5185a3b500ff42"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000464.jpg",
+      "sha256": "8ae1a10f34fbf99a084876e693fe58a3631594aadd0778bf0e4c956e701a44db"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000465.jpg",
+      "sha256": "219a8a6a7b16bcf2ed1bb304ec0c0f8e9531b323691fb70f5b7842a0a3051221"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000466.jpg",
+      "sha256": "2951831f58f1c0748240c2b3a32ac8a15d89c0e796386a07ce3d6e1f98ad0ed6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000467.jpg",
+      "sha256": "748903d7032cdbaab25a0e6620dfbb9746cf9e4ea8e5297d213977bbea8b9f79"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000468.jpg",
+      "sha256": "ff8f3a1b712d5a8360ec3e9f60afa37c7ee0b7ec4b61be2bac038aed94dbe64d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000469.jpg",
+      "sha256": "b37295a5caa793c119c2d683296ffc40c6b0080d359b6760b412944edfc924a5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000470.jpg",
+      "sha256": "dbf8887fd9acd0698d77a2074b5506b52e5f7671aab7453b25564d2297c474f1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000471.jpg",
+      "sha256": "1838449eaff05d4fe69b234801ad38fd6b17ef553f3d19a84b872d8b1da49261"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000472.jpg",
+      "sha256": "af2a5ba22d65d5ac0366c9117bf635645c10de50f4cd067df04bbe1ac1f9cb5a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000473.jpg",
+      "sha256": "47db36b1927a7f9ce44048f63f5142e85f9182b2b866649b935ad2de0b38d6e9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000474.jpg",
+      "sha256": "704568907c7eb11d00a0a27b18b2da4701bea809533a2de100a15ac7ba6802a5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000475.jpg",
+      "sha256": "fd0a8f9d1d55fc5f96cd0c9e717a535b88fb33718e757e36149b1aab2a1b4fc8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000476.jpg",
+      "sha256": "7eef49c80815007f29eb4194f8c8b6b736a17986ccbbd605f4f7f2421341ad72"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000477.jpg",
+      "sha256": "e01e6a5854b8275e466bf7b3d3f85ae7a410598d819587b36d6eb611ee2c1740"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000478.jpg",
+      "sha256": "e744a5365ff1ddd53d3691bb6d7108fdc9170b2085c800f3941bacf830456cb4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000479.jpg",
+      "sha256": "08b9d50774a8cc0b882e51633dfd0a2846fa49e70bcb0984f7f93b8ce3f33fd9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000480.jpg",
+      "sha256": "08b9d50774a8cc0b882e51633dfd0a2846fa49e70bcb0984f7f93b8ce3f33fd9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000481.jpg",
+      "sha256": "26eaeabac5169aeffdab3ecee7404eae92d8ceaeab51c5f3fab2d3eb81111a61"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000482.jpg",
+      "sha256": "26eaeabac5169aeffdab3ecee7404eae92d8ceaeab51c5f3fab2d3eb81111a61"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000483.jpg",
+      "sha256": "09b739f947e55b664ba7b8d1a0bcb6d58ba234bf175cf351231c50df77d27e9f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures/frame-000484.jpg",
+      "sha256": "09b739f947e55b664ba7b8d1a0bcb6d58ba234bf175cf351231c50df77d27e9f"
+    }
+  ],
+  "sampling": "All plan02 frames plus prior boundary775 frames, current lint anchors/persistence and complete08 required scope10200:10380. Preview only.",
+  "scope": "Extraction only. No picture viewing, listening, fine-sync or independent AV acceptance."
+}

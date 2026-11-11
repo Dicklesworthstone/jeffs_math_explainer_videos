@@ -1,0 +1,67 @@
+{
+  "time": "2026-11-10T22:14:36.624675+00:00",
+  "inputs": {
+    "narr_csd01.out.json": "74be5fa78d83ffdd331f33195a853c49d6f52ea6e34f621a6212712933ec5c68",
+    "narr_css01.out.json": "5e7492a5861d9bb2d99a2e9d93634f0faea318e0945a14cb6d1de2dde7546e30"
+  },
+  "expected_cues": [
+    "01_1",
+    "01_2",
+    "01_3",
+    "01_4",
+    "01_5",
+    "01_6",
+    "08_1",
+    "08_2",
+    "08_3",
+    "08_4",
+    "08_5"
+  ],
+  "comparisons": [
+    {
+      "probe": "narr_csd01.out.json",
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-delivery849/narration",
+      "cue_count": 11,
+      "equal": true,
+      "selected_sha256": "1a47071f259a3ab93bc4f3f69564cb0740b10793baf05bb244a9d1ed5c1f23a0"
+    },
+    {
+      "probe": "narr_csd01.out.json",
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration",
+      "cue_count": 11,
+      "equal": true,
+      "selected_sha256": "1a47071f259a3ab93bc4f3f69564cb0740b10793baf05bb244a9d1ed5c1f23a0"
+    },
+    {
+      "probe": "narr_csd01.out.json",
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind313/narration",
+      "cue_count": 11,
+      "equal": true,
+      "selected_sha256": "1a47071f259a3ab93bc4f3f69564cb0740b10793baf05bb244a9d1ed5c1f23a0"
+    },
+    {
+      "probe": "narr_csd01.out.json",
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration",
+      "cue_count": 11,
+      "equal": true,
+      "selected_sha256": "1a47071f259a3ab93bc4f3f69564cb0740b10793baf05bb244a9d1ed5c1f23a0"
+    },
+    {
+      "probe": "narr_css01.out.json",
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-repair-delivery309/narration",
+      "cue_count": 11,
+      "equal": true,
+      "selected_sha256": "1a47071f259a3ab93bc4f3f69564cb0740b10793baf05bb244a9d1ed5c1f23a0"
+    },
+    {
+      "probe": "narr_css01.out.json",
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration",
+      "cue_count": 11,
+      "equal": true,
+      "selected_sha256": "1a47071f259a3ab93bc4f3f69564cb0740b10793baf05bb244a9d1ed5c1f23a0"
+    }
+  ],
+  "found_bug": "Worker comparator selected top-level phrase timing keys, but cue timings are nested under cues. Earlier empty-subset equality is not evidence. Root compared actual nested entries with exact eleven-cue coverage; all six folders agree.",
+  "worker_action": "Corrected comparator plus actual timing mutation control requested; original preserved.",
+  "listening_acceptance": false
+}

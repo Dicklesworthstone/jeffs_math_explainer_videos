@@ -1,0 +1,10 @@
+{"batch": 8, "viewed_utc": "2026-11-10T20:53Z",
+ "sheets": {
+  "0034": "02 27.367-35.783 s. 02_3: the turned grid fades (27.4 s); a point at '1' (27.7 s); a yellow half-turn arc from 1 through i to -1 with a dot at -1 and labels 'i', '-1', '1' (30.0 s); box 'i . i = -1' (33.1 s). Arc radius equals the unit (62 px). '-1' uses the short minus (L1). No other defect.",
+  "0035": "02 36.0-44.067 s. 02_4: arc fades (36.7 s), grid and F return (37.0 s). Caption 'multiplying by w: stretch by |w|, turn by the angle of w'. Arrow 1+i ends on the grid corner (1,1), with an angle arc, '|1 + i| = sqrt2 ~ 1.414' and 'angle: 45 deg' fading in (40.9-44.1 s). Values correct. The arrow crosses the F's bars; both stay readable. In the caption, w is upright roman while formulas set variables in italic: see L4.",
+  "0036": "02 45.483-52.733 s. Box 'names: length = modulus |w|, angle = argument arg w' along the bottom, inside the frame. The grid is multiplied by 1+i (mid-turn at 50.0 s; settled at 51.0 s): corners (1,1) -> 2i and (1,-1) -> 2 land at 2 units (124 px), and the F's top bar runs from (-0.75,1.05) to (-0.15,1.65) as (1+i) times it requires. The names box fades out at 52.4 s. Upright w again (L4). No other defect."
+ },
+ "findings": [
+  {"id": "L4", "sheet": 35, "slot": 5, "frame": 8711, "severity": "Low (typographic consistency)",
+   "text": "Variables in prose captions are set upright in the text face, while the same symbols in formulas are italic: 'multiplying by w: stretch by |w|, turn by the angle of w' (02_4, from 40.0 s, f8711) and 'names: ... modulus |w|, ... argument arg w' (45.5 s, f9040), against italic 'z = x + iy', '3 + 2i', 'i . i = -1' and '1 + i' in the same chapter. 'every point times i' (02_2, f7571) is the same. It is readable; a viewer may not match the upright w to the italic w of later formulas."}
+ ]}

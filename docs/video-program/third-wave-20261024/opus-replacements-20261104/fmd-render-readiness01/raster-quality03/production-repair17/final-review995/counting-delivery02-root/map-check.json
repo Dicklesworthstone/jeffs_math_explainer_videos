@@ -1,0 +1,22 @@
+{
+  "checked": 28,
+  "changed": [
+    {
+      "cue": "11_5",
+      "old_line": 440,
+      "new_line": 513
+    },
+    {
+      "cue": "11_6",
+      "old_line": 503,
+      "new_line": 584
+    },
+    {
+      "cue": "11_8",
+      "old_line": 603,
+      "new_line": 684
+    }
+  ],
+  "map_sha256": "53145f04a458e4ef1b14a02fdf1166cb6c6f63fa4ece4d2c71de79a926623bd2",
+  "scope": "Exact source markers and cue intervals checked; no audio changes or hearing acceptance."
+}

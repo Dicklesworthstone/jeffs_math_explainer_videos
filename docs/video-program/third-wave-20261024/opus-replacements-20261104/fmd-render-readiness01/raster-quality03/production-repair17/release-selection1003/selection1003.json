@@ -1,0 +1,37 @@
+{
+  "utc": "2026-11-10T18:39:00.064751+00:00",
+  "master": {
+    "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/complex-analysis-master993.mp4",
+    "sha256": "80244e88ca5970d0da07a5d96d6d825ae1851bae703d75bd200f8810b04e7b90"
+  },
+  "delivery_captions": {
+    "srt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/release-selection1003/complex-analysis-delivery.en.srt",
+    "vtt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/release-selection1003/complex-analysis-delivery.en.vtt",
+    "blocks": 579,
+    "same_word_stream_as_native571": true,
+    "srt_vtt_equal": true,
+    "max_cps": 19.23076923076923
+  },
+  "decision": "Retain existing347/354 delivery adoption; native571 remains proof export. Supersedes earlier TODO calling571 delivery count.995 explicitly checks both sets. Final playback checks remain.",
+  "native_crops_actually_viewed": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/release-selection1003/b1-72-native.png",
+      "sha256": "4a3149b7f17a883cd89b1ab7afaf6c455266d747188f825b273a353017195ce0",
+      "viewed": true
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/release-selection1003/b1-79-native.png",
+      "sha256": "6da4571d00ce107cb5af34d62efe6951e0a7e2026f08596391c3e765675630f9",
+      "viewed": true
+    }
+  ],
+  "crop_observations": "At72s/79s the eight inner yellow heads remain distinct from green ring; p/a/P clear. Two stills, not motion proof.",
+  "publication_times_evidence": {
+    "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/publication-chapters-checked993.json",
+    "sha256": "6ef775a5255d9ad96e022e672b80417f37762efb9b5cb3d8fe3da41a214a7ad9"
+  },
+  "chapter09_provenance": "Use actual968 movie167aba1f, delivery849 sourcecd1900aa, and root/independent969 reviews; frozen993 historical313 labels retained. Independent helper968 addendum requested.",
+  "release_accepted": false,
+  "listening_accepted": false,
+  "fine_sync_accepted": false
+}

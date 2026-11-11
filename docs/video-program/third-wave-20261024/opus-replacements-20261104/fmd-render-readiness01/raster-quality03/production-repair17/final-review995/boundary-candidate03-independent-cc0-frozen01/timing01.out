@@ -1,0 +1,19 @@
+## CC1 timing-skeleton01.py (8fcb78d0, frozen): base cd1900aa vs candidate03
+base events: 228  candidate events: 228
+base kinds: {'fade_in_all': 84, 'fade_out_all': 42, 'kit.hold': 5, 'kit.music_breath': 1, 'line.until': 3, 'line.wait_for': 31, 'line.wait_sentence': 16, 'names_now': 1, 'pause': 2, 'predict': 2, 'say(&kit, stage, ': 9, 'stage.add_updater': 6, 'stage.clear_updaters': 6, 'stage.play': 8, 'tween_linear': 8, 'wait_until': 4}
+TIMING SKELETON IDENTICAL: True
+## candidate01 511f4492 vs candidate03
+base events: 228  candidate events: 228
+base kinds: {'fade_in_all': 84, 'fade_out_all': 42, 'kit.hold': 5, 'kit.music_breath': 1, 'line.until': 3, 'line.wait_for': 31, 'line.wait_sentence': 16, 'names_now': 1, 'pause': 2, 'predict': 2, 'say(&kit, stage, ': 9, 'stage.add_updater': 6, 'stage.clear_updaters': 6, 'stage.play': 8, 'tween_linear': 8, 'wait_until': 4}
+TIMING SKELETON IDENTICAL: True
+## positive controls (film part edits only)
+wrote T1-bar-fade-035-boundary.rs
+wrote T2-cue-phrase-boundary.rs
+## T1 bar fade 0.3 -> 0.35
+base events: 228  candidate events: 228
+first difference at 101 base ('fade_in_all', '0.3') candidate ('fade_in_all', '0.35')
+TIMING SKELETON IDENTICAL: False
+## T2 cue phrase changed
+base events: 228  candidate events: 228
+first difference at 98 base ('line.wait_for', 'Only now do we shrink the small circle') candidate ('line.wait_for', 'Only now we shrink the small circle')
+TIMING SKELETON IDENTICAL: False

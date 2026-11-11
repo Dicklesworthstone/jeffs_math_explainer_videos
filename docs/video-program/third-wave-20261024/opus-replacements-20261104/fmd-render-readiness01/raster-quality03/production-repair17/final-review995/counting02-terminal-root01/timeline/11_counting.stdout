@@ -1,0 +1,3 @@
+{"chapter_scope": null, "consumer": "render", "directed_caption_segments": [], "listening_acceptance": false, "plan_mode": "external-ui", "prediction_holds": [], "promotion": false, "selected_cues": 8, "topic": "complex_analysis_visual", "verified_cues": 105}
+11_counting    11932 frames   846.3s    14.1 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/csd-native-counting-timeline02/timeline-output/timeline/11_counting.mp4
+total          11932 frames   846.3s    14.1 fps

@@ -1,0 +1,65 @@
+--- csd-final-after-master995.py
++++ csd-final-after-master-repaired01.py
+@@ -1,7 +1,9 @@
+-"""995: wait for actual master993 success, then serial strict verification and both picture parts.
++"""Successor of csd-final-after-master995.py (9a055c26): wait for the actual repaired master's success, then serial
++strict verification and both picture parts through the adopted 995 successor (its pins set; names from it).
+ Prepared only. Does not create visual, listening, independent AV or publication acceptance.
+ """
+ import hashlib
++import importlib.util
+ import json
+ from pathlib import Path
+ import subprocess
+@@ -9,9 +11,8 @@
+ 
+ D=Path('/data/projects/jmev-stroke-probe-20261106')
+ Q=D/'qualification01/production-repair17'
+-MASTER=D/'jobs/csd-combined-master993'
+-HELPER=Q/'csd-final-verify995.py'
+-HELPER_SHA='69fa3ded0960f6344f3cbad557caf951a769dfe7e0d57426a614ea8d7dd2b7a2'
++HELPER_NAME=None   # UNRESOLVED: Q name of the adopted 995 successor (CC3 csd-final-verify-repaired01.py)
++HELPER_SHA=None
+ 
+ def read(p):return json.loads(p.read_text())
+ def sha(p):
+@@ -24,9 +25,16 @@
+     return r
+ 
+ def main():
++    assert HELPER_NAME and HELPER_SHA,'unresolved pins: HELPER_NAME, HELPER_SHA'
++    HELPER=Q/HELPER_NAME
+     assert sha(HELPER)==HELPER_SHA
+-    for job in ('csd-final-verify995','csd-final-pictures995-overview','csd-final-pictures995-native'):
+-        assert not (D/'jobs'/job).exists(), 'Existing job; do not duplicate: '+job
++    spec=importlib.util.spec_from_file_location('verify_repaired',HELPER)
++    h=importlib.util.module_from_spec(spec);spec.loader.exec_module(h)
++    assert not h.unresolved(),h.unresolved()
++    MASTER=h.MASTER
++    jobs=[h.VERIFY]+[h.part_paths(p)[0] for p in h.PICTURE_PARTS]
++    for job in jobs:
++        assert not job.exists(), 'Existing job; do not duplicate: '+job.name
+     deadline=time.monotonic()+43200
+     while time.monotonic()<deadline:
+         try:r=read(MASTER/'resource-receipt.json')
+@@ -35,13 +43,13 @@
+             success(MASTER/'resource-receipt.json')
+             break
+         time.sleep(15)
+-    else:raise SystemExit('Master993 not complete; no verifier launched')
+-    # Each mode rechecks pinned master993 gates and the complete immutable closure.
+-    for mode,job in [('check',None),('launch-verify','csd-final-verify995'),
+-                     ('launch-pictures','csd-final-pictures995-overview'),
+-                     ('launch-pictures','csd-final-pictures995-native')]:
++    else:raise SystemExit(MASTER.name+' not complete; no verifier launched')
++    # Each mode rechecks the pinned repaired master's gates and the complete immutable closure.
++    for mode,job in [('check',None),('launch-verify',jobs[0]),
++                     ('launch-pictures',jobs[1]),
++                     ('launch-pictures',jobs[2])]:
+         assert sha(HELPER)==HELPER_SHA
+         subprocess.run(['/usr/bin/python3','-I','-B',str(HELPER),mode],check=True)
+-        if job:success(D/'jobs'/job/'resource-receipt.json')
+-    print('995 technical verification and both picture extractions finished; actual picture, motion, listening, fine-sync and publication review remain open',flush=True)
++        if job:success(job/'resource-receipt.json')
++    print('Technical verification and both picture extractions finished; actual picture, motion, listening, fine-sync and publication review remain open',flush=True)
+ if __name__=='__main__':main()

@@ -1,0 +1,25 @@
+{
+  "utc": "2026-11-11T00:27:19.484056+00:00",
+  "chapter": "15_logarithm_bridge",
+  "master_sha256": "fe33b9e48bcb456b3cad41f7651bd8e5f8e3bb1b7c6deba657e6b4d9e5fa2b80",
+  "pictures_record_sha256": "1c64e3e6a97c2bd8c570d4218c29e38af72267ec127fe38998bd65516a7a703a",
+  "pictures_viewed": 37,
+  "sheets_viewed": 5,
+  "sheet_indices": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "sheet_hashes_verified": true,
+  "observations": [
+    "Five equivalent descriptions and inverse counterparts remain distinct and legible in sampled settled views.",
+    "Log-series endpoint condition shown; periodic complex exponential introduces inverse ambiguity.",
+    "No persistent concrete clipping or overlap defect found."
+  ],
+  "limits": [
+    "Selected stills displayed at1440x1709 from1920x2280 only.",
+    "No continuous motion, listening, fine-sync or independent whole-film acceptance."
+  ]
+}

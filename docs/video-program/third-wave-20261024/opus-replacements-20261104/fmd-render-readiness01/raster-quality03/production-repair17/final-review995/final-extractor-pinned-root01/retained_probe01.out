@@ -1,0 +1,7 @@
+runner 7cafacfa
+old 5fa242b8 01_the_bump retained 120 frames; required samples 89 ; files bound 6
+old 5fa242b8 08_loop_sums retained 484 frames; required samples 407 ; files bound 6
+old 5fa242b8 09_boundary REFUSED KeyError 'viewed_frame_indices'
+new 01_the_bump retained 120 frames; required samples 89 ; files bound 6
+new 08_loop_sums retained 484 frames; required samples 407 ; files bound 6
+new 09_boundary retained 1506 frames; required samples 1506 ; files bound 8

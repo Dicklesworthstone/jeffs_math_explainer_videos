@@ -1,0 +1,83 @@
+{
+  "started": "2026-11-11T00:23:23.455633+00:00",
+  "phase": "native",
+  "command": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-css-render-worker-20261107/qualification01/exponential933/pictures1008.py",
+    "run",
+    "--phase",
+    "recheck"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-11T00:23:25.100544+00:00",
+      "free_bytes": 74439823360,
+      "work_bytes": 7226068992,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:23:36.273070+00:00",
+      "free_bytes": 74439774208,
+      "work_bytes": 7226068992,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:23:47.436186+00:00",
+      "free_bytes": 74439770112,
+      "work_bytes": 7226068992,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:23:58.556208+00:00",
+      "free_bytes": 74437464064,
+      "work_bytes": 7226068992,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:24:09.700044+00:00",
+      "free_bytes": 74437382144,
+      "work_bytes": 7226068992,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:24:20.823064+00:00",
+      "free_bytes": 74437353472,
+      "work_bytes": 7226068992,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:24:27.613808+00:00",
+      "free_bytes": 74437246976,
+      "work_bytes": 7226097664,
+      "target_bytes": 12419194880
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":74439835648,\"free_excludes_purgeable\":true,\"free_pct\":7.652266930100173,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-css-render-worker-20261107\",\"platform\":{\"linux\":{\"device_id\":66308,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":972781481984,\"unprotected\":null,\"volume_available_bytes\":74439835648,\"volume_role\":null,\"volume_total_bytes\":972781481984}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-11T00:23:23.465258+00:00",
+    "free_bytes": 74439835648,
+    "work_bytes": 7226064896,
+    "target_bytes": 12419194880
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "4fa1894bd6cf1d28487a5bbac9cd194e89933e414c2f773cca4caa5a34dabcc2",
+  "pid": 3614971,
+  "exit": 0,
+  "final_inputs_sha256": "4fa1894bd6cf1d28487a5bbac9cd194e89933e414c2f773cca4caa5a34dabcc2",
+  "finished": "2026-11-11T00:24:29.184077+00:00"
+}

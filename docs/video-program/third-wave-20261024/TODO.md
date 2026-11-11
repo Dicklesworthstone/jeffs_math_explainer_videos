@@ -14030,3 +14030,11 @@ Timestamp correction: the preceding dependency204 check and tracker update occur
 
 - [x] Native master log reports all15 soundtrack replays bit-identical; assembled133662frame/2227.700second MP4, audio and picture duration equal, gain-1.39dB, PCM-18.98LUFS/-1.50dBTP. Native master/ffmpeg children ended; wrapper2872046 remains live and caption consumer has verified105cues. No terminal guard result yet.
 - [ ] Await caption export, final input checks and master terminal receipt, then existing verifier/full decode/encoded loudness/exact captions/frame equality/picture extraction. Final master review/publication still open. No listening, fine-sync or independent whole-film AV acceptance.
+
+
+### 2026-11-11T18:06:07.488391+00:00 — complex master complete; extraction budget repaired
+
+- [x] Master1006 finished09:44:21 exit0 stable9c7a9d2856950789b02fa816117eaa7026cb48930544cfe0c2b5be6452db4f92; master SHAd349cc005a4bb192e5b516c84ac58f9d65696faf9bb3586642b93ed050fedfde,133662frames,15bit-identical replays. Native571caption blocks exported; prepared delivery579splits require existing exact text/timing checks.
+- [x] Old controller STOPPED: verifier1007 check refused native picture estimate5.35GiB>3.5GiB before any verification job. Failure and original helper preserved. Successor csd-final-verify-repaired03.py SHA c63a011c93224cc40c485d0cc9889440310ae7eadcb5260e4340d5142658f767 splits native list contiguously in two, preserving exact union/order/reasons. Pure partition tests6sizes passed; no budget/guard weakening.
+- [x] Started one replacement verify-after-master1013 controller in persistent tmux jmev-complex-verify1013. It checks successful master, runs successor check, guarded verify1013 then overview/native-a/native-b serially; pins helper and aborts failures. NEVER duplicate or restart master.
+- [ ] Inspect actual receipts, all master sheets/native frames, then upload newmaster once and verify4K60/uploadedEnglish before original unlisting. No unnecessary polish. Listening/fine-sync/independent whole-film gaps remain.

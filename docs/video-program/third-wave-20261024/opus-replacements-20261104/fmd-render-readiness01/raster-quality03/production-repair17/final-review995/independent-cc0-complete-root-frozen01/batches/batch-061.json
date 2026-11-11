@@ -1,0 +1,7 @@
+{"batch": 61, "viewed_utc": "2026-11-10T20:44Z",
+ "sheets": {
+  "0193": "05_9 145.9-146.017 s (f34460-f34467, every frame of root window 8715-8859). The strip darkens evenly frame by frame. No defect.",
+  "0194": "05_9 146.033-146.15 s (f34468-f34475). f34469 strip faint (max 13 levels above background); f34470-f34472 background only (max 5, 4, 3): a gap of three frames, about 0.05 s, like the earlier cue-transition dips. f34473 the next portrait starting (max 10), small and placed top-left (display tile x 32-292, y 72-232); f34474-f34475 brightening evenly. No defect.",
+  "0195": "05_9 146.167-146.283 s (f34476-f34483). New portrait near full: three points where all hues meet, one right of centre and two up-left and down-left of it, about 120 degrees apart round a common centre; no label yet. No defect."
+ },
+ "findings": []}

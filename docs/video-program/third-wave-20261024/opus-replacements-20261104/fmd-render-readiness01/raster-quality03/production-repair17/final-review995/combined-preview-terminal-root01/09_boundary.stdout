@@ -1,0 +1,3 @@
+{"chapter_scope": null, "consumer": "render", "directed_caption_segments": [], "listening_acceptance": false, "plan_mode": "external-ui", "prediction_holds": [], "promotion": false, "selected_cues": 9, "topic": "complex_analysis_visual", "verified_cues": 105}
+09_boundary    16504 frames  4854.5s     3.4 fps  -> /data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-preview01/preview/09_boundary.mp4
+total          16504 frames  4854.5s     3.4 fps

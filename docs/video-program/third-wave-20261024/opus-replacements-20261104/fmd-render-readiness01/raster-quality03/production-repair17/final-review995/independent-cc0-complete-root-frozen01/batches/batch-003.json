@@ -1,0 +1,10 @@
+{"batch": 3, "viewed_utc": "2026-11-10T20:18Z",
+ "sheets": {
+  "0013": "01 61.4-66.05 s. The think-ring empties (62.38 s). Then 01_5: the question box, readouts, series and partial sums fade, the bump dims to grey, and the vertical axis turns teal and extends below the real axis into a complex-plane view. Slot 6 (65.8 s) catches the extension mid-draw. No defect.",
+  "0014": "01 66.4-71.4 s. Plane view with the grey bump kept. Pink pole rings at i and -i fade in (70.8 s) on the imaginary axis at 1 unit (85 px, the same unit as the earlier x=+-1 lines). Labels 'i' and '-i' to the lower right. The '-i' minus is the short heavy bar (L1). No other defect.",
+  "0015": "01 72.183-77.25 s. A yellow circle grows from the origin (75.8 s) and reaches the poles at radius 1 (77.25 s). No defect.",
+  "0016": "01 80.0-83.683 s. Unit circle through +-i. Radius segment and 'radius 1' label added at 82.167 s, clear of the circle and the poles. No defect.",
+  "0017": "01 84.183-90.0 s. Steady unit circle, radius and label (01_6). No defect.",
+  "0018": "01 90.8-91.617 s. Steady. From 91.55 s (f5493) every frame of root window 5493/5496-5531 is sampled; frames 5493-5497 are identical in content. No defect."
+ },
+ "findings": []}

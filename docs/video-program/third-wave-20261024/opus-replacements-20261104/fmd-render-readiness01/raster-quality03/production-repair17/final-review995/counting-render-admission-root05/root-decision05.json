@@ -1,0 +1,30 @@
+{
+  "chapter": "11_counting",
+  "movie_sha256": "5c8ddec0d1a92ce4933e7eb96807a4f1f80d0fc3ddf6218a43948ed077a5a2df",
+  "source_sha256": "21c5043a3339cfadb10024a2e8227a62a0b06674139eace1a0d9029a4e1aa0db",
+  "extraction_sha256": "a7277db8a0b4a3e793cc6dff7dbaed342bbe91a48c668577ee7d375a76a5636d",
+  "concrete_defects": [],
+  "safe_to_advance_to_final4k": true,
+  "utc": "2026-11-11T05:36:36.780948+00:00",
+  "author_review": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/counting-render-admission-root05/author-review05.json",
+    "sha256": "4f18c6a9502351c79bdc4be54c99b06ee12fa90295d8456a21009b61e0977cf4"
+  },
+  "extraction_record": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-counting-pictures02/11_counting/pictures.json",
+    "sha256": "a7277db8a0b4a3e793cc6dff7dbaed342bbe91a48c668577ee7d375a76a5636d"
+  },
+  "coverage": {
+    "root_whole_chapter_review": false,
+    "author_selected_frames": 848,
+    "independent_selected_frames": 0,
+    "current_root_targeted_sheets": [
+      48,
+      100
+    ],
+    "historical_author_review_is_also_root": true
+  },
+  "review_scope": "This decision rechecks16 selected pictures on sheets48/100. Separate bound author record documents roots earlier complete848-picture sampled review. Same person, not independent. No continuous playback or listening claim.",
+  "listening": false,
+  "independent": false
+}

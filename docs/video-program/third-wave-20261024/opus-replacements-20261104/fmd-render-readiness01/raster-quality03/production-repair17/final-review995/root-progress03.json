@@ -1,0 +1,195 @@
+{
+  "reviewer": "root",
+  "time": "2026-11-10T19:57:37.756614+00:00",
+  "master_sha256": "80244e88ca5970d0da07a5d96d6d825ae1851bae703d75bd200f8810b04e7b90",
+  "sheets_actually_viewed": [
+    {
+      "sheet": 1,
+      "sha256": "ee2f5602ee8eaf20bfc41be6c2f792402028d66c8cad1b713b342ff354b6e33b"
+    },
+    {
+      "sheet": 2,
+      "sha256": "0297ce6adca4b8280adba96d86518af356531adb2ef6b2569b241c3fc96d5b0a"
+    },
+    {
+      "sheet": 3,
+      "sha256": "7fdc34451602b2ebadf6ae1dffa8717aecba61d911d3df2ee56733683322bdc0"
+    },
+    {
+      "sheet": 4,
+      "sha256": "2414a1cbbfa0019631cb66323f1ecf223f32bd88ddf770566164a945f218fec8"
+    },
+    {
+      "sheet": 5,
+      "sha256": "9b0bd03168e2c798b109c4d5ab6cc062b49909be13d87e13c9ffed46436f2c9d"
+    },
+    {
+      "sheet": 6,
+      "sha256": "d1f2225b62b7248509a5b58cd18cb28ee6230210f2e002217a26f7db63313785"
+    },
+    {
+      "sheet": 7,
+      "sha256": "b086b3d2ac704343388614e259583e56d90a209eff62271cbbccaa447bf6d768"
+    },
+    {
+      "sheet": 8,
+      "sha256": "a9ce3c7b4c40ba5c3e32fc1f486a43e1bfee1df8b8d250e771c16f3215178743"
+    },
+    {
+      "sheet": 9,
+      "sha256": "37d6e759a3a9505a5ca5d73286ee320adb0fe8f859cded45ad3a9a97f81824b7"
+    },
+    {
+      "sheet": 10,
+      "sha256": "056372ae6ffa8f1de097bff47b9cb464f3e19483e6e4165e85a0d6164526f59c"
+    },
+    {
+      "sheet": 11,
+      "sha256": "243998b0388ead85ccd677803221a95a6e61ff229906abb694059359af8ad68c"
+    },
+    {
+      "sheet": 12,
+      "sha256": "11a140626fa9796288b81c708ab102f109325f6ecba26ab986aaa334fdf54d55"
+    },
+    {
+      "sheet": 13,
+      "sha256": "b94a44b872feceebbfdd781d91af480a0b00bf2672a800e54ecd6cfdda89e0d2"
+    },
+    {
+      "sheet": 14,
+      "sha256": "1c447037733f176122e40ed1d93bef2adeac53fe94b1fba74f1ae065951aed56"
+    },
+    {
+      "sheet": 15,
+      "sha256": "7c9d824d8535f3bc22da7223913d2ee91130516a65de1cd974238d9b69abfef1"
+    },
+    {
+      "sheet": 16,
+      "sha256": "afd51a5560cad27af313b329de94cf2712fda90c394e572779ec4796f155dc75"
+    },
+    {
+      "sheet": 17,
+      "sha256": "ef37d0292b5c966c3f45042a49a6b559dee2b27bcbbc061816143a0afa925b69"
+    },
+    {
+      "sheet": 18,
+      "sha256": "d261dced379b167d9d5dca57ade8fc4d43b12a4985642f3e9a3a45a696d15d2d"
+    },
+    {
+      "sheet": 19,
+      "sha256": "df3732905e68f0ffc63c91ca08a530bb3f8fbafa8f3cd4af4cfcb379f1e35a9e"
+    },
+    {
+      "sheet": 20,
+      "sha256": "4ec7eb8221b749c1735224a3f87f600b4794f701a57ddc9aabb2d9501a4c0da7"
+    },
+    {
+      "sheet": 21,
+      "sha256": "eaceb3109e5fe87c99b22c01c697203291f78bdd19506671bb2a4d9acd0554d7"
+    },
+    {
+      "sheet": 22,
+      "sha256": "a06d29e0e461ac7c30cef517ec3f1aec888f355a6ce0c10c918790e38fd52096"
+    },
+    {
+      "sheet": 23,
+      "sha256": "e27219e66525dcbfed699d2811d453d79e57ecd0e6cc048c392e15bb4b7c8558"
+    },
+    {
+      "sheet": 24,
+      "sha256": "e03a33b3927f0b1c884962a41549c39caa1aec3e9b16b1b62f6dd21f25324f1a"
+    },
+    {
+      "sheet": 25,
+      "sha256": "cbd2dd67bcbf5876ec44f54ea50b761074a580ded75c91e33d3d4ddaa934e433"
+    },
+    {
+      "sheet": 26,
+      "sha256": "4507d16f87482e861256296392d26f3e0e33dc4f636b68d0b63298af535d6e47"
+    },
+    {
+      "sheet": 27,
+      "sha256": "f3d7ba7089490a44d7e302fe3cfbdcc1ebedf926a8b9c7f3fb3567a688062665"
+    },
+    {
+      "sheet": 28,
+      "sha256": "1e7417d63f9e92c62d98e5688f53b6571fcff51c9bdf028121e1d2b90a9bfb39"
+    },
+    {
+      "sheet": 29,
+      "sha256": "78c6cd78cdddbd6948c93025b7eda32fc7409e6b78a3b00b211e7229040feb98"
+    },
+    {
+      "sheet": 30,
+      "sha256": "c054cd8d153de503e31805215a9199cff200e7b78c4d205265b645a0ab4817fa"
+    },
+    {
+      "sheet": 31,
+      "sha256": "0868dd2831fb25aaafc1e69f1f24061018f7ad9f34ffd04ea08f0fb80b8a9595"
+    },
+    {
+      "sheet": 32,
+      "sha256": "4959abee23b4c1871aa7a7cac374da80044773a394e12cc9cc89891b6117b6d4"
+    },
+    {
+      "sheet": 33,
+      "sha256": "88497144c86941446aa891795ed0b2870a1ab8cc84b2aed5e8b432d10eb23779"
+    },
+    {
+      "sheet": 34,
+      "sha256": "1e5d149b8b6f7307800ed9906210b5515d5dbf52ba15c5d328d4dbba1059f23c"
+    },
+    {
+      "sheet": 35,
+      "sha256": "dea858c3a787b9d15634c09e3dd6119d5605e4f0afbb5bd686fde7cdabab4de9"
+    },
+    {
+      "sheet": 36,
+      "sha256": "fca92f6de182a6858f0e060445e91f4cd97203ab23a39a3fd3d282eb6cedf7fc"
+    },
+    {
+      "sheet": 37,
+      "sha256": "43dcdc113ef105651409187db5e5ba4c81e33335972159b7f1388423e43db54c"
+    },
+    {
+      "sheet": 38,
+      "sha256": "8168b68338bcae3c4d8369faca51af19bea6c6b50f8542c6d2a20672a1645f9a"
+    },
+    {
+      "sheet": 39,
+      "sha256": "5bbc3521f45a258e15c719f325c8a13b54b5008be921a7a3a6a3b0f5e8de7d82"
+    },
+    {
+      "sheet": 40,
+      "sha256": "b0662a09ec72182c69aa9a5e059673bdcfec37f7765d9fad41a2483adeac2a3d"
+    },
+    {
+      "sheet": 41,
+      "sha256": "384746b34c2728a67b63f401ac41362bf0b394148113ded750294aa8ac09bbab"
+    },
+    {
+      "sheet": 42,
+      "sha256": "745f187e66a6a3086903646c2df01fe05def25a60d4c12596ce352de4a110828"
+    },
+    {
+      "sheet": 43,
+      "sha256": "2c226bd81b1acec23feb01b69698f210afd329cf9490cd8c14f0579f2bf375e0"
+    },
+    {
+      "sheet": 44,
+      "sha256": "df52e3ccd3bbcef295fcebff6338eb51e611c7dcd2d30e515ed39acd5d730118"
+    }
+  ],
+  "samples_viewed": 352,
+  "observations": [
+    "Opening fades from background into axes and bump formula; curve draws left to right with gold tip. No concrete overlap or clipping in these selected samples.",
+    "Sheets5-8: power-series approximations and degree readout appear clear; early degree changes precede curve transition in sampled stills, motion/sync not established.",
+    "Sheets9-24: recipe/bump comparison, poles and convergence circle, then preview panel remain separated; no concrete clipping in selected samples.",
+    "Sheets25-36: chapter fade and addition/rotation/multiplication examples readable; green label near panel edge remains visible.",
+    "Sheets37-41: successive multiplication by 1+i reaches 2i with 90-degree turn and stretch 2; labels and result panel clear, then fade.",
+    "Sheets42-44: two-plane introduction and square-map modulus/argument relationship readable; no concrete overlap found."
+  ],
+  "scope": "Sheets1-44 actually displayed and inspected. Sheets37-40 re-displayed after earlier truncated call. Resized contact sheets, not native4K, listening, continuous motion or fine sync.",
+  "remaining_sheets": 1000,
+  "publication_ready": false
+}

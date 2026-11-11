@@ -1,0 +1,49 @@
+{
+  "time": "2026-11-10T22:09:56.239112+00:00",
+  "files": [
+    {
+      "path": "manifest.json",
+      "sha256": "9c29672e24e7a64eca02ebede268a4b93a757f30fc42d0c8dc476c74817ad4b9"
+    },
+    {
+      "path": "staged/src/chapters/the_bump.rs",
+      "sha256": "90b51c2b30877911bbb5f5e14ee810268e14efb24e7c4e2a55f7f7e128c06ee7"
+    },
+    {
+      "path": "bases/src/chapters/the_bump.rs",
+      "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3"
+    },
+    {
+      "path": "staged/src/chapters/loop_sums.rs",
+      "sha256": "a8d62f560321ea6ebea3d3859acd9a3ce3e5dde4375ec0ab42c1a1ba114d61ef"
+    },
+    {
+      "path": "bases/src/chapters/loop_sums.rs",
+      "sha256": "8a13e8a190cd502e7b58efbcb7c40872cdb0e6e702feb69e1b789e451a7a42b5"
+    },
+    {
+      "path": "staged/src/chapters/mod.rs",
+      "sha256": "4de1e4a56fde5c11ac3d6a65e772d09ec33db4f5757d817aff370799d3423578"
+    },
+    {
+      "path": "bases/src/chapters/mod.rs",
+      "sha256": "e1f4d1b87f4b36f979e7800f7b2048117b9a4809b2372f385350698f5c3e7cbd"
+    },
+    {
+      "path": "staged/src/chapters/boundary.rs",
+      "sha256": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932"
+    },
+    {
+      "path": "bases/src/chapters/boundary.rs",
+      "sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e"
+    }
+  ],
+  "root_checks": [
+    "Four staged and four base hashes match manifest",
+    "Square gatefix exactly replaces all five centre_name_at occurrences with c_name_at: three runtime references and two source-test literals; no other bytes changed",
+    "Native088 viewed and prerequisite source read: input-loop referent ambiguous over output panel; worker assigned explicit input wording and fit test"
+  ],
+  "compiled": false,
+  "rendered": false,
+  "publication_ready": false
+}

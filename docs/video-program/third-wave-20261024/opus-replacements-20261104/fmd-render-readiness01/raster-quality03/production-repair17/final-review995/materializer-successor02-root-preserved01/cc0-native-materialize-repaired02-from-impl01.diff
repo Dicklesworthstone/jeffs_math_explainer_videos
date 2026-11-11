@@ -1,0 +1,36 @@
+--- cc0-native-materialize-repaired01.py
++++ cc0-native-materialize-repaired02.py
+@@ -1,16 +1,18 @@
+-"""PREPARED, NOT LAUNCHED, NOT REVIEWED (CC0 scratch draft final4k-impl01): guarded same-host
++"""PREPARED, NOT LAUNCHED, NOT REVIEWED (CC0 scratch draft final4k-impl02): guarded same-host
+ materialization of one repaired chapter row for the final 4K successor of master993.
+ 
+ Successor of native-linux-materialize991.py (3402d437), the 09-only native844 helper, for CC3's route
+ (final4k-integration-proposal-cc3 a60b6815, section 6) with CC0 review01 M1. Root and CC2 review it
+-before any use. Changes from 991, and nothing else:
++before any use. impl02 = impl01 (85557673) with CC2 stage-review01 F1 fixed: impl01 took only part files,
++so it refused 01, whose score21 stem is one whole file. Changes from 991, and nothing else:
+   - --chapter picks one CHAPTERS row: 01/08/09 from the combined01 chain (kind native-combined01),
+     11 from the counting02 chain (kind native-counting02);
+   - prerequisites are that chain's build, delivery, timeline, preview and preview pictures, plus the
+     chapter's final; qualification is that chain's binary, test count and workspace scene file;
+   - the base manifest is master993's (8da77ed7); one row replaced, 14 unchanged;
+   - the final extraction must hold every frame of the chapter's preview extraction (991: >= 814);
+-  - stem part names come from score21-summary.json (09 must still give 991's three literals);
++  - stem names come from score21-summary.json: the chapter's whole stem or its parts (score21 has 01 as
++    one file, 08 and 09 as three parts, 11 as two); 09 must still give 991's three literals;
+   - the final's scored capture must equal master993's staged capture of the chapter (STAGED993);
+   - unresolved pins are None and refuse before anything is read: root sets them.
+ 
+@@ -201,9 +203,9 @@
+     assert old_assembly['manifest']['units'] == new_assembly['manifest']['units']
+     tables = {e:require(ORIGIN/(CHAPTER+'.'+e)).read_bytes() for e in ('timeline.tsv','cues.tsv','cuelog.tsv')}
+     bindings = {}; stems = []
+-    part = 'stems/'+CHAPTER+'.music.f32.wav.part'
++    prefix = 'stems/'+CHAPTER+'.music.f32.wav'
+     stem_names = {k[len('stems/'):] for k in read(require(master.SCORE/'score21-summary.json'))['files']
+-                  if k.startswith(part) and k.endswith('.wav')}
++                  if k.startswith(prefix) and k.endswith('.wav')}
+     assert stem_names
+     if CHAPTER == '09_boundary':
+         assert stem_names == {f'09_boundary.music.f32.wav.part{i:04d}.wav' for i in range(3)}

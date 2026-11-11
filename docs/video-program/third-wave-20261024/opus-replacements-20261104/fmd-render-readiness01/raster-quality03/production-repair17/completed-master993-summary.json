@@ -1,0 +1,1578 @@
+{
+  "chapters": [
+    "01_the_bump",
+    "02_turning_numbers",
+    "03_two_planes",
+    "04_reading_color",
+    "05_gallery",
+    "06_one_derivative",
+    "07_one_point",
+    "08_loop_sums",
+    "09_boundary",
+    "10_rigidity",
+    "11_counting",
+    "12_residues",
+    "13_real_integral",
+    "14_continuation",
+    "15_closing"
+  ],
+  "frames": 133662,
+  "native_bit_identical_replays": 15,
+  "replays": {
+    "01_the_bump": {
+      "cues": 7,
+      "samples": 5048800
+    },
+    "02_turning_numbers": {
+      "cues": 7,
+      "samples": 4297600
+    },
+    "03_two_planes": {
+      "cues": 8,
+      "samples": 5799200
+    },
+    "04_reading_color": {
+      "cues": 8,
+      "samples": 5419200
+    },
+    "05_gallery": {
+      "cues": 10,
+      "samples": 7903200
+    },
+    "06_one_derivative": {
+      "cues": 10,
+      "samples": 8024000
+    },
+    "07_one_point": {
+      "cues": 7,
+      "samples": 5192800
+    },
+    "08_loop_sums": {
+      "cues": 8,
+      "samples": 11967200
+    },
+    "09_boundary": {
+      "cues": 12,
+      "samples": 13203200
+    },
+    "10_rigidity": {
+      "cues": 7,
+      "samples": 5953600
+    },
+    "11_counting": {
+      "cues": 10,
+      "samples": 9545600
+    },
+    "12_residues": {
+      "cues": 5,
+      "samples": 3154400
+    },
+    "13_real_integral": {
+      "cues": 13,
+      "samples": 8512800
+    },
+    "14_continuation": {
+      "cues": 10,
+      "samples": 9404800
+    },
+    "15_closing": {
+      "cues": 5,
+      "samples": 3503200
+    }
+  },
+  "boundary_replay": {
+    "cues": 12,
+    "samples": 13203200,
+    "chapter": "09_boundary",
+    "capture": {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-combined-master993/final/soundtrack/09_boundary/soundtrack_0.wav",
+      "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-stage970-09-a2/render/soundtrack/09_boundary/soundtrack_0.wav",
+      "sha256": "29899f9e42721331e2abe9088c399bca3eb63ea3b50de45dc731cbb8c4404c6c"
+    },
+    "captured_by_binary_sha256": "e75258731b1786ae3182ef9eb21a7903a9e6c0bed6242413335f7dd233955384",
+    "replayed_by_binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+    "bit_identical": true,
+    "capture_check_before_master": {
+      "binary313_capture": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview313/preview/soundtrack/09_boundary/soundtrack_0.wav",
+        "sha256": "f7f8aa6042a9f05d1b25db4c789f7f6b44cb393445015c057f1e87d9b0c8df51"
+      },
+      "binary268_capture": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/soundtrack/09_boundary/soundtrack_0.wav",
+        "sha256": "f7f8aa6042a9f05d1b25db4c789f7f6b44cb393445015c057f1e87d9b0c8df51"
+      },
+      "cue_rows": 9,
+      "equal": true
+    }
+  },
+  "chapter_binaries": {
+    "01_the_bump": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+    "02_turning_numbers": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+    "03_two_planes": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+    "04_reading_color": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+    "05_gallery": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+    "06_one_derivative": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+    "07_one_point": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+    "08_loop_sums": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+    "09_boundary": "e75258731b1786ae3182ef9eb21a7903a9e6c0bed6242413335f7dd233955384",
+    "10_rigidity": "5b77a1c8a33a41bab3c3987c9d4f40797bb6a6f1a76bbb57f1ab562ae9960312",
+    "11_counting": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+    "12_residues": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+    "13_real_integral": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+    "14_continuation": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+    "15_closing": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22"
+  },
+  "outputs": {
+    "master": {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-combined-master993/final/complex_analysis_visual_master.mp4",
+      "sha256": "80244e88ca5970d0da07a5d96d6d825ae1851bae703d75bd200f8810b04e7b90"
+    },
+    "srt": {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-combined-master993/final/complex_analysis_visual.en.srt",
+      "sha256": "5d06423248f088a34774f361721bf05e1c4950ac834086e3666661e1adfe5e1b"
+    },
+    "vtt": {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-combined-master993/final/complex_analysis_visual.en.vtt",
+      "sha256": "26e0d7e0eec26eb6f9136bb56f795a6ff8ab9cead26f29fc76a75e9abc4bb2e3"
+    }
+  },
+  "version": "993",
+  "host": "csd",
+  "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+  "consumer_binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+  "narration": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration",
+  "score": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems",
+  "manifest": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native-stage970-09-a2-master-manifest.json",
+    "sha256": "8da77ed79e9ccc8a06e703e570c85c44de5cd884a047eaed61355167e397e100"
+  },
+  "rows": [
+    {
+      "chapter": "01_the_bump",
+      "kind": "combined",
+      "host": "/data/projects/jmev-css-render-worker-20261107",
+      "job": "css-reviewed-final-01-the-bump352",
+      "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+      "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+      "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/01_the_bump-css-permit364.json",
+      "permit_sha256": "299b8fe0db20ca2559ea97845df8a3300c078e92b7d05ab2483f205e43dbff40",
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "narration": "/data/projects/jmev-css-render-worker-20261107/jobs/css-repair-delivery309/narration",
+      "frames": 6311,
+      "movie_sha256": "0998b42d8ec726d6721dbd8b98018cda628efe82e7d47a551e45ad48d9c5dfba",
+      "review_basis": "sampled_preview",
+      "review_scope": {
+        "basis": "sampled_preview",
+        "purpose": "technical_4k_render",
+        "preview_movie_sha256": "1f6834a6b6fb5ed481f66c0a8eded204ede670501eae5d81a277814206353d19",
+        "sampled_intervals": [
+          [
+            5493,
+            5531
+          ],
+          [
+            6273,
+            6310
+          ]
+        ],
+        "playback_seconds": [],
+        "open_reviews": [
+          "final_picture",
+          "motion",
+          "audio",
+          "fine_sync",
+          "captions",
+          "independent_final_av",
+          "publication"
+        ]
+      },
+      "sampled_intervals": [
+        [
+          5493,
+          5531
+        ],
+        [
+          6273,
+          6310
+        ]
+      ],
+      "sampled_frames": 77,
+      "open_reviews": [
+        "final_picture",
+        "motion",
+        "audio",
+        "fine_sync",
+        "captions",
+        "independent_final_av",
+        "publication"
+      ],
+      "stated_false": [
+        "continuous_motion_acceptance",
+        "final_4k_acceptance",
+        "fine_sync_acceptance",
+        "listening_acceptance",
+        "publication_acceptance",
+        "release_acceptance"
+      ],
+      "preview_movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/01_the_bump.mp4",
+        "sha256": "1f6834a6b6fb5ed481f66c0a8eded204ede670501eae5d81a277814206353d19"
+      },
+      "frame_records": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/01_the_bump/sampling.json",
+          "sha256": "35854fb507a7d6b2f01db0ebe0c336bfedcaaf1df1cb72f408cea2eec2b08abc",
+          "frames": 74,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/bump-transition-frames305/manifest.json",
+          "sha256": "e2341ee728c464a4220aada1459a064d29f48efac7c6cc851c64b9c5753f7f9a",
+          "frames": 74,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/bump-transition-review305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/coverage-grid305b/01_the_bump/sampling.json",
+          "sha256": "54071925d3b867add04ac26ed93da0e63603fbb3d40ffef4ca44ef8554a27ab8",
+          "frames": 88,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json"
+          ]
+        }
+      ],
+      "independent_confirmation": [
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json"
+      ],
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-01-the-bump-a1/resource-receipt.json",
+      "independent_reviewer": "cc3",
+      "preview_job": "csd-review-repair-preview274",
+      "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+      "start_frame": 0
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "kind": "retained",
+      "host": "/data/projects/jmev-render-worker-20261107",
+      "job": "trj-production19-final-02-turning-numbers32",
+      "worker": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-final-chapter19-02.py",
+      "worker_sha256": "788f75666d687140c6ab67e8f517b6e713f0e885508c258f055c44e8dc09c1c8",
+      "permit": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review02-32/final-render-permit32.json",
+      "permit_sha256": "ccdff19cd315f5e4893b59fdc11e84486e8db15ab6f9fd63ae73535bd7dc5ac2",
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "narration": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-delivery02/narration",
+      "frames": 5372,
+      "movie_sha256": "bf0891a409f589bd4fc125c038e03dd027ec334436e25cdc129463c659984f07",
+      "review_basis": "historical_permit",
+      "retention_decision": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/retention-dependency-disposition283.json",
+        "sha256": "9fd8d9720cbf1b8fc811b5fca952b1d34b762bee3e0b77cdf7927fa76d4dd512"
+      },
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-trj-a1/resource-receipt.json",
+      "start_frame": 6311
+    },
+    {
+      "chapter": "03_two_planes",
+      "kind": "retained",
+      "host": "/data/projects/jmev-render-worker-20261107",
+      "job": "trj-production19-final-03-two-planes28",
+      "worker": "/data/projects/jmev-render-worker-20261107/qualification01/production19/trj-final-chapter19-02.py",
+      "worker_sha256": "788f75666d687140c6ab67e8f517b6e713f0e885508c258f055c44e8dc09c1c8",
+      "permit": "/data/projects/jmev-render-worker-20261107/qualification01/production19/review03-28/final-render-permit28.json",
+      "permit_sha256": "107aebb15239c67d66569c5e1217c1343c7490901431ef935ce044962e7c64ca",
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "narration": "/data/projects/jmev-render-worker-20261107/jobs/trj-production19-delivery02/narration",
+      "frames": 7249,
+      "movie_sha256": "20353d01ee564ef101ecad80bdfa8ec1db87ac2188b2e4642969b371f2e82cf3",
+      "review_basis": "historical_permit",
+      "retention_decision": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/retention-dependency-disposition283.json",
+        "sha256": "9fd8d9720cbf1b8fc811b5fca952b1d34b762bee3e0b77cdf7927fa76d4dd512"
+      },
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-trj-a1/resource-receipt.json",
+      "start_frame": 11683
+    },
+    {
+      "chapter": "04_reading_color",
+      "kind": "combined",
+      "host": "/data/projects/jmev-css-render-worker-20261107",
+      "job": "css-reviewed-final-04-reading-color352",
+      "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+      "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+      "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/04_reading_color-css-permit366.json",
+      "permit_sha256": "110168feb09d299c17a5ee63d4364898edf92b9d1af87d6137a5d3caf2980a8f",
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "narration": "/data/projects/jmev-css-render-worker-20261107/jobs/css-repair-delivery309/narration",
+      "frames": 6774,
+      "movie_sha256": "6b3eddb2a878ad0a6069a79c6b82311895e2910f3f0470641f9f27342022f64f",
+      "review_basis": "sampled_preview",
+      "review_scope": {
+        "basis": "sampled_preview",
+        "purpose": "technical_4k_render",
+        "preview_movie_sha256": "8836b7e6d87b170d9cb7327fd51fd3e93fb7b5bfd2b2a89605d7cc1ed2d7e890",
+        "sampled_intervals": [
+          [
+            235,
+            315
+          ],
+          [
+            6742,
+            6773
+          ]
+        ],
+        "playback_seconds": [],
+        "open_reviews": [
+          "final_picture",
+          "motion",
+          "audio",
+          "fine_sync",
+          "captions",
+          "independent_final_av",
+          "publication"
+        ]
+      },
+      "sampled_intervals": [
+        [
+          235,
+          315
+        ],
+        [
+          6742,
+          6773
+        ]
+      ],
+      "sampled_frames": 113,
+      "open_reviews": [
+        "final_picture",
+        "motion",
+        "audio",
+        "fine_sync",
+        "captions",
+        "independent_final_av",
+        "publication"
+      ],
+      "stated_false": [
+        "continuous_motion_acceptance",
+        "final_4k_acceptance",
+        "fine_sync_acceptance",
+        "listening_acceptance",
+        "publication_acceptance",
+        "release_acceptance"
+      ],
+      "preview_movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/04_reading_color.mp4",
+        "sha256": "8836b7e6d87b170d9cb7327fd51fd3e93fb7b5bfd2b2a89605d7cc1ed2d7e890"
+      },
+      "frame_records": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/04_reading_color/sampling.json",
+          "sha256": "bbd19ad68735188e86d51732427a1f5faa33a39122cc126c39caae9ca7a33b21",
+          "frames": 54,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/color-transition-frames305/manifest.json",
+          "sha256": "a58e25460f12f09ed228a1ddd7b5df097048c7d2b27cb746c428a78c9b75e192",
+          "frames": 109,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/color-transition-review305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/coverage-grid305b/04_reading_color/sampling.json",
+          "sha256": "073e69f845e69817e720fa14584403a672236494451c3537c5b42281e4c8fd75",
+          "frames": 94,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json"
+          ]
+        }
+      ],
+      "independent_confirmation": [
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json"
+      ],
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-04-reading-color-a1/resource-receipt.json",
+      "independent_reviewer": "cc3",
+      "preview_job": "csd-review-repair-preview274",
+      "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+      "start_frame": 18932
+    },
+    {
+      "chapter": "05_gallery",
+      "kind": "combined",
+      "host": "/data/projects/jmev-css-render-worker-20261107",
+      "job": "css-reviewed-final-05-gallery352-ssd442",
+      "worker": "/data/ssd/work/jmev-gallery-recovery440/css-gallery-ssd442.py",
+      "worker_sha256": "ce9baf6a922682ea5792ccbdb3758b68383e7e8e23e2e968a83d9136f9448429",
+      "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/05_gallery-css-permit375.json",
+      "permit_sha256": "f3ef9aeabeb5220ad0cdd42e10868845719e67feac2680fbbad469dfae126b10",
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "narration": "/data/projects/jmev-css-render-worker-20261107/jobs/css-repair-delivery309/narration",
+      "frames": 9879,
+      "movie_sha256": "0905c24a63c6558cf8af4e7c59691b97af170848e490fea0af38d1196fd57e2d",
+      "review_basis": "sampled_preview",
+      "review_scope": {
+        "basis": "sampled_preview",
+        "purpose": "technical_4k_render",
+        "preview_movie_sha256": "f5123300084eba264276377f36518d263324bb9e28dd5df0f77ecf5f20cf5e48",
+        "sampled_intervals": [
+          [
+            34,
+            98
+          ],
+          [
+            1989,
+            2072
+          ],
+          [
+            2894,
+            2977
+          ],
+          [
+            4772,
+            4855
+          ],
+          [
+            6181,
+            6264
+          ],
+          [
+            6872,
+            6877
+          ],
+          [
+            6921,
+            6927
+          ],
+          [
+            7312,
+            7365
+          ],
+          [
+            8715,
+            8859
+          ],
+          [
+            9167,
+            9221
+          ],
+          [
+            9247,
+            9248
+          ],
+          [
+            9817,
+            9878
+          ]
+        ],
+        "playback_seconds": [],
+        "open_reviews": [
+          "final_picture",
+          "motion",
+          "audio",
+          "fine_sync",
+          "captions",
+          "independent_final_av",
+          "publication"
+        ]
+      },
+      "sampled_intervals": [
+        [
+          34,
+          98
+        ],
+        [
+          1989,
+          2072
+        ],
+        [
+          2894,
+          2977
+        ],
+        [
+          4772,
+          4855
+        ],
+        [
+          6181,
+          6264
+        ],
+        [
+          6872,
+          6877
+        ],
+        [
+          6921,
+          6927
+        ],
+        [
+          7312,
+          7365
+        ],
+        [
+          8715,
+          8859
+        ],
+        [
+          9167,
+          9221
+        ],
+        [
+          9247,
+          9248
+        ],
+        [
+          9817,
+          9878
+        ]
+      ],
+      "sampled_frames": 732,
+      "open_reviews": [
+        "final_picture",
+        "motion",
+        "audio",
+        "fine_sync",
+        "captions",
+        "independent_final_av",
+        "publication"
+      ],
+      "stated_false": [
+        "continuous_motion_acceptance",
+        "final_4k_acceptance",
+        "fine_sync_acceptance",
+        "listening_acceptance",
+        "publication_acceptance",
+        "release_acceptance"
+      ],
+      "preview_movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/05_gallery.mp4",
+        "sha256": "f5123300084eba264276377f36518d263324bb9e28dd5df0f77ecf5f20cf5e48"
+      },
+      "frame_records": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/05_gallery/sampling.json",
+          "sha256": "b8011d9025f5128b3582990cff2cfc59337f3d939ec94c226accd7fccf23c1b9",
+          "frames": 222,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/gallery-transition-frames305/manifest.json",
+          "sha256": "5a98dd205a39f9b596f61e9c3dcc048b75c3aa9f1aac286f1872ab26acfe7d49",
+          "frames": 715,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-gallery-transition-review319.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/coverage-grid305b/05_gallery/sampling.json",
+          "sha256": "f67f171bd2d126c92ed98b1c3c99c759cd4df8cee0dd70bb5ac8c853d05c85f1",
+          "frames": 129,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json"
+          ]
+        }
+      ],
+      "independent_confirmation": [
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-gallery-transition-review319.json",
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json"
+      ],
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import448-05-gallery-a1/resource-receipt.json",
+      "independent_reviewer": "cc1, cc3",
+      "preview_job": "csd-review-repair-preview274",
+      "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+      "start_frame": 25706
+    },
+    {
+      "chapter": "06_one_derivative",
+      "kind": "combined",
+      "host": "/data/projects/jmev-css-render-worker-20261107",
+      "job": "css-reviewed-final-06-one-derivative352",
+      "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+      "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+      "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/06_one_derivative-css-permit577.json",
+      "permit_sha256": "acd8b1744fdce09f1c3eda93fcac49621b932b42e1b0ac46cdeddcfc21f42f9a",
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "narration": "/data/projects/jmev-css-render-worker-20261107/jobs/css-repair-delivery309/narration",
+      "frames": 10030,
+      "movie_sha256": "77759153561cce2523f7b2b4c567913d074959961aac16e455cd9c59bd930887",
+      "review_basis": "sampled_preview",
+      "review_scope": {
+        "basis": "sampled_preview",
+        "purpose": "technical_4k_render",
+        "preview_movie_sha256": "5e45d72da91701c9c7c346b98ded8491c13ba1befed6be1b6301c1c6d33ed62d",
+        "sampled_intervals": [
+          [
+            9630,
+            9730
+          ],
+          [
+            9970,
+            10029
+          ]
+        ],
+        "playback_seconds": [],
+        "open_reviews": [
+          "final_picture",
+          "motion",
+          "audio",
+          "fine_sync",
+          "captions",
+          "independent_final_av",
+          "publication"
+        ]
+      },
+      "sampled_intervals": [
+        [
+          9630,
+          9730
+        ],
+        [
+          9970,
+          10029
+        ]
+      ],
+      "sampled_frames": 161,
+      "open_reviews": [
+        "final_picture",
+        "motion",
+        "audio",
+        "fine_sync",
+        "captions",
+        "independent_final_av",
+        "publication"
+      ],
+      "stated_false": [
+        "continuous_motion_acceptance",
+        "final_4k_acceptance",
+        "fine_sync_acceptance",
+        "listening_acceptance",
+        "publication_acceptance",
+        "release_acceptance"
+      ],
+      "preview_movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/preview/06_one_derivative.mp4",
+        "sha256": "5e45d72da91701c9c7c346b98ded8491c13ba1befed6be1b6301c1c6d33ed62d"
+      },
+      "frame_records": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/06_one_derivative/sampling.json",
+          "sha256": "34ee8c6ae24ccd33e234ac2b1b27cf5441fae1087af8f53f4b4436942efd22ba",
+          "frames": 376,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc0-preview06-review270.md",
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/preview243-root-review-complete277.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/derivative-sheets359/manifest.json",
+          "sha256": "ca470cb023df865af986c44601dc64c0c0c80f3a56d04c2f393aad936b6c78b1",
+          "frames": 161,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/derivative-sheets359-review.json"
+          ]
+        }
+      ],
+      "independent_confirmation": [
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc0-preview06-review270.md"
+      ],
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-06-one-derivative-a1/resource-receipt.json",
+      "independent_reviewer": "cc0",
+      "preview_job": "csd-review-repair-preview243",
+      "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+      "start_frame": 35585
+    },
+    {
+      "chapter": "07_one_point",
+      "kind": "combined",
+      "host": "/data/projects/jmev-css-render-worker-20261107",
+      "job": "css-reviewed-final-07-one-point352",
+      "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+      "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+      "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/07_one_point-css-permit504.json",
+      "permit_sha256": "f03572c6bfac1035efd422599d41bad81a28d1d8564663dc01313bfcc8ba57ce",
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "narration": "/data/projects/jmev-css-render-worker-20261107/jobs/css-repair-delivery309/narration",
+      "frames": 6491,
+      "movie_sha256": "c56931822180f65e8da41d2aebfa94cddc6e25ab95c60da5f3e81d0f079f840f",
+      "review_basis": "sampled_preview",
+      "review_scope": {
+        "basis": "sampled_preview",
+        "purpose": "technical_4k_render",
+        "preview_movie_sha256": "2517772cb632db4eafe5be1ed266e6e8aa596778d7f3742ecdab8fa5d204b7b0",
+        "sampled_intervals": [
+          [
+            2216,
+            2284
+          ],
+          [
+            4743,
+            4779
+          ]
+        ],
+        "playback_seconds": [],
+        "open_reviews": [
+          "final_picture",
+          "motion",
+          "audio",
+          "fine_sync",
+          "captions",
+          "independent_final_av",
+          "publication"
+        ]
+      },
+      "sampled_intervals": [
+        [
+          2216,
+          2284
+        ],
+        [
+          4743,
+          4779
+        ]
+      ],
+      "sampled_frames": 106,
+      "open_reviews": [
+        "final_picture",
+        "motion",
+        "audio",
+        "fine_sync",
+        "captions",
+        "independent_final_av",
+        "publication"
+      ],
+      "stated_false": [
+        "continuous_motion_acceptance",
+        "final_4k_acceptance",
+        "fine_sync_acceptance",
+        "listening_acceptance",
+        "publication_acceptance",
+        "release_acceptance"
+      ],
+      "preview_movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/07_one_point.mp4",
+        "sha256": "2517772cb632db4eafe5be1ed266e6e8aa596778d7f3742ecdab8fa5d204b7b0"
+      },
+      "frame_records": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/07_one_point/sampling.json",
+          "sha256": "efa82174af0134e4a82fbf77a3006927340b4430fd94ea7174b9515c8b77f0c4",
+          "frames": 59,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/one-point-transition-frames305/manifest.json",
+          "sha256": "e6fa64dd79ec4f2e2478c65e2ea8b4cec6a1bf12bb82504c31fe7e8bace874a9",
+          "frames": 100,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/one-point-transition-review305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/coverage-grid305b/07_one_point/sampling.json",
+          "sha256": "fbc372dca14d06048eacea1be913646a9e0041ff4cf0453cbc26598a25fb7916",
+          "frames": 92,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json"
+          ]
+        }
+      ],
+      "independent_confirmation": [
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json"
+      ],
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-07-one-point-a1/resource-receipt.json",
+      "independent_reviewer": "cc3",
+      "preview_job": "csd-review-repair-preview274",
+      "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+      "start_frame": 45615
+    },
+    {
+      "chapter": "08_loop_sums",
+      "kind": "combined",
+      "host": "/data/projects/jmev-css-render-worker-20261107",
+      "job": "css-reviewed-final-08-loop-sums352",
+      "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+      "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+      "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/08_loop_sums-css-permit474.json",
+      "permit_sha256": "92119d3a65fd5b3637f839ca83fb60eb455661d296337a1e1dc02cf777d0e59a",
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "narration": "/data/projects/jmev-css-render-worker-20261107/jobs/css-repair-delivery309/narration",
+      "frames": 14959,
+      "movie_sha256": "7e6c6b950d1bcf8c44dcf2aa9adf59cd3a0cff5cc06e35564549934de8627b8a",
+      "review_basis": "sampled_preview",
+      "review_scope": {
+        "basis": "sampled_preview",
+        "purpose": "technical_4k_render",
+        "preview_movie_sha256": "1ac1ee716f6aa383a9154d6305ffa571bd555df818565d28a07084eb4b5364d6",
+        "sampled_intervals": [
+          [
+            3059,
+            3060
+          ],
+          [
+            3119,
+            3120
+          ],
+          [
+            3179,
+            3180
+          ],
+          [
+            10200,
+            10380
+          ]
+        ],
+        "playback_seconds": [],
+        "open_reviews": [
+          "final_picture",
+          "motion",
+          "audio",
+          "fine_sync",
+          "captions",
+          "independent_final_av",
+          "publication"
+        ]
+      },
+      "sampled_intervals": [
+        [
+          3059,
+          3060
+        ],
+        [
+          3119,
+          3120
+        ],
+        [
+          3179,
+          3180
+        ],
+        [
+          10200,
+          10380
+        ]
+      ],
+      "sampled_frames": 187,
+      "open_reviews": [
+        "final_picture",
+        "motion",
+        "audio",
+        "fine_sync",
+        "captions",
+        "independent_final_av",
+        "publication"
+      ],
+      "stated_false": [
+        "continuous_motion_acceptance",
+        "final_4k_acceptance",
+        "fine_sync_acceptance",
+        "listening_acceptance",
+        "publication_acceptance",
+        "release_acceptance"
+      ],
+      "preview_movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/preview/08_loop_sums.mp4",
+        "sha256": "1ac1ee716f6aa383a9154d6305ffa571bd555df818565d28a07084eb4b5364d6"
+      },
+      "frame_records": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview243/08_loop_sums/sampling.json",
+          "sha256": "951eab4a4c64517a5cff9b8ff824f79c83cca4d5b1f614a6157498383d48a7da",
+          "frames": 552,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc2-preview08-review271.md",
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/preview243-root-review-complete277.json"
+          ]
+        }
+      ],
+      "independent_confirmation": [
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc2-preview08-review271.md"
+      ],
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-08-loop-sums-a1/resource-receipt.json",
+      "independent_reviewer": "cc2",
+      "preview_job": "csd-review-repair-preview243",
+      "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+      "start_frame": 52106
+    },
+    {
+      "chapter": "09_boundary",
+      "kind": "native844",
+      "host": "/data/projects/jmev-stroke-probe-20261106",
+      "job": "csd-native-stage970-09-a2",
+      "worker": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/native-linux-materialize991.py",
+      "worker_sha256": "3402d437fd5284e47763a71c1fbe074768828826ad6dd22ae6c90d6c6c99bb16",
+      "binary_sha256": "e75258731b1786ae3182ef9eb21a7903a9e6c0bed6242413335f7dd233955384",
+      "narration": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind313/narration",
+      "frames": 16504,
+      "movie_sha256": "167aba1f3c70e0efd07cfa58d8d88fbc6aba1847e95323b119b6a3a1ea203260",
+      "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+      "native_final_samples": {
+        "pictures": 814,
+        "sheets": 102,
+        "record": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-final969-review.json",
+          "sha256": "61ecd664994388f5bfc97c3cceed65c1eff12f7e789ae59056409d3b7c6a3278"
+        }
+      },
+      "capture_check_before_master": {
+        "binary313_capture": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview313/preview/soundtrack/09_boundary/soundtrack_0.wav",
+          "sha256": "f7f8aa6042a9f05d1b25db4c789f7f6b44cb393445015c057f1e87d9b0c8df51"
+        },
+        "binary268_capture": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/soundtrack/09_boundary/soundtrack_0.wav",
+          "sha256": "f7f8aa6042a9f05d1b25db4c789f7f6b44cb393445015c057f1e87d9b0c8df51"
+        },
+        "cue_rows": 9,
+        "equal": true
+      },
+      "native_preview_capture": {
+        "source": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-preview853/preview/soundtrack/09_boundary/soundtrack_0.wav",
+        "sha256": "f7f8aa6042a9f05d1b25db4c789f7f6b44cb393445015c057f1e87d9b0c8df51",
+        "bit_identical_to_retained_preview": true
+      },
+      "local_proofs": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native-stage970-09-a2-proofs.json",
+        "sha256": "cc4c6f46ce46cfa62ade861a21139365dd78429778d862329dc24c4db30a75a9"
+      },
+      "review_basis": "sampled_preview",
+      "review_scope": {
+        "basis": "sampled_preview",
+        "purpose": "technical_4k_render",
+        "preview_movie_sha256": "5e50811b77c075ae638c3d539775ccb29134504152a60f5e327ca28940cb3a1c",
+        "sampled_intervals": [
+          [
+            2080,
+            2109
+          ],
+          [
+            2316,
+            2336
+          ]
+        ],
+        "playback_seconds": [
+          27.68726914660832,
+          31.90054923413567,
+          35.51193216630197,
+          39.12331509846828
+        ],
+        "open_reviews": [
+          "final_picture",
+          "motion",
+          "audio",
+          "fine_sync",
+          "captions",
+          "independent_final_av",
+          "publication"
+        ]
+      },
+      "sampled_intervals": [
+        [
+          2080,
+          2109
+        ],
+        [
+          2316,
+          2336
+        ]
+      ],
+      "sampled_frames": 51,
+      "open_reviews": [
+        "final_picture",
+        "motion",
+        "audio",
+        "fine_sync",
+        "captions",
+        "independent_final_av",
+        "publication"
+      ],
+      "stated_false": [
+        "continuous_motion_acceptance",
+        "final_4k_acceptance",
+        "fine_sync_acceptance",
+        "listening_acceptance",
+        "publication_acceptance",
+        "release_acceptance"
+      ],
+      "zoom_exit_frame": 2094,
+      "disposition": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-preview313-pictures340.md",
+          "sha256": "7a0c1f9fd38a62c437b66cf1d356ef3d479008070c9ff9af06a51e1d3b6b9c14"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-preview313-pictures341.json",
+          "sha256": "7350b30a4bcc595a1fffd31c7670c18c97ef4dac00045f46ec916c225132dca9"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-preview313-playback343.json",
+          "sha256": "d9f250ec00007fe0687c7bf2a3155652b30df45956c5dfe53e9922dd0ec67e81"
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-preview313-disposition345.json",
+          "sha256": "cf42fd8ebd43d4ae30fc24dee9826fcc630d7d9f50aeba9a2290bee489a4f08e"
+        }
+      ],
+      "start_frame": 67065
+    },
+    {
+      "chapter": "10_rigidity",
+      "kind": "native521",
+      "host": "/Users/jemanuel/scratch/jmev-complex-native-20261109",
+      "job": "csd-native-stage581-10-a2",
+      "worker": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-native581-materialize.py",
+      "worker_sha256": "822047a7f57877378140bb7c81ffd5d89ebd99d47310d17f7d341db6a3b59806",
+      "binary_sha256": "5b77a1c8a33a41bab3c3987c9d4f40797bb6a6f1a76bbb57f1ab562ae9960312",
+      "narration": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration",
+      "frames": 7442,
+      "movie_sha256": "6a489dd33443130e2b098bec7b6de75c66c90ee7348253560c5ff15aa61ffbc8",
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-mini-import576-10-a2/resource-receipt.json",
+      "encoder": "x264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=21 lookahead_threads=7 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+      "native_final_samples": {
+        "pictures": 113,
+        "sheets": 15,
+        "record": {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-mini-final560-pictures-viewed589.json",
+          "sha256": "3cc6544d8f06d94942c952eb82d0b886cbfae5b2a232d1c8762edc182d0040e7"
+        }
+      },
+      "review_basis": "sampled_preview",
+      "review_scope": {
+        "basis": "sampled_preview",
+        "purpose": "technical_4k_render",
+        "preview_movie_sha256": "78eb267faa780b2a4d38804deede56088852fed606ac544b7d05f02300672562",
+        "sampled_intervals": [
+          [
+            3735,
+            3799
+          ],
+          [
+            6240,
+            6335
+          ],
+          [
+            7410,
+            7441
+          ]
+        ],
+        "playback_seconds": [],
+        "open_reviews": [
+          "final_picture",
+          "motion",
+          "audio",
+          "fine_sync",
+          "captions",
+          "independent_final_av",
+          "publication"
+        ]
+      },
+      "sampled_intervals": [
+        [
+          3735,
+          3799
+        ],
+        [
+          6240,
+          6335
+        ],
+        [
+          7410,
+          7441
+        ]
+      ],
+      "sampled_frames": 193,
+      "open_reviews": [
+        "final_picture",
+        "motion",
+        "audio",
+        "fine_sync",
+        "captions",
+        "independent_final_av",
+        "publication"
+      ],
+      "stated_false": [
+        "continuous_motion_acceptance",
+        "final_4k_acceptance",
+        "fine_sync_acceptance",
+        "listening_acceptance",
+        "publication_acceptance",
+        "release_acceptance"
+      ],
+      "preview_movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/10_rigidity.mp4",
+        "sha256": "78eb267faa780b2a4d38804deede56088852fed606ac544b7d05f02300672562"
+      },
+      "frame_records": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/10_rigidity/sampling.json",
+          "sha256": "e5cd3c52068643b029f7788d443de0e0aea2311eec56fdb98f56ac02c6d49d16",
+          "frames": 113,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/rigidity-transition-frames305/manifest.json",
+          "sha256": "ba0eb53d847dd803015545c924b3a951f85be8257736a747772bc9ae39122c26",
+          "frames": 192,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/rigidity-transition-review305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/coverage-grid305b/10_rigidity/sampling.json",
+          "sha256": "04b35730a9171aae67d2a5c2f064c5ac32ca9898dd6e0efd0ca8670af8483c82",
+          "frames": 85,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json"
+          ]
+        }
+      ],
+      "independent_confirmation": [
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc3-current-grid-review315.json"
+      ],
+      "start_frame": 83569
+    },
+    {
+      "chapter": "11_counting",
+      "kind": "combined",
+      "host": "/data/projects/jmev-stroke-probe-20261106",
+      "job": "csd-reviewed-final-11-counting352",
+      "worker": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-reviewed-final352.py",
+      "worker_sha256": "23d55c286aba2fc58b77a5af8dbd539293592daa3a4e0e8584f18f324d868760",
+      "permit": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/11_counting-csd-permit370.json",
+      "permit_sha256": "f6222de09bf29d27f446a1f6056ec5c602f6c7cd9f774b281e3b1d1caf232054",
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "narration": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration",
+      "frames": 11932,
+      "movie_sha256": "6867d4d933d2d1e99f555b29600ecc19a017e11f87b274f7e950c21d5d045f5e",
+      "review_basis": "sampled_preview",
+      "review_scope": {
+        "basis": "sampled_preview",
+        "purpose": "technical_4k_render",
+        "preview_movie_sha256": "0b6244a005f64ff9b9b381a8ec8a58ffb7c174d085aceb452871d7f5dd0f811e",
+        "sampled_intervals": [
+          [
+            34,
+            87
+          ],
+          [
+            7464,
+            7494
+          ],
+          [
+            8294,
+            8344
+          ]
+        ],
+        "playback_seconds": [],
+        "open_reviews": [
+          "final_picture",
+          "motion",
+          "audio",
+          "fine_sync",
+          "captions",
+          "independent_final_av",
+          "publication"
+        ]
+      },
+      "sampled_intervals": [
+        [
+          34,
+          87
+        ],
+        [
+          7464,
+          7494
+        ],
+        [
+          8294,
+          8344
+        ]
+      ],
+      "sampled_frames": 136,
+      "open_reviews": [
+        "final_picture",
+        "motion",
+        "audio",
+        "fine_sync",
+        "captions",
+        "independent_final_av",
+        "publication"
+      ],
+      "stated_false": [
+        "continuous_motion_acceptance",
+        "final_4k_acceptance",
+        "fine_sync_acceptance",
+        "listening_acceptance",
+        "publication_acceptance",
+        "release_acceptance"
+      ],
+      "preview_movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/11_counting.mp4",
+        "sha256": "0b6244a005f64ff9b9b381a8ec8a58ffb7c174d085aceb452871d7f5dd0f811e"
+      },
+      "frame_records": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/11_counting/sampling.json",
+          "sha256": "eb67bf33a9ad2f7c91c5601026816d7ebd5d1fc3dafb5a68ae3c5004e8307846",
+          "frames": 193,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json",
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/counting-transition-frames305/manifest.json",
+          "sha256": "9e74486edaaac78d1a4a868f83507a69378f1be9d64ab0456ddd453a34fc64d6",
+          "frames": 81,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json",
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/counting-transition-review305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/counting-opening-frames305/manifest.json",
+          "sha256": "9b889e043ce97bfbb2ce8b72f8306c3dbd3718a29c52b97f4adefa2b702bea8a",
+          "frames": 54,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json",
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/counting-opening-review305.json"
+          ]
+        }
+      ],
+      "independent_confirmation": [
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json"
+      ],
+      "independent_reviewer": "cc1",
+      "preview_job": "csd-review-repair-preview274",
+      "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+      "start_frame": 91011
+    },
+    {
+      "chapter": "12_residues",
+      "kind": "combined",
+      "host": "/data/projects/jmev-css-render-worker-20261107",
+      "job": "css-reviewed-final-12-residues352",
+      "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+      "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+      "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/12_residues-css-permit370.json",
+      "permit_sha256": "689164d64ba6e16a123dd9cfc68d84612af3bb698eb0b757f70f4dbbdd74c62a",
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "narration": "/data/projects/jmev-css-render-worker-20261107/jobs/css-repair-delivery309/narration",
+      "frames": 3943,
+      "movie_sha256": "ce93d90b6910e57aeef205affd4ec6fa209c9c9f26ec003a5dabfd7c65db7292",
+      "review_basis": "sampled_preview",
+      "review_scope": {
+        "basis": "sampled_preview",
+        "purpose": "technical_4k_render",
+        "preview_movie_sha256": "a78c20024c257eaa4783db80f9b99c23442fe67ac8f646e354e633074f842199",
+        "sampled_intervals": [
+          [
+            2471,
+            2516
+          ],
+          [
+            2532,
+            2577
+          ],
+          [
+            2763,
+            2806
+          ],
+          [
+            3025,
+            3154
+          ],
+          [
+            3911,
+            3942
+          ]
+        ],
+        "playback_seconds": [],
+        "open_reviews": [
+          "final_picture",
+          "motion",
+          "audio",
+          "fine_sync",
+          "captions",
+          "independent_final_av",
+          "publication"
+        ]
+      },
+      "sampled_intervals": [
+        [
+          2471,
+          2516
+        ],
+        [
+          2532,
+          2577
+        ],
+        [
+          2763,
+          2806
+        ],
+        [
+          3025,
+          3154
+        ],
+        [
+          3911,
+          3942
+        ]
+      ],
+      "sampled_frames": 298,
+      "open_reviews": [
+        "final_picture",
+        "motion",
+        "audio",
+        "fine_sync",
+        "captions",
+        "independent_final_av",
+        "publication"
+      ],
+      "stated_false": [
+        "continuous_motion_acceptance",
+        "final_4k_acceptance",
+        "fine_sync_acceptance",
+        "listening_acceptance",
+        "publication_acceptance",
+        "release_acceptance"
+      ],
+      "preview_movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/12_residues.mp4",
+        "sha256": "a78c20024c257eaa4783db80f9b99c23442fe67ac8f646e354e633074f842199"
+      },
+      "frame_records": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/12_residues/sampling.json",
+          "sha256": "df4ac4872fe729b2cb11b91b44041f143f9cfca707a4872c3056503cda59272e",
+          "frames": 101,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json",
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/residue-transition-frames305/manifest.json",
+          "sha256": "c6cca51f4290b32b7e4f2587900cdf1adefde66bf48d032b32f322edd684eea2",
+          "frames": 288,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json",
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/residue-transition-review305.json"
+          ]
+        }
+      ],
+      "independent_confirmation": [
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json"
+      ],
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-12-residues-a1/resource-receipt.json",
+      "independent_reviewer": "cc1",
+      "preview_job": "csd-review-repair-preview274",
+      "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+      "start_frame": 102943
+    },
+    {
+      "chapter": "13_real_integral",
+      "kind": "retained",
+      "host": "/data/projects/jmev-css-render-worker-20261107",
+      "job": "css-production19-final-13-real-integral96",
+      "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-chapter78.py",
+      "worker_sha256": "8edccab96593344242386d4ae08399d9cff96da588b00bd3c7f63b0fd1b4accb",
+      "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/review13-96/final-render-permit96.json",
+      "permit_sha256": "e86b5d886b6adf15ff2e682308b19b2284f0c00a6229e4dced6994b70290f8e2",
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "narration": "/data/projects/jmev-css-render-worker-20261107/jobs/css-production19-delivery76/narration",
+      "frames": 10641,
+      "movie_sha256": "49934034d4611b81155925e667dab463072b21ba0240467447b9ddfb52d32f51",
+      "review_basis": "historical_permit",
+      "retention_decision": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/retention-dependency-disposition283.json",
+        "sha256": "9fd8d9720cbf1b8fc811b5fca952b1d34b762bee3e0b77cdf7927fa76d4dd512"
+      },
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-css-a1/resource-receipt.json",
+      "start_frame": 106886
+    },
+    {
+      "chapter": "14_continuation",
+      "kind": "combined",
+      "host": "/data/projects/jmev-css-render-worker-20261107",
+      "job": "css-reviewed-final-14-continuation352",
+      "worker": "/data/projects/jmev-css-render-worker-20261107/qualification01/css-final-repair352.py",
+      "worker_sha256": "1074051b6063f1cd400de58422f7491d2d011f764884b63c4968b03feaf01a8a",
+      "permit": "/data/projects/jmev-css-render-worker-20261107/qualification01/repair352-permits/14_continuation-css-permit370.json",
+      "permit_sha256": "778ca1114a4ae70dea3f03cf1af44d5aad5310bb293acbcefb191d9d3c40c661",
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "narration": "/data/projects/jmev-css-render-worker-20261107/jobs/css-repair-delivery309/narration",
+      "frames": 11756,
+      "movie_sha256": "8a72acacea5908482dfa3bbf0efc9fe9a39abc57b2487bf8f35bba98c3ac199a",
+      "review_basis": "sampled_preview",
+      "review_scope": {
+        "basis": "sampled_preview",
+        "purpose": "technical_4k_render",
+        "preview_movie_sha256": "a0d34489e9757ff3db96e3d8b7a438845a90036453b2d4d7c9426efd8dc7c432",
+        "sampled_intervals": [
+          [
+            34,
+            98
+          ],
+          [
+            1223,
+            1258
+          ],
+          [
+            8876,
+            8940
+          ],
+          [
+            10179,
+            10301
+          ],
+          [
+            11724,
+            11755
+          ]
+        ],
+        "playback_seconds": [],
+        "open_reviews": [
+          "final_picture",
+          "motion",
+          "audio",
+          "fine_sync",
+          "captions",
+          "independent_final_av",
+          "publication"
+        ]
+      },
+      "sampled_intervals": [
+        [
+          34,
+          98
+        ],
+        [
+          1223,
+          1258
+        ],
+        [
+          8876,
+          8940
+        ],
+        [
+          10179,
+          10301
+        ],
+        [
+          11724,
+          11755
+        ]
+      ],
+      "sampled_frames": 321,
+      "open_reviews": [
+        "final_picture",
+        "motion",
+        "audio",
+        "fine_sync",
+        "captions",
+        "independent_final_av",
+        "publication"
+      ],
+      "stated_false": [
+        "continuous_motion_acceptance",
+        "final_4k_acceptance",
+        "fine_sync_acceptance",
+        "listening_acceptance",
+        "publication_acceptance",
+        "release_acceptance"
+      ],
+      "preview_movie": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/preview/14_continuation.mp4",
+        "sha256": "a0d34489e9757ff3db96e3d8b7a438845a90036453b2d4d7c9426efd8dc7c432"
+      },
+      "frame_records": [
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-preview274/14_continuation/sampling.json",
+          "sha256": "5faa729974a76a216bfcc5d2a36975df67fabd0bd79a07a1912fc784db5feb2b",
+          "frames": 80,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json",
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/picture-review-progress305.json"
+          ]
+        },
+        {
+          "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/continuation-transition-frames305/manifest.json",
+          "sha256": "a787e39d74c54651b8bbb3a97f0c75e7c863be4ab946c3004bb5aa153e34649b",
+          "frames": 319,
+          "viewed_by": [
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json",
+            "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/continuation-transition-review305.json"
+          ]
+        }
+      ],
+      "independent_confirmation": [
+        "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-chapter-picture-review357.json"
+      ],
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-css352-import371-14-continuation-a1/resource-receipt.json",
+      "independent_reviewer": "cc1",
+      "preview_job": "csd-review-repair-preview274",
+      "encoder": "x264 - core 165 - H.264/MPEG-4 AVC codec - Copyleft 2003-2025 - http://www.videolan.org/x264.html - options: cabac=1 ref=1 deblock=1:1:1 analyse=0x3:0x113 me=hex subme=2 psy=1 psy_rd=0.40:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=24 lookahead_threads=8 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=5 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=1 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=10 rc=crf mbtree=1 crf=16.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:0.60",
+      "start_frame": 117527
+    },
+    {
+      "chapter": "15_closing",
+      "kind": "retained",
+      "host": "/data/projects/jmev-hz2-render-worker-20261107",
+      "job": "hz2-production19-final-15-closing53",
+      "worker": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/hz2-final-chapter53.py",
+      "worker_sha256": "20f5c3a94ddada0afd5150c2ac81a028c789bf3dcd33a7f3608a5a8d4f618fac",
+      "permit": "/data/projects/jmev-hz2-render-worker-20261107/qualification01/production19/review15-53/final-render-permit53.json",
+      "permit_sha256": "ec74b68375331470ac18c2c7e5db4fc60bb82a247e2eeead844233c453fecd20",
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "narration": "/data/projects/jmev-hz2-render-worker-20261107/jobs/hz2-production19-delivery49/narration",
+      "frames": 4379,
+      "movie_sha256": "3e2440a8785319cf9477e73303e6391c8a4165c7fbfd3fa6f4ad97e81f874fd4",
+      "review_basis": "historical_permit",
+      "retention_decision": {
+        "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/retention-dependency-disposition283.json",
+        "sha256": "9fd8d9720cbf1b8fc811b5fca952b1d34b762bee3e0b77cdf7927fa76d4dd512"
+      },
+      "import_receipt": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-retained-import311-hz2-a1/resource-receipt.json",
+      "start_frame": 129283
+    }
+  ],
+  "full_decode": false,
+  "final_picture_review": false,
+  "motion_review": false,
+  "audio_heard": false,
+  "independent_av_acceptance": false,
+  "exact_caption_check": false,
+  "publication_accepted": false,
+  "review_bases": {
+    "01_the_bump": "sampled_preview",
+    "02_turning_numbers": "historical_permit",
+    "03_two_planes": "historical_permit",
+    "04_reading_color": "sampled_preview",
+    "05_gallery": "sampled_preview",
+    "06_one_derivative": "sampled_preview",
+    "07_one_point": "sampled_preview",
+    "08_loop_sums": "sampled_preview",
+    "09_boundary": "sampled_preview",
+    "10_rigidity": "sampled_preview",
+    "11_counting": "sampled_preview",
+    "12_residues": "sampled_preview",
+    "13_real_integral": "historical_permit",
+    "14_continuation": "sampled_preview",
+    "15_closing": "historical_permit"
+  },
+  "continuous_motion_acceptance": false,
+  "fine_sync_acceptance": false,
+  "final_4k_acceptance": false,
+  "release_acceptance": false,
+  "scope": "Technical combined master only. Chapter finals rest on the review_bases named here: the historical production19 permits and sampled-preview dispositions for a technical 4K render. No continuous-motion, final-picture, audio, fine-sync, caption, AV, release or publication acceptance. No audio heard or checked."
+}

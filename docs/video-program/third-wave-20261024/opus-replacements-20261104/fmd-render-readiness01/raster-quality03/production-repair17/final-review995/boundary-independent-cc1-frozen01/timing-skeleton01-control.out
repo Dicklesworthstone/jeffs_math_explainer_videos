@@ -1,0 +1,4 @@
+base events: 228  candidate events: 228
+first difference at 101 base ('fade_in_all', '0.3') candidate ('fade_in_all', '0.35')
+base kinds: {'fade_in_all': 84, 'fade_out_all': 42, 'kit.hold': 5, 'kit.music_breath': 1, 'line.until': 3, 'line.wait_for': 31, 'line.wait_sentence': 16, 'names_now': 1, 'pause': 2, 'predict': 2, 'say(&kit, stage, ': 9, 'stage.add_updater': 6, 'stage.clear_updaters': 6, 'stage.play': 8, 'tween_linear': 8, 'wait_until': 4}
+TIMING SKELETON IDENTICAL: False

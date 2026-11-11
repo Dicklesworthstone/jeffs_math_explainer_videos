@@ -1,0 +1,7 @@
+{"batch": 14, "viewed_utc": "2026-11-10T21:39Z",
+ "sheets": {
+  "0052": "03 78.833-86.0 s. All four circle points have images (78.8 s). Vertical arrows from hollow rings (the input positions) to the filled images show the flip across the real axis (79.5-81.0 s); caption 'inside -> outside, outside -> inside' (82.7 s). A red X at 0 with a leader to '1/0 undefined' (85.7-86.0 s); the leader draws before the box. No defect.",
+  "0053": "03 87.967-96.0 s. Hold, then fade (88.9 s). 03_6: a tall input window with '2 pi i' marked and an output window; caption 'new windows: the ticks still mark whole numbers' (91.0 s); title 'f(z) = e^z'. Inputs -1, 0, 1 map to labelled 0.368, 1.000, 2.718 with 'x e' (92.9-96.0 s). Input 46.4 px per unit with 2 pi i at 6.28 units, output 52.5 px per unit; values sit correctly. No defect.",
+  "0054": "03 97.017-106.0 s. The line x = 1 traced upward maps to the circle of radius e traced counter-clockwise: at 97.9 s the segment reaches 1.47 and the arc 84 deg (1.47 rad); at 100.0 s 4.14 and 237 deg (4.13 rad). Then the lines x = 0 and x = -1 give circles of radius 1 and 0.368 (102.2-103.2 s). Horizontal lines at y = pi/4, 3pi/4, 5pi/4, 7pi/4 grow from x = -1.55 and map to rays at 45, 135, 225, 315 deg; mid-draw at 106.0 s (the input lines reach x = 0.45, the rays radius 1.56 = e^0.45). No defect."
+ },
+ "findings": []}

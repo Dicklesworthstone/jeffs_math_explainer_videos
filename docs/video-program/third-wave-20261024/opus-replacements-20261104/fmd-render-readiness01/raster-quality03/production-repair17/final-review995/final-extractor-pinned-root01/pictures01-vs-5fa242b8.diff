@@ -1,0 +1,40 @@
+--- cc3-5fa242b8/csd-native-repair-pictures01.py
++++ final-extractor-route01/csd-native-repair-pictures01.py
+@@ -6,6 +6,10 @@
+ the final job's guard bound. The record keeps pictures969.json's fields, so readers of that record can
+ read this one. Extraction only: no picture viewing, listening, fine-sync or AV acceptance, and no review
+ scope (root M1: a later step derives scope from the actual viewing of this extraction).
++
++CC0 successor of CC3's 5fa242b8: the preview admission's evidence is checked by the bound runner's own
++review_checks() (runner 7cafacfa), so 09's REVIEW_ROUTES admission (complete independent and author
++viewing under root's explicit decision; no whole root viewing) is read as the runner reads it.
+ """
+ import argparse
+ import hashlib
+@@ -72,8 +76,9 @@
+     return run,final,bound,{final/'resource-receipt.json',inputs,RUNNER}
+ 
+ def retained(run,chapter):
+-    """Exactly the admitted preview extraction's frames: what root viewed, holding the sampling list and
+-    (09) prior775. Returns (frames, retained sample count, files read)."""
++    """Exactly the admitted preview extraction's frames: what root viewed (for a REVIEW_ROUTES chapter, what
++    the independent reviewer and the repair author each viewed completely, under root's explicit decision),
++    holding the sampling list and (09) prior775. Returns (frames, retained sample count, files read)."""
+     spec=run.CHAPTERS[chapter];chain=run.CHAINS[spec['kind']]
+     admission=run.admission(chapter);review=read(admission)
+     assert review['chapter']==chapter and review['safe_to_advance_to_final4k'] is True
+@@ -95,9 +100,12 @@
+         assert len(oldframes)==len(set(oldframes))==814 and oldframes==sorted(oldframes)
+         required|=set(oldframes);files.add(prior)
+     assert required<=set(frames),'the admitted preview extraction lacks retained samples'
+-    for key in ('root_review','independent_review'):
++    route=run.REVIEW_ROUTES.get(chapter)
++    for key in ('root_review','independent_review')+(('author_review',) if route else ()):
+         item=review[key];assert sha(item['path'])==item['sha256'];files.add(Path(item['path']))
+-    assert read(review['root_review']['path'])['viewed_frame_indices']==frames
++    # The bound runner's own admission checks: whole root viewing, or 09's REVIEW_ROUTES.
++    run.review_checks(chapter,review,read(review['root_review']['path']),read(review['independent_review']['path']),
++                      read(review['author_review']['path']) if route else None,preview,sha(record))
+     return frames,len(required),files
+ 
+ def choose(kept,layout_text,total):

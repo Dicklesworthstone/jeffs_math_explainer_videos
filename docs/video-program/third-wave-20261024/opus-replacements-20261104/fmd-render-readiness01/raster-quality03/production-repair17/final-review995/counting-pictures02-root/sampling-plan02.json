@@ -1,0 +1,36 @@
+{
+  "sources": {
+    "staged": {
+      "src/chapters/the_bump.rs": "90b51c2b30877911bbb5f5e14ee810268e14efb24e7c4e2a55f7f7e128c06ee7",
+      "src/chapters/loop_sums.rs": "a8d62f560321ea6ebea3d3859acd9a3ce3e5dde4375ec0ab42c1a1ba114d61ef",
+      "src/chapters/mod.rs": "4de1e4a56fde5c11ac3d6a65e772d09ec33db4f5757d817aff370799d3423578",
+      "src/chapters/boundary.rs": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932",
+      "src/chapters/counting.rs": "21c5043a3339cfadb10024a2e8227a62a0b06674139eace1a0d9029a4e1aa0db"
+    }
+  },
+  "frames": 11932,
+  "samples": 848,
+  "timeline_reference_sha256": "29a3afd345fa3a376e5c163d5bf5e01267a866e2305bdd27c6413a5bab46807d",
+  "sampling": "Whole chapter every1s;11_2/11_3 every0.2s;11_6 every0.1s;cue/prediction/listen-end/breath boundaries \u00b16frames. Current render lint and persistence union added during extraction. Samples, not continuous motion proof.",
+  "independent_review": "CC2 source/frame-model review; no image or AV acceptance",
+  "supplemental_frames": [
+    558,
+    559,
+    884,
+    885,
+    1128,
+    1129,
+    4720,
+    4721,
+    7465,
+    7466,
+    7472,
+    7478,
+    7484,
+    7490,
+    9322,
+    9323,
+    10559
+  ],
+  "supplemental_review_sha256": "08a495bce368dd3d5e09267a6499c0464a8df225197a53f79a92ee34251da2f1"
+}

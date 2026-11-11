@@ -1,0 +1,133 @@
+{
+  "utc": "2026-11-10T12:55:14.636271+00:00",
+  "timeline_summary_sha256": "69b08835403eff7fbb8babea3ef114355e5888a7ab362047fb8e7dbbb193358e",
+  "receipt_inputs_sha256": "353cd7a8baed1f5374507dddb9628e466235ecdb454da989a270f36dd02f16b5",
+  "script_sha256": "d5a945b2e763343b0277f35e0b5d98e4e7bf13bef52f595815f78d67b916d31b",
+  "total_frames": 164420,
+  "fps": 60,
+  "chapters": [
+    {
+      "key": "01_rate_law",
+      "label": "A curve that follows its own height",
+      "start_frame": 0,
+      "start_seconds": 0.0,
+      "display": "0:00",
+      "frames": 5920
+    },
+    {
+      "key": "02_factorials",
+      "label": "Where the factorials come from",
+      "start_frame": 5920,
+      "start_seconds": 98.66666666666667,
+      "display": "1:38",
+      "frames": 8964
+    },
+    {
+      "key": "03_product_grid",
+      "label": "Why adding inputs multiplies outputs",
+      "start_frame": 14884,
+      "start_seconds": 248.06666666666666,
+      "display": "4:08",
+      "frames": 10306
+    },
+    {
+      "key": "04_tiny_multipliers",
+      "label": "A product of tiny steps",
+      "start_frame": 25190,
+      "start_seconds": 419.8333333333333,
+      "display": "6:59",
+      "frames": 9106
+    },
+    {
+      "key": "05_whole_sum",
+      "label": "Why the stepped approximations reach E",
+      "start_frame": 34296,
+      "start_seconds": 571.6,
+      "display": "9:31",
+      "frames": 12988
+    },
+    {
+      "key": "06_only_solution",
+      "label": "One rate law, one solution",
+      "start_frame": 47284,
+      "start_seconds": 788.0666666666667,
+      "display": "13:08",
+      "frames": 13241
+    },
+    {
+      "key": "07_calculating_ruler",
+      "label": "Multiplication by sliding a ruler",
+      "start_frame": 60525,
+      "start_seconds": 1008.75,
+      "display": "16:48",
+      "frames": 14351
+    },
+    {
+      "key": "08_decay_law",
+      "label": "Decay and half-life",
+      "start_frame": 74876,
+      "start_seconds": 1247.9333333333334,
+      "display": "20:47",
+      "frames": 11650
+    },
+    {
+      "key": "09_charging_gap",
+      "label": "How a capacitor closes the gap",
+      "start_frame": 86526,
+      "start_seconds": 1442.1,
+      "display": "24:02",
+      "frames": 12413
+    },
+    {
+      "key": "10_changing_rates",
+      "label": "When the rate changes",
+      "start_frame": 98939,
+      "start_seconds": 1648.9833333333333,
+      "display": "27:28",
+      "frames": 11810
+    },
+    {
+      "key": "11_money_limits",
+      "label": "Compound interest and its limits",
+      "start_frame": 110749,
+      "start_seconds": 1845.8166666666666,
+      "display": "30:45",
+      "frames": 8714
+    },
+    {
+      "key": "12_chance_and_limits",
+      "label": "Chance and the limits of a model",
+      "start_frame": 119463,
+      "start_seconds": 1991.05,
+      "display": "33:11",
+      "frames": 12814
+    },
+    {
+      "key": "13_turning_rate",
+      "label": "Turning growth into rotation",
+      "start_frame": 132277,
+      "start_seconds": 2204.616666666667,
+      "display": "36:44",
+      "frames": 14079
+    },
+    {
+      "key": "14_euler_identity",
+      "label": "Three paths to Euler's identity",
+      "start_frame": 146356,
+      "start_seconds": 2439.266666666667,
+      "display": "40:39",
+      "frames": 12782
+    },
+    {
+      "key": "15_logarithm_bridge",
+      "label": "Running the exponential backward",
+      "start_frame": 159138,
+      "start_seconds": 2652.3,
+      "display": "44:12",
+      "frames": 5282
+    }
+  ],
+  "description_sha256": "41e5a79d8b141717692f9050fa77cf0b35a38a6925b339243184fcb36a12b051",
+  "final_master_verified": false,
+  "scope": "Actual stable962 timelines only; final master chapter times and complete copy still require review."
+}

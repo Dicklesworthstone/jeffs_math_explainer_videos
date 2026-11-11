@@ -1,0 +1,7 @@
+{"batch": 52, "viewed_utc": "2026-11-10T20:32Z",
+ "sheets": {
+  "0166": "05 104.133-104.25 s (f31954-f31961, every frame of root window 6181-6264). 05_7 portrait at full colour, steady frame to frame. No defect.",
+  "0167": "05 104.267-104.383 s (f31962-f31969). Steady portrait; f31969 the title starts fading in above it, evenly. No defect.",
+  "0168": "05 104.4-107.2 s. f31970 (last frame of root window 6181-6264) title dim; full by 105.8 s: 'zeta(s) = 1 + 2^-s + 3^-s + ..., Re s > 1' (crop crops/s0168-slot2-zetatitle4x.png), true, centred over the portrait; the script-size minus in the exponents is proportionate. Real-axis hue on slot 2 (sheet row 256): red (positive) for x < 1036, cyan (negative) on 1039-1123, red on 1126-1207, cyan on 1213-1336, red from 1342, switches 87, 87 and 129 px apart, so zeros at -6, -4, -2 and the pole at 1 at about 43 px per unit; signs match zeta (zeta(-5) < 0, zeta(-3) > 0, zeta(0) = -1/2, zeta > 0 for s > 1). Hue winds +1 around the point at -2 (zero) and -1 around the point at 1 (pole), and the rings sit at the pole. Held steady to 107.2 s. No defect."
+ },
+ "findings": []}

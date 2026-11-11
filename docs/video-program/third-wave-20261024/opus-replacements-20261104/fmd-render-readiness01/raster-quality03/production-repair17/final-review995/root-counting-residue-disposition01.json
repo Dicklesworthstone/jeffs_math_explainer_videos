@@ -1,0 +1,23 @@
+{
+  "utc": "2026-11-10T22:28:36.321669+00:00",
+  "source_hashes": {
+    "src/chapters/counting.rs": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1",
+    "src/chapters/residues.rs": "7d06f69b2aff86ac1bee103c7aaefc58891d0b335312e98df3610769f45af7c1",
+    "script.tsv": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c"
+  },
+  "findings": {
+    "L9_delayed_squash_disclosure": {
+      "status": "repair requested",
+      "reason": "Leash inequality drawn while geometry is compressed; scale disclosure appears about9.6s later according to actual sampled frames. CC3 assigned timing-neutral early disclosure alongside11_3 true-circle repair."
+    },
+    "L13_caption_free_tail": {
+      "status": "authored reading hold identified; perceptual review remains",
+      "source": "counting11_8 waits to line.end, then reading_window,2s music_breath,0.5s fade and finish. Do not infer missing narration or dead silence from caption absence."
+    },
+    "L14_h_reused": {
+      "status": "low notation reuse retained",
+      "reason": "12_1 h is holomorphic remainder; its notation is explicitly faded out at12_2 before new simple-pole g/h setup. Script explicitly introduces h as denominator vanishing at pole with nonzero derivative. No simultaneous conflicting definition; no mathematical correction needed."
+    }
+  },
+  "limits": "Source observations and prior actual sampled pictures only. No new listening or continuous motion acceptance."
+}

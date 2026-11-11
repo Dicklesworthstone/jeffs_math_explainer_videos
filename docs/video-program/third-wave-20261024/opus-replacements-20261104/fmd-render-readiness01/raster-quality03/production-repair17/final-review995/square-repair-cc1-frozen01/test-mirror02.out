@@ -1,0 +1,46 @@
+PASS every quarter has c as a corner
+PASS no quarter concentric  min centre offset 1.414
+PASS kept shares a corner with Q_n
+PASS kept halves diameter
+PASS kept halves perimeter
+PASS kept diagonal is its diameter
+PASS kept diagonal parallel to D_n
+PASS kept diagonal apart from D_n line  1.414
+PASS cut through c
+PASS cut half shared by 2 quarters  2
+PASS cut half shared by 2 quarters  2
+PASS cut through c
+PASS cut half shared by 2 quarters  2
+PASS cut half shared by 2 quarters  2
+PASS names inside/outside kept
+PASS name (-4.05+1.42j) clear by > 0.280  min 0.480
+PASS name (-2.8200000000000003+0.18000000000000002j) clear by > 0.085  min 0.220
+PASS name (-1.7+1.2j) clear by > 0.170  min 0.283
+PASS body binds proof_children(&enlarged)
+PASS body binds KEPT_QUARTER
+PASS old concentric map gone
+PASS walk ccw  16.000
+PASS start off the diagonal  2.828
+PASS |start-c| = D/2
+PASS D_n name clear of resting segment  1.581
+PASS body has enlarged[(WALK_START + k) % 4]
+PASS body has let moving = walk_corners;
+PASS body has &[centre, walk_corners[0]]
+PASS 0.4 <= away < 0.7  0.566 (38 px)
+PASS name clear of nest edges > glyph+0.06  min 0.227
+PASS name clear of delta circle  0.481 vs 0.418
+PASS leader starts past rim, ends short of glyph
+PASS leader meets no nest edge (> 0.02)  min 0.042 (2.9 px)
+PASS body has let (name_at, leader) = c_name_and_leader(c);
+PASS body has &[point, point_leader, point_name]
+PASS body has &[point, point_leader, point_name, neighbourhood, small]
+info: leader crosses the delta-circle (drawn later, dim leader over green ring): True
+PASS square picture cleared before triangle
+PASS listed perimeter_word,
+PASS listed perimeter_name,
+PASS listed square_picture.extend(quarter_picture);
+info: line.wait_for( calls in body: 34
+PASS TEXT has PERIMETER_WORD once
+PASS TEX has KEPT_TEX once
+
+42 checks, 0 failed

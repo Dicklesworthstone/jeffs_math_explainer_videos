@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-11T00:31:35.664706+00:00",
+  "root_comparison_exit": 0,
+  "files": {
+    "compare1008-985.py": "9a7838cbed1b7e8673236e5c8d8a10b04aa068b0f493fafa543a743fd07c9daf",
+    "records1008-06.json": "a40cba16ca9ce495249110083745f13bcf2001dfc38cf0c523758de9e0c0d4de",
+    "compare1008-985-run06.log": "34f9a94844ca78ecc98735e3ab8f3d1958f9f3c52ab3873b8e0417cb8bfea162",
+    "pictures1008-crossfade-addendum01.md": "fcd4a2a534b7802bb3475723eeeec1f72089f1f9e7dfaae538edf8048bbcec4d",
+    "publication-review03-SHA256SUMS.txt": "123d4713e546d49b611d657c42f11f1f1977b4d2f6c59a9a0a75085f2dee21f6"
+  },
+  "scope": "Recorded picture hashes, frame/reason lists and receipts; not fresh viewing or continuous audiovisual acceptance."
+}

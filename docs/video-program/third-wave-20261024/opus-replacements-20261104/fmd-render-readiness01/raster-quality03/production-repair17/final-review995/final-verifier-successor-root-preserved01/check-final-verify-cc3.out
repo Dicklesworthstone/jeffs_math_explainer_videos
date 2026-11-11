@@ -1,0 +1,62 @@
+ok   compiles: csd-final-verify-repaired01.py
+ok   compiles: csd-final-after-master-repaired01.py
+ok   base csd-final-verify995.py is 69fa3ded
+ok   base csd-final-after-master995.py is 9a055c26
+ok   base combined-master-repaired01.py is 17388c9d
+ok   base csd-native-repair-final01-run.py is 6dceac47
+ok   base csd-native-repair-pictures01.py is 5fa242b8
+ok   base root-preview313-playback343.json is d9f250ec
+ok   995 functions changed: ['expected_worker451', 'main', 'master350', 'picture_plan', 'pictures', 'plan_for', 'unresolved', 'verify']
+ok   995 module names changed or added: ['BOUNDARY_INSTANTS', 'MASTER', 'MASTER_HELPER', 'MASTER_HELPER_NAME', 'MASTER_HELPER_SHA', 'MASTER_INPUTS', 'MASTER_VERSION', 'NATIVE608', 'PICTURES', 'PICTURES_INPUTS', 'PLAYBACK343', 'REPAIRED', 'REPAIRED_BINARY', 'STAGE_VERSION', 'VERIFY', 'VERIFY_INPUTS', 'VERSION', 'WORKER_NAME', 'WORKER_SHA']
+ok   995 windows, layout anchors, 09 checks, 07 instants, flags, caption pins, budgets and OUT unchanged
+ok   995 function unchanged: schedules
+ok   995 function unchanged: delivery347
+ok   995 function unchanged: film
+ok   995 function unchanged: frame_hashes
+ok   995 function unchanged: runtime
+ok   995 function unchanged: pillow_runtime
+ok   995 function unchanged: growth_upper
+ok   995 function unchanged: part_done
+ok   995 function unchanged: launch
+ok   995 function unchanged: stable
+ok   995 function unchanged: shared
+ok   995 function unchanged: build313
+ok   995 function unchanged: source_job451
+ok   995 function unchanged: verified
+ok   995 function unchanged: anchors
+ok   995 function unchanged: clean
+ok   995 function unchanged: sheet_label
+ok   verify(): 995's lines except the master version in 2 texts
+ok   pictures(): 995's lines except the master version in 2 texts and the boundary_instants343 record field
+ok   pins pending: VERSION, MASTER_VERSION, MASTER_HELPER_NAME, MASTER_HELPER_SHA, STAGE_VERSION, WORKER_NAME, WORKER_SHA, REPAIRED_BINARY[native-combined01], REPAIRED_BINARY[native-counting02]
+ok   KINDS: 01/08/09/11 the master successor kinds, 10 native521, the other ten as in 995
+ok   REVIEW_BASES: both repaired kinds sampled_preview
+ok   NATIVE608: 10 unchanged; the four repaired rows added (09 native844 entry replaced)
+ok   BOUNDARY_INSTANTS = root 343 playback_observed_seconds = master993 09 row playback_seconds (the four 995 planned)
+ok   root 343 claims no acceptance and states no continuous viewing or listening
+ok   final969 frames = prior775 frames (814), locally
+ok   the 09 final extraction must hold prior775 (run proofs, retained(), choose()), so it holds 969's 814 frames
+ok   plan182 chapters = master993 registry and frames
+ok   overview: every 995 sample kept (8351); the only new ones are 01/08/11 final extraction frames (+940)
+ok   native 4K frames identical to 995's (123), the four 09 instant natives included
+ok   each 09 instant frame +-2 is planned and labelled a final still only (root 343)
+ok   every frame of the four repaired final extractions is planned (09: all 814 of 969)
+ok   no planned reason claims listening; no playback instant comes from a repaired row's scope
+ok   plan_for(): passes every pinned record, the 06 and 08 required windows, and binds root 343
+ok   plan_for() still refuses an 08 scope without 10200-10380 (995:1102-1104 not weakened)
+ok   plan_for() refuses instants that differ from root 343's record
+ok   csd-final-verify-repaired01.py: refuses with pins unset, writes nothing
+ok   csd-final-after-master-repaired01.py: refuses with pins unset, writes nothing
+ok   after-master line kept: deadline=time.monotonic()+43200
+ok   after-master line kept: if r.get('finished'):
+ok   after-master line kept: subprocess.run(['/usr/bin/python3','-I','-B',str(HELPER),mode],check=True)
+ok   after-master line kept: assert sha(HELPER)==HELPER_SHA
+ok   after-master: each job's success is required before the next mode (995 named jobs; the successor holds paths)
+ok   after-master: job names from the pinned verifier, 995 order
+ok   csd-final-verify-repaired01.py: no prose em dash, no home path
+ok   csd-final-after-master-repaired01.py: no prose em dash, no home path
+info diff from 995: +85 -32
+info diff from after-master995: +21 -13
+info plan sizes: 995 8351 samples / 123 natives; successor 9291 / 123; overview upper 1.75 GiB, native upper 2.91 GiB (budget 3.5 GiB each)
+
+57 passed, 0 failed

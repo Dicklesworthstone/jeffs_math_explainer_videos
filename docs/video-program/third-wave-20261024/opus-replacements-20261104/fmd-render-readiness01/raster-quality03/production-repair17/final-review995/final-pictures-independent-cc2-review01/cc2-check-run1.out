@@ -1,0 +1,90 @@
+ok   compiles: csd-native-repair-pictures01.py
+ok   compiles: csd-native-repair-pictures01-after-final.py
+ok   969 pictures is the pinned 64045fcd
+ok   969 after-final is e8876c7f
+ok   run table is the sealed run helper 6dceac47
+ok   extraction loads the same runner path the final job ran
+ok   normalization folders for exactly 01/08/09/11
+ok   extraction job name pattern
+ok   base761 pin and guard policy equal 969 and the run helper
+ok   09 cues and timeline pins equal 969 lines 18-20
+ok   09 replacement folder equals 969 line 17
+ok   09 timeline pin = run table normalized timeline
+ok   01_the_bump normalization folder, digest and frames = csd-combined01-timeline.py EXPECTED
+ok   08_loop_sums normalization folder, digest and frames = csd-combined01-timeline.py EXPECTED
+ok   09_boundary normalization folder, digest and frames = csd-combined01-timeline.py EXPECTED
+ok   csd-combined01-timeline.py normalizes line rows only, as normalized() does
+ok   01_the_bump normalization folder, digest and frames = csd-combined01-preview.py EXPECTED
+ok   08_loop_sums normalization folder, digest and frames = csd-combined01-preview.py EXPECTED
+ok   09_boundary normalization folder, digest and frames = csd-combined01-preview.py EXPECTED
+ok   csd-combined01-preview.py normalizes line rows only, as normalized() does
+ok   11_counting normalization folder, digest and frames = csd-counting02-timeline.py EXPECTED
+ok   csd-counting02-timeline.py normalizes line rows only, as normalized() does
+ok   11_counting normalization folder, digest and frames = csd-counting02-preview.py EXPECTED
+ok   csd-counting02-preview.py normalizes line rows only, as normalized() does
+ok   normalized(): moves only line rows' last column (synthetic table)
+ok   969 line 22 kept: def sha(p):
+ok   969 line 23 kept: with Path(p).open('rb') as f:return hashlib.file_digest(f,'sha256').he
+ok   969 line 24 kept: def read(p):return json.loads(Path(p).read_text())
+ok   969 line 25 kept: def balanced(terms):
+ok   969 line 26 kept: assert terms
+ok   969 line 27 kept: if len(terms)==1:return terms[0]
+ok   969 line 28 kept: middle=len(terms)//2
+ok   969 line 29 kept: return '('+balanced(terms[:middle])+'+'+balanced(terms[middle:])+')'
+ok   969 line 39 kept: assert guard['admitted'] and guard['phase']=='native' and not guard['p
+ok   969 line 40 kept: assert 'finished' not in guard and 'exit' not in guard
+ok   969 line 52 kept: assert raw==(PREVIEW/'preview'/p.name).read_bytes()
+ok   969 line 54 kept: tables[ext]=sha(p)
+ok   969 line 69 kept: probe=json.loads(h.run_step(JOB,'probe',['/usr/bin/ffprobe','-v','erro
+ok   969 line 70 kept: '-of','json',movie],60,None))
+ok   969 line 71 kept: videos=[s for s in probe['streams'] if s['codec_type']=='video'];asser
+ok   969 line 72 kept: v=videos[0]
+ok   969 line 73 kept: assert (v['width'],v['height'],v['avg_frame_rate'],int(v['nb_frames'])
+ok   969 line 74 kept: h.run_step(JOB,'decode',['/usr/bin/ffmpeg','-nostdin','-v','error','-x
+ok   969 line 75 kept: '-i',movie,'-f','null','-'],3600,None)
+ok   969 line 87 kept: for row in layout_text.splitlines():
+ok   969 line 88 kept: match=re.search(r'@([0-9.]+)s',row);assert match,row
+ok   969 line 89 kept: at=round(float(match[1])*60);assert 0<=at<total
+ok   969 line 90 kept: anchors.append(dict(frame=at,row=row))
+ok   969 line 91 kept: chosen.update(range(at,min(at+121,total),12))
+ok   969 line 92 kept: chosen.update(range(at,total,300))
+ok   969 line 93 kept: frames=sorted(chosen);assert set(kept)<=chosen and len(frames)<CAP
+ok   969 line 94 kept: select=JOB/'select.filter'
+ok   969 line 95 kept: with select.open('x') as f:f.write("select='"+balanced([f'eq(n\\,{n})'
+ok   969 line 96 kept: pictures=JOB/'pictures';pictures.mkdir()
+ok   969 line 97 kept: h.run_step(JOB,'extract',['/usr/bin/ffmpeg','-nostdin','-n','-v','erro
+ok   969 line 98 kept: '-i',movie,'-an','-filter_script:v',select,'-fps_mode','passthrough','
+ok   969 line 99 kept: pictures/'frame-%06d.jpg'],3600,None)
+ok   969 line 100 kept: files=sorted(pictures.glob('frame-*.jpg'));assert len(files)==len(fram
+ok   969 line 101 kept: sheets=JOB/'sheets';sheets.mkdir();rows=[]
+ok   969 line 102 kept: for start in range(0,len(files),8):
+ok   969 line 103 kept: sheet=Image.new('RGB',(1280,1536),'#222222');draw=ImageDraw.Draw(sheet
+ok   969 line 104 kept: for slot,p in enumerate(files[start:start+8]):
+ok   969 line 105 kept: index=start+slot;x,y=(slot%2)*640,(slot//2)*384
+ok   969 line 106 kept: with Image.open(p) as im:
+ok   969 line 107 kept: assert im.size==(3840,2160)
+ok   969 line 108 kept: sheet.paste(im.resize((640,360),Image.Resampling.LANCZOS),(x,y+24))
+ok   969 line 109 kept: draw.text((x+8,y+5),f'{index+1:03d} | frame {frames[index]} | {frames[
+ok   969 line 110 kept: p=sheets/f'sheet-{start//8+1:03d}.jpg';sheet.save(p,quality=95)
+ok   969 line 111 kept: rows.append(dict(path=str(p),sha256=sha(p),first_picture=start+1,last_
+ok   cap raised from 1500 to 4000 (969 line 93)
+ok   prior775 = run table pin
+ok   choose(prior775, 969 layout rows, 16504) reproduces completed 969: 814 frames, 2 anchors
+ok   09 retained union 1506 needs the raised cap (969 <1500 would refuse)
+ok   choose(): 2 s every 12 frames and every 300 to the end (synthetic)
+ok   record keeps all pictures969.json fields; adds chapter, final_job, preview_extraction
+ok   lineage/retained: assert [str(x) for x in receipt['command']]==[sys.executable,'-I','-B',s
+ok   lineage/retained: assert sha(inputs)==receipt['inputs_sha256']
+ok   lineage/retained: assert bound.get(str(RUNNER))==sha(RUNNER),'not the runner the final job
+ok   lineage/retained: assert review['extraction_record']['path']==str(record) and review['extr
+ok   lineage/retained: assert required<=set(frames),'the admitted preview extraction lacks reta
+ok   lineage/retained: assert read(review['root_review']['path'])['viewed_frame_indices']==fram
+ok   guard command equals 969 after-final lines 47-49 plus --chapter
+ok   969 after-final line kept: deadline=time.monotonic()+108000
+ok   969 after-final line kept: if 'finished' in d:
+ok   969 after-final line kept: for name,digest in rows.items():assert sha(Path(name))==digest,name
+ok   969 after-final line kept: with INPUTS.open('x') as f:
+ok   969 after-final line kept: success(JOB/'resource-receipt.json')
+ok   launcher order: no job, wait for the final, lineage, retained set, inputs written exclusively, guard
+
+88 passed, 0 failed

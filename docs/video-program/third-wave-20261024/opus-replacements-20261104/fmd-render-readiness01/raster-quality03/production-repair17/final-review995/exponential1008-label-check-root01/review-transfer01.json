@@ -1,0 +1,440 @@
+{
+  "utc": "2026-11-11T00:35:19.553605+00:00",
+  "chapters": [
+    {
+      "chapter": "01_rate_law",
+      "pictures": 64,
+      "sheets": 8,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-01-review.json",
+          "sha256": "15f9ec9d5ab243eab97f8d12767dbce6283425fba06fa5c8b5193e0cd8606a32",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter01 sampled final4K picture review only; remaining14chapters and full master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-01-review.json",
+          "sha256": "2aad156f59893a9456a58048e3d252cfaa0534ff459b4857b13efda11b011a6e",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    },
+    {
+      "chapter": "02_factorials",
+      "pictures": 172,
+      "sheets": 22,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-02-review.json",
+          "sha256": "fea538aec50b340d358b1e49176e6b9e017b0c8c37cb6ae9153ad5947d832635",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter02 sampled final4K picture review only; remaining chapters and whole-master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-02-review.json",
+          "sha256": "1f157a65a500474ac50d0a183d3e33079303d3956abd08f82b32588ec6e48a75",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    },
+    {
+      "chapter": "03_product_grid",
+      "pictures": 150,
+      "sheets": 19,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-03-review.json",
+          "sha256": "5033ab69582aa1bc922794981f5946b0ede46f945177d4dda61d6802fd876b58",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter03 sampled final4K picture review only; remaining chapters and whole-master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-03-review.json",
+          "sha256": "4a43b64e3ca2b39ac9169937ff2f550e54cd501bfc58f082a326345de8531c62",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    },
+    {
+      "chapter": "04_tiny_multipliers",
+      "pictures": 68,
+      "sheets": 9,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-04-review.json",
+          "sha256": "0f2148046fdc6e82c184ac27d10ac76769e7fa2a1885b537c76c4d41ffe23a93",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter04 sampled final4K picture review only; remaining chapters and whole-master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-04-review.json",
+          "sha256": "fd6b940ec65526dc3c433cc29a5fe55172bd9010c9c1a9546d02c764f8557e10",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    },
+    {
+      "chapter": "05_whole_sum",
+      "pictures": 246,
+      "sheets": 31,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-05-review.json",
+          "sha256": "48b065c257de547386f6c546f2f27328e330526bd3602cda81ca5a06638cdec7",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter05 sampled final4K picture review only; remaining chapters and whole-master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-05-review.json",
+          "sha256": "64936e1ee1e29ca0b8009b636a37600e2705942bc26c62c23223a20084686026",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    },
+    {
+      "chapter": "06_only_solution",
+      "pictures": 236,
+      "sheets": 30,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-06-review.json",
+          "sha256": "25d93040a69156cdf65700b89bf33fc95e9b9af29e99b8aeea573277ec8b20c4",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter06 sampled final4K picture review only; remaining chapters and whole-master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-06-review.json",
+          "sha256": "54e3dfd7faaa53474b1b0a914b5130edace076f7a37986fd7260ffd9d5aab71d",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    },
+    {
+      "chapter": "07_calculating_ruler",
+      "pictures": 130,
+      "sheets": 17,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-07-review.json",
+          "sha256": "9919b88fad21b85bcf1b27294b17fb7baaee12188232abdf579dae0fba230b56",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter07 sampled final4K picture review only; remaining chapters and whole-master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-07-review.json",
+          "sha256": "8cbcbef9c108ab7afccf9b51e387b14dd2bc4c7a033b4fbe29428b87cea73b8b",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    },
+    {
+      "chapter": "08_decay_law",
+      "pictures": 114,
+      "sheets": 15,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-08-review.json",
+          "sha256": "69a395e7aad1e2c347159ef9d6bd814050173c58c5391a14f98395a76c06c7bf",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter08 sampled final4K picture review only; remaining chapters and whole-master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-08-review.json",
+          "sha256": "12c4137e6702b30ea10a8fe1fb396ce73173332981ef2eba7f95821ce846f9b3",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    },
+    {
+      "chapter": "09_charging_gap",
+      "pictures": 473,
+      "sheets": 60,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-09-review.json",
+          "sha256": "d0e1874e714eff8bb03332c20200f4f7c7b2dab909ebe1a0c126e325e993d7c9",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter09 sampled final4K picture review only; remaining chapters and whole-master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-09-review.json",
+          "sha256": "bbfb7d7a26c56d383308f5327fb4e15c401ba47bfeb6957622b0ce773f8d7e15",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    },
+    {
+      "chapter": "10_changing_rates",
+      "pictures": 154,
+      "sheets": 20,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-10-review.json",
+          "sha256": "836d16b4cd1eb2319bf6c13e5157bb78d5be69b37cd1aa46ff424938ca3b820c",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter10 sampled final4K picture review only; remaining chapters and whole-master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-10-review.json",
+          "sha256": "ca67f05d618f303b37a57d961c2a9b9d476c70763c792dd47823ed2f4f52f922",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    },
+    {
+      "chapter": "11_money_limits",
+      "pictures": 120,
+      "sheets": 15,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-11-review.json",
+          "sha256": "9ef10e5a47c49b0b7a49cfea2dd3af13e3ee8d13be0e40b54c4d568c2e172414",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter11 sampled final4K picture review only; remaining chapters and whole-master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-11-review.json",
+          "sha256": "abf220d62dc735437cb85d8dd81d90a8b267bb5c99150e7103f32d30e8c9a97c",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    },
+    {
+      "chapter": "12_chance_and_limits",
+      "pictures": 94,
+      "sheets": 12,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-12-review.json",
+          "sha256": "35b24b4fbf9ab760d9e1b06a5290649350dead42b2de0e175de67bde4ab7230c",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter12 sampled final4K picture review only; remaining chapters and whole-master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-12-review.json",
+          "sha256": "fd019b702344ed411afc18fbac7ff627dc648a433eb375200f4814b23a4b01a9",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    },
+    {
+      "chapter": "13_turning_rate",
+      "pictures": 546,
+      "sheets": 69,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-13-review.json",
+          "sha256": "2ef419f43a7a6c9150d0ee318fa4d279558ceb0f14f3e70a45e93f25768f6259",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter13 sampled final4K picture review complete; remaining chapters and whole-master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-13-review.json",
+          "sha256": "406977c101d422f23e1e91900571706f75f29761805eecee7880030fd63ed2bb",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    },
+    {
+      "chapter": "14_euler_identity",
+      "pictures": 559,
+      "sheets": 70,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-14-review.json",
+          "sha256": "4b56d6604a6bfda5a0fe1aa8b58bad260ebaa3aa103e9bbced1f0b215b87df3c",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter14 sampled final4K picture review complete; chapter15 and whole-master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-14-review.json",
+          "sha256": "c42cf24c57f46ebabc8e99cd712877b02d643708e0c4a01c40f5478d0630228c",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    },
+    {
+      "chapter": "15_logarithm_bridge",
+      "pictures": 37,
+      "sheets": 5,
+      "reviews": [
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/root-final985-15-review.json",
+          "sha256": "ae661c7b19734986ec1ff7e92b31b5c90dc1774c3b6c3b66d3d1630256940a34",
+          "identity": "BlueSalmon / root",
+          "scope": "Chapter15 sampled final4K picture review complete; aggregate binding and whole-master acceptance pending."
+        },
+        {
+          "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/expanded-production808/independent-final985-15-review.json",
+          "sha256": "173c1fffad7a23b5afae3c30f1e112dbaa5a5d9f10a64ccf39e6fcbb240cd2b7",
+          "identity": "Independent Codex / BlackThrush",
+          "scope": "Only this chapter sampled-picture gate; all remaining chapters and other master prerequisites remain required."
+        }
+      ]
+    }
+  ],
+  "total_pictures": 3163,
+  "total_sheets": 402,
+  "decision": "Reuse prior root and independent sampled-picture reviews for byte-identical1008 image payloads. No need to repeat unchanged picture review solely for changed contact-sheet headers. This is evidence reuse, not new viewing.",
+  "new_labels_viewed": "First/last sheets of all15chapters actually viewed:01-08 and15 full reviews;09first inpartial001-015,last060;10-14first/last this turn. Headers agree with master offsets/endpoints.",
+  "new_sheets_this_turn": [
+    {
+      "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/exponential1008-label-check-root01/10_changing_rates/sheet-001.jpg",
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-10_changing_rates/sheets/sheet-001.jpg",
+      "sha256": "c6a14587952ee3d19b144230ddb24f7ce2c4471b001811f4691496fac6210cf1",
+      "frames": [
+        98939,
+        98974,
+        98975,
+        99005,
+        99239,
+        99539,
+        99839,
+        100139
+      ]
+    },
+    {
+      "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/exponential1008-label-check-root01/10_changing_rates/sheet-020.jpg",
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-10_changing_rates/sheets/sheet-020.jpg",
+      "sha256": "b54a31b5ffb4e8d83df440ce64fbddde2eda4602f67c61345d306302716044d5",
+      "frames": [
+        110714,
+        110748
+      ]
+    },
+    {
+      "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/exponential1008-label-check-root01/11_money_limits/sheet-001.jpg",
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-11_money_limits/sheets/sheet-001.jpg",
+      "sha256": "89ebca7e12e5d825c6cdb47b82924a6d6233607f1b1234f913125f2c0eb5e3e4",
+      "frames": [
+        110749,
+        110784,
+        110785,
+        110815,
+        111049,
+        111349,
+        111649,
+        111949
+      ]
+    },
+    {
+      "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/exponential1008-label-check-root01/11_money_limits/sheet-015.jpg",
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-11_money_limits/sheets/sheet-015.jpg",
+      "sha256": "9c950b888b075f78358233d788a5c29bb0c4fecd2489f51c8e2ec52d38873e0b",
+      "frames": [
+        118549,
+        118849,
+        119149,
+        119425,
+        119426,
+        119427,
+        119449,
+        119462
+      ]
+    },
+    {
+      "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/exponential1008-label-check-root01/12_chance_and_limits/sheet-001.jpg",
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-12_chance_and_limits/sheets/sheet-001.jpg",
+      "sha256": "5791d297a071a3065729ab16507da00e9f07bb9b933c7652c0ad1927504fb626",
+      "frames": [
+        119463,
+        119498,
+        119499,
+        119529,
+        119763,
+        120063,
+        120363,
+        120663
+      ]
+    },
+    {
+      "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/exponential1008-label-check-root01/12_chance_and_limits/sheet-012.jpg",
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-12_chance_and_limits/sheets/sheet-012.jpg",
+      "sha256": "dd9d6786009a3efcc51dba44c45dc2a415af7a4dff11077eeb50ba74533f8912",
+      "frames": [
+        131763,
+        132063,
+        132240,
+        132241,
+        132242,
+        132276
+      ]
+    },
+    {
+      "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/exponential1008-label-check-root01/13_turning_rate/sheet-001.jpg",
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-13_turning_rate/sheets/sheet-001.jpg",
+      "sha256": "283f8bd18910d6f91b32a93127e67e2faa4bba815327b4f01126e9ce5e3f7884",
+      "frames": [
+        132277,
+        132307,
+        132312,
+        132313,
+        132337,
+        132343,
+        132367,
+        132397
+      ]
+    },
+    {
+      "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/exponential1008-label-check-root01/13_turning_rate/sheet-069.jpg",
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-13_turning_rate/sheets/sheet-069.jpg",
+      "sha256": "cb041a01a467bc9d7b63b2bb51d3d84f9de79284eb299206a10bb23484415553",
+      "frames": [
+        146347,
+        146355
+      ]
+    },
+    {
+      "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/exponential1008-label-check-root01/14_euler_identity/sheet-001.jpg",
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-14_euler_identity/sheets/sheet-001.jpg",
+      "sha256": "c1aa4a93ad75b0323fc5f7fb9ac7bcb4d3c54e7b7cbe67e843cac0b1539d41c3",
+      "frames": [
+        146356,
+        146386,
+        146391,
+        146392,
+        146416,
+        146422,
+        146446,
+        146476
+      ]
+    },
+    {
+      "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/exponential1008-label-check-root01/14_euler_identity/sheet-070.jpg",
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-14_euler_identity/sheets/sheet-070.jpg",
+      "sha256": "ce4da86f596a4951e410d3d8b8acfb2a2cb26fa42545cb826335dad98c77e9ab",
+      "frames": [
+        159076,
+        159101,
+        159102,
+        159103,
+        159106,
+        159136,
+        159137
+      ]
+    },
+    {
+      "local": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/exponential1008-pictures-root01/09_charging_gap/sheets/sheet-060.jpg",
+      "sha256": "ff98d174e435925be89e20a3e1a752b95e6a030b27c0da0646fa2d56d925f921"
+    }
+  ],
+  "limitations": [
+    "Not all402 new contact sheets viewed.",
+    "No continuous motion, listening, fine-sync or publication acceptance."
+  ],
+  "check_note": "Initial read-only check stopped before writing due chapter01 root extraction hash at top level; corrected field access and checked same expected hash."
+}

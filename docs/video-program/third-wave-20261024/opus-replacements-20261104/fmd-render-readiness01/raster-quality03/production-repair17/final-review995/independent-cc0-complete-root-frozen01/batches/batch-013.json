@@ -1,0 +1,7 @@
+{"batch": 13, "viewed_utc": "2026-11-10T21:31Z",
+ "sheets": {
+  "0049": "03 53.3-62.217 s. Steady z^2 picture with the two captions. Right-angle marks (57.9 s) at input crossings -1+0.5i, 0.5+0.5i and 0.5-i, and at their images 0.75-i, 0.5i and -0.75-i in the output, at the right places. No defect.",
+  "0050": "03 62.917-68.833 s. A red right angle at 0 in the input and a red half-turn (180 deg) at 0 in the output (62.9 s); caption 'right angles kept, except at 0' replaces the two captions (65.9 s). Then the picture fades (68.8 s). Correct and readable. No defect.",
+  "0051": "03 69.133-78.35 s. 03_5: title 'f(z) = 1/z' fades in over empty planes. A point z = 0.36+0.26i maps to about 1.83-1.32i (72.0 s), as 1/z requires. The unit circle in both planes (76.7 s); coloured points on it map to their conjugates (yellow 0.82+0.56i to 0.82-0.56i, purple -0.42+0.9i to -0.42-0.9i, pink -0.9-0.44i to -0.9+0.44i), appearing one after another. No defect."
+ },
+ "findings": []}

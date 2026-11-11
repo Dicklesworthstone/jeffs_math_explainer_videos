@@ -1,0 +1,11 @@
+{"batch": 76, "viewed_utc": "2026-11-10T21:01Z",
+ "correction_to_batch_075": "Batch 075 (sheet 0235) said 'u terms teal, v terms gold, consistently'. Wrong reading: the colours pair the Cauchy-Riemann partners. u_x and v_y are teal, v_x and u_y are gold, in the step lines, the two boxes and the 06_7 matrix alike. That is consistent, and arguably clearer. Batch 075 is kept unchanged.",
+ "sheets": {
+  "0238": "06_6 end and 06_7 110.0-118.3 s. 110.0-110.683 s held with the 'names to search' box; 111.0-111.083 s the box fades evenly; 111.383 s: the matrix [u_x u_y; v_x v_y] fading in below the boxes; 116.0 s: teal 'a stretch and a turn: no squash, no reflection' and grey 'unless the derivative is 0' under it; 118.3 s: '= [2 -2; 2 2]'. True for f = z^2 at the running example z_0 = 1 + i: u = x^2 - y^2 and v = 2xy give u_x = 2, u_y = -2, v_x = 2, v_y = 2. The example point is not restated on screen in this scene; noted only. No new defect beyond L1 below.",
+  "0239": "06_7 119.567-129.05 s. Held; 124.767 s: teal '= x (2 + 2 i)' to the right of the matrix, true (multiplying by a + bi has matrix [a -b; b a]), at full by 126.0 s, ending about 80 px from the frame edge. 128.65 s held; 129.05 s everything fading evenly into 06_8. No defect.",
+  "0240": "06_8 129.35-136.0 s. 129.35 s: bare axes on a cleared frame; 130.0 s: a cyan square above the real axis with a counterclockwise arrow; 131.0 s: a green copy on top of it and the real axis turning gold; 131.35 s: the green copy sliding down across the axis; 133.95 s: green square below the axis with a clockwise arrow: the mirror image, orientation reversed, correct for conjugation. 134.65 s: 'x + i y |-> x - i y' above. Held to 136.0 s. L1 recurrence: the minus in 'x - i y' is clearly shorter than the plus bar beside it (4x crop s0240-slot6-conj4x.png)."
+ },
+ "findings": [
+  {"id": "L1", "sheet": "0240", "slot": 6, "frame": 43664, "severity": "Low",
+   "text": "Recurs in 06_8 'x + i y |-> x - i y' (from 134.65 s): the minus is a short bar, visibly shorter than the plus bar in the same line. The matrix entry '-2' in 06_7 (from 118.3 s) shows the same short minus at sheet scale."}
+ ]}

@@ -1,0 +1,8 @@
+{"batch": 69, "viewed_utc": "2026-11-10T20:52Z",
+ "note": "Sheets 0217-0219 were opened and read as images just before the owner account swap and session restart; recorded now from those reads.",
+ "sheets": {
+  "0217": "05_9 160.0-161.65 s. Full state held unchanged: z^3 - 1 thumbnail with label, zero dots, x at 0 and gold square; connectors; zoom panel with gold border and traced tile; the three notes. No defect.",
+  "0218": "05_9 162.15-163.667 s. Held to 163.05 s. 163.6 s (f35522): the label, dots, x, gold square, connectors, panel border, traced tile and all three notes fading together, evenly, while the thumbnail picture and the panel picture stay at full. f35523-f35526 (every frame of root window 9817-9878): bare thumbnail and bare panel only. No defect.",
+  "0219": "05_9 163.683-163.8 s (f35527-f35534, every frame of root window 9817-9878). Bare thumbnail and bare zoom panel, steady frame to frame. No defect."
+ },
+ "findings": []}

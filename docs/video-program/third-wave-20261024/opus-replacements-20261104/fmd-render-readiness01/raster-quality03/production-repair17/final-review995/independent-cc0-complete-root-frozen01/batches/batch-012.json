@@ -1,0 +1,10 @@
+{"batch": 12, "viewed_utc": "2026-11-10T21:24Z",
+ "sheets": {
+  "0046": "03 30.0-34.55 s. The turn counters finish: 0.85/1.71 (30.0 s), 0.99/1.98, 1.00/1.99 (31.0 s, f13543), 1.00/2.00 (31.45 s); see the L5 addendum. The output circle turns white when its second lap completes. 03_3: the circles fade (31.85 s); a grid on [-1,1]^2 with yellow horizontals and cyan verticals (32.15-34.48 s); quiz box 'straight after z^2?' in the empty output plane (34.48 s), again a text superscript and upright z (L4). No other defect.",
+  "0047": "03 36.0-43.383 s. Think-ring under the quiz (40.0-41.0 s), empty at 41.98 s; the quiz fades (42.38 s) before the output grid appears (42.68 s) and starts to bend (43.38 s). The answer stays hidden through the think time. No defect.",
+  "0048": "03 46.0-52.3 s. Image of the grid under z^2: lines y = +-1 give the parabola u = v^2/4 - 1 (vertex -1, through +-2i); y = +-0.5 give vertex -0.25 reaching 0.75 +- i; x = +-1 give u = 1 - v^2/4; x = +-0.5 give vertex 0.25. All match at 73 px per unit. The axis lines are mapped last (49.4-51.6 s): the imaginary axis folds onto [-1,0], shown mid-fold at 50.0-51.0 s, and the real axis onto [0,1]. A white dot '0' and captions 'horizontal axis -> positive ray' and 'vertical axis -> negative ray' (52.3 s). No defect."
+ },
+ "findings": [
+  {"id": "L5", "sheet": 46, "slot": 3, "frame": 13543, "severity": "Low (readout arithmetic), addendum",
+   "text": "More instances of the separately rounded counters: 'turns: 0.85' with 'turns: 1.71' at 30.0 s (f13483), and 'turns: 1.00' with 'turns: 1.99' at 31.0 s (f13543), the pair the final03 review quoted. They settle at 1.00/2.00 by 31.45 s (f13570)."}
+ ]}

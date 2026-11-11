@@ -1,0 +1,20 @@
+{
+  "chapters": {
+    "01_the_bump": {
+      "frames": 6311,
+      "actual_sha256": "129947a3a625924e1e8976633ae8261b02d5e537d19bdf3d431ee73c3ad0ea04",
+      "normalized_sha256": "150147fe5bc7cdb0a111061c4530a16b104d196e004ae29bcf210d1c9c32ac81"
+    },
+    "08_loop_sums": {
+      "frames": 14959,
+      "actual_sha256": "4b40ecc6119f2dd7311e2ffcac3d5bb9ca3c4dc5c6121170f8e5b820d185d3f6",
+      "normalized_sha256": "43c8bab2f7ca61c8692e0f1686798d54e187dcfeeab0d03311c2d4c9a5f54812"
+    },
+    "09_boundary": {
+      "frames": 16504,
+      "actual_sha256": "9bc2e615ac8cc154c6b5c88558b5949fb664375d0f32413d1487fa1644576b2f",
+      "normalized_sha256": "5a91b8f9e2e5b5d6223a49285c06039b1b43bd16c11cecdd163a8e2e545baa9e"
+    }
+  },
+  "scope": "Three exact full normalized timelines. Preview generated, not visually reviewed. No motion, listening or publication acceptance."
+}

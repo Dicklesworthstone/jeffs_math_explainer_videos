@@ -1,0 +1,7 @@
+{"batch": 70, "viewed_utc": "2026-11-10T20:53Z",
+ "sheets": {
+  "0220": "05_9 163.817-163.933 s (f35535-f35542, every frame of root window 9817-9878). Bare thumbnail and zoom panel; from about f35539 the thumbnail starts to darken evenly while the panel stays at full. No defect.",
+  "0221": "05_9 163.95-164.067 s (f35543-f35550). The thumbnail keeps darkening evenly to faint by f35550; panel unchanged at full. No defect.",
+  "0222": "05_9 164.083-164.2 s (f35551-f35558). Thumbnail region at most 16, 7 and 5 levels above background on f35551, f35552 and f35553 (regionstat; the faint marks on f35553 are the last of the fade, no darker pixels), background only from f35554. The zoom panel stays alone at full, centred where it was. No defect."
+ },
+ "findings": []}

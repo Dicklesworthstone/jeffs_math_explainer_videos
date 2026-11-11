@@ -1,0 +1,17 @@
+{
+  "time": "2026-11-10T20:16:53.740667+00:00",
+  "verified_pngs": 128,
+  "sampling_sha256": "74c64ebff91594915ec6aa31a75a695e64cab545748eb1f7b421c962dcc5f9b5",
+  "union": {
+    "parts": [
+      "overview",
+      "native"
+    ],
+    "plan_sha256": "5d66f8ff6891bc5e4040cabf73210bd7cdb3a0eb01c6fe7c27a561e0f2e219b9",
+    "samples": 8351,
+    "natives": 128,
+    "frames_and_reasons_equal_plan": true,
+    "overview_sampling_sha256": "c211e7d571a9ddd67f655c9b5070ff568555723b4e30f92891ee224b4b64626f"
+  },
+  "visual_review": false
+}

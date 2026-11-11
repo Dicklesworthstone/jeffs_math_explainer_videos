@@ -1,0 +1,7 @@
+{"batch": 80, "viewed_utc": "2026-11-10T21:06Z",
+ "sheets": {
+  "0250": "06_9 161.417-161.533 s, every frame f45270-f45277. The green rectangle keeps growing up and down about the cyan square's centre; cyan square, arrow, title and red 'no complex derivative' held. Even frame-to-frame steps. No defect.",
+  "0251": "06_9 161.55-161.667 s, every frame f45278-f45285. Same growth, slowing (easing out). No defect.",
+  "0252": "06_9 161.683-161.8 s, every frame f45286-f45293. Nearly settled. At 161.8 s (slot 8, colhue column 310) the green top is at tile row 115.5 and the bottom at 250: height 134.5 px against the cyan 68.5 px (1.96x), centre at row 182.75, i.e. the cyan square's centre. So the drawn green rectangle is the square stretched by 2 vertically about its own centre: 46.5-181 px above the real axis. The image of the square under the titled map x + iy |-> x + 2iy is 160-296 px above the axis (tile rows 0.5-136.5). Finding decision deferred to the settled frame and any caption on the next sheets."
+ },
+ "findings": []}

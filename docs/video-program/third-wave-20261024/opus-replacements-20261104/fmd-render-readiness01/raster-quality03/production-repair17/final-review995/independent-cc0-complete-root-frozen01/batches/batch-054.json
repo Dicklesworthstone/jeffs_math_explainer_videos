@@ -1,0 +1,9 @@
+{"batch": 54, "viewed_utc": "2026-11-10T20:34Z",
+ "sheets": {
+  "0172": "05_7 115.4-116.2 s. f32630-f32633 (rest of interval 6921-6927) steady at full colour with the dashed line. 116.15 s: a pole marker (dark ring, pink centre) fading in on the dashed line at the pole s = 1, full by 116.2 s, exactly on the ringed point. No defect.",
+  "0173": "05_7 116.45-120.0 s. 116.45 s: pink note 'a single pole: s = 1' under the first note, true (zeta has one simple pole, at s = 1); s upright again (same L4 as sheet 0169). 118.6 s: three white zero markers at display tile x 71, 150, 229, on the hue switches at -6, -4, -2 found on sheet 0168. 118.833 s: 'zeros at -2, -4, -6, ...' fading in, full by 120.0 s; minus here 8 px wide and 2 px thick against digits 7 px wide (inkmap, sheet 0174 rows 211-212), so L1 recurs. The note lists only the trivial zeros; the nontrivial zeros (first at 1/2 + 14.13i) lie off the plotted window; whether a later note qualifies this is checked on the following sheets. No other defect.",
+  "0174": "05_7 120.8-121.883 s. Three notes, pole marker, zero markers and dashed line held unchanged to 121.65 s (crop crops/s0174-slot1-polezeros4x.png). f33018 (first frame of root window 7312-7365): dashed line and the first two notes gone at once, 'zeros at -2, -4, -6, ...' and all markers stay; f33019 the same. A cut, not a fade, between 121.65 s and 121.867 s; the frames in between are not sampled here."
+ },
+ "findings": [
+  {"id": "L1", "sheet": "0173", "slot": 7, "frame": 32836, "severity": "Low", "text": "Recurs in the 05_7 note 'zeros at -2, -4, -6, ...': each minus is 8 px wide and 2 px thick at 960x540, against digits 7 px wide; a math minus in this face would be about the width of '+'. Held on screen from 118.8 s into the next cue."}
+ ]}

@@ -1,0 +1,46 @@
+candidate03 itself: exit 0, 17 checks, 0 failed
+
+## G1-a-ride-no-gap: pub const A_RIDE: f64 = 0.02 + 0.045 + 12.5 / 270.0; -> pub const A_RIDE: f64 = 0.02 + 12.5 / 270.0;
+   exit 1; predicted ['a and rho clear the circle line by CLEAR', 'leader always crosses the circle line']
+   failed    ['a and rho clear the circle line by CLEAR', 'leader always crosses the circle line']
+   AS PREDICTED
+     | FAIL a and rho clear the circle line by CLEAR
+     | FAIL leader always crosses the circle line
+     |   line within CLEAR of a's box for r in [0.1301, 0.4081]; hidden range (0.11, 0.43), eased 0.10 either side
+     |   least gap while a shows at all: 15.53 px at r = 0.1100
+
+## G2-leader-formula-text: let foot = A_RIDE - 12.5 / 270.0; -> let foot = A_RIDE - 12.0 / 270.0;
+   exit 1; predicted ['formula a_leader is the one evaluated here']
+   failed    ['formula a_leader is the one evaluated here']
+   AS PREDICTED
+     | FAIL formula a_leader is the one evaluated here
+     |   line within CLEAR of a's box for r in [0.1301, 0.4081]; hidden range (0.11, 0.43), eased 0.10 either side
+     |   least gap while a shows at all: 15.53 px at r = 0.1100
+
+## G3-shrunk-r-0045: pub const SHRUNK_R: f64 = 0.06; -> pub const SHRUNK_R: f64 = 0.045;
+   exit 1; predicted ['leader always crosses the circle line', 'shrunk circle keeps a drawn gap from the hole ring']
+   failed    ['leader always crosses the circle line', 'shrunk circle keeps a drawn gap from the hole ring']
+   AS PREDICTED
+     | FAIL leader always crosses the circle line
+     | FAIL shrunk circle keeps a drawn gap from the hole ring
+     |   line within CLEAR of a's box for r in [0.1301, 0.4081]; hidden range (0.11, 0.43), eased 0.10 either side
+     |   least gap while a shows at all: 15.53 px at r = 0.1100
+
+## G4-hidden-from-015: pub const A_NAME_HIDDEN: [f64; 2] = [0.11, 0.43]; -> pub const A_NAME_HIDDEN: [f64; 2] = [0.15, 0.43];
+   exit 1; predicted ['a hidden wherever a growing line is within CLEAR']
+   failed    ['a hidden wherever a growing line is within CLEAR']
+   AS PREDICTED
+     |   line within CLEAR of a's box for r in [0.1301, 0.4081]; hidden range (0.15, 0.43), eased 0.10 either side
+     |   least gap while a shows at all: 3.45 px at r = 0.1499
+     | FAIL a hidden wherever a growing line is within CLEAR  [265 radii shown]
+
+## G6-rho-ride-no-gap: pub const RHO_RIDE: f64 = 0.02 + 0.045 + 15.0 / 270.0; -> pub const RHO_RIDE: f64 = 0.02 + 15.0 / 270.0;
+   exit 1; predicted ['a and rho clear the circle line by CLEAR']
+   failed    ['a and rho clear the circle line by CLEAR']
+   AS PREDICTED
+     | FAIL a and rho clear the circle line by CLEAR
+     |   line within CLEAR of a's box for r in [0.1301, 0.4081]; hidden range (0.11, 0.43), eased 0.10 either side
+     |   least gap while a shows at all: 15.53 px at r = 0.1100
+
+all controls as predicted: True
+exit 0

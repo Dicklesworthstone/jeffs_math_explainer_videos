@@ -1,0 +1,56 @@
+{
+  "time": "2026-11-10T20:29:52.255493+00:00",
+  "master_sha256": "80244e88ca5970d0da07a5d96d6d825ae1851bae703d75bd200f8810b04e7b90",
+  "evidence": [
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/final995-cc1/progress-013.json",
+      "preserved": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/independent-findings03/progress-013.json",
+      "sha256": "1aafc50a5982921b0c433f73eb82f4775dfcc901f1a1cd576d006ce4528db3d8"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/d7bac370-73e2-4cb6-88cf-606d6a161b39/scratchpad/independent-final995-cc2-progress-07.json",
+      "preserved": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/independent-findings03/independent-final995-cc2-progress-07.json",
+      "sha256": "778e6575e3a7057e36e4b184ad0695bfa4c37b997cd106c80c27937c3134f841"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/d7bac370-73e2-4cb6-88cf-606d6a161b39/scratchpad/r995-crops/s650t5-bar12.png",
+      "preserved": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/independent-findings03/s650t5-bar12.png",
+      "sha256": "87cf67939b4d795aa1e2eb788a18421477421c9d1e0d098fb24c8656c1aa08ce"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/d7bac370-73e2-4cb6-88cf-606d6a161b39/scratchpad/r995-crops/s680t8-rho8.png",
+      "preserved": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/independent-findings03/s680t8-rho8.png",
+      "sha256": "944e034d8813d86d30c53bcc086e87d8f1eb9af8c02c0fc439fa6528d1ec4b31"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/d7bac370-73e2-4cb6-88cf-606d6a161b39/scratchpad/r995-crops/s692t2-a12.png",
+      "preserved": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/independent-findings03/s692t2-a12.png",
+      "sha256": "44e45a5ca58bb3c178f41cba77729eeae451d27ab98cbc32b50edcfab15a7bf6"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/d7bac370-73e2-4cb6-88cf-606d6a161b39/scratchpad/r995-crops/s692t8-a12.png",
+      "preserved": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/independent-findings03/s692t8-a12.png",
+      "sha256": "0059ce8cf9ed264f052b308f780d0fdd6286859bf8445ccb77fdbf58666101ce"
+    }
+  ],
+  "root_actually_viewed_sheets": [
+    434,
+    445,
+    650,
+    692
+  ],
+  "root_actually_viewed_crops": [
+    "s650t5-bar12.png",
+    "s680t8-rho8.png",
+    "s692t2-a12.png",
+    "s692t8-a12.png"
+  ],
+  "decisions": [
+    "CC1 L12 confirmed concentric half-square at bisection illustration; scratch proposal requested after CC1 finishes assigned pictures. Must depict a valid quarter, preserve c containment and avoid unsupported integral choice.",
+    "CC2 M1 confirmed closing absolute-value bar touches dz in enlarged crop; spacing repair needs native check.",
+    "CC2 M3 confirmed shrinking green circle crosses centre label a at sampled frame74696; repair label clearance required.",
+    "CC2 M2 rho approaches dashed ring; native detail needed before collision verdict.",
+    "D_n/P_n labels merit clearer whole-diagonal/perimeter association; current inequality remains true."
+  ],
+  "scope": "Sampled images and preserved source observations only. No new production edit/build/render, no listening, continuous motion, fine sync, or independent full AV acceptance."
+}

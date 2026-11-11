@@ -1,0 +1,7 @@
+{"batch": 63, "viewed_utc": "2026-11-10T20:44Z",
+ "sheets": {
+  "0199": "05_9 146.7-146.817 s (f34508-f34515, every frame of root window 8715-8859). Third thumbnail (e^z bands) brightening evenly to full; first two steady. Top row of three, even gaps, all inside the frame. No defect.",
+  "0200": "05_9 146.833-146.95 s (f34516-f34523). From f34518 a fourth thumbnail fading in at the start of a second row (display tile x 32-292, y 251-411): a row of points where all hues meet along the middle line, the sin z picture. Even fade. No defect.",
+  "0201": "05_9 146.967-147.083 s (f34524-f34531). Fourth thumbnail at full by about f34527; the recap follows the gallery's order (three-zero polynomial, zero-and-pole, e^z, sin z). Steady. No defect."
+ },
+ "findings": []}

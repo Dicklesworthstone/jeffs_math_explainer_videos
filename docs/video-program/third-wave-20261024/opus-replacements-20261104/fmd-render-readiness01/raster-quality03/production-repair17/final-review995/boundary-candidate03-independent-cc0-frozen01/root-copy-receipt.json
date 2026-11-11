@@ -1,0 +1,136 @@
+{
+  "time": "2026-11-10T22:01:40.478695+00:00",
+  "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/6d8d91ab-386b-435d-91e3-ad665c8e7f76/scratchpad/boundary-cand03-cc0",
+  "files": [
+    {
+      "file": "cc2-checks-reproduced01.out",
+      "sha256": "427e08cb759b371a6dc84e2e427bad374affa356c70e2d3c256b0b3f6cc1adf7"
+    },
+    {
+      "file": "geometry-cand03.out",
+      "sha256": "871b4c90c5f40cde2f6debf78f6f404fd5ac76838acab1d6d54bc58ececa4650"
+    },
+    {
+      "file": "geometry-cand03.py",
+      "sha256": "d51eba47ad25d6482b29bf15f19f3546223c55804a1d3a29b94532e20b9e3023"
+    },
+    {
+      "file": "geometry-controls01.out",
+      "sha256": "c900c2444e38b6bd83d78792dc0a7cefbdc84394c15186352d0f62fb15592114"
+    },
+    {
+      "file": "geometry-controls01.py",
+      "sha256": "428e72036729eff22e532baec68df24408fd53bdd0b2df13260040c333820ded"
+    },
+    {
+      "file": "independent-boundary-candidate03-cc0-review01.md",
+      "sha256": "a32b43e3756e06a3577b0ea0305f46ca5032ce2dfdf86e28b929d82ef6a7f3e7"
+    },
+    {
+      "file": "lineage-roundtrip-fmt01.out",
+      "sha256": "d8a9e5c6cfab81bd5513cf286fcc21289702710ece4c3c8fe9247abbd31ce8c3"
+    },
+    {
+      "file": "string-tests01.out",
+      "sha256": "84e5b485d798757693c5169400e1f904658697852f150a17a4a5a5e7d00eaaac"
+    },
+    {
+      "file": "string-tests01.py",
+      "sha256": "a9675c1952f574d77bdc852c2ea010d5c356f4f1a5c3167b3f56bfac06b42aa8"
+    },
+    {
+      "file": "timing-controls01.py",
+      "sha256": "1c270aee990b714ffd1d28544d9df041c331810bdc84d9c1d7565e95e317bebe"
+    },
+    {
+      "file": "timing01.out",
+      "sha256": "8504b0b291ff05d5877b604b847b7a4f5826d5982c4c976fc8d2d1c28ace7dfc"
+    },
+    {
+      "file": "controls/G1-a-ride-no-gap-boundary.rs",
+      "sha256": "251816d967b9c1a6c9c3b3fd2048098de23f1363e61e46869ec69ad4c655e699"
+    },
+    {
+      "file": "controls/G2-leader-formula-text-boundary.rs",
+      "sha256": "4cb228ad81c421ef3df43bda854cd3a4ab1af8d73c16492fd912cca61e35ee62"
+    },
+    {
+      "file": "controls/G3-shrunk-r-0045-boundary.rs",
+      "sha256": "109b7b4e6d739671b2c31a3f7fb1894ed714da25a6f715250b471338d8bba977"
+    },
+    {
+      "file": "controls/G4-hidden-from-015-boundary.rs",
+      "sha256": "4987d397867db17590bd2d79adea8d8fe5b667b26a5cda2d92da4c7d5fd00d6a"
+    },
+    {
+      "file": "controls/G6-rho-ride-no-gap-boundary.rs",
+      "sha256": "528ed0b96157b8f751387de375036541aeb1f823aec79833f9c39cdc259b3a39"
+    },
+    {
+      "file": "controls/T1-bar-fade-035-boundary.rs",
+      "sha256": "7255c269f587181892b389a4dbcf050825a0540df3276b112d5fb3a9fa6e21db"
+    },
+    {
+      "file": "controls/T2-cue-phrase-boundary.rs",
+      "sha256": "df22de0b1ca4616ebd2e87431f2cb633ad5004ce3997ce91a51de0ce4ecf710a"
+    },
+    {
+      "file": "inputs/base-cd1900aa-boundary.rs",
+      "sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e"
+    },
+    {
+      "file": "inputs/candidate01-boundary.rs",
+      "sha256": "511f4492cdbe7b632710f4121cee2da032baeee670f2e83531c4272f0c86b6a7"
+    },
+    {
+      "file": "inputs/candidate01-to-candidate03.patch",
+      "sha256": "168a0434236b385b857de7790a4d602f2247a4f4591ac2d4e22bca8263b2b057"
+    },
+    {
+      "file": "inputs/candidate03-boundary.rs",
+      "sha256": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932"
+    },
+    {
+      "file": "inputs/candidate03.patch",
+      "sha256": "9cf0d3d84f17005616296699527268ae0da615f08b38b2bf0b286072fa5c3ed3"
+    },
+    {
+      "file": "inputs/candidate03_checks.py",
+      "sha256": "c9df85a43307bef6a819977447f1bf5e163a8a201765a9a0d786eb1f47de4282"
+    },
+    {
+      "file": "inputs/handoff.md",
+      "sha256": "e43a7153d7edcc4ba9e26168bbd93544bfd6c0137431a375ee99ff9fb60f4452"
+    },
+    {
+      "file": "inputs/leader-variant-boundary.rs",
+      "sha256": "e33be1e7d42aa59278f1506289cfe34497766d6bea19ea4821a497c8415f501c"
+    },
+    {
+      "file": "inputs/live-328d2acb-boundary.rs",
+      "sha256": "328d2acbc247eccc090340b825cc6764582ebe4337a8dc20089ea9fa001e1b59"
+    },
+    {
+      "file": "inputs/receipt.json",
+      "sha256": "505159e6aedcd2c943f7c3a6592ecd7b222885c19427aa4b91bbe209e1a087f0"
+    },
+    {
+      "file": "inputs/script-234f7257.tsv",
+      "sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c"
+    },
+    {
+      "file": "roundtrip/delta-candidate03.rs",
+      "sha256": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932"
+    },
+    {
+      "file": "roundtrip/fwd-candidate03.rs",
+      "sha256": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932"
+    },
+    {
+      "file": "roundtrip/rev-base.rs",
+      "sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e"
+    }
+  ],
+  "report_read_in_full": true,
+  "scope": "Independent source review only, uncompiled/unrendered; no listening or release acceptance"
+}

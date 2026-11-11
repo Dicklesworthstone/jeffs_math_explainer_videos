@@ -1,0 +1,31 @@
+## CC2's candidate03_checks.py (c9df85a4), run from / as BASE CAND SCRIPT_TSV; CC2's check, reproduced here, not mine
+pins: base cd1900aa, candidate 4b689791, script 234f7257
+T: timing events base/candidate: CC2 denominator 214/214, CC1 denominator 228/228; identical skeletons, only the heads and bar fades carry more mobs; 09_1 phrases in script order
+S: 11 expected base lines removed, base tests verbatim, 19 verbatim lines, 7 new tests present
+G: {'shrink least px': {'a/circle': 10.7, 'rho/circle': 10.6, 'a/dashes': 23.3, 'rho/dashes': 17.4, 'a/hole': 29.1, 'rho/hole': 29.1, 'a/rho': 52.8, 'leader/hole': 3.4, 'leader/a': 3.4, 'leader/rho': 51.5}, 'hole gap px': 7.6, 'a rest from A_AT px': 12.05, '09_7 line near a': (0.125, 0.413), '09_9 line near a': (0.125, 0.413)}
+  fault a fade time                    -> T214: timing skeleton differs: ['@@ -100 +100 @@', '-fade_in_all(.., 0.3)', '+fade_in_all(.., 0.
+  fault an added pause                 -> T214: timing skeleton differs: ['@@ -99,0 +100 @@', '+stage.wait(0.2)']
+  fault a tween time                   -> T214: timing skeleton differs: ['@@ -107,2 +107,2 @@', '-stage.play(tween_linear(radius, SHRUNK_
+  fault a reworded wait                -> T214: timing skeleton differs: ['@@ -106 +106 @@', '-line.wait_for(stage, "and that goes to zero
+  fault an extra updater               -> T228: timing skeleton differs: ['@@ -101,0 +102 @@', '+stage.add_updater(radius, ..)']
+  fault a music breath moved           -> T228: timing skeleton differs: ['@@ -223 +222,0 @@', '-kit.music_breath(stage, 2.0)']
+  fault a thin space dropped           -> S: removed base lines differ: extra [] missing ['pub const SHRINK_TEX: &str = r"\\Big|\\oint_{|z
+  fault SHRUNK_R back at 0.045         -> S: removed base lines differ: extra [] missing ['pub const SHRUNK_R: f64 = 0.045;']
+  fault SHRUNK_R at 0.05               -> S: not exactly once in the film code: pub const SHRUNK_R: f64 = 0.06;
+  fault rho made at RHO_AT             -> S: not exactly once in the film code:         let [a_from, rho_from] = shrink_names(SMALL_R);
+  fault a smaller ride gap             -> S: A_RIDE is not the modelled value
+  fault a narrower hidden span         -> S: not exactly once in the film code: pub const A_NAME_HIDDEN: [f64; 2] = [0.11, 0.43];
+  fault 09_9 fade dropped              -> S: a is not faded by radius in both growths
+  fault card rooted after the growth   -> S: the "1" card is not rooted above the 09_9 disk before it grows
+  fault 09_9 tracker from 1            -> S: removed base lines differ: extra ['        let grow = stage.add_value_tracker(1e-3);'] missin
+  fault 09_9 drawn about 0             -> S: removed base lines differ: extra ['                    .map(|k| p.p(C::real(1.0) + C::polar(r
+  fault leader not faded in            -> T: fades changed other than the two expected: [('fade_in_all(stage, &[bar, bar_name], 0.3)', 'fa
+  fault leader left after the proof    -> S: not exactly once in the film code:             outer, small, hole, ca_out, rho_out, leader, g
+  fault leader not moved               -> S: not exactly once in the film code:                 let [a_at, rho_at] = shrink_names(r);
+  fault leader onto the hole ring      -> S: not exactly once in the film code: pub fn a_leader(r: f64) -> [C; 2] {
+  fault leader into a                  -> S: not exactly once in the film code: pub fn a_leader(r: f64) -> [C; 2] {
+  fault an edited base test            -> S: removed base lines differ: extra ['        assert!(count >= 25);'] missing []
+  fault a dropped new test             -> S: test the_leader_runs_from_the_hole_up_to_a missing
+F: planted faults caught 23 of 23
+PASS
+exit 0

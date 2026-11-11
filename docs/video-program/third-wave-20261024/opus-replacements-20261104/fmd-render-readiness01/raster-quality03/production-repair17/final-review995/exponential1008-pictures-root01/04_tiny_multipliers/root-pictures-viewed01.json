@@ -1,0 +1,209 @@
+{
+  "reviewed_at": "2026-11-11T00:15:20.047619+00:00",
+  "chapter": "04_tiny_multipliers",
+  "movie_sha256": "fe33b9e48bcb456b3cad41f7651bd8e5f8e3bb1b7c6deba657e6b4d9e5fa2b80",
+  "extraction_sha256": "8e34f69f2869f54f53a45599090c785f51267a050b0b530d10f648662c665c9b",
+  "verification_sha256": "6c273f16974dd3ac0f0363722be9ef308ed4f58a3d5809837acb3aaaf47f7909",
+  "viewed_frame_indices": [
+    25190,
+    25225,
+    25226,
+    25256,
+    25490,
+    25790,
+    26090,
+    26390,
+    26641,
+    26642,
+    26643,
+    26677,
+    26678,
+    26690,
+    26708,
+    26990,
+    27290,
+    27590,
+    27890,
+    28190,
+    28439,
+    28440,
+    28441,
+    28475,
+    28476,
+    28490,
+    28506,
+    28790,
+    29090,
+    29390,
+    29449,
+    29450,
+    29451,
+    29486,
+    29487,
+    29517,
+    29690,
+    29990,
+    30290,
+    30590,
+    30890,
+    31152,
+    31153,
+    31154,
+    31188,
+    31189,
+    31190,
+    31219,
+    31490,
+    31790,
+    32090,
+    32390,
+    32455,
+    32456,
+    32457,
+    32492,
+    32493,
+    32523,
+    32690,
+    32990,
+    33290,
+    33590,
+    33890,
+    34190,
+    34258,
+    34259,
+    34260,
+    34295
+  ],
+  "viewed_sheets": [
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-04_tiny_multipliers/sheets/sheet-001.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-04_tiny_multipliers/sheets/sheet-002.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-04_tiny_multipliers/sheets/sheet-003.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-04_tiny_multipliers/sheets/sheet-004.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-04_tiny_multipliers/sheets/sheet-005.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-04_tiny_multipliers/sheets/sheet-006.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-04_tiny_multipliers/sheets/sheet-007.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-04_tiny_multipliers/sheets/sheet-008.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-04_tiny_multipliers/sheets/sheet-009.jpg"
+  ],
+  "local_sheet_sha256": [
+    {
+      "file": "sheet-001.jpg",
+      "sha256": "d5c73e40d667a9f60bd56c7783856dead905bd25dd72e4c38b3983a0a6e8e071"
+    },
+    {
+      "file": "sheet-002.jpg",
+      "sha256": "9b06bbe15fa15584499c76e6581a577354afd4901a193564c49a109251563931"
+    },
+    {
+      "file": "sheet-003.jpg",
+      "sha256": "bbcd18a55651c069a577d7d887d2488297d4ae9ae5cc2b81e24dd1fbc01ba361"
+    },
+    {
+      "file": "sheet-004.jpg",
+      "sha256": "92d855b108d49bd063addff9feece7ec956993db3dda584c30d648f0a273930c"
+    },
+    {
+      "file": "sheet-005.jpg",
+      "sha256": "7e96174925d4264611c953abec0d1bc13c879965d16954821063a570f076b6f8"
+    },
+    {
+      "file": "sheet-006.jpg",
+      "sha256": "c8e579a7983fec4679e8ac0e705fd72ac10628f24e4955ba0aa8756c5e66e556"
+    },
+    {
+      "file": "sheet-007.jpg",
+      "sha256": "a8eb77b0693dabdf0f5b5f7742952432243dc9e94e0f7c918afb0b5bda5c40bb"
+    },
+    {
+      "file": "sheet-008.jpg",
+      "sha256": "d20ed723f451787bce6d9c5a75fc75c555e6240643b70a958025f6868239b7ce"
+    },
+    {
+      "file": "sheet-009.jpg",
+      "sha256": "467014f43764cb396dfd22fa1c780a5300564247733ad2c03f42b051b8577e6e"
+    },
+    {
+      "file": "sheet-010.jpg",
+      "sha256": "adcc4a2990fed424285017d040c94a19e35a2a178a9f9116f327f681bb3dba64"
+    },
+    {
+      "file": "sheet-011.jpg",
+      "sha256": "5f2240b77021ced34a564c453f03501b88d42da4cddf31a1476efc9f805076f6"
+    },
+    {
+      "file": "sheet-012.jpg",
+      "sha256": "03b638f4dbd572240046a67d00da25014967bae761f8d3884947b52043d40fcb"
+    },
+    {
+      "file": "sheet-013.jpg",
+      "sha256": "7f845c596bcfed1520f47b2b4985b78708d3aa3c32a867e4c7fcef8f408492e5"
+    },
+    {
+      "file": "sheet-014.jpg",
+      "sha256": "b7d7b26626efba3975383baef153ae11390d7a15050e59a71278223d23d19534"
+    },
+    {
+      "file": "sheet-015.jpg",
+      "sha256": "2a103fa22786b668fc7ce3e892ee54417a13b8aa56d5818b679676bcab5bcb29"
+    },
+    {
+      "file": "sheet-016.jpg",
+      "sha256": "28508d1482192946d11439207a2a4f11575f4453e755c96b2723ebcc7a0340df"
+    },
+    {
+      "file": "sheet-017.jpg",
+      "sha256": "f8afec506ec5e994ac1e159fd0bf22f6ba45faaf05922f49eb4fce1bbd4dfc54"
+    },
+    {
+      "file": "sheet-018.jpg",
+      "sha256": "0e93502466514a751613a48348a38e3a739d7bf2fe3fe4f51b1dd34f98145fd0"
+    },
+    {
+      "file": "sheet-019.jpg",
+      "sha256": "5bb0659e6fbd727b11a6ae800b6dd29474bdbbd890c12cb790bd6814ea89644d"
+    }
+  ],
+  "concrete_defects": [],
+  "observations": [
+    "All68 selected pictures on9 sheets actually viewed in prior uninterrupted review. Euler steps, coefficient choices, binomial/factorial argument and negative-input comparison clear in sampled views. Dense1024-cell strip becomes visually solid as expected. No concrete persistent visual defect found."
+  ],
+  "scope": "Selected resized1440x1709 contact-sheet images only, from1920x2280 sheets. Not full-resolution inspection, continuous motion, listening, fine sync or independent whole-film acceptance.",
+  "local_sheet_hashes": [
+    {
+      "file": "sheet-001.jpg",
+      "sha256": "9c7bd0ec8b3a71a4b1c586a4d079b6f07f34b4780927342b8cf1cc7ae637804a"
+    },
+    {
+      "file": "sheet-002.jpg",
+      "sha256": "d065b1071e777b26bc9c3018136ecc72628378fc3171341e5f00634737fbdee6"
+    },
+    {
+      "file": "sheet-003.jpg",
+      "sha256": "89d43fbad047b738c7e4e70bb6ca2f21bfeda2313b6fc3d3bf2c50605966e872"
+    },
+    {
+      "file": "sheet-004.jpg",
+      "sha256": "11c8edadb55879124f3e331259f0995073bbd49c88c0e3d9b8236f69fd9be3a3"
+    },
+    {
+      "file": "sheet-005.jpg",
+      "sha256": "c7a4452de40cb286d3a6d064e760421c0e9f2d399b74629577afeeb41d8acce2"
+    },
+    {
+      "file": "sheet-006.jpg",
+      "sha256": "77d37cd826717af2065b2a9e798c376e0713a66fb0295102fb790f1318ae0748"
+    },
+    {
+      "file": "sheet-007.jpg",
+      "sha256": "bae34cc64cee072bedfb2f2ab5c49b12a36dad10a06116a3a711a647326cda76"
+    },
+    {
+      "file": "sheet-008.jpg",
+      "sha256": "d572ab0c51ad4ce21f53e999c120f738e50f90b89b7dfa1bc8adbed47875f0cd"
+    },
+    {
+      "file": "sheet-009.jpg",
+      "sha256": "bcad3b93f1e1863f24ab4c79e35f1f5493019ee8c903db0a5833e127256ddf5b"
+    }
+  ]
+}

@@ -1,0 +1,4318 @@
+{
+ "reviewer": "CC2 RubyRaven",
+ "written": "2026-11-10T20:26:05.116043+00:00",
+ "version": "07",
+ "sampling_sha256": "c211e7d571a9ddd67f655c9b5070ff568555723b4e30f92891ee224b4b64626f",
+ "master_sha256": "80244e88ca5970d0da07a5d96d6d825ae1851bae703d75bd200f8810b04e7b90",
+ "assigned": "0523-0783 inclusive (261 sheets)",
+ "viewed_count": 199,
+ "remaining": [
+  722,
+  723,
+  724,
+  725,
+  726,
+  727,
+  728,
+  729,
+  730,
+  731,
+  732,
+  733,
+  734,
+  735,
+  736,
+  737,
+  738,
+  739,
+  740,
+  741,
+  742,
+  743,
+  744,
+  745,
+  746,
+  747,
+  748,
+  749,
+  750,
+  751,
+  752,
+  753,
+  754,
+  755,
+  756,
+  757,
+  758,
+  759,
+  760,
+  761,
+  762,
+  763,
+  764,
+  765,
+  766,
+  767,
+  768,
+  769,
+  770,
+  771,
+  772,
+  773,
+  774,
+  775,
+  776,
+  777,
+  778,
+  779,
+  780,
+  781,
+  782,
+  783
+ ],
+ "sheets_actually_viewed": [
+  {
+   "sheet": 523,
+   "sha256": "1ee209f7d2dce2c2d58de086980fd318dcb5b640175a74ce6c5a02eedd57e759",
+   "batch": "batch-01.json",
+   "frames": [
+    67653,
+    67664,
+    67665,
+    67667,
+    67676,
+    67695,
+    67712,
+    67719
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 9.80-10.90 s. Phase portrait, two ringed poles above and below a, yellow circle with white centre and label a, thin grey ring, 'a little beyond' card inside the plot right edge, Im/Re labels, heading f(z)/(z-a) top right. All 8 tiles alike, labels clear, no overlap, no clipping."
+  },
+  {
+   "sheet": 524,
+   "sha256": "b4ce336ac00287998662a0f93fe91b1a5425c2b8107e91423a9870f4472374c3",
+   "batch": "batch-01.json",
+   "frames": [
+    67725,
+    67727,
+    67730,
+    67736,
+    67738,
+    67749,
+    67755,
+    67761
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 11.00-11.60 s. Tiles 1-4 as 523. Tile 5 (f67738) heading dimmed, tile 6 (f67749) split identity f(z)/(z-a) = f(a)/(z-a) + (f(z)-f(a))/(z-a) faint: mid crossfade, expected. Tiles 7-8 identity full, f(a)/(z-a) term yellow. Readable."
+  },
+  {
+   "sheet": 525,
+   "sha256": "e035e9cb2bbeaeab0ec71ec04d4c0d6d2d3fde35835e8595cad37fbd66952fe7",
+   "batch": "batch-01.json",
+   "frames": [
+    67772,
+    67773,
+    67775,
+    67785,
+    67791,
+    67792,
+    67815,
+    67817
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 11.78-12.53 s. Identity held, plot unchanged, nothing overlaps."
+  },
+  {
+   "sheet": 526,
+   "sha256": "ca7c059f02ae18143da33a0f83d4b850932911c3502271b4c5b57d15de34b857",
+   "batch": "batch-01.json",
+   "frames": [
+    67821,
+    67822,
+    67832,
+    67834,
+    67845,
+    67851,
+    67857,
+    67864
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 12.60-13.32 s. Same held frame, no change between tiles."
+  },
+  {
+   "sheet": 527,
+   "sha256": "91f5d2d2a742eea5a6a78fc0e48e30806ed34af7049604f774512600b507a73d",
+   "batch": "batch-01.json",
+   "frames": [
+    67867,
+    67875,
+    67877,
+    67891,
+    67894,
+    67905,
+    67907,
+    67909
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 13.37-14.07 s. From tile 4 (f67891) the yellow line 'contour integral of f(a)/(z-a) dz = 2 pi i f(a)' appears under the identity, right aligned, clear of it. Statement matches the yellow term. No overlap."
+  },
+  {
+   "sheet": 528,
+   "sha256": "c46b65789fba041cb70c6cfff7f46508e01a353fcc93a8508480e085b3221ea1",
+   "batch": "batch-01.json",
+   "frames": [
+    67924,
+    67927,
+    67933,
+    67935,
+    67947,
+    67949,
+    67965,
+    67969
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 14.32-15.07 s. Identity plus yellow integral held. Clean."
+  },
+  {
+   "sheet": 529,
+   "sha256": "3045a0641075044640d21346fd756fad71fb9cdfcc1d547df8bd40557eba5990",
+   "batch": "batch-02.json",
+   "frames": [
+    67970,
+    67975,
+    67988,
+    67989,
+    67993,
+    67995,
+    68001,
+    68009
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 15.08-15.73 s. Identity plus yellow integral held over the portrait; poles, yellow circle, a, grey ring, 'a little beyond' card all clear. No change between tiles."
+  },
+  {
+   "sheet": 530,
+   "sha256": "fb3c7d663fec80a4c06e74013673e5f44cfece59c97ee5745b071942241559c4",
+   "batch": "batch-02.json",
+   "frames": [
+    68012,
+    68013,
+    68025,
+    68029,
+    68030,
+    68035,
+    68043,
+    68049
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 15.78-16.40 s. Same held frame; nothing clipped or overlapping."
+  },
+  {
+   "sheet": 531,
+   "sha256": "7dc57b777689b109a86ea353f74cc470e651980218871abb75abefa9376fe424",
+   "batch": "batch-02.json",
+   "frames": [
+    68050,
+    68055,
+    68069,
+    68072,
+    68080,
+    68085,
+    68087,
+    68090
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 16.42-17.08 s. Same held frame, incl. pv21 and production16 sample tiles."
+  },
+  {
+   "sheet": 532,
+   "sha256": "b3dd24dfc923db5211fd86854e391d4e0990dee5f7d8eaa90917da04b7d47f14",
+   "batch": "batch-02.json",
+   "frames": [
+    68092,
+    68103,
+    68105,
+    68115,
+    68121,
+    68122,
+    68126,
+    68129
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 17.12-17.73 s. Same held frame, incl. the 17.600 s layout anchor tile (f68121): nothing hidden behind a stroke at this scale."
+  },
+  {
+   "sheet": 533,
+   "sha256": "621c8e798c8d6faac40a92e6176656af16debf090bf723af77cbf01b56c2b52d",
+   "batch": "batch-02.json",
+   "frames": [
+    68132,
+    68143,
+    68145,
+    68147,
+    68152,
+    68155,
+    68157,
+    68168
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 17.78-18.38 s. Same held frame."
+  },
+  {
+   "sheet": 534,
+   "sha256": "84c72ebc3fb615a630ecc479c07b72a9b7c640463497b9a9c407c6fece99ad78",
+   "batch": "batch-02.json",
+   "frames": [
+    68175,
+    68181,
+    68182,
+    68185,
+    68189,
+    68197,
+    68205,
+    68207
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 18.50-19.03 s. Same held frame."
+  },
+  {
+   "sheet": 535,
+   "sha256": "1fc372cc46e2eb8cfe155f9070ce9fe6e8f93ae862c8affc51acac212c3d3f49",
+   "batch": "batch-03.json",
+   "frames": [
+    68216,
+    68223,
+    68228,
+    68235,
+    68245,
+    68246,
+    68257,
+    68258
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 19.18-19.88 s. Identity plus yellow integral held; portrait unchanged."
+  },
+  {
+   "sheet": 536,
+   "sha256": "6d40d054c461c3fb7ae412d55b6a9f75fdb9a97d0575610d67c227304644838c",
+   "batch": "batch-03.json",
+   "frames": [
+    68265,
+    68271,
+    68272,
+    68283,
+    68288,
+    68290,
+    68295,
+    68297
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 20.00-20.53 s. Same held frame."
+  },
+  {
+   "sheet": 537,
+   "sha256": "989ecb2fe3acf8fd76230915363429b8ec987b70234c8f00725c2aa4330e1d15",
+   "batch": "batch-03.json",
+   "frames": [
+    68311,
+    68313,
+    68318,
+    68325,
+    68332,
+    68339,
+    68348,
+    68353
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 20.77-21.47 s. Same held frame. Observation only: the picture has been static since about 14 s local; whether that hold suits the narration is not judged from stills."
+  },
+  {
+   "sheet": 538,
+   "sha256": "6abd902c0544335d3f59ea4d729c1680fd4654c5c85ed2113f9bf43fb099037a",
+   "batch": "batch-03.json",
+   "frames": [
+    68355,
+    68363,
+    68373,
+    68383,
+    68385,
+    68392,
+    68399,
+    68404
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 21.50-22.32 s. Tiles 4-6 (f68383-f68392) fade the identity and yellow integral out, then fade in the identity with the third term green and the line g(z) = (f(z)-f(a))/(z-a), z != a in green. Tile 5 (f68385) has both at very low opacity: a fade through, expected. Tiles 7-8 full, clear, no overlap."
+  },
+  {
+   "sheet": 539,
+   "sha256": "d5e0616aec9cb69f82e8884fab4948e0f1f89447545001ab70b9762f1ea0da59",
+   "batch": "batch-03.json",
+   "frames": [
+    68405,
+    68413,
+    68414,
+    68415,
+    68421,
+    68425,
+    68435,
+    68439
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 22.33-22.90 s. Green g(z) definition held under the identity; green term matches; text clear of the plot; 22.600 s anchor tile (f68421) shows nothing hidden."
+  },
+  {
+   "sheet": 540,
+   "sha256": "3fbe51d35ab38c881f4bc1d2c74d07116701c5f3c66cf1c7cf9574705e7283bb",
+   "batch": "batch-03.json",
+   "frames": [
+    68445,
+    68446,
+    68456,
+    68457,
+    68465,
+    68469,
+    68475,
+    68477
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 23.00-23.53 s. Same held frame incl. the 09_2 production16 tile (f68469)."
+  },
+  {
+   "sheet": 541,
+   "sha256": "2b64ddcd44d0ed4649bfc09775d00ce32a84fd3a228e970c5afdc15e387b099d",
+   "batch": "batch-04.json",
+   "frames": [
+    68485,
+    68493,
+    68499,
+    68505,
+    68506,
+    68509,
+    68511,
+    68516
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 23.67-24.18 s. Identity with green third term and green g(z) line held; plot unchanged; 09_2 production16 tiles show the same frame."
+  },
+  {
+   "sheet": 542,
+   "sha256": "7c799b7264d1760d07b4a750cb55ae341c69d8332d1955cb23c3c517aefacab8",
+   "batch": "batch-04.json",
+   "frames": [
+    68529,
+    68535,
+    68537,
+    68551,
+    68558,
+    68559,
+    68565,
+    68567
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 24.40-25.03 s. Same held frame, labels clear."
+  },
+  {
+   "sheet": 543,
+   "sha256": "7bd113aa91cb9c738918b55960531ed267bb58abf36ddefb4aeedd4213df3342",
+   "batch": "batch-04.json",
+   "frames": [
+    68571,
+    68587,
+    68595,
+    68609,
+    68611,
+    68618,
+    68625,
+    68629
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 25.10-26.07 s. Same held frame."
+  },
+  {
+   "sheet": 544,
+   "sha256": "188cc1d9119c3a81c9e81f1c99c0263176eb7823913562f6cce63e3385cb7554",
+   "batch": "batch-04.json",
+   "frames": [
+    68631,
+    68637,
+    68645,
+    68653,
+    68655,
+    68663,
+    68669,
+    68684
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 26.10-26.98 s. Same held frame."
+  },
+  {
+   "sheet": 545,
+   "sha256": "5a5ed144c932fdb871fff4aea5bbdde847c468b87c4bb305cee67452c6f2e316",
+   "batch": "batch-04.json",
+   "frames": [
+    68685,
+    68687,
+    68689,
+    68697,
+    68705,
+    68713,
+    68715,
+    68721
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 27.00-27.60 s. Same held frame incl. the 27.600 s anchor tile (f68721)."
+  },
+  {
+   "sheet": 546,
+   "sha256": "5dcc1d411e471fc3612b4539c0e7e17551507486eec603b7bd684793d94cd100",
+   "batch": "batch-04.json",
+   "frames": [
+    68724,
+    68725,
+    68726,
+    68727,
+    68728,
+    68743,
+    68745,
+    68747
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 27.65-28.03 s. Five permit playback-instant tiles around 27.687 s (f68724-f68728) are identical to their neighbours; no flash, no blank, no shift. Observation only: picture static since about 22.5 s local."
+  },
+  {
+   "sheet": 547,
+   "sha256": "81da7879d6fae655172e025f161b8dca1031e5d6be0ab637eb9900c5c2a930ea",
+   "batch": "batch-05.json",
+   "frames": [
+    68756,
+    68757,
+    68760,
+    68764,
+    68765,
+    68775,
+    68779,
+    68786
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 28.18-28.68 s. From tile 6 (f68775, 28.500 s) two grey connector lines grow from the grey ring towards the right; tile 8 (f68786) a faint circle starts fading in at the right. Lines pass clear of the 'a little beyond' card and the Re label."
+  },
+  {
+   "sheet": 548,
+   "sha256": "4847ddfa83f4e9499cfd4d0d2bd5dae721e996fe871cac18514e3642db74e4be",
+   "batch": "batch-05.json",
+   "frames": [
+    68787,
+    68790,
+    68795,
+    68798,
+    68805,
+    68806,
+    68816,
+    68820
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 28.70-29.25 s. Zoom inset fades in: yellow circle with a small red hollow point labelled a, red caption 'g is undefined at a' under the green g line. Full from tile 3 (f68795). Hollow point vs filled white dot in the main plot reads as 'removed point'. Text clear."
+  },
+  {
+   "sheet": 549,
+   "sha256": "4b20a477c35ff9b02388a106a225d0270ce284cc93a7720c5c9de0bbf45333af",
+   "batch": "batch-05.json",
+   "frames": [
+    68821,
+    68827,
+    68835,
+    68850,
+    68855,
+    68858,
+    68865,
+    68866
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 29.27-30.02 s. Zoom inset held. Crop at native tile pixels (r995-crops/s549t1-zoom.png, tile 1 f68821): the two connector lines start on the grey ring but stop in empty space at one x about 60 px left of the zoomed yellow circle; no frame or circle closes them. Cosmetic Low L1: the magnifier cone points at nothing for a moment's reading; the zoom is still understandable. Caption, a label and the hollow point are legible at tile scale."
+  },
+  {
+   "sheet": 550,
+   "sha256": "c3c56ecfb1d986a97a6a54ed78f5570297f0ce271ba3ebad997e731850a52838",
+   "batch": "batch-06.json",
+   "frames": [
+    68869,
+    68880,
+    68881,
+    68885,
+    68891,
+    68895,
+    68897,
+    68901
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 30.07-30.60 s. Zoom inset, red caption and green g line held; same open-ended connectors as L1 (sheet 549)."
+  },
+  {
+   "sheet": 551,
+   "sha256": "07c47ab58d6e159ef11f950727b7398ddbc9493b5a59e42722c1303cabc12cd9",
+   "batch": "batch-06.json",
+   "frames": [
+    68907,
+    68910,
+    68918,
+    68920,
+    68925,
+    68927,
+    68929,
+    68932
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 30.70-31.12 s. Same held frame."
+  },
+  {
+   "sheet": 552,
+   "sha256": "9aca600f739827e6dedab0f55e598e1a229a305712e5f4075c83f29bc09eae5f",
+   "batch": "batch-06.json",
+   "frames": [
+    68933,
+    68936,
+    68940,
+    68943,
+    68949,
+    68950,
+    68955,
+    68957
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 31.13-31.53 s. Same held frame."
+  },
+  {
+   "sheet": 553,
+   "sha256": "87a11f0b4ea05dca876625e2325724217f5b45344e46f9b380e4c7cc9cc1067f",
+   "batch": "batch-06.json",
+   "frames": [
+    68962,
+    68970,
+    68972,
+    68974,
+    68977,
+    68978,
+    68979,
+    68980
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 31.62-31.92 s. Permit playback-instant tiles around 31.901 s (f68977-f68980) equal their neighbours; no flash or shift."
+  },
+  {
+   "sheet": 554,
+   "sha256": "700afc1eaaea1d9cfdc283130cfa7fc9d0588b3c6a196f18d688ee9e089da993",
+   "batch": "batch-06.json",
+   "frames": [
+    68981,
+    68985,
+    68987,
+    68992,
+    68993,
+    69000,
+    69003,
+    69007
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 31.93-32.37 s. Same held frame incl. the last permit tile (f68981)."
+  },
+  {
+   "sheet": 555,
+   "sha256": "c65927b76b39cc01ca32f811b557566027633f935498a4150bd211a4aeb3fc92",
+   "batch": "batch-06.json",
+   "frames": [
+    69009,
+    69014,
+    69015,
+    69016,
+    69020,
+    69021,
+    69022,
+    69030
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 32.40-32.75 s. Same held frame incl. the 32.600 s anchor tile (f69021)."
+  },
+  {
+   "sheet": 556,
+   "sha256": "6bd3cd5ae306f3ec0d783c36c34506c38cd4574df18f819268a55be6f60e49ce",
+   "batch": "batch-07.json",
+   "frames": [
+    69031,
+    69034,
+    69035,
+    69038,
+    69041,
+    69045,
+    69051,
+    69052
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 32.77-33.12 s. Zoom inset, green g line and red caption held; unchanged."
+  },
+  {
+   "sheet": 557,
+   "sha256": "335c626eb860a4ae00ae20be8d621130d6e566bf10f1d98f8f10d0782d4cab0f",
+   "batch": "batch-07.json",
+   "frames": [
+    69057,
+    69058,
+    69060,
+    69062,
+    69073,
+    69074,
+    69075,
+    69080
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 33.20-33.58 s. Same held frame incl. final969 repaired samples."
+  },
+  {
+   "sheet": 558,
+   "sha256": "29df920d1a40edf3d8ebdc47cc4b240670ba60c7ad74bff81ee42d3695f2a355",
+   "batch": "batch-07.json",
+   "frames": [
+    69083,
+    69086,
+    69090,
+    69092,
+    69093,
+    69095,
+    69104,
+    69105
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 33.63-34.00 s. Same held frame."
+  },
+  {
+   "sheet": 559,
+   "sha256": "6015c103df217e39783b7efa78bb8440ad4ddc0f5a238d94216af8a13eae35a1",
+   "batch": "batch-07.json",
+   "frames": [
+    69118,
+    69120,
+    69133,
+    69134,
+    69135,
+    69140,
+    69143,
+    69145
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 34.22-34.67 s. Same held frame."
+  },
+  {
+   "sheet": 560,
+   "sha256": "470a2f97ccbf979b0f87023579f6d06b048767bcc68c3839099b79ae9ace9f50",
+   "batch": "batch-07.json",
+   "frames": [
+    69146,
+    69147,
+    69148,
+    69149,
+    69150,
+    69151,
+    69152,
+    69153
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 34.68-34.80 s, frame by frame (f69146-f69153). Identical frames, no flicker."
+  },
+  {
+   "sheet": 561,
+   "sha256": "ae535b7a55b2d29d6c70b1ffb1414358cc640725c09b8f160ecff5aba6a034b8",
+   "batch": "batch-07.json",
+   "frames": [
+    69154,
+    69155,
+    69156,
+    69157,
+    69158,
+    69159,
+    69160,
+    69161
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 34.82-34.93 s, frame by frame. The red caption and both connector lines fade out together from f69157; zoom circle and hollow point stay. Smooth fade, no jump."
+  },
+  {
+   "sheet": 562,
+   "sha256": "b6ee24260382137eb7025a739856da27157a48e0bcd60be68846d65df483a416",
+   "batch": "batch-07.json",
+   "frames": [
+    69162,
+    69163,
+    69164,
+    69165,
+    69166,
+    69167,
+    69168,
+    69169
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 34.95-35.07 s, frame by frame. Caption gone by f69163; green line 'z -> a: g(z) -> f prime(a)' fades in at the caption's place from f69166. Nothing overlaps."
+  },
+  {
+   "sheet": 563,
+   "sha256": "d14a04fbdb26cd0fcb21a739fa4df2d2f8c170b2100388f814b7462f378b8880",
+   "batch": "batch-07.json",
+   "frames": [
+    69170,
+    69171,
+    69172,
+    69173,
+    69174,
+    69176,
+    69180,
+    69182
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 35.08-35.28 s. Limit line full and legible; hollow point still marks a in the zoom (g not yet defined there), which is consistent with the statement. 09_3 production16 tile (f69176) matches."
+  },
+  {
+   "sheet": 564,
+   "sha256": "8db4c22b061e58bdd1a039c4e0a23f939869167a4f38c9603397085306eb3940",
+   "batch": "batch-08.json",
+   "frames": [
+    69194,
+    69195,
+    69196,
+    69197,
+    69198,
+    69199,
+    69203,
+    69208
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 35.48-35.72 s. A small green point z appears inside the zoomed yellow circle at upper right and starts moving; permit tiles around 35.512 s (f69196-f69198) show smooth small steps, no jump."
+  },
+  {
+   "sheet": 565,
+   "sha256": "7d1923fb98263cbb9aacc8f4f23307fc39ef0a7ea3b973edc196962fae891056",
+   "batch": "batch-08.json",
+   "frames": [
+    69210,
+    69225,
+    69240,
+    69242,
+    69245,
+    69251,
+    69255,
+    69259
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 35.75-36.57 s. Green point spirals inwards towards a, above the hollow point; stays clear of the a label."
+  },
+  {
+   "sheet": 566,
+   "sha256": "b28c71611013f01deadbc4a8055be92757ce59a48c07a881f1b7ad71a312ffee",
+   "batch": "batch-08.json",
+   "frames": [
+    69267,
+    69268,
+    69270,
+    69275,
+    69285,
+    69290,
+    69293,
+    69300
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 36.70-37.25 s. Green point continues left and down; at f69300 it is just left of the a label, not touching it at tile scale."
+  },
+  {
+   "sheet": 567,
+   "sha256": "e915aba011d1eb6926d46b581d2d0394394f0849c315b80771067043e21b44fa",
+   "batch": "batch-08.json",
+   "frames": [
+    69305,
+    69315,
+    69317,
+    69321,
+    69327,
+    69330,
+    69332,
+    69333
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 37.33-37.80 s. Green point settles just left of the red hollow point; label a stays readable above."
+  },
+  {
+   "sheet": 568,
+   "sha256": "1e28e2338b03c9dd903c2f5177b8c7227735343f33053ad61fac35e3e598ad10",
+   "batch": "batch-08.json",
+   "frames": [
+    69345,
+    69346,
+    69353,
+    69357,
+    69359,
+    69360,
+    69375,
+    69377
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 38.00-38.53 s. Held. Native-pixel crop (r995-crops/s568t1-dot.png, f69345): green point beside the red ring with a visible gap, label a clear; z approaches a without landing on it, matching 'z -> a'."
+  },
+  {
+   "sheet": 569,
+   "sha256": "02d5c11f87f3b79097d334eb230e6414cd443a5fa93fbaaf209e1dd5e91f90b5",
+   "batch": "batch-08.json",
+   "frames": [
+    69379,
+    69381,
+    69382,
+    69383,
+    69384,
+    69385,
+    69386,
+    69387
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 38.57-38.70 s, frame by frame (f69379-f69387). Identical frames, no flicker."
+  },
+  {
+   "sheet": 570,
+   "sha256": "3f610410c3c92321547bdf36b883645fd3d5ec28993143b631a841a8d4f78fd4",
+   "batch": "batch-09.json",
+   "frames": [
+    69388,
+    69389,
+    69390,
+    69391,
+    69392,
+    69393,
+    69394,
+    69395
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 38.72-38.83 s, frame by frame (f69388-f69395). From f69392 a dashed grey circle fades in inside the zoomed yellow circle around a; '|g| <= M' with grey 'inside the dashes' beneath fades in left of the zoom. No overlap."
+  },
+  {
+   "sheet": 571,
+   "sha256": "5fb551e73ea4d6193e6bc544522c660755679841dba036a2141bf06f690cc2a5",
+   "batch": "batch-09.json",
+   "frames": [
+    69396,
+    69397,
+    69398,
+    69399,
+    69400,
+    69401,
+    69405,
+    69410
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 38.85-39.08 s. Dashed circle and '|g| <= M / inside the dashes' fully in by f69398. Permit tile f69410 (39.123 s -2) identical to its neighbours."
+  },
+  {
+   "sheet": 572,
+   "sha256": "dfefe301fa44e1b01134d79f05232bda283dd2c8d223694f49ffa157b2f746b4",
+   "batch": "batch-09.json",
+   "frames": [
+    69411,
+    69412,
+    69413,
+    69414,
+    69416,
+    69419,
+    69420,
+    69421
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 39.10-39.27 s. Permit tiles at 39.123 s (f69411-f69414) consistent. Green point fades out (dim at f69416, gone by f69419); red hollow point remains inside the dashed circle. 'inside the dashes' is small grey text but readable at tile scale."
+  },
+  {
+   "sheet": 573,
+   "sha256": "7681f47b336ea8b404d996929159ac8060bf6f72a4b2081a6c4fdd129db671b6",
+   "batch": "batch-09.json",
+   "frames": [
+    69435,
+    69439,
+    69440,
+    69448,
+    69450,
+    69451,
+    69458,
+    69462
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 39.50-39.95 s. Held: dashed circle, hollow point a, '|g| <= M / inside the dashes', limit line. Anchor tile f69451 ('bound |g| <= M arrival', 39.767 s) shows the bound fully present."
+  },
+  {
+   "sheet": 574,
+   "sha256": "a0ffb01c91d2d85e4f0398598855fd4295a62abbbcec895a231e6168dab7d0c6",
+   "batch": "batch-09.json",
+   "frames": [
+    69463,
+    69465,
+    69481,
+    69483,
+    69495,
+    69500,
+    69505,
+    69506
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 39.97-40.68 s. Same held frame incl. final969 repaired samples f69465/f69495."
+  },
+  {
+   "sheet": 575,
+   "sha256": "31512f386e16ed76797ad228d04feb4ad815b70256bb3e7ce7b0e93b3980882e",
+   "batch": "batch-09.json",
+   "frames": [
+    69518,
+    69525,
+    69531,
+    69541,
+    69548,
+    69549,
+    69554,
+    69555
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 40.88-41.50 s. Same held frame incl. the 09_3 41.6 s original-anchor tile (f69549); nothing new appears yet."
+  },
+  {
+   "sheet": 576,
+   "sha256": "dbce2e28bb82474c5940bda575f311d4a34b4a6b608e53c1327ed820758c519e",
+   "batch": "batch-10.json",
+   "frames": [
+    69561,
+    69565,
+    69573,
+    69585,
+    69588,
+    69596,
+    69608,
+    69615
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 41.60-42.50 s. Same held frame incl. three 09_3 41.6 s anchor tiles (f69561, f69573) and the 09_3 production16 tile (f69588); no change."
+  },
+  {
+   "sheet": 577,
+   "sha256": "df7f9d4ffe9175d23a8e34de04311b8a4b905f84b9a28bc10a648671ccfb42a1",
+   "batch": "batch-10.json",
+   "frames": [
+    69617,
+    69621,
+    69631,
+    69633,
+    69645,
+    69647,
+    69656,
+    69657
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 42.53-43.20 s. From f69631 a green ring fades in round the hollow point inside the dashed circle (full by f69645), with a small green rho label at lower right outside the yellow circle. Ring clears the a label and the dashes. Rho placement noted under sheet 578."
+  },
+  {
+   "sheet": 578,
+   "sha256": "554c411ee25fd3d4092712d1e9d21d53bfde3a288a986fc66009b97b4c2d6d56",
+   "batch": "batch-10.json",
+   "frames": [
+    69659,
+    69673,
+    69675,
+    69680,
+    69689,
+    69703,
+    69705,
+    69716
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 43.23-44.18 s. Held. Native-pixel crop (r995-crops/s578t1-rho.png, f69659): the green rho label sits outside the yellow circle at its lower right, about two green-ring radii from the green ring, with no leader line; it is tied to the green ring only by colour. Watched below for a radius mark."
+  },
+  {
+   "sheet": 579,
+   "sha256": "9288661b16a3937c44a06e27037f3feff347035df44814a149e66d6196b9ff6c",
+   "batch": "batch-10.json",
+   "frames": [
+    69719,
+    69722,
+    69733,
+    69734,
+    69735,
+    69741,
+    69745,
+    69749
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 44.23-44.73 s. Same held frame incl. a 09_3 41.6 s anchor tile (f69741)."
+  },
+  {
+   "sheet": 580,
+   "sha256": "0133ed1e81670f9256bb00483f2da445aacd9aefda04677611bac7a8f95091b5",
+   "batch": "batch-10.json",
+   "frames": [
+    69758,
+    69765,
+    69776,
+    69782,
+    69793,
+    69795,
+    69801,
+    69805
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 44.88-45.67 s. Same held frame."
+  },
+  {
+   "sheet": 581,
+   "sha256": "e2bd058515e63d2c789109b7b7e8f80f09b2c85591fdfc71a0dbedfa25015383",
+   "batch": "batch-10.json",
+   "frames": [
+    69811,
+    69818,
+    69825,
+    69829,
+    69835,
+    69836,
+    69841,
+    69843
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 45.77-46.30 s. Limit line fades out (dim f69811, gone f69818); white 'g is holomorphic / between the circles' takes its place from f69825; from f69841 a dark teal fill fades in between the green ring and the yellow circle. Clean crossfade, no overlap."
+  },
+  {
+   "sheet": 582,
+   "sha256": "3be52411052e5e89ae532a6d9c8052b655b2e07d2d26a50a1c4a0abb14fa05a3",
+   "batch": "batch-11.json",
+   "frames": [
+    69853,
+    69855,
+    69861,
+    69867,
+    69883,
+    69885,
+    69886,
+    69895
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 46.47-47.17 s. Teal fill complete between green ring and yellow circle; inside of the green ring stays dark, so the fill matches 'between the circles'. Dashed circle visible through the fill."
+  },
+  {
+   "sheet": 583,
+   "sha256": "9507f1d131503eea18f4ae8a9718a8990d6dd500235aed7e2867f20994e63071",
+   "batch": "batch-11.json",
+   "frames": [
+    69903,
+    69909,
+    69910,
+    69913,
+    69915,
+    69921,
+    69928,
+    69931
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 47.30-47.77 s. Same held frame incl. a 09_3 41.6 s anchor tile (f69921)."
+  },
+  {
+   "sheet": 584,
+   "sha256": "7a0be802d20b567473a5f0172a309c20b5d15ab15c31855157ff5c5120497615",
+   "batch": "batch-11.json",
+   "frames": [
+    69943,
+    69944,
+    69945,
+    69952,
+    69957,
+    69969,
+    69973,
+    69975
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 47.97-48.50 s. Same held frame incl. a 09_1 cue-relative anchor tile (f69957)."
+  },
+  {
+   "sheet": 585,
+   "sha256": "e586cea23eb271fbc5399e94f59d7af33937f23f325ad7b0edf9d9e33b6a0a63",
+   "batch": "batch-11.json",
+   "frames": [
+    69986,
+    69988,
+    70005,
+    70012,
+    70023,
+    70033,
+    70035,
+    70046
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 48.68-49.68 s. Same held frame incl. the 09_3 production16 tile (f70023)."
+  },
+  {
+   "sheet": 586,
+   "sha256": "1f026ed6ee2ba87d4253bc9d6c1b15c85252e599282baee30a7a49b2907765db",
+   "batch": "batch-11.json",
+   "frames": [
+    70054,
+    70060,
+    70065,
+    70077,
+    70078,
+    70087,
+    70095,
+    70096
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 49.82-50.52 s. 09_4 begins: the teal fill fades (f70054, gone f70060); a yellow octagon inscribed in the yellow circle and a green octagon on the green ring fade in (f70065-f70078), then the annulus between them fills with alternating teal and olive triangles (f70087-f70096). Smooth staged build, no jump."
+  },
+  {
+   "sheet": 587,
+   "sha256": "caff3ebefc87875f7533b84b9c333bc8fc34838ec32c1a22f84d0a4e9f5947ec",
+   "batch": "batch-11.json",
+   "frames": [
+    70097,
+    70102,
+    70103,
+    70125,
+    70129,
+    70130,
+    70137,
+    70139
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 50.53-51.23 s. Native-pixel crop (r995-crops/s587t4-tri.png, f70125): 16 triangles, eight with an outer octagon edge (teal) and eight with an inner edge (olive), meeting cleanly at the octagon vertices; hollow point and a label clear inside the green octagon; dashed circle passes under the triangles. Readable."
+  },
+  {
+   "sheet": 588,
+   "sha256": "8d3e0d944d3cafdcda047e785968bbd9b15ba500651aa6b23fcb31dff5e6286f",
+   "batch": "batch-11.json",
+   "frames": [
+    70145,
+    70155,
+    70161,
+    70162,
+    70172,
+    70180,
+    70185,
+    70189
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 51.33-52.07 s. Same held triangulated frame incl. a 09_3 41.6 s anchor tile (f70161)."
+  },
+  {
+   "sheet": 589,
+   "sha256": "68fe977413b7881b6cfcf57d113a6c6275f95dee077f8170a99c146a933e431f",
+   "batch": "batch-11.json",
+   "frames": [
+    70190,
+    70199,
+    70201,
+    70203,
+    70205,
+    70215,
+    70220,
+    70221
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 52.08-52.60 s. Same held frame incl. the 09_1 2.6 s anchor tile (f70221)."
+  },
+  {
+   "sheet": 590,
+   "sha256": "b162532c578d06ac5545fa8f61bcda78b54c3f9385c93c8f9f12f6c7a96bb61d",
+   "batch": "batch-11.json",
+   "frames": [
+    70222,
+    70232,
+    70243,
+    70245,
+    70247,
+    70257,
+    70259,
+    70262
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 52.62-53.28 s. Same held frame incl. 09_1 cue-relative and 09_4 production16 tiles (f70257, f70259)."
+  },
+  {
+   "sheet": 591,
+   "sha256": "5f1369e3d54d28816fa3f4b9dcf7e9765b372da71836bc153251d232d5ba3a01",
+   "batch": "batch-12.json",
+   "frames": [
+    70263,
+    70275,
+    70276,
+    70282,
+    70289,
+    70292,
+    70303,
+    70305
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 53.30-54.00 s. Same held triangulated frame."
+  },
+  {
+   "sheet": 592,
+   "sha256": "f8fc2010a2cdbd83c37414e080268a49fbc4753202892d44e1f8cf3cfe7794df",
+   "batch": "batch-12.json",
+   "frames": [
+    70315,
+    70318,
+    70322,
+    70323,
+    70325,
+    70335,
+    70339,
+    70349
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 54.17-54.73 s. Same held frame."
+  },
+  {
+   "sheet": 593,
+   "sha256": "7d58d31e5464446dc42bf052ef8a2d64f39ac25954cbe06b60e7483e6d210e42",
+   "batch": "batch-12.json",
+   "frames": [
+    70357,
+    70365,
+    70366,
+    70367,
+    70378,
+    70381,
+    70395,
+    70408
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 54.87-55.72 s. Same held frame; no p label yet, rho still at lower right outside the yellow circle."
+  },
+  {
+   "sheet": 594,
+   "sha256": "ed6679e5a297b129059947912c1916a85bd3b94ccb0d3f2740f1a5fc5e6e9eff",
+   "batch": "batch-12.json",
+   "frames": [
+    70415,
+    70417,
+    70421,
+    70425,
+    70427,
+    70436,
+    70441,
+    70447
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 55.83-56.37 s. 'g is holomorphic / between the circles' fades out (dim f70441, gone f70447). No overlap during the fade."
+  },
+  {
+   "sheet": 595,
+   "sha256": "243ca1910cfac30927ac3c1499454aff9e4500bf2739b2cd1150070d1f6c0a68",
+   "batch": "batch-12.json",
+   "frames": [
+    70453,
+    70455,
+    70461,
+    70463,
+    70468,
+    70472,
+    70478,
+    70485
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 56.47-57.00 s. 'contour integral over T of g dz = 0  around each triangle T' fades in at the vacated place (full by f70461); from f70478 boundary loops with arrowheads start tracing each triangle."
+  },
+  {
+   "sheet": 596,
+   "sha256": "1fb44237b1fe3dbe609624230ee1e4b44b9c9374b7d43c63a2bb887df46630ea",
+   "batch": "batch-12.json",
+   "frames": [
+    70489,
+    70495,
+    70497,
+    70509,
+    70514,
+    70515,
+    70521,
+    70523
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 57.07-57.63 s. Native-pixel crop (r995-crops/s596t4-arrows.png, f70509, a 'Prior rho/p collision' anchor): every triangle carries an inset loop with arrowheads; shared interior edges show two opposite arrows, outer edges yellow. Dense at tile scale but each loop is distinct; hollow point, a and rho clear. No p yet."
+  },
+  {
+   "sheet": 597,
+   "sha256": "1369e5bdd722cc65f0354771faf0245e269337f5e748d0872445ee80f51f3872",
+   "batch": "batch-12.json",
+   "frames": [
+    70525,
+    70533,
+    70538,
+    70539,
+    70545,
+    70549,
+    70555,
+    70557
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 57.67-58.20 s. Loops held; same frame."
+  },
+  {
+   "sheet": 598,
+   "sha256": "c339a3c9e5f0a04d199498c7b09772107ac75238b8a992346cf0efde3b72e842",
+   "batch": "batch-12.json",
+   "frames": [
+    70564,
+    70567,
+    70569,
+    70574,
+    70575,
+    70581,
+    70599,
+    70605
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 58.32-59.00 s. Same held frame incl. 'Prior rho/p collision' anchor tiles f70569, f70581: no collision, no p label present."
+  },
+  {
+   "sheet": 599,
+   "sha256": "3eeb5ccac2232d75b8f84805ff9b0cddc514baca90b83a9f7f8f1e5c41c0792c",
+   "batch": "batch-12.json",
+   "frames": [
+    70606,
+    70615,
+    70617,
+    70627,
+    70629,
+    70631,
+    70635,
+    70641
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 59.02-59.60 s. Same held frame incl. collision anchor tiles f70617, f70629, f70641."
+  },
+  {
+   "sheet": 600,
+   "sha256": "9f746559ee5e0cd8867f5921670cefd258c18a865ab9e39837a2f9fd50a4df6e",
+   "batch": "batch-13.json",
+   "frames": [
+    70651,
+    70657,
+    70665,
+    70666,
+    70670,
+    70673,
+    70689,
+    70693
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 59.77-60.47 s. Same held triangle-loop frame incl. collision anchor f70689."
+  },
+  {
+   "sheet": 601,
+   "sha256": "47fe0b4f018a0b03194353a266a15988e19af164ddc1d3105aa883df0b67a1f9",
+   "batch": "batch-13.json",
+   "frames": [
+    70695,
+    70709,
+    70712,
+    70717,
+    70725,
+    70730,
+    70733,
+    70735
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 60.50-61.17 s. Same held frame."
+  },
+  {
+   "sheet": 602,
+   "sha256": "1e38010e8e6cfc598d20da1ffb84ceff89ec8de67dfbc9f5184b946be314499f",
+   "batch": "batch-13.json",
+   "frames": [
+    70749,
+    70751,
+    70753,
+    70755,
+    70761,
+    70772,
+    70785,
+    70795
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 61.40-62.17 s. Same held frame incl. collision anchor f70749 and the 09_3 41.6 s anchor tile f70761. Picture static from about 57.6 s; whether that suits the narration is not judged from stills."
+  },
+  {
+   "sheet": 603,
+   "sha256": "0b333410f2d03b489e04ed30b17b9c4ca1b5cf4ff69469fb010502765ceada9a",
+   "batch": "batch-13.json",
+   "frames": [
+    70809,
+    70811,
+    70815,
+    70821,
+    70828,
+    70832,
+    70837,
+    70845
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 62.40-63.00 s. 'inside edges cancel: / walked both ways' fades in at lower left between |g| <= M and the plot bottom (dim f70809, full f70815). Clear of every other element."
+  },
+  {
+   "sheet": 604,
+   "sha256": "87430c9c2fa24ac1e3585c7bf2b28391db0d8a028efb946f823396491b15460c",
+   "batch": "batch-13.json",
+   "frames": [
+    70846,
+    70857,
+    70858,
+    70869,
+    70870,
+    70875,
+    70885,
+    70888
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 63.02-63.72 s. Held; layout-persistence anchor tile f70869 unchanged."
+  },
+  {
+   "sheet": 605,
+   "sha256": "fab867f534f280a899bb1ed5dc19e9356fc024fa901e0983f8481022c3ae6c90",
+   "batch": "batch-13.json",
+   "frames": [
+    70893,
+    70897,
+    70900,
+    70905,
+    70909,
+    70917,
+    70927,
+    70930
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 63.80-64.42 s. Held incl. collision anchor f70893 and the 09_5 production16 tile f70909; still no p label."
+  },
+  {
+   "sheet": 606,
+   "sha256": "87ffc2f4c2935672c6ab51189827a72673366f170af69817b11da1a5e84f4b70",
+   "batch": "batch-14.json",
+   "frames": [
+    70933,
+    70935,
+    70948,
+    70949,
+    70951,
+    70960,
+    70965,
+    70971
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 64.47-65.10 s. Held; at f70971 (65.100 s) a red highlight starts on the top shared radial edge between the yellow and green octagons."
+  },
+  {
+   "sheet": 607,
+   "sha256": "5ae78dfe63f02af1b1e9586234c09779f3b0b06b825413f44a1dd0fa97c7efb7",
+   "batch": "batch-14.json",
+   "frames": [
+    70987,
+    70991,
+    70994,
+    70995,
+    71006,
+    71013,
+    71021,
+    71025
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 65.37-66.00 s. Native-pixel crop (r995-crops/s607t4-red.png, f70994): two parallel red arrows on the top radial edge, one each way, matching 'inside edges cancel: walked both ways'. Clear of the a label; small yellow arrowheads visible on the inner green octagon edges."
+  },
+  {
+   "sheet": 608,
+   "sha256": "e31bb37d2e482c546fe408fa4b16aa7b46d191bf17a6326dc121b1a0d21cb957",
+   "batch": "batch-14.json",
+   "frames": [
+    71036,
+    71040,
+    71048,
+    71050,
+    71051,
+    71055,
+    71061,
+    71063
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 66.18-66.63 s. Same held frame incl. the 09_5 production16 tile f71040."
+  },
+  {
+   "sheet": 609,
+   "sha256": "d1efb1778ed00112b4e1ee6b2280948f374d4b320aa423e085a739579d786c18",
+   "batch": "batch-14.json",
+   "frames": [
+    71073,
+    71075,
+    71085,
+    71092,
+    71093,
+    71096,
+    71108,
+    71109
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 66.80-67.40 s. Same held frame incl. the layout-persistence anchor f71109."
+  },
+  {
+   "sheet": 610,
+   "sha256": "6a267856e541a074d1080114ca112caef66a894ae69bb40493f34213b09e04ba",
+   "batch": "batch-14.json",
+   "frames": [
+    71115,
+    71117,
+    71121,
+    71123,
+    71127,
+    71135,
+    71145,
+    71152
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 67.50-68.12 s. Same held frame."
+  },
+  {
+   "sheet": 611,
+   "sha256": "719da1dd1fb46569865083e6c17831d28a088780744ef4b67bb57c021e74ce27",
+   "batch": "batch-14.json",
+   "frames": [
+    71157,
+    71159,
+    71169,
+    71171,
+    71175,
+    71177,
+    71193,
+    71195
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 68.20-68.83 s. Red pair fades out (dim f71193, gone f71195); loops remain. No jump."
+  },
+  {
+   "sheet": 612,
+   "sha256": "68a2d471364f17cfa5a6d67edc31ad2ac412cdc3899e2d8ecdbb63ec24e7c602",
+   "batch": "batch-15.json",
+   "frames": [
+    71201,
+    71205,
+    71213,
+    71218,
+    71229,
+    71233,
+    71235,
+    71245
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 68.93-69.67 s. Triangle loops and fills fade out (f71213-f71245) leaving the yellow octagon and the green octagon with inset arrow loops; staged fade, no flash."
+  },
+  {
+   "sheet": 613,
+   "sha256": "13bd57fa574bfafab08fabe19f911942747e55c910470a7d187953f646c5ec22",
+   "batch": "batch-15.json",
+   "frames": [
+    71257,
+    71260,
+    71261,
+    71265,
+    71273,
+    71275,
+    71276,
+    71295
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 69.87-70.50 s. Native-pixel crop (r995-crops/s613t4-arrows.png, f71265): yellow inset loop with arrowheads along every outer edge; small yellow arrowheads along the green octagon. Review312 anchor tile f71275 matches."
+  },
+  {
+   "sheet": 614,
+   "sha256": "75a4549a9a972bfaba9d0f5f8d3f97b5fb8570b9cf53dad5131148634a4a5160",
+   "batch": "batch-15.json",
+   "frames": [
+    71305,
+    71306,
+    71318,
+    71319,
+    71320,
+    71325,
+    71329,
+    71337
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 70.67-71.20 s. Inset loops fade; the triangle formula fades out and 'contour over P of g dz + contour over p clockwise of g dz = 0' fades in at its place (full by f71325). Crop r995-crops/s614t8-polys.png (f71337): outer arrowheads re-entering at low opacity, inner ones not yet back. Transitional only."
+  },
+  {
+   "sheet": 615,
+   "sha256": "999ea35cb3739a5ecc51673e0a15255aa0d599ee525f394c074f3a68c6c17753",
+   "batch": "batch-15.json",
+   "frames": [
+    71347,
+    71348,
+    71349,
+    71355,
+    71361,
+    71365,
+    71371,
+    71373
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 71.37-71.80 s, B1 window. Outer yellow octagon arrowheads full; from f71355 yellow arrowheads fade in on the green octagon; from f71371 white P (upper right, outside the yellow octagon) and p (left, between the green octagon and the dashed circle) fade in. No overlap at any sampled frame."
+  },
+  {
+   "sheet": 616,
+   "sha256": "37e92cef3098bbe3dda6bfa139cd2e24507f72e147fd74091b219c431192f135",
+   "batch": "batch-15.json",
+   "frames": [
+    71378,
+    71379,
+    71385,
+    71389,
+    71397,
+    71405,
+    71408,
+    71409
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 71.88-72.40 s, B1 window. Native-pixel crops (r995-crops/s616t3-b1.png and s616t3-b1wide.png, f71385): inner arrowheads are yellow triangles with a dark rim, readable against the green stroke and pointing clockwise as the formula says, outer ones anticlockwise; p sits in the gap between the green octagon and the dashed circle touching neither; P clear of the octagon and of rho; a clear of the top inner arrowheads. B1 repair reads as intended."
+  },
+  {
+   "sheet": 617,
+   "sha256": "54e0a7cc4ed307fc0a0fad3c693db3c5d395d46083996e8255db0ea6baf9c29e",
+   "batch": "batch-15.json",
+   "frames": [
+    71411,
+    71415,
+    71421,
+    71431,
+    71433,
+    71445,
+    71449,
+    71453
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 72.43-73.13 s. Same held B1 frame (final969 repaired samples f71415-f71445). Low L2, carried from 42.8 s (sheet 577) to here: the green rho label sits outside the yellow circle at its lower right, nearer the yellow octagon and P than the green octagon it names, with no radius mark or leader; only colour ties it to the inner ring (crop r995-crops/s578t1-rho.png and s616t3-b1.png). Cosmetic and pedagogical, not a collision."
+  },
+  {
+   "sheet": 618,
+   "sha256": "866ceb53a81e6f1d426ede8586ff3a5ccb7ac12b46bd83603de442225ca3c5ff",
+   "batch": "batch-16.json",
+   "frames": [
+    71457,
+    71461,
+    71469,
+    71473,
+    71475,
+    71480,
+    71481,
+    71493
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 73.20-73.80 s, B1 window. Same held frame (P, p, rho, both arrow sets) incl. the 09_5 production16 tile f71461."
+  },
+  {
+   "sheet": 619,
+   "sha256": "078da22320e89af9c11268270c9e59ce4e84ea8d9fd9d5654198dddb3aadc018",
+   "batch": "batch-16.json",
+   "frames": [
+    71494,
+    71505,
+    71513,
+    71515,
+    71517,
+    71522,
+    71527,
+    71529
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 73.82-74.40 s, B1 window. Same held frame; final969 repaired samples identical to neighbours."
+  },
+  {
+   "sheet": 620,
+   "sha256": "199781c9ef0c8721e930e96d3b1b0592fe1d093653d13f6981e18f2fe2515e09",
+   "batch": "batch-16.json",
+   "frames": [
+    71535,
+    71536,
+    71541,
+    71553,
+    71559,
+    71565,
+    71569,
+    71575
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 74.50-75.17 s, B1 window. Same held frame."
+  },
+  {
+   "sheet": 621,
+   "sha256": "b47f8a8c3e48388fc1b8db5262c7a2e3cfbf7c32a1d2bbca18a56c485017e86a",
+   "batch": "batch-16.json",
+   "frames": [
+    71577,
+    71582,
+    71589,
+    71595,
+    71596,
+    71601,
+    71613,
+    71616
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 75.20-75.85 s, B1 window. Same held frame incl. the 09_5 production16 tile f71616."
+  },
+  {
+   "sheet": 622,
+   "sha256": "8a0077f8f4184a9a00659015ad7beeba02846dfc4d51d010e4f27441f6f497ef",
+   "batch": "batch-16.json",
+   "frames": [
+    71620,
+    71625,
+    71629,
+    71630,
+    71637,
+    71641,
+    71649,
+    71655
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 75.92-76.50 s. The P plus p-clockwise formula fades out (dim f71641, gone f71649); inner arrowheads leave the green octagon (gone by f71655). P, p and rho stay. Clean fade."
+  },
+  {
+   "sheet": 623,
+   "sha256": "87adc90c78496fccb60a3c1597acb7f409ac9ed3ca36ad14a6edc7ded976d402",
+   "batch": "batch-16.json",
+   "frames": [
+    71660,
+    71661,
+    71662,
+    71672,
+    71673,
+    71683,
+    71685,
+    71697
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 76.58-77.20 s. 'inside edges cancel' fades out (gone f71672); 'contour over P of g dz = contour over p of g dz' fades in at the formula slot (dim f71673, full f71683); at f71697 inner arrowheads start fading back. Orientation checked under sheet 624."
+  },
+  {
+   "sheet": 624,
+   "sha256": "c984e7d05be5f96e34e13e5f518ce1f6c47d1a06d72bda92cd46376cde9c57b9",
+   "batch": "batch-17.json",
+   "frames": [
+    71702,
+    71709,
+    71710,
+    71715,
+    71721,
+    71722,
+    71729,
+    71732
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 77.28-77.78 s. 'contour over P of g dz = contour over p of g dz' held at the formula slot; 'both walked / counterclockwise' fades in at lower left (dim f71709-f71710, full by f71715), clear of |g| <= M and the plot edge. Inner arrowheads back on the green octagon."
+  },
+  {
+   "sheet": 625,
+   "sha256": "bd9c9a25650975303ad7bc98193bd84e6824a24c19f1246aba8ca072765ce5ae",
+   "batch": "batch-17.json",
+   "frames": [
+    71733,
+    71743,
+    71745,
+    71750,
+    71752,
+    71757,
+    71762,
+    71769
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 77.80-78.40 s. Held. Crops r995-crops/s625t4-ccw.png, s625t4-ccw8.png and s625t4-right14.png (f71733) against s616t3-cw8.png and s616t3-right14.png (f71385): the inner arrowheads now sit in mirror-image positions and point counterclockwise (right side: upper head up-left, lower head up-right; at f71385 the same heads point down-right and down-left). Matches 'both walked counterclockwise'. P, p, a and rho clear. Judged by eye from the sheet JPEG; heads are about 7 px wide at tile scale."
+  },
+  {
+   "sheet": 626,
+   "sha256": "dcdad8332d73261a4c215c573217f273bdec4d637f797375ccc140b3597032d1",
+   "batch": "batch-17.json",
+   "frames": [
+    71771,
+    71775,
+    71781,
+    71792,
+    71793,
+    71795,
+    71805,
+    71812
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 78.43-79.12 s. Same held frame; P, p and rho unchanged, nothing overlaps."
+  },
+  {
+   "sheet": 627,
+   "sha256": "3d6829b6f59f3530e8f6c0f2f7c5a2b2feb202cd9c9f7b4fac7c9208ec1d9385",
+   "batch": "batch-18.json",
+   "frames": [
+    71817,
+    71821,
+    71829,
+    71831,
+    71835,
+    71837,
+    71841,
+    71842
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 79.20-79.62 s. Held frame: 'contour over P = contour over p', 'both walked / counterclockwise', both arrow sets, P, p, rho. Collision anchor tiles: no collision."
+  },
+  {
+   "sheet": 628,
+   "sha256": "7cd57d716e9fbe96612a6862c0acc7ce0b802b2a156d4ebca7997742cbe6bbf0",
+   "batch": "batch-18.json",
+   "frames": [
+    71852,
+    71853,
+    71863,
+    71865,
+    71872,
+    71877,
+    71884,
+    71889
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 79.78-80.40 s. Same held frame incl. layout-persistence anchor tiles."
+  },
+  {
+   "sheet": 629,
+   "sha256": "11ba9a8a1bbe78ce843a68777113e21776d984e17fd9a5667a76d665f01a73af",
+   "batch": "batch-18.json",
+   "frames": [
+    71895,
+    71897,
+    71901,
+    71913,
+    71914,
+    71923,
+    71925,
+    71937
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 80.50-81.20 s. Same held frame. Picture static from about 77.4 s; fit to narration not judged from stills."
+  },
+  {
+   "sheet": 630,
+   "sha256": "9a304b865def3c6d827f509f4b4b4f4ee3bc0d3c4716bd7e1726a173211bbe9e",
+   "batch": "batch-18.json",
+   "frames": [
+    71939,
+    71944,
+    71949,
+    71955,
+    71961,
+    71963,
+    71973,
+    71974
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 81.23-81.82 s. 'small circle fixed' fades in (green) below the yellow octagon (dim f71955, full f71961), clear of the octagon, rho and the plot edge."
+  },
+  {
+   "sheet": 631,
+   "sha256": "50363350c59c9856928981cd337a2ddc1906b53971963e97bd4be6eeaa0685bd",
+   "batch": "batch-18.json",
+   "frames": [
+    71981,
+    71985,
+    71995,
+    71997,
+    72005,
+    72009,
+    72015,
+    72021
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 81.93-82.60 s. Staged fade: outer arrowheads gone by f71981, inner ones by f71995; P and p fade (dim f72005, gone f72009); 'both walked counterclockwise' fades (dim f72015, gone f72021). Clean, no flash. rho stays (L2 still applies)."
+  },
+  {
+   "sheet": 632,
+   "sha256": "a54b8afeee1b23ca49af262d49a33d00828092ceaabc68c26777ca52df519bff",
+   "batch": "batch-18.json",
+   "frames": [
+    72023,
+    72033,
+    72037,
+    72041,
+    72045,
+    72047,
+    72057,
+    72061
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 82.63-83.27 s. Held: yellow and green octagons each drawn over their own circle (crop r995-crops/s632t8-oct.png, f72061), dashed circle, a, rho, 'small circle fixed'."
+  },
+  {
+   "sheet": 633,
+   "sha256": "1c243fb9d3daf3c15e62c1bac47a5e6a924c1e764a26b5649fb27c9e44897455",
+   "batch": "batch-18.json",
+   "frames": [
+    72065,
+    72069,
+    72071,
+    72075,
+    72079,
+    72081,
+    72083,
+    72093
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 83.33-83.80 s. Octagons held through f72083; at f72093 both loops read as plain circles (measured with r995_ringshape.py: n8 component 1.15 -> 0.03). This is the gap between fading the octagons out (0.15 s) and fading the 16-gons in (0.25 s) in complex-boundary-repair752/boundary.rs lines 759-760; the circles under the polygons stay. Designed handover, not a defect."
+  },
+  {
+   "sheet": 634,
+   "sha256": "9caac4ccb9f4a1c813950590bd660e0d5c18630a46986f7c003b1262a2b2f1e0",
+   "batch": "batch-18.json",
+   "frames": [
+    72103,
+    72105,
+    72107,
+    72113,
+    72117,
+    72121,
+    72127,
+    72129
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 83.97-84.40 s. 16-gons over their circles (crop r995-crops/s634t2-poly.png; ringshape n16 0.27 at f72103-f72127, 0.09 at f72129 as the next step starts). Monotone refinement 8 -> 16 -> finer."
+  },
+  {
+   "sheet": 635,
+   "sha256": "939fa2b348ba27dddaa939290c78b22dca0f244d7b3426d9a78a4ae686079c86",
+   "batch": "batch-18.json",
+   "frames": [
+    72135,
+    72137,
+    72139,
+    72141,
+    72148,
+    72153,
+    72163,
+    72165
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 84.50-85.00 s. Finer polygons from f72135 on; at tile scale (and at 4K, sagitta about 1.4 px for 32 sides at radius about 300 px) they are indistinguishable from the circles (crop r995-crops/s635t8-circ.png). Expected for the limit; no defect."
+  },
+  {
+   "sheet": 636,
+   "sha256": "e0be1fd7716a5baee3b28db7c6b7abd9cc6e5db59fc853d6e8d130d5ff6d6c2b",
+   "batch": "batch-18.json",
+   "frames": [
+    72169,
+    72173,
+    72177,
+    72179,
+    72181,
+    72189,
+    72190,
+    72195
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 85.07-85.50 s. Held: smooth-looking yellow and green loops, dashed circle, a, rho, 'small circle fixed'. Collision anchor tiles: none."
+  },
+  {
+   "sheet": 637,
+   "sha256": "1c5d59b259dd961e57f6a8f69d7d7a64424d729d05415dd8d82d11b7699891e2",
+   "batch": "batch-18.json",
+   "frames": [
+    72201,
+    72203,
+    72205,
+    72212,
+    72213,
+    72221,
+    72225,
+    72229
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 85.60-86.07 s. Same held frame incl. production16 09_6 tile f72205."
+  },
+  {
+   "sheet": 638,
+   "sha256": "a80cd807232a23176c55e6276a627955fff6678b89cf8b378e0e52f28284c10f",
+   "batch": "batch-18.json",
+   "frames": [
+    72230,
+    72239,
+    72242,
+    72245,
+    72247,
+    72250,
+    72254,
+    72255
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 86.08-86.50 s. Same held frame incl. production16 09_6 tile f72247."
+  },
+  {
+   "sheet": 639,
+   "sha256": "41c84d7733a33e468d28d88584837c7992e0e1f0cd498492a9fc4af3a1e22daf",
+   "batch": "batch-19.json",
+   "frames": [
+    72261,
+    72268,
+    72272,
+    72273,
+    72281,
+    72284,
+    72285,
+    72305
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 86.60-87.33 s. Held refined-loop frame ('small circle fixed', smooth yellow and green loops, dashed circle, a, rho). Anchor tiles match neighbours."
+  },
+  {
+   "sheet": 640,
+   "sha256": "ddbe1eae05bc3ea901f10b66acba19b54bc5cbde26304e286b593e7c6341727c",
+   "batch": "batch-19.json",
+   "frames": [
+    72309,
+    72310,
+    72314,
+    72315,
+    72321,
+    72329,
+    72332,
+    72344
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 87.40-87.98 s. Held; at f72344 the 'same endpoints' inset card starts fading in at the left gap below 'inside the dashes'."
+  },
+  {
+   "sheet": 641,
+   "sha256": "df49b61f9c0535d76d4af4d6b479edfcf809b6931d9334bebc3ddfacc03510f5",
+   "batch": "batch-19.json",
+   "frames": [
+    72345,
+    72353,
+    72357,
+    72370,
+    72371,
+    72375,
+    72376,
+    72387
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 88.00-88.70 s. Inset card full by f72353: yellow arc over a green chord, white endpoint dots, 'same endpoints'; from f72370 a short red piece marks one edge at the upper left of the yellow loop (crop r995-crops/s641t8-piece.png). Low L3 (layout and pedagogy): the card's top edge sits about 2.7 tile px (about 11 px at 4K) under 'inside the dashes', so the |g| <= M caption reads as the card's heading (crop r995-crops/s641t8-inset.png, f72387). Not touching. Observation only: the chord is drawn green, a colour the panel otherwise uses for the small circle and g; the outer polygon edges themselves are yellow."
+  },
+  {
+   "sheet": 642,
+   "sha256": "4909c3f9b606a19edba8df1be4905810667227776828740c6bc4c0edd94a7b4e",
+   "batch": "batch-19.json",
+   "frames": [
+    72395,
+    72405,
+    72413,
+    72418,
+    72429,
+    72431,
+    72435,
+    72437
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 88.83-89.53 s. Same held frame (inset, red piece); L3 spacing unchanged."
+  },
+  {
+   "sheet": 643,
+   "sha256": "efae8cc920a2f8b0e427ef9d735815e6ffe4779b8f8a25adf6fbf4615909234e",
+   "batch": "batch-19.json",
+   "frames": [
+    72439,
+    72446,
+    72452,
+    72455,
+    72465,
+    72470,
+    72478,
+    72481
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 89.57-90.27 s. Same held frame incl. production16 09_6 tile f72446."
+  },
+  {
+   "sheet": 644,
+   "sha256": "ea0cb6bde392ad33fd3ad8d48965aa09ca01fca1ca51df54ba479295bf21e613",
+   "batch": "batch-19.json",
+   "frames": [
+    72482,
+    72489,
+    72494,
+    72495,
+    72497,
+    72507,
+    72512,
+    72515
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 90.28-90.83 s. Same held frame incl. the review312/preview313 anchor f72512."
+  },
+  {
+   "sheet": 645,
+   "sha256": "7edff9ab332cb53c3998c50d18bfb2fa927e21d988a8984efe329f5839c92c51",
+   "batch": "batch-19.json",
+   "frames": [
+    72518,
+    72525,
+    72527,
+    72541,
+    72542,
+    72549,
+    72554,
+    72555
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 90.88-91.50 s. 'contour over P = contour over p' fades out (gone by f72541); 'integral over arc of c dz = c(B - A) = integral over chord of c dz' fades in at the formula slot (dim f72549, full f72554). Fits the panel, clear of g(z) and the loops. Low L4 (pedagogy): the formula names the endpoints A and B but the inset's endpoint dots carry no A or B labels; 'same endpoints' is the only tie."
+  },
+  {
+   "sheet": 646,
+   "sha256": "34ca59a7a02b5d2e49927b0ebad09f30498c9a41d7aef49cd124602ff5ce11f1",
+   "batch": "batch-19.json",
+   "frames": [
+    72560,
+    72561,
+    72565,
+    72567,
+    72569,
+    72573,
+    72574,
+    72585
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 91.58-92.00 s. Held constant-integral frame."
+  },
+  {
+   "sheet": 647,
+   "sha256": "4ee1f07929db453b491dfcf93358327d5528f315bb2b248b836e712a1a804909",
+   "batch": "batch-19.json",
+   "frames": [
+    72591,
+    72602,
+    72607,
+    72609,
+    72615,
+    72616,
+    72619,
+    72620
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 92.10-92.58 s. Same held frame incl. layout-persistence anchor f72609."
+  },
+  {
+   "sheet": 648,
+   "sha256": "2cc3ab855c43ef461bec5439011d0e1e03aac86ec41899b327b8caf13bee9249",
+   "batch": "batch-20.json",
+   "frames": [
+    72621,
+    72629,
+    72633,
+    72640,
+    72645,
+    72651,
+    72657,
+    72661
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 92.60-93.27 s. Held constant-integral frame (inset, red piece, loops); L3/L4 unchanged."
+  },
+  {
+   "sheet": 649,
+   "sha256": "38c285fdca35978eaff23ade4f91925116018dd0423408f898c9e48831176474",
+   "batch": "batch-20.json",
+   "frames": [
+    72667,
+    72675,
+    72676,
+    72682,
+    72693,
+    72703,
+    72705,
+    72719
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 93.37-94.23 s. Same held frame."
+  },
+  {
+   "sheet": 650,
+   "sha256": "d127ee44b63e29b6ae96bb392c3c6aaad5d9ca54c9aa60d4f43acf300afafd48",
+   "batch": "batch-20.json",
+   "frames": [
+    72721,
+    72735,
+    72741,
+    72742,
+    72757,
+    72761,
+    72763,
+    72765
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "medium-low",
+   "notes": "Local 94.27-95.00 s. Constant formula fades out (dim f72741, nearly gone f72742); the arc bound '|integral over arc of g dz - integral over chord of g dz| <= w L' fades in (full f72757); from f72765 'w: how much g varies / L: arc + chord lengths' fades in under the card. M1 (typesetting): the closing absolute-value bar touches the z of the second dz with no gap, so 'dz|' reads as one shape, while the opening bar has a clear gap before the integral sign (crops r995-crops/s650t5-bound.png, s650t5-bar12.png and s650t5-openbar12.png, f72757). Source ARC_TEX in complex-boundary-repair752/boundary.rs line 82 ends 'g\\,dz\\Big|' with no space before the bar; SUM_TEX line 84 has the same pattern (checked when it appears)."
+  },
+  {
+   "sheet": 651,
+   "sha256": "df9a996244e55807f6c714fe5647b4249b9a046af4b8175902eb637eae7c5fb8",
+   "batch": "batch-20.json",
+   "frames": [
+    72783,
+    72784,
+    72795,
+    72803,
+    72808,
+    72821,
+    72823,
+    72825
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 95.30-96.00 s. Held arc-bound frame; the w/L legend sits under the card, clear of the card, the plot edge and 'small circle fixed'. M1 collision visible in every tile."
+  },
+  {
+   "sheet": 652,
+   "sha256": "431e3766a9b0f7c515ebcb96b6358fa87ff3dcd5e8829cfe0eb9513a0d83e129",
+   "batch": "batch-20.json",
+   "frames": [
+    72826,
+    72835,
+    72837,
+    72843,
+    72846,
+    72850,
+    72853,
+    72855
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 96.02-96.50 s. Same held frame incl. production16 09_6 tile f72846."
+  },
+  {
+   "sheet": 653,
+   "sha256": "28b390beead3539840e7a9d2956820503b244b8f56d90a423f1d76345936f80d",
+   "batch": "batch-20.json",
+   "frames": [
+    72861,
+    72863,
+    72865,
+    72873,
+    72877,
+    72878,
+    72885,
+    72886
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 96.60-97.02 s. Same held frame incl. layout-persistence anchor f72873."
+  },
+  {
+   "sheet": 654,
+   "sha256": "eea0f189b6cfcbba6e56ff3dfc22ad945bbe15b9e4eedad83179e900fd4bfe59",
+   "batch": "batch-21.json",
+   "frames": [
+    72895,
+    72897,
+    72908,
+    72909,
+    72910,
+    72915,
+    72920,
+    72921
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 97.17-97.60 s. Held arc-bound frame incl. layout-persistence anchor f72909; M1 collision persists."
+  },
+  {
+   "sheet": 655,
+   "sha256": "014a55886393845fc6f9a1ff610b5e711225ad4f62c2d20fd8cd88853e5637ce",
+   "batch": "batch-21.json",
+   "frames": [
+    72925,
+    72937,
+    72945,
+    72946,
+    72950,
+    72955,
+    72957,
+    72970
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 97.67-98.42 s. Same held frame incl. cue-relative anchor f72957."
+  },
+  {
+   "sheet": 656,
+   "sha256": "2c0dcb490bbccc6206e49351b62de3313b52f059da6072679f0fe615c0028abf",
+   "batch": "batch-21.json",
+   "frames": [
+    72975,
+    72979,
+    72980,
+    72983,
+    72988,
+    72991,
+    73005,
+    73010
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 98.50-99.08 s. Same held frame."
+  },
+  {
+   "sheet": 657,
+   "sha256": "96d0a75b48bb5a31c8f555409fa10162c72d25b4ef1e2f1e4bf50ec72349a8dc",
+   "batch": "batch-21.json",
+   "frames": [
+    73012,
+    73015,
+    73025,
+    73033,
+    73035,
+    73039,
+    73048,
+    73052
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 99.12-99.78 s. Same held frame."
+  },
+  {
+   "sheet": 658,
+   "sha256": "79588b297c7edc255f60934c521f1bdf48128c2ae3d426199dc1d9e1175fbee2",
+   "batch": "batch-21.json",
+   "frames": [
+    73057,
+    73065,
+    73072,
+    73077,
+    73085,
+    73087,
+    73093,
+    73094
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 99.87-100.48 s. Same held frame."
+  },
+  {
+   "sheet": 659,
+   "sha256": "f5802cfea2261c16063222de13483d157a462a71bdd6390acf9574b225c3fa6a",
+   "batch": "batch-21.json",
+   "frames": [
+    73095,
+    73101,
+    73117,
+    73125,
+    73126,
+    73129,
+    73137,
+    73143
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 100.50-101.30 s. Same held frame; picture static from about 95.0 s. Fit to narration not judged from stills."
+  },
+  {
+   "sheet": 660,
+   "sha256": "30626f6f8d697e8bd5378447c691f260563900d2713eda0084c8896838ffeaf9",
+   "batch": "batch-22.json",
+   "frames": [
+    73151,
+    73154,
+    73155,
+    73161,
+    73168,
+    73173,
+    73185,
+    73189
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 101.43-102.07 s. Held arc-bound frame incl. layout-persistence anchor f73173."
+  },
+  {
+   "sheet": 661,
+   "sha256": "7fdf791e85ffdff369bb2ad9b91ed5c00b98a57c88c1742a5b00b76e2e79041d",
+   "batch": "batch-22.json",
+   "frames": [
+    73193,
+    73203,
+    73209,
+    73215,
+    73216,
+    73221,
+    73228,
+    73245
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 102.13-103.00 s. Held; at f73245 the arc bound has gone and the summed bound starts fading in at the formula slot (dim)."
+  },
+  {
+   "sheet": 662,
+   "sha256": "8cb4e1deb22968c91b8a8ebb8a74a166df3f857a8b7af3946a7f266233063124",
+   "batch": "batch-22.json",
+   "frames": [
+    73253,
+    73255,
+    73257,
+    73258,
+    73275,
+    73281,
+    73293,
+    73295
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 103.13-103.83 s. Summed bound '|contour over circle of g dz - contour over polygon of g dz| <= max w total L -> 0' full by f73253 (crop r995-crops/s662t1-sum.png). M1 also applies here (SUM_TEX): the closing bar touches the z of the second dz. Low L5 (layout): the formula is the widest object on screen; '-> 0' ends about 17.5 tile px (about 70 px at 4K) from the right frame edge, inside any 5% title-safe margin (crop r995-crops/s662t1-sumright8.png). Not clipped."
+  },
+  {
+   "sheet": 663,
+   "sha256": "7d9bab3ee31908f2f0d054da00e92ce55ef47df2268a03a7ad70ab6fb9b9a4db",
+   "batch": "batch-22.json",
+   "frames": [
+    73297,
+    73305,
+    73317,
+    73318,
+    73323,
+    73328,
+    73335,
+    73337
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 103.87-104.53 s. Held summed-bound frame (inset, legend, loops, rho, 'small circle fixed')."
+  },
+  {
+   "sheet": 664,
+   "sha256": "079abf7a0ff4cdab7817d178765fd046ecd94a327c0851f216cd3391a9e4fb8d",
+   "batch": "batch-22.json",
+   "frames": [
+    73343,
+    73357,
+    73365,
+    73366,
+    73370,
+    73383,
+    73385,
+    73393
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 104.63-105.47 s. Same held frame."
+  },
+  {
+   "sheet": 665,
+   "sha256": "5bc8b66a73435410e7ffaf8d77851441038e824a1990724d03a5af98e65970a1",
+   "batch": "batch-22.json",
+   "frames": [
+    73395,
+    73397,
+    73401,
+    73408,
+    73419,
+    73425,
+    73430,
+    73435
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 105.50-106.17 s. Same held frame."
+  },
+  {
+   "sheet": 666,
+   "sha256": "c9e89afb4a59c9d1dde44ba973f5c7ce568b2188b5819956988a9881effb00cf",
+   "batch": "batch-23.json",
+   "frames": [
+    73439,
+    73443,
+    73445,
+    73455,
+    73461,
+    73465,
+    73468,
+    73469
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 106.23-106.73 s. Held summed-bound frame."
+  },
+  {
+   "sheet": 667,
+   "sha256": "f22761d84aa8130d880cab54cf5549a2f1eb9ee37c7de4bc15f168e44d8bb92e",
+   "batch": "batch-23.json",
+   "frames": [
+    73473,
+    73481,
+    73485,
+    73492,
+    73495,
+    73499,
+    73503,
+    73507
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 106.80-107.37 s. Same held frame incl. production16 09_7 tile f73499."
+  },
+  {
+   "sheet": 668,
+   "sha256": "ed8d6834a86dd7b879588031a84b3887f0558fa412d18b598460541481f49028",
+   "batch": "batch-23.json",
+   "frames": [
+    73509,
+    73515,
+    73521,
+    73523,
+    73533,
+    73534,
+    73540,
+    73541
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 107.40-107.93 s. Same held frame incl. 09_7 anchor f73533. Picture static from about 103.1 s; fit to narration not judged from stills."
+  },
+  {
+   "sheet": 669,
+   "sha256": "61f0575d1c47c3c2c0594e6c85c3802761a9cfa8ddfbd06e3b88f25a1db129fb",
+   "batch": "batch-23.json",
+   "frames": [
+    73545,
+    73550,
+    73557,
+    73567,
+    73575,
+    73582,
+    73591,
+    73592
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 108.00-108.78 s. Staged handover: summed bound fades (dim f73567, gone f73575); red piece gone by f73567; inset card and w/L legend fade (dim f73582, gone f73591); 'contour over |z-a|=r of g dz = contour over |z-a|=rho of g dz' fades in at the formula slot (dim f73591-f73592). No overlap between outgoing and incoming formula; no flash."
+  },
+  {
+   "sheet": 670,
+   "sha256": "86ab201cccbf54ba80c84237ef8f958c06ed3ddb6fcf5db5ab2fc2a021a52bac",
+   "batch": "batch-23.json",
+   "frames": [
+    73594,
+    73599,
+    73605,
+    73617,
+    73633,
+    73635,
+    73639,
+    73642
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 108.82-109.62 s. Circle equality full by about f73599/f73605; four yellow arrowheads on the outer circle from f73617, four small green ones on the inner circle from f73633. Yellow heads point counterclockwise at all four places (crop r995-crops/s671t8-arrows.png), matching circle_heads in complex-boundary-repair752/boundary.rs line 374. L2 sharpened: the formula names both radii r and rho, but no r label is drawn and the rho label stands at RHO_AT (0.62, -0.25), |RHO_AT| about 0.67 > LOOP_R 0.5 (lines 142 and 165), so it sits outside the yellow r circle, closer to it than to the green circle it names, with no leader. (From 110.5 s on, the shrink updater at line 840 moves rho to r + 0.06 beside the small circle, which is outside this range.)"
+  },
+  {
+   "sheet": 671,
+   "sha256": "8c714deb8ed16d3f0f8151c809687e64327c37335f7669a78ce8ed8f47b3c6e1",
+   "batch": "batch-23.json",
+   "frames": [
+    73652,
+    73659,
+    73665,
+    73667,
+    73677,
+    73681,
+    73693,
+    73695
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 109.78-110.50 s. Held: circle equality, both circles with heads, dashed circle, a, rho, 'small circle fixed'. Low L6 (legibility): the green heads on the small circle (circle_heads size 0.10, flat green, line 814) are the same colour as the stroke and read as notches on the 960 px tile; their counterclockwise direction can be made out only at a 12x crop (r995-crops/s671t8-green12.png, f73695). The source already enlarged the polygon heads for this reason (INNER_HEAD 0.16 and its comment, lines 166-169) but the circle heads keep 0.10. At 4K they are about 4x larger in pixels; their legibility there is not measured from these stills."
+  },
+  {
+   "sheet": 672,
+   "sha256": "0da4b69d0df241567ecf1fc2f032200f30fc3835e77d897137bed7470fe51e6c",
+   "batch": "batch-24.json",
+   "frames": [
+    73699,
+    73709,
+    73713,
+    73719,
+    73725,
+    73730,
+    73741,
+    73755
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 110.57-111.50 s. Held circle-equality frame (both circles with heads, dashed circle, a, rho outside the yellow circle, 'small circle fixed'); L2 and L6 unchanged."
+  },
+  {
+   "sheet": 673,
+   "sha256": "a9a9e16fd1cafa04f40dc45fc2c0dc7730187221c6246d25a7c1b46645c12626",
+   "batch": "batch-24.json",
+   "frames": [
+    73761,
+    73769,
+    73772,
+    73773,
+    73785,
+    73786,
+    73797,
+    73801
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 111.60-112.27 s. Same held frame incl. production16 09_7 tile f73786 and layout-persistence anchor f73773."
+  },
+  {
+   "sheet": 674,
+   "sha256": "881e94eaa699f0148837b3d33f7c6f82295ffeec941e48a322185148f9a1c434",
+   "batch": "batch-24.json",
+   "frames": [
+    73809,
+    73815,
+    73819,
+    73821,
+    73828,
+    73832,
+    73839,
+    73845
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 112.40-113.00 s. Same held frame incl. 09_7 tile f73828."
+  },
+  {
+   "sheet": 675,
+   "sha256": "5035c352fdffef8298b9b6206e4bbaec3b979a6f21926797278a0e2b8b98ead8",
+   "batch": "batch-24.json",
+   "frames": [
+    73857,
+    73861,
+    73875,
+    73881,
+    73888,
+    73899,
+    73905,
+    73921
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 113.20-114.27 s. Same held frame incl. 09_7 tile f73888. Picture static from about 109.8 s; fit to narration not judged from stills."
+  },
+  {
+   "sheet": 676,
+   "sha256": "5fc96e1cf3737d52806c1bde4628dafe41cf60742bb85670ff65314f861f689b",
+   "batch": "batch-24.json",
+   "frames": [
+    73935,
+    73939,
+    73941,
+    73953,
+    73959,
+    73965,
+    73972,
+    73977
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 114.50-115.20 s. 'for every small rho' fades in (white) in the left gap below 'inside the dashes' (dim f73953, full f73965), clear of the loops, the plot edge and 'small circle fixed'."
+  },
+  {
+   "sheet": 677,
+   "sha256": "95aff5010f6cad75faa41b12f1c7ba0a452697d832a4df4d2fc3ebfcb3fe1aad",
+   "batch": "batch-24.json",
+   "frames": [
+    73981,
+    73995,
+    74001,
+    74013,
+    74014,
+    74017,
+    74025,
+    74037
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 115.27-116.20 s. Held frame with 'for every small rho'."
+  },
+  {
+   "sheet": 678,
+   "sha256": "4fc6e059f8582cc782f3bc2ae07d50bdd7c19006203b4b180399f25fe61e11a1",
+   "batch": "batch-24.json",
+   "frames": [
+    74041,
+    74044,
+    74055,
+    74059,
+    74061,
+    74073,
+    74074,
+    74085
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 116.27-117.00 s. Same held frame incl. anchor f74061."
+  },
+  {
+   "sheet": 679,
+   "sha256": "1238285eb2da33225f76ccdaa9685b69d296e9e2dae20417bae0e93dbeded3f5",
+   "batch": "batch-24.json",
+   "frames": [
+    74086,
+    74097,
+    74103,
+    74105,
+    74109,
+    74115,
+    74119,
+    74121
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 117.02-117.60 s. Same held frame incl. 09_7 tile f74103 and layout-persistence anchor f74109."
+  },
+  {
+   "sheet": 680,
+   "sha256": "6910960efbf84d30acd9bc743ccdc9b63c6a2092daa3fa1d1b50554a2c32cc71",
+   "batch": "batch-24.json",
+   "frames": [
+    74125,
+    74139,
+    74145,
+    74146,
+    74147,
+    74157,
+    74163,
+    74167
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "medium-low",
+   "notes": "Local 117.67-118.37 s. 'small circle fixed', 'for every small rho' and the small-circle heads fade (dim f74125, gone f74139); the green bar and '2 pi rho M' fade in at the left gap (dim f74145-f74147, full f74157); the yellow heads stay. M2 (layout collision): between f74157 and f74163 the rho label leaves its place outside the yellow circle and lands at r + 0.06 beside the small circle, which has not yet shrunk (small-circle radius about 27.5 tile px in both, crop r995-crops/s680t7-rho.png), and there its bowl sits on the dashed |g| <= M circle, green glyph over grey dashes (crop r995-crops/s680t8-rho8.png, f74167). Source: the shrink updater added at complex-boundary-repair752/boundary.rs line 836 sets rho to cp.p(C::new(r + 0.06, -0.12)) (line 840) from its first frame; at r = SMALL_R 0.18 that point is about 0.27 from a, against BOUND_R 0.3 for the dashes, so a glyph about 0.05 across reaches them. The label move has no transition of its own in the source; from stills only the two bracketing positions are seen, motion is not judged. Clearance as r shrinks is checked on the next sheets."
+  },
+  {
+   "sheet": 681,
+   "sha256": "a1303975f52d264cb323ced0c408392a6da46522f330a47382363baf0f7197dd",
+   "batch": "batch-25.json",
+   "frames": [
+    74175,
+    74180,
+    74181,
+    74187,
+    74194,
+    74205,
+    74207,
+    74209
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 118.50-119.07 s. The small circle shrinks (radius 0.18 to 0.12) with the green 2 pi rho M bar shortening in step and rho following the circle; by f74175 rho is inside the dashes and clear of them (M2 lasts from about f74163 to before f74175 in these samples). Held at the smaller radius from about f74205. Yellow circle, its heads and the formulas unchanged."
+  },
+  {
+   "sheet": 682,
+   "sha256": "04496dbb711b08281e58cd9b789e96222158d0884ea54566e815a009b9a38189",
+   "batch": "batch-25.json",
+   "frames": [
+    74213,
+    74219,
+    74222,
+    74227,
+    74235,
+    74236,
+    74241,
+    74247
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 119.13-119.70 s. Held at the smaller radius incl. production16 09_7 tiles f74213 and f74219."
+  },
+  {
+   "sheet": 683,
+   "sha256": "9265c0f68e1f99bde9365a87489cc51f6eb402e834de01ee4f919948d629e993",
+   "batch": "batch-25.json",
+   "frames": [
+    74264,
+    74265,
+    74269,
+    74282,
+    74294,
+    74295,
+    74296,
+    74308
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "medium-low",
+   "notes": "Local 119.98-120.72 s. The circle equality fades out (dim f74294) and '|contour over |z-a|=rho of g dz| <= 2 pi rho M -> 0' fades in, green, at the formula slot (dim f74295-f74296, full f74308), fitting the panel. M1 applies here too: the closing bar touches the z of dz (crops r995-crops/s683t8-shrink.png and s683t8-bar12.png, f74308); source SHRINK_TEX in complex-boundary-repair752/boundary.rs line 87 ends 'g\\,dz\\Big|' like ARC_TEX and SUM_TEX."
+  },
+  {
+   "sheet": 684,
+   "sha256": "b130bc9914ad01ce27749acfa653b587d3e86b69ab19b1a13b66218f644c1262",
+   "batch": "batch-25.json",
+   "frames": [
+    74311,
+    74315,
+    74324,
+    74325,
+    74336,
+    74337,
+    74350,
+    74354
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 120.77-121.48 s. Held shrink-bound frame (bar, '2 pi rho M', smaller circle, rho, yellow circle with heads)."
+  },
+  {
+   "sheet": 685,
+   "sha256": "1a7acb68c79e367aa439dc8c93534e8eb0edd24a84a30886af0e00cdd1a46db1",
+   "batch": "batch-25.json",
+   "frames": [
+    74355,
+    74357,
+    74361,
+    74371,
+    74373,
+    74379,
+    74384,
+    74385
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 121.50-122.00 s. Same held frame incl. anchors f74361 and f74373."
+  },
+  {
+   "sheet": 686,
+   "sha256": "51d577e669975bb5979486a580155c30f65450174161abc3edb7484db4aa2791",
+   "batch": "batch-25.json",
+   "frames": [
+    74396,
+    74403,
+    74409,
+    74410,
+    74411,
+    74415,
+    74417,
+    74421
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 122.18-122.60 s. Same held frame incl. anchors f74409 and f74421. Low L8 (layout): at the held radius 0.12 the top of the white 'a' label (A_AT (0, 0.09), line 164) touches the inner edge of the green circle's stroke (crop r995-crops/s686t8-a12.png, f74421); it holds so from about 119.0 s. The source shrinks the circle next to SHRUNK_R 0.045 (line 146), below the label's height, so the circle must cross the label; checked on the next sheets."
+  },
+  {
+   "sheet": 687,
+   "sha256": "966d20ace52c5a783223488bc41ef0560afcf8cdd373588afdbb05172d1789c7",
+   "batch": "batch-26.json",
+   "frames": [
+    74426,
+    74438,
+    74439,
+    74445,
+    74453,
+    74456,
+    74457,
+    74463
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 122.68-123.30 s. Held shrink-bound frame at radius 0.12 incl. anchors f74457; L8 contact unchanged."
+  },
+  {
+   "sheet": 688,
+   "sha256": "d21263c010a37107ea1b0d001fcf8a88d8f9b8b3089551bafdb79880a0ad9609",
+   "batch": "batch-26.json",
+   "frames": [
+    74471,
+    74475,
+    74486,
+    74496,
+    74498,
+    74505,
+    74509,
+    74513
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 123.43-124.13 s. Same held frame incl. production16 09_7 tile f74496."
+  },
+  {
+   "sheet": 689,
+   "sha256": "54129b0c07e4630adc4d4d7c2468666a235cb7062eafdda31c479315c3898b66",
+   "batch": "batch-26.json",
+   "frames": [
+    74518,
+    74535,
+    74545,
+    74551,
+    74560,
+    74565,
+    74573,
+    74583
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 124.22-125.30 s. Same held frame."
+  },
+  {
+   "sheet": 690,
+   "sha256": "061ad2e810b43dd08f58d2b0ebdd4a06e625dc589dd1a7ab0e3bbfd0ba8a6e8d",
+   "batch": "batch-26.json",
+   "frames": [
+    74587,
+    74595,
+    74599,
+    74611,
+    74620,
+    74623,
+    74625,
+    74641
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 125.37-126.27 s. Same held frame. Picture static from about 120.7 s; fit to narration not judged from stills."
+  },
+  {
+   "sheet": 691,
+   "sha256": "c87997ab238e672c23772290058fff9b3ad315354e1898e26b16959e32ad6dac",
+   "batch": "batch-26.json",
+   "frames": [
+    74647,
+    74654,
+    74655,
+    74661,
+    74665,
+    74672,
+    74673,
+    74685
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 126.37-127.00 s. Held through about f74665; the second shrink starts by f74672 (bar shortening, circle smaller), consistent with the 1.0 s tween to SHRUNK_R at complex-boundary-repair752/boundary.rs line 850."
+  },
+  {
+   "sheet": 692,
+   "sha256": "5bfdc061072ee17f167158c72bc35c13831fd9095dd8461b356987a69f86a182",
+   "batch": "batch-26.json",
+   "frames": [
+    74689,
+    74696,
+    74698,
+    74701,
+    74709,
+    74714,
+    74715,
+    74717
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "medium-low",
+   "notes": "Local 127.07-127.53 s. The small circle shrinks toward the hole with the bar and rho following. M3 (layout collision): the label 'a' stays at A_AT (0, 0.09) while the circle passes through it; at f74696 the green stroke runs across the lower half of the white 'a' (crop r995-crops/s692t2-a12.png), and from about f74715 the label's foot rests on the circle's top at the final radius (crop r995-crops/s692t8-a12.png, f74717). The shrink updater (line 836) moves rho with the radius but not a. Crossing seen in the f74685-f74709 samples; motion between samples not judged. The green circle stays outside the red hole ring (HOLE 0.07, line 148), so the picture does not claim rho reached zero."
+  },
+  {
+   "sheet": 693,
+   "sha256": "d04f0012be0190b29920df7b22fba9a39304210b20a58ef44bdbd5ee40ffabd1",
+   "batch": "batch-26.json",
+   "frames": [
+    74721,
+    74725,
+    74731,
+    74740,
+    74745,
+    74756,
+    74757,
+    74759
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 127.60-128.23 s. Held at the final radius: tiny green circle around the hole ring, rho beside it, short bar, shrink bound. At tile scale a small gap shows between 'a' and the circle in these samples; M3 contact at f74715-f74717 was the end of the sweep."
+  },
+  {
+   "sheet": 694,
+   "sha256": "40258bf6bc60852e76b8a80e48292cff790ecc4e4b6cdaaeed51642d2948838f",
+   "batch": "batch-26.json",
+   "frames": [
+    74771,
+    74774,
+    74775,
+    74779,
+    74791,
+    74800,
+    74805,
+    74813
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 128.43-129.13 s. Shrink bound fades (dim f74791) and 'contour over |z-a|=r of g dz = 0' fades in yellow at the formula slot (dim f74800, full f74805), fitting the panel. L2 again: the formula names r, and the yellow circle carries no r label."
+  },
+  {
+   "sheet": 695,
+   "sha256": "32f76f48f392e722f0d99234f10062c2e5d45c2ccc9fb24d67c0cfd42f6c2578",
+   "batch": "batch-26.json",
+   "frames": [
+    74819,
+    74821,
+    74833,
+    74835,
+    74841,
+    74850,
+    74855,
+    74859
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 129.23-129.90 s. Held zero-integral frame incl. production16 09_7 tile f74850."
+  },
+  {
+   "sheet": 696,
+   "sha256": "97f63a6365cc81abac9fd106467848642fc485801b16cf3e3457692b67647efa",
+   "batch": "batch-27.json",
+   "frames": [
+    74865,
+    74873,
+    74881,
+    74883,
+    74891,
+    74892,
+    74893,
+    74895
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 130.00-130.50 s. Held zero-integral frame at the final radius incl. production16 09_7 tile f74892."
+  },
+  {
+   "sheet": 697,
+   "sha256": "a63f640d02bc0a5be60a4869fb4c01ae939bfa80cc5d40558821bb9baa524961",
+   "batch": "batch-27.json",
+   "frames": [
+    74901,
+    74915,
+    74920,
+    74921,
+    74925,
+    74933,
+    74943,
+    74944
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 130.60-131.32 s. Same held frame incl. 09_7 tile f74921."
+  },
+  {
+   "sheet": 698,
+   "sha256": "d2cc9f122fb23d1b61c6c28c22baa9b451bffd3a1927092c8eb7d31dfa612d10",
+   "batch": "batch-27.json",
+   "frames": [
+    74951,
+    74952,
+    74953,
+    74955,
+    74961,
+    74962,
+    74972,
+    74973
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 131.43-131.80 s. Same held frame incl. production16 09_8 tile f74951 and layout-persistence anchor f74973."
+  },
+  {
+   "sheet": 699,
+   "sha256": "5e52561c1b1ee6c3e7131f3b0c12040a9498dd79cccefdecf442a16d6d38fe51",
+   "batch": "batch-27.json",
+   "frames": [
+    74975,
+    74985,
+    74986,
+    74993,
+    74995,
+    75009,
+    75014,
+    75015
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 131.83-132.50 s. Same held frame incl. anchor f75009. Picture static from about 129.0 s; fit to narration not judged from stills."
+  },
+  {
+   "sheet": 700,
+   "sha256": "090091cf156b2a8712d64f4e411a77dd733ec16c25ca76009d5814d10e047b7a",
+   "batch": "batch-27.json",
+   "frames": [
+    75021,
+    75022,
+    75025,
+    75035,
+    75041,
+    75045,
+    75046,
+    75055
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 132.60-133.17 s. Held through f75046; at f75055 the whole proof panel (g definition, zero integral, |g| <= M, caption, bar, 2 pi rho M, loops, heads, a, rho) fades together (dim), matching fade_out_all(proof_gone, 0.4) at complex-boundary-repair752/boundary.rs line 863. The top split f(z)/(z-a) = f(a)/(z-a) + green term stays. No partial or stray element."
+  },
+  {
+   "sheet": 701,
+   "sha256": "9d97f7acae2308e8d48f137c3cb17c5098524687f98a33cfdb8e1a67ac29f7e6",
+   "batch": "batch-27.json",
+   "frames": [
+    75057,
+    75062,
+    75067,
+    75069,
+    75074,
+    75075,
+    75081,
+    75083
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 133.20-133.63 s. Proof nearly gone at f75057, panel empty below the split at f75062; 'the second piece: its loop integral is 0' (green, REST line 60) and 'contour of f(z)/(z-a) dz = 2 pi i f(a)' (yellow, RESULT_TEX line 90) fade in (dim f75067-f75069, full by f75081), centred in the right panel, clear of the split and the plot. Observation only: the result contour carries no subscript; earlier formulas in this chapter name |z-a| = r."
+  },
+  {
+   "sheet": 702,
+   "sha256": "8f744fcba2d5a0499ea7674c98a83146998530855c13979e7f432e7cf2a9ffb1",
+   "batch": "batch-28.json",
+   "frames": [
+    75086,
+    75104,
+    75105,
+    75118,
+    75127,
+    75128,
+    75129,
+    75135
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 133.68-134.50 s. Held result frame: split at the top, 'the second piece: its loop integral is 0' and the yellow contour result centred in the right panel."
+  },
+  {
+   "sheet": 703,
+   "sha256": "e4dfdb0c499cdbbaafa187653efee6d4f5aee8a6c678f6c3cac98a329fb39551",
+   "batch": "batch-28.json",
+   "frames": [
+    75138,
+    75143,
+    75155,
+    75160,
+    75163,
+    75164,
+    75165,
+    75175
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 134.55-135.17 s. Same held result frame."
+  },
+  {
+   "sheet": 704,
+   "sha256": "41b987cf22c33f0bc4b7cb79635eb796c2b4e9a28fdbc1ae5611d0cde638b30f",
+   "batch": "batch-28.json",
+   "frames": [
+    75176,
+    75177,
+    75188,
+    75195,
+    75197,
+    75199,
+    75205,
+    75218
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 135.18-135.88 s. Same held result frame."
+  },
+  {
+   "sheet": 705,
+   "sha256": "3a0102c4f30a13cac2f1aea55e63fa9cd4d2665af27567f3d83f31e0f00424d5",
+   "batch": "batch-28.json",
+   "frames": [
+    75220,
+    75225,
+    75233,
+    75237,
+    75241,
+    75249,
+    75255,
+    75257
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 135.92-136.53 s. Same held result frame incl. five-second-chapter anchor."
+  },
+  {
+   "sheet": 706,
+   "sha256": "8640d9a3a187904b681fdc118ee546a7493abe9c5c57b6f87da727cfb2a74c60",
+   "batch": "batch-28.json",
+   "frames": [
+    75260,
+    75261,
+    75265,
+    75273,
+    75275,
+    75278,
+    75285,
+    75301
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 136.58-137.27 s. Same held result frame."
+  },
+  {
+   "sheet": 707,
+   "sha256": "b7b7302353f644ab0f38f25827af7027aba0affe436860091c35d3d488dd6840",
+   "batch": "batch-28.json",
+   "frames": [
+    75307,
+    75309,
+    75315,
+    75320,
+    75321,
+    75335,
+    75345,
+    75357
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 137.37-138.20 s. Same held result frame. Picture static from about 133.7 s; fit to narration not judged from stills."
+  },
+  {
+   "sheet": 708,
+   "sha256": "7effecb3b1a772fdc93ac0873551ac7487fc23fe7e4026caf4ceb12752e56147",
+   "batch": "batch-28.json",
+   "frames": [
+    75369,
+    75375,
+    75386,
+    75398,
+    75405,
+    75410,
+    75428,
+    75429
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 138.40-139.40 s, 09_2 cue transition. The split, REST, the result and the 'a little beyond' card fade together (dim f75405, gone f75410); the Cauchy formula f(a) = 1/(2 pi i) contour f(z)/(z-a) dz (FORMULA_TEX line 91) and the dim 'z = a + r e^{i theta}: dz = i (z-a) d theta' (ON_CIRCLE_TEX line 92) fade in by f75428. No stray element, no overlap with the plot."
+  },
+  {
+   "sheet": 709,
+   "sha256": "00ce3ac3d128ba72127d0b4d58d0bf814799709af25a775834f45df8ca11c7f9",
+   "batch": "batch-28.json",
+   "frames": [
+    75435,
+    75458,
+    75465,
+    75495,
+    75518,
+    75525,
+    75542,
+    75555
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 139.50-141.50 s. Held formula frame. ON_CIRCLE_TEX is dim but measures 5.37:1 against the background at tile scale (r995_contrast.py), so it reads. The substitution dz = i (z-a) d theta is correct for z = a + r e^{i theta}."
+  },
+  {
+   "sheet": 710,
+   "sha256": "758b2829bb3ff7f35822c511eee1db773677ff3ae847505b4c4e719e3b090ca5",
+   "batch": "batch-28.json",
+   "frames": [
+    75561,
+    75573,
+    75585,
+    75609,
+    75615,
+    75621,
+    75638,
+    75645
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 141.60-143.00 s. AVERAGE_TEX and its caption fade in below (dim f75638, full f75645); the formula f(a) = (1/2 pi) integral of f(a + r e^{i theta}) d theta is correct. The caption ends about 42 tile px from the right edge, not clipped."
+  },
+  {
+   "sheet": 711,
+   "sha256": "6b9bf70406972bdf82280cce9246fff660251a3ff82a19bba126078a8bdaf8ae",
+   "batch": "batch-28.json",
+   "frames": [
+    75657,
+    75660,
+    75669,
+    75675,
+    75705,
+    75712,
+    75713,
+    75735
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 143.20-144.50 s. Same held average frame."
+  },
+  {
+   "sheet": 712,
+   "sha256": "815e526b60305040f75bd41e44a629daf326f14f7a0012b0221a300f8f483a74",
+   "batch": "batch-28.json",
+   "frames": [
+    75737,
+    75755,
+    75765,
+    75795,
+    75825,
+    75842,
+    75855,
+    75861
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 144.53-146.60 s. Same held average frame incl. five-second-chapter anchor. Picture static from about 143.0 s; fit to narration not judged from stills."
+  },
+  {
+   "sheet": 713,
+   "sha256": "e98596b8582a5b86f7b1e7ebe86a48dcc9113926f874b72309425f4eda1574fc",
+   "batch": "batch-29.json",
+   "frames": [
+    75873,
+    75885,
+    75893,
+    75909,
+    75915,
+    75921,
+    75924,
+    75935
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 146.80-147.83 s. The search card 'names to search: Cauchy's integral formula' appears at f75909, about 10 tile px below the plot, clear of the plot and the formulas."
+  },
+  {
+   "sheet": 714,
+   "sha256": "4989d1c38f21470804182a5a88fbb9cd6012b231297abcdd7664cc07486d4c52",
+   "batch": "batch-29.json",
+   "frames": [
+    75938,
+    75945,
+    75957,
+    75969,
+    75975,
+    75995,
+    76005,
+    76021
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 147.88-149.27 s. Held frame with the search card."
+  },
+  {
+   "sheet": 715,
+   "sha256": "8e4d507826f3e4cce34deb7e1d428f53352ce8d4131857a6a8807dd39915ba54",
+   "batch": "batch-29.json",
+   "frames": [
+    76035,
+    76051,
+    76063,
+    76065,
+    76075,
+    76080,
+    76093,
+    76095
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 149.50-150.50 s, 09_3 cue transition. The 09_2 formulas and the search card fade (dim f76075, gone f76080); the values plane with 'the samples' values' (VALUES line 95) fades in (f76093-f76095). The Cauchy formula stays at the top right. No stray element."
+  },
+  {
+   "sheet": 716,
+   "sha256": "812c1ce331bc34866ffa44f93d3f8704b8e99e142ad7380ea8ca539d7d70d0aa",
+   "batch": "batch-29.json",
+   "frames": [
+    76123,
+    76125,
+    76142,
+    76155,
+    76161,
+    76173,
+    76183,
+    76185
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 150.97-152.00 s. 'bump = 1/(1 + z^2)' (BUMP_Z_TEX line 46), the 'r = 1/2' card (yellow border) and the 'a = 0' card fade in (dim f76123, full f76142), clear of the poles, the yellow circle and the plot edges."
+  },
+  {
+   "sheet": 717,
+   "sha256": "a21edb51c5d9a86d67b71a85f2c83430e89d2ac1609a6cc00e9a15073b98fdbc",
+   "batch": "batch-29.json",
+   "frames": [
+    76209,
+    76215,
+    76221,
+    76238,
+    76245,
+    76257,
+    76269,
+    76275
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 152.40-153.50 s. Held frame with the three names."
+  },
+  {
+   "sheet": 718,
+   "sha256": "789a8a1007bff102e60e30ed06a645b548791bb1ada6e19d2419a390d9157bce",
+   "batch": "batch-29.json",
+   "frames": [
+    76301,
+    76305,
+    76335,
+    76365,
+    76379,
+    76395,
+    76425,
+    76429
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 153.93-156.07 s. Eight blue samples on |z| = 1/2 and their green values in the values plane. Values agree with 1/(1 + z^2) at z = e^{i k pi/4}/2: 0.8, 1.333 and 0.941 +/- 0.235 i, each twice; the yellow mean ring sits at about 1 by f76425."
+  },
+  {
+   "sheet": 719,
+   "sha256": "76317bf61fdba9974ba5d71dad679437ce4d9b5973f30c5da5a91318c0fe012e",
+   "batch": "batch-29.json",
+   "frames": [
+    76442,
+    76455,
+    76461,
+    76465,
+    76466,
+    76472,
+    76473,
+    76477
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 156.28-156.87 s. 'average of 8: 1.0039' in yellow under the values plane (f76455) is correct: the 8-sample mean is 1/(1 - r^8) = 1/(1 - 2^-8) = 1.0039. The dim 'opposite samples share a value' card (PAIR_UP line 50, carded at v(right, -0.75), complex-boundary-repair752/boundary.rs line 940) fades in (f76472, full f76477) clear of the dots. Low L9 (layout): the card's bottom edge sits on the values plane's green bottom frame line, hiding that line across the card's width, and its opaque fill covers the foot of the plane's vertical axis line (crops r995-crops/s721t8-full2.png, s721t8-pairup.png, s721t8-pairup-edge12.png, f76569). The plane spans y 0.3 +/- 1.31 (values_plane line 127), so its bottom is near -1.01, where a card about 0.5 tall centred at -0.75 ends. The lowest dot clears the card top by about 16 tile px."
+  },
+  {
+   "sheet": 720,
+   "sha256": "196ae26ba2f0ecf4c85ee3f0197b76e075b86179c838f2020a415cc08e261d19",
+   "batch": "batch-29.json",
+   "frames": [
+    76478,
+    76485,
+    76489,
+    76490,
+    76497,
+    76505,
+    76509,
+    76515
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 156.88-157.50 s. Held 8-sample frame with the pair-up card; L9 unchanged."
+  },
+  {
+   "sheet": 721,
+   "sha256": "67d203c164c5600af3d068e36765207e7066802c118e0a7d52aa7d318efb9823",
+   "batch": "batch-29.json",
+   "frames": [
+    76521,
+    76532,
+    76533,
+    76537,
+    76538,
+    76545,
+    76557,
+    76569
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "ok",
+   "notes": "Local 157.60-158.40 s. Same held frame through f76569; L9 contact confirmed at 12x crop."
+  }
+ ],
+ "findings": [
+  {
+   "sheet": 549,
+   "sha256": "4b20a477c35ff9b02388a106a225d0270ce284cc93a7720c5c9de0bbf45333af",
+   "batch": "batch-05.json",
+   "frames": [
+    68821,
+    68827,
+    68835,
+    68850,
+    68855,
+    68858,
+    68865,
+    68866
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 29.27-30.02 s. Zoom inset held. Crop at native tile pixels (r995-crops/s549t1-zoom.png, tile 1 f68821): the two connector lines start on the grey ring but stop in empty space at one x about 60 px left of the zoomed yellow circle; no frame or circle closes them. Cosmetic Low L1: the magnifier cone points at nothing for a moment's reading; the zoom is still understandable. Caption, a label and the hollow point are legible at tile scale."
+  },
+  {
+   "sheet": 617,
+   "sha256": "54e0a7cc4ed307fc0a0fad3c693db3c5d395d46083996e8255db0ea6baf9c29e",
+   "batch": "batch-15.json",
+   "frames": [
+    71411,
+    71415,
+    71421,
+    71431,
+    71433,
+    71445,
+    71449,
+    71453
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 72.43-73.13 s. Same held B1 frame (final969 repaired samples f71415-f71445). Low L2, carried from 42.8 s (sheet 577) to here: the green rho label sits outside the yellow circle at its lower right, nearer the yellow octagon and P than the green octagon it names, with no radius mark or leader; only colour ties it to the inner ring (crop r995-crops/s578t1-rho.png and s616t3-b1.png). Cosmetic and pedagogical, not a collision."
+  },
+  {
+   "sheet": 641,
+   "sha256": "df49b61f9c0535d76d4af4d6b479edfcf809b6931d9334bebc3ddfacc03510f5",
+   "batch": "batch-19.json",
+   "frames": [
+    72345,
+    72353,
+    72357,
+    72370,
+    72371,
+    72375,
+    72376,
+    72387
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 88.00-88.70 s. Inset card full by f72353: yellow arc over a green chord, white endpoint dots, 'same endpoints'; from f72370 a short red piece marks one edge at the upper left of the yellow loop (crop r995-crops/s641t8-piece.png). Low L3 (layout and pedagogy): the card's top edge sits about 2.7 tile px (about 11 px at 4K) under 'inside the dashes', so the |g| <= M caption reads as the card's heading (crop r995-crops/s641t8-inset.png, f72387). Not touching. Observation only: the chord is drawn green, a colour the panel otherwise uses for the small circle and g; the outer polygon edges themselves are yellow."
+  },
+  {
+   "sheet": 645,
+   "sha256": "7edff9ab332cb53c3998c50d18bfb2fa927e21d988a8984efe329f5839c92c51",
+   "batch": "batch-19.json",
+   "frames": [
+    72518,
+    72525,
+    72527,
+    72541,
+    72542,
+    72549,
+    72554,
+    72555
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 90.88-91.50 s. 'contour over P = contour over p' fades out (gone by f72541); 'integral over arc of c dz = c(B - A) = integral over chord of c dz' fades in at the formula slot (dim f72549, full f72554). Fits the panel, clear of g(z) and the loops. Low L4 (pedagogy): the formula names the endpoints A and B but the inset's endpoint dots carry no A or B labels; 'same endpoints' is the only tie."
+  },
+  {
+   "sheet": 650,
+   "sha256": "d127ee44b63e29b6ae96bb392c3c6aaad5d9ca54c9aa60d4f43acf300afafd48",
+   "batch": "batch-20.json",
+   "frames": [
+    72721,
+    72735,
+    72741,
+    72742,
+    72757,
+    72761,
+    72763,
+    72765
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "medium-low",
+   "notes": "Local 94.27-95.00 s. Constant formula fades out (dim f72741, nearly gone f72742); the arc bound '|integral over arc of g dz - integral over chord of g dz| <= w L' fades in (full f72757); from f72765 'w: how much g varies / L: arc + chord lengths' fades in under the card. M1 (typesetting): the closing absolute-value bar touches the z of the second dz with no gap, so 'dz|' reads as one shape, while the opening bar has a clear gap before the integral sign (crops r995-crops/s650t5-bound.png, s650t5-bar12.png and s650t5-openbar12.png, f72757). Source ARC_TEX in complex-boundary-repair752/boundary.rs line 82 ends 'g\\,dz\\Big|' with no space before the bar; SUM_TEX line 84 has the same pattern (checked when it appears)."
+  },
+  {
+   "sheet": 662,
+   "sha256": "8cb4e1deb22968c91b8a8ebb8a74a166df3f857a8b7af3946a7f266233063124",
+   "batch": "batch-22.json",
+   "frames": [
+    73253,
+    73255,
+    73257,
+    73258,
+    73275,
+    73281,
+    73293,
+    73295
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 103.13-103.83 s. Summed bound '|contour over circle of g dz - contour over polygon of g dz| <= max w total L -> 0' full by f73253 (crop r995-crops/s662t1-sum.png). M1 also applies here (SUM_TEX): the closing bar touches the z of the second dz. Low L5 (layout): the formula is the widest object on screen; '-> 0' ends about 17.5 tile px (about 70 px at 4K) from the right frame edge, inside any 5% title-safe margin (crop r995-crops/s662t1-sumright8.png). Not clipped."
+  },
+  {
+   "sheet": 670,
+   "sha256": "86ab201cccbf54ba80c84237ef8f958c06ed3ddb6fcf5db5ab2fc2a021a52bac",
+   "batch": "batch-23.json",
+   "frames": [
+    73594,
+    73599,
+    73605,
+    73617,
+    73633,
+    73635,
+    73639,
+    73642
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 108.82-109.62 s. Circle equality full by about f73599/f73605; four yellow arrowheads on the outer circle from f73617, four small green ones on the inner circle from f73633. Yellow heads point counterclockwise at all four places (crop r995-crops/s671t8-arrows.png), matching circle_heads in complex-boundary-repair752/boundary.rs line 374. L2 sharpened: the formula names both radii r and rho, but no r label is drawn and the rho label stands at RHO_AT (0.62, -0.25), |RHO_AT| about 0.67 > LOOP_R 0.5 (lines 142 and 165), so it sits outside the yellow r circle, closer to it than to the green circle it names, with no leader. (From 110.5 s on, the shrink updater at line 840 moves rho to r + 0.06 beside the small circle, which is outside this range.)"
+  },
+  {
+   "sheet": 671,
+   "sha256": "8c714deb8ed16d3f0f8151c809687e64327c37335f7669a78ce8ed8f47b3c6e1",
+   "batch": "batch-23.json",
+   "frames": [
+    73652,
+    73659,
+    73665,
+    73667,
+    73677,
+    73681,
+    73693,
+    73695
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 109.78-110.50 s. Held: circle equality, both circles with heads, dashed circle, a, rho, 'small circle fixed'. Low L6 (legibility): the green heads on the small circle (circle_heads size 0.10, flat green, line 814) are the same colour as the stroke and read as notches on the 960 px tile; their counterclockwise direction can be made out only at a 12x crop (r995-crops/s671t8-green12.png, f73695). The source already enlarged the polygon heads for this reason (INNER_HEAD 0.16 and its comment, lines 166-169) but the circle heads keep 0.10. At 4K they are about 4x larger in pixels; their legibility there is not measured from these stills."
+  },
+  {
+   "sheet": 680,
+   "sha256": "6910960efbf84d30acd9bc743ccdc9b63c6a2092daa3fa1d1b50554a2c32cc71",
+   "batch": "batch-24.json",
+   "frames": [
+    74125,
+    74139,
+    74145,
+    74146,
+    74147,
+    74157,
+    74163,
+    74167
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "medium-low",
+   "notes": "Local 117.67-118.37 s. 'small circle fixed', 'for every small rho' and the small-circle heads fade (dim f74125, gone f74139); the green bar and '2 pi rho M' fade in at the left gap (dim f74145-f74147, full f74157); the yellow heads stay. M2 (layout collision): between f74157 and f74163 the rho label leaves its place outside the yellow circle and lands at r + 0.06 beside the small circle, which has not yet shrunk (small-circle radius about 27.5 tile px in both, crop r995-crops/s680t7-rho.png), and there its bowl sits on the dashed |g| <= M circle, green glyph over grey dashes (crop r995-crops/s680t8-rho8.png, f74167). Source: the shrink updater added at complex-boundary-repair752/boundary.rs line 836 sets rho to cp.p(C::new(r + 0.06, -0.12)) (line 840) from its first frame; at r = SMALL_R 0.18 that point is about 0.27 from a, against BOUND_R 0.3 for the dashes, so a glyph about 0.05 across reaches them. The label move has no transition of its own in the source; from stills only the two bracketing positions are seen, motion is not judged. Clearance as r shrinks is checked on the next sheets."
+  },
+  {
+   "sheet": 683,
+   "sha256": "9265c0f68e1f99bde9365a87489cc51f6eb402e834de01ee4f919948d629e993",
+   "batch": "batch-25.json",
+   "frames": [
+    74264,
+    74265,
+    74269,
+    74282,
+    74294,
+    74295,
+    74296,
+    74308
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "medium-low",
+   "notes": "Local 119.98-120.72 s. The circle equality fades out (dim f74294) and '|contour over |z-a|=rho of g dz| <= 2 pi rho M -> 0' fades in, green, at the formula slot (dim f74295-f74296, full f74308), fitting the panel. M1 applies here too: the closing bar touches the z of dz (crops r995-crops/s683t8-shrink.png and s683t8-bar12.png, f74308); source SHRINK_TEX in complex-boundary-repair752/boundary.rs line 87 ends 'g\\,dz\\Big|' like ARC_TEX and SUM_TEX."
+  },
+  {
+   "sheet": 686,
+   "sha256": "51d577e669975bb5979486a580155c30f65450174161abc3edb7484db4aa2791",
+   "batch": "batch-25.json",
+   "frames": [
+    74396,
+    74403,
+    74409,
+    74410,
+    74411,
+    74415,
+    74417,
+    74421
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 122.18-122.60 s. Same held frame incl. anchors f74409 and f74421. Low L8 (layout): at the held radius 0.12 the top of the white 'a' label (A_AT (0, 0.09), line 164) touches the inner edge of the green circle's stroke (crop r995-crops/s686t8-a12.png, f74421); it holds so from about 119.0 s. The source shrinks the circle next to SHRUNK_R 0.045 (line 146), below the label's height, so the circle must cross the label; checked on the next sheets."
+  },
+  {
+   "sheet": 692,
+   "sha256": "5bfdc061072ee17f167158c72bc35c13831fd9095dd8461b356987a69f86a182",
+   "batch": "batch-26.json",
+   "frames": [
+    74689,
+    74696,
+    74698,
+    74701,
+    74709,
+    74714,
+    74715,
+    74717
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "medium-low",
+   "notes": "Local 127.07-127.53 s. The small circle shrinks toward the hole with the bar and rho following. M3 (layout collision): the label 'a' stays at A_AT (0, 0.09) while the circle passes through it; at f74696 the green stroke runs across the lower half of the white 'a' (crop r995-crops/s692t2-a12.png), and from about f74715 the label's foot rests on the circle's top at the final radius (crop r995-crops/s692t8-a12.png, f74717). The shrink updater (line 836) moves rho with the radius but not a. Crossing seen in the f74685-f74709 samples; motion between samples not judged. The green circle stays outside the red hole ring (HOLE 0.07, line 148), so the picture does not claim rho reached zero."
+  },
+  {
+   "sheet": 719,
+   "sha256": "76317bf61fdba9974ba5d71dad679437ce4d9b5973f30c5da5a91318c0fe012e",
+   "batch": "batch-29.json",
+   "frames": [
+    76442,
+    76455,
+    76461,
+    76465,
+    76466,
+    76472,
+    76473,
+    76477
+   ],
+   "chapters": [
+    "09_boundary"
+   ],
+   "status": "low",
+   "notes": "Local 156.28-156.87 s. 'average of 8: 1.0039' in yellow under the values plane (f76455) is correct: the 8-sample mean is 1/(1 - r^8) = 1/(1 - 2^-8) = 1.0039. The dim 'opposite samples share a value' card (PAIR_UP line 50, carded at v(right, -0.75), complex-boundary-repair752/boundary.rs line 940) fades in (f76472, full f76477) clear of the dots. Low L9 (layout): the card's bottom edge sits on the values plane's green bottom frame line, hiding that line across the card's width, and its opaque fill covers the foot of the plane's vertical axis line (crops r995-crops/s721t8-full2.png, s721t8-pairup.png, s721t8-pairup-edge12.png, f76569). The plane spans y 0.3 +/- 1.31 (values_plane line 127), so its bottom is near -1.01, where a card about 0.5 tall centred at -0.75 ends. The lowest dot clears the card top by about 16 tile px."
+  }
+ ],
+ "scope": "Sheets read as images (downscaled overview tiles). Not listening, motion, fine sync or whole-film AV."
+}

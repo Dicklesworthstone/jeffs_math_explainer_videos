@@ -1,0 +1,9 @@
+{"batch": 53, "viewed_utc": "2026-11-10T20:33Z",
+ "sheets": {
+  "0169": "05_7 108.6-111.2 s. Zeta portrait and title held to 110.0 s. 110.567 s: dashed white vertical line through the pole at s = 1 (display tile x 349 against the pole at 348 found from the hue switches), so it is Re s = 1; the half plane left of it dimmed, the strip to its right at full; note 'series converges: Re s > 1' at the upper right, true (the Dirichlet series converges for Re s > 1, diverges at s = 1). The note sets s upright while the title right above it sets s italic (crop crops/s0169-slot5-converges4x.png): L4 recurs. Note, title and line clear of each other. No other defect.",
+  "0170": "05_7 111.6-114.55 s. Dimmed state held unchanged; dashed line, title and note steady; 114.533-114.55 s are frames of sampled interval 6872-6877 (every frame), still dimmed. No defect.",
+  "0171": "05_7 114.567-115.383 s. f32580-f32583 (rest of interval 6872-6877) still dimmed. 115.1 s: the left half restored to full colour (the continuation past Re s = 1); dashed line, title and note stay. f32627-f32629 (interval 6921-6927) steady at full. The brightening itself (between f32583 and f32612) is not sampled. No defect."
+ },
+ "findings": [
+  {"id": "L4", "sheet": "0169", "slot": 4, "frame": 32340, "severity": "Low", "text": "Recurs in the 05_7 note 'series converges: Re s > 1': s is upright, while the title on the same frame, 'zeta(s) = 1 + 2^-s + 3^-s + ..., Re s > 1', sets the same s italic. Same expression, two styles, one frame (also slots 5-8 and sheets 0170-0171)."}
+ ]}

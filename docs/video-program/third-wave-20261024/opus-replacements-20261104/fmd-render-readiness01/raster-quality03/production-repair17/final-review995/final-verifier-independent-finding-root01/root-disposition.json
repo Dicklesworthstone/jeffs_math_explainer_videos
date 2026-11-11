@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-11T00:36:31.503483+00:00",
+  "verdict": "F1 remains open until fixed successor independently checked",
+  "finding": "New admitted review scopes do not necessarily preserve old995 sampled intervals. Coverage witness loses9 overview samples and3 native4K samples.",
+  "files": {
+    "review01.md": "db1923d07d6891b0bf01d3537696e7d681357cb32de5103a66f5a09e2aed0fd4",
+    "coverage01.py": "b63e8708f83a66abfdaea27e54ccf9093b20b45c92623618ba80ae12cd48d200",
+    "coverage01.out": "6235f0e30b23fb926071835169623678862979f0b4023ea456c5ff0525054c72"
+  },
+  "action": "CC0 developing bounded preservation fix, CC3 independently reviewing; fix02 draft reported two failed reason-preservation assertions and is not accepted. Existing render untouched.",
+  "limits": "Static/synthetic plan comparison, not final-picture viewing or listening."
+}

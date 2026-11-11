@@ -1,0 +1,493 @@
+{
+ "kind": "independent preview picture review",
+ "chapter": "01_the_bump",
+ "reviewer": "RubyRaven (CC2)",
+ "root_reviewer": "BlueSalmon",
+ "reviewed_utc": "2026-11-11T01:20Z",
+ "movie": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-preview01/preview/01_the_bump.mp4",
+ "movie_sha256": "005271e97d32246645b8c36340258d9be83b590962be2c97af1cf922c95e6beb",
+ "extraction": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/pictures.json",
+ "extraction_sha256": "82e3fce62972ae4c9330e9dbe2466c43e0297d902a706b4bf0c4e46e69c70852",
+ "extraction_receipt": {
+  "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/resource-receipt.json",
+  "exit": 0,
+  "finished": "2026-11-11T01:00:03.257494+00:00",
+  "inputs_sha256": "19eb221bfbec74771116d57e76f4f71d91fe48ce761ed9b1f407a54650e29b50"
+ },
+ "source_sha256": "90b51c2b30877911bbb5f5e14ee810268e14efb24e7c4e2a55f7f7e128c06ee7",
+ "frames": 6311,
+ "selected_count": 120,
+ "viewed_frame_indices": [
+  36,
+  48,
+  60,
+  72,
+  84,
+  96,
+  108,
+  120,
+  132,
+  144,
+  156,
+  168,
+  348,
+  648,
+  948,
+  1066,
+  1248,
+  1548,
+  1848,
+  2148,
+  2448,
+  2748,
+  3048,
+  3348,
+  3440,
+  3648,
+  3948,
+  4248,
+  4548,
+  4848,
+  5148,
+  5448,
+  5497,
+  5527,
+  5562,
+  5563,
+  5564,
+  5565,
+  5566,
+  5567,
+  5568,
+  5569,
+  5570,
+  5571,
+  5572,
+  5573,
+  5574,
+  5575,
+  5576,
+  5577,
+  5578,
+  5579,
+  5580,
+  5581,
+  5582,
+  5583,
+  5584,
+  5585,
+  5586,
+  5587,
+  5588,
+  5589,
+  5590,
+  5591,
+  5592,
+  5593,
+  5594,
+  5595,
+  5596,
+  5597,
+  5600,
+  5659,
+  5696,
+  5748,
+  5760,
+  5911,
+  6000,
+  6048,
+  6119,
+  6155,
+  6215,
+  6269,
+  6273,
+  6274,
+  6275,
+  6276,
+  6277,
+  6278,
+  6279,
+  6280,
+  6281,
+  6282,
+  6283,
+  6284,
+  6285,
+  6286,
+  6287,
+  6288,
+  6289,
+  6290,
+  6291,
+  6292,
+  6293,
+  6294,
+  6295,
+  6296,
+  6297,
+  6298,
+  6299,
+  6300,
+  6301,
+  6302,
+  6303,
+  6304,
+  6305,
+  6306,
+  6307,
+  6308,
+  6309,
+  6310
+ ],
+ "viewed_sheets": [
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-001.jpg",
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-002.jpg",
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-003.jpg",
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-004.jpg",
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-005.jpg",
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-006.jpg",
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-007.jpg",
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-008.jpg",
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-009.jpg",
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-010.jpg",
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-011.jpg",
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-012.jpg",
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-013.jpg",
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-014.jpg",
+  "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/01_the_bump/sheets/sheet-015.jpg"
+ ],
+ "viewed_runs": [
+  [
+   36,
+   36
+  ],
+  [
+   48,
+   48
+  ],
+  [
+   60,
+   60
+  ],
+  [
+   72,
+   72
+  ],
+  [
+   84,
+   84
+  ],
+  [
+   96,
+   96
+  ],
+  [
+   108,
+   108
+  ],
+  [
+   120,
+   120
+  ],
+  [
+   132,
+   132
+  ],
+  [
+   144,
+   144
+  ],
+  [
+   156,
+   156
+  ],
+  [
+   168,
+   168
+  ],
+  [
+   348,
+   348
+  ],
+  [
+   648,
+   648
+  ],
+  [
+   948,
+   948
+  ],
+  [
+   1066,
+   1066
+  ],
+  [
+   1248,
+   1248
+  ],
+  [
+   1548,
+   1548
+  ],
+  [
+   1848,
+   1848
+  ],
+  [
+   2148,
+   2148
+  ],
+  [
+   2448,
+   2448
+  ],
+  [
+   2748,
+   2748
+  ],
+  [
+   3048,
+   3048
+  ],
+  [
+   3348,
+   3348
+  ],
+  [
+   3440,
+   3440
+  ],
+  [
+   3648,
+   3648
+  ],
+  [
+   3948,
+   3948
+  ],
+  [
+   4248,
+   4248
+  ],
+  [
+   4548,
+   4548
+  ],
+  [
+   4848,
+   4848
+  ],
+  [
+   5148,
+   5148
+  ],
+  [
+   5448,
+   5448
+  ],
+  [
+   5497,
+   5497
+  ],
+  [
+   5527,
+   5527
+  ],
+  [
+   5562,
+   5597
+  ],
+  [
+   5600,
+   5600
+  ],
+  [
+   5659,
+   5659
+  ],
+  [
+   5696,
+   5696
+  ],
+  [
+   5748,
+   5748
+  ],
+  [
+   5760,
+   5760
+  ],
+  [
+   5911,
+   5911
+  ],
+  [
+   6000,
+   6000
+  ],
+  [
+   6048,
+   6048
+  ],
+  [
+   6119,
+   6119
+  ],
+  [
+   6155,
+   6155
+  ],
+  [
+   6215,
+   6215
+  ],
+  [
+   6269,
+   6269
+  ],
+  [
+   6273,
+   6310
+  ]
+ ],
+ "layout_anchor_checked": [
+  {
+   "frame": 48,
+   "row": "01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+  }
+ ],
+ "viewing_method": "every selected picture seen as its 640x360 cell in the 15 contact sheets (1280x1536); the frames in enlarged_crop_frames also cut from the 960x540 pictures and enlarged or measured",
+ "enlarged_crop_frames": {
+  "crops01/fraction-top-01.png (3x)": [
+   48,
+   120,
+   1248,
+   6269
+  ],
+  "crops01/fade-end-01.png (1x)": [
+   6305,
+   6306,
+   6307,
+   6308
+  ],
+  "crops01/degree-6-8-40.png (1x)": [
+   1548,
+   1848,
+   2148
+  ],
+  "crops01/predict-box-top-01.png (3x)": [
+   3440,
+   3648
+  ],
+  "crops01/predict-box-right-01.png (2x)": [
+   3440,
+   3648
+  ],
+  "crops01/thumbs-fadein-01.png (1x)": [
+   5497,
+   5527,
+   5562,
+   5566,
+   5570,
+   5574,
+   5578,
+   5582,
+   5586,
+   5590,
+   5594,
+   5600,
+   5659,
+   5696
+  ],
+  "pixel measurement of header ink margins (fraction_margin01.py)": [
+   48,
+   60,
+   72,
+   120,
+   348,
+   1248,
+   2448,
+   3440,
+   3648,
+   4848,
+   5527,
+   6000,
+   6269,
+   6290
+  ],
+  "pixel measurement of the bottom ink margin": [
+   348,
+   1248,
+   2448,
+   3440,
+   3948,
+   4848,
+   5527,
+   6269
+  ],
+  "pixel measurement of curve heights (curve_heights01.py)": [
+   1548,
+   1848
+  ],
+  "pixel measurement of the ending fade (fade_profile01.py)": [
+   6155,
+   6215,
+   6269,
+   6273,
+   6274,
+   6275,
+   6276,
+   6277,
+   6278,
+   6279,
+   6280,
+   6281,
+   6282,
+   6283,
+   6284,
+   6285,
+   6286,
+   6287,
+   6288,
+   6289,
+   6290,
+   6291,
+   6292,
+   6293,
+   6294,
+   6295,
+   6296,
+   6297,
+   6298,
+   6299,
+   6300,
+   6301,
+   6302,
+   6303,
+   6304,
+   6305,
+   6306,
+   6307,
+   6308,
+   6309,
+   6310
+  ]
+ },
+ "concrete_defects": [],
+ "observations": [
+  "O1 title-safe flag, 0.8 s to 105.1 s (48 to 6305): the top ink of the fraction 1/(1 + x^2) is row 14 of 540 (row 15 at 48 while it fades in), 0.207 scene units or 2.6% of the height, and it is the topmost ink in every measured frame. The kit wants 0.25 units (16.9 px at 540p, 67.5 px at 4K), so it is short by about 0.04 units (about 3 px at 540p, about 12 px at 4K). This agrees with the extraction anchor (0.22 at frame 48, kept in later looks). It is also outside a 5% title-safe band (27 px) and a 3.5% action-safe band (19 px). Fully inside the frame, not clipped, legible in every viewed frame, and the header row (title top row 31) is steady through the chapter. Low: a framing choice for root, not a concrete defect.",
+  "O2 ending fade, 104.6 s to 105.17 s (6276 to 6310): full contrast through 6275 (mean distance 7.07, p99.9 239), then a monotonic fall: 6290 mean 5.54, 6300 2.58, 6305 0.88, 6307 0.31, 6309 0.03, 6310 0.00 (every sampled pixel equals the background). Header, curve with ring, and thumbnail column fall together (region maxima 22/19/18 at 6307, 13/8/8 at 6308), so no element leaves early or lingers. About 0.6 s, as the source fade_out_all(0.6). The broken outlines at 6307 and 6308 are content at under 10% of full contrast in the preview JPEGs.",
+  "O3 30.8 s (1848): the degree readout shows 8 while the yellow curve is still nearly degree 6. The readout is 2*ceil(k) and leads during the k tween from 3 to 5; measured heights at x = 0.8, 0.9, 0.95, 1.0 fit d6 + 0.07 (d8 - d6), k about 3.07. Settled frames agree: 1548 is degree 6 with roots at +-1, 2148 is degree 40.",
+  "O4 57.3 s and 60.8 s (3440, 3648): the predict box border reaches column 917 (4.4% right margin), outside a 5% title-safe band and inside 3.5% action-safe; its text ends near column 900 (6.1%). Recipe 25.2 and bump 0.452 at x = 1.1 agree with the sum to degree 40 (25.24) and 1/2.21 (0.4525).",
+  "O5 65.8 s onward (3948 to 6305): the ring of radius 1 uses the x scale (92 px per unit) while the dimmed bump keeps its own y scale (about 141 px per unit), so the poles at +-i sit below the bump peak, at about 0.65 on the bump scale. The peak label 1 is gone before this, so no two labels disagree. A teaching note for root, not a fault."
+ ],
+ "safe_to_advance_to_final4k": true,
+ "authored_repair": false,
+ "open_reviews": [
+  "final 4K pictures",
+  "motion",
+  "audio and listening",
+  "fine sync",
+  "AV"
+ ]
+}

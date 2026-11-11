@@ -1,0 +1,17 @@
+{
+  "utc": "2026-11-10T22:33:15.136715+00:00",
+  "files": {
+    "root-controller-receipt01.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "csd-combined01-map.json": "ce096faf5f40776568140deda798c656bc48af1a641239fd2f275ae02b6a6258",
+    "csd-combined01-delivery.py": "9ffc57ec3f292dd9e95f586493b74e5e14d5668605f85d1732e978d71ce1fc26",
+    "csd-combined01-timeline.py": "41cd4ccd53a2dd3d9da9adb84ac534edb824bd77204af25f041931e59f1b9651",
+    "csd-combined01-after-build.py": "720776f457305702cdb275e3c48495d3b2f8857021d77f39badeaf3fdb7d1643",
+    "csd-combined01-after-delivery.py": "9c09de81dfd17f49a7f21f7c21a30a0156851ebcb6258bc768422e95f39ad89e"
+  },
+  "delivery_controller_pid": 324936,
+  "timeline_controller_pid": 329775,
+  "build_regular_tests": "247 passed,0failed,1ignored",
+  "explicit_plate_fade_test": "1passed,0failed",
+  "build_terminal": false,
+  "limits": "clippy and final binary still pending; no timeline/render or audiovisual acceptance"
+}

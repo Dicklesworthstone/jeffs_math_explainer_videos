@@ -1,0 +1,34 @@
+{
+  "utc": "2026-11-11T00:26:26.459806+00:00",
+  "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/7aa7239f-abc0-4b43-9af5-40020bd20c82/scratchpad/final-verify-cc3",
+  "files": [
+    {
+      "file": "after-master-vs-995.diff",
+      "sha256": "7e2b7a8cef6f1ac4a231c860bf1fdc81633dd0b4ecc2bf47efd67dfe7f76b0a1"
+    },
+    {
+      "file": "check-final-verify-cc3.out",
+      "sha256": "2892c8f841ab33d5c8594ee06f982ba875f9bb41ebd0d2efcd1e6c6d6f5ba7c0"
+    },
+    {
+      "file": "check-final-verify-cc3.py",
+      "sha256": "d3beba1be540e9f5a6cab1f99f435e6a9f40090692c3328c0a22010f0988b57e"
+    },
+    {
+      "file": "csd-final-after-master-repaired01.py",
+      "sha256": "150940016dff9724b56298f79f3b1160bf84fad1663441406b12e3d4e7d091dd"
+    },
+    {
+      "file": "csd-final-verify-repaired01.py",
+      "sha256": "5c30a62ef9341ff72be6650d462f7de2eb32ad0c5089b826d50897d3c9ef4dbb"
+    },
+    {
+      "file": "handoff.md",
+      "sha256": "05e68894eea47cd107d57540e22a7d8d196cfaf720f041566cabaf771d65cc0f"
+    },
+    {
+      "file": "verify-vs-995.diff",
+      "sha256": "6e88ffb1fda834176a7e8db364aa746c30e45343e1ea0b75c083dbda73f10dc7"
+    }
+  ]
+}

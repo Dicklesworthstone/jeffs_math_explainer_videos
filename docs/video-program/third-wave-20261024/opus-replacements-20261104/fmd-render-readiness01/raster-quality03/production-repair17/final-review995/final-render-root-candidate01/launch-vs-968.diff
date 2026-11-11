@@ -1,0 +1,131 @@
+--- csd-native968-launch.py
++++ csd-native-repair-final01-launch.py
+@@ -1,4 +1,10 @@
+-"""Manual recovery after diagnosed owned864 stop; no waiting or automatic retry."""
++"""PREPARED, NOT LAUNCHED: manual launch of one repaired chapter's native final 4K render; no waiting or retry.
++
++csd-native968-launch.py's route for 01/08/09/11. Every run proof is checked here first, before the job
++name or inputs file exists, so a refusal costs no job name. One final at a time: the runner takes the
++first 16 CPUs of its affinity, so two finals would share cores.
++"""
++import argparse
+ import hashlib
+ import importlib.util
+ import json
+@@ -8,8 +14,7 @@
+ 
+ D = Path('/data/projects/jmev-stroke-probe-20261106')
+ Q = D/'qualification01/production-repair17'
+-JOB = D/'jobs/csd-native-final968'
+-INPUTS = Q/'csd-native968-inputs.json'
++RUNNER = Q/'csd-native-repair-final01-run.py'
+ 
+ def sha(p):
+     with Path(p).open('rb') as f:
+@@ -26,16 +31,20 @@
+     return d
+ 
+ def main():
++    ap = argparse.ArgumentParser(description=__doc__)
++    ap.add_argument('--chapter', required=True)
++    chapter = ap.parse_args().chapter
++    spec = importlib.util.spec_from_file_location('repair_final01_run', RUNNER)
++    run = importlib.util.module_from_spec(spec)
++    spec.loader.exec_module(run)
++    assert chapter in run.CHAPTERS, chapter
++    JOB = run.job(chapter)
++    INPUTS = Q/(JOB.name+'-inputs.json')
+     assert not JOB.exists() and not INPUTS.exists(), 'Never duplicate or overwrite a job'
+-    failed = D/'jobs/csd-native-final864'
+-    failed_receipt = read(failed/'resource-receipt.json')
+-    assert failed_receipt.get('finished') and failed_receipt.get('exit') not in (None, 0)
+-    assert not failed_receipt.get('resource_stop')
+-    assert failed_receipt['inputs_sha256'] == failed_receipt['final_inputs_sha256']
+-    cleanup = read(failed/'native.cleanup.json')
+-    assert cleanup['step'] == 'native' and cleanup['reason'] == 'signal 15'
+-    assert cleanup['group'] == 782328 and cleanup['child_exit'] == -15 and failed_receipt['exit'] == -9
+-    binary = str(D/'jobs/csd-native-build844/complex_analysis_visual-844')
++    pending = run.unresolved(chapter)
++    assert not pending, chapter+': unresolved pin(s), not launched: '+', '.join(pending)
++    chain = run.CHAINS[run.CHAPTERS[chapter]['kind']]
++    binaries = {str(D/'jobs'/c['build']/c['binary']).encode() for c in run.CHAINS.values()}
+     for proc in Path('/proc').iterdir():
+         if not proc.name.isdigit():
+             continue
+@@ -43,51 +52,42 @@
+             args = (proc/'cmdline').read_bytes().split(b'\0')
+         except (FileNotFoundError, PermissionError, ProcessLookupError):
+             continue
+-        assert not (args and args[0] == binary.encode() and str(failed/'render').encode() in args), '864 native process still alive'
+-    prior = D/'jobs/csd-native-pictures855'
++        assert not (args and args[0] in binaries and b'3840x2160' in args), 'a repaired final render is still alive'
++        assert str(RUNNER).encode() not in args, 'a repaired final runner is still alive'
++    binary, narration, files = run.proofs(chapter)
++    rows = {}
++    def add(p, digest=None):
++        p, h = str(p), sha(p)
++        assert digest is None or h == digest, p
++        assert rows.get(p, h) == h, ('input drift', p)
++        rows[p] = h
++    for p in files:
++        add(p)
++    prior = D/'jobs'/chain['pictures']
+     d = success(prior/'resource-receipt.json')
+-    source = Q/'csd-native855-inputs.json'
++    source = Q/chain['pictures_inputs']
+     assert sha(source) == d['inputs_sha256']
+-    files = read(source)['files']
+-    rows = {x['path']: x['sha256'] for x in files}
+-    assert len(rows) == len(files)
+-    for name, digest in rows.items():
+-        assert sha(name) == digest, name
+-    admission = Q/'csd-native864-picture-admission.json'
+-    review = read(admission)  # Must be authored from actual root and independent viewing.
+-    assert review['safe_to_advance_to_final4k'] is True
+-    assert review['all_selected_pictures_viewed'] is True
+-    assert review['concrete_defects'] == [] and review['independent_blockers'] == []
+-    for key in ('root_review', 'independent_review', 'extraction_record'):
+-        item = review[key]
+-        assert sha(item['path']) == item['sha256']
+-        rows[item['path']] = item['sha256']
+-    helper = Q/'csd-native853-after-timeline.py'
+-    assert sha(helper) == '8a3039d8dd2ad41ab09877069b10ea0eb7f4b6502af966723550a9c7be026dae'
+-    spec = importlib.util.spec_from_file_location('comparison864', helper)
+-    h = importlib.util.module_from_spec(spec)
+-    spec.loader.exec_module(h)
+-    h.tables(D/'jobs/csd-native-preview853/preview')
+-    assert read(D/'jobs/csd-native-timeline852/comparison852.json')['frames'] == 16504
+-    assert read(D/'jobs/csd-native-preview853/comparison853.json')['frames'] == 16504
++    entries = read(source)['files']
++    assert len({x['path'] for x in entries}) == len(entries)
++    for x in entries:
++        add(x['path'], x['sha256'])
+     score = D/'jobs/csd-production-score21'
+     success(score/'resource-receipt.json')
+-    for root in (prior, score/'score/stems'):
++    for root in (prior, score/'score/stems', narration):
+         for p in root.rglob('*'):
+             if p.is_file():
+-                rows[str(p)] = sha(p)
+-    for p in (source, admission, helper, Path(__file__).resolve(), Path(sys.executable).resolve(),
+-              Q/'csd-native968-run.py', score/'resource-receipt.json',
+-              failed/'resource-receipt.json', failed/'command.log', failed/'native.cleanup.json',
+-              Q/'csd-native864-inputs.json'):
+-        rows[str(p)] = sha(p)
++                add(p)
++    for p in (source, Path(__file__).resolve(), Path(sys.executable).resolve(), RUNNER,
++              Q/'csd-native844-base761.py', score/'resource-receipt.json'):
++        add(p)
++    add(Q/'csd-native844-base761.py', run.BASE761_SHA)
+     with INPUTS.open('x') as f:
+         json.dump(dict(files=[dict(path=k, sha256=v) for k, v in sorted(rows.items())]), f, indent=2)
+     subprocess.run([sys.executable, '-I', '-B', str(D/'guard_csd02.py'), '--phase', 'native',
+                     '--job', JOB.name, '--inputs', str(INPUTS), '--', sys.executable,
+-                    '-I', '-B', str(Q/'csd-native968-run.py')], check=True)
++                    '-I', '-B', str(RUNNER), '--chapter', chapter], check=True)
+     success(JOB/'resource-receipt.json')
+-    print('968 render terminated successfully; final extraction, actual review and master gates remain open')
++    print(chapter+' final render terminated successfully; final extraction, actual review and master gates remain open')
+ 
+ if __name__ == '__main__':
+     main()

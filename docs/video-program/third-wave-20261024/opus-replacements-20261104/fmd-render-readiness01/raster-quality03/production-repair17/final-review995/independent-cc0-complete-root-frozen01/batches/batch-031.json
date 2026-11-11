@@ -1,0 +1,7 @@
+{"batch": 31, "viewed_utc": "2026-11-10T20:17Z",
+ "sheets": {
+  "0103": "05_2 28.2-31.0 s. A blue point goes round a small yellow circle about the pole (radius about 0.31; 86.5 px per unit from the 1 to -1 spacing) and the counter runs negative. Measured with f = (z - 1)/(z + 1)^2: theta 53 deg -> output 64 deg (expected 74), '-0.3' (-0.29); 81.6 deg -> 7.3 deg (expected 7.9), '-0.5' (-0.48); 249.4 deg -> 46.5 deg (expected 49), '-1.4' (-1.39); 279 deg -> '-1.5' (-1.53); 336.5 deg -> 236 deg (expected 231), '-1.8' (-1.86 from my reading, borderline; 1 px is about 2 deg on this small circle, so it is within reading error). 30.8 s: 'turns: -2 (backwards twice)' with the output on the negative real axis, as f < 0 just right of the pole. Minus signs are L1's short hyphen. No new defect.",
+  "0104": "05_2 31.3-33.15 s. Hold of the counted state (31.3-32.3 s). 32.567-32.967 s: labels, rings, the small circle, the output panel and the title fade together; 33.15 s (f27695, first frame of root window 1989-2072): bare portrait. No defect.",
+  "0105": "05 33.167-33.283 s (f27696-f27703, every frame). Bare (z - 1)/(z + 1)^2 portrait, unchanged frame to frame. No defect."
+ },
+ "findings": []}

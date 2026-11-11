@@ -1,0 +1,5408 @@
+{
+  "reviewer": "CC1 BronzeJaguar (independent of root)",
+  "time": "2026-11-10T20:36:14.043288+00:00",
+  "master_sha256": "80244e88ca5970d0da07a5d96d6d825ae1851bae703d75bd200f8810b04e7b90",
+  "sampling_sha256": "c211e7d571a9ddd67f655c9b5070ff568555723b4e30f92891ee224b4b64626f",
+  "assigned_range": [
+    262,
+    522
+  ],
+  "sheets_actually_viewed": [
+    {
+      "sheet": 262,
+      "sha256": "b4912971f625880e34884f323481b0ad8fe690fd296e325fa58e2a2aa274c2fb",
+      "frames": [
+        45601,
+        45602,
+        45603,
+        45604,
+        45605,
+        45606,
+        45607,
+        45608
+      ],
+      "chapters": [
+        "06_one_derivative"
+      ],
+      "note": "06 end, every frame 10016-10023: x+iy -> x+2iy, green image rectangle over teal square with rotation arrow, 'right: 1 up: 2', red X 'no complex derivative', 'image drawn moved down by i'; uniform fade-out begins; labels clear, no overlap."
+    },
+    {
+      "sheet": 263,
+      "sha256": "6386d99f0e1a908aafd778c3deb7eb70ec147a14b4aa9361daaae341245b0a36",
+      "frames": [
+        45609,
+        45610,
+        45611,
+        45612,
+        45613,
+        45614,
+        45615,
+        45616
+      ],
+      "chapters": [
+        "06_one_derivative",
+        "07_one_point"
+      ],
+      "note": "06 fade-out 10024-10029 to fully dark at L10028-10029; 07 first frames L0-L1 blank background (seam). Fade even; no stray element."
+    },
+    {
+      "sheet": 264,
+      "sha256": "5d3018484c613751d0eab66bf3848c8b65ab86793f66800fb71bdd15844cdbad",
+      "frames": [
+        45617,
+        45639,
+        45663,
+        45675,
+        45681,
+        45895,
+        45975,
+        46091
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07 L2/L24 blank; L48 two squares (teal domain, green image) and z->z^2 arrow fading in; L60-66 full; L280 f'(z)=2z, f'(0)=0 heading; L476 'imaginary line' (green) and 'real line' (teal) labels in both panels, origin cross. Labels legible, inside panels."
+    },
+    {
+      "sheet": 265,
+      "sha256": "ec61d9efab9363d421c24ac7b0b2b7c9644b8bd74993e5bd120d8940f992b40a",
+      "frames": [
+        46153,
+        46215,
+        46275,
+        46405,
+        46447,
+        46507,
+        46575,
+        46648
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_1: real/imaginary segments grow from origin; image: imaginary line folds onto negative reals, real onto positive (correct for z^2). L790-892 yellow angle arcs drawing, left arc reaches 90 deg while right reaches 180 deg; L960/L1033 labelled 90 deg and 180 deg. Consistent, no clipping."
+    },
+    {
+      "sheet": 266,
+      "sha256": "d99e3859dc8cd6bf85eb536f9c3cd2cc92112a6b790028768e59994a33fcbeb8",
+      "frames": [
+        46679,
+        46703,
+        46721,
+        46815,
+        46875,
+        46924,
+        47051,
+        47095
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_2: heading fades (L1088); teal cross at second-quadrant point; 'derivative != 0: angles kept (conformal)'; curved green image cross with 90 deg label in lower half (z^2 of a second-quadrant point lands below the axis: correct); 'names to search: conformal map . critical point' card under panels; L1480 yellow heading 'derivative = 0: a critical point, angles multiplied' fading in. No overlap."
+    },
+    {
+      "sheet": 267,
+      "sha256": "7757889e05766646da7caf69048c08bd37eedcb05f02f3310a1f148c93586163",
+      "frames": [
+        47175,
+        47405,
+        47415,
+        47475,
+        47705,
+        47729,
+        47747,
+        47775
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_2 end: 'precisely: if the first m - 1 derivatives vanish at a point and the m-th does not, angles there are multiplied by m' card just under the panels (about 10 px gap at sheet scale, clear); L2114 fade-out, L2132/L2160 dark."
+    },
+    {
+      "sheet": 268,
+      "sha256": "67c0403147efa41954d9c4bc6e9da3f5c80bceb1ef7f307e83c03960f840cef5",
+      "frames": [
+        47831,
+        47832,
+        47833,
+        47834,
+        47835,
+        47836,
+        47837,
+        47838
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_3 window L2216-2223 every frame: dark, then red ring square fading in on the left. Even frames looked brighter than odd ones at sheet scale; tile995-brightness.py over sheets 267-277 shows red rising monotonically 12.0 -> 23.3 here (luminance dip at L2221 is green falling as the hue turns red). Not a flicker."
+    },
+    {
+      "sheet": 269,
+      "sha256": "c20944329ebf7e4c142f45560ea1755217106dc23de87a472ca335684ae05c30",
+      "frames": [
+        47839,
+        47840,
+        47841,
+        47842,
+        47843,
+        47844,
+        47845,
+        47846
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_3 L2224-2231: concentric-ring square brightening monotonically (red 27.1 -> 62.5). Rings concentric and centred."
+    },
+    {
+      "sheet": 270,
+      "sha256": "df961c37ab1776caddb024ab82a2e7ffa31959eca7215c4f3f931d194343e639",
+      "frames": [
+        47847,
+        47848,
+        47849,
+        47850,
+        47851,
+        47852,
+        47853,
+        47854
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_3 L2232-2239: fade continues monotonically (red 67.7 -> 104.1); square left of centre, right half empty (text arrives later)."
+    },
+    {
+      "sheet": 271,
+      "sha256": "c9cba797d0c7d9a68d80a0d9d5985b898026cd2ed44fbb198185c3293c8acd7f",
+      "frames": [
+        47855,
+        47856,
+        47857,
+        47858,
+        47859,
+        47860,
+        47861,
+        47862
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_3 L2240-2247: fade continues (108.9 -> 139.9); no banding artefact beyond the intended rings."
+    },
+    {
+      "sheet": 272,
+      "sha256": "ee996c294846efd2b9d19911a445b24e359ca6d38877a8c2c01ca925d6d7a587",
+      "frames": [
+        47863,
+        47864,
+        47865,
+        47866,
+        47867,
+        47868,
+        47869,
+        47870
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_3 L2248-2255: fade continues (143.9 -> 167.2)."
+    },
+    {
+      "sheet": 273,
+      "sha256": "18e11dffc1fc44994a88ec35ba79e1fcbd7eefa36e347ac83bc194abf6cdf39e",
+      "frames": [
+        47871,
+        47872,
+        47873,
+        47874,
+        47875,
+        47876,
+        47877,
+        47878
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_3 L2256-2263: fade nearly complete (169.9 -> 183.3)."
+    },
+    {
+      "sheet": 274,
+      "sha256": "ce948d9a17c5a8ded8d4e03ea5769ec1399ac3434bd7c1299ff525f3a2d08495",
+      "frames": [
+        47879,
+        47880,
+        47881,
+        47882,
+        47883,
+        47884,
+        47885,
+        47886
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_3 L2264-2271: plateau approaching (184.9 -> 190.0)."
+    },
+    {
+      "sheet": 275,
+      "sha256": "bf2e9de1c4ac1857bdf28f6603b16e7c12ed59ea14c798a2c6b6f5e0764b3c44",
+      "frames": [
+        47887,
+        47888,
+        47889,
+        47890,
+        47891,
+        47892,
+        47893,
+        47894
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_3 L2272-2279: plateau 190.9; at L2279 the formula f(z)=|z|^2=x^2+y^2 starts fading in at right."
+    },
+    {
+      "sheet": 276,
+      "sha256": "62ff1a180a8871a85912aaf198e0db488ef225dba532ba4a4677a251caf73e7a",
+      "frames": [
+        47895,
+        47896,
+        47897,
+        47898,
+        47899,
+        47976,
+        48015,
+        48075
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_3 L2280-2284: formula and 'real outputs: one hue, bands for size' fading in; L2361 Im/Re labels, white dot at origin with '0' tag; L2460 'derivative at 0?' purple box. Legible; tag does not cover the dot."
+    },
+    {
+      "sheet": 277,
+      "sha256": "a26d889501b868d649378b35d5a3cfab2629b53bf23bdfab7c478037b2e830b5",
+      "frames": [
+        48094,
+        48229,
+        48375,
+        48575,
+        48599,
+        48615,
+        48617,
+        48675
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_3/07_4: 'derivative at 0?' box, purple think ring (L2760) then grey ring (L2960), box fades (L2984), card and subtitle gone (L3000-3002), answer |h|^2/h = h-bar appears L3060 after the think ring: answer not revealed early in these stills."
+    },
+    {
+      "sheet": 278,
+      "sha256": "31231cd279f6d194874c1b8768741f3d095b614de83278430867730960101dc4",
+      "frames": [
+        48694,
+        48958,
+        48975,
+        49014,
+        49215,
+        49251,
+        49275,
+        49435
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_4 L3079-3820: |h|^2/h = h-bar, 'the ratio' panel fading in (L3079 dim); h steps along the real axis then the ratio dot on positive reals; h up-left -> ratio dot down-left; h up-right -> ratio down-right (conjugate: correct); spiral trace shrinking into 0, 'ratio -> 0.0000' (L3820). Labels inside panels, no overlap."
+    },
+    {
+      "sheet": 279,
+      "sha256": "793425f53cf03474f63a6e25054d04f496b43a0109155d0370fc8488ca363933",
+      "frames": [
+        49466,
+        49490,
+        49508,
+        49575,
+        49600,
+        49777,
+        49815,
+        49875
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_4/07_5 L3851-4260: spiral + 'ratio -> 0.0000' then fading (L3875); ratio panel gone (L3893); '1' tag fading in at z=1 (L3893); 'right: -> 2' faint then full with cyan arrow right; 'up: -> 0' with up arrow and red X fading in (L4162) then full. Values correct for |z|^2 at 1 (2x=2 along real; (h^2)/(ih) -> 0 along imaginary)."
+    },
+    {
+      "sheet": 280,
+      "sha256": "110916aaa9fcc0a0f6f736b529af20634f39f73f34d832d6046713734b5fe18e",
+      "frames": [
+        49954,
+        50133,
+        50175,
+        50358,
+        50359,
+        50360,
+        50361,
+        50362
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_5 L4339-4747: yellow 'a complex derivative at 0 only' under the X; L4743 text, arrows, dot and tags gone (right side empty, faint ghost only); L4744-4747 ring square with Im/Re labels only. No clipping."
+    },
+    {
+      "sheet": 281,
+      "sha256": "55d1d2b7cc35cda549c097538d70fb9d6517f6d24b3454d6ec2953e76142ae0b",
+      "frames": [
+        50363,
+        50364,
+        50365,
+        50366,
+        50367,
+        50368,
+        50369,
+        50370
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07 root window L4748-4755 every frame: ring square held; ring pattern unchanged frame to frame at sheet scale; Im/Re labels steady."
+    },
+    {
+      "sheet": 282,
+      "sha256": "a2434bbfe102d3150b5c4b885df8ef0c41b09731ce767e05d3e671e57f425129",
+      "frames": [
+        50371,
+        50372,
+        50373,
+        50374,
+        50375,
+        50376,
+        50377,
+        50378
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07 root window L4756-4763: ring square begins an even fade (red falling; checked by eye across slots), labels and border steady."
+    },
+    {
+      "sheet": 283,
+      "sha256": "2eeef2c40cf4c64fd8de2ea89a78591274b3ac6d8b3cd0bb05efa02f4f744fcd",
+      "frames": [
+        50379,
+        50380,
+        50381,
+        50382,
+        50383,
+        50384,
+        50385,
+        50386
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07 root window L4764-4771: ring fade continues monotonically to a dim maroon (L4771); no flash or reversal visible."
+    },
+    {
+      "sheet": 284,
+      "sha256": "68845ec8f82e950b57a75718c79a8accaa1f07b4933795f81d3ea5c5408bdeec",
+      "frames": [
+        50387,
+        50388,
+        50389,
+        50390,
+        50391,
+        50392,
+        50393,
+        50394
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07 root window L4772-4779: rings nearly black (L4772-4774), empty square at L4775, jagged polar-tile pattern fading in L4776-4779 (dim, grows each frame). Fade through dark is clean; border and Im/Re stay put."
+    },
+    {
+      "sheet": 285,
+      "sha256": "f0a0fc8ca6d79f383d8b172baa15efebb69a894a3428c675bec64fee0c291a9f",
+      "frames": [
+        50415,
+        50471,
+        50472,
+        50473,
+        50474,
+        50475,
+        50485,
+        50486
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07 L4800 jagged tile disk at full colour; L4856-4860 and L4870-4871 (root instants 80.96 s / 81.20 s): bound |g(h)||h|^2/|h| <= M|h| -> 0, green '|z|^2 x jagged g, |g| <= 1 = M: derivative 0 at 0', white disc of sample points (radius 0.55) and 'the ratio' panel with green dots inside its circle, 'inside radius 0.55'. Frames identical in layout; green subtitle small but legible at 960x540."
+    },
+    {
+      "sheet": 286,
+      "sha256": "df6e109d44902fb36f64402151184ac240200ad9e7accd980fd72ec57d855825",
+      "frames": [
+        50487,
+        50488,
+        50489,
+        50578,
+        50620,
+        50680,
+        50712,
+        50713
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07 L4872-4874 (81.20 s) same as 0285; L4963-5098 the disc shrinks: inside radius 0.55 -> 0.47 -> 0.31 -> 0.23 -> 0.22 and the ratio cloud shrinks with its circle (consistent with |ratio| <= M|h|). Readout matches the drawn circle in each slot."
+    },
+    {
+      "sheet": 287,
+      "sha256": "674d90ddc4e1f03ac8d4b67ebfd1395a7a946ec6fd617a95fc30ab0c4caf6d06",
+      "frames": [
+        50714,
+        50715,
+        50716,
+        50775,
+        50782,
+        50813,
+        50837,
+        50855
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07 L5099-5101 (84.98 s) radius 0.22; L5160/L5167 radius 0.06, white disc reduced to a dot and the ratio cloud to a point at 0; L5198 hold; L5222 tile disk dimming; L5240 whole frame dark (07_6 cue transition). Even fade."
+    },
+    {
+      "sheet": 288,
+      "sha256": "b73aac46c5d87de620db23a6f3d0e38a970de5f0eaf498bb4e16f5fdc95f1265",
+      "frames": [
+        50968,
+        50969,
+        50970,
+        50971,
+        50972,
+        51015,
+        51023,
+        51075
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07 L5353-5357 (root instant 89.25 s): fully dark frames; L5400 region U (olive fill, dashed yellow boundary, italic U label) appears; L5408 same; L5460 three points, one ringed. Observation O1: the frame is dark from at latest L5240 to at least L5357 (>= 117 frames, 1.95 s; at most ~L5399, 2.65 s) between 07_5 and 07_6; stills cannot say whether narration runs over it."
+    },
+    {
+      "sheet": 289,
+      "sha256": "3e42b8cc57bed5d100a553eed7feb980760f0f48a81e916013d821e92c1cacb2",
+      "frames": [
+        51294,
+        51295,
+        51296,
+        51297,
+        51298,
+        51372,
+        51375,
+        51545
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_6 L5679-5683 (94.69 s): U with three points, each with a green disk inside U, red-dot legend '|z|^2: one point, no disk' at lower right; L5757/L5760 same; L5930 card 'holomorphic on U: a complex derivative at every point of the open region U'. Crop (crops/s0289-slot3-U-disks.png, 3x) shows the lower disk stays inside the dashed boundary with a small gap (about 3 tile px). Card text uses upright 'U' while the figure label is italic U (L1 typography nit)."
+    },
+    {
+      "sheet": 290,
+      "sha256": "0235c36d2ef0a48f4160c378b5b7adcffced0d0eb5f029c80d0d7a7d2aa540df",
+      "frames": [
+        51615,
+        51675,
+        51764,
+        51913,
+        51956,
+        51975,
+        52016,
+        52070
+      ],
+      "chapters": [
+        "07_one_point"
+      ],
+      "note": "07_6/authored hold L6000-6455: card, yellow 'from here on: holomorphic on an open region' (from L6149), names bar 'names to search: holomorphic function . open set'. No overlap between card, line, legend and names bar."
+    },
+    {
+      "sheet": 291,
+      "sha256": "5eaad5d341404f8f8c6dd823768c6870bf0cdc25543fd1b70414e2545fc27a23",
+      "frames": [
+        52103,
+        52104,
+        52105,
+        52106,
+        52107,
+        52108,
+        52130,
+        52154
+      ],
+      "chapters": [
+        "07_one_point",
+        "08_loop_sums"
+      ],
+      "note": "07 end L6488-6489 faint ghosts of the final layout fading out, L6490 dark; 08 L0-L2 and L24 blank (seam); L48 Im/Re axes square fading in. Seam clean both sides."
+    },
+    {
+      "sheet": 292,
+      "sha256": "3cc9ca72ae232f9bc41ecf5975d3295e22d2ff6d57211e5233bb627c17bb6e12",
+      "frames": [
+        52166,
+        52172,
+        52412,
+        52466,
+        52573,
+        52706,
+        52728,
+        52766
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_1 L60-660: axes; unit circle with counter-clockwise arrow fading in (L66); sample dots placed counter-clockwise from 0 deg (L306 first quadrant; L360 all but the last, which is fading in); L467 z_k (green) and f(z_k) arrow fading in; L600-660 Delta z_k (cyan, tangent), f(z_k) Delta z_k (yellow, angle about 205 deg = 55 + 150: correct), caption 'lengths multiply, angles add'. Labels clear of arrows."
+    },
+    {
+      "sheet": 293,
+      "sha256": "46b1f475e2c5b34c6b82a0c6b89e0c468041a67fb4bcdbee747be468a2b96a08",
+      "frames": [
+        52933,
+        53066,
+        53079,
+        53306,
+        53307,
+        53338,
+        53362,
+        53366
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_1/08_2 L827-1260: formula contour-integral f(z)dz ~ sum_k f(z_k) Delta z_k at top; dots fade (L960) and denser dots arrive (L973); L1200 'as the steps shrink, ~ becomes =' between formula and Im label (no overlap), Delta z_k and product arrows tiny but labelled (crop crops/s0293-slot4-small-arrows.png); crop crops/s0293-slot1-fzdz-label.png shows the f(z_k) Delta z_k label clear of its arrowhead; L1232-1260 right-hand arrows and subtitle fading. Even."
+    },
+    {
+      "sheet": 294,
+      "sha256": "71a17d1704b8fa7dd5fe61550df6f21d168e7909aa33fd90b8a89cbdb57e47c4",
+      "frames": [
+        53380,
+        53656,
+        53666,
+        53717,
+        53906,
+        53966,
+        53981,
+        54023
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_2 L1274-1917: f(z)=z; chain of f(z_k) Delta z_k arrows forms a 12-gon traced twice (angle 2 theta + 90 deg advances 30 deg per step: correct). 'distance from the start: 0.26 / the chain's first lap' (0.26 = 2 sin(pi/24), one step short), 0.00 at lap end, 0.50 two steps into lap 2 (chord of the 12-gon, correct), white arrows over yellow 'second lap, over the first', then '|total| = 0.000000' with a dot at the start. Left circle colours the steps taken. No overlap."
+    },
+    {
+      "sheet": 295,
+      "sha256": "422d4ad6122c9ac766b38cb85536348d559b7787655f8c0a3287f855dda72984",
+      "frames": [
+        54078,
+        54083,
+        54109,
+        54133,
+        54151,
+        54252,
+        54266,
+        54506
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_2/08_3 L1972-2400: |total| hold; L2027 chain dims, L2045 f(z)=1/z fading in; L2146 f(z_k) arrow down-right (1/z_k = conj z_k at angle -60 deg: correct), faint Delta z_k up-left; L2400 product arrow straight up with 'straight up' label (angle -60+150 = 90 deg). Labels clear."
+    },
+    {
+      "sheet": 296,
+      "sha256": "50e08926fe4fbdc788287ecd496400171416da192c1715f5320107cc59f1ac5a",
+      "frames": [
+        54566,
+        54625,
+        54683,
+        54777,
+        54819,
+        54866,
+        54879,
+        55009
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_3 L2460-2903: product label above arrow; L2577 right side cleared, 'column height:'; column of up arrows 3.65 (14 steps x 0.261) then 5.48 (21 steps); L2760 '24 steps: 6.27i' (48 sin(pi/24) = 6.265) and 'limit: 2 pi i ~ 6.28i'. Numbers consistent; text column clear of the arrow column."
+    },
+    {
+      "sheet": 297,
+      "sha256": "c188a3beccc4093bad99d82869c861be98efd385df611ade192622b1c09f19c9",
+      "frames": [
+        55051,
+        55106,
+        55111,
+        55123,
+        55153,
+        55165,
+        55166,
+        55177
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_3/08_4 L2945-3071: circle grows to about twice the radius with 24 dots, column unchanged; 'a bigger circle: the same column' fading in (L3017) then full; L3059-3060 identical every frame; L3071 whole layout dimming. Bigger circle stays inside the axes box."
+    },
+    {
+      "sheet": 298,
+      "sha256": "d7e2db582401d7d097979b5c288ba13485a673aea65ab512ac704c0d0d3437a1",
+      "frames": [
+        55195,
+        55225,
+        55226,
+        55285,
+        55286,
+        55394,
+        55466,
+        55491
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_4 L3089-3385: z^-3 ... z^2 labels fade in; chains drawn left to right, each with 'closes: 0'; L3119-3120 identical; sizes small/large/(z^-1 skipped)/large/small/smallest match the lap counts |n+1| = 2,1,-,1,2,3. No overlap between chains and labels."
+    },
+    {
+      "sheet": 299,
+      "sha256": "ea14cf71469d79456990529a1f373867f46cef02f0e1cc84d216348db4c92ceb",
+      "frames": [
+        55541,
+        55706,
+        55766,
+        55812,
+        55842,
+        55866,
+        55884,
+        55890
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_4/08_5 L3435-3784: all chains closed but z^-1; L3600 yellow box around z^-1 with its column of up arrows, '2 pi i', 'only 1/z survives'; L3760 fade; L3778 dark; L3784 'A closed square, with a little room beyond', 'f holomorphic on a neighborhood', contour-integral_gamma f(z) dz = 0 fading in at top right."
+    },
+    {
+      "sheet": 300,
+      "sha256": "a83501332c4b0aa6445f5922ec688a1289e51595e2ad061686e60ca8f01da2c0",
+      "frames": [
+        55909,
+        55932,
+        55934,
+        55944,
+        55951,
+        55976,
+        55979,
+        55985
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L3803-3879: heading, condition and formula held; left two-thirds of the frame empty (tile995-maxdev.py over tile box 20,120-560,520: max deviation 0 from the background in every slot)."
+    },
+    {
+      "sheet": 301,
+      "sha256": "2f6c7df933ee4f1580160c45d5dd90ba57d165486d07f7493e448800b8be756d",
+      "frames": [
+        55992,
+        55993,
+        56003,
+        56011,
+        56016,
+        56021,
+        56027,
+        56029
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L3886-3923: same hold, region empty (max deviation 0)."
+    },
+    {
+      "sheet": 302,
+      "sha256": "388e591488eff1135150bb5156a4fa410b6005b4eec531deddaa447453120bfe",
+      "frames": [
+        56036,
+        56045,
+        56058,
+        56066,
+        56068,
+        56071,
+        56075,
+        56081
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L3930-3975: same hold, region empty."
+    },
+    {
+      "sheet": 303,
+      "sha256": "0ea7cda84965973579d650887ccd999d3c2a1dbcf3a4f04bd452c0fd64d2bcca",
+      "frames": [
+        56087,
+        56092,
+        56105,
+        56108,
+        56110,
+        56117,
+        56118,
+        56131
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L3981-4025: same hold, region empty."
+    },
+    {
+      "sheet": 304,
+      "sha256": "46128a3ac5a0f25ae96c00f98b616675b027ba3a1eb560d022ee8b692764973c",
+      "frames": [
+        56134,
+        56137,
+        56150,
+        56160,
+        56170,
+        56177,
+        56179,
+        56185
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4028-4079: same hold, region empty."
+    },
+    {
+      "sheet": 305,
+      "sha256": "00fd5ff8e4e38068fcd50e76c0f74d0a5a1f541f4babf8a07b6c8a03ab3277f4",
+      "frames": [
+        56194,
+        56202,
+        56210,
+        56219,
+        56227,
+        56234,
+        56239,
+        56257
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4088-4151: same hold, region empty."
+    },
+    {
+      "sheet": 306,
+      "sha256": "e761b7ed66005e46f04cfc88d050691736819f0e52f5244fac60c2075596187c",
+      "frames": [
+        56261,
+        56262,
+        56274,
+        56276,
+        56287,
+        56297,
+        56299,
+        56306
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4155-4200: same hold, region empty."
+    },
+    {
+      "sheet": 307,
+      "sha256": "7184735c17191b5c4a4606694264911fe92a86cf0452f407a6048350e5a94bb8",
+      "frames": [
+        56316,
+        56321,
+        56336,
+        56339,
+        56348,
+        56356,
+        56359,
+        56366
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4210-4260: same hold, region empty."
+    },
+    {
+      "sheet": 308,
+      "sha256": "482cbff4be70e1cba76bda44dc68ccfa6ec72689a5db9dcdb93164f2951e6201",
+      "frames": [
+        56375,
+        56376,
+        56388,
+        56390,
+        56398,
+        56399,
+        56406,
+        56417
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4269-4311: same hold, region empty."
+    },
+    {
+      "sheet": 309,
+      "sha256": "eb5d34c81aa41cee347387f67a3eb92bffb84370b94ed5e79259186b36b8fa5d",
+      "frames": [
+        56419,
+        56430,
+        56440,
+        56448,
+        56450,
+        56458,
+        56461,
+        56477
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4313-4371: same hold, region empty. The first drawing in that region arrives at L4392 (sheet 0310 slot 5, measured), so the heading 'A closed square, ...' stands over an empty picture area from L3784 to L4391 (608 frames, 10.1 s). See finding L2."
+    },
+    {
+      "sheet": 310,
+      "sha256": "840e8d08a2a3a0f4b620edad8aece0c6418e6da2f2c6a555cfbc578dfde431e2",
+      "frames": [
+        56482,
+        56484,
+        56490,
+        56491,
+        56498,
+        56508,
+        56521,
+        56524
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4376-4385 still empty left region; L4392 yellow square outline fading in, L4402 full; L4415/L4418 counter-clockwise edge arrows fading in (bottom right-going, right up, top left-going, left down: correct orientation)."
+    },
+    {
+      "sheet": 311,
+      "sha256": "0a41275f6c24168fdb603c6ca1eb0a509ba1e53e0537733c7068292eedca0cda",
+      "frames": [
+        56533,
+        56540,
+        56542,
+        56551,
+        56557,
+        56566,
+        56578,
+        56584
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4427-4478 square with edge arrows held. Crop crops/s0311-slot1-right-edge-arrow.png (4x): the right and bottom arrowheads overlap the square's own outline in the same yellow, so the head merges into the edge; direction still reads from shaft + head (finding L3)."
+    },
+    {
+      "sheet": 312,
+      "sha256": "8ac0aad74b9083774afe332f058cf2b1c3ec9ddee3fb87f21ac190334f7aa4d2",
+      "frames": [
+        56593,
+        56594,
+        56599,
+        56600,
+        56620,
+        56626,
+        56630,
+        56636
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4487-4530 same hold; no change frame to frame."
+    },
+    {
+      "sheet": 313,
+      "sha256": "99ed57e65f76c39b1a1cac4ecd5f53751a2363b95f82684c0bd691df41716f93",
+      "frames": [
+        56642,
+        56653,
+        56659,
+        56666,
+        56672,
+        56680,
+        56682,
+        56684
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4536-4578 same hold."
+    },
+    {
+      "sheet": 314,
+      "sha256": "30867ebf09765c56fc47020a003a6e3ed3ea28a92042394f7bb8d506412732ac",
+      "frames": [
+        56687,
+        56689,
+        56696,
+        56699,
+        56719,
+        56724,
+        56725,
+        56732
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4581-4626 same hold."
+    },
+    {
+      "sheet": 315,
+      "sha256": "69b9455f09b0a1152c5cf7bcc99d243b4793a71061b6e690c2eccd2fc633506b",
+      "frames": [
+        56735,
+        56741,
+        56744,
+        56758,
+        56761,
+        56767,
+        56777,
+        56784
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4629-4678 same hold."
+    },
+    {
+      "sheet": 316,
+      "sha256": "596d55edd8ce47b27224b4dff6e0413f520e13fe8877535055b5c4acbedd92ce",
+      "frames": [
+        56800,
+        56801,
+        56821,
+        56827,
+        56828,
+        56837,
+        56849,
+        56860
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4694-4754: hold, then L4743 edge arrows gone and faint grey quarter lines appearing; L4754 quarter lines visible (square split into four)."
+    },
+    {
+      "sheet": 317,
+      "sha256": "eb5a761d892286ace0592c7df3bc66b88d7637f994f4b72d2e82a0e5bd3bd85d",
+      "frames": [
+        56863,
+        56870,
+        56886,
+        56891,
+        56905,
+        56906,
+        56915,
+        56923
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4757-4817: quarters; L4780 four coloured sub-loops fading in (white TL, yellow TR, cyan BL, green BR), each counter-clockwise; interior edges carry opposite pairs offset either side of the dividing line; full by L4799-4817. Pairs do not overlap each other."
+    },
+    {
+      "sheet": 318,
+      "sha256": "28278d9f333d38c5cfe5b24994e116022ede4dba9d9e4b759960fa6f06ee7101",
+      "frames": [
+        56928,
+        56930,
+        56946,
+        56951,
+        56957,
+        56965,
+        56966,
+        56969
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4822-4863 four-loop picture held; outer square outline now a muted gold."
+    },
+    {
+      "sheet": 319,
+      "sha256": "e178b5c169d6790fee526788f16d4d5c3f240869a9c21d3e3ff66b560e3542f9",
+      "frames": [
+        56984,
+        56988,
+        57001,
+        57011,
+        57017,
+        57019,
+        57026,
+        57043
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4878-4937 same hold."
+    },
+    {
+      "sheet": 320,
+      "sha256": "e4ac6b63b21e487f79bc96c2123f6a6d07a449b4ee62e99a412a02593b6554ff",
+      "frames": [
+        57044,
+        57048,
+        57061,
+        57071,
+        57086,
+        57090,
+        57103,
+        57121
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L4938-5015 same hold."
+    },
+    {
+      "sheet": 321,
+      "sha256": "d525c68da592c8b95528ab4b7f6c018cea1d589b7d5f41b929081532eface3f1",
+      "frames": [
+        57127,
+        57133,
+        57146,
+        57149,
+        57162,
+        57169,
+        57175,
+        57181
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5021-5075 same hold."
+    },
+    {
+      "sheet": 322,
+      "sha256": "cec905124d6fb2501b015985c3e3f81370bef444cbef3523e4c681bb415b464f",
+      "frames": [
+        57191,
+        57199,
+        57204,
+        57215,
+        57223,
+        57229,
+        57235,
+        57241
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5085-5135 same hold."
+    },
+    {
+      "sheet": 323,
+      "sha256": "dd35dfc47a23af8920c9d4c4a4446be7e70d9e804f7dba08a01538be597ed2ee",
+      "frames": [
+        57251,
+        57257,
+        57264,
+        57266,
+        57270,
+        57274,
+        57283,
+        57295
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5145-5189: hold; L5164 'I_0 = I_1 + I_2 + I_3 + I_4' and teal 'Same edge. Opposite walks.' fading in under the formula, full by L5168. Text column clear of the square."
+    },
+    {
+      "sheet": 324,
+      "sha256": "ebc61e23259eeb58ef8ad3006d54c345927a38bee7487d1add36be87d3d85f77",
+      "frames": [
+        57301,
+        57312,
+        57316,
+        57317,
+        57318,
+        57330,
+        57337,
+        57344
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5195-5238 hold with the sum line and caption."
+    },
+    {
+      "sheet": 325,
+      "sha256": "d232e4c9a5c98aa78d917984a6a96fe598d90f85cbab86c7a9552a5ca5bd5a22",
+      "frames": [
+        57360,
+        57372,
+        57373,
+        57376,
+        57386,
+        57396,
+        57397,
+        57402
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5254-5296 same hold. Across sheets 0310-0325 the heading promises 'a little room beyond' but no neighbourhood margin around the square is drawn in any sampled still (observation, not graded)."
+    },
+    {
+      "sheet": 326,
+      "sha256": "02579fd3ff3db5254ca6e75c234c234d3ef746d147681a2a2fd76f6ffcc423a1",
+      "frames": [
+        57415,
+        57420,
+        57421,
+        57432,
+        57438,
+        57444,
+        57446,
+        57457
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5309-5351: four coloured counter-clockwise sub-loops, 'I_0 = I_1 + I_2 + I_3 + I_4', teal 'Same edge. Opposite walks.' held unchanged."
+    },
+    {
+      "sheet": 327,
+      "sha256": "849595038863fb59fd59e274206946c5f5cb8372d7fc4eadca4cde9f352cf64d",
+      "frames": [
+        57463,
+        57475,
+        57497,
+        57498,
+        57499,
+        57504,
+        57506,
+        57509
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5357-5403: same hold."
+    },
+    {
+      "sheet": 328,
+      "sha256": "9d5b0c02b9c9da24311cdc11a42082a444dfa2da6c22e5a614478fdc07a0b375",
+      "frames": [
+        57518,
+        57523,
+        57530,
+        57539,
+        57551,
+        57556,
+        57559,
+        57566
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5412-5460: L5424/L5433 sub-loop arrows fading evenly (dimmer each sample); L5445-5453 arrows gone, outline + grey quarter lines; L5460 outline brightens to full yellow while the quarter lines fade. Even, no flash."
+    },
+    {
+      "sheet": 329,
+      "sha256": "427c54cf584b482a90b67becfc95255a4c451c02ef8a6a7e936cdf4288325215",
+      "frames": [
+        57572,
+        57587,
+        57598,
+        57599,
+        57611,
+        57629,
+        57632,
+        57634
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5466-5528: L5466 bare yellow square (quarters gone); L5481 outer counter-clockwise arrows back (top left-going, left down, bottom right-going, right up: correct orientation); held. Right-edge arrowhead again close to the outline (L3 class)."
+    },
+    {
+      "sheet": 330,
+      "sha256": "4e0e06349e880831b63e254bb2969952ccceabf5b1e453021ab55a73cc1081a9",
+      "frames": [
+        57635,
+        57658,
+        57676,
+        57677,
+        57680,
+        57689,
+        57703,
+        57722
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5529-5616: outer square + four arrows held; formula, sum line and teal caption unchanged."
+    },
+    {
+      "sheet": 331,
+      "sha256": "8b72d849253bf10401673683f3387d3d2461219322b770c64bc4e2ff4b9b1f2c",
+      "frames": [
+        57725,
+        57731,
+        57736,
+        57737,
+        57745,
+        57750,
+        57762,
+        57767
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5619-5661: same hold."
+    },
+    {
+      "sheet": 332,
+      "sha256": "b01f1de537e949206be550548fde91eb2a642ee15cd53ebbc7e078ce67d7fe17",
+      "frames": [
+        57782,
+        57786,
+        57791,
+        57792,
+        57804,
+        57805,
+        57815,
+        57827
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5676-5721: same hold."
+    },
+    {
+      "sheet": 333,
+      "sha256": "449f85364baec56217a289b622e685391f70a624db560fb4213835a45e67478d",
+      "frames": [
+        57828,
+        57852,
+        57857,
+        57861,
+        57864,
+        57866,
+        57882,
+        57888
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5722-5782: same hold."
+    },
+    {
+      "sheet": 334,
+      "sha256": "3f9c50d2ef9450fd1aa0413bef3cca454c32839ebbf3f9f59ee9449f50b9518a",
+      "frames": [
+        57907,
+        57917,
+        57920,
+        57921,
+        57924,
+        57947,
+        57949,
+        57962
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5801-5856: L5801 contour formula and 'Same edge. Opposite walks.' dimming; L5811 green '|I_0| > 0' fading in where the formula stood; L5814-5856 full. 'I_0 = I_1 + ... + I_4' kept. No overlap. The supposition is shown as a bare '|I_0| > 0' with no 'suppose' word on screen (observation O3)."
+    },
+    {
+      "sheet": 335,
+      "sha256": "50ea8b21ca836591b6f6f418512cf324770a6460dcadaeec75ce4266b99717db",
+      "frames": [
+        57964,
+        57975,
+        57980,
+        57984,
+        57989,
+        58006,
+        58007,
+        58009
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5858-5903: hold with '|I_0| > 0' and the sum line."
+    },
+    {
+      "sheet": 336,
+      "sha256": "f2a93548a6147b75f206a48f7b40c4a6f559731160054f0b37ba9968b0b77bc8",
+      "frames": [
+        58011,
+        58016,
+        58022,
+        58049,
+        58054,
+        58066,
+        58069,
+        58082
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5905-5976: same hold."
+    },
+    {
+      "sheet": 337,
+      "sha256": "c4b3b694357423263e7537d1aac96894585e7c707c12e23eb01d1b2f8220fbc3",
+      "frames": [
+        58092,
+        58096,
+        58106,
+        58109,
+        58111,
+        58115,
+        58134,
+        58135
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L5986-6029: L5986 outer arrows fading; L5990 bare outline; L6000 grey quarter lines back, outline muted; L6028 top-right quarter filled olive with a bright yellow outline, yellow '|I_{n+1}| >= |I_n|/4' under the sum line. Maths right (one of four terms of a sum of modulus |I_0| has modulus at least |I_0|/4). Crop crops/s0337-slot8-geq-formula.png (5x): the >= sign is drawn with markedly heavier, sans-looking strokes than the surrounding CM bars, slash, '=' and '+' (finding L4)."
+    },
+    {
+      "sheet": 338,
+      "sha256": "9cb50ae06cc19b5209f9932241d1de50229965793e1c349b9858b4552b985c6c",
+      "frames": [
+        58145,
+        58152,
+        58156,
+        58157,
+        58166,
+        58171,
+        58172,
+        58177
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6039-6071: highlighted top-right quarter and the three lines held."
+    },
+    {
+      "sheet": 339,
+      "sha256": "c4ffa0eea9a3bef0d07b84dca36ab16afc8c74a6df72bb8937a525d1329ea0b4",
+      "frames": [
+        58186,
+        58187,
+        58194,
+        58204,
+        58213,
+        58214,
+        58217,
+        58228
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6080-6122: same hold."
+    },
+    {
+      "sheet": 340,
+      "sha256": "f34c3c3c89acbafaaeed7fea76c64cf799a21a26543a242a598d7340a155e3fb",
+      "frames": [
+        58234,
+        58237,
+        58246,
+        58247,
+        58254,
+        58255,
+        58274,
+        58276
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6128-6170: same hold."
+    },
+    {
+      "sheet": 341,
+      "sha256": "4a2c7f9dab56a3c7881d2ded373d5222f3218f2ff08443ecc6d28f07148a1efb",
+      "frames": [
+        58282,
+        58288,
+        58297,
+        58306,
+        58315,
+        58324,
+        58336,
+        58339
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6176-6233: same hold; no further nested square yet."
+    },
+    {
+      "sheet": 342,
+      "sha256": "50a62dc5726d7d6eb10b341a63b30aaf0a7bbafcb5d06a5306336e8d19309d42",
+      "frames": [
+        58348,
+        58354,
+        58357,
+        58381,
+        58384,
+        58396,
+        58402,
+        58410
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6242-6304: highlighted top-right quarter, '|I_0| > 0', sum line, '|I_{n+1}| >= |I_n|/4'; L6248 small grey footnote '|I_1 + I_2 + I_3 + I_4| <= |I_1| + |I_2| + |I_3| + |I_4|' fading in at the bottom, full by L6275. Triangle inequality correct and justifies the /4 step."
+    },
+    {
+      "sheet": 343,
+      "sha256": "2fdf5f54d30678bef5cab921c323355b60419089c14b5f08f33b2e37ce649e5a",
+      "frames": [
+        58426,
+        58428,
+        58439,
+        58441,
+        58444,
+        58448,
+        58452,
+        58456
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6320-6350: same hold. Crop crops/s0343-slot1-triangle-footnote.png (4x): footnote readable, grey on dark (max deviation 132 from background); its <= sign has the same heavy, sans-looking strokes as the >= (L4). Subscripts small at 960x540 but distinct."
+    },
+    {
+      "sheet": 344,
+      "sha256": "df3ddb9e8876d717daa3ef413e5428f94d08c61dbf74bf3b290781ad88a05c0b",
+      "frames": [
+        58466,
+        58469,
+        58470,
+        58481,
+        58484,
+        58486,
+        58490,
+        58501
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6360-6395: same hold."
+    },
+    {
+      "sheet": 345,
+      "sha256": "896d7aaeda1522e21e8cf265a289b39cece7037ba6898736e1fd35a57ed0177c",
+      "frames": [
+        58504,
+        58511,
+        58512,
+        58517,
+        58524,
+        58526,
+        58530,
+        58534
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6398-6428: same hold."
+    },
+    {
+      "sheet": 346,
+      "sha256": "8f013ce598023ba6a85cd06acfe0cb73082e722d74e204ead4d6eed4fe95a6b1",
+      "frames": [
+        58541,
+        58543,
+        58544,
+        58550,
+        58559,
+        58566,
+        58571,
+        58576
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6435-6470: same hold."
+    },
+    {
+      "sheet": 347,
+      "sha256": "b9dd3043b94aa797f1d606f1c0137c77f6e902667f17957d1111bfb13d7dc853",
+      "frames": [
+        58586,
+        58600,
+        58603,
+        58609,
+        58619,
+        58626,
+        58631,
+        58636
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6480-6530: hold; L6520 fill dimming; L6525 '|I_0| > 0', sum line and footnote fading; L6530 only the bright top-right quarter outline, grey quarter lines and '|I_{n+1}| >= |I_n|/4' remain. Even fade."
+    },
+    {
+      "sheet": 348,
+      "sha256": "d9f2362af20246a5c75b872a2959b1fb445c2015e37e4b647b0acddffb922aa7",
+      "frames": [
+        58642,
+        58646,
+        58651,
+        58652,
+        58667,
+        58673,
+        58674,
+        58685
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6536-6579: remaining quarter lines fade (gone L6546); L6545 faint grey lines split the top-right quarter into four; L6561 brighter; L6567 its lower-left sub-square filling olive, full L6579. Nested choice consistent with the rule."
+    },
+    {
+      "sheet": 349,
+      "sha256": "249ac430f70203f63d00c437496af072a623cf008efe9bb92a306333321b409d",
+      "frames": [
+        58694,
+        58702,
+        58703,
+        58706,
+        58709,
+        58711,
+        58716,
+        58724
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6588-6618: hold; L6596 sub-lines fade; L6603-6605 fill fading; L6610 next split faintly drawn inside the chosen sub-square, visible L6618."
+    },
+    {
+      "sheet": 350,
+      "sha256": "61d0b8e561e19864dc2f854720c8df24d2d1a24fae35129332880f0a7cf26a67",
+      "frames": [
+        58727,
+        58733,
+        58745,
+        58754,
+        58766,
+        58769,
+        58776,
+        58780
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6621-6674: level-3 split; L6639 its top-left cell filling, L6648 full; L6660 fill fading, level-3 square outlined; L6670 bare; L6674 next split faint."
+    },
+    {
+      "sheet": 351,
+      "sha256": "cbf38f88189e956fbe6d3e854865049e1bff990b61391d8da79630ca7ef9368d",
+      "frames": [
+        58787,
+        58801,
+        58805,
+        58822,
+        58823,
+        58826,
+        58831,
+        58843
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6681-6737: level-4 split; L6699 bottom-right cell filled; L6716-6725 fill fades; L6737 outline only."
+    },
+    {
+      "sheet": 352,
+      "sha256": "dc5b5bdc800304ddd40706d55be5234a6dc15ead8d89aa0242238162a6e57296",
+      "frames": [
+        58847,
+        58860,
+        58865,
+        58873,
+        58879,
+        58882,
+        58889,
+        58896
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6741-6790: level-5 split drawn at a few tile px; L6767-6790 its top-right cell outlined."
+    },
+    {
+      "sheet": 353,
+      "sha256": "531e860d3f2bece02e2c8e548686b7224960af520d312230c57c9c1591942514",
+      "frames": [
+        58902,
+        58903,
+        58906,
+        58919,
+        58921,
+        58925,
+        58928,
+        58933
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6796-6827: nest held. Crop crops/s0353-slot8-nested-squares.png (6x): at the deepest level the line width is about equal to the square's size, so the last square reads as a solid yellow corner, not a square (expected as the squares shrink to a point; observation only)."
+    },
+    {
+      "sheet": 354,
+      "sha256": "5bbe7a1687a7b5360f9519edd42172bbed9715ed9500614db84d9c818c529953",
+      "frames": [
+        58938,
+        58948,
+        58949,
+        58961,
+        58962,
+        58969,
+        58970,
+        58981
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6832-6875: same nested hold; only the heading, the condition line and '|I_{n+1}| >= |I_n|/4' remain on the right."
+    },
+    {
+      "sheet": 355,
+      "sha256": "985c6b22b12a44eae85f3f1d280e40c5bf0b7576deb010c2d6e7d84e5a397379",
+      "frames": [
+        58991,
+        58998,
+        59004,
+        59008,
+        59011,
+        59021,
+        59024,
+        59030
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6885-6924: same hold."
+    },
+    {
+      "sheet": 356,
+      "sha256": "cd38601007274d477d2714c16715e72c43fdbcf3396816a6f9ebd847db2e74a1",
+      "frames": [
+        59033,
+        59051,
+        59064,
+        59066,
+        59071,
+        59082,
+        59090,
+        59093
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6927-6987: same hold (L6984 is the 'previous layout @t-12' sample: no label yet, nothing overlapping)."
+    },
+    {
+      "sheet": 357,
+      "sha256": "fc6f978fe62b55dffaf0aa127e94a8f6e2b5b1cd319a15c285192d862b8298ba",
+      "frames": [
+        59102,
+        59114,
+        59124,
+        59126,
+        59134,
+        59144,
+        59162,
+        59166
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L6996-7060: L6996 green dot on the innermost square and green italic 'c' label to its right; L7018 'Q_0 \u2283 Q_1 \u2283 Q_2 \u2283 ...' above the inequality. Previous-layout reason (stroke passing under 'c') checked in slots 1, 2 and 7 and crop crops/s0357-slot4-c-label.png (5x): no stroke crosses the 'c' in this master. But the label sits about 64 tile px right of the dot, across two square edges, with no leader (finding L5)."
+    },
+    {
+      "sheet": 358,
+      "sha256": "da70b76167253df9337522f7136353f25e760d78f382ee141213e180cbd4d9dc",
+      "frames": [
+        59176,
+        59183,
+        59184,
+        59196,
+        59204,
+        59208,
+        59215,
+        59225
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7070-7119: nest with the green dot, green 'c', 'Q_0 \u2283 Q_1 \u2283 Q_2 \u2283 ...' and '|I_{n+1}| >= |I_n|/4' held. Label clear of every stroke."
+    },
+    {
+      "sheet": 359,
+      "sha256": "84219febf100dbe4273effe3c49769c1990ede2ed0753bbdcd62f4d7a6bef4a0",
+      "frames": [
+        59236,
+        59238,
+        59243,
+        59246,
+        59257,
+        59258,
+        59268,
+        59275
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7130-7169: same hold; 'Repaired08 c-label' samples L7140 and L7152: the 'c' is clear of the gold edges and the green dot."
+    },
+    {
+      "sheet": 360,
+      "sha256": "c5265490d3e19a23ecf2fb3b25b76373a4c21f4ca5fcbc0660a5eb8f4fe69e72",
+      "frames": [
+        59276,
+        59282,
+        59285,
+        59292,
+        59294,
+        59298,
+        59306,
+        59310
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7170-7204: same hold; repaired-label samples L7170, L7188 and L7200 clear; previous-layout sample L7176 clear."
+    },
+    {
+      "sheet": 361,
+      "sha256": "3e2875525fca5c30a0e2eb0051837ca122536229053ad7a0ea7d6c49d845ed49",
+      "frames": [
+        59314,
+        59317,
+        59318,
+        59334,
+        59336,
+        59345,
+        59354,
+        59356
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7208-7250: same hold; repaired-label samples L7212, L7230 and L7248 clear."
+    },
+    {
+      "sheet": 362,
+      "sha256": "d59835730805c6ad4f7f37bb82aade8fd0e828fadc1283d9fdced86aaa66c93a",
+      "frames": [
+        59366,
+        59370,
+        59377,
+        59393,
+        59394,
+        59402,
+        59408,
+        59416
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7260-7310: same hold (L7296 'previous layout persistence' sample: unchanged, clear)."
+    },
+    {
+      "sheet": 363,
+      "sha256": "7645af6c7780f972e47ba7a3af7b4727583b6d5559e5025746df792ecf73b44b",
+      "frames": [
+        59419,
+        59428,
+        59434,
+        59435,
+        59458,
+        59462,
+        59468,
+        59470
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7313-7364: hold; L7352 green 'One point c. One derivative.' fading in between the condition line and the Q chain; full by L7356 (previous-layout sample L7356 clear). Line spacing even, no overlap."
+    },
+    {
+      "sheet": 364,
+      "sha256": "c4a10334c7ae3e614f4904f5eabd0270a00098de9fd60f2579c4358eb5f3c2d9",
+      "frames": [
+        59476,
+        59477,
+        59478,
+        59479,
+        59490,
+        59495,
+        59508,
+        59518
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7370-7412: hold with the four right-column lines."
+    },
+    {
+      "sheet": 365,
+      "sha256": "7b42cf3f47aec056be96bca54601479ec64628837c9de78661d8213b49146aca",
+      "frames": [
+        59520,
+        59530,
+        59531,
+        59532,
+        59536,
+        59537,
+        59550,
+        59556
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7414-7450: same hold."
+    },
+    {
+      "sheet": 366,
+      "sha256": "ad60d5c9a367dbb449f99290a2c031fd82d94937afdeb09a9a943b58d8a27a87",
+      "frames": [
+        59573,
+        59580,
+        59592,
+        59598,
+        59610,
+        59617,
+        59633,
+        59658
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7467-7552: hold to L7527; by L7552 the heading and every right-column line are gone and 'f(z) = f(c) + f'(c)(z - c) + r(z)' is fading in at the top centre over the nest. The nest, dot and 'c' persist across the change."
+    },
+    {
+      "sheet": 367,
+      "sha256": "7451f5930d3e606b11718065e592b168f0963b23ca456b1892db2bd3bf02e9dd",
+      "frames": [
+        59659,
+        59660,
+        59666,
+        59675,
+        59677,
+        59692,
+        59699,
+        59702
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7553-7596: formula full at the top, right two-thirds empty. Crop crops/s0367-slot3-taylor-formula.png (3x): the minus in '(z - c)' is short and heavy, about half the width of the '+' bars and thicker, unlike a CM minus (finding L6)."
+    },
+    {
+      "sheet": 368,
+      "sha256": "d5a5cca079b97f52e38362cf00fbe142e30ba522de4e46c6fc9474bf95d1eb61",
+      "frames": [
+        59719,
+        59730,
+        59734,
+        59735,
+        59741,
+        59762,
+        59770,
+        59772
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7613-7666: same hold; formula and nest unchanged."
+    },
+    {
+      "sheet": 369,
+      "sha256": "28e0f8326f8170e987243ce7a39ff3d3853aa5ec27b1d42def77b147502fc580",
+      "frames": [
+        59779,
+        59786,
+        59794,
+        59801,
+        59804,
+        59807,
+        59812,
+        59819
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7673-7713: same hold."
+    },
+    {
+      "sheet": 370,
+      "sha256": "8232a161511c6908d905fbeb44bbb829904f8018bd28667b028de2697cb91c83",
+      "frames": [
+        59828,
+        59832,
+        59849,
+        59850,
+        59861,
+        59864,
+        59869,
+        59872
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7722-7766: same hold."
+    },
+    {
+      "sheet": 371,
+      "sha256": "09b70ca1d5ab7c1f791f08e2e8fc9497e0269c837b043bd9fe635609452d0f4e",
+      "frames": [
+        59888,
+        59892,
+        59897,
+        59906,
+        59909,
+        59911,
+        59916,
+        59921
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7782-7815: same hold."
+    },
+    {
+      "sheet": 372,
+      "sha256": "f8ff53ec48411223055e5e3e5dd74fb879dc9ab4add436be037acf8381870b4b",
+      "frames": [
+        59933,
+        59939,
+        59952,
+        59958,
+        59959,
+        59966,
+        59971,
+        59975
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7827-7869: same hold."
+    },
+    {
+      "sheet": 373,
+      "sha256": "2099725e8497e1ebfaddf178f83c57bdf809e62dbb5818f9257aae7ca1423d8d",
+      "frames": [
+        59989,
+        59996,
+        59999,
+        60001,
+        60002,
+        60017,
+        60018,
+        60031
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7883-7925: same hold (L7896 previous-layout persistence sample unchanged). Right two-thirds empty from L7552 through at least L7925 (373 frames, 6.2 s); continues into the next batch."
+    },
+    {
+      "sheet": 374,
+      "sha256": "51b03ff556cd6acfaadb1dd399231c37499154853549e88b5c5638ebedbb2e79",
+      "frames": [
+        60035,
+        60038,
+        60059,
+        60061,
+        60068,
+        60091,
+        60095,
+        60098
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L7929-7992: Taylor line 'f(z) = f(c) + f'(c)(z - c) + r(z)' at top, nest + green dot + 'c' held, right two-thirds still empty through L7962 (slot 5); L7985 teal '\u222e f(c) dz = f(c) \u2211 \u0394z = 0' and grey 'Exact changes, added tip to tail' fading in at right. So the right side was empty from L7552 to L7984 (about 7.2 s; observation O4). Formula correct (\u222e dz around a closed loop is 0)."
+    },
+    {
+      "sheet": 375,
+      "sha256": "761d5eee7a6b392a18228dd82da5cf094842854bc27714b09238ff8b654c8469",
+      "frames": [
+        60110,
+        60119,
+        60120,
+        60137,
+        60142,
+        60162,
+        60163,
+        60170
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8004-8064: four teal arrows drawn one by one tip to tail (each fades in dim, then full): up-right, up-left, down-left, down-right, closing a tilted square. Consistent with f(c)\u0394z for a counter-clockwise square edge list rotated by arg f(c) (+h, +ih, -h, -ih all turned by the same angle). Caption clear of the arrows."
+    },
+    {
+      "sheet": 376,
+      "sha256": "900314ecbaba540a0c6c37920a929e5d52defe3e11dc0da44480b2d957b54b61",
+      "frames": [
+        60184,
+        60197,
+        60205,
+        60206,
+        60222,
+        60224,
+        60239,
+        60240
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8078-8134: white dot at the shared start/end point marks the closure; held. Dot sits at the last head and first tail without hiding either."
+    },
+    {
+      "sheet": 377,
+      "sha256": "e16a5a175119ccb3fb6955b6f7a3b8a19717c155ce126c3e6e67cdbd3b53101c",
+      "frames": [
+        60244,
+        60248,
+        60250,
+        60265,
+        60266,
+        60268,
+        60282,
+        60289
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8138-8183: same hold."
+    },
+    {
+      "sheet": 378,
+      "sha256": "fdb12e4b641d9f936528b26d24b7a3026871c7ff9acc69c5975fb87816a719e3",
+      "frames": [
+        60292,
+        60299,
+        60302,
+        60308,
+        60310,
+        60317,
+        60326,
+        60331
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8186-8225: same hold; previous-layout persistence sample L8196 (slot 3): unchanged, nothing overlapping."
+    },
+    {
+      "sheet": 379,
+      "sha256": "2a56710a083ecea1feeedd930f11d1a68d13a76b593ddf7f3df218c888c0fad9",
+      "frames": [
+        60342,
+        60344,
+        60352,
+        60359,
+        60368,
+        60370,
+        60386,
+        60391
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8236-8285: same hold."
+    },
+    {
+      "sheet": 380,
+      "sha256": "d6af909516bb8509ec0dd6c046c65dd4361e86ff53fe6f20b572803fd633623f",
+      "frames": [
+        60395,
+        60412,
+        60413,
+        60419,
+        60428,
+        60431,
+        60437,
+        60446
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8289-8340: L8306-8313 teal formula, arrows and dot fade out; L8322 green '\u222e f'(c)(z - c) dz = \u222e d( f'(c)(z - c)^2 / 2 ) = 0' fading in; L8340 first green arrow (long, down). The unchanged grey caption 'Exact changes, added tip to tail' fades out with the teal group and back in with the green: measured max deviation in tile box 590,398-800,424 is 132 at L8289, 113 L8306, 102 L8307, 13 L8313 (one pixel above threshold: effectively gone), 70 L8322, 100 L8325, 127 L8331, 130 L8340 (crop crops/s0380-slot4-caption-dip.png). Finding L7. The green formula is correct (an exact differential integrates to zero round a closed loop) and legible at 4x (crop crops/s0381-slot1-exact-differential.png); its minus is the same short heavy dash as L6."
+    },
+    {
+      "sheet": 381,
+      "sha256": "7888e5f599484d6f10322d5bc4973b5ae30f5188ef9937c81eb3f95f3ae18011",
+      "frames": [
+        60452,
+        60455,
+        60473,
+        60491,
+        60494,
+        60497,
+        60506,
+        60510
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8346-8404: green chain built tip to tail: long arrow down, short arrow up, arrow down-right (L8367-8385 drawn alone), then L8391-8404 return arrow up-left to the start. Periodic sample L8400 normal."
+    },
+    {
+      "sheet": 382,
+      "sha256": "4ba327e0d535f94ecc05639eb4ca11fab5787874a4f201dacbdde1cbda9ecd84",
+      "frames": [
+        60515,
+        60533,
+        60551,
+        60552,
+        60554,
+        60558,
+        60565,
+        60566
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8409-8460: white dot fades in at the start/end; chain closed. Five-second sample L8460 normal."
+    },
+    {
+      "sheet": 383,
+      "sha256": "7e3548affdc51b2cb3d29a160e2b93b489eacb6e8f67f4fd8cac86af0122a112",
+      "frames": [
+        60572,
+        60575,
+        60593,
+        60599,
+        60600,
+        60602,
+        60607,
+        60612
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8466-8506: hold. Crop crops/s0383-slot1-green-chain.png (4x): the third step (down-right) lies within about 4 tile px of, and parallel to, the long return step over its whole length, so in the held picture the two read as one doubled stroke with a head at each end; the third step is not separately visible (finding L8). Previous-layout persistence sample L8496 (slot 6): unchanged."
+    },
+    {
+      "sheet": 384,
+      "sha256": "8ab718107683c4014d450349c9c317b605be7ad858055abb2031c2b5c818b294",
+      "frames": [
+        60614,
+        60616,
+        60620,
+        60641,
+        60650,
+        60653,
+        60658,
+        60660
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8508-8554: same hold."
+    },
+    {
+      "sheet": 385,
+      "sha256": "e99a03ecb74ffd99d700e28af709b2650fac4d0ed9bc13f803af593652281225",
+      "frames": [
+        60662,
+        60667,
+        60674,
+        60686,
+        60692,
+        60701,
+        60710,
+        60718
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8556-8612: same hold."
+    },
+    {
+      "sheet": 386,
+      "sha256": "73b8d4bd8ffb0c639547e96be7cf192d1299b59c4bfb60b85364bd5f33808ced",
+      "frames": [
+        60722,
+        60727,
+        60728,
+        60737,
+        60752,
+        60769,
+        60776,
+        60779
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8616-8673: same hold."
+    },
+    {
+      "sheet": 387,
+      "sha256": "6f057520bf5fe773cb514b537312e1b9c23250839533d03e18e60a3b9b41f8c5",
+      "frames": [
+        60788,
+        60794,
+        60808,
+        60812,
+        60818,
+        60826,
+        60829,
+        60833
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8682-8727: same hold."
+    },
+    {
+      "sheet": 388,
+      "sha256": "6efade89ac7c75470f4d80d37aa68107a7cbcd3503a0f4f3c558331225414e8d",
+      "frames": [
+        60839,
+        60840,
+        60850,
+        60854,
+        60859,
+        60866,
+        60868,
+        60875
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8733-8769: same hold (five-second sample L8760 normal)."
+    },
+    {
+      "sheet": 389,
+      "sha256": "635bcb9249c84116dd015bff2548867a3853ac3af7987385289d0e79c39ad2d2",
+      "frames": [
+        60878,
+        60882,
+        60901,
+        60902,
+        60906,
+        60910,
+        60924,
+        60928
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8772-8822: hold; previous-layout persistence sample L8796 (slot 4) unchanged; L8822 (slot 8) green formula, chain, dot and caption start to fade together. Taylor line, nest, dot and 'c' unchanged."
+    },
+    {
+      "sheet": 390,
+      "sha256": "98807289ade8cd8bc702a93fc99f3ab79846353ff3da7c53c132872ad5464d59",
+      "frames": [
+        60934,
+        60935,
+        60942,
+        60948,
+        60958,
+        60961,
+        60966,
+        60976
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8828-8870: green f'(c) group almost gone at L8828, right side empty at L8829, then yellow 'I_n = \u222e_{\u2202Q_n} r(z) dz' fading in from L8836, full by L8852. Correct: the f(c) and f'(c)(z - c) parts integrate to zero round \u2202Q_n, so only r is left. Even fade, no overlap."
+    },
+    {
+      "sheet": 391,
+      "sha256": "8dd2e736b5307ab2af534cf8a4af8b193f32c343d9ad1c0ad4ccf6d74b2dba31",
+      "frames": [
+        60998,
+        61000,
+        61008,
+        61026,
+        61036,
+        61040,
+        61056,
+        61060
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8892-8954: hold with the I_n line."
+    },
+    {
+      "sheet": 392,
+      "sha256": "92f7613369c64e3f00205b93241b789c33759a0d06f298f4a847c2661ef31909",
+      "frames": [
+        61075,
+        61098,
+        61100,
+        61106,
+        61117,
+        61128,
+        61142,
+        61153
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L8969-9047: L8969 green text 'Choose any epsilon > 0' fading in under I_n, full by L8992; hold. The Greek letter is spelled out in words here but written as \u03b5 in the formula that follows (finding L10)."
+    },
+    {
+      "sheet": 393,
+      "sha256": "d08d39bd157fba2e7068ea9a83cd684fbc0f7415125286d8bfbafc8c3e0c3f03",
+      "frames": [
+        61158,
+        61166,
+        61170,
+        61176,
+        61177,
+        61195,
+        61202,
+        61208
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9052-9102: hold. Crop crops/s0393-slot1-In-epsilon.png (5x): the \u2202 in the subscript \u2202Q_n is an upright, heavy, sans-looking glyph beside the thin italic CM Q_n (finding L9); subscript sits well clear of the \u222e and r(z) dz. Periodic sample L9000 and five-second L9060 normal."
+    },
+    {
+      "sheet": 394,
+      "sha256": "706c720883611e0db0e801d44f71cd698b9d551ec7b34db1582ca92a346d2bbf",
+      "frames": [
+        61218,
+        61226,
+        61230,
+        61235,
+        61244,
+        61250,
+        61255,
+        61256
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9112-9150: hold; L9144 (previous-layout @t-12 sample) green \u03b4-circle round the dot fading in, with '|r(z)| <= \u03b5|z - c|' and grey '|z - c| < \u03b4' fading in under the text line; brighter at L9149/L9150. The 'c' label stays clear of the circle and of every gold edge (repaired-label samples L9120 and L9150 checked)."
+    },
+    {
+      "sheet": 395,
+      "sha256": "23927860b452e8d25416b95dbb7417278d1e73dffda4b3250611bb62daedcf12",
+      "frames": [
+        61262,
+        61268,
+        61274,
+        61277,
+        61278,
+        61279,
+        61286,
+        61291
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9156-9185: all full. Crop crops/s0395-slot1-delta-disk.png (6x): circle centred on c; the level-4 and deeper squares lie inside it, the level-3 square pokes out (consistent with 'Q_n inside the disk for large n'); circle crosses gold edges only where geometry requires; 'c' label outside the circle, nothing crosses it (previous-layout @t+0 flag 'crossed a stroke' not reproduced). Crop crops/s0395-slot1-r-bound.png (5x): the <= in '|r(z)| <= \u03b5|z - c|' is the same heavy sans-looking glyph as L4 (thin CM < in '|z - c| < \u03b4' just below shows the contrast); the minus is the short heavy dash of L6. Statement correct (differentiability at c gives such a \u03b4 for each \u03b5)."
+    },
+    {
+      "sheet": 396,
+      "sha256": "9d77a2afd253e9fc8e286f01844fb89202e32b290e4b9ae509f8f22672972988",
+      "frames": [
+        61298,
+        61304,
+        61307,
+        61316,
+        61321,
+        61322,
+        61333,
+        61336
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9192-9230: hold; repaired-label samples L9192/L9210 and previous-layout @t+60 sample L9216 clear."
+    },
+    {
+      "sheet": 397,
+      "sha256": "de871886841b5b67a94b237496c45b01ed881a46fa6ac814e3a684b3249d7d50",
+      "frames": [
+        61337,
+        61346,
+        61349,
+        61355,
+        61378,
+        61381,
+        61386,
+        61393
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9231-9287: same hold (repaired-label L9240 clear)."
+    },
+    {
+      "sheet": 398,
+      "sha256": "2fe829eb5c03dd29b04da26c3c073b5f0a12ad54b60ab86612571e46f22410b8",
+      "frames": [
+        61397,
+        61399,
+        61406,
+        61408,
+        61409,
+        61428,
+        61430,
+        61438
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9291-9332: same hold (repaired-label L9300 clear)."
+    },
+    {
+      "sheet": 399,
+      "sha256": "6f95b9420f890b082043d8f31f48c1ad0cb1302b30137c6c97b84db8ebbafa19",
+      "frames": [
+        61441,
+        61442,
+        61450,
+        61457,
+        61462,
+        61466,
+        61472,
+        61487
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9335-9381: same hold (previous-layout @t+180 sample L9336 clear; five-second L9360 normal)."
+    },
+    {
+      "sheet": 400,
+      "sha256": "463967d5cf00b61f5ee03308cd49556de48631fe225dac3cdb081eb3ff3d81ba",
+      "frames": [
+        61488,
+        61500,
+        61501,
+        61502,
+        61504,
+        61510,
+        61520,
+        61526
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9382-9420: same hold (previous-layout persistence L9396 and repaired-label L9420 clear)."
+    },
+    {
+      "sheet": 401,
+      "sha256": "5422dec0d74acbd4f84982eacadc2c8973f8fc18ca239dcc1e4570a1555fbc0d",
+      "frames": [
+        61529,
+        61532,
+        61537,
+        61542,
+        61553,
+        61562,
+        61564,
+        61579
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9423-9473: same hold (L9456 previous-layout persistence clear)."
+    },
+    {
+      "sheet": 402,
+      "sha256": "4aad40a1ad2f6cc677b1a0bff85b7bd26e80eab114e737d317542d14d08eb053",
+      "frames": [
+        61586,
+        61589,
+        61595,
+        61602,
+        61603,
+        61619,
+        61622,
+        61631
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9480-9525: same hold (repaired-label L9480 and previous-layout @t+360 L9516 clear)."
+    },
+    {
+      "sheet": 403,
+      "sha256": "c44841aa877da3e4acd6634497e0c525bb515c1851389026145273f1f3486fd4",
+      "frames": [
+        61639,
+        61645,
+        61646,
+        61649,
+        61655,
+        61661,
+        61664,
+        61680
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9533-9574: same hold (repaired-label L9540 clear)."
+    },
+    {
+      "sheet": 404,
+      "sha256": "41f67a9837f76f042a0b13ca68e4dab7bb0e73fd81162be5135ee53f7269db4f",
+      "frames": [
+        61687,
+        61691,
+        61694,
+        61705,
+        61706,
+        61712,
+        61718,
+        61721
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9581-9615: same hold (repaired-label L9588/L9612 clear; five-second L9600 normal)."
+    },
+    {
+      "sheet": 405,
+      "sha256": "2d504436f12b5e9951fe65c27ae330b46f036725e8b06f3d1121aada8e2a28c0",
+      "frames": [
+        61722,
+        61729,
+        61744,
+        61751,
+        61754,
+        61766,
+        61771,
+        61772
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9616-9666: same hold. The picture has not changed since L9156 (about 8.5 s through L9666); the hold continues into the next batch, so its full length is measured there before any pacing call."
+    },
+    {
+      "sheet": 406,
+      "sha256": "cfb0b1e3884c05c6d26bb38c8a6aca3b6329ac0610c8b1438832ffb7c74961de",
+      "frames": [
+        61782,
+        61786,
+        61789,
+        61802,
+        61814,
+        61826,
+        61831,
+        61836
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9676-9730: same hold as 0395-0405 (Taylor line, nest, \u03b4-circle, dot, 'c', I_n line, 'Choose any epsilon > 0', '|r(z)| <= \u03b5|z - c|', '|z - c| < \u03b4'); previous-layout sample L9696 clear."
+    },
+    {
+      "sheet": 407,
+      "sha256": "ec347aa6ff4f39027cf1ffc93f5cbf92048db47670d195e6250519556c9e405d",
+      "frames": [
+        61844,
+        61846,
+        61852,
+        61856,
+        61862,
+        61868,
+        61874,
+        61878
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9738-9772: same hold; previous-layout @t+600 sample L9756 clear. L9772 the outer square starts to dim. The picture is static from L9156 to L9768, about 10.2 s (observation O5)."
+    },
+    {
+      "sheet": 408,
+      "sha256": "967dfce02b825e76e42de867436a49a4ec87d21eb1b6938f2be82f469c709bce",
+      "frames": [
+        61886,
+        61894,
+        61903,
+        61916,
+        61920,
+        61938,
+        61939,
+        61945
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9780-9839: transition. L9780 the nest fades, leaving the \u03b4-circle, dot and 'c'; L9788 squares gone; L9797 all faint; L9810 grey 'Selected square, magnified' and a new large gold square with the dot at its centre. In this view the 'c' label sits up-left close to the dot (better than L5). The \u03b4-circle is not drawn in the magnified view while '|z - c| < \u03b4' stays on screen (observation O6)."
+    },
+    {
+      "sheet": 409,
+      "sha256": "1860c8c1521b3c24646265f9abb304c1cef53428a681fa238d1f0fa54f70b92b",
+      "frames": [
+        61946,
+        61954,
+        61962,
+        61966,
+        61980,
+        61981,
+        61993,
+        62005
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9840-9900: hold of the magnified square with the right-hand text column."
+    },
+    {
+      "sheet": 410,
+      "sha256": "2095731e14cdb344177e1197e376d1bb17c1ab2d33974c3bcb809a7832d1741f",
+      "frames": [
+        62006,
+        62008,
+        62010,
+        62022,
+        62035,
+        62041,
+        62052,
+        62066
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9905-9960: same hold."
+    },
+    {
+      "sheet": 411,
+      "sha256": "5dfb89a4e3dd54a705c910500187f51606dbd74be78533b97e425a9aaca5f293",
+      "frames": [
+        62068,
+        62077,
+        62095,
+        62102,
+        62112,
+        62119,
+        62126,
+        62137
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L9962-10031: hold; L10031 teal diagonal fading in with label 'D_n', and a green segment from the bottom-left corner point z (yellow dot) to c. Consistent with |z - c| <= D_n for z on \u2202Q_n (in fact <= D_n/2 from the centre; the drawn diagonal is the bound the proof uses)."
+    },
+    {
+      "sheet": 412,
+      "sha256": "47e4d645502a8c75466b83147acfc969745803f91169902cadd0a6d93fc1e278",
+      "frames": [
+        62138,
+        62152,
+        62161,
+        62162,
+        62165,
+        62180,
+        62188,
+        62194
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10032-10090: hold; 'D_n' label clear of the diagonal by about 17 displayed px."
+    },
+    {
+      "sheet": 413,
+      "sha256": "aa3c4e40f88eb6b7b2e9d9cfab5fec842af5064beba9002b299e1360cb5ad151",
+      "frames": [
+        62197,
+        62207,
+        62208,
+        62221,
+        62222,
+        62230,
+        62240,
+        62250
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10095-10150: same hold."
+    },
+    {
+      "sheet": 414,
+      "sha256": "b35d136420d680d468792eafa149bbe40851793d96638c6c308c721499750a28",
+      "frames": [
+        62254,
+        62263,
+        62267,
+        62272,
+        62282,
+        62290,
+        62304,
+        62306
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10152-10200: same hold."
+    },
+    {
+      "sheet": 415,
+      "sha256": "d84ec380607b4a4b15993a3b5e9f868db4abfb10ab9a82d6609e883d989889c2",
+      "frames": [
+        62307,
+        62308,
+        62309,
+        62310,
+        62311,
+        62312,
+        62313,
+        62314
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10201-10208: every-frame interval (10200-10380); static."
+    },
+    {
+      "sheet": 416,
+      "sha256": "612de460df1424f24bf4b8f94f60e11c8208f50c208b901f8366aa541e11fb16",
+      "frames": [
+        62315,
+        62316,
+        62317,
+        62318,
+        62319,
+        62320,
+        62321,
+        62322
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10209-10216: every frame; static."
+    },
+    {
+      "sheet": 417,
+      "sha256": "f34c0f3686ac9a821247782e051c54f53501f2e63effee87d29f2b8f6fcce1b1",
+      "frames": [
+        62323,
+        62324,
+        62325,
+        62326,
+        62327,
+        62328,
+        62329,
+        62330
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10217-10224: z starts moving right along the bottom edge, about 9 tile px per frame, evenly; green segment z-c follows. No jumps between consecutive frames."
+    },
+    {
+      "sheet": 418,
+      "sha256": "26c88db4167d746128af148daa6dc577761cb56878f36b196ab8549e87dd229a",
+      "frames": [
+        62331,
+        62332,
+        62333,
+        62334,
+        62335,
+        62336,
+        62337,
+        62338
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10225-10232: motion continues evenly; the 'D_n' and 'c' labels fade out, very dim by L10231-10232."
+    },
+    {
+      "sheet": 419,
+      "sha256": "a2e9fbfe57b984218a8c30f9b0e2a12fe88186b17f3dac8b1981b6e128f0a741",
+      "frames": [
+        62339,
+        62340,
+        62341,
+        62342,
+        62343,
+        62344,
+        62345,
+        62346
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10233-10240: labels gone; z keeps moving evenly along the bottom edge."
+    },
+    {
+      "sheet": 420,
+      "sha256": "9d55b9244ff7e66e780f747305493ac55c2a9eb4da6a4e3d7e7a768b110da807",
+      "frames": [
+        62347,
+        62348,
+        62349,
+        62350,
+        62351,
+        62352,
+        62353,
+        62354
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10241-10248: z reaches the bottom-right corner at L10247 and turns up the right edge at L10248; no skipped corner."
+    },
+    {
+      "sheet": 421,
+      "sha256": "9178f6b63fa006edc2dead8f540dd473a33c532fe7141523894ed6aab10b2583",
+      "frames": [
+        62355,
+        62356,
+        62357,
+        62358,
+        62359,
+        62360,
+        62361,
+        62362
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10249-10256: z moves up the right edge evenly."
+    },
+    {
+      "sheet": 422,
+      "sha256": "1b853b256228d28e395f7cf5267538fa777f545ab7076bd1673206d3b427989c",
+      "frames": [
+        62363,
+        62364,
+        62365,
+        62366,
+        62367,
+        62368,
+        62369,
+        62370
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10257-10264 (every frame): z moves up the right edge evenly; passes the right-edge midpoint at L10262 (green segment horizontal). No skipped or repeated frames."
+    },
+    {
+      "sheet": 423,
+      "sha256": "6989df83e3087470eec613a2f382435a80927e9387ed99c042eb105aaa2b0975",
+      "frames": [
+        62371,
+        62372,
+        62373,
+        62374,
+        62375,
+        62376,
+        62377,
+        62378
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10265-10272 (every frame): z continues up the right edge evenly towards the top-right corner."
+    },
+    {
+      "sheet": 424,
+      "sha256": "348d6e8f780570303204532018abbf928e426e0e608f8fac52841aa65cb18597",
+      "frames": [
+        62379,
+        62380,
+        62381,
+        62382,
+        62383,
+        62384,
+        62385,
+        62386
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10273-10280 (every frame): z reaches the top-right corner at L10277; the green segment then lies on the upper half of the teal diagonal (z - c along the diagonal, as it should). From L10278 z moves left along the top edge."
+    },
+    {
+      "sheet": 425,
+      "sha256": "7ea925561f0a6cdc9ebb77ff614439e3cb2920bc1762131e81ec9683e8b1e9f6",
+      "frames": [
+        62387,
+        62388,
+        62389,
+        62390,
+        62391,
+        62392,
+        62393,
+        62394
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10281-10288 (every frame): z moves left along the top edge evenly."
+    },
+    {
+      "sheet": 426,
+      "sha256": "3a41bfe70809ab28e7719f55a5b52207cfa5232a050822fdb944eba95610c6d2",
+      "frames": [
+        62395,
+        62396,
+        62397,
+        62398,
+        62399,
+        62400,
+        62401,
+        62402
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10289-10296 (every frame): z passes the top-edge midpoint at L10292 (green segment vertical); even motion."
+    },
+    {
+      "sheet": 427,
+      "sha256": "5b1b3e59b0a5fed0b5dafcd2b54924ef7d576c039c510cc9cbfeb0b68a1f5e91",
+      "frames": [
+        62403,
+        62404,
+        62405,
+        62406,
+        62407,
+        62408,
+        62409,
+        62410
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10297-10304 (every frame): z continues left along the top edge."
+    },
+    {
+      "sheet": 428,
+      "sha256": "1cf918040b8eb7dbb3427d809112ec98a9fc98c754dae17b640dd8f923504833",
+      "frames": [
+        62411,
+        62412,
+        62413,
+        62414,
+        62415,
+        62416,
+        62417,
+        62418
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10305-10312 (every frame): z reaches the top-left corner at L10307 (green segment perpendicular to the diagonal) and turns down the left edge at L10308."
+    },
+    {
+      "sheet": 429,
+      "sha256": "c31864c3b5c9fc1573d4cca67a6c27b531bf48dbf8d6dc51f9f0abb27f3c1f84",
+      "frames": [
+        62419,
+        62420,
+        62421,
+        62422,
+        62423,
+        62424,
+        62425,
+        62426
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10313-10320 (every frame): z moves down the left edge evenly."
+    },
+    {
+      "sheet": 430,
+      "sha256": "0623c13814ce12e87f6713ec1a355d361b3bba17916e84e3cead19a14a1d4339",
+      "frames": [
+        62427,
+        62428,
+        62429,
+        62430,
+        62431,
+        62432,
+        62433,
+        62434
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10321-10328 (every frame): z passes the left-edge midpoint at L10322 (green segment horizontal); even motion."
+    },
+    {
+      "sheet": 431,
+      "sha256": "03f1d951b7aa1941bf69708283269695fcb917d0fc1b42c281594f4f724b4b85",
+      "frames": [
+        62435,
+        62436,
+        62437,
+        62438,
+        62439,
+        62440,
+        62441,
+        62442
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10329-10336 (every frame): z continues down the left edge and reaches the bottom-left start corner at L10336; the green segment then covers the lower half of the diagonal. The circuit is counter-clockwise, 30 frames per side (L10217-10247-10277-10307-10336), with no jumps in any of the 120 consecutive frames read on sheets 0417-0431."
+    },
+    {
+      "sheet": 432,
+      "sha256": "46e45ce370a6ee18bf6c29a84badbe96ded86ddf7fa1632be3ec647d909f06b9",
+      "frames": [
+        62443,
+        62444,
+        62445,
+        62446,
+        62447,
+        62448,
+        62449,
+        62450
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10337-10344 (every frame): z held at the start corner; L10339 labels fade back in: teal 'D_n' beside the upper half of the diagonal, green 'c' up-left of the dot, and a new gold 'P_n' centred under the bottom edge."
+    },
+    {
+      "sheet": 433,
+      "sha256": "8144dc31b464a0f9fe5d63186aec6c98a564f0d4e6840a9431a72a6f4deb00a5",
+      "frames": [
+        62451,
+        62452,
+        62453,
+        62454,
+        62455,
+        62456,
+        62457,
+        62458
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10345-10352 (every frame): labels full. Crop crops/s0434-slot1-Dn-Pn-labels.png (3x, from 0434): the thicker green segment covers the whole lower half of the diagonal, so the only visible teal is c to the top-right corner, and 'D_n' sits beside that half; 'P_n' sits centred under one side (finding L11)."
+    },
+    {
+      "sheet": 434,
+      "sha256": "b44530530283ed1fccce2ece54418cd7fda57d401c9e1ffb39f43740b70100a0",
+      "frames": [
+        62459,
+        62460,
+        62461,
+        62462,
+        62463,
+        62464,
+        62465,
+        62466
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10353-10360 (every frame): hold; all labels clear of strokes."
+    },
+    {
+      "sheet": 435,
+      "sha256": "138af561a1e6951e5c614208d039790a58688f8d115bddc9dad936fa108c7cd8",
+      "frames": [
+        62467,
+        62468,
+        62469,
+        62470,
+        62471,
+        62472,
+        62473,
+        62474
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10361-10368 (every frame): same hold."
+    },
+    {
+      "sheet": 436,
+      "sha256": "c079d6b1d1434f7c4d2b97c29d78ec74c8ae249109236dcb1eaacf1a2820e5ec",
+      "frames": [
+        62475,
+        62476,
+        62477,
+        62478,
+        62479,
+        62480,
+        62481,
+        62482
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10369-10376 (every frame): same hold."
+    },
+    {
+      "sheet": 437,
+      "sha256": "1d37fce85b5efcb92f1d0f3fc953e57a57eb527c043be5439b1e5af0e559f72a",
+      "frames": [
+        62483,
+        62484,
+        62485,
+        62486,
+        62488,
+        62495,
+        62497,
+        62498
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10377-10380 (last every-frame samples) and L10382, L10389, L10391, L10392: same hold. Every frame of the interval L10200-10380 has now been read (sheets 0415-0437 slot 4)."
+    },
+    {
+      "sheet": 438,
+      "sha256": "2232db20ad9ae5960716119f8a1962ef99917e3ea7563c296487dd29fdafb4ae",
+      "frames": [
+        62512,
+        62518,
+        62533,
+        62537,
+        62548,
+        62554,
+        62557,
+        62575
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10406-10469: hold of the magnified square with 'D_n', 'c', 'P_n' and the right-hand column (I_n, epsilon line, two bounds)."
+    },
+    {
+      "sheet": 439,
+      "sha256": "ba2891a02ff29a7c231a911c25db3fbf86714ab1bd1d80358cb2f977aa7b2587",
+      "frames": [
+        62578,
+        62587,
+        62597,
+        62599,
+        62610,
+        62614,
+        62620,
+        62629
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10472-10523: L10491 gold '|I_n| <= \u03b5 D_n P_n' fading in under '|z - c| < \u03b4', full by L10504. Correct (on \u2202Q_n, |r| <= \u03b5|z - c| <= \u03b5 D_n, and the path length is P_n). The <= is the heavy L4-class glyph. Nothing on screen yet says P_n is the perimeter; the formula implies a length of \u2202Q_n (L11)."
+    },
+    {
+      "sheet": 440,
+      "sha256": "cf4d40029263580dfdb15a0bd137a5bff3248fcf09d912240629c04db13b5c6c",
+      "frames": [
+        62635,
+        62647,
+        62652,
+        62659,
+        62666,
+        62675,
+        62680,
+        62686
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10529-10580: hold (five-second sample L10560 normal)."
+    },
+    {
+      "sheet": 441,
+      "sha256": "b9eb137a877e639c476064fab1a07c4eb9261c808469d393e524eb4dc821ba69",
+      "frames": [
+        62689,
+        62702,
+        62712,
+        62713,
+        62717,
+        62728,
+        62744,
+        62749
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10583-10643: hold; previous-layout @t sample L10596 clear."
+    },
+    {
+      "sheet": 442,
+      "sha256": "035742998d1f04c4bdc498ec8905be9ee5c001bb6e545452d5c274e778ba6690",
+      "frames": [
+        62755,
+        62756,
+        62762,
+        62777,
+        62783,
+        62786,
+        62788,
+        62798
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10649-10692: hold; previous-layout @t sample L10656 clear."
+    },
+    {
+      "sheet": 443,
+      "sha256": "77b535f7ea737ada6f3fe20f5a2c190bf302d3454ed583f95def791f95ab5e71",
+      "frames": [
+        62815,
+        62825,
+        62842,
+        62846,
+        62858,
+        62861,
+        62884,
+        62885
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10709-10779: hold to L10752; L10755 the upper right-hand column dims; L10778 the heading becomes 'Two halves make one quarter', the Taylor line, the green z-c segment and the yellow z dot are gone, and the column shows teal 'D_n = D_0/2^n', gold 'P_n = P_0/2^n', with '|I_n| <= \u03b5 D_n P_n' kept at the bottom. Both halvings correct. Change is a clean cross-fade, no overlap."
+    },
+    {
+      "sheet": 444,
+      "sha256": "2bf3915598b4ed15efbc7d54648ed4229dab2d1facad9b2e9d617f8ef230e2a2",
+      "frames": [
+        62888,
+        62900,
+        62903,
+        62906,
+        62927,
+        62930,
+        62942,
+        62944
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10782-10838: L10794 a dim half-size gold square appears centred on c, full by L10821 (periodic 10 s sample L10800 normal). Crop crops/s0445-slot1-inner-square.png (3x, from 0445): the inner square is concentric with the magnified square, half its side, corners on the diagonal; the 'D_n' label now sits about 12 tile px above-left of the inner square's top-right corner, clear of it (finding L12 for the concentric placement)."
+    },
+    {
+      "sheet": 445,
+      "sha256": "c6f95562a1b00c0fc2426bffc13906b2c28cf977465361da7c5fadb8bb291217",
+      "frames": [
+        62952,
+        62963,
+        62966,
+        62969,
+        62975,
+        62983,
+        62990,
+        62994
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10846-10888: hold (five-second L10860 normal)."
+    },
+    {
+      "sheet": 446,
+      "sha256": "6e2e137b6bd97d3650b72511341c3c79d0dc9b975f656ba018f53e2ab0223cc4",
+      "frames": [
+        63002,
+        63007,
+        63017,
+        63025,
+        63029,
+        63035,
+        63049,
+        63054
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10896-10948: hold; previous-layout sample L10896 clear."
+    },
+    {
+      "sheet": 447,
+      "sha256": "5675bb83111ecd918e200c858bd193a859945656fec65ec8c9c0046fbe88284f",
+      "frames": [
+        63056,
+        63062,
+        63074,
+        63077,
+        63085,
+        63091,
+        63098,
+        63107
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L10950-11001: L10968 white 'D_n P_n = D_0 P_0/4^n' fading in, full by L10979; correct product of the two halvings. Previous-layout L10956 clear."
+    },
+    {
+      "sheet": 448,
+      "sha256": "91f9c4d3f3383d3278270603016b928abf59a347461ffc2d847ae4b087f0046a",
+      "frames": [
+        63109,
+        63113,
+        63116,
+        63132,
+        63133,
+        63137,
+        63149,
+        63155
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11003-11049: hold."
+    },
+    {
+      "sheet": 449,
+      "sha256": "224672598ebf2a1859c00834b4c9a2a1b5d0c18eb3d6792588213489152520d2",
+      "frames": [
+        63158,
+        63160,
+        63174,
+        63176,
+        63184,
+        63193,
+        63202,
+        63209
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11052-11103: hold."
+    },
+    {
+      "sheet": 450,
+      "sha256": "d12d0144949340f73b6cf163242a636f8cdc065fb8542ae33febd28d6ef12877",
+      "frames": [
+        63215,
+        63226,
+        63230,
+        63234,
+        63247,
+        63262,
+        63266,
+        63272
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11109-11166: L11141 green '|I_{n+1}| >= |I_n|/4' fading in between the product line and the bound, full by L11160. Correct (the four quarter-loop integrals sum to I_n, so the largest has modulus at least |I_n|/4). The >= is the heavy L4-class glyph. Five-second L11160 normal."
+    },
+    {
+      "sheet": 451,
+      "sha256": "b155fca1f3ecf4308bffd8f279777a630f24e2c074951d5fd53d3c23c36d7be1",
+      "frames": [
+        63278,
+        63286,
+        63289,
+        63290,
+        63299,
+        63302,
+        63304,
+        63307
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11172-11201: hold; previous-layout @t sample L11196 clear."
+    },
+    {
+      "sheet": 452,
+      "sha256": "db3e97543fb36153be0c02ece1ffa9dcb2a337825605cd90c20744435bf000f6",
+      "frames": [
+        63320,
+        63329,
+        63332,
+        63341,
+        63347,
+        63349,
+        63362,
+        63364
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11214-11258: hold; previous-layout @t sample L11256 clear."
+    },
+    {
+      "sheet": 453,
+      "sha256": "b2361a0a7ab0f8066994daf59e7d25383e2c660ee8ab06973add32ca1d554636",
+      "frames": [
+        63365,
+        63371,
+        63380,
+        63383,
+        63389,
+        63392,
+        63401,
+        63407
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11259-11301: hold (static since L11160)."
+    },
+    {
+      "sheet": 454,
+      "sha256": "5408754abb15cd228ef8813ff0a1a982b989ab14b920c85bdd9b3d8cf5230be2",
+      "frames": [
+        63409,
+        63420,
+        63431,
+        63443,
+        63449,
+        63462,
+        63467,
+        63482
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11303-11376: hold of 'Two halves make one quarter' with the column D_n = D_0/2^n, P_n = P_0/2^n, D_n P_n = D_0 P_0/4^n, |I_{n+1}| >= |I_n|/4 and |I_n| <= \u03b5 D_n P_n; left: magnified square, concentric half-size square (L12), 'D_n', 'c', 'P_n'."
+    },
+    {
+      "sheet": 455,
+      "sha256": "2e71d5d172720298afd9508f869eb49dfabca5013140b15e7a8478e328698e12",
+      "frames": [
+        63485,
+        63491,
+        63498,
+        63503,
+        63506,
+        63517,
+        63522,
+        63524
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11379-11418: the column fades from L11397; L11411 a green '|I_0| <= 4^n|I_n|' fades in alone at the top of the column, full by L11418. Correct (iterate |I_{k+1}| >= |I_k|/4 n times). The <= is the heavy L4-class glyph. Periodic L11400 normal."
+    },
+    {
+      "sheet": 456,
+      "sha256": "8e12d02aac2f75b09487c3e4230d8157eaf4bfa842d44dfb6c954606ed4e08d9",
+      "frames": [
+        63540,
+        63545,
+        63559,
+        63566,
+        63568,
+        63582,
+        63584,
+        63590
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11434-11484: hold; the right side holds only the one line. Five-second sample L11460 normal."
+    },
+    {
+      "sheet": 457,
+      "sha256": "5a7835d317f2bd978ed583ced61f9d145519ba9e48bdbe1077e98bb320f45b1a",
+      "frames": [
+        63600,
+        63602,
+        63610,
+        63616,
+        63619,
+        63632,
+        63642,
+        63648
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11494-11542: hold; previous-layout @t sample L11496 clear."
+    },
+    {
+      "sheet": 458,
+      "sha256": "ffd6f8b2960a7fd9e7836852e05d01df3476628417c80f091c982588ac3074d2",
+      "frames": [
+        63658,
+        63662,
+        63664,
+        63670,
+        63671,
+        63686,
+        63690,
+        63692
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11552-11586 (re-read after the restart): hold; left picture unchanged (magnified square, concentric inner square, diagonal, 'D_n', 'c', 'P_n'); right column only '|I_0| <= 4^n|I_n|'. Previous-layout @t sample L11556 clear."
+    },
+    {
+      "sheet": 459,
+      "sha256": "ab61794354d32ea47b505c1f74e76adc6ff3ba005d9e096628f95831478294ae",
+      "frames": [
+        63706,
+        63708,
+        63713,
+        63718,
+        63728,
+        63750,
+        63764,
+        63766
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11600-11660: hold, same picture."
+    },
+    {
+      "sheet": 460,
+      "sha256": "68a2335e4f9cc1f96a3a6af7707c63aca2b337e39e94c630f595427972f46d63",
+      "frames": [
+        63773,
+        63774,
+        63788,
+        63792,
+        63802,
+        63806,
+        63809,
+        63810
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11667-11704: hold, same picture."
+    },
+    {
+      "sheet": 461,
+      "sha256": "937d2665c1b7ce1b71309d3e9f038abcc099bfa1e7b00efaa3581f69e726cae0",
+      "frames": [
+        63816,
+        63826,
+        63834,
+        63844,
+        63851,
+        63866,
+        63868,
+        63874
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11710-11768: hold, same picture; five-second sample L11760 normal."
+    },
+    {
+      "sheet": 462,
+      "sha256": "19e203ef19b335227ddb6d6b2e0b7738ca0c4596121a6bc3b6dfb62b71c79035",
+      "frames": [
+        63876,
+        63894,
+        63902,
+        63904,
+        63911,
+        63916,
+        63923,
+        63928
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11770-11822: hold; previous-layout @t sample L11796 clear. The column has held the single line since L11418 (about 6.9 s with the left picture static; observation O7)."
+    },
+    {
+      "sheet": 463,
+      "sha256": "309727cea11b45a9e33443fa38b80e838404e2992334330220f19d41bfc1902f",
+      "frames": [
+        63937,
+        63962,
+        63965,
+        63976,
+        63979,
+        63980,
+        64002,
+        64020
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11831-11914: gold '|I_n| <= \u03b5 D_0 P_0/4^n' fades in under the first line, full by L11856. Correct (|I_n| <= \u03b5 D_n P_n and D_n P_n = D_0 P_0/4^n). Fraction clear, not clipped. Previous-layout @t sample L11856 clear."
+    },
+    {
+      "sheet": 464,
+      "sha256": "1619a833f1d1c391581f4984038c557d17a173e4335c3ad68fc8ebfc37e96f39",
+      "frames": [
+        64022,
+        64025,
+        64030,
+        64039,
+        64044,
+        64062,
+        64072,
+        64074
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11916-11968: hold of the two lines."
+    },
+    {
+      "sheet": 465,
+      "sha256": "594632e660262c6ffc81fb7b7acae71fbe8817892711dd9be14c1754b80b8cd3",
+      "frames": [
+        64082,
+        64086,
+        64104,
+        64105,
+        64106,
+        64116,
+        64122,
+        64132
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L11976-12026: hold; periodic 10 s sample L12000 normal."
+    },
+    {
+      "sheet": 466,
+      "sha256": "373f67ccf35d66df986ea290fb96462b28dc3cc5b7b3b2e932827ce9aac3bac0",
+      "frames": [
+        64136,
+        64146,
+        64147,
+        64158,
+        64166,
+        64176,
+        64178,
+        64180
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12030-12074 (re-read after the restart): hold; the two lines and the unchanged left picture; five-second sample L12060 normal."
+    },
+    {
+      "sheet": 467,
+      "sha256": "bdfa1898987992dc9788cb2dcb2d16bb640d9d943da87b2bec0c4a573ac8a91c",
+      "frames": [
+        64202,
+        64206,
+        64207,
+        64208,
+        64218,
+        64222,
+        64238,
+        64241
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12096-12135: hold; previous-layout @t sample L12096 clear."
+    },
+    {
+      "sheet": 468,
+      "sha256": "a0412ac637e155dac4c7a89b7427377d2710401b40f4e248cc097ebfa272ae79",
+      "frames": [
+        64248,
+        64262,
+        64264,
+        64268,
+        64279,
+        64282,
+        64283,
+        64306
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12142-12200: hold; previous-layout @t sample L12156 clear. Static from L11856 to L12282, about 7.1 s (O7)."
+    },
+    {
+      "sheet": 469,
+      "sha256": "dc858c0af702a07e0e22dc6fed2dacbf9e89c78e485a0d75629e92e8e5dfbb94",
+      "frames": [
+        64308,
+        64321,
+        64343,
+        64363,
+        64366,
+        64381,
+        64388,
+        64404
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12202-12298: hold to L12275; L12282 both lines fade; L12298 the combined '|I_0| <= 4^n \u00b7 \u03b5 D_0 P_0/4^n' appears with green 4^n's and a long fraction bar, inside the tile (right-of-formula band at tile x 760-885 is background: maxdev 0 to L12282)."
+    },
+    {
+      "sheet": 470,
+      "sha256": "ebb977fa1cd9f96cd9542b8dd83362fba4446ed4bf09faec86ca9463cd97fd73",
+      "frames": [
+        64405,
+        64430,
+        64442,
+        64446,
+        64452,
+        64454,
+        64465,
+        64466
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12299-12360: green slashes cancel both 4^n's in '|I_0| <= 4^n \u00b7 \u03b5 D_0 P_0/4^n'. The current-layout flags at L12324/12336/12348 ('crossed a stroke of an unlabeled shape ... painted over') point at these deliberate cancel strokes (boxes x 2.08..2.81 and 4.14..4.86, y 0.23..1.26 scene units). Both 4^n's stay legible under the slashes. Spacing of the combined line is wide but readable; nothing clipped (the band right of the formula is background). Five-second L12360 normal."
+    },
+    {
+      "sheet": 471,
+      "sha256": "9de8edbc29bec81ef8f16da3d908e700327ae10de700b4e686fc433dd87a9c93",
+      "frames": [
+        64474,
+        64490,
+        64494,
+        64502,
+        64506,
+        64516,
+        64529,
+        64537
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12368-12431: hold with the cancellations; flag @t+60 at L12396 is the same deliberate strokes."
+    },
+    {
+      "sheet": 472,
+      "sha256": "fcbf1a8d5f57f8d310e78d4d4ada56f55c085766054cd2fe1468ad892f38897c",
+      "frames": [
+        64554,
+        64560,
+        64562,
+        64571,
+        64576,
+        64579,
+        64585,
+        64602
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12448-12496: the combined line and slashes fade (L12448-12456); from L12465 '|I_0| <= \u03b5 D_0 P_0' and 'for every epsilon > 0' fade in, full by L12496. Correct: \u03b5 is arbitrary. 'epsilon' spelled out beside the symbol \u03b5 is the L10 class. Previous-layout L12456 clear."
+    },
+    {
+      "sheet": 473,
+      "sha256": "40dd85bf5b0c91186c7bb80b711b5fa708333b0a2d1ccd8f9afa87582e4b6710",
+      "frames": [
+        64615,
+        64622,
+        64627,
+        64631,
+        64632,
+        64639,
+        64654,
+        64657
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12509-12551: hold. The @t+180 flag at L12516 refers to the cancel strokes recorded at 205.6 s, which are no longer drawn; the picture is clean (maxdev 0 in the old stroke band)."
+    },
+    {
+      "sheet": 474,
+      "sha256": "041866856beff96ceb413c0a477c46ac5d2a9753b58e137474ff85372a4a9ab8",
+      "frames": [
+        64662,
+        64674,
+        64681,
+        64684,
+        64687,
+        64696,
+        64706,
+        64710
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12556-12604: hold of '|I_0| <= \u03b5 D_0 P_0' / 'for every epsilon > 0' beside the unchanged magnified square; periodic 10 s L12600 normal."
+    },
+    {
+      "sheet": 475,
+      "sha256": "964a027376e84451b16cfc6f80431a5b7343fc4cfbdac348b104c0bb10a9ecf0",
+      "frames": [
+        64717,
+        64720,
+        64726,
+        64734,
+        64741,
+        64742,
+        64744,
+        64752
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12611-12646: hold; the current-layout persistence sample L12636 shows no stroke (the recorded slash boxes are empty)."
+    },
+    {
+      "sheet": 476,
+      "sha256": "29ce72723be123d84641b2050934d29d2af3f55d5288fe7659e9f61ea3b8da7f",
+      "frames": [
+        64756,
+        64762,
+        64766,
+        64774,
+        64786,
+        64802,
+        64812,
+        64816
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12650-12710: hold; five-second L12660 normal; the @t+360 flag at L12696 is again the 205.6 s cancel-stroke record, and the frame shows no stroke over the text."
+    },
+    {
+      "sheet": 477,
+      "sha256": "f3307dbb9d88e6c2e9d563681aeded1a9d1e9cdf2c72227aaddbb0705c63bd97",
+      "frames": [
+        64822,
+        64835,
+        64846,
+        64862,
+        64876,
+        64877,
+        64902,
+        64918
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12716-12812: L12756 gold 'I_0 = 0' fading in below the epsilon line, full by L12770. Correct (|I_0| <= \u03b5 D_0 P_0 for every \u03b5 > 0 forces |I_0| = 0). Large, clear, not clipped. Previous-layout L12756 clear."
+    },
+    {
+      "sheet": 478,
+      "sha256": "7cb2290f396967a668f2f0b7d17945bdbd1561e35ad2835d18604ce789b39831",
+      "frames": [
+        64926,
+        64936,
+        64937,
+        64944,
+        64950,
+        64960,
+        64967,
+        64968
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12820-12862: hold of the three-line conclusion."
+    },
+    {
+      "sheet": 479,
+      "sha256": "1e0580aeffacfe5a6cb38be76f4524389977eee06ae81dec111417c71432706a",
+      "frames": [
+        64978,
+        64987,
+        64992,
+        65002,
+        65004,
+        65009,
+        65016,
+        65020
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12872-12914: hold."
+    },
+    {
+      "sheet": 480,
+      "sha256": "cadaad9e245e559c3f243f70ae3723127b67283b392b9c197f2278e2b42941cb",
+      "frames": [
+        65028,
+        65029,
+        65038,
+        65039,
+        65042,
+        65052,
+        65058,
+        65062
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12922-12956: hold; @t+600 flag at L12936 is the same stale cancel-stroke record; frame clean."
+    },
+    {
+      "sheet": 481,
+      "sha256": "4405c73046c525acbf2a0053c2147f59cff6aecd94c69b2d4d02ab524065e787",
+      "frames": [
+        65066,
+        65068,
+        65069,
+        65081,
+        65088,
+        65089,
+        65102,
+        65110
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L12960-13004: hold; five-second L12960 normal; previous-layout L12996 clear. The conclusion stands about 4.8 s (L12770-13060), with the left picture static; a reasonable closing hold."
+    },
+    {
+      "sheet": 482,
+      "sha256": "203388311f023f2632a3d748c7f9cc1e8c7e5a59ec3dd4fecbfc0a21a6d93eec",
+      "frames": [
+        65118,
+        65130,
+        65141,
+        65148,
+        65162,
+        65164,
+        65170,
+        65189
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13012-13083: hold to L13056 (previous-layout sample clear); L13064 the whole square view and conclusion dim together; L13083 new heading 'The same proof, now on a triangle' and a gold triangle fade in at low opacity. Clean cross-fade, no residue of the square or text."
+    },
+    {
+      "sheet": 483,
+      "sha256": "95c374cb08b3d86ae19a5961dbd5bf637cfb3f50d5429698aa8ee325391c471a",
+      "frames": [
+        65190,
+        65206,
+        65212,
+        65231,
+        65242,
+        65250,
+        65251,
+        65254
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13084-13148: triangle and heading full by L13100; hold."
+    },
+    {
+      "sheet": 484,
+      "sha256": "90ae9edfd23dc745eeda01ea65aaa5ab6ab941c5c44088ffd9f506352cd5fde2",
+      "frames": [
+        65256,
+        65266,
+        65284,
+        65285,
+        65291,
+        65293,
+        65298,
+        65306
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13150-13200: hold of the triangle alone (about 2.2 s, L13100-13234); periodic 10 s L13200 normal."
+    },
+    {
+      "sheet": 485,
+      "sha256": "6ee928f7325331beac2f6689717c678a52d0e1785d1b20add12754443e692cf8",
+      "frames": [
+        65314,
+        65318,
+        65327,
+        65328,
+        65340,
+        65342,
+        65344,
+        65353
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13208-13247: L13234 grey dots appear at the three edge midpoints (checked against the drawn vertices on the tile: left edge (125,365)-(224,123) midpoint (174,244), dot (174,244); right edge midpoint (311,244), dot (310,244); base midpoint (261,365), dot (261,365) displayed px); L13247 the dots turn white and faint medial-triangle segments start to draw, the four-congruent-triangles split the proof uses. Current-layout sample L13236 clear."
+    },
+    {
+      "sheet": 486,
+      "sha256": "54261b3726f02295d87225abc5835322e1656496ca601c1ef31ecce3d34443a7",
+      "frames": [
+        65358,
+        65360,
+        65366,
+        65369,
+        65370,
+        65377,
+        65382,
+        65387
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13252-13281: the white medial segments finish drawing by L13260, splitting the triangle into four. The outer half-edges are tinted per corner triangle: sage at lower left, olive at lower right, gold at top (crop crops/s0489-slot8-triangle-edge-colours.png); the tints are close in hue but distinguishable at 960x540."
+    },
+    {
+      "sheet": 487,
+      "sha256": "3906e840cfdf6a1963f02c9c4bb1283844318fd9cb0ac70901b4b1c5e333d85b",
+      "frames": [
+        65402,
+        65405,
+        65411,
+        65419,
+        65420,
+        65425,
+        65430,
+        65431
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13296-13325: hold of the four-way split; previous-layout sample L13296 clear."
+    },
+    {
+      "sheet": 488,
+      "sha256": "e5679b5e6c18910bffabfac8cdc496bc1b6272f91fe87d16ba07d89f4fcccc4c",
+      "frames": [
+        65440,
+        65442,
+        65447,
+        65460,
+        65462,
+        65467,
+        65471,
+        65473
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13334-13367: hold; previous-layout sample L13356 clear."
+    },
+    {
+      "sheet": 489,
+      "sha256": "d982e95d757d27ef9cf31194f07e2729501d37e865e366246d72dce9ccc07995",
+      "frames": [
+        65479,
+        65482,
+        65489,
+        65502,
+        65507,
+        65510,
+        65527,
+        65528
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13373-13422: hold (crop s0489-slot8 taken here)."
+    },
+    {
+      "sheet": 490,
+      "sha256": "234fe1296ae54250af6a12e550ab62412572b46aa73d19a9a1c92854165c05c4",
+      "frames": [
+        65531,
+        65533,
+        65542,
+        65552,
+        65562,
+        65566,
+        65570,
+        65584
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13425-13478: hold."
+    },
+    {
+      "sheet": 491,
+      "sha256": "33defa3c255f22ce3356c45e06e966f5f5ea588666cf9d9984a489cfc620bfdd",
+      "frames": [
+        65591,
+        65608,
+        65612,
+        65615,
+        65630,
+        65642,
+        65644,
+        65653
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13485-13547: paired arrows fade in on every sub-triangle edge, full by about L13538. The current/previous-layout sample L13536 is clear."
+    },
+    {
+      "sheet": 492,
+      "sha256": "3d413ee164c1d3e45cef91e0eaa7e81c9d7c6030bb93740db5dcfc4463cc6d5d",
+      "frames": [
+        65657,
+        65666,
+        65668,
+        65672,
+        65680,
+        65695,
+        65702,
+        65717
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13551-13611: hold with the arrows. Orientation checked on the tile: each of the four sub-walks runs counterclockwise; on each interior medial edge the two arrows point in opposite directions, so the interior edges cancel; the surviving outer half-edges run counterclockwise round the big triangle. Crop crops/s0492-slot2-paired-arrows.png: white arrows sit inside the middle triangle, coloured ones outside, and the heads touch but do not cross the medial lines. Five-second L13560 normal; previous-layout L13596 clear."
+    },
+    {
+      "sheet": 493,
+      "sha256": "928770f595149035514e12b517f186fb837832608523407092d21f1162b139c2",
+      "frames": [
+        65722,
+        65732,
+        65752,
+        65755,
+        65760,
+        65762,
+        65776,
+        65782
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13616-13676: hold to L13664; from L13670 green 'The middle walk is also counterclockwise' and a dark-green fill of the middle triangle fade in (crop crops/s0493-slot8-middle-fill-arrows.png). Correct: the middle triangle's walk, taken from the arrows on its side of each medial edge, is counterclockwise. Previous-layout L13656 clear."
+    },
+    {
+      "sheet": 494,
+      "sha256": "d6f7e7ee6b59b8a2766334a7e2ea25bd687f76ad6e8b96e17cbc8cf7376112f7",
+      "frames": [
+        65794,
+        65802,
+        65806,
+        65813,
+        65818,
+        65832,
+        65848,
+        65854
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13688-13748: text and fill full; a green counterclockwise turn glyph sits inside the middle triangle (crop crops/s0494-slot4-middle-ccw-glyph.png), clear of the arrows."
+    },
+    {
+      "sheet": 495,
+      "sha256": "cde22ebd31a6d312bbf9c024ba9b9e127987c86ff9f8314e9e2b6beb25afd218",
+      "frames": [
+        65855,
+        65860,
+        65862,
+        65863,
+        65874,
+        65878,
+        65894,
+        65905
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13749-13799: hold; the arrows start to fade at L13799."
+    },
+    {
+      "sheet": 496,
+      "sha256": "a6b7461970585708fe432eeeadaf7f691513af1e8cba7577ba318447d014d72f",
+      "frames": [
+        65906,
+        65908,
+        65912,
+        65915,
+        65916,
+        65920,
+        65934,
+        65936
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13800-13830: arrows gone by about L13814; the turn glyph is fading. Periodic L13800 normal."
+    },
+    {
+      "sheet": 497,
+      "sha256": "0c766dc7d74df2c17f493e9438f69259cb76b55df0244127239c1bce261f085f",
+      "frames": [
+        65941,
+        65942,
+        65954,
+        65965,
+        65966,
+        65976,
+        65983,
+        65996
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13835-13890: the medial lines are removed and the outer edges return to gold; fill and midpoint dots stay. From L13859 gold counterclockwise arrows sit just inside each outer edge; their heads touch the midpoint dots (L3 class, low; crop crops/s0497-slot8-outer-arrows.png). Direction correct. Current-layout L13836 clear; five-second L13860 normal."
+    },
+    {
+      "sheet": 498,
+      "sha256": "611e55521fd0aa6d8fc7d1cb09d67ba741f6c1db01551bacab731f7e9e547b0a",
+      "frames": [
+        66002,
+        66007,
+        66013,
+        66014,
+        66032,
+        66043,
+        66054,
+        66055
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13896-13949: at L13926 the right edge turns teal with a 'D_n' label, and 'D_n = D_0/2^n, P_n = P_0/2^n' and '|I_0| <= \u03b5 D_0 P_0' appear, full by L13937. Correct: for a triangle the diameter is the longest side, and the teal right edge is the longest drawn side (298 vs 273 and 262 displayed px). Previous-layout L13896 clear."
+    },
+    {
+      "sheet": 499,
+      "sha256": "fb6efecc688350b14f5e72351e458f5379b402d47ba39749fb553fc94e749d2c",
+      "frames": [
+        66062,
+        66067,
+        66074,
+        66076,
+        66086,
+        66096,
+        66115,
+        66118
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L13956-14012: hold; previous-layout L13956 clear."
+    },
+    {
+      "sheet": 500,
+      "sha256": "122566a800d5d19022a797743dfb705cf156ddd032ecb68208a2307288eb153e",
+      "frames": [
+        66128,
+        66134,
+        66145,
+        66156,
+        66169,
+        66176,
+        66178,
+        66187
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L14022-14081: hold."
+    },
+    {
+      "sheet": 501,
+      "sha256": "cca54d9c06a3901d0805496bfda6d7b3b7967a8f73ddf2569a13cf78f3c1d93e",
+      "frames": [
+        66188,
+        66203,
+        66211,
+        66215,
+        66218,
+        66221,
+        66242,
+        66245
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L14082-14139: hold; current-layout L14136 clear."
+    },
+    {
+      "sheet": 502,
+      "sha256": "e28523a4484d9292f4b718e0d67b416c3fc0f9d53a1fb86f8195300b511a015c",
+      "frames": [
+        66247,
+        66257,
+        66263,
+        66266,
+        66271,
+        66278,
+        66288,
+        66289
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L14141-14183: hold of the triangle (fill, dots, outer arrows, teal D_n edge) with the D_n/P_n line and '|I_0| <= \u03b5 D_0 P_0'; five-second L14160 normal."
+    },
+    {
+      "sheet": 503,
+      "sha256": "7f90d1e6d321b7660cdb3b5e65ca78c85535014fcdf3d28134b419fb1978b0a5",
+      "frames": [
+        66302,
+        66305,
+        66308,
+        66312,
+        66317,
+        66323,
+        66330,
+        66349
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L14196-14243: hold; previous-layout L14196 clear."
+    },
+    {
+      "sheet": 504,
+      "sha256": "d2358e6a38c2ec9be8e4dd573b9feb272d48c4f7f703078798222b63cb00958c",
+      "frames": [
+        66353,
+        66354,
+        66362,
+        66368,
+        66372,
+        66390,
+        66395,
+        66414
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L14247-14308: from L14262 '\u222e_{\u2202T} f(z) dz = 0' and grey 'f holomorphic on a neighborhood of T' fade in, full by L14284. The statement is correct Goursat for a triangle. The \u2202 is the upright heavy L9 glyph; the f and T in the grey line are upright, the L1 class (crop crops/s0505-slot1-goursat-statement.png). Previous-layout L14256 clear."
+    },
+    {
+      "sheet": 505,
+      "sha256": "3d60dce20636d841b43545b957f06950381106be530bf80f9fbb14ed8e2c8c24",
+      "frames": [
+        66426,
+        66437,
+        66452,
+        66455,
+        66468,
+        66474,
+        66481,
+        66494
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L14320-14388: hold."
+    },
+    {
+      "sheet": 506,
+      "sha256": "47bd398d7c81a7cab2b23452b7077e5bb362919fea58a360ca026b160c89aaff",
+      "frames": [
+        66497,
+        66499,
+        66506,
+        66518,
+        66523,
+        66528,
+        66541,
+        66542
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L14391-14436: hold; periodic L14400 normal; current-layout L14436 clear."
+    },
+    {
+      "sheet": 507,
+      "sha256": "aaa9205866c282872508a6d2f7f84acd5f3ec07b81a3e10296f4b81375b3e605",
+      "frames": [
+        66554,
+        66560,
+        66566,
+        66583,
+        66601,
+        66602,
+        66620,
+        66662
+      ],
+      "chapters": [
+        "08_loop_sums"
+      ],
+      "note": "08_5 L14448-14556: from L14477 the 'precisely:' card fades in under the statement; its wording states the hypothesis correctly (f' upright: L1 class) and sits clear of the text above. Five-second L14460 normal; previous-layout L14496 and L14556 clear."
+    },
+    {
+      "sheet": 508,
+      "sha256": "47579c2270794160a75547fb07132dc8409e728029ff20fff840b79a8815c149",
+      "frames": [
+        66842,
+        66866,
+        66902,
+        66962,
+        67062,
+        67063,
+        67064,
+        67065
+      ],
+      "chapters": [
+        "08_loop_sums",
+        "09_boundary"
+      ],
+      "note": "08_5 L14736-14958 and 09 L0: hold to L14856 (current-layout L14736, previous-layout L14796 and L14856 clear); seam frames L14956, L14957, L14958 and 09 L0 are near-black (maxdev 8)."
+    },
+    {
+      "sheet": 509,
+      "sha256": "e442c521aa55399246b08a79f3719d4db4d062aa1c33b8b6897d72232964b474",
+      "frames": [
+        67066,
+        67067,
+        67089,
+        67095,
+        67100,
+        67101,
+        67113,
+        67121
+      ],
+      "chapters": [
+        "09_boundary"
+      ],
+      "note": "09_boundary L1-L56: L1, L2, L24, L30, L35, L36 near-black (maxdev <= 8); L48 the domain-colouring plate is fading in; L56 brighter. The 08 to 09 seam is near-black from frame 67062 to at least 67101 (>= 0.67 s), and at most 66963-67112 (<= 2.5 s); a normal chapter break."
+    },
+    {
+      "sheet": 510,
+      "sha256": "b41b23c98ca5ecdc3292b3bd99a1991e17364775c948962ca94408813b6fed1d",
+      "frames": [
+        67125,
+        67130,
+        67131,
+        67151,
+        67155,
+        67160,
+        67161,
+        67163
+      ],
+      "chapters": [
+        "09_boundary"
+      ],
+      "note": "09 L60-98: plate full; grey 'Im' and 'Re' axis labels appear at L98."
+    },
+    {
+      "sheet": 511,
+      "sha256": "554af1d5b01d16f6f5aae6d3b8ba0a97bf34f7230b9c89b349245503c0444b69",
+      "frames": [
+        67172,
+        67185,
+        67191,
+        67193,
+        67209,
+        67215,
+        67221,
+        67222
+      ],
+      "chapters": [
+        "09_boundary"
+      ],
+      "note": "09 L107-157: labels full; pink-ringed markers at the two singular points (top and bottom of the plate centre line) from about L126, where the phase colours cycle. The historical layout anchor sampled at L144 does not describe the current picture; the frame is clean."
+    },
+    {
+      "sheet": 512,
+      "sha256": "b658aad56ae542dd559bf7dc047f451c891ee02014729597220d61b74e54533e",
+      "frames": [
+        67223,
+        67232,
+        67233,
+        67243,
+        67245,
+        67247,
+        67253,
+        67257
+      ],
+      "chapters": [
+        "09_boundary"
+      ],
+      "note": "09 L158-192: from about L167 a yellow circle round the white dot 'a', a thin grey outer circle and the 'a little beyond' card fade in, full by about L180. The plate is uniform near a, so f has no singularity there; correct set-up for the Cauchy formula."
+    },
+    {
+      "sheet": 513,
+      "sha256": "139a204c3f136cdcea246090eed02ac2995d7cea1f16a71ac3b5b0489687b3d5",
+      "frames": [
+        67264,
+        67267,
+        67269,
+        67275,
+        67281,
+        67289,
+        67303,
+        67305
+      ],
+      "chapters": [
+        "09_boundary"
+      ],
+      "note": "09 L199-240: hold. Crop crops/s0513-slot8-a-label-circles.png: no stroke crosses 'a'; the label sits inside the yellow circle, clear of it; the grey circle clears both singular markers by about 17 displayed px, so the drawn neighbourhood excludes them."
+    },
+    {
+      "sheet": 514,
+      "sha256": "ba41fde3ddf2c94d341f007d0486d3180165e3f40b376105e790f863bc7d1361",
+      "frames": [
+        67309,
+        67317,
+        67324,
+        67334,
+        67335,
+        67345,
+        67349,
+        67351
+      ],
+      "chapters": [
+        "09_boundary"
+      ],
+      "note": "09 L244-286: hold; historical-anchor and production16 timestamp samples show the clean picture."
+    },
+    {
+      "sheet": 515,
+      "sha256": "5edd4cb0d28c700daca43902753c01f0479f3dc49e542c6d1d6fe094c65f9751",
+      "frames": [
+        67360,
+        67365,
+        67366,
+        67369,
+        67376,
+        67377,
+        67395,
+        67401
+      ],
+      "chapters": [
+        "09_boundary"
+      ],
+      "note": "09 L295-336: hold."
+    },
+    {
+      "sheet": 516,
+      "sha256": "ba2e2bd112b079aabd82a18a471287901c8935402c6629c3b7af0f210b0d4641",
+      "frames": [
+        67402,
+        67405,
+        67406,
+        67408,
+        67411,
+        67419,
+        67425,
+        67426
+      ],
+      "chapters": [
+        "09_boundary"
+      ],
+      "note": "09 L337-361: hold."
+    },
+    {
+      "sheet": 517,
+      "sha256": "4ed21feb854f5ed624383b87781c642e52340b74026ce1fa751a9b529fd257f7",
+      "frames": [
+        67436,
+        67437,
+        67448,
+        67451,
+        67455,
+        67456,
+        67462,
+        67468
+      ],
+      "chapters": [
+        "09_boundary"
+      ],
+      "note": "09 L371-403: hold; the right half of the frame is empty while the plate and card stand (since about L180)."
+    },
+    {
+      "sheet": 518,
+      "sha256": "9fcdcee6b2d8e7a73f0e59088fa02316872654e2d1a4e838110983419380c00f",
+      "frames": [
+        67471,
+        67479,
+        67484,
+        67485,
+        67493,
+        67496,
+        67497,
+        67498
+      ],
+      "chapters": [
+        "09_boundary"
+      ],
+      "note": "09 L406-433: from L414-419 a faint 'f(z)/(z - a)' fades in at the upper right, full by L428; italic CM glyphs, fraction bar clean, clear of the plate and the 'Re' label. The plate and card held alone about 3.9 s (L180-L414) before this; a note, not a finding."
+    },
+    {
+      "sheet": 519,
+      "sha256": "1f816cde6242be95893a3609ee0fff9ed75953d430da52d3f56d118acc617470",
+      "frames": [
+        67508,
+        67513,
+        67514,
+        67515,
+        67521,
+        67526,
+        67528,
+        67537
+      ],
+      "chapters": [
+        "09_boundary"
+      ],
+      "note": "09 L443-472: hold of plate, card and fraction."
+    },
+    {
+      "sheet": 520,
+      "sha256": "159c996e50da9dd8458869fb03b75037185e7cf938bad300f7fd9229061320f4",
+      "frames": [
+        67538,
+        67545,
+        67553,
+        67556,
+        67557,
+        67558,
+        67562,
+        67573
+      ],
+      "chapters": [
+        "09_boundary"
+      ],
+      "note": "09 L473-508: hold."
+    },
+    {
+      "sheet": 521,
+      "sha256": "d61f297faf127a5ca021986b0c1964582947cb17f2a552a192a22795cb8b72fd",
+      "frames": [
+        67575,
+        67579,
+        67581,
+        67586,
+        67593,
+        67598,
+        67604,
+        67605
+      ],
+      "chapters": [
+        "09_boundary"
+      ],
+      "note": "09 L510-540: hold."
+    },
+    {
+      "sheet": 522,
+      "sha256": "760395c39ef6ccd1745a8eb5feea961eda840b4238cc77504ac044ce4a339ef6",
+      "frames": [
+        67610,
+        67616,
+        67617,
+        67625,
+        67634,
+        67635,
+        67639,
+        67652
+      ],
+      "chapters": [
+        "09_boundary"
+      ],
+      "note": "09 L545-587: hold; end of the assigned range. The right side still holds only the fraction."
+    }
+  ],
+  "viewed_count": 261,
+  "samples_viewed": 2088,
+  "remaining_sheets": [],
+  "findings": [
+    {
+      "id": "O1",
+      "severity": "observation (not a defect from stills)",
+      "sheet": 288,
+      "slots": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "frames": [
+        50968,
+        50969,
+        50970,
+        50971,
+        50972
+      ],
+      "chapter": "07_one_point",
+      "local_frames": [
+        5353,
+        5354,
+        5355,
+        5356,
+        5357
+      ],
+      "text": "Fully dark frame for >= 1.95 s (from no later than L5240, sheet 0287 slot 8, to at least L5357; U appears by L5400) between 07_5 and 07_6. Stills cannot tell whether narration continues over the dark screen; root may want to check it against the cue timeline."
+    },
+    {
+      "id": "L1",
+      "severity": "Low (typography)",
+      "sheet": 289,
+      "slots": [
+        8
+      ],
+      "frames": [
+        51545
+      ],
+      "chapter": "07_one_point",
+      "local_frames": [
+        5930
+      ],
+      "text": "Card 'holomorphic on U: ... of the open region U' sets U upright in the text face, while the figure labels the region with italic math U; same card through sheet 0290 (L6000-6455). Cosmetic; meaning is clear."
+    },
+    {
+      "id": "L2",
+      "severity": "Low (pacing/pedagogy)",
+      "sheet": 300,
+      "slots": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "sheets_affected": [
+        299,
+        300,
+        301,
+        302,
+        303,
+        304,
+        305,
+        306,
+        307,
+        308,
+        309,
+        310
+      ],
+      "frames": [
+        55890,
+        56497
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        3784,
+        4391
+      ],
+      "text": "Heading 'A closed square, with a little room beyond' (with 'f holomorphic on a neighborhood' and the contour-integral formula) is on screen from L3784 for 10.1 s before any square is drawn (first drawing L4392, sheet 0310 slot 5); the left two-thirds of the frame is measured empty (max deviation 0) in all 85 sampled stills in between (sheet 0299 slot 8 to sheet 0310 slot 4; sheet 0310 itself is read in the next batch). A viewer reads 'a closed square' with no square visible. Stills cannot tell what the narration says over this hold."
+    },
+    {
+      "id": "L3",
+      "severity": "Low (legibility)",
+      "sheet": 311,
+      "slots": [
+        1
+      ],
+      "frames": [
+        56533
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        4427
+      ],
+      "sheets_affected": [
+        310,
+        311,
+        312,
+        313,
+        314,
+        315,
+        316
+      ],
+      "text": "The square's orientation arrows sit just inside its outline; the right-edge and bottom-edge arrowheads overlap the outline in the same yellow (crop crops/s0311-slot1-right-edge-arrow.png), so the heads fuse with the edge. Direction remains readable from the shafts; cosmetic."
+    },
+    {
+      "id": "O2",
+      "severity": "observation (not graded)",
+      "sheet": 317,
+      "slots": [
+        5
+      ],
+      "frames": [
+        56905
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        4799
+      ],
+      "text": "Heading 'A closed square, with a little room beyond' and 'f holomorphic on a neighborhood': no neighbourhood margin ('room beyond') is drawn around the square in any still from L4392 to L5296 (sheets 0310-0325). Whether the narration or a later picture covers it is outside these stills."
+    },
+    {
+      "id": "L4",
+      "severity": "Low (typography)",
+      "sheet": 337,
+      "slots": [
+        7,
+        8
+      ],
+      "frames": [
+        58134,
+        58135
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        6028,
+        6029
+      ],
+      "sheets_affected": [
+        337,
+        338,
+        339,
+        340,
+        341
+      ],
+      "text": "In '|I_{n+1}| >= |I_n|/4' the >= sign is much heavier and sans-looking than the thin Computer Modern strokes around it ('=', '+', bars, slash), so it reads as a glyph from another face (crop crops/s0337-slot8-geq-formula.png). Same class as the heavy not-equal sign noted in an earlier review of this film. Meaning is clear."
+    },
+    {
+      "id": "O3",
+      "severity": "observation (not graded)",
+      "sheet": 334,
+      "slots": [
+        2,
+        3,
+        4
+      ],
+      "frames": [
+        57917,
+        57920,
+        57921
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        5811,
+        5814,
+        5815
+      ],
+      "text": "The proof-by-contradiction assumption appears as a bare green '|I_0| > 0' that replaces '\u222e f dz = 0' in the same spot; nothing on screen marks it as a supposition. A reader of the stills alone could take it as a stated fact contradicting the theorem. Whether the narration says 'suppose' cannot be told from stills."
+    },
+    {
+      "id": "L5",
+      "severity": "Low (labelling)",
+      "sheet": 357,
+      "slots": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "frames": [
+        59102,
+        59166
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        6996,
+        7060
+      ],
+      "text": "The green 'c' that names the limit point is placed about 64 tile px right of the green dot, outside the level-2 and level-3 squares and across two of their yellow edges, with no leader line (crop crops/s0357-slot4-c-label.png). It reads as labelling the empty part of the top-right quarter rather than the point inside the nest. No stroke crosses the glyph (the earlier layout flag no longer shows)."
+    },
+    {
+      "id": "L4-ext",
+      "severity": "Low (typography)",
+      "sheet": 343,
+      "slots": [
+        1
+      ],
+      "frames": [
+        58426
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        6320
+      ],
+      "sheets_affected": [
+        342,
+        343,
+        344,
+        345,
+        346,
+        347
+      ],
+      "text": "Extends L4: the <= in the grey triangle-inequality footnote has the same heavy, sans-looking strokes as the >= (crop crops/s0343-slot1-triangle-footnote.png)."
+    },
+    {
+      "id": "L6",
+      "severity": "Low (typography)",
+      "sheet": 367,
+      "slots": [
+        3
+      ],
+      "frames": [
+        59666
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        7560
+      ],
+      "sheets_affected": [
+        366,
+        367,
+        368,
+        369,
+        370,
+        371,
+        372,
+        373
+      ],
+      "text": "In 'f(z) = f(c) + f'(c)(z - c) + r(z)' the minus sign is a short, heavy dash, about half as wide as the '+' bars and thicker than them (crop crops/s0367-slot3-taylor-formula.png). It reads more like a hyphen than a maths minus; same look as the heavy >= and <= of L4. Meaning stays clear."
+    },
+    {
+      "id": "L7",
+      "severity": "Low (fade continuity)",
+      "sheet": 380,
+      "slots": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "frames": [
+        60412,
+        60413,
+        60419,
+        60428,
+        60431,
+        60437
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        8306,
+        8307,
+        8313,
+        8322,
+        8325,
+        8331
+      ],
+      "text": "The grey caption 'Exact changes, added tip to tail' stays word-for-word the same across the swap from the teal f(c) picture to the green f'(c)(z - c) picture, yet it fades out with the teal group and back in with the green: max deviation 132 at L8289, 13 at L8313 (effectively invisible), 130 again by L8340 (crop crops/s0380-slot4-caption-dip.png). In motion this should read as a blink of a label that did not change, over about 0.5 s; stills can't confirm how it reads in motion."
+    },
+    {
+      "id": "L8",
+      "severity": "Low (legibility)",
+      "sheet": 383,
+      "slots": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "frames": [
+        60572,
+        60612
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        8466,
+        8506
+      ],
+      "sheets_affected": [
+        382,
+        383,
+        384,
+        385,
+        386,
+        387,
+        388,
+        389
+      ],
+      "text": "In the green 'exact changes' chain the third step (down-right) runs parallel to, and within about 4 tile px of, the long fourth step that returns to the start, so the held picture shows one doubled stroke with a head at each end instead of two arrows (crop crops/s0383-slot1-green-chain.png). The build order is visible while the arrows are drawn (L8367-8404, sheet 0381), but in the held state the closed four-step loop reads as three strokes. The mathematics (zero sum) is unaffected."
+    },
+    {
+      "id": "O4",
+      "severity": "observation (not graded)",
+      "sheet": 374,
+      "slots": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "frames": [
+        59658,
+        60091
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        7552,
+        7985
+      ],
+      "sheets_affected": [
+        366,
+        367,
+        368,
+        369,
+        370,
+        371,
+        372,
+        373,
+        374
+      ],
+      "text": "After the right column clears at L7552, only the Taylor line and the nest are on screen; the right two-thirds stays empty until the teal f(c) term arrives at L7985 (about 7.2 s; last empty sample L7962, sheet 0374 slot 5). The new line is on screen and matches the picture, so this is a composition note rather than a defect; what the narration does over the hold cannot be told from stills."
+    },
+    {
+      "id": "L9",
+      "severity": "Low (typography)",
+      "sheet": 393,
+      "slots": [
+        1
+      ],
+      "frames": [
+        61158
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        9052
+      ],
+      "sheets_affected": [
+        390,
+        391,
+        392,
+        393,
+        394,
+        395,
+        396,
+        397,
+        398,
+        399,
+        400,
+        401,
+        402,
+        403,
+        404,
+        405
+      ],
+      "text": "The \u2202 in the subscript of 'I_n = \u222e_{\u2202Q_n} r(z) dz' is an upright, heavy, sans-looking glyph next to the thin italic Computer Modern Q_n (crop crops/s0393-slot1-In-epsilon.png); it reads as a glyph from another face, same class as L4/L6. The <= in '|r(z)| <= \u03b5|z - c|' (from L9144) is the same heavy glyph as L4 (crop crops/s0395-slot1-r-bound.png). Meaning is clear."
+    },
+    {
+      "id": "L10",
+      "severity": "Low (notation)",
+      "sheet": 392,
+      "slots": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "frames": [
+        61075,
+        61153
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        8969,
+        9047
+      ],
+      "sheets_affected": [
+        392,
+        393,
+        394,
+        395,
+        396,
+        397,
+        398,
+        399,
+        400,
+        401,
+        402,
+        403,
+        404,
+        405
+      ],
+      "text": "The text line reads 'Choose any epsilon > 0' with the Greek letter spelled out as a word, while the formula placed directly under it from L9144 uses the symbol: '|r(z)| <= \u03b5|z - c|'. The screen therefore names the same quantity two ways; a reader has to connect 'epsilon' with \u03b5. Writing 'Choose any \u03b5 > 0' would match."
+    },
+    {
+      "id": "O5",
+      "severity": "observation (not graded)",
+      "sheet": 407,
+      "slots": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "frames": [
+        61262,
+        61874
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        9156,
+        9768
+      ],
+      "sheets_affected": [
+        395,
+        396,
+        397,
+        398,
+        399,
+        400,
+        401,
+        402,
+        403,
+        404,
+        405,
+        406,
+        407
+      ],
+      "text": "After the \u03b4-circle and the two bounds finish fading in (L9156), the picture does not change until the outer square starts to dim at L9772: a static hold of about 10.2 s. Every element on screen is relevant, so this is a pacing note only; what the narration does over the hold cannot be told from stills."
+    },
+    {
+      "id": "O6",
+      "severity": "observation (not graded)",
+      "sheet": 408,
+      "slots": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "frames": [
+        61916,
+        61945
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        9810,
+        9839
+      ],
+      "sheets_affected": [
+        408,
+        409,
+        410,
+        411,
+        412,
+        413,
+        414,
+        415,
+        416,
+        417,
+        418,
+        419,
+        420,
+        421
+      ],
+      "text": "In the 'Selected square, magnified' view the \u03b4-circle is not drawn, while '|z - c| < \u03b4' stays in the text column. Mathematically the magnified square lies inside the disk, so the circle would fall outside the view; nothing on screen says so. A reader may need the narration to connect the two."
+    },
+    {
+      "id": "L11",
+      "severity": "Low (label placement)",
+      "sheet": 434,
+      "slots": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "frames": [
+        62445,
+        62451,
+        62459
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        10339,
+        10345,
+        10353
+      ],
+      "sheets_affected": [
+        411,
+        412,
+        413,
+        414,
+        415,
+        416,
+        417,
+        418,
+        432,
+        433,
+        434,
+        435,
+        436,
+        437
+      ],
+      "text": "In the magnified square the green z-c segment, with z at the bottom-left corner, is drawn over the whole lower half of the teal diagonal, so the visible teal runs only from c to the top-right corner and the 'D_n' label sits beside that half (crop crops/s0434-slot1-Dn-Pn-labels.png). The picture therefore reads as D_n = distance from c to a corner = the green |z - c|, i.e. half the true diagonal. The bound |z - c| <= D_n used by the proof is still true (it is not tight), but the picture suggests equality and a halved D_n. The new 'P_n' (from L10339) is centred under the bottom side, where it reads as that side's length rather than the perimeter of Q_n. Whether later text defines P_n is checked on the following sheets."
+    },
+    {
+      "id": "L12",
+      "severity": "Low (construction fidelity)",
+      "sheet": 445,
+      "slots": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "frames": [
+        62900,
+        62927
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        10794,
+        10821
+      ],
+      "sheets_affected": [
+        444,
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        452,
+        453
+      ],
+      "text": "Under 'Two halves make one quarter' the next square is drawn concentric with the magnified square, centred on c, at half the side (crop crops/s0445-slot1-inner-square.png). In the bisection the proof uses, Q_{n+1} is one of the four quarters of Q_n and shares a corner with it; no quarter of Q_n is concentric with it. The sizes are right (half the diagonal, half the perimeter, so D_n P_n falls by 4, matching the formulas), but the picture shows a square the construction never produces, and the '|I_{n+1}| >= |I_n|/4' line added at L11141 refers to a chosen quarter that is not drawn. Drawing one quarter (the one containing c) would match."
+    },
+    {
+      "id": "O7",
+      "severity": "observation (not graded)",
+      "sheet": 462,
+      "slots": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "frames": [
+        63517,
+        64388
+      ],
+      "chapter": "08_loop_sums",
+      "local_frames": [
+        11411,
+        12282
+      ],
+      "sheets_affected": [
+        455,
+        456,
+        457,
+        458,
+        459,
+        460,
+        461,
+        462,
+        463,
+        464,
+        465,
+        466,
+        467,
+        468,
+        469
+      ],
+      "text": "After 'Two halves make one quarter' the old column fades and '|I_0| <= 4^n|I_n|' stands alone on the right from L11418 to L11831 (about 6.9 s), then '|I_n| <= \u03b5 D_0 P_0/4^n' joins it and the picture is again static from L11856 to L12282 (about 7.1 s). The left figure does not change over either hold. Each line is correct and relevant; this is a pacing note only, and what the narration does over the holds cannot be told from stills."
+    }
+  ],
+  "batches": [
+    {
+      "file": "batch-001.json",
+      "sha256": "3c50b21964942ea49786a360b0ffb29c30b3a2be78a2aa4bb444c82ea73be775"
+    },
+    {
+      "file": "batch-002.json",
+      "sha256": "637208ce9d27296a69906d60a4b302815bd2d297a7ee19d902008503ecc303dc"
+    },
+    {
+      "file": "batch-003.json",
+      "sha256": "a850f729f00ffa505f22c59f574d7c042afc28f843c88bb3bc7941a2ef502085"
+    },
+    {
+      "file": "batch-004.json",
+      "sha256": "cc9a5356e1135119b1e539a8a5fc356bdd8b8caae3a97dbc9a2ae87425b8952c"
+    },
+    {
+      "file": "batch-005.json",
+      "sha256": "b7fa904e59611ca5f3397b232d235e78e65df0b9349a59680db2986df93e43b7"
+    },
+    {
+      "file": "batch-006.json",
+      "sha256": "1735f3233ac3e50d486d192433cdedaaec93f9418fd2058cfc66c74aa081c3d6"
+    },
+    {
+      "file": "batch-007.json",
+      "sha256": "c3b024d4376845388a23fcde5e3f9be367b401a3548e3b4667860746523ea0b2"
+    },
+    {
+      "file": "batch-008.json",
+      "sha256": "36504cfe911d68ddb07996f31e43ba777b3617f55252f70a9be9b19d3473e760"
+    },
+    {
+      "file": "batch-009.json",
+      "sha256": "312941152289c5764af0c5213cd2d439240f039322164686357cc859441a588d"
+    },
+    {
+      "file": "batch-010.json",
+      "sha256": "3052db751e54b65fb247ee72aa575614540643c275d05b55f98b6430145726b4"
+    },
+    {
+      "file": "batch-011.json",
+      "sha256": "2d413bba598567b741c5c59b671cfd5790316ef75ceee19990e7d648a71c8ee5"
+    },
+    {
+      "file": "batch-012.json",
+      "sha256": "ac475e28287c38426341177df4141d6b68306d228f52dfc14e0b10864c9f7139"
+    },
+    {
+      "file": "batch-013.json",
+      "sha256": "459dd51b333bfa0e7b416938039a8400e8d5b0100e998cb9142934b4bdc2e0d2"
+    },
+    {
+      "file": "batch-014.json",
+      "sha256": "9e478c5296438e9f8fc9d7f9b90b5a5d321c6fc3cd58d56a6f07872cb094de20"
+    },
+    {
+      "file": "batch-015.json",
+      "sha256": "8af348a858236912a8edc5d723c3148364a3a1ddb37f01066f162df7b50db93d"
+    },
+    {
+      "file": "batch-016.json",
+      "sha256": "0c2238849e5589862352f5616673980a44a770d70e5ac0df5557795cb3a75c0f"
+    }
+  ],
+  "method": "Each sheet opened with the Read tool as an image and read slot by slot against sampling.json frames and reasons; measurement aids (tile995-brightness.py) only where noted.",
+  "scope": "960x540 stills of the 993 master only. Not listening, motion, fine sync, native 4K detail, whole-film AV or publication acceptance."
+}

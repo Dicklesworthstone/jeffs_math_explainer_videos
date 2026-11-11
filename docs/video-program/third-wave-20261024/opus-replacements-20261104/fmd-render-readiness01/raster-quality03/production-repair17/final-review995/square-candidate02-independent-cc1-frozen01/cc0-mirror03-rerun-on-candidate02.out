@@ -1,0 +1,50 @@
+file: candidate02-loop_sums.rs + candidate02-mod.rs
+PASS constants present  [C_NAME_OFFSET (0.33-0.46j), KEPT_NAME_OFFSET (0.55-0.48j), WALK_START 1, KEPT_QUARTER 3, leader factors (0.075, 0.12)]
+PASS t1 every quarter has c as a corner
+PASS t1 no quarter concentric
+PASS t1 kept shares a corner with Q_n
+PASS t1 kept halves diameter
+PASS t1 kept halves perimeter
+PASS t1 kept diagonal is its diameter
+PASS t1 kept diagonal parallel to D_n
+PASS t1 kept diagonal apart from D_n line
+PASS t1 cuts through c, each half shared by two quarters
+PASS t1 names inside/outside kept
+PASS t1 names clear of strokes  [0.480>0.280, 0.220>0.085, 0.283>0.170]
+PASS t1 body binds proof_children(&enlarged)
+PASS t1 body binds KEPT_QUARTER
+PASS t1 old concentric map gone
+PASS t1 F4 centre_name_at defined
+PASS t1 F4 c name drawn twice at one place  [count 2]
+PASS t1 F4 c name redrawn above the kept fill
+PASS t1 F4 c dot redrawn above the kept fill
+PASS t2 walk counterclockwise  [16.000]
+PASS t2 walk start off the diagonal
+PASS t2 resting |z-c| is D_n/2
+PASS t2 D_n name clear of resting segment
+PASS t2 body has enlarged[(WALK_START + k) % 4]
+PASS t2 body has let moving = walk_corners;
+PASS t2 body has &[centre, walk_corners[0]]
+PASS t3 name 0.4..0.7 from c  [0.5661]
+PASS t3 name clear of nest edges
+PASS t3 name clear of delta-circle
+PASS t3 leader on the ray from c
+PASS t3 leader stops short of glyph
+PASS t3 leader starts at the rim  [start 0.0750, cap reaches 0.0675]
+PASS t3 no near miss  [near misses []]
+PASS t3 touched sides exactly as intended  [touched [(3, 1), (4, 1), (5, 0), (5, 1)]]
+PASS t3 shared right edge of Q_3 and Q_4 crossed
+PASS t3 clear of every edge from 0.25 out
+PASS t3 delta-circle crosses the leader once
+PASS t3 body has let (name_at, leader) = c_name_and_leader(c);
+PASS t3 body has &[point, point_leader, point_name]
+PASS t3 body has &[point, point_leader, point_name, neighbourhood, small]
+PASS t4 square picture cleared before triangle
+PASS t4 listed perimeter_word,
+PASS t4 listed perimeter_name,
+PASS t4 listed square_picture.extend(quarter_picture);
+PASS mod TEXT has PERIMETER_WORD once
+PASS mod TEX has KEPT_TEX once
+info: line.wait_for( calls in goursat body: 34
+
+46 checks, 0 failed

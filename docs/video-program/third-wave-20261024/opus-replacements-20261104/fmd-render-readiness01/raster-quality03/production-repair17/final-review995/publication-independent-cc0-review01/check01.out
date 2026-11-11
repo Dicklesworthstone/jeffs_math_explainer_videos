@@ -1,0 +1,38 @@
+summary sha256 38b52105520640e495ada17aa00da4ddbc16316a5a77c4568e102e1ca3adf185 (checked993 binds 38b52105520640e495ada17aa00da4ddbc16316a5a77c4568e102e1ca3adf185)
+description sha256 c78723f3dffe6476cf68afa56edb1b4d0cae372f44fc7d9596bd607a87f2fd0b (checked993 binds c78723f3dffe6476cf68afa56edb1b4d0cae372f44fc7d9596bd607a87f2fd0b)
+== master993: 15 rows, 133662 frames = 2227.700 s; outputs master 80244e88ca5970d0
+rows contiguous and summing to the master: True
+total 37:07 (37:07.700)
+== description chapter list: 15 marks
+01_the_bump       start      0 =     0.000 s -> 0:00   description 0:00    length 105.183 s  ok  | Why a smooth curve defeats its power series
+02_turning_numbers start   6311 =   105.183 s -> 1:45   description 1:45    length  89.533 s  ok  | Complex multiplication: stretch and turn
+03_two_planes     start  11683 =   194.717 s -> 3:14   description 3:14    length 120.817 s  ok  | Watching functions move the plane
+04_reading_color  start  18932 =   315.533 s -> 5:15   description 5:15    length 112.900 s  ok  | Reading a function in colour
+05_gallery        start  25706 =   428.433 s -> 7:08   description 7:08    length 164.650 s  ok  | Polynomials, exponential, sine, gamma and zeta
+06_one_derivative start  35585 =   593.083 s -> 9:53   description 9:53    length 167.167 s  ok  | What a complex derivative demands
+07_one_point      start  45615 =   760.250 s -> 12:40  description 12:40   length 108.183 s  ok  | Critical points, and a derivative at one point
+08_loop_sums      start  52106 =   868.433 s -> 14:28  description 14:28   length 249.317 s  ok  | Contour integrals and Cauchy's theorem for squares and triangles
+09_boundary       start  67065 =  1117.750 s -> 18:37  description 18:37   length 275.067 s  ok  | Proving Cauchy's formula: the boundary decides the inside
+10_rigidity       start  83569 =  1392.817 s -> 23:12  description 23:12   length 124.033 s  ok  | Why holomorphic functions are rigid
+11_counting       start  91011 =  1516.850 s -> 25:16  description 25:16   length 198.867 s  ok  | Counting roots without finding them
+12_residues       start 102943 =  1715.717 s -> 28:35  description 28:35   length  65.717 s  ok  | Residues: the term that survives
+13_real_integral  start 106886 =  1781.433 s -> 29:41  description 29:41   length 177.350 s  ok  | Real integrals from complex poles
+14_continuation   start 117527 =  1958.783 s -> 32:38  description 32:38   length 195.933 s  ok  | Analytic continuation and its limits
+15_closing        start 129283 =  2154.717 s -> 35:54  description 35:54   length  72.983 s  ok  | Back to the opening puzzle
+YouTube chapter rules: first 0:00 True; at least 3 True; ascending True; each >= 10 s True
+== captions (local copies)
+srt sha256 5d06423248f088a3… = summary True; 571 cues; last end 2220.147 s <= 2227.700 True
+vtt sha256 26e0d7e0eec26eb6… = summary True; 571 cues; last end 2220.147 s <= 2227.700 True
+== limits and credits
+title 40 chars (<= 100): 'The Hidden Geometry of Complex Functions'
+description 2695 chars (<= 5000)
+tags 18, 366 chars raw, 385 counted with quotes for multi-word tags (<= 500)
+angle brackets in title/description/tags: False
+present: Narration: ElevenLabs Frederick Surrey, a synthetic voice.     True
+present: Animation: FrankenManim.                                       True
+present: Music: procedural score generated in code.                     True
+present: https://youtu.be/lgpTDROHgQY                                   True
+present: Sister video, Logarithms Made Visual: From Slide Rules to Matrices True
+other voice names (Oliver, Michael, FrankenTTS): []
+score present in master993: True
+RESULT: no mismatch

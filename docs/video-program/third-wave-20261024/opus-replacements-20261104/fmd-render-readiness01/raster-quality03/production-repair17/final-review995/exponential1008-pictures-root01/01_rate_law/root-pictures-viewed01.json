@@ -1,0 +1,122 @@
+{
+  "reviewed_at": "2026-11-10T23:58:06.149001+00:00",
+  "chapter": "01_rate_law",
+  "movie_sha256": "fe33b9e48bcb456b3cad41f7651bd8e5f8e3bb1b7c6deba657e6b4d9e5fa2b80",
+  "extraction_sha256": "dcc54fad067ebe8901ed7d0f1adb37a243c00b8ecd4546eabd27c3e9ac503ef1",
+  "verification_sha256": "6c273f16974dd3ac0f0363722be9ef308ed4f58a3d5809837acb3aaaf47f7909",
+  "viewed_frame_indices": [
+    0,
+    35,
+    36,
+    66,
+    300,
+    600,
+    900,
+    966,
+    967,
+    968,
+    1003,
+    1004,
+    1005,
+    1034,
+    1064,
+    1094,
+    1124,
+    1154,
+    1184,
+    1200,
+    1214,
+    1243,
+    1244,
+    1245,
+    1261,
+    1262,
+    1292,
+    1500,
+    1800,
+    2100,
+    2216,
+    2217,
+    2218,
+    2253,
+    2254,
+    2284,
+    2400,
+    2700,
+    3000,
+    3300,
+    3386,
+    3387,
+    3388,
+    3422,
+    3423,
+    3453,
+    3600,
+    3900,
+    4200,
+    4500,
+    4651,
+    4652,
+    4653,
+    4687,
+    4688,
+    4718,
+    4800,
+    5100,
+    5400,
+    5700,
+    5882,
+    5883,
+    5884,
+    5919
+  ],
+  "viewed_sheets": [
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-01_rate_law/sheets/sheet-001.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-01_rate_law/sheets/sheet-002.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-01_rate_law/sheets/sheet-003.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-01_rate_law/sheets/sheet-004.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-01_rate_law/sheets/sheet-005.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-01_rate_law/sheets/sheet-006.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-01_rate_law/sheets/sheet-007.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-01_rate_law/sheets/sheet-008.jpg"
+  ],
+  "local_sheet_sha256": [
+    {
+      "file": "sheet-001.jpg",
+      "sha256": "602a3269844dfde541b9447bbd05154ff8c71d2ce4725e09fae84e74f8eaa773"
+    },
+    {
+      "file": "sheet-002.jpg",
+      "sha256": "60c10c9b7c91cd79f4ba0279c0921a4aab398ce5dc19593ec432143b5536c941"
+    },
+    {
+      "file": "sheet-003.jpg",
+      "sha256": "af933517c2faade58051572def7b82835ed5aa153b7fea303e2b3bb37fddb17c"
+    },
+    {
+      "file": "sheet-004.jpg",
+      "sha256": "a829d526bb30b2238f0e830d2ab33733d68e03f104f96756a5453ca5c9a7e48d"
+    },
+    {
+      "file": "sheet-005.jpg",
+      "sha256": "86c8b5412a0b47bd7bcceed7e8695566b3fd1c1f081650a037bf4bc852a5da40"
+    },
+    {
+      "file": "sheet-006.jpg",
+      "sha256": "dfff174ad159412222512a34e844c6fef4273360ee897fb138e859e262175cdf"
+    },
+    {
+      "file": "sheet-007.jpg",
+      "sha256": "fad4b3e74a947f01d6fb3def95bb2f220869c09f1aba17bd100e54562c395c7d"
+    },
+    {
+      "file": "sheet-008.jpg",
+      "sha256": "1c8e26a8c4b301065e65fdae7c025f4c914757c6a9d2fd30c58bae9586f7c1cd"
+    }
+  ],
+  "concrete_defects": [],
+  "observations": [
+    "All64 selected pictures on8 sheets viewed. Constant-rate and current-height panels remain distinct and legible. Prediction prompt, Euler straight-step approximations and ODE labels clear at sampled times. Opening blank samples precede the authored visual reveal."
+  ],
+  "scope": "Actual selected contact-sheet images only, displayed1440x1709 from1920x2280 sheets. Not full-resolution pixel inspection, continuous motion, listening, fine sync, independent whole-film acceptance or publication acceptance."
+}

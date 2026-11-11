@@ -1,0 +1,10 @@
+{
+  "utc": "2026-11-10T22:46:22.189924+00:00",
+  "frame_counts": {
+    "frames-01_the_bump-all.txt": 89,
+    "frames-09_boundary-all.txt": 735,
+    "frames-08_loop_sums-all.txt": 407
+  },
+  "scope": "Parsed helpers; exact input copies and source hashes checked. All1231 plan02 samples plus retained814 boundary samples union and render lint/persistence selected by helper. No extraction or viewing yet.",
+  "controller_pid": 443922
+}

@@ -1,0 +1,108 @@
+ok   compiles: csd-native-repair-final01-run.py
+ok   compiles: csd-native-repair-final01-launch.py
+ok   chapters 01/08/09/11
+ok   two kinds
+ok   option A: 01/08/09 combined01, 11 counting02
+ok   frames total 49706
+ok   37 hex pins well formed
+ok   both binary pins UNRESOLVED (pending builds)
+ok   01_the_bump: proofs() refuses before reading files: 01_the_bump: unresolved pin(s), refusing: csd-native-combined-build01/
+ok   08_loop_sums: proofs() refuses before reading files: 08_loop_sums: unresolved pin(s), refusing: csd-native-combined-build01
+ok   09_boundary: proofs() refuses before reading files: 09_boundary: unresolved pin(s), refusing: csd-native-combined-build01/
+ok   11_counting: proofs() refuses before reading files: 11_counting: unresolved pin(s), refusing: csd-native-counting-build02/
+ok   job name pattern
+ok   968 run is the pinned 2634c842
+ok   base761 pin equals 968 line 32
+ok   guard policy equals 968 lines 44-45
+ok   score21 stems folder equals 968 line 97
+ok   16 distinct physical cores block identical to 968 lines 107-116
+ok   render args: every constant (3840x2160, 60, 16 threads, --score, --lint, --crf 16, --preset veryfast) equals 968 lines 117-119
+ok   only binary, chapter, narration and out vary; --score is score21 stems
+ok   run_step native 86400 unchanged
+ok   09 stems equal 968 lines 98-104
+ok   968 line kept: assert receipt['admitted'] is True and 'finished' not in rec
+ok   968 line kept: assert receipt['phase'] == 'native'
+ok   968 line kept: assert os.environ['CARGO_TARGET_DIR'] == str(D/'work')
+ok   968 line kept: assert sorted(p.name for p in JOB.iterdir()) == ['command.lo
+ok   968 line kept: assert review['all_selected_pictures_viewed'] is True
+ok   968 line kept: assert review['concrete_defects'] == [] and review['independ
+ok   968 line kept: assert review['safe_to_advance_to_final4k'] is True
+ok   968 line kept: assert root['viewed_frame_indices'] == frames
+ok   968 line kept: assert set(independent['viewed_frame_indices']) <= set(frame
+ok   968 line kept: os.environ.update(PATH='/usr/bin:/bin', TMPDIR=str(D/'work/t
+ok   01_the_bump stem 01_the_bump.music.f32.wav = manifest392 row
+ok   01_the_bump stem qa/01_the_bump.json = manifest392 row
+ok   01_the_bump stem set = manifest392 listing ['01_the_bump.music.f32.wav']
+ok   08_loop_sums stem 08_loop_sums.music.f32.parts.tsv = manifest392 row
+ok   08_loop_sums stem 08_loop_sums.music.f32.wav.part0000.wav = manifest392 row
+ok   08_loop_sums stem 08_loop_sums.music.f32.wav.part0001.wav = manifest392 row
+ok   08_loop_sums stem 08_loop_sums.music.f32.wav.part0002.wav = manifest392 row
+ok   08_loop_sums stem qa/08_loop_sums.json = manifest392 row
+ok   08_loop_sums stem set = manifest392 listing ['08_loop_sums.music.f32.parts.tsv', '08_loop_sums.music.f32.wav.part0000.wav', '08_loop_sums.music.f32.wav.part0001.wav', '08_loop_sums.music.f32.wav.part0002.wav']
+ok   09_boundary stem 09_boundary.music.f32.parts.tsv = manifest392 row
+ok   09_boundary stem 09_boundary.music.f32.wav.part0000.wav = manifest392 row
+ok   09_boundary stem 09_boundary.music.f32.wav.part0001.wav = manifest392 row
+ok   09_boundary stem 09_boundary.music.f32.wav.part0002.wav = manifest392 row
+ok   09_boundary stem qa/09_boundary.json = manifest392 row
+ok   09_boundary stem set = manifest392 listing ['09_boundary.music.f32.parts.tsv', '09_boundary.music.f32.wav.part0000.wav', '09_boundary.music.f32.wav.part0001.wav', '09_boundary.music.f32.wav.part0002.wav']
+ok   11_counting stem 11_counting.music.f32.parts.tsv = manifest392 row
+ok   11_counting stem 11_counting.music.f32.wav.part0000.wav = manifest392 row
+ok   11_counting stem 11_counting.music.f32.wav.part0001.wav = manifest392 row
+ok   11_counting stem qa/11_counting.json = manifest392 row
+ok   11_counting stem set = manifest392 listing ['11_counting.music.f32.parts.tsv', '11_counting.music.f32.wav.part0000.wav', '11_counting.music.f32.wav.part0001.wav']
+ok   01_the_bump narration-only preview capture = csd-review-repair-preview274 row
+ok   08_loop_sums narration-only preview capture = csd-review-repair-preview243 row
+ok   09_boundary narration-only preview capture = csd-review-repair-preview274 row
+ok   11_counting narration-only preview capture = csd-review-repair-preview274 row
+ok   09 preview capture equals 968 line 63
+ok   01_the_bump scene the_bump.rs = bundle03 staged
+ok   01_the_bump scene = combined01 frozen copy
+ok   08_loop_sums scene loop_sums.rs = bundle03 staged
+ok   08_loop_sums scene = combined01 frozen copy
+ok   09_boundary scene boundary.rs = bundle03 staged
+ok   09_boundary scene = combined01 frozen copy
+ok   11_counting scene counting.rs = bundle03 staged
+ok   native-combined01 frames and normalized timelines = csd-combined01-timeline.py EXPECTED
+ok   csd-combined01-timeline.py job name
+ok   csd-combined01-timeline.py: comparison name and 247 tests
+ok   csd-combined01-timeline.py: 20 repaired cues
+ok   native-combined01 frames and normalized timelines = csd-combined01-preview.py EXPECTED
+ok   csd-combined01-preview.py job name
+ok   csd-combined01-preview.py: comparison name and 247 tests
+ok   csd-combined01-preview.py: 20 repaired cues
+ok   native-counting02 frames and normalized timelines = csd-counting02-timeline.py EXPECTED
+ok   csd-counting02-timeline.py job name
+ok   csd-counting02-timeline.py: comparison name and 250 tests
+ok   csd-counting02-timeline.py: 28 repaired cues
+ok   native-counting02 frames and normalized timelines = csd-counting02-preview.py EXPECTED
+ok   csd-counting02-preview.py job name
+ok   csd-counting02-preview.py: comparison name and 250 tests
+ok   csd-counting02-preview.py: 28 repaired cues
+ok   native-combined01 build job, binary and source
+ok   native-combined01 delivery job and record
+ok   native-combined01 pictures job, preview, sampling folder, per-chapter record
+ok   native-combined01 pictures inputs file name
+ok   native-counting02 build job, binary and source
+ok   native-counting02 delivery job and record
+ok   native-counting02 pictures job, preview, sampling folder, per-chapter record
+ok   native-counting02 pictures inputs file name
+ok   01_the_bump sampling list = local root copy
+ok   08_loop_sums sampling list = local root copy
+ok   09_boundary sampling list = local root copy
+ok   11_counting sampling list = local root copy
+ok   09 prior775 = combined pictures01 pin
+ok   combined pictures01 retains prior775 for 09
+ok   frames = master993 rows
+ok   09 staged capture = master993 boundary_replay
+ok   01 staged capture = manifest392 row
+ok   08 staged capture = manifest533 row
+ok   11 staged capture = root CSD sha256sum
+ok   968 launch is the pinned 47b8f22b
+ok   launch and run name one runner
+ok   guard command equals 968 lines 86-88 plus --chapter
+ok   launch order: no job, pins resolved, all run proofs, then inputs written exclusively, then guard
+ok   968 launch line kept: assert sha(source) == d['inputs_sha256']
+ok   968 launch line kept: with INPUTS.open('x') as f:
+ok   968 launch line kept: success(JOB/'resource-receipt.json')
+
+106 passed, 0 failed

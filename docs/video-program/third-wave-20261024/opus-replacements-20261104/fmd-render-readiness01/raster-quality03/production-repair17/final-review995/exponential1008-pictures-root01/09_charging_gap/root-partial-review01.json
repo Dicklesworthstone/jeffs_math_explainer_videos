@@ -1,0 +1,48 @@
+{
+  "utc": "2026-11-11T00:31:35.664706+00:00",
+  "viewed_sheet_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "selected_pictures_viewed": 120,
+  "total_selected_pictures": 473,
+  "total_sheets": 60,
+  "observations": [
+    "Circuit, voltage gap and current identities remain legible in these samples; no concrete persistent defect identified."
+  ],
+  "limitations": [
+    "Partial chapter only.",
+    "001-012 viewed in preceding continuation,013-015 this continuation.",
+    "Downscaled contact sheets; no continuous motion, listening or fine-sync acceptance."
+  ],
+  "sheet_hashes": {
+    "001": "c25ae16cbe8488aa676a0844740d9653e06f96d76433dec51764f39f2c478c64",
+    "002": "9034a54dc8fe319e626d0ab784db12900c06b725f8607029c6b6bb1787335e0f",
+    "003": "da8751d4aef5a8b47356ab7f1a19788e982d01b3343a471de216833a97c62386",
+    "004": "2ec69e2aa8623cab361835267780475b32defe220879016f9f26f5ecfae14ae5",
+    "005": "05ee7d8c04f98414a1c88a3a75c341bb0bde1e2e67c9e46758427b55f4d48276",
+    "006": "179f2c2f5227d9114f18cd147db4b41df3f6a3ea663a7d63bf87c1edb67d808a",
+    "007": "0f11c9c08539b27eb9071c76d64ca11f73681d3caeddb4ee423c8c1ca4fba83f",
+    "008": "f774bd2dd5bed30ac39b47029c618cee30d457074905cb8e613d30537a87b972",
+    "009": "3c2ac41b8e06394558b2aba0c3bbcf44189867d93bedf789fadbc3efdbe3afe5",
+    "010": "7f03e9179216ce5008ad1759bca2ab2597b7d9858aa17a945df761fd56ddf06b",
+    "011": "a27fb658e1e60a648e37a3afbddbc1134c0f9aef6478e00e4eba2615721f7626",
+    "012": "d5a840f52de266708e0b063444c6396303a0faa05bf1c38af6ae3c6a926e1e47",
+    "013": "d6107bd9b2029ef3d0fc065e05d6ce9529ca9202f18a39fa96ce1bc498a3a387",
+    "014": "f521e282bc24e1a2c1718eac3591c81ac3bf765859401f7e74533562e32ad764",
+    "015": "06b1528d713bd688d229aea46ebd16285cbe48c1376d91d689078f8b384949a4"
+  }
+}

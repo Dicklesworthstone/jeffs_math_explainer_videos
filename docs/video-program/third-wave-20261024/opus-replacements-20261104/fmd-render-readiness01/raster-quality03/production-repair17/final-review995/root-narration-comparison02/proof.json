@@ -1,0 +1,254 @@
+{
+ "expected_cues": [
+  "01_1",
+  "01_2",
+  "01_3",
+  "01_4",
+  "01_5",
+  "01_6",
+  "08_1",
+  "08_2",
+  "08_3",
+  "08_4",
+  "08_5"
+ ],
+ "denominator": 11,
+ "marks_per_cue": {
+  "01_1": 1,
+  "01_2": 2,
+  "01_3": 1,
+  "01_4": 0,
+  "01_5": 4,
+  "01_6": 0,
+  "08_1": 0,
+  "08_2": 1,
+  "08_3": 2,
+  "08_4": 0,
+  "08_5": 487
+ },
+ "marks_total": 498,
+ "cues_without_marks": [
+  "01_4",
+  "01_6",
+  "08_1",
+  "08_4"
+ ],
+ "wavs": {
+  "01_1": "444c02c93d7368b744f64f1fdcdacaaf54d3f3fc1090c2e7982506d50fe90c37",
+  "01_2": "3650b22a9bd77b8d5af004dcc6721b466f7d1857a3fd882a1b8b46f10df660dd",
+  "01_3": "aa573fa8c3a415a3056ee35da41c935b4d0589b6ba65404575722a88ac31c736",
+  "01_4": "6576bf44bd84c537ec926f92393503998b69a5a40c82f4c7de8e21636cb2c58d",
+  "01_5": "8ff2491a1981eb81b74411d9f5e6f2a10a3c790e1f931089111da6fd9ecffecb",
+  "01_6": "e29d55e59467d2e2fa5a54c7378a7bbd63de3b4be8f667a3189146264ce6cdc9",
+  "08_1": "77013b399e39b4b62f214e90e166be29fd4296e95e40cb57f55bb0931e57d01a",
+  "08_2": "848fc5301731e03042d7484dfbe263689a9eee8d94c44f0f3d9926dd087775db",
+  "08_3": "4cf2231b57a4734a24b7d88c7ff51bf087488d6010a194be48b604cad95e8db3",
+  "08_4": "74cf2bafc68c89797eb19e8c8f36f775754a7dc632263faaf0f8b20f687d8670",
+  "08_5": "fb88052b87ca09b853e1e4ed630ed1163e0966e8b6128ba44f0469c12bfbfb0f"
+ },
+ "folders": {
+  "css309": {
+   "fields_equal": {
+    "wavs": 11,
+    "report_rows": 11,
+    "assembly_outputs": 11,
+    "assembly_units": 11,
+    "plan_units": 11,
+    "phrase_cues": 11
+   },
+   "marks": {
+    "01_1": 1,
+    "01_2": 2,
+    "01_3": 1,
+    "01_4": 0,
+    "01_5": 4,
+    "01_6": 0,
+    "08_1": 0,
+    "08_2": 1,
+    "08_3": 2,
+    "08_4": 0,
+    "08_5": 487
+   },
+   "phrase_file_sha256": "b025eaa7989c40281e6edc72a65f7677275051c36ad67add8114819a45fccabc",
+   "files_differing_from_css309": []
+  },
+  "csd849": {
+   "fields_equal": {
+    "wavs": 11,
+    "report_rows": 11,
+    "assembly_outputs": 11,
+    "assembly_units": 11,
+    "plan_units": 11,
+    "phrase_cues": 11
+   },
+   "marks": {
+    "01_1": 1,
+    "01_2": 2,
+    "01_3": 1,
+    "01_4": 0,
+    "01_5": 4,
+    "01_6": 0,
+    "08_1": 0,
+    "08_2": 1,
+    "08_3": 2,
+    "08_4": 0,
+    "08_5": 487
+   },
+   "phrase_file_sha256": "b025eaa7989c40281e6edc72a65f7677275051c36ad67add8114819a45fccabc",
+   "files_differing_from_css309": [
+    "assembly.json",
+    "external-units.json",
+    "report.json"
+   ]
+  },
+  "csd269": {
+   "fields_equal": {
+    "wavs": 11,
+    "report_rows": 11,
+    "assembly_outputs": 11,
+    "assembly_units": 11,
+    "plan_units": 11,
+    "phrase_cues": 11
+   },
+   "marks": {
+    "01_1": 1,
+    "01_2": 2,
+    "01_3": 1,
+    "01_4": 0,
+    "01_5": 4,
+    "01_6": 0,
+    "08_1": 0,
+    "08_2": 1,
+    "08_3": 2,
+    "08_4": 0,
+    "08_5": 487
+   },
+   "phrase_file_sha256": "b025eaa7989c40281e6edc72a65f7677275051c36ad67add8114819a45fccabc",
+   "files_differing_from_css309": [
+    "assembly.json",
+    "report.json"
+   ]
+  },
+  "csd313": {
+   "fields_equal": {
+    "wavs": 11,
+    "report_rows": 11,
+    "assembly_outputs": 11,
+    "assembly_units": 11,
+    "plan_units": 11,
+    "phrase_cues": 11
+   },
+   "marks": {
+    "01_1": 1,
+    "01_2": 2,
+    "01_3": 1,
+    "01_4": 0,
+    "01_5": 4,
+    "01_6": 0,
+    "08_1": 0,
+    "08_2": 1,
+    "08_3": 2,
+    "08_4": 0,
+    "08_5": 487
+   },
+   "phrase_file_sha256": "b025eaa7989c40281e6edc72a65f7677275051c36ad67add8114819a45fccabc",
+   "files_differing_from_css309": [
+    "assembly.json",
+    "external-units.json",
+    "report.json"
+   ]
+  },
+  "csd19": {
+   "fields_equal": {
+    "wavs": 11,
+    "report_rows": 11,
+    "assembly_outputs": 11,
+    "assembly_units": 11,
+    "plan_units": 11,
+    "phrase_cues": 11
+   },
+   "marks": {
+    "01_1": 1,
+    "01_2": 2,
+    "01_3": 1,
+    "01_4": 0,
+    "01_5": 4,
+    "01_6": 0,
+    "08_1": 0,
+    "08_2": 1,
+    "08_3": 2,
+    "08_4": 0,
+    "08_5": 487
+   },
+   "phrase_file_sha256": "b025eaa7989c40281e6edc72a65f7677275051c36ad67add8114819a45fccabc",
+   "files_differing_from_css309": [
+    "assembly.json",
+    "external-units.json",
+    "report.json"
+   ]
+  }
+ },
+ "phrase_timings_file_identical_in_all_folders": true,
+ "stems": {
+  "files": {
+   "01_the_bump.music.f32.wav": "bb98d1129b340d01b248fcee769aac26dc8a20ce3f3b808607661ed71199b51e",
+   "08_loop_sums.music.f32.parts.tsv": "60b99ae9ca8bf9588a14ba42226688904e7afcd656e85a76b00a03c30c5a947f",
+   "08_loop_sums.music.f32.wav.part0000.wav": "4b0fd3d2f8a3fe5aa197c9c7a48f4ae0f6b28284d0db39f0ecf510614305229c",
+   "08_loop_sums.music.f32.wav.part0001.wav": "5c69b487a5f19e3ed26a9db42d1a4cf0aa1d686da996f4964e89c75fa9b1766c",
+   "08_loop_sums.music.f32.wav.part0002.wav": "1e0e6a8ca09a070fe0693066d94faeaca0aab19ecd5cdaf704eb3940c9efb864",
+   "09_boundary.music.f32.parts.tsv": "db31e88404eb9af836c6575cf5b4178a292eaeceea283d717bf2a4a7166ffe2e",
+   "09_boundary.music.f32.wav.part0000.wav": "ea2207e2a92ea9751fc688878b0a781aeb2a44c79a5e0a3de78197005d508483",
+   "09_boundary.music.f32.wav.part0001.wav": "492613e4cefe62bf730532c375a17fd8815e497e570d81f07b76c052989b0758",
+   "09_boundary.music.f32.wav.part0002.wav": "a57f58d245399bdbc8a615b9c3d85cefd1891449de2bccfa9a541dc506efb3de",
+   "qa/01_the_bump.json": "db09df0b6547fc8113d0a741f5f1512bb8e28d7c3c7f3d73c33392f4ae478c8d",
+   "qa/08_loop_sums.json": "c4874309718a2f51b72176baab139416c89ee581e44128b321eafcb8d4d03ef2",
+   "qa/09_boundary.json": "445daec7a3652361923c34c2a0e6e3e50b23a2b596d89f4744ccf3f350e6b58e"
+  },
+  "equal_across_hosts": true,
+  "csd_dir": {
+   "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems",
+   "resolved": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems",
+   "exists": true
+  },
+  "css_dir": {
+   "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems",
+   "resolved": "/data/projects/jmev-css-render-worker-20261107/work/frozen-runtime75/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-score21/score/stems",
+   "exists": true
+  }
+ },
+ "controls": [
+  {
+   "control": "08_2 first mark sample_24k + 1",
+   "refused": true,
+   "reason": "csd849 differs from css309 at phrase_cues:08_2"
+  },
+  {
+   "control": "01_1 first mark window start + 0.01 s",
+   "refused": true,
+   "reason": "csd849 differs from css309 at phrase_cues:01_1"
+  },
+  {
+   "control": "01_6 phrase cue deleted",
+   "refused": true,
+   "reason": "csd849: phrase timings for 01_6 missing"
+  },
+  {
+   "control": "phrase cue map emptied",
+   "refused": true,
+   "reason": "csd849: phrase-timings.json has no cue map"
+  },
+  {
+   "control": "08_5 last report row end + 0.02 s",
+   "refused": true,
+   "reason": "csd849 differs from css309 at report_rows:08_5"
+  },
+  {
+   "control": "01_2 assembly output sha256 zeroed",
+   "refused": true,
+   "reason": "csd849 differs from css309 at assembly_outputs:01_2"
+  }
+ ],
+ "all_controls_refused": true,
+ "correction": "narration_compare01.py compared top-level phrase-timings keys, which are not cues, so its phrase equality was vacuous. 02 compares pt[\"cues\"] for the eleven cues.",
+ "scope": "Byte hashes and JSON field equality only. No audio heard or checked; Frederick narration unchanged and not assessed."
+}

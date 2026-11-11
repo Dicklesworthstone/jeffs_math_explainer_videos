@@ -1,0 +1,22 @@
+pictures.json e2f1c855; movie da4df9de; frames 16504; full_decode True
+selected 1506; sheets 189; plan02 09 samples 735 (required 419); prior775 814; layout anchors 2
+missing from the selection: plan02 required 0 []; extended 0 []; prior775 0 []
+root 343 instant centre 1661: selected []
+root 343 instant centre 1914: selected []
+root 343 instant centre 2131: selected [2129, 2130]
+root 343 instant centre 2347: selected []
+sheet slot ranges follow the selection order in eights: True
+window 09-control-unchanged: sheets 1-45 (4); expect: No candidate03 change is drawn before ARC_TEX; each frame should equal master993's (native844).
+window 09-M1-arc: sheets 44-50 (7); expect: 'g dz \, \Big|': a visible gap between the z of the second dz and the closing bar, like the opening bar's gap.
+window 09-M1-sum: sheets 50-56 (7); expect: Closing-bar gap in SUM_TEX; right-edge margin of the widest formula (L5: possible ~1% rescale under the 5.1 width cap; measure the glyph height against ARC_TEX).
+window 09-M2-names-leader-in: sheets 59-66 (8); expect: Old a (A_AT) and rho (RHO_AT) leave with the small circle's heads; riding a/rho and the leader fade in with the bar; the leader reaches its own 0.6 opacity and draws above the small circle's line; no rho jump at the tween's first frame 7097 (base jumped at f74158-74163).
+window 09-shrink1: sheets 65-71 (7); expect: Radius 0.18 -> 0.12 in 42 frames (r at video: {'0.17': 7103, '0.16': 7110, '0.15': 7117, '0.14': 7124, '0.13': 7131, '0.12': 7138}); a above and rho right of the line at their ride distances; leader foot fixed 0.02 outside the hole ring, top under a.
+window 09-hold-mid: sheets 71-71 (1); expect: Held at MID_R: does the leader read as a pointer to the fixed hole, not as a radius (CC0 P1)?
+window 09-M1-shrink: sheets 71-78 (8); expect: SHRINK_TEX closing-bar gap.
+window 09-shrink2-rest: sheets 78-86 (9); expect: Radius 0.12 -> 0.06 in 60 frames (r at video: {'0.11': 7610, '0.10': 7620, '0.09': 7630, '0.08': 7640, '0.07': 7650, '0.06': 7660}); a never crossed (base crossed f74689-74717); at rest (video 7660): drawn gap to the hole ring (CC2 box model 7.6 px), a 12.05 px above A_AT, leader gaps 3.4 px to the ring and to a (CC2/CC0 box models), little leader inside the circle (CC2 2.3 px, CC0 4.3 px: measure).
+window 09-rest-zero: sheets 86-89 (4); expect: Rest state through the zero formula's swap.
+window 09-proof-gone: sheets 89-92 (4); expect: Leader, riding a/rho, circles and bar leave together in one 0.4 s fade (no orphan leader).
+window 09_7-growth: sheets 124-147 (24); expect: Disk from r 0.001 to 1 in 180 frames (rt capped at 3.0); a's name eases out over r 0.01->0.11 (video 13658..13676), hidden while the line is near (CC2/CC0: within CLEAR only r 0.125-0.413, video 13679..13731), back by r 0.53 (video 13752); the line never draws over a visible a.
+window 09_7-after-control: sheets 148-153 (5); expect: a_name_shown(1.0) = 1, so after the growth a's name should be pixel-identical to master993's; a bolder or dimmer a here means set_opacity changed more than the fill (risk named in the fmn a399d626 notes).
+window 09_8-slide-card: sheets 153-161 (7); expect: The recentre slide carries the centre and a's name; the '1' card fades in. Source unchanged here: expect frames identical to master993 (a's opacity state is the only candidate influence).
+window 09_9-growth-card: sheets 161-186 (25); expect: Disk from 0.001 to sqrt 2 in 145 frames; a hidden r 0.11-0.43 (video 15624..15656), back by 0.53 (video 15666); the line passes under the re-rooted '1' card for r about 0.38-0.91 (video 15651..15705; card extent estimated, L3) and ends under the sqrt 2 card.

@@ -1,0 +1,7 @@
+{"batch": 26, "viewed_utc": "2026-11-10T20:16Z",
+ "sheets": {
+  "0088": "04 112.517-112.633 s (f25683-f25690, every frame). Bare portrait; the end fade begins, a slight even darkening from f25689. No defect.",
+  "0089": "04 112.65-112.767 s (f25691-f25698). The fade continues evenly over the whole portrait; poles and bands stay in place. No defect.",
+  "0090": "04 to 05 seam, 112.783 s f25699 to 05 0.000 s f25706. The portrait keeps darkening; f25702 shows only dim dark-line texture, f25703 faint traces, f25704 almost nothing. Measured gray (tile only, label strip excluded): background 16; f25703 max 22, f25704 max 19, f25705 max 21, f25706 (05 first frame) max 22, which is JPEG noise level. Dark to dark. No defect."
+ },
+ "findings": []}

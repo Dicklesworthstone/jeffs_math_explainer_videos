@@ -1,0 +1,10 @@
+{"batch": 22, "viewed_utc": "2026-11-10T22:42Z",
+ "sheets": {
+  "0076": "04_4 56.7-61.0 s. 'zero of order 2' held below the ring at 0. The moving point fades (60.0 s, half opacity), and at 60.367 s the point, the legend ray and the '+2.0' counter are gone; 'colour cycles around 0: 2' stays. No defect.",
+  "0077": "04_4 61.4-66.0 s. Hold, then a full-width 'precisely:' note fades in at the bottom (64.3 s, full at 64.5 s): 'near a zero z = a of order m, f(z) is about c times (z - a) to the power m, so the hue turns m times as z circles a'. Its backing covers the bottom strip of the portrait and its frame (about 40 px), below the yellow circle; nothing the narration points at is hidden. Statement correct. Crop crops/s0077-slot8-precisely4x.png: prose variables upright (L4) and the minus in '(z - a)' is the short heavy text hyphen (L1).",
+  "0078": "04_4 66.4-72.0 s. Steady hold of the full layout with the note to 72.0 s (04_5 transition). No defect."
+ },
+ "findings": [
+  {"id": "L1", "sheet": "0077", "slot": 8, "frame": 22892, "severity": "Low", "text": "Recurs in the 04_4 'precisely:' note: the minus in '(z - a)' is the short heavy text hyphen, f22790-f23252 at least."},
+  {"id": "L4", "sheet": "0077", "slot": 4, "frame": 22790, "severity": "Low", "text": "Recurs in the 04_4 'precisely:' note: z, a, m, c and f(z) set upright in prose, and the power written in words ('to the power m') rather than as (z - a)^m."}
+ ]}

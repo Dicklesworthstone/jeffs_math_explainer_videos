@@ -1,0 +1,48 @@
+{
+  "reviewer": "Independent Codex / BlackThrush",
+  "reviewed_utc": "2026-11-10T18:43:42.252458+00:00",
+  "scope": "Current read-only source-delta review and exact remote receipt/hash verification; not retrospective certification of review at12:41.",
+  "findings": [],
+  "source_delta_acceptable": true,
+  "files": {
+    "csd-native968-run.py": "2634c842bacc9b5894511c47ca22c16d1d952e40ea126fd1844d69914e0e48dc",
+    "csd-native968-launch.py": "47b8f22b8f07d0770465e696d5c8094218a2f613fc5dc79b710701e759142236",
+    "csd-native968-before-controlled-stop-run.py": "7d5658bbd0c0977b09f49c2838d94fe70c6fe8111695ba5bc1db5d36a44d7913",
+    "csd-native968-before-controlled-stop-launch.py": "7af9323e1b12bd47cb5b194e1588994c2a8958cb445f4717420f7e0258055762",
+    "independent-native968-review-and969-handoff.md": "466518804172ac224382a3a34c135e3c14a4592422dfbaafb64609a7bc9b59ce",
+    "release-selection1003/recovery1000-complex-binding-review.md": "be864ca46a3935138ae4838d0f93e85ccf3450376b32508d6d80754f72dbc183",
+    "completed-native968-resource-receipt.json": "9fba4ac0b178eb71dc3e37369a51324ca789ddd978cae13037bdebea3d66501b",
+    "completed-master993-summary.json": "38b52105520640e495ada17aa00da4ddbc16316a5a77c4568e102e1ca3adf185",
+    "root-final969-review.json": "61ecd664994388f5bfc97c3cceed65c1eff12f7e789ae59056409d3b7c6a3278",
+    "independent-final969-review.json": "93479c7a8d02eef74499708d8fb794f0d4f8c7ff1eca55088001082a9a81075a"
+  },
+  "remote_hashes_match_local": true,
+  "delta": [
+    "Both runner and launcher replace TimeoutExpired recovery predicate with exact signal15, group782328, child_exit-15 and failed receipt exit-9.",
+    "Launcher docstring updated; runner explanatory comments added. Full unified diff contains no other changes.",
+    "Movie argv, binary, narration849, score21, CPU affinity,24h timeout, resource policy and actual preview-review admission checks remain unchanged."
+  ],
+  "observed_remote_evidence": {
+    "864_receipt_sha256": "0ea6e97c849278adf933156356b12ad0623dde88935975c2448d1e27f3d6f6ed",
+    "864_cleanup_sha256": "e5305ad41b83f426db497078eed914487924b812eddf814dceac816284bb5800",
+    "864_exit": -9,
+    "864_finished": "2026-11-10T12:39:07.543924+00:00",
+    "864_stable_inputs": "685f490743004a9fa3f7d845be3b120b60ed23b2a9473edd88d42819e2a9a7cc",
+    "cleanup": {
+      "reason": "signal 15",
+      "group": 782328,
+      "child_exit": -15,
+      "step": "native"
+    },
+    "968_receipt_sha256": "9fba4ac0b178eb71dc3e37369a51324ca789ddd978cae13037bdebea3d66501b",
+    "968_exit": 0,
+    "968_finished": "2026-11-10T16:57:43.274503+00:00",
+    "968_stable_inputs": "79f859bd2435ad2773bd2ebe77c96b32fd202cb4a9708e66a4278373afac01f4"
+  },
+  "release_provenance_note": "Frozen993 summary retains historical313 narration and review_basis. Current repaired09 render used849 source-bound narration and actual root+independent969 final-picture reviews. Historical summary fields alone do not describe current repaired source/hold provenance. Cite849 and both969 reviews without editing frozen993.",
+  "limitations": [
+    "This addendum is written at the stated current time, not backdated. It does not establish when an earlier transient-message review occurred.",
+    "No jobs rerun, frozen inputs altered, new pictures inspected, listening or fine-sync acceptance.",
+    "Full joined-master995 verification and its actual image reviews remain separate."
+  ]
+}

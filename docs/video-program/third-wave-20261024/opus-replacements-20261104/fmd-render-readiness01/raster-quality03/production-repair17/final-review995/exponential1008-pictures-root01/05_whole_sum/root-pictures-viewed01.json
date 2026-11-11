@@ -1,0 +1,497 @@
+{
+  "reviewed_at": "2026-11-11T00:17:07.008086+00:00",
+  "chapter": "05_whole_sum",
+  "movie_sha256": "fe33b9e48bcb456b3cad41f7651bd8e5f8e3bb1b7c6deba657e6b4d9e5fa2b80",
+  "extraction_sha256": "d7887999abce17a86a2767fb1c5a5c30171a1f531304816a675c5d7d0b1aed78",
+  "verification_sha256": "6c273f16974dd3ac0f0363722be9ef308ed4f58a3d5809837acb3aaaf47f7909",
+  "viewed_frame_indices": [
+    34296,
+    34331,
+    34332,
+    34362,
+    34596,
+    34847,
+    34848,
+    34860,
+    34872,
+    34884,
+    34896,
+    34908,
+    34920,
+    34932,
+    34944,
+    34956,
+    34968,
+    35004,
+    35148,
+    35196,
+    35448,
+    35496,
+    35748,
+    35796,
+    35968,
+    35969,
+    35970,
+    36004,
+    36005,
+    36006,
+    36035,
+    36048,
+    36065,
+    36095,
+    36096,
+    36125,
+    36155,
+    36185,
+    36215,
+    36244,
+    36245,
+    36246,
+    36262,
+    36263,
+    36293,
+    36348,
+    36396,
+    36648,
+    36696,
+    36948,
+    36996,
+    37248,
+    37296,
+    37548,
+    37596,
+    37793,
+    37794,
+    37795,
+    37830,
+    37831,
+    37848,
+    37861,
+    37896,
+    38148,
+    38196,
+    38253,
+    38283,
+    38313,
+    38343,
+    38448,
+    38496,
+    38748,
+    38796,
+    39048,
+    39096,
+    39348,
+    39396,
+    39648,
+    39696,
+    39736,
+    39737,
+    39738,
+    39772,
+    39773,
+    39803,
+    39833,
+    39893,
+    39948,
+    39953,
+    39996,
+    40013,
+    40073,
+    40133,
+    40193,
+    40248,
+    40253,
+    40296,
+    40313,
+    40373,
+    40433,
+    40493,
+    40548,
+    40553,
+    40596,
+    40613,
+    40673,
+    40733,
+    40793,
+    40847,
+    40848,
+    40849,
+    40884,
+    40885,
+    40896,
+    40915,
+    41031,
+    41061,
+    41091,
+    41121,
+    41148,
+    41196,
+    41448,
+    41496,
+    41697,
+    41727,
+    41748,
+    41757,
+    41787,
+    41796,
+    42048,
+    42096,
+    42113,
+    42114,
+    42115,
+    42149,
+    42150,
+    42180,
+    42348,
+    42396,
+    42648,
+    42696,
+    42948,
+    42996,
+    43248,
+    43296,
+    43548,
+    43596,
+    43781,
+    43782,
+    43783,
+    43817,
+    43818,
+    43848,
+    43878,
+    43896,
+    43938,
+    43998,
+    44058,
+    44118,
+    44148,
+    44178,
+    44186,
+    44196,
+    44216,
+    44238,
+    44246,
+    44276,
+    44298,
+    44358,
+    44418,
+    44448,
+    44478,
+    44496,
+    44538,
+    44598,
+    44658,
+    44718,
+    44748,
+    44778,
+    44796,
+    44838,
+    44898,
+    44958,
+    45018,
+    45048,
+    45078,
+    45096,
+    45138,
+    45198,
+    45258,
+    45318,
+    45348,
+    45378,
+    45396,
+    45438,
+    45459,
+    45460,
+    45461,
+    45495,
+    45496,
+    45526,
+    45556,
+    45616,
+    45648,
+    45676,
+    45696,
+    45736,
+    45796,
+    45856,
+    45916,
+    45948,
+    45976,
+    45996,
+    46036,
+    46096,
+    46156,
+    46216,
+    46248,
+    46276,
+    46296,
+    46336,
+    46396,
+    46456,
+    46516,
+    46548,
+    46576,
+    46596,
+    46636,
+    46696,
+    46756,
+    46816,
+    46848,
+    46876,
+    46896,
+    46936,
+    46996,
+    47056,
+    47116,
+    47148,
+    47176,
+    47196,
+    47236,
+    47247,
+    47248,
+    47249,
+    47283
+  ],
+  "viewed_sheets": [
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-001.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-002.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-003.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-004.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-005.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-006.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-007.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-008.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-009.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-010.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-011.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-012.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-013.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-014.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-015.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-016.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-017.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-018.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-019.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-020.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-021.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-022.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-023.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-024.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-025.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-026.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-027.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-028.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-029.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-030.jpg",
+    "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-031.jpg"
+  ],
+  "local_sheet_sha256": [
+    {
+      "file": "sheet-001.jpg",
+      "sha256": "d5c73e40d667a9f60bd56c7783856dead905bd25dd72e4c38b3983a0a6e8e071"
+    },
+    {
+      "file": "sheet-002.jpg",
+      "sha256": "9b06bbe15fa15584499c76e6581a577354afd4901a193564c49a109251563931"
+    },
+    {
+      "file": "sheet-003.jpg",
+      "sha256": "bbcd18a55651c069a577d7d887d2488297d4ae9ae5cc2b81e24dd1fbc01ba361"
+    },
+    {
+      "file": "sheet-004.jpg",
+      "sha256": "92d855b108d49bd063addff9feece7ec956993db3dda584c30d648f0a273930c"
+    },
+    {
+      "file": "sheet-005.jpg",
+      "sha256": "7e96174925d4264611c953abec0d1bc13c879965d16954821063a570f076b6f8"
+    },
+    {
+      "file": "sheet-006.jpg",
+      "sha256": "c8e579a7983fec4679e8ac0e705fd72ac10628f24e4955ba0aa8756c5e66e556"
+    },
+    {
+      "file": "sheet-007.jpg",
+      "sha256": "a8eb77b0693dabdf0f5b5f7742952432243dc9e94e0f7c918afb0b5bda5c40bb"
+    },
+    {
+      "file": "sheet-008.jpg",
+      "sha256": "d20ed723f451787bce6d9c5a75fc75c555e6240643b70a958025f6868239b7ce"
+    },
+    {
+      "file": "sheet-009.jpg",
+      "sha256": "467014f43764cb396dfd22fa1c780a5300564247733ad2c03f42b051b8577e6e"
+    },
+    {
+      "file": "sheet-010.jpg",
+      "sha256": "adcc4a2990fed424285017d040c94a19e35a2a178a9f9116f327f681bb3dba64"
+    },
+    {
+      "file": "sheet-011.jpg",
+      "sha256": "5f2240b77021ced34a564c453f03501b88d42da4cddf31a1476efc9f805076f6"
+    },
+    {
+      "file": "sheet-012.jpg",
+      "sha256": "03b638f4dbd572240046a67d00da25014967bae761f8d3884947b52043d40fcb"
+    },
+    {
+      "file": "sheet-013.jpg",
+      "sha256": "7f845c596bcfed1520f47b2b4985b78708d3aa3c32a867e4c7fcef8f408492e5"
+    },
+    {
+      "file": "sheet-014.jpg",
+      "sha256": "b7d7b26626efba3975383baef153ae11390d7a15050e59a71278223d23d19534"
+    },
+    {
+      "file": "sheet-015.jpg",
+      "sha256": "2a103fa22786b668fc7ce3e892ee54417a13b8aa56d5818b679676bcab5bcb29"
+    },
+    {
+      "file": "sheet-016.jpg",
+      "sha256": "28508d1482192946d11439207a2a4f11575f4453e755c96b2723ebcc7a0340df"
+    },
+    {
+      "file": "sheet-017.jpg",
+      "sha256": "f8afec506ec5e994ac1e159fd0bf22f6ba45faaf05922f49eb4fce1bbd4dfc54"
+    },
+    {
+      "file": "sheet-018.jpg",
+      "sha256": "0e93502466514a751613a48348a38e3a739d7bf2fe3fe4f51b1dd34f98145fd0"
+    },
+    {
+      "file": "sheet-019.jpg",
+      "sha256": "5bb0659e6fbd727b11a6ae800b6dd29474bdbbd890c12cb790bd6814ea89644d"
+    }
+  ],
+  "concrete_defects": [],
+  "observations": [
+    "All246 selected pictures on31 sheets actually viewed. Column convergence versus escaping mass, coefficient ceilings, head/tail bound, negative-input interpretation and final limiting curves remain legible. Counter labels briefly crossfade during changes; later sampled values clear. No persistent concrete clipping or overlap found."
+  ],
+  "scope": "Selected resized1440x1709 contact-sheet images only, from1920x2280 sheets. Not full-resolution inspection, continuous motion, listening, fine sync or independent whole-film acceptance.",
+  "local_sheet_hashes": [
+    {
+      "file": "sheet-001.jpg",
+      "sha256": "fe9ec876db2d2106d4a76d665617bdf0d2d675973c4f942260b9a151b617ecd9"
+    },
+    {
+      "file": "sheet-002.jpg",
+      "sha256": "4d9a5a0813b5ec3a12612f8f8c4015e7d9f02606d3f5937114c46e1c832c1003"
+    },
+    {
+      "file": "sheet-003.jpg",
+      "sha256": "5219bc5d746eb67e2445538d5f0215adad95a317c8495f3da1ca31892bcb0379"
+    },
+    {
+      "file": "sheet-004.jpg",
+      "sha256": "5661c3df9a69337b33d531163af8e72c1e7d057988bfed9bdf7635d813f73472"
+    },
+    {
+      "file": "sheet-005.jpg",
+      "sha256": "cbf58dfbfc138ddf78feca71f06624d26569cfd44917a7e0ce07b17554261875"
+    },
+    {
+      "file": "sheet-006.jpg",
+      "sha256": "a3500614b0f6e9001d43faea0b1cc80bb75ab078e46e6d7ccf2873fad8a311c6"
+    },
+    {
+      "file": "sheet-007.jpg",
+      "sha256": "5aa18be6b099531d9014ee0969222b9e884a5ce8df6cbf0f788cf55553f31be1"
+    },
+    {
+      "file": "sheet-008.jpg",
+      "sha256": "f5dfaba88cf76d7ba0b8eb17e33a4d6b57949841f37280e35150f2e4ef5dcfd6"
+    },
+    {
+      "file": "sheet-009.jpg",
+      "sha256": "6a23653575c4e80852db385b21e2cf2f76e7483c7e4c56c091ee72e4dfa27023"
+    },
+    {
+      "file": "sheet-010.jpg",
+      "sha256": "f6f02405bcadacef6af36f11d8ca4582c50d6f77046c0ff5b6b4ee68c5d1f972"
+    },
+    {
+      "file": "sheet-011.jpg",
+      "sha256": "9f96f817317926714c8f4b7b246a8c729ebbce744b276448c28205db9c756d06"
+    },
+    {
+      "file": "sheet-012.jpg",
+      "sha256": "33f2e09537b94c2352c095b81f94658647f1543b6096de9285809e2815659f2c"
+    },
+    {
+      "file": "sheet-013.jpg",
+      "sha256": "c1923ae7345ecdfaec25ead33aa8da2dbb819e789c788bd5f2f5088171d9a5b3"
+    },
+    {
+      "file": "sheet-014.jpg",
+      "sha256": "20c1a52fc7c3b306ad43c9031942aa6332f620e55b56cd8f73c86b0863478c9d"
+    },
+    {
+      "file": "sheet-015.jpg",
+      "sha256": "7189fa6284d2fbd1117e130e4851d353dc16a01794614f9a65b1c0dbbdee0b98"
+    },
+    {
+      "file": "sheet-016.jpg",
+      "sha256": "8b67f43e589d106c4bcbb734dc7e93d81503b61ca6989eb97f60be2959a1b285"
+    },
+    {
+      "file": "sheet-017.jpg",
+      "sha256": "a9cad322ac929026264b380fc65d711860b8e2b6164d3d4311c16843c4085218"
+    },
+    {
+      "file": "sheet-018.jpg",
+      "sha256": "7c688239407224ba8b7c0cf7d3257ed8478fc4bfd29667c0be424819b50a2dd3"
+    },
+    {
+      "file": "sheet-019.jpg",
+      "sha256": "4e76dff236228fc7dacea8f1dcbf318eb1f3c91b5aadc9dd68682af23cb0458f"
+    },
+    {
+      "file": "sheet-020.jpg",
+      "sha256": "c31ac1219eb78f927ec3e647456f18759a428a46fdd193a33577da24367655e0"
+    },
+    {
+      "file": "sheet-021.jpg",
+      "sha256": "c1085c619b383b0613329690ee047bec0f7254819bf83c6b113932ff013e2891"
+    },
+    {
+      "file": "sheet-022.jpg",
+      "sha256": "79fd7d94ea08746d70f143f6612a0529fc292ea1724771e22d45fd260d22035e"
+    },
+    {
+      "file": "sheet-023.jpg",
+      "sha256": "24b8d986964d2fd984d499fe24a28ad19c11e5ec9869efd07a4daf2dcf5b17f4"
+    },
+    {
+      "file": "sheet-024.jpg",
+      "sha256": "b749cf6b4438eb05d5d94a0b37106c5ef158e6392e60c3d613d6adb9db0ffdb0"
+    },
+    {
+      "file": "sheet-025.jpg",
+      "sha256": "7a1f0de56728fa6c1e4acee655cfd4da3476b79932a315fc0e1ff95e64b9ee92"
+    },
+    {
+      "file": "sheet-026.jpg",
+      "sha256": "9f68cc3c8c6703dede01a6cd373bc516553c545994dc753021b321b4e7020886"
+    },
+    {
+      "file": "sheet-027.jpg",
+      "sha256": "4c3a60ccf529ccc39936b998d17c949a094ad254f4589797d0a5acb5af30534a"
+    },
+    {
+      "file": "sheet-028.jpg",
+      "sha256": "38d470fc44965dde1e4a504b7b2fd0859c712f6b03b5ac40e7560bcc71b44789"
+    },
+    {
+      "file": "sheet-029.jpg",
+      "sha256": "8d83a8bf0525fa002ec868626b1de6220c05ed5f584571fe5cf199424cc0895e"
+    },
+    {
+      "file": "sheet-030.jpg",
+      "sha256": "e9473303eaf0d034281b38f834f258a4e9c98085c61627081b3a4e3d84225535"
+    },
+    {
+      "file": "sheet-031.jpg",
+      "sha256": "7b61b0996f00c3d00eb9258ca13de6771135ccfafbade4714c39dbb92c67ca36"
+    }
+  ]
+}

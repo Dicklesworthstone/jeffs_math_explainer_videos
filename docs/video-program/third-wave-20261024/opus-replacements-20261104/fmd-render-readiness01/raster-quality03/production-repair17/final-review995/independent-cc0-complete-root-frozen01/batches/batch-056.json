@@ -1,0 +1,7 @@
+{"batch": 56, "viewed_utc": "2026-11-10T20:35Z",
+ "sheets": {
+  "0178": "05_7 122.3-122.417 s (f33044-f33051, every frame of root window 7312-7365). Strip at full colour, steady frame to frame. No defect.",
+  "0179": "05_7 122.433-122.55 s (f33052-f33059). Unchanged, steady. No defect.",
+  "0180": "05_7 122.567-122.683 s (f33060-f33067). Unchanged. Strip read at 2x (crops/s0180-slot1-strip2x.png): four points where all hues meet, about 52% across the strip, at sheet rows about 64, 134, 178 and 269; taking the strip bottom (row 445) as height 0, they sit 381, 311, 267 and 176 px up, i.e. 12.5, 12.4, 12.7 and 12.5 px per unit for the first zeros 30.42, 25.01, 21.02 and 14.13. So the strip shows the first four nontrivial zeros on the critical line, at the right heights to within the reading error (about 2%). No label yet. No defect."
+ },
+ "findings": []}

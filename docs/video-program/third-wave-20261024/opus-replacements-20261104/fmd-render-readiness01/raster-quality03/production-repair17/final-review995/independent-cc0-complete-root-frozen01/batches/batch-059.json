@@ -1,0 +1,7 @@
+{"batch": 59, "viewed_utc": "2026-11-10T20:42Z",
+ "sheets": {
+  "0187": "05_8 141.15-144.667 s. Full 05_8 state (ringed zeros, labels, gold box and band, notes, 'Riemann hypothesis: open' box, 'precisely' bar) held unchanged through the 05_9 cue transition sample at 144.667 s. No defect.",
+  "0188": "05_9 145.067-145.35 s. 145.067 s: all overlays (title, markers, labels, box, band, white line, notes, box, bar) fading together; pole and zero markers at the same partial opacity (crops/s0188-slot1-polefade4x.png against crops/s0187-slot8-polefull4x.png). f34421 (145.25 s, first frame of root window 8715-8859): the two bare portraits only; f34422-f34427 steady. No defect.",
+  "0189": "05_9 145.367-145.483 s (f34428-f34435, every frame). Bare portraits steady; from f34432 the main portrait starts darkening evenly while the strip stays at full. No defect."
+ },
+ "findings": []}

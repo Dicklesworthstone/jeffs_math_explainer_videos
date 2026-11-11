@@ -1,0 +1,33 @@
+Q_k boxes:
+  Q_0: x -4.6000..-0.6000  y -2.1000..1.9000  stroke 5.0
+  Q_1: x -2.6000..-0.6000  y -0.1000..1.9000  stroke 5.0
+  Q_2: x -2.6000..-1.6000  y -0.1000..0.9000  stroke 3.0
+  Q_3: x -2.6000..-2.1000  y 0.4000..0.9000  stroke 3.0
+  Q_4: x -2.3500..-2.1000  y 0.4000..0.6500  stroke 3.0
+  Q_5: x -2.2250..-2.1000  y 0.5250..0.6500  stroke 3.0
+c = (-2.1625, 0.5875); Q_5 side 0.1250 = 8.4 px@960; delta 0.3182
+dot radius 0.07 vs c to Q_5 edge 0.0625: the dot covers Q_5's edges (pre-existing)
+
+L5 name at (-1.8325, 0.1275), 0.566 u = 38.2 px@960 = 152.9 px@4K from c
+  name glyph box to nearest nest edge ink: 0.144 u = 9.7 px@960 = 38.9 px@4K
+  name glyph box to delta-circle ink: 0.151 u = 10.2 px@960 = 40.9 px@4K
+  ray from c crosses x = -2.1 at s = 0.1072 (y = 0.5004); dot rim at s = 0.07; leader starts at s = 0.18
+  gap dot rim -> leader start along the ray: 0.110 u = 7.4 px@960 = 29.7 px@4K; the x = -2.1 edge lies inside that gap
+  leader centre line to nearest nest edge centre line: 0.042 u = 2.9 px@960 = 11.5 px@4K
+  ... minus stroke half-widths (edge 3 -> 0.015, leader 1.5 -> 0.0075): ink gap 0.020 u = 1.3 px@960 = 5.4 px@4K
+  test threshold 0.02 u is below the half-width sum 0.0225 u: a touching leader would still pass
+  leader crosses the delta-circle at s = 0.3182 (leader spans s 0.18..0.4461)
+
+L12 kept quarter (index 3): [(-4.6, -0.10000000000000009), (-2.5999999999999996, -0.10000000000000009), (-2.5999999999999996, 1.9), (-4.6, 1.9)]
+  shares corner (-4.6, 1.9) with Q_n; c = (-2.6, -0.1) is its corner (-2.5999999999999996, -0.10000000000000009)
+  c (26 pt, est 0.113 x 0.112) at (-2.82, 0.18): glyph box to nearest stroke ink 0.139 u = 9.3 px@960 = 37.4 px@4K
+  D_n (25 pt, est 0.31 x 0.21) at (-1.70, 1.20): glyph box to nearest stroke ink 0.084 u = 5.7 px@960 = 22.7 px@4K
+  Q_{n+1} (24 pt, est 0.50 x 0.22) at (-4.05, 1.42): glyph box to nearest stroke ink 0.275 u = 18.6 px@960 = 74.2 px@4K
+  kept diagonal parallel to D_n, 1.414 u apart; kept D and P exactly half of Q_n's
+
+L11 pair: word 0.834 u, P_n 0.276 u, total 1.251 u, x -3.225..-1.975
+  centre-aligned at y = -2.5: P_n baseline sits 0.022 u = 1.5 px@960 = 5.9 px@4K below the word's baseline (estimate)
+  pair top -2.414; square bottom edge ink at -2.125: gap 0.289 u = 19.5 px@960 = 77.9 px@4K
+
+L11 resting |z - c| segment c -> bottom-right corner, length 2.8284 = D_n/2 (2.8284)
+  D_n name box to resting segment: 1.383 u = 93.4 px@960 = 373.5 px@4K

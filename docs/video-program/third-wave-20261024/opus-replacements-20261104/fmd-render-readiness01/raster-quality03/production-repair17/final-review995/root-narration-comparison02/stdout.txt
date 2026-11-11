@@ -1,0 +1,16 @@
+denominator 11 cues; marks per cue {'01_1': 1, '01_2': 2, '01_3': 1, '01_4': 0, '01_5': 4, '01_6': 0, '08_1': 0, '08_2': 1, '08_3': 2, '08_4': 0, '08_5': 487} total 498
+cues without marks: ['01_4', '01_6', '08_1', '08_4']
+css309 all 6 fields equal to css309 over 11 cues; files differing: []
+csd849 all 6 fields equal to css309 over 11 cues; files differing: ['assembly.json', 'external-units.json', 'report.json']
+csd269 all 6 fields equal to css309 over 11 cues; files differing: ['assembly.json', 'report.json']
+csd313 all 6 fields equal to css309 over 11 cues; files differing: ['assembly.json', 'external-units.json', 'report.json']
+csd19 all 6 fields equal to css309 over 11 cues; files differing: ['assembly.json', 'external-units.json', 'report.json']
+phrase-timings.json byte-identical in all five folders: True
+stems: 12 files equal across hosts
+control 08_2 first mark sample_24k + 1 REFUSED csd849 differs from css309 at phrase_cues:08_2
+control 01_1 first mark window start + 0.01 s REFUSED csd849 differs from css309 at phrase_cues:01_1
+control 01_6 phrase cue deleted REFUSED csd849: phrase timings for 01_6 missing
+control phrase cue map emptied REFUSED csd849: phrase-timings.json has no cue map
+control 08_5 last report row end + 0.02 s REFUSED csd849 differs from css309 at report_rows:08_5
+control 01_2 assembly output sha256 zeroed REFUSED csd849 differs from css309 at assembly_outputs:01_2
+RESULT: PASS

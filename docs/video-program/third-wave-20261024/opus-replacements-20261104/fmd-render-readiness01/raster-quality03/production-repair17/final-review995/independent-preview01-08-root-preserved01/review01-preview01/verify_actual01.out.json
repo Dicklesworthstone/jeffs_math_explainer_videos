@@ -1,0 +1,240 @@
+{
+ "pictures_json_sha256": "82e3fce62972ae4c9330e9dbe2466c43e0297d902a706b4bf0c4e46e69c70852",
+ "keys": [
+  "frames",
+  "full_decode",
+  "layout_anchors",
+  "layout_sha256",
+  "movie",
+  "movie_sha256",
+  "pictures",
+  "retained_samples",
+  "sampling",
+  "scope",
+  "selected_frames",
+  "sheets",
+  "tables"
+ ],
+ "frames": 6311,
+ "full_decode": true,
+ "layout_anchors": [
+  {
+   "frame": 48,
+   "row": "01_1 +0.8s @0.8s\ttight\t\"\\\\frac{1}{1 + x^2}\" stands 0.22 from the top edge; a text wants 0.25 (title-safe) (still there at 526 later looks)"
+  }
+ ],
+ "layout_sha256": "f47a0de94926bf43544e85891272a3329a2bc6fdb5ae325b66c03e0098d3d9d1",
+ "movie": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-preview01/preview/01_the_bump.mp4",
+ "movie_sha256": "005271e97d32246645b8c36340258d9be83b590962be2c97af1cf922c95e6beb",
+ "retained_samples": 89,
+ "sampling": "All plan02 frames plus prior boundary775 frames, current lint anchors/persistence and complete08 required scope10200:10380. Preview only.",
+ "scope": "Extraction only. No picture viewing, listening, fine-sync or independent AV acceptance.",
+ "tables": {
+  "timeline.tsv": "129947a3a625924e1e8976633ae8261b02d5e537d19bdf3d431ee73c3ad0ea04",
+  "cues.tsv": "e7fea540de13ec0b72077e8d43e9d3dfecdf0ad92ab8c628f19845e7fe41561b",
+  "cuelog.tsv": "fce568bef1d1ede78033792d778b752557f7fa7a4278769146a043485c37db0b"
+ },
+ "selected": 120,
+ "sorted_unique": true,
+ "runs": [
+  [
+   36,
+   36
+  ],
+  [
+   48,
+   48
+  ],
+  [
+   60,
+   60
+  ],
+  [
+   72,
+   72
+  ],
+  [
+   84,
+   84
+  ],
+  [
+   96,
+   96
+  ],
+  [
+   108,
+   108
+  ],
+  [
+   120,
+   120
+  ],
+  [
+   132,
+   132
+  ],
+  [
+   144,
+   144
+  ],
+  [
+   156,
+   156
+  ],
+  [
+   168,
+   168
+  ],
+  [
+   348,
+   348
+  ],
+  [
+   648,
+   648
+  ],
+  [
+   948,
+   948
+  ],
+  [
+   1066,
+   1066
+  ],
+  [
+   1248,
+   1248
+  ],
+  [
+   1548,
+   1548
+  ],
+  [
+   1848,
+   1848
+  ],
+  [
+   2148,
+   2148
+  ],
+  [
+   2448,
+   2448
+  ],
+  [
+   2748,
+   2748
+  ],
+  [
+   3048,
+   3048
+  ],
+  [
+   3348,
+   3348
+  ],
+  [
+   3440,
+   3440
+  ],
+  [
+   3648,
+   3648
+  ],
+  [
+   3948,
+   3948
+  ],
+  [
+   4248,
+   4248
+  ],
+  [
+   4548,
+   4548
+  ],
+  [
+   4848,
+   4848
+  ],
+  [
+   5148,
+   5148
+  ],
+  [
+   5448,
+   5448
+  ],
+  [
+   5497,
+   5497
+  ],
+  [
+   5527,
+   5527
+  ],
+  [
+   5562,
+   5597
+  ],
+  [
+   5600,
+   5600
+  ],
+  [
+   5659,
+   5659
+  ],
+  [
+   5696,
+   5696
+  ],
+  [
+   5748,
+   5748
+  ],
+  [
+   5760,
+   5760
+  ],
+  [
+   5911,
+   5911
+  ],
+  [
+   6000,
+   6000
+  ],
+  [
+   6048,
+   6048
+  ],
+  [
+   6119,
+   6119
+  ],
+  [
+   6155,
+   6155
+  ],
+  [
+   6215,
+   6215
+  ],
+  [
+   6269,
+   6269
+  ],
+  [
+   6273,
+   6310
+  ]
+ ],
+ "sheets": 15,
+ "hash_mismatches": [],
+ "pictures_listed": 120,
+ "local_picture_files": 120,
+ "local_sheet_files": 15,
+ "sheet_ranges_ok": true,
+ "picture_frames_match": "no frame key"
+}

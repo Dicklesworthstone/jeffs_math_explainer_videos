@@ -1,0 +1,7 @@
+{"batch": 79, "viewed_utc": "2026-11-10T21:06Z",
+ "sheets": {
+  "0247": "06_9 161.017-161.133 s, every frame f45246-f45253. The green rectangle keeps growing up and down by equal amounts about the cyan square's centre; the cyan square and arrow are unchanged; title and red 'no complex derivative' held. Even frame-to-frame steps, no flicker or clipped frame. No defect.",
+  "0248": "06_9 161.15-161.267 s, every frame f45254-f45261. Same growth, even steps. No defect.",
+  "0249": "06_9 161.283-161.4 s, every frame f45262-f45269. Same growth. At 161.4 s (slot 8, colhue column 310) the green top is at tile row 126.5 and the bottom at 238.5: height 112 px against the cyan 68.5 px (1.64x), centre still at row 182.5. The growth stays centred on the square, so the open question from batch 078 (local stretch shown, or image of the square) still waits for the settled frame. No defect recorded yet."
+ },
+ "findings": []}

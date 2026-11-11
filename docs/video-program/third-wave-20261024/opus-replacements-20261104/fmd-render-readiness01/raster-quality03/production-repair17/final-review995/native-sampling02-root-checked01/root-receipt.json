@@ -1,0 +1,21 @@
+{
+  "utc": "2026-11-10T22:24:23.701633+00:00",
+  "frame_lists_valid": true,
+  "input_hashes_match": true,
+  "limits": "Source-derived sampling plan only. Candidate frame/picture/motion/audio acceptance not established.",
+  "files": {
+    "frames-09_boundary-required.txt": "aa13f888c9bbbaf3b319c67cda980b4ed0c92b3acf78cd37e9431db4c7f1aa7f",
+    "make-plan02.py": "12c28267f3396196f3bbcb7c3fb37cbaaabaa1ec445303551ea217d2206e174b",
+    "frame-windows01.py": "5c3352e5982bf6a2a0f4396d3bc48d1d2472a1e0ba02709d327df95010d2a862",
+    "sampling-plan02.json": "bd59ffc6d9347c37e5badf76434b91562d4c0a8a00f3ffed49779559231a64f4",
+    "sampling-plan-check01.py": "6845c4ff06dd978e8834de9b22b2b965e6df0a20833f37a64e277d4ae0063f4e",
+    "frame-windows01.json": "f41c3d35c0ec3757e347ad6e6ff9d58ddaa22f5a61b87355182ecfe8b892c06b",
+    "frames-01_the_bump-all.txt": "89dfb46a68bc078c124035a51232c10c617f36f191cc45f987f428a6754ba227",
+    "frames-09_boundary-all.txt": "019e0d9d5b15b7a3228d12cbb0e64e9d7c01cc8b2b4dd6a97ba19bbb186b01c7",
+    "rationale02.md": "6aa628c03c23d1180fe807f30a9190b8424fee8db7ad5b290a9dccbe53045922",
+    "frames-01_the_bump-required.txt": "376f3c2d8acef74ce5cef3efa8b6d78df5a4b4068ee67e54c7efe1e9f0a5112a",
+    "frames-08_loop_sums-required.txt": "f2093918c1cc659ee6d6822cbaba764c7eafc39d171c69d22d46478caa0c271d",
+    "frames-08_loop_sums-all.txt": "6b70dab93816d34205b2c6de4be16bc4b492cda73a5e85d175573aa889c94911",
+    "root-receipt.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

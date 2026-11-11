@@ -1,0 +1,40 @@
+{
+  "author": "CC3 (WhiteSwan), independent source review of CC1 native-sampling01 plan02; scratch only",
+  "time": "2026-11-10",
+  "basis": {
+    "sampling_plan02_json": "bd59ffc6d9347c37e5badf76434b91562d4c0a8a00f3ffed49779559231a64f4",
+    "frames_09_boundary_all": "019e0d9d5b15b7a3228d12cbb0e64e9d7c01cc8b2b4dd6a97ba19bbb186b01c7",
+    "frames_08_loop_sums_all": "6b70dab93816d34205b2c6de4be16bc4b492cda73a5e85d175573aa889c94911",
+    "csd_native855_prior775": "2a1864771d82f9edb436823e100a3c6b97f8421e272a87bd7c2a8c95c1b4cf99",
+    "frame_windows01_json": "f41c3d35c0ec3757e347ad6e6ff9d58ddaa22f5a61b87355182ecfe8b892c06b",
+    "staged_boundary_rs": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932",
+    "staged_loop_sums_rs": "a8d62f560321ea6ebea3d3859acd9a3ce3e5dde4375ec0ab42c1a1ba114d61ef"
+  },
+  "frame_convention": "local = decoded frame index in the chapter's own movie; frame = master993-equivalent = chapter start + local (09 start 67065); seconds = frame / 60",
+  "required": [],
+  "optional": [
+    {
+      "chapter": "09_boundary",
+      "local_frame": 6496,
+      "frame": 73561,
+      "seconds": 1226.016667,
+      "transition": "fade_out_all([summed (SUM_TEX), outer_poly, inner_poly, piece], 0.3) at local 6488-6505 (staged boundary.rs:854)",
+      "reason": "The only CC1-tagged event (M1) outside every plan02 window, and the union (prior775 + plan02 09) has no frame in it: 6480, 6487 before and 6510 after. Not visually relevant to the repair: proof_tex returns one Mob (boundary.rs:451-457), so the closing bar leaves with the rest of the formula in one uniform alpha ramp, and candidate03 changes nothing during the fade. The repaired gap and the 5.1 width cap show in full at 6487, and an orphaned bar would show at 6510. Add 6496 (about half alpha) only if root wants one in-transition frame for the tagged event."
+    }
+  ],
+  "not_gaps": [
+    {
+      "chapter": "09_boundary",
+      "local_range": [16124, 16503],
+      "frame_range": [83189, 83568],
+      "why": "plan02 stops at 16123, but prior775 supplies 16140, 16170, 16200, 16230, 16260, 16290, 16308, 16320, 16350, 16380, 16392, 16410 and 16440 (held, before the fade), plus 16470 and 16473 (closing fade_out 16444-16473), 16474, 16488 and 16500-16503 (painter leave, and the 09 to 10_rigidity join at frame 83569). The repaired a-name opacity and the re-rooted 1 card are in every one of these frames."
+    },
+    {
+      "chapter": "08_loop_sums",
+      "local_range": [10748, 10765],
+      "frame_range": [62854, 62871],
+      "why": "No frame inside the L11 walker and |z-c| fade_out (staged loop_sums.rs:743), but it is bracketed by 10483 (resting at WALK_START) and 10785 (both gone, quarter picture next). The fade list is the base's; bundle02 moves only where the walker rests, and that is sampled from 10340 to 10483."
+    }
+  ],
+  "acceptance": "none: source and frame-list review only; no build, render, decode, frame viewing, listening or AV check"
+}

@@ -1,0 +1,11 @@
+{
+  "utc": "2026-11-10T22:25:07.409038+00:00",
+  "exit": 0,
+  "matched_chapters": [
+    "01_the_bump",
+    "08_loop_sums",
+    "09_boundary"
+  ],
+  "negative_control": "one-frame shift of09_9 refused",
+  "scope": "Existing reference schedules and sampling specification only; repaired native outputs not yet produced"
+}

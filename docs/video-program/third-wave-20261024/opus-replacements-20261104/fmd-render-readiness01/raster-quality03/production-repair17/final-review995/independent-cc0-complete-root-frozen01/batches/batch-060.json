@@ -1,0 +1,7 @@
+{"batch": 60, "viewed_utc": "2026-11-10T20:43Z",
+ "sheets": {
+  "0190": "05_9 145.5-145.617 s (f34436-f34443, every frame of root window 8715-8859). Main portrait darkening evenly frame by frame; the strip stays at full. No defect.",
+  "0191": "05_9 145.633-145.75 s (f34444-f34451). f34444 main portrait faint (up to 13 levels above background); f34445 within 3 levels of background (the dark-looking traces on the sheet are not darker than background: no pixel more than 4 levels darker; regionstat); from f34446 background only. Strip unchanged at full. No defect.",
+  "0192": "05_9 145.767-145.883 s (f34452-f34459). Strip alone, steady; from about f34457 it starts to darken evenly. No defect."
+ },
+ "findings": []}

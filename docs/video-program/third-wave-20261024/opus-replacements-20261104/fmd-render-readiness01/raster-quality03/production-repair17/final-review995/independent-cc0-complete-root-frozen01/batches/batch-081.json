@@ -1,0 +1,10 @@
+{"batch": 81, "viewed_utc": "2026-11-10T21:07Z",
+ "sheets": {
+  "0253": "06_9 161.817-161.933 s, every frame f45294-f45301. The stretch settles: at 161.933 s (slot 8, colhue column 310) green top row 114.5, bottom 251, height 136.5 px = 1.99 x the cyan 68.5 px, centred on the cyan square. 161.85-161.933 s: grey 'image drawn moved down by i' fading in at the bottom left inside the axes, and 'right: 1   up: 2' fading in at the right above 'no complex derivative'. This settles the open check from batches 078-080: the cyan square is centred at 113.75 px right of and 114 px above the origin, i.e. at 1 + i at 114 px per unit (side 0.6); its true image is centred at 1 + 2i, and the drawn green rectangle is centred at 1 + i, so the drawn image is the true image moved down by i, exactly as the note says. 'right: 1, up: 2' is true for x + 2iy (a step right is unchanged, a step up is doubled). The note appears only as the stretch settles, so during 160.7-161.85 s the moving rectangle has no note; noted only.",
+  "0254": "06_9 161.95-162.067 s, every frame f45302-f45309. The note and 'right: 1   up: 2' brighten evenly to full; the rectangle is held at 2x. No flicker or clipped frame. No defect.",
+  "0255": "06_9 162.083-164.667 s; slots 1-6 every frame f45310-f45315 (end of the sampled interval 9630-9730), slot 7 163.967 s, slot 8 164.667 s. At 162.167 s the green rectangle is rows 114.5-250.5 (136 px, 1.99x), held. 163.967 s: a red X above 'no complex derivative', true because the right and up ratios (1 and 2) disagree. Held to 164.667 s. L4 recurrence: the i in the prose note 'image drawn moved down by i' is upright (4x crop s0255-slot6-note4x-b.png)."
+ },
+ "findings": [
+  {"id": "L4", "sheet": "0255", "slot": 6, "frame": 45315, "severity": "Low",
+   "text": "Recurs in the 06_9 note 'image drawn moved down by i' (from 161.85 s): the i is upright, while the title 'x + i y |-> x + 2 i y' above sets it italic (4x crop s0255-slot6-note4x-b.png)."}
+ ]}

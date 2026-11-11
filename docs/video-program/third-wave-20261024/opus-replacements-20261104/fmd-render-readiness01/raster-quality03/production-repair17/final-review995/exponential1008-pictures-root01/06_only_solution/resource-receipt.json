@@ -1,0 +1,115 @@
+{
+  "started": "2026-11-11T00:03:25.552850+00:00",
+  "phase": "native",
+  "command": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-css-render-worker-20261107/qualification01/exponential933/pictures1008.py",
+    "run",
+    "--phase",
+    "pictures",
+    "--chapter",
+    "06_only_solution"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-11T00:03:26.957149+00:00",
+      "free_bytes": 75446542336,
+      "work_bytes": 6621908992,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:03:38.032824+00:00",
+      "free_bytes": 75444162560,
+      "work_bytes": 6624235520,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:03:49.172836+00:00",
+      "free_bytes": 75437670400,
+      "work_bytes": 6630653952,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:04:00.312457+00:00",
+      "free_bytes": 75434668032,
+      "work_bytes": 6633627648,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:04:11.502338+00:00",
+      "free_bytes": 75424034816,
+      "work_bytes": 6644162560,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:04:22.598705+00:00",
+      "free_bytes": 75417649152,
+      "work_bytes": 6650490880,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:04:33.689700+00:00",
+      "free_bytes": 75415609344,
+      "work_bytes": 6652493824,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:04:44.805560+00:00",
+      "free_bytes": 75410665472,
+      "work_bytes": 6656499712,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:04:55.909504+00:00",
+      "free_bytes": 75403657216,
+      "work_bytes": 6663294976,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:05:07.051664+00:00",
+      "free_bytes": 75399352320,
+      "work_bytes": 6667640832,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:05:18.182529+00:00",
+      "free_bytes": 75394211840,
+      "work_bytes": 6672650240,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:05:27.982666+00:00",
+      "free_bytes": 75390078976,
+      "work_bytes": 6676725760,
+      "target_bytes": 12419194880
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":75446546432,\"free_excludes_purgeable\":true,\"free_pct\":7.755754794810221,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-css-render-worker-20261107\",\"platform\":{\"linux\":{\"device_id\":66308,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":972781481984,\"unprotected\":null,\"volume_available_bytes\":75446546432,\"volume_role\":null,\"volume_total_bytes\":972781481984}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-11T00:03:25.562830+00:00",
+    "free_bytes": 75446546432,
+    "work_bytes": 6621904896,
+    "target_bytes": 12419194880
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "8235b94296e2cd1419b05fb9af8d784f0eb3d09ec12cabc4bae10af128f2f503",
+  "pid": 3521346,
+  "exit": 0,
+  "final_inputs_sha256": "8235b94296e2cd1419b05fb9af8d784f0eb3d09ec12cabc4bae10af128f2f503",
+  "finished": "2026-11-11T00:05:29.347649+00:00"
+}

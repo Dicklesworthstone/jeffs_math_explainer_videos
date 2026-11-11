@@ -1,0 +1,7 @@
+text before fn previews( identical: True 13594 chars
+previews() out ops base ['push', 'push', 'push', 'push', 'extend', 'insert']
+previews() out ops cand ['push', 'push', 'push', 'push', 'extend', 'insert']
+same op sequence: True
+animation/timing calls in candidate previews(): []
+animation/timing calls added after previews() (helper + consts + tests): []
+narration phrase literals in the diff region: []

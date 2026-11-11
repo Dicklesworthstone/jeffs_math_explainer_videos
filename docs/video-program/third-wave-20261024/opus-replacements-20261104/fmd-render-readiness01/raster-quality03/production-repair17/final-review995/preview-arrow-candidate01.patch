@@ -1,0 +1,10 @@
+--- the_bump.rs
++++ the_bump.rs
+@@ -369,6 +369,7 @@
+     let lp = Plane::new(v(x, 0.0), 1.5, (-1.2, 1.2), (-1.2, 1.2));
+     out.push(lp.circle(stage, ZERO, 0.8, hero(), 4.0)?);
+     let arrow = Arrow::new(lp.p(ZERO), lp.p(C::polar(0.8, 0.9)))
++        .buff(0.0)
+         .thickness(3.0)
+         .color(Palette::ink())
+         .build()?;

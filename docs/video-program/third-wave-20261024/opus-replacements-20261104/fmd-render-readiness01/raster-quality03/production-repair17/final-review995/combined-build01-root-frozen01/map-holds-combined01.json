@@ -1,0 +1,273 @@
+{
+ "map_sha256": "ff852ebcff626a1dcef5bee91613eba324bba317cacbc7b0f2dd129897bc1681",
+ "rows": [
+  {
+   "kind": "visual_holds",
+   "cue": "01_4",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+   "changed": true,
+   "old_sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3",
+   "old_line": 245,
+   "sha256": "90b51c2b30877911bbb5f5e14ee810268e14efb24e7c4e2a55f7f7e128c06ee7",
+   "line": 245,
+   "marker": "let asked = predict(&kit, stage, &line, &ASK, v(4.9, 3.0))?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "02_5",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+   "changed": false,
+   "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec",
+   "line": 435,
+   "marker": "let asked = predict(&kit, stage, &line, &ASK, v(COLUMN, -1.0))?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "03_3",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+   "changed": false,
+   "sha256": "0f22d63febc18e05dc4123bedf84eeadf967938bcbc4260cfb0d9e8925ff4cb9",
+   "line": 607,
+   "marker": "let asked = predict(&kit, stage, &line, &ASK, out.p(ASK_AT))?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "04_4",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+   "changed": false,
+   "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d",
+   "line": 341,
+   "marker": "reading_window(&kit, stage, &line)?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "04_6",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+   "changed": false,
+   "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d",
+   "line": 389,
+   "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right - 0.15, 0.75))?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "05_8",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+   "changed": false,
+   "sha256": "d57e003a4067f3e67abb654e98c19ca0274c9b7edae5ac26da756757e33230b5",
+   "line": 876,
+   "marker": "reading_window(&kit, stage, &line)?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "06_8",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs",
+   "changed": false,
+   "sha256": "7a4cc01acb497ad881c0d8478c696ab74db025494ab9381d0b414355fe3fd30d",
+   "line": 734,
+   "marker": "let asked = predict(&kit, stage, &line, &ASK, v(4.2, 2.4))?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "07_2",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+   "changed": false,
+   "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00",
+   "line": 400,
+   "marker": "reading_window(&kit, stage, &line)?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "07_3",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+   "changed": false,
+   "sha256": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00",
+   "line": 434,
+   "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 0.6))?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "08_5",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs",
+   "changed": true,
+   "old_sha256": "8a13e8a190cd502e7b58efbcb7c40872cdb0e6e702feb69e1b789e451a7a42b5",
+   "old_line": 1186,
+   "sha256": "a8d62f560321ea6ebea3d3859acd9a3ce3e5dde4375ec0ab42c1a1ba114d61ef",
+   "line": 1284,
+   "marker": "reading_window(&kit, stage, &line)?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "09_4",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+   "changed": true,
+   "old_sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e",
+   "old_line": 985,
+   "sha256": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932",
+   "line": 1048,
+   "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, -2.0))?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "09_5",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+   "changed": true,
+   "old_sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e",
+   "old_line": 1050,
+   "sha256": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932",
+   "line": 1113,
+   "marker": "reading_window(&kit, stage, &line)?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "09_8",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+   "changed": true,
+   "old_sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e",
+   "old_line": 1329,
+   "sha256": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932",
+   "line": 1394,
+   "marker": "let asked = predict(&kit, stage, &line, &ASK_RECENTRE, v(3.9, 2.2))?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "10_4",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+   "changed": false,
+   "sha256": "0bcfbc7d7962b2ab8fa2d27895fce104ab6cb71ce5aac26fdd0b97dca04a3df0",
+   "line": 502,
+   "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 0.9))?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "10_5",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+   "changed": false,
+   "sha256": "0bcfbc7d7962b2ab8fa2d27895fce104ab6cb71ce5aac26fdd0b97dca04a3df0",
+   "line": 528,
+   "marker": "reading_window(&kit, stage, &line)?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "11_5",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+   "changed": false,
+   "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1",
+   "line": 440,
+   "marker": "let asked = predict(&kit, stage, &line, &ASK, v(ASK_AT.0, ASK_AT.1))?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "11_6",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+   "changed": false,
+   "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1",
+   "line": 503,
+   "marker": "reading_window(&kit, stage, &line)?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "11_8",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+   "changed": false,
+   "sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1",
+   "line": 603,
+   "marker": "reading_window(&kit, stage, &line)?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "13_5",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+   "changed": false,
+   "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae",
+   "line": 631,
+   "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 1.2))?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "13_11",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+   "changed": false,
+   "sha256": "83eadb5372812fc540738bbfe9c980ffc1cc35e959be9db9f75906ba425299ae",
+   "line": 813,
+   "marker": "reading_window(&kit, stage, &line)?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "14_3",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+   "changed": false,
+   "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96",
+   "line": 522,
+   "marker": "reading_window(&kit, stage, &line)?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "14_4",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+   "changed": false,
+   "sha256": "9cb4fc0bb87e48d9ce9793d09c0d31b4bfbfbfab7057074db204cf8d6b164f96",
+   "line": 531,
+   "marker": "let asked = predict(&kit, stage, &line, &ASK, v(0.0, 1.4))?;"
+  },
+  {
+   "kind": "visual_holds",
+   "cue": "15_3",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+   "changed": false,
+   "sha256": "0c217b6b5daee2681a61049b0918ceda7cc211d377ecd0c5f70b8562dd36568b",
+   "line": 402,
+   "marker": "let asked = predict(&kit, stage, &line, &[ask.as_str()], v(ASK_AT.0, ASK_AT.1))?;"
+  },
+  {
+   "kind": "helpers",
+   "cue": null,
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+   "changed": false,
+   "sha256": "9bb07b3ff030d1ac0885d1382097bde596e8cae419d86b51933e12e7eeed8218",
+   "line": 1251,
+   "marker": "pub fn predict(kit: &Kit, stage: &mut Stage<'_>, line: &Spoken, lines: &[&str], at: Vec3) -> fmn::Result<Vec<Mob>> {"
+  },
+  {
+   "kind": "helpers",
+   "cue": null,
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+   "changed": false,
+   "sha256": "9bb07b3ff030d1ac0885d1382097bde596e8cae419d86b51933e12e7eeed8218",
+   "line": 1305,
+   "marker": "pub fn reading_window(kit: &Kit, stage: &mut Stage<'_>, line: &Spoken) -> fmn::Result<()> {"
+  },
+  {
+   "kind": "helpers",
+   "cue": null,
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+   "changed": true,
+   "old_sha256": "e1f4d1b87f4b36f979e7800f7b2048117b9a4809b2372f385350698f5c3e7cbd",
+   "old_line": 31,
+   "sha256": "4de1e4a56fde5c11ac3d6a65e772d09ec33db4f5757d817aff370799d3423578",
+   "line": 31,
+   "marker": "pub const PREDICTS: &[(&str, f64)] = &["
+  },
+  {
+   "kind": "helpers",
+   "cue": null,
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+   "changed": false,
+   "sha256": "9bb07b3ff030d1ac0885d1382097bde596e8cae419d86b51933e12e7eeed8218",
+   "line": 1352,
+   "marker": "pub fn precisely_over(stage: &mut Stage<'_>, said: Mob, whole: Mob) -> fmn::Result<()> {"
+  },
+  {
+   "kind": "helpers",
+   "cue": null,
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+   "changed": true,
+   "old_sha256": "e1f4d1b87f4b36f979e7800f7b2048117b9a4809b2372f385350698f5c3e7cbd",
+   "old_line": 58,
+   "sha256": "4de1e4a56fde5c11ac3d6a65e772d09ec33db4f5757d817aff370799d3423578",
+   "line": 58,
+   "marker": "pub const READING_WINDOWS: &[(&str, f64)] = &["
+  }
+ ],
+ "changed_rows": 7,
+ "scope": "Source line relocation only; no narration sample, timing or WAV changes."
+}

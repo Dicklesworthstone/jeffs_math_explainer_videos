@@ -1,0 +1,10 @@
+{"batch": 7, "viewed_utc": "2026-11-10T20:46Z",
+ "sheets": {
+  "0031": "02 6.167-11.0 s. The point 3+2i: drop line to '3', then a dashed line to '2i' (fading in at 7.0 s), then the arrow from 0 with the label '3 + 2i' (9.0 s), and 'z = x + iy' at the right. Arrow and labels at the right positions (62 px per unit). No defect.",
+  "0032": "02 13.3-20.283 s. 02_2: the dashed guides and '2i', '3' fade (14.2 s). A green arrow '1 - i' from 0 (14.5 s, ends at (1,-1)) is moved tip to tail onto 3+2i (16.0 s, ends at (4,1)), with the caption 'adding: tip to tail'. Its minus is again the short bar (L1). Then a cyan grid on [-1,1]^2 with a yellow 'F' fades in (18.4-20.3 s). No other defect.",
+  "0033": "02 21.0-26.967 s. 'every point times i', 'turned: 0 deg'. The grid and F turn counter-clockwise: 2 deg, 40 deg (grid corner at about 85 deg, as 45+40 requires), 86, 89, 90 deg. At 90 deg the F lands as (x,y) -> (-y,x) requires (stem horizontal at y=0.15, top bar vertical at x=-0.9). The degree sign sits at a fixed place while the number is centred, so one-digit values show a gap ('0 deg', '2 deg'): see L3."
+ },
+ "findings": [
+  {"id": "L3", "sheet": 33, "slot": 1, "frame": 7571, "severity": "Low (typographic)",
+   "text": "In the 02_2 readout 'turned: N deg' the degree sign has a fixed position while the number is centred. One-digit angles therefore show a visible space before the sign ('0  deg' at f7571 and f7582, '2  deg' at f7743), while two-digit angles sit tight ('40 deg', '86 deg'). Crop: crops/s0033-degree-readouts4x.png. It is readable; it only looks uneven while the count runs."}
+ ]}

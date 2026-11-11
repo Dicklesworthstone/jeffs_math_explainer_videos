@@ -1,0 +1,33 @@
+{
+  "utc": "2026-11-11T09:11:33.364621+00:00",
+  "chapter": "11_counting",
+  "movie_sha256": "2162f26af404350e0fa3fb8d9d1136d8a03f01cdda0306b0f45c0f7e70bfe4c4",
+  "extraction_sha256": "bd47a39cc44cc96bdd1a0fbbd9d0f06639c811b6e7029b0ff073c437107cbda5",
+  "source_sha256": "21c5043a3339cfadb10024a2e8227a62a0b06674139eace1a0d9029a4e1aa0db",
+  "concrete_defects": [],
+  "safe_to_advance_to_master": true,
+  "listening": false,
+  "fine_sync": false,
+  "independent_whole_film_av": false,
+  "review_route": "author-complete-root-targeted",
+  "author_review": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native-final4k-review1006-11-counting-author.json",
+    "sha256": "247f3d7cbb0fdf7c7fcc0e3339fa897c1f449ec9dbf515e8e121ca30926313dd"
+  },
+  "extraction_record": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-11-counting/pictures.json",
+    "sha256": "bd47a39cc44cc96bdd1a0fbbd9d0f06639c811b6e7029b0ff073c437107cbda5"
+  },
+  "coverage": {
+    "root_whole_chapter_review": false,
+    "author_selected_frames": 848,
+    "independent_selected_frames": 0,
+    "current_root_targeted_sheets": [
+      102,
+      103,
+      106
+    ],
+    "historical_complete_author_is_also_root": true
+  },
+  "scope": "Same person performed complete author review and root decision; no second independent reviewer. Current targeted decision inspected sampling counterexample, refinement and final persistence. Coverage false applies to targeted decision record, not denial of separately bound complete review."
+}

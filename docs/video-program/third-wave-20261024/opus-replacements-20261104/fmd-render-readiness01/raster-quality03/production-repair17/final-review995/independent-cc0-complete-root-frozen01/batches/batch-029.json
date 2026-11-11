@@ -1,0 +1,9 @@
+{"batch": 29, "viewed_utc": "2026-11-10T20:16Z",
+ "sheets": {
+  "0097": "05 1.317-1.433 s (f25785-f25792, every frame). z^3 - 1 portrait at full colour, steady. No defect.",
+  "0098": "05 1.450-1.567 s (f25793-f25800). Steady, no change between frames. No defect.",
+  "0099": "05 1.583-8.8 s. The title 'f(z) = z^3 - 1' starts fading in at f25803 (1.617 s), to the right of the portrait. 2.933 s: a thin dark unit circle through the three zeros, which get white rings (full at 6.0 s). 8.383 s: a large yellow circle fades in round all three zeros, and a small output panel 'output f(z), sizes squashed' with axes. 8.8 s: a point at angle 0 on the big circle; the output panel shows a dot on the positive real axis with a short trace, as f(R) = R^3 - 1 > 0. Ink map of the title (crops/s0099-slot6-title4x.png): '=' is 16 px wide with 1 px bars, the minus 12 px wide and 2-3 px thick, so even the TeX title uses the short heavy minus (L1). The panel caption sets f(z) upright (L4)."
+ },
+ "findings": [
+  {"id": "L1", "sheet": "0099", "slot": 6, "frame": 26066, "severity": "Low", "text": "Recurs in the 05 TeX title 'f(z) = z^3 - 1': minus 12 px wide, 2-3 px thick, against 16 px and 1 px bars for '=' (in Computer Modern the two match in width and rule weight). So L1 affects TeX titles too, not only prose; from f25803 through the 05_1 views."}
+ ]}

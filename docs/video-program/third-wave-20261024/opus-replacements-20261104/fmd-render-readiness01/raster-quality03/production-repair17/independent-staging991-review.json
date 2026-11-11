@@ -1,0 +1,32 @@
+{
+  "reviewer_identity": "Independent Codex / BlackThrush",
+  "reviewed_utc": "2026-11-10T17:24:02.705380+00:00",
+  "scope": "Narrow source diff and read-only live alias evidence; no job launch or runtime acceptance.",
+  "source_sha256": {
+    "historical-aliases991.json": "c6408b16d707164dd20e961a4db0ae05ca1c2c73830ca26118b8fe61e8aba958",
+    "native-linux-materialize991.py": "3402d437fd5284e47763a71c1fbe074768828826ad6dd22ae6c90d6c6c99bb16",
+    "native-linux-master-gate992.py": "0d8d83e131405f0c26642edfad5f1ac3316881935346bb001d52666f9b83ea4a",
+    "combined-master993.py": "1955ca3202c8a4f382fea1682ac754eadf19fd708b2ef983c3f91f12607b6edb",
+    "csd-native994-stage-launch.py": "f064103286a0e1c57bba3eece9084832b1c9f1111c8d5ef22fcfb739c8ce8de9"
+  },
+  "prior_helpers": [
+    "native-linux-materialize970.py",
+    "native-linux-master-gate971.py",
+    "combined-master972.py",
+    "csd-native973-stage-launch.py"
+  ],
+  "concrete_blockers": [],
+  "safe_to_attempt_guarded_stage": true,
+  "observations": [
+    "Compared 991/992/993/994 against preserved 970/971/972/973; changes are explicit historical-alias validation and associated helper/version/hash routing.",
+    "Independently read-only checked all106 live CSD aliases: exact readlink, resolved target and SHA match inventory; all106 SHA values also match original844/849/968/969 input manifests. No inherited manifest symlink is absent from inventory.",
+    "Inventory is105 narration WAV aliases plus /usr/bin/timeout. /usr/bin/python3 is separately a symlink resolving to /usr/bin/python3.14; launcher uses the resolved interpreter binding, so it is not an unlisted inherited alias blocker.",
+    "Materializer and master gate require pinned alias inventory, exact target binding and exact original path content. Unlisted symlinks remain rejected. New output creation and 14 unchanged manifest rows remain unchanged.",
+    "Actual final968/969 successful receipts, source/movie/review bindings, root all-picture coverage, independent nonempty sampled coverage, 105WAV/metadata identity, score tables and guard policy remain enforced. No launch-blocking defect identified in this bounded change."
+  ],
+  "limitations": [
+    "Authored predecessor helpers; independent reviewer of root alias amendment, not independent author of entire chain.",
+    "No new staging/master runtime qualification, listening, fine-sync or publication acceptance.",
+    "Only exact pinned106 historical aliases admitted; future aliases require fresh evidence."
+  ]
+}

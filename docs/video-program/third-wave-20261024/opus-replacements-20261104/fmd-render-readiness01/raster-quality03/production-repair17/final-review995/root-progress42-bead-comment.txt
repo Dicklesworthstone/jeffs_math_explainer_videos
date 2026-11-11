@@ -1,0 +1,6 @@
+## Boundary repair follow-up, 2026-11-10T21:26:34.471391+00:00
+
+- [x] Root overview review now 700/1044 sheets, 5600 selected images; root-progress42.json. Persisted prior680-695 and newly viewed696-699. Read complete CC2 boundary repair handoff; source/mirror checks are not native render acceptance.
+- [x] Requested versioned CC2 candidate02 for remaining green/red ring contact and exact09_9 radius/opacity audit; CC1 independent review of candidate01 continues. Existing four resumed CC conversations preserved.
+- [ ] Remaining 344 root sheets, native detail, independent repair verdicts, guarded build/render and repaired-picture review. Continuous motion/listening/fine-sync and independent whole-film AV acceptance remain open. No upload.
+

@@ -1,0 +1,2508 @@
+{
+ "assigned": "sheet-0001..sheet-0261",
+ "sampling_sha256": "c211e7d571a9ddd67f655c9b5070ff568555723b4e30f92891ee224b4b64626f",
+ "viewed_count": 261,
+ "remaining_count": 0,
+ "remaining": [],
+ "batches": [
+  {
+   "file": "batch-001.json",
+   "sha256": "fc7d098d3d35e698905d8bca5b3e1f2a12af96a9f25be6ba24aaeb2bca1148a2",
+   "batch": 1,
+   "viewed_utc": "2026-11-10T20:05Z",
+   "sheets": [
+    "0001",
+    "0002",
+    "0003",
+    "0004",
+    "0005",
+    "0006"
+   ]
+  },
+  {
+   "file": "batch-002.json",
+   "sha256": "a7dd2c2c158586ccdb66a83b9b1ef317597dc299b60a12d9b38b9d567f48a87f",
+   "batch": 2,
+   "viewed_utc": "2026-11-10T20:12Z",
+   "sheets": [
+    "0007",
+    "0008",
+    "0009",
+    "0010",
+    "0011",
+    "0012"
+   ]
+  },
+  {
+   "file": "batch-003.json",
+   "sha256": "f00ad0c3c5fd2d7d72b84a53c72755c8680216f25b00bdf8d707e6fe519d7304",
+   "batch": 3,
+   "viewed_utc": "2026-11-10T20:18Z",
+   "sheets": [
+    "0013",
+    "0014",
+    "0015",
+    "0016",
+    "0017",
+    "0018"
+   ]
+  },
+  {
+   "file": "batch-004.json",
+   "sha256": "0bcb775ceef58cc158263350911f348c3b7bab1575db92b3f54d7da313390bb7",
+   "batch": 4,
+   "viewed_utc": "2026-11-10T20:24Z",
+   "sheets": [
+    "0019",
+    "0020",
+    "0021"
+   ]
+  },
+  {
+   "file": "batch-005.json",
+   "sha256": "593efa386837fd995fd5b1e07d2cf108bcce3d6579f9c6eda40fe60c668cb67a",
+   "batch": 5,
+   "viewed_utc": "2026-11-10T20:31Z",
+   "sheets": [
+    "0022",
+    "0023",
+    "0024"
+   ]
+  },
+  {
+   "file": "batch-006.json",
+   "sha256": "755b0a4ee202a10d45c466b857dc0a39231cc4ab306085dba2fdea8a0e86ee03",
+   "batch": 6,
+   "viewed_utc": "2026-11-10T20:37Z",
+   "sheets": [
+    "0025",
+    "0026",
+    "0027",
+    "0028",
+    "0029",
+    "0030"
+   ]
+  },
+  {
+   "file": "batch-007.json",
+   "sha256": "603dad1d9fae42a49f297990aeba8e0142fc427e33424c81f01cbdbdabcd44da",
+   "batch": 7,
+   "viewed_utc": "2026-11-10T20:46Z",
+   "sheets": [
+    "0031",
+    "0032",
+    "0033"
+   ]
+  },
+  {
+   "file": "batch-008.json",
+   "sha256": "c47f9f90312d189c810a577bfa608ea8de7e3cb37eb3b7ac38bf6495950858fa",
+   "batch": 8,
+   "viewed_utc": "2026-11-10T20:53Z",
+   "sheets": [
+    "0034",
+    "0035",
+    "0036"
+   ]
+  },
+  {
+   "file": "batch-009.json",
+   "sha256": "c4050ca2dbede5aa88a9ae7e7ee6a4b7728ed14e3d770f0ccf3842c4662bf227",
+   "batch": 9,
+   "viewed_utc": "2026-11-10T21:00Z",
+   "sheets": [
+    "0037",
+    "0038",
+    "0039"
+   ]
+  },
+  {
+   "file": "batch-010.json",
+   "sha256": "781e6bc62845ad11134012782228c78b9d1f9d5c49ed50df66722d9af68eb7f1",
+   "batch": 10,
+   "viewed_utc": "2026-11-10T21:08Z",
+   "sheets": [
+    "0040",
+    "0041",
+    "0042"
+   ]
+  },
+  {
+   "file": "batch-011.json",
+   "sha256": "55a23573e57db0d57b5749a85a17cf4ba0e966083afe9425bfb76066b9f2b2c5",
+   "batch": 11,
+   "viewed_utc": "2026-11-10T21:16Z",
+   "sheets": [
+    "0043",
+    "0044",
+    "0045"
+   ]
+  },
+  {
+   "file": "batch-012.json",
+   "sha256": "2f900530656538660f2cdd1aa47c0305208256d2f2cc313a0216569d81e81dd6",
+   "batch": 12,
+   "viewed_utc": "2026-11-10T21:24Z",
+   "sheets": [
+    "0046",
+    "0047",
+    "0048"
+   ]
+  },
+  {
+   "file": "batch-013.json",
+   "sha256": "566b784ae9c4fd0917a6cc41e968e8a67b5f4b4f1c850590bf3c42be5ec15d81",
+   "batch": 13,
+   "viewed_utc": "2026-11-10T21:31Z",
+   "sheets": [
+    "0049",
+    "0050",
+    "0051"
+   ]
+  },
+  {
+   "file": "batch-014.json",
+   "sha256": "d4f79a8a5809d1221bafaeba3fd697c6b74d44d58e3b81a7d6d3d5d360bdb93d",
+   "batch": 14,
+   "viewed_utc": "2026-11-10T21:39Z",
+   "sheets": [
+    "0052",
+    "0053",
+    "0054"
+   ]
+  },
+  {
+   "file": "batch-015.json",
+   "sha256": "1b856b3e90ac31d8a14f875f3e1ac01aa98232b8f99d9c7de7b5682c3ad33084",
+   "batch": 15,
+   "viewed_utc": "2026-11-10T21:46Z",
+   "sheets": [
+    "0055",
+    "0056",
+    "0057"
+   ]
+  },
+  {
+   "file": "batch-016.json",
+   "sha256": "b3d095ddb63084b90cb24124d884c50f773f859a5c77e4f3beae57cb7899d218",
+   "batch": 16,
+   "viewed_utc": "2026-11-10T21:53Z",
+   "sheets": [
+    "0058",
+    "0059",
+    "0060"
+   ]
+  },
+  {
+   "file": "batch-017.json",
+   "sha256": "51a48c5015ed7cc25a017d332ab606a576dde14458245bccccedacc66d3b7c40",
+   "batch": 17,
+   "viewed_utc": "2026-11-10T22:00Z",
+   "sheets": [
+    "0061",
+    "0062",
+    "0063"
+   ]
+  },
+  {
+   "file": "batch-018.json",
+   "sha256": "3c08f91ed3ea2870fd12f0e87c50b1d11f51eb5e5ce63aed08d87468c6267b1a",
+   "batch": 18,
+   "viewed_utc": "2026-11-10T22:06Z",
+   "sheets": [
+    "0064",
+    "0065",
+    "0066"
+   ]
+  },
+  {
+   "file": "batch-019.json",
+   "sha256": "1a0d7c4710c39f3d43bd452b0e7839bd031dea8d7577c070716e14f5cb76df2d",
+   "batch": 19,
+   "viewed_utc": "2026-11-10T22:14Z",
+   "sheets": [
+    "0067",
+    "0068",
+    "0069"
+   ]
+  },
+  {
+   "file": "batch-020.json",
+   "sha256": "a8946c84d742fc21cd74c0f8819cfa5bde59ce71ee2818f5e9e20f5c75636bc2",
+   "batch": 20,
+   "viewed_utc": "2026-11-10T22:24Z",
+   "sheets": [
+    "0070",
+    "0071",
+    "0072"
+   ]
+  },
+  {
+   "file": "batch-021.json",
+   "sha256": "271a6f8162ee829e2dfd577cf0665cc7fd35a80e7119f96950c6440207cd297b",
+   "batch": 21,
+   "viewed_utc": "2026-11-10T22:33Z",
+   "sheets": [
+    "0073",
+    "0074",
+    "0075"
+   ]
+  },
+  {
+   "file": "batch-022.json",
+   "sha256": "8132e66618bbfcf246072b2a851f645800b9f0d7d7f210caf73ea7da96ac264d",
+   "batch": 22,
+   "viewed_utc": "2026-11-10T22:42Z",
+   "sheets": [
+    "0076",
+    "0077",
+    "0078"
+   ]
+  },
+  {
+   "file": "batch-023.json",
+   "sha256": "00a0a5408e37af7ffcf6c802274ca32ee8f81bca12eb0fcd337d65f098a11994",
+   "batch": 23,
+   "viewed_utc": "2026-11-10T20:14Z",
+   "sheets": [
+    "0079",
+    "0080",
+    "0081"
+   ]
+  },
+  {
+   "file": "batch-024.json",
+   "sha256": "b83213fef1ca38fb1ec3f3d5fea9e233a347599327d9441e12c927770ad1b394",
+   "batch": 24,
+   "viewed_utc": "2026-11-10T20:14Z",
+   "sheets": [
+    "0082",
+    "0083",
+    "0084"
+   ]
+  },
+  {
+   "file": "batch-025.json",
+   "sha256": "75c1c8911674865e8834956b97b7ec4bd4057418a119cf586c4ccb3bf898a212",
+   "batch": 25,
+   "viewed_utc": "2026-11-10T20:15Z",
+   "sheets": [
+    "0085",
+    "0086",
+    "0087"
+   ]
+  },
+  {
+   "file": "batch-026.json",
+   "sha256": "7628660328aacb218de75501ae5f4d429b48a0fe7b08ab6f3a60c29847f846d4",
+   "batch": 26,
+   "viewed_utc": "2026-11-10T20:16Z",
+   "sheets": [
+    "0088",
+    "0089",
+    "0090"
+   ]
+  },
+  {
+   "file": "batch-027.json",
+   "sha256": "7f99b2bb80556b6c762f8836738f9eba70d0a251402f663373e738fdd0d95272",
+   "batch": 27,
+   "viewed_utc": "2026-11-10T20:15Z",
+   "sheets": [
+    "0091",
+    "0092",
+    "0093"
+   ]
+  },
+  {
+   "file": "batch-028.json",
+   "sha256": "9446702747df185a6955f13eb8923ee3e015395fec24089d08166f5caec52584",
+   "batch": 28,
+   "viewed_utc": "2026-11-10T20:15Z",
+   "sheets": [
+    "0094",
+    "0095",
+    "0096"
+   ]
+  },
+  {
+   "file": "batch-029.json",
+   "sha256": "4fa3a38192d76da2105f9631625f21e74eb13a2f47855b0036ada20a7eb7c879",
+   "batch": 29,
+   "viewed_utc": "2026-11-10T20:16Z",
+   "sheets": [
+    "0097",
+    "0098",
+    "0099"
+   ]
+  },
+  {
+   "file": "batch-030.json",
+   "sha256": "8da34d6a25a5e96bcd87b7fe72693a07b34edf784908a74e2f7017fc2fb04335",
+   "batch": 30,
+   "viewed_utc": "2026-11-10T20:17Z",
+   "sheets": [
+    "0100",
+    "0101",
+    "0102"
+   ]
+  },
+  {
+   "file": "batch-031.json",
+   "sha256": "1fbd6732dd4c5daaea2a395c05f40109025735eed5854f92b261d1e7c614bf94",
+   "batch": 31,
+   "viewed_utc": "2026-11-10T20:17Z",
+   "sheets": [
+    "0103",
+    "0104",
+    "0105"
+   ]
+  },
+  {
+   "file": "batch-032.json",
+   "sha256": "95b876ebd9963092708f5da91d6c0ec0443af9467540762c2f45462f63f96df6",
+   "batch": 32,
+   "viewed_utc": "2026-11-10T20:18Z",
+   "sheets": [
+    "0106",
+    "0107",
+    "0108"
+   ]
+  },
+  {
+   "file": "batch-033.json",
+   "sha256": "c8f3c00290cebeebcd79aacd1111d4addb6ed7934de4fc84795e5e5760090558",
+   "batch": 33,
+   "viewed_utc": "2026-11-10T20:18Z",
+   "sheets": [
+    "0109",
+    "0110",
+    "0111"
+   ]
+  },
+  {
+   "file": "batch-034.json",
+   "sha256": "9cac04516cc97198b3379f66a3e6ecc047b0f20d077823fb827a2e7218214aa1",
+   "batch": 34,
+   "viewed_utc": "2026-11-10T20:20Z",
+   "sheets": [
+    "0112",
+    "0113",
+    "0114"
+   ]
+  },
+  {
+   "file": "batch-035.json",
+   "sha256": "da8b68998cf605e5448d3c92ca6aeda283dad841aa0db69edd783f2d79349c30",
+   "batch": 35,
+   "viewed_utc": "2026-11-10T20:21Z",
+   "sheets": [
+    "0115",
+    "0116",
+    "0117"
+   ]
+  },
+  {
+   "file": "batch-036.json",
+   "sha256": "b1d6cf97a3eed8ef13614dd4421d75dd9f37e87159dc6dd7abc2a4b30a784aa6",
+   "batch": 36,
+   "viewed_utc": "2026-11-10T20:22Z",
+   "sheets": [
+    "0118",
+    "0119",
+    "0120"
+   ]
+  },
+  {
+   "file": "batch-037.json",
+   "sha256": "b04ef82c756e691469f631a4f2ee83eb4f65c7004280e5cef2622adcb12f6886",
+   "batch": 37,
+   "viewed_utc": "2026-11-10T20:22Z",
+   "sheets": [
+    "0121",
+    "0122",
+    "0123"
+   ]
+  },
+  {
+   "file": "batch-038.json",
+   "sha256": "d566ea07e48c0885a38bedd998c68edd26dd30f3c2b36d48a13a4e701870a0ea",
+   "batch": 38,
+   "viewed_utc": "2026-11-10T20:23Z",
+   "sheets": [
+    "0124",
+    "0125",
+    "0126"
+   ]
+  },
+  {
+   "file": "batch-039.json",
+   "sha256": "44ea5d1d08ed2169c5e3138a0f9ce5842079d87ecbbe504f1cb51f38adaa941f",
+   "batch": 39,
+   "viewed_utc": "2026-11-10T20:24Z",
+   "sheets": [
+    "0127",
+    "0128",
+    "0129"
+   ]
+  },
+  {
+   "file": "batch-040.json",
+   "sha256": "2741e0ace9437e2b66a5b45ee0fa4e0ca276af0c0dfeeae2df2d1cd06c033e57",
+   "batch": 40,
+   "viewed_utc": "2026-11-10T20:24Z",
+   "sheets": [
+    "0130",
+    "0131",
+    "0132"
+   ]
+  },
+  {
+   "file": "batch-041.json",
+   "sha256": "5a9451536ed3763203f263c18573e74d42fc7ad99c9de924393fac4567c658e4",
+   "batch": 41,
+   "viewed_utc": "2026-11-10T20:25Z",
+   "sheets": [
+    "0133",
+    "0134",
+    "0135"
+   ]
+  },
+  {
+   "file": "batch-042.json",
+   "sha256": "85691e2d8745f0e5a9959e4e1a1f56f2b338322d4867e81f9d312500634b3c17",
+   "batch": 42,
+   "viewed_utc": "2026-11-10T20:26Z",
+   "sheets": [
+    "0136",
+    "0137",
+    "0138"
+   ]
+  },
+  {
+   "file": "batch-043.json",
+   "sha256": "94c24b7215d06e83457065054e2b1dd330637635ab42a6d4b631f569c10b8d31",
+   "batch": 43,
+   "viewed_utc": "2026-11-10T20:26Z",
+   "sheets": [
+    "0139",
+    "0140",
+    "0141"
+   ]
+  },
+  {
+   "file": "batch-044.json",
+   "sha256": "9c6257cd04f338b1c7fc18f967017cedfdce529ce1c214c16920d01045b44507",
+   "batch": 44,
+   "viewed_utc": "2026-11-10T20:26Z",
+   "sheets": [
+    "0142",
+    "0143",
+    "0144"
+   ]
+  },
+  {
+   "file": "batch-045.json",
+   "sha256": "31dcb2cefd82bdab87a0c9e749850461d75215ee97ef3167c18b6fd2c964cdd2",
+   "batch": 45,
+   "viewed_utc": "2026-11-10T20:27Z",
+   "sheets": [
+    "0145",
+    "0146",
+    "0147"
+   ]
+  },
+  {
+   "file": "batch-046.json",
+   "sha256": "0f64cbf6b2e5d0dc3ef746a8051c872cd493aedb09b77304baf33600e89bf4f8",
+   "batch": 46,
+   "viewed_utc": "2026-11-10T20:27Z",
+   "sheets": [
+    "0148",
+    "0149",
+    "0150"
+   ]
+  },
+  {
+   "file": "batch-047.json",
+   "sha256": "7b1d88c5c68a0cff1caa9c3325e490603c25122aa227cd2ae76785bd952c6212",
+   "batch": 47,
+   "viewed_utc": "2026-11-10T20:28Z",
+   "sheets": [
+    "0151",
+    "0152",
+    "0153"
+   ]
+  },
+  {
+   "file": "batch-048.json",
+   "sha256": "8b9dc802f5079c91e801bf990e48948297d0f98598902081dee28de3fed743c2",
+   "batch": 48,
+   "viewed_utc": "2026-11-10T20:28Z",
+   "sheets": [
+    "0154",
+    "0155",
+    "0156"
+   ]
+  },
+  {
+   "file": "batch-049.json",
+   "sha256": "c74d972759d7879af7a859cc6bae126b8465995f5888bc9f249fc77c2fd1d957",
+   "batch": 49,
+   "viewed_utc": "2026-11-10T20:29Z",
+   "sheets": [
+    "0157",
+    "0158",
+    "0159"
+   ]
+  },
+  {
+   "file": "batch-050.json",
+   "sha256": "dbca6fff6298675e7e88413a19f68e7338be2a99903318565609ec6eb9db6631",
+   "batch": 50,
+   "viewed_utc": "2026-11-10T20:30Z",
+   "sheets": [
+    "0160",
+    "0161",
+    "0162"
+   ]
+  },
+  {
+   "file": "batch-051.json",
+   "sha256": "203497f626607bf311aa678bc148fd83005f5baea360ad25df52859bfe4f43ec",
+   "batch": 51,
+   "viewed_utc": "2026-11-10T20:31Z",
+   "sheets": [
+    "0163",
+    "0164",
+    "0165"
+   ]
+  },
+  {
+   "file": "batch-052.json",
+   "sha256": "49e8d8f0d44740a88a8536f56ed17cf1d64f370b64af5ef36046ca3660193d9c",
+   "batch": 52,
+   "viewed_utc": "2026-11-10T20:32Z",
+   "sheets": [
+    "0166",
+    "0167",
+    "0168"
+   ]
+  },
+  {
+   "file": "batch-053.json",
+   "sha256": "19b280a3030a45e6f6327c57bb9a0e68e8be135ec6424ab80409d9ad61c078f1",
+   "batch": 53,
+   "viewed_utc": "2026-11-10T20:33Z",
+   "sheets": [
+    "0169",
+    "0170",
+    "0171"
+   ]
+  },
+  {
+   "file": "batch-054.json",
+   "sha256": "9f129c71e7aeb0931797ee01da76d18cbe9d6375618d4a7e2977e01c89b16147",
+   "batch": 54,
+   "viewed_utc": "2026-11-10T20:34Z",
+   "sheets": [
+    "0172",
+    "0173",
+    "0174"
+   ]
+  },
+  {
+   "file": "batch-055.json",
+   "sha256": "96f965be62805c65f1bb4a014cec81bc291ee2a22b355f1ea93ce3e531e39994",
+   "batch": 55,
+   "viewed_utc": "2026-11-10T20:34Z",
+   "sheets": [
+    "0175",
+    "0176",
+    "0177"
+   ]
+  },
+  {
+   "file": "batch-056.json",
+   "sha256": "da67e26cc4c9958c4bfe592616781588f3152e87ed917ea3684313d64bb94cb4",
+   "batch": 56,
+   "viewed_utc": "2026-11-10T20:35Z",
+   "sheets": [
+    "0178",
+    "0179",
+    "0180"
+   ]
+  },
+  {
+   "file": "batch-057.json",
+   "sha256": "ba5012901b3b6f0d343e4607974ed96efb025e61968fa90649db119531a8dc1f",
+   "batch": 57,
+   "viewed_utc": "2026-11-10T20:37Z",
+   "sheets": [
+    "0181",
+    "0182",
+    "0183"
+   ]
+  },
+  {
+   "file": "batch-058.json",
+   "sha256": "47a57475059abcd7c0f912903aa0b24e0cbc317e6e932bb26060c9c969aecf2f",
+   "batch": 58,
+   "viewed_utc": "2026-11-10T20:42Z",
+   "sheets": [
+    "0184",
+    "0185",
+    "0186"
+   ]
+  },
+  {
+   "file": "batch-059.json",
+   "sha256": "561fed1d3ce1d29603b8fed0171438bb386da1e004dedecc46b81c287f35c5fb",
+   "batch": 59,
+   "viewed_utc": "2026-11-10T20:42Z",
+   "sheets": [
+    "0187",
+    "0188",
+    "0189"
+   ]
+  },
+  {
+   "file": "batch-060.json",
+   "sha256": "e135eb3543b09f556dbdc079a0b0879e6ddb552d37740ef4b01e2991b2856c0a",
+   "batch": 60,
+   "viewed_utc": "2026-11-10T20:43Z",
+   "sheets": [
+    "0190",
+    "0191",
+    "0192"
+   ]
+  },
+  {
+   "file": "batch-061.json",
+   "sha256": "ab683616f66f8a9748007f3176c10b9d4e3f211769d755b2d47d164d6e7054ba",
+   "batch": 61,
+   "viewed_utc": "2026-11-10T20:44Z",
+   "sheets": [
+    "0193",
+    "0194",
+    "0195"
+   ]
+  },
+  {
+   "file": "batch-062.json",
+   "sha256": "e5aa140a130f811770a70dd7d2dad7dffc213e5ff803181bdec702bbc1df36cc",
+   "batch": 62,
+   "viewed_utc": "2026-11-10T20:44Z",
+   "sheets": [
+    "0196",
+    "0197",
+    "0198"
+   ]
+  },
+  {
+   "file": "batch-063.json",
+   "sha256": "66bae07b753e6f395574bfb24d5d9f4249cd74b7a80464044266f20932e592e4",
+   "batch": 63,
+   "viewed_utc": "2026-11-10T20:44Z",
+   "sheets": [
+    "0199",
+    "0200",
+    "0201"
+   ]
+  },
+  {
+   "file": "batch-064.json",
+   "sha256": "c1221031565646a7acb585ee492cd9cc810c1b72ee988289192498bee0166224",
+   "batch": 64,
+   "viewed_utc": "2026-11-10T20:46Z",
+   "sheets": [
+    "0202",
+    "0203",
+    "0204"
+   ]
+  },
+  {
+   "file": "batch-065.json",
+   "sha256": "d6a51fee8d0ff431398da281890ca3746cdb65d3fcd0cdc22aa218c763201f53",
+   "batch": 65,
+   "viewed_utc": "2026-11-10T20:48Z",
+   "sheets": [
+    "0205",
+    "0206",
+    "0207"
+   ]
+  },
+  {
+   "file": "batch-066.json",
+   "sha256": "06559ff5c0a994fd43df2f254ce46f81d2ae955cc3a21627511891ddb03da391",
+   "batch": 66,
+   "viewed_utc": "2026-11-10T20:49Z",
+   "sheets": [
+    "0208",
+    "0209",
+    "0210"
+   ]
+  },
+  {
+   "file": "batch-067.json",
+   "sha256": "afdaba8a361fa93113aa84d329994a24dda3eb4d9098dee2e35d1e1363127353",
+   "batch": 67,
+   "viewed_utc": "2026-11-10T20:49Z",
+   "sheets": [
+    "0211",
+    "0212",
+    "0213"
+   ]
+  },
+  {
+   "file": "batch-068.json",
+   "sha256": "88e45f2eb7f44656653eadbffa0ce4c4f29bfe67e52e66640949ed39186edaa3",
+   "batch": 68,
+   "viewed_utc": "2026-11-10T20:51Z",
+   "sheets": [
+    "0214",
+    "0215",
+    "0216"
+   ]
+  },
+  {
+   "file": "batch-069.json",
+   "sha256": "21783d31e9aacf62d3839a653f03924d6a02394cf9aff3efe43929dde09f54b6",
+   "batch": 69,
+   "viewed_utc": "2026-11-10T20:52Z",
+   "sheets": [
+    "0217",
+    "0218",
+    "0219"
+   ]
+  },
+  {
+   "file": "batch-070.json",
+   "sha256": "a7d76ff44aba43ba4e1a215d68f2e3181cd9daa063ad07716fe687a06d0ee4e5",
+   "batch": 70,
+   "viewed_utc": "2026-11-10T20:53Z",
+   "sheets": [
+    "0220",
+    "0221",
+    "0222"
+   ]
+  },
+  {
+   "file": "batch-071.json",
+   "sha256": "e20b32ceaae53fbacfd8c5050a543068c91db3752380757278a0c0bd7beec55d",
+   "batch": 71,
+   "viewed_utc": "2026-11-10T20:53Z",
+   "sheets": [
+    "0223",
+    "0224",
+    "0225"
+   ]
+  },
+  {
+   "file": "batch-072.json",
+   "sha256": "cb3d58795d62d4908c6d09d849bc18bc5f0e3ce99208c0df6da1a5cd7bbad8a8",
+   "batch": 72,
+   "viewed_utc": "2026-11-10T20:55Z",
+   "sheets": [
+    "0226",
+    "0227",
+    "0228"
+   ]
+  },
+  {
+   "file": "batch-073.json",
+   "sha256": "97c384316ceef448d59d4261ccdc7f3061831bf33082376d7431960f8736f3a5",
+   "batch": 73,
+   "viewed_utc": "2026-11-10T20:57Z",
+   "sheets": [
+    "0229",
+    "0230",
+    "0231"
+   ]
+  },
+  {
+   "file": "batch-074.json",
+   "sha256": "251c28ca8331e8fc7a48c76d7dfa62234324de9843b55cad6ca71ce0019e9c18",
+   "batch": 74,
+   "viewed_utc": "2026-11-10T20:59Z",
+   "sheets": [
+    "0232",
+    "0233",
+    "0234"
+   ]
+  },
+  {
+   "file": "batch-075.json",
+   "sha256": "1995cf2369e8ec851a355f67efc281ce9d593e19e85dbde5501ac1e360a1fb6f",
+   "batch": 75,
+   "viewed_utc": "2026-11-10T21:00Z",
+   "sheets": [
+    "0235",
+    "0236",
+    "0237"
+   ]
+  },
+  {
+   "file": "batch-076.json",
+   "sha256": "ad73075d1a4e876ac553447ee42733e883dffda11ab8e9c9cf7b8adafb4a47a9",
+   "batch": 76,
+   "viewed_utc": "2026-11-10T21:01Z",
+   "sheets": [
+    "0238",
+    "0239",
+    "0240"
+   ]
+  },
+  {
+   "file": "batch-077.json",
+   "sha256": "d3964c903e7489a1b9c93d89dc5be0fafdb28dbeb1bdaba3cac51e554be6a3bd",
+   "batch": 77,
+   "viewed_utc": "2026-11-10T21:04Z",
+   "sheets": [
+    "0241",
+    "0242",
+    "0243"
+   ]
+  },
+  {
+   "file": "batch-078.json",
+   "sha256": "313909c1e70b2afd9c5de7e30f7bcd534304d48dea1bcbe43e58734e114247dd",
+   "batch": 78,
+   "viewed_utc": "2026-11-10T21:05Z",
+   "sheets": [
+    "0244",
+    "0245",
+    "0246"
+   ]
+  },
+  {
+   "file": "batch-079.json",
+   "sha256": "935e5be46833a4eb7dacf88fb7e1da317c8498a6e621c2fd0ad3814f39c4f4f2",
+   "batch": 79,
+   "viewed_utc": "2026-11-10T21:06Z",
+   "sheets": [
+    "0247",
+    "0248",
+    "0249"
+   ]
+  },
+  {
+   "file": "batch-080.json",
+   "sha256": "cc15a7622154c85ab3a8fc69f5e448a23e5a4e817cb446420a44440397557080",
+   "batch": 80,
+   "viewed_utc": "2026-11-10T21:06Z",
+   "sheets": [
+    "0250",
+    "0251",
+    "0252"
+   ]
+  },
+  {
+   "file": "batch-081.json",
+   "sha256": "a41729537d237872cd48ab987417ad30d63dc41fc2f2c042d8b92c5dfeb9cab9",
+   "batch": 81,
+   "viewed_utc": "2026-11-10T21:07Z",
+   "sheets": [
+    "0253",
+    "0254",
+    "0255"
+   ]
+  },
+  {
+   "file": "batch-082.json",
+   "sha256": "03912decd36f7514ccb64b758dcccfa6b92db2b30d2dbc55bbb0cd4b5382e10e",
+   "batch": 82,
+   "viewed_utc": "2026-11-10T21:08Z",
+   "sheets": [
+    "0256",
+    "0257",
+    "0258"
+   ]
+  },
+  {
+   "file": "batch-083.json",
+   "sha256": "bff3b7e892657dc430695cb14c2a99eabffe29d472d86e459efb71f5e154a21e",
+   "batch": 83,
+   "viewed_utc": "2026-11-10T21:09Z",
+   "sheets": [
+    "0259",
+    "0260",
+    "0261"
+   ]
+  }
+ ],
+ "viewed": {
+  "0001": {
+   "sha256": "ee2f5602ee8eaf20bfc41be6c2f792402028d66c8cad1b713b342ff354b6e33b",
+   "note": "01 0.000-1.100 s. Slots 1-3 (f0-f2) fully dark: chapter opens on black. Slot 4 (0.4 s) title, formula and axes fading in. Slots 5-8: 'the bump 1/(1+x^2)' and axes, nothing else drawn yet. No defect.",
+   "batch": 1
+  },
+  "0002": {
+   "sha256": "0297ce6adca4b8280adba96d86518af356531adb2ef6b2569b241c3fc96d5b0a",
+   "note": "01 1.2-4.4 s. Yellow tracing dot at the far left; the white curve starts drawing from x=-max at 3.8 s. No defect.",
+   "batch": 1
+  },
+  "0003": {
+   "sha256": "7fdc34451602b2ebadf6ae1dffa8717aecba61d911d3df2ee56733683322bdc0",
+   "note": "01 5.8-10.0 s. The curve is traced left to right by the dot, with the peak at the y-axis. At 10.0 s it is nearly complete. No defect.",
+   "batch": 1
+  },
+  "0004": {
+   "sha256": "2414a1cbbfa0019631cb66323f1ecf223f32bd88ddf770566164a945f218fec8",
+   "note": "01 10.583-15.8 s. Bump complete. The peak label '1' fades in (10.8 s), and the dot fades out by 11.4 s. No defect.",
+   "batch": 1
+  },
+  "0005": {
+   "sha256": "9b0bd03168e2c798b109c4d5ab6cc062b49909be13d87e13c9ffed46436f2c9d",
+   "note": "01 16.0-20.8 s. Steady bump with '1'. The series line '1 - x^2 + x^4 - x^6 + ...' fades in at 17.967 s (01_2). Minus glyph: see L1.",
+   "batch": 1
+  },
+  "0006": {
+   "sha256": "d1f2225b62b7248509a5b58cd18cb28ee6230210f2e002217a26f7db63313785",
+   "note": "01 21.0-24.433 s. Partial sums in yellow: 1-x^2 fades in (21.0 s), then 1-x^2+x^4 (23.433 s). Crop s0006-slot5-quartic.png: the quartic lies on the bump near 0 and above it outward, as (1+x^6)/(1+x^2) >= 1/(1+x^2) requires. Minus glyph L1 (crop s0006-slot5-series4x.png).",
+   "batch": 1
+  },
+  "0007": {
+   "sha256": "b086b3d2ac704343388614e259583e56d90a209eff62271cbbccaa447bf6d768",
+   "note": "01 24.933-30.0 s. Partial sum to degree 6 (1-x^2+x^4-x^6) lies below the bump outside the centre, as an odd-count alternating sum must. 'terms up to degree 6' panel fades in at 25.8 s. No defect.",
+   "batch": 2
+  },
+  "0008": {
+   "sha256": "a9ce3c7b4c40ba5c3e32fc1f486a43e1bfee1df8b8d250e771c16f3215178743",
+   "note": "01 30.167-36.0 s. Dashed lines at x=+-1 (the axis spans [-3,3]). Degree 8, 10, ..., 40: the curve hugs the bump inside |x|<1 and breaks away at the lines. Slots 3 (30.8 s, f1848) and 6 (31.4 s, f1884) are mid-morph: the counter already reads 8 (10) while the curve is still the degree-6 (degree-8) shape. See L2.",
+   "batch": 2
+  },
+  "0009": {
+   "sha256": "37d6e759a3a9505a5ca5d73286ee320adb0fe8f859cded45ad3a9a97f81824b7",
+   "note": "01 36.4-40.833 s. Degree 40 settled. 'x = 1.1' and 'recipe ~ 25.2' at 39.833 s, with a white dot on the bump at x=1.1. Check: (1 + 1.1^42)/(1 + 1.1^2) = 25.23. No defect.",
+   "batch": 2
+  },
+  "0010": {
+   "sha256": "056372ae6ffa8f1de097bff47b9cb464f3e19483e6e4165e85a0d6164526f59c",
+   "note": "01 41.0-48.133 s. 'bump ~ 0.452' added at 45.35 s. Check: 1/(1 + 1.21) = 0.4525. No defect.",
+   "batch": 2
+  },
+  "0011": {
+   "sha256": "243998b0388ead85ccd677803221a95a6e61ff229906abb694059359af8ad68c",
+   "note": "01 48.533-52.533 s. Dashed x=+-1 lines recoloured yellow (01_4). The near-vertical branches of the degree-40 curve run along the lines. Readable; no defect.",
+   "batch": 2
+  },
+  "0012": {
+   "sha256": "11a140626fa9796288b81c708ab102f109325f6ecba26ab986aaa334fdf54d55",
+   "note": "01 54.267-61.0 s. Purple question box 'what stops the recipe at x = 1?' above the readouts. A purple think-ring appears under it at 60.0 s and fills. No overlap or clip. No defect.",
+   "batch": 2
+  },
+  "0013": {
+   "sha256": "b94a44b872feceebbfdd781d91af480a0b00bf2672a800e54ecd6cfdda89e0d2",
+   "note": "01 61.4-66.05 s. The think-ring empties (62.38 s). Then 01_5: the question box, readouts, series and partial sums fade, the bump dims to grey, and the vertical axis turns teal and extends below the real axis into a complex-plane view. Slot 6 (65.8 s) catches the extension mid-draw. No defect.",
+   "batch": 3
+  },
+  "0014": {
+   "sha256": "1c447037733f176122e40ed1d93bef2adeac53fe94b1fba74f1ae065951aed56",
+   "note": "01 66.4-71.4 s. Plane view with the grey bump kept. Pink pole rings at i and -i fade in (70.8 s) on the imaginary axis at 1 unit (85 px, the same unit as the earlier x=+-1 lines). Labels 'i' and '-i' to the lower right. The '-i' minus is the short heavy bar (L1). No other defect.",
+   "batch": 3
+  },
+  "0015": {
+   "sha256": "7c9d824d8535f3bc22da7223913d2ee91130516a65de1cd974238d9b69abfef1",
+   "note": "01 72.183-77.25 s. A yellow circle grows from the origin (75.8 s) and reaches the poles at radius 1 (77.25 s). No defect.",
+   "batch": 3
+  },
+  "0016": {
+   "sha256": "afd51a5560cad27af313b329de94cf2712fda90c394e572779ec4796f155dc75",
+   "note": "01 80.0-83.683 s. Unit circle through +-i. Radius segment and 'radius 1' label added at 82.167 s, clear of the circle and the poles. No defect.",
+   "batch": 3
+  },
+  "0017": {
+   "sha256": "ef37d0292b5c966c3f45042a49a6b559dee2b27bcbbc061816143a0afa925b69",
+   "note": "01 84.183-90.0 s. Steady unit circle, radius and label (01_6). No defect.",
+   "batch": 3
+  },
+  "0018": {
+   "sha256": "d261dced379b167d9d5dca57ade8fc4d43b12a4985642f3e9a3a45a696d15d2d",
+   "note": "01 90.8-91.617 s. Steady. From 91.55 s (f5493) every frame of root window 5493/5496-5531 is sampled; frames 5493-5497 are identical in content. No defect.",
+   "batch": 3
+  },
+  "0019": {
+   "sha256": "df3732905e68f0ffc63c91ca08a530bb3f8fbafa8f3cd4af4cfcb379f1e35a9e",
+   "note": "01 91.633-91.750 s (f5498-f5505, every frame of root window 5496-5531). A 'coming up' panel fades in at the upper right with a domain-colouring thumbnail and a small yellow circle; faint at first, so a fade. Main picture steady: unit circle, 'radius 1', poles at +-i. No clip or overlap. No defect.",
+   "batch": 4
+  },
+  "0020": {
+   "sha256": "4ec7eb8221b749c1735224a3f87f600b4794f701a57ddc9aabb2d9501a4c0da7",
+   "note": "01 91.767-91.883 s (f5506-f5513). Panel and thumbnail at rising opacity; the thumbnail is a colour wheel with modulus rings. No defect.",
+   "batch": 4
+  },
+  "0021": {
+   "sha256": "eaceb3109e5fe87c99b22c01c697203291f78bdd19506671bb2a4d9acd0554d7",
+   "note": "01 91.900-92.017 s (f5514-f5521). Panel near full opacity; the small circle brighter. No defect.",
+   "batch": 4
+  },
+  "0022": {
+   "sha256": "a06d29e0e461ac7c30cef517ec3f1aec888f355a6ce0c10c918790e38fd52096",
+   "note": "01 92.033-92.150 s (f5522-f5529, every frame). 'coming up' panel: caption, domain-colouring thumbnail of z^2 and a small yellow circle, at full opacity. Main picture steady. No defect.",
+   "batch": 5
+  },
+  "0023": {
+   "sha256": "e27219e66525dcbfed699d2811d453d79e57ecd0e6cc048c392e15bb4b7c8558",
+   "note": "01 92.167-100.0 s. By 93.183 s (f5591) the second preview shows a tiny white tip inside the circle and the half-disk contour appears below; its white pole dot is in by 95.8 s (f5748). The tip is a defect: see M1 (crop crops/s0023-slot4-preview3x.png).",
+   "batch": 5
+  },
+  "0024": {
+   "sha256": "e03a33b3927f0b1c884962a41549c39caa1aec3e9b16b1b62f6dd21f25324f1a",
+   "note": "01 100.8-104.55 s. Steady 01_6 hold with the three previews; M1 visible on every frame. Last slot (f6273) opens root window 6273-6310. No other defect.",
+   "batch": 5
+  },
+  "0025": {
+   "sha256": "cbd2dd67bcbf5876ec44f54ea50b761074a580ded75c91e33d3d4ddaa934e433",
+   "note": "01 104.567-104.683 s (f6274-f6281, every frame of root window 6273-6310). Steady 01_6 picture with the three previews; M1 tip still the only mark in the middle preview. No other defect.",
+   "batch": 6
+  },
+  "0026": {
+   "sha256": "4507d16f87482e861256296392d26f3e0e33dc4f636b68d0b63298af535d6e47",
+   "note": "01 104.700-104.817 s (f6282-f6289). The chapter fade-out begins at about f6286: every element dims together. No defect.",
+   "batch": 6
+  },
+  "0027": {
+   "sha256": "f3d7ba7089490a44d7e302fe3cfbdcc1ebedf926a8b9c7f3fb3567a688062665",
+   "note": "01 104.833-104.950 s (f6290-f6297). Uniform fade continues; no element lags or pops. No defect.",
+   "batch": 6
+  },
+  "0028": {
+   "sha256": "1e7417d63f9e92c62d98e5688f53b6571fcff51c9bdf028121e1d2b90a9bfb39",
+   "note": "01 104.967-105.083 s (f6298-f6305). Fade deepens to near black, all elements together. No defect.",
+   "batch": 6
+  },
+  "0029": {
+   "sha256": "78c6cd78cdddbd6948c93025b7eda32fc7409e6b78a3b00b211e7229040feb98",
+   "note": "01 105.100-105.167 s then 02 0.000-0.033 s (f6306-f6313). 01 ends fully dark at f6310; at f6309 only faint traces of the circle and thumbnail edge remain. Chapter 02 opens on the dark background (f6311-f6313). Seam: dark to dark, no flash. No defect.",
+   "batch": 6
+  },
+  "0030": {
+   "sha256": "c054cd8d153de503e31805215a9199cff200e7b78c4d205265b645a0ab4817fa",
+   "note": "02 0.4-6.0 s. Dark at 0.4 s; a framed plane with 'imaginary part' and 'real part' fades in by 0.8-1.0 s. A cyan point appears (faint at 1.1 s, full by 4.2 s) at about 3 units right and 2 up (62 px per unit at 960x540), then a dashed drop to the real axis with the label '3' (5.167 s). '3' and 'real part' sit about 45 px apart, both readable. No defect.",
+   "batch": 6
+  },
+  "0031": {
+   "sha256": "0868dd2831fb25aaafc1e69f1f24061018f7ad9f34ffd04ea08f0fb80b8a9595",
+   "note": "02 6.167-11.0 s. The point 3+2i: drop line to '3', then a dashed line to '2i' (fading in at 7.0 s), then the arrow from 0 with the label '3 + 2i' (9.0 s), and 'z = x + iy' at the right. Arrow and labels at the right positions (62 px per unit). No defect.",
+   "batch": 7
+  },
+  "0032": {
+   "sha256": "4959abee23b4c1871aa7a7cac374da80044773a394e12cc9cc89891b6117b6d4",
+   "note": "02 13.3-20.283 s. 02_2: the dashed guides and '2i', '3' fade (14.2 s). A green arrow '1 - i' from 0 (14.5 s, ends at (1,-1)) is moved tip to tail onto 3+2i (16.0 s, ends at (4,1)), with the caption 'adding: tip to tail'. Its minus is again the short bar (L1). Then a cyan grid on [-1,1]^2 with a yellow 'F' fades in (18.4-20.3 s). No other defect.",
+   "batch": 7
+  },
+  "0033": {
+   "sha256": "88497144c86941446aa891795ed0b2870a1ab8cc84b2aed5e8b432d10eb23779",
+   "note": "02 21.0-26.967 s. 'every point times i', 'turned: 0 deg'. The grid and F turn counter-clockwise: 2 deg, 40 deg (grid corner at about 85 deg, as 45+40 requires), 86, 89, 90 deg. At 90 deg the F lands as (x,y) -> (-y,x) requires (stem horizontal at y=0.15, top bar vertical at x=-0.9). The degree sign sits at a fixed place while the number is centred, so one-digit values show a gap ('0 deg', '2 deg'): see L3.",
+   "batch": 7
+  },
+  "0034": {
+   "sha256": "1e5d149b8b6f7307800ed9906210b5515d5dbf52ba15c5d328d4dbba1059f23c",
+   "note": "02 27.367-35.783 s. 02_3: the turned grid fades (27.4 s); a point at '1' (27.7 s); a yellow half-turn arc from 1 through i to -1 with a dot at -1 and labels 'i', '-1', '1' (30.0 s); box 'i . i = -1' (33.1 s). Arc radius equals the unit (62 px). '-1' uses the short minus (L1). No other defect.",
+   "batch": 8
+  },
+  "0035": {
+   "sha256": "dea858c3a787b9d15634c09e3dd6119d5605e4f0afbb5bd686fde7cdabab4de9",
+   "note": "02 36.0-44.067 s. 02_4: arc fades (36.7 s), grid and F return (37.0 s). Caption 'multiplying by w: stretch by |w|, turn by the angle of w'. Arrow 1+i ends on the grid corner (1,1), with an angle arc, '|1 + i| = sqrt2 ~ 1.414' and 'angle: 45 deg' fading in (40.9-44.1 s). Values correct. The arrow crosses the F's bars; both stay readable. In the caption, w is upright roman while formulas set variables in italic: see L4.",
+   "batch": 8
+  },
+  "0036": {
+   "sha256": "fca92f6de182a6858f0e060445e91f4cd97203ab23a39a3fd3d282eb6cedf7fc",
+   "note": "02 45.483-52.733 s. Box 'names: length = modulus |w|, angle = argument arg w' along the bottom, inside the frame. The grid is multiplied by 1+i (mid-turn at 50.0 s; settled at 51.0 s): corners (1,1) -> 2i and (1,-1) -> 2 land at 2 units (124 px), and the F's top bar runs from (-0.75,1.05) to (-0.15,1.65) as (1+i) times it requires. The names box fades out at 52.4 s. Upright w again (L4). No other defect.",
+   "batch": 8
+  },
+  "0037": {
+   "sha256": "43dcdc113ef105651409187db5e5ba4c81e33335972159b7f1388423e43db54c",
+   "note": "02 54.75-60.05 s. 02_5: the angle arc is lit yellow (55.45 s) and 'angle: 45 deg' underlined (56.45 s). Quiz box '(1 + i)^2 = ?' in purple from 60.0 s. In the quiz box the i is upright with a text superscript, while the answer later is TeX '(1 + i)^2 = 2i' with italic i: see the L4 addendum.",
+   "batch": 9
+  },
+  "0038": {
+   "sha256": "8168b68338bcae3c4d8369faca51af19bea6c6b50f8542c6d2a20672a1645f9a",
+   "note": "02 61.0-71.0 s. A think-ring under the quiz: part-filled purple at 66.0 s, empty grey at 68.05 s, the same countdown as chapter 01. Quiz box and caption fade (68.45 s) and leave (68.75 s) with no answer shown. Then the grid is multiplied by 1+i again (mid-turn at 70.0 and 71.0 s). No defect.",
+   "batch": 9
+  },
+  "0039": {
+   "sha256": "5bbc3521f45a258e15c719f325c8a13b54b5008be921a7a3a6a3b0f5e8de7d82",
+   "note": "02 73.767-79.05 s. Settled grid on [-2,2]^2 (axis-aligned, 248 px wide). The F lands where 2i(x+iy) = -2y+2ix puts it (stem along y=0.3 from x=-1.8 to -0.1; top bar at x=-1.8 up to y=1.5; middle bar at x=-1.0). Arrow to '2i', 'total turn: 90 deg', 'total stretch: 2', answer box '(1 + i)^2 = 2i' (74.5 s, after the think time), then 'lengths multiply, angles add' with paired underlines (78.1-79.05 s). Values correct. No defect.",
+   "batch": 9
+  },
+  "0040": {
+   "sha256": "b0662a09ec72182c69aa9a5e059673bdcfec37f7765d9fad41a2483adeac2a3d",
+   "note": "02 80.0-86.0 s. Steady 02_6 summary. The grid and F fade out by 82.35 s, leaving the two arrows (1+i and 2i), the readouts, the answer box and 'lengths multiply, angles add'. No defect.",
+   "batch": 10
+  },
+  "0041": {
+   "sha256": "384746b34c2728a67b63f401ac41362bf0b394148113ded750294aa8ac09bbab",
+   "note": "02 86.233-89.517 s. Hold, then a uniform fade-out (89.433 s), near black at f11680-f11681 (only a faint trace of the frame edge), black last frame f11682. No defect.",
+   "batch": 10
+  },
+  "0042": {
+   "sha256": "745f187e66a6a3086903646c2df01fe05def25a60d4c12596ce352de4a110828",
+   "note": "02 to 03 seam: 03 opens black (f11683-f11707). A cyan point 'z' (0.8 s), then a grey arrow to a green point 'f(z)' (1.0-1.1 s), and the footer 'a graph would need four dimensions' (5.017 s). The footer ink spans rows 500-514 of 540 (the kit's footer row), just inside the 90% title-safe line. No defect.",
+   "batch": 10
+  },
+  "0043": {
+   "sha256": "2c226bd81b1acec23feb01b69698f210afd329cf9490cd8c14f0579f2bf375e0",
+   "note": "03 6.0-14.367 s. z -> f(z) arrow fades (7.3 s); the input plane draws around z (7.6 s), then axes with ticks, '1' and 'i', and the output plane with f(z) (10.0 s); titles 'input z' and 'output f(z)' (10.6 s). z at about 0.8+0.6i and f(z) at about 0.28+0.96i (80 px per unit), as z^2 requires. No defect.",
+   "batch": 11
+  },
+  "0044": {
+   "sha256": "df52e3ccd3bbcef295fcebff6338eb51e611c7dcd2d30e515ed39acd5d730118",
+   "note": "03 14.767-21.0 s. 03_2: the points and footer fade; title 'f(z) = z^2' (15.1 s); caption '|z^2| = |z|^2, arg z^2 = 2 arg z (mod 2pi), z != 0' (16.8 s). Arrows |z| (about 1.2+0.7i, 30 deg) and |z|^2 (about 0.95+1.68i, 60 deg) fade in (20.0-20.4 s). Lengths and angles agree. No defect.",
+   "batch": 11
+  },
+  "0045": {
+   "sha256": "81f7eed8a1759719406397b739825c6facc14a23f49951a5b9589e625030f602",
+   "note": "03 21.367-27.233 s. Angle arcs 'arg z' and '2 arg z' (22.1 s). Then a radius-0.5 input circle and a radius-0.25 output circle with turn counters (23.5 s, '0.00'). Dots at 0.285 and 0.57 turns (26.0 s) and 0.46 and 0.92 turns (27.2 s) sit where the counters say. At 26.0 s the counters read 'turns: 0.28' against 'turns: 0.57': see L5.",
+   "batch": 11
+  },
+  "0046": {
+   "sha256": "83d700225ea2e313901a28f7de65da72f0380eb2b190be839ca69493f146901e",
+   "note": "03 30.0-34.55 s. The turn counters finish: 0.85/1.71 (30.0 s), 0.99/1.98, 1.00/1.99 (31.0 s, f13543), 1.00/2.00 (31.45 s); see the L5 addendum. The output circle turns white when its second lap completes. 03_3: the circles fade (31.85 s); a grid on [-1,1]^2 with yellow horizontals and cyan verticals (32.15-34.48 s); quiz box 'straight after z^2?' in the empty output plane (34.48 s), again a text superscript and upright z (L4). No other defect.",
+   "batch": 12
+  },
+  "0047": {
+   "sha256": "036f905e18ad89a4abc1929dd2269e703ceb71421ae3c6e8d5107dc209258506",
+   "note": "03 36.0-43.383 s. Think-ring under the quiz (40.0-41.0 s), empty at 41.98 s; the quiz fades (42.38 s) before the output grid appears (42.68 s) and starts to bend (43.38 s). The answer stays hidden through the think time. No defect.",
+   "batch": 12
+  },
+  "0048": {
+   "sha256": "4d17a9dd7704211dd1dbe442a03c21433c3113e73387e3f24c172aabca92ad20",
+   "note": "03 46.0-52.3 s. Image of the grid under z^2: lines y = +-1 give the parabola u = v^2/4 - 1 (vertex -1, through +-2i); y = +-0.5 give vertex -0.25 reaching 0.75 +- i; x = +-1 give u = 1 - v^2/4; x = +-0.5 give vertex 0.25. All match at 73 px per unit. The axis lines are mapped last (49.4-51.6 s): the imaginary axis folds onto [-1,0], shown mid-fold at 50.0-51.0 s, and the real axis onto [0,1]. A white dot '0' and captions 'horizontal axis -> positive ray' and 'vertical axis -> negative ray' (52.3 s). No defect.",
+   "batch": 12
+  },
+  "0049": {
+   "sha256": "7245003573bc84c5e113f6846eafc5baa4a799099b70b786981a5f992c47b91f",
+   "note": "03 53.3-62.217 s. Steady z^2 picture with the two captions. Right-angle marks (57.9 s) at input crossings -1+0.5i, 0.5+0.5i and 0.5-i, and at their images 0.75-i, 0.5i and -0.75-i in the output, at the right places. No defect.",
+   "batch": 13
+  },
+  "0050": {
+   "sha256": "df23dfaebfdbd332a95bedba5b0419366ef732ae999d218caf6612e3e5045528",
+   "note": "03 62.917-68.833 s. A red right angle at 0 in the input and a red half-turn (180 deg) at 0 in the output (62.9 s); caption 'right angles kept, except at 0' replaces the two captions (65.9 s). Then the picture fades (68.8 s). Correct and readable. No defect.",
+   "batch": 13
+  },
+  "0051": {
+   "sha256": "146c9832f8ad97dbad94f2c1f8bd80a700107b2bcf312f561460ee01558978ca",
+   "note": "03 69.133-78.35 s. 03_5: title 'f(z) = 1/z' fades in over empty planes. A point z = 0.36+0.26i maps to about 1.83-1.32i (72.0 s), as 1/z requires. The unit circle in both planes (76.7 s); coloured points on it map to their conjugates (yellow 0.82+0.56i to 0.82-0.56i, purple -0.42+0.9i to -0.42-0.9i, pink -0.9-0.44i to -0.9+0.44i), appearing one after another. No defect.",
+   "batch": 13
+  },
+  "0052": {
+   "sha256": "90d45a467d4dd56b163eb40258e8357577af7cc104e09561ed9c8d2724b46518",
+   "note": "03 78.833-86.0 s. All four circle points have images (78.8 s). Vertical arrows from hollow rings (the input positions) to the filled images show the flip across the real axis (79.5-81.0 s); caption 'inside -> outside, outside -> inside' (82.7 s). A red X at 0 with a leader to '1/0 undefined' (85.7-86.0 s); the leader draws before the box. No defect.",
+   "batch": 14
+  },
+  "0053": {
+   "sha256": "6b415f369bd1aca974b01c135a80e9afd911a2337b8ba4f967c50053013880c1",
+   "note": "03 87.967-96.0 s. Hold, then fade (88.9 s). 03_6: a tall input window with '2 pi i' marked and an output window; caption 'new windows: the ticks still mark whole numbers' (91.0 s); title 'f(z) = e^z'. Inputs -1, 0, 1 map to labelled 0.368, 1.000, 2.718 with 'x e' (92.9-96.0 s). Input 46.4 px per unit with 2 pi i at 6.28 units, output 52.5 px per unit; values sit correctly. No defect.",
+   "batch": 14
+  },
+  "0054": {
+   "sha256": "f46c35c7dfda54d9d53b8968a01bbfcd3169089b1ae8433f29458425afc070cc",
+   "note": "03 97.017-106.0 s. The line x = 1 traced upward maps to the circle of radius e traced counter-clockwise: at 97.9 s the segment reaches 1.47 and the arc 84 deg (1.47 rad); at 100.0 s 4.14 and 237 deg (4.13 rad). Then the lines x = 0 and x = -1 give circles of radius 1 and 0.368 (102.2-103.2 s). Horizontal lines at y = pi/4, 3pi/4, 5pi/4, 7pi/4 grow from x = -1.55 and map to rays at 45, 135, 225, 315 deg; mid-draw at 106.0 s (the input lines reach x = 0.45, the rays radius 1.56 = e^0.45). No defect.",
+   "batch": 14
+  },
+  "0055": {
+   "sha256": "ac9ae13c3c0d3bddb0c1d6aee6a669601b505f4a8900f6e7824de956b01b0e94",
+   "note": "03 107.067-112.3 s. Finished e^z grid: horizontals from x = -1.53 to 1.12 give rays from radius 0.22 to 3.06, so no line reaches 0. 03_7: labels fade (108.0 s); a yellow point climbs x = 0 while its image goes round the unit circle (110.0 s: 2.91 up, 167 deg; 111.0 s: 5.78 up, 329 deg); at 2 pi i it is back at 1 (111.6 s). Box 'e^{2 pi i} = 1.000000 + 0.000000i' and caption 'e^{z+2 pi i} = e^z' (112.3 s). The box sits over the big circle and two rays on its own backing; readable. No defect.",
+   "batch": 15
+  },
+  "0056": {
+   "sha256": "fe4e2dde09bce51c9da39721e6d92cd72b6b825947601607af41c4f53b83e6b4",
+   "note": "03 112.683-117.5 s. A red ring at 0 and the caption 'e^z != 0' in red (114.55 s). Steady. No defect.",
+   "batch": 15
+  },
+  "0057": {
+   "sha256": "d5cc3816f664db374d45fde7eea4396eddaa2fde5b75ca2b1f3dad24a3459bcf",
+   "note": "03 118.217-120.8 s. Hold (118.2-120.1 s), then a uniform fade (120.717 s) to black at f18930-f18931; only faint traces at f18929. No defect.",
+   "batch": 15
+  },
+  "0058": {
+   "sha256": "92dab5ceef785b1950f052392d68c9b3e4db97f1c837c03d6d1536022fd5598b",
+   "note": "03 to 04 seam: 04 opens black (f18932-f18956). A colour-wheel legend fades in at the upper right with 'negative' (cyan side) and 'positive' (red side) (0.8-1.1 s); red at arg 0, yellow-green up, cyan at pi, purple down. A white counter-clockwise arrow over the wheel's upper right (3.917 s). No defect.",
+   "batch": 16
+  },
+  "0059": {
+   "sha256": "93d7fdde3672c70ab39b0bebb320978433ad7620dc7801ad3eb62f39ac33f520",
+   "note": "04 3.933-4.050 s (f19168-f19175, every frame of root window 235-311). A square colour portrait starts to fade in at the left; at f19171-f19173 only its brighter hue sectors show above the background, so the first frames look patchy. That is the fade, not a missing region. No defect.",
+   "batch": 16
+  },
+  "0060": {
+   "sha256": "9b7862418d1938556b3673691550815185135632e2798b7a34f7faefee360294",
+   "note": "04 4.067-4.183 s (f19176-f19183). The portrait brightens steadily: hue by angle around the centre, matching the legend (red right, green-yellow up, cyan left, purple down). Faint sector edges are visible at this opacity; to be judged at full opacity. No defect.",
+   "batch": 16
+  },
+  "0061": {
+   "sha256": "e88c9b5299504514fda5483c4a46de5629ccc5af61708ec2365fcaa0239c6b55",
+   "note": "04 4.200-4.317 s (f19184-f19191, every frame). The portrait keeps fading in evenly. Legend, labels and arrow steady. No defect.",
+   "batch": 17
+  },
+  "0062": {
+   "sha256": "46f4552211832043340b93f304f57d2308eaf744fbc5cfbe82b7f5db6bacb391",
+   "note": "04 4.333-4.450 s (f19192-f19199). Portrait near full colour, hue by angle as in the legend. No defect.",
+   "batch": 17
+  },
+  "0063": {
+   "sha256": "bd801ec59742412d5e87ba837fd0de85e2f8be0796750031647aa736376c610b",
+   "note": "04 4.467-4.583 s (f19200-f19207). Portrait at full colour. With contrast raised 3x (crops/s0063-slot8-portrait-contrast.png) faint radial striations show; they cannot be seen at normal contrast. No defect.",
+   "batch": 17
+  },
+  "0064": {
+   "sha256": "509e19a2d0de4cb3de6372c97a73c4473e07bca216e04879f69da7d01e16e02d",
+   "note": "04 4.600-4.717 s (f19208-f19215, every frame). The portrait keeps brightening evenly; legend steady. No defect.",
+   "batch": 18
+  },
+  "0065": {
+   "sha256": "eb8a5e6b7e444444935919699267bc5af347f99648c9d56bd5dcf39fabffb960",
+   "note": "04 4.733-4.850 s (f19216-f19223). Same; hue order matches the 12-sector legend. No defect.",
+   "batch": 18
+  },
+  "0066": {
+   "sha256": "eb08c99276010b9931e0aebbfe8cc716da97a4d89b39d3249adc2a56157e700d",
+   "note": "04 4.867-4.983 s (f19224-f19231). Portrait close to full brightness, no frame-to-frame jump. No defect.",
+   "batch": 18
+  },
+  "0067": {
+   "sha256": "dc18aa8d518170db587f6d49a7572fca24bdd91717b47e1693b964f50eb6273a",
+   "note": "04 5.000-5.117 s (f19232-f19239, every frame). Portrait at full colour beside the legend ('negative' cyan side, 'positive' red side) and its counter-clockwise arrow. Steady, no jump. No defect.",
+   "batch": 19
+  },
+  "0068": {
+   "sha256": "99ace2aca7768bd5da81f87c6d87095c6165e3602187d270f97104b8ee3bc2cd",
+   "note": "04 5.133-5.250 s (f19240-f19247; the last four are the css-reviewed 235-315 window). The title 'f(z) = z' starts fading in at f19242 and grows brighter evenly; it sits above the portrait and clears it. No defect.",
+   "batch": 19
+  },
+  "0069": {
+   "sha256": "f174cd201b5f4c715f0abd2ee66187b2f4fd08e2e71c72d32ead8ee45662e6bd",
+   "note": "04 6.0-14.75 s (04_1). Title at full; the portrait gains a thin grey frame. 8.4 s: a white ray from the centre to a dot in the orange sector (about 34 deg), and the legend shows a matching white ray at the same angle and colour. Held to 13.05 s. 13.75 s: the point moves onto the positive real axis and the caption 'right: red' appears under the legend; the dot sits in red. No defect.",
+   "batch": 19
+  },
+  "0070": {
+   "sha256": "5b4869f99101778f9eb19b0a80b9fc8c00a303f824850b51085c54068015db9e",
+   "note": "04 14.867-19.267 s. The point turns from the positive real axis to straight up (15.567 s) and then left (18.1 s); the legend ray follows each time and the list grows 'right: red', 'up: yellow green', 'left: teal'. The colour under the dot matches each name, and the legend ray points the same way as the portrait ray. No defect.",
+   "batch": 20
+  },
+  "0071": {
+   "sha256": "cd772a2686c7743039182cfa28e01dd15094ae0ba15418cec3bc64d257986d32",
+   "note": "04 19.967-22.35 s. 'down: violet' is added with the point straight down (19.967 s); held to 21.65 s. The ray and dot fade together (22.05 s) and are gone at 22.35 s; the four-line list stays. No defect.",
+   "batch": 20
+  },
+  "0072": {
+   "sha256": "22279e637de13a0cbc79176d69657006478decb2b6fd0e303a0e13f73edc5eb8",
+   "note": "04_2 25.717-36.0 s. Modulus bands fade in over the portrait (25.7-26.0 s), then 'next band: size x 1.69' in yellow (28.2 s) and 'dark lines: every twelfth of a turn' (33.5 s). Measured on slot 3 (rayprofile.py, rays at 15 and 105 deg): band edges at radii about 17, 29, 47, 80, 136 px on both rays, ratios 1.62-1.70, which agrees with e^(pi/6) = 1.688; 12 dark rays. No defect.",
+   "batch": 20
+  },
+  "0073": {
+   "sha256": "df8867290ebe1f1fccaf19a31bc48a404e16374c1d0c41d293fd49e69d445336",
+   "note": "04_2 end and 04_3 37.033-43.217 s. The four direction lines and the title fade (37.9 s) and are gone at 38.2 s; the band captions stay. 39.8 s: title 'f(z) = z^2' and the z^2 portrait: red right and left, teal up and down, yellow-green at 45 deg, so arg is doubled. A yellow circle with three counter-clockwise arrowheads; 'colour cycles around 0: 2' fades in (40.0 s), full at 41.0 s. No defect.",
+   "batch": 21
+  },
+  "0074": {
+   "sha256": "733164b3bce4ae46e50ab305b992d587a0bee982e8f8cc400a4ee21c0f1b768e",
+   "note": "04_3 44.733-51.0 s. A point goes round the circle; the legend ray shows its value's angle and a yellow counter counts turns. Measured from the stills: point 22.5 deg -> ray 45 deg, '+0.1' (0.125); 131 deg -> 261 deg, '+0.7' (0.73); 353.5 deg -> -12.5 deg, '+2.0' (1.96). 49.5 s: a white ring marks 0. Second loop: 15 deg -> 28 deg '+0.1'; 30 deg -> 58 deg '+0.2'; 101.6 deg -> 204 deg '+0.6' (0.56). All consistent with z^2. No defect.",
+   "batch": 21
+  },
+  "0075": {
+   "sha256": "ce479716bdfe57e294bf98a1313dbbcc9fd6422eaf49aebce9df1f17a711c1ca",
+   "note": "04_4 54.417-56.6 s. '+1.9' at 345.6 deg (1.92), then '+2.0' with the point at angle 0 from 55.1 s. 'zero of order 2' fades in on a dark backing inside the circle below 0 (56.4 s), full at 56.6 s; the box sits inside the yellow circle without touching it or the arrowheads. No defect.",
+   "batch": 21
+  },
+  "0076": {
+   "sha256": "4b5dae70c079b395dbbd1512755d211acb0b7d47746123ae2af8c57de27567b1",
+   "note": "04_4 56.7-61.0 s. 'zero of order 2' held below the ring at 0. The moving point fades (60.0 s, half opacity), and at 60.367 s the point, the legend ray and the '+2.0' counter are gone; 'colour cycles around 0: 2' stays. No defect.",
+   "batch": 22
+  },
+  "0077": {
+   "sha256": "59d6d36bfe695d2524fe54c1d9671930005d3b421889e8432809ebb0e8c91a93",
+   "note": "04_4 61.4-66.0 s. Hold, then a full-width 'precisely:' note fades in at the bottom (64.3 s, full at 64.5 s): 'near a zero z = a of order m, f(z) is about c times (z - a) to the power m, so the hue turns m times as z circles a'. Its backing covers the bottom strip of the portrait and its frame (about 40 px), below the yellow circle; nothing the narration points at is hidden. Statement correct. Crop crops/s0077-slot8-precisely4x.png: prose variables upright (L4) and the minus in '(z - a)' is the short heavy text hyphen (L1).",
+   "batch": 22
+  },
+  "0078": {
+   "sha256": "4f951408d5897e310a4a00893047c5dc7210e72e29b3c143a6c485b02935dc20",
+   "note": "04_4 66.4-72.0 s. Steady hold of the full layout with the note to 72.0 s (04_5 transition). No defect.",
+   "batch": 22
+  },
+  "0079": {
+   "sha256": "075f4a31751de2575cc77bc61914a29aaf6ffa4cfd35480d918441859f61ee0e",
+   "note": "04_5 72.4-75.817 s. The z^2 title, 'colour cycles around 0: 2', 'zero of order 2' and the 'precisely:' note fade out together (72.4 s), gone at 72.7 s. 73.7 s: the portrait becomes 1/z: red right, violet up, teal left, yellow-green down, so the hue runs the other way round (arg -theta). Title 'f(z) = 1/z' at 74.5 s. 75.817 s: a pink ring marks the pole at 0, a pink-edged 'simple pole' box sits inside the circle, the point is at angle 0 with the legend ray at 0, and 'colour cycles around 0: -1' in pink. Crop crops/s0079-slot8-cycles-minus4x.png: the caption minus is the short heavy text hyphen (L1). No other defect.",
+   "batch": 23
+  },
+  "0080": {
+   "sha256": "87cf5e8d7ec6815f587773f7f8c7a63f0728267983acde0065d51d917aa99847",
+   "note": "04_5 76.0-80.9 s. Point and legend ray measured from the stills: point 11.7 deg -> ray -11.3 deg, counter '+0.0' (-0.03 shown as +0.0 rather than -0.0, acceptable); 50.8 deg -> -49 deg, '-0.1' (-0.14); 333.4 deg -> +25.5 deg, '-0.9' (-0.93); 352.3 deg -> +7.6 deg, '-1.0' (-0.98). All consistent with 1/z turning the other way. The counter '-1.0' uses a long TeX minus (crops/s0080-slot4-counter4x.png), unlike the hyphen in the caption beside it. 80.6 s: circle, counter, captions and box fade together; 80.9 s only the portrait and legend remain. No new defect.",
+   "batch": 23
+  },
+  "0081": {
+   "sha256": "2fab0732f18088e2a0c4f1076b0023c8145c3fd120d0d540e48a2f95393771ee",
+   "note": "04_5 end and 04_6 81.0-89.5 s. The 1/z portrait fades to black inside its frame (81.4 s). 84.5 s: title 'f(z) = 1/(1 + z^2)' (TeX fraction, superscript fine) over an empty frame with grey axes and the unit circle. 85.017 s: a violet quiz box under the legend, 'where are the bump's poles? how many turns at each?'; readable lavender on a dark violet fill. Held unchanged to 89.5 s with no answer shown in this sheet. No defect.",
+   "batch": 23
+  },
+  "0082": {
+   "sha256": "473a3f652b9f3a7a9b2d9b2634c13967a74abafc105b9606836c5b267f463f5b",
+   "note": "04_6 90.0-96.533 s. Quiz 'where are the bump's poles? how many turns at each?' held over the empty axes and unit circle. 94.5 s: a violet think-time ring appears under the box and empties (96.0 s a short arc, 96.4 s a dot, 96.533 s empty). No answer is shown while the ring runs. No defect.",
+   "batch": 24
+  },
+  "0083": {
+   "sha256": "6db33139b9f44b40bf354b8a4d7f91ce7873b76b072ab02b92160459480cfa6c",
+   "note": "04_7 96.933-103.017 s. The quiz box fades (96.9 s) and is gone at 97.2 s while the portrait starts to fade in. 99.5 s: the 1/(1 + z^2) portrait with pink-ringed poles at +i and -i on the unit circle, and the answer 'at i: -1 turn, at -i: -1 turn' in pink, 3 s after the ring emptied. Portrait checked against the formula: red along the real axis (f > 0 there); far out f ~ 1/z^2, so teal at the top centre, violet at the top right, yellow at the top left; each pole winds once the other way. 102.3 s: the circle and the segment [-1, 1] turn gold, 'gold segment: where the recipe works' (radius 1, the distance to the poles); the pole rings sit on top of the gold circle. Crop crops/s0083-slot8-poles-answer4x.png: the minus signs are short heavy hyphens (L1) and i is upright (L4).",
+   "batch": 24
+  },
+  "0084": {
+   "sha256": "dae7e8aadf22a278baa026d4f44a167eee8d80a33f8f869c2f8b8b84677f3193",
+   "note": "04_7 104.5-106.633 s (pairs one frame apart at 106.2/106.233, 106.4/106.433, 106.6/106.633). Hold, then 'names to search: domain colouring . enhanced phase portrait' fades in on a full-width backing at the bottom (106.4 s), full at 106.6 s; it covers only the bottom strip of the portrait, below the lower pole. Names correct. No defect.",
+   "batch": 24
+  },
+  "0085": {
+   "sha256": "47de4c0f78340ad9cd68c0bb7842a0f88aa62ccd717a0dfe9ce8be73dc2c9434",
+   "note": "04_7 106.783-109.9 s (one-frame pairs at 107.4/107.433 and 109.4/109.433). Steady hold of the full layout: title, legend, pole answer, gold circle and segment, 'names to search' note. No defect.",
+   "batch": 25
+  },
+  "0086": {
+   "sha256": "932e34bc6e336b6519e50ea2afba0d3be95785453a4f73ec9344eb6d0f4bef11",
+   "note": "04 authored hold 110.0-111.8 s, steady. 112.2 s: title, legend, captions, gold circle and segment, pole rings and the note all fade together over the portrait. 112.367 s (f25674, first frame of root window 6742-6773): only the bare portrait remains, without frame or axes. No defect.",
+   "batch": 25
+  },
+  "0087": {
+   "sha256": "cbf2d6fcb5b18c001cf7706a3509f4b4f5a01013752625e9e1ea626bf3be5bac",
+   "note": "04 112.383-112.5 s (f25675-f25682, every frame). Bare 1/(1 + z^2) portrait, unchanged frame to frame. No defect.",
+   "batch": 25
+  },
+  "0088": {
+   "sha256": "cd0e8a21ea97edbf95a0f3ae753e4da37b75be547bd195b1b0ea7ee5be9af5d1",
+   "note": "04 112.517-112.633 s (f25683-f25690, every frame). Bare portrait; the end fade begins, a slight even darkening from f25689. No defect.",
+   "batch": 26
+  },
+  "0089": {
+   "sha256": "129d66cb50eea9e01927357dbe43f78740facea9089296fcf58026607b5f9ebb",
+   "note": "04 112.65-112.767 s (f25691-f25698). The fade continues evenly over the whole portrait; poles and bands stay in place. No defect.",
+   "batch": 26
+  },
+  "0090": {
+   "sha256": "bae4889803a55d5466658be49c4bbe1c0bc08bb1459f551dee5490476d351ebe",
+   "note": "04 to 05 seam, 112.783 s f25699 to 05 0.000 s f25706. The portrait keeps darkening; f25702 shows only dim dark-line texture, f25703 faint traces, f25704 almost nothing. Measured gray (tile only, label strip excluded): background 16; f25703 max 22, f25704 max 19, f25705 max 21, f25706 (05 first frame) max 22, which is JPEG noise level. Dark to dark. No defect.",
+   "batch": 26
+  },
+  "0091": {
+   "sha256": "fba544ecdcbb8c36b1c576d593f1934fc788d8c65bdbd8ec013541a72805fce8",
+   "note": "05 0.017-0.633 s (seam frames f25707-f25708, then every frame of root window 34-98 from f25740). Black through f25742; at f25743-f25744 the first faint traces of a square portrait appear, offset left and up from chapter 04's. No defect.",
+   "batch": 27
+  },
+  "0092": {
+   "sha256": "8e0e5a935324f95e244fd1e7eec3241b36a25200d7ebf57d71e815ce97712197",
+   "note": "05 0.650-0.767 s (f25745-f25752, every frame). The new portrait fades in evenly: three zeros (right, upper left, lower left), teal centre, modulus bands and dark rays. Patchy only in the way the earlier fades were. No defect.",
+   "batch": 27
+  },
+  "0093": {
+   "sha256": "f7a99d53f968be396ab73e2502886203e4cbbd1611286ccb19d0bb3a34f84aac",
+   "note": "05 0.783-0.900 s (f25753-f25760). Fade continues. Geometry consistent with z^3 - 1: zeros about 80-87 px from the centre at about 0, 121 and 239 deg, teal at 0 (f(0) = -1), hue winding once at each zero and three times round the border. No defect.",
+   "batch": 27
+  },
+  "0094": {
+   "sha256": "01aba559e1e3b90d52e9ea36c428d0688b292502ee3ddf4b2e6cc15598d01d17",
+   "note": "05 0.917-1.033 s (f25761-f25768, every frame). The z^3 - 1 portrait keeps brightening evenly; zeros, bands and rays fixed in place. No defect.",
+   "batch": 28
+  },
+  "0095": {
+   "sha256": "cf164bcad380184ff4eb514f89290f666386dad9a908d2de3c0c8cfb08e8330a",
+   "note": "05 1.050-1.167 s (f25769-f25776). Same steady fade-in, no frame-to-frame jump or missing region. No defect.",
+   "batch": 28
+  },
+  "0096": {
+   "sha256": "5e89ac0102b36e64ab0666bca5ee418062395e7d68e5fe1a7a872f617ed09202",
+   "note": "05 1.183-1.300 s (f25777-f25784). Portrait close to full colour; still no labels or title. No defect.",
+   "batch": 28
+  },
+  "0097": {
+   "sha256": "9eede2888ab679d92a8e3b29c45b736e5eaa05b468d2002fddafe8a1f1912060",
+   "note": "05 1.317-1.433 s (f25785-f25792, every frame). z^3 - 1 portrait at full colour, steady. No defect.",
+   "batch": 29
+  },
+  "0098": {
+   "sha256": "405892301fad1382aabf6439764543ce5c593e67d7d4c621ae06e039080e2bf9",
+   "note": "05 1.450-1.567 s (f25793-f25800). Steady, no change between frames. No defect.",
+   "batch": 29
+  },
+  "0099": {
+   "sha256": "e2fc1178051aabc47418d4fb85da2b30869f3eece1d988c253fb2ce34b8e1d4e",
+   "note": "05 1.583-8.8 s. The title 'f(z) = z^3 - 1' starts fading in at f25803 (1.617 s), to the right of the portrait. 2.933 s: a thin dark unit circle through the three zeros, which get white rings (full at 6.0 s). 8.383 s: a large yellow circle fades in round all three zeros, and a small output panel 'output f(z), sizes squashed' with axes. 8.8 s: a point at angle 0 on the big circle; the output panel shows a dot on the positive real axis with a short trace, as f(R) = R^3 - 1 > 0. Ink map of the title (crops/s0099-slot6-title4x.png): '=' is 16 px wide with 1 px bars, the minus 12 px wide and 2-3 px thick, so even the TeX title uses the short heavy minus (L1). The panel caption sets f(z) upright (L4).",
+   "batch": 29
+  },
+  "0100": {
+   "sha256": "c0f1adde95e05cbec543d93b7579c65abb2ea4f08fe51f794c972cdf02abc085",
+   "note": "05_1 10.0-17.4 s. A blue point goes round the yellow circle (radius about 1.8 of the unit circle) and the output panel traces a green loop with a yellow turn counter. Measured: input 57.8 deg -> output dot about 175 deg, '+0.5' (0.48); 115.7 deg -> -15.5 deg, '+1.0' (0.96); 349.4 deg -> -40.7 deg, '+2.9'; for R = 1.8, arg(R^3 e^{3i theta} - 1) at theta = -10.6 deg is -37.8 deg, within reading error. 15.7 s: the point is back at angle 0 and the counter becomes 'turns: 3 = zeros inside'. Held to 17.4 s. No defect.",
+   "batch": 30
+  },
+  "0101": {
+   "sha256": "5d62d0a31e341186f4253a1d61832c3098f51cc9dcfbb078c87ba0e2c656b52e",
+   "note": "05_1 end and 05_2 17.8-25.8 s. Everything but the portrait fades (17.8 s) and is gone at 18.1 s. 20.0 s: title 'f(z) = (z - 1)/(z + 1)^2' and its portrait: a simple zero at 1 (hue once round) and a double pole at -1 (hue twice round, the other way). Spot checks: f(2i) = (11 - 2i)/25, red at the top centre; f < 0 on (-1, 1) and at -2, teal there; f > 0 right of 1, red. 25.6 s: white ring on the zero; 25.8 s 'simple zero at 1' box fading in below it. The title minus is L1's short hyphen. No new defect.",
+   "batch": 30
+  },
+  "0102": {
+   "sha256": "c0b8db6b71c33ed7816646426c07b274bc54f67f195e820ce5f5ae7e07ab3ea7",
+   "note": "05_2 25.817-27.6 s. 'simple zero at 1' at full by 26.0 s. 27.2 s: the output panel 'output f(z), sizes squashed' fades in at the right and a box starts at the upper left; 27.4 s: a pink ring on the pole at -1 with 'pole of order 2' in a pink-edged box above it; 27.6 s: a small yellow circle starts round the pole. Labels clear of each other and of the marks. No defect.",
+   "batch": 30
+  },
+  "0103": {
+   "sha256": "20fa91844c8f16c168d4c68a7ae8229ba61aa616f4d95f1edf6f1063c6eb2a75",
+   "note": "05_2 28.2-31.0 s. A blue point goes round a small yellow circle about the pole (radius about 0.31; 86.5 px per unit from the 1 to -1 spacing) and the counter runs negative. Measured with f = (z - 1)/(z + 1)^2: theta 53 deg -> output 64 deg (expected 74), '-0.3' (-0.29); 81.6 deg -> 7.3 deg (expected 7.9), '-0.5' (-0.48); 249.4 deg -> 46.5 deg (expected 49), '-1.4' (-1.39); 279 deg -> '-1.5' (-1.53); 336.5 deg -> 236 deg (expected 231), '-1.8' (-1.86 from my reading, borderline; 1 px is about 2 deg on this small circle, so it is within reading error). 30.8 s: 'turns: -2 (backwards twice)' with the output on the negative real axis, as f < 0 just right of the pole. Minus signs are L1's short hyphen. No new defect.",
+   "batch": 31
+  },
+  "0104": {
+   "sha256": "8f10b0ff97d471f5cf5738a591f064e2ba84d9289b2933bca262d8f182ecb6f6",
+   "note": "05_2 31.3-33.15 s. Hold of the counted state (31.3-32.3 s). 32.567-32.967 s: labels, rings, the small circle, the output panel and the title fade together; 33.15 s (f27695, first frame of root window 1989-2072): bare portrait. No defect.",
+   "batch": 31
+  },
+  "0105": {
+   "sha256": "b7df3349f1bf1c18c4257376beb6c492432260ea5db028c516c57bf4fc23bdff",
+   "note": "05 33.167-33.283 s (f27696-f27703, every frame). Bare (z - 1)/(z + 1)^2 portrait, unchanged frame to frame. No defect.",
+   "batch": 31
+  },
+  "0106": {
+   "sha256": "44904626e922a95a59e081f424895a72a2477bdd8622eec3f7dc80d1ace8224e",
+   "note": "05 33.300-33.417 s (f27704-f27711, every frame). Bare portrait; an even fade-out begins about f27708. No defect.",
+   "batch": 32
+  },
+  "0107": {
+   "sha256": "9e9fa564674ae5f296cdf9fa038caafa851703330c80c6dbf774e4ed9627e4a0",
+   "note": "05 33.433-33.550 s (f27712-f27719). Fade continues evenly; zero, pole and bands stay in place. No defect.",
+   "batch": 32
+  },
+  "0108": {
+   "sha256": "dc07bbba7796b3482c6430cdda39d42ba6ba119aba7b930f1bf4789a3c5c5546",
+   "note": "05 33.567-33.683 s (f27720-f27727). Portrait darkens to faint texture at f27723-f27725 and is black at f27726-f27727, a dark gap between 05_2 and 05_3. No defect.",
+   "batch": 32
+  },
+  "0109": {
+   "sha256": "3146a3c719e578a312cc22d17ab5b470799d92e5b7367a1af36cdf8075ffd78a",
+   "note": "05_3 33.700-33.817 s (f27728-f27735, every frame). Faint at f27728-f27729, then a tall narrow portrait fades in, left of centre, with horizontal hue bands and a square grid of dark lines. No defect.",
+   "batch": 33
+  },
+  "0110": {
+   "sha256": "fcec088300051bd99d1d0963a4379e410ab3c25fd6fd340518b0b3ae7686833d",
+   "note": "05_3 33.833-33.950 s (f27736-f27743). Fade-in continues evenly. Going up the strip the hue runs red, yellow, green, teal, blue, violet and repeats twice, so arg increases with height as for e^z. No defect.",
+   "batch": 33
+  },
+  "0111": {
+   "sha256": "4a990cfe503d0e0a9f42cb44ef92e46b478678f739454b53f6f1a2baecc8ce58",
+   "note": "05_3 34.0-34.083 s (f27744-f27751). Strip near full colour; grid cells square and even. No defect.",
+   "batch": 33
+  },
+  "0112": {
+   "sha256": "30feb2af9de2c51828f5c5b5140c22669192f84556f5c54d8b75242592865f31",
+   "note": "05_3 34.100-34.217 s (f27752-f27759, every frame). Vertical-strip e^z portrait at full colour, steady frame to frame. No defect.",
+   "batch": 34
+  },
+  "0113": {
+   "sha256": "bd66d749f9eea630425e47ba232ac68aabcbb0eb28b2565cbb5731d23d6d0744",
+   "note": "05_3 34.233-34.350 s (f27760-f27767). Steady, no change between frames. No defect.",
+   "batch": 34
+  },
+  "0114": {
+   "sha256": "66e64cf11fba7f3809f42e1571baeddee23a1c4a3a038264049dd7c38f2da94a",
+   "note": "05_3 34.367-34.483 s (f27768-f27775). Steady, no change between frames. No defect.",
+   "batch": 34
+  },
+  "0115": {
+   "sha256": "19205459167f7b69b22bd22dd40b8c77ff745383340da7c96339c508f37390ba",
+   "note": "05_3 34.500-39.150 s. f27776-f27778 (end of root window 1989-2072, every frame): strip steady; the title 'f(z) = e^z' and 'no zeros, no poles' start fading in at f27777, evenly, full by 35.8 s. 37.2 s: a white arrow up the left of the strip and 'direction: set by height alone'; hue bands are horizontal, so colour does depend on height only. Held to 39.15 s. No defect.",
+   "batch": 35
+  },
+  "0116": {
+   "sha256": "2c1e8c05b0c29145015d0eea08fcc1e787fc23c5f24b2518798a4ae24f4b87d4",
+   "note": "05_3 39.850-43.233 s. A white arrow along the bottom and 'size: set by how far right alone'. Gray rows across the strip (y 150 and 250 of slot 1): inside each cell the shading rises from about 100 to 125 going right and then drops, a sawtooth rising rightward, so log|f| grows with x as for |e^z| = e^x. Labels clear of the strip and of each other. Held. No defect.",
+   "batch": 35
+  },
+  "0117": {
+   "sha256": "3427e261ba671c7febbe34d851bfd7b32f0d9bb8ef803adc252b0563d33a5392",
+   "note": "05_3 43.933-47.150 s. 43.933 s: a small yellow square in the middle of the strip, about one cell. 44.933 s: a yellow bracket on the right edge with '2pi ~ 6.28' fading in, full by 45.2 s. Measured on slot 3 (colprofile.py): the bracket spans tile rows 133-360 (227 px) and the hue period down the strip is 226 px (red crossings at about rows 127 and 353), so the bracket covers exactly one hue cycle, i.e. 2pi of height. Held to 47.15 s. No defect.",
+   "batch": 35
+  },
+  "0118": {
+   "sha256": "28f6286aae3974d4c81dd39f157030f49ea1feaf0a687697d26d71f4c1a6c13c",
+   "note": "05_3 end and 05_4 cue transition 47.2-48.3 s. 47.2 and 47.65 s: the full 05_3 state held (arrows, bracket, square, four labels). 48.05 s: arrows, square, bracket and all labels fading together, evenly. 48.233 s (f28600, first frame of root window 2894-2977): bare strip; f28601-f28604 unchanged. No defect.",
+   "batch": 36
+  },
+  "0119": {
+   "sha256": "edd8fa03dbf2fecb6f66140d592c81391da7fad4082f7ba3eef68fb3f7246e7d",
+   "note": "05 48.317-48.433 s (f28605-f28612, every frame). Bare strip, steady; a slight even darkening starts at about f28611. No defect.",
+   "batch": 36
+  },
+  "0120": {
+   "sha256": "95550ddae0147476e1ea9ba446c8e2a3bf94930c61ef31ec0cc4bee366fa58ae",
+   "note": "05 48.450-48.567 s (f28613-f28620). Even fade-out of the strip; hue bands and grid keep their places as it dims. No defect.",
+   "batch": 36
+  },
+  "0121": {
+   "sha256": "9043d0cef0d24d02472b9586bb495c46ea815fa71ad24db7f2fd5750fecbc4bb",
+   "note": "05 48.583-48.700 s (f28621-f28628, every frame). The strip keeps fading evenly to faint texture by f28628. No defect.",
+   "batch": 37
+  },
+  "0122": {
+   "sha256": "f9a296f0d954eff6f499990c074b4b250a4dfcf06b687d5db137adb9da100eb3",
+   "note": "05 48.717-48.833 s (f28629-f28636). f28629-f28630: near black; the faint vertical bars seen at f28630 are at most 6 levels above the background (124 pixels; colour difference histogram), so effectively black. f28631-f28632 black: a dark gap between 05_3 and 05_4. f28633: a wide landscape portrait starts fading in left of centre, evenly. No defect.",
+   "batch": 37
+  },
+  "0123": {
+   "sha256": "408c973df4f1aaa46c56e99cf43047029b8d628d7439a17a889ee7925eba3892",
+   "note": "05_4 48.850-48.967 s (f28637-f28644). Fade-in of the wide portrait continues evenly: a row of zeros along the middle at equal spacing (hue turns once round each), with rings of contour lines round them; the colouring above and below the row differs as for a periodic function. No defect.",
+   "batch": 37
+  },
+  "0124": {
+   "sha256": "d43386ef566e1c39cd8a07a69cafcfcc48f1ed894fc5611005ddc3c0496ea0c0",
+   "note": "05_4 48.983-49.100 s (f28645-f28652, every frame). Fade-in of the wide portrait continues evenly. Five zeros on the middle row at display x about 37, 165, 290, 415, 540 (spacing about 125 px; centre zero at the midpoint, outer ones just inside the edges), consistent with sin z on about [-2pi, 2pi]. No defect.",
+   "batch": 38
+  },
+  "0125": {
+   "sha256": "237c2fc19ae0a94313fcca47e7f8c61f3e54a1dbd97c4d0939525595043c5c84",
+   "note": "05_4 49.117-49.233 s (f28653-f28660). Fade-in continues evenly. Colour checks for sin z: red on (0, pi) and (-2pi, -pi), teal on (-pi, 0) and (pi, 2pi); yellow-green above 0 and violet below (sin(iy) = i sinh y). Top edge: hue falls going right (arg about pi/2 - x for large positive y); bottom edge: hue rises (x - pi/2). No defect.",
+   "batch": 38
+  },
+  "0126": {
+   "sha256": "0797ddef4b1ae05a41a3446ff4c8fd27998af0935a58e9f802fa6ec81aca2d91",
+   "note": "05_4 49.250-49.367 s (f28661-f28668). Portrait nearly at full colour, steady; contour rings round each zero and the grid lines bend as expected. No defect.",
+   "batch": 38
+  },
+  "0127": {
+   "sha256": "ef69f3f7e2a6a26be1fd1b476429d674e553773959e2b2578b895b6aef448e9e",
+   "note": "05_4 49.383-49.500 s (f28669-f28676, every frame). sin z portrait at full colour, steady frame to frame. No defect.",
+   "batch": 39
+  },
+  "0128": {
+   "sha256": "f0b1809477809149494e708ba90525d0e8a4c66de2d0f3e7e1a8d850f73c572a",
+   "note": "05_4 49.517-50.0 s. f28677-f28681 steady. f28682 (49.6 s): the title 'f(z) = sin z' starts fading in to the right of the portrait, f28683 stronger, full at 50.0 s; same place in every frame, clear of the portrait. Last frame of root window 2894-2977 is f28683. No defect.",
+   "batch": 39
+  },
+  "0129": {
+   "sha256": "87dacb153ede329bd51700226e4d4cf6ae5a9b65f046abefc1b8829081e2c06c",
+   "note": "05_4 50.8-56.133 s. 50.8 s: white dots on the five zeros and 'zeros: multiples of pi, nowhere else'; the outer dots sit just inside the portrait edges. 53.783 s: a yellow line along the real axis and the yellow note 'on the real line: -1 <= sin x <= 1' (true). 55.8 s: a white arrow fading in, pointing up from the zero at 0; full by 56.0 s, held to 56.133 s. Crop crops/s0129-slot4-realline4x.png: the minus in '-1' is L1's short heavy hyphen and the x in 'sin x' is upright (L4). No new defect.",
+   "batch": 39
+  },
+  "0130": {
+   "sha256": "c45aa8b62b5bc017c893c2f8c0370436f82e3ec53cef2007b2c4632407faa049",
+   "note": "05_4 57.2-58.967 s. Arrow up from 0 held. 58.6 s: a dot on the arrow at height 1 with a left-pointing arrow and the boxed label 'sin(i) ~ 1.18 i' fading in; full by 58.8 s. sin(i) = i sinh 1 = 1.1752 i, so 1.18 is right. Scale check: zeros are about 125 display px apart (pi), so 1 unit is about 39.8 px; the dot is 40 px above the real axis. No defect.",
+   "batch": 40
+  },
+  "0131": {
+   "sha256": "5e5863b318e3f24f01e1a6ec8983e328e4a647ea118c3e10589d5fbbf2dea7f3",
+   "note": "05_4 59.6-61.45 s. The sin(i) state held unchanged through 61.45 s; labels clear of the dots, line and title column. No defect.",
+   "batch": 40
+  },
+  "0132": {
+   "sha256": "1c543dfe73434f95daa33a9ef549a8d3f7ad87d16630ba0a2c5e89e19b7e3d7b",
+   "note": "05_4 61.6-62.65 s. 61.6 s: a second dot at the arrow top with the boxed label 'sin(3i) ~ 10.0 i' fading in, full by 61.8 s. sin(3i) = i sinh 3 = 10.018 i, so 10.0 is right; the dot is 118 px above the axis = 2.97 units. Crop crops/s0132-slot3-dot3i4x.png: the 3i dot sits just above the arrowhead with a small gap, both distinct; the box stays inside the portrait's top edge. No defect.",
+   "batch": 40
+  },
+  "0133": {
+   "sha256": "c513e99f86b58f25155a7e74c1872b398c7050ed7a46e24e974a020c1d214e5d",
+   "note": "05_4 end and 05_5 cue transition 62.933-64.983 s. Full sin z state (dots, line, arrow, both value boxes, three notes) held to 64.65 s. 64.983 s: everything but the portrait fading together, evenly. No defect.",
+   "batch": 41
+  },
+  "0134": {
+   "sha256": "14e4bf8706f02a063f4af8978234be52dd5a7dc7ba52e96d4d0b13344f850719",
+   "note": "05_5 65.283-67.2 s. 65.283 and 65.4 s: bare sin z portrait. 65.8 s: an even cross-fade from sin z to a new portrait (both visible, ghosted). 66.0-66.4 s: the tan z portrait: a row of zeros and poles on the real axis, uniform yellow-green above and violet below. 66.6 s: the title 'tan z = sin z / cos z' fading in at the right, full by 66.65 s. No defect.",
+   "batch": 41
+  },
+  "0135": {
+   "sha256": "63f395042a96f52eb3b8890f68c9ca29abc58fb821f33fa7e3facfbcc3a41b6c",
+   "note": "05_5 67.6-71.0 s. 67.983 s: white dots on the zeros (at the sin z zero places, k pi) and pink-ringed dots on the poles halfway between (pi/2 + k pi), and 'zeros and poles alternate' fading in; full by 68.6 s. Checks: tan z -> i (yellow-green) as y -> +inf and -> -i (violet) as y -> -inf, as shown; red just right of each zero (tan x > 0 on (0, pi/2)), teal just left. 71.0 s: the readout 'tan(0.4 + 12i) ~ 1.0000 i' starts fading in at the right, with a faint box outline near the top of the portrait; computed tan(0.4 + 12i) = 5.4e-11 + 0.99999999995 i, so the readout is right. No defect.",
+   "batch": 41
+  },
+  "0136": {
+   "sha256": "f67f439982f39be13a53e83128641db1938bc4d7d8f7c19bcad9a8e46e8fbf49",
+   "note": "05_5 71.45-74.0 s. The readout 'tan(0.4 + 12i) ~ 1.0000 i' at full, and a boxed 'tan z -> i' in the upper part of the portrait (the faint outline seen at 71.0 s). Held to 74.0 s. True (tan z -> i as Im z -> +inf). Box and readout clear of the zero/pole row and the title. No defect.",
+   "batch": 42
+  },
+  "0137": {
+   "sha256": "aef4142b8652cf93e9576ad559f31f7872383a117e1160beb8102854387e14c5",
+   "note": "05_5 74.7-78.45 s. 74.7 s: 'tan(0.4 - 12i) ~ -1.0000 i' added under the first readout and a boxed 'tan z -> -i' in the lower part; both true (conjugate of the +12i value; tan z -> -i as Im z -> -inf). Held to 78.45 s. Ink maps on slot 1: the '+' in '0.4 + 12i' is 11-12 px wide with a 1 px bar, the '-' in '0.4 - 12i' one line below is 8 px wide and 2 px thick (crops/s0137-slot1-tanminus4x.png, crops/s0137-slot1-tanbox4x.png); the '-i' in the box uses the same short minus (L1).",
+   "batch": 42
+  },
+  "0138": {
+   "sha256": "332e04dfe2a010f4873afca266c08c4fb262fe49b5fcb3135584369ab4dfc33e",
+   "note": "05_5 end and 05_6 cue transition 78.6-79.583 s. 78.6-78.95 s: the 05_5 state held. 79.35 s: dots, boxes, title and readouts fading together, evenly. 79.533 s (f30478, first frame of root window 4772-4855): bare tan z portrait; f30479-f30481 unchanged. No defect.",
+   "batch": 42
+  },
+  "0139": {
+   "sha256": "d3bab2bca4cfb063458e3777e959fd9ab472af3a23c22095fe981cf94a27b012",
+   "note": "05_6 79.6-79.717 s (f30482-f30489, every frame). Bare tan z portrait, steady; a slight even darkening starts at about f30488. No defect.",
+   "batch": 43
+  },
+  "0140": {
+   "sha256": "291d093138dc52f96242f81c393d513a98e3b059b7d48b6a749abdfaf211d6ab",
+   "note": "05_6 79.733-79.85 s (f30490-f30497). Even fade-out of the tan portrait; the zero/pole row and the flat i / -i regions keep their places. No defect.",
+   "batch": 43
+  },
+  "0141": {
+   "sha256": "0cca13beb39ae4fb8fdcc913efd05ae1799168ab4ac7c1f497aabcc8195796bf",
+   "note": "05_6 79.867-79.983 s (f30498-f30505). Fade-out continues evenly to faint texture at f30505. No defect.",
+   "batch": 43
+  },
+  "0142": {
+   "sha256": "0116f9036b22b5ddfad6119d237495e9ac18e9b5ccce51828a8fd2635746f114",
+   "note": "05 80.0-80.117 s (f30506-f30513, every frame). f30506: faint tan remnant (at most 15 levels above background). f30507-f30510: effectively black (at most 9, 6, 4, 2 levels; colour difference measurement), a dark gap between 05_5 and 05_6; the faint shapes seen at f30507 are under 10 levels. f30511-f30513: a new, taller portrait starts fading in, evenly. No defect.",
+   "batch": 44
+  },
+  "0143": {
+   "sha256": "b4798a21d8d87e4e1392379b80817b097942b7294e906bd88c6dac0d8c5ceb2a",
+   "note": "05_6 80.133-80.25 s (f30514-f30521). Even fade-in of the new portrait: on the left half a row of points on the real axis about 60 display px apart with contour rings, hue bands sweeping between them; the right half mostly red near the real axis, as for a function positive on the positive reals. No defect.",
+   "batch": 44
+  },
+  "0144": {
+   "sha256": "33b5841d9c142e4ec71b20940931edc3694177f5e7801a6897a14fff5792745f",
+   "note": "05_6 80.267-80.383 s (f30522-f30529). Fade-in continues evenly; the portrait keeps its place and shape. No defect.",
+   "batch": 44
+  },
+  "0145": {
+   "sha256": "d6f8c25f0d90b7338c63c3310efc2dd9ad3bd095f8ab1427a9316dfbb710193d",
+   "note": "05_6 80.4-80.517 s (f30530-f30537, every frame). Fade-in of the new portrait continues evenly. No defect.",
+   "batch": 45
+  },
+  "0146": {
+   "sha256": "48065b62afeb7dd16139ccb03c44a8ed81d73d55d07607b5aaf469fe9cfbc97e",
+   "note": "05_6 80.533-80.65 s (f30538-f30545). Portrait near full colour, steady. No defect.",
+   "batch": 45
+  },
+  "0147": {
+   "sha256": "324d0219be0605354bd306c69138c20073365fef23613d2bc316089406058406",
+   "note": "05_6 80.667-80.783 s (f30546-f30553). Portrait at full colour, steady frame to frame; no title or label yet. No defect.",
+   "batch": 45
+  },
+  "0148": {
+   "sha256": "68e6ce60056a43d302d883441a8598d54158eab3a9379baf74b93f29041fb47b",
+   "note": "05_6 80.8-80.917 s (f30554-f30561, every frame; f30561 is the last frame of root window 4772-4855). Portrait steady at full colour. f30560: the title 'f(z) = Gamma(z)' starts fading in at the right, evenly. No defect.",
+   "batch": 46
+  },
+  "0149": {
+   "sha256": "d1684427163195d75bc0fd32a2ab4588b3c91569c6e6ca8acfa8f8858b2fff22",
+   "note": "05_6 81.0-85.8 s. Title at full by 81.6 s. 82.717 s: yellow 'Gamma(n + 1) = n!' and 'Gamma(4) = 3! = 6', 'Gamma(5) = 4! = 24' fading in (full by 83.6 s); all true. Real-axis hue on slot 1 (row 290 of the tile): red (Gamma > 0) right of the pole at 0; teal on (-1, 0), red on (-2, -1), teal on (-3, -2), red on (-4, -3), teal beyond -4; colour switches at tile x about 318, 253, 190, 126, 66, about 64 px per unit, so poles at 0, -1, -2, -3, -4 as for Gamma. 85.8 s: a dashed white vertical line through the pole at 0 and the left half starting to dim. No defect.",
+   "batch": 46
+  },
+  "0150": {
+   "sha256": "65782df108e4dfc4916a46decfb3361a404ec1a6a26ed3dd04dbe93fae832d02",
+   "note": "05_6 85.95-86.6 s. Left half (Re z < 0) dimmed, right half at full; the dashed line is Re z = 0 through the pole at 0. 86.15 s: boxed 'integral works to the right' fading in at the top of the right half, full by 86.35 s; true (Euler's integral converges for Re z > 0). Box, line and the right column of notes clear of each other. No defect.",
+   "batch": 46
+  },
+  "0151": {
+   "sha256": "3beda3913968740bcc74073e1db0fa9d959084aeaaae8e330c91df539a2fd982",
+   "note": "05_6 86.65-90.0 s. The 'integral works to the right' state held unchanged: left half dimmed, dashed line at Re z = 0, box and notes steady. No defect.",
+   "batch": 47
+  },
+  "0152": {
+   "sha256": "c16acd3357e159b46c2980fd41c625ea1410d655fbecbed9a16dfe5a38961d6d",
+   "note": "05_6 90.583-91.65 s. 90.583 s still dimmed; 90.8-91.05 s the left half brightens back evenly to full colour (the continuation to Re z < 0); dashed line, box and notes stay. Full by 91.15 s. No defect.",
+   "batch": 47
+  },
+  "0153": {
+   "sha256": "8a058f768f11e6a2c2979a8943195b129281c8ca59407e7374f465d9340429ae",
+   "note": "05_6 92.15-94.233 s. 92.15-92.533 s held. 93.233 s: a pink-ringed pole marker at 0 on the dashed line; 94.233 s: a second marker at -1 (display x 1116 against the pole at 1114 found from the hue switches), so markers sit on the poles. Markers clear of the box and notes. No defect.",
+   "batch": 47
+  },
+  "0154": {
+   "sha256": "c2750f326574964fb8a712aa4a40277356f699f8d060a509c708568e9a498f0c",
+   "note": "05_6 94.367-96.2 s. Pole markers added one by one from 0 leftwards: two at 94.367 s, a third at -2 fading in at 95.367 s (fourth at -3 faint), all five (0, -1, -2, -3, -4) by 95.8 s, each on its pole. Held to 96.2 s. No defect.",
+   "batch": 48
+  },
+  "0155": {
+   "sha256": "fb0d0f54f32ec547cb06c0c4c7210ff041620f40ea0d2bb747dffc4d1a0c973f",
+   "note": "05_6 96.467-98.65 s. Five markers held. 98.133 s: 'no zeros anywhere' fading in under the notes, full by 98.6 s; true (Gamma has no zeros). No defect.",
+   "batch": 48
+  },
+  "0156": {
+   "sha256": "eefda0ec1ef17b8db65e0f5c312f113d37667f3e300e7e3608bc77b6039560c6",
+   "note": "05_6 99.133-101.6 s. 100.0 s: a dimmer gray line 'how: chapter 14' under 'no zeros anywhere', readable and clear of the other notes. The chapter-14 cross-reference is outside my sheet range and not checked here. Held to 101.6 s. No defect.",
+   "batch": 48
+  },
+  "0157": {
+   "sha256": "5d7eef8bd4d6d72be4e3f2403589096b3d87a3c281d8d6510492e48f33b68095",
+   "note": "05_6 end and 05_7 cue transition 101.65-103.05 s. Full Gamma state held to 102.433 s. 102.833 s: markers, dashed line, box, title and notes fading together, evenly. 103.017 s (f31887, first frame of root window 6181-6264): bare Gamma portrait; f31888-f31889 unchanged. No defect.",
+   "batch": 49
+  },
+  "0158": {
+   "sha256": "a799bb9571c65994ce155699b0169778f8d0e9502cc08891017fec09b02ebe31",
+   "note": "05 103.067-103.183 s (f31890-f31897, every frame). Bare Gamma portrait, steady frame to frame. No defect.",
+   "batch": 49
+  },
+  "0159": {
+   "sha256": "974150b27e7ee0fdd5b9ce42675169992e91f91ff3660b55c02a6fb87f1d9cbf",
+   "note": "05 103.2-103.317 s (f31898-f31905). Steady, then a slight even darkening from about f31903. No defect.",
+   "batch": 49
+  },
+  "0160": {
+   "sha256": "261ae77d7234be64eda7198dca45adc69de541ea2577ff85c9461511fcc6bda9",
+   "note": "05 103.333-103.45 s (f31906-f31913, every frame of root window 6181-6264). Bare Gamma portrait darkening evenly frame to frame; no tearing, no partial redraw. No defect.",
+   "batch": 50
+  },
+  "0161": {
+   "sha256": "46ff42bd2cd64d72e9c512e10c20dfb1e72080fb56970961e37b2c8644cc58e6",
+   "note": "05 103.467-103.583 s (f31914-f31921). Fade-out ends: f31914-f31915 dim, f31916-f31917 near black (measured max 6-7 levels above background), f31918-f31919 background only (max 3), f31920-f31921 the next portrait starting (max 11, one pixel above 10). A cue-transition dip of about 0.1 s, like the earlier gaps at f27726, f28629 and f30507. The new portrait is narrower (about 400 display px against 520) and sits left. No defect.",
+   "batch": 50
+  },
+  "0162": {
+   "sha256": "0e6dac2be6674f690e0b11483b32890b185509277a638656c8f40700619944dc",
+   "note": "05 103.6-103.717 s (f31922-f31929). New 05_7 portrait fading in evenly; a ringed feature in the right half and alternating features on the left, still too dim to read. No defect.",
+   "batch": 50
+  },
+  "0163": {
+   "sha256": "fd9a095520b2212fbefbcdf1dea185ba99c0b6721cf67b215f7e2a75ade0eafd",
+   "note": "05 103.733-103.85 s (f31930-f31937, every frame). The 05_7 portrait brightening evenly. Four special points on the real axis (tile x about 70, 160, 245, 385), a ringed one at the right. No title or label yet. No defect.",
+   "batch": 51
+  },
+  "0164": {
+   "sha256": "9585587314bea08107b35a436a9a1d7568bd4febd16e5617e99efc882c04d0f5",
+   "note": "05 103.867-103.983 s (f31938-f31945). Fade-in continues evenly; same layout, portrait in the left part of the frame. No defect.",
+   "batch": 51
+  },
+  "0165": {
+   "sha256": "319d111cddf972dfd6953402f4c78dbc9dfacc284862d55daf43e7ee432d93e6",
+   "note": "05 104.0-104.117 s (f31946-f31953). Portrait near full colour, steady frame to frame. No defect.",
+   "batch": 51
+  },
+  "0166": {
+   "sha256": "d09390a27cc7854d07350d03208e224c20cd6c3bc869f4484d94ed953836a542",
+   "note": "05 104.133-104.25 s (f31954-f31961, every frame of root window 6181-6264). 05_7 portrait at full colour, steady frame to frame. No defect.",
+   "batch": 52
+  },
+  "0167": {
+   "sha256": "1ccc4694b6c03cb2129f02ad97d22fd39deff6a78d3ba15ab5284ce78ff01132",
+   "note": "05 104.267-104.383 s (f31962-f31969). Steady portrait; f31969 the title starts fading in above it, evenly. No defect.",
+   "batch": 52
+  },
+  "0168": {
+   "sha256": "397e464b29ec555aebae17d13381233a1274f3d4945600b121f4e9fe328a7d20",
+   "note": "05 104.4-107.2 s. f31970 (last frame of root window 6181-6264) title dim; full by 105.8 s: 'zeta(s) = 1 + 2^-s + 3^-s + ..., Re s > 1' (crop crops/s0168-slot2-zetatitle4x.png), true, centred over the portrait; the script-size minus in the exponents is proportionate. Real-axis hue on slot 2 (sheet row 256): red (positive) for x < 1036, cyan (negative) on 1039-1123, red on 1126-1207, cyan on 1213-1336, red from 1342, switches 87, 87 and 129 px apart, so zeros at -6, -4, -2 and the pole at 1 at about 43 px per unit; signs match zeta (zeta(-5) < 0, zeta(-3) > 0, zeta(0) = -1/2, zeta > 0 for s > 1). Hue winds +1 around the point at -2 (zero) and -1 around the point at 1 (pole), and the rings sit at the pole. Held steady to 107.2 s. No defect.",
+   "batch": 52
+  },
+  "0169": {
+   "sha256": "60653040b4e70044729e8170cf592ddacc4f3796b6a34c9d55b074ddfdf5dd60",
+   "note": "05_7 108.6-111.2 s. Zeta portrait and title held to 110.0 s. 110.567 s: dashed white vertical line through the pole at s = 1 (display tile x 349 against the pole at 348 found from the hue switches), so it is Re s = 1; the half plane left of it dimmed, the strip to its right at full; note 'series converges: Re s > 1' at the upper right, true (the Dirichlet series converges for Re s > 1, diverges at s = 1). The note sets s upright while the title right above it sets s italic (crop crops/s0169-slot5-converges4x.png): L4 recurs. Note, title and line clear of each other. No other defect.",
+   "batch": 53
+  },
+  "0170": {
+   "sha256": "9fd13b457e03f38e23aad5de762a548b822a98ed3f2ee46ad9ffc0cfcf6f0a4e",
+   "note": "05_7 111.6-114.55 s. Dimmed state held unchanged; dashed line, title and note steady; 114.533-114.55 s are frames of sampled interval 6872-6877 (every frame), still dimmed. No defect.",
+   "batch": 53
+  },
+  "0171": {
+   "sha256": "de3292368ddb7b6fc8a8403c0d622f1651d200c819fee4bd7b0be35fad09f530",
+   "note": "05_7 114.567-115.383 s. f32580-f32583 (rest of interval 6872-6877) still dimmed. 115.1 s: the left half restored to full colour (the continuation past Re s = 1); dashed line, title and note stay. f32627-f32629 (interval 6921-6927) steady at full. The brightening itself (between f32583 and f32612) is not sampled. No defect.",
+   "batch": 53
+  },
+  "0172": {
+   "sha256": "adc69e18e0ecbfb535971b57541ae681346db74fdcb0b84851b895ee6164eb61",
+   "note": "05_7 115.4-116.2 s. f32630-f32633 (rest of interval 6921-6927) steady at full colour with the dashed line. 116.15 s: a pole marker (dark ring, pink centre) fading in on the dashed line at the pole s = 1, full by 116.2 s, exactly on the ringed point. No defect.",
+   "batch": 54
+  },
+  "0173": {
+   "sha256": "71e8f54625af00d070e0f06927d0e0696797af6416fe80a8af6bb38c22f68831",
+   "note": "05_7 116.45-120.0 s. 116.45 s: pink note 'a single pole: s = 1' under the first note, true (zeta has one simple pole, at s = 1); s upright again (same L4 as sheet 0169). 118.6 s: three white zero markers at display tile x 71, 150, 229, on the hue switches at -6, -4, -2 found on sheet 0168. 118.833 s: 'zeros at -2, -4, -6, ...' fading in, full by 120.0 s; minus here 8 px wide and 2 px thick against digits 7 px wide (inkmap, sheet 0174 rows 211-212), so L1 recurs. The note lists only the trivial zeros; the nontrivial zeros (first at 1/2 + 14.13i) lie off the plotted window; whether a later note qualifies this is checked on the following sheets. No other defect.",
+   "batch": 54
+  },
+  "0174": {
+   "sha256": "cf5b1d163479d88920782c4b7f24bc452d865bbfc3646049e6626150925ccc99",
+   "note": "05_7 120.8-121.883 s. Three notes, pole marker, zero markers and dashed line held unchanged to 121.65 s (crop crops/s0174-slot1-polezeros4x.png). f33018 (first frame of root window 7312-7365): dashed line and the first two notes gone at once, 'zeros at -2, -4, -6, ...' and all markers stay; f33019 the same. A cut, not a fade, between 121.65 s and 121.867 s; the frames in between are not sampled here.",
+   "batch": 54
+  },
+  "0175": {
+   "sha256": "9da96e6efd035615c0ba983f5b91cdd28fbecb6126b071b29eb994bb09ba2f99",
+   "note": "05_7 121.9-122.017 s (f33020-f33027, every frame of root window 7312-7365). Main portrait, markers, title and 'zeros at -2, -4, -6, ...' steady. From f33021 a tall narrow second portrait starts fading in to the right of the main one (display tile x 478-602), evenly, frame by frame. No defect.",
+   "batch": 55
+  },
+  "0176": {
+   "sha256": "0f146ca7ae9bf9d2852692576df45e27aac02b20c20a8ad3dc6d6f1597419d40",
+   "note": "05_7 122.033-122.15 s (f33028-f33035). The strip brightens evenly and now spans display tile y 43-408, higher than the main portrait's top (117) but clear of the title, which sits further left; a column of points where all hues meet runs down its middle (a zero column). No defect.",
+   "batch": 55
+  },
+  "0177": {
+   "sha256": "740dcf421a73c42a82831579a9bb368e62e8866d52d5d9815abec38885cf3e42",
+   "note": "05_7 122.167-122.283 s (f33036-f33043). Strip near full colour, steady; no label yet. No defect.",
+   "batch": 55
+  },
+  "0178": {
+   "sha256": "00e94fe9976c01f32ba26c5d4dfd6e488d494af3a3572de09140768209e741f3",
+   "note": "05_7 122.3-122.417 s (f33044-f33051, every frame of root window 7312-7365). Strip at full colour, steady frame to frame. No defect.",
+   "batch": 56
+  },
+  "0179": {
+   "sha256": "dea8ac5429aa063f20549125a7ce0229cafbb9fff2f5669664ec6c896430f1a9",
+   "note": "05_7 122.433-122.55 s (f33052-f33059). Unchanged, steady. No defect.",
+   "batch": 56
+  },
+  "0180": {
+   "sha256": "74baae025f0aa10766df948a9b2e8b8a097677608efcf2427ac60b50982a5521",
+   "note": "05_7 122.567-122.683 s (f33060-f33067). Unchanged. Strip read at 2x (crops/s0180-slot1-strip2x.png): four points where all hues meet, about 52% across the strip, at sheet rows about 64, 134, 178 and 269; taking the strip bottom (row 445) as height 0, they sit 381, 311, 267 and 176 px up, i.e. 12.5, 12.4, 12.7 and 12.5 px per unit for the first zeros 30.42, 25.01, 21.02 and 14.13. So the strip shows the first four nontrivial zeros on the critical line, at the right heights to within the reading error (about 2%). No label yet. No defect.",
+   "batch": 56
+  },
+  "0181": {
+   "sha256": "6a6e769a35aaa1379d00743b3a4bfdcbd5c39456f8370591c5495fa0977c89a6",
+   "note": "05_7 122.7-125.8 s. f33068-f33069 (end of root window 7312-7365) steady. 122.733 s: 'more zeros on Re s = 1/2' fading in under 'zeros at -2, -4, -6, ...' (s upright, L4), and 'gold box = gold band. The strip runs on up to Im s = 32' fading in under the strip; both full by 123.6 s. 'more zeros on Re s = 1/2' is true and does not claim all of them (no Riemann hypothesis claim on screen). 123.6 s: gold box on the main portrait (tile px x 293-422, y 127 to the real axis at 256: Re s from -1 to 2, Im s from 0 to 3 at 43.5 px per unit), gold leader lines to a gold band at the foot of the strip (x 521-654, y 407-444), a white vertical line in the strip at Re s = 1/2 (x 588 = -1 + 67/44.3), and the first zero marker. 125.65 s: four markers with leader labels '1/2 + 30.42i', '1/2 + 25.01i', '1/2 + 21.02i', '1/2 + 14.13i'; the values are the first four zeros rounded correctly (14.1347, 21.0220, 25.0109, 30.4249) and each marker sits on a point where all hues meet (11.4 display px per unit for all four). Labels clear of the right-hand notes. The strip's horizontal scale (44.3 px per unit) is 3.5 times its vertical scale (12.5 px per unit): see L6. The strip height, 398 px / 12.5 = 31.8, matches 'up to Im s = 32'.",
+   "batch": 57
+  },
+  "0182": {
+   "sha256": "613e35a0ccacf81095fa9c3a07a1b9912d134093c72c752685bd9666b2566b56",
+   "note": "05_7 end and 05_8 cue transition 126.0-126.867 s. 126.0-126.2 s held. 126.567 s: faint gold rings growing around the four zero markers; 126.867 s rings bright and wider; markers and labels stay readable through the rings. No defect.",
+   "batch": 57
+  },
+  "0183": {
+   "sha256": "ab41df2b6d387e7842ae034bf902ea73c7f3f3197a4bc7c6d6d8f43717ed9dbb",
+   "note": "05_8 127.2-131.2 s. Ringed markers, labels, gold box, band, white line and notes held unchanged. No defect.",
+   "batch": 57
+  },
+  "0184": {
+   "sha256": "781b85a078fa257321c8949b8cfec76ab1670c8a3ef2cd2d168c5ecf4df61d6c",
+   "note": "05_8 131.6-135.067 s. Ringed zero markers, labels, gold box, band, white line, both notes and the strip note held unchanged. No defect.",
+   "batch": 58
+  },
+  "0185": {
+   "sha256": "61dcef4e6761bcd559cda111ed6cf4f5e961d2aed94b89d5f38be0246474ec8f",
+   "note": "05_8 135.767-136.767 s. 135.767 s: a gold-ruled dark box 'Riemann hypothesis: open' under the notes (display tile x 684-862, y 280-340), true; clear of the notes and the zero labels; right edge about 22 px (orig) from the frame edge, inside the frame. Held. No defect.",
+   "batch": 58
+  },
+  "0186": {
+   "sha256": "6499ce6ced98c2dcf14fb53c8fb139ac404749577b262c4798c19ce6a751599b",
+   "note": "05_8 137.2-141.0 s. Held to 138.65 s. 139.383 s: the strip note 'gold box = gold band. ...' gone and a full-width dark bar at the foot of the frame fading in: 'precisely: this strip shows four zeros, located by Newton's method'; full by 140.0 s (bar at orig tile y about 482-527, x 26-934, clear of the strip band above it). True: the strip runs to Im s = 32 and the zeros below that height are exactly the four labelled (the fifth is at 32.935). No defect.",
+   "batch": 58
+  },
+  "0187": {
+   "sha256": "8215a455f8d2369a5bcb11d474e53fbe74bc213f7024d158fbde78c4eb318bb2",
+   "note": "05_8 141.15-144.667 s. Full 05_8 state (ringed zeros, labels, gold box and band, notes, 'Riemann hypothesis: open' box, 'precisely' bar) held unchanged through the 05_9 cue transition sample at 144.667 s. No defect.",
+   "batch": 59
+  },
+  "0188": {
+   "sha256": "eb1dabb483fc9830844e127b29850fcc9f19fe91480784979d0db3dc7ab084af",
+   "note": "05_9 145.067-145.35 s. 145.067 s: all overlays (title, markers, labels, box, band, white line, notes, box, bar) fading together; pole and zero markers at the same partial opacity (crops/s0188-slot1-polefade4x.png against crops/s0187-slot8-polefull4x.png). f34421 (145.25 s, first frame of root window 8715-8859): the two bare portraits only; f34422-f34427 steady. No defect.",
+   "batch": 59
+  },
+  "0189": {
+   "sha256": "9b07f4b737c9907243986a107925cee8b5a3187f8a412e745e54941bf74069e3",
+   "note": "05_9 145.367-145.483 s (f34428-f34435, every frame). Bare portraits steady; from f34432 the main portrait starts darkening evenly while the strip stays at full. No defect.",
+   "batch": 59
+  },
+  "0190": {
+   "sha256": "6f8965c3eb2e26689309aac7f2f573c0279eaa66025c03114a87367be1db6643",
+   "note": "05_9 145.5-145.617 s (f34436-f34443, every frame of root window 8715-8859). Main portrait darkening evenly frame by frame; the strip stays at full. No defect.",
+   "batch": 60
+  },
+  "0191": {
+   "sha256": "6c69da65cf11eea8346cb34ec83e0dd770eb997b09634f841528715bfe9c3884",
+   "note": "05_9 145.633-145.75 s (f34444-f34451). f34444 main portrait faint (up to 13 levels above background); f34445 within 3 levels of background (the dark-looking traces on the sheet are not darker than background: no pixel more than 4 levels darker; regionstat); from f34446 background only. Strip unchanged at full. No defect.",
+   "batch": 60
+  },
+  "0192": {
+   "sha256": "88d6c9df051a4a903aad6ebab06c3c59c4921d398cbf1e9d1b744c5eedae8007",
+   "note": "05_9 145.767-145.883 s (f34452-f34459). Strip alone, steady; from about f34457 it starts to darken evenly. No defect.",
+   "batch": 60
+  },
+  "0193": {
+   "sha256": "6377cd1dcc1eb5d4662a470c442a6b1410f169080e31c892c20583a64b8ea942",
+   "note": "05_9 145.9-146.017 s (f34460-f34467, every frame of root window 8715-8859). The strip darkens evenly frame by frame. No defect.",
+   "batch": 61
+  },
+  "0194": {
+   "sha256": "5554e0a05d3c981806318fbc672eb42663f66262d5d17d7fc2ed628d6c28be99",
+   "note": "05_9 146.033-146.15 s (f34468-f34475). f34469 strip faint (max 13 levels above background); f34470-f34472 background only (max 5, 4, 3): a gap of three frames, about 0.05 s, like the earlier cue-transition dips. f34473 the next portrait starting (max 10), small and placed top-left (display tile x 32-292, y 72-232); f34474-f34475 brightening evenly. No defect.",
+   "batch": 61
+  },
+  "0195": {
+   "sha256": "d96221da0edb69f5946cecdf11d96ef593630d93ccca510de67fd32a412b2896",
+   "note": "05_9 146.167-146.283 s (f34476-f34483). New portrait near full: three points where all hues meet, one right of centre and two up-left and down-left of it, about 120 degrees apart round a common centre; no label yet. No defect.",
+   "batch": 61
+  },
+  "0196": {
+   "sha256": "204807e3ef45072cc5e92dcb9e138eacf5a50e7ccf1fb60282c205735499327b",
+   "note": "05_9 146.3-146.417 s (f34484-f34491, every frame of root window 8715-8859). First thumbnail (three zeros 120 degrees apart) steady at top-left; from f34488 a second thumbnail of the same size fading in to its right (display tile x 311-571): one point where all hues meet and a ringed point to its right. Even fade. No defect.",
+   "batch": 62
+  },
+  "0197": {
+   "sha256": "dbde74d739039ccce62a9eeabff888c62b104fc9b87e0642e0cf486dd2d12b93",
+   "note": "05_9 146.433-146.55 s (f34492-f34499). Second thumbnail brightening evenly; first steady; the two share a top edge and size with an even gap. No defect.",
+   "batch": 62
+  },
+  "0198": {
+   "sha256": "94d0208c13e2ed48fd00c4b7eb5a33aeef5fe3940839df3a4b3da0d6e62f770b",
+   "note": "05_9 146.567-146.683 s (f34500-f34507). Two thumbnails at full; from f34503 a third (display tile x 590-850, about 33 px orig from the right edge) fading in: horizontal hue bands with a grid, the e^z picture. Even fade. A recap row of earlier portraits building left to right. No defect.",
+   "batch": 62
+  },
+  "0199": {
+   "sha256": "2ccba0f75856462b50e8ee31a9253cfec5799dfdb2a471e1101d35cfc342c052",
+   "note": "05_9 146.7-146.817 s (f34508-f34515, every frame of root window 8715-8859). Third thumbnail (e^z bands) brightening evenly to full; first two steady. Top row of three, even gaps, all inside the frame. No defect.",
+   "batch": 63
+  },
+  "0200": {
+   "sha256": "037b29f5fbb8b4329df71ffd976200fa46cbb2787b225ba386f7f1167b3d8ea4",
+   "note": "05_9 146.833-146.95 s (f34516-f34523). From f34518 a fourth thumbnail fading in at the start of a second row (display tile x 32-292, y 251-411): a row of points where all hues meet along the middle line, the sin z picture. Even fade. No defect.",
+   "batch": 63
+  },
+  "0201": {
+   "sha256": "a9dc39bf90c3b43c628a2004e0705bb28ca61566198ccec72137f03b3f717ec9",
+   "note": "05_9 146.967-147.083 s (f34524-f34531). Fourth thumbnail at full by about f34527; the recap follows the gallery's order (three-zero polynomial, zero-and-pole, e^z, sin z). Steady. No defect.",
+   "batch": 63
+  },
+  "0202": {
+   "sha256": "744c45817cdeca1a90a294c8350efff3212fc69f814120ae88fdfb52dc9d953e",
+   "note": "05_9 147.1-147.217 s (f34532-f34539, every frame of root window 8715-8859). Four thumbnails steady; from f34533 a fifth fading in evenly at row 2, column 2 (display tile x 311-571, y 251-411): hue bands bending along the real axis with zeros and poles alternating, the tan z picture. No defect.",
+   "batch": 64
+  },
+  "0203": {
+   "sha256": "29a5975b31d329f7ff471c6684ee05fca291c9ae297856ec6725c99cd18bade3",
+   "note": "05_9 147.233-147.35 s (f34540-f34547). Fifth thumbnail at full and steady; grid of 3 + 2 even. No defect.",
+   "batch": 64
+  },
+  "0204": {
+   "sha256": "b7e6f5d69e401e5f3fb6e670cf85d882a9720877e6f07e797bd5f362e2ff872c",
+   "note": "05_9 147.367-147.483 s (f34548-f34555). From f34549 a sixth thumbnail fading in evenly at row 2, column 3 (display tile x 590-850): the Gamma portrait with poles along the negative real axis. Recap order matches the gallery (polynomial, zero-and-pole, e^z, sin z, tan z, Gamma). No defect.",
+   "batch": 64
+  },
+  "0205": {
+   "sha256": "79d5983d69c4988754676d930fddba9a6ef73d8ca4c76e37d91a313de369773d",
+   "note": "05_9 147.5-147.617 s (f34556-f34563, every frame of root window 8715-8859). All six recap thumbnails at full in a 3 x 2 grid, steady frame to frame, no labels or markers yet. No defect.",
+   "batch": 65
+  },
+  "0206": {
+   "sha256": "a9b3f46269dc415c1e723f3e732bbb57cec6d976cd4b1a780733c4ec1b35dc3c",
+   "note": "05_9 147.633-150.85 s. f34564-f34565 (last frames of root window 8715-8859) and 147.75 s (f34571): bare grid unchanged. 148.6 s (f34622): labels above each thumbnail and markers on all six: white dots on the zeros, pink-ringed dots on the poles. Checked: z^3 - 1 zeros at 1 and the two other cube roots of 1 (120 degrees apart); (z - 1)/(z + 1)^2 pole at -1 and zero at 1, placed evenly about the centre; e^z no markers; sin z five zeros evenly spaced (about 62 display px apart, k pi for k = -2..2), the two outer dots tangent to the thumbnail's side edges but not cut (4x crop); Gamma five pole markers at 0, -1, -2, -3, -4, each centred on its pole's ring pattern (4x crop) and matching the 05_6 placement (sheet 0154); zeta zeros at -6, -4, -2 (52 display px apart, 26 per unit) and the pole 78 px (3 units) right of -2, at 1. Held to 150.85 s. Finding L7: the lower-row labels crowd the gap between rows.",
+   "batch": 65
+  },
+  "0207": {
+   "sha256": "48d50e0ff699576db941147f96c85a4d44ca284686716a017b68af713ab98752",
+   "note": "05_9 151.0-152.7 s. Labelled grid with markers held unchanged to 152.333 s. 152.7 s (f34868): a gold square appears on the z^3 - 1 thumbnail (display x 1042-1105, y 1641-1703 on the sheet), up and right of the centre, enclosing none of the three zeros (the upper-left zero is left of it and the zero at 1 is below it). Its purpose is shown on the next sheets. No defect so far.",
+   "batch": 65
+  },
+  "0208": {
+   "sha256": "813ccc3b8279f1eacbcae35edc4ac886853497d04b3c050dd007e01393c5010d",
+   "note": "05_9 152.783-152.9 s (f34873-f34880, every frame of root window 9168-9220). Labelled recap grid with markers and the gold square on the z^3 - 1 thumbnail, steady frame to frame. No defect.",
+   "batch": 66
+  },
+  "0209": {
+   "sha256": "db24770f865bc139397ba89d983229cf04de0848fac38bb8c17eec1ad31dff69",
+   "note": "05_9 152.917-153.033 s (f34881-f34888). From about f34883 the other five thumbnails fade evenly, with their labels and markers; the z^3 - 1 thumbnail, its label, its three zero dots and the gold square stay at full. No defect.",
+   "batch": 66
+  },
+  "0210": {
+   "sha256": "a76df28d67169e6730bfc0292bfc872b2d18b46d17d895876e50648481a8ec02",
+   "note": "05_9 153.05-153.167 s (f34889-f34896). The five other thumbnails reach background by about f34892-f34893; z^3 - 1 with label, dots and square held. From f34895 a large faint square panel starts fading in at the right of the frame (display x 445-757, y 1668-1978 on slot 7), brighter on f34896: the start of a new view. No defect.",
+   "batch": 66
+  },
+  "0211": {
+   "sha256": "5e3c7a7723d6e167da03dfd3a84986c43e822d8e24c62c31e7653e7e7a91218d",
+   "note": "05_9 153.183-153.3 s (f34897-f34904, every frame of root window 9168-9220). z^3 - 1 thumbnail with label, three zero dots and gold square held at full at top-left; a large square panel at the right (sheet x 1446-1784, y 121-459 on slot 2's tile row: 339 x 339 px) brightening evenly frame by frame. No defect.",
+   "batch": 67
+  },
+  "0212": {
+   "sha256": "278466b5ed35d885ccb86cd692314174682eb09f314e3f0dd0ae09ecb8e4b22b",
+   "note": "05_9 153.317-153.433 s (f34905-f34912). The panel keeps brightening evenly: a smooth patch of hue, purple at top-left through blue and teal to green and yellow at bottom-right, with the contour mesh; no zero or pole inside. No defect.",
+   "batch": 67
+  },
+  "0213": {
+   "sha256": "31cf8e856feef0c5071ce715e7f9f015a77a3b761542d3bca64dac97aff7f8db",
+   "note": "05_9 153.45-153.567 s (f34913-f34920). Panel near full. Checked against the gold square (inside x 175-243, y 90-159 of slot 2's tile): the square's contents enlarged about 4.9 times match the panel in hue layout and mesh (side-by-side crop s0213-slot2-box-vs-zoom.png), so the panel is a true magnified view of a zero-free square. No defect.",
+   "batch": 67
+  },
+  "0214": {
+   "sha256": "889ab07a272f41bbcbff4e0e6dece687557c363c9f6f9f9e71667870ffd86453",
+   "note": "05_9 153.583-153.733 s (f34921-f34927 every frame of root window 9168-9220, then f34930). Zoom panel at full. From f34924 two gold connector lines draw in: from the gold square's top-right corner to the panel's top-left, and from its bottom-right corner to the panel's bottom-left, crossing the thumbnail's red right side but clear of the zero at 1 (about 29 px right of it); panel gets a gold border. Even. No defect.",
+   "batch": 68
+  },
+  "0215": {
+   "sha256": "272a9f20add093c56bf48e656ce81e74a074b448a1bf6198f0ba2819283907cb",
+   "note": "05_9 154.033-156.0 s. 154.033 s: a white x at the thumbnail's centre fading in (display 162, 166 on slot 1: the centroid of the three zero dots, so z = 0); notes under the thumbnail 'nearly square unless the derivative is 0, as at z = 0' (grey) and 'one tile of z^3 - 1, traced exactly' (gold) fading in; a tilted gold quadrilateral fading in at the panel centre, aligned with the mesh. All at full by 154.433 s and held to 156.0 s. True: f'(z) = 3z^2 vanishes only at 0, so tiles are nearly square everywhere else. No defect beyond the L1/L4 recurrences recorded on 0216.",
+   "batch": 68
+  },
+  "0216": {
+   "sha256": "de969b9095150dc5ed4672b22375e3ec8eddf612dd20999195f7dfa2a1439625",
+   "note": "05_9 156.15-158.65 s. State held. 3x crop (s0216-slot1-tile3x.png): the gold quadrilateral's edges sit on the mesh's shading steps, i.e. on the contour lines bounding one cell. Grey note peaks at about 143 levels on background 17 (about 5.8:1). 158.0 s: 'next: what one complex derivative demands' (white) fades in below the notes, full by 158.6 s. 3x crop of the notes (s0216-slot1-notes3x.png): 'as at z = 0' and 'one tile of z^3 - 1' set z upright (L4 recurrence) and the minus in 'z^3 - 1' is a short heavy hyphen (L1 recurrence).",
+   "batch": 68
+  },
+  "0217": {
+   "sha256": "f2c19849fa5194535304cc1596d6554303d8a21235256be726b223637c3c69ef",
+   "note": "05_9 160.0-161.65 s. Full state held unchanged: z^3 - 1 thumbnail with label, zero dots, x at 0 and gold square; connectors; zoom panel with gold border and traced tile; the three notes. No defect.",
+   "batch": 69
+  },
+  "0218": {
+   "sha256": "23ea51ee08847c7df4f73114ef1707176750c9a6dfbaff616f7d3185147915ef",
+   "note": "05_9 162.15-163.667 s. Held to 163.05 s. 163.6 s (f35522): the label, dots, x, gold square, connectors, panel border, traced tile and all three notes fading together, evenly, while the thumbnail picture and the panel picture stay at full. f35523-f35526 (every frame of root window 9817-9878): bare thumbnail and bare panel only. No defect.",
+   "batch": 69
+  },
+  "0219": {
+   "sha256": "e907bc32eb995f162ef0d7783848fa85546e2842b0f87d21a24f44bb12e522d8",
+   "note": "05_9 163.683-163.8 s (f35527-f35534, every frame of root window 9817-9878). Bare thumbnail and bare zoom panel, steady frame to frame. No defect.",
+   "batch": 69
+  },
+  "0220": {
+   "sha256": "f8e6363ba3edaa328e864969febcdb7366de83a634bc5afa0f120a2cd514f167",
+   "note": "05_9 163.817-163.933 s (f35535-f35542, every frame of root window 9817-9878). Bare thumbnail and zoom panel; from about f35539 the thumbnail starts to darken evenly while the panel stays at full. No defect.",
+   "batch": 70
+  },
+  "0221": {
+   "sha256": "b35585fae2af60eb9a1ab841303aa335028bb11bcdd83fca0f9c10326a017c58",
+   "note": "05_9 163.95-164.067 s (f35543-f35550). The thumbnail keeps darkening evenly to faint by f35550; panel unchanged at full. No defect.",
+   "batch": 70
+  },
+  "0222": {
+   "sha256": "ab9713b709b24343b23bf60ff453884daf3a97baa82988c887844dd7b1aabd3c",
+   "note": "05_9 164.083-164.2 s (f35551-f35558). Thumbnail region at most 16, 7 and 5 levels above background on f35551, f35552 and f35553 (regionstat; the faint marks on f35553 are the last of the fade, no darker pixels), background only from f35554. The zoom panel stays alone at full, centred where it was. No defect.",
+   "batch": 70
+  },
+  "0223": {
+   "sha256": "e26d134e3e2266a682f543cf79f0a3af3c9ad8cfaacbc6e607edbe9cfb510365",
+   "note": "05_9 164.217-164.333 s (f35559-f35566, every frame of root window 9817-9878). The zoom panel alone at full, centred where it was; from about f35563 it starts to darken evenly. No defect.",
+   "batch": 71
+  },
+  "0224": {
+   "sha256": "4986270c36b64a77cedd8de1b9a5c84b2ca29d51d48e5b4090ba6a0abc5bf64b",
+   "note": "05_9 164.35-164.467 s (f35567-f35574). The panel keeps darkening evenly, keeping its mesh and hue layout. No defect.",
+   "batch": 71
+  },
+  "0225": {
+   "sha256": "71c2753c3c9406b1682f737191f70ac1400b5586ad22e61ee0075d89bac5ff10",
+   "note": "05_9 164.483-164.6 s (f35575-f35582). Even fade to faint; on f35582 the panel area is at most 8 levels above background with no darker pixels (regionstat). The end of chapter 05 is a clean fade-out. No defect.",
+   "batch": 71
+  },
+  "0226": {
+   "sha256": "b0b4c557b422312b9e68aae8234b9f77f7a7e6d791962cb5d6e2c046653d453d",
+   "note": "05 end and the 05->06 seam. f35583 (05, 164.617 s) at most 1 level above background; f35584 (last 05 frame) and 06 f35585-f35587 (0.0-0.033 s) and f35609 (0.4 s) background only (regionstat over each tile). 0.8 s: two square frames, cyan at left and green at right, and the grey note 'both pictures drawn to the same scale' fading in; brighter at 1.0 s. A clean black seam with an even start. No defect.",
+   "batch": 72
+  },
+  "0227": {
+   "sha256": "a9ed1cba8736e6101b6d45fb2cd7ef2828bd22a39b22263fe5f6e630bf727d31",
+   "note": "06_1 1.1-15.0 s. 1.1 s: axes and Im/Re labels fading in (left panel shows both axes; the right panel shows only its Im axis, its real axis lies below the frame at this scale). 6.0 s: 'z' and 'f(z) = z^2' titles, 'z_0 = 1 + i' with a cyan dot, 'z_0^2 = 2i' with a green dot on the right panel's Im axis; true. Measured on slot 3: origin at sheet (139.5, 972), dot at (237, 875), so 97.25 px per unit on both axes. 9.417 s: a cyan arrow h from z_0 and a green arrow 'change in the output' from 2i fading in. Measured on slot 5 (f36185): h tip offset (34, -24) px = 0.350 + 0.247i; green tip offset (28.5, -137.5) px against f(z_0 + h) - f(z_0) = 2 z_0 h + h^2 = 0.268 + 1.367i = (26.0, -132.9) px at the same scale: agrees within about 4 px (direction 11.7 against 11.1 degrees from vertical), so the same-scale note holds. 10.0 s on: the difference quotient (f(z_0 + h) - f(z_0))/h above, at full. Its minus sign in the numerator is a proper math minus. 'z_0 = 1 + i' starts about 4 px right of the Im axis (sheet x 139-140 against 143-144 on 0228 slot 1; tight but clear; root 362 targeted this separation). No new defect.",
+   "batch": 72
+  },
+  "0228": {
+   "sha256": "cc43eb6e2af28f2e7c5aeb7376f0e3184d2de5c3ca6f72effbd9299cedc23267",
+   "note": "06_1 15.733-21.0 s. h shrinks toward 0 with the output arrow shrinking to match; 17.483 s: '-> f'(z_0)' in teal to the right of the quotient, at full by 18.5 s. Finding L8 on the 'change in the output' label. The h label stays beside the shrinking arrow and clear of the dot. All held to 21.0 s.",
+   "batch": 72
+  },
+  "0229": {
+   "sha256": "8ad2cd879bb5f6466beb7dfe10d5fcdf326dc7d84b750ba67dd4984e5fa1764d",
+   "note": "06_1 end and 06_2 21.4-28.0 s. 21.4-21.5 s held; 21.8 s: h, the output arrow and 'change in the output' fading; 22.0 s: a small 'the ratio' panel fades in at the top right with a dot; 22.1 s full, with a white dot. 25.383 s: h shown as a horizontal segment from z_0 and the readout '2.43 + 2.00 i / from the right'; 26.0 s: '2.30 + 2.00 i'; 28.0 s: vertical segment, '2.00 + 2.45 i / from above'. Checked against ratio = 2 z_0 + h = (2 + 2i) + h with the measured segments (97.25 px per unit): 25.383 s segment 42.5 px = 0.437 (2.43); 26.0 s 30.5 px = 0.31 (2.30); 28.0 s 44.7 px = 0.46 (2.45 i). In the ratio panel the teal dot sits 35, 24 and 36 px from the white limit dot (about 80 px per unit): consistent. Findings L9 (readout spacing) and L4 recurrence (upright i).",
+   "batch": 73
+  },
+  "0230": {
+   "sha256": "485b8ae40965587d457fe3cecf4721e77f2b778dd8e82b611dd2728b04ad1c30",
+   "note": "06_2 28.967-36.217 s. From above: 2.00 + 2.26 i, 2.24 i, then 2.04 i at 30.0 s with h too short to see past the dot (0.04 unit = 4 px). 31.0 s 'along a spiral': h segment (-36, +17.4) px = -0.37 + 0.18i, readout 1.64 + 2.18 i (= 2 + 2i + h); 31.5 s: h = 0.26 + 0.15i (25, 14 px), readout 2.26 + 2.15 i; the ratio panel draws a spiral trail converging on the white dot. 34.133 s on: '-> 2.000 + 2.000 i' with the full spiral, horizontal and vertical trails held. All true (f'(1 + i) = 2 + 2i). The readout and ratio panel end about 25 px and 20 px from the frame's right edge at 960 px: inside the frame, outside a 5 percent title-safe margin; noted, not a finding. No other defect.",
+   "batch": 73
+  },
+  "0231": {
+   "sha256": "8a0ede1d3b970117cdb5b06198b62db08f83c069dd55148e510d46b87b3172f5",
+   "note": "06_3 36.733-42.75 s. 36.733-42.05 s held: panels, quotient, '-> f'(z_0)', ratio panel with '-> 2.000 + 2.000 i'. 42.75 s (f38150): four cyan arrows of equal length fanning out from z_0 and four green arrows at 2i, each turned about 45 degrees and longer, fading in; the label 'z_0^2 = 2i' has moved to the lower left of the output panel (display 1357-1410, 1935), well away from its dot. Whether it is mid-move or parked is checked on the next sheet. No defect yet.",
+   "batch": 73
+  },
+  "0232": {
+   "sha256": "63321510cd43e9a03f2ad87291d5b28c7ef8ac51f8c1eec21ee75b8b3b16bf1a",
+   "note": "06_3 43.75-52.6 s. The label 'z_0^2 = 2i' stays parked at the lower left of the output panel (it was moved there at 42.75 s, sheet 0231), about 100 display px from its dot; it is the only green point, so the pairing stays clear (noted, not a finding). 46.0 s: teal 'x f'(z_0)' under '-> f'(z_0)'. 48.567 s: notes 'unless the derivative is 0' (grey) and 'a stretch and a turn' (teal) at the top of the output panel, either side of its Im axis; the green arrows growing. Measured fans (4x/2x crops s0232-slot6-arrows.png, s0232-slot7-arrows.png): the cyan cross is oriented at 18.8 degrees with arms of 28.2 px; at 50.0 s the green arms are 81 px (2.88x) but turned only 37 degrees, at 51.0 s 81 px and turned 46 degrees. So 50.0 s is mid-turn and the settled picture is stretch about 2.87 and turn about 45 degrees, matching |2 + 2i| = 2.83 and arg = 45 degrees. 52.6 s: the arrows give way to a small cyan square about z_0 (side 48 px = 0.49) and, in the output, its image, a curved quadrilateral labelled 'the image', with 'bigger here: stretch 2.83' (grey). L8 recurrence: 'a stretch and a turn' starts 4-5 px right of the Im axis line.",
+   "batch": 74
+  },
+  "0233": {
+   "sha256": "5eefdc09c45e13d2995c664f5ffe1a31c370ff64131c068cd2c4321929c91d4f",
+   "note": "06_3 end and 06_4 56.0-66.0 s. A straight teal square, 'exact stretch and turn', laid over the curved green image. Checked against z^2 on the square [0.75, 1.25]^2: the image's top corner (1.25 + 1.25i)^2 = 3.125i sits above the linear 3i (measured 13 px = 0.13), the bottom 1.125i above the linear i (11 px = 0.11), and the left and right corners -1 + 1.875i / 1 + 1.875i sit 0.125 below the linear corners at height 2; all as drawn. 59.9 s: teal 'stretch 2.83, turn 45 degrees' under the quotient, true. Held to 66.0 s. No defect.",
+   "batch": 74
+  },
+  "0234": {
+   "sha256": "cf1d8d5da29913827f7ff07c78f437386daeb0660b9199fcc8b0a32161754eea",
+   "note": "06_4 66.783-75.633 s. Held to 70.0 s. 71.0 s: grey note 'zoomed in about 2i / to keep the image's size' inside the output panel, and the 'both pictures drawn to the same scale' note is removed at the same time, so the note stays honest. 74.717 s: the square has shrunk to within the dot, the curved and straight images coincide, and 'largest gap / image side: 0.088 -> 0.0088' (white) appears below the output panel: true for squares of side 0.5 and 0.05 (gap |h^2| = 0.125 against image side 2.83 x 0.5 = 1.414 gives 0.0884; ten times smaller gives 0.00884). 75.233 s held; 75.633 s: everything fading evenly into the 06_5 cue transition. No defect.",
+   "batch": 74
+  },
+  "0235": {
+   "sha256": "c3b6e8acd988ce20694c84185b6b87958e8eed975e383cee622f6197dbf13943",
+   "note": "06_4 end and 06_5 75.933-86.0 s. 75.933 s: 'z = x + i y' fading in at the top left on a cleared frame; 78.367 s: 'f = u + i v' at the right; 81.0 s: 'step right:  u_x + i v_x'; 81.117 s: grey note 'u_x is how fast u changes as x changes' fading in, full by 85.867 s. Colours: u terms teal, v terms gold, consistently. L4 recurrence: in the note, u and x are upright (3x crop s0236-slot1-steps3x-a.png).",
+   "batch": 75
+  },
+  "0236": {
+   "sha256": "8d32910ddbf511b3080695b693a6fa320006269645cc9e2519664d54b7d80f73",
+   "note": "06_5 86.967-97.117 s. 86.967 s: 'step up:  (u_y + i v_y)/i = v_y - i u_y', true (dividing by i multiplies by -i). 94.617 s: a gold bracket 'must agree' joining the two steps. Held to 97.117 s. L1 recurrence: the minus in 'v_y - i u_y' is the short heavy form (4x crop s0236-slot1-minus4x.png).",
+   "batch": 75
+  },
+  "0237": {
+   "sha256": "8b944ed99e1847724488a82dd47b00572321629b7d3846c4f9d30f50eead67a3",
+   "note": "06_6 97.417-108.133 s. 99.233 s: boxed 'u_x = v_y' (teal); 103.583-103.6 s: second box 'v_x = -u_y' (gold); both equal the real and imaginary parts of the agreement above: the Cauchy-Riemann equations, correct. 108.133 s: a box at the bottom right 'names to search: Cauchy-Riemann equations' (en dash correct), ending about 26 px from the right edge and 14 px from the bottom edge of the 960 x 540 frame: inside the frame, tight to the bottom (noted, not a finding). Measured 'v_x = -u_y' (rowink, sheet 0237 slot 5): the '=' bars are 18 px wide and 1-2 rows thick, and the minus is 14 px wide and 3 rows thick: L1 recurrence (4x crop s0237-slot5-vxminus4x.png).",
+   "batch": 75
+  },
+  "0238": {
+   "sha256": "490ba2fa04e3409240ace4b5b9fc6aeea67ab29d6c54368ccaead75ef5797dd3",
+   "note": "06_6 end and 06_7 110.0-118.3 s. 110.0-110.683 s held with the 'names to search' box; 111.0-111.083 s the box fades evenly; 111.383 s: the matrix [u_x u_y; v_x v_y] fading in below the boxes; 116.0 s: teal 'a stretch and a turn: no squash, no reflection' and grey 'unless the derivative is 0' under it; 118.3 s: '= [2 -2; 2 2]'. True for f = z^2 at the running example z_0 = 1 + i: u = x^2 - y^2 and v = 2xy give u_x = 2, u_y = -2, v_x = 2, v_y = 2. The example point is not restated on screen in this scene; noted only. No new defect beyond L1 below.",
+   "batch": 76
+  },
+  "0239": {
+   "sha256": "8847ab546f4addb7402f110bf2a01b45964386ebc6ca67e3850e80b0fb5e4d17",
+   "note": "06_7 119.567-129.05 s. Held; 124.767 s: teal '= x (2 + 2 i)' to the right of the matrix, true (multiplying by a + bi has matrix [a -b; b a]), at full by 126.0 s, ending about 80 px from the frame edge. 128.65 s held; 129.05 s everything fading evenly into 06_8. No defect.",
+   "batch": 76
+  },
+  "0240": {
+   "sha256": "0fb509d87ddfdb5aa0ec9097ec97dab2d741ef564b97a0e23ce28dec1f25cb2d",
+   "note": "06_8 129.35-136.0 s. 129.35 s: bare axes on a cleared frame; 130.0 s: a cyan square above the real axis with a counterclockwise arrow; 131.0 s: a green copy on top of it and the real axis turning gold; 131.35 s: the green copy sliding down across the axis; 133.95 s: green square below the axis with a clockwise arrow: the mirror image, orientation reversed, correct for conjugation. 134.65 s: 'x + i y |-> x - i y' above. Held to 136.0 s. L1 recurrence: the minus in 'x - i y' is clearly shorter than the plus bar beside it (4x crop s0240-slot6-conj4x.png).",
+   "batch": 76
+  },
+  "0241": {
+   "sha256": "d868049599d150cbab5db940193af26fe08039cc0d72d28cce2750f3f08c45c0",
+   "note": "06_8 end, 138.783-146.8 s. 138.783-141.0 s held: the cyan and green conjugation squares, 'x + i y |-> x - i y', and the purple question box 'a derivative anywhere?' at the top right. No ring under the box on slots 1-4 (2x crop s0241-slots1-4-boxarea2x.png). 146.0 s (f44345): a small grey ring under the box with a purple dot at 12 o'clock; 146.1 s: the same ring, no purple; 146.5 s: the box and ring fading; 146.8 s: both gone (4x crop s0241-slots5-7-ring4x.png). The ring reads as a think-time timer whose purple arc has run out by 146.1 s; its run between 141.0 and 146.0 s is not sampled, so its start and sweep are not checked. The answer is not shown before the ring ends: the next answer content ('right: 1') is first seen at 148.0 s. No defect.",
+   "batch": 77
+  },
+  "0242": {
+   "sha256": "19610311745acabf52ed8976330454332c81ce88a1806a04f88211a80e2fe249",
+   "note": "06_9 148.0-159.033 s. 148.0 s: 'right: 1'; 150.717 s: 'up: -1' under it; 153.867 s: a red X and red 'no complex derivative'. True for conjugation: a step h to the right gives (conj h)/h = 1, a step up gives -i/i = -1, so the two ratios disagree. Held to 156.0 s. 159.033 s: title 'x + i y |-> x + 2 i y', the green copy and gold axis removed, the real axis grey again; 'no complex derivative' kept and the X gone. That text is also true for x + 2iy (right gives 1, up gives 2), so keeping it is accurate, but it now stands before that map's demonstration (noted, not a finding). L1 recurrence on 'up: -1': measured at sheet scale (rowink delta 60, slot 3), the minus bar is 9 px wide and 2 rows thick (x 771-779, rows 766-767), against a digit height of 12-13 px; a TeX minus is about 1.2 digit heights wide (about 15 px here). 4x crop s0242-slot3-upminus4x.png.",
+   "batch": 77
+  },
+  "0243": {
+   "sha256": "cc8bfef91dca70081476a971a07a6baff7b806831dc4056884e72dc4c4c9c947",
+   "note": "06_9 160.0-160.6 s; slots 2-8 are every frame f45215-f45221 of the sampled interval 9630-9730. The cyan square above the axis changes its border to green in place, evenly from frame to frame; 'x + i y |-> x + 2 i y' and 'no complex derivative' are held; no flicker, jump or clipped frame between consecutive frames. The stretch itself has not started by 160.6 s; checked on the next sheets. No defect.",
+   "batch": 77
+  },
+  "0244": {
+   "sha256": "fb68b9f40b1e82a4795deecb8254d7250f0e554d26560eaccf7bd8a32b978df8",
+   "note": "06_9 160.617-160.733 s, every frame f45222-f45229. Title 'x + i y |-> x + 2 i y', grey axes, red 'no complex derivative' held. The green copy sits on the cyan square; from 160.7 s it starts to grow vertically, and the cyan square's top and bottom edges show just inside the green ones. Measured on slot 1 (colhue column 290, rowhue row 182): Im axis at tile x 190, real axis at tile row 296.5; cyan square x 269.5-338, rows 148.5-216.5, a square of side 68.5 px with its centre 114 px right of and 114 px above the origin. Slot 8 (160.733 s): green top row 145.5, bottom row 219.5. Frame to frame the growth is smooth, no jump, flicker or clipped frame. No defect.",
+   "batch": 78
+  },
+  "0245": {
+   "sha256": "2409ca96cba2f80f15f36066e3226510ebd30a6efd2f7e5dd9e4a7a78d3de2f7",
+   "note": "06_9 160.75-160.867 s, every frame f45230-f45237. The green rectangle keeps growing upward and downward by equal amounts; the cyan square and its counterclockwise arrow stay put inside it. Even steps between consecutive frames. No defect.",
+   "batch": 78
+  },
+  "0246": {
+   "sha256": "8738b41f39ecf000e980815b16b7b7b8c309c771d7518cfe53d62dea28a5936f",
+   "note": "06_9 160.883-161.0 s, every frame f45238-f45245. Same growth. At 161.0 s (slot 8, colhue column 290) the green top is at row 138 and the bottom at row 227.5: about 10 px above and 11 px below the cyan edges (148.5, 216.5), so the growth is centred on the square's centre (row 182.5), not on the real axis. Open check for the next sheets: the map x + 2iy doubles every height measured from the real axis, so the true image of this square would be the 68.5 x 137 px rectangle with rows 0.5-136.5, at the top of the frame and over the title. A growth centred on the square is the local (derivative) picture, a vertical stretch by 2, not the image of the square. Whether the scene presents it as the image or as the local stretch is checked when the animation settles. No defect recorded yet.",
+   "batch": 78
+  },
+  "0247": {
+   "sha256": "fe4e2a75af49466bd79a413754ce971f820c91ab6c7d60ca507c6bd6dee20477",
+   "note": "06_9 161.017-161.133 s, every frame f45246-f45253. The green rectangle keeps growing up and down by equal amounts about the cyan square's centre; the cyan square and arrow are unchanged; title and red 'no complex derivative' held. Even frame-to-frame steps, no flicker or clipped frame. No defect.",
+   "batch": 79
+  },
+  "0248": {
+   "sha256": "bbb58c4b747abf06ddb1f7860ee8158933e70937063ffae4717632b8541a3b28",
+   "note": "06_9 161.15-161.267 s, every frame f45254-f45261. Same growth, even steps. No defect.",
+   "batch": 79
+  },
+  "0249": {
+   "sha256": "3a1194087cba9018071a9157f35638b4feb1cfbdfc9672e9c4e5544fd68f4949",
+   "note": "06_9 161.283-161.4 s, every frame f45262-f45269. Same growth. At 161.4 s (slot 8, colhue column 310) the green top is at tile row 126.5 and the bottom at 238.5: height 112 px against the cyan 68.5 px (1.64x), centre still at row 182.5. The growth stays centred on the square, so the open question from batch 078 (local stretch shown, or image of the square) still waits for the settled frame. No defect recorded yet.",
+   "batch": 79
+  },
+  "0250": {
+   "sha256": "c1f49a05f6027e44212e1e28a1ccd4779ed39f517fd7f7d4d3b0b457abbf8f9d",
+   "note": "06_9 161.417-161.533 s, every frame f45270-f45277. The green rectangle keeps growing up and down about the cyan square's centre; cyan square, arrow, title and red 'no complex derivative' held. Even frame-to-frame steps. No defect.",
+   "batch": 80
+  },
+  "0251": {
+   "sha256": "ad7eaa9176b951c2190a02c4b5a18c333567dfb4d8c4d19ad32af5371955b439",
+   "note": "06_9 161.55-161.667 s, every frame f45278-f45285. Same growth, slowing (easing out). No defect.",
+   "batch": 80
+  },
+  "0252": {
+   "sha256": "9eb791bb77db0cf9c5e9ea17c74f1a5db1e2c3755437f15e2395eb5602101fbc",
+   "note": "06_9 161.683-161.8 s, every frame f45286-f45293. Nearly settled. At 161.8 s (slot 8, colhue column 310) the green top is at tile row 115.5 and the bottom at 250: height 134.5 px against the cyan 68.5 px (1.96x), centre at row 182.75, i.e. the cyan square's centre. So the drawn green rectangle is the square stretched by 2 vertically about its own centre: 46.5-181 px above the real axis. The image of the square under the titled map x + iy |-> x + 2iy is 160-296 px above the axis (tile rows 0.5-136.5). Finding decision deferred to the settled frame and any caption on the next sheets.",
+   "batch": 80
+  },
+  "0253": {
+   "sha256": "f82e19293e47c9ce580c45851959bd316f8f641dce7750eab721da4533b843ff",
+   "note": "06_9 161.817-161.933 s, every frame f45294-f45301. The stretch settles: at 161.933 s (slot 8, colhue column 310) green top row 114.5, bottom 251, height 136.5 px = 1.99 x the cyan 68.5 px, centred on the cyan square. 161.85-161.933 s: grey 'image drawn moved down by i' fading in at the bottom left inside the axes, and 'right: 1   up: 2' fading in at the right above 'no complex derivative'. This settles the open check from batches 078-080: the cyan square is centred at 113.75 px right of and 114 px above the origin, i.e. at 1 + i at 114 px per unit (side 0.6); its true image is centred at 1 + 2i, and the drawn green rectangle is centred at 1 + i, so the drawn image is the true image moved down by i, exactly as the note says. 'right: 1, up: 2' is true for x + 2iy (a step right is unchanged, a step up is doubled). The note appears only as the stretch settles, so during 160.7-161.85 s the moving rectangle has no note; noted only.",
+   "batch": 81
+  },
+  "0254": {
+   "sha256": "9c760f52c21a8fb135734e8906fdac47221679282f8a824d9c7c6521a2f6d1e9",
+   "note": "06_9 161.95-162.067 s, every frame f45302-f45309. The note and 'right: 1   up: 2' brighten evenly to full; the rectangle is held at 2x. No flicker or clipped frame. No defect.",
+   "batch": 81
+  },
+  "0255": {
+   "sha256": "aed41e87080fab3464af618810dbfedff67deffccf05f4750051ecd82445e39c",
+   "note": "06_9 162.083-164.667 s; slots 1-6 every frame f45310-f45315 (end of the sampled interval 9630-9730), slot 7 163.967 s, slot 8 164.667 s. At 162.167 s the green rectangle is rows 114.5-250.5 (136 px, 1.99x), held. 163.967 s: a red X above 'no complex derivative', true because the right and up ratios (1 and 2) disagree. Held to 164.667 s. L4 recurrence: the i in the prose note 'image drawn moved down by i' is upright (4x crop s0255-slot6-note4x-b.png).",
+   "batch": 81
+  },
+  "0256": {
+   "sha256": "7d4a8c08e7cda30fa1cc7576de93ab9c6f9a9189d05d0874902150d377b2003f",
+   "note": "06_9 authored hold 165.667 s (f45525), 166.0 s (f45545), then every frame 166.167-166.25 s (f45555-f45560, sampled interval 9970-10029). All tiles show the same settled picture: title 'x + i y |-> x + 2 i y', cyan square with counterclockwise arrow, green 2x rectangle, 'image drawn moved down by i', 'right: 1   up: 2', red X and 'no complex derivative'. Pixel check (samepos.py, same sheet position so the same JPEG block grid): against sheet 0257 every slot has 0 pixels changed by more than 24 levels, max 7-10. Cross-row tile pairs differ by up to 44 levels on about 380-440 pixels (tilediff.py); the same-position comparison shows that is JPEG block-grid noise (row offsets 565 px are not multiples of 8), not a picture change. No defect.",
+   "batch": 82
+  },
+  "0257": {
+   "sha256": "b1301ce76e0edbdb91574c583af897571014463a7ba15a7905f276aa08564fde",
+   "note": "06_9 every frame 166.267-166.383 s (f45561-f45568). Held, identical to 0256 and 0258 within JPEG noise (samepos.py against 0258: 0 pixels over 24 levels, max 0-12). No flicker, no fade start. No defect.",
+   "batch": 82
+  },
+  "0258": {
+   "sha256": "58904389c3a87c47d72e9363d7d0f3f3a8790e692b41cdd5b0220353f88f89a2",
+   "note": "06_9 every frame 166.4-166.517 s (f45569-f45576). Held, same picture. No defect.",
+   "batch": 82
+  },
+  "0259": {
+   "sha256": "36a488c314d3be7e756de1b707c28445adc79dd0ed802edfc9038969e12daf9a",
+   "note": "06_9 every frame 166.533-166.65 s (f45577-f45584). Held, same settled picture as 0256-0258; samepos.py against 0258: 0 pixels changed by more than 24 levels in every slot, max 0-11. No defect.",
+   "batch": 83
+  },
+  "0260": {
+   "sha256": "9387c6d585f545152416d812092467fc936be1d26e852797d9e31b6259acb010",
+   "note": "06_9 every frame 166.667-166.783 s (f45585-f45592). The even fade-out of the whole frame starts here: samepos.py against 0259 gives max differences rising slot by slot from 15 to 33 levels (7 pixels over 24 at 166.783 s), with every element dimming together and nothing moving. Red X region (tile box 740,225 50x50): red max 249 at 166.767 s, 240 at 166.783 s. No defect.",
+   "batch": 83
+  },
+  "0261": {
+   "sha256": "641b0d2b206d34bd41f91324eeda1e8d835923d883d2f8c5d5afc6662403c1da",
+   "note": "06_9 every frame 166.8-166.917 s (f45593-f45600), the last sheet of this range. The fade continues evenly: red X max 239, 239, 240, 234, 224, 219, 210, 202 over the eight frames; title max 244 at 166.8 s, 228 at 166.85 s, 187 at 166.917 s; the green, cyan, grey and red elements dim together, with no element left behind or popping. The sampled interval 9970-10029 runs past this sheet (chapter frame 10015 is the last one here), so the end of the fade and the 06 -> 07 seam are outside this range (sheet 0262 on). No defect.",
+   "batch": 83
+  }
+ },
+ "findings": [
+  {
+   "id": "L1",
+   "sheet": 5,
+   "slot": 5,
+   "frame": 1078,
+   "severity": "Low (typographic, likely film-wide)",
+   "text": "In the series '1 - x^2 + x^4 - x^6 + ...' every minus is a short, heavy bar, about 10 px wide at 960x540 against about 15 px for '+'. It looks like the Computer Modern text hyphen, not the math minus (TeX's minus has the same width as '+'). It is legible, but inconsistent beside the CM '+'. First seen at 17.967 s (f1078); on every later frame of that line in sheets 5-6. Crop: crops/s0006-slot5-series4x.png."
+  },
+  {
+   "id": "L2",
+   "sheet": 8,
+   "slot": 3,
+   "frame": 1848,
+   "severity": "Low (transient)",
+   "text": "During the degree steps (01_3, about 30.6-31.5 s), the 'terms up to degree' counter switches to the next value at the start of each curve morph. Mid-morph stills therefore show a counter one step ahead of the curve: 8 with the degree-6 shape at 30.8 s (f1848), and 10 with the degree-8 shape at 31.4 s (f1884, sheet 8 slot 6). Each step lasts under a second and settles. Whether it reads as wrong in motion needs a motion review; this is only what the stills show."
+  },
+  {
+   "id": "M1",
+   "sheet": 23,
+   "slot": 3,
+   "frame": 5591,
+   "severity": "Medium-low (readability of a preview)",
+   "text": "In the 01_6 'coming up' panel, the middle preview is meant to be 'a loop with an arrow turning around zero' (the_bump.rs previews(): Arrow from 0 to polar(0.8, 0.9)). On screen there is only a detached white arrow tip, about 8 px wide at 960x540, floating inside the circle at about 0.4 of the radius, with no shaft and nothing touching the circle or the centre (crops/s0023-slot4-preview3x.png). It does not read as an arrow from zero. Probable cause: at the pinned franken_manim a399d626, Arrow::new trims buff = MED_SMALL_BUFF (0.25) at both ends (fmn-library line.rs:494, 619-626). The arrow is about 0.5 units long (circle radius 34 px at 960x540), so the shaft is trimmed to nothing. A buff(0.0) or Vector-style arrow would draw it. On screen from about 93.2 s to the 01_6 fade-out (sheets 23-25 and later); first sampled frame f5591."
+  },
+  {
+   "id": "L3",
+   "sheet": 33,
+   "slot": 1,
+   "frame": 7571,
+   "severity": "Low (typographic)",
+   "text": "In the 02_2 readout 'turned: N deg' the degree sign has a fixed position while the number is centred. One-digit angles therefore show a visible space before the sign ('0  deg' at f7571 and f7582, '2  deg' at f7743), while two-digit angles sit tight ('40 deg', '86 deg'). Crop: crops/s0033-degree-readouts4x.png. It is readable; it only looks uneven while the count runs."
+  },
+  {
+   "id": "L4",
+   "sheet": 35,
+   "slot": 5,
+   "frame": 8711,
+   "severity": "Low (typographic consistency)",
+   "text": "Variables in prose captions are set upright in the text face, while the same symbols in formulas are italic: 'multiplying by w: stretch by |w|, turn by the angle of w' (02_4, from 40.0 s, f8711) and 'names: ... modulus |w|, ... argument arg w' (45.5 s, f9040), against italic 'z = x + iy', '3 + 2i', 'i . i = -1' and '1 + i' in the same chapter. 'every point times i' (02_2, f7571) is the same. It is readable; a viewer may not match the upright w to the italic w of later formulas."
+  },
+  {
+   "id": "L4",
+   "sheet": 37,
+   "slot": 7,
+   "frame": 9911,
+   "severity": "Low (typographic consistency), addendum",
+   "text": "Further instance: the 02_5 quiz box '(1 + i)^2 = ?' (from 60.0 s, f9911) is set in the text face with an upright i and a text superscript, while its answer at 74.5 s ('(1 + i)^2 = 2i', f10839) is TeX with an italic i. Question and answer therefore do not look like the same expression."
+  },
+  {
+   "id": "L5",
+   "sheet": 45,
+   "slot": 7,
+   "frame": 13243,
+   "severity": "Low (readout arithmetic)",
+   "text": "In 03_2 the input and output turn counters are rounded separately. At 26.0 s (f13243) they read 'turns: 0.28' and 'turns: 0.57', although the point of the picture is that the output turns exactly twice as fast (2 x 0.28 = 0.56). The dot positions agree with an exact input of about 0.285 turns. A viewer checking the doubling sees a mismatch while the counters run. Deriving the output readout from the displayed input value (or rounding the input down to a value whose double rounds the same way) would avoid it. The same separate-rounding pattern was raised as F1 in the earlier final03 review; it is still present in master 80244e88."
+  },
+  {
+   "id": "L5",
+   "sheet": 46,
+   "slot": 3,
+   "frame": 13543,
+   "severity": "Low (readout arithmetic), addendum",
+   "text": "More instances of the separately rounded counters: 'turns: 0.85' with 'turns: 1.71' at 30.0 s (f13483), and 'turns: 1.00' with 'turns: 1.99' at 31.0 s (f13543), the pair the final03 review quoted. They settle at 1.00/2.00 by 31.45 s (f13570)."
+  },
+  {
+   "id": "L1",
+   "sheet": "0077",
+   "slot": 8,
+   "frame": 22892,
+   "severity": "Low",
+   "text": "Recurs in the 04_4 'precisely:' note: the minus in '(z - a)' is the short heavy text hyphen, f22790-f23252 at least."
+  },
+  {
+   "id": "L4",
+   "sheet": "0077",
+   "slot": 4,
+   "frame": 22790,
+   "severity": "Low",
+   "text": "Recurs in the 04_4 'precisely:' note: z, a, m, c and f(z) set upright in prose, and the power written in words ('to the power m') rather than as (z - a)^m."
+  },
+  {
+   "id": "L1",
+   "sheet": "0079",
+   "slot": 8,
+   "frame": 23481,
+   "severity": "Low",
+   "text": "Recurs in the 04_5 caption 'colour cycles around 0: -1' (short heavy hyphen), f23481-f23768, while the counter '-1.0' beside it (sheet 0080 slot 4, f23714) uses the full-length TeX minus; the two glyphs differ in one frame."
+  },
+  {
+   "id": "L1",
+   "sheet": "0083",
+   "slot": 8,
+   "frame": 25113,
+   "severity": "Low",
+   "text": "Recurs in the 04_7 answer 'at i: -1 turn, at -i: -1 turn' (three short heavy hyphens), from f24902."
+  },
+  {
+   "id": "L4",
+   "sheet": "0083",
+   "slot": 8,
+   "frame": 25113,
+   "severity": "Low",
+   "text": "Recurs in the same 04_7 answer: i set upright in 'at i' and 'at -i', while the title above sets z in TeX italic."
+  },
+  {
+   "id": "L1",
+   "sheet": "0099",
+   "slot": 6,
+   "frame": 26066,
+   "severity": "Low",
+   "text": "Recurs in the 05 TeX title 'f(z) = z^3 - 1': minus 12 px wide, 2-3 px thick, against 16 px and 1 px bars for '=' (in Computer Modern the two match in width and rule weight). So L1 affects TeX titles too, not only prose; from f25803 through the 05_1 views."
+  },
+  {
+   "id": "L1",
+   "sheet": "0129",
+   "slot": 4,
+   "frame": 28933,
+   "severity": "Low",
+   "text": "Recurs in the 05_4 note 'on the real line: -1 <= sin x <= 1': the minus is the short heavy hyphen."
+  },
+  {
+   "id": "L4",
+   "sheet": "0129",
+   "slot": 4,
+   "frame": 28933,
+   "severity": "Low",
+   "text": "Recurs in the same 05_4 note: x in 'sin x' is upright, not italic."
+  },
+  {
+   "id": "L1",
+   "sheet": "0137",
+   "slot": 1,
+   "frame": 30188,
+   "severity": "Low",
+   "text": "Recurs in the 05_5 TeX readouts: in one panel the '+' of 'tan(0.4 + 12i)' is 11-12 px wide with a 1 px bar while the '-' of 'tan(0.4 - 12i)' just below is 8 px wide and 2 px thick; the '-1.0000' and the boxed 'tan z -> -i' use the same short minus. The plus/minus mismatch in adjacent lines is the clearest instance so far."
+  },
+  {
+   "id": "L4",
+   "sheet": "0169",
+   "slot": 4,
+   "frame": 32340,
+   "severity": "Low",
+   "text": "Recurs in the 05_7 note 'series converges: Re s > 1': s is upright, while the title on the same frame, 'zeta(s) = 1 + 2^-s + 3^-s + ..., Re s > 1', sets the same s italic. Same expression, two styles, one frame (also slots 5-8 and sheets 0170-0171)."
+  },
+  {
+   "id": "L1",
+   "sheet": "0173",
+   "slot": 7,
+   "frame": 32836,
+   "severity": "Low",
+   "text": "Recurs in the 05_7 note 'zeros at -2, -4, -6, ...': each minus is 8 px wide and 2 px thick at 960x540, against digits 7 px wide; a math minus in this face would be about the width of '+'. Held on screen from 118.8 s into the next cue."
+  },
+  {
+   "id": "L6",
+   "sheet": "0181",
+   "slot": 5,
+   "frame": 33122,
+   "severity": "Low",
+   "text": "05_7 critical-strip inset is drawn at unequal scales: 44.3 px per unit across against 12.5 px per unit up (3.5 : 1, measured on sheet 0183 slot 1 from the gold box at x 293-422 / y 127-256 and the gold band at x 521-654 / y 407-444). The gold box (Re s from -1 to 2, Im s from 0 to 3) is square on screen, but its twin band is a flat 133 x 37 px strip, and the level-set rings round the nontrivial zeros come out as flat ovals rather than the round rings round the zeros at -2, -4, -6. The note says only 'gold box = gold band'; nothing on screen says the strip is squashed upward, so a viewer may read the different ring shapes as a different kind of zero. Narration not checked."
+  },
+  {
+   "id": "L4",
+   "sheet": "0181",
+   "slot": 3,
+   "frame": 33070,
+   "severity": "Low",
+   "text": "Recurs in 'more zeros on Re s = 1/2' and 'The strip runs on up to Im s = 32': s upright."
+  },
+  {
+   "id": "L7",
+   "sheet": 206,
+   "slot": 4,
+   "frame": 34622,
+   "severity": "Low",
+   "text": "05_9 recap grid (148.6 s on, held to at least 152.7 s): the second-row labels (sin z, Gamma(z), zeta(s)) are squeezed into the gap between the rows. Measured on sheet 0206 slot 4 (tile rows): the upper thumbnail ends at row 253, the 'sin z' ink spans rows 258-267 and the lower thumbnail starts at row 273, so each label is 4 px from the picture above and 5 px from its own; the first-row labels sit 13 px above their pictures with nothing below them. A glance can read 'sin z' as the caption of the z^3 - 1 picture just above it. Pairing is still decidable from the labels-above pattern. Suggest moving the second row down (or the labels up into a wider gap) so each label is clearly closer to its own thumbnail."
+  },
+  {
+   "id": "L1",
+   "sheet": "0216",
+   "slot": 1,
+   "frame": 35075,
+   "severity": "Low",
+   "text": "Recurs in the 05_9 gold note 'one tile of z^3 - 1, traced exactly' (from 154.0 s, held to at least 158.65 s): the minus is a short heavy hyphen, not the math minus used in the thumbnail label 'z^3 - 1' above it."
+  },
+  {
+   "id": "L4",
+   "sheet": "0216",
+   "slot": 1,
+   "frame": 35075,
+   "severity": "Low",
+   "text": "Recurs in the 05_9 notes 'nearly square unless the derivative is 0, as at z = 0' and 'one tile of z^3 - 1, traced exactly': z is upright, while the thumbnail label just above sets it italic."
+  },
+  {
+   "id": "L8",
+   "sheet": "0228",
+   "slot": 2,
+   "frame": 36545,
+   "severity": "Low",
+   "text": "06_1 (9.4 s on): the green label 'change in the output' fits inside the output panel with almost no margin. Its last letter ends at sheet x 1753 and the panel's green border starts at 1756 (rowhue row 238), so the clearance is 2-3 px at 960 px wide, about 8-12 px at 4K. As the arrow shrinks, its head passes beside the label's first letter: at 16.0 s (f36545) the head's right corner is about 3 px from the 'c' (4x crop s0228-slot2-outlabel4x.png). Nothing touches on the sampled frames, but both gaps are tight. Root 362 sampled this label's edge separation at 10/15/20 s; this is an independent measurement, not a contradiction. Suggest moving the label a little left and down, clear of the arrow's path, or shortening it to 'output change'."
+  },
+  {
+   "id": "L9",
+   "sheet": "0229",
+   "slot": 6,
+   "frame": 37108,
+   "severity": "Low",
+   "text": "06_2 live ratio readout (25.4-31.5 s): '2.43 + 2.00 i', '2.00 + 2.45 i', '1.64 + 2.18 i' are set as separately placed pieces with gaps about a digit wide around the plus and before the i (3x crop s0229-ratio-readouts3x-b.png). The settled readout at 34.1 s, '-> 2.000 + 2.000 i', has normal spacing (s0230-slot6-limit3x.png), so the live and settled forms look different. Same family as L5 (counters built from separate parts). Suggest typesetting the live readout as one expression, or tightening the gaps."
+  },
+  {
+   "id": "L4",
+   "sheet": "0229",
+   "slot": 6,
+   "frame": 37108,
+   "severity": "Low",
+   "text": "Recurs in the 06_2 ratio readouts: the i in '2.43 + 2.00 i' and '-> 2.000 + 2.000 i' is upright, while 'z_0 = 1 + i' in the input panel and 'z_0^2 = 2i' set it italic."
+  },
+  {
+   "id": "L8",
+   "sheet": "0232",
+   "slot": 5,
+   "frame": 38499,
+   "severity": "Low",
+   "text": "Recurs in 06_3/06_4 (48.6 s on): the teal note 'a stretch and a turn' starts at sheet x 646-647, 4-5 px right of the output panel's Im axis (x 641-642; rowhue row 1312, 3x crop s0232-slot5-panelnotes3x.png). Same tight-clearance family as the 'change in the output' label and 'z_0 = 1 + i' (4 px from its Im axis). Readable, nothing touches; a few more px would separate the text from the axis line."
+  },
+  {
+   "id": "L1",
+   "sheet": "0229",
+   "slot": 1,
+   "frame": 36869,
+   "severity": "Low",
+   "text": "Recurs throughout chapter 06: in the difference quotient (f(z_0 + h) - f(z_0))/h (on screen from 10.0 s to the end of 06_4) the minus bar is 12-14 px wide against the plus bar's 16 px in the same numerator (sheet 0229 slot 1; 4x crop s0229-slot1-quotminus4x.png). Also in 'v_y - i u_y' (06_5, from 86.967 s) and in the boxed Cauchy-Riemann equation 'v_x = -u_y' (06_6, from 103.6 s), where the minus is 14 px wide and 3 rows thick against '=' bars 18 px wide and 1-2 rows thick (sheet 0237 slot 5). In TeX the minus has the same width as the plus and the equals sign."
+  },
+  {
+   "id": "L4",
+   "sheet": "0235",
+   "slot": 5,
+   "frame": 40445,
+   "severity": "Low",
+   "text": "Recurs in the 06_5 note 'u_x is how fast u changes as x changes' (from 81.1 s): u and x in the prose are upright, while the formulas around it set them italic."
+  },
+  {
+   "id": "L1",
+   "sheet": "0240",
+   "slot": 6,
+   "frame": 43664,
+   "severity": "Low",
+   "text": "Recurs in 06_8 'x + i y |-> x - i y' (from 134.65 s): the minus is a short bar, visibly shorter than the plus bar in the same line. The matrix entry '-2' in 06_7 (from 118.3 s) shows the same short minus at sheet scale."
+  },
+  {
+   "id": "L1",
+   "sheet": "0242",
+   "slot": 3,
+   "frame": 44628,
+   "severity": "Low",
+   "text": "Recurs in 06_9 'up: -1' (from 150.717 s): the minus bar is 9 px wide and 2 rows thick at sheet scale, against a 12-13 px digit height; a TeX minus would be about 15 px wide here (4x crop s0242-slot3-upminus4x.png)."
+  },
+  {
+   "id": "L4",
+   "sheet": "0255",
+   "slot": 6,
+   "frame": 45315,
+   "severity": "Low",
+   "text": "Recurs in the 06_9 note 'image drawn moved down by i' (from 161.85 s): the i is upright, while the title 'x + i y |-> x + 2 i y' above sets it italic (4x crop s0255-slot6-note4x-b.png)."
+  }
+ ],
+ "scope": "Sheets opened and read as images by CC0. Stills only: no motion, sound, fine sync or whole-film AV review, and no acceptance."
+}

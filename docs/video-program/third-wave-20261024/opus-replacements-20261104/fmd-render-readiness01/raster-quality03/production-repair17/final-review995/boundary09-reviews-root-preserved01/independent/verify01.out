@@ -1,0 +1,13 @@
+ok   pictures.json sha256 = e2f1c855... (CC3: same on CSD before and after the copy)
+ok   movie_sha256 = da4df9de... and frames 16504, full decode
+ok   1506 pictures recorded, 1506 local, same names
+ok   every local picture hashes to its record entry
+ok   189 sheets recorded, 189 local, same names
+ok   every local sheet hashes to its record entry
+ok   selected frames 1506, sorted and distinct, one picture each
+ok   job receipt: admitted, finished, exit 0, inputs unchanged, no error or resource stop
+     receipt 2da4d7d0; record scope: Extraction only. No picture viewing, listening, fine-sync or independent AV acceptance.
+ok   decode.stderr is empty
+ok   extract.stderr is empty
+ok   probe.stderr is empty
+RESULT: all checks passed

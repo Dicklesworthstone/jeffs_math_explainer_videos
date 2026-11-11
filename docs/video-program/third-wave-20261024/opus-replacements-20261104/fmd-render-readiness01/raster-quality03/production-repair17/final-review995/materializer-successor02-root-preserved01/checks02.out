@@ -1,0 +1,39 @@
+ok   compiles: native-linux-materialize991.py (3402d437)
+ok   compiles: cc0-native-materialize-repaired01.py (85557673)
+ok   compiles: cc0-native-materialize-repaired02.py (e5abe22e)
+     diff cc0-native-materialize-repaired02-from-impl01.diff: +7 -5 (91c48c0e)
+     diff cc0-native-materialize-repaired02-from-991.diff: +95 -32 (dec85ebd)
+     impl01 stem block: part = 'stems/' + CHAPTER + '.music.f32.wav.part' | stem_names = {k[len('stems/'):] for k in read(require(master.SCORE / 'score21-summary.json'))['files'] if k.startswith(part) and k.endswith('.wav')}
+     impl02 stem block: prefix = 'stems/' + CHAPTER + '.music.f32.wav' | stem_names = {k[len('stems/'):] for k in read(require(master.SCORE / 'score21-summary.json'))['files'] if k.startswith(prefix) and k.endswith('.wav')}
+ok   impl02 equals impl01 apart from the docstring and the two selection statements
+ok   impl02 keeps 991's 09 literal check unchanged from impl01
+     score21 summary: root terminal record score21-terminal01.json (746ca65c), 44 files
+     score21 01_the_bump: ['stems/01_the_bump.music.f32.wav', 'stems/qa/01_the_bump.json']
+ok   impl01 01_the_bump refuses (F1 reproduced)
+     impl02 01_the_bump -> ['01_the_bump.music.f32.wav']
+ok   impl02 01_the_bump gives exactly the expected stems
+ok   impl02 01_the_bump takes no parts table or qa file
+     score21 08_loop_sums: ['stems/08_loop_sums.music.f32.parts.tsv', 'stems/08_loop_sums.music.f32.wav.part0000.wav', 'stems/08_loop_sums.music.f32.wav.part0001.wav', 'stems/08_loop_sums.music.f32.wav.part0002.wav', 'stems/qa/08_loop_sums.json']
+     impl01 08_loop_sums -> ['08_loop_sums.music.f32.wav.part0000.wav', '08_loop_sums.music.f32.wav.part0001.wav', '08_loop_sums.music.f32.wav.part0002.wav']
+ok   impl01 08_loop_sums unchanged
+     impl02 08_loop_sums -> ['08_loop_sums.music.f32.wav.part0000.wav', '08_loop_sums.music.f32.wav.part0001.wav', '08_loop_sums.music.f32.wav.part0002.wav']
+ok   impl02 08_loop_sums gives exactly the expected stems
+ok   impl02 08_loop_sums takes no parts table or qa file
+     score21 09_boundary: ['stems/09_boundary.music.f32.parts.tsv', 'stems/09_boundary.music.f32.wav.part0000.wav', 'stems/09_boundary.music.f32.wav.part0001.wav', 'stems/09_boundary.music.f32.wav.part0002.wav', 'stems/qa/09_boundary.json']
+     impl01 09_boundary -> ['09_boundary.music.f32.wav.part0000.wav', '09_boundary.music.f32.wav.part0001.wav', '09_boundary.music.f32.wav.part0002.wav']
+ok   impl01 09_boundary unchanged
+     impl02 09_boundary -> ['09_boundary.music.f32.wav.part0000.wav', '09_boundary.music.f32.wav.part0001.wav', '09_boundary.music.f32.wav.part0002.wav']
+ok   impl02 09_boundary gives exactly the expected stems
+ok   impl02 09_boundary takes no parts table or qa file
+     score21 11_counting: ['stems/11_counting.music.f32.parts.tsv', 'stems/11_counting.music.f32.wav.part0000.wav', 'stems/11_counting.music.f32.wav.part0001.wav', 'stems/qa/11_counting.json']
+     impl01 11_counting -> ['11_counting.music.f32.wav.part0000.wav', '11_counting.music.f32.wav.part0001.wav']
+ok   impl01 11_counting unchanged
+     impl02 11_counting -> ['11_counting.music.f32.wav.part0000.wav', '11_counting.music.f32.wav.part0001.wav']
+ok   impl02 11_counting gives exactly the expected stems
+ok   impl02 11_counting takes no parts table or qa file
+     impl02 with placeholders: exit 1, AssertionError: unresolved pins: STAGE_VERSION, FINAL_JOBS[01_the_bump], FINAL_JOBS[08_loop_sums], FINAL_JOBS[09_boundary], FINAL_JOBS[11_counting]
+ok   impl02 refuses on unresolved pins
+ok   gate draft unchanged (2a855393)
+ok   CHAPTERS fields equal in impl02 and the gate draft
+ok   impl02 lists 5 pins
+RESULT: all checks passed

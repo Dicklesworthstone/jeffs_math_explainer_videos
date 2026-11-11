@@ -1,0 +1,7 @@
+{"batch": 40, "viewed_utc": "2026-11-10T20:24Z",
+ "sheets": {
+  "0130": "05_4 57.2-58.967 s. Arrow up from 0 held. 58.6 s: a dot on the arrow at height 1 with a left-pointing arrow and the boxed label 'sin(i) ~ 1.18 i' fading in; full by 58.8 s. sin(i) = i sinh 1 = 1.1752 i, so 1.18 is right. Scale check: zeros are about 125 display px apart (pi), so 1 unit is about 39.8 px; the dot is 40 px above the real axis. No defect.",
+  "0131": "05_4 59.6-61.45 s. The sin(i) state held unchanged through 61.45 s; labels clear of the dots, line and title column. No defect.",
+  "0132": "05_4 61.6-62.65 s. 61.6 s: a second dot at the arrow top with the boxed label 'sin(3i) ~ 10.0 i' fading in, full by 61.8 s. sin(3i) = i sinh 3 = 10.018 i, so 10.0 is right; the dot is 118 px above the axis = 2.97 units. Crop crops/s0132-slot3-dot3i4x.png: the 3i dot sits just above the arrowhead with a small gap, both distinct; the box stays inside the portrait's top edge. No defect."
+ },
+ "findings": []}

@@ -1,0 +1,33 @@
+{
+  "files": [
+    {
+      "file": "check-final-render-cc3.out",
+      "sha256": "5c53a8a3727483372ca5ce67aae901847515898c3d228619e50cb1887b460eb0"
+    },
+    {
+      "file": "check-final-render-cc3.py",
+      "sha256": "b5fc5893926a0baf19e56c1bccd00a4d30bbdfb6f6343bbfee5e9f200454ce26"
+    },
+    {
+      "file": "csd-native-repair-final01-launch.py",
+      "sha256": "3c292758cfea2a496ff6c035db80ba1b4698a4e7c7c3dcd18a042152ea23a978"
+    },
+    {
+      "file": "csd-native-repair-final01-run.py",
+      "sha256": "6dceac47dae6b8696081d3e8268ddea1ab6e6e4ea3c3d0b2451ff4283e84e9fc"
+    },
+    {
+      "file": "launch-vs-968.diff",
+      "sha256": "f3f412f4dca36156af3b9ad0ec3582cf2b74b6f83c7216762507fc38a476a475"
+    },
+    {
+      "file": "run-vs-968.diff",
+      "sha256": "a77afa724246bb8bcb4353197fdce951be3d17348c3d7a192356b676441ebccd"
+    }
+  ],
+  "read_by_root": [
+    "csd-native-repair-final01-run.py",
+    "csd-native-repair-final01-launch.py"
+  ],
+  "scope": "Prepared helper source review only. Binary pins unresolved, actual image admission pending, independent helper review pending. Not staged or launched."
+}

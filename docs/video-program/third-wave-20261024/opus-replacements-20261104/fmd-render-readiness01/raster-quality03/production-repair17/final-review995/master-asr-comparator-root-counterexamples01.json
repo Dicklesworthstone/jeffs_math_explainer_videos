@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-11T00:51:40.694834+00:00",
+  "script": "CC1 scratch master-asr-check01.py",
+  "observations": [
+    {
+      "script": "one",
+      "recognition": "2",
+      "classification": "NUM",
+      "check_result": [
+        [],
+        []
+      ]
+    },
+    {
+      "script": "one hundred",
+      "recognition": "999",
+      "classification": "NUM",
+      "check_result": [
+        [],
+        []
+      ]
+    },
+    {
+      "script": "five percent",
+      "recognition": "90",
+      "classification": "NUM"
+    },
+    {
+      "script": "x plus one",
+      "recognition": "x + 9",
+      "classification": "SYMBOL"
+    }
+  ],
+  "decision": "False clean results. Comparator not accepted. Existing zero-unsupported claim under these equivalence rules not sufficient numeric-word evidence. No actual speech defect inferred."
+}

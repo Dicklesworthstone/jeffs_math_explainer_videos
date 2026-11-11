@@ -1,0 +1,35 @@
+{
+  "scope": "Immutable interim CC2 candidate snapshot for independent CC1 review. Author final report still pending; not accepted or installed.",
+  "files": [
+    {
+      "name": "candidate-boundary.rs",
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/d7bac370-73e2-4cb6-88cf-606d6a161b39/scratchpad/final995-cc2-boundary-repair/boundary.rs",
+      "sha256": "511f4492cdbe7b632710f4121cee2da032baeee670f2e83531c4272f0c86b6a7"
+    },
+    {
+      "name": "candidate.patch",
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/d7bac370-73e2-4cb6-88cf-606d6a161b39/scratchpad/final995-cc2-boundary-repair.patch",
+      "sha256": "984a33a438e19dedf1009840b52ec29ee730d36377e2d9210f694b174349ac70"
+    },
+    {
+      "name": "source-checks.py",
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/d7bac370-73e2-4cb6-88cf-606d6a161b39/scratchpad/final995_cc2_source_checks.py",
+      "sha256": "3edc43176b33481822e6d451f31ea943f201afcbfa2b54f272dcec0d75839be8"
+    },
+    {
+      "name": "geometry-mirror.py",
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/d7bac370-73e2-4cb6-88cf-606d6a161b39/scratchpad/final995_cc2_repair_mirror.py",
+      "sha256": "51087623a1ddb863b95fe2cc80aaed566a1665b203b1da7208c974851f3e1a41"
+    },
+    {
+      "name": "rust-test-mirror.py",
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/d7bac370-73e2-4cb6-88cf-606d6a161b39/scratchpad/final995_cc2_rust_test_mirror.py",
+      "sha256": "ef375d8dc259928b9d89ff27a159bd96d635090e15d11f2d479fec84acd357f2"
+    },
+    {
+      "name": "base-boundary.rs",
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/complex-boundary-repair752/boundary.rs",
+      "sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e"
+    }
+  ]
+}

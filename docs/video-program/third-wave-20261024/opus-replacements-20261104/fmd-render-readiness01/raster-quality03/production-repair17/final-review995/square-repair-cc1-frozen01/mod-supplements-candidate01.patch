@@ -1,0 +1,18 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+@@ -99,6 +99,7 @@
+     "Choose any epsilon > 0",
+     "Selected square, magnified",
+     "Two halves make one quarter",
++    loop_sums::PERIMETER_WORD,
+     "for every epsilon > 0",
+     "The same proof, now on a triangle",
+     "The middle walk is also counterclockwise",
+@@ -434,6 +435,7 @@
+     r"|z-c|<\delta",
+     "D_n",
+     "P_n",
++    loop_sums::KEPT_TEX,
+     r"|I_n|\leq\varepsilon D_n P_n",
+     r"D_n=D_0/2^n",
+     r"P_n=P_0/2^n",

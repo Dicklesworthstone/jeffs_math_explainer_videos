@@ -1,0 +1,6 @@
+## Independent square repair follow-up, 2026-11-10T21:28:08.608844+00:00
+
+- [x] Root reviewed700-715, now 716/1044 sheets and 5728 selected images; root-progress43.json. Cauchy/mean-value transition readable at overview scale.
+- [x] Read complete CC0 independent square repair review02 and preserved both reports plus geometry script/output in square-independent-cc0-frozen01. True quarter mathematics passes source review; leader association and guard are deficient. Assigned CC0 versioned candidate02 with rim-start leader, explicit intended crossing and c name above fill; candidate02 will need a different reviewer. Exact build268 lineage required.
+- [ ] Remaining 328 root sheets, native detail, candidate02 independent checks, guarded builds/renders and repaired pictures. Continuous motion/listening/fine-sync and independent whole-film AV acceptance open. No upload.
+

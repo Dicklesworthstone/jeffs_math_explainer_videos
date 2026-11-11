@@ -1,0 +1,73 @@
+== the_bump: base 8e93012e, bundle03 90b51c2b; 27 items, 5 differ
+   added    const PREVIEW_ARROW_ARG
+   added    const PREVIEW_LOOP_R
+   added    fn preview_arrow
+   changed  fn previews
+   changed  mod tests
+== loop_sums: base 8a13e8a1, bundle03 a8d62f56; 99 items, 15 differ
+   added    const C_NAME_OFFSET
+   changed  const GOURSAT
+   added    const KEPT_NAME_OFFSET
+   added    const KEPT_QUARTER
+   added    const KEPT_TEX
+   added    const LEADER_START
+   added    const PERIMETER_GAP
+   added    const PERIMETER_WORD
+   added    const PERIMETER_Y
+   changed  const STEPS
+   added    const WALK_START
+   added    fn bisection_cuts
+   added    fn c_name_and_leader
+   changed  fn goursat_proof
+   changed  mod tests
+== boundary: base cd1900aa, bundle03 4b689791; 139 items, 14 differ
+   changed  const ARC_TEX
+   added    const A_NAME_EASE
+   added    const A_NAME_FROM_CENTRE
+   added    const A_NAME_HIDDEN
+   added    const A_RIDE
+   added    const RHO_RIDE
+   changed  const SHRINK_TEX
+   changed  const SHRUNK_R
+   changed  const SUM_TEX
+   added    fn a_leader
+   added    fn a_name_shown
+   added    fn shrink_names
+   changed  impl SceneConstruct for Boundary
+   changed  mod tests
+== counting: base ecff48f7, bundle03 21c5043a; 120 items, 8 differ
+   changed  const NEEDS
+   added    const NEEDS_PT
+   added    const NEEDS_X
+   added    fn moebius_circle_walker
+   added    fn moebius_image_circle
+   changed  impl Counting
+   changed  impl SceneConstruct for Counting
+   changed  mod tests
+== references from unchanged files into the changed modules, and their closures
+chapters/closing.rs          -> the_bump::AT_X           closure   1 items; changed in closure: none
+chapters/closing.rs          -> the_bump::BUMP_TEX       closure   1 items; changed in closure: none
+chapters/closing.rs          -> the_bump::POLE_I         closure   1 items; changed in closure: none
+chapters/closing.rs          -> the_bump::POLE_MINUS_I   closure   1 items; changed in closure: none
+chapters/closing.rs          -> the_bump::graph          closure   1 items; changed in closure: none
+chapters/closing.rs          -> the_bump::recipe_points  closure   2 items; changed in closure: none
+chapters/continuing.rs       -> boundary::COLON          closure   1 items; changed in closure: none
+chapters/continuing.rs       -> the_bump::POLE_I         closure   1 items; changed in closure: none
+chapters/continuing.rs       -> the_bump::POLE_MINUS_I   closure   1 items; changed in closure: none
+chapters/gallery.rs          -> counting::TURNS          closure   1 items; changed in closure: none
+chapters/reading_color.rs    -> loop_sums::IDENTITY_TEX   closure   1 items; changed in closure: none
+chapters/real_integral.rs    -> the_bump::POLE_I         closure   1 items; changed in closure: none
+chapters/real_integral.rs    -> the_bump::POLE_MINUS_I   closure   1 items; changed in closure: none
+chapters/residues.rs         -> the_bump::POLE_I         closure   1 items; changed in closure: none
+chapters/residues.rs         -> the_bump::POLE_MINUS_I   closure   1 items; changed in closure: none
+chapters/two_planes.rs       -> the_bump::RADIUS         closure   1 items; changed in closure: none
+== mod.rs (760 e1f4d1b8 -> bundle03 4de1e4a5), whole diff
+mod.rs base e1f4d1b8, bundle03 4de1e4a5
+   --- base
+   +++ bundle03
+   @@ -101,0 +102 @@
+   +    loop_sums::PERIMETER_WORD,
+   @@ -436,0 +438 @@
+   +    loop_sums::KEPT_TEX,
+mod.rs items that differ: ['const TEX', 'const TEXT']
+RESULT: no reference from an unchanged file reaches a changed item

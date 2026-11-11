@@ -1,0 +1,2716 @@
+{
+  "chapter": "05_whole_sum",
+  "movie_sha256": "fe33b9e48bcb456b3cad41f7651bd8e5f8e3bb1b7c6deba657e6b4d9e5fa2b80",
+  "pictures": [
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000001.jpg",
+      "sha256": "4f3ff38cbcbd5e88a3692e9dfa113bd105c0b316e9abf2635bd04c220eaca11f",
+      "frame": 34296,
+      "local_frame": 0,
+      "reasons": [
+        "chapter first",
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000002.jpg",
+      "sha256": "48f5d0444a7e2ece9428be65e014eaec2391b4110866a3f23a6b8f5a72c7fcc7",
+      "frame": 34331,
+      "local_frame": 35,
+      "reasons": [
+        "05_1 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000003.jpg",
+      "sha256": "3deccc02710799480c5bf42f838b8687adc17c575a6e55c7841b0a24fcaef38e",
+      "frame": 34332,
+      "local_frame": 36,
+      "reasons": [
+        "05_1 start"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000004.jpg",
+      "sha256": "996f9e6db88062c194d21f4359c78715c83b211577fbbb8856eab54616cdce92",
+      "frame": 34362,
+      "local_frame": 66,
+      "reasons": [
+        "05_1 opening"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000005.jpg",
+      "sha256": "1220fcef7f6dcee82feb8ea45da447f073e4222e6dccf7ecc5bbfa52d4e7d546",
+      "frame": 34596,
+      "local_frame": 300,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000006.jpg",
+      "sha256": "5a4a65d2afd2bcc7d47d70128b6bde464c503dfc9cadf452bab79757a217bde1",
+      "frame": 34847,
+      "local_frame": 551,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks)"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000007.jpg",
+      "sha256": "de4adaaab351917042bb049c913a02aa7af0891008d6940537bb6d3359cd45a2",
+      "frame": 34848,
+      "local_frame": 552,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks)",
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000008.jpg",
+      "sha256": "2e669d02c38b2a4230bed56159ede129edd526f839dcfba67658ffb786aee608",
+      "frame": 34860,
+      "local_frame": 564,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks)"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000009.jpg",
+      "sha256": "0e562fe23d2a8b1bd018203d046329dc64f6c8bb83cead14558bc014e08541de",
+      "frame": 34872,
+      "local_frame": 576,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks)"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000010.jpg",
+      "sha256": "f0bf5c3b9fd36a708653794b24991715a61bab6d11b639840223d123ec7765bd",
+      "frame": 34884,
+      "local_frame": 588,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks)"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000011.jpg",
+      "sha256": "3d07d8ebb6ca89c8b15b3689e8352c33e90df0272b56aaf2624d51a4a1c3fcdf",
+      "frame": 34896,
+      "local_frame": 600,
+      "reasons": [
+        "chapter overview every5s",
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks)"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000012.jpg",
+      "sha256": "91250953d3e4d43793340db27b5cb77397e4866d7bb386f18ff8bd3850fb652a",
+      "frame": 34908,
+      "local_frame": 612,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks)"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000013.jpg",
+      "sha256": "69a22c1c29c9f8028b674cf9aa4d84eaf55f72cca873230db9f8567c5a93f420",
+      "frame": 34920,
+      "local_frame": 624,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks)"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000014.jpg",
+      "sha256": "97848958ee8e448fe5381a69b176fc6d29754e9fa79dab6097b1b4fe932b6c4b",
+      "frame": 34932,
+      "local_frame": 636,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks)"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000015.jpg",
+      "sha256": "5ed59a2e2a30d287c6e1028c8b1c23235f2ab30c29dfedb81c82129573947efc",
+      "frame": 34944,
+      "local_frame": 648,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks)",
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) persistence estimate, not last occurrence"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000016.jpg",
+      "sha256": "3b83d7c149f28056d092acd102e599d698e5bfe1669da7bdfaaf3ac3f729c276",
+      "frame": 34956,
+      "local_frame": 660,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks)"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000017.jpg",
+      "sha256": "e9ac2e8abf0712c306dd11a2b30cbec3bc00a46128679339899c37f60723d18d",
+      "frame": 34968,
+      "local_frame": 672,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks)"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000018.jpg",
+      "sha256": "3b83d7c149f28056d092acd102e599d698e5bfe1669da7bdfaaf3ac3f729c276",
+      "frame": 35004,
+      "local_frame": 708,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) persistence estimate, not last occurrence"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000019.jpg",
+      "sha256": "37ca489fc9c4cec955cc41043f663f07059d8097de8bd505659205111803d2b6",
+      "frame": 35148,
+      "local_frame": 852,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000020.jpg",
+      "sha256": "f8a8c6ba6edde1f59bbd50aecb57ef0fad4aab2dee1ce38c188e58d999aeae17",
+      "frame": 35196,
+      "local_frame": 900,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000021.jpg",
+      "sha256": "951ed38f8e024ab88b42ea21f931f2a675c6ce3cc081b7d59dca732ee196a586",
+      "frame": 35448,
+      "local_frame": 1152,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000022.jpg",
+      "sha256": "2045f32e9ad4e5a4862c0df1bc17295a331f80ddba16cae1d5069d12d41ccc99",
+      "frame": 35496,
+      "local_frame": 1200,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000023.jpg",
+      "sha256": "1435b10317dcffe0784809ad66e89d9c87b1335c41544db97c0a69d751193200",
+      "frame": 35748,
+      "local_frame": 1452,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000024.jpg",
+      "sha256": "37900d2d44cd0ca7619802f7a125f61784c5930590144bf7b410e9eddffd2aa2",
+      "frame": 35796,
+      "local_frame": 1500,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000025.jpg",
+      "sha256": "b88e7e4bbfbbfeb01d38f9fad374b6d69729ce1038acfdb97918a37ac7f4eaf3",
+      "frame": 35968,
+      "local_frame": 1672,
+      "reasons": [
+        "05_1 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000026.jpg",
+      "sha256": "cc20d0238fea0a4d175d4d2f2be3614d4eabd8f0d08592df73aed55a3bf3f2da",
+      "frame": 35969,
+      "local_frame": 1673,
+      "reasons": [
+        "05_1 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000027.jpg",
+      "sha256": "7c9fe8b73371467fc8970033831b8028ac7e76c9001c090960c8f6fa45fe86ce",
+      "frame": 35970,
+      "local_frame": 1674,
+      "reasons": [
+        "05_1 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000028.jpg",
+      "sha256": "b88e7e4bbfbbfeb01d38f9fad374b6d69729ce1038acfdb97918a37ac7f4eaf3",
+      "frame": 36004,
+      "local_frame": 1708,
+      "reasons": [
+        "05_1 authored predict/breath/reveal"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000029.jpg",
+      "sha256": "cc20d0238fea0a4d175d4d2f2be3614d4eabd8f0d08592df73aed55a3bf3f2da",
+      "frame": 36005,
+      "local_frame": 1709,
+      "reasons": [
+        "05_1 authored predict/breath/reveal",
+        "05_1 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000030.jpg",
+      "sha256": "7c9fe8b73371467fc8970033831b8028ac7e76c9001c090960c8f6fa45fe86ce",
+      "frame": 36006,
+      "local_frame": 1710,
+      "reasons": [
+        "05_1 authored predict/breath/reveal"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000031.jpg",
+      "sha256": "f1c3d80fbf394348e991a64a9e7e634421e8d3e3a0b1841d873ba525b1690d4b",
+      "frame": 36035,
+      "local_frame": 1739,
+      "reasons": [
+        "05_1 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000032.jpg",
+      "sha256": "7194542bd51160e5b776fb934cd03b886007dba9ff20ed99acc556fabae8fd8b",
+      "frame": 36048,
+      "local_frame": 1752,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000033.jpg",
+      "sha256": "7bcac246d6a09412c9c37f4f4b122cf6bc02c9f1db1cafd0a94ff37e5d06fec9",
+      "frame": 36065,
+      "local_frame": 1769,
+      "reasons": [
+        "05_1 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000034.jpg",
+      "sha256": "5b5414fafe45cdda4e41086288340e2d7de9ff291a34a267d4fa72faa675ae56",
+      "frame": 36095,
+      "local_frame": 1799,
+      "reasons": [
+        "05_1 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000035.jpg",
+      "sha256": "f7af035261dcd892d3215e7b4a97ed6e335099600fe982d789c50e447816ab65",
+      "frame": 36096,
+      "local_frame": 1800,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000036.jpg",
+      "sha256": "cc20d0238fea0a4d175d4d2f2be3614d4eabd8f0d08592df73aed55a3bf3f2da",
+      "frame": 36125,
+      "local_frame": 1829,
+      "reasons": [
+        "05_1 authored predict/breath/reveal",
+        "05_1 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000037.jpg",
+      "sha256": "f1c3d80fbf394348e991a64a9e7e634421e8d3e3a0b1841d873ba525b1690d4b",
+      "frame": 36155,
+      "local_frame": 1859,
+      "reasons": [
+        "05_1 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000038.jpg",
+      "sha256": "cc20d0238fea0a4d175d4d2f2be3614d4eabd8f0d08592df73aed55a3bf3f2da",
+      "frame": 36185,
+      "local_frame": 1889,
+      "reasons": [
+        "05_1 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000039.jpg",
+      "sha256": "f1c3d80fbf394348e991a64a9e7e634421e8d3e3a0b1841d873ba525b1690d4b",
+      "frame": 36215,
+      "local_frame": 1919,
+      "reasons": [
+        "05_1 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000040.jpg",
+      "sha256": "7c9fe8b73371467fc8970033831b8028ac7e76c9001c090960c8f6fa45fe86ce",
+      "frame": 36244,
+      "local_frame": 1948,
+      "reasons": [
+        "05_1 authored predict/breath/reveal"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000041.jpg",
+      "sha256": "470a41e99a85ba826f19b94b61b9427774e87dae4254b27429a0040d87fe7c03",
+      "frame": 36245,
+      "local_frame": 1949,
+      "reasons": [
+        "05_1 authored predict/breath/reveal",
+        "05_1 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000042.jpg",
+      "sha256": "0d634a0163188b7748712c4c9beb0da0c1bf43a4f998877ad5c8e0ed306e1bfd",
+      "frame": 36246,
+      "local_frame": 1950,
+      "reasons": [
+        "05_1 authored predict/breath/reveal"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000043.jpg",
+      "sha256": "7e2d567d02eccbb04ef17d36e80e67d6b741f1dbc26a95d6b36df727202d3862",
+      "frame": 36262,
+      "local_frame": 1966,
+      "reasons": [
+        "05_2 pre",
+        "05_1 authored predict/breath/reveal"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000044.jpg",
+      "sha256": "fc19ca6057573948cdd5cdf62ce0095a640d3869210b077187a77e185fac672a",
+      "frame": 36263,
+      "local_frame": 1967,
+      "reasons": [
+        "05_2 start",
+        "05_1 authored predict/breath/reveal"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000045.jpg",
+      "sha256": "195ceb10f610d52a88c1942270ac2cdfe802901d8c5af6d37a80f55e19d27bd9",
+      "frame": 36293,
+      "local_frame": 1997,
+      "reasons": [
+        "05_2 opening",
+        "05_1 authored predict/breath/reveal"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000046.jpg",
+      "sha256": "30448895848cab236160fd1d2539b6d97c0f2202fb3ca3ca248c65a465b80cd0",
+      "frame": 36348,
+      "local_frame": 2052,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000047.jpg",
+      "sha256": "89bff286c4e7503579a3f46febcbf5def3cf8db386762aed2a870a92119d6b6c",
+      "frame": 36396,
+      "local_frame": 2100,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000048.jpg",
+      "sha256": "137f595f6794647964174ab988d6e59a3fc07efa2e679bbd1c5f922d73945aa5",
+      "frame": 36648,
+      "local_frame": 2352,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000049.jpg",
+      "sha256": "ac2897056368a35dfa9cf359ea62f245338aa7efd7c00e0add2909d0b7df5e94",
+      "frame": 36696,
+      "local_frame": 2400,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000050.jpg",
+      "sha256": "50707eaf4ffde8336548dc72bf185900cf9c60191df3a9e403c70d64d4295b2d",
+      "frame": 36948,
+      "local_frame": 2652,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000051.jpg",
+      "sha256": "47a6c6121980dc8739ddd4dba107e555bb8a8a50fb169d9f96be0e3324ad3333",
+      "frame": 36996,
+      "local_frame": 2700,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000052.jpg",
+      "sha256": "4fff7f523c66b6ad28641863baa0bbaaddc10ed44c124e6a3c8ed3e239d80da0",
+      "frame": 37248,
+      "local_frame": 2952,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000053.jpg",
+      "sha256": "2788d9186049c2730e18b43e95004bafbffdd60f2575648ead018d75285b257b",
+      "frame": 37296,
+      "local_frame": 3000,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000054.jpg",
+      "sha256": "810e78c844bdbf05d05b930dfa7d69bc1a5ee69861d27c5b6cdc5bab3e450cff",
+      "frame": 37548,
+      "local_frame": 3252,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000055.jpg",
+      "sha256": "9f9422d312410367ee91c0a441de2feff432d5cd8ab449c3dd21963ecdaa10d3",
+      "frame": 37596,
+      "local_frame": 3300,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000056.jpg",
+      "sha256": "666d2fc9c12950654fc3ea18c85e5b5943cf739d04bde83d4ecae2145f263bd7",
+      "frame": 37793,
+      "local_frame": 3497,
+      "reasons": [
+        "05_2 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000057.jpg",
+      "sha256": "0399214ef8497ad88221939bc3e124c9acb5d4b67956bb49dba2007c1aa2b31f",
+      "frame": 37794,
+      "local_frame": 3498,
+      "reasons": [
+        "05_2 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000058.jpg",
+      "sha256": "3094115726bfd1816e4eff10473e15699610a37d2b846d8ca92676636b711e98",
+      "frame": 37795,
+      "local_frame": 3499,
+      "reasons": [
+        "05_2 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000059.jpg",
+      "sha256": "b2e27dc8d2b6224bd1fd7120ceecd25d8275ad2efe7829ac0a29cbba424e6888",
+      "frame": 37830,
+      "local_frame": 3534,
+      "reasons": [
+        "05_3 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000060.jpg",
+      "sha256": "872dd9185ad0fb17c85e612a7001f39e36f4651cd5b82ee3f8cf98fc611648f6",
+      "frame": 37831,
+      "local_frame": 3535,
+      "reasons": [
+        "05_3 start"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000061.jpg",
+      "sha256": "ce3fb8c73eab111de2b6fea6e65b3128352d2a5913345ef7c66b40dae70bff32",
+      "frame": 37848,
+      "local_frame": 3552,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000062.jpg",
+      "sha256": "35108b1188161fd1b5dc085d5ab624e9eed5dea5b218dbaa0366605beacb3815",
+      "frame": 37861,
+      "local_frame": 3565,
+      "reasons": [
+        "05_3 opening"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000063.jpg",
+      "sha256": "74fb453a9a85b9ede4acf20e6c663f95cd4c1322bf5f54b62c1fd323f8e40d38",
+      "frame": 37896,
+      "local_frame": 3600,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000064.jpg",
+      "sha256": "aef7a240bdf8ef8080c5eb3b89852e6cd55f95f91ff1ca105f8dc4f9fbf4e3f9",
+      "frame": 38148,
+      "local_frame": 3852,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000065.jpg",
+      "sha256": "aef7a240bdf8ef8080c5eb3b89852e6cd55f95f91ff1ca105f8dc4f9fbf4e3f9",
+      "frame": 38196,
+      "local_frame": 3900,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000066.jpg",
+      "sha256": "8d836e390c92a33147b9039bb5513dc99c9ed2de19871aac2fee361dff8480d5",
+      "frame": 38253,
+      "local_frame": 3957,
+      "reasons": [
+        "05_3 provisional phrase and after that"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000067.jpg",
+      "sha256": "5d4b5ff7bc074c4afc1e50ee85f11c9948f9cd94d92b324ac00e3b626b512037",
+      "frame": 38283,
+      "local_frame": 3987,
+      "reasons": [
+        "05_3 provisional phrase and after that"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000068.jpg",
+      "sha256": "354cdacafd4882ecd3cc9175a357c0d7a73b38aba8f61a4585d2cb69411308ab",
+      "frame": 38313,
+      "local_frame": 4017,
+      "reasons": [
+        "05_3 provisional phrase and after that"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000069.jpg",
+      "sha256": "4c39eec1db4b423d0e98fa5748449509093d92b5ae326a488f33160be71cd18e",
+      "frame": 38343,
+      "local_frame": 4047,
+      "reasons": [
+        "05_3 provisional phrase and after that"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000070.jpg",
+      "sha256": "165839b59bdb24770c85e10518af254d4cb69a231e46c82a8a41b3f36e656349",
+      "frame": 38448,
+      "local_frame": 4152,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000071.jpg",
+      "sha256": "165839b59bdb24770c85e10518af254d4cb69a231e46c82a8a41b3f36e656349",
+      "frame": 38496,
+      "local_frame": 4200,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000072.jpg",
+      "sha256": "2bf39a52a909758c897b26bd429a7d137ff28428c75271e7ea950995128bc97d",
+      "frame": 38748,
+      "local_frame": 4452,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000073.jpg",
+      "sha256": "7dcecc1adebee08b39b148d1e58ebd7f6c5ad96f793a0e28e826cd0c2ab5c037",
+      "frame": 38796,
+      "local_frame": 4500,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000074.jpg",
+      "sha256": "a9478c57255c5b5f6e3839538f730c9f9a147edcf7ca5fbe754d34e26538d082",
+      "frame": 39048,
+      "local_frame": 4752,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000075.jpg",
+      "sha256": "f3b907b27160f8ef0a5c25f82ce095947005cd3b62916c40c1a2e1506660ce65",
+      "frame": 39096,
+      "local_frame": 4800,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000076.jpg",
+      "sha256": "5b011c3eeca62145109833c8d3e83220dc93b8a277e6e5aff04a41900bad918b",
+      "frame": 39348,
+      "local_frame": 5052,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000077.jpg",
+      "sha256": "594ac053e99ed92b243142da75d090ddf09863f52de76eab46f5d3ba7e45525d",
+      "frame": 39396,
+      "local_frame": 5100,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000078.jpg",
+      "sha256": "b3e3ee6cef856931a7015d167d73220c6209ff26d4d70793fc576f1e7891a7b5",
+      "frame": 39648,
+      "local_frame": 5352,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000079.jpg",
+      "sha256": "76450a8b848974321415c5236e4badea7e783d82ac3f184bdd7620819f75b14e",
+      "frame": 39696,
+      "local_frame": 5400,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000080.jpg",
+      "sha256": "0b8e2b8376e7eb3c946b244987498660e051e6a0236146a132d9d6650d3078b1",
+      "frame": 39736,
+      "local_frame": 5440,
+      "reasons": [
+        "05_3 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000081.jpg",
+      "sha256": "50a72d51de851b2a4a55bd7defd4540a8bcfd57c9bb236443c704f67b1980eb5",
+      "frame": 39737,
+      "local_frame": 5441,
+      "reasons": [
+        "05_3 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000082.jpg",
+      "sha256": "268f8ec18636f7a23ac11c285b58c26bd5b0f42d3fcfcc575d76a43c482336f8",
+      "frame": 39738,
+      "local_frame": 5442,
+      "reasons": [
+        "05_3 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000083.jpg",
+      "sha256": "da2ae5bb0c49a01c2720b9ec7a9f59f853ddc4bf575a1a06c4f96aca0dc3692d",
+      "frame": 39772,
+      "local_frame": 5476,
+      "reasons": [
+        "05_4 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000084.jpg",
+      "sha256": "65cbff7fb6a4f530d03a175a40d5fee71ebd3aba41be89ae455b761af0cb8078",
+      "frame": 39773,
+      "local_frame": 5477,
+      "reasons": [
+        "05_4 start",
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000085.jpg",
+      "sha256": "fe8d61323fc2055b557c442cd1d0dc58e50103355d9b03ebadd57b020f38b465",
+      "frame": 39803,
+      "local_frame": 5507,
+      "reasons": [
+        "05_4 opening"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000086.jpg",
+      "sha256": "eec198b3fe89e499235113350bbf072ac14e8be0325600a480548b55233e4d47",
+      "frame": 39833,
+      "local_frame": 5537,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000087.jpg",
+      "sha256": "ba7ec41345a6b7414bd3fc3eb4dfb37f687e532060f580ed0c76cd4d005d55db",
+      "frame": 39893,
+      "local_frame": 5597,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000088.jpg",
+      "sha256": "7dd933541596823dd81758d656ad69151d426170ad739b27ad62881e3443bf15",
+      "frame": 39948,
+      "local_frame": 5652,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000089.jpg",
+      "sha256": "1d7e3f0be29b963ee99b9eee4b045cc85a55049198a7bb23551d5c9498648bdb",
+      "frame": 39953,
+      "local_frame": 5657,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000090.jpg",
+      "sha256": "23834f1786d8715f3e0e1379843f475b8f32d7aada71a030d06449387c750dc5",
+      "frame": 39996,
+      "local_frame": 5700,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000091.jpg",
+      "sha256": "38e3be4e252c70f938a1f1dc10ecf80a9c26b31c1a22f20af0b877acaab956ff",
+      "frame": 40013,
+      "local_frame": 5717,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000092.jpg",
+      "sha256": "8828630ad6b254b4144d1f39cab565d1d2d8aff4fd127ce13b7f5399d028ca44",
+      "frame": 40073,
+      "local_frame": 5777,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000093.jpg",
+      "sha256": "690b2f4416440fa3870f30140645798f26a4167e6441bf557d19f9c8973f30cc",
+      "frame": 40133,
+      "local_frame": 5837,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000094.jpg",
+      "sha256": "690b2f4416440fa3870f30140645798f26a4167e6441bf557d19f9c8973f30cc",
+      "frame": 40193,
+      "local_frame": 5897,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000095.jpg",
+      "sha256": "ab39e7ac39d352e993d288c7d4fb7f495f078b07a708d5d72235bdb36456b9f3",
+      "frame": 40248,
+      "local_frame": 5952,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000096.jpg",
+      "sha256": "349764ee6be3768a0ca80e9facf5f883a2738c82049d2de43392855d61100a11",
+      "frame": 40253,
+      "local_frame": 5957,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000097.jpg",
+      "sha256": "6edc21a4d63787f26aa680f77405f5caff02f4ea14260e6964e10e8c2c13ba2e",
+      "frame": 40296,
+      "local_frame": 6000,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000098.jpg",
+      "sha256": "8326965fb5808cf415c246d8d453130b318a2333c29ae1890d305ad44d43ad2d",
+      "frame": 40313,
+      "local_frame": 6017,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000099.jpg",
+      "sha256": "f1cf038b322fdf9fbcbe5eb735deef353e81aa5847c8e8bac5469be920381109",
+      "frame": 40373,
+      "local_frame": 6077,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000100.jpg",
+      "sha256": "13d18e050e466118d2c326390c84dae20106dfab51762e3fe6d6022ed280c1f5",
+      "frame": 40433,
+      "local_frame": 6137,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000101.jpg",
+      "sha256": "f80974f4350ed1b4a0c703315863130c88bfee866b4405ea82a18870ea88438d",
+      "frame": 40493,
+      "local_frame": 6197,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000102.jpg",
+      "sha256": "5ed35b1a149f21ebab06a53f350661cf46d4b8031b5c0107bd490f76da2c48d9",
+      "frame": 40548,
+      "local_frame": 6252,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000103.jpg",
+      "sha256": "5df3b5f0ab62e2e6d22b583dc390ee84d3205a2d1620f88281c62cda7aef0b99",
+      "frame": 40553,
+      "local_frame": 6257,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000104.jpg",
+      "sha256": "d580fe81bb361648a31a69e913c27419be655dc21e631821ec40ca6dc1142501",
+      "frame": 40596,
+      "local_frame": 6300,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000105.jpg",
+      "sha256": "7ed08ffccfe461ff246ffc96f609382a7219c0cd00e9373dfc35506073b2da24",
+      "frame": 40613,
+      "local_frame": 6317,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000106.jpg",
+      "sha256": "914efd6663a230a452ec1b09900319ea163b328697f47c160d148031e0c73b5b",
+      "frame": 40673,
+      "local_frame": 6377,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000107.jpg",
+      "sha256": "e9dff2722af31e2dca78d3f1fb29cce363352ebb2ad0e8cbe1aef7998ebd99ea",
+      "frame": 40733,
+      "local_frame": 6437,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000108.jpg",
+      "sha256": "e9dff2722af31e2dca78d3f1fb29cce363352ebb2ad0e8cbe1aef7998ebd99ea",
+      "frame": 40793,
+      "local_frame": 6497,
+      "reasons": [
+        "05_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000109.jpg",
+      "sha256": "01c2d944b7920c72df2c3688b680823f7a87482704cdcdfbf491ce83eb27df26",
+      "frame": 40847,
+      "local_frame": 6551,
+      "reasons": [
+        "05_4 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000110.jpg",
+      "sha256": "714a1e9805392c16dc558e4610d1a23a30f0e3b0a3525174142128fe1376cf6f",
+      "frame": 40848,
+      "local_frame": 6552,
+      "reasons": [
+        "05_4 end",
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000111.jpg",
+      "sha256": "bdb0176fa7c195a830de9d2904ef644dc33f77e083574a8a64c1f9daeb5d3740",
+      "frame": 40849,
+      "local_frame": 6553,
+      "reasons": [
+        "05_4 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000112.jpg",
+      "sha256": "714a1e9805392c16dc558e4610d1a23a30f0e3b0a3525174142128fe1376cf6f",
+      "frame": 40884,
+      "local_frame": 6588,
+      "reasons": [
+        "05_5 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000113.jpg",
+      "sha256": "bdb0176fa7c195a830de9d2904ef644dc33f77e083574a8a64c1f9daeb5d3740",
+      "frame": 40885,
+      "local_frame": 6589,
+      "reasons": [
+        "05_5 start"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000114.jpg",
+      "sha256": "714a1e9805392c16dc558e4610d1a23a30f0e3b0a3525174142128fe1376cf6f",
+      "frame": 40896,
+      "local_frame": 6600,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000115.jpg",
+      "sha256": "bdb0176fa7c195a830de9d2904ef644dc33f77e083574a8a64c1f9daeb5d3740",
+      "frame": 40915,
+      "local_frame": 6619,
+      "reasons": [
+        "05_5 opening"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000116.jpg",
+      "sha256": "2144a2076ee3a1de2191991734b85aad3a10b5af921f35dea256261d43618636",
+      "frame": 41031,
+      "local_frame": 6735,
+      "reasons": [
+        "05_5 provisional phrase so push"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000117.jpg",
+      "sha256": "7011c92f041399f6ea45437aaff4c7fef495289d6f7a9f7fa044e83407262891",
+      "frame": 41061,
+      "local_frame": 6765,
+      "reasons": [
+        "05_5 provisional phrase so push"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000118.jpg",
+      "sha256": "6a209f72c8390604de457b235acaf4f6e832beaeac212120eb5bf4fc4828eed1",
+      "frame": 41091,
+      "local_frame": 6795,
+      "reasons": [
+        "05_5 provisional phrase so push"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000119.jpg",
+      "sha256": "a02f3bae11d753d7f11a4a19d3a6c0a60e2cb48eb5c1172e46d2782e8c5279e6",
+      "frame": 41121,
+      "local_frame": 6825,
+      "reasons": [
+        "05_5 provisional phrase so push"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000120.jpg",
+      "sha256": "73c27d7fb1136fe80951b8f4a2141f79375e7b964c4eda7744d0bafbadc3d86c",
+      "frame": 41148,
+      "local_frame": 6852,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000121.jpg",
+      "sha256": "f1e8be10f4ce06d9d7d119122150760ac41d6cbd8c2e05c0707d7fef5c6ebafd",
+      "frame": 41196,
+      "local_frame": 6900,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000122.jpg",
+      "sha256": "2887fbf0d79ed2efaffec556ed2443a25b74073afbbf7b60abcc8fc547ee24de",
+      "frame": 41448,
+      "local_frame": 7152,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000123.jpg",
+      "sha256": "ef5ceadf455763367736051003ab033323f2e3500d9c47391d8d123ca1d77fab",
+      "frame": 41496,
+      "local_frame": 7200,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000124.jpg",
+      "sha256": "c87a43ba09060d277afb8f39c59184b17f54a51155da932e0e3f4a507cfee04a",
+      "frame": 41697,
+      "local_frame": 7401,
+      "reasons": [
+        "05_5 provisional phrase then make"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000125.jpg",
+      "sha256": "1ff57e459a50436b7f4a7024b1cedac23770fad89e5b6fbe8815db4200d2073b",
+      "frame": 41727,
+      "local_frame": 7431,
+      "reasons": [
+        "05_5 provisional phrase then make"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000126.jpg",
+      "sha256": "d8dbb09d99a91172dc4e251fd7e5ed81d2902ba835832d9e5750ee4bbb948a43",
+      "frame": 41748,
+      "local_frame": 7452,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000127.jpg",
+      "sha256": "6860cdaeed7736888ccfcbf5f13c6218ec986ebd6c182ab78209d63bd118c7dd",
+      "frame": 41757,
+      "local_frame": 7461,
+      "reasons": [
+        "05_5 provisional phrase then make"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000128.jpg",
+      "sha256": "602e5299fb392195a435a2c2e97bf0264490be6ab7322e1b6e4645605d4fceb0",
+      "frame": 41787,
+      "local_frame": 7491,
+      "reasons": [
+        "05_5 provisional phrase then make"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000129.jpg",
+      "sha256": "25596e0a75ce6445cb3d6ada7b81934c22cdafa0cfc894d7cc84c7818e0c719c",
+      "frame": 41796,
+      "local_frame": 7500,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000130.jpg",
+      "sha256": "eb5b82101bd01c63c44cbfa795da51bc085a74a8ca30e1ef9e07e3031d03b40c",
+      "frame": 42048,
+      "local_frame": 7752,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000131.jpg",
+      "sha256": "1b0bb679051b47d4f86bfd767618139d84f482de583ee2652af145a9df6a791e",
+      "frame": 42096,
+      "local_frame": 7800,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000132.jpg",
+      "sha256": "504ee94c0ea4a29acff9d5934b0a6f5f360c5af0b1f205a210ed649fdadc39da",
+      "frame": 42113,
+      "local_frame": 7817,
+      "reasons": [
+        "05_5 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000133.jpg",
+      "sha256": "730944aca1772704a24de50c40b39c5f70665ef8f839a9a7416cf73f00775864",
+      "frame": 42114,
+      "local_frame": 7818,
+      "reasons": [
+        "05_5 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000134.jpg",
+      "sha256": "eb3e95f682e35f670b53780abcd4f74e5dc5e5fe020ccef918dca44f42f43d74",
+      "frame": 42115,
+      "local_frame": 7819,
+      "reasons": [
+        "05_5 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000135.jpg",
+      "sha256": "cfd0d3543986604e129f07b380ba40db407c0bc26d0db5bfd22a5af2d240531c",
+      "frame": 42149,
+      "local_frame": 7853,
+      "reasons": [
+        "05_6 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000136.jpg",
+      "sha256": "744e33a2dcc9f40b6c33f218ccebe636e2879b718f8bb855965abfd7b4e6257a",
+      "frame": 42150,
+      "local_frame": 7854,
+      "reasons": [
+        "05_6 start"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000137.jpg",
+      "sha256": "b84040701d90aace47babfbf1a7b72bbbbe6682d68caab588c42b5a9eaec97b2",
+      "frame": 42180,
+      "local_frame": 7884,
+      "reasons": [
+        "05_6 opening"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000138.jpg",
+      "sha256": "6cf826beb6ca57550485450499bac762d02bcaa2212e0c77cb049d792a471d77",
+      "frame": 42348,
+      "local_frame": 8052,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000139.jpg",
+      "sha256": "72ac7c20227d7264f99caf45b84fe4e2daf3b015861d70936b6fcb916ea4bfba",
+      "frame": 42396,
+      "local_frame": 8100,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000140.jpg",
+      "sha256": "42120910cedb7c33acb3ff85244cc66db73db613a78757b433f98d72b2d4c3ed",
+      "frame": 42648,
+      "local_frame": 8352,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000141.jpg",
+      "sha256": "42120910cedb7c33acb3ff85244cc66db73db613a78757b433f98d72b2d4c3ed",
+      "frame": 42696,
+      "local_frame": 8400,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000142.jpg",
+      "sha256": "d531fcae1f98642a7130b973e0b0340002455d7fb18e438cc97eb372efe62810",
+      "frame": 42948,
+      "local_frame": 8652,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000143.jpg",
+      "sha256": "088d2c862b15d489052b903039da6a77b5be2428c1d291a823c9156a529b7d09",
+      "frame": 42996,
+      "local_frame": 8700,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000144.jpg",
+      "sha256": "f5115f80be097dd2fa6b8e4552b920f71a81a054fc6f4e4799f8b2f1e999fb36",
+      "frame": 43248,
+      "local_frame": 8952,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000145.jpg",
+      "sha256": "cda7b01869163837db529a4d8a85c4cb2db91993e9c1487936ca6ed88ba928db",
+      "frame": 43296,
+      "local_frame": 9000,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000146.jpg",
+      "sha256": "b6e662aed61a3ac9415e3dbc7f82f83f7f8b9b384e0a4c6824c10913120690c9",
+      "frame": 43548,
+      "local_frame": 9252,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000147.jpg",
+      "sha256": "6a8f4c22855e9bce249ec7f1e82929e3b3d5eea74629c673984531cdc5401adf",
+      "frame": 43596,
+      "local_frame": 9300,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000148.jpg",
+      "sha256": "8f27bf0185fac642e0f2aade1fb43535bff23f691795f8b7747aaeffca3ebed0",
+      "frame": 43781,
+      "local_frame": 9485,
+      "reasons": [
+        "05_6 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000149.jpg",
+      "sha256": "039c149f33878a393cd34e97f726d1f59854c76e9186a80a23e235eff62ba1d7",
+      "frame": 43782,
+      "local_frame": 9486,
+      "reasons": [
+        "05_6 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000150.jpg",
+      "sha256": "ff52613d27afb543360c50c3222652a0e7186b7e39b077b9aa5f4dfbd61a5cc9",
+      "frame": 43783,
+      "local_frame": 9487,
+      "reasons": [
+        "05_6 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000151.jpg",
+      "sha256": "7cd9cbc1124d13d8b3e2a8a5c08ca7b35c4e420c0853375bf3e854695654d969",
+      "frame": 43817,
+      "local_frame": 9521,
+      "reasons": [
+        "05_7 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000152.jpg",
+      "sha256": "51fb98b0ae1b7ec1b92ee5a4efdde4cc97d688b7a21dc53fa61e92c2140b78b4",
+      "frame": 43818,
+      "local_frame": 9522,
+      "reasons": [
+        "05_7 start",
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000153.jpg",
+      "sha256": "aafc60a8a1f55d29160573b9c44a35fddd823bea80a90bec4420db8c22bf0b52",
+      "frame": 43848,
+      "local_frame": 9552,
+      "reasons": [
+        "05_7 opening",
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000154.jpg",
+      "sha256": "df7f411dc08040442cb5d60f7fe24899fd4781790380d3cb3ad5acfa1bcaeed6",
+      "frame": 43878,
+      "local_frame": 9582,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000155.jpg",
+      "sha256": "4a1439c224922c04f8c21a8f5ec4c1091bc8a23fafb20117557ae73a817c02b2",
+      "frame": 43896,
+      "local_frame": 9600,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000156.jpg",
+      "sha256": "df7f411dc08040442cb5d60f7fe24899fd4781790380d3cb3ad5acfa1bcaeed6",
+      "frame": 43938,
+      "local_frame": 9642,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000157.jpg",
+      "sha256": "09a9f53b441091c0b6ea6f55c37124820e4039f50501744d2a7eee295025e314",
+      "frame": 43998,
+      "local_frame": 9702,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000158.jpg",
+      "sha256": "406f4e5b537c47254cc2506b6a06e1d325cbdb45234035eb02d368b5b90b3292",
+      "frame": 44058,
+      "local_frame": 9762,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000159.jpg",
+      "sha256": "664bdbbcf29133bf47ec70f26a2fbb2ca33ca308410b0bca45b78d1dc7a14649",
+      "frame": 44118,
+      "local_frame": 9822,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000160.jpg",
+      "sha256": "e12746491b4a18c5505aed1261ff5c583e4f4378b896af54f2c054aa67e3200e",
+      "frame": 44148,
+      "local_frame": 9852,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000161.jpg",
+      "sha256": "e12746491b4a18c5505aed1261ff5c583e4f4378b896af54f2c054aa67e3200e",
+      "frame": 44178,
+      "local_frame": 9882,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000162.jpg",
+      "sha256": "a78a56d67d1c0073a97634823c16b3c3bc4a46cbb1bd09336bed13885f50b9d2",
+      "frame": 44186,
+      "local_frame": 9890,
+      "reasons": [
+        "05_7 provisional phrase and three"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000163.jpg",
+      "sha256": "e12746491b4a18c5505aed1261ff5c583e4f4378b896af54f2c054aa67e3200e",
+      "frame": 44196,
+      "local_frame": 9900,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000164.jpg",
+      "sha256": "56a6248c747c06181dfa35913ca09607097558936c40708656fee73521e32b8c",
+      "frame": 44216,
+      "local_frame": 9920,
+      "reasons": [
+        "05_7 provisional phrase and three"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000165.jpg",
+      "sha256": "51d439e458c211ece68c47e59f8646bcc171954381ae355ecfa42ef964ab28df",
+      "frame": 44238,
+      "local_frame": 9942,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000166.jpg",
+      "sha256": "3c793fcbf9f798ff3d56b2a871cde337da94636792f378006440566d2aa24fbc",
+      "frame": 44246,
+      "local_frame": 9950,
+      "reasons": [
+        "05_7 provisional phrase and three"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000167.jpg",
+      "sha256": "2c7155f1e782eebcd06759af76ddb2e768620ccfac85554b9b585c4dd5929ca9",
+      "frame": 44276,
+      "local_frame": 9980,
+      "reasons": [
+        "05_7 provisional phrase and three"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000168.jpg",
+      "sha256": "7f2085d01658b0a9d8bfac0c7c0c43cbd0385ea08496c53beb3b8348f1fa4fc2",
+      "frame": 44298,
+      "local_frame": 10002,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000169.jpg",
+      "sha256": "2bfaf94d84926ca3814f5f6ee88f79c6d19a9e28ac47241336b3278dfede0fde",
+      "frame": 44358,
+      "local_frame": 10062,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000170.jpg",
+      "sha256": "630a21df0a6a0574c32bb9f9fb3d761a08484115d3c09dfd5409fbc7ea8cbb2a",
+      "frame": 44418,
+      "local_frame": 10122,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000171.jpg",
+      "sha256": "6b7644b66926b6069e42a74d3187ff5a01bca8812082c3565a38c75a46be5bce",
+      "frame": 44448,
+      "local_frame": 10152,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000172.jpg",
+      "sha256": "27dfaf4c83b2b6e8872d7662f7a7068157874640cf0ae0fc9eab9dbeef716d9b",
+      "frame": 44478,
+      "local_frame": 10182,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000173.jpg",
+      "sha256": "21007e5971583934151e7c5871a6656e78da2a2e0a7e97e8af2dbf514eb0b33a",
+      "frame": 44496,
+      "local_frame": 10200,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000174.jpg",
+      "sha256": "d97f63b7fe89ce198919ee066cc9818f5cc3b4ad8ec56149281f8da54ecd4140",
+      "frame": 44538,
+      "local_frame": 10242,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000175.jpg",
+      "sha256": "a0fa06eddb8ccabdde4d62e56e1ae9843bd7ed0407d7226e94d9d60641929e3f",
+      "frame": 44598,
+      "local_frame": 10302,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000176.jpg",
+      "sha256": "a0fa06eddb8ccabdde4d62e56e1ae9843bd7ed0407d7226e94d9d60641929e3f",
+      "frame": 44658,
+      "local_frame": 10362,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000177.jpg",
+      "sha256": "caf9d6bb159034a07d87617d322469439ce511a652bbac68306ce0c319d32ff6",
+      "frame": 44718,
+      "local_frame": 10422,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000178.jpg",
+      "sha256": "188a724ca3237bd1ac01d42ee4e5a656958ff6aa2e10894e840b1392cd99d9ef",
+      "frame": 44748,
+      "local_frame": 10452,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000179.jpg",
+      "sha256": "2d6deb342d6cec6439908181ba5990f31bcd50da693071a2c5a3584a22258438",
+      "frame": 44778,
+      "local_frame": 10482,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000180.jpg",
+      "sha256": "0439db025debc56db623cc16b98a039860d0c97ba0a550f39cc0be6879e5d017",
+      "frame": 44796,
+      "local_frame": 10500,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000181.jpg",
+      "sha256": "93ac05e019e54ef8e2416723fb3749110efdd96051a8c9ca5b06f36f21a65c6f",
+      "frame": 44838,
+      "local_frame": 10542,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000182.jpg",
+      "sha256": "93ac05e019e54ef8e2416723fb3749110efdd96051a8c9ca5b06f36f21a65c6f",
+      "frame": 44898,
+      "local_frame": 10602,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000183.jpg",
+      "sha256": "93ac05e019e54ef8e2416723fb3749110efdd96051a8c9ca5b06f36f21a65c6f",
+      "frame": 44958,
+      "local_frame": 10662,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000184.jpg",
+      "sha256": "93ac05e019e54ef8e2416723fb3749110efdd96051a8c9ca5b06f36f21a65c6f",
+      "frame": 45018,
+      "local_frame": 10722,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000185.jpg",
+      "sha256": "bb19d57710fee573d305d2319fbcc149453c3c1a137cded9c2f2fd665882616e",
+      "frame": 45048,
+      "local_frame": 10752,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000186.jpg",
+      "sha256": "7c27ac7dc32db5209427fa8832bd28f8e593a9b4296620dbd89fbe843ae12cfc",
+      "frame": 45078,
+      "local_frame": 10782,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000187.jpg",
+      "sha256": "3e981425b9c6aef03a790a95af232a20cc7e69bc071cdb3192d3f4faf83b32ed",
+      "frame": 45096,
+      "local_frame": 10800,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000188.jpg",
+      "sha256": "609d3a220b430d46805b0c7048667b61f01a6b5bf58d4ff8461ab31cad0562ca",
+      "frame": 45138,
+      "local_frame": 10842,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000189.jpg",
+      "sha256": "609d3a220b430d46805b0c7048667b61f01a6b5bf58d4ff8461ab31cad0562ca",
+      "frame": 45198,
+      "local_frame": 10902,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000190.jpg",
+      "sha256": "ec2582be877cb38380b081be726ffef4023e018d15dcd9fef89255f03e884a99",
+      "frame": 45258,
+      "local_frame": 10962,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000191.jpg",
+      "sha256": "10db55548a2b209f3c23ba21734d4e27795f503f204ecbde14a42ffbf525cd5d",
+      "frame": 45318,
+      "local_frame": 11022,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000192.jpg",
+      "sha256": "10db55548a2b209f3c23ba21734d4e27795f503f204ecbde14a42ffbf525cd5d",
+      "frame": 45348,
+      "local_frame": 11052,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000193.jpg",
+      "sha256": "10db55548a2b209f3c23ba21734d4e27795f503f204ecbde14a42ffbf525cd5d",
+      "frame": 45378,
+      "local_frame": 11082,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000194.jpg",
+      "sha256": "10db55548a2b209f3c23ba21734d4e27795f503f204ecbde14a42ffbf525cd5d",
+      "frame": 45396,
+      "local_frame": 11100,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000195.jpg",
+      "sha256": "10db55548a2b209f3c23ba21734d4e27795f503f204ecbde14a42ffbf525cd5d",
+      "frame": 45438,
+      "local_frame": 11142,
+      "reasons": [
+        "05_7 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000196.jpg",
+      "sha256": "3de6eacf7a8e3c252fd15c0a95faa35de8671bcec852ea863be3481b4c434980",
+      "frame": 45459,
+      "local_frame": 11163,
+      "reasons": [
+        "05_7 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000197.jpg",
+      "sha256": "10db55548a2b209f3c23ba21734d4e27795f503f204ecbde14a42ffbf525cd5d",
+      "frame": 45460,
+      "local_frame": 11164,
+      "reasons": [
+        "05_7 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000198.jpg",
+      "sha256": "972cceb637aae0fa66899e85cb30e602daef475020359bea7a4750f88ac93e9e",
+      "frame": 45461,
+      "local_frame": 11165,
+      "reasons": [
+        "05_7 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000199.jpg",
+      "sha256": "5bf7893d75b1b71e515aeab6dcc2f4dcdfdf9ca6796dcccc6815d86c924c7f10",
+      "frame": 45495,
+      "local_frame": 11199,
+      "reasons": [
+        "05_8 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000200.jpg",
+      "sha256": "f48b1c84fa69a63ae5fe1c4666dbe067319c95ab8b30b49bc745091cc9b9817c",
+      "frame": 45496,
+      "local_frame": 11200,
+      "reasons": [
+        "05_8 start",
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000201.jpg",
+      "sha256": "1b1c175a05006b5b70cac80f608696ebd141523e95f492b8401a1d8ef8113dca",
+      "frame": 45526,
+      "local_frame": 11230,
+      "reasons": [
+        "05_8 opening"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000202.jpg",
+      "sha256": "8e7fc688851a20232e3022498d847cf9a150ed168210e1045d20e1ee1901f789",
+      "frame": 45556,
+      "local_frame": 11260,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000203.jpg",
+      "sha256": "f3b1baeeae4feaa32cca816405d2c86c31d70edf4a49d9741098c05b78fc7a02",
+      "frame": 45616,
+      "local_frame": 11320,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000204.jpg",
+      "sha256": "aed965b114511559f38293c9e094ff819c3bb94118d7ca880835eb95dd805456",
+      "frame": 45648,
+      "local_frame": 11352,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000205.jpg",
+      "sha256": "f3b1baeeae4feaa32cca816405d2c86c31d70edf4a49d9741098c05b78fc7a02",
+      "frame": 45676,
+      "local_frame": 11380,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000206.jpg",
+      "sha256": "aed965b114511559f38293c9e094ff819c3bb94118d7ca880835eb95dd805456",
+      "frame": 45696,
+      "local_frame": 11400,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000207.jpg",
+      "sha256": "f3b1baeeae4feaa32cca816405d2c86c31d70edf4a49d9741098c05b78fc7a02",
+      "frame": 45736,
+      "local_frame": 11440,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000208.jpg",
+      "sha256": "6c6eddb1d3ba9b174ce59403abecf8168cbf1c1b3693d3990260e0d56c4f6d04",
+      "frame": 45796,
+      "local_frame": 11500,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000209.jpg",
+      "sha256": "bee329d8daca2c11738a708a8055c22c09a7cc98349a437effc51f7808c96e58",
+      "frame": 45856,
+      "local_frame": 11560,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000210.jpg",
+      "sha256": "354dcae49107076e7b63a3bdb7006aaf29bf9d844412f58f0eb980e88d6efff0",
+      "frame": 45916,
+      "local_frame": 11620,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000211.jpg",
+      "sha256": "156271170654d0aa6eb6ed1e5f3cb010099d29cd9702a12469b86caabeaf212b",
+      "frame": 45948,
+      "local_frame": 11652,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000212.jpg",
+      "sha256": "4a91812552aa644d300b4c5b9beaf3ab0d626b4f0de718f109f871aa49e0af7e",
+      "frame": 45976,
+      "local_frame": 11680,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000213.jpg",
+      "sha256": "774aec4190e5347730cab1fb42622ea5f0c965cbc73c5d045e9877e1357f214d",
+      "frame": 45996,
+      "local_frame": 11700,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000214.jpg",
+      "sha256": "3e424dc9ec87f4432e4bdffb66b20f06d530eea844ab2bd8700d440291140ebc",
+      "frame": 46036,
+      "local_frame": 11740,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000215.jpg",
+      "sha256": "41c238683a72b40a94dd7ca998b5e26d206906b0f2f109b93f1c0cd6810c8136",
+      "frame": 46096,
+      "local_frame": 11800,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000216.jpg",
+      "sha256": "b6c6fbc36c291c7f96a87a2697d6256048b206875c484775e79b983b07b0706a",
+      "frame": 46156,
+      "local_frame": 11860,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000217.jpg",
+      "sha256": "bb2a1a6af0a18b430d7c58baad7f3756e477d276aa4524ecae46d199f360a059",
+      "frame": 46216,
+      "local_frame": 11920,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000218.jpg",
+      "sha256": "d698709ffd37bbad90e94e6a1710797945bdcd68cd7a0d92ed938e492dbf1585",
+      "frame": 46248,
+      "local_frame": 11952,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000219.jpg",
+      "sha256": "0fbf776d3b1696c5d9ce131447d62e15e8045f5f57d8ac642dede3b3a83d18e8",
+      "frame": 46276,
+      "local_frame": 11980,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000220.jpg",
+      "sha256": "81584194bd8e18458809b95ec16f52be9c20a90e3de33444d588c655e493aa12",
+      "frame": 46296,
+      "local_frame": 12000,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000221.jpg",
+      "sha256": "941233525653701cb8063e6732326af1f79b9e1e4ab55a8f1c68d69eacc8487b",
+      "frame": 46336,
+      "local_frame": 12040,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000222.jpg",
+      "sha256": "e33ca7c8707ae4b64ee295c64bed8539b298888cd02c6af3f41112af9782ebe2",
+      "frame": 46396,
+      "local_frame": 12100,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000223.jpg",
+      "sha256": "06f7d9d5df9878a6039437419635c9bf77a16735536b9ff2efdd8b8bd9de666c",
+      "frame": 46456,
+      "local_frame": 12160,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000224.jpg",
+      "sha256": "7406815d907065a1fca08b7fc73db56ccd64d82b2fa98985e0c7962656a2189a",
+      "frame": 46516,
+      "local_frame": 12220,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000225.jpg",
+      "sha256": "0bc8a9df724d2a354821c1ef7f06aceb08862e175f505bb4ce877a19cc854519",
+      "frame": 46548,
+      "local_frame": 12252,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000226.jpg",
+      "sha256": "fce8423480037ea4a852647b84a1bda9c503eb02c3af79652b1c2cdb0562bc3a",
+      "frame": 46576,
+      "local_frame": 12280,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000227.jpg",
+      "sha256": "1e305854c5e0f779454c59a9c40f7ca07bd4024b154c01663098724edacd8735",
+      "frame": 46596,
+      "local_frame": 12300,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000228.jpg",
+      "sha256": "03250a0a3b9746370ef624bfc36bae4838276f4a9996d68316c0a428d8bbad2a",
+      "frame": 46636,
+      "local_frame": 12340,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000229.jpg",
+      "sha256": "7281193c4221acce2b58bff29a1f6b9d9071cfa5aaadf548b66edda9b2941148",
+      "frame": 46696,
+      "local_frame": 12400,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000230.jpg",
+      "sha256": "9ecb265ad8528b7105ac167aed8aa8193908e07d92cff88a6066891ea0d525f1",
+      "frame": 46756,
+      "local_frame": 12460,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000231.jpg",
+      "sha256": "08dacddce60172175bb6fb7cac212147371398c8e8c962567cee84f255f026c5",
+      "frame": 46816,
+      "local_frame": 12520,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000232.jpg",
+      "sha256": "1e305854c5e0f779454c59a9c40f7ca07bd4024b154c01663098724edacd8735",
+      "frame": 46848,
+      "local_frame": 12552,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000233.jpg",
+      "sha256": "9875edda5ca65c0c7b4917ce4b532716b5e4a800affa26a6f1f30f78d6961658",
+      "frame": 46876,
+      "local_frame": 12580,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000234.jpg",
+      "sha256": "2cf78612b3a28e62a7723c33f431efd79cd476c568a7bbbe181a96e319026f2a",
+      "frame": 46896,
+      "local_frame": 12600,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000235.jpg",
+      "sha256": "3900198413599f67047b9c44b0b56eaa427a988b47d26ce851e0a0241048e063",
+      "frame": 46936,
+      "local_frame": 12640,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000236.jpg",
+      "sha256": "bad14b5d624e86c148a30e3fb50516ec8e2495d864829abf08b40b2e4275084a",
+      "frame": 46996,
+      "local_frame": 12700,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000237.jpg",
+      "sha256": "8601f526c8277ea1b497672d35bf1a5586fceeb103231860e8d4807768e4851c",
+      "frame": 47056,
+      "local_frame": 12760,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000238.jpg",
+      "sha256": "727b6e72f23d1254c59898d484d6d51a640f887f65821fcdcb486720c345c3c8",
+      "frame": 47116,
+      "local_frame": 12820,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000239.jpg",
+      "sha256": "874a10dd5fca0af6941fe6ceb844819934aca25fee178ed1ef59cf21fa02a6af",
+      "frame": 47148,
+      "local_frame": 12852,
+      "reasons": [
+        "lint 05_1 +9.2s @9.2s\toverlap\t\"column 100: 0.000\" and \"column 100: 0.000\" overlap (100% of the smaller) (still there at 3 later looks) nonconsecutive persistence5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000240.jpg",
+      "sha256": "134e6c54d163a6f004e28d58c76ab8e31c62fec33c15def67887b5f8aee1cc6a",
+      "frame": 47176,
+      "local_frame": 12880,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000241.jpg",
+      "sha256": "129d88787dcdf13a1f1cba7b1e448e7e5d2770f143f2851fed97553a17761415",
+      "frame": 47196,
+      "local_frame": 12900,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000242.jpg",
+      "sha256": "ee7adff8a216e4746655fd4c911cce0440c7608615618cc7208a67462d9f794c",
+      "frame": 47236,
+      "local_frame": 12940,
+      "reasons": [
+        "05_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000243.jpg",
+      "sha256": "187e2e61b67241ae6f1fb0a190d53b6475c87455c29d0102b015bd2448b97edf",
+      "frame": 47247,
+      "local_frame": 12951,
+      "reasons": [
+        "05_8 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000244.jpg",
+      "sha256": "63ad00faeba5c3a6450f0677f21d918ffa5d6651f66e9c06bb7ad775e43f8172",
+      "frame": 47248,
+      "local_frame": 12952,
+      "reasons": [
+        "05_8 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000245.jpg",
+      "sha256": "bd270f522cac879cf4109742c6393cd93e9df2fc420c9b9437cba9966ae5d8ec",
+      "frame": 47249,
+      "local_frame": 12953,
+      "reasons": [
+        "05_8 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/pictures/frame-000246.jpg",
+      "sha256": "565fbde636c21a04a4af741855137d4fd8f61e3fa1cc80fcb3179094461e10b6",
+      "frame": 47283,
+      "local_frame": 12987,
+      "reasons": [
+        "chapter last"
+      ]
+    }
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-001.jpg",
+      "sha256": "fe9ec876db2d2106d4a76d665617bdf0d2d675973c4f942260b9a151b617ecd9",
+      "frames": [
+        34296,
+        34331,
+        34332,
+        34362,
+        34596,
+        34847,
+        34848,
+        34860
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-002.jpg",
+      "sha256": "4d9a5a0813b5ec3a12612f8f8c4015e7d9f02606d3f5937114c46e1c832c1003",
+      "frames": [
+        34872,
+        34884,
+        34896,
+        34908,
+        34920,
+        34932,
+        34944,
+        34956
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-003.jpg",
+      "sha256": "5219bc5d746eb67e2445538d5f0215adad95a317c8495f3da1ca31892bcb0379",
+      "frames": [
+        34968,
+        35004,
+        35148,
+        35196,
+        35448,
+        35496,
+        35748,
+        35796
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-004.jpg",
+      "sha256": "5661c3df9a69337b33d531163af8e72c1e7d057988bfed9bdf7635d813f73472",
+      "frames": [
+        35968,
+        35969,
+        35970,
+        36004,
+        36005,
+        36006,
+        36035,
+        36048
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-005.jpg",
+      "sha256": "cbf58dfbfc138ddf78feca71f06624d26569cfd44917a7e0ce07b17554261875",
+      "frames": [
+        36065,
+        36095,
+        36096,
+        36125,
+        36155,
+        36185,
+        36215,
+        36244
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-006.jpg",
+      "sha256": "a3500614b0f6e9001d43faea0b1cc80bb75ab078e46e6d7ccf2873fad8a311c6",
+      "frames": [
+        36245,
+        36246,
+        36262,
+        36263,
+        36293,
+        36348,
+        36396,
+        36648
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-007.jpg",
+      "sha256": "5aa18be6b099531d9014ee0969222b9e884a5ce8df6cbf0f788cf55553f31be1",
+      "frames": [
+        36696,
+        36948,
+        36996,
+        37248,
+        37296,
+        37548,
+        37596,
+        37793
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-008.jpg",
+      "sha256": "f5dfaba88cf76d7ba0b8eb17e33a4d6b57949841f37280e35150f2e4ef5dcfd6",
+      "frames": [
+        37794,
+        37795,
+        37830,
+        37831,
+        37848,
+        37861,
+        37896,
+        38148
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-009.jpg",
+      "sha256": "6a23653575c4e80852db385b21e2cf2f76e7483c7e4c56c091ee72e4dfa27023",
+      "frames": [
+        38196,
+        38253,
+        38283,
+        38313,
+        38343,
+        38448,
+        38496,
+        38748
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-010.jpg",
+      "sha256": "f6f02405bcadacef6af36f11d8ca4582c50d6f77046c0ff5b6b4ee68c5d1f972",
+      "frames": [
+        38796,
+        39048,
+        39096,
+        39348,
+        39396,
+        39648,
+        39696,
+        39736
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-011.jpg",
+      "sha256": "9f96f817317926714c8f4b7b246a8c729ebbce744b276448c28205db9c756d06",
+      "frames": [
+        39737,
+        39738,
+        39772,
+        39773,
+        39803,
+        39833,
+        39893,
+        39948
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-012.jpg",
+      "sha256": "33f2e09537b94c2352c095b81f94658647f1543b6096de9285809e2815659f2c",
+      "frames": [
+        39953,
+        39996,
+        40013,
+        40073,
+        40133,
+        40193,
+        40248,
+        40253
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-013.jpg",
+      "sha256": "c1923ae7345ecdfaec25ead33aa8da2dbb819e789c788bd5f2f5088171d9a5b3",
+      "frames": [
+        40296,
+        40313,
+        40373,
+        40433,
+        40493,
+        40548,
+        40553,
+        40596
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-014.jpg",
+      "sha256": "20c1a52fc7c3b306ad43c9031942aa6332f620e55b56cd8f73c86b0863478c9d",
+      "frames": [
+        40613,
+        40673,
+        40733,
+        40793,
+        40847,
+        40848,
+        40849,
+        40884
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-015.jpg",
+      "sha256": "7189fa6284d2fbd1117e130e4851d353dc16a01794614f9a65b1c0dbbdee0b98",
+      "frames": [
+        40885,
+        40896,
+        40915,
+        41031,
+        41061,
+        41091,
+        41121,
+        41148
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-016.jpg",
+      "sha256": "8b67f43e589d106c4bcbb734dc7e93d81503b61ca6989eb97f60be2959a1b285",
+      "frames": [
+        41196,
+        41448,
+        41496,
+        41697,
+        41727,
+        41748,
+        41757,
+        41787
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-017.jpg",
+      "sha256": "a9cad322ac929026264b380fc65d711860b8e2b6164d3d4311c16843c4085218",
+      "frames": [
+        41796,
+        42048,
+        42096,
+        42113,
+        42114,
+        42115,
+        42149,
+        42150
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-018.jpg",
+      "sha256": "7c688239407224ba8b7c0cf7d3257ed8478fc4bfd29667c0be424819b50a2dd3",
+      "frames": [
+        42180,
+        42348,
+        42396,
+        42648,
+        42696,
+        42948,
+        42996,
+        43248
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-019.jpg",
+      "sha256": "4e76dff236228fc7dacea8f1dcbf318eb1f3c91b5aadc9dd68682af23cb0458f",
+      "frames": [
+        43296,
+        43548,
+        43596,
+        43781,
+        43782,
+        43783,
+        43817,
+        43818
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-020.jpg",
+      "sha256": "c31ac1219eb78f927ec3e647456f18759a428a46fdd193a33577da24367655e0",
+      "frames": [
+        43848,
+        43878,
+        43896,
+        43938,
+        43998,
+        44058,
+        44118,
+        44148
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-021.jpg",
+      "sha256": "c1085c619b383b0613329690ee047bec0f7254819bf83c6b113932ff013e2891",
+      "frames": [
+        44178,
+        44186,
+        44196,
+        44216,
+        44238,
+        44246,
+        44276,
+        44298
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-022.jpg",
+      "sha256": "79fd7d94ea08746d70f143f6612a0529fc292ea1724771e22d45fd260d22035e",
+      "frames": [
+        44358,
+        44418,
+        44448,
+        44478,
+        44496,
+        44538,
+        44598,
+        44658
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-023.jpg",
+      "sha256": "24b8d986964d2fd984d499fe24a28ad19c11e5ec9869efd07a4daf2dcf5b17f4",
+      "frames": [
+        44718,
+        44748,
+        44778,
+        44796,
+        44838,
+        44898,
+        44958,
+        45018
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-024.jpg",
+      "sha256": "b749cf6b4438eb05d5d94a0b37106c5ef158e6392e60c3d613d6adb9db0ffdb0",
+      "frames": [
+        45048,
+        45078,
+        45096,
+        45138,
+        45198,
+        45258,
+        45318,
+        45348
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-025.jpg",
+      "sha256": "7a1f0de56728fa6c1e4acee655cfd4da3476b79932a315fc0e1ff95e64b9ee92",
+      "frames": [
+        45378,
+        45396,
+        45438,
+        45459,
+        45460,
+        45461,
+        45495,
+        45496
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-026.jpg",
+      "sha256": "9f68cc3c8c6703dede01a6cd373bc516553c545994dc753021b321b4e7020886",
+      "frames": [
+        45526,
+        45556,
+        45616,
+        45648,
+        45676,
+        45696,
+        45736,
+        45796
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-027.jpg",
+      "sha256": "4c3a60ccf529ccc39936b998d17c949a094ad254f4589797d0a5acb5af30534a",
+      "frames": [
+        45856,
+        45916,
+        45948,
+        45976,
+        45996,
+        46036,
+        46096,
+        46156
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-028.jpg",
+      "sha256": "38d470fc44965dde1e4a504b7b2fd0859c712f6b03b5ac40e7560bcc71b44789",
+      "frames": [
+        46216,
+        46248,
+        46276,
+        46296,
+        46336,
+        46396,
+        46456,
+        46516
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-029.jpg",
+      "sha256": "8d83a8bf0525fa002ec868626b1de6220c05ed5f584571fe5cf199424cc0895e",
+      "frames": [
+        46548,
+        46576,
+        46596,
+        46636,
+        46696,
+        46756,
+        46816,
+        46848
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-030.jpg",
+      "sha256": "e9473303eaf0d034281b38f834f258a4e9c98085c61627081b3a4e3d84225535",
+      "frames": [
+        46876,
+        46896,
+        46936,
+        46996,
+        47056,
+        47116,
+        47148,
+        47176
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-05_whole_sum/sheets/sheet-031.jpg",
+      "sha256": "7b61b0996f00c3d00eb9258ca13de6771135ccfafbade4714c39dbb92c67ca36",
+      "frames": [
+        47196,
+        47236,
+        47247,
+        47248,
+        47249,
+        47283
+      ]
+    }
+  ],
+  "samples": 246,
+  "source": {
+    "chapter": "05_whole_sum",
+    "offset_frames": 34296,
+    "frames": 12988,
+    "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-05_whole_sum/pictures985.json",
+    "seed_sha256": "07b8e66ef9c694b653b8e370fa8c89fd1fe179887646cb800d76be5c1fc12eca",
+    "samples": 246
+  },
+  "extract_source": {
+    "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/05_whole_sum.mp4",
+    "sha256": "bf735cb235b1805d064659ba729898da555cc4aca10d5900df104cc40842374c",
+    "offset_frames": 34296,
+    "frames": 12988,
+    "framehash_sha256": "745d3c6e86eede5c74af2aed9c0a6a5963b41f2873f2de733d68d8a36938c689",
+    "master_video_framehash_sha256": "13a0b6c7c907c360419cb1317b1b86fdcbe48013e43e9be2f110e36984b280f1"
+  },
+  "stream": {
+    "matched": {
+      "codec_name": "h264",
+      "profile": "High",
+      "pix_fmt": "yuv420p",
+      "color_range": "tv",
+      "color_space": "bt709",
+      "chroma_location": "left",
+      "width": 3840,
+      "height": 2160,
+      "r_frame_rate": "60/1",
+      "field_order": "progressive",
+      "bits_per_raw_sample": "8"
+    },
+    "tags": {
+      "source": {
+        "color_transfer": null,
+        "color_primaries": null
+      },
+      "master": {
+        "color_transfer": "bt709",
+        "color_primaries": "bt709"
+      }
+    }
+  },
+  "verification_sha256": "6c273f16974dd3ac0f0363722be9ef308ed4f58a3d5809837acb3aaaf47f7909",
+  "verification_receipt_sha256": "e1d1b4d2ef1472a55d5e27f9ade60d71ce5a60235162122c04bbe38ef7183c8b",
+  "verification_inputs_sha256": "5d45eac1c04c351ffdba66ca1ee97a88dc8536978a94e0a4928dc1c51189aa41",
+  "verify_helper_sha256": "d96795c42ac8826aa7a00e568f307e473cd05a529848f85a7b653ce75e7232c1",
+  "scope": "All selected985 frames at their joined-master frame numbers, extracted from each chapter file whose decoded frames verification1005 proved identical to that master slice (re-proved here from the bound framehash files); images unviewed. No listening, fine-sync or publication acceptance."
+}

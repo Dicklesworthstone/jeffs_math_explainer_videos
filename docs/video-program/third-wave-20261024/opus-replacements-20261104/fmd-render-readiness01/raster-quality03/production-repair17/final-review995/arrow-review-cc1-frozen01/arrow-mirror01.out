@@ -1,0 +1,33 @@
+lp.p(0) = (5.6, 0.0)  lp.p(polar(0.8,0.9)) = (5.910804984135332, 0.39166345481374165)  requested length = 0.5000000000000001
+ring radius 0.500000, stroke occupies r in [0.4800, 0.5200]
+ring centre tile px (858.0, 270.0)
+
+=== buff 0.25 ===
+key_dimensions(length - buff = 0.2500): width 0.02500  tip_width 0.12500  tip_length 0.10825
+trimmed start (5.755402492067666, 0.19583172740687077) trimmed end (5.755402492067666, 0.19583172740687088)
+trimmed vect (0.0, 1.1102230246251565e-16) trimmed length 1.110e-16
+shaft length (trimmed length - tip_length) = -0.10825
+arrow_vector before rotation (apex - arrow_start) = (-1.1102230246251565e-16, 0.0)
+rotation applied -90.0000 deg
+apex at r = 0.25000 (ring centreline 0.50000)  shaft back edge centre at r = 0.25000
+apex tile px (868.5, 256.8); head base centre tile px (868.5, 264.1)
+visual head direction 90.00 deg (requested radius direction 51.57 deg)
+head 7.3 x 8.4 tile px (29.2 x 33.8 px at 4K); shaft width 1.7 tile px (6.8 px at 4K)
+apex stays 0.2300 units inside the ring band (62.1 px at 4K)
+winding at shaft centre (-0.0541, 0.0) = 0
+winding at head flank (-0.0271, 0.0375) = 1
+
+=== buff 0.00 ===
+key_dimensions(length - buff = 0.5000): width 0.04500  tip_width 0.22500  tip_length 0.19486
+trimmed start (5.6, 0.0) trimmed end (5.910804984135332, 0.39166345481374165)
+trimmed vect (0.3108049841353324, 0.39166345481374165) trimmed length 5.000e-01
+shaft length (trimmed length - tip_length) = 0.30514
+arrow_vector before rotation (apex - arrow_start) = (-0.5000000000000001, 0.0)
+rotation applied -128.4338 deg
+apex at r = 0.50000 (ring centreline 0.50000)  shaft back edge centre at r = 0.00000
+apex tile px (879.0, 243.6); head base centre tile px (870.8, 253.9)
+visual head direction 51.57 deg (requested radius direction 51.57 deg)
+head 13.2 x 15.2 tile px (52.6 x 60.7 px at 4K); shaft width 3.0 tile px (12.2 px at 4K)
+apex enters the ring band by 0.0200 units (5.4 px at 4K, 1.4 tile px); head half-width at the band's inner edge 0.0115 units (3.1 px at 4K); ring band beyond apex 0.0200 units (5.4 px at 4K)
+winding at shaft centre (0.1526, 0.0) = 1
+winding at head flank (-0.0487, 0.0675) = 1

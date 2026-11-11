@@ -1,0 +1,37 @@
+{
+  "time": "2026-11-10T21:48:37.468533+00:00",
+  "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/d7bac370-73e2-4cb6-88cf-606d6a161b39/scratchpad/final995-cc2-boundary-candidate03",
+  "files": [
+    {
+      "name": "boundary.rs",
+      "sha256": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932",
+      "bytes": 91874
+    },
+    {
+      "name": "candidate01-to-candidate03.patch",
+      "sha256": "168a0434236b385b857de7790a4d602f2247a4f4591ac2d4e22bca8263b2b057",
+      "bytes": 13033
+    },
+    {
+      "name": "candidate03.patch",
+      "sha256": "9cf0d3d84f17005616296699527268ae0da615f08b38b2bf0b286072fa5c3ed3",
+      "bytes": 19890
+    },
+    {
+      "name": "candidate03_checks.py",
+      "sha256": "c9df85a43307bef6a819977447f1bf5e163a8a201765a9a0d786eb1f47de4282",
+      "bytes": 20384
+    },
+    {
+      "name": "handoff.md",
+      "sha256": "e43a7153d7edcc4ba9e26168bbd93544bfd6c0137431a375ee99ff9fb60f4452",
+      "bytes": 10560
+    },
+    {
+      "name": "receipt.json",
+      "sha256": "505159e6aedcd2c943f7c3a6592ecd7b222885c19427aa4b91bbe209e1a087f0",
+      "bytes": 1397
+    }
+  ],
+  "native_acceptance": false
+}

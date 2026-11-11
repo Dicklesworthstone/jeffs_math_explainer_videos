@@ -1,0 +1,32 @@
+{
+  "chapter": "09_boundary",
+  "utc": "2026-11-11T09:04:38.606184+00:00",
+  "movie_sha256": "9bd25b6b5d18716db6581edcf8f1d6e85a7c27c429eaf984f1e7775a259120eb",
+  "extraction_sha256": "f3e088c6e13b24f7a18a49f48bd8187df66be0cb32dfece5ec313decc27c0182",
+  "source_sha256": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932",
+  "concrete_defects": [],
+  "safe_to_advance_to_master": true,
+  "listening": false,
+  "fine_sync_acceptance": false,
+  "independent_whole_film_av_acceptance": false,
+  "review_route": "independent-complete-root-targeted",
+  "independent_review": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native-final4k-review1006-09-boundary-independent.json",
+    "sha256": "73065d8a7aa291c005a08b421403c8a3db17a5d82795b4842675cd9a8b7e6de4"
+  },
+  "extraction_record": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-09-boundary/pictures.json",
+    "sha256": "f3e088c6e13b24f7a18a49f48bd8187df66be0cb32dfece5ec313decc27c0182"
+  },
+  "coverage": {
+    "root_whole_chapter_review": false,
+    "independent_selected_frames": 1506,
+    "author_selected_frames": 0,
+    "current_root_targeted_sheets": [
+      1,
+      189
+    ],
+    "complete_reviewer_and_decision_maker_same_person": true
+  },
+  "scope": "Root targeted decision binds its own completed1506-picture review. Same person fills complete-review and decision roles; independent only of WhiteSwan repair authorship. No additional reviewer or whole-film audiovisual independence implied."
+}

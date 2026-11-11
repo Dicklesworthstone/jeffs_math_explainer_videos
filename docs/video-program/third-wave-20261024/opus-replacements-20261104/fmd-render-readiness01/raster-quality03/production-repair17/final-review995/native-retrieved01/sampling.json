@@ -1,0 +1,2053 @@
+{
+  "version": "995",
+  "part": "native",
+  "parts": [
+    "overview",
+    "native"
+  ],
+  "plan_sha256": "5d66f8ff6891bc5e4040cabf73210bd7cdb3a0eb01c6fe7c27a561e0f2e219b9",
+  "growth_upper_bytes": 3252158464,
+  "union": {
+    "parts": [
+      "overview",
+      "native"
+    ],
+    "plan_sha256": "5d66f8ff6891bc5e4040cabf73210bd7cdb3a0eb01c6fe7c27a561e0f2e219b9",
+    "samples": 8351,
+    "natives": 128,
+    "frames_and_reasons_equal_plan": true,
+    "overview_sampling_sha256": "c211e7d571a9ddd67f655c9b5070ff568555723b4e30f92891ee224b4b64626f"
+  },
+  "master_sha256": "80244e88ca5970d0da07a5d96d6d825ae1851bae703d75bd200f8810b04e7b90",
+  "frames": 133662,
+  "chapters": [
+    {
+      "chapter": "01_the_bump",
+      "kind": "combined",
+      "start_frame": 0,
+      "frames": 6311,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "150147fe5bc7cdb0a111061c4530a16b104d196e004ae29bcf210d1c9c32ac81"
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "kind": "retained",
+      "start_frame": 6311,
+      "frames": 5372,
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "timeline_sha256": "06b60e54827aa8ae7f947a2a55ec7f172493e0602d9ad42cd2640985ba485978"
+    },
+    {
+      "chapter": "03_two_planes",
+      "kind": "retained",
+      "start_frame": 11683,
+      "frames": 7249,
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "timeline_sha256": "2e46c6eb6deb4943f72dc24e6434e667f35d761cf5ab2539ac4b6547d3032ebc"
+    },
+    {
+      "chapter": "04_reading_color",
+      "kind": "combined",
+      "start_frame": 18932,
+      "frames": 6774,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "616e04e34911cf07a4033c753358950973908fe09912a8ab8c0e68895d770153"
+    },
+    {
+      "chapter": "05_gallery",
+      "kind": "combined",
+      "start_frame": 25706,
+      "frames": 9879,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "efd34557e7fa2b648f590f88ad25e51802cddeb65efbe5c7d96218b0e6e1abcd"
+    },
+    {
+      "chapter": "06_one_derivative",
+      "kind": "combined",
+      "start_frame": 35585,
+      "frames": 10030,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "f121a1b9d4d26b8e07a008f49989d41a6413e3afe27dbc67bcf479684802f48e"
+    },
+    {
+      "chapter": "07_one_point",
+      "kind": "combined",
+      "start_frame": 45615,
+      "frames": 6491,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "fd2d39ce02d8c2b71e3ebd94cf3550c26962f8ea45c5885c2eeec49e4431402b"
+    },
+    {
+      "chapter": "08_loop_sums",
+      "kind": "combined",
+      "start_frame": 52106,
+      "frames": 14959,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "43c8bab2f7ca61c8692e0f1686798d54e187dcfeeab0d03311c2d4c9a5f54812"
+    },
+    {
+      "chapter": "09_boundary",
+      "kind": "native844",
+      "start_frame": 67065,
+      "frames": 16504,
+      "binary_sha256": "e75258731b1786ae3182ef9eb21a7903a9e6c0bed6242413335f7dd233955384",
+      "timeline_sha256": "5a91b8f9e2e5b5d6223a49285c06039b1b43bd16c11cecdd163a8e2e545baa9e"
+    },
+    {
+      "chapter": "10_rigidity",
+      "kind": "native521",
+      "start_frame": 83569,
+      "frames": 7442,
+      "binary_sha256": "5b77a1c8a33a41bab3c3987c9d4f40797bb6a6f1a76bbb57f1ab562ae9960312",
+      "timeline_sha256": "99fd22e62d5c6e53104ec3c622135d0748c3dc68e375141d3da4a38114d5860b"
+    },
+    {
+      "chapter": "11_counting",
+      "kind": "combined",
+      "start_frame": 91011,
+      "frames": 11932,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "29a3afd345fa3a376e5c163d5bf5e01267a866e2305bdd27c6413a5bab46807d"
+    },
+    {
+      "chapter": "12_residues",
+      "kind": "combined",
+      "start_frame": 102943,
+      "frames": 3943,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "a3a8fc654b60d30ac9337dde60a65efe65c91eaccc11775a3f46d35ef5173a99"
+    },
+    {
+      "chapter": "13_real_integral",
+      "kind": "retained",
+      "start_frame": 106886,
+      "frames": 10641,
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "timeline_sha256": "819ffec50efd82df351a6f900eb1d70cc3a5a50cfda6e2767bb7f819bee0a847"
+    },
+    {
+      "chapter": "14_continuation",
+      "kind": "combined",
+      "start_frame": 117527,
+      "frames": 11756,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "49904e2f2b355bbd7fbc9df9cf567d5856f9cd0832dc15e30ec076ec2746e74a"
+    },
+    {
+      "chapter": "15_closing",
+      "kind": "retained",
+      "start_frame": 129283,
+      "frames": 4379,
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "timeline_sha256": "68d61237abc06fed1b1f9b98928fa8245b0fe2f49c0f6ae80eb8863c79b1b9dd"
+    }
+  ],
+  "samples": [],
+  "natives": [
+    {
+      "frame": 48,
+      "seconds": 0.8,
+      "chapter": "01_the_bump",
+      "local_frame": 48,
+      "reasons": [
+        "current layout native 4K (@t): 01_1 +0.8s @0.8s"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000001.png",
+      "sha256": "f11bbc05bd48311f0b3d6d6b58bce517639e1c24d54a1a15a498c74c994cb388"
+    },
+    {
+      "frame": 84,
+      "seconds": 1.4,
+      "chapter": "01_the_bump",
+      "local_frame": 84,
+      "reasons": [
+        "current layout native 4K (cue start + offset): 01_1 +0.8s @0.8s"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000002.png",
+      "sha256": "d81a55e5f00f0436d46de92de66e8cdb298b862832b67febb33376555a8abc95"
+    },
+    {
+      "frame": 3155,
+      "seconds": 52.583333333333336,
+      "chapter": "01_the_bump",
+      "local_frame": 3155,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000003.png",
+      "sha256": "a5c244dbc0530e242e8463ecaf51c16dc0bac12fb26ac05362b1724dbe85d36f"
+    },
+    {
+      "frame": 5513,
+      "seconds": 91.88333333333334,
+      "chapter": "01_the_bump",
+      "local_frame": 5513,
+      "reasons": [
+        "native 4K, window 5496-5531 middle (bump-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000004.png",
+      "sha256": "4c502338c5906b839728dc74e557c8f0285312daf1a5b4a075ecb46b8052f3b5"
+    },
+    {
+      "frame": 6291,
+      "seconds": 104.85,
+      "chapter": "01_the_bump",
+      "local_frame": 6291,
+      "reasons": [
+        "native 4K, window 6273-6310 middle (bump-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000005.png",
+      "sha256": "fd51051d0ea218576610d245e0dfd43281214f9ce7aba9b7529d50cf7c48f98c"
+    },
+    {
+      "frame": 8997,
+      "seconds": 149.95,
+      "chapter": "02_turning_numbers",
+      "local_frame": 2686,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000006.png",
+      "sha256": "905a7d919038d4c7f3f61d941440dbd3ee9fc758dca53bef9fd186fe7640aff2"
+    },
+    {
+      "frame": 12403,
+      "seconds": 206.71666666666667,
+      "chapter": "03_two_planes",
+      "local_frame": 720,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000007.png",
+      "sha256": "ad62411467ac6dbf9ab79b05ddb408cb99234298d013f6ba4f316b8b12509b8b"
+    },
+    {
+      "frame": 15283,
+      "seconds": 254.71666666666667,
+      "chapter": "03_two_planes",
+      "local_frame": 3600,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000008.png",
+      "sha256": "adba1896bc08e901c2462d269cb936c3aad6c383b6b40bf4399bda9398d87090"
+    },
+    {
+      "frame": 15307,
+      "seconds": 255.11666666666667,
+      "chapter": "03_two_planes",
+      "local_frame": 3624,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000009.png",
+      "sha256": "718fd664240f8983258641245855af192a5577a3944d07fcbcd1b36404386806"
+    },
+    {
+      "frame": 19205,
+      "seconds": 320.0833333333333,
+      "chapter": "04_reading_color",
+      "local_frame": 273,
+      "reasons": [
+        "native 4K, window 235-311 middle (color-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000010.png",
+      "sha256": "5a098116be3f39946492b6c294807106630bd8bfbde1dd435f003f021f330cc4"
+    },
+    {
+      "frame": 20132,
+      "seconds": 335.53333333333336,
+      "chapter": "04_reading_color",
+      "local_frame": 1200,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000011.png",
+      "sha256": "f3b91bfedce034fbec3ccf7dcc1695646352bc7411e9a4f8807b781af98a6717"
+    },
+    {
+      "frame": 22319,
+      "seconds": 371.98333333333335,
+      "chapter": "04_reading_color",
+      "local_frame": 3387,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000012.png",
+      "sha256": "a5b884854d8a54a6a48cc46ef5cf47fd4deee9aed7dfdc6a38237fb55d844d3c"
+    },
+    {
+      "frame": 23132,
+      "seconds": 385.53333333333336,
+      "chapter": "04_reading_color",
+      "local_frame": 4200,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000013.png",
+      "sha256": "9bd43bed2069e01a5f5a2b62b6303d10ccf3f8d159e0007260c65ce45818b48d"
+    },
+    {
+      "frame": 25689,
+      "seconds": 428.15,
+      "chapter": "04_reading_color",
+      "local_frame": 6757,
+      "reasons": [
+        "native 4K, window 6742-6773 middle (color-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000014.png",
+      "sha256": "ca1763a36c9cfae3ae71cccb7eca35eca5263ab7e36a08b83ae184c660019d02"
+    },
+    {
+      "frame": 25801,
+      "seconds": 430.01666666666665,
+      "chapter": "05_gallery",
+      "local_frame": 95,
+      "reasons": [
+        "native 4K, 319 site C1 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000015.png",
+      "sha256": "a9f950a5c2c6dced9e174a4789037998957c2b121b6c1932e1e1444e5398f853"
+    },
+    {
+      "frame": 27206,
+      "seconds": 453.43333333333334,
+      "chapter": "05_gallery",
+      "local_frame": 1500,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000016.png",
+      "sha256": "ee18d849885915dcd53825e8c1644ae45428a8615f045663c558965d3a67b787"
+    },
+    {
+      "frame": 27695,
+      "seconds": 461.5833333333333,
+      "chapter": "05_gallery",
+      "local_frame": 1989,
+      "reasons": [
+        "native 4K, 319 site C2 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000017.png",
+      "sha256": "58ac487fcfdfe482bcdc9dd6504d0cc3e447aa6507f37dad2436d65f5e4bed07"
+    },
+    {
+      "frame": 27771,
+      "seconds": 462.85,
+      "chapter": "05_gallery",
+      "local_frame": 2065,
+      "reasons": [
+        "native 4K, 319 site C3 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000018.png",
+      "sha256": "db1ea9fc46fa74fc0847a80bcfe70857bc42d35fa45cc4f8e0d86824e63afd15"
+    },
+    {
+      "frame": 28600,
+      "seconds": 476.6666666666667,
+      "chapter": "05_gallery",
+      "local_frame": 2894,
+      "reasons": [
+        "native 4K, 319 site C4 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000019.png",
+      "sha256": "f197f384b9e2fe764abf7e072c29a8a5d2f218d26653cb93f77b150db70bb878"
+    },
+    {
+      "frame": 28680,
+      "seconds": 478.0,
+      "chapter": "05_gallery",
+      "local_frame": 2974,
+      "reasons": [
+        "native 4K, 319 site C5 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000020.png",
+      "sha256": "b3993dfac8f6571cc1d1dc7b6a418f72e72dadabdad371d3645a251a1d6b4244"
+    },
+    {
+      "frame": 30478,
+      "seconds": 507.96666666666664,
+      "chapter": "05_gallery",
+      "local_frame": 4772,
+      "reasons": [
+        "native 4K, 319 site C6 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000021.png",
+      "sha256": "bae4bbeddcb9eb07362a8e5b79f31cc2f6a05f3631d0fde7cc388a1c183f3bd4"
+    },
+    {
+      "frame": 30558,
+      "seconds": 509.3,
+      "chapter": "05_gallery",
+      "local_frame": 4852,
+      "reasons": [
+        "native 4K, 319 site C7 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000022.png",
+      "sha256": "1c34ebd85b1f360ec858e7ec7f33aaf490da9913d68a160c5a43302efbdef2e2"
+    },
+    {
+      "frame": 30645,
+      "seconds": 510.75,
+      "chapter": "05_gallery",
+      "local_frame": 4939,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000023.png",
+      "sha256": "727aed16a74a1076540a20f46a050412d295319bb1b92cd1eb622e665b54a811"
+    },
+    {
+      "frame": 31706,
+      "seconds": 528.4333333333333,
+      "chapter": "05_gallery",
+      "local_frame": 6000,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000024.png",
+      "sha256": "bd19ba015ac0ddcf007697767cd940106dcf282f20e7c2c5a8de46065f126d95"
+    },
+    {
+      "frame": 31887,
+      "seconds": 531.45,
+      "chapter": "05_gallery",
+      "local_frame": 6181,
+      "reasons": [
+        "native 4K, 319 site C8 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000025.png",
+      "sha256": "62d975af441f9b79b742b6d1185efda48ef319fa0565de08ceb5e04762dd3245"
+    },
+    {
+      "frame": 31967,
+      "seconds": 532.7833333333333,
+      "chapter": "05_gallery",
+      "local_frame": 6261,
+      "reasons": [
+        "native 4K, 319 site C9 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000026.png",
+      "sha256": "3233900e0f8e0ce450fe543dda135fb12da1f5f4ec8082e298ff319702a41e74"
+    },
+    {
+      "frame": 32580,
+      "seconds": 543.0,
+      "chapter": "05_gallery",
+      "local_frame": 6874,
+      "reasons": [
+        "native 4K, sampled interval 6872-6877 middle (css-reviewed-final-05-gallery352-ssd442 review_scope)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000027.png",
+      "sha256": "efb71d05a35cbc03c0abf20f2038087a1c303d9f701aabf73b4f089feca94a4c"
+    },
+    {
+      "frame": 32630,
+      "seconds": 543.8333333333334,
+      "chapter": "05_gallery",
+      "local_frame": 6924,
+      "reasons": [
+        "native 4K, sampled interval 6921-6927 middle (css-reviewed-final-05-gallery352-ssd442 review_scope)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000028.png",
+      "sha256": "eae91172dcc0fe2c290656b2a8d6ac9ebbc53f1cdc6a8f99c0ab632444d7da37"
+    },
+    {
+      "frame": 33068,
+      "seconds": 551.1333333333333,
+      "chapter": "05_gallery",
+      "local_frame": 7362,
+      "reasons": [
+        "native 4K, 319 site C10 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000029.png",
+      "sha256": "f33ef96c2ba21a83fe1b6c609977a788ffecbdc63bf200d697e098f929d37906"
+    },
+    {
+      "frame": 34421,
+      "seconds": 573.6833333333333,
+      "chapter": "05_gallery",
+      "local_frame": 8715,
+      "reasons": [
+        "native 4K, 319 site C11 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000030.png",
+      "sha256": "8d51db8a9fb52235c9f87aab0e748958024031e99d4009a1c2f985f8aecd08c4"
+    },
+    {
+      "frame": 34447,
+      "seconds": 574.1166666666667,
+      "chapter": "05_gallery",
+      "local_frame": 8741,
+      "reasons": [
+        "native 4K, 319 site C12 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000031.png",
+      "sha256": "f18274bb856ea80fd58371b153242608f6a6eea4bb39c782d0ba0e0d4a7a0eb4"
+    },
+    {
+      "frame": 34565,
+      "seconds": 576.0833333333334,
+      "chapter": "05_gallery",
+      "local_frame": 8859,
+      "reasons": [
+        "native 4K, 319 site C13 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000032.png",
+      "sha256": "14074db096c7c5fd01f7df80a8c22c6cfc12b7d84fffe71559fdbc237985e460"
+    },
+    {
+      "frame": 34875,
+      "seconds": 581.25,
+      "chapter": "05_gallery",
+      "local_frame": 9169,
+      "reasons": [
+        "native 4K, 319 site C14 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000033.png",
+      "sha256": "053ec4681a69f1070420e5a66dabc64b50a45eb5bdfb8417fd000a883df60450"
+    },
+    {
+      "frame": 34923,
+      "seconds": 582.05,
+      "chapter": "05_gallery",
+      "local_frame": 9217,
+      "reasons": [
+        "native 4K, 319 site C15 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000034.png",
+      "sha256": "e422cd0b26337b128e4f4457819454cb73603a7278f7325e3267886bcd3bc81b"
+    },
+    {
+      "frame": 34953,
+      "seconds": 582.55,
+      "chapter": "05_gallery",
+      "local_frame": 9247,
+      "reasons": [
+        "native 4K, sampled interval 9247-9248 middle (css-reviewed-final-05-gallery352-ssd442 review_scope)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000035.png",
+      "sha256": "ddd856995fe84c1987f591e6a3ea77201eb1d909985f975380130595db4d30ca"
+    },
+    {
+      "frame": 35524,
+      "seconds": 592.0666666666667,
+      "chapter": "05_gallery",
+      "local_frame": 9818,
+      "reasons": [
+        "native 4K, 319 site C16 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000036.png",
+      "sha256": "f892daa20af71525ce0253d1ed6a2db944bf0d1264453a30d579202f35141343"
+    },
+    {
+      "frame": 35554,
+      "seconds": 592.5666666666667,
+      "chapter": "05_gallery",
+      "local_frame": 9848,
+      "reasons": [
+        "native 4K, 319 site C17 full plate (cc1-gallery-transition-review319.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000037.png",
+      "sha256": "975480f51104a228bbc9f91a56600b49f7e9c24e3e4f14b979db20d59abc56b7"
+    },
+    {
+      "frame": 36185,
+      "seconds": 603.0833333333334,
+      "chapter": "06_one_derivative",
+      "local_frame": 600,
+      "reasons": [
+        "native 4K, root 362 (270 R1/R2): label edge and label-axis separation (root-preview06-disposition362.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000038.png",
+      "sha256": "5511f306248d4ed37f742170a6b18410ee80fe87e85552411d8104afbfdc9adb"
+    },
+    {
+      "frame": 36485,
+      "seconds": 608.0833333333334,
+      "chapter": "06_one_derivative",
+      "local_frame": 900,
+      "reasons": [
+        "native 4K, root 362 (270 R1/R2): label edge and label-axis separation (root-preview06-disposition362.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000039.png",
+      "sha256": "7c3db0b76fb6490f132856679bce0e62052f2663edbb3cee5f729300b12d10f9"
+    },
+    {
+      "frame": 36785,
+      "seconds": 613.0833333333334,
+      "chapter": "06_one_derivative",
+      "local_frame": 1200,
+      "reasons": [
+        "native 4K, root 362 (270 R1/R2): label edge and label-axis separation (root-preview06-disposition362.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000040.png",
+      "sha256": "867d721e2c1116c212db8f7991c6593290063c387b376e2f9d90687702e8f1a8"
+    },
+    {
+      "frame": 36875,
+      "seconds": 614.5833333333334,
+      "chapter": "06_one_derivative",
+      "local_frame": 1290,
+      "reasons": [
+        "native 4K, root 362 (270 R1/R2): label edge and label-axis separation (root-preview06-disposition362.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000041.png",
+      "sha256": "bffc0710a573ed4a145e6895ddf7462fdba247d83557fe53472601f9733d7149"
+    },
+    {
+      "frame": 36905,
+      "seconds": 615.0833333333334,
+      "chapter": "06_one_derivative",
+      "local_frame": 1320,
+      "reasons": [
+        "native 4K, root 362 (270 R1/R2): label edge and label-axis separation (root-preview06-disposition362.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000042.png",
+      "sha256": "911345901b1273466a72af4e3a6a91f0d092c2f01d91026c197c29e250ecc93a"
+    },
+    {
+      "frame": 37265,
+      "seconds": 621.0833333333334,
+      "chapter": "06_one_derivative",
+      "local_frame": 1680,
+      "reasons": [
+        "native 4K, root 362 (270 R1/R2): label edge and label-axis separation (root-preview06-disposition362.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000043.png",
+      "sha256": "bd62543374410a748a123d55710701064f69c4b662c15f771023db5b8f9e049d"
+    },
+    {
+      "frame": 37475,
+      "seconds": 624.5833333333334,
+      "chapter": "06_one_derivative",
+      "local_frame": 1890,
+      "reasons": [
+        "native 4K, root 362 (270 R1/R2): label edge and label-axis separation (root-preview06-disposition362.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000044.png",
+      "sha256": "932a42072e872b2ebeca9187bd817ee4914cae12f11b95ae17fde6cfc59449e6"
+    },
+    {
+      "frame": 40600,
+      "seconds": 676.6666666666666,
+      "chapter": "06_one_derivative",
+      "local_frame": 5015,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000045.png",
+      "sha256": "cf4b3cf22a86f688c139c68da007ccd6229501c0ff951c30a7cd3254031c9012"
+    },
+    {
+      "frame": 45265,
+      "seconds": 754.4166666666666,
+      "chapter": "06_one_derivative",
+      "local_frame": 9680,
+      "reasons": [
+        "native 4K, sampled interval 9630-9730 middle (css-reviewed-final-06-one-derivative352 review_scope)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000046.png",
+      "sha256": "3e5f548cab454a6647c48e2c1dc012c1286b4779033ee1bcb27b5808e77e4fae"
+    },
+    {
+      "frame": 45584,
+      "seconds": 759.7333333333333,
+      "chapter": "06_one_derivative",
+      "local_frame": 9999,
+      "reasons": [
+        "native 4K, sampled interval 9970-10029 middle (css-reviewed-final-06-one-derivative352 review_scope)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000047.png",
+      "sha256": "5d9d73b0437e28a56eb83570b0c25197d01b065a3f389027aa36c573c52d68cd"
+    },
+    {
+      "frame": 47863,
+      "seconds": 797.7166666666667,
+      "chapter": "07_one_point",
+      "local_frame": 2248,
+      "reasons": [
+        "native 4K, window 2216-2280 middle (one-point-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000048.png",
+      "sha256": "f832ef519851cbb288c1c0feb4b1558b92b964a8c6493625f57a711d368fcde4"
+    },
+    {
+      "frame": 48860,
+      "seconds": 814.3333333333334,
+      "chapter": "07_one_point",
+      "local_frame": 3245,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000049.png",
+      "sha256": "a7df04ff39a349559310bde3247841ec7d39c41129343f8097f509e21581df41"
+    },
+    {
+      "frame": 50376,
+      "seconds": 839.6,
+      "chapter": "07_one_point",
+      "local_frame": 4761,
+      "reasons": [
+        "native 4K, window 4744-4778 middle (one-point-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000050.png",
+      "sha256": "93de687d5a9ef36fd770bf3612f439ec06f3b955acb4aef3bfab6a61a27d8cec"
+    },
+    {
+      "frame": 55165,
+      "seconds": 919.4166666666666,
+      "chapter": "08_loop_sums",
+      "local_frame": 3059,
+      "reasons": [
+        "native 4K, sampled interval 3059-3060 middle (css-reviewed-final-08-loop-sums352 review_scope)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000051.png",
+      "sha256": "c9c0c360a21a1b6d643d8e12d789ed5437a39cef53673e631d6057eee8f4e214"
+    },
+    {
+      "frame": 55225,
+      "seconds": 920.4166666666666,
+      "chapter": "08_loop_sums",
+      "local_frame": 3119,
+      "reasons": [
+        "native 4K, sampled interval 3119-3120 middle (css-reviewed-final-08-loop-sums352 review_scope)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000052.png",
+      "sha256": "11c6fe977ed39c09beec3845e2703c9c09b8c2de10bc127837d70bd93650c1dc"
+    },
+    {
+      "frame": 55285,
+      "seconds": 921.4166666666666,
+      "chapter": "08_loop_sums",
+      "local_frame": 3179,
+      "reasons": [
+        "native 4K, sampled interval 3179-3180 middle (css-reviewed-final-08-loop-sums352 review_scope)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000053.png",
+      "sha256": "5c7baff0e1137c3ee4ed043be36913039d812a1aec4158ff8107ae7a957cb95a"
+    },
+    {
+      "frame": 59306,
+      "seconds": 988.4333333333333,
+      "chapter": "08_loop_sums",
+      "local_frame": 7200,
+      "reasons": [
+        "plan182: Native4K repaired08 c-label old collision and transition detail"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000054.png",
+      "sha256": "e609e42b4a0b33c90cab9623607ff0d0f5b24ebb3cdfc0211024731f0bf2a03d"
+    },
+    {
+      "frame": 59585,
+      "seconds": 993.0833333333334,
+      "chapter": "08_loop_sums",
+      "local_frame": 7479,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000055.png",
+      "sha256": "96d05756f2b382632fca5f37f65d42dc137e270d78d6c2ee7d1b9408b250715e"
+    },
+    {
+      "frame": 61286,
+      "seconds": 1021.4333333333333,
+      "chapter": "08_loop_sums",
+      "local_frame": 9180,
+      "reasons": [
+        "plan182: Native4K repaired08 c-label old collision and transition detail"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000056.png",
+      "sha256": "9e3a0dbfce3c12014a5d25a401315703582b5622572ccaacf73271255bdedbdc"
+    },
+    {
+      "frame": 61706,
+      "seconds": 1028.4333333333334,
+      "chapter": "08_loop_sums",
+      "local_frame": 9600,
+      "reasons": [
+        "plan182: Native4K repaired08 c-label old collision and transition detail"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000057.png",
+      "sha256": "92d925c4e0da07060ce3e992a6ff47e34f78c121958054b99cfb32794077185b"
+    },
+    {
+      "frame": 61916,
+      "seconds": 1031.9333333333334,
+      "chapter": "08_loop_sums",
+      "local_frame": 9810,
+      "reasons": [
+        "plan182: Native4K repaired08 c-label old collision and transition detail"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000058.png",
+      "sha256": "38bcbf839218d503982abbefb33b07df47dbde8f4d55e451a7247e095e1128e8"
+    },
+    {
+      "frame": 62396,
+      "seconds": 1039.9333333333334,
+      "chapter": "08_loop_sums",
+      "local_frame": 10290,
+      "reasons": [
+        "native 4K, sampled interval 10200-10380 middle (css-reviewed-final-08-loop-sums352 review_scope)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000059.png",
+      "sha256": "2fb726ce29e8b7ea3cd3871457a1cb33f4bea899569b4a2a332acc4d7b6acd76"
+    },
+    {
+      "frame": 64442,
+      "seconds": 1074.0333333333333,
+      "chapter": "08_loop_sums",
+      "local_frame": 12336,
+      "reasons": [
+        "current layout native 4K (@t): 08_5 +143.1s @205.6s"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000060.png",
+      "sha256": "b41b3bceab31d368c994dc762c1706671df79937d9b26e2dde02771403765791"
+    },
+    {
+      "frame": 68726,
+      "seconds": 1145.4333333333334,
+      "chapter": "09_boundary",
+      "local_frame": 1661,
+      "reasons": [
+        "native 4K, permit playback instant 27.687 s (csd-native-stage970-09-a2 review_scope)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000061.png",
+      "sha256": "c4e8e7af04746b0d459f9e7f9357aea1ad2019b61309d3b49dc2894600bb32cb"
+    },
+    {
+      "frame": 68979,
+      "seconds": 1149.65,
+      "chapter": "09_boundary",
+      "local_frame": 1914,
+      "reasons": [
+        "native 4K, permit playback instant 31.901 s (csd-native-stage970-09-a2 review_scope)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000062.png",
+      "sha256": "4fe9f9944d6ffaa00528f4b3a997669e68a78a008aa6e8131c8924eeb51a9b27"
+    },
+    {
+      "frame": 69159,
+      "seconds": 1152.65,
+      "chapter": "09_boundary",
+      "local_frame": 2094,
+      "reasons": [
+        "native 4K, sampled interval 2080-2109 middle (csd-native-stage970-09-a2 review_scope)",
+        "native 4K at preview313 zoom probe exit 2094"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000063.png",
+      "sha256": "9cf7115aade7786af9199267fd67d66c5e520b824a0f1c57987eb6a486adb1ee"
+    },
+    {
+      "frame": 69196,
+      "seconds": 1153.2666666666667,
+      "chapter": "09_boundary",
+      "local_frame": 2131,
+      "reasons": [
+        "native 4K, permit playback instant 35.512 s (csd-native-stage970-09-a2 review_scope)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000064.png",
+      "sha256": "ec05f94b458189ab84765311bad15bf010cf48efa1c5be5b1d95030b740882f2"
+    },
+    {
+      "frame": 69391,
+      "seconds": 1156.5166666666667,
+      "chapter": "09_boundary",
+      "local_frame": 2326,
+      "reasons": [
+        "native 4K, sampled interval 2316-2336 middle (csd-native-stage970-09-a2 review_scope)",
+        "native 4K at preview313 anchor 2326: bound |g| <= M arrival"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000065.png",
+      "sha256": "d5e8eb347120e19bc761ade0820d1795e33e863ea3117c6e6c59e1ebd8886611"
+    },
+    {
+      "frame": 69412,
+      "seconds": 1156.8666666666666,
+      "chapter": "09_boundary",
+      "local_frame": 2347,
+      "reasons": [
+        "native 4K, permit playback instant 39.123 s (csd-native-stage970-09-a2 review_scope)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000066.png",
+      "sha256": "cce62ad0f67903e07355d144888be5487c5fb3d18fb6cd0b7198da7194b298c2"
+    },
+    {
+      "frame": 70545,
+      "seconds": 1175.75,
+      "chapter": "09_boundary",
+      "local_frame": 3480,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000067.png",
+      "sha256": "6a5abe830be7901468eee43f2f4e7dca555a33d93ea24f9a64122f3553c85959"
+    },
+    {
+      "frame": 70905,
+      "seconds": 1181.75,
+      "chapter": "09_boundary",
+      "local_frame": 3840,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000068.png",
+      "sha256": "c23c3f75455abf96bd7c192bb1dd40aef4408d4c6cf1fbbc42be2211823b1712"
+    },
+    {
+      "frame": 71245,
+      "seconds": 1187.4166666666667,
+      "chapter": "09_boundary",
+      "local_frame": 4180,
+      "reasons": [
+        "native 4K at preview313 anchor 4180: root 69.67 s"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000069.png",
+      "sha256": "7258725781803b3deed0a22c132ecae70f474ecd26140638edc76730c9f1f2e6"
+    },
+    {
+      "frame": 71505,
+      "seconds": 1191.75,
+      "chapter": "09_boundary",
+      "local_frame": 4440,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000070.png",
+      "sha256": "3aecb82b51074c24bb4d234653a435d3d411e817793607e182fe9c4e99283a4c"
+    },
+    {
+      "frame": 72482,
+      "seconds": 1208.0333333333333,
+      "chapter": "09_boundary",
+      "local_frame": 5417,
+      "reasons": [
+        "native 4K at preview313 anchor 5417: root 90.28 s"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000071.png",
+      "sha256": "3a1369a9d738ebfba9097944a87f6193265500ea7732cad82bd920c9e1dae45f"
+    },
+    {
+      "frame": 73125,
+      "seconds": 1218.75,
+      "chapter": "09_boundary",
+      "local_frame": 6060,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000072.png",
+      "sha256": "115d110371756672624b53b6c5ec78297b83ba26f1bd28658ac04a1ff748b08d"
+    },
+    {
+      "frame": 73305,
+      "seconds": 1221.75,
+      "chapter": "09_boundary",
+      "local_frame": 6240,
+      "reasons": [
+        "native 4K at preview313 anchor 6240: review312 104 s lower crossing"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000073.png",
+      "sha256": "99107a6a5546ee5a265852f73f8898148a93eb59cad16f766034c40add9448af"
+    },
+    {
+      "frame": 73965,
+      "seconds": 1232.75,
+      "chapter": "09_boundary",
+      "local_frame": 6900,
+      "reasons": [
+        "native 4K at preview313 anchor 6900: root grid 115 s"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000074.png",
+      "sha256": "7f13dfb7543272828129960e9c3e655d39ff6ddf665450361e86913ddae61d49"
+    },
+    {
+      "frame": 74025,
+      "seconds": 1233.75,
+      "chapter": "09_boundary",
+      "local_frame": 6960,
+      "reasons": [
+        "native 4K at preview313 anchor 6960: root grid 116 s"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000075.png",
+      "sha256": "3e8b1693ef831a342fee91ce1afc876634d2c6a06d61c27dc7646e350eed5e94"
+    },
+    {
+      "frame": 74085,
+      "seconds": 1234.75,
+      "chapter": "09_boundary",
+      "local_frame": 7020,
+      "reasons": [
+        "native 4K at preview313 anchor 7020: root grid 117 s"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000076.png",
+      "sha256": "06042ce4bcea5ba39d0294398970536583e74562912578f3463301f58442c7a3"
+    },
+    {
+      "frame": 75317,
+      "seconds": 1255.2833333333333,
+      "chapter": "09_boundary",
+      "local_frame": 8252,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000077.png",
+      "sha256": "fea064049edaad0860b9afed830aabf18597970607917afbc38c03b789659fda"
+    },
+    {
+      "frame": 76473,
+      "seconds": 1274.55,
+      "chapter": "09_boundary",
+      "local_frame": 9408,
+      "reasons": [
+        "current layout native 4K (@t): 09_3 +6.8s @156.8s"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000078.png",
+      "sha256": "30160e1d6529dbfa2b4f1d8e2da513c180680b61f961d9544d8fbb191acaaec0"
+    },
+    {
+      "frame": 76485,
+      "seconds": 1274.75,
+      "chapter": "09_boundary",
+      "local_frame": 9420,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000079.png",
+      "sha256": "1e23be5f6d9534939b9041845da0a5a3815cf164f8f57623c164cdd540d41caf"
+    },
+    {
+      "frame": 80457,
+      "seconds": 1340.95,
+      "chapter": "09_boundary",
+      "local_frame": 13392,
+      "reasons": [
+        "current layout native 4K (@t): 09_7 +0.5s @223.2s"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000080.png",
+      "sha256": "e736cff64bb42339e621495085aa6fbeae562e599a02229113ed1e3605825488"
+    },
+    {
+      "frame": 81645,
+      "seconds": 1360.75,
+      "chapter": "09_boundary",
+      "local_frame": 14580,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000081.png",
+      "sha256": "1ea08887ac9cff7c4172337de85f9bd8cade18d413923b012f4b838a6325bc2a"
+    },
+    {
+      "frame": 82725,
+      "seconds": 1378.75,
+      "chapter": "09_boundary",
+      "local_frame": 15660,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000082.png",
+      "sha256": "30aa18bfefe4e3bdf9b1ddd339f246bc6a2d91966513977bdf982e7fa3416cfb"
+    },
+    {
+      "frame": 87290,
+      "seconds": 1454.8333333333333,
+      "chapter": "10_rigidity",
+      "local_frame": 3721,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000083.png",
+      "sha256": "b54fa359dba42ade7f1330e49b31e9ea7712e1458c93712d7c02f47af556b81f"
+    },
+    {
+      "frame": 87336,
+      "seconds": 1455.6,
+      "chapter": "10_rigidity",
+      "local_frame": 3767,
+      "reasons": [
+        "native 4K, window 3735-3799 middle (rigidity-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000084.png",
+      "sha256": "50f1baa4e172dc9693958b2d574ab351134709454e12e459c3fc0a27c8b62916"
+    },
+    {
+      "frame": 89857,
+      "seconds": 1497.6166666666666,
+      "chapter": "10_rigidity",
+      "local_frame": 6288,
+      "reasons": [
+        "native 4K, window 6241-6335 middle (rigidity-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000085.png",
+      "sha256": "d44767eec4f7789160477d4f5c5bdabf7669b529a8298f37d2549f87cefacd83"
+    },
+    {
+      "frame": 90994,
+      "seconds": 1516.5666666666666,
+      "chapter": "10_rigidity",
+      "local_frame": 7425,
+      "reasons": [
+        "native 4K, window 7410-7441 middle (rigidity-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000086.png",
+      "sha256": "128fc8cea1fbc719dd10896394f71dda45078a1a64f65ab31fe05cd1fdb076ef"
+    },
+    {
+      "frame": 91071,
+      "seconds": 1517.85,
+      "chapter": "11_counting",
+      "local_frame": 60,
+      "reasons": [
+        "native 4K, window 34-87 middle (counting-opening-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000087.png",
+      "sha256": "8d1f15c3b738f55e650b3aea5e4c3f134607d0d207fc71ee803405f264a507b0"
+    },
+    {
+      "frame": 93021,
+      "seconds": 1550.35,
+      "chapter": "11_counting",
+      "local_frame": 2010,
+      "reasons": [
+        "native 4K, root after 357 O12: footer top edge meets the plate edge, 1860-2160 centre (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000088.png",
+      "sha256": "a264414ec50ca5b3f266df62f8b86f2c932793f6eace537e175b7707d386f4e0"
+    },
+    {
+      "frame": 93291,
+      "seconds": 1554.85,
+      "chapter": "11_counting",
+      "local_frame": 2280,
+      "reasons": [
+        "native 4K, root after 357 O17: three condition chips stacked, the third on the axis (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000089.png",
+      "sha256": "c0f6ae8108d56c475d5fc4fadccab8752972568b7b0e1476e5639203a7b4638d"
+    },
+    {
+      "frame": 93411,
+      "seconds": 1556.85,
+      "chapter": "11_counting",
+      "local_frame": 2400,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000090.png",
+      "sha256": "2b7efd75d4ad20471d463694c1855abcf2aba0d482899c85a5d52c9cff5dcd19"
+    },
+    {
+      "frame": 95061,
+      "seconds": 1584.35,
+      "chapter": "11_counting",
+      "local_frame": 4050,
+      "reasons": [
+        "native 4K, root after 357 O13: inset chip over the output panel border corner, 3840-4260 centre (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000091.png",
+      "sha256": "aef926cbb7e7334a83e09e47a7675233e9fcec5bc2616d252cdcb7f018aa6074"
+    },
+    {
+      "frame": 95359,
+      "seconds": 1589.3166666666666,
+      "chapter": "11_counting",
+      "local_frame": 4348,
+      "reasons": [
+        "native 4K, root after 357 O1-O3/O5: readout write-in, root marker at chip, held sentence, code type at 4K (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000092.png",
+      "sha256": "80336e9eb83237fe80dab2291aa8923c5673576ab9b15e5a18c8d6695f358fa3"
+    },
+    {
+      "frame": 95419,
+      "seconds": 1590.3166666666666,
+      "chapter": "11_counting",
+      "local_frame": 4408,
+      "reasons": [
+        "native 4K, root after 357 O1-O3/O5: readout write-in, root marker at chip, held sentence, code type at 4K (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000093.png",
+      "sha256": "71cfb7dce2cff8e44029c6da2c93d4e4b662a469ea8966504f17aaa2c09c8619"
+    },
+    {
+      "frame": 96977,
+      "seconds": 1616.2833333333333,
+      "chapter": "11_counting",
+      "local_frame": 5966,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000094.png",
+      "sha256": "e414012272b65158b9f778e60f12e01157548e0ecb1bf2d18eb391705a322853"
+    },
+    {
+      "frame": 98459,
+      "seconds": 1640.9833333333333,
+      "chapter": "11_counting",
+      "local_frame": 7448,
+      "reasons": [
+        "native 4K, root after 357 O1-O3/O5: readout write-in, root marker at chip, held sentence, code type at 4K (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000095.png",
+      "sha256": "b90aeb8facae63132a84f3230265e5eec771c80089a08f37829401527ef5f80d"
+    },
+    {
+      "frame": 98489,
+      "seconds": 1641.4833333333333,
+      "chapter": "11_counting",
+      "local_frame": 7478,
+      "reasons": [
+        "native 4K, window 7464-7493 middle (counting-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000096.png",
+      "sha256": "1e22469d9ada36601d86426a089cdc8799d2ddbd8dbeb63898b084b569b75731"
+    },
+    {
+      "frame": 98811,
+      "seconds": 1646.85,
+      "chapter": "11_counting",
+      "local_frame": 7800,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000097.png",
+      "sha256": "2da6755b1e48cad1a41285b2f488306d18338d1512d65c0fbf823c35ed46165e"
+    },
+    {
+      "frame": 99132,
+      "seconds": 1652.2,
+      "chapter": "11_counting",
+      "local_frame": 8121,
+      "reasons": [
+        "native 4K, root after 357 O1-O3/O5: readout write-in, root marker at chip, held sentence, code type at 4K (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000098.png",
+      "sha256": "58365e33e9a3b4bfed9e0e7f42ac4892314e48cf1732ca50fc3dfa18d9b81bb2"
+    },
+    {
+      "frame": 99314,
+      "seconds": 1655.2333333333333,
+      "chapter": "11_counting",
+      "local_frame": 8303,
+      "reasons": [
+        "native 4K, root after 357 O1-O3/O5: readout write-in, root marker at chip, held sentence, code type at 4K (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000099.png",
+      "sha256": "4b72a777bf07ac51c783f10e0a1273af035475ef0dae29ec4b92f3b3221f8eee"
+    },
+    {
+      "frame": 99330,
+      "seconds": 1655.5,
+      "chapter": "11_counting",
+      "local_frame": 8319,
+      "reasons": [
+        "native 4K, window 8294-8344 middle (counting-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000100.png",
+      "sha256": "3b8ff497b23b579eb82df75acca982b8300bd21794af25c429217adad0a8d912"
+    },
+    {
+      "frame": 100742,
+      "seconds": 1679.0333333333333,
+      "chapter": "11_counting",
+      "local_frame": 9731,
+      "reasons": [
+        "native 4K, root after 357 O1-O3/O5: readout write-in, root marker at chip, held sentence, code type at 4K (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000101.png",
+      "sha256": "1074aa2e7d40a82c563daad635089f265dd062735e02876be23689f54edb766c"
+    },
+    {
+      "frame": 101811,
+      "seconds": 1696.85,
+      "chapter": "11_counting",
+      "local_frame": 10800,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000102.png",
+      "sha256": "f34115529fd642b8adddd6c89b8cda33f191f105acd569fbf283ffda50625f27"
+    },
+    {
+      "frame": 102891,
+      "seconds": 1714.85,
+      "chapter": "11_counting",
+      "local_frame": 11880,
+      "reasons": [
+        "native 4K, root after 357 O1-O3/O5: readout write-in, root marker at chip, held sentence, code type at 4K (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000103.png",
+      "sha256": "9a4622529d539a5983aa05f3e52ee4d646f980f01c73e9d1852a29c1dd059115"
+    },
+    {
+      "frame": 104914,
+      "seconds": 1748.5666666666666,
+      "chapter": "12_residues",
+      "local_frame": 1971,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000104.png",
+      "sha256": "f78ec323747fcd3c6c796d0124d423b7f38aab1055fb3490508f4558e17473c0"
+    },
+    {
+      "frame": 105438,
+      "seconds": 1757.3,
+      "chapter": "12_residues",
+      "local_frame": 2495,
+      "reasons": [
+        "native 4K, window 2475-2516 middle (residue-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000105.png",
+      "sha256": "36843986a99c29ca144b01e42f7ccc351173af15e8d4b994ce03feba792152f5"
+    },
+    {
+      "frame": 105475,
+      "seconds": 1757.9166666666667,
+      "chapter": "12_residues",
+      "local_frame": 2532,
+      "reasons": [
+        "native 4K, root after 357 O7/O8: bottom residue label against player captions (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000106.png",
+      "sha256": "3bc8be9964bf34e222e657b58fdf7331a6c273b80d75a3eb35106eafab9e4aa8"
+    },
+    {
+      "frame": 105499,
+      "seconds": 1758.3166666666666,
+      "chapter": "12_residues",
+      "local_frame": 2556,
+      "reasons": [
+        "native 4K, window 2536-2577 middle (residue-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000107.png",
+      "sha256": "dfee9cf104a23c72939af882d8c7b7b39f54719b9ed20d6662fb3e5bdf8404a8"
+    },
+    {
+      "frame": 105709,
+      "seconds": 1761.8166666666666,
+      "chapter": "12_residues",
+      "local_frame": 2766,
+      "reasons": [
+        "native 4K, root after 357 O7/O8: bottom residue label against player captions (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000108.png",
+      "sha256": "427556fa4f2f7d9ed0c1e2c93b3fbe38c52d6d0050d4e8239626b901765e8ad4"
+    },
+    {
+      "frame": 105726,
+      "seconds": 1762.1,
+      "chapter": "12_residues",
+      "local_frame": 2783,
+      "reasons": [
+        "native 4K, window 2763-2804 middle (residue-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000109.png",
+      "sha256": "780160b24b6cbce5a40ba8790547831b58ff19ba01535a7ae3e28c799eae79b7"
+    },
+    {
+      "frame": 105945,
+      "seconds": 1765.75,
+      "chapter": "12_residues",
+      "local_frame": 3002,
+      "reasons": [
+        "native 4K, root after 357 O7/O8: bottom residue label against player captions (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000110.png",
+      "sha256": "0ed10713f6913ec3b0f04cfa452ad7e55fa2fa52e1eb172ff2cfb7363ce78dca"
+    },
+    {
+      "frame": 106032,
+      "seconds": 1767.2,
+      "chapter": "12_residues",
+      "local_frame": 3089,
+      "reasons": [
+        "native 4K, window 3025-3154 middle (residue-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000111.png",
+      "sha256": "912505ac18a47cccfb64a8841e6e8c9c75748cb7d0363dce97cc16f6131c0e7f"
+    },
+    {
+      "frame": 106869,
+      "seconds": 1781.15,
+      "chapter": "12_residues",
+      "local_frame": 3926,
+      "reasons": [
+        "native 4K, window 3911-3942 middle (residue-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000112.png",
+      "sha256": "437d227b24b7a63807f82b166d83c0e9c7f65aa39099e77dfab202833c3c0754"
+    },
+    {
+      "frame": 112206,
+      "seconds": 1870.1,
+      "chapter": "13_real_integral",
+      "local_frame": 5320,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000113.png",
+      "sha256": "e9f42fc931c2fcbc4395b34fa7a7c1bc25f42846912c6979f53489c8a10658ae"
+    },
+    {
+      "frame": 112286,
+      "seconds": 1871.4333333333334,
+      "chapter": "13_real_integral",
+      "local_frame": 5400,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000114.png",
+      "sha256": "6e0f3d8758f6db6ee7d5de8b94f5647fa753c42442a952a86a5411dd6fd4ddad"
+    },
+    {
+      "frame": 117593,
+      "seconds": 1959.8833333333334,
+      "chapter": "14_continuation",
+      "local_frame": 66,
+      "reasons": [
+        "native 4K, window 34-98 middle (continuation-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000115.png",
+      "sha256": "cdc4f71356d69de5ac4d2cc9ef2d55f4d842eefb5ef0731bdc707390adb7a23b"
+    },
+    {
+      "frame": 118667,
+      "seconds": 1977.7833333333333,
+      "chapter": "14_continuation",
+      "local_frame": 1140,
+      "reasons": [
+        "native 4K, root after 357 O9: footer chip top edge meets the plate edge, 1080-1200 centre (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000116.png",
+      "sha256": "a0eb0d805721e0b3962ca31178d379a697a76ad6e32e30d182ed262ae1734134"
+    },
+    {
+      "frame": 118767,
+      "seconds": 1979.45,
+      "chapter": "14_continuation",
+      "local_frame": 1240,
+      "reasons": [
+        "native 4K, window 1223-1257 middle (continuation-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000117.png",
+      "sha256": "454efb61f3730c235efc6b860c7ebfb164b83ac4a8bffe8ac56b8ecc6047d763"
+    },
+    {
+      "frame": 122927,
+      "seconds": 2048.7833333333333,
+      "chapter": "14_continuation",
+      "local_frame": 5400,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000118.png",
+      "sha256": "d863bc2221f6ad7df85c60924980b0459039e460725ccdcfdc643680e9eafad7"
+    },
+    {
+      "frame": 123405,
+      "seconds": 2056.75,
+      "chapter": "14_continuation",
+      "local_frame": 5878,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000119.png",
+      "sha256": "87d28be6ac3bb21f246f11077aa41360cd05288e47985dfbe8e08ff5d52f3d42"
+    },
+    {
+      "frame": 126435,
+      "seconds": 2107.25,
+      "chapter": "14_continuation",
+      "local_frame": 8908,
+      "reasons": [
+        "native 4K, window 8876-8940 middle (continuation-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000120.png",
+      "sha256": "3c9ca565db1d88aeacbae215f916efc3e9d2c1c15c2452690dab619087f4f3df"
+    },
+    {
+      "frame": 126527,
+      "seconds": 2108.7833333333333,
+      "chapter": "14_continuation",
+      "local_frame": 9000,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000121.png",
+      "sha256": "0a8e3425c2bc7b060ff5792d13baa8895c5245442865c9c3d6b552faf697dcd2"
+    },
+    {
+      "frame": 127766,
+      "seconds": 2129.4333333333334,
+      "chapter": "14_continuation",
+      "local_frame": 10239,
+      "reasons": [
+        "native 4K, window 10179-10300 middle (continuation-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000122.png",
+      "sha256": "b2636f1a0e5beef1e6121427c4c884a7d8915600e5c0840f1c4b7342bd531b6c"
+    },
+    {
+      "frame": 127787,
+      "seconds": 2129.7833333333333,
+      "chapter": "14_continuation",
+      "local_frame": 10260,
+      "reasons": [
+        "native 4K, root after 357 O11: faint Gamma-outline tint (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000123.png",
+      "sha256": "81a3360e4385576763d1f9d5afaa015f783bc6073b3f34aee6f9cc68f4879b43"
+    },
+    {
+      "frame": 127805,
+      "seconds": 2130.0833333333335,
+      "chapter": "14_continuation",
+      "local_frame": 10278,
+      "reasons": [
+        "native 4K, root after 357 O11: faint Gamma-outline tint (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000124.png",
+      "sha256": "6f0c9e47686c8fa1e7bfc9c9dbb588ae5e083ad8bf1a63efa66ec82bce081d2d"
+    },
+    {
+      "frame": 127828,
+      "seconds": 2130.4666666666667,
+      "chapter": "14_continuation",
+      "local_frame": 10301,
+      "reasons": [
+        "native 4K, root after 357 O11: faint Gamma-outline tint (root-verifier367-disposition377.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000125.png",
+      "sha256": "e17f9ed555a898cbb353299f91568c73e93a07175ed87c2d79838397607e8f83"
+    },
+    {
+      "frame": 129266,
+      "seconds": 2154.4333333333334,
+      "chapter": "14_continuation",
+      "local_frame": 11739,
+      "reasons": [
+        "native 4K, window 11724-11755 middle (continuation-transition-review305.json)"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000126.png",
+      "sha256": "9b785a5d015b678ee32991d75efb9009fabfb95462afedabdec57797e03faa79"
+    },
+    {
+      "frame": 131472,
+      "seconds": 2191.2,
+      "chapter": "15_closing",
+      "local_frame": 2189,
+      "reasons": [
+        "plan182: Native4K midpoint detail; actual content/quality to be reviewed"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000127.png",
+      "sha256": "8ca982cebeace95722cf9a503cbe7ff4e744cac0b61dd1a3095a1cb892b08fec"
+    },
+    {
+      "frame": 132703,
+      "seconds": 2211.7166666666667,
+      "chapter": "15_closing",
+      "local_frame": 3420,
+      "reasons": [
+        "plan182: Native4K source/label/field detail at selected review anchor"
+      ],
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-final-pictures995-native/native4k/frame-000128.png",
+      "sha256": "9faadcb4e94011a0ee5fea7eac1a7953bd6f59cf132fe91fb8c6e4a54e4bc67b"
+    }
+  ],
+  "sheets": [],
+  "previous_layout_sources": {
+    "final-picture-source41/005-01_the_bump.layout.tsv": "f47a0de94926bf43544e85891272a3329a2bc6fdb5ae325b66c03e0098d3d9d1",
+    "final-picture-source41/006-01_the_bump.layout.tsv": "f47a0de94926bf43544e85891272a3329a2bc6fdb5ae325b66c03e0098d3d9d1",
+    "final-picture-source41/018-04_reading_color.layout.tsv": "8a90110e06cb0b65ae7d3832628a8a38b58f6401281c574c73f832b87f42f650",
+    "final-picture-source41/022-05_gallery.layout.tsv": "a57cf8ac93fc251be3bba32424f429b5f03eda82f8b1ecbb1eb14b3226965a2c",
+    "final-picture-source41/037-09_boundary.layout.tsv": "d380d9db33236ecf73b40f8be6f2aee217cacf66b411f2a88056542a645e1b52",
+    "final-picture-source41/038-09_boundary.layout.tsv": "01ec0c401fc962124c06d93de7c8d473894a9dedc643321b103cf9ad673f26e7",
+    "final-picture-source41/046-11_counting.layout.tsv": "a68613a089dc9c3bf5aa6113771464c3959fbee110dbdfd2376907f1e9cf8dad",
+    "final-picture-source41/050-12_residues.layout.tsv": "fbbb5d90a0857ae8fac9b7e5f59931ebb8c581a77a84cccaa952593bb1d0444b",
+    "final01-terminal142/01_the_bump.layout.tsv": "f47a0de94926bf43544e85891272a3329a2bc6fdb5ae325b66c03e0098d3d9d1",
+    "final08-terminal218/08_loop_sums.layout.tsv": "7be1c4b12ad55f624040c3217f98587c89c3f94f07807c0f8e7f211d309aa951",
+    "final08-terminal64/08_loop_sums.layout.tsv": "6222dce30edc43e77a2990963d2ff42c0d43860c8fed4b252c3310872dd85f25",
+    "preview274-review305/preview/01_the_bump.layout.tsv": "f47a0de94926bf43544e85891272a3329a2bc6fdb5ae325b66c03e0098d3d9d1",
+    "preview274-review305/preview/09_boundary.layout.tsv": "f91bb8a1bb6b7ea895414e739250922aa86eb02f9ecab57f851e95ee06b59a7e",
+    "preview243-review265/preview/08_loop_sums.layout.tsv": "7be1c4b12ad55f624040c3217f98587c89c3f94f07807c0f8e7f211d309aa951",
+    "preview21-09-review/09_boundary.layout.tsv": "3a76aa106c5b5e80ef5b2e6ae785eb6b1d8d4093e5df801c49417200c9803ae7",
+    "preview21-08-review/08_loop_sums.layout.tsv": "6222dce30edc43e77a2990963d2ff42c0d43860c8fed4b252c3310872dd85f25",
+    "preview70-review163/preview/08_loop_sums.layout.tsv": "cd6c992dcdeb6d8f983189326d19ab1efba76a77d1ec97b8cc8772f0d77de503",
+    "preview166-review180/preview/08_loop_sums.layout.tsv": "7be1c4b12ad55f624040c3217f98587c89c3f94f07807c0f8e7f211d309aa951"
+  },
+  "transition_sources": {
+    "bump-transition-review305.json": "bc48a64de5fe9c69e00874fed6ba1326959f4fbb4da07409cfed35a4a0e6e2b3",
+    "bump-transition-frames305/manifest.json": "e2341ee728c464a4220aada1459a064d29f48efac7c6cc851c64b9c5753f7f9a",
+    "color-transition-review305.json": "fdd04eab7439fb3a82b230992c67d6b8534b467126b82f059dc9e7ac1ba6f181",
+    "color-transition-frames305/manifest.json": "a58e25460f12f09ed228a1ddd7b5df097048c7d2b27cb746c428a78c9b75e192",
+    "gallery319-disposition305.json": "de33e72ed1f3e7bd10d2e8f41f6e2252fac5fcaa089054861cf93a16c376fac6",
+    "cc1-gallery-transition-review319.json": "58a7381dd8506497e10bd147d54837a6472e72651e3724e9dd99747f83e6e651",
+    "cc1-gallery-transition-review319.md": "d0df748083405de1b91924f90db894aaa6b6456493f09c89c12c98e3a9a3e679",
+    "gallery-transition-frames305/manifest.json": "5a98dd205a39f9b596f61e9c3dcc048b75c3aa9f1aac286f1872ab26acfe7d49",
+    "one-point-transition-review305.json": "02e8594d4b8b92bb4654b115e5f1b13fbc4f1d3c20e14aad3ac943c31ad857ee",
+    "one-point-transition-frames305/manifest.json": "e6fa64dd79ec4f2e2478c65e2ea8b4cec6a1bf12bb82504c31fe7e8bace874a9",
+    "open-region-playback-second305.json": "8ede28c42e0117485681c056fedb4b3e66c18a95827bb1026d1d0d3895e1a22c",
+    "rigidity-transition-review305.json": "ac897e91918f60183d0c500b2922375bf5d682317a982c0c68baaf3960032bea",
+    "rigidity-transition-frames305/manifest.json": "ba0eb53d847dd803015545c924b3a951f85be8257736a747772bc9ae39122c26",
+    "counting-opening-review305.json": "5e1f55523d92cca846e060276bb4b2635d305fceee8ff516ae290e8277573aec",
+    "counting-opening-frames305/manifest.json": "9b889e043ce97bfbb2ce8b72f8306c3dbd3718a29c52b97f4adefa2b702bea8a",
+    "counting-transition-review305.json": "a8552f249637b7348e1367fb0b74708b727be498aa92760eba67995b3bdc91e7",
+    "counting-transition-frames305/manifest.json": "9e74486edaaac78d1a4a868f83507a69378f1be9d64ab0456ddd453a34fc64d6",
+    "residue-transition-review305.json": "b3a90d158b6df6453908c95a755a0cb26257673ccbda61e715efdacf4dee397d",
+    "residue-transition-frames305/manifest.json": "c6cca51f4290b32b7e4f2587900cdf1adefde66bf48d032b32f322edd684eea2",
+    "continuation-transition-review305.json": "1a92e0f771a65fc385ad07ee453e32dc71e2aec57106210bc6b9c381a2eaa9a8",
+    "continuation-transition-frames305/manifest.json": "a787e39d74c54651b8bbb3a97f0c75e7c863be4ab946c3004bb5aa153e34649b"
+  },
+  "transition_windows": [
+    [
+      "01_the_bump",
+      "bump-transition-review305.json",
+      [
+        5496,
+        5531
+      ]
+    ],
+    [
+      "01_the_bump",
+      "bump-transition-review305.json",
+      [
+        6273,
+        6310
+      ]
+    ],
+    [
+      "04_reading_color",
+      "color-transition-review305.json",
+      [
+        235,
+        311
+      ]
+    ],
+    [
+      "04_reading_color",
+      "color-transition-review305.json",
+      [
+        6742,
+        6773
+      ]
+    ],
+    [
+      "05_gallery",
+      "cc1-gallery-transition-review319.json",
+      [
+        34,
+        98
+      ]
+    ],
+    [
+      "05_gallery",
+      "cc1-gallery-transition-review319.json",
+      [
+        1989,
+        2072
+      ]
+    ],
+    [
+      "05_gallery",
+      "cc1-gallery-transition-review319.json",
+      [
+        2894,
+        2977
+      ]
+    ],
+    [
+      "05_gallery",
+      "cc1-gallery-transition-review319.json",
+      [
+        4772,
+        4855
+      ]
+    ],
+    [
+      "05_gallery",
+      "cc1-gallery-transition-review319.json",
+      [
+        6181,
+        6264
+      ]
+    ],
+    [
+      "05_gallery",
+      "cc1-gallery-transition-review319.json",
+      [
+        7312,
+        7365
+      ]
+    ],
+    [
+      "05_gallery",
+      "cc1-gallery-transition-review319.json",
+      [
+        8715,
+        8859
+      ]
+    ],
+    [
+      "05_gallery",
+      "cc1-gallery-transition-review319.json",
+      [
+        9168,
+        9220
+      ]
+    ],
+    [
+      "05_gallery",
+      "cc1-gallery-transition-review319.json",
+      [
+        9817,
+        9878
+      ]
+    ],
+    [
+      "07_one_point",
+      "one-point-transition-review305.json",
+      [
+        2216,
+        2280
+      ]
+    ],
+    [
+      "07_one_point",
+      "one-point-transition-review305.json",
+      [
+        4744,
+        4778
+      ]
+    ],
+    [
+      "10_rigidity",
+      "rigidity-transition-review305.json",
+      [
+        3735,
+        3799
+      ]
+    ],
+    [
+      "10_rigidity",
+      "rigidity-transition-review305.json",
+      [
+        6241,
+        6335
+      ]
+    ],
+    [
+      "10_rigidity",
+      "rigidity-transition-review305.json",
+      [
+        7410,
+        7441
+      ]
+    ],
+    [
+      "11_counting",
+      "counting-opening-review305.json",
+      [
+        34,
+        87
+      ]
+    ],
+    [
+      "11_counting",
+      "counting-transition-review305.json",
+      [
+        7464,
+        7493
+      ]
+    ],
+    [
+      "11_counting",
+      "counting-transition-review305.json",
+      [
+        8294,
+        8344
+      ]
+    ],
+    [
+      "12_residues",
+      "residue-transition-review305.json",
+      [
+        2475,
+        2516
+      ]
+    ],
+    [
+      "12_residues",
+      "residue-transition-review305.json",
+      [
+        2536,
+        2577
+      ]
+    ],
+    [
+      "12_residues",
+      "residue-transition-review305.json",
+      [
+        2763,
+        2804
+      ]
+    ],
+    [
+      "12_residues",
+      "residue-transition-review305.json",
+      [
+        3025,
+        3154
+      ]
+    ],
+    [
+      "12_residues",
+      "residue-transition-review305.json",
+      [
+        3911,
+        3942
+      ]
+    ],
+    [
+      "14_continuation",
+      "continuation-transition-review305.json",
+      [
+        34,
+        98
+      ]
+    ],
+    [
+      "14_continuation",
+      "continuation-transition-review305.json",
+      [
+        1223,
+        1257
+      ]
+    ],
+    [
+      "14_continuation",
+      "continuation-transition-review305.json",
+      [
+        8876,
+        8940
+      ]
+    ],
+    [
+      "14_continuation",
+      "continuation-transition-review305.json",
+      [
+        10179,
+        10300
+      ]
+    ],
+    [
+      "14_continuation",
+      "continuation-transition-review305.json",
+      [
+        11724,
+        11755
+      ]
+    ]
+  ],
+  "gallery_sites": {
+    "C1": 95,
+    "C2": 1989,
+    "C3": 2065,
+    "C4": 2894,
+    "C5": 2974,
+    "C6": 4772,
+    "C7": 4852,
+    "C8": 6181,
+    "C9": 6261,
+    "C10": 7362,
+    "C11": 8715,
+    "C12": 8741,
+    "C13": 8859,
+    "C14": 9169,
+    "C15": 9217,
+    "C16": 9818,
+    "C17": 9848
+  },
+  "one_point_instants": {
+    "4858": 80.96,
+    "4872": 81.2,
+    "5099": 84.98,
+    "5355": 89.25,
+    "5681": 94.69
+  },
+  "runtime": {
+    "ffmpeg_version": "ffmpeg version 8.0.1-3ubuntu2 Copyright (c) 2000-2025 the FFmpeg developers",
+    "tools": {
+      "ffmpeg": "/usr/bin/ffmpeg",
+      "ffprobe": "/usr/bin/ffprobe",
+      "bash": "/usr/bin/bash"
+    },
+    "python": "/usr/bin/python3.14"
+  },
+  "final_frame_sources": {
+    "root-preview06-disposition362.json": "1822a5908199c1cf8ae935e50c803e6a419c0109487c4051bef31d0ef0bf0b86",
+    "cc1-chapter-picture-review357.json": "47d51709ed54205c053f9789d5aea194e282a27a8d63305b11d995aa00e71490",
+    "root-verifier367-disposition377.json": "ecc64557495d90d7762291df7e22284a22f8b98969eb58ad5175a95bc48537ff",
+    "derivative-sheets359-review.json": "40e2fca805e0dfb7b138b2ef68c2770b947bd7ae5e435e3d712bf2ea476d34de"
+  },
+  "final_frame_checks": [
+    [
+      "06_one_derivative",
+      "root-preview06-disposition362.json",
+      [
+        600,
+        900,
+        1200,
+        1290,
+        1320,
+        1680,
+        1890
+      ],
+      "root 362 (270 R1/R2): label edge and label-axis separation"
+    ],
+    [
+      "11_counting",
+      "root-verifier367-disposition377.json",
+      [
+        4348,
+        4408,
+        7448,
+        8121,
+        8303,
+        9731,
+        11880
+      ],
+      "root after 357 O1-O3/O5: readout write-in, root marker at chip, held sentence, code type at 4K"
+    ],
+    [
+      "11_counting",
+      "root-verifier367-disposition377.json",
+      [
+        2010
+      ],
+      "root after 357 O12: footer top edge meets the plate edge, 1860-2160 centre"
+    ],
+    [
+      "11_counting",
+      "root-verifier367-disposition377.json",
+      [
+        2280
+      ],
+      "root after 357 O17: three condition chips stacked, the third on the axis"
+    ],
+    [
+      "11_counting",
+      "root-verifier367-disposition377.json",
+      [
+        4050
+      ],
+      "root after 357 O13: inset chip over the output panel border corner, 3840-4260 centre"
+    ],
+    [
+      "12_residues",
+      "root-verifier367-disposition377.json",
+      [
+        2532,
+        2766,
+        3002
+      ],
+      "root after 357 O7/O8: bottom residue label against player captions"
+    ],
+    [
+      "14_continuation",
+      "root-verifier367-disposition377.json",
+      [
+        10260,
+        10278,
+        10301
+      ],
+      "root after 357 O11: faint Gamma-outline tint"
+    ],
+    [
+      "14_continuation",
+      "root-verifier367-disposition377.json",
+      [
+        1140
+      ],
+      "root after 357 O9: footer chip top edge meets the plate edge, 1080-1200 centre"
+    ]
+  ],
+  "final_endpoint_checks": [
+    [
+      "11_counting",
+      "root-verifier367-disposition377.json",
+      [
+        1860,
+        2160
+      ],
+      "root after 357 O12: observation range ends"
+    ],
+    [
+      "11_counting",
+      "root-verifier367-disposition377.json",
+      [
+        3840,
+        4260
+      ],
+      "root after 357 O13: observation range ends"
+    ],
+    [
+      "14_continuation",
+      "root-verifier367-disposition377.json",
+      [
+        1080,
+        1200
+      ],
+      "root after 357 O9: observation range ends"
+    ]
+  ],
+  "required_windows": [
+    [
+      "06_one_derivative",
+      "derivative-sheets359-review.json",
+      [
+        9630,
+        9730
+      ]
+    ],
+    [
+      "06_one_derivative",
+      "derivative-sheets359-review.json",
+      [
+        9970,
+        10029
+      ]
+    ],
+    [
+      "08_loop_sums",
+      "root-verifier367-disposition377.json",
+      [
+        10200,
+        10380
+      ]
+    ]
+  ],
+  "playback_seconds": {
+    "09_boundary": [
+      27.68726914660832,
+      31.90054923413567,
+      35.51193216630197,
+      39.12331509846828
+    ]
+  },
+  "pillow": {
+    "pillow": "12.1.1",
+    "package": "/usr/lib/python3/dist-packages/PIL",
+    "png_roundtrip_equal": true,
+    "jpeg_roundtrip": true,
+    "label_pixels_present": true
+  },
+  "final_pictures_reviewed": false,
+  "motion_reviewed": false,
+  "listening_accepted": false,
+  "fine_sync_accepted": false,
+  "native_4k_detail_reviewed": false,
+  "independent_av_accepted": false,
+  "publication_accepted": false,
+  "scope": "Pictures of the actual 993 master at 960x540 (sheets) and native 4K PNGs; root must view every sheet and native frame. No acceptance is recorded here."
+}

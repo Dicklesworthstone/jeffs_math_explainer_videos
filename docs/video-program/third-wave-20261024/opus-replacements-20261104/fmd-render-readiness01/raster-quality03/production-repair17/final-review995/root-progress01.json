@@ -1,0 +1,30 @@
+{
+  "reviewer": "root",
+  "time": "2026-11-10T19:50:30.719471+00:00",
+  "master_sha256": "80244e88ca5970d0da07a5d96d6d825ae1851bae703d75bd200f8810b04e7b90",
+  "sheets_actually_viewed": [
+    {
+      "sheet": 1,
+      "sha256": "ee2f5602ee8eaf20bfc41be6c2f792402028d66c8cad1b713b342ff354b6e33b"
+    },
+    {
+      "sheet": 2,
+      "sha256": "0297ce6adca4b8280adba96d86518af356531adb2ef6b2569b241c3fc96d5b0a"
+    },
+    {
+      "sheet": 3,
+      "sha256": "7fdc34451602b2ebadf6ae1dffa8717aecba61d911d3df2ee56733683322bdc0"
+    },
+    {
+      "sheet": 4,
+      "sha256": "2414a1cbbfa0019631cb66323f1ecf223f32bd88ddf770566164a945f218fec8"
+    }
+  ],
+  "samples_viewed": 32,
+  "observations": [
+    "Opening fades from background into axes and bump formula; curve draws left to right with gold tip. No concrete overlap or clipping in these selected samples."
+  ],
+  "scope": "Sheets displayed resized to1468x1728; not native4K detail, continuous motion, listening or fine sync. Overview job still running; hashes must match final sampling manifest before retained acceptance.",
+  "remaining_sheets": 1040,
+  "publication_ready": false
+}

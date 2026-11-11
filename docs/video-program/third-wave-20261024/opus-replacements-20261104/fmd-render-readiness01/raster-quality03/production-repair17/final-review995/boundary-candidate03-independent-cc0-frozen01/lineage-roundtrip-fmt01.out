@@ -1,0 +1,21 @@
+## forward: base cd1900aa + candidate03.patch
+byte-identical to candidate03 (4b689791)
+## delta: candidate01 511f4492 + candidate01-to-candidate03.patch
+byte-identical to candidate03
+## reverse: candidate03 - candidate03.patch
+byte-identical to base cd1900aa
+## lineage control: dry run on the LIVE repo boundary.rs 328d2acb (not the base)
+patching file './inputs/live-328d2acb-boundary.rs'
+No such line 932 in input file, ignoring
+8 out of 14 hunks failed while patching './inputs/live-328d2acb-boundary.rs'
+patch exit 1
+## leader variant e33be1e7 vs candidate03 4b689791
+2074c2074,2075
+<     /// The optional leader ties a's riding name to the hole it names: at every radius of the
+---
+>     /// CC1's review of candidate01 (Medium): riding the circle, a's name could read as a moving
+>     /// centre. The leader ties it to the fixed hole it names: at every radius of the
+diff exit 1
+## rustfmt (edition 2024, max_width 120) via stdin, compared with the file
+FMT-STDIN-OK candidate03
+FMT-STDIN-OK base

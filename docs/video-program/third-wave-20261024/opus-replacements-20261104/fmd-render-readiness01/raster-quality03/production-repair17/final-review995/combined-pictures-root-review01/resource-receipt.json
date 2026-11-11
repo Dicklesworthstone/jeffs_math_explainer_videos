@@ -1,0 +1,80 @@
+{
+  "started": "2026-11-11T00:58:56.446050+00:00",
+  "phase": "native",
+  "command": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-combined01-pictures-scope02.py"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-11T00:58:59.883693+00:00",
+      "free_bytes": 21352472576,
+      "work_bytes": 23320113152,
+      "target_bytes": 7031414784
+    },
+    {
+      "utc": "2026-11-11T00:59:11.437815+00:00",
+      "free_bytes": 20808413184,
+      "work_bytes": 23325794304,
+      "target_bytes": 7031414784
+    },
+    {
+      "utc": "2026-11-11T00:59:23.102337+00:00",
+      "free_bytes": 20791967744,
+      "work_bytes": 23341436928,
+      "target_bytes": 7031414784
+    },
+    {
+      "utc": "2026-11-11T00:59:34.767822+00:00",
+      "free_bytes": 20783038464,
+      "work_bytes": 23350169600,
+      "target_bytes": 7031414784
+    },
+    {
+      "utc": "2026-11-11T00:59:46.341932+00:00",
+      "free_bytes": 20699267072,
+      "work_bytes": 23431430144,
+      "target_bytes": 7031414784
+    },
+    {
+      "utc": "2026-11-11T00:59:58.019907+00:00",
+      "free_bytes": 20658540544,
+      "work_bytes": 23471890432,
+      "target_bytes": 7031414784
+    },
+    {
+      "utc": "2026-11-11T00:59:59.753605+00:00",
+      "free_bytes": 20652683264,
+      "work_bytes": 23477706752,
+      "target_bytes": 7031414784
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":21439971328,\"free_excludes_purgeable\":true,\"free_pct\":2.203986375673282,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-stroke-probe-20261106\",\"platform\":{\"linux\":{\"device_id\":66308,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":972781481984,\"unprotected\":null,\"volume_available_bytes\":21439971328,\"volume_role\":null,\"volume_total_bytes\":972781481984}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-11T00:58:56.459207+00:00",
+    "free_bytes": 21439971328,
+    "work_bytes": 23320109056,
+    "target_bytes": 7031414784
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "19eb221bfbec74771116d57e76f4f71d91fe48ce761ed9b1f407a54650e29b50",
+  "pid": 1020571,
+  "exit": 0,
+  "final_inputs_sha256": "19eb221bfbec74771116d57e76f4f71d91fe48ce761ed9b1f407a54650e29b50",
+  "finished": "2026-11-11T01:00:03.257494+00:00"
+}

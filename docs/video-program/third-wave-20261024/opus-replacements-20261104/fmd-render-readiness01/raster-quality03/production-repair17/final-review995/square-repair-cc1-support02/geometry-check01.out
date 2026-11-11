@@ -1,0 +1,41 @@
+c = (-2.1624999999999996+0.5874999999999999j)  delta = 0.3182  Q5 side = 0.125
+old c label (-1.2124999999999997+0.7074999999999999j) distance 0.958 = 65 px
+old label clearances: edges 0.328 circle 0.574 dot-dist 0.958
+old label: nest edges met by the straight dot-label path: 4
+
+L5 candidates (min(edge, circle) clearance desc, then distance):
+  label (-1.862, 0.117) off c (+0.300, -0.470) dist 0.558 = 38 px | edge 0.157 (11 px) circle 0.157 (11 px) | leader s0 0.16, leader-edge 0.024
+  label (-1.832, 0.137) off c (+0.330, -0.450) dist 0.558 = 38 px | edge 0.172 (12 px) circle 0.156 (11 px) | leader s0 0.14, leader-edge 0.020
+  label (-1.842, 0.127) off c (+0.320, -0.460) dist 0.560 = 38 px | edge 0.167 (11 px) circle 0.159 (11 px) | leader s0 0.16, leader-edge 0.029
+  label (-1.852, 0.117) off c (+0.310, -0.470) dist 0.563 = 38 px | edge 0.157 (11 px) circle 0.162 (11 px) | leader s0 0.16, leader-edge 0.026
+  label (-1.822, 0.137) off c (+0.340, -0.450) dist 0.564 = 38 px | edge 0.162 (11 px) circle 0.162 (11 px) | leader s0 0.14, leader-edge 0.022
+  label (-1.832, 0.127) off c (+0.330, -0.460) dist 0.566 = 38 px | edge 0.167 (11 px) circle 0.164 (11 px) | leader s0 0.16, leader-edge 0.031
+  label (-1.842, 0.117) off c (+0.320, -0.470) dist 0.569 = 38 px | edge 0.157 (11 px) circle 0.167 (11 px) | leader s0 0.16, leader-edge 0.028
+  label (-1.822, 0.127) off c (+0.340, -0.460) dist 0.572 = 39 px | edge 0.162 (11 px) circle 0.170 (11 px) | leader s0 0.14, leader-edge 0.021
+
+enlarged [(-4.6, -2.1), (-0.6, -2.1), (-0.6, 1.9), (-4.6, 1.9)] centre (-2.6-0.1j)
+quarter 0: corners [(-4.6, -2.1), (-2.6, -2.1), (-2.6, -0.1), (-4.6, -0.1)]  c is a corner: True  diam 2.8284 (parent 5.6569)  perim 8.0000 (parent 16.0000)
+quarter 1: corners [(-2.6, -2.1), (-0.6, -2.1), (-0.6, -0.1), (-2.6, -0.1)]  c is a corner: True  diam 2.8284 (parent 5.6569)  perim 8.0000 (parent 16.0000)
+quarter 2: corners [(-2.6, -0.1), (-0.6, -0.1), (-0.6, 1.9), (-2.6, 1.9)]  c is a corner: True  diam 2.8284 (parent 5.6569)  perim 8.0000 (parent 16.0000)
+quarter 3: corners [(-4.6, -0.1), (-2.6, -0.1), (-2.6, 1.9), (-4.6, 1.9)]  c is a corner: True  diam 2.8284 (parent 5.6569)  perim 8.0000 (parent 16.0000)
+old concentric half-square equals a quarter? False
+interior quarter edges: 4 (expect 4 = two cuts, each split at c)
+kept diagonal parallel to D_n line: True  separation 1.414, length ratio 0.500
+
+'Two halves' picture label clearances (min over outline, cuts, both diagonals, kept outline):
+  c (unchanged, -0.22,+0.28)     clearance 0.160 (11 px)  dot 0.202  inside kept quarter: True
+  D_n (unchanged, -1.7,1.2)      clearance 0.092 (6 px)  dot 1.328  inside kept quarter: False
+  Q_{n+1} proposed               clearance 0.290 (20 px)  dot 1.760  inside kept quarter: True
+  perimeter P_n pair (y -2.5)    clearance 0.290 (20 px)  dot 2.220  inside kept quarter: False
+
+walk start corner 0: |z-c| segment on the D_n diagonal: True; length 2.828 = 0.50 D_n
+   c (unchanged, -0.22,+0.28)     clearance to resting segment 0.272 (18 px)
+   D_n (unchanged, -1.7,1.2)      clearance to resting segment 1.398 (94 px)
+   perimeter P_n pair (y -2.5)    clearance to resting segment 1.181 (80 px)
+
+walk start corner 1: |z-c| segment on the D_n diagonal: False; length 2.828 = 0.50 D_n
+   c (unchanged, -0.22,+0.28)     clearance to resting segment 0.272 (18 px)
+   D_n (unchanged, -1.7,1.2)      clearance to resting segment 1.398 (94 px)
+   perimeter P_n pair (y -2.5)    clearance to resting segment 1.181 (80 px)
+start 0: oriented area 16.000 (positive = counterclockwise)
+start 1: oriented area 16.000 (positive = counterclockwise)

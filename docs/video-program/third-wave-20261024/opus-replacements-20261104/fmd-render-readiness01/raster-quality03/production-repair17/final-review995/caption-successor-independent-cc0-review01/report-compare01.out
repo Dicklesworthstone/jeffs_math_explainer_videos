@@ -1,0 +1,6 @@
+269 b4a4c91e8e8fd26dbad621d118b762660e60532a2bbcf535ad88b87a45406bdd  313 69cb32ee3eb9cf83c5d8b18da8bda7682f4a55d1b91e21ad0b543ca73e25af85
+rate 24000 / 24000
+cues 105 / 105, same keys True
+sentence rows compared 461; caption-timing fields that differ: 0
+meta fields that differ: ['direction_contract', 'units_sha256']
+RESULT: caption inputs from the two reports are identical

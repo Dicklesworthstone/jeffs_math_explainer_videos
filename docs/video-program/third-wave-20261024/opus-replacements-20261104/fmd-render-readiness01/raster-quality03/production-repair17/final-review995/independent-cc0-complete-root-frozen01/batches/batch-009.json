@@ -1,0 +1,10 @@
+{"batch": 9, "viewed_utc": "2026-11-10T21:00Z",
+ "sheets": {
+  "0037": "02 54.75-60.05 s. 02_5: the angle arc is lit yellow (55.45 s) and 'angle: 45 deg' underlined (56.45 s). Quiz box '(1 + i)^2 = ?' in purple from 60.0 s. In the quiz box the i is upright with a text superscript, while the answer later is TeX '(1 + i)^2 = 2i' with italic i: see the L4 addendum.",
+  "0038": "02 61.0-71.0 s. A think-ring under the quiz: part-filled purple at 66.0 s, empty grey at 68.05 s, the same countdown as chapter 01. Quiz box and caption fade (68.45 s) and leave (68.75 s) with no answer shown. Then the grid is multiplied by 1+i again (mid-turn at 70.0 and 71.0 s). No defect.",
+  "0039": "02 73.767-79.05 s. Settled grid on [-2,2]^2 (axis-aligned, 248 px wide). The F lands where 2i(x+iy) = -2y+2ix puts it (stem along y=0.3 from x=-1.8 to -0.1; top bar at x=-1.8 up to y=1.5; middle bar at x=-1.0). Arrow to '2i', 'total turn: 90 deg', 'total stretch: 2', answer box '(1 + i)^2 = 2i' (74.5 s, after the think time), then 'lengths multiply, angles add' with paired underlines (78.1-79.05 s). Values correct. No defect."
+ },
+ "findings": [
+  {"id": "L4", "sheet": 37, "slot": 7, "frame": 9911, "severity": "Low (typographic consistency), addendum",
+   "text": "Further instance: the 02_5 quiz box '(1 + i)^2 = ?' (from 60.0 s, f9911) is set in the text face with an upright i and a text superscript, while its answer at 74.5 s ('(1 + i)^2 = 2i', f10839) is TeX with an italic i. Question and answer therefore do not look like the same expression."}
+ ]}

@@ -1,0 +1,13 @@
+{"batch": 2, "viewed_utc": "2026-11-10T20:12Z",
+ "sheets": {
+  "0007": "01 24.933-30.0 s. Partial sum to degree 6 (1-x^2+x^4-x^6) lies below the bump outside the centre, as an odd-count alternating sum must. 'terms up to degree 6' panel fades in at 25.8 s. No defect.",
+  "0008": "01 30.167-36.0 s. Dashed lines at x=+-1 (the axis spans [-3,3]). Degree 8, 10, ..., 40: the curve hugs the bump inside |x|<1 and breaks away at the lines. Slots 3 (30.8 s, f1848) and 6 (31.4 s, f1884) are mid-morph: the counter already reads 8 (10) while the curve is still the degree-6 (degree-8) shape. See L2.",
+  "0009": "01 36.4-40.833 s. Degree 40 settled. 'x = 1.1' and 'recipe ~ 25.2' at 39.833 s, with a white dot on the bump at x=1.1. Check: (1 + 1.1^42)/(1 + 1.1^2) = 25.23. No defect.",
+  "0010": "01 41.0-48.133 s. 'bump ~ 0.452' added at 45.35 s. Check: 1/(1 + 1.21) = 0.4525. No defect.",
+  "0011": "01 48.533-52.533 s. Dashed x=+-1 lines recoloured yellow (01_4). The near-vertical branches of the degree-40 curve run along the lines. Readable; no defect.",
+  "0012": "01 54.267-61.0 s. Purple question box 'what stops the recipe at x = 1?' above the readouts. A purple think-ring appears under it at 60.0 s and fills. No overlap or clip. No defect."
+ },
+ "findings": [
+  {"id": "L2", "sheet": 8, "slot": 3, "frame": 1848, "severity": "Low (transient)",
+   "text": "During the degree steps (01_3, about 30.6-31.5 s), the 'terms up to degree' counter switches to the next value at the start of each curve morph. Mid-morph stills therefore show a counter one step ahead of the curve: 8 with the degree-6 shape at 30.8 s (f1848), and 10 with the degree-8 shape at 31.4 s (f1884, sheet 8 slot 6). Each step lasts under a second and settles. Whether it reads as wrong in motion needs a motion review; this is only what the stills show."}
+ ]}

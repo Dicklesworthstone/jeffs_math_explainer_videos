@@ -1,0 +1,65 @@
+{
+  "binary": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-counting-build02/complex_analysis_visual-counting02",
+  "binary_sha256": "b1bc47b40711d4cfb295339459def8e8fac054d0118bc8896f33a4fd49369be1",
+  "tests_passed": 250,
+  "new_tests_passed": [
+    "boundary::the_closing_bars_keep_clear_of_dz",
+    "boundary::the_growing_disks_never_draw_through_a",
+    "boundary::the_growing_disks_pass_under_the_cards_and_round_a",
+    "boundary::the_leader_runs_from_the_hole_up_to_a",
+    "boundary::the_shrinking_circle_never_crosses_a_or_rho",
+    "boundary::the_shrinking_names_start_where_the_shrink_puts_them",
+    "boundary::the_shrunk_circle_keeps_apart_from_the_hole_ring",
+    "counting::the_cards_of_the_needs_fit_the_output_window",
+    "counting::the_first_need_names_the_input_loop_it_is_true_of",
+    "counting::the_moebius_images_stay_circles_with_their_true_winding",
+    "loop_sums::the_kept_square_is_a_bisection_quarter_that_holds_c",
+    "loop_sums::the_name_of_c_is_joined_to_its_dot_by_a_leader_from_the_rim",
+    "loop_sums::the_repaired_square_picture_leaves_before_the_triangle",
+    "loop_sums::the_walk_rests_off_the_diagonal_and_stays_counterclockwise",
+    "the_bump::the_preview_arrow_reaches_the_loop_head_first"
+  ],
+  "explicit_native_plate_fade_probe_passed": true,
+  "clippy_passed": true,
+  "facts_sha256": "7d528509752e532c07edb3fda7c12cd8251ac4ba77022355ae42ad725add4417",
+  "chapters": [
+    "01_the_bump",
+    "02_turning_numbers",
+    "03_two_planes",
+    "04_reading_color",
+    "05_gallery",
+    "06_one_derivative",
+    "07_one_point",
+    "08_loop_sums",
+    "09_boundary",
+    "10_rigidity",
+    "11_counting",
+    "12_residues",
+    "13_real_integral",
+    "14_continuation",
+    "15_closing"
+  ],
+  "source_listing": [
+    72,
+    "c996b4eae69321ec4b9d4f52ac5ce3a33e4bcc2245b7a26d16e8cb3e765c36c1"
+  ],
+  "bundle": {
+    "name": "counting-repair-bundle03",
+    "sha256": "a5210650e0f8dc18860dfca9b2d06857a67588d6715fb04d990b7b8a39b1ee21",
+    "combined_listing": "bab62da4ed84f554754caa1a56c8fe7a20568abfbdd82136b0b2948850642771"
+  },
+  "substitutions": {
+    "workspace/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs": "21c5043a3339cfadb10024a2e8227a62a0b06674139eace1a0d9029a4e1aa0db",
+    "workspace/explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs": "90b51c2b30877911bbb5f5e14ee810268e14efb24e7c4e2a55f7f7e128c06ee7",
+    "workspace/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs": "a8d62f560321ea6ebea3d3859acd9a3ce3e5dde4375ec0ab42c1a1ba114d61ef",
+    "workspace/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs": "4de1e4a56fde5c11ac3d6a65e772d09ec33db4f5757d817aff370799d3423578",
+    "workspace/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932"
+  },
+  "template": {
+    "helper": "csd-native844-build.py",
+    "helper_sha256": "7932fe7803f311274ae850bc1c79a0d36df39db37aa579deda95e1e93ab11c9a",
+    "guard_inputs": "csd-native844-inputs.json",
+    "guard_inputs_sha256": "3b54974babc3d17763d89040719c014a4999fb0542af3fa43d83636538e9979f"
+  },
+  "scope": "Linux combined-source qualification only (760 tree plus four bundle rows). No render, timeline, narration rebind, pictures, listening, fine-sync or publication acceptance."
+}

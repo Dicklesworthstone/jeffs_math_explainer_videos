@@ -1,0 +1,19 @@
+## build268 base vs candidate02
+events: 184 vs 184
+kinds (first file): {'.rt': 2, 'fade_in_all': 70, 'fade_out': 2, 'fade_out_all': 31, 'kit.hold': 4, 'kit.music_breath': 1, 'line.until': 2, 'line.wait_for': 35, 'line.wait_sentence': 10, 'say': 5, 'stage.add_updater': 3, 'stage.clear_updaters': 5, 'stage.play': 2, 'stage.play_prepared': 1, 'stage.prepare': 3, 'tween': 1, 'tween_linear': 2, 'wait_until': 5}
+TIMING SKELETON IDENTICAL: True
+## candidate01 vs candidate02
+events: 184 vs 184
+kinds (first file): {'.rt': 2, 'fade_in_all': 70, 'fade_out': 2, 'fade_out_all': 31, 'kit.hold': 4, 'kit.music_breath': 1, 'line.until': 2, 'line.wait_for': 35, 'line.wait_sentence': 10, 'say': 5, 'stage.add_updater': 3, 'stage.clear_updaters': 5, 'stage.play': 2, 'stage.play_prepared': 1, 'stage.prepare': 3, 'tween': 1, 'tween_linear': 2, 'wait_until': 5}
+TIMING SKELETON IDENTICAL: True
+## control: candidate02 with c_aside.rt 0.3 -> 0.35
+wrote control variant /private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/square-cc0-review01/control-c-aside-035-loop_sums.rs.txt
+events: 184 vs 184
+kinds (first file): {'.rt': 2, 'fade_in_all': 70, 'fade_out': 2, 'fade_out_all': 31, 'kit.hold': 4, 'kit.music_breath': 1, 'line.until': 2, 'line.wait_for': 35, 'line.wait_sentence': 10, 'say': 5, 'stage.add_updater': 3, 'stage.clear_updaters': 5, 'stage.play': 2, 'stage.play_prepared': 1, 'stage.prepare': 3, 'tween': 1, 'tween_linear': 2, 'wait_until': 5}
+first difference at 63 ('stage.prepare', '', ('0.3',)) vs ('stage.prepare', '', ('0.35',))
+TIMING SKELETON IDENTICAL: False
+## control: CC0's T1 quarter fade 0.6
+events: 184 vs 184
+kinds (first file): {'.rt': 2, 'fade_in_all': 70, 'fade_out': 2, 'fade_out_all': 31, 'kit.hold': 4, 'kit.music_breath': 1, 'line.until': 2, 'line.wait_for': 35, 'line.wait_sentence': 10, 'say': 5, 'stage.add_updater': 3, 'stage.clear_updaters': 5, 'stage.play': 2, 'stage.play_prepared': 1, 'stage.prepare': 3, 'tween': 1, 'tween_linear': 2, 'wait_until': 5}
+first difference at 76 ('fade_in_all', '', ('0.5',)) vs ('fade_in_all', '', ('0.6',))
+TIMING SKELETON IDENTICAL: False

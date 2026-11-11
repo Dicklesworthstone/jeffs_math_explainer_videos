@@ -1,0 +1,31 @@
+{
+  "at": "2026-11-11T00:17:26.559874+00:00",
+  "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/6d8d91ab-386b-435d-91e3-ad665c8e7f76/scratchpad/final4k-impl02",
+  "files": [
+    {
+      "name": "cc0-native-materialize-repaired02-from-991.diff",
+      "sha256": "dec85ebdb394f7237350d43f11542000e3d95872ff9a92f7d229d1d0df790e32"
+    },
+    {
+      "name": "cc0-native-materialize-repaired02-from-impl01.diff",
+      "sha256": "91c48c0e487a6d588c7aeb662d9a3a14d1035e329de6f4bb50f9f1780a9c3a69"
+    },
+    {
+      "name": "cc0-native-materialize-repaired02.py",
+      "sha256": "e5abe22eebd9de07f6df3b4829f335880eb38552e7365e838a60e50027a3f842"
+    },
+    {
+      "name": "checks02.out",
+      "sha256": "45458664ac725db7a70fbfbe8880d77974a1b67faafba2a5d9dd83952d4abd8a"
+    },
+    {
+      "name": "checks02.py",
+      "sha256": "ae82b36c508ba0e8b1ba4c65d8cdcd7ec40ddba0d7887f00310e69e53c1b82a8"
+    },
+    {
+      "name": "handoff03.md",
+      "sha256": "6dbccbdc48a4bd757cc1b651d4c725cdd1d0eb0bcdb5394a2ecde0151ede2ab1"
+    }
+  ],
+  "scope": "Preserved candidate; no launch or release approval. Independent review and actual prerequisites required."
+}

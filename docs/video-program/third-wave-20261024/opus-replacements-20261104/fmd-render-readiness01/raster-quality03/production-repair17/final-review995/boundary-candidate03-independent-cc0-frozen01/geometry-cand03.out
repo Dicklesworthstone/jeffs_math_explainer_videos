@@ -1,0 +1,50 @@
+PASS tests: every RHO_HALF is the same  [[('15.0 / PX', '21.0 / PX'), ('15.0 / PX', '21.0 / PX')]]
+source constants: SMALL_R 0.180 MID_R 0.120 SHRUNK_R 0.060 HOLE 0.070 BOUND_R 0.300 A_RIDE 0.11130 RHO_RIDE 0.12056
+close_up unit 2.22222 scene per plane unit; picture unit 1.12000; PX 270; CLEAR 0.035 (9.45 px)
+PASS formula shrink_names is the one evaluated here
+PASS formula a_leader is the one evaluated here
+PASS formula a_name_shown is the one evaluated here
+widths (scene): small 0.040 hole 0.030 dashes 0.030 leader 0.015 disks 0.050
+PASS shrink tweens read from the source  [[('MID_R', '0.7'), ('SHRUNK_R', '1.0')]]
+
+09_1 shrink, 4086 radii (grid + every 60 fps frame of 0.7 s and 1.0 s), least values in native px:
+  a / circle line (drawn gap)                                       12.15 px at r = 0.0602
+  a / dashes                                                        24.92 px at r = 0.1800
+  a / hole ring                                                     30.60 px at r = 0.0600
+  rho / circle line (drawn gap)                                     12.15 px at r = 0.1710
+  rho / dashes                                                      18.99 px at r = 0.1800
+  rho / hole ring                                                   30.60 px at r = 0.0600
+  a / rho                                                           52.78 px at r = 0.0600
+  leader foot / hole ring (cap counted)                              3.37 px at r = 0.0600
+  leader top / a ink (cap counted)                                   3.37 px at r = 0.0602
+  leader crosses the circle line: below its inner edge               2.25 px at r = 0.0600
+  leader crosses the circle line: above its outer edge               6.75 px at r = 0.1129
+  leader / rho box (cap counted)                                    51.52 px at r = 0.0600
+  leader visible inside the circle                                   4.27 px at r = 0.0600
+  a nearer the line than the hole: hole gap minus line gap (px)     18.45 px at r = 0.0600
+PASS a and rho clear the circle line by CLEAR
+PASS a and rho clear the dashes by CLEAR
+PASS a and rho clear the hole ring by CLEAR
+PASS a and rho clear each other by CLEAR
+PASS leader foot never moves  [1 distinct]
+PASS leader clear of the hole ring (drawn)
+PASS leader stops short of a (drawn)
+PASS leader always crosses the circle line
+PASS leader clear of rho by CLEAR
+  a at rest: 12.05 px above A_AT; shrunk line vs hole ring drawn gap 7.65 px
+PASS shrunk circle keeps a drawn gap from the hole ring
+
+leader at the three held radii (px): inside the circle / across the line / outside it / total drawn
+  r 0.180:   76.3 /  10.8 /   8.8 /   95.8   (a's centre 138 px above point a, line top 113 px)
+  r 0.120:   40.3 /  10.8 /   8.8 /   59.8   (a's centre 102 px above point a, line top 77 px)
+  r 0.060:    4.3 /  10.8 /   8.8 /   23.8   (a's centre 66 px above point a, line top 41 px)
+
+09_7 / 09_9 growths (picture unit 1.120; a@28 box 35.0 x 38.0 px):
+  line within CLEAR of a's box for r in [0.1301, 0.4081]; hidden range (0.11, 0.43), eased 0.10 either side
+  least gap while a shows at all: 15.53 px at r = 0.1100
+PASS a hidden wherever a growing line is within CLEAR  [0 radii shown]
+PASS a fully shown at 0.001 and at both growth ends (facts 1, 1.414)
+
+file: candidate03-boundary.rs
+17 checks, 0 failed
+exit 0

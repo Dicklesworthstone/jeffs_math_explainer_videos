@@ -1,0 +1,13 @@
+{
+  "utc": "2026-11-10T22:21:44.371202+00:00",
+  "exit": 0,
+  "files": {
+    "stdout.txt": "c1d261e38d02f6f75f5a1bd86b8f8d9f2fb201b812e8834febbbd885582dcade",
+    "narration_compare02.py": "fb45d672a7ece56186d91d9dcd7fa67215bf72b04d026406a2263ceb8ff6bc2b",
+    "narr_csd01.out.json": "74be5fa78d83ffdd331f33195a853c49d6f52ea6e34f621a6212712933ec5c68",
+    "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "receipt.json": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proof.json": "a31b9bbebeb1299b10c9245fa4363743eb914b1b00cd4d9ab24c8a063b71c47f",
+    "narr_css01.out.json": "5e7492a5861d9bb2d99a2e9d93634f0faea318e0945a14cb6d1de2dde7546e30"
+  }
+}

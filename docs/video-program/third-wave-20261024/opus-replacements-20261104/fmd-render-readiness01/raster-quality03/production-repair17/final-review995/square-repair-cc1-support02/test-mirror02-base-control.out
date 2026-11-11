@@ -1,0 +1,17 @@
+FAIL body binds proof_children(&enlarged)
+FAIL body binds KEPT_QUARTER
+FAIL old concentric map gone
+FAIL body has enlarged[(WALK_START + k) % 4]
+FAIL body has let moving = walk_corners;
+FAIL body has &[centre, walk_corners[0]]
+FAIL body has let (name_at, leader) = c_name_and_leader(c);
+FAIL body has &[point, point_leader, point_name]
+FAIL body has &[point, point_leader, point_name, neighbourhood, small]
+info: leader crosses the delta-circle (drawn later, dim leader over green ring): True
+FAIL square picture cleared before triangle
+FAIL listed perimeter_word,
+FAIL listed perimeter_name,
+FAIL listed square_picture.extend(quarter_picture);
+info: line.wait_for( calls in body: 34
+FAIL TEXT has PERIMETER_WORD once
+FAIL TEX has KEPT_TEX once

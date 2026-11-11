@@ -1,0 +1,18 @@
+{
+  "utc": "2026-11-11T00:25:42.467440+00:00",
+  "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/6d8d91ab-386b-435d-91e3-ad665c8e7f76/scratchpad/final-master-cc3-review01",
+  "files": [
+    {
+      "file": "cross01.out",
+      "sha256": "91d48535228b7f2b927903e0cc7d9d79999a107c3b8489da4ba894faa028dd3f"
+    },
+    {
+      "file": "cross01.py",
+      "sha256": "77593368307db76e145863dd9fb9d0f96ea26bd2892cbdc7b237c7abe85154b8"
+    },
+    {
+      "file": "review01.md",
+      "sha256": "2e909f22c36afee425cb00f98c090a3c8eaa42ac95b59ff8eb29b55ae8d5d634"
+    }
+  ]
+}

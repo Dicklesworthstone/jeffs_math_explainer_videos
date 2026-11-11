@@ -1,0 +1,4 @@
+base events: 111  candidate events: 111
+first difference at 67 base ('goursat_proof', 'fade_in_all', '0.5') candidate ('goursat_proof', 'fade_in_all', '0.6')
+wait_for phrases: 34  fades/plays/tweens: 77
+TIMING SKELETON IDENTICAL: False

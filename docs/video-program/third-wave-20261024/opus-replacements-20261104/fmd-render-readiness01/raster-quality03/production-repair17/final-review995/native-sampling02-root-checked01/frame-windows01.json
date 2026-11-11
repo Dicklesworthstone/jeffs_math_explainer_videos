@@ -1,0 +1,2480 @@
+{
+ "inputs": {
+  "script": [
+   "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-boundary760-source/workspace/explainer_corpus/complex_analysis_visual/script.tsv",
+   "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c"
+  ],
+  "phrase_timings": [
+   "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-picture-source41/001-phrase-timings.json",
+   "b025eaa7989c40281e6edc72a65f7677275051c36ad67add8114819a45fccabc"
+  ],
+  "report": [
+   "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-mini-transfer812/tree/inputs557/jobs/csd-review-repair-rebind313/narration/report.json",
+   "69cb32ee3eb9cf83c5d8b18da8bda7682f4a55d1b91e21ad0b543ca73e25af85"
+  ]
+ },
+ "chapter_start": {
+  "01_the_bump": 0,
+  "08_loop_sums": 52106,
+  "09_boundary": 67065
+ },
+ "checks": {
+  "timelines": {
+   "01_the_bump": {
+    "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview274-review305/preview/01_the_bump.timeline.tsv",
+    "local_sha256": "6149d6fa5e0e7086f1a61a727b0d9492bf32952815e378ffb82dd6cb973197ef",
+    "selected_sha256": "150147fe5bc7cdb0a111061c4530a16b104d196e004ae29bcf210d1c9c32ac81",
+    "rebuilt_equals_selected": true,
+    "frames": 6311
+   },
+   "08_loop_sums": {
+    "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/preview243-review265/preview/08_loop_sums.timeline.tsv",
+    "local_sha256": "9d6425d62c5e454329888cd449ebf453a8400680c16a01217a232b84e0cbdfe2",
+    "selected_sha256": "43c8bab2f7ca61c8692e0f1686798d54e187dcfeeab0d03311c2d4c9a5f54812",
+    "rebuilt_equals_selected": true,
+    "frames": 14959
+   },
+   "09_boundary": {
+    "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-boundary558-reference/09_boundary.timeline.tsv",
+    "local_sha256": "5a91b8f9e2e5b5d6223a49285c06039b1b43bd16c11cecdd163a8e2e545baa9e",
+    "selected_sha256": "5a91b8f9e2e5b5d6223a49285c06039b1b43bd16c11cecdd163a8e2e545baa9e",
+    "rebuilt_equals_selected": true,
+    "frames": 16504
+   }
+  },
+  "cues": {
+   "01_6": {
+    "text_sha256": "853770de64bd72f5ec5124b24b0ad503a751a9543840844b09583932efc00185",
+    "matches_phrase_timings": true,
+    "wav_sha256": "e29d55e59467d2e2fa5a54c7378a7bbd63de3b4be8f667a3189146264ce6cdc9",
+    "marks": 0,
+    "line_frame": 5063,
+    "len_report": 17.6,
+    "measured_sentence_starts": true,
+    "sentences": 4
+   },
+   "08_5": {
+    "text_sha256": "97c45ba76f4abf7e48a387e2c88b7ed9d597c275f10cf37e1efda2a472ea07dc",
+    "matches_phrase_timings": true,
+    "wav_sha256": "fb88052b87ca09b853e1e4ed630ed1163e0966e8b6128ba44f0469c12bfbfb0f",
+    "marks": 487,
+    "line_frame": 3748,
+    "len_report": 178.64,
+    "measured_sentence_starts": true,
+    "sentences": 33
+   },
+   "09_1": {
+    "text_sha256": "a2a1ad9f015d94f83533ab7a84af643d490aa2dcab2a6842ec9fbc4100e9eea1",
+    "matches_phrase_timings": true,
+    "wav_sha256": "cf37ead1c5bb398864c4090cb925c6002e1a9e4443f6d24a326b6b4f488e22ef",
+    "marks": 357,
+    "line_frame": 36,
+    "len_report": 137.68,
+    "measured_sentence_starts": true,
+    "sentences": 25
+   },
+   "09_7": {
+    "text_sha256": "2128853f2aaf707e40c414dc288289f260b2294a9edb45c28fe8c82b177b5512",
+    "matches_phrase_timings": true,
+    "wav_sha256": "5c9b0ebf25615d2268b2b6939b2e4a89721e9ae4d2fefadf8c4021561a919206",
+    "marks": 3,
+    "line_frame": 13363,
+    "len_report": 23.6,
+    "measured_sentence_starts": true,
+    "sentences": 4
+   },
+   "09_8": {
+    "text_sha256": "e731b7db781031bb6bb39737bab0ea5e9d6f99574af0e9f53da62afaa282394c",
+    "matches_phrase_timings": true,
+    "wav_sha256": "c361a61a1b32bffe6e71aa60be3913b994ff59abc4a8821cfb7023cc9a0d3d23",
+    "marks": 0,
+    "line_frame": 14815,
+    "len_report": 5.84,
+    "measured_sentence_starts": true,
+    "sentences": 2
+   },
+   "09_9": {
+    "text_sha256": "ccf367be22843f96a47044732f91c35977af413c76df63e51a936faf306da3e7",
+    "matches_phrase_timings": true,
+    "wav_sha256": "d4a6483385e1e4c01eb43b8017db2e08da34f94c0447d265d49740bcc8dd85e9",
+    "marks": 1,
+    "line_frame": 15577,
+    "len_report": 11.84,
+    "measured_sentence_starts": true,
+    "sentences": 3
+   }
+  },
+  "01_end_clock_equals_frames": true,
+  "01_breath_frame_equals_timeline": [
+   6155,
+   [
+    [
+     6155,
+     "2"
+    ]
+   ]
+  ],
+  "09_1_clock_at_end_vs_09_2_frame": [
+   8297,
+   8333
+  ],
+  "09_1_radius_frames_local": {
+   "shrink1": {
+    "0.17": 7103,
+    "0.16": 7110,
+    "0.15": 7117,
+    "0.14": 7124,
+    "0.13": 7131,
+    "0.12": 7138
+   },
+   "shrink2": {
+    "0.11": 7610,
+    "0.10": 7620,
+    "0.09": 7630,
+    "0.08": 7640,
+    "0.07": 7650,
+    "0.06": 7660
+   }
+  },
+  "09_7_hold_vs_09_8_frame": [
+   14815,
+   14815
+  ],
+  "09_8_predict_mark_vs_timeline": [
+   15202,
+   [
+    [
+     "predict",
+     10458
+    ],
+    [
+     "predict",
+     15202
+    ]
+   ]
+  ],
+  "09_7_radius_frames_local": {
+   "0.01": 13658,
+   "0.11": 13676,
+   "0.12": 13679,
+   "0.41": 13731,
+   "0.43": 13734,
+   "0.53": 13752,
+   "1.00": 13836
+  },
+  "09_9_radius_frames_local": {
+   "0.010": 15613,
+   "0.110": 15624,
+   "0.125": 15625,
+   "0.380": 15651,
+   "0.413": 15654,
+   "0.430": 15656,
+   "0.530": 15666,
+   "0.620": 15676,
+   "0.910": 15705,
+   "1.414": 15756
+  }
+ },
+ "sims": [
+  {
+   "chapter": "01_the_bump",
+   "label": "01_6 previews and chapter close",
+   "anchors": [
+    {
+     "kind": "say",
+     "cue": "01_6",
+     "frame": 5063,
+     "global": 5063
+    },
+    {
+     "kind": "wait_sentence",
+     "cue": "01_6",
+     "source": "report-onset",
+     "phrase_seconds_in_line": 7.24,
+     "frame": 5498,
+     "global": 5498,
+     "slack_frames": 435,
+     "late_frames": 0,
+     "sentence": 2
+    },
+    {
+     "kind": "wait_sentence",
+     "cue": "01_6",
+     "source": "report-onset",
+     "phrase_seconds_in_line": 14.12,
+     "frame": 5911,
+     "global": 5911,
+     "slack_frames": 215,
+     "late_frames": 0,
+     "sentence": 3
+    },
+    {
+     "kind": "wait_until(line.end())",
+     "cue": "01_6",
+     "source": "report-total",
+     "phrase_seconds_in_line": 17.6,
+     "frame": 6119,
+     "global": 6119,
+     "slack_frames": 208,
+     "late_frames": 0
+    },
+    {
+     "kind": "hold_breath",
+     "cue": "01_6",
+     "source": "report-total+BREATH",
+     "phrase_seconds_in_line": 18.2,
+     "frame": 6155,
+     "global": 6155,
+     "slack_frames": 36,
+     "late_frames": 0,
+     "breath_frame": 6155
+    }
+   ],
+   "events": [
+    {
+     "what": "fade_in chunk 1 [COMING_UP caption, z^2 portrait, loop circle]",
+     "rt": 0.5,
+     "frames": 30,
+     "clock_start": 5498,
+     "video_local": [
+      5498,
+      5527
+     ],
+     "video_global": [
+      5498,
+      5527
+     ]
+    },
+    {
+     "what": "pause",
+     "seconds": 0.6,
+     "frames": 36,
+     "clock_start": 5528
+    },
+    {
+     "what": "fade_in chunk 2 [ARROW (buff 0.0, preview_arrow), half-disk path, zero_mark 0]",
+     "rt": 0.5,
+     "frames": 30,
+     "clock_start": 5564,
+     "video_local": [
+      5564,
+      5593
+     ],
+     "video_global": [
+      5564,
+      5593
+     ],
+     "finding": "arrow"
+    },
+    {
+     "what": "pause",
+     "seconds": 0.6,
+     "frames": 36,
+     "clock_start": 5594
+    },
+    {
+     "what": "fade_in chunk 3 [zero_mark 1]",
+     "rt": 0.5,
+     "frames": 30,
+     "clock_start": 5630,
+     "video_local": [
+      5630,
+      5659
+     ],
+     "video_global": [
+      5630,
+      5659
+     ]
+    },
+    {
+     "what": "pause",
+     "seconds": 0.6,
+     "frames": 36,
+     "clock_start": 5660
+    },
+    {
+     "what": "music_breath 2.0",
+     "seconds": 2.0,
+     "frames": 120,
+     "clock_start": 6155
+    },
+    {
+     "what": "fade_out all (axes, curve, vertical, ring, radius, title, formula, poles, thumbs incl. arrow)",
+     "rt": 0.6,
+     "frames": 36,
+     "clock_start": 6275,
+     "video_local": [
+      6275,
+      6310
+     ],
+     "video_global": [
+      6275,
+      6310
+     ],
+     "finding": "arrow"
+    }
+   ]
+  },
+  {
+   "chapter": "08_loop_sums",
+   "label": "08_5 nest, c, delta circle, magnified square, walk, quarter",
+   "anchors": [
+    {
+     "kind": "assumed-idle",
+     "cue": "08_5",
+     "phrase": "Keep that square, and cut it into four again",
+     "source": "mark",
+     "phrase_seconds_in_line": 45.96,
+     "frame": 6506,
+     "global": 58612
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 54.0,
+     "frame": 6988,
+     "global": 59094,
+     "slack_frames": 186,
+     "late_frames": 0,
+     "phrase": "These nested squares shrink toward a single point"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 59.86,
+     "frame": 7340,
+     "global": 59446,
+     "slack_frames": 313,
+     "late_frames": 0,
+     "phrase": "the derivative at that one point only"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 62.92,
+     "frame": 7524,
+     "global": 59630,
+     "slack_frames": 166,
+     "late_frames": 0,
+     "phrase": "Near c, the function is a constant"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 70.44,
+     "frame": 7975,
+     "global": 60081,
+     "slack_frames": 408,
+     "late_frames": 0,
+     "phrase": "The constant integrates to zero"
+    },
+    {
+     "kind": "unmodelled",
+     "what": "lay_down(constant arrows, 0.3 each): arrow count not computed"
+    }
+   ],
+   "events": [
+    {
+     "what": "fade_out [selected, identity, triangle_ineq, assumption]",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 6506,
+     "video_local": [
+      6506,
+      6523
+     ],
+     "video_global": [
+      58612,
+      58629
+     ]
+    },
+    {
+     "what": "fade_out subdivision",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 6524,
+     "video_local": [
+      6524,
+      6541
+     ],
+     "video_global": [
+      58630,
+      58647
+     ]
+    },
+    {
+     "what": "nest cut 1: fade_in grid",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 6542,
+     "video_local": [
+      6542,
+      6559
+     ],
+     "video_global": [
+      58648,
+      58665
+     ]
+    },
+    {
+     "what": "nest cut 1: fade_in [fill, edge] (quarter 0)",
+     "rt": 0.35,
+     "frames": 21,
+     "clock_start": 6560,
+     "video_local": [
+      6560,
+      6580
+     ],
+     "video_global": [
+      58666,
+      58686
+     ]
+    },
+    {
+     "what": "nest cut 1: fade_out grid",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 6581,
+     "video_local": [
+      6581,
+      6593
+     ],
+     "video_global": [
+      58687,
+      58699
+     ]
+    },
+    {
+     "what": "nest cut 1: fade_out fill",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 6594,
+     "video_local": [
+      6594,
+      6606
+     ],
+     "video_global": [
+      58700,
+      58712
+     ]
+    },
+    {
+     "what": "nest cut 2: fade_in grid",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 6607,
+     "video_local": [
+      6607,
+      6624
+     ],
+     "video_global": [
+      58713,
+      58730
+     ]
+    },
+    {
+     "what": "nest cut 2: fade_in [fill, edge] (quarter 3)",
+     "rt": 0.35,
+     "frames": 21,
+     "clock_start": 6625,
+     "video_local": [
+      6625,
+      6645
+     ],
+     "video_global": [
+      58731,
+      58751
+     ]
+    },
+    {
+     "what": "nest cut 2: fade_out grid",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 6646,
+     "video_local": [
+      6646,
+      6658
+     ],
+     "video_global": [
+      58752,
+      58764
+     ]
+    },
+    {
+     "what": "nest cut 2: fade_out fill",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 6659,
+     "video_local": [
+      6659,
+      6671
+     ],
+     "video_global": [
+      58765,
+      58777
+     ]
+    },
+    {
+     "what": "nest cut 3: fade_in grid",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 6672,
+     "video_local": [
+      6672,
+      6689
+     ],
+     "video_global": [
+      58778,
+      58795
+     ]
+    },
+    {
+     "what": "nest cut 3: fade_in [fill, edge] (quarter 1)",
+     "rt": 0.35,
+     "frames": 21,
+     "clock_start": 6690,
+     "video_local": [
+      6690,
+      6710
+     ],
+     "video_global": [
+      58796,
+      58816
+     ]
+    },
+    {
+     "what": "nest cut 3: fade_out grid",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 6711,
+     "video_local": [
+      6711,
+      6723
+     ],
+     "video_global": [
+      58817,
+      58829
+     ]
+    },
+    {
+     "what": "nest cut 3: fade_out fill",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 6724,
+     "video_local": [
+      6724,
+      6736
+     ],
+     "video_global": [
+      58830,
+      58842
+     ]
+    },
+    {
+     "what": "nest cut 4: fade_in grid",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 6737,
+     "video_local": [
+      6737,
+      6754
+     ],
+     "video_global": [
+      58843,
+      58860
+     ]
+    },
+    {
+     "what": "nest cut 4: fade_in [fill, edge] (quarter 2)",
+     "rt": 0.35,
+     "frames": 21,
+     "clock_start": 6755,
+     "video_local": [
+      6755,
+      6775
+     ],
+     "video_global": [
+      58861,
+      58881
+     ]
+    },
+    {
+     "what": "nest cut 4: fade_out grid",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 6776,
+     "video_local": [
+      6776,
+      6788
+     ],
+     "video_global": [
+      58882,
+      58894
+     ]
+    },
+    {
+     "what": "nest cut 4: fade_out fill",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 6789,
+     "video_local": [
+      6789,
+      6801
+     ],
+     "video_global": [
+      58895,
+      58907
+     ]
+    },
+    {
+     "what": "fade_in [point, point_leader, point_name] (L5 c, leader, junction)",
+     "rt": 0.35,
+     "frames": 21,
+     "clock_start": 6988,
+     "video_local": [
+      6988,
+      7008
+     ],
+     "video_global": [
+      59094,
+      59114
+     ],
+     "finding": "L5"
+    },
+    {
+     "what": "fade_in nested_name Q_0 > Q_1 > ...",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 7009,
+     "video_local": [
+      7009,
+      7026
+     ],
+     "video_global": [
+      59115,
+      59132
+     ]
+    },
+    {
+     "what": "fade_in one_point text",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 7340,
+     "video_local": [
+      7340,
+      7357
+     ],
+     "video_global": [
+      59446,
+      59463
+     ]
+    },
+    {
+     "what": "fade_out [hypothesis, nested_name, selection, one_point, title]",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 7524,
+     "video_local": [
+      7524,
+      7541
+     ],
+     "video_global": [
+      59630,
+      59647
+     ]
+    },
+    {
+     "what": "fade_in expansion",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 7542,
+     "video_local": [
+      7542,
+      7566
+     ],
+     "video_global": [
+      59648,
+      59672
+     ]
+    },
+    {
+     "what": "fade_out affine (constant term)",
+     "rt": 0.25,
+     "frames": 15,
+     "clock_start": 7975,
+     "video_local": [
+      7975,
+      7989
+     ],
+     "video_global": [
+      60081,
+      60095
+     ]
+    },
+    {
+     "what": "fade_in [equation, caption] (constant)",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 7990,
+     "video_local": [
+      7990,
+      8007
+     ],
+     "video_global": [
+      60096,
+      60113
+     ]
+    }
+   ]
+  },
+  {
+   "chapter": "08_loop_sums",
+   "label": "08_5 linear term to delta circle (chain restarted at phrase)",
+   "anchors": [
+    {
+     "kind": "assumed-idle",
+     "cue": "08_5",
+     "phrase": "The linear term integrates to zero too",
+     "source": "mark",
+     "phrase_seconds_in_line": 75.88,
+     "frame": 8301,
+     "global": 60407
+    },
+    {
+     "kind": "unmodelled",
+     "what": "lay_down(linear arrows, 0.3 each) + zero dot 0.25"
+    }
+   ],
+   "events": [
+    {
+     "what": "fade_out affine (constant chain incl. caption)",
+     "rt": 0.25,
+     "frames": 15,
+     "clock_start": 8301,
+     "video_local": [
+      8301,
+      8315
+     ],
+     "video_global": [
+      60407,
+      60421
+     ],
+     "finding": "L7-anchor"
+    },
+    {
+     "what": "fade_in [equation, caption] (linear)",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 8316,
+     "video_local": [
+      8316,
+      8333
+     ],
+     "video_global": [
+      60422,
+      60439
+     ],
+     "finding": "L7-anchor"
+    }
+   ]
+  },
+  {
+   "chapter": "08_loop_sums",
+   "label": "08_5 remainder, epsilon, delta circle, magnified square, walk, quarter, triangle",
+   "anchors": [
+    {
+     "kind": "assumed-idle",
+     "cue": "08_5",
+     "phrase": "So only the remainder contributes",
+     "source": "mark",
+     "phrase_seconds_in_line": 84.4,
+     "frame": 8812,
+     "global": 60918
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 86.9,
+     "frame": 8962,
+     "global": 61068,
+     "slack_frames": 111,
+     "late_frames": 0,
+     "phrase": "Pick any tiny factor, and call it epsilon"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 89.88,
+     "frame": 9141,
+     "global": 61247,
+     "slack_frames": 161,
+     "late_frames": 0,
+     "phrase": "Close enough to c"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 99.9,
+     "frame": 9742,
+     "global": 61848,
+     "slack_frames": 576,
+     "late_frames": 0,
+     "phrase": "After enough cuts, the whole nested square"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 104.62,
+     "frame": 10026,
+     "global": 62132,
+     "slack_frames": 204,
+     "late_frames": 0,
+     "phrase": "the distance to c is at most the square's diagonal"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 107.82,
+     "frame": 10218,
+     "global": 62324,
+     "slack_frames": 167,
+     "late_frames": 0,
+     "phrase": "the steps add up to the perimeter"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 112.26,
+     "frame": 10484,
+     "global": 62590,
+     "slack_frames": 128,
+     "late_frames": 0,
+     "phrase": "size at most epsilon, times its diagonal, times its perimeter"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 116.66,
+     "frame": 10748,
+     "global": 62854,
+     "slack_frames": 243,
+     "late_frames": 0,
+     "phrase": "Each cut halves the diagonal and halves the perimeter"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 120.24,
+     "frame": 10963,
+     "global": 63069,
+     "slack_frames": 146,
+     "late_frames": 0,
+     "phrase": "this bound shrinks to a quarter every time"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 123.14,
+     "frame": 11137,
+     "global": 63243,
+     "slack_frames": 153,
+     "late_frames": 0,
+     "phrase": "But our rule kept at least a quarter"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 127.34,
+     "frame": 11389,
+     "global": 63495,
+     "slack_frames": 234,
+     "late_frames": 0,
+     "phrase": "So after n cuts"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 134.68,
+     "frame": 11829,
+     "global": 63935,
+     "slack_frames": 397,
+     "late_frames": 0,
+     "phrase": "The small square's integral has size at most epsilon"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 142.02,
+     "frame": 12270,
+     "global": 64376,
+     "slack_frames": 416,
+     "late_frames": 0,
+     "phrase": "Multiplying by four to the n cancels the fours"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 144.92,
+     "frame": 12444,
+     "global": 64550,
+     "slack_frames": 101,
+     "late_frames": 0,
+     "phrase": "the original integral's size is at most epsilon times"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 149.88,
+     "frame": 12741,
+     "global": 64847,
+     "slack_frames": 254,
+     "late_frames": 0,
+     "phrase": "Since epsilon can be as small as we like"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 155.1,
+     "frame": 13054,
+     "global": 65160,
+     "slack_frames": 277,
+     "late_frames": 0,
+     "phrase": "The same shrinking argument works for a triangle"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "08_5",
+     "source": "mark",
+     "phrase_seconds_in_line": 157.94,
+     "frame": 13225,
+     "global": 65331,
+     "slack_frames": 121,
+     "late_frames": 0,
+     "phrase": "Join the midpoints of its sides"
+    }
+   ],
+   "events": [
+    {
+     "what": "fade_out affine",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 8812,
+     "video_local": [
+      8812,
+      8829
+     ],
+     "video_global": [
+      60918,
+      60935
+     ]
+    },
+    {
+     "what": "fade_in remainder",
+     "rt": 0.35,
+     "frames": 21,
+     "clock_start": 8830,
+     "video_local": [
+      8830,
+      8850
+     ],
+     "video_global": [
+      60936,
+      60956
+     ]
+    },
+    {
+     "what": "fade_in epsilon text",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 8962,
+     "video_local": [
+      8962,
+      8979
+     ],
+     "video_global": [
+      61068,
+      61085
+     ]
+    },
+    {
+     "what": "fade_in [error, local, neighbourhood delta-circle] (delta-circle meets c/leader)",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 9141,
+     "video_local": [
+      9141,
+      9165
+     ],
+     "video_global": [
+      61247,
+      61271
+     ],
+     "finding": "L5"
+    },
+    {
+     "what": "fade_in small (nested square fill)",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 9742,
+     "video_local": [
+      9742,
+      9766
+     ],
+     "video_global": [
+      61848,
+      61872
+     ],
+     "finding": "L5"
+    },
+    {
+     "what": "fade_out nested squares",
+     "rt": 0.25,
+     "frames": 15,
+     "clock_start": 9767,
+     "video_local": [
+      9767,
+      9781
+     ],
+     "video_global": [
+      61873,
+      61887
+     ],
+     "finding": "L5"
+    },
+    {
+     "what": "fade_out [point, point_leader, point_name, neighbourhood, small]",
+     "rt": 0.25,
+     "frames": 15,
+     "clock_start": 9782,
+     "video_local": [
+      9782,
+      9796
+     ],
+     "video_global": [
+      61888,
+      61902
+     ],
+     "finding": "L5"
+    },
+    {
+     "what": "fade_in [inset, centre_dot, centre_name, zoom_name] (magnified square)",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 9797,
+     "video_local": [
+      9797,
+      9821
+     ],
+     "video_global": [
+      61903,
+      61927
+     ]
+    },
+    {
+     "what": "fade_in [diagonal, diagonal_name D_n, distance |z-c|, walker] (WALK_START corner)",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 10026,
+     "video_local": [
+      10026,
+      10050
+     ],
+     "video_global": [
+      62132,
+      62156
+     ],
+     "finding": "L11"
+    },
+    {
+     "what": "walk tween progress 0->4 (2.0 s) with c_aside/d_aside fade_out 0.3",
+     "rt": 2.0,
+     "frames": 120,
+     "clock_start": 10218,
+     "video_local": [
+      10218,
+      10337
+     ],
+     "video_global": [
+      62324,
+      62443
+     ],
+     "finding": "L11",
+     "aside_fade_video_local": [
+      10218,
+      10235
+     ],
+     "corner_video_local": [
+      10247,
+      10277,
+      10307,
+      10337
+     ]
+    },
+    {
+     "what": "fade_in [perimeter_word, perimeter_name P_n, centre_name, diagonal_name] (F5 baseline)",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 10338,
+     "video_local": [
+      10338,
+      10355
+     ],
+     "video_global": [
+      62444,
+      62461
+     ],
+     "finding": "L11"
+    },
+    {
+     "what": "fade_in bound |I_n| <= eps D_n P_n",
+     "rt": 0.35,
+     "frames": 21,
+     "clock_start": 10484,
+     "video_local": [
+      10484,
+      10504
+     ],
+     "video_global": [
+      62590,
+      62610
+     ]
+    },
+    {
+     "what": "fade_out [expansion, remainder, epsilon, error, local, distance, walker]",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 10748,
+     "video_local": [
+      10748,
+      10765
+     ],
+     "video_global": [
+      62854,
+      62871
+     ]
+    },
+    {
+     "what": "fade_in [product_title, scale_d, scale_p]",
+     "rt": 0.35,
+     "frames": 21,
+     "clock_start": 10766,
+     "video_local": [
+      10766,
+      10786
+     ],
+     "video_global": [
+      62872,
+      62892
+     ]
+    },
+    {
+     "what": "fade_in quarter_picture (cuts, kept fill/edge/diagonal, c dot + c redrawn, KEPT_TEX)",
+     "rt": 0.5,
+     "frames": 30,
+     "clock_start": 10787,
+     "video_local": [
+      10787,
+      10816
+     ],
+     "video_global": [
+      62893,
+      62922
+     ],
+     "finding": "L12"
+    },
+    {
+     "what": "fade_in product D_nP_n = D_0P_0/4^n",
+     "rt": 0.35,
+     "frames": 21,
+     "clock_start": 10963,
+     "video_local": [
+      10963,
+      10983
+     ],
+     "video_global": [
+      63069,
+      63089
+     ]
+    },
+    {
+     "what": "fade_in lower |I_{n+1}| >= |I_n|/4",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 11137,
+     "video_local": [
+      11137,
+      11154
+     ],
+     "video_global": [
+      63243,
+      63260
+     ]
+    },
+    {
+     "what": "fade_out [bound, scale_d, scale_p, product, lower]",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 11389,
+     "video_local": [
+      11389,
+      11406
+     ],
+     "video_global": [
+      63495,
+      63512
+     ]
+    },
+    {
+     "what": "fade_in accumulated",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 11407,
+     "video_local": [
+      11407,
+      11431
+     ],
+     "video_global": [
+      63513,
+      63537
+     ]
+    },
+    {
+     "what": "fade_in upper",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 11829,
+     "video_local": [
+      11829,
+      11853
+     ],
+     "video_global": [
+      63935,
+      63959
+     ]
+    },
+    {
+     "what": "fade_out [accumulated, upper]",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 12270,
+     "video_local": [
+      12270,
+      12287
+     ],
+     "video_global": [
+      64376,
+      64393
+     ]
+    },
+    {
+     "what": "fade_in [lhs, four_top, numerator, bar, four_bottom]",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 12288,
+     "video_local": [
+      12288,
+      12312
+     ],
+     "video_global": [
+      64394,
+      64418
+     ]
+    },
+    {
+     "what": "fade_in [cancel_top, cancel_bottom]",
+     "rt": 0.5,
+     "frames": 30,
+     "clock_start": 12313,
+     "video_local": [
+      12313,
+      12342
+     ],
+     "video_global": [
+      64419,
+      64448
+     ]
+    },
+    {
+     "what": "fade_out (cancellation group)",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 12444,
+     "video_local": [
+      12444,
+      12461
+     ],
+     "video_global": [
+      64550,
+      64567
+     ]
+    },
+    {
+     "what": "fade_in [final_bound, arbitrary]",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 12462,
+     "video_local": [
+      12462,
+      12486
+     ],
+     "video_global": [
+      64568,
+      64592
+     ]
+    },
+    {
+     "what": "fade_in zero",
+     "rt": 0.6,
+     "frames": 36,
+     "clock_start": 12741,
+     "video_local": [
+      12741,
+      12776
+     ],
+     "video_global": [
+      64847,
+      64882
+     ]
+    },
+    {
+     "what": "fade_out square_picture (incl. quarter_picture, redrawn c)",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 13054,
+     "video_local": [
+      13054,
+      13078
+     ],
+     "video_global": [
+      65160,
+      65184
+     ],
+     "finding": "L12"
+    },
+    {
+     "what": "fade_in [triangle_outline, triangle_title]",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 13079,
+     "video_local": [
+      13079,
+      13103
+     ],
+     "video_global": [
+      65185,
+      65209
+     ]
+    }
+   ]
+  },
+  {
+   "chapter": "09_boundary",
+   "label": "09_1 refinement, arc/sum bounds, circles equal, shrink, zero, rest",
+   "anchors": [
+    {
+     "kind": "assumed-idle",
+     "cue": "09_1",
+     "phrase": "Now keep the small circle fixed",
+     "source": "mark",
+     "phrase_seconds_in_line": 80.84,
+     "frame": 4887,
+     "global": 71952
+    },
+    {
+     "kind": "wait_for",
+     "cue": "09_1",
+     "source": "mark",
+     "phrase_seconds_in_line": 83.04,
+     "frame": 5019,
+     "global": 72084,
+     "slack_frames": 62,
+     "late_frames": 0,
+     "phrase": "give the polygons more and more sides"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "09_1",
+     "source": "mark",
+     "phrase_seconds_in_line": 87.34,
+     "frame": 5277,
+     "global": 72342,
+     "slack_frames": 141,
+     "late_frames": 0,
+     "phrase": "Each short chord and its arc share their endpoints"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "09_1",
+     "source": "mark",
+     "phrase_seconds_in_line": 90.48,
+     "frame": 5465,
+     "global": 72530,
+     "slack_frames": 152,
+     "late_frames": 0,
+     "phrase": "so a constant has the same integral along both"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "09_1",
+     "source": "mark",
+     "phrase_seconds_in_line": 93.84,
+     "frame": 5667,
+     "global": 72732,
+     "slack_frames": 171,
+     "late_frames": 0,
+     "phrase": "The difference comes only from how much the quotient wobbles"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "09_1",
+     "source": "mark",
+     "phrase_seconds_in_line": 102.12,
+     "frame": 6164,
+     "global": 73229,
+     "slack_frames": 448,
+     "late_frames": 0,
+     "phrase": "Continuity makes every wobble small at once"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "09_1",
+     "source": "mark",
+     "phrase_seconds_in_line": 107.52,
+     "frame": 6488,
+     "global": 73553,
+     "slack_frames": 293,
+     "late_frames": 0,
+     "phrase": "So in the limit, the big circle's integral equals the small circle's"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "09_1",
+     "source": "mark",
+     "phrase_seconds_in_line": 114.16,
+     "frame": 6886,
+     "global": 73951,
+     "slack_frames": 308,
+     "late_frames": 0,
+     "phrase": "That holds for every small radius"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "09_1",
+     "source": "mark",
+     "phrase_seconds_in_line": 116.94,
+     "frame": 7053,
+     "global": 74118,
+     "slack_frames": 149,
+     "late_frames": 0,
+     "phrase": "Only now do we shrink the small circle"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "09_1",
+     "source": "mark",
+     "phrase_seconds_in_line": 119.66,
+     "frame": 7216,
+     "global": 74281,
+     "slack_frames": 77,
+     "late_frames": 0,
+     "phrase": "The magnitude of its integral is at most"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "09_1",
+     "source": "mark",
+     "phrase_seconds_in_line": 126.08,
+     "frame": 7601,
+     "global": 74666,
+     "slack_frames": 354,
+     "late_frames": 0,
+     "phrase": "and that goes to zero"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "09_1",
+     "source": "mark",
+     "phrase_seconds_in_line": 128.04,
+     "frame": 7719,
+     "global": 74784,
+     "slack_frames": 58,
+     "late_frames": 0,
+     "phrase": "But the big circle's integral never changed"
+    },
+    {
+     "kind": "wait_for",
+     "cue": "09_1",
+     "source": "mark",
+     "phrase_seconds_in_line": 132.26,
+     "frame": 7972,
+     "global": 75037,
+     "slack_frames": 222,
+     "late_frames": 0,
+     "phrase": "The second piece contributes nothing"
+    },
+    {
+     "kind": "wait_until(line.end())",
+     "cue": "09_1",
+     "source": "report-total",
+     "phrase_seconds_in_line": 137.68,
+     "frame": 8297,
+     "global": 75362,
+     "slack_frames": 275,
+     "late_frames": 0
+    }
+   ],
+   "events": [
+    {
+     "what": "fade_in fixed",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 4887,
+     "video_local": [
+      4887,
+      4904
+     ],
+     "video_global": [
+      71952,
+      71969
+     ]
+    },
+    {
+     "what": "fade_out outer_arrows",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 4905,
+     "video_local": [
+      4905,
+      4917
+     ],
+     "video_global": [
+      71970,
+      71982
+     ]
+    },
+    {
+     "what": "fade_out inner_ccw",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 4918,
+     "video_local": [
+      4918,
+      4930
+     ],
+     "video_global": [
+      71983,
+      71995
+     ]
+    },
+    {
+     "what": "fade_out polygon_names",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 4931,
+     "video_local": [
+      4931,
+      4943
+     ],
+     "video_global": [
+      71996,
+      72008
+     ]
+    },
+    {
+     "what": "fade_out both",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 4944,
+     "video_local": [
+      4944,
+      4956
+     ],
+     "video_global": [
+      72009,
+      72021
+     ]
+    },
+    {
+     "what": "fade_out polygons (sides 2^3)",
+     "rt": 0.15,
+     "frames": 9,
+     "clock_start": 5019,
+     "video_local": [
+      5019,
+      5027
+     ],
+     "video_global": [
+      72084,
+      72092
+     ]
+    },
+    {
+     "what": "fade_in polygons 2^4",
+     "rt": 0.25,
+     "frames": 15,
+     "clock_start": 5028,
+     "video_local": [
+      5028,
+      5042
+     ],
+     "video_global": [
+      72093,
+      72107
+     ]
+    },
+    {
+     "what": "pause",
+     "seconds": 0.25,
+     "frames": 15,
+     "clock_start": 5043
+    },
+    {
+     "what": "fade_out polygons (sides 2^4)",
+     "rt": 0.15,
+     "frames": 9,
+     "clock_start": 5058,
+     "video_local": [
+      5058,
+      5066
+     ],
+     "video_global": [
+      72123,
+      72131
+     ]
+    },
+    {
+     "what": "fade_in polygons 2^5",
+     "rt": 0.25,
+     "frames": 15,
+     "clock_start": 5067,
+     "video_local": [
+      5067,
+      5081
+     ],
+     "video_global": [
+      72132,
+      72146
+     ]
+    },
+    {
+     "what": "pause",
+     "seconds": 0.25,
+     "frames": 15,
+     "clock_start": 5082
+    },
+    {
+     "what": "fade_out polygons (sides 2^5)",
+     "rt": 0.15,
+     "frames": 9,
+     "clock_start": 5097,
+     "video_local": [
+      5097,
+      5105
+     ],
+     "video_global": [
+      72162,
+      72170
+     ]
+    },
+    {
+     "what": "fade_in polygons 2^6",
+     "rt": 0.25,
+     "frames": 15,
+     "clock_start": 5106,
+     "video_local": [
+      5106,
+      5120
+     ],
+     "video_global": [
+      72171,
+      72185
+     ]
+    },
+    {
+     "what": "pause",
+     "seconds": 0.25,
+     "frames": 15,
+     "clock_start": 5121
+    },
+    {
+     "what": "fade_in inset card",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 5277,
+     "video_local": [
+      5277,
+      5294
+     ],
+     "video_global": [
+      72342,
+      72359
+     ]
+    },
+    {
+     "what": "fade_in piece",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 5295,
+     "video_local": [
+      5295,
+      5312
+     ],
+     "video_global": [
+      72360,
+      72377
+     ]
+    },
+    {
+     "what": "fade_out polygons_equal",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 5465,
+     "video_local": [
+      5465,
+      5477
+     ],
+     "video_global": [
+      72530,
+      72542
+     ]
+    },
+    {
+     "what": "fade_in CONSTANT_TEX",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 5478,
+     "video_local": [
+      5478,
+      5495
+     ],
+     "video_global": [
+      72543,
+      72560
+     ]
+    },
+    {
+     "what": "fade_out CONSTANT_TEX",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 5667,
+     "video_local": [
+      5667,
+      5679
+     ],
+     "video_global": [
+      72732,
+      72744
+     ]
+    },
+    {
+     "what": "fade_in ARC_TEX (M1 closing bar dz\\,\\Big|)",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 5680,
+     "video_local": [
+      5680,
+      5697
+     ],
+     "video_global": [
+      72745,
+      72762
+     ],
+     "finding": "M1"
+    },
+    {
+     "what": "fade_in WOBBLE lines",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 5698,
+     "video_local": [
+      5698,
+      5715
+     ],
+     "video_global": [
+      72763,
+      72780
+     ]
+    },
+    {
+     "what": "fade_out ARC_TEX",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 6164,
+     "video_local": [
+      6164,
+      6176
+     ],
+     "video_global": [
+      73229,
+      73241
+     ],
+     "finding": "M1"
+    },
+    {
+     "what": "fade_in SUM_TEX (M1 closing bar; L5 width cap)",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 6177,
+     "video_local": [
+      6177,
+      6194
+     ],
+     "video_global": [
+      73242,
+      73259
+     ],
+     "finding": "M1"
+    },
+    {
+     "what": "fade_out [SUM_TEX, outer_poly, inner_poly, piece]",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 6488,
+     "video_local": [
+      6488,
+      6505
+     ],
+     "video_global": [
+      73553,
+      73570
+     ],
+     "finding": "M1"
+    },
+    {
+     "what": "fade_out inset",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 6506,
+     "video_local": [
+      6506,
+      6523
+     ],
+     "video_global": [
+      73571,
+      73588
+     ]
+    },
+    {
+     "what": "fade_in CIRCLES_TEX",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 6524,
+     "video_local": [
+      6524,
+      6541
+     ],
+     "video_global": [
+      73589,
+      73606
+     ]
+    },
+    {
+     "what": "fade_in circle_arrows",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 6542,
+     "video_local": [
+      6542,
+      6559
+     ],
+     "video_global": [
+      73607,
+      73624
+     ]
+    },
+    {
+     "what": "fade_in small_arrows",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 6560,
+     "video_local": [
+      6560,
+      6577
+     ],
+     "video_global": [
+      73625,
+      73642
+     ]
+    },
+    {
+     "what": "fade_in EVERY_TEX",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 6886,
+     "video_local": [
+      6886,
+      6903
+     ],
+     "video_global": [
+      73951,
+      73968
+     ]
+    },
+    {
+     "what": "fade_out [fixed, every]",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 7053,
+     "video_local": [
+      7053,
+      7065
+     ],
+     "video_global": [
+      74118,
+      74130
+     ],
+     "finding": "M2"
+    },
+    {
+     "what": "fade_out leaving [small_arrows, ca (a at A_AT), rho (at RHO_AT)]",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 7066,
+     "video_local": [
+      7066,
+      7078
+     ],
+     "video_global": [
+      74131,
+      74143
+     ],
+     "finding": "M2"
+    },
+    {
+     "what": "fade_in [bar, bar_name, ca_out, rho_out, leader] (riding names at SMALL_R, leader 0.6)",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 7079,
+     "video_local": [
+      7079,
+      7096
+     ],
+     "video_global": [
+      74144,
+      74161
+     ],
+     "finding": "M2/M3/leader"
+    },
+    {
+     "what": "tween radius SMALL_R 0.18 -> MID_R 0.12 (updater: circle, bar, a, rho, leader)",
+     "rt": 0.7,
+     "frames": 42,
+     "clock_start": 7097,
+     "video_local": [
+      7097,
+      7138
+     ],
+     "video_global": [
+      74162,
+      74203
+     ],
+     "finding": "M2/M3/leader"
+    },
+    {
+     "what": "fade_out CIRCLES_TEX",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 7216,
+     "video_local": [
+      7216,
+      7228
+     ],
+     "video_global": [
+      74281,
+      74293
+     ]
+    },
+    {
+     "what": "fade_in SHRINK_TEX (M1 closing bar)",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 7229,
+     "video_local": [
+      7229,
+      7246
+     ],
+     "video_global": [
+      74294,
+      74311
+     ],
+     "finding": "M1"
+    },
+    {
+     "what": "tween radius MID_R 0.12 -> SHRUNK_R 0.06 (M3 crossing in base; L14 rest gap)",
+     "rt": 1.0,
+     "frames": 60,
+     "clock_start": 7601,
+     "video_local": [
+      7601,
+      7660
+     ],
+     "video_global": [
+      74666,
+      74725
+     ],
+     "finding": "M3/L14/leader"
+    },
+    {
+     "what": "fade_out SHRINK_TEX",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 7719,
+     "video_local": [
+      7719,
+      7731
+     ],
+     "video_global": [
+      74784,
+      74796
+     ]
+    },
+    {
+     "what": "fade_in ZERO_TEX",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 7732,
+     "video_local": [
+      7732,
+      7749
+     ],
+     "video_global": [
+      74797,
+      74814
+     ]
+    },
+    {
+     "what": "fade_out proof_gone (outer, small, hole, ca_out, rho_out, leader, ...)",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 7972,
+     "video_local": [
+      7972,
+      7996
+     ],
+     "video_global": [
+      75037,
+      75061
+     ],
+     "finding": "leader"
+    },
+    {
+     "what": "fade_in [rest, result]",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 7997,
+     "video_local": [
+      7997,
+      8021
+     ],
+     "video_global": [
+      75062,
+      75086
+     ]
+    }
+   ]
+  },
+  {
+   "chapter": "09_boundary",
+   "label": "09_7 largest disk grows through a; poles; no further",
+   "anchors": [
+    {
+     "kind": "say",
+     "cue": "09_7",
+     "frame": 13363,
+     "global": 80428
+    },
+    {
+     "kind": "wait_for",
+     "cue": "09_7",
+     "source": "mark",
+     "phrase_seconds_in_line": 4.78,
+     "frame": 13650,
+     "global": 80715,
+     "slack_frames": 202,
+     "late_frames": 0,
+     "phrase": "the largest disk"
+    },
+    {
+     "kind": "wait_sentence",
+     "cue": "09_7",
+     "source": "report-onset",
+     "phrase_seconds_in_line": 11.2,
+     "frame": 14035,
+     "global": 81100,
+     "slack_frames": 198,
+     "late_frames": 0,
+     "sentence": 2
+    },
+    {
+     "kind": "wait_sentence",
+     "cue": "09_7",
+     "source": "report-onset",
+     "phrase_seconds_in_line": 15.92,
+     "frame": 14319,
+     "global": 81384,
+     "slack_frames": 259,
+     "late_frames": 0,
+     "sentence": 3
+    },
+    {
+     "kind": "wait_for",
+     "cue": "09_7",
+     "source": "mark",
+     "phrase_seconds_in_line": 22.52,
+     "frame": 14715,
+     "global": 81780,
+     "slack_frames": 366,
+     "late_frames": 0,
+     "phrase": "no further"
+    },
+    {
+     "kind": "kit.hold (BREATH bound; Thought gaps may be shorter)",
+     "cue": "09_7",
+     "source": "report-total+BREATH",
+     "phrase_seconds_in_line": 24.2,
+     "frame": 14815,
+     "global": 81880,
+     "slack_frames": 82,
+     "late_frames": 0
+    }
+   ],
+   "events": [
+    {
+     "what": "fade_out gone (09_6 picture)",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 13363,
+     "video_local": [
+      13363,
+      13387
+     ],
+     "video_global": [
+      80428,
+      80452
+     ]
+    },
+    {
+     "what": "fade_in axes_g (graph)",
+     "rt": 0.5,
+     "frames": 30,
+     "clock_start": 13388,
+     "video_local": [
+      13388,
+      13417
+     ],
+     "video_global": [
+      80453,
+      80482
+     ]
+    },
+    {
+     "what": "fade_in recipe0 + name",
+     "rt": 0.5,
+     "frames": 30,
+     "clock_start": 13418,
+     "video_local": [
+      13418,
+      13447
+     ],
+     "video_global": [
+      80483,
+      80512
+     ]
+    },
+    {
+     "what": "fade_in unit circle r=0.001 (0.1 s = 7 frames, BN-02)",
+     "rt": 0.1,
+     "frames": 7,
+     "clock_start": 13650,
+     "video_local": [
+      13650,
+      13656
+     ],
+     "video_global": [
+      80715,
+      80721
+     ],
+     "finding": "M4"
+    },
+    {
+     "what": "tween disk 0.001 -> 1.0 (a_name_shown: hidden r 0.11-0.43)",
+     "rt": 3.0,
+     "frames": 180,
+     "clock_start": 13657,
+     "video_local": [
+      13657,
+      13836
+     ],
+     "video_global": [
+      80722,
+      80901
+     ],
+     "finding": "M4/L2",
+     "rt_from": {
+      "phrase": "That answers",
+      "source": "mark",
+      "floor": 1.6,
+      "cap": 3.0
+     }
+    },
+    {
+     "what": "fade_in pole names",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 14035,
+     "video_local": [
+      14035,
+      14059
+     ],
+     "video_global": [
+      81100,
+      81124
+     ]
+    },
+    {
+     "what": "fade_in [reach0, radius_name, glow0]",
+     "rt": 0.5,
+     "frames": 30,
+     "clock_start": 14319,
+     "video_local": [
+      14319,
+      14348
+     ],
+     "video_global": [
+      81384,
+      81413
+     ]
+    },
+    {
+     "what": "fade_in stops",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 14715,
+     "video_local": [
+      14715,
+      14732
+     ],
+     "video_global": [
+      81780,
+      81797
+     ]
+    }
+   ]
+  },
+  {
+   "chapter": "09_boundary",
+   "label": "09_8 recentre slide, 1 card, predict",
+   "anchors": [
+    {
+     "kind": "say",
+     "cue": "09_8",
+     "frame": 14815,
+     "global": 81880
+    },
+    {
+     "kind": "wait_sentence",
+     "cue": "09_8",
+     "source": "report-onset",
+     "phrase_seconds_in_line": 3.04,
+     "frame": 14998,
+     "global": 82063,
+     "slack_frames": 43,
+     "late_frames": 0,
+     "sentence": 1
+    },
+    {
+     "kind": "kit.hold (BREATH bound; Thought gaps may be shorter)",
+     "cue": "09_8",
+     "source": "report-total+BREATH",
+     "phrase_seconds_in_line": 6.44,
+     "frame": 15202,
+     "global": 82267,
+     "slack_frames": 179,
+     "late_frames": 0
+    }
+   ],
+   "events": [
+    {
+     "what": "fade_out gone (09_7 disk etc.)",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 14815,
+     "video_local": [
+      14815,
+      14832
+     ],
+     "video_global": [
+      81880,
+      81897
+     ]
+    },
+    {
+     "what": "tween slide 0 -> 1 (centre and a's name move with it)",
+     "rt": 1.8,
+     "frames": 109,
+     "clock_start": 14833,
+     "video_local": [
+      14833,
+      14941
+     ],
+     "video_global": [
+      81898,
+      82006
+     ],
+     "finding": "09_8"
+    },
+    {
+     "what": "fade_in one_name '1' card",
+     "rt": 0.2,
+     "frames": 13,
+     "clock_start": 14942,
+     "video_local": [
+      14942,
+      14954
+     ],
+     "video_global": [
+      82007,
+      82019
+     ],
+     "finding": "09_9-card"
+    },
+    {
+     "what": "predict: fade_in question card",
+     "rt": 0.4,
+     "frames": 25,
+     "clock_start": 14998,
+     "video_local": [
+      14998,
+      15022
+     ],
+     "video_global": [
+      82063,
+      82087
+     ]
+    }
+   ]
+  },
+  {
+   "chapter": "09_boundary",
+   "label": "09_9 disk grows to sqrt 2 through a and the re-rooted 1 card",
+   "anchors": [
+    {
+     "kind": "say",
+     "cue": "09_9",
+     "frame": 15577,
+     "global": 82642
+    },
+    {
+     "kind": "wait_sentence",
+     "cue": "09_9",
+     "source": "report-onset",
+     "phrase_seconds_in_line": 9.1,
+     "frame": 16123,
+     "global": 83188,
+     "slack_frames": 299,
+     "late_frames": 0,
+     "sentence": 2
+    }
+   ],
+   "events": [
+    {
+     "what": "fade_out asked (predict card)",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 15577,
+     "video_local": [
+      15577,
+      15594
+     ],
+     "video_global": [
+      82642,
+      82659
+     ]
+    },
+    {
+     "what": "fade_in [unit r=0.001, reach1, reach_name]; then one_name re-rooted above the disk",
+     "rt": 0.3,
+     "frames": 18,
+     "clock_start": 15595,
+     "video_local": [
+      15595,
+      15612
+     ],
+     "video_global": [
+      82660,
+      82677
+     ],
+     "finding": "L3"
+    },
+    {
+     "what": "tween grow 0.001 -> sqrt 2 (a hidden r 0.11-0.43; card)",
+     "rt": 2.400000000000034,
+     "frames": 145,
+     "clock_start": 15613,
+     "video_local": [
+      15613,
+      15757
+     ],
+     "video_global": [
+      82678,
+      82822
+     ],
+     "finding": "M4/L3",
+     "rt_from": {
+      "phrase": "So the new recipe",
+      "source": "mark",
+      "floor": 1.6,
+      "cap": null
+     }
+    },
+    {
+     "what": "fade_in recipe1 + name",
+     "rt": 0.6,
+     "frames": 36,
+     "clock_start": 15758,
+     "video_local": [
+      15758,
+      15793
+     ],
+     "video_global": [
+      82823,
+      82858
+     ]
+    },
+    {
+     "what": "fade_in [glow1, works]",
+     "rt": 0.5,
+     "frames": 30,
+     "clock_start": 15794,
+     "video_local": [
+      15794,
+      15823
+     ],
+     "video_global": [
+      82859,
+      82888
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+{"batch": 37, "viewed_utc": "2026-11-10T20:22Z",
+ "sheets": {
+  "0121": "05 48.583-48.700 s (f28621-f28628, every frame). The strip keeps fading evenly to faint texture by f28628. No defect.",
+  "0122": "05 48.717-48.833 s (f28629-f28636). f28629-f28630: near black; the faint vertical bars seen at f28630 are at most 6 levels above the background (124 pixels; colour difference histogram), so effectively black. f28631-f28632 black: a dark gap between 05_3 and 05_4. f28633: a wide landscape portrait starts fading in left of centre, evenly. No defect.",
+  "0123": "05_4 48.850-48.967 s (f28637-f28644). Fade-in of the wide portrait continues evenly: a row of zeros along the middle at equal spacing (hue turns once round each), with rings of contour lines round them; the colouring above and below the row differs as for a periodic function. No defect."
+ },
+ "findings": []}

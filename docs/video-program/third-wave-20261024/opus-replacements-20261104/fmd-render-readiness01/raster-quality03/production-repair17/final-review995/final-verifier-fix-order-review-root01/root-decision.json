@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-11T00:40:30.147288+00:00",
+  "decision": "Reject b7b3b693 fix03 as sufficient. Adopt CC3 ALT insertion order plus snapshot only after CC0 independent four-scope-case validation.",
+  "reason": "Adding old natives before admitted-scope loop can suppress actual new native middle frames for wider scopes, not merely labels. Do not weaken preservation check to pass.",
+  "files": {
+    "review-fix02.md": "520cafca301e9d8b361670b47a9089490defc5047063d9f0e6df771c5a1946b2",
+    "review-fix02.py": "43ed63afe075d815d4a27a905eb5b8ca44f4a48a58af92eb0449c673ab0d320a",
+    "review-fix02.out": "de3b5ce746071a75f73008ee92a9d7f964aff52ae813dc0502c0fd510f20c622",
+    "alt-test-copy.py": "0f31010e5f328490450e13d7b23a76ce3ba28d87fc979354dbfe3da323331f3c"
+  },
+  "scope": "Static/synthetic review, not visual acceptance or production launch."
+}

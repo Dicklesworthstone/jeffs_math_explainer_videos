@@ -1,0 +1,2832 @@
+{
+  "movie": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-final01-08-loop-sums/render/08_loop_sums.mp4",
+  "movie_sha256": "46008a4008728226596d32ca3e5c3eb1b49a15ca158eeace8607edaf64d7d692",
+  "frames": 14959,
+  "tables": {
+    "timeline.tsv": "4b40ecc6119f2dd7311e2ffcac3d5bb9ca3c4dc5c6121170f8e5b820d185d3f6",
+    "cues.tsv": "1beae064b4b1a8115a70180d92740299195fd6cc55b68cebcdbd97ace8e127d3",
+    "cuelog.tsv": "f18346366e85100ebd893dce766b1d2b184a8463837090139ee5e4977d547f14"
+  },
+  "full_decode": true,
+  "selected_frames": [
+    3748,
+    6360,
+    6506,
+    6801,
+    6986,
+    6987,
+    6988,
+    6989,
+    6990,
+    6991,
+    6992,
+    6993,
+    6994,
+    6995,
+    6996,
+    6997,
+    6998,
+    6999,
+    7000,
+    7001,
+    7002,
+    7003,
+    7004,
+    7005,
+    7006,
+    7007,
+    7008,
+    7009,
+    7010,
+    7011,
+    7012,
+    7026,
+    7100,
+    7357,
+    7566,
+    8000,
+    8850,
+    8979,
+    9139,
+    9140,
+    9141,
+    9142,
+    9143,
+    9144,
+    9145,
+    9146,
+    9147,
+    9148,
+    9149,
+    9150,
+    9151,
+    9152,
+    9153,
+    9154,
+    9155,
+    9156,
+    9157,
+    9158,
+    9159,
+    9160,
+    9161,
+    9162,
+    9163,
+    9164,
+    9165,
+    9166,
+    9167,
+    9168,
+    9195,
+    9450,
+    9740,
+    9741,
+    9742,
+    9743,
+    9744,
+    9745,
+    9746,
+    9747,
+    9748,
+    9749,
+    9750,
+    9751,
+    9752,
+    9753,
+    9754,
+    9755,
+    9756,
+    9757,
+    9758,
+    9759,
+    9760,
+    9761,
+    9762,
+    9763,
+    9764,
+    9765,
+    9766,
+    9767,
+    9768,
+    9769,
+    9770,
+    9771,
+    9772,
+    9773,
+    9774,
+    9775,
+    9776,
+    9777,
+    9778,
+    9779,
+    9780,
+    9781,
+    9782,
+    9783,
+    9784,
+    9785,
+    9786,
+    9787,
+    9788,
+    9789,
+    9790,
+    9791,
+    9792,
+    9793,
+    9794,
+    9795,
+    9796,
+    9797,
+    9798,
+    9799,
+    9800,
+    9803,
+    9809,
+    9815,
+    9821,
+    9900,
+    10024,
+    10025,
+    10026,
+    10027,
+    10028,
+    10029,
+    10030,
+    10031,
+    10032,
+    10033,
+    10034,
+    10035,
+    10036,
+    10037,
+    10038,
+    10039,
+    10040,
+    10041,
+    10042,
+    10043,
+    10044,
+    10045,
+    10046,
+    10047,
+    10048,
+    10049,
+    10050,
+    10051,
+    10052,
+    10200,
+    10201,
+    10202,
+    10203,
+    10204,
+    10205,
+    10206,
+    10207,
+    10208,
+    10209,
+    10210,
+    10211,
+    10212,
+    10213,
+    10214,
+    10215,
+    10216,
+    10217,
+    10218,
+    10219,
+    10220,
+    10221,
+    10222,
+    10223,
+    10224,
+    10225,
+    10226,
+    10227,
+    10228,
+    10229,
+    10230,
+    10231,
+    10232,
+    10233,
+    10234,
+    10235,
+    10236,
+    10237,
+    10238,
+    10239,
+    10240,
+    10241,
+    10242,
+    10243,
+    10244,
+    10245,
+    10246,
+    10247,
+    10248,
+    10249,
+    10250,
+    10251,
+    10252,
+    10253,
+    10254,
+    10255,
+    10256,
+    10257,
+    10258,
+    10259,
+    10260,
+    10261,
+    10262,
+    10263,
+    10264,
+    10265,
+    10266,
+    10267,
+    10268,
+    10269,
+    10270,
+    10271,
+    10272,
+    10273,
+    10274,
+    10275,
+    10276,
+    10277,
+    10278,
+    10279,
+    10280,
+    10281,
+    10282,
+    10283,
+    10284,
+    10285,
+    10286,
+    10287,
+    10288,
+    10289,
+    10290,
+    10291,
+    10292,
+    10293,
+    10294,
+    10295,
+    10296,
+    10297,
+    10298,
+    10299,
+    10300,
+    10301,
+    10302,
+    10303,
+    10304,
+    10305,
+    10306,
+    10307,
+    10308,
+    10309,
+    10310,
+    10311,
+    10312,
+    10313,
+    10314,
+    10315,
+    10316,
+    10317,
+    10318,
+    10319,
+    10320,
+    10321,
+    10322,
+    10323,
+    10324,
+    10325,
+    10326,
+    10327,
+    10328,
+    10329,
+    10330,
+    10331,
+    10332,
+    10333,
+    10334,
+    10335,
+    10336,
+    10337,
+    10338,
+    10339,
+    10340,
+    10341,
+    10342,
+    10343,
+    10344,
+    10345,
+    10346,
+    10347,
+    10348,
+    10349,
+    10350,
+    10351,
+    10352,
+    10353,
+    10354,
+    10355,
+    10356,
+    10357,
+    10358,
+    10359,
+    10360,
+    10361,
+    10362,
+    10363,
+    10364,
+    10365,
+    10366,
+    10367,
+    10368,
+    10369,
+    10370,
+    10371,
+    10372,
+    10373,
+    10374,
+    10375,
+    10376,
+    10377,
+    10378,
+    10379,
+    10380,
+    10420,
+    10483,
+    10785,
+    10786,
+    10787,
+    10788,
+    10789,
+    10790,
+    10791,
+    10792,
+    10793,
+    10794,
+    10795,
+    10796,
+    10797,
+    10798,
+    10799,
+    10800,
+    10801,
+    10802,
+    10803,
+    10804,
+    10805,
+    10806,
+    10807,
+    10808,
+    10809,
+    10810,
+    10811,
+    10812,
+    10813,
+    10814,
+    10815,
+    10816,
+    10817,
+    10818,
+    10824,
+    10836,
+    10846,
+    10848,
+    10860,
+    10872,
+    10884,
+    10896,
+    10908,
+    10983,
+    11088,
+    11154,
+    11388,
+    11431,
+    11688,
+    11853,
+    11988,
+    12288,
+    12336,
+    12342,
+    12348,
+    12360,
+    12372,
+    12384,
+    12396,
+    12408,
+    12420,
+    12432,
+    12444,
+    12456,
+    12486,
+    12588,
+    12636,
+    12776,
+    12888,
+    12936,
+    13052,
+    13053,
+    13054,
+    13055,
+    13056,
+    13057,
+    13058,
+    13059,
+    13060,
+    13061,
+    13062,
+    13063,
+    13064,
+    13065,
+    13066,
+    13067,
+    13068,
+    13069,
+    13070,
+    13071,
+    13072,
+    13073,
+    13074,
+    13075,
+    13076,
+    13077,
+    13078,
+    13079,
+    13080,
+    13081,
+    13082,
+    13083,
+    13084,
+    13085,
+    13086,
+    13087,
+    13088,
+    13089,
+    13090,
+    13091,
+    13092,
+    13093,
+    13094,
+    13095,
+    13096,
+    13097,
+    13098,
+    13099,
+    13100,
+    13101,
+    13102,
+    13103,
+    13104,
+    13105,
+    13188,
+    13236,
+    13488,
+    13536,
+    13788,
+    13836,
+    14088,
+    14136,
+    14388,
+    14436,
+    14688,
+    14736
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-001.jpg",
+      "sha256": "5f7c83b807a3630278326908084dbc03344c3c80d407086ef25272b4e20adfc8",
+      "first_picture": 1,
+      "last_picture": 8
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-002.jpg",
+      "sha256": "84323490034b9f353f927112cee198dd75a93f17c710a1588c0249bf75b94b0d",
+      "first_picture": 9,
+      "last_picture": 16
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-003.jpg",
+      "sha256": "7cc0472f88ca9dec3e4d8d579fb85bdb52ae92ad4f3be420744089bde8317d56",
+      "first_picture": 17,
+      "last_picture": 24
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-004.jpg",
+      "sha256": "703628292bc11b327f146c33fe8a64d890e2bba3b766ef7a50128d413b333c1a",
+      "first_picture": 25,
+      "last_picture": 32
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-005.jpg",
+      "sha256": "0c12d20f1b7d6ac6f10a99fcf75de3068b4967f898b24a82801600906d933c29",
+      "first_picture": 33,
+      "last_picture": 40
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-006.jpg",
+      "sha256": "f78898c331d773f32c5710e97fc865490fe7d575b30852f738b2be3565d4cc93",
+      "first_picture": 41,
+      "last_picture": 48
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-007.jpg",
+      "sha256": "7601063e6c9185dd3fd37f48f162b2e7d811d99692cffdbcfd62e38251e92c5f",
+      "first_picture": 49,
+      "last_picture": 56
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-008.jpg",
+      "sha256": "395c15bc05ef7cf615e69d6e5e5554ac695596bb433b6197aadae05e9991e56f",
+      "first_picture": 57,
+      "last_picture": 64
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-009.jpg",
+      "sha256": "b74d6cbd2d4d4b22427183d290d18e76ca72932e33ee73fed4516c1a9ec5aff7",
+      "first_picture": 65,
+      "last_picture": 72
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-010.jpg",
+      "sha256": "232ce6b17f5355f54178b6e191a6a2b829c339ebf6f7bc7644233cf2be0f3aa4",
+      "first_picture": 73,
+      "last_picture": 80
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-011.jpg",
+      "sha256": "18e694b35185cf18cd025eab93c93702b1dbd30d59674cd1bbcd296e17816e64",
+      "first_picture": 81,
+      "last_picture": 88
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-012.jpg",
+      "sha256": "24041cc7324f298a92c7f759ae59e8372701e5260f41826067779f4923702188",
+      "first_picture": 89,
+      "last_picture": 96
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-013.jpg",
+      "sha256": "9e890f5e07c5afe16a7de0ebb2af740cfa21bc89d86303b6075d640b7ecf0fd8",
+      "first_picture": 97,
+      "last_picture": 104
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-014.jpg",
+      "sha256": "cdce1749d52353aa76bb6a0191a20ae1105a265c5602891a4781d90c4ee27ac0",
+      "first_picture": 105,
+      "last_picture": 112
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-015.jpg",
+      "sha256": "e1acb99380639ec47f9850b7f374f353d3ebbb7acb1aa5d54c37f73ee9e86141",
+      "first_picture": 113,
+      "last_picture": 120
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-016.jpg",
+      "sha256": "a2ac8e2c47bef1521ff57e7ac84dcc098acb38f6b05e1c1b318875a2ced1b70a",
+      "first_picture": 121,
+      "last_picture": 128
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-017.jpg",
+      "sha256": "f6ca4adc12f283dfeaf29b1d24d44283db1daa746edeedce560390de5ed46e71",
+      "first_picture": 129,
+      "last_picture": 136
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-018.jpg",
+      "sha256": "de266987f8e37b5f04b4ed0a8a448fa2b523f453d9f66fc125fe4345b2ef81eb",
+      "first_picture": 137,
+      "last_picture": 144
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-019.jpg",
+      "sha256": "8b34aedab17d1a64ae3d2bdbed7dcc3ca2e8cedde5d67c69bd23735280a04b68",
+      "first_picture": 145,
+      "last_picture": 152
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-020.jpg",
+      "sha256": "7462bc07445432af86450bf21839207ba1a5c188b9d855bfa9abad1e8ed1e700",
+      "first_picture": 153,
+      "last_picture": 160
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-021.jpg",
+      "sha256": "e97609e008e1aedea16eb5d821d199fede87b46dbf8067a7c2c061d83c8983ad",
+      "first_picture": 161,
+      "last_picture": 168
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-022.jpg",
+      "sha256": "fc03ba12f99bb7a72d31825052473092ea9ce95f0f9cc7b080fa7e32b8520482",
+      "first_picture": 169,
+      "last_picture": 176
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-023.jpg",
+      "sha256": "c26b6aacd2883ce8d0ddb4dc5319bd82e0f11a4e11a457c412097b6b4244faa0",
+      "first_picture": 177,
+      "last_picture": 184
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-024.jpg",
+      "sha256": "6f5b776dc33942212f50e72a101e2b26c7c33f2645f5f2ab24acd14fef43574b",
+      "first_picture": 185,
+      "last_picture": 192
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-025.jpg",
+      "sha256": "98b676fa67925295d582e31292cfebbd1133f0e78f92f665062dafbe50bc5b4f",
+      "first_picture": 193,
+      "last_picture": 200
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-026.jpg",
+      "sha256": "203919d18038e41f1c407f60a1a453ff16176e83700e63a5b4a724796cd28b4e",
+      "first_picture": 201,
+      "last_picture": 208
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-027.jpg",
+      "sha256": "40429b37455d9710dc282579cc4c5c5009ba9ced407ba82bc86d5b0e4b7ad68b",
+      "first_picture": 209,
+      "last_picture": 216
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-028.jpg",
+      "sha256": "d55dc41b97a56e32e483374b0498e9d7797ff7ef5dac351a1002b8c33d8addf8",
+      "first_picture": 217,
+      "last_picture": 224
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-029.jpg",
+      "sha256": "7ad1971a8e01b23da4b161771df67cca1341c5b408c40b3607e4c95872118825",
+      "first_picture": 225,
+      "last_picture": 232
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-030.jpg",
+      "sha256": "19e5051c87442e5ed3a5d8047325ac89a848b48a86c800d449fda6de3a30fca7",
+      "first_picture": 233,
+      "last_picture": 240
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-031.jpg",
+      "sha256": "9b8cc0536035c141afc56fbec0bb8d014a4f04de13f5f67639b54775629c7682",
+      "first_picture": 241,
+      "last_picture": 248
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-032.jpg",
+      "sha256": "9aa6522404065ebcd5d4eb17163e7679dc2f49f439c4b57e986d922724e527fc",
+      "first_picture": 249,
+      "last_picture": 256
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-033.jpg",
+      "sha256": "b7de80c4ecc400f4032d6c7e1d39b8d267a6992e22923f3d4ac5e8e932046eed",
+      "first_picture": 257,
+      "last_picture": 264
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-034.jpg",
+      "sha256": "8778585c0a90d28b707e39bd87b5d54dceb3b69bd8be2f4deba4aade00cebceb",
+      "first_picture": 265,
+      "last_picture": 272
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-035.jpg",
+      "sha256": "9426809fe0a351720ff6ce98afc8d295339a9da11aed561eddecc4d1f45acda5",
+      "first_picture": 273,
+      "last_picture": 280
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-036.jpg",
+      "sha256": "f71ebf864c31245e7baa7fc3a4948784d4580bf59a95ef1fc9ef10b9478296fc",
+      "first_picture": 281,
+      "last_picture": 288
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-037.jpg",
+      "sha256": "f199df5b21dd0a40fef28b65c6413a54df7cbb8b5bff8c12692f6171aee0c249",
+      "first_picture": 289,
+      "last_picture": 296
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-038.jpg",
+      "sha256": "5ac7869b23460c5e2fc45d2465f75b66bccebfce24182fc57d385afcf72fcf43",
+      "first_picture": 297,
+      "last_picture": 304
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-039.jpg",
+      "sha256": "ef8b8029c5fdec36fc7828a6845705a6668494d91fbc9063c7bca9f7a07bd046",
+      "first_picture": 305,
+      "last_picture": 312
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-040.jpg",
+      "sha256": "f83afedce5325d990583b2aed43ce4bf0b7d36f9367911626c1de4c0b6f9cff6",
+      "first_picture": 313,
+      "last_picture": 320
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-041.jpg",
+      "sha256": "b2e9f45d8be2646ca201d455065f8d1226e74c1a2429ac3bbde4f35a48c10daf",
+      "first_picture": 321,
+      "last_picture": 328
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-042.jpg",
+      "sha256": "ff96d33595dba6977e41bad57fa29762192acdf212fb9a7ee77fdefc5045d985",
+      "first_picture": 329,
+      "last_picture": 336
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-043.jpg",
+      "sha256": "4e5f46ad67c292c2f61dc4012504960c202e3f23b73571fe614b40fc74ac06d9",
+      "first_picture": 337,
+      "last_picture": 344
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-044.jpg",
+      "sha256": "062f66b263dfa714b2b3b6360872df4da300587eb4b9cac4941db8fbb1185300",
+      "first_picture": 345,
+      "last_picture": 352
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-045.jpg",
+      "sha256": "a328919294b3bb49aa8f9c8280689d5db13a3f8ff9cef25e564fe6dcf87eb1d6",
+      "first_picture": 353,
+      "last_picture": 360
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-046.jpg",
+      "sha256": "90d140fe259b50ac8729d6ad4813fbcd08f17fce500d86ab034d340dc37e73ff",
+      "first_picture": 361,
+      "last_picture": 368
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-047.jpg",
+      "sha256": "9efa70195c04dd722ca3e405c37afd1afcb8439c41fc87df7660376ae651043c",
+      "first_picture": 369,
+      "last_picture": 376
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-048.jpg",
+      "sha256": "65557c6726ef2fea95ca1bf7154df290e2e527e90c58483f52b479376c510a58",
+      "first_picture": 377,
+      "last_picture": 384
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-049.jpg",
+      "sha256": "0ff4efe04127819a2434886e42c864de4f22d6da16c0857afe7a91867378ca8f",
+      "first_picture": 385,
+      "last_picture": 392
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-050.jpg",
+      "sha256": "cb78b96ab7ef135e67d8610c145113d2b85b6937d89bab45784491da5e3ddc60",
+      "first_picture": 393,
+      "last_picture": 400
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-051.jpg",
+      "sha256": "c69e7b19b3969bafc136c0d460f047e63a3820ff24871a5a9b84168771995046",
+      "first_picture": 401,
+      "last_picture": 408
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-052.jpg",
+      "sha256": "ee5ef2d0856f1055dab586c44a624dff4a13bd463145b8c5d8924ae7bafe6df9",
+      "first_picture": 409,
+      "last_picture": 416
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-053.jpg",
+      "sha256": "fb2f39f404cec34ccea7a565d4ed0da551df684890c12ba9eac7ab4dcd6c34aa",
+      "first_picture": 417,
+      "last_picture": 424
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-054.jpg",
+      "sha256": "7b2a2ab88a66681914d52875b463add6eb06fa9484f298e41e143b1e3f78d4e8",
+      "first_picture": 425,
+      "last_picture": 432
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-055.jpg",
+      "sha256": "557c0b56cdefbfcc99324a300a1af96c918b2da0e1197237581d61b897b00769",
+      "first_picture": 433,
+      "last_picture": 440
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-056.jpg",
+      "sha256": "34845f47437f27b31f96b1cf23239b1d6cfc98d8989cd59c14fd9c95fd9afcbe",
+      "first_picture": 441,
+      "last_picture": 448
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-057.jpg",
+      "sha256": "e320ee6d44f951bd71494758d04e48ae7b19c365800cb5b53ac1ff9c6fec2d99",
+      "first_picture": 449,
+      "last_picture": 456
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-058.jpg",
+      "sha256": "e64baee837be3679bbe8dc1c6eb25242ed7fa24664d542d585677265624f969b",
+      "first_picture": 457,
+      "last_picture": 464
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-059.jpg",
+      "sha256": "656441fc50066ebf438f0a0c5704e94cc79969dc021a15874faeb0235c0250ff",
+      "first_picture": 465,
+      "last_picture": 472
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-060.jpg",
+      "sha256": "192ef96bff5bba1162ff544e39d82ee31b91179926f819d0657e4340f3787c9d",
+      "first_picture": 473,
+      "last_picture": 480
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/sheets/sheet-061.jpg",
+      "sha256": "203ba3c880b5a4b0c8e7d2f97d0ddbb4f3196806c0e88b56a8bd437289517019",
+      "first_picture": 481,
+      "last_picture": 484
+    }
+  ],
+  "layout_sha256": "c5347cb99eedccf88cd3df6857be55e76d18a541062ffa74e807a49c75dcfb41",
+  "layout_anchors": [
+    {
+      "frame": 10788,
+      "row": "08_5 +117.3s @179.8s\toverlap\t\"c\" and \"c\" overlap (100% of the smaller) (still there at 185 later looks)"
+    },
+    {
+      "frame": 12336,
+      "row": "08_5 +143.1s @205.6s\tcrossed\ta stroke of an unlabeled shape (x 2.08..2.81, y 0.73..1.26), painted over \"4^n\", passes through it near (2.38, 0.95) (still there at 4 later looks)"
+    },
+    {
+      "frame": 12336,
+      "row": "08_5 +143.1s @205.6s\tcrossed\ta stroke of an unlabeled shape (x 4.14..4.86, y 0.23..0.77), painted over \"4^n\", passes through it near (4.43, 0.45) (still there at 4 later looks)"
+    }
+  ],
+  "retained_samples": 407,
+  "retained_preview_samples": 484,
+  "resolution": [
+    3840,
+    2160
+  ],
+  "pictures": [
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000001.jpg",
+      "sha256": "0f7cdb8e40b880c55d8f00c3c1f23564c9a1d453a97d7dd8433f8e22d6907e73"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000002.jpg",
+      "sha256": "d3205b99d87642b3e00a41d7553eb258d14124231a07171755843f3363925249"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000003.jpg",
+      "sha256": "c3145680cc46530b710cf559bb603a080d41692d39190813f28a37dbc4ae509c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000004.jpg",
+      "sha256": "498d517fd7a84cd91195ced54d4c3a918505e65b6c8d39bf2b2b055668f621e3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000005.jpg",
+      "sha256": "5845b1794b19599242be81ba4dce14a0a094c6d2154475aae0a73d79d12b4429"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000006.jpg",
+      "sha256": "1f49471025d0f4af158706fcabe24fc19bd1f3ea96f981d9ef9a82d8939641be"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000007.jpg",
+      "sha256": "80a9f6c3d29f9218f0e199e2745c298d3395e3a504b7e2333db6655b8fff7e28"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000008.jpg",
+      "sha256": "98956e5a107ece833c0fe7f67d6bab0224b31298bfdebbf300664c39dff7f7de"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000009.jpg",
+      "sha256": "164eef8de902b6e76a4059efcba6a8a2b690f79ff35891a6a3fab4e0c3d93070"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000010.jpg",
+      "sha256": "01215fcc5e0abc889d77b4242f1093de35d4328bd6341198241699053150a201"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000011.jpg",
+      "sha256": "d8c895b05893df3632d38c863e77f5066e6a719f2ff94b954de6af4e5d7e1da9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000012.jpg",
+      "sha256": "a171693afdf5cb6d723720c6da72083e4c7612a98a09bac4db66649bfce3b388"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000013.jpg",
+      "sha256": "5f9aa31b51aaa77b53ad8fb7b1b3ef3cd9b0c8e0556216a3abf268a488bf051a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000014.jpg",
+      "sha256": "83ca59c0a50949e2e216c4996b71abd2c787e703ae7bed439b6cff6602c86d76"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000015.jpg",
+      "sha256": "d500ff586b89fa53fc8069982e80db1d8694ec065d312b9611b66dcb6d94f3dc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000016.jpg",
+      "sha256": "e7c4cf11e3d9a6e5dd03731b3daa6ece6361cfe4d21d6b05b091505b2d078ab0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000017.jpg",
+      "sha256": "80dbf8192ac39abd0c02fc62656b70265275ce8254b750ca53b917829704c68b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000018.jpg",
+      "sha256": "e8afb6b9d55c9e818c1bde8bd2be0a346a85ba4ac283ce3fec85b49fd39083f1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000019.jpg",
+      "sha256": "8c0c965fd642ccfa5cd61868f42ea1a7c8ebf27977d74a16dddcbd5b43a87a04"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000020.jpg",
+      "sha256": "813ba45f33b3f63da07eceb07bc67b1a3d1c08bbf114cbff0ae170b7997a8355"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000021.jpg",
+      "sha256": "cfb2e79719cab20ad6a19f5008dd9a7c4c2d4c9ca4cbd7863f0768d51afb7a8c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000022.jpg",
+      "sha256": "9651476c0703651ad83f23ffa913e6f039951e250bb8b1448d04115339af560a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000023.jpg",
+      "sha256": "d3369d8a2d4dfb3547daf521c643fa25c0622c5809e7debc59c46056ea711c3d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000024.jpg",
+      "sha256": "85143e3dce314db08286d43218452454ad9b088ddbef97d571624f23a958e47f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000025.jpg",
+      "sha256": "cc26715b6f048088c0c2b3a4217ab9292edf8bfadc1fa2b5fe8e54ab9eac46a6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000026.jpg",
+      "sha256": "8a8c6182b8f281423e98eb9c53ebf7f23b107ab792f4a73e1bba9cde49e0ad3c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000027.jpg",
+      "sha256": "5be9bd0bdb09008f6210a659dd36cbe3823df5a579ebedb65b43ebfa313fe82a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000028.jpg",
+      "sha256": "15d4b7b53a869fc555360cf6b0ce46063991e2583263982cf357637f0f59ba4e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000029.jpg",
+      "sha256": "6c0dd044b893fccfe10df845edcae76de433a1e2278392538cba0360de28d97d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000030.jpg",
+      "sha256": "d2b5e1e0ea673512490bbdac748975f1e90c93c256a1136c4e805269f33482fd"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000031.jpg",
+      "sha256": "72a0426ac445c17f87ce502678ae28ff8aa9247459733ef41353fdb7fdf50c78"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000032.jpg",
+      "sha256": "7d7e15a40146c030542984ea63a909c8457f61137730c4b4b2731c9c4eda5683"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000033.jpg",
+      "sha256": "0260f152d91dc9c8af095f8499f6119ec764ad49ca2bd38f01c8b05cedc66909"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000034.jpg",
+      "sha256": "889d4f179cd8adc3734495db833112863e1f8bd286f632bd23aa61376d8d2a36"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000035.jpg",
+      "sha256": "4bcdfa2a4504a2f58c1f19f59bd4069987603ffb245e7b36c7704527dea896e3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000036.jpg",
+      "sha256": "2e31aa65d4d7c3e23b54298c0d0b836fa9c0a420f0b525f1e29130043170e943"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000037.jpg",
+      "sha256": "efa747be05e77c3943139be3e348f0651093a588466385a0f776a4043369a224"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000038.jpg",
+      "sha256": "48a7013d9f275ac5ff65d4f08871764a6f96681d0578cc60fb722db160ff3322"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000039.jpg",
+      "sha256": "9eaa07a5d882074a611d835de19f34debb3a367900a69bf2e4ef0b5df7b388e3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000040.jpg",
+      "sha256": "e3ded0f16a1fa2fce0c312eb796d08ead22cca40896fed310fbd52f26e05b27d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000041.jpg",
+      "sha256": "da21e01d86983377601776fd9ddfbd16b6a410ac9d38d818c6a756d916ef49cc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000042.jpg",
+      "sha256": "f4d6a18dbb2d5d10a6b76f638d3a8d18d552f8dd088a70ece67e8240ca84b9c5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000043.jpg",
+      "sha256": "39137162130a8fa5829cc9995fa707b1f1c106981797db2612f4241535b0f213"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000044.jpg",
+      "sha256": "c7c72904d41b30ca649cde8c896eb9f05a195eb69cce2b5241e1d410ec59ecc4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000045.jpg",
+      "sha256": "324714dabdab9f69a6e7b2d4f4f71f8c363cf3621d8d710b364f39674944646d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000046.jpg",
+      "sha256": "d299bafbce57d7ca7e898954c84328a58d7aa476674af6daf111614affdcdb00"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000047.jpg",
+      "sha256": "6ba6e3de05780fa8edf1e7b1eeb51296200178f0f7886fe322a48251599989d7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000048.jpg",
+      "sha256": "bc663ed9dd23d4b0f9ccf2f37f53039f610e50a3d38a904373274e3da54d1f58"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000049.jpg",
+      "sha256": "f4fe79965f94631ae9ac11fb1390c0ccc1660360d3a66ecbc0e3ca99c415883e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000050.jpg",
+      "sha256": "44c711f29b790eafc2483ca3deddb4f7dd0efaa480d68bab2c19e21ad1f77eaa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000051.jpg",
+      "sha256": "762673cae0b90c7c0c0e738e777485a4cc6d33533cede67c1a44bc04d34bb2c2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000052.jpg",
+      "sha256": "29e039bcc6d2f886618d811ca8b4001053521c491c2b4f1528e5adf2c80c8d43"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000053.jpg",
+      "sha256": "27890d24d3830ce2bfe3f42ad3dc07963127ee59821a657b141414c863f9edc2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000054.jpg",
+      "sha256": "c406204cd8fb1da8a4de111b1b874ac4838adcb1b5bf72d7288eea846538281f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000055.jpg",
+      "sha256": "05e4adb8180ad1512793e1d00f7ebcf7476e6e8543ab1f20afa0e2a5a0eef836"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000056.jpg",
+      "sha256": "79cf24893befa411ffea74b6ff5b6b68dbc067b635facd143afd317c71dec9f7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000057.jpg",
+      "sha256": "c002d801a94e758835f015af01ede854f565c537c28cb8b32ab81d38025999d9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000058.jpg",
+      "sha256": "a37a07ce21ebaf16e5f283c1beb8e5e553318d364fb8aafdb2b250a4a351cd01"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000059.jpg",
+      "sha256": "5c674cffc2838cebb6831184bca09908dc96a639e1672bbba1790a80f81632e9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000060.jpg",
+      "sha256": "2c6603b49adc53a9ca9a632f749dda2d894f9bd96fbf72e1f570330a6691d4f1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000061.jpg",
+      "sha256": "e9b69eb61e3d274baccaa35c8160cd7c711a19ba8662c82d345a12238187bd05"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000062.jpg",
+      "sha256": "589b924eb7e90a68f083ed1bae1aefcd4a00ca2bc7971140dd37551016cbcb20"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000063.jpg",
+      "sha256": "2f5a9f091b4bcbf796ed56da016474a96916b8db6094e735a7ff9938b02b59bb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000064.jpg",
+      "sha256": "55ef4f2f616a886093163729feb9249a40e955065cdfb97d812d4377a3e3f049"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000065.jpg",
+      "sha256": "52cfa23b183db138a248d7adc2cc15bd7b1fb9c1c8dff1a443d2d6cd1929bd29"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000066.jpg",
+      "sha256": "e721f3b9d2addbb21e3dd5c20f660c54d1c3c079d236983b16ef49416495bd8b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000067.jpg",
+      "sha256": "0beafd7660e5479d4f65cafd5f6967e205cf83c9c2725b0d017ce2f42fba34b8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000068.jpg",
+      "sha256": "089f4d36fd7b4888e01cff741f74f3a429cf600fad7f0d723dace1b194cbd58d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000069.jpg",
+      "sha256": "95ecc362ef74c794f6e40ad06bdcc5e467c5cb8222d3582449f47d5b8db94552"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000070.jpg",
+      "sha256": "70820ff196a63ab89cec94c6d51b64594a4375eea192834c3a02282eb2622d86"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000071.jpg",
+      "sha256": "70820ff196a63ab89cec94c6d51b64594a4375eea192834c3a02282eb2622d86"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000072.jpg",
+      "sha256": "70820ff196a63ab89cec94c6d51b64594a4375eea192834c3a02282eb2622d86"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000073.jpg",
+      "sha256": "70820ff196a63ab89cec94c6d51b64594a4375eea192834c3a02282eb2622d86"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000074.jpg",
+      "sha256": "70820ff196a63ab89cec94c6d51b64594a4375eea192834c3a02282eb2622d86"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000075.jpg",
+      "sha256": "0fb90a2572028fcc049e4a024eff756e6674bff18364edefce2a6fcdb543b777"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000076.jpg",
+      "sha256": "0fb90a2572028fcc049e4a024eff756e6674bff18364edefce2a6fcdb543b777"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000077.jpg",
+      "sha256": "0fb90a2572028fcc049e4a024eff756e6674bff18364edefce2a6fcdb543b777"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000078.jpg",
+      "sha256": "ebc32b8cdc1dd2ad18f4124ef85076cabe626d5cc27f76f4d7fe589afe14d1e9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000079.jpg",
+      "sha256": "d7c006120ab2cd0a69e4a2889432cbb669fbfb045def9b096de6267f76d85a23"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000080.jpg",
+      "sha256": "2097311524ecc12792a01c5e26aac2b7a6e6c88fa72d68cbc2522e54ba5f674a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000081.jpg",
+      "sha256": "4fd4dce3439113111f792ab6becf3b843bc0c6bd8b015a9d4c22783827f1e12b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000082.jpg",
+      "sha256": "461e2d034b5f715ee7793c110c380014b345351ab6db161f43fbc665760df4ae"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000083.jpg",
+      "sha256": "1ed945c5c73cbba5e65521a47a7cd7d4ecf1b7c1f4b85920db97469ffe08da6b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000084.jpg",
+      "sha256": "2f4df23c756967b5815108b986fbfdf7e8f33b7ce7b4ea4cc6ddad58a8fc092b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000085.jpg",
+      "sha256": "272d6574fa170354bbb434c1691f443702858ad4a13c95184a12eb782b7cad0e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000086.jpg",
+      "sha256": "2880c02deaefe5b27e75df262d6b678c78027d1c497a364fbd2375a513af2598"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000087.jpg",
+      "sha256": "9008dec45e6385d45e07129055aceaf90a7fc86ec69b8d7b8ea60a725c85b609"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000088.jpg",
+      "sha256": "74d9ebed25b95dcc764a9f94d9fd8aaab7cccf9fe668000bacc7c0c3420345bf"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000089.jpg",
+      "sha256": "985f773ba6f60a7eeff4a64e56d9bb8b2211e10291c2496c2135fae738f08f23"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000090.jpg",
+      "sha256": "e83eeabd83138551e3dd1696eb342aac020981381b1c342218e978d05f471551"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000091.jpg",
+      "sha256": "41079b97c74895883d7192a4254e1f79f1de1f75cc2ffadc83213ff97dc6429e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000092.jpg",
+      "sha256": "8685b79cac290a4237d99bd8924ac201113c54d432ca6370f08538f6bc90b3a2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000093.jpg",
+      "sha256": "f66a0816d5c2fd4486b7bc1b398b15546df57f34fba5666ee248d17087630cb6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000094.jpg",
+      "sha256": "8f8f6cbf613341cbc681e3f0b98bdfcdc1c017de085ee82125f8e5a228c2c109"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000095.jpg",
+      "sha256": "df4692c71ac1fbc414e0d6de12d970e8b4487378177a8ee04626e0c9e6345aed"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000096.jpg",
+      "sha256": "66af064d65b0fee8158f04250e9efa26fa90fa268f3ad8adb919deaaa3d44721"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000097.jpg",
+      "sha256": "8f99b13dffda307ccfc17a83b75aab6bc0dadb035f968e7ceba6d403400b6c9b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000098.jpg",
+      "sha256": "69f38ead388bb8967a1728d24600faa8c9ab1bcece0605b40ab0d9488c9256bf"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000099.jpg",
+      "sha256": "11dd41414108ce68e7b475df528ba9d2a528fe132224b869c5dff9d403d4e946"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000100.jpg",
+      "sha256": "f8e9a0420781cf619f58d819715b0fe96999b1c7d578618ba93b1c3a86cef50d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000101.jpg",
+      "sha256": "6c34469d424e100a215945ad015504272b3836f8e88c55d67d42577c8cd59974"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000102.jpg",
+      "sha256": "e1548e22e4c20c07e83ba16dc990a68fa2a31ce99531c854260a2a47cc71f8d2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000103.jpg",
+      "sha256": "611f88bba4061ea39dd25f98d95855a9ad8ea2b94d45c534d3c192e514d02e1a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000104.jpg",
+      "sha256": "c8749bd0bcf22d1b1cdc670553ce8091d325ba5c6497466accd897d5879e888b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000105.jpg",
+      "sha256": "b1e5834719d4242f98b0e38516b46cf6298d5ebdcd279cc92207fc5d9b9caad8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000106.jpg",
+      "sha256": "bf12d26e58c4f29afb8fc6ff38ca6f368bf343b84532cafd6906ac6b185e1872"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000107.jpg",
+      "sha256": "453b036c63941ebeabc7ca6a61d861be49cd1ccd7e432cffef8930da582e910a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000108.jpg",
+      "sha256": "db7ec430b2a03f01d6d0ed17e361f26089f28666333de4fd1325ada287644f5d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000109.jpg",
+      "sha256": "279872c7cf3bbeb1d2ca2ad1343ec493d50537a39c4218b0aa02fd9a71aa4da0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000110.jpg",
+      "sha256": "234bbb18cd4cc822d6f09552659ae6c0e0b7489a8483dbd63ecd83abf1cd9785"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000111.jpg",
+      "sha256": "8a477b5d5696635b1d1f0b82539f0c7af9d9a3a8022d19877e38ca36b9d9b290"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000112.jpg",
+      "sha256": "eeadedbad0b5ab6674cb40d61f86ab956005810da7186f86a295ea4b95950e01"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000113.jpg",
+      "sha256": "2464847422af0edf46f686f98bf0075e68f902e416a17066877c9aec22c3202a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000114.jpg",
+      "sha256": "7c16a5ebc48cbaf744c25ba4c12a0709cb4c006adc5f6ed8d61422f135f2527c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000115.jpg",
+      "sha256": "7581ba226cc04efd7460adf661f82a3032b2971cd75a4e618b1b59b38403af2d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000116.jpg",
+      "sha256": "0b576816f9e8d9c6b2521da1243331b36bebe8f3f56d516e441fc5fec0384488"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000117.jpg",
+      "sha256": "02fdb46a7fdf630f17d2209f971bb32b54992588c4823e6c3ef24bd7cd5ff51c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000118.jpg",
+      "sha256": "6a253c1cf57e01dd9f537ea4672693170d6a1da02118f10b6bc6363dc0edefa4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000119.jpg",
+      "sha256": "f620bfc0f813d968c54a6d6cffc30cca5e3452da1183c911042f3d8e6eedb5a0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000120.jpg",
+      "sha256": "8b36b42583bbdc0250ecd91778a94ad8848d8c1710f37f26159e9495af292ae4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000121.jpg",
+      "sha256": "7fd2b87620e5142d46af0f4287eb2f242664f1f07f797097f22feb35c496631f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000122.jpg",
+      "sha256": "e7cb19ed512a4f29e6e52f353516660970b36e85cde94ee5c499223ef4100a42"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000123.jpg",
+      "sha256": "5736b55c164b18c68386d0eecba385e3bda059026fe61c479268a3f46b6fe428"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000124.jpg",
+      "sha256": "99b847a1a753e3c2edeca5a6ccb62b70f0a9d8dad7e654970a8c83eea5cc46d9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000125.jpg",
+      "sha256": "fdf8911c007276c2db07b36a1a7b049918fd983476261d287bf85d72aa7645f6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000126.jpg",
+      "sha256": "ed4a9df8a00c2a15baeb93a7f17d5b454f79f3ea1ffa124d51d54256a7e2d708"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000127.jpg",
+      "sha256": "360e08925a1e33a47554dd931900138f245c65b8dda3afb8471149cee7a5d4ee"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000128.jpg",
+      "sha256": "44f9e9cba252cfb1ce50297d2a51cd47be0d93a0dbc547c22247794387298ca5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000129.jpg",
+      "sha256": "8c2524624696732a302bb25fe51cbff63fc7984f6bd9c8ea7301d1e3ade6a27e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000130.jpg",
+      "sha256": "8ef943e2a77cfc653c37e8fedfa1c2d6cc3862f8ad99143d63113380159547a8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000131.jpg",
+      "sha256": "1836324f7b32a609b282fb7cbf2fc2bc0d8ffc067cd1cec5fdcaa55f36585e9c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000132.jpg",
+      "sha256": "c68dca48c1c987764ea7b42d0af5c4569b4aabf4fb7eca1a01151c690ca2976d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000133.jpg",
+      "sha256": "b7dd8089e359556e75bc75465d8dfec94292d90bf69f4ce606b596bdb4527545"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000134.jpg",
+      "sha256": "151ba709a69008a2187a319bbdd3440745bc782fed710e5c4edfe92c9ea1cd9f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000135.jpg",
+      "sha256": "4b22b5855a32bc25964ded78808c35282111d262e1471fcb3d4b11c4f46fd5ef"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000136.jpg",
+      "sha256": "bac30d82dd4a20fd60804bb67f271e35cc02fce4a85b982946a4db3b0dd2c4d6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000137.jpg",
+      "sha256": "494d937e98afff72f66e19947d795aef0ff8f291a0f3386e9c1bef4d99eaedb5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000138.jpg",
+      "sha256": "2e87e83fae9fdabc48b13c4c23fd8a1bf09194ec1fbe0611a35a77f70499c469"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000139.jpg",
+      "sha256": "b95d67f2add3629104f9be3c79d46dfbb4c6efefa93fd0b32e9ca0fcde6f773d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000140.jpg",
+      "sha256": "4d9892c7420d0ae1c36d9f5cc4b2493a1ec086861d037c1a06388a86d6413e99"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000141.jpg",
+      "sha256": "ab7c038824f33c55ec453eaae40831ff2d1d1c0df781df81945bd64e8ea0ef7f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000142.jpg",
+      "sha256": "036a74a5c084e385b58cd1c805db5587e0ac8869f93d2b2e6fc7924a34ad849c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000143.jpg",
+      "sha256": "b8956bbdbc73cf09243354e7ddda14dd5dc4ea461a9caeb99b4fdfb2c1486c69"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000144.jpg",
+      "sha256": "5d9a89e120280928049f95a0e435683aa182405daeb1ecec09f2e3c4ff738848"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000145.jpg",
+      "sha256": "1ad3011fa156b375aa8f5ee01f4c82f5bc47c7ce092054692030ef7285d401c0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000146.jpg",
+      "sha256": "5e0c25c13d5808687e17c76ecc9c12e1df23e3dce77de531128a70f24194e8f4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000147.jpg",
+      "sha256": "b796b100517a0a71bc6db8096dd7d03b7c27d8b47c25c0326b04759e88901924"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000148.jpg",
+      "sha256": "a36ca3343a517eb8ea0b30011201026e966b13651c22384b12c3c8a5e3a3f6fe"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000149.jpg",
+      "sha256": "ef5400773648a649718fa9ae17701b764fdde345bbc148ea658b33c615697298"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000150.jpg",
+      "sha256": "e66a4ddf5e1c59fa943dd754c280178104540db98f83a6f24ced2e511ea0843d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000151.jpg",
+      "sha256": "fb404890e41a4f003f725af0c3842c897ee8e19120b77ecce9a98e676bfa934c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000152.jpg",
+      "sha256": "0e3ebaee5431c3b7f75c7f2c42ed1c17a6ba8a7c64d797c012587af4640a3997"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000153.jpg",
+      "sha256": "d1d949cfac1d10d9b4456ac6b0521e529f4a4946f6808df1829bff5206396000"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000154.jpg",
+      "sha256": "60e31350ad7034da17e4168c860b2b0e11aed8c62ab2341ccc16872c7af1246e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000155.jpg",
+      "sha256": "73403dabf1319799e19316ed825280ca1511015402c7040f813198c63f20ca19"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000156.jpg",
+      "sha256": "9ed1174cf7df0ab6e7cfe454b178ff719ecdcf9c3e39af4a5802f8497150fdb3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000157.jpg",
+      "sha256": "d435b057a2764ec3498e730063351b86617cb52fd6e17d8d89f1aff096fd4249"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000158.jpg",
+      "sha256": "0f3e95470b5a5ebba81362800438d43f1b5afc78449ab657db8c0637e08e8abe"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000159.jpg",
+      "sha256": "b227b1082905f9708c47c0a9f1a08a5d3759027bc1f0feb7e769937ef08346ec"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000160.jpg",
+      "sha256": "8340878bb626ef553ef8a81abf741bfd0bda32a8dfbe02bd7cba601a13a8f1fa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000161.jpg",
+      "sha256": "9e8a4447bbb9b0cb337542e4fada6c6dd17d4e12f8f670e5dfadae2b2bdb1c18"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000162.jpg",
+      "sha256": "08dffe1e60af19f212692dd63e0ec6ecef8bdeef9df278764588131763ca7852"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000163.jpg",
+      "sha256": "0968f049ef9ffac15456e4efeb77049c27dd2223d6a31b9a6627fda595f89ad3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000164.jpg",
+      "sha256": "02dd88a887202b385a95abdf46c918083ec6d4b8bcd0c940a7028a26a479e263"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000165.jpg",
+      "sha256": "626a76005080996a2097168309b1adbd415998083d93c4e4b0ea559155bfa6eb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000166.jpg",
+      "sha256": "f9060e6844126c67ca2811377976c2223372328ff7122354e7afd39519825006"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000167.jpg",
+      "sha256": "f9060e6844126c67ca2811377976c2223372328ff7122354e7afd39519825006"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000168.jpg",
+      "sha256": "f9060e6844126c67ca2811377976c2223372328ff7122354e7afd39519825006"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000169.jpg",
+      "sha256": "f9060e6844126c67ca2811377976c2223372328ff7122354e7afd39519825006"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000170.jpg",
+      "sha256": "f9060e6844126c67ca2811377976c2223372328ff7122354e7afd39519825006"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000171.jpg",
+      "sha256": "f9060e6844126c67ca2811377976c2223372328ff7122354e7afd39519825006"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000172.jpg",
+      "sha256": "f9060e6844126c67ca2811377976c2223372328ff7122354e7afd39519825006"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000173.jpg",
+      "sha256": "f9060e6844126c67ca2811377976c2223372328ff7122354e7afd39519825006"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000174.jpg",
+      "sha256": "f9060e6844126c67ca2811377976c2223372328ff7122354e7afd39519825006"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000175.jpg",
+      "sha256": "f9060e6844126c67ca2811377976c2223372328ff7122354e7afd39519825006"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000176.jpg",
+      "sha256": "f9060e6844126c67ca2811377976c2223372328ff7122354e7afd39519825006"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000177.jpg",
+      "sha256": "1b3ead69dc09885ebfac2ea6e25648cd4a00415dbc3c3abc744460e6596fcd2c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000178.jpg",
+      "sha256": "6128fb4872e5692374de3106247463abd668ab2ac02a4ed39d65987820b3c5d5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000179.jpg",
+      "sha256": "63ec1446800d24410d2a441a477394872ad5aa4b96395df4d6869c221b944a7e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000180.jpg",
+      "sha256": "dc3250ac4853f5f705ab1e6e7dfc40133dda229dbe8ce38fc80e7948d1d96c29"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000181.jpg",
+      "sha256": "d5e2d2e4f1944424abb9bc6a50bd547730acec67c79b0a2911d39293f9c88b42"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000182.jpg",
+      "sha256": "463d7cde08fad161719dfa59109110518fca789d9d8c1bc6b7ebb1a1e806f932"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000183.jpg",
+      "sha256": "32001bfc52b9899f2d2a0fd38088273650ea76f715980ea03aa700c8e9b08a30"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000184.jpg",
+      "sha256": "02d77ebb2ac6e1b94406373819a5de92486a077d0714bddc092dcda6465fd5b7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000185.jpg",
+      "sha256": "2c87bbb4873b0732d954b9b662055de6184265f0a9fbf123f4cc06d51366cd8b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000186.jpg",
+      "sha256": "20ee58b0c53c05e90bfa2b9243910d2f422938b25212cfccf1ce2a0a07fd037a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000187.jpg",
+      "sha256": "8f1062a98478ee0e7ec855b8d496b01c8f7c549093b8f7762bec6aa385f4f5cb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000188.jpg",
+      "sha256": "47a10ada1791d312314b218951b585697f71e44edfbf53db4a50d7d61ea5b6a1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000189.jpg",
+      "sha256": "0472df392d3b2dd4c355497a48ef884e3d8f1d6f956c7f57d640ac0d270af497"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000190.jpg",
+      "sha256": "3994b629c011e708771fd6abf558cf7fd611e034e578b7ce205bf9575d13cdba"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000191.jpg",
+      "sha256": "cb4985e1ced4d49469f3c702279cdb579b7d9dd9748e37be8cc033089bbf6341"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000192.jpg",
+      "sha256": "8b65b8f1de129570c4d4ebfe4fd2b812db1abfd049a76a4097402c1b42828954"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000193.jpg",
+      "sha256": "a5eaee1a2d407af0d911647fc9ecd7a2cbdf79c8a8e80347ff4452b949d077ed"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000194.jpg",
+      "sha256": "1fe4562e05b310f1e9b27f2b40fc0c03a2de4cff760fd53b2ef7ab68b01dd44d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000195.jpg",
+      "sha256": "7d01dcf9a15ada211d804fa72afd7c1586ec036837be2e6526fcf1e7e66c4f9d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000196.jpg",
+      "sha256": "002a0f326666dada8ec8523a2c9460a97fdfdabb9dcaa49e6555671f51b5c6c3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000197.jpg",
+      "sha256": "0c741ed6f8f1f8495cb626e39c411097d25e97a4db69b250714ff06db4119e0e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000198.jpg",
+      "sha256": "c8f4063249389c1bdace305646e08217fb196e5434bef0c27d50eb2d8826a554"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000199.jpg",
+      "sha256": "c6d84384d8e88734c1e1313271fb8b2f48e98ee9b2fff78ef78ed58feb75eedb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000200.jpg",
+      "sha256": "fd09a2986cdf3b8c252fbe886db5fc66b0ebdb24c7395c2c59218fbb7e200e3d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000201.jpg",
+      "sha256": "22d41c735008ff5e3d3479714b18ee2ba9c8543626023820cd14e522498491ff"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000202.jpg",
+      "sha256": "6b3371faa805f75c1ccfc50f4b3abe486c481e5c9bcf595400730ffcd73ec2ad"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000203.jpg",
+      "sha256": "4b3acf9ebdd9df5f839dd74431501640c435c93d5d272ab29797b5e99febe9d2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000204.jpg",
+      "sha256": "4606e629a80c81b17cfb6a3ec6346e2b95679a8eb496265dace903303e1655b0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000205.jpg",
+      "sha256": "4d9b2b4f339b54caf1e5cd925225f4cc8140633490b20863435625880eaaa5ca"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000206.jpg",
+      "sha256": "8c9d75abeab511c9f50885c61f43b57adfa6a417d3acb42d17acc8ec27de430c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000207.jpg",
+      "sha256": "b28746ec1872b1aa39bc18158e8717cfe639bb3dddd136fc10b2ef713a58b0e0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000208.jpg",
+      "sha256": "456d2afd8d442e51db4db1c5065618e0598e1c22e4ac3fa23278486bc7e28e92"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000209.jpg",
+      "sha256": "f3e78c83f51bbabfad55dd0d1a860af401fbb72cd8d9c01ab1495381c8252111"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000210.jpg",
+      "sha256": "95a71dceda37060c94c388d9ed8fcc4bed5c9e29b64937543e5fae0475c683c6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000211.jpg",
+      "sha256": "fca774922c686a741568df6942c1c93e749ae47a6bd29baffc88a1bb0c923fc9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000212.jpg",
+      "sha256": "eef9a16db5de3079fed787590a26afcc7ae041b9721e44c7d805f050ce112c7b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000213.jpg",
+      "sha256": "8dd56ccb260a016a967bc9dbf472004e3338457bbb6fd6dd97f9a75907d915bf"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000214.jpg",
+      "sha256": "72a9ff498fb2cef0fd4a762623c000ae0bb5b9276ff70473cd3f9ed51c0cf711"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000215.jpg",
+      "sha256": "fab4b3486939222ef7f00e4e451add74662093c7da94efc93ee108fe273f7789"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000216.jpg",
+      "sha256": "f659e8a11f5ecf9931016a3d0b9205a83bbe629317b8fa6bb5a2ed4f91a241ed"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000217.jpg",
+      "sha256": "087abc59b4eb9ec02e42aea2debbbed9a123b272fa736603f44d049436d1b0f4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000218.jpg",
+      "sha256": "8fedc2117f0d2db077ad109c09ed2891e684a2a544c6c49cf7e57539fae2923d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000219.jpg",
+      "sha256": "6d72bfa4f18afe5e823ab74ceb10a2acfa9e746f32e0dfd43cfc9b0e7a9f6d47"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000220.jpg",
+      "sha256": "19b7bec121456ffb7f64ff577d3e5b6142d575ff093a937776b08867b4d51789"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000221.jpg",
+      "sha256": "aa5741eade599dd046da1a8fcb8ea479183c106c89591d610f36fd5d396339a3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000222.jpg",
+      "sha256": "1853a523e985c150f7a2b90becb1ee1f94bd5036c195a8b7a0dae4ae1ceff26a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000223.jpg",
+      "sha256": "a6c39e7cc6b71d0df0ebb23444e4e54a4cd73227012d02be30366e0270edfcf7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000224.jpg",
+      "sha256": "6e49df37278c154905908fc96823d2222def7ae3cbaa3738d500f59f4db741ad"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000225.jpg",
+      "sha256": "cde9346fd2d8e05ce8f1c01995a7cb15dd4a0c7cc98fd80d2a145dca172c1fce"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000226.jpg",
+      "sha256": "aac0a0136f9346e8aee448e3b34f5dc5b0f12de472d8434f625e0081cdb3c2b5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000227.jpg",
+      "sha256": "55f31fe6f358d6ba007eef61b0b820cca9f0a83d247bb139806209d8e56024ce"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000228.jpg",
+      "sha256": "6b4920097d7ce7d977e0f3eb1a46b3f2267b3c7ba211229f0c9dbe920317f58d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000229.jpg",
+      "sha256": "18cef705763964850612c8ba15908ba658dace74bb79c51a54e86d24ecb5c378"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000230.jpg",
+      "sha256": "0cdfd5d695e30e6bc2a7914739479b00da913c26fe6b8ad0089246c141e70d7c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000231.jpg",
+      "sha256": "88677a3dad2642dadb334a30859115d378985903c93fc1b75c514f443a6b842e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000232.jpg",
+      "sha256": "6e28ee83af2614592881a4f36e9579894c37a6cfcebd5ccb761587e2054090dd"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000233.jpg",
+      "sha256": "e64b4724f7a956417034f51dfd11b2b04478775a9f93e64c420fdddddeef6575"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000234.jpg",
+      "sha256": "b482ccd73d31f9f03c83bc010bac659643c9fa73a5cdb3fb4485f57d626887e2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000235.jpg",
+      "sha256": "85e77c9803517528e4d2a9c8e4093897736c5fab9e45e9bbc17cdfa2bb01c2f9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000236.jpg",
+      "sha256": "e50818b35cc6d2e516662756e4247f96d06729b0ba6f7c5afc22504dfe7a3006"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000237.jpg",
+      "sha256": "d4e91431058545e535d348be22550b9545c689490734ed3c79e78fc2f1cea844"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000238.jpg",
+      "sha256": "1d1e75d4883d52bf519eac24f3fefbf00e1e5adc27b3f8218608e4c0d83f9325"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000239.jpg",
+      "sha256": "27cd09e54275abbd83430968df0d31c01fc4027e54742d93bf306445fc1ae42e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000240.jpg",
+      "sha256": "44263cbc5c97060820ab86357b1e04b95135bfa9bda0bf3c41016738d36af315"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000241.jpg",
+      "sha256": "295d9072a7673532d0194ecf16ebeb24bcf7a320cc75fc4ebfc43b2bb8a6b480"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000242.jpg",
+      "sha256": "5567fe6aa3da5aab3bc18d0d73577e2154b32469b95640f1c890a734a354a8fb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000243.jpg",
+      "sha256": "b535bdbf6e53241a8267ed7e8894acd2afa56bb04e4149ff73efd1073ba2d1e3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000244.jpg",
+      "sha256": "0518bb1309fd46e076b47194fa6de3d3ee684ac363893d2aae1de7552e2d265f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000245.jpg",
+      "sha256": "ef0de402d650c055e764b26754d7701b463c5615c23a2c9fa18e79daf8d3c599"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000246.jpg",
+      "sha256": "0d106147d8aa54a28544aa95b824bab93ce6144cf41e3ada2e880de390cc1c67"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000247.jpg",
+      "sha256": "092c49d8addeab285eb23060f85144ffbe50364d03c0962788b172d101895930"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000248.jpg",
+      "sha256": "1d1503c9d2a8b4346085e84dcc2612ab929cc9e895afccd84782e98283d96ec4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000249.jpg",
+      "sha256": "fa1cf5b53e3d2e1b16a0a3bb636cc051d84bf21dbebedefa4c8f556bb2343a30"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000250.jpg",
+      "sha256": "cae658e625760b765f80a8abf4d95825bea8ef617531cc2d702e0e0265883559"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000251.jpg",
+      "sha256": "8989f5576f63dba70ecc7296dc61444167140e799c60f59225c50938e66ef07c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000252.jpg",
+      "sha256": "157731913236fd875275e49f4ce012e41f699e4f5f8440738fd628b35121e633"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000253.jpg",
+      "sha256": "6c3c4a270bf362c878f25f0d351c5283709e075a4e457b3c1f72233407c3d1af"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000254.jpg",
+      "sha256": "409580bdbcc3971267e78332ea0a4d41c0670afb3b26ee33b348c17553961d29"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000255.jpg",
+      "sha256": "aedd28a0184fca35a489506a3b1094992ef58b1f41def0c2be84db20ee0b67e6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000256.jpg",
+      "sha256": "0a21b79b23ee895aaec955ccd3913a29159a67fe3cc62e87f510fbc8e44df122"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000257.jpg",
+      "sha256": "6e9d269148e4b1a682dbeeed5575f9096039af4106bb12b0496f4e2a9f3a8bf5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000258.jpg",
+      "sha256": "72a0b70d5b460bb06afd7d316abf5db6d14dd697444f2d056f289ba599e32dc9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000259.jpg",
+      "sha256": "8b336807dc21c46661697c48433bebe528e27c24a1302117e973d208989ece95"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000260.jpg",
+      "sha256": "8e6d90883dfcf9495d09b87bc2f7acf1b159900a90d1b820b1c3c4d164fe022a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000261.jpg",
+      "sha256": "69167faed13597b197c7022e6795c460af6b3d88f410b4cc4c2bd50306b52de3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000262.jpg",
+      "sha256": "8d291c63eff8bb7ba9111916411c6a8113c71fdc2ef68d8a3ffc0382bca31e07"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000263.jpg",
+      "sha256": "97c2189725f2968e108eecc33bff3bda63254685dbb986ed72ce57c6b9ceebab"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000264.jpg",
+      "sha256": "3b9fdff9d0d0925c5f76bf1be6759f1b31829f322ec3a469119ac1e4cd356c68"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000265.jpg",
+      "sha256": "0237c520d3b9ee0af91d84787f34c2d92c746635408c6b1728ba5d59b7120821"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000266.jpg",
+      "sha256": "eb236cc37955c1d082f7a1ddbebe9c87c08151b55e603678b1b55afd0d4bce22"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000267.jpg",
+      "sha256": "55a9e68eb5435f17717872c0e1fe4278c700f8b650e9d39d7ffe890b7634d7f3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000268.jpg",
+      "sha256": "e2b04b74c4de45f9f27aaa25d690c19550cfa010040144e9255dd00ad7480685"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000269.jpg",
+      "sha256": "b3e2cfabaf49b75057916658275acb2b520a231c52f2d94654a3d42e89a6ccd4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000270.jpg",
+      "sha256": "0aae62cb67df38867720c86829aec1b3909b9bb4ef5b946845965f910630aafc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000271.jpg",
+      "sha256": "da67462cb40a7d1ad32049d540023cc063669007cf042a16c143c727ba3c13b5"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000272.jpg",
+      "sha256": "882132b280901e85f0fc62cfb6fb00d4289dd06a980be9a7311dc3f4501673e3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000273.jpg",
+      "sha256": "7e8704ac4bcaee8ec35fef0657df9c33afdd370727e5d4381d73727021eddb75"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000274.jpg",
+      "sha256": "9aa0c500043b5d7d28a4dd6827f81978b4a9c779d7d45fe2f6ad6f7c5221e011"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000275.jpg",
+      "sha256": "7651121f1b16076fb06bc4322160e716d11649e4248015670dbfc61148f3b849"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000276.jpg",
+      "sha256": "11be575f76f55338370eec31a811ebf909841e566faca142e330e6deeaff3e25"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000277.jpg",
+      "sha256": "66ce80bbae9ebbb4861cd5177c631deb33b8ee41d7d372f4dd56246244fb0196"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000278.jpg",
+      "sha256": "181066f8f7c2ca698f28ece9f3793f6ce3e83ca20d64720372b36c6474c05dff"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000279.jpg",
+      "sha256": "64caa5b008adb366767b7e7c089859f91b62a056b8d13e90f67a6afa74628f1a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000280.jpg",
+      "sha256": "7ecc2006bc2bd2e4d333a44701201dec74b93113556e4c4302e3ad7ba156f5aa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000281.jpg",
+      "sha256": "90d739df76ffb7b6ee0604fc587734a4571210572043a0c3ccde3789a970d649"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000282.jpg",
+      "sha256": "d27e003cbbd1f6a0cd2272d09eb667db1abc46521ccbbd41c03e540fc8614539"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000283.jpg",
+      "sha256": "0f1c9d8adb3f4f6560a3ceb11c1620bea1648e74690978cbcd202331eb288fe3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000284.jpg",
+      "sha256": "17d2ba736f909e78e37aa38ff8195f5eb57ee45c3a9963b6399d248b1ce1e2bf"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000285.jpg",
+      "sha256": "582f4cf5a5adbf2534d72503a784e5df6cf04ecc209a8f4dd2fe47490ee576ca"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000286.jpg",
+      "sha256": "9ca0ad5a0194e0a44bc00cd155c1017c0061ad098f57569ed9de9122dd2d6b20"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000287.jpg",
+      "sha256": "854c2def32f84f2e2ba67df9fec5c7bffbc79c9e4b736656e35f2ccb8f4e2b5b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000288.jpg",
+      "sha256": "4c1199236d3565c9816f64a59da77c2a5d34b019f7793ae2b5bc85b5de138fb9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000289.jpg",
+      "sha256": "4ae3dc28514891554d1b7a97c4cefbd8ed87366d4fdbb87738284976afd96a9c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000290.jpg",
+      "sha256": "443e5c358bfee25ecf74b1c825482671b68e82d87ab83eadb776d87f689fc0c1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000291.jpg",
+      "sha256": "0faacea68dce84473a60741615c61d934b3fba20a2e0474de10d04de9f96424a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000292.jpg",
+      "sha256": "b7bb2c40b76a3727cb284a7ba4b20572544dce66ad4b6aaa71e436d78fdba88a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000293.jpg",
+      "sha256": "cfea78b8d81add265009bb59f18d49e8029d16ff9943870a302b319e0a298b71"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000294.jpg",
+      "sha256": "5fe9292e1c8db851e38c5f1005a5be15584e95b51575d86ac4b76f29dfb2b52f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000295.jpg",
+      "sha256": "da45dbfc8cbcd2ea2079e27de71ce9d989e4f6a3c92557fac158745b58644e8c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000296.jpg",
+      "sha256": "fff323a513bc027435d6572de216702b68857d4f62e2c5b4dc6cb6ac16ff215e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000297.jpg",
+      "sha256": "6143bd298225472aa87b9441867c2792f220239c4e732fc6ce49c9fd6fd221e0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000298.jpg",
+      "sha256": "1d052d1a4817e6e0bba0fc841f74c21ba13d738d8cc69f95a0de4fc3b4013d9e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000299.jpg",
+      "sha256": "d601942c9aff92097dfed30dac1441671eb4958b04810831e4dc2134c37ed133"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000300.jpg",
+      "sha256": "a42ae0fc7e77778f77b31758ec65154f5e812cda9c1531c080939e31e3c8b5d6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000301.jpg",
+      "sha256": "73a92cbcc110c7b9846b0bbd0307f616f89a2a8d9e42446c755f25b69ce48ddd"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000302.jpg",
+      "sha256": "cee7239aa4b61402cee9ea0fffc63a781653a8203a993f80f0f3cddf91a73390"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000303.jpg",
+      "sha256": "a018c2917bf3fd608232374f281b2f45c4e9c38e883400bce5e021cc0b1c9108"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000304.jpg",
+      "sha256": "62eb104a6335912bc757fe66da5636a750e563368779d76f868daf1768e72478"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000305.jpg",
+      "sha256": "8bb1d33719fcfbf4f67f26f3c4c7b0f58fc8c17927104fa9024eebd326c36006"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000306.jpg",
+      "sha256": "af6c9b88f40a61f9c5172d422d142cde855259092e9395a2662478af97fafcc8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000307.jpg",
+      "sha256": "cab9bc943686f6fb35b3fb706d968dc98a4cf8dd23019d221288f06122134c79"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000308.jpg",
+      "sha256": "252319e93a3632adb66d847487ae31106b3a0eff44e98c638773bff158def481"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000309.jpg",
+      "sha256": "1b86b74d4fc737c6f2c163544b3f923d8560e855ee7824ec65afa70a14567122"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000310.jpg",
+      "sha256": "3af293d93506cf606e55848296f074c5527ddaffc8d61aa01842dc3ebeeaf96a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000311.jpg",
+      "sha256": "6fb13d9108e3cfbd67d4cd38256033bc0f273b422a4756586b764ebab37c1eed"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000312.jpg",
+      "sha256": "3d2510f9cfc3044eaab58e5873d0cd0b1bb8b94702ed1fbc24cd0782fe439636"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000313.jpg",
+      "sha256": "7d7480a852f755c1af11ae4873648a124fcf8d17ea3ac3a17b0c02e636264026"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000314.jpg",
+      "sha256": "1d73c2fb626342d8909c7bb53622b72ec262d080a6689ce90e166d3df5278610"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000315.jpg",
+      "sha256": "c59aa8e7f2e0f04e06c7b717293cddeb38cd61a4afb65df50c66f81c4dc72552"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000316.jpg",
+      "sha256": "75ed7258816483385898e6df2a6256cd9119d8e1f6bad1fe858fbd758d966279"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000317.jpg",
+      "sha256": "d8ad6a5417e0309e3c084d6492dee9ffef4eb7d8ce03c97a5b4cfbd725b71dd3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000318.jpg",
+      "sha256": "30fc4d4302bcfbde21d7db3a5a3a0383be9ecbe31156c2bc911d79f6baeec398"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000319.jpg",
+      "sha256": "ce2982f85467ca7f0c77e471e934f515806afb1cbc707241b4554bc4090b3668"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000320.jpg",
+      "sha256": "550dc326e16a9d9d37e5d344b35396896d9a0f1be74f21d44d829421272a2c53"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000321.jpg",
+      "sha256": "967794fe8a311057bdc09b205178b6ef01607d0a38b2c3bcc325a85cf9f0b3f8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000322.jpg",
+      "sha256": "95cd1eca78bd140c901c1840e24172402430c2e17120b40e6e5d394064a45e54"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000323.jpg",
+      "sha256": "0e35f6014db237bb719f68a68913d45aa568a14b3277d7cdd1b959fb8e24f520"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000324.jpg",
+      "sha256": "e942b333bfcc79ca33f732bca04fef0487c781fe9c49e587df70e76ba3d9a9b7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000325.jpg",
+      "sha256": "79959e0d286f86c18e6e704c2f4b5842a8abb2ec4c33c66dddf0b82bc43750c3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000326.jpg",
+      "sha256": "2266722014f39b06663c579f1704792e3698be61068b34995ada7a807306bee0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000327.jpg",
+      "sha256": "456978e94ddff2e631418629f270f98a1e493e23ea06997a7e23b2aa338ab138"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000328.jpg",
+      "sha256": "f7d2e7af07ed09671b51082a4123ac614a58bd363f0957870b5ea2336275c3af"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000329.jpg",
+      "sha256": "10f882ef7b1b6509017d94d217f247d38a77a8dd6a3ee497044fb3c5143b7ec2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000330.jpg",
+      "sha256": "39ba19f4defcbf9949191f69e087b9f2af8c5cad51f12ec806f9d5021defdc52"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000331.jpg",
+      "sha256": "38a2fc651a3582485efa78c3bc36954a3ec2cf32a4e11348334a0b14b56c7a3a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000332.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000333.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000334.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000335.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000336.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000337.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000338.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000339.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000340.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000341.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000342.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000343.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000344.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000345.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000346.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000347.jpg",
+      "sha256": "1ab26422a033519f42594016f91ddd0c37c2360f8c14a8acf29a691f1678c9d3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000348.jpg",
+      "sha256": "d135852a49ba160f8995b4c1888b8f5826e989f1cae3940e1fdc80bfaf048386"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000349.jpg",
+      "sha256": "d5b9e5dfa115bb201bc5e74d94737c7d834a99ae26b2abce573a601f6c3ee45f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000350.jpg",
+      "sha256": "9fd0897a4e8fb21198bb4fed76120256b8e46bf740fb1af3f759957cba6f9bd1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000351.jpg",
+      "sha256": "812d76c3224091527312e11b06a477fe8f68cac2b0b14ed3e616f9f45d3b312c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000352.jpg",
+      "sha256": "d0748c379564df01be3cec845145152aa657dc9237da95dc1eefe5084e801e14"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000353.jpg",
+      "sha256": "bcc123e2727a33b940ac5eb20d87c50ed974d8936bc213e6b50cf76a0ab7d366"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000354.jpg",
+      "sha256": "887db147547b4196e904752ec852859efc6f5bdda15ec7c59093329aa1429986"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000355.jpg",
+      "sha256": "12f4ab27d9f83ebe4c051cb6dadd4ce8936c9c64d30167710895719d7da1fe4e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000356.jpg",
+      "sha256": "b3f76ffd916e73d1670c19a0a7ac141257e52eb93225e5e9cc42e68d76cc2c42"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000357.jpg",
+      "sha256": "9a7306c9091dbc64dd4fb5394cecaecdca53629546358e8925ba5a7c6478c298"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000358.jpg",
+      "sha256": "f6d8964c6a3063bc9701bcc1853aa0901eb9d70932e1c1d03cb20f7105d49bf6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000359.jpg",
+      "sha256": "92b6f44699e96b346ee49c73907bdeea74e895b4d6f2234cefa9fe311e85530a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000360.jpg",
+      "sha256": "274ab9e531a22191687e44ee323cae4b731aad54d6d5274ee01243e6a0c32975"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000361.jpg",
+      "sha256": "e01ff640594ffaf8363ab0e295bd6dc2ae0f17b97f574074d97933a244334d19"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000362.jpg",
+      "sha256": "0abafb87df7855f22952b4441b777e20a9d6dd5094236c1606f757475223bb21"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000363.jpg",
+      "sha256": "cb8f882e786abb6d586428ecf390c4183cb792c10f20778f71244c0255f820b7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000364.jpg",
+      "sha256": "0363df29907353ea205daa4dc17fea1d9f687e518c1ce4f59f3c9c327becc163"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000365.jpg",
+      "sha256": "cb5b823c9e74a2d4736fac3e1e58a3e73fb346e3e2cef4b569fccd48232fc9d9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000366.jpg",
+      "sha256": "96a3265884ddbac3ae7a7681de8fdc295f945713e566329d937dccb37ec90929"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000367.jpg",
+      "sha256": "8831e1faee437c7343d1c4db76e028c6df58113923ea01eaef2339ae815b53d1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000368.jpg",
+      "sha256": "ee648f0a0662038bae23229833f88381d4470f0d54c10598e0e0ffdd0717e492"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000369.jpg",
+      "sha256": "72f3e4b1e14ac72db486c5b15cc292ce38986083795eaf8c99d60c01bab8fbef"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000370.jpg",
+      "sha256": "4b0a0e481926b1718f7a44e18fa98ee111a980f6cf5c727b730b2b7f15b06e53"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000371.jpg",
+      "sha256": "5a1aea7cc28692fa916add863c0b80041a727fdf0cadb192b61b484d96132c97"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000372.jpg",
+      "sha256": "e7c588286ac795f54367361fcb6aba12b09b39746d5179f2e4084303736c0cd4"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000373.jpg",
+      "sha256": "6a0af6be009572738430791c49a1a8b902bf1f53654ee831e904fa207d6596fa"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000374.jpg",
+      "sha256": "46affe972dc7d39552a16a4cfbfa76486dba1fb3e223d565ebe3ed9f40b5d551"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000375.jpg",
+      "sha256": "97ee65110d8cb4a619cc32d943bf08e8bf9be676773f28982e39f304d5fbe407"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000376.jpg",
+      "sha256": "a37840c06910fe733961416b00dc39cd3805eb4c604e52d45d564eed8c08373e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000377.jpg",
+      "sha256": "d8cfcd9174b1051a392c055b5f560c594197605e740df5e1e4a1fbaa3220bf65"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000378.jpg",
+      "sha256": "421f36b215038f37562e74a3158550e086cb7c63d672a77cc74f8dccf0023810"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000379.jpg",
+      "sha256": "f409935e40b042f05f368b37c36944887e5a17d6da733b43f975ec9b04966a44"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000380.jpg",
+      "sha256": "823911dae7737943d0847318ebfca152366bcd84c9e9f97aa83f1ef7612fc5e3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000381.jpg",
+      "sha256": "161728bc9e94337eb550bad18ffcf2b9f1eebf15813ceda220212e01aab61adb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000382.jpg",
+      "sha256": "535c042e1c50dd03ab8557a1bb05db6cfe3cea7ad03ad75fd7946ffc645ec020"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000383.jpg",
+      "sha256": "0b50b5e93bb8838e7f39555523350e7300df22fc89a264298026fbae87d1ff41"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000384.jpg",
+      "sha256": "d0e20a6b8c7a86467cca90c6a5628bdc1f7564a2b95c56d9eb3fe371bbcd68c1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000385.jpg",
+      "sha256": "d0e20a6b8c7a86467cca90c6a5628bdc1f7564a2b95c56d9eb3fe371bbcd68c1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000386.jpg",
+      "sha256": "d0e20a6b8c7a86467cca90c6a5628bdc1f7564a2b95c56d9eb3fe371bbcd68c1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000387.jpg",
+      "sha256": "d0e20a6b8c7a86467cca90c6a5628bdc1f7564a2b95c56d9eb3fe371bbcd68c1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000388.jpg",
+      "sha256": "d0e20a6b8c7a86467cca90c6a5628bdc1f7564a2b95c56d9eb3fe371bbcd68c1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000389.jpg",
+      "sha256": "d0e20a6b8c7a86467cca90c6a5628bdc1f7564a2b95c56d9eb3fe371bbcd68c1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000390.jpg",
+      "sha256": "d0e20a6b8c7a86467cca90c6a5628bdc1f7564a2b95c56d9eb3fe371bbcd68c1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000391.jpg",
+      "sha256": "d0e20a6b8c7a86467cca90c6a5628bdc1f7564a2b95c56d9eb3fe371bbcd68c1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000392.jpg",
+      "sha256": "1634f0b394752c58a88c2bf12b411f533cd5b192d1231697c05c0c66f6418121"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000393.jpg",
+      "sha256": "cabd555836c9e0fcca75d2c7670ca101daa35149fde50a2244753cd216f4b027"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000394.jpg",
+      "sha256": "52d0e3d90775a98d82571ef449bfccbadac003afd6793ca4efcd4a012f06bf7e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000395.jpg",
+      "sha256": "3a852ec17fb3ff60b6bcfe2176dfc4a7dc4f41b5a3825b1947ea5c337ca37873"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000396.jpg",
+      "sha256": "e46076a86a49d070fc8f77a373abbf557fcb62cb60b4238a3e3571ebfba7a4ee"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000397.jpg",
+      "sha256": "4b70db78b1836fe60089810da712a1e5f6cba3434c4806060db5105794e64d93"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000398.jpg",
+      "sha256": "2b4703098bd800c458d298f1f458c86e00bd55b9505f9890a93d9a927ebf3d5e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000399.jpg",
+      "sha256": "9c4003f736f829b2d3893f98bce579cd9ab30bde422f10bc5769cd2bce133694"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000400.jpg",
+      "sha256": "59de459df8a5afb7f3949344d532d38d6f82145e062fd3af95fa615354180aef"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000401.jpg",
+      "sha256": "28db68148f687f29629a71fa23550d33c368eb615fa1d4f38d34d308985694d2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000402.jpg",
+      "sha256": "ddbe311268caf670797a95849586f5521e9638bcd07a63ae19b8226fac0b73d9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000403.jpg",
+      "sha256": "d5c044d245eb9673be063014e31d39b213353b54c45782e481d8cf544b1f9714"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000404.jpg",
+      "sha256": "b190db4e7960b365245fb7332c63a131c27372ee4af941597c2a4f28eb9244da"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000405.jpg",
+      "sha256": "b190db4e7960b365245fb7332c63a131c27372ee4af941597c2a4f28eb9244da"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000406.jpg",
+      "sha256": "b190db4e7960b365245fb7332c63a131c27372ee4af941597c2a4f28eb9244da"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000407.jpg",
+      "sha256": "b190db4e7960b365245fb7332c63a131c27372ee4af941597c2a4f28eb9244da"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000408.jpg",
+      "sha256": "b190db4e7960b365245fb7332c63a131c27372ee4af941597c2a4f28eb9244da"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000409.jpg",
+      "sha256": "b190db4e7960b365245fb7332c63a131c27372ee4af941597c2a4f28eb9244da"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000410.jpg",
+      "sha256": "b190db4e7960b365245fb7332c63a131c27372ee4af941597c2a4f28eb9244da"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000411.jpg",
+      "sha256": "053f76f010a8b9c1f5a873dc3a3c2d6cad5050cbaa1db4c2dbe932fa3dda04df"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000412.jpg",
+      "sha256": "ae4effd9b3c5fd4b3722444294e30c5c03267b98a2bf64a085f652dc43362a29"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000413.jpg",
+      "sha256": "0b4e8516cc4a5a1a6152046318d04efbf4433bf4fb67a1b8101653ec4d59e545"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000414.jpg",
+      "sha256": "a62e86d359aa16165d46bc4d237bb4e174fe597dc1f253834eab1bdfa325e94f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000415.jpg",
+      "sha256": "a62e86d359aa16165d46bc4d237bb4e174fe597dc1f253834eab1bdfa325e94f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000416.jpg",
+      "sha256": "399eed57ff177eaf1dbe8a35759ab1cccd899c25a6989c47b9e3c4b60bb4c295"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000417.jpg",
+      "sha256": "e7dcc7951cadab5aee94aeb9b5dd419afaec89bb000c44044e7492d8305c2059"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000418.jpg",
+      "sha256": "e7dcc7951cadab5aee94aeb9b5dd419afaec89bb000c44044e7492d8305c2059"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000419.jpg",
+      "sha256": "c0acb343dce22dfd1fc57304da8fbe5b1efbbefb2c2fae5c226ab74ca3fc8c1f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000420.jpg",
+      "sha256": "354970527c81ed0b0cc0217d66a9d957a76efe459b583463155d322e89e28df8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000421.jpg",
+      "sha256": "c4f141c01f6842c9070c0243e3d1967d8e820a519e18a38810ae2d62629c0e64"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000422.jpg",
+      "sha256": "358bced3f4a9b0007b1f88acb15c18a55dc9b7023aedd7d52e75db6ae8dff547"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000423.jpg",
+      "sha256": "1cccdc0014d5c99152a3f667d551663bdd12693ac63fd07eb4b37f5ef300ce6e"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000424.jpg",
+      "sha256": "ab98550a99cd6865e7bb31d8e7d3d339a62884a9fd741db8e110faa663bb1abb"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000425.jpg",
+      "sha256": "e182edfbd29bb7df56e66bdacb9a715501425e5716330d51e81a8d0e6b2a8527"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000426.jpg",
+      "sha256": "40f3616b4cce044ce0de2531ee45db33e30bf683659322e64ca299b9d962650c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000427.jpg",
+      "sha256": "736c4bf4d0225d760d9265335c268fd58eb0048a64ae8e05de7da57e5a6a688d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000428.jpg",
+      "sha256": "daf84548adb93b4af2758135bfabda0531db777823ffb18d789bba6d57b4a8c9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000429.jpg",
+      "sha256": "e0ebca38ae8a5e1c61f8f7c426d87000517685185b9e6c47ed9f3c6b43058036"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000430.jpg",
+      "sha256": "d0964ef4fa94123213603d2d4760cefbc21f09cd9a23daf4a651724f2300a114"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000431.jpg",
+      "sha256": "e55be3f1c9f5ce24c34872cde8c7f72e77c7d9d0cf5258d40ae88cacc89122b9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000432.jpg",
+      "sha256": "34826bd40f5108f4f050485c315d856aa068d498dc2482cb204d0409c3a947b2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000433.jpg",
+      "sha256": "bc1e9caecce07f12fef8662a4792e057573b86fc989c3bf78c50c356bdb7f653"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000434.jpg",
+      "sha256": "0bad9e320bd7dc3309f170d3badf964f9742cd3d691bf2beeb45c576261d3cf8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000435.jpg",
+      "sha256": "a001d105902af105ab8e1abdce20b2d9109d8282a51006c16ab057fcc3742378"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000436.jpg",
+      "sha256": "6a834150f140c0f98bdef5213d1b8e4613347ee8babbd006cf9b7e5b24536c49"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000437.jpg",
+      "sha256": "bffd88de58a4d761b726cbf14c9bd226e4198c1932d3e4910f16e78b87378d00"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000438.jpg",
+      "sha256": "47118a598c4100149aa390dfd76152dc452673315cc4d8992d411be1da03baf6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000439.jpg",
+      "sha256": "b46ef6519bcd9dd5256650cae7954c82a7f968eec148608d23c7045a65af6914"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000440.jpg",
+      "sha256": "aed8d907b37c87bdd4a66a1df39548198e3d11f746677e71242971bf14884b0b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000441.jpg",
+      "sha256": "94ea2847648851a0550fa4c75396e1ca177be5f56dd5dd88db5cef83f0d5db50"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000442.jpg",
+      "sha256": "90b85b608c029339d61a15813ec26a9e65306f5a79290c01019bc8e0ad49e09d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000443.jpg",
+      "sha256": "dd3ab0b6154ade418bea759be89f42b73fb287e7f5097ece1bfb75c927279ae3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000444.jpg",
+      "sha256": "45c867be22805f11c97a790cdfafe565c4c25f69c9ceb8f70770f511a93c158b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000445.jpg",
+      "sha256": "4f3ff38cbcbd5e88a3692e9dfa113bd105c0b316e9abf2635bd04c220eaca11f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000446.jpg",
+      "sha256": "8d1f2b90ea1b173e91f5493e68d56bfb3bd73e731e23c8d2fd97ddeb857ca03c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000447.jpg",
+      "sha256": "db2b5264f7ddc6579e896ac3e1041af632648d2367bb00c077959fb460a544f8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000448.jpg",
+      "sha256": "f51db3ec55920048836ab3daac684080be28a078704a9fd0477b9fe4cb4c4e3a"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000449.jpg",
+      "sha256": "9ba00254055d6d9604a63ee44d43b9344777f70c5d35192deb8a5a9a46b23bd3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000450.jpg",
+      "sha256": "88d088d57ca42cae21acb04c8cdd9c9262565869eb7d98b0bbe5b9dbfc4db671"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000451.jpg",
+      "sha256": "b953ad84224b7fa506e0869838254e1ae518ed7e598b6ee50166373c0d06f6ba"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000452.jpg",
+      "sha256": "855eb94b363adf4b8d62356418052b00f616b2802f78cab5913935c1d46567b0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000453.jpg",
+      "sha256": "2069a95df2aff969b724ccb4fcbae068a5682de086997cea067db42db2c8dfa0"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000454.jpg",
+      "sha256": "0479e48af327749a60a97aa6a170d0ae1db6f391a8ad0bf58f82f11ad5d12fd8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000455.jpg",
+      "sha256": "b7d749e38f16dca4f61e6c76c932e8570e254bc033ef31d26ef89788d6e723a8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000456.jpg",
+      "sha256": "3bf9a40f98d93306c8a6b0b2c44f10a9c6d29615a8cf4d0e1c385e07f7b0cd7b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000457.jpg",
+      "sha256": "be191255c1bc26dd815815565e487e1d7c79d0041d469d611e85ec3a8b7d7db2"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000458.jpg",
+      "sha256": "3a99587bd7caa58936275b7a387fc1ee112cfea316c9d030e9c101e5e0cfca39"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000459.jpg",
+      "sha256": "1a53c2604e71cae5ca868e3e265ce2972623744ef20b69f5acd261ee8e949efc"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000460.jpg",
+      "sha256": "f82bbc6ddefdb8ca4648ebd01774dbccf1750c8596fc417aee0fbf808fa0cbda"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000461.jpg",
+      "sha256": "9e30394761c4cd8ba459a1c8ba1c59a4e117f8966cc23054c95fbd568fce3375"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000462.jpg",
+      "sha256": "09af60b4e992ac506cc60c6511f2711bae48e6ca82d0c6d1d9dc9453a002ccf1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000463.jpg",
+      "sha256": "89577ef6eff8c4d44d8b7ed6cb9b7129ad3a1d3e7fdcc4bd5d2207e20a51afa1"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000464.jpg",
+      "sha256": "37427e343780ccb3b90eb6ab4190562862fba9b477eedbb063ec064fc3a185f3"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000465.jpg",
+      "sha256": "b2b343b61260452b32679a463eb48c9c38e3fbf2058800c517267d9037c55990"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000466.jpg",
+      "sha256": "7ce643a6704a728c4ffe04f31f46854fd15f04dad517de8532acdcd36182b1a7"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000467.jpg",
+      "sha256": "1700ab0613e5c59a4425050a1c63cc4f74eec2a6e603748fbe7862a02f9696e6"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000468.jpg",
+      "sha256": "c3055489708289dba8a081451f1e1813656bd415e26172508a55ffb856ad9900"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000469.jpg",
+      "sha256": "6c1054e6d43e9366265b6db370254981758ad88809f83004e85eb5389a09e023"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000470.jpg",
+      "sha256": "c94dcb5c842952cf5998f54a8758fb7cc5467244867e33d615da8cd68a516653"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000471.jpg",
+      "sha256": "2b4d952788c2d2b85d3f1370e4ce600f203e0e5998f8db5d00aa45640ef6925d"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000472.jpg",
+      "sha256": "47731f5673970e73da046353836045b238cef9f90ccfbdd272f07238a213b785"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000473.jpg",
+      "sha256": "f44998042c54ed9c77ba5fbc42438492f6d7f5c3d4e2e6884baa1129543bd38c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000474.jpg",
+      "sha256": "8cede6271620d29231fcd93d8ec5fd6ff5f45bd07ca5449b404a521266099497"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000475.jpg",
+      "sha256": "986a6aa7fe480252a735c5761519989890b4116fb2f5304aa8a92068eb43be9b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000476.jpg",
+      "sha256": "fd1b2b1ca4c5dbb1080ae67dee58a74e7a454aa073990819ef6c88d9f374ace9"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000477.jpg",
+      "sha256": "b6387eac0f5b7341da02e1d7bf3c53886d2f9ae88b458b2ab54fb74e6b27959f"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000478.jpg",
+      "sha256": "f5ce831524a7e5e6435160f8c768a9a0b5301ae3c085ca87d755973a6387d0f8"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000479.jpg",
+      "sha256": "b567f474df13910ae1cf4609d3fa4601d6121d34956c12b0ba993188e72f7865"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000480.jpg",
+      "sha256": "b567f474df13910ae1cf4609d3fa4601d6121d34956c12b0ba993188e72f7865"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000481.jpg",
+      "sha256": "3a57eb586f859c76cb3b3cfb398731eab46544f5cd8898d22e8bb6dd30c7f98b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000482.jpg",
+      "sha256": "3a57eb586f859c76cb3b3cfb398731eab46544f5cd8898d22e8bb6dd30c7f98b"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000483.jpg",
+      "sha256": "ba59494b75932892586f543cf2b029c26b7d625282d0dfe9686213dce6273a6c"
+    },
+    {
+      "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/pictures/frame-000484.jpg",
+      "sha256": "ba59494b75932892586f543cf2b029c26b7d625282d0dfe9686213dce6273a6c"
+    }
+  ],
+  "chapter": "08_loop_sums",
+  "final_job": "csd-native-repair-final01-08-loop-sums",
+  "preview_extraction": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-pictures01/08_loop_sums/pictures.json",
+    "sha256": "57dba91ddc6d744c1d01648a82a134697f0e23105ad8c6f06e183425cf2e302c"
+  },
+  "sampling": "All admitted preview samples (the sampling list) plus current final lint anchors and persistence.",
+  "scope": "Extraction only. No picture viewing, listening, fine-sync or independent AV acceptance."
+}

@@ -1,0 +1,10 @@
+{"batch": 39, "viewed_utc": "2026-11-10T20:24Z",
+ "sheets": {
+  "0127": "05_4 49.383-49.500 s (f28669-f28676, every frame). sin z portrait at full colour, steady frame to frame. No defect.",
+  "0128": "05_4 49.517-50.0 s. f28677-f28681 steady. f28682 (49.6 s): the title 'f(z) = sin z' starts fading in to the right of the portrait, f28683 stronger, full at 50.0 s; same place in every frame, clear of the portrait. Last frame of root window 2894-2977 is f28683. No defect.",
+  "0129": "05_4 50.8-56.133 s. 50.8 s: white dots on the five zeros and 'zeros: multiples of pi, nowhere else'; the outer dots sit just inside the portrait edges. 53.783 s: a yellow line along the real axis and the yellow note 'on the real line: -1 <= sin x <= 1' (true). 55.8 s: a white arrow fading in, pointing up from the zero at 0; full by 56.0 s, held to 56.133 s. Crop crops/s0129-slot4-realline4x.png: the minus in '-1' is L1's short heavy hyphen and the x in 'sin x' is upright (L4). No new defect."
+ },
+ "findings": [
+  {"id": "L1", "sheet": "0129", "slot": 4, "frame": 28933, "severity": "Low", "text": "Recurs in the 05_4 note 'on the real line: -1 <= sin x <= 1': the minus is the short heavy hyphen."},
+  {"id": "L4", "sheet": "0129", "slot": 4, "frame": 28933, "severity": "Low", "text": "Recurs in the same 05_4 note: x in 'sin x' is upright, not italic."}
+ ]}

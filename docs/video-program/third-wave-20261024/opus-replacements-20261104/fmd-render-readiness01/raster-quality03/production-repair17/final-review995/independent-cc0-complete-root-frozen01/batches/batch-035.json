@@ -1,0 +1,7 @@
+{"batch": 35, "viewed_utc": "2026-11-10T20:21Z",
+ "sheets": {
+  "0115": "05_3 34.500-39.150 s. f27776-f27778 (end of root window 1989-2072, every frame): strip steady; the title 'f(z) = e^z' and 'no zeros, no poles' start fading in at f27777, evenly, full by 35.8 s. 37.2 s: a white arrow up the left of the strip and 'direction: set by height alone'; hue bands are horizontal, so colour does depend on height only. Held to 39.15 s. No defect.",
+  "0116": "05_3 39.850-43.233 s. A white arrow along the bottom and 'size: set by how far right alone'. Gray rows across the strip (y 150 and 250 of slot 1): inside each cell the shading rises from about 100 to 125 going right and then drops, a sawtooth rising rightward, so log|f| grows with x as for |e^z| = e^x. Labels clear of the strip and of each other. Held. No defect.",
+  "0117": "05_3 43.933-47.150 s. 43.933 s: a small yellow square in the middle of the strip, about one cell. 44.933 s: a yellow bracket on the right edge with '2pi ~ 6.28' fading in, full by 45.2 s. Measured on slot 3 (colprofile.py): the bracket spans tile rows 133-360 (227 px) and the hue period down the strip is 226 px (red crossings at about rows 127 and 353), so the bracket covers exactly one hue cycle, i.e. 2pi of height. Held to 47.15 s. No defect."
+ },
+ "findings": []}

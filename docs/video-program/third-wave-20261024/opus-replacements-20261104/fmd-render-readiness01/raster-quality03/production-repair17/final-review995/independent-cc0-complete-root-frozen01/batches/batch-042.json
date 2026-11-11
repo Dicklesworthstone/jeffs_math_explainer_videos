@@ -1,0 +1,9 @@
+{"batch": 42, "viewed_utc": "2026-11-10T20:26Z",
+ "sheets": {
+  "0136": "05_5 71.45-74.0 s. The readout 'tan(0.4 + 12i) ~ 1.0000 i' at full, and a boxed 'tan z -> i' in the upper part of the portrait (the faint outline seen at 71.0 s). Held to 74.0 s. True (tan z -> i as Im z -> +inf). Box and readout clear of the zero/pole row and the title. No defect.",
+  "0137": "05_5 74.7-78.45 s. 74.7 s: 'tan(0.4 - 12i) ~ -1.0000 i' added under the first readout and a boxed 'tan z -> -i' in the lower part; both true (conjugate of the +12i value; tan z -> -i as Im z -> -inf). Held to 78.45 s. Ink maps on slot 1: the '+' in '0.4 + 12i' is 11-12 px wide with a 1 px bar, the '-' in '0.4 - 12i' one line below is 8 px wide and 2 px thick (crops/s0137-slot1-tanminus4x.png, crops/s0137-slot1-tanbox4x.png); the '-i' in the box uses the same short minus (L1).",
+  "0138": "05_5 end and 05_6 cue transition 78.6-79.583 s. 78.6-78.95 s: the 05_5 state held. 79.35 s: dots, boxes, title and readouts fading together, evenly. 79.533 s (f30478, first frame of root window 4772-4855): bare tan z portrait; f30479-f30481 unchanged. No defect."
+ },
+ "findings": [
+  {"id": "L1", "sheet": "0137", "slot": 1, "frame": 30188, "severity": "Low", "text": "Recurs in the 05_5 TeX readouts: in one panel the '+' of 'tan(0.4 + 12i)' is 11-12 px wide with a 1 px bar while the '-' of 'tan(0.4 - 12i)' just below is 8 px wide and 2 px thick; the '-1.0000' and the boxed 'tan z -> -i' use the same short minus. The plus/minus mismatch in adjacent lines is the clearest instance so far."}
+ ]}

@@ -1,0 +1,138 @@
+--- combined-master993.py
++++ combined-master-repaired01.py
+@@ -1,4 +1,23 @@
+-"""Combined-repair complex master on CSD, version 350. Prepared only; nothing here has run.
++"""Final 4K successor of combined-master993.py (1955ca32) for the four repaired rows. Prepared only;
++nothing here has run (CC3 scratch draft final-master-cc3; root and CC2 review it before any use).
++
++Changes from 993, and nothing else:
++  - VERSION and the repaired gate's name and sha256 are unresolved (None); every mode refuses until
++    root sets them;
++  - the base manifest is master993's own (8da77ed7, the stage970-09-a2 publication) in place of 625:
++    its 11 rows other than 01/08/09/11 must be equal, row for row, and keep their existing gates;
++  - 01/08/09 must be kind native-combined01 and 11 native-counting02 (REPAIRED). Both kinds go to the
++    adopted 992 successor (CC0 cc0-native-master-gate-repaired01.py), pinned by name and sha256, with
++    992's interface gate(base,row,frames_of). No boundary313 or native844 row is eligible;
++  - launch waits on the stage receipts of both kinds, as it did for native844;
++  - master's boundary replay takes the 09 native-combined01 row; capture_check_before_master is the
++    repaired gate's, which runs the original313 capture checks unchanged.
++M1: each repaired row's review scope comes only from that chapter's actual admission, extraction and
++viewing (the repaired gate's admitted_scope()); nothing is carried from master993's intervals.
++
++993's description follows unchanged.
++
++Combined-repair complex master on CSD, version 350. Prepared only; nothing here has run.
+ 
+ Adapted from cc0-combined-master318.py (preserved unchanged) for the renders the master will actually
+ assemble. 09 comes from CC2's final344 (csd-reviewed-boundary-final344.py) in place of final317. The
+@@ -122,14 +141,14 @@
+ import time
+ import wave
+ 
+-VERSION = '993'
++VERSION = None                 # UNRESOLVED: root sets the master version (digits); every mode refuses until then
+ D = Path('/data/projects/jmev-stroke-probe-20261106')        # CSD
+ Q = D/'qualification01/production-repair17'
+ TRJ = Path('/data/projects/jmev-render-worker-20261107')
+ CSS = Path('/data/projects/jmev-css-render-worker-20261107')
+ HZ2 = Path('/data/projects/jmev-hz2-render-worker-20261107')
+-JOB = 'csd-combined-master993'
+-INPUTS = Q/'combined-master993-inputs.json'
++JOB = 'csd-combined-master%s' % VERSION
++INPUTS = Q/('combined-master%s-inputs.json' % VERSION)
+ GUARD = D/'guard_csd02.py'
+ PYTHON = '/usr/bin/python3'
+ BIN = D/'work/bin/review-repair268'
+@@ -919,13 +938,29 @@
+     assert job == prefix+key.replace('_', '-')+'352'
+     return host/'jobs'/job
+ 
++# Final 4K successor: the four repaired rows and their kinds (option A), on master993's own manifest.
++REPAIRED = {'01_the_bump': 'native-combined01', '08_loop_sums': 'native-combined01',
++            '09_boundary': 'native-combined01', '11_counting': 'native-counting02'}
++REPAIRED_KINDS = ('native-combined01', 'native-counting02')
++BASE_MANIFEST = Q/'csd-native-stage970-09-a2-master-manifest.json'
++BASE_MANIFEST_SHA = '8da77ed79e9ccc8a06e703e570c85c44de5cd884a047eaed61355167e397e100'
++REPAIRED_GATE_NAME = None      # UNRESOLVED: Q name of the adopted 992 successor (CC0 gate draft)
++REPAIRED_GATE_SHA = None       # its sha256 after root fills its pins
++
++
++def unresolved():
++    return [name for name, value in (('VERSION', VERSION), ('REPAIRED_GATE_NAME', REPAIRED_GATE_NAME),
++                                     ('REPAIRED_GATE_SHA', REPAIRED_GATE_SHA)) if not value]
++
++
+ def chapter_gate(row, frames_of):
+-    if row['chapter'] == BOUNDARY_CHAPTER:
+-        assert row['kind'] == 'native844', 'Only repaired native844 boundary is eligible for this master'
+-    if row['kind'] == 'native844':
+-        native = Q/'native-linux-master-gate992.py'
+-        assert sha(native) == '0d8d83e131405f0c26642edfad5f1ac3316881935346bb001d52666f9b83ea4a'
+-        return load(native, 'native992').gate(sys.modules[__name__], row, frames_of)
++    if row['chapter'] in REPAIRED:
++        assert row['kind'] == REPAIRED[row['chapter']], 'Only the repaired native row is eligible for this master'
++    if row['kind'] in REPAIRED_KINDS:
++        assert not unresolved(), 'unresolved pins: '+', '.join(unresolved())
++        native = Q/REPAIRED_GATE_NAME
++        assert sha(native) == REPAIRED_GATE_SHA
++        return load(native, 'native_repaired').gate(sys.modules[__name__], row, frames_of)
+     if row['kind'] == 'native521':
+         native = Q/'root-native582-gate.py'
+         assert sha(native) == 'a4e9f314d90cd83d2d772469f88956f483e98b9f3f0e5a1579c50b923c2d2f9c'
+@@ -1134,24 +1169,23 @@
+ def gates(manifest):
+     assert manifest.parent == Q
+     rows = read(manifest)['chapters']
+-    # Only09 may change from the audited retained15-row manifest625.
+-    retained_manifest = Q/'root-master-manifest625.json'
+-    assert sha(retained_manifest) == '6fde63a4029af7765491d0f38f5371feb701f954277d2cf3728d9f0ae4220942'
++    # Only the four repaired rows may change from master993's own 15-row manifest (8da77ed7).
++    retained_manifest = BASE_MANIFEST
++    assert sha(retained_manifest) == BASE_MANIFEST_SHA
+     retained_rows = read(retained_manifest)['chapters']
+     assert len(retained_rows) == len(rows) == 15
+-    assert [r for r in rows if r['chapter'] != BOUNDARY_CHAPTER] == [r for r in retained_rows if r['chapter'] != BOUNDARY_CHAPTER]
++    assert [r for r in rows if r['chapter'] not in REPAIRED] == [r for r in retained_rows if r['chapter'] not in REPAIRED]
+     registry, frames_of, files = film()
+     files.add(retained_manifest)
+     assert [row['chapter'] for row in rows] == registry, 'manifest rows must be the registry, in order'
+     assert len({row['job'] for row in rows}) == 15
+     for row in rows:
+-        want = 'native844' if row['chapter'] == BOUNDARY_CHAPTER else 'combined' if row['chapter'] in CHANGED else None
++        want = REPAIRED.get(row['chapter']) or ('combined' if row['chapter'] in CHANGED else None)
+         if row['chapter'] == '10_rigidity' and row['kind'] == 'native521':
+             want = 'native521'
+-        if row['chapter'] == BOUNDARY_CHAPTER and row['kind'] == 'native844':
+-            want = 'native844'
+         assert want is None or row['kind'] == want, row['chapter']+' must be a '+str(want)+' row'
+-    assert sum(row['kind'] in ('boundary313', 'native844') for row in rows) == 1
++    assert sum(row['kind'] in REPAIRED_KINDS for row in rows) == len(REPAIRED)
++    assert not any(row['kind'] in ('boundary313', 'native844') for row in rows)
+     files.update((manifest, Path(__file__).resolve()))
+     records, start = [], 0
+     for row in rows:
+@@ -1240,7 +1274,7 @@
+     # Workers are bound through the manifest's worker_sha256; foreign ones exist only after import.
+     pins = {p: sha(p) for p in (Path(__file__).resolve(), manifest, GUARD)}
+     # Wait on the receipt a row needs last: its CSD import, else its CSD render.
+-    waits = [D/'jobs'/r['job']/'resource-receipt.json' if r['kind'] in ('native521', 'native844') else
++    waits = [D/'jobs'/r['job']/'resource-receipt.json' if r['kind'] in ('native521',)+REPAIRED_KINDS else
+              Path(r['import_receipt']) if 'import_receipt' in r else D/'jobs'/r['job']/'resource-receipt.json' for r in rows]
+     deadline = time.monotonic() + args.wait_hours*3600
+     while True:
+@@ -1350,7 +1384,7 @@
+                            stderr=subprocess.STDOUT, check=True, timeout=14400)
+     replays = replays_of((job/'master-native.log').read_text(), records, out)
+     assert list(replays) == registry
+-    boundary_rows = [r for r in records if r['chapter'] == BOUNDARY_CHAPTER and r['kind'] in ('boundary313', 'native844')]
++    boundary_rows = [r for r in records if r['chapter'] == BOUNDARY_CHAPTER and r['kind'] == REPAIRED[BOUNDARY_CHAPTER]]
+     assert len(boundary_rows) == 1, 'Exactly one qualified boundary chapter is required'
+     boundary = boundary_rows[0]
+     capture = out/'soundtrack'/BOUNDARY_CHAPTER/'soundtrack_0.wav'
+@@ -1416,4 +1450,6 @@
+     one.add_argument('--inputs', required=True, type=Path)
+     one.add_argument('--manifest', required=True, type=Path)
+     args = parser.parse_args()
++    assert not unresolved(), 'unresolved pins, refusing: '+', '.join(unresolved())
++    assert re.fullmatch(r'[0-9]+', VERSION)
+     raise SystemExit({'check': check, 'launch': launch, 'master': master}[args.mode](args))

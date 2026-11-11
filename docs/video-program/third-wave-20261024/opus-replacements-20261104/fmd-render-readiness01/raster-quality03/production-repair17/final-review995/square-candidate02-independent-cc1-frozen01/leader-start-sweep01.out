@@ -1,0 +1,4 @@
+start 0.0705: rim True, overlap 0.0070 (1.9 px@4K), touched [(3, 1), (4, 1), (5, 0), (5, 1)], as expected True, no near miss True
+start 0.072: rim True, overlap 0.0055 (1.5 px@4K), touched [(3, 1), (4, 1), (5, 0), (5, 1)], as expected True, no near miss True
+start 0.075: rim True, overlap 0.0025 (0.7 px@4K), touched [(3, 1), (4, 1), (5, 0), (5, 1)], as expected True, no near miss True
+start 0.08: rim False, overlap -0.0025 (-0.7 px@4K), touched [(3, 1), (4, 1), (5, 0), (5, 1)], as expected True, no near miss True

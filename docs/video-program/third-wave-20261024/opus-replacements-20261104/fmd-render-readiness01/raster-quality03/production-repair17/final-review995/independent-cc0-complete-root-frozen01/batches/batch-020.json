@@ -1,0 +1,7 @@
+{"batch": 20, "viewed_utc": "2026-11-10T22:24Z",
+ "sheets": {
+  "0070": "04 14.867-19.267 s. The point turns from the positive real axis to straight up (15.567 s) and then left (18.1 s); the legend ray follows each time and the list grows 'right: red', 'up: yellow green', 'left: teal'. The colour under the dot matches each name, and the legend ray points the same way as the portrait ray. No defect.",
+  "0071": "04 19.967-22.35 s. 'down: violet' is added with the point straight down (19.967 s); held to 21.65 s. The ray and dot fade together (22.05 s) and are gone at 22.35 s; the four-line list stays. No defect.",
+  "0072": "04_2 25.717-36.0 s. Modulus bands fade in over the portrait (25.7-26.0 s), then 'next band: size x 1.69' in yellow (28.2 s) and 'dark lines: every twelfth of a turn' (33.5 s). Measured on slot 3 (rayprofile.py, rays at 15 and 105 deg): band edges at radii about 17, 29, 47, 80, 136 px on both rays, ratios 1.62-1.70, which agrees with e^(pi/6) = 1.688; 12 dark rays. No defect."
+ },
+ "findings": []}

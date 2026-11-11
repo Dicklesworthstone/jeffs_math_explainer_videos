@@ -1,0 +1,4 @@
+  File "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/7aa7239f-abc0-4b43-9af5-40020bd20c82/scratchpad/final-verify-cc3-02/check-final-verify-cc3-02.py", line 236
+    and Q/'completed-master993-summary.json' in used,
+    ^^^
+SyntaxError: invalid syntax

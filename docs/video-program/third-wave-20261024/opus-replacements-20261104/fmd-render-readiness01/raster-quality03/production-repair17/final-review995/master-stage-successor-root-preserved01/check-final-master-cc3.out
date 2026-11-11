@@ -1,0 +1,105 @@
+{"manifest": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/7aa7239f-abc0-4b43-9af5-40020bd20c82/scratchpad/final-master-cc3-work02/positive/Q/csd-native-stage999-composed-master-manifest.json", "manifest_sha256": "ac7da4f4ca0988d5a206a3f23ad50b23ba8b4442df6de10c7619b902b8b60481", "stages": ["csd-native-stage999-09-a1", "csd-native-stage999-01-a1", "csd-native-stage999-11-a1", "csd-native-stage999-08-a1"], "next": "Root runs the master successor check on this manifest; no master launched here."}
+ok   compiles: combined-master-repaired01.py
+ok   compiles: csd-native-repair-stage01.py
+ok   compiles: csd-native-repair-pictures01-after-final02.py
+ok   base combined-master993.py is 1955ca32
+ok   base csd-native994-stage-launch.py is f0641032
+ok   base csd-native-repair-pictures01-after-final.py is c27f4ae2
+ok   base csd-native-repair-final01-run.py is 6dceac47
+ok   base csd-native-repair-pictures01.py is 5fa242b8
+ok   base cc0-native-materialize-repaired01.py is 85557673
+ok   base cc0-native-master-gate-repaired01.py is 2a855393
+ok   993 functions changed: ['chapter_gate', 'gates', 'launch', 'master', 'unresolved']
+ok   993 module names changed or added: ['BASE_MANIFEST', 'BASE_MANIFEST_SHA', 'INPUTS', 'JOB', 'REPAIRED', 'REPAIRED_GATE_NAME', 'REPAIRED_GATE_SHA', 'REPAIRED_KINDS', 'VERSION']
+ok   every base.<name> CC0's gate reads is defined in the successor (22 names)
+ok   master successor line: boundary_rows = [r for r in records if r['chapter'] == BOUNDARY_CHAPTER and r['k
+ok   master successor line: capture_check_before_master=boundary['capture_check_before_master'])
+ok   master successor line: if r['kind'] in ('native521',)+REPAIRED_KINDS else
+ok   master successor line: return load(native, 'native_repaired').gate(sys.modules[__name__], row, frames_o
+ok   master successor line: assert not unresolved(), 'unresolved pins, refusing: '+', '.join(unresolved())
+ok   chapter_gate has no native844 branch (gates() refuses boundary313/native844 rows)
+ok   kept from 993: def schedule(
+ok   kept from 993: def replays_of
+ok   kept from 993: 'captions', ['all']
+ok   kept from 993: def preflight
+ok   kept from 993: def film
+ok   kept from 993: def claimed
+ok   master successor pins pending: VERSION, REPAIRED_GATE_NAME, REPAIRED_GATE_SHA
+ok   REPAIRED = materializer, gate and run tables: 01/08/09 native-combined01, 11 native-counting02
+ok   both kinds; repaired chapters are 993 CHANGED chapters
+ok   01_the_bump: chain jobs, frames, scene and staged capture agree (run, materializer, gate)
+ok   01_the_bump: chain inputs prefix csd-combined01
+ok   08_loop_sums: chain jobs, frames, scene and staged capture agree (run, materializer, gate)
+ok   08_loop_sums: chain inputs prefix csd-combined01
+ok   09_boundary: chain jobs, frames, scene and staged capture agree (run, materializer, gate)
+ok   09_boundary: chain inputs prefix csd-combined01
+ok   11_counting: chain jobs, frames, scene and staged capture agree (run, materializer, gate)
+ok   11_counting: chain inputs prefix csd-counting02
+ok   stage RUNNER/PICTURES = the names the run, extraction and after-final helpers bind
+ok   one base manifest: master993 8da77ed7 (stage, master, materializer, gate)
+ok   stage pins pending and helpers() refuses: WORKER_NAME, WORKER_SHA, RUNNER_SHA, PICTURES_SHA
+ok   BASE_MANIFEST is the manifest completed-master993-summary.json names
+ok   a chain launcher writes Q/csd-combined01-inputs.json
+ok   a chain launcher writes Q/csd-combined01-delivery-inputs.json
+ok   a chain launcher writes Q/csd-combined01-timeline-inputs.json
+ok   a chain launcher writes Q/csd-combined01-preview-inputs.json
+ok   a chain launcher writes Q/csd-combined01-pictures-inputs.json
+ok   a chain launcher writes Q/csd-counting02-inputs.json
+ok   a chain launcher writes Q/csd-counting02-delivery-inputs.json
+ok   a chain launcher writes Q/csd-counting02-timeline-inputs.json
+ok   a chain launcher writes Q/csd-counting02-preview-inputs.json
+ok   a chain launcher writes Q/csd-counting02-pictures-inputs.json
+ok   994 lines kept verbatim: 95 of 118 non-blank code lines
+ok   guarded worker argv = CC0 gate command[:14] and the materializer state command
+ok   guard prefix = 994 lines 132-133
+ok   stage job regex = materializer and gate
+ok   proofs keys written = keys the materializer and gate read
+ok   stage line: (c['build'],prefix+'-inputs.json'),
+ok   stage line: (final.name,final.name+'-inputs.json'),
+ok   stage line: (picked.name,picked.name+'-inputs.json')]:
+ok   stage line: _,_,used=run.proofs(ch)
+ok   stage line: frames=report['selected_frames'];assert frames==sorted(set(frames)) and set(previewe
+ok   stage line: assert review['source_sha256']==c['source_sha']
+ok   stage line: made=read(job/'materialized.json');assert made['unchanged_other_manifest_rows']==14 
+ok   stage line: assert x.RUNNER==run.RUNNER==RUNNER and final.name==w.FINAL_JOBS[ch]
+ok   stage prerequisites cover the materializer and gate job sets plus the extraction receipt
+ok   extraction record fields the stage reads exist in 969 (kept by the successor)
+ok   stage order: pins, no duplicate, proofs read, proofs then inputs written, guard, publish
+ok   stage stage: refuses with pins unset, writes nothing
+ok   stage compose: refuses with pins unset, writes nothing
+ok   master successor check mode refuses with pins unset
+ok   manifest625 + master993 row 09 rebuilds 8da77ed7 byte for byte
+ok   compose: 11 rows = 8da77ed7, 4 rows = each stage row, stages in any order
+ok   compose refuses when the composed manifest exists (no overwrite)
+ok   compose refuses a stage that changes a second row
+ok   no composed manifest after refusing a stage that changes a second row
+ok   compose refuses a Q copy unlike the job manifest
+ok   no composed manifest after refusing a Q copy unlike the job manifest
+ok   compose refuses a failed stage
+ok   no composed manifest after refusing a failed stage
+ok   compose refuses a stage made from another base
+ok   no composed manifest after refusing a stage made from another base
+ok   compose refuses a repeated chapter
+ok   no composed manifest after refusing a repeated chapter
+ok   compose refuses three stages
+ok   no composed manifest after refusing three stages
+ok   compose refuses a stage job that does not exist
+ok   no composed manifest after refusing a stage job that does not exist
+ok   gates(): composed manifest passes; 4 repaired kinds, 11 kept kinds, 133662 frames
+ok   gates() refuses: kept-row-edited
+ok   gates() refuses: 09-native844
+ok   gates() refuses: 11-combined01
+ok   gates() refuses: 01-old-combined
+ok   gates() refuses: order
+ok   gates() refuses master993 manifest itself (no repaired row)
+ok   chapter_gate refuses a repaired row while pins are unset
+ok   chapter_gate sends all four repaired rows (both kinds) to the pinned gate
+ok   chapter_gate refuses a gate file that is not the pinned bytes
+ok   chapter_gate refuses a native844 09 row
+ok   chapter_gate refuses 11 as native-combined01
+ok   after-final02: +4 -1; chapter checked before the 30 h wait (CC2 L1)
+info diff from 993: +56 -20
+info diff from 994: +127 -32 (docstring and the compose mode are new)
+FINDING materializer: 01 has one unsplit score stem (01_the_bump.music.f32.wav, run table and final01 cuelog), so stem_names from the .wav.part prefix is empty and `assert stem_names` refuses chapter 01
+
+99 passed, 0 failed, 1 finding(s) for CC0

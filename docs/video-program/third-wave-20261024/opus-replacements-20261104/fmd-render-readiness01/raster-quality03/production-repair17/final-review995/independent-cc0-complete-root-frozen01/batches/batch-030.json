@@ -1,0 +1,7 @@
+{"batch": 30, "viewed_utc": "2026-11-10T20:17Z",
+ "sheets": {
+  "0100": "05_1 10.0-17.4 s. A blue point goes round the yellow circle (radius about 1.8 of the unit circle) and the output panel traces a green loop with a yellow turn counter. Measured: input 57.8 deg -> output dot about 175 deg, '+0.5' (0.48); 115.7 deg -> -15.5 deg, '+1.0' (0.96); 349.4 deg -> -40.7 deg, '+2.9'; for R = 1.8, arg(R^3 e^{3i theta} - 1) at theta = -10.6 deg is -37.8 deg, within reading error. 15.7 s: the point is back at angle 0 and the counter becomes 'turns: 3 = zeros inside'. Held to 17.4 s. No defect.",
+  "0101": "05_1 end and 05_2 17.8-25.8 s. Everything but the portrait fades (17.8 s) and is gone at 18.1 s. 20.0 s: title 'f(z) = (z - 1)/(z + 1)^2' and its portrait: a simple zero at 1 (hue once round) and a double pole at -1 (hue twice round, the other way). Spot checks: f(2i) = (11 - 2i)/25, red at the top centre; f < 0 on (-1, 1) and at -2, teal there; f > 0 right of 1, red. 25.6 s: white ring on the zero; 25.8 s 'simple zero at 1' box fading in below it. The title minus is L1's short hyphen. No new defect.",
+  "0102": "05_2 25.817-27.6 s. 'simple zero at 1' at full by 26.0 s. 27.2 s: the output panel 'output f(z), sizes squashed' fades in at the right and a box starts at the upper left; 27.4 s: a pink ring on the pole at -1 with 'pole of order 2' in a pink-edged box above it; 27.6 s: a small yellow circle starts round the pole. Labels clear of each other and of the marks. No defect."
+ },
+ "findings": []}

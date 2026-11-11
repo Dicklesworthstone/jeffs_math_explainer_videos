@@ -1,0 +1,248 @@
+--- a/counting.rs
++++ b/counting.rs
+@@ -27,8 +27,11 @@
+ use crate::model::{self, C, Func, ONE, ZERO};
+ 
+ pub const RULE: &str = "turns = zeros − poles inside";
++/// 11_2's hypotheses, all about the loop walked in the input plane. Their cards stand in the
++/// output window, under "turns: −1", where the output has just turned once clockwise, so the
++/// first names its loop: the input loop is the one that winds once counterclockwise.
+ pub const NEEDS: [&str; 3] = [
+-    "the loop winds once, counterclockwise",
++    "the input loop winds once, counterclockwise",
+     "it passes through no zero and no pole",
+     "f is holomorphic inside, except at poles",
+ ];
+@@ -108,6 +111,72 @@
+ /// The radius outputs are squashed into, in output-plane units.
+ pub const OUT_R: f64 = 1.35;
+ 
++/// A real Möbius map takes |z|=r to a circle with this centre and radius.
++/// One positive scale fits that entire circle without bending it or moving zero.
++fn moebius_image_circle(r: f64) -> (f64, f64) {
++    let (a, b) = (model::MOEBIUS_ZERO, model::MOEBIUS_POLE);
++    let denominator = r * r - b * b;
++    ((r * r - a * b) / denominator, r * (b - a).abs() / denominator.abs())
++}
++
++/// Chapter 11_3 preserves the image circle itself, not just its winding number.
++/// Other chapters and the explicitly compressed quintic picture keep their own walker.
++fn moebius_circle_walker(stage: &mut Stage<'_>, r: f64, inp: Plane, out: Plane) -> fmn::Result<Walker> {
++    let (centre, radius) = moebius_image_circle(r);
++    let gain = OUT_R / (centre.abs() + radius);
++    let walked = stage.add_value_tracker(0.0);
++    let z0 = C::real(r);
++    let w0 = Func::Moebius.eval(z0).unwrap().scale(gain);
++    let in_dot = dot(stage, inp.p(z0), 0.08, input());
++    let out_dot = dot(stage, out.p(w0), 0.08, output());
++    let trail = stage.arena_mut().add(
++        polyline(vec![out.p(w0), out.p(w0)])
++            .style(line_style(output(), 4.0))
++            .build(),
++    );
++    let arrow = stage.arena_mut().add(
++        polyline(vec![out.p(ZERO), out.p(w0)])
++            .style(line_style(Palette::ink(), 3.0))
++            .build(),
++    );
++    let anchor = stage.arena_mut().add(VMobject::new());
++    let mut last = f64::NAN;
++    stage.add_updater(
++        anchor,
++        move |s, _| {
++            let t = value(s, walked).clamp(0.0, 1.0);
++            if t == last {
++                return;
++            }
++            let k = ((t * WALK_SAMPLES as f64).round() as usize).max(1);
++            let pts: Vec<Vec3> = (0..=k)
++                .filter_map(|j| {
++                    let z = C::polar(r, TAU * j as f64 / WALK_SAMPLES as f64);
++                    Func::Moebius.eval(z).map(|w| out.p(w.scale(gain)))
++                })
++                .collect();
++            s.move_to(in_dot, inp.p(C::polar(r, TAU * t)), ORIGIN);
++            if let Some(&end) = pts.last() {
++                s.move_to(out_dot, end, ORIGIN);
++                let _ = s.set_points(arrow, polyline(vec![out.p(ZERO), end]).build().points());
++            }
++            if pts.len() >= 2 {
++                let _ = s.set_points(trail, polyline(pts).build().points());
++            }
++            last = t;
++        },
++        true,
++    )?;
++    Ok(Walker {
++        walked,
++        anchor,
++        mobs: vec![trail, arrow, in_dot, out_dot],
++        f: Func::Moebius,
++        centre: ZERO,
++        r,
++    })
++}
++
+ /// The path of the inset: once around 0 counterclockwise at radius 0.45,
+ /// then once back clockwise at 0.28 (joined along the positive axis).
+ pub fn unwinding_path(n: usize) -> Vec<C> {
+@@ -157,7 +226,11 @@
+         rt: f64,
+     ) -> fmn::Result<Vec<Mob>> {
+         let (inp, out) = planes();
+-        let w = walker(stage, f, centre, r, inp, out, s, OUT_R)?;
++        let w = if matches!(f, Func::Moebius) && centre.abs() == 0.0 {
++            moebius_circle_walker(stage, r, inp, out)?
++        } else {
++            walker(stage, f, centre, r, inp, out, s, OUT_R)?
++        };
+         w.show(stage, WALKER_IN)?;
+         let counter = w.counter(kit, stage, v(3.25, 3.15))?;
+         w.walk(stage, rt)?;
+@@ -290,9 +363,9 @@
+                 &kit,
+                 stage,
+                 n,
+-                22.0,
++                NEEDS_PT,
+                 Palette::ink(),
+-                v(3.25, 1.0 - 0.62 * i as f64),
++                v(NEEDS_X, 1.0 - 0.62 * i as f64),
+                 Palette::faint(),
+             )?;
+             fade_in_all(stage, &c, 0.3)?;
+@@ -460,7 +533,14 @@
+                 .arena_mut()
+                 .add(polyline(pts).style(faded_line(input(), 3.0, 0.5)).build())
+         };
+-        fade_in_all(stage, &[reference], 0.4)?;
++        let scale_note = kit.text(
++            stage,
++            SQUASHED.split(';').next().unwrap(),
++            18.0,
++            Palette::dim(),
++            v(3.25, 2.55),
++        )?;
++        fade_in_all(stage, &[reference, scale_note], 0.4)?;
+         let one = Self::walk_and_count(
+             &kit,
+             stage,
+@@ -497,6 +577,7 @@
+         // how the output is drawn has nothing to do with the minus three z the voice is on,
+         // so the card comes only when it has finished
+         wait_until(stage, line.end())?;
++        stage.remove_from_scene(scale_note);
+         let squashed = precisely_now(&kit, stage, SQUASHED)?;
+ 
+         // 11_7: the dog on a leash: on |z| = 3 both circle 5 times
+@@ -701,6 +782,9 @@
+ const SEVERAL_NAME_Y: f64 = 0.42;
+ /// The words of 11_2 that name each of `NEEDS`.
+ const NEEDS_SAID: [&str; 3] = ["It needs", "passes through", "and a function"];
++/// The cards of `NEEDS`: their point size, and the centre line they stack on, the output window's.
++const NEEDS_PT: f64 = 22.0;
++const NEEDS_X: f64 = 3.25;
+ /// The rule's card, over the input picture.
+ const RULE_Y: f64 = 3.05;
+ /// A row between the turn count and the output plane's top edge.
+@@ -1380,6 +1464,100 @@
+         assert!(least * out.unit() > 0.3, "{least}");
+     }
+ 
++    /// The first hypothesis is true of the loop it names. The walker's input path, closed, winds
++    /// once counterclockwise around the zero and around the double pole, while the output drawn
++    /// in the window under the card winds once the other way: the card's loop is the input's.
++    #[test]
++    fn the_first_need_names_the_input_loop_it_is_true_of() {
++        assert_eq!(NEEDS[0], "the input loop winds once, counterclockwise");
++        let w = (-2.0, 2.0);
++        let mut marks = Func::ZeroDoublePole.zeros(w, w);
++        marks.extend(Func::ZeroDoublePole.poles(w, w).into_iter().map(|(p, _)| p));
++        assert_eq!(marks.len(), 2);
++        let mut walk = circle(ZERO, SEVERAL_R, WALK_SAMPLES);
++        walk.push(walk[0]);
++        for p in marks {
++            let turns = walk.windows(2).map(|s| ((s[1] - p) / (s[0] - p)).arg()).sum::<f64>() / TAU;
++            assert!((turns - 1.0).abs() < 1e-9, "{p:?}: {turns}");
++        }
++        assert!((Walker::turns_so_far(Func::ZeroDoublePole, ZERO, SEVERAL_R, 1.0) + 1.0).abs() < 1e-9);
++        assert_eq!(fact("argument.several.turns").ok(), Some("-1"));
++        // each card still comes in on the words that name it, so nothing moves in time
++        assert_eq!(NEEDS_SAID, ["It needs", "passes through", "and a function"]);
++    }
++
++    #[test]
++    fn the_moebius_images_stay_circles_with_their_true_winding() {
++        for r in fact_list("argument.rational.radii").unwrap() {
++            let (centre, radius) = moebius_image_circle(r);
++            let gain = OUT_R / (centre.abs() + radius);
++            assert!(gain.is_finite() && gain > 0.0);
++            let mut previous = Func::Moebius.eval(C::real(r)).unwrap().scale(gain);
++            let mut turn = 0.0;
++            for j in 0..=WALK_SAMPLES {
++                let z = C::polar(r, TAU * j as f64 / WALK_SAMPLES as f64);
++                let raw = Func::Moebius.eval(z).unwrap();
++                let shown = raw.scale(gain);
++                assert!(((shown - C::real(centre * gain)).abs() - radius * gain).abs() < 1e-12);
++                assert!(shown.abs() <= OUT_R + 1e-12);
++                assert!((shown / raw).arg().abs() < 1e-12);
++                if j > 0 {
++                    turn += (shown / previous).arg();
++                }
++                previous = shown;
++            }
++            assert!((turn / TAU - Walker::turns_so_far(Func::Moebius, ZERO, r, 1.0)).abs() < 1e-12);
++            // The larger input circle encloses both the zero and pole: its image
++            // circle must visibly miss zero rather than merely look D-shaped.
++            if r > model::MOEBIUS_POLE {
++                assert!((centre.abs() - radius) * gain > 0.26);
++            }
++        }
++    }
++
++    /// cmr10's advance widths, in ems, for the letters the cards of `NEEDS` use (TeX's cmr10.tfm;
++    /// the space is its interword space). The kit sets text of size s at s/100 scene units an em.
++    fn cmr10_ems(s: &str) -> f64 {
++        s.chars()
++            .map(|c| match c {
++                ' ' => 0.333_334,
++                ',' | 'i' | 'l' => 0.277_779,
++                'a' | 'g' | 'o' => 0.500_002,
++                'b' | 'd' | 'h' | 'n' | 'p' | 'u' => 0.555_557,
++                'c' | 'e' | 'z' => 0.444_446,
++                'f' => 0.305_557,
++                'k' | 'x' => 0.527_781,
++                'm' => 0.833_336,
++                'r' => 0.391_668,
++                's' => 0.394_445,
++                't' => 0.388_891,
++                'w' => 0.722_224,
++                _ => panic!("no cmr10 width for {c:?}"),
++            })
++            .sum()
++    }
++
++    /// Every card of `NEEDS` stays inside the output window it is stacked in, its edge at least
++    /// 0.08 (about 22 pixels at 4K) inside the frame line. The width model is checked against the
++    /// master: on its frame 93021 the old first card's words, 16.60 ems at 22 points, are 991
++    /// pixels of ink, 3.670 units at 270 pixels a unit, where the model gives 3.651.
++    #[test]
++    fn the_cards_of_the_needs_fit_the_output_window() {
++        let old = cmr10_ems("the loop winds once, counterclockwise") * 22.0 / 100.0;
++        assert!((old - 991.0 / 270.0).abs() < 0.03, "{old}");
++        let (_, out) = planes();
++        assert!((NEEDS_X - out.p(ZERO)[0]).abs() < 1e-12);
++        for n in NEEDS {
++            // the text with 1% to spare, and the card's margin as `carded` draws it
++            let card = cmr10_ems(n) * NEEDS_PT / 100.0 * 1.01 + 0.5;
++            let (left, right) = (NEEDS_X - card / 2.0, NEEDS_X + card / 2.0);
++            assert!(
++                left > out.frame.left() + 0.08 && right < out.frame.right() - 0.08,
++                "{n}: {card}"
++            );
++        }
++    }
++
+     #[test]
+     fn the_rows_of_the_third_cue_print_the_walks_it_draws() {
+         let radii = fact_list("argument.rational.radii").unwrap();

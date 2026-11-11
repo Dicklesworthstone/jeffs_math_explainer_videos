@@ -1,0 +1,47 @@
+{
+  "at": "2026-11-11T00:17:26.566633+00:00",
+  "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/7aa7239f-abc0-4b43-9af5-40020bd20c82/scratchpad/final-master-cc3",
+  "files": [
+    {
+      "name": "after-final02-vs-c27f4ae2.diff",
+      "sha256": "c6eae12354ee2cd61a2e9bd3df179601720fc1cde070ad42e2151116444c84cf"
+    },
+    {
+      "name": "check-final-master-cc3-03.out",
+      "sha256": "ebd23287999392cff8d0a64e0b02015ad8a7ed2dfbaf66a1a8a34275984e0955"
+    },
+    {
+      "name": "check-final-master-cc3.out",
+      "sha256": "1725230de95f03d398780c873ccbebfb7b7bd80b3ad7adde356d44af033cf699"
+    },
+    {
+      "name": "check-final-master-cc3.py",
+      "sha256": "0e8440013ad834fa193dffbd56f43b1e0ba1ef64e532410ac6bea00f00a0d51f"
+    },
+    {
+      "name": "combined-master-repaired01.py",
+      "sha256": "17388c9dcb20326475ca47d93be98aa04f185c1839d2db097310ed84e5108beb"
+    },
+    {
+      "name": "csd-native-repair-pictures01-after-final02.py",
+      "sha256": "332ee0007ed5c05a332bff9544aa1f63aadeeafd8c2a26a6b624862d95affad8"
+    },
+    {
+      "name": "csd-native-repair-stage01.py",
+      "sha256": "432301faa58e103f5bfdfca591dc4d2c030ffb451da43403b83252510f01193e"
+    },
+    {
+      "name": "handoff.md",
+      "sha256": "cbf3b9634274610261d9bedd161b899d3208f0241d0f474fc6649cadcecc700c"
+    },
+    {
+      "name": "master-vs-993.diff",
+      "sha256": "ad7817b53ea27768405cf9dd66f5b182d7984043a1e649fe3b3dfebd2cceb342"
+    },
+    {
+      "name": "stage-vs-994.diff",
+      "sha256": "8dc95779523fc80596cfa250a0b8837a4e5f5aa2562607d33cafb7613f65f45a"
+    }
+  ],
+  "scope": "Preserved candidate; no launch or release approval. Independent review and actual prerequisites required."
+}

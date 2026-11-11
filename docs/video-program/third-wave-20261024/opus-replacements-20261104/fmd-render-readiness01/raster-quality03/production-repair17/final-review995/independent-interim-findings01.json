@@ -1,0 +1,53 @@
+{
+  "reports": [
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/6d8d91ab-386b-435d-91e3-ad665c8e7f76/scratchpad/final995-cc0/progress/progress-v003.json",
+      "sha256": "4f9e82c751cd3b083bfc3619331c36fc67a20aa5ae10d141ebd6e5490843cb94",
+      "findings": [
+        {
+          "id": "L1",
+          "sheet": 5,
+          "slot": 5,
+          "frame": 1078,
+          "severity": "Low (typographic, likely film-wide)",
+          "text": "In the series '1 - x^2 + x^4 - x^6 + ...' every minus is a short, heavy bar, about 10 px wide at 960x540 against about 15 px for '+'. It looks like the Computer Modern text hyphen, not the math minus (TeX's minus has the same width as '+'). It is legible, but inconsistent beside the CM '+'. First seen at 17.967 s (f1078); on every later frame of that line in sheets 5-6. Crop: crops/s0006-slot5-series4x.png."
+        },
+        {
+          "id": "L2",
+          "sheet": 8,
+          "slot": 3,
+          "frame": 1848,
+          "severity": "Low (transient)",
+          "text": "During the degree steps (01_3, about 30.6-31.5 s), the 'terms up to degree' counter switches to the next value at the start of each curve morph. Mid-morph stills therefore show a counter one step ahead of the curve: 8 with the degree-6 shape at 30.8 s (f1848), and 10 with the degree-8 shape at 31.4 s (f1884, sheet 8 slot 6). Each step lasts under a second and settles. Whether it reads as wrong in motion needs a motion review; this is only what the stills show."
+        }
+      ]
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/d7bac370-73e2-4cb6-88cf-606d6a161b39/scratchpad/independent-final995-cc2-progress-01.json",
+      "sha256": "ec9a568f57300facf3f72b1c19d91939adbd71483e14f71e2aa26f6591782857",
+      "findings": [
+        {
+          "sheet": 549,
+          "sha256": "4b20a477c35ff9b02388a106a225d0270ce284cc93a7720c5c9de0bbf45333af",
+          "batch": "batch-05.json",
+          "frames": [
+            68821,
+            68827,
+            68835,
+            68850,
+            68855,
+            68858,
+            68865,
+            68866
+          ],
+          "chapters": [
+            "09_boundary"
+          ],
+          "status": "low",
+          "notes": "Local 29.27-30.02 s. Zoom inset held. Crop at native tile pixels (r995-crops/s549t1-zoom.png, tile 1 f68821): the two connector lines start on the grey ring but stop in empty space at one x about 60 px left of the zoomed yellow circle; no frame or circle closes them. Cosmetic Low L1: the magnifier cone points at nothing for a moment's reading; the zoom is still understandable. Caption, a label and the hollow point are legible at tile scale."
+        }
+      ]
+    }
+  ],
+  "status": "Interim reviewer observations, not final review acceptance. Root has not yet inspected sheet549. Degree morph needs motion review."
+}

@@ -1,0 +1,27 @@
+## candidate03
+PASS '// Second limit:' present (nth(1) exists)
+PASS the shrink slice ends inside the film part
+PASS shrink slice has once: let [a_from, rho_from] = shrink_names(SMALL_R);
+PASS shrink slice has once: fade_out_all(stage, &leaving, 0.2)?;
+PASS shrink slice has once: fade_in_all(stage, &[bar, bar_name, ca_out, rho_out, leader], 0.3)?;
+PASS shrink slice has once: let [a_at, rho_at] = shrink_names(r);
+PASS shrink slice lacks 'r + 0.06'
+PASS two growth opacity calls
+PASS film has once: let disk = stage.add_value_tracker(1e-3);
+PASS film has once: .map(|k| p.p(C::polar(r, TAU * f64::from(k) / 120.0)))
+PASS film has once: stage.play(tween_linear(disk, fact_f64("bump.radius0")?, rt)?)?;
+PASS film has once: a.move_to(a_name, p.p(c + A_NAME_FROM_CENTRE), ORIGIN);
+PASS film has once: stage.play(tween_linear(slide, 1.0, 1.8)?)?;
+PASS film has once: let unit = p.circle(stage, C::real(1.0), 1e-3, hero(), 5.0)?;
+PASS film has once: let grow = stage.add_value_tracker(1e-3);
+PASS film has once: .map(|k| p.p(C::real(1.0) + C::polar(r, TAU * f64::from(k) / 160.0)))
+PASS film has once: let radius = fact_f64("recentre1.radius")?;
+PASS film has once: stage.play(tween_linear(grow, radius, rt)?)?;
+PASS 09_9 order: disk fade-in < card re-root < growth tracker
+0 failed
+exit 0
+## control: base cd1900aa (expected to fail; it predates the tests)
+8 failed
+## control: T1 variant (bar fade 0.35; expected one FAIL)
+FAIL shrink slice has once: fade_in_all(stage, &[bar, bar_name, ca_out, rho_out, leader], 0.3)?;
+1 failed

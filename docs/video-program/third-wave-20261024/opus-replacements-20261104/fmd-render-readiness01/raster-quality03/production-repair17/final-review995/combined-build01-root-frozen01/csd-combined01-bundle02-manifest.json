@@ -1,0 +1,212 @@
+{
+  "name": "combined-repair-bundle02",
+  "differs_from_bundle01": "loop_sums only: a8d62f56 (candidate02-gatefix01) in place of 977c77df, which fails draw.rs fade_gate",
+  "author": "CC0 (LavenderPike)",
+  "scope": "four workspace rows over the 760 tree; nothing else changes",
+  "base_tree": {
+    "manifest": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-boundary760-source-manifest.json",
+    "listing_sha256": "7a97caf842a0d6b43cd466aada20d4c1b71c7f8b9f546a3595ed2de12ca82d3a",
+    "files": 4197
+  },
+  "combined_tree": {
+    "listing_sha256": "689a573191377c85dd089e8b7cae32d89e593c4d9cbb1a69f1502d66f823468e",
+    "files": 4197,
+    "changed_rows": [
+      "workspace/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "workspace/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs",
+      "workspace/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+      "workspace/explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs"
+    ],
+    "rule": "sha256 of the lines \"<sha256>  <path>\\n\" over every staged file, sorted by path"
+  },
+  "rows": [
+    {
+      "file": "src/chapters/the_bump.rs",
+      "workspace_row": "workspace/explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+      "kind": "arrow candidate03 (CC1)",
+      "base_sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3",
+      "base_bytes": 15812,
+      "replacement_sha256": "90b51c2b30877911bbb5f5e14ee810268e14efb24e7c4e2a55f7f7e128c06ee7",
+      "replacement_bytes": 17847,
+      "staging_source": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/arrow-review-cc1-frozen01/candidate03-the_bump.rs",
+      "bundle_copy": "staged/src/chapters/the_bump.rs",
+      "bundle_base_copy": "bases/src/chapters/the_bump.rs",
+      "other_copies_of_replacement": [],
+      "frozen_base_copies_equal": [
+        {
+          "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/arrow-review-cc1-frozen01/base-build268-the_bump.rs",
+          "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3"
+        }
+      ],
+      "base_in": {
+        "manifest760": true,
+        "manifest552": true,
+        "manifest506_build268": true,
+        "build268_inputs496": true,
+        "final969_source": false
+      },
+      "diff": {
+        "path": "diffs/the_bump.rs.diff",
+        "sha256": "d785fbb8e0782b80449a5988eeab68700659795e3faf8ef9122573407fdfbec2",
+        "hunks": 3,
+        "added": 48,
+        "removed": 5,
+        "forward_from_base_gives_replacement": true
+      }
+    },
+    {
+      "file": "src/chapters/loop_sums.rs",
+      "workspace_row": "workspace/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs",
+      "kind": "square candidate02-gatefix01 (CC0): candidate02 977c77df with centre_name_at renamed c_name_at",
+      "base_sha256": "8a13e8a190cd502e7b58efbcb7c40872cdb0e6e702feb69e1b789e451a7a42b5",
+      "base_bytes": 65186,
+      "replacement_sha256": "a8d62f560321ea6ebea3d3859acd9a3ce3e5dde4375ec0ab42c1a1ba114d61ef",
+      "replacement_bytes": 82209,
+      "staging_source": "cc0-scratch/square-candidate02-gatefix01/gatefix01-loop_sums.rs",
+      "bundle_copy": "staged/src/chapters/loop_sums.rs",
+      "bundle_base_copy": "bases/src/chapters/loop_sums.rs",
+      "other_copies_of_replacement": [],
+      "frozen_base_copies_equal": [
+        {
+          "path": "cc0-scratch/square-candidate02-cc0/inputs/base-build268-loop_sums.rs",
+          "sha256": "8a13e8a190cd502e7b58efbcb7c40872cdb0e6e702feb69e1b789e451a7a42b5"
+        }
+      ],
+      "base_in": {
+        "manifest760": true,
+        "manifest552": true,
+        "manifest506_build268": true,
+        "build268_inputs496": true,
+        "final969_source": false
+      },
+      "diff": {
+        "path": "diffs/loop_sums.rs.diff",
+        "sha256": "7e2265059f94d523e952875b44f4ad829e777ab9a2dfd17449edeb37533dfbea",
+        "hunks": 9,
+        "added": 347,
+        "removed": 32,
+        "forward_from_base_gives_replacement": true
+      }
+    },
+    {
+      "file": "src/chapters/mod.rs",
+      "workspace_row": "workspace/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+      "kind": "square candidate02 supplements (same bytes as candidate01's mod.rs)",
+      "base_sha256": "e1f4d1b87f4b36f979e7800f7b2048117b9a4809b2372f385350698f5c3e7cbd",
+      "base_bytes": 32880,
+      "replacement_sha256": "4de1e4a56fde5c11ac3d6a65e772d09ec33db4f5757d817aff370799d3423578",
+      "replacement_bytes": 32936,
+      "staging_source": "cc0-scratch/square-candidate02-cc0/candidate02-mod.rs",
+      "bundle_copy": "staged/src/chapters/mod.rs",
+      "bundle_base_copy": "bases/src/chapters/mod.rs",
+      "other_copies_of_replacement": [
+        {
+          "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/square-repair-cc1-frozen01/candidate01-mod.rs",
+          "sha256": "4de1e4a56fde5c11ac3d6a65e772d09ec33db4f5757d817aff370799d3423578",
+          "same_bytes": true
+        }
+      ],
+      "frozen_base_copies_equal": [
+        {
+          "path": "cc0-scratch/square-candidate02-cc0/inputs/base-build268-mod.rs",
+          "sha256": "e1f4d1b87f4b36f979e7800f7b2048117b9a4809b2372f385350698f5c3e7cbd"
+        }
+      ],
+      "base_in": {
+        "manifest760": true,
+        "manifest552": true,
+        "manifest506_build268": true,
+        "build268_inputs496": true,
+        "final969_source": false
+      },
+      "diff": {
+        "path": "diffs/mod.rs.diff",
+        "sha256": "7905925c02bae95effb555f62464dc50fda49c49fda7cae9c35119fa48f8316d",
+        "hunks": 2,
+        "added": 2,
+        "removed": 0,
+        "forward_from_base_gives_replacement": true
+      }
+    },
+    {
+      "file": "src/chapters/boundary.rs",
+      "workspace_row": "workspace/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "kind": "boundary candidate03 (CC2)",
+      "base_sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e",
+      "base_bytes": 79185,
+      "replacement_sha256": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932",
+      "replacement_bytes": 91874,
+      "staging_source": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/final-review995/boundary-candidate03-frozen01/boundary.rs",
+      "bundle_copy": "staged/src/chapters/boundary.rs",
+      "bundle_base_copy": "bases/src/chapters/boundary.rs",
+      "other_copies_of_replacement": [],
+      "frozen_base_copies_equal": [],
+      "base_in": {
+        "manifest760": true,
+        "manifest552": false,
+        "manifest506_build268": false,
+        "build268_inputs496": false,
+        "final969_source": true
+      },
+      "diff": {
+        "path": "diffs/boundary.rs.diff",
+        "sha256": "cbe10b47061856daa6cdd3faefd7317ca798a58e8dbf72508b01cbb560e294f3",
+        "hunks": 14,
+        "added": 251,
+        "removed": 11,
+        "forward_from_base_gives_replacement": true
+      }
+    }
+  ],
+  "proof": {
+    "manifest760": {
+      "file": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-boundary760-source-manifest.json",
+      "sha256": "5afe200ee13dec271e924fb60386554ebc28af4cbacfeb0dea99e4418bf741c0",
+      "files": 4197,
+      "listing_sha256_recomputed": "7a97caf842a0d6b43cd466aada20d4c1b71c7f8b9f546a3595ed2de12ca82d3a",
+      "equals_stated": true
+    },
+    "manifest552": {
+      "file": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-boundary552-source-manifest.json",
+      "sha256": "c3c839283be10c24c31e0f778e9e2ceb11af00aedce17010f118c4a14f4750d8",
+      "files": 4197,
+      "listing_sha256_recomputed": "bc28832077485754da2a0883a73ed1426a0b9b2504c4d4ffc2b0131566ecff1e",
+      "equals_stated": true
+    },
+    "manifest506": {
+      "file": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/mini-max-source506-manifest.json",
+      "sha256": "2c63f5c8b559e5fdcb3b51ed280302d12b34b6d6f45f1923c219e8db8173acce",
+      "files": 4197,
+      "listing_sha256_recomputed": "770e5239a547a6b81b079400c7a11d47a401b2c76a8e90f95746da55d3211cea",
+      "equals_stated": true
+    },
+    "chain": {
+      "506_to_552_changed": [
+        "workspace/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs"
+      ],
+      "552_to_760_changed": [
+        "workspace/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs"
+      ],
+      "760_source_base_listing": "bc28832077485754da2a0883a73ed1426a0b9b2504c4d4ffc2b0131566ecff1e",
+      "552_source_base_listing": "770e5239a547a6b81b079400c7a11d47a401b2c76a8e90f95746da55d3211cea"
+    },
+    "records": {
+      "root-csd-build268-inputs496.json": "53f1360e1102252a59a82e088f51152601d356562d152270f989bf1e86251663",
+      "root-final969-review.json": "61ecd664994388f5bfc97c3cceed65c1eff12f7e789ae59056409d3b7c6a3278",
+      "completed-master993-summary.json": "38b52105520640e495ada17aa00da4ddbc16316a5a77c4568e102e1ca3adf185"
+    },
+    "master993_chapter_binaries": {
+      "01_the_bump": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "08_loop_sums": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "09_boundary": "e75258731b1786ae3182ef9eb21a7903a9e6c0bed6242413335f7dd233955384"
+    },
+    "final969_source_sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e",
+    "local_760_copy": {
+      "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/fmd-render-readiness01/raster-quality03/production-repair17/root-boundary760-source",
+      "rows_verified": 4197,
+      "mismatches": 0,
+      "files_on_disk": 4197
+    }
+  },
+  "not_done": "no cargo fmt/check/test/Clippy, no build, no render, no frame seen; no production, canonical, TODO or Bead edit; No audio heard or checked; narration ElevenLabs Frederick Surrey unchanged and not assessed; no native or picture acceptance"
+}

@@ -1,0 +1,45 @@
+{
+  "source_listing": [
+    72,
+    "ada599ee55047e764ba1bd60be1c1d50d5731fbb61f23cfb98cac9140c76438f"
+  ],
+  "tool_hashes": {
+    "/home/ubuntu/.rustup/toolchains/nightly-2026-08-31-x86_64-unknown-linux-gnu/bin/cargo-rch-real": "19008157a0089896bc835c5ceb0b5bfbe26e70cdd5579c32bd09538fb68c0b76",
+    "/home/ubuntu/.rustup/toolchains/nightly-2026-08-31-x86_64-unknown-linux-gnu/bin/rustc": "49f9fa06f3e2b93aba85273433fef67b984ddb4cacb4500de56e85f70ec2e339",
+    "/home/ubuntu/.rustup/toolchains/nightly-2026-08-31-x86_64-unknown-linux-gnu/bin/cargo-clippy": "92708a2623b9186bd8d40e6f3ddac686b6fd541bd052584fb4343dfcfe92dcd8",
+    "/home/ubuntu/.rustup/toolchains/nightly-2026-08-31-x86_64-unknown-linux-gnu/bin/clippy-driver": "2cd2fc266f83e81a1fc9bd46528c5be8db6ec7d940f67872123feef4a993a427",
+    "/home/ubuntu/.rustup/toolchains/nightly-2026-08-31-x86_64-unknown-linux-gnu/bin/rustfmt": "016e3712bb170692190f20ce3356646d6d2c59343b81516de66af7c5fd2e5e7c"
+  },
+  "rustc": "rustc 1.100.0-nightly (908501772 2026-08-30)\nbinary: rustc\ncommit-hash: 90850177249efe0321573c569aec5d12b257f8d6\ncommit-date: 2026-08-30\nhost: x86_64-unknown-linux-gnu\nrelease: 1.100.0-nightly\nLLVM version: 23.1.0\n",
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "dependencies": 4125,
+  "cargo_configs": {
+    "/data/projects/jmev-stroke-probe-20261106/work/.cargo/config.toml": "79fb8766d1f41365d64066e5b2e68b0fb89c50015425d109b155ccaf8eff2716",
+    "/home/ubuntu/.cargo/config.toml": "14ae6b73244bde60c647383e9c4f6321fa575e7bb8ad75d6916a7adfefe0b4e6",
+    "/data/projects/jmev-stroke-probe-20261106/work/native-combined01/.cargo/config.toml": "79fb8766d1f41365d64066e5b2e68b0fb89c50015425d109b155ccaf8eff2716"
+  },
+  "bundle": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-combined01-bundle02-manifest.json",
+    "sha256": "9c29672e24e7a64eca02ebede268a4b93a757f30fc42d0c8dc476c74817ad4b9",
+    "combined_listing": "689a573191377c85dd089e8b7cae32d89e593c4d9cbb1a69f1502d66f823468e"
+  },
+  "substitutions": {
+    "workspace/explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs": "90b51c2b30877911bbb5f5e14ee810268e14efb24e7c4e2a55f7f7e128c06ee7",
+    "workspace/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs": "a8d62f560321ea6ebea3d3859acd9a3ce3e5dde4375ec0ab42c1a1ba114d61ef",
+    "workspace/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs": "4de1e4a56fde5c11ac3d6a65e772d09ec33db4f5757d817aff370799d3423578",
+    "workspace/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932"
+  },
+  "template": {
+    "helper": "csd-native844-build.py",
+    "helper_sha256": "7932fe7803f311274ae850bc1c79a0d36df39db37aa579deda95e1e93ab11c9a",
+    "guard_inputs": "csd-native844-inputs.json",
+    "guard_inputs_sha256": "3b54974babc3d17763d89040719c014a4999fb0542af3fa43d83636538e9979f"
+  }
+}

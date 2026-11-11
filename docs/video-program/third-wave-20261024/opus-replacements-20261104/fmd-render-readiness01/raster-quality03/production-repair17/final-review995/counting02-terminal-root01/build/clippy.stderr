@@ -1,0 +1,102 @@
+error: unclosed table, expected `]`
+ --> ../../../../../../../../home/ubuntu/.cargo/git/checkouts/asupersync-b12181f74b36652e/c48399f/tests/fixtures/migration_readiness_planner/malformed/Cargo.toml:1:9
+  |
+1 | [package
+  |         ^
+    Checking libc v0.2.190
+    Checking serde_core v1.0.229
+    Checking rand_core v0.10.1
+    Checking getrandom v0.4.3
+    Checking crypto-common v0.2.2
+    Checking serde v1.0.229
+    Checking zmij v1.0.23
+    Checking block-buffer v0.12.1
+    Checking serde_json v1.0.151
+    Checking generic-array v0.14.7
+    Checking crossbeam-utils v0.8.23
+    Checking block-buffer v0.10.4
+    Checking crypto-common v0.1.7
+    Checking zerocopy v0.8.62
+    Checking digest v0.10.7
+    Checking cipher v0.5.2
+    Checking digest v0.11.3
+    Checking crossbeam-epoch v0.9.21
+    Checking universal-hash v0.6.1
+    Checking getrandom v0.2.17
+    Checking rand_core v0.6.4
+    Checking crossbeam-deque v0.8.8
+    Checking fsci-runtime v0.2.0 (https://github.com/Dicklesworthstone/frankenscipy?rev=85edd7a99f2a6487ef35135e135b9959cc0010c1#85edd7a9)
+    Checking sha2 v0.10.9
+    Checking chacha20 v0.10.2
+    Checking signature v2.2.0
+    Checking rayon-core v1.13.0
+    Checking curve25519-dalek v4.1.3
+    Checking rayon v1.12.0
+    Checking ppv-lite86 v0.2.21
+    Checking rand_chacha v0.3.1
+    Checking polyval v0.7.3
+    Checking ed25519 v2.2.3
+    Checking fsci-fft v0.2.0 (https://github.com/Dicklesworthstone/frankenscipy?rev=85edd7a99f2a6487ef35135e135b9959cc0010c1#85edd7a9)
+    Checking sha2 v0.11.0
+    Checking aead v0.6.1
+    Checking errno v0.3.14
+    Checking parking_lot_core v0.9.12
+    Checking signal-hook-registry v1.4.8
+    Checking fsci-linalg v0.2.0 (https://github.com/Dicklesworthstone/frankenscipy?rev=85edd7a99f2a6487ef35135e135b9959cc0010c1#85edd7a9)
+    Checking ed25519-dalek v2.2.0
+    Checking ghash v0.6.0
+    Checking signatory v0.27.1
+    Checking rand v0.8.8
+    Checking aes v0.9.3
+    Checking poly1305 v0.9.1
+    Checking ctr v0.10.1
+    Checking franken-evidence v0.3.10 (https://github.com/Dicklesworthstone/asupersync?rev=c48399f20a9780ef420de64fe504ff922e5afe5e#c48399f2)
+    Checking franken-kernel v0.3.10 (https://github.com/Dicklesworthstone/asupersync?rev=c48399f20a9780ef420de64fe504ff922e5afe5e#c48399f2)
+    Checking tempfile v3.27.0
+    Checking nkeys v0.4.5
+    Checking bincode-next v3.1.1
+    Checking rmp-serde v1.3.1
+    Checking franken-decision v0.3.10 (https://github.com/Dicklesworthstone/asupersync?rev=c48399f20a9780ef420de64fe504ff922e5afe5e#c48399f2)
+    Checking aes-gcm v0.11.1
+    Checking chacha20poly1305 v0.11.0
+    Checking nix v0.31.3
+    Checking signal-hook v0.4.5
+    Checking parking_lot v0.12.5
+    Checking crc32fast v1.5.2
+    Checking sha1 v0.11.0
+    Checking hmac v0.13.0
+    Checking crossbeam-queue v0.3.14
+    Checking semver v1.0.28
+    Checking sysinfo v0.39.6
+    Checking socket2 v0.6.5
+    Checking half v2.7.1
+    Checking asupersync v0.3.10 (https://github.com/Dicklesworthstone/asupersync?rev=c48399f20a9780ef420de64fe504ff922e5afe5e#c48399f2)
+    Checking fnp-dtype v0.2.0 (https://github.com/Dicklesworthstone/franken_numpy?rev=a15d5c32e9330b555b0a653058bcfcff22fcb4ec#a15d5c32)
+    Checking fmn-geom v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-geom)
+    Checking fmn-mobject v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-mobject)
+    Checking fp-types v0.1.2 (https://github.com/Dicklesworthstone/frankenpandas?rev=da85cf65df48965e027b2f5aa21b7d0ce6a7e29c#da85cf65)
+    Checking rand v0.10.3
+    Checking fsci-opt v0.2.0 (https://github.com/Dicklesworthstone/frankenscipy?rev=85edd7a99f2a6487ef35135e135b9959cc0010c1#85edd7a9)
+    Checking chrono-tz v0.10.4
+    Checking fp-index v0.1.2 (https://github.com/Dicklesworthstone/frankenpandas?rev=da85cf65df48965e027b2f5aa21b7d0ce6a7e29c#da85cf65)
+    Checking fp-columnar v0.1.2 (https://github.com/Dicklesworthstone/frankenpandas?rev=da85cf65df48965e027b2f5aa21b7d0ce6a7e29c#da85cf65)
+    Checking fmn-text v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-text)
+    Checking fmn-anim v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-anim)
+    Checking fsci-sparse v0.2.0 (https://github.com/Dicklesworthstone/frankenscipy?rev=85edd7a99f2a6487ef35135e135b9959cc0010c1#85edd7a9)
+    Checking fp-runtime v0.1.2 (https://github.com/Dicklesworthstone/frankenpandas?rev=da85cf65df48965e027b2f5aa21b7d0ce6a7e29c#da85cf65)
+    Checking fnx-runtime v0.2.0 (https://github.com/Dicklesworthstone/franken_networkx?rev=9d710b1c33e99412c94de7fa4de2f7ce4954110f#9d710b1c)
+    Checking fp-frame v0.1.2 (https://github.com/Dicklesworthstone/frankenpandas?rev=da85cf65df48965e027b2f5aa21b7d0ce6a7e29c#da85cf65)
+    Checking fnx-classes v0.2.0 (https://github.com/Dicklesworthstone/franken_networkx?rev=9d710b1c33e99412c94de7fa4de2f7ce4954110f#9d710b1c)
+    Checking fsci-integrate v0.2.0 (https://github.com/Dicklesworthstone/frankenscipy?rev=85edd7a99f2a6487ef35135e135b9959cc0010c1#85edd7a9)
+    Checking fmn-platform v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-platform)
+    Checking fmn-cache v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-cache)
+    Checking fmn-runtime v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-runtime)
+    Checking fmn-tex v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-tex)
+    Checking fmn-render v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-render)
+    Checking fmn-library v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-library)
+    Checking fmn-scene v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-scene)
+    Checking fmn-output v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn-output)
+    Checking fmn v0.5.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/engine/crates/fmn)
+    Checking explainer_kit v0.1.0 (/data/projects/jmev-stroke-probe-20261106/work/tree/repo-view/crates/explainer_kit)
+    Checking complex_analysis_visual v0.1.0 (/data/projects/jmev-stroke-probe-20261106/work/native-counting02/workspace/explainer_corpus/complex_analysis_visual)
+    Finished `release` profile [optimized] target(s) in 1m 40s

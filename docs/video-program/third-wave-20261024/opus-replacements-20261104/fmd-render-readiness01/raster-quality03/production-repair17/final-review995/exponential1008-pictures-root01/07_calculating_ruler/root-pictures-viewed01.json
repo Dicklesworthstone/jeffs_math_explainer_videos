@@ -1,0 +1,37 @@
+{
+  "utc": "2026-11-11T00:23:23.555512+00:00",
+  "chapter": "07_calculating_ruler",
+  "master_sha256": "fe33b9e48bcb456b3cad41f7651bd8e5f8e3bb1b7c6deba657e6b4d9e5fa2b80",
+  "pictures_record_sha256": "37a05a6d8bcb02a64d3201ef278520b60391ba9724949c44d33e9966ea48bfd1",
+  "pictures_viewed": 130,
+  "sheets_viewed": 17,
+  "sheet_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "sheet_hashes_verified": true,
+  "observations": [
+    "Growth curve becomes logarithmic ruler; equal distances represent equal factors.",
+    "Two sliding scales show multiplication, overflow/right index and decimal restoration, division and finite precision clearly in sampled views.",
+    "No persistent concrete clipping or overlap defect found in selected pictures."
+  ],
+  "limits": [
+    "Selected still images only, displayed at 1440x1709 from 1920x2280 sheets.",
+    "No continuous motion, listening, fine-sync or independent whole-film acceptance claimed."
+  ]
+}

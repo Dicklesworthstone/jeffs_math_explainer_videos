@@ -1,0 +1,7 @@
+{"batch": 10, "viewed_utc": "2026-11-10T21:08Z",
+ "sheets": {
+  "0040": "02 80.0-86.0 s. Steady 02_6 summary. The grid and F fade out by 82.35 s, leaving the two arrows (1+i and 2i), the readouts, the answer box and 'lengths multiply, angles add'. No defect.",
+  "0041": "02 86.233-89.517 s. Hold, then a uniform fade-out (89.433 s), near black at f11680-f11681 (only a faint trace of the frame edge), black last frame f11682. No defect.",
+  "0042": "02 to 03 seam: 03 opens black (f11683-f11707). A cyan point 'z' (0.8 s), then a grey arrow to a green point 'f(z)' (1.0-1.1 s), and the footer 'a graph would need four dimensions' (5.017 s). The footer ink spans rows 500-514 of 540 (the kit's footer row), just inside the 90% title-safe line. No defect."
+ },
+ "findings": []}

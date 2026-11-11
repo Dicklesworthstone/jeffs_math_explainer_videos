@@ -1,0 +1,7 @@
+{"batch": 50, "viewed_utc": "2026-11-10T20:30Z",
+ "sheets": {
+  "0160": "05 103.333-103.45 s (f31906-f31913, every frame of root window 6181-6264). Bare Gamma portrait darkening evenly frame to frame; no tearing, no partial redraw. No defect.",
+  "0161": "05 103.467-103.583 s (f31914-f31921). Fade-out ends: f31914-f31915 dim, f31916-f31917 near black (measured max 6-7 levels above background), f31918-f31919 background only (max 3), f31920-f31921 the next portrait starting (max 11, one pixel above 10). A cue-transition dip of about 0.1 s, like the earlier gaps at f27726, f28629 and f30507. The new portrait is narrower (about 400 display px against 520) and sits left. No defect.",
+  "0162": "05 103.6-103.717 s (f31922-f31929). New 05_7 portrait fading in evenly; a ringed feature in the right half and alternating features on the left, still too dim to read. No defect."
+ },
+ "findings": []}

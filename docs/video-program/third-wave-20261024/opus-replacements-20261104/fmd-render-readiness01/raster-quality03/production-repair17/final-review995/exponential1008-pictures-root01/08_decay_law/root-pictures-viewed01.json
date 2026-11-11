@@ -1,0 +1,35 @@
+{
+  "utc": "2026-11-11T00:25:00.115927+00:00",
+  "chapter": "08_decay_law",
+  "master_sha256": "fe33b9e48bcb456b3cad41f7651bd8e5f8e3bb1b7c6deba657e6b4d9e5fa2b80",
+  "pictures_record_sha256": "84d06ecdb3624da0bcb4160166108877334cabe9d1a8afc6261fae2803bfb410",
+  "pictures_viewed": 114,
+  "sheets_viewed": 15,
+  "sheet_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "sheet_hashes_verified": true,
+  "observations": [
+    "Constant amount versus proportional removal, half-life scaling, changed rate and second-order counterexample, and macroscopic model distinction are legible in sampled views.",
+    "Title dissolves show intermediate fragmented letters; settled titles clear. Red line intentionally strikes repeated subtraction.",
+    "No persistent concrete overlap or clipping defect found."
+  ],
+  "limits": [
+    "Selected stills displayed at1440x1709 from1920x2280 sheets only.",
+    "No continuous motion, listening, fine-sync or independent whole-film acceptance."
+  ]
+}

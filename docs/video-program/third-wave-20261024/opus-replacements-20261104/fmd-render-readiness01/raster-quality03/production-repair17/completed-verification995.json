@@ -1,0 +1,909 @@
+{
+  "version": "995",
+  "master": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-combined-master993/final/complex_analysis_visual_master.mp4",
+  "master_sha256": "80244e88ca5970d0da07a5d96d6d825ae1851bae703d75bd200f8810b04e7b90",
+  "srt_sha256": "5d06423248f088a34774f361721bf05e1c4950ac834086e3666661e1adfe5e1b",
+  "vtt_sha256": "26e0d7e0eec26eb6f9136bb56f795a6ff8ab9cead26f29fc76a75e9abc4bb2e3",
+  "master_job": "csd-combined-master993",
+  "master_helper_sha256": "1955ca3202c8a4f382fea1682ac754eadf19fd708b2ef983c3f91f12607b6edb",
+  "master_inputs_sha256": "a610afcdee1c948e397f250405546c636a9654a6cef94b31ce6ef8d3f541ca91",
+  "frames": 133662,
+  "fps": 60,
+  "chapters": [
+    {
+      "chapter": "01_the_bump",
+      "kind": "combined",
+      "start_frame": 0,
+      "frames": 6311,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "150147fe5bc7cdb0a111061c4530a16b104d196e004ae29bcf210d1c9c32ac81"
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "kind": "retained",
+      "start_frame": 6311,
+      "frames": 5372,
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "timeline_sha256": "06b60e54827aa8ae7f947a2a55ec7f172493e0602d9ad42cd2640985ba485978"
+    },
+    {
+      "chapter": "03_two_planes",
+      "kind": "retained",
+      "start_frame": 11683,
+      "frames": 7249,
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "timeline_sha256": "2e46c6eb6deb4943f72dc24e6434e667f35d761cf5ab2539ac4b6547d3032ebc"
+    },
+    {
+      "chapter": "04_reading_color",
+      "kind": "combined",
+      "start_frame": 18932,
+      "frames": 6774,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "616e04e34911cf07a4033c753358950973908fe09912a8ab8c0e68895d770153"
+    },
+    {
+      "chapter": "05_gallery",
+      "kind": "combined",
+      "start_frame": 25706,
+      "frames": 9879,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "efd34557e7fa2b648f590f88ad25e51802cddeb65efbe5c7d96218b0e6e1abcd"
+    },
+    {
+      "chapter": "06_one_derivative",
+      "kind": "combined",
+      "start_frame": 35585,
+      "frames": 10030,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "f121a1b9d4d26b8e07a008f49989d41a6413e3afe27dbc67bcf479684802f48e"
+    },
+    {
+      "chapter": "07_one_point",
+      "kind": "combined",
+      "start_frame": 45615,
+      "frames": 6491,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "fd2d39ce02d8c2b71e3ebd94cf3550c26962f8ea45c5885c2eeec49e4431402b"
+    },
+    {
+      "chapter": "08_loop_sums",
+      "kind": "combined",
+      "start_frame": 52106,
+      "frames": 14959,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "43c8bab2f7ca61c8692e0f1686798d54e187dcfeeab0d03311c2d4c9a5f54812"
+    },
+    {
+      "chapter": "09_boundary",
+      "kind": "native844",
+      "start_frame": 67065,
+      "frames": 16504,
+      "binary_sha256": "e75258731b1786ae3182ef9eb21a7903a9e6c0bed6242413335f7dd233955384",
+      "timeline_sha256": "5a91b8f9e2e5b5d6223a49285c06039b1b43bd16c11cecdd163a8e2e545baa9e"
+    },
+    {
+      "chapter": "10_rigidity",
+      "kind": "native521",
+      "start_frame": 83569,
+      "frames": 7442,
+      "binary_sha256": "5b77a1c8a33a41bab3c3987c9d4f40797bb6a6f1a76bbb57f1ab562ae9960312",
+      "timeline_sha256": "99fd22e62d5c6e53104ec3c622135d0748c3dc68e375141d3da4a38114d5860b"
+    },
+    {
+      "chapter": "11_counting",
+      "kind": "combined",
+      "start_frame": 91011,
+      "frames": 11932,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "29a3afd345fa3a376e5c163d5bf5e01267a866e2305bdd27c6413a5bab46807d"
+    },
+    {
+      "chapter": "12_residues",
+      "kind": "combined",
+      "start_frame": 102943,
+      "frames": 3943,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "a3a8fc654b60d30ac9337dde60a65efe65c91eaccc11775a3f46d35ef5173a99"
+    },
+    {
+      "chapter": "13_real_integral",
+      "kind": "retained",
+      "start_frame": 106886,
+      "frames": 10641,
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "timeline_sha256": "819ffec50efd82df351a6f900eb1d70cc3a5a50cfda6e2767bb7f819bee0a847"
+    },
+    {
+      "chapter": "14_continuation",
+      "kind": "combined",
+      "start_frame": 117527,
+      "frames": 11756,
+      "binary_sha256": "983954c508e42b90d443ad6ca09f2baba7565a4f609d09d2ea821640534d6ec7",
+      "timeline_sha256": "49904e2f2b355bbd7fbc9df9cf567d5856f9cd0832dc15e30ec076ec2746e74a"
+    },
+    {
+      "chapter": "15_closing",
+      "kind": "retained",
+      "start_frame": 129283,
+      "frames": 4379,
+      "binary_sha256": "f4836eeeb4f2465c0d27ca0497f123f0af6bc0db7bc65096098bb20c5abb0f22",
+      "timeline_sha256": "68d61237abc06fed1b1f9b98928fa8245b0fe2f49c0f6ae80eb8863c79b1b9dd"
+    }
+  ],
+  "placements": [
+    {
+      "cue": "01_1",
+      "chapter": "01_the_bump",
+      "start_frame": 36,
+      "duration_s": 16.56
+    },
+    {
+      "cue": "01_2",
+      "chapter": "01_the_bump",
+      "start_frame": 1066,
+      "duration_s": 12.0
+    },
+    {
+      "cue": "01_3",
+      "chapter": "01_the_bump",
+      "start_frame": 1822,
+      "duration_s": 17.36
+    },
+    {
+      "cue": "01_4",
+      "chapter": "01_the_bump",
+      "start_frame": 2900,
+      "duration_s": 8.4
+    },
+    {
+      "cue": "01_5",
+      "chapter": "01_the_bump",
+      "start_frame": 3755,
+      "duration_s": 21.2
+    },
+    {
+      "cue": "01_6",
+      "chapter": "01_the_bump",
+      "start_frame": 5063,
+      "duration_s": 17.6
+    },
+    {
+      "cue": "02_1",
+      "chapter": "02_turning_numbers",
+      "start_frame": 6347,
+      "duration_s": 12.8
+    },
+    {
+      "cue": "02_2",
+      "chapter": "02_turning_numbers",
+      "start_frame": 7151,
+      "duration_s": 12.56
+    },
+    {
+      "cue": "02_3",
+      "chapter": "02_turning_numbers",
+      "start_frame": 7941,
+      "duration_s": 8.72
+    },
+    {
+      "cue": "02_4",
+      "chapter": "02_turning_numbers",
+      "start_frame": 8501,
+      "duration_s": 15.12
+    },
+    {
+      "cue": "02_5",
+      "chapter": "02_turning_numbers",
+      "start_frame": 9445,
+      "duration_s": 10.16
+    },
+    {
+      "cue": "02_6",
+      "chapter": "02_turning_numbers",
+      "start_frame": 10406,
+      "duration_s": 18.08
+    },
+    {
+      "cue": "03_1",
+      "chapter": "03_two_planes",
+      "start_frame": 11719,
+      "duration_s": 13.36
+    },
+    {
+      "cue": "03_2",
+      "chapter": "03_two_planes",
+      "start_frame": 12557,
+      "duration_s": 16.48
+    },
+    {
+      "cue": "03_3",
+      "chapter": "03_two_planes",
+      "start_frame": 13582,
+      "duration_s": 5.68
+    },
+    {
+      "cue": "03_4",
+      "chapter": "03_two_planes",
+      "start_frame": 14214,
+      "duration_s": 25.84
+    },
+    {
+      "cue": "03_5",
+      "chapter": "03_two_planes",
+      "start_frame": 15801,
+      "duration_s": 19.44
+    },
+    {
+      "cue": "03_6",
+      "chapter": "03_two_planes",
+      "start_frame": 17004,
+      "duration_s": 18.48
+    },
+    {
+      "cue": "03_7",
+      "chapter": "03_two_planes",
+      "start_frame": 18149,
+      "duration_s": 9.84
+    },
+    {
+      "cue": "04_1",
+      "chapter": "04_reading_color",
+      "start_frame": 18968,
+      "duration_s": 20.64
+    },
+    {
+      "cue": "04_2",
+      "chapter": "04_reading_color",
+      "start_frame": 20243,
+      "duration_s": 15.28
+    },
+    {
+      "cue": "04_3",
+      "chapter": "04_reading_color",
+      "start_frame": 21196,
+      "duration_s": 10.96
+    },
+    {
+      "cue": "04_4",
+      "chapter": "04_reading_color",
+      "start_frame": 21890,
+      "duration_s": 14.8
+    },
+    {
+      "cue": "04_5",
+      "chapter": "04_reading_color",
+      "start_frame": 23264,
+      "duration_s": 7.6
+    },
+    {
+      "cue": "04_6",
+      "chapter": "04_reading_color",
+      "start_frame": 23756,
+      "duration_s": 10.48
+    },
+    {
+      "cue": "04_7",
+      "chapter": "04_reading_color",
+      "start_frame": 24736,
+      "duration_s": 12.56
+    },
+    {
+      "cue": "05_1",
+      "chapter": "05_gallery",
+      "start_frame": 25742,
+      "duration_s": 16.4
+    },
+    {
+      "cue": "05_2",
+      "chapter": "05_gallery",
+      "start_frame": 26762,
+      "duration_s": 14.56
+    },
+    {
+      "cue": "05_3",
+      "chapter": "05_gallery",
+      "start_frame": 27672,
+      "duration_s": 14.48
+    },
+    {
+      "cue": "05_4",
+      "chapter": "05_gallery",
+      "start_frame": 28577,
+      "duration_s": 16.32
+    },
+    {
+      "cue": "05_5",
+      "chapter": "05_gallery",
+      "start_frame": 29593,
+      "duration_s": 13.76
+    },
+    {
+      "cue": "05_6",
+      "chapter": "05_gallery",
+      "start_frame": 30455,
+      "duration_s": 22.88
+    },
+    {
+      "cue": "05_7",
+      "chapter": "05_gallery",
+      "start_frame": 31864,
+      "duration_s": 23.12
+    },
+    {
+      "cue": "05_8",
+      "chapter": "05_gallery",
+      "start_frame": 33288,
+      "duration_s": 14.4
+    },
+    {
+      "cue": "05_9",
+      "chapter": "05_gallery",
+      "start_frame": 34398,
+      "duration_s": 15.68
+    },
+    {
+      "cue": "06_1",
+      "chapter": "06_one_derivative",
+      "start_frame": 35621,
+      "duration_s": 20.4
+    },
+    {
+      "cue": "06_2",
+      "chapter": "06_one_derivative",
+      "start_frame": 36881,
+      "duration_s": 14.72
+    },
+    {
+      "cue": "06_3",
+      "chapter": "06_one_derivative",
+      "start_frame": 37801,
+      "duration_s": 22.16
+    },
+    {
+      "cue": "06_4",
+      "chapter": "06_one_derivative",
+      "start_frame": 39167,
+      "duration_s": 15.12
+    },
+    {
+      "cue": "06_5",
+      "chapter": "06_one_derivative",
+      "start_frame": 40111,
+      "duration_s": 20.88
+    },
+    {
+      "cue": "06_6",
+      "chapter": "06_one_derivative",
+      "start_frame": 41400,
+      "duration_s": 13.36
+    },
+    {
+      "cue": "06_7",
+      "chapter": "06_one_derivative",
+      "start_frame": 42238,
+      "duration_s": 17.36
+    },
+    {
+      "cue": "06_8",
+      "chapter": "06_one_derivative",
+      "start_frame": 43316,
+      "duration_s": 11.6
+    },
+    {
+      "cue": "06_9",
+      "chapter": "06_one_derivative",
+      "start_frame": 44363,
+      "duration_s": 17.76
+    },
+    {
+      "cue": "07_1",
+      "chapter": "07_one_point",
+      "start_frame": 45651,
+      "duration_s": 16.72
+    },
+    {
+      "cue": "07_2",
+      "chapter": "07_one_point",
+      "start_frame": 46691,
+      "duration_s": 12.0
+    },
+    {
+      "cue": "07_3",
+      "chapter": "07_one_point",
+      "start_frame": 47717,
+      "duration_s": 8.64
+    },
+    {
+      "cue": "07_4",
+      "chapter": "07_one_point",
+      "start_frame": 48587,
+      "duration_s": 14.24
+    },
+    {
+      "cue": "07_5",
+      "chapter": "07_one_point",
+      "start_frame": 49478,
+      "duration_s": 21.84
+    },
+    {
+      "cue": "07_6",
+      "chapter": "07_one_point",
+      "start_frame": 50825,
+      "duration_s": 18.24
+    },
+    {
+      "cue": "08_1",
+      "chapter": "08_loop_sums",
+      "start_frame": 52142,
+      "duration_s": 19.52
+    },
+    {
+      "cue": "08_2",
+      "chapter": "08_loop_sums",
+      "start_frame": 53350,
+      "duration_s": 12.24
+    },
+    {
+      "cue": "08_3",
+      "chapter": "08_loop_sums",
+      "start_frame": 54121,
+      "duration_s": 16.8
+    },
+    {
+      "cue": "08_4",
+      "chapter": "08_loop_sums",
+      "start_frame": 55165,
+      "duration_s": 10.88
+    },
+    {
+      "cue": "08_5",
+      "chapter": "08_loop_sums",
+      "start_frame": 55854,
+      "duration_s": 178.64
+    },
+    {
+      "cue": "09_1",
+      "chapter": "09_boundary",
+      "start_frame": 67101,
+      "duration_s": 137.68
+    },
+    {
+      "cue": "09_2",
+      "chapter": "09_boundary",
+      "start_frame": 75398,
+      "duration_s": 10.48
+    },
+    {
+      "cue": "09_3",
+      "chapter": "09_boundary",
+      "start_frame": 76063,
+      "duration_s": 14.72
+    },
+    {
+      "cue": "09_4",
+      "chapter": "09_boundary",
+      "start_frame": 76983,
+      "duration_s": 8.4
+    },
+    {
+      "cue": "09_5",
+      "chapter": "09_boundary",
+      "start_frame": 77838,
+      "duration_s": 18.0
+    },
+    {
+      "cue": "09_6",
+      "chapter": "09_boundary",
+      "start_frame": 79134,
+      "duration_s": 20.96
+    },
+    {
+      "cue": "09_7",
+      "chapter": "09_boundary",
+      "start_frame": 80428,
+      "duration_s": 23.6
+    },
+    {
+      "cue": "09_8",
+      "chapter": "09_boundary",
+      "start_frame": 81880,
+      "duration_s": 5.84
+    },
+    {
+      "cue": "09_9",
+      "chapter": "09_boundary",
+      "start_frame": 82642,
+      "duration_s": 11.84
+    },
+    {
+      "cue": "10_1",
+      "chapter": "10_rigidity",
+      "start_frame": 83605,
+      "duration_s": 15.52
+    },
+    {
+      "cue": "10_2",
+      "chapter": "10_rigidity",
+      "start_frame": 84573,
+      "duration_s": 23.76
+    },
+    {
+      "cue": "10_3",
+      "chapter": "10_rigidity",
+      "start_frame": 86035,
+      "duration_s": 20.08
+    },
+    {
+      "cue": "10_4",
+      "chapter": "10_rigidity",
+      "start_frame": 87276,
+      "duration_s": 12.24
+    },
+    {
+      "cue": "10_5",
+      "chapter": "10_rigidity",
+      "start_frame": 88362,
+      "duration_s": 14.64
+    },
+    {
+      "cue": "10_6",
+      "chapter": "10_rigidity",
+      "start_frame": 89787,
+      "duration_s": 16.8
+    },
+    {
+      "cue": "11_1",
+      "chapter": "11_counting",
+      "start_frame": 91047,
+      "duration_s": 17.6
+    },
+    {
+      "cue": "11_2",
+      "chapter": "11_counting",
+      "start_frame": 92188,
+      "duration_s": 22.08
+    },
+    {
+      "cue": "11_3",
+      "chapter": "11_counting",
+      "start_frame": 93549,
+      "duration_s": 28.56
+    },
+    {
+      "cue": "11_4",
+      "chapter": "11_counting",
+      "start_frame": 95299,
+      "duration_s": 12.56
+    },
+    {
+      "cue": "11_5",
+      "chapter": "11_counting",
+      "start_frame": 96089,
+      "duration_s": 9.28
+    },
+    {
+      "cue": "11_6",
+      "chapter": "11_counting",
+      "start_frame": 97057,
+      "duration_s": 15.76
+    },
+    {
+      "cue": "11_7",
+      "chapter": "11_counting",
+      "start_frame": 98459,
+      "duration_s": 35.44
+    },
+    {
+      "cue": "11_8",
+      "chapter": "11_counting",
+      "start_frame": 100622,
+      "duration_s": 28.08
+    },
+    {
+      "cue": "12_1",
+      "chapter": "12_residues",
+      "start_frame": 102979,
+      "duration_s": 19.12
+    },
+    {
+      "cue": "12_2",
+      "chapter": "12_residues",
+      "start_frame": 104163,
+      "duration_s": 17.04
+    },
+    {
+      "cue": "12_3",
+      "chapter": "12_residues",
+      "start_frame": 105222,
+      "duration_s": 11.44
+    },
+    {
+      "cue": "12_4",
+      "chapter": "12_residues",
+      "start_frame": 105945,
+      "duration_s": 12.08
+    },
+    {
+      "cue": "13_1",
+      "chapter": "13_real_integral",
+      "start_frame": 106922,
+      "duration_s": 16.0
+    },
+    {
+      "cue": "13_2",
+      "chapter": "13_real_integral",
+      "start_frame": 107918,
+      "duration_s": 16.64
+    },
+    {
+      "cue": "13_3",
+      "chapter": "13_real_integral",
+      "start_frame": 108953,
+      "duration_s": 19.52
+    },
+    {
+      "cue": "13_4",
+      "chapter": "13_real_integral",
+      "start_frame": 110161,
+      "duration_s": 11.04
+    },
+    {
+      "cue": "13_5",
+      "chapter": "13_real_integral",
+      "start_frame": 110860,
+      "duration_s": 15.28
+    },
+    {
+      "cue": "13_6",
+      "chapter": "13_real_integral",
+      "start_frame": 112128,
+      "duration_s": 4.72
+    },
+    {
+      "cue": "13_7",
+      "chapter": "13_real_integral",
+      "start_frame": 112448,
+      "duration_s": 15.92
+    },
+    {
+      "cue": "13_8",
+      "chapter": "13_real_integral",
+      "start_frame": 113440,
+      "duration_s": 13.36
+    },
+    {
+      "cue": "13_9",
+      "chapter": "13_real_integral",
+      "start_frame": 114278,
+      "duration_s": 11.68
+    },
+    {
+      "cue": "13_10",
+      "chapter": "13_real_integral",
+      "start_frame": 115015,
+      "duration_s": 19.68
+    },
+    {
+      "cue": "13_11",
+      "chapter": "13_real_integral",
+      "start_frame": 116232,
+      "duration_s": 12.88
+    },
+    {
+      "cue": "14_1",
+      "chapter": "14_continuation",
+      "start_frame": 117563,
+      "duration_s": 18.8
+    },
+    {
+      "cue": "14_2",
+      "chapter": "14_continuation",
+      "start_frame": 118727,
+      "duration_s": 21.44
+    },
+    {
+      "cue": "14_3",
+      "chapter": "14_continuation",
+      "start_frame": 120050,
+      "duration_s": 35.12
+    },
+    {
+      "cue": "14_4",
+      "chapter": "14_continuation",
+      "start_frame": 122524,
+      "duration_s": 5.92
+    },
+    {
+      "cue": "14_5",
+      "chapter": "14_continuation",
+      "start_frame": 123231,
+      "duration_s": 31.68
+    },
+    {
+      "cue": "14_6",
+      "chapter": "14_continuation",
+      "start_frame": 125168,
+      "duration_s": 19.6
+    },
+    {
+      "cue": "14_7",
+      "chapter": "14_continuation",
+      "start_frame": 126380,
+      "duration_s": 21.52
+    },
+    {
+      "cue": "14_8",
+      "chapter": "14_continuation",
+      "start_frame": 127708,
+      "duration_s": 22.64
+    },
+    {
+      "cue": "15_1",
+      "chapter": "15_closing",
+      "start_frame": 129319,
+      "duration_s": 8.8
+    },
+    {
+      "cue": "15_2",
+      "chapter": "15_closing",
+      "start_frame": 129907,
+      "duration_s": 32.16
+    },
+    {
+      "cue": "15_3",
+      "chapter": "15_closing",
+      "start_frame": 131909,
+      "duration_s": 7.12
+    },
+    {
+      "cue": "15_4",
+      "chapter": "15_closing",
+      "start_frame": 132748,
+      "duration_s": 7.68
+    }
+  ],
+  "retained_takes": {
+    "cues": 105,
+    "byte_identical_to": [
+      "/data/projects/jmev-stroke-probe-20261106/jobs/csd-review-repair-rebind269/narration",
+      "/data/projects/jmev-stroke-probe-20261106/jobs/csd-production-assembly19/narration"
+    ]
+  },
+  "captions": {
+    "caption_blocks": 571,
+    "srt_equals_vtt": true,
+    "text_equals_script": "whole and per cue",
+    "last_caption_end_ms": 2220147,
+    "video_ms": 2227700
+  },
+  "phrase_marked_cues": 51,
+  "strict_video_check": "passed",
+  "strict_video_decodes": [
+    "full decode (video + audio, software, stops at the first error): 0 error lines, ffmpeg exit 0, 151 s"
+  ],
+  "strict_video_notes": [
+    "note: -19.0 LUFS is below -16 because the true peak (-1.5 dBTP) sits at the ceiling (fixed-gain master)"
+  ],
+  "media": {
+    "video": "h264 3840x2160 60/1",
+    "audio": "aac 48000 Hz stereo",
+    "video_frames": 133662,
+    "video_seconds": 2227.7,
+    "audio_seconds": 2227.7,
+    "picture_seconds": 2227.7
+  },
+  "decoded_frames_identical_to_staged_chapters": true,
+  "decoded_frames": 133662,
+  "framemd5_timing": {
+    "timebase": "1/60",
+    "pts": "0..n-1 in order",
+    "duration": 1,
+    "checked": [
+      "master",
+      "01_the_bump",
+      "02_turning_numbers",
+      "03_two_planes",
+      "04_reading_color",
+      "05_gallery",
+      "06_one_derivative",
+      "07_one_point",
+      "08_loop_sums",
+      "09_boundary",
+      "10_rigidity",
+      "11_counting",
+      "12_residues",
+      "13_real_integral",
+      "14_continuation",
+      "15_closing"
+    ]
+  },
+  "runtime": {
+    "ffmpeg_version": "ffmpeg version 8.0.1-3ubuntu2 Copyright (c) 2000-2025 the FFmpeg developers",
+    "tools": {
+      "ffmpeg": "/usr/bin/ffmpeg",
+      "ffprobe": "/usr/bin/ffprobe",
+      "bash": "/usr/bin/bash"
+    },
+    "python": "/usr/bin/python3.14"
+  },
+  "extradata_md5": {
+    "01_the_bump": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "02_turning_numbers": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "03_two_planes": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "04_reading_color": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "05_gallery": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "06_one_derivative": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "07_one_point": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "08_loop_sums": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "09_boundary": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "10_rigidity": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "11_counting": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "12_residues": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "13_real_integral": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "14_continuation": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "15_closing": "MD5:c1b34ca2e59c92c8e377e75b5ec1c283",
+    "master": "MD5:5a1b62b7c81de979bd9a5af443c78b3b"
+  },
+  "encoded_loudness": {
+    "integrated_lufs": "-19.0",
+    "lra_lu": "4.1",
+    "true_peak_dbtp": "-1.5"
+  },
+  "caption_screen": {
+    "caption_count": 571,
+    "over_20_characters_per_second": 0,
+    "lines_over_42_characters": 0
+  },
+  "review_bases": {
+    "01_the_bump": "sampled_preview",
+    "02_turning_numbers": "historical_permit",
+    "03_two_planes": "historical_permit",
+    "04_reading_color": "sampled_preview",
+    "05_gallery": "sampled_preview",
+    "06_one_derivative": "sampled_preview",
+    "07_one_point": "sampled_preview",
+    "08_loop_sums": "sampled_preview",
+    "09_boundary": "sampled_preview",
+    "10_rigidity": "sampled_preview",
+    "11_counting": "sampled_preview",
+    "12_residues": "sampled_preview",
+    "13_real_integral": "historical_permit",
+    "14_continuation": "sampled_preview",
+    "15_closing": "historical_permit"
+  },
+  "delivery_captions_347": {
+    "srt": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-caption-repair347-candidate.en.srt",
+    "srt_sha256": "0ea9277e6d598540e5e9057a84ee84daf7f88420b076434659fc3d3ad0ff3230",
+    "vtt": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/cc1-caption-repair347-candidate.en.vtt",
+    "vtt_sha256": "6a383cb7f207be81254e9a820ecb701ca77d00a26557194c675dc1717ef6979b",
+    "native_srt_and_vtt_equal_native327": true,
+    "native327_srt_sha256": "5d06423248f088a34774f361721bf05e1c4950ac834086e3666661e1adfe5e1b",
+    "native327_vtt_sha256": "26e0d7e0eec26eb6f9136bb56f795a6ff8ab9cead26f29fc76a75e9abc4bb2e3",
+    "adoption": {
+      "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/root-caption347-review354.json",
+      "sha256": "749aeba8350d46e339a517af971086bd2d6e2fe039e6501f16e480edd3ad3cb4"
+    },
+    "exact_check": {
+      "caption_blocks": 579,
+      "srt_equals_vtt": true,
+      "text_equals_script": "whole and per cue",
+      "last_caption_end_ms": 2220147,
+      "video_ms": 2227700
+    },
+    "caption_playback_reviewed": false,
+    "caption_screen": {
+      "caption_count": 579,
+      "over_20_characters_per_second": 0,
+      "lines_over_42_characters": 0
+    }
+  },
+  "final_pictures_reviewed": false,
+  "motion_reviewed": false,
+  "listening_accepted": false,
+  "fine_sync_accepted": false,
+  "native_4k_detail_reviewed": false,
+  "independent_av_accepted": false,
+  "publication_accepted": false,
+  "scope": "Technical verification of the 993 master only: decode, frame identity, schedule, retained takes, exact native captions, the 347 delivery captions' exact text and screen, and loudness. Pictures, motion, listening, fine sync, caption playback and 4K caption legibility, and independent AV acceptance remain root's."
+}

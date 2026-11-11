@@ -1,0 +1,65 @@
+== 09_1 shrink, radius SMALL_R 0.18 -> MID_R 0.12 -> SHRUNK_R 0.045 (plane units) ==
+-- base, rho measured 25x42
+   a   vs dashes      : least gap +0.4014 scene (+108.4 px 4K) at r=0.1800  ok
+   a   vs hole ring   : least gap +0.0687 scene ( +18.6 px 4K) at r=0.1800  ok
+   a   vs loop        : least gap +0.8408 scene (+227.0 px 4K) at r=0.1800  ok
+   a   vs rho         : least gap +0.3711 scene (+100.2 px 4K) at r=0.0450  ok
+   a   vs small circle: least gap -1.0000 scene (-270.0 px 4K) at r=0.1216  CROSSES
+   rho vs dashes      : least gap -1.0000 scene (-270.0 px 4K) at r=0.1800  CROSSES
+   rho vs hole ring   : least gap +0.1808 scene ( +48.8 px 4K) at r=0.0450  ok
+   rho vs loop        : least gap +0.4169 scene (+112.6 px 4K) at r=0.1800  ok
+   rho vs small circle: least gap +0.1024 scene ( +27.6 px 4K) at r=0.1800  ok
+-- base, rho widened 30x42
+   a   vs dashes      : least gap +0.4014 scene (+108.4 px 4K) at r=0.1800  ok
+   a   vs hole ring   : least gap +0.0687 scene ( +18.6 px 4K) at r=0.1800  ok
+   a   vs loop        : least gap +0.8408 scene (+227.0 px 4K) at r=0.1800  ok
+   a   vs rho         : least gap +0.3676 scene ( +99.3 px 4K) at r=0.0450  ok
+   a   vs small circle: least gap -1.0000 scene (-270.0 px 4K) at r=0.1216  CROSSES
+   rho vs dashes      : least gap -1.0000 scene (-270.0 px 4K) at r=0.1800  CROSSES
+   rho vs hole ring   : least gap +0.1744 scene ( +47.1 px 4K) at r=0.0450  ok
+   rho vs loop        : least gap +0.4089 scene (+110.4 px 4K) at r=0.1800  ok
+   rho vs small circle: least gap +0.0938 scene ( +25.3 px 4K) at r=0.1800  ok
+-- candidate, rho measured 25x42
+   a   vs dashes      : least gap +0.0923 scene ( +24.9 px 4K) at r=0.1800  ok
+   a   vs hole ring   : least gap +0.0800 scene ( +21.6 px 4K) at r=0.0450  ok
+   a   vs loop        : least gap +0.5318 scene (+143.6 px 4K) at r=0.1800  ok
+   a   vs rho         : least gap +0.1564 scene ( +42.2 px 4K) at r=0.0450  ok
+   a   vs small circle: least gap +0.0450 scene ( +12.1 px 4K) at r=0.1798  ok
+   rho vs dashes      : least gap +0.0795 scene ( +21.5 px 4K) at r=0.1800  ok
+   rho vs hole ring   : least gap +0.0893 scene ( +24.1 px 4K) at r=0.0450  ok
+   rho vs loop        : least gap +0.5189 scene (+140.1 px 4K) at r=0.1800  ok
+   rho vs small circle: least gap +0.0543 scene ( +14.6 px 4K) at r=0.1800  ok
+-- candidate, rho widened 30x42
+   a   vs dashes      : least gap +0.0923 scene ( +24.9 px 4K) at r=0.1800  ok
+   a   vs hole ring   : least gap +0.0800 scene ( +21.6 px 4K) at r=0.0450  ok
+   a   vs loop        : least gap +0.5318 scene (+143.6 px 4K) at r=0.1800  ok
+   a   vs rho         : least gap +0.1488 scene ( +40.2 px 4K) at r=0.0450  ok
+   a   vs small circle: least gap +0.0450 scene ( +12.1 px 4K) at r=0.1798  ok
+   rho vs dashes      : least gap +0.0703 scene ( +19.0 px 4K) at r=0.1800  ok
+   rho vs hole ring   : least gap +0.0800 scene ( +21.6 px 4K) at r=0.0450  ok
+   rho vs loop        : least gap +0.5098 scene (+137.6 px 4K) at r=0.1800  ok
+   rho vs small circle: least gap +0.0450 scene ( +12.1 px 4K) at r=0.1800  ok
+
+-- candidate a: distance of a's ink centre from the centre a it names, vs from the circle's line
+   r=0.180: a centre 0.511 scene above the centre (138 px 4K), 0.111 above the circle's top (30 px); ratio 4.6
+   r=0.150: a centre 0.445 scene above the centre (120 px 4K), 0.111 above the circle's top (30 px); ratio 4.0
+   r=0.120: a centre 0.378 scene above the centre (102 px 4K), 0.111 above the circle's top (30 px); ratio 3.4
+   r=0.080: a centre 0.289 scene above the centre (78 px 4K), 0.111 above the circle's top (30 px); ratio 2.6
+   r=0.045: a centre 0.211 scene above the centre (57 px 4K), 0.111 above the circle's top (30 px); ratio 1.9
+   base a (fixed A_AT): centre 0.200 scene above the centre; inside the small circle until r*unit < 0.266 (r < 0.1198)
+   candidate a at SHRUNK_R is 3.1 px (4K) above A_AT
+   candidate a at SMALL_R is 84.1 px (4K) above where base a stood when it faded out
+   candidate rho at SMALL_R stands 276 px (4K) from where base rho stood at RHO_AT
+
+== 09_7 / 09_9 growth: a's name (size 28) at the same offset from each disk's centre ==
+-- a@28 scaled 33.6x35: ink spans 0.1889..0.3493 plane from the centre; line (width 5) within CLEAR for r in [0.1353, 0.4028], touching for r in [0.1666, 0.3716]; HIDDEN (0.11, 0.43) covers: True
+   max shown inside that band: 0
+   shown at the band edges + margin: r=0.125->0.00, r=0.413->0.00
+-- a@28 widened 35x38: ink spans 0.1837..0.3545 plane from the centre; line (width 5) within CLEAR for r in [0.1301, 0.4081], touching for r in [0.1613, 0.3768]; HIDDEN (0.11, 0.43) covers: True
+   max shown inside that band: 0
+   shown at the band edges + margin: r=0.120->0.00, r=0.418->0.00
+   shown at 1e-3 1.00, at 1.0 1.00, at sqrt2 1.00
+   fade-out runs r 0.01..0.11 (10% of the 09_7 growth to 1; 7% of 09_9's)
+
+09_9 '1' card (estimated 0.61 x 0.50 scene): spans r 0.399..0.884 plane from the centre; the disk's line passes under it for r in about [0.377, 0.906]
+   gap from a's ink (widened) to the card: 0.152 scene

@@ -1,0 +1,10 @@
+{"batch": 6, "viewed_utc": "2026-11-10T20:37Z",
+ "sheets": {
+  "0025": "01 104.567-104.683 s (f6274-f6281, every frame of root window 6273-6310). Steady 01_6 picture with the three previews; M1 tip still the only mark in the middle preview. No other defect.",
+  "0026": "01 104.700-104.817 s (f6282-f6289). The chapter fade-out begins at about f6286: every element dims together. No defect.",
+  "0027": "01 104.833-104.950 s (f6290-f6297). Uniform fade continues; no element lags or pops. No defect.",
+  "0028": "01 104.967-105.083 s (f6298-f6305). Fade deepens to near black, all elements together. No defect.",
+  "0029": "01 105.100-105.167 s then 02 0.000-0.033 s (f6306-f6313). 01 ends fully dark at f6310; at f6309 only faint traces of the circle and thumbnail edge remain. Chapter 02 opens on the dark background (f6311-f6313). Seam: dark to dark, no flash. No defect.",
+  "0030": "02 0.4-6.0 s. Dark at 0.4 s; a framed plane with 'imaginary part' and 'real part' fades in by 0.8-1.0 s. A cyan point appears (faint at 1.1 s, full by 4.2 s) at about 3 units right and 2 up (62 px per unit at 960x540), then a dashed drop to the real axis with the label '3' (5.167 s). '3' and 'real part' sit about 45 px apart, both readable. No defect."
+ },
+ "findings": []}

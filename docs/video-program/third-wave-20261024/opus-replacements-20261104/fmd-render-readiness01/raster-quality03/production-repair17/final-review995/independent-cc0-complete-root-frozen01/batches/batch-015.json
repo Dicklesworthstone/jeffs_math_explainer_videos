@@ -1,0 +1,7 @@
+{"batch": 15, "viewed_utc": "2026-11-10T21:46Z",
+ "sheets": {
+  "0055": "03 107.067-112.3 s. Finished e^z grid: horizontals from x = -1.53 to 1.12 give rays from radius 0.22 to 3.06, so no line reaches 0. 03_7: labels fade (108.0 s); a yellow point climbs x = 0 while its image goes round the unit circle (110.0 s: 2.91 up, 167 deg; 111.0 s: 5.78 up, 329 deg); at 2 pi i it is back at 1 (111.6 s). Box 'e^{2 pi i} = 1.000000 + 0.000000i' and caption 'e^{z+2 pi i} = e^z' (112.3 s). The box sits over the big circle and two rays on its own backing; readable. No defect.",
+  "0056": "03 112.683-117.5 s. A red ring at 0 and the caption 'e^z != 0' in red (114.55 s). Steady. No defect.",
+  "0057": "03 118.217-120.8 s. Hold (118.2-120.1 s), then a uniform fade (120.717 s) to black at f18930-f18931; only faint traces at f18929. No defect."
+ },
+ "findings": []}

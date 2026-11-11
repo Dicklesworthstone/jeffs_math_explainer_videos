@@ -1,0 +1,18 @@
+{
+  "copied_at": "2026-11-10T23:40:15.028650+00:00",
+  "files": [
+    {
+      "file": "pictures1008-review01.md",
+      "sha256": "80ae83a3167ed65113ce28b6c92566618ba178fd986430abd202d3f07c942c85"
+    },
+    {
+      "file": "fixture01.py",
+      "sha256": "ce68def715754df31b7d3dce6d917d00f8f2b674b7eeee25f9fb9873cb275f8b"
+    },
+    {
+      "file": "pictures1008-copy3.py",
+      "sha256": "70dfce04fc178332d0ef9928dcbc11c35616e234be7e33f5a52eb01fcdc01b13"
+    }
+  ],
+  "scope": "Independent source/test review; not production imagery, listening, motion or AV acceptance"
+}

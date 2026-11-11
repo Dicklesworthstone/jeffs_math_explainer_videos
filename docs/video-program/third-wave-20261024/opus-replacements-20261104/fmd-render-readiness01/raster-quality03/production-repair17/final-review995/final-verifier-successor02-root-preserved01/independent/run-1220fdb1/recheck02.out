@@ -1,0 +1,71 @@
+     sealed 5c30a62e; ALT 0f31010e; fix03 copy b7b3b693
+     successor02 csd-final-verify-repaired02.py 1220fdb1ffe84d06e24c3c4e836ef00d97ed0b8e65e9151b5754b1ee23de6901
+ok   successor02 compiles
+FAIL successor02 equals ALT 0f31010e in every Python token but comments and line breaks (15094 tokens)
+       token replace: ALT ['"""Successor of csd-final-verify995.py (69fa3ded) for the repaired master (CC3 scratch draft final-verify-cc3).\nPrepared only, not reviewed; root and CC2 review it before any use. Changes from 995, and nothing else:\n  - VERSION, the master\'s version, name and sha256, the stage version, the materializer\'s name and sha256 and\n    both repaired binaries are unresolved (None); every mode refuses until root sets them;\n  - 01/08/09 are native-combined01 rows and 11 a native-counting02 row (REPAIRED), each from its stage job\n    csd-native-stage<STAGE_VERSION>-<nn>-a<k>, with review basis sampled_preview; 10 stays native521;\n  - each repaired row\'s sampled intervals are its admitted review_scope as the master records it (CC0\'s gate\n    builds it from the chapter\'s actual admission, extraction and viewing; M1). They are planned as 995 plans\n    every sampled_preview interval: every frame an overview sample, a native frame inside;\n  - 995\'s final969 carry-over now carries every actual final extraction sample of the four repaired rows. For\n    09 that holds 969\'s 814 frames, since the 09 extraction must retain prior775, which equals them;\n  - root 343\'s four 09 instants (preview313 playback observation) no longer reach the plan through 09\'s row,\n    whose admitted scope names no playback. They are planned here from root 343\'s record, as 07\'s instants:\n    round(s*60) +-2 overview samples and a native at the centre. They are final stills only: no playback,\n    motion or listening of the final is claimed;\n  - master993\'s sampled intervals of 01/08/09/11 (its summary at 38b52105) stay planned exactly as 995 planned\n    them, as stills of the new final only; M1 keeps them out of the new rows\' review_scope (CC0 review01 F1);\n  - every other technical, caption, schedule, frame identity and picture check of 995 is unchanged, and\n    995:1102-1104 still requires the 08 run 10200-10380 inside 08\'s sampled intervals.\n\n995: full-film verification of master972 and Linux native844/stage970.\nPrepared only: actual master/stage success and all chapter gates are required at runtime.\nAll decoding, caption, soundtrack, frame identity and picture-planning functions retained.\n647 and all old artifacts remain untouched. No release or independent acceptance.\n"""'] -> successor02 ['"""Successor of csd-final-verify995.py (69fa3ded) for the repaired master (CC3 scratch draft final-verify-cc3-02: the\nsealed final-verify-cc3 successor 5c30a62e with CC0 fix02, its block placed after the required windows).\nPrepared only, not reviewed; root and CC2 review it before any use. Changes from 995, and nothing else:\n  - VERSION, the master\'s version, name and sha256, the stage version, the materializer\'s name and sha256 and\n    both repaired binaries are unresolved (None); every mode refuses until root sets them;\n  - 01/08/09 are native-combined01 rows and 11 a native-counting02 row (REPAIRED), each from its stage job\n    csd-native-stage<STAGE_VERSION>-<nn>-a<k>, with review basis sampled_preview; 10 stays native521;\n  - each repaired row\'s sampled intervals are its admitted review_scope as the master records it (CC0\'s gate\n    builds it from the chapter\'s actual admission, extraction and viewing; M1). They are planned as 995 plans\n    every sampled_preview interval: every frame an overview sample, a native frame inside;\n  - 995\'s final969 carry-over now carries every actual final extraction sample of the four repaired rows. For\n    09 that holds 969\'s 814 frames, since the 09 extraction must retain prior775, which equals them;\n  - root 343\'s four 09 instants (preview313 playback observation) no longer reach the plan through 09\'s row,\n    whose admitted scope names no playback. They are planned here from root 343\'s record, as 07\'s instants:\n    round(s*60) +-2 overview samples and a native at the centre. They are final stills only: no playback,\n    motion or listening of the final is claimed;\n  - master993\'s sampled intervals of 01/08/09/11 (its summary at 38b52105) stay planned exactly as 995 planned\n    them, as stills of the new final only; M1 keeps them out of the new rows\' review_scope (CC0 review01 F1);\n  - every other technical, caption, schedule, frame identity and picture check of 995 is unchanged, and\n    995:1102-1104 still requires the 08 run 10200-10380 inside 08\'s sampled intervals.\n\n995: full-film verification of master972 and Linux native844/stage970.\nPrepared only: actual master/stage success and all chapter gates are required at runtime.\nAll decoding, caption, soundtrack, frame identity and picture-planning functions retained.\n647 and all old artifacts remain untouched. No release or independent acceptance.\n"""']
+     successor02 lines over 120 characters: 146 (sealed has 146)
+     ALT vs sealed: +35 -2; fix03 vs sealed: +30 -1
+FAIL ALT removes from the sealed file only what fix03 removes (the return line it extends)
+       fix03 line not in ALT:     # CC0 review01 F1: master993's sampled intervals of the four repaired rows, planned exactly as 995 planned them
+       fix03 line not in ALT:     # (here, by the same rule). Stills of the new final only: not the new rows' review_scope, no viewing claimed.
+       fix03 line not in ALT:             if not any(start+a <= g <= start+b for g in natives):
+       ALT line not in fix03: """Successor of csd-final-verify995.py (69fa3ded) for the repaired master (CC3 scratch draft final-verify-cc3-02: the
+       ALT line not in fix03: sealed final-verify-cc3 successor 5c30a62e with CC0 fix02, its block placed after the required windows).
+       ALT line not in fix03:     natives995 = set(natives)   # the natives 995's interval rule saw (CC0 fix02 block, below the required windows)
+       ALT line not in fix03:     # CC0 review01 F1 (fix02): master993's sampled intervals of the four repaired rows, planned exactly as 995 planned
+       ALT line not in fix03:     # them (995's native rule, on the natives that existed before the sampled intervals). Placed after every admitted
+       ALT line not in fix03:     # and required entry, so it never displaces their natives or labels. Stills of the new final only: not the new
+       ALT line not in fix03:     # rows' review_scope, no viewing claimed.
+       ALT line not in fix03:             if not any(start+a <= g <= start+b for g in natives995):
+FAIL ALT differs from fix03 only by the snapshot line, the native condition on it and the block comment
+     ALT added lines over 120 characters: 1 (CC3 says successor02 wraps the comment)
+     995 plan: 8351 samples / 123 natives
+     995 placed interval-middle natives on 6 of the 11 old intervals: [('08_loop_sums', 3059, 3060), ('08_loop_sums', 3119, 3120), ('08_loop_sums', 3179, 3180), ('08_loop_sums', 10200, 10380), ('09_boundary', 2080, 2109), ('09_boundary', 2316, 2336)]
+     premise (CC3): sealed 9934/123, ALT 9934/123, fix03 9934/123 (samples/natives)
+ok   premise (CC3): A. ALT keeps every sealed entry (samples 18747, natives 125)
+ok   premise (CC3): B. ALT plans every 995 sample and native frame
+ok   premise (CC3): C. ALT adds only the two fix labels (17 distinct)
+ok   premise (CC3): D. master993 natives exactly where 995 placed them (6), every old-interval frame labelled
+ok   premise (CC3): E. ALT native frames equal 995's (123)
+       fix03 witness: sealed entries lost 6, sealed native frames lost 0
+     smallest (CC3, from CC0): sealed 9925/123, ALT 9934/126, fix03 9934/126 (samples/natives)
+ok   smallest (CC3, from CC0): A. ALT keeps every sealed entry (samples 18483, natives 123)
+ok   smallest (CC3, from CC0): B. ALT plans every 995 sample and native frame
+ok   smallest (CC3, from CC0): C. ALT adds only the two fix labels (17 distinct)
+ok   smallest (CC3, from CC0): D. master993 natives exactly where 995 placed them (6), every old-interval frame labelled
+       fix03 witness: sealed entries lost 1, sealed native frames lost 0
+     wide (CC3): sealed 12977/123, ALT 12977/126, fix03 12977/123 (samples/natives)
+ok   wide (CC3): A. ALT keeps every sealed entry (samples 22312, natives 123)
+ok   wide (CC3): B. ALT plans every 995 sample and native frame
+ok   wide (CC3): C. ALT adds only the two fix labels (17 distinct)
+ok   wide (CC3): D. master993 natives exactly where 995 placed them (6), every old-interval frame labelled
+       fix03 witness: sealed entries lost 4, sealed native frames lost 3 [(3100, '08_loop_sums'), (9700, '08_loop_sums'), (2200, '09_boundary')]
+     disjoint (CC3): sealed 9973/123, ALT 9982/126, fix03 9982/126 (samples/natives)
+ok   disjoint (CC3): A. ALT keeps every sealed entry (samples 18531, natives 123)
+ok   disjoint (CC3): B. ALT plans every 995 sample and native frame
+ok   disjoint (CC3): C. ALT adds only the two fix labels (17 distinct)
+ok   disjoint (CC3): D. master993 natives exactly where 995 placed them (6), every old-interval frame labelled
+       fix03 witness: sealed entries lost 1, sealed native frames lost 0
+     wide2 (CC0): sealed 11671/122, ALT 11671/126, fix03 11671/123 (samples/natives)
+ok   wide2 (CC0): A. ALT keeps every sealed entry (samples 20653, natives 122)
+ok   wide2 (CC0): B. ALT plans every 995 sample and native frame
+ok   wide2 (CC0): C. ALT adds only the two fix labels (17 distinct)
+ok   wide2 (CC0): D. master993 natives exactly where 995 placed them (6), every old-interval frame labelled
+       fix03 witness: sealed entries lost 3, sealed native frames lost 3 [(3120, '08_loop_sums'), (10300, '08_loop_sums'), (2200, '09_boundary')]
+     partial overlaps (CC0): sealed 10206/127, ALT 10213/131, fix03 10213/129 (samples/natives)
+ok   partial overlaps (CC0): A. ALT keeps every sealed entry (samples 18859, natives 127)
+ok   partial overlaps (CC0): B. ALT plans every 995 sample and native frame
+ok   partial overlaps (CC0): C. ALT adds only the two fix labels (17 distinct)
+ok   partial overlaps (CC0): D. master993 natives exactly where 995 placed them (6), every old-interval frame labelled
+       fix03 witness: sealed entries lost 2, sealed native frames lost 2 [(3089, '08_loop_sums'), (10300, '08_loop_sums')]
+     disjoint2 (CC0): sealed 10275/124, ALT 10284/127, fix03 10284/127 (samples/natives)
+ok   disjoint2 (CC0): A. ALT keeps every sealed entry (samples 18881, natives 124)
+ok   disjoint2 (CC0): B. ALT plans every 995 sample and native frame
+ok   disjoint2 (CC0): C. ALT adds only the two fix labels (17 distinct)
+ok   disjoint2 (CC0): D. master993 natives exactly where 995 placed them (6), every old-interval frame labelled
+       fix03 witness: sealed entries lost 1, sealed native frames lost 0
+ok   local master993 summary has the pinned sha256
+ok   ALT plan_for passes at the pin and binds the summary
+ok   ALT plan_for refuses a constant that differs from master993's summary
+ok   ALT plan_for refuses a master993 summary that is not the pinned one
+RESULT: FAILED: successor02 equals ALT 0f31010e in every Python token but comments and line breaks (15094 tokens); ALT removes from the sealed file only what fix03 removes (the return line it extends); ALT differs from fix03 only by the snapshot line, the native condition on it and the block comment

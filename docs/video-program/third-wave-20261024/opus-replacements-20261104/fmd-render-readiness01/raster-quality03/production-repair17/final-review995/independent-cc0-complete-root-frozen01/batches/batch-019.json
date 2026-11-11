@@ -1,0 +1,7 @@
+{"batch": 19, "viewed_utc": "2026-11-10T22:14Z",
+ "sheets": {
+  "0067": "04 5.000-5.117 s (f19232-f19239, every frame). Portrait at full colour beside the legend ('negative' cyan side, 'positive' red side) and its counter-clockwise arrow. Steady, no jump. No defect.",
+  "0068": "04 5.133-5.250 s (f19240-f19247; the last four are the css-reviewed 235-315 window). The title 'f(z) = z' starts fading in at f19242 and grows brighter evenly; it sits above the portrait and clears it. No defect.",
+  "0069": "04 6.0-14.75 s (04_1). Title at full; the portrait gains a thin grey frame. 8.4 s: a white ray from the centre to a dot in the orange sector (about 34 deg), and the legend shows a matching white ray at the same angle and colour. Held to 13.05 s. 13.75 s: the point moves onto the positive real axis and the caption 'right: red' appears under the legend; the dot sits in red. No defect."
+ },
+ "findings": []}

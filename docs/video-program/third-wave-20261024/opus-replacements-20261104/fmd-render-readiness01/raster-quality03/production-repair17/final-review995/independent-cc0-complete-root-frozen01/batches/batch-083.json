@@ -1,0 +1,7 @@
+{"batch": 83, "viewed_utc": "2026-11-10T21:09Z",
+ "sheets": {
+  "0259": "06_9 every frame 166.533-166.65 s (f45577-f45584). Held, same settled picture as 0256-0258; samepos.py against 0258: 0 pixels changed by more than 24 levels in every slot, max 0-11. No defect.",
+  "0260": "06_9 every frame 166.667-166.783 s (f45585-f45592). The even fade-out of the whole frame starts here: samepos.py against 0259 gives max differences rising slot by slot from 15 to 33 levels (7 pixels over 24 at 166.783 s), with every element dimming together and nothing moving. Red X region (tile box 740,225 50x50): red max 249 at 166.767 s, 240 at 166.783 s. No defect.",
+  "0261": "06_9 every frame 166.8-166.917 s (f45593-f45600), the last sheet of this range. The fade continues evenly: red X max 239, 239, 240, 234, 224, 219, 210, 202 over the eight frames; title max 244 at 166.8 s, 228 at 166.85 s, 187 at 166.917 s; the green, cyan, grey and red elements dim together, with no element left behind or popping. The sampled interval 9970-10029 runs past this sheet (chapter frame 10015 is the last one here), so the end of the fade and the 06 -> 07 seam are outside this range (sheet 0262 on). No defect."
+ },
+ "findings": []}

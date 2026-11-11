@@ -1,0 +1,54 @@
+{
+ "stage_version": "1006",
+ "master_version": "1006",
+ "verify_version": "1007",
+ "min_preview_11": 848,
+ "runner_sha256": "7cafacfa788b1579ce66b9db9880c25890112b7d1d7737ebcd44d7827daf1a09",
+ "pictures_sha256": "60addbf322a21270ae5aa4751bef5cbb203bf7e12817574dcb0688df9edf90a8",
+ "runner11_sha256": "01382a17b527b957fa7da7ce7b31e07c7c34023b01c948ac866761a1ef53bdeb",
+ "pictures11_sha256": "74e0990e9919ebc15097553275e8fb481834928ab0c3c6c11053bd1fe760e2a7",
+ "sources": {
+  "materializer": {
+   "name": "cc0-native-materialize-repaired03.py",
+   "sha256": "b1b725a16112917e1b5e75ac4565d03014719d8191a229eefd77b5b5aacd791b"
+  },
+  "stage": {
+   "name": "csd-native-repair-stage03.py",
+   "sha256": "e26a8bb1a794c654af1611d5542311eb4c773731951aad4ee20bb5fc694d53f8"
+  },
+  "gate": {
+   "name": "cc0-native-master-gate-repaired04.py",
+   "sha256": "66a471334bd0ef3ed44a473c6c56c9fd683d108ed41a41442b90f4aa4892cc88"
+  },
+  "master": {
+   "name": "combined-master-repaired01.py",
+   "sha256": "17388c9dcb20326475ca47d93be98aa04f185c1839d2db097310ed84e5108beb"
+  },
+  "verify": {
+   "name": "csd-final-verify-repaired02.py",
+   "sha256": "1220fdb1ffe84d06e24c3c4e836ef00d97ed0b8e65e9151b5754b1ee23de6901"
+  }
+ },
+ "outputs": {
+  "materializer": {
+   "name": "cc0-native-materialize-repaired03.py",
+   "sha256": "d8230404870270331438d715e9ae5be4deab66f4e07c202458cb8c553209bcb2"
+  },
+  "stage": {
+   "name": "csd-native-repair-stage03.py",
+   "sha256": "f3172a33592cc9cb68cc7a414b58cb1d500188ab7947ecace61ee91afba8183a"
+  },
+  "gate": {
+   "name": "cc0-native-master-gate-repaired04.py",
+   "sha256": "0fc90226b4e2c857419ec09ad3a02cea928aa983c919765d23409a710bb4faff"
+  },
+  "master": {
+   "name": "combined-master-repaired01.py",
+   "sha256": "7443bd91e3f5d866eed40d6dbfbb4544dfdf235f1c4a7d30508d8108eae4a352"
+  },
+  "verify": {
+   "name": "csd-final-verify-repaired02.py",
+   "sha256": "78d8dda0cd044ac937c1e07eb018a28438d09174e3da5620e54ff6ae87aafca6"
+  }
+ }
+}

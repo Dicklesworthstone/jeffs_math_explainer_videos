@@ -1,0 +1,5 @@
+build268 default buff 0.25                 test FAIL (range 0.126352 to 0.257770 of 0.500000) -- as expected
+candidate buff 0.0                         test PASS (range -3.73e-16 to 0.500000 of 0.500000, farthest point on the axis) -- as expected
+reversed arrow buff 0.0 (head at zero)     test FAIL (farthest point off the axis: along 0.500000 across 0.022500) -- as expected
+right arrow, test at angle 1.2             test FAIL (range -0.006649 to 0.477668 of 0.500000) -- as expected
+ALL CASES AS EXPECTED: True

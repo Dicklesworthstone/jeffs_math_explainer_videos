@@ -1,0 +1,22 @@
+{
+  "files": [
+    {
+      "file": "pictures1008.py",
+      "sha256": "70dfce04fc178332d0ef9928dcbc11c35616e234be7e33f5a52eb01fcdc01b13"
+    },
+    {
+      "file": "pin1008.py",
+      "sha256": "c615fdd56ef31363d172c038a41f823f5d9127d7271f3ddc43fce8afc3a82f02"
+    },
+    {
+      "file": "pictures1008-serial01.sh",
+      "sha256": "dedc86380012be16816ef087f53889d583f588f41dfdb3e38cea02158e3c1797"
+    },
+    {
+      "file": "pictures1008-handoff.md",
+      "sha256": "768ab14f7fb9d26f1d6c25ddab2b95ac882803fdbd1ec36cc795934c14182798"
+    }
+  ],
+  "pinned": false,
+  "launched": false
+}

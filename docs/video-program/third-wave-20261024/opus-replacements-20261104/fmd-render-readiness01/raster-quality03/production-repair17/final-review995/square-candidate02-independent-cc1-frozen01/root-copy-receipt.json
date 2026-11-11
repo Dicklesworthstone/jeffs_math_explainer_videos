@@ -1,0 +1,46 @@
+{
+  "time": "2026-11-10T21:53:27.316527+00:00",
+  "files": [
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/square-cc0-review01/square-candidate02-review01.md",
+      "file": "square-candidate02-review01.md",
+      "sha256": "726c725c38d0deefddd66bf23c684fd05fadf7177496ccb2a93b3ff72f129ce3"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/square-cc0-review01/timing-skeleton02.py",
+      "file": "timing-skeleton02.py",
+      "sha256": "3eb9214f93ec8fa7cbdc2e6c97890bc753075be62cc31ac29ec7e23344a27130"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/square-cc0-review01/timing-skeleton02.out",
+      "file": "timing-skeleton02.out",
+      "sha256": "9b671cff85475ed2dd1f4cef5dc13c6345016b554a657e0853ab9b9d1652080c"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/square-cc0-review01/square-geometry01.py",
+      "file": "square-geometry01.py",
+      "sha256": "82a5d84e3d5d36a07efac2c4f625aa809e29676a1beae882f9ddf53fbb53550d"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/square-cc0-review01/square-geometry01.out",
+      "file": "square-geometry01.out",
+      "sha256": "53347ccc3532eb5575c7c7f7f28d80ca72de8fca8b3d2b6c52232af2f30d60ba"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/square-cc0-review01/leader-start-sweep01.py",
+      "file": "leader-start-sweep01.py",
+      "sha256": "10388089035c57ea9741cdf472c777f5a324e5a4e6bb69c2b5dda267b9af9fcf"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/square-cc0-review01/leader-start-sweep01.out",
+      "file": "leader-start-sweep01.out",
+      "sha256": "52247f59f6a4cd0cd7b3f6857a2f5edc072ddceb7339e6e4a7af5699c47e4f9d"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/square-cc0-review01/cc0-mirror03-rerun-on-candidate02.out",
+      "file": "cc0-mirror03-rerun-on-candidate02.out",
+      "sha256": "6b0ec7744548d00fe3b02fee21da105af5dda6e8982c18816d8fb81630a57ad9"
+    }
+  ],
+  "scope": "Complete report read by root; source-only independent review of delta, not base authorship or native AV acceptance."
+}

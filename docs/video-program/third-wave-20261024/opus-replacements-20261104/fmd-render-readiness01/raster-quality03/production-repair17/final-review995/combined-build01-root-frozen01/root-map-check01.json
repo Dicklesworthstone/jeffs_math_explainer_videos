@@ -1,0 +1,8 @@
+{
+  "utc": "2026-11-10T22:25:50.641581+00:00",
+  "map_report_sha256": "6ba82dad679e25c24c16662b160a618e02443181c0736c97df4debdf9f2732be",
+  "rows_checked": 28,
+  "changed_rows": 7,
+  "all_exact_source_hashes_and_marker_lines": true,
+  "scope": "Marker binding only; full direction reconstruction, actual pauses and AV not established"
+}

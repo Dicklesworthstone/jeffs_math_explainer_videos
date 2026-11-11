@@ -1,0 +1,30 @@
+{
+  "chapter": "08_loop_sums",
+  "movie_sha256": "46008a4008728226596d32ca3e5c3eb1b49a15ca158eeace8607edaf64d7d692",
+  "source_sha256": "a8d62f560321ea6ebea3d3859acd9a3ce3e5dde4375ec0ab42c1a1ba114d61ef",
+  "extraction_sha256": "df4b8f10519b2b0b160b8f2528ce6b0d6b3323e63043ed99dbf890281f7427a1",
+  "concrete_defects": [],
+  "safe_to_advance_to_master": true,
+  "utc": "2026-11-11T05:39:27.891572+00:00",
+  "review_route": "author-complete-root-targeted",
+  "author_review": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native-final4k-review1006-08-loop-sums-author.json",
+    "sha256": "79ade305213cc7ca89059f52ed7cc15ac6603f8249059fbc1d51848eb1320513"
+  },
+  "extraction_record": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-08-loop-sums/08_loop_sums/pictures.json",
+    "sha256": "df4b8f10519b2b0b160b8f2528ce6b0d6b3323e63043ed99dbf890281f7427a1"
+  },
+  "coverage": {
+    "root_whole_chapter_review": false,
+    "author_selected_frames": 484,
+    "independent_selected_frames": 0,
+    "current_root_targeted_sheets": [
+      45,
+      54
+    ],
+    "historical_complete_author_is_also_root": true
+  },
+  "scope": "Current decision freshly reviews16 pictures on45/54. Separately bound complete author review is also root; not independent. No continuous listening or whole-film acceptance.",
+  "listening": false
+}

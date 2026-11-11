@@ -1,0 +1,7 @@
+{"batch": 64, "viewed_utc": "2026-11-10T20:46Z",
+ "sheets": {
+  "0202": "05_9 147.1-147.217 s (f34532-f34539, every frame of root window 8715-8859). Four thumbnails steady; from f34533 a fifth fading in evenly at row 2, column 2 (display tile x 311-571, y 251-411): hue bands bending along the real axis with zeros and poles alternating, the tan z picture. No defect.",
+  "0203": "05_9 147.233-147.35 s (f34540-f34547). Fifth thumbnail at full and steady; grid of 3 + 2 even. No defect.",
+  "0204": "05_9 147.367-147.483 s (f34548-f34555). From f34549 a sixth thumbnail fading in evenly at row 2, column 3 (display tile x 590-850): the Gamma portrait with poles along the negative real axis. Recap order matches the gallery (polynomial, zero-and-pole, e^z, sin z, tan z, Gamma). No defect."
+ },
+ "findings": []}

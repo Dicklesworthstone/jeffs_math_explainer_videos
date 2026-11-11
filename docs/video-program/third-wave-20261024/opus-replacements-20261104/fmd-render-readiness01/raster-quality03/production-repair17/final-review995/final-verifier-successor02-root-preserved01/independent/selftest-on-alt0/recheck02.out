@@ -1,0 +1,64 @@
+     sealed 5c30a62e; ALT 0f31010e; fix03 copy b7b3b693
+     successor02 alt-test-copy.py 0f31010e5f328490450e13d7b23a76ce3ba28d87fc979354dbfe3da323331f3c
+ok   successor02 compiles
+ok   successor02 equals ALT 0f31010e in every Python token but comments and line breaks (15094 tokens)
+     successor02 lines over 120 characters: 147 (sealed has 146)
+     ALT vs sealed: +31 -1; fix03 vs sealed: +30 -1
+ok   ALT removes from the sealed file only what fix03 removes (the return line it extends)
+       fix03 line not in ALT:     # (here, by the same rule). Stills of the new final only: not the new rows' review_scope, no viewing claimed.
+       fix03 line not in ALT:             if not any(start+a <= g <= start+b for g in natives):
+       ALT line not in fix03:     natives995 = set(natives)   # the natives 995's rule saw before the sampled intervals (fix02 below)
+       ALT line not in fix03:     # (995's rule, on the natives before the intervals), after every admitted and required entry, which it never displaces. Stills of the new final only: not the new rows' review_scope, no viewing claimed.
+       ALT line not in fix03:             if not any(start+a <= g <= start+b for g in natives995):
+ok   ALT differs from fix03 only by the snapshot line, the native condition on it and the block comment
+     ALT added lines over 120 characters: 2 (CC3 says successor02 wraps the comment)
+     995 plan: 8351 samples / 123 natives
+     995 placed interval-middle natives on 6 of the 11 old intervals: [('08_loop_sums', 3059, 3060), ('08_loop_sums', 3119, 3120), ('08_loop_sums', 3179, 3180), ('08_loop_sums', 10200, 10380), ('09_boundary', 2080, 2109), ('09_boundary', 2316, 2336)]
+     premise (CC3): sealed 9934/123, ALT 9934/123, fix03 9934/123 (samples/natives)
+ok   premise (CC3): A. ALT keeps every sealed entry (samples 18747, natives 125)
+ok   premise (CC3): B. ALT plans every 995 sample and native frame
+ok   premise (CC3): C. ALT adds only the two fix labels (17 distinct)
+ok   premise (CC3): D. master993 natives exactly where 995 placed them (6), every old-interval frame labelled
+ok   premise (CC3): E. ALT native frames equal 995's (123)
+       fix03 witness: sealed entries lost 6, sealed native frames lost 0
+     smallest (CC3, from CC0): sealed 9925/123, ALT 9934/126, fix03 9934/126 (samples/natives)
+ok   smallest (CC3, from CC0): A. ALT keeps every sealed entry (samples 18483, natives 123)
+ok   smallest (CC3, from CC0): B. ALT plans every 995 sample and native frame
+ok   smallest (CC3, from CC0): C. ALT adds only the two fix labels (17 distinct)
+ok   smallest (CC3, from CC0): D. master993 natives exactly where 995 placed them (6), every old-interval frame labelled
+       fix03 witness: sealed entries lost 1, sealed native frames lost 0
+     wide (CC3): sealed 12977/123, ALT 12977/126, fix03 12977/123 (samples/natives)
+ok   wide (CC3): A. ALT keeps every sealed entry (samples 22312, natives 123)
+ok   wide (CC3): B. ALT plans every 995 sample and native frame
+ok   wide (CC3): C. ALT adds only the two fix labels (17 distinct)
+ok   wide (CC3): D. master993 natives exactly where 995 placed them (6), every old-interval frame labelled
+       fix03 witness: sealed entries lost 4, sealed native frames lost 3 [(3100, '08_loop_sums'), (9700, '08_loop_sums'), (2200, '09_boundary')]
+     disjoint (CC3): sealed 9973/123, ALT 9982/126, fix03 9982/126 (samples/natives)
+ok   disjoint (CC3): A. ALT keeps every sealed entry (samples 18531, natives 123)
+ok   disjoint (CC3): B. ALT plans every 995 sample and native frame
+ok   disjoint (CC3): C. ALT adds only the two fix labels (17 distinct)
+ok   disjoint (CC3): D. master993 natives exactly where 995 placed them (6), every old-interval frame labelled
+       fix03 witness: sealed entries lost 1, sealed native frames lost 0
+     wide2 (CC0): sealed 11671/122, ALT 11671/126, fix03 11671/123 (samples/natives)
+ok   wide2 (CC0): A. ALT keeps every sealed entry (samples 20653, natives 122)
+ok   wide2 (CC0): B. ALT plans every 995 sample and native frame
+ok   wide2 (CC0): C. ALT adds only the two fix labels (17 distinct)
+ok   wide2 (CC0): D. master993 natives exactly where 995 placed them (6), every old-interval frame labelled
+       fix03 witness: sealed entries lost 3, sealed native frames lost 3 [(3120, '08_loop_sums'), (10300, '08_loop_sums'), (2200, '09_boundary')]
+     partial overlaps (CC0): sealed 10206/127, ALT 10213/131, fix03 10213/129 (samples/natives)
+ok   partial overlaps (CC0): A. ALT keeps every sealed entry (samples 18859, natives 127)
+ok   partial overlaps (CC0): B. ALT plans every 995 sample and native frame
+ok   partial overlaps (CC0): C. ALT adds only the two fix labels (17 distinct)
+ok   partial overlaps (CC0): D. master993 natives exactly where 995 placed them (6), every old-interval frame labelled
+       fix03 witness: sealed entries lost 2, sealed native frames lost 2 [(3089, '08_loop_sums'), (10300, '08_loop_sums')]
+     disjoint2 (CC0): sealed 10275/124, ALT 10284/127, fix03 10284/127 (samples/natives)
+ok   disjoint2 (CC0): A. ALT keeps every sealed entry (samples 18881, natives 124)
+ok   disjoint2 (CC0): B. ALT plans every 995 sample and native frame
+ok   disjoint2 (CC0): C. ALT adds only the two fix labels (17 distinct)
+ok   disjoint2 (CC0): D. master993 natives exactly where 995 placed them (6), every old-interval frame labelled
+       fix03 witness: sealed entries lost 1, sealed native frames lost 0
+ok   local master993 summary has the pinned sha256
+ok   ALT plan_for passes at the pin and binds the summary
+ok   ALT plan_for refuses a constant that differs from master993's summary
+ok   ALT plan_for refuses a master993 summary that is not the pinned one
+RESULT: all checks passed

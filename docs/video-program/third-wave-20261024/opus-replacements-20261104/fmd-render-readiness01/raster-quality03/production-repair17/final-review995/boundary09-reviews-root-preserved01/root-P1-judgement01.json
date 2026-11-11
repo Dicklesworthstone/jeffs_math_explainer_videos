@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-11T01:27:01.030143+00:00",
+  "reviewer": "BlueSalmon root",
+  "scope": "Targeted judgement of independent P1 only; not whole09 review",
+  "movie_sha256": "da4df9de2a8271e8b9d27740a4943b1e789df96a5efbc5f178c8897bd9f05f74",
+  "pictures_viewed": [
+    512,
+    565,
+    684
+  ],
+  "frames_viewed": [
+    7090,
+    7180,
+    7680
+  ],
+  "finding": "The leader connects the central red hole to its a label above the green circle. At MID_R it resembles a radial segment, but its start remains the red hole and rho is separately placed to the right. This does not present a conflicting point location or obscure the circle. No concrete blocker on these stills; final 4K separation still requires review.",
+  "whole_chapter_review": false,
+  "listening": false
+}

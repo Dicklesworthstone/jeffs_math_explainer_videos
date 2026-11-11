@@ -1,0 +1,102 @@
+{
+  "time": "2026-11-10T21:20:55.625711+00:00",
+  "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/preview-arrow-review",
+  "files": [
+    {
+      "name": "arrow-mirror01.out",
+      "sha256": "58f6c5fbe04682603e25bcf9a0729ff36b02ff4359cf47e1aeb6b569d8463fa8",
+      "bytes": 2158
+    },
+    {
+      "name": "arrow-mirror01.py",
+      "sha256": "d8f187ef06f579c3cbe9e12a2c3f6e9b60a0a31fc02acf787813234430b64245",
+      "bytes": 8438
+    },
+    {
+      "name": "base-build268-the_bump.rs",
+      "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3",
+      "bytes": 15812
+    },
+    {
+      "name": "candidate02-over-build268.patch",
+      "sha256": "f76d06c9d46c92fc738ec8c2b8066c0412af96a4ce6228e8c82c9b85cad84f25",
+      "bytes": 3087
+    },
+    {
+      "name": "candidate02-over-candidate01.patch",
+      "sha256": "2f353e0fd8ae48d3a3069e3b0125368739bb6b767ba7659559595b3789a7abb7",
+      "bytes": 3107
+    },
+    {
+      "name": "candidate02-the_bump.rs",
+      "sha256": "7e5b2c5678ec85de16974560c85fe6def7d45760e09d0cbd75f11feba5368f8e",
+      "bytes": 17824
+    },
+    {
+      "name": "candidate03-over-build268.patch",
+      "sha256": "0be547f3d936c22d1ede7526f8c4bb264e753acf858e34b60c6826dd54bbcbba",
+      "bytes": 3111
+    },
+    {
+      "name": "candidate03-over-candidate01.patch",
+      "sha256": "12687130d0156f714c0386b5e2b4115ad4df789ad4ab35a9ece83417c14a4d43",
+      "bytes": 3131
+    },
+    {
+      "name": "candidate03-the_bump.rs",
+      "sha256": "90b51c2b30877911bbb5f5e14ee810268e14efb24e7c4e2a55f7f7e128c06ee7",
+      "bytes": 17847
+    },
+    {
+      "name": "make-candidate02.py",
+      "sha256": "97e5ba9847d374d348217071408c26691da1592168bb9f287ddf2510b7191d55",
+      "bytes": 4194
+    },
+    {
+      "name": "make-candidate03.py",
+      "sha256": "7d89d5bef522487992914c7e379f65d851e5e4ff4e865e0450f33599123d8e2e",
+      "bytes": 4266
+    },
+    {
+      "name": "preview-arrow-findings01.md",
+      "sha256": "752fb7da57f94f6d0084b032e17107f67a90336c4507eab1ce640a1c0827dac3",
+      "bytes": 11546
+    },
+    {
+      "name": "root-candidate01-the_bump.rs",
+      "sha256": "c52c0472196cbc68f3fca2b47fc2ad7d6cc9c3ba6e5ee8f356b882e4ffc27564",
+      "bytes": 15831
+    },
+    {
+      "name": "s0023-slot3-f5591-x8.png",
+      "sha256": "a57229d9f76d1c392d3e4a4241b0009022de8d42ab48621a8ec4a0d6b58f53f5",
+      "bytes": 202488
+    },
+    {
+      "name": "s0024-slot7-f6269-x8.png",
+      "sha256": "b65f6f7e78f5b513c35d8a4c5e6dc027844301fa6b898d21c0c8675f886882dc",
+      "bytes": 202699
+    },
+    {
+      "name": "scope-check01.out",
+      "sha256": "288ac4bb22bbbca7439e35043a54936f97be92431818be87965a3963eb980cb7",
+      "bytes": 406
+    },
+    {
+      "name": "scope-check01.py",
+      "sha256": "f6a8cac2a63dc9c4c0aab32f6192aaa3d45d83c7c10225966aeee14fbc1c849c",
+      "bytes": 1422
+    },
+    {
+      "name": "test-mirror01.out",
+      "sha256": "47c04776a27e647603a0a51e60f5e233e46d0573ddf1fd380e73c2545338568c",
+      "bytes": 515
+    },
+    {
+      "name": "test-mirror01.py",
+      "sha256": "c3be60d382e8591691a80c42e814223177819fa5dc3becb8451a1afca4725f50",
+      "bytes": 2560
+    }
+  ],
+  "scope": "Frozen independent source review and candidate03 native regression test. Root read report and patch; no compile/render/visual acceptance."
+}

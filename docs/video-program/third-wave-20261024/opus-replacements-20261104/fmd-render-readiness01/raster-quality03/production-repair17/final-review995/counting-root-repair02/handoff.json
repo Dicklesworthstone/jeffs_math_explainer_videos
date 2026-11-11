@@ -1,0 +1,25 @@
+{
+  "utc": "2026-11-10T22:36:24.445436+00:00",
+  "base_sha256": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1",
+  "candidate_sha256": "21c5043a3339cfadb10024a2e8227a62a0b06674139eace1a0d9029a4e1aa0db",
+  "changes": [
+    "Includes CC3 explicit input-loop caption and fit/winding tests",
+    "Chapter11 Moebius walks use a fixed positive scale derived from exact image-circle centre/radius, keeping circle shape and zero",
+    "Quintic size-compression label appears with existing reference fade before walk/inequality; removed when full footer appears"
+  ],
+  "numeric_check": {
+    "r0.8": {
+      "centre": -0.058305647840531695,
+      "radius": 1.2916943521594684,
+      "circle_error_max": 8.881784197001252e-16,
+      "turns": 0.9999999999999994
+    },
+    "r1.7": {
+      "centre": 0.8082295081967212,
+      "radius": 0.5417704918032789,
+      "circle_error_max": 6.661338147750939e-16,
+      "turns": 1.154055431294922e-16
+    }
+  },
+  "limits": "Scratch candidate only. Rustfmt run, Python numerical cross-check only. No Rust test/build/native render or independent review; timing neutrality not yet verified by native timelines. No audio changed/listened."
+}

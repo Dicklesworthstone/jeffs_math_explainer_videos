@@ -1,0 +1,7 @@
+{"batch": 16, "viewed_utc": "2026-11-10T21:53Z",
+ "sheets": {
+  "0058": "03 to 04 seam: 04 opens black (f18932-f18956). A colour-wheel legend fades in at the upper right with 'negative' (cyan side) and 'positive' (red side) (0.8-1.1 s); red at arg 0, yellow-green up, cyan at pi, purple down. A white counter-clockwise arrow over the wheel's upper right (3.917 s). No defect.",
+  "0059": "04 3.933-4.050 s (f19168-f19175, every frame of root window 235-311). A square colour portrait starts to fade in at the left; at f19171-f19173 only its brighter hue sectors show above the background, so the first frames look patchy. That is the fade, not a missing region. No defect.",
+  "0060": "04 4.067-4.183 s (f19176-f19183). The portrait brightens steadily: hue by angle around the centre, matching the legend (red right, green-yellow up, cyan left, purple down). Faint sector edges are visible at this opacity; to be judged at full opacity. No defect."
+ },
+ "findings": []}

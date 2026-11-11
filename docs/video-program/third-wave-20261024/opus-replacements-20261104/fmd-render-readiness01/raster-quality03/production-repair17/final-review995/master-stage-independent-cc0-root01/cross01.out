@@ -1,0 +1,48 @@
+     m993     1955ca32 combined-master993.py
+     s994     f0641032 csd-native994-stage-launch.py
+     master   17388c9d combined-master-repaired01.py
+     stage    432301fa csd-native-repair-stage01.py
+     run      6dceac47 csd-native-repair-final01-run.py
+     pictures 5fa242b8 csd-native-repair-pictures01.py
+     worker   e5abe22e cc0-native-materialize-repaired02.py
+     gate     2a855393 cc0-native-master-gate-repaired01.py
+ok   root-preserved master and stage equal CC3 copies
+     m993 -> master: changed ['= INPUTS', '= JOB', '= VERSION', 'def chapter_gate', 'def gates', 'def launch', 'def master', 'docstring', "if __name__ == '__main__'"]; added ['= BASE_MANIFEST', '= BASE_MANIFEST_SHA', '= REPAIRED', '= REPAIRED_GATE_NAME', '= REPAIRED_GATE_SHA', '= REPAIRED_KINDS', 'def unresolved']; removed []
+     s994 -> stage: changed ['= MANIFEST_SHA', '= WORKER_SHA', 'def main', 'docstring']; added ['= CHAIN_INPUTS', '= MANIFEST', '= PICTURES', '= PICTURES_SHA', '= RUNNER', '= RUNNER_SHA', '= WORKER_NAME', 'def compose', 'def helpers', 'def load', 'def stage', 'def unresolved']; removed []
+ok   master: only docstring, VERSION/JOB/INPUTS, chapter_gate, gates, launch, master and the main guard change
+ok   same four chapters everywhere
+ok   01_the_bump: run helper, materializer, gate and master agree on 17 fields
+ok   01_the_bump: scene path the run proofs bind equals the materializer's
+     01_the_bump: final csd-native-repair-final01-01-the-bump; admission csd-native-repair-final01-01-the-bump-picture-admission.json; extraction csd-native-repair-pictures01-01-the-bump
+ok   01_the_bump: final job name has the form CC3 names for FINAL_JOBS
+ok   01_the_bump: stage reads the preview extraction record where the chain writes it
+ok   08_loop_sums: run helper, materializer, gate and master agree on 17 fields
+ok   08_loop_sums: scene path the run proofs bind equals the materializer's
+     08_loop_sums: final csd-native-repair-final01-08-loop-sums; admission csd-native-repair-final01-08-loop-sums-picture-admission.json; extraction csd-native-repair-pictures01-08-loop-sums
+ok   08_loop_sums: final job name has the form CC3 names for FINAL_JOBS
+ok   08_loop_sums: stage reads the preview extraction record where the chain writes it
+ok   09_boundary: run helper, materializer, gate and master agree on 17 fields
+ok   09_boundary: scene path the run proofs bind equals the materializer's
+     09_boundary: final csd-native-repair-final01-09-boundary; admission csd-native-repair-final01-09-boundary-picture-admission.json; extraction csd-native-repair-pictures01-09-boundary
+ok   09_boundary: final job name has the form CC3 names for FINAL_JOBS
+ok   09_boundary: stage reads the preview extraction record where the chain writes it
+ok   11_counting: run helper, materializer, gate and master agree on 17 fields
+ok   11_counting: scene path the run proofs bind equals the materializer's
+     11_counting: final csd-native-repair-final01-11-counting; admission csd-native-repair-final01-11-counting-picture-admission.json; extraction csd-native-repair-pictures01-11-counting
+ok   11_counting: final job name has the form CC3 names for FINAL_JOBS
+ok   11_counting: stage reads the preview extraction record where the chain writes it
+ok   extraction helper and run helper name the same runner as the stage
+ok   stage PICTURES is the extraction helper's own HELPER name
+ok   base manifest: stage, materializer, gate and master all pin 8da77ed7
+ok   base manifest name is the one master993 recorded
+ok   native-combined01: the stage's five guard inputs names are the launchers' INPUTS (csd-combined01-inputs.json, csd-combined01-delivery-inputs.json, csd-combined01-timeline-inputs.json, csd-combined01-preview-inputs.json, csd-combined01-pictures-inputs.json)
+ok   native-combined01: run helper pictures_inputs equals the stage's
+ok   native-counting02: the stage's five guard inputs names are the launchers' INPUTS (csd-counting02-inputs.json, csd-counting02-delivery-inputs.json, csd-counting02-timeline-inputs.json, csd-counting02-preview-inputs.json, csd-counting02-pictures-inputs.json)
+ok   native-counting02: run helper pictures_inputs equals the stage's
+ok   every base.<name> the gate reads (22) is defined in the master successor
+ok   stage worker argv: exe -I -B worker --chapter --job --inputs --proofs --manifest (the 14 items the materializer and gate assert)
+ok   stage and compose read only materialized.json keys the materializer writes (['chapter', 'original_manifest_sha256', 'unchanged_other_manifest_rows'])
+ok   materializer row keys are exactly the gate's
+ok   stage job regex equals the materializer's and the gate's
+ok   materializer and gate require the same prerequisite jobs, all among the stage's seven
+RESULT: all checks passed

@@ -1,0 +1,7 @@
+{"batch": 38, "viewed_utc": "2026-11-10T20:23Z",
+ "sheets": {
+  "0124": "05_4 48.983-49.100 s (f28645-f28652, every frame). Fade-in of the wide portrait continues evenly. Five zeros on the middle row at display x about 37, 165, 290, 415, 540 (spacing about 125 px; centre zero at the midpoint, outer ones just inside the edges), consistent with sin z on about [-2pi, 2pi]. No defect.",
+  "0125": "05_4 49.117-49.233 s (f28653-f28660). Fade-in continues evenly. Colour checks for sin z: red on (0, pi) and (-2pi, -pi), teal on (-pi, 0) and (pi, 2pi); yellow-green above 0 and violet below (sin(iy) = i sinh y). Top edge: hue falls going right (arg about pi/2 - x for large positive y); bottom edge: hue rises (x - pi/2). No defect.",
+  "0126": "05_4 49.250-49.367 s (f28661-f28668). Portrait nearly at full colour, steady; contour rings round each zero and the grid lines bend as expected. No defect."
+ },
+ "findings": []}

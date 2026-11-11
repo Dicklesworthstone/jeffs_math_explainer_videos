@@ -1,0 +1,30 @@
+{
+  "chapter": "01_the_bump",
+  "movie_sha256": "40b42489ae48a6b79a9160440353a1c279ad7e2f9ceeb423620c2a14f764c583",
+  "source_sha256": "90b51c2b30877911bbb5f5e14ee810268e14efb24e7c4e2a55f7f7e128c06ee7",
+  "extraction_sha256": "266d1addecaf00ac7f291463b6a004ad9cdae6a3331fbdb47cce996d87186660",
+  "concrete_defects": [],
+  "safe_to_advance_to_master": true,
+  "utc": "2026-11-11T05:43:55.928607+00:00",
+  "review_route": "independent-complete-root-targeted",
+  "independent_review": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/csd-native-final4k-review1006-01-the-bump-independent.json",
+    "sha256": "208ccd3f0b4b20284f42fe9310dbdfe0d018363fe494616bc2ec201b1cf1be30"
+  },
+  "extraction_record": {
+    "path": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-repair-pictures01-01-the-bump/pictures.json",
+    "sha256": "266d1addecaf00ac7f291463b6a004ad9cdae6a3331fbdb47cce996d87186660"
+  },
+  "coverage": {
+    "root_whole_chapter_review": false,
+    "independent_selected_frames": 120,
+    "author_selected_frames": 0,
+    "current_root_targeted_sheets": [
+      1,
+      15
+    ],
+    "complete_reviewer_and_decision_maker_same_person": true
+  },
+  "scope": "Current targeted decision freshly rechecks16 pictures on1/15. Bound complete reviewer is ALSO root, independent of scene authorship only. This does not add a second reviewer; whole-film independent AV/listening remain open.",
+  "listening": false
+}

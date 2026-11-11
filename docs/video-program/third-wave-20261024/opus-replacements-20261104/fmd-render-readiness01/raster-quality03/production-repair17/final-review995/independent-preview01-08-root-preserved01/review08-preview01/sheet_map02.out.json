@@ -1,0 +1,229 @@
+{
+ "total_frames": 14959,
+ "plan02_frames": 407,
+ "selected": 484,
+ "sheets": 61,
+ "anchors": [
+  {
+   "frame": 10788,
+   "row": "08_5 +117.3s @179.8s\toverlap\t\"c\" and \"c\" overlap (100% of th",
+   "window": [
+    352,
+    391,
+    44,
+    49,
+    40
+   ],
+   "in_plan02": true
+  },
+  {
+   "frame": 12336,
+   "row": "08_5 +143.1s @205.6s\tcrossed\ta stroke of an unlabeled shape ",
+   "window": [
+    401,
+    412,
+    51,
+    52,
+    12
+   ],
+   "in_plan02": false
+  },
+  {
+   "frame": 12336,
+   "row": "08_5 +143.1s @205.6s\tcrossed\ta stroke of an unlabeled shape ",
+   "window": [
+    401,
+    412,
+    51,
+    52,
+    12
+   ],
+   "in_plan02": false
+  }
+ ],
+ "windows": [
+  {
+   "id": "08-control-unchanged",
+   "range": [
+    3748,
+    6987
+   ],
+   "pictures_sheets": [
+    1,
+    6,
+    1,
+    1,
+    6
+   ]
+  },
+  {
+   "id": "08-L5-fade-in",
+   "range": [
+    6986,
+    7012
+   ],
+   "pictures_sheets": [
+    5,
+    31,
+    1,
+    4,
+    27
+   ]
+  },
+  {
+   "id": "08-L5-held",
+   "range": [
+    7026,
+    9139
+   ],
+   "pictures_sheets": [
+    32,
+    39,
+    4,
+    5,
+    8
+   ]
+  },
+  {
+   "id": "08-L5-delta-circle",
+   "range": [
+    9139,
+    9450
+   ],
+   "pictures_sheets": [
+    39,
+    70,
+    5,
+    9,
+    32
+   ]
+  },
+  {
+   "id": "08-L5-fade-out",
+   "range": [
+    9740,
+    9800
+   ],
+   "pictures_sheets": [
+    71,
+    131,
+    9,
+    17,
+    61
+   ]
+  },
+  {
+   "id": "08-inset",
+   "range": [
+    9797,
+    9900
+   ],
+   "pictures_sheets": [
+    128,
+    136,
+    16,
+    17,
+    9
+   ]
+  },
+  {
+   "id": "08-L11-diagonal-in",
+   "range": [
+    10024,
+    10052
+   ],
+   "pictures_sheets": [
+    137,
+    165,
+    18,
+    21,
+    29
+   ]
+  },
+  {
+   "id": "08-L11-walk",
+   "range": [
+    10216,
+    10339
+   ],
+   "pictures_sheets": [
+    182,
+    305,
+    23,
+    39,
+    124
+   ]
+  },
+  {
+   "id": "08-L11-perimeter-F5",
+   "range": [
+    10336,
+    10483
+   ],
+   "pictures_sheets": [
+    302,
+    348,
+    38,
+    44,
+    47
+   ]
+  },
+  {
+   "id": "08-L12-quarter-in",
+   "range": [
+    10785,
+    10818
+   ],
+   "pictures_sheets": [
+    349,
+    382,
+    44,
+    48,
+    34
+   ]
+  },
+  {
+   "id": "08-L12-held",
+   "range": [
+    10846,
+    13053
+   ],
+   "pictures_sheets": [
+    385,
+    420,
+    49,
+    53,
+    36
+   ]
+  },
+  {
+   "id": "08-L12-fade-out",
+   "range": [
+    13052,
+    13105
+   ],
+   "pictures_sheets": [
+    419,
+    472,
+    53,
+    59,
+    54
+   ]
+  }
+ ],
+ "fade_out_c_lag": [
+  419,
+  472,
+  53,
+  59,
+  54
+ ],
+ "required_run_10200_10380": [
+  166,
+  346,
+  21,
+  44,
+  181
+ ],
+ "run_complete": true
+}

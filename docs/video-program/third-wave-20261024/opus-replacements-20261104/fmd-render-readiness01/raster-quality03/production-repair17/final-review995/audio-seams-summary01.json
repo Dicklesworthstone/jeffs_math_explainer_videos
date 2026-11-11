@@ -1,0 +1,230 @@
+{
+  "source_sha256": "8e5f6e55d9099725a1cd670c796f11869a7ca82e582f407cecc5078f3489b80d",
+  "joins": [
+    {
+      "join": 1,
+      "seconds": 105.18333333333334,
+      "channels": {
+        "L": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -68.98,
+          "seam_jump": 0.00018117111176252365
+        },
+        "R": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -69.011,
+          "seam_jump": -0.00033532362431287766
+        }
+      }
+    },
+    {
+      "join": 2,
+      "seconds": 194.71666666666667,
+      "channels": {
+        "L": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -73.282,
+          "seam_jump": -0.0001048678532242775
+        },
+        "R": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -73.115,
+          "seam_jump": -0.00040446873754262924
+        }
+      }
+    },
+    {
+      "join": 3,
+      "seconds": 315.53333333333336,
+      "channels": {
+        "L": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -72.402,
+          "seam_jump": 1.4867633581161499e-05
+        },
+        "R": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -72.417,
+          "seam_jump": -0.00022629089653491974
+        }
+      }
+    },
+    {
+      "join": 4,
+      "seconds": 428.43333333333334,
+      "channels": {
+        "L": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -75.098,
+          "seam_jump": -0.00028857612051069736
+        },
+        "R": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -75.177,
+          "seam_jump": 1.3801967725157738e-05
+        }
+      }
+    },
+    {
+      "join": 5,
+      "seconds": 593.0833333333334,
+      "channels": {
+        "L": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -76.476,
+          "seam_jump": -0.00031395629048347473
+        },
+        "R": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -76.621,
+          "seam_jump": -0.00048086827155202627
+        }
+      }
+    },
+    {
+      "join": 6,
+      "seconds": 760.25,
+      "channels": {
+        "L": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -69.47,
+          "seam_jump": -0.00018589419778436422
+        },
+        "R": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -68.989,
+          "seam_jump": -0.00014829915016889572
+        }
+      }
+    },
+    {
+      "join": 7,
+      "seconds": 868.4333333333333,
+      "channels": {
+        "L": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -70.966,
+          "seam_jump": 0.00012564234202727675
+        },
+        "R": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -73.35,
+          "seam_jump": 0.00016967230476439
+        }
+      }
+    },
+    {
+      "join": 8,
+      "seconds": 1117.75,
+      "channels": {
+        "L": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -63.908,
+          "seam_jump": -0.00036199484020471573
+        },
+        "R": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -63.506,
+          "seam_jump": 0.0001219678670167923
+        }
+      }
+    },
+    {
+      "join": 9,
+      "seconds": 1392.8166666666666,
+      "channels": {
+        "L": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -73.242,
+          "seam_jump": -0.00031530018895864487
+        },
+        "R": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -72.978,
+          "seam_jump": 6.754882633686066e-05
+        }
+      }
+    },
+    {
+      "join": 10,
+      "seconds": 1516.85,
+      "channels": {
+        "L": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -72.27,
+          "seam_jump": 0.0002533234655857086
+        },
+        "R": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -72.606,
+          "seam_jump": -3.612600266933441e-06
+        }
+      }
+    },
+    {
+      "join": 11,
+      "seconds": 1715.7166666666667,
+      "channels": {
+        "L": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -67.665,
+          "seam_jump": 0.00013580545783042908
+        },
+        "R": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -67.867,
+          "seam_jump": 0.00024661957286298275
+        }
+      }
+    },
+    {
+      "join": 12,
+      "seconds": 1781.4333333333334,
+      "channels": {
+        "L": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -66.345,
+          "seam_jump": -4.428293323144317e-05
+        },
+        "R": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -66.128,
+          "seam_jump": -0.0002668783999979496
+        }
+      }
+    },
+    {
+      "join": 13,
+      "seconds": 1958.7833333333333,
+      "channels": {
+        "L": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -72.548,
+          "seam_jump": -0.00013895053416490555
+        },
+        "R": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -72.669,
+          "seam_jump": 2.7587084332481027e-05
+        }
+      }
+    },
+    {
+      "join": 14,
+      "seconds": 2154.7166666666667,
+      "channels": {
+        "L": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -71.589,
+          "seam_jump": -0.00012112990953028202
+        },
+        "R": {
+          "lowest_rms_lag": 0,
+          "zero_lag_error_rms_dbfs": -71.463,
+          "seam_jump": 0.0004655919037759304
+        }
+      }
+    }
+  ],
+  "interpretation": "All28 channel comparisons have lowest RMS at zero lag among tested lags. This measures encoded/WAV alignment only; no audible-click, pacing, listening or release acceptance asserted."
+}

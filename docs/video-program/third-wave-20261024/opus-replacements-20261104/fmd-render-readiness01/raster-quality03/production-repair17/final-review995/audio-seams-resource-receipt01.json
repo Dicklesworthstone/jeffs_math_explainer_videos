@@ -1,0 +1,61 @@
+{
+  "started": "2026-11-10T20:13:29.370282+00:00",
+  "phase": "native",
+  "command": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/master993-audio-seams02.py",
+    "measure",
+    "--job",
+    "csd-master993-audio-seams02",
+    "--inputs",
+    "/data/projects/jmev-stroke-probe-20261106/qualification01/production-repair17/master993-audio-seams02-inputs.json"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-10T20:13:31.895807+00:00",
+      "free_bytes": 47089500160,
+      "work_bytes": 23004291072,
+      "target_bytes": 7009529856
+    },
+    {
+      "utc": "2026-11-10T20:13:43.608990+00:00",
+      "free_bytes": 46941745152,
+      "work_bytes": 23026053120,
+      "target_bytes": 7009529856
+    },
+    {
+      "utc": "2026-11-10T20:13:51.146531+00:00",
+      "free_bytes": 46923841536,
+      "work_bytes": 23048318976,
+      "target_bytes": 7009529856
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":47093555200,\"free_excludes_purgeable\":true,\"free_pct\":4.841123733559576,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-stroke-probe-20261106\",\"platform\":{\"linux\":{\"device_id\":66308,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":972781481984,\"unprotected\":null,\"volume_available_bytes\":47093555200,\"volume_role\":null,\"volume_total_bytes\":972781481984}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-10T20:13:29.386361+00:00",
+    "free_bytes": 47093551104,
+    "work_bytes": 23004286976,
+    "target_bytes": 7009529856
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "de4e680abf70e7269713625c63126eac4b2848bad3585eb92dd8401cdad98f08",
+  "pid": 3520985,
+  "exit": 0,
+  "final_inputs_sha256": "de4e680abf70e7269713625c63126eac4b2848bad3585eb92dd8401cdad98f08",
+  "finished": "2026-11-10T20:13:53.767743+00:00"
+}

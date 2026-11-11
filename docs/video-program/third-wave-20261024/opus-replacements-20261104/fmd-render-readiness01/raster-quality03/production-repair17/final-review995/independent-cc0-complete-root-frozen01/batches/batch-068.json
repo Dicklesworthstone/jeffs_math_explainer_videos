@@ -1,0 +1,12 @@
+{"batch": 68, "viewed_utc": "2026-11-10T20:51Z",
+ "sheets": {
+  "0214": "05_9 153.583-153.733 s (f34921-f34927 every frame of root window 9168-9220, then f34930). Zoom panel at full. From f34924 two gold connector lines draw in: from the gold square's top-right corner to the panel's top-left, and from its bottom-right corner to the panel's bottom-left, crossing the thumbnail's red right side but clear of the zero at 1 (about 29 px right of it); panel gets a gold border. Even. No defect.",
+  "0215": "05_9 154.033-156.0 s. 154.033 s: a white x at the thumbnail's centre fading in (display 162, 166 on slot 1: the centroid of the three zero dots, so z = 0); notes under the thumbnail 'nearly square unless the derivative is 0, as at z = 0' (grey) and 'one tile of z^3 - 1, traced exactly' (gold) fading in; a tilted gold quadrilateral fading in at the panel centre, aligned with the mesh. All at full by 154.433 s and held to 156.0 s. True: f'(z) = 3z^2 vanishes only at 0, so tiles are nearly square everywhere else. No defect beyond the L1/L4 recurrences recorded on 0216.",
+  "0216": "05_9 156.15-158.65 s. State held. 3x crop (s0216-slot1-tile3x.png): the gold quadrilateral's edges sit on the mesh's shading steps, i.e. on the contour lines bounding one cell. Grey note peaks at about 143 levels on background 17 (about 5.8:1). 158.0 s: 'next: what one complex derivative demands' (white) fades in below the notes, full by 158.6 s. 3x crop of the notes (s0216-slot1-notes3x.png): 'as at z = 0' and 'one tile of z^3 - 1' set z upright (L4 recurrence) and the minus in 'z^3 - 1' is a short heavy hyphen (L1 recurrence)."
+ },
+ "findings": [
+  {"id": "L1", "sheet": "0216", "slot": 1, "frame": 35075, "severity": "Low",
+   "text": "Recurs in the 05_9 gold note 'one tile of z^3 - 1, traced exactly' (from 154.0 s, held to at least 158.65 s): the minus is a short heavy hyphen, not the math minus used in the thumbnail label 'z^3 - 1' above it."},
+  {"id": "L4", "sheet": "0216", "slot": 1, "frame": 35075, "severity": "Low",
+   "text": "Recurs in the 05_9 notes 'nearly square unless the derivative is 0, as at z = 0' and 'one tile of z^3 - 1, traced exactly': z is upright, while the thumbnail label just above sets it italic."}
+ ]}

@@ -1,0 +1,7 @@
+{"batch": 46, "viewed_utc": "2026-11-10T20:27Z",
+ "sheets": {
+  "0148": "05_6 80.8-80.917 s (f30554-f30561, every frame; f30561 is the last frame of root window 4772-4855). Portrait steady at full colour. f30560: the title 'f(z) = Gamma(z)' starts fading in at the right, evenly. No defect.",
+  "0149": "05_6 81.0-85.8 s. Title at full by 81.6 s. 82.717 s: yellow 'Gamma(n + 1) = n!' and 'Gamma(4) = 3! = 6', 'Gamma(5) = 4! = 24' fading in (full by 83.6 s); all true. Real-axis hue on slot 1 (row 290 of the tile): red (Gamma > 0) right of the pole at 0; teal on (-1, 0), red on (-2, -1), teal on (-3, -2), red on (-4, -3), teal beyond -4; colour switches at tile x about 318, 253, 190, 126, 66, about 64 px per unit, so poles at 0, -1, -2, -3, -4 as for Gamma. 85.8 s: a dashed white vertical line through the pole at 0 and the left half starting to dim. No defect.",
+  "0150": "05_6 85.95-86.6 s. Left half (Re z < 0) dimmed, right half at full; the dashed line is Re z = 0 through the pole at 0. 86.15 s: boxed 'integral works to the right' fading in at the top of the right half, full by 86.35 s; true (Euler's integral converges for Re z > 0). Box, line and the right column of notes clear of each other. No defect."
+ },
+ "findings": []}

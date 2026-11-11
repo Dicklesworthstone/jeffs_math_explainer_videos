@@ -1,0 +1,10 @@
+{"batch": 5, "viewed_utc": "2026-11-10T20:31Z",
+ "sheets": {
+  "0022": "01 92.033-92.150 s (f5522-f5529, every frame). 'coming up' panel: caption, domain-colouring thumbnail of z^2 and a small yellow circle, at full opacity. Main picture steady. No defect.",
+  "0023": "01 92.167-100.0 s. By 93.183 s (f5591) the second preview shows a tiny white tip inside the circle and the half-disk contour appears below; its white pole dot is in by 95.8 s (f5748). The tip is a defect: see M1 (crop crops/s0023-slot4-preview3x.png).",
+  "0024": "01 100.8-104.55 s. Steady 01_6 hold with the three previews; M1 visible on every frame. Last slot (f6273) opens root window 6273-6310. No other defect."
+ },
+ "findings": [
+  {"id": "M1", "sheet": 23, "slot": 3, "frame": 5591, "severity": "Medium-low (readability of a preview)",
+   "text": "In the 01_6 'coming up' panel, the middle preview is meant to be 'a loop with an arrow turning around zero' (the_bump.rs previews(): Arrow from 0 to polar(0.8, 0.9)). On screen there is only a detached white arrow tip, about 8 px wide at 960x540, floating inside the circle at about 0.4 of the radius, with no shaft and nothing touching the circle or the centre (crops/s0023-slot4-preview3x.png). It does not read as an arrow from zero. Probable cause: at the pinned franken_manim a399d626, Arrow::new trims buff = MED_SMALL_BUFF (0.25) at both ends (fmn-library line.rs:494, 619-626). The arrow is about 0.5 units long (circle radius 34 px at 960x540), so the shaft is trimmed to nothing. A buff(0.0) or Vector-style arrow would draw it. On screen from about 93.2 s to the 01_6 fade-out (sheets 23-25 and later); first sampled frame f5591."}
+ ]}

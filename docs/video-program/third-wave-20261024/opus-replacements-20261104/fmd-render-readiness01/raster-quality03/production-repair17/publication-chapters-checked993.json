@@ -1,0 +1,98 @@
+{
+  "utc": "2026-11-10T17:47:01.542804+00:00",
+  "master_summary_sha256": "38b52105520640e495ada17aa00da4ddbc16316a5a77c4568e102e1ca3adf185",
+  "description_sha256": "c78723f3dffe6476cf68afa56edb1b4d0cae372f44fc7d9596bd607a87f2fd0b",
+  "chapters": [
+    {
+      "chapter": "01_the_bump",
+      "start_frame": 0,
+      "timestamp": "0:00",
+      "title": "Why a smooth curve defeats its power series"
+    },
+    {
+      "chapter": "02_turning_numbers",
+      "start_frame": 6311,
+      "timestamp": "1:45",
+      "title": "Complex multiplication: stretch and turn"
+    },
+    {
+      "chapter": "03_two_planes",
+      "start_frame": 11683,
+      "timestamp": "3:14",
+      "title": "Watching functions move the plane"
+    },
+    {
+      "chapter": "04_reading_color",
+      "start_frame": 18932,
+      "timestamp": "5:15",
+      "title": "Reading a function in colour"
+    },
+    {
+      "chapter": "05_gallery",
+      "start_frame": 25706,
+      "timestamp": "7:08",
+      "title": "Polynomials, exponential, sine, gamma and zeta"
+    },
+    {
+      "chapter": "06_one_derivative",
+      "start_frame": 35585,
+      "timestamp": "9:53",
+      "title": "What a complex derivative demands"
+    },
+    {
+      "chapter": "07_one_point",
+      "start_frame": 45615,
+      "timestamp": "12:40",
+      "title": "Critical points, and a derivative at one point"
+    },
+    {
+      "chapter": "08_loop_sums",
+      "start_frame": 52106,
+      "timestamp": "14:28",
+      "title": "Contour integrals and Cauchy's theorem for squares and triangles"
+    },
+    {
+      "chapter": "09_boundary",
+      "start_frame": 67065,
+      "timestamp": "18:37",
+      "title": "Proving Cauchy's formula: the boundary decides the inside"
+    },
+    {
+      "chapter": "10_rigidity",
+      "start_frame": 83569,
+      "timestamp": "23:12",
+      "title": "Why holomorphic functions are rigid"
+    },
+    {
+      "chapter": "11_counting",
+      "start_frame": 91011,
+      "timestamp": "25:16",
+      "title": "Counting roots without finding them"
+    },
+    {
+      "chapter": "12_residues",
+      "start_frame": 102943,
+      "timestamp": "28:35",
+      "title": "Residues: the term that survives"
+    },
+    {
+      "chapter": "13_real_integral",
+      "start_frame": 106886,
+      "timestamp": "29:41",
+      "title": "Real integrals from complex poles"
+    },
+    {
+      "chapter": "14_continuation",
+      "start_frame": 117527,
+      "timestamp": "32:38",
+      "title": "Analytic continuation and its limits"
+    },
+    {
+      "chapter": "15_closing",
+      "start_frame": 129283,
+      "timestamp": "35:54",
+      "title": "Back to the opening puzzle"
+    }
+  ],
+  "scope": "Exact chapter times checked against completed master993; not publication or audiovisual acceptance."
+}

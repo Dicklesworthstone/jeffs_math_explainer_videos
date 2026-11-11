@@ -1,0 +1,495 @@
+{
+  "reviewer": "root",
+  "time": "2026-11-10T20:05:14.695514+00:00",
+  "master_sha256": "80244e88ca5970d0da07a5d96d6d825ae1851bae703d75bd200f8810b04e7b90",
+  "sheets_actually_viewed": [
+    {
+      "sheet": 1,
+      "sha256": "ee2f5602ee8eaf20bfc41be6c2f792402028d66c8cad1b713b342ff354b6e33b"
+    },
+    {
+      "sheet": 2,
+      "sha256": "0297ce6adca4b8280adba96d86518af356531adb2ef6b2569b241c3fc96d5b0a"
+    },
+    {
+      "sheet": 3,
+      "sha256": "7fdc34451602b2ebadf6ae1dffa8717aecba61d911d3df2ee56733683322bdc0"
+    },
+    {
+      "sheet": 4,
+      "sha256": "2414a1cbbfa0019631cb66323f1ecf223f32bd88ddf770566164a945f218fec8"
+    },
+    {
+      "sheet": 5,
+      "sha256": "9b0bd03168e2c798b109c4d5ab6cc062b49909be13d87e13c9ffed46436f2c9d"
+    },
+    {
+      "sheet": 6,
+      "sha256": "d1f2225b62b7248509a5b58cd18cb28ee6230210f2e002217a26f7db63313785"
+    },
+    {
+      "sheet": 7,
+      "sha256": "b086b3d2ac704343388614e259583e56d90a209eff62271cbbccaa447bf6d768"
+    },
+    {
+      "sheet": 8,
+      "sha256": "a9ce3c7b4c40ba5c3e32fc1f486a43e1bfee1df8b8d250e771c16f3215178743"
+    },
+    {
+      "sheet": 9,
+      "sha256": "37d6e759a3a9505a5ca5d73286ee320adb0fe8f859cded45ad3a9a97f81824b7"
+    },
+    {
+      "sheet": 10,
+      "sha256": "056372ae6ffa8f1de097bff47b9cb464f3e19483e6e4165e85a0d6164526f59c"
+    },
+    {
+      "sheet": 11,
+      "sha256": "243998b0388ead85ccd677803221a95a6e61ff229906abb694059359af8ad68c"
+    },
+    {
+      "sheet": 12,
+      "sha256": "11a140626fa9796288b81c708ab102f109325f6ecba26ab986aaa334fdf54d55"
+    },
+    {
+      "sheet": 13,
+      "sha256": "b94a44b872feceebbfdd781d91af480a0b00bf2672a800e54ecd6cfdda89e0d2"
+    },
+    {
+      "sheet": 14,
+      "sha256": "1c447037733f176122e40ed1d93bef2adeac53fe94b1fba74f1ae065951aed56"
+    },
+    {
+      "sheet": 15,
+      "sha256": "7c9d824d8535f3bc22da7223913d2ee91130516a65de1cd974238d9b69abfef1"
+    },
+    {
+      "sheet": 16,
+      "sha256": "afd51a5560cad27af313b329de94cf2712fda90c394e572779ec4796f155dc75"
+    },
+    {
+      "sheet": 17,
+      "sha256": "ef37d0292b5c966c3f45042a49a6b559dee2b27bcbbc061816143a0afa925b69"
+    },
+    {
+      "sheet": 18,
+      "sha256": "d261dced379b167d9d5dca57ade8fc4d43b12a4985642f3e9a3a45a696d15d2d"
+    },
+    {
+      "sheet": 19,
+      "sha256": "df3732905e68f0ffc63c91ca08a530bb3f8fbafa8f3cd4af4cfcb379f1e35a9e"
+    },
+    {
+      "sheet": 20,
+      "sha256": "4ec7eb8221b749c1735224a3f87f600b4794f701a57ddc9aabb2d9501a4c0da7"
+    },
+    {
+      "sheet": 21,
+      "sha256": "eaceb3109e5fe87c99b22c01c697203291f78bdd19506671bb2a4d9acd0554d7"
+    },
+    {
+      "sheet": 22,
+      "sha256": "a06d29e0e461ac7c30cef517ec3f1aec888f355a6ce0c10c918790e38fd52096"
+    },
+    {
+      "sheet": 23,
+      "sha256": "e27219e66525dcbfed699d2811d453d79e57ecd0e6cc048c392e15bb4b7c8558"
+    },
+    {
+      "sheet": 24,
+      "sha256": "e03a33b3927f0b1c884962a41549c39caa1aec3e9b16b1b62f6dd21f25324f1a"
+    },
+    {
+      "sheet": 25,
+      "sha256": "cbd2dd67bcbf5876ec44f54ea50b761074a580ded75c91e33d3d4ddaa934e433"
+    },
+    {
+      "sheet": 26,
+      "sha256": "4507d16f87482e861256296392d26f3e0e33dc4f636b68d0b63298af535d6e47"
+    },
+    {
+      "sheet": 27,
+      "sha256": "f3d7ba7089490a44d7e302fe3cfbdcc1ebedf926a8b9c7f3fb3567a688062665"
+    },
+    {
+      "sheet": 28,
+      "sha256": "1e7417d63f9e92c62d98e5688f53b6571fcff51c9bdf028121e1d2b90a9bfb39"
+    },
+    {
+      "sheet": 29,
+      "sha256": "78c6cd78cdddbd6948c93025b7eda32fc7409e6b78a3b00b211e7229040feb98"
+    },
+    {
+      "sheet": 30,
+      "sha256": "c054cd8d153de503e31805215a9199cff200e7b78c4d205265b645a0ab4817fa"
+    },
+    {
+      "sheet": 31,
+      "sha256": "0868dd2831fb25aaafc1e69f1f24061018f7ad9f34ffd04ea08f0fb80b8a9595"
+    },
+    {
+      "sheet": 32,
+      "sha256": "4959abee23b4c1871aa7a7cac374da80044773a394e12cc9cc89891b6117b6d4"
+    },
+    {
+      "sheet": 33,
+      "sha256": "88497144c86941446aa891795ed0b2870a1ab8cc84b2aed5e8b432d10eb23779"
+    },
+    {
+      "sheet": 34,
+      "sha256": "1e5d149b8b6f7307800ed9906210b5515d5dbf52ba15c5d328d4dbba1059f23c"
+    },
+    {
+      "sheet": 35,
+      "sha256": "dea858c3a787b9d15634c09e3dd6119d5605e4f0afbb5bd686fde7cdabab4de9"
+    },
+    {
+      "sheet": 36,
+      "sha256": "fca92f6de182a6858f0e060445e91f4cd97203ab23a39a3fd3d282eb6cedf7fc"
+    },
+    {
+      "sheet": 37,
+      "sha256": "43dcdc113ef105651409187db5e5ba4c81e33335972159b7f1388423e43db54c"
+    },
+    {
+      "sheet": 38,
+      "sha256": "8168b68338bcae3c4d8369faca51af19bea6c6b50f8542c6d2a20672a1645f9a"
+    },
+    {
+      "sheet": 39,
+      "sha256": "5bbc3521f45a258e15c719f325c8a13b54b5008be921a7a3a6a3b0f5e8de7d82"
+    },
+    {
+      "sheet": 40,
+      "sha256": "b0662a09ec72182c69aa9a5e059673bdcfec37f7765d9fad41a2483adeac2a3d"
+    },
+    {
+      "sheet": 41,
+      "sha256": "384746b34c2728a67b63f401ac41362bf0b394148113ded750294aa8ac09bbab"
+    },
+    {
+      "sheet": 42,
+      "sha256": "745f187e66a6a3086903646c2df01fe05def25a60d4c12596ce352de4a110828"
+    },
+    {
+      "sheet": 43,
+      "sha256": "2c226bd81b1acec23feb01b69698f210afd329cf9490cd8c14f0579f2bf375e0"
+    },
+    {
+      "sheet": 44,
+      "sha256": "df52e3ccd3bbcef295fcebff6338eb51e611c7dcd2d30e515ed39acd5d730118"
+    },
+    {
+      "sheet": 45,
+      "sha256": "81f7eed8a1759719406397b739825c6facc14a23f49951a5b9589e625030f602"
+    },
+    {
+      "sheet": 46,
+      "sha256": "83d700225ea2e313901a28f7de65da72f0380eb2b190be839ca69493f146901e"
+    },
+    {
+      "sheet": 47,
+      "sha256": "036f905e18ad89a4abc1929dd2269e703ceb71421ae3c6e8d5107dc209258506"
+    },
+    {
+      "sheet": 48,
+      "sha256": "4d17a9dd7704211dd1dbe442a03c21433c3113e73387e3f24c172aabca92ad20"
+    },
+    {
+      "sheet": 49,
+      "sha256": "7245003573bc84c5e113f6846eafc5baa4a799099b70b786981a5f992c47b91f"
+    },
+    {
+      "sheet": 50,
+      "sha256": "df23dfaebfdbd332a95bedba5b0419366ef732ae999d218caf6612e3e5045528"
+    },
+    {
+      "sheet": 51,
+      "sha256": "146c9832f8ad97dbad94f2c1f8bd80a700107b2bcf312f561460ee01558978ca"
+    },
+    {
+      "sheet": 52,
+      "sha256": "90d45a467d4dd56b163eb40258e8357577af7cc104e09561ed9c8d2724b46518"
+    },
+    {
+      "sheet": 53,
+      "sha256": "6b415f369bd1aca974b01c135a80e9afd911a2337b8ba4f967c50053013880c1"
+    },
+    {
+      "sheet": 54,
+      "sha256": "f46c35c7dfda54d9d53b8968a01bbfcd3169089b1ae8433f29458425afc070cc"
+    },
+    {
+      "sheet": 55,
+      "sha256": "ac9ae13c3c0d3bddb0c1d6aee6a669601b505f4a8900f6e7824de956b01b0e94"
+    },
+    {
+      "sheet": 56,
+      "sha256": "fe4e2dde09bce51c9da39721e6d92cd72b6b825947601607af41c4f53b83e6b4"
+    },
+    {
+      "sheet": 57,
+      "sha256": "d5cc3816f664db374d45fde7eea4396eddaa2fde5b75ca2b1f3dad24a3459bcf"
+    },
+    {
+      "sheet": 58,
+      "sha256": "92dab5ceef785b1950f052392d68c9b3e4db97f1c837c03d6d1536022fd5598b"
+    },
+    {
+      "sheet": 59,
+      "sha256": "93d7fdde3672c70ab39b0bebb320978433ad7620dc7801ad3eb62f39ac33f520"
+    },
+    {
+      "sheet": 60,
+      "sha256": "9b7862418d1938556b3673691550815185135632e2798b7a34f7faefee360294"
+    },
+    {
+      "sheet": 61,
+      "sha256": "e88c9b5299504514fda5483c4a46de5629ccc5af61708ec2365fcaa0239c6b55"
+    },
+    {
+      "sheet": 62,
+      "sha256": "46f4552211832043340b93f304f57d2308eaf744fbc5cfbe82b7f5db6bacb391"
+    },
+    {
+      "sheet": 63,
+      "sha256": "bd801ec59742412d5e87ba837fd0de85e2f8be0796750031647aa736376c610b"
+    },
+    {
+      "sheet": 64,
+      "sha256": "509e19a2d0de4cb3de6372c97a73c4473e07bca216e04879f69da7d01e16e02d"
+    },
+    {
+      "sheet": 65,
+      "sha256": "eb8a5e6b7e444444935919699267bc5af347f99648c9d56bd5dcf39fabffb960"
+    },
+    {
+      "sheet": 66,
+      "sha256": "eb08c99276010b9931e0aebbfe8cc716da97a4d89b39d3249adc2a56157e700d"
+    },
+    {
+      "sheet": 67,
+      "sha256": "dc18aa8d518170db587f6d49a7572fca24bdd91717b47e1693b964f50eb6273a"
+    },
+    {
+      "sheet": 68,
+      "sha256": "99ace2aca7768bd5da81f87c6d87095c6165e3602187d270f97104b8ee3bc2cd"
+    },
+    {
+      "sheet": 69,
+      "sha256": "f174cd201b5f4c715f0abd2ee66187b2f4fd08e2e71c72d32ead8ee45662e6bd"
+    },
+    {
+      "sheet": 70,
+      "sha256": "5b4869f99101778f9eb19b0a80b9fc8c00a303f824850b51085c54068015db9e"
+    },
+    {
+      "sheet": 71,
+      "sha256": "cd772a2686c7743039182cfa28e01dd15094ae0ba15418cec3bc64d257986d32"
+    },
+    {
+      "sheet": 72,
+      "sha256": "22279e637de13a0cbc79176d69657006478decb2b6fd0e303a0e13f73edc5eb8"
+    },
+    {
+      "sheet": 73,
+      "sha256": "df8867290ebe1f1fccaf19a31bc48a404e16374c1d0c41d293fd49e69d445336"
+    },
+    {
+      "sheet": 74,
+      "sha256": "733164b3bce4ae46e50ab305b992d587a0bee982e8f8cc400a4ee21c0f1b768e"
+    },
+    {
+      "sheet": 75,
+      "sha256": "ce479716bdfe57e294bf98a1313dbbcc9fd6422eaf49aebce9df1f17a711c1ca"
+    },
+    {
+      "sheet": 76,
+      "sha256": "4b5dae70c079b395dbbd1512755d211acb0b7d47746123ae2af8c57de27567b1"
+    },
+    {
+      "sheet": 77,
+      "sha256": "59d6d36bfe695d2524fe54c1d9671930005d3b421889e8432809ebb0e8c91a93"
+    },
+    {
+      "sheet": 78,
+      "sha256": "4f951408d5897e310a4a00893047c5dc7210e72e29b3c143a6c485b02935dc20"
+    },
+    {
+      "sheet": 79,
+      "sha256": "075f4a31751de2575cc77bc61914a29aaf6ffa4cfd35480d918441859f61ee0e"
+    },
+    {
+      "sheet": 80,
+      "sha256": "87cf5e8d7ec6815f587773f7f8c7a63f0728267983acde0065d51d917aa99847"
+    },
+    {
+      "sheet": 81,
+      "sha256": "2fab0732f18088e2a0c4f1076b0023c8145c3fd120d0d540e48a2f95393771ee"
+    },
+    {
+      "sheet": 82,
+      "sha256": "473a3f652b9f3a7a9b2d9b2634c13967a74abafc105b9606836c5b267f463f5b"
+    },
+    {
+      "sheet": 83,
+      "sha256": "6db33139b9f44b40bf354b8a4d7f91ce7873b76b072ab02b92160459480cfa6c"
+    },
+    {
+      "sheet": 84,
+      "sha256": "dae7e8aadf22a278baa026d4f44a167eee8d80a33f8f869c2f8b8b84677f3193"
+    },
+    {
+      "sheet": 85,
+      "sha256": "47de4c0f78340ad9cd68c0bb7842a0f88aa62ccd717a0dfe9ce8be73dc2c9434"
+    },
+    {
+      "sheet": 86,
+      "sha256": "932e34bc6e336b6519e50ea2afba0d3be95785453a4f73ec9344eb6d0f4bef11"
+    },
+    {
+      "sheet": 87,
+      "sha256": "cbf2d6fcb5b18c001cf7706a3509f4b4f5a01013752625e9e1ea626bf3be5bac"
+    },
+    {
+      "sheet": 88,
+      "sha256": "cd0e8a21ea97edbf95a0f3ae753e4da37b75be547bd195b1b0ea7ee5be9af5d1"
+    },
+    {
+      "sheet": 89,
+      "sha256": "129d66cb50eea9e01927357dbe43f78740facea9089296fcf58026607b5f9ebb"
+    },
+    {
+      "sheet": 90,
+      "sha256": "bae4889803a55d5466658be49c4bbe1c0bc08bb1459f551dee5490476d351ebe"
+    },
+    {
+      "sheet": 91,
+      "sha256": "fba544ecdcbb8c36b1c576d593f1934fc788d8c65bdbd8ec013541a72805fce8"
+    },
+    {
+      "sheet": 92,
+      "sha256": "8e0e5a935324f95e244fd1e7eec3241b36a25200d7ebf57d71e815ce97712197"
+    },
+    {
+      "sheet": 93,
+      "sha256": "f7a99d53f968be396ab73e2502886203e4cbbd1611286ccb19d0bb3a34f84aac"
+    },
+    {
+      "sheet": 94,
+      "sha256": "01aba559e1e3b90d52e9ea36c428d0688b292502ee3ddf4b2e6cc15598d01d17"
+    },
+    {
+      "sheet": 95,
+      "sha256": "cf164bcad380184ff4eb514f89290f666386dad9a908d2de3c0c8cfb08e8330a"
+    },
+    {
+      "sheet": 96,
+      "sha256": "5e89ac0102b36e64ab0666bca5ee418062395e7d68e5fe1a7a872f617ed09202"
+    },
+    {
+      "sheet": 97,
+      "sha256": "9eede2888ab679d92a8e3b29c45b736e5eaa05b468d2002fddafe8a1f1912060"
+    },
+    {
+      "sheet": 98,
+      "sha256": "405892301fad1382aabf6439764543ce5c593e67d7d4c621ae06e039080e2bf9"
+    },
+    {
+      "sheet": 99,
+      "sha256": "e2fc1178051aabc47418d4fb85da2b30869f3eece1d988c253fb2ce34b8e1d4e"
+    },
+    {
+      "sheet": 100,
+      "sha256": "c0f1adde95e05cbec543d93b7579c65abb2ea4f08fe51f794c972cdf02abc085"
+    },
+    {
+      "sheet": 101,
+      "sha256": "5d62d0a31e341186f4253a1d61832c3098f51cc9dcfbb078c87ba0e2c656b52e"
+    },
+    {
+      "sheet": 102,
+      "sha256": "c0b8db6b71c33ed7816646426c07b274bc54f67f195e820ce5f5ae7e07ab3ea7"
+    },
+    {
+      "sheet": 103,
+      "sha256": "20fa91844c8f16c168d4c68a7ae8229ba61aa616f4d95f1edf6f1063c6eb2a75"
+    },
+    {
+      "sheet": 104,
+      "sha256": "8f10b0ff97d471f5cf5738a591f064e2ba84d9289b2933bca262d8f182ecb6f6"
+    },
+    {
+      "sheet": 105,
+      "sha256": "b7df3349f1bf1c18c4257376beb6c492432260ea5db028c516c57bf4fc23bdff"
+    },
+    {
+      "sheet": 106,
+      "sha256": "44904626e922a95a59e081f424895a72a2477bdd8622eec3f7dc80d1ace8224e"
+    },
+    {
+      "sheet": 107,
+      "sha256": "9e9fa564674ae5f296cdf9fa038caafa851703330c80c6dbf774e4ed9627e4a0"
+    },
+    {
+      "sheet": 108,
+      "sha256": "dc07bbba7796b3482c6430cdda39d42ba6ba119aba7b930f1bf4789a3c5c5546"
+    },
+    {
+      "sheet": 109,
+      "sha256": "3146a3c719e578a312cc22d17ab5b470799d92e5b7367a1af36cdf8075ffd78a"
+    },
+    {
+      "sheet": 110,
+      "sha256": "fcec088300051bd99d1d0963a4379e410ab3c25fd6fd340518b0b3ae7686833d"
+    },
+    {
+      "sheet": 111,
+      "sha256": "4a990cfe503d0e0a9f42cb44ef92e46b478678f739454b53f6f1a2baecc8ce58"
+    },
+    {
+      "sheet": 112,
+      "sha256": "30feb2af9de2c51828f5c5b5140c22669192f84556f5c54d8b75242592865f31"
+    },
+    {
+      "sheet": 113,
+      "sha256": "bd66d749f9eea630425e47ba232ac68aabcbb0eb28b2565cbb5731d23d6d0744"
+    },
+    {
+      "sheet": 114,
+      "sha256": "66e64cf11fba7f3809f42e1571baeddee23a1c4a3a038264049dd7c38f2da94a"
+    },
+    {
+      "sheet": 115,
+      "sha256": "19205459167f7b69b22bd22dd40b8c77ff745383340da7c96339c508f37390ba"
+    },
+    {
+      "sheet": 549,
+      "sha256": "4b20a477c35ff9b02388a106a225d0270ce284cc93a7720c5c9de0bbf45333af"
+    }
+  ],
+  "samples_viewed": 928,
+  "observations": [
+    "Opening fades from background into axes and bump formula; curve draws left to right with gold tip. No concrete overlap or clipping in these selected samples.",
+    "Sheets5-8: power-series approximations and degree readout appear clear; early degree changes precede curve transition in sampled stills, motion/sync not established.",
+    "Sheets9-24: recipe/bump comparison, poles and convergence circle, then preview panel remain separated; no concrete clipping in selected samples.",
+    "Sheets25-36: chapter fade and addition/rotation/multiplication examples readable; green label near panel edge remains visible.",
+    "Sheets37-41: successive multiplication by 1+i reaches 2i with 90-degree turn and stretch 2; labels and result panel clear, then fade.",
+    "Sheets42-44: two-plane introduction and square-map modulus/argument relationship readable; no concrete overlap found.",
+    "Sheets45-50: square-map radius/turn demonstration, curved grid and right-angle marks readable. Turns independently round (1.00 vs1.99 briefly), then settle1.00/2.00; no mathematical error inferred from rounding.",
+    "Sheets51-57: reciprocal mapping, zero exclusion and exponential circles/periodicity clear. Formula panel shows faint underlying lines but text remains readable at overview scale.",
+    "Sheets58-60: chapter transition and color-wheel/domain-color fade visible; no stray bright object or concrete label overlap identified.",
+    "Sheets61-68: dense color-field fade samples retain a stable layout and clean separation from wheel; no concrete clipping found.",
+    "Sheets69-72: direction/color pointers and modulus bands match visible legend; labels readable and no overlap found at overview scale.",
+    "Sheets73-83: square-map two hue cycles, zero-order panel, reciprocal negative cycle and bump poles readable. Bottom explanatory panel masks field when settled; transient fade shows field behind it. No settled text obstruction found.",
+    "Sheet549 root confirms grey magnifier connector lines terminate before the zoom circle. Cosmetic discontinuity, inset interpretation and equations remain readable. Motion/persistence and native detail not yet adjudicated; preserve CC2 Low finding.",
+    "Sheets84-90: closing domain-coloring panel and fade remain clear once settled; no stray bright labels in fade samples.",
+    "Sheets91-99: dense gallery fade samples show stable three-root field; polynomial label and unit-circle roots become visible without concrete clipping.",
+    "Sheets100-103: polynomial three-turn demonstration and rational-function zero/pole-order-two example remain readable, with output marked sizes squashed. Labels clear of marked zeros/poles in selected samples.",
+    "Sheets104-108: rational-function pole-order-two hold remains legible, then field and labels fade without bright remnants in selected frames.",
+    "Sheets109-115: exponential field fades in, stable repeated hue bands and modulus grid; no zeros/no poles and direction set by height labels clear. No concrete clipping/overlap found in these overview samples."
+  ],
+  "scope": "Sheets1-115 and549 actually displayed and inspected. Resized contact sheets, not native4K, listening, continuous motion or fine sync.",
+  "remaining_sheets": 928,
+  "publication_ready": false
+}

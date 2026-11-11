@@ -1,0 +1,240 @@
+CC2 candidate03 (recommended) for final995 chapter 09: M1-M4, 09_9 card, L14, leader for a. Uncompiled, unrendered; root integrates.
+From:   boundary.rs sha256 511f4492cdbe7b632710f4121cee2da032baeee670f2e83531c4272f0c86b6a7 (candidate01, reviewed by CC1 boundary-review01)
+To:     boundary.rs sha256 4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932
+Paths are relative to the complex_analysis_visual crate root: git apply -p1 there.
+
+--- a/src/chapters/boundary.rs
++++ b/src/chapters/boundary.rs
+@@ -144,7 +144,9 @@
+ pub const BOUND_R: f64 = 0.3;
+ pub const SMALL_R: f64 = 0.18;
+ pub const MID_R: f64 = 0.12;
+-pub const SHRUNK_R: f64 = 0.045;
++/// Final review 995, L14: at 0.045 the shrunk circle's line (width 4) met the hole's ring
++/// (width 3). Stopping here leaves a gap of 7.6 native pixels between the two lines.
++pub const SHRUNK_R: f64 = 0.06;
+ /// The hole at a: a ring this wide (scene units), never crossed by the small circle.
+ pub const HOLE: f64 = 0.07;
+ /// The polygons as tiled into triangles, and the most sides they gain (both powers of two:
+@@ -174,14 +176,15 @@
+ /// to its right. Held still, a name is crossed, since the circle passes every radius from SMALL_R
+ /// down to SHRUNK_R; ρ also jumped from RHO_AT to the updater's place. Each stands this far (scene
+ /// units) beyond the line's centre: half the line (width 4), a 0.045 gap, then half its ink on that
+-/// side (a 25 native pixels high, ρ 30 wide, at 270 per unit). At SHRUNK_R, a is 3 native pixels
++/// side (a 25 native pixels high, ρ 30 wide, at 270 per unit). At SHRUNK_R, a is 12 native pixels
+ /// above A_AT.
+ pub const A_RIDE: f64 = 0.02 + 0.045 + 12.5 / 270.0;
+ pub const RHO_RIDE: f64 = 0.02 + 0.045 + 15.0 / 270.0;
+ /// a's name on the picture, from its centre (09_1 on; 09_8's slide carries it with the centre).
+ pub const A_NAME_FROM_CENTRE: C = C::new(0.18, -0.2);
+-/// The disks of 09_7 (about 0, out to 1) and 09_9 (about 1, out to √2) grow through a's name, so
+-/// the name keeps its place and makes way: hidden while the disk's radius (plane units) is in this
++/// 09_7's disk, centred on 0, and 09_9's, centred on 1, each grow from radius 0.001 (out to 1 and
++/// to √2) through a's name, which stands at the same place from each centre. The name keeps its
++/// place and makes way: hidden while the disk's radius (plane units, its tracker's value) is in this
+ /// range, where its line (width 5) comes within 0.035 of the name's ink (35 x 38 native pixels at
+ /// 302 per plane unit, 0.18 to 0.35 from the centre), and fully back `A_NAME_EASE` either side.
+ pub const A_NAME_HIDDEN: [f64; 2] = [0.11, 0.43];
+@@ -297,6 +300,19 @@
+ pub fn shrink_names(r: f64) -> [C; 2] {
+     let unit = close_up().unit();
+     [C::new(0.0, r + A_RIDE / unit), C::new(r + RHO_RIDE / unit, 0.0)]
++}
++
++/// The ends of a's leader while the small circle has radius `r`. Riding the line, a's name is
++/// always nearer the circle than the hole it names; this thin line ties it to the hole. It runs
++/// on the vertical through a, from just outside the hole's ring up to just under a's ink, and
++/// each end stops 0.02 short.
++pub fn a_leader(r: f64) -> [C; 2] {
++    let unit = close_up().unit();
++    let foot = A_RIDE - 12.5 / 270.0;
++    [
++        C::new(0.0, (HOLE + 0.015 + 0.02) / unit),
++        C::new(0.0, r + (foot - 0.02) / unit),
++    ]
+ }
+ 
+ /// How much of a's name shows while a disk of radius `r` about its centre grows past it (see
+@@ -857,6 +873,12 @@
+         let [a_from, rho_from] = shrink_names(SMALL_R);
+         let ca_out = kit.tex(stage, "a", 20.0, Palette::ink(), &[], cp.p(a_from))?;
+         let rho_out = kit.tex(stage, RHO_TEX, 22.0, output(), &[], cp.p(rho_from))?;
++        let [low, high] = a_leader(SMALL_R);
++        let leader = stage.arena_mut().add(
++            polyline(vec![cp.p(low), cp.p(high)])
++                .style(faded_line(Palette::ink(), 1.5, 0.6))
++                .build(),
++        );
+         let mut leaving = small_arrows;
+         leaving.extend([ca, rho]);
+         fade_out_all(stage, &leaving, 0.2)?;
+@@ -865,7 +887,7 @@
+             .arena_mut()
+             .add(polyline(bar_points(SMALL_R)).style(line_style(output(), 12.0)).build());
+         let bar_name = kit.tex(stage, BAR_TEX, 24.0, output(), &[], v(GAP_X, GAP_MID + 0.35))?;
+-        fade_in_all(stage, &[bar, bar_name, ca_out, rho_out], 0.3)?;
++        fade_in_all(stage, &[bar, bar_name, ca_out, rho_out, leader], 0.3)?;
+         let anchor = stage.arena_mut().add(VMobject::new());
+         stage.add_to_scene(anchor)?;
+         stage.add_updater(
+@@ -877,6 +899,8 @@
+                 let [a_at, rho_at] = shrink_names(r);
+                 a.move_to(ca_out, cp.p(a_at), ORIGIN);
+                 a.move_to(rho_out, cp.p(rho_at), ORIGIN);
++                let [low, high] = a_leader(r);
++                let _ = a.set_points(leader, polyline(vec![cp.p(low), cp.p(high)]).build().points());
+             },
+             true,
+         )?;
+@@ -896,7 +920,7 @@
+         fade_in_all(stage, &[zero], 0.3)?;
+         line.wait_for(stage, "The second piece contributes nothing")?;
+         let mut proof_gone = vec![
+-            outer, small, hole, ca_out, rho_out, g_name, zero, dashes, bound, inside, bar, bar_name,
++            outer, small, hole, ca_out, rho_out, leader, g_name, zero, dashes, bound, inside, bar, bar_name,
+         ];
+         proof_gone.extend(circle_arrows);
+         fade_out_all(stage, &proof_gone, 0.4)?;
+@@ -1927,7 +1951,7 @@
+     /// Final review 995, M2 and M3: ρ's name jumped from RHO_AT onto the dashes as the shrink
+     /// began, and a's name, held at A_AT, was crossed by the shrinking circle. Both now ride
+     /// outside the circle's line at every radius it passes, clear of it, the dashes, the hole's
+-    /// ring and each other; a ends beside the hole, where A_AT had it.
++    /// ring and each other; a comes to rest straight above the hole, 12 native pixels above A_AT.
+     #[test]
+     fn the_shrinking_circle_never_crosses_a_or_rho() {
+         // ρ's ink at size 22: 25 x 42 native pixels, widened to 30 for the overview's reading
+@@ -1948,7 +1972,16 @@
+             assert!(gap(&names[0], &names[1]) > CLEAR, "{r}: a and ρ");
+         }
+         let [a_end, _] = shrink_names(SHRUNK_R);
+-        assert!(apart(cp.p(a_end), cp.p(A_AT)) * PX < 4.0);
++        assert!(apart(cp.p(a_end), cp.p(A_AT)) * PX < 12.5);
++    }
++
++    /// Final review 995, L14: at 0.045 the shrunk circle's line (width 4) met the hole's ring
++    /// (width 3). Where the shrink stops now, a drawn gap of more than 7 native pixels stays
++    /// between them.
++    #[test]
++    fn the_shrunk_circle_keeps_apart_from_the_hole_ring() {
++        let drawn_gap = (SHRUNK_R * close_up().unit() - 0.02) - (HOLE + 0.015);
++        assert!(drawn_gap * PX > 7.0, "{}", drawn_gap * PX);
+     }
+ 
+     /// The shrink's names are made where its first frame puts them, and they leave and come back
+@@ -1966,7 +1999,7 @@
+         for wanted in [
+             "let [a_from, rho_from] = shrink_names(SMALL_R);",
+             "fade_out_all(stage, &leaving, 0.2)?;",
+-            "fade_in_all(stage, &[bar, bar_name, ca_out, rho_out], 0.3)?;",
++            "fade_in_all(stage, &[bar, bar_name, ca_out, rho_out, leader], 0.3)?;",
+             "let [a_at, rho_at] = shrink_names(r);",
+         ] {
+             assert_eq!(shrink.matches(wanted).count(), 1, "{wanted}");
+@@ -1974,31 +2007,33 @@
+         assert!(!shrink.contains("r + 0.06"));
+     }
+ 
+-    /// Final review 995, M4: the disks of 09_7 (about 0, out to 1) and 09_9 (about 1, out to √2)
+-    /// grew through a's name, which stands at the same place from each centre. It keeps its place
+-    /// and makes way: hidden whenever a disk's line comes within CLEAR of its ink, fully shown as
+-    /// each disk starts and stops.
++    /// Final review 995, M4: 09_7's disk, centred on 0, and 09_9's, centred on 1, each grow from
++    /// radius 0.001 (to 1 and to √2) through a's name, which stands at the same place from each
++    /// centre. It keeps its place and makes way: hidden whenever a disk's line comes within CLEAR
++    /// of its ink, fully shown as each disk starts and stops.
+     #[test]
+     fn the_growing_disks_never_draw_through_a() {
+         // a's ink at size 28: a's 24 x 25 native pixels at 20, scaled, then widened to the
+         // overview's reading
+         const A_NAME_HALF: (f64, f64) = (17.5 / PX, 19.0 / PX);
+         let p = picture();
+-        let (centre, unit) = (p.p(ZERO), p.unit());
+-        let (inmost, outmost) = reach(centre, &label_box(p.p(A_NAME_FROM_CENTRE), A_NAME_HALF));
+-        let ends = [num("bump.radius0"), num("recentre1.radius")];
+-        let mut hidden = 0;
+-        for k in 0..=4000 {
+-            let r = 1e-3 + (ends[1] - 1e-3) * f64::from(k) / 4000.0;
+-            // the disks' lines are width 5
+-            if r * unit + 0.025 + CLEAR > inmost && r * unit - 0.025 - CLEAR < outmost {
+-                assert!(a_name_shown(r) < 1e-12, "{r}");
+-                hidden += 1;
++        let unit = p.unit();
++        for (at, end) in [(ZERO, num("bump.radius0")), (C::real(1.0), num("recentre1.radius"))] {
++            let name = label_box(p.p(at + A_NAME_FROM_CENTRE), A_NAME_HALF);
++            let (inmost, outmost) = reach(p.p(at), &name);
++            let mut hidden = 0;
++            for k in 0..=4000 {
++                let r = 1e-3 + (end - 1e-3) * f64::from(k) / 4000.0;
++                // the disks' lines are width 5
++                if r * unit + 0.025 + CLEAR > inmost && r * unit - 0.025 - CLEAR < outmost {
++                    assert!(a_name_shown(r) < 1e-12, "{r}");
++                    hidden += 1;
++                }
+             }
+-        }
+-        assert!(hidden > 0);
+-        for r in [1e-3, ends[0], ends[1]] {
+-            assert!(a_name_shown(r) > 1.0 - 1e-12, "{r}");
++            assert!(hidden > 0, "{end}");
++            for r in [1e-3, end] {
++                assert!(a_name_shown(r) > 1.0 - 1e-12, "{r}");
++            }
+         }
+     }
+ 
+@@ -2010,6 +2045,22 @@
+         let source = include_str!("boundary.rs");
+         let film = source.split("\n#[cfg(test)]\nmod tests {").next().unwrap();
+         assert_eq!(film.matches("a.set_opacity(a_name, a_name_shown(r), true);").count(), 2);
++        // what the geometry test above assumes: each disk starts at radius 0.001 about its centre
++        // and grows to its fact, and 09_8's slide leaves a's name at 1 + A_NAME_FROM_CENTRE
++        for wanted in [
++            "let disk = stage.add_value_tracker(1e-3);",
++            ".map(|k| p.p(C::polar(r, TAU * f64::from(k) / 120.0)))",
++            "stage.play(tween_linear(disk, fact_f64(\"bump.radius0\")?, rt)?)?;",
++            "a.move_to(a_name, p.p(c + A_NAME_FROM_CENTRE), ORIGIN);",
++            "stage.play(tween_linear(slide, 1.0, 1.8)?)?;",
++            "let unit = p.circle(stage, C::real(1.0), 1e-3, hero(), 5.0)?;",
++            "let grow = stage.add_value_tracker(1e-3);",
++            ".map(|k| p.p(C::real(1.0) + C::polar(r, TAU * f64::from(k) / 160.0)))",
++            "let radius = fact_f64(\"recentre1.radius\")?;",
++            "stage.play(tween_linear(grow, radius, rt)?)?;",
++        ] {
++            assert_eq!(film.matches(wanted).count(), 1, "{wanted}");
++        }
+         let disk_in = film
+             .find("fade_in_all(stage, &[unit, reach1, reach_name[0], reach_name[1]], 0.3)?;")
+             .unwrap();
+@@ -2019,4 +2070,30 @@
+         let growth = film.find("let grow = stage.add_value_tracker(1e-3);").unwrap();
+         assert!(disk_in < card_up && card_up < growth);
+     }
+-}
++
++    /// CC1's review of candidate01 (Medium): riding the circle, a's name could read as a moving
++    /// centre. The leader ties it to the fixed hole it names: at every radius of the
++    /// shrink it stops short of the hole's ring and of a's ink, crosses the circle's line once, and
++    /// stays clear of ρ.
++    #[test]
++    fn the_leader_runs_from_the_hole_up_to_a() {
++        const RHO_HALF: (f64, f64) = (15.0 / PX, 21.0 / PX);
++        let cp = close_up();
++        let (centre, unit) = (cp.p(ZERO), cp.unit());
++        for k in 0..=1000 {
++            let r = SHRUNK_R + (SMALL_R - SHRUNK_R) * f64::from(k) / 1000.0;
++            let [low, high] = a_leader(r);
++            let [a_at, rho_at] = shrink_names(r);
++            let (low, high) = (apart(cp.p(low), centre), apart(cp.p(high), centre));
++            // the leader is width 1.5; the circle's line width 4, the hole's ring width 3
++            assert!(low - 0.0075 > HOLE + 0.015, "{r}: the hole");
++            assert!(high + 0.0075 < apart(cp.p(a_at), centre) - A_HALF.1, "{r}: a");
++            assert!(low < r * unit - 0.02 && high > r * unit + 0.02, "{r}: the circle");
++            let rho_left = label_box(cp.p(rho_at), RHO_HALF)
++                .iter()
++                .map(|q| q[0])
++                .fold(f64::INFINITY, f64::min);
++            assert!(rho_left - centre[0] - 0.0075 > CLEAR, "{r}: ρ");
++        }
++    }
++}

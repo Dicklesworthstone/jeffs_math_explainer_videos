@@ -1,0 +1,17 @@
+{
+ "files": {
+  "apply/counting.rs": "21c5043a3339cfadb10024a2e8227a62a0b06674139eace1a0d9029a4e1aa0db",
+  "fmt/base.rs": "ecff48f7ca1aea98b3ac8eac65ffe8f4a74d5366fd30ce25546def3b627339d1",
+  "fmt/candidate.rs": "21c5043a3339cfadb10024a2e8227a62a0b06674139eace1a0d9029a4e1aa0db",
+  "inputs/candidate.patch": "39fe90eaef2cc609f8f4215959575dc285cde7c0b2876206fb1d4dc16b5dc7cd",
+  "inputs/counting.rs": "21c5043a3339cfadb10024a2e8227a62a0b06674139eace1a0d9029a4e1aa0db",
+  "inputs/handoff.json": "9ef6f99dad20586ad896069e4dbeb4c1151e1ca04e8bc7b7398f70e570d1e5ca",
+  "numerics01.out": "0aec80f6746b06748593e91d34100009cecd7a76a6c0d50a6952837f3a4d73f2",
+  "numerics01.py": "5d4bccf0a8b906d4d3b52709b0ed566584ba7329a7388f4e6e88d646c42a0a60",
+  "review01.md": "060e4390071195e906688346472e9b4e60c269fd4997fd0091f5e5786127106f"
+ },
+ "limits": "source reads and local arithmetic only; no build, test, Clippy, render or SSH; no audio heard or checked",
+ "reviewer": "CC0 (LavenderPike)",
+ "utc": "2026-11-10T23:16Z",
+ "verdict": "no blocker; bounded source acceptance of counting 21c5043a for root build02"
+}

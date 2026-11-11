@@ -1,0 +1,23 @@
+{
+  "reviewer_identity": "Independent Codex / BlackThrush",
+  "reviewed_utc": "2026-11-10T17:27:15.318447+00:00",
+  "source_sha256": {
+    "csd-final-verify995.py": "69fa3ded0960f6344f3cbad557caf951a769dfe7e0d57426a614ea8d7dd2b7a2",
+    "csd-final-after-master995.py": "9a055c264f47649dcac7e76fae82002ce21e79a2f6a81488bd3a845cf6e7daeb",
+    "combined-master993.py": "1955ca3202c8a4f382fea1682ac754eadf19fd708b2ef983c3f91f12607b6edb",
+    "native-linux-materialize991.py": "3402d437fd5284e47763a71c1fbe074768828826ad6dd22ae6c90d6c6c99bb16"
+  },
+  "concrete_blockers": [],
+  "safe_to_attempt_verification_after_master_success": true,
+  "observations": [
+    "Diff against974 preserves decoding, exact15 chapter frame identity,133662 total frames,105 narration placements, captions, loudness and every picture-planning function unchanged.",
+    "993 helper/hash/job/input/summary-version and991 boundary worker/hash are consistently rebound; retained stage970 job prefix is intentional and matches actual stage970-a2.",
+    "Controller uses995 exact helper pin and unique995 verify/overview/native job names, requires actual successful stable993 receipt, then executes serial check, verification and both picture parts.",
+    "Stale opening docstring still says master972 and one comment says971/993; documentation-only, no runtime reference uses those stale names."
+  ],
+  "limitations": [
+    "Source/diff audit only; master993 and995 runtime results not accepted here.",
+    "Authored predecessor helper; independent review of root narrow successor binding, not independent authorship of full chain.",
+    "No actual joined-master picture, listening, motion, fine-sync or publication acceptance."
+  ]
+}

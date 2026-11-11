@@ -1,0 +1,7 @@
+{"batch": 25, "viewed_utc": "2026-11-10T20:15Z",
+ "sheets": {
+  "0085": "04_7 106.783-109.9 s (one-frame pairs at 107.4/107.433 and 109.4/109.433). Steady hold of the full layout: title, legend, pole answer, gold circle and segment, 'names to search' note. No defect.",
+  "0086": "04 authored hold 110.0-111.8 s, steady. 112.2 s: title, legend, captions, gold circle and segment, pole rings and the note all fade together over the portrait. 112.367 s (f25674, first frame of root window 6742-6773): only the bare portrait remains, without frame or axes. No defect.",
+  "0087": "04 112.383-112.5 s (f25675-f25682, every frame). Bare 1/(1 + z^2) portrait, unchanged frame to frame. No defect."
+ },
+ "findings": []}

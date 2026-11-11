@@ -1,0 +1,47 @@
+{
+  "reviewer": "root",
+  "time": "2026-11-10T19:52:46.225261+00:00",
+  "master_sha256": "80244e88ca5970d0da07a5d96d6d825ae1851bae703d75bd200f8810b04e7b90",
+  "sheets_actually_viewed": [
+    {
+      "sheet": 1,
+      "sha256": "ee2f5602ee8eaf20bfc41be6c2f792402028d66c8cad1b713b342ff354b6e33b"
+    },
+    {
+      "sheet": 2,
+      "sha256": "0297ce6adca4b8280adba96d86518af356531adb2ef6b2569b241c3fc96d5b0a"
+    },
+    {
+      "sheet": 3,
+      "sha256": "7fdc34451602b2ebadf6ae1dffa8717aecba61d911d3df2ee56733683322bdc0"
+    },
+    {
+      "sheet": 4,
+      "sha256": "2414a1cbbfa0019631cb66323f1ecf223f32bd88ddf770566164a945f218fec8"
+    },
+    {
+      "sheet": 5,
+      "sha256": "9b0bd03168e2c798b109c4d5ab6cc062b49909be13d87e13c9ffed46436f2c9d"
+    },
+    {
+      "sheet": 6,
+      "sha256": "d1f2225b62b7248509a5b58cd18cb28ee6230210f2e002217a26f7db63313785"
+    },
+    {
+      "sheet": 7,
+      "sha256": "b086b3d2ac704343388614e259583e56d90a209eff62271cbbccaa447bf6d768"
+    },
+    {
+      "sheet": 8,
+      "sha256": "a9ce3c7b4c40ba5c3e32fc1f486a43e1bfee1df8b8d250e771c16f3215178743"
+    }
+  ],
+  "samples_viewed": 64,
+  "observations": [
+    "Opening fades from background into axes and bump formula; curve draws left to right with gold tip. No concrete overlap or clipping in these selected samples.",
+    "Sheets5-8: power-series approximations and degree readout appear clear; early degree changes precede curve transition in sampled stills, motion/sync not established."
+  ],
+  "scope": "Sheets1-8 actually displayed; all copied1044sheet hashes match stable terminal sampling c211e7d5. Resized display, not native4K, listening, continuous motion or fine sync.",
+  "remaining_sheets": 1036,
+  "publication_ready": false
+}

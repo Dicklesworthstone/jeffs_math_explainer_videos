@@ -1,0 +1,13 @@
+{
+  "utc": "2026-11-11T05:37:50.939457+00:00",
+  "host": "csd",
+  "actual_existing_runner_proofs_passed": true,
+  "required_files": 978,
+  "admission_sha256": "f9980f75e64101e74f3805e55344e6a87783526091a3ea94868b00226768aafd",
+  "launcher_or_runner_modified": false,
+  "existing_waiter_pid": 1332293,
+  "final_render_started": false,
+  "independent_review": false,
+  "continuous_listening": false,
+  "scope": "Preview evidence admits existing final render route only. Waiter stability and idle checks still govern actual launch."
+}

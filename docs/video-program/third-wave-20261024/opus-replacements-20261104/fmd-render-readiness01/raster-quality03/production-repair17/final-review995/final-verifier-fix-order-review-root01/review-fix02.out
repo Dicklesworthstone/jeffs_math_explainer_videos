@@ -1,0 +1,41 @@
+     sealed successor 5c30a62e; CC0 test copy b7b3b693
+     ALT test copy 0f31010e
+     995 plan: 8351 samples / 123 natives
+     premise (scopes = master993 intervals) | CC0: 9915 samples / 123 natives; removed 6 entries; missing 995 samples 0, natives 0
+       removed n 08_loop_sums local 3059: native 4K, sampled interval 3059-3060 middle (job-08_loop_sums review_scope)
+       removed n 08_loop_sums local 3119: native 4K, sampled interval 3119-3120 middle (job-08_loop_sums review_scope)
+       removed n 08_loop_sums local 3179: native 4K, sampled interval 3179-3180 middle (job-08_loop_sums review_scope)
+       removed n 08_loop_sums local 10290: native 4K, sampled interval 10200-10380 middle (job-08_loop_sums review_scope)
+       removed n 09_boundary local 2094: native 4K, sampled interval 2080-2109 middle (job-09_boundary review_scope)
+       removed n 09_boundary local 2326: native 4K, sampled interval 2316-2336 middle (job-09_boundary review_scope)
+       CC0: removes no entry: False; keeps every 995 sample and native: True
+     premise (scopes = master993 intervals) | ALT: 9915 samples / 123 natives; removed 0 entries; missing 995 samples 0, natives 0
+ok   premise (scopes = master993 intervals): ALT removes no entry of the sealed successor
+ok   premise (scopes = master993 intervals): ALT keeps every 995 sample and native
+ok   premise (scopes = master993 intervals): ALT adds only master993-interval labels
+ok   premise: ALT natives equal 995 natives exactly
+     smallest (CC0) | CC0: 9915 samples / 126 natives; removed 1 entries; missing 995 samples 0, natives 0
+       removed n 08_loop_sums local 10290: native 4K, sampled interval 10200-10380 middle (job-08_loop_sums review_scope)
+       CC0: removes no entry: False; keeps every 995 sample and native: True
+     smallest (CC0) | ALT: 9915 samples / 126 natives; removed 0 entries; missing 995 samples 0, natives 0
+ok   smallest (CC0): ALT removes no entry of the sealed successor
+ok   smallest (CC0): ALT keeps every 995 sample and native
+ok   smallest (CC0): ALT adds only master993-interval labels
+     wide (08 run inside 9000-10400; others enclose the old intervals) | CC0: 12958 samples / 123 natives; removed 4 entries; missing 995 samples 0, natives 0
+       removed n 08_loop_sums local 3100: native 4K, sampled interval 3000-3200 middle (job-08_loop_sums review_scope)
+       removed n 08_loop_sums local 9700: native 4K, sampled interval 9000-10400 middle (job-08_loop_sums review_scope)
+       removed n 08_loop_sums local 10290: native 4K, required window 10200-10380 middle (root-verifier367-disposition377.json)
+       removed n 09_boundary local 2200: native 4K, sampled interval 2000-2400 middle (job-09_boundary review_scope)
+       CC0: removes no entry: False; keeps every 995 sample and native: True
+     wide (08 run inside 9000-10400; others enclose the old intervals) | ALT: 12958 samples / 126 natives; removed 0 entries; missing 995 samples 0, natives 0
+ok   wide (08 run inside 9000-10400; others enclose the old intervals): ALT removes no entry of the sealed successor
+ok   wide (08 run inside 9000-10400; others enclose the old intervals): ALT keeps every 995 sample and native
+ok   wide (08 run inside 9000-10400; others enclose the old intervals): ALT adds only master993-interval labels
+     disjoint (scopes miss every old interval but the 08 run) | CC0: 9963 samples / 126 natives; removed 1 entries; missing 995 samples 0, natives 0
+       removed n 08_loop_sums local 10290: native 4K, sampled interval 10190-10390 middle (job-08_loop_sums review_scope)
+       CC0: removes no entry: False; keeps every 995 sample and native: True
+     disjoint (scopes miss every old interval but the 08 run) | ALT: 9963 samples / 126 natives; removed 0 entries; missing 995 samples 0, natives 0
+ok   disjoint (scopes miss every old interval but the 08 run): ALT removes no entry of the sealed successor
+ok   disjoint (scopes miss every old interval but the 08 run): ALT keeps every 995 sample and native
+ok   disjoint (scopes miss every old interval but the 08 run): ALT adds only master993-interval labels
+RESULT: all checks passed

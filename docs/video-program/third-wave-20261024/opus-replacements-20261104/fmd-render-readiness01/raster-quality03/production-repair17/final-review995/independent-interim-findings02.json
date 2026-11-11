@@ -1,0 +1,79 @@
+{
+  "time": "2026-11-10T20:08:17.580486+00:00",
+  "master_sha256": "80244e88ca5970d0da07a5d96d6d825ae1851bae703d75bd200f8810b04e7b90",
+  "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/6d8d91ab-386b-435d-91e3-ad665c8e7f76/scratchpad/final995-cc0/progress/progress-v015.json",
+  "source_sha256": "ce13af7a7c7c569cad8167a958ebd80432e1e8d6ac2c4c057af71793a87a79de",
+  "findings": [
+    {
+      "id": "L1",
+      "sheet": 5,
+      "slot": 5,
+      "frame": 1078,
+      "severity": "Low (typographic, likely film-wide)",
+      "text": "In the series '1 - x^2 + x^4 - x^6 + ...' every minus is a short, heavy bar, about 10 px wide at 960x540 against about 15 px for '+'. It looks like the Computer Modern text hyphen, not the math minus (TeX's minus has the same width as '+'). It is legible, but inconsistent beside the CM '+'. First seen at 17.967 s (f1078); on every later frame of that line in sheets 5-6. Crop: crops/s0006-slot5-series4x.png."
+    },
+    {
+      "id": "L2",
+      "sheet": 8,
+      "slot": 3,
+      "frame": 1848,
+      "severity": "Low (transient)",
+      "text": "During the degree steps (01_3, about 30.6-31.5 s), the 'terms up to degree' counter switches to the next value at the start of each curve morph. Mid-morph stills therefore show a counter one step ahead of the curve: 8 with the degree-6 shape at 30.8 s (f1848), and 10 with the degree-8 shape at 31.4 s (f1884, sheet 8 slot 6). Each step lasts under a second and settles. Whether it reads as wrong in motion needs a motion review; this is only what the stills show."
+    },
+    {
+      "id": "M1",
+      "sheet": 23,
+      "slot": 3,
+      "frame": 5591,
+      "severity": "Medium-low (readability of a preview)",
+      "text": "In the 01_6 'coming up' panel, the middle preview is meant to be 'a loop with an arrow turning around zero' (the_bump.rs previews(): Arrow from 0 to polar(0.8, 0.9)). On screen there is only a detached white arrow tip, about 8 px wide at 960x540, floating inside the circle at about 0.4 of the radius, with no shaft and nothing touching the circle or the centre (crops/s0023-slot4-preview3x.png). It does not read as an arrow from zero. Probable cause: at the pinned franken_manim a399d626, Arrow::new trims buff = MED_SMALL_BUFF (0.25) at both ends (fmn-library line.rs:494, 619-626). The arrow is about 0.5 units long (circle radius 34 px at 960x540), so the shaft is trimmed to nothing. A buff(0.0) or Vector-style arrow would draw it. On screen from about 93.2 s to the 01_6 fade-out (sheets 23-25 and later); first sampled frame f5591."
+    },
+    {
+      "id": "L3",
+      "sheet": 33,
+      "slot": 1,
+      "frame": 7571,
+      "severity": "Low (typographic)",
+      "text": "In the 02_2 readout 'turned: N deg' the degree sign has a fixed position while the number is centred. One-digit angles therefore show a visible space before the sign ('0  deg' at f7571 and f7582, '2  deg' at f7743), while two-digit angles sit tight ('40 deg', '86 deg'). Crop: crops/s0033-degree-readouts4x.png. It is readable; it only looks uneven while the count runs."
+    },
+    {
+      "id": "L4",
+      "sheet": 35,
+      "slot": 5,
+      "frame": 8711,
+      "severity": "Low (typographic consistency)",
+      "text": "Variables in prose captions are set upright in the text face, while the same symbols in formulas are italic: 'multiplying by w: stretch by |w|, turn by the angle of w' (02_4, from 40.0 s, f8711) and 'names: ... modulus |w|, ... argument arg w' (45.5 s, f9040), against italic 'z = x + iy', '3 + 2i', 'i . i = -1' and '1 + i' in the same chapter. 'every point times i' (02_2, f7571) is the same. It is readable; a viewer may not match the upright w to the italic w of later formulas."
+    },
+    {
+      "id": "L4",
+      "sheet": 37,
+      "slot": 7,
+      "frame": 9911,
+      "severity": "Low (typographic consistency), addendum",
+      "text": "Further instance: the 02_5 quiz box '(1 + i)^2 = ?' (from 60.0 s, f9911) is set in the text face with an upright i and a text superscript, while its answer at 74.5 s ('(1 + i)^2 = 2i', f10839) is TeX with an italic i. Question and answer therefore do not look like the same expression."
+    },
+    {
+      "id": "L5",
+      "sheet": 45,
+      "slot": 7,
+      "frame": 13243,
+      "severity": "Low (readout arithmetic)",
+      "text": "In 03_2 the input and output turn counters are rounded separately. At 26.0 s (f13243) they read 'turns: 0.28' and 'turns: 0.57', although the point of the picture is that the output turns exactly twice as fast (2 x 0.28 = 0.56). The dot positions agree with an exact input of about 0.285 turns. A viewer checking the doubling sees a mismatch while the counters run. Deriving the output readout from the displayed input value (or rounding the input down to a value whose double rounds the same way) would avoid it. The same separate-rounding pattern was raised as F1 in the earlier final03 review; it is still present in master 80244e88."
+    },
+    {
+      "id": "L5",
+      "sheet": 46,
+      "slot": 3,
+      "frame": 13543,
+      "severity": "Low (readout arithmetic), addendum",
+      "text": "More instances of the separately rounded counters: 'turns: 0.85' with 'turns: 1.71' at 30.0 s (f13483), and 'turns: 1.00' with 'turns: 1.99' at 31.0 s (f13543), the pair the final03 review quoted. They settle at 1.00/2.00 by 31.45 s (f13570)."
+    }
+  ],
+  "root_actual_inspection": {
+    "crop": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/6d8d91ab-386b-435d-91e3-ad665c8e7f76/scratchpad/final995-cc0/crops/s0023-slot4-preview3x.png",
+    "sha256": "51aef1171d669bb080c550dacfb162b339a626663b80b4593b2ccdadb58f41dc",
+    "observation": "Root actually viewed enlarged preview crop: detached white arrowhead inside gold circle, shaft not visible. Confirms M1 visual observation. Source-cause hypothesis and proposed buff fix not yet independently verified; must inspect exact bound source and native detail before repair.",
+    "release_disposition": "Unresolved preview-readability defect; preserve candidate, do not claim final acceptance."
+  },
+  "scope": "Partial independent review; neither full-film acceptance nor listening or continuous motion."
+}

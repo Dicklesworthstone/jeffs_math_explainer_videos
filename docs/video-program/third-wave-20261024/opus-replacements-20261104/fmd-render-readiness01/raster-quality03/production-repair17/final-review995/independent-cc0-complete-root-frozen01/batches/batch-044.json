@@ -1,0 +1,7 @@
+{"batch": 44, "viewed_utc": "2026-11-10T20:26Z",
+ "sheets": {
+  "0142": "05 80.0-80.117 s (f30506-f30513, every frame). f30506: faint tan remnant (at most 15 levels above background). f30507-f30510: effectively black (at most 9, 6, 4, 2 levels; colour difference measurement), a dark gap between 05_5 and 05_6; the faint shapes seen at f30507 are under 10 levels. f30511-f30513: a new, taller portrait starts fading in, evenly. No defect.",
+  "0143": "05_6 80.133-80.25 s (f30514-f30521). Even fade-in of the new portrait: on the left half a row of points on the real axis about 60 display px apart with contour rings, hue bands sweeping between them; the right half mostly red near the real axis, as for a function positive on the positive reals. No defect.",
+  "0144": "05_6 80.267-80.383 s (f30522-f30529). Fade-in continues evenly; the portrait keeps its place and shape. No defect."
+ },
+ "findings": []}

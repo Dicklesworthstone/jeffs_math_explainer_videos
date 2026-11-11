@@ -1,0 +1,73 @@
+{
+  "started": "2026-11-11T00:21:54.441189+00:00",
+  "phase": "native",
+  "command": [
+    "/usr/bin/python3",
+    "-I",
+    "-B",
+    "/data/projects/jmev-css-render-worker-20261107/qualification01/exponential933/pictures1008.py",
+    "run",
+    "--phase",
+    "pictures",
+    "--chapter",
+    "15_logarithm_bridge"
+  ],
+  "preflight_only": false,
+  "samples": [
+    {
+      "utc": "2026-11-11T00:21:55.863846+00:00",
+      "free_bytes": 74452783104,
+      "work_bytes": 7215161344,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:22:07.026966+00:00",
+      "free_bytes": 74451099648,
+      "work_bytes": 7215673344,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:22:18.148041+00:00",
+      "free_bytes": 74447839232,
+      "work_bytes": 7218294784,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:22:29.273972+00:00",
+      "free_bytes": 74444025856,
+      "work_bytes": 7222046720,
+      "target_bytes": 12419194880
+    },
+    {
+      "utc": "2026-11-11T00:22:39.675225+00:00",
+      "free_bytes": 74439966720,
+      "work_bytes": 7226064896,
+      "target_bytes": 12419194880
+    }
+  ],
+  "sbh": {
+    "exit": 0,
+    "stdout": "{\"ballast\":{\"authoritative\":true,\"available_count\":0,\"configured_pool_bytes\":10737418240,\"health\":\"empty\",\"missing_count\":10,\"releasable_bytes\":0,\"unreadable_count\":0},\"command\":\"check\",\"container_available_bytes\":null,\"container_id\":null,\"container_total_bytes\":null,\"exit_code\":0,\"forecast\":null,\"free_bytes\":74452787200,\"free_excludes_purgeable\":true,\"free_pct\":7.653598323865356,\"mount_point\":\"/\",\"path\":\"/data/projects/jmev-css-render-worker-20261107\",\"platform\":{\"linux\":{\"device_id\":66308,\"fs_type\":\"ext4\",\"is_ram_backed\":false,\"is_readonly\":false}},\"ram_scratch\":null,\"ram_write_admission\":null,\"schema_version\":2,\"status\":\"ok\",\"total_bytes\":972781481984,\"unprotected\":null,\"volume_available_bytes\":74452787200,\"volume_role\":null,\"volume_total_bytes\":972781481984}\n",
+    "stderr": ""
+  },
+  "admission": {
+    "utc": "2026-11-11T00:21:54.450588+00:00",
+    "free_bytes": 74452787200,
+    "work_bytes": 7215157248,
+    "target_bytes": 12419194880
+  },
+  "policy": {
+    "admission_gib": 10,
+    "stop_free_gib": 8,
+    "phase_growth_gib": 4,
+    "work_cap_gib": 56,
+    "target_growth_cap_gib": 20,
+    "sample_seconds": 10
+  },
+  "admitted": true,
+  "inputs_sha256": "772532dd7705e7d75cda11c2877a9723ea2bbf97d61a7457a834eeca7cec71e3",
+  "pid": 3595070,
+  "exit": 0,
+  "final_inputs_sha256": "772532dd7705e7d75cda11c2877a9723ea2bbf97d61a7457a834eeca7cec71e3",
+  "finished": "2026-11-11T00:22:41.070033+00:00"
+}

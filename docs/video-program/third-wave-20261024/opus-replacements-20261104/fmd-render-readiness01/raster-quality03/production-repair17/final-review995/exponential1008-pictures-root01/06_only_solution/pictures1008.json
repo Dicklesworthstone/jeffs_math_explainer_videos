@@ -1,0 +1,2606 @@
+{
+  "chapter": "06_only_solution",
+  "movie_sha256": "fe33b9e48bcb456b3cad41f7651bd8e5f8e3bb1b7c6deba657e6b4d9e5fa2b80",
+  "pictures": [
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000001.jpg",
+      "sha256": "4f3ff38cbcbd5e88a3692e9dfa113bd105c0b316e9abf2635bd04c220eaca11f",
+      "frame": 47284,
+      "local_frame": 0,
+      "reasons": [
+        "chapter first",
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000002.jpg",
+      "sha256": "764716c6e2dce1d3d96fc8f1a2541f0f573d65ec34cf75f9709a2b22ab5c921d",
+      "frame": 47319,
+      "local_frame": 35,
+      "reasons": [
+        "06_1 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000003.jpg",
+      "sha256": "4c3f60932b7a096dd6dc82d9ccc2ea6d4ddff24f0e6d6467a5579208a0735179",
+      "frame": 47320,
+      "local_frame": 36,
+      "reasons": [
+        "06_1 start"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000004.jpg",
+      "sha256": "96ab1845a57e76a72f29ae66d7131ec3fbf2b8f5b6a6aab07141d748261bc506",
+      "frame": 47350,
+      "local_frame": 66,
+      "reasons": [
+        "06_1 opening"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000005.jpg",
+      "sha256": "bb7c258720b7c67c44f160ccbd046938ed67106ade4a5ea64dc7dea40f537a7f",
+      "frame": 47584,
+      "local_frame": 300,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000006.jpg",
+      "sha256": "ea8733e618a4e916fd211395d536655f82171f43831f3ffb7eb1981dae475d24",
+      "frame": 47884,
+      "local_frame": 600,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000007.jpg",
+      "sha256": "e6e1eb0b19359f88249462dc246ab9a17a703ecd3c0890d33165e4b819844024",
+      "frame": 48184,
+      "local_frame": 900,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000008.jpg",
+      "sha256": "94103f4ca3c645156e92f6187c251bc85bef8c1d81936e2e12f1f5bb4e60ad4e",
+      "frame": 48284,
+      "local_frame": 1000,
+      "reasons": [
+        "06_1 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000009.jpg",
+      "sha256": "28a7d35495658fb4e1e83a64c70a27306896ec9aa192d73a3fd5f2f1221f1bca",
+      "frame": 48285,
+      "local_frame": 1001,
+      "reasons": [
+        "06_1 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000010.jpg",
+      "sha256": "025a717af249703ed1988ff7a9d4af0f35b69d0c687a9a57af98a7152031d415",
+      "frame": 48286,
+      "local_frame": 1002,
+      "reasons": [
+        "06_1 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000011.jpg",
+      "sha256": "0dcdf42cef50c456d2c0ea36b5f29c89a5117d2656414d9b7c0780802c9f5095",
+      "frame": 48320,
+      "local_frame": 1036,
+      "reasons": [
+        "06_2 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000012.jpg",
+      "sha256": "a776b3b2c0debc95d3e45e08b151a97533a9b0a99e0ba9c4b782c25240154a38",
+      "frame": 48321,
+      "local_frame": 1037,
+      "reasons": [
+        "06_2 start",
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000013.jpg",
+      "sha256": "932b3641701383a6a2a22c971e36ad5d0e16f13b666a01dab2bc6d16c9dd0f7d",
+      "frame": 48351,
+      "local_frame": 1067,
+      "reasons": [
+        "06_2 opening"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000014.jpg",
+      "sha256": "eb199cf74655b36121ce3450d00b05b5dc402bc17f4acd51cdc5a2600e678729",
+      "frame": 48381,
+      "local_frame": 1097,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000015.jpg",
+      "sha256": "629c31ecc91551327cbacaa62cda56a1387987dd7c337153ec41556e13f897dd",
+      "frame": 48441,
+      "local_frame": 1157,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000016.jpg",
+      "sha256": "e6d888ad6cf5f1b886028d8fe48a85e099ccbfd4209b649e94ff9b986814a91c",
+      "frame": 48484,
+      "local_frame": 1200,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000017.jpg",
+      "sha256": "e6d888ad6cf5f1b886028d8fe48a85e099ccbfd4209b649e94ff9b986814a91c",
+      "frame": 48501,
+      "local_frame": 1217,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000018.jpg",
+      "sha256": "2e1f72656997d31fcf4416285b32df8c1704c1e0334a28e9bdc8984cdaa90cf2",
+      "frame": 48561,
+      "local_frame": 1277,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000019.jpg",
+      "sha256": "6225e06d4540bfa72335db89aa96059eb0ddae42450ba1498ce8dc89b866d729",
+      "frame": 48621,
+      "local_frame": 1337,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000020.jpg",
+      "sha256": "6225e06d4540bfa72335db89aa96059eb0ddae42450ba1498ce8dc89b866d729",
+      "frame": 48681,
+      "local_frame": 1397,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000021.jpg",
+      "sha256": "5105bfcf0a41608bd8168d3ca4f13ca6354bb05a737ec7da1f9bb1ef7aaedbb5",
+      "frame": 48741,
+      "local_frame": 1457,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000022.jpg",
+      "sha256": "1d481ed7cfdda3a4d65a64941bf6217962b2260e1449f59a6cfcc36a04baf618",
+      "frame": 48784,
+      "local_frame": 1500,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000023.jpg",
+      "sha256": "aae7abca12733f26d1db9bb63f96314eeb627de7334784bbfbed7fa9bd89a209",
+      "frame": 48801,
+      "local_frame": 1517,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000024.jpg",
+      "sha256": "b1a8ca3f39e66480210a371ce957657b43fbb56d880271788f2a2df8ea10cca0",
+      "frame": 48861,
+      "local_frame": 1577,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000025.jpg",
+      "sha256": "4ce28952bc6f8e2cfcc0ae5bf795a02dac3132083d994c27981cac347bdc27b9",
+      "frame": 48921,
+      "local_frame": 1637,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000026.jpg",
+      "sha256": "f9449411c74accea8e8efad511a970d5c730d8a771eadb565642f0197c69aa68",
+      "frame": 48981,
+      "local_frame": 1697,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000027.jpg",
+      "sha256": "a4428ced1bb7f2892154d1ad597d3c8d93094e70d965bb8a36604878c5468804",
+      "frame": 49041,
+      "local_frame": 1757,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000028.jpg",
+      "sha256": "f6cab720286dde29ea7eebca4d89fade25a2d95fdc09fde0ef0a488d1ec788ed",
+      "frame": 49084,
+      "local_frame": 1800,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000029.jpg",
+      "sha256": "68cb9627483403c57aa3d276f46182a63ff63642bb1c8e8cabfacca0630f0c99",
+      "frame": 49101,
+      "local_frame": 1817,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000030.jpg",
+      "sha256": "99042973fa87278cbf5a5b6bcd38112d590c65ba809b5aa8b7899f710b3c0d1a",
+      "frame": 49161,
+      "local_frame": 1877,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000031.jpg",
+      "sha256": "98c2cbc62316fdbfce90f4dace8625f5bde4965ddea35ab7905e3163d0c812bb",
+      "frame": 49221,
+      "local_frame": 1937,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000032.jpg",
+      "sha256": "98c2cbc62316fdbfce90f4dace8625f5bde4965ddea35ab7905e3163d0c812bb",
+      "frame": 49281,
+      "local_frame": 1997,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000033.jpg",
+      "sha256": "19ef1f8ddd32a78014f27274c9eb7b6cd7bab8e7a0b2588252cdef8d898fc2fb",
+      "frame": 49341,
+      "local_frame": 2057,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000034.jpg",
+      "sha256": "4fe24c0cc2fc67eb007eb15d60305c25b2ec6e040350bf37be8cc6bee061858d",
+      "frame": 49384,
+      "local_frame": 2100,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000035.jpg",
+      "sha256": "4fe24c0cc2fc67eb007eb15d60305c25b2ec6e040350bf37be8cc6bee061858d",
+      "frame": 49401,
+      "local_frame": 2117,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000036.jpg",
+      "sha256": "19ef1f8ddd32a78014f27274c9eb7b6cd7bab8e7a0b2588252cdef8d898fc2fb",
+      "frame": 49461,
+      "local_frame": 2177,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000037.jpg",
+      "sha256": "19ef1f8ddd32a78014f27274c9eb7b6cd7bab8e7a0b2588252cdef8d898fc2fb",
+      "frame": 49521,
+      "local_frame": 2237,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000038.jpg",
+      "sha256": "8cfccc736c1907f91559caa91e3ff4b1debf7fd6ada8113707f91451b53e7bfb",
+      "frame": 49581,
+      "local_frame": 2297,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000039.jpg",
+      "sha256": "434fb46745c71fe10a2e613816eca7f020c1c28d072d4c4832ff42bc08b53c0a",
+      "frame": 49641,
+      "local_frame": 2357,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000040.jpg",
+      "sha256": "16a4440bd178585c87438c26f9bc225c71bf14694e03ffbb1211bdb856ec925b",
+      "frame": 49684,
+      "local_frame": 2400,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000041.jpg",
+      "sha256": "434fb46745c71fe10a2e613816eca7f020c1c28d072d4c4832ff42bc08b53c0a",
+      "frame": 49701,
+      "local_frame": 2417,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000042.jpg",
+      "sha256": "8cfccc736c1907f91559caa91e3ff4b1debf7fd6ada8113707f91451b53e7bfb",
+      "frame": 49761,
+      "local_frame": 2477,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000043.jpg",
+      "sha256": "3ea3b0f110ccf9bdcfe00a5317144f9ec84347249112c67fff5cc2edb55bbc69",
+      "frame": 49821,
+      "local_frame": 2537,
+      "reasons": [
+        "06_2 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000044.jpg",
+      "sha256": "cace240a9611777f50cef274f66312c4b6bd4f70c5894066c4cee6c0359cce11",
+      "frame": 49861,
+      "local_frame": 2577,
+      "reasons": [
+        "06_2 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000045.jpg",
+      "sha256": "8b9e527c13765dfb026f351cfe5bece789ecbd33d6254685a48adb66e1fc69ab",
+      "frame": 49862,
+      "local_frame": 2578,
+      "reasons": [
+        "06_2 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000046.jpg",
+      "sha256": "cace240a9611777f50cef274f66312c4b6bd4f70c5894066c4cee6c0359cce11",
+      "frame": 49863,
+      "local_frame": 2579,
+      "reasons": [
+        "06_2 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000047.jpg",
+      "sha256": "42037501b3e1d995e00ecd6330e105068a2b34be3ddc4822b1d7e2e3a7cfa26d",
+      "frame": 49897,
+      "local_frame": 2613,
+      "reasons": [
+        "06_3 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000048.jpg",
+      "sha256": "41afade6a94d6138872ed20d5c6c9fe8a168f2650cae8b94ba5017d7b3d18825",
+      "frame": 49898,
+      "local_frame": 2614,
+      "reasons": [
+        "06_3 start"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000049.jpg",
+      "sha256": "b873e26cd4cb6c756b68e507f8db38f5e5f12afddc632918240a3ab095c17c22",
+      "frame": 49928,
+      "local_frame": 2644,
+      "reasons": [
+        "06_3 opening"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000050.jpg",
+      "sha256": "08f4195c559b8d0acddcf59fc0c270c0878f597f56881380c537012d9c11e436",
+      "frame": 49984,
+      "local_frame": 2700,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000051.jpg",
+      "sha256": "2c585931336d4e87e6d52029569d2c59361a3984a8e88013298eead4870d37be",
+      "frame": 50284,
+      "local_frame": 3000,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000052.jpg",
+      "sha256": "c282386447c2bf47918b5925bca51d2996a89edb71df686e59d5f745d1c422bc",
+      "frame": 50584,
+      "local_frame": 3300,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000053.jpg",
+      "sha256": "beb875342ac022b80428ad7b44cce52985d4ee1a61842f8f2faf3547019e4887",
+      "frame": 50884,
+      "local_frame": 3600,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000054.jpg",
+      "sha256": "ad3f09cc2ec3cdb8da6698d675d9da59a05f32cb75168ccb7dd46f3b2dc0027f",
+      "frame": 51184,
+      "local_frame": 3900,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000055.jpg",
+      "sha256": "9a4e164690f68c6a123696c0c0e0596fe92fec63738572d3ba3fe09625d25ba8",
+      "frame": 51484,
+      "local_frame": 4200,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000056.jpg",
+      "sha256": "ef70ecc0d05c9147ccd72f1ad9f42bb8f68f2632e509e4378822adbf44028031",
+      "frame": 51577,
+      "local_frame": 4293,
+      "reasons": [
+        "06_3 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000057.jpg",
+      "sha256": "8259ed0e0f80cfc6d7120f2f34693263d5329631b2766b27f40ba129227889c7",
+      "frame": 51578,
+      "local_frame": 4294,
+      "reasons": [
+        "06_3 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000058.jpg",
+      "sha256": "33aa55eb38224ec931953e1f3a739884d2af600e3671362fb655bd72b32c4135",
+      "frame": 51579,
+      "local_frame": 4295,
+      "reasons": [
+        "06_3 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000059.jpg",
+      "sha256": "b006be4b65522b93c5f84ecfe16948f6825b6410e1d41031fe737255e2329ca5",
+      "frame": 51613,
+      "local_frame": 4329,
+      "reasons": [
+        "06_3 authored predict/breath/reveal"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000060.jpg",
+      "sha256": "8b0349b199e8b014a2f65551138c039a1282291c09adb1abf9fdf273a10e2ce9",
+      "frame": 51614,
+      "local_frame": 4330,
+      "reasons": [
+        "06_3 authored predict/breath/reveal",
+        "06_3 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000061.jpg",
+      "sha256": "010bf0bb7ef2479e7f6816b62caf3dd643c3e93b04940ae5f9f30481b14376d6",
+      "frame": 51615,
+      "local_frame": 4331,
+      "reasons": [
+        "06_3 authored predict/breath/reveal"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000062.jpg",
+      "sha256": "1f875aabd416f390ac508948e9b70c3ce4b2fc62424541ac7b0a298cc5389c84",
+      "frame": 51644,
+      "local_frame": 4360,
+      "reasons": [
+        "06_3 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000063.jpg",
+      "sha256": "1f875aabd416f390ac508948e9b70c3ce4b2fc62424541ac7b0a298cc5389c84",
+      "frame": 51674,
+      "local_frame": 4390,
+      "reasons": [
+        "06_3 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000064.jpg",
+      "sha256": "8b0349b199e8b014a2f65551138c039a1282291c09adb1abf9fdf273a10e2ce9",
+      "frame": 51704,
+      "local_frame": 4420,
+      "reasons": [
+        "06_3 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000065.jpg",
+      "sha256": "1f875aabd416f390ac508948e9b70c3ce4b2fc62424541ac7b0a298cc5389c84",
+      "frame": 51734,
+      "local_frame": 4450,
+      "reasons": [
+        "06_3 authored predict/breath/reveal",
+        "06_3 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000066.jpg",
+      "sha256": "1f875aabd416f390ac508948e9b70c3ce4b2fc62424541ac7b0a298cc5389c84",
+      "frame": 51764,
+      "local_frame": 4480,
+      "reasons": [
+        "06_3 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000067.jpg",
+      "sha256": "434b37f6b5a66ce7b6fcf1ec56a24890e0ac81f1193fa39d3948da59b4403922",
+      "frame": 51784,
+      "local_frame": 4500,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000068.jpg",
+      "sha256": "6d6ecef1df2c39fb7e000a00683121a50ec66ec4f49809fa2baa57e9c4395a58",
+      "frame": 51794,
+      "local_frame": 4510,
+      "reasons": [
+        "06_3 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000069.jpg",
+      "sha256": "829e06777c40c83632f99e372f58bdbe8b9aeb3ef48a68479d2022b19d1af385",
+      "frame": 51824,
+      "local_frame": 4540,
+      "reasons": [
+        "06_3 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000070.jpg",
+      "sha256": "b23f0350d4ec0e09995680c61f86a8df651c31e0a5e1aeacc65fda6cc02a0c9d",
+      "frame": 51853,
+      "local_frame": 4569,
+      "reasons": [
+        "06_3 authored predict/breath/reveal"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000071.jpg",
+      "sha256": "27db6d576d5bdf13dffc6efded73c3c6c73d80d852710d23447d2679837e0ee3",
+      "frame": 51854,
+      "local_frame": 4570,
+      "reasons": [
+        "06_3 authored predict/breath/reveal",
+        "06_3 authored hold interior0.5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000072.jpg",
+      "sha256": "abd6ec8f324e27e8e5c717a2cabef870ee81e298da29b585f7e7b9b54c82721e",
+      "frame": 51855,
+      "local_frame": 4571,
+      "reasons": [
+        "06_3 authored predict/breath/reveal"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000073.jpg",
+      "sha256": "e8207ca97d65787b0ad9869f25b2d7b3c64c9d19d1e4132960cf02b521c2bdea",
+      "frame": 51871,
+      "local_frame": 4587,
+      "reasons": [
+        "06_4 pre",
+        "06_3 authored predict/breath/reveal"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000074.jpg",
+      "sha256": "321f886453baba8a061a6a48249993d1443e569e1cb57afe16ef3eb12465d0f2",
+      "frame": 51872,
+      "local_frame": 4588,
+      "reasons": [
+        "06_4 start",
+        "06_4 documented ASR uncertainty entire cue1s",
+        "06_3 authored predict/breath/reveal"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000075.jpg",
+      "sha256": "87d724f26be0759b9e0285e3dc148d765c45b92632b543c0d1dc45b6d713e023",
+      "frame": 51902,
+      "local_frame": 4618,
+      "reasons": [
+        "06_4 opening",
+        "06_3 authored predict/breath/reveal"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000076.jpg",
+      "sha256": "bd7f2c6c781ce850c1dbd6cbd22c554eafc521796bcdfb95bf3bd745d9c55ea9",
+      "frame": 51932,
+      "local_frame": 4648,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000077.jpg",
+      "sha256": "00b58a5a9b8db4a724423bbb0b8a55860fc2c8e3b076033f1140194312806092",
+      "frame": 51992,
+      "local_frame": 4708,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000078.jpg",
+      "sha256": "970146a04c8be472c70e5dfe90fbbac27263844cb609466e4f10be27163c9f3b",
+      "frame": 52052,
+      "local_frame": 4768,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000079.jpg",
+      "sha256": "1b17ad72b1bcf26a33d4a590db65121be872517c0cd685e9889c9ded02028a40",
+      "frame": 52084,
+      "local_frame": 4800,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000080.jpg",
+      "sha256": "f1c7acd69d5db900b0515a627c31df37953c9a9cf02853cbf45d4e0cb5512ce3",
+      "frame": 52112,
+      "local_frame": 4828,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000081.jpg",
+      "sha256": "1c91dedb8b0576e9c17cf0ce703ee8c48c989cbfa34e5308a79774a6a0f1ecad",
+      "frame": 52172,
+      "local_frame": 4888,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000082.jpg",
+      "sha256": "aeeb97035cd48a257146be677230fa6aec68631a2ddf230852ba58be3282804d",
+      "frame": 52179,
+      "local_frame": 4895,
+      "reasons": [
+        "06_4 provisional phrase and the other"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000083.jpg",
+      "sha256": "f97fa4f2bf602bbdd457f6c49dfb9a023ff1aa052c721a5cd7e43b0172ab9f33",
+      "frame": 52209,
+      "local_frame": 4925,
+      "reasons": [
+        "06_4 provisional phrase and the other"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000084.jpg",
+      "sha256": "c1142dd2ecfb703520db9c88c8191ce9149e814aacd42a59532fac538e79fe52",
+      "frame": 52232,
+      "local_frame": 4948,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000085.jpg",
+      "sha256": "d0942116fd4fa1b182a2a21f4b92597a2af2a5b614600052c6c937de460d24c0",
+      "frame": 52239,
+      "local_frame": 4955,
+      "reasons": [
+        "06_4 provisional phrase and the other"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000086.jpg",
+      "sha256": "0b33130c4a0bea2d1f8785d658468c72b1eeb6f2d35c8c8e145429ed42c60ba5",
+      "frame": 52269,
+      "local_frame": 4985,
+      "reasons": [
+        "06_4 provisional phrase and the other"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000087.jpg",
+      "sha256": "c593f9b7a01895df89149a9d3859d59415017b4e9f2cb9b57ae9880713419023",
+      "frame": 52292,
+      "local_frame": 5008,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000088.jpg",
+      "sha256": "0559a6926f24b6dfe68545236296a1f7a75fe57a4a50592f00c65a52ea5385ce",
+      "frame": 52352,
+      "local_frame": 5068,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000089.jpg",
+      "sha256": "1c2f4b4b10c845b7a3502e805b1c369d12010e02924c2e7e334020ad3e063d59",
+      "frame": 52384,
+      "local_frame": 5100,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000090.jpg",
+      "sha256": "158d2cb771351833f649b7bee2e495b095a84d57835c761ab00c626bec641918",
+      "frame": 52412,
+      "local_frame": 5128,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000091.jpg",
+      "sha256": "1cb1d8989c483bf4ffbe786d776348ca579dce49447a10e2931ffdb4e0bf899e",
+      "frame": 52472,
+      "local_frame": 5188,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000092.jpg",
+      "sha256": "1cb1d8989c483bf4ffbe786d776348ca579dce49447a10e2931ffdb4e0bf899e",
+      "frame": 52532,
+      "local_frame": 5248,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000093.jpg",
+      "sha256": "364171419657ba7bb93eff55c5e044ba969157d1f85e6d77d265020c6017d5d2",
+      "frame": 52581,
+      "local_frame": 5297,
+      "reasons": [
+        "06_4 provisional phrase and at zero"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000094.jpg",
+      "sha256": "ceca329b27b3c03b2cad06cc14b2977b2eab1353cbfce1c9831a18fcbda7f9c1",
+      "frame": 52592,
+      "local_frame": 5308,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000095.jpg",
+      "sha256": "4c07355dd22b1a8a278f123c0f0bd18e4de5244a1422c8e98de0736a96c6fae5",
+      "frame": 52611,
+      "local_frame": 5327,
+      "reasons": [
+        "06_4 provisional phrase and at zero"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000096.jpg",
+      "sha256": "7b5bba1f289de8b7b84f085281c6c40645449792e3d9475ba599896ecc0d7739",
+      "frame": 52641,
+      "local_frame": 5357,
+      "reasons": [
+        "06_4 provisional phrase and at zero"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000097.jpg",
+      "sha256": "5cad17f5c41dc2a37cc40ccd03848b5b6c6158bc5c28dc1d822f08a4c4189649",
+      "frame": 52652,
+      "local_frame": 5368,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000098.jpg",
+      "sha256": "2749f82934b1853124f4dca485d712abb67a4d6c4047613da2db70a771d64625",
+      "frame": 52671,
+      "local_frame": 5387,
+      "reasons": [
+        "06_4 provisional phrase and at zero"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000099.jpg",
+      "sha256": "beb6a34e10b7034f290a3e2a4998dd5fb57e513ee666f8f18e178c4ca544883b",
+      "frame": 52684,
+      "local_frame": 5400,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000100.jpg",
+      "sha256": "e13b7426925c088f0063fa3edecdd9196c007fb6d8254fd7c8354cd5d224e64d",
+      "frame": 52712,
+      "local_frame": 5428,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000101.jpg",
+      "sha256": "e13b7426925c088f0063fa3edecdd9196c007fb6d8254fd7c8354cd5d224e64d",
+      "frame": 52772,
+      "local_frame": 5488,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000102.jpg",
+      "sha256": "97ebd7f212545d00c4bf33201cfd553ed16c6efe7298cf4a372bc5f903ee23fd",
+      "frame": 52832,
+      "local_frame": 5548,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000103.jpg",
+      "sha256": "531ccff45742ab8c6d25a0e81412b687062872b13f36d70fe57fea445411f2de",
+      "frame": 52892,
+      "local_frame": 5608,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000104.jpg",
+      "sha256": "6e5603b77fcd84d4a99b97f98d5c055a0deb4c568d5e76e0d6ecdd4f40abde5c",
+      "frame": 52952,
+      "local_frame": 5668,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000105.jpg",
+      "sha256": "6397ec7af2c61f88af4375e93b30acbc57659909f517c666be0f9f928b6ad82c",
+      "frame": 52984,
+      "local_frame": 5700,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000106.jpg",
+      "sha256": "6e5603b77fcd84d4a99b97f98d5c055a0deb4c568d5e76e0d6ecdd4f40abde5c",
+      "frame": 53012,
+      "local_frame": 5728,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000107.jpg",
+      "sha256": "168f4ec0dbb4dbbef784937c0b7441b39bfc3282253ddd703d10ca86252213cd",
+      "frame": 53072,
+      "local_frame": 5788,
+      "reasons": [
+        "06_4 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000108.jpg",
+      "sha256": "52fc5d22eb7b9094e70c9c91672f01f2080642d86d7ba273563debcff03d318e",
+      "frame": 53105,
+      "local_frame": 5821,
+      "reasons": [
+        "06_4 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000109.jpg",
+      "sha256": "30f8554b01c9409e816fef143cce40843a553eab3e218ef1a1ff810445029ebf",
+      "frame": 53106,
+      "local_frame": 5822,
+      "reasons": [
+        "06_4 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000110.jpg",
+      "sha256": "f588882885ce5d0bbb354e2a1ca7f17c9b881ce088b6e8e1373d1416eb5bc979",
+      "frame": 53107,
+      "local_frame": 5823,
+      "reasons": [
+        "06_4 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000111.jpg",
+      "sha256": "3618f70aceb429a35b6f97a98a3db85ae977e54ddfdb733b7b1ec300b3c818b4",
+      "frame": 53141,
+      "local_frame": 5857,
+      "reasons": [
+        "06_5 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000112.jpg",
+      "sha256": "45f2df3bcc7beb75503526f93344ecb2d60a1d3d4650d2e45a873c2a9963c4cc",
+      "frame": 53142,
+      "local_frame": 5858,
+      "reasons": [
+        "06_5 start",
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000113.jpg",
+      "sha256": "ad60923703c187abf5bf72b79afc8e10cc4ca351b70c6e9c018e6492e91b656d",
+      "frame": 53172,
+      "local_frame": 5888,
+      "reasons": [
+        "06_5 opening"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000114.jpg",
+      "sha256": "e8c652602c7d1589fd80489ddbc4e5f6cbb2ed2b074b75094be7857945ea35b0",
+      "frame": 53202,
+      "local_frame": 5918,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000115.jpg",
+      "sha256": "0d01208aee84321276ff78e238f82d47855cab4f68e030d15aaa464ea607eac4",
+      "frame": 53262,
+      "local_frame": 5978,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000116.jpg",
+      "sha256": "417bccd5b5dc06bd7921b09928f65e257604b764250a519058f9c9abd3ef89a1",
+      "frame": 53284,
+      "local_frame": 6000,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000117.jpg",
+      "sha256": "cfd16a7a35622c0fddf810916db237717ff9d7cb8e3f065a4987df6d5048b5c7",
+      "frame": 53322,
+      "local_frame": 6038,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000118.jpg",
+      "sha256": "d533d7bf512d57148ae81428e9475e5400e0320d73b8be4bd539eb4b4a28b461",
+      "frame": 53382,
+      "local_frame": 6098,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000119.jpg",
+      "sha256": "5a6d82f87ec7cd2e1c661ec8e8904ca26be9a3d23532fc183e5eb44784f3f9fe",
+      "frame": 53442,
+      "local_frame": 6158,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000120.jpg",
+      "sha256": "5a6d82f87ec7cd2e1c661ec8e8904ca26be9a3d23532fc183e5eb44784f3f9fe",
+      "frame": 53502,
+      "local_frame": 6218,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000121.jpg",
+      "sha256": "2c77abe500999a15c6b155b5c54f7704e535f64ff579f7915106bc542873188b",
+      "frame": 53562,
+      "local_frame": 6278,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000122.jpg",
+      "sha256": "49daeb6d023a99796bb3e8f42f08b8e950d476c91a6f8c1331011b846fc9d4a0",
+      "frame": 53584,
+      "local_frame": 6300,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000123.jpg",
+      "sha256": "49daeb6d023a99796bb3e8f42f08b8e950d476c91a6f8c1331011b846fc9d4a0",
+      "frame": 53604,
+      "local_frame": 6320,
+      "reasons": [
+        "06_5 provisional phrase so the left side"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000124.jpg",
+      "sha256": "49daeb6d023a99796bb3e8f42f08b8e950d476c91a6f8c1331011b846fc9d4a0",
+      "frame": 53622,
+      "local_frame": 6338,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000125.jpg",
+      "sha256": "ada1290dc93ffcd3e3fbbcee8bb9ee9394b370162e4ab43e67584812db581606",
+      "frame": 53634,
+      "local_frame": 6350,
+      "reasons": [
+        "06_5 provisional phrase so the left side"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000126.jpg",
+      "sha256": "5bc1937b497e9785fff332847cb13579964eb06b1f417fa99cbc484a263ae554",
+      "frame": 53664,
+      "local_frame": 6380,
+      "reasons": [
+        "06_5 provisional phrase so the left side"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000127.jpg",
+      "sha256": "e29bc095667489aaa9667ec00ad6336b605ff16ba312b4f631710bb1224a5b53",
+      "frame": 53682,
+      "local_frame": 6398,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000128.jpg",
+      "sha256": "e29bc095667489aaa9667ec00ad6336b605ff16ba312b4f631710bb1224a5b53",
+      "frame": 53694,
+      "local_frame": 6410,
+      "reasons": [
+        "06_5 provisional phrase so the left side"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000129.jpg",
+      "sha256": "a13cbbc7a39f9f609e94fe08ec9ba692e8252529251e8063938ac7eba53e61a2",
+      "frame": 53742,
+      "local_frame": 6458,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000130.jpg",
+      "sha256": "6e2d07811b4c33c61d539aa68f799800f65cec5bab1268185188339c3e56f630",
+      "frame": 53802,
+      "local_frame": 6518,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000131.jpg",
+      "sha256": "52a6b54a8dd90edf94b4f7e3f2e5509e52e8c2673d963f4267ca4559e12646cd",
+      "frame": 53862,
+      "local_frame": 6578,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000132.jpg",
+      "sha256": "b47818bc5905bcc0b9c22ab85872a9772cda21d1d4c70f48341c26af97d88ce7",
+      "frame": 53884,
+      "local_frame": 6600,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000133.jpg",
+      "sha256": "2ae0ed814d3f0bb39b912b3485be11069eb227ab1cc09c80c4f8917c194b2e96",
+      "frame": 53922,
+      "local_frame": 6638,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000134.jpg",
+      "sha256": "ec1f993e05db535d88f4fda638052fb48e8282117cc7cdd56a08629b7009f6c1",
+      "frame": 53982,
+      "local_frame": 6698,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000135.jpg",
+      "sha256": "19f20c189b92e947743e626add396737fd1149ea9978a5aeda7accbcaa5bc287",
+      "frame": 54042,
+      "local_frame": 6758,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000136.jpg",
+      "sha256": "f0fe639402455f89114b3b8c604f5b04a388823ffa55a192f2c05e4c0137fd0d",
+      "frame": 54102,
+      "local_frame": 6818,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000137.jpg",
+      "sha256": "d06fcc9308e02b70fffcd735c0b8f165110281d54e06f0bc0b4657fc075a7d67",
+      "frame": 54162,
+      "local_frame": 6878,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000138.jpg",
+      "sha256": "284b85269c4575689332f9309edbfaaeaed94bee0b1c7b9799e29ffb55d1b681",
+      "frame": 54184,
+      "local_frame": 6900,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000139.jpg",
+      "sha256": "d06fcc9308e02b70fffcd735c0b8f165110281d54e06f0bc0b4657fc075a7d67",
+      "frame": 54222,
+      "local_frame": 6938,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000140.jpg",
+      "sha256": "e2391c3701698a6257a34986adeee1c9b071d9306b7008d7aa68cda7693149e7",
+      "frame": 54282,
+      "local_frame": 6998,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000141.jpg",
+      "sha256": "a5532a267a0efd8d3d1ba9847e50455e58a3b84d0a442cc7dc97a4885ea7bd6c",
+      "frame": 54342,
+      "local_frame": 7058,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000142.jpg",
+      "sha256": "3ddd525c9160858935bc93e9d68ca4b82f9f5317c04aef5cf357d45ec2bd20dd",
+      "frame": 54402,
+      "local_frame": 7118,
+      "reasons": [
+        "06_5 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000143.jpg",
+      "sha256": "3ddd525c9160858935bc93e9d68ca4b82f9f5317c04aef5cf357d45ec2bd20dd",
+      "frame": 54403,
+      "local_frame": 7119,
+      "reasons": [
+        "06_5 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000144.jpg",
+      "sha256": "7af5eded06a6718fc48fb72f5c7af99478bd51c4d20ee5985f0144a40a87aa49",
+      "frame": 54404,
+      "local_frame": 7120,
+      "reasons": [
+        "06_5 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000145.jpg",
+      "sha256": "3ddd525c9160858935bc93e9d68ca4b82f9f5317c04aef5cf357d45ec2bd20dd",
+      "frame": 54405,
+      "local_frame": 7121,
+      "reasons": [
+        "06_5 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000146.jpg",
+      "sha256": "f8204c19ebd957e6dd8cd93155b491a18bce73bf1a1c942197249022c4fe6a07",
+      "frame": 54440,
+      "local_frame": 7156,
+      "reasons": [
+        "06_6 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000147.jpg",
+      "sha256": "b329e6cf36a628a073b79dd7b0386d314e02c381db3fd927ac5d295b2a1686dd",
+      "frame": 54441,
+      "local_frame": 7157,
+      "reasons": [
+        "06_6 start"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000148.jpg",
+      "sha256": "503718dd6fd1b0d5f7e86f39d8431b8540ec14eaf51abd110b056496a49de951",
+      "frame": 54471,
+      "local_frame": 7187,
+      "reasons": [
+        "06_6 opening"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000149.jpg",
+      "sha256": "f53f9f6a6fb5ca8f2ba5e17610a45f2cf354f6119b0d8a194ee499990ae67664",
+      "frame": 54484,
+      "local_frame": 7200,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000150.jpg",
+      "sha256": "828361ebb6318f94da353750766b44c0c5e0ee5c89fdfa1b4c4ebc3156b50852",
+      "frame": 54784,
+      "local_frame": 7500,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000151.jpg",
+      "sha256": "760a871ba67762101154f87ab57f740950af9b56291db74f352507c823fbcfa1",
+      "frame": 55084,
+      "local_frame": 7800,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000152.jpg",
+      "sha256": "b5bff5a1d725e289a17ff1f920acfba1ee85ce7b3d03c1c95b4407574dbe8b10",
+      "frame": 55384,
+      "local_frame": 8100,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000153.jpg",
+      "sha256": "59c57019970655c70b57c5926c7fa73c37e6a6ecdcaf6489110091df4cb45ec1",
+      "frame": 55684,
+      "local_frame": 8400,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000154.jpg",
+      "sha256": "63e0e1108adc9703e6270310dbaf95b69e638a2158fc5ee0415a2b9b64326a18",
+      "frame": 55984,
+      "local_frame": 8700,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000155.jpg",
+      "sha256": "1d76ee5dd21e5a92d73103b9f3e074d489cfc035976b07cc12d9c7821f22f179",
+      "frame": 56125,
+      "local_frame": 8841,
+      "reasons": [
+        "06_6 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000156.jpg",
+      "sha256": "22f0e49c9e2bf68671762c1e62c81ad50b6489c99c0ebc95c9dcee0b0b1e26ab",
+      "frame": 56126,
+      "local_frame": 8842,
+      "reasons": [
+        "06_6 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000157.jpg",
+      "sha256": "950ef48de97793b8d42bead56a6e9d2b27f0ae9193677c052d03c60932aef4c2",
+      "frame": 56127,
+      "local_frame": 8843,
+      "reasons": [
+        "06_6 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000158.jpg",
+      "sha256": "70e6b9dd77f698c156f0a7c78692793d13b866a99a5c971ae9d87e62d3ff417c",
+      "frame": 56161,
+      "local_frame": 8877,
+      "reasons": [
+        "06_7 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000159.jpg",
+      "sha256": "19e74a4646e601f9ba71eb14ab6fee6f2f7b9bca2b953d1a085b1602f28ed78e",
+      "frame": 56162,
+      "local_frame": 8878,
+      "reasons": [
+        "06_7 start"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000160.jpg",
+      "sha256": "83cb2467d28b70587db3832ac53ef17572207c040fcc32101a766f3bd26ef4ca",
+      "frame": 56192,
+      "local_frame": 8908,
+      "reasons": [
+        "06_7 opening"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000161.jpg",
+      "sha256": "09c82faa4c401546bcc9404d7b5f60f14b8e8453805b512cda08858cdfb144d3",
+      "frame": 56284,
+      "local_frame": 9000,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000162.jpg",
+      "sha256": "56703e0b9dcb68f98d8c166e91d916d54f40aa9d35226ada944560e35afb44b9",
+      "frame": 56584,
+      "local_frame": 9300,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000163.jpg",
+      "sha256": "9b7333e4054b991cd792b6f53b9ba4baccce1ae61bd952d046e0fc5477a76da0",
+      "frame": 56884,
+      "local_frame": 9600,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000164.jpg",
+      "sha256": "f997b72a7a4f995d7f7fd505987d0df6255c4940ca39c8ef3c7079a6e7138b64",
+      "frame": 57090,
+      "local_frame": 9806,
+      "reasons": [
+        "06_7 provisional phrase with a derivative"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000165.jpg",
+      "sha256": "7c0668017c807acc9acfeba899d9cfc92b41dd4d3ffb0669dcae87de948162c7",
+      "frame": 57120,
+      "local_frame": 9836,
+      "reasons": [
+        "06_7 provisional phrase with a derivative"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000166.jpg",
+      "sha256": "27e110e339d30cbf35f7d764786f6ececc6584f4f103447c3bac0abbb174bd8c",
+      "frame": 57150,
+      "local_frame": 9866,
+      "reasons": [
+        "06_7 provisional phrase with a derivative"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000167.jpg",
+      "sha256": "761cf97ae12a6dabd1bbbf6dc6147d0bb6380929e611f9bd2cda3223e83808d9",
+      "frame": 57180,
+      "local_frame": 9896,
+      "reasons": [
+        "06_7 provisional phrase with a derivative"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000168.jpg",
+      "sha256": "3e62fd2e7f11bd5feaa6ef954dbf665282acb18c486ae3bbb2526b68bf400e27",
+      "frame": 57184,
+      "local_frame": 9900,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000169.jpg",
+      "sha256": "fe644b5beb1f441b8574fd1809bacc7b6d2db99a74f3968601c82c3e6d1e4c21",
+      "frame": 57260,
+      "local_frame": 9976,
+      "reasons": [
+        "06_7 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000170.jpg",
+      "sha256": "715be4098a1aed141392d7f1e97c0d4b290302469e9da63fd14068326117b0ef",
+      "frame": 57261,
+      "local_frame": 9977,
+      "reasons": [
+        "06_7 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000171.jpg",
+      "sha256": "f19a47292e70913b5c60e19f12e5da883371041fb872ddc52cb8c31dff7ad979",
+      "frame": 57262,
+      "local_frame": 9978,
+      "reasons": [
+        "06_7 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000172.jpg",
+      "sha256": "012aa62d71c7a1dec559a206642661a16a84919c5ce5f67b05c0395c41e38857",
+      "frame": 57297,
+      "local_frame": 10013,
+      "reasons": [
+        "06_8 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000173.jpg",
+      "sha256": "9646da2cd9e483df2b35c7ae266a44807fd9a7d3714fe0a325999fb2348b63c3",
+      "frame": 57298,
+      "local_frame": 10014,
+      "reasons": [
+        "06_8 start",
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000174.jpg",
+      "sha256": "0268d901a2915aa4725c9dca681e340cc072e1b6dc84184d60aa21408be8bc6e",
+      "frame": 57328,
+      "local_frame": 10044,
+      "reasons": [
+        "06_8 opening"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000175.jpg",
+      "sha256": "fb984df8f83c4ff3f39f07374b6060081e17f968d3ce8002b69c73f0ed72035c",
+      "frame": 57358,
+      "local_frame": 10074,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000176.jpg",
+      "sha256": "fb984df8f83c4ff3f39f07374b6060081e17f968d3ce8002b69c73f0ed72035c",
+      "frame": 57418,
+      "local_frame": 10134,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000177.jpg",
+      "sha256": "fb984df8f83c4ff3f39f07374b6060081e17f968d3ce8002b69c73f0ed72035c",
+      "frame": 57478,
+      "local_frame": 10194,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000178.jpg",
+      "sha256": "fb984df8f83c4ff3f39f07374b6060081e17f968d3ce8002b69c73f0ed72035c",
+      "frame": 57484,
+      "local_frame": 10200,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000179.jpg",
+      "sha256": "1f9cbaea8e0c4febf1038140607262f0f6bb072e182c464cc29c950add5123d2",
+      "frame": 57538,
+      "local_frame": 10254,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000180.jpg",
+      "sha256": "ee75f29188b10e7663b62abe6be1639a6e6e1d584e58bd10deb710109f8959b8",
+      "frame": 57598,
+      "local_frame": 10314,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000181.jpg",
+      "sha256": "ee75f29188b10e7663b62abe6be1639a6e6e1d584e58bd10deb710109f8959b8",
+      "frame": 57658,
+      "local_frame": 10374,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000182.jpg",
+      "sha256": "ee75f29188b10e7663b62abe6be1639a6e6e1d584e58bd10deb710109f8959b8",
+      "frame": 57718,
+      "local_frame": 10434,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000183.jpg",
+      "sha256": "ee75f29188b10e7663b62abe6be1639a6e6e1d584e58bd10deb710109f8959b8",
+      "frame": 57778,
+      "local_frame": 10494,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000184.jpg",
+      "sha256": "588a77afc6211f45d86a77420fe59de4394d3a47c0ee6978609e913a5030cd29",
+      "frame": 57784,
+      "local_frame": 10500,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000185.jpg",
+      "sha256": "6e1f64174f0fd40891f5405e41d4a5253d19aa89000b2297df768079a6ba8d99",
+      "frame": 57838,
+      "local_frame": 10554,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000186.jpg",
+      "sha256": "10211ccfb9c58667f0536e9c3944ab6a6a8cb3ee15459a81d8794fd13481158e",
+      "frame": 57898,
+      "local_frame": 10614,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000187.jpg",
+      "sha256": "10211ccfb9c58667f0536e9c3944ab6a6a8cb3ee15459a81d8794fd13481158e",
+      "frame": 57916,
+      "local_frame": 10632,
+      "reasons": [
+        "06_8 provisional phrase so y of t"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000188.jpg",
+      "sha256": "10211ccfb9c58667f0536e9c3944ab6a6a8cb3ee15459a81d8794fd13481158e",
+      "frame": 57946,
+      "local_frame": 10662,
+      "reasons": [
+        "06_8 provisional phrase so y of t"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000189.jpg",
+      "sha256": "e3ce5decd6cb0d2438aa21b992e82c60ff97b480398b13acf1e832f4ea93edd2",
+      "frame": 57958,
+      "local_frame": 10674,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000190.jpg",
+      "sha256": "770f57a9caf79f2d4089b87924bad771338bb04ada544658467c53fcc6021234",
+      "frame": 57976,
+      "local_frame": 10692,
+      "reasons": [
+        "06_8 provisional phrase so y of t"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000191.jpg",
+      "sha256": "1dffdfe99215358c87ccaa73b2846de76dad9eee493df93edfa40ed7b04b0b1d",
+      "frame": 58006,
+      "local_frame": 10722,
+      "reasons": [
+        "06_8 provisional phrase so y of t"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000192.jpg",
+      "sha256": "1dffdfe99215358c87ccaa73b2846de76dad9eee493df93edfa40ed7b04b0b1d",
+      "frame": 58018,
+      "local_frame": 10734,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000193.jpg",
+      "sha256": "74fa7a75260c951260795c9911a5d3c5c6b96398156acfd442ef86a5a73ee9d6",
+      "frame": 58078,
+      "local_frame": 10794,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000194.jpg",
+      "sha256": "74fa7a75260c951260795c9911a5d3c5c6b96398156acfd442ef86a5a73ee9d6",
+      "frame": 58084,
+      "local_frame": 10800,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000195.jpg",
+      "sha256": "74fa7a75260c951260795c9911a5d3c5c6b96398156acfd442ef86a5a73ee9d6",
+      "frame": 58138,
+      "local_frame": 10854,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000196.jpg",
+      "sha256": "74fa7a75260c951260795c9911a5d3c5c6b96398156acfd442ef86a5a73ee9d6",
+      "frame": 58198,
+      "local_frame": 10914,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000197.jpg",
+      "sha256": "56c0a844ba22b8e85e0326976810b3bc4e6fee38211954719b3d199488029fc9",
+      "frame": 58258,
+      "local_frame": 10974,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000198.jpg",
+      "sha256": "605e58e540eeca572c36c1eda4d0811a666b8ff1b63b0db62dc61de8a8162aaa",
+      "frame": 58318,
+      "local_frame": 11034,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000199.jpg",
+      "sha256": "605e58e540eeca572c36c1eda4d0811a666b8ff1b63b0db62dc61de8a8162aaa",
+      "frame": 58378,
+      "local_frame": 11094,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000200.jpg",
+      "sha256": "605e58e540eeca572c36c1eda4d0811a666b8ff1b63b0db62dc61de8a8162aaa",
+      "frame": 58384,
+      "local_frame": 11100,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000201.jpg",
+      "sha256": "605e58e540eeca572c36c1eda4d0811a666b8ff1b63b0db62dc61de8a8162aaa",
+      "frame": 58438,
+      "local_frame": 11154,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000202.jpg",
+      "sha256": "605e58e540eeca572c36c1eda4d0811a666b8ff1b63b0db62dc61de8a8162aaa",
+      "frame": 58498,
+      "local_frame": 11214,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000203.jpg",
+      "sha256": "b7c3b781c5e319ccdf84c04e2e37d6e935fb15abfcac80f69de0c7da1358d0b7",
+      "frame": 58558,
+      "local_frame": 11274,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000204.jpg",
+      "sha256": "b7c3b781c5e319ccdf84c04e2e37d6e935fb15abfcac80f69de0c7da1358d0b7",
+      "frame": 58618,
+      "local_frame": 11334,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000205.jpg",
+      "sha256": "b7c3b781c5e319ccdf84c04e2e37d6e935fb15abfcac80f69de0c7da1358d0b7",
+      "frame": 58678,
+      "local_frame": 11394,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000206.jpg",
+      "sha256": "e1114cbfc04dfb18690ea4ff874e86842d1792db4ee760bdaad1c49fdf020777",
+      "frame": 58684,
+      "local_frame": 11400,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000207.jpg",
+      "sha256": "b7c3b781c5e319ccdf84c04e2e37d6e935fb15abfcac80f69de0c7da1358d0b7",
+      "frame": 58738,
+      "local_frame": 11454,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000208.jpg",
+      "sha256": "239061719d47d759bbb975502bb43453b9435a4509b3c0e6d9aabb6e338a464e",
+      "frame": 58798,
+      "local_frame": 11514,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000209.jpg",
+      "sha256": "4079e90604bb26834bf9e0926de6c89a62c0bbe428b4e58d9f6bf9a1b5f081f1",
+      "frame": 58858,
+      "local_frame": 11574,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000210.jpg",
+      "sha256": "696d80268e3a1ccaf22efb8b073451cb2b38c69a606b4a57a4d4f7c4b295a7d9",
+      "frame": 58918,
+      "local_frame": 11634,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000211.jpg",
+      "sha256": "696d80268e3a1ccaf22efb8b073451cb2b38c69a606b4a57a4d4f7c4b295a7d9",
+      "frame": 58978,
+      "local_frame": 11694,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000212.jpg",
+      "sha256": "696d80268e3a1ccaf22efb8b073451cb2b38c69a606b4a57a4d4f7c4b295a7d9",
+      "frame": 58984,
+      "local_frame": 11700,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000213.jpg",
+      "sha256": "77cec850bd757ac8dc48ebd6b67397168df8c08d7bb8b019b1b3068d65817d31",
+      "frame": 59038,
+      "local_frame": 11754,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000214.jpg",
+      "sha256": "a947360814af4836b7965f08a658bea16f74b9f516a9a050505d6f0634ebd722",
+      "frame": 59098,
+      "local_frame": 11814,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000215.jpg",
+      "sha256": "a947360814af4836b7965f08a658bea16f74b9f516a9a050505d6f0634ebd722",
+      "frame": 59158,
+      "local_frame": 11874,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000216.jpg",
+      "sha256": "a947360814af4836b7965f08a658bea16f74b9f516a9a050505d6f0634ebd722",
+      "frame": 59218,
+      "local_frame": 11934,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000217.jpg",
+      "sha256": "ddf03fe569b464c12a16f6b13b99225ef487f7ce116bee20963ca1e1f119e439",
+      "frame": 59278,
+      "local_frame": 11994,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000218.jpg",
+      "sha256": "628ca7d5537a1e3a45613e1943ab16e17f7c2c31682947063edeb4798eb9faa4",
+      "frame": 59284,
+      "local_frame": 12000,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000219.jpg",
+      "sha256": "9a4c1b87d903fe53745b95907b59332744a34d3ceaf8da08246d6292bc9090b5",
+      "frame": 59338,
+      "local_frame": 12054,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000220.jpg",
+      "sha256": "9a4c1b87d903fe53745b95907b59332744a34d3ceaf8da08246d6292bc9090b5",
+      "frame": 59398,
+      "local_frame": 12114,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000221.jpg",
+      "sha256": "9a4c1b87d903fe53745b95907b59332744a34d3ceaf8da08246d6292bc9090b5",
+      "frame": 59458,
+      "local_frame": 12174,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000222.jpg",
+      "sha256": "9a4c1b87d903fe53745b95907b59332744a34d3ceaf8da08246d6292bc9090b5",
+      "frame": 59518,
+      "local_frame": 12234,
+      "reasons": [
+        "06_8 documented ASR uncertainty entire cue1s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000223.jpg",
+      "sha256": "87ef4645f8f2ee9754a53673f60dfa32645c15d3ae8a97d28859a1d76e588dc3",
+      "frame": 59519,
+      "local_frame": 12235,
+      "reasons": [
+        "06_8 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000224.jpg",
+      "sha256": "795c9b60c54f2bc4468922d20ac9c5c869c91a259a66c829531117187b824590",
+      "frame": 59520,
+      "local_frame": 12236,
+      "reasons": [
+        "06_8 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000225.jpg",
+      "sha256": "31b02bf6177fb345d8ad87c095f8acd194501d8cd6aa36f7bf2ffca587de7d54",
+      "frame": 59521,
+      "local_frame": 12237,
+      "reasons": [
+        "06_8 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000226.jpg",
+      "sha256": "ad71360a722ab4ae7d3d0ccc5a7a27eded34e7c1b30adb9ae6ef8ec7e25b33a2",
+      "frame": 59556,
+      "local_frame": 12272,
+      "reasons": [
+        "06_9 pre"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000227.jpg",
+      "sha256": "7c57bc0b1b0d265cb87f5d06bb10f5d6c319139833f4371526702c7ede814ce3",
+      "frame": 59557,
+      "local_frame": 12273,
+      "reasons": [
+        "06_9 start"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000228.jpg",
+      "sha256": "244a2b27102062c436a4a61e3f4bff1d055f094bf0baa8da1a6e12b387784276",
+      "frame": 59584,
+      "local_frame": 12300,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000229.jpg",
+      "sha256": "1eca377374c9b19c313afaa9819c799fb6db9716cb9c214c5d3d14a2b12f3381",
+      "frame": 59587,
+      "local_frame": 12303,
+      "reasons": [
+        "06_9 opening"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000230.jpg",
+      "sha256": "01d7ff271c15dd4d670eb1df3bfcb06acab430af2b7fdbd823829a4cd4b97501",
+      "frame": 59884,
+      "local_frame": 12600,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000231.jpg",
+      "sha256": "7c4780ce5241075910d2efb31016361586ac9f6771d9c1bdf3cef0b59d6a2c2e",
+      "frame": 60184,
+      "local_frame": 12900,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000232.jpg",
+      "sha256": "bc609d499f4d1ff7f014f30daff058b5b26e2909742e463ce94fb556024f6509",
+      "frame": 60484,
+      "local_frame": 13200,
+      "reasons": [
+        "chapter overview every5s"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000233.jpg",
+      "sha256": "128bfe97cbd22754348e03ec0066fcfe5cbe54e2a28b32e3136d57e40ec98810",
+      "frame": 60487,
+      "local_frame": 13203,
+      "reasons": [
+        "06_9 last spoken"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000234.jpg",
+      "sha256": "10d22589735f0d26e81e8f2d75ca76e2be0e654ad29078fee1fc78b92bf40fa1",
+      "frame": 60488,
+      "local_frame": 13204,
+      "reasons": [
+        "06_9 end"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000235.jpg",
+      "sha256": "a78e246e655f93c00becee8e49a418cf78980c3cbdc565eefb547c1bf26999d0",
+      "frame": 60489,
+      "local_frame": 13205,
+      "reasons": [
+        "06_9 join"
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/pictures/frame-000236.jpg",
+      "sha256": "c2529028c2779f92de6cf5f66843eee484d6d12b94a3bb40077e98e5ab5c76ec",
+      "frame": 60524,
+      "local_frame": 13240,
+      "reasons": [
+        "chapter last"
+      ]
+    }
+  ],
+  "sheets": [
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-001.jpg",
+      "sha256": "74696136bcd83778deb78f4eb4df848768b1361636e27becdc8ed0ea1338f2a8",
+      "frames": [
+        47284,
+        47319,
+        47320,
+        47350,
+        47584,
+        47884,
+        48184,
+        48284
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-002.jpg",
+      "sha256": "7007845fc263735eca52bddc573fc66375fe2c16493791c88492ed4c95b03b50",
+      "frames": [
+        48285,
+        48286,
+        48320,
+        48321,
+        48351,
+        48381,
+        48441,
+        48484
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-003.jpg",
+      "sha256": "492207d6ef5d3eddd9fc20afc1ad93df6401658d9703af9bb65e85fe293b3337",
+      "frames": [
+        48501,
+        48561,
+        48621,
+        48681,
+        48741,
+        48784,
+        48801,
+        48861
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-004.jpg",
+      "sha256": "c8d51e4f63f969319f012e7e110392d0345f544ad70401fe7513782fa6a8d91b",
+      "frames": [
+        48921,
+        48981,
+        49041,
+        49084,
+        49101,
+        49161,
+        49221,
+        49281
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-005.jpg",
+      "sha256": "74dcf24c5f9959805c559144edd064d8dbd49caa6df1ac53b5edb95a675f38a2",
+      "frames": [
+        49341,
+        49384,
+        49401,
+        49461,
+        49521,
+        49581,
+        49641,
+        49684
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-006.jpg",
+      "sha256": "7d12bdecc24eb4acfab18dbf161891c0a972cd471c27f9978de77e8b151e8312",
+      "frames": [
+        49701,
+        49761,
+        49821,
+        49861,
+        49862,
+        49863,
+        49897,
+        49898
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-007.jpg",
+      "sha256": "4f4977f6c9fa92d6391243226167121a7137a3cd28c58e7ecc07f079d9f474c0",
+      "frames": [
+        49928,
+        49984,
+        50284,
+        50584,
+        50884,
+        51184,
+        51484,
+        51577
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-008.jpg",
+      "sha256": "c4e9372faa7711a117f4fffaa2109aa9f364d306f350f08b8da8d7dbd43cb204",
+      "frames": [
+        51578,
+        51579,
+        51613,
+        51614,
+        51615,
+        51644,
+        51674,
+        51704
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-009.jpg",
+      "sha256": "e31f963c79fbdff6dabc5678ea5ba34339d054e7a69ac3274ae3d57ffcb10772",
+      "frames": [
+        51734,
+        51764,
+        51784,
+        51794,
+        51824,
+        51853,
+        51854,
+        51855
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-010.jpg",
+      "sha256": "61ba144b9f3a456ce92e714545f6230fb35c939f3d8f908f833e4e9e01c07bbe",
+      "frames": [
+        51871,
+        51872,
+        51902,
+        51932,
+        51992,
+        52052,
+        52084,
+        52112
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-011.jpg",
+      "sha256": "2bcb47816b693d9fb8a01a981e1f26d609a8f6d438de230f68dfcd36488d1446",
+      "frames": [
+        52172,
+        52179,
+        52209,
+        52232,
+        52239,
+        52269,
+        52292,
+        52352
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-012.jpg",
+      "sha256": "435527f57ce915653f345140a0633f8e36d3566b921a11b1a40a03c52d5dc100",
+      "frames": [
+        52384,
+        52412,
+        52472,
+        52532,
+        52581,
+        52592,
+        52611,
+        52641
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-013.jpg",
+      "sha256": "d074cd6d51efd7da62e2ee3e9067cf9df16d3fbf2fcfc6dfdae5e7585aff923d",
+      "frames": [
+        52652,
+        52671,
+        52684,
+        52712,
+        52772,
+        52832,
+        52892,
+        52952
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-014.jpg",
+      "sha256": "5e627d83e428e80b150c4d386f800e2d208cf2f3853584b80b45cc5e20a96096",
+      "frames": [
+        52984,
+        53012,
+        53072,
+        53105,
+        53106,
+        53107,
+        53141,
+        53142
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-015.jpg",
+      "sha256": "2c956349141b3546480d0a91fadc9928fcbcb83205983917244fca5ba82cbe2c",
+      "frames": [
+        53172,
+        53202,
+        53262,
+        53284,
+        53322,
+        53382,
+        53442,
+        53502
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-016.jpg",
+      "sha256": "0abc6b6ae38f033c69952b951209c8cab1a0f40ce348d1215836f373ba2f4589",
+      "frames": [
+        53562,
+        53584,
+        53604,
+        53622,
+        53634,
+        53664,
+        53682,
+        53694
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-017.jpg",
+      "sha256": "18efd86a07af19e9cc573ba723281b17565d54ae239cde7e23093435edc15a60",
+      "frames": [
+        53742,
+        53802,
+        53862,
+        53884,
+        53922,
+        53982,
+        54042,
+        54102
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-018.jpg",
+      "sha256": "19d084b576ad97123ad71f465d2718a61a4df46869451d46637837c45c7fa702",
+      "frames": [
+        54162,
+        54184,
+        54222,
+        54282,
+        54342,
+        54402,
+        54403,
+        54404
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-019.jpg",
+      "sha256": "d72ba8b60b72ab906a59a347fd738f30d56bc1caed0a3e2383924d1b1857b5b3",
+      "frames": [
+        54405,
+        54440,
+        54441,
+        54471,
+        54484,
+        54784,
+        55084,
+        55384
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-020.jpg",
+      "sha256": "cb553e3c22eb1dbfadf7e78eaa528b8f778e25e5238f308fb2287706098fcccc",
+      "frames": [
+        55684,
+        55984,
+        56125,
+        56126,
+        56127,
+        56161,
+        56162,
+        56192
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-021.jpg",
+      "sha256": "17ea221e7bd9f54bb1b7cdb79ebe4db188b18a98013452724b9492a1dcdb6465",
+      "frames": [
+        56284,
+        56584,
+        56884,
+        57090,
+        57120,
+        57150,
+        57180,
+        57184
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-022.jpg",
+      "sha256": "7a14401afffd2bd2fa5d39421116352287216705a99624d68bde32ba8bcd990c",
+      "frames": [
+        57260,
+        57261,
+        57262,
+        57297,
+        57298,
+        57328,
+        57358,
+        57418
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-023.jpg",
+      "sha256": "73c8a62e62aa6eda4e9081692eb6fc0f38e30502289d3808318bb2acbf904609",
+      "frames": [
+        57478,
+        57484,
+        57538,
+        57598,
+        57658,
+        57718,
+        57778,
+        57784
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-024.jpg",
+      "sha256": "8de496d4947c33c86ede4f51b4864edd504ca0f8a218955b5d641e66a18b13f6",
+      "frames": [
+        57838,
+        57898,
+        57916,
+        57946,
+        57958,
+        57976,
+        58006,
+        58018
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-025.jpg",
+      "sha256": "6a0c28af56e471d999ece3757733828171de6bffb6f1e2fb01808f7136659e84",
+      "frames": [
+        58078,
+        58084,
+        58138,
+        58198,
+        58258,
+        58318,
+        58378,
+        58384
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-026.jpg",
+      "sha256": "bf5f3a4736552b80a7c4ed8fb7855ffda8e30b366fb4c56c5306d87479e5c74e",
+      "frames": [
+        58438,
+        58498,
+        58558,
+        58618,
+        58678,
+        58684,
+        58738,
+        58798
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-027.jpg",
+      "sha256": "d1775b0f5b6f31535b8c396527be2fc240210b0371d6cf66b0059b7c52539bd6",
+      "frames": [
+        58858,
+        58918,
+        58978,
+        58984,
+        59038,
+        59098,
+        59158,
+        59218
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-028.jpg",
+      "sha256": "3e4362135eee5bc2d4086859979af6c9ad3e3111b372429e923eaa95010ea61c",
+      "frames": [
+        59278,
+        59284,
+        59338,
+        59398,
+        59458,
+        59518,
+        59519,
+        59520
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-029.jpg",
+      "sha256": "15b972800dbf3d03eb3cf575ff9c02e0ac8623e408a5c91b208bd6260b3a2a2c",
+      "frames": [
+        59521,
+        59556,
+        59557,
+        59584,
+        59587,
+        59884,
+        60184,
+        60484
+      ]
+    },
+    {
+      "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master-pictures1008-06_only_solution/sheets/sheet-030.jpg",
+      "sha256": "77afa3391d84811cd0dc470a906181d538061b8b4c9cdf2682899c8591dcc761",
+      "frames": [
+        60487,
+        60488,
+        60489,
+        60524
+      ]
+    }
+  ],
+  "samples": 236,
+  "source": {
+    "chapter": "06_only_solution",
+    "offset_frames": 47284,
+    "frames": 13241,
+    "seed_path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-pictures985-06_only_solution/pictures985.json",
+    "seed_sha256": "171d48cdc966d876e2ad3b25310f4466150562fb03b33db5c800a08c486b9d6a",
+    "samples": 236
+  },
+  "extract_source": {
+    "path": "/data/projects/jmev-css-render-worker-20261107/jobs/css-exponential-master987/final/06_only_solution.mp4",
+    "sha256": "ecc5817840b116f677c3145ccf4014fe48ff6b39bb69395398d1b95dc190dfaa",
+    "offset_frames": 47284,
+    "frames": 13241,
+    "framehash_sha256": "a96ddbb25f3465ba5a187ff3e8dc157d8d1d955eac102ef2b183a5613980e79b",
+    "master_video_framehash_sha256": "13a0b6c7c907c360419cb1317b1b86fdcbe48013e43e9be2f110e36984b280f1"
+  },
+  "stream": {
+    "matched": {
+      "codec_name": "h264",
+      "profile": "High",
+      "pix_fmt": "yuv420p",
+      "color_range": "tv",
+      "color_space": "bt709",
+      "chroma_location": "left",
+      "width": 3840,
+      "height": 2160,
+      "r_frame_rate": "60/1",
+      "field_order": "progressive",
+      "bits_per_raw_sample": "8"
+    },
+    "tags": {
+      "source": {
+        "color_transfer": null,
+        "color_primaries": null
+      },
+      "master": {
+        "color_transfer": "bt709",
+        "color_primaries": "bt709"
+      }
+    }
+  },
+  "verification_sha256": "6c273f16974dd3ac0f0363722be9ef308ed4f58a3d5809837acb3aaaf47f7909",
+  "verification_receipt_sha256": "e1d1b4d2ef1472a55d5e27f9ade60d71ce5a60235162122c04bbe38ef7183c8b",
+  "verification_inputs_sha256": "5d45eac1c04c351ffdba66ca1ee97a88dc8536978a94e0a4928dc1c51189aa41",
+  "verify_helper_sha256": "d96795c42ac8826aa7a00e568f307e473cd05a529848f85a7b653ce75e7232c1",
+  "scope": "All selected985 frames at their joined-master frame numbers, extracted from each chapter file whose decoded frames verification1005 proved identical to that master slice (re-proved here from the bound framehash files); images unviewed. No listening, fine-sync or publication acceptance."
+}

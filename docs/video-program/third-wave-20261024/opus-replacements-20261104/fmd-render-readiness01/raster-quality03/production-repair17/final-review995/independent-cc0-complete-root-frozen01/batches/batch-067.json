@@ -1,0 +1,7 @@
+{"batch": 67, "viewed_utc": "2026-11-10T20:49Z",
+ "sheets": {
+  "0211": "05_9 153.183-153.3 s (f34897-f34904, every frame of root window 9168-9220). z^3 - 1 thumbnail with label, three zero dots and gold square held at full at top-left; a large square panel at the right (sheet x 1446-1784, y 121-459 on slot 2's tile row: 339 x 339 px) brightening evenly frame by frame. No defect.",
+  "0212": "05_9 153.317-153.433 s (f34905-f34912). The panel keeps brightening evenly: a smooth patch of hue, purple at top-left through blue and teal to green and yellow at bottom-right, with the contour mesh; no zero or pole inside. No defect.",
+  "0213": "05_9 153.45-153.567 s (f34913-f34920). Panel near full. Checked against the gold square (inside x 175-243, y 90-159 of slot 2's tile): the square's contents enlarged about 4.9 times match the panel in hue layout and mesh (side-by-side crop s0213-slot2-box-vs-zoom.png), so the panel is a true magnified view of a zero-free square. No defect."
+ },
+ "findings": []}

@@ -1,0 +1,13 @@
+{"batch": 1, "viewed_utc": "2026-11-10T20:05Z",
+ "sheets": {
+  "0001": "01 0.000-1.100 s. Slots 1-3 (f0-f2) fully dark: chapter opens on black. Slot 4 (0.4 s) title, formula and axes fading in. Slots 5-8: 'the bump 1/(1+x^2)' and axes, nothing else drawn yet. No defect.",
+  "0002": "01 1.2-4.4 s. Yellow tracing dot at the far left; the white curve starts drawing from x=-max at 3.8 s. No defect.",
+  "0003": "01 5.8-10.0 s. The curve is traced left to right by the dot, with the peak at the y-axis. At 10.0 s it is nearly complete. No defect.",
+  "0004": "01 10.583-15.8 s. Bump complete. The peak label '1' fades in (10.8 s), and the dot fades out by 11.4 s. No defect.",
+  "0005": "01 16.0-20.8 s. Steady bump with '1'. The series line '1 - x^2 + x^4 - x^6 + ...' fades in at 17.967 s (01_2). Minus glyph: see L1.",
+  "0006": "01 21.0-24.433 s. Partial sums in yellow: 1-x^2 fades in (21.0 s), then 1-x^2+x^4 (23.433 s). Crop s0006-slot5-quartic.png: the quartic lies on the bump near 0 and above it outward, as (1+x^6)/(1+x^2) >= 1/(1+x^2) requires. Minus glyph L1 (crop s0006-slot5-series4x.png)."
+ },
+ "findings": [
+  {"id": "L1", "sheet": 5, "slot": 5, "frame": 1078, "severity": "Low (typographic, likely film-wide)",
+   "text": "In the series '1 - x^2 + x^4 - x^6 + ...' every minus is a short, heavy bar, about 10 px wide at 960x540 against about 15 px for '+'. It looks like the Computer Modern text hyphen, not the math minus (TeX's minus has the same width as '+'). It is legible, but inconsistent beside the CM '+'. First seen at 17.967 s (f1078); on every later frame of that line in sheets 5-6. Crop: crops/s0006-slot5-series4x.png."}
+ ]}

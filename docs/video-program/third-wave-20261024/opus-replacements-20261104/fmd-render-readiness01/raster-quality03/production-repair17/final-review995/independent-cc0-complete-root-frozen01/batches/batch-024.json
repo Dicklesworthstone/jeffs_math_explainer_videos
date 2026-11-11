@@ -1,0 +1,10 @@
+{"batch": 24, "viewed_utc": "2026-11-10T20:14Z",
+ "sheets": {
+  "0082": "04_6 90.0-96.533 s. Quiz 'where are the bump's poles? how many turns at each?' held over the empty axes and unit circle. 94.5 s: a violet think-time ring appears under the box and empties (96.0 s a short arc, 96.4 s a dot, 96.533 s empty). No answer is shown while the ring runs. No defect.",
+  "0083": "04_7 96.933-103.017 s. The quiz box fades (96.9 s) and is gone at 97.2 s while the portrait starts to fade in. 99.5 s: the 1/(1 + z^2) portrait with pink-ringed poles at +i and -i on the unit circle, and the answer 'at i: -1 turn, at -i: -1 turn' in pink, 3 s after the ring emptied. Portrait checked against the formula: red along the real axis (f > 0 there); far out f ~ 1/z^2, so teal at the top centre, violet at the top right, yellow at the top left; each pole winds once the other way. 102.3 s: the circle and the segment [-1, 1] turn gold, 'gold segment: where the recipe works' (radius 1, the distance to the poles); the pole rings sit on top of the gold circle. Crop crops/s0083-slot8-poles-answer4x.png: the minus signs are short heavy hyphens (L1) and i is upright (L4).",
+  "0084": "04_7 104.5-106.633 s (pairs one frame apart at 106.2/106.233, 106.4/106.433, 106.6/106.633). Hold, then 'names to search: domain colouring . enhanced phase portrait' fades in on a full-width backing at the bottom (106.4 s), full at 106.6 s; it covers only the bottom strip of the portrait, below the lower pole. Names correct. No defect."
+ },
+ "findings": [
+  {"id": "L1", "sheet": "0083", "slot": 8, "frame": 25113, "severity": "Low", "text": "Recurs in the 04_7 answer 'at i: -1 turn, at -i: -1 turn' (three short heavy hyphens), from f24902."},
+  {"id": "L4", "sheet": "0083", "slot": 8, "frame": 25113, "severity": "Low", "text": "Recurs in the same 04_7 answer: i set upright in 'at i' and 'at -i', while the title above sets z in TeX italic."}
+ ]}

@@ -1,0 +1,10 @@
+{"batch": 11, "viewed_utc": "2026-11-10T21:16Z",
+ "sheets": {
+  "0043": "03 6.0-14.367 s. z -> f(z) arrow fades (7.3 s); the input plane draws around z (7.6 s), then axes with ticks, '1' and 'i', and the output plane with f(z) (10.0 s); titles 'input z' and 'output f(z)' (10.6 s). z at about 0.8+0.6i and f(z) at about 0.28+0.96i (80 px per unit), as z^2 requires. No defect.",
+  "0044": "03 14.767-21.0 s. 03_2: the points and footer fade; title 'f(z) = z^2' (15.1 s); caption '|z^2| = |z|^2, arg z^2 = 2 arg z (mod 2pi), z != 0' (16.8 s). Arrows |z| (about 1.2+0.7i, 30 deg) and |z|^2 (about 0.95+1.68i, 60 deg) fade in (20.0-20.4 s). Lengths and angles agree. No defect.",
+  "0045": "03 21.367-27.233 s. Angle arcs 'arg z' and '2 arg z' (22.1 s). Then a radius-0.5 input circle and a radius-0.25 output circle with turn counters (23.5 s, '0.00'). Dots at 0.285 and 0.57 turns (26.0 s) and 0.46 and 0.92 turns (27.2 s) sit where the counters say. At 26.0 s the counters read 'turns: 0.28' against 'turns: 0.57': see L5."
+ },
+ "findings": [
+  {"id": "L5", "sheet": 45, "slot": 7, "frame": 13243, "severity": "Low (readout arithmetic)",
+   "text": "In 03_2 the input and output turn counters are rounded separately. At 26.0 s (f13243) they read 'turns: 0.28' and 'turns: 0.57', although the point of the picture is that the output turns exactly twice as fast (2 x 0.28 = 0.56). The dot positions agree with an exact input of about 0.285 turns. A viewer checking the doubling sees a mismatch while the counters run. Deriving the output readout from the displayed input value (or rounding the input down to a value whose double rounds the same way) would avoid it. The same separate-rounding pattern was raised as F1 in the earlier final03 review; it is still present in master 80244e88."}
+ ]}

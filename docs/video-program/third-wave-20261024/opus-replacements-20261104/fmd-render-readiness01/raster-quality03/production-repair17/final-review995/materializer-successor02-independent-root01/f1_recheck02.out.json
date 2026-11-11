@@ -1,0 +1,40 @@
+{
+ "impl01_code": "part = 'stems/'+CHAPTER+'.music.f32.wav.part'\nstem_names = {k[len('stems/'):] for k in read(require(master.SCORE/'score21-summary.json'))['files']\n                  if k.startswith(part) and k.endswith('.wav')}\nassert stem_names\nif CHAPTER == '09_boundary':\n        assert stem_names == {f'09_boundary.music.f32.wav.part{i:04d}.wav' for i in range(3)}",
+ "impl01 01_the_bump": "REFUSED AssertionError()",
+ "impl01 08_loop_sums": [
+  "08_loop_sums.music.f32.wav.part0000.wav",
+  "08_loop_sums.music.f32.wav.part0001.wav",
+  "08_loop_sums.music.f32.wav.part0002.wav"
+ ],
+ "impl01 09_boundary": [
+  "09_boundary.music.f32.wav.part0000.wav",
+  "09_boundary.music.f32.wav.part0001.wav",
+  "09_boundary.music.f32.wav.part0002.wav"
+ ],
+ "impl01 11_counting": [
+  "11_counting.music.f32.wav.part0000.wav",
+  "11_counting.music.f32.wav.part0001.wav"
+ ],
+ "impl02_code": "prefix = 'stems/'+CHAPTER+'.music.f32.wav'\nstem_names = {k[len('stems/'):] for k in read(require(master.SCORE/'score21-summary.json'))['files']\n                  if k.startswith(prefix) and k.endswith('.wav')}\nassert stem_names\nif CHAPTER == '09_boundary':\n        assert stem_names == {f'09_boundary.music.f32.wav.part{i:04d}.wav' for i in range(3)}",
+ "impl02 01_the_bump": [
+  "01_the_bump.music.f32.wav"
+ ],
+ "impl02 08_loop_sums": [
+  "08_loop_sums.music.f32.wav.part0000.wav",
+  "08_loop_sums.music.f32.wav.part0001.wav",
+  "08_loop_sums.music.f32.wav.part0002.wav"
+ ],
+ "impl02 09_boundary": [
+  "09_boundary.music.f32.wav.part0000.wav",
+  "09_boundary.music.f32.wav.part0001.wav",
+  "09_boundary.music.f32.wav.part0002.wav"
+ ],
+ "impl02 11_counting": [
+  "11_counting.music.f32.wav.part0000.wav",
+  "11_counting.music.f32.wav.part0001.wav"
+ ],
+ "impl02 01 cuelog stem rows": [
+  "01_the_bump.music.f32.wav"
+ ],
+ "impl02 01 set(stems)==stem_names and counts equal": true
+}

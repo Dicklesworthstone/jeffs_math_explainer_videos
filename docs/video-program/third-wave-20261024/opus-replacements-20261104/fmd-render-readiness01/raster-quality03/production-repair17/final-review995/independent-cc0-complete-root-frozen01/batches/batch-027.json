@@ -1,0 +1,7 @@
+{"batch": 27, "viewed_utc": "2026-11-10T20:15Z",
+ "sheets": {
+  "0091": "05 0.017-0.633 s (seam frames f25707-f25708, then every frame of root window 34-98 from f25740). Black through f25742; at f25743-f25744 the first faint traces of a square portrait appear, offset left and up from chapter 04's. No defect.",
+  "0092": "05 0.650-0.767 s (f25745-f25752, every frame). The new portrait fades in evenly: three zeros (right, upper left, lower left), teal centre, modulus bands and dark rays. Patchy only in the way the earlier fades were. No defect.",
+  "0093": "05 0.783-0.900 s (f25753-f25760). Fade continues. Geometry consistent with z^3 - 1: zeros about 80-87 px from the centre at about 0, 121 and 239 deg, teal at 0 (f(0) = -1), hue winding once at each zero and three times round the border. No defect."
+ },
+ "findings": []}

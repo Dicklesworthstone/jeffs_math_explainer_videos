@@ -1,0 +1,36 @@
+nest (bl, tr):
+  Q_0: (-4.6, -2.1) .. (-0.6000000000000001, 1.9)  stroke 5.0
+  Q_1: (-2.5999999999999996, -0.10000000000000009) .. (-0.6000000000000001, 1.9)  stroke 5.0
+  Q_2: (-2.5999999999999996, -0.10000000000000009) .. (-1.5999999999999999, 0.8999999999999999)  stroke 3.0
+  Q_3: (-2.5999999999999996, 0.3999999999999999) .. (-2.0999999999999996, 0.8999999999999999)  stroke 3.0
+  Q_4: (-2.3499999999999996, 0.3999999999999999) .. (-2.0999999999999996, 0.6499999999999999)  stroke 3.0
+  Q_5: (-2.2249999999999996, 0.5249999999999999) .. (-2.0999999999999996, 0.6499999999999999)  stroke 3.0
+c = (-2.1624999999999996, 0.5874999999999999)
+
+L5 leader: s 0.075..0.4461 along u = (0.5829, -0.8125); name 0.5661 from c
+  start cap reaches 0.0675 from c: 0.0025 u = 0.2 px@960 = 0.7 px@4K inside the dot's rim
+  sides whose ink the leader's ink meets (true widths), with the s-span of the overlap:
+    Q_3 side 1 (right): CROSSES (centre lines meet); ink overlap s 0.0750..0.1458
+    Q_4 side 1 (right): CROSSES (centre lines meet); ink overlap s 0.0750..0.1458
+    Q_5 side 0 (bottom): CROSSES (centre lines meet); ink overlap s 0.0750..0.1046
+    Q_5 side 1 (right): touches (centre-line gap 0.0144); ink overlap s 0.0750..0.1045
+  the leader's ink is on nest ink from the rim to s = 0.1458: 0.0758 u = 5.1 px@960 = 20.5 px@4K past the rim; clear for the remaining 0.3003 u = 20.3 px@960 = 81.1 px@4K
+  test classification (reach 0.0325): touched [(3, 1), (4, 1), (5, 0), (5, 1)]; near misses []; least untouched gap 0.0585 at Q_3 side 0 (margin over reach+0.02: +0.0060)
+  test expects [(3, 1), (4, 1), (5, 0), (5, 1)]: True
+  from s 0.25 every side clear by reach+0.02: True
+  delta-circle radius 0.3182: crosses the leader once at s = 0.3182 (True)
+
+Q_5: half side 0.0625 < dot radius 0.07: each side's centre line is inside the dot for |t| < 0.0315; its ink shows only as corner stubs 0.0310 long (plus the stroke's half width) on each arm; corners stand 0.0884 from c, so their ink reaches 0.0334 u = 2.3 px@960 = 9.0 px@4K beyond the rim
+  Q_5's right side lies on x = -2.1000, the same line as Q_3's and Q_4's right sides (x = -2.1000, -2.1000)
+
+L12: magnified Q_n (-4.6, -2.1)..(-0.6000000000000001, 1.9); kept quarter (-4.6, -0.10000000000000009)..(-2.5999999999999996, 1.9); c name at (-2.8200000000000003, 0.18000000000000002), inside the kept fill: True
+  c name glyph-box (estimated half 0.06) ink clearance to the nearest L12 stroke: 0.1350 u = 9.1 px@960 = 36.5 px@4K
+
+source bindings (candidate file):
+  goursat body ends before the tests: True
+  centre_name_at defined: True
+  redraw occurrences in body: 2 (test wants 2)
+  fill < redraw < fade-in: True
+  dot redraw between fill and fade-in: True
+  draw order inside quarter_picture (fill, outline, dot, c name, Q_(n+1) name): True
+  later film uses of centre_name after L12: 1 (the square_picture list only)

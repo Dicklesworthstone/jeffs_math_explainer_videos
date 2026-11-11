@@ -1,0 +1,60 @@
+{
+  "time": "2026-11-10T21:05:33.203620+00:00",
+  "files": [
+    {
+      "name": "base-build268-loop_sums.rs",
+      "sha256": "8a13e8a190cd502e7b58efbcb7c40872cdb0e6e702feb69e1b789e451a7a42b5"
+    },
+    {
+      "name": "base-build268-mod.rs",
+      "sha256": "e1f4d1b87f4b36f979e7800f7b2048117b9a4809b2372f385350698f5c3e7cbd"
+    },
+    {
+      "name": "candidate01-loop_sums.rs",
+      "sha256": "9a91ed2a205451c5ce5f46a5d97c3a2c94829c46d45cfa72f8c3922bf77db874"
+    },
+    {
+      "name": "candidate01-mod.rs",
+      "sha256": "4de1e4a56fde5c11ac3d6a65e772d09ec33db4f5757d817aff370799d3423578"
+    },
+    {
+      "name": "loop_sums-L12-L11-L5-candidate01.patch",
+      "sha256": "b34edad397ab83a5a63450dec2a9c23923b2d7cae9a811d6a1eab5404c6aa96b"
+    },
+    {
+      "name": "mod-supplements-candidate01.patch",
+      "sha256": "c1fb51678b7e82da025ca399e3b38b8bfd75afb60c09f47af1c7faea5bec8bc8"
+    },
+    {
+      "name": "L12-L11-L5-repair-proposal01.md",
+      "sha256": "5e600e13bbafcbc4a4d237c9c907edfed7658bdec695622c9fa24432ec1bf872"
+    },
+    {
+      "name": "test-mirror02.py",
+      "sha256": "918490d591d1a9dc46781ae3dca7ea771bde1ac34075138dfe904f7f5b5e67d2"
+    },
+    {
+      "name": "test-mirror02.out",
+      "sha256": "e903796d0627c8196eeb1c8e6c9714c2cff707e20185090a6250334e322d8e2d"
+    },
+    {
+      "name": "timing-compare03.py",
+      "sha256": "0d9513b70cb78adb14f7857bfcfcba1db95cae5f561c2c490b862a36294c324f"
+    },
+    {
+      "name": "timing-compare03.out",
+      "sha256": "422d364af8a6dbb9cc840a0c2c2de522e35f50977b5c915c4e80495472928847"
+    },
+    {
+      "name": "timing-control04.py",
+      "sha256": "83ba8d43504e19a6f84d26ba8d05f9af2e999892bef2bd329cd27f5da1df5e7e"
+    },
+    {
+      "name": "timing-control04.out",
+      "sha256": "3f8f72c7fa5346eb26554c34319aff5a79cd4d7c573a5fc7b5752127c8cff119"
+    }
+  ],
+  "source_review": "Root read complete patch and proposal. Not independent patch acceptance.",
+  "native_build": false,
+  "rendered_review": false
+}

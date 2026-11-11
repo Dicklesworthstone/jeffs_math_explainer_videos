@@ -1,0 +1,7 @@
+{"batch": 82, "viewed_utc": "2026-11-10T21:08Z",
+ "sheets": {
+  "0256": "06_9 authored hold 165.667 s (f45525), 166.0 s (f45545), then every frame 166.167-166.25 s (f45555-f45560, sampled interval 9970-10029). All tiles show the same settled picture: title 'x + i y |-> x + 2 i y', cyan square with counterclockwise arrow, green 2x rectangle, 'image drawn moved down by i', 'right: 1   up: 2', red X and 'no complex derivative'. Pixel check (samepos.py, same sheet position so the same JPEG block grid): against sheet 0257 every slot has 0 pixels changed by more than 24 levels, max 7-10. Cross-row tile pairs differ by up to 44 levels on about 380-440 pixels (tilediff.py); the same-position comparison shows that is JPEG block-grid noise (row offsets 565 px are not multiples of 8), not a picture change. No defect.",
+  "0257": "06_9 every frame 166.267-166.383 s (f45561-f45568). Held, identical to 0256 and 0258 within JPEG noise (samepos.py against 0258: 0 pixels over 24 levels, max 0-12). No flicker, no fade start. No defect.",
+  "0258": "06_9 every frame 166.4-166.517 s (f45569-f45576). Held, same picture. No defect."
+ },
+ "findings": []}

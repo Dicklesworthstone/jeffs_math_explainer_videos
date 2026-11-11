@@ -1,0 +1,35 @@
+{
+ "reviewer": "CC2 RubyRaven",
+ "written": "2026-11-10T21:47:27.371053+00:00",
+ "recommended": "candidate03",
+ "native_acceptance": false,
+ "compiled": false,
+ "rendered": false,
+ "base_sha256": "cd1900aadd46090083729d9aa768e59e1551c42ab94e5bd055f520cb4eff5e6e",
+ "script_tsv_sha256": "234f725781bde0bdf35afbc21fd2d6ec0f73f99a95723294259cc1b75a813d3c",
+ "cc1_review_sha256": "18fa8c72a299191b335c679f3db39ba4eb8d6e74843fe2db429dcc7960ab465d",
+ "timing": {
+  "cc2_construct_calls": [
+   214,
+   214
+  ],
+  "cc1_film_events": [
+   228,
+   228
+  ],
+  "identical": true
+ },
+ "files": {
+  "boundary.rs": "4b689791748132bd14c3929d191bb78ae7752bf9c3332beb22f774931873e932",
+  "candidate03.patch": "9cf0d3d84f17005616296699527268ae0da615f08b38b2bf0b286072fa5c3ed3",
+  "candidate01-to-candidate03.patch": "168a0434236b385b857de7790a4d602f2247a4f4591ac2d4e22bca8263b2b057",
+  "candidate03_checks.py": "c9df85a43307bef6a819977447f1bf5e163a8a201765a9a0d786eb1f47de4282",
+  "handoff.md": "e43a7153d7edcc4ba9e26168bbd93544bfd6c0137431a375ee99ff9fb60f4452"
+ },
+ "alternatives": {
+  "candidate01": "511f4492cdbe7b632710f4121cee2da032baeee670f2e83531c4272f0c86b6a7",
+  "candidate02": "bf2a064588fad2dbebbc54ae0a00a52ce3539845d871ec73eece3f528aaa2088",
+  "leader_variant": "e33be1e7d42aa59278f1506289cfe34497766d6bea19ea4821a497c8415f501c"
+ },
+ "narration": "ElevenLabs Frederick Surrey, unchanged, not assessed"
+}

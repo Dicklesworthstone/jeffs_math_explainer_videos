@@ -1,0 +1,17 @@
+{
+  "files": [
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/independent-final995-cc1-pictures.md",
+      "file": "report.md",
+      "sha256": "af0be945257d3636b6a1e0f087726c0688ee58185e2d2c10fa2350760805fd27"
+    },
+    {
+      "source": "/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/final995-cc1/progress-016.json",
+      "file": "progress-016.json",
+      "sha256": "0db18a32b0458ed33bdee724a5cf1b0b3b63b5e2e9ca554cafad082b3054f918"
+    }
+  ],
+  "review_scope": "Independent selected-still review only, not motion/listening/full AV acceptance",
+  "root_read_report": true,
+  "source_observation": "Preserved214 script 08_5 explicitly says Now suppose that integral were not zero and names diagonal and perimeter. This answers whether written script covers those concepts, not whether narration or sync is accepted. Source version of loop_sums must bind actual rendered candidate, not preserved214 baseline."
+}

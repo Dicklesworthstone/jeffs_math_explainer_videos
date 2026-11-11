@@ -1,0 +1,11 @@
+995 plan: 8351 overview samples, 123 natives
+successor, scopes = master993 intervals (CC3 premise): 9934 / 123; 995 samples kept True, natives kept True
+successor, smallest admissible scopes: 9925 / 123
+995 overview samples no longer planned: 9
+  01_the_bump: 3 frames, runs 5493-5495; 995 reasons: ['sampled interval 5493-5531, every frame']
+  08_loop_sums: 5 frames, runs 3059, 3119-3120, 3179-3180; 995 reasons: ['sampled interval 3059-3060, every frame', 'sampled interval 3119-3120, every frame', 'sampled interval 3179-3180, every frame']
+  11_counting: 1 frames, runs 7494; 995 reasons: ['sampled interval 7464-7494, every frame']
+995 native frames no longer planned: 3
+  08_loop_sums local 3059: ['native 4K, sampled interval 3059-3060 middle (job-08_loop_sums review_scope)']
+  08_loop_sums local 3119: ['native 4K, sampled interval 3119-3120 middle (job-08_loop_sums review_scope)']
+  08_loop_sums local 3179: ['native 4K, sampled interval 3179-3180 middle (job-08_loop_sums review_scope)']

@@ -1,0 +1,10 @@
+     successor02 csd-final-verify-repaired02.py 1220fdb1ffe84d06e24c3c4e836ef00d97ed0b8e65e9151b5754b1ee23de6901
+ok   1. successor02 AST equals ALT 0f31010e without the module docstring
+ok   2. successor02 tokens equal ALT's apart from comments, line breaks and the module docstring
+       docstring -Successor of csd-final-verify995.py (69fa3ded) for the repaired master (CC3 scratch draft final-verify-cc3).
+       docstring +Successor of csd-final-verify995.py (69fa3ded) for the repaired master (CC3 scratch draft final-verify-cc3-02: the
+       docstring +sealed final-verify-cc3 successor 5c30a62e with CC0 fix02, its block placed after the required windows).
+ok   3. the module docstring differs from ALT's only in its first line, which becomes two
+ok      ALT's docstring is 5c30a62e's plus the fix bullet (two lines)
+ok   4. no line successor02 adds to 5c30a62e carries a local path or a flagged word (35 added lines)
+RESULT: all checks passed

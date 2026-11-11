@@ -1,0 +1,49 @@
+{
+ "pictures_json_sha256": "57dba91ddc6d744c1d01648a82a134697f0e23105ad8c6f06e183425cf2e302c",
+ "keys": [
+  "frames",
+  "full_decode",
+  "layout_anchors",
+  "layout_sha256",
+  "movie",
+  "movie_sha256",
+  "pictures",
+  "retained_samples",
+  "sampling",
+  "scope",
+  "selected_frames",
+  "sheets",
+  "tables"
+ ],
+ "movie": "/data/projects/jmev-stroke-probe-20261106/jobs/csd-native-combined-preview01/preview/08_loop_sums.mp4",
+ "movie_sha256": "63984b4473a1cb391546a9fa2c1157a9813fc0e37afb307cb0b64c6a5c65f147",
+ "frames": 14959,
+ "full_decode": true,
+ "layout_sha256": "c5347cb99eedccf88cd3df6857be55e76d18a541062ffa74e807a49c75dcfb41",
+ "retained_samples": 407,
+ "sampling": "All plan02 frames plus prior boundary775 frames, current lint anchors/persistence and complete08 required scope10200:10380. Preview only.",
+ "tables": {
+  "timeline.tsv": "4b40ecc6119f2dd7311e2ffcac3d5bb9ca3c4dc5c6121170f8e5b820d185d3f6",
+  "cues.tsv": "1beae064b4b1a8115a70180d92740299195fd6cc55b68cebcdbd97ace8e127d3",
+  "cuelog.tsv": "b2938ba2f001373851262804c5404490031288285bdb5e618d023b816a3af2e1"
+ },
+ "selected": 484,
+ "sorted_unique": true,
+ "run_10200_10380_complete": true,
+ "anchors_in": [
+  true,
+  true
+ ],
+ "layout_anchors": [
+  10788,
+  12336,
+  12336
+ ],
+ "sheets": 61,
+ "matches_my_count": true,
+ "hash_mismatches": [],
+ "pictures_listed": 484,
+ "local_picture_files": 484,
+ "local_sheet_files": 61,
+ "sheet_ranges_ok": true
+}

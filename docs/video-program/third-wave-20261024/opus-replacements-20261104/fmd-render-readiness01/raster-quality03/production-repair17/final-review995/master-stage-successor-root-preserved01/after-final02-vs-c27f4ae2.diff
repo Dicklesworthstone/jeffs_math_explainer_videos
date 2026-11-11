@@ -1,0 +1,19 @@
+--- csd-native-repair-pictures01-after-final.py
++++ csd-native-repair-pictures01-after-final02.py
+@@ -1,5 +1,7 @@
+ """PREPARED, NOT LAUNCHED: require one repaired chapter's stable final render, then its guarded 4K extraction
+-(969 after-final route); no picture acceptance, no retry."""
++(969 after-final route); no picture acceptance, no retry. Successor of after-final c27f4ae2 (kept): the
++chapter is checked against the run table before the 30 h wait (CC2 L1). Run it as /usr/bin/python3, the
++interpreter the final's launcher used, since lineage() compares commands through sys.executable."""
+ import hashlib
+ import importlib.util
+ import json
+@@ -30,6 +32,7 @@
+     assert not JOB.exists() and not INPUTS.exists()
+     spec=importlib.util.spec_from_file_location('repair_final01_run_unbound',x.RUNNER)
+     run=importlib.util.module_from_spec(spec);spec.loader.exec_module(run)
++    assert chapter in run.CHAPTERS,chapter
+     PRIOR=run.job(chapter)
+     deadline=time.monotonic()+108000
+     while time.monotonic()<deadline:

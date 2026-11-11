@@ -1,0 +1,391 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
+@@ -53,6 +53,26 @@
+ pub const CANCEL: [&str; 2] = ["shared edges cancel:", "only the outer loop is left"];
+ pub const GOURSAT: &str =
+     "Goursat: differentiability at the nested limit point bounds the remainder; no continuity of f' is assumed";
++/// The word that names P_n under the magnified square (picture review final995 L11).
++pub const PERIMETER_WORD: &str = "perimeter";
++/// The name of the kept quarter in "Two halves make one quarter" (final995 L12).
++pub const KEPT_TEX: &str = r"Q_{n+1}";
++
++/// The magnified square's walk starts at its bottom-right corner (final995 L11): at rest,
++/// the |z - c| segment is then half the OTHER diagonal, never drawn over the D_n line.
++const WALK_START: usize = 1;
++/// Which bisection quarter of the magnified square is drawn as kept (final995 L12): the
++/// top-left one, chosen for layout only (clear of the D_n and P_n names). Every quarter
++/// has c, the drawn square's centre, as a corner. No integral is computed to pick it.
++const KEPT_QUARTER: usize = 3;
++/// Q_{n+1}'s name, from the kept quarter's top-left corner.
++const KEPT_NAME_OFFSET: (f64, f64) = (0.55, -0.48);
++/// "perimeter P_n": its height, and the gap between the word and the name.
++const PERIMETER_Y: f64 = -2.5;
++const PERIMETER_GAP: f64 = 0.14;
++/// The nest's c is named here, from the dot (final995 L5): in Q_2's open lower right,
++/// outside the delta-circle drawn later, joined to the dot by a thin dim leader.
++const C_NAME_OFFSET: (f64, f64) = (0.33, -0.46);
+ 
+ /// Steps around the loop (the facts' loop sums use the same count; the
+ /// tests hold the two together), and the finer cut of 08_1.
+@@ -309,6 +329,22 @@
+     }
+ }
+ 
++/// The two cut lines of a square's bisection, edge midpoint to opposite edge midpoint:
++/// their four halves are exactly the four `proof_children` quarters' shared edges.
++fn bisection_cuts(square: &[C]) -> [[C; 2]; 2] {
++    let midpoint = |a: C, b: C| (a + b).scale(0.5);
++    let [a, b, c, d] = [square[0], square[1], square[2], square[3]];
++    [[midpoint(a, b), midpoint(d, c)], [midpoint(d, a), midpoint(b, c)]]
++}
++
++/// Where the nest's limit point is named, and its leader: from just past the dot's rim
++/// (radius 0.07) to just short of the glyph.
++fn c_name_and_leader(c: C) -> (C, [C; 2]) {
++    let at = c + C::new(C_NAME_OFFSET.0, C_NAME_OFFSET.1);
++    let toward = (at - c).scale(1.0 / (at - c).abs());
++    (at, [c + toward.scale(0.18), at - toward.scale(0.12)])
++}
++
+ fn proof_square() -> Vec<C> {
+     square_corners()[..4].iter().map(|p| C::new(p[0], p[1])).collect()
+ }
+@@ -499,8 +535,14 @@
+     line.wait_for(stage, "These nested squares shrink toward a single point")?;
+     let c = (current[0] + current[2]).scale(0.5);
+     let point = dot(stage, v(c.re, c.im), 0.07, output());
+-    let point_name = kit.tex(stage, "c", 27.0, output(), &[], v(c.re + 0.95, c.im + 0.12))?;
+-    fade_in_all(stage, &[point, point_name], 0.35)?;
++    // Picture review final995 L5 (root viewed 344-359): the name sat 0.96 from its dot,
++    // across the nest's shared right edge and Q_2's, with no leader. It now sits 0.57 away
++    // in Q_2's open lower right, outside the delta-circle drawn later, with a thin dim
++    // leader that meets no nest edge. Same fades, no time added.
++    let (name_at, leader) = c_name_and_leader(c);
++    let point_leader = proof_path(stage, &leader, Palette::dim(), 1.5, false);
++    let point_name = kit.tex(stage, "c", 27.0, output(), &[], v(name_at.re, name_at.im))?;
++    fade_in_all(stage, &[point, point_leader, point_name], 0.35)?;
+     let nested_name = kit.tex(
+         stage,
+         r"Q_0 \supset Q_1 \supset Q_2 \supset \cdots",
+@@ -597,7 +639,7 @@
+     // Magnify the actual final selected square and its c together. The original
+     // nested chain remains as a small locator; the inset has an explicit label.
+     fade_out_all(stage, &nested, 0.25)?;
+-    fade_out_all(stage, &[point, point_name, neighbourhood, small], 0.25)?;
++    fade_out_all(stage, &[point, point_leader, point_name, neighbourhood, small], 0.25)?;
+     let zoom_scale = proof_perimeter(&square) / proof_perimeter(&current);
+     let zoom = |z: C| C::new(SQUARE_CENTRE.0, SQUARE_CENTRE.1) + (z - c).scale(zoom_scale);
+     let enlarged: Vec<C> = current.iter().copied().map(zoom).collect();
+@@ -614,15 +656,21 @@
+     )?;
+     fade_in_all(stage, &[inset, centre_dot, centre_name, zoom_name], 0.4)?;
+     line.wait_for(stage, "the distance to c is at most the square's diagonal")?;
++    // Picture review final995 L11: walked from the bottom-left corner, the resting |z - c|
++    // segment lay over the lower half of the D_n diagonal, so the visible teal ran only
++    // from c to a corner and D_n read as half the diagonal. Walked from the bottom-right
++    // corner (still counterclockwise, same tween), the whole diagonal stays visible beside
++    // its name, and |z - c| is half the other diagonal: visibly at most D_n, not equal.
++    let walk_corners: Vec<C> = (0..4).map(|k| enlarged[(WALK_START + k) % 4]).collect();
+     let diagonal = proof_path(stage, &[enlarged[0], enlarged[2]], input(), 3.0, false);
+     let diagonal_name = kit.tex(stage, "D_n", 25.0, input(), &[], v(-1.7, 1.2))?;
+-    let distance = proof_path(stage, &[centre, enlarged[0]], output(), 5.0, false);
+-    let walker = dot(stage, v(enlarged[0].re, enlarged[0].im), 0.08, hero());
++    let distance = proof_path(stage, &[centre, walk_corners[0]], output(), 5.0, false);
++    let walker = dot(stage, v(walk_corners[0].re, walk_corners[0].im), 0.08, hero());
+     fade_in_all(stage, &[diagonal, diagonal_name, distance, walker], 0.4)?;
+     let progress = stage.add_value_tracker(0.0);
+     let anchor = stage.arena_mut().add(VMobject::new());
+     stage.add_to_scene(anchor)?;
+-    let moving = enlarged.clone();
++    let moving = walk_corners;
+     stage.add_updater(
+         anchor,
+         move |arena, _| {
+@@ -650,8 +698,26 @@
+     stage.play_prepared(vec![walk, c_aside, d_aside])?;
+     stage.clear_updaters(anchor, true);
+     stage.remove_from_scene(anchor);
+-    let perimeter_name = kit.tex(stage, "P_n", 26.0, hero(), &[], v(-2.6, -2.5))?;
+-    fade_in_all(stage, &[perimeter_name, centre_name, diagonal_name], 0.3)?;
++    // Picture review final995 L11: "P_n" alone, centred under the bottom side, read as that
++    // side's length, and no screen text said what P_n is. The pair "perimeter P_n" is now
++    // centred under the square, placed from the measured widths so the two never meet.
++    // Same fade, no time added.
++    let perimeter_at = v(SQUARE_CENTRE.0, PERIMETER_Y);
++    let perimeter_name = kit.tex(stage, "P_n", 26.0, hero(), &[], perimeter_at)?;
++    let perimeter_word = kit.text(stage, PERIMETER_WORD, 20.0, Palette::dim(), perimeter_at)?;
++    let (word_w, name_w) = (stage.get_width(perimeter_word), stage.get_width(perimeter_name));
++    let left = SQUARE_CENTRE.0 - (word_w + PERIMETER_GAP + name_w) / 2.0;
++    stage.move_to(perimeter_word, v(left + word_w / 2.0, PERIMETER_Y), ORIGIN);
++    stage.move_to(
++        perimeter_name,
++        v(left + word_w + PERIMETER_GAP + name_w / 2.0, PERIMETER_Y),
++        ORIGIN,
++    );
++    fade_in_all(
++        stage,
++        &[perimeter_word, perimeter_name, centre_name, diagonal_name],
++        0.3,
++    )?;
+     line.wait_for(stage, "size at most epsilon, times its diagonal, times its perimeter")?;
+     let bound = kit.tex(
+         stage,
+@@ -673,10 +739,38 @@
+     let scale_d = kit.tex(stage, r"D_n=D_0/2^n", 30.0, input(), &[], v(right, 1.8))?;
+     let scale_p = kit.tex(stage, r"P_n=P_0/2^n", 30.0, hero(), &[], v(right, 1.0))?;
+     fade_in_all(stage, &[product_title, scale_d, scale_p], 0.35)?;
+-    let half: Vec<C> = enlarged.iter().map(|z| centre + (*z - centre).scale(0.5)).collect();
+-    let half_boundary = proof_path(stage, &half, hero(), 5.0, true);
+-    let half_diagonal = proof_path(stage, &[half[0], half[2]], input(), 4.0, false);
+-    fade_in_all(stage, &[half_boundary, half_diagonal], 0.5)?;
++    // Picture review final995 L12 (root viewed 434 and 445): the next square was drawn
++    // concentric with Q_n, which bisection never produces. Now the cut itself is drawn: the
++    // two dim lines are the four quarters' shared edges, and one quarter of
++    // `proof_children` is kept, sharing a corner with Q_n, its own diagonal parallel to
++    // D_n and half as long, its perimeter half of P_n. c, the centre of the drawn Q_n, is a
++    // corner of every quarter, so the kept quarter contains c whichever one the rule
++    // keeps; c is drawn again on top so the new corner does not cover it. Which quarter
++    // the rule keeps depends on integrals not computed here: KEPT_QUARTER is a layout
++    // choice, and nothing on screen calls it the largest (the column says only
++    // |I_{n+1}| >= |I_n|/4). Same fade as the old half-square, no time added.
++    let quarters = proof_children(&enlarged);
++    let kept = &quarters[KEPT_QUARTER];
++    let mut quarter_picture: Vec<Mob> = bisection_cuts(&enlarged)
++        .iter()
++        .map(|cut| proof_path(stage, cut, Palette::dim(), 2.0, false))
++        .collect();
++    let kept_name_at = kept[3] + C::new(KEPT_NAME_OFFSET.0, KEPT_NAME_OFFSET.1);
++    quarter_picture.extend([
++        proof_fill(stage, kept, hero()),
++        proof_path(stage, kept, hero(), 5.0, true),
++        proof_path(stage, &[kept[0], kept[2]], input(), 4.0, false),
++        dot(stage, v(centre.re, centre.im), 0.07, output()),
++        kit.tex(
++            stage,
++            KEPT_TEX,
++            24.0,
++            Palette::ink(),
++            &[],
++            v(kept_name_at.re, kept_name_at.im),
++        )?,
++    ]);
++    fade_in_all(stage, &quarter_picture, 0.5)?;
+     line.wait_for(stage, "this bound shrinks to a quarter every time")?;
+     let product = kit.tex(stage, r"D_nP_n=D_0P_0/4^n", 30.0, Palette::ink(), &[], v(right, 0.1))?;
+     fade_in_all(stage, &[product], 0.35)?;
+@@ -730,25 +824,19 @@
+     fade_in_all(stage, &[zero], 0.6)?;
+ 
+     line.wait_for(stage, "The same shrinking argument works for a triangle")?;
+-    fade_out_all(
+-        stage,
+-        &[
+-            inset,
+-            centre_dot,
+-            centre_name,
+-            zoom_name,
+-            diagonal,
+-            diagonal_name,
+-            perimeter_name,
+-            half_boundary,
+-            half_diagonal,
+-            product_title,
+-            final_bound,
+-            arbitrary,
+-            zero,
+-        ],
+-        0.4,
+-    )?;
++    let mut square_picture = vec![
++        inset,
++        centre_dot,
++        centre_name,
++        zoom_name,
++        diagonal,
++        diagonal_name,
++        perimeter_word,
++        perimeter_name,
++    ];
++    square_picture.extend(quarter_picture);
++    square_picture.extend([product_title, final_bound, arbitrary, zero]);
++    fade_out_all(stage, &square_picture, 0.4)?;
+     let triangle = proof_triangle();
+     let triangle_outline = proof_path(stage, &triangle, hero(), 5.0, true);
+     let triangle_title = kit.text(
+@@ -1540,4 +1628,176 @@
+         assert!(up[1][1] > up[0][1] && down[1][1] < down[0][1] && up[0][0] < down[0][0]);
+         assert!(SHARED.0 + 1 < CELLS && SHARED.1 < CELLS);
+     }
++
++    /// The 08_5 nest as goursat_proof draws it (the same path as the extents test above),
++    /// its limit point c, the magnified square about c, and c's place in it.
++    fn drawn_nest() -> (Vec<Vec<C>>, C, Vec<C>, C) {
++        let square = proof_square();
++        let mut nest = vec![square.clone(), proof_children(&square)[2].clone()];
++        for index in [0, 3, 1, 2] {
++            let next = proof_children(nest.last().unwrap())[index].clone();
++            nest.push(next);
++        }
++        let current = nest.last().unwrap().clone();
++        let c = (current[0] + current[2]).scale(0.5);
++        let centre = C::new(SQUARE_CENTRE.0, SQUARE_CENTRE.1);
++        let scale = proof_perimeter(&square) / proof_perimeter(&current);
++        let enlarged = current.iter().map(|z| centre + (*z - c).scale(scale)).collect();
++        (nest, c, enlarged, centre)
++    }
++
++    fn point_to_segment(p: C, a: C, b: C) -> f64 {
++        let (ab, ap) = (b - a, p - a);
++        let t = ((ap.re * ab.re + ap.im * ab.im) / (ab.re * ab.re + ab.im * ab.im)).clamp(0.0, 1.0);
++        (p - (a + ab.scale(t))).abs()
++    }
++
++    fn segment_gap(a: C, b: C, p: C, q: C) -> f64 {
++        let side = |u: C, w: C, z: C| (w - u).re * (z - u).im - (w - u).im * (z - u).re;
++        if side(a, b, p) * side(a, b, q) < 0.0 && side(p, q, a) * side(p, q, b) < 0.0 {
++            return 0.0;
++        }
++        [
++            point_to_segment(a, p, q),
++            point_to_segment(b, p, q),
++            point_to_segment(p, a, b),
++            point_to_segment(q, a, b),
++        ]
++        .into_iter()
++        .fold(f64::INFINITY, f64::min)
++    }
++
++    fn sides(p: &[C]) -> Vec<(C, C)> {
++        p.iter()
++            .zip(p.iter().cycle().skip(1))
++            .take(p.len())
++            .map(|(a, b)| (*a, *b))
++            .collect()
++    }
++
++    fn goursat_body() -> &'static str {
++        include_str!("loop_sums.rs")
++            .split("fn goursat_proof(")
++            .nth(1)
++            .unwrap()
++            .split("pub struct LoopSums")
++            .next()
++            .unwrap()
++    }
++
++    /// Picture review final995 L12: the kept square is a true bisection quarter of Q_n,
++    /// sharing a corner with it, never a concentric half-square, and it holds c.
++    #[test]
++    fn the_kept_square_is_a_bisection_quarter_that_holds_c() {
++        let (_, _, enlarged, centre) = drawn_nest();
++        let near = |a: C, b: C| (a - b).abs() < 1e-12;
++        let quarters = proof_children(&enlarged);
++        let kept = &quarters[KEPT_QUARTER];
++        // c is a corner of every quarter, so the kept one holds c whichever is kept,
++        // and no quarter is concentric with Q_n (what the old picture drew)
++        for q in &quarters {
++            assert!(q.iter().any(|z| near(*z, centre)));
++            assert!(((q[0] + q[2]).scale(0.5) - centre).abs() > 0.5);
++        }
++        assert!(kept.iter().any(|z| enlarged.iter().any(|w| near(*z, *w))));
++        assert!((proof_diameter(kept) * 2.0 - proof_diameter(&enlarged)).abs() < 1e-12);
++        assert!((proof_perimeter(kept) * 2.0 - proof_perimeter(&enlarged)).abs() < 1e-12);
++        // its drawn diagonal is its diameter, parallel to the D_n line and well apart from it
++        let (d, k) = (enlarged[2] - enlarged[0], kept[2] - kept[0]);
++        assert!((k.abs() - proof_diameter(kept)).abs() < 1e-12);
++        assert!((d.re * k.im - d.im * k.re).abs() < 1e-12);
++        assert!(segment_gap(enlarged[0], enlarged[2], kept[0], kept[2]) > 1.0);
++        // the dim cuts run between edge midpoints through c; each half is a shared edge
++        for [a, b] in bisection_cuts(&enlarged) {
++            assert!(point_to_segment(centre, a, b) < 1e-12);
++            for (u, w) in [(a, centre), (centre, b)] {
++                let owners = quarters
++                    .iter()
++                    .filter(|q| {
++                        sides(q)
++                            .iter()
++                            .any(|&(s, t)| (near(s, u) && near(t, w)) || (near(s, w) && near(t, u)))
++                    })
++                    .count();
++                assert_eq!(owners, 2);
++            }
++        }
++        // the names stay clear: c and Q_{n+1} inside the kept quarter, D_n outside it
++        let inside = |p: C| p.re > kept[0].re && p.re < kept[2].re && p.im > kept[0].im && p.im < kept[2].im;
++        let kept_name = kept[3] + C::new(KEPT_NAME_OFFSET.0, KEPT_NAME_OFFSET.1);
++        let (c_name, d_name) = (centre + C::new(-0.22, 0.28), C::new(-1.7, 1.2));
++        assert!(inside(kept_name) && inside(c_name) && !inside(d_name));
++        let strokes: Vec<(C, C)> = sides(&enlarged)
++            .into_iter()
++            .chain(bisection_cuts(&enlarged).map(|[a, b]| (a, b)))
++            .chain([(enlarged[0], enlarged[2]), (kept[0], kept[2])])
++            .collect();
++        for (p, r) in [(kept_name, 0.28), (c_name, 0.085), (d_name, 0.17)] {
++            assert!(strokes.iter().all(|&(a, b)| point_to_segment(p, a, b) > r), "{p:?}");
++        }
++        // and the scene draws exactly this, in place of the old concentric square
++        let body = goursat_body();
++        assert!(body.contains("let quarters = proof_children(&enlarged);"));
++        assert!(body.contains("let kept = &quarters[KEPT_QUARTER];"));
++        assert!(!body.contains("(*z - centre).scale(0.5)"));
++    }
++
++    /// Picture review final995 L11: the walk still runs counterclockwise round Q_n, and its
++    /// resting |z - c| segment is not drawn over the D_n diagonal.
++    #[test]
++    fn the_walk_rests_off_the_diagonal_and_stays_counterclockwise() {
++        let (_, _, enlarged, centre) = drawn_nest();
++        let walk: Vec<C> = (0..4).map(|k| enlarged[(WALK_START + k) % 4]).collect();
++        assert!(oriented_area(&walk) > 0.0);
++        let start = walk[0];
++        assert!(point_to_segment(start, enlarged[0], enlarged[2]) > 1.0);
++        assert!(((start - centre).abs() * 2.0 - proof_diameter(&enlarged)).abs() < 1e-12);
++        assert!(point_to_segment(C::new(-1.7, 1.2), centre, start) > 1.0);
++        let body = goursat_body();
++        assert!(body.contains("enlarged[(WALK_START + k) % 4]"));
++        assert!(body.contains("let moving = walk_corners;"));
++        assert!(body.contains("&[centre, walk_corners[0]]"));
++    }
++
++    /// Picture review final995 L5: the nest's c is named near its dot, clear of every nest
++    /// edge and of the delta-circle drawn later, joined by a leader that meets no edge.
++    #[test]
++    fn the_name_of_c_is_near_its_dot_and_clear_of_the_nest() {
++        let (nest, c, _, _) = drawn_nest();
++        let edges: Vec<(C, C)> = nest.iter().flat_map(|q| sides(&q[..])).collect();
++        let delta = 1.8 * proof_diameter(nest.last().unwrap());
++        let (name, [from, to]) = c_name_and_leader(c);
++        // half the diagonal of the 'c' glyph at 27 pt (about 0.12 by 0.12 units)
++        let glyph = 0.085;
++        let away = (name - c).abs();
++        assert!((0.4..0.7).contains(&away), "{away}");
++        assert!(edges.iter().all(|&(a, b)| point_to_segment(name, a, b) > glyph + 0.06));
++        assert!(away - glyph > delta + 0.1, "the name is clear of the delta-circle");
++        assert!((from - c).abs() > 0.07 + 0.08 && (to - name).abs() > glyph);
++        assert!(edges.iter().all(|&(a, b)| segment_gap(from, to, a, b) > 0.02));
++        let body = goursat_body();
++        assert!(body.contains("let (name_at, leader) = c_name_and_leader(c);"));
++        assert!(body.contains("&[point, point_leader, point_name]"));
++        assert!(body.contains("&[point, point_leader, point_name, neighbourhood, small]"));
++    }
++
++    /// Everything the repaired square picture adds leaves with it, before the triangle.
++    #[test]
++    fn the_repaired_square_picture_leaves_before_the_triangle() {
++        let body = goursat_body();
++        let start = body.find("let mut square_picture = vec![").unwrap();
++        let clear = start
++            + body[start..]
++                .find("fade_out_all(stage, &square_picture, 0.4)?;")
++                .unwrap();
++        assert!(clear < body.find("let triangle = proof_triangle();").unwrap());
++        let listed = &body[start..clear];
++        for piece in [
++            "perimeter_word,",
++            "perimeter_name,",
++            "square_picture.extend(quarter_picture);",
++        ] {
++            assert!(listed.contains(piece), "{piece}");
++        }
++    }
+ }
