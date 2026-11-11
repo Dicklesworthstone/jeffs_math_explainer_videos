@@ -13128,3 +13128,200 @@ Timestamp correction: the preceding dependency204 check and tracker update occur
 - [x] Preserved24 independent01/08 review files and verified exact extraction/movie hashes and full120/484frame coverage. No concrete defects.
 - [ ] CC0 preparing final runner pin integration without launching, after09 review; CC2 independently auditing exponential ASR comparator/readers.
 - [ ] Exponential ASR plan01 not launched: wrapper would create a new baseline and narrow work accounting. CC1 correcting to retain original baseline/scope; old package preserved. No listening or final acceptance claim.
+
+
+### 2026-11-11T01:27:19.667341+00:00 — boundary review evidence and counting timeline complete
+
+- [x] Counting-timeline02 terminal0 at01:25:44UTC, stable71f30118 input bindings. Existing preview controller proceeds; no duplicate.
+- [x] Preserved authorCC3 and independentCC0 boundary09 review packages, verified both bind exact movie/extraction and all1506 selected frames/189sheets; neither reports concrete defects. Root personally inspected7090/7180/7680 for open P1 leader judgement: no conflicting point location/obscuration; record boundary09-reviews-root-preserved01/root-P1-judgement01.json. This targeted root review is not whole-chapter review.
+- [ ] Root whole09 review,11 preview/pictures and final4K gaps remain. CC3 now auditing final native plate-resolution route, CC0 final runner pins, CC1 original-baseline ASR successor, CC2 independent ASR audit.
+- [ ] No listening/fine-sync/whole-film acceptance claimed.
+
+
+### 2026-11-11T01:28:52.996591+00:00 — root boundary picture review continued
+
+- [x] Actually viewed and hash-checked sheets1–27/216pictures, plus earlier targeted512/565/684; exact progress in boundary09-reviews-root-preserved01/root-progress02.json. No concrete sampled defect so far.
+- [ ] Continue28–189; do not mistake completed CC0/CC3 reviews for root whole-chapter viewing. Final4K and listening/fine-sync remain open.
+
+
+### 2026-11-11T01:30:25.476698+00:00 — boundary review through48sheets
+
+- [x] Root actually viewed384pictures/sheets1–48 plus prior3targeted pictures; hash-checked exact coverage in boundary09-reviews-root-preserved01/root-progress03.json. No concrete defect so far; remaining49–189.
+- [x] Preserved counting build/delivery/timeline terminal receipts and qualification/logs under counting02-terminal-root01 for final pin integration.
+- [ ] Final4K/native-resolution checks and listening/fine-sync remain open.
+
+
+### 2026-11-11T01:33:50.880293+00:00 — owner-directed delivery focus
+
+- [x] Accepted existing exact-bound complete author and independent boundary09 sampled-picture reviews plus root targeted P1 judgement. Root personally saw sheets1–51 and three targeted pictures; no claim of a complete root pass. Redundant third full pass is retired as a publication prerequisite.
+- [x] Counting preview02 process1094736 confirmed live; preserve current job, no duplicate.
+- [ ] Finish repaired chapters at4K, assemble current master, check concrete changed-scene defects and file/caption integrity, then upload once and verify platform4K/captions before original unlisting. Cosmetic preferences and duplicate review are not release blockers.
+- [ ] CC0 finishing executable final integration; CC3 finishing resolution check and publication handoff. No new review framework. Listening/fine-sync evidence remains limited and must not be represented as completed.
+
+
+### 2026-11-11T01:34:35.913165+00:00 — shortest path to remaining publications
+
+- [x] Owner explicitly directs good-enough publication over perfection for remaining videos. Complex stays first; exponential existing45:40 master and upload-preparation1011 next. Logarithm and expanded algebra already public per receipts; do not duplicate uploads.
+- [ ] Finish bounded exponential final-mix ASR for concrete wording uncertainty using corrected original guard; use existing caption and picture evidence. CC1/CC2 directed to finish execution handoff and concrete corrections, not create additional review rounds.
+- [ ] After complex and exponential, select closest completed remaining requested film from actual artifacts and execute missing production/publication steps. Preserve known limitations; do not claim listening or independence not performed.
+
+
+### 2026-11-11T01:36:51.025606+00:00 — production execution resumed
+
+- [x] Original-baseline ASR preflight admitted. Started guarded exponential-master-asr01 once in persistent tmux jmev-exponential-master-asr01; four targeted recognition runs exited0; full large-model recognition now active. Not listening acceptance.
+- [x] Root read raw targeted results: both small-model contexts and large wider context recognize Start at1; large short context says It starts at1. Numeric derivation recognized fully by small model, incompletely by large; retain model disagreement, no demonstrated speech error.
+- [x] Boundary09 root-production-acceptance01.json accepts actual full independent+author selected-frame coverage without inventing root viewing. CC0 updating final launcher to consume explicit acceptance.
+- [x] CC3 current publication handoff identifies existing publication965, thumbnail208, corrected579-caption347 pair; no new copy needed if final schedules remain equal.
+- [ ] Existing counting preview/extraction then one complete worker picture review; repaired4K renders/master/upload remain required. No duplicate jobs.
+
+
+### 2026-11-11T01:41:14.672756+00:00 — complex repaired final launch started
+
+- [x] Root read runner successor diff, froze runner7cafacfa and launch3c292758 in final-review995/final-render-pinned-root01 and staged exact bytes onCSD. Explicit09 route retains full independent+author coverage and targeted root acceptance without false root viewing.
+- [x] Actual01/08 root and independent reviews normalized and staged as picture admissions;09 acceptance and author/independent evidence also staged. No production source or takes changed.
+- [x] Started ONE final01 launch in CSD tmux jmev-repaired-final01, PID1142725 confirmed live. It checks existing proofs then enters original guarded exclusive lane; not yet a terminal render or completed4K claim. DO NOT duplicate.
+- [ ] CC0 finishes08/09 serial controller and downstream integration while this launch runs; existing counting preview02/extraction controller continues and CC3 will review its pictures once.
+- [x] Exponential large full-master ASR exited0; small full-master recognition active, both in existing guarded exponential-master-asr01. No rerolls or listening claim.
+
+
+### 2026-11-11T01:49:14.998997+00:00 — exponential private draft saved; complex finals queued
+
+- [x] Exponential uploaded ONCE: yslwyACDgkI. NEVER REUPLOAD. Reviewed title, description with15 times,16 tags, thumbnail, English/Education, not kids, AI yes, paid promotion no, auto chapters off saved. Exact751-caption1004 SRT imported; Studio confirmed English subtitles published. Private selected/saved; reopened visibility Pending during SD processing/checks starting soon. Receipt publication976/upload-draft1011-saved01.json.
+- [x] All six final-master ASR runs exited0; guard terminal01:42:23 stable92819b1a/no stop. CC1 reports no demonstrated material content error,55 single-model disagreements and6 window-boundary artifacts; no listening claim.
+- [x] CSD final01 launcher and serial08/09 controller live; final01 queued behind existing counting preview02 exclusive lane. Never duplicate.
+- [ ] Finish actual complex repaired4K/master verification, upload once; exponential existing draft awaits actual4K/checks and publication after complex. Public watch4K/uploaded captions required before original unlisting. Listening/fine-sync and independent whole-film review remain explicitly limited.
+
+
+### 2026-11-11T01:50:03.740503+00:00 — next release work proceeds in parallel
+
+- [x] Started ONE guarded apportionment-ch12-motion01 extraction in persistent local tmux jmev-apportionment-ch12-motion01, after successful terminal exponential ASR. Exact425 requested frames include every121 frame of12_8 rewind plus fast-transition samples; original guard/baseline retained. CC2 awaits actual terminal receipt then reviews extracted pictures. No duplicate.
+- [ ] Preserve complex-first publication order; exponential draft yslwyACDgkI already uploaded once, no reupload. Apportionment next after concrete bounded review; no invented listening or whole-film acceptance.
+
+
+### 2026-11-11T01:52:36.212501+00:00 — final-picture controllers and next-film check
+
+- [x] Root read entire extractor60addbf3 and after-final02 controller332ee000; preserved extractor package and staged exact bytes onCSD with exclusive file creation. Three controllers live PIDs1192424/1192706/1192962 in tmux jmev-repaired-pictures01/08/09, waiting actual final chapter success. Do not duplicate. Extraction has not run; no picture acceptance claimed.
+- [x] Apportionment bounded extraction terminal01:50:40 exit0 stable57528927/no resource stop, all425JPEGs present. CC2 assigned actual pictures review.
+- [x] Exponential Studio reloaded: Private confirmed, SD complete, Notices Checking. Still awaitingHD/4K; draftyslwyACDgkI never reupload.
+- [ ] Final complex chapter rendering/master and platform publication remain; no listening/fine-sync/independent whole-film claim.
+
+
+### 2026-11-11T01:54:47.392954+00:00 — exponential content disposition and canonical draft
+
+- [x] Root read complete final-master ASR comparison and coverage; preserved11 exact reviewer artifacts and content-disposition1011.json. No demonstrated material content defect requiring regeneration. All recognizer differences remain evidence-limited; no listening/fine-sync/whole-film acceptance invented.
+- [x] Canonical catalog now records existing private draftyslwyACDgkI and exact master; original catalog saved before-private-catalog1011.json. Validator70videos/105revisions/39artifacts passes structure only.
+- [ ] Existing draft awaits actual4K/checks and complex-first publication. FourCC remain active: final-chain integration, bounded integration review, apportionment425-frame review, counting-preview review awaiting current render.
+
+
+### 2026-11-11T01:57:39.749915+00:00 — integration review and parallel-render investigation
+
+- [x] Root read and preserved CC1 independent extractor60 review and actual reference-table checks: no concrete integration bug; runtime/final pictures still pending.01 launcher actual live command uses required/usr/bin/python3.
+- [x] Current countingpreview1094736 and queuedfinalguard1142845 freshly live; preserve.
+- [x] CSS read-only probe shows69GiB free and load4.68; no matching current guarded/render processes. This is capacity evidence, not rendering qualification.
+- [ ] CC1 investigating already-authorized parallel remaining08/09 render on qualifiedCSS, exact dependency/ABI/baseline route; do not duplicate existing serial controller1153995 or terminate jobs without root coordinated handoff. Existing route remains intact meanwhile.
+
+
+### 2026-11-11T01:59:22.990949+00:00 — EXPONENTIAL PUBLIC AND WATCH VERIFIED
+
+- [x] Published existing draftyslwyACDgkI ONCE: https://youtu.be/yslwyACDgkI . Studio Public, SD/HD/4K complete, Notices dash, All changes saved. Public watch Auto2160p60 4K and uploaded English selected with visible caption text; no automatic track listed at verification.751 exact uploaded timed captions,45:40 duration. NEVER REUPLOAD.
+- [x] Publication receipt1011 and watch screenshot saved; catalog visibility updated with preserved prior catalog. Completed film published while complex renders rather than hold it idle; complex remains four-worker priority. No prior exponential original identified for unlisting.
+- [ ] Continuous listening/fine-sync/independent whole-film AV acceptance remain unclaimed. Complex repaired renders and apportionment bounded review continue.
+
+
+### 2026-11-11T02:06:58.271594+00:00 — apportionment uploaded once; parallel complex work
+
+- [x] Existing delivery1001 accepted after actual425-frame bounded chapter12 review; root preserved review and release-disposition1011. Prior1409 frame evidence and770/771 technical receipts unchanged. No listening/fine-sync/wholefilm AV claim.
+- [x] Uploaded ONCE Dobm_b223Vs, all reviewed metadata, thumbnail and443 timed English cues installed. Private saved, reopened Pending during SD/checks starting soon. NEVER REUPLOAD.
+- [ ] Wait actual4K/checks, publish existing draft and verify public2160p60/uploaded English, then unlist original lXODB3infLI and update catalog/receipt/Bead.
+- [x] Directed CC1 to execute qualified CSS09 parallel route with preserved files/guards, duplicate exclusion and atomic copy-back; CC2 bounded diff review. Existing CSD jobs untouched. No CSS render launched claim yet.
+
+
+### 2026-11-11T02:11:31.214911+00:00 — APPORTIONMENT PUBLIC, ORIGINAL UNLISTED
+
+- [x] Published existing Dobm_b223Vs once: https://youtu.be/Dobm_b223Vs . Studio Public4Kcomplete/Noticesdash, saved. Public watch Auto2160p60 4K; English selected from Off/English/Auto-translate with caption text visible.28:01,443 exactmanualEnglish cues. NEVER REUPLOAD.
+- [x] Only after watchverification, original lXODB3infLI setUnlisted and Studio Changes saved. Publication-receipt1011 and public-watch1011.png recorded; catalog updated.
+- [x] Logarithm lgpTDROHgQY description now links published exponentialyslwyACDgkI; priorcopy/savedcopy/screenshot preserved.
+- [ ] Complex actual repaired4K/master stillpending; CC1 implementing parallelCSS09 with CC2 narrowdiffreview. No newoptionalpolish. Listening/finesync/independentwholefilmAV remain explicitly unclaimed.
+
+
+### 2026-11-11T02:14:01.170792+00:00 — shortest remaining production route
+
+- [x] CC1/CC2 idle prompts awakened at exact panes10/11 after AgentMail alone did not trigger work. NTM dryruns stalled on CASS; exact observed tmux targets used, no extra workers or restarts.
+- [x] Authorized CC0 actual-final worker-complete review routes with targeted root acceptance, preserving authorship/independence labels and actual final extraction hashes. No redundant whole-root pass; preview does not substitute for actualfinalreview. CC0 directed to stage/wire executable controllers, not stop at unused handoffs.
+- [ ] CC1 execute CSS09 only, preserve originalguards and files, exclude CSDduplicate, atomiccopyback; CC2 narrowdiff then actual Stokes/fiveparadoxes readiness.
+- [ ] Countingpreview02 then existingextraction; CC3 complete actualpictures once; roottargeted11admission. ExistingCSD01/08finals and09offload then verifiedmaster/upload/publicwatch beforeoldcomplexunlisting.
+
+
+### 2026-11-11T02:16:19.436738+00:00 — third render host to shorten critical path
+
+- [x] Root live TRJ capacity/ABIprimaryprobe:128threads5995WX,387GiBavailable,257GBfree,load5.82; glibc and ffmpeg/ffprobe/Python hashes matchCSD. ExistingDsymlink preserved, noremotechanges byroot. Evidence final-review995/trj-capacity-root1011.json.
+- [ ] CC2 qualifies fulldependencyset and executes guardedTRJ08 with duplicateexclusion, coordinatingCC1CSS09 andCC0integration; CSD01then11. No renderlaunch claimed untilactualreceipt.
+
+
+### 2026-11-11T02:22:26.905485+00:00 — parallel render prerequisite cleared
+
+- [x] All four existing CC processes freshly verified live. Counting preview PID1094736 and encoder1094766 remain live; queued final guard1142845 and serial controller1153995 preserved. No duplicate launch.
+- [x] TRJ full dependency comparison found971 equal,1411 missing,0 different; missing rows map to scipy and Pillow ImageTk. Approved exact additive no-upgrade install after simulation showed0 removed/0 upgraded, then mandatory2382-row equality before guarded08 launch. CC2 executing; not yet a render-success claim.
+- [ ] CC1 CSS09, CC2 TRJ08 and CC0 actual final-chain integration continue; original resources, files and duplicate exclusions retained. CC3 awaits current counting preview/extraction for complete selected-picture review.
+- [ ] Root final-picture acceptance, complex master/verification and public4K/manual-caption verification remain. Continuous listening and independent whole-film AV are not claimed.
+
+
+### 2026-11-11T02:24:36.493092+00:00 — counting preview completed, final01 started
+
+- [x] Actual counting-preview02 resource receipt terminal exit0 at02:23:43, initial/final bc34eb3f hashes identical, no stop.11932 preview frames.
+- [x] Existing queued final01 acquired exclusive lane; runner1320951 freshly live. Existing counting-picture guard1320950 is queued behind it. Preserve both, no duplicates or termination.
+- [ ] CC3 actual counting pictures await existing extraction; root targeted acceptance follows. CC0 staging final-chain successors; CSS09/TRJ08 preparation continues. No final-picture or full-film AV acceptance inferred from preview success.
+
+
+### 2026-11-11T02:27:27.482227+00:00 — final11 controllers wired; offload isolation
+
+- [x] CC0 staged and started existing-prerequisite waiting controllers in CSD tmux jmev-repaired-final11 and jmev-repaired-pictures11; root observed wait11 explicitly waiting for root picture admission, pictures wrapper1332276 waiting actual final receipt. No11 render started or accepted.
+- [x] Root verified CSD01 actual native renderer1320952 and 4K60 CRF16 encoder1321052 live underguard1320951.
+- [ ] TRJ08 precheck found shared Cargo config differs despite system-package repair. Worker instructed to preserve host config, use process-isolated exact binding if supported, and retain all runtime/guard checks. No TRJ08 success or launch claimed. CSS09 preparation continues separately.
+- [ ] Retained complex-delivery1008 is old master993, publication_ready=false; do not upload that stale delivery. New repaired final/master and matching captions/review evidence must form new delivery.
+
+
+### 2026-11-11T02:30:14.280675+00:00 — offload launch defect caught before render
+
+- [x] Root read CSS two-successor diff and full overlay/launch wrappers. Hostname/guard-path changes preserve policy; private read-only bind and uid drop are scoped correctly. Found concrete defect: env -i drops CARGO_TARGET_DIR required by runner line289. Directed CC1 explicit D/work environment binding in preserved successor before launch; bind new guard SHA too.
+- [x] TRJ packages installed and all2382 system rows plus13239 transferred files reported equal byCC2. First launcher refused before job creation due shared Cargo config; attempt preserved. Root chose private read-only mount namespace, no shared host configuration change, and authorized execution once checks pass.
+- [ ] CSS09/TRJ08 actual successful launch not yet verified; existing CSD01 renderer1320952/encoder1321052 confirmed live. Final11 waiting controllers already wired. Picture/listening/whole-film gaps remain unchanged.
+
+
+### 2026-11-11T02:35:27.727477+00:00 — TRJ first admitted attempt failed, concrete correction
+
+- [x] Root read TRJ terminal receipt: exit1 at02:33:50, initial/final62e916e1 stable, no resource stop. Native stderr explicitly rejects task work/tmp as group/other-writable without sticky bit. No footage accepted.
+- [x] Private namespace proved isolated/read-only cargo binding and uid1000 drop; shared TRJ config preserved. Root authorized only task-owned tmp0700 repair and failed job/input no-clobber preservation under unique attempt names with path mapping, then one retry of unchanged guarded render. CC2 executes; no retry-success claimed.
+- [x] CC3 assigned actual Stokes/five-paradoxes readiness during counting extraction queue, returning to actual picture review on terminal extraction. Four existing workers retained; no extras.
+- [ ] CSD01 live, CSS09 guardedlaunch preparation; complex final/master/publication remain incomplete and listening/independent whole-film AV unclaimed.
+
+
+### 2026-11-11T02:39:59.064254+00:00 — TRJ08 rendering, next-film depth decision
+
+- [x] TRJ08 corrected retry admitted; root verified live guard447065,runner447649,native447792,4K60CRF16 encoder448167. Same62e916e1 manifest; CSD08 exclusion input hashmatches. Shared host config36d1d790 unchanged, private process sees14ae6b73. Failure retained byworker. No terminalsuccess yet.
+- [x] CSS09 first admitted run exited1 stable47c67080 at02:36:47: task work parent mode fails ffmpeg boundary. Root actualstderr verified, directed scoped task-owned ancestor mode repair and preserved retry/controller successor.
+- [x] Root read all34 Stokes cues: sound proof structure but compressed introduction/application. CC3 tasked concrete signed-form/wedge visual buildup and finite-volume conservation example in scratch during queue, retainbox/partitionproof; no padding. Frederick production already authorized after source acceptance.
+- [ ] Fiveparadoxes871word6:30 candidate remains schematic/HOLD; develop worked mechanisms after complex priority. No release or listening acceptance inferred.
+
+
+### 2026-11-11T02:41:35.327041+00:00 — THREE parallel repaired4K renders live
+
+- [x] Root verified CSS09 corrected retry: guard46180,runner46291,native46302 live at4K60CRF16, tmux jmev-css-final09b. CSD copyback03 controller1428789 waits actual stable terminal success. Failedattempt02 preserved.
+- [x] TRJ08 native447792/encoder448167 and CSD01 native1320952/encoder1321052 freshly live. Exclusions prevent duplicate CSD08/09. No terminalsuccess or finalpictureacceptance yet.
+- [x] Stokes and fiveparadoxes Beads updated with actual depth/readiness gaps. CC3 awakened to concrete scratch Stokes expansion during queuedcounting review, no competing render.
+- [ ] Complete existing renders, actual final extraction/review,11 admission/render,master/verifier/publication. Continuous listening/finesync/independentwholefilm AV remain explicitly unclaimed.
+
+
+### 2026-11-11T02:44:11.894717+00:00 — copy-back verified live; environment correction
+
+- [x] TRJ copyback01 PID538522 and CSD CSS copyback03 PID1428789 freshly live. Root read full169-line TRJ controller: terminalsuccess/stability/no-symlinks/hash-equal sibling and no-clobber placement required; existing extraction takes over. Worker verified15617 TRJ rows equalCSD, CSS15618 equalCSD.
+- [x] CORRECTION to02:30 entry: explicit CARGO_TARGET_DIR in CSS wrapper is defensive, not a demonstrated launcher bug. CC1 established existing guard already sets D/work for child runner. Actual CSS failure was task directory permissions, preserved and corrected. Earlier unqualified bug claim is retracted.
+- [x] Root exact-Fraction Stokes support: F=(x²,y,0), two unitcells x0–1/1–2 netflux2/4, shared+1/−1 cancels, combinedflux6 equals integraldivergence2x+1; curl0. SentCC3 with conservation/storage and dimensionless caveats. Author math support only.
+- [ ] Three renders active, final reviews/master/release stillpending; no listening or independentwholefilm AV acceptance.
+
+
+### 2026-11-11T02:46:29.920204+00:00 — keep four workers productive during render
+
+- [x] Three actual render/encoder pairs revalidated live; CSD01 byte-consumption about2773/6311frames at02:45 is progress only, not completedfile acceptance. No restart or duplicate.
+- [x] CC1/CC2 finishedoffloadsetup and were idle; root dispatched disjoint substantive fiveparadoxes source work in their existing panes: CC1 Monty/Birthday/Simpson, CC2 Zeno/Hilbert/bookends. Finished spoken cues, exact worked examples and native scene drafts in scratch; no competing heavyjob/synthesis. Complex actualfinalreview takespriority on completion.
+- [ ] CC0 waits actualcountingK tofill/stage finalchain; CC3 Stokes native/narration expansion during queue and returns tocountingreview. No extraagents, no publication/readiness inferred from drafts.
