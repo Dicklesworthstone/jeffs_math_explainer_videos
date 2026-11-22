@@ -914,3 +914,178 @@ fn the_spread_check_reads_a_real_timeline_without_its_windows_and_its_waits() {
     // counted over every pair, windows and waits included, the constant rule would pass
     assert!(spread[1].2 > explainer_kit::narration::MIN_GAP_CV, "{}", spread[1].2);
 }
+
+/// The apportionment 04_3 line as narrated when its picture candidate asked
+/// for sentence 3 (Bead .66): three sentences, so the last is index 2. 04_4 is
+/// narrated too but never said in these scenes.
+const PRIORITY: [(&str, &[&str]); 2] = [
+    (
+        "04_3",
+        &[
+            "For seat sixteen, only C's denominator changes: its priority becomes twenty-six over twelve.",
+            "B's nine over four is now largest.",
+            "B wins, making one, four, eleven.",
+        ],
+    ),
+    ("04_4", &["Extending that list cannot erase an earlier award."]),
+];
+
+fn priority_script() -> Script {
+    let text: String = PRIORITY
+        .iter()
+        .map(|(id, sentences)| format!("{id}\t{}\n", sentences.join(" ")))
+        .collect();
+    Script::parse(&text).unwrap()
+}
+
+/// Real narration of [`PRIORITY`]: 0.25 s per sentence, no pauses, so
+/// sentence `j` of a line starts 0.25 j s after the line.
+fn priority_narration(tag: &str) -> Rc<Narrator> {
+    let dir = fresh_dir(tag);
+    std::fs::create_dir_all(&dir).unwrap();
+    let mut lines = serde_json::Map::new();
+    for (id, sentences) in PRIORITY {
+        write_line(&dir.join(format!("{id}.wav")), 0.25 * sentences.len() as f64);
+        let rows = sentences
+            .iter()
+            .map(|s| serde_json::json!({"sentence": s, "out_samples": 12_000, "gap_after_samples": 0}))
+            .collect();
+        lines.insert(id.to_owned(), serde_json::Value::Array(rows));
+    }
+    let report = serde_json::json!({"meta": {"rate": 48_000}, "lines": lines});
+    std::fs::write(dir.join("report.json"), report.to_string()).unwrap();
+    Narrator::load(&priority_script(), &dir, 0.0).unwrap()
+}
+
+#[derive(Clone, Copy)]
+enum Step {
+    Say(&'static str),
+    Until(&'static str, usize),
+    Wait(f64),
+}
+
+/// Runs its steps and records the frame after each `Say` and `Until`.
+struct SentenceWaits {
+    kit: Kit,
+    steps: Vec<Step>,
+    frames: Rc<RefCell<Vec<i64>>>,
+}
+
+impl SceneConstruct for SentenceWaits {
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        for step in self.steps.clone() {
+            match step {
+                Step::Say(id) => self.kit.say(stage, id)?,
+                Step::Until(id, j) => self.kit.until_sentence(stage, id, j)?,
+                Step::Wait(seconds) => {
+                    stage.wait(seconds)?;
+                    continue;
+                }
+            }
+            self.frames.borrow_mut().push(stage.scene().time().frames());
+        }
+        Ok(())
+    }
+}
+
+fn run_waits(kit: Kit, steps: &[Step]) -> (Result<(), String>, Vec<i64>) {
+    let frames = Rc::new(RefCell::new(Vec::new()));
+    let mut scene = SentenceWaits {
+        kit,
+        steps: steps.to_vec(),
+        frames: Rc::clone(&frames),
+    };
+    let result = fmn::render(&mut scene, tiny_render(fresh_dir("sentence_waits")))
+        .map(|_| ())
+        .map_err(|e| e.to_string());
+    (result, frames.take())
+}
+
+#[test]
+fn real_narration_refuses_a_wait_for_sentence_three_of_a_three_sentence_line() {
+    // Bead .66: sentence_at returned None, the wait was skipped, and the
+    // B-wins picture appeared at once instead of with its words.
+    let kit = Kit::new().unwrap().with_narrator(priority_narration("index_three"));
+    let (result, frames) = run_waits(kit, &[Step::Say("04_3"), Step::Until("04_3", 3)]);
+    let err = result.expect_err("no sentence 3 refuses the render");
+    assert!(
+        err.contains("line 04_3 has 3 sentences, counted from 0, so there is no sentence 3"),
+        "{err}"
+    );
+    // the engine's owned integration error, not a leaked static message
+    assert!(err.contains("narration integration failed: until_sentence:"), "{err}");
+    assert_eq!(frames.len(), 1, "only the say is recorded");
+}
+
+#[test]
+fn real_narration_names_a_line_it_does_not_narrate_or_has_not_said() {
+    for (steps, reason) in [
+        (
+            [Step::Say("04_3"), Step::Until("04_9", 0)],
+            "line 04_9 is not among the narrated lines of this render",
+        ),
+        (
+            [Step::Say("04_3"), Step::Until("04_4", 0)],
+            "line 04_4 has not been said in this chapter",
+        ),
+    ] {
+        let kit = Kit::new()
+            .unwrap()
+            .with_narrator(priority_narration("missing_or_unsaid"));
+        let err = run_waits(kit, &steps)
+            .0
+            .expect_err("an unplaceable wait refuses the render");
+        assert!(err.contains(reason), "{err}");
+    }
+}
+
+#[test]
+fn without_real_audio_an_unplaceable_wait_is_still_skipped() {
+    let script = priority_script();
+    for narrator in [None, Some(Narrator::estimate(&script))] {
+        let scratch = narrator.is_some();
+        let kit = match narrator {
+            Some(n) => Kit::new().unwrap().with_narrator(n),
+            None => Kit::new().unwrap(),
+        };
+        let steps = [
+            Step::Say("04_3"),
+            Step::Until("04_3", 3),
+            Step::Until("04_9", 0),
+            Step::Until("04_4", 0),
+            Step::Wait(0.5),
+        ];
+        let (result, frames) = run_waits(kit, &steps);
+        result.unwrap_or_else(|e| panic!("scratch {scratch}: {e}"));
+        assert_eq!(frames.len(), 4, "scratch {scratch}");
+        assert!(frames.iter().all(|&f| f == frames[0]), "scratch {scratch}: {frames:?}");
+        if !scratch {
+            assert_eq!(frames[0], 0, "without a narrator nothing waits");
+        }
+    }
+}
+
+#[test]
+fn real_narration_keeps_future_and_already_passed_waits_frame_exact() {
+    let narrator = priority_narration("valid_waits");
+    let kit = Kit::new().unwrap().with_narrator(Rc::clone(&narrator));
+    let steps = [
+        Step::Say("04_3"),
+        Step::Until("04_3", 1), // 0.25 s after the line: 15 frames
+        Step::Until("04_3", 2), // 15 more
+        Step::Wait(1.0),
+        Step::Until("04_3", 0), // passed: no wait
+        Step::Until("04_3", 2), // passed: no wait
+    ];
+    let (result, frames) = run_waits(kit, &steps);
+    result.expect("valid waits render");
+    let said = frames[0];
+    assert_eq!(frames, vec![said, said + 15, said + 30, said + 90, said + 90]);
+    // the public Option lookup is unchanged
+    let at = narrator.sentence_at("04_3", 0).expect("04_3 was said");
+    assert!((at - said as f64 / 60.0).abs() < 1e-9, "{at} {said}");
+    assert_eq!(narrator.sentence_at("04_3", 2), Some(at + 0.5));
+    assert_eq!(narrator.sentence_at("04_3", 3), None);
+    assert_eq!(narrator.sentence_at("04_4", 0), None);
+    assert_eq!(narrator.sentence_at("04_9", 0), None);
+}

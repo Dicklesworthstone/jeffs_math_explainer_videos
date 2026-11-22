@@ -319,12 +319,22 @@ impl Kit {
             .unwrap_or_default()
     }
 
-    /// Wait until sentence `j` of line `id` (already said) begins, so its
-    /// picture lands with its words; nothing if that moment has passed, or
-    /// without a narrator.
+    /// Wait until sentence `j` (counted from 0) of line `id`, already said in
+    /// this chapter, begins, so its picture lands with its words; nothing if
+    /// that moment has passed. Without a narrator, or with the scratch voice,
+    /// a wait that cannot be placed is skipped as before. With real narration
+    /// it is a render error naming the reason: the line is not narrated in
+    /// this render, it has not been said yet, or it has no sentence `j`.
     pub fn until_sentence(&self, stage: &mut Stage<'_>, id: &str, j: usize) -> fmn::Result<()> {
-        let Some(at) = self.narrator.as_ref().and_then(|n| n.sentence_at(id, j)) else {
+        let Some(n) = self.narrator.as_ref() else {
             return Ok(());
+        };
+        let Some(at) = n.sentence_at(id, j) else {
+            return if n.has_audio() {
+                Err(unplaced_sentence(n, id, j))
+            } else {
+                Ok(())
+            };
         };
         let (now, fps) = (stage.scene().time().to_f64(), stage.scene().time().fps());
         if at > now {
@@ -704,6 +714,22 @@ impl Kit {
         self.note(m, "live value", TextKind::Live);
         Ok(m)
     }
+}
+
+/// Why real narration has no scene time for sentence `j` of line `id`: the
+/// render error of [`Kit::until_sentence`]. The engine's integration error
+/// owns its message, so a refused render leaks nothing.
+fn unplaced_sentence(n: &Narrator, id: &str, j: usize) -> fmn::Error {
+    let text = if n.length(id).is_none() {
+        format!("until_sentence: line {id} is not among the narrated lines of this render")
+    } else if !n.said().iter().any(|(said, _)| said == id) {
+        format!("until_sentence: line {id} has not been said in this chapter; say it before waiting on it")
+    } else {
+        let count = n.sentence_starts(id).len();
+        format!("until_sentence: line {id} has {count} sentences, counted from 0, so there is no sentence {j}")
+    };
+    let error = fmn::scene::IntegrationError::new("narration", text);
+    fmn::Error::Scene(fmn::scene::SceneError::Integration(error))
 }
 
 /// A horizontal bar whose length follows `tracker` (`unit` scene units per

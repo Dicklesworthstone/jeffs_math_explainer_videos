@@ -47,7 +47,13 @@
 //! boxes, strokes and painter's order, not pixels. The template's calibration
 //! on the eight Hoeffding's D
 //! chapters: no false overlaps, seven real findings (one label cut off at the
-//! bottom). Assumes the 16:9 frame (8 units tall).
+//! bottom).
+//!
+//! The frame is the one the render's camera shows: the CLI's `--lint` hands the
+//! lint [`frame_of`] the render's options ([`Linter::set_frame`]), so a camera
+//! frame of another height (`--frame-height`) or another aspect (`--res`) is
+//! judged by what it shows. A lint that is not told assumes fmn's default,
+//! [`FRAME`] (8 units tall at 16:9).
 
 use std::cell::{Cell, RefCell};
 use std::collections::{HashMap, HashSet};
@@ -55,6 +61,7 @@ use std::collections::{HashMap, HashSet};
 use fmn::core::constants::{FRAME_X_RADIUS, FRAME_Y_RADIUS};
 use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
+use fmn::rendering::CameraConfig;
 
 use crate::kit::Registered;
 
@@ -91,12 +98,67 @@ const STROKE_UNIT: f64 = 0.01;
 /// An axis-aligned box: (lower-left, upper-right).
 pub type Box2 = ([f64; 2], [f64; 2]);
 
-/// The frame, as a box.
+/// fmn's default frame (8 units tall at 16:9), as a box: the one [`covers_frame`] measures against, and the one a
+/// [`Linter`] holds the picture to until it is told the frame the render shows ([`Linter::set_frame`]).
 pub const FRAME: Box2 = ([-FRAME_X_RADIUS, -FRAME_Y_RADIUS], [FRAME_X_RADIUS, FRAME_Y_RADIUS]);
 
-/// Does the box reach every edge of the frame (a backdrop)?
-pub fn covers_frame((lo, hi): Box2) -> bool {
-    lo[0] <= FRAME.0[0] + 0.02 && lo[1] <= FRAME.0[1] + 0.02 && hi[0] >= FRAME.1[0] - 0.02 && hi[1] >= FRAME.1[1] - 0.02
+/// Does the box reach every edge of [`FRAME`] (a backdrop)? The lint asks the same of the frame it holds the
+/// picture to ([`Linter::frame`]).
+pub fn covers_frame(b: Box2) -> bool {
+    reaches_every_edge(b, FRAME)
+}
+
+/// Does the box reach every edge of `frame`?
+fn reaches_every_edge((lo, hi): Box2, frame: Box2) -> bool {
+    lo[0] <= frame.0[0] + 0.02 && lo[1] <= frame.0[1] + 0.02 && hi[0] >= frame.1[0] - 0.02 && hi[1] >= frame.1[1] - 0.02
+}
+
+/// The frame a render with `options` shows, in scene units, centred on the origin: fmn's native picture maps
+/// `config.sizes.frame_height` units onto the picture's height about its centre (the 2D route's screen map,
+/// `height / frame_height` pixels per unit), and [`RenderOptions::camera_config`] gives the camera route the same
+/// shape, `frame_height` times the picture's aspect wide. The default options, and every exact 16:9 size, give
+/// [`FRAME`] to the bit. An explicit camera (`options.camera`) gives its own frame's size instead, fitted to the
+/// picture as fmn's `Camera::new` fits it.
+///
+/// The box is camera-local: the frame's size, centred, whatever the camera's position or orientation. The CLI never
+/// sets an explicit camera, and its lint holds world x and y to this box, which is the picture only on a front view
+/// (the 2D route, or a camera route at theta 0 and phi 0 that never moves). Projecting through a moving camera is a
+/// separate matter, not done here.
+///
+/// # Errors
+/// A frame height that is not finite and positive, or a resolution with a zero side (fmn refuses both); for an
+/// explicit camera, a resolution with a zero side, which fmn's camera refuses too.
+pub fn frame_of(options: &RenderOptions) -> Result<Box2, String> {
+    if let Some(camera) = &options.camera {
+        return explicit_frame(camera);
+    }
+    let height = options.config.sizes.frame_height;
+    let (w, h) = options.config.camera.resolution;
+    if !height.is_finite() || height <= 0.0 {
+        return Err(format!("layout lint: frame height {height} is not finite and positive"));
+    }
+    if w == 0 || h == 0 {
+        return Err(format!("layout lint: a {w}x{h} picture has no frame"));
+    }
+    // the expression fmn's `camera_config` uses for the frame's width
+    let (xr, yr) = (height * f64::from(w) / f64::from(h) / 2.0, height / 2.0);
+    Ok(([-xr, -yr], [xr, yr]))
+}
+
+/// An explicit camera's frame, fitted to its picture as fmn's `Camera::new` fits it (the width kept, the height the
+/// width over the picture's aspect), whatever `config.sizes.frame_height` says: a camera-local box, centred,
+/// whatever the camera's position or orientation.
+///
+/// # Errors
+/// A resolution with a zero side, which fmn refuses to fit.
+fn explicit_frame(camera: &CameraConfig) -> Result<Box2, String> {
+    let (w, h) = camera.resolution;
+    let mut frame = camera.frame.clone();
+    frame
+        .resize_to_aspect_ratio(f64::from(w) / f64::from(h), false)
+        .map_err(|e| format!("layout lint: a {w}x{h} camera picture has no frame ({e})"))?;
+    let (xr, yr) = (frame.width() / 2.0, frame.height() / 2.0);
+    Ok(([-xr, -yr], [xr, yr]))
 }
 
 /// Is the point inside the box?
@@ -205,6 +267,8 @@ pub struct Linter {
     /// Mobjects whose strokes are meant to cross text (a strike-through, a highlighted diagonal): see
     /// [`Linter::allow_crossing`].
     allowed: RefCell<Vec<Mob>>,
+    /// The frame the picture shows ([`Linter::set_frame`]); `None` is [`FRAME`].
+    frame: Cell<Option<Box2>>,
 }
 
 impl Linter {
@@ -226,6 +290,18 @@ impl Linter {
     /// Does this lint look at the running scene?
     pub fn is_sampling(&self) -> bool {
         self.sampling
+    }
+
+    /// Hold the picture to `frame`, centred on the origin as [`frame_of`] gives it for the render's options,
+    /// instead of [`FRAME`]: `outside`, `edge` and `tight` are then measured from the edges the camera
+    /// shows, and what lies wholly outside `frame` is what counts as parked off-screen.
+    pub fn set_frame(&self, frame: Box2) {
+        self.frame.set(Some(frame));
+    }
+
+    /// The frame this lint holds the picture to.
+    pub fn frame(&self) -> Box2 {
+        self.frame.get().unwrap_or(FRAME)
     }
 
     /// The narration line `id` begins now, at `scene_s` seconds of the scene: the next sampled looks are named
@@ -334,6 +410,8 @@ impl Linter {
                 None => "an unlabeled shape".to_owned(),
             }
         };
+        let frame = self.frame();
+        let (xr, yr) = (frame.1[0], frame.1[1]);
         let mut on_stage: HashSet<Mob> = HashSet::new();
         let mut families: Vec<(Mob, Vec<Mob>)> = Vec::new();
         let mut flagged: HashSet<Mob> = HashSet::new();
@@ -344,10 +422,10 @@ impl Linter {
             let Some(b) = visible_box(arena, m) else {
                 continue;
             };
-            if let Some(kind) = edge_kind(b, FRAME_X_RADIUS, FRAME_Y_RADIUS) {
+            if let Some(kind) = edge_kind(b, xr, yr) {
                 // not on the screen at all (parked, to come in later), or a backdrop that covers all of it (the
                 // texts inside such a group are judged one by one, `check_text_edges`)
-                if boxes_apart(b, FRAME) || covers_frame(b) {
+                if boxes_apart(b, frame) || reaches_every_edge(b, frame) {
                     continue;
                 }
                 flagged.insert(m);
@@ -362,10 +440,10 @@ impl Linter {
                         b.1[0],
                         b.0[1],
                         b.1[1],
-                        FRAME_X_RADIUS,
-                        FRAME_Y_RADIUS,
-                        FRAME_X_RADIUS - MARGIN,
-                        FRAME_Y_RADIUS - MARGIN
+                        xr,
+                        yr,
+                        xr - MARGIN,
+                        yr - MARGIN
                     ),
                 );
             }
@@ -411,15 +489,17 @@ impl Linter {
         flagged: &HashSet<Mob>,
         at: &str,
     ) {
+        let frame = self.frame();
+        let (xr, yr) = (frame.1[0], frame.1[1]);
         for (mob, label, b) in shown {
             let root = families
                 .iter()
                 .find(|(_, family)| family.contains(mob))
                 .map(|(r, _)| *r);
-            if root == Some(*mob) || root.is_some_and(|r| flagged.contains(&r)) || boxes_apart(*b, FRAME) {
+            if root == Some(*mob) || root.is_some_and(|r| flagged.contains(&r)) || boxes_apart(*b, frame) {
                 continue;
             }
-            if let Some(kind) = edge_kind(*b, FRAME_X_RADIUS, FRAME_Y_RADIUS) {
+            if let Some(kind) = edge_kind(*b, xr, yr) {
                 self.record(
                     format!("{kind}|text|{label}"),
                     at,
@@ -430,10 +510,10 @@ impl Linter {
                         b.1[0],
                         b.0[1],
                         b.1[1],
-                        FRAME_X_RADIUS,
-                        FRAME_Y_RADIUS,
-                        FRAME_X_RADIUS - MARGIN,
-                        FRAME_Y_RADIUS - MARGIN
+                        xr,
+                        yr,
+                        xr - MARGIN,
+                        yr - MARGIN
                     ),
                 );
             }
@@ -532,7 +612,8 @@ impl Linter {
     /// `tight`: a text nearer than [`TEXT_MARGIN`] to the left, right or top edge, but not yet within
     /// [`MARGIN`] (which `edge` reports for every shape).
     fn check_tight(&self, shown: &[(Mob, String, Box2)], at: &str) {
-        let (xr, yr) = (FRAME_X_RADIUS, FRAME_Y_RADIUS);
+        let frame = self.frame();
+        let (xr, yr) = (frame.1[0], frame.1[1]);
         for (_, label, (lo, hi)) in shown {
             let (side, room) = [("left", lo[0] + xr), ("right", xr - hi[0]), ("top", yr - hi[1])]
                 .into_iter()
@@ -1058,6 +1139,97 @@ mod tests {
         assert_eq!(edge_kind(b(-1.0, xr - MARGIN + 0.001), xr, yr), Some("edge"));
         assert_eq!(edge_kind(b(-1.0, xr + 0.001), xr, yr), Some("outside"));
         assert_eq!(edge_kind(([0.0, -yr - 0.01], [1.0, 0.0]), xr, yr), Some("outside"));
+    }
+
+    fn options(res: (u32, u32), frame_height: Option<f64>) -> RenderOptions {
+        let mut o = RenderOptions::with_format("unused.mp4", RenderFormat::Mp4).unwrap();
+        o.config.camera.resolution = res;
+        if let Some(height) = frame_height {
+            o.config.sizes.frame_height = height;
+        }
+        o
+    }
+
+    #[test]
+    fn the_frame_is_the_one_the_render_options_show() {
+        // fmn's default height at every 16:9 size the drivers and tests render: the default frame, to the bit
+        for res in [
+            (1920, 1080),
+            (3840, 2160),
+            (960, 540),
+            (480, 270),
+            (1280, 720),
+            (640, 360),
+            (320, 180),
+            (64, 36),
+            (32, 18),
+        ] {
+            assert_eq!(frame_of(&options(res, None)), Ok(FRAME), "{res:?}");
+        }
+        // Navier's camera, 9 units tall at 16:9: 16 × 9
+        assert_eq!(
+            frame_of(&options((3840, 2160), Some(9.0))),
+            Ok(([-8.0, -4.5], [8.0, 4.5]))
+        );
+        // another aspect: a portrait picture 8 units tall is 4.5 wide
+        assert_eq!(frame_of(&options((1080, 1920), None)), Ok(([-2.25, -4.0], [2.25, 4.0])));
+        assert!(frame_of(&options((0, 1080), None)).is_err());
+        assert!(frame_of(&options((1920, 1080), Some(f64::NAN))).is_err());
+        assert!(frame_of(&options((1920, 1080), Some(0.0))).is_err());
+        // a lint not told the frame keeps the default; told, it holds the picture to that frame
+        let lint = Linter::new();
+        assert_eq!(lint.frame(), FRAME);
+        lint.set_frame(([-8.0, -4.5], [8.0, 4.5]));
+        assert_eq!(lint.frame(), ([-8.0, -4.5], [8.0, 4.5]));
+    }
+
+    #[test]
+    fn an_explicit_portrait_camera_keeps_its_fitted_frame_in_any_pose() {
+        // fmn's `Camera::new` keeps an explicit frame's width and fits its height to the picture: the default frame
+        // (14.2 × 8) on a 1080x1920 picture is 14.2 × 25.3, not the 4.5 × 8 that `frame_height` alone gives
+        let camera = CameraConfig {
+            resolution: (1080, 1920),
+            ..CameraConfig::default()
+        };
+        let yr = fmn::core::constants::FRAME_WIDTH / (1080.0 / 1920.0) / 2.0;
+        let fitted: Result<Box2, String> = Ok(([-FRAME_X_RADIUS, -yr], [FRAME_X_RADIUS, yr]));
+        // the box is camera-local: moved, tilted, or both, the camera keeps those dimensions
+        let mut moved = camera.clone();
+        moved.frame.set_center([1.0, -2.0, 0.5]).unwrap();
+        let mut tilted = camera.clone();
+        tilted.frame.set_euler_angles(Some(0.3), Some(0.7), None).unwrap();
+        let mut both = moved.clone();
+        both.frame.set_euler_angles(Some(0.3), Some(0.7), None).unwrap();
+        assert_ne!(moved.frame.center(), camera.frame.center());
+        assert_ne!(tilted.frame.orientation(), camera.frame.orientation());
+        let mut o = options((1080, 1920), None);
+        for c in [camera, moved, tilted, both] {
+            o.camera = Some(c);
+            assert_eq!(frame_of(&o), fitted);
+        }
+        // the same options without it keep the frame `frame_height` gives
+        o.camera = None;
+        assert_eq!(frame_of(&o), Ok(([-2.25, -4.0], [2.25, 4.0])));
+    }
+
+    #[test]
+    fn a_backdrop_covers_the_frame_it_fills_and_not_a_wider_one() {
+        let wide = ([-8.0, -4.5], [8.0, 4.5]);
+        assert!(reaches_every_edge(FRAME, FRAME) && reaches_every_edge(wide, wide));
+        assert!(
+            reaches_every_edge(wide, FRAME),
+            "a 16 × 9 backdrop covers the default frame"
+        );
+        assert!(
+            !reaches_every_edge(FRAME, wide),
+            "a backdrop the size of the default frame leaves the 16 × 9 frame's rim bare"
+        );
+        // the public one-argument test keeps its verdicts: it asks of the default frame
+        let inset = ([-7.0, -3.9], [7.0, 3.9]);
+        for b in [FRAME, wide, inset, ([-7.1, -3.99], [7.1, 3.99])] {
+            assert_eq!(covers_frame(b), reaches_every_edge(b, FRAME), "{b:?}");
+        }
+        assert!(covers_frame(FRAME) && covers_frame(wide) && !covers_frame(inset));
     }
 
     #[test]

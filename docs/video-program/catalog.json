@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-11-11",
+  "updated_on": "2026-11-21",
   "work_tracker": ".beads",
   "consumer": "Channel owner and video producers",
   "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
@@ -5080,8 +5080,52 @@
         "birthday_hash_collisions",
         "inspection_paradox"
       ],
-      "revisions": [],
-      "publications": []
+      "revisions": [
+        {
+          "revision_id": "frederick-surrey-expanded-4k60-20261112",
+          "label": "Five Math Paradoxes That Stop Being Impossible",
+          "voice": "frederick_surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-native-render-work-ws04/five_math_paradoxes_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "770c75ba6f9ad1221de0d840f00e9675da9b8527ed07c1d24a059feb5b123a10"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim nine-chapter film;119 retained ElevenLabs Frederick Surrey recordings;102822 frames;467 timed English captions. Existing takes and failed attempts preserved.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/publication104/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/publication104/final-picture-review01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-native-final-verify-ws04/verification.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-11-12T16:55:41.818271+00:00",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/publication104/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Published once; Studio Public,4K complete and Notices dash. Public watch2160p60 and uploaded English text verified.434 sheets/1733 selected pictures and18 native source stills reviewed. Continuous listening,fine-sync and independent whole-film AV acceptance remain open."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "F0n42EMP5TY",
+          "url": "https://youtu.be/F0n42EMP5TY",
+          "revision_id": "frederick-surrey-expanded-4k60-20261112",
+          "visibility": "public",
+          "recorded_as_of": "2026-11-12T16:55:41.818271+00:00",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/publication104/publication-receipt01.json"
+          ]
+        }
+      ]
     },
     {
       "video_id": "probability_paradoxes",
@@ -5192,8 +5236,52 @@
         "exponential_magic",
         "logarithm_mysteries"
       ],
-      "revisions": [],
-      "publications": []
+      "revisions": [
+        {
+          "revision_id": "frederick-surrey-expanded-4k60-20261111",
+          "label": "The Hidden Geometry of Complex Functions",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-delivery1012/complex_analysis_visual_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "d349cc005a4bb192e5b516c84ac58f9d65696faf9bb3586642b93ed050fedfde"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim 15-chapter 37:07.7 cut; 105 retained ElevenLabs cues; 579 uploaded timed English captions.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-delivery1012/publication-receipt1013.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-delivery1012/final-pictures-viewed1013.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-delivery1012/csd-final-verify1013-verification.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-11-11",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-delivery1012/publication-receipt1013.json"
+              ]
+            }
+          ],
+          "disposition": "Public; watch 2160p60 and uploaded English verified. Prior six-minute original K9r71UhRr4g unlisted afterward. No continuous listening, fine sync or independent whole-film AV acceptance."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "rh0D-FSB7bU",
+          "url": "https://youtu.be/rh0D-FSB7bU",
+          "revision_id": "frederick-surrey-expanded-4k60-20261111",
+          "visibility": "public",
+          "recorded_as_of": "2026-11-11",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-delivery1012/publication-receipt1013.json"
+          ]
+        }
+      ]
     },
     {
       "video_id": "hopf_fibration",
@@ -6039,8 +6127,670 @@
         "complex_analysis",
         "visual_proofs"
       ],
-      "revisions": [],
+      "revisions": [
+        {
+          "revision_id": "frederick-surrey-native-4k60-20261112",
+          "label": "The Boundary Trick Behind Stokes' Theorem",
+          "voice": "frederick_surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-canonical-render-work-ws02-r04/stokes_theorem_visual_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "d7436c0910b8d0c2fd0f0b09fb399af6243c529b19c28996800f6463203e7f8f"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim23-chapter film,57 retained ElevenLabs Frederick recordings,77424frames,334timed English captions. Prior takes and failed attempts preserved.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-canonical-integration70/publication01/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-final-picture-review-r05-root01/aggregate01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-canonical-final-verify-ws02-r05/verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-canonical-final-check-adjudication01/final-check-adjudication.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-11-12T22:17:57.615974+00:00",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-canonical-integration70/publication01/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Published once. Studio Public/4K complete/Notices dash; public watch2160p60 and uploaded English with text verified.1075 selected pictures269sheets reviewed. Original strict loudness failure retained with separate fixed-gain ceiling exception. Continuous listening, motion, fine-sync and independent complete AV acceptance remain open."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "X5TYuaA8OY4",
+          "url": "https://youtu.be/X5TYuaA8OY4",
+          "revision_id": "frederick-surrey-native-4k60-20261112",
+          "visibility": "public",
+          "recorded_as_of": "2026-11-12T22:17:57.615974+00:00",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-canonical-integration70/publication01/publication-receipt01.json"
+          ]
+        }
+      ]
+    },
+    {
+      "video_id": "standard_model_symmetries",
+      "working_title": "The Equation Behind All of Reality",
+      "pitch": "A visual introduction to SU(3), SU(2), U(1), their product, local gauge frames, particles and the route to Maxwell equations.",
+      "work_epic": "mx-video-program-program-87do.67",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-11-11",
+          "decision": "shortlisted",
+          "by": "owner next-video idea; root research intake",
+          "reason": "Owner requested a substantial minimal-prerequisite visual explanation. Treatment development in progress; current production retains priority. No finished script, independent acceptance or new synthesis claimed.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/standard-model-visual-brief-20261111.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/evidence/standard-model-visual-brief-20261111.md"
+      ],
+      "related_video_ids": [
+        "complex_analysis",
+        "matrix_exponential",
+        "stokes_theorem_visual"
+      ],
+      "revisions": [
+        {
+          "revision_id": "frederick-surrey-native09-master02-20261114",
+          "label": "The Equation Behind All of Reality",
+          "voice": "frederick_surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/standard-model-native09-delivery-work02/standard_model_symmetries_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "674119c224aff5afc8a87881348de7526e5cf430f65402fdb9448bb0d5f43c43"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim, ElevenLabs Frederick Surrey,29 chapters121676frames499 timed English captions. Retained originals and failed attempts preserved.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/standard-model-native09-integration01/upload-draft01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/standard-model-native09-integration01/final-picture-release-disposition02.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/standard-model-native09-integration01/caption-adjudication02.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/standard-model-native09-integration01/final-check-adjudication02.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/standard-model-native09-integration01/publication-receipt01.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-11-14T23:23:05.966454+00:00",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/standard-model-native09-integration01/upload-draft01.json"
+              ]
+            }
+          ],
+          "disposition": "Published once; StudioPublic4KcompleteNoticesdash; public watchAuto2160p60 and uploadedEnglish selected with visible text.2507 sampled pictures627sheets and29nativeanchors reviewed. Caption/loudness exceptions documented; continuous listening/fine-sync/independent full-motion AV not claimed."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "ClfQxZISnX0",
+          "url": "https://youtu.be/ClfQxZISnX0",
+          "revision_id": "frederick-surrey-native09-master02-20261114",
+          "visibility": "public",
+          "recorded_as_of": "2026-11-14T23:29:27.385659+00:00",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/standard-model-native09-integration01/publication-receipt01.json"
+          ]
+        }
+      ]
+    },
+    {
+      "video_id": "steel_truss_bridge_design",
+      "working_title": "How Linear Algebra Can Help Make a Better Bridge",
+      "pitch": "A real repeated-panel 3D truss simulation teaches stiffness assembly, vibration modes, moving loads and fabrication-aware constrained design.",
+      "work_epic": "mx-video-program-program-87do.68",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-11-11",
+          "decision": "shortlisted",
+          "by": "owner next-video idea; root research intake",
+          "reason": "Owner requested a substantial engineering/math deep dive. Numerical seed and detailed treatment exist; engineering review, dynamics, real sections and production remain open.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/steel-truss-bridge-20261111/brief01.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/evidence/steel-truss-bridge-20261111/brief01.md"
+      ],
+      "related_video_ids": [
+        "eigen_engineering",
+        "planar_rigidity",
+        "maxwell_cremona"
+      ],
+      "revisions": [
+        {
+          "revision_id": "frederick-surrey-native-master02-20261116",
+          "label": "How Linear Algebra Can Help Make a Better Bridge",
+          "voice": "frederick_surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/bridge-native-delivery-work02/steel_truss_bridge_design_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "34ce79edb4b89c10cc4f8d30cee35b8cae1e221fa6796ef0a5c8fa8d217cf238"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim, ElevenLabs Frederick Surrey, 31 chapters, 137 retained cues, 8449 words, 193622 frames, 897 timed English captions. Prior takes and attempts preserved.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/bridge-final-review-assignments01/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/bridge-final-review-assignments01/final-picture-review02.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/bridge-final-review-assignments01/caption-screen-disposition02.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-11-16T01:09:07.245974+00:00",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/bridge-final-review-assignments01/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Published once; Studio Public and 4K complete; public watch Auto2160p60 and uploaded English selected with visible text. All1157 sheets/264 native images reviewed; chapter27/28 prior interior review carried through exact unchanged MP4s/schedules. Ten caption advisories and peak-limited loudness exception retained. No continuous listening, fine-sync or independent full-motion acceptance."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "sIQ1dZBHZGo",
+          "url": "https://youtu.be/sIQ1dZBHZGo",
+          "revision_id": "frederick-surrey-native-master02-20261116",
+          "visibility": "public",
+          "recorded_as_of": "2026-11-16T01:09:07.245974+00:00",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/bridge-final-review-assignments01/publication-receipt01.json"
+          ]
+        }
+      ]
+    },
+    {
+      "video_id": "navier_stokes_simulation",
+      "working_title": "How to Teach a Computer to Simulate a Fluid",
+      "pitch": "One real virtual wind tunnel builds Navier-Stokes intuition, pressure projection, adaptive grids and honest numerical error-versus-cost comparisons.",
+      "work_epic": "mx-video-program-program-87do.69",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-11-14",
+          "decision": "shortlisted",
+          "by": "owner next-video request; root research intake",
+          "reason": "Owner requested an intuitive visual explanation with practical simulation, adaptive grid granularity and numerical error control. Research treatment registered; solver validation and independent review pending.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/navier-stokes-20261114/brief01.md",
+            "https://x.com/matheorems/status/2120148474717209011"
+          ]
+        },
+        {
+          "on": "2026-11-20",
+          "decision": "selected",
+          "by": "owner",
+          "reason": "Authorized the real adaptive-grid and numerical-error simulation, native FrankenManim production and ElevenLabs Frederick Surrey narration.",
+          "source_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/production-authorization01.json",
+            "docs/video-program/research-20261016/evidence/navier-stokes-20261114/solver-route-decision02.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/evidence/navier-stokes-20261114/brief01.md",
+        "docs/video-program/research-20261016/evidence/navier-stokes-20261114/navier-full-script03/navier-full-script03.md",
+        "docs/video-program/research-20261016/evidence/navier-stokes-20261114/full-script03-disposition01.json",
+        "docs/video-program/research-20261016/evidence/navier-stokes-20261114/solver-route-decision01.md",
+        "docs/video-program/research-20261016/evidence/navier-stokes-20261114/matheorems-code-availability01.json",
+        "docs/video-program/research-20261016/evidence/navier-stokes-20261114/solver-route-decision02.md",
+        "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/production-measurements01.md"
+      ],
+      "related_video_ids": [
+        "steel_truss_bridge_design"
+      ],
+      "revisions": [
+        {
+          "revision_id": "frederick-surrey-native-delivery01-20261121",
+          "label": "How to Teach a Computer to Simulate a Fluid",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/navier_stokes_simulation_delivery_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "323663af0efbed3a316590a6b6bc400bd8ec82eb29ac94da5255d293b732ae0a"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim 3840×2160 at 60 fps. Twenty chapters, 235,696 frames, 278 Frederick Surrey cues, 22 prediction holds and 1,087 timed English captions. Retained Basilisk solver fields drive the measured periodic-shear and cylinder startup views. The final AAC carries 75 measured voice-edge tapers with all picture packets and presentation clocks preserved.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master01/master.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/resource-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/delivery.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/taper-verify.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review01/manifest.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/publication-candidate01/copy-verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/production-measurements01.md"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-21T15:23:43.985359+00:00",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master01/master.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/resource-receipt.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/delivery.json"
+              ]
+            },
+            {
+              "stage": "master_verified",
+              "recorded_as_of": "2026-11-21T15:23:43.985359+00:00",
+              "evidence_state": "unknown",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/verification.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/pictures-viewed.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/taper-verify.json"
+              ]
+            }
+          ],
+          "disposition": "Local technical delivery. Full AV decode, bit-exact clock and picture packet checks, both English caption files, nominal encoded audio levels and 40 sampled join images passed. Continuous listening, fine sync and independent whole-film review are open. The cylinder matched-accuracy comparison and publication remain open. Review package 02 carries the later caption timing."
+        },
+        {
+          "revision_id": "frederick-surrey-native-delivery02-20261121",
+          "label": "How to Teach a Computer to Simulate a Fluid",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review02/navier_stokes_simulation_delivery_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "323663af0efbed3a316590a6b6bc400bd8ec82eb29ac94da5255d293b732ae0a"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim, 20 chapters and 235,696 frames at 3840×2160/60, with 278 Frederick Surrey cues. The exact local MP4 now has three further source-bound English caption timing adjustments. Both formats agree on all 1,087 blocks.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review02/manifest.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review02/caption-timing.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/assignments03/bronze-owner-review02-check01/runs/review02-check01-run01.txt",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-final-motion-screen01/motion-screen01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-21",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review02/manifest.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/delivery.json"
+              ]
+            },
+            {
+              "stage": "master_verified",
+              "recorded_as_of": "2026-11-21",
+              "evidence_state": "unknown",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review02/caption-timing.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-final-motion-screen01/motion-screen01.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-audio01/pictures-viewed.json"
+              ]
+            }
+          ],
+          "disposition": "Local review package before the closing citation repair. Full decode, sampled pictures, frame screening and caption file checks passed. Review package 03 contains the corrected closing picture."
+        },
+        {
+          "revision_id": "frederick-surrey-native-delivery03-20261121",
+          "label": "How to Teach a Computer to Simulate a Fluid",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review03/navier_stokes_simulation_delivery_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "1563175bfab6acd75029c73c42e99417487b009c9fd8363ae63b84457e1d52cc"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim master with repaired on-screen citations in chapter 20. The first 226,597 picture packet rows and all 184,139 AAC packet rows match review02, including payloads and clocks. Review02's 1,087 timed English caption blocks, title, description, tags and thumbnail are retained byte for byte.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review03/manifest.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-chapter20-repair-render02/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/assignments03/lavender-ch20-citations-view01/REVIEW.md",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-closing-picture01/packet-comparison.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-closing-picture01/verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-closing-picture01/pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-21",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review03/manifest.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-closing-picture01/resource-receipt.json"
+              ]
+            },
+            {
+              "stage": "master_verified",
+              "recorded_as_of": "2026-11-21",
+              "evidence_state": "unknown",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-closing-picture01/verification.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-chapter20-repair-render02/pictures-viewed.json"
+              ]
+            }
+          ],
+          "disposition": "Retained local owner review package with the corrected citations. Review package 04 clarifies the pending cylinder table and updates the description. Complete decode, packet checks, caption bindings and closing picture samples passed."
+        },
+        {
+          "revision_id": "frederick-surrey-native-delivery04-20261121",
+          "label": "How to Teach a Computer to Simulate a Fluid",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review04/navier_stokes_simulation_delivery_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "2d0953353d9f38d6d7fa9f3c698b81903afa7a728cfd350fbfa637b833d67dee"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim at 3840×2160/60 with 20 chapters, 235,696 frames and 278 Frederick Surrey cues. The heading explicitly names the pending cylinder comparison. The 1,087 English caption blocks, first 226,597 picture packet rows and all 184,139 AAC rows match review03. The description specifies fluid-cell updates and adds the FEATFLOW reference source.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review04/manifest.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-chapter20-label-render01/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/assignments03/lavender-ch20-label-view01/FINDING.md",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-closing-label01/packet-comparison.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-closing-label01/verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-closing-label01/pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-21",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review04/manifest.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-closing-label01/resource-receipt.json"
+              ]
+            },
+            {
+              "stage": "master_verified",
+              "recorded_as_of": "2026-11-21",
+              "evidence_state": "unknown",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-closing-label01/verification.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-chapter20-label-render01/pictures-viewed.json"
+              ]
+            }
+          ],
+          "disposition": "Retained local owner review package. Complete decode, packet and caption checks, selected pictures and independent closing title review passed. Continuous listening, perceptual fine sync, independent whole-film playback and publication remain open."
+        },
+        {
+          "revision_id": "frederick-surrey-native-delivery05-20261121",
+          "label": "How to Teach a Computer to Simulate a Fluid",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review05/navier_stokes_simulation_delivery_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "e589fc741eb4eb2c793a1cf61ace2e58113dc48b09250145eed8fa00a4dfc764"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim at 3840×2160/60 with 20 chapters, 235,696 frames and 278 Frederick Surrey cues. Chapter 16 includes whole-flow and shear-only error labels. Exactly 326 picture packet rows changed within chapter 16. All 184,139 AAC packet rows and both 1,087-block English caption files match review04. The description draft specifies both denominators.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review05/manifest.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-chapter16-denominator-render01/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/independent-ch16-pictures01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-shear-denominator01/packet-comparison.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-shear-denominator01/verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-shear-denominator01/pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-21",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review05/manifest.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-shear-denominator01/resource-receipt.json"
+              ]
+            },
+            {
+              "stage": "master_verified",
+              "recorded_as_of": "2026-11-21",
+              "evidence_state": "unknown",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-shear-denominator01/verification.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-chapter16-denominator-render01/pictures-viewed.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/independent-ch16-pictures01.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-native-master-shear-denominator01/pictures-viewed.json"
+              ]
+            }
+          ],
+          "disposition": "Earlier local owner review package. Full decode, caption and packet checks, chapter 16 pictures, independent anchor review and selected join pictures passed. Continuous listening, perceptual fine sync, independent whole-film playback and publication remain open."
+        },
+        {
+          "revision_id": "frederick-surrey-native-delivery06-20261121",
+          "label": "How to Teach a Computer to Simulate a Fluid",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review06/navier_stokes_simulation_delivery_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "18ff7173b091285ad271cdf973cf946b784f4a81599084a0b8842bc14b6d9492"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim at 3840×2160/60 across 20 chapters and 235,696 frames, with 278 Frederick Surrey cues. Repaired chapters 09, 13, 14, 19 and 20 and viewed all 516 selected repair pictures and 40 final join pictures. The final master retains 184,139 identical AAC packet rows. The 1,087 English caption texts remain exact, with 13 shared timing corrections verified using two recognition models.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review06/manifest.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review06-picture-master01/resource-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review05-picture-repairs-render02/resource-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review06-picture-master01/verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review06-picture-master01/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review06-picture-master01/packet-comparison.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review06-picture-master01/caption-binding.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review05-picture-repairs-render02/09/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review05-picture-repairs-render02/13/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review05-picture-repairs-render02/14/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review05-picture-repairs-render02/19/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review05-picture-repairs-render02/20/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/review05-picture-repairs01/canonical-source-binding06.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review06-voice-source-sync01/resource-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review06-voice-source-sync01/proof.json"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-21T22:25:10.547690+00:00",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review06/manifest.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review06-picture-master01/resource-receipt.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review05-picture-repairs-render02/resource-receipt.json"
+              ]
+            },
+            {
+              "stage": "master_verified",
+              "recorded_as_of": "2026-11-21T22:25:10.547690+00:00",
+              "evidence_state": "unknown",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review06-picture-master01/verification.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review06-picture-master01/pictures-viewed.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review06-picture-master01/packet-comparison.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review06-picture-master01/caption-binding.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review05-picture-repairs-render02/09/pictures-viewed.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review05-picture-repairs-render02/13/pictures-viewed.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review05-picture-repairs-render02/14/pictures-viewed.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review05-picture-repairs-render02/19/pictures-viewed.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review05-picture-repairs-render02/20/pictures-viewed.json"
+              ]
+            }
+          ],
+          "disposition": "Current local owner review package. Full AV decode, selected visual checks, encoded audio levels and external captions passed. Continuous listening, perceptual fine sync and independent whole-film playback remain open. Publication authorization is pending."
+        }
+      ],
       "publications": []
+    },
+    {
+      "video_id": "algorithm_shapes",
+      "working_title": "Different Problems, the Same Algorithm",
+      "pitch": "Shared algorithmic structure through one graph, recursion patterns and lawful summaries, then an earned categorical explanation.",
+      "work_epic": "mx-video-program-program-87do.70",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-11-14",
+          "decision": "shortlisted",
+          "by": "owner next-video request; root research intake",
+          "reason": "Owner requests visual unification of algorithm shapes, semirings and category theory; independent review remains open.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/algorithm-shapes-20261114/brief01.md",
+            "https://x.com/tonialaribe/status/2120651953894002870"
+          ]
+        },
+        {
+          "on": "2026-11-20",
+          "decision": "selected",
+          "by": "owner",
+          "reason": "Owner authorized YouTube publication once playback, narration review and synchronization passed.",
+          "source_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-final05-publication01/publication-receipt01.json"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/evidence/algorithm-shapes-20261114/brief01.md",
+        "docs/video-program/research-20261016/evidence/algorithm-shapes-20261114/full-script08.md",
+        "docs/video-program/research-20261016/evidence/algorithm-shapes-20261114/primary-completion01/REPORT.md",
+        "docs/video-program/research-20261016/evidence/algorithm-shapes-20261114/source-gate-audit01/REPORT.md",
+        "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/narration-source-plan02.json",
+        "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/production-authorization01.json"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "frederick-native-final04-20261119",
+          "label": "Different Problems, the Same Algorithm: local review cut",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/whole-film-render04/algorithm_shapes_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "98a3c1f9e229b055d6040a0b69840eab0d9feb04762f7a95ae1d6dae9180344d"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim, 15 chapters, 171 retained Frederick cues, 141871 frames at 3840x2160/60; duration 39:24.517. Native soundtrack replays bit-identical. Corrected timed English captions: 677 blocks; 14 advisory reading-rate flags remain.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/whole-film-render04/master-summary.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/whole-film-verify04/strict-video-verification.log",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/whole-film-final04-pictures-viewed01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/thumbnail-final04-reviewed01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/publication-chapters-master04-checked01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/final04-delivery01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/final04-caption-timing01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/final04-delivery02.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/final04-motion-screen01-reviewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-19",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/whole-film-render04/master-summary.json"
+              ]
+            }
+          ],
+          "disposition": "Held local review cut. Downsampled luma screening of all 141871 frames and direct inspection of selected frames confirmed blank spoken bridges in chapters 14 and 15. Full software and hardware decode and the prior 1282 selected-picture review are recorded against this master. Continuous listening, pronunciation, fine synchronization and independent review remain open."
+        },
+        {
+          "revision_id": "frederick-native-final05-20261120",
+          "label": "Different Problems, the Same Algorithm",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/blank-bridge-repair01/rendered/algorithm_shapes_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "f2b1341da60df813c9e817ee6fe4d7759e8bb016a4c40d796ee0b544efc51bbb"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim 3840×2160/60, 141871 frames, 15 chapters, 171 Frederick Surrey cues and 677 exact delivery captions. Two visual bridges replaced in chapters 14 and 15. The first 13 chapters retain their exact video packets. The complete PCM and timed AAC packets match the previous cut.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/blank-bridge-repair01/rendered/master-summary.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/blank-bridge-repair01/verified02/verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/blank-bridge-repair01/final-pictures-viewed01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/blank-bridge-repair01/verified/motion-screen01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/blank-bridge-repair01/sentence-index-audit01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/blank-bridge-repair01/final05-delivery01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-final05-publication01/playback-result01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-final05-publication01/exact-package-sync.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-final05-publication01/audio-review01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-final05-publication01/publication-receipt01.json"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-20",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/blank-bridge-repair01/rendered/master-summary.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-native-assignments01/frederick-control01/blank-bridge-repair01/verified02/verification.json"
+              ]
+            },
+            {
+              "stage": "master_verified",
+              "recorded_as_of": "2026-11-20",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-final05-publication01/playback-result01.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-final05-publication01/exact-package-sync.json"
+              ]
+            },
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-11-20",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-final05-publication01/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public on YouTube. Verified live 2160p60 playback and the uploaded manual English track. Full native playback, 1312 independently sampled pictures, local waveform-model narration review and measured timing checks passed. Human listening and human fine-sync judgment remain unrecorded."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "1Q2vrdtY7o4",
+          "url": "https://youtu.be/1Q2vrdtY7o4",
+          "revision_id": "frederick-native-final05-20261120",
+          "visibility": "public",
+          "recorded_as_of": "2026-11-20",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/algorithm-final05-publication01/publication-receipt01.json"
+          ]
+        }
+      ]
     }
   ],
   "coverage": {

@@ -251,6 +251,71 @@ def prediction_end(line, following, fps, predicts, outputs, declared, offset):
     return None
 
 
+def chapter_end_prediction(line, next_cue, fps, frames, predicts, outputs, declared, offset):
+    """A declared prediction that ends its chapter holds through the actual final frame.
+
+    The answer opens the next chapter, so this timeline has no following line.
+    The window runs from the cue's audio end to the chapter's last frame, and a
+    native predict mark must lie inside it. Both ends are read from the timeline
+    and assembly; no timing is invented.
+    """
+    if next_cue is None or declared[(line[1], next_cue)] != 1:
+        return None
+    cue = line[1]
+    end = int(line[2]) / fps + outputs[cue]['frames'] / outputs[cue]['sample_rate']
+    chapter_end = frames / fps
+    if any(end <= mark < chapter_end for mark in predicts):
+        return offset + chapter_end
+    return None
+
+
+def chapter_prediction_holds(lines, predicts, fps, frames, outputs, declared, chapter_end_pairs,
+                             script_order, offset):
+    """(line, next cue, held end or None) for every line of one chapter timeline.
+
+    Lines inside the chapter keep prediction_end. Only the chapter's last line
+    may use chapter_end_prediction, and only for a pair the map explicitly flags
+    chapter_end; maps without that flag behave exactly as before.
+    """
+    result = []
+    for index, line in enumerate(lines):
+        following = lines[index + 1] if index + 1 < len(lines) else None
+        if following is not None:
+            next_cue = following[1]
+            held_end = prediction_end(line, following, fps, predicts, outputs, declared, offset)
+        else:
+            at = script_order.index(line[1]) + 1
+            next_cue = script_order[at] if at < len(script_order) else None
+            held_end = (chapter_end_prediction(line, next_cue, fps, frames, predicts, outputs, declared, offset)
+                        if (line[1], next_cue) in chapter_end_pairs else None)
+        result.append((line, next_cue, held_end))
+    return result
+
+
+def declared_prediction_pairs(direction_map, topic, script_order):
+    """Declared prediction pairs, and the subset the map explicitly flags chapter_end."""
+    holds = [h for h in direction_map.get('visual_holds', [])
+             if h.get('video') == topic and h.get('kind') == 'prediction']
+    declared = Counter((h.get('cue'), h.get('next_cue')) for h in holds)
+    chapter_end = {(h.get('cue'), h.get('next_cue')) for h in holds if h.get('chapter_end') is True}
+    for cue, next_cue in chapter_end:
+        require(cue in script_order and next_cue in script_order
+                and script_order.index(next_cue) == script_order.index(cue) + 1
+                and cue.split('_', 1)[0] != next_cue.split('_', 1)[0],
+                'chapter_end prediction must pair a chapter-final cue with the next chapter opening cue')
+    return declared, chapter_end
+
+
+def require_declared_predictions(direction_map, declared, prediction_holds, selected):
+    """A map that sets prediction_holds to 'required' cannot lose a declared pair silently."""
+    if direction_map.get('prediction_holds') is None:
+        return
+    require(direction_map['prediction_holds'] == 'required', 'unknown prediction_holds policy')
+    wanted = Counter({pair: count for pair, count in declared.items() if pair[0] in selected})
+    found = Counter((hold['cue'], hold['next_cue']) for hold in prediction_holds)
+    require(found == wanted, 'a declared prediction hold has no native mark window')
+
+
 def external_plan(topic, narration, canonical):
     """Accept a separately bound one-cue-per-take UI plan, without changing the canonical plan."""
     path = narration / 'external-units.json'
@@ -315,9 +380,8 @@ def verify(args):
         contract = report['meta']['direction_contract']['binding']['contract']
         direction_map = json.loads(coherent.direction_map_path(
             contract['map']['path'], topic.name).read_text())
-        declared_predictions = Counter((h.get('cue'), h.get('next_cue'))
-            for h in direction_map.get('visual_holds', [])
-            if h.get('video') == topic.name and h.get('kind') == 'prediction')
+        declared_predictions, chapter_end_pairs = declared_prediction_pairs(
+            direction_map, topic.name, list(texts))
         offset = 0.0
         for key, prefix in zip(args.chapter_key, prefixes):
             expected_ids = [cue for cue in texts if cue.startswith(prefix+'_')]
@@ -330,15 +394,17 @@ def verify(args):
                 data = rows(args.timelines/f'{key}.timeline.tsv')
                 lines = [r for r in data if r[0] == 'line']
                 predicts = [int(r[2]) / fps for r in data if r[0] == 'mark' and r[1] == 'predict']
-                for index, line in enumerate(lines):
-                    cue, start = line[1], int(line[2]) / fps
-                    following = lines[index + 1] if index + 1 < len(lines) else None
-                    held_end = prediction_end(line, following, fps, predicts, outputs, declared_predictions, offset)
+                frames = int(next(r[1] for r in data if r[0] == 'frames'))
+                for line, next_cue, held_end in chapter_prediction_holds(
+                        lines, predicts, fps, frames, outputs, declared_predictions,
+                        chapter_end_pairs, list(texts), offset):
                     if held_end is not None:
-                        prediction_holds.append({'cue': cue, 'next_cue': lines[index + 1][1],
+                        prediction_holds.append({'cue': line[1], 'next_cue': next_cue,
                             'end_ms': rounded(held_end * 1000)})
-                    caption_segments.extend(directed_segments(report, cue, offset + start, held_end))
-                offset += int(next(r[1] for r in data if r[0] == 'frames')) / fps
+                    caption_segments.extend(directed_segments(report, line[1], offset + int(line[2]) / fps, held_end))
+                offset += frames / fps
+        if args.consumer == 'master':
+            require_declared_predictions(direction_map, declared_predictions, prediction_holds, selected)
     return {'consumer': args.consumer, 'topic': topic.name, 'verified_cues': len(outputs),
             'selected_cues': len(selected), 'chapter_scope': scope,
             'plan_mode': ('lab-review' if args.review_units is not None else

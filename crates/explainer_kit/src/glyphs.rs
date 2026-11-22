@@ -82,7 +82,7 @@ pub(crate) fn probe(e: &crate::Explainer, args: &crate::cli::Args) -> Result<i32
         let camera = kit.clone();
         let mut scene = (chapter.make)(kit);
         let path = out.join("capture").join(chapter.key);
-        let opts = crate::cli::options(path, RenderFormat::PngSequence, (32, 18), 1)?;
+        let opts = crate::cli::options(path, RenderFormat::PngSequence, (32, 18), 1, args.frame_height)?;
         let report = match camera.camera_shot() {
             Some(shot) => crate::cli::render_camera_chapter(&camera, shot, scene.as_mut(), opts)?,
             None => render(scene.as_mut(), opts)?,
@@ -139,7 +139,7 @@ pub(crate) fn probe(e: &crate::Explainer, args: &crate::cli::Args) -> Result<i32
     let pages = out.join("pages");
     let report = render(
         &mut sheet,
-        crate::cli::options(pages.clone(), RenderFormat::PngSequence, args.res, 1)?,
+        crate::cli::options(pages.clone(), RenderFormat::PngSequence, args.res, 1, None)?,
     )?;
     std::fs::write(out.join("failures.txt"), sheet.failures.join("\n"))?;
     println!(

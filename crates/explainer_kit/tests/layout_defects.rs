@@ -8,10 +8,14 @@
 //! - arrows within 0.06 of the top edge, in the middle of a beat only (09_3): `edge`, seen by a sampling lint only
 //! - rows 0.18 from the left edge (04_6) and a bracket 0.16 from the top (07_4): `tight`
 //! - brackets painted with a fill (11_1): `openfill`
+//!
+//! And the frame the camera shows: the Navier opening's 16 × 9 frame, where the default frame's lint called a title
+//! with 0.72 of room tight and skipped a shape the real edge cuts.
 
 use std::cell::RefCell;
 use std::rc::Rc;
 
+use explainer_kit::layout::{FRAME, covers_frame, frame_of};
 use explainer_kit::{Kit, Linter, Palette, ink_style, rect, stroke_style, v};
 use fmn::core::constants::{FRAME_X_RADIUS, FRAME_Y_RADIUS};
 use fmn::prelude::*;
@@ -51,16 +55,46 @@ fn fresh_dir(tag: &str) -> std::path::PathBuf {
 
 /// Build a scene, lint it (at the checkpoints only, or sampling), and return the findings.
 fn lint(sampled: bool, build: impl FnOnce(&Kit, &mut Stage<'_>) -> fmn::Result<()> + 'static) -> String {
-    let report = Rc::new(RefCell::new(String::new()));
     let linter = if sampled { Linter::sampled() } else { Linter::new() };
+    run(linter, options((32, 18), None), build)
+}
+
+/// Options for a 10 fps PNG render at `res`, its camera frame `frame_height` units tall (fmn's default when `None`).
+fn options(res: (u32, u32), frame_height: Option<f64>) -> RenderOptions {
+    let mut opts = RenderOptions::with_format(fresh_dir("defects"), RenderFormat::PngSequence).unwrap();
+    opts.config.camera.resolution = res;
+    opts.config.camera.fps = 10;
+    if let Some(height) = frame_height {
+        opts.config.sizes.frame_height = height;
+    }
+    opts
+}
+
+/// Lint at the checkpoints a scene rendered with `opts`, holding the picture to the frame those options show (as
+/// the CLI's `--lint` does), or, with `told` false, to the default frame (as before the lint was told).
+fn lint_in(
+    opts: RenderOptions,
+    told: bool,
+    build: impl FnOnce(&Kit, &mut Stage<'_>) -> fmn::Result<()> + 'static,
+) -> String {
+    let linter = Linter::new();
+    if told {
+        linter.set_frame(frame_of(&opts).unwrap());
+    }
+    run(linter, opts, build)
+}
+
+fn run(
+    linter: Linter,
+    opts: RenderOptions,
+    build: impl FnOnce(&Kit, &mut Stage<'_>) -> fmn::Result<()> + 'static,
+) -> String {
+    let report = Rc::new(RefCell::new(String::new()));
     let mut scene = Scene {
         kit: Kit::new().unwrap().with_lint(Rc::new(linter)),
         build: Some(Box::new(build)),
         report: Rc::clone(&report),
     };
-    let mut opts = RenderOptions::with_format(fresh_dir("defects"), RenderFormat::PngSequence).unwrap();
-    opts.config.camera.resolution = (32, 18);
-    opts.config.camera.fps = 10;
     fmn::render(&mut scene, opts).expect("render");
     report.borrow().clone()
 }
@@ -559,6 +593,97 @@ fn text_close_to_the_left_or_top_edge_is_tight_but_a_shape_is_not() {
         Ok(())
     });
     assert!(roomy.is_empty(), "{roomy}");
+}
+
+// ---------------------------------------------------------------- the frame the camera shows
+
+/// The Navier opening's title (its top at y 3.78) and the "1 cell" label (its bottom at y -3.89), as chapter 01
+/// places them.
+fn navier_title_and_label(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
+    let title = shown(kit, stage, "A wind tunnel inside a computer", 45.0, v(0.0, 0.0))?;
+    let top = stage.get_top(title);
+    stage.shift(title, [0.0, 3.78 - top[1], 0.0]);
+    let label = shown(kit, stage, "1 cell", 26.0, v(-2.0, 0.0))?;
+    let bottom = stage.get_bottom(label);
+    stage.shift(label, [0.0, -3.89 - bottom[1], 0.0]);
+    Ok(())
+}
+
+#[test]
+fn the_navier_title_and_bottom_label_are_judged_in_the_frame_the_camera_shows() {
+    // an 8-unit frame: 0.22 from the top is tight and 0.11 from the bottom is cramped, as they would be
+    let eight = lint_in(options((32, 18), None), true, navier_title_and_label);
+    assert_eq!(rows_of(&eight, "tight").len(), 1, "{eight}");
+    assert_eq!(rows_of(&eight, "edge").len(), 1, "{eight}");
+    // Navier's 9-unit camera (16 × 9): the same places have 0.72 and 0.61 of room, the three false findings of the
+    // production opening; the default frame's lint still reports them
+    let nine = || options((32, 18), Some(9.0));
+    let told = lint_in(nine(), true, navier_title_and_label);
+    assert!(told.is_empty(), "{told}");
+    let untold = lint_in(nine(), false, navier_title_and_label);
+    assert_eq!(
+        rows_of(&untold, "tight").len() + rows_of(&untold, "edge").len(),
+        2,
+        "{untold}"
+    );
+}
+
+/// Shapes in the rim of a 16 × 9 frame, wholly outside the default frame: one the right edge cuts, one cramped
+/// within the margin, one comfortable, and one the top edge cuts.
+fn rim_shapes(_: &Kit, stage: &mut Stage<'_>) -> fmn::Result<()> {
+    add(stage, rect(v(7.5, -0.5), 0.8, 1.0, ink_style(Palette::teal()))?)?;
+    add(stage, rect(v(7.3, 1.0), 0.6, 1.0, ink_style(Palette::teal()))?)?;
+    add(stage, rect(v(7.2, -2.5), 0.5, 1.0, ink_style(Palette::teal()))?)?;
+    add(stage, rect(v(-1.0, 4.2), 2.0, 0.5, ink_style(Palette::teal()))?)?;
+    Ok(())
+}
+
+#[test]
+fn a_shape_in_the_rim_the_default_frame_leaves_out_is_judged_in_the_wider_frame() {
+    let nine = || options((32, 18), Some(9.0));
+    let told = lint_in(nine(), true, rim_shapes);
+    assert_eq!(
+        rows_of(&told, "outside").len(),
+        2,
+        "cut by the right and the top edge: {told}"
+    );
+    assert_eq!(rows_of(&told, "edge").len(), 1, "0.10 from the right edge: {told}");
+    assert!(told.contains("frame ±8.00 × ±4.50"), "{told}");
+    // the default frame's lint took all four for shapes parked off-screen
+    let untold = lint_in(nine(), false, rim_shapes);
+    assert!(untold.is_empty(), "{untold}");
+}
+
+#[test]
+fn the_public_default_frame_and_one_argument_backdrop_test_answer_as_before() {
+    // a caller outside the kit: `FRAME` is fmn's default frame, and `covers_frame` asks of that frame alone
+    assert_eq!(
+        FRAME,
+        ([-FRAME_X_RADIUS, -FRAME_Y_RADIUS], [FRAME_X_RADIUS, FRAME_Y_RADIUS])
+    );
+    assert!(covers_frame(FRAME));
+    assert!(
+        covers_frame(([-8.0, -4.5], [8.0, 4.5])),
+        "a 16 × 9 backdrop reaches every edge of it"
+    );
+    assert!(!covers_frame(([-7.0, -3.9], [7.0, 3.9])), "0.11 short of every edge");
+    // and the default options' camera frame is that frame
+    assert_eq!(frame_of(&options((3840, 2160), None)), Ok(FRAME));
+}
+
+#[test]
+fn a_portrait_picture_is_held_to_its_own_narrow_frame() {
+    // 18 × 32 pixels, 8 units tall: ±2.25 × ±4
+    let portrait = |told| {
+        lint_in(options((18, 32), None), told, |_, stage| {
+            add(stage, rect(v(2.0, 0.0), 0.6, 0.5, ink_style(Palette::teal()))?)?;
+            Ok(())
+        })
+    };
+    let told = portrait(true);
+    assert_eq!(rows_of(&told, "outside").len(), 1, "{told}");
+    assert!(told.contains("frame ±2.25 × ±4.00"), "{told}");
+    assert!(portrait(false).is_empty(), "inside the default 16:9 frame");
 }
 
 // ---------------------------------------------------------------- fills

@@ -31,7 +31,7 @@ decision for GreenCarp and the owner, and the notes make sure it is taken knowin
 - the thumbnail: a PNG, 1280x720, at most 2 MB;
 - docs/publish/MANIFEST.md: a row naming this master's path carries its md5.
 
-The five third-wave topics additionally require their canonical narration plan,
+The CONTRACT_TOPICS videos additionally require their canonical narration plan,
 required directions and actual timeline/cue-log audio bindings before any upload
 sheet. Pass --narration for a selected assembly and --score for declared stems.
 There is no lab-plan override; this check does not confer listening acceptance.
@@ -60,7 +60,8 @@ THUMB_MAX_BYTES = 2 * 1024 * 1024
 DURATION_TOLERANCE_S = 0.1
 ENDS_SENTENCE = re.compile(r"[.?!…][\"”’')\]]*$")
 STAMP = re.compile(r"^(\d\d):(\d\d):(\d\d)[,.](\d\d\d) --> (\d\d):(\d\d):(\d\d)[,.](\d\d\d)")
-CONTRACT_TOPICS = frozenset({"inspection_paradox", "german_tank", "shamir_secret_sharing", "crofton", "parrondo"})
+CONTRACT_TOPICS = frozenset({"inspection_paradox", "german_tank", "shamir_secret_sharing", "crofton", "parrondo",
+                             "stokes_theorem_visual"})
 
 
 def narration_problems(slug: str, finals: Path, root: Path = ROOT,

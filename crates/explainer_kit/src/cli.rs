@@ -24,7 +24,7 @@ use crate::captions;
 use crate::encode::{self, Quality};
 use crate::facts::Facts;
 use crate::kit::{CameraShot, Kit};
-use crate::layout::Linter;
+use crate::layout::{Linter, frame_of};
 use crate::narration::{LineGaps, Narrator, Script};
 use crate::palette::BACKGROUND;
 
@@ -89,6 +89,7 @@ commands:
 
 render options:
   --res WxH         frame size (default 1920x1080; drafts 960x540, final 3840x2160)
+  --frame-height H  height of the camera frame in scene units (default from FrankenManim)
   --fps N           frame rate (default 60)
   --out DIR         output directory (default renders)
   --narration DIR   the voice-over: one <id>.wav per script line; writes OUT/<chapter>.cues.tsv
@@ -118,6 +119,7 @@ pub struct Args {
     pub help: bool,
     pub targets: Vec<String>,
     pub res: (u32, u32),
+    pub frame_height: Option<f64>,
     pub fps: u32,
     pub out: PathBuf,
     pub silent: bool,
@@ -153,6 +155,7 @@ pub fn parse_args(argv: impl IntoIterator<Item = String>) -> Result<Args, String
         command,
         targets: Vec::new(),
         res: (1920, 1080),
+        frame_height: None,
         fps: 60,
         out: PathBuf::from("renders"),
         silent: false,
@@ -179,6 +182,13 @@ pub fn parse_args(argv: impl IntoIterator<Item = String>) -> Result<Args, String
                     w.parse().map_err(|_| "bad width")?,
                     h.parse().map_err(|_| "bad height")?,
                 );
+            }
+            "--frame-height" => {
+                let height: f64 = next_parsed(&mut it, "--frame-height")?;
+                if !height.is_finite() || height <= 0.0 {
+                    return Err("--frame-height must be finite and positive".into());
+                }
+                a.frame_height = Some(height);
             }
             "--fps" => a.fps = next_parsed(&mut it, "--fps")?,
             "--out" => a.out = PathBuf::from(it.next().ok_or("--out needs DIR")?),
@@ -476,11 +486,15 @@ pub(crate) fn options(
     format: RenderFormat,
     res: (u32, u32),
     fps: u32,
+    frame_height: Option<f64>,
 ) -> Result<RenderOptions, Box<dyn Error>> {
     let mut o = RenderOptions::with_format(path, format)?;
     o.config.camera.resolution = res;
     o.config.camera.fps = fps;
     o.config.camera.background_color = BACKGROUND.to_owned();
+    if let Some(height) = frame_height {
+        o.config.sizes.frame_height = height;
+    }
     Ok(o)
 }
 
@@ -630,7 +644,7 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
             // shares the kit's camera slot: `make` may ask for the camera route
             let camera = kit.clone();
             let mut scene = (c.make)(kit);
-            let mut opts = options(path.clone(), RenderFormat::Mp4, res, args.fps)?;
+            let mut opts = options(path.clone(), RenderFormat::Mp4, res, args.fps, args.frame_height)?;
             if let Some(n) = args.threads {
                 opts.config.render.threads = fmn::config::config::ThreadPolicy::Fixed(n);
             }
@@ -659,6 +673,10 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
                 o.config = opts.config.clone();
                 o.max_frames = opts.max_frames;
                 opts = o;
+            }
+            if let Some(l) = &linter {
+                // the frame this render's camera shows (`--frame-height`, the aspect of `--res`), on either route
+                l.set_frame(frame_of(&opts)?);
             }
             let rendered = match camera.camera_shot() {
                 None => render(scene.as_mut(), opts),
@@ -1022,7 +1040,10 @@ fn thumbnail(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
     let frames = args.out.join("thumbnail");
     set_aside(&frames)?;
     let mut scene = make(Kit::new()?);
-    let report = render(scene.as_mut(), options(frames, RenderFormat::PngSequence, args.res, 1)?)?;
+    let report = render(
+        scene.as_mut(),
+        options(frames, RenderFormat::PngSequence, args.res, 1, args.frame_height)?,
+    )?;
     let mut pngs: Vec<PathBuf> = std::fs::read_dir(&report.artifact.path)?
         .filter_map(|entry| entry.ok().map(|entry| entry.path()))
         .filter(|p| p.extension().is_some_and(|x| x == "png"))
@@ -1080,6 +1101,23 @@ mod tests {
         assert!(parse("").is_err());
         assert!(parse("help").unwrap().help);
         assert!(parse("render --help").unwrap().help);
+    }
+
+    #[test]
+    fn explicit_scene_height_reaches_picture_and_camera_routes() {
+        let build = |height| options(PathBuf::from("unused.mp4"), RenderFormat::Mp4, (960, 540), 30, height);
+        let default = parse("render 01_intro").unwrap();
+        let explicit = parse("render 01_intro --frame-height 9").unwrap();
+        assert_eq!(default.frame_height, None);
+        let baseline = RenderOptions::with_format("unused.mp4", RenderFormat::Mp4).unwrap();
+        assert_eq!(build(default.frame_height).unwrap().config.sizes.frame_height, baseline.config.sizes.frame_height);
+        let picture = build(explicit.frame_height).unwrap();
+        assert_eq!(picture.config.sizes.frame_height, 9.0);
+        let camera = camera_options(Path::new("unused.mp4"), picture).unwrap();
+        assert_eq!(camera.config.sizes.frame_height, 9.0);
+        for invalid in ["0", "-9", "NaN", "inf"] {
+            assert!(parse(&format!("render --frame-height {invalid}")).is_err());
+        }
     }
 
     #[test]
