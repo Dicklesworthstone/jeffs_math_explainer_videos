@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-11-21",
+  "updated_on": "2026-11-22",
   "work_tracker": ".beads",
   "consumer": "Channel owner and video producers",
   "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
@@ -6643,7 +6643,107 @@
               ]
             }
           ],
-          "disposition": "Current local owner review package. Full AV decode, selected visual checks, encoded audio levels and external captions passed. Continuous listening, perceptual fine sync and independent whole-film playback remain open. Publication authorization is pending."
+          "disposition": "Earlier local owner review package. Full AV decode, selected visual checks, encoded audio levels and external captions passed. Continuous listening, perceptual fine sync and independent whole-film playback remain open. Publication authorization is pending."
+        },
+        {
+          "revision_id": "frederick-surrey-native-delivery07-20261122",
+          "label": "How to Teach a Computer to Simulate a Fluid",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review07/navier_stokes_simulation_delivery_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "9caabb3bf896e5ff6f60b2cd334cde65b84afe1bbabeb5539a83935e99ee424e"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim at 3840×2160/60, 65:28.267, 20 chapters, 235,696 frames and 278 Frederick Surrey cues. Repaired adaptive-grid error bars and footnotes in chapter 14, the prediction reveal and transition in chapter 19, and used 29 actual wake fields in chapter 20. All 351 selected repair pictures and 40 join pictures viewed. Changed 698, 1,047 and 8,736 picture packet rows in those chapters respectively. All 184,139 AAC packets and both 1,087-block English caption files match review06. Full decode passed at −16.0 LUFS and −2.4 dBTP.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review07/manifest.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review07-wake-master01/resource-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review07-wake-master01/verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review07-wake-master01/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review07-wake-master01/packet-comparison.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review07-wake-master01/caption-binding.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-chapter14-miss-bars-repair01/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-chapter19-quiz-repair01/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-wake-closing-replay03/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-shear-uniform-ladder01/assessment01.json",
+            "explainer_corpus/navier_stokes_simulation/docs/periodic-shear-demonstration.md",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review07-combined-build01/combined-build.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review07-combined-timing02/timing.json"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-22T15:43:17.762366+00:00",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review07/manifest.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review07-wake-master01/resource-receipt.json"
+              ]
+            },
+            {
+              "stage": "master_verified",
+              "recorded_as_of": "2026-11-22T15:43:17.762366+00:00",
+              "evidence_state": "unknown",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review07-wake-master01/verification.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review07-wake-master01/pictures-viewed.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review07-wake-master01/packet-comparison.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review07-wake-master01/caption-binding.json"
+              ]
+            }
+          ],
+          "disposition": "Current local review package. Full decode, encoded audio, exact captions, selected repaired pictures and chapter joins passed. Continuous listening, perceptual fine sync, independent whole-film playback, the complete wake ladder and the settled matched adaptive-cylinder comparison remain open. Production authorization covers local work."
+        },
+        {
+          "revision_id": "frederick-surrey-native-delivery08-20261122",
+          "label": "How to Teach a Computer to Simulate a Fluid",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review08/navier_stokes_simulation_delivery_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "460f6f6d43e507363650608387481f18987c4a776cb908f43c74751a4ff7d132"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim at 3840 × 2160 and 60 fps for 65:28.267. The 20 chapters have 235,696 frames and 278 Frederick Surrey cues. Chapter 20 fills 12 entries from the qualified 2.5 mm wake, retains 58 pending entries and replays 29 recorded solver fields. Changed 1,466 video packet rows within Chapter 20. Full decode, all 184,139 exact AAC packets, both 1,087-block English caption files, all 125 selected closing pictures and all 40 final join pictures were verified.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review08/manifest.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review08-measured-master01/resource-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review08-measured-master01/verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review08-measured-master01/pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review08-measured-master01/packet-comparison.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review08-measured-master01/caption-binding.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-wake-closing-measured-grid301/replay.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-wake-closing-measured-grid301/pictures-viewed.json",
+            "explainer_corpus/navier_stokes_simulation/docs/periodic-shear-demonstration.md"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-22T17:48:06.777829+00:00",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review08/manifest.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review08-measured-master01/resource-receipt.json"
+              ]
+            },
+            {
+              "stage": "master_verified",
+              "recorded_as_of": "2026-11-22T17:48:06.777829+00:00",
+              "evidence_state": "unknown",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review08-measured-master01/verification.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review08-measured-master01/pictures-viewed.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review08-measured-master01/packet-comparison.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review08-measured-master01/caption-binding.json"
+              ]
+            }
+          ],
+          "disposition": "Current local review cut. Continuous listening, perceptual fine sync, independent whole-film playback, the controlled wake ladder and a settled matched-accuracy adaptive-cylinder comparison remain open. Publication requires owner authorization."
         }
       ],
       "publications": []
