@@ -1,0 +1,398 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "stokes_theorem_visual": "b4158ff765ca82c117ee16da245db85a0daa3c2e103cd350075c862795ecbdde"
+  },
+  "overrides": [
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "01_1",
+      "after": "Imagine that we walk around the edge of one square, keeping the square on our left. Now add a second square next to it, and walk around that one the same way. On their shared edge, the two walks go in opposite directions. If we add both walks, which edges survive?",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/opening.rs",
+      "native_source_sha256": "c895a3faeb8e690fd9c4fab311497693703a2359a3fe8353d14460ba31d890b1",
+      "native_line": 54,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "02_1",
+      "after": "On a line, a boundary is just a pair of endpoints, with a sign. The boundary of the interval from a to b is b minus a. If we cut the interval in two, the cut point is the positive end of one piece and the negative end of the other. Add the boundaries and that point disappears.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/opening.rs",
+      "native_source_sha256": "c895a3faeb8e690fd9c4fab311497693703a2359a3fe8353d14460ba31d890b1",
+      "native_line": 78,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "03_1",
+      "after": "For a region on a plane, the boundary is no longer a pair of points. It is a collection of oriented curves. Give each little tile a counterclockwise boundary. Neighboring tiles traverse their common edge in opposite directions, so the signed contributions from that edge cancel. When we add every tile, the outside edge survives.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/edges.rs",
+      "native_source_sha256": "1e6a96ec5a114226689c75a3d1c8a485f2dae409e89f9de7fa7d3a006ba5515d",
+      "native_line": 30,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "04_1",
+      "after": "Here is a one-form simple enough to calculate by hand: omega equals x times d y. Go around the unit square counterclockwise. Which edge contributes anything? Take a moment.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/unit_square.rs",
+      "native_source_sha256": "81385b351af8af2d8d8d697a974763f23d035ef1a6cc11301a008c2015b038f6",
+      "native_line": 19,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "04_2",
+      "after": "Along the horizontal edges, d y is zero. Along the left edge, x is zero. On the right edge, x is one and y increases by one, so the whole boundary integral is one. The exterior derivative of x d y is d x wedge d y. On the unit square, its integral is the area, also one.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/unit_square.rs",
+      "native_source_sha256": "81385b351af8af2d8d8d697a974763f23d035ef1a6cc11301a008c2015b038f6",
+      "native_line": 32,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "05_1",
+      "after": "Now lift the interior of a disk into a cap, keeping the circular rim fixed. This curved surface sits in three-dimensional space, but it is still two-dimensional: two coordinates locate a point on it. Orient the cap upward. The matching boundary direction is counterclockwise when viewed from above. Your right hand links the two: curl your fingers with the rim and your thumb points along the chosen normal.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/cap.rs",
+      "native_source_sha256": "1f0787c68307f0ea9d2d8f49ad3dba200b07cd515bc0fc736df4cb1d3483f2a8",
+      "native_line": 38,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "06_1",
+      "after": "Now the object itself is three-dimensional. Its boundary is a two-dimensional surface. Build a solid out of cubes and give each cube outward-facing arrows. On a shared face, the two outward directions oppose each other. Their flux contributions cancel. Only flux through the outside surface remains.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/volume.rs",
+      "native_source_sha256": "01deefa4792dbd109273eac35fd7a33a141c363cb39d49f533a5bc4571098894",
+      "native_line": 32,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "07_1",
+      "after": "Here is a trap. Imagine an annulus: a region with a hole in its middle. Its outside edge is a boundary. Is that the whole boundary? Decide which way each edge should be traversed.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/annulus.rs",
+      "native_source_sha256": "404362908b391607c23c6df25832869cf63fb76aae9acac6db4854d022b35dc0",
+      "native_line": 23,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "07_2",
+      "after": "The inner edge is a boundary too, with the opposite orientation. Consider the angular one-form, minus y d x plus x d y, divided by x squared plus y squared. On this annulus it is smooth, and its exterior derivative is zero. The outer integral is two pi; the clockwise inner integral is minus two pi. Together they give zero, exactly as the theorem predicts.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/annulus.rs",
+      "native_source_sha256": "404362908b391607c23c6df25832869cf63fb76aae9acac6db4854d022b35dc0",
+      "native_line": 29,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "08_1",
+      "after": "Before we generalize, look closely at what a form does with one small piece. Take the one-form x d y from the unit square. At each point, it takes a tangent vector, drawn as an arrow attached to that point, and returns the x coordinate times the arrow's vertical component.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/steps.rs",
+      "native_source_sha256": "700c04a28048556d1097c1c1a7d4efb386fbd74fab7b50754ca9a73c5778fc57",
+      "native_line": 58,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "08_2",
+      "after": "At the point two, one, attach an arrow pointing one unit right and one half unit up. Its value is two times one half, which is one, evaluated at that fixed point rather than integrated along the arrow. What does the opposite arrow at the same point get? And the arrow twice as long?",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/steps.rs",
+      "native_source_sha256": "700c04a28048556d1097c1c1a7d4efb386fbd74fab7b50754ca9a73c5778fc57",
+      "native_line": 65,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "09_1",
+      "after": "To integrate a one-form along a curve, cut the curve into small steps, evaluate each step at its midpoint, and add. Walk once around the unit circle with straight steps between equally spaced points. For each straight step, shade the strip between it and the vertical axis. Its signed width is the midpoint x value, and its signed height is the change in y. On the left half, both signs reverse, so the area still counts positively. With four steps, x d y adds up to two.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/steps.rs",
+      "native_source_sha256": "700c04a28048556d1097c1c1a7d4efb386fbd74fab7b50754ca9a73c5778fc57",
+      "native_line": 169,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "10_1",
+      "after": "A two-form takes two steps at once. The basic one, d x wedge d y, returns the signed area of the parallelogram the two steps span. Take the steps two, zero and one, one and a half. Two times one and a half, minus zero times one, gives three, which is the area.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/areas.rs",
+      "native_source_sha256": "23a8fc9d752015f0f19c74ebc4e10cb65c89663bf42578d652275ebb3543899b",
+      "native_line": 66,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "10_2",
+      "after": "Take the same steps in the other order and the value is minus three. The order of the steps is the orientation.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/areas.rs",
+      "native_source_sha256": "23a8fc9d752015f0f19c74ebc4e10cb65c89663bf42578d652275ebb3543899b",
+      "native_line": 70,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "10_3",
+      "after": "Now slide the tip of the second step down toward the first. Halfway, the value is one and a half. When the second step lies along the first, the parallelogram is flat and the value is zero.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/areas.rs",
+      "native_source_sha256": "23a8fc9d752015f0f19c74ebc4e10cb65c89663bf42578d652275ebb3543899b",
+      "native_line": 89,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "11_1",
+      "after": "Here is the cancellation behind the general proof, worked once on the unit cube. Take the two-form g d z wedge d x, where g is y squared plus x z. On a face where y is fixed, d z wedge d x measures area, so this form measures flow in the y direction.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/cube.rs",
+      "native_source_sha256": "c0e46224840ff43b8365e59f7f618ee5415dadd4d3b8d47891327c0cac7984fd",
+      "native_line": 70,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "11_2",
+      "after": "Its exterior derivative is d g wedge d z wedge d x, and d g has three parts. They are z d x, two y d y, and x d z. Which parts survive the wedge? Take a moment.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/cube.rs",
+      "native_source_sha256": "c0e46224840ff43b8365e59f7f618ee5415dadd4d3b8d47891327c0cac7984fd",
+      "native_line": 80,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "12_1",
+      "after": "Now check both sides of the theorem. Inside, two y integrated over the unit cube gives one. On the boundary, d z wedge d x vanishes on every face where x or z is fixed. Only the two faces where y is fixed count.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/cube.rs",
+      "native_source_sha256": "c0e46224840ff43b8365e59f7f618ee5415dadd4d3b8d47891327c0cac7984fd",
+      "native_line": 131,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "13_1",
+      "after": "We have integrated values at points, one-forms along curves, and area-type quantities over surfaces. The dimension tells us what kind of object we integrate. At each point, a k-form is an alternating multilinear rule on k tangent directions. In pictures, it assigns an oriented quantity to a tiny k-dimensional piece: scaling a direction scales the result, and swapping two directions reverses its sign. Its exterior derivative is a k-plus-one-form: it measures the boundary accumulation around a tiny piece one dimension higher.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/dimensions.rs",
+      "native_source_sha256": "177bc50beb4356b0cb917008b4db787d1431f631d429af1dd5740797b15791d7",
+      "native_line": 19,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "14_1",
+      "after": "Orient an n-dimensional box using the coordinate order one through n. An n-minus-one-form has one term for each missing coordinate. We can write each coefficient beside the wedge of every coordinate differential except the missing one. Choose an alternating sign for each term. That sign is bookkeeping for the orientation of the corresponding faces.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/missing.rs",
+      "native_source_sha256": "a31624b90d5fba95907fd24d3a0d9ada0848939429c3ae5835e50b1ed2746d39",
+      "native_line": 21,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "14_2",
+      "after": "For example, in three dimensions, minus f two d x wedge d z is the same form as plus f two d z wedge d x. Swap the order and the sign flips. The minus sign is not a new physical effect; it keeps the orientation consistent when we put the directions in our chosen order.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/missing.rs",
+      "native_source_sha256": "a31624b90d5fba95907fd24d3a0d9ada0848939429c3ae5835e50b1ed2746d39",
+      "native_line": 33,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "14_3",
+      "after": "Now take the exterior derivative. For each coefficient, its differential includes a contribution in every coordinate direction. What happens when we wedge one of those differentials with the differentials already in the term?",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/missing.rs",
+      "native_source_sha256": "a31624b90d5fba95907fd24d3a0d9ada0848939429c3ae5835e50b1ed2746d39",
+      "native_line": 42,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "15_1",
+      "after": "A wedge product vanishes if the same differential appears twice. Every direction already present disappears. Only the derivative in the missing direction survives. Moving that differential into coordinate order produces exactly the sign that cancels the sign we placed in front of the term.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/wedges.rs",
+      "native_source_sha256": "219d180ad053e50a75aa5b058af8928aaf585b18744c8fa3a2610474b5ddaa83",
+      "native_line": 24,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "16_1",
+      "after": "Fix all coordinates except the i-th. Integrating the derivative in that direction gives the coefficient on the upper face minus the coefficient on the lower face. Now integrate those differences over the remaining coordinates. Fubini's theorem lets us perform the integrations in this order for our smooth functions on a bounded box.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/box_proof.rs",
+      "native_source_sha256": "5ce043637225d00e87354a854dd2cfbea236b7f35d909e5b9c5f8a93c60c3119",
+      "native_line": 40,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "17_1",
+      "after": "What about a curved manifold? The box proof is the local engine, but there are real steps left. We use orientation-preserving coordinate charts. Interior charts look locally like ordinary space; boundary charts look locally like a half-space. We also use a partition of unity: smooth weights, supported inside the charts, that add to one.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/charts.rs",
+      "native_source_sha256": "1cbff7580371baa3bd270d548a4224268cff91d1ce523fd7547e50451e37d594",
+      "native_line": 17,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "18_1",
+      "after": "Apply the local identity to each weighted piece and add. The weights sum to one, so the pieces reassemble the original form on the boundary. Inside, differentiating the weights produces extra terms, but together they contain the derivative of the sum of the weights. That sum is the constant one, whose derivative is zero. The extra terms cancel.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/assemble.rs",
+      "native_source_sha256": "325375a5d64e48cc137bc70b06812019d9dd0538e08a08defe0b039e54bf1bc3",
+      "native_line": 13,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "19_1",
+      "after": "Before the physics, here is an engineering use of the same bookkeeping. Take one square cell, one unit on a side, centered at the origin, and put two fields on it. The first, x over two and y over two, spreads outward. The second, minus y over two and x over two, is the turning field from the cap.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/cells.rs",
+      "native_source_sha256": "dadfe7cc375e173f503874dba08e6b5212f7e82471269f15899cd1da313f8c11",
+      "native_line": 69,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "19_2",
+      "after": "At each edge we can ask two different questions. How much of the field crosses the edge, and how much runs along it? For the spreading field, the outward flux integrated over each edge is one quarter, while the along-edge contributions on its two halves cancel. The net outflow is one, and the circulation is zero.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/cells.rs",
+      "native_source_sha256": "dadfe7cc375e173f503874dba08e6b5212f7e82471269f15899cd1da313f8c11",
+      "native_line": 85,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "20_1",
+      "after": "Many programs that simulate heat and fluid flow use finite volume methods, which are built on the crossing count. Each cell stores one number, the amount of heat or mass inside it. In each time step, the program computes one flux for each face and moves that amount across it.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/cells.rs",
+      "native_source_sha256": "dadfe7cc375e173f503874dba08e6b5212f7e82471269f15899cd1da313f8c11",
+      "native_line": 149,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "20_2",
+      "after": "Here are four cells holding four, two, one and one. Let the flux across a shared face be one tenth of the difference between its two sides, and close the outer boundary. After one step, what is the total? Take a moment.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/cells.rs",
+      "native_source_sha256": "dadfe7cc375e173f503874dba08e6b5212f7e82471269f15899cd1da313f8c11",
+      "native_line": 161,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "21_1",
+      "after": "Now open one outer face and let point two five flow into the top right cell. That cell ends at two point three five, and the total is eight point two five, the old total plus what crossed the outer boundary. The shared faces cancel exactly as the interior seams did in the first picture. So the total is exact up to rounding error, whatever formula computes the fluxes.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/cells.rs",
+      "native_source_sha256": "dadfe7cc375e173f503874dba08e6b5212f7e82471269f15899cd1da313f8c11",
+      "native_line": 217,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "21_2",
+      "after": "That guarantee rests on three assumptions. The cells stay fixed, each shared face gets a single flux used with opposite signs, and nothing is created inside a cell. Conservation comes from that bookkeeping, but accuracy depends on the flux formula and the time step.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/cells.rs",
+      "native_source_sha256": "dadfe7cc375e173f503874dba08e6b5212f7e82471269f15899cd1da313f8c11",
+      "native_line": 231,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "22_1",
+      "after": "Now for a physical payoff. Hold a wire loop fixed, and let the magnetic field through it change. Faraday's law says that the circulation of the electric field around the loop equals minus the rate of change of magnetic flux through the surface. The minus sign is the direction dictated by the law, not a new sign invented by Stokes.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/faraday.rs",
+      "native_source_sha256": "198cab4faa58113c03b72d19a73c79a0635b1e6fb727cbe19a3104f31a10b3df",
+      "native_line": 12,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "23_1",
+      "after": "The common pattern is not that the boundary tells us every detail of the interior. Different interior changes can cancel. The theorem says that the particular accumulation described by an exterior derivative is exactly balanced by the original quantity on the oriented boundary, when its hypotheses hold.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/return_scene.rs",
+      "native_source_sha256": "6b0ba3ab15f6c475a8d4ab4b5bf3ba8c97257d2cd230953c077780692635f12d",
+      "native_line": 9,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "stokes_theorem_visual",
+      "cue": "23_2",
+      "after": "Take the boundary of a boundary and the signed corners cancel. The matching operation on forms also squares to zero: take an exterior derivative twice and you get zero. Those facts fit the same structure, but they do not prove Stokes on their own. The theorem is the bridge between integration, the boundary and the exterior derivative.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/stokes-depth-root-review1012/area-visual-stage10/crate/src/chapters/return_scene.rs",
+      "native_source_sha256": "6b0ba3ab15f6c475a8d4ab4b5bf3ba8c97257d2cd230953c077780692635f12d",
+      "native_line": 10,
+      "native_marker": "kit.hold(stage)"
+    }
+  ],
+  "source_helpers": {
+    "crates/explainer_kit/src/kit.rs": "ef035faf236498e7485fb60a66d862b383e1a5040fa17962e1633596ed99e106",
+    "crates/explainer_kit/src/narration.rs": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8"
+  },
+  "claim": "Exact literal hold inventory for expanded draft; no listening, timing or independent acceptance."
+}

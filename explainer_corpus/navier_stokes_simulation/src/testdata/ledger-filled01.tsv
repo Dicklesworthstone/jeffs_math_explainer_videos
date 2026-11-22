@@ -1,0 +1,98 @@
+schema	wake-ledger01
+# written by tools/wake_ledger01.py from the manifest manifest.json
+manifest	97273db3328af233f6e2026d7d1931fcfac1dca5ef47ce35d2762ecdd93525bd
+reference	7d454b71125f0c99708f8959c90de3551355e802c23a3d666ed8b9ad0cdd91f9
+# reference SCRATCH/wake20/ledger-selftest02/reference/reference.json
+close_enough	strouhal	0.01
+close_enough	drag_peak	0.05
+close_enough	lift_peak	0.05
+close_enough	curve_drag	0.01
+close_enough	curve_lift	0.01
+compare	filled	every declared tolerance met (grid3)
+# grid1: analysis SCRATCH/wake20/ledger-selftest02/filled/grid1-a/analysis.json; receipt SCRATCH/wake20/ledger-selftest02/filled/grid1-a/resource-receipt.json; tunnel BIN/tunnel
+row	grid1	measured	6	0.0025	2bc34a6808dc2c1088618df3c11c32ac7133e7438fd9f0511a0bc4fcf4c0568a	20ed53765a6eb635051fc7e94e0f898fdec692223d284b8e1e12db18e71c2fe2
+value	grid1	strouhal	0.33999999999999997
+value	grid1	drag_peak	3.24
+value	grid1	drag_middle_ff	3.21
+value	grid1	drag_swing	0.06
+value	grid1	lift_peak	1.02
+value	grid1	lift_middle_ff	-0.01
+value	grid1	lift_swing	2.0
+value	grid1	curve_drag_max_abs	0.001
+value	grid1	curve_lift_max_abs	0.001
+value	grid1	delta_p_st96	2.5100000000000002
+value	grid1	cells_wet_leaves_max	560
+value	grid1	steps_run	800
+value	grid1	time_on_clock_s	28.3015625
+# grid1: memory_max_rss_bytes absent from the analysis
+# grid2: analysis SCRATCH/wake20/ledger-selftest02/filled/grid2-a/analysis.json; receipt SCRATCH/wake20/ledger-selftest02/filled/grid2-a/resource-receipt.json; tunnel BIN/tunnel
+row	grid2	measured	7	0.0025	67f6dda52f96da922faff973f2b03ae8f18e77c3c43a8882f26f3df617018464	20ed53765a6eb635051fc7e94e0f898fdec692223d284b8e1e12db18e71c2fe2
+value	grid2	strouhal	0.32
+value	grid2	drag_peak	3.22
+value	grid2	drag_middle_ff	3.19
+value	grid2	drag_swing	0.06
+value	grid2	lift_peak	1.0
+value	grid2	lift_middle_ff	-0.01
+value	grid2	lift_swing	2.0
+value	grid2	curve_drag_max_abs	0.001
+value	grid2	curve_lift_max_abs	0.001
+value	grid2	delta_p_st96	2.49
+value	grid2	cells_wet_leaves_max	2240
+value	grid2	steps_run	1600
+value	grid2	time_on_clock_s	226.4125
+# grid2: memory_max_rss_bytes absent from the analysis
+# grid3: analysis SCRATCH/wake20/ledger-selftest02/filled/grid3-a/analysis.json; receipt SCRATCH/wake20/ledger-selftest02/filled/grid3-a/resource-receipt.json; tunnel BIN/tunnel
+row	grid3	measured	8	0.0025	a52a745d1c2a3f4321743f00ee69937af6c479af9a534774ad4b3eb02375fd23	20ed53765a6eb635051fc7e94e0f898fdec692223d284b8e1e12db18e71c2fe2
+value	grid3	strouhal	0.31
+value	grid3	drag_peak	3.21
+value	grid3	drag_middle_ff	3.1799999999999997
+value	grid3	drag_swing	0.06
+value	grid3	lift_peak	0.99
+value	grid3	lift_middle_ff	-0.01
+value	grid3	lift_swing	2.0
+value	grid3	curve_drag_max_abs	0.001
+value	grid3	curve_lift_max_abs	0.001
+value	grid3	delta_p_st96	2.48
+value	grid3	cells_wet_leaves_max	8960
+value	grid3	steps_run	3200
+value	grid3	time_on_clock_s	1811.3
+# grid3: memory_max_rss_bytes absent from the analysis
+# step2: analysis SCRATCH/wake20/ledger-selftest02/filled/step2-a/analysis.json; receipt SCRATCH/wake20/ledger-selftest02/filled/step2-a/resource-receipt.json; tunnel BIN/tunnel
+row	step2	measured	8	0.005	848c0d06dbfc8b6406cdb2d769472223ef12c4ff7f7ccdcf6bfa252df9944614	20ed53765a6eb635051fc7e94e0f898fdec692223d284b8e1e12db18e71c2fe2
+value	step2	strouhal	0.31
+value	step2	drag_peak	3.21
+value	step2	drag_middle_ff	3.1799999999999997
+value	step2	drag_swing	0.06
+value	step2	lift_peak	0.99
+value	step2	lift_middle_ff	-0.01
+value	step2	lift_swing	2.0
+value	step2	curve_drag_max_abs	0.001
+value	step2	curve_lift_max_abs	0.001
+value	step2	delta_p_st96	2.48
+value	step2	cells_wet_leaves_max	8960
+value	step2	steps_run	1600
+value	step2	time_on_clock_s	1811.3
+# step2: memory_max_rss_bytes absent from the analysis
+# step3: analysis SCRATCH/wake20/ledger-selftest02/filled/step3-a/analysis.json; receipt SCRATCH/wake20/ledger-selftest02/filled/step3-a/resource-receipt.json; tunnel BIN/tunnel
+row	step3	measured	8	0.01	45b73d4a4302af904b80888557e784558a84301201fead78b7f28e14c1b9b96e	20ed53765a6eb635051fc7e94e0f898fdec692223d284b8e1e12db18e71c2fe2
+value	step3	strouhal	0.31
+value	step3	drag_peak	3.21
+value	step3	drag_middle_ff	3.1799999999999997
+value	step3	drag_swing	0.06
+value	step3	lift_peak	0.99
+value	step3	lift_middle_ff	-0.01
+value	step3	lift_swing	2.0
+value	step3	curve_drag_max_abs	0.001
+value	step3	curve_lift_max_abs	0.001
+value	step3	delta_p_st96	2.48
+value	step3	cells_wet_leaves_max	8960
+value	step3	steps_run	800
+value	step3	time_on_clock_s	1811.3
+# step3: memory_max_rss_bytes absent from the analysis
+slot	20_v1.St	0.31
+slot	20_v1.d1	-0.019999999999999962
+slot	20_v1.d2	-0.010000000000000009
+slot	20_v1.cells	8960.0
+slot	20_v1.steps	3200.0
+slot	20_v1.time_s	1811.3
+w2	pending	no measured wake field in this package; W2 is a release prerequisite that root qualifies

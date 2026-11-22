@@ -1,0 +1,51 @@
+schema	wake-ledger01
+# written by tools/wake_ledger01.py from the manifest manifest.json
+manifest	b94557c3deef532ea74f43ca92538d3226c3a586472b1125d22899f09a9fc95d
+reference	7d454b71125f0c99708f8959c90de3551355e802c23a3d666ed8b9ad0cdd91f9
+# reference SCRATCH/wake20/ledger-selftest02/reference/reference.json
+compare	none	not run
+# grid1: analysis SCRATCH/wake20/ledger-selftest02/partial/grid1-a/analysis.json; receipt SCRATCH/wake20/ledger-selftest02/partial/grid1-a/resource-receipt.json; tunnel BIN/tunnel
+row	grid1	measured	6	0.0025	02ba7a8c7f593655197e40073d9ac09b9be27fb351da4726e8905573dc12bc39	20ed53765a6eb635051fc7e94e0f898fdec692223d284b8e1e12db18e71c2fe2
+value	grid1	strouhal	0.33999999999999997
+value	grid1	drag_peak	3.24
+value	grid1	drag_middle_ff	3.21
+value	grid1	drag_swing	0.06
+value	grid1	lift_peak	1.02
+value	grid1	lift_middle_ff	-0.01
+value	grid1	lift_swing	2.0
+value	grid1	delta_p_st96	2.5100000000000002
+value	grid1	cells_wet_leaves_max	560
+value	grid1	steps_run	800
+value	grid1	time_on_clock_s	28.3015625
+# grid1: memory_max_rss_bytes absent from the analysis
+# grid2: analysis SCRATCH/wake20/ledger-selftest02/partial/grid2-a/analysis.json; receipt SCRATCH/wake20/ledger-selftest02/partial/grid2-a/resource-receipt.json; tunnel BIN/tunnel
+row	grid2	measured	7	0.0025	6ee6da0c591d26f2b0964cee1743b6dc92cf4eaa9f109a5ed9bb5a03a4d35a72	20ed53765a6eb635051fc7e94e0f898fdec692223d284b8e1e12db18e71c2fe2
+value	grid2	strouhal	0.32
+value	grid2	drag_peak	3.22
+value	grid2	drag_middle_ff	3.19
+value	grid2	drag_swing	0.06
+value	grid2	lift_peak	1.0
+value	grid2	lift_middle_ff	-0.01
+value	grid2	lift_swing	2.0
+value	grid2	delta_p_st96	2.49
+value	grid2	cells_wet_leaves_max	2240
+value	grid2	steps_run	1600
+value	grid2	time_on_clock_s	226.4125
+# grid2: memory_max_rss_bytes absent from the analysis
+# grid3: analysis SCRATCH/wake20/ledger-selftest02/partial/grid3-a/analysis.json; receipt SCRATCH/wake20/ledger-selftest02/partial/grid3-a/resource-receipt.json; tunnel BIN/tunnel
+row	grid3	measured	8	0.0025	238da774d048e315d2c09c71881c65eb7d21035fba87679bdecb4c163ea2d800	20ed53765a6eb635051fc7e94e0f898fdec692223d284b8e1e12db18e71c2fe2
+value	grid3	strouhal	0.31
+value	grid3	drag_peak	3.21
+value	grid3	drag_middle_ff	3.1799999999999997
+value	grid3	drag_swing	0.06
+value	grid3	lift_peak	0.99
+value	grid3	lift_middle_ff	-0.01
+value	grid3	lift_swing	2.0
+value	grid3	delta_p_st96	2.48
+value	grid3	cells_wet_leaves_max	8960
+value	grid3	steps_run	3200
+value	grid3	time_on_clock_s	1811.3
+# grid3: memory_max_rss_bytes absent from the analysis
+row	step2	pending	not in the manifest (not run, or not assigned to this role)
+row	step3	pending	not in the manifest (not run, or not assigned to this role)
+w2	pending	no measured wake field in this package; W2 is a release prerequisite that root qualifies

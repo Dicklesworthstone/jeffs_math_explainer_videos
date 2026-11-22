@@ -1,0 +1,71 @@
+{
+  "from_script_sha256": "29774db1fa3133c107b931a9dfb56eef38575707e2630958788066db2554093f",
+  "retained": [
+    {
+      "original": "explainer_corpus/stokes_theorem_visual/script.tsv",
+      "archive": "explainer_corpus/stokes_theorem_visual/docs/oliver34-29774db1/script.tsv",
+      "sha256": "29774db1fa3133c107b931a9dfb56eef38575707e2630958788066db2554093f"
+    },
+    {
+      "original": "explainer_corpus/stokes_theorem_visual/narration_units.json",
+      "archive": "explainer_corpus/stokes_theorem_visual/docs/oliver34-29774db1/narration_units.json",
+      "sha256": "36d049d43251a4ad1bad2ee50de5ab1f9f7057d17c7ab91142819aa3af939ff8"
+    },
+    {
+      "original": "explainer_corpus/stokes_theorem_visual/oracle.py",
+      "archive": "explainer_corpus/stokes_theorem_visual/docs/oliver34-29774db1/oracle.py",
+      "sha256": "86e615f72ae035713dee53c5ca0fcadb581ab849225074f1bc1fd80931ba01e0"
+    },
+    {
+      "original": "explainer_corpus/stokes_theorem_visual/src/facts.rs",
+      "archive": "explainer_corpus/stokes_theorem_visual/docs/oliver34-29774db1/src/facts.rs",
+      "sha256": "6fe5355f30f8106c89c7fb2d000f162eaa5df1039ff40bd794bd60557f60bf6e"
+    },
+    {
+      "original": "explainer_corpus/stokes_theorem_visual/src/chapters/assemble.rs",
+      "archive": "explainer_corpus/stokes_theorem_visual/docs/oliver34-29774db1/src/chapters/assemble.rs",
+      "sha256": "928aedeeda22bb735adabb076759f9f111fc096b36d96d64a9bb5980153567d6"
+    },
+    {
+      "original": "explainer_corpus/stokes_theorem_visual/src/chapters/box_proof.rs",
+      "archive": "explainer_corpus/stokes_theorem_visual/docs/oliver34-29774db1/src/chapters/box_proof.rs",
+      "sha256": "02e449f8ae61390edf066c32975cd51b8eaf1835f452255b054b76d0968f9db2"
+    },
+    {
+      "original": "explainer_corpus/stokes_theorem_visual/src/chapters/charts.rs",
+      "archive": "explainer_corpus/stokes_theorem_visual/docs/oliver34-29774db1/src/chapters/charts.rs",
+      "sha256": "5a472f5f91410cfa82f3acfa4aebd816a8eb6d1c37e8234549fbc51653a946fa"
+    },
+    {
+      "original": "explainer_corpus/stokes_theorem_visual/src/chapters/dimensions.rs",
+      "archive": "explainer_corpus/stokes_theorem_visual/docs/oliver34-29774db1/src/chapters/dimensions.rs",
+      "sha256": "342a51ccee22b1539a6252ffa337a48e69104aa56a4db10fea0c9b2b58cd0830"
+    },
+    {
+      "original": "explainer_corpus/stokes_theorem_visual/src/chapters/faraday.rs",
+      "archive": "explainer_corpus/stokes_theorem_visual/docs/oliver34-29774db1/src/chapters/faraday.rs",
+      "sha256": "59d39ed57eab447a623cfbe3c880b545bb24cf97eb7098d6f7bd562d8b3f9ba3"
+    },
+    {
+      "original": "explainer_corpus/stokes_theorem_visual/src/chapters/missing.rs",
+      "archive": "explainer_corpus/stokes_theorem_visual/docs/oliver34-29774db1/src/chapters/missing.rs",
+      "sha256": "e45380c7ff18f3df234eee979cea40055428e6beb959320b67723d813381d80a"
+    },
+    {
+      "original": "explainer_corpus/stokes_theorem_visual/src/chapters/mod.rs",
+      "archive": "explainer_corpus/stokes_theorem_visual/docs/oliver34-29774db1/src/chapters/mod.rs",
+      "sha256": "6c0fe46c924f76489f6329546c5d2301614f65e2ddbdff75631b6dbb79fe765e"
+    },
+    {
+      "original": "explainer_corpus/stokes_theorem_visual/src/chapters/return_scene.rs",
+      "archive": "explainer_corpus/stokes_theorem_visual/docs/oliver34-29774db1/src/chapters/return_scene.rs",
+      "sha256": "02d169060653b31b31c45d0f44c857a2f3df585b76ddeb66b20af0caf47290ab"
+    },
+    {
+      "original": "explainer_corpus/stokes_theorem_visual/src/chapters/wedges.rs",
+      "archive": "explainer_corpus/stokes_theorem_visual/docs/oliver34-29774db1/src/chapters/wedges.rs",
+      "sha256": "06fc51a1f94e07ea478f65524f85a04a280a2ee6bb69feca9f9ea64d935ebb38"
+    }
+  ],
+  "claim": "Byte copies of every 34-cue (script 29774db1) file the depth promotion replaces. Unchanged originals stay at their paths. Archive only; not built."
+}

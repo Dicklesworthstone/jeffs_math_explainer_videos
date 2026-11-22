@@ -1,0 +1,189 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "five_math_paradoxes": "92e73c81a68f50c8494dbf2fabcb002fba2bf2e5ea12fb8d153d2b7d37fc9a1a"
+  },
+  "overrides": [
+    {
+      "video": "five_math_paradoxes",
+      "cue": "01_3",
+      "after": "So, should you switch? Stay, switch, or does it not matter? Make your prediction now.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/monty_expanded.rs",
+      "native_source_sha256": "13bca0bd43199f5610a9d430052de129b8b49a5b512deb4dc6faa33e04eed118",
+      "native_line": 32,
+      "native_marker": "k.hold(s)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "02_1",
+      "after": "How many people must be in a room before it is more likely than not that two of them share a birthday? Take a moment and commit to a number.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/birthday_expanded.rs",
+      "native_source_sha256": "10dad5811ab11b67697e849bc4157b3e1bb31d61b3e65ab4a4ce580b99b65cf4",
+      "native_line": 28,
+      "native_marker": "k.hold(s)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "03_4",
+      "after": "Now pool all the parts. Which machine has the higher pass rate overall? Predict before the totals appear.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/simpson_expanded.rs",
+      "native_source_sha256": "c7a9a711d5e5c81565ee538b4511679dc8f769e60b676bfea1b0784c320af01b",
+      "native_line": 48,
+      "native_marker": "k.hold(s)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "04_6",
+      "after": "Before going on, decide for yourself. Is one of those steps false? And if every step is true, does the conclusion follow?",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/race_expanded.rs",
+      "native_source_sha256": "3c0fc67a9e44fd40fc9f1d3796c66eef169decebc7b804ff08614f5d1020bd95",
+      "native_line": 61,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "05_1",
+      "after": "Now the arithmetic hiding inside the argument. The race needs the total time of all the stages. Ten seconds, plus one, plus a tenth, plus a hundredth, and so on forever. What can a sum with no last term even mean?",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/zeno_sum.rs",
+      "native_source_sha256": "29165affc4f3c5aa75f64d43294a27280cba006df1f858a8b021830a16933b79",
+      "native_line": 55,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "05_5",
+      "after": "That is what the infinite sum means. It is the one number that the running totals come closer to than any tolerance, and then stay that close. Here that number is one hundred ninths.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/zeno_sum.rs",
+      "native_source_sha256": "29165affc4f3c5aa75f64d43294a27280cba006df1f858a8b021830a16933b79",
+      "native_line": 93,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "05_11",
+      "after": "So is shrinking the secret? Not on its own. Add one, plus a half, plus a third, plus a quarter, and so on. Every term is smaller than the one before, and yet the total grows without limit.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/zeno_sum.rs",
+      "native_source_sha256": "29165affc4f3c5aa75f64d43294a27280cba006df1f858a8b021830a16933b79",
+      "native_line": 169,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "05_16",
+      "after": "So what has the mathematics settled? Inside this model, with positions and times measured by real numbers, the argument fails at one step. Infinitely many stages fit inside a finite stretch of time, and the race carries on after them.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/zeno_sum.rs",
+      "native_source_sha256": "29165affc4f3c5aa75f64d43294a27280cba006df1f858a8b021830a16933b79",
+      "native_line": 220,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "05_18",
+      "after": "Philosophers also still debate whether anything could carry out infinitely many separate acts in a finite time, which they call a supertask. The arithmetic shows only that Zeno's argument does not prove its conclusion.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/zeno_sum.rs",
+      "native_source_sha256": "29165affc4f3c5aa75f64d43294a27280cba006df1f858a8b021830a16933b79",
+      "native_line": 224,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "06_1",
+      "after": "First, an ordinary hotel. It has five rooms, numbered one to five, and every room has one guest. A sixth guest arrives. Can we move people around so that everyone, the newcomer included, has a room to themselves?",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/hotel_expanded.rs",
+      "native_source_sha256": "bef39e83c42d6396c00da69a245c630b5f5ec2f60c5082123c833312c733d196",
+      "native_line": 44,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "06_5",
+      "after": "In fact no trick can work. With six guests and five rooms, any assignment puts two people in some room. A full finite hotel really is full.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/hotel_expanded.rs",
+      "native_source_sha256": "bef39e83c42d6396c00da69a245c630b5f5ec2f60c5082123c833312c733d196",
+      "native_line": 53,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "06_7",
+      "after": "Every room is occupied, yet the hotel has no last room. Predict before we try anything. Can the newcomer get a room, with nobody sharing?",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/hotel_expanded.rs",
+      "native_source_sha256": "bef39e83c42d6396c00da69a245c630b5f5ec2f60c5082123c833312c733d196",
+      "native_line": 64,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "06_10",
+      "after": "Room one is now empty, and the newcomer takes it. Now check this the way we would check any assignment.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/hotel_expanded.rs",
+      "native_source_sha256": "bef39e83c42d6396c00da69a245c630b5f5ec2f60c5082123c833312c733d196",
+      "native_line": 72,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "06_13",
+      "after": "Run the arrows backwards and every room points to exactly one person. Nobody shares, and no room is empty.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/hotel_expanded.rs",
+      "native_source_sha256": "bef39e83c42d6396c00da69a245c630b5f5ec2f60c5082123c833312c733d196",
+      "native_line": 88,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "07_3",
+      "after": "Predict again. Is there any collision-free way to give every passenger a room?",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/buses.rs",
+      "native_source_sha256": "77beeffc55bcc532c912af32e75ae308aea53fba525005a12bba8c234650b465",
+      "native_line": 34,
+      "native_marker": "kit.hold(stage)"
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "08_3",
+      "after": "Here is one to try yourself. Could Hilbert's hotel find a room for every positive fraction, one guest for each fraction made of whole numbers? You already have the picture you need.",
+      "role": "visual",
+      "reason": "Native hold waits for complete cue; source evidence only, not acoustic or listening acceptance.",
+      "native_source": "narration_lab/third-wave-20261024/root/five-film-release-20261027/paradoxes-depth-root-review1012/combined-cc1-02/crate/src/chapters/bookends_expanded.rs",
+      "native_source_sha256": "1a1445f0df34f27d56bce17308dd1cfddd552a35abd71c163ba522999b540f9a",
+      "native_line": 53,
+      "native_marker": "kit.hold(stage)"
+    }
+  ],
+  "source_helpers": {
+    "crates/explainer_kit/src/kit.rs": "ef035faf236498e7485fb60a66d862b383e1a5040fa17962e1633596ed99e106",
+    "crates/explainer_kit/src/narration.rs": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8"
+  },
+  "claim": "Exact literal hold inventory for expanded draft; no listening, timing or independent acceptance."
+}

@@ -1,0 +1,13 @@
+//! Return to the common structure; draft, not built or reviewed.
+use explainer_kit::{Kit,Palette,v};
+use fmn::prelude::*;
+use super::opening::{arrow,fade};
+pub struct Return {pub kit:Kit}
+impl SceneConstruct for Return {
+ fn name(&self)->&str {"15_return"}
+ fn construct(&mut self,stage:&mut Stage<'_>)->fmn::Result<()> {
+  let kit=self.kit.clone();let title=kit.text(stage,"What the boundary actually tells us",34.0,Palette::ink(),v(0.0,3.0))?;let balance=kit.text(stage,"∫ on M dω  =  ∫ on ∂M ω",34.0,Palette::hero(),v(0.0,1.6))?;let caveat=kit.text(stage,"Different interior changes can cancel",26.0,Palette::ink(),v(0.0,0.55))?;fade(stage,&[title,balance],true)?;kit.say(stage,"15_1")?;kit.until_sentence(stage,"15_1",1)?;fade(stage,&[caveat],true)?;kit.hold(stage)?;
+  kit.say(stage,"15_2")?;fade(stage,&[balance,caveat],false)?;let mut square=Vec::new();for (a,b) in [((-4.8,-1.0),(-2.0,-1.0)),((-2.0,-1.0),(-2.0,1.1)),((-2.0,1.1),(-4.8,1.1)),((-4.8,1.1),(-4.8,-1.0))] {square.extend(arrow(stage,a,b,Palette::blue())?);}fade(stage,&square,true)?;let mut signs=Vec::new();let mut zeros=Vec::new();for (x,y) in [(-4.8,-1.0),(-2.0,-1.0),(-2.0,1.1),(-4.8,1.1)] {let label_y=if y<0.0 {y-0.35} else {y+0.35};signs.push(kit.text(stage,"+ −",23.0,Palette::hero(),v(x,label_y))?);zeros.push(kit.text(stage,"0",23.0,Palette::green(),v(x,label_y))?);}fade(stage,&signs,true)?;stage.wait(2.0)?;fade(stage,&signs,false)?;fade(stage,&zeros,true)?;let corners=kit.text(stage,"signed endpoints cancel at every corner",22.0,Palette::ink(),v(-3.4,-1.8))?;let twice=kit.text(stage,"boundary of boundary = 0",27.0,Palette::hero(),v(2.5,1.1))?;fade(stage,&[corners,twice],true)?;kit.until_sentence(stage,"15_2",1)?;let dd=kit.text(stage,"d(dω) = 0",29.0,Palette::green(),v(2.5,0.2))?;fade(stage,&[dd],true)?;kit.until_sentence(stage,"15_2",2)?;let caution=kit.text(stage,"These identities alone do not prove Stokes",22.0,Palette::dim(),v(2.5,-0.8))?;fade(stage,&[caution],true)?;kit.hold(stage)?;
+  kit.say(stage,"15_3")?;fade(stage,&[corners,twice,dd,caution],false)?;fade(stage,&square,false)?;fade(stage,&zeros,false)?;let one=kit.text(stage,"line: endpoint change",26.0,Palette::ink(),v(-3.5,1.0))?;let two=kit.text(stage,"surface: circulation and curl",26.0,Palette::blue(),v(0.0,0.0))?;let three=kit.text(stage,"volume: flux and divergence",26.0,Palette::green(),v(3.5,-1.0))?;fade(stage,&[one],true)?;kit.until_sentence(stage,"15_3",1)?;fade(stage,&[two],true)?;kit.until_sentence(stage,"15_3",2)?;fade(stage,&[three],true)?;kit.until_sentence(stage,"15_3",3)?;let ending=kit.text(stage,"local endpoint subtraction; global assembly",23.0,Palette::hero(),v(0.0,-2.3))?;fade(stage,&[ending],true)?;kit.finish(stage)
+ }
+}

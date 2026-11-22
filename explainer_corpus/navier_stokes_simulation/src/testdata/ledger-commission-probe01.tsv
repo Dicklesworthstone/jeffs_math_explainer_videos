@@ -1,0 +1,12 @@
+schema	wake-ledger01
+# written by tools/wake_ledger01.py from the manifest manifest-probe01.json
+manifest	4cece189d238f69943399f58778e5779a2571bf8721b169f1ead1fbeec137f25
+reference	6ef12caa2b31f1c458caa9f8619d2cc1ce097c856e09b6d567df4fa0393b61bb
+# reference narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/wake-analyzer-root01/verified02/reference.json
+compare	none	not run
+row	grid1	pending	analysis status INSUFFICIENT: settled window: 1 trailing cycles agree with their successor and with the last cycle; at least 3 required
+row	grid2	pending	not in the manifest (not run, or not assigned to this role)
+row	grid3	pending	not in the manifest (not run, or not assigned to this role)
+row	step2	pending	not in the manifest (not run, or not assigned to this role)
+row	step3	pending	not in the manifest (not run, or not assigned to this role)
+w2	pending	no measured wake field in this package; W2 is a release prerequisite that root qualifies

@@ -1,0 +1,172 @@
+# algorithm_shapes: exact spoken cues from reviewed full-script08.md; ElevenLabs Frederick Surrey
+01_1	You need to get from here to here. Every arrow is a one-way road, and every number is the time that road takes, in minutes.
+01_2	There are three possible routes. Which one gets you there first?
+01_3	The route through Hill alone takes two plus seven. Nine minutes. Going straight to Lake takes five, then another three. Eight minutes. But visiting both places takes two, then one, then three. Six minutes.
+01_4	On this map, taking more roads gets us there sooner.
+01_5	For this little map, we could just try every route. Now join ten copies of this map end to end. Each copy triples the number of routes. There are fifty-nine thousand and forty-nine routes, but only fifty roads.
+01_6	Instead of listing all those routes, let's see what information we actually need to carry forward.
+02_1	Let's give every place a badge that holds the best time we know so far. At Start, we have spent zero minutes. Every other badge says no route yet.
+02_2	Hill gets a two. Lake first receives a five from the direct road. But Hill offers another possibility. The two minutes we already spent, plus one more. Three. Lake keeps the smaller answer.
+02_3	Now Finish receives two offers. Through Hill, two plus seven, which is nine. Through Lake, three plus three, which is six. Keep six.
+02_4	We handle each place only after every road into it has reported. Lake waits for Hill, and Finish waits for both. Each road contributes once. On ten copies of the map, that is fifty road contributions instead of listing more than fifty-nine thousand routes.
+02_5	Notice the two different jobs. Along a road, we extend a route by adding the road's time. Where routes meet, we combine them by keeping the smaller total.
+02_6	For programmers. To recover the route itself as well as its time, each badge can also remember which road won.
+02_7	Why is it safe to forget the slower way of reaching Lake? Because either way, we face the same remaining roads. Adding the same remaining travel time preserves which total is smaller.
+02_8	That statement carries an assumption. Our badge really does contain everything that matters for the future. If the time of day changed the roads, being at Lake might no longer be enough information.
+02_9	Suppose instead that we may use at most two roads. What is the quickest allowed trip?
+02_10	Eight minutes, straight through Lake. The six-minute route uses three roads, so it is forbidden. And our badge at Lake can't tell us that. It forgot the five-minute arrival, because a three-minute arrival looked better. But the three-minute arrival had already used two roads.
+02_11	For this question, remember both the place and how many roads have been used. Then Lake keeps two badges. Five minutes after one road, and three minutes after two.
+03_1	Now forget travel time. We already know there are three routes, because we listed them. Can the same machine count them without listing them?
+03_2	At Start, there is one way to be here before taking any road. Take no steps yet. Each road carries that one possibility onward. Hill receives one. Lake receives one directly, and another through Hill. Two routes reach Lake.
+03_3	Those two can continue to Finish. One more arrives on Hill's direct road. Three routes in all.
+03_4	The places were handled in the same order. But where routes meet, we added the alternatives instead of keeping the smallest.
+03_5	What if we only care whether a route exists? Then each badge is simply yes or no. An open road extends a yes. Where routes meet, one yes is enough.
+03_6	Suppose the road from Start to Hill is closed. Will Finish still be reachable?
+03_7	Hill gets a no. Lake receives a no through Hill, but a yes along its direct road. One yes is enough, so Finish gets a yes too.
+03_8	And what if the numbers describe how wide a vehicle each road can take? A route can only carry what fits through its narrowest point, its bottleneck. Along one route, keep the smaller limit. Between routes, keep the larger one.
+03_9	Which route can carry the widest vehicle?
+03_10	Run the machine again. Start has no limit yet, because no road has narrowed anything. Hill gets two. Lake receives five on its direct road, but only one through Hill. This time, Lake keeps five. Finish receives two through Hill and three through Lake. Keep three.
+03_11	At Lake, the quickest machine kept the road through Hill. The widest machine throws it away.
+03_12	Check that against the actual routes. The route through Hill and Lake has a bottleneck of one. Through Hill alone, it is two. Straight through Lake, it is three. This time, the route through Lake wins, and the quickest route turns out to be the narrowest.
+04_1	We have answered four questions with the same pattern. Extend each incoming answer along a road, then combine the alternatives where they meet.
+04_2	Here are the two rules we changed. For the quickest route, extend by adding, and combine by keeping the smaller. For counting, carry the count along, and combine by adding. For reachability, an open road passes a yes along, and one yes is enough. For width, extend by keeping the smaller limit, and combine by keeping the larger.
+04_3	Each row also needs two starting values. What Start holds before any road, and what a place holds when no route reaches it. Zero minutes, and no route yet. One way, and no ways. Yes, and no. No limit, and nothing gets through.
+04_4	Remember why we could forget the slower way to Lake. Choosing first and then adding the last road gives the same answer as adding first and then choosing.
+04_5	The smaller of five and three, plus three, is six. Or add three to each offer first. We get eight and six, and the smaller is six again.
+04_6	The width rules behave the same way. The larger of five and one, limited by three, is three. Limit each one by three first, and the larger is still three.
+04_7	Each row in our table obeys a version of this rule. It is called the distributive law. A mathematical structure called a semiring collects this law and a few others that let us combine small answers into larger ones without changing their meaning.
+04_8	To see how much these laws matter, let's build a new pair of rules, and then break one on purpose.
+05_1	We found the fastest route. Now suppose we also want to know how many routes tie for first place. We can carry both answers together.
+05_2	Each place keeps a pair. The best time so far, and how many routes achieve it. Following a road adds its travel time and carries the count along. Where offers meet, a faster offer replaces the slower one and its count. But when the times tie, add their counts.
+05_3	This road now takes four minutes. How many routes tie for the fastest trip?
+05_4	Two. Start to Hill to Finish takes two plus four. Six. Start to Hill to Lake to Finish takes two plus one plus three. Also six. Finish receives two separate offers, each with time six and count one. Together, time six, count two.
+05_5	There is one bookkeeping rule we cannot ignore. Add each incoming offer once. Adding the same offer a second time does not discover another route. It counts an old one again, and gives three, which is wrong.
+05_6	Now put the road back to seven minutes, and close both roads into Finish. How many fastest open routes are left?
+05_7	None. There are no open routes. Our answer is unreachable, count zero. We use infinity as the time marker for unreachable.
+05_8	The zero matters. Suppose a closed road had an infinite time but still a count of one. Then the sweep would say two routes, and listing every route would say three. Two ways of grouping the same calculation now disagree.
+05_9	The trouble began at Lake. The sweep kept the three-minute arrival and dropped the five. That was safe while some road beyond Lake was open. But behind a closed road, both arrivals cost infinity. The difference the sweep relied on is gone.
+05_10	In the law's terms, combining first and then extending by the closed road gives one. Extending each arrival first, then combining, gives two. The distributive law has broken.
+05_11	For our question, fastest open routes, a closed road must contribute no route at all. Infinite time, count zero. With that rule, both calculations agree again, and a closed road becomes exactly the same as no road.
+05_12	The careful rule for infinity follows a recent paper on semirings in dynamic programming. And notice what the broken rule spoiled. Only places nobody can reach got nonsense counts. On these maps, every reachable place still got the right answer.
+05_13	If you want to know how many routes exist at all, open or closed, count them separately. There are three.
+06_1	Why should a sweep that never lists routes give the same answer as listing them all? Look at the three routes into Finish, grouped by their last road.
+06_2	Two routes end with the road from Lake. One ends with the road from Hill. Every route into Finish has exactly one last road, so the groups never overlap, and none is left out.
+06_3	Lake's badge already summarizes every route to Lake. Its best time is three. The distributive law says extending that summary by the last road, three plus three, gives the same as extending each route first and then choosing. Six either way.
+06_4	Hill's badge does the same for the routes to Hill. So Finish only has to combine one offer per road. And the same argument works one place earlier, and one place before that, all the way back to Start.
+06_5	At Start, the badge must stand for the route with no roads at all. That's why it holds zero minutes, or one way, or yes. Extending it by a road must give that road alone.
+06_6	A place with no route gets the value that changes nothing when combined, and stays nothing when extended. No route yet, plus any road, is still no route.
+06_7	Here is the most detailed badge of all. Give each road a letter, and let a badge hold the actual spellings of the routes that reach it.
+06_8	Hill holds one spelling. Lake holds two. Finish holds all three routes, written out.
+06_9	Extending now means writing the road's letter on the end. Combining means putting the lists together.
+06_10	What if we wrote the new letter at the front instead?
+06_11	Every spelling comes out backwards. Extending cares about order, and combining does not. That's fine, as long as each road goes on the same side every time.
+06_12	Every other question reads this list. Count the spellings, three. Add up each one's minutes and keep the smallest, six. Take each one's narrowest road and keep the largest, three. Or just ask whether the list is empty.
+06_13	So each badge we used before was a summary of a list like this one, small enough to carry, and detailed enough to finish its job.
+06_14	There's a cost hidden here. On ten copies of the map, the spelling machine takes the same fifty steps. But Finish's badge now holds fifty-nine thousand and forty-nine spellings, each twenty to thirty letters long. The same steps don't mean the same amount of work.
+06_15	Now we can write the whole rule in symbols. A place's badge is its starting value, combined with every incoming offer. Each offer is the badge of the place before it, extended along the road.
+07_1	Back to the question that broke our badge. At most two roads. There's a way to make the machine answer it directly.
+07_2	Make a copy of each place for every number of roads used. Start after none. Hill after one. Lake after one and after two. Finish after two and after three. Every road now goes from one layer to the next.
+07_3	This layered map never leads back, so the sweep works on it unchanged. The best two-road arrival at Finish is eight. The best three-road arrival is six. With at most two roads, keep eight.
+07_4	The same information fits in a table. A row for each place you leave, and a column for each place you reach. Each entry is a road's time, or empty when there is no road.
+07_5	Two roads in a row means one road, then another, through any middle place. Through Hill, two plus seven. Through Lake, five plus three. Keep the smaller, eight. That is one row of the table meeting one column.
+07_6	For programmers. This is matrix multiplication, with adding replaced by keeping the smaller, and multiplying replaced by adding. Ordinary multiplication of tables is one choice of the two rules among many.
+07_7	Do it again for three roads, and Start to Finish gives six. Once more, and every entry is empty. No route on this map uses four roads.
+07_8	With the counting rules, the same tables count routes by length. None with one road, two with two roads, one with three. Three in all.
+07_9	That emptiness after four roads is exactly what a loop takes away.
+08_1	So far every road has moved us forward. Let's add one road back, from Lake to Hill, taking four minutes.
+08_2	Now the sweep needs an order in which every road into a place reports first. But Hill waits for Lake, and Lake waits for Hill. No such order exists. And we may be able to go around the loop again and again.
+08_3	Does the quickest time to Finish change?
+08_4	No. Going around the loop costs one minute plus four. It only ever adds time, so no quickest trip uses it. Count trips by their number of roads, and the best settles at six by three roads, and stays there.
+08_5	Counting is different. A trip that may visit a place again is called a walk. With at most two roads, there are two walks to Finish. With three, four. With four, six. Every extra road allows two more walks, so the count never stops growing.
+08_6	So how many routes are there now? First decide whether a route may visit a place twice. Without repeats, there are four. With repeats allowed, there is no finite answer.
+08_7	The badges show why. Hill's count must be one, from Start, plus Lake's count. Lake's count must be one plus Hill's. No pair of ordinary numbers satisfies both.
+08_8	The quickest badges face the same circle, but their equations have an answer. Hill two, Lake three. Put them in, and both rules hold.
+08_9	Now give each road a share instead of a count. Imagine a crowd setting off from Start. At every place, half of whoever arrives takes each road out. Finish keeps everyone who reaches it.
+08_10	Extending now means multiplying. Half of a half is a quarter. Combining still means adding.
+08_11	Within two roads, half the crowd has arrived. Within three, three quarters. Then seven eighths, then fifteen sixteenths. Each extra road brings in half of those still walking.
+08_12	There are infinitely many walks, but their shares add up to exactly one. The whole crowd arrives.
+08_13	And loops can do worse. If these numbers were costs, and the road back paid out three, the loop's total would be minus two. Every lap would make the trip cheaper. Six, four, two, zero, and on downward. There would be no cheapest trip at all.
+08_14	Three questions on one loop. The quickest time settled. The count of walks grew forever. The crowd's share approached one. Each answer needed its own argument, and none of them came from a single sweep.
+08_15	On a map with loops, then, the same two rules don't hand us an answer automatically. We need to know whether the answer stays finite, and a way to find it. The rules are one part of an algorithm. The order of work is the other.
+09_1	Until now, answers flowed forward from Start. A program often works the other way. To find Finish's badge, ask the places with roads into Finish for theirs.
+09_2	Finish asks Hill and Lake. Lake asks Start and Hill. Hill asks Start. Start already knows its answer. Drawn out, the questions form a tree.
+09_3	Building a tree like this from a single seed question is called an unfold. Each question produces one layer, and the new questions below it. Its formal name is an anamorphism.
+09_4	Then answers flow back up. Start says zero. Hill says two. Lake chooses three. Finish chooses six. Collapsing a tree into one answer, layer by layer, is called a fold.
+09_5	An unfold followed by a fold has a name too. A hylomorphism. A recursive program can work this way without building the whole tree as data. The tree is the shape of the work.
+09_6	Look at Hill. How many times is it asked?
+09_7	Twice. Once by Finish, and once by Lake. And each Start at the bottom is one of our three routes, read backwards.
+09_8	On ten copies of the map, the tree has more than a hundred and seventy-seven thousand questions. At the bottom, there is a Start for each of the fifty-nine thousand and forty-nine routes. The sweep asked each of the thirty-one places once.
+09_9	So writing a program as an unfold and then a fold doesn't share anything by itself. Equal questions get answered again and again. Share them, so each question is answered once, and the tree folds back into our map.
+09_10	Answer the shared questions in an order where every answer is ready before it's needed, and you have our sweep. Shared questions, answered in a safe order. That combination is the idea behind what programmers call dynamic programming.
+09_11	Sharing is only safe when equal questions really are equal. The best time to Lake is one question. The best time to Lake using at most one road is another. That was the lesson of the two-road limit.
+09_12	Some unfolds are meant to run forever, like a stream of readings. This one should build a finite list, so it needs a stopping rule that it actually reaches. Count down by two, allowing negative numbers, and stop at zero. From six, the list is six, four, two, done. From seven, it passes one, then minus one, and never lands on zero. That list never ends.
+10_1	Trees are not only questions. Take a small tree of numbers. One branch holds three and one. The other is just a five.
+10_2	To fold it, we need two rules. One for a leaf, and one for a branch point that joins two smaller answers.
+10_3	First rule. A leaf gives its number, and a branch adds. The left branch gives four, the right gives five, and the whole tree gives nine.
+10_4	Change only the rules. A leaf gives one, and a branch adds. What does the tree give?
+10_5	Three. We counted the leaves. Now a leaf gives its number, and a branch keeps the larger. Five. Or a leaf writes its number, and a branch writes both answers in brackets with a plus sign between. The tree writes out its own expression.
+10_6	Same tree, different rules, just like the map. And what a fold gives at a branch depends only on its children's answers.
+10_7	That is the defining feature of a fold. The shape of the tree decides the order of work, and each step sees one layer. Computer scientists also call it a catamorphism.
+10_8	Our sweep was almost a fold. But the map shares Hill between two routes, and the tree we drew has no sharing. Unfold the map into a tree, and folding it means listing every route again.
+11_1	A different problem now. A staircase has ten steps, and you climb one or two steps at a time. How many different ways can you get to the top?
+11_2	It's our counting machine again. Each step is a place, and each stride is a road. The bottom has one way to be there, doing nothing. The first step has one. After that, each step adds the two below it. One, one, two, three, five, eight, and on up to eighty-nine at the top.
+11_3	Each badge is the sum of the two before it, which makes these the Fibonacci numbers.
+11_4	Now ask backwards, as the program did. Ten asks nine and eight. Nine asks eight and seven. The tree of questions for the top holds a hundred and seventy-seven questions, to find an answer of eighty-nine. Eight is asked twice, seven three times, six five times. Even the repeats follow the Fibonacci numbers.
+11_5	Walking up the staircase once needs only eleven answers, one for each landing, from the bottom to the top.
+11_6	As we climb, every answer found so far stays available. Step ten can look back at step nine and step eight. A fold that keeps this whole history of earlier answers at hand is called a histomorphism.
+11_7	It fits here because the smaller questions are exactly the smaller staircases inside the big one. The parts of the problem are parts of the input.
+11_8	Often we can throw most of that history away. Step ten only needs the last two answers. So carry a pair, the latest two, and update it at each step. A plain fold with a richer summary does the job. At the top, the pair holds eighty-nine and fifty-five.
+11_9	History has limits. It keeps answers by position in the input, not by equal questions. Fold the map's question tree with full history, and the two copies of Hill are still answered separately, one for each position.
+11_10	And when the questions are not parts of the input at all, they have to be laid out first. Comparing two words letter by letter, like cat and cut, asks one question for each pair of beginnings, one from each word. Counting the empty beginnings, that's sixteen questions. They form a grid, and the grid has to be put in order before any history can help.
+11_11	Even then, writing a program in this form doesn't make it fast by itself. How the history is stored decides how quickly each look-back happens.
+12_1	Now a problem that sounds like statistics. A long list of numbers is split between two computers. Each one finds the average of its own part. Can we combine their answers?
+12_2	One part holds one, two and three. Its average is two. The other part holds just ten, so its average is ten. What is the average of all four numbers?
+12_3	Not six. The average of the two averages is six, but the true average is sixteen divided by four. Four.
+12_4	Could some cleverer rule combine two averages? No. Here are two parts with averages zero and two. If the second part is just a two, the total average is one. If it holds one and three, the total average is four thirds. Same two averages, different answers. The averages threw away something we need.
+12_5	Keep the sum and the count instead. Six and three for the first part. Ten and one for the second. Add the sums, add the counts. Sixteen and four. Divide once, at the very end, and get four.
+12_6	An empty part has sum zero and count zero, and merging it changes nothing. But the average of nothing is undefined. That's why the division waits until the end, outside the summary.
+12_7	This is the law that makes it safe. The summary of two parts joined together equals the merge of their summaries. And the merging can be grouped any way we like.
+12_8	So four computers can each take one number, merge in pairs, and then merge the pairs. Three and two. Thirteen and two. Sixteen and four. The merge plan is itself a tree, and every split gives the same answer.
+12_9	Grouping is free. Reordering is not, unless the merge allows it. Sums and counts don't care about order. But if the summary were a log of messages, putting the second part before the first would scramble the log.
+12_10	For programmers. Floating point, the usual way computers store fractions, only approximately obeys the grouping law. Add point one and point two, then point three, and you get a tiny bit more than point six. Group them the other way, and the computer prints point six. A parallel sum can differ in its last digits.
+12_11	For programmers. A merge that can be grouped freely and has an empty summary is what programmers call a monoid.
+12_12	Look back at the map. The fastest time with its count was a richer summary, like the sum with its count. And the infinity trap was a summary that threw away something it needed.
+13_1	Back to our tree. Suppose we want to double every number, and then add them all up.
+13_2	One way builds a whole new tree, with six, two and ten in its leaves. That's five new pieces. Then we fold it by adding. Eighteen.
+13_3	Or fold the original tree with a new leaf rule. A leaf gives twice its number, and a branch adds. Eighteen again, and no new tree was ever built.
+13_4	Removing the in-between tree like this is called fusion. This kind asks nothing special of the change. Square every number instead, and both ways give thirty-five. Folding the new tree only ever uses its leaves through the leaf rule, so the change can always move into that rule.
+13_5	There's a third way. Add up the original tree first, nine, and then double the total. Eighteen once more. This works because doubling respects the branch rule. Doubling a total gives the same as adding the doubled parts.
+13_6	Now add one instead of doubling. The third way adds first, nine, and then adds one. Ten. Will adding one at every leaf also give ten?
+13_7	It gives twelve, with a new tree or without one. Only the third way gives ten. Adding one to a total is not the same as adding one to each part. So the change can't move from the total into the leaves while the branch rule still adds.
+13_8	Squaring fails the same way. Thirty-five from the leaves, but eighty-one from the total. For adding one, a different branch rule would rescue it. Add the two parts, then take one away.
+13_9	The first fusion saved five pieces of tree, and the answer stayed the same. The second had no tree to save, and it doubles three times instead of once. Whether either makes a program faster has to be measured, not assumed.
+14_1	There's a language for what all these laws have in common. It's called category theory, and we only need a little of it.
+14_2	It talks about kinds of things, and arrows between them. Trees are one kind. Numbers are another. The fold is an arrow from trees to numbers. Arrows can be followed one after another, and there's always an arrow that leaves things just as they are.
+14_3	One more idea, a single layer. A layer of trees is either a leaf with its number, or a branch point holding two trees. A layer of numbers is a leaf with its number, or a branch point holding two numbers. The same recipe, filled with different things.
+14_4	Given an arrow from trees to numbers, we can apply it inside a layer, to each of the two children. A recipe like this, together with that way of applying arrows inside it, is called a functor.
+14_5	Now draw the top layer of our tree. A branch point holding the three-and-one branch, and the five. Two routes lead from it to a number.
+14_6	Across, then down. Assemble the layer into the whole tree, then fold it. Nine.
+14_7	Down, then across. Fold each child first, four and five. Then apply the branch rule. Nine again.
+14_8	When both routes agree, we say the square commutes. On our first map, different routes gave different times, and we had to choose. In a commuting square, every route gives the same answer. That is what a law looks like.
+14_9	The fold is the only rule that makes this square commute at every layer, from the leaves up. At a leaf, the square forces the answer to be the leaf's number. At each branch, it forces the children's answers to be added. Layer by layer, there's no choice left.
+14_10	Try a different rule. Three times the number of leaves. At the top of our tree, it also gives nine. Is it the same as the fold?
+14_11	Check every layer. At the top, both routes give nine. At the three-and-one branch, six and six. At the leaf holding three, three and three. But at the leaf holding one, the new rule says three, while the leaf rule says one. Two layers disagree, so it is not the fold.
+14_12	Agreeing on the final answer is not enough. The square has to hold at every layer.
+14_13	Mathematicians say the finite trees form an initial algebra. Every rule for one layer gives exactly one fold. That's a theorem about finite trees and functions that always give an answer. With infinite or partial values, it needs extra care.
+14_14	The same picture describes our other laws. Fusion's condition said adding and then doubling equals doubling each part and then adding. The chunk law said joining and then summarizing equals summarizing and then merging. The distributive law said combining and then extending equals extending and then combining. Each one says two orders of work give the same answer.
+15_1	Here is a problem that looks new. Dinner needs five jobs. Chop the vegetables, two minutes. Boil water, five. Fry the onions, one. Roast the potatoes, seven. Simmer the soup, three.
+15_2	Frying and roasting need the chopping done. Simmering needs both the frying and the boiled water. Dinner is ready when the roast and the soup are both done. Assume there are enough hands, burners and ovens, so every job starts as soon as the jobs it needs are done. When is dinner ready?
+15_3	Doing jobs one after another adds their times. Waiting for several jobs means waiting for the slowest. So extend by adding, and combine by keeping the larger.
+15_4	And it's our map. Chopping is the road to Hill, and roasting is the road from Hill to Finish. The pot is ready at five, when the water boils, and the soup finishes at eight. The roast finishes at nine. Dinner is ready at nine.
+15_5	The slowest chain of jobs sets the finish time. Planners call it the critical path. On a map without loops, it's one more job for the same machine. And jobs that wait for each other in a loop could never begin.
+15_6	That answer leaned on our assumption. Between minutes two and three, boiling, frying and roasting all run at once. If the jobs had to run one at a time, dinner would take eighteen minutes. Jobs that compete for one cook or one oven make a different scheduling problem, and this sweep doesn't solve it by itself.
+15_7	Now a question that looks as if it belongs. Every road is open nine times in ten, independently of the others. What is the chance that some route from Start to Finish is open?
+15_8	First try adding up the chances of the routes. Each two-road route is open eighty-one times in a hundred. The three-road route, seven hundred and twenty-nine times in a thousand. Together that makes two point three four nine. But a chance can't be bigger than one.
+15_9	The routes are not separate outcomes. Two of them can be open at the same time, and adding counts those moments twice.
+15_10	So patch the combine rule. Two offers meeting at a place succeed unless both fail. Now the sweep gives about zero point nine seven eight. Listing all thirty-two ways the five roads can be open or closed gives about zero point nine seven one. Close, but wrong.
+15_11	The two offers that meet at Finish both depend on the road from Start to Hill, but the patched rule treats them as unrelated. In the law's terms, take one road followed by two side by side. Combine first, and the chance is eight hundred and ninety-one thousandths. Extend first, and it is about nine hundred and sixty-four thousandths. On that small piece, combining first happens to be right. On the whole map, neither order gives the true chance. With a single chance in each badge, these rules break the distributive law.
+15_12	The trouble is the summary. A single chance forgets which roads it depends on. So let each badge keep its ways of arriving, each one written as the set of roads it uses. Combining puts two collections together, and extending adds the road to every set. Badges like these do obey the laws.
+15_13	At Finish, the badge holds three road sets, one for each route. Working out the chance from them at the end, overlaps included, gives the true answer, about zero point nine seven one. But on ten copies of the map, Finish's badge would hold fifty-nine thousand and forty-nine sets. The exact summary has grown back into the list of routes.
+15_14	Knowing when the machine applies is part of understanding it. It needs a summary that keeps what the question depends on, with two rules on it that obey the laws. It needs an order in which every road into a place reports first. When there are loops, no such order exists. Then it needs a separate reason the answer is finite, and another way to find it.
+15_15	Here is our map one last time, and its one rule. A place's badge is its starting value, combined with every incoming offer, each offer extended along its road. Change the two rules, and the same sweep finds the quickest trip and counts the routes. It checks that a route exists and finds the widest. It counts the ties, and it tells you when dinner is ready.
+15_16	Different problems. The same algorithm, wherever these laws hold and the work follows a valid order.

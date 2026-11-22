@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "navier_stokes_simulation": "8d44001b3b36a5effc0da5adec0be33e1e81bcce1ef11005be302eaff75ba1b5"
+  },
+  "overrides": [
+    {
+      "video": "navier_stokes_simulation",
+      "cue": "07_7",
+      "after": "Whatever happens inside, what must the four cells' imbalances add up to?",
+      "role": "visual",
+      "reason": "The native scene waits for the complete cue before marking the five-second prediction countdown.",
+      "native_source": "explainer_corpus/navier_stokes_simulation/src/story/chapter07.rs",
+      "native_source_sha256": "a9ae04fa4d397646682f337f3fce378cc406d910d29ae0c7264f4a33ce3f132c",
+      "native_line": 238,
+      "native_marker": "k.mark(stage, \"predict\");"
+    },
+    {
+      "video": "navier_stokes_simulation",
+      "cue": "11_6",
+      "after": "Now repeat that, step after step, until the dye has ridden twenty-four cells. How tall is the peak now? Still about one, about three quarters, or less than half?",
+      "role": "visual",
+      "reason": "The native scene waits for the complete cue before marking the five-second prediction countdown.",
+      "native_source": "explainer_corpus/navier_stokes_simulation/src/story/chapter11.rs",
+      "native_source_sha256": "c7fbf05c8d4867c17d005150e303b7b97e1a7b91646f62b1983eae9aa96bebbc",
+      "native_line": 260,
+      "native_marker": "predict(stage, k, \"How tall is the peak now?\", \"About 1      About ¾      Less than ½\")?;"
+    },
+    {
+      "video": "navier_stokes_simulation",
+      "cue": "11_18",
+      "after": "Here's the first step, at the pulse's front edge. Can a cell end up holding less than no dye?",
+      "role": "visual",
+      "reason": "The native scene waits for the complete cue before marking the five-second prediction countdown.",
+      "native_source": "explainer_corpus/navier_stokes_simulation/src/story/chapter11.rs",
+      "native_source_sha256": "c7fbf05c8d4867c17d005150e303b7b97e1a7b91646f62b1983eae9aa96bebbc",
+      "native_line": 301,
+      "native_marker": "predict(stage, k, \"Can a cell hold less than no dye?\", \"Yes               No\")?;"
+    },
+    {
+      "video": "navier_stokes_simulation",
+      "cue": "08_6",
+      "after": "Pressure will change these velocities. After the correction, how much of that original speed remains across the face between A and B? All of it, none, or something in between?",
+      "role": "visual",
+      "reason": "The native scene holds until the complete question finishes, counts down five seconds, then reveals the answer.",
+      "native_source": "explainer_corpus/navier_stokes_simulation/src/story/chapter08.rs",
+      "native_source_sha256": "d68113d00d67e8ed1757140d038241f32dc8171717a248ff2355d36acc5c02d0",
+      "native_line": 741,
+      "native_marker": "s.k.mark(stage, \"predict\");"
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "navier_stokes_simulation",
+      "cue": "07_7",
+      "next_cue": "07_8",
+      "kind": "prediction",
+      "path": "explainer_corpus/navier_stokes_simulation/src/story/chapter07.rs",
+      "sha256": "a9ae04fa4d397646682f337f3fce378cc406d910d29ae0c7264f4a33ce3f132c",
+      "line": 238,
+      "marker": "k.mark(stage, \"predict\");",
+      "countdown_seconds": 5,
+      "basis": "The native scene waits for the complete cue before marking the five-second prediction countdown."
+    },
+    {
+      "video": "navier_stokes_simulation",
+      "cue": "11_6",
+      "next_cue": "11_7",
+      "kind": "prediction",
+      "path": "explainer_corpus/navier_stokes_simulation/src/story/chapter11.rs",
+      "sha256": "c7fbf05c8d4867c17d005150e303b7b97e1a7b91646f62b1983eae9aa96bebbc",
+      "line": 260,
+      "marker": "predict(stage, k, \"How tall is the peak now?\", \"About 1      About ¾      Less than ½\")?;",
+      "countdown_seconds": 5,
+      "basis": "The native scene waits for the complete cue before marking the five-second prediction countdown."
+    },
+    {
+      "video": "navier_stokes_simulation",
+      "cue": "11_18",
+      "next_cue": "11_19",
+      "kind": "prediction",
+      "path": "explainer_corpus/navier_stokes_simulation/src/story/chapter11.rs",
+      "sha256": "c7fbf05c8d4867c17d005150e303b7b97e1a7b91646f62b1983eae9aa96bebbc",
+      "line": 301,
+      "marker": "predict(stage, k, \"Can a cell hold less than no dye?\", \"Yes               No\")?;",
+      "countdown_seconds": 5,
+      "basis": "The native scene waits for the complete cue before marking the five-second prediction countdown."
+    },
+    {
+      "video": "navier_stokes_simulation",
+      "cue": "08_6",
+      "next_cue": "08_7",
+      "kind": "prediction",
+      "path": "explainer_corpus/navier_stokes_simulation/src/story/chapter08.rs",
+      "sha256": "d68113d00d67e8ed1757140d038241f32dc8171717a248ff2355d36acc5c02d0",
+      "line": 741,
+      "marker": "s.k.mark(stage, \"predict\");",
+      "countdown_seconds": 5,
+      "basis": "The native scene holds until the complete question finishes, counts down five seconds, then reveals the answer."
+    }
+  ],
+  "prediction_holds": "required",
+  "claim": "Preview bindings cover the four prediction holds in chapters 07, 08 and 11."
+}

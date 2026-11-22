@@ -1,0 +1,1383 @@
+{
+  "schema_version": 1,
+  "script_sha256": "31c354c9c42664fb00dcfdbe3b328abb859f4e58fba7378c092d5273e222c424",
+  "units": [
+    {
+      "id": "frederick_01_1",
+      "line_ids": [
+        "01_1"
+      ],
+      "text": "You need to get from here to here. Every arrow is a one-way road, and every number is the time that road takes, in minutes.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_01_2",
+      "line_ids": [
+        "01_2"
+      ],
+      "text": "There are three possible routes. Which one gets you there first?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_01_3",
+      "line_ids": [
+        "01_3"
+      ],
+      "text": "The route through Hill alone takes two plus seven. Nine minutes. Going straight to Lake takes five, then another three. Eight minutes. But visiting both places takes two, then one, then three. Six minutes.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_01_4",
+      "line_ids": [
+        "01_4"
+      ],
+      "text": "On this map, taking more roads gets us there sooner.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_01_5",
+      "line_ids": [
+        "01_5"
+      ],
+      "text": "For this little map, we could just try every route. Now join ten copies of this map end to end. Each copy triples the number of routes. There are fifty-nine thousand and forty-nine routes, but only fifty roads.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_01_6",
+      "line_ids": [
+        "01_6"
+      ],
+      "text": "Instead of listing all those routes, let's see what information we actually need to carry forward.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_02_1",
+      "line_ids": [
+        "02_1"
+      ],
+      "text": "Let's give every place a badge that holds the best time we know so far. At Start, we have spent zero minutes. Every other badge says no route yet.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_02_2",
+      "line_ids": [
+        "02_2"
+      ],
+      "text": "Hill gets a two. Lake first receives a five from the direct road. But Hill offers another possibility. The two minutes we already spent, plus one more. Three. Lake keeps the smaller answer.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_02_3",
+      "line_ids": [
+        "02_3"
+      ],
+      "text": "Now Finish receives two offers. Through Hill, two plus seven, which is nine. Through Lake, three plus three, which is six. Keep six.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_02_4",
+      "line_ids": [
+        "02_4"
+      ],
+      "text": "We handle each place only after every road into it has reported. Lake waits for Hill, and Finish waits for both. Each road contributes once. On ten copies of the map, that is fifty road contributions instead of listing more than fifty-nine thousand routes.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_02_5",
+      "line_ids": [
+        "02_5"
+      ],
+      "text": "Notice the two different jobs. Along a road, we extend a route by adding the road's time. Where routes meet, we combine them by keeping the smaller total.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_02_6",
+      "line_ids": [
+        "02_6"
+      ],
+      "text": "For programmers. To recover the route itself as well as its time, each badge can also remember which road won.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_02_7",
+      "line_ids": [
+        "02_7"
+      ],
+      "text": "Why is it safe to forget the slower way of reaching Lake? Because either way, we face the same remaining roads. Adding the same remaining travel time preserves which total is smaller.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_02_8",
+      "line_ids": [
+        "02_8"
+      ],
+      "text": "That statement carries an assumption. Our badge really does contain everything that matters for the future. If the time of day changed the roads, being at Lake might no longer be enough information.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_02_9",
+      "line_ids": [
+        "02_9"
+      ],
+      "text": "Suppose instead that we may use at most two roads. What is the quickest allowed trip?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_02_10",
+      "line_ids": [
+        "02_10"
+      ],
+      "text": "Eight minutes, straight through Lake. The six-minute route uses three roads, so it is forbidden. And our badge at Lake can't tell us that. It forgot the five-minute arrival, because a three-minute arrival looked better. But the three-minute arrival had already used two roads.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_02_11",
+      "line_ids": [
+        "02_11"
+      ],
+      "text": "For this question, remember both the place and how many roads have been used. Then Lake keeps two badges. Five minutes after one road, and three minutes after two.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_03_1",
+      "line_ids": [
+        "03_1"
+      ],
+      "text": "Now forget travel time. We already know there are three routes, because we listed them. Can the same machine count them without listing them?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_03_2",
+      "line_ids": [
+        "03_2"
+      ],
+      "text": "At Start, there is one way to be here before taking any road. Take no steps yet. Each road carries that one possibility onward. Hill receives one. Lake receives one directly, and another through Hill. Two routes reach Lake.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_03_3",
+      "line_ids": [
+        "03_3"
+      ],
+      "text": "Those two can continue to Finish. One more arrives on Hill's direct road. Three routes in all.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_03_4",
+      "line_ids": [
+        "03_4"
+      ],
+      "text": "The places were handled in the same order. But where routes meet, we added the alternatives instead of keeping the smallest.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_03_5",
+      "line_ids": [
+        "03_5"
+      ],
+      "text": "What if we only care whether a route exists? Then each badge is simply yes or no. An open road extends a yes. Where routes meet, one yes is enough.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_03_6",
+      "line_ids": [
+        "03_6"
+      ],
+      "text": "Suppose the road from Start to Hill is closed. Will Finish still be reachable?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_03_7",
+      "line_ids": [
+        "03_7"
+      ],
+      "text": "Hill gets a no. Lake receives a no through Hill, but a yes along its direct road. One yes is enough, so Finish gets a yes too.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_03_8",
+      "line_ids": [
+        "03_8"
+      ],
+      "text": "And what if the numbers describe how wide a vehicle each road can take? A route can only carry what fits through its narrowest point, its bottleneck. Along one route, keep the smaller limit. Between routes, keep the larger one.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_03_9",
+      "line_ids": [
+        "03_9"
+      ],
+      "text": "Which route can carry the widest vehicle?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_03_10",
+      "line_ids": [
+        "03_10"
+      ],
+      "text": "Run the machine again. Start has no limit yet, because no road has narrowed anything. Hill gets two. Lake receives five on its direct road, but only one through Hill. This time, Lake keeps five. Finish receives two through Hill and three through Lake. Keep three.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_03_11",
+      "line_ids": [
+        "03_11"
+      ],
+      "text": "At Lake, the quickest machine kept the road through Hill. The widest machine throws it away.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_03_12",
+      "line_ids": [
+        "03_12"
+      ],
+      "text": "Check that against the actual routes. The route through Hill and Lake has a bottleneck of one. Through Hill alone, it is two. Straight through Lake, it is three. This time, the route through Lake wins, and the quickest route turns out to be the narrowest.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_04_1",
+      "line_ids": [
+        "04_1"
+      ],
+      "text": "We have answered four questions with the same pattern. Extend each incoming answer along a road, then combine the alternatives where they meet.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_04_2",
+      "line_ids": [
+        "04_2"
+      ],
+      "text": "Here are the two rules we changed. For the quickest route, extend by adding, and combine by keeping the smaller. For counting, carry the count along, and combine by adding. For reachability, an open road passes a yes along, and one yes is enough. For width, extend by keeping the smaller limit, and combine by keeping the larger.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_04_3",
+      "line_ids": [
+        "04_3"
+      ],
+      "text": "Each row also needs two starting values. What Start holds before any road, and what a place holds when no route reaches it. Zero minutes, and no route yet. One way, and no ways. Yes, and no. No limit, and nothing gets through.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_04_4",
+      "line_ids": [
+        "04_4"
+      ],
+      "text": "Remember why we could forget the slower way to Lake. Choosing first and then adding the last road gives the same answer as adding first and then choosing.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_04_5",
+      "line_ids": [
+        "04_5"
+      ],
+      "text": "The smaller of five and three, plus three, is six. Or add three to each offer first. We get eight and six, and the smaller is six again.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_04_6",
+      "line_ids": [
+        "04_6"
+      ],
+      "text": "The width rules behave the same way. The larger of five and one, limited by three, is three. Limit each one by three first, and the larger is still three.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_04_7",
+      "line_ids": [
+        "04_7"
+      ],
+      "text": "Each row in our table obeys a version of this rule. It is called the distributive law. A mathematical structure called a semiring collects this law and a few others that let us combine small answers into larger ones without changing their meaning.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_04_8",
+      "line_ids": [
+        "04_8"
+      ],
+      "text": "To see how much these laws matter, let's build a new pair of rules, and then break one on purpose.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_05_1",
+      "line_ids": [
+        "05_1"
+      ],
+      "text": "We found the fastest route. Now suppose we also want to know how many routes tie for first place. We can carry both answers together.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_05_2",
+      "line_ids": [
+        "05_2"
+      ],
+      "text": "Each place keeps a pair. The best time so far, and how many routes achieve it. Following a road adds its travel time and carries the count along. Where offers meet, a faster offer replaces the slower one and its count. But when the times tie, add their counts.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_05_3",
+      "line_ids": [
+        "05_3"
+      ],
+      "text": "This road now takes four minutes. How many routes tie for the fastest trip?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_05_4",
+      "line_ids": [
+        "05_4"
+      ],
+      "text": "Two. Start to Hill to Finish takes two plus four. Six. Start to Hill to Lake to Finish takes two plus one plus three. Also six. Finish receives two separate offers, each with time six and count one. Together, time six, count two.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_05_5",
+      "line_ids": [
+        "05_5"
+      ],
+      "text": "There is one bookkeeping rule we cannot ignore. Add each incoming offer once. Adding the same offer a second time does not discover another route. It counts an old one again, and gives three, which is wrong.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_05_6",
+      "line_ids": [
+        "05_6"
+      ],
+      "text": "Now put the road back to seven minutes, and close both roads into Finish. How many fastest open routes are left?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_05_7",
+      "line_ids": [
+        "05_7"
+      ],
+      "text": "None. There are no open routes. Our answer is unreachable, count zero. We use infinity as the time marker for unreachable.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_05_8",
+      "line_ids": [
+        "05_8"
+      ],
+      "text": "The zero matters. Suppose a closed road had an infinite time but still a count of one. Then the sweep would say two routes, and listing every route would say three. Two ways of grouping the same calculation now disagree.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_05_9",
+      "line_ids": [
+        "05_9"
+      ],
+      "text": "The trouble began at Lake. The sweep kept the three-minute arrival and dropped the five. That was safe while some road beyond Lake was open. But behind a closed road, both arrivals cost infinity. The difference the sweep relied on is gone.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_05_10",
+      "line_ids": [
+        "05_10"
+      ],
+      "text": "In the law's terms, combining first and then extending by the closed road gives one. Extending each arrival first, then combining, gives two. The distributive law has broken.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_05_11",
+      "line_ids": [
+        "05_11"
+      ],
+      "text": "For our question, fastest open routes, a closed road must contribute no route at all. Infinite time, count zero. With that rule, both calculations agree again, and a closed road becomes exactly the same as no road.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_05_12",
+      "line_ids": [
+        "05_12"
+      ],
+      "text": "The careful rule for infinity follows a recent paper on semirings in dynamic programming. And notice what the broken rule spoiled. Only places nobody can reach got nonsense counts. On these maps, every reachable place still got the right answer.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_05_13",
+      "line_ids": [
+        "05_13"
+      ],
+      "text": "If you want to know how many routes exist at all, open or closed, count them separately. There are three.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_1",
+      "line_ids": [
+        "06_1"
+      ],
+      "text": "Why should a sweep that never lists routes give the same answer as listing them all? Look at the three routes into Finish, grouped by their last road.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_2",
+      "line_ids": [
+        "06_2"
+      ],
+      "text": "Two routes end with the road from Lake. One ends with the road from Hill. Every route into Finish has exactly one last road, so the groups never overlap, and none is left out.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_3",
+      "line_ids": [
+        "06_3"
+      ],
+      "text": "Lake's badge already summarizes every route to Lake. Its best time is three. The distributive law says extending that summary by the last road, three plus three, gives the same as extending each route first and then choosing. Six either way.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_4",
+      "line_ids": [
+        "06_4"
+      ],
+      "text": "Hill's badge does the same for the routes to Hill. So Finish only has to combine one offer per road. And the same argument works one place earlier, and one place before that, all the way back to Start.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_5",
+      "line_ids": [
+        "06_5"
+      ],
+      "text": "At Start, the badge must stand for the route with no roads at all. That's why it holds zero minutes, or one way, or yes. Extending it by a road must give that road alone.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_6",
+      "line_ids": [
+        "06_6"
+      ],
+      "text": "A place with no route gets the value that changes nothing when combined, and stays nothing when extended. No route yet, plus any road, is still no route.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_7",
+      "line_ids": [
+        "06_7"
+      ],
+      "text": "Here is the most detailed badge of all. Give each road a letter, and let a badge hold the actual spellings of the routes that reach it.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_8",
+      "line_ids": [
+        "06_8"
+      ],
+      "text": "Hill holds one spelling. Lake holds two. Finish holds all three routes, written out.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_9",
+      "line_ids": [
+        "06_9"
+      ],
+      "text": "Extending now means writing the road's letter on the end. Combining means putting the lists together.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_10",
+      "line_ids": [
+        "06_10"
+      ],
+      "text": "What if we wrote the new letter at the front instead?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_11",
+      "line_ids": [
+        "06_11"
+      ],
+      "text": "Every spelling comes out backwards. Extending cares about order, and combining does not. That's fine, as long as each road goes on the same side every time.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_12",
+      "line_ids": [
+        "06_12"
+      ],
+      "text": "Every other question reads this list. Count the spellings, three. Add up each one's minutes and keep the smallest, six. Take each one's narrowest road and keep the largest, three. Or just ask whether the list is empty.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_13",
+      "line_ids": [
+        "06_13"
+      ],
+      "text": "So each badge we used before was a summary of a list like this one, small enough to carry, and detailed enough to finish its job.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_14",
+      "line_ids": [
+        "06_14"
+      ],
+      "text": "There's a cost hidden here. On ten copies of the map, the spelling machine takes the same fifty steps. But Finish's badge now holds fifty-nine thousand and forty-nine spellings, each twenty to thirty letters long. The same steps don't mean the same amount of work.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_06_15",
+      "line_ids": [
+        "06_15"
+      ],
+      "text": "Now we can write the whole rule in symbols. A place's badge is its starting value, combined with every incoming offer. Each offer is the badge of the place before it, extended along the road.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_07_1",
+      "line_ids": [
+        "07_1"
+      ],
+      "text": "Back to the question that broke our badge. At most two roads. There's a way to make the machine answer it directly.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_07_2",
+      "line_ids": [
+        "07_2"
+      ],
+      "text": "Make a copy of each place for every number of roads used. Start after none. Hill after one. Lake after one and after two. Finish after two and after three. Every road now goes from one layer to the next.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_07_3",
+      "line_ids": [
+        "07_3"
+      ],
+      "text": "This layered map never leads back, so the sweep works on it unchanged. The best two-road arrival at Finish is eight. The best three-road arrival is six. With at most two roads, keep eight.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_07_4",
+      "line_ids": [
+        "07_4"
+      ],
+      "text": "The same information fits in a table. A row for each place you leave, and a column for each place you reach. Each entry is a road's time, or empty when there is no road.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_07_5",
+      "line_ids": [
+        "07_5"
+      ],
+      "text": "Two roads in a row means one road, then another, through any middle place. Through Hill, two plus seven. Through Lake, five plus three. Keep the smaller, eight. That is one row of the table meeting one column.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_07_6",
+      "line_ids": [
+        "07_6"
+      ],
+      "text": "For programmers. This is matrix multiplication, with adding replaced by keeping the smaller, and multiplying replaced by adding. Ordinary multiplication of tables is one choice of the two rules among many.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_07_7",
+      "line_ids": [
+        "07_7"
+      ],
+      "text": "Do it again for three roads, and Start to Finish gives six. Once more, and every entry is empty. No route on this map uses four roads.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_07_8",
+      "line_ids": [
+        "07_8"
+      ],
+      "text": "With the counting rules, the same tables count routes by length. None with one road, two with two roads, one with three. Three in all.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_07_9",
+      "line_ids": [
+        "07_9"
+      ],
+      "text": "That emptiness after four roads is exactly what a loop takes away.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_1",
+      "line_ids": [
+        "08_1"
+      ],
+      "text": "So far every road has moved us forward. Let's add one road back, from Lake to Hill, taking four minutes.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_2",
+      "line_ids": [
+        "08_2"
+      ],
+      "text": "Now the sweep needs an order in which every road into a place reports first. But Hill waits for Lake, and Lake waits for Hill. No such order exists. And we may be able to go around the loop again and again.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_3",
+      "line_ids": [
+        "08_3"
+      ],
+      "text": "Does the quickest time to Finish change?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_4",
+      "line_ids": [
+        "08_4"
+      ],
+      "text": "No. Going around the loop costs one minute plus four. It only ever adds time, so no quickest trip uses it. Count trips by their number of roads, and the best settles at six by three roads, and stays there.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_5",
+      "line_ids": [
+        "08_5"
+      ],
+      "text": "Counting is different. A trip that may visit a place again is called a walk. With at most two roads, there are two walks to Finish. With three, four. With four, six. Every extra road allows two more walks, so the count never stops growing.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_6",
+      "line_ids": [
+        "08_6"
+      ],
+      "text": "So how many routes are there now? First decide whether a route may visit a place twice. Without repeats, there are four. With repeats allowed, there is no finite answer.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_7",
+      "line_ids": [
+        "08_7"
+      ],
+      "text": "The badges show why. Hill's count must be one, from Start, plus Lake's count. Lake's count must be one plus Hill's. No pair of ordinary numbers satisfies both.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_8",
+      "line_ids": [
+        "08_8"
+      ],
+      "text": "The quickest badges face the same circle, but their equations have an answer. Hill two, Lake three. Put them in, and both rules hold.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_9",
+      "line_ids": [
+        "08_9"
+      ],
+      "text": "Now give each road a share instead of a count. Imagine a crowd setting off from Start. At every place, half of whoever arrives takes each road out. Finish keeps everyone who reaches it.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_10",
+      "line_ids": [
+        "08_10"
+      ],
+      "text": "Extending now means multiplying. Half of a half is a quarter. Combining still means adding.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_11",
+      "line_ids": [
+        "08_11"
+      ],
+      "text": "Within two roads, half the crowd has arrived. Within three, three quarters. Then seven eighths, then fifteen sixteenths. Each extra road brings in half of those still walking.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_12",
+      "line_ids": [
+        "08_12"
+      ],
+      "text": "There are infinitely many walks, but their shares add up to exactly one. The whole crowd arrives.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_13",
+      "line_ids": [
+        "08_13"
+      ],
+      "text": "And loops can do worse. If these numbers were costs, and the road back paid out three, the loop's total would be minus two. Every lap would make the trip cheaper. Six, four, two, zero, and on downward. There would be no cheapest trip at all.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_14",
+      "line_ids": [
+        "08_14"
+      ],
+      "text": "Three questions on one loop. The quickest time settled. The count of walks grew forever. The crowd's share approached one. Each answer needed its own argument, and none of them came from a single sweep.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_08_15",
+      "line_ids": [
+        "08_15"
+      ],
+      "text": "On a map with loops, then, the same two rules don't hand us an answer automatically. We need to know whether the answer stays finite, and a way to find it. The rules are one part of an algorithm. The order of work is the other.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_09_1",
+      "line_ids": [
+        "09_1"
+      ],
+      "text": "Until now, answers flowed forward from Start. A program often works the other way. To find Finish's badge, ask the places with roads into Finish for theirs.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_09_2",
+      "line_ids": [
+        "09_2"
+      ],
+      "text": "Finish asks Hill and Lake. Lake asks Start and Hill. Hill asks Start. Start already knows its answer. Drawn out, the questions form a tree.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_09_3",
+      "line_ids": [
+        "09_3"
+      ],
+      "text": "Building a tree like this from a single seed question is called an unfold. Each question produces one layer, and the new questions below it. Its formal name is an anamorphism.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_09_4",
+      "line_ids": [
+        "09_4"
+      ],
+      "text": "Then answers flow back up. Start says zero. Hill says two. Lake chooses three. Finish chooses six. Collapsing a tree into one answer, layer by layer, is called a fold.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_09_5",
+      "line_ids": [
+        "09_5"
+      ],
+      "text": "An unfold followed by a fold has a name too. A hylomorphism. A recursive program can work this way without building the whole tree as data. The tree is the shape of the work.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_09_6",
+      "line_ids": [
+        "09_6"
+      ],
+      "text": "Look at Hill. How many times is it asked?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_09_7",
+      "line_ids": [
+        "09_7"
+      ],
+      "text": "Twice. Once by Finish, and once by Lake. And each Start at the bottom is one of our three routes, read backwards.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_09_8",
+      "line_ids": [
+        "09_8"
+      ],
+      "text": "On ten copies of the map, the tree has more than a hundred and seventy-seven thousand questions. At the bottom, there is a Start for each of the fifty-nine thousand and forty-nine routes. The sweep asked each of the thirty-one places once.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_09_9",
+      "line_ids": [
+        "09_9"
+      ],
+      "text": "So writing a program as an unfold and then a fold doesn't share anything by itself. Equal questions get answered again and again. Share them, so each question is answered once, and the tree folds back into our map.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_09_10",
+      "line_ids": [
+        "09_10"
+      ],
+      "text": "Answer the shared questions in an order where every answer is ready before it's needed, and you have our sweep. Shared questions, answered in a safe order. That combination is the idea behind what programmers call dynamic programming.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_09_11",
+      "line_ids": [
+        "09_11"
+      ],
+      "text": "Sharing is only safe when equal questions really are equal. The best time to Lake is one question. The best time to Lake using at most one road is another. That was the lesson of the two-road limit.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_09_12",
+      "line_ids": [
+        "09_12"
+      ],
+      "text": "Some unfolds are meant to run forever, like a stream of readings. This one should build a finite list, so it needs a stopping rule that it actually reaches. Count down by two, allowing negative numbers, and stop at zero. From six, the list is six, four, two, done. From seven, it passes one, then minus one, and never lands on zero. That list never ends.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_10_1",
+      "line_ids": [
+        "10_1"
+      ],
+      "text": "Trees are not only questions. Take a small tree of numbers. One branch holds three and one. The other is just a five.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_10_2",
+      "line_ids": [
+        "10_2"
+      ],
+      "text": "To fold it, we need two rules. One for a leaf, and one for a branch point that joins two smaller answers.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_10_3",
+      "line_ids": [
+        "10_3"
+      ],
+      "text": "First rule. A leaf gives its number, and a branch adds. The left branch gives four, the right gives five, and the whole tree gives nine.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_10_4",
+      "line_ids": [
+        "10_4"
+      ],
+      "text": "Change only the rules. A leaf gives one, and a branch adds. What does the tree give?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_10_5",
+      "line_ids": [
+        "10_5"
+      ],
+      "text": "Three. We counted the leaves. Now a leaf gives its number, and a branch keeps the larger. Five. Or a leaf writes its number, and a branch writes both answers in brackets with a plus sign between. The tree writes out its own expression.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_10_6",
+      "line_ids": [
+        "10_6"
+      ],
+      "text": "Same tree, different rules, just like the map. And what a fold gives at a branch depends only on its children's answers.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_10_7",
+      "line_ids": [
+        "10_7"
+      ],
+      "text": "That is the defining feature of a fold. The shape of the tree decides the order of work, and each step sees one layer. Computer scientists also call it a catamorphism.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_10_8",
+      "line_ids": [
+        "10_8"
+      ],
+      "text": "Our sweep was almost a fold. But the map shares Hill between two routes, and the tree we drew has no sharing. Unfold the map into a tree, and folding it means listing every route again.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_11_1",
+      "line_ids": [
+        "11_1"
+      ],
+      "text": "A different problem now. A staircase has ten steps, and you climb one or two steps at a time. How many different ways can you get to the top?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_11_2",
+      "line_ids": [
+        "11_2"
+      ],
+      "text": "It's our counting machine again. Each step is a place, and each stride is a road. The bottom has one way to be there, doing nothing. The first step has one. After that, each step adds the two below it. One, one, two, three, five, eight, and on up to eighty-nine at the top.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_11_3",
+      "line_ids": [
+        "11_3"
+      ],
+      "text": "Each badge is the sum of the two before it, which makes these the Fibonacci numbers.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_11_4",
+      "line_ids": [
+        "11_4"
+      ],
+      "text": "Now ask backwards, as the program did. Ten asks nine and eight. Nine asks eight and seven. The tree of questions for the top holds a hundred and seventy-seven questions, to find an answer of eighty-nine. Eight is asked twice, seven three times, six five times. Even the repeats follow the Fibonacci numbers.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_11_5",
+      "line_ids": [
+        "11_5"
+      ],
+      "text": "Walking up the staircase once needs only eleven answers, one for each landing, from the bottom to the top.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_11_6",
+      "line_ids": [
+        "11_6"
+      ],
+      "text": "As we climb, every answer found so far stays available. Step ten can look back at step nine and step eight. A fold that keeps this whole history of earlier answers at hand is called a histomorphism.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_11_7",
+      "line_ids": [
+        "11_7"
+      ],
+      "text": "It fits here because the smaller questions are exactly the smaller staircases inside the big one. The parts of the problem are parts of the input.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_11_8",
+      "line_ids": [
+        "11_8"
+      ],
+      "text": "Often we can throw most of that history away. Step ten only needs the last two answers. So carry a pair, the latest two, and update it at each step. A plain fold with a richer summary does the job. At the top, the pair holds eighty-nine and fifty-five.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_11_9",
+      "line_ids": [
+        "11_9"
+      ],
+      "text": "History has limits. It keeps answers by position in the input, not by equal questions. Fold the map's question tree with full history, and the two copies of Hill are still answered separately, one for each position.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_11_10",
+      "line_ids": [
+        "11_10"
+      ],
+      "text": "And when the questions are not parts of the input at all, they have to be laid out first. Comparing two words letter by letter, like cat and cut, asks one question for each pair of beginnings, one from each word. Counting the empty beginnings, that's sixteen questions. They form a grid, and the grid has to be put in order before any history can help.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_11_11",
+      "line_ids": [
+        "11_11"
+      ],
+      "text": "Even then, writing a program in this form doesn't make it fast by itself. How the history is stored decides how quickly each look-back happens.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_12_1",
+      "line_ids": [
+        "12_1"
+      ],
+      "text": "Now a problem that sounds like statistics. A long list of numbers is split between two computers. Each one finds the average of its own part. Can we combine their answers?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_12_2",
+      "line_ids": [
+        "12_2"
+      ],
+      "text": "One part holds one, two and three. Its average is two. The other part holds just ten, so its average is ten. What is the average of all four numbers?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_12_3",
+      "line_ids": [
+        "12_3"
+      ],
+      "text": "Not six. The average of the two averages is six, but the true average is sixteen divided by four. Four.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_12_4",
+      "line_ids": [
+        "12_4"
+      ],
+      "text": "Could some cleverer rule combine two averages? No. Here are two parts with averages zero and two. If the second part is just a two, the total average is one. If it holds one and three, the total average is four thirds. Same two averages, different answers. The averages threw away something we need.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_12_5",
+      "line_ids": [
+        "12_5"
+      ],
+      "text": "Keep the sum and the count instead. Six and three for the first part. Ten and one for the second. Add the sums, add the counts. Sixteen and four. Divide once, at the very end, and get four.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_12_6",
+      "line_ids": [
+        "12_6"
+      ],
+      "text": "An empty part has sum zero and count zero, and merging it changes nothing. But the average of nothing is undefined. That's why the division waits until the end, outside the summary.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_12_7",
+      "line_ids": [
+        "12_7"
+      ],
+      "text": "This is the law that makes it safe. The summary of two parts joined together equals the merge of their summaries. And the merging can be grouped any way we like.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_12_8",
+      "line_ids": [
+        "12_8"
+      ],
+      "text": "So four computers can each take one number, merge in pairs, and then merge the pairs. Three and two. Thirteen and two. Sixteen and four. The merge plan is itself a tree, and every split gives the same answer.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_12_9",
+      "line_ids": [
+        "12_9"
+      ],
+      "text": "Grouping is free. Reordering is not, unless the merge allows it. Sums and counts don't care about order. But if the summary were a log of messages, putting the second part before the first would scramble the log.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_12_10",
+      "line_ids": [
+        "12_10"
+      ],
+      "text": "For programmers. Floating point, the usual way computers store fractions, only approximately obeys the grouping law. Add point one and point two, then point three, and you get a tiny bit more than point six. Group them the other way, and the computer prints point six. A parallel sum can differ in its last digits.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_12_11",
+      "line_ids": [
+        "12_11"
+      ],
+      "text": "For programmers. A merge that can be grouped freely and has an empty summary is what programmers call a monoid.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_12_12",
+      "line_ids": [
+        "12_12"
+      ],
+      "text": "Look back at the map. The fastest time with its count was a richer summary, like the sum with its count. And the infinity trap was a summary that threw away something it needed.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_13_1",
+      "line_ids": [
+        "13_1"
+      ],
+      "text": "Back to our tree. Suppose we want to double every number, and then add them all up.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_13_2",
+      "line_ids": [
+        "13_2"
+      ],
+      "text": "One way builds a whole new tree, with six, two and ten in its leaves. That's five new pieces. Then we fold it by adding. Eighteen.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_13_3",
+      "line_ids": [
+        "13_3"
+      ],
+      "text": "Or fold the original tree with a new leaf rule. A leaf gives twice its number, and a branch adds. Eighteen again, and no new tree was ever built.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_13_4",
+      "line_ids": [
+        "13_4"
+      ],
+      "text": "Removing the in-between tree like this is called fusion. This kind asks nothing special of the change. Square every number instead, and both ways give thirty-five. Folding the new tree only ever uses its leaves through the leaf rule, so the change can always move into that rule.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_13_5",
+      "line_ids": [
+        "13_5"
+      ],
+      "text": "There's a third way. Add up the original tree first, nine, and then double the total. Eighteen once more. This works because doubling respects the branch rule. Doubling a total gives the same as adding the doubled parts.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_13_6",
+      "line_ids": [
+        "13_6"
+      ],
+      "text": "Now add one instead of doubling. The third way adds first, nine, and then adds one. Ten. Will adding one at every leaf also give ten?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_13_7",
+      "line_ids": [
+        "13_7"
+      ],
+      "text": "It gives twelve, with a new tree or without one. Only the third way gives ten. Adding one to a total is not the same as adding one to each part. So the change can't move from the total into the leaves while the branch rule still adds.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_13_8",
+      "line_ids": [
+        "13_8"
+      ],
+      "text": "Squaring fails the same way. Thirty-five from the leaves, but eighty-one from the total. For adding one, a different branch rule would rescue it. Add the two parts, then take one away.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_13_9",
+      "line_ids": [
+        "13_9"
+      ],
+      "text": "The first fusion saved five pieces of tree, and the answer stayed the same. The second had no tree to save, and it doubles three times instead of once. Whether either makes a program faster has to be measured, not assumed.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_14_1",
+      "line_ids": [
+        "14_1"
+      ],
+      "text": "There's a language for what all these laws have in common. It's called category theory, and we only need a little of it.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_14_2",
+      "line_ids": [
+        "14_2"
+      ],
+      "text": "It talks about kinds of things, and arrows between them. Trees are one kind. Numbers are another. The fold is an arrow from trees to numbers. Arrows can be followed one after another, and there's always an arrow that leaves things just as they are.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_14_3",
+      "line_ids": [
+        "14_3"
+      ],
+      "text": "One more idea, a single layer. A layer of trees is either a leaf with its number, or a branch point holding two trees. A layer of numbers is a leaf with its number, or a branch point holding two numbers. The same recipe, filled with different things.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_14_4",
+      "line_ids": [
+        "14_4"
+      ],
+      "text": "Given an arrow from trees to numbers, we can apply it inside a layer, to each of the two children. A recipe like this, together with that way of applying arrows inside it, is called a functor.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_14_5",
+      "line_ids": [
+        "14_5"
+      ],
+      "text": "Now draw the top layer of our tree. A branch point holding the three-and-one branch, and the five. Two routes lead from it to a number.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_14_6",
+      "line_ids": [
+        "14_6"
+      ],
+      "text": "Across, then down. Assemble the layer into the whole tree, then fold it. Nine.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_14_7",
+      "line_ids": [
+        "14_7"
+      ],
+      "text": "Down, then across. Fold each child first, four and five. Then apply the branch rule. Nine again.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_14_8",
+      "line_ids": [
+        "14_8"
+      ],
+      "text": "When both routes agree, we say the square commutes. On our first map, different routes gave different times, and we had to choose. In a commuting square, every route gives the same answer. That is what a law looks like.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_14_9",
+      "line_ids": [
+        "14_9"
+      ],
+      "text": "The fold is the only rule that makes this square commute at every layer, from the leaves up. At a leaf, the square forces the answer to be the leaf's number. At each branch, it forces the children's answers to be added. Layer by layer, there's no choice left.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_14_10",
+      "line_ids": [
+        "14_10"
+      ],
+      "text": "Try a different rule. Three times the number of leaves. At the top of our tree, it also gives nine. Is it the same as the fold?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_14_11",
+      "line_ids": [
+        "14_11"
+      ],
+      "text": "Check every layer. At the top, both routes give nine. At the three-and-one branch, six and six. At the leaf holding three, three and three. But at the leaf holding one, the new rule says three, while the leaf rule says one. Two layers disagree, so it is not the fold.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_14_12",
+      "line_ids": [
+        "14_12"
+      ],
+      "text": "Agreeing on the final answer is not enough. The square has to hold at every layer.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_14_13",
+      "line_ids": [
+        "14_13"
+      ],
+      "text": "Mathematicians say the finite trees form an initial algebra. Every rule for one layer gives exactly one fold. That's a theorem about finite trees and functions that always give an answer. With infinite or partial values, it needs extra care.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_14_14",
+      "line_ids": [
+        "14_14"
+      ],
+      "text": "The same picture describes our other laws. Fusion's condition said adding and then doubling equals doubling each part and then adding. The chunk law said joining and then summarizing equals summarizing and then merging. The distributive law said combining and then extending equals extending and then combining. Each one says two orders of work give the same answer.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_1",
+      "line_ids": [
+        "15_1"
+      ],
+      "text": "Here is a problem that looks new. Dinner needs five jobs. Chop the vegetables, two minutes. Boil water, five. Fry the onions, one. Roast the potatoes, seven. Simmer the soup, three.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_2",
+      "line_ids": [
+        "15_2"
+      ],
+      "text": "Frying and roasting need the chopping done. Simmering needs both the frying and the boiled water. Dinner is ready when the roast and the soup are both done. Assume there are enough hands, burners and ovens, so every job starts as soon as the jobs it needs are done. When is dinner ready?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_3",
+      "line_ids": [
+        "15_3"
+      ],
+      "text": "Doing jobs one after another adds their times. Waiting for several jobs means waiting for the slowest. So extend by adding, and combine by keeping the larger.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_4",
+      "line_ids": [
+        "15_4"
+      ],
+      "text": "And it's our map. Chopping is the road to Hill, and roasting is the road from Hill to Finish. The pot is ready at five, when the water boils, and the soup finishes at eight. The roast finishes at nine. Dinner is ready at nine.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_5",
+      "line_ids": [
+        "15_5"
+      ],
+      "text": "The slowest chain of jobs sets the finish time. Planners call it the critical path. On a map without loops, it's one more job for the same machine. And jobs that wait for each other in a loop could never begin.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_6",
+      "line_ids": [
+        "15_6"
+      ],
+      "text": "That answer leaned on our assumption. Between minutes two and three, boiling, frying and roasting all run at once. If the jobs had to run one at a time, dinner would take eighteen minutes. Jobs that compete for one cook or one oven make a different scheduling problem, and this sweep doesn't solve it by itself.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_7",
+      "line_ids": [
+        "15_7"
+      ],
+      "text": "Now a question that looks as if it belongs. Every road is open nine times in ten, independently of the others. What is the chance that some route from Start to Finish is open?",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_8",
+      "line_ids": [
+        "15_8"
+      ],
+      "text": "First try adding up the chances of the routes. Each two-road route is open eighty-one times in a hundred. The three-road route, seven hundred and twenty-nine times in a thousand. Together that makes two point three four nine. But a chance can't be bigger than one.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_9",
+      "line_ids": [
+        "15_9"
+      ],
+      "text": "The routes are not separate outcomes. Two of them can be open at the same time, and adding counts those moments twice.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_10",
+      "line_ids": [
+        "15_10"
+      ],
+      "text": "So patch the combine rule. Two offers meeting at a place succeed unless both fail. Now the sweep gives about zero point nine seven eight. Listing all thirty-two ways the five roads can be open or closed gives about zero point nine seven one. Close, but wrong.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_11",
+      "line_ids": [
+        "15_11"
+      ],
+      "text": "The two offers that meet at Finish both depend on the road from Start to Hill, but the patched rule treats them as unrelated. In the law's terms, take one road followed by two side by side. Combine first, and the chance is eight hundred and ninety-one thousandths. Extend first, and it is about nine hundred and sixty-four thousandths. On that small piece, combining first happens to be right. On the whole map, neither order gives the true chance. With a single chance in each badge, these rules break the distributive law.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_12",
+      "line_ids": [
+        "15_12"
+      ],
+      "text": "The trouble is the summary. A single chance forgets which roads it depends on. So let each badge keep its ways of arriving, each one written as the set of roads it uses. Combining puts two collections together, and extending adds the road to every set. Badges like these do obey the laws.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_13",
+      "line_ids": [
+        "15_13"
+      ],
+      "text": "At Finish, the badge holds three road sets, one for each route. Working out the chance from them at the end, overlaps included, gives the true answer, about zero point nine seven one. But on ten copies of the map, Finish's badge would hold fifty-nine thousand and forty-nine sets. The exact summary has grown back into the list of routes.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_14",
+      "line_ids": [
+        "15_14"
+      ],
+      "text": "Knowing when the machine applies is part of understanding it. It needs a summary that keeps what the question depends on, with two rules on it that obey the laws. It needs an order in which every road into a place reports first. When there are loops, no such order exists. Then it needs a separate reason the answer is finite, and another way to find it.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_15",
+      "line_ids": [
+        "15_15"
+      ],
+      "text": "Here is our map one last time, and its one rule. A place's badge is its starting value, combined with every incoming offer, each offer extended along its road. Change the two rules, and the same sweep finds the quickest trip and counts the routes. It checks that a route exists and finds the widest. It counts the ties, and it tells you when dinner is ready.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    },
+    {
+      "id": "frederick_15_16",
+      "line_ids": [
+        "15_16"
+      ],
+      "text": "Different problems. The same algorithm, wherever these laws hold and the work follows a valid order.",
+      "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
+    }
+  ],
+  "direction_contract": {
+    "schema_version": 1,
+    "topic": "algorithm_shapes",
+    "script_sha256": "31c354c9c42664fb00dcfdbe3b328abb859f4e58fba7378c092d5273e222c424",
+    "map": {
+      "path": "explainer_corpus/algorithm_shapes/docs/narration-direction-map-frederick01.json",
+      "sha256": "e747455103f68310c19972b4284e072e239a6a8c9906bdde7301b9c5625d8de1"
+    }
+  }
+}
