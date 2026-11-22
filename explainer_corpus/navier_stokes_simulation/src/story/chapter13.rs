@@ -16,12 +16,12 @@ use explainer_kit::{Kit, Narrator, Palette, hex, v};
 use fmn::prelude::*;
 
 use super::ledger13::{
-    CHANNEL_STEPS, CHANNEL_TIME, CYLINDER_BUDGET, CYLINDER_CHECKS, CYLINDER_PRESSURE_RESIDUAL, CYLINDER_STEPS,
-    CYLINDER_VOLUME_DEFECT, CYLINDER_WINDOW, DYE_RULES, PRESSURE, PRESSURE_FLOW_CHANGE, RangeCheck, Run, Rung, SPACE,
-    SPACE_RATIOS, SPECIFIED_OFFSET, STAIRCASE_CELLS, STEP_ONLY_COURANT, STEP_ONLY_LIMIT, Staircase, TG_COURANT_CHECK,
-    TG_DIFFUSION_CHECK, TG_END, TIME, TIME_DIFFERENCES, TIME_RATIOS, TIME_REFERENCE_STEPS, channel_euler,
-    channel_exact, diffusion_weight, dye_budget, energy_account, ladder, observed_order, step_only_formula,
-    step_only_spreading,
+    CHANNEL_STEPS, CHANNEL_TIME, CYLINDER_BUDGET, CYLINDER_FORCE_CHECKS, CYLINDER_PRESSURE_ESTIMATE,
+    CYLINDER_PRESSURE_RESIDUAL, CYLINDER_STEPS, CYLINDER_VOLUME_DEFECT, CYLINDER_WINDOW, DYE_RULES, PRESSURE,
+    PRESSURE_FLOW_CHANGE, RangeCheck, Run, Rung, SPACE, SPACE_RATIOS, SPECIFIED_OFFSET, STAIRCASE_CELLS,
+    STEP_ONLY_COURANT, STEP_ONLY_LIMIT, Staircase, TG_COURANT_CHECK, TG_DIFFUSION_CHECK, TG_END, TIME,
+    TIME_DIFFERENCES, TIME_RATIOS, TIME_REFERENCE_STEPS, channel_euler, channel_exact, diffusion_weight, dye_budget,
+    energy_account, ladder, observed_order, step_only_formula, step_only_spreading,
 };
 use crate::transport::{PULSE_WIDTH, Pulse, Rule as Transport, TRAVEL};
 
@@ -62,8 +62,7 @@ const STEADY_REYNOLDS: u32 = 20;
 /// false; drag and pressure drop pass theirs).
 const LIFT_DRIFT: [f64; 2] = [0.004531346023466468, 0.003];
 /// The cylinder card's last line.
-const CYLINDER_VERDICT: &str =
-    "Budget met; lift not settled; all three miss their ranges: not a validation; cause not identified";
+const CYLINDER_VERDICT: &str = "Budget met. Both force estimates miss. The wall-pressure check is open.";
 
 /// 13_10's Precisely, sentences 1 and 2 of the full script's, with its formulas typeset.
 const PRECISELY_13_10: [&str; 3] = [
@@ -704,12 +703,12 @@ fn numerics_entries() -> [Entry; 5] {
         ]),
         Entry::new([
             plain(&[&steady, &cylinder]),
-            plain(&["budget; drag, lift,", "pressure drop vs published"]),
+            plain(&["budget, drag and lift", "vs published"]),
             cell(
-                &["budget met; lift not settled;", "all three miss their ranges"],
+                &["budget met, lift unsettled", "both force ranges missed"],
                 Tone::Missed,
             ),
-            plain(&["cause not identified;", "not a validation"]),
+            plain(&["pressure uses", "off-wall samples"]),
         ]),
         Entry::new([
             plain(&[&steps, &cells]),
@@ -777,9 +776,9 @@ fn uncertain_entries() -> [Entry; 5] {
         ]),
         Entry::new([
             plain(&[&steady_change()]),
-            plain(&["drag, lift, pressure drop"]),
-            cell(&["lift not settled;", "all three miss their ranges"], Tone::Missed),
-            plain(&["cause not identified"]),
+            plain(&["drag and lift"]),
+            cell(&["lift unsettled", "both force ranges missed"], Tone::Missed),
+            plain(&["wall-pressure check open"]),
         ]),
         Entry::new([
             plain(&["outlet rule, 2D model"]),
@@ -951,8 +950,8 @@ fn residual_column(stage: &mut Stage<'_>, kit: &Kit) -> fmn::Result<Vec<Mob>> {
 fn observable_column(stage: &mut Stage<'_>, kit: &Kit) -> fmn::Result<Vec<Mob>> {
     let [loose, tight] = PRESSURE;
     let (blue, x) = (Palette::blue(), OBSERVABLE_X);
-    let caption = "the flow, and the error against the exact flow";
-    let mut out = vec![shown(kit, stage, caption, 21.0, blue, v(x + 1.0, -2.72))?];
+    let caption = format!("Relative L² velocity error at {TG_END} s");
+    let mut out = vec![shown(kit, stage, &caption, 21.0, blue, v(x + 1.0, -2.72))?];
     for (dx, run) in [(-0.12, loose), (0.12, tight)] {
         out.push(disc(stage, [x + dx, log_y(run.error)], 0.09, blue)?);
     }
@@ -1005,7 +1004,7 @@ fn cylinder_check() -> fmn::Result<String> {
 
 /// The frozen rule for the force ranges, and each check that overlaps its range but leaves it.
 fn range_rule() -> String {
-    let partial: Vec<String> = CYLINDER_CHECKS
+    let partial: Vec<String> = CYLINDER_FORCE_CHECKS
         .iter()
         .filter(|c| !c.inside() && c.observed[0] <= c.published[1] && c.published[0] <= c.observed[1])
         .map(|c| {
@@ -1049,11 +1048,11 @@ fn cylinder_card(stage: &mut Stage<'_>, kit: &Kit) -> fmn::Result<Vec<Mob>> {
     let x = -0.3;
     out.push(shown(kit, stage, &check, 19.0, Palette::teal(), v(x, 1.18))?);
     out.extend(verdict(stage, [x + text_width(&check, 19.0) / 2.0 + 0.35, 1.18], true)?);
-    let lift = CYLINDER_CHECKS
+    let lift = CYLINDER_FORCE_CHECKS
         .iter()
         .position(|c| c.name == "lift")
         .ok_or_else(|| fail("13_3: no lift row for its settling note"))?;
-    for (k, check) in CYLINDER_CHECKS.iter().enumerate() {
+    for (k, check) in CYLINDER_FORCE_CHECKS.iter().enumerate() {
         let y = 0.38 - 0.92 * k as f64;
         out.extend(range_row(stage, kit, check, y)?);
         if k == lift {
@@ -1067,6 +1066,14 @@ fn cylinder_card(stage: &mut Stage<'_>, kit: &Kit) -> fmn::Result<Vec<Mob>> {
             )?);
         }
     }
+    out.push(shown(
+        kit,
+        stage,
+        &pressure_comparison_note(),
+        16.0,
+        Palette::dim(),
+        v(0.0, -1.46),
+    )?);
     out.push(shown(kit, stage, &range_rule(), 16.0, Palette::dim(), v(0.0, -1.95))?);
     let source = "Published ranges: Schäfer and Turek 1996, table 3, as frozen in the benchmark plan";
     out.push(shown(kit, stage, source, 16.0, Palette::dim(), v(0.0, -2.32))?);
@@ -1079,6 +1086,13 @@ fn cylinder_card(stage: &mut Stage<'_>, kit: &Kit) -> fmn::Result<Vec<Mob>> {
         v(0.0, -2.78),
     )?);
     Ok(out)
+}
+
+fn pressure_comparison_note() -> String {
+    let reading = CYLINDER_PRESSURE_ESTIMATE;
+    let [a, b] = reading.observed.map(|value| digits(value, 4));
+    let [c, d] = reading.published.map(|value| digits(value, 4));
+    format!("Off-wall samples give a pressure-drop estimate of {a}–{b}. Published wall pressure drop {c}–{d}.")
 }
 
 /// Decimals for a force range: four below one, three above.
@@ -1728,7 +1742,7 @@ fn numerics(c: &Chapter13, stage: &mut Stage<'_>) -> fmn::Result<()> {
     k.until_sentence(stage, "13_4", 5)?;
     let errors: Vec<String> = TIME.iter().map(|r| digits(r.error * 1e4, 3)).collect();
     let measured = format!(
-        "Measured on {0} × {0} cells: error against the exact flow {1} × {2} as the step halves",
+        "Relative L² velocity error at {TG_END} s on {0} × {0} cells: {1} × {2}",
         TIME[0].cells,
         errors.join(", "),
         power(-4)
@@ -2537,13 +2551,13 @@ mod tests {
         );
         assert_eq!(
             entries[1].cells[2].lines,
-            ["budget met; lift not settled;", "all three miss their ranges"]
+            ["budget met, lift unsettled", "both force ranges missed"]
         );
         let uncertain = uncertain_entries();
         assert_eq!(uncertain[1].cells[0].lines, ["none: Re 20 cylinder, 2D-1"]);
         assert_eq!(
             uncertain[1].cells[2].lines,
-            ["lift not settled;", "all three miss their ranges"]
+            ["lift unsettled", "both force ranges missed"]
         );
     }
 
@@ -2574,6 +2588,7 @@ mod tests {
             (cylinder_title(), 24.0),
             (cylinder_check().unwrap(), 19.0),
             (range_rule(), 16.0),
+            (pressure_comparison_note(), 16.0),
             (CYLINDER_VERDICT.to_owned(), 20.0),
         ];
         for (words, size) in &lines {

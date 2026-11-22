@@ -356,7 +356,7 @@ const LIFT_AFTER: usize = 7;
 
 const MEASURED_HEAD: &str = "measured: one adaptive run of the tunnel";
 const MEASURED_SUB: &str = "run transfer09: 0.25 s of start-up, level 9, 14 grid changes";
-const KICK_AXIS: &str = "largest cell imbalance (per second)";
+const KICK_AXIS: &str = "max |net flux| / cell area (1/s)";
 const DRAG_AXIS: &str = "drag coefficient on the cylinder (start-up)";
 
 // ----------------------------------------------------------------------------------- layout
@@ -386,7 +386,7 @@ const REFLUX_Y: f64 = -0.62;
 const REFLUX_LABEL_AT: [f64; 2] = [-3.85, -0.62];
 /// The leak badge, under the seam's lower end.
 const LEAK_AT: [f64; 2] = [-2.6, -1.85];
-const LEAK_SIZE: [f64; 2] = [1.9, 0.46];
+const LEAK_SIZE: [f64; 2] = [2.2, 0.46];
 const TAG_AT: [f64; 2] = [-7.0, 2.3];
 const TOY_AT: [f64; 2] = [-7.0, 1.9];
 /// The split box's children A, B, C, D (four_cell::CELL_AT order), each 1 × 1 in box units.
@@ -762,8 +762,8 @@ pub fn labels() -> Labels {
             fine_total().tex()
         ),
         big_view: format!(r"\text{{big cell's own view: }}{}", coarse_own().tex()),
-        leak: format!(r"{}\ \text{{per step}}", (-leak()).tex()),
-        mended: format!(r"{}\ \text{{per step}}", (refluxed_loss() - fine_total()).tex()),
+        leak: format!(r"{}\ \text{{lost per step}}", leak().tex()),
+        mended: format!(r"{}\ \text{{lost per step}}", (refluxed_loss() - fine_total()).tex()),
         cure_one: format!(
             r"\text{{cure 1: mean speed }}{} \times \text{{length }}{} = {}",
             consistent_speed().tex(),
@@ -1566,7 +1566,7 @@ impl SceneConstruct for Chapter15 {
 
         // 15_4: the answer. The half is lost every step: a red badge on the seam pulses once a step.
         s.say(stage, "15_4")?;
-        let leak_badge = s.badge(stage, LEAK_AT, LEAK_SIZE, &l.leak, -leak())?;
+        let leak_badge = s.badge(stage, LEAK_AT, LEAK_SIZE, &l.leak, leak())?;
         s.appear(stage, &leak_badge, FADE)?;
         s.until(stage, "15_4", 1)?;
         // Three pulses, one a step, back to back (2.4 s: the sentence is short).
@@ -1627,7 +1627,7 @@ impl SceneConstruct for Chapter15 {
             blue,
             [OWN_END - drawn(coarse_own()) / 2.0, OWN_LABEL_Y],
         )?;
-        let leak_again = s.badge(stage, LEAK_AT, LEAK_SIZE, &l.leak, -leak())?;
+        let leak_again = s.badge(stage, LEAK_AT, LEAK_SIZE, &l.leak, leak())?;
         s.swap(stage, &[built, built_label], &[own_again, own_again_label])?;
         s.swap(stage, &no_leak, &leak_again)?;
         s.play(stage)?;
@@ -2161,8 +2161,8 @@ mod tests {
         let l = labels();
         assert_eq!(l.small_sum, r"\text{small faces: }\tfrac{3}{2} + \tfrac{1}{2} = 2");
         assert_eq!(l.big_view, r"\text{big cell's own view: }\tfrac{5}{2}");
-        assert_eq!(l.leak, r"-\tfrac{1}{2}\ \text{per step}");
-        assert_eq!(l.mended, r"0\ \text{per step}");
+        assert_eq!(l.leak, r"\tfrac{1}{2}\ \text{lost per step}");
+        assert_eq!(l.mended, r"0\ \text{lost per step}");
         assert_eq!(l.cure_one, r"\text{cure 1: mean speed }1 \times \text{length }2 = 2");
         assert_eq!(
             l.cure_two,

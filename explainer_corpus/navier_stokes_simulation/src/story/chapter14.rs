@@ -66,7 +66,6 @@ const LEGEND: [&str; 3] = [
     "exact speed in the middle",
 ];
 const MISS: &str = "miss";
-const SMALLEST: &str = "down to a set smallest size";
 const UNIFORM_TITLE: &str = "uniform strain: u = −x, v = y";
 const SLOPE: &str = "slope keeps changing";
 const CARDS_14_11: [&str; 3] = ["thin layers", "wall shape (ch. 17)", "the quantity we want"];
@@ -140,8 +139,8 @@ const PRECISELY_14_10: [&str; 3] = [
 ];
 const PRECISELY_14_11: [&str; 3] = [
     "The ideal flow slips along the wall; a real one sticks to it, which makes the thin layer.",
-    "Brief: 'Vorticity alone is not a universal error estimator:",
-    "strain, thin layers, geometry and the requested quantity matter too.'",
+    "Vorticity measures spin. A straight-line guess can miss even where spin is zero.",
+    "A useful refinement test also depends on the wall and the quantity we need.",
 ];
 const PRECISELY_14_12: [&str; 3] = [
     "Basilisk predicts from the parent cell with the field's prolongation (bilinear by default),",
@@ -160,6 +159,8 @@ pub mod pacing {
     pub const RISE: f64 = 0.9;
     pub const PULSE: f64 = 0.8;
     pub const BEAT: f64 = 0.4;
+    /// 14_9: hold the two failed bars until the split clause in the retained take.
+    pub const SECOND_SPLIT_HOLD: f64 = 2.6;
     /// 14_10: the two squares of air deform.
     pub const SQUEEZE: f64 = 1.6;
 }
@@ -1560,12 +1561,24 @@ impl SceneConstruct for Chapter14 {
             .flat_map(|(_, parts)| parts.clone())
             .collect();
         s.pulse(stage, &again, None)?;
-        s.pause(stage, BEAT)?;
+        s.pause(stage, pacing::SECOND_SPLIT_HOLD)?;
         s.split(stage, &mut row, &second.splits())?;
+        // Show the measured errors that remain on the finest cells without moving the cue gates.
+        for cell in second.made() {
+            let ring = s.middle_ring(stage, cell.middle());
+            s.put(stage, &[ring])?;
+            row.rings.push((cell.middle(), ring));
+            let (_, bar, mut marks) = miss_bar(stage, cell)?;
+            marks.insert(0, bar);
+            s.put(stage, &marks)?;
+            row.bars.push((cell, marks));
+        }
         let cells_again = s.text(stage, &l.cells_second, 24.0, ink, [SIDE_X, 1.65])?;
         s.morph(stage, cells_readout, cells_again, MORPH)?;
         s.until(stage, "14_9", 2)?;
-        let smallest = s.text(stage, SMALLEST, 22.0, dim, [SIDE_X, 0.65])?;
+        let above = second.after.iter().filter(|c| c.miss() > adapt_row::tolerance()).count();
+        let limit = format!("At the size limit, {above} cells still fail");
+        let smallest = s.text(stage, &limit, 22.0, miss_color(), [SIDE_X, 0.65])?;
         s.appear(stage, &[smallest], FADE)?;
 
         // 14_10: what the miss follows. Strain near and far, a uniform strain with no miss, and the
@@ -1677,18 +1690,20 @@ impl SceneConstruct for Chapter14 {
         leaving.extend(&inset);
         leaving.extend([bend, slope]);
         leaving.extend(&precisely);
-        s.vanish(stage, &leaving, FADE)?;
+        s.vanish(stage, &leaving, FADE / 2.0)?;
+        s.play(stage)?;
         let mut cards = Vec::new();
         for (j, words) in CARDS_14_11.iter().enumerate() {
             if j > 0 {
                 s.until(stage, "14_11", j)?;
             }
             let [frame, text] = s.card(stage, ([SIDE_X, 1.5 - 0.7 * j as f64], [4.8, 0.55], 22.0), words, dim)?;
-            s.appear(stage, &[frame, text], FADE)?;
+            let fade = if j == 0 { FADE / 2.0 } else { FADE };
+            s.appear(stage, &[frame, text], fade)?;
             cards.extend([frame, text]);
             if j == 0 {
                 let precisely = s.precisely(stage, &PRECISELY_14_11)?;
-                s.appear(stage, &precisely, FADE)?;
+                s.appear(stage, &precisely, fade)?;
                 cards.extend(precisely);
             }
         }

@@ -305,7 +305,7 @@ impl RangeCheck {
     }
 }
 
-pub const CYLINDER_CHECKS: [RangeCheck; 3] = [
+pub const CYLINDER_FORCE_CHECKS: [RangeCheck; 2] = [
     RangeCheck {
         name: "drag",
         observed: [5.582185202367738, 5.5931107462403515],
@@ -316,12 +316,14 @@ pub const CYLINDER_CHECKS: [RangeCheck; 3] = [
         observed: [-0.0031279796024663038, 0.0014033664210001643],
         published: [0.0104, 0.011],
     },
-    RangeCheck {
-        name: "pressure drop",
-        observed: [0.11563672642213299, 0.11576111713439051],
-        published: [0.1172, 0.1176],
-    },
 ];
+
+/// The solver extrapolates from fluid-side probes. The paper gives the wall-pressure difference.
+pub const CYLINDER_PRESSURE_ESTIMATE: RangeCheck = RangeCheck {
+    name: "pressure drop",
+    observed: [0.11563672642213299, 0.11576111713439051],
+    published: [0.1172, 0.1176],
+};
 
 // ------------------------------------------------------------------------- chapter 11's pulse
 
@@ -559,9 +561,9 @@ mod tests {
     }
 
     #[test]
-    fn the_cylinder_met_its_budgets_and_missed_all_three_windows() {
+    fn the_cylinder_met_its_budgets_and_missed_both_force_windows() {
         const { assert!(CYLINDER_VOLUME_DEFECT <= CYLINDER_BUDGET && CYLINDER_PRESSURE_RESIDUAL <= CYLINDER_BUDGET) };
-        assert!(CYLINDER_CHECKS.iter().all(|check| !check.inside()));
+        assert!(CYLINDER_FORCE_CHECKS.iter().all(|check| !check.inside()));
     }
 
     #[test]

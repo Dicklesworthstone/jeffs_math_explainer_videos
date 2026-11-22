@@ -8,12 +8,9 @@
 //! inflow, saved from 0.05 s to 0.25 s. Its last frame is the one chapter 02 draws. 01_4 names
 //! that last frame's measured cell count and cell sizes.
 //!
-//! What the inputs do not contain is not drawn. The saved frames carry no tracer, so the five dye
-//! nozzles stay still and say there is no dye in this run. No wake, no swirl and no swing
-//! frequency: the test's readouts in 01_5 stay "?". A later wake run is drawn only when story.rs
-//! passes a `Wake`, which loads only from an `opening-wake01` file that
-//! tools/opening_inputs01.py writes after a separate qualification check. Without one, nothing
-//! is drawn behind the cylinder.
+//! Purple dye tracks integrate passive tracers through the saved velocity observations.
+//! The captured fine wake can show a later example without qualifying any of the test readouts.
+//! Their entries in 01_5 stay "?".
 //!
 //! The teaching grid is chapter 09's `tunnel` (the same objects later chapters return to), an
 //! illustration and labelled so. Halving it draws the midlines of its cells. The chapter ends on
@@ -28,7 +25,7 @@ use explainer_kit::{Facts, Kit, Palette, Timed};
 use fmn::animation::indicate;
 use fmn::prelude::*;
 
-use super::chapter09;
+use super::{chapter02, chapter09, closing_wake};
 use crate::error;
 use crate::field::{Frame, TunnelGeometry};
 
@@ -52,7 +49,7 @@ pub const HALVE_CELLS: u32 = HALVE_PER_SIDE * HALVE_PER_SIDE;
 const TITLE: &str = "A wind tunnel inside a computer";
 const INLET: &str = "Inlet";
 const OUTLET: &str = "Outlet";
-const DYE_NOTE: &str = "dye release points: no dye in this run";
+const DYE_NOTE: &str = "Dye tracks from saved velocities";
 const QUESTION: [&str; 2] = [
     "Which of those swirls belong to the air,",
     "and which did our computer invent, or erase?",
@@ -90,9 +87,8 @@ const FRAME_SECONDS: f64 = 0.4;
 const FIRST_FADE: f64 = 0.6;
 const FADE: f64 = 0.4;
 const PULSE: f64 = 0.9;
-/// The dye nozzles: five discs just outside the inlet wall, at the arrows' five rows.
-const NOZZLES: usize = 5;
-const NOZZLE_X: f64 = -5.92;
+/// Release just inside the inlet, away from the walls and centerline.
+const NOZZLE_ROWS: [f64; 4] = [0.20, 0.35, 0.65, 0.80];
 const NOZZLE_RADIUS: f64 = 0.06;
 /// The region behind the cylinder, marked below the tunnel as chapter 02 (02_11) marks it.
 pub const BRACKET_X: [f64; 2] = [-4.25, 0.45];
@@ -556,6 +552,59 @@ impl Ch01<'_> {
     }
 }
 
+fn dye_paths(frames: &[Frame], seeds: &[[f64; 2]]) -> fmn::Result<Vec<Vec<[f64; 2]>>> {
+    seeds
+        .iter()
+        .map(|&seed| {
+            chapter02::streakline(frames, seed)
+                .ok_or_else(|| error(format!("chapter 01: dye from {seed:?} left the saved tunnel")))
+        })
+        .collect()
+}
+
+fn dye_mobs(stage: &mut Stage<'_>, g: TunnelGeometry, curves: &[Vec<[f64; 2]>]) -> Vec<Mob> {
+    curves
+        .iter()
+        .map(|curve| {
+            let points: Vec<Vec3> =
+                curve.iter().map(|&[x, y]| p2(tunnel_point(g, x, y))).collect();
+            let mob = stage.arena_mut().add(
+                polyline(points).style(Style::default().stroke(Palette::purple(), 7.0, 1.0)).build(),
+            );
+            stage.set_z_index(mob, 2, true);
+            mob
+        })
+        .collect()
+}
+
+struct DyeFrame {
+    time: f64,
+    curves: Vec<Vec<[f64; 2]>>,
+}
+
+fn wake_dye(g: TunnelGeometry) -> fmn::Result<Vec<DyeFrame>> {
+    let Some(replay) = closing_wake::retained() else {
+        return Ok(Vec::new());
+    };
+    let frames = replay.frames();
+    let geometry = check_sequence(frames, "later wake", 2).map_err(error)?;
+    if !same_tunnel(g, geometry) {
+        return Err(error("chapter 01: the later wake uses another tunnel".to_owned()));
+    }
+    // The later excerpt starts with fresh dye behind the cylinder.
+    let [x, y, radius] = g.cylinder;
+    let seeds = [[x + 2.4 * radius, y - 1.6 * radius], [x + 2.4 * radius, y + 1.6 * radius]];
+    (4..frames.len())
+        .step_by(4)
+        .map(|index| {
+            Ok(DyeFrame {
+                time: frames[index].time,
+                curves: dye_paths(&frames[..=index], &seeds)?,
+            })
+        })
+        .collect()
+}
+
 impl SceneConstruct for Chapter01 {
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         // Every refusal comes before the first frame.
@@ -567,6 +616,9 @@ impl SceneConstruct for Chapter01 {
         let last = frames
             .last()
             .ok_or_else(|| error("chapter 01: no start-up frame".to_owned()))?;
+        let inlet_seeds = NOZZLE_ROWS.map(|share| [0.0125, g.height * share]);
+        let inlet_dye = dye_paths(frames, &inlet_seeds)?;
+        let wake_dye = wake_dye(g)?;
         let wake = match self.wake {
             Some(w) => {
                 let wg = check_sequence(std::slice::from_ref(&w.frame), "wake", 1).map_err(error)?;
@@ -621,16 +673,14 @@ impl SceneConstruct for Chapter01 {
         s.appear(stage, &ends, 0.35)?;
         s.appear(stage, &[note], 0.35)?;
         let shown = s.play_frames(stage, frames, g, scale)?;
-        // The five dye release points stay still: the saved run has no dye.
+        // Show passive tracers from the inlet through the saved startup fields.
         s.until(stage, "01_2", 1)?;
-        let mut nozzles = Vec::new();
-        for k in 0..NOZZLES {
-            let y = g.height * (k as f64 + 0.5) / NOZZLES as f64;
-            let at = [NOZZLE_X, tunnel_point(g, 0.0, y)[1]];
-            nozzles.push(
+        let mut inlet_dye = dye_mobs(stage, g, &inlet_dye);
+        for [x, y] in inlet_seeds {
+            inlet_dye.push(
                 stage.arena_mut().add(
                     Dot::new()
-                        .point(p2(at))
+                        .point(p2(tunnel_point(g, x, y)))
                         .radius(NOZZLE_RADIUS)
                         .style(
                             Style::default()
@@ -642,19 +692,37 @@ impl SceneConstruct for Chapter01 {
             );
         }
         let dye = s.text_left(stage, DYE_NOTE, 24.0, Palette::purple(), DYE_AT)?;
-        s.appear(stage, &nozzles, 0.4)?;
-        s.appear(stage, &[dye], 0.4)?;
+        inlet_dye.push(dye);
+        s.appear(stage, &inlet_dye, 0.4)?;
 
-        // 01_3: the saved arrows leave and the region behind the cylinder is marked. Nothing is
-        // drawn in it, unless a separately qualified later wake was given.
+        // Switch from the startup tracks to fresh dye in the later wake.
         s.say(stage, "01_3")?;
         s.vanish(stage, &shown, 0.35)?;
         s.vanish(stage, &[note], 0.35)?;
+        s.vanish(stage, &inlet_dye, 0.35)?;
         let edge = bracket_y(g);
         let bracket = line(stage, [BRACKET_X[0], edge], [BRACKET_X[1], edge], hero, 2.0)?;
         s.appear(stage, &[bracket], 0.35)?;
         let mut wake_shown = Vec::new();
-        if let Some((w, wake_scale)) = wake {
+        let mut wake_label = None;
+        if !wake_dye.is_empty() {
+            s.play(stage)?;
+            let label = s.text(stage, "New dye in a separate run with five times the inlet speed",
+                               25.0, Palette::purple(), NOTE_AT)?;
+            s.appear(stage, &[label], 0.35)?;
+            s.play(stage)?;
+            wake_label = Some(label);
+            println!("Chapter 01 later wake: {} recorded-time dye views from the fine capture",
+                     wake_dye.len());
+            for frame in &wake_dye {
+                s.cut(stage, &wake_shown);
+                wake_shown = dye_mobs(stage, g, &frame.curves);
+                wake_shown.push(s.text(stage, &format!("{:.3} s into excerpt", frame.time),
+                                      26.0, Palette::blue(), STAMP_AT)?);
+                s.put(stage, &wake_shown)?;
+                stage.wait(0.5)?;
+            }
+        } else if let Some((w, wake_scale)) = wake {
             wake_shown = arrows(stage, &w.frame, g, wake_scale)?;
             println!(
                 "Chapter 01 wake: {:.6} s, {} arrows at {wake_scale:.6} units per m/s, {}",
@@ -667,7 +735,9 @@ impl SceneConstruct for Chapter01 {
             s.appear(stage, &wake_shown, 0.5)?;
         }
         s.until(stage, "01_3", 2)?;
-        s.vanish(stage, &wake_shown, 0.35)?;
+        if wake_dye.is_empty() {
+            s.vanish(stage, &wake_shown, 0.35)?;
+        }
         let question = [
             s.text(stage, QUESTION[0], 30.0, hero, [0.0, QUESTION_Y[0]])?,
             s.text(stage, QUESTION[1], 30.0, hero, [0.0, QUESTION_Y[1]])?,
@@ -677,6 +747,10 @@ impl SceneConstruct for Chapter01 {
         // 01_4: a computer cuts the tunnel into cells; the teaching grid, and the saved run's cells.
         s.say(stage, "01_4")?;
         s.vanish(stage, &question, FADE)?;
+        s.vanish(stage, &wake_shown, FADE)?;
+        if let Some(label) = wake_label {
+            s.vanish(stage, &[label], FADE)?;
+        }
         s.until(stage, "01_4", 1)?;
         s.draw(stage, &grid, 0.8)?;
         let grid_label = s.text(stage, GRID_LABEL, 27.0, dim, STAMP_AT)?;

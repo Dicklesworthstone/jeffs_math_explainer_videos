@@ -1,5 +1,6 @@
 //! Chapter 17, "Are we solving the right problem?": cues 17_8 to 17_15 and the 17_h2 hold,
-//! native and exact. Nothing is simulated, and none of the numbers is ours.
+//! native and exact. The recap uses the measured runs from Chapter 13. The benchmark
+//! comparison uses the published results.
 //!
 //! RubyRaven `ruby-boundary-tail01` for root's `navier_stokes_simulation` crate (Agent Mail
 //! 36228). It continues [`super::boundary17_01`] from the end of 17_7, where
@@ -13,8 +14,8 @@
 //!   1.5 m/s"; a dashed line at the mean, "average 1 m/s";
 //! - 17_9: the fluid tag and "Re = Ū D / ν = 1 × 0.1 / 0.001 = 100", named "Reynolds number";
 //!   then the similarity card and "slow air (ch. 5)";
-//! - 17_10: the outlet glows, "outlet: each group's choice"; a stand-in for chapter 13's ledger
-//!   slides in and gains the row "outlet rule: ?";
+//! - 17_10: the outlet glows, "outlet: each group's choice"; Chapter 13's measured results
+//!   slide in and gain an open outlet comparison;
 //! - 17_11: four cards; drag and lift arrows on the cylinder; then St = D f / Ū; then the
 //!   front and back points of ΔP;
 //! - 17_12: a Strouhal line headed "method 7a, 1996 (not our solver)"; its three grids, 0.2968,
@@ -25,8 +26,8 @@
 //!   question card;
 //! - 17_h2: the 5 s countdown on the card;
 //! - 17_14: the answer; the longer-inlet run's 0.289 lands in the band; the ST96 §4 quote;
-//! - 17_15: the cards "convergence", "benchmark" and "validation"; the ledger returns and gains
-//!   their three columns, every entry "?" until our runs exist.
+//! - 17_15: the cards "convergence", "benchmark" and "validation"; the ledger returns and shows
+//!   these three open checks on our wake.
 //!
 //! Published results are labelled where they appear and none enters our ledger. Root owns
 //! chapter 18 onward; the three cards and the ledger stay on screen at the end of 17_15.
@@ -36,6 +37,9 @@ use std::f64::consts::{FRAC_PI_2, TAU};
 use super::benchmark01::{self as bm, GRIDS, LINE, LONGER_INLET, MEASURED, STEPS, Tenk, inlet};
 use super::boundary17_01::{
     BODY_PT, CH_ORIGIN, CH_SCALE, Chapter17, FINE_PT, HOLD_SECONDS, PAUSE_NOTE, RING_R, SMALL_PT, chapter17,
+};
+use super::ledger13::{
+    CYLINDER_BUDGET, CYLINDER_FORCE_CHECKS, CYLINDER_PRESSURE_RESIDUAL, CYLINDER_VOLUME_DEFECT, PRESSURE, TIME_RATIOS,
 };
 use super::staircase01::channel;
 use explainer_kit::narration::{frames_covering, wait_frames};
@@ -76,17 +80,13 @@ pub const SLOW_AIR_AT: (f64, f64) = (3.9, -3.1);
 pub const OUTLET: &str = "outlet: each group's choice";
 pub const OUTLET_AT: (f64, f64) = (6.35, 0.93);
 
-/// The ledger: a stand-in for chapter 13's (13_2: what we changed, what we measured, what that
-/// comparison can tell us; blank cells read "not measured"), with rows from 13_3, 13_4 and
-/// 13_8. Root replaces it with chapter 13's own ledger once that chapter is built.
-pub const LEDGER_TITLE: &str = "ledger (chapter 13)";
-pub const LEDGER_HEADS: [&str; 3] = ["what we changed", "what we measured", "what it can tell us"];
-pub const LEDGER_ROWS: [&str; 4] = ["solver tolerance", "time step", "cells and step together", "rounding"];
-pub const NOT_MEASURED: &str = "not measured";
-pub const OUTLET_ROW: &str = "outlet rule: ?";
+pub const LEDGER_TITLE: &str = "Error ledger, continued from Chapter 13";
+pub const LEDGER_HEADS: [&str; 3] = ["comparison", "result", "reference check"];
+pub const LEDGER_ROWS: [&str; 3] = ["Taylor–Green pressure", "Taylor–Green step", "Steady cylinder (2D-1)"];
+pub const OUTLET_ROW: &str = "outlet rule for our wake";
 pub const LEDGER_CHECKS: [&str; 3] = ["convergence", "benchmark", "validation"];
 pub const OPEN: &str = "?";
-pub const OURS: &str = "our runs: each new entry stays ? until we run them";
+pub const OURS: &str = "Open checks on our wake";
 pub const LEDGER_LEFT: f64 = -7.55;
 pub const LEDGER_TOP: f64 = -0.9;
 pub const LEDGER_BOTTOM: f64 = -4.25;
@@ -596,8 +596,30 @@ impl Screen {
 
 // ----------------------------------------------------------------- the ledger
 
-/// The ledger stand-in: built once, shown in 17_10 with two columns beside the labels, and in
-/// 17_15 with three more.
+/// The Chapter 13 recap plus a separate outlet comparison for our wake.
+fn measured_ledger_rows() -> [[String; 2]; LEDGER_ROWS.len()] {
+    let [loose, tight] = PRESSURE;
+    let balance_ratio = loose.max_volume_defect / tight.max_volume_defect;
+    let [first, second] = TIME_RATIOS;
+    let within_budget = CYLINDER_VOLUME_DEFECT <= CYLINDER_BUDGET && CYLINDER_PRESSURE_RESIDUAL <= CYLINDER_BUDGET;
+    let outside = CYLINDER_FORCE_CHECKS.iter().filter(|check| !check.inside()).count();
+    [
+        [
+            format!("imbalance ÷ {balance_ratio:.0}"),
+            format!("error {:.3e} both", tight.error).replace('-', "−"),
+        ],
+        [
+            format!("gap ÷ {first:.1}, ÷ {second:.1}"),
+            "vs finer-step run".to_owned(),
+        ],
+        [
+            (if within_budget { "budget met" } else { "budget missed" }).to_owned(),
+            format!("{outside} force ranges missed"),
+        ],
+    ]
+}
+
+/// Shown first with the measured results and then with the three open wake checks.
 pub struct Ledger {
     pub narrow: Mob,
     pub wide: Mob,
@@ -647,18 +669,18 @@ impl Ledger {
         add(stage, line, Z_TEXT)
     }
 
-    fn row(kit: &Kit, stage: &mut Stage<'_>, k: usize, label: &str, color: Srgb) -> fmn::Result<Vec<Mob>> {
+    fn row(
+        kit: &Kit,
+        stage: &mut Stage<'_>,
+        k: usize,
+        label: &str,
+        cells: [&str; 2],
+        color: Srgb,
+    ) -> fmn::Result<Vec<Mob>> {
         let y = Self::row_y(k);
         let mut out = vec![text_left(kit, stage, label, FINE_PT, color, (LEDGER_LEFT + 0.25, y))?];
-        for c in 0..2 {
-            out.push(text(
-                kit,
-                stage,
-                NOT_MEASURED,
-                FINE_PT,
-                Palette::dim(),
-                (Self::col_x(c), y),
-            )?);
+        for (c, value) in cells.into_iter().enumerate() {
+            out.push(text(kit, stage, value, FINE_PT, Palette::dim(), (Self::col_x(c), y))?);
         }
         Ok(out)
     }
@@ -686,18 +708,24 @@ impl Ledger {
         let rule = Self::rule(stage, 2);
         let wide_rule = Self::rule(stage, 5);
         let mut rows = Vec::new();
-        for (k, label) in LEDGER_ROWS.iter().enumerate() {
-            rows.extend(Self::row(kit, stage, k, label, ink)?);
+        for (k, (label, [found, checked])) in LEDGER_ROWS.into_iter().zip(measured_ledger_rows()).enumerate() {
+            rows.extend(Self::row(kit, stage, k, label, [&found, &checked], ink)?);
         }
-        let outlet = Self::row(kit, stage, LEDGER_ROWS.len(), OUTLET_ROW, Palette::hero())?;
+        let outlet = Self::row(
+            kit,
+            stage,
+            LEDGER_ROWS.len(),
+            OUTLET_ROW,
+            ["pending", "outlet comparison"],
+            Palette::hero(),
+        )?;
         let mut columns = Vec::new();
         for (c, name) in LEDGER_CHECKS.iter().enumerate() {
             let x = Self::col_x(c + 2);
-            let mut column = vec![text(kit, stage, name, FINE_PT, check_color(c), (x, heads_y))?];
-            for r in 0..=LEDGER_ROWS.len() {
-                column.push(text(kit, stage, OPEN, FINE_PT, dim, (x, Self::row_y(r)))?);
-            }
-            columns.push(column);
+            columns.push(vec![
+                text(kit, stage, name, FINE_PT, check_color(c), (x, heads_y))?,
+                text(kit, stage, OPEN, FINE_PT, dim, (x, Self::row_y(LEDGER_ROWS.len())))?,
+            ]);
         }
         Ok(Self {
             narrow,
@@ -1472,7 +1500,7 @@ impl Tail {
                 text(kit, stage, check[2], SMALL_PT, ink, (cx, CHECK_Y[2]))?,
             ];
             self.screen.show(stage, &card, FADE)?;
-            // The ledger gains the check's column; every entry for our runs is "?".
+            // The ledger gains one open check for our wake.
             let mut into = ledger.columns[k].clone();
             let mut out = Vec::new();
             if k == 0 {
@@ -1539,8 +1567,8 @@ pub const SCRIPT17_TAIL: &str = concat!(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
     use super::super::boundary17_01::{SCRIPT17, TITLE_AT};
+    use super::*;
     use explainer_kit::{Narrator, Script};
 
     #[test]
@@ -1623,5 +1651,16 @@ mod tests {
         assert_eq!(Ledger::col_x(0), LEDGER_LEFT + LEDGER_LABEL_W + LEDGER_COL_W / 2.0);
         assert!(Ledger::row_y(LEDGER_ROWS.len()) - 0.3 > LEDGER_BOTTOM);
         assert_eq!(LEDGER_CHECKS.len() + 2, 5);
+    }
+
+    #[test]
+    fn ledger_recap_matches_chapter_13_measurements() {
+        let [loose, tight] = PRESSURE;
+        assert_eq!(format!("{:.3e}", loose.error), format!("{:.3e}", tight.error));
+        let [[imbalance, _], [time_gap, _], [budget, missed]] = measured_ledger_rows();
+        assert_eq!(imbalance, "imbalance ÷ 99");
+        assert_eq!(time_gap, "gap ÷ 4.0, ÷ 4.0");
+        assert_eq!(budget, "budget met");
+        assert_eq!(missed, "2 force ranges missed");
     }
 }

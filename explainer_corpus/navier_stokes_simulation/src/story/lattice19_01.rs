@@ -1028,14 +1028,19 @@ impl Prediction {
         for (k, choice) in CHOICES.iter().enumerate() {
             let y = top - 1.65 - CHOICE_STEP * k as f64;
             parts.push(text_left(kit, stage, choice, SMALL_PT, ink, (x + 0.3, y))?);
-            markers.push(ring(stage, v(x, y), 0.1, dim, 2.5));
+            let marker = ring(stage, v(x, y), 0.1, dim, 2.5);
+            stage.arena_mut().set_z_index(marker, Z_TEXT, true);
+            markers.push(marker);
             if k == ANSWER {
-                chosen = Some(dot(stage, v(x, y), 0.1, Palette::green()));
+                let answer = dot(stage, v(x, y), 0.1, Palette::green());
+                stage.arena_mut().set_z_index(answer, Z_TEXT + 1, true);
+                chosen = Some(answer);
             }
         }
         let note = text_right(kit, stage, PAUSE_NOTE, FINE_PT, dim, (right - 0.3, top - 0.27))?;
         let ring_at = Self::ring_at();
         let track = ring(stage, vp(ring_at), RING_R, Palette::faint(), 6.0);
+        stage.arena_mut().set_z_index(track, Z_TEXT, true);
         let countdown = polyline(ring_points(ring_at, RING_R, 1.0))
             .style(line_style(ink, 7.0, 1.0))
             .build();
@@ -1865,7 +1870,8 @@ impl Lattice19 {
             ticks.clone(),
         ]
         .concat();
-        self.screen.swap(stage, &out, &into, FADE)?;
+        self.screen.hide(stage, &out, QUICK)?;
+        self.screen.show(stage, &into, QUICK)?;
         // The example speed, then twice it: four times the squeeze.
         kit.until_sentence(stage, "19_7", 1)?;
         self.slide(stage, knob, bar, (0, 1), mach::EXAMPLE)?;
@@ -2120,9 +2126,10 @@ impl Lattice19 {
             ((x1 - x0) / LATTICE_STEP).round() as usize,
             ((y1 - y0) / LATTICE_STEP).floor() as usize,
         );
+        let grid_top = y0 + ny as f64 * LATTICE_STEP;
         for k in 0..=nx {
             let x = x0 + LATTICE_STEP * k as f64;
-            lines.push(seg(v(x, y0), v(x, y1), style));
+            lines.push(seg(v(x, y0), v(x, grid_top), style));
         }
         for k in 0..=ny {
             let y = y0 + LATTICE_STEP * k as f64;

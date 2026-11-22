@@ -93,7 +93,7 @@ fn streamline(frame: &Frame, seed: Point) -> Vec<Point> {
     points
 }
 
-fn streakline(frames: &[Frame], nozzle: Point) -> Option<Vec<Point>> {
+pub(super) fn streakline(frames: &[Frame], nozzle: Point) -> Option<Vec<Point>> {
     // Release a tracer at each recorded frame and move it through all subsequent
     // observations. Use the cell samples in space and linear interpolation in time.
     const SUBSTEPS: u32 = 16;

@@ -11,6 +11,7 @@
 
 use std::error::Error;
 use std::io;
+use std::num::NonZeroU64;
 use std::path::{Path, PathBuf};
 use std::rc::Rc;
 use std::time::Instant;
@@ -102,6 +103,8 @@ render options:
   --timeline-only   the score's first pass: 64x36 at --fps with --narration, timelines only
   --score DIR       lay DIR/<chapter>.music.f32.wav (or bounded parts) under each chapter (needs --narration)
   --crf N           delivery quality: x264 CRF or NVENC constant quality; also --preset, --gpu, AAC 256k
+  --max-raw-video-bytes N
+                    cumulative raw video input limit for a --crf render
   --preset NAME     x264 preset, ultrafast..veryslow (with --crf)
   --encoder NAME    libx264 (default), h264_nvenc, hevc_nvenc, h264_videotoolbox
   --gpu N           NVENC device index (with --crf)
@@ -131,6 +134,7 @@ pub struct Args {
     pub score: Option<PathBuf>,
     pub timelines: Option<PathBuf>,
     pub max_frames: Option<u64>,
+    pub max_raw_video_bytes: Option<NonZeroU64>,
     pub crf: Option<u8>,
     pub preset: Option<&'static str>,
     pub threads: Option<u32>,
@@ -167,6 +171,7 @@ pub fn parse_args(argv: impl IntoIterator<Item = String>) -> Result<Args, String
         score: None,
         timelines: None,
         max_frames: None,
+        max_raw_video_bytes: None,
         crf: None,
         preset: None,
         threads: None,
@@ -199,6 +204,9 @@ pub fn parse_args(argv: impl IntoIterator<Item = String>) -> Result<Args, String
             "--score" => a.score = Some(PathBuf::from(it.next().ok_or("--score needs DIR")?)),
             "--timelines" => a.timelines = Some(PathBuf::from(it.next().ok_or("--timelines needs DIR")?)),
             "--max-frames" => a.max_frames = Some(next_parsed(&mut it, "--max-frames")?),
+            "--max-raw-video-bytes" => {
+                a.max_raw_video_bytes = Some(next_parsed(&mut it, "--max-raw-video-bytes")?);
+            }
             "-h" | "--help" => a.help = true,
             "--narration" => a.narration = Some(PathBuf::from(it.next().ok_or("--narration needs DIR")?)),
             "--review-units" => {
@@ -243,6 +251,9 @@ pub fn parse_args(argv: impl IntoIterator<Item = String>) -> Result<Args, String
     }
     if a.timeline_only && (a.narration.is_none() || a.score.is_some() || a.crf.is_some()) {
         return Err("--timeline-only needs --narration and excludes --score and --crf".into());
+    }
+    if a.max_raw_video_bytes.is_some() && (a.command != "render" || a.crf.is_none()) {
+        return Err("--max-raw-video-bytes needs render with --crf".into());
     }
     if a.score.is_some() && a.narration.is_none() {
         return Err("--score lays stems scored from the real narration; it needs --narration".into());
@@ -672,6 +683,9 @@ fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Bo
                 )?;
                 o.config = opts.config.clone();
                 o.max_frames = opts.max_frames;
+                if let Some(limit) = args.max_raw_video_bytes {
+                    o.max_output_bytes = limit.get();
+                }
                 opts = o;
             }
             if let Some(l) = &linter {
@@ -1078,6 +1092,20 @@ mod tests {
         assert_eq!((a.threads, a.crf, a.gpu), (Some(16), Some(16), Some(1)));
         assert_eq!((a.encoder.as_str(), a.preset), ("h264_nvenc", Some("slow")));
         assert_eq!(a.score, Some(PathBuf::from("stems")));
+    }
+
+    #[test]
+    fn raw_video_limit_is_explicit_and_requires_delivery_render() {
+        assert_eq!(parse("render --crf 16").unwrap().max_raw_video_bytes, None);
+        let args = parse("render 10_example --crf 16 --max-raw-video-bytes 361764403200").unwrap();
+        assert_eq!(args.max_raw_video_bytes.map(NonZeroU64::get), Some(361_764_403_200));
+        for invalid in [
+            "render --crf 16 --max-raw-video-bytes 0",
+            "render --max-raw-video-bytes 361764403200",
+            "score --crf 16 --max-raw-video-bytes 361764403200",
+        ] {
+            assert!(parse(invalid).is_err(), "{invalid}");
+        }
     }
 
     #[test]

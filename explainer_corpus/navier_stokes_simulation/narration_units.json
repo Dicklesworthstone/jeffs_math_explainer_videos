@@ -2232,8 +2232,8 @@
     "topic": "navier_stokes_simulation",
     "script_sha256": "2a4dd4805787a078e22733430524b21a5dc0ae5d995d66c86db56d494ad68ce0",
     "map": {
-      "path": "explainer_corpus/navier_stokes_simulation/docs/narration-direction-map-review06.json",
-      "sha256": "b56b12dd548ef4bb2da7a35e41a8cbddae9cdfbfc74ad5684eb56714e7d38047"
+      "path": "explainer_corpus/navier_stokes_simulation/docs/narration-direction-map-review17-03.json",
+      "sha256": "90beb747b85e05b019021432db76acc1c6145cd75e20e48957615b1c7e6f363f"
     }
   }
 }

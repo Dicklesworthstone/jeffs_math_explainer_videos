@@ -248,6 +248,7 @@ impl SceneConstruct for Chapter11 {
         let lookup = visible_text(k, stage, &format!("Look back {:.1} cell", COURANT), 26.0,
                             Palette::gold(), v(STATS_X, 0.88))?;
         k.say(stage, "11_5")?;
+        k.until_sentence(stage, "11_5", 2)?;
         stage.scene_mut().remove(&[lookup]);
         pulse.advance(Rule::Blend, false);
         view.show(stage, k, &pulse, false, false)?;
@@ -260,7 +261,7 @@ impl SceneConstruct for Chapter11 {
         predict(stage, k, "How tall is the peak now?", "About 1      About ¾      Less than ½")?;
         stage.scene_mut().remove(&[counter]);
         k.say(stage, "11_7")?;
-        let blend = view.replay(stage, k, Rule::Blend, 0.095)?;
+        let blend = view.replay(stage, k, Rule::Blend, 0.049)?;
         k.say(stage, "11_8")?;
         let stable = visible_text(k, stage, "In range, with the total preserved", 24.0, Palette::green(), v(-1.92, -2.90))?;
         k.say(stage, "11_9")?;
@@ -314,8 +315,9 @@ impl SceneConstruct for Chapter11 {
         k.say(stage, "11_21")?;
         let invented = visible_text(k, stage, "A wiggle invented by the rule", 25.0, Palette::gold(), v(-1.92, 2.74))?;
         k.say(stage, "11_23")?;
+        k.until_sentence(stage, "11_23", 2)?;
         stage.scene_mut().remove(&[invalid, invented]);
-        let clamp = view.replay(stage, k, Rule::ClampedCurve, 0.084)?;
+        let clamp = view.replay(stage, k, Rule::ClampedCurve, 0.065)?;
         k.say(stage, "11_24")?;
         let lost = 100.0 * (1.0 - clamp.measure().total / PULSE_WIDTH as f64);
         let loss = visible_text(k, stage, &format!("{lost:.2}% of the dye disappeared"), 25.0,

@@ -20,6 +20,7 @@ mod chapter14;
 mod chapter15;
 mod chapter16;
 mod chapter20;
+mod closing_wake;
 mod lattice19_01;
 mod ledger13;
 mod rotating_wind01;
@@ -335,6 +336,9 @@ fn chapters() -> Vec<Chapter> {
             WAKE => Chapter {
                 key,
                 make: |kit| {
+                    if closing_wake::retained().is_some() {
+                        kit.request_camera(CameraShot { theta: 0.0, phi: 0.0 });
+                    }
                     let ledger = RETAINED_WAKE_LEDGER
                         .get()
                         .cloned()
@@ -453,7 +457,10 @@ fn bind_story_inputs(args: Vec<String>) -> Result<Vec<String>, String> {
 }
 
 pub fn run(args: Vec<String>) -> i32 {
-    let mut args = match bind_story_inputs(args).and_then(shear_display::bind) {
+    let mut args = match bind_story_inputs(args)
+        .and_then(shear_display::bind)
+        .and_then(closing_wake::bind)
+    {
         Ok(args) => args,
         Err(error) => {
             eprintln!("{error}");

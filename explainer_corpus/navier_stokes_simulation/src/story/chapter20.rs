@@ -12,10 +12,9 @@
 //! archive. The prediction 20_h1 asks how many swings per second St ≈ 0.3 gives; 20_7 answers
 //! 3.02 per second and ticks a metronome at that rate: a clock, not a flow.
 //!
-//! No wake is drawn. The tunnel stays a static outline with its teaching grid, as in the opening;
-//! the only arrows are the prescribed ST96 inflow profile, a boundary condition. A measured wake
-//! field is W2's, a release prerequisite that this chapter does not draw (the ledger keeps W2
-//! pending). The slot line 20_v1 is not voiced; the render log says whether a compare filled it.
+//! The tunnel stays a static outline with the prescribed inflow until the closing checklist.
+//! The optional closing replay then shows vorticity from a bound fine-grid simulation. Its bound
+//! fields and the release ledger have separate checks. The slot line 20_v1 is not voiced.
 //!
 //! Voice: the kit narrator. Each cue is `say`d before its pictures, which wait on its sentence
 //! starts (`until`). The prediction 20_h1, after 20_6, holds a five-second countdown while the
@@ -26,6 +25,8 @@ use fmn::animation::indicate;
 use fmn::prelude::*;
 
 use crate::wake_ledger::{self, Compare, Ledger, Run};
+
+use super::closing_wake;
 
 /// Chapter 20's cues in spoken order and the number of sentences in each (the narrator's gates).
 /// Sentences end at `.`, `?` or `!` before a space, as in the kit; the check recounts them.
@@ -91,7 +92,12 @@ const FOOTNOTE: &str =
     "middle of the swing: (max + min)/2, FEATFLOW's 'mean', not a time average; swing size: max − min";
 /// What a pending entry shows.
 const PENDING: &str = "?";
-const CLOSE_PENDING: &str = "close enough: ?";
+const CLOSE_PENDING: &str = "target pending";
+/// The recorded cost interval belongs to this exact continuation receipt.
+const GRID3_PILOT_RECEIPT: &str =
+    "8e994971f5ea50247a8546a6d61c46374fd0a5ccea8c5b4ea8ed6397667ed42e";
+const GRID3_PILOT_FOOTNOTE: &str =
+    "Swing middle = (max + min)/2. Swing size = max − min. Grid 3 costs cover 14.5–15.8 s only.";
 const CLOSE_DECLARED: &str = "close enough";
 const REFERENCE_TITLE: [&str; 2] = ["reference", "FEATFLOW 2014"];
 const REFERENCE_LABEL: &str =
@@ -929,12 +935,17 @@ impl Ch20<'_> {
     /// tolerances ("?" until root declares them), and the reference column.
     fn table(&self, stage: &mut Stage<'_>, ledger: &Ledger, l: &Labels) -> fmn::Result<Table> {
         let (ink, dim) = (Palette::ink(), Palette::dim());
+        let grid3_pilot = matches!(
+            ledger.run(2),
+            Run::Measured(run) if run.receipt_sha256 == GRID3_PILOT_RECEIPT
+        );
         let mut titles = Vec::new();
         let mut rungs = Vec::new();
         let mut cells = Vec::new();
         for (role, title) in COLUMNS.iter().enumerate() {
             let x = COLUMN_X[role];
-            titles.push(self.text(stage, title, 19.0, ink, [x, HEADER_Y])?);
+            let label = if grid3_pilot && role == 2 { "grid 3 pilot" } else { title };
+            titles.push(self.text(stage, label, 19.0, ink, [x, HEADER_Y])?);
             let rung = match ledger.run(role) {
                 Run::Measured(m) => format!("lvl {}, {} s", m.level, g6(m.dt)),
                 Run::Pending(_) => RUNGS[role].to_owned(),
@@ -954,7 +965,8 @@ impl Ch20<'_> {
         for (q, words) in ROW_LABELS.iter().enumerate() {
             labels.push(self.text_left(stage, words, 18.0, ink, [LABEL_X, row_y(q)])?);
         }
-        let footnote = self.text_left(stage, FOOTNOTE, 16.0, dim, [LABEL_X, FOOTNOTE_Y])?;
+        let note = if grid3_pilot { GRID3_PILOT_FOOTNOTE } else { FOOTNOTE };
+        let footnote = self.text_left(stage, note, 16.0, dim, [LABEL_X, FOOTNOTE_Y])?;
         let declared = wake_ledger::TOLERANCES
             .iter()
             .any(|&(_, q)| ledger.close_enough(q).is_some());
@@ -1417,8 +1429,20 @@ impl SceneConstruct for Chapter20 {
             s.play(stage)?;
             stage.wait(BEAT)?;
         }
+        if let Some(replay) = closing_wake::retained() {
+            s.cut(stage, &drawing);
+            s.cut(stage, &uniform);
+            s.cut(stage, &[profile, streak]);
+            let motion = s.text(stage, "Recorded wake, slowed down", 24.0, ink, [-3.35, 2.55])?;
+            let blue = s.text(stage, "Clockwise spin", 20.0, hex("#44B4FD"), [-4.65, -0.32])?;
+            let detail = s.text(stage, "Vorticity on a 2.5 mm grid, interpolated", 20.0, dim, [0.0, -0.32])?;
+            let orange = s.text(stage, "Counterclockwise spin", 20.0, hex("#FF7A47"), [4.40, -0.32])?;
+            s.put(stage, &[motion, blue, detail, orange])?;
+            replay.play(stage, TUNNEL_WIDTH, p2(TUNNEL_CENTER))?;
+        } else {
+            println!("Chapter 20 uses the tunnel outline without a recorded wake");
+        }
         s.hold(stage)?;
-        println!("Chapter 20 ends on the opening's tunnel, its question card and the checklist; no wake is drawn");
         s.k.finish(stage)
     }
 }
