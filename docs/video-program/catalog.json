@@ -7477,6 +7477,55 @@
             }
           ],
           "disposition": "Local review held for the confirmed Chapter 16 heading and narrated conclusion, Chapter 20 overlapping comparison labels and reading time. Continuous listening, perceptual fine sync, independent full-film review, live placement and publication approval remain open."
+        },
+        {
+          "revision_id": "frederick-surrey-native-delivery24-20261123",
+          "label": "How to Teach a Computer to Simulate a Fluid",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review24/navier_stokes_simulation_delivery_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "d0e4c8bf75a33d97f7b80dd65eb0745ebb6f166e01335b59e3e6e207434f163d"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim 4K60 with ElevenLabs Frederick Surrey. The revised cut includes the measured periodic shear and cylinder comparisons and the recorded 2.5 mm wake. The English chaptered MP4 preserves all 235,711 exact picture samples and 184,151 AAC packets from the verified delivery. The matching 1,097-block English SRT and WebVTT are separately hash-bound.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review24/manifest.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review24/review24-proof01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review24/navier_stokes_simulation_delivery_master.en.vtt",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/final-review-repairs01/playback-coverage01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/final-review-repairs01/final-closing-captions-viewed01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/final-review-repairs01/final-joins-viewed01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/final-review-repairs01/chapter16-pictures-viewed01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/final-review-repairs01/chapter20-pictures-viewed01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review-repair-encoded-asr01/caption-interval-audit01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/assignments03/20261123-final-cc1-ch16-picture01/repaired-chapter20-science01/README.md"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-23T18:31:01Z",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review24/manifest.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review24/review24-proof01.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review24/navier_stokes_simulation_delivery_master.en.vtt"
+              ]
+            },
+            {
+              "stage": "master_verified",
+              "recorded_as_of": "2026-11-23T18:31:01Z",
+              "evidence_state": "unknown",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review24/manifest.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/final-review-repairs01/playback-coverage01.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/final-review-repairs01/final-closing-captions-viewed01.json"
+              ]
+            }
+          ],
+          "disposition": "Local technical and sampled picture review passed, including 107 repaired-chapter pictures, 40 chapter-boundary pictures and four exact closing captions. The muted evidence covers all frame positions via new playback windows and exact retained picture packets. Continuous listening, perceptual sync, independent whole-film review, W2 convergence and publication approval remain open."
         }
       ],
       "publications": []
