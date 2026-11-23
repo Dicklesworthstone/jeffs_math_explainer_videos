@@ -2232,8 +2232,8 @@
     "topic": "navier_stokes_simulation",
     "script_sha256": "da02d47802e4e1c081a7233ca81e583f6b4eee84c35762ae189a4f1a45629905",
     "map": {
-      "path": "explainer_corpus/navier_stokes_simulation/docs/narration-direction-map-review-repair01.json",
-      "sha256": "d7af1b07470d8d7ece56617e0e6df1413c780afc3bcc3ad0a27e3a831ea5c317"
+      "path": "explainer_corpus/navier_stokes_simulation/docs/narration-direction-map-closing-overlap-repair01.json",
+      "sha256": "c823b2e226db5593ff2ceba95bc7706146f38dcf1f1189f41e5d1153ca724c30"
     }
   }
 }

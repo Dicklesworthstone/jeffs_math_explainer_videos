@@ -1476,7 +1476,8 @@ impl SceneConstruct for Chapter20 {
         s.say(stage, "20_7")?;
         s.pulse(stage, &[choices[1]], Some([1.0, 0.847, 0.4]))?;
         s.until(stage, "20_7", 1)?;
-        s.vanish(stage, &[givens, choices[0], choices[2]], FADE)?;
+        s.cut(stage, &[givens]);
+        s.vanish(stage, &[choices[0], choices[2]], FADE)?;
         s.vanish(stage, &[choices[1]], FADE)?;
         let answer = s.text(stage, &l.answer, 24.0, hero, GIVENS_AT)?;
         let notes = vec![
@@ -1536,11 +1537,14 @@ impl SceneConstruct for Chapter20 {
         s.morph(stage, &drawing, &full, MORPH)?;
         s.morph(stage, &uniform, &full_arrows, MORPH)?;
         s.morph(stage, &[profile], &[full_profile], MORPH)?;
-        s.morph(stage, &question, &card_full, MORPH)?;
-        s.morph(stage, &[test], &[test_full], MORPH)?;
-        s.morph(stage, &[streak], &[streak_full], MORPH)?;
+        // Move the tunnel before restoring its labels at their new positions.
+        s.cut(stage, &question);
+        s.cut(stage, &[test, streak]);
+        s.play(stage)?;
+        s.put(stage, &card_full)?;
+        s.put(stage, &[test_full, streak_full])?;
         s.until(stage, "20_9", 1)?;
-        s.pulse(stage, &question, None)?;
+        s.pulse(stage, &card_full, None)?;
         s.until(stage, "20_9", 2)?;
         for (i, words) in CHECKLIST.iter().enumerate() {
             let y = CHECKLIST_Y0 - CHECKLIST_PITCH * i as f64;
@@ -1555,7 +1559,7 @@ impl SceneConstruct for Chapter20 {
         if let Some(replay) = closing_wake::retained() {
             s.cut(stage, &drawing);
             s.cut(stage, &uniform);
-            s.cut(stage, &[profile, streak]);
+            s.cut(stage, &[profile, streak_full]);
             let motion = s.text(stage, "Recorded wake, slowed down", 24.0, ink, [-3.35, 2.55])?;
             let blue = s.text(stage, "Clockwise spin", 20.0, hex("#44B4FD"), [-4.65, -0.32])?;
             let detail = s.text(stage, "Vorticity on a 2.5 mm grid, interpolated", 20.0, dim, [0.0, -0.32])?;

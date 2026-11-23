@@ -207,11 +207,12 @@ def verdict(table, curves, tol):
     """wake_history.py compare's verdict, recomputed: grid 3 against the reference."""
     if not tol:
         return None
-    out = {k: abs(table["grid3"][k] - table["reference"][k]) <= v for k, v in tol.items() if k in MEASUREMENTS}
-    for n in ("drag", "lift"):
-        if "curve_" + n in tol and curves.get("grid3"):
-            out["curve_" + n] = curves["grid3"][n]["max_abs"] <= tol["curve_" + n]
-    return out
+    errors = {k: abs(table["grid3"][k] - table["reference"][k]) for k in MEASUREMENTS}
+    errors.update({"curve_" + name: metric["max_abs"]
+                   for name, metric in (curves.get("grid3") or {}).items()})
+    return {name: name in errors and type(limit) in (int, float)
+            and 0 <= errors[name] <= limit < math.inf
+            for name, limit in tol.items()}
 
 
 def check_compare(path, manifest_path, manifest, entries, reference):
@@ -473,9 +474,20 @@ def self_test(root):
          compare={"table": {"grid1": {}}})
     case("verdict-differs", ladder5, ["compare\trefused\tthe compare's verdict differs"],
          compare={"meets_declared_tolerance": {"strouhal": True}}, close_enough=tol)
+    no_curves = {"curve_against_reference": {}}
+    scalar_verdicts = {key: True for key in ("strouhal", "drag_peak", "lift_peak")}
+    case("missing-declared-curves-false-pass", ladder5,
+         ["compare\trefused\tthe compare's verdict differs"],
+         compare={**no_curves, "meets_declared_tolerance": scalar_verdicts}, close_enough=tol)
+    case("missing-declared-curves-withheld", ladder5,
+         ["compare\twithheld\tmissing measured values for curve_drag, curve_lift"],
+         compare={**no_curves, "meets_declared_tolerance": {
+                      **scalar_verdicts, "curve_drag": False, "curve_lift": False},
+                  "slots": None, "slots_withheld": "missing measured values for curve_drag, curve_lift"},
+         close_enough=tol)
     case("row-demoted", ladder5[:4] + [dict(name="step3-i", level=8, dt=0.01, receipt={"exit": 1})],
          ["compare\trefused\tthe ledger keeps pending: step3", "row\tstep3\tpending"], compare={})
-    print("self-test: %d of %d cases failed" % (len(failures), 18) if failures else "self-test: all 18 cases pass")
+    print("self-test: %d of %d cases failed" % (len(failures), 20) if failures else "self-test: all 20 cases pass")
     return 1 if failures else 0
 
 

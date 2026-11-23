@@ -803,10 +803,15 @@ def cmd_compare(args, params):
                 "curve_against_reference": curves})
     tol = man.get("close_enough")
     verdict = None
+    unavailable = []
     if tol:
-        verdict = {k: abs(against_ref["grid3"][k]) <= v for k, v in tol.items() if k in keys}
-        verdict.update({"curve_" + n: curves["grid3"][n]["max_abs"] <= tol["curve_" + n]
-                        for n in ("drag", "lift") if "curve_" + n in tol and curves["grid3"]})
+        errors = {k: abs(v) for k, v in against_ref["grid3"].items()}
+        errors.update({"curve_" + name: metric["max_abs"]
+                       for name, metric in (curves["grid3"] or {}).items()})
+        unavailable = sorted(tol.keys() - errors.keys())
+        verdict = {name: name in errors and type(limit) in (int, float)
+                   and 0 <= errors[name] <= limit < math.inf
+                   for name, limit in tol.items()}
     out["meets_declared_tolerance"] = verdict
     if verdict and all(verdict.values()):
         g3 = rows[2][2]
@@ -819,7 +824,10 @@ def cmd_compare(args, params):
                         "source": g3["label"]}
     else:
         out["slots"] = None
-        out["slots_withheld"] = "no declared tolerance" if not tol else "a declared tolerance is not met"
+        if unavailable:
+            out["slots_withheld"] = "missing measured values for " + ", ".join(unavailable)
+        else:
+            out["slots_withheld"] = "no declared tolerance" if not tol else "a declared tolerance is not met"
     with open(args.out, "x") as fh:
         json.dump(out, fh, indent=1, sort_keys=True)
         fh.write("\n")
