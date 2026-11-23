@@ -220,6 +220,20 @@ The lift comparison also depends on when we measure. An independent readback app
 
 A separate six-clock readback at the 1.25 ms step cap compares the fixed 2.5 mm mesh and a static locally refined patch over 6.25–6.50 s. In the outer fluid band, where both meshes admit the same gradient stencil, the lift coefficients are 0.010436 and 0.010611 respectively. Both are within the published 0.0104–0.011 band. The calculation includes momentum stored in the refined patch. The two inner bands reach into the patch and require a shared mixed-level stencil. Lift still drifts during this post-restart interval, so the result applies to this window and these two static meshes. [Common-band lift comparison](../../../narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/steady-local-refine-weak-force-readback01/result01.json)
 
+## A matched-inlet cylinder comparison
+
+A follow-up tested whether the adaptive grid could save work at the same mean drag accuracy. Both Reynolds 20 runs start from the same developed field and use the same Basilisk build, cylinder, walls, pressure tolerance and 0.082 m²/s inlet flow. The inlet velocity on each face is the average of the parabola over that face. The adaptive run keeps the full cross-section fine from the inlet to 0.8 m and applies the existing wavelet criterion farther downstream. Both runs take 1,631 steps and match all 161 observation times and step indices.
+
+| Measured quantity | Uniform level 10 | Adaptive with fine inlet section |
+| --- | ---: | ---: |
+| Mean drag coefficient, 3.500–3.975 s | 5.572041645 | 5.572038445 |
+| Fluid cells at 4.00 s | 143,144 | 57,593 |
+| Fluid-cell updates over the run | 233,467,864 | 94,752,007 |
+| Elapsed time on this machine | 1,575.92 s | 1,038.42 s |
+| Peak resident memory | 313,278,464 bytes | 293,388,288 bytes |
+
+The drag gap is 3.20 × 10⁻⁶, within the declared 0.001 limit. The maximum scaled pressure residual and cell-volume defect in both runs are below 10⁻⁹. All 32 saved post-start fields pass 0.082 m²/s to machine precision. The adaptive arm uses 59.4% fewer fluid-cell updates and takes 34.1% less elapsed time in this pair. The timing comes from one run of each grid. The drag result applies to this steady cylinder case. The time-dependent wake still has a separate grid and timestep convergence check. [Paired assessment](../../../narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-steady-matched-inlet01/paired-assessment01.json) · [Terminal resource receipt](../../../narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-steady-matched-inlet01/resource-receipt.json)
+
 ## Read the closing wake table
 
 The closing chapter begins at 1:02:58.300. The grid 3 pilot uses level 10, a 2.5 mm cell width, and a 0.625 ms step. Those are \(h/4\) and \(k\) in the planned ladder because \(h\) is 10 mm. The settling check accepted three trailing cycles in this run. Its measured Strouhal number is 0.3023, peak drag is 3.2276 and peak lift is 1.0139. The FEATFLOW column gives a separate published calculation. Level 10 describes Basilisk's quadtree. FEATFLOW's level 6 labels a refinement of its own mesh. The comparison target and the other four run columns remain open. The cost figures cover the 14.5–15.8 s continuation, 2,080 steps in all. The developed flow at 14.5 s came from earlier runs. [Measured ledger](../../../narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/wake-ledger-integration01/ledger-fine01.tsv) · [Local review package](../../../narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review23/manifest.json)
