@@ -7110,7 +7110,112 @@
                 ]
               }
             ],
-            "disposition": "Current local review master. Full decode, changed-window muted playback, selected picture review, and exact caption checks pass. Continuous listening, perceptual fine sync, independent whole-film review, controlled wake convergence and matched-accuracy cylinder cost remain open. Publication requires owner authorization."
+            "disposition": "Retained local review master preceding review17. Full decode, changed-window muted playback, selected picture review, and exact caption checks pass. Continuous listening, perceptual fine sync, independent whole-film review, controlled wake convergence and matched-accuracy cylinder cost remain open. Publication requires owner authorization."
+          },
+          {
+            "revision_id": "frederick-surrey-native-delivery17-20261122",
+            "label": "How to Teach a Computer to Simulate a Fluid",
+            "voice": "ElevenLabs Frederick Surrey",
+            "master": {
+              "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review17/navier_stokes_simulation_delivery_master.mp4",
+              "digest": {
+                "algorithm": "sha256",
+                "value": "9571ec83af6a2c4419c718cf970c05b6b6d4893bd8829c121a694b5cb2c18ad8"
+              },
+              "evidence_state": "pass"
+            },
+            "generation_provenance": "Native FrankenManim 4K60 with recorded solver data. Chapter 13 distinguishes the off-wall pressure estimate from the wall reference. Chapter 17 reprises the measured checks and the open outlet comparison. The splice changes 3,691 picture packet rows, with exact AAC payloads across all 184,139 samples. The package embeds 20 chapter markers and adjusts the caption splits around three numeric phrases.",
+            "evidence_refs": [
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review17/manifest.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/verification.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/pictures-viewed.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/packet-comparison.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/chapter-markers.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-chapters04/pictures-viewed.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-playback01/playback-result.json"
+            ],
+            "milestones": [
+              {
+                "stage": "master_recorded",
+                "recorded_as_of": "2026-11-23T00:39:36.089976+00:00",
+                "evidence_state": "pass",
+                "evidence_refs": [
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review17/manifest.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/verification.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/pictures-viewed.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/packet-comparison.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/chapter-markers.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-chapters04/pictures-viewed.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-playback01/playback-result.json"
+                ]
+              },
+              {
+                "stage": "master_verified",
+                "recorded_as_of": "2026-11-23T00:39:36.089976+00:00",
+                "evidence_state": "unknown",
+                "evidence_refs": [
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review17/manifest.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/verification.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/pictures-viewed.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/packet-comparison.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/chapter-markers.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-chapters04/pictures-viewed.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-playback01/playback-result.json"
+                ]
+              }
+            ],
+            "disposition": "Retained 65:28.267 review17 package preceding the pause-caption corrections. Full decode, selected picture checks, both English caption files and normal-speed muted playback interval coverage pass. Continuous listening, perceptual fine sync, independent whole-film review, controlled wake convergence and matched-accuracy cylinder cost remain open. Publication awaits owner authorization."
+          },
+          {
+            "revision_id": "frederick-surrey-native-delivery18-20261122",
+            "label": "How to Teach a Computer to Simulate a Fluid",
+            "voice": "ElevenLabs Frederick Surrey",
+            "master": {
+              "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review18/navier_stokes_simulation_delivery_master.mp4",
+              "digest": {
+                "algorithm": "sha256",
+                "value": "9571ec83af6a2c4419c718cf970c05b6b6d4893bd8829c121a694b5cb2c18ad8"
+              },
+              "evidence_state": "pass"
+            },
+            "generation_provenance": "Native FrankenManim 4K60 with the exact review17 picture and AAC data. The two revised English caption files correct three splits using source-waveform pauses and exact native cue clocks. All 1,087 blocks match across formats, and all words and sentence bounds are preserved.",
+            "evidence_refs": [
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review18/manifest.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/review17-caption-pause01/corrections.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-playback01/playback-result.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/verification.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/chapter-markers.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/pictures-viewed.json"
+            ],
+            "milestones": [
+              {
+                "stage": "master_recorded",
+                "recorded_as_of": "2026-11-23T01:17:01Z",
+                "evidence_state": "pass",
+                "evidence_refs": [
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review18/manifest.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/review17-caption-pause01/corrections.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-playback01/playback-result.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/verification.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/chapter-markers.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/pictures-viewed.json"
+                ]
+              },
+              {
+                "stage": "master_verified",
+                "recorded_as_of": "2026-11-23T01:17:01Z",
+                "evidence_state": "unknown",
+                "evidence_refs": [
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review18/manifest.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/review17-caption-pause01/corrections.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-playback01/playback-result.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/verification.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/chapter-markers.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/pictures-viewed.json"
+                ]
+              }
+            ],
+            "disposition": "Current 65:28.267 local review package. The exact 4K60 master carries the full decode, selected picture and timed muted-playback checks. Independent verification confirms both English caption files and all three corrections. Continuous listening, perceptual fine sync, independent whole-film review, controlled wake convergence and matched-accuracy cylinder cost remain open. Publication awaits owner authorization."
           }
       ],
       "publications": []
