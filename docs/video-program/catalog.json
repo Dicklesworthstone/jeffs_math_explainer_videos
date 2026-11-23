@@ -7374,7 +7374,14 @@
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-settled-cylinder-delivery01/resource-receipt.json",
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-settled-cylinder-encoded-asr01/resource-receipt.json",
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-settled-cylinder-chapter-review01/resource-receipt.json",
-            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-settled-cylinder-avplayer01/resource-receipt.json"
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-settled-cylinder-avplayer01/resource-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/playback-coverage02/coverage01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/caption-placement01/remaining-timing01/flags01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/caption-placement01/remaining-timing01/repair-proof01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/caption-placement01/remaining-timing01/navier_stokes_simulation_top_inset_and_closing.en.vtt",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/caption-placement01/remaining-timing01/navier_stokes_simulation_delivery_master.en.srt",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/caption-placement01/remaining-timing01/native-caption-seeks01/placement-readback01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/caption-placement01/remaining-timing01/native-caption-seeks01/viewed01.json"
           ],
           "milestones": [
             {
@@ -7422,7 +7429,54 @@
               ]
             }
           ],
-          "disposition": "Current local 65:29.083 review cut. Full decode, 18 muted real-time windows and all 20 chapter markers verified. Continuous listening, perceptual fine sync, independent whole-film review, equal-accuracy cylinder work comparison and publication approval remain open."
+          "disposition": "Local 65:29.083 review with 1,091 caption blocks. Review23 carries forward the exact movie and a positioned 1,097-block caption track."
+        },
+        {
+          "revision_id": "frederick-surrey-native-delivery23-20261123",
+          "label": "How to Teach a Computer to Simulate a Fluid",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review23/navier_stokes_simulation_delivery_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "ef6a0696505a6f39fc8af380c102c842895414d010bec74fcef89dd443234f06"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim 4K60 and ElevenLabs Frederick Surrey. The exact picture, audio and 20 chapter markers carry into this local review with the checked 1,097-block English WebVTT and a matching plain SRT.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review23/manifest.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review23/caption-package-proof01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review23/navier_stokes_simulation_delivery_master.en.vtt",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/assignments03/20261123-resumed-cc3-pictures01/findings01.md",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/final-review-repairs01/independent-cc1-science01/README.md",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/assignments03/20261123-resumed-cc4-package01/findings01.md",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/local-metadata01/chapter-native-readback01/chapter-readback01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/settled-cylinder-film01/final-review-repairs01/16_9-text-proof01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/assignments03/20261123-resumed-cc2-audio01/README.md"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-23T14:15:27Z",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review23/manifest.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review23/caption-package-proof01.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review23/navier_stokes_simulation_delivery_master.en.vtt"
+              ]
+            },
+            {
+              "stage": "master_verified",
+              "recorded_as_of": "2026-11-23T14:15:27Z",
+              "evidence_state": "unknown",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review23/manifest.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review23/caption-package-proof01.json"
+              ]
+            }
+          ],
+          "disposition": "Local review held for the confirmed Chapter 16 heading and narrated conclusion, Chapter 20 overlapping comparison labels and reading time. Continuous listening, perceptual fine sync, independent full-film review, live placement and publication approval remain open."
         }
       ],
       "publications": []
