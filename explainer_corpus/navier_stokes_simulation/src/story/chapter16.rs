@@ -4,20 +4,27 @@
 //! pinned `row2.*` facts), and dims it under "less work?". A strip of mixed cells shows one shared time step
 //! set by the shortest crossing time (16_2). Three strips with matching smallest cells ask the prediction
 //! 16_h1 (16_3); three clocks answer it (16_4). Cost tags attach to the adaptive strip (16_5). Run cards
-//! and an open target card frame a fair comparison (16_6), and the side panel holds two tables (16_7): the
-//! periodic shear comparison that has been run, filled from its receipts, and the cylinder comparison that
-//! has not, every entry "?". 16_8 draws the standard test's channel inside the square a tree grid starts
-//! from. 16_9 says what the shear test measured, line by line as the narrator says it: both errors inside
-//! the target, the fluid-cell, stored-cell, clock and memory costs on separate lines, the tighter pressure
-//! solve, and what the box cannot test; then the cylinder's open entries pulse. With the first line, a note
-//! above it names the errors' denominator (the whole flow, drift included), and the measured table's title
-//! band gives the same peaks against the shear alone. 16_10 turns the cylinder into a staircase of cells.
+//! and an open target card frame a fair comparison (16_6) under a heading that says one fixed/adaptive
+//! cylinder pair has run so far. The side panel holds two tables (16_7). The periodic shear comparison,
+//! filled from its receipts, comes with the line's first sentence, which names it. The cylinder card below
+//! it, one fixed and one adaptive Re 20 run, starts as "?" and fills sentence by sentence: the two mean
+//! drags and their gap, red against its limit; then the costs; then the outcome in its title band. 16_8
+//! draws the standard test's channel inside the square a tree grid starts from. 16_9 says what the shear
+//! test measured, line by line as the narrator says it: both errors inside the target, the fluid-cell,
+//! stored-cell, clock and memory costs on separate lines, the tighter pressure solve, and what the box
+//! cannot test; then the cylinder card's entries pulse. With the first line, a note above it names the
+//! errors' denominator (the whole flow, drift included), and the measured table's title band gives the same
+//! peaks against the shear alone. 16_10 turns the cylinder into a staircase of cells.
 //!
-//! Every number on screen is a pinned fact. The teaching strips are exact fractions (`four_cell::Q`); the
-//! measured rows are computed from `RUNS`, a field-for-field copy of navier-solver-shear03/comparison.json
-//! (sha256 1efa9b22…) that the package check compares with the file. `PINS` holds cost_oracle01's rows
-//! verbatim, and `construct` compares every drawn string with its pin before the first frame. The two
-//! shear-alone peaks are not in the registry: `SHEAR_ALONE_PEAKS` copies them from bronze-shear-relative01.
+//! Every shear and teaching number on screen is a pinned fact. The teaching strips are exact fractions
+//! (`four_cell::Q`); the measured rows are computed from `RUNS`, a field-for-field copy of
+//! navier-solver-shear03/comparison.json (sha256 1efa9b22…) that the package check compares with the file.
+//! `PINS` holds cost_oracle01's rows verbatim, and `construct` compares every drawn string with its pin
+//! before the first frame. The two shear-alone peaks are not in the registry: `SHEAR_ALONE_PEAKS` copies
+//! them from bronze-shear-relative01. Nor are the cylinder card's strings: they are `cylinder_pair`'s rows,
+//! written by settled-cylinder-film01/prepare.py from the guarded four-second Re 20 pair (data01.json).
+//! `cylinder_card` refuses them unless the gap exceeds its limit, and a test checks them against each other
+//! and against the spoken 16_7.
 //!
 //! Voice: the kit narrator, as in chapters 07 to 10. Each cue is `say`d before its pictures, and pictures
 //! wait on its sentence starts (`until`). The hold follows chapter 08's: the card is up by the line's last
@@ -30,6 +37,7 @@ use fmn::animation::{grow_arrow, indicate};
 use fmn::prelude::*;
 
 use super::chapter08::PREDICTION_SECONDS;
+use super::cylinder_pair;
 use crate::box_view::{self, p};
 use crate::error;
 use crate::four_cell::Q;
@@ -868,15 +876,23 @@ const TARGET_AT: [f64; 2] = [-3.45, -1.0];
 const TARGET_W: f64 = 6.6;
 const TARGET_H: f64 = 0.9;
 const GROUP_Y: f64 = 2.6;
+/// The heading over the run cards: how much of the cylinder comparison has run, the pair 16_7's card shows.
+/// It claims no three-grid comparison; the cards are the fair design.
+const CYLINDER_HEADING: &str = "the cylinder comparison: one fixed/adaptive pair run so far";
 /// 16_6's side panel: the shear run's matched settings, then its declared target, one line every `SIDE_GAP`.
 const MATCHED_TOP: f64 = 2.6;
 const DECLARED_TOP: f64 = 1.0;
 const SIDE_GAP: f64 = 0.35;
 const SIDE_SIZE: f64 = 19.0;
 
-/// 16_7: the two tables in the side panel, label column at the left, three value columns.
+/// 16_7: the two tables in the side panel, label column at the left, value columns under their heads.
 const TABLE_LEFT: f64 = 0.55;
 const TABLE_COLUMNS: [f64; 3] = [3.2, 4.65, 6.1];
+const SHEAR_HEADS: [&str; 3] = ["coarse", "fine", "adaptive"];
+/// The cylinder card's two runs: the fixed grid under the shear table's fine column, the adaptive one just
+/// left of the shear's adaptive column, so that its head ("Adaptive up to L10", about 1.47 wide at
+/// `TABLE_SIZE` in CMR10 advances) ends about 0.12 inside the frame, as the row labels start 0.1 inside it.
+const CYLINDER_COLUMNS: [f64; 2] = [4.65, 6.05];
 const TABLE_FRAME: [f64; 2] = [0.45, 6.9];
 const ROW_GAP: f64 = 0.32;
 const SHEAR_TITLE_Y: f64 = 3.6;
@@ -894,8 +910,16 @@ const ROW_LABELS: [&str; 7] = [
     "pressure share",
     "regrid kick",
 ];
-/// The rows each sentence of 16_7 names: 1 (error, cells, steps), 2 (clock, memory, pressure), 3 (kick).
-const ROWS_BY_SENTENCE: [(usize, std::ops::Range<usize>); 3] = [(1, 0..3), (2, 3..6), (3, 6..7)];
+/// The cylinder card's rows (in `cylinder_pair::rows` order) that each sentence of 16_7 fills. Sentence 1
+/// says both drags settled and differed by over twelve times the limit: the mean drags, then the gap, red.
+/// Sentence 2 says the adaptive run made far fewer fluid-cell updates and finished sooner: the costs, with
+/// the equal step counts and the volume check. Sentence 3 says a grid must still pass the drag test: the
+/// outcome, red, in the card's title band.
+const CYLINDER_BY_SENTENCE: [(usize, &[usize]); 2] = [(1, &[0, 6]), (2, &[1, 2, 3, 4, 5])];
+const OUTCOME_SENTENCE: usize = 3;
+/// The rows the gap's colour and the outcome rely on: where they stand and what they measure.
+const DRAG_ROW: (usize, &str) = (0, "Mean drag");
+const GAP_ROW: (usize, &str) = (6, "Drag gap");
 
 /// 16_8: the standard test's channel at the bottom of the 2.2 square, 4.2 scene units a side.
 const SQUARE_LEFT: f64 = -5.6;
@@ -1247,6 +1271,7 @@ impl SceneConstruct for Chapter16 {
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         // Every refusal comes before the first frame.
         let replay = super::shear_display::retained()?;
+        let cylinder = cylinder_card().map_err(error)?;
         let shown = facts().map_err(error)?;
         let film = super::facts().map_err(error)?;
         let budget = |key: &str| {
@@ -1659,13 +1684,7 @@ impl SceneConstruct for Chapter16 {
         // ---------------------------------------------------------------- 16_6 a fair comparison
         s.say(stage, "16_6")?;
         s.clear_except(stage, &[], 0.5)?;
-        let group = s.text(
-            stage,
-            "the cylinder comparison, still to run",
-            20.0,
-            dim,
-            p(-3.45, GROUP_Y),
-        )?;
+        let group = s.text(stage, CYLINDER_HEADING, 20.0, dim, p(-3.45, GROUP_Y))?;
         s.appear(stage, &[group], 0.5)?;
         s.until(stage, "16_6", 1)?;
         let mut run_cards = Vec::new();
@@ -1747,20 +1766,35 @@ impl SceneConstruct for Chapter16 {
 
         // ---------------------------------------------------- 16_7 the saved fields and their measurements
         s.say(stage, "16_7")?;
+        let line_at = stage.scene().time().to_f64();
         s.clear_except(stage, &[], 0.4)?;
         s.play(stage)?;
+        // The first sentence names both: the shear test above, measured, and the cylinder runs below, "?".
         let target = fact("shear.target")?;
-        let mut row_names: Vec<String> = ROW_LABELS.iter().map(|label| label.replace("{}", &target)).collect();
-        let shear_values = shear_table(&fact)?;
-        let shear_table = table(&s, stage, SHEAR_TITLE_Y, "periodic shear: measured", &row_names)?;
-        row_names[0] = "error target pending".to_owned();
-        let cylinder_table = table(
-            &s,
-            stage,
-            CYLINDER_TITLE_Y,
-            "cylinder: matched comparison pending",
-            &row_names,
-        )?;
+        let shear_rows: Vec<Row> = ROW_LABELS
+            .iter()
+            .zip(shear_table(&fact)?)
+            .map(|(label, cells)| Row {
+                label: (label.replace("{}", &target), ink),
+                cells: cells
+                    .into_iter()
+                    .map(|(words, misses)| (words, if misses { red } else { ink }))
+                    .collect(),
+            })
+            .collect();
+        let shear_heads: Vec<(f64, &str)> = TABLE_COLUMNS.into_iter().zip(SHEAR_HEADS).collect();
+        let shear_title = (SHEAR_TITLE_Y, "periodic shear: measured");
+        let shear_table = table(&s, stage, shear_title, &shear_heads, &shear_rows)?;
+        let cylinder_rows: Vec<Row> = cylinder
+            .iter()
+            .map(|row| Row {
+                label: (row[0].to_owned(), Palette::faint()),
+                cells: vec![("?".to_owned(), dim); CYLINDER_COLUMNS.len()],
+            })
+            .collect();
+        let cylinder_heads: Vec<(f64, &str)> = CYLINDER_COLUMNS.into_iter().zip(cylinder_pair::COLUMNS).collect();
+        let cylinder_title = (CYLINDER_TITLE_Y, cylinder_pair::TITLE);
+        let cylinder_table = table(&s, stage, cylinder_title, &cylinder_heads, &cylinder_rows)?;
         let mut tables = [shear_table, cylinder_table];
         for t in &tables {
             s.appear(stage, &t.frame, 0.5)?;
@@ -1769,29 +1803,42 @@ impl SceneConstruct for Chapter16 {
             }
         }
         s.play(stage)?;
-        // At 30 and 60 fps each of the 17 saved observations holds for 11/30 seconds.
-        // This shows the same physical times before the second spoken sentence.
+        // Each of the 17 saved observations holds for 21 frames at 60 fps.
+        // Leave time for the drag rows to appear at the second sentence.
         let replay_clock = super::shear_display::ShearClock {
-            dwell: 0.36,
+            dwell: 0.35,
             ..super::shear_display::ShearClock::DEFAULT
         };
         let shear = super::shear_display::play(&self.kit, stage, replay, replay_clock)?;
-        for (sentence, range) in ROWS_BY_SENTENCE {
+        // The drag rows wait for the replay as well as for their sentence: the render log shows both times.
+        if let Some(due) = self.kit.sentence_starts("16_7").get(1) {
+            println!(
+                "Chapter 16 16_7 replay ends at {:.6} s, sentence 1 starts at {:.6} s",
+                stage.scene().time().to_f64(),
+                line_at + due
+            );
+        }
+        for (sentence, rows) in CYLINDER_BY_SENTENCE {
             s.until(stage, "16_7", sentence)?;
-            for r in range {
-                for t in &tables {
-                    s.refill(stage, t.labels[r], ink, 0.4)?;
-                }
-                for (c, (words, misses)) in shear_values[r].iter().enumerate() {
-                    let color = if *misses { red } else { ink };
-                    let at = p(TABLE_COLUMNS[c], row_y(SHEAR_TITLE_Y, r));
+            for &r in rows {
+                s.refill(stage, tables[1].labels[r], ink, 0.4)?;
+                for (c, words) in cylinder[r][1..].iter().enumerate() {
+                    let color = if (r, c) == (GAP_ROW.0, 0) { red } else { ink };
+                    let at = p(CYLINDER_COLUMNS[c], row_y(CYLINDER_TITLE_Y, r));
                     let value = s.text(stage, words, TABLE_SIZE, color, at)?;
-                    s.cut(stage, &[tables[0].values[r][c]]);
+                    s.cut(stage, &[tables[1].values[r][c]]);
                     s.appear(stage, &[value], 0.4)?;
-                    tables[0].values[r][c] = value;
+                    tables[1].values[r][c] = value;
                 }
             }
         }
+        // The outcome stands in the card's title band, right-aligned as the shear-alone readout is above.
+        s.until(stage, "16_7", OUTCOME_SENTENCE)?;
+        let band = p(SHEAR_ALONE_RIGHT, CYLINDER_TITLE_Y);
+        let outcome = s.text(stage, cylinder_pair::OUTCOME, TABLE_SIZE, red, band)?;
+        stage.move_to(outcome, band, RIGHT);
+        tables[1].frame.push(outcome);
+        s.appear(stage, &[outcome], 0.5)?;
 
         // ---------------------------------------------------------------- 16_8 the box
         s.say(stage, "16_8")?;
@@ -1954,8 +2001,9 @@ impl SceneConstruct for Chapter16 {
             }
         }
         s.until(stage, "16_9", VERDICT_Y.len())?;
-        let open: Vec<Mob> = tables[1].values.iter().flatten().copied().collect();
-        s.pulse(stage, &open, 0.8)?;
+        // "The table will say so": the cylinder card's entries pulse.
+        let entries: Vec<Mob> = tables[1].values.iter().flatten().copied().collect();
+        s.pulse(stage, &entries, 0.8)?;
 
         // ---------------------------------------------------------------- 16_10 the cylinder's shape
         s.say(stage, "16_10")?;
@@ -2014,8 +2062,8 @@ fn row_y(title_y: f64, r: usize) -> f64 {
     title_y - ROW_DROP - ROW_GAP * r as f64
 }
 
-/// One side-panel table: its frame, title and column heads; the row labels (faint until named); and a "?"
-/// in every value cell.
+/// One side-panel table as drawn: its frame (outline, title, column heads, row labels and any title-band
+/// readout), the row labels again, and the value cells row by row.
 struct Table {
     frame: Vec<Mob>,
     labels: Vec<Mob>,
@@ -2030,8 +2078,28 @@ impl Table {
     }
 }
 
-fn table(s: &Ch16<'_>, stage: &mut Stage<'_>, title_y: f64, title: &str, row_names: &[String]) -> fmn::Result<Table> {
-    let bottom = row_y(title_y, row_names.len() - 1) - 0.22;
+/// A table row as first drawn: its label and the label's colour (faint until the row is named), then each
+/// cell's words and colour.
+struct Row {
+    label: (String, Srgb),
+    cells: Vec<(String, Srgb)>,
+}
+
+/// One side-panel table: the title (at its height), the column heads (each at its x) and the rows, each
+/// cell under its head.
+fn table(
+    s: &Ch16<'_>,
+    stage: &mut Stage<'_>,
+    (title_y, title): (f64, &str),
+    heads: &[(f64, &str)],
+    rows: &[Row],
+) -> fmn::Result<Table> {
+    if rows.is_empty() || rows.iter().any(|row| row.cells.len() != heads.len()) {
+        return Err(error(format!(
+            "chapter 16's table {title:?} has a row without one cell per head"
+        )));
+    }
+    let bottom = row_y(title_y, rows.len() - 1) - 0.22;
     let top = title_y + 0.22;
     let outline = plain_rect(
         stage,
@@ -2045,25 +2113,48 @@ fn table(s: &Ch16<'_>, stage: &mut Stage<'_>, title_y: f64, title: &str, row_nam
         outline,
         s.text_left(stage, title, TITLE_SIZE, Palette::ink(), p(TABLE_LEFT, title_y))?,
     ];
-    for (&x, name) in TABLE_COLUMNS.iter().zip(["coarse", "fine", "adaptive"]) {
+    for &(x, name) in heads {
         frame.push(s.text(stage, name, TABLE_SIZE, Palette::dim(), p(x, title_y - HEAD_DROP))?);
     }
     let mut labels = Vec::new();
     let mut values = Vec::new();
-    for (r, name) in row_names.iter().enumerate() {
+    for (r, row) in rows.iter().enumerate() {
         let y = row_y(title_y, r);
-        let label = s.text_left(stage, name, TABLE_SIZE, Palette::faint(), p(TABLE_LEFT, y))?;
+        let (name, color) = &row.label;
+        let label = s.text_left(stage, name, TABLE_SIZE, *color, p(TABLE_LEFT, y))?;
         frame.push(label);
         labels.push(label);
-        let open = if r == 1 { "? / ?" } else { "?" };
         values.push(
-            TABLE_COLUMNS
+            heads
                 .iter()
-                .map(|&x| s.text(stage, open, TABLE_SIZE, Palette::dim(), p(x, y)))
+                .zip(&row.cells)
+                .map(|(&(x, _), (words, color))| s.text(stage, words, TABLE_SIZE, *color, p(x, y)))
                 .collect::<fmn::Result<Vec<Mob>>>()?,
         );
     }
     Ok(Table { frame, labels, values })
+}
+
+/// The cylinder card's rows, refused unless the mean drags and the drag gap stand where the card's
+/// sentences expect them and the gap exceeds its limit: the gap is drawn red and the outcome says the
+/// target was missed.
+fn cylinder_card() -> Result<[[&'static str; 3]; 7], String> {
+    let rows = cylinder_pair::rows()?;
+    for (r, measure) in [DRAG_ROW, GAP_ROW] {
+        if rows[r][0] != measure {
+            return Err(format!("cylinder row {r} is {:?}, not {measure:?}", rows[r][0]));
+        }
+    }
+    let [_, gap, limit] = rows[GAP_ROW.0];
+    let limit = limit
+        .strip_prefix("limit ")
+        .ok_or_else(|| format!("cylinder drag gap has no limit: {limit:?}"))?;
+    if parse_decimal(gap)? <= parse_decimal(limit)? {
+        return Err(format!(
+            "cylinder drag gap {gap} is within its limit {limit}, yet the card says missed"
+        ));
+    }
+    Ok(rows)
 }
 
 /// The measured table's title-band readout: the peak errors against the shear alone, to two decimals.
@@ -2156,6 +2247,50 @@ mod tests {
             assert!((5.03..5.04).contains(&factor), "{factor}");
         }
         assert!((factors[0] - factors[1]).abs() < 0.002);
+    }
+
+    #[test]
+    fn the_cylinder_card_backs_the_spoken_16_7() {
+        let rows = cylinder_card().expect("the cylinder card's rows");
+        let pair = |measure: &str| {
+            rows.iter()
+                .find(|row| row[0] == measure)
+                .map(|row| [row[1], row[2]])
+                .expect("the cylinder card shows it")
+        };
+        // Each row is filled once, by one sentence, before the outcome's.
+        let mut filled: Vec<usize> = CYLINDER_BY_SENTENCE
+            .iter()
+            .flat_map(|(_, r)| r.iter().copied())
+            .collect();
+        filled.sort_unstable();
+        assert_eq!(filled, (0..rows.len()).collect::<Vec<_>>());
+        assert!(
+            CYLINDER_BY_SENTENCE
+                .iter()
+                .all(|&(sentence, _)| sentence < OUTCOME_SENTENCE)
+        );
+        // Sentence 1: the gap shown is the difference of the drags shown, more than twelve times the limit.
+        let drags = pair("Mean drag").map(|v| parse_decimal(v).unwrap());
+        let [gap, limit] = pair("Drag gap");
+        let gap = parse_decimal(gap).unwrap();
+        let limit = parse_decimal(limit.strip_prefix("limit ").unwrap()).unwrap();
+        assert_eq!(drags[0].max(drags[1]) - drags[0].min(drags[1]), gap);
+        assert!(gap > limit * Q::int(12) && gap < limit * Q::int(13));
+        // Sentence 2: about ninety-one percent fewer fluid-cell updates over as many steps, and sooner.
+        let count = |v: &str| v.replace(',', "").parse::<u64>().unwrap();
+        let updates = pair("Fluid-cell updates").map(count);
+        assert_eq!(
+            (100.0 * (1.0 - updates[1] as f64 / updates[0] as f64)).round() as i64,
+            91
+        );
+        let steps = pair("Steps").map(count);
+        assert_eq!(steps[0], steps[1]);
+        let wall = pair("Wall time (s)").map(count);
+        assert!(wall[1] < wall[0]);
+        // 16_6's heading names the card's pair.
+        assert!(cylinder_pair::TITLE.ends_with("one fixed/adaptive pair"));
+        assert!(CYLINDER_HEADING.contains("one fixed/adaptive pair"));
     }
 
     #[test]

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "2a4dd4805787a078e22733430524b21a5dc0ae5d995d66c86db56d494ad68ce0",
+  "script_sha256": "fac0e19dd6a241420acad952551603e58a71ebd4246d2e7f11b65dcb4140c591",
   "units": [
     {
       "id": "frederick_01_1",
@@ -1863,7 +1863,7 @@
       "line_ids": [
         "16_7"
       ],
-      "text": "Here are two tables, the top one measured on a shear flow with no walls, the cylinder's all question marks until its runs are made. First the error in the measured answer, then cells, fluid and total, and time steps. Then time on the clock, memory, and the pressure puzzle's share. And last, the imbalance kick at each change of grid.",
+      "text": "Above is the shear flow with no walls, and below are two runs in the cylinder tunnel at Reynolds number twenty. Both drag readings settled, and the difference was more than twelve times our limit. The adaptive run used about ninety-one percent fewer fluid cell updates and finished sooner. To compare speed at equal accuracy, we still need a grid that passes the drag test.",
       "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
     },
     {
@@ -2175,7 +2175,7 @@
       "line_ids": [
         "20_3"
       ],
-      "text": "And before running, we write down what counts as close enough. Then every entry stays a question mark until our runs fill it, including chapter sixteen's table, adaptive cells against uniform ones. Whatever those runs show, savings or none, goes in.",
+      "text": "And before running, we write down what counts as close enough. Each question mark is a wake measurement we still need. In chapter sixteen's lower-speed cylinder test, the adaptive grid saved work and missed the drag agreement target.",
       "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
     },
     {
@@ -2230,10 +2230,10 @@
   "direction_contract": {
     "schema_version": 1,
     "topic": "navier_stokes_simulation",
-    "script_sha256": "2a4dd4805787a078e22733430524b21a5dc0ae5d995d66c86db56d494ad68ce0",
+    "script_sha256": "fac0e19dd6a241420acad952551603e58a71ebd4246d2e7f11b65dcb4140c591",
     "map": {
-      "path": "explainer_corpus/navier_stokes_simulation/docs/narration-direction-map-review17-03.json",
-      "sha256": "90beb747b85e05b019021432db76acc1c6145cd75e20e48957615b1c7e6f363f"
+      "path": "explainer_corpus/navier_stokes_simulation/docs/narration-direction-map-settled-cylinder01.json",
+      "sha256": "a14d6d7c79e07260331c86f62d2c557a75f606020a4023f4a9dd130efa6059bf"
     }
   }
 }

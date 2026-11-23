@@ -21,6 +21,7 @@ mod chapter15;
 mod chapter16;
 mod chapter20;
 mod closing_wake;
+mod cylinder_pair;
 mod lattice19_01;
 mod ledger13;
 mod rotating_wind01;

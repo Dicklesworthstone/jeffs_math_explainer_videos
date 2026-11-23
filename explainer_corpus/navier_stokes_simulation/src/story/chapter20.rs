@@ -12,6 +12,11 @@
 //! archive. The prediction 20_h1 asks how many swings per second St ≈ 0.3 gives; 20_7 answers
 //! 3.02 per second and ticks a metronome at that rate: a clock, not a flow.
 //!
+//! 20_3 recalls chapter 16's one measured Re 20 pair (`cylinder_pair`, prepare.py's table of the
+//! guarded four-second fixed and adaptive runs): the work each run did, and the gap between their
+//! mean drags against the declared limit. That card is separate from the Re 100 wake table, whose
+//! pending entries and reference column it leaves as they are.
+//!
 //! The tunnel stays a static outline with the prescribed inflow until the closing checklist.
 //! The optional closing replay then shows vorticity from a bound fine-grid simulation. Its bound
 //! fields and the release ledger have separate checks. The slot line 20_v1 is not voiced.
@@ -26,7 +31,7 @@ use fmn::prelude::*;
 
 use crate::wake_ledger::{self, Compare, Ledger, Run};
 
-use super::closing_wake;
+use super::{closing_wake, cylinder_pair};
 
 /// Chapter 20's cues in spoken order and the number of sentences in each (the narrator's gates).
 /// Sentences end at `.`, `?` or `!` before a space, as in the kit; the check recounts them.
@@ -105,18 +110,24 @@ const REFERENCE_LABEL: &str =
 /// The reference column's rows (indices into `wake_ledger::QUANTITIES`): St, drag peak, lift peak, ΔP.
 const REFERENCE_ROWS: [usize; 4] = [0, 1, 4, 9];
 
-/// Chapter 16's table (16_7), every entry "?" (FUTURE-SIM A2).
-const A2_TITLE: &str = "chapter 16's cylinder comparison: uniform against adaptive, at the declared accuracy";
-const A2_COLUMNS: [&str; 3] = ["coarse", "fine", "adaptive"];
-const A2_ROWS: [&str; 7] = [
-    "error in the measured answer",
-    "cells, fluid and total",
-    "time steps",
-    "time on the clock",
-    "memory",
-    "the pressure puzzle's share",
-    "imbalance kick at each change of grid",
-];
+/// 20_3's recap of chapter 16's one measured Re 20 pair. Every number on its card is a cell of
+/// `cylinder_pair::rows()`, found by its row label: the work row and the mean drag row, then the
+/// drag gap against its declared limit, and the verdict.
+const PAIR_WORK: &str = "Fluid-cell updates";
+const PAIR_DRAG: &str = "Mean drag";
+const PAIR_STEPS: &str = "Steps";
+const PAIR_GAP: &str = "Drag gap";
+const PAIR_LIMIT_PREFIX: &str = "limit ";
+/// What the pair's Precisely page adds to its table, from the pair's plan (experiment01.json) and
+/// root's terminal readback (root-terminal01.json): each run's length (`duration` 4); the mean
+/// drag's samples (`stability_samples` [140, 160]: rows 140 to 159, `observation_window_s` 3.5 to
+/// 3.975); the settling rule (`stability_half_difference`: the window's two half means differ by
+/// less than this; `settled` for both arms); and the interval both means lie in
+/// (`reference_drag_range`, ST96's 2D-1 drag bounds 5.5700 and 5.5900; `in_band` for both arms).
+const PAIR_RUN: &str = "4 s";
+const PAIR_SAMPLES: &str = "20 samples at t = 3.5–3.975 s";
+const PAIR_SETTLE: &str = "0.001";
+const PAIR_RANGE: &str = "5.57–5.59";
 
 /// 20_5's number line.
 const LIFT_AXIS: &str = "lift peak";
@@ -124,7 +135,8 @@ const BAND_LABEL: &str = "1996: estimated interval";
 const DOT_LABEL: &str = "2014: later reference data";
 
 /// The Precisely lower thirds, each the full script's text split into lines. 20_2's runs over four
-/// pages (20_2 sentences 1 and 3, then 20_3 sentences 0 and 1). On screen, the page text's
+/// pages (20_2 sentences 1 and 3, then 20_3 sentences 0 and 1); 20_3 sentence 2 has its own page,
+/// built with the pair's card (`pair_text`). On screen, the page text's
 /// `$t_0$` and `$C_L$` are written t₀ and C_L. Two places differ from the script's wording: page A
 /// names Schaefer and Turek (1996) before the first ST96, and 20_4 points to chapter 17, not its cue.
 const PRECISELY_20_2A: [&str; 2] = [
@@ -309,6 +321,78 @@ pub fn labels() -> Labels {
             g6(mean_inflow())
         ),
     }
+}
+
+/// What 20_3's pair card and its Precisely page say, all taken from `cylinder_pair`.
+#[derive(Clone, Debug, PartialEq, Eq)]
+struct PairText {
+    /// [label, fixed, adaptive]: the work row, then the mean drag row.
+    rows: [[&'static str; 3]; 2],
+    /// The gap and its declared limit, as one line.
+    gap: String,
+    precisely: [String; 4],
+}
+
+/// 20_3's words for the measured pair. A table whose card would say something false is refused:
+/// the card says the drag target was missed, so the gap must exceed its limit; 20_3 says adaptation
+/// saved work, so the adaptive run must have fewer fluid-cell updates; and the printed gap must be
+/// the difference of the printed mean drags.
+fn pair_text() -> Result<PairText, String> {
+    let table = cylinder_pair::rows()?;
+    let row = |label: &str| {
+        table
+            .iter()
+            .copied()
+            .find(|r| r[0] == label)
+            .ok_or_else(|| format!("the cylinder pair has no {label:?} row"))
+    };
+    let number = |s: &str| {
+        s.replace(',', "")
+            .parse::<f64>()
+            .map_err(|e| format!("the cylinder pair's {s:?} is not a number: {e}"))
+    };
+    let (work, drag, steps, [_, gap, limit]) = (row(PAIR_WORK)?, row(PAIR_DRAG)?, row(PAIR_STEPS)?, row(PAIR_GAP)?);
+    let limit = limit
+        .strip_prefix(PAIR_LIMIT_PREFIX)
+        .ok_or_else(|| format!("the drag gap's limit reads {limit:?}"))?;
+    if steps[1] != steps[2] {
+        return Err(format!("the pair's runs took {} and {} steps", steps[1], steps[2]));
+    }
+    if number(gap)? <= number(limit)? {
+        return Err(format!("drag gap {gap} does not exceed its limit {limit}"));
+    }
+    if number(work[2])? >= number(work[1])? {
+        return Err("the adaptive run did not use fewer fluid-cell updates".to_owned());
+    }
+    // Five decimals each: the printed gap is within rounding of the printed means' difference.
+    if ((number(drag[2])? - number(drag[1])?).abs() - number(gap)?).abs() > 1.5e-5 {
+        return Err(format!(
+            "drag gap {gap} is not the difference of {} and {}",
+            drag[1], drag[2]
+        ));
+    }
+    Ok(PairText {
+        rows: [work, drag],
+        gap: format!("{PAIR_GAP}: {gap}, limit {limit}"),
+        precisely: [
+            format!(
+                "Chapter 16's Re 20 pair: a fixed and an adaptive run from the same level-10 start, \
+                 {PAIR_RUN} and {} steps each.",
+                steps[1]
+            ),
+            format!(
+                "Mean drag: the mean of {PAIR_SAMPLES}. Each run settled: its window's two half \
+                 means differ by less than {PAIR_SETTLE}."
+            ),
+            format!(
+                "Both means lie in ST96's published interval, {PAIR_RANGE}. Declared limit: the two \
+                 means agree within {limit}; the gap, {gap}, misses it."
+            ),
+            "So this pair makes no claim of speed at equal accuracy. Work = fluid cells updated, \
+             summed over all steps."
+                .to_owned(),
+        ],
+    })
 }
 
 /// The chapter's fact table (the render log prints it).
@@ -500,6 +584,15 @@ const LOWER_Y: [f64; 4] = [-2.98, -3.31, -3.64, -3.97];
 /// 20_3, 20_5 to 20_7: a card over the run and close-enough columns (their cells fade out under it).
 const OVERLAY_AT: [f64; 2] = [0.6, -0.35];
 const OVERLAY_SIZE: [f64; 2] = [8.6, 3.0];
+/// 20_3's pair card on the overlay: the left edge of its row labels, the two run columns, and the
+/// heights of the title, column heads, the two rows, the gap line and the verdict.
+const PAIR_LABEL_X: f64 = -3.35;
+const PAIR_X: [f64; 2] = [1.2, 3.6];
+const PAIR_TITLE_Y: f64 = 0.8;
+const PAIR_HEAD_Y: f64 = 0.4;
+const PAIR_ROW_Y: [f64; 2] = [0.02, -0.36];
+const PAIR_GAP_Y: f64 = -0.8;
+const PAIR_VERDICT_Y: f64 = -1.32;
 /// 20_5's number line: lift peak 0.98 to 1.02 across AXIS_X, at AXIS_Y.
 const AXIS_TICKS: [f64; 5] = [0.98, 0.99, 1.0, 1.01, 1.02];
 const AXIS_X: [f64; 2] = [-2.9, 4.1];
@@ -932,7 +1025,7 @@ impl Ch20<'_> {
     }
 
     /// The table, built detached: our entries from the ledger ("?" where pending), the declared
-    /// tolerances ("?" until root declares them), and the reference column.
+    /// tolerances ("unset" until declared), and the reference column.
     fn table(&self, stage: &mut Stage<'_>, ledger: &Ledger, l: &Labels) -> fmn::Result<Table> {
         let (ink, dim) = (Palette::ink(), Palette::dim());
         let grid3_pilot = matches!(
@@ -986,7 +1079,7 @@ impl Ch20<'_> {
         for &(_, q) in &wake_ledger::TOLERANCES {
             let words = ledger
                 .close_enough(q)
-                .map_or_else(|| PENDING.to_owned(), wake_ledger::shown_tolerance);
+                .map_or_else(|| "unset".to_owned(), wake_ledger::shown_tolerance);
             tolerances.push(self.text(stage, &words, 18.0, ink, [COLUMN_X[CLOSE], row_y(q)])?);
         }
         let grey = reference_grey();
@@ -1014,26 +1107,36 @@ impl Ch20<'_> {
         })
     }
 
-    /// Chapter 16's table (16_7) on the overlay card, every entry "?".
-    fn a2_table(&self, stage: &mut Stage<'_>) -> fmn::Result<(Vec<Mob>, Vec<Mob>)> {
+    /// 20_3's card over the run and close-enough columns: chapter 16's measured Re 20 pair, its
+    /// work and mean drag rows, then the gap against the declared limit and the verdict. Returns
+    /// the whole card and the verdict's two lines (pulsed once the line has ended).
+    fn pair_card(&self, stage: &mut Stage<'_>, pair: &PairText) -> fmn::Result<(Vec<Mob>, Vec<Mob>)> {
         let (ink, dim) = (Palette::ink(), Palette::dim());
-        let mut frame = vec![
+        let mut card = vec![
             rounded(stage, OVERLAY_AT, OVERLAY_SIZE, (card_fill(), 1.0), (dim, 1.4))?,
-            self.text(stage, A2_TITLE, 19.0, ink, [OVERLAY_AT[0], 0.85])?,
+            self.text(stage, cylinder_pair::TITLE, 20.0, ink, [OVERLAY_AT[0], PAIR_TITLE_Y])?,
         ];
-        let xs = [1.9, 3.0, 4.1];
-        for (x, words) in xs.iter().zip(A2_COLUMNS) {
-            frame.push(self.text(stage, words, 17.0, ink, [*x, 0.5])?);
+        for (x, words) in PAIR_X.iter().zip(cylinder_pair::COLUMNS) {
+            card.push(self.text(stage, words, 17.0, dim, [*x, PAIR_HEAD_Y])?);
         }
-        let mut marks = Vec::new();
-        for (i, words) in A2_ROWS.iter().enumerate() {
-            let y = 0.18 - 0.27 * i as f64;
-            frame.push(self.text_left(stage, words, 16.0, dim, [-3.35, y])?);
-            for x in xs {
-                marks.push(self.text(stage, PENDING, 17.0, ink, [x, y])?);
+        for (row, y) in pair.rows.iter().zip(PAIR_ROW_Y) {
+            card.push(self.text_left(stage, row[0], 18.0, dim, [PAIR_LABEL_X, y])?);
+            for (x, words) in PAIR_X.iter().zip(&row[1..]) {
+                card.push(self.text(stage, words, 20.0, ink, [*x, y])?);
             }
         }
-        Ok((frame, marks))
+        let verdict = vec![
+            self.text(stage, &pair.gap, 20.0, ink, [OVERLAY_AT[0], PAIR_GAP_Y])?,
+            self.text(
+                stage,
+                cylinder_pair::OUTCOME,
+                24.0,
+                Palette::red(),
+                [OVERLAY_AT[0], PAIR_VERDICT_Y],
+            )?,
+        ];
+        card.extend(&verdict);
+        Ok((card, verdict))
     }
 
     /// HOLD 20_h1: the line ends plus a breath (`kit.hold`); a marked five-second countdown. The
@@ -1155,6 +1258,9 @@ impl SceneConstruct for Chapter20 {
             println!("Chapter 20 fact {fact}");
         }
         log_ledger(&self.ledger);
+        // 20_3's pair card is refused here too, before the first frame, if its table would make it false.
+        let pair = pair_text().map_err(fail)?;
+        println!("Chapter 20 pair (20_3): {}; {}", pair.gap, cylinder_pair::OUTCOME);
         let ledger = &self.ledger;
         let l = labels();
         let (ink, dim, hero) = (Palette::ink(), Palette::dim(), Palette::hero());
@@ -1244,7 +1350,10 @@ impl SceneConstruct for Chapter20 {
             t.pending(ledger).len()
         );
 
-        // 20_3: close enough is declared first; chapter 16's table slides in, every entry "?".
+        // 20_3: close enough is declared first. Sentence 1 names the question marks, so the wake
+        // table's pending entries are pulsed. Sentence 2 recalls chapter 16's measured Re 20 pair: it
+        // takes the overlay card, with its own Precisely page, and its verdict is pulsed once the
+        // line has ended.
         s.say(stage, "20_3")?;
         s.appear(stage, &t.target, FADE)?;
         s.appear(stage, &t.tolerances, FADE)?;
@@ -1257,18 +1366,20 @@ impl SceneConstruct for Chapter20 {
         let waiting = t.pending(ledger);
         s.pulse(stage, &waiting, None)?;
         s.play(stage)?;
-        let (a2, a2_marks) = s.a2_table(stage)?;
-        s.vanish(stage, &t.covered(), FADE)?;
-        s.appear(stage, &a2, FADE)?;
-        s.appear(stage, &a2_marks, FADE)?;
         let page_d = s.lower(stage, &PRECISELY_20_2D, 0)?;
         s.swap(stage, &page_c, &page_d)?;
         s.until(stage, "20_3", 2)?;
-        s.pulse(stage, &a2_marks, None)?;
+        let (card, verdict) = s.pair_card(stage, &pair)?;
+        let lines: Vec<&str> = pair.precisely.iter().map(String::as_str).collect();
+        let page_pair = s.lower(stage, &lines, 0)?;
+        s.vanish(stage, &t.covered(), FADE)?;
+        s.appear(stage, &card, FADE)?;
+        s.swap(stage, &page_d, &page_pair)?;
         s.hold(stage)?;
-        s.vanish(stage, &a2, FADE)?;
-        s.vanish(stage, &a2_marks, FADE)?;
-        s.vanish(stage, &page_d, FADE)?;
+        s.pulse(stage, &verdict, None)?;
+        s.play(stage)?;
+        s.vanish(stage, &card, FADE)?;
+        s.vanish(stage, &page_pair, FADE)?;
         s.appear(stage, &t.covered(), FADE)?;
 
         // 20_4: the reference column fills, grey and labelled as another program's calculations.
@@ -1561,5 +1672,73 @@ mod tests {
                 "a lower-third line is too wide"
             );
         }
+    }
+
+    #[test]
+    fn the_recap_is_the_measured_pair() {
+        // data01.json: fluid_cell_updates 233467864 and 21391981, mean_drag 5.572182885855106 and
+        // 5.584474360710965, steps 1631 each, drag_gap 0.012291474855858908, drag_limit 0.001.
+        let pair = pair_text().expect("the pair's table makes a true card");
+        assert_eq!(pair.rows[0], ["Fluid-cell updates", "233,467,864", "21,391,981"]);
+        assert_eq!(pair.rows[1], ["Mean drag", "5.57218", "5.58447"]);
+        assert_eq!(pair.gap, "Drag gap: 0.01229, limit 0.001");
+        assert_eq!(cylinder_pair::OUTCOME, "Drag agreement target missed");
+        assert_eq!(cylinder_pair::COLUMNS, ["Fixed L10", "Adaptive up to L10"]);
+        assert!(pair.precisely[0].contains("4 s and 1,631 steps each"));
+        assert!(pair.precisely[1].contains("mean of 20 samples at t = 3.5–3.975 s"));
+        assert!(pair.precisely[2].contains("5.57–5.59"));
+        assert!(pair.precisely[2].contains("within 0.001; the gap, 0.01229, misses it"));
+        // Nothing of the old card's question marks is left in 20_3's words.
+        assert!(pair.precisely.iter().all(|w| !w.contains('?')));
+    }
+
+    #[test]
+    fn the_pair_card_keeps_its_parts_apart() {
+        let pair = pair_text().expect("the pair's table makes a true card");
+        let left = OVERLAY_AT[0] - OVERLAY_SIZE[0] / 2.0;
+        let right = OVERLAY_AT[0] + OVERLAY_SIZE[0] / 2.0;
+        let top = OVERLAY_AT[1] + OVERLAY_SIZE[1] / 2.0;
+        let bottom = OVERLAY_AT[1] - OVERLAY_SIZE[1] / 2.0;
+        // Each run column's widest entry, and the row labels' end, stay apart and inside the card.
+        let column = |i: usize| {
+            let widest = pair
+                .rows
+                .iter()
+                .map(|r| text_width(r[i + 1], 20.0))
+                .fold(text_width(cylinder_pair::COLUMNS[i], 17.0), f64::max);
+            [PAIR_X[i] - widest / 2.0, PAIR_X[i] + widest / 2.0]
+        };
+        let labels_end = pair
+            .rows
+            .iter()
+            .map(|r| PAIR_LABEL_X + text_width(r[0], 18.0))
+            .fold(f64::MIN, f64::max);
+        let [fixed, adaptive] = [column(0), column(1)];
+        assert!(left + 0.2 < PAIR_LABEL_X && labels_end + 0.3 < fixed[0]);
+        assert!(fixed[1] + 0.3 < adaptive[0] && adaptive[1] + 0.2 < right);
+        // The title, the gap line and the verdict fit across the card.
+        let centred = |words: &str, size: f64| OVERLAY_AT[0] - text_width(words, size) / 2.0;
+        for (words, size, x0) in [
+            (cylinder_pair::TITLE, 20.0, centred(cylinder_pair::TITLE, 20.0)),
+            (pair.gap.as_str(), 20.0, centred(&pair.gap, 20.0)),
+            (cylinder_pair::OUTCOME, 24.0, centred(cylinder_pair::OUTCOME, 24.0)),
+        ] {
+            let end = x0 + text_width(words, size);
+            assert!(left + 0.2 < x0 && end + 0.2 < right, "{words} leaves the card");
+        }
+        // Rows from the title down, each line clear of the next, all inside the card.
+        let ys = [
+            PAIR_TITLE_Y,
+            PAIR_HEAD_Y,
+            PAIR_ROW_Y[0],
+            PAIR_ROW_Y[1],
+            PAIR_GAP_Y,
+            PAIR_VERDICT_Y,
+        ];
+        assert!(ys.windows(2).all(|w| w[0] - w[1] >= 0.36));
+        assert!(PAIR_TITLE_Y + 0.15 < top && PAIR_VERDICT_Y - 0.2 > bottom);
+        // Its Precisely page fits the lower third's safe width and its first three lines.
+        assert!(pair.precisely.iter().all(|w| text_width(w, 17.0) < 14.2));
+        assert!(pair.precisely.len() <= LOWER_Y.len());
     }
 }

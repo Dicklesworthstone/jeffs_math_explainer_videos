@@ -5,6 +5,12 @@
 //! continuum forms. Every number on screen is computed by `four_cell::BoxFacts` and checked by
 //! `BoxFacts::check` before the first frame. Nothing here is typed.
 //!
+//! One picture is measured: during 09_12's third sentence an inset under the question card shows one
+//! real pressure step of a separate run (the Re 100 wake, not the tunnel flow the film draws), at the
+//! only two logged cells whose four neighbours are logged and fully wet. Its numbers are rebuilt from
+//! the retained rows embedded below (`measured`), checked against the solver's own tunnel-wide
+//! residual for that step and pinned in `register`, all before the first frame.
+//!
 //! The scene opens on the chapter 08 end state (08_7, 08_8), rebuilt at t = 0 from `box_view`, the
 //! module chapter 08 draws that state with: corrected arrows (1/4, −1/4, −1/4, 1/4) circulating
 //! counterclockwise with their labels beside the faces, green 0 badges, the four step cards with
@@ -136,7 +142,233 @@ pub fn register(facts: &mut Facts) -> Result<(), String> {
     for ((key, value), (_, expected, source)) in rows.iter().zip(PINS) {
         facts.pin(key, value, expected, source)?;
     }
+    let measured = measured()?;
+    for ((key, expected), value) in MEASURED_PINS.iter().zip(measured.printed()) {
+        facts.pin(key, value, expected, MEASURED_SOURCE)?;
+    }
     Ok(())
+}
+
+// ------------------------------------------------------------------------------ the measured step
+
+/// The run 09_12's inset reads: navier-solver-wake-bsplit02, case wake08-dense-first2s
+/// (settings.json d9a6a1f4): the Re 100 wake on a fixed level-8 grid, dt 0.0025 s, in the tunnel
+/// shape `field::Frame::load` accepts (tunnel.c:13–14). Its stage hooks (tunnel.c:473–477, :598–619)
+/// log u at 32 cells when the projection starts (stage 2) and u, p at the step's end (stage 3). It is
+/// not the Re 20 run whose snapshots the film's tunnel pictures draw.
+const MEASURED_SOURCE: &str = "navier-solver-wake-bsplit02/wake08-dense-first2s: bsplit-steps02.csv a4accf41 line 848, \
+    bsplit-cells02.csv ed9b8068 lines 108354-108412 (verify_inset01.py rebuild)";
+const MEASURED_STEPS_SHA256: &str = "a4accf41ddd5747a6c0bd095146a19239ed0c5f2e3e4de2535d30a96dc2d41ed";
+const MEASURED_CELLS_SHA256: &str = "ed9b8068a116ca935470befdfb57b09216855d55c80e8ca06b25f1c976c9580c";
+
+/// bsplit-steps02.csv line 848 as printed: i, t, dt, complete, mgpf_i, mgpf_resb, mgpf_resa, mgu_i,
+/// mgu_resb, mgu_resa, mgp_i, mgp_resb, mgp_resa. mgp is the projection's multigrid solve: mgp_i its
+/// rounds, mgp_resa its largest residual over the whole tunnel after the last round.
+const MEASURED_STEP_ROW: (usize, &str) = (
+    848,
+    "846,1.9974999999984766,0.0024999999999999979,1,16,37585.679832086971,0.00054572619414372525,5,\
+     0.081669483011207925,2.1040654071477483e-10,12,380.55690643340495,0.00014785748617818228",
+);
+
+/// bsplit-cells02.csv rows of that step as printed (i, stage, n, I, J, u.x, u.y, p): the two drawn
+/// cells (17,13), (18,13) and their six neighbours, all fully wet (bsplit-index02.csv cs = 1), at
+/// stage 2 and stage 3, at the file lines `MEASURED_CELL_LINES` gives.
+const MEASURED_CELL_ROWS: [&str; 16] = [
+    "846,2,0,17,12,1.7196768854917923,-0.68643400888097617,-0.052438195191538174",
+    "846,2,1,17,13,1.744033401532967,-0.82764797749886221,-0.18258688271993445",
+    "846,2,2,17,14,1.6707399605617068,-0.96052411922052416,-0.32787987346226027",
+    "846,2,10,18,12,1.8461212870974517,-0.67134452357261898,-0.21278066011125935",
+    "846,2,11,18,13,1.8742666941764288,-0.79279524663124723,-0.44119769663120589",
+    "846,2,12,18,14,1.7094650699166076,-0.78449869892161506,-0.59479682818809831",
+    "846,2,20,16,13,1.6056409650637276,-0.79203166294569405,0.081699508252773001",
+    "846,2,26,19,13,1.9556114329248626,-0.6639754078608352,-0.57719695347012823",
+    "846,3,0,17,12,1.7616446113270061,-0.65818209716682097,-0.055128596350102664",
+    "846,3,1,17,13,1.8102078020488999,-0.793733984372056,-0.18380768062886343",
+    "846,3,2,17,14,1.752920382107545,-0.90702889836633938,-0.32644054136455258",
+    "846,3,10,18,12,1.879750505465547,-0.62371005367474863,-0.21831158055739919",
+    "846,3,11,18,13,1.9247011339147553,-0.74486907530251789,-0.44699277906734669",
+    "846,3,12,18,14,1.761855401394796,-0.71875972332263161,-0.60172095118723401",
+    "846,3,20,16,13,1.6640706324441741,-0.78431818732758896,0.08240242506011608",
+    "846,3,26,19,13,1.9652415569295361,-0.611300301623936,-0.58728319853547584",
+];
+const MEASURED_CELL_LINES: [usize; 16] = [
+    108354, 108355, 108356, 108364, 108365, 108366, 108374, 108380, 108386, 108387, 108388, 108396, 108397, 108398,
+    108406, 108412,
+];
+
+/// The two cells the inset draws, left to right, as (I, J) on the level-8 grid.
+const MEASURED_CELLS: [[i32; 2]; 2] = [[17, 13], [18, 13]];
+/// The level-8 cell side, m: the 2.56 m root square (tunnel.c:13) over 2⁸ (settings.json level 8,
+/// tunnel.c:523 `L0/(1 << max_level)`); the root square's corner is the origin (tunnel.c:198).
+const MEASURED_DELTA: f64 = 2.56 / 256.0;
+/// The run's stop rule as its command line prints it (settings.json argv[6], read into TOLERANCE at
+/// tunnel.c:186): the projection's solve stops once its largest residual is below `TOLERANCE/sq(dt)`
+/// (poisson.h:514), that is once residual × dt² is below it; tunnel.c:301 audits the same bound.
+const MEASURED_TOLERANCE: &str = "1e-09";
+/// The wake's inflow peak, the cylinder's diameter and the viscosity as tunnel.c prints them (:182,
+/// :14). The mean inflow is 2/3 of the peak (tunnel.c:114), so Re = 2 umax D / (3 ν).
+const MEASURED_FLOW: [&str; 3] = ["1.5", "0.1", "0.001"];
+
+/// The inset's printed values (`Measured::printed`, in this order) and the literals they must equal,
+/// from verify_inset01.py's independent rebuild over the retained files.
+const MEASURED_PINS: [(&str, &str); 9] = [
+    ("measured09.step", "846"),
+    ("measured09.reynolds", "100"),
+    ("measured09.cell.cm", "1"),
+    ("measured09.t.s", "2.0"),
+    ("measured09.rounds", "12"),
+    ("measured09.before", "-6.8 \\times 10^{-4}, +1.2 \\times 10^{-2}"),
+    ("measured09.after", "+4.2 \\times 10^{-10}, +4.2 \\times 10^{-10}"),
+    ("measured09.leftover", "9.2 \\times 10^{-10}"),
+    ("measured09.stop", "10^{-9}"),
+];
+
+/// The measured step, rebuilt from the embedded rows.
+#[derive(Clone, Debug)]
+struct Measured {
+    step: i32,
+    t: f64,
+    rounds: i32,
+    /// The solver's largest residual over the whole tunnel after its last round, × dt²: in the same
+    /// units as `before` and `after` (mgp_resa · dt²).
+    leftover: f64,
+    tolerance: f64,
+    reynolds: f64,
+    /// Each drawn cell's net outflow in one step as a share of its volume (the box's sign: out is
+    /// positive), from u* when the projection starts and from u_new after it.
+    before: [f64; 2],
+    after: [f64; 2],
+}
+
+/// Rebuild the drawn cells' balances from the embedded rows, as witness01.py rebuilt them for all
+/// 847 logged steps. On a face between full cells a (low side) and b: u* = (u_a + u_b)/2 (embed.h
+/// `cs_avg`), push = −dt (p_b − p_a)/Δ (poisson.h, alpha = fm = 1) and u_new = u* + push; a cell's
+/// balance is dt/Δ (u_E − u_W + v_N − v_S).
+fn measured() -> Result<Measured, String> {
+    let number = |s: &str| s.parse::<f64>().map_err(|e| format!("measured step: {s:?} ({e})"));
+    let whole = |s: &str| s.parse::<i32>().map_err(|e| format!("measured step: {s:?} ({e})"));
+    let (line, row) = MEASURED_STEP_ROW;
+    let f: Vec<&str> = row.split(',').collect();
+    if f.len() != 13 || f[3] != "1" {
+        return Err(format!(
+            "bsplit-steps02.csv line {line}: not a complete step row: {row}"
+        ));
+    }
+    let step = whole(f[0])?;
+    let (t, dt, rounds, resa) = (number(f[1])?, number(f[2])?, whole(f[10])?, number(f[12])?);
+    let mut logged: Vec<(i32, [i32; 2], [f64; 3])> = Vec::with_capacity(MEASURED_CELL_ROWS.len());
+    for (line, row) in MEASURED_CELL_LINES.into_iter().zip(MEASURED_CELL_ROWS) {
+        let f: Vec<&str> = row.split(',').collect();
+        if f.len() != 8 || whole(f[0])? != step {
+            return Err(format!(
+                "bsplit-cells02.csv line {line}: not a row of step {step}: {row}"
+            ));
+        }
+        let (stage, cell) = (whole(f[1])?, [whole(f[3])?, whole(f[4])?]);
+        if logged.iter().any(|&(s, c, _)| s == stage && c == cell) {
+            return Err(format!(
+                "bsplit-cells02.csv line {line}: stage {stage} cell {cell:?} twice"
+            ));
+        }
+        logged.push((stage, cell, [number(f[5])?, number(f[6])?, number(f[7])?]));
+    }
+    let at = |stage: i32, cell: [i32; 2]| -> Result<[f64; 3], String> {
+        logged
+            .iter()
+            .find(|&&(s, c, _)| s == stage && c == cell)
+            .map(|&(_, _, v)| v)
+            .ok_or_else(|| format!("measured step {step}: no stage {stage} row for cell {cell:?}"))
+    };
+    let face = |a: [i32; 2], b: [i32; 2], axis: usize| -> Result<[f64; 2], String> {
+        let u_star = (at(2, a)?[axis] + at(2, b)?[axis]) / 2.0;
+        let push = -dt * (at(3, b)?[2] - at(3, a)?[2]) / MEASURED_DELTA;
+        Ok([u_star, u_star + push])
+    };
+    let mut before = [0.0; 2];
+    let mut after = [0.0; 2];
+    for (k, &[i, j]) in MEASURED_CELLS.iter().enumerate() {
+        let west = face([i - 1, j], [i, j], 0)?;
+        let east = face([i, j], [i + 1, j], 0)?;
+        let south = face([i, j - 1], [i, j], 1)?;
+        let north = face([i, j], [i, j + 1], 1)?;
+        before[k] = dt / MEASURED_DELTA * (east[0] - west[0] + north[0] - south[0]);
+        after[k] = dt / MEASURED_DELTA * (east[1] - west[1] + north[1] - south[1]);
+    }
+    let (umax, diameter, nu) = (
+        number(MEASURED_FLOW[0])?,
+        number(MEASURED_FLOW[1])?,
+        number(MEASURED_FLOW[2])?,
+    );
+    let m = Measured {
+        step,
+        t,
+        rounds,
+        leftover: resa * (dt * dt),
+        tolerance: number(MEASURED_TOLERANCE)?,
+        reynolds: 2.0 * umax * diameter / (3.0 * nu),
+        before,
+        after,
+    };
+    m.check()?;
+    Ok(m)
+}
+
+impl Measured {
+    /// What the inset says must hold: the solve met its stop rule, both drawn cells end within the
+    /// solver's tunnel-wide leftover, neither started balanced, Re is whole and the stop rule is a
+    /// power of ten.
+    fn check(&self) -> Result<(), String> {
+        let fail = |what: &str| -> Result<(), String> { Err(format!("measured step {}: {what}", self.step)) };
+        let met = self.leftover > 0.0 && self.leftover <= self.tolerance;
+        if !met {
+            return fail("the projection did not meet its stop rule");
+        }
+        if self.after.iter().any(|a| a.abs() > self.leftover) {
+            return fail("a drawn cell ends above the solver's largest leftover");
+        }
+        if self.before.iter().any(|b| b.abs() <= self.tolerance) {
+            return fail("a drawn cell starts within the stop rule: no before to show");
+        }
+        if (self.reynolds - self.reynolds.round()).abs() > 1e-9 {
+            return fail("Re is not a whole number");
+        }
+        match format!("{:e}", self.tolerance).split_once('e') {
+            Some(("1", _)) => Ok(()),
+            _ => fail("the stop rule is not a power of ten"),
+        }
+    }
+
+    /// The inset's printed values, in `MEASURED_PINS` order.
+    fn printed(&self) -> [String; 9] {
+        let stop = format!("{:e}", self.tolerance);
+        let stop_power = stop.split_once('e').map_or("", |(_, power)| power);
+        [
+            self.step.to_string(),
+            format!("{:.0}", self.reynolds),
+            format!("{:.0}", MEASURED_DELTA * 100.0),
+            format!("{:.1}", self.t),
+            self.rounds.to_string(),
+            format!("{}, {}", sci_tex(self.before[0], true), sci_tex(self.before[1], true)),
+            format!("{}, {}", sci_tex(self.after[0], true), sci_tex(self.after[1], true)),
+            sci_tex(self.leftover, false),
+            format!("10^{{{stop_power}}}"),
+        ]
+    }
+}
+
+/// `x` in scientific notation with one decimal, as TeX: "+4.2 \times 10^{-10}" (`signed`: a sign
+/// even when positive).
+fn sci_tex(x: f64, signed: bool) -> String {
+    let printed = format!("{:.1e}", x.abs());
+    let (mantissa, power) = printed.split_once('e').unwrap_or((printed.as_str(), "0"));
+    let sign = if x < 0.0 {
+        "-"
+    } else if signed {
+        "+"
+    } else {
+        ""
+    };
+    format!("{sign}{mantissa} \\times 10^{{{power}}}")
 }
 
 pub struct Chapter09 {
@@ -172,6 +404,21 @@ const L_UNEW: f64 = -3.1;
 // The tunnel, as `opening.rs` draws it.
 const TUNNEL_WIDTH: f64 = 11.5;
 const TUNNEL_CENTER_Y: f64 = 1.15;
+// 09_12's measured inset, under the question card (y −1.25 ± 0.4): a frame from y −1.85 to −4.15,
+// text left-aligned at x −5.0, the two cells on the left and their notes to the right. Widths are
+// CMR10 estimates (widths02.py): the longest line ends near x 3.8, a cell's value is ≈ 1.05 wide.
+const INSET_CENTER_Y: f64 = -3.0;
+const INSET_WIDTH: f64 = 10.8;
+const INSET_HEIGHT: f64 = 2.3;
+const INSET_LEFT_X: f64 = -5.0;
+const INSET_SCOPE_Y: f64 = -2.1;
+const INSET_CELL_SIDE: f64 = 1.3;
+const INSET_CELL_Y: f64 = -3.0;
+const INSET_NOTE_X: f64 = -2.0;
+const INSET_LOCAL_Y: f64 = -2.72;
+const INSET_STATE_Y: f64 = -3.25;
+const INSET_GLOBAL_Y: f64 = -3.9;
+const INSET_VALUE_SIZE: f64 = 19.0;
 
 fn pressure_color(value: Q, lo: Q, hi: Q) -> Srgb {
     interpolate_color(Palette::teal(), push_color(), ((value - lo) / (hi - lo)).to_f64())
@@ -534,6 +781,112 @@ impl Ch9<'_> {
         self.play(stage)?;
         self.k.until_sentence(stage, id, j)
     }
+
+    /// 09_12's inset, detached: a gold mark at the two cells' place in the drawn tunnel (true size)
+    /// with a leader to the inset's frame; the run's scope; the two cells with their before balances;
+    /// what a balance is; then the before → after changes and the solver's tunnel-wide check. A
+    /// balance is green once it is within the run's stop rule, red before.
+    fn measured_inset(&self, stage: &mut Stage<'_>, m: &Measured, g: TunnelGeometry) -> fmn::Result<Inset> {
+        let [step, reynolds, cell_cm, t, rounds, _, _, leftover, stop] = m.printed();
+        let gold = Palette::gold();
+        let tone = |v: f64| {
+            if v.abs() <= m.tolerance {
+                Palette::green()
+            } else {
+                Palette::red()
+            }
+        };
+        // Where the two cells sit, in the tunnel drawn as `tunnel` draws it at the chapter's end.
+        let scale = TUNNEL_WIDTH / g.length;
+        let sx = |x: f64| scale * (x - g.length / 2.0);
+        let sy = |y: f64| TUNNEL_CENTER_Y + scale * (y - g.height / 2.0);
+        let [[i0, j0], [i1, _]] = MEASURED_CELLS;
+        let (x0, x1) = (f64::from(i0) * MEASURED_DELTA, f64::from(i1 + 1) * MEASURED_DELTA);
+        let (y0, y1) = (f64::from(j0) * MEASURED_DELTA, f64::from(j0 + 1) * MEASURED_DELTA);
+        let mark = stage.arena_mut().add(
+            Rectangle::new()
+                .width(scale * (x1 - x0))
+                .height(scale * (y1 - y0))
+                .style(Style::default().fill(gold, 0.0).stroke(gold, 2.4, 1.0))
+                .build()?
+                .moved_to(p(sx((x0 + x1) / 2.0), sy((y0 + y1) / 2.0))),
+        );
+        // The leader drops from the mark's lower edge, left of the card (x within ±4.1), to the frame.
+        let (mid, top) = (sx((x0 + x1) / 2.0), INSET_CENTER_Y + INSET_HEIGHT / 2.0);
+        let leader = self.line(stage, p(mid, sy(y0)), p(mid, top), gold, 1.6)?;
+        let frame = stage.arena_mut().add(
+            Rectangle::new()
+                .width(INSET_WIDTH)
+                .height(INSET_HEIGHT)
+                .corner_radius(0.12)
+                .style(Style::default().fill(gold, 0.0).stroke(gold, 1.6, 1.0))
+                .build()?
+                .moved_to(p(0.0, INSET_CENTER_Y)),
+        );
+        let scope = self.text_left(
+            stage,
+            &format!("Separate cylinder run: Reynolds number {reynolds}, t = {t} s"),
+            24.0,
+            gold,
+            p(INSET_LEFT_X, INSET_SCOPE_Y),
+        )?;
+        let mut first = vec![mark, leader, frame, scope];
+        let mut changes = Vec::new();
+        for (k, (&was, &now)) in m.before.iter().zip(&m.after).enumerate() {
+            let at = p(INSET_LEFT_X + INSET_CELL_SIDE * (k as f64 + 0.5), INSET_CELL_Y);
+            first.push(self.frame(stage, at, INSET_CELL_SIDE, INSET_CELL_SIDE, Palette::ink(), 2.0)?);
+            let before = self.tex(stage, &sci_tex(was, true), INSET_VALUE_SIZE, tone(was), at)?;
+            let after = self.tex(stage, &sci_tex(now, true), INSET_VALUE_SIZE, tone(now), at)?;
+            first.push(before);
+            changes.push((before, after));
+        }
+        first.push(self.text_left(
+            stage,
+            &format!("Net outflow per step, as a fraction of a full {cell_cm} cm cell"),
+            22.0,
+            Palette::dim(),
+            p(INSET_NOTE_X, INSET_LOCAL_Y),
+        )?);
+        let state_before = self.text_left(
+            stage,
+            "before the pressure step",
+            26.0,
+            Palette::ink(),
+            p(INSET_NOTE_X, INSET_STATE_Y),
+        )?;
+        let state_after = self.text_left(
+            stage,
+            "after the pressure step",
+            26.0,
+            Palette::ink(),
+            p(INSET_NOTE_X, INSET_STATE_Y),
+        )?;
+        first.push(state_before);
+        changes.push((state_before, state_after));
+        let checked =
+            format!(r"\text{{Whole tunnel after {rounds} rounds: largest scaled imbalance }}{leftover}");
+        let global = self.tex_left(
+            stage,
+            &format!(r"{checked}\text{{ (stop rule }}{stop}\text{{)}}"),
+            22.0,
+            Palette::ink(),
+            p(INSET_LEFT_X, INSET_GLOBAL_Y),
+        )?;
+        println!(
+            "Chapter 09 measured inset: step {step}, rows bsplit-steps02.csv {MEASURED_STEPS_SHA256} line {}, \
+             bsplit-cells02.csv {MEASURED_CELLS_SHA256} lines {:?}",
+            MEASURED_STEP_ROW.0, MEASURED_CELL_LINES
+        );
+        Ok(Inset { first, changes, global })
+    }
+}
+
+/// 09_12's inset: what appears first, each (before, after) pair the step changes, and the
+/// tunnel-wide line that follows.
+struct Inset {
+    first: Vec<Mob>,
+    changes: Vec<(Mob, Mob)>,
+    global: Mob,
 }
 
 /// The chapter 08 end state, all on screen at the first frame: every object built by the same
@@ -705,12 +1058,13 @@ pub(super) fn tunnel(stage: &mut Stage<'_>, g: TunnelGeometry, width: f64, cente
 
 impl SceneConstruct for Chapter09 {
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
-        // Both refusals come before the first frame.
+        // All three refusals come before the first frame.
         let geometry = self.tunnel.ok_or_else(|| {
             error("chapter 09 ends on the tunnel: render it with --tunnel and the retained startup snapshots".into())
         })?;
         let solved = BoxFacts::solve();
         solved.check().map_err(error)?;
+        let measured = measured().map_err(error)?;
         // The render log carries the fact table, so each picture's numbers can be read against it.
         for line in facts().map_err(error)?.print().lines() {
             println!("Chapter 09 fact {line}");
@@ -1387,7 +1741,8 @@ impl SceneConstruct for Chapter09 {
         s.appear(stage, &again, 0.5)?;
         s.appear(stage, &[four_to_two], 0.5)?;
 
-        // 09_12: the tunnel has the same structure with far more cells; the question card glows once.
+        // 09_12: the tunnel has the same structure with far more cells; one measured step; the
+        // question card glows once.
         s.say(stage, "09_12")?;
         let mut everything = s.on.clone();
         everything.retain(|m| !s.fills.contains(m));
@@ -1424,9 +1779,24 @@ impl SceneConstruct for Chapter09 {
         s.until(stage, "09_12", 1)?;
         let grid: Vec<Mob> = small.iter().skip(2).copied().collect();
         s.pulse(stage, &grid, 0.9)?;
+        // Third sentence ("How quickly we can solve it, and how closely, ..."): one real step of a
+        // separate run at its two fully logged cells, their balances before → after, then the
+        // solver's own check over the whole tunnel. All of it leaves as the last sentence starts.
         s.until(stage, "09_12", 2)?;
+        let inset = s.measured_inset(stage, &measured, geometry)?;
+        s.appear(stage, &inset.first, 0.6)?;
         s.play(stage)?;
-        stage.wait(1.0)?;
+        stage.wait(1.2)?;
+        for &(before, after) in &inset.changes {
+            s.morph(stage, before, after, 1.0)?;
+        }
+        s.play(stage)?;
+        stage.wait(0.3)?;
+        s.appear(stage, &[inset.global], 0.6)?;
+        // Last sentence ("That's where we go next."): the inset goes and the question card glows once.
+        s.until(stage, "09_12", 3)?;
+        let shown: Vec<Mob> = inset.first.iter().copied().chain([inset.global]).collect();
+        s.vanish(stage, &shown, 0.5)?;
         s.pulse(stage, &[card_frame, card_words], 1.0)?;
         s.play(stage)?;
         println!(
@@ -1455,13 +1825,13 @@ mod tests {
         super::super::chapter08::register(&mut film).expect("chapter 08 registers first");
         let before = film.len();
         register(&mut film).expect("chapter 09 joins without a clash");
-        assert_eq!(film.len(), before + PINS.len());
+        assert_eq!(film.len(), before + PINS.len() + MEASURED_PINS.len());
         film.self_check().expect("every pin holds in the film registry");
         for (key, value) in BoxFacts::solve().fact_rows() {
             assert_eq!(film.get(&key), Some(value.as_str()), "{key} prints one way in the film");
         }
         let alone = facts().expect("chapter 09 alone");
-        assert_eq!(alone.len(), PINS.len());
+        assert_eq!(alone.len(), PINS.len() + MEASURED_PINS.len());
         assert!(
             super::super::chapter08::SHARED_FACTS
                 .iter()
@@ -1482,5 +1852,19 @@ mod tests {
     #[test]
     fn sums_print_their_signs() {
         assert_eq!(sum_tex(&[Q::ONE, Q::ZERO, Q::new(-1, 4)]), "1 + 0 - \\tfrac{1}{4}");
+    }
+
+    #[test]
+    fn measured_step_rebuilds_its_pins() {
+        let m = measured().expect("the embedded rows rebuild and pass their check");
+        assert!(m.leftover <= m.tolerance && m.after.iter().all(|a| a.abs() <= m.leftover));
+        for ((key, expected), value) in MEASURED_PINS.iter().zip(m.printed()) {
+            assert_eq!(value, *expected, "{key}");
+        }
+        // The rows are the logged step and cells, each once: a changed row fails the rebuild.
+        assert!(MEASURED_CELL_ROWS.iter().all(|row| row.starts_with("846,")));
+        assert!(MEASURED_CELL_LINES.windows(2).all(|w| w[0] < w[1]));
+        assert_eq!(sci_tex(-6.83e-4, true), "-6.8 \\times 10^{-4}");
+        assert_eq!(sci_tex(9.96e-10, false), "1.0 \\times 10^{-9}");
     }
 }

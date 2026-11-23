@@ -1,0 +1,8 @@
+Measure	Fixed L10	Adaptive up to L10
+Mean drag	5.57218	5.58447
+Fluid-cell updates	233,467,864	21,391,981
+Steps	1,631	1,631
+Wall time (s)	1,536	634
+Peak RAM (MB)	339.6	287.6
+Peak volume defect per step	9.99e-10	1.00e-09
+Drag gap	0.01229	limit 0.001
