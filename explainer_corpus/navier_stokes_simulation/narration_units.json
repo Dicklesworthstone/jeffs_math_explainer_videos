@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "fac0e19dd6a241420acad952551603e58a71ebd4246d2e7f11b65dcb4140c591",
+  "script_sha256": "da02d47802e4e1c081a7233ca81e583f6b4eee84c35762ae189a4f1a45629905",
   "units": [
     {
       "id": "frederick_01_1",
@@ -1879,7 +1879,7 @@
       "line_ids": [
         "16_9"
       ],
-      "text": "In the measured shear flow, the fine and adaptive runs both passed the half-percent target. The adaptive run made sixty-four point eight percent fewer fluid-cell updates, and on this computer it took half a second. The fine run took one point zero five to one point zero seven seconds. Asking the pressure solver for a hundred times smaller imbalance left the adaptive error the same in every digit we show, and rounding wasn't tested. But a box with no walls and no wake says nothing yet about the cylinder. And if the adaptive run saves nothing there, or costs more, the table will say so, and so will we.",
+      "text": "In the measured shear flow, the fine and adaptive runs both passed the half-percent target. The adaptive run made sixty-four point eight percent fewer fluid-cell updates, and on this computer it took half a second. The fine run took one point zero five to one point zero seven seconds. Asking the pressure solver for a hundred times smaller imbalance left the adaptive error the same in every digit we show, and rounding wasn't tested. The shear flow lives in a periodic box, and we tested the cylinder separately. The adaptive cylinder grid used far fewer updates, and the two drag readings differed by more than our limit.",
       "external_ui_provider": "ElevenLabs UI, Frederick Surrey"
     },
     {
@@ -2230,10 +2230,10 @@
   "direction_contract": {
     "schema_version": 1,
     "topic": "navier_stokes_simulation",
-    "script_sha256": "fac0e19dd6a241420acad952551603e58a71ebd4246d2e7f11b65dcb4140c591",
+    "script_sha256": "da02d47802e4e1c081a7233ca81e583f6b4eee84c35762ae189a4f1a45629905",
     "map": {
-      "path": "explainer_corpus/navier_stokes_simulation/docs/narration-direction-map-settled-cylinder01.json",
-      "sha256": "a14d6d7c79e07260331c86f62d2c557a75f606020a4023f4a9dd130efa6059bf"
+      "path": "explainer_corpus/navier_stokes_simulation/docs/narration-direction-map-review-repair01.json",
+      "sha256": "d7af1b07470d8d7ece56617e0e6df1413c780afc3bcc3ad0a27e3a831ea5c317"
     }
   }
 }

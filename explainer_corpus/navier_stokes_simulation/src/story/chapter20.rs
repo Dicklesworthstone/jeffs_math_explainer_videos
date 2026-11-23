@@ -14,8 +14,10 @@
 //!
 //! 20_3 recalls chapter 16's one measured Re 20 pair (`cylinder_pair`, prepare.py's table of the
 //! guarded four-second fixed and adaptive runs): the work each run did, and the gap between their
-//! mean drags against the declared limit. That card is separate from the Re 100 wake table, whose
-//! pending entries and reference column it leaves as they are.
+//! mean drags against the declared limit. That card is separate from the Re 100 wake table: the
+//! whole table, its words as well as its entries, and the strip's "standard test 2D-2, Re 100"
+//! label fade while the card is up and return unchanged in one fade, so no Re 100 label is on
+//! screen with a Re 20 number. The tunnel strip and the question card stay.
 //!
 //! The tunnel stays a static outline with the prescribed inflow until the closing checklist.
 //! The optional closing replay then shows vorticity from a bound fine-grid simulation. Its bound
@@ -134,11 +136,15 @@ const LIFT_AXIS: &str = "lift peak";
 const BAND_LABEL: &str = "1996: estimated interval";
 const DOT_LABEL: &str = "2014: later reference data";
 
-/// The Precisely lower thirds, each the full script's text split into lines. 20_2's runs over four
-/// pages (20_2 sentences 1 and 3, then 20_3 sentences 0 and 1); 20_3 sentence 2 has its own page,
-/// built with the pair's card (`pair_text`). On screen, the page text's
-/// `$t_0$` and `$C_L$` are written t₀ and C_L. Two places differ from the script's wording: page A
-/// names Schaefer and Turek (1996) before the first ST96, and 20_4 points to chapter 17, not its cue.
+/// The Precisely lower thirds. 20_2's runs over four pages (20_2 sentences 1 and 3, then 20_3
+/// sentences 0 and 1); 20_3 sentence 2 has its own page, built with the pair's card (`pair_text`).
+/// Pages A and B, and the later pages, are the full script's text split into lines. Pages C and D
+/// keep only what the table's curve rows and ΔP row need, short enough to read in their time on
+/// screen; the longer definitions behind them (the cycle start and the seconds axis, ΔP's timing,
+/// the storage arithmetic) are in the simulation guide, docs/periodic-shear-demonstration.md,
+/// "Definitions and assumptions on the table". Two other places differ from the script's wording:
+/// page A names Schaefer and Turek (1996) before the first ST96, and 20_4 points to chapter 17, not
+/// its cue.
 const PRECISELY_20_2A: [&str; 2] = [
     "As §2.4 of Schaefer and Turek (1996, hereafter ST96) asks: 'three successively coarsened \
      meshes … with a finest time",
@@ -155,22 +161,9 @@ const PRECISELY_20_2B: [&str; 4] = [
     "reported in a column of its own; and the swing size, max − min ('amp=max-min'), \
      the whole swing, not half of it.",
 ];
-const PRECISELY_20_2C: [&str; 4] = [
-    "The curves' shapes are compared with every cycle starting at a lift minimum, \
-     as FEATFLOW's do ('A cycle starts at a",
-    "time instant t₀ where the lift coefficient C_L is smallest'; its curves 'are shifted in time \
-     such that t₀ matched'), so",
-    "phase means only when the drag peaks relative to the lift. Time stays physical, \
-     so each run keeps its own period, and",
-    "ΔP keeps ST96's own timing, half a period after the lift's peak.",
-];
-const PRECISELY_20_2D: [&str; 3] = [
-    "Shapes matched on a time axis divided by each run's own period would say nothing \
-     about the frequency, which the Strouhal",
-    "number checks. Storage alone, at 40 cells per diameter (880 × 164 cells, four 32-bit fields), \
-     is 2.31 MB per saved state,",
-    "about 8.3 GB per minute at 60 states per second (planning arithmetic).",
-];
+const PRECISELY_20_2C: [&str; 1] =
+    ["Curves: each cycle starts at a lift minimum, as in FEATFLOW; time stays in seconds."];
+const PRECISELY_20_2D: [&str; 1] = ["ΔP: half a period after peak lift (ST96)."];
 const PRECISELY_20_4: [&str; 3] = [
     "FEATFLOW 2014 reference data (Q2/P1disc, level 6), one cycle in t = 9–10 s. \
      Peak times interpolated. ΔP ≈ 2.485 at t0 + T/2",
@@ -215,8 +208,9 @@ pub const BENCH: TunnelShape = TunnelShape {
 const PEAK_INFLOW: f64 = 1.5;
 const VISCOSITY: f64 = 1e-3;
 const DIAMETER: f64 = 0.1;
-/// The planning arithmetic of 20_2's Precisely, in millimetres and whole cells: 40 cells per
-/// diameter, four 32-bit fields per cell, 60 saved states per second.
+/// The storage planning arithmetic, in millimetres and whole cells: 40 cells per diameter, four
+/// 32-bit fields per cell, 60 saved states per second. Chapter 20 does not draw it; the simulation
+/// guide states it, and these pins keep its numbers checked.
 const PLAN_CELLS_PER_DIAMETER: u64 = 40;
 const PLAN_MM: [u64; 3] = [2200, 410, 100];
 const PLAN_FIELDS: u64 = 4;
@@ -513,19 +507,19 @@ pub fn register(facts: &mut Facts) -> Result<(), String> {
             "c20.plan.cells",
             format!("{} × {}", cells[0], cells[1]),
             "880 × 164",
-            "20_2 Precisely",
+            "simulation guide: 880 × 164 cells",
         )?
         .pin(
             "c20.plan.mb.shown",
             wake_ledger::decimals(bytes as f64 / 1e6, 2),
             "2.31",
-            "20_2 Precisely: 2.31 MB",
+            "simulation guide: 2,309,120 bytes per saved state",
         )?
         .pin(
             "c20.plan.gb.shown",
             wake_ledger::decimals(per_minute, 1),
             "8.3",
-            "20_2 Precisely: about 8.3 GB",
+            "simulation guide: about 8.3 decimal GB per minute",
         )?
         .add("c20.prediction.seconds", PREDICTION_SECONDS)?;
     Ok(())
@@ -851,6 +845,18 @@ impl Table {
     fn covered(&self) -> Vec<Mob> {
         let mut out = self.all_cells();
         out.extend(&self.tolerances);
+        out
+    }
+
+    /// The table's own words around its entries: column titles and rungs, the legend, the row
+    /// labels, the footnote and the target heading (its box before its words).
+    fn frame(&self) -> Vec<Mob> {
+        let mut out = self.titles.clone();
+        out.extend(&self.rungs);
+        out.push(self.legend);
+        out.extend(&self.labels);
+        out.push(self.footnote);
+        out.extend(&self.target);
         out
     }
 }
@@ -1353,7 +1359,10 @@ impl SceneConstruct for Chapter20 {
         // 20_3: close enough is declared first. Sentence 1 names the question marks, so the wake
         // table's pending entries are pulsed. Sentence 2 recalls chapter 16's measured Re 20 pair: it
         // takes the overlay card, with its own Precisely page, and its verdict is pulsed once the
-        // line has ended.
+        // line has ended. Everything that says Re 100 fades under the card in the same 0.5 s fade:
+        // the whole table, words and entries, and the strip's test label (`test`, drawn in the
+        // strip label's shape since 20_2). The tunnel strip and the question card stay. All of it
+        // comes back the same way, each question mark beside its row label.
         s.say(stage, "20_3")?;
         s.appear(stage, &t.target, FADE)?;
         s.appear(stage, &t.tolerances, FADE)?;
@@ -1372,7 +1381,10 @@ impl SceneConstruct for Chapter20 {
         let (card, verdict) = s.pair_card(stage, &pair)?;
         let lines: Vec<&str> = pair.precisely.iter().map(String::as_str).collect();
         let page_pair = s.lower(stage, &lines, 0)?;
-        s.vanish(stage, &t.covered(), FADE)?;
+        let mut re100 = t.covered();
+        re100.extend(t.frame());
+        re100.push(test);
+        s.vanish(stage, &re100, FADE)?;
         s.appear(stage, &card, FADE)?;
         s.swap(stage, &page_d, &page_pair)?;
         s.hold(stage)?;
@@ -1380,7 +1392,7 @@ impl SceneConstruct for Chapter20 {
         s.play(stage)?;
         s.vanish(stage, &card, FADE)?;
         s.vanish(stage, &page_pair, FADE)?;
-        s.appear(stage, &t.covered(), FADE)?;
+        s.appear(stage, &re100, FADE)?;
 
         // 20_4: the reference column fills, grey and labelled as another program's calculations.
         s.say(stage, "20_4")?;
@@ -1671,6 +1683,19 @@ mod tests {
                 page.iter().all(|w| text_width(w, 17.0) < 14.2),
                 "a lower-third line is too wide"
             );
+        }
+    }
+
+    #[test]
+    fn pages_c_and_d_fit_their_time_on_screen() {
+        // In owner-review22's 20_3 take, page C is up 261 frames (4.35 s) and page D 132 frames
+        // (2.20 s) after its 0.5 s fade. Each must read in that time at the kit's lower-third rate
+        // (4 words a second) and at the film's caption limit (20 characters a second).
+        for (page, seconds) in [(&PRECISELY_20_2C[..], 4.35), (&PRECISELY_20_2D[..], 2.2)] {
+            let words: usize = page.iter().map(|l| l.split_whitespace().count()).sum();
+            let chars: usize = page.iter().map(|l| l.chars().count()).sum();
+            assert!(words as f64 / 4.0 <= seconds, "{page:?}: {words} words");
+            assert!(chars as f64 / 20.0 <= seconds, "{page:?}: {chars} characters");
         }
     }
 
