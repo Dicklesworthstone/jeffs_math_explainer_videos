@@ -13,7 +13,8 @@ lane pastes). `check` exits 1 on anything YouTube would refuse or that would pub
   space counts its two quotes); youtube.md's "- Tags:" line holds the same tags.
 - description.txt: at most 5000 characters, no angle brackets (YouTube refuses them), byte for byte the
   ```text block of youtube.md.
-- the chapter list (the lines after a line "Chapters" up to a blank line): `M:SS Title` or `MM:SS Title`, the first at 0:00,
+- the chapter list (the lines after a line "Chapters" up to a blank line): `M:SS Title`,
+  `MM:SS Title` or `H:MM:SS Title`, the first at 0:00,
   at least three, rising, each at least 10 s after the one before; a time still written `?:??` means the final
   has not been cut yet and fails. With `--finals DIR`, one chapter per `DIR/*.timeline.tsv` and the times
   equal the ones `./x SLUG chapters` prints for that final (a start rounded down to the second).
@@ -26,7 +27,8 @@ lane pastes). `check` exits 1 on anything YouTube would refuse or that would pub
   notes do (thousands separators and signs folded). A number typed into the upload text alone fails here.
 
 `fill` writes those times into the `?:??` (or stale) chapter lines of both files, in chapter order, and then
-runs `check` against the same finals. Existing padded minute fields stay padded. Nothing is uploaded and nothing is deleted.
+runs `check` against the same finals. Starts at or beyond an hour use H:MM:SS. Below an hour, existing
+padded minute fields stay padded. Nothing is uploaded and nothing is deleted.
 """
 from __future__ import annotations
 
@@ -42,7 +44,11 @@ TITLE_MAX = 100
 TAGS_MAX = 500
 DESCRIPTION_MAX = 5000
 CHAPTER_MIN_S = 10
-CHAPTER = re.compile(r"^(\?:\?\?|(\d+):(\d\d)) (\S.*)$")
+CHAPTER = re.compile(
+    r"^(?P<stamp>\?:\?\?|"
+    r"(?:(?P<hours>\d+):(?P<hour_minutes>[0-5]\d)|(?P<total_minutes>\d+))"
+    r":(?P<seconds>[0-5]\d)) (?P<title>\S.*)$"
+)
 TEXT_BLOCK = re.compile(r"^```text\n(.*?)^```$", re.S | re.M)
 
 
@@ -80,11 +86,23 @@ def final_starts(finals: Path) -> list[tuple[str, int]]:
     return out
 
 
-def clock(s: int) -> str:
-    return f"{s // 60}:{s % 60:02d}"
+def clock(s: int, *, pad_minutes: bool = False) -> str:
+    hours, within_hour = divmod(s, 3600)
+    minutes, seconds = divmod(within_hour, 60)
+    if hours:
+        return f"{hours}:{minutes:02d}:{seconds:02d}"
+    minute_text = f"{minutes:02d}" if pad_minutes else str(minutes)
+    return f"{minute_text}:{seconds:02d}"
 
 
-def chapter_lines(text: str) -> list[tuple[int, re.Match]]:
+def chapter_seconds(match: re.Match[str]) -> int:
+    """Convert a filled chapter timestamp to seconds, including legacy total minutes."""
+    hours = int(match["hours"] or 0)
+    minutes = int(match["hour_minutes"] or match["total_minutes"])
+    return hours * 3600 + minutes * 60 + int(match["seconds"])
+
+
+def chapter_lines(text: str) -> list[tuple[int, re.Match[str] | None]]:
     """(line index, match) of each chapter line: the lines after a line "Chapters" up to the next blank."""
     lines = text.split("\n")
     out = []
@@ -207,13 +225,13 @@ def check(slug: str, voice: str = "michael", finals: Path | None = None, root: P
     prev = None
     for n, (i, mt) in enumerate(chapters):
         if mt is None:
-            bad.append(f"description.txt line {i + 1}: not 'M:SS Title'")
+            bad.append(f"description.txt line {i + 1}: expected 'M:SS Title' or 'H:MM:SS Title'")
             continue
-        if mt.group(1) == "?:??":
+        if mt["stamp"] == "?:??":
             bad.append(f"description.txt line {i + 1}: time not filled (run fill against the final)")
             prev = None
             continue
-        s = int(mt.group(2)) * 60 + int(mt.group(3))
+        s = chapter_seconds(mt)
         if n == 0 and s != 0:
             bad.append("description.txt: the first chapter must start at 0:00")
         if prev is not None and s - prev < CHAPTER_MIN_S:
@@ -225,9 +243,8 @@ def check(slug: str, voice: str = "michael", finals: Path | None = None, root: P
             bad.append(f"description.txt: {len(chapters)} chapters, the final has {len(starts)}")
         else:
             for (key, s), (i, mt) in zip(starts, chapters):
-                if (mt is not None and mt.group(1) != "?:??"
-                        and f"{int(mt.group(2))}:{mt.group(3)}" != clock(s)):
-                    bad.append(f"description.txt line {i + 1}: {mt.group(1)}, the final's {key} starts at {clock(s)}")
+                if mt is not None and mt["stamp"] != "?:??" and chapter_seconds(mt) != s:
+                    bad.append(f"description.txt line {i + 1}: {mt['stamp']}, the final's {key} starts at {clock(s)}")
     return bad
 
 
@@ -239,10 +256,9 @@ def fill_text(text: str, starts: list[tuple[str, int]]) -> str:
     for (i, mt), (_, s) in zip(chapters, starts):
         if mt is None:
             raise ValueError(f"line {i + 1} is not a chapter line: {lines[i]!r}")
-        timestamp = clock(s)
-        if mt.group(2) is not None and len(mt.group(2)) >= 2:
-            timestamp = f"{s // 60:02d}:{s % 60:02d}"
-        lines[i] = f"{timestamp} {mt.group(4)}"
+        previous_minutes = mt["hour_minutes"] or mt["total_minutes"] or ""
+        timestamp = clock(s, pad_minutes=len(previous_minutes) >= 2)
+        lines[i] = f"{timestamp} {mt['title']}"
     return "\n".join(lines)
 
 

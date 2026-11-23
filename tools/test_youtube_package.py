@@ -84,13 +84,38 @@ class Package(unittest.TestCase):
         self.assertEqual(self.check(self.finals), [])
 
     def test_padding_does_not_hide_a_wrong_start_or_invalid_seconds(self):
-        for wrong in ("01:02", "00:61"):
+        for wrong, reason in (
+            ("01:02", "02_two starts at 1:01"),
+            ("00:61", "expected 'M:SS Title' or 'H:MM:SS Title'"),
+        ):
             with self.subTest(timestamp=wrong):
                 self.write(DESC.replace("?:?? One", "00:00 One")
                            .replace("?:?? Two", f"{wrong} Two").replace("?:?? Three", "01:48 Three"))
                 bad = self.check(self.finals)
                 self.assertEqual(len(bad), 1, bad)
-                self.assertIn("02_two starts at 1:01", bad[0])
+                self.assertIn(reason, bad[0])
+
+    def test_hour_long_chapter_times_fill_and_accept_legacy_minutes(self):
+        first = self.finals / "01_one.timeline.tsv"
+        first.write_text(first.read_text().replace("frames\t3690", "frames\t215940"), encoding="utf-8")
+        self.assertEqual(yp.fill("alpha", self.finals, "michael", self.root), [])
+        desc = (self.pub / "michael" / "description.txt").read_text(encoding="utf-8")
+        self.assertIn("0:00 One\n59:59 Two\n1:00:46 Three\n", desc)
+        self.write(desc.replace("1:00:46", "60:46"))
+        self.assertEqual(self.check(self.finals), [])
+        self.write(desc.replace("1:00:46", "1:00:47"))
+        bad = self.check(self.finals)
+        self.assertEqual(len(bad), 1, bad)
+        self.assertIn("03_three starts at 1:00:46", bad[0])
+
+    def test_invalid_hour_fields_fail_without_a_final(self):
+        for timestamp in ("1:60:00", "1:01:60", "1:1:00"):
+            with self.subTest(timestamp=timestamp):
+                self.write(DESC.replace("?:?? One", "00:00 One")
+                           .replace("?:?? Two", "1:02 Two").replace("?:?? Three", f"{timestamp} Three"))
+                bad = self.check()
+                self.assertEqual(len(bad), 1, bad)
+                self.assertIn("expected 'M:SS Title' or 'H:MM:SS Title'", bad[0])
 
     def test_youtubes_limits(self):
         self.write(DESC + "x" * 5000)
