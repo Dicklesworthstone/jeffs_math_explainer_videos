@@ -7215,7 +7215,61 @@
                 ]
               }
             ],
-            "disposition": "Current 65:28.267 local review package. The exact 4K60 master carries the full decode, selected picture and timed muted-playback checks. Independent verification confirms both English caption files and all three corrections. Continuous listening, perceptual fine sync, independent whole-film review, controlled wake convergence and matched-accuracy cylinder cost remain open. Publication awaits owner authorization."
+            "disposition": "Retained 65:28.267 review18 package before the bounded caption sweep. The exact 4K60 master carries the full decode, selected picture and timed muted-playback checks. Independent verification confirms both English caption files and all three corrections. Continuous listening, perceptual fine sync, independent whole-film review, controlled wake convergence and matched-accuracy cylinder cost remain open. Publication awaits owner authorization."
+          },
+          {
+            "revision_id": "frederick-surrey-native-delivery19-20261122",
+            "label": "How to Teach a Computer to Simulate a Fluid",
+            "voice": "ElevenLabs Frederick Surrey",
+            "master": {
+              "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review19/navier_stokes_simulation_delivery_master.mp4",
+              "digest": {
+                "algorithm": "sha256",
+                "value": "9571ec83af6a2c4419c718cf970c05b6b6d4893bd8829c121a694b5cb2c18ad8"
+              },
+              "evidence_state": "pass"
+            },
+            "generation_provenance": "Native FrankenManim 4K60 and ElevenLabs Frederick Surrey. Review18 picture and AAC carry forward by exact file hash. Both English caption files apply 14 source-waveform splits and preserve the words, 1,087 cue indices and outer sentence bounds.",
+            "evidence_refs": [
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review19/manifest.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/review18-caption-sweep01/corrections.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/review18-caption-sweep01/independent-sweep/findings01.md",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-playback01/playback-result.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/verification.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/chapter-markers.json",
+              "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/pictures-viewed.json"
+            ],
+            "milestones": [
+              {
+                "stage": "master_recorded",
+                "recorded_as_of": "2026-11-23T01:53:49Z",
+                "evidence_state": "pass",
+                "evidence_refs": [
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review19/manifest.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/review18-caption-sweep01/corrections.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/review18-caption-sweep01/independent-sweep/findings01.md",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-playback01/playback-result.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/verification.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/chapter-markers.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/pictures-viewed.json"
+                ]
+              },
+              {
+                "stage": "master_verified",
+                "recorded_as_of": "2026-11-23T01:53:49Z",
+                "evidence_state": "unknown",
+                "evidence_refs": [
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review19/manifest.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/review18-caption-sweep01/corrections.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/live-assembly01/review18-caption-sweep01/independent-sweep/findings01.md",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-playback01/playback-result.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/verification.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/chapter-markers.json",
+                  "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review17-ledger-master01/pictures-viewed.json"
+                ]
+              }
+            ],
+            "disposition": "Current 65:28.267 local package after the bounded caption sweep. All 1,087 SRT/VTT blocks, 10,046 words and 14 corrected sentence ranges were locally rechecked. The bit-identical MP4 carries the full decode, selected-picture and timed muted-playback evidence. Continuous listening, perceptual fine sync, independent whole-film review, controlled wake convergence and matched-accuracy cylinder cost remain open. Publication awaits owner authorization."
           }
       ],
       "publications": []
