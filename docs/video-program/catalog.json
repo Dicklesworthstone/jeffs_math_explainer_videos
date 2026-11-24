@@ -7724,7 +7724,7 @@
       "working_title": "How Simple Rules Grow a World",
       "pitch": "Follow one simulated creature through the FrankenLife tick, then use real footage and controlled comparisons to explain how local ecology grows colonies and tissue-like shapes.",
       "work_epic": "mx-video-program-program-87do.72",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-11-24",
@@ -7738,6 +7738,7 @@
         }
       ],
       "source_refs": [
+        "docs/video-program/research-20261016/evidence/frankenlife-20261124/production-authorization01.json",
         "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-picture-review-cut07/technical01.json",
         "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-picture-review-cut07/pictures-viewed01.json",
         "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-picture-review-cut07/picture-pacing06.json",
