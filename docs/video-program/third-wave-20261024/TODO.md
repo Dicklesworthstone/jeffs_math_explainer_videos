@@ -44,6 +44,9 @@
 
 - [x] November 24. Retired the superseded Michael review-cut tasks for Random Walk (`.18.5`), Tomography (`.9.6`) and Randomized Response (`.8.7`). The three local masters and English SRTs match the catalog's archived public Oliver receipts. Those receipts verify 2160p60 and uploaded English before the originals were unlisted. The separate model, listening, fine-sync and independent review work stays open. [Replacement records](../catalog.json)
 
+- [x] November 24. Rechecked the four original model implementations using their retained native fact binaries and fresh independent oracles. Random Walk matched 219/219 keys, Tomography 242/242, Randomized Response 247/247 and Epsilon–Delta 210/210. The four stable native build receipts pass, and the archived release masters and English caption files rehash. Viewed exact-master pictures at 3:17.4, 0:44.8, 1:42.4 and 1:15.5 respectively. The technical findings apply to the retained cuts and sampled pictures.
+- [ ] The four implementation Beads (`.18.1`, `.9.1`, `.8.1`, `.58.1`) require qualified `exact_cut_receipts` bindings. The production gate policy currently has zero checker profiles and zero bindings. Beads refused closure. Preserve the technical findings and use the qualified closure path before changing their status. [Exact-cut gate contract](../LIFECYCLE-GATES.md)
+
 ### FrankenLife explainer · November 24, 02:01 UTC
 
 - [x] Registered **How Simple Rules Grow a World** in the canonical catalog and started `mx-video-program-program-87do.72`. The opening asks why runs with the same population develop different shapes. The remainder follows one organism through the field, controller, motion, emission and reproduction before returning to that comparison. [Opening script and teaching sequence](../research-20261016/evidence/frankenlife-20261124/brief01.md)
