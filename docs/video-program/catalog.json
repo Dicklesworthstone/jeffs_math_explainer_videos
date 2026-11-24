@@ -7686,6 +7686,7 @@
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review27-exact-audio01/targeted-readback01.json",
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review27-exact-audio01/resource-receipt.json",
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review27/manifest.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/upload-draft-review27-01.json",
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review26-fade-candidate01/readback01.json",
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review26-fade-candidate01/resource-receipt.json",
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/delivery26-aac-boundaries01/candidate-aac-packet-compare01.json"
@@ -7712,12 +7713,33 @@
                 "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-review26-fade-candidate01/resource-receipt.json",
                 "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/delivery26-aac-boundaries01/candidate-aac-packet-compare01.json"
               ]
+            },
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-11-24T19:56:31Z",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/upload-draft-review27-01.json"
+              ]
             }
           ],
-          "disposition": "Latest local technical review. Full FrankenWhisper screening on the exact repaired soundtrack covers all 1,098 caption intervals. Both recognizers retain the wording at all four repaired joins. The exact master also completed normal-speed muted 4K60 playback across all 20 chapters. Continuous listening, perceptual fine sync, independent whole-film review and publication approval remain open."
+          "disposition": "The exact master completed muted, normal-speed 4K60 playback across all 20 chapters. FrankenWhisper covers all 1,098 caption intervals, and both recognizers retain the wording at the four repaired joins. YouTube Studio shows the upload as private. The private player offered 2160p60 and showed the uploaded English track separately from automatic captions. Continuous listening, perceptual fine sync and independent whole-film review remain open. The owner authorized public release after checks."
         }
       ],
-      "publications": []
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "x0-ux9BaUOA",
+          "url": "https://www.youtube.com/watch?v=x0-ux9BaUOA",
+          "revision_id": "frederick-surrey-native-delivery27-20261124",
+          "visibility": "private",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/upload-draft-review27-01.json"
+          ],
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-11-24T19:56:31Z"
+        }
+      ]
     },
     {
       "video_id": "frankenlife_emergence",
