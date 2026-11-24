@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-11-23",
+  "updated_on": "2026-11-24",
   "work_tracker": ".beads",
   "consumer": "Channel owner and video producers",
   "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
@@ -7572,6 +7572,34 @@
           "disposition": "Local technical and sampled picture review passed. Continuous listening, perceptual fine sync, independent whole-film review, the full wake convergence ladder and publication approval remain open."
         }
       ],
+      "publications": []
+    },
+    {
+      "video_id": "frankenlife_emergence",
+      "working_title": "How Simple Rules Grow a World",
+      "pitch": "Follow one simulated creature through the FrankenLife tick, then use real footage and controlled comparisons to explain how local ecology grows colonies and tissue-like shapes.",
+      "work_epic": "mx-video-program-program-87do.72",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-11-24",
+          "decision": "shortlisted",
+          "by": "owner request; root intake",
+          "reason": "Work on the explainer in parallel with the current slate. Use FrankenLife for most visuals, native FrankenManim overlays and 3840 × 2160 at 60 fps for every explainer video render. Full production and publication decisions are separate.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/brief01.md",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/opening-footage01.json"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/evidence/frankenlife-20261124/brief01.md",
+        "docs/video-program/research-20261016/evidence/frankenlife-20261124/opening-footage01.json"
+      ],
+      "related_video_ids": [
+        "navier_stokes_simulation"
+      ],
+      "revisions": [],
       "publications": []
     },
     {
