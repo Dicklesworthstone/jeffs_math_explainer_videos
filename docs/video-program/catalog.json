@@ -7526,6 +7526,50 @@
             }
           ],
           "disposition": "Local technical and sampled picture review passed, including 107 repaired-chapter pictures, 40 chapter-boundary pictures and four exact closing captions. The muted evidence covers all frame positions via new playback windows and exact retained picture packets. Continuous listening, perceptual sync, independent whole-film review, W2 convergence and publication approval remain open."
+        },
+        {
+          "revision_id": "frederick-surrey-native-delivery25-20261123",
+          "label": "How to Teach a Computer to Simulate a Fluid",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review25/navier_stokes_simulation_delivery_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "b14460abc8d8146a110af07aae6dad21217b94918cf6fa21cd4f1bc36f58dd0c"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Native FrankenManim 4K60. Fixed two closing text collisions, kept all 278 Frederick Surrey recordings and copied all 184,151 AAC packets and the first 226,664 video packets with identical clocks. Full decode and muted 4K playback of the repaired ending passed. The two English caption files and all 20 chapter clocks carry through.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review25/manifest.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-delivery01/proof.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-render02/pictures-viewed01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-playback01/playback-proof01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-delivery01/positioned-captions-carried01.json"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-23T23:56:10Z",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review25/manifest.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-delivery01/proof.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-render02/pictures-viewed01.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-playback01/playback-proof01.json"
+              ]
+            },
+            {
+              "stage": "master_verified",
+              "recorded_as_of": "2026-11-23T23:56:10Z",
+              "evidence_state": "unknown",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review25/manifest.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-delivery01/positioned-captions-carried01.json"
+              ]
+            }
+          ],
+          "disposition": "Local technical and sampled picture review passed. Continuous listening, perceptual fine sync, independent whole-film review, the full wake convergence ladder and publication approval remain open."
         }
       ],
       "publications": []
