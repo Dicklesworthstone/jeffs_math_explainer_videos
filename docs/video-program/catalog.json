@@ -7531,6 +7531,24 @@
           "revision_id": "frederick-surrey-native-delivery25-20261123",
           "label": "How to Teach a Computer to Simulate a Fluid",
           "voice": "ElevenLabs Frederick Surrey",
+          "artifact_refs": {
+            "script": [
+              "navier_stokes_simulation.review25.script.da02d47802e4"
+            ],
+            "cue": [
+              "navier_stokes_simulation.review25.cue.af8fa7797d81"
+            ],
+            "scene": [
+              "navier_stokes_simulation.review25.scene.0ed27fc4c1ba",
+              "navier_stokes_simulation.review25.scene.934adaded666"
+            ],
+            "master": [
+              "navier_stokes_simulation.review25.master.b14460abc8d8"
+            ],
+            "package": [
+              "navier_stokes_simulation.review25.package.429b1fcfb717"
+            ]
+          },
           "master": {
             "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review25/navier_stokes_simulation_delivery_master.mp4",
             "digest": {
@@ -7754,6 +7772,101 @@
     "historical_limits": "Historical hashes and paths are records, not fresh local media verification. Missing/partial provenance remains unknown. Original manifest retains richer receipts and copy-location details."
   },
   "artifacts": [
+    {
+      "artifact_id": "navier_stokes_simulation.review25.script.da02d47802e4",
+      "kind": "script",
+      "path": "explainer_corpus/navier_stokes_simulation/script.tsv",
+      "sha256": "da02d47802e4e1c081a7233ca81e583f6b4eee84c35762ae189a4f1a45629905",
+      "inputs": [],
+      "evidence_state": "pass",
+      "evidence_refs": [
+        "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/navier-closing-overlap-render02-inputs.json"
+      ]
+    },
+    {
+      "artifact_id": "navier_stokes_simulation.review25.cue.af8fa7797d81",
+      "kind": "cue",
+      "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-build01/narration/assembly.json",
+      "sha256": "af8fa7797d81aadffc3758d8039b34bcc93444ee00831e07ca8330f30a26ec17",
+      "inputs": [
+        "navier_stokes_simulation.review25.script.da02d47802e4"
+      ],
+      "evidence_state": "pass",
+      "evidence_refs": [
+        "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/navier-closing-overlap-render02-inputs.json"
+      ]
+    },
+    {
+      "artifact_id": "navier_stokes_simulation.review25.master.d0e4c8bf75a3",
+      "kind": "master",
+      "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review24/navier_stokes_simulation_delivery_master.mp4",
+      "sha256": "d0e4c8bf75a33d97f7b80dd65eb0745ebb6f166e01335b59e3e6e207434f163d",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review24/manifest.json"
+      ]
+    },
+    {
+      "artifact_id": "navier_stokes_simulation.review25.scene.0ed27fc4c1ba",
+      "kind": "scene",
+      "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-render02/chapter/20_back_to_the_wake.mp4",
+      "sha256": "0ed27fc4c1bad6c6ef0d9eba6cb58d34e0ef3b85247d297e2a48720091ce9ec8",
+      "inputs": [
+        "navier_stokes_simulation.review25.script.da02d47802e4",
+        "navier_stokes_simulation.review25.cue.af8fa7797d81"
+      ],
+      "evidence_state": "pass",
+      "evidence_refs": [
+        "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/navier-closing-overlap-delivery01-inputs.json",
+        "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-render02/pictures-viewed01.json"
+      ]
+    },
+    {
+      "artifact_id": "navier_stokes_simulation.review25.scene.934adaded666",
+      "kind": "scene",
+      "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-delivery01/picture-continuity.json",
+      "sha256": "934adaded66652e5a025c6e7bbea0ee90eba0d69a41fa4ecaa1b7d74c1341c28",
+      "inputs": [
+        "navier_stokes_simulation.review25.master.d0e4c8bf75a3",
+        "navier_stokes_simulation.review25.scene.0ed27fc4c1ba"
+      ],
+      "evidence_state": "pass",
+      "evidence_refs": [
+        "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-delivery01/proof.json"
+      ]
+    },
+    {
+      "artifact_id": "navier_stokes_simulation.review25.master.b14460abc8d8",
+      "kind": "master",
+      "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review25/navier_stokes_simulation_delivery_master.mp4",
+      "sha256": "b14460abc8d8146a110af07aae6dad21217b94918cf6fa21cd4f1bc36f58dd0c",
+      "inputs": [
+        "navier_stokes_simulation.review25.script.da02d47802e4",
+        "navier_stokes_simulation.review25.cue.af8fa7797d81",
+        "navier_stokes_simulation.review25.master.d0e4c8bf75a3",
+        "navier_stokes_simulation.review25.scene.0ed27fc4c1ba",
+        "navier_stokes_simulation.review25.scene.934adaded666"
+      ],
+      "evidence_state": "pass",
+      "evidence_refs": [
+        "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-delivery01/proof.json",
+        "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review25/manifest.json"
+      ]
+    },
+    {
+      "artifact_id": "navier_stokes_simulation.review25.package.429b1fcfb717",
+      "kind": "package",
+      "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/owner-review25/manifest.json",
+      "sha256": "429b1fcfb71778623858c933abc39f2fa398cc6e1164e7a54a5f3ad7b6d796d5",
+      "inputs": [
+        "navier_stokes_simulation.review25.master.b14460abc8d8"
+      ],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-closing-overlap-delivery01/resource-receipt.json"
+      ]
+    },
     {
       "artifact_id": "golay_echoes.silent-20261018.104aa4b4e2d7",
       "kind": "scene",
