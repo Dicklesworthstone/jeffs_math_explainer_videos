@@ -7856,7 +7856,12 @@
             "docs/video-program/research-20261016/evidence/frankenlife-20261124/master-rejoin-audit02/readback01.json",
             "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/delivery-manifest02.json",
             "docs/video-program/research-20261016/evidence/frankenlife-20261124/master-rejoin-plan02.json",
-            "docs/video-program/research-20261016/evidence/frankenlife-20261124/chapter03-card-review01/independent-encoded01.md"
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/chapter03-card-review01/independent-encoded01.md",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-playback02/playback-result01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-playback02/resource-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-caption-player02/viewed01.json",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/master-rejoin-audit02/independent-picture01.json",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/master-rejoin-audit02/picture-negative-control01.json"
           ],
           "milestones": [
             {
@@ -7870,17 +7875,22 @@
             },
             {
               "stage": "master_verified",
-              "recorded_as_of": "2026-11-25T02:33:05Z",
+              "recorded_as_of": "2026-11-25T02:54:46Z",
               "evidence_state": "unknown",
               "evidence_refs": [
                 "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery02/resource-receipt.json",
                 "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery02/technical01.json",
                 "docs/video-program/research-20261016/evidence/frankenlife-20261124/master-rejoin-audit02/readback01.json",
-                "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/delivery-manifest02.json"
+                "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/delivery-manifest02.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-playback02/playback-result01.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-playback02/resource-receipt.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-caption-player02/viewed01.json",
+                "docs/video-program/research-20261016/evidence/frankenlife-20261124/master-rejoin-audit02/independent-picture01.json",
+                "docs/video-program/research-20261016/evidence/frankenlife-20261124/master-rejoin-audit02/picture-negative-control01.json"
               ]
             }
           ],
-          "disposition": "Local 4K60 successor. Full A/V decode, exact packet and caption comparisons, independent technical readback and a freshly rehashed package pass. Actual joined caption pictures, muted normal-speed playback, continuous listening, perceptual fine sync and independent whole-film review are pending."
+          "disposition": "Local 4K60 successor. Full A/V decode, exact packet and caption comparisons, independent edited-window picture readback, 16 sampled local caption checks and full-duration muted normal-speed playback passed. Continuous listening, perceptual fine sync, independent whole-film review and platform caption placement remain open."
         }
       ],
       "publications": []
