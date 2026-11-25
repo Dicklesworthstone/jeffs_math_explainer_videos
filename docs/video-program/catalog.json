@@ -7740,7 +7740,8 @@
           "visibility": "private",
           "evidence_refs": [
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/upload-draft-review27-01.json",
-            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/private-description-update01.json"
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/private-description-update01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/private-description-update02.json"
           ],
           "evidence_state": "pass",
           "recorded_as_of": "2026-11-24T19:56:31Z"
