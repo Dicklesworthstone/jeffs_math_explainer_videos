@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-11-24",
+  "updated_on": "2026-11-25",
   "work_tracker": ".beads",
   "consumer": "Channel owner and video producers",
   "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
@@ -7836,6 +7836,51 @@
             }
           ],
           "disposition": "Local review master. Exact chapter packet order, encoded audio, English files, full decode and normal-speed muted playback pass. All 13 local Chrome caption samples displayed the intended text and preserved readable content. Independent sampled sequence reviews identified picture repairs in Chapters 5, 7 and 10. Recognition overlaps every timed caption in the exact mixed audio. A second model did not corroborate a substantive wording error across the eight flagged excerpts. Revised pictures, continuous listening, perceptual fine sync and independent whole-film review remain open."
+        },
+        {
+          "revision_id": "frederick-native-review02-20261125",
+          "label": "What Makes a Simulated World Look Alive?",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery02/frankenlife-4k60.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "58967edf144f1d4cc98cb4cc962df9fad92de5d53e04db8ffaeff9c9c9552379"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Picture-only rejoin of the first 4K60 master. Five reviewed native picture edits in Chapters 2, 3, 5, 7 and 10 preserve 54,368 outside picture packets, all 44,273 AAC packets, ten chapter markers and 279 exact English cues. The 56,667-frame clock and eight prediction holds remain.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery02/resource-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery02/technical01.json",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/master-rejoin-audit02/readback01.json",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/delivery-manifest02.json",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/master-rejoin-plan02.json",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/chapter03-card-review01/independent-encoded01.md"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-25T02:32:00Z",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery02/resource-receipt.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery02/technical01.json"
+              ]
+            },
+            {
+              "stage": "master_verified",
+              "recorded_as_of": "2026-11-25T02:33:05Z",
+              "evidence_state": "unknown",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery02/resource-receipt.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery02/technical01.json",
+                "docs/video-program/research-20261016/evidence/frankenlife-20261124/master-rejoin-audit02/readback01.json",
+                "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/delivery-manifest02.json"
+              ]
+            }
+          ],
+          "disposition": "Local 4K60 successor. Full A/V decode, exact packet and caption comparisons, independent technical readback and a freshly rehashed package pass. Actual joined caption pictures, muted normal-speed playback, continuous listening, perceptual fine sync and independent whole-film review are pending."
         }
       ],
       "publications": []
