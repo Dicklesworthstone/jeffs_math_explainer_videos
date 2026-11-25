@@ -7728,7 +7728,7 @@
               ]
             }
           ],
-          "disposition": "The exact master completed muted, normal-speed 4K60 playback across all 20 chapters. FrankenWhisper covers all 1,098 caption intervals, and both recognizers retain the wording at the four repaired joins. YouTube Studio shows the upload as private. The private player offered 2160p60 and showed the uploaded English track separately from automatic captions. Continuous listening, perceptual fine sync and independent whole-film review remain open. The owner authorized public release after checks."
+          "disposition": "The exact master completed muted, normal-speed 4K60 playback across all 20 chapters. FrankenWhisper covers all 1,098 caption intervals, and both recognizers retain the wording at the four repaired joins. The owner authorized publication with the remaining perceptual checks open. The original upload is Public. Verified the public 2160p60 stream by decoding 120 frames and matched 1,098 uploaded English cues, including 21 positioned cues. Continuous listening, perceptual fine sync and independent whole-film review remain open."
         }
       ],
       "publications": [
@@ -7737,14 +7737,15 @@
           "external_id": "x0-ux9BaUOA",
           "url": "https://www.youtube.com/watch?v=x0-ux9BaUOA",
           "revision_id": "frederick-surrey-native-delivery27-20261124",
-          "visibility": "private",
+          "visibility": "public",
           "evidence_refs": [
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/upload-draft-review27-01.json",
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/private-description-update01.json",
-            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/private-description-update02.json"
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/private-description-update02.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/public-watch-receipt01.json"
           ],
           "evidence_state": "pass",
-          "recorded_as_of": "2026-11-24T19:56:31Z"
+          "recorded_as_of": "2026-11-25T14:07:16Z"
         }
       ]
     },
@@ -7908,7 +7909,21 @@
           "disposition": "Local 4K60 successor. Full A/V decode, exact packet and caption comparisons, independent edited-window picture readback, 20 sampled local caption checks and full-duration muted normal-speed playback passed. Continuous listening, perceptual fine sync, independent whole-film review and platform caption placement remain open."
         }
       ],
-      "publications": []
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "nlWQ2OhlKis",
+          "url": "https://www.youtube.com/watch?v=nlWQ2OhlKis",
+          "revision_id": "frederick-native-review02-20261125",
+          "visibility": "private",
+          "evidence_refs": [
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/upload-start01.json",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/private-watch-status01.json"
+          ],
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-11-25T14:07:16Z"
+        }
+      ]
     },
     {
       "video_id": "algorithm_shapes",
