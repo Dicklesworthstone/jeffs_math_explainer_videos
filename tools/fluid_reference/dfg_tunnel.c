@@ -220,7 +220,10 @@ int main(int argc, char **argv)
 event init(t = 0)
 {
   CFL = .6;
-  mask(y > height ? top : x > length ? right : none);
+  /* The quadtree can merge fully masked siblings into one boundary leaf.
+     Give cells beyond the outlet the outlet label so a merged corner
+     block leaves the last wetted outlet face open. */
+  mask(x > length ? right : y > height ? top : none);
   transfer_pressure.restriction = restriction_embed_linear;
   transfer_pressure.refine = transfer_pressure.prolongation = refine_embed_linear;
   transfer_pressure.embed_gradient = pressure_embed_gradient;
