@@ -7802,7 +7802,9 @@
             "docs/video-program/research-20261016/evidence/frankenlife-20261124/chapter02-footer-picture-review01/viewed01.json",
             "docs/video-program/research-20261016/evidence/frankenlife-20261124/chapter04-repair-picture-review01/viewed01.json",
             "docs/video-program/research-20261016/evidence/frankenlife-20261124/chapter07-repair-picture-review01/viewed01.json",
-            "docs/video-program/research-20261016/evidence/frankenlife-20261124/chapter09-repair-picture-review01/viewed01.json"
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/chapter09-repair-picture-review01/viewed01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-playback01/playback-result01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-mix-recognition01/caption-interval-audit01.json"
           ],
           "milestones": [
             {
@@ -7816,14 +7818,16 @@
             },
             {
               "stage": "master_verified",
-              "recorded_as_of": "2026-11-25T00:32:18Z",
+              "recorded_as_of": "2026-11-25T00:52:55Z",
               "evidence_state": "unknown",
               "evidence_refs": [
-                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery01/technical01.json"
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery01/technical01.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-playback01/playback-result01.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-mix-recognition01/caption-interval-audit01.json"
               ]
             }
           ],
-          "disposition": "Local review master. Exact chapter packet order, encoded audio, English files and full decode pass. All ten chapters passed sampled picture review with modeled local captions. Normal-speed native playback, listening, perceptual fine sync and independent whole-film review remain open. Publication has a separate decision."
+          "disposition": "Local review master. Exact chapter packet order, encoded audio, English files, full decode and normal-speed muted playback pass. All ten chapters passed sampled picture review with modeled captions. Recognition overlaps every timed caption in the exact mixed audio. Continuous listening, perceptual fine sync and independent whole-film review remain open. Publication has a separate decision."
         }
       ],
       "publications": []
