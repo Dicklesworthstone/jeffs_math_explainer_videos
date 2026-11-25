@@ -7804,7 +7804,13 @@
             "docs/video-program/research-20261016/evidence/frankenlife-20261124/chapter07-repair-picture-review01/viewed01.json",
             "docs/video-program/research-20261016/evidence/frankenlife-20261124/chapter09-repair-picture-review01/viewed01.json",
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-playback01/playback-result01.json",
-            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-mix-recognition01/caption-interval-audit01.json"
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-mix-recognition01/caption-interval-audit01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-mix-second-recognition01/readback01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-caption-player01/viewed01.json",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/delivery-manifest01.json",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/independent-delivery-review01.md",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/independent-first-half01.md",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/independent-second-half01.md"
           ],
           "milestones": [
             {
@@ -7818,16 +7824,18 @@
             },
             {
               "stage": "master_verified",
-              "recorded_as_of": "2026-11-25T00:52:55Z",
+              "recorded_as_of": "2026-11-25T01:40:00Z",
               "evidence_state": "unknown",
               "evidence_refs": [
                 "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery01/technical01.json",
                 "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-playback01/playback-result01.json",
-                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-mix-recognition01/caption-interval-audit01.json"
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-mix-recognition01/caption-interval-audit01.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-mix-second-recognition01/readback01.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-caption-player01/viewed01.json"
               ]
             }
           ],
-          "disposition": "Local review master. Exact chapter packet order, encoded audio, English files, full decode and normal-speed muted playback pass. All ten chapters passed sampled picture review with modeled captions. Recognition overlaps every timed caption in the exact mixed audio. Continuous listening, perceptual fine sync and independent whole-film review remain open. Publication has a separate decision."
+          "disposition": "Local review master. Exact chapter packet order, encoded audio, English files, full decode and normal-speed muted playback pass. All 13 local Chrome caption samples displayed the intended text and preserved readable content. Independent sampled sequence reviews identified picture repairs in Chapters 5, 7 and 10. Recognition overlaps every timed caption in the exact mixed audio. A second model did not corroborate a substantive wording error across the eight flagged excerpts. Revised pictures, continuous listening, perceptual fine sync and independent whole-film review remain open."
         }
       ],
       "publications": []
