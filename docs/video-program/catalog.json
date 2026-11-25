@@ -7782,7 +7782,50 @@
       "related_video_ids": [
         "navier_stokes_simulation"
       ],
-      "revisions": [],
+      "revisions": [
+        {
+          "revision_id": "frederick-native-review01-20261125",
+          "label": "What Makes a Simulated World Look Alive?",
+          "voice": "ElevenLabs Frederick Surrey",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery01/frankenlife-4k60.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "b01b1e1b1eab32f8ba80d43a7322dd4bef68bd6e18f8feb6ac4f9af2277789d8"
+            },
+            "evidence_state": "pass"
+          },
+          "generation_provenance": "Real FrankenLife simulation imagery with native FrankenManim overlays, 51 Frederick Surrey cues, original music, 10 chapters, eight prediction holds and 279 timed English caption blocks. The 56,667 frames are 3840 × 2160 at 60 fps.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery01/technical01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery01/resource-receipt.json",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/chapter02-footer-picture-review01/viewed01.json",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/chapter04-repair-picture-review01/viewed01.json",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/chapter07-repair-picture-review01/viewed01.json",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/chapter09-repair-picture-review01/viewed01.json"
+          ],
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-11-25T00:32:18Z",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery01/resource-receipt.json",
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery01/technical01.json"
+              ]
+            },
+            {
+              "stage": "master_verified",
+              "recorded_as_of": "2026-11-25T00:32:18Z",
+              "evidence_state": "unknown",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-delivery01/technical01.json"
+              ]
+            }
+          ],
+          "disposition": "Local review master. Exact chapter packet order, encoded audio, English files and full decode pass. All ten chapters passed sampled picture review with modeled local captions. Normal-speed native playback, listening, perceptual fine sync and independent whole-film review remain open. Publication has a separate decision."
+        }
+      ],
       "publications": []
     },
     {
