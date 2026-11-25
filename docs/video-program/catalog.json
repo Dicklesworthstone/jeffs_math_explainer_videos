@@ -7876,7 +7876,8 @@
             "docs/video-program/research-20261016/evidence/exact-waveform-review-20261125/consolidated-timing01.md",
             "docs/video-program/research-20261016/evidence/exact-waveform-review-20261125/frankenlife-scan-result01.md",
             "docs/video-program/research-20261016/evidence/exact-waveform-review-20261125/exact-stereo-readback01.md",
-            "docs/video-program/research-20261016/evidence/frankenlife-20261124/delivery02-native-picture-coverage01/RESULT.md"
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/delivery02-native-picture-coverage01/RESULT.md",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/public-watch-receipt01.json"
           ],
           "milestones": [
             {
@@ -7904,9 +7905,18 @@
                 "docs/video-program/research-20261016/evidence/frankenlife-20261124/master-rejoin-audit02/independent-picture01.json",
                 "docs/video-program/research-20261016/evidence/frankenlife-20261124/master-rejoin-audit02/picture-negative-control01.json"
               ]
+            },
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-11-25T15:23:27Z",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/upload-start01.json",
+                "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/public-watch-receipt01.json"
+              ]
             }
           ],
-          "disposition": "Local 4K60 successor. Full A/V decode, exact packet and caption comparisons, independent edited-window picture readback, 20 sampled local caption checks and full-duration muted normal-speed playback passed. Continuous listening, perceptual fine sync, independent whole-film review and platform caption placement remain open."
+          "disposition": "Local 4K60 successor. Full A/V decode, exact packet and caption comparisons, independent edited-window picture readback, 20 sampled local caption checks and full-duration muted normal-speed playback passed. Continuous listening, perceptual fine sync, independent whole-film review and platform caption placement remain open. The owner approved release with those review gaps open. The existing upload is Public. The opening two seconds decoded at 2160p60, and all 279 public manual English cues match the source text, line breaks and clocks."
         }
       ],
       "publications": [
@@ -7915,13 +7925,14 @@
           "external_id": "nlWQ2OhlKis",
           "url": "https://www.youtube.com/watch?v=nlWQ2OhlKis",
           "revision_id": "frederick-native-review02-20261125",
-          "visibility": "private",
+          "visibility": "public",
           "evidence_refs": [
             "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/upload-start01.json",
-            "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/private-watch-status01.json"
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/private-watch-status01.json",
+            "docs/video-program/research-20261016/evidence/frankenlife-20261124/publication-draft01/public-watch-receipt01.json"
           ],
           "evidence_state": "pass",
-          "recorded_as_of": "2026-11-25T14:07:16Z"
+          "recorded_as_of": "2026-11-25T15:23:27Z"
         }
       ]
     },
