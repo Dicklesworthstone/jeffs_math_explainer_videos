@@ -7692,7 +7692,9 @@
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/delivery26-aac-boundaries01/candidate-aac-packet-compare01.json",
             "docs/video-program/research-20261016/evidence/exact-waveform-review-20261125/consolidated-timing01.md",
             "docs/video-program/research-20261016/evidence/exact-waveform-review-20261125/omni3-score01.json",
-            "docs/video-program/research-20261016/evidence/exact-waveform-review-20261125/exact-stereo-readback01.md"
+            "docs/video-program/research-20261016/evidence/exact-waveform-review-20261125/exact-stereo-readback01.md",
+            "docs/video-program/research-20261016/evidence/navier-stokes-20261114/adaptive-reference01/review27-visual-sources01.md",
+            "docs/video-program/research-20261016/evidence/navier-stokes-20261114/adaptive-reference01/closing-replay-outlet01.json"
           ],
           "milestones": [
             {
@@ -7737,7 +7739,8 @@
           "revision_id": "frederick-surrey-native-delivery27-20261124",
           "visibility": "private",
           "evidence_refs": [
-            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/upload-draft-review27-01.json"
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/upload-draft-review27-01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/navier-production-20261120/private-description-update01.json"
           ],
           "evidence_state": "pass",
           "recorded_as_of": "2026-11-24T19:56:31Z"
@@ -7865,6 +7868,7 @@
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-playback02/playback-result01.json",
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-playback02/resource-receipt.json",
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-final-caption-player02/viewed01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenlife-player-distance-labels01/viewed01.json",
             "docs/video-program/research-20261016/evidence/frankenlife-20261124/master-rejoin-audit02/independent-picture01.json",
             "docs/video-program/research-20261016/evidence/frankenlife-20261124/master-rejoin-audit02/picture-negative-control01.json",
             "docs/video-program/research-20261016/evidence/exact-waveform-review-20261125/consolidated-timing01.md",
@@ -7900,7 +7904,7 @@
               ]
             }
           ],
-          "disposition": "Local 4K60 successor. Full A/V decode, exact packet and caption comparisons, independent edited-window picture readback, 16 sampled local caption checks and full-duration muted normal-speed playback passed. Continuous listening, perceptual fine sync, independent whole-film review and platform caption placement remain open."
+          "disposition": "Local 4K60 successor. Full A/V decode, exact packet and caption comparisons, independent edited-window picture readback, 20 sampled local caption checks and full-duration muted normal-speed playback passed. Continuous listening, perceptual fine sync, independent whole-film review and platform caption placement remain open."
         }
       ],
       "publications": []
