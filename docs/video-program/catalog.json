@@ -8082,8 +8082,8 @@
     },
     {
       "video_id": "anytime_valid_evidence",
-      "working_title": "Can You Stop When the Result Looks Good?",
-      "pitch": "Use identical fair-coin paths to compare terminal inference, repeated uncorrected looks and a betting process. Derive the first-crossing bound and build smoothed online conformal ranks. Compare Wald and alpha spending and trace public FrankenTUI's frame-budget heuristic without assigning it the theorem's bound.",
+      "working_title": "How to Catch a Change Without Crying Wolf",
+      "pitch": "Follow measured FrankenTUI frame times and published wine chemistry through a complete sequential evidence calculation. Derive the first-crossing bound and smoothed conformal rank martingales. Quantify what repeated uncorrected checks cost and explain where classical sequential methods and the product heuristic fit.",
       "work_epic": "mx-video-program-program-87do.73",
       "production_approval": "explicit_current_grant",
       "decisions": [
@@ -8095,6 +8095,16 @@
           "source_refs": [
             "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
             "docs/video-program/research-20261016/evidence/applied-probability-20261126/channel-audience01.json"
+          ]
+        },
+        {
+          "on": "2026-11-26",
+          "decision": "selected",
+          "by": "Owner-directed production priority",
+          "reason": "Finish this first. Use worked, measured examples to teach the new mathematics in depth. Hold the other two slate ideas behind it.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/flagship/script01.tsv",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/flagship/real-examples01.json"
           ]
         }
       ],
@@ -8109,7 +8119,10 @@
         "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
         "docs/video-program/research-20261016/evidence/applied-probability-20261126/production-start.md",
         "docs/video-program/research-20261016/evidence/applied-probability-20261126/oracle-results01.json",
-        "docs/video-program/research-20261016/evidence/applied-probability-20261126/native-pilots/src/main.rs"
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/native-pilots/src/main.rs",
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/flagship/script01.tsv",
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/flagship/real-examples01.json",
+        "https://archive.ics.uci.edu/dataset/186/wine+quality"
       ],
       "revisions": [
         {
@@ -8117,7 +8130,7 @@
           "label": "Native production start",
           "voice": "Planned ElevenLabs Frederick Surrey (unrecorded)",
           "generation_provenance": "Independent mathematical review, exact local oracles and a pinned FrankenManim scene.",
-          "disposition": "Worked examples and one reviewed native 4K still. Full animation, the final script, narration, master and publication remain open.",
+          "disposition": "Historical production still and pilot examples retained. The owner revised the treatment for the next cut.",
           "evidence_refs": [
             "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
             "docs/video-program/research-20261016/evidence/applied-probability-20261126/production-start.md",
@@ -8135,6 +8148,30 @@
                 "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
                 "docs/video-program/research-20261016/evidence/applied-probability-20261126/production-start.md",
                 "docs/video-program/research-20261016/evidence/applied-probability-20261126/oracle-results01.json"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "real-data-script01-20261126",
+          "label": "First-priority real-data script",
+          "voice": "ElevenLabs Frederick Surrey, Eleven v3 Natural, partial recording",
+          "generation_provenance": "Measured FrankenTUI frame sample and seeded replay of UCI Wine Quality rows. Guarded API attempts produced no audio. The guarded ElevenLabs website batch retained both original takes per cue.",
+          "disposition": "Fourteen chapters and 41 locked cues. First four chapters recorded with 24 full raw takes for 12 cues. Remaining recording, animation, independent review, listening, sync, master and publication are open.",
+          "evidence_refs": [
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/flagship/script-lock01.json",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/flagship/real-examples01.json",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/flagship/figure-facts02.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/anytime-valid-frederick-opening01/resource-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/anytime-valid-frederick-browser01/04_3/receipt.json"
+          ],
+          "milestones": [
+            {
+              "stage": "script_locked",
+              "recorded_as_of": "2026-11-26T05:46:19Z",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "docs/video-program/research-20261016/evidence/applied-probability-20261126/flagship/script-lock01.json"
               ]
             }
           ]
@@ -8262,6 +8299,47 @@
           ]
         }
       ],
+      "publications": []
+    },
+    {
+      "video_id": "frankenrobotics_group_theory",
+      "working_title": "The Math Behind FrankenRobotics",
+      "pitch": "Build up the group-theoretic description of robot bodies from a hinge to an arm, wheeled and tracked bases, quadrupeds, and humanoids. Compute the motion of a rover and the symmetry modes of a quadruped before applying the same mathematics to the site's examples.",
+      "work_epic": "mx-video-program-program-87do.76",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-11-26",
+          "decision": "shortlisted",
+          "by": "Owner-directed treatment",
+          "reason": "The film's subject is abstract algebra and the distinct models and representations of the different robot families. Continue research behind the first-priority applied-probability film.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/frankenrobotics-20261126/treatment.md"
+          ]
+        },
+        {
+          "on": "2026-11-26",
+          "decision": "selected",
+          "by": "Owner-authorized full-slate production",
+          "reason": "Build the full new slate in the requested NTM team. Proceed with the group-theoretic robotics film and ElevenLabs narration under the native production workflow.",
+          "source_refs": [
+            "docs/video-program/third-wave-20261024/TODO.md",
+            "docs/video-program/research-20261016/evidence/frankenrobotics-20261126/treatment.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "https://frankenrobotics.com/",
+        "https://www.sciencedirect.com/science/article/abs/pii/S0094114X98000512",
+        "https://modernrobotics.northwestern.edu/nu-gm-book-resource/3-3-1-homogeneous-transformation-matrices/",
+        "https://modernrobotics.northwestern.edu/nu-gm-book-resource/13-3-1-modeling-of-nonholonomic-wheeled-mobile-robots/",
+        "docs/video-program/research-20261016/evidence/frankenrobotics-20261126/treatment.md",
+        "docs/video-program/research-20261016/evidence/frankenrobotics-20261126/scene-facts.py"
+      ],
+      "related_video_ids": [
+        "lie_robotics"
+      ],
+      "revisions": [],
       "publications": []
     }
   ],
