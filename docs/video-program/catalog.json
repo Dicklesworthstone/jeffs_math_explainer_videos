@@ -8157,13 +8157,14 @@
           "label": "First-priority real-data script",
           "voice": "ElevenLabs Frederick Surrey, Eleven v3 Natural, partial recording",
           "generation_provenance": "Measured FrankenTUI frame sample and seeded replay of UCI Wine Quality rows. Guarded API attempts produced no audio. The guarded ElevenLabs website batch retained both original takes per cue.",
-          "disposition": "Fourteen chapters and 41 locked cues. First four chapters recorded with 24 full raw takes for 12 cues. Remaining recording, animation, independent review, listening, sync, master and publication are open.",
+          "disposition": "Fourteen chapters and 41 locked cues. First seven chapters recorded with 42 full raw takes for 21 cues. Remaining recording, animation, independent review, listening, sync, master and publication are open.",
           "evidence_refs": [
             "docs/video-program/research-20261016/evidence/applied-probability-20261126/flagship/script-lock01.json",
             "docs/video-program/research-20261016/evidence/applied-probability-20261126/flagship/real-examples01.json",
             "docs/video-program/research-20261016/evidence/applied-probability-20261126/flagship/figure-facts02.json",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/flagship/opening-provisional-selection01.json",
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/anytime-valid-frederick-opening01/resource-receipt.json",
-            "narration_lab/third-wave-20261024/root/five-film-release-20261027/anytime-valid-frederick-browser01/04_3/receipt.json"
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/anytime-valid-frederick-browser01/retained-takes01.json"
           ],
           "milestones": [
             {
@@ -8182,7 +8183,7 @@
     {
       "video_id": "split_conformal_prediction",
       "working_title": "How Wide Should an Honest Prediction Be?",
-      "pitch": "Build a prediction interval from held-out residuals. Derive the extra rank and marginal guarantee. Check ties and a distribution shift. Compare a Gaussian prediction interval under its own assumptions.",
+      "pitch": "Build an interpretable prediction interval from held-out wine chemistry residuals, derive the finite rank guarantee, and check it against rounding, subgroup coverage, distribution shift and a Gaussian interval.",
       "work_epic": "mx-video-program-program-87do.74",
       "production_approval": "explicit_current_grant",
       "decisions": [
@@ -8236,6 +8237,19 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "measured-regression-script02-20261126",
+          "label": "Wine regression and split conformal script",
+          "voice": "Planned ElevenLabs Frederick Surrey (unrecorded)",
+          "generation_provenance": "Neon draft and independently reproduced numerical results from the pinned UCI archive. Successor script corrects scientific scope and the rounded score.",
+          "disposition": "Draft. Align the storyboard with corrected cues and finish native scenes, voice, listening, sync and delivery.",
+          "evidence_refs": [
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/verification/split-conformal-review01.md",
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/verification/split-conformal-script02.tsv",
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/companions/split_conformal_prediction/facts.json"
+          ],
+          "milestones": []
         }
       ],
       "publications": []
@@ -8297,6 +8311,19 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "queue-replay-script01-20261126",
+          "label": "Paired queue replay script",
+          "voice": "Planned ElevenLabs Frederick Surrey (unrecorded)",
+          "generation_provenance": "Exact four-job enumeration, large-system rate balance, and six simulated FIFO histories replayed across eight refresh periods. The original expected crossover at period 30 failed and the result is retained.",
+          "disposition": "Ten-chapter, 36-cue draft with native visual beats and measured queue facts. Independent review, native scenes, recording, listening, sync and delivery remain open.",
+          "evidence_refs": [
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/verification/power-of-two-script01.tsv",
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/verification/power-of-two-storyboard01.md",
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/verification/queue-refresh-replay02.json"
+          ],
+          "milestones": []
         }
       ],
       "publications": []
@@ -8339,7 +8366,21 @@
       "related_video_ids": [
         "lie_robotics"
       ],
-      "revisions": [],
+      "revisions": [
+        {
+          "revision_id": "group-theory-script01-20261126",
+          "label": "Group-theoretic script and first native sources",
+          "voice": "Planned ElevenLabs Frederick Surrey (unrecorded)",
+          "generation_provenance": "Neon script and native arm and symmetry scene sources. The source-based arithmetic oracle reproduced the snake motion and corridor witnesses.",
+          "disposition": "113 spoken cues and two uncompiled native scene sources. Complete the remaining native scenes and qualify the visual, narration and sync evidence before delivery.",
+          "evidence_refs": [
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/frankenrobotics/README.md",
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/frankenrobotics/script.tsv",
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/frankenrobotics/oracle.py"
+          ],
+          "milestones": []
+        }
+      ],
       "publications": []
     }
   ],
