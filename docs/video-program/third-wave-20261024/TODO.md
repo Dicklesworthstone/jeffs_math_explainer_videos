@@ -1,3 +1,14 @@
+## Applied probability slate · November 26, 2026
+
+- [x] Matched the 36 public channel uploads to the catalog and took a public likes/views snapshot. Nineteen had at least 150 views and a measured like count. Ranked candidates and selected three production starts. [Slate and audience evidence](../research-20261016/evidence/applied-probability-20261126/slate.md)
+- [x] Started the three films in Beads. Anytime-valid evidence `.73`, split conformal prediction `.74`, and power of two choices `.75`. The three `.1` pilot children closed after the frame and oracle checks. The `.2` children track the remaining full-film work.
+- [x] Independently audited the coin calculations, the online rank guarantee, split-conformal coverage, and the finite allocation comparison. Public FrankenTUI frame budgeting is the product case. Its heuristic tuning does not inherit the formal null guarantee. [Exact oracle outputs](../research-20261016/evidence/applied-probability-20261126/oracle-results01.json)
+- [x] Drafted three openings and the full teaching sequences. Wrote the initial pinned FrankenManim frames and launched guarded job `applied-probability-native01`. [Scripts and shots](../research-20261016/evidence/applied-probability-20261126/production-start.md)
+- [x] Guarded native job exited zero with stable inputs and no resource stop. Viewed all three 3840 × 2160 frames. The coin rows, prediction cutoff and queue stacks match their examples. These are stills. [Frame review and receipt](../research-20261016/evidence/applied-probability-20261126/native-frames-reviewed01.json)
+- [x] Ran the fixed-horizon and two-look baselines, the exact rare-group coverage calculation, six finite paired FIFO simulations, and the separate public frame-gate fixture reconstruction. [Comparisons](../research-20261016/evidence/applied-probability-20261126/comparison-results02.json) · [Frame evidence](../research-20261016/evidence/applied-probability-20261126/frame-gate-trace01.json)
+- [ ] Build the complete cues and animated chapters. Add the formal and software case charts from the measurements. Test stale queue readings and the classical prediction-model comparison before making claims about them.
+- [ ] Record with ElevenLabs Frederick Surrey, verify the exact 4K60 delivery and manual captions, and keep listening, perceptual sync and independent whole-film review open until verified. Publication has its own decision.
+
 ## Navier–Stokes production authorized · November 20, 2026
 
 ### Current production · November 25, 14:07 UTC

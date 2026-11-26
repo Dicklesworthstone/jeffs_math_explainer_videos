@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-11-25",
+  "updated_on": "2026-11-26",
   "work_tracker": ".beads",
   "consumer": "Channel owner and video producers",
   "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
@@ -8079,6 +8079,190 @@
           ]
         }
       ]
+    },
+    {
+      "video_id": "anytime_valid_evidence",
+      "working_title": "Can You Stop When the Result Looks Good?",
+      "pitch": "Use identical fair-coin paths to compare terminal inference, repeated uncorrected looks and a betting process. Derive the first-crossing bound and build smoothed online conformal ranks. Compare Wald and alpha spending and trace public FrankenTUI's frame-budget heuristic without assigning it the theorem's bound.",
+      "work_epic": "mx-video-program-program-87do.73",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-11-26",
+          "decision": "selected",
+          "by": "Owner-directed slate and local implementation start",
+          "reason": "Audience-informed choice for the initial three-film slate. Implement the math and first native visuals. Publication is a separate decision.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/channel-audience01.json"
+          ]
+        }
+      ],
+      "related_video_ids": [
+        "split_conformal_prediction",
+        "power_of_two_choices"
+      ],
+      "source_refs": [
+        "https://safestatistics.com/wp-content/uploads/2023/10/RamdasSAVIStatScience23.pdf",
+        "https://proceedings.mlr.press/v152/vovk21b.html",
+        "https://github.com/Dicklesworthstone/frankentui/blob/63f3ab756f7e8830c25c2d9a2d6c870af1a8be0b/crates/ftui-render/src/budget.rs",
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/production-start.md",
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/oracle-results01.json",
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/native-pilots/src/main.rs"
+      ],
+      "revisions": [
+        {
+          "revision_id": "native-pilot01-20261126",
+          "label": "Native production start",
+          "voice": "Planned ElevenLabs Frederick Surrey (unrecorded)",
+          "generation_provenance": "Independent mathematical review, exact local oracles and a pinned FrankenManim scene.",
+          "disposition": "Worked examples and one reviewed native 4K still. Full animation, the final script, narration, master and publication remain open.",
+          "evidence_refs": [
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/production-start.md",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/oracle-results01.json",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/native-pilots/src/main.rs",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/comparison-results02.json",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/native-frames-reviewed01.json"
+          ],
+          "milestones": [
+            {
+              "stage": "brief_qualified",
+              "recorded_as_of": "2026-11-26T05:31:46Z",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
+                "docs/video-program/research-20261016/evidence/applied-probability-20261126/production-start.md",
+                "docs/video-program/research-20261016/evidence/applied-probability-20261126/oracle-results01.json"
+              ]
+            }
+          ]
+        }
+      ],
+      "publications": []
+    },
+    {
+      "video_id": "split_conformal_prediction",
+      "working_title": "How Wide Should an Honest Prediction Be?",
+      "pitch": "Build a prediction interval from held-out residuals. Derive the extra rank and marginal guarantee. Check ties and a distribution shift. Compare a Gaussian prediction interval under its own assumptions.",
+      "work_epic": "mx-video-program-program-87do.74",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-11-26",
+          "decision": "selected",
+          "by": "Owner-directed slate and local implementation start",
+          "reason": "Audience-informed choice for the initial three-film slate. Implement the math and first native visuals. Publication is a separate decision.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/channel-audience01.json"
+          ]
+        }
+      ],
+      "related_video_ids": [
+        "anytime_valid_evidence",
+        "power_of_two_choices"
+      ],
+      "source_refs": [
+        "https://www.stat.berkeley.edu/~ryantibs/papers/conformal-jasa.pdf",
+        "https://arxiv.org/abs/2411.11824",
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/production-start.md",
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/oracle-results01.json",
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/native-pilots/src/main.rs"
+      ],
+      "revisions": [
+        {
+          "revision_id": "native-pilot01-20261126",
+          "label": "Native production start",
+          "voice": "Planned ElevenLabs Frederick Surrey (unrecorded)",
+          "generation_provenance": "Independent mathematical review, exact local oracles and a pinned FrankenManim scene.",
+          "disposition": "Worked examples and one reviewed native 4K still. Full animation, the final script, narration, master and publication remain open.",
+          "evidence_refs": [
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/production-start.md",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/oracle-results01.json",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/native-pilots/src/main.rs",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/comparison-results02.json",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/native-frames-reviewed01.json"
+          ],
+          "milestones": [
+            {
+              "stage": "brief_qualified",
+              "recorded_as_of": "2026-11-26T05:31:46Z",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
+                "docs/video-program/research-20261016/evidence/applied-probability-20261126/production-start.md",
+                "docs/video-program/research-20261016/evidence/applied-probability-20261126/oracle-results01.json"
+              ]
+            }
+          ]
+        }
+      ],
+      "publications": []
+    },
+    {
+      "video_id": "power_of_two_choices",
+      "working_title": "Why Looking at Two Queues Changes Everything",
+      "pitch": "Send an identical stream to one random queue or the shorter of two sampled queues. Explain the squared tail in the ideal model and measure a matched workload. Keep a static allocation and actual service queues distinct.",
+      "work_epic": "mx-video-program-program-87do.75",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-11-26",
+          "decision": "selected",
+          "by": "Owner-directed slate and local implementation start",
+          "reason": "Audience-informed choice for the initial three-film slate. Implement the math and first native visuals. Publication is a separate decision.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/channel-audience01.json"
+          ]
+        }
+      ],
+      "related_video_ids": [
+        "anytime_valid_evidence",
+        "split_conformal_prediction"
+      ],
+      "source_refs": [
+        "https://cs.brown.edu/people/eupfal/papers/SICOMP29.pdf",
+        "https://www2.eecs.berkeley.edu/Pubs/TechRpts/1996/7979.html",
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/production-start.md",
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/oracle-results01.json",
+        "docs/video-program/research-20261016/evidence/applied-probability-20261126/native-pilots/src/main.rs"
+      ],
+      "revisions": [
+        {
+          "revision_id": "native-pilot01-20261126",
+          "label": "Native production start",
+          "voice": "Planned ElevenLabs Frederick Surrey (unrecorded)",
+          "generation_provenance": "Independent mathematical review, exact local oracles and a pinned FrankenManim scene.",
+          "disposition": "Worked examples and one reviewed native 4K still. Full animation, the final script, narration, master and publication remain open.",
+          "evidence_refs": [
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/production-start.md",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/oracle-results01.json",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/native-pilots/src/main.rs",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/comparison-results02.json",
+            "docs/video-program/research-20261016/evidence/applied-probability-20261126/native-frames-reviewed01.json"
+          ],
+          "milestones": [
+            {
+              "stage": "brief_qualified",
+              "recorded_as_of": "2026-11-26T05:31:46Z",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "docs/video-program/research-20261016/evidence/applied-probability-20261126/slate.md",
+                "docs/video-program/research-20261016/evidence/applied-probability-20261126/production-start.md",
+                "docs/video-program/research-20261016/evidence/applied-probability-20261126/oracle-results01.json"
+              ]
+            }
+          ]
+        }
+      ],
+      "publications": []
     }
   ],
   "coverage": {
