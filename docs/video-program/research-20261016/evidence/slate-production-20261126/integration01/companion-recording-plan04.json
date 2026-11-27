@@ -1,0 +1,834 @@
+{
+  "voice": "Frederick Surrey - Smooth and Velvety",
+  "model": "Eleven v3",
+  "stability": 0.5,
+  "retained_format": "48 kHz mono signed 16-bit PCM WAV, whole takes",
+  "scope": "Exact requests after the flagship. Preview clearance, quota, capture and listening checked separately.",
+  "total_cues": 133,
+  "total_characters": 29777,
+  "films": [
+    {
+      "film": "robotics",
+      "script": "docs/video-program/research-20261016/evidence/slate-production-20261126/integration01/frankenrobotics-native-integrated17/script.tsv",
+      "script_sha256": "f470f551401ad22367aad43908ab9ee0b694befe98772ba38f8eb27cf437bda8",
+      "native_executable": "target/debug/frankenrobotics_native_representation_maps",
+      "native_executable_sha256": "984959e3f75df8023edd3131da7bd27b170d91519f7f78d26749e3d6a14f3f4f",
+      "preview_receipt": "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenrobotics-representation03/resource-receipt.json",
+      "chapters": [
+        "01_three_ways_to_multiply",
+        "02_arm_on_a_torus",
+        "03_ordered_rigid_poses",
+        "04_same_group_different_motion",
+        "05_the_rover_bracket",
+        "06_floating_base_tree",
+        "07_symmetries_as_permutations",
+        "08_four_modes",
+        "09_shape_cycle",
+        "10_wheel_maps",
+        "11_body_trees",
+        "12_algebra_at_work"
+      ],
+      "characters": 29777,
+      "cues": [
+        {
+          "cue": "01_1",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 211,
+          "text": "What can you tell about a robot just from the way its moves multiply? Start with an arm. A turn at the shoulder and a turn at the elbow each go around their own circle. Together they tell us where the hand goes."
+        },
+        {
+          "cue": "01_2",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 159,
+          "text": "Now put a rover beside it. A turn and a drive are both simple, but swap the order and the rover ends up somewhere else. Its moves multiply by a different rule."
+        },
+        {
+          "cue": "01_3",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 225,
+          "text": "A six-legged robot has another kind of multiplication. Rotate its leg labels and reflect them, and you get new permutations of the same six positions. A controller can use those permutations to move a command from leg to leg."
+        },
+        {
+          "cue": "01_4",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 235,
+          "text": "Here are three ways to turn abstract operations into matrices. For the arm, two rotations act on two separate joint circles. The rover's matrix moves a frame on the floor. The hexapod's matrix permutes the entries of a six-leg command."
+        },
+        {
+          "cue": "01_5",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 234,
+          "text": "There is one rule for all three. Combine two operations and then write down their matrix. You get the same answer as writing down the two matrices and multiplying them in the same order. That is what makes this a group representation."
+        },
+        {
+          "cue": "01_6",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 128,
+          "text": "Start with the simplest robot part in the workshop, one hinge with a painted mark on its rim, and beside it one straight slider."
+        },
+        {
+          "cue": "01_7",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 120,
+          "text": "Turn the hinge a quarter turn, then another quarter turn. Combining two moves in a row gives a single move, a half turn."
+        },
+        {
+          "cue": "01_8",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 187,
+          "text": "Leave the hinge alone and you get the identity move. Undo a quarter turn with a quarter turn backward. Every turn has an inverse, and it does not matter how you group a sequence of turns."
+        },
+        {
+          "cue": "01_9",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 157,
+          "text": "Suppose the hinge sits at a quarter turn, and you can only spin forward in the positive direction. What fraction of a full turn brings the mark back to zero?"
+        },
+        {
+          "cue": "01_10",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 120,
+          "text": "Three quarters of a turn. A quarter plus three quarters makes one full turn, which lands on the exact same spot as zero."
+        },
+        {
+          "cue": "01_11",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 168,
+          "text": "The turns form the rotation group S O two. The slider has its own group too. It can travel any real distance in the ideal model, and its distances add without wrapping."
+        },
+        {
+          "cue": "01_12",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 178,
+          "text": "Now we can build robots from these pieces. First take two hinge circles and keep both angles. Then see what happens when a joint's motion changes the coordinates of the next one."
+        },
+        {
+          "cue": "02_1",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 129,
+          "text": "Now bolt a second hinge onto the end of the first link. You have a two-link planar arm, with a shoulder angle and an elbow angle."
+        },
+        {
+          "cue": "02_2",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 150,
+          "text": "The shoulder turns around its own circle, and the elbow turns around a second independent circle. Together, every pose of the arm is a pair of angles."
+        },
+        {
+          "cue": "02_3",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 139,
+          "text": "Unwrap both circles into a square whose left edge glues to its right edge and whose bottom glues to its top. That product space is a torus."
+        },
+        {
+          "cue": "02_4",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 203,
+          "text": "Put both link lengths equal to one. Keep the shoulder at zero and turn the elbow a quarter turn. The first link points right to one, zero, and the second points straight up, putting the hand at one, one."
+        },
+        {
+          "cue": "02_5",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 199,
+          "text": "Hold the shoulder fixed and sweep only the elbow around its circle. On the square, the configuration dot walks straight up a vertical line, and the hand draws a circle of radius one around the elbow."
+        },
+        {
+          "cue": "02_6",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 156,
+          "text": "Now lock the elbow at that quarter turn and sweep only the shoulder all the way around. What shape does the hand trace, and how far is it from the shoulder?"
+        },
+        {
+          "cue": "02_7",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 169,
+          "text": "A circle centered at the shoulder with radius square root of two, about one point four one. Because the elbow is locked, the whole bent L shape turns as one rigid piece."
+        },
+        {
+          "cue": "02_8",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 169,
+          "text": "Real physical arms add joint stops that slice a smaller rectangle out of that torus. And the same geometry immediately links forces at the hand to torques at the motors."
+        },
+        {
+          "cue": "02_9",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 216,
+          "text": "Push the tip of this zero point four and zero point three meter arm sideways with ten newtons. By virtual work, the transpose of the hand Jacobian sends that push straight to minus three newton meters at both joints."
+        },
+        {
+          "cue": "02_10",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 237,
+          "text": "Check it with joint speeds zero point two and minus zero point one radians per second. The hand moves at minus zero point zero three and zero point zero eight meters per second, and power comes out minus zero point three watts both ways."
+        },
+        {
+          "cue": "03_1",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 131,
+          "text": "When links connect in a chain, each joint carries an entire coordinate frame, a position and a heading attached to the rigid metal."
+        },
+        {
+          "cue": "03_2",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 150,
+          "text": "Consider two elementary moves on the plane. Call R a quarter turn counterclockwise, and call T a unit step forward along the frame's own forward axis."
+        },
+        {
+          "cue": "03_3",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 171,
+          "text": "When transforms act on column vectors on the left, multiplying another move on the right carries the frame along its own current axes. Let us run both orders side by side."
+        },
+        {
+          "cue": "03_4",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 215,
+          "text": "On the left, start at the origin facing right and turn a quarter turn counterclockwise so the local forward axis points up. Then slide one unit along that local axis. Written R times T, the frame lands at zero, one."
+        },
+        {
+          "cue": "03_5",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 182,
+          "text": "Now swap the order on the right panel. Slide one unit forward along the starting axis first, then turn a quarter turn in place, written T times R. Where does the frame's origin land?"
+        },
+        {
+          "cue": "03_6",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 146,
+          "text": "At one, zero, not zero, one. Sliding forward first puts the frame at one, zero, and turning in place leaves its origin right there, now facing up."
+        },
+        {
+          "cue": "03_7",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 184,
+          "text": "Why does multiplication turn into that exact rule? Represent each planar pose by a rotation R and a shift p, packed into one three-by-three matrix with a bottom row of zero, zero, one."
+        },
+        {
+          "cue": "03_8",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 145,
+          "text": "Multiply two pose matrices, R with shift p times S with shift q. Block multiplication gives rotation R times S, and total shift p plus R times q."
+        },
+        {
+          "cue": "03_9",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 130,
+          "text": "Plug in our quarter turn and unit shift. R times T puts zero, one in the top right column. T times R puts one, zero there instead."
+        },
+        {
+          "cue": "03_10",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 157,
+          "text": "That is why our two-link arm from Chapter Two is just one product of matrices, turn shoulder, slide one, turn elbow, slide one, landing straight at one, one."
+        },
+        {
+          "cue": "03_11",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 220,
+          "text": "Lift the same block matrix into three dimensions and you get the four-by-four matrices of S E three. The rotation block has determinant plus one. Reflections have determinant minus one, so they are a different operation."
+        },
+        {
+          "cue": "04_1",
+          "chapter": "04_same_group_different_motion",
+          "characters": 140,
+          "text": "Knowing a robot's pose group is only half the story. Place three different wheeled and tracked bases onto the same planar S E two floor map."
+        },
+        {
+          "cue": "04_2",
+          "chapter": "04_same_group_different_motion",
+          "characters": 196,
+          "text": "Every one of these three bases has its pose described by the same three numbers, x, y, and heading. Yet ask each robot which directions it can move right this instant, and the answers split apart."
+        },
+        {
+          "cue": "04_3",
+          "chapter": "04_same_group_different_motion",
+          "characters": 166,
+          "text": "Start with the two wheel differential drive. Its fixed wheels roll along the heading of the robot. In ideal rolling, the midpoint of the axle has zero sideways speed."
+        },
+        {
+          "cue": "04_4",
+          "chapter": "04_same_group_different_motion",
+          "characters": 224,
+          "text": "In floor coordinates, that rule says minus sine theta times x dot plus cosine theta times y dot equals zero. Forward speed and turning speed are the two independent choices. The sideways component is fixed by the constraint."
+        },
+        {
+          "cue": "04_5",
+          "chapter": "04_same_group_different_motion",
+          "characters": 236,
+          "text": "Now slide over to the three wheel omni triangle. Three wheels sit at zero, one hundred and twenty, and two hundred and forty degrees around a unit circle. The little passive rollers let each wheel move across its main rolling direction."
+        },
+        {
+          "cue": "04_6",
+          "chapter": "04_same_group_different_motion",
+          "characters": 143,
+          "text": "Each wheel's signed rim speed is simply the body velocity projected onto that wheel's rolling tangent, plus the yaw rate times the unit radius."
+        },
+        {
+          "cue": "04_7",
+          "chapter": "04_same_group_different_motion",
+          "characters": 169,
+          "text": "Suppose we command the triangle to glide straight sideways along y at speed two, with zero forward motion and zero spin. What signed rim speeds do the three wheels need?"
+        },
+        {
+          "cue": "04_8",
+          "chapter": "04_same_group_different_motion",
+          "characters": 229,
+          "text": "Two, minus one, and minus one. The first wheel's rolling direction points along y, so it takes the full speed two. At each of the other two wheels, the projection of the same body velocity onto its rolling direction is minus one."
+        },
+        {
+          "cue": "04_9",
+          "chapter": "04_same_group_different_motion",
+          "characters": 178,
+          "text": "Because those three rolling directions span a three-by-three matrix with nonzero determinant, about two point six zero, every planar velocity maps uniquely to three motor speeds."
+        },
+        {
+          "cue": "04_10",
+          "chapter": "04_same_group_different_motion",
+          "characters": 145,
+          "text": "Finally, put tracks on the same floor. Pick two ground-contact points on a rigid belt, half a unit ahead of the center and half a unit behind it."
+        },
+        {
+          "cue": "04_11",
+          "chapter": "04_same_group_different_motion",
+          "characters": 166,
+          "text": "Consider a pure spin at rate one with zero sideways slide. The front contact moves sideways at plus one half, while the rear contact moves sideways at minus one half."
+        },
+        {
+          "cue": "04_12",
+          "chapter": "04_same_group_different_motion",
+          "characters": 159,
+          "text": "Try to forbid sideways slip at both contacts at once. The two-by-two matrix has determinant minus one, which forces both sideways speed and spin to equal zero."
+        },
+        {
+          "cue": "04_13",
+          "chapter": "04_same_group_different_motion",
+          "characters": 246,
+          "text": "A rigid belt cannot turn without slipping. The tracked robot adds four flipper hinges, so it has four more joint angles. On the flat, the belts drive. All three bases share S E two, but to predict a tracked turn we need a slip and friction model."
+        },
+        {
+          "cue": "05_1",
+          "chapter": "05_the_rover_bracket",
+          "characters": 163,
+          "text": "In the opening, reversing two moves changed where the rover ended up. Can we use that same difference in order to move sideways while keeping the original heading?"
+        },
+        {
+          "cue": "05_2",
+          "chapter": "05_the_rover_bracket",
+          "characters": 168,
+          "text": "Watch what happens when we compose four legal moves in sequence. Turn left a quarter turn, roll forward one unit, turn right a quarter turn, and roll backward one unit."
+        },
+        {
+          "cue": "05_3",
+          "chapter": "05_the_rover_bracket",
+          "characters": 202,
+          "text": "Before we draw the net displacement, look at those four moves. Turn left a quarter turn, drive forward one, turn back a quarter turn, and reverse one. Which way does the rover face, and where is it now?"
+        },
+        {
+          "cue": "05_4",
+          "chapter": "05_the_rover_bracket",
+          "characters": 167,
+          "text": "Facing right again, with zero net turn, and sitting at minus one, one. Every turn cancelled its partner, every drive cancelled its length, yet order refused to cancel."
+        },
+        {
+          "cue": "05_5",
+          "chapter": "05_the_rover_bracket",
+          "characters": 217,
+          "text": "Multiply the four pose matrices for any turn angle theta and drive length a. The rotation part cancels to the identity, leaving pure translation, a times cosine theta minus one along x, and a times sine theta along y."
+        },
+        {
+          "cue": "05_6",
+          "chapter": "05_the_rover_bracket",
+          "characters": 197,
+          "text": "Hold the drive length fixed at one and shrink the turn angle through a quarter turn, an eighth, a sixteenth, and a thirty-second. Watch the backward drift vanish much faster than the sideways step."
+        },
+        {
+          "cue": "05_7",
+          "chapter": "05_the_rover_bracket",
+          "characters": 172,
+          "text": "For small turns the path is almost sideways. Now halve both inputs. The turn shrinks from a quarter radian to an eighth. The drive shrinks from a quarter unit to an eighth."
+        },
+        {
+          "cue": "05_8",
+          "chapter": "05_the_rover_bracket",
+          "characters": 159,
+          "text": "Cutting both steps in half cuts the sideways gain by roughly a factor of four. The missing direction is second order, proportional to angle times drive length."
+        },
+        {
+          "cue": "05_9",
+          "chapter": "05_the_rover_bracket",
+          "characters": 197,
+          "text": "In the velocity algebra, take the three-by-three matrix for pure turning and the matrix for pure driving, and subtract the two multiplication orders. Out pops the exact matrix for sliding sideways."
+        },
+        {
+          "cue": "05_10",
+          "chapter": "05_the_rover_bracket",
+          "characters": 195,
+          "text": "That difference of orders is the Lie bracket. Together with turning and driving, one level of brackets fills all three planar directions, provided the rover can roll and turn in either direction."
+        },
+        {
+          "cue": "05_11",
+          "chapter": "05_the_rover_bracket",
+          "characters": 339,
+          "text": "How much wheel travel does this four-move maneuver take to shift one centimeter purely sideways? Shorten the reverse leg to cancel the forward displacement. A twenty-centimeter half-track gives a best turn of about thirteen degrees for this maneuver. Each wheel travels about eighteen centimeters, nearly eighteen times the sideways shift."
+        },
+        {
+          "cue": "06_1",
+          "chapter": "06_floating_base_tree",
+          "characters": 131,
+          "text": "Now step from a wheeled base on a floor to a four-legged robot whose torso has to move in three dimensions. Start with a robot dog."
+        },
+        {
+          "cue": "06_2",
+          "chapter": "06_floating_base_tree",
+          "characters": 139,
+          "text": "Start by pinning the torso frame in midair. To each of its four corners, bolt a three-joint leg chain, hip roll, hip pitch, and knee pitch."
+        },
+        {
+          "cue": "06_3",
+          "chapter": "06_floating_base_tree",
+          "characters": 276,
+          "text": "Now unpin the torso so the body floats freely in space. The torso pose lives in S E three, and each of the twelve relative angles wraps around an S O two circle. That product gives the ambient configuration coordinates. Joint stops restrict which angles the real body can use."
+        },
+        {
+          "cue": "06_4",
+          "chapter": "06_floating_base_tree",
+          "characters": 172,
+          "text": "Because the legs hang off the torso as a kinematic tree, turning one hip joint moves only its own knee and foot. The other three limbs do not inherit that transform at all."
+        },
+        {
+          "cue": "06_5",
+          "chapter": "06_floating_base_tree",
+          "characters": 217,
+          "text": "The exact same tree recipe scales across the whole FrankenRobotics catalog. A humanoid carries twenty nine actuated joints on a floating base, a radial hexapod carries eighteen, and a wheel-leg hybrid carries sixteen."
+        },
+        {
+          "cue": "06_6",
+          "chapter": "06_floating_base_tree",
+          "characters": 203,
+          "text": "Now set one foot of the robot dog firmly on the floor so its tip cannot slide or lift. Does the robot still move freely through all eighteen configuration dimensions, or does contact cut that space down?"
+        },
+        {
+          "cue": "06_7",
+          "chapter": "06_floating_base_tree",
+          "characters": 187,
+          "text": "Contact cuts it down. Pinning a point foot fixes its three world coordinates, imposing three equations on the configuration and leaving fifteen free directions in that single-foot stance."
+        },
+        {
+          "cue": "06_8",
+          "chapter": "06_floating_base_tree",
+          "characters": 174,
+          "text": "As the dog trots, feet lift and plant in turn. The torso and joint coordinates stay the same. Each set of ground contacts defines a different slice through those coordinates."
+        },
+        {
+          "cue": "07_1",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 157,
+          "text": "Look down from above at our symmetric four-legged dog. Put four vertical command bars over its four feet, front left, front right, back left, and back right."
+        },
+        {
+          "cue": "07_2",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 149,
+          "text": "Flip the dog across its spine, swapping left and right. Flip it across its waist, swapping front and back. Do both together, and you get a half turn."
+        },
+        {
+          "cue": "07_3",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 175,
+          "text": "Each symmetry becomes a four-by-four permutation matrix acting on the four foot channels. With the do-nothing move, those four matrices close into the group C two times C two."
+        },
+        {
+          "cue": "07_4",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 514,
+          "text": "Three possible contact states per foot give eighty-one labeled patterns. Identity fixes all eighty-one. Each other symmetry swaps two pairs, so each pair must have matching states. That gives nine fixed patterns for each of those symmetries. Average the four counts to get twenty-seven distinct patterns. Why the average? A pattern with four versions counts once per version. A pattern with two versions counts twice per version. A pattern with one version counts four times. Each family contributes four in total."
+        },
+        {
+          "cue": "07_5",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 163,
+          "text": "Now watch what happens when we add real sensors and hardware, just like the symmetry figure on the FrankenRobotics site. Bolt a forward-facing lidar onto the nose."
+        },
+        {
+          "cue": "07_6",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 228,
+          "text": "The four legs still match mechanically, so the mechanical group keeps all four moves. Yet flipping front to back puts the lidar on the tail, so the observation-preserving group drops to two, identity and left-right mirror alone."
+        },
+        {
+          "cue": "07_7",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 218,
+          "text": "Strap a payload slightly off center to the left, and even the left-right mirror breaks, leaving only the identity. Swap one leg's gearbox from nine-to-one to seven-to-one, and the mechanical group drops to one as well."
+        },
+        {
+          "cue": "07_8",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 229,
+          "text": "One subtle trap catches almost every hand-written mirror table. Vertical push scalars just swap feet, yet a reflection has determinant minus one. Under a left-right mirror, pitch keeps its sign, while roll and yaw both flip sign."
+        },
+        {
+          "cue": "07_9",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 215,
+          "text": "Now compare the rectangular dog to a radial hexapod, six identical legs numbered zero through five around a hub. Rotating one step sends leg i to i plus one modulo six. Reflecting across leg zero sends i to minus i."
+        },
+        {
+          "cue": "07_10",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 205,
+          "text": "Start at leg one on the hexapod. Apply the reflection s, then rotate one step forward with r, then apply the reflection s a second time. Does the combined move rotate forward one step or backward one step?"
+        },
+        {
+          "cue": "07_11",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 120,
+          "text": "Backward one step. Reflecting before and after a rotation reverses its direction, so s times r times s equals r inverse."
+        },
+        {
+          "cue": "07_12",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 181,
+          "text": "Together those six rotations and six reflections build twelve distinct permutations, the dihedral group D six. Unlike the rectangular dog's four commuting moves, order matters here."
+        },
+        {
+          "cue": "07_13",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 550,
+          "text": "Give each of the hexapod’s six leg slots ten possible modules. That gives a million labeled builds. Use the same fixed-pattern average. For a one-step rotation, every slot belongs to the same cycle, so there are just ten fixed builds. Sum the fixed counts for all the rotations and reflections, then divide by twelve. That gives eighty-six thousand one hundred eighty-five distinct builds. If only one mirror through opposite gaps survives, its three pairs give a thousand fixed builds. The two-count average gives five hundred thousand five hundred."
+        },
+        {
+          "cue": "08_1",
+          "chapter": "08_four_modes",
+          "characters": 136,
+          "text": "A robot's symmetry group also simplifies its linear algebra. It breaks a coupled multi-leg calculation into independent one-line pieces."
+        },
+        {
+          "cue": "08_2",
+          "chapter": "08_four_modes",
+          "characters": 246,
+          "text": "Take a simple teaching fixture for four coupled feet, separate from any measured robot controller. Each foot feels three times its own input, plus one times its row partner, plus two times its same-side partner, and zero from the opposite corner."
+        },
+        {
+          "cue": "08_3",
+          "chapter": "08_four_modes",
+          "characters": 216,
+          "text": "Copy that same rule symmetrically to all four feet and you get a four-by-four matrix K. Every permutation in C two times C two commutes with K, meaning swapping feet before or after multiplying gives the same result."
+        },
+        {
+          "cue": "08_4",
+          "chapter": "08_four_modes",
+          "characters": 198,
+          "text": "Instead of testing one foot at a time, group the four feet into four orthogonal sign patterns. All four up together, front against back, left against right, and the two diagonals against each other."
+        },
+        {
+          "cue": "08_5",
+          "chapter": "08_four_modes",
+          "characters": 133,
+          "text": "Multiply the first row of K, three, one, two, zero, against each of those four sign patterns. What single number scales each pattern?"
+        },
+        {
+          "cue": "08_6",
+          "chapter": "08_four_modes",
+          "characters": 236,
+          "text": "Six, two, four, and zero. All four together sum to three plus one plus two, which is six. Front versus back gives three plus one minus two, which is two. Left versus right gives four, and the diagonal pattern cancels completely to zero."
+        },
+        {
+          "cue": "08_7",
+          "chapter": "08_four_modes",
+          "characters": 261,
+          "text": "Put one sign pattern in each column of a matrix called U, scaling each column by one half so its length is one. Multiplying by U converts pattern coordinates to foot commands. U transpose takes us back. In those coordinates, K reduces to four independent gains."
+        },
+        {
+          "cue": "08_8",
+          "chapter": "08_four_modes",
+          "characters": 250,
+          "text": "Take one column, v. Each mirror either preserves its sign pattern or reverses it. Since the coupling commutes with that mirror, applying K keeps the same sign under the mirror. Only one of our four lines has that pair of signs, so K can only scale v."
+        },
+        {
+          "cue": "08_9",
+          "chapter": "08_four_modes",
+          "characters": 112,
+          "text": "Now break the symmetry. Add four to the front-left diagonal entry alone, leaving the other three feet untouched."
+        },
+        {
+          "cue": "08_10",
+          "chapter": "08_four_modes",
+          "characters": 198,
+          "text": "Transform that single-foot bump into the orthonormal pattern basis, and every single one of the sixteen entries becomes one. Every off-diagonal slot lights up, so all four patterns now mix together."
+        },
+        {
+          "cue": "08_11",
+          "chapter": "08_four_modes",
+          "characters": 140,
+          "text": "To force any matrix to respect a surviving symmetry group, average its conjugates over every element of that group, the Reynolds projection."
+        },
+        {
+          "cue": "08_12",
+          "chapter": "08_four_modes",
+          "characters": 261,
+          "text": "Average our front-left four over all four symmetries, and it spreads evenly to one, one, one, one. Keep only the left-right mirror for the lidar dog, and it spreads to two, two, zero, zero on the front pair. With identity alone, it stays four, zero, zero, zero."
+        },
+        {
+          "cue": "09_1",
+          "chapter": "09_shape_cycle",
+          "characters": 191,
+          "text": "So far, our wheeled robots turned motors to push against the ground, and our legged robots planted feet. What about a snake that has no driven wheels and no legs at all, only internal hinges?"
+        },
+        {
+          "cue": "09_2",
+          "chapter": "09_shape_cycle",
+          "characters": 229,
+          "text": "Just like the robot arm, the snake's internal shape is a pair of joint angles, shown as a dot in shape space on the right. Meanwhile, its base pose lives in S E two on the left, constrained so no passive wheel can slide sideways."
+        },
+        {
+          "cue": "09_3",
+          "chapter": "09_shape_cycle",
+          "characters": 399,
+          "text": "Drive both hinges around a closed circle in shape space, centered at zero point nine, zero point nine radians, with radius zero point four. Along this loop the wheel constraints pick out one base velocity at each step. If the links straighten, the constraints leave forward speed undetermined. If the three wheel axles meet at one point, the constraints leave rotation about that point undetermined."
+        },
+        {
+          "cue": "09_4",
+          "chapter": "09_shape_cycle",
+          "characters": 239,
+          "text": "Watch the dot walk halfway around the circle and come all the way back to its starting point, so both hinges finish at their exact starting angles. When the snake returns to its starting shape, is it back at its starting spot on the floor?"
+        },
+        {
+          "cue": "09_5",
+          "chapter": "09_shape_cycle",
+          "characters": 247,
+          "text": "Look where it ends up. Both hinges return to their starting angles, and for this particular circle the middle link finishes with zero net turn. The snake has shifted about zero point two zero link lengths forward and zero point one three sideways."
+        },
+        {
+          "cue": "09_6",
+          "chapter": "09_shape_cycle",
+          "characters": 286,
+          "text": "Reverse the loop around the exact same shape circle and you apply the inverse pose change. The heading comes back to its starting value, so both net displacements flip sign and the snake rolls back to the start. That net pose change from a closed loop in shape space is called holonomy."
+        },
+        {
+          "cue": "09_7",
+          "chapter": "09_shape_cycle",
+          "characters": 188,
+          "text": "Notice the surprise hiding in that sideways shift. The middle link carries a passive wheel that forbids sideways speed at every single instant, yet the completed loop still moved sideways."
+        },
+        {
+          "cue": "09_8",
+          "chapter": "09_shape_cycle",
+          "characters": 338,
+          "text": "Go back to our rover. Composing little moves in different orders leaves a sideways displacement. Each snake hinge movement changes the joint angle and carries the base along with it. Take the bracket of those combined moves, and you get the leading displacement of a small loop. Reverse the loop and its leading displacement changes sign."
+        },
+        {
+          "cue": "09_9",
+          "chapter": "09_shape_cycle",
+          "characters": 358,
+          "text": "The nine link snake on the FrankenRobotics site uses the same no sideways slip rule for each wheel. Its nose follows a prescribed wave and the links trail behind. One cycle takes one point three meters of travel along that curved path. The joint angles return to where they started, and the whole body advances about one point two zero meters down the floor."
+        },
+        {
+          "cue": "09_10",
+          "chapter": "09_shape_cycle",
+          "characters": 233,
+          "text": "Place the wheel-leg hybrid beside the snake and the lesson broadens. While its wheels roll on flat ground, it obeys a rolling connection. The moment it lifts and plants a leg, the contact constraints switch to a new algebraic regime."
+        },
+        {
+          "cue": "10_1",
+          "chapter": "10_wheel_maps",
+          "characters": 185,
+          "text": "Let us put four rolling bases side by side. Their chassis poses multiply as three-by-three matrices in S E two. The shape of each robot tells us how wheel motions feed into that matrix."
+        },
+        {
+          "cue": "10_2",
+          "chapter": "10_wheel_maps",
+          "characters": 232,
+          "text": "A car has a steering linkage. As it turns, the two front wheels must point along circles that share a center on the rear axle line. The inner circle is smaller, so its wheel needs a larger angle. One steering input sets both angles."
+        },
+        {
+          "cue": "10_3",
+          "chapter": "10_wheel_maps",
+          "characters": 347,
+          "text": "Try an ideal car with half a meter between axles, twenty-eight centimeters between the steering pivots, and a turn center one meter from the middle of the rear axle. The inner wheel points about thirty degrees toward the turn. The outer wheel points about twenty-four. Draw the two right triangles and you can see both numbers in the same picture."
+        },
+        {
+          "cue": "10_4",
+          "chapter": "10_wheel_maps",
+          "characters": 270,
+          "text": "The Mecanum base has four fixed wheels wrapped in diagonal rollers. Each motor gets one row of a matrix. That row takes the velocity at its wheel and projects it along the roller axis. Opposite corners have the same roller tilt, and adjacent corners have opposite tilts."
+        },
+        {
+          "cue": "10_5",
+          "chapter": "10_wheel_maps",
+          "characters": 370,
+          "text": "Use the wheel positions and ten-centimeter wheel radius from the site. Ask for a pure glide to the robot's right at thirty-two centimeters per second. In front-left, front-right, rear-left, rear-right order, the four rates are minus three point two, plus three point two, plus three point two, and minus three point two radians per second, in the site's sign convention."
+        },
+        {
+          "cue": "10_6",
+          "chapter": "10_wheel_maps",
+          "characters": 243,
+          "text": "The four-by-three matrix has three independent columns. Any of the three chassis velocity coordinates can be selected. The front wheel rates must add up to the same sum as the rear rates, so the four motor speeds have a compatibility equation."
+        },
+        {
+          "cue": "10_7",
+          "chapter": "10_wheel_maps",
+          "characters": 242,
+          "text": "The swerve base uses four steer-and-drive modules. Each module gets two circles, one for its steering angle and one for its wheel spin. At each corner the steering angle follows the local velocity arrow. The wheel then rolls along that arrow."
+        },
+        {
+          "cue": "10_8",
+          "chapter": "10_wheel_maps",
+          "characters": 417,
+          "text": "Ask for a spin of one radian per second. A module at twenty centimeters forward and twenty centimeters to the left has two perpendicular speed components, each twenty centimeters per second in magnitude. The resultant speed is the square root of two times twenty centimeters per second. With the site's seven-and-a-half-centimeter wheel radius, it needs about three point seven seven radians per second of wheel spin."
+        },
+        {
+          "cue": "10_9",
+          "chapter": "10_wheel_maps",
+          "characters": 288,
+          "text": "The same pose matrices now sit above four visibly different mechanisms. The differential drive allows forward motion and yaw at zero sideways speed. The car couples yaw to forward motion and steering. The Mecanum base projects onto fixed roller axes. The swerve base turns its axes first."
+        },
+        {
+          "cue": "11_1",
+          "chapter": "11_body_trees",
+          "characters": 250,
+          "text": "A tree of rigid parts carries a different kind of information. An arm has one path from the base to the hand. A legged robot has a path to each foot. The same matrix multiplication places every link, and the graph tells us which matrices to multiply."
+        },
+        {
+          "cue": "11_2",
+          "chapter": "11_body_trees",
+          "characters": 279,
+          "text": "The robot dog has twelve active joints. So does the sprawled crawler. Put the same angle change into both models. Their differently oriented hinge axes carry the feet in different directions. They share the same product of angle circles and the same ideal four slot permutations."
+        },
+        {
+          "cue": "11_3",
+          "chapter": "11_body_trees",
+          "characters": 405,
+          "text": "The radial hexapod has eighteen active joints. The octopod has twenty-four. With eight identical limb slots, rotation and reflection act as sixteen permutations in D eight. On the octopod, paint the eight input slots plus, blank, minus, blank, plus, blank, minus, blank. Rotate one slot and the whole pattern moves onto the odd slots. Rotate a second slot and the signs are reversed on the original slots."
+        },
+        {
+          "cue": "11_4",
+          "chapter": "11_body_trees",
+          "characters": 327,
+          "text": "The point-foot biped has six active joints, and the humanoid has twenty-nine. Both have an ideal left-right mirror, a group of two elements. The mirror exchanges stance legs and applies the matching sign changes to joint directions. Walking selects one contact at a time, so the mirrored command belongs to the mirrored stance."
+        },
+        {
+          "cue": "11_5",
+          "chapter": "11_body_trees",
+          "characters": 722,
+          "text": "The stair roller carries two clusters of three wheels. Follow one wheel hub. In the chassis frame its pose is a carrier rotation, an outward translation, and the wheel's own rotation. The carrier axle and wheel axle are parallel, with seventeen centimeters between them. The angles add, and the hub still moves. The twenty-four-tooth sun drives each twenty-tooth wheel gear through an idler. Relative to the carrier, the two gears turn the same way, at a ratio of six to five. Turn the carrier thirty degrees and the sun five degrees. Relative to the carrier, the sun turned minus twenty-five and the wheel turns minus thirty. Add the carrier back and the wheel's angle in the chassis stays fixed as its hub swings around."
+        },
+        {
+          "cue": "11_6",
+          "chapter": "11_body_trees",
+          "characters": 315,
+          "text": "The rocker's six motors spin its wheels. The rocker and bogie hinges are coordinates of the linkage even though they have no motors in the site model. A rear wheel inherits the torso transform, then the rocker transform, then the bogie transform, and finally its own spin. A front wheel leaves out the bogie factor."
+        },
+        {
+          "cue": "11_7",
+          "chapter": "11_body_trees",
+          "characters": 474,
+          "text": "The two-wheel balancer has the same two motor inputs as a simple rover. The body can pitch around the axle. Using the site's rolling rule, move forward by one quarter of a wheel radius as the body tips backward by a tenth of a radian. The wheel spins minus zero point two five radians relative to the floor. Subtract the body's tilt and the joint changes by minus zero point three five radians. The same spin on the floor takes a different motor angle when the body pitches."
+        },
+        {
+          "cue": "11_8",
+          "chapter": "11_body_trees",
+          "characters": 283,
+          "text": "The mobile arm takes the chassis pose and appends seven arm rotations. Moving the chassis carries every link. Moving the last wrist joint changes only the last branch. The site gives this whole assembly just the identity symmetry, even though the chassis by itself may have a mirror."
+        },
+        {
+          "cue": "11_9",
+          "chapter": "11_body_trees",
+          "characters": 278,
+          "text": "A gantry shows the other extreme, three straight sliders. Forward position, sideways position and height just add component by component. Its three translations commute. A hinge added to carry a slider introduces a rotating axis, and the order of the two moves begins to matter."
+        },
+        {
+          "cue": "11_10",
+          "chapter": "11_body_trees",
+          "characters": 286,
+          "text": "These examples let us read a robot in three layers. Place each part with a group of rigid motions. Restrict the relative coordinates with joints and contacts. Then act on the resulting channels with whichever body symmetries survive. Now we can use those layers to do real calculations."
+        },
+        {
+          "cue": "12_1",
+          "chapter": "12_algebra_at_work",
+          "characters": 234,
+          "text": "We have three pieces of algebra ready to use. Pose multiplication describes the rover. Symmetry gives the four-foot robot its force patterns. Composition even gives us a way to track a cart's dynamics. Let's see what each one buys us."
+        },
+        {
+          "cue": "12_2",
+          "chapter": "12_algebra_at_work",
+          "characters": 162,
+          "text": "First, the L shaped corridor. Two hallways ninety centimeters wide meet at a right angle, and a rectangular robot sixty centimeters wide needs to turn the corner."
+        },
+        {
+          "cue": "12_3",
+          "chapter": "12_algebra_at_work",
+          "characters": 286,
+          "text": "Quick circle approximations fail in both directions. The largest circle inside the body is sixty centimeters across, so it claims any length fits. The circle around the corners of a one point three zero meter body is about one point four three meters across, so it claims the body jams."
+        },
+        {
+          "cue": "12_4",
+          "chapter": "12_algebra_at_work",
+          "characters": 236,
+          "text": "Working directly in S E two settles the corner exactly. For corridor width a and body width b, the longest passing rectangle is two times square root of two times a minus two b. That limit comes to about one point three four six meters."
+        },
+        {
+          "cue": "12_5",
+          "chapter": "12_algebra_at_work",
+          "characters": 313,
+          "text": "Second, the four-foot stance, where Chapter Eight's four sign patterns pay off directly. A robot with half-length one third meter and half-width one quarter meter carries four hundred newtons off center. That creates moments of sixty and thirty newton meters, with a cap of one hundred and sixty newtons per foot."
+        },
+        {
+          "cue": "12_6",
+          "chapter": "12_algebra_at_work",
+          "characters": 250,
+          "text": "Four plain equal springs share that load rigidly by distance, placing one hundred seventy five, one hundred fifteen, eighty five, and twenty five newtons on the four feet. The front-left foot hits one hundred seventy five newtons and fails its limit."
+        },
+        {
+          "cue": "12_7",
+          "chapter": "12_algebra_at_work",
+          "characters": 201,
+          "text": "Active legs can redistribute force without lifting any foot. Which of Chapter Eight's four sign patterns can we add or subtract without changing the four-hundred-newton weight or either tipping moment?"
+        },
+        {
+          "cue": "12_8",
+          "chapter": "12_algebra_at_work",
+          "characters": 176,
+          "text": "The fourth pattern, diagonals against each other, plus one, minus one, minus one, plus one. Its dot product with total load, front-back balance, and left-right balance is zero."
+        },
+        {
+          "cue": "12_9",
+          "chapter": "12_algebra_at_work",
+          "characters": 294,
+          "text": "Subtract twenty newtons along that diagonal pattern, and the loads shift to one hundred fifty five, one hundred thirty five, one hundred five, and five newtons. Same four hundred newtons, same sixty and thirty newton-meter moments, and every single foot sits safely under one hundred and sixty."
+        },
+        {
+          "cue": "12_10",
+          "chapter": "12_algebra_at_work",
+          "characters": 315,
+          "text": "Squeeze the stance's half-width inward. At the exact fraction three fourteenths of a meter, the safe window narrows to one answer, one sixty, one thirty, one ten, and zero. Narrow the half-width to one fifth of a meter, and even the best active controller hits one hundred sixty five newtons on the front-left foot."
+        },
+        {
+          "cue": "12_11",
+          "chapter": "12_algebra_at_work",
+          "characters": 264,
+          "text": "One short coda shows the same composition mindset in dynamics. On the site's docking cart, each one-second push u applies an affine map to position and velocity. It sends x, v to x plus v plus half g u, and v plus g u, for unknown motor gain g equal to one or two."
+        },
+        {
+          "cue": "12_12",
+          "chapter": "12_algebra_at_work",
+          "characters": 320,
+          "text": "Start both carts with a gentle push of one quarter. Gain one finishes with one half then minus three quarters, while gain two finishes with zero then minus one quarter. Both stop cleanly at one, zero, if the first speed reading tells one quarter apart from one half. That requires sensor error strictly below one eighth."
+        },
+        {
+          "cue": "12_13",
+          "chapter": "12_algebra_at_work",
+          "characters": 293,
+          "text": "Multiply the arm's joint transforms in order and you can locate its hand. Start with the rover's pose multiplication and you can build a sideways move. Start with permutations of the dog's four feet and you can find the force pattern that shifts load between the feet without tipping the body."
+        },
+        {
+          "cue": "12_14",
+          "chapter": "12_algebra_at_work",
+          "characters": 229,
+          "text": "When you meet a new robot, ask which transformations it has, what they act on, and how they compose along its body. Then add the joint and contact constraints. The particular algebra of the body tells you which calculation to do."
+        }
+      ]
+    }
+  ]
+}

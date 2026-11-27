@@ -1,0 +1,345 @@
+{
+  "scope": "Authored zero-based sentence indices checked against script punctuation. Spoken timings, pronunciation and listening remain open.",
+  "films": {
+    "probability-voice05": {
+      "script_sha256": "2c4dc980c5568800995f0709841def2f861c8b44c2e4554fda6747b89fc8a537",
+      "calls": 156,
+      "expanded_calls": 158,
+      "files_sha256": {
+        "src/chapters/ch01.rs": "f69882705fe3a6968f88956a97cf7e212c78eb1a7a67a9866922f2f06542dfcd",
+        "src/chapters/ch02.rs": "47dfbcb348531589d0394d60a4d1d4e041490f25462a96798982b47600752430",
+        "src/chapters/ch03.rs": "55d9377bab2813e9487f3810ea2eeb6cf4b2d54d0dcbb6b64cdc1be129db2fb6",
+        "src/chapters/ch04.rs": "3ce2e6acb416b7a1e141bc057beb1eb7496870237dcbcf2b961c72c6218e3660",
+        "src/chapters/ch05.rs": "2eb0c7d8bad72c47f07f41c562ffcb74e26ec920fd261cd27734e5004513aec9",
+        "src/chapters/ch06.rs": "17bfe09e5dd66769ae831be807f9cd0bb4df85e348939cf41edf48f9d7d94c0e",
+        "src/chapters/ch07.rs": "12aa0f561abc73cc82b128cb6d2a71a3d9c508089e127a8b7185319e46218b19",
+        "src/chapters/ch08.rs": "fc4e3f14cb039fc5779d2087e6ac211fcd43faa5f850fd8704150fdeee2dee5d",
+        "src/chapters/ch09.rs": "8e7d7de7de7aa07cdd09003eb9865ec09931cf458d7b5db64bfa66e98c5bdf45",
+        "src/chapters/ch10.rs": "26b27d4cf50606d7bf54dae803ceb17a399b06f487991b5d650e62808687f9eb",
+        "src/chapters/ch11.rs": "5dbd49ea96a103a6a1cc0cb9bdbdd8ed8e6edfcfd6c75b5e25a5044933d98bd0",
+        "src/chapters/ch12.rs": "2b56afebe418b4c203c962286f127402169132f66e5c1e8bac967cfe878db0bd",
+        "src/chapters/ch13.rs": "24241f814f11821b0d3b37c13b65f6f5596d51d95cdd86e78a7aedfa254e5c98",
+        "src/chapters/ch14.rs": "0902c73613aad2ea415615efa8dd44161c3171a8145782ce086e7d5e6c001e2d"
+      },
+      "required_sentence_indices": {
+        "01_1": [
+          1,
+          3,
+          4,
+          5,
+          6
+        ],
+        "01_2": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "01_3": [
+          1,
+          2
+        ],
+        "02_1": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "02_2": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "02_3": [
+          1,
+          2,
+          3
+        ],
+        "03_1": [
+          1,
+          2,
+          3
+        ],
+        "03_2": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "03_3": [
+          1,
+          2,
+          3
+        ],
+        "04_1": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "04_2": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "04_3": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "05_1": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "05_2": [
+          1,
+          2,
+          4
+        ],
+        "05_3": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "06_1": [
+          1,
+          2,
+          3
+        ],
+        "06_2": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "06_3": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "07_1": [
+          1,
+          2
+        ],
+        "07_2": [
+          1,
+          2,
+          3
+        ],
+        "07_3": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "08_1": [
+          1,
+          2,
+          3
+        ],
+        "08_2": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "08_3": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "09_1": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "09_2": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "09_3": [
+          1,
+          2,
+          3
+        ],
+        "10_1": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "10_2": [
+          1,
+          2,
+          3
+        ],
+        "10_3": [
+          1,
+          2,
+          3
+        ],
+        "11_1": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "11_2": [
+          1,
+          2,
+          3
+        ],
+        "11_3": [
+          1,
+          2,
+          3
+        ],
+        "12_1": [
+          1,
+          2,
+          3
+        ],
+        "12_2": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "12_3": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "13_1": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "13_2": [
+          1,
+          2,
+          3
+        ],
+        "13_3": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "14_1": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "14_2": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    "split-conformal-native11": {
+      "script_sha256": "362a2a8d2df38a870c6bf47ae34415864b95d6ac5d598bcd01a5781d9f5b384b",
+      "calls": 7,
+      "expanded_calls": 9,
+      "files_sha256": {
+        "src/wine_calibration.rs": "627b6acf010753ba9baef4c0e65f6c64bc8139e16903d1d7e78d147287cc8340"
+      },
+      "required_sentence_indices": {
+        "05_3": [
+          1,
+          2
+        ],
+        "05_4": [
+          1,
+          2,
+          3
+        ],
+        "05_6": [
+          2
+        ],
+        "05_7": [
+          2,
+          3
+        ],
+        "05_8": [
+          2
+        ]
+      }
+    },
+    "power-of-two-native07": {
+      "script_sha256": "b603622c22d740c4a97dc1662b43af30038f9f29eee0ed0d05a271b9569f1bce",
+      "calls": 1,
+      "expanded_calls": 1,
+      "files_sha256": {
+        "src/replay.rs": "e5bde428e4e4c83340522996212edae289d525b34038a552cc8fdd2227939548"
+      },
+      "required_sentence_indices": {
+        "07_3": [
+          3
+        ]
+      }
+    },
+    "frankenrobotics-native-integrated14": {
+      "script_sha256": "80b087da6d94295aadf50cb5dc8f64157965d5bc8b9b1216e7149ce8e862b9bc",
+      "calls": 10,
+      "expanded_calls": 10,
+      "files_sha256": {
+        "src/algebra_at_work.rs": "569658adb8dcadc4c1ee7fbc6ddf5d0fafc0304986411d5624225cb15f5929de",
+        "src/body_trees.rs": "26420bc2f7a909d1ae4836c98d630e34dae2f2e7d005c31099ed60e0b49d2726",
+        "src/leg_actions.rs": "49e6b243a32f9a8f5b26f7baded2b2f4c5cd532d580ce27ecb14a61fcda37674",
+        "src/symmetry_modes.rs": "c88d8bc1e90c87394e49154263239580ffab267f0371f486a9ced60a3e0c0099"
+      },
+      "required_sentence_indices": {
+        "12_10": [
+          2
+        ],
+        "11_5": [
+          2,
+          5,
+          7
+        ],
+        "07_4": [
+          4
+        ],
+        "07_13": [
+          3,
+          5,
+          7
+        ],
+        "08_7": [
+          3
+        ],
+        "08_8": [
+          2
+        ]
+      }
+    }
+  }
+}

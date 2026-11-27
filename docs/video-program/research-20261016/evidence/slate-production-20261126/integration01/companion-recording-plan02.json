@@ -1,0 +1,1583 @@
+{
+  "voice": "Frederick Surrey - Smooth and Velvety",
+  "model": "Eleven v3",
+  "stability": 0.5,
+  "retained_format": "48 kHz mono signed 16-bit PCM WAV, whole takes",
+  "scope": "Exact requests after the flagship. Preview clearance, quota, capture and listening checked separately.",
+  "total_cues": 250,
+  "total_characters": 59538,
+  "films": [
+    {
+      "film": "conformal",
+      "script": "docs/video-program/research-20261016/evidence/slate-production-20261126/integration01/split-conformal-native11/script.tsv",
+      "script_sha256": "362a2a8d2df38a870c6bf47ae34415864b95d6ac5d598bcd01a5781d9f5b384b",
+      "native_executable": "target/debug/split_conformal_native",
+      "native_executable_sha256": "c9d22d6a675d76a532fdfe33b1c2fdcfa3212da3c90f548ae5f3cc64145e0fc5",
+      "preview_receipt": "narration_lab/third-wave-20261024/root/five-film-release-20261027/split-conformal-review-repairs01/resource-receipt.json",
+      "chapters": [
+        "01_compare_the_forecasts",
+        "02_calibrate_by_hand",
+        "03_ten_holdouts",
+        "04_the_boundary_cases",
+        "05_wine_calibration",
+        "06_rounded_errors",
+        "07_student_t_benchmark",
+        "08_spread_changes",
+        "09_visible_subgroups",
+        "10_against_red_wine",
+        "11_use_the_guarantee"
+      ],
+      "characters": 19519,
+      "cues": [
+        {
+          "cue": "01_1",
+          "chapter": "01_compare_the_forecasts",
+          "characters": 169,
+          "text": "Two weather stations publish a forecast for tomorrow afternoon. Both report twenty four degrees. Looking at that single number alone, you have no way to tell them apart."
+        },
+        {
+          "cue": "01_2",
+          "chapter": "01_compare_the_forecasts",
+          "characters": 167,
+          "text": "Now pull open the recent track record behind each station. Station A has usually missed by one, two, or three degrees. Station B has routinely missed by seven or nine."
+        },
+        {
+          "cue": "01_3",
+          "chapter": "01_compare_the_forecasts",
+          "characters": 201,
+          "text": "A bare point forecast hides how wrong it tends to be. What a decision maker actually needs is an interval around twenty four, wide enough to catch most future outcomes and narrow enough to stay useful."
+        },
+        {
+          "cue": "01_4",
+          "chapter": "01_compare_the_forecasts",
+          "characters": 169,
+          "text": "The catch is how you calibrate that width. If you measure errors on the exact same past days you used to train the model, will those errors look realistic, or too small?"
+        },
+        {
+          "cue": "01_5",
+          "chapter": "01_compare_the_forecasts",
+          "characters": 148,
+          "text": "Often too small. A flexible model can fit quirks of the days it trained on. To measure how it handles unfamiliar days, we set aside a separate pile."
+        },
+        {
+          "cue": "01_6",
+          "chapter": "01_compare_the_forecasts",
+          "characters": 170,
+          "text": "Keep the predictor frozen, measure its mistakes on the calibration pile, and pick one error card near the top. That single card sets the width of our prediction interval."
+        },
+        {
+          "cue": "01_7",
+          "chapter": "01_compare_the_forecasts",
+          "characters": 255,
+          "text": "By the end of this video, you will see why that rank rule gives an exact finite sample coverage guarantee with no bell curve assumption. You will also see where classical textbook intervals still win, and how real laboratory data exposes two sharp limits."
+        },
+        {
+          "cue": "02_1",
+          "chapter": "02_calibrate_by_hand",
+          "characters": 210,
+          "text": "Let us build the first interval slowly by hand. Suppose our frozen weather model was tested on nine held out calibration days. We record only how far off it was each day, ignoring whether it missed high or low."
+        },
+        {
+          "cue": "02_2",
+          "chapter": "02_calibrate_by_hand",
+          "characters": 109,
+          "text": "Line those nine errors up from smallest to largest. One, two, two, three, three, four, five, seven, and nine."
+        },
+        {
+          "cue": "02_3",
+          "chapter": "02_calibrate_by_hand",
+          "characters": 182,
+          "text": "Now pick a coverage target. Say we want our interval to catch tomorrow's temperature at least eighty percent of the time. Notice there is a tenth card waiting face down on the right."
+        },
+        {
+          "cue": "02_4",
+          "chapter": "02_calibrate_by_hand",
+          "characters": 160,
+          "text": "Counting from the left, eighty percent of ten total cards is eight. So we reach into our sorted calibration row and pull out the eighth card, which reads seven."
+        },
+        {
+          "cue": "02_5",
+          "chapter": "02_calibrate_by_hand",
+          "characters": 133,
+          "text": "Take tomorrow's forecast of twenty four, subtract seven, and add seven. That gives the interval from seventeen to thirty one degrees."
+        },
+        {
+          "cue": "02_6",
+          "chapter": "02_calibrate_by_hand",
+          "characters": 217,
+          "text": "Before we flip that tenth card, notice one bold claim. We never asked whether the station's errors follow a bell curve, a skewed curve, or something jagged. What is the one assumption that makes this eighth card work?"
+        },
+        {
+          "cue": "02_7",
+          "chapter": "02_calibrate_by_hand",
+          "characters": 215,
+          "text": "Symmetry in the order of the cards. Suppose the nine calibration days and tomorrow's new day could just as easily have arrived in any order. Then tomorrow's error has no special reason to sit at the end of the line."
+        },
+        {
+          "cue": "03_1",
+          "chapter": "03_ten_holdouts",
+          "characters": 160,
+          "text": "One lucky flip proves nothing. To see the real guarantee, switch to a clean proof deck of ten distinct error scores, numbered one through ten, with no ties yet."
+        },
+        {
+          "cue": "03_2",
+          "chapter": "03_ten_holdouts",
+          "characters": 208,
+          "text": "Suppose you already know the ten numbers in the bag, just not which single card was held out as tomorrow's test day. Under exchangeability, every one of those ten cards is equally likely to be the hidden one."
+        },
+        {
+          "cue": "03_3",
+          "chapter": "03_ten_holdouts",
+          "characters": 139,
+          "text": "Try holding out card eight as the test day. Slide it aside. Nine cards remain in the calibration row, one through seven, then nine and ten."
+        },
+        {
+          "cue": "03_4",
+          "chapter": "03_ten_holdouts",
+          "characters": 190,
+          "text": "Now compute the eighth smallest calibration card. Count across the nine remaining cards. Slot eight now holds the number nine. Since eight is at most nine, our interval covers the test card."
+        },
+        {
+          "cue": "03_5",
+          "chapter": "03_ten_holdouts",
+          "characters": 167,
+          "text": "Now move the held out frame one notch to the right, onto card nine. The nine calibration cards rearrange into one through eight, plus ten. What sits in slot eight now?"
+        },
+        {
+          "cue": "03_6",
+          "chapter": "03_ten_holdouts",
+          "characters": 152,
+          "text": "Eight. Removing nine pushed the cutoff down from nine to eight. So the test card nine is strictly bigger than the cutoff eight, and the interval misses."
+        },
+        {
+          "cue": "03_7",
+          "chapter": "03_ten_holdouts",
+          "characters": 232,
+          "text": "Do that same holdout for every single card from one to ten, and stack all ten worlds into one table. Every time the hidden card is among the smallest eight, the cutoff jumps up to nine and catches it. Only cards nine and ten escape."
+        },
+        {
+          "cue": "03_8",
+          "chapter": "03_ten_holdouts",
+          "characters": 240,
+          "text": "Nothing depended on what the ten numbers actually were, only on their order. That is why the rank rule is distribution free. Add one to the number of calibration points. Multiply the result by one minus alpha, then round up to get the rank."
+        },
+        {
+          "cue": "04_1",
+          "chapter": "04_the_boundary_cases",
+          "characters": 203,
+          "text": "Three small details in that rank formula catch almost everyone who implements it from memory. The first is the plus one inside the parentheses. Why not simply take eighty percent of the calibration size?"
+        },
+        {
+          "cue": "04_2",
+          "chapter": "04_the_boundary_cases",
+          "characters": 225,
+          "text": "Watch what happens with ten calibration cards and one hidden card, eleven cards in all. Eighty percent of ten is eight. If you drop the plus one and pick the eighth card, only eight of the eleven hidden positions are covered."
+        },
+        {
+          "cue": "04_3",
+          "chapter": "04_the_boundary_cases",
+          "characters": 248,
+          "text": "Eight out of eleven is seventy two point seven percent, well short of eighty. Put the plus one back in. Eighty percent of eleven is eight point eight, which rounds up to nine. Nine of eleven is eighty one point eight percent, safely above the line."
+        },
+        {
+          "cue": "04_4",
+          "chapter": "04_the_boundary_cases",
+          "characters": 242,
+          "text": "The second detail is ties. Go back to our nine worked errors and add a tenth card tied right at seven. Every time we hold out one card, the eighth remaining error is seven. If we test strict less than seven, how many of the ten cards survive?"
+        },
+        {
+          "cue": "04_5",
+          "chapter": "04_the_boundary_cases",
+          "characters": 208,
+          "text": "Only seven out of ten, seventy percent, which breaks the eighty percent promise. Use less than or equal to seven instead, and both sevens count as covered, lifting coverage to nine out of ten, ninety percent."
+        },
+        {
+          "cue": "04_6",
+          "chapter": "04_the_boundary_cases",
+          "characters": 203,
+          "text": "Replace the nine with a third seven. The cutoff stays at seven, and now all ten cards are covered. With the less than or equal rule, ties can only help coverage. The lower bound is still one minus alpha."
+        },
+        {
+          "cue": "04_7",
+          "chapter": "04_the_boundary_cases",
+          "characters": 239,
+          "text": "The third detail is running out of calibration cards. Suppose you have only nine calibration cards, and someone demands ninety five percent coverage. Multiply ninety five percent by ten, and you get nine point five, which rounds up to ten."
+        },
+        {
+          "cue": "04_8",
+          "chapter": "04_the_boundary_cases",
+          "characters": 285,
+          "text": "There is no tenth calibration card. Using the biggest card you have, nine, only guarantees ninety percent coverage, not ninety five. Instead, the formula sets the cutoff to infinity and outputs the whole real line. Nine examples are simply too few to prove a ninety five percent bound."
+        },
+        {
+          "cue": "05_1",
+          "chapter": "05_wine_calibration",
+          "characters": 236,
+          "text": "Tabletop cards make the math transparent, so now let us run the exact same machine on real laboratory measurements. This dataset comes from Paulo Cortez and colleagues, covering Portuguese Vinho Verde wines tested for routine chemistry."
+        },
+        {
+          "cue": "05_2",
+          "chapter": "05_wine_calibration",
+          "characters": 251,
+          "text": "Predicting alcohol percentage from density, residual sugar, and acidity makes physical sense. During fermentation, yeast turns dense sugar into lighter alcohol, so density drops as alcohol climbs. Even so, real wines vary around any neat linear trend."
+        },
+        {
+          "cue": "05_3",
+          "chapter": "05_wine_calibration",
+          "characters": 324,
+          "text": "The file has four thousand eight hundred and ninety eight white wine rows. Nine hundred and thirty seven are exact repeats. We remove repeated rows before this experiment so an identical record cannot land on both sides of the split. Identical records alone do not tell us whether two measurements came from the same bottle."
+        },
+        {
+          "cue": "05_4",
+          "chapter": "05_wine_calibration",
+          "characters": 270,
+          "text": "Now randomly partition the three thousand nine hundred and sixty one distinct white wine records. Two thousand fit an eight feature linear regression. Nine hundred and ninety nine go into the calibration deck. Nine hundred and sixty two stay locked away as our test set."
+        },
+        {
+          "cue": "05_5",
+          "chapter": "05_wine_calibration",
+          "characters": 209,
+          "text": "Why pick nine hundred and ninety nine for calibration? For ninety percent coverage, ninety percent of nine hundred and ninety nine plus one is exactly nine hundred, a clean whole rank with no rounding surplus."
+        },
+        {
+          "cue": "05_6",
+          "chapter": "05_wine_calibration",
+          "characters": 293,
+          "text": "Walk straight to rank nine hundred in that sorted calibration deck. That is white wine row two thousand one hundred and forty seven in the original file. Its true alcohol is nine point six percent, the model predicted ten point two five, and the error is zero point six five percentage points."
+        },
+        {
+          "cue": "05_7",
+          "chapter": "05_wine_calibration",
+          "characters": 305,
+          "text": "Take that radius onto the locked test set. Look at test row eight hundred and ninety nine, a dry white wine. The linear model predicts ten point six five percent alcohol, so our ninety percent interval runs from ten point zero zero to eleven point three zero. The lab measured ten point nine, well inside."
+        },
+        {
+          "cue": "05_8",
+          "chapter": "05_wine_calibration",
+          "characters": 376,
+          "text": "Run that same fixed radius across all nine hundred and sixty two held out white wines. Eight hundred and sixty nine fall inside, ninety point three percent, right on our ninety percent target. Now replace the regression with a constant model that always guesses the fit average, ten point five eight percent. Will split conformal still deliver roughly ninety percent coverage?"
+        },
+        {
+          "cue": "05_9",
+          "chapter": "05_wine_calibration",
+          "characters": 374,
+          "text": "On this test set the constant predictor covers eighty nine point two percent. That is close to the target. The theorem averages over fresh calibration and test points, so a particular held out set can come in below ninety. Here the price of the less accurate predictor is the width. Its radius is one point eight eight percentage points, almost triple the regression radius."
+        },
+        {
+          "cue": "05_10",
+          "chapter": "05_wine_calibration",
+          "characters": 145,
+          "text": "That separation is the whole design of the method. Conformal calibration buys honest coverage. A good underlying predictor buys narrow intervals."
+        },
+        {
+          "cue": "06_1",
+          "chapter": "06_rounded_errors",
+          "characters": 262,
+          "text": "You might wonder whether ties only matter in toy card decks. A reporting system can choose to work at one decimal place. Many readings in this archive already use that precision, and some have more digits. The rounded experiment that follows is a choice we make."
+        },
+        {
+          "cue": "06_2",
+          "chapter": "06_rounded_errors",
+          "characters": 292,
+          "text": "Round the prediction to a tenth of a percentage point. Take its absolute difference from the measured value, then round that error to a tenth too. That rounded error is the score. Values a little more than seven tenths away can round down to seven tenths, so compare scores on the same scale."
+        },
+        {
+          "cue": "06_3",
+          "chapter": "06_rounded_errors",
+          "characters": 208,
+          "text": "At the nine hundredth rank out of nine hundred and ninety nine, the rounded cutoff is zero point seven percent. Because of quantization, forty one different calibration wines tie at that exact boundary value."
+        },
+        {
+          "cue": "06_4",
+          "chapter": "06_rounded_errors",
+          "characters": 204,
+          "text": "On our nine hundred and sixty two test wines, compare rounded scores less than or equal to seven tenths with rounded scores strictly less than seven tenths. How far apart do those two coverage rates land?"
+        },
+        {
+          "cue": "06_5",
+          "chapter": "06_rounded_errors",
+          "characters": 285,
+          "text": "Inclusive coverage jumps up to ninety four point four percent, safely above ninety, because every test wine sitting on zero point seven is swept inside. Strict less than drops down to ninety point three percent here, and on coarser discrete scales can plunge right below the guarantee."
+        },
+        {
+          "cue": "07_1",
+          "chapter": "07_student_t_benchmark",
+          "characters": 244,
+          "text": "Before celebrating split conformal prediction everywhere, give the classical textbook method a fair trial under its own assumptions. In standard linear regression, we fit one line on all available data and build a Student t prediction interval."
+        },
+        {
+          "cue": "07_2",
+          "chapter": "07_student_t_benchmark",
+          "characters": 298,
+          "text": "Keep two classical intervals strictly separate. A confidence interval for the average response shrinks toward zero as you gather more data. A prediction interval for one new point cannot shrink past the noise of that observation. That irreducible floor is the one inside the one plus leverage term."
+        },
+        {
+          "cue": "07_3",
+          "chapter": "07_student_t_benchmark",
+          "characters": 262,
+          "text": "Now run a clean head to head synthetic benchmark where classical linear assumptions hold exactly. We generate a straight line plus independent normal noise with constant spread, sixty observations per draw, repeated across three hundred trials at ninety percent."
+        },
+        {
+          "cue": "07_4",
+          "chapter": "07_student_t_benchmark",
+          "characters": 240,
+          "text": "In this comparison, split conformal uses thirty points for the fit and thirty for calibration. Classical regression uses all sixty points and knows the exact shape of the normal tail. Which method produces narrower, steadier intervals here?"
+        },
+        {
+          "cue": "07_5",
+          "chapter": "07_student_t_benchmark",
+          "characters": 360,
+          "text": "Classical regression wins cleanly. Both methods hit the ninety percent mark, ninety point zero percent for classical and ninety point five for split conformal. Classical intervals average width three point three nine against three point five eight. Their width also varies nearly half as much across samples, zero point three three against zero point six zero."
+        },
+        {
+          "cue": "07_6",
+          "chapter": "07_student_t_benchmark",
+          "characters": 285,
+          "text": "Raise the total sample to two hundred points, and the width gap nearly vanishes, three point three one versus three point three five, though classical intervals remain steadier. When data are scarce and you truly trust a Gaussian noise model, classical intervals earn their efficiency."
+        },
+        {
+          "cue": "08_1",
+          "chapter": "08_spread_changes",
+          "characters": 144,
+          "text": "Now take that exact classical Student t prediction interval off the synthetic blackboard and drop it back onto our real white Vinho Verde wines."
+        },
+        {
+          "cue": "08_2",
+          "chapter": "08_spread_changes",
+          "characters": 387,
+          "text": "On the two thousand fit wines, classical regression computes a ninety percent half width averaging zero point eight seven percentage points of alcohol by volume. Even given all two thousand nine hundred and ninety nine fit and calibration wines, its radius is still zero point eight zero percentage points. That covers ninety six point six percent of test wines when we asked for ninety."
+        },
+        {
+          "cue": "08_3",
+          "chapter": "08_spread_changes",
+          "characters": 183,
+          "text": "Why is the fit-only Gaussian interval about a third wider than the conformal interval here? Zoom into the fit set and look at white wine row two thousand seven hundred and eighty two."
+        },
+        {
+          "cue": "08_4",
+          "chapter": "08_spread_changes",
+          "characters": 385,
+          "text": "That bottle is an extreme sweet outlier with sixty five point eight grams per liter of residual sugar and high density. The linear plane extrapolates to minus two point five seven percent alcohol, while the real bottle holds eleven point seven. Because ordinary least squares squares every error, that single mistake inflates the estimated spread for every ordinary wine in the cellar."
+        },
+        {
+          "cue": "08_5",
+          "chapter": "08_spread_changes",
+          "characters": 239,
+          "text": "Outliers make a Gaussian interval bloated. Changing variance does the opposite, making constant width intervals dangerously thin where noise is high. Look at a synthetic trumpet shaped cloud where error spread grows steeply away from zero."
+        },
+        {
+          "cue": "08_6",
+          "chapter": "08_spread_changes",
+          "characters": 238,
+          "text": "Overall, both constant width bands still cover about ninety percent of points across the whole cloud. Inside the noisy outer flanks, where x is at least one point five away from zero, do you think their coverage stays near ninety percent?"
+        },
+        {
+          "cue": "08_7",
+          "chapter": "08_spread_changes",
+          "characters": 252,
+          "text": "It drops to sixty four point five percent for classical regression and sixty three point nine for plain split conformal. Fit a second spread model on the fit split. Divide each error by its predicted local spread, and calibrate those normalized scores."
+        },
+        {
+          "cue": "08_8",
+          "chapter": "08_spread_changes",
+          "characters": 234,
+          "text": "On the same trials, locally scaled split conformal keeps ninety point one percent overall coverage. Outer flank coverage reaches eighty nine point three percent. Average width shrinks from four point seven eight to four point two six."
+        },
+        {
+          "cue": "09_1",
+          "chapter": "09_visible_subgroups",
+          "characters": 202,
+          "text": "That noisy flank exposes a subtle truth about the conformal guarantee. The theorem promises marginal coverage, averaged across the whole population, not automatic coverage inside every smaller subgroup."
+        },
+        {
+          "cue": "09_2",
+          "chapter": "09_visible_subgroups",
+          "characters": 266,
+          "text": "Here is the arithmetic with nine calibration cards and an eighty percent target, so we pick rank eight. Imagine ninety percent of cases have error one and ten percent have error nine. Draw both the calibration cards and the test card independently from that mixture."
+        },
+        {
+          "cue": "09_3",
+          "chapter": "09_visible_subgroups",
+          "characters": 324,
+          "text": "Every common case is covered one hundred percent of the time. A rare case is covered only when at least two of the nine calibration cards are also rare, which happens twenty two point five percent of the time. Weight each coverage rate by how common its group is. Overall marginal coverage is ninety two point three percent."
+        },
+        {
+          "cue": "09_4",
+          "chapter": "09_visible_subgroups",
+          "characters": 282,
+          "text": "Does that same blind spot show up on real measured data? Return to our nine hundred and sixty two white Vinho Verde test wines. We measure volatile acidity before predicting. In this retrospective check, we call readings of zero point four five grams per liter or more high acidity."
+        },
+        {
+          "cue": "09_5",
+          "chapter": "09_visible_subgroups",
+          "characters": 250,
+          "text": "On our main split, global split conformal covers ninety point nine percent of the low acidity wines, right on target. What do you expect happens inside the sixty three high volatile acidity wines, using that same global radius of zero point six five?"
+        },
+        {
+          "cue": "09_6",
+          "chapter": "09_visible_subgroups",
+          "characters": 295,
+          "text": "Coverage drops to eighty two point five percent, fifty two out of sixty three. That is not a one seed fluke. Across thirty random splits, high volatile acidity coverage averages seventy six point three percent and dips to sixty five point four. Low acidity wines stay right at ninety point five."
+        },
+        {
+          "cue": "09_7",
+          "chapter": "09_visible_subgroups",
+          "characters": 294,
+          "text": "Look at white wine row four thousand four hundred and eighty, at volatile acidity zero point five five five. Our model predicts nine point nine two percent alcohol. The global conformal interval starts at nine point two seven percent. The measured nine point one lies below that lower endpoint."
+        },
+        {
+          "cue": "09_8",
+          "chapter": "09_visible_subgroups",
+          "characters": 361,
+          "text": "If that subgroup matters to your application, calibrate it on its own deck. Take the fifty four high volatile acidity calibration wines and pick rank fifty. The group radius widens to zero point nine eight percentage points, covering row four thousand four hundred and eighty. Across thirty splits, subgroup coverage climbs back to ninety two point one percent."
+        },
+        {
+          "cue": "09_9",
+          "chapter": "09_visible_subgroups",
+          "characters": 407,
+          "text": "Notice the price of group calibration. With only fifty four calibration wines in the slice, the fitted radius can vary from split to split. Barber, Candes, Ramdas, and Tibshirani showed why informative distribution free intervals cannot promise at least the target coverage at every individual input without further assumptions. For a group guarantee, choose the groups without using the calibration sample."
+        },
+        {
+          "cue": "10_1",
+          "chapter": "10_against_red_wine",
+          "characters": 261,
+          "text": "In the previous experiment we randomly split one pool of white wine records. Now keep the white calibration deck and feed the predictor red wine observations. A red wine test point no longer has the same role in the sampling design as a white calibration point."
+        },
+        {
+          "cue": "10_2",
+          "chapter": "10_against_red_wine",
+          "characters": 232,
+          "text": "Keep the exact same white wine model and the same conformal radius of about zero point six five percentage points. Now feed in all one thousand three hundred and fifty nine distinct red Vinho Verde records. What happens to coverage?"
+        },
+        {
+          "cue": "10_3",
+          "chapter": "10_against_red_wine",
+          "characters": 309,
+          "text": "It shatters. Only four hundred and eighty three of the one thousand three hundred and fifty nine red wines land inside their intervals, thirty five point five percent. Across thirty random white splits, red wine coverage averages just twenty four point eight percent, plunging as low as six point six percent."
+        },
+        {
+          "cue": "10_4",
+          "chapter": "10_against_red_wine",
+          "characters": 202,
+          "text": "The classical intervals cover fifty one point nine percent of the red records, well below their target too. Look at what the white wine model predicts for red wine row one thousand one hundred and five."
+        },
+        {
+          "cue": "10_5",
+          "chapter": "10_against_red_wine",
+          "characters": 358,
+          "text": "The white wine model predicts eleven point two percent alcohol. Its conformal interval, still calibrated on the white wines, ends at about eleven point eight five. The lab measured twelve point four. Many red wines fall outside these intervals. The replay shows that swapping wine types breaks this calibration. The comparison leaves the chemical cause open."
+        },
+        {
+          "cue": "10_6",
+          "chapter": "10_against_red_wine",
+          "characters": 508,
+          "text": "You can recalibrate with representative data from the new regime. There is also a weighted rule if the target inputs are covered by the source and the response law at each input stays fixed. Use the true target to source likelihood ratio to weight each calibration score. Put the new input's weight at infinity, and take the weighted quantile at the target coverage. That gives a marginal guarantee for the target population. With estimated weights, the coverage depends on how accurately you estimated them."
+        },
+        {
+          "cue": "11_1",
+          "chapter": "11_use_the_guarantee",
+          "characters": 134,
+          "text": "Return to where we began. Two forecasts both say twenty four, and a row of held out error cards turns a guess into an honest interval."
+        },
+        {
+          "cue": "11_2",
+          "chapter": "11_use_the_guarantee",
+          "characters": 286,
+          "text": "With a fixed predictor, calibration is only a few lines of code. Score a separate calibration set and sort the residuals. Add one to the calibration size. Multiply the result by one minus alpha, then round up. Take that rank in the sorted deck, or use infinity if it falls past the end."
+        },
+        {
+          "cue": "11_3",
+          "chapter": "11_use_the_guarantee",
+          "characters": 197,
+          "text": "Every step we checked gives you one diagnostic habit. Check for duplicates before splitting, and compare against a classical parametric interval when samples are small and the noise law is trusted."
+        },
+        {
+          "cue": "11_4",
+          "chapter": "11_use_the_guarantee",
+          "characters": 167,
+          "text": "Inspect observable subgroups and local spread instead of stopping at one headline coverage number. Finally, monitor whether tomorrow still belongs to yesterday's deck."
+        },
+        {
+          "cue": "11_5",
+          "chapter": "11_use_the_guarantee",
+          "characters": 303,
+          "text": "Leave yourself with one transfer question. Suppose a hospital builds a model predicting emergency wait times and calibrates ninety percent intervals over an entire year of visits. On a winter holiday night when staffing is halved and arrivals double, which guarantee still holds, and which breaks first?"
+        },
+        {
+          "cue": "11_6",
+          "chapter": "11_use_the_guarantee",
+          "characters": 250,
+          "text": "The overall coverage promise applies when calibration and test are exchangeable. That promise alone gives you no ninety percent guarantee for a particular holiday night. Collect calibration data from nights like that before making the narrower claim."
+        }
+      ]
+    },
+    {
+      "film": "queues",
+      "script": "docs/video-program/research-20261016/evidence/slate-production-20261126/integration01/power-of-two-native07/script.tsv",
+      "script_sha256": "b603622c22d740c4a97dc1662b43af30038f9f29eee0ed0d05a271b9569f1bce",
+      "native_executable": "target/debug/power_of_two_native",
+      "native_executable_sha256": "11f7c5441a482347e3c827053b1f34abe96eb77475496f32f2c79fd631e63c96",
+      "preview_receipt": "narration_lab/third-wave-20261024/root/five-film-release-20261027/power-of-two-review-repair02/resource-receipt.json",
+      "chapters": [
+        "01_the_address_tape",
+        "02_square_the_fraction",
+        "03_count_all_tapes",
+        "04_the_service_clock",
+        "05_count_the_tail",
+        "06_fresh_readings",
+        "07_the_old_bulletin",
+        "08_shared_probes",
+        "09_count_or_work",
+        "10_replay_the_comparison"
+      ],
+      "characters": 10430,
+      "cues": [
+        {
+          "cue": "01_1",
+          "chapter": "01_the_address_tape",
+          "characters": 281,
+          "text": "Imagine four checkout lanes drawn on this board. Every incoming job carries two addresses picked independently from the four lanes. We can send the job to the first address, or peek at both and take the shorter line. The jobs and addresses are the same on both sides of the screen."
+        },
+        {
+          "cue": "01_2",
+          "chapter": "01_the_address_tape",
+          "characters": 249,
+          "text": "On the left, use the first letter of each pair. Three jobs land in A and one in B. On the right, choose the shorter of the two, using the first letter to break a tie. The first three land in A, C, and B. The last pair is A D. Where will that job go?"
+        },
+        {
+          "cue": "01_3",
+          "chapter": "01_the_address_tape",
+          "characters": 201,
+          "text": "A already has a job. D is empty. The last job goes to D, so each lane ends up with one. Both sides saw the same four pairs. The difference is that the rule on the right could act on its second address."
+        },
+        {
+          "cue": "01_4",
+          "chapter": "01_the_address_tape",
+          "characters": 228,
+          "text": "That was one history. We need to know how often a rule helps, why it helps, and what happens if those little queue counters are out of date. To do that, keep the same pairs on both screens and let the math choose the next scene."
+        },
+        {
+          "cue": "02_1",
+          "chapter": "02_square_the_fraction",
+          "characters": 239,
+          "text": "Suppose the current loads are two, one, zero, zero. Call a lane overloaded if it receives a third job. With just the first address we overload whenever A appears first. There are four such pairs out of sixteen equally likely ordered pairs."
+        },
+        {
+          "cue": "02_2",
+          "chapter": "02_square_the_fraction",
+          "characters": 205,
+          "text": "With two addresses, any second lane besides A offers a way out. Both addresses have to say A. That leaves one pair out of sixteen. So this one state gives an exact change from one quarter to one sixteenth."
+        },
+        {
+          "cue": "02_3",
+          "chapter": "02_square_the_fraction",
+          "characters": 251,
+          "text": "Here is the general version. Color the fraction f of lanes that are already too long. One uniform look fails with probability f. With two independent uniform looks, failure means landing in that colored set on both draws. The probability is f squared."
+        },
+        {
+          "cue": "02_4",
+          "chapter": "02_square_the_fraction",
+          "characters": 252,
+          "text": "This calculation holds with replacement, which is why A A appears in the table. With sampling without replacement the second draw has different odds. The routing rule also changes the future loads, so the fraction f can diverge between the two screens."
+        },
+        {
+          "cue": "03_1",
+          "chapter": "03_count_all_tapes",
+          "characters": 295,
+          "text": "To see a whole finite experiment, let each of four jobs carry one of the sixteen possible pairs. Call the ordered list of pairs a tape. There are sixty-five thousand five hundred and thirty-six equally likely tapes. Run both rules on each one and count how often the final maximum reaches three."
+        },
+        {
+          "cue": "03_2",
+          "chapter": "03_count_all_tapes",
+          "characters": 302,
+          "text": "With one choice, that happens in thirteen thousand three hundred and twelve histories, about twenty point three one percent. With two choices, it happens in fourteen hundred and fifty-six, about two point two two percent. This test holds assignments in place for all four arrivals, with no service yet."
+        },
+        {
+          "cue": "03_3",
+          "chapter": "03_count_all_tapes",
+          "characters": 173,
+          "text": "Can two choices ever lose on the exact same pairs? Try B B, B A, A A, A A. The first job goes to B on both boards. Where does the shorter-line rule send the second job, B A?"
+        },
+        {
+          "cue": "03_4",
+          "chapter": "03_count_all_tapes",
+          "characters": 241,
+          "text": "B has one job and A is empty, so the shorter-line rule sends job two to A. The last two jobs both say A A, and both must go to A. First-address routing ends with two in A and two in B. The shorter-line rule ends with three in A and one in B."
+        },
+        {
+          "cue": "03_5",
+          "chapter": "03_count_all_tapes",
+          "characters": 323,
+          "text": "If the shorter-line rule breaks ties in favor of the first address, there are ninety-six reversals like this. Break ties in favor of the second address, and there are nine hundred and forty-eight. The distribution of the largest pile stays the same. Which exact histories lose can change, even when the overall odds do not."
+        },
+        {
+          "cue": "04_1",
+          "chapter": "04_the_service_clock",
+          "characters": 224,
+          "text": "Now let real queues drain as well as fill. Replace each checkout lane with a server that handles one job at a time. Watch one server receive three jobs at times zero, one, and four. Their service times are two, two, and one."
+        },
+        {
+          "cue": "04_2",
+          "chapter": "04_the_service_clock",
+          "characters": 229,
+          "text": "The first starts immediately and finishes at time two. The second arrives at time one and waits one unit, then finishes at time four. The third arrives as that service ends and waits zero. The average wait is one third of a unit."
+        },
+        {
+          "cue": "04_3",
+          "chapter": "04_the_service_clock",
+          "characters": 267,
+          "text": "For each arriving job we look at its chosen server's last scheduled finish time. If that is in the future, the difference is the waiting time. Its own service comes afterward. An idle server starts work immediately. That same calculation powers the larger simulation."
+        },
+        {
+          "cue": "05_1",
+          "chapter": "05_count_the_tail",
+          "characters": 296,
+          "text": "Now picture a very large cluster of identical servers. Jobs arrive as a Poisson process, with independent exponential service times of mean one. The mean arrival rate per server is lambda, below one. Write s sub k for the fraction of servers holding at least k jobs, including the one in service."
+        },
+        {
+          "cue": "05_2",
+          "chapter": "05_count_the_tail",
+          "characters": 358,
+          "text": "Count only jobs in position k or later in each queue. An arrival adds one to this count if it joins a queue that already has at least k minus one jobs. With d independent looks and the shortest choice, all d of the sampled queues must meet that threshold. In the large-system model this happens at rate lambda times s sub k minus one raised to d, per server."
+        },
+        {
+          "cue": "05_3",
+          "chapter": "05_count_the_tail",
+          "characters": 275,
+          "text": "A service completion removes one job from the count whenever that queue started with at least k jobs. In this example the long lane drops from four jobs to three, so one position at or above k disappears. The rate per server is s sub k. At equilibrium, the two rates balance."
+        },
+        {
+          "cue": "05_4",
+          "chapter": "05_count_the_tail",
+          "characters": 279,
+          "text": "Everyone has at least zero jobs, so s sub zero is one. For one look, every new level multiplies the previous level by lambda. For two looks, we square the previous level and then multiply by lambda. The exponents are one, three, seven, and fifteen. Each doubles and grows by one."
+        },
+        {
+          "cue": "05_5",
+          "chapter": "05_count_the_tail",
+          "characters": 311,
+          "text": "At a load of zero point eight five, the limiting fraction with at least three jobs is about sixty-one point four percent for one look and thirty-two point one percent for two. This is a statement about the stationary, large-cluster model. Four-job experiments and finite simulations have their own denominators."
+        },
+        {
+          "cue": "06_1",
+          "chapter": "06_fresh_readings",
+          "characters": 341,
+          "text": "Use a cluster of twenty-four servers now. Generate thirty thousand arrivals in each run at eighty-five percent nominal load. Let five thousand jobs warm the queues, then measure waiting times for the rest. Repeat on six separately seeded histories. Keep the arrivals, service times, and probe pairs fixed across policies within each history."
+        },
+        {
+          "cue": "06_2",
+          "chapter": "06_fresh_readings",
+          "characters": 340,
+          "text": "Compare the first address, the shorter of two, and the shortest of all twenty-four. The last rule keeps the first address if it ties for shortest. Otherwise it takes the lowest-numbered server among the shortest. For each run, find the wait that at least ninety-nine percent of measured jobs stay within. Then average those six percentiles."
+        },
+        {
+          "cue": "06_3",
+          "chapter": "06_fresh_readings",
+          "characters": 279,
+          "text": "The numbers are about thirty point two five, six point eight seven, and three point one zero mean service times. Looking everywhere wins this comparison with current information. The all-server policy is our strongest baseline here, and it makes the next result more interesting."
+        },
+        {
+          "cue": "07_1",
+          "chapter": "07_the_old_bulletin",
+          "characters": 252,
+          "text": "Imagine the scheduler publishes a bulletin board once per interval. Between updates, arrivals read the same queue lengths even when some of those queues have just accepted work. A short line on the board can attract a crowd while its actual line grows."
+        },
+        {
+          "cue": "07_2",
+          "chapter": "07_the_old_bulletin",
+          "characters": 271,
+          "text": "Refresh once every quarter of a mean service time. On average a little over five jobs arrive across the cluster in that interval. In the same six-history replay, the all-server waiting percentile grows to ten point one nine. Two choices comes in at seven point one seven."
+        },
+        {
+          "cue": "07_3",
+          "chapter": "07_the_old_bulletin",
+          "characters": 534,
+          "text": "At a refresh period of two mean service times, roughly forty-one arrivals see each bulletin. With our tie rule, the all-server mean percentile rises to forty-five point three, above the first-address baseline. Two choices has worsened as well, to eight point seven. Change only the all-server tie rule to a uniform draw among tied minima, and that percentile falls to twenty-six point zero two, below the first-address result of thirty point two five. A particular stale row is available only to arrivals whose probe pairs include it."
+        },
+        {
+          "cue": "07_4",
+          "chapter": "07_the_old_bulletin",
+          "characters": 342,
+          "text": "At thirty mean service times between updates, two choices gives twenty-seven point nine nine against thirty point two five for the first address, averaged over six runs. The shorter-of-two rule does better in four runs and worse in two. That is a close comparison in this replay. A different workload or update rule needs its own measurement."
+        },
+        {
+          "cue": "08_1",
+          "chapter": "08_shared_probes",
+          "characters": 272,
+          "text": "Staleness affects the values we read. Correlation can affect where we look. Imagine the second address is forced to repeat the first with probability q. The rest of the time, it is an independent uniform draw. This is a model of two probes that sometimes share one source."
+        },
+        {
+          "cue": "08_2",
+          "chapter": "08_shared_probes",
+          "characters": 237,
+          "text": "The failure probability now has two parts. With probability q, you get one effective look, with failure probability f. Otherwise you still get the f squared calculation. Add q times f to the quantity one minus q, multiplied by f squared."
+        },
+        {
+          "cue": "08_3",
+          "chapter": "08_shared_probes",
+          "characters": 289,
+          "text": "If one quarter of queues are long and half the pairs are forced repeats, the bad event has probability five thirty-seconds, about fifteen point six percent. Independent pairs gave one sixteenth, or six point two five percent. Two addresses can contain much less than two independent looks."
+        },
+        {
+          "cue": "09_1",
+          "chapter": "09_count_or_work",
+          "characters": 306,
+          "text": "There is another way to have a truthful but unhelpful counter. One server holds a long job with seven point seven five time units remaining. A second server holds two short jobs with a quarter unit left in each. The first line has fewer jobs. The second line has only half a time unit of work ahead of you."
+        },
+        {
+          "cue": "09_2",
+          "chapter": "09_count_or_work",
+          "characters": 310,
+          "text": "A shortest-count rule sends the new arrival behind the one big job. A rule using known remaining service sends it behind the two short jobs. The wait in this worked state changes from seven point seven five to zero point five. Seen in the picture, the queue has both a head count and a length measured in time."
+        },
+        {
+          "cue": "09_3",
+          "chapter": "09_count_or_work",
+          "characters": 309,
+          "text": "In practice we may have to estimate remaining work, and we may pay to get each estimate. Decide what a probe actually measures before treating it as a reliable vote. The simple count rule has a useful mathematical guarantee in the ideal model. Other observations call for their own model and their own checks."
+        },
+        {
+          "cue": "10_1",
+          "chapter": "10_replay_the_comparison",
+          "characters": 269,
+          "text": "Return to the two copies of the first four jobs. One extra independent look gives a job another way around a busy queue. The same calculation becomes a square in the large-cluster balance equation. That's why the far end of the queue distribution can shrink so sharply."
+        },
+        {
+          "cue": "10_2",
+          "chapter": "10_replay_the_comparison",
+          "characters": 260,
+          "text": "Return to the bulletin board. A scheduler that sees every row can still work from old counts. How old are the readings? What do they measure? How does the scheduler choose among tied rows? Those details can change the comparison even when the same jobs arrive."
+        },
+        {
+          "cue": "10_3",
+          "chapter": "10_replay_the_comparison",
+          "characters": 340,
+          "text": "If you want to test this on a system you run, replay the same arrivals and work sizes under three rules. Include one random address, two independent choices, and a strong baseline with the information you actually have. Measure the waiting distribution and the cost of the extra reads. The math tells us what to look for in that comparison."
+        }
+      ]
+    },
+    {
+      "film": "robotics",
+      "script": "docs/video-program/research-20261016/evidence/slate-production-20261126/integration01/frankenrobotics-native-integrated14/script.tsv",
+      "script_sha256": "80b087da6d94295aadf50cb5dc8f64157965d5bc8b9b1216e7149ce8e862b9bc",
+      "native_executable": "target/debug/frankenrobotics_native_integrated_pilot",
+      "native_executable_sha256": "a8eb60ff3f28ce547705b330578bbab2f3954438350f78e93b25747343082246",
+      "preview_receipt": "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenrobotics-net-heading01/resource-receipt.json",
+      "chapters": [
+        "01_three_ways_to_multiply",
+        "02_arm_on_a_torus",
+        "03_ordered_rigid_poses",
+        "04_same_group_different_motion",
+        "05_the_rover_bracket",
+        "06_floating_base_tree",
+        "07_symmetries_as_permutations",
+        "08_four_modes",
+        "09_shape_cycle",
+        "10_wheel_maps",
+        "11_body_trees",
+        "12_algebra_at_work"
+      ],
+      "characters": 29589,
+      "cues": [
+        {
+          "cue": "01_1",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 165,
+          "text": "What is a robot made of, mathematically? Start with an arm. One angle turns the shoulder. Another turns the elbow. Together, two circles tell us where the hand goes."
+        },
+        {
+          "cue": "01_2",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 159,
+          "text": "Now put a rover beside it. A turn and a drive are both simple, but swap the order and the rover ends up somewhere else. Its moves multiply by a different rule."
+        },
+        {
+          "cue": "01_3",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 225,
+          "text": "A six-legged robot has another kind of multiplication. Rotate its leg labels and reflect them, and you get new permutations of the same six positions. A controller can use those permutations to move a command from leg to leg."
+        },
+        {
+          "cue": "01_4",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 178,
+          "text": "These are three faces of abstract algebra. The arm has a product of two rotation groups. The rover has a group of planar poses. The hexapod has a finite group acting on its legs."
+        },
+        {
+          "cue": "01_5",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 161,
+          "text": "Our question for every body is which algebra actually describes it. What configurations can we write down? How do the moves compose? Which symmetries can we use?"
+        },
+        {
+          "cue": "01_6",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 128,
+          "text": "Start with the simplest robot part in the workshop, one hinge with a painted mark on its rim, and beside it one straight slider."
+        },
+        {
+          "cue": "01_7",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 120,
+          "text": "Turn the hinge a quarter turn, then another quarter turn. Combining two moves in a row gives a single move, a half turn."
+        },
+        {
+          "cue": "01_8",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 187,
+          "text": "Leave the hinge alone and you get the identity move. Undo a quarter turn with a quarter turn backward. Every turn has an inverse, and it does not matter how you group a sequence of turns."
+        },
+        {
+          "cue": "01_9",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 157,
+          "text": "Suppose the hinge sits at a quarter turn, and you can only spin forward in the positive direction. What fraction of a full turn brings the mark back to zero?"
+        },
+        {
+          "cue": "01_10",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 120,
+          "text": "Three quarters of a turn. A quarter plus three quarters makes one full turn, which lands on the exact same spot as zero."
+        },
+        {
+          "cue": "01_11",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 168,
+          "text": "The turns form the rotation group S O two. The slider has its own group too. It can travel any real distance in the ideal model, and its distances add without wrapping."
+        },
+        {
+          "cue": "01_12",
+          "chapter": "01_three_ways_to_multiply",
+          "characters": 178,
+          "text": "Now we can build robots from these pieces. First take two hinge circles and keep both angles. Then see what happens when a joint's motion changes the coordinates of the next one."
+        },
+        {
+          "cue": "02_1",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 129,
+          "text": "Now bolt a second hinge onto the end of the first link. You have a two-link planar arm, with a shoulder angle and an elbow angle."
+        },
+        {
+          "cue": "02_2",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 150,
+          "text": "The shoulder turns around its own circle, and the elbow turns around a second independent circle. Together, every pose of the arm is a pair of angles."
+        },
+        {
+          "cue": "02_3",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 139,
+          "text": "Unwrap both circles into a square whose left edge glues to its right edge and whose bottom glues to its top. That product space is a torus."
+        },
+        {
+          "cue": "02_4",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 203,
+          "text": "Put both link lengths equal to one. Keep the shoulder at zero and turn the elbow a quarter turn. The first link points right to one, zero, and the second points straight up, putting the hand at one, one."
+        },
+        {
+          "cue": "02_5",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 199,
+          "text": "Hold the shoulder fixed and sweep only the elbow around its circle. On the square, the configuration dot walks straight up a vertical line, and the hand draws a circle of radius one around the elbow."
+        },
+        {
+          "cue": "02_6",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 156,
+          "text": "Now lock the elbow at that quarter turn and sweep only the shoulder all the way around. What shape does the hand trace, and how far is it from the shoulder?"
+        },
+        {
+          "cue": "02_7",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 169,
+          "text": "A circle centered at the shoulder with radius square root of two, about one point four one. Because the elbow is locked, the whole bent L shape turns as one rigid piece."
+        },
+        {
+          "cue": "02_8",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 169,
+          "text": "Real physical arms add joint stops that slice a smaller rectangle out of that torus. And the same geometry immediately links forces at the hand to torques at the motors."
+        },
+        {
+          "cue": "02_9",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 216,
+          "text": "Push the tip of this zero point four and zero point three meter arm sideways with ten newtons. By virtual work, the transpose of the hand Jacobian sends that push straight to minus three newton meters at both joints."
+        },
+        {
+          "cue": "02_10",
+          "chapter": "02_arm_on_a_torus",
+          "characters": 237,
+          "text": "Check it with joint speeds zero point two and minus zero point one radians per second. The hand moves at minus zero point zero three and zero point zero eight meters per second, and power comes out minus zero point three watts both ways."
+        },
+        {
+          "cue": "03_1",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 131,
+          "text": "When links connect in a chain, each joint carries an entire coordinate frame, a position and a heading attached to the rigid metal."
+        },
+        {
+          "cue": "03_2",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 150,
+          "text": "Consider two elementary moves on the plane. Call R a quarter turn counterclockwise, and call T a unit step forward along the frame's own forward axis."
+        },
+        {
+          "cue": "03_3",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 171,
+          "text": "When transforms act on column vectors on the left, multiplying another move on the right carries the frame along its own current axes. Let us run both orders side by side."
+        },
+        {
+          "cue": "03_4",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 215,
+          "text": "On the left, start at the origin facing right and turn a quarter turn counterclockwise so the local forward axis points up. Then slide one unit along that local axis. Written R times T, the frame lands at zero, one."
+        },
+        {
+          "cue": "03_5",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 182,
+          "text": "Now swap the order on the right panel. Slide one unit forward along the starting axis first, then turn a quarter turn in place, written T times R. Where does the frame's origin land?"
+        },
+        {
+          "cue": "03_6",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 146,
+          "text": "At one, zero, not zero, one. Sliding forward first puts the frame at one, zero, and turning in place leaves its origin right there, now facing up."
+        },
+        {
+          "cue": "03_7",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 184,
+          "text": "Why does multiplication turn into that exact rule? Represent each planar pose by a rotation R and a shift p, packed into one three-by-three matrix with a bottom row of zero, zero, one."
+        },
+        {
+          "cue": "03_8",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 145,
+          "text": "Multiply two pose matrices, R with shift p times S with shift q. Block multiplication gives rotation R times S, and total shift p plus R times q."
+        },
+        {
+          "cue": "03_9",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 130,
+          "text": "Plug in our quarter turn and unit shift. R times T puts zero, one in the top right column. T times R puts one, zero there instead."
+        },
+        {
+          "cue": "03_10",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 157,
+          "text": "That is why our two-link arm from Chapter Two is just one product of matrices, turn shoulder, slide one, turn elbow, slide one, landing straight at one, one."
+        },
+        {
+          "cue": "03_11",
+          "chapter": "03_ordered_rigid_poses",
+          "characters": 220,
+          "text": "Lift the same block matrix into three dimensions and you get the four-by-four matrices of S E three. The rotation block has determinant plus one. Reflections have determinant minus one, so they are a different operation."
+        },
+        {
+          "cue": "04_1",
+          "chapter": "04_same_group_different_motion",
+          "characters": 140,
+          "text": "Knowing a robot's pose group is only half the story. Place three different wheeled and tracked bases onto the same planar S E two floor map."
+        },
+        {
+          "cue": "04_2",
+          "chapter": "04_same_group_different_motion",
+          "characters": 196,
+          "text": "Every one of these three bases has its pose described by the same three numbers, x, y, and heading. Yet ask each robot which directions it can move right this instant, and the answers split apart."
+        },
+        {
+          "cue": "04_3",
+          "chapter": "04_same_group_different_motion",
+          "characters": 166,
+          "text": "Start with the two wheel differential drive. Its fixed wheels roll along the heading of the robot. In ideal rolling, the midpoint of the axle has zero sideways speed."
+        },
+        {
+          "cue": "04_4",
+          "chapter": "04_same_group_different_motion",
+          "characters": 224,
+          "text": "In floor coordinates, that rule says minus sine theta times x dot plus cosine theta times y dot equals zero. Forward speed and turning speed are the two independent choices. The sideways component is fixed by the constraint."
+        },
+        {
+          "cue": "04_5",
+          "chapter": "04_same_group_different_motion",
+          "characters": 236,
+          "text": "Now slide over to the three wheel omni triangle. Three wheels sit at zero, one hundred and twenty, and two hundred and forty degrees around a unit circle. The little passive rollers let each wheel move across its main rolling direction."
+        },
+        {
+          "cue": "04_6",
+          "chapter": "04_same_group_different_motion",
+          "characters": 143,
+          "text": "Each wheel's signed rim speed is simply the body velocity projected onto that wheel's rolling tangent, plus the yaw rate times the unit radius."
+        },
+        {
+          "cue": "04_7",
+          "chapter": "04_same_group_different_motion",
+          "characters": 169,
+          "text": "Suppose we command the triangle to glide straight sideways along y at speed two, with zero forward motion and zero spin. What signed rim speeds do the three wheels need?"
+        },
+        {
+          "cue": "04_8",
+          "chapter": "04_same_group_different_motion",
+          "characters": 229,
+          "text": "Two, minus one, and minus one. The first wheel's rolling direction points along y, so it takes the full speed two. At each of the other two wheels, the projection of the same body velocity onto its rolling direction is minus one."
+        },
+        {
+          "cue": "04_9",
+          "chapter": "04_same_group_different_motion",
+          "characters": 178,
+          "text": "Because those three rolling directions span a three-by-three matrix with nonzero determinant, about two point six zero, every planar velocity maps uniquely to three motor speeds."
+        },
+        {
+          "cue": "04_10",
+          "chapter": "04_same_group_different_motion",
+          "characters": 145,
+          "text": "Finally, put tracks on the same floor. Pick two ground-contact points on a rigid belt, half a unit ahead of the center and half a unit behind it."
+        },
+        {
+          "cue": "04_11",
+          "chapter": "04_same_group_different_motion",
+          "characters": 166,
+          "text": "Consider a pure spin at rate one with zero sideways slide. The front contact moves sideways at plus one half, while the rear contact moves sideways at minus one half."
+        },
+        {
+          "cue": "04_12",
+          "chapter": "04_same_group_different_motion",
+          "characters": 159,
+          "text": "Try to forbid sideways slip at both contacts at once. The two-by-two matrix has determinant minus one, which forces both sideways speed and spin to equal zero."
+        },
+        {
+          "cue": "04_13",
+          "chapter": "04_same_group_different_motion",
+          "characters": 246,
+          "text": "A rigid belt cannot turn without slipping. The tracked robot adds four flipper hinges, so it has four more joint angles. On the flat, the belts drive. All three bases share S E two, but to predict a tracked turn we need a slip and friction model."
+        },
+        {
+          "cue": "05_1",
+          "chapter": "05_the_rover_bracket",
+          "characters": 163,
+          "text": "In the opening, reversing two moves changed where the rover ended up. Can we use that same difference in order to move sideways while keeping the original heading?"
+        },
+        {
+          "cue": "05_2",
+          "chapter": "05_the_rover_bracket",
+          "characters": 168,
+          "text": "Watch what happens when we compose four legal moves in sequence. Turn left a quarter turn, roll forward one unit, turn right a quarter turn, and roll backward one unit."
+        },
+        {
+          "cue": "05_3",
+          "chapter": "05_the_rover_bracket",
+          "characters": 202,
+          "text": "Before we draw the net displacement, look at those four moves. Turn left a quarter turn, drive forward one, turn back a quarter turn, and reverse one. Which way does the rover face, and where is it now?"
+        },
+        {
+          "cue": "05_4",
+          "chapter": "05_the_rover_bracket",
+          "characters": 167,
+          "text": "Facing right again, with zero net turn, and sitting at minus one, one. Every turn cancelled its partner, every drive cancelled its length, yet order refused to cancel."
+        },
+        {
+          "cue": "05_5",
+          "chapter": "05_the_rover_bracket",
+          "characters": 217,
+          "text": "Multiply the four pose matrices for any turn angle theta and drive length a. The rotation part cancels to the identity, leaving pure translation, a times cosine theta minus one along x, and a times sine theta along y."
+        },
+        {
+          "cue": "05_6",
+          "chapter": "05_the_rover_bracket",
+          "characters": 197,
+          "text": "Hold the drive length fixed at one and shrink the turn angle through a quarter turn, an eighth, a sixteenth, and a thirty-second. Watch the backward drift vanish much faster than the sideways step."
+        },
+        {
+          "cue": "05_7",
+          "chapter": "05_the_rover_bracket",
+          "characters": 172,
+          "text": "For small turns the path is almost sideways. Now halve both inputs. The turn shrinks from a quarter radian to an eighth. The drive shrinks from a quarter unit to an eighth."
+        },
+        {
+          "cue": "05_8",
+          "chapter": "05_the_rover_bracket",
+          "characters": 159,
+          "text": "Cutting both steps in half cuts the sideways gain by roughly a factor of four. The missing direction is second order, proportional to angle times drive length."
+        },
+        {
+          "cue": "05_9",
+          "chapter": "05_the_rover_bracket",
+          "characters": 197,
+          "text": "In the velocity algebra, take the three-by-three matrix for pure turning and the matrix for pure driving, and subtract the two multiplication orders. Out pops the exact matrix for sliding sideways."
+        },
+        {
+          "cue": "05_10",
+          "chapter": "05_the_rover_bracket",
+          "characters": 195,
+          "text": "That difference of orders is the Lie bracket. Together with turning and driving, one level of brackets fills all three planar directions, provided the rover can roll and turn in either direction."
+        },
+        {
+          "cue": "05_11",
+          "chapter": "05_the_rover_bracket",
+          "characters": 339,
+          "text": "How much wheel travel does this four-move maneuver take to shift one centimeter purely sideways? Shorten the reverse leg to cancel the forward displacement. A twenty-centimeter half-track gives a best turn of about thirteen degrees for this maneuver. Each wheel travels about eighteen centimeters, nearly eighteen times the sideways shift."
+        },
+        {
+          "cue": "06_1",
+          "chapter": "06_floating_base_tree",
+          "characters": 131,
+          "text": "Now step from a wheeled base on a floor to a four-legged robot whose torso has to move in three dimensions. Start with a robot dog."
+        },
+        {
+          "cue": "06_2",
+          "chapter": "06_floating_base_tree",
+          "characters": 139,
+          "text": "Start by pinning the torso frame in midair. To each of its four corners, bolt a three-joint leg chain, hip roll, hip pitch, and knee pitch."
+        },
+        {
+          "cue": "06_3",
+          "chapter": "06_floating_base_tree",
+          "characters": 276,
+          "text": "Now unpin the torso so the body floats freely in space. The torso pose lives in S E three, and each of the twelve relative angles wraps around an S O two circle. That product gives the ambient configuration coordinates. Joint stops restrict which angles the real body can use."
+        },
+        {
+          "cue": "06_4",
+          "chapter": "06_floating_base_tree",
+          "characters": 172,
+          "text": "Because the legs hang off the torso as a kinematic tree, turning one hip joint moves only its own knee and foot. The other three limbs do not inherit that transform at all."
+        },
+        {
+          "cue": "06_5",
+          "chapter": "06_floating_base_tree",
+          "characters": 217,
+          "text": "The exact same tree recipe scales across the whole FrankenRobotics catalog. A humanoid carries twenty nine actuated joints on a floating base, a radial hexapod carries eighteen, and a wheel-leg hybrid carries sixteen."
+        },
+        {
+          "cue": "06_6",
+          "chapter": "06_floating_base_tree",
+          "characters": 203,
+          "text": "Now set one foot of the robot dog firmly on the floor so its tip cannot slide or lift. Does the robot still move freely through all eighteen configuration dimensions, or does contact cut that space down?"
+        },
+        {
+          "cue": "06_7",
+          "chapter": "06_floating_base_tree",
+          "characters": 187,
+          "text": "Contact cuts it down. Pinning a point foot fixes its three world coordinates, imposing three equations on the configuration and leaving fifteen free directions in that single-foot stance."
+        },
+        {
+          "cue": "06_8",
+          "chapter": "06_floating_base_tree",
+          "characters": 174,
+          "text": "As the dog trots, feet lift and plant in turn. The torso and joint coordinates stay the same. Each set of ground contacts defines a different slice through those coordinates."
+        },
+        {
+          "cue": "07_1",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 157,
+          "text": "Look down from above at our symmetric four-legged dog. Put four vertical command bars over its four feet, front left, front right, back left, and back right."
+        },
+        {
+          "cue": "07_2",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 149,
+          "text": "Flip the dog across its spine, swapping left and right. Flip it across its waist, swapping front and back. Do both together, and you get a half turn."
+        },
+        {
+          "cue": "07_3",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 175,
+          "text": "Each symmetry becomes a four-by-four permutation matrix acting on the four foot channels. With the do-nothing move, those four matrices close into the group C two times C two."
+        },
+        {
+          "cue": "07_4",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 514,
+          "text": "Three possible contact states per foot give eighty-one labeled patterns. Identity fixes all eighty-one. Each other symmetry swaps two pairs, so each pair must have matching states. That gives nine fixed patterns for each of those symmetries. Average the four counts to get twenty-seven distinct patterns. Why the average? A pattern with four versions counts once per version. A pattern with two versions counts twice per version. A pattern with one version counts four times. Each family contributes four in total."
+        },
+        {
+          "cue": "07_5",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 163,
+          "text": "Now watch what happens when we add real sensors and hardware, just like the symmetry figure on the FrankenRobotics site. Bolt a forward-facing lidar onto the nose."
+        },
+        {
+          "cue": "07_6",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 228,
+          "text": "The four legs still match mechanically, so the mechanical group keeps all four moves. Yet flipping front to back puts the lidar on the tail, so the observation-preserving group drops to two, identity and left-right mirror alone."
+        },
+        {
+          "cue": "07_7",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 218,
+          "text": "Strap a payload slightly off center to the left, and even the left-right mirror breaks, leaving only the identity. Swap one leg's gearbox from nine-to-one to seven-to-one, and the mechanical group drops to one as well."
+        },
+        {
+          "cue": "07_8",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 229,
+          "text": "One subtle trap catches almost every hand-written mirror table. Vertical push scalars just swap feet, yet a reflection has determinant minus one. Under a left-right mirror, pitch keeps its sign, while roll and yaw both flip sign."
+        },
+        {
+          "cue": "07_9",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 215,
+          "text": "Now compare the rectangular dog to a radial hexapod, six identical legs numbered zero through five around a hub. Rotating one step sends leg i to i plus one modulo six. Reflecting across leg zero sends i to minus i."
+        },
+        {
+          "cue": "07_10",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 205,
+          "text": "Start at leg one on the hexapod. Apply the reflection s, then rotate one step forward with r, then apply the reflection s a second time. Does the combined move rotate forward one step or backward one step?"
+        },
+        {
+          "cue": "07_11",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 120,
+          "text": "Backward one step. Reflecting before and after a rotation reverses its direction, so s times r times s equals r inverse."
+        },
+        {
+          "cue": "07_12",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 181,
+          "text": "Together those six rotations and six reflections build twelve distinct permutations, the dihedral group D six. Unlike the rectangular dog's four commuting moves, order matters here."
+        },
+        {
+          "cue": "07_13",
+          "chapter": "07_symmetries_as_permutations",
+          "characters": 550,
+          "text": "Give each of the hexapod’s six leg slots ten possible modules. That gives a million labeled builds. Use the same fixed-pattern average. For a one-step rotation, every slot belongs to the same cycle, so there are just ten fixed builds. Sum the fixed counts for all the rotations and reflections, then divide by twelve. That gives eighty-six thousand one hundred eighty-five distinct builds. If only one mirror through opposite gaps survives, its three pairs give a thousand fixed builds. The two-count average gives five hundred thousand five hundred."
+        },
+        {
+          "cue": "08_1",
+          "chapter": "08_four_modes",
+          "characters": 136,
+          "text": "A robot's symmetry group also simplifies its linear algebra. It breaks a coupled multi-leg calculation into independent one-line pieces."
+        },
+        {
+          "cue": "08_2",
+          "chapter": "08_four_modes",
+          "characters": 246,
+          "text": "Take a simple teaching fixture for four coupled feet, separate from any measured robot controller. Each foot feels three times its own input, plus one times its row partner, plus two times its same-side partner, and zero from the opposite corner."
+        },
+        {
+          "cue": "08_3",
+          "chapter": "08_four_modes",
+          "characters": 216,
+          "text": "Copy that same rule symmetrically to all four feet and you get a four-by-four matrix K. Every permutation in C two times C two commutes with K, meaning swapping feet before or after multiplying gives the same result."
+        },
+        {
+          "cue": "08_4",
+          "chapter": "08_four_modes",
+          "characters": 198,
+          "text": "Instead of testing one foot at a time, group the four feet into four orthogonal sign patterns. All four up together, front against back, left against right, and the two diagonals against each other."
+        },
+        {
+          "cue": "08_5",
+          "chapter": "08_four_modes",
+          "characters": 133,
+          "text": "Multiply the first row of K, three, one, two, zero, against each of those four sign patterns. What single number scales each pattern?"
+        },
+        {
+          "cue": "08_6",
+          "chapter": "08_four_modes",
+          "characters": 236,
+          "text": "Six, two, four, and zero. All four together sum to three plus one plus two, which is six. Front versus back gives three plus one minus two, which is two. Left versus right gives four, and the diagonal pattern cancels completely to zero."
+        },
+        {
+          "cue": "08_7",
+          "chapter": "08_four_modes",
+          "characters": 261,
+          "text": "Put one sign pattern in each column of a matrix called U, scaling each column by one half so its length is one. Multiplying by U converts pattern coordinates to foot commands. U transpose takes us back. In those coordinates, K reduces to four independent gains."
+        },
+        {
+          "cue": "08_8",
+          "chapter": "08_four_modes",
+          "characters": 250,
+          "text": "Take one column, v. Each mirror either preserves its sign pattern or reverses it. Since the coupling commutes with that mirror, applying K keeps the same sign under the mirror. Only one of our four lines has that pair of signs, so K can only scale v."
+        },
+        {
+          "cue": "08_9",
+          "chapter": "08_four_modes",
+          "characters": 112,
+          "text": "Now break the symmetry. Add four to the front-left diagonal entry alone, leaving the other three feet untouched."
+        },
+        {
+          "cue": "08_10",
+          "chapter": "08_four_modes",
+          "characters": 198,
+          "text": "Transform that single-foot bump into the orthonormal pattern basis, and every single one of the sixteen entries becomes one. Every off-diagonal slot lights up, so all four patterns now mix together."
+        },
+        {
+          "cue": "08_11",
+          "chapter": "08_four_modes",
+          "characters": 140,
+          "text": "To force any matrix to respect a surviving symmetry group, average its conjugates over every element of that group, the Reynolds projection."
+        },
+        {
+          "cue": "08_12",
+          "chapter": "08_four_modes",
+          "characters": 261,
+          "text": "Average our front-left four over all four symmetries, and it spreads evenly to one, one, one, one. Keep only the left-right mirror for the lidar dog, and it spreads to two, two, zero, zero on the front pair. With identity alone, it stays four, zero, zero, zero."
+        },
+        {
+          "cue": "09_1",
+          "chapter": "09_shape_cycle",
+          "characters": 191,
+          "text": "So far, our wheeled robots turned motors to push against the ground, and our legged robots planted feet. What about a snake that has no driven wheels and no legs at all, only internal hinges?"
+        },
+        {
+          "cue": "09_2",
+          "chapter": "09_shape_cycle",
+          "characters": 229,
+          "text": "Just like the robot arm, the snake's internal shape is a pair of joint angles, shown as a dot in shape space on the right. Meanwhile, its base pose lives in S E two on the left, constrained so no passive wheel can slide sideways."
+        },
+        {
+          "cue": "09_3",
+          "chapter": "09_shape_cycle",
+          "characters": 399,
+          "text": "Drive both hinges around a closed circle in shape space, centered at zero point nine, zero point nine radians, with radius zero point four. Along this loop the wheel constraints pick out one base velocity at each step. If the links straighten, the constraints leave forward speed undetermined. If the three wheel axles meet at one point, the constraints leave rotation about that point undetermined."
+        },
+        {
+          "cue": "09_4",
+          "chapter": "09_shape_cycle",
+          "characters": 239,
+          "text": "Watch the dot walk halfway around the circle and come all the way back to its starting point, so both hinges finish at their exact starting angles. When the snake returns to its starting shape, is it back at its starting spot on the floor?"
+        },
+        {
+          "cue": "09_5",
+          "chapter": "09_shape_cycle",
+          "characters": 247,
+          "text": "Look where it ends up. Both hinges return to their starting angles, and for this particular circle the middle link finishes with zero net turn. The snake has shifted about zero point two zero link lengths forward and zero point one three sideways."
+        },
+        {
+          "cue": "09_6",
+          "chapter": "09_shape_cycle",
+          "characters": 286,
+          "text": "Reverse the loop around the exact same shape circle and you apply the inverse pose change. The heading comes back to its starting value, so both net displacements flip sign and the snake rolls back to the start. That net pose change from a closed loop in shape space is called holonomy."
+        },
+        {
+          "cue": "09_7",
+          "chapter": "09_shape_cycle",
+          "characters": 188,
+          "text": "Notice the surprise hiding in that sideways shift. The middle link carries a passive wheel that forbids sideways speed at every single instant, yet the completed loop still moved sideways."
+        },
+        {
+          "cue": "09_8",
+          "chapter": "09_shape_cycle",
+          "characters": 338,
+          "text": "Go back to our rover. Composing little moves in different orders leaves a sideways displacement. Each snake hinge movement changes the joint angle and carries the base along with it. Take the bracket of those combined moves, and you get the leading displacement of a small loop. Reverse the loop and its leading displacement changes sign."
+        },
+        {
+          "cue": "09_9",
+          "chapter": "09_shape_cycle",
+          "characters": 358,
+          "text": "The nine link snake on the FrankenRobotics site uses the same no sideways slip rule for each wheel. Its nose follows a prescribed wave and the links trail behind. One cycle takes one point three meters of travel along that curved path. The joint angles return to where they started, and the whole body advances about one point two zero meters down the floor."
+        },
+        {
+          "cue": "09_10",
+          "chapter": "09_shape_cycle",
+          "characters": 233,
+          "text": "Place the wheel-leg hybrid beside the snake and the lesson broadens. While its wheels roll on flat ground, it obeys a rolling connection. The moment it lifts and plants a leg, the contact constraints switch to a new algebraic regime."
+        },
+        {
+          "cue": "10_1",
+          "chapter": "10_wheel_maps",
+          "characters": 185,
+          "text": "Let us put four rolling bases side by side. Their chassis poses multiply as three-by-three matrices in S E two. The shape of each robot tells us how wheel motions feed into that matrix."
+        },
+        {
+          "cue": "10_2",
+          "chapter": "10_wheel_maps",
+          "characters": 232,
+          "text": "A car has a steering linkage. As it turns, the two front wheels must point along circles that share a center on the rear axle line. The inner circle is smaller, so its wheel needs a larger angle. One steering input sets both angles."
+        },
+        {
+          "cue": "10_3",
+          "chapter": "10_wheel_maps",
+          "characters": 347,
+          "text": "Try an ideal car with half a meter between axles, twenty-eight centimeters between the steering pivots, and a turn center one meter from the middle of the rear axle. The inner wheel points about thirty degrees toward the turn. The outer wheel points about twenty-four. Draw the two right triangles and you can see both numbers in the same picture."
+        },
+        {
+          "cue": "10_4",
+          "chapter": "10_wheel_maps",
+          "characters": 270,
+          "text": "The Mecanum base has four fixed wheels wrapped in diagonal rollers. Each motor gets one row of a matrix. That row takes the velocity at its wheel and projects it along the roller axis. Opposite corners have the same roller tilt, and adjacent corners have opposite tilts."
+        },
+        {
+          "cue": "10_5",
+          "chapter": "10_wheel_maps",
+          "characters": 370,
+          "text": "Use the wheel positions and ten-centimeter wheel radius from the site. Ask for a pure glide to the robot's right at thirty-two centimeters per second. In front-left, front-right, rear-left, rear-right order, the four rates are minus three point two, plus three point two, plus three point two, and minus three point two radians per second, in the site's sign convention."
+        },
+        {
+          "cue": "10_6",
+          "chapter": "10_wheel_maps",
+          "characters": 243,
+          "text": "The four-by-three matrix has three independent columns. Any of the three chassis velocity coordinates can be selected. The front wheel rates must add up to the same sum as the rear rates, so the four motor speeds have a compatibility equation."
+        },
+        {
+          "cue": "10_7",
+          "chapter": "10_wheel_maps",
+          "characters": 242,
+          "text": "The swerve base uses four steer-and-drive modules. Each module gets two circles, one for its steering angle and one for its wheel spin. At each corner the steering angle follows the local velocity arrow. The wheel then rolls along that arrow."
+        },
+        {
+          "cue": "10_8",
+          "chapter": "10_wheel_maps",
+          "characters": 417,
+          "text": "Ask for a spin of one radian per second. A module at twenty centimeters forward and twenty centimeters to the left has two perpendicular speed components, each twenty centimeters per second in magnitude. The resultant speed is the square root of two times twenty centimeters per second. With the site's seven-and-a-half-centimeter wheel radius, it needs about three point seven seven radians per second of wheel spin."
+        },
+        {
+          "cue": "10_9",
+          "chapter": "10_wheel_maps",
+          "characters": 288,
+          "text": "The same pose matrices now sit above four visibly different mechanisms. The differential drive allows forward motion and yaw at zero sideways speed. The car couples yaw to forward motion and steering. The Mecanum base projects onto fixed roller axes. The swerve base turns its axes first."
+        },
+        {
+          "cue": "11_1",
+          "chapter": "11_body_trees",
+          "characters": 250,
+          "text": "A tree of rigid parts carries a different kind of information. An arm has one path from the base to the hand. A legged robot has a path to each foot. The same matrix multiplication places every link, and the graph tells us which matrices to multiply."
+        },
+        {
+          "cue": "11_2",
+          "chapter": "11_body_trees",
+          "characters": 279,
+          "text": "The robot dog has twelve active joints. So does the sprawled crawler. Put the same angle change into both models. Their differently oriented hinge axes carry the feet in different directions. They share the same product of angle circles and the same ideal four slot permutations."
+        },
+        {
+          "cue": "11_3",
+          "chapter": "11_body_trees",
+          "characters": 405,
+          "text": "The radial hexapod has eighteen active joints. The octopod has twenty-four. With eight identical limb slots, rotation and reflection act as sixteen permutations in D eight. On the octopod, paint the eight input slots plus, blank, minus, blank, plus, blank, minus, blank. Rotate one slot and the whole pattern moves onto the odd slots. Rotate a second slot and the signs are reversed on the original slots."
+        },
+        {
+          "cue": "11_4",
+          "chapter": "11_body_trees",
+          "characters": 327,
+          "text": "The point-foot biped has six active joints, and the humanoid has twenty-nine. Both have an ideal left-right mirror, a group of two elements. The mirror exchanges stance legs and applies the matching sign changes to joint directions. Walking selects one contact at a time, so the mirrored command belongs to the mirrored stance."
+        },
+        {
+          "cue": "11_5",
+          "chapter": "11_body_trees",
+          "characters": 722,
+          "text": "The stair roller carries two clusters of three wheels. Follow one wheel hub. In the chassis frame its pose is a carrier rotation, an outward translation, and the wheel's own rotation. The carrier axle and wheel axle are parallel, with seventeen centimeters between them. The angles add, and the hub still moves. The twenty-four-tooth sun drives each twenty-tooth wheel gear through an idler. Relative to the carrier, the two gears turn the same way, at a ratio of six to five. Turn the carrier thirty degrees and the sun five degrees. Relative to the carrier, the sun turned minus twenty-five and the wheel turns minus thirty. Add the carrier back and the wheel's angle in the chassis stays fixed as its hub swings around."
+        },
+        {
+          "cue": "11_6",
+          "chapter": "11_body_trees",
+          "characters": 315,
+          "text": "The rocker's six motors spin its wheels. The rocker and bogie hinges are coordinates of the linkage even though they have no motors in the site model. A rear wheel inherits the torso transform, then the rocker transform, then the bogie transform, and finally its own spin. A front wheel leaves out the bogie factor."
+        },
+        {
+          "cue": "11_7",
+          "chapter": "11_body_trees",
+          "characters": 474,
+          "text": "The two-wheel balancer has the same two motor inputs as a simple rover. The body can pitch around the axle. Using the site's rolling rule, move forward by one quarter of a wheel radius as the body tips backward by a tenth of a radian. The wheel spins minus zero point two five radians relative to the floor. Subtract the body's tilt and the joint changes by minus zero point three five radians. The same spin on the floor takes a different motor angle when the body pitches."
+        },
+        {
+          "cue": "11_8",
+          "chapter": "11_body_trees",
+          "characters": 283,
+          "text": "The mobile arm takes the chassis pose and appends seven arm rotations. Moving the chassis carries every link. Moving the last wrist joint changes only the last branch. The site gives this whole assembly just the identity symmetry, even though the chassis by itself may have a mirror."
+        },
+        {
+          "cue": "11_9",
+          "chapter": "11_body_trees",
+          "characters": 278,
+          "text": "A gantry shows the other extreme, three straight sliders. Forward position, sideways position and height just add component by component. Its three translations commute. A hinge added to carry a slider introduces a rotating axis, and the order of the two moves begins to matter."
+        },
+        {
+          "cue": "11_10",
+          "chapter": "11_body_trees",
+          "characters": 286,
+          "text": "These examples let us read a robot in three layers. Place each part with a group of rigid motions. Restrict the relative coordinates with joints and contacts. Then act on the resulting channels with whichever body symmetries survive. Now we can use those layers to do real calculations."
+        },
+        {
+          "cue": "12_1",
+          "chapter": "12_algebra_at_work",
+          "characters": 234,
+          "text": "We have three pieces of algebra ready to use. Pose multiplication describes the rover. Symmetry gives the four-foot robot its force patterns. Composition even gives us a way to track a cart's dynamics. Let's see what each one buys us."
+        },
+        {
+          "cue": "12_2",
+          "chapter": "12_algebra_at_work",
+          "characters": 162,
+          "text": "First, the L shaped corridor. Two hallways ninety centimeters wide meet at a right angle, and a rectangular robot sixty centimeters wide needs to turn the corner."
+        },
+        {
+          "cue": "12_3",
+          "chapter": "12_algebra_at_work",
+          "characters": 286,
+          "text": "Quick circle approximations fail in both directions. The largest circle inside the body is sixty centimeters across, so it claims any length fits. The circle around the corners of a one point three zero meter body is about one point four three meters across, so it claims the body jams."
+        },
+        {
+          "cue": "12_4",
+          "chapter": "12_algebra_at_work",
+          "characters": 236,
+          "text": "Working directly in S E two settles the corner exactly. For corridor width a and body width b, the longest passing rectangle is two times square root of two times a minus two b. That limit comes to about one point three four six meters."
+        },
+        {
+          "cue": "12_5",
+          "chapter": "12_algebra_at_work",
+          "characters": 313,
+          "text": "Second, the four-foot stance, where Chapter Eight's four sign patterns pay off directly. A robot with half-length one third meter and half-width one quarter meter carries four hundred newtons off center. That creates moments of sixty and thirty newton meters, with a cap of one hundred and sixty newtons per foot."
+        },
+        {
+          "cue": "12_6",
+          "chapter": "12_algebra_at_work",
+          "characters": 250,
+          "text": "Four plain equal springs share that load rigidly by distance, placing one hundred seventy five, one hundred fifteen, eighty five, and twenty five newtons on the four feet. The front-left foot hits one hundred seventy five newtons and fails its limit."
+        },
+        {
+          "cue": "12_7",
+          "chapter": "12_algebra_at_work",
+          "characters": 201,
+          "text": "Active legs can redistribute force without lifting any foot. Which of Chapter Eight's four sign patterns can we add or subtract without changing the four-hundred-newton weight or either tipping moment?"
+        },
+        {
+          "cue": "12_8",
+          "chapter": "12_algebra_at_work",
+          "characters": 176,
+          "text": "The fourth pattern, diagonals against each other, plus one, minus one, minus one, plus one. Its dot product with total load, front-back balance, and left-right balance is zero."
+        },
+        {
+          "cue": "12_9",
+          "chapter": "12_algebra_at_work",
+          "characters": 294,
+          "text": "Subtract twenty newtons along that diagonal pattern, and the loads shift to one hundred fifty five, one hundred thirty five, one hundred five, and five newtons. Same four hundred newtons, same sixty and thirty newton-meter moments, and every single foot sits safely under one hundred and sixty."
+        },
+        {
+          "cue": "12_10",
+          "chapter": "12_algebra_at_work",
+          "characters": 315,
+          "text": "Squeeze the stance's half-width inward. At the exact fraction three fourteenths of a meter, the safe window narrows to one answer, one sixty, one thirty, one ten, and zero. Narrow the half-width to one fifth of a meter, and even the best active controller hits one hundred sixty five newtons on the front-left foot."
+        },
+        {
+          "cue": "12_11",
+          "chapter": "12_algebra_at_work",
+          "characters": 264,
+          "text": "One short coda shows the same composition mindset in dynamics. On the site's docking cart, each one-second push u applies an affine map to position and velocity. It sends x, v to x plus v plus half g u, and v plus g u, for unknown motor gain g equal to one or two."
+        },
+        {
+          "cue": "12_12",
+          "chapter": "12_algebra_at_work",
+          "characters": 320,
+          "text": "Start both carts with a gentle push of one quarter. Gain one finishes with one half then minus three quarters, while gain two finishes with zero then minus one quarter. Both stop cleanly at one, zero, if the first speed reading tells one quarter apart from one half. That requires sensor error strictly below one eighth."
+        },
+        {
+          "cue": "12_13",
+          "chapter": "12_algebra_at_work",
+          "characters": 241,
+          "text": "For each robot, the shape of the algebra determined the calculation. Joint circles locate an arm's hand. Ordered pose matrices turn two rover controls into a sideways move. Permutations expose the force pattern we can adjust without tipping."
+        },
+        {
+          "cue": "12_14",
+          "chapter": "12_algebra_at_work",
+          "characters": 269,
+          "text": "When you meet an unfamiliar robot, start with its group of poses or joint configurations. Work out how those transformations multiply. Then look at the constraints on motion and the symmetries of the body. Those choices tell you what problem you actually have to solve."
+        }
+      ]
+    }
+  ]
+}

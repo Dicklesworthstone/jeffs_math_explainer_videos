@@ -1,0 +1,75 @@
+{
+  "scope": "Authored zero-based sentence indices checked against script punctuation. Spoken timings, pronunciation and listening remain open.",
+  "films": {
+    "frankenrobotics-native-integrated16": {
+      "script_sha256": "f470f551401ad22367aad43908ab9ee0b694befe98772ba38f8eb27cf437bda8",
+      "calls": 10,
+      "expanded_calls": 10,
+      "files_sha256": {
+        "src/algebra_at_work.rs": "d8e9f42e2951f0a73375ee62333baeac38c7d5a2d7a0483c8adff33e99a357af",
+        "src/body_trees.rs": "26420bc2f7a909d1ae4836c98d630e34dae2f2e7d005c31099ed60e0b49d2726",
+        "src/leg_actions.rs": "49e6b243a32f9a8f5b26f7baded2b2f4c5cd532d580ce27ecb14a61fcda37674",
+        "src/symmetry_modes.rs": "c88d8bc1e90c87394e49154263239580ffab267f0371f486a9ced60a3e0c0099"
+      },
+      "required_sentence_indices": {
+        "12_10": [
+          2
+        ],
+        "11_5": [
+          2,
+          5,
+          7
+        ],
+        "07_4": [
+          4
+        ],
+        "07_13": [
+          3,
+          5,
+          7
+        ],
+        "08_7": [
+          3
+        ],
+        "08_8": [
+          2
+        ]
+      }
+    },
+    "frankenrobotics-native-integrated17": {
+      "script_sha256": "f470f551401ad22367aad43908ab9ee0b694befe98772ba38f8eb27cf437bda8",
+      "calls": 10,
+      "expanded_calls": 10,
+      "files_sha256": {
+        "src/algebra_at_work.rs": "d8e9f42e2951f0a73375ee62333baeac38c7d5a2d7a0483c8adff33e99a357af",
+        "src/body_trees.rs": "26420bc2f7a909d1ae4836c98d630e34dae2f2e7d005c31099ed60e0b49d2726",
+        "src/leg_actions.rs": "49e6b243a32f9a8f5b26f7baded2b2f4c5cd532d580ce27ecb14a61fcda37674",
+        "src/symmetry_modes.rs": "c88d8bc1e90c87394e49154263239580ffab267f0371f486a9ced60a3e0c0099"
+      },
+      "required_sentence_indices": {
+        "12_10": [
+          2
+        ],
+        "11_5": [
+          2,
+          5,
+          7
+        ],
+        "07_4": [
+          4
+        ],
+        "07_13": [
+          3,
+          5,
+          7
+        ],
+        "08_7": [
+          3
+        ],
+        "08_8": [
+          2
+        ]
+      }
+    }
+  }
+}
