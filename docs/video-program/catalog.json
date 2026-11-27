@@ -8379,6 +8379,35 @@
             "docs/video-program/research-20261016/evidence/slate-production-20261126/frankenrobotics/oracle.py"
           ],
           "milestones": []
+        },
+        {
+          "revision_id": "group-theory-representation-draft16-20261126",
+          "label": "Twelve-chapter native draft led by group representations",
+          "voice": "Planned ElevenLabs Frederick Surrey (unrecorded)",
+          "generation_provenance": "Revised native FrankenManim script and scenes map all 18 site archetypes to their transformation models, action targets and calculations. Exact integer checks cover the arm, rover and hexapod compositions and distinguish the arm's ordered hand placement from its joint coordinates.",
+          "disposition": "Revised opening and closing passed guarded native scratch preview and selected-picture review. All 133 exact cue texts and 12 chapter keys were read from the executable. Frederick Surrey recordings, continuous listening, fine sync and independent final audiovisual review remain open.",
+          "evidence_refs": [
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/integration01/frankenrobotics-native-integrated16/script.tsv",
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/integration01/frankenrobotics-native-integrated16/representations.tsv",
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/integration01/frankenrobotics-native-integrated16/representation-bindings01.json",
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/integration01/companion-recording-plan03.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenrobotics-representation02/picture-review01/viewed-representation01.json"
+          ],
+          "milestones": []
+        },
+        {
+          "revision_id": "group-theory-representation-maps17-20261127",
+          "label": "Native opening with three explicit representations",
+          "voice": "Planned ElevenLabs Frederick Surrey (unrecorded)",
+          "generation_provenance": "Native FrankenManim places the arm's rotation blocks, the rover's homogeneous pose matrix and the hexapod's permutation action beside their respective bodies before introducing the common composition law.",
+          "disposition": "The guarded opening preview passed. All 16 selected pictures were viewed and its 12 cue times match the earlier cut. The unchanged closing retains its earlier picture review. All 133 cues are bound for recording. Narration, final render, continuous listening, fine sync and independent final audiovisual review remain open.",
+          "evidence_refs": [
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/integration01/frankenrobotics-representations02.tsv",
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/integration01/frankenrobotics-native-integrated17/representation-bindings01.json",
+            "docs/video-program/research-20261016/evidence/slate-production-20261126/integration01/companion-recording-plan04.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/frankenrobotics-representation03/picture-review01/viewed-representation01.json"
+          ],
+          "milestones": []
         }
       ],
       "publications": []
